@@ -1,0 +1,57 @@
+<h1>qplot</h1>
+
+<p>Even the with many defaults, the explicit grammar syntax is rather verbose, and usually spans multiple lines.  This makes it more difficult to rapidly experiment with many different plots.  For this reason the verbose grammar is supplemented with the <code>qplot</code> (short for quick plot) function which makes strong assumptions to reduce the amount of typing needed.  It also mimics the syntax of the <code>plot</code> function so it is easy to use for people already familiar with base graphics.</p>
+
+<p><code>qplot</code> assumes that multiple layers will use the same data source, and defaults to creating a scatterplot.  This allows us to replace the following explicit, but verbose code:</p>
+
+<pre>ggplot() +
+layer(
+  data = diamonds, mapping = aes(x = carat, y = price),
+  geom = "point", stat = "identity"
+) +
+scale_y_continuous() +
+scale_x_continuous() +
+coord_cartesian()</pre>
+
+<p>with:</p>
+
+<pre>
+qplot(carat, price, data = dsmall)
+</pre>
+
+
+
+<p>And this code:</p>
+
+<pre>ggplot() +
+layer(
+ data = diamonds, mapping = aes(x = carat, y = price),
+ geom = "point", stat = "identity"
+) +
+layer(
+ data = diamonds, mapping = aes(x = carat, y = price),
+ geom = "smooth", stat = "smooth", method = lm
+) +
+scale_y_log10() +
+scale_x_log10()</pre>
+
+<p>with this</p>
+
+<pre>
+qplot(carat, price, data = dsmall, geom = c("smooth", "point"),
+  method = "lm", log = "xy")
+</pre>
+
+<p>Note the use of the <code>log</code> argument which specifies which axes should be log-transformed. This mimics the <code>plot</code> function in base R. </p>
+
+<p>You can start to see the limitations of this approach as it is ambiguous which geom the method argument applies to.  The <code>qplot</code> function will break down for complicated examples, but is still useful for quick, disposable plots.  </p>
+
+<p>The qplot function creates a plot object in the same way that <code>gplot</code> does, so you can modify it in the same way:</p>
+
+<pre>
+qplot(carat, price, data = dsmall) + scale_x_log10()
+qplot(carat, price, data = dsmall) + geom_smooth()
+</pre>
+
+<p>This makes it possible to start with a simple quick plot and progressively build it up to produce a richer plot.  </p>
+

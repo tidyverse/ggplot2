@@ -1,0 +1,12 @@
+<h1>Statistical transformations</h1>
+
+<p>A stat is one of the five components of a layer</p>
+
+<p>Statistical transformations, <strong>stat</strong>s for short, transform the data, typically by summarising it in some manner.  For example, a useful stat is the stat_smooth, which calculates the mean of y conditional on x, subject to some condition that ensures smoothness. </p>
+
+<p>To make sense in a graphic context a stat must be location-scale.  That is, f(x + a) = f(x) + a and f(b x) = b f(x).  This ensures that the transformation is invariant under translation and scaling, common operations on a graphic.</p>
+
+<p>A statistic takes a data frame as input and returns a data frame as output, and so a statistic can add new variables to the original data set.  It is possible to map aesthetics to these new variables.  For example, one way to describe a histogram is as a binning of a continuous variable, and then drawing bars with the number of points in each bin mapped to height and bin range mapped to <code>x</code> position.  Another useful example is mapping the size of the lines in a contour plot to the level of the contour.</p>
+
+<!-- <p>Output from statistics are conditional on the coordinate system used.  For example, a smooth on a polar coordinate system should use a circular regression, and in 3d should return a 2d surface rather than a 1d curve.  However, many statistical operations have not been derived for non-Cartesian coordinates and we so we generally fall back to Cartesian coordinates for calculation, which, while not strictly correct, will normally be a fairly close approximation.</p>
+ -->

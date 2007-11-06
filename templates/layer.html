@@ -1,0 +1,34 @@
+<h1>Layers</h1>
+
+<p>A layer is made up of five components:</p>
+
+<ul>
+  <li>A data set</li>
+  <li>A set of mappings between variables and aesthetic properties</li>
+  <li>A geom, and parameters</li>
+  <li>A stat, and parameters</li>
+  <li>A position adjustment</li>
+</ul>
+
+<h2>Data and mapping</h2>
+
+<p>Data is obviously a critical part of the plot, but it is important to remember that it is independent from the other components: we can construct a graphic that can be applied to multiple data sets.  Along with the data, we need a specification of which variables are mapped to which aesthetics.  For example, we might map weight to x position, height to y position and age to size.  The details of the mapping are described by the scales.  Choosing a good mapping is crucial for generating a useful graphic.  More details of the how this works are available in the <a href="/aes.html">aes</a> documentation.</p>
+
+<h2>Syntax</h2>
+
+<p>These five components are described in R code with the layer function, which has the following form:</p>
+
+<pre>
+layer(geom, geom_params, stat, stat_params, data, aesthetics, position, params, ...)
+</pre>
+
+<p>When specifying geoms, stats and positions, you pass in the name of the object.  For example, if you wanted to use geom_point, you would type <code>geom="point"</code>.  Similarly if you wanted stat_bin or position_fill, you would type <code>stat="bin"</code> or <code>position="fill"</code></p>
+
+<p>If you only specify one of geom or stat, then the default will be used.  If you don't specified position, then the default from the geom will be used.</p>
+
+<p>The layer function is quite complicated as it needs to be able to deal with parameter specifications in a variety of formats.  You can specify all the parameters (for the geom, stat and position) in one list, <code>params</code>, as additional arguments to the layer function (ie. in ...), or individually to <code>geom_params</code> and <code>stat_params</code>.</p>
+
+<p>Most of the time you won't use this function directly, but will instead use one of the short cuts described below.</p>
+
+<h2>Short cuts</h2>
+

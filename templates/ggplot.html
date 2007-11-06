@@ -1,0 +1,58 @@
+<h1>ggplot</h1>
+
+<p>ggplot is different from base and lattice graphics in how you build up the
+plot. With ggplot you build up the plot object (rather than the plot on the screen as in base graphics, or all at once as in lattice graphics.)</p>
+
+<p>We start with <code>ggplot</code> which creates a new plot object, and then add (using $+$) the other components: a single layer, specifying the data, mapping, geom and stat, the two scales and Cartesian coordinate system.  The layer is the most complicated component and specifies:</p>
+
+<ul>
+  <li>The <code>data</code> set to use, in this case, the diamonds data.</li>
+  <li>The <code>mapping</code> between data and aesthetics: carat to vertical position, price to horizontal position.</li>
+  <li>That the point <code>geom</code>, and the identity <code>stat</code> should be used</li>
+</ul>
+
+<p>Only one of geom and stat needs to be specified, as each geom has a default stat and each stat has a default geom.  You can have any number of layers.</p>
+
+<p>Scales and coordinate systems are added with consistent naming scheme (scales begin with <code>scale\_</code> and coordinate systems with <code>coord\_</code>).  You must have one scale per aesthetic attribute used, and only one coordinate system.  Adding additional scales or coordinate systems will overwrite existing values.  Often you will tune various parameters to get the plot that you want.  Parameters are specified in the format <code>name = value</code>.  Parameters can also be specified by position, but this requires much greater familiarity with the code.</p>
+
+<p>The above definition is perfectly explicit, but extremely verbose.  By default, ggplot will automatically add sensible scales and the default coordinate system, so that the following code is equivalent to the that above:</p>
+
+<pre>
+ggplot() + 
+layer(
+  data = diamonds, mapping = aes(x = carat, y = price),
+  geom = "point")
+)
+</pre>
+
+<p>The more complex Figure \ref{fig:logged} can be produced with the following code:</p>
+
+<pre>
+ggplot() + 
+layer(
+  data = diamonds, mapping = aes(x = carat, y = price),
+  geom = "point", stat = "identity")
+) + 
+layer(
+  data = diamonds, mapping = aes(x = carat, y = price),
+  geom = "smooth", stat = "smooth", method = lm)
+) + 
+scale_y_log10() + 
+scale_x_log10()
+</pre>
+
+<p>Here we have used multiple layers.  In the second layer, <code>method="lm"</code> specifies an parameter of  the smooth statistic, the method to use, here <code>lm</code> to fit a linear smooth.  Additional arguments to the layer will be passed to the stat or geom as appropriate.  If there is any ambiguity, geom and stat arguments can be specified directly as, e.g. <code>stat\_params = list(method = "lm")</code>.  </p>
+
+<p>There is some duplication in this example, which we can reduce by using plot defaults:</p>
+
+<pre>
+ggplot(data = diamonds, mapping = aes(x = carat, y = price))  + 
+layer(geom = "point") + 
+layer(stat = "smooth", method = lm) + 
+scale_y_log10() + 
+scale_x_log10()
+</pre>
+
+<p>You can use <code>summary<code> to give a quick description of a plot.</code>
+
+<p>If you want to change the background colour, how the panel strips are displayed, or any other default graphical option, see ggopt</p>.

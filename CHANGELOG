@@ -1,0 +1,139 @@
+ggplot 0.5.7
+----------------------------------------
+
+  * added quickplot as an alias of qplot, to avoid confusion with qunif, etc
+  * use LazyLoad: false instead of SaveData: true for better future compatability
+  * adding data and aesthetics in separate steps should now work
+  * scale_identity no longer converts everything to character
+  * better error message if you add a scale without a matching aesthetic mapping in the plot
+
+ggplot 0.5.6
+----------------------------------------
+
+Improved error messages and other notifications:
+  * all geoms and position adjustments should now give an informative error message when required aesthetics are missing
+  * better error messages if data not a data frame, or mapping not created by aes or aes_string
+  * better errors for qplot when variables missing or data invalid
+  * better error if somehow you are missing necessary scales
+  * stat_bin informs you of the default choice of binwidth
+  * stat_smooth gives helpful error messages for common problems
+  * printing a geom now displays the data set that it uses (if not the default)
+
+Other improvements:
+  * colour and fill legends now surround by background plot colour
+  * can now draw arrow heads with geom_segment, and have added an example demonstrating drawing a vector field
+  * density plots should always include 0 on y axis
+  * default boxplot outlier changed colour to black
+  * stat_smooth supports categorical variables a little better
+  * implemented hash methods for all ggplot objects.  This is the first step in making it easier for me to compare all examples between versions for quality control purposes
+
+New data:
+  * seals, contributed by David Brillinger and Charlotte Wickham, used for vector field example
+
+Bug fixes:
+  * geoms hline, vline and abline now all work correctly when a grouping variable is used
+  * block histograms (where individuals are identifiable) now work correctly  
+  * all ggplot objects should now print properly from the command line
+  * fixed bug in geom_path when only 1 point
+  * segments geom now works correctly for more coordinate systems
+  * order variables in scatterplot matrix by order of variables in data.frame
+  * geom_density deals with missing values correctly when displaying scaled densities
+  * fixed bug in calculating categorical ranges
+  * fixed bug in drawing error bars
+
+Subtractions
+  * now relies on R 2.6
+  * removed grid.gedit and grid.gremove, and code replaced by grid.ls
+
+ggplot 0.5.5
+----------------------------------------
+
+Improvements:
+  * ggplot now gives rather more helpful errors if you have misspecified a variable name in the aesthetic mapping
+  * changed default hline and vline intercepts to 0
+  * added "count" output variable from stat_density for creating stacked/conditional density plots
+  * added parameters to geom_boxplot to control appearance of outlying points
+  * overriding aesthetics with fixed values that have already been set with aesthetics now actually works
+  * slightly better names for xaxis and yaxis grobs
+  * added aes_string function to make it easier to construction aesthetic mapping specifications in functions
+  * continuous scales now have labels argument so that you can manually specify labels if desired
+  * stat_density now calculates densities on a common grid across groups.  This means that position_fill and position_stack now work properly
+  * if numeric, legend labels right aligned
+  * polar coordinates much improved, and with better examples
+
+Documentation:
+  * fixed argument documentation for qplot
+  * added (very) rudimentary documentation about what functions return
+  * documentation now lists extra variables created by statistics
+
+Bug fixes:
+  * coord_flip now works with segment and all interval geoms
+  * geom_errorbar now works in all coordinate systems
+  * derived y axes (eg. on histogram) are now labelled correctly
+  * fixed bug in stat_quantile caused by new output format from predict.rq
+  * fixed bug if x or y are constant
+  * fixed bug in histogram where sometimes lowest bar was omitted
+  * fixed bug in stat_qq which prevent setting aesthetics
+  * fixed bug in qplot(..., geom="density", position="identity")
+  * fixed stat_qq so that unnecessary arguments are no longer passed to the distribution function
+
+Subtractions:
+  * removed grid argument from ggsave, replaced by ggtheme(theme_bw)
+  * removed add argument from qplot
+
+
+ggplot 0.5.4
+----------------------------------------
+
+  * border now drawn on top of geoms, instead of below - this results in better appearance when adjusting scale limits
+  * ggplot() + aes() now modifies existing default aesthetic mapping, rather than overwriting
+  * polish examples in facet_grid
+
+ggplot 0.5.3
+----------------------------------------
+
+  * added experimental scatterplot matrix, see ?plotmatrix
+  * added new border.colour and grid.minor.colour options for better control over plot apperance
+  * updated theme_bw to do better when drawing a plot with white background 
+  * better default colour choices for gradients (and more discussion in examples)
+  * fixed bug in ScaleGradient2 where scales with different positive and negative ranges were not scaled correctly
+  * allow expressions as result from strip.text
+  * fixed rare bug in geom_vline and geom_hline
+  * fixed example in geom_abline
+  * tweaked display of multiline axis labels
+
+ggplot 0.5.2
+----------------------------------------
+
+  * add argument to position dodge so it's now possible to accurately dodge things with different widths to their physical widths 
+  * added median summary
+  * new examples:
+    * logistic regression example in stat_smooth
+  * bugs fixed:
+    * evaluation of arguments to layer is no longer delayed
+    * can use categorical xseq with stat_smooth
+    * x and y axes named incorrectly (thanks to Dieter Menne for spotting this)
+    * can now pass position objects to qplot
+    * y jitter calculated correctly, and jittered data rescales axis now
+    * removed silly legend from quantile plot
+    * extra arguments not being passed on to geoms/stats
+    * fixed bug in stat_summary when summarising a factor
+    * fixed bugs in stat_summary, geom_ribbon, and coord_trans examples
+
+ggplot 0.5.1
+----------------------------------------
+
+  * renamed scale_manual to scale_identity to map position_identity and stat_identity
+  * ensured all grob consistently named
+  * renamed aesthetics argument to mapping to be consistent with description in book
+  * added useful utilities for modifying grobs
+  * bug fixes to x axis range with interval geoms
+  * added ability to turn legend off for single scale (currently undocumented)
+  * added economics data set and matching examples
+
+ggplot2 0.5
+----------------------------------------
+
+ * complete rewrite of ggplot code base
+
+ * id/grouping completely rewritten so that automatically grouped when any of the aesthetics is a categorical variable.  This behaviour is defined in the Grammar of Graphics, and makes things like qplot(wt, data=mtcars, geom="density", colour=factor(cyl)) work nicely
