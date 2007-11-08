@@ -3,7 +3,7 @@ GeomAbline <- proto(Geom, {
     if (missing(data)) {
       data <- data.frame(intercept = intercept, slope=slope)
     }
-    mapping <- defaults(mapping, aes(intercept=intercept, x=NULL, y=NULL, group=1))
+    mapping <- defaults(mapping, aes(intercept=intercept, slope=slope, x=NULL, y=NULL, group=1))
     class(mapping) <- "uneval"
     
     layer(mapping=mapping, data=data, geom = ., geom_params = list(...))
