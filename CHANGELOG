@@ -1,6 +1,7 @@
 ggplot 0.5.7
 ----------------------------------------
 
+  * stat_smooth returns silently if <2 non-missing data points
   * layers with set parameters will not use mapped aesthetics
   * qplot should now work better within functions
   * added quickplot as an alias of qplot, to avoid confusion with qunif, etc

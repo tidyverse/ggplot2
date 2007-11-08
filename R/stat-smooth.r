@@ -1,6 +1,8 @@
 StatSmooth <- proto(Stat, {
   calculate <- function(., data, scales, method=loess, formula=y~x, se = TRUE, n=80, fullrange=FALSE, xseq = NULL, level=0.95, ...) {
-    if (nrow(data) < 2) return(NULL)
+    data <- data[complete.cases(data[, c("x", "y")]), ]
+    if (nrow(data) < 2) return(data.frame())
+    
     if (length(unique(data$x)) == 1) {
       stop("geom_smooth: Only one unique x value in this group.  Maybe you want aes(group = 1)?", call. = FALSE)
     }
