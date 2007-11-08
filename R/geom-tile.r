@@ -2,6 +2,7 @@ GeomTile <- proto(Geom, {
   draw_groups <- function(., ...) .$draw(...)
   draw <- function(., data,  scales, coordinates, ...) {
     if (nrow(data) == 1) return(NULL)
+    data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
 
     if (coordinates$muncher()) {
       data <- transform(data, top=y + height/2, bottom= y - height/2, left=x - width/2, right=x + width/2)

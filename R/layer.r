@@ -86,12 +86,15 @@ Layer <- proto(expr = {
   make_aesthetics <- function(., plot) {
     data <- nulldefault(.$data, plot$data)
     if (is.null(data)) stop("No data for layer", call.=FALSE)
-    
+
     aesthetics <- compact(defaults(.$aesthetics, plot$defaults))
     # Override grouping if specified in layer
     if (!is.null(.$geom_params$group)) {
       aesthetics["group"] <- .$geom_params$group
     } 
+    
+    # Drop aesthetics that are set manually
+    aesthetics <- aesthetics[setdiff(names(aesthetics), names(.$geom_params))]
     plot$scales$add_defaults(plot$data, aesthetics)
     
     calc_aesthetics(plot, data, aesthetics)
@@ -231,7 +234,8 @@ calc_aesthetics <- function(plot, data = plot$data, aesthetics) {
   stats <- rep(F, length(aesthetics))
   stats[grep(match, sapply(aesthetics, as.character))] <- TRUE
   aesthetics <- aesthetics[!stats]
-
+  
+  
   df <- data.frame(eval.each(aesthetics))
   df <- cbind(df, data[,intersect(names(data), cond), drop=FALSE])
   

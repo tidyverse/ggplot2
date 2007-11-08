@@ -20,7 +20,7 @@ StatSmooth <- proto(Stat, {
     if (identical(method,loess) && is.factor(data$x)) stop("geom_smooth: loess smooth does not work with categorical data.  Maybe you want method=lm?", call.=FALSE)
     
     params <- list(...)
-    model.params <- params[intersect(names(formals(method)), names(params))]
+    model.params <- params[intersect(names(formals(method)), setdiff(names(params), "weights"))]
     
     method.special <- function(...) method(formula, data=data, weights=weight, ...)
     model <- do.call(method.special, model.params)

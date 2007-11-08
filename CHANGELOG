@@ -1,6 +1,8 @@
 ggplot 0.5.7
 ----------------------------------------
 
+  * layers with set parameters will not use mapped aesthetics
+  * qplot should now work better within functions
   * added quickplot as an alias of qplot, to avoid confusion with qunif, etc
   * use LazyLoad: false instead of SaveData: true for better future compatability
   * adding data and aesthetics in separate steps should now work

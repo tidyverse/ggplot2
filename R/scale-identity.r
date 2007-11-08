@@ -13,7 +13,10 @@ ScaleIdentity <- proto(ScaleDiscrete, {
   train <- function(., data) {
     .$.breaks <- union(.$.breaks, unique(data))
   }
-  map_df <- function(., data) data[, .$input(), drop=FALSE]
+  map_df <- function(., data) {
+    if (!all(.$input() %in% names(data))) return(data.frame())
+    data[, .$input(), drop=FALSE]
+  }
   breaks <- function(.) .$.breaks
   labels <- function(.) .$.labels
 
