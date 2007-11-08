@@ -58,7 +58,6 @@ ggplot_plot <- function(plot, pretty=TRUE) {
   grobs <- dlapply(function(d, p) p$make_grobs(d, scales, cs))
   scales <- scales$minus(plot$scales$get_scales(c("x", "y", "z", "xend", "yend")))
   
-  
   guides <- guides_basic(plot, scales, cs)
   viewport <- viewport_default(plot, guides, plot$scales, cs)
   panels <- panels_default(plot, grobs)

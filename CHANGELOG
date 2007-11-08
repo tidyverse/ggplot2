@@ -1,6 +1,7 @@
 ggplot 0.5.7
 ----------------------------------------
 
+  * geom_jitter now works correctly with groups and categorical values (was actually a bug in how scale_discrete deals with continuous values)
   * fix bug in geom_abline where slope was ignored
   * stat_smooth returns silently if <2 non-missing data points
   * layers with set parameters will not use mapped aesthetics
