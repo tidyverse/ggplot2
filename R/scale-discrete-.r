@@ -12,8 +12,8 @@ ScaleDiscrete <- proto(Scale, expr={
   }
   discrete <- function(.) TRUE
 
-  new <- function(., name=NULL, variable=.$.input) {
-    .$proto(name=name, .input=variable, .output=variable)
+  new <- function(., name=NULL, variable=.$.input, expand = c(0, 0.5)) {
+    .$proto(name=name, .input=variable, .output=variable, .expand = expand)
   }
 
   # Mapping

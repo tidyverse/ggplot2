@@ -8,7 +8,7 @@ ScaleContinuous <- proto(Scale, {
   new <- function(., name=NULL, limits=c(NA,NA), breaks=NULL, labels=NULL, variable, trans="identity", expand=c(0.05, 0)) {
     if (is.null(breaks) && !is.null(labels)) stop("Labels can only be specified in conjunction with breaks")
     
-    .$proto(name=name, .input=variable, .output=variable, limits=limits, .breaks = breaks, .labels = labels, expand=expand)
+    .$proto(name=name, .input=variable, .output=variable, limits=limits, .breaks = breaks, .labels = labels, .expand=expand)
   }
 
   domain <- function(.) {
