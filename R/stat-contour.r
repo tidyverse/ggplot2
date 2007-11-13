@@ -15,8 +15,7 @@ StatContour <- proto(Stat, {
     gridz[(gridy$group - 1) * length(gridx$unique) + gridx$group] <- data$z
 
     cl <- contourLines(x = gridx$unique, y = gridy$unique, z = gridz, nlevels = nlevels, levels = levels)  
-
-    
+     
     cl <- mapply(function(x, piece) {
       rbind(data.frame(x, piece=piece), c(NA, NA, NA))
     }, cl, 1:length(cl), SIMPLIFY=FALSE)

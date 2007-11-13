@@ -1,19 +1,3 @@
-match.statistic <- function(f) {
-  if (is.function(f)) return(f)
-  paste("stat", f, sep="_") 
-}
-
-compose <- function(fs) {
-  if (length(fs) == 1) return(fs) 
-  function(data, ...) {
-    
-    for(f in fs) {
-      data <- match.fun(f)(data, ...)
-    }
-    data
-  }
-}
-
 addid <- function(data) {
   if (is.null(data$group)) {
     cat <- sapply(data[setdiff(names(data), "label")], is.factor)

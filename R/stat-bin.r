@@ -31,6 +31,7 @@ bin <- function(x, weights=NULL, binwidth=NULL, breaks=NULL, range=NULL, width=0
   results <- transform(results,
     density = count / width / sum(count, na.rm=TRUE)
   )
+  results <- subset(results, count > 0)
   
   transform(results,
     ncount = count / max(count, na.rm=TRUE),

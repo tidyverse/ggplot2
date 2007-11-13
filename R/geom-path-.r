@@ -2,17 +2,19 @@ GeomPath <- proto(Geom, {
   draw_groups <- function(., ...) .$draw(...)
 
   draw <- function(., data, scales, coordinates, ...) {
-    if (is.null(data$group)) data$group <- 1
+    if (!is.null(data$order)) {
+      data <- data[order(data$order), ]
+    }
     munched <- coordinates$munch(data)
 
     n <- nrow(munched)
-    start <- unlist(tapply(1:n, munched$group, function(x) x[-length(x)]))
-    end <- unlist(tapply(1:n, munched$group, function(x) x[-1]))
+    group_diff <- munched$group[-1] != munched$group[-n]
+    start <- c(TRUE, group_diff)
+    end <-   c(group_diff, TRUE)
     
-    if (length(start) + length(end) < 2) return()
     with(munched, 
-      segmentsGrob(x[start], y[start], x[end], y[end], default.units="native",
-      gp=gpar(col=colour[start], lwd=size[start], lty=linetype[start]))
+      segmentsGrob(x[!end], y[!end], x[!start], y[!start], default.units="native",
+      gp=gpar(col=colour[!end], lwd=size[!end], lty=linetype[!end]))
     )
   }
 

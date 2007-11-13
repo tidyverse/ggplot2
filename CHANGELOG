@@ -1,6 +1,10 @@
 ggplot 0.5.7
 ----------------------------------------
 
+  * only output bars with > 0 count from stat_bar
+  * change default bar border to same colour as fill
+  * tweaks to improve display of scatterplot matrix
+  * new order aesthetic (currently only for lines/paths) that allows you to control the drawing order
   * fixed bug that prevented you from overriding the default axis expansion
   * make statistics more robust to errors
   * geom_jitter now works correctly with groups and categorical values (was actually a bug in how scale_discrete deals with continuous values)
