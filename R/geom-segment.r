@@ -5,7 +5,6 @@ GeomSegment <- proto(Geom, {
     
     munched_starts <- coordinates$munch(starts)
     munched_ends <- rename(coordinates$munch(ends), c("x" = "xend", "y" = "yend"))
-
     munched <- cbind(munched_starts, munched_ends[,c("xend", "yend")])
     with(munched, 
       segmentsGrob(x, y, xend, yend, default.units="native",

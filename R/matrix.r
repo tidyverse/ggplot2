@@ -18,8 +18,8 @@ plotmatrix <- function(data, mapping=aes(), colour="black") {
     ycol <- grid[i, "y"]
 
     data.frame(
-      xvar = names(data)[xcol], 
-      yvar = names(data)[ycol],
+      xvar = names(data)[ycol], 
+      yvar = names(data)[xcol],
       x = data[, xcol], y = data[, ycol], data
     )
   }))

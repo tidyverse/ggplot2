@@ -2,6 +2,8 @@ GeomPath <- proto(Geom, {
   draw_groups <- function(., ...) .$draw(...)
 
   draw <- function(., data, scales, coordinates, ...) {
+    if (nrow(data) < 2) return()
+    
     if (!is.null(data$order)) {
       data <- data[order(data$order), ]
     }
@@ -11,6 +13,7 @@ GeomPath <- proto(Geom, {
     group_diff <- munched$group[-1] != munched$group[-n]
     start <- c(TRUE, group_diff)
     end <-   c(group_diff, TRUE)
+
     
     with(munched, 
       segmentsGrob(x[!end], y[!end], x[!start], y[!start], default.units="native",
