@@ -4,7 +4,7 @@ CoordPolar <- proto(Coord, {
     theta <- if (theta == "x") "x" else "y"
     r <- if (theta == "x") "y" else "x"
 
-    .$proto(theta = theta, r = r)
+    c(.$proto(theta = theta, r = r), list(opts(aspect.ratio = 1)))
   }
 
   theta_scale <- function(.) .$.scales$get_scales(.$theta)
@@ -30,7 +30,7 @@ CoordPolar <- proto(Coord, {
     }
   }
   
-  r_rescale <- function(., x) rescale(x, c(0, 1), .$r_range())
+  r_rescale <- function(., x) rescale(x, c(0, 0.9), .$r_range())
   r_discrete <- function(., x) .$.scales$get_scales(.$r)$objname == "discrete"
 
   muncher <- function(.) TRUE
@@ -45,7 +45,8 @@ CoordPolar <- proto(Coord, {
   }
   
   guide_inside <- function(., plot) {
-    theta <- .$theta_rescale(.$theta_scale()$breaks())
+    theta <- .$theta_rescale(.$theta_scale()$breaks()) %% (2 * pi)
+    thetamin <- .$theta_rescale(.$theta_scale()$minor_breaks())
     thetafine <- seq(0, 2*pi, length=100)
     
     r <- 1
@@ -55,7 +56,8 @@ CoordPolar <- proto(Coord, {
     
     ggname("grill", gTree(children = gList(
       ggname("background", rectGrob(gp=gpar(fill=plot$grid.fill, col=NA))),
-      ggname("major-angle", segmentsGrob(0, 0, r * sin(theta), r*cos(theta), gp=gp, default.units="native")),
+      ggname("major-angle", segmentsGrob(0, 0, 5 * sin(theta), 5*cos(theta), gp=gp, default.units="native")),
+      ggname("minor-angle", segmentsGrob(0, 0, 5 * sin(thetamin), 5*cos(thetamin), gp=gp, default.units="native")),
       ggname("labels-angle", textGrob(.$theta_scale()$labels(), r * 1.1 * sin(theta), r * 1.1 * cos(theta), gp=gpar(col=plot$axis.colour), default.units="native")),
       ggname("major-radius", polylineGrob(rep(rfine, each=length(thetafine)) * sin(thetafine), rep(rfine, each=length(thetafine)) * cos(thetafine), default.units="native", gp=gp))# ,
       #       ggname("labels-radius", textGrob(.$r_scale()$labels(), 0.02, rfine + 0.04, default.units="native", gp=gpar(col=plot$axis.colour), hjust=0))

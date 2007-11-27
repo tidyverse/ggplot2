@@ -67,13 +67,15 @@ ScaleColourDiscrete <- proto(ScaleHue, objname="discrete", doc=FALSE, examples=f
 ScaleBrewer <- proto(ScaleColour, expr={
   doc <- TRUE
 
-  new <- function(., name=NULL, palette=1, type="qual", alpha=1, variable) {
-    .$proto(name=name, palette=palette, type=type, .input=variable, .output=variable, .alpha=alpha)
+  new <- function(., name=NULL, palette=1, type="qual", alpha=1, reverse = FALSE, variable) {
+    .$proto(name=name, palette=palette, type=type, .input=variable, .output=variable, .alpha=alpha, .reverse = reverse)
   }
 
   breaks <- function(.) {
     n <- length(.$domain())
-    alpha(brewer.pal(n, .$pal_name()), .$.alpha)
+    pal <- brewer.pal(n, .$pal_name())
+    if (.$.reverse) pal <- rev(pal)
+    alpha(pal, .$.alpha)
   }
 
   pal_name <- function(.) {

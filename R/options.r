@@ -132,6 +132,7 @@ theme_default <- list(
 )
 ggopt <- .build_options(theme_default)
 
+opts <- function(...) {structure(list(...), class="options")}
 
 theme_bw <- list(
   grid.colour = "grey80",

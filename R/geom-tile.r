@@ -26,7 +26,10 @@ GeomTile <- proto(Geom, {
   
   draw_legend <- function(., data, ...)  {
     data <- aesdefaults(data, list(colour=ggopt()$grid.fill, fill=NA), list(...))
-    if (all(is.na(data$fill))) data$fill <- data$colour
+    if (all(is.na(data$fill))) {
+      data$fill <- data$colour
+      data$colour <- "grey50"
+    }
 
     rectGrob(gp=gpar(col=alpha(data$colour, 1), fill=alpha(data$fill, 1)))
   }

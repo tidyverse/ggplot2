@@ -1,6 +1,11 @@
 ggplot 0.5.7
 ----------------------------------------
 
+  * colour and fill legends now look exactly the same (previous colour was missing a grey border)
+  * coord_polar() now specifies aspect.ratio by default
+  * new function opts() to allow modification of plot options by addition
+  * added option to scale_brewer to reverse palette
+  * more aesthetic tweaks to polar coordinates
   * fix bug in scatterplot matrix where all scatterplots were transposed!
   * only output bars with > 0 count from stat_bar
   * change default bar border to same colour as fill

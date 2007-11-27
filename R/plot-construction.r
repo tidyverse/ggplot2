@@ -3,6 +3,8 @@
 
   if (is.data.frame(object)) {
     p$data <- object
+  } else if (inherits(object, "options")) {
+    p <- do.call("update", c(list(p), object))
   } else if(inherits(object, "uneval")) {
       p$defaults <- defaults(object, p$defaults)
   } else if(is.list(object)) {
