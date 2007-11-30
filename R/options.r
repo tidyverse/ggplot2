@@ -155,5 +155,8 @@ theme_bw <- list(
 }
 
 update.ggplot <- function(object, ...) {
-  structure(defaults(object, list(...)), class="ggplot")
+  dots <- list(...)
+  if (length(dots) == 1 && is.list(dots[[1]])) dots <- dots[[1]]
+  
+  structure(defaults(dots, object), class="ggplot")
 }
