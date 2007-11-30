@@ -113,7 +113,7 @@ ggtheme <- function(theme) {
   do.call("ggopt", theme)
 }
 
-theme_default <- list(
+theme_default <- structure(list(
   aspect.ratio = NULL,
   auto.print = FALSE,
   axis.colour = "grey50",
@@ -129,18 +129,18 @@ theme_default <- list(
   strip.gp = gpar(col = "white", fill = "grey80", lwd=2),
   strip.text = function(variable, value) value, #paste(variable, value, sep=": "),
   strip.text.gp = gpar()
-)
+), class="options")
 ggopt <- .build_options(theme_default)
 
 opts <- function(...) {structure(list(...), class="options")}
 
-theme_bw <- list(
+theme_bw <- structure(list(
   grid.colour = "grey80",
   grid.minor.colour = "NA",
   grid.fill = "white",
   axis.colour = "black",
   border.colour = "black"
-)
+), class="options")
 
 # Access ggplot options
 # Alias default options to plot object
