@@ -1,6 +1,7 @@
 ggplot 0.5.7
 ----------------------------------------
 
+  * update(p, theme_bw) and p + theme_bw now work
   * colour and fill legends now look exactly the same (previous colour was missing a grey border)
   * coord_polar() now specifies aspect.ratio by default
   * new function opts() to allow modification of plot options by addition

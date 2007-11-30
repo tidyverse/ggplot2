@@ -14,10 +14,10 @@ GeomPath <- proto(Geom, {
     start <- c(TRUE, group_diff)
     end <-   c(group_diff, TRUE)
     
-    with(munched, 
+    tryNULL(with(munched, 
       segmentsGrob(x[!end], y[!end], x[!start], y[!start], default.units="native",
       gp=gpar(col=colour[!end], lwd=size[!end], lty=linetype[!end]))
-    )
+    ))
   }
 
   draw_legend <- function(., data, ...) {
@@ -77,6 +77,12 @@ GeomPath <- proto(Geom, {
     qplot(unemploy/pop, uempmed, data=economics, geom="path") +
       geom_text(data=head(economics, 1), label="1967", colour="blue") + 
       geom_text(data=tail(economics, 1), label="2007", colour="blue")
+    
+    # Setting line type vs colour/size
+    # Line type needs to be applied to a line as a whole, so it can
+    # not be used with colour or size that vary across a line
+    
+    
     
   }  
 })
