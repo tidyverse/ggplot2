@@ -81,7 +81,7 @@ ScaleBrewer <- proto(ScaleColour, expr={
   pal_name <- function(.) {
     if (is.character(.$palette)) {
       if (!.$palette %in% RColorBrewer:::namelist) {
-        warn("Unknown palette ", .$palette)
+        warning("Unknown palette ", .$palette)
         .$palette <- "Greens"
       }
       return(.$palette)

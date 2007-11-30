@@ -1,6 +1,7 @@
 Scale <- proto(TopLevel, expr={
   .input <- ""
   .output <- ""
+  .reverse <- FALSE
   common <- NULL  
   legend <- TRUE
   
@@ -118,8 +119,9 @@ Scale <- proto(TopLevel, expr={
     if (identical(., Scale)) return(NULL)
     if (!.$legend) return(NULL)
     
-    labels <- rev(.$labels())
-    breaks <- rev(.$rbreaks())
+    reverse <- rev # if (.$.reverse) force else rev
+    labels <- reverse(.$labels())
+    breaks <- reverse(.$rbreaks())
 
     if (is.null(breaks)) return(NULL)
     grob <- function(data) .$guide_legend_geom()$draw_legend(data)
