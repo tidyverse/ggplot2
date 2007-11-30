@@ -107,10 +107,11 @@ Layer <- proto(expr = {
   calc_statistic <- function(., data, scales) {
     if (is.null(data) || nrow(data) == 0) return()
 
-    tryNULL(do.call(.$stat$calculate_groups, c(
+# tryNULL(
+    do.call(.$stat$calculate_groups, c(
       list(data=as.name("data"), scales=as.name("scales")), 
       .$stat_params)
-    ))
+    )#)
     
   }
 

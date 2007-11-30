@@ -1,6 +1,8 @@
 ggplot 0.5.7
 ----------------------------------------
 
+  * fixed bug in stat_quantile when only drawing a single quantile
+  * automatically switch between polylineGrob and segmentsGrob when drawing paths so that setting line type now works properly
   * update(p, theme_bw) and p + theme_bw now work
   * colour and fill legends now look exactly the same (previous colour was missing a grey border)
   * coord_polar() now specifies aspect.ratio by default

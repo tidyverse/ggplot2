@@ -25,8 +25,8 @@ StatQuantile <- proto(Stat, {
     data <- data[complete.cases(data[,c("x","y")]),]
     model <- rq(formula, data=data, tau=quantiles, weight=weight)
 
-    yhats <- predict(model, data.frame(x=xseq), type="stepfun")
-    yhats <- t(sapply(yhats, function(f) f(quantiles)))
+    yhats <- t(predict(model, data.frame(x=xseq), type="matrix"))
+
     data.frame(
       y = as.vector(yhats), x = xseq, quantile = rep(quantiles, each=length(xseq))
     )
@@ -35,6 +35,7 @@ StatQuantile <- proto(Stat, {
   examples <- function(.) {
     m <- ggplot(movies, aes(y=rating, x=year)) + geom_point() 
     m + stat_quantile()
+    m + stat_quantile(quantiles = 0.5)
     m + stat_quantile(quantiles = seq(0.05, 0.95, by=0.05))
 
     # Add aesthetic mappings

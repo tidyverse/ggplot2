@@ -14,10 +14,29 @@ GeomPath <- proto(Geom, {
     start <- c(TRUE, group_diff)
     end <-   c(group_diff, TRUE)
     
-    tryNULL(with(munched, 
-      segmentsGrob(x[!end], y[!end], x[!start], y[!start], default.units="native",
-      gp=gpar(col=colour[!end], lwd=size[!end], lty=linetype[!end]))
-    ))
+    # Work out whether we should use lines or segments
+    g <- split(munched, munched$group)
+    
+    solid_lines <- all(sapply(g, function(df) identical(unique(df$linetype), 1)))
+    constant <- all(sapply(g, function(df) nrow(unique(df[, c("colour","size","linetype")])) == 1))
+    
+    if (!solid_lines && !constant) {
+      stop("geom_path: If you are using dotted or dashed lines, colour, size and linetype must be constant over the line", call.=FALSE)
+    }
+    
+    if (solid_lines) {
+      with(munched, 
+        segmentsGrob(x[!end], y[!end], x[!start], y[!start], default.units="native",
+        gp=gpar(col=colour[!end], lwd=size[!end], lty=linetype[!end]))
+      )
+    } else {
+      with(munched, 
+        polylineGrob(
+          x, y, id = as.integer(factor(group)), default.units="native",
+          gp = gpar(col=colour[start], lwd=size[start], lty=linetype[start])
+        )
+      )
+    }
   }
 
   draw_legend <- function(., data, ...) {
@@ -82,7 +101,17 @@ GeomPath <- proto(Geom, {
     # Line type needs to be applied to a line as a whole, so it can
     # not be used with colour or size that vary across a line
     
+    x <- seq(0.01, .99, length=100)
+    df <- data.frame(rep(x, 2), y = c(qlogis(x), 2 * qlogis(x)), group = rep(c("a","b"), each=100))
+    p <- ggplot(df, aes(x=x, y=y, group=group))
+
+    # Should work
+    p + geom_line(linetype = 2)
+    p + geom_line(aes(colour = group), linetype = 2)
+    p + geom_line(aes(colour = x))
     
+    # Should fail
+    p + geom_line(aes(colour = x), linetype=2)
     
   }  
 })
