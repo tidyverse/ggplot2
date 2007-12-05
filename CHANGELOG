@@ -1,5 +1,7 @@
 ggplot 0.5.7
 ----------------------------------------
+
+  * str should now work on all objects (thanks to Gabor Grothendieck)
   * coord_map defaults to orientation = c(90, 0, mean(range(y)))
   * coord_map now respects limits set by scales
   * removed useless ticks from coord_map
