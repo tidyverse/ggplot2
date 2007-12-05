@@ -1,7 +1,11 @@
-CoordMap <- proto(CoordCartesian, {
-  new <- function(., projection="mercator", ...) {
+CoordMap <- proto(CoordCartesian, {  
+  new <- function(., projection="mercator", orientation = NULL, ...) {
     try_require("mapproj")
-    .$proto(projection=projection, params=list(...))
+    .$proto(
+      projection = projection, 
+      orientation = orientation,
+      params = list(...)
+    )
   }
   
   muncher <- function(.) TRUE
@@ -9,26 +13,34 @@ CoordMap <- proto(CoordCartesian, {
   
   transform <- function(., data) {
     trans <- .$mproject(data[, c("x","y")])
-    .$drange <- lapply(trans[c("x","y")], range, na.rm=TRUE)
     data.frame(trans[c("x","y")], data[, setdiff(names(data), c("x","y"))])
   }
   
   mproject <- function(., data) {
-    suppressWarnings(do.call("mapproject", c(data, projection=.$projection, .$params)))
+    if (is.null(.$orientation)) 
+      .$orientation <- c(90, 0, mean(.$y()$frange()))
+    
+    suppressWarnings(do.call("mapproject", 
+      list(data, projection=.$projection, orientation = .$orientation, .$params)
+    ))
   }
   
   frange <- function(.) {
     expand <- .$expand()
-    list(
-      x = expand_range(.$drange$x, expand$x[1], expand$x[2]),
-      y = expand_range(.$drange$y, expand$y[1], expand$y[2])
-    )
+    xrange <- expand_range(.$x()$frange(), expand$x[1], expand$x[2])
+    yrange <- expand_range(.$y()$frange(), expand$y[1], expand$y[2])
+    
+    df <- data.frame(x = xrange, y = yrange)
+    range <- .$mproject(df)$range
+
+    list(x = range[1:2], y = range[3:4])
   }
   
   guide_axes <- function(.) {
+    range <- .$frange()
     list(
-      x = ggaxis(c(-1, 1), "", "bottom", c(-1,1)),
-      y = ggaxis(c(-1, 1), "", "left", c(-1,1))
+      x = ggaxis(NA, "", "bottom", range$x),
+      y = ggaxis(NA, "", "left", range$y)
     )
   }
   

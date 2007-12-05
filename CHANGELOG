@@ -1,6 +1,8 @@
 ggplot 0.5.7
 ----------------------------------------
-
+  * coord_map defaults to orientation = c(90, 0, mean(range(y)))
+  * coord_map now respects limits set by scales
+  * removed useless ticks from coord_map
   * fixed bug in stat_quantile when only drawing a single quantile
   * automatically switch between polylineGrob and segmentsGrob when drawing paths so that setting line type now works properly
   * update(p, theme_bw) and p + theme_bw now work
