@@ -1,6 +1,8 @@
 ggplot 0.5.7
 ----------------------------------------
 
+  * geom_bar no longer draws gray borders by default
+  * scale_discrete has slightly larger expansion (0.75 vs 0.5)
   * str should now work on all objects (thanks to Gabor Grothendieck)
   * coord_map defaults to orientation = c(90, 0, mean(range(y)))
   * coord_map now respects limits set by scales

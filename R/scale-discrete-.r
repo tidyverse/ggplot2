@@ -1,7 +1,7 @@
 ScaleDiscrete <- proto(Scale, expr={
   .domain <- c()
   max_levels <- function(.) Inf
-  .expand <- c(0, 0.5)
+  .expand <- c(0, 0.75)
 
   train <- function(., x) {
     if (is.numeric(x)) {
@@ -12,7 +12,7 @@ ScaleDiscrete <- proto(Scale, expr={
   }
   discrete <- function(.) TRUE
 
-  new <- function(., name=NULL, variable=.$.input, expand = c(0, 0.5)) {
+  new <- function(., name=NULL, variable=.$.input, expand = c(0, 0.75)) {
     .$proto(name=name, .input=variable, .output=variable, .expand = expand)
   }
 

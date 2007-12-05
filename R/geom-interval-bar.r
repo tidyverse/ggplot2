@@ -2,7 +2,7 @@ GeomBar <- proto(GeomInterval, {
   
   default_stat <- function(.) StatBin
   default_pos <- function(.) PositionStack
-  default_aes <- function(.) aes(colour="grey60", fill="grey60", min=0, width=resolution(x) * 0.9, size=1, linetype=1, max=y)
+  default_aes <- function(.) aes(colour=NA, fill="grey60", min=0, width=resolution(x) * 0.9, size=1, linetype=1, max=y)
  
   draw <- function(., data, scales, coordinates, ...) {
     if (coordinates$muncher()) {
