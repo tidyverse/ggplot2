@@ -9,13 +9,17 @@ GeomPath <- proto(Geom, {
 
     munched <- coordinates$munch(data)
 
+    # Work out whether we should use lines or segments
+    g <- split(munched, munched$group)
+    g <- g[sapply(g, nrow) >= 2]
+    munched <- do.call(rbind, g[sapply(g, nrow) >= 2])
+    if (is.null(munched)) return()
+
     n <- nrow(munched)
     group_diff <- munched$group[-1] != munched$group[-n]
     start <- c(TRUE, group_diff)
     end <-   c(group_diff, TRUE)
     
-    # Work out whether we should use lines or segments
-    g <- split(munched, munched$group)
     
     solid_lines <- all(sapply(g, function(df) identical(unique(df$linetype), 1)))
     constant <- all(sapply(g, function(df) nrow(unique(df[, c("colour","size","linetype")])) == 1))

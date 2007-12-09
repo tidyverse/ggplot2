@@ -18,7 +18,7 @@ CoordMap <- proto(CoordCartesian, {
   
   mproject <- function(., data) {
     if (is.null(.$orientation)) 
-      .$orientation <- c(90, 0, mean(.$y()$frange()))
+      .$orientation <- c(90, 0, mean(.$x()$frange()))
     
     suppressWarnings(do.call("mapproject", 
       list(data, projection=.$projection, orientation = .$orientation, .$params)

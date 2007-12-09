@@ -1,6 +1,7 @@
 ggplot 0.5.7
 ----------------------------------------
-
+  
+  * add stat_step and geom_step to draw staircase plots
   * geom_bar no longer draws gray borders by default
   * scale_discrete has slightly larger expansion (0.75 vs 0.5)
   * str should now work on all objects (thanks to Gabor Grothendieck)

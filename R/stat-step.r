@@ -1,0 +1,23 @@
+StatStep <- proto(Stat, {
+  objname <- "step" 
+  desc <- "Create stair steps"
+  default_geom <- function(.) GeomPath
+  
+  calculate <- function(., data, scales, ...) {
+    data <- as.data.frame(data)[order(data$x), ]
+    n <- nrow(data)
+    
+    xs <- rep(1:n, each = 2)[-2*n]
+    ys <- c(1, rep(2:n, each=2))
+    
+    data.frame(
+      x = data$x[xs],
+      y = data$y[ys],
+      data[xs, setdiff(names(data), c("x", "y"))]
+    )
+  }
+  
+  examples <- function(.) {
+  }
+
+})

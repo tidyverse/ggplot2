@@ -29,6 +29,7 @@ geom_quantile <- GeomQuantile$new
 geom_ribbon <- GeomRibbon$new
 geom_segment <- GeomSegment$new
 geom_smooth <- GeomSmooth$new
+geom_step <- GeomStep$new
 geom_text <- GeomText$new
 geom_tile <- GeomTile$new
 geom_vline <- GeomVline$new
@@ -147,6 +148,7 @@ stat_quantile <- StatQuantile$new
 stat_smooth <- StatSmooth$new
 stat_sort <- StatSort$new
 stat_sort_angle <- StatSortAngle$new
+stat_step <- StatStep$new
 stat_sum <- StatSum$new
 stat_summary <- StatSummary$new
 stat_unique <- StatUnique$new
