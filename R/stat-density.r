@@ -23,7 +23,7 @@ StatDensity <- proto(Stat, {
   icon <- function(.) GeomDensity$icon()
 
   desc_params <- list(
-    adjust = "see \\code{\\link{density}} for details",
+    adjust = "see ?density for details",
     kernel = "kernel used for density estimation, see \\code{\\link{density}} for details"
   )
   desc_outputs <- list(

@@ -24,7 +24,8 @@ GeomDensity2d <- proto(GeomContour, {
   objname <- "density_2d"
   desc <- "Contours from a 2d density estimate"
   
-  details <- "<p>Perform a 2D kernel density estimatation using kde2d and  display the results with contours.  This is another function useful for dealing with overplotting.</p>"
+  details <- "<p>Perform a 2D kernel density estimatation using kde2d and  display the results with contours.</p>"
+  advice <- "<p>This can be useful for dealing with overplotting.</p>"
   
   default_stat <- function(.) StatDensity2d
 

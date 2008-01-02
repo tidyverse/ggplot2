@@ -2,7 +2,7 @@ GeomQuantile <- proto(GeomPath, {
   objname <- "quantile"
   desc <- "Add quantile lines from a quantile regression"
   
-  details <- "<p>This can be used as a continuous analogue of a geom_boxplot.</p>\n"
+  advice <- "<p>This can be used as a continuous analogue of a geom_boxplot.</p>\n"
   default_stat <- function(.) StatQuantile
   default_aes <- function(.) defaults(aes(weight=1, colour="grey50"), GeomPath$default_aes())
 

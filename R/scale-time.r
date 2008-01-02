@@ -60,7 +60,7 @@ ScaleDate <- proto(ScaleContinuous,{
     textGrob("1/1/2007", gp=gpar(cex=1))
   }
 
-  details <- "<p>Currently broken due to lack of support for dates in R.</p>"
+  details <- "<p>Currently somewhat broken due to lack of support for dates in R.</p>"
 
   examples <- function(.) {
     # We'll start by creating some nonsense data with dates

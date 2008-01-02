@@ -64,6 +64,7 @@ TopLevel <- proto(expr = {
   # Function for html documentation ------------------------------------
   desc <- ""
   details <- ""
+  advice <- ""
   objname <- ""
   desc_params <- list()
   icon <- function(.) rectGrob(gp=gpar(fill="white", col=NA))
@@ -100,6 +101,7 @@ TopLevel <- proto(expr = {
       .$html_header(),
       .$html_head(),
       .$html_details(),
+      .$html_advice(),
       .$html_defaults(),
       .$html_returns(),
       .$html_seealso(),
@@ -137,6 +139,17 @@ TopLevel <- proto(expr = {
       "</div>\n"
     )
   }
+
+  html_advice <- function(.) {
+    if (.$advice == "") return()
+    ps(
+      "<h2>Advice</h2>\n",
+      "<div class='details'>\n",
+      html_auto_link(.$advice, .$my_name()),
+      "</div>\n"
+    )
+  }
+
   
   # Defaults -----------------------
   html_defaults <- function(.) {
