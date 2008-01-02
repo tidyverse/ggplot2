@@ -26,7 +26,7 @@ GeomAbline <- proto(Geom, {
   objname <- "abline"
   icon <- function(.) linesGrob(c(0, 1), c(0.2, 0.8))
   desc <- "Line, specified by slope and intercept"
-  details <- "<p>The abline geom adds a line with specified slope and intercept to the plot.</p>\n<p>With its siblings geom_hline and geom_vline, it's useful useful for annotating plots.  You can supply the parameters for geom_abline, intercept and slope, in two ways: either explicitly as fixed values, or stored in the data set.  If you specify the fixed values (<code>geom_abline(intercept=0, slope=1))</code>) then the line will be the same in all panels, but if the intercept and slope are stored in the data, then can vary from panel to panel.  See the examples for more ideas.</p>\n"
+  details <- "<p>The abline geom adds a line with specified slope and intercept to the plot.</p>\n<p>With its siblings geom_hline and geom_vline, it's useful for annotating plots.  You can supply the parameters for geom_abline, intercept and slope, in two ways: either explicitly as fixed values, or stored in the data set.  If you specify the fixed values (<code>geom_abline(intercept=0, slope=1)</code>) then the line will be the same in all panels, but if the intercept and slope are stored in the data, then can vary from panel to panel.  See the examples for more ideas.</p>\n"
   seealso <- list(
     stat_smooth = "To add lines derived from the data",
     geom_hline = "for horizontal lines",

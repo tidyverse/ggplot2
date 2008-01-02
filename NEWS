@@ -18,6 +18,7 @@ Improved documentation
 
   * required aesthetics now listed in documentation
   * geom_polygon now has a decent example
+  * numerous minor corrections suggested by Jörg Beyer
 
 
 Improved map projections (with coord_map)

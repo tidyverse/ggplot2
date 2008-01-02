@@ -36,7 +36,7 @@
 # output.conserve <- function(scale) c("size", "colour")
 # 
 # map_aesthetic.conserve <- function(scale, data, ...) {
-  # if (is.null(data) || nrow(data) == 0) return()
+# if (is.null(data) || nrow(data) == 0) return()
 #   
 #   data.frame(
 #     size = rescale(data$weight, sqrt(scale$size.to), scale$range),
@@ -84,7 +84,6 @@
 #   }
 # }
 # 
-
 # wq <- function(x, weights=rep(1, length(x)))
 #   as.numeric(coef(rq(x ~ 1, weight = weights, tau=c(0.25, 0.5, 0.75))))
 #   

@@ -1,6 +1,6 @@
 <h1>Geometric objects</h1>
 
-<p>Geometric objects, or <strong>geom</strong>s for short, is one of the components of a layer, and controls the "type" of plot that you create.  For example, using a geom_point will create a scatterplot, while using a geom_line will create a line plot.  We can classify geoms by their dimensionality:</p>
+<p>A geometric objects, or <strong>geom</strong> for short, is one of the components of a layer, and controls the "type" of plot that you create.  For example, using geom_point will create a scatterplot, while using geom_line will create a line plot.  We can classify geoms by their dimensionality:</p>
 
 <ul>
   <li>0d: geom_point, geom_text</li>
@@ -8,9 +8,9 @@
   <li>2d: geom_interval, geom_polygon</li>
 </ul>
 
-<p>Geometric objects represent an abstract component and can be render in different ways. For example, there are many possible renderings of geom_interval: geom_linerange, geom_crossbar, geom_bar, geom_ribbon, ...</p>
+<p>Geometric objects represent an abstract component and can be rendered in different ways. For example, there are many possible renderings of geom_interval: geom_linerange, geom_crossbar, geom_bar, geom_ribbon, ...</p>
 
-<p>Geoms are mostly general purpose, but some are connected to a specific statistic. For example, the geom_boxplot is understood to be based on statistics generated in a specific, well-defined manner (from stat_boxplot). Using a different stat with a geom_boxplot doesn't make much sense. For this reason, every geom has a default statistic, and every statistic a default geom. For example, the stat_bin defaults to using the geom_bar to produce a histogram. Over-riding these defaults will still produce valid plots, but they may violate graphical conventions.</p>
+<p>Geoms are mostly general purpose, but some are connected to a specific statistic. For example, the geom_boxplot is understood to be based on statistics generated in a specific, well-defined manner (from stat_boxplot). Using a different stat with a geom_boxplot doesn't make much sense. For this reason, every geom has a default statistic, and every statistic a default geom. For example, the stat_bin defaults to using the geom_bar to produce a histogram. Overriding these defaults will still produce valid plots, but they may violate graphical conventions.</p>
 
 <p>Each geom can only display certain aesthetics.  For example, a point geom has position, colour, and size aesthetics.  A bar geom has all those, plus height, width and fill colour.  Different parameterisations may be useful.  For example, instead of location and dimension, we could parameterise the bar with locations representing the four corners.  Parameterisations which involve dimension (e.g. height and width) only make sense for Cartesian coordinate systems, so purely location based parameterisations are used internally.</p>
 

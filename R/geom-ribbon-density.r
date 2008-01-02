@@ -1,6 +1,7 @@
 GeomDensity <- proto(GeomArea, {
   objname <- "density"
   desc <- "Display a smooth density estimate"
+  details <- "A smooth density estimate calculated by stat_density"
   icon <- function(.) {
     x <- seq(0, 1, length=80)
     y <- dnorm(x, mean=0.5, sd=0.15)

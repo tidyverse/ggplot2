@@ -5,11 +5,15 @@
 # Generate aesthetic mappings
 # Aesthetic mappings describe how variables in the data are mapped to visual properties (aesthetics) of geoms.
 # 
-# This function also performs partial name matching, converts color to colour,
-# and old style R names to new ggplot names (eg. pch to shape, cex to size)
+# aes creates a list of unevaluated expressions.  This function also performs
+# partial name matching, converts color to colour, and old style R names to
+# new ggplot names (eg. pch to shape, cex to size)
 # 
 # @arguments List of name value pairs
 # @keyword internal
+# @seealso \code{\link{aes_string}}
+#X aes(x = mpg, y = wt)
+#X aes(x = mpg ^ 2, y = wt / cyl)
 aes <- function(...) {
   aes <- structure(as.list(match.call()[-1]), class="uneval")
   aes <- rename(aes, c("color" = "colour", "pch"="shape","cex"="size", "lty"="linetype", "srt"="angle"))
@@ -24,9 +28,17 @@ aes <- function(...) {
 }
 
 # Generate aesthetic mappings from a string
-# Useful when writing function
+# Aesthetic mappings describe how variables in the data are mapped to visual properties (aesthetics) of geoms.  Compared to aes this function operates on strings rather than expressions.
 # 
+# aes_string is particularly useful when writing functions that create 
+# plots because you can use strings to define the aesthetic mappings, rather
+# than having to mess around with expressions.
+#
+# @arguments List of name value pairs
 # @keyword internal
+# @seealso \code{\link{aes}}
+#X aes_string(x = "mpg", y = "wt")
+#X aes(x = mpg, y = wt)
 aes_string <- function(...) {
   structure(lapply(list(...), function(x) parse(text=x)[[1]]),
 class="uneval")

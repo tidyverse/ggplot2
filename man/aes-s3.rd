@@ -11,8 +11,10 @@ Aesthetic mappings describe how variables in the data are mapped to visual prope
 \item{...}{List of name value pairs}
 }
 
-\details{This function also performs partial name matching, converts color to colour,
-and old style R names to new ggplot names (eg. pch to shape, cex to size)}
-
-\examples{}
+\details{aes creates a list of unevaluated expressions.  This function also performs
+partial name matching, converts color to colour, and old style R names to
+new ggplot names (eg. pch to shape, cex to size)}
+\seealso{\code{\link{aes_string}}}
+\examples{aes(x = mpg, y = wt)
+aes(x = mpg ^ 2, y = wt / cyl)}
 \keyword{internal}

@@ -70,6 +70,7 @@ all_html_pages_create <- function(path="web/") {
   options(warn = 1)
   system("rm web/graphics/*")
   html_index_create(path)
+  html_template_create_all()
   Geom$all_html_pages_create()
   Stat$all_html_pages_create()
   Scale$all_html_pages_create()
