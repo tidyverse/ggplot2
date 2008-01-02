@@ -14,8 +14,13 @@ Improved options handling
 
 These changes mean that you can modify plot options in the same way that you modify all other aspects of the plot, e.g.  qplot(mpg, wt, data=mptcars) + opts(title = "Fuel economy vs weight")
 
+Improved documentation
 
-Improvements to coord_map to improve map projections
+  * required aesthetics now listed in documentation
+  * geom_polygon now has a decent example
+
+
+Improved map projections (with coord_map)
 
   * coord_map defaults to orientation = c(90, 0, mean(range(y))) - this ensures that multiple layers line up correctly, but means you will have to specify the orientation yourself for many projections 
   * coord_map now respects limits set by scales
@@ -48,7 +53,6 @@ Minor aesthetic improvements
 
   * coord_polar now specifies aspect.ratio by default, and I've made a few other tweaks to make polar coordinates plot look nicer
   * geom_bar no longer draws gray borders by default, but instead uses the same colour as fill (this eliminates a tiny gap between neighbouring bars)
-  * geom_polygon now has a decent example
   * plotmatrix: tweaks to improve display of scatterplot matrix
   * scale_brewer: added option to reverse palette
   * scale_colour: colour and fill legends now look exactly the same (previously colour was missing a grey border)

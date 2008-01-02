@@ -158,7 +158,11 @@ TopLevel <- proto(expr = {
   
   html_defaults_aesthetics <- function(.) {
     if (!exists("default_aes", .)) return("")
-    aes <- .$default_aes()
+    
+    req <- rep("<strong>required</strong>", length(.$required_aes))
+    names(req) <- .$required_aes 
+    
+    aes <- c(req, .$default_aes())
     if (length(aes) == 0) return("")
 
     scale_links <- sapply(names(aes), .$html_scales)
