@@ -12,6 +12,13 @@ GeomSegment <- proto(Geom, {
     )
   }
   
+  adjust_scales_data <- function(., scales, data) {
+    rbind(
+      data,
+      transform(data, y = yend, x = xend)
+    )
+  }
+  
   objname <- "segment"
   desc <- "Single line segments"
   icon <- function(.) segmentsGrob(c(0.1, 0.3, 0.5, 0.7), c(0.3, 0.5, 0.1, 0.9), c(0.2, 0.5, 0.7, 0.9), c(0.8, 0.7, 0.4, 0.3))

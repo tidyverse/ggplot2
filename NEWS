@@ -40,6 +40,7 @@ Bug fixes
   * geom_abline: fix bug where slope was ignored
   * geom_jitter now works correctly with groups and categorical values (was actually a bug in how scale_discrete deals with continuous values)
   * geom_path: automatically switch between polylineGrob and segmentsGrob when drawing paths so that setting line type now works properly
+  * geom_segment now uses both ends of segments to calculate axis limits
   * plotmatrix: fix bug in scatterplot matrix where all scatterplots were transposed!
   * qplot: should now work better within functions
   * quickplot added as an alias of qplot, to avoid confusion with qunif, etc
