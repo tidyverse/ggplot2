@@ -1,0 +1,58 @@
+ggplot 0.5.7
+----------------------------------------
+
+New geoms and aesthetics
+
+  * new stat_step and geom_step to draw staircase plots (like plot(type="s"))
+  * new order aesthetic (currently only for lines/paths) that allows you to control the drawing order within a group
+
+
+Improved options handling
+
+  * new function opts() to allow modification of plot options by addition
+  * update(p, theme_bw) and p + theme_bw now work
+
+These changes mean that you can modify plot options in the same way that you modify all other aspects of the plot, e.g.  qplot(mpg, wt, data=mptcars) + opts(title = "Fuel economy vs weight")
+
+
+Improvements to coord_map to improve map projections
+
+  * coord_map defaults to orientation = c(90, 0, mean(range(y))) - this ensures that multiple layers line up correctly, but means you will have to specify the orientation yourself for many projections 
+  * coord_map now respects limits set by scales
+  * removed useless ticks from coord_map
+
+If you're using ggplot to draw maps and have thought of other features that would make your life easier, please let me know.
+
+
+Bug fixes
+
+  * adding data and aesthetics in separate steps should now work
+  * layers with set parameters will not use mapped aesthetics
+  * use LazyLoad: false instead of SaveData: true for better future compatability
+
+  * coord_cartesian: fixed bug that prevented you from overriding the default axis expansion
+  * geom_abline: fix bug where slope was ignored
+  * geom_jitter now works correctly with groups and categorical values (was actually a bug in how scale_discrete deals with continuous values)
+  * geom_path: automatically switch between polylineGrob and segmentsGrob when drawing paths so that setting line type now works properly
+  * plotmatrix: fix bug in scatterplot matrix where all scatterplots were transposed!
+  * qplot: should now work better within functions
+  * quickplot added as an alias of qplot, to avoid confusion with qunif, etc
+  * scale_*: better error message if you add a scale without a matching aesthetic mapping in the plot
+  * scale_identity no longer converts everything to character
+  * stat_*: made all statistics more robust to errors
+  * stat_quantile: fixed bug when only drawing a single quantile
+  * stat_smooth: returns silently if <2 non-missing data points
+
+
+Minor aesthetic improvements
+
+  * coord_polar now specifies aspect.ratio by default, and I've made a few other tweaks to make polar coordinates plot look nicer
+  * geom_bar no longer draws gray borders by default, but instead uses the same colour as fill (this eliminates a tiny gap between neighbouring bars)
+  * plotmatrix: tweaks to improve display of scatterplot matrix
+  * scale_brewer: added option to reverse palette
+  * scale_colour: colour and fill legends now look exactly the same (previously colour was missing a grey border)
+  * scale_discrete has slightly larger expansion (0.75 vs 0.5)
+  * stat_bar: only output bars with > 0 count
+
+
+See CHANGELOG for changes in previous versions

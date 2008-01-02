@@ -2,6 +2,7 @@ StatStep <- proto(Stat, {
   objname <- "step" 
   desc <- "Create stair steps"
   default_geom <- function(.) GeomPath
+  icon <- function(.) GeomStep$icon()
   
   calculate <- function(., data, scales, ...) {
     data <- as.data.frame(data)[order(data$x), ]
@@ -18,6 +19,7 @@ StatStep <- proto(Stat, {
   }
   
   examples <- function(.) {
+    # See geom_step for examples
   }
 
 })

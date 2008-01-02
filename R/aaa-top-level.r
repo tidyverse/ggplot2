@@ -310,8 +310,8 @@ TopLevel <- proto(expr = {
 })
 
 print.proto <- function(x, ...) x$pprint(...)
-name.proto <- function(...) {
-       proto(print.proto = print.default, f = proto::name.proto)$f(...)
-}
+# name.proto <- function(...) {
+#        proto(print.proto = print.default, f = proto::name.proto)$f(...)
+# }
 pprint <- function(x, ...) print(as.list(x), ...)
 

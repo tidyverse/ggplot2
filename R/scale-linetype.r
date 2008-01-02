@@ -20,12 +20,15 @@ ScaleLinetype <- proto(ScaleDiscrete, expr={
   }
   
   examples <- function() {
-    # Fairly nonsensical example, but looking for better
-    # sample data set
-    qplot(wt, mpg, data=mtcars, geom="line", linetype=factor(cyl))
+    ec_scaled <- data.frame(
+      date = economics$date, 
+      rescaler(economics[, -(1:2)], "range")
+    )
+    ecm <- melt(ec_scaled, id = "date")
     
-    # Force all points to be connected together
-    qplot(wt, mpg, data=mtcars, geom="line", linetype=factor(cyl), group=1)
+    qplot(date, value, data=ecm, geom="line", group=variable)
+    qplot(date, value, data=ecm, geom="line", linetype=variable)
+    qplot(date, value, data=ecm, geom="line", colour=variable)
     
     # The linetype scale currently has no options, so there's
     # no point in adding it manually
