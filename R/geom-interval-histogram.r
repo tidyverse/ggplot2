@@ -2,6 +2,9 @@ GeomHistogram <- proto(GeomBar, {
   objname <- "histogram"
   desc <- "Histogram"
   
+  details <- ""
+  advice <- ""
+  
   default_stat <- function(.) StatBin
   default_pos <- function(.) PositionStack
 

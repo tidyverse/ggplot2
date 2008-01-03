@@ -7,6 +7,7 @@ ScaleLog2 <-     proto(ScaleContinuous, .tr = Trans$find("log2"),     objname = 
 ScaleLog <-      proto(ScaleContinuous, .tr = Trans$find("log"),      objname = "log", doc=FALSE, examples=function(.) {})
 ScaleExp <-      proto(ScaleContinuous, .tr = Trans$find("exp"),      objname = "exp", doc=FALSE, examples=function(.) {})
 ScaleLogit <-    proto(ScaleContinuous, .tr = Trans$find("logit"),    objname = "logit", doc=FALSE, examples=function(.) {})
+ScaleReverse <-    proto(ScaleContinuous, .tr = Trans$find("reverse"),    objname = "reverse", doc=FALSE, examples=function(.) {})
 ScaleAsn <-      proto(ScaleContinuous, .tr = Trans$find("asn"),      objname = "asn", doc=FALSE, examples=function(.) {})
 ScaleProbit <-   proto(ScaleContinuous, .tr = Trans$find("probit"),   objname = "probit", doc=FALSE, examples=function(.) {})
 ScaleAtanh <-    proto(ScaleContinuous, .tr = Trans$find("atanh"),    objname = "atanh", doc=FALSE, examples=function(.) {})

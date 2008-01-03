@@ -40,7 +40,7 @@ ggplot.default <- function(data = NULL, mapping=aes(), ...) {
 print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, save=ggopt()$save, ...) {
   if (save) {
     try_require("decumar")
-    img(grid.draw(ggplot_plot(x, ...)), hash=digest(x))
+    img(grid.draw(ggplot_plot(x, ...)), hash=digest.ggplot(x))
     return()
   }
   

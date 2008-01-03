@@ -106,6 +106,7 @@ TopLevel <- proto(expr = {
       .$html_head(),
       .$html_details(),
       .$html_advice(),
+      .$html_feedback(),
       .$html_aesthetics(),
       .$html_outputs(),
       .$html_parameters(),
@@ -113,6 +114,7 @@ TopLevel <- proto(expr = {
       .$html_returns(),
       .$html_seealso(),
       .$html_examples(),
+      .$html_feedback(),
       .$html_footer()
     )
   }
@@ -192,6 +194,10 @@ TopLevel <- proto(expr = {
       ),
       "</ul>\n"
     )
+  }
+  
+  html_feedback <- function(.) {
+    ps("<p class='feedback'>What do you think of the documentation?  <a href='http://hadley.wufoo.com/forms/documentation-feedback/default/field0/", .$my_name(), "'>Please let me know by filling out this short online survey</a>.</p>")
   }
   
   html_outputs <- function(.) {
@@ -295,13 +301,13 @@ TopLevel <- proto(expr = {
     ps(.$my_name(), ".png")
   }
   
-  html_img_link <- function(., align="left") {
+  html_img_link <- function(., align=NULL) {
     ps("<a href='", .$html_path(), "'>", .$html_img(align), "</a>")
   }
   
-  html_img <- function(., align="left") {
+  html_img <- function(., align=NULL) {
     ps(
-      "<img src='", .$html_img_path(), "' width='50' height='50' alt='' class='icon' />\n"
+      "<img src='", .$html_img_path(), "'", if (!is.null(align)) {ps(" align='", align, "'")}, " width='50' height='50' alt='' class='icon' />\n"
     )
   }
   

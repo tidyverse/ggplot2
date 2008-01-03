@@ -6,6 +6,7 @@ New geoms, scales and aesthetics
   * stat_step and geom_step to draw staircase plots (like plot(type="s"))
   * order aesthetic (currently only for lines/paths) allows you to control the drawing order within a group
   * scale_manual makes it easier to let ggplot uses the exact colours/sizes/linetypes that you want
+  * scale_reverse allows you to reverse the scale
 
 
 Improved options handling
@@ -18,6 +19,7 @@ These changes mean that you can modify plot options in the same way that you mod
 Improved documentation
 
   * many tweaks to the online documentation, particular including the actual code you need to run for each object!
+  * every page now has a link to a form where you can submit feedback on exactly you do or don't like about a page
   * required aesthetics now listed in documentation
   * geom_polygon now has a decent example
   * numerous minor corrections suggested by Jörg Beyer

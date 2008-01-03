@@ -86,6 +86,7 @@ TransLog2 <- Trans$new("log2", "log2", function(x) 2^x, function(x) bquote(2^.(x
 TransLogit <- ProbabilityTrans$new("logis")
 TransPow10 <- Trans$new("pow10",function(x) 10^x, "log10", function(x) log10(x))
 TransProbit <- ProbabilityTrans$new("norm")
+TransReverse <- Trans$new("reverse", function(x) -x, function(x) -x, function(x) bquote(.(-x)))
 TransSqrt <- Trans$new("sqrt", "sqrt", function(x) x^2, function(x) bquote(.(x)^2))
 
 to_date <- function(x) structure(x, class="Date")
