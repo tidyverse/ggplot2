@@ -3,6 +3,7 @@ StatStep <- proto(Stat, {
   desc <- "Create stair steps"
   default_geom <- function(.) GeomPath
   icon <- function(.) GeomStep$icon()
+  required_aes <- c("x", "y")
   
   calculate <- function(., data, scales, ...) {
     data <- as.data.frame(data)[order(data$x), ]

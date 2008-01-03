@@ -23,6 +23,19 @@
   "width" = "width of geom"
 )
 
+.desc_param <- list(
+  "name" = "name of scale to appear in legend or on axis",
+  "limits" = "numeric vector of length 2, giving the extent of the scale",
+  "trans" = "a transformer to use",
+  "..." = "ignored",
+  "to" = "numeric vector of length 2, giving minimum and maximum after transformation",
+  "guide" = "guide type for legend, one of 'point', 'tile', 'line'",
+  "breaks" = "numeric vector indicating where breaks should lie",
+  "labels" = "character vector giving labels associated with breaks",
+  "expand" = "numeric vector of length 2, giving multiplicative and additive expansion factors"
+)
+
+
 # Generate html for index page for documentation website.
 # 
 # @keyword internal
@@ -69,8 +82,8 @@ html_index_create <- function(path="web/") {
 all_html_pages_create <- function(path="web/") {
   options(warn = 1)
   system("rm web/graphics/*")
-  html_index_create(path)
   html_template_create_all()
+  html_index_create(path)
   Geom$all_html_pages_create()
   Stat$all_html_pages_create()
   Scale$all_html_pages_create()

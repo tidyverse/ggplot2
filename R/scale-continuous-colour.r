@@ -42,7 +42,7 @@ ScaleGradient <- proto(ScaleContinuous, expr={
     interpolate = "type of interpolation to use, linear or spline, see ?colorRamp for more details"
   )
   seealso <- list(
-    "scale_colour_gradient2" = "continuous colour scale with midpoint",
+    "scale_gradient2" = "continuous colour scale with midpoint",
     "colorRamp" = "for details of interpolation algorithm"
   )
   
@@ -135,7 +135,7 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
     interpolate = "type of interpolation to use, linear or spline, see ?colorRamp for more details"
   )
   seealso <- list(
-    "scale_color_gradient" = "continuous colour scale with midpoint",
+    "scale_gradient" = "continuous colour scale with midpoint",
     "colorRamp" = "for details of interpolation algorithm"
   )
   

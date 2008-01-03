@@ -1,7 +1,7 @@
 CoordEqual <- proto(CoordCartesian, {
 
   new <- function(., ratio=1) {
-    .$proto(ratio=ratio)
+    list(.$proto(ratio=ratio), opts(aspect.ratio = ratio))
   }
 
   frange <- function(.) {
@@ -9,9 +9,11 @@ CoordEqual <- proto(CoordCartesian, {
     ylim <- .$y()$frange()
     
     widest <- max(diff(xlim), diff(ylim))
+    xratio <- if (.$ratio < 1) 1 / .$ratio else 1
+    yratio <- if (.$ratio < 1) 1 else .$ratio
     
-    xlim <- mean(xlim) + c(-1, 1) * widest * 0.5
-    ylim <- mean(ylim) + .$ratio * c(-1, 1) * widest * 0.5
+    xlim <- mean(xlim) + xratio * c(-1, 1) * widest * 0.5
+    ylim <- mean(ylim) + yratio * c(-1, 1) * widest * 0.5
     
     expand <- .$expand()
     list(
@@ -44,23 +46,19 @@ CoordEqual <- proto(CoordCartesian, {
   desc <- "Equal scale cartesian coordinates"
   icon <- function(.) textGrob("=", gp=gpar(cex=3))  
   
-  details <- "<p>An equal scale coordinate system plays a similar role to ?eqscplot in MASS, but it works for all types of graphics, not just scatterplots.</p>\n<p>This coordinate system has one parameter, <code>ratio</code>, which specifies the ratio between the x and y scales.  You will usually need to set the aspect ratio as well - see the example for details.</p>\n"
+  details <- "<p>An equal scale coordinate system plays a similar role to ?eqscplot in MASS, but it works for all types of graphics, not just scatterplots.</p>\n<p>This coordinate system has one parameter, <code>ratio</code>, which specifies the ratio between the x and y scales.  By default, the aspect.ratio of the plot will also be set to this value.</p>\n"
   
   examples <- function(.) {
     # coord_equal ensures that the ranges of axes are equal to the
     # specified ratio (1 by default, indicating equal ranges).
     # You must also ensure the physical lengths of the axes are 
-    # equal to the specified ratio, by setting the aspect.ratio property
-    # of the plot
+    # equal to the specified ratio, by setting the aspect.ratio option
     
-    (p <- qplot(mpg, wt, data=mtcars) + coord_equal(ratio=1))
-    p$aspect.ratio <- 1; p 
-
-    (p <- qplot(mpg, wt, data=mtcars) + coord_equal(ratio=1/5))
-    p$aspect.ratio <- 1; p 
-    p$aspect.ratio <- 1/5; p 
+    qplot(mpg, wt, data=mtcars) + coord_equal(ratio=1)
+    qplot(mpg, wt, data=mtcars) + coord_equal(ratio=5)
+    qplot(mpg, wt, data=mtcars) + coord_equal(ratio=1/5)
     
-    # Resize the plot, and observe that the specified aspect ratio is 
+    # Resize the plot, and you'll see that the specified aspect ratio is 
     # mantained
   }  
 

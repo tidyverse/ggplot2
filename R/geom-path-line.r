@@ -10,7 +10,7 @@ GeomLine <- proto(GeomPath, {
   
   seealso <- list(
     geom_path = GeomPath$desc,
-    geom_segments = "Line segments",
+    geom_segment = "Line segments",
     geom_ribbon = "Fill between line and x-axis"
   )
   

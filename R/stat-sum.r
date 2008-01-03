@@ -1,5 +1,6 @@
 StatSum <- proto(Stat, {
   default_aes <- function(.) aes(size = ..prop..)
+  required_aes <- c("x", "y")
   default_geom <- function(.) GeomPoint
   icon <- function(.) textGrob(expression(Sigma), gp=gpar(cex=4))
   

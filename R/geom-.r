@@ -39,8 +39,7 @@ Geom <- proto(TopLevel, expr={
   }
   
   # Html documentation ----------------------------------
-  
-  
+
     
   
 })

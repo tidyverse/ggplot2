@@ -39,6 +39,8 @@ StatDensity <- proto(Stat, {
   
   default_geom <- function(.) GeomArea
   default_aes <- function(.) aes(y = ..density.., fill=NA)
+  required_aes <- c("x")
+  
 
   examples <- function(.) {
     m <- ggplot(movies, aes(x=rating))

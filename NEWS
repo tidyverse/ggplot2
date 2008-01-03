@@ -1,10 +1,11 @@
 ggplot 0.5.7
 ----------------------------------------
 
-New geoms and aesthetics
+New geoms, scales and aesthetics
 
-  * new stat_step and geom_step to draw staircase plots (like plot(type="s"))
-  * new order aesthetic (currently only for lines/paths) that allows you to control the drawing order within a group
+  * stat_step and geom_step to draw staircase plots (like plot(type="s"))
+  * order aesthetic (currently only for lines/paths) allows you to control the drawing order within a group
+  * scale_manual makes it easier to let ggplot uses the exact colours/sizes/linetypes that you want
 
 
 Improved options handling
@@ -16,10 +17,12 @@ These changes mean that you can modify plot options in the same way that you mod
 
 Improved documentation
 
+  * many tweaks to the online documentation, particular including the actual code you need to run for each object!
   * required aesthetics now listed in documentation
   * geom_polygon now has a decent example
   * numerous minor corrections suggested by Jörg Beyer
   * separated plotting advice from details of plot construction (what vs how), thanks to Bert Gunter for this suggestion
+
 
 Improved map projections (with coord_map)
 
@@ -37,6 +40,7 @@ Bug fixes
   * use LazyLoad: false instead of SaveData: true for better future compatability
 
   * coord_cartesian: fixed bug that prevented you from overriding the default axis expansion
+  * coord_equal: now scales correctly if ratio < 1
   * geom_abline: fix bug where slope was ignored
   * geom_jitter now works correctly with groups and categorical values (was actually a bug in how scale_discrete deals with continuous values)
   * geom_path: automatically switch between polylineGrob and segmentsGrob when drawing paths so that setting line type now works properly
@@ -46,6 +50,7 @@ Bug fixes
   * quickplot added as an alias of qplot, to avoid confusion with qunif, etc
   * scale_*: better error message if you add a scale without a matching aesthetic mapping in the plot
   * scale_identity no longer converts everything to character
+  * scale_identity: grob argument renamed to guide
   * stat_*: made all statistics more robust to errors
   * stat_quantile: fixed bug when only drawing a single quantile
   * stat_smooth: returns silently if <2 non-missing data points

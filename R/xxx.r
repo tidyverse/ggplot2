@@ -47,6 +47,7 @@ scale_colour_gradient <- function(...) ScaleGradient$new(..., variable = "colour
 scale_colour_gradient2 <- function(...) ScaleGradient2$new(..., variable = "colour")
 scale_colour_hue <- function(...) ScaleHue$new(..., variable = "colour")
 scale_colour_identity <- function(...) ScaleIdentity$new(..., variable = "colour")
+scale_colour_manual <- function(...) ScaleManual$new(..., variable = "colour")
 scale_fill_brewer <- function(...) ScaleBrewer$new(..., variable = "fill")
 scale_fill_colour <- function(...) ScaleColour$new(..., variable = "fill")
 scale_fill_continuous <- function(...) ScaleColourContinuous$new(..., variable = "fill")
@@ -55,13 +56,17 @@ scale_fill_gradient <- function(...) ScaleGradient$new(..., variable = "fill")
 scale_fill_gradient2 <- function(...) ScaleGradient2$new(..., variable = "fill")
 scale_fill_hue <- function(...) ScaleHue$new(..., variable = "fill")
 scale_fill_identity <- function(...) ScaleIdentity$new(..., variable = "fill")
+scale_fill_manual <- function(...) ScaleManual$new(..., variable = "fill")
 scale_linetype <- ScaleLinetype$new
 scale_linetype_identity <- function(...) ScaleIdentity$new(..., variable = "linetype")
+scale_linetype_manual <- function(...) ScaleManual$new(..., variable = "linetype")
 scale_shape <- ScaleShape$new
 scale_shape_identity <- function(...) ScaleIdentity$new(..., variable = "shape")
+scale_shape_manual <- function(...) ScaleManual$new(..., variable = "shape")
 scale_size <- ScaleSize$new
 scale_size_discrete <- ScaleSizeDiscrete$new
 scale_size_identity <- function(...) ScaleIdentity$new(..., variable = "size")
+scale_size_manual <- function(...) ScaleManual$new(..., variable = "size")
 scale_x_asn <- function(...) ScaleAsn$new(..., variable = "x")
 scale_x_atanh <- function(...) ScaleAtanh$new(..., variable = "x")
 scale_x_continuous <- function(...) ScaleContinuous$new(..., variable = "x")

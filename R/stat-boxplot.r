@@ -9,6 +9,7 @@ StatBoxplot <- proto(Stat, {
     "upper" = "upper hinge, 75% quantile",
     "max" = "upper whisker, upper hinge + 1.5 * IQR"
   )
+  required_aes <- c("x", "y")
   
   icon <- function(.) GeomBoxplot$icon()
   default_geom <- function(.) GeomBoxplot

@@ -78,6 +78,12 @@ CoordMap <- proto(CoordCartesian, {
     linesGrob(nz$x, nz$y, default.units="npc")
   }
   
+  desc_params <- list(
+    "projection" = "projection to use, see ?mapproject for complete list",
+    "..." = "other arguments passed on to mapproject",
+    "orientation" = "orientation, which defaults to c(90, 0, mean(range(x))).  This is not optimal for many projections, so you will have to supply your own."
+  )
+  
   details <- "<p>This coordinate system provides the full range of map projections available in the mapproject package.</p>\n\n<p>This is still experimental, and if you have any advice to offer regarding a better (or more correct) way to do this, please let me know</p>\n"
   
   examples <- function(.) {

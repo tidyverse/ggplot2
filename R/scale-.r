@@ -109,7 +109,7 @@ Scale <- proto(TopLevel, expr={
   html_returns <- function(.) {
     ps(
       "<h2>Returns</h2>\n",
-      "<p>This function returns a scales object.</p>"
+      "<p>This function returns a scale object.</p>"
     )
   }
   # Guides
@@ -169,6 +169,23 @@ Scale <- proto(TopLevel, expr={
 
     fg
   }
+  
+  call <- function(.) {    
+    ps(
+      ps("<strong>scale_", ps(.$common, .$objname, sep="_", collapse=NULL) , "</strong>", collapse=NULL), "(",
+      ps(
+        plist(.$parameters())
+      ), 
+      ")", collapse="\n<br />"
+    )
+  }
+  
+  
+  parameters <- function(.) {
+    params <- formals(get("new", .))
+    params[setdiff(names(params), c(".","variable"))]
+  }
+  
 })
 
 

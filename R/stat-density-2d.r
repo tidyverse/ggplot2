@@ -4,6 +4,7 @@ StatDensity2d <- proto(Stat, {
   
   default_geom <- function(.) GeomDensity2d
   default_aes <- function(.) aes(group = ..piece..)
+  required_aes <- c("x", "y")
 
   desc_outputs <- list(
     level = "Computed density"

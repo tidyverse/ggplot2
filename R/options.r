@@ -63,10 +63,9 @@
 #X ggopt(background.fill = "white", background.color ="black")
 #X 
 #X p <- qplot(wt, mpg, data=mtcars, colour=factor(cyl))
-#X p$legend.position <- c(0.9,0.9); p
-#X p$legend.position <- c(0.5,0.5)
-#X p$legend.justification <- "center"
-#X p
+#X p + opts(legend.position = c(0.9,0.9))
+#X (p <- p + opts(legend.position = c(0.5,0.5)))
+#X p + opts(legend.justification = "centre")
 #X 
 #X DF <- data.frame(
 #X   x=rnorm(20), 

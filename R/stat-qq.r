@@ -10,6 +10,7 @@ StatQq <- proto(Stat, {
   
   default_geom <- function(.) GeomPoint
   default_aes <- function(.) aes(y = ..y..)
+  required_aes <- c("x", "y")
 
   calculate <- function(., data, scales, quantiles=ppoints(length(data$x)), distribution=qnorm, ...) {
     

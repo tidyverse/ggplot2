@@ -24,4 +24,20 @@ Position <- proto(TopLevel, expr = {
       "<p>This function returns a position object.</p>"
     )
   }
+  
+  call <- function(.) {
+    ps(
+      .$my_name(), "(",
+      ps(
+        plist(.$parameters())
+      ), 
+      ")", collapse="\n<br />"
+    )
+  }
+  
+  parameters <- function(.) {
+    params <- formals(get("new", .))
+    params[setdiff(names(params), c(".","variable"))]
+  }
+  
 })

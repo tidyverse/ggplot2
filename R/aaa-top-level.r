@@ -66,7 +66,7 @@ TopLevel <- proto(expr = {
   details <- ""
   advice <- ""
   objname <- ""
-  desc_params <- list()
+  desc_params <- list("..." = "ignored ")
   icon <- function(.) rectGrob(gp=gpar(fill="white", col=NA))
   
   # Name of physical file to create, doesn't include directory
@@ -76,6 +76,10 @@ TopLevel <- proto(expr = {
   
   html_link_self <- function(., prefix=TRUE) {
     ps("<a href='", .$html_path(), "' title='", .$desc, "'>", .$my_name(prefix=prefix), "</a>")
+  }
+
+  html_abbrev_link_self <- function(., prefix=TRUE) {
+    ps("<a href='", .$html_path(), "' title='", .$desc, "'>", .$objname, "</a>")
   }
 
   html_parent_link <- function(.) {
@@ -102,7 +106,10 @@ TopLevel <- proto(expr = {
       .$html_head(),
       .$html_details(),
       .$html_advice(),
-      .$html_defaults(),
+      .$html_aesthetics(),
+      .$html_outputs(),
+      .$html_parameters(),
+      # .$html_defaults(),
       .$html_returns(),
       .$html_seealso(),
       .$html_examples(),
@@ -123,19 +130,19 @@ TopLevel <- proto(expr = {
   # Page header -----------------------
   html_head <- function(.) {
     ps(
-      .$html_img(), 
       # "<p class='hierarchy'>", .$html_parent_link(), "</p>\n",
-      "<h1>", .$my_name(), "</h1>\n",
-      "<p class='desc'>", .$desc, "</p>\n"
+      "<h1>", .$html_img(), .$my_name(), "</h1>\n",
+      "<p class='call'>", .$call(), "</p>\n"
     )
   }
   
   html_details <- function(.) {
     ps(
-      "<h2>Details</h2>\n",
+      # "<h2>Details</h2>\n",
       "<div class='details'>\n",
+      "<p>", .$desc, "</p>\n",
       html_auto_link(.$details, .$my_name()),
-      "<p>See <a href='layer.html'>layer</a> and <a href='qplot.html'>qplot</a> for more information on creating a complete plot from multiple components.</p>\n",
+      "<p>This page describes ", .$my_name(), ", see <a href='layer.html'>layer</a> and <a href='qplot.html'>qplot</a> for how to create a complete plot from individual components.</p>\n",
       "</div>\n"
     )
   }
@@ -148,28 +155,15 @@ TopLevel <- proto(expr = {
       html_auto_link(.$advice, .$my_name()),
       "</div>\n"
     )
-  }
+  }  
 
-  
-  # Defaults -----------------------
-  html_defaults <- function(.) {
-    ps(
-      .$html_defaults_aesthetics(),
-      .$html_defaults_outputs(),
-      .$html_defaults_parameters(),
-      .$html_defaults_stat(),
-      .$html_defaults_geom(),
-      .$html_defaults_position()
-    )
-  }
-  
   html_scales <- function(., aesthetic) {
     scales <- Scale$find(aesthetic, only.documented = TRUE)
     if (length(scales) == 0) return()
     ps(lapply(scales, function(x) x$html_link_self(prefix=FALSE)), collapse=", ")
   }
   
-  html_defaults_aesthetics <- function(.) {
+  html_aesthetics <- function(.) {
     if (!exists("default_aes", .)) return("")
     
     req <- rep("<strong>required</strong>", length(.$required_aes))
@@ -189,7 +183,7 @@ TopLevel <- proto(expr = {
 
     ps(
       "<h2>Aesthetics</h2>\n",
-      html_auto_link(ps("<p>The following aesthetics can be used with  ", .$my_name(), ".  They are listed along with their default value.  All geoms and scales can also use the group aesthetic.  Read how this important aesthetic works in scale_group. Typically, you will associate an aesthetic with a variable in your data set.  To do this, you use the aes function: <code>", .$my_name(), "(aes(x = var))</code>. Scales control the details of the mapping between data and aesthetic properties; after each aesthetic are listed scales that can be used with that aesthetic. The scale documentation will also provide references to help you interpret the default values.</p>\n<p>Instead of mapping an aesthetic to a variable in your dataset, you can also set it to a fixed value.  See the parameters section for details.</p>\n"), .$my_name()),
+      html_auto_link(ps("<p>The following aesthetics can be used with  ", .$my_name(), ".  Aesthetics are mapped to variables in the data with the aes function: <code>", .$my_name(), "(aes(x = var))</code>. Scales control how the variable is mapped to the aesthetic and are listed after each aesthetic.</p>\n"), .$my_name()),
       "<ul>\n",
       ps(
         "  <li>", 
@@ -200,7 +194,7 @@ TopLevel <- proto(expr = {
     )
   }
   
-  html_defaults_outputs <- function(.) {
+  html_outputs <- function(.) {
     if (!exists("desc_outputs", .)) return("")
     
     ps(
@@ -211,13 +205,24 @@ TopLevel <- proto(expr = {
       "</ul>\n"
     )
   }
+
+  html_defaults <- function(.) {
+    ps(
+      "<h2>Defaults</h2>\n",
+      "<ul>\n",
+      .$html_defaults_stat(),
+      .$html_defaults_geom(),
+      .$html_defaults_position(),
+      "</ul>\n"
+    )
+  }
+
   
   html_defaults_stat <- function(.) {
     if (!exists("default_stat", .)) return("")
     
     ps(
-      "<h2>Default statistic</h2>\n",
-      "<p>", .$default_stat()$html_link_self(), ".  Override with the <code>stat</code> argument: <code>", .$my_name(), "(stat=\"identity\")</code></p>\n"
+      "<li>", .$default_stat()$html_link_self(), ".  Override with the <code>stat</code> argument: <code>", .$my_name(), "(stat=\"identity\")</code></li>\n"
     )
   }
   
@@ -225,8 +230,7 @@ TopLevel <- proto(expr = {
     if (!exists("default_geom", .)) return("")
     
     ps(
-      "<h2>Default geom</h2>\n",
-      "<p>", .$default_geom()$html_link_self(), ".  Override with the  <code>geom</code> argument: <code>", .$my_name(), "(geom=\"point\")</code>.</p>\n"
+      "<li>", .$default_geom()$html_link_self(), ".  Override with the  <code>geom</code> argument: <code>", .$my_name(), "(geom=\"point\")</code>.</li>\n"
     )
   }
   
@@ -234,25 +238,33 @@ TopLevel <- proto(expr = {
     if (!exists("default_pos", .)) return("")
     
     ps(
-      "<h2>Default position</h2>\n",
-      "<p>", .$default_pos()$html_link_self(), ".  Override with the <code>position</code> argument: <code>", .$my_name(), "(position=\"jitter\")</code>.</p>\n"
+      "<li>", .$default_pos()$html_link_self(), ".  Override with the <code>position</code> argument: <code>", .$my_name(), "(position=\"jitter\")</code>.</li>\n"
     )
   }
   
-  html_defaults_parameters <- function(.) {
-    if (!exists("parameters", .)) return("")
-
+  params <- function(.) {
     param <- .$parameters()
-    if (length(param) == 0) return("")
-    
-    desc <- c(.$desc_params, .$.desc_aes)
+    if (length(param) == 0) return()
+  
+    if(!exists("required_aes", .)) return(param)
+  
+    aesthetics <- c(.$required_aes, names(.$default_aes()))
+    param <- param[setdiff(names(param), aesthetics)]
+  }
+  
+  
+  html_parameters <- function(.) {
+    if (!exists("parameters", .)) return("")
+    param <- .$params()
     
     ps(
       "<h2>Parameters</h2>\n",
-      "<p>When an aesthetic is used as an a parameter, like <code>", .$my_name(), "(", names(param)[1], " = 3)</code>, it will override mappings from data.</p>\n",
-      "<ul>\n",
-      ps("<li><code>", names(param), "</code>, ", desc[names(param)], "</li>\n"),
-      "</ul>\n"
+      "<p>Parameters control the appearance of the ", .$class(), ". In addition to the parameters listed below (if any), any aesthetic can be used as a parameter, in which case it will override any aesthetic mapping.</p>\n",
+      if(length(param) > 0) ps(
+        "<ul>\n",
+        ps("<li><code>", names(param), "</code>: ", defaults(.$desc_params, .desc_param)[names(param)], "</li>\n"),
+        "</ul>\n"
+      )
     )
   }
   
@@ -283,13 +295,13 @@ TopLevel <- proto(expr = {
     ps(.$my_name(), ".png")
   }
   
-  html_img_link <- function(., align="right") {
+  html_img_link <- function(., align="left") {
     ps("<a href='", .$html_path(), "'>", .$html_img(align), "</a>")
   }
   
-  html_img <- function(., align="right") {
+  html_img <- function(., align="left") {
     ps(
-      "<img src='", .$html_img_path(), "' width='50' height='50' alt='' align='", align, "' class='icon' />\n"
+      "<img src='", .$html_img_path(), "' width='50' height='50' alt='' class='icon' />\n"
     )
   }
   
@@ -323,6 +335,26 @@ TopLevel <- proto(expr = {
     ), .$my_name())
   }
   
+  
+  call <- function(.) {
+    ps(
+      .$my_name(), "(",
+      ps(
+        "mapping&nbsp;=&nbsp;aes(...)", 
+        "data&nbsp;=&nbsp;NULL",
+        if(exists("default_stat", .))
+          ps("stat&nbsp;=&nbsp;'", .$default_stat()$html_abbrev_link_self(), "'"),
+        if(exists("default_geom", .))
+          ps("geom&nbsp;=&nbsp;'", .$default_geom()$html_abbrev_link_self(), "'"),
+        if(exists("default_pos", .))
+          ps("position&nbsp;=&nbsp;'", .$default_pos()$html_abbrev_link_self(), "'"),
+        plist(.$params()), 
+        "...",
+        sep = ", "
+      ), 
+      ")"
+    )
+  }
   
 })
 

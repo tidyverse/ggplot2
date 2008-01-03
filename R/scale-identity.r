@@ -1,8 +1,8 @@
 
 ScaleIdentity <- proto(ScaleDiscrete, {  
   common <- c("colour","fill","size","shape","linetype")
-  new <- function(., name=NULL, breaks=NULL, labels=NULL, grob="point", variable="x") {
-    .$proto(name=name, .breaks=breaks, .labels=labels, .grob=grob, .input=variable, .output=variable)
+  new <- function(., name=NULL, breaks=NULL, labels=NULL, guide="point", variable="x") {
+    .$proto(name=name, .breaks=breaks, .labels=labels, .guide=guide, .input=variable, .output=variable)
   }
 
   guides.manual <- function(scale, ...) {
@@ -20,7 +20,7 @@ ScaleIdentity <- proto(ScaleDiscrete, {
   breaks <- function(.) .$.breaks
   labels <- function(.) .$.labels
 
-  guide_legend_geom <- function(.) Geom$find(.$.grob)
+  guide_legend_geom <- function(.) Geom$find(.$.guide)
   
   guide_legend <- function(.) {
     if (is.null(.$.labels)) return()

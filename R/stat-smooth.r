@@ -46,6 +46,7 @@ StatSmooth <- proto(Stat, {
   details <- "Aids the eye in seeing patterns in the presence of overplotting."
   icon <- function(.) GeomSmooth$icon()
   
+  required_aes <- c("x", "y")
   default_geom <- function(.) GeomSmooth
   desc_params <- list(
     method = "smoothing method (function) to use, eg. lm, glm, gam, loess, rlm",
@@ -90,7 +91,7 @@ StatSmooth <- proto(Stat, {
     c + geom_point() + stat_smooth(fill=alpha("blue", 0.2), colour="darkblue", size=2)
     
     # Smoothers for subsets
-    c <- ggplot(mtcars, aes(y=wt, x=mpg), . ~ cyl)
+    c <- ggplot(mtcars, aes(y=wt, x=mpg)) + facet_grid(. ~ cyl)
     c + stat_smooth(method=lm) + geom_point() 
     c + stat_smooth(method=lm, fullrange=T) + geom_point() 
     

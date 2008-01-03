@@ -7,7 +7,7 @@
 # @arguments range of data values
 # @keyword hplot 
 # @keyword internal
-ggaxis <- function(at, labels, position="right", scale=c(0,1)) {
+ggaxis <- function(at, labels, position="right", scale=c(0,1), colour = ggopt()$axis.colour) {
   #assert.equal(length(at), length(labels))
   
   positions <- c("top","bottom", "right","left")
@@ -20,7 +20,7 @@ ggaxis <- function(at, labels, position="right", scale=c(0,1)) {
   ggname("axis", gTree(
     childrenvp = ggaxis_vp(position, labels, scale), 
     children = gList(ticks_grob, labels_grob), 
-    gp = gpar(col=ggopt()$axis.colour)
+    gp = gpar(col=colour)
   ))
 }
  

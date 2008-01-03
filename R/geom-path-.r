@@ -63,7 +63,7 @@ GeomPath <- proto(Geom, {
   seealso <- list(
     geom_line = "Functional (ordered) lines", 
     geom_polygon = "Filled paths (polygons)",
-    geom_segments = "Line segments"
+    geom_segment = "Line segments"
   )
 
   examples <- function(.) {

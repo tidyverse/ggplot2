@@ -26,7 +26,7 @@ PositionDodge <- proto(Position, {
 
   objname <- "dodge"
   position <- "after"
-  desc <- "Adjust position by 'dodging' overlaps to the side"
+  desc <- "Adjust position by dodging overlaps to the side"
   icon <- function(.) {
     y <- c(0.5, 0.3)
     rectGrob(c(0.25, 0.75), y, width=0.4, height=y, gp=gpar(col="grey60", fill=c("#804070", "#668040")), vjust=1)

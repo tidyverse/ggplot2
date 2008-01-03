@@ -3,6 +3,7 @@ StatSummary <- proto(Stat, {
   desc <- "Summarise y values at every unique x"
   
   default_geom <- function(.) GeomPointrange
+  required_aes <- c("x", "y")
    
   calculate <- function(., data, scales, fun=stat_range, ...) {
     if (is.character(fun)) fun <- match.fun(paste("stat", fun, sep="_"))

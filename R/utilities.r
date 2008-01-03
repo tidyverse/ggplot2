@@ -37,8 +37,15 @@ clist <- function(l) {
   paste("(", paste(names(l), l, sep="=", collapse=", "), ")", sep="")
 }
 
+plist <- function(l) {
+  if (length(l) == 0)  return()
+  l <- l[names(l) != "..."]
+  if (length(l) == 0)  return()
+  paste(paste(names(l), l, sep="&nbsp;=&nbsp;", collapse=", "), sep="")
+}
 
-ps <- function(..., collapse="") paste(..., sep="", collapse=collapse)
+
+ps <- function(..., sep="", collapse="") do.call(paste, compact(list(..., sep=sep, collapse=collapse)))
 
 
 is.integeric <- function(x) floor(x) == x

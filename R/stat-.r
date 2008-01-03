@@ -5,6 +5,7 @@ Stat <- proto(TopLevel, expr={
   
   default_geom <- function(.) Geom
   default_aes <- function(.) aes()
+  required_aes <- c()
   
   aesthetics <- list()
   calculate <- function(., data, scales, ...) {}
