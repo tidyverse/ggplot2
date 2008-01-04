@@ -60,6 +60,8 @@ Scales <- proto(Scale, expr={
   
   # Train scale from a data frame
   train_df <- function(., df) {
+    if (is.null(df)) return()
+
     lapply(.$.scales, function(scale) {
       if (all(scale$input() %in% names(df))) scale$train_df(df)
     })

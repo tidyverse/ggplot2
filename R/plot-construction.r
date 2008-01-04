@@ -37,5 +37,6 @@
     )
   }
   if (ggopt()$auto.print & length(p$layers) > 0) try(print(p))
-  (.last_plot <<- p)
+  set_last_plot(p)
+  p
 }

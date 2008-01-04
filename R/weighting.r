@@ -17,11 +17,11 @@
 # qplot(wt, mpg, data=mtcars, weight=cyl, geom="wdensity", radius=1/20) # radius in proportion of data range, defaults to 1%
 # qplot(wt, mpg, data=mtcars, weight=cyl, geom="wdensity", trans=function(x) sqrt(x))
 # 
-# scalpha <- function(plot = .last_plot, name=NULL, colour="black", maxalpha=0.5) {
+# scalpha <- function(plot = last_plot(), name=NULL, colour="black", maxalpha=0.5) {
 #   add_scale(plot, scale_gradient(name=name, low=alpha(colour, 0), mid=alpha(colour, 0), high=alpha(colour, maxalpha), variable="weight", range=c(0,NA)))
 # }
 # 
-# scconserve <- function(plot = .last_plot, name=NULL, max=NA, colour="black", size.to = c(0.2, 5), alpha.to = c(1, 0)) {
+# scconserve <- function(plot = last_plot(), name=NULL, max=NA, colour="black", size.to = c(0.2, 5), alpha.to = c(1, 0)) {
 #   add_scale(plot, scale_conserve(name=name, max=max, colour=colour, size.to=size.to, alpha.to=alpha.to))
 # }
 # 
@@ -56,7 +56,7 @@
 # 
 # #sm.density(mtcars[,c("wt", "mpg")], display = "none", ngrid=200, h=c(0.1,0.1), eval.points=as.matrix((mtcars[,c("wt", "mpg")])))
 # 
-# ggwdensity <- function(plot = .last_plot, aes=aes(), ..., data=NULL) {
+# ggwdensity <- function(plot = last_plot(), aes=aes(), ..., data=NULL) {
 #   gg_add("wdensity", plot, aesthetics, ..., data=data)
 # }
 # 

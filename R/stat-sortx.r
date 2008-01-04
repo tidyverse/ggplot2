@@ -4,7 +4,7 @@ StatSort <- proto(Stat, {
   default_geom <- function(.) GeomPath
     
   calculate_groups <- function(., data, scales, variable="x", ...) {
-    as.data.frame(data)[order(data$group, data$x[[variable]]), ]
+    as.data.frame(data)[order(data$group, data[[variable]]), ]
   }
   calculate <- calculate_groups
   

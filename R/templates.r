@@ -41,7 +41,7 @@ ggpcp <- function(data, vars=names(data), scale="range", ...) {
   data$ROWID <- 1:nrow(data)
   molten <- melt(data, m=vars)
 
-  p <- ggplot(molten, aes(x=variable, y=value, group=ROWID), ...)
+  p <- ggplot(molten, aes_string(x="variable", y="value", group="ROWID"), ...)
   p + scale_x_discrete()
 }
 
@@ -88,9 +88,9 @@ ggfluctuation <- function(table, type="size", floor=0, ceiling=max(table$freq, n
   table <- subset(table, freq * ceiling >= floor)
   
   if (type=="size") {
-    p <- ggplot(table, aes(x=x, y=y, height=freq, width=freq, fill=border)) + geom_tile(colour="white") + scale_fill_identity()
+    p <- ggplot(table, aes_string(x="x", y="y", height="freq", width="freq", fill="border")) + geom_tile(colour="white") + scale_fill_identity()
   } else {
-    p <- ggplot(table, aes(x=x, y=y, fill=freq)) + 
+    p <- ggplot(table, aes_string(x="x", y="y", fill="freq")) + 
       geom_tile(colour="grey50") +
       scale_fill_gradient2(low="white", high="darkgreen")
   }
@@ -140,7 +140,7 @@ ggmissing <- function(data, avoid="stack", order=TRUE, missing.only = TRUE) {
     df$variable <- factor(df$variable)
   }
   
-  ggplot(df, aes(y=Freq, x=variable, fill=missing)) + geom_bar(position=avoid)
+  ggplot(df, aes_string(y="Freq", x="variable", fill="missing")) + geom_bar(position=avoid)
 }
 
 # Structure plot
@@ -152,7 +152,7 @@ ggmissing <- function(data, avoid="stack", order=TRUE, missing.only = TRUE) {
 #X ggstructure(mtcars)
 ggstructure <- function(data, scale = "rank") {
   ggpcp(data, scale=scale) + 
-    aes(y=ROWID, fill=value, x=variable) +
+    aes_string(y="ROWID", fill="value", x="variable") +
     geom_tile() +
     scale_y_continuous("row number", expand = c(0, 1)) +
     scale_fill_gradient2(low="blue", mid="white", high="red", midpoint=0)
@@ -166,7 +166,7 @@ ggstructure <- function(data, scale = "rank") {
 # @keyword hplot 
 ggorder <- function(data, scale="rank") {
   ggpcp(data, scale="rank") +
-    aes(x=ROWID, group=variable, y=value) +
+    aes_string(x="ROWID", group="variable", y="value") +
     facet_grid(. ~ variable) +
     geom_line() +
     scale_x_continuous("row number")
@@ -186,7 +186,7 @@ ggdist <- function(data, vars=names(data), facets = . ~ .) {
   mapply(function(name, cat, i) {
     p <- ggplot(data) + 
       facet_grid(facets) +
-      aes(x=as.name(name), y=1) +
+      aes_string(x=name, y=1) +
       geom_bar()
 
     pushViewport(viewport(layout.pos.col=i))

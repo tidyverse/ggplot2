@@ -11,7 +11,7 @@ Aesthetic mappings describe how variables in the data are mapped to visual prope
 \item{...}{List of name value pairs}
 }
 
-\details{aes_string is particularly useful when writing functions that create
+\details{\code{aes_string} is particularly useful when writing functions that create
 plots because you can use strings to define the aesthetic mappings, rather
 than having to mess around with expressions.}
 \seealso{\code{\link{aes}}}

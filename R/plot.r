@@ -24,7 +24,8 @@ ggplot.default <- function(data = NULL, mapping=aes(), ...) {
   p$facet <- FacetGrid$new()
   p$scales$add_defaults(p$data, p$defaults)
 
-  (.last_plot <<- p)
+  set_last_plot(p)
+  p
 }
 
 

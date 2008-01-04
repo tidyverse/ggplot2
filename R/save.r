@@ -26,7 +26,7 @@
 #X # make twice as big as on screen
 #X ggsave(ratings, file="ratings.pdf", scale=2)
 #X }
-ggsave <- function(plot = .last_plot, filename=default_name(plot), device=default_device(filename), scale=1, width=par("din")[1], height=par("din")[2], dpi=96, ...) {
+ggsave <- function(plot = last_plot(), filename=default_name(plot), device=default_device(filename), scale=1, width=par("din")[1], height=par("din")[2], dpi=96, ...) {
 
   ps <- function(..., width, height)  grDevices::ps(..., width=width, height=height)
   tex <- function(..., width, height) grDevices::pictex(..., width=width, height=height)

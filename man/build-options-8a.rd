@@ -70,10 +70,9 @@ p # a very ugly plot!
 ggopt(background.fill = "white", background.color ="black")
 
 p <- qplot(wt, mpg, data=mtcars, colour=factor(cyl))
-p$legend.position <- c(0.9,0.9); p
-p$legend.position <- c(0.5,0.5)
-p$legend.justification <- "center"
-p
+p + opts(legend.position = c(0.9,0.9))
+(p <- p + opts(legend.position = c(0.5,0.5)))
+p + opts(legend.justification = "centre")
 
 DF <- data.frame(
 x=rnorm(20), 

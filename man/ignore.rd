@@ -100,6 +100,7 @@
 \alias{nice_ramp}
 \alias{opts}
 \alias{pd}
+\alias{plist}
 \alias{plot_clone}
 \alias{PositionDodge}
 \alias{PositionFill}
@@ -140,10 +141,12 @@
 \alias{ScaleLog2}
 \alias{ScaleLogit}
 \alias{ScaleLog}
+\alias{ScaleManual}
 \alias{ScalePow10}
 \alias{ScalePower}
 \alias{ScaleProbability}
 \alias{ScaleProbit}
+\alias{ScaleReverse}
 \alias{ScaleShape}
 \alias{ScaleSizeDiscrete}
 \alias{ScaleSize}
@@ -158,6 +161,7 @@
 \alias{scale_colour_gradient}
 \alias{scale_colour_hue}
 \alias{scale_colour_identity}
+\alias{scale_colour_manual}
 \alias{scale_fill_brewer}
 \alias{scale_fill_colour}
 \alias{scale_fill_continuous}
@@ -166,12 +170,16 @@
 \alias{scale_fill_gradient}
 \alias{scale_fill_hue}
 \alias{scale_fill_identity}
+\alias{scale_fill_manual}
 \alias{scale_linetype_identity}
+\alias{scale_linetype_manual}
 \alias{scale_linetype}
 \alias{scale_shape_identity}
+\alias{scale_shape_manual}
 \alias{scale_shape}
 \alias{scale_size_discrete}
 \alias{scale_size_identity}
+\alias{scale_size_manual}
 \alias{scale_size}
 \alias{scale_xend_asn}
 \alias{scale_xend_atanh}
@@ -186,6 +194,7 @@
 \alias{scale_xend_pow}
 \alias{scale_xend_probit}
 \alias{scale_xend_prob}
+\alias{scale_xend_reverse}
 \alias{scale_xend_sqrt}
 \alias{scale_x_asn}
 \alias{scale_x_atanh}
@@ -202,6 +211,7 @@
 \alias{scale_x_pow}
 \alias{scale_x_probit}
 \alias{scale_x_prob}
+\alias{scale_x_reverse}
 \alias{scale_x_sqrt}
 \alias{scale_yend_asn}
 \alias{scale_yend_atanh}
@@ -216,6 +226,7 @@
 \alias{scale_yend_pow}
 \alias{scale_yend_probit}
 \alias{scale_yend_prob}
+\alias{scale_yend_reverse}
 \alias{scale_yend_sqrt}
 \alias{scale_y_asn}
 \alias{scale_y_atanh}
@@ -232,6 +243,7 @@
 \alias{scale_y_pow}
 \alias{scale_y_probit}
 \alias{scale_y_prob}
+\alias{scale_y_reverse}
 \alias{scale_y_sqrt}
 \alias{scale_z_asn}
 \alias{scale_z_atanh}
@@ -247,6 +259,7 @@
 \alias{scale_z_pow}
 \alias{scale_z_probit}
 \alias{scale_z_prob}
+\alias{scale_z_reverse}
 \alias{scale_z_sqrt}
 \alias{Scale}
 \alias{StatBin}
@@ -304,6 +317,7 @@
 \alias{TransLog}
 \alias{TransPow10}
 \alias{TransProbit}
+\alias{TransReverse}
 \alias{TransSqrt}
 \alias{Trans}
 \alias{try_require}
@@ -314,7 +328,8 @@
 \alias{ymedian}
 \alias{yrange}
 \alias{\%+\%}
-
+\alias{set_last_plot}
+\alias{last_plot}
 \keyword{hplot}
 \title{See website for documentation}
 \author{Hadley Wickham <h.wickham@gmail.com>}

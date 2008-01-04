@@ -6,7 +6,7 @@
 \description{
 Save a ggplot with sensible defaults
 }
-\usage{ggsave(plot = .last_plot, filename=default_name(plot), device=default_device(filename), scale=1, width=par("din")[1], height=par("din")[2], dpi=96, ...)}
+\usage{ggsave(plot = last_plot(), filename=default_name(plot), device=default_device(filename), scale=1, width=par("din")[1], height=par("din")[2], dpi=96, ...)}
 \arguments{
 \item{plot}{plot to save, defaults to last plot displayed}
 \item{filename}{file name/path of plot}

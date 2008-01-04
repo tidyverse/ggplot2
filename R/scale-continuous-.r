@@ -27,6 +27,7 @@ ScaleContinuous <- proto(Scale, {
   }
   
   train <- function(., x) {
+    if (is.null(x)) return()
     if (!is.numeric(x)) 
       warning("Non-numeric variable supplied to continuous scale ", .$name, ".", call.=FALSE)
     if (all(is.na(x))) return()

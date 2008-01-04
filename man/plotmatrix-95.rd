@@ -15,8 +15,6 @@ Crude experimental scatterplot matrix
 
 \details{}
 
-\examples{plotmatrix(mtcars)
-plotmatrix(mtcars, aes(colour=factor(cyl)))
-plotmatrix(mtcars) + geom_smooth(method="lm")
-plotmatrix(mtcars, aes(colour=factor(cyl))) }
+\examples{plotmatrix(mtcars[, 1:3])
+plotmatrix(mtcars[, 1:3]) + geom_smooth(method="lm")}
 \keyword{hplot}

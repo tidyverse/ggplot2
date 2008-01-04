@@ -4,10 +4,8 @@
 # @arguments data frame
 # @arguments any additional aesthetic mappings (do not use x and y)
 # @keyword hplot
-#X plotmatrix(mtcars)
-#X plotmatrix(mtcars, aes(colour=factor(cyl)))
-#X plotmatrix(mtcars) + geom_smooth(method="lm")
-#X plotmatrix(mtcars, aes(colour=factor(cyl))) 
+#X plotmatrix(mtcars[, 1:3])
+#X plotmatrix(mtcars[, 1:3]) + geom_smooth(method="lm")
 plotmatrix <- function(data, mapping=aes(), colour="black") {
   data <- rescaler(data, "range")
   grid <- expand.grid(x=1:ncol(data), y=1:ncol(data))
@@ -29,17 +27,17 @@ plotmatrix <- function(data, mapping=aes(), colour="black") {
   densities <- do.call("rbind", lapply(1:ncol(data), function(i) {
     data.frame(
       xvar = names(data)[i], 
-      yvar=names(data)[i],
+      yvar = names(data)[i],
       x = data[, i]
     )
   }))
-  mapping <- defaults(mapping, aes(x=x, y=y))
+  mapping <- defaults(mapping, aes_string(x="x", y="y"))
   class(mapping) <- "uneval"
 
   ggplot(all, mapping) + facet_grid(xvar ~ yvar) +
     geom_point(colour = colour) +
     scale_x_continuous("", limits=c(0, 1), breaks = seq(0,1, length=4), labels = "") +
     scale_y_continuous("", limits=c(0, 1), breaks = seq(0,1, length=4), labels = "") + 
-    stat_density(aes(x=x, y = ..scaled..), data=densities, position="identity", fill="grey60", colour=NA)
+    stat_density(aes_string(x="x", y = "..scaled.."), data=densities, position="identity", fill="grey60", colour=NA)
 }
 
