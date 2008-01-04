@@ -25,7 +25,7 @@ GeomBoxplot <- proto(GeomInterval, {
   
   default_stat <- function(.) StatBoxplot
   default_pos <- function(.) PositionDodge
-  default_aes <- function(.) aes(weight=1, colour="grey50", fill="white", size=1)
+  default_aes <- function(.) aes(weight=1, colour="grey50", fill="white", size=1, width=0.75)
   seealso <- list(
     stat_quantile = "View quantiles conditioned on a continuous variable",
     geom_jitter = "Another way to look at conditional distributions"
