@@ -6,7 +6,8 @@ New geoms, scales and aesthetics
   * stat_step and geom_step to draw staircase plots (like plot(type="s"))
   * order aesthetic (currently only for lines/paths) allows you to control the drawing order within a group
   * scale_manual makes it easier to let ggplot uses the exact colours/sizes/linetypes that you want
-  * scale_reverse allows you to reverse the scale
+  * scale_reverse allows you to reverse the scale of x and y axes
+  * scale_grey is a new black and white scale for categorical data (colour and fill)
 
 
 Improved options handling
