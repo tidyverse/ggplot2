@@ -1,3 +1,6 @@
+require("proto")
+require("grid")
+
 # INCLUDES <- "web/graphics"
 # FILETYPE <- "html"
 

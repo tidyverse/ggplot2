@@ -330,6 +330,10 @@
 \alias{\%+\%}
 \alias{set_last_plot}
 \alias{last_plot}
+\alias{ScaleGrey}
+\alias{scale_colour_grey}
+\alias{scale_fill_grey}
+
 \keyword{hplot}
 \title{See website for documentation}
 \author{Hadley Wickham <h.wickham@gmail.com>}
