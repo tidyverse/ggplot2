@@ -2,8 +2,9 @@ GeomHistogram <- proto(GeomBar, {
   objname <- "histogram"
   desc <- "Histogram"
   
-  details <- ""
-  advice <- ""
+  details <- "<p>geom_histogram is an alias for geom_bar + stat_bin so you will need to look at the documentation for those objects to get more information about the parameters.</p>"
+
+  advice <- "<p>geom_histogram only allows you to set the width of the bins (with the binwidth parameter), not the number of bins, and it certainly does not suport the use of common heuristics to select the number of bins.  In practice, you will need to use multiple bin widths to discover all the signal in the data, and having bins with meaningful widths (rather than some arbitrary fraction of the range of the data) is more interpretable.</p> "
   
   default_stat <- function(.) StatBin
   default_pos <- function(.) PositionStack
@@ -12,8 +13,16 @@ GeomHistogram <- proto(GeomBar, {
     y <- c(0.2, 0.3, 0.5, 0.6,0.2, 0.8, 0.5, 0.3)
     rectGrob(seq(0.1, 0.9, by=0.1), y, height=y, width=0.1, vjust=1, gp=gpar(fill="grey60", col=NA))
   }
-
+  
   examples <- function(.) {
+    
+    # Simple examles
+    qplot(rating, data=movies, geom="histogram")
+    qplot(rating, data=movies, weight=votes, geom="histogram")
+    qplot(rating, data=movies, weight=votes, binwidth=1)
+    qplot(rating, data=movies, weight=votes, binwidth=0.1)
+    
+    # More complex
     m <- ggplot(movies, aes(x=rating))
     m + geom_histogram()
     m + geom_histogram(aes(y = ..density..)) + geom_density()
@@ -52,9 +61,6 @@ GeomHistogram <- proto(GeomBar, {
     hist_cut + geom_bar(position="fill")
     hist_cut + geom_bar(position="dodge")
     
-    # Use qplot instead
-    qplot(rating, data=movies, geom="histogram")
-    qplot(rating, data=movies, weight=votes, geom="histogram")
 
   }
 })
