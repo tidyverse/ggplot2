@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Uses str
 }
 \usage{print.options(x, ...)}
 \arguments{

@@ -1,5 +1,5 @@
 # dput(sort(unique(unlist(sapply(Geom$all(), function(x) names(x$default_aes()))))))
-.all_aesthetics <- c("x", "y", "z", "group", "colour", "fill", "height", "hjust", "intercept", "label", "linetype", "max", "min", "angle", "shape", "size", "slope", "vjust", "weight", "width")
+.all_aesthetics <- c("x", "y", "z", "group", "colour", "fill", "height", "hjust", "intercept", "label", "linetype", "max", "min", "angle", "shape", "size", "slope", "vjust", "weight", "width", "xend", "yend")
 
 
 # Generate aesthetic mappings

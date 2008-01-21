@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+See templates directory for examples.  Each template is auto linked.
 }
 \usage{html_template(name)}
 \arguments{

@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+This comes from the examples of some R function.
 }
 \usage{firstUpper(s)}
 \arguments{

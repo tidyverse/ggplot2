@@ -1,4 +1,4 @@
-ScaleArea <- proto(ScaleSize, .tr = Trans$find("sqrt"), objname="area", icon=function(.) ScaleSize$icon())
+ScaleArea <- proto(ScaleSize, .tr = Trans$find("sqrt"), objname="area", icon=function(.) ScaleSize$icon(), details = "")
 
 ScaleSqrt <-     proto(ScaleContinuous, .tr = Trans$find("sqrt"),     objname = "sqrt", doc=FALSE, examples=function(.) {})
 ScaleLog10 <-    proto(ScaleContinuous, .tr = Trans$find("log10"),    objname = "log10", doc=FALSE, examples=function(.) {})

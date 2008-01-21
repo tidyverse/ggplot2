@@ -11,6 +11,8 @@ match.fun.null <- function(x) {
 }
 
 # Check required aesthetics are presented
+# This is used by geoms and stats to give a more helpful error message
+# when required aesthetics are missing.
 #
 # @keyword internal
 check_required_aesthetics <- function(required, present, name) {
@@ -20,6 +22,7 @@ check_required_aesthetics <- function(required, present, name) {
   stop(name, " requires the following missing aesthetics: ", paste(missing_aes, collapse=", "), call. = FALSE)
 }
 # Apply with built in try
+# Uses compact, lapply and tryNULL
 # 
 # @keyword internal
 # @alias tryNULL
@@ -58,7 +61,8 @@ try_require <- function(package) {
     stop(paste(package, collapse=", "), " required for this functionality.  Please install and try again.", call. = FALSE)
 }
 
-# Compute unique columns
+# Return unique columns
+# This is used for figuring out which columns are constant within a group
 # 
 # @keyword internal
 uniquecols <- function(df) {

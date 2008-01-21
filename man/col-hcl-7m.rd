@@ -4,9 +4,9 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Transforms rgb to hcl, sets non-missing arguments and then backtransforms to rgb
 }
-\usage{col2hcl(colour, h = 0, c = 35, l = 85, alpha = 1)}
+\usage{col2hcl(colour, h, c, l, alpha = 1)}
 \arguments{
 \item{colour}{}
 \item{h}{}

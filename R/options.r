@@ -96,6 +96,7 @@
 }
 
 # Print options
+# Uses str
 # 
 # @keyword internal 
 print.options <- function(x, ...) str(x)

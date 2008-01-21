@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Static header template stored in templates/index.html
 }
 \usage{html_index()}
 \arguments{

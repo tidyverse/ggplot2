@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+This is used by geoms and stats to give a more helpful error message
 }
 \usage{check_required_aesthetics(required, present, name)}
 \arguments{

@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Add html links to functions
 }
 \usage{html_auto_link(input, skip="")}
 \arguments{

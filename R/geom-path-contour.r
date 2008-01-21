@@ -1,6 +1,6 @@
 GeomContour <- proto(GeomPath, {
   objname <- "contour"
-  desc <- "Display contours of a 2d surface in 3d"
+  desc <- "Display contours of a 3d surface in 2d"
   icon <- function(.) {
     ggname(.$my_name(), gTree(children=gList(
       polygonGrob(c(0.45,0.5,0.6, 0.5), c(0.5, 0.4, 0.55, 0.6)),

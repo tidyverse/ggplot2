@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+See \code{\link{html_index}} for more details
 }
 \usage{html_index_create(path="web/")}
 \arguments{

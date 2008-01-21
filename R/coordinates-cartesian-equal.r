@@ -8,9 +8,11 @@ CoordEqual <- proto(CoordCartesian, {
     xlim <- .$x()$frange()
     ylim <- .$y()$frange()
     
+    ratio <- if(is.na(.$ratio)) (diff(xlim) / diff(ylim)) else .$ratio
+    
     widest <- max(diff(xlim), diff(ylim))
-    xratio <- if (.$ratio < 1) 1 / .$ratio else 1
-    yratio <- if (.$ratio < 1) 1 else .$ratio
+    xratio <- if (ratio < 1) 1 / ratio else 1
+    yratio <- if (ratio < 1) 1 else ratio
     
     xlim <- mean(xlim) + xratio * c(-1, 1) * widest * 0.5
     ylim <- mean(ylim) + yratio * c(-1, 1) * widest * 0.5

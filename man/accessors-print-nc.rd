@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+This calls the \code{accessor_print} method for each of the main
 }
 \usage{accessors_print(file = "")}
 \arguments{

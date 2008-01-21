@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Build up index of links.
 }
 \usage{html_autolink_index()}
 \arguments{

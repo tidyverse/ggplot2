@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Build a bulleted list of objects with description and icons
 }
 \usage{html_linked_list(objects)}
 \arguments{

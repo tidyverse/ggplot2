@@ -37,7 +37,8 @@
 
 
 # Generate html for index page for documentation website.
-# 
+# Static header template stored in templates/index.html
+#
 # @keyword internal
 html_index <- function() {
   ps(
@@ -66,7 +67,8 @@ html_index <- function() {
 }
 
 # Create physical file for html documentation index
-# 
+# See \code{\link{html_index}} for more details
+#
 # @arguments path to create file in
 # @keyword internal
 html_index_create <- function(path="web/") {
@@ -76,6 +78,8 @@ html_index_create <- function(path="web/") {
 }  
 
 # Create all html documentation pages
+# Create all html pages including indices and templates.  Also converts
+# pdfs to pngs and optimises.
 # 
 # @arguments path to create files in
 # @keyword internal
@@ -96,6 +100,7 @@ all_html_pages_create <- function(path="web/") {
 }
 
 # Generate html for templated files
+# See templates directory for examples.  Each template is auto linked.
 #
 # @arguments name of template
 # @keyword internal
@@ -109,6 +114,7 @@ html_template <- function(name) {
 }
 
 # Create html file for templated files
+# See \code{\link{html_template}} for more details
 #
 # @arguments name of template
 # @arguments path to create file in
@@ -118,6 +124,7 @@ html_template_create <- function(name, path="web/") {
 }
 
 # Create all templates
+# Render all templates in templates directory
 #
 # @arguments path to create file in
 # @keyword internal
@@ -127,7 +134,8 @@ html_template_create_all <- function(path="web/") {
 }
 
 # Convenience function for generating lists of objects with their icons.
-#
+# Build a bulleted list of objects with description and icons
+# 
 # @arguments list of objects
 # @keyword internal
 html_linked_list <- function(objects) {
@@ -154,6 +162,7 @@ html_linked_list <- function(objects) {
 }
 
 # Create index of objects for automatically linking names in html
+# Build up index of links.
 # 
 # @keyword internal
 html_autolink_index <- function() {
@@ -175,6 +184,7 @@ html_autolink_index <- function() {
   )
 }
 
+# Add html links to functions
 # Add html links to functions
 # 
 # @keyword internal

@@ -26,6 +26,8 @@ create_accessors <- function(objects, name, short=NULL) {
 }
 
 # Write out all convenience accessor functions to R file.
+# This calls the \code{accessor_print} method for each of the main 
+# ggplot object types
 #
 # @keyword internal
 accessors_print <- function(file = "") {

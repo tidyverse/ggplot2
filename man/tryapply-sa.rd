@@ -5,7 +5,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Uses compact, lapply and tryNULL
 }
 \usage{tryapply(list, fun, ...)}
 \arguments{

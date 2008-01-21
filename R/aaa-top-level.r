@@ -5,6 +5,7 @@ require("grid")
 # FILETYPE <- "html"
 
 # Upper case first letter of string
+# This comes from the examples of some R function.
 # 
 # @keyword internal
 firstUpper <- function(s) {
@@ -13,7 +14,7 @@ firstUpper <- function(s) {
 
 TopLevel <- proto(expr = {
   find_all <- function(., only.documented = FALSE) {
-    names <- ls(pattern=paste("^", firstUpper(.$class()), "[A-Z].+", sep=""), .GlobalEnv)
+    names <- ls(pattern=paste("^", firstUpper(.$class()), "[A-Z].+", sep=""), parent.env(TopLevel))
     objs <- structure(lapply(names, get), names=names)
     
     if (only.documented) objs <- objs[sapply(objs, function(x) get("doc", x))]

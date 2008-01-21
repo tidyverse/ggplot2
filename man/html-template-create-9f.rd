@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+See \code{\link{html_template}} for more details
 }
 \usage{html_template_create(name, path="web/")}
 \arguments{

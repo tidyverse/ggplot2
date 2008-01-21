@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Render all templates in templates directory
 }
 \usage{html_template_create_all(path="web/")}
 \arguments{
