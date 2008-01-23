@@ -15,7 +15,7 @@ dhist <- function(x, a=5*diff(quantile(x, c(0.25,0.75))), nbins=10, rx = range(x
     ybr <- rx[1] + h * (0:nbins)
     yupper <- x + (a * (1:n))/n
 
-    # upper and lower corners in the ecdf
+    # upper and low Fer corners in the ecdf
     ylower <- yupper - a/n
 
     cmtx <- cbind(

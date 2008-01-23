@@ -41,7 +41,7 @@ ScaleIdentity <- proto(ScaleDiscrete, {
     # To get a legend, you also need to supply the labels to
     # be used on the legend, and the grob to draw them:
     # grob_tile, grob_line, or grob_point
-    qplot(1:4, 1:4, fill=colour, geom="tile") + scale_fill_identity(labels=letters[1:4], grob="tile", name="trt")
+    qplot(1:4, 1:4, fill=colour, geom="tile") + scale_fill_identity(labels=letters[1:4], guide="tile", name="trt")
     
     # cyl scaled to appropriate size
     qplot(mpg, wt, data=mtcars, size = cyl)

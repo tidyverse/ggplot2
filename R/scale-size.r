@@ -3,10 +3,10 @@ ScaleSize <- proto(ScaleContinuous, expr={
   .input <- .output  <- "size"
   
   new <- function(., name=NULL, to=c(1, 5), guide="point") {
-    .$proto(name=name, .range=to, .grob=guide)
+    .$proto(name=name, .range=to, .guide=guide)
   }
   
-  guide_legend_geom <- function(.) Geom$find(.$.grob)
+  guide_legend_geom <- function(.) Geom$find(.$.guide)
   
   objname <- "size"
   desc <- "Size scale for continuous variable"

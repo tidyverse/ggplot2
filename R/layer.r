@@ -230,12 +230,7 @@ calc_aesthetics <- function(plot, data = plot$data, aesthetics) {
   # Conditioning variables needed for facets
   cond <- plot$facet$conditionals()
   
-  # Remove aesthetics mapped to variables created by statistics
-  match <- "\\.\\.([a-zA-z._]+)\\.\\."
-  stats <- rep(F, length(aesthetics))
-  stats[grep(match, sapply(aesthetics, as.character))] <- TRUE
-  aesthetics <- aesthetics[!stats]
-  
+  aesthetics <- drop_calculated_aes(aesthetics)
   
   df <- data.frame(eval.each(aesthetics))
   df <- cbind(df, data[,intersect(names(data), cond), drop=FALSE])
@@ -244,3 +239,10 @@ calc_aesthetics <- function(plot, data = plot$data, aesthetics) {
   expand.grid.df(df, unique(plot$data[, setdiff(cond, names(df)), drop=FALSE]), unique=FALSE)
 }
 
+# Remove aesthetics mapped to variables created by statistics
+drop_calculated_aes <- function(aesthetics) {
+  match <- "\\.\\.([a-zA-z._]+)\\.\\."
+  stats <- rep(F, length(aesthetics))
+  stats[grep(match, sapply(aesthetics, as.character))] <- TRUE
+  aesthetics[!stats]
+}

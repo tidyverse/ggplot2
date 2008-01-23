@@ -14,6 +14,7 @@
 # @arguments width (in inches)
 # @arguments height (in inches)
 # @arguments dpi to use for raster graphics
+# @arguments path where file should be saved (if filename unspecified)
 # @arguments other arguments passed to graphics device
 # @keyword file 
 #X \dontrun{
@@ -26,7 +27,7 @@
 #X # make twice as big as on screen
 #X ggsave(ratings, file="ratings.pdf", scale=2)
 #X }
-ggsave <- function(plot = last_plot(), filename=default_name(plot), device=default_device(filename), scale=1, width=par("din")[1], height=par("din")[2], dpi=96, ...) {
+ggsave <- function(plot = last_plot(), filename=default_name(plot), device=default_device(filename), scale=1, width=par("din")[1], height=par("din")[2], dpi=96, path="", ...) {
 
   ps <- function(..., width, height)  grDevices::ps(..., width=width, height=height)
   tex <- function(..., width, height) grDevices::pictex(..., width=width, height=height)
@@ -37,9 +38,10 @@ ggsave <- function(plot = last_plot(), filename=default_name(plot), device=defau
   wmf <- function(..., width, height) grDevices::win.metafile(..., width=width, height=height)
   
   default_name <- function(plot) { 
-    title <- if (is.null(plot$title) || nchar(plot$title) == 0) "ggplot" else plot$title
-    clean <- tolower(gsub("[^a-zA-Z]+", "_", title))
-    paste(clean, ".pdf", sep="")
+    paste(path, digest.ggplot(plot), ".pdf", sep="")
+    # title <- if (is.null(plot$title) || nchar(plot$title) == 0) "ggplot" else plot$title
+    # clean <- tolower(gsub("[^a-zA-Z]+", "_", title))
+    # paste(clean, ".pdf", sep="")
   }
   
   default_device <- function(filename) {

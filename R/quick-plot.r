@@ -49,7 +49,8 @@ quickplot <- qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., m
   
   # Create data if not explicitly specified
   if (missing(data)) {
-    data <- as.data.frame(lapply(aesthetics, eval, parent.frame(n=1)))
+    
+    data <- as.data.frame(lapply(drop_calculated_aes(aesthetics), eval, parent.frame(n=1)))
 
     facetvars <- all.vars(facets)
     facetvars <- facetvars[facetvars != "."]

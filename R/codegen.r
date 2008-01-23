@@ -10,16 +10,6 @@ create_accessors <- function(objects, name, short=NULL) {
       ) 
     ), width.cutoff = 500)
     
-  #   if (!is.null(short)) {
-  #       output <- paste(output, deparse(substitute(
-  #         f <- function(plot, ...) plot + add(...), 
-  #         list(
-  #           add = as.name(paste(name, objname, sep="_")), 
-  #           f = as.name(paste(short, objname, sep=""))
-  #         )
-  #       )), sep="\n")
-  #       
-  #   }
     output <- paste(output, "\n", sep="")
     output
   }, objects, names(objects))

@@ -27,37 +27,7 @@ TopLevel <- proto(expr = {
   accessors <- function(.) create_accessors(.$find_all(), .$class())
   accessors_print <- function(.) invisible(lapply(.$accessors(), cat))
 
-  examples <- function(.) {
-    # Coming soon
-  }
 
-  examples_text <- function(.) {
-    source <- attr(get("examples", .), "source")
-    source <- source[-c(1, length(source))]
-    
-    unlist(lapply(source, function(x) gsub("^\t\t", "", x)))
-  }
-
-  examples_run <- function(.) {
-    ggopt(auto.print=TRUE)
-
-    tryCatch(
-      .$examples(),
-      finally = invisible(ggopt(auto.print=FALSE))
-    )
-  }
-
-  all_examples_run <- function(.) {
-    old_opt <- options(warn = 1)
-    on.exit(options(old_opt))
-    
-    tryapply(.$find_all(), function(x) {
-      cat("Running examples for", x$my_name(), "\n")
-      x$examples_run()
-    })
-    invisible()
-  }
-  
   my_name <- function(., prefix=TRUE) {
     if (!prefix) return(.$objname)
     paste(.$class(), .$objname, sep="_")
@@ -373,3 +343,5 @@ pprint <- function(x, ...) print(as.list(x), ...)
 # name.proto <- function (...) {
 #        proto(print.proto = print.default, f = proto::name.proto)$f(...)
 # }
+
+
