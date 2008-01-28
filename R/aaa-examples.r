@@ -11,29 +11,38 @@ TopLevel$examples_text <- function(.) {
 
 TopLevel$examples_run <- function(., path = NULL, verbose=TRUE) {
   if (!.$doc) return(FALSE)
+  # Set seed to ensure reproducibility of examples with random components,
+  # e.g. jittering
   set.seed(141079)
 
   require(decumar, quiet=TRUE, warn=FALSE)
-  parsed <- nice_parse(.$examples_text())
+  parsed <- supressMessages(nice_parse(.$examples_text()))
   plots <- Filter(function(x) inherits(x$value, "ggplot") && x$visible, parsed)
   
   display <- function(x) {
     if (verbose) cat(x$src, "\n")
     if (is.null(path)) {
-      print(x$value)
+      timing <- system.time(print(x$value))
     } else {      
-      ggsave(x$value, path=path)
+      timing <- system.time(ggsave(x$value, path=path))
     }
-    x$src
+    timing <- unname(timing)
+    data.frame(
+      obj = .$my_name(),
+      src = x$src,
+      hash = digest.ggplot(x$value),
+      user = timing[1],
+      sys = timing[2],
+      elapsed = timing[3],
+      stringsAsFactors = FALSE
+    )
   }
   out <- tryapply(plots, display)
-  names(out) <- sapply(plots, function(x) digest.ggplot(x$value))
-  
-  invisible(out)
+  invisible(do.call("rbind", out))
 }
 
-
 TopLevel$all_examples_run <- function(., path=NULL, verbose=TRUE) {
+  # Ensure warnings display immediately
   old_opt <- options(warn = 1)
   on.exit(options(old_opt))
   
@@ -42,18 +51,48 @@ TopLevel$all_examples_run <- function(., path=NULL, verbose=TRUE) {
     x$examples_run(path, verbose)
   })
   
-  invisible(unlist(unname(out), recursive = FALSE))
+  invisible(do.call("rbind", out))
 }
 
 # Run all examples
 all_examples_run <- function(path=NULL, verbose = TRUE) {
-  Geom$all_examples_run(path, verbose)
-  Stat$all_examples_run(path, verbose)
-  Scale$all_examples_run(path, verbose)
-  Coord$all_examples_run(path, verbose)
-  Position$all_examples_run(path, verbose)
-  Facet$all_examples_run(path, verbose)
+  invisible(rbind(
+    Geom$all_examples_run(path, verbose),
+    Stat$all_examples_run(path, verbose),
+    Scale$all_examples_run(path, verbose),
+    Coord$all_examples_run(path, verbose),
+    Position$all_examples_run(path, verbose),
+    Facet$all_examples_run(path, verbose)
+  ))
 }
+
+
+# Save all examples in consistent format -------------------------------------
+
+# Produces:
+#  * png for each example
+#  * csv with hash, code and timing info
+save_examples <- function(name = get_rev(".")) {
+  path <- paste("~/documents/ggplot/examples/ex-", name, "/", sep="")
+  dir.create(path, recursive = TRUE)
+  
+  info <- all_examples_run(path, verbose = FALSE)
+  write.table(info, file=file.path(path, "info.csv"), sep=",",col=TRUE, row=FALSE)
+  system(paste("pdf2png ", path, "*.pdf", sep =""))
+  system(paste("rm ", path, "*.pdf", sep =""))
+  
+  invisible(info)
+}
+
+get_rev <- function(path = ".") {
+  cmd <- paste("svn info ", path, "| grep 'Revision'")
+  out <- system(cmd, intern=T)
+  strsplit(out, " ")[[1]][2]
+}
+
+
+
+# Profiling code -------------------------------------------------------------
 
 TopLevel$examples_profile <- function(.) {
   sw <- stopwatch(.$examples_run())
@@ -61,7 +100,6 @@ TopLevel$examples_profile <- function(.) {
   attributes(plotting) <- attributes(sw)
   plotting
 }
-# print(plotting, 15, 4)
 
 # Trim call tree to start with specified function
 trim <- function(calltree, f) {
@@ -71,31 +109,4 @@ trim <- function(calltree, f) {
   }))
   attributes(trimmed) <- attributes(calltree)
   trimmed
-}
-
-
-TopLevel$examples_time <- function(.) {
-  system.time(.$examples_run(verbose=FALSE))
-}
-TopLevel$all_examples_time <- function(.) {
-  tryapply(.$find_all(), function(x) x$examples_time())
-}
-# t(sapply(Geom$all))
-
-save_examples <- function() {
-  rev <- get_rev(".")
-  path <- paste("~/documents/ggplot/examples/ex-", rev, "/", sep="")
-  dir.create(path, recursive = T)
-  
-  # Facet$all_examples_run(path, verbose = FALSE)
-  GeomPoint$examples_run(path, verbose = FALSE)
-  system(paste("pdf2png ", path, "*.pdf", sep =""))
-  system(paste("rm ", path, "*.pdf", sep =""))
-  
-}
-
-get_rev <- function(path = ".") {
-  cmd <- paste("svn info ", path, "| grep 'Revision'")
-  out <- system(cmd, intern=T)
-  strsplit(out, " ")[[1]][2]
 }
