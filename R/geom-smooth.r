@@ -15,6 +15,10 @@ GeomSmooth <- proto(GeomInterval, {
     ))
   }
   
+  adjust_scales_data <- function(., scales, data) {
+    data
+  }
+  
   
   default_stat <- function(.) StatSmooth
   required_aes <- c("x", "y")
