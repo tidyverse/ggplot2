@@ -1,6 +1,8 @@
 ggplot 0.6
 ----------------------------------------
 
+  * fixed bug in geom_smooth where if se=FALSE x axis always includes 0
+
 Speed and documentation.  Profiling and complete rdoc documentation
 
   * allow qplot to use computed aesthetics too
