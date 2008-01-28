@@ -5,20 +5,20 @@ bin <- function(x, weights=NULL, binwidth=NULL, breaks=NULL, range=NULL, width=0
   if (is.null(range))    range <- range(x, na.rm = TRUE, finite=TRUE)
   if (is.null(binwidth)) binwidth <- diff(range) / 30
 
-  if (diff(range) == 0) {
+  if (is.factor(x)) {
+    bins <- factor(x)
+    x <- factor(unique(x))
+    width <- width    
+  } else if (diff(range) == 0) {
     width <- width
     bins <- x
-  } else if (is.numeric(x)) {
+  } else { # if (is.numeric(x)) 
     if (is.null(breaks)) breaks <- fullseq(range, binwidth)
     bins <- cut(x, sort(breaks), include.lowest=TRUE)
     left <- breaks[-length(breaks)]
     right <- breaks[-1]
     x <- (left + right)/2
     width <- diff(breaks)
-  } else {
-    bins <- factor(x)
-    x <- factor(unique(x))
-    width <- width
   }
 
   # if (binwidth < resolution(x)) warning("Binwidth is smaller than the resolution of the data")
@@ -38,6 +38,7 @@ bin <- function(x, weights=NULL, binwidth=NULL, breaks=NULL, range=NULL, width=0
     ndensity = density / max(density, na.rm=TRUE),
     group = 1
   )
+  
   
 }
 
