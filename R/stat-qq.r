@@ -12,7 +12,7 @@ StatQq <- proto(Stat, {
   default_aes <- function(.) aes(y = ..y..)
   required_aes <- c("x", "y")
 
-  calculate <- function(., data, scales, quantiles=ppoints(length(data$x)), distribution=qnorm, ...) {
+  calculate <- function(., data, scales, quantiles=ppoints(length(data$x)), distribution=qnorm, na.rm = FALSE, ...) {
     
     if (is.null(data$y)) {
       params <- list(...)
@@ -20,9 +20,9 @@ StatQq <- proto(Stat, {
       
       qy <- suppressWarnings(do.call(distribution, c(list(quantiles), dist.params)))
     } else {
-      qy <- quantile(data$y, probs=quantiles, na.rm=TRUE)
+      qy <- quantile(data$y, probs=quantiles, na.rm=na.rm)
     }
-    qx <- quantile(data$x, probs=quantiles, na.rm=TRUE)
+    qx <- quantile(data$x, probs=quantiles, na.rm=na.rm)
   
     data.frame(x=qx, y=qy)
   }

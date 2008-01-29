@@ -1,6 +1,7 @@
 ggplot 0.6
 ----------------------------------------
 
+  * na.rm added to the following statistics: stat_boxplot, stat_contour, stat_density2d, stat_qq, stat_density
   * fixed bug in stat_bin which resulted in increased counts when the x axis was a categorical variable with a single level
   * fixed bug in geom_smooth where if se=FALSE x axis always includes 0
 

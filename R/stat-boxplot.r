@@ -14,14 +14,18 @@ StatBoxplot <- proto(Stat, {
   icon <- function(.) GeomBoxplot$icon()
   default_geom <- function(.) GeomBoxplot
   
-  calculate <- function(., data, scales, width=0.75, ...) {
+  calculate <- function(., data, scales, width=0.75, na.rm = FALSE, ...) {
+    if (is.null(data$weight)) data$weight <- 1
+
+    if (na.rm) data <- data[complete.cases(data[, c("y", "weight")]), ]
+
     x <- data$y
-    weights <- if(is.null(data$weights)) 1 else data$weights
+    weight <- data$weight
     coef <- 1.5
     
-    if (length(unique(weights)) != 1) {
+    if (length(unique(weight)) != 1) {
       try_require("quantreg")
-      stats <- as.numeric(coef(rq(x ~ 1, weight = weights, tau=c(0, 0.25, 0.5, 0.75, 1))))
+      stats <- as.numeric(coef(rq(x ~ 1, weights = weight, tau=c(0, 0.25, 0.5, 0.75, 1))))
     } else {
       stats <- as.numeric(quantile(x, c(0, 0.25, 0.5, 0.75, 1)))
     }
@@ -29,7 +33,7 @@ StatBoxplot <- proto(Stat, {
     
     iqr <- diff(stats[c(2, 4)])
     outliers <- x < (stats[2] - coef * iqr) | x > (stats[4] + coef * iqr)
-    if (any(outliers)) stats[c(1, 5)] <- range(x[!outliers], na.rm = TRUE)
+    if (any(outliers)) stats[c(1, 5)] <- range(x[!outliers], na.rm=TRUE)
     
     df <- as.data.frame(as.list(stats))
     df$outliers <- I(list(x[outliers]))

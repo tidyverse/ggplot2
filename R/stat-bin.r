@@ -1,6 +1,6 @@
-bin <- function(x, weights=NULL, binwidth=NULL, breaks=NULL, range=NULL, width=0.9) {
-  if (is.null(weights))  weights <- rep(1, length(x))
-  weights[is.na(weights)] <- 0
+bin <- function(x, weight=NULL, binwidth=NULL, breaks=NULL, range=NULL, width=0.9) {
+  if (is.null(weight))  weight <- rep(1, length(x))
+  weight[is.na(weight)] <- 0
 
   if (is.null(range))    range <- range(x, na.rm = TRUE, finite=TRUE)
   if (is.null(binwidth)) binwidth <- diff(range) / 30
@@ -24,7 +24,7 @@ bin <- function(x, weights=NULL, binwidth=NULL, breaks=NULL, range=NULL, width=0
   # if (binwidth < resolution(x)) warning("Binwidth is smaller than the resolution of the data")
 
   results <- data.frame(
-    count = as.numeric(tapply(weights, bins, sum, na.rm=TRUE)),
+    count = as.numeric(tapply(weight, bins, sum, na.rm=TRUE)),
     x = x,
     width = width
   )
@@ -83,6 +83,7 @@ StatBin <- proto(Stat, {
     ncount = "count, scaled to maximum of 1",
     ndensity = "density, scaled to maximum of 1"
   )
+  details <- "<p>Missing values are currently silently dropped.</p>"
   
   default_aes <- function(.) aes(y = ..count..)
   required_aes <- c("x")

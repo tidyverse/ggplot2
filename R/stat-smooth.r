@@ -21,11 +21,8 @@ StatSmooth <- proto(Stat, {
     if (is.character(method)) method <- match.fun(method)
     if (identical(method,loess) && is.factor(data$x)) stop("geom_smooth: loess smooth does not work with categorical data.  Maybe you want method=lm?", call.=FALSE)
     
-    params <- list(...)
-    model.params <- params[intersect(names(formals(method)), setdiff(names(params), "weights"))]
-    
     method.special <- function(...) method(formula, data=data, weights=weight, ...)
-    model <- do.call(method.special, model.params)
+    model <- safe.call(method.special, list(...), names(formals(method)))
     pred <- predict(model, data.frame(x=xseq), se=se, type="response")
 
     if (se) {

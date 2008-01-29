@@ -16,15 +16,15 @@ StatQuantile <- proto(Stat, {
   default_aes <- function(.) aes(group = ..quantile..)
   required_aes <- c("x", "y")
 
-  calculate <- function(., data, scales, quantiles=c(0.25, 0.5, 0.75), formula=y ~ x, xseq = NULL, ...) {
+  calculate <- function(., data, scales, quantiles=c(0.25, 0.5, 0.75), formula=y ~ x, xseq = NULL, method=rq, na.rm = FALSE...) {
     try_require("quantreg")
     if (is.null(data$weight)) data$weight <- 1 
 
     if (is.null(xseq)) xseq <- seq(min(data$x, na.rm=TRUE), max(data$x, na.rm=TRUE), length=100)
 
     data <- as.data.frame(data)
-    data <- data[complete.cases(data[,c("x","y")]),]
-    model <- rq(formula, data=data, tau=quantiles, weight=weight)
+    data <- remove.missing(data, na.rm, c("x", "y"), name = "stat_quantile")
+    model <- method(formula, data=data, tau=quantiles, weight=weight, ...)
 
     yhats <- t(predict(model, data.frame(x=xseq), type="matrix"))
 
@@ -38,6 +38,9 @@ StatQuantile <- proto(Stat, {
     m + stat_quantile()
     m + stat_quantile(quantiles = 0.5)
     m + stat_quantile(quantiles = seq(0.05, 0.95, by=0.05))
+
+    # Doesn't work.  Not sure why.
+    # m + stat_quantile(method = rqss, formula = y ~ qss(x), quantiles = 0.5)
 
     # Add aesthetic mappings
     m + stat_quantile(aes(weight=votes))

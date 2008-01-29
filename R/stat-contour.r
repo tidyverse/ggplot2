@@ -1,5 +1,7 @@
 StatContour <- proto(Stat, {
-  calculate <- function(., data, scales, ...) {
+  calculate <- function(., data, scales, na.rm = FALSE, ...) {
+    data <- remove.missing(data, na.rm, name = "stat_contour")
+    
     levels <- scales$get_scales("z")$breaks()
     
     gridise <- function(x) {

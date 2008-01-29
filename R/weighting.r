@@ -1,9 +1,9 @@
-# Use diamonds data instead
+  # Use diamonds data instead
 # # this is a horrible example dataset, but illustrates the point
 # p <- qplot(wt, mpg, data=mtcars, weight=cyl)
 # # Alpha blending
 # scalpha(p)
-# scalpha(p, maxalpha=0.5) # set maximum alpha level (for highest weights)
+# scalpha(p, maxalpha=0.5) # set maximum alpha level (for highest weight)
 # # Conservation of ink
 # sconserve(p)
 # sconserve(p, size.co(2, 10), alpha.to=c(1,0.5)) # set size and alpha ranges
@@ -65,26 +65,26 @@
 #     map_colour_gradient(x, low=low, high=high, from=range(c(0, x), na.rm=TRUE))
 #   }
 #   df <- data.frame(aesthetics[, c("x", "y")])
-#   w <- nulldefault(aesthetics$weights, 1:nrow(df))
+#   w <- nulldefault(aesthetics$weight, 1:nrow(df))
 #   
 #   h <- apply(df, 2, function(x) diff(range(x), na.rm=TRUE)) * radius
 #   
 #   df <- df[complete.cases(df), ]
 #   if (grid) {
-#     dens <- sm.density(df, h, weights=w, display="none", ngrid=ngrid)
+#     dens <- sm.density(df, h, weight=w, display="none", ngrid=ngrid)
 #     df <- expand.grid(x = dens$eval.points[, 1], y = dens$eval.points[, 2])
 #     col <- calccol(trans(dens$estimate))
 # 
 #     geom_tile(cbind(df, fill=col), colour=NA, ...)
 #   } else {
-#     dens <- sm.density(df, h, weights=w, eval.points=df, eval.grid=FALSE, display="none")
+#     dens <- sm.density(df, h, weight=w, eval.points=df, eval.grid=FALSE, display="none")
 #     col <- calccol(trans(dens$estimate))
 #     
 #     geom_point(cbind(df, colour=col), ...)
 #   }
 # }
 # 
-# wq <- function(x, weights=rep(1, length(x)))
-#   as.numeric(coef(rq(x ~ 1, weight = weights, tau=c(0.25, 0.5, 0.75))))
+# wq <- function(x, weight=rep(1, length(x)))
+#   as.numeric(coef(rq(x ~ 1, weight = weight, tau=c(0.25, 0.5, 0.75))))
 #   
 # q <- function(x) as.numeric(quantile(x, c(0.25, 0.5, 0.75)))

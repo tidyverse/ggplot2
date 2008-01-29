@@ -71,6 +71,24 @@ uniquecols <- function(df) {
   df
 }
 
+safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRUE) {
+  if (!ignore.dots && "..." %in% f.params) {
+    safe.params <- params
+  } else {
+    safe.params <- params[intersect(f.params, names(params))]    
+  }
+  do.call(f, safe.params)
+}
+
+
+remove.missing <- function(df, na.rm=FALSE, vars = names(df), name="") {
+  missing <- !complete.cases(df[, vars])
+  if (any(missing)) {
+    df <- df[!missing, ]
+    if (!na.rm) warning("Removed missing values in ", name, call. = FALSE)
+  }
+  df
+}
 
 # Traceback
 # Redefine trace back to work better with \\code{\\link{do.call}}

@@ -16,7 +16,8 @@ TopLevel$examples_run <- function(., path = NULL, verbose=TRUE) {
   set.seed(141079)
 
   require(decumar, quiet=TRUE, warn=FALSE)
-  parsed <- supressMessages(nice_parse(.$examples_text()))
+  quiet <- if (verbose) force else suppressMessages
+  parsed <- quiet(nice_parse(.$examples_text()))
   plots <- Filter(function(x) inherits(x$value, "ggplot") && x$visible, parsed)
   
   display <- function(x) {
