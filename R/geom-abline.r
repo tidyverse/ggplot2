@@ -3,10 +3,10 @@ GeomAbline <- proto(Geom, {
     if (missing(data)) {
       data <- data.frame(intercept = intercept, slope=slope)
     }
-    mapping <- defaults(mapping, aes(intercept=intercept, slope=slope, x=NULL, y=NULL, group=1, colour=NULL, fill=NULL, shape=NULL))
+    mapping <- defaults(mapping, aes(intercept=intercept, slope=slope))
     class(mapping) <- "uneval"
     
-    layer(mapping=mapping, data=data, geom = ., geom_params = list(...))
+    layer(mapping=mapping, data=data, geom = ., geom_params = list(...), ignore.extra = TRUE)
   }
 
   draw <- function(., data, scales, coordinates, ...) {

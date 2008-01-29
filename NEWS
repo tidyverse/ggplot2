@@ -1,6 +1,7 @@
 ggplot 0.6
 ----------------------------------------
 
+  * geom_vline, geom_hline and geom_abline should now behave better in a wider variety of settings
   * convenient auto wrapping of simple summary functions for stat_sum
   * better documentation for stat_sum
   * na.rm added to the following statistics: stat_boxplot, stat_contour, stat_density2d, stat_qq, stat_density

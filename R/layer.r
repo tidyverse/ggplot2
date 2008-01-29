@@ -19,8 +19,9 @@ Layer <- proto(expr = {
   mapping <- NULL
   position <- NULL
   params <- NULL
+  ignore.extra <- FALSE
   
-  new <- function (., geom=NULL, geom_params=NULL, stat=NULL, stat_params=NULL, data=NULL, mapping=NULL, position=NULL, params=NULL, ...) {
+  new <- function (., geom=NULL, geom_params=NULL, stat=NULL, stat_params=NULL, data=NULL, mapping=NULL, position=NULL, params=NULL, ..., ignore.extra = FALSE) {
     
     if (is.null(geom) && is.null(stat)) stop("Need at least one of stat and geom")
     
@@ -50,7 +51,13 @@ Layer <- proto(expr = {
       stat_params <- match.params(stat$parameters(), params)
     }
     
-    proto(., geom=geom, geom_params=geom_params, stat=stat, stat_params=stat_params, data=data, aesthetics=mapping, position=position)
+    proto(., 
+      geom=geom, geom_params=geom_params, 
+      stat=stat, stat_params=stat_params, 
+      data=data, aesthetics=mapping, 
+      position=position,
+      ignore.extra = ignore.extra
+    )
   }
   
   clone <- function(.) as.proto(.$as.list())
@@ -97,7 +104,7 @@ Layer <- proto(expr = {
     aesthetics <- aesthetics[setdiff(names(aesthetics), names(.$geom_params))]
     plot$scales$add_defaults(plot$data, aesthetics)
     
-    calc_aesthetics(plot, data, aesthetics)
+    calc_aesthetics(plot, data, aesthetics, .$ignore.extra)
   }
 
   calc_statistics <- function(., data, scales) {
@@ -222,11 +229,13 @@ layer <- Layer$new
 # @arguments extra arguments supplied by user that should be used first
 # @keyword hplot
 # @keyword internal
-calc_aesthetics <- function(plot, data = plot$data, aesthetics) {
+calc_aesthetics <- function(plot, data = plot$data, aesthetics, ignore.extra = FALSE) {
   if (is.null(data)) data <- plot$data
   if (!is.data.frame(data)) stop("data is not a data.frame")
   
-  eval.each <- function(dots) lapply(dots, function(x) eval(x, data, parent.frame()))
+  
+  apply <- if (ignore.extra) tryapply else lapply
+  eval.each <- function(dots) apply(dots, function(x) eval(x, data, parent.frame()))
   # Conditioning variables needed for facets
   cond <- plot$facet$conditionals()
   

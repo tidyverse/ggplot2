@@ -3,9 +3,9 @@ GeomHline <- proto(Geom, {
     if (missing(data)) {
       data <- data.frame(intercept = intercept)
     }
-    mapping <- defaults(mapping, aes(intercept=intercept, x=NULL, y=NULL, group=1, colour=NULL, fill=NULL, shape=NULL))
+    mapping <- defaults(mapping, aes(intercept=intercept))
     class(mapping) <- "uneval"
-    layer(mapping=mapping, data=data, geom = ., geom_params = list(...))
+    layer(mapping=mapping, data=data, geom = ., geom_params = list(...), , ignore.extra = TRUE)
   }
 
   draw <- function(., data, scales, coordinates, ...) {
