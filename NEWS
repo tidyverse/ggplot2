@@ -1,11 +1,12 @@
 ggplot 0.6
 ----------------------------------------
 
+  * the middle line geom_crossbar is now display thicker than the other lines, controlled by the parameter fatten (thanks to Heike Hofmann for the suggestion)
   * geom_vline, geom_hline and geom_abline should now behave better in a wider variety of settings
   * convenient auto wrapping of simple summary functions for stat_sum
   * better documentation for stat_sum
-  * na.rm added to the following statistics: stat_boxplot, stat_contour, stat_density2d, stat_qq, stat_density
-  * fixed bug in stat_bin which resulted in increased counts when the x axis was a categorical variable with a single level
+  * na.rm added to the following statistics: stat_boxplot, stat_contour, stat_density2d, stat_qq, stat_density (thanks to Leena Choi for suggesting this)
+  * fixed bug in stat_bin which resulted in increased counts when the x axis was a categorical variable with a single level (thanks to Bob Muenchen for pointing this out!)
   * fixed bug in geom_smooth where if se=FALSE x axis always includes 0
 
 Speed and documentation.  Profiling and complete rdoc documentation
