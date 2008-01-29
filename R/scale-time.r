@@ -57,7 +57,7 @@ ScaleDate <- proto(ScaleContinuous,{
   desc <- "Continuous scale for date variables"
   
   icon <- function(.) {
-    textGrob("1/1/2007", gp=gpar(cex=1))
+    textGrob("14/10/1979", gp=gpar(cex=1))
   }
 
   details <- "<p>Currently somewhat broken due to lack of support for dates in R.</p>"
