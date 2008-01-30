@@ -161,6 +161,7 @@ stat_quantile <- StatQuantile$new
 stat_smooth <- StatSmooth$new
 stat_sort <- StatSort$new
 stat_sort_angle <- StatSortAngle$new
+stat_spoke <- StatSpoke$new
 stat_step <- StatStep$new
 stat_sum <- StatSum$new
 stat_summary <- StatSummary$new
