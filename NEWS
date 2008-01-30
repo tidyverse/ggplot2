@@ -1,6 +1,7 @@
 ggplot 0.6
 ----------------------------------------
 
+  * new stat_function makes it easy to superimpose a function on the plot
   * the middle line geom_crossbar is now display thicker than the other lines, controlled by the parameter fatten (thanks to Heike Hofmann for the suggestion)
   * geom_vline, geom_hline and geom_abline should now behave better in a wider variety of settings
   * convenient auto wrapping of simple summary functions for stat_sum

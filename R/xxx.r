@@ -154,6 +154,7 @@ stat_boxplot <- StatBoxplot$new
 stat_contour <- StatContour$new
 stat_density <- StatDensity$new
 stat_density_2d <- StatDensity2d$new
+stat_function <- StatFunction$new
 stat_identity <- StatIdentity$new
 stat_qq <- StatQq$new
 stat_quantile <- StatQuantile$new
