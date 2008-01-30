@@ -27,6 +27,7 @@ geom_pointrange <- GeomPointrange$new
 geom_polygon <- GeomPolygon$new
 geom_quantile <- GeomQuantile$new
 geom_ribbon <- GeomRibbon$new
+geom_rug <- GeomRug$new
 geom_segment <- GeomSegment$new
 geom_smooth <- GeomSmooth$new
 geom_step <- GeomStep$new
