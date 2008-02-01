@@ -34,7 +34,7 @@ GeomSegment <- proto(Geom, {
 
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y", "xend", "yend")
-  default_aes <- function(.) aes(colour="black", size=0, linetype=1)
+  default_aes <- function(.) aes(colour="black", size=1, linetype=1)
   
   examples <- function(.) {
     require("maps")
