@@ -234,8 +234,8 @@ calc_aesthetics <- function(plot, data = plot$data, aesthetics, ignore.extra = F
   if (!is.data.frame(data)) stop("data is not a data.frame")
   
   
-  apply <- if (ignore.extra) tryapply else lapply
-  eval.each <- function(dots) apply(dots, function(x) eval(x, data, parent.frame()))
+  err <- if (ignore.extra) tryNULL else force
+  eval.each <- function(dots) compact(lapply(dots, function(x.) err(eval(x., data, parent.frame()))))
   # Conditioning variables needed for facets
   cond <- plot$facet$conditionals()
   
