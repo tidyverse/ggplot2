@@ -2,7 +2,7 @@ StatSummary <- proto(Stat, {
   objname <- "summary" 
   desc <- "Summarise y values at every unique x"
   
-  details <- "<p>stat_summary allows for tremendous flexibilty in the specification of summary functions.  Currently this is not well documented, but you can see some examples below, or contact me if you'd like more details.</p>"
+  details <- "<p>stat_summary allows for tremendous flexibilty in the specification of summary functions.  The summary function can either operate on a data frame (with argument name data) or on a vector.  A simple vector function is easiest to work with as you can return a single number, but is somewhat less flexible.  If your summary function operates on a data.frame it should return a data frame with variables that the geom can use.</p>"
   
   default_geom <- function(.) GeomPointrange
   required_aes <- c("x", "y")
