@@ -1,6 +1,7 @@
 ggplot 0.6
 ----------------------------------------
   
+  * fix scale adjustment bug in geom_density
   * new geom_rug to add marginal rug plots
   * all discrete scales now have labels argument which you can use to override the factor levels
   * new stat_spoke to make it possible to use geom_segment parameterised by angle and radius (thanks to Jiho for the suggestion)

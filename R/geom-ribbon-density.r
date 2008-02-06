@@ -10,14 +10,6 @@ GeomDensity <- proto(GeomArea, {
   default_stat <- function(.) StatDensity
   default_pos <- function(.) PositionIdentity
 
-  adjust_scales_data <- function(., scales, data) {
-    y <- scales$get_scales("y")
-    y$train(0)
-    if (!is.null(data$min)) {
-      y$train(data$max)
-    }
-    data
-  }
   
   seealso <- list(
     geom_histogram = "for the histogram"
