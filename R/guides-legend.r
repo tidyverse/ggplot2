@@ -39,20 +39,31 @@ gglegend <- function(legend, usage=usage) {
   
   nkeys <- nrow(display)
   hgap <- vgap <- unit(0.3, "lines")
+
   
   label.heights <- do.call("unit.c", lapply(display$label, function(x) stringHeight(as.expression(x))))
   label.widths  <- do.call("unit.c", lapply(display$label, function(x) stringWidth(as.expression(x))))
 
+  grobwidth <- if ("point" %in% usage[aesthetics] && !is.null(display$size)) {
+    unit(max(display$size) / 2, "mm")
+  } else {
+    unit(0, "mm")
+  }
   widths <- unit.c(
     unit(1.4, "lines"), 
     hgap, 
-    max(unit.c(unit(1, "grobwidth", title) - unit(1.4, "lines") - 2 * hgap), label.widths),
+    max(
+      unit.c(unit(1, "grobwidth", title) - unit(1.4, "lines") - 2 * hgap),
+      label.widths,
+      grobwidth 
+    ),
     hgap
   )
 
+  grobheight <- unit(nulldefault(display$size, 0), "mm")
   heights <- unit.c(
     unit(1, "grobheight", title) + 2 * vgap, 
-    unit.pmax(unit(1.4, "lines"), vgap + label.heights)
+    unit.pmax(unit(1.4, "lines"), vgap + label.heights, grobheight)
   )  
 
   # Layout the legend table

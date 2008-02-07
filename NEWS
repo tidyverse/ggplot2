@@ -1,6 +1,7 @@
 ggplot 0.6
 ----------------------------------------
 
+  * size legends resize to avoid overlaps
   * preliminary legend merging code:
      * consequence: legend type no longer specified in scale (e.g. size, identity, manual), but derived from geoms used
   * fix scale adjustment bug in geom_density

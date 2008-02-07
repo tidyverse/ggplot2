@@ -65,7 +65,7 @@ ScaleContinuous <- proto(Scale, {
   
   labels <- function(.) {
     if (!is.null(.$.labels)) return(.$.labels)
-    b <- .$breaks()
+    b <- .$rbreaks()
 
     l <- .$.tr$label(b)
     numeric <- sapply(l, is.numeric)
