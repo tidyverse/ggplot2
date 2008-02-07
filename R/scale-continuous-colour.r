@@ -18,7 +18,6 @@ ScaleGradient <- proto(ScaleContinuous, expr={
   }
   
   rbreaks <- function(.) .$map(.$breaks())
-  guide_legend_geom <- function(.) GeomTile
   common <- c("colour", "fill")
 
   # Documetation -----------------------------------------------
@@ -111,7 +110,6 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
   }
   
   rbreaks <- function(.) .$map(.$breaks())
-  guide_legend_geom <- function(.) GeomTile
   
   objname <-"gradient2"
   common <- c("colour", "fill")

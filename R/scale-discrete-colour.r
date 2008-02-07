@@ -2,17 +2,23 @@ ScaleColour <- proto(ScaleDiscrete, expr={
   common <- c("colour", "fill")
   objname <- "colour"
   doc <- FALSE
-  guide_legend_geom <- function(.) GeomTile
 })
 
 ScaleHue <- proto(ScaleColour, expr={
-  new <- function(., name=NULL, h=c(0,360), l=65, c=100, alpha=1, labels=NULL, variable) {
-    .$proto(name=name, h=h, l=l, c=c, alpha=alpha, .input=variable, .output=variable, .lables = labels)
+  new <- function(., name=NULL, h=c(0,360), l=65, c=100, alpha=1, labels=NULL, h.start = 0, direction = 1,  variable) {
+    .$proto(name=name, h=h, l=l, c=c, alpha=alpha, .input=variable, .output=variable, .labels = labels, direction = direction, start  = h.start)
   }
   
   breaks <- function(.) {
+    rotate <- function(x) (x + .$start) %% 360 * .$direction
+    
     n <- length(.$domain())
-    grDevices::hcl(seq(.$h[1], .$h[2], length = n+1), c=.$c, l=.$l, alpha=.$alpha)[-(n+1)]
+    grDevices::hcl(
+      h = rotate(seq(.$h[1], .$h[2], length = n+1)), 
+      c =.$c, 
+      l =.$l, 
+      alpha=.$alpha
+    )[-(n+1)]
   }
   max_levels <- function(.) Inf
 
@@ -68,7 +74,7 @@ ScaleBrewer <- proto(ScaleColour, expr={
   doc <- TRUE
 
   new <- function(., name=NULL, palette=1, type="qual", alpha=1, reverse = FALSE, labels=NULL, variable) {
-    .$proto(name=name, palette=palette, type=type, .input=variable, .output=variable, .alpha=alpha, .reverse = reverse, .lables = labels)
+    .$proto(name=name, palette=palette, type=type, .input=variable, .output=variable, .alpha=alpha, .reverse = reverse, .labels = labels)
   }
 
   breaks <- function(.) {

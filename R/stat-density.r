@@ -70,6 +70,9 @@ StatDensity <- proto(Stat, {
     
     # Also useful with
     m + stat_bin()
+    
+    # Make a volcano plot
+    ggplot(diamonds, aes(x = price)) + geom_density(aes(min = -..density.., adjust= 0.5),fill="grey50", colour=NA) + facet_grid(. ~ cut) + coord_flip() 
 
     # Stacked density plots
     # If you want to create a stacked density plot, you need to use

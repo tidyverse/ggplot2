@@ -104,8 +104,6 @@ Scale <- proto(TopLevel, expr={
     if (newline) cat("\n") 
   }
   
-  guide_legend_geom <- function(.) GeomPoint
-  
   html_returns <- function(.) {
     ps(
       "<h2>Returns</h2>\n",
@@ -114,60 +112,20 @@ Scale <- proto(TopLevel, expr={
   }
   # Guides
   # ---------------------------------------------
-  
-  guide_legend <- function(.) {
-    if (identical(., Scale)) return(NULL)
-    if (!.$legend) return(NULL)
+  legend_desc <- function(.) {
+    if (identical(., Scale) || !.$legend) return()
     
-    reverse <- rev # if (.$.reverse) force else rev
-    labels <- reverse(.$labels())
-    breaks <- reverse(.$rbreaks())
-
-    if (is.null(breaks)) return(NULL)
-    grob <- function(data) .$guide_legend_geom()$draw_legend(data)
-
-    title <- ggname("title", textGrob(.$name, x = 0, y = 0.5, just = c("left", "centre"), 
-      gp=gpar(fontface="bold")
-    ))
-
-    nkeys <- length(labels)
-    hgap <- vgap <- unit(0.3, "lines")
-
-    values <- data.frame(breaks)
-    names(values) <- .$output()
+    breaks <- .$rbreaks()
+    if (is.null(breaks)) return()
     
-    label.heights <- do.call("unit.c", lapply(labels, function(x) stringHeight(as.expression(x))))
-    label.widths <- do.call("unit.c", lapply(labels, function(x) stringWidth(as.expression(x))))
-    
-    widths <- unit.c(
-      unit(1.4, "lines"), 
-      hgap, 
-      max(unit.c(unit(1, "grobwidth", title) - unit(1.4, "lines") - 2 * hgap), label.widths),
-      hgap
+    df <- data.frame(breaks, stringsAsFactors = FALSE)
+    names(df) <- .$output()
+    df$label <- .$labels()
+    list(
+      name = .$name,
+      aesthetic = .$output(),
+      display = df
     )
-
-    heights <- unit.c(
-      unit(1, "grobheight", title) + 2 * vgap, 
-      unit.pmax(unit(1.4, "lines"), vgap + label.heights)
-    )  
-
-    # Make a table
-    legend.layout <- grid.layout(nkeys + 1, 4, widths = widths, heights = heights, just=c("left","top"))
-    fg <- ggname(.$my_name(), frameGrob(layout = legend.layout))
-    #fg <- placeGrob(fg, rectGrob(gp=gpar(fill="NA", col="NA", name="legend-background")))
-    
-    numeric_labels <- all(sapply(labels, is.language)) || suppressWarnings(all(!is.na(sapply(labels, "as.numeric"))))
-    valign <- if(numeric_labels) "right" else "left"
-    vpos   <- if(numeric_labels) 1 else 0
-
-    fg <- placeGrob(fg, title, col=1:2, row=1)
-    for (i in 1:nkeys) {
-      df <- as.list(values[i,, drop=FALSE])
-      fg <- placeGrob(fg, ggname("key", grob(df)), col = 1, row = i+1)
-      fg <- placeGrob(fg, ggname("label", textGrob(labels[[i]], x = vpos, y = 0.5, just = c(valign, "centre"))), col = 3, row = i+1)
-    }
-
-    fg
   }
   
   call <- function(.) {    

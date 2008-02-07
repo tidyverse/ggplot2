@@ -6,8 +6,10 @@ GeomRibbon <- proto(GeomInterval, {
     if (!"y" %in% scales$input()) {
       scales$add(ScaleContinuous$new(variable="y"))  
     }
+
     y <- scales$get_scales("y")
     y$train(data$min)
+    y$train(data$y)
     y$train(data$max)
   }
 

@@ -16,6 +16,8 @@ Geom <- proto(TopLevel, expr={
   default_aes <- function(.) {}
   default_pos <- function(.) PositionIdentity
 
+  guide_geom <- function(.) "point"
+
   draw <- function(...) {}
   draw_groups <- function(., data, scales, coordinates, ...) {
     if (is.null(data) || nrow(data) == 0) return()

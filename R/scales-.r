@@ -52,10 +52,9 @@ Scales <- proto(Scale, expr={
     sapply(.$.scales, function(scale) scale$input())
   }
   
-  guide_legend <- function(.) {
-    legs <- compact(lapply(.$.scales, function(x) x$guide_legend()))
-    legs[sapply(legs, length) == 0] <- NULL
-    legs
+  guide_legend <- function(., usage) {
+    legends <- compact(lapply(.$.scales, function(x) x$legend_desc()))
+    gglegends(legends, usage)
   }
   
   # Train scale from a data frame

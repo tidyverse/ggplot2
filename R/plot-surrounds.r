@@ -24,7 +24,8 @@ prettyplot <- function(plot, plotgrob, scales=plot$scales, cs=plot$coordinates) 
   horiz <- any(c("top", "bottom") %in% position)
   vert <-  any(c("left", "right") %in% position)
   
-  legend <- if (position != "none") legends(scales, horiz) else NULL
+  
+  legend <- if (position != "none") legends(scales, scale_usage(plot), horiz) else NULL
   if (is.null(legend)) position <- "none"
   
   gp <- gpar(fill=plot$background.fill, col=plot$background.colour)
@@ -101,4 +102,17 @@ prettyplot <- function(plot, plotgrob, scales=plot$scales, cs=plot$coordinates) 
   }
   
   lf
+}
+
+scale_usage <- function(plot) {
+  aesthetics <- lapply(plot$layers, function(p) c(names(p$aesthetics), names(plot$defaults)))
+  names(aesthetics) <- sapply(plot$layers, function(p) p$geom$guide_geom())
+  
+  lapply(invert(aesthetics), unique)
+}
+
+invert <- function(L) {
+  t1 <- unlist(L)
+  names(t1) <- rep(names(L), lapply(L, length))
+  tapply(names(t1), t1, c)
 }

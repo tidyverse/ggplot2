@@ -4,7 +4,6 @@ ScaleLinetype <- proto(ScaleDiscrete, expr={
 
   frange <- function(.) (1:4)[1:length(.$domain())]
   max_levels <- function(.) 4
-  guide_legend_geom <- function(.) GeomPath
   
   # Documetation -----------------------------------------------
 

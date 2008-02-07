@@ -2,11 +2,9 @@ ScaleSize <- proto(ScaleContinuous, expr={
   common <- NULL
   .input <- .output  <- "size"
   
-  new <- function(., name=NULL, to=c(1, 5), guide="point") {
-    .$proto(name=name, .range=to, .guide=guide)
+  new <- function(., name=NULL, to=c(1, 5)) {
+    .$proto(name=name, .range=to)
   }
-  
-  guide_legend_geom <- function(.) Geom$find(.$.guide)
   
   objname <- "size"
   desc <- "Size scale for continuous variable"
@@ -48,5 +46,4 @@ ScaleSizeDiscrete <- proto(ScaleDiscrete, expr={
   doc <- FALSE
 
   max_levels <- function(.) Inf
-  guide_legend_geom <- function(.) GeomPoint
 }) 

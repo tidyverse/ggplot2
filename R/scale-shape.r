@@ -16,7 +16,6 @@ ScaleShape <- proto(ScaleDiscrete, expr={
   }
 
   max_levels <- function(.) 6
-  guide_legend_geom <- function(.) GeomPoint
   
   # Documetation -----------------------------------------------
   objname <- "shape"

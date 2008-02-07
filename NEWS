@@ -1,6 +1,8 @@
 ggplot 0.6
 ----------------------------------------
-  
+
+  * preliminary legend merging code:
+     * consequence: legend type no longer specified in scale (e.g. size, identity, manual), but derived from geoms used
   * fix scale adjustment bug in geom_density
   * new geom_rug to add marginal rug plots
   * all discrete scales now have labels argument which you can use to override the factor levels

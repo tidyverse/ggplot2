@@ -2,8 +2,8 @@ ScaleManual <- proto(ScaleDiscrete, {
   common <- c("colour","fill","size","shape","linetype")
   .values <- c()
   
-  new <- function(., name=NULL, values=NULL, guide="point", variable="x") {
-    .$proto(name=name, .values=values, .guide=guide, .input=variable, .output=variable)
+  new <- function(., name=NULL, values=NULL, variable="x") {
+    .$proto(name=name, .values=values, .input=variable, .output=variable)
   }
 
   map <- function(., values) {
@@ -20,12 +20,6 @@ ScaleManual <- proto(ScaleDiscrete, {
   breaks <- function(.) .$.values
   labels <- function(.) if (.$has_names()) names(.$breaks()) else .$.domain
 
-  guide_legend_geom <- function(.) Geom$find(.$.guide)
-  
-  guide_legend <- function(.) {
-    .super$guide_legend(.)
-  }
-  
   # Documetation -----------------------------------------------
 
   objname <- "manual"

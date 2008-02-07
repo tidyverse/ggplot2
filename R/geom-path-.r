@@ -59,6 +59,7 @@ GeomPath <- proto(Geom, {
   required_aes <- c("x", "y")
   default_aes <- function(.) aes(colour="black", size=1, linetype=1)
   icon <- function(.) linesGrob(c(0.2, 0.4, 0.8, 0.6, 0.5), c(0.2, 0.7, 0.4, 0.1, 0.5))
+  guide_geom <- function(.) "path"
   
   seealso <- list(
     geom_line = "Functional (ordered) lines", 
