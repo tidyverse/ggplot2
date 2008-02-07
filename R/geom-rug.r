@@ -6,7 +6,7 @@ GeomRug <- proto(Geom, {
       rugs$x <- with(data, segmentsGrob(
         x0 = unit(x, "native"), x1 = unit(x, "native"), 
         y0 = unit(0, "npc"), y1 = unit(0.03, "npc"),
-        gp = gpar(col = colour, lty = linetype, lwd = size)
+        gp = gpar(col = colour, lty = linetype, lwd = size * .pt)
       ))
     }  
 
@@ -14,7 +14,7 @@ GeomRug <- proto(Geom, {
       rugs$y <- with(data, segmentsGrob(
         y0 = unit(y, "native"), y1 = unit(y, "native"), 
         x0 = unit(0, "npc"), x1 = unit(0.03, "npc"),
-        gp = gpar(col = colour, lty = linetype, lwd = size)
+        gp = gpar(col = colour, lty = linetype, lwd = size * .pt)
       ))
     }  
     
@@ -28,7 +28,7 @@ GeomRug <- proto(Geom, {
   desc <- "Marginal rug plots"
   
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour="black", size=1, linetype = 1)
+  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1)
 
   examples <- function(.) {
     p <- ggplot(mtcars, aes(x=wt, y=mpg))

@@ -21,7 +21,7 @@ GeomPointrange <- proto(GeomInterval, {
   draw <- function(., data, scales, coordinates, ...) {
     if (is.null(data$y)) return(GeomLinerange$draw(data, scales, coordinates, ...))
     ggname(.$my_name(),gTree(children=gList(
-      GeomLinerange$draw(data, scales, coordinates, ...),
+      GeomLinerange$draw(transform(data, size = size / 2), scales, coordinates, ...),
       GeomPoint$draw(data, scales, coordinates, ...)
     )))
   }

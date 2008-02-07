@@ -8,7 +8,7 @@ GeomSegment <- proto(Geom, {
     munched <- cbind(munched_starts, munched_ends[,c("xend", "yend")])
     with(munched, 
       segmentsGrob(x, y, xend, yend, default.units="native",
-      gp=gpar(col=colour, lwd=size, lty=linetype), arrow = arrow)
+      gp=gpar(col=colour, lwd=size * .pt, lty=linetype), arrow = arrow)
     )
   }
   
@@ -34,7 +34,7 @@ GeomSegment <- proto(Geom, {
 
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y", "xend", "yend")
-  default_aes <- function(.) aes(colour="black", size=1, linetype=1)
+  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1)
   
   examples <- function(.) {
     require("maps")

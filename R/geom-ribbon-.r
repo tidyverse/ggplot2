@@ -27,7 +27,7 @@ GeomRibbon <- proto(GeomInterval, {
       ggname("outline", polygonGrob(
         tb$x, tb$y,
         default.units="native",
-        gp=gpar(fill=NA, col=colour, lwd=size, lty=linetype)
+        gp=gpar(fill=NA, col=colour, lwd=size * .pt, lty=linetype)
       ))
     ))))
   }
@@ -74,7 +74,7 @@ GeomRibbon <- proto(GeomInterval, {
 })
 
 GeomArea <- proto(GeomRibbon,{
-  default_aes <- function(.) aes(colour="grey60", fill="grey80", min=0, max=y, size=1, linetype=1)
+  default_aes <- function(.) aes(colour="grey60", fill="grey80", min=0, max=y, size=0.5, linetype=1)
   default_pos <- function(.) PositionStack
   required_aes <- c("x", "y", "min", "max")
 

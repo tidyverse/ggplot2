@@ -2,7 +2,7 @@ GeomText <- proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {
     with(coordinates$transform(data), 
       textGrob(label, x, y, default.units="native", hjust=hjust, vjust=vjust, rot=angle, 
-      gp=gpar(col=colour, cex=size)) 
+      gp=gpar(col=colour, fontsize=size * .pt)) 
     )
   }
 
@@ -12,7 +12,8 @@ GeomText <- proto(Geom, {
   
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y", "label")
-  default_aes <- function(.) aes(colour="black", size=1, angle=0, hjust=0.5, vjust=0.5)
+  default_aes <- function(.) aes(colour="black", size=5, angle=0, hjust=0.5, vjust=0.5)
+  guide_geom <- function(x) "line"
   
   examples <- function(.) {
     p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))
@@ -30,7 +31,7 @@ GeomText <- proto(Geom, {
     p + geom_text(aes(colour=factor(cyl))) + scale_colour_discrete(l=40)
     
     p + geom_text(aes(size=wt))
-    p + geom_text(aes(size=wt)) + scale_size(to=c(0.5,1.5))
+    p + geom_text(aes(size=wt)) + scale_size(to=c(3,6))
     
     # Use qplot instead
     qplot(wt, mpg, data=mtcars, label=rownames(mtcars), geom=c("point","text"))
