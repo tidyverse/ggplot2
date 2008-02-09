@@ -1,7 +1,7 @@
 # Functions for comparing images produced by two different versions of ggplot.
 
-a <- "~/Desktop/test-1/"
-b <- "~/Desktop/test-2/"
+# a <- "~/Desktop/test-1/"
+# b <- "~/Desktop/test-2/"
 
 dir_diff <- function(a, b) {
   files_a <- dir(a)

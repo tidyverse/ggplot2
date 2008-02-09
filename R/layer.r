@@ -63,8 +63,9 @@ Layer <- proto(expr = {
   clone <- function(.) as.proto(.$as.list())
   
   use_defaults <- function(., data) {
+    # browser()
     df <- aesdefaults(data, .$geom$default_aes(), compact(.$aesthetics))
-    gp <- intersect(names(.$geom$parameters()), names(.$geom_params))
+    gp <- intersect(names(df), names(.$geom_params))
     if (length(.$geom_params[gp])) 
       gp <- gp[sapply(.$geom_params[gp], is.atomic)]
     df[gp] <- .$geom_params[gp]
@@ -132,7 +133,7 @@ Layer <- proto(expr = {
   }
   
   map_statistic <- function(., data, plot) {
-    if (is.null(data) || nrow(data) == 0) return()
+    if (is.null(data) || length(data) == 0 || nrow(data) == 0) return()
     aesthetics <- defaults(.$aesthetics, defaults(plot$defaults, .$stat$default_aes()))
     
     match <- "\\.\\.([a-zA-z._]+)\\.\\."
@@ -240,8 +241,10 @@ calc_aesthetics <- function(plot, data = plot$data, aesthetics, ignore.extra = F
   cond <- plot$facet$conditionals()
   
   aesthetics <- drop_calculated_aes(aesthetics)
+  evaled <- eval.each(aesthetics)
+  evaled <- evaled[sapply(evaled, is.atomic)]
   
-  df <- data.frame(eval.each(aesthetics))
+  df <- data.frame(evaled)
   df <- cbind(df, data[,intersect(names(data), cond), drop=FALSE])
   
   if (is.null(plot$data)) return(df)

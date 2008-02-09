@@ -1,6 +1,8 @@
 ggplot 0.6
 ----------------------------------------
 
+  * min and max are now scaled the same way as y
+  * functions are silently dropped (e.g. aes(colour=col))
   * all size measurements (now lines and text as well) are measured in mm, lines/paths default to paths 0.5mm wide
   * size legends resize to avoid overlaps
   * preliminary legend merging code:

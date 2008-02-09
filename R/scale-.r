@@ -78,9 +78,16 @@ Scale <- proto(TopLevel, expr={
   }
 
   transform_df <- function(., df) {
-    df <- data.frame(.$stransform(df[, .$input()]))
+    input <- .$input()
+    output <- .$output()
+    transform <- function(var) .$stransform(df[, var])
+    
+    if (length(input) == 1 && input == "y") {
+      input <- output <- intersect(c("y","min", "max"), names(df))
+    }
+    df <- do.call("data.frame", lapply(input, transform))
     if (ncol(df) == 0) return(NULL)
-    names(df) <- .$output()
+    names(df) <- output      
     df
   }
 
@@ -116,11 +123,12 @@ Scale <- proto(TopLevel, expr={
     if (identical(., Scale) || !.$legend) return()
     
     breaks <- .$rbreaks()
-    if (is.null(breaks)) return()
+    labels <- .$labels()
+    if (is.null(breaks) || is.null(labels)) return()
     
     df <- data.frame(breaks, stringsAsFactors = FALSE)
     names(df) <- .$output()
-    df$label <- .$labels()
+    df$label <- labels
     list(
       name = .$name,
       aesthetic = .$output(),
