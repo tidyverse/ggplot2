@@ -18,6 +18,8 @@ ScaleGradient <- proto(ScaleContinuous, expr={
   }
   
   rbreaks <- function(.) .$map(.$breaks())
+  labels <- function(.) format(.$breaks())
+  
   common <- c("colour", "fill")
 
   # Documetation -----------------------------------------------
@@ -110,6 +112,7 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
   }
   
   rbreaks <- function(.) .$map(.$breaks())
+  labels <- function(.) format(.$breaks())
   
   objname <-"gradient2"
   common <- c("colour", "fill")

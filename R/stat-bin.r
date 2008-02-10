@@ -31,12 +31,12 @@ bin <- function(x, weight=NULL, binwidth=NULL, breaks=NULL, range=NULL, width=0.
   results <- transform(results,
     density = count / width / sum(count, na.rm=TRUE)
   )
-  results <- subset(results, count > 0)
+  # Need to leave zeros in for non-bar representations
+  # results <- subset(results, count > 0)
   
   transform(results,
     ncount = count / max(count, na.rm=TRUE),
-    ndensity = density / max(density, na.rm=TRUE),
-    group = 1
+    ndensity = density / max(density, na.rm=TRUE)
   )
   
   

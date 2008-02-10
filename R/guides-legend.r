@@ -1,8 +1,8 @@
 gglegends <- function(legends, usage) {
   # Need to collapse legends describing same values into single data.frame
   # - first group by name
-  # if (length(legends) == 0) 
-  return()
+  if (length(legends) == 0) 
+    return()
   
   names <- unname(unlist(lapply(legends, "[", "name")))
   keys <- lapply(legends, "[[", "display")

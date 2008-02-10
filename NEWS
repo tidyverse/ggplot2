@@ -1,6 +1,8 @@
 ggplot 0.6
 ----------------------------------------
-  * coord_trans now deals with groups appropriately, at the cost of decrease speed
+
+  * fixed bug in combination of stat_bin and geom_area that made it difficult to draw frequency polygons
+  * coord_trans now deals with groups appropriately, at the cost of decreased speed
   * min and max are now scaled the same way as y
   * functions are silently dropped (e.g. aes(colour=col))
   * all size measurements (now lines and text as well) are measured in mm, lines/paths default to paths 0.5mm wide

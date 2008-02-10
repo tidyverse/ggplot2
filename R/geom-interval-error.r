@@ -11,6 +11,8 @@ GeomErrorbar <- proto(GeomInterval, {
   
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, width=0.9)
+  guide_geom <- function(.) "line"
+  
 
   seealso <- list(
     "geom_pointrange" = "range indicated by straight line, with point in the middle",

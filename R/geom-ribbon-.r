@@ -1,6 +1,7 @@
 GeomRibbon <- proto(GeomInterval, {
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour="grey60", fill="grey80", size=1, linetype=1)
+  guide_geom <- function(.) "tile"
 
   adjust_scales_data <- function(., scales, data) {
     if (!"y" %in% scales$input()) {
@@ -14,6 +15,7 @@ GeomRibbon <- proto(GeomInterval, {
   }
 
   draw <- function(., data, scales, coordinates, ...) {
+    data <- subset(data, !is.na(x) & !is.na(y))
     tb <- with(data,
       coordinates$munch(data.frame(x=c(x, rev(x)), y=c(max, rev(min))))
     )
