@@ -9,8 +9,8 @@ gglegends <- function(legends, usage) {
   variables <- split(keys, names)
 
   # - then merge data.frames
-  keys_merged <- unname(lapply(variables, merge_legends))
-  legends_merged <- mapply(function(name, keys) list(name = name, display=keys), unique(names), keys_merged, SIMPLIFY = FALSE, USE.NAMES = FALSE)  
+  keys_merged <- lapply(variables, merge_legends)
+  legends_merged <- mapply(function(name, keys) list(name = name, display=keys), names(keys_merged), keys_merged, SIMPLIFY = FALSE, USE.NAMES = FALSE)  
   
   lapply(legends_merged, gglegend, usage=usage)
 }
