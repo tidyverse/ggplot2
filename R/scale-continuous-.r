@@ -49,7 +49,7 @@ ScaleContinuous <- proto(Scale, {
 
   rbreaks <- function(.) {
     if (!is.null(.$.breaks)) return(.$.breaks)
-    grid.pretty(.$frange())
+    .$map(grid.pretty(.$domain()))
   }
 
   .minor_breaks <- 2
@@ -65,7 +65,7 @@ ScaleContinuous <- proto(Scale, {
   
   labels <- function(.) {
     if (!is.null(.$.labels)) return(.$.labels)
-    b <- .$rbreaks()
+    b <- .$breaks()
 
     l <- .$.tr$label(b)
     numeric <- sapply(l, is.numeric)
