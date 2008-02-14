@@ -5,7 +5,8 @@ GeomHline <- proto(Geom, {
     }
     mapping <- defaults(mapping, aes(intercept=intercept))
     class(mapping) <- "uneval"
-    layer(mapping=mapping, data=data, geom = ., geom_params = list(...), , ignore.extra = TRUE)
+
+    layer(mapping=mapping, data=data, geom = ., geom_params = list(...), ignore.extra = TRUE)
   }
 
   draw <- function(., data, scales, coordinates, ...) {
