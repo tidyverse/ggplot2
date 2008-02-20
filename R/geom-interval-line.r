@@ -11,7 +11,8 @@ GeomLinerange <- proto(GeomInterval, {
   )
   
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=1, linetype=1)
+  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1)
+  guide_geom <- function(.) "path"
 
   draw <- function(., data, scales, coordinates, ...) {
     munched <- coordinates$transform(data)

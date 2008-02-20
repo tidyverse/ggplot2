@@ -17,6 +17,7 @@ GeomPointrange <- proto(GeomInterval, {
   )
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour = "black", size=1, linetype=1, shape=19)
+  guide_geom <- function(.) "pointrange"
 
   draw <- function(., data, scales, coordinates, ...) {
     if (is.null(data$y)) return(GeomLinerange$draw(data, scales, coordinates, ...))
@@ -25,6 +26,16 @@ GeomPointrange <- proto(GeomInterval, {
       GeomPoint$draw(data, scales, coordinates, ...)
     )))
   }
+
+  draw_legend <- function(., data, ...) {
+    data <- aesdefaults(data, .$default_aes(), list(...))
+    
+    gTree(children = gList(
+      GeomPath$draw_legend(data, ...),
+      GeomPoint$draw_legend(data, ...)
+    ))
+  }
+  
   
   examples <- function(.) {
     # See geom_linerange for examples

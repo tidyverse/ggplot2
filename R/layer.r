@@ -170,6 +170,9 @@ Layer <- proto(expr = {
     
     check_required_aesthetics(.$geom$required_aes, c(names(data), names(.$geom_params)), paste("geom_", .$geom$objname, sep=""))
     
+    if (is.null(data$order)) data$order <- data$group
+    data <- data[order(data$order), ]
+    
     do.call(.$geom$draw_groups, c(
       data = list(as.name("data")), 
       scales = list(as.name("scales")), 

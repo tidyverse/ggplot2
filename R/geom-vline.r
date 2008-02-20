@@ -28,6 +28,7 @@ GeomVline <- proto(Geom, {
   
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) c(GeomPath$default_aes(), aes(intercept=0))
+  guide_geom <- function(.) "path"
 
   seealso <- list(
     geom_hline = "for horizontal lines",

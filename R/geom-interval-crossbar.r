@@ -22,7 +22,8 @@ GeomCrossbar <- proto(GeomInterval, {
 
   default_stat <- function(.) StatIdentity
   default_pos <- function(.) PositionIdentity
-  default_aes = function(.) aes(colour="black", fill="NA", width=resolution(x) * 0.9, size=1, linetype=1, min=y, max=y)
+  default_aes = function(.) aes(colour="black", fill="NA", width=resolution(x) * 0.9, size=0.5, linetype=1, min=y, max=y)
+  guide_geom <- function(.) "path"
   
   draw <- function(., data, scales, coordinates, fatten = 2, ...) {
     ggname(.$my_name(), gTree(children=gList(

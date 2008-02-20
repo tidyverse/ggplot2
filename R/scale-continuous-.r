@@ -130,3 +130,14 @@ ScaleContinuous <- proto(Scale, {
   }
 })
 
+xlim <- function(min=NA, max=NA) {
+  scale_x_continuous(limits = c(min, max))
+}
+
+ylim <- function(min=NA, max=NA) {
+  scale_y_continuous(limits = c(min, max))
+}
+
+zlim <- function(min=NA, max=NA) {
+  scale_z_continuous(limits = c(min, max))
+}

@@ -1,33 +1,46 @@
+TODO for this release
+ * Complete rdoc documentation
+ * Profiling and some optimisations
+ * Multicolumn legends (and specification)
+
 ggplot 0.6
 ----------------------------------------
-
-  * fixed bug in combination of stat_bin and geom_area that made it difficult to draw frequency polygons
-  * coord_trans now deals with groups appropriately, at the cost of decreased speed
+  
+  * it's now easy to change the default scales (and their arguments) with the set_default_scale function, see ?set_default_scale for more details (thanks to Bob Muenchen for the suggestion)
+  * new order aesthetic which controls the order in which elements are plotted
   * min and max are now scaled the same way as y
   * functions are silently dropped (e.g. aes(colour=col))
-  * all size measurements (now lines and text as well) are measured in mm, lines/paths default to paths 0.5mm wide
-  * size legends resize to avoid overlaps
+
+  * coord_polar: add start and direction parameters, giving more control over the layout of the polar coords
+  * coord_polar: added my favourite pie chart example
+  * coord_trans now deals with groups appropriately, at the cost of decreased speed
+  * geom_abline, geom_vline, geom_hline: should now behave better in a wider variety of settings
+  * geom_crossbar: the middle line is now display thicker than the other lines, controlled by the parameter fatten (thanks to Heike Hofmann for the suggestion)
+  * geom_density: fix scale adjustment bug in geom_density
+  * geom_line, geom_text: all size measurements (now lines and text as well) are measured in mm, lines/paths default to paths 0.5mm wide
+  * geom_rug: new to add marginal rug plots
+  * geom_smooth: fixed bug where if se=FALSE x axis always includes 0
+  * qplot: allow qplot to use computed aesthetics too
+  * scale_discrete: all discrete scales now have labels argument which you can use to override the factor levels
+  * scale_size: legends resize to avoid overlaps
+  * scale_x_continuous, scale_y_continuous: new convenience functions xlim and ylim (and zlim) that make it even easier to adjust the limits of the x, y, and z axes
+  * stat_bin, geom_area: fixed bug in combination of stat_bin and geom_area that made it difficult to draw frequency polygons
+  * stat_bin: fixed bug which resulted in increased counts when the x axis was a categorical variable with a single level (thanks to Bob Muenchen for pointing this out!)
+  * stat_bin: no longer incorrectly warns that binwidth is unspecified when breaks are set
+  * stat_bin: now takes origin argument to manually specify origin of first bin (default is round_any(min(range), bin_width, floor))
+  * stat_boxplot, stat_contour, stat_density2d, stat_qq, stat_density: na.rm parameter added to the following statistics (thanks to Leena Choi for suggesting this)
+  * stat_function: new, makes it easy to superimpose a function on the plot
+  * stat_spoke: new, to make it possible to use geom_segment parameterised by angle and radius (thanks to Jiho for the suggestion)
+  * stat_summary: better documentation
+  * stat_summary: convenient auto wrapping of simple summary functions
+  
+Legends:
+
   * preliminary legend merging code:
-     * consequence: legend type no longer specified in scale (e.g. size, identity, manual), but derived from geoms used
-  * fix scale adjustment bug in geom_density
-  * new geom_rug to add marginal rug plots
-  * all discrete scales now have labels argument which you can use to override the factor levels
-  * new stat_spoke to make it possible to use geom_segment parameterised by angle and radius (thanks to Jiho for the suggestion)
-  * new stat_function makes it easy to superimpose a function on the plot
-  * the middle line geom_crossbar is now display thicker than the other lines, controlled by the parameter fatten (thanks to Heike Hofmann for the suggestion)
-  * geom_vline, geom_hline and geom_abline should now behave better in a wider variety of settings
-  * convenient auto wrapping of simple summary functions for stat_sum
-  * better documentation for stat_sum
-  * na.rm added to the following statistics: stat_boxplot, stat_contour, stat_density2d, stat_qq, stat_density (thanks to Leena Choi for suggesting this)
-  * fixed bug in stat_bin which resulted in increased counts when the x axis was a categorical variable with a single level (thanks to Bob Muenchen for pointing this out!)
-  * fixed bug in geom_smooth where if se=FALSE x axis always includes 0
+   * consequence: legend type no longer specified in scale (e.g. size, identity, manual), but derived from geoms used
+   * better legends for smooth and pointrange
+   * fixed some examples where grob used instead of guide
 
-Speed and documentation.  Profiling and complete rdoc documentation
-
-  * allow qplot to use computed aesthetics too
-  * add start and direction parameters to coord_polar, giving more control over the layout of the polar coords
-  * added my favourite pie chart example to coord_polar
-  * fixed some examples where grob used instead of guide
   
 Examples
 

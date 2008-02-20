@@ -32,6 +32,7 @@ GeomAbline <- proto(Geom, {
     geom_hline = "for horizontal lines",
     geom_vline = "for vertical lines"
   )
+  guide_geom <- function(.) "path"
 
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) c(GeomPath$default_aes(), aes(intercept = 0, slope = 1))

@@ -1,4 +1,4 @@
-bin <- function(x, weight=NULL, binwidth=NULL, breaks=NULL, range=NULL, width=0.9) {
+bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9) {
   if (is.null(weight))  weight <- rep(1, length(x))
   weight[is.na(weight)] <- 0
 
@@ -13,7 +13,13 @@ bin <- function(x, weight=NULL, binwidth=NULL, breaks=NULL, range=NULL, width=0.
     width <- width
     bins <- x
   } else { # if (is.numeric(x)) 
-    if (is.null(breaks)) breaks <- fullseq(range, binwidth)
+    if (is.null(breaks)) {
+      if (is.null(origin)) {
+        breaks <- fullseq(range, binwidth)        
+      } else {
+        breaks <- seq(origin, max(range) + binwidth, binwidth)
+      }
+    }
     bins <- cut(x, sort(breaks), include.lowest=TRUE)
     left <- breaks[-length(breaks)]
     right <- breaks[-1]
@@ -33,7 +39,6 @@ bin <- function(x, weight=NULL, binwidth=NULL, breaks=NULL, range=NULL, width=0.
   )
   # Need to leave zeros in for non-bar representations
   # results <- subset(results, count > 0)
-  
   transform(results,
     ncount = count / max(count, na.rm=TRUE),
     ndensity = density / max(density, na.rm=TRUE)
@@ -58,15 +63,15 @@ StatBin <- proto(Stat, {
     .super$calculate_groups(., data, ...)
   }
   
-  calculate <- function(., data, scales, binwidth=NULL, breaks=NULL, width=0.9, ...) {
+  calculate <- function(., data, scales, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, ...) {
     range <- scales$get_scales("x")$frange()
 
-    if (is.null(binwidth) && is.numeric(data$x) && !.$informed) {
-      message("stat_bin: bin width unspecified, using 30 bins as default.")
+    if (is.null(breaks) && is.null(binwidth) && is.numeric(data$x) && !.$informed) {
+      message("stat_bin: breaks/binwidth unspecified, using 30 bins as default.")
       .$informed <- TRUE
     }
     
-    bin(data$x, data$weight, binwidth=binwidth, breaks=breaks, range=range, width=width)
+    bin(data$x, data$weight, binwidth=binwidth, origin=origin, breaks=breaks, range=range, width=width)
   }
 
   objname <- "bin" 

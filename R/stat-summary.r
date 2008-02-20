@@ -103,7 +103,7 @@ auto_wrap <- function(f) {
   } else if ("x" %in% args ) {
     function(df, ...) data.frame(y = safe.call(f, list(x = df$y, ...)))
   } else {
-    error("Functions provided to stat_summary require a parameter named data or x")
+    stop("Functions provided to stat_summary require a parameter named data or x")
   }
 }
 

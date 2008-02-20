@@ -35,6 +35,7 @@ GeomSegment <- proto(Geom, {
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y", "xend", "yend")
   default_aes <- function(.) aes(colour="black", size=0.5, linetype=1)
+  guide_geom <- function(.) "path"
   
   examples <- function(.) {
     require("maps")

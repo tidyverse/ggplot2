@@ -28,6 +28,7 @@ GeomHline <- proto(Geom, {
     
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) c(GeomPath$default_aes(), aes(intercept=0))
+  guide_geom <- function(.) "tile"
   
   seealso <- list(
     geom_vline = "for vertical lines",

@@ -3,9 +3,6 @@ GeomPath <- proto(Geom, {
 
   draw <- function(., data, scales, coordinates, ...) {
     if (nrow(data) < 2) return()
-    
-    if (is.null(data$order)) data$order <- data$group
-    data <- data[order(data$order), ]
 
     munched <- coordinates$munch(data)
 
@@ -18,8 +15,7 @@ GeomPath <- proto(Geom, {
     n <- nrow(munched)
     group_diff <- munched$group[-1] != munched$group[-n]
     start <- c(TRUE, group_diff)
-    end <-   c(group_diff, TRUE)
-    
+    end <-   c(group_diff, TRUE)  
     
     solid_lines <- all(sapply(g, function(df) identical(unique(df$linetype), 1)))
     constant <- all(sapply(g, function(df) nrow(unique(df[, c("colour","size","linetype")])) == 1))

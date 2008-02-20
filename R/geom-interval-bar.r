@@ -21,7 +21,7 @@ GeomBar <- proto(GeomInterval, {
     } else {
     with(data, 
       ggname(.$my_name(), rectGrob(x, max, width=width, height=max-min, default.units="native", just=c("centre", "top"), 
-      gp=gpar(col=colour, fill=fill, lwd=size * .pt, lty=linetype))
+      gp=gpar(col=colour, fill=fill, lwd=size * .pt, lty=linetype, lineend="butt"))
     ))
     }
     

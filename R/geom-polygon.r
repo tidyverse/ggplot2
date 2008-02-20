@@ -19,6 +19,7 @@ GeomPolygon <- proto(Geom, {
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour="NA", fill="grey60", size=0.5, linetype=1)
   required_aes <- c("x", "y")
+  guide_geom <- function(.) "tile"
 
   seealso <- list(
     geom_path = "an unfilled polygon",

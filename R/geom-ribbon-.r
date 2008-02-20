@@ -15,7 +15,7 @@ GeomRibbon <- proto(GeomInterval, {
   }
 
   draw <- function(., data, scales, coordinates, ...) {
-    data <- subset(data, !is.na(x) & !is.na(y))
+    data <- data[complete.cases(data[, c("x","min","max")]), ]
     tb <- with(data,
       coordinates$munch(data.frame(x=c(x, rev(x)), y=c(max, rev(min))))
     )
