@@ -29,6 +29,11 @@ TopLevel <- proto(expr = {
     paste(.$class(), .$objname, sep="_")
   }
   
+  myName <- function(.) {
+    ps(firstUpper(.$class()), firstUpper(.$objname))
+  }
+
+  
   doc <- TRUE
   
   # Function for html documentation ------------------------------------

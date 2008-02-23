@@ -1,3 +1,12 @@
+all_rdoc_pages_create <- function(path="web/") {
+  Geom$all_rdoc_pages_create()
+  Stat$all_rdoc_pages_create()
+  Scale$all_rdoc_pages_create()
+  Coord$all_rdoc_pages_create()
+  Position$all_rdoc_pages_create()
+  Facet$all_rdoc_pages_create()
+}
+
 # Name of physical file to create, doesn't include directory
 TopLevel$rdoc_path <- function(.) {
   ps(.$my_name(), ".rd")
@@ -35,13 +44,19 @@ TopLevel$rdoc_page <- function(.) {
 
 TopLevel$rdoc_name <- function(.) {
   ps(
-    "\\name{", firstUpper(.$class()), firstUpper(.$objname), "}\n"
+    "\\name{", .$myName(), "}\n"
   )
 }
 
 TopLevel$rdoc_aliases <- function(.) {
+  aliases <- c(
+    .$my_name(),
+    .$myName(), 
+    if (exists("common", .) && !is.null(.$common) ) ps(.$class(), .$common, .$objname, sep="_", collapse=NULL)
+  )
+  
   ps(
-    "\\alias{", .$my_name(), "}\n"
+    "\\alias{", aliases, "}\n"
   )
 }
 
@@ -112,8 +127,10 @@ TopLevel$rdoc_usage <- function(.) {
 }  
 
 
+
 TopLevel$rdoc_arguments <- function(.) {
-  p <- c("mapping", "data", "stat", "position", names(.$params()), "...")
+  p <- names(formals(get(.$my_name())))
+  # p <- c("mapping", "data", "stat", "position", names(.$params()), "...")
   
   ps(
     "\\arguments{\n",
@@ -126,7 +143,9 @@ TopLevel$rdoc_arguments <- function(.) {
 TopLevel$rdoc_seealso <- function(.) {
   ps(
     "\\seealso{\\itemize{\n",
-    ps("  \\item ", rdoc_auto_link(names(.$seealso)), ": ", .$seealso, "\n"),
+    if(length(.$seealso) > 0) {
+      ps("  \\item ", rdoc_auto_link(names(.$seealso)), ": ", .$seealso, "\n")
+    },
     "  \\item \\url{http://had.co.nz/ggplot/", .$html_path(), "}\n",
     "}}\n"
   )

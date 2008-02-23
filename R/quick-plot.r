@@ -2,9 +2,6 @@
 # Quick plot is a convenient wrapper function for creating simple ggplot plot objects.
 # You can use it like you'd use the \code{\link{plot}} function.
 # 
-# FIXME: describe how to get more information
-# FIXME: add more examples
-# 
 # \code{qplot} provides a quick way to create simple plots.
 # 
 # @arguments x values
@@ -24,6 +21,7 @@
 # @arguments character vector or expression for x axis label
 # @arguments character vector or expression for y axis label
 # @keyword hplot 
+# @alias qplot 
 #X # Use data from data.frame
 #X qplot(mpg, wt, data=mtcars)
 #X qplot(mpg, wt, data=mtcars, colour=cyl)
