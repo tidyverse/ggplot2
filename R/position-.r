@@ -25,7 +25,7 @@ Position <- proto(TopLevel, expr = {
     )
   }
   
-  call <- function(.) {
+  html_call <- function(.) {
     ps(
       .$my_name(), "(",
       ps(

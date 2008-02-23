@@ -108,7 +108,7 @@ TopLevel <- proto(expr = {
     ps(
       # "<p class='hierarchy'>", .$html_parent_link(), "</p>\n",
       "<h1>", .$html_img(), .$my_name(), "</h1>\n",
-      "<p class='call'>", .$call(), "</p>\n"
+      "<p class='call'>", .$html_call(), "</p>\n"
     )
   }
   
@@ -316,7 +316,7 @@ TopLevel <- proto(expr = {
   }
   
   
-  call <- function(.) {
+  html_call <- function(.) {
     ps(
       .$my_name(), "(",
       ps(

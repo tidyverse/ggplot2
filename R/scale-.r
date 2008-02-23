@@ -136,7 +136,7 @@ Scale <- proto(TopLevel, expr={
     )
   }
   
-  call <- function(.) {    
+  html_call <- function(.) {    
     ps(
       ps("<strong>scale_", ps(.$common, .$objname, sep="_", collapse=NULL) , "</strong>", collapse=NULL), "(",
       ps(

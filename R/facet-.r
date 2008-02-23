@@ -9,7 +9,7 @@ Facet <- proto(TopLevel, {
     )
   }
   
-  call <- function(.) {
+  html_call <- function(.) {
     ps(
       .$my_name(), "(",
       "\n<br />&nbsp;&nbsp;",
