@@ -1,13 +1,13 @@
 # Name of physical file to create, doesn't include directory
-rdoc_path <- function(.) {
-  ps(.$my_name(), ".rdoc")
+TopLevel$rdoc_path <- function(.) {
+  ps(.$my_name(), ".rd")
 }
 
-all_rdoc_pages_create <- function(., path="web/") {
+TopLevel$all_rdoc_pages_create <- function(., path="man/") {
   invisible(lapply(.$find_all(), function(x) x$rdoc_page_create(path)))
 }
   
-rdoc_page_create <- function(., path="man/") {
+TopLevel$rdoc_page_create <- function(., path="man/") {
   cat("Creating rdoc documentation for", .$my_name(), "\n")
   target <- ps(path, .$rdoc_path())
   cat(.$rdoc_page(), file=target)
@@ -20,8 +20,9 @@ TopLevel$rdoc_page <- function(.) {
     .$rdoc_title(), 
     .$rdoc_description(), 
     .$rdoc_details(), 
+    .$rdoc_aesthetics(), 
     .$rdoc_advice(), 
-    # .$rdoc_usage(),
+    .$rdoc_usage(),
     .$rdoc_arguments(),
     .$rdoc_seealso(),
     .$rdoc_value(),
@@ -65,14 +66,51 @@ TopLevel$rdoc_details <- function(.) {
   )
 }
 
+TopLevel$rdoc_aesthetics <- function(.) {
+  if (!exists("default_aes", .)) return("")
+  
+  aes <- c(.$required_aes, names(.$default_aes()))
+  if (length(aes) == 0) return("")
+
+  req <- ifelse(aes %in% .$required_aes, " (\\strong{required})", "")
+  desc <- paste(defaults(.$desc_params, .desc_aes)[aes], req, sep="")
+
+  ps(
+    "\\section{Aesthetics}{\n",
+    rdoc_auto_link(ps("The following aesthetics can be used with ", .$my_name(), ".  Aesthetics are mapped to variables in the data with the aes function: \\code{", .$my_name(), "(aes(x = var))}"), .$my_name()), "\n", 
+    "\\itemize{\n",
+    ps("  \\item \\code{", aes, "}: ", desc, " \n"), 
+    "}\n",
+    "}\n"
+  )
+}
+
+
 TopLevel$rdoc_advice <- function(.) {
   if (.$advice == "") return()
   ps(
-    "\\note{\n",
+    "\\section{Advice}{\n",
     rdoc_from_html(.$advice, .$my_name()),
     "}\n"
   )
 }  
+
+TopLevel$rdoc_usage <- function(.) {
+  args <- formals(get(.$my_name()))
+  is.missing.arg <- function(arg) sapply(arg, typeof) == "symbol" & sapply(arg, deparse) == ""
+
+  equals <- ifelse(is.missing.arg(args), "", "=")
+  call <- ps(
+    .$my_name(), "(", 
+    ps(names(args), equals, sapply(args, deparse), collapse=", "),
+    ")"
+  )
+
+  ps(
+    "\\usage{", call, "}\n"
+  )
+}  
+
 
 TopLevel$rdoc_arguments <- function(.) {
   p <- c("mapping", "data", "stat", "position", names(.$params()), "...")

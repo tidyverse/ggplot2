@@ -25,48 +25,6 @@ Scale <- proto(TopLevel, expr={
   }
 
 
-  accessors <- function(.) {
-    objects <- Scale$find_all()
-    name <- "scale"
-    
-    scale_with_var <- function(x, oldname, var) {
-      objname <- get("objname", envir=x)
-      
-      output <- deparse(substitute(
-        short <- function(...) obj$new(..., variable=var),
-        list(
-          short = as.name(paste(name, var, objname, sep="_")),
-          obj = as.name(oldname),
-          var = var
-        ) 
-      ), width.cutoff = 500)
-    }
-    
-    scale <- function(x, oldname) {
-      objname <- get("objname", envir=x)
-      
-      output <- deparse(substitute(
-        short <- obj$new,
-        list(
-          short = as.name(paste(name, objname, sep="_")),
-          obj = as.name(oldname)
-        ) 
-      ), width.cutoff = 500)
-      output <- paste(output, "\n", sep="")
-    }
-    
-    
-    mapply(function(object, name) {
-      if(!is.null(object$common)) {
-        paste(paste(sapply(object$common, function(x) scale_with_var(object, name, x)), sep="", collapse="\n"), "\n", sep="")
-      } else {
-        scale(object, name)
-      }
-    }, objects, names(objects))
-  }
-    # For all continuous scales ScaleZzz
-    # create scale_x_zzz and and scale_y_zzz
-    # scale_(x|y)_transform(...) = ScaleContinuous$new(variable="x|y", ...) 
 
   input <- function(.) .$.input
   output <- function(.) .$.output

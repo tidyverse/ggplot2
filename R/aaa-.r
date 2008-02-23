@@ -24,10 +24,6 @@ TopLevel <- proto(expr = {
     get(paste(firstUpper(.$class()), firstUpper(name), sep=""))
   }
   
-  accessors <- function(.) create_accessors(.$find_all(), .$class())
-  accessors_print <- function(.) invisible(lapply(.$accessors(), cat))
-
-
   my_name <- function(., prefix=TRUE) {
     if (!prefix) return(.$objname)
     paste(.$class(), .$objname, sep="_")
