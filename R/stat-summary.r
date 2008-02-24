@@ -7,7 +7,7 @@ StatSummary <- proto(Stat, {
   default_geom <- function(.) GeomPointrange
   required_aes <- c("x", "y")
    
-  calculate <- function(., data, scales, fun=stat_range, ...) {
+  calculate <- function(., data, scales, fun, ...) {
     
     if (is.character(fun)) {
       sumfun <- paste("sum", fun, sep="_")

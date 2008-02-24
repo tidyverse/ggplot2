@@ -8,8 +8,17 @@
 \details{
 This page describes \code{\link{scale_gradient2}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_gradient2(...)}
+\usage{scale_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", limits=c(NA, NA), trans="identity", alpha=1, ...)}
 \arguments{
+ \item{name}{name of scale to appear in legend or on axis}
+ \item{low}{colour at low end of scale}
+ \item{mid}{colour at mid point of scale}
+ \item{high}{colour at high end of scale}
+ \item{midpoint}{position of mid point of scale, defaults to 0}
+ \item{space}{colour space to interpolate through, rgb or Lab, see ?colorRamp for details}
+ \item{limits}{numeric vector of length 2, giving the extent of the scale}
+ \item{trans}{a transformer to use}
+ \item{alpha}{alpha value to use for colours}
  \item{...}{other arguments}
 }
 \seealso{\itemize{

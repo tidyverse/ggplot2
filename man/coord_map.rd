@@ -11,8 +11,10 @@ This is still experimental, and if you have any advice to offer regarding a bett
 
 This page describes \code{\link{coord_map}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{coord_map(...)}
+\usage{coord_map(projection="mercator", orientation=NULL, ...)}
 \arguments{
+ \item{projection}{projection to use, see ?mapproject for complete list}
+ \item{orientation}{orientation, which defaults to c(90, 0, mean(range(x))).  This is not optimal for many projections, so you will have to supply your own.}
  \item{...}{other arguments passed on to mapproject}
 }
 \seealso{\itemize{

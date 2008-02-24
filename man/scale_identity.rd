@@ -11,8 +11,11 @@
 \details{
 This page describes \code{\link{scale_identity}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_identity(...)}
+\usage{scale_identity(name=NULL, breaks=NULL, labels=NULL, ...)}
 \arguments{
+ \item{name}{name of scale to appear in legend or on axis}
+ \item{breaks}{numeric vector indicating where breaks should lie}
+ \item{labels}{character vector giving labels associated with breaks}
  \item{...}{ignored }
 }
 \seealso{\itemize{

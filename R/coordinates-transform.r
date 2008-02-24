@@ -1,4 +1,4 @@
-CoordTransform <- proto(CoordCartesian, expr={
+CoordTrans <- proto(CoordCartesian, expr={
   
   muncher <- function(.) TRUE
   munch_group <- function(., data, npieces=50) {

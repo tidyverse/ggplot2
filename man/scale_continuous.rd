@@ -11,8 +11,14 @@
 \details{
 This page describes \code{\link{scale_continuous}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_continuous(...)}
+\usage{scale_continuous(name=NULL, limits=c(NA, NA), breaks=NULL, labels=NULL, trans="identity", expand=c(0.05, 0), ...)}
 \arguments{
+ \item{name}{name of scale to appear in legend or on axis}
+ \item{limits}{numeric vector of length 2, giving the extent of the scale}
+ \item{breaks}{numeric vector indicating where breaks should lie}
+ \item{labels}{character vector giving labels associated with breaks}
+ \item{trans}{a transformer to use}
+ \item{expand}{numeric vector of length 2, giving multiplicative and additive expansion factors}
  \item{...}{ignored }
 }
 \seealso{\itemize{

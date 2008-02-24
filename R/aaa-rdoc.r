@@ -13,7 +13,7 @@ TopLevel$rdoc_path <- function(.) {
 }
 
 TopLevel$all_rdoc_pages_create <- function(., path="man/") {
-  invisible(lapply(.$find_all(), function(x) x$rdoc_page_create(path)))
+  invisible(lapply(.$find_all(TRUE), function(x) x$rdoc_page_create(path)))
 }
   
 TopLevel$rdoc_page_create <- function(., path="man/") {
@@ -110,8 +110,17 @@ TopLevel$rdoc_advice <- function(.) {
   )
 }  
 
+TopLevel$rdoc_formals <- function(.)   {
+  if (exists("common", .) && !is.null(.$common)) {
+    formals(get(ps(.$class(), "_", .$common[1], "_", .$objname)))    
+  } else {
+    formals(get(.$my_name()))
+  }
+  
+}
+
 TopLevel$rdoc_usage <- function(.) {
-  args <- formals(get(.$my_name()))
+  args <- .$rdoc_formals()
   is.missing.arg <- function(arg) sapply(arg, typeof) == "symbol" & sapply(arg, deparse) == ""
 
   equals <- ifelse(is.missing.arg(args), "", "=")
@@ -129,7 +138,7 @@ TopLevel$rdoc_usage <- function(.) {
 
 
 TopLevel$rdoc_arguments <- function(.) {
-  p <- names(formals(get(.$my_name())))
+  p <- names(.$rdoc_formals())
   # p <- c("mapping", "data", "stat", "position", names(.$params()), "...")
   
   ps(

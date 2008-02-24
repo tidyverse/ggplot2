@@ -1,4 +1,4 @@
-CoordFlipped <- proto(CoordCartesian, expr={
+CoordFlip <- proto(CoordCartesian, expr={
   x <- function(.) .$.scales$get_scales("y")
   y <- function(.) .$.scales$get_scales("x")
   

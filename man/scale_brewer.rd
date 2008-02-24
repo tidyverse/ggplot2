@@ -10,8 +10,14 @@ See <a href='http://colorbrewer.org'>colorbrewer.org</a> for more info
 
 This page describes \code{\link{scale_brewer}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_brewer(...)}
+\usage{scale_brewer(name=NULL, palette=1, type="qual", alpha=1, reverse=FALSE, labels=NULL, ...)}
 \arguments{
+ \item{name}{name of scale to appear in legend or on axis}
+ \item{palette}{NULL}
+ \item{type}{NULL}
+ \item{alpha}{NULL}
+ \item{reverse}{NULL}
+ \item{labels}{character vector giving labels associated with breaks}
  \item{...}{ignored }
 }
 \seealso{\itemize{

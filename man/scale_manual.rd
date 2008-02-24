@@ -11,8 +11,10 @@
 \details{
 This page describes \code{\link{scale_manual}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_manual(...)}
+\usage{scale_manual(name=NULL, values=NULL, ...)}
 \arguments{
+ \item{name}{name of scale to appear in legend or on axis}
+ \item{values}{NULL}
  \item{...}{ignored }
 }
 \seealso{\itemize{

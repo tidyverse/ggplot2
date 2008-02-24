@@ -11,8 +11,12 @@
 \details{
 This page describes \code{\link{scale_prob}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_prob(...)}
+\usage{scale_prob(name=NULL, limits=c(NA, NA), breaks=NULL, family="norm", ...)}
 \arguments{
+ \item{name}{name of scale to appear in legend or on axis}
+ \item{limits}{numeric vector of length 2, giving the extent of the scale}
+ \item{breaks}{numeric vector indicating where breaks should lie}
+ \item{family}{NULL}
  \item{...}{ignored }
 }
 \seealso{\itemize{

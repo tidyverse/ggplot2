@@ -6,8 +6,10 @@
 \details{
 This page describes \code{\link{coord_trans}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{coord_trans(...)}
+\usage{coord_trans(xtrans="identity", ytrans="identity", ...)}
 \arguments{
+ \item{xtrans}{NULL}
+ \item{ytrans}{NULL}
  \item{...}{ignored }
 }
 \seealso{\itemize{

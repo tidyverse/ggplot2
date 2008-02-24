@@ -8,8 +8,16 @@
 \details{
 This page describes \code{\link{scale_hue}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_hue(...)}
+\usage{scale_hue(name=NULL, h=c(0, 360), l=65, c=100, alpha=1, labels=NULL, h.start=0, direction=1, ...)}
 \arguments{
+ \item{name}{name of scale to appear in legend or on axis}
+ \item{h}{range of hues to use, in degrees}
+ \item{l}{luminance}
+ \item{c}{chroma}
+ \item{alpha}{alpha}
+ \item{labels}{character vector giving labels associated with breaks}
+ \item{h.start}{NULL}
+ \item{direction}{NULL}
  \item{...}{other arguments}
 }
 \seealso{\itemize{

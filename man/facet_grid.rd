@@ -6,8 +6,10 @@
 \details{
 This page describes \code{\link{facet_grid}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{facet_grid(...)}
+\usage{facet_grid(facets=. ~ ., margins=FALSE, ...)}
 \arguments{
+ \item{facets}{NULL}
+ \item{margins}{NULL}
  \item{...}{ignored }
 }
 \seealso{\itemize{

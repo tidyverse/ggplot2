@@ -10,8 +10,9 @@ This coordinate system has one parameter, \code{ratio}, which specifies the rati
 
 This page describes \code{\link{coord_equal}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{coord_equal(...)}
+\usage{coord_equal(ratio=1, ...)}
 \arguments{
+ \item{ratio}{NULL}
  \item{...}{ignored }
 }
 \seealso{\itemize{

@@ -14,7 +14,7 @@ ScaleAtanh <-    proto(ScaleContinuous, .tr = Trans$find("atanh"),    objname = 
 ScaleInverse <-  proto(ScaleContinuous, .tr = Trans$find("inverse"),  objname = "inverse", doc=FALSE, examples=function(.) {})
 ScaleContinuous$.tr <- Trans$find("identity")
 
-ScaleProbability <- proto(ScaleContinuous, {
+ScaleProb <- proto(ScaleContinuous, {
   objname <- "prob"
   desc <- "Probability scale"
   icon <- function(.) {
@@ -29,7 +29,7 @@ ScaleProbability <- proto(ScaleContinuous, {
 #  frange <- function(.) c(0, 1)
 })
 
-ScalePower <- proto(ScaleContinuous, {
+ScalePow <- proto(ScaleContinuous, {
   objname <- "pow"
   desc <- "Power scale"
   icon <- function(.) {

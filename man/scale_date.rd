@@ -10,8 +10,12 @@ Currently somewhat broken due to lack of support for dates in R.
 
 This page describes \code{\link{scale_date}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_date(...)}
+\usage{scale_date(major=NULL, minor=NULL, format=NULL, name=NULL, ...)}
 \arguments{
+ \item{major}{NULL}
+ \item{minor}{NULL}
+ \item{format}{NULL}
+ \item{name}{name of scale to appear in legend or on axis}
  \item{...}{ignored }
 }
 \seealso{\itemize{
