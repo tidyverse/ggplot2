@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-Convenience function for expanding a range with a multiplicative
+Convenience function for expanding a range with a multiplicative or additive constant.
 }
 \usage{expand_range(range, mul=0, add=0)}
 \arguments{

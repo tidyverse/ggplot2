@@ -6,11 +6,12 @@
 \description{
 Build data frome for a plot with given data and ... (dots) arguments
 }
-\usage{calc_aesthetics(plot, data = plot$data, aesthetics)}
+\usage{calc_aesthetics(plot, data = plot$data, aesthetics, ignore.extra = FALSE)}
 \arguments{
 \item{plot}{plot object}
 \item{data}{data frame to use}
 \item{aesthetics}{extra arguments supplied by user that should be used first}
+\item{ignore.extra}{}
 }
 
 \details{Depending on the layer, we need

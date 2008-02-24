@@ -1,6 +1,8 @@
 \name{.build_options}
 \alias{.build_options}
 \alias{ggopt}
+\alias{opts}
+\alias{update.ggplot}
 \alias{theme_default}
 \alias{theme_bw}
 \title{Set ggplot options}
@@ -12,6 +14,7 @@ Set global options for ggplot.
 \usage{.build_options(opt)}
 \arguments{
 \item{opt}{list of options to get/set}
+\item{}{theme, a list of options for \code{\link{ggopt}}}
 }
 
 \details{These are aliased into every plot object, so that \\code{p$grid.col} will
@@ -53,7 +56,61 @@ Other settings:
 \itemize{
 \item aspect.ratio: aspect ratio of facets.  Set to \\code{NULL} to allow
 to vary with device size
-}}
+}
+
+@arguments list of options to get/set
+@returns previous settings
+@keyword manip
+@alias ggopt
+@alias opts
+@alias update.ggplot
+@alias theme_default
+@alias theme_bw
+X ggopt(background.fill = "black", background.color ="white") # all new plots will use this
+X p <- qplot(total_bill, tip, facet = smoker ~ sex, data=tips)
+X p
+X p$background.fill = "white"
+X p
+X p$strip.text.gp <- gpar(col="red", fontsize=15)
+X p$strip.gp <- gpar(fill="black")
+X p$background.fill <- "black"
+X p$background.colour <- "white"
+X p$grid.colour <- "white"
+X p$grid.fill <- "grey50"
+X p # a very ugly plot!
+X ggopt(background.fill = "white", background.color ="black")
+X
+X p <- qplot(wt, mpg, data=mtcars, colour=factor(cyl))
+X p + opts(legend.position = c(0.9,0.9))
+X (p <- p + opts(legend.position = c(0.5,0.5)))
+X p + opts(legend.justification = "centre")
+X
+X DF <- data.frame(
+X   x=rnorm(20),
+X   y=rnorm(20),
+X   g1=rep(letters[1:2], 10),
+X   g2=rep(LETTERS[1:2], each=10)
+X )
+X
+X (p <- qplot(x, y, data=DF, facets = g1 ~ g2))
+X
+X p$strip.text <- function (variable, value) {
+X   greek <- c("A" = "alpha", "B" = "beta")[value]
+X   makelabel <- function (g) substitute(variable == greek, list(variable=as.name(variable), greek=as.name(g)))
+X
+X   lapply(greek, makelabel)
+X }
+X
+X p
+Print options
+Uses str
+
+@keyword internal
+Set ggplot theme.
+A theme is a list of options for \code{\link{ggopt}}.
+
+Use \code{ggtheme(defaulttheme)} to reset back to the
+default theme.}
 
 \examples{ggopt(background.fill = "black", background.color ="white") # all new plots will use this
 p <- qplot(total_bill, tip, facet = smoker ~ sex, data=tips)
@@ -91,4 +148,6 @@ lapply(greek, makelabel)
 }
 
 p}
+\keyword{manip}
+\keyword{internal}
 \keyword{manip}

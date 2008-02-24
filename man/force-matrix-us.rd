@@ -8,7 +8,7 @@ If not already a matrix, make a 1x1 matrix
 }
 \usage{force_matrix(x)}
 \arguments{
-\item{x}{}
+\item{x}{object to make into a matrix}
 }
 
 \details{}

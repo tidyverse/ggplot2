@@ -1,5 +1,6 @@
 \name{qplot}
 \alias{qplot}
+\alias{qplot}
 \title{Quick plot.}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
@@ -26,10 +27,7 @@ Quick plot is a convenient wrapper function for creating simple ggplot plot obje
 \item{ylab}{character vector or expression for y axis label}
 }
 
-\details{FIXME: describe how to get more information
-FIXME: add more examples
-
-\code{qplot} provides a quick way to create simple plots.}
+\details{\code{qplot} provides a quick way to create simple plots.}
 
 \examples{# Use data from data.frame
 qplot(mpg, wt, data=mtcars)
