@@ -67,7 +67,7 @@ ScaleHue <- proto(ScaleColour, expr={
     d + scale_colour_hue(alpha = 0.2)
   }
 })
-ScaleColourDiscrete <- proto(ScaleHue, objname="discrete", doc=FALSE, examples=function(.) {})
+ScaleColourDiscrete <- proto(ScaleHue, doc=FALSE, examples=function(.) {})
 
 
 ScaleBrewer <- proto(ScaleColour, expr={

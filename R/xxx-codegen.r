@@ -3,8 +3,7 @@ create_accessors <- function(objects, name, short=NULL) {
     objname <- get("objname", envir=x)
     
     output <- deparse(substitute(
-      # short <- function(args) obj$new(args_call),
-      short <- obj$new,
+      short <- obj$build_accessor(),
       list(
         short = as.name(paste(name, objname, sep="_")),
         obj = as.name(oldname)
@@ -16,6 +15,32 @@ create_accessors <- function(objects, name, short=NULL) {
   }, objects, names(objects))
 }
 
+TopLevel$build_accessor <- function(., extra_args = c()) {
+  layer <- if (.$class() %in% c("geom","stat", "position")) c(
+    list(mapping=NULL,data=NULL),
+    compact(list(
+      geom = if (exists("default_geom", .)) .$default_geom()$objname, 
+      stat = if (exists("default_stat", .)) .$default_stat()$objname, 
+      position = if (exists("default_pos", .)) .$default_pos()$objname
+    ))
+  )
+  params <- .$params()
+  params <- params[names(params) != "..."]
+  args <- c(layer, params)
+  
+  body <- ps(
+    .$myName(), "$", "new(",
+    if (length(args) > 0) ps(names(args),"=", names(args), collase =", "), 
+    if (length(extra_args) > 0) ps(names(extra_args),"=", extra_args, collase =", "), 
+    "...",
+    ")"
+  )
+  f <- function() {}
+  formals(f) <- as.pairlist(c(args, alist(... =)))
+  body(f) <- parse(text = body)
+  environment(f) <- globalenv()
+  f
+}
 
 
 # Write out all convenience accessor functions to R file.
@@ -47,11 +72,11 @@ Scale$accessors <- function(.) {
     objname <- get("objname", envir=x)
     
     output <- deparse(substitute(
-      short <- function(...) obj$new(..., variable=var),
+      short <- obj$build_accessor(c(variable = var)),
       list(
         short = as.name(paste(name, var, objname, sep="_")),
         obj = as.name(oldname),
-        var = var
+        var = ps("\"", var, "\"")
       ) 
     ), width.cutoff = 500)
   }
@@ -60,7 +85,7 @@ Scale$accessors <- function(.) {
     objname <- get("objname", envir=x)
     
     output <- deparse(substitute(
-      short <- obj$new,
+      short <- obj$build_accessor(),
       list(
         short = as.name(paste(name, objname, sep="_")),
         obj = as.name(oldname)

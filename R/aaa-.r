@@ -30,7 +30,7 @@ TopLevel <- proto(expr = {
   }
   
   myName <- function(.) {
-    ps(firstUpper(.$class()), firstUpper(.$objname))
+    ps(firstUpper(.$class()), ps(firstUpper(strsplit(.$objname, "_")[[1]])))
   }
 
   
