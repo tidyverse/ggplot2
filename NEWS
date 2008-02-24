@@ -23,6 +23,7 @@ ggplot 0.6
   * qplot: allow qplot to use computed aesthetics too
   * scale_discrete: all discrete scales now have labels argument which you can use to override the factor levels
   * scale_size: legends resize to avoid overlaps
+  * scale_discrete: now works correctly with character vectors
   * scale_x_continuous, scale_y_continuous: new convenience functions xlim and ylim (and zlim) that make it even easier to adjust the limits of the x, y, and z axes
   * stat_bin, geom_area: fixed bug in combination of stat_bin and geom_area that made it difficult to draw frequency polygons
   * stat_bin: fixed bug which resulted in increased counts when the x axis was a categorical variable with a single level (thanks to Bob Muenchen for pointing this out!)
