@@ -23,7 +23,7 @@ StatQuantile <- proto(Stat, {
     if (is.null(xseq)) xseq <- seq(min(data$x, na.rm=TRUE), max(data$x, na.rm=TRUE), length=100)
 
     data <- as.data.frame(data)
-    data <- remove.missing(data, na.rm, c("x", "y"), name = "stat_quantile")
+    data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_quantile")
     model <- method(formula, data=data, tau=quantiles, weight=weight, ...)
 
     yhats <- t(predict(model, data.frame(x=xseq), type="matrix"))

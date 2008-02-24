@@ -20,7 +20,7 @@ FacetGrid <- proto(Facet, {
   }
   
   stamp_data <- function(., data) {
-    data.matrix <- stamp(addid(data), .$facets, force, margins=.$margins, fill=list(NULL))
+    data.matrix <- stamp(add_group(data), .$facets, force, margins=.$margins, fill=list(NULL))
     
     force_matrix(data.matrix)
   }

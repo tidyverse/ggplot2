@@ -83,6 +83,8 @@ StatSummary <- proto(Stat, {
   }
 })
 
+# Summary by x
+
 summaryby <- function(data, split, summary, ...) {
   parts <- split(data, factor(split))
   unique <- lapply(parts, function(df) uniquecols(df[setdiff(names(df), c("y"))]))
@@ -107,6 +109,17 @@ auto_wrap <- function(f) {
   }
 }
 
+# Wrap HMisc summary functions to make it easy to use them with stat_summary
+# 
+# @alias sum_mean_cl_boot
+# @alias sum_mean_cl_normal
+# @alias sum_mean_sdl
+# @alias sum_median_hilow
+# @alias sum_range
+# @alias mean_cl_boot
+# @alias mean_cl_normal
+# @alias mean_sdl
+# @alias median_hilow
 wrap_hmisc <- function(x, fun, ...) {
   try_require("Hmisc")
 

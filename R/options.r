@@ -46,6 +46,8 @@
 # @returns previous settings
 # @keyword manip 
 # @alias ggopt
+# @alias opts
+# @alias update.ggplot
 # @alias theme_default
 # @alias theme_bw
 #X ggopt(background.fill = "black", background.color ="white") # all new plots will use this
@@ -170,5 +172,17 @@ update.ggplot <- function(object, ...) {
   )
 }
 .store <- .plot_store()
+
+# Set last plot created or modified
+# 
+# @arguments plot to store
+# @keyword interval
 set_last_plot <- function(value) .store$set(value)
+
+
+# Retrieve last plot modified/created.
+# Whenever a plot is created or modified, it is recorded.
+# 
+# @seealso \code{\link{ggsave}}
+# @keyword hplot
 last_plot <- function() .store$get()

@@ -10,6 +10,8 @@
 # 
 # @arguments List of name value pairs
 # @keyword internal
+# @alias str.uneval
+# @alias print.uneval
 # @seealso \code{\link{aes_string}}
 #X aes(x = mpg, y = wt)
 #X aes(x = mpg ^ 2, y = wt / cyl)

@@ -1,6 +1,6 @@
 StatDensity <- proto(Stat, {
   calculate <- function(., data, scales, adjust=1, kernel="gaussian", trim=FALSE, na.rm = FALSE, ...) {
-    data <- remove.missing(data, na.rm, "x", name = "stat_density")
+    data <- remove_missing(data, na.rm, "x", name = "stat_density")
     
     n <- nrow(data)
     if (is.null(data$weight)) data$weight <- rep(1, n) / n

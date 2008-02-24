@@ -1,6 +1,35 @@
-addid <- function(data) {
+# Determine if a vector contains only integers
+# 
+# @arguments vector to test
+# @keyword internal
+#X is.integeric(runif(100))
+#X is.integeric(rpois(100, 10))
+#X is.integeric(1:10)
+is.integeric <- function(x) all(floor(x) == x)
+
+# Determine if a vector is discrete
+# A discrete vector is a factor or a character vector
+# 
+# @arguments vector to test
+# @keywords internal
+#X is.discrete(1:10)
+#X is.discrete(c("a", "b", "c"))
+#X is.discrete(factor(c("a", "b", "c")))
+is.discrete <- function(x) is.character(x) || is.factor(x)
+
+# Add group
+# Ensure that the data frame contains a grouping variable.
+#
+# If the \code{group} variable is not present, then a new group
+# variable is generated from the interaction of all discrete (factor or
+# character) vectors excluding label.
+# 
+# @arguments data.frame
+# @value data.frame with group variable
+# @keyword internal
+add_group <- function(data) {
   if (is.null(data$group)) {
-    cat <- sapply(data[setdiff(names(data), "label")], is.factor)
+    cat <- sapply(data[setdiff(names(data), "label")], is.discrete)
     if (sum(cat) == 0)
       data$group <- 1
     else 
@@ -13,6 +42,7 @@ addid <- function(data) {
 # Force matrix
 # If not already a matrix, make a 1x1 matrix
 # 
+# @arguments object to make into a matrix
 # @keyword internal
 force_matrix <- function(x) {
   if (!is.matrix(x)) {
@@ -22,19 +52,4 @@ force_matrix <- function(x) {
   } else {
     x
   }
-}
-
-# Uneval
-# Convert an unevaluted list to a list of unevaluated objects
-# 
-# @arguments unevaluated list (create with substitute)
-# @keyword manip 
-# @keyword internal
-uneval <- function(x) {
-  if (length(x) == 1) return(list())
-  parts <- vector("list", length(x) - 1)
-  names(parts) <- names(x)[-1]
-  for(i in length(x):2) parts[[i-1]] <- x[[i]]
-  
-  parts
 }

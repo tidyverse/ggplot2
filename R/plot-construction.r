@@ -1,4 +1,22 @@
-"%+%" <- "+.ggplot" <- function(p, object) {
+# Plot construction
+# The elements of a ggplot plot are combined together with addition.
+# 
+# \itemize{
+#   \item \code{data.frame}: replace default data.frame (must use \code{%+%})
+#   \item \code{uneval}: replace default aesthetics
+#   \item \code{layer}: add new layer
+#   \item \code{options}: update plot options
+#   \item \code{scale}: replace default scale
+#   \item \code{coord}: override default coordinate system
+#   \item \code{facet}: override default coordinate facetting
+# }
+#
+# @arguments plot object
+# @argument object to add
+# @seealso \code{\link{set_last_plot}}, \code{\link{ggplot}}
+# @keyword internal
+# @alias %+%
+"+.ggplot" <- function(p, object) {
   p <- plot_clone(p)
 
   if (is.data.frame(object)) {
@@ -20,8 +38,6 @@
         p$scales$add_defaults(data, mapping)
         p
       },
-      geom = p + layer(geom = object),
-      stat = p + layer(stat = object),
       coord = {
         p$coordinates <- object
         p
@@ -40,3 +56,4 @@
   set_last_plot(p)
   p
 }
+"%+%" <- "+.ggplot"

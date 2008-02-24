@@ -1,6 +1,5 @@
 # Expand range
-# Convenience function for expanding a range with a multiplicative 
-# or additive constant.
+# Convenience function for expanding a range with a multiplicative or additive constant.
 # 
 # @arguments range of data
 # @arguments multiplicative constract

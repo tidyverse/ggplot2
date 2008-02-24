@@ -47,14 +47,3 @@ StatSum <- proto(Stat, {
   }
   
 })
-
-dftable <- function(...) {
-  df <- do.call("cbind", list(...))
-  tab <- as.data.frame(table(df))
-  
-  cont <- c(sapply(df, is.numeric), FALSE)
-  tab[cont] <- lapply(tab[cont], function(x) as.numeric(as.character(x)))
-  
-  tab
-}
-

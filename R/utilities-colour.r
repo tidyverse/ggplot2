@@ -1,3 +1,6 @@
+# Wrapper for colorRamp that deals with missing values and alpha
+# 
+# @keyword internal
 nice_ramp <- function(ramp, x, alpha) {
   cols <- ramp(x)
   missing <- !complete.cases(x)
@@ -7,13 +10,6 @@ nice_ramp <- function(ramp, x, alpha) {
   colour[missing] <- NA
   
   colour
-}
-
-desaturate <- function(colour, percent) {
-  luv <- convertColor(t(col2rgb(colour)), "sRGB", "Luv")
-  luv[,1] <- luv[,1] + 1
-  col <- convertColor(luv, "Luv", "sRGB")
-  rgb(col[,1], col[,2], col[,3], maxColorValue=1)
 }
 
 # alpha

@@ -1,19 +1,10 @@
-# Cleaner version of match.fun
-# Version of \code{\link{match.fun}} that returns NULL on failure
-# 
-# @arguments function name to find (character vector)
-# @value function if found, otherwise NULL
-# @keyword internal 
-match.fun.null <- function(x) {
-  f <- NULL
-  try(f <- match.fun(x), silent=TRUE)
-  f
-}
-
-# Check required aesthetics are presented
+# Check required aesthetics are present
 # This is used by geoms and stats to give a more helpful error message
 # when required aesthetics are missing.
 #
+# @arguments character vector of required aesthetics
+# @arguments character vector of present aesthetics
+# @argument name of object for error message
 # @keyword internal
 check_required_aesthetics <- function(required, present, name) {
   missing_aes <- setdiff(required, present)
@@ -21,38 +12,31 @@ check_required_aesthetics <- function(required, present, name) {
 
   stop(name, " requires the following missing aesthetics: ", paste(missing_aes, collapse=", "), call. = FALSE)
 }
-# Apply with built in try
-# Uses compact, lapply and tryNULL
+
+# Concatenate a named list for output
+# Print a \code{list(a=1, b=2)} as \code{(a=1, b=2)}
 # 
-# @keyword internal
-# @alias tryNULL
-tryapply <- function(list, fun, ...) {
-  compact(lapply(list, function(x) tryNULL(fun(x, ...))))
-}
-
-tryNULL <- function(expr)  {
-  result <- NULL
-  tryCatch(result <- expr, error=function(e){})
-  result
-}
-
+# @arguments list to concatenate
+#X clist(list(a=1, b=2))
+#X clist(par()[1:5])
 clist <- function(l) {
   paste("(", paste(names(l), l, sep="=", collapse=", "), ")", sep="")
 }
 
-plist <- function(l) {
-  if (length(l) == 0)  return()
-  l <- l[names(l) != "..."]
-  if (length(l) == 0)  return()
-  paste(paste(names(l), l, sep="&nbsp;=&nbsp;", collapse=", "), sep="")
-}
-
-
+# Abbreviated paste
+# Alias for paste with a shorter name and convenient defaults
+# 
+# @arguments character vectors to be concatenated
+# @arguments default separator
+# @arguments default collapser
+# @keyword internal
 ps <- function(..., sep="", collapse="") do.call(paste, compact(list(..., sep=sep, collapse=collapse)))
 
-
-is.integeric <- function(x) floor(x) == x
-
+# Quietly try to require a package
+# Queitly require a package, returning an error message if that package is not installed.
+# 
+# @argument name of package
+# @keyword internal
 try_require <- function(package) {
   available <- suppressMessages(suppressWarnings(sapply(package, require, quietly = TRUE, character.only = TRUE, warn.conflicts=FALSE)))
   missing <- package[!available]
@@ -71,6 +55,17 @@ uniquecols <- function(df) {
   df
 }
 
+# A "safe" version of do.call
+# \code{safe.call} works like \code{\link{do.call}} but it will only supply arguments that exist in the function specification.
+# 
+# If ... is present in the param list, all parameters will be passed through
+# unless \code{ignore.dots = TRUE}.  Positional arguments are not currently
+# supported.
+# 
+# @arguments function to call
+# @arugments named list of parameters to be supplied to function
+# @arguments parameter names of function
+# @arguments 
 safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRUE) {
   if (!ignore.dots && "..." %in% f.params) {
     safe.params <- params
@@ -80,18 +75,35 @@ safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRU
   do.call(f, safe.params)
 }
 
-
-remove.missing <- function(df, na.rm=FALSE, vars = names(df), name="") {
+# Convenience function to remove missing values from a data.frame
+# Remove all non-complete rows, with a warning if \code{na.rm = FALSE}.
+# 
+# ggplot is somewhat more accomodating of missing values than R generally.
+# For those stats which require complete data, missing values will be 
+# automatically removed with a warning.  If \code{na.rm = TRUE} is supplied
+# to the statistic, the warning will be suppressed.
+# 
+# @arguments data.frame
+# @arguments suppress warning that rows are being removed?
+# @argumnets variables to check for missings in
+# @arguments optional function name to make warning message more informative
+# @keyword internal
+#X a <- remove_missing(movies)
+#X a <- remove_missing(movies, na.rm = TRUE)
+#X qplot(mpaa, budget, data=movies, geom="boxplot")
+remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="") {
+  vars <- intersect(vars, names(df))
+  if (name != "") name <- ps(" (", name, ")")
   missing <- !complete.cases(df[, vars])
   if (any(missing)) {
     df <- df[!missing, ]
-    if (!na.rm) warning("Removed missing values in ", name, call. = FALSE)
+    if (!na.rm) warning("Removed ", sum(missing), " rows containing missing values", name, ".", call. = FALSE)
   }
   df
 }
 
-# Traceback
-# Redefine trace back to work better with \\code{\\link{do.call}}
+# Traceback alias
+# Alias of traceback with fewer keypresses, and severe restriction on number of lines for each function
 # 
 # @keyword manip 
 # @keyword internal

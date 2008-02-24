@@ -204,3 +204,10 @@ html_auto_link <- function(input, skip="") {
   
 }
 
+plist <- function(l) {
+  if (length(l) == 0)  return()
+  l <- l[names(l) != "..."]
+  if (length(l) == 0)  return()
+  paste(paste(names(l), l, sep="&nbsp;=&nbsp;", collapse=", "), sep="")
+}
+

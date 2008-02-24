@@ -205,12 +205,13 @@ Layer <- proto(expr = {
   }  
 })
 
+# Convenience apply function for facets data structure
+# 
+# @keywords internal
 gg_apply <- function(gg, f, ...) {
-  # lapply(gg, function(dm) {
-    apply(gg, c(1,2), function(data) {
-      f(data[[1]], ...)
-    })
-  # })
+  apply(gg, c(1,2), function(data) {
+    f(data[[1]], ...)
+  })
 }
 layer <- Layer$new
 
