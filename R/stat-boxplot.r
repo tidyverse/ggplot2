@@ -14,38 +14,38 @@ StatBoxplot <- proto(Stat, {
   icon <- function(.) GeomBoxplot$icon()
   default_geom <- function(.) GeomBoxplot
   
-  calculate <- function(., data, scales, width=0.75, na.rm = FALSE, ...) {
-    if (is.null(data$weight)) data$weight <- 1
-
-    if (na.rm) data <- data[complete.cases(data[, c("y", "weight")]), ]
-
-    x <- data$y
-    weight <- data$weight
-    coef <- 1.5
+  calculate_groups <- function(., data, na.rm = FALSE, width = NULL, ...) {
+    data <- remove_missing(data, na.rm, c("y", "weight"), name="stat_boxplot")
+    data$weight <- nulldefault(data$weight, 1)
+    width <- nulldefault(width, resolution(data$x) * 0.75)
+        
+    .super$calculate_groups(., data, na.rm = na.rm, width = width, ...)
+  }
+  
+  calculate <- function(., data, scales, width=NULL, na.rm = FALSE, coef = 1.5, ...) {
+    with(data, {
+      qs <- c(0, 0.25, 0.5, 0.75, 1)
+      if (length(unique(weight)) != 1) {
+        try_require("quantreg")
+        stats <- as.numeric(coef(rq(y ~ 1, weights = weight, tau=qs)))
+      } else {
+        stats <- as.numeric(quantile(y, qs))
+      }
+      names(stats) <- c("min", "lower", "middle", "upper", "max")
     
-    if (length(unique(weight)) != 1) {
-      try_require("quantreg")
-      stats <- as.numeric(coef(rq(x ~ 1, weights = weight, tau=c(0, 0.25, 0.5, 0.75, 1))))
-    } else {
-      stats <- as.numeric(quantile(x, c(0, 0.25, 0.5, 0.75, 1)))
-    }
-    names(stats) <- c("min", "lower", "middle", "upper", "max")
+      iqr <- diff(stats[c(2, 4)])
+      outliers <- y < (stats[2] - coef * iqr) | y > (stats[4] + coef * iqr)
+      if (any(outliers)) stats[c(1, 5)] <- range(y[!outliers], na.rm=TRUE)
     
-    iqr <- diff(stats[c(2, 4)])
-    outliers <- x < (stats[2] - coef * iqr) | x > (stats[4] + coef * iqr)
-    if (any(outliers)) stats[c(1, 5)] <- range(x[!outliers], na.rm=TRUE)
+      if (length(unique(x)) > 1) width <- diff(range(x)) * 0.9
     
-    df <- as.data.frame(as.list(stats))
-    df$outliers <- I(list(x[outliers]))
-    
-    if (is.numeric(data$x)) {
-      df$x <- mean(range(data$x))
-      df$width <- diff(range(data$x))
-    } else {
-      df$x <- data$x[1]
-      df$width <- width
-    }
-    df
+      df <- as.data.frame(as.list(stats))
+      df$outliers <- I(list(y[outliers]))
+      transform(df,
+        x = if (is.factor(x)) x[1] else mean(range(x)),
+        width = width
+      )
+    })
   }
   
   examples <- function(.) {

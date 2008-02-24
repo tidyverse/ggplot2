@@ -1,16 +1,18 @@
 TODO for this release
  * Complete rdoc documentation
- * Profiling and some optimisations
- * Multicolumn legends (and specification)
 
 ggplot 0.6
 ----------------------------------------
+  
+Improved documentation
   
   * it's now easy to change the default scales (and their arguments) with the set_default_scale function, see ?set_default_scale for more details (thanks to Bob Muenchen for the suggestion)
   * new order aesthetic which controls the order in which elements are plotted
   * min and max are now scaled the same way as y
   * functions are silently dropped (e.g. aes(colour=col))
 
+  * geom_boxplot: reports if missing values removed
+  * geom_boxplot: deals with continuous x-axis and grouping much better
   * coord_polar: add start and direction parameters, giving more control over the layout of the polar coords
   * coord_polar: added my favourite pie chart example
   * coord_trans now deals with groups appropriately, at the cost of decreased speed
