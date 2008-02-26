@@ -17,6 +17,7 @@ check_required_aesthetics <- function(required, present, name) {
 # Print a \code{list(a=1, b=2)} as \code{(a=1, b=2)}
 # 
 # @arguments list to concatenate
+# @keyword internal
 #X clist(list(a=1, b=2))
 #X clist(par()[1:5])
 clist <- function(l) {
@@ -66,6 +67,7 @@ uniquecols <- function(df) {
 # @arugments named list of parameters to be supplied to function
 # @arguments parameter names of function
 # @arguments 
+# @keyword internal
 safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRUE) {
   if (!ignore.dots && "..." %in% f.params) {
     safe.params <- params

@@ -8,6 +8,7 @@
 # @arguments path a
 # @arguments path b
 # @value list with components only_a, only_b and both
+# @keyword internal
 dir_diff <- function(a, b) {
   files_a <- dir(a)
   files_b <- dir(b)
@@ -45,6 +46,7 @@ compare_img <- function(file, path_a, path_b, path_out) {
 # 
 # @arguments character vector of paths
 # @value boolean
+# @keyword internal
 same_file <- function(...) {  
   files <- list(...)
   cmd <- paste("md5 -q", paste(files, collapse=" "))

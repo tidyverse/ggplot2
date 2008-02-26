@@ -1,10 +1,10 @@
 \name{firstUpper}
 \alias{firstUpper}
-\title{INCLUDES <- "web/graphics"}
+\title{Upper case first letter of string}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-FILETYPE <- "html"
+This comes from the examples of some R function.
 }
 \usage{firstUpper(s)}
 \arguments{

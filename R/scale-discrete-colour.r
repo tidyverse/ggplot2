@@ -1,7 +1,6 @@
 ScaleColour <- proto(ScaleDiscrete, expr={
-  common <- c("colour", "fill")
   objname <- "colour"
-  doc <- FALSE
+  common <- c()
 })
 
 ScaleHue <- proto(ScaleColour, expr={
@@ -23,6 +22,7 @@ ScaleHue <- proto(ScaleColour, expr={
   max_levels <- function(.) Inf
 
   doc <- TRUE
+  common <- c("colour", "fill")
 
   # Documetation -----------------------------------------------
   objname <- "hue"
@@ -67,7 +67,7 @@ ScaleHue <- proto(ScaleColour, expr={
     d + scale_colour_hue(alpha = 0.2)
   }
 })
-ScaleColourDiscrete <- proto(ScaleHue, doc=FALSE, examples=function(.) {})
+
 
 
 ScaleBrewer <- proto(ScaleColour, expr={
@@ -107,6 +107,7 @@ ScaleBrewer <- proto(ScaleColour, expr={
   objname <- "brewer"
   desc <- "Colour brewer colour scales"
   details <- "<p>See <a href='http://colorbrewer.org'>colorbrewer.org</a> for more info</p>"
+  common <- c("colour", "fill")
 
   icon <- function(.) {
     rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21, 

@@ -20,4 +20,4 @@ Overrides the default scale with one of your choosing.
 set_default_scale("colour","discrete", "grey")
 qplot(mpg, wt, data=mtcars, colour=factor(cyl)) 
 set_default_scale("colour","discrete", "hue")}
-
+\keyword{internal}

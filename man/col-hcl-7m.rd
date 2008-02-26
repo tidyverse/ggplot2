@@ -15,10 +15,7 @@ Transforms rgb to hcl, sets non-missing arguments and then backtransforms to rgb
 \item{alpha}{}
 }
 
-\details{@keyword internal
-Mute standard R colours.
-This produces colours with moderate luminance and saturation.s}
+\details{}
 
 \examples{}
-\keyword{internal}
 \keyword{internal}

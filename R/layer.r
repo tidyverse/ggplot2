@@ -207,7 +207,7 @@ Layer <- proto(expr = {
 
 # Convenience apply function for facets data structure
 # 
-# @keywords internal
+# @keyword internal
 gg_apply <- function(gg, f, ...) {
   apply(gg, c(1,2), function(data) {
     f(data[[1]], ...)
@@ -256,6 +256,8 @@ calc_aesthetics <- function(plot, data = plot$data, aesthetics, ignore.extra = F
 }
 
 # Remove aesthetics mapped to variables created by statistics
+# 
+# @keyword internal
 drop_calculated_aes <- function(aesthetics) {
   match <- "\\.\\.([a-zA-z._]+)\\.\\."
   stats <- rep(F, length(aesthetics))

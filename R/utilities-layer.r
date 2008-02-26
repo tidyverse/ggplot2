@@ -11,7 +11,7 @@ is.integeric <- function(x) all(floor(x) == x)
 # A discrete vector is a factor or a character vector
 # 
 # @arguments vector to test
-# @keywords internal
+# @keyword internal
 #X is.discrete(1:10)
 #X is.discrete(c("a", "b", "c"))
 #X is.discrete(factor(c("a", "b", "c")))

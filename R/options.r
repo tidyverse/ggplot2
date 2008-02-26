@@ -176,7 +176,7 @@ update.ggplot <- function(object, ...) {
 # Set last plot created or modified
 # 
 # @arguments plot to store
-# @keyword interval
+# @keyword internal
 set_last_plot <- function(value) .store$set(value)
 
 

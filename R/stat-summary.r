@@ -120,6 +120,7 @@ auto_wrap <- function(f) {
 # @alias mean_cl_normal
 # @alias mean_sdl
 # @alias median_hilow
+# @keyword internal
 wrap_hmisc <- function(x, fun, ...) {
   try_require("Hmisc")
 

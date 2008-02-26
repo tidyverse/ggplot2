@@ -1,4 +1,7 @@
-# 
+# Bin data
+# This function powers stat_bin
+#
+# @keyword internal
 bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9) {
   if (is.null(weight))  weight <- rep(1, length(x))
   weight[is.na(weight)] <- 0
@@ -53,8 +56,8 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
 # 
 # @arguments range
 # @arguments interval size
-# @keywords internal
-# @seealso \code{\link{round_any}}
+# @keyword internal
+# @seealso \code{\link{reshape}{round_any}}
 fullseq <- function(range, size) {
   seq(
     round_any(range[1], size, floor), 

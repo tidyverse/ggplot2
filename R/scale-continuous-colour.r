@@ -178,4 +178,3 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
   }
   
 })
-ScaleColourContinuous <- proto(ScaleGradient, objname="continuous", doc=FALSE, examples=function(.) {})

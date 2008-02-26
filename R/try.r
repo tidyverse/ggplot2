@@ -1,14 +1,14 @@
 # Try, with default in case of error
-# \code{try_default} wraps try so that it returns a default value in the case of error
+# \code{try_default} wraps try so that it returns a default value in the case of error.
 # 
 # \code{tryNULL} provides a useful special case when dealing with lists.
 # 
+# @alias tryNULL
 # @arguments expression to try
 # @arguments default value in case of error
 # @keyword internal
 # @seealso \code{\link{tryapply}}
-# @alias tryNULL
-try_default <- function (expr, default = NA) {
+try_default <- function(expr, default = NA) {
   result <- default
   tryCatch(result <- expr, error = function(e) {})
   result

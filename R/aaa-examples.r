@@ -56,6 +56,8 @@ TopLevel$all_examples_run <- function(., path=NULL, verbose=TRUE) {
 }
 
 # Run all examples
+# 
+# @keyword internal
 all_examples_run <- function(path=NULL, verbose = TRUE) {
   invisible(rbind(
     Geom$all_examples_run(path, verbose),
@@ -70,9 +72,14 @@ all_examples_run <- function(path=NULL, verbose = TRUE) {
 
 # Save all examples in consistent format -------------------------------------
 
+# Save examples
+# Cache output from all examples in ggplot directory
+# 
 # Produces:
 #  * png for each example
 #  * csv with hash, code and timing info
+# 
+# @keyword internal
 save_examples <- function(name = get_rev(".")) {
   path <- paste("~/documents/ggplot/examples/ex-", name, "/", sep="")
   dir.create(path, recursive = TRUE)
@@ -85,12 +92,15 @@ save_examples <- function(name = get_rev(".")) {
   invisible(info)
 }
 
+# Get current revision
+# Developer use only
+# 
+# @keyword internal
 get_rev <- function(path = ".") {
   cmd <- paste("svn info ", path, "| grep 'Revision'")
   out <- system(cmd, intern=T)
   strsplit(out, " ")[[1]][2]
 }
-
 
 
 # Profiling code -------------------------------------------------------------
@@ -103,6 +113,8 @@ TopLevel$examples_profile <- function(.) {
 }
 
 # Trim call tree to start with specified function
+# 
+# @keyword internal
 trim <- function(calltree, f) {
   trimmed <- compact(lapply(calltree, function(x) {
     if (!any(x == f)) return(NULL)

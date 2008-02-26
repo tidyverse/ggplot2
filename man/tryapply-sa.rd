@@ -1,6 +1,5 @@
 \name{tryapply}
 \alias{tryapply}
-\alias{tryNULL}
 \title{Apply with built in try}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 

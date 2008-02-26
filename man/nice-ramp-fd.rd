@@ -8,15 +8,12 @@
 }
 \usage{nice_ramp(ramp, x, alpha)}
 \arguments{
-\item{ramp}{colour}
-\item{x}{alpha level [0,1]}
+\item{ramp}{}
+\item{x}{}
 \item{alpha}{}
 }
 
-\details{@keyword internal
-alpha
-Give a colour an alpha level}
+\details{}
 
 \examples{}
-\keyword{internal}
 \keyword{internal}

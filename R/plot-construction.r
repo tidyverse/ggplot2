@@ -2,7 +2,7 @@
 # The elements of a ggplot plot are combined together with addition.
 # 
 # \itemize{
-#   \item \code{data.frame}: replace default data.frame (must use \code{%+%})
+#   \item \code{data.frame}: replace default data.frame (must use \code{\%+\%})
 #   \item \code{uneval}: replace default aesthetics
 #   \item \code{layer}: add new layer
 #   \item \code{options}: update plot options
@@ -15,7 +15,7 @@
 # @argument object to add
 # @seealso \code{\link{set_last_plot}}, \code{\link{ggplot}}
 # @keyword internal
-# @alias %+%
+# @alias \%+\%
 "+.ggplot" <- function(p, object) {
   p <- plot_clone(p)
 

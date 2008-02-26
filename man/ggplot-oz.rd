@@ -1,20 +1,20 @@
-\name{.ggplot"}
-\alias{.ggplot}
-\alias{%+%}
+\name{"+.ggplot"}
+\alias{+.ggplot}
+\alias{\%+\%}
 \title{Plot construction}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
 The elements of a ggplot plot are combined together with addition.
 }
-\usage{.ggplot"(p, object)}
+\usage{"+.ggplot"(p, object)}
 \arguments{
 \item{p}{plot object}
 \item{object}{}
 }
 
 \details{\itemize{
-\item \code{data.frame}: replace default data.frame (must use \code{%+%})
+\item \code{data.frame}: replace default data.frame (must use \code{\%+\%})
 \item \code{uneval}: replace default aesthetics
 \item \code{layer}: add new layer
 \item \code{options}: update plot options

@@ -91,6 +91,6 @@ TransSqrt <- Trans$new("sqrt", "sqrt", function(x) x^2, function(x) bquote(.(x)^
 
 # Turn numeric vector into date vector
 # 
-# @keywords internal
+# @keyword internal
 to_date <- function(x) structure(x, class="Date")
 

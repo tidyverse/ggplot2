@@ -4,6 +4,7 @@
 # @argument 
 # @argument type of variable (discrete, continuous, date)
 # @argument name of new default scale
+# @keyword internal
 #X qplot(mpg, wt, data=mtcars, colour=factor(cyl)) 
 #X set_default_scale("colour","discrete", "grey")
 #X qplot(mpg, wt, data=mtcars, colour=factor(cyl)) 

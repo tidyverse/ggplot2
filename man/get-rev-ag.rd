@@ -1,14 +1,14 @@
-\name{to_date}
-\alias{to_date}
-\title{Turn numeric vector into date vector}
+\name{get_rev}
+\alias{get_rev}
+\title{Get current revision}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Developer use only
 }
-\usage{to_date(x)}
+\usage{get_rev(path = ".")}
 \arguments{
-\item{x}{}
+\item{path}{}
 }
 
 \details{}

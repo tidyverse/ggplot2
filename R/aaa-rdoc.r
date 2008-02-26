@@ -8,7 +8,7 @@ all_rdoc_pages_create <- function(path="web/") {
 }
 
 # Name of physical file to create, doesn't include directory
-TopLevel$rdoc_path <- function(.) {
+TopLevel$rdoc_path <- function (.) {
   ps(.$my_name(), ".rd")
 }
 
@@ -37,7 +37,7 @@ TopLevel$rdoc_page <- function(.) {
     .$rdoc_value(),
     .$rdoc_examples(),
     .$rdoc_author(),
-    .$rdoc_keywords(),
+    .$rdoc_keyword(),
     ""
   )
 }
@@ -56,7 +56,7 @@ TopLevel$rdoc_aliases <- function(.) {
   )
   
   ps(
-    "\\alias{", aliases, "}\n"
+    "\\alias{", gsub("%", "\\%", aliases), "}\n"
   )
 }
 
@@ -119,6 +119,8 @@ TopLevel$rdoc_formals <- function(.)   {
   
 }
 
+# FIXME: need to generate usage statements for all common scales
+
 TopLevel$rdoc_usage <- function(.) {
   args <- .$rdoc_formals()
   is.missing.arg <- function(arg) sapply(arg, typeof) == "symbol" & sapply(arg, deparse) == ""
@@ -177,7 +179,7 @@ TopLevel$rdoc_examples <- function(.) {
 TopLevel$rdoc_author <- function(.) {
   "\\author{Hadley Wickham, \\url{http://had.co.nz/}}\n"
 }  
-TopLevel$rdoc_keywords <- function(.) {
+TopLevel$rdoc_keyword<- function(.) {
   "\\keyword{hplot}\n"
 }  
 

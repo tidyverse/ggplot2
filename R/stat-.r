@@ -1,4 +1,3 @@
-# Statistics must be location scale
 Stat <- proto(TopLevel, expr={
   objname <- "" 
   desc <- ""
