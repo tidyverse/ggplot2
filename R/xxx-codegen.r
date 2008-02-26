@@ -16,7 +16,7 @@ create_accessors <- function(objects, name, short=NULL) {
 }
 
 TopLevel$build_accessor <- function(., extra_args = c()) {
-  layer <- if (.$class() %in% c("geom","stat", "position")) c(
+  layer <- if (.$class() %in% c("geom","stat")) c(
     list(mapping=NULL,data=NULL),
     compact(list(
       geom = if (exists("default_geom", .)) .$default_geom()$objname, 
@@ -26,6 +26,7 @@ TopLevel$build_accessor <- function(., extra_args = c()) {
   )
   params <- .$params()
   params <- params[names(params) != "..."]
+  if (.$class() %in% c("geom","stat")) params <- params[!sapply(params, is.null)]
   args <- c(layer, params)
   
   body <- ps(

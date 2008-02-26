@@ -49,7 +49,7 @@ TopLevel$all_examples_run <- function(., path=NULL, verbose=TRUE) {
   
   out <- tryapply(.$find_all(), function(x) {
     if (verbose) message("Running examples for", " ", x$my_name())
-    x$examples_run(path, verbose)
+    suppressMessages(x$examples_run(path, verbose))
   })
   
   invisible(do.call("rbind", out))
@@ -80,11 +80,11 @@ all_examples_run <- function(path=NULL, verbose = TRUE) {
 #  * csv with hash, code and timing info
 # 
 # @keyword internal
-save_examples <- function(name = get_rev(".")) {
+save_examples <- function(name = get_rev("."), verbose = FALSE) {
   path <- paste("~/documents/ggplot/examples/ex-", name, "/", sep="")
   dir.create(path, recursive = TRUE)
   
-  info <- all_examples_run(path, verbose = FALSE)
+  info <- all_examples_run(path, verbose = verbose)
   write.table(info, file=file.path(path, "info.csv"), sep=",",col=TRUE, row=FALSE)
   system(paste("pdf2png ", path, "*.pdf", sep =""))
   system(paste("rm ", path, "*.pdf", sep =""))

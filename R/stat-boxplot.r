@@ -23,7 +23,7 @@ StatBoxplot <- proto(Stat, {
   }
   
   calculate <- function(., data, scales, width=NULL, na.rm = FALSE, coef = 1.5, ...) {
-    with(data, {
+    with(data, {    
       qs <- c(0, 0.25, 0.5, 0.75, 1)
       if (length(unique(weight)) != 1) {
         try_require("quantreg")
@@ -34,6 +34,7 @@ StatBoxplot <- proto(Stat, {
       names(stats) <- c("min", "lower", "middle", "upper", "max")
     
       iqr <- diff(stats[c(2, 4)])
+      
       outliers <- y < (stats[2] - coef * iqr) | y > (stats[4] + coef * iqr)
       if (any(outliers)) stats[c(1, 5)] <- range(y[!outliers], na.rm=TRUE)
     
@@ -41,6 +42,7 @@ StatBoxplot <- proto(Stat, {
     
       df <- as.data.frame(as.list(stats))
       df$outliers <- I(list(y[outliers]))
+
       transform(df,
         x = if (is.factor(x)) x[1] else mean(range(x)),
         width = width

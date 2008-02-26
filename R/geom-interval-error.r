@@ -10,7 +10,7 @@ GeomErrorbar <- proto(GeomInterval, {
   }
   
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, width=0.9)
+  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1)
   guide_geom <- function(.) "path"
   
 
@@ -22,7 +22,7 @@ GeomErrorbar <- proto(GeomInterval, {
     "geom_smooth" = "for continuous analog"
   )
 
-  draw <- function(., data, scales, coordinates, ...) {
+  draw <- function(., data, scales, coordinates, width = NULL, ...) {
     data <- transform(data, 
       l = x - width / 2, r = x + width / 2
     )
@@ -49,13 +49,11 @@ GeomErrorbar <- proto(GeomInterval, {
     )
     df2 <- df[c(1,3),]
     
-    ggplot(df, aes(max = resp + se, min=resp - se, x=trt, fill=group)) + geom_bar(position="dodge")
-    
     # Define the top and bottom of the errorbars
-    limits <- aes(max = resp + se, min=resp - se, width=0.9)
+    limits <- aes(max = resp + se, min=resp - se)
     
     p <- ggplot(df, aes(fill=group, y=resp, x=trt))
-    p + geom_bar(position="dodge")
+    p + geom_bar(position="dodge", stat="identity")
     
     # Because the bars and errorbars have different widths
     # we need to specify how wide the objects we are dodging are

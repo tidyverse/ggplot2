@@ -92,7 +92,7 @@ Scale <- proto(TopLevel, expr={
     names(df) <- .$output()
     df$label <- labels
     list(
-      name = .$name,
+      name = nulldefault(.$name, ""),
       aesthetic = .$output(),
       display = df
     )

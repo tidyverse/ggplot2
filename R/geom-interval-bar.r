@@ -2,9 +2,10 @@ GeomBar <- proto(GeomInterval, {
   
   default_stat <- function(.) StatBin
   default_pos <- function(.) PositionStack
-  default_aes <- function(.) aes(colour=NA, fill="grey60", min=0, width=resolution(x) * 0.9, size=1, linetype=1, max=y)
+  default_aes <- function(.) aes(colour=NA, fill="grey60", min=0, size=1, linetype=1, max=y)
  
-  draw <- function(., data, scales, coordinates, ...) {
+  draw <- function(., data, scales, coordinates, width = NULL, ...) {
+    width <- nulldefault(width, resolution(data$x) * 0.9)
     if (coordinates$muncher()) {
       data <- transform(data, top=max, bottom=min, left=x - width/2, right=x + width/2)
       ggname("bar",gTree(children=do.call("gList", lapply(1:nrow(data), function(i) {

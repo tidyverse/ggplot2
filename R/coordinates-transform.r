@@ -14,6 +14,7 @@ CoordTrans <- proto(CoordCartesian, expr={
   }
   
   munch <- function(., data, npieces=50) {
+    data <- add_group(data)
     groups <- split(data, data$group)
     munched_groups <- lapply(groups, function(df) .$munch_group(df, npieces))
     do.call("rbind", munched_groups)

@@ -1,5 +1,5 @@
 GeomBoxplot <- proto(GeomInterval, {
-  draw <- function(., data, ..., outlier.colour = "black", outlier.shape = 19, outlier.size = 1) {
+  draw <- function(., data, ..., outlier.colour = "black", outlier.shape = 19, outlier.size = 1) {    
     defaults <- with(data, data.frame(x=x, colour=colour, size=size, linetype=1, group=1, xend=x,  width=width, fill=fill, stringsAsFactors=FALSE))
     defaults2 <- defaults[c(1,1), ]
     
@@ -26,7 +26,7 @@ GeomBoxplot <- proto(GeomInterval, {
   
   default_stat <- function(.) StatBoxplot
   default_pos <- function(.) PositionDodge
-  default_aes <- function(.) aes(weight=1, colour="grey50", fill="white", size=0.5, width=0.75)
+  default_aes <- function(.) aes(weight=1, colour="grey50", fill="white", size=0.5)
   seealso <- list(
     stat_quantile = "View quantiles conditioned on a continuous variable",
     geom_jitter = "Another way to look at conditional distributions"
@@ -56,14 +56,13 @@ GeomBoxplot <- proto(GeomInterval, {
     # - automatically split when an aesthetic variable is a factor
     p + geom_boxplot(aes(colour=factor(am)))
     p + geom_boxplot(aes(fill=factor(vs)), colour="black")
-    p + geom_boxplot(aes(size=factor(gear)))
+    p + geom_boxplot(aes(size=factor(gear))) + scale_size(to=c(0.5, 2))
     
     # Set aesthetics to fixed value
-    p + geom_boxplot(fill="black", colour="white", size=2)
+    p + geom_boxplot(fill="black", colour="white", size=1)
 
     # Scales vs. Coordinate transforms
-    movies$ratingr <- factor(round_any(movies$rating,0.5))
-    m <- ggplot(movies, aes(y=votes, x=ratingr))
+    m <- ggplot(movies, aes(y=votes, x=rating, group=round_any(rating,0.5)))
     m + geom_point()
     m + geom_boxplot()
     m + geom_boxplot() + scale_y_log10()

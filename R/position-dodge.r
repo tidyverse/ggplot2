@@ -6,12 +6,11 @@ PositionDodge <- proto(Position, {
   }
   
   adjust <- function(., data, scales) {
+    if (nrow(data) == 0) return()
     check_required_aesthetics("x", names(data), "position_dodge")
     
     if (is.null(data$width)) data$width <- resolution(data$x) * 0.9
     maxwidth <- if (!is.null(.$width))  .$width else max(data$width)
-
-    
     maxn <- max(tapply(data$x, data$x, length))
     dodge <- function(data) {
       transform(data, 
