@@ -52,9 +52,13 @@ Scale <- proto(TopLevel, expr={
   # Map values from a data.frame.   Returns data.frame
   map_df <- function(., df) {
     input <- df[[.$input()]]
-    # if (is.null(input)) stop("scale_", .$objname, ": no ", .$input(), " mapping in plot",  call.=FALSE)
+    if (is.null(input)) {
+      # stop("scale_", .$objname, ": no ", .$input(), " mapping in plot",  call.=FALSE)
+      output <- data.frame()
+    } else {
+      output <- data.frame(.$map(input))
+    }
     
-    output <- data.frame(.$map(input))
     if (ncol(output) > 0) names(output) <- .$output()
     output
   }

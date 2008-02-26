@@ -135,9 +135,7 @@ TopLevel$rdoc_usage <- function(.) {
   ps(
     "\\usage{", call, "}\n"
   )
-}  
-
-
+}
 
 TopLevel$rdoc_arguments <- function(.) {
   p <- names(.$rdoc_formals())

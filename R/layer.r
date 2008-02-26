@@ -63,7 +63,6 @@ Layer <- proto(expr = {
   clone <- function(.) as.proto(.$as.list())
   
   use_defaults <- function(., data) {
-    # browser()
     df <- aesdefaults(data, .$geom$default_aes(), compact(.$aesthetics))
     gp <- intersect(names(df), names(.$geom_params))
     if (length(.$geom_params[gp])) 

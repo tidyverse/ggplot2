@@ -10,6 +10,7 @@ Improved documentation
   * new order aesthetic which controls the order in which elements are plotted
   * min and max are now scaled the same way as y
   * functions are silently dropped (e.g. aes(colour=col))
+  * scales do not try and map variables than don't exist (fixes some rather obscure bugs)
 
   * geom_boxplot: reports if missing values removed
   * geom_boxplot: deals with continuous x-axis and grouping much better
