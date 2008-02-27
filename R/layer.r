@@ -66,7 +66,7 @@ Layer <- proto(expr = {
     df <- aesdefaults(data, .$geom$default_aes(), compact(.$aesthetics))
     
     # Override mappings with parameters
-    gp <- intersect(names(df), names(.$geom_params))
+    gp <- intersect(c(names(df), .$geom$required_aes), names(.$geom_params))
     if (length(.$geom_params[gp])) 
       gp <- gp[sapply(.$geom_params[gp], is.atomic)]
     df[gp] <- .$geom_params[gp]

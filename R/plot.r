@@ -38,13 +38,7 @@ ggplot.default <- function(data = NULL, mapping=aes(), ...) {
 # @arguments other arguments passed on to \\code{\\link{ggplot_plot}}
 # @keyword hplot
 # @keyword internal 
-print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, save=ggopt()$save, ...) {
-  if (save) {
-    try_require("decumar")
-    img(grid.draw(ggplot_plot(x, ...)), hash=digest.ggplot(x))
-    return()
-  }
-  
+print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   if (newpage) grid.newpage()
   if (is.null(vp)) {
     grid.draw(ggplot_plot(x, ...)) 

@@ -1,6 +1,6 @@
 GeomRibbon <- proto(GeomInterval, {
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour="grey60", fill="grey80", size=1, linetype=1)
+  default_aes <- function(.) aes(colour="grey60", fill="grey80", size=0.5, linetype=1)
   guide_geom <- function(.) "tile"
 
   adjust_scales_data <- function(., scales, data) {
@@ -68,7 +68,7 @@ GeomRibbon <- proto(GeomInterval, {
     
     # The default summary isn't that useful
     m + stat_summary(geom="ribbon")
-    m + stat_summary(geom="ribbon", fun=stat_median_hilow)
+    m + stat_summary(geom="ribbon", fun="median_hilow")
     
     # Use qplot instead
     qplot(year, level, data=huron, geom=c("area", "line"))

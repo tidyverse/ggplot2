@@ -23,9 +23,9 @@ TopLevel$examples_run <- function(., path = NULL, verbose=TRUE) {
   display <- function(x) {
     if (verbose) cat(x$src, "\n")
     if (is.null(path)) {
-      timing <- system.time(print(x$value))
+      timing <- try_default(system.time(print(x$value)), c(NA, NA, NA))
     } else {      
-      timing <- system.time(ggsave(x$value, path=path))
+      timing <- try_default(system.time(ggsave(x$value, path=path, width=4, height=4)), c(NA, NA, NA))
     }
     timing <- unname(timing)
     data.frame(
@@ -38,7 +38,7 @@ TopLevel$examples_run <- function(., path = NULL, verbose=TRUE) {
       stringsAsFactors = FALSE
     )
   }
-  out <- tryapply(plots, display)
+  out <- lapply(plots, display)
   invisible(do.call("rbind", out))
 }
 
