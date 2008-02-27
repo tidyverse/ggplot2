@@ -13,6 +13,7 @@ Improved documentation
   * scales do not try and map variables than don't exist (fixes some rather obscure bugs)
   * aes(mpg, wt) is now equivalent to aes(x = mpg, y = wt)
 
+  * geom_vline, geom_hline: yet another rewrite which should make them more powerful and less error prone.  
   * geom_boxplot: now has it's own legend which actually looks like a boxplot
   * scale_size: changed default range to [0.5, 3] to better reflect new sizing decisions
   * geom_boxplot: reports if missing values removed

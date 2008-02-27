@@ -1,24 +1,21 @@
 GeomAbline <- proto(Geom, {
-  new <- function(., mapping=aes(), data=NULL, intercept=0, slope=1, ...) {
-    if (missing(data)) {
-      data <- data.frame(intercept = intercept, slope=slope)
-    }
-    mapping <- defaults(mapping, aes(intercept=intercept, slope=slope))
-    class(mapping) <- "uneval"
-    
-    layer(mapping=mapping, data=data, geom = ., geom_params = list(...), ignore.extra = TRUE)
+  new <- function(., ...) {
+    .super$new(., ..., ignore.extra = TRUE)
   }
-
+  
   draw <- function(., data, scales, coordinates, ...) {
+    data <- aesdefaults(data, .$default_aes(), list(...))
+    
     xrange <- coordinates$frange()$x
 
-    ggname(.$my_name(), gTree(children = do.call(gList, lapply(1:nrow(data), function(i) {
-      row <- data[c(i, i), ]
-      row$y <- xrange * row$slope + row$intercept
-      row$x <- xrange
-      
-      GeomPath$draw(row, scales, coordinates)
-    }))))
+    data <- transform(data,
+      x = xrange[1],
+      xend = xrange[2],
+      y = xrange[1] * slope + intercept,
+      yend = xrange[2] * slope + intercept
+    )
+    
+    GeomSegment$draw(data, scales, coordinates)
   }
 
   # Documetation -----------------------------------------------
@@ -30,7 +27,8 @@ GeomAbline <- proto(Geom, {
   seealso <- list(
     stat_smooth = "To add lines derived from the data",
     geom_hline = "for horizontal lines",
-    geom_vline = "for vertical lines"
+    geom_vline = "for vertical lines",
+    geom_segment = "for a more general approach"
   )
   guide_geom <- function(.) "path"
 
@@ -44,21 +42,23 @@ GeomAbline <- proto(Geom, {
     p + geom_abline()
     p + geom_abline(slope=5)
     p + geom_abline(intercept=30, slope=-5)
-    p + geom_abline(intercept=10, colour="red", size=5)
+    p + geom_abline(intercept=10, colour="red", size=2)
+    
+    # See ?stat_smooth for fitting smooth models to data
     p + stat_smooth(method="lm", se=FALSE)
     
     # Slopes and intercepts as data
     p <- ggplot(mtcars, aes(x = wt, y=mpg), . ~ cyl) + geom_point()
-    df <- data.frame(intercept=25, slope=2)
-    p + geom_abline(data=df)
+    df <- data.frame(a=rnorm(10, 25), b=rnorm(10, 0))
+    p + geom_abline(aes(intercept=a, slope=b), data=df)
 
     # Slopes and intercepts from linear model
     coefs <- do.call(rbind, by(mtcars, mtcars$cyl, function(df) { 
       m <- lm(mpg ~ wt, data=df)
-      data.frame(cyl = df$cyl[1], intercept=coef(m)[1], slope=coef(m)[2]) 
+      data.frame(cyl = df$cyl[1], a=coef(m)[1], b=coef(m)[2]) 
     }))
     str(coefs)
-    p + geom_abline(data=coefs)
+    p + geom_abline(data=coefs, aes(intercept=a, slope=b))
     
     # It's actually a bit easier to do this with stat_smooth
     p + geom_smooth(aes(group=cyl), method="lm")

@@ -1,24 +1,29 @@
 GeomVline <- proto(Geom, {
-  new <- function(., mapping=aes(), data=NULL, intercept=0, ...) {
-    if (missing(data)) {
-      data <- data.frame(intercept = intercept)
-    }
-    mapping <- defaults(mapping, aes(intercept=intercept))
-    class(mapping) <- "uneval"
-
-    layer(mapping=mapping, data=data, geom = ., geom_params = list(...), ignore.extra = TRUE)
+  new <- function(., ...) {
+    .super$new(., ..., ignore.extra = TRUE)
   }
 
-  draw <- function(., data, scales, coordinates, ...) {
+  draw <- function(., data, scales, coordinates, intercept = NULL, ...) {
+    if (is.character(intercept)) intercept <- (match.fun(intercept))(data$x)
+    
+    data <- aesdefaults(data, .$default_aes(), list(...))
+    if (is.null(intercept)) {
+      if (is.null(data$intercept)) data$intercept <- 0
+    } else {
+      data <- data[rep(1, length(intercept)), ]
+      data$intercept <- intercept
+    }
+    
     yrange <- coordinates$frange()$y
 
-    ggname(.$my_name(), gTree(children = do.call(gList, lapply(1:nrow(data), function(i) {
-      row <- data[c(i, i), ]
-      row$y <- yrange
-      row$x <- row$intercept
-
-      GeomPath$draw(row, scales, coordinates)
-    }))))
+    data <- transform(data,
+      y = yrange[1],
+      yend = yrange[2],
+      x = intercept,
+      xend = intercept
+    )
+    
+    GeomSegment$draw(data, scales, coordinates)
   }
 
   objname <- "vline"
@@ -32,7 +37,8 @@ GeomVline <- proto(Geom, {
 
   seealso <- list(
     geom_hline = "for horizontal lines",
-    geom_abline = "for lines defined by a slope and intercept"
+    geom_abline = "for lines defined by a slope and intercept",
+    geom_segment = "for a more general approach"
   )
   
   examples <- function(.) {
@@ -45,9 +51,6 @@ GeomVline <- proto(Geom, {
     
     # Lines from data
     p <- ggplot(mtcars, aes(x = wt, y=mpg)) + facet_grid(. ~ cyl) + geom_point()
-    df <- data.frame(cyl=c(4,6,8), intercept=tapply(mtcars$wt, mtcars$cyl, mean))
-    p + geom_vline(data=df)
-    p + geom_vline(data=df, colour="red")
-    
+    p + geom_vline(intercept="mean")
   }  
 })
