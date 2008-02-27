@@ -11,6 +11,7 @@ Improved documentation
   * min and max are now scaled the same way as y
   * functions are silently dropped (e.g. aes(colour=col))
   * scales do not try and map variables than don't exist (fixes some rather obscure bugs)
+  * aes(mpg, wt) is now equivalent to aes(x = mpg, y = wt)
 
   * geom_boxplot: now has it's own legend which actually looks like a boxplot
   * scale_size: changed default range to [0.5, 3] to better reflect new sizing decisions

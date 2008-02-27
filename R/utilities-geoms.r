@@ -8,6 +8,8 @@
 # partial name matching, converts color to colour, and old style R names to
 # new ggplot names (eg. pch to shape, cex to size)
 # 
+# @arguments x value
+# @arguments y value
 # @arguments List of name value pairs
 # @keyword internal
 # @alias str.uneval
@@ -15,7 +17,7 @@
 # @seealso \code{\link{aes_string}}
 #X aes(x = mpg, y = wt)
 #X aes(x = mpg ^ 2, y = wt / cyl)
-aes <- function(...) {
+aes <- function(x, y, ...) {
   aes <- structure(as.list(match.call()[-1]), class="uneval")
   aes <- rename(aes, c("color" = "colour", "pch"="shape","cex"="size", "lty"="linetype", "srt"="angle"))
   
