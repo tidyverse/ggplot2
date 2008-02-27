@@ -13,6 +13,7 @@ Improved documentation
   * scales do not try and map variables than don't exist (fixes some rather obscure bugs)
   * aes(mpg, wt) is now equivalent to aes(x = mpg, y = wt)
 
+  * stat_quantile: updated to work with latest version of quantreg
   * stat_qq: axes flipped to agree with base R
   * stat_qq: now uses sample aesthetic to select variable for summary
   * geom_vline, geom_hline: yet another rewrite which should make them more powerful and less error prone.  

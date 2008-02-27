@@ -26,7 +26,7 @@ StatQuantile <- proto(Stat, {
     data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_quantile")
     model <- method(formula, data=data, tau=quantiles, weight=weight, ...)
 
-    yhats <- t(predict(model, data.frame(x=xseq), type="matrix"))
+    yhats <- predict(model, data.frame(x=xseq), type="matrix")
 
     data.frame(
       y = as.vector(yhats), x = xseq, quantile = rep(quantiles, each=length(xseq))
@@ -34,10 +34,11 @@ StatQuantile <- proto(Stat, {
   }
   
   examples <- function(.) {
-    m <- ggplot(movies, aes(y=rating, x=year)) + geom_point() 
+    msamp <- movies[sample(nrow(movies), 1000), ]
+    m <- ggplot(msamp, aes(y=rating, x=year)) + geom_point() 
     m + stat_quantile()
     m + stat_quantile(quantiles = 0.5)
-    m + stat_quantile(quantiles = seq(0.05, 0.95, by=0.05))
+    m + stat_quantile(quantiles = seq(0.1, 0.9, by=0.1))
 
     # Doesn't work.  Not sure why.
     # m + stat_quantile(method = rqss, formula = y ~ qss(x), quantiles = 0.5)
