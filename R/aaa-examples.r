@@ -25,7 +25,7 @@ TopLevel$examples_run <- function(., path = NULL, verbose=TRUE) {
     if (is.null(path)) {
       timing <- try_default(system.time(print(x$value)), c(NA, NA, NA))
     } else {      
-      timing <- try_default(system.time(ggsave(x$value, path=path, width=4, height=4)), c(NA, NA, NA))
+      timing <- try_default(system.time(ggsave(x$value, path=path, width=10, height=10)), c(NA, NA, NA))
     }
     timing <- unname(timing)
     data.frame(
@@ -97,6 +97,7 @@ save_examples <- function(name = get_rev("."), verbose = FALSE) {
 # 
 # @keyword internal
 get_rev <- function(path = ".") {
+  paste("svn up ", path)
   cmd <- paste("svn info ", path, "| grep 'Revision'")
   out <- system(cmd, intern=T)
   strsplit(out, " ")[[1]][2]
