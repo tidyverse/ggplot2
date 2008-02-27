@@ -35,7 +35,8 @@ gglegend <- function(legend, usage=usage) {
   
   legend_f <- function(x) {
     geom <- Geom$find(x)
-    function(data) geom$draw_legend(data)
+    used <- names(Filter(function(geom) any(geom == x), usage))
+    function(data) geom$draw_legend(data[used])
   }
   grobs <- lapply(unique(unlist(usage[aesthetics])), legend_f)
 
