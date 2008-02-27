@@ -2,7 +2,7 @@ ScaleSize <- proto(ScaleContinuous, expr={
   common <- NULL
   .input <- .output  <- "size"
   
-  new <- function(., name=NULL, to=c(1, 5)) {
+  new <- function(., name=NULL, to=c(0.2, 3)) {
     .$proto(name=name, .range=to)
   }
   

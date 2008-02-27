@@ -12,6 +12,8 @@ Improved documentation
   * functions are silently dropped (e.g. aes(colour=col))
   * scales do not try and map variables than don't exist (fixes some rather obscure bugs)
 
+  * geom_boxplot: now has it's own legend which actually looks like a boxplot
+  * scale_size: changed default range to [0.5, 3] to better reflect new sizing decisions
   * geom_boxplot: reports if missing values removed
   * geom_boxplot: deals with continuous x-axis and grouping much better
   * coord_polar: add start and direction parameters, giving more control over the layout of the polar coords

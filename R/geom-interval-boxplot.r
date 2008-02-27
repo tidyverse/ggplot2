@@ -15,7 +15,18 @@ GeomBoxplot <- proto(GeomInterval, {
 
   objname <- "boxplot"
   desc <- "Box and whiskers plot"
-  guide_geom <- function(.) "tile"
+  guide_geom <- function(.) "boxplot"
+  
+  draw_legend <- function(., data, ...)  {
+    data <- aesdefaults(data, .$default_aes(), list(...))
+    gp <- with(data, gpar(col=colour, fill=fill, lwd=size * .pt))
+
+    gTree(children = gList(
+      linesGrob(0.5, c(0.1, 0.9)),
+      rectGrob(height=0.5, width=0.75),
+      linesGrob(c(0.125, 0.875), 0.5)
+    ), gp = gp)
+  }
   icon <- function(.) {
     gTree(children=gList(
       segmentsGrob(c(0.3, 0.7), c(0.1, 0.2), c(0.3, 0.7), c(0.7, 0.95)),
@@ -50,13 +61,13 @@ GeomBoxplot <- proto(GeomInterval, {
     # Add aesthetic mappings
     p + geom_boxplot(aes(fill=cyl))
     p + geom_boxplot(aes(fill=factor(cyl)))
-    p + geom_boxplot(aes(colour=cyl), size=2)
+    p + geom_boxplot(aes(colour=cyl), size=1)
     
     # Dodged boxplots
     # - automatically split when an aesthetic variable is a factor
     p + geom_boxplot(aes(colour=factor(am)))
     p + geom_boxplot(aes(fill=factor(vs)), colour="black")
-    p + geom_boxplot(aes(size=factor(gear))) + scale_size(to=c(0.5, 2))
+    p + geom_boxplot(aes(size=factor(gear)))
     
     # Set aesthetics to fixed value
     p + geom_boxplot(fill="black", colour="white", size=1)
