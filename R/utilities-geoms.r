@@ -1,5 +1,5 @@
-# dput(c("group","order", sort(unique(unlist(sapply(Geom$find_all(), function(y) c(names(y$default_aes()), y$required_aes)))))))
-.all_aesthetics <-   c("group", "order", "angle", "colour", "fill", "height", "hjust", "intercept", "label", "linetype", "max", "min", "shape", "size", "slope", "vjust", "weight", "width", "x", "xend", "y", "yend" )
+# dput(c("group","order", "z",  sort(unique(unlist(sapply(Geom$find_all(), function(y) c(names(y$default_aes()), y$required_aes)))))))
+.all_aesthetics <-   c("group", "order", "angle", "colour", "fill", "height", "hjust", "intercept", "label", "linetype", "max", "min", "shape", "size", "slope", "vjust", "weight", "width", "x", "xend", "y", "yend", "z" )
 
 # Generate aesthetic mappings
 # Aesthetic mappings describe how variables in the data are mapped to visual properties (aesthetics) of geoms.
