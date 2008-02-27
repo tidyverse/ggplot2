@@ -21,11 +21,11 @@ GeomBoxplot <- proto(GeomInterval, {
     data <- aesdefaults(data, .$default_aes(), list(...))
     gp <- with(data, gpar(col=colour, fill=fill, lwd=size * .pt))
 
-    gTree(children = gList(
+    gTree(gp = gp, children = gList(
       linesGrob(0.5, c(0.1, 0.9)),
       rectGrob(height=0.5, width=0.75),
       linesGrob(c(0.125, 0.875), 0.5)
-    ), gp = gp)
+    ))
   }
   icon <- function(.) {
     gTree(children=gList(

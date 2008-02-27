@@ -4,13 +4,16 @@ gglegends <- function(legends, usage) {
   if (length(legends) == 0) 
     return()
   
-  names <- unname(unlist(lapply(legends, "[", "name")))
+  legend_names <- unname(unlist(lapply(legends, "[", "name")))
+  name_strings <- sapply(legend_names, deparse)
+  names(legend_names) <- name_strings
+  
   keys <- lapply(legends, "[[", "display")
-  variables <- split(keys, names)
+  variables <- split(keys, name_strings)
 
   # - then merge data.frames
   keys_merged <- lapply(variables, merge_legends)
-  legends_merged <- mapply(function(name, keys) list(name = name, display=keys), names(keys_merged), keys_merged, SIMPLIFY = FALSE, USE.NAMES = FALSE)  
+  legends_merged <- mapply(function(name, keys) list(name = legend_names[name], display=keys), names(keys_merged), keys_merged, SIMPLIFY = FALSE, USE.NAMES = FALSE)  
   
   lapply(legends_merged, gglegend, usage=usage)
 }
@@ -36,7 +39,7 @@ gglegend <- function(legend, usage=usage) {
   }
   grobs <- lapply(unique(unlist(usage[aesthetics])), legend_f)
 
-  title <- ggname("title", textGrob(legend$name, x = 0, y = 0.5, just = c("left", "centre"), 
+  title <- ggname("title", textGrob(legend$name[[1]], x = 0, y = 0.5, just = c("left", "centre"), 
     gp=gpar(fontface="bold")
   ))
   
