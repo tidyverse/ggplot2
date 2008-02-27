@@ -22,7 +22,7 @@ GeomHline <- proto(Geom, {
       yend = intercept
     )
     
-    GeomSegment$draw(data, scales, coordinates)
+    GeomSegment$draw(unique(data), scales, coordinates)
   }
 
   objname <- "hline"

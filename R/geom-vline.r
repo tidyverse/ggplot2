@@ -23,7 +23,7 @@ GeomVline <- proto(Geom, {
       xend = intercept
     )
     
-    GeomSegment$draw(data, scales, coordinates)
+    GeomSegment$draw(unique(data), scales, coordinates)
   }
 
   objname <- "vline"

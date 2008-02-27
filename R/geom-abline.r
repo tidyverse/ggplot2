@@ -15,7 +15,7 @@ GeomAbline <- proto(Geom, {
       yend = xrange[2] * slope + intercept
     )
     
-    GeomSegment$draw(data, scales, coordinates)
+    GeomSegment$draw(unique(data), scales, coordinates)
   }
 
   # Documetation -----------------------------------------------
