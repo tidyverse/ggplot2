@@ -108,7 +108,7 @@ CoordMap <- proto(CoordCartesian, {
     # ggplot
     usamap + coord_map(project="orthographic")
     usamap + coord_map(project="stereographic")
-    usamap + coord_map(project="conic", 30)
-    usamap + coord_map(project="bonne", 50)
+    usamap + coord_map(project="conic", lat0 = 30)
+    usamap + coord_map(project="bonne", lat0 = 50)
   }
 })
