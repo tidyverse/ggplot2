@@ -8,14 +8,29 @@ CoordEqual <- proto(CoordCartesian, {
     xlim <- .$x()$frange()
     ylim <- .$y()$frange()
     
-    ratio <- if(is.na(.$ratio)) (diff(xlim) / diff(ylim)) else .$ratio
+    xr <- diff(xlim)
+    yr <- diff(ylim)
     
-    widest <- max(diff(xlim), diff(ylim))
-    xratio <- if (ratio < 1) 1 / ratio else 1
-    yratio <- if (ratio < 1) 1 else ratio
+    desired <- .$ratio
+    actual  <- yr / xr
     
-    xlim <- mean(xlim) + xratio * c(-1, 1) * widest * 0.5
-    ylim <- mean(ylim) + yratio * c(-1, 1) * widest * 0.5
+    ad <- actual/desired
+    
+    if (desired < actual) {
+      # desired is shorter/fatter than actual - expand x
+      xratio <- xr * ad
+      yratio <- yr   
+    } else {
+      # desired is taller/skinnier than actual - expand y
+      xratio <- xr
+      yratio <- yr / ad
+    }
+    stopifnot(xratio >= xr)
+    stopifnot(yratio >= yr)
+    stopifnot(all.equal(yratio / xratio, desired))
+
+    xlim <- mean(xlim) + xratio * c(-0.5, 0.5)
+    ylim <- mean(ylim) + yratio * c(-0.5, 0.5)
     
     expand <- .$expand()
     list(
@@ -48,13 +63,11 @@ CoordEqual <- proto(CoordCartesian, {
   desc <- "Equal scale cartesian coordinates"
   icon <- function(.) textGrob("=", gp=gpar(cex=3))  
   
-  details <- "<p>An equal scale coordinate system plays a similar role to ?eqscplot in MASS, but it works for all types of graphics, not just scatterplots.</p>\n<p>This coordinate system has one parameter, <code>ratio</code>, which specifies the ratio between the x and y scales.  By default, the aspect.ratio of the plot will also be set to this value.</p>\n"
+  details <- "<p>An equal scale coordinate system plays a similar role to ?eqscplot in MASS, but it works for all types of graphics, not just scatterplots.</p>\n<p>This coordinate system has one parameter, <code>ratio</code>, which specifies the ratio between the x and y scales. An aspect ratio of two means that the plot will be twice as high as wide.  An aspection ratio of 1/2 means that the plot will be twice as wide as high.   By default, the aspect.ratio of the plot will also be set to this value.</p>\n"
   
   examples <- function(.) {
     # coord_equal ensures that the ranges of axes are equal to the
     # specified ratio (1 by default, indicating equal ranges).
-    # You must also ensure the physical lengths of the axes are 
-    # equal to the specified ratio, by setting the aspect.ratio option
     
     qplot(mpg, wt, data=mtcars) + coord_equal(ratio=1)
     qplot(mpg, wt, data=mtcars) + coord_equal(ratio=5)
