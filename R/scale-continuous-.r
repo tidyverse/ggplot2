@@ -55,12 +55,13 @@ ScaleContinuous <- proto(Scale, {
   .minor_breaks <- 2
   # Minor breaks are regular on the original scale
   # and need to cover entire range of plot
-  minor_breaks <- function(., n = .$.minor_breaks, b = .$breaks()) {
+  minor_breaks <- function(., n = .$.minor_breaks, b = .$breaks(), r = .$frange()) {
     if (length(b) == 1) return(b)
-
+    
     bd <- diff(b)[1]
-    b <- c(b[1] - bd, b, b[length(b)] + bd)
-    unlist(mapply(.$.tr$seq, b[-length(b)], b[-1], length=n+1, SIMPLIFY=F))
+    if (min(r) < min(b)) b <- c(b[1] - bd, b)
+    if (max(r) > max(b)) b <- c(b, b[length(b)] + bd)
+    unique(unlist(mapply(.$.tr$seq, b[-length(b)], b[-1], length=n+1, SIMPLIFY=F)))
   }
   
   labels <- function(.) {

@@ -55,19 +55,24 @@ CoordPolar <- proto(Coord, {
     thetafine <- seq(0, 2*pi, length=100)
     
     labels <- .$theta_scale()$labels()
-    labels[length(labels)] <- paste(labels[1], labels[length(labels)], sep="/")
-    labels <- labels[-1]
+    ends_apart <- 1 - (theta[length(theta)] - theta[1]) / (2*pi)
+    if (ends_apart < 0.05) {
+      labels[length(labels)] <- paste(labels[1], labels[length(labels)], sep="/")
+      labels <- labels[-1]
+      theta <- theta[-1]
+    }
     
     r <- 1
     rfine <- .$r_rescale(.$r_scale()$breaks())
-    
+
+    browser()
     gp <- gpar(fill=plot$grid.fill, col=plot$grid.colour)
     
     ggname("grill", gTree(children = gList(
       ggname("background", rectGrob(gp=gpar(fill=plot$grid.fill, col=NA))),
-      ggname("major-angle", segmentsGrob(0, 0, 5 * sin(theta), 5*cos(theta), gp=gp, default.units="native")),
+      if (length(labels) > 0) ggname("major-angle", segmentsGrob(0, 0, 5 * sin(theta), 5*cos(theta), gp=gp, default.units="native")),
       ggname("minor-angle", segmentsGrob(0, 0, 5 * sin(thetamin), 5*cos(thetamin), gp=gp, default.units="native")),
-      ggname("labels-angle", textGrob(labels, r * 1.1 * sin(theta[-1]), r * 1.1 * cos(theta[-1]), gp=gpar(col=plot$axis.colour), default.units="native")),
+      if (length(labels) > 0) ggname("labels-angle", textGrob(labels, r * 1.1 * sin(theta), r * 1.1 * cos(theta), gp=gpar(col=plot$axis.colour), default.units="native")),
       ggname("major-radius", polylineGrob(rep(rfine, each=length(thetafine)) * sin(thetafine), rep(rfine, each=length(thetafine)) * cos(thetafine), default.units="native", gp=gp))# ,
       #       ggname("labels-radius", textGrob(.$r_scale()$labels(), 0.02, rfine + 0.04, default.units="native", gp=gpar(col=plot$axis.colour), hjust=0))
     )))

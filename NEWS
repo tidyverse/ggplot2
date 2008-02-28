@@ -12,6 +12,7 @@ Improved documentation
   * functions are silently dropped (e.g. aes(colour=col))
   * scales do not try and map variables than don't exist (fixes some rather obscure bugs)
   * aes(mpg, wt) is now equivalent to aes(x = mpg, y = wt)
+  * scale_continuous: tweaks to minor breaks to make appearance better on wider range of coordinate systems
 
   * stat_quantile: updated to work with latest version of quantreg
   * stat_qq: axes flipped to agree with base R
