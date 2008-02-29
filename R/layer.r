@@ -42,13 +42,13 @@ Layer <- proto(expr = {
       } else {
         params[match(names(possible), names(params), nomatch=0)]
       }
-      
     }
     
     if (is.null(geom_params) && is.null(stat_params)) {
       params <- c(params, list(...))
       geom_params <- match.params(geom$parameters(), params)
       stat_params <- match.params(stat$parameters(), params)
+      stat_params <- stat_params[setdiff(names(stat_params), names(geom_params))]
     }
     
     proto(., 

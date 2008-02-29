@@ -41,7 +41,8 @@ ScaleHue <- proto(ScaleColour, expr={
   )
   
   examples <- function(.) {
-    (d <- qplot(carat, price, data=diamonds, colour=clarity))
+    dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
+    (d <- qplot(carat, price, data=dsamp, colour=clarity))
   
     # Change scale label
     d + scale_colour_hue()

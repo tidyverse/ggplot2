@@ -46,7 +46,7 @@ bolus.ggplot <- function(x, ...) {
     facet = facet$hash(),
     coord = coordinates$hash(),
     title = title,
-    options = x[intersect(names(ggplot), names(ggopt()))]
+    options = x[intersect(names(x), names(ggopt()))]
   ))
 }
 
@@ -57,7 +57,7 @@ digest.ggplot <- function(x, ...) {
 }
 
 TopLevel$settings <- function(.) {
-  mget(ls(.), .)
+  mget(setdiff(ls(., all.names=TRUE), c(".that", ".super")), .)
 }
 
 Layer$hash <- TopLevel$hash <- function(., ...) {
@@ -90,6 +90,7 @@ Layer$bolus <- function(.) {
     geom = .$geom$objname,
     stat = .$stat$objname,
     pos  = .$position$objname,
+    pos_parms  = .$position$settings(),
     data = .$data,
     mapping = .$aesthetics,
     params = unique(c(.$geom_params, .$stat_params))

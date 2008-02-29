@@ -19,7 +19,7 @@ StatSmooth <- proto(Stat, {
       
     }
     if (is.character(method)) method <- match.fun(method)
-    if (identical(method,loess) && is.factor(data$x)) stop("geom_smooth: loess smooth does not work with categorical data.  Maybe you want method=lm?", call.=FALSE)
+    if (is.factor(data$x) && identical(method, loess)) stop("geom_smooth: loess smooth does not work with categorical data.  Maybe you want method=lm?", call.=FALSE)
     
     method.special <- function(...) method(formula, data=data, weights=weight, ...)
     model <- safe.call(method.special, list(...), names(formals(method)))

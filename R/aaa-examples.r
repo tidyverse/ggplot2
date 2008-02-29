@@ -10,7 +10,7 @@ TopLevel$examples_text <- function(.) {
 }
 
 TopLevel$examples_run <- function(., path = NULL, verbose=TRUE) {
-  if (!.$doc) return(FALSE)
+  if (!.$doc) return(NULL)
   # Set seed to ensure reproducibility of examples with random components,
   # e.g. jittering
   set.seed(141079)
@@ -21,6 +21,7 @@ TopLevel$examples_run <- function(., path = NULL, verbose=TRUE) {
   plots <- Filter(function(x) inherits(x$value, "ggplot") && x$visible, parsed)
   
   display <- function(x) {
+    hash <- digest.ggplot(x$value)
     if (verbose) cat(x$src, "\n")
     if (is.null(path)) {
       timing <- try_default(system.time(print(x$value)), c(NA, NA, NA))
@@ -29,9 +30,10 @@ TopLevel$examples_run <- function(., path = NULL, verbose=TRUE) {
     }
     timing <- unname(timing)
     data.frame(
-      obj = .$my_name(),
+      class = .$class(),
+      obj = .$objname,
       src = x$src,
-      hash = digest.ggplot(x$value),
+      hash = hash,
       user = timing[1],
       sys = timing[2],
       elapsed = timing[3],
@@ -52,7 +54,7 @@ TopLevel$all_examples_run <- function(., path=NULL, verbose=TRUE) {
     suppressMessages(x$examples_run(path, verbose))
   })
   
-  invisible(do.call("rbind", out))
+  invisible(do.call("rbind", compact(out)))
 }
 
 # Run all examples
@@ -85,7 +87,7 @@ save_examples <- function(name = get_rev("."), verbose = FALSE) {
   dir.create(path, recursive = TRUE)
   
   info <- all_examples_run(path, verbose = verbose)
-  write.table(info, file=file.path(path, "info.csv"), sep=",",col=TRUE, row=FALSE)
+  write.table(info, file=file.path(path, "info.csv"), sep=",",col=TRUE, row=FALSE, qmethod="d")
   system(paste("pdf2png ", path, "*.pdf", sep =""))
   system(paste("rm ", path, "*.pdf", sep =""))
   
@@ -97,7 +99,7 @@ save_examples <- function(name = get_rev("."), verbose = FALSE) {
 # 
 # @keyword internal
 get_rev <- function(path = ".") {
-  paste("svn up ", path)
+  system(paste("svn up ", path), intern=T)
   cmd <- paste("svn info ", path, "| grep 'Revision'")
   out <- system(cmd, intern=T)
   strsplit(out, " ")[[1]][2]

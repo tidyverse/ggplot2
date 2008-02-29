@@ -65,7 +65,6 @@ CoordPolar <- proto(Coord, {
     r <- 1
     rfine <- .$r_rescale(.$r_scale()$breaks())
 
-    browser()
     gp <- gpar(fill=plot$grid.fill, col=plot$grid.colour)
     
     ggname("grill", gTree(children = gList(
