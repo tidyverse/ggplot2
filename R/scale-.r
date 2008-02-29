@@ -24,8 +24,6 @@ Scale <- proto(TopLevel, expr={
     unique(scales[select])
   }
 
-
-
   input <- function(.) .$.input
   output <- function(.) .$.output
   domain <- function(.) .$.domain

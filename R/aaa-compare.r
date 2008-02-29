@@ -64,9 +64,10 @@ same_file <- function(...) {
 # tab <- table(info_a$hash) > 1
 # dups <- subset(info_a, hash %in% names(tab[tab]))
 # split(dups$src, dups$hash)
+# split(dups$src, dups$obj)
 # 
 # files <- gsub("\\.png", "", dir("../examples/ex-113/", "\\.png$"))
-# # setdiff(info_a$hash, files)
-# # setdiff(files, info_a$hash)
-# # matches <- subset(info, !is.na(obj.x) & !is.na(obj.y))
-# 
+# setdiff(info_a$hash, files)
+# setdiff(files, info_a$hash)
+# matches <- subset(info, !is.na(obj.x) & !is.na(obj.y))
+

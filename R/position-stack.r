@@ -37,7 +37,6 @@ PositionStack <- proto(Position, {
       
     ggplot(diamonds, aes(x=price)) + geom_bar()
     ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar()
-      
   }
 })
 

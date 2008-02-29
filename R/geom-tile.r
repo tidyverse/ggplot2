@@ -104,11 +104,11 @@ GeomTile <- proto(Geom, {
     # inspired by the image-density plots of Ken Knoblauch
     cars <- ggplot(mtcars, aes(y=factor(cyl), x=mpg))
     cars + geom_point()
-    cars + stat_bin(aes(fill=..count..), geom="tile", binwidth=3)
-    cars + stat_bin(aes(fill=..density..), geom="tile", binwidth=3)
+    cars + stat_bin(aes(fill=..count..), geom="tile", binwidth=3, position="identity")
+    cars + stat_bin(aes(fill=..density..), geom="tile", binwidth=3, position="identity")
 
-    cars + stat_density(aes(fill=..density..), geom="tile")
-    cars + stat_density(aes(fill=..count..), geom="tile")
+    cars + stat_density(aes(fill=..density..), geom="tile", position="identity")
+    cars + stat_density(aes(fill=..count..), geom="tile", position="identity")
     
     # Another example with with unequal tile sizes
     x.cell.boundary <- c(0, 4, 6, 8, 10, 14)

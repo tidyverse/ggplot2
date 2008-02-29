@@ -41,6 +41,7 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
   results <- transform(results,
     density = count / width / sum(count, na.rm=TRUE)
   )
+
   # Need to leave zeros in for non-bar representations
   # results <- subset(results, count > 0)
   transform(results,

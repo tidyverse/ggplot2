@@ -1,5 +1,6 @@
 ScaleColour <- proto(ScaleDiscrete, expr={
   objname <- "colour"
+  doc <- FALSE
   common <- c()
 })
 

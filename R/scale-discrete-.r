@@ -6,10 +6,10 @@ ScaleDiscrete <- proto(Scale, expr={
 
   train <- function(., x) {
     if (is.numeric(x)) {
-      warning("Continuous variable (", .$name , ") supplied to ", .$my_name(), ", when a discrete variable was expected.  ", call.=FALSE) 
+      warning("Continuous variable (", .$name , ") supplied to ", .$my_name(), ", when a discrete variable was expected.", call.=FALSE) 
       .$.frange <- range(c(.$.frange, x), na.rm=TRUE)
     } else {
-      .$.domain <- union(.$.domain, unique(x))      
+      .$.domain <- union(.$.domain, levels(x))      
     }
   }
   discrete <- function(.) TRUE
