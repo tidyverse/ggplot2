@@ -1,11 +1,8 @@
-TODO for this release
- * Complete rdoc documentation
-
 ggplot 0.6
 ----------------------------------------
-  
+
 Improved documentation
-  
+
   * it's now easy to change the default scales (and their arguments) with the set_default_scale function, see ?set_default_scale for more details (thanks to Bob Muenchen for the suggestion)
   * new order aesthetic which controls the order in which elements are plotted
   * min and max are now scaled the same way as y
@@ -14,28 +11,34 @@ Improved documentation
   * aes(mpg, wt) is now equivalent to aes(x = mpg, y = wt)
   * scale_continuous: tweaks to minor breaks to make appearance better on wider range of coordinate systems
 
+Legends:
+
+* preliminary legend merging code:
+ * consequence: legend type no longer specified in scale (e.g. size, identity, manual), but derived from geoms used
+ * better legends for smooth and pointrange
+ * fixed some examples where grob used instead of guide
+
+Other additions and coorections
+
   * coord_equal: should now work correctly in all situations
-  * stat_quantile: updated to work with latest version of quantreg
-  * stat_qq: axes flipped to agree with base R
-  * stat_qq: now uses sample aesthetic to select variable for summary
-  * geom_vline, geom_hline: yet another rewrite which should make them more powerful and less error prone.  
-  * geom_boxplot: now has it's own legend which actually looks like a boxplot
-  * scale_size: changed default range to [0.5, 3] to better reflect new sizing decisions
-  * geom_boxplot: reports if missing values removed
-  * geom_boxplot: deals with continuous x-axis and grouping much better
   * coord_polar: add start and direction parameters, giving more control over the layout of the polar coords
   * coord_polar: added my favourite pie chart example
   * coord_trans now deals with groups appropriately, at the cost of decreased speed
   * geom_abline, geom_vline, geom_hline: should now behave better in a wider variety of settings
+  * geom_boxplot: deals with continuous x-axis and grouping much better
+  * geom_boxplot: now has it's own legend which actually looks like a boxplot
+  * geom_boxplot: reports if missing values removed
   * geom_crossbar: the middle line is now display thicker than the other lines, controlled by the parameter fatten (thanks to Heike Hofmann for the suggestion)
   * geom_density: fix scale adjustment bug in geom_density
   * geom_line, geom_text: all size measurements (now lines and text as well) are measured in mm, lines/paths default to paths 0.5mm wide
   * geom_rug: new to add marginal rug plots
   * geom_smooth: fixed bug where if se=FALSE x axis always includes 0
+  * geom_vline, geom_hline: yet another rewrite which should make them more powerful and less error prone.  
   * qplot: allow qplot to use computed aesthetics too
   * scale_discrete: all discrete scales now have labels argument which you can use to override the factor levels
-  * scale_size: legends resize to avoid overlaps
   * scale_discrete: now works correctly with character vectors
+  * scale_size: changed default range to [0.5, 3] to better reflect new sizing decisions
+  * scale_size: legends resize to avoid overlaps
   * scale_x_continuous, scale_y_continuous: new convenience functions xlim and ylim (and zlim) that make it even easier to adjust the limits of the x, y, and z axes
   * stat_bin, geom_area: fixed bug in combination of stat_bin and geom_area that made it difficult to draw frequency polygons
   * stat_bin: fixed bug which resulted in increased counts when the x axis was a categorical variable with a single level (thanks to Bob Muenchen for pointing this out!)
@@ -43,20 +46,12 @@ Improved documentation
   * stat_bin: now takes origin argument to manually specify origin of first bin (default is round_any(min(range), bin_width, floor))
   * stat_boxplot, stat_contour, stat_density2d, stat_qq, stat_density: na.rm parameter added to the following statistics (thanks to Leena Choi for suggesting this)
   * stat_function: new, makes it easy to superimpose a function on the plot
+  * stat_qq: axes flipped to agree with base R
+  * stat_qq: now uses sample aesthetic to select variable for summary
+  * stat_quantile: updated to work with latest version of quantreg
   * stat_spoke: new, to make it possible to use geom_segment parameterised by angle and radius (thanks to Jiho for the suggestion)
   * stat_summary: better documentation
   * stat_summary: convenient auto wrapping of simple summary functions
-  
-Legends:
 
-  * preliminary legend merging code:
-   * consequence: legend type no longer specified in scale (e.g. size, identity, manual), but derived from geoms used
-   * better legends for smooth and pointrange
-   * fixed some examples where grob used instead of guide
-
-  
-Examples
-
-  * now easy to run all examples with all_examples_run(), or for an individual object with (e.g.) GeomPoint$examples_run()
 
 See CHANGELOG for changes in previous versions
