@@ -1,3 +1,7 @@
+# Rebuild all rdoc documentation
+# 
+# @arguments path to save rd files
+# @keyword internal
 all_rdoc_pages_create <- function(path="web/") {
   Geom$all_rdoc_pages_create()
   Stat$all_rdoc_pages_create()
@@ -135,7 +139,7 @@ TopLevel$call <- function(.) {
 
 
 # FIXME: need to generate usage statements for all common scales
-TopLevel$rdoc_usage <- function(.) {
+TopLevel$rdoc_usage <- function (.) {
   ps(
     "\\usage{", ps(.$call(), collapse="\n"), "}\n"
   )
@@ -185,6 +189,12 @@ TopLevel$rdoc_keyword<- function(.) {
   "\\keyword{hplot}\n"
 }  
 
+# rdoc_auto_link
+# Automatically link functions used in rdoc
+# 
+# @arguments input rdoc string
+# @argument functions to omit
+# @keyword internal
 rdoc_auto_link <- function(input, skip="") {
   if (!exists("links")) html_autolink_index()
   
@@ -194,6 +204,14 @@ rdoc_auto_link <- function(input, skip="") {
   input
 }
 
+# Convert rdoc to html
+# Crude regexp based conversion from html to rdoc.
+# 
+# Assumes well-formed xhtml.  Also autolinks any ggplot functions.
+# 
+# @arguments input rdoc string
+# @arguments pass to \code{\link{rdoc_auto_link}}
+# @keyword internal
 rdoc_from_html <- function(html, skip="") {
   rd <- gsub("<p>", "", html)
   rd <- gsub("</p>\n?", "\n\n", rd)

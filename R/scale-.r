@@ -13,7 +13,7 @@ Scale <- proto(TopLevel, expr={
   discrete <- function(.) FALSE
   
   clone <- function(.) {
-    as.proto(.$as.list(), parent=.) 
+    as.proto(.$as.list(all.names=TRUE), parent=.) 
   }
 
   find <- function(., output, only.documented = FALSE) {
@@ -79,7 +79,7 @@ Scale <- proto(TopLevel, expr={
   }
   
   my_names <- function(.) {
-    paste(.$class(), .$common, .$objname, sep="_")
+    ps(.$class(), .$common, .$objname, sep="_")
   }
   
   # Guides

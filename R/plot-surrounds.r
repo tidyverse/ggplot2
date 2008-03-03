@@ -104,6 +104,13 @@ prettyplot <- function(plot, plotgrob, scales=plot$scales, cs=plot$coordinates) 
   lf
 }
 
+# Compute usage of scales
+# Builds a list of aesthetics and the geoms that they are used by.
+# 
+# Used for drawing legends.
+# 
+# @arguments ggplot object
+# @keyword internal
 scale_usage <- function(plot) {
   aesthetics <- lapply(plot$layers, function(p) c(names(p$aesthetics), names(plot$defaults)))
   names(aesthetics) <- sapply(plot$layers, function(p) p$geom$guide_geom())
@@ -111,6 +118,10 @@ scale_usage <- function(plot) {
   lapply(invert(aesthetics), unique)
 }
 
+# "Invert" a list
+# 
+# @arguments list to invert
+# @keyword internal
 invert <- function(L) {
   t1 <- unlist(L)
   names(t1) <- rep(names(L), lapply(L, length))

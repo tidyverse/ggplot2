@@ -19,6 +19,7 @@ Scales <- proto(Scale, expr={
 
   clone <- function(.) {
     s <- Scales$new()
+    print("cloning")
     s$add(lapply(.$.scales, function(x) x$clone()))
     s
   }

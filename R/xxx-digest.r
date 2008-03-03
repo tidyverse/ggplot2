@@ -64,12 +64,13 @@ Layer$hash <- TopLevel$hash <- function(., ...) {
   digest(.$bolus(), ...)
 }
 Scales$hash <- function(.) {
-  sc <- sapply(.$.scales, function(x) x$hash())
-  sc[order(sc)]
+  sort(sapply(.$.scales, function(x) x$hash()))
 }
 
 Scales$bolus <- function(.) {
-  lapply(.$.scales, function(x) x$bolus())
+  sc <- lapply(.$.scales, function(x) x$bolus())
+  names(sc) <- sapply(sc, "[[", "input")
+  sc[order(names(sc))]
 }
 TopLevel$bolus <- function(.) {
   list(
@@ -88,7 +89,7 @@ Scale$bolus <- function(.) {
 Layer$bolus <- function(.) {
   params <- c(.$geom_params, .$stat_params)
   params <- params[!duplicated(params)]
-  if (!is.null(params)) params <- params[order(names(params))]
+  if (!is.null(params) && length(params) > 1) params <- params[order(names(params))]
   
   mapping <- .$aesthetics
   if (!is.null(mapping)) mapping <- mapping[order(names(mapping))]

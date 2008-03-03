@@ -83,8 +83,18 @@ StatSummary <- proto(Stat, {
   }
 })
 
-# Summary by x
-
+# Summarise a data.frame by parts
+# Summarise a data frame by unique value of x
+# 
+# This function is used by \code{\link{stat_summary}} to break a 
+# data.frame into pieces, summarise each piece, and join the pieces
+# back together, retaining original columns unaffected by the summary.
+# 
+# @argument \code{\link{data.frame}} to summarise
+# @argument vector to summarise by
+# @argument summary function (must take and return a data.frame)
+# @argument other arguments passed on to summary function
+# @keyword internal
 summaryby <- function(data, split, summary, ...) {
   parts <- split(data, factor(split))
   unique <- lapply(parts, function(df) uniquecols(df[setdiff(names(df), c("y"))]))
@@ -97,6 +107,17 @@ summaryby <- function(data, split, summary, ...) {
   do.call("rbind.fill", parts)
 }
 
+# Wrap summary function
+# Creates a new function which will operate correctly with \code{\link{stat_summary}}.
+# 
+# \code{\link{stat_summary}} assumes that summary functions take data.frames
+# as input, and return data frames as output.  This function will convert
+# a function that takes a vector of values to the correct format.
+#
+# @arguments function to wrap
+# @keyword internal
+#X sum_mean <- auto_wrap(mean)
+#X sum_mean(data.frame(y = 1:10))
 auto_wrap <- function(f) {
   if (is.character(f)) f <- match.fun(f)
   args <- names(formals(f))

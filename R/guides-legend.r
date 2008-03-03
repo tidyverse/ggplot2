@@ -1,3 +1,10 @@
+# Build all legend grob
+# Build legends, merging where possible
+# 
+# @argument list of legend descriptions
+# @argument list description usage of aesthetics in geoms
+# @keywords internal
+# @value A list of grobs
 gglegends <- function(legends, usage) {
   # Need to collapse legends describing same values into single data.frame
   # - first group by name
@@ -18,6 +25,13 @@ gglegends <- function(legends, usage) {
   lapply(legends_merged, gglegend, usage=usage)
 }
 
+# Merge legends
+# Merge multiple legend descriptions into one
+# 
+# Does not check that it makes sense to merge them.
+# 
+# @arguments list of legends to merge
+# @keyword internal
 merge_legends <- function(legends) {
   n <- length(legends)
   if (n < 2) return(legends[[1]])
@@ -28,6 +42,13 @@ merge_legends <- function(legends) {
   all
 }
 
+# Build a legend grob
+# Build the grob for a single legend.
+# 
+# @argument a single legend description
+# @argument list description usage of aesthetics in geoms
+# @value A grid grob
+# @keyword internal
 gglegend <- function(legend, usage=usage) {
   display <- legend$display
 

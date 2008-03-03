@@ -39,7 +39,3 @@ panels_default <- function(plot, grobs) {
 
   do.call("gList", panels)
 }
-
-pd <- function(plot, grobs) {
-  lapply(grobs, plot_grob_matrix, geom="panel")
-}
