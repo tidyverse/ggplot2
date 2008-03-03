@@ -2,7 +2,6 @@
 
 \alias{Coord}
 \alias{create_accessors}
-\alias{diamonds}
 \alias{Facet}
 \alias{Geom}
 \alias{Layer}
@@ -33,8 +32,6 @@
 \alias{TransReverse}
 \alias{TransSqrt}
 \alias{Trans}
-
-
 \alias{ScaleAsn}
 \alias{ScaleAtanh}
 \alias{ScaleColour}
