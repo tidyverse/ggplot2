@@ -1,14 +1,15 @@
 \name{ScaleGradient}
 \alias{scale_gradient}
-\alias{ScaleGradient}
 \alias{scale_colour_gradient}
 \alias{scale_fill_gradient}
+\alias{ScaleGradient}
 \title{scale_gradient}
 \description{Smooth colour gradient}
 \details{
 This page describes \code{\link{scale_gradient}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_gradient(name=NULL, low=muted("darkblue"), high="yellow", space="rgb", limits=c(NA, NA), trans="identity", alpha=1, ...)}
+\usage{scale_colour_gradient(name=NULL, low=muted("darkblue"), high="yellow", space="rgb", limits=c(NA, NA), trans="identity", alpha=1, ...)
+scale_fill_gradient(name=NULL, low=muted("darkblue"), high="yellow", space="rgb", limits=c(NA, NA), trans="identity", alpha=1, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis}
  \item{low}{colour at low end of scale}

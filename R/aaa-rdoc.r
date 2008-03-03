@@ -44,16 +44,16 @@ TopLevel$rdoc_page <- function(.) {
 
 TopLevel$rdoc_name <- function(.) {
   ps(
-    "\\name{", .$myName(), "}\n"
+    "\\name{", .$my_name(), "}\n"
   )
 }
 
 TopLevel$rdoc_aliases <- function(.) {
-  aliases <- c(
+  aliases <- unique(c(
     .$my_name(),
-    .$myName(), 
-    if (exists("common", .) && !is.null(.$common) ) ps(.$class(), .$common, .$objname, sep="_", collapse=NULL)
-  )
+    .$my_names(),
+    .$myName()  
+  ))
   
   ps(
     "\\alias{", gsub("%", "\\%", aliases), "}\n"
@@ -120,22 +120,24 @@ TopLevel$rdoc_formals <- function(.)   {
 }
 
 
+
 TopLevel$call <- function(.) {
   args <- .$rdoc_formals()
   is.missing.arg <- function(arg) sapply(arg, typeof) == "symbol" & sapply(arg, deparse) == ""
 
   equals <- ifelse(is.missing.arg(args), "", "=")
   ps(
-    .$my_name(), "(", 
+    .$my_names(), ps("(", 
     ps(names(args), equals, sapply(args, deparse), collapse=", "),
-    ")"
+    ")"), collapse=NULL
   )
 }
+
 
 # FIXME: need to generate usage statements for all common scales
 TopLevel$rdoc_usage <- function(.) {
   ps(
-    "\\usage{", .$call(), "}\n"
+    "\\usage{", ps(.$call(), collapse="\n"), "}\n"
   )
 }
 

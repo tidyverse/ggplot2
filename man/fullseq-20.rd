@@ -13,6 +13,6 @@ All locations are multiples of size
 }
 
 \details{}
-\seealso{\code{\link{round_any}}}
+\seealso{\code{\link{reshape}{round_any}}}
 \examples{}
 \keyword{internal}

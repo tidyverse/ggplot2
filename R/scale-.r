@@ -77,6 +77,11 @@ Scale <- proto(TopLevel, expr={
       "<p>This function returns a scale object.</p>"
     )
   }
+  
+  my_names <- function(.) {
+    paste(.$class(), .$common, .$objname, sep="_")
+  }
+  
   # Guides
   # ---------------------------------------------
   legend_desc <- function(.) {

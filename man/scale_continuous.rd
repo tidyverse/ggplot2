@@ -1,17 +1,21 @@
 \name{ScaleContinuous}
 \alias{scale_continuous}
-\alias{ScaleContinuous}
 \alias{scale_x_continuous}
 \alias{scale_y_continuous}
 \alias{scale_z_continuous}
 \alias{scale_xend_continuous}
 \alias{scale_yend_continuous}
+\alias{ScaleContinuous}
 \title{scale_continuous}
 \description{Continuous position scale}
 \details{
 This page describes \code{\link{scale_continuous}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_continuous(name=NULL, limits=c(NA, NA), breaks=NULL, labels=NULL, trans="identity", expand=c(0.05, 0), ...)}
+\usage{scale_x_continuous(name=NULL, limits=c(NA, NA), breaks=NULL, labels=NULL, trans="identity", expand=c(0.05, 0), ...)
+scale_y_continuous(name=NULL, limits=c(NA, NA), breaks=NULL, labels=NULL, trans="identity", expand=c(0.05, 0), ...)
+scale_z_continuous(name=NULL, limits=c(NA, NA), breaks=NULL, labels=NULL, trans="identity", expand=c(0.05, 0), ...)
+scale_xend_continuous(name=NULL, limits=c(NA, NA), breaks=NULL, labels=NULL, trans="identity", expand=c(0.05, 0), ...)
+scale_yend_continuous(name=NULL, limits=c(NA, NA), breaks=NULL, labels=NULL, trans="identity", expand=c(0.05, 0), ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis}
  \item{limits}{numeric vector of length 2, giving the extent of the scale}

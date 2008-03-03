@@ -1,17 +1,21 @@
 \name{ScaleProb}
 \alias{scale_prob}
-\alias{ScaleProb}
 \alias{scale_x_prob}
 \alias{scale_y_prob}
 \alias{scale_z_prob}
 \alias{scale_xend_prob}
 \alias{scale_yend_prob}
+\alias{ScaleProb}
 \title{scale_prob}
 \description{Probability scale}
 \details{
 This page describes \code{\link{scale_prob}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_prob(name=NULL, limits=c(NA, NA), breaks=NULL, family="norm", ...)}
+\usage{scale_x_prob(name=NULL, limits=c(NA, NA), breaks=NULL, family="norm", ...)
+scale_y_prob(name=NULL, limits=c(NA, NA), breaks=NULL, family="norm", ...)
+scale_z_prob(name=NULL, limits=c(NA, NA), breaks=NULL, family="norm", ...)
+scale_xend_prob(name=NULL, limits=c(NA, NA), breaks=NULL, family="norm", ...)
+scale_yend_prob(name=NULL, limits=c(NA, NA), breaks=NULL, family="norm", ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis}
  \item{limits}{numeric vector of length 2, giving the extent of the scale}

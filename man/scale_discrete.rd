@@ -1,15 +1,17 @@
 \name{ScaleDiscrete}
 \alias{scale_discrete}
-\alias{ScaleDiscrete}
 \alias{scale_x_discrete}
 \alias{scale_y_discrete}
 \alias{scale_z_discrete}
+\alias{ScaleDiscrete}
 \title{scale_discrete}
 \description{Discrete position scale}
 \details{
 This page describes \code{\link{scale_discrete}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_discrete(name=NULL, expand=c(0, 0.75), labels=NULL, ...)}
+\usage{scale_x_discrete(name=NULL, expand=c(0, 0.75), labels=NULL, ...)
+scale_y_discrete(name=NULL, expand=c(0, 0.75), labels=NULL, ...)
+scale_z_discrete(name=NULL, expand=c(0, 0.75), labels=NULL, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis}
  \item{expand}{numeric vector of length 2, giving multiplicative and additive expansion factors}

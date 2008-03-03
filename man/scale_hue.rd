@@ -1,14 +1,15 @@
 \name{ScaleHue}
 \alias{scale_hue}
-\alias{ScaleHue}
 \alias{scale_colour_hue}
 \alias{scale_fill_hue}
+\alias{ScaleHue}
 \title{scale_hue}
 \description{Colours that vary continuously in hue}
 \details{
 This page describes \code{\link{scale_hue}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_hue(name=NULL, h=c(0, 360), l=65, c=100, alpha=1, labels=NULL, h.start=0, direction=1, ...)}
+\usage{scale_colour_hue(name=NULL, h=c(0, 360), l=65, c=100, alpha=1, labels=NULL, h.start=0, direction=1, ...)
+scale_fill_hue(name=NULL, h=c(0, 360), l=65, c=100, alpha=1, labels=NULL, h.start=0, direction=1, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis}
  \item{h}{range of hues to use, in degrees}

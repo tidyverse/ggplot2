@@ -1,17 +1,21 @@
 \name{ScaleIdentity}
 \alias{scale_identity}
-\alias{ScaleIdentity}
 \alias{scale_colour_identity}
 \alias{scale_fill_identity}
 \alias{scale_size_identity}
 \alias{scale_shape_identity}
 \alias{scale_linetype_identity}
+\alias{ScaleIdentity}
 \title{scale_identity}
 \description{Don't remap values, use directly}
 \details{
 This page describes \code{\link{scale_identity}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_identity(name=NULL, breaks=NULL, labels=NULL, ...)}
+\usage{scale_colour_identity(name=NULL, breaks=NULL, labels=NULL, ...)
+scale_fill_identity(name=NULL, breaks=NULL, labels=NULL, ...)
+scale_size_identity(name=NULL, breaks=NULL, labels=NULL, ...)
+scale_shape_identity(name=NULL, breaks=NULL, labels=NULL, ...)
+scale_linetype_identity(name=NULL, breaks=NULL, labels=NULL, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis}
  \item{breaks}{numeric vector indicating where breaks should lie}

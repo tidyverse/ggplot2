@@ -1,8 +1,8 @@
 \name{ScaleBrewer}
 \alias{scale_brewer}
-\alias{ScaleBrewer}
 \alias{scale_colour_brewer}
 \alias{scale_fill_brewer}
+\alias{ScaleBrewer}
 \title{scale_brewer}
 \description{Colour brewer colour scales}
 \details{
@@ -10,7 +10,8 @@ See <a href='http://colorbrewer.org'>colorbrewer.org</a> for more info
 
 This page describes \code{\link{scale_brewer}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_brewer(name=NULL, palette=1, type="qual", alpha=1, reverse=FALSE, labels=NULL, ...)}
+\usage{scale_colour_brewer(name=NULL, palette=1, type="qual", alpha=1, reverse=FALSE, labels=NULL, ...)
+scale_fill_brewer(name=NULL, palette=1, type="qual", alpha=1, reverse=FALSE, labels=NULL, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis}
  \item{palette}{NULL}

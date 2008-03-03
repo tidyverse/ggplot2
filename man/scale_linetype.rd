@@ -1,12 +1,13 @@
 \name{ScaleLinetype}
 \alias{scale_linetype}
+\alias{scale__linetype}
 \alias{ScaleLinetype}
 \title{scale_linetype}
 \description{Scale for line patterns}
 \details{
 This page describes \code{\link{scale_linetype}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_linetype(name=NULL, expand=c(0, 0.75), labels=NULL, ...)}
+\usage{scale__linetype(name=NULL, expand=c(0, 0.75), labels=NULL, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis}
  \item{expand}{numeric vector of length 2, giving multiplicative and additive expansion factors}
