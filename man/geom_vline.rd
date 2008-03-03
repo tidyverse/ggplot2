@@ -31,6 +31,7 @@ The following aesthetics can be used with geom_vline.  Aesthetics are mapped to 
 \seealso{\itemize{
   \item \code{\link{geom_hline}}: for horizontal lines
   \item \code{\link{geom_abline}}: for lines defined by a slope and intercept
+  \item \code{\link{geom_segment}}: for a more general approach
   \item \url{http://had.co.nz/ggplot/geom_vline.html}
 }}
 \value{A \code{\link{layer}}}
@@ -44,10 +45,7 @@ The following aesthetics can be used with geom_vline.  Aesthetics are mapped to 
     
     # Lines from data
     p <- ggplot(mtcars, aes(x = wt, y=mpg)) + facet_grid(. ~ cyl) + geom_point()
-    df <- data.frame(cyl=c(4,6,8), intercept=tapply(mtcars$wt, mtcars$cyl, mean))
-    p + geom_vline(data=df)
-    p + geom_vline(data=df, colour="red")
-    
+    p + geom_vline(intercept="mean")
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

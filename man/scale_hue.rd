@@ -25,7 +25,8 @@ This page describes \code{\link{scale_hue}}, see \code{\link{layer}} and \code{\
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    (d <- qplot(carat, price, data=diamonds, colour=clarity))
+    dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
+    (d <- qplot(carat, price, data=dsamp, colour=clarity))
   
     # Change scale label
     d + scale_colour_hue()

@@ -19,7 +19,6 @@ The following aesthetics can be used with geom_bar.  Aesthetics are mapped to va
   \item \code{colour}: border colour 
   \item \code{fill}: internal colour 
   \item \code{min}: minimum of interval (\strong{required}) 
-  \item \code{width}: width of geom 
   \item \code{size}: size 
   \item \code{linetype}: line type 
   \item \code{max}: maximum of interval (\strong{required}) 

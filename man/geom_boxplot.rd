@@ -16,7 +16,6 @@ The following aesthetics can be used with geom_boxplot.  Aesthetics are mapped t
   \item \code{colour}: border colour 
   \item \code{fill}: internal colour 
   \item \code{size}: size 
-  \item \code{width}: width of geom 
 }
 }
 \usage{geom_boxplot(mapping=NULL, data=NULL, stat="boxplot", position="dodge", outlier.colour="black", outlier.shape=19, outlier.size=1, ...)}
@@ -49,7 +48,7 @@ The following aesthetics can be used with geom_boxplot.  Aesthetics are mapped t
     # Add aesthetic mappings
     p + geom_boxplot(aes(fill=cyl))
     p + geom_boxplot(aes(fill=factor(cyl)))
-    p + geom_boxplot(aes(colour=cyl), size=2)
+    p + geom_boxplot(aes(colour=cyl), size=1)
     
     # Dodged boxplots
     # - automatically split when an aesthetic variable is a factor
@@ -58,11 +57,10 @@ The following aesthetics can be used with geom_boxplot.  Aesthetics are mapped t
     p + geom_boxplot(aes(size=factor(gear)))
     
     # Set aesthetics to fixed value
-    p + geom_boxplot(fill="black", colour="white", size=2)
+    p + geom_boxplot(fill="black", colour="white", size=1)
 
     # Scales vs. Coordinate transforms
-    movies$ratingr <- factor(round_any(movies$rating,0.5))
-    m <- ggplot(movies, aes(y=votes, x=ratingr))
+    m <- ggplot(movies, aes(y=votes, x=rating, group=round_any(rating,0.5)))
     m + geom_point()
     m + geom_boxplot()
     m + geom_boxplot() + scale_y_log10()

@@ -53,7 +53,7 @@ The following aesthetics can be used with geom_ribbon.  Aesthetics are mapped to
     
     # The default summary isn't that useful
     m + stat_summary(geom="ribbon")
-    m + stat_summary(geom="ribbon", fun=stat_median_hilow)
+    m + stat_summary(geom="ribbon", fun="median_hilow")
     
     # Use qplot instead
     qplot(year, level, data=huron, geom=c("area", "line"))

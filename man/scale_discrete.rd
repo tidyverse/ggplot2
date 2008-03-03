@@ -33,10 +33,7 @@ This page describes \code{\link{scale_discrete}}, see \code{\link{layer}} and \c
     d + scale_x_discrete("Cut") + scale_y_discrete("Clarity")
     
     # To adjust the order you must modify the underlying factor
-    # see ?reorder for one approach to this
-    
-  
-    
+    # see ?reorder for one approach to this    
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

@@ -6,7 +6,7 @@
 \details{
 This page describes \code{\link{scale_size}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_size(name=NULL, to=c(1, 5), ...)}
+\usage{scale_size(name=NULL, to=c(0.2, 3), ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis}
  \item{to}{numeric vector of length 2, giving minimum and maximum after transformation}

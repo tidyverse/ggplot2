@@ -15,7 +15,6 @@ The following aesthetics can be used with geom_errorbar.  Aesthetics are mapped 
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
-  \item \code{width}: width of geom 
 }
 }
 \usage{geom_errorbar(mapping=NULL, data=NULL, stat="identity", position="identity", ...)}
@@ -45,13 +44,11 @@ The following aesthetics can be used with geom_errorbar.  Aesthetics are mapped 
     )
     df2 <- df[c(1,3),]
     
-    ggplot(df, aes(max = resp + se, min=resp - se, x=trt, fill=group)) + geom_bar(position="dodge")
-    
     # Define the top and bottom of the errorbars
-    limits <- aes(max = resp + se, min=resp - se, width=0.9)
+    limits <- aes(max = resp + se, min=resp - se)
     
     p <- ggplot(df, aes(fill=group, y=resp, x=trt))
-    p + geom_bar(position="dodge")
+    p + geom_bar(position="dodge", stat="identity")
     
     # Because the bars and errorbars have different widths
     # we need to specify how wide the objects we are dodging are

@@ -32,6 +32,7 @@ The following aesthetics can be used with geom_abline.  Aesthetics are mapped to
   \item \code{\link{stat_smooth}}: To add lines derived from the data
   \item \code{\link{geom_hline}}: for horizontal lines
   \item \code{\link{geom_vline}}: for vertical lines
+  \item \code{\link{geom_segment}}: for a more general approach
   \item \url{http://had.co.nz/ggplot/geom_abline.html}
 }}
 \value{A \code{\link{layer}}}
@@ -42,21 +43,23 @@ The following aesthetics can be used with geom_abline.  Aesthetics are mapped to
     p + geom_abline()
     p + geom_abline(slope=5)
     p + geom_abline(intercept=30, slope=-5)
-    p + geom_abline(intercept=10, colour="red", size=5)
+    p + geom_abline(intercept=10, colour="red", size=2)
+    
+    # See ?stat_smooth for fitting smooth models to data
     p + stat_smooth(method="lm", se=FALSE)
     
     # Slopes and intercepts as data
     p <- ggplot(mtcars, aes(x = wt, y=mpg), . ~ cyl) + geom_point()
-    df <- data.frame(intercept=25, slope=2)
-    p + geom_abline(data=df)
+    df <- data.frame(a=rnorm(10, 25), b=rnorm(10, 0))
+    p + geom_abline(aes(intercept=a, slope=b), data=df)
 
     # Slopes and intercepts from linear model
     coefs <- do.call(rbind, by(mtcars, mtcars$cyl, function(df) { 
       m <- lm(mpg ~ wt, data=df)
-      data.frame(cyl = df$cyl[1], intercept=coef(m)[1], slope=coef(m)[2]) 
+      data.frame(cyl = df$cyl[1], a=coef(m)[1], b=coef(m)[2]) 
     }))
     str(coefs)
-    p + geom_abline(data=coefs)
+    p + geom_abline(data=coefs, aes(intercept=a, slope=b))
     
     # It's actually a bit easier to do this with stat_smooth
     p + geom_smooth(aes(group=cyl), method="lm")

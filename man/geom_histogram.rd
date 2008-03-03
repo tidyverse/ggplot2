@@ -17,7 +17,6 @@ The following aesthetics can be used with geom_histogram.  Aesthetics are mapped
   \item \code{colour}: border colour 
   \item \code{fill}: internal colour 
   \item \code{min}: minimum of interval (\strong{required}) 
-  \item \code{width}: width of geom 
   \item \code{size}: size 
   \item \code{linetype}: line type 
   \item \code{max}: maximum of interval (\strong{required}) 
@@ -47,8 +46,8 @@ geom_histogram only allows you to set the width of the bins (with the binwidth p
     # Simple examles
     qplot(rating, data=movies, geom="histogram")
     qplot(rating, data=movies, weight=votes, geom="histogram")
-    qplot(rating, data=movies, weight=votes, binwidth=1)
-    qplot(rating, data=movies, weight=votes, binwidth=0.1)
+    qplot(rating, data=movies, weight=votes, geom="histogram", binwidth=1)
+    qplot(rating, data=movies, weight=votes, geom="histogram", binwidth=0.1)
     
     # More complex
     m <- ggplot(movies, aes(x=rating))
@@ -65,13 +64,14 @@ geom_histogram only allows you to set the width of the bins (with the binwidth p
     m + geom_histogram(aes(fill = ..count..))
 
     # Change scales
-    m + geom_histogram(aes(fill = ..count..)) + scale_fill_gradient(low="green", high="red")
+    m + geom_histogram(aes(fill = ..count..)) + scale_fill_gradient("Count", low="green", high="red")
     
     m <- m + aes(x=votes)
     m + geom_histogram() + scale_x_log()
     m + geom_histogram() + scale_x_sqrt()
     
     # Change coordinate systems
+    m + geom_histogram() + coord_trans(x = "sqrt")
     m + geom_histogram() + coord_trans(y = "sqrt")
       
     # Set aesthetics to fixed value

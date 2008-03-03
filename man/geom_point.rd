@@ -35,7 +35,7 @@ The biggest potential problem with a scatterplot is overplotting: whenever you h
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item \code{\link{scale_area}}: Scale area of points, instead of radius
+  \item scale_area: Scale area of points, instead of radius
   \item \code{\link{geom_jitter}}: Jittered points for categorical data
   \item \url{http://had.co.nz/ggplot/geom_point.html}
 }}
