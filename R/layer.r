@@ -30,11 +30,11 @@ Layer <- proto(expr = {
     
     if (is.character(geom)) geom <- Geom$find(geom)
     if (is.character(stat)) stat <- Stat$find(stat)
-    if (is.character(position)) position <- Position$find(position)
+    if (is.character(position)) position <- Position$find(position)$new()
     
     if (is.null(geom)) geom <- stat$default_geom()
     if (is.null(stat)) stat <- geom$default_stat()
-    if (is.null(position)) position <- geom$default_pos()
+    if (is.null(position)) position <- geom$default_pos()$new()
 
     match.params <- function(possible, params) {
       if ("..." %in% names(possible)) {

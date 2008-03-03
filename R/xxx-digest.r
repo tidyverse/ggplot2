@@ -86,14 +86,21 @@ Scale$bolus <- function(.) {
   )
 }
 Layer$bolus <- function(.) {
+  params <- c(.$geom_params, .$stat_params)
+  params <- params[!duplicated(params)]
+  if (!is.null(params)) params <- params[order(names(params))]
+  
+  mapping <- .$aesthetics
+  if (!is.null(mapping)) mapping <- mapping[order(names(mapping))]
+  
   list(
     geom = .$geom$objname,
     stat = .$stat$objname,
     pos  = .$position$objname,
     pos_parms  = .$position$settings(),
     data = .$data,
-    mapping = .$aesthetics,
-    params = unique(c(.$geom_params, .$stat_params))
+    mapping = mapping,
+    params = params
   )
 }
 
