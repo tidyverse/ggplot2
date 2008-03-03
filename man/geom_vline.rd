@@ -1,18 +1,18 @@
-\name{GeomVline}
+\name{geom_vline}
 \alias{geom_vline}
 \alias{GeomVline}
-\title{geom_vline}
+\title{geom\_vline}
 \description{Line, vertical}
 \details{
-This geom allows you to annotate the plot with vertical lines (see \code{\link{geom_hline}} and \code{\link{geom_abline}} for other types of lines)
+This geom allows you to annotate the plot with vertical lines (see geom\_hline and geom\_abline for other types of lines)
 
 
 There are two ways to use it.  You can either specify the intercept of the line in the call to the geom, in which case the line will be in the same position in every panel.  Alternatively, you can supply a different intercept for each panel using a data.frame.  See the examples for the differences
 
-This page describes \code{\link{geom_vline}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_vline, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_vline.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_vline(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_vline.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_vline(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{colour}: border colour 
   \item \code{size}: size 

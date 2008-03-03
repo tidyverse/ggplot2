@@ -7,7 +7,7 @@
 # 
 # @arguments path a
 # @arguments path b
-# @value list with components only_a, only_b and both
+# @value list with components only\_a, only\_b and both
 # @keyword internal
 dir_diff <- function(a, b) {
   files_a <- dir(a)

@@ -1,10 +1,10 @@
-\name{StatIdentity}
+\name{stat_identity}
 \alias{stat_identity}
 \alias{StatIdentity}
-\title{stat_identity}
+\title{stat\_identity}
 \description{Don't transform data}
 \details{
-This page describes \code{\link{stat_identity}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes stat\_identity, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{stat_identity(mapping=NULL, data=NULL, geom="point", position="identity", ...)}
 \arguments{

@@ -1,10 +1,10 @@
-\name{StatUnique}
+\name{stat_unique}
 \alias{stat_unique}
 \alias{StatUnique}
-\title{stat_unique}
+\title{stat\_unique}
 \description{Remove duplicates}
 \details{
-This page describes \code{\link{stat_unique}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes stat\_unique, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{stat_unique(mapping=NULL, data=NULL, geom="point", position="identity", ...)}
 \arguments{

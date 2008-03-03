@@ -1,10 +1,10 @@
-\name{PositionStack}
+\name{position_stack}
 \alias{position_stack}
 \alias{PositionStack}
-\title{position_stack}
+\title{position\_stack}
 \description{Stack overlapping objects on top of one another}
 \details{
-This page describes \code{\link{position_stack}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes position\_stack, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{position_stack(...)}
 \arguments{

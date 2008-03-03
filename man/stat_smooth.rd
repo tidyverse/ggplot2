@@ -1,13 +1,13 @@
-\name{StatSmooth}
+\name{stat_smooth}
 \alias{stat_smooth}
 \alias{StatSmooth}
-\title{stat_smooth}
+\title{stat\_smooth}
 \description{Add a smoother}
 \details{
-Aids the eye in seeing patterns in the presence of overplotting.This page describes \code{\link{stat_smooth}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+Aids the eye in seeing patterns in the presence of overplotting.This page describes stat\_smooth, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with stat_smooth.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{stat_smooth(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with stat\_smooth.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{stat\_smooth(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 

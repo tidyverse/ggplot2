@@ -3,7 +3,7 @@
 # 
 # @argument list of legend descriptions
 # @argument list description usage of aesthetics in geoms
-# @keywords internal
+# @keyword internal
 # @value A list of grobs
 gglegends <- function(legends, usage) {
   # Need to collapse legends describing same values into single data.frame

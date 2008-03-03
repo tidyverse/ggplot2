@@ -20,7 +20,7 @@ StatSummary <- proto(Stat, {
     "geom_pointrange" = "range indicated by straight line, with point in the middle",
     "geom_linerange" = "range indicated by straight line",
     "geom_crossbar" = "hollow bar with middle indicated by horizontal line",
-    "smean.sdl" = "for description of summary functions provide by Hmisc.  Replace the . with a _ to get the ggplot name",
+    # "smean.sdl" = "for description of summary functions provide by Hmisc.  Replace the . with a _ to get the ggplot name",
     "stat_smooth" = "for continuous analog"
   )
   
@@ -130,7 +130,8 @@ auto_wrap <- function(f) {
   }
 }
 
-# Wrap HMisc summary functions to make it easy to use them with stat_summary
+# Wrap Hmisc summary functions 
+# Wrap up a selection of Hmisc to make it easy to use them with \code{\link{stat_summary}}
 # 
 # @alias sum_mean_cl_boot
 # @alias sum_mean_cl_normal

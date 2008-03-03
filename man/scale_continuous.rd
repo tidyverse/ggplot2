@@ -1,4 +1,4 @@
-\name{ScaleContinuous}
+\name{scale_continuous}
 \alias{scale_continuous}
 \alias{scale_x_continuous}
 \alias{scale_y_continuous}
@@ -6,10 +6,10 @@
 \alias{scale_xend_continuous}
 \alias{scale_yend_continuous}
 \alias{ScaleContinuous}
-\title{scale_continuous}
+\title{scale\_continuous}
 \description{Continuous position scale}
 \details{
-This page describes \code{\link{scale_continuous}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes scale\_continuous, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{scale_x_continuous(name=NULL, limits=c(NA, NA), breaks=NULL, labels=NULL, trans="identity", expand=c(0.05, 0), ...)
 scale_y_continuous(name=NULL, limits=c(NA, NA), breaks=NULL, labels=NULL, trans="identity", expand=c(0.05, 0), ...)

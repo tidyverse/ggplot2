@@ -1,17 +1,17 @@
-\name{GeomBar}
+\name{geom_bar}
 \alias{geom_bar}
 \alias{GeomBar}
-\title{geom_bar}
+\title{geom\_bar}
 \description{Bars, rectangles with bases on y-axis}
 \details{
-The bar geom is used to produce 1d area plots: bar charts for categorical x, and histograms for continuous y.  \code{\link{stat_bin}} explains the details of these summaries in more detail.  In particular, you can use the \code{weight} aesthetic to create weighted histograms and barcharts where the height of the bar no longer represent a count of observations, but a sum over some other variable.  See the examples for a practical example.
+The bar geom is used to produce 1d area plots: bar charts for categorical x, and histograms for continuous y.  stat\_bin explains the details of these summaries in more detail.  In particular, you can use the \code{weight} aesthetic to create weighted histograms and barcharts where the height of the bar no longer represent a count of observations, but a sum over some other variable.  See the examples for a practical example.
 
-By default, multiple x's occuring in the same place will be stacked a top one another by \code{\link{position_stack}}.  If you want them to be dodged from side-to-side, check out \code{\link{position_dodge}}.  Finally, \code{\link{position_fill}} shows relative propotions at each x by stacking the bars and then stretch or squashing them all to the same height
+By default, multiple x's occuring in the same place will be stacked a top one another by position\_stack.  If you want them to be dodged from side-to-side, check out position\_dodge.  Finally, position\_fill shows relative propotions at each x by stacking the bars and then stretch or squashing them all to the same height
 
-This page describes \code{\link{geom_bar}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_bar, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_bar.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_bar(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_bar.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_bar(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{min}: minimum of interval (\strong{required}) 
@@ -25,7 +25,7 @@ The following aesthetics can be used with geom_bar.  Aesthetics are mapped to va
 }
 }
 \section{Advice}{
-Sometimes, bar charts are used not as a distributional summary, but instead of a dotplot.  Generally, it's preferable to use a dotplot (see \code{\link{geom_point}}) as it has a better data-ink ratio.  However, if you do want to create this type of plot, you can set y to the value you have calculated, and use stat='identity'.
+Sometimes, bar charts are used not as a distributional summary, but instead of a dotplot.  Generally, it's preferable to use a dotplot (see geom\_point) as it has a better data-ink ratio.  However, if you do want to create this type of plot, you can set y to the value you have calculated, and use stat='identity'.
 
 A bar chart maps the height of the bar to a variable, and so the base of the bar must always been shown to produce a valid visual comparison.  Naomi Robbins has a nice <a href='http://www.b-eye-network.com/view/index.php?cid=2468&amp;fc=0&amp;frss=1&amp;ua'>article on this topic</a>.  This is the reason it doesn't make sense to use a log-scaled y axis.
 

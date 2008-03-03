@@ -1,13 +1,13 @@
-\name{GeomErrorbar}
+\name{geom_errorbar}
 \alias{geom_errorbar}
 \alias{GeomErrorbar}
-\title{geom_errorbar}
+\title{geom\_errorbar}
 \description{Error bars}
 \details{
-This page describes \code{\link{geom_errorbar}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_errorbar, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_errorbar.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_errorbar(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_errorbar.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_errorbar(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{min}: minimum of interval (\strong{required}) 

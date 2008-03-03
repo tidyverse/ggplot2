@@ -1,15 +1,15 @@
-\name{GeomHistogram}
+\name{geom_histogram}
 \alias{geom_histogram}
 \alias{GeomHistogram}
-\title{geom_histogram}
+\title{geom\_histogram}
 \description{Histogram}
 \details{
-geom_histogram is an alias for \code{\link{geom_bar}} + \code{\link{stat_bin}} so you will need to look at the documentation for those objects to get more information about the parameters.
+geom\_histogram is an alias for geom\_bar + stat\_bin so you will need to look at the documentation for those objects to get more information about the parameters.
 
-This page describes \code{\link{geom_histogram}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_histogram, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_histogram.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_histogram(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_histogram.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_histogram(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{min}: minimum of interval (\strong{required}) 
@@ -23,7 +23,7 @@ The following aesthetics can be used with geom_histogram.  Aesthetics are mapped
 }
 }
 \section{Advice}{
-geom_histogram only allows you to set the width of the bins (with the binwidth parameter), not the number of bins, and it certainly does not suport the use of common heuristics to select the number of bins.  In practice, you will need to use multiple bin widths to discover all the signal in the data, and having bins with meaningful widths (rather than some arbitrary fraction of the range of the data) is more interpretable.
+geom\_histogram only allows you to set the width of the bins (with the binwidth parameter), not the number of bins, and it certainly does not suport the use of common heuristics to select the number of bins.  In practice, you will need to use multiple bin widths to discover all the signal in the data, and having bins with meaningful widths (rather than some arbitrary fraction of the range of the data) is more interpretable.
 
  }
 \usage{geom_histogram(mapping=NULL, data=NULL, stat="bin", position="stack", ...)}

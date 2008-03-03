@@ -1,12 +1,12 @@
-\name{CoordCartesian}
+\name{coord_cartesian}
 \alias{coord_cartesian}
 \alias{CoordCartesian}
-\title{coord_cartesian}
+\title{coord\_cartesian}
 \description{Cartesian coordinates}
 \details{
 The Cartesian coordinate system is the most familiar, and common, type of coordinate system.  There are no options to modify, and it is used by default, so you shouldn't need to call it explicitly
 
-This page describes \code{\link{coord_cartesian}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes coord\_cartesian, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{coord_cartesian(...)}
 \arguments{

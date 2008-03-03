@@ -1,15 +1,15 @@
-\name{GeomDensity2d}
+\name{geom_density_2d}
 \alias{geom_density_2d}
 \alias{GeomDensity2d}
-\title{geom_density_2d}
+\title{geom\_density\_2d}
 \description{Contours from a 2d density estimate}
 \details{
 Perform a 2D kernel density estimatation using kde2d and  display the results with contours.
 
-This page describes \code{\link{geom_density_2d}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_density\_2d, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_density_2d.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_density_2d(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_density\_2d.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_density\_2d(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 

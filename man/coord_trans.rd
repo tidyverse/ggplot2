@@ -1,10 +1,10 @@
-\name{CoordTrans}
+\name{coord_trans}
 \alias{coord_trans}
 \alias{CoordTrans}
-\title{coord_trans}
+\title{coord\_trans}
 \description{Transformed cartesian coordinate system}
 \details{
-This page describes \code{\link{coord_trans}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes coord\_trans, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{coord_trans(xtrans="identity", ytrans="identity", ...)}
 \arguments{

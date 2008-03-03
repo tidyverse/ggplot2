@@ -1,13 +1,13 @@
-\name{GeomInterval}
+\name{geom_interval}
 \alias{geom_interval}
 \alias{GeomInterval}
-\title{geom_interval}
+\title{geom\_interval}
 \description{Base for all interval (range) geoms}
 \details{
-This page describes \code{\link{geom_interval}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_interval, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_interval.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_interval(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_interval.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_interval(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{min}: minimum of interval (\strong{required}) 

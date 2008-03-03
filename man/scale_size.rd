@@ -1,13 +1,13 @@
-\name{ScaleSize}
+\name{scale_size}
 \alias{scale_size}
-\alias{scale__size}
 \alias{ScaleSize}
-\title{scale_size}
+\alias{scale_area}
+\title{scale\_size}
 \description{Size scale for continuous variable}
 \details{
-This page describes \code{\link{scale_size}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes scale\_size, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale__size(name=NULL, to=c(0.2, 3), ...)}
+\usage{scale_size(name=NULL, to=c(0.2, 3), ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis}
  \item{to}{numeric vector of length 2, giving minimum and maximum after transformation}

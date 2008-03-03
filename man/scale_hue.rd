@@ -1,12 +1,14 @@
-\name{ScaleHue}
+\name{scale_hue}
 \alias{scale_hue}
 \alias{scale_colour_hue}
 \alias{scale_fill_hue}
 \alias{ScaleHue}
-\title{scale_hue}
+\alias{scale_colour_discrete}
+\alias{scale_fill_discrete}
+\title{scale\_hue}
 \description{Colours that vary continuously in hue}
 \details{
-This page describes \code{\link{scale_hue}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes scale\_hue, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{scale_colour_hue(name=NULL, h=c(0, 360), l=65, c=100, alpha=1, labels=NULL, h.start=0, direction=1, ...)
 scale_fill_hue(name=NULL, h=c(0, 360), l=65, c=100, alpha=1, labels=NULL, h.start=0, direction=1, ...)}

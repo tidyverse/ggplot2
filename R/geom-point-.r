@@ -31,7 +31,7 @@ GeomPoint <- proto(Geom, {
   default_aes <- function(.) aes(shape=19, colour="black", size=2)
 
   seealso <- list(
-    scale_area = "Scale area of points, instead of radius",
+    # scale_area = "Scale area of points, instead of radius",
     geom_jitter = "Jittered points for categorical data"
   )
   

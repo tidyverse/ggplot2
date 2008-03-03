@@ -1,10 +1,10 @@
-\name{StatFunction}
+\name{stat_function}
 \alias{stat_function}
 \alias{StatFunction}
-\title{stat_function}
+\title{stat\_function}
 \description{Superimpose a function }
 \details{
-This page describes \code{\link{stat_function}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes stat\_function, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{stat_function(mapping=NULL, data=NULL, geom="path", position="identity", fun, n=101, args=list(), ...)}
 \arguments{

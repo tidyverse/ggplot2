@@ -1,10 +1,10 @@
-\name{PositionDodge}
+\name{position_dodge}
 \alias{position_dodge}
 \alias{PositionDodge}
-\title{position_dodge}
+\title{position\_dodge}
 \description{Adjust position by dodging overlaps to the side}
 \details{
-This page describes \code{\link{position_dodge}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes position\_dodge, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{position_dodge(width=NULL, ...)}
 \arguments{

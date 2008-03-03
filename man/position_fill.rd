@@ -1,10 +1,10 @@
-\name{PositionFill}
+\name{position_fill}
 \alias{position_fill}
 \alias{PositionFill}
-\title{position_fill}
+\title{position\_fill}
 \description{Stack overlapping objects on top of one another, and standardise have equal height}
 \details{
-This page describes \code{\link{position_fill}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes position\_fill, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{position_fill(...)}
 \arguments{

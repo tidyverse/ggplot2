@@ -79,7 +79,7 @@ Scale <- proto(TopLevel, expr={
   }
   
   my_names <- function(.) {
-    ps(.$class(), .$common, .$objname, sep="_")
+    ps(.$class(), .$common, .$objname, sep="_", collapse=NULL)
   }
   
   # Guides

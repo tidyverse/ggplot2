@@ -1,14 +1,14 @@
-\name{ScaleGrey}
+\name{scale_grey}
 \alias{scale_grey}
 \alias{scale_colour_grey}
 \alias{scale_fill_grey}
 \alias{ScaleGrey}
-\title{scale_grey}
+\title{scale\_grey}
 \description{Grey colour scale}
 \details{
 Based on ?gray.colors
 
-This page describes \code{\link{scale_grey}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes scale\_grey, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{scale_colour_grey(name=NULL, start=0.2, end=0.8, labels=NULL, ...)
 scale_fill_grey(name=NULL, start=0.2, end=0.8, labels=NULL, ...)}

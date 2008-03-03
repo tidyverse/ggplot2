@@ -1,10 +1,10 @@
-\name{GeomBlank}
+\name{geom_blank}
 \alias{geom_blank}
 \alias{GeomBlank}
-\title{geom_blank}
+\title{geom\_blank}
 \description{Blank, draws nothing}
 \details{
-This page describes \code{\link{geom_blank}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_blank, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{geom_blank(mapping=NULL, data=NULL, stat="identity", position="identity", ...)}
 \arguments{

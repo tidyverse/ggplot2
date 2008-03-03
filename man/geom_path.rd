@@ -1,13 +1,13 @@
-\name{GeomPath}
+\name{geom_path}
 \alias{geom_path}
 \alias{GeomPath}
-\title{geom_path}
+\title{geom\_path}
 \description{Connect observations, in original order}
 \details{
-This page describes \code{\link{geom_path}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_path, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_path.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_path(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_path.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_path(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 

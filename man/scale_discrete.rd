@@ -1,13 +1,13 @@
-\name{ScaleDiscrete}
+\name{scale_discrete}
 \alias{scale_discrete}
 \alias{scale_x_discrete}
 \alias{scale_y_discrete}
 \alias{scale_z_discrete}
 \alias{ScaleDiscrete}
-\title{scale_discrete}
+\title{scale\_discrete}
 \description{Discrete position scale}
 \details{
-This page describes \code{\link{scale_discrete}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes scale\_discrete, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{scale_x_discrete(name=NULL, expand=c(0, 0.75), labels=NULL, ...)
 scale_y_discrete(name=NULL, expand=c(0, 0.75), labels=NULL, ...)

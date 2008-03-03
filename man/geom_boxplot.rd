@@ -1,13 +1,13 @@
-\name{GeomBoxplot}
+\name{geom_boxplot}
 \alias{geom_boxplot}
 \alias{GeomBoxplot}
-\title{geom_boxplot}
+\title{geom\_boxplot}
 \description{Box and whiskers plot}
 \details{
-This page describes \code{\link{geom_boxplot}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_boxplot, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_boxplot.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_boxplot(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_boxplot.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_boxplot(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{min}: minimum of interval (\strong{required}) 

@@ -1,13 +1,13 @@
-\name{GeomDensity}
+\name{geom_density}
 \alias{geom_density}
 \alias{GeomDensity}
-\title{geom_density}
+\title{geom\_density}
 \description{Display a smooth density estimate}
 \details{
-A smooth density estimate calculated by \code{\link{stat_density}}This page describes \code{\link{geom_density}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+A smooth density estimate calculated by stat\_densityThis page describes geom\_density, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_density.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_density(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_density.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_density(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 

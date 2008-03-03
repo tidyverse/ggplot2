@@ -1,7 +1,7 @@
-\name{CoordPolar}
+\name{coord_polar}
 \alias{coord_polar}
 \alias{CoordPolar}
-\title{coord_polar}
+\title{coord\_polar}
 \description{Polar coordinates}
 \details{
 The polar coordinate system is most commonly used for pie charts, which are a stacked bar chart in polar coordinates.
@@ -9,7 +9,7 @@ The polar coordinate system is most commonly used for pie charts, which are a st
 
 This coordinate system has one argument, \code{theta}, which determines which variable is mapped to angle and which to radius.  Valid values are "x" and "y".
 
-This page describes \code{\link{coord_polar}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes coord\_polar, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{coord_polar(theta="x", start=0, direction=1, ...)}
 \arguments{

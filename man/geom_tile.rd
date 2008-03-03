@@ -1,15 +1,15 @@
-\name{GeomTile}
+\name{geom_tile}
 \alias{geom_tile}
 \alias{GeomTile}
-\title{geom_tile}
+\title{geom\_tile}
 \description{Tile plot as densely as possible, assuming that every tile is the same size. }
 \details{
 Similar to levelplot and image.
 
-This page describes \code{\link{geom_tile}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_tile, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_tile.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_tile(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_tile.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_tile(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 

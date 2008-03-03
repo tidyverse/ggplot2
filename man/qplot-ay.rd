@@ -1,6 +1,6 @@
 \name{qplot}
 \alias{qplot}
-\alias{qplot}
+\alias{quickplot}
 \title{Quick plot.}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 

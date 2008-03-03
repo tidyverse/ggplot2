@@ -1,4 +1,4 @@
-\name{ScaleIdentity}
+\name{scale_identity}
 \alias{scale_identity}
 \alias{scale_colour_identity}
 \alias{scale_fill_identity}
@@ -6,10 +6,10 @@
 \alias{scale_shape_identity}
 \alias{scale_linetype_identity}
 \alias{ScaleIdentity}
-\title{scale_identity}
+\title{scale\_identity}
 \description{Don't remap values, use directly}
 \details{
-This page describes \code{\link{scale_identity}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes scale\_identity, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{scale_colour_identity(name=NULL, breaks=NULL, labels=NULL, ...)
 scale_fill_identity(name=NULL, breaks=NULL, labels=NULL, ...)

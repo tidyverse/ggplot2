@@ -1,13 +1,13 @@
-\name{GeomPolygon}
+\name{geom_polygon}
 \alias{geom_polygon}
 \alias{GeomPolygon}
-\title{geom_polygon}
+\title{geom\_polygon}
 \description{A polygon}
 \details{
-This page describes \code{\link{geom_polygon}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_polygon, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_polygon.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_polygon(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_polygon.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_polygon(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 

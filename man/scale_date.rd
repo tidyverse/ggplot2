@@ -1,14 +1,14 @@
-\name{ScaleDate}
+\name{scale_date}
 \alias{scale_date}
 \alias{scale_x_date}
 \alias{scale_y_date}
 \alias{ScaleDate}
-\title{scale_date}
+\title{scale\_date}
 \description{Continuous scale for date variables}
 \details{
 Currently somewhat broken due to lack of support for dates in R.
 
-This page describes \code{\link{scale_date}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes scale\_date, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{scale_x_date(major=NULL, minor=NULL, format=NULL, name=NULL, ...)
 scale_y_date(major=NULL, minor=NULL, format=NULL, name=NULL, ...)}

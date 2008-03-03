@@ -1,4 +1,4 @@
-\name{ScaleProb}
+\name{scale_prob}
 \alias{scale_prob}
 \alias{scale_x_prob}
 \alias{scale_y_prob}
@@ -6,10 +6,10 @@
 \alias{scale_xend_prob}
 \alias{scale_yend_prob}
 \alias{ScaleProb}
-\title{scale_prob}
+\title{scale\_prob}
 \description{Probability scale}
 \details{
-This page describes \code{\link{scale_prob}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes scale\_prob, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{scale_x_prob(name=NULL, limits=c(NA, NA), breaks=NULL, family="norm", ...)
 scale_y_prob(name=NULL, limits=c(NA, NA), breaks=NULL, family="norm", ...)

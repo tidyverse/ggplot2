@@ -1,13 +1,13 @@
-\name{GeomCrossbar}
+\name{geom_crossbar}
 \alias{geom_crossbar}
 \alias{GeomCrossbar}
-\title{geom_crossbar}
+\title{geom\_crossbar}
 \description{Hollow bar with middle indicated by horizontal line}
 \details{
-This page describes \code{\link{geom_crossbar}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_crossbar, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_crossbar.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_crossbar(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_crossbar.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_crossbar(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{min}: minimum of interval (\strong{required}) 

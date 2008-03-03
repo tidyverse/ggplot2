@@ -1,6 +1,7 @@
 ScaleSize <- proto(ScaleContinuous, expr={
   common <- NULL
   .input <- .output  <- "size"
+  aliases <- c("scale_area")
   
   new <- function(., name=NULL, to=c(0.2, 3)) {
     .$proto(name=name, .range=to)

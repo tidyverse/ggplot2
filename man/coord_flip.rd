@@ -1,12 +1,12 @@
-\name{CoordFlip}
+\name{coord_flip}
 \alias{coord_flip}
 \alias{CoordFlip}
-\title{coord_flip}
+\title{coord\_flip}
 \description{Flipped cartesian coordinates}
 \details{
 Flipped cartesian coordinates so that horizontal becomes vertical, and vertical, horizontal.  This is primarily useful for converting geoms and statistics which display y conditional on x, to x conditional on y
 
-This page describes \code{\link{coord_flip}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes coord\_flip, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{coord_flip(...)}
 \arguments{

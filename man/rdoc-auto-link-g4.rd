@@ -1,6 +1,6 @@
 \name{rdoc_auto_link}
 \alias{rdoc_auto_link}
-\title{rdoc_auto_link}
+\title{rdoc auto link}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{

@@ -28,7 +28,7 @@
 #X ggpcp(mtcars) + geom_line()
 #X ggpcp(mtcars, scale="var") + geom_line()
 #X ggpcp(mtcars, vars=names(mtcars)[3:6], formula= . ~cyl, scale="I") + geom_line()
-#X ggpcp(mtcars, scale="I") + geom_boxplot()
+#X ggpcp(mtcars, scale="I") + geom_boxplot(aes(group=variable))
 #X ggpcp(mtcars, vars=names(mtcars[2:6])) + geom_line()
 #X p <- ggpcp(mtcars, vars=names(mtcars[2:6]), formula=.~vs)
 #X p + geom_line()

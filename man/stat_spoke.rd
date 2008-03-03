@@ -1,13 +1,13 @@
-\name{StatSpoke}
+\name{stat_spoke}
 \alias{stat_spoke}
 \alias{StatSpoke}
-\title{stat_spoke}
+\title{stat\_spoke}
 \description{Convert angle and radius to xend and yend}
 \details{
-This page describes \code{\link{stat_spoke}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes stat\_spoke, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with stat_spoke.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{stat_spoke(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with stat\_spoke.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{stat\_spoke(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 

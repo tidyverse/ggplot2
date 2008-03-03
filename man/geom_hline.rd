@@ -1,18 +1,18 @@
-\name{GeomHline}
+\name{geom_hline}
 \alias{geom_hline}
 \alias{GeomHline}
-\title{geom_hline}
+\title{geom\_hline}
 \description{Line, horizontal}
 \details{
-This geom allows you to annotate the plot with horizontal lines (see \code{\link{geom_vline}} and \code{\link{geom_abline}} for other types of lines)
+This geom allows you to annotate the plot with horizontal lines (see geom\_vline and geom\_abline for other types of lines)
 
 
 There are two ways to use it.  You can either specify the intercept of the line in the call to the geom, in which case the line will be in the same position in every panel.  Alternatively, you can supply a different intercept for each panel using a data.frame.  See the examples for the differences
 
-This page describes \code{\link{geom_hline}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_hline, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_hline.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_hline(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_hline.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_hline(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{colour}: border colour 
   \item \code{size}: size 

@@ -1,10 +1,10 @@
-\name{StatSort}
+\name{stat_sort}
 \alias{stat_sort}
 \alias{StatSort}
-\title{stat_sort}
+\title{stat\_sort}
 \description{Sort in order of ascending x}
 \details{
-This page describes \code{\link{stat_sort}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes stat\_sort, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{stat_sort(mapping=NULL, data=NULL, geom="path", position="identity", variable="x", ...)}
 \arguments{

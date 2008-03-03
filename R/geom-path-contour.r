@@ -11,7 +11,7 @@ GeomContour <- proto(GeomPath, {
 
   default_stat <- function(.) StatContour
   seealso <- list(
-    geom_density2d = "Draw 2d density contours"
+    geom_density_2d = "Draw 2d density contours"
   )
   examples <- function(.) {
     # See stat_contour for examples

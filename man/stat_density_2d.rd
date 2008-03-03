@@ -1,13 +1,13 @@
-\name{StatDensity2d}
+\name{stat_density_2d}
 \alias{stat_density_2d}
 \alias{StatDensity2d}
-\title{stat_density_2d}
+\title{stat\_density\_2d}
 \description{Density estimation, 2D}
 \details{
-This page describes \code{\link{stat_density_2d}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes stat\_density\_2d, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with stat_density_2d.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{stat_density_2d(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with stat\_density\_2d.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{stat\_density\_2d(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 

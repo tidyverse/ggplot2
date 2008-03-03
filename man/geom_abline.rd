@@ -1,17 +1,17 @@
-\name{GeomAbline}
+\name{geom_abline}
 \alias{geom_abline}
 \alias{GeomAbline}
-\title{geom_abline}
+\title{geom\_abline}
 \description{Line, specified by slope and intercept}
 \details{
 The abline geom adds a line with specified slope and intercept to the plot.
 
-With its siblings \code{\link{geom_hline}} and \code{\link{geom_vline}}, it's useful for annotating plots.  You can supply the parameters for geom_abline, intercept and slope, in two ways: either explicitly as fixed values, or stored in the data set.  If you specify the fixed values (\code{geom_abline(intercept=0, slope=1)}) then the line will be the same in all panels, but if the intercept and slope are stored in the data, then can vary from panel to panel.  See the examples for more ideas.
+With its siblings geom\_hline and geom\_vline, it's useful for annotating plots.  You can supply the parameters for geom\_abline, intercept and slope, in two ways: either explicitly as fixed values, or stored in the data set.  If you specify the fixed values (\code{geom\_abline(intercept=0, slope=1)}) then the line will be the same in all panels, but if the intercept and slope are stored in the data, then can vary from panel to panel.  See the examples for more ideas.
 
-This page describes \code{\link{geom_abline}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_abline, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_abline.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_abline(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_abline.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_abline(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{colour}: border colour 
   \item \code{size}: size 

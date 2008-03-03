@@ -1,15 +1,15 @@
-\name{StatSummary}
+\name{stat_summary}
 \alias{stat_summary}
 \alias{StatSummary}
-\title{stat_summary}
+\title{stat\_summary}
 \description{Summarise y values at every unique x}
 \details{
-stat_summary allows for tremendous flexibilty in the specification of summary functions.  The summary function can either operate on a data frame (with argument name data) or on a vector.  A simple vector function is easiest to work with as you can return a single number, but is somewhat less flexible.  If your summary function operates on a data.frame it should return a data frame with variables that the geom can use.
+stat\_summary allows for tremendous flexibilty in the specification of summary functions.  The summary function can either operate on a data frame (with argument name data) or on a vector.  A simple vector function is easiest to work with as you can return a single number, but is somewhat less flexible.  If your summary function operates on a data.frame it should return a data frame with variables that the geom can use.
 
-This page describes \code{\link{stat_summary}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes stat\_summary, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with stat_summary.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{stat_summary(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with stat\_summary.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{stat\_summary(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 
@@ -29,7 +29,6 @@ The following aesthetics can be used with stat_summary.  Aesthetics are mapped t
   \item \code{\link{geom_pointrange}}: range indicated by straight line, with point in the middle
   \item \code{\link{geom_linerange}}: range indicated by straight line
   \item \code{\link{geom_crossbar}}: hollow bar with middle indicated by horizontal line
-  \item smean.sdl: for description of summary functions provide by Hmisc.  Replace the . with a _ to get the ggplot name
   \item \code{\link{stat_smooth}}: for continuous analog
   \item \url{http://had.co.nz/ggplot/stat_summary.html}
 }}

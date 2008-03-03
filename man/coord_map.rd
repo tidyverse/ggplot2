@@ -1,7 +1,7 @@
-\name{CoordMap}
+\name{coord_map}
 \alias{coord_map}
 \alias{CoordMap}
-\title{coord_map}
+\title{coord\_map}
 \description{Map projections}
 \details{
 This coordinate system provides the full range of map projections available in the mapproject package.
@@ -9,7 +9,7 @@ This coordinate system provides the full range of map projections available in t
 
 This is still experimental, and if you have any advice to offer regarding a better (or more correct) way to do this, please let me know
 
-This page describes \code{\link{coord_map}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes coord\_map, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{coord_map(projection="mercator", orientation=NULL, ...)}
 \arguments{

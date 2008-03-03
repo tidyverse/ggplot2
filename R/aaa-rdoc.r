@@ -52,11 +52,14 @@ TopLevel$rdoc_name <- function(.) {
   )
 }
 
+TopLevel$aliases <- c()
+
 TopLevel$rdoc_aliases <- function(.) {
   aliases <- unique(c(
     .$my_name(),
     .$my_names(),
-    .$myName()  
+    .$myName(),
+    .$aliases
   ))
   
   ps(
@@ -66,7 +69,7 @@ TopLevel$rdoc_aliases <- function(.) {
 
 TopLevel$rdoc_title <- function(.) {
   ps(
-    "\\title{", .$my_name(), "}\n"
+    "\\title{", gsub("_", "\\\\_", .$my_name()), "}\n"
   )
 }
 
@@ -80,7 +83,7 @@ TopLevel$rdoc_details <- function(.) {
   ps(
     "\\details{\n",
     rdoc_from_html(.$details, .$my_name()),
-    rdoc_auto_link(ps("This page describes ", .$my_name(), ", see layer and qplot for how to create a complete plot from individual components.\n")),
+    rdoc_from_html(ps("This page describes ", .$my_name(), ", see layer and qplot for how to create a complete plot from individual components.\n")),
     "}\n"
   )
 }
@@ -96,7 +99,7 @@ TopLevel$rdoc_aesthetics <- function(.) {
 
   ps(
     "\\section{Aesthetics}{\n",
-    rdoc_auto_link(ps("The following aesthetics can be used with ", .$my_name(), ".  Aesthetics are mapped to variables in the data with the aes function: \\code{", .$my_name(), "(aes(x = var))}"), .$my_name()), "\n", 
+    rdoc_from_html(ps("The following aesthetics can be used with ", .$my_name(), ".  Aesthetics are mapped to variables in the data with the aes function: \\code{", .$my_name(), "(aes(x = var))}"), .$my_name()), "\n", 
     "\\itemize{\n",
     ps("  \\item \\code{", aes, "}: ", desc, " \n"), 
     "}\n",
@@ -189,7 +192,7 @@ TopLevel$rdoc_keyword<- function(.) {
   "\\keyword{hplot}\n"
 }  
 
-# rdoc_auto_link
+# rdoc auto link
 # Automatically link functions used in rdoc
 # 
 # @arguments input rdoc string
@@ -218,6 +221,8 @@ rdoc_from_html <- function(html, skip="") {
 
   rd <- gsub("<em>(.*?)</em>", "\\\\emph{\\1}", rd)
   rd <- gsub("<code>(.*?)</code>", "\\\\code{\\1}", rd)
+
+  rd <- gsub("_", "\\\\_", rd)
   
   rdoc_auto_link(rd, skip)
 }

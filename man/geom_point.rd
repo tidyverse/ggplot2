@@ -1,15 +1,15 @@
-\name{GeomPoint}
+\name{geom_point}
 \alias{geom_point}
 \alias{GeomPoint}
-\title{geom_point}
+\title{geom\_point}
 \description{Points, as for a scatterplot}
 \details{
 The point geom is used to create scatterplots.
 
-This page describes \code{\link{geom_point}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_point, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_point.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_point(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_point.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_point(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 
@@ -19,11 +19,11 @@ The following aesthetics can be used with geom_point.  Aesthetics are mapped to 
 }
 }
 \section{Advice}{
-The scatterplot is useful for displaying the relationship between two continuous variables, although it can also be used with one continuous and one categorical variable, or two categorical variables.  See \code{\link{geom_jitter}} for possibilities.
+The scatterplot is useful for displaying the relationship between two continuous variables, although it can also be used with one continuous and one categorical variable, or two categorical variables.  See geom\_jitter for possibilities.
 
 The \emph{bubblechart} is a scatterplot with a third variable mapped to the size of points.  There are no special names for scatterplots where another variable is mapped to point shape or colour, however.
 
-The biggest potential problem with a scatterplot is overplotting: whenever you have more than a few points, points may be plotted on top of one another.  This can severely distort the visual appearance of the plot.  There is no one solution to this problem, but there are some techniques that can help.  You can add additional information with \code{\link{stat_smooth}}, \code{\link{stat_quantile}} or stat_density2d.  If you have few unique x values, \code{\link{geom_boxplot}} may also be useful.  Alternatively, you can summarise the number of points at each location and display that in some way, using \code{\link{stat_sum}}.  Another technique is to use transparent points, \code{geom_point(colour=alpha('black', 0.05))}
+The biggest potential problem with a scatterplot is overplotting: whenever you have more than a few points, points may be plotted on top of one another.  This can severely distort the visual appearance of the plot.  There is no one solution to this problem, but there are some techniques that can help.  You can add additional information with stat\_smooth, stat\_quantile or stat\_density2d.  If you have few unique x values, geom\_boxplot may also be useful.  Alternatively, you can summarise the number of points at each location and display that in some way, using stat\_sum.  Another technique is to use transparent points, \code{geom\_point(colour=alpha('black', 0.05))}
 
 }
 \usage{geom_point(mapping=NULL, data=NULL, stat="identity", position="identity", ...)}
@@ -35,7 +35,6 @@ The biggest potential problem with a scatterplot is overplotting: whenever you h
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item scale_area: Scale area of points, instead of radius
   \item \code{\link{geom_jitter}}: Jittered points for categorical data
   \item \url{http://had.co.nz/ggplot/geom_point.html}
 }}

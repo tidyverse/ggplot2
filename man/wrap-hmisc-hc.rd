@@ -9,11 +9,11 @@
 \alias{mean_cl_normal}
 \alias{mean_sdl}
 \alias{median_hilow}
-\title{Wrap HMisc summary functions to make it easy to use them with stat_summary}
+\title{Wrap Hmisc summary functions}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Wrap up a selection of Hmisc to make it easy to use them with \code{\link{stat_summary}}
 }
 \usage{wrap_hmisc(x, fun, ...)}
 \arguments{

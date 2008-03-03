@@ -1,6 +1,9 @@
 \name{Nodoc}
 
 \alias{Coord}
+\alias{ScaleArea}
+\alias{scale_colour}
+\alias{scale_size_discrete}
 \alias{create_accessors}
 \alias{Facet}
 \alias{Geom}

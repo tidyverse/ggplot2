@@ -21,7 +21,7 @@
 # @arguments character vector or expression for x axis label
 # @arguments character vector or expression for y axis label
 # @keyword hplot 
-# @alias qplot 
+# @alias quickplot 
 #X # Use data from data.frame
 #X qplot(mpg, wt, data=mtcars)
 #X qplot(mpg, wt, data=mtcars, colour=cyl)

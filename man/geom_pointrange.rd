@@ -1,13 +1,13 @@
-\name{GeomPointrange}
+\name{geom_pointrange}
 \alias{geom_pointrange}
 \alias{GeomPointrange}
-\title{geom_pointrange}
+\title{geom\_pointrange}
 \description{An interval represented by a vertical line, with a point in the middle}
 \details{
-This page describes \code{\link{geom_pointrange}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_pointrange, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_pointrange.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_pointrange(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_pointrange.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_pointrange(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{min}: minimum of interval (\strong{required}) 

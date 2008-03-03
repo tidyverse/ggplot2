@@ -1,13 +1,13 @@
-\name{StatDensity}
+\name{stat_density}
 \alias{stat_density}
 \alias{StatDensity}
-\title{stat_density}
+\title{stat\_density}
 \description{Density estimation, 1D}
 \details{
-This page describes \code{\link{stat_density}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes stat\_density, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with stat_density.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{stat_density(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with stat\_density.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{stat\_density(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position 

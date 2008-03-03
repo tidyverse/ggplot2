@@ -1,12 +1,12 @@
-\name{ScaleGradient2}
+\name{scale_gradient2}
 \alias{scale_gradient2}
 \alias{scale_colour_gradient2}
 \alias{scale_fill_gradient2}
 \alias{ScaleGradient2}
-\title{scale_gradient2}
+\title{scale\_gradient2}
 \description{Smooth colour gradient, with midpoint}
 \details{
-This page describes \code{\link{scale_gradient2}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes scale\_gradient2, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{scale_colour_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", limits=c(NA, NA), trans="identity", alpha=1, ...)
 scale_fill_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", limits=c(NA, NA), trans="identity", alpha=1, ...)}

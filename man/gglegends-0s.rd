@@ -15,4 +15,4 @@ Build legends, merging where possible
 \details{}
 
 \examples{}
-
+\keyword{internal}

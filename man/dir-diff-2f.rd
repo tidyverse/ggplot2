@@ -11,7 +11,7 @@
 \item{a}{path a}
 \item{b}{path b}
 }
-\value{list with components only_a, only_b and both}
+\value{list with components only\_a, only\_b and both}
 \details{}
 
 \examples{}

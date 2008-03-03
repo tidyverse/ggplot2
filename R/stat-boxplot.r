@@ -37,7 +37,7 @@ StatBoxplot <- proto(Stat, {
       
       outliers <- y < (stats[2] - coef * iqr) | y > (stats[4] + coef * iqr)
       if (any(outliers)) stats[c(1, 5)] <- range(y[!outliers], na.rm=TRUE)
-    
+      
       if (length(unique(x)) > 1) width <- diff(range(x)) * 0.9
     
       df <- as.data.frame(as.list(stats))

@@ -1,13 +1,13 @@
-\name{GeomQuantile}
+\name{geom_quantile}
 \alias{geom_quantile}
 \alias{GeomQuantile}
-\title{geom_quantile}
+\title{geom\_quantile}
 \description{Add quantile lines from a quantile regression}
 \details{
-This page describes \code{\link{geom_quantile}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes geom\_quantile, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom_quantile.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom_quantile(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_quantile.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_quantile(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 
@@ -18,7 +18,7 @@ The following aesthetics can be used with geom_quantile.  Aesthetics are mapped 
 }
 }
 \section{Advice}{
-This can be used as a continuous analogue of a \code{\link{geom_boxplot}}.
+This can be used as a continuous analogue of a geom\_boxplot.
 
 }
 \usage{geom_quantile(mapping=NULL, data=NULL, stat="quantile", position="identity", ...)}

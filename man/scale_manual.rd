@@ -1,4 +1,4 @@
-\name{ScaleManual}
+\name{scale_manual}
 \alias{scale_manual}
 \alias{scale_colour_manual}
 \alias{scale_fill_manual}
@@ -6,10 +6,10 @@
 \alias{scale_shape_manual}
 \alias{scale_linetype_manual}
 \alias{ScaleManual}
-\title{scale_manual}
+\title{scale\_manual}
 \description{Simple way of manually controlling scale}
 \details{
-This page describes \code{\link{scale_manual}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes scale\_manual, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{scale_colour_manual(name=NULL, values=NULL, ...)
 scale_fill_manual(name=NULL, values=NULL, ...)

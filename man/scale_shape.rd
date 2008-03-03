@@ -1,13 +1,12 @@
-\name{ScaleShape}
+\name{scale_shape}
 \alias{scale_shape}
-\alias{scale__shape}
 \alias{ScaleShape}
-\title{scale_shape}
+\title{scale\_shape}
 \description{Discrete position scale}
 \details{
-This page describes \code{\link{scale_shape}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes scale\_shape, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale__shape(name=NULL, solid=TRUE, ...)}
+\usage{scale_shape(name=NULL, solid=TRUE, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis}
  \item{solid}{NULL}

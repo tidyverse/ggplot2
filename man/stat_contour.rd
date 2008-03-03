@@ -1,13 +1,13 @@
-\name{StatContour}
+\name{stat_contour}
 \alias{stat_contour}
 \alias{StatContour}
-\title{stat_contour}
+\title{stat\_contour}
 \description{Contours of 3d data}
 \details{
-This page describes \code{\link{stat_contour}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes stat\_contour, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with stat_contour.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{stat_contour(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with stat\_contour.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{stat\_contour(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 

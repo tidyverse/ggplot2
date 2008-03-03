@@ -1,10 +1,10 @@
-\name{FacetGrid}
+\name{facet_grid}
 \alias{facet_grid}
 \alias{FacetGrid}
-\title{facet_grid}
+\title{facet\_grid}
 \description{Lay out panels in a rectangular/tabular manner.}
 \details{
-This page describes \code{\link{facet_grid}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes facet\_grid, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{facet_grid(facets=. ~ ., margins=FALSE, ...)}
 \arguments{

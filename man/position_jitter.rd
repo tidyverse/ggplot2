@@ -1,10 +1,10 @@
-\name{PositionJitter}
+\name{position_jitter}
 \alias{position_jitter}
 \alias{PositionJitter}
-\title{position_jitter}
+\title{position\_jitter}
 \description{Jitter points to avoid overplotting}
 \details{
-This page describes \code{\link{position_jitter}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes position\_jitter, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \usage{position_jitter(xjitter=NULL, yjitter=NULL, ...)}
 \arguments{

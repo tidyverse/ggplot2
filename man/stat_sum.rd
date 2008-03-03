@@ -1,13 +1,13 @@
-\name{StatSum}
+\name{stat_sum}
 \alias{stat_sum}
 \alias{StatSum}
-\title{stat_sum}
+\title{stat\_sum}
 \description{Sum unique values.  Useful for overplotting on scatterplots}
 \details{
-This page describes \code{\link{stat_sum}}, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes stat\_sum, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with stat_sum.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{stat_sum(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with stat\_sum.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{stat\_sum(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 
