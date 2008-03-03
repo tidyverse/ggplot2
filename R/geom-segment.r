@@ -13,10 +13,10 @@ GeomSegment <- proto(Geom, {
   }
   
   adjust_scales_data <- function(., scales, data) {
-    rbind(
-      data[, c("x", "y")],
-      rename(data[, c("xend", "yend")], c("yend" = "y", "xend" = "x"))
-    )
+    scales$get_scales("x")$train(range(data$xend))
+    scales$get_scales("y")$train(range(data$yend))
+    
+    data
   }
   
   objname <- "segment"
