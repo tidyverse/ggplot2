@@ -14,8 +14,8 @@ GeomSegment <- proto(Geom, {
   
   adjust_scales_data <- function(., scales, data) {
     rbind(
-      data,
-      transform(data, y = yend, x = xend)
+      data[, c("x", "y")],
+      rename(data[, c("xend", "yend")], c("yend" = "y", "xend" = "x"))
     )
   }
   

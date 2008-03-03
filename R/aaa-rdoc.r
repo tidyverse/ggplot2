@@ -119,21 +119,23 @@ TopLevel$rdoc_formals <- function(.)   {
   
 }
 
-# FIXME: need to generate usage statements for all common scales
 
-TopLevel$rdoc_usage <- function(.) {
+TopLevel$call <- function(.) {
   args <- .$rdoc_formals()
   is.missing.arg <- function(arg) sapply(arg, typeof) == "symbol" & sapply(arg, deparse) == ""
 
   equals <- ifelse(is.missing.arg(args), "", "=")
-  call <- ps(
+  ps(
     .$my_name(), "(", 
     ps(names(args), equals, sapply(args, deparse), collapse=", "),
     ")"
   )
+}
 
+# FIXME: need to generate usage statements for all common scales
+TopLevel$rdoc_usage <- function(.) {
   ps(
-    "\\usage{", call, "}\n"
+    "\\usage{", .$call(), "}\n"
   )
 }
 

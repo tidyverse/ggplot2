@@ -110,7 +110,7 @@ TopLevel <- proto(expr = {
     ps(
       # "<p class='hierarchy'>", .$html_parent_link(), "</p>\n",
       "<h1>", .$html_img(), .$my_name(), "</h1>\n",
-      "<p class='call'>", .$html_call(), "</p>\n"
+      "<p class='call'>", .$call(), "</p>\n"
     )
   }
   
@@ -173,7 +173,7 @@ TopLevel <- proto(expr = {
   }
   
   html_feedback <- function(.) {
-    ps("<p class='feedback'>What do you think of the documentation?  <a href='http://hadley.wufoo.com/forms/documentation-feedback/default/field0/", .$my_name(), "'>Please let me know by filling out this short online survey</a>.</p>")
+    ps("<p class='feedback'>What do you think of the documentation?  <a href='http://hadley.wufoo.com/forms/documentation-feedback/def/field0=", .$my_name(), "'>Please let me know by filling out this short online survey</a>.</p>")
   }
   
   html_outputs <- function(.) {
@@ -316,28 +316,7 @@ TopLevel <- proto(expr = {
       "\n"
     ), .$my_name())
   }
-  
-  
-  html_call <- function(.) {
-    ps(
-      .$my_name(), "(",
-      ps(
-        "mapping&nbsp;=&nbsp;aes(...)", 
-        "data&nbsp;=&nbsp;NULL",
-        if(exists("default_stat", .))
-          ps("stat&nbsp;=&nbsp;'", .$default_stat()$html_abbrev_link_self(), "'"),
-        if(exists("default_geom", .))
-          ps("geom&nbsp;=&nbsp;'", .$default_geom()$html_abbrev_link_self(), "'"),
-        if(exists("default_pos", .))
-          ps("position&nbsp;=&nbsp;'", .$default_pos()$html_abbrev_link_self(), "'"),
-        plist(.$params()), 
-        "...",
-        sep = ", "
-      ), 
-      ")"
-    )
-  }
-  
+
 })
 
 print.proto <- function(x, ...) x$pprint(...)

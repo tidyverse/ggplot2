@@ -96,17 +96,6 @@ Scale <- proto(TopLevel, expr={
     )
   }
   
-  html_call <- function(.) {    
-    ps(
-      ps("<strong>scale_", ps(.$common, .$objname, sep="_", collapse=NULL) , "</strong>", collapse=NULL), "(",
-      ps(
-        plist(.$parameters())
-      ), 
-      ")", collapse="\n<br />"
-    )
-  }
-  
-  
   parameters <- function(.) {
     params <- formals(get("new", .))
     params[setdiff(names(params), c(".","variable"))]

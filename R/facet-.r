@@ -9,17 +9,6 @@ Facet <- proto(TopLevel, {
     )
   }
   
-  html_call <- function(.) {
-    ps(
-      .$my_name(), "(",
-      "\n<br />&nbsp;&nbsp;",
-      ps(
-        plist(.$parameters())
-      ), 
-      "\n<br />)", collapse="\n<br />"
-    )
-  }
-  
   parameters <- function(.) {
     params <- formals(get("new", .))
     params[setdiff(names(params), c(".","variable"))]
