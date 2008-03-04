@@ -3,6 +3,8 @@ PositionStack <- proto(Position, {
   rescale <- FALSE
 
   adjust <- function(., data, scales) {
+    if (is.null(data)) return() 
+    
     check_required_aesthetics(c("x", "y"), names(data), "position_stack")
     if (!all(data$min == 0)) warning("Stacking not well defined when min != 0")
   

@@ -20,6 +20,7 @@ Legends:
 
 Other additions and coorections
 
+  * position_stack: fixed bug when data was empty
   * coord_equal: should now work correctly in all situations
   * coord_polar: add start and direction parameters, giving more control over the layout of the polar coords
   * coord_polar: added my favourite pie chart example
