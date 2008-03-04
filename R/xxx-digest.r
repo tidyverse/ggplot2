@@ -64,7 +64,9 @@ Layer$hash <- TopLevel$hash <- function(., ...) {
   digest(.$bolus(), ...)
 }
 Scales$hash <- function(.) {
-  sort(sapply(.$.scales, function(x) x$hash()))
+  scales <- sapply(.$.scales, function(x) x$hash())
+  if (is.character(scales)) scales <- sort(scales)
+  scales
 }
 
 Scales$bolus <- function(.) {

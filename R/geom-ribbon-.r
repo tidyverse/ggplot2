@@ -67,7 +67,7 @@ GeomRibbon <- proto(GeomInterval, {
     (m <- m + geom_point())
     
     # The default summary isn't that useful
-    m + stat_summary(geom="ribbon")
+    m + stat_summary(geom="ribbon", fun="range")
     m + stat_summary(geom="ribbon", fun="median_hilow")
     
     # Use qplot instead

@@ -9,7 +9,6 @@ StatSpoke <- proto(Stat, {
 
   objname <- "spoke" 
   desc <- "Convert angle and radius to xend and yend"
-  icon <- function(.) grid.newpage()
 
   default_aes <- function(.) aes(xend = ..xend.., yend = ..yend..)
   required_aes <- c("x", "y", "angle", "radius")

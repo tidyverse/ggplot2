@@ -12,7 +12,7 @@ StatFunction <- proto(Stat, {
 
   objname <- "function" 
   desc <- "Superimpose a function "
-  icon <- function(.) grid.newpage()
+
   desc_params <- list(
     fun = "function to use",
     n = "number of points to interpolate along",

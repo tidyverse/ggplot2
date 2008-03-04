@@ -22,8 +22,6 @@ GeomRug <- proto(Geom, {
   }
 
   objname <- "rug"
-  icon <- function(.) {
-  }
   
   desc <- "Marginal rug plots"
   
