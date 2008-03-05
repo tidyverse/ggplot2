@@ -31,7 +31,31 @@ GeomSmooth <- proto(GeomInterval, {
     ))
   }
   examples <- function(.) {
-    # See stat_smooth for examples
+    # See stat_smooth for examples of using built in model fitting
+    # if you need some more flexible, this example shows you how to
+    # plot the fits from any model of your choosing
+    
+    library(ggplot2)
+    mtcars$cyl <- factor(mtcars$cyl)
+    qplot(wt, mpg, data=mtcars, colour=cyl)
+
+    model <- lm(mpg ~ wt + cyl, data=mtcars)
+    grid <- with(mtcars, expand.grid(
+      wt = seq(min(wt), max(wt), length = 20),
+      cyl = levels(cyl)
+    ))
+
+    grid$mpg <- predict(model, newdata=grid)
+
+    qplot(wt, mpg, data=mtcars, colour=cyl) + geom_line(data=grid)
+
+    # or with standard errors
+
+    err <- predict(model, newdata=grid, se = TRUE)
+    grid$ucl <- err$fit + 1.96 * err$se.fit
+    grid$lcl <- err$fit - 1.96 * err$se.fit
+
+    qplot(wt, mpg, data=mtcars, colour=cyl) + geom_smooth(aes(min=lcl, max=ucl), data=grid, stat="identity") 
   }
 
 })

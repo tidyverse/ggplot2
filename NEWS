@@ -1,26 +1,18 @@
 ggplot 0.6
 ----------------------------------------
 
-Improved documentation
+The two big changes in this release are improved documentation and legends.  
 
-  * it's now easy to change the default scales (and their arguments) with the set_default_scale function, see ?set_default_scale for more details (thanks to Bob Muenchen for the suggestion)
-  * new order aesthetic which controls the order in which elements are plotted
-  * min and max are now scaled the same way as y
-  * functions are silently dropped (e.g. aes(colour=col))
-  * scales do not try and map variables than don't exist (fixes some rather obscure bugs)
-  * aes(mpg, wt) is now equivalent to aes(x = mpg, y = wt)
-  * scale_continuous: tweaks to minor breaks to make appearance better on wider range of coordinate systems
+ * all major ggplot2 components now have their own built in documentation, so that (e.g.) ?stat_smooth or ?geom_point now give you useful information
+ 
+ * the legend code is now considerably more sophisticated and will attempt to merge together legends for the same variable
+ 
+ * also, legends are drawn based on the geoms used (instead of the scales used, as previously) so should match the plot much better (e.g. for geom_smooth, geom_boxplot, geom_vline, geom_abline, geom_pointrange).
+ 
+These features are new, so there are likely to be a few bugs that I haven't discovered.  Please me know if you discover any.
+ 
+Other additions and corrections
 
-Legends:
-
-* preliminary legend merging code:
- * consequence: legend type no longer specified in scale (e.g. size, identity, manual), but derived from geoms used
- * better legends for smooth and pointrange
- * fixed some examples where grob used instead of guide
-
-Other additions and coorections
-
-  * position_stack: fixed bug when data was empty
   * coord_equal: should now work correctly in all situations
   * coord_polar: add start and direction parameters, giving more control over the layout of the polar coords
   * coord_polar: added my favourite pie chart example
@@ -33,9 +25,12 @@ Other additions and coorections
   * geom_density: fix scale adjustment bug in geom_density
   * geom_line, geom_text: all size measurements (now lines and text as well) are measured in mm, lines/paths default to paths 0.5mm wide
   * geom_rug: new to add marginal rug plots
+  * geom_smooth: added example showing how to use geom_smooth with your own models
   * geom_smooth: fixed bug where if se=FALSE x axis always includes 0
   * geom_vline, geom_hline: yet another rewrite which should make them more powerful and less error prone.  
+  * position_stack: fixed bug when data was empty
   * qplot: allow qplot to use computed aesthetics too
+  * scale_continuous: tweaks to minor breaks to make appearance better on wider range of coordinate systems
   * scale_discrete: all discrete scales now have labels argument which you can use to override the factor levels
   * scale_discrete: now works correctly with character vectors
   * scale_size: changed default range to [0.5, 3] to better reflect new sizing decisions
@@ -53,6 +48,15 @@ Other additions and coorections
   * stat_spoke: new, to make it possible to use geom_segment parameterised by angle and radius (thanks to Jiho for the suggestion)
   * stat_summary: better documentation
   * stat_summary: convenient auto wrapping of simple summary functions
+
+Miscellaneous changes:
+
+  * it's now easy to change the default scales (and their arguments) with the set_default_scale function, see ?set_default_scale for more details (thanks to Bob Muenchen for the suggestion)
+  * new order aesthetic which controls the order in which elements are plotted
+  * min and max are now scaled the same way as y
+  * functions are silently dropped (e.g. aes(colour=col))
+  * scales do not try and map variables that don't exist (fixes some rather obscure bugs)
+  * aes(mpg, wt) is now equivalent to aes(x = mpg, y = wt)
 
 
 See CHANGELOG for changes in previous versions

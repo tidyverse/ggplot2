@@ -30,10 +30,20 @@ GeomAbline <- proto(Geom, {
     geom_vline = "for vertical lines",
     geom_segment = "for a more general approach"
   )
-  guide_geom <- function(.) "path"
+  guide_geom <- function(.) "abline"
 
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) c(GeomPath$default_aes(), aes(intercept = 0, slope = 1))
+  
+  draw_legend <- function(., data, ...) {
+    data <- aesdefaults(data, .$default_aes(), list(...))
+
+    with(data, 
+      ggname(.$my_name(), segmentsGrob(0, 0, 1, 1, default.units="npc",
+      gp=gpar(col=colour, lwd=size * .pt, lty=linetype, lineend="butt")))
+    )
+  }
+  
   
   examples <- function(.) {
     p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()

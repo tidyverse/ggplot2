@@ -32,7 +32,7 @@ GeomHline <- proto(Geom, {
     
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour="black", size=0.5, linetype=1)
-  guide_geom <- function(.) "line"
+  guide_geom <- function(.) "path"
   
   seealso <- list(
     geom_vline = "for vertical lines",

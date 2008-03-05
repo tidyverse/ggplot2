@@ -33,7 +33,16 @@ GeomVline <- proto(Geom, {
   
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) c(GeomPath$default_aes(), aes(intercept=0))
-  guide_geom <- function(.) "path"
+  guide_geom <- function(.) "vline"
+
+  draw_legend <- function(., data, ...) {
+    data <- aesdefaults(data, .$default_aes(), list(...))
+
+    with(data, 
+      ggname(.$my_name(), segmentsGrob(0.5, 0, 0.5, 1, default.units="npc",
+      gp=gpar(col=colour, lwd=size * .pt, lty=linetype, lineend="butt")))
+    )
+  }
 
   seealso <- list(
     geom_hline = "for horizontal lines",
