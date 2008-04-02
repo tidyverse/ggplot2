@@ -41,6 +41,7 @@ ggplot_plot <- function(plot, pretty=TRUE) {
   data <- dlapply(function(d, p) p$adjust_position(d, scales, "before"))
   # Transform, train and map scales
   # data <- dlapply(function(d, p) p$scales_transform(d, scales))
+  
   dlapply(function(d, p) p$scales_train(d, scales, adjust=TRUE))
   data <- dlapply(function(d, p) p$scales_map(d, scales))
 

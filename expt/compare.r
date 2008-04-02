@@ -1,7 +1,10 @@
-info_a <- read.csv("../examples/ex-114/info.csv", stringsAsFactors=FALSE, allowEscapes=TRUE)
-info_b <- read.csv("../examples/ex-115/info.csv", stringsAsFactors=FALSE)
+info_a <- read.csv("../examples/ex-124/info.csv", stringsAsFactors=FALSE, allowEscapes=TRUE)
+info_b <- read.csv("../examples/ex-127/info.csv", stringsAsFactors=FALSE)
 
-info_a$both <- info_a$hash %in% info_b$hash
+info_a$both <- factor(info_a$hash %in% info_b$hash)
+
+qplot(class, geom="bar", data=info_a, fill=both)
+qplot(paste(class, obj), geom="bar", data=info_a, fill=both) + coord_flip()
 subset(info_a, obj == "path")[, c("both", "src")]
 
 qplot(paste(obj, class), data=info_a, geom="bar", fill=factor(both)) + coord_flip()

@@ -20,6 +20,7 @@ Stat <- proto(TopLevel, expr={
     stats <- lapply(groups, function(group) .$calculate(group, scales, ...))
     
     stats <- mapply(function(new, old) {
+      if (is.null(new)) return(NULL)
       unique <- uniquecols(old)
       missing <- !(names(unique) %in% names(new))
       cbind(

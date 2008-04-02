@@ -50,6 +50,10 @@ ggsave <- function(plot = last_plot(), filename=default_name(plot), device=defau
     match.fun(ext)
   }
 
+  if (missing(width) || missing(height)) {
+    message("Saving ", prettyNum(width * scale, digits=3), "\" x ", prettyNum(height * scale, digits=3), "\" image")
+  }
+  
   width <- width * scale
   height <- height * scale
   

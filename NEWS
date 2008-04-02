@@ -28,6 +28,7 @@ Other additions and corrections
   * geom_smooth: added example showing how to use geom_smooth with your own models
   * geom_smooth: fixed bug where if se=FALSE x axis always includes 0
   * geom_vline, geom_hline: yet another rewrite which should make them more powerful and less error prone.  
+  * ggsave reports width and height of saved image
   * position_stack: fixed bug when data was empty
   * qplot: allow qplot to use computed aesthetics too
   * scale_continuous: tweaks to minor breaks to make appearance better on wider range of coordinate systems

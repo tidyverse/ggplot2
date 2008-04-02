@@ -1,7 +1,7 @@
 GeomRibbon <- proto(GeomInterval, {
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour="grey60", fill="grey80", size=0.5, linetype=1)
-  guide_geom <- function(.) "ribbon"
+  guide_geom <- function(.) "smooth"
 
   adjust_scales_data <- function(., scales, data) {
     if (!"y" %in% scales$input()) {
@@ -14,11 +14,11 @@ GeomRibbon <- proto(GeomInterval, {
     y$train(data$max)
   }
 
-  draw_legend <- function(., data, ...)  {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-
-    rectGrob(gp=gpar(col=data$colour, fill=data$fill))
-  }
+  # draw_legend <- function(., data, ...)  {
+  #   data <- aesdefaults(data, .$default_aes(), list(...))
+  # 
+  #   rectGrob(gp=gpar(col=data$colour, fill=data$fill))
+  # }
 
   draw <- function(., data, scales, coordinates, ...) {
     data <- data[complete.cases(data[, c("x","min","max")]), ]

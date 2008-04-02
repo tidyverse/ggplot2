@@ -9,7 +9,6 @@ GeomDensity <- proto(GeomArea, {
   }
   default_stat <- function(.) StatDensity
   default_pos <- function(.) PositionIdentity
-
   
   seealso <- list(
     geom_histogram = "for the histogram"

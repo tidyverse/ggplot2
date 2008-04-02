@@ -56,4 +56,4 @@
   set_last_plot(p)
   p
 }
-"%+%" <- "+.ggplot"
+"%+%" <- `+.ggplot`
