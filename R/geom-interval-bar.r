@@ -48,16 +48,15 @@ GeomBar <- proto(GeomInterval, {
   
   examples <- function(.) {
     # Generate data
-    mtcars$cyl <- factor(mtcars$cyl)
-    c <- ggplot(mtcars, aes(x=cyl))
+    c <- ggplot(mtcars, aes(x=factor(cyl)))
     
     c + geom_bar()
     c + geom_bar() + coord_flip()
     c + geom_bar(fill="white", colour="darkgreen")
     
     # Use qplot
-    qplot(cyl, data=mtcars, geom="bar")
-    qplot(cyl, data=mtcars, geom="bar", fill=cyl)
+    qplot(factor(cyl), data=mtcars, geom="bar")
+    qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(cyl))
     
     # Dodged bar charts    
     ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar(position="dodge")

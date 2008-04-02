@@ -36,18 +36,17 @@ GeomSmooth <- proto(GeomInterval, {
     # plot the fits from any model of your choosing
     
     library(ggplot2)
-    mtcars$cyl <- factor(mtcars$cyl)
-    qplot(wt, mpg, data=mtcars, colour=cyl)
+    qplot(wt, mpg, data=mtcars, colour=factor(cyl))
 
-    model <- lm(mpg ~ wt + cyl, data=mtcars)
+    model <- lm(mpg ~ wt + factor(cyl), data=mtcars)
     grid <- with(mtcars, expand.grid(
       wt = seq(min(wt), max(wt), length = 20),
-      cyl = levels(cyl)
+      cyl = levels(factor(cyl))
     ))
 
     grid$mpg <- predict(model, newdata=grid)
 
-    qplot(wt, mpg, data=mtcars, colour=cyl) + geom_line(data=grid)
+    qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + geom_line(data=grid)
 
     # or with standard errors
 
@@ -55,7 +54,7 @@ GeomSmooth <- proto(GeomInterval, {
     grid$ucl <- err$fit + 1.96 * err$se.fit
     grid$lcl <- err$fit - 1.96 * err$se.fit
 
-    qplot(wt, mpg, data=mtcars, colour=cyl) + geom_smooth(aes(min=lcl, max=ucl), data=grid, stat="identity") 
+    qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + geom_smooth(aes(min=lcl, max=ucl), data=grid, stat="identity") 
   }
 
 })

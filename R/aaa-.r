@@ -169,7 +169,8 @@ TopLevel <- proto(expr = {
         "<p>", names(aes), ": <code>", aes, "</code> <span class='linklist'>", scale_links, "</span></p>", 
         "</li>\n"
       ),
-      "</ul>\n"
+      "</ul>\n",
+      "<p>Layers are divided into groups by the <strong>group</strong> aesthetic.  By default this is set to the interaction of all categorical variables present in the plot</p>\n"
     )
   }
   
