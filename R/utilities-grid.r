@@ -1,3 +1,4 @@
+# Name ggplot grid object
 # Convenience function to name grid objects
 # 
 # @keyword internal

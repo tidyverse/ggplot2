@@ -119,6 +119,7 @@ scale_usage <- function(plot) {
 }
 
 # "Invert" a list
+# Keys become values, values become keys
 # 
 # @arguments list to invert
 # @keyword internal

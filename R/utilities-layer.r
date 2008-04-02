@@ -1,3 +1,4 @@
+# Are integers?
 # Determine if a vector contains only integers
 # 
 # @arguments vector to test

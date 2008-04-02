@@ -206,6 +206,7 @@ Layer <- proto(expr = {
   }  
 })
 
+# Apply function to plot data components
 # Convenience apply function for facets data structure
 # 
 # @keyword internal
@@ -256,6 +257,7 @@ calc_aesthetics <- function(plot, data = plot$data, aesthetics, ignore.extra = F
   expand.grid.df(df, unique(plot$data[, setdiff(cond, names(df)), drop=FALSE]), unique=FALSE)
 }
 
+# Drop calculated aesthetics
 # Remove aesthetics mapped to variables created by statistics
 # 
 # @keyword internal

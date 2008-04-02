@@ -89,6 +89,7 @@ TransProbit <- ProbabilityTrans$new("norm")
 TransReverse <- Trans$new("reverse", function(x) -x, function(x) -x, function(x) bquote(.(-x)))
 TransSqrt <- Trans$new("sqrt", "sqrt", function(x) x^2, function(x) bquote(.(x)^2))
 
+# To date
 # Turn numeric vector into date vector
 # 
 # @keyword internal

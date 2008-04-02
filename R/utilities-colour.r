@@ -1,3 +1,4 @@
+# Nice colour ramp
 # Wrapper for colorRamp that deals with missing values and alpha
 # 
 # @keyword internal

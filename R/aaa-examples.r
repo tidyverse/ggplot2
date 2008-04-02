@@ -58,7 +58,10 @@ TopLevel$all_examples_run <- function(., path=NULL, verbose=TRUE) {
 }
 
 # Run all examples
+# Runs all ggplot2 examples
 # 
+# @arguments path to save file, if non-NULL
+# @arguments if TRUE, report progress during run
 # @keyword internal
 all_examples_run <- function(path=NULL, verbose = TRUE) {
   invisible(rbind(
@@ -113,16 +116,4 @@ TopLevel$examples_profile <- function(.) {
   plotting <- Filter(function(x) any(x == "\"print.ggplot\""), sw)
   attributes(plotting) <- attributes(sw)
   plotting
-}
-
-# Trim call tree to start with specified function
-# 
-# @keyword internal
-trim <- function(calltree, f) {
-  trimmed <- compact(lapply(calltree, function(x) {
-    if (!any(x == f)) return(NULL)
-    tail(x, -(which(x == f)[1] - 1))
-  }))
-  attributes(trimmed) <- attributes(calltree)
-  trimmed
 }

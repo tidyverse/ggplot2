@@ -173,6 +173,7 @@ update.ggplot <- function(object, ...) {
 }
 .store <- .plot_store()
 
+# Set last plot
 # Set last plot created or modified
 # 
 # @arguments plot to store

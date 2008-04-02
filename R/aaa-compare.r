@@ -3,6 +3,7 @@
 # a <- "~/Desktop/test-1/"
 # b <- "~/Desktop/test-2/"
 
+# Directory diff
 # Compute the set of differences in file make up between two directories.
 # 
 # @arguments path a

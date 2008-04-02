@@ -1,4 +1,5 @@
 # Rebuild all rdoc documentation
+# Builds rdoc pages for all ggplot2 objects
 # 
 # @arguments path to save rd files
 # @keyword internal
