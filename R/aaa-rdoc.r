@@ -167,7 +167,7 @@ TopLevel$rdoc_seealso <- function(.) {
     if(length(.$seealso) > 0) {
       ps("  \\item ", rdoc_auto_link(names(.$seealso)), ": ", .$seealso, "\n")
     },
-    "  \\item \\url{http://had.co.nz/ggplot/", .$html_path(), "}\n",
+    "  \\item \\url{http://had.co.nz/ggplot2/", .$html_path(), "}\n",
     "}}\n"
   )
 }  

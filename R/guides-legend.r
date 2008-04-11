@@ -5,7 +5,7 @@
 # @argument list description usage of aesthetics in geoms
 # @keyword internal
 # @value A list of grobs
-gglegends <- function(legends, usage) {
+gglegends <- function(legends, usage, background="grey80") {
   # Need to collapse legends describing same values into single data.frame
   # - first group by name
   if (length(legends) == 0) 
@@ -22,7 +22,7 @@ gglegends <- function(legends, usage) {
   keys_merged <- lapply(variables, merge_legends)
   legends_merged <- mapply(function(name, keys) list(name = legend_names[name], display=keys), names(keys_merged), keys_merged, SIMPLIFY = FALSE, USE.NAMES = FALSE)  
   
-  lapply(legends_merged, gglegend, usage=usage)
+  lapply(legends_merged, gglegend, usage=usage, background=background)
 }
 
 # Merge legends
@@ -49,8 +49,9 @@ merge_legends <- function(legends) {
 # @argument list description usage of aesthetics in geoms
 # @value A grid grob
 # @keyword internal
-gglegend <- function(legend, usage=usage) {
+gglegend <- function(legend, usage=usage, background = "grey90") {
   display <- legend$display
+  display <- display[nrow(display):1, ]
 
   aesthetics <- setdiff(names(legend$display), "label")
   
@@ -107,6 +108,7 @@ gglegend <- function(legend, usage=usage) {
   for (i in 1:nkeys) {
     df <- as.list(display[i,, drop=FALSE])
     for(grob in grobs) {
+      fg <- placeGrob(fg, rectGrob(gp=gpar(col=background, fill=background)), col = 1, row = i+1)      
       fg <- placeGrob(fg, ggname("key", grob(df)), col = 1, row = i+1)      
     }
     fg <- placeGrob(fg, ggname("label", textGrob(display$label[[i]], x = vpos, y = 0.5, just = c(valign, "centre"))), col = 3, row = i+1)

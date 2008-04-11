@@ -20,9 +20,9 @@ ScaleIdentity <- proto(ScaleDiscrete, {
   breaks <- function(.) .$.breaks
   labels <- function(.) .$.labels
 
-  guide_legend <- function(.) {
+  guide_legend <- function(., background="grey90") {
     if (is.null(.$.labels)) return()
-    .super$guide_legend(.)
+    .super$guide_legend(., background=background)
   }
   
   # Documetation -----------------------------------------------

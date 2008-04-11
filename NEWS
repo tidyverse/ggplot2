@@ -1,63 +1,8 @@
-ggplot 0.6
+ggplot2 0.6.1
 ----------------------------------------
 
-The two big changes in this release are improved documentation and legends.  
-
- * all major ggplot2 components now have their own built in documentation, so that (e.g.) ?stat_smooth or ?geom_point now give you useful information
- 
- * the legend code is now considerably more sophisticated and will attempt to merge together legends for the same variable
- 
- * also, legends are drawn based on the geoms used (instead of the scales used, as previously) so should match the plot much better (e.g. for geom_smooth, geom_boxplot, geom_vline, geom_abline, geom_pointrange).
- 
-These features are new, so there are likely to be a few bugs that I haven't discovered.  Please me know if you discover any.
- 
-Other additions and corrections
-
-  * coord_equal: should now work correctly in all situations
-  * coord_polar: add start and direction parameters, giving more control over the layout of the polar coords
-  * coord_polar: added my favourite pie chart example
-  * coord_trans now deals with groups appropriately, at the cost of decreased speed
-  * geom_abline, geom_vline, geom_hline: should now behave better in a wider variety of settings
-  * geom_boxplot: deals with continuous x-axis and grouping much better
-  * geom_boxplot: now has it's own legend which actually looks like a boxplot
-  * geom_boxplot: reports if missing values removed
-  * geom_crossbar: the middle line is now display thicker than the other lines, controlled by the parameter fatten (thanks to Heike Hofmann for the suggestion)
-  * geom_density: fix scale adjustment bug in geom_density
-  * geom_line, geom_text: all size measurements (now lines and text as well) are measured in mm, lines/paths default to paths 0.5mm wide
-  * geom_rug: new to add marginal rug plots
-  * geom_smooth: added example showing how to use geom_smooth with your own models
-  * geom_smooth: fixed bug where if se=FALSE x axis always includes 0
-  * geom_vline, geom_hline: yet another rewrite which should make them more powerful and less error prone.  
-  * ggsave reports width and height of saved image
-  * position_stack: fixed bug when data was empty
-  * qplot: allow qplot to use computed aesthetics too
-  * scale_continuous: tweaks to minor breaks to make appearance better on wider range of coordinate systems
-  * scale_discrete: all discrete scales now have labels argument which you can use to override the factor levels
-  * scale_discrete: now works correctly with character vectors
-  * scale_size: changed default range to [0.5, 3] to better reflect new sizing decisions
-  * scale_size: legends resize to avoid overlaps
-  * scale_x_continuous, scale_y_continuous: new convenience functions xlim and ylim (and zlim) that make it even easier to adjust the limits of the x, y, and z axes
-  * stat_bin, geom_area: fixed bug in combination of stat_bin and geom_area that made it difficult to draw frequency polygons
-  * stat_bin: fixed bug which resulted in increased counts when the x axis was a categorical variable with a single level (thanks to Bob Muenchen for pointing this out!)
-  * stat_bin: no longer incorrectly warns that binwidth is unspecified when breaks are set
-  * stat_bin: now takes origin argument to manually specify origin of first bin (default is round_any(min(range), bin_width, floor))
-  * stat_boxplot, stat_contour, stat_density2d, stat_qq, stat_density: na.rm parameter added to the following statistics (thanks to Leena Choi for suggesting this)
-  * stat_function: new, makes it easy to superimpose a function on the plot
-  * stat_qq: axes flipped to agree with base R
-  * stat_qq: now uses sample aesthetic to select variable for summary
-  * stat_quantile: updated to work with latest version of quantreg
-  * stat_spoke: new, to make it possible to use geom_segment parameterised by angle and radius (thanks to Jiho for the suggestion)
-  * stat_summary: better documentation
-  * stat_summary: convenient auto wrapping of simple summary functions
-
-Miscellaneous changes:
-
-  * it's now easy to change the default scales (and their arguments) with the set_default_scale function, see ?set_default_scale for more details (thanks to Bob Muenchen for the suggestion)
-  * new order aesthetic which controls the order in which elements are plotted
-  * min and max are now scaled the same way as y
-  * functions are silently dropped (e.g. aes(colour=col))
-  * scales do not try and map variables that don't exist (fixes some rather obscure bugs)
-  * aes(mpg, wt) is now equivalent to aes(x = mpg, y = wt)
+  * order of legends reversed to match order of x axis (and to be consistent with previous versions)
+  * 
 
 
 See CHANGELOG for changes in previous versions

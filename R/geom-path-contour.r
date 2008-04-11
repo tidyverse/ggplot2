@@ -35,6 +35,6 @@ GeomDensity2d <- proto(GeomContour, {
   )
   
   examples <- function(.) {
-    # See stat_density2d for examples
+    # See stat_density_2d for examples
   }
 })

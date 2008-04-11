@@ -116,6 +116,9 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
   common <- c("colour", "fill")
   desc <- "Smooth colour gradient, with midpoint"
 
+  rbreaks <- function(.) .$map(.$breaks())
+  labels <- function(.) format(.$breaks())
+
   icon <- function(.) {
     g <- scale_fill_gradient2()
     g$train(1:5 - 3)

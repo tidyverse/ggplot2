@@ -73,8 +73,8 @@ guides_basic <- function(plot, scales, coordinates) {
 # @keyword hplot 
 # @value frameGrob, or NULL if no legends
 # @keyword internal
-legends <- function(scales, scale_usage, horizontal = FALSE) {
-  legs <- scales$guide_legend(scale_usage)
+legends <- function(scales, scale_usage, horizontal = FALSE, background="grey90") {
+  legs <- scales$guide_legend(scale_usage, background=background)
   
   n <- length(legs)
   if (n == 0) return()
