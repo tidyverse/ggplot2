@@ -1,10 +1,10 @@
 \name{is.integeric}
 \alias{is.integeric}
-\title{Determine if a vector contains only integers}
+\title{Are integers?}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Determine if a vector contains only integers
 }
 \usage{is.integeric(x)}
 \arguments{

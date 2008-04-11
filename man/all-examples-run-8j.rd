@@ -4,12 +4,12 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Runs all ggplot2 examples
 }
 \usage{all_examples_run(path=NULL, verbose = TRUE)}
 \arguments{
-\item{path}{}
-\item{verbose}{}
+\item{path}{path to save file, if non-NULL}
+\item{verbose}{if TRUE, report progress during run}
 }
 
 \details{}

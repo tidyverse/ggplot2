@@ -1,10 +1,10 @@
 \name{ggname}
 \alias{ggname}
-\title{Convenience function to name grid objects}
+\title{Name ggplot grid object}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Convenience function to name grid objects
 }
 \usage{ggname(prefix, grob)}
 \arguments{

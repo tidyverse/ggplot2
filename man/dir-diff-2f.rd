@@ -1,10 +1,10 @@
 \name{dir_diff}
 \alias{dir_diff}
-\title{Compute the set of differences in file make up between two directories.}
+\title{Directory diff}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Compute the set of differences in file make up between two directories.
 }
 \usage{dir_diff(a, b)}
 \arguments{

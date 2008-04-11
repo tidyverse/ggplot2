@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Builds rdoc pages for all ggplot2 objects
 }
 \usage{all_rdoc_pages_create(path="web/")}
 \arguments{

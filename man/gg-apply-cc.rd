@@ -1,10 +1,10 @@
 \name{gg_apply}
 \alias{gg_apply}
-\title{Convenience apply function for facets data structure}
+\title{Apply function to plot data components}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Convenience apply function for facets data structure
 }
 \usage{gg_apply(gg, f, ...)}
 \arguments{
