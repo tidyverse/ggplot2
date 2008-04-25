@@ -1,24 +1,8 @@
 CoordTrans <- proto(CoordCartesian, expr={
   
   muncher <- function(.) TRUE
-  munch_group <- function(., data, npieces=50) {
-    n <- nrow(data)
 
-    x <- approx(data$x, n = npieces * (n - 1) + 1)$y
-    y <- approx(data$y, n = npieces * (n - 1) + 1)$y
-    
-    cbind(
-      .$transform(data.frame(x=x, y=y)),
-      data[c(rep(1:(n-1), each=npieces), n), setdiff(names(data), c("x", "y"))]
-    )
-  }
   
-  munch <- function(., data, npieces=50) {
-    data <- add_group(data)
-    groups <- split(data, data$group)
-    munched_groups <- lapply(groups, function(df) .$munch_group(df, npieces))
-    do.call("rbind", munched_groups)
-  }
   
   transform <- function(., data) {
     data$x <- .$xtr$transform(data$x)

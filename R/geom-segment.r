@@ -1,15 +1,20 @@
 GeomSegment <- proto(Geom, {
   draw <- function(., data, scales, coordinates, arrow=NULL, ...) {
+    if (!coordinates$muncher()) {
+      return(with(munched, 
+        segmentsGrob(x, y, xend, yend, default.units="native",
+        gp=gpar(col=colour, lwd=size * .pt, lty=linetype), arrow = arrow)
+      ))
+    }
+
+    data$group <- 1:nrow(data)
     starts <- subset(data, select = c(-xend, -yend))
     ends <- rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"))
     
-    munched_starts <- coordinates$munch(starts)
-    munched_ends <- rename(coordinates$munch(ends), c("x" = "xend", "y" = "yend"))
-    munched <- cbind(munched_starts, munched_ends[,c("xend", "yend")])
-    with(munched, 
-      segmentsGrob(x, y, xend, yend, default.units="native",
-      gp=gpar(col=colour, lwd=size * .pt, lty=linetype), arrow = arrow)
-    )
+    pieces <- rbind(starts, ends)
+    pieces <- pieces[order(pieces$group),]
+    
+    GeomPath$draw_groups(pieces, scales, coordinates, ...)
   }
   
   adjust_scales_data <- function(., scales, data) {

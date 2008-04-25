@@ -7,13 +7,17 @@ CoordPolar <- proto(Coord, {
     c(.$proto(theta = theta, r = r, start=start, direction=sign(direction)), list(opts(aspect.ratio = 1)))
   }
 
+  expand <- function(.) {
+    list(
+      theta = .$theta_scale()$.expand, 
+      r = .$r_scale()$.expand
+    )
+  }
+
   theta_scale <- function(.) .$.scales$get_scales(.$theta)
   theta_range <- function(.) {
-    if (.$theta_discrete()) {
-      expand_range(.$theta_scale()$frange(), 0,0.5)
-    } else {
-      expand_range(.$theta_scale()$frange(), 0,0)
-    }
+    expand <- .$expand()
+    expand_range(.$theta_scale()$frange(), expand$theta[1], expand$theta[2])
   }
   theta_rescale <- function(., x) {
     rotate <- function(x) (x + .$start) %% (2 * pi) * .$direction
@@ -27,11 +31,8 @@ CoordPolar <- proto(Coord, {
   
   r_scale <- function(.) .$.scales$get_scales(.$r)
   r_range <- function(.) {
-    if (.$r_discrete()) {
-      expand_range(.$r_scale()$frange(), 0,0.5)
-    } else {
-      expand_range(.$r_scale()$frange(), 0,0)
-    }
+    expand <- .$expand()
+    expand_range(.$r_scale()$frange(), 0, expand$r[2])
   }
   
   r_rescale <- function(., x) rescale(x, c(0, 0.9), .$r_range())
