@@ -248,6 +248,8 @@ calc_aesthetics <- function(plot, data = plot$data, aesthetics, ignore.extra = F
   
   aesthetics <- drop_calculated_aes(aesthetics)
   evaled <- eval.each(aesthetics)
+  if (length(evaled) == 0) return(data.frame())
+  
   evaled <- evaled[sapply(evaled, is.atomic)]
   
   df <- data.frame(evaled)

@@ -42,13 +42,19 @@ quickplot <- qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., m
 
   argnames <- names(as.list(match.call(expand.dots=FALSE)[-1]))
   arguments <- as.list(match.call()[-1])
+  
   aesthetics <- compact(arguments[.all_aesthetics])
+  aesthetics <- aesthetics[!is.constant(aesthetics)]
   class(aesthetics) <- "uneval"
   
   # Create data if not explicitly specified
   if (missing(data)) {
     
-    data <- as.data.frame(lapply(drop_calculated_aes(aesthetics), eval, parent.frame(n=1)))
+    var_string <- unique(unlist(lapply(drop_calculated_aes(aesthetics), function(x) all.vars(asOneSidedFormula(x)))))
+    var_names <- unlist(lapply(var_string, as.name))
+    
+    data <- as.data.frame(lapply(var_names, eval, parent.frame(n=1)))
+    names(data) <- var_string
 
     facetvars <- all.vars(facets)
     facetvars <- facetvars[facetvars != "."]
@@ -74,7 +80,8 @@ quickplot <- qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., m
     if(is.character(s)) s <- Stat$find(s)
     if(is.character(ps)) ps <- Position$find(ps)
 
-    params <- arguments[setdiff(names(arguments), c(.all_aesthetics, argnames))]
+    params <- arguments[setdiff(names(arguments), c(names(aesthetics), argnames))]
+    params <- lapply(params, eval, parent.frame(n=1))
     
     p <<- p + layer(geom=g, stat=s, geom_params=params, stat_params=params, position=ps)
   }, geom, stat, position)
@@ -91,4 +98,8 @@ quickplot <- qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., m
   if (!missing(ylim)) assign("limits", ylim, envir=p$scales$get_scales("y"))
   
   p
+}
+
+is.constant <- function(x) {
+  sapply(x, function(x) "I" %in% all.names(asOneSidedFormula(x)))
 }

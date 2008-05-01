@@ -12,7 +12,7 @@ GeomText <- proto(Geom, {
   
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y", "label")
-  default_aes <- function(.) aes(colour="black", size=5, angle=0, hjust=0.5, vjust=0.5)
+  default_aes <- function(.) aes(colour="black", size=5 , angle=0, hjust=0.5, vjust=0.5)
   guide_geom <- function(x) "line"
   
   examples <- function(.) {

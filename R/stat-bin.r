@@ -1,5 +1,5 @@
 # Bin data
-# This function powers \code{\link{stat_bin}}
+# This function powers \code{\link{stat_bin}}R
 #
 # @keyword internal
 bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9) {
