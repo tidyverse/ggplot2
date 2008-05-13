@@ -62,6 +62,16 @@ StatSmooth <- proto(Stat, {
     "se" = "standard error"
   )
   
+  seealso <- list(
+    lm = "for linear smooths",
+    glm = "for generalised linear smooths",
+    loess = "for local smooths",
+    rlm = "for robust smooths",
+    gam = "for smooth smooths"
+  )
+  
+  
+  
   examples <- function(.) {
     c <- ggplot(mtcars, aes(y=wt, x=qsec))
     c + stat_smooth() 
