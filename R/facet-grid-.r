@@ -1,6 +1,16 @@
 FacetGrid <- proto(Facet, {
   objname <- "grid"
   desc <- "Lay out panels in a rectangular/tabular manner."
+  
+  desc_params <- list(
+    facets = "a formula with the rows (of the tabular display) on the LHS and the columns (of the tabular display) on the RHS; the dot in the formula is used to indicate there should be no faceting on this dimension (either row or column); the formula can also be entered as a string instead of a classical formula object",
+    margins = "logical value, should marginal rows and columns be displayed"
+  )
+    
+  seealso <- list(
+    "cast" = "the formula and margin arguments are the same as those used in the reshape package"
+  )  
+  
   icon <- function(.) {
     gTree(children = gList(
       rectGrob(0, 1, width=0.95, height=0.05, hjust=0, vjust=1, gp=gpar(fill="grey60", col=NA)),

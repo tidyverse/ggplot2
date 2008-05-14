@@ -9,6 +9,7 @@ ggplot2 0.6.1
   * geom_segment should now work correctly in all coordinate systems
   * order of legends reversed to match order of x axis (and to be consistent with previous versions)
   * background colour of legends key matches plot
+  * documentation improvements: facet_grid
 
 
 See CHANGELOG for changes in previous versions
