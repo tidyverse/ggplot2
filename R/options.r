@@ -51,7 +51,7 @@
 # @alias theme_default
 # @alias theme_bw
 #X ggopt(background.fill = "black", background.color ="white") # all new plots will use this
-#X p <- qplot(total_bill, tip, facet = smoker ~ sex, data=tips)
+#X p <- qplot(total_bill, tip, facets = smoker ~ sex, data=tips)
 #X p
 #X p$background.fill = "white"
 #X p
