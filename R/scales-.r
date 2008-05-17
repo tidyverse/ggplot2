@@ -37,6 +37,10 @@ Scales <- proto(Scale, expr={
     }
   }
   
+  get_trained_scales <- function(.) {
+    Filter(function(x) x$trained(), .$.scales)
+  }
+  
   minus <- function(., that) {
     new <- .$proto()
     keep <- !sapply(new$.scales, function(this) any(sapply(that$.scales, identical, this)))
@@ -53,7 +57,7 @@ Scales <- proto(Scale, expr={
   }
   
   guide_legend <- function(., usage, background=background) {
-    legends <- compact(lapply(.$.scales, function(x) x$legend_desc()))
+    legends <- compact(lapply(.$get_trained_scales(), function(x) x$legend_desc()))
     gglegends(legends, usage, background=background)
   }
   

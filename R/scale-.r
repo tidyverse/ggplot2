@@ -15,6 +15,10 @@ Scale <- proto(TopLevel, expr={
   clone <- function(.) {
     as.proto(.$as.list(all.names=TRUE), parent=.) 
   }
+  
+  trained <- function(.) {
+    !is.null(.$.domain)
+  }
 
   find <- function(., output, only.documented = FALSE) {
     scales <- Scales$find_all()
