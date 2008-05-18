@@ -1,6 +1,8 @@
 ggplot2 0.6.1
 ----------------------------------------
 
+  * extra scales now correctly ignored (again)
+  * scale_size: improved documentation for discrete variables
   * ggsave now correctly uses dpi for raster devices, default dpi changed to 72 (thanks to Brian Ripley for pointing this out)
   * qplot now does a better of building the data frame when not explicitly supplied
   * qplot now treats any arguments wrapped in I() as parameters, not aesthetics:
