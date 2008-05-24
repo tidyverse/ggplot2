@@ -20,6 +20,7 @@
 # @arguments character vector or expression for plot title
 # @arguments character vector or expression for x axis label
 # @arguments character vector or expression for y axis label
+# @arguments the y/x aspect ratio
 # @keyword hplot 
 # @alias quickplot 
 #X # Use data from data.frame
@@ -38,7 +39,7 @@
 #X # Use different geoms
 #X qplot(mpg, wt, geom="path")
 #X qplot(factor(cyl), wt, geom=c("boxplot", "jitter"))
-quickplot <- qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE, geom = "point", stat=list(NULL), position=list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "", main = NULL, xlab = deparse(substitute(x)), ylab = deparse(substitute(y))) {
+quickplot <- qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE, geom = "point", stat=list(NULL), position=list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "", main = NULL, xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA) {
 
   argnames <- names(as.list(match.call(expand.dots=FALSE)[-1]))
   arguments <- as.list(match.call()[-1])
@@ -53,7 +54,7 @@ quickplot <- qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., m
     var_string <- unique(unlist(lapply(drop_calculated_aes(aesthetics), function(x) all.vars(asOneSidedFormula(x)))))
     var_names <- unlist(lapply(var_string, as.name))
     
-    data <- as.data.frame(lapply(var_names, eval, parent.frame(n=1)))
+    data <- as.data.frame(lapply(var_names, eval, parent.frame(n=2)))
     names(data) <- var_string
 
     facetvars <- all.vars(facets)
@@ -90,6 +91,8 @@ quickplot <- qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., m
 
   if (logv("x")) p <- p + scale_x_log10()
   if (logv("y")) p <- p + scale_y_log10()
+  
+  if (!is.na(asp)) p <- p + opts(aspect.ratio = asp)
   
   if (!missing(xlab)) assign("name", xlab, envir=p$scales$get_scales("x"))
   if (!missing(ylab)) assign("name", ylab, envir=p$scales$get_scales("y"))
