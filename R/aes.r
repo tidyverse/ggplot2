@@ -1,5 +1,19 @@
-# dput(c("group","order", "z",  sort(unique(unlist(sapply(Geom$find_all(), function(y) c(names(y$default_aes()), y$required_aes)))))))
-.all_aesthetics <-   c("sample", "group", "order", "angle", "colour", "fill", "height", "hjust", "intercept", "label", "linetype", "max", "min", "shape", "size", "slope", "vjust", "weight", "width", "x", "xend", "y", "yend", "z" )
+# dput(c(names(.base_to_ggplot), "group","order", "z",  sort(unique(unlist(sapply(Geom$find_all(), function(y) c(names(y$default_aes()), y$required_aes)))))))
+.all_aesthetics <-  c("col", "color", "pch", "cex", "lty", "lwd", "srt", "adj", "bg", "fg", "group", "order", "z", "angle", "colour", "fill", "height", 
+"hjust", "intercept", "label", "linetype", "max", "min", "shape", "size", "slope", "vjust", "weight", "width", "x", "xend", "xmax", "xmin", "y", "yend", "ymax", "ymin")
+
+.base_to_ggplot <- c(
+  "col"   = "colour",
+  "color" = "colour", 
+  "pch"   = "shape",
+  "cex"   = "size", 
+  "lty"   = "linetype", 
+  "lwd"   = "size",
+  "srt"   = "angle",
+  "adj"   = "hjust",
+  "bg"    = "fill",
+  "fg"    = "colour"
+)
 
 # Generate aesthetic mappings
 # Aesthetic mappings describe how variables in the data are mapped to visual properties (aesthetics) of geoms.
@@ -19,7 +33,7 @@
 #X aes(x = mpg ^ 2, y = wt / cyl)
 aes <- function(x, y, ...) {
   aes <- structure(as.list(match.call()[-1]), class="uneval")
-  aes <- rename(aes, c("color" = "colour", "pch"="shape","cex"="size", "lty"="linetype", "srt"="angle"))
+  aes <- rename_aes(aes)
   
   new_names <- lapply(names(aes), function(x) {
     m <- charmatch(x, .all_aesthetics)
@@ -28,6 +42,10 @@ aes <- function(x, y, ...) {
   
   names(aes) <- new_names
   aes
+}
+
+rename_aes <- function(x) {
+  rename(x, .base_to_ggplot)
 }
 
 # Generate aesthetic mappings from a string
@@ -43,7 +61,7 @@ aes <- function(x, y, ...) {
 #X aes_string(x = "mpg", y = "wt")
 #X aes(x = mpg, y = wt)
 aes_string <- function(...) {
-  structure(lapply(list(...), function(x) parse(text=x)[[1]]),
+  structure(rename_aes(lapply(list(...), function(x) parse(text=x)[[1]])),
 class="uneval")
 }
 

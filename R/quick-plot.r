@@ -46,6 +46,9 @@ quickplot <- qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., m
   
   aesthetics <- compact(arguments[.all_aesthetics])
   aesthetics <- aesthetics[!is.constant(aesthetics)]
+  aes_names <- names(aesthetics)
+  aesthetics <- rename_aes(aesthetics)
+  # browser()
   class(aesthetics) <- "uneval"
   
   # Create data if not explicitly specified
@@ -81,7 +84,7 @@ quickplot <- qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., m
     if(is.character(s)) s <- Stat$find(s)
     if(is.character(ps)) ps <- Position$find(ps)
 
-    params <- arguments[setdiff(names(arguments), c(names(aesthetics), argnames))]
+    params <- arguments[setdiff(names(arguments), c(aes_names, argnames))]
     params <- lapply(params, eval, parent.frame(n=1))
     
     p <<- p + layer(geom=g, stat=s, geom_params=params, stat_params=params, position=ps)
