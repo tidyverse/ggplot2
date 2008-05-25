@@ -142,7 +142,7 @@ Layer <- proto(expr = {
     new <- lapply(new, function(x) parse(text = sub(match, "\\1", x))[[1]])
     
     for(i in seq_along(new)) {
-      data[[names(new)[i]]] <- eval(new[[i]], data, parent.frame())
+      data[[names(new)[i]]] <- eval(new[[i]], data, baseenv())
     }
     
     plot$scales$add_defaults(data, new)
@@ -242,7 +242,7 @@ calc_aesthetics <- function(plot, data = plot$data, aesthetics, ignore.extra = F
   
   
   err <- if (ignore.extra) tryNULL else force
-  eval.each <- function(dots) compact(lapply(dots, function(x.) err(eval(x., data, parent.frame()))))
+  eval.each <- function(dots) compact(lapply(dots, function(x.) err(eval(x., data, baseenv()))))
   # Conditioning variables needed for facets
   cond <- plot$facet$conditionals()
   
