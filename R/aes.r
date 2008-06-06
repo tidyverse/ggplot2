@@ -79,7 +79,7 @@ str.uneval <- function(object, ...) str(unclass(object), ...)
 aesdefaults <- function(data, y., params.) {
   updated <- updatelist(y., params.)
   
-  df <- as.data.frame(tryapply(defaults(data, updated), function(x) eval(x, data, basenv())))
+  df <- as.data.frame(tryapply(defaults(data, updated), function(x) eval(x, data, globalenv())))
   
   factors <- sapply(df, is.factor)
   df[factors] <- lapply(df[factors], as.character)

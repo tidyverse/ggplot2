@@ -48,12 +48,10 @@ quickplot <- qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., m
   aesthetics <- aesthetics[!is.constant(aesthetics)]
   aes_names <- names(aesthetics)
   aesthetics <- rename_aes(aesthetics)
-  # browser()
   class(aesthetics) <- "uneval"
   
   # Create data if not explicitly specified
   if (missing(data)) {
-    
     var_string <- unique(unlist(lapply(drop_calculated_aes(aesthetics), function(x) all.vars(asOneSidedFormula(x)))))
     var_names <- unlist(lapply(var_string, as.name))
     

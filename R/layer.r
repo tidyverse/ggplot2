@@ -242,7 +242,7 @@ calc_aesthetics <- function(plot, data = plot$data, aesthetics, ignore.extra = F
   
   
   err <- if (ignore.extra) tryNULL else force
-  eval.each <- function(dots) compact(lapply(dots, function(x.) err(eval(x., data, baseenv()))))
+  eval.each <- function(dots) compact(lapply(dots, function(x.) err(eval(x., data, globalenv()))))
   # Conditioning variables needed for facets
   cond <- plot$facet$conditionals()
   
