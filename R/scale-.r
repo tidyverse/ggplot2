@@ -37,6 +37,10 @@ Scale <- proto(TopLevel, expr={
     .$train(df[[.$input()]])
   }
 
+  stransform <- function(., values) {
+    values
+  }
+
   transform_df <- function(., df) {
     input <- .$input()
     output <- .$output()

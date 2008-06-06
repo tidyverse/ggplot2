@@ -3,6 +3,28 @@ ScaleDiscrete <- proto(Scale, expr={
   max_levels <- function(.) Inf
   .expand <- c(0, 0.75)
   .labels <- NULL
+  .limits <- NULL
+
+  discrete <- function(.) TRUE
+
+  new <- function(., name=NULL, variable=.$.input, expand = c(0, 0.75), limits = NULL, labels = NULL) {
+    .$proto(name=name, .input=variable, .output=variable, .expand = expand, .labels = labels, .limits = limits)
+  }
+
+  # Range -------------------
+  map <- function(., values) {
+    .$check_domain()
+    .$breaks()[match(as.character(values), .$domain())]
+  }
+
+  frange <- function(.) {
+    c(1, length(.$domain())) 
+  }
+  breaks <- function(.) seq_len(.$domain())
+  rbreaks <- function(.) .$breaks()
+
+
+  # Domain ------------------------------------------------
 
   train <- function(., x) {
     if (!is.discrete(x)) {
@@ -11,21 +33,9 @@ ScaleDiscrete <- proto(Scale, expr={
 
     .$.domain <- union(.$.domain, as.character(unique(x)))
   }
-  discrete <- function(.) TRUE
 
-  new <- function(., name=NULL, variable=.$.input, expand = c(0, 0.75), labels = NULL) {
-    .$proto(name=name, .input=variable, .output=variable, .expand = expand, .labels = labels)
-  }
-
-  # Mapping
-  # -------------------
-  map <- function(., values) {
-    .$check_domain()
-    .$breaks()[match(as.character(values), .$domain())]
-  }
-
-  stransform <- function(., values) {
-    values
+  domain <- function(.) {
+    nulldefault(.$.limits, .$.domain)
   }
 
   check_domain <- function(.) {
@@ -35,22 +45,11 @@ ScaleDiscrete <- proto(Scale, expr={
     }  
   }
   
-  .frange <- NULL
-  frange <- function(.) {
-    if (is.null(.$.frange) || all(is.na(.$.frange))) {
-      c(1, length(.$domain())) 
-    } else {
-      .$.frange
-    }
-  }
-
   # Guides
   # -------------------
 
   minor_breaks <- function(.) .$breaks()
 
-  breaks <- function(.) 1:length(.$domain())
-  rbreaks <- function(.) .$breaks()
   labels <- function(.) nulldefault(.$.labels, as.list(.$domain()))
   
   # Documentation

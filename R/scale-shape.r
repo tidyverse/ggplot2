@@ -3,8 +3,8 @@ ScaleShape <- proto(ScaleDiscrete, expr={
   .input <- .output <- "shape"
   solid <- TRUE
 
-  new <- function(., name=NULL, solid=TRUE) {
-    .$proto(name=name, solid=solid)
+  new <- function(., name=NULL, solid=TRUE, limits = NULL, labels = NULL) {
+    .$proto(name=name, solid=solid, .limits = limits, .labels = labels)
   }
   
   breaks <- function(.) {
