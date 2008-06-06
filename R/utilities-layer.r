@@ -16,7 +16,7 @@ is.integeric <- function(x) all(floor(x) == x)
 #X is.discrete(1:10)
 #X is.discrete(c("a", "b", "c"))
 #X is.discrete(factor(c("a", "b", "c")))
-is.discrete <- function(x) is.character(x) || is.factor(x)
+is.discrete <- function(x) is.factor(x) || is.character(x) || is.logical(x)
 
 # Add group
 # Ensure that the data frame contains a grouping variable.

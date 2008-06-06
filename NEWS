@@ -1,6 +1,7 @@
 ggplot2 0.6.1  (2008-XX-XX)
 ----------------------------------------
 
+  * character and logical vectors now reliably treated as discrete scales
   * can use color instead of colour, and old R names throughout ggplot2
   * qplot now gains asp argument to set aspect ratio
   * scales: extra scales now correctly ignored (again)
