@@ -5,7 +5,6 @@
 Scale <- proto(TopLevel, expr={
   .input <- ""
   .output <- ""
-  .reverse <- FALSE
   common <- NULL  
   legend <- TRUE
   limits <- NULL

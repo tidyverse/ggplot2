@@ -77,14 +77,13 @@ ScaleHue <- proto(ScaleColour, expr={
 ScaleBrewer <- proto(ScaleColour, expr={
   doc <- TRUE
 
-  new <- function(., name=NULL, palette=1, type="qual", alpha=1, reverse = FALSE, limits=NULL, labels=NULL, variable) {
-    .$proto(name=name, palette=palette, type=type, .input=variable, .output=variable, .alpha=alpha, .reverse = reverse, .labels = labels, limits= limits)
+  new <- function(., name=NULL, palette=1, type="qual", alpha=1, limits=NULL, labels=NULL, variable) {
+    .$proto(name=name, palette=palette, type=type, .input=variable, .output=variable, .alpha=alpha, .labels = labels, limits= limits)
   }
 
   breaks <- function(.) {
     n <- length(.$domain())
     pal <- brewer.pal(n, .$pal_name())
-    if (.$.reverse) pal <- rev(pal)
     alpha(pal, .$.alpha)
   }
 
