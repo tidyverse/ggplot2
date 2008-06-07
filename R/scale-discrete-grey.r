@@ -3,7 +3,7 @@ ScaleGrey <- proto(ScaleColour, expr={
   common <- c("colour", "fill")
 
   new <- function(., name=NULL, variable, start = 0.2, end = 0.8, limits=NULL, labels=NULL) {
-    .$proto(name=name, .input=variable, .output=variable, start=start, end=end, .limits = limits, .labels = labels)
+    .$proto(name=name, .input=variable, .output=variable, start=start, end=end, limits = limits, .labels = labels)
   }
 
   breaks <- function(.) {

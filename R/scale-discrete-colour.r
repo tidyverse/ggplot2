@@ -8,7 +8,7 @@ ScaleHue <- proto(ScaleColour, expr={
   aliases <- c("scale_colour_discrete", "scale_fill_discrete")
   
   new <- function(., name=NULL, h=c(0,360), l=65, c=100, alpha=1, limits=NULL, labels=NULL, h.start = 0, direction = 1,  variable) {
-    .$proto(name=name, h=h, l=l, c=c, alpha=alpha, .input=variable, .output=variable, .labels = labels, direction = direction, start  = h.start, .limits = limits)
+    .$proto(name=name, h=h, l=l, c=c, alpha=alpha, .input=variable, .output=variable, .labels = labels, direction = direction, start  = h.start, limits = limits)
   }
   
   breaks <- function(.) {
@@ -78,7 +78,7 @@ ScaleBrewer <- proto(ScaleColour, expr={
   doc <- TRUE
 
   new <- function(., name=NULL, palette=1, type="qual", alpha=1, reverse = FALSE, limits=NULL, labels=NULL, variable) {
-    .$proto(name=name, palette=palette, type=type, .input=variable, .output=variable, .alpha=alpha, .reverse = reverse, .labels = labels, .limits= limits)
+    .$proto(name=name, palette=palette, type=type, .input=variable, .output=variable, .alpha=alpha, .reverse = reverse, .labels = labels, limits= limits)
   }
 
   breaks <- function(.) {

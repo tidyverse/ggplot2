@@ -8,6 +8,7 @@ Scale <- proto(TopLevel, expr={
   .reverse <- FALSE
   common <- NULL  
   legend <- TRUE
+  limits <- NULL
   
   class <- function(.) "scale"
   
@@ -34,10 +35,15 @@ Scale <- proto(TopLevel, expr={
 
   input <- function(.) .$.input
   output <- function(.) .$.output
-  domain <- function(.) .$.domain
+  
+  domain <- function(.) {
+    nulldefault(.$limits, .$.domain)
+  }
   
   # Train scale from a data frame
   train_df <- function(., df) {
+    if (!is.null(.$limits)) return()
+    
     .$train(df[[.$input()]])
   }
 

@@ -3,12 +3,11 @@ ScaleDiscrete <- proto(Scale, expr={
   max_levels <- function(.) Inf
   .expand <- c(0, 0.75)
   .labels <- NULL
-  .limits <- NULL
 
   discrete <- function(.) TRUE
 
   new <- function(., name=NULL, variable=.$.input, expand = c(0, 0.75), limits = NULL, labels = NULL) {
-    .$proto(name=name, .input=variable, .output=variable, .expand = expand, .labels = labels, .limits = limits)
+    .$proto(name=name, .input=variable, .output=variable, .expand = expand, .labels = labels, limits = limits)
   }
 
   # Range -------------------
@@ -36,10 +35,6 @@ ScaleDiscrete <- proto(Scale, expr={
     }
 
     .$.domain <- union(.$.domain, as.character(unique(x)))
-  }
-
-  domain <- function(.) {
-    nulldefault(.$.limits, .$.domain)
   }
 
   check_domain <- function(.) {

@@ -1,16 +1,15 @@
-ScaleContinuous <- proto(Scale, {
+ScaleContinuous <- proto(Scale, {  
   .domain <- c()
   .range <- c()
   .expand <- c(0.05, 0)
-  limits <- c(NA, NA)
   .labels <- NULL
   
   tr_default <- "identity"
 
-  new <- function(., name=NULL, limits=c(NA,NA), breaks=NULL, labels=NULL, variable, trans = NULL, expand=c(0.05, 0)) {
+  new <- function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, variable, trans = NULL, expand=c(0.05, 0)) {
     if (is.null(breaks) && !is.null(labels)) stop("Labels can only be specified in conjunction with breaks")
     
-    if (is.null(trans))     trans <- .$tr_default
+    if (is.null(trans))      trans <- .$tr_default
     if (is.character(trans)) trans <- Trans$find(trans)
     
     # Transform limits and breaks
@@ -19,13 +18,7 @@ ScaleContinuous <- proto(Scale, {
     
     .$proto(name=name, .input=variable, .output=variable, limits=limits, .breaks = breaks, .labels = labels, .expand=expand, .tr = trans)
   }
-  
-  domain <- function(.) {
-    c(
-      if(is.na(.$limits[1])) .$.domain[1] else .$limits[1],
-      if(is.na(.$limits[2])) .$.domain[2] else .$limits[2]
-    )
-  }
+
   
   # Transform each 
   transform_df <- function(., df) {
@@ -47,18 +40,19 @@ ScaleContinuous <- proto(Scale, {
     df
   }
   
-  map <- function(., values) {
-    rescale(values, .$frange(), .$domain())
-  }
-  
   train <- function(., x) {
     if (is.null(x)) return()
     if (!is.numeric(x)) 
-      warning("Non-numeric variable supplied to continuous scale ", .$name, ".", call.=FALSE)
+      warning("Non-continuous variable supplied to continuous ", .$my_name(), ".", call.=FALSE)
     if (all(is.na(x))) return()
       
-    .$.domain <- range(range(x, na.rm=TRUE, finite=TRUE), .$.domain, na.rm=TRUE, finite=TRUE)
+    .$.domain <- range(x, .$.domain, na.rm=TRUE, finite=TRUE)
   }
+    
+  map <- function(., values) {
+    rescale(values, .$frange(), .$domain())
+  }
+
 
   # Scale range
   frange <- function(.) {
@@ -125,8 +119,8 @@ ScaleContinuous <- proto(Scale, {
     m + scale_y_continuous(expression(votes^alpha))
     
     #  * modify the axis limits
-    m + scale_y_continuous(limits=c(NA, 5000))
-    m + scale_y_continuous(limits=c(1000, NA))
+    m + scale_y_continuous(limits=c(0, 5000))
+    m + scale_y_continuous(limits=c(1000, 10000))
     m + scale_x_continuous(limits=c(7, 8))
 
     #  * choose where the ticks appear
