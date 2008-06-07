@@ -4,22 +4,47 @@ ScaleContinuous <- proto(Scale, {
   .expand <- c(0.05, 0)
   limits <- c(NA, NA)
   .labels <- NULL
+  
+  tr_default <- "identity"
 
-  new <- function(., name=NULL, limits=c(NA,NA), breaks=NULL, labels=NULL, variable, trans="identity", expand=c(0.05, 0)) {
+  new <- function(., name=NULL, limits=c(NA,NA), breaks=NULL, labels=NULL, variable, trans = NULL, expand=c(0.05, 0)) {
     if (is.null(breaks) && !is.null(labels)) stop("Labels can only be specified in conjunction with breaks")
     
-    .$proto(name=name, .input=variable, .output=variable, limits=limits, .breaks = breaks, .labels = labels, .expand=expand)
+    if (is.null(trans))     trans <- .$tr_default
+    if (is.character(trans)) trans <- Trans$find(trans)
+    
+    # Transform limits and breaks
+    limits <- trans$transform(limits)
+    breaks <- trans$transform(breaks)
+    
+    .$proto(name=name, .input=variable, .output=variable, limits=limits, .breaks = breaks, .labels = labels, .expand=expand, .tr = trans)
   }
-
+  
   domain <- function(.) {
     c(
-      if(is.na(.$limits[1])) .$.domain[1] else .$.tr$transform(.$limits[1]),
-      if(is.na(.$limits[2])) .$.domain[2] else .$.tr$transform(.$limits[2])
+      if(is.na(.$limits[1])) .$.domain[1] else .$limits[1],
+      if(is.na(.$limits[2])) .$.domain[2] else .$limits[2]
     )
   }
   
-  stransform <- function(., values) {
-    .$.tr$transform(values)
+  # Transform each 
+  transform_df <- function(., df) {
+    input <- .$input()
+    output <- .$output()
+    transform <- function(var) .$.tr$transform(df[, var])
+    
+    # If y transformed, also need to transform min and max
+    if (length(input) == 1) {
+      if (input == "y") {
+        input <- output <- intersect(c("y","min", "max", "yend"), names(df))
+      } else if (input == "x") {
+        input <- output <- intersect(c("x", "xend"), names(df))        
+      }
+    }
+    df <- do.call("data.frame", lapply(input, transform))
+    if (ncol(df) == 0) return(NULL)
+    names(df) <- output      
+    df
   }
   
   map <- function(., values) {
@@ -40,11 +65,10 @@ ScaleContinuous <- proto(Scale, {
     nulldefault(.$.range, .$domain())
   }
   
-  # Breaks are regular on the transformed scale
+  # By default, breaks are regularly spaced along the transformed domain
   .breaks <- NULL
   breaks <- function(.) {
-    if (!is.null(.$.breaks)) return(.$.tr$transform(.$.breaks))
-    grid.pretty(.$domain())
+    nulldefault(.$.breaks, grid.pretty(.$domain()))
   }
 
   rbreaks <- function(.) {
@@ -86,7 +110,7 @@ ScaleContinuous <- proto(Scale, {
   }
   
   objname <- "continuous"
-  common <- c("x", "y", "z", "xend", "yend")
+  common <- c("x", "y", "z")
   desc <- "Continuous position scale"
   seealso <- list(
     "scale_discrete" = "Discrete position scales"

@@ -1,3 +1,7 @@
+# Domain: raw, transformed, user (limits)
+# Range:  raw, transformed
+
+
 Scale <- proto(TopLevel, expr={
   .input <- ""
   .output <- ""
@@ -37,24 +41,6 @@ Scale <- proto(TopLevel, expr={
     .$train(df[[.$input()]])
   }
 
-  stransform <- function(., values) {
-    values
-  }
-
-  transform_df <- function(., df) {
-    input <- .$input()
-    output <- .$output()
-    transform <- function(var) .$stransform(df[, var])
-    
-    if (length(input) == 1 && input == "y") {
-      input <- output <- intersect(c("y","min", "max"), names(df))
-    }
-    df <- do.call("data.frame", lapply(input, transform))
-    if (ncol(df) == 0) return(NULL)
-    names(df) <- output      
-    df
-  }
-
   # Map values from a data.frame.   Returns data.frame
   map_df <- function(., df) {
     input <- df[[.$input()]]
@@ -67,6 +53,25 @@ Scale <- proto(TopLevel, expr={
     
     if (ncol(output) > 0) names(output) <- .$output()
     output
+  }
+
+  # Guides
+  # ---------------------------------------------
+  legend_desc <- function(.) {
+    if (identical(., Scale) || !.$legend) return()
+    
+    breaks <- .$rbreaks()
+    labels <- .$labels()
+    if (is.null(breaks) || is.null(labels)) return()
+    
+    df <- data.frame(breaks, stringsAsFactors = FALSE)
+    names(df) <- .$output()
+    df$label <- labels
+    list(
+      name = nulldefault(.$name, ""),
+      aesthetic = .$output(),
+      display = df
+    )
   }
   
   pprint <- function(., newline=TRUE) {
@@ -90,24 +95,6 @@ Scale <- proto(TopLevel, expr={
     ps(.$class(), .$common, .$objname, sep="_", collapse=NULL)
   }
   
-  # Guides
-  # ---------------------------------------------
-  legend_desc <- function(.) {
-    if (identical(., Scale) || !.$legend) return()
-    
-    breaks <- .$rbreaks()
-    labels <- .$labels()
-    if (is.null(breaks) || is.null(labels)) return()
-    
-    df <- data.frame(breaks, stringsAsFactors = FALSE)
-    names(df) <- .$output()
-    df$label <- labels
-    list(
-      name = nulldefault(.$name, ""),
-      aesthetic = .$output(),
-      display = df
-    )
-  }
   
   parameters <- function(.) {
     params <- formals(get("new", .))

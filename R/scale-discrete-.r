@@ -25,6 +25,10 @@ ScaleDiscrete <- proto(Scale, expr={
 
 
   # Domain ------------------------------------------------
+  
+  transform_df <- function(., df) {
+    df
+  }
 
   train <- function(., x) {
     if (!is.discrete(x)) {

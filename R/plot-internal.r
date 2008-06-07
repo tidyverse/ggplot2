@@ -64,9 +64,13 @@ ggplot_plot <- function(plot, pretty=TRUE) {
   panels <- panels_default(plot, grobs)
   
   plotgrob <- ggname("plot", gTree(children=do.call("gList", c(unlist(guides, recursive=FALSE), panels, guides$foreground)), childrenvp = viewport))
-  if (!pretty) return(plotgrob)
-
-  prettyplot(plot, plotgrob, scales)
+  
+  if (pretty) {
+    plotgrob <- ggname("plot", gTree(children=do.call("gList", c(unlist(guides, recursive=FALSE), panels, guides$foreground)), childrenvp = viewport))
+     prettyplot(plot, plotgrob, scales)
+  } else {
+    gTree(children=panels, childrenvp = viewport)
+  }
 }
 
 plot_clone <- function(plot) {

@@ -1,6 +1,8 @@
 ggplot2 0.6.1  (2008-XX-XX)
 ----------------------------------------
 
+  * scales: major rewrite of internals:
+    * xend and yend now transformed correctly
   * all discrete scales have limits and labels argument to better control legends
   * character and logical vectors now reliably treated as discrete scales
   * can use color instead of colour, and old R names throughout ggplot2

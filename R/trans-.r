@@ -74,8 +74,18 @@ ProbabilityTrans <- proto(Trans, {
   label <- function(., values) .$inverse(values)
 })
 
-TransAsn <- Trans$new("asn", function(x) 2 * asin(sqrt(x)), function(x) sin(x / 2)^2)
-TransAtanh <- Trans$new("atanh", "tanh", "force")
+TransAsn <- Trans$new(
+  "asn", 
+  function(x) 2 * asin(sqrt(x)), 
+  function(x) sin(x / 2)^2
+)
+
+TransAtanh <- Trans$new(
+  "atanh", 
+  "tanh", 
+  "force"
+)
+  
 TransDate <- Trans$new("date", "as.numeric", "to_date", "as.Date")
 TransExp <- Trans$new("exp", "exp", "log", function(x) bquote(log(.(x))))
 TransIdentity <- Trans$new("identity", "force", "force", "force")
