@@ -49,8 +49,7 @@ ScaleDiscrete <- proto(Scale, expr={
   # Guides
   # -------------------
 
-  minor_breaks <- function(.) .$output_breaks()
-
+  output_breaks <- function(.) NA
   
   # Documentation
   objname <- "discrete"

@@ -7,7 +7,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
   
   tr_default <- "identity"
 
-  new <- function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, variable, trans = NULL, expand=c(0.05, 0), ...) {
+  new <- function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, variable, trans = NULL, expand=c(0.05, 0), minor_breaks = NULL, ...) {
     if (is.null(breaks) && !is.null(labels)) stop("Labels can only be specified in conjunction with breaks")
     
     if (is.null(trans))      trans <- .$tr_default
@@ -17,7 +17,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
     limits <- trans$transform(limits)
     breaks <- trans$transform(breaks)
     
-    .$proto(name=name, .input=variable, .output=variable, limits=limits, breaks = breaks, .labels = labels, .expand=expand, .tr = trans, ...)
+    .$proto(name=name, .input=variable, .output=variable, limits=limits, breaks = breaks, .labels = labels, .expand=expand, .tr = trans, minor_breaks = minor_breaks, ...)
   }
 
   
@@ -60,21 +60,14 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
   
   # By default, breaks are regularly spaced along the (transformed) domain
   input_breaks <- function(.) {
-    nulldefault(.$breaks, grid.pretty(.$input_set()))
+    nulldefault(.$breaks, .$.tr$input_breaks(.$input_set()))
   }
   input_breaks_n <- function(.) .$input_breaks()
 
 
-  .minor_breaks <- 2
-  # Minor breaks are regular on the original scale
-  # and need to cover entire range of plot
-  minor_breaks <- function(., n = .$.minor_breaks, b = .$input_breaks(), r = .$output_set()) {
-    if (length(b) == 1) return(b)
-    
-    bd <- diff(b)[1]
-    if (min(r) < min(b)) b <- c(b[1] - bd, b)
-    if (max(r) > max(b)) b <- c(b, b[length(b)] + bd)
-    unique(unlist(mapply(.$.tr$seq, b[-length(b)], b[-1], length=n+1, SIMPLIFY=F)))
+  minor_breaks <- NULL
+  output_breaks <- function(., n = 2, b = .$input_breaks(), r = .$output_set()) {
+    nulldefault(.$minor_breaks, .$.tr$output_breaks(n, b, r))
   }
   
   labels <- function(.) {
@@ -88,7 +81,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
   }
   
   test <- function(.) {
-    m <- .$minor_breaks(10)
+    m <- .$output_breaks(10)
     b <- .$input_breaks()
     
     plot(x=0,y=0,xlim=range(c(b,m)), ylim=c(1,5), type="n", axes=F,xlab="", ylab="")

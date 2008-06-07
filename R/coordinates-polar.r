@@ -52,7 +52,7 @@ CoordPolar <- proto(Coord, {
   guide_inside <- function(., plot) {
     
     theta <- .$theta_rescale(.$theta_scale()$input_breaks())
-    thetamin <- .$theta_rescale(.$theta_scale()$minor_breaks())
+    thetamin <- .$theta_rescale(.$theta_scale()$output_breaks())
     thetafine <- seq(0, 2*pi, length=100)
     
     labels <- .$theta_scale()$labels()

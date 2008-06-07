@@ -42,7 +42,7 @@ ScaleDate <- proto(ScaleContinuous,{
     .$.tr$transform(seq(d[1], d[2], by=.$break_points()[1]))
   }
   
-  minor_breaks <- function(., n) {
+  output_breaks <- function(., n) {
     d <- structure(.$input_set(), class="Date")
     .$.tr$transform(seq(d[1], d[2], by=.$break_points()[1]))
   }

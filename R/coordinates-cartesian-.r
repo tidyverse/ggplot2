@@ -41,8 +41,8 @@ CoordCartesian <- proto(Coord, expr={
   # Axis labels should go in here somewhere too
   guide_inside <- function(., plot) {
     breaks <- list(
-      x = list(major = .$x()$input_breaks_n(), minor = .$x()$minor_breaks()),
-      y = list(major = .$y()$input_breaks_n(), minor = .$y()$minor_breaks())
+      x = list(major = .$x()$input_breaks_n(), minor = .$x()$output_breaks()),
+      y = list(major = .$y()$input_breaks_n(), minor = .$y()$output_breaks())
     )
     
     draw_grid(plot, breaks)

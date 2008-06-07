@@ -36,6 +36,22 @@ Trans <- proto(TopLevel, {
     .$transform(get("seq", pos=1)(.$inverse(from), .$inverse(to), length=length))
   }
   
+  input_breaks <- function(., range) {
+    grid.pretty(range)
+  }
+  
+  # Minor breaks are regular on the original scale
+  # and need to cover entire range of plot
+  output_breaks <- function(., n = 2, b, r) {
+    if (length(b) == 1) return(b)
+
+    bd <- diff(b)[1]
+    if (min(r) < min(b)) b <- c(b[1] - bd, b)
+    if (max(r) > max(b)) b <- c(b, b[length(b)] + bd)
+    unique(unlist(mapply(.$seq, b[-length(b)], b[-1], length=n+1, SIMPLIFY=F)))
+  }
+  
+  
   check <- function(., values) {
     .$inverse(.$transform(values))
   }

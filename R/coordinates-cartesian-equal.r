@@ -50,8 +50,8 @@ CoordEqual <- proto(CoordCartesian, {
   guide_inside <- function(., plot) {
     range <- .$output_set()
     breaks <- list(
-      x = list(major = grid.pretty(range$x), minor = .$x()$minor_breaks(b = grid.pretty(range$x))),
-      y = list(major = grid.pretty(range$y), minor = .$y()$minor_breaks(b = grid.pretty(range$y)))
+      x = list(major = grid.pretty(range$x), minor = .$x()$output_breaks(b = grid.pretty(range$x))),
+      y = list(major = grid.pretty(range$y), minor = .$y()$output_breaks(b = grid.pretty(range$y)))
     )
     
     draw_grid(plot, breaks)
