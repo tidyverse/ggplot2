@@ -16,8 +16,9 @@ ScaleGradient <- proto(ScaleContinuous, expr={
     
     nice_ramp(ramp, x, .$alpha)
   }
-  
+    
   labels <- function(.) format(.$input_breaks())
+  output_breaks <- function(.) .$map(.$input_breaks())
   
   common <- c("colour", "fill")
 
@@ -114,6 +115,7 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
   common <- c("colour", "fill")
   desc <- "Smooth colour gradient, with midpoint"
 
+  output_breaks <- function(.) .$map(.$input_breaks())
   labels <- function(.) format(.$input_breaks())
 
   icon <- function(.) {

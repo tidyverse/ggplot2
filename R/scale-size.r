@@ -11,6 +11,7 @@ ScaleSize <- proto(ScaleContinuous, expr={
   map <- function(., values) {
     rescale(values, .$to, .$input_set())
   }
+  output_breaks <- function(.) .$map(.$input_breaks())
   
   objname <- "size"
   desc <- "Size scale for continuous variable"
