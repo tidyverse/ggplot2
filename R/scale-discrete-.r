@@ -34,7 +34,7 @@ ScaleDiscrete <- proto(Scale, expr={
     if (!is.discrete(x)) {
       warning("Continuous variable (", .$name , ") supplied to the discrete ", .$my_name(), ".", call.=FALSE) 
     }
-    .$.domain <- union(.$.domain, as.character(unique(x)))
+    .$.domain <- sort(union(.$.domain, as.character(unique(x))))
   }
 
   check_domain <- function(.) {
