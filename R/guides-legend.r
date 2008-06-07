@@ -1,3 +1,55 @@
+# Compute usage of scales
+# Builds a list of aesthetics and the geoms that they are used by.
+# 
+# Used for drawing legends.
+# 
+# @arguments ggplot object
+# @keyword internal
+scale_usage <- function(plot) {
+  aesthetics <- lapply(plot$layers, function(p) c(names(p$aesthetics), names(plot$defaults)))
+  names(aesthetics) <- sapply(plot$layers, function(p) p$geom$guide_geom())
+  
+  lapply(invert(aesthetics), unique)
+}
+
+# Legends
+# Create and arrange legends for all scales.
+# 
+# This function gathers together all of the legends produced by 
+# the scales that make up the plot and organises them into a 
+# \\code{\\link[grid]{frameGrob}}.  
+# 
+# If there are no legends to create, this function will return \\code{NULL}
+# 
+# @arguments scales object
+# @arguments direction of scales, vertical by default
+# @keyword hplot 
+# @value frameGrob, or NULL if no legends
+# @keyword internal
+legends <- function(scales, scale_usage, horizontal = FALSE, background="grey90") {
+  legs <- scales$guide_legend(scale_usage, background=background)
+  
+  n <- length(legs)
+  if (n == 0) return()
+  
+  if (!horizontal) {
+    width <-   do.call("max", lapply(legs, widthDetails))
+    heights <- do.call("unit.c", lapply(legs, function(x) heightDetails(x) * 1.1))
+    fg <- frameGrob(grid.layout(nrow=n, 1, widths=width, heights=heights, just="centre"), name="legends")
+    for(i in 1:n) {
+      fg <- placeGrob(fg, legs[[i]], row=i)
+    }
+  } else {
+    height <- do.call("sum", lapply(legs, heightDetails))
+    widths <- do.call("unit.c", lapply(legs, function(x) widthDetails(x) * 1.1))
+    fg <- frameGrob(grid.layout(ncol=n, 1, widths=widths, heights=height, just="centre"), name="legends")
+    for(i in 1:n) {
+      fg <- placeGrob(fg, legs[[i]], col=i)
+    }
+  }
+  fg
+}
+
 # Build all legend grob
 # Build legends, merging where possible
 # 

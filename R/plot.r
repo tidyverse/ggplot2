@@ -29,23 +29,10 @@ ggplot.default <- function(data = NULL, mapping=aes(), ...) {
 }
 
 
-# Print ggplot
-# Print generic for ggplot.  Plot on current graphics device.
-#
-# @arguments plot to display
-# @arguments draw new (empty) page first?
-# @arguments viewport to draw plot in
-# @arguments other arguments passed on to \\code{\\link{ggplot_plot}}
-# @keyword hplot
-# @keyword internal 
-print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
-  if (newpage) grid.newpage()
-  if (is.null(vp)) {
-    grid.draw(ggplot_plot(x, ...)) 
-  } else {
-    if (is.character(vp)) seekViewport(vp) else pushViewport(vp)
-    grid.draw(ggplot_plot(x, ...)) 
-    upViewport()
-  }
+plot_clone <- function(plot) {
+  p <- plot
+  p$scales <- plot$scales$clone()
+  p$layers <- lapply(plot$layers, function(x) x$clone())
+  
+  p
 }
-
