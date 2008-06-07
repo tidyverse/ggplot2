@@ -13,15 +13,15 @@ ScaleDiscrete <- proto(Scale, expr={
   # Range -------------------
   map <- function(., values) {
     .$check_domain()
-    .$domain_breaks()[match(as.character(values), .$domain())]
+    .$output_breaks()[match(as.character(values), .$input_set())]
   }
 
-  frange <- function(.) {
-    c(1, length(.$domain())) 
+  output_set <- function(.) {
+    c(1, length(.$input_set())) 
   }
-  range_breaks <- function(.) .$domain_breaks()
+  output_breaks <- function(.) .$map(.$input_breaks())
 
-  domain_breaks <- function(.) seq_len(.$domain())
+  input_breaks <- function(.) seq_len(.$input_set())
 
 
   # Domain ------------------------------------------------
@@ -34,12 +34,11 @@ ScaleDiscrete <- proto(Scale, expr={
     if (!is.discrete(x)) {
       warning("Continuous variable (", .$name , ") supplied to the discrete ", .$my_name(), ".", call.=FALSE) 
     }
-
     .$.domain <- union(.$.domain, as.character(unique(x)))
   }
 
   check_domain <- function(.) {
-    d <- .$domain()
+    d <- .$input_set()
     if (length(d) > .$max_levels()) {
       stop("Too many values in domain (", length(d), " > ", .$max_levels(), ")")
     }  
@@ -48,9 +47,9 @@ ScaleDiscrete <- proto(Scale, expr={
   # Guides
   # -------------------
 
-  minor_breaks <- function(.) .$domain_breaks()
+  minor_breaks <- function(.) .$input_breaks()
 
-  labels <- function(.) nulldefault(.$.labels, as.list(.$domain()))
+  labels <- function(.) nulldefault(.$.labels, as.list(.$input_set()))
   
   # Documentation
   objname <- "discrete"

@@ -23,19 +23,19 @@ CoordTrans <- proto(CoordCartesian, expr={
     .$proto(xtr=xtrans, ytr=ytrans)
   }
 
-  frange <- function(.) {
+  output_set <- function(.) {
     expand <- .$expand()
     list(
-      x = expand_range(.$xtr$transform(.$x()$frange()), expand$x[1], expand$x[2]),
-      y = expand_range(.$ytr$transform(.$y()$frange()), expand$y[1], expand$y[2])
+      x = expand_range(.$xtr$transform(.$x()$output_set()), expand$x[1], expand$x[2]),
+      y = expand_range(.$ytr$transform(.$y()$output_set()), expand$y[1], expand$y[2])
     )
   }
 
   guide_axes <- function(.) {
-    range <- .$frange()
+    range <- .$output_set()
     list(
-      x = ggaxis(.$xtr$transform(.$x()$domain_breaks()), .$x()$labels(), "bottom", range$x),
-      y = ggaxis(.$ytr$transform(.$y()$domain_breaks()), .$y()$labels(), "left", range$y)
+      x = ggaxis(.$xtr$transform(.$x()$input_breaks()), .$x()$labels(), "bottom", range$x),
+      y = ggaxis(.$ytr$transform(.$y()$input_breaks()), .$y()$labels(), "left", range$y)
     )
   }
 
@@ -45,10 +45,10 @@ CoordTrans <- proto(CoordCartesian, expr={
       ggname("background", rectGrob(gp=gpar(fill=plot$grid.fill, col=NA))),
 
       ggname("minor-vertical", segmentsGrob(.$xtr$transform(.$x()$minor_breaks()), unit(0, "npc"), .$xtr$transform(.$x()$minor_breaks()), unit(1, "npc"), gp = gpar(col=plot$grid.minor.colour, lwd=0.5), default.units="native")),
-      ggname("major-vertical", segmentsGrob(.$xtr$transform(.$x()$domain_breaks()), unit(0, "npc"), .$xtr$transform(.$x()$domain_breaks()), unit(1, "npc"), gp = gp, default.units="native")),
+      ggname("major-vertical", segmentsGrob(.$xtr$transform(.$x()$input_breaks()), unit(0, "npc"), .$xtr$transform(.$x()$input_breaks()), unit(1, "npc"), gp = gp, default.units="native")),
 
       ggname("minor-horizontal", segmentsGrob(unit(0, "npc"), .$ytr$transform(.$y()$minor_breaks()), unit(1, "npc"), .$ytr$transform(.$y()$minor_breaks()), gp = gpar(col=plot$grid.minor.colour, lwd=0.5), default.units="native")),
-      ggname("major-horizontal",segmentsGrob(unit(0, "npc"), .$ytr$transform(.$y()$domain_breaks()), unit(1, "npc"), .$ytr$transform(.$y()$domain_breaks()), gp = gp, default.units="native")),
+      ggname("major-horizontal",segmentsGrob(unit(0, "npc"), .$ytr$transform(.$y()$input_breaks()), unit(1, "npc"), .$ytr$transform(.$y()$input_breaks()), gp = gp, default.units="native")),
 
       ggname("border", rectGrob(gp=gpar(col=plot$grid.colour, lwd=3, fill=NA)))
     )))

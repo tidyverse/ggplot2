@@ -11,9 +11,9 @@ StatSmooth <- proto(Stat, {
     
     if (is.null(xseq)) {
       if (is.factor(data$x)) {
-        xseq <- if (fullrange) scales$get_scales("x")$domain() else levels(data$x)
+        xseq <- if (fullrange) scales$get_scales("x")$input_set() else levels(data$x)
       } else {
-        range <- if (fullrange) scales$get_scales("x")$frange() else range(data$x, na.rm=TRUE)  
+        range <- if (fullrange) scales$get_scales("x")$output_set() else range(data$x, na.rm=TRUE)  
         xseq <- seq(range[1], range[2], length=n)
       }
       

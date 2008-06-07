@@ -4,9 +4,9 @@ CoordEqual <- proto(CoordCartesian, {
     list(.$proto(ratio=ratio), opts(aspect.ratio = ratio))
   }
 
-  frange <- function(.) {
-    xlim <- .$x()$frange()
-    ylim <- .$y()$frange()
+  output_set <- function(.) {
+    xlim <- .$x()$output_set()
+    ylim <- .$y()$output_set()
     
     xr <- diff(xlim)
     yr <- diff(ylim)
@@ -40,7 +40,7 @@ CoordEqual <- proto(CoordCartesian, {
   }
   
   guide_axes <- function(.) {
-    range <- .$frange()
+    range <- .$output_set()
     list(
       x = ggaxis(grid.pretty(range$x), grid.pretty(range$x), "bottom", range$x),
       y = ggaxis(grid.pretty(range$y), grid.pretty(range$y), "left", range$y)
@@ -48,7 +48,7 @@ CoordEqual <- proto(CoordCartesian, {
   }
 
   guide_inside <- function(., plot) {
-    range <- .$frange()
+    range <- .$output_set()
     breaks <- list(
       x = list(major = grid.pretty(range$x), minor = .$x()$minor_breaks(b = grid.pretty(range$x))),
       y = list(major = grid.pretty(range$y), minor = .$y()$minor_breaks(b = grid.pretty(range$y)))

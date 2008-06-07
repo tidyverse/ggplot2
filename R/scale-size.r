@@ -9,7 +9,7 @@ ScaleSize <- proto(ScaleContinuous, expr={
   }
   
   map <- function(., values) {
-    rescale(values, .$to, .$domain())
+    rescale(values, .$to, .$input_set())
   }
   
   objname <- "size"

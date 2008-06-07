@@ -14,14 +14,13 @@ Scale <- proto(TopLevel, expr={
   new <- function(., name="Unknown") {
     .$proto(name=name)
   }
-  discrete <- function(.) FALSE
   
   clone <- function(.) {
     as.proto(.$as.list(all.names=TRUE), parent=.) 
   }
   
   trained <- function(.) {
-    !is.null(.$domain())
+    !is.null(.$input_set())
   }
 
   find <- function(., output, only.documented = FALSE) {
@@ -35,7 +34,7 @@ Scale <- proto(TopLevel, expr={
   input <- function(.) .$.input
   output <- function(.) .$.output
   
-  domain <- function(.) {
+  input_set <- function(.) {
     nulldefault(.$limits, .$.domain)
   }
   
@@ -65,7 +64,7 @@ Scale <- proto(TopLevel, expr={
   legend_desc <- function(.) {
     if (identical(., Scale) || !.$legend) return()
     
-    breaks <- .$range_breaks()
+    breaks <- .$output_breaks()
     labels <- .$labels()
     
     if (is.null(breaks) || is.null(labels)) return()
@@ -84,8 +83,8 @@ Scale <- proto(TopLevel, expr={
     clist <- function(x) paste(x, collapse=",")
     
     cat("scale_", .$objname, ": ", clist(.$input()),   " -> ", clist(.$output()), sep="")
-    if (!is.null(.$domain())) {
-      cat(" (", clist(.$domain()), " -> ", clist(.$frange()), ")", sep="")
+    if (!is.null(.$input_set())) {
+      cat(" (", clist(.$input_set()), " -> ", clist(.$output_set()), ")", sep="")
     }
     if (newline) cat("\n") 
   }

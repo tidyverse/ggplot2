@@ -6,8 +6,8 @@ ScaleGrey <- proto(ScaleColour, expr={
     .$proto(name=name, .input=variable, .output=variable, start=start, end=end, limits = limits, .labels = labels)
   }
 
-  breaks <- function(.) {
-    grey.colors(length(.$domain()), start = .$start, end = .$end)
+  output_breaks <- function(.) {
+    grey.colors(length(.$input_set()), start = .$start, end = .$end)
   }
 
   max_levels <- function(.) Inf

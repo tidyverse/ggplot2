@@ -13,7 +13,7 @@ GeomHline <- proto(Geom, {
       data$intercept <- intercept
     }
     
-    xrange <- coordinates$frange()$x
+    xrange <- coordinates$output_set()$x
 
     data <- transform(data,
       x = xrange[1],

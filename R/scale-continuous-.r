@@ -1,8 +1,9 @@
-ScaleContinuous <- proto(Scale, {  
+ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {  
   .domain <- c()
   .range <- c()
   .expand <- c(0.05, 0)
   .labels <- NULL
+  discrete <- function(.) FALSE
   
   tr_default <- "identity"
 
@@ -45,7 +46,7 @@ ScaleContinuous <- proto(Scale, {
     if (!is.numeric(x)) 
       warning("Non-continuous variable supplied to continuous ", .$my_name(), ".", call.=FALSE)
     if (all(is.na(x))) return()
-      
+    
     .$.domain <- range(x, .$.domain, na.rm=TRUE, finite=TRUE)
   }
     
@@ -55,19 +56,19 @@ ScaleContinuous <- proto(Scale, {
 
   # By default, the range of a continuous scale is the same as its
   # (transformed) domain
-  frange <- function(.) .$domain()
+  output_set <- function(.) .$input_set()
   
   # By default, breaks are regularly spaced along the (transformed) domain
   breaks <- NULL
-  domain_breaks <- function(.) {
-    nulldefault(.$breaks, grid.pretty(.$domain()))
+  input_breaks <- function(.) {
+    nulldefault(.$breaks, grid.pretty(.$input_set()))
   }
-  range_breaks <- function(.) .$map(.$domain_breaks())
+  output_breaks <- function(.) .$map(.$input_breaks())
 
   .minor_breaks <- 2
   # Minor breaks are regular on the original scale
   # and need to cover entire range of plot
-  minor_breaks <- function(., n = .$.minor_breaks, b = .$domain_breaks(), r = .$frange()) {
+  minor_breaks <- function(., n = .$.minor_breaks, b = .$input_breaks(), r = .$output_set()) {
     if (length(b) == 1) return(b)
     
     bd <- diff(b)[1]
@@ -78,7 +79,7 @@ ScaleContinuous <- proto(Scale, {
   
   labels <- function(.) {
     if (!is.null(.$.labels)) return(.$.labels)
-    b <- .$domain_breaks()
+    b <- .$input_breaks()
 
     l <- .$.tr$label(b)
     numeric <- sapply(l, is.numeric)
@@ -88,7 +89,7 @@ ScaleContinuous <- proto(Scale, {
   
   test <- function(.) {
     m <- .$minor_breaks(10)
-    b <- .$domain_breaks()
+    b <- .$input_breaks()
     
     plot(x=0,y=0,xlim=range(c(b,m)), ylim=c(1,5), type="n", axes=F,xlab="", ylab="")
     for(i in 1:(length(b))) axis(1, b[[i]], as.expression(.$labels()[[i]]))

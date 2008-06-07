@@ -5,7 +5,7 @@ StatDensity <- proto(Stat, {
     n <- nrow(data)
     if (is.null(data$weight)) data$weight <- rep(1, n) / n
 
-    range <- scales$get_scales("x")$frange()
+    range <- scales$get_scales("x")$output_set()
     xgrid <- seq(range[1], range[2], length=200)
     
     dens <- density(data$x, adjust=adjust, kernel=kernel, weight=data$weight, from=range[1], to=range[2])

@@ -26,7 +26,7 @@ ScaleProb <- proto(ScaleContinuous, {
   examples <- function(.) {
     # Coming soon
   }
-#  frange <- function(.) c(0, 1)
+#  output_set <- function(.) c(0, 1)
 })
 
 ScalePow <- proto(ScaleContinuous, {

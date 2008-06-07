@@ -25,7 +25,7 @@ viewport_default <- function(plot, guides, scales, coordinates) {
   cols <- ncol(gm) + ncol(row.labels) + 1
   
   layout <- plot_layout(gm, rows, cols, row.labels, col.labels, guides$axes_h, guides$axes_v, plot$aspect.ratio)
-  range <- coordinates$frange()
+  range <- coordinates$output_set()
   
   viewports <- do.call("vpList", c(
     setup_viewports("strip_h", data=t(col.labels),      offset=c(0,1),       range=range),

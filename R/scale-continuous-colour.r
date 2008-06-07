@@ -1,24 +1,23 @@
 ScaleGradient <- proto(ScaleContinuous, expr={
   aliases <- c("scale_colour_continuous", "scale_fill_continuous")
 
-  new <- function(., name=NULL, low=muted("darkblue"), high="yellow", space="rgb", limits=c(NA,NA), trans="identity", alpha = 1, ..., variable) {
+  new <- function(., name=NULL, low=muted("darkblue"), high="yellow", space="rgb", limits=NULL, trans="identity", alpha = 1, ..., variable) {
     if (is.character(trans)) trans <- Trans$find(trans)
     .$proto(name=name, low=low, high=high, space=space, .input=variable, .output=variable, .tr = trans, limits=limits, alpha = alpha, ...)
   }
   
   map <- function(., x) {
-    rng <- .$frange()
-    domain <- .$domain()
+    domain <- .$input_set()
     x[x < domain[1] | x > domain[2]] <- NA
 
     ramp  <- colorRamp(c(.$low, .$high),  space=.$space, interpolate="linear")
     
-    x <- (x - rng[1]) / diff(rng)
+    x <- (x - domain[1]) / diff(domain)
     
     nice_ramp(ramp, x, .$alpha)
   }
   
-  labels <- function(.) format(.$domain_breaks())
+  labels <- function(.) format(.$input_breaks())
   
   common <- c("colour", "fill")
 
@@ -97,10 +96,10 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
   }
   
   map <- function(., x) {
-    rng <- .$frange()  - .$midpoint
+    rng <- .$output_set()  - .$midpoint
     extent <- max(abs(rng))
     
-    domain <- .$domain()
+    domain <- .$input_set()
     x[x < domain[1] | x > domain[2]] <- NA
 
     ramp  <- colorRamp(c(.$low, .$mid, .$high),  space=.$space, interpolate="linear")
@@ -115,7 +114,7 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
   common <- c("colour", "fill")
   desc <- "Smooth colour gradient, with midpoint"
 
-  labels <- function(.) format(.$domain_breaks())
+  labels <- function(.) format(.$input_breaks())
 
   icon <- function(.) {
     g <- scale_fill_gradient2()

@@ -7,12 +7,12 @@ ScaleShape <- proto(ScaleDiscrete, expr={
     .$proto(name=name, solid=solid, limits = limits, .labels = labels)
   }
   
-  breaks <- function(.) {
+  output_breaks <- function(.) {
     (if (.$solid) {
       c(16, 17, 15, 3, 7, 8)
     } else {
       c(1, 2, 0, 3, 7, 8)
-    })[1:length(.$domain())]
+    })[1:length(.$input_set())]
   }
 
   max_levels <- function(.) 6

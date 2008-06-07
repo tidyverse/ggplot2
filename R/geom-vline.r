@@ -14,7 +14,7 @@ GeomVline <- proto(Geom, {
       data$intercept <- intercept
     }
     
-    yrange <- coordinates$frange()$y
+    yrange <- coordinates$output_set()$y
 
     data <- transform(data,
       y = yrange[1],

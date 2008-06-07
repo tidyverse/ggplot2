@@ -17,7 +17,7 @@ ScaleIdentity <- proto(ScaleDiscrete, {
     if (!all(.$input() %in% names(data))) return(data.frame())
     data[, .$input(), drop=FALSE]
   }
-  breaks <- function(.) .$breaks
+  output_breaks <- function(.) .$breaks
   labels <- function(.) .$.labels
 
   guide_legend <- function(., background="grey90") {
@@ -37,9 +37,8 @@ ScaleIdentity <- proto(ScaleDiscrete, {
     qplot(1:4, 1:4, fill=colour, geom="tile") + scale_fill_identity()
     
     # To get a legend, you also need to supply the labels to
-    # be used on the legend, and the grob to draw them:
-    # grob_tile, grob_line, or grob_point
-    qplot(1:4, 1:4, fill=colour, geom="tile") + scale_fill_identity(labels=letters[1:4], guide="tile", name="trt")
+    # be used on the legend
+    qplot(1:4, 1:4, fill=colour, geom="tile") + scale_fill_identity(labels=letters[1:4], name="trt")
     
     # cyl scaled to appropriate size
     qplot(mpg, wt, data=mtcars, size = cyl)

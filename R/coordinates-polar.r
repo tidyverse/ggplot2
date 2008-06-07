@@ -17,7 +17,7 @@ CoordPolar <- proto(Coord, {
   theta_scale <- function(.) .$.scales$get_scales(.$theta)
   theta_range <- function(.) {
     expand <- .$expand()
-    expand_range(.$theta_scale()$frange(), expand$theta[1], expand$theta[2])
+    expand_range(.$theta_scale()$output_set(), expand$theta[1], expand$theta[2])
   }
   theta_rescale <- function(., x) {
     rotate <- function(x) (x + .$start) %% (2 * pi) * .$direction
@@ -32,7 +32,7 @@ CoordPolar <- proto(Coord, {
   r_scale <- function(.) .$.scales$get_scales(.$r)
   r_range <- function(.) {
     expand <- .$expand()
-    expand_range(.$r_scale()$frange(), 0, expand$r[2])
+    expand_range(.$r_scale()$output_set(), 0, expand$r[2])
   }
   
   r_rescale <- function(., x) rescale(x, c(0, 0.9), .$r_range())
@@ -51,7 +51,7 @@ CoordPolar <- proto(Coord, {
   
   guide_inside <- function(., plot) {
     
-    theta <- .$theta_rescale(.$theta_scale()$domain_breaks())
+    theta <- .$theta_rescale(.$theta_scale()$input_breaks())
     thetamin <- .$theta_rescale(.$theta_scale()$minor_breaks())
     thetafine <- seq(0, 2*pi, length=100)
     
@@ -64,7 +64,7 @@ CoordPolar <- proto(Coord, {
     }
     
     r <- 1
-    rfine <- .$r_rescale(.$r_scale()$domain_breaks())
+    rfine <- .$r_rescale(.$r_scale()$input_breaks())
 
     gp <- gpar(fill=plot$grid.fill, col=plot$grid.colour)
     
@@ -79,7 +79,7 @@ CoordPolar <- proto(Coord, {
   }
 
   
-  frange <- function(.) {
+  output_set <- function(.) {
     list(
       x = expand_range(c(-1, 1), 0.1, 0),
       y = expand_range(c(-1, 1), 0.1, 0)
@@ -89,7 +89,7 @@ CoordPolar <- proto(Coord, {
   guide_axes <- function(.) {
     list(
       x = ggaxis(c(-1, 1), "", "bottom", c(-1,1)),
-      y = ggaxis(.$r_rescale(.$r_scale()$domain_breaks()) / 2 + 0.6, .$r_scale()$labels(), "left", c(0, 1.2))
+      y = ggaxis(.$r_rescale(.$r_scale()$input_breaks()) / 2 + 0.6, .$r_scale()$labels(), "left", c(0, 1.2))
     )
   }
 

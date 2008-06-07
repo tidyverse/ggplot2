@@ -76,7 +76,7 @@ StatBin <- proto(Stat, {
   }
   
   calculate <- function(., data, scales, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, ...) {
-    range <- scales$get_scales("x")$frange()
+    range <- scales$get_scales("x")$output_set()
 
     if (is.null(breaks) && is.null(binwidth) && is.numeric(data$x) && !.$informed) {
       message("stat_bin: breaks/binwidth unspecified, using 30 bins as default.")

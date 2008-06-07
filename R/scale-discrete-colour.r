@@ -11,10 +11,10 @@ ScaleHue <- proto(ScaleColour, expr={
     .$proto(name=name, h=h, l=l, c=c, alpha=alpha, .input=variable, .output=variable, .labels = labels, direction = direction, start  = h.start, limits = limits)
   }
   
-  breaks <- function(.) {
+  output_breaks <- function(.) {
     rotate <- function(x) (x + .$start) %% 360 * .$direction
     
-    n <- length(.$domain())
+    n <- length(.$input_set())
     grDevices::hcl(
       h = rotate(seq(.$h[1], .$h[2], length = n+1)), 
       c =.$c, 
@@ -81,8 +81,8 @@ ScaleBrewer <- proto(ScaleColour, expr={
     .$proto(name=name, palette=palette, type=type, .input=variable, .output=variable, .alpha=alpha, .labels = labels, limits= limits)
   }
 
-  breaks <- function(.) {
-    n <- length(.$domain())
+  output_breaks <- function(.) {
+    n <- length(.$input_set())
     pal <- brewer.pal(n, .$pal_name())
     alpha(pal, .$.alpha)
   }

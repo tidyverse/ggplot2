@@ -18,17 +18,17 @@ CoordMap <- proto(CoordCartesian, {
   
   mproject <- function(., data) {
     if (is.null(.$orientation)) 
-      .$orientation <- c(90, 0, mean(.$x()$frange()))
+      .$orientation <- c(90, 0, mean(.$x()$output_set()))
     
     suppressWarnings(do.call("mapproject", 
       list(data, projection=.$projection, parameters  = .$params, orientation = .$orientation)
     ))
   }
   
-  frange <- function(.) {
+  output_set <- function(.) {
     expand <- .$expand()
-    xrange <- expand_range(.$x()$frange(), expand$x[1], expand$x[2])
-    yrange <- expand_range(.$y()$frange(), expand$y[1], expand$y[2])
+    xrange <- expand_range(.$x()$output_set(), expand$x[1], expand$x[2])
+    yrange <- expand_range(.$y()$output_set(), expand$y[1], expand$y[2])
     
     df <- data.frame(x = xrange, y = yrange)
     range <- .$mproject(df)$range
@@ -37,7 +37,7 @@ CoordMap <- proto(CoordCartesian, {
   }
   
   guide_axes <- function(.) {
-    range <- .$frange()
+    range <- .$output_set()
     list(
       x = ggaxis(NA, "", "bottom", range$x),
       y = ggaxis(NA, "", "left", range$y)
@@ -46,8 +46,8 @@ CoordMap <- proto(CoordCartesian, {
   
   guide_inside <- function(., plot) {
     range <- list(
-      x = expand_range(.$x()$frange(), 0.1),
-      y = expand_range(.$y()$frange(), 0.1)
+      x = expand_range(.$x()$output_set(), 0.1),
+      y = expand_range(.$y()$output_set(), 0.1)
     )
     x <- grid.pretty(range$x)
     y <- grid.pretty(range$y)

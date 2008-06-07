@@ -25,7 +25,7 @@ ScaleDate <- proto(ScaleContinuous,{
   }
   
   break_points <- function(.) {
-    rng <- diff(range(.$domain()))
+    rng <- diff(range(.$input_set()))
     
     length <- cut(rng, c(0, 10, 56, 500, 5000, Inf), labels=FALSE)
     
@@ -37,18 +37,18 @@ ScaleDate <- proto(ScaleContinuous,{
   }
   
   breaks <- function(.) {
-    d <- to_date(.$domain())
+    d <- to_date(.$input_set())
     
     .$.tr$transform(seq(d[1], d[2], by=.$break_points()[1]))
   }
   
   minor_breaks <- function(., n) {
-    d <- structure(.$domain(), class="Date")
+    d <- structure(.$input_set(), class="Date")
     .$.tr$transform(seq(d[1], d[2], by=.$break_points()[1]))
   }
   
   labels <- function(.) {
-    format(.$.tr$inverse(.$domain_breaks()), .$break_points()[3])
+    format(.$.tr$inverse(.$input_breaks()), .$break_points()[3])
   }
 
   # Documetation -----------------------------------------------

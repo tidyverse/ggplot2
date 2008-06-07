@@ -1,24 +1,24 @@
 ScaleManual <- proto(ScaleDiscrete, {  
   common <- c("colour","fill","size","shape","linetype")
-  .values <- c()
+  values <- c()
   
   new <- function(., name=NULL, values=NULL, variable="x", limits = NULL, labels = NULL) {
-    .$proto(name=name, .values=values, .input=variable, .output=variable, limits = limits, .labels = labels)
+    .$proto(name=name, values=values, .input=variable, .output=variable, limits = limits, .labels = labels)
   }
 
   map <- function(., values) {
     .$check_domain()
     if (.$has_names()) {
-      .$domain_breaks()[as.character(values)]
+      .$output_breaks()[as.character(values)]
     } else {
-      .$domain_breaks()[match(as.character(values), .$domain())]
+      .$output_breaks()[match(as.character(values), .$input_set())]
     }
   }
 
-  has_names <- function(.) !is.null(names(.$domain_breaks()))
+  has_names <- function(.) !is.null(names(.$output_breaks()))
 
-  breaks <- function(.) .$.values
-  labels <- function(.) if (.$has_names()) names(.$domain_breaks()) else .$.domain
+  output_breaks <- function(.) .$values
+  labels <- function(.) if (.$has_names()) names(.$output_breaks()) else .$.domain
 
   # Documetation -----------------------------------------------
 

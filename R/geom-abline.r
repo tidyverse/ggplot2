@@ -6,7 +6,7 @@ GeomAbline <- proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {
     data <- aesdefaults(data, .$default_aes(), list(...))
     
-    xrange <- coordinates$frange()$x
+    xrange <- coordinates$output_set()$x
 
     data <- transform(data,
       x = xrange[1],
