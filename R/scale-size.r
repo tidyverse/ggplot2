@@ -4,8 +4,12 @@ ScaleSize <- proto(ScaleContinuous, expr={
   aliases <- c("scale_area")
   
   
-  new <- function(., name=NULL, to=c(0.2, 3)) {
-    .$proto(name=name, .range=to)
+  new <- function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, trans = NULL, to = c(0.5, 3)) {
+    .super$new(., name=name, limits=limits, breaks=breaks, labels=labels, trans=trans, variable = "size", to = to)
+  }
+  
+  map <- function(., values) {
+    rescale(values, .$to, .$domain())
   }
   
   objname <- "size"

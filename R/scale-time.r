@@ -48,7 +48,7 @@ ScaleDate <- proto(ScaleContinuous,{
   }
   
   labels <- function(.) {
-    format(.$.tr$inverse(.$breaks()), .$break_points()[3])
+    format(.$.tr$inverse(.$domain_breaks()), .$break_points()[3])
   }
 
   # Documetation -----------------------------------------------

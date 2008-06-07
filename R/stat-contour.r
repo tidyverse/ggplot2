@@ -2,7 +2,7 @@ StatContour <- proto(Stat, {
   calculate <- function(., data, scales, na.rm = FALSE, ...) {
     data <- remove_missing(data, na.rm, name = "stat_contour")
     
-    levels <- scales$get_scales("z")$breaks()
+    levels <- scales$get_scales("z")$domain_breaks()
     
     gridise <- function(x) {
       unique <- sort(unique(x[!is.na(x)]))

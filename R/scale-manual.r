@@ -9,16 +9,16 @@ ScaleManual <- proto(ScaleDiscrete, {
   map <- function(., values) {
     .$check_domain()
     if (.$has_names()) {
-      .$breaks()[as.character(values)]
+      .$domain_breaks()[as.character(values)]
     } else {
-      .$breaks()[match(as.character(values), .$domain())]
+      .$domain_breaks()[match(as.character(values), .$domain())]
     }
   }
 
-  has_names <- function(.) !is.null(names(.$breaks()))
+  has_names <- function(.) !is.null(names(.$domain_breaks()))
 
   breaks <- function(.) .$.values
-  labels <- function(.) if (.$has_names()) names(.$breaks()) else .$.domain
+  labels <- function(.) if (.$has_names()) names(.$domain_breaks()) else .$.domain
 
   # Documetation -----------------------------------------------
 

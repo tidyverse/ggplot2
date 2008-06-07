@@ -6,7 +6,7 @@ ScaleContinuous <- proto(Scale, {
   
   tr_default <- "identity"
 
-  new <- function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, variable, trans = NULL, expand=c(0.05, 0)) {
+  new <- function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, variable, trans = NULL, expand=c(0.05, 0), ...) {
     if (is.null(breaks) && !is.null(labels)) stop("Labels can only be specified in conjunction with breaks")
     
     if (is.null(trans))      trans <- .$tr_default
@@ -16,7 +16,7 @@ ScaleContinuous <- proto(Scale, {
     limits <- trans$transform(limits)
     breaks <- trans$transform(breaks)
     
-    .$proto(name=name, .input=variable, .output=variable, limits=limits, .breaks = breaks, .labels = labels, .expand=expand, .tr = trans)
+    .$proto(name=name, .input=variable, .output=variable, limits=limits, breaks = breaks, .labels = labels, .expand=expand, .tr = trans, ...)
   }
 
   
@@ -49,31 +49,25 @@ ScaleContinuous <- proto(Scale, {
     .$.domain <- range(x, .$.domain, na.rm=TRUE, finite=TRUE)
   }
     
-  map <- function(., values) {
-    rescale(values, .$frange(), .$domain())
-  }
+  # By default, a continuous scale does no transformation in the mapping stage
+  # See scale_size for an exception
+  map <- function(., values)  values
 
-
-  # Scale range
-  frange <- function(.) {
-    nulldefault(.$.range, .$domain())
-  }
+  # By default, the range of a continuous scale is the same as its
+  # (transformed) domain
+  frange <- function(.) .$domain()
   
-  # By default, breaks are regularly spaced along the transformed domain
-  .breaks <- NULL
-  breaks <- function(.) {
-    nulldefault(.$.breaks, grid.pretty(.$domain()))
+  # By default, breaks are regularly spaced along the (transformed) domain
+  breaks <- NULL
+  domain_breaks <- function(.) {
+    nulldefault(.$breaks, grid.pretty(.$domain()))
   }
-
-  rbreaks <- function(.) {
-    if (!is.null(.$.breaks)) return(.$.breaks)
-    .$map(grid.pretty(.$domain()))
-  }
+  range_breaks <- function(.) .$map(.$domain_breaks())
 
   .minor_breaks <- 2
   # Minor breaks are regular on the original scale
   # and need to cover entire range of plot
-  minor_breaks <- function(., n = .$.minor_breaks, b = .$breaks(), r = .$frange()) {
+  minor_breaks <- function(., n = .$.minor_breaks, b = .$domain_breaks(), r = .$frange()) {
     if (length(b) == 1) return(b)
     
     bd <- diff(b)[1]
@@ -84,7 +78,7 @@ ScaleContinuous <- proto(Scale, {
   
   labels <- function(.) {
     if (!is.null(.$.labels)) return(.$.labels)
-    b <- .$breaks()
+    b <- .$domain_breaks()
 
     l <- .$.tr$label(b)
     numeric <- sapply(l, is.numeric)
@@ -94,7 +88,7 @@ ScaleContinuous <- proto(Scale, {
   
   test <- function(.) {
     m <- .$minor_breaks(10)
-    b <- .$breaks()
+    b <- .$domain_breaks()
     
     plot(x=0,y=0,xlim=range(c(b,m)), ylim=c(1,5), type="n", axes=F,xlab="", ylab="")
     for(i in 1:(length(b))) axis(1, b[[i]], as.expression(.$labels()[[i]]))

@@ -22,7 +22,7 @@ Scale <- proto(TopLevel, expr={
   }
   
   trained <- function(.) {
-    !is.null(.$.domain)
+    !is.null(.$domain())
   }
 
   find <- function(., output, only.documented = FALSE) {
@@ -66,8 +66,9 @@ Scale <- proto(TopLevel, expr={
   legend_desc <- function(.) {
     if (identical(., Scale) || !.$legend) return()
     
-    breaks <- .$rbreaks()
+    breaks <- .$range_breaks()
     labels <- .$labels()
+    
     if (is.null(breaks) || is.null(labels)) return()
     
     df <- data.frame(breaks, stringsAsFactors = FALSE)

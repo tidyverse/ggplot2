@@ -30,8 +30,8 @@ CoordCartesian <- proto(Coord, expr={
   guide_axes <- function(.) {
     range <- .$frange()
     list(
-      x = ggaxis(.$x()$breaks(), .$x()$labels(), "bottom", range$x),
-      y = ggaxis(.$y()$breaks(), .$y()$labels(), "left", range$y)
+      x = ggaxis(.$x()$domain_breaks(), .$x()$labels(), "bottom", range$x),
+      y = ggaxis(.$y()$domain_breaks(), .$y()$labels(), "left", range$y)
     )
   }
   
@@ -41,8 +41,8 @@ CoordCartesian <- proto(Coord, expr={
   # Axis labels should go in here somewhere too
   guide_inside <- function(., plot) {
     breaks <- list(
-      x = list(major = .$x()$breaks(), minor = .$x()$minor_breaks()),
-      y = list(major = .$y()$breaks(), minor = .$y()$minor_breaks())
+      x = list(major = .$x()$domain_breaks(), minor = .$x()$minor_breaks()),
+      y = list(major = .$y()$domain_breaks(), minor = .$y()$minor_breaks())
     )
     
     draw_grid(plot, breaks)

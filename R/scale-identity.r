@@ -2,7 +2,7 @@
 ScaleIdentity <- proto(ScaleDiscrete, {  
   common <- c("colour","fill","size","shape","linetype")
   new <- function(., name=NULL, breaks=NULL, labels=NULL, variable="x") {
-    .$proto(name=name, .breaks=breaks, .labels=labels, .input=variable, .output=variable)
+    .$proto(name=name, breaks=breaks, .labels=labels, .input=variable, .output=variable)
   }
 
   guides.manual <- function(scale, ...) {
@@ -11,13 +11,13 @@ ScaleIdentity <- proto(ScaleDiscrete, {
   }
   
   train <- function(., data) {
-    .$.breaks <- union(.$.breaks, unique(data))
+    .$breaks <- union(.$breaks, unique(data))
   }
   map_df <- function(., data) {
     if (!all(.$input() %in% names(data))) return(data.frame())
     data[, .$input(), drop=FALSE]
   }
-  breaks <- function(.) .$.breaks
+  breaks <- function(.) .$breaks
   labels <- function(.) .$.labels
 
   guide_legend <- function(., background="grey90") {

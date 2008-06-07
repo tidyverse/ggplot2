@@ -34,8 +34,8 @@ CoordTrans <- proto(CoordCartesian, expr={
   guide_axes <- function(.) {
     range <- .$frange()
     list(
-      x = ggaxis(.$xtr$transform(.$x()$breaks()), .$x()$labels(), "bottom", range$x),
-      y = ggaxis(.$ytr$transform(.$y()$breaks()), .$y()$labels(), "left", range$y)
+      x = ggaxis(.$xtr$transform(.$x()$domain_breaks()), .$x()$labels(), "bottom", range$x),
+      y = ggaxis(.$ytr$transform(.$y()$domain_breaks()), .$y()$labels(), "left", range$y)
     )
   }
 
@@ -45,10 +45,10 @@ CoordTrans <- proto(CoordCartesian, expr={
       ggname("background", rectGrob(gp=gpar(fill=plot$grid.fill, col=NA))),
 
       ggname("minor-vertical", segmentsGrob(.$xtr$transform(.$x()$minor_breaks()), unit(0, "npc"), .$xtr$transform(.$x()$minor_breaks()), unit(1, "npc"), gp = gpar(col=plot$grid.minor.colour, lwd=0.5), default.units="native")),
-      ggname("major-vertical", segmentsGrob(.$xtr$transform(.$x()$breaks()), unit(0, "npc"), .$xtr$transform(.$x()$breaks()), unit(1, "npc"), gp = gp, default.units="native")),
+      ggname("major-vertical", segmentsGrob(.$xtr$transform(.$x()$domain_breaks()), unit(0, "npc"), .$xtr$transform(.$x()$domain_breaks()), unit(1, "npc"), gp = gp, default.units="native")),
 
       ggname("minor-horizontal", segmentsGrob(unit(0, "npc"), .$ytr$transform(.$y()$minor_breaks()), unit(1, "npc"), .$ytr$transform(.$y()$minor_breaks()), gp = gpar(col=plot$grid.minor.colour, lwd=0.5), default.units="native")),
-      ggname("major-horizontal",segmentsGrob(unit(0, "npc"), .$ytr$transform(.$y()$breaks()), unit(1, "npc"), .$ytr$transform(.$y()$breaks()), gp = gp, default.units="native")),
+      ggname("major-horizontal",segmentsGrob(unit(0, "npc"), .$ytr$transform(.$y()$domain_breaks()), unit(1, "npc"), .$ytr$transform(.$y()$domain_breaks()), gp = gp, default.units="native")),
 
       ggname("border", rectGrob(gp=gpar(col=plot$grid.colour, lwd=3, fill=NA)))
     )))

@@ -21,7 +21,7 @@ ScaleProb <- proto(ScaleContinuous, {
     textGrob("P()", gp=gpar(cex=1.5))
   }
   new <- function(., name=NULL, limits=c(NA,NA), breaks=NULL, family="norm", variable="x") {
-    .$proto(name=name, .input=variable, .output=variable, limits=limits, .breaks = breaks, .tr = ProbabilityTrans$new(family), family=family)
+    .$proto(name=name, .input=variable, .output=variable, limits=limits, breaks = breaks, .tr = ProbabilityTrans$new(family), family=family)
   }
   examples <- function(.) {
     # Coming soon
@@ -36,7 +36,7 @@ ScalePow <- proto(ScaleContinuous, {
     textGrob(expression(frac(x ^ (alpha - 1), alpha)), gp=gpar(cex=1.2))
   }
   new <- function(., name=NULL, limits=c(NA,NA), breaks=NULL, power=1, variable) {
-    .$proto(name=name, .input=variable, .output=variable, limits=limits, .breaks = breaks, .tr = PowerTrans$new(power), power=power)
+    .$proto(name=name, .input=variable, .output=variable, limits=limits, breaks = breaks, .tr = PowerTrans$new(power), power=power)
   }
   examples <- function(.) {
     # Coming soon

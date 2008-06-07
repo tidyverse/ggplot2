@@ -51,7 +51,7 @@ CoordPolar <- proto(Coord, {
   
   guide_inside <- function(., plot) {
     
-    theta <- .$theta_rescale(.$theta_scale()$breaks())
+    theta <- .$theta_rescale(.$theta_scale()$domain_breaks())
     thetamin <- .$theta_rescale(.$theta_scale()$minor_breaks())
     thetafine <- seq(0, 2*pi, length=100)
     
@@ -64,7 +64,7 @@ CoordPolar <- proto(Coord, {
     }
     
     r <- 1
-    rfine <- .$r_rescale(.$r_scale()$breaks())
+    rfine <- .$r_rescale(.$r_scale()$domain_breaks())
 
     gp <- gpar(fill=plot$grid.fill, col=plot$grid.colour)
     
@@ -89,7 +89,7 @@ CoordPolar <- proto(Coord, {
   guide_axes <- function(.) {
     list(
       x = ggaxis(c(-1, 1), "", "bottom", c(-1,1)),
-      y = ggaxis(.$r_rescale(.$r_scale()$breaks()) / 2 + 0.6, .$r_scale()$labels(), "left", c(0, 1.2))
+      y = ggaxis(.$r_rescale(.$r_scale()$domain_breaks()) / 2 + 0.6, .$r_scale()$labels(), "left", c(0, 1.2))
     )
   }
 

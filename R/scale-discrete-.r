@@ -13,14 +13,15 @@ ScaleDiscrete <- proto(Scale, expr={
   # Range -------------------
   map <- function(., values) {
     .$check_domain()
-    .$breaks()[match(as.character(values), .$domain())]
+    .$domain_breaks()[match(as.character(values), .$domain())]
   }
 
   frange <- function(.) {
     c(1, length(.$domain())) 
   }
-  breaks <- function(.) seq_len(.$domain())
-  rbreaks <- function(.) .$breaks()
+  range_breaks <- function(.) .$domain_breaks()
+
+  domain_breaks <- function(.) seq_len(.$domain())
 
 
   # Domain ------------------------------------------------
@@ -47,7 +48,7 @@ ScaleDiscrete <- proto(Scale, expr={
   # Guides
   # -------------------
 
-  minor_breaks <- function(.) .$breaks()
+  minor_breaks <- function(.) .$domain_breaks()
 
   labels <- function(.) nulldefault(.$.labels, as.list(.$domain()))
   
