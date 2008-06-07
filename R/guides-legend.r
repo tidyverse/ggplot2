@@ -1,17 +1,3 @@
-# Compute usage of scales
-# Builds a list of aesthetics and the geoms that they are used by.
-# 
-# Used for drawing legends.
-# 
-# @arguments ggplot object
-# @keyword internal
-scale_usage <- function(plot) {
-  aesthetics <- lapply(plot$layers, function(p) c(names(p$aesthetics), names(plot$defaults)))
-  names(aesthetics) <- sapply(plot$layers, function(p) p$geom$guide_geom())
-  
-  lapply(invert(aesthetics), unique)
-}
-
 # Legends
 # Create and arrange legends for all scales.
 # 
@@ -26,8 +12,8 @@ scale_usage <- function(plot) {
 # @keyword hplot 
 # @value frameGrob, or NULL if no legends
 # @keyword internal
-legends <- function(scales, scale_usage, horizontal = FALSE, background="grey90") {
-  legs <- scales$guide_legend(scale_usage, background=background)
+guide_legends_box <- function(scales, scale_usage, horizontal = FALSE, background="grey90") {
+  legs <- guide_legends(scales, scale_usage, background=background)
   
   n <- length(legs)
   if (n == 0) return()
@@ -57,12 +43,14 @@ legends <- function(scales, scale_usage, horizontal = FALSE, background="grey90"
 # @argument list description usage of aesthetics in geoms
 # @keyword internal
 # @value A list of grobs
-gglegends <- function(legends, usage, background="grey80") {
-  # Need to collapse legends describing same values into single data.frame
-  # - first group by name
+guide_legends <- function(scales, usage, background="grey80") {
+  legends <- compact(lapply(scales$get_trained_scales(), function(sc) sc$legend_desc()))
+  
   if (length(legends) == 0) 
     return()
   
+  # Need to collapse legends describing same values into single data.frame
+  # - first group by name
   legend_names <- unname(unlist(lapply(legends, "[", "name")))
   name_strings <- sapply(legend_names, deparse)
   names(legend_names) <- name_strings
@@ -74,7 +62,7 @@ gglegends <- function(legends, usage, background="grey80") {
   keys_merged <- lapply(variables, merge_legends)
   legends_merged <- mapply(function(name, keys) list(name = legend_names[name], display=keys), names(keys_merged), keys_merged, SIMPLIFY = FALSE, USE.NAMES = FALSE)  
   
-  lapply(legends_merged, gglegend, usage=usage, background=background)
+  lapply(legends_merged, guide_legend, usage=usage, background=background)
 }
 
 # Merge legends
@@ -101,7 +89,7 @@ merge_legends <- function(legends) {
 # @argument list description usage of aesthetics in geoms
 # @value A grid grob
 # @keyword internal
-gglegend <- function(legend, usage=usage, background = "grey90") {
+guide_legend <- function(legend, usage=usage, background = "grey90") {
   display <- legend$display
   display <- display[nrow(display):1, ]
 
@@ -167,4 +155,18 @@ gglegend <- function(legend, usage=usage, background = "grey90") {
   }
 
   fg
+}
+
+# Compute usage of scales
+# Builds a list of aesthetics and the geoms that they are used by.
+# 
+# Used for drawing legends.
+# 
+# @arguments ggplot object
+# @keyword internal
+scale_usage <- function(plot) {
+  aesthetics <- lapply(plot$layers, function(p) c(names(p$aesthetics), names(plot$defaults)))
+  names(aesthetics) <- sapply(plot$layers, function(p) p$geom$guide_geom())
+  
+  lapply(invert(aesthetics), unique)
 }

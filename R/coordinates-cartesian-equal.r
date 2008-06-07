@@ -42,8 +42,8 @@ CoordEqual <- proto(CoordCartesian, {
   guide_axes <- function(.) {
     range <- .$output_set()
     list(
-      x = ggaxis(grid.pretty(range$x), grid.pretty(range$x), "bottom", range$x),
-      y = ggaxis(grid.pretty(range$y), grid.pretty(range$y), "left", range$y)
+      x = guide_axis(grid.pretty(range$x), grid.pretty(range$x), "bottom", range$x),
+      y = guide_axis(grid.pretty(range$y), grid.pretty(range$y), "left", range$y)
     )
   }
 

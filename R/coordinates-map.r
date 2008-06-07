@@ -39,8 +39,8 @@ CoordMap <- proto(CoordCartesian, {
   guide_axes <- function(.) {
     range <- .$output_set()
     list(
-      x = ggaxis(NA, "", "bottom", range$x),
-      y = ggaxis(NA, "", "left", range$y)
+      x = guide_axis(NA, "", "bottom", range$x),
+      y = guide_axis(NA, "", "left", range$y)
     )
   }
   

@@ -34,8 +34,8 @@ CoordTrans <- proto(CoordCartesian, expr={
   guide_axes <- function(.) {
     range <- .$output_set()
     list(
-      x = ggaxis(.$xtr$transform(.$x()$input_breaks()), .$x()$labels(), "bottom", range$x),
-      y = ggaxis(.$ytr$transform(.$y()$input_breaks()), .$y()$labels(), "left", range$y)
+      x = guide_axis(.$xtr$transform(.$x()$input_breaks()), .$x()$labels(), "bottom", range$x),
+      y = guide_axis(.$ytr$transform(.$y()$input_breaks()), .$y()$labels(), "left", range$y)
     )
   }
 

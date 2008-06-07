@@ -108,7 +108,7 @@ prettyplot <- function(plot, plotgrob, scales=plot$scales, cs=plot$coordinates) 
   vert <-  any(c("left", "right") %in% position)
   
   
-  legend <- if (position != "none") legends(scales, scale_usage(plot), horiz, background=plot$grid.fill) else NULL
+  legend <- if (position != "none") guide_legends_box(scales, scale_usage(plot), horiz, background=plot$grid.fill) else NULL
   if (is.null(legend)) position <- "none"
   
   gp <- gpar(fill=plot$background.fill, col=plot$background.colour)

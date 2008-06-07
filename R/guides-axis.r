@@ -7,18 +7,18 @@
 # @arguments range of data values
 # @keyword hplot 
 # @keyword internal
-ggaxis <- function(at, labels, position="right", scale=c(0,1), colour = ggopt()$axis.colour) {
+guide_axis <- function(at, labels, position="right", scale=c(0,1), colour = ggopt()$axis.colour) {
   #assert.equal(length(at), length(labels))
   
   positions <- c("top","bottom", "right","left")
   #position <- match(positions, position)
   
-  line_grob <- ggaxis_line(at, position)
-  ticks_grob <- ggaxis_ticks(at, position)
-  labels_grob <- ggaxis_labels(at, labels, position)
+  line_grob <- guide_axis_line(at, position)
+  ticks_grob <- guide_axis_ticks(at, position)
+  labels_grob <- guide_axis_labels(at, labels, position)
   
   ggname("axis", gTree(
-    childrenvp = ggaxis_vp(position, labels, scale), 
+    childrenvp = guide_axis_vp(position, labels, scale), 
     children = gList(ticks_grob, labels_grob), 
     gp = gpar(col=colour)
   ))
@@ -42,7 +42,7 @@ axis_vp_path <- function(position, name) {
 # @arguments position of axis (top, bottom, left or right)
 # @keyword hplot 
 # @keyword internal
-ggaxis_line <- function(at, position) {
+guide_axis_line <- function(at, position) {
   vp <- axis_vp_path(position, "ticks")
   ends <- unit(range(at), "native")
   
@@ -62,7 +62,7 @@ ggaxis_line <- function(at, position) {
 # @arguments position of axis (top, bottom, left or right)
 # @keyword hplot 
 # @keyword internal
-ggaxis_ticks <- function(at, position) {
+guide_axis_ticks <- function(at, position) {
   vp <- axis_vp_path(position, "ticks")
   ggname("ticks", switch(position,
     top =    ,
@@ -80,7 +80,7 @@ ggaxis_ticks <- function(at, position) {
 # @arguments position of axis (top, bottom, left or right)
 # @keyword hplot 
 # @keyword internal
-ggaxis_labels <- function(at, labels, position) {
+guide_axis_labels <- function(at, labels, position) {
   vp <- axis_vp_path(position, "labels")
   gp <- gpar(cex=0.9, lineheight=0.9)
   
@@ -112,7 +112,7 @@ ggaxis_labels <- function(at, labels, position) {
 # @returns viewport tree
 # @keyword hplot 
 # @keyword internal
-ggaxis_vp <- function(position, labels, scale=c(0,1)) {
+guide_axis_vp <- function(position, labels, scale=c(0,1)) {
   tick_size <- unit(0.4, "lines")
 
   label_size <- switch(position, 

@@ -56,10 +56,6 @@ Scales <- proto(Scale, expr={
     sapply(.$.scales, function(scale) scale$input())
   }
   
-  guide_legend <- function(., usage, background=background) {
-    legends <- compact(lapply(.$get_trained_scales(), function(x) x$legend_desc()))
-    gglegends(legends, usage, background=background)
-  }
   
   # Train scale from a data frame
   train_df <- function(., df) {

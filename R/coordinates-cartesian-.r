@@ -30,8 +30,8 @@ CoordCartesian <- proto(Coord, expr={
   guide_axes <- function(.) {
     range <- .$output_set()
     list(
-      x = ggaxis(.$x()$input_breaks_n(), .$x()$labels(), "bottom", range$x),
-      y = ggaxis(.$y()$input_breaks_n(), .$y()$labels(), "left", range$y)
+      x = guide_axis(.$x()$input_breaks_n(), .$x()$labels(), "bottom", range$x),
+      y = guide_axis(.$y()$input_breaks_n(), .$y()$labels(), "left", range$y)
     )
   }
   
