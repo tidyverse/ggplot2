@@ -31,12 +31,20 @@ Scale <- proto(TopLevel, expr={
     unique(scales[select])
   }
 
-  input <- function(.) .$.input
-  output <- function(.) .$.output
+  # Input --------------------------------------------------------------------
   
+  breaks <- NULL
+
+  input <- function(.) .$.input
   input_set <- function(.) {
     nulldefault(.$limits, .$.domain)
   }
+  
+  # Output -------------------------------------------------------------------
+  
+  output <- function(.) .$.output
+  output_breaks <- function(.) .$map(.$input_breaks())
+  
   
   # Train scale from a data frame
   train_df <- function(., df) {

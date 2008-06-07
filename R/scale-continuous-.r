@@ -59,11 +59,11 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
   output_set <- function(.) .$input_set()
   
   # By default, breaks are regularly spaced along the (transformed) domain
-  breaks <- NULL
   input_breaks <- function(.) {
     nulldefault(.$breaks, grid.pretty(.$input_set()))
   }
-  output_breaks <- function(.) .$map(.$input_breaks())
+  input_breaks_n <- function(.) .$input_breaks()
+
 
   .minor_breaks <- 2
   # Minor breaks are regular on the original scale

@@ -3,11 +3,11 @@ ScaleShape <- proto(ScaleDiscrete, expr={
   .input <- .output <- "shape"
   solid <- TRUE
 
-  new <- function(., name=NULL, solid=TRUE, limits = NULL, labels = NULL) {
-    .$proto(name=name, solid=solid, limits = limits, .labels = labels)
+  new <- function(., name=NULL, solid=TRUE, limits = NULL, breaks = NULL, labels = NULL) {
+    .$proto(name=name, solid=solid, limits = limits, breaks = breaks, .labels = labels)
   }
   
-  output_breaks <- function(.) {
+  output_set <- function(.) {
     (if (.$solid) {
       c(16, 17, 15, 3, 7, 8)
     } else {

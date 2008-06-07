@@ -2,6 +2,7 @@ ggplot2 0.6.1  (2008-XX-XX)
 ----------------------------------------
 
   * scales: major rewrite of internals:
+    * all categorical scales accept breaks argument
     * xend and yend now transformed correctly
     * limits are consistent across discrete and continuous scales (limits c(1, NA) form no longer works for continuous scales)
   * all discrete scales have limits and labels argument to better control legends

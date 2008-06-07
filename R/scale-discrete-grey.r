@@ -2,12 +2,12 @@ ScaleGrey <- proto(ScaleColour, expr={
   doc <- TRUE
   common <- c("colour", "fill")
 
-  new <- function(., name=NULL, variable, start = 0.2, end = 0.8, limits=NULL, labels=NULL) {
-    .$proto(name=name, .input=variable, .output=variable, start=start, end=end, limits = limits, .labels = labels)
+  new <- function(., name=NULL, variable, start = 0.2, end = 0.8, limits=NULL, breaks = NULL, labels=NULL) {
+    .$proto(name=name, .input=variable, .output=variable, start=start, end=end, limits = limits, breaks = breaks, .labels = labels)
   }
 
-  output_breaks <- function(.) {
-    grey.colors(length(.$input_set()), start = .$start, end = .$end)
+  output_set <- function(.) {
+    grey.colors(length(.$input_breaks()), start = .$start, end = .$end)
   }
 
   max_levels <- function(.) Inf

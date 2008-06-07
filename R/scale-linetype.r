@@ -2,7 +2,7 @@ ScaleLinetype <- proto(ScaleDiscrete, expr={
   common <- NULL
   .input <- .output <- "linetype"
 
-  output_breaks <- function(.) (1:4)[1:length(.$input_set())]
+  output_set <- function(.) (1:4)[seq_along(.$input_set())]
   max_levels <- function(.) 4
   
   # Documetation -----------------------------------------------

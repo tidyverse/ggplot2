@@ -2,8 +2,8 @@ ScaleManual <- proto(ScaleDiscrete, {
   common <- c("colour","fill","size","shape","linetype")
   values <- c()
   
-  new <- function(., name=NULL, values=NULL, variable="x", limits = NULL, labels = NULL) {
-    .$proto(name=name, values=values, .input=variable, .output=variable, limits = limits, .labels = labels)
+  new <- function(., name=NULL, values=NULL, variable="x", limits = NULL, breaks = NULL, labels = NULL) {
+    .$proto(name=name, values=values, .input=variable, .output=variable, limits = limits, breaks = breaks, .labels = labels)
   }
 
   map <- function(., values) {
@@ -17,7 +17,7 @@ ScaleManual <- proto(ScaleDiscrete, {
 
   has_names <- function(.) !is.null(names(.$output_breaks()))
 
-  output_breaks <- function(.) .$values
+  output_set <- function(.) .$values
   labels <- function(.) if (.$has_names()) names(.$output_breaks()) else .$.domain
 
   # Documetation -----------------------------------------------

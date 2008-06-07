@@ -56,4 +56,6 @@ ScaleSizeDiscrete <- proto(ScaleDiscrete, expr={
   doc <- FALSE
 
   max_levels <- function(.) Inf
+  output_set <- function(.) seq_along(.$input_set())
+  
 }) 

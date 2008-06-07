@@ -6,22 +6,24 @@ ScaleDiscrete <- proto(Scale, expr={
 
   discrete <- function(.) TRUE
 
-  new <- function(., name=NULL, variable=.$.input, expand = c(0, 0.75), limits = NULL, labels = NULL) {
-    .$proto(name=name, .input=variable, .output=variable, .expand = expand, .labels = labels, limits = limits)
+  new <- function(., name=NULL, variable=.$.input, expand = c(0, 0.75), limits = NULL, breaks = NULL, labels = NULL) {
+    .$proto(name=name, .input=variable, .output=variable, .expand = expand, .labels = labels, limits = limits, breaks = breaks)
   }
 
   # Range -------------------
   map <- function(., values) {
     .$check_domain()
-    .$output_breaks()[match(as.character(values), .$input_set())]
+    .$output_set()[match(as.character(values), .$input_set())]
   }
 
-  output_set <- function(.) {
-    c(1, length(.$input_set())) 
-  }
+  input_breaks <- function(.) nulldefault(.$breaks, .$input_set())
+  input_breaks_n <- function(.) match(.$input_breaks(), .$input_set())
+  
+  labels <- function(.) nulldefault(.$.labels, as.list(.$input_breaks()))
+  
+  
+  output_set <- function(.) seq_along(.$input_set())
   output_breaks <- function(.) .$map(.$input_breaks())
-
-  input_breaks <- function(.) seq_len(.$input_set())
 
 
   # Domain ------------------------------------------------
@@ -47,9 +49,8 @@ ScaleDiscrete <- proto(Scale, expr={
   # Guides
   # -------------------
 
-  minor_breaks <- function(.) .$input_breaks()
+  minor_breaks <- function(.) .$output_breaks()
 
-  labels <- function(.) nulldefault(.$.labels, as.list(.$input_set()))
   
   # Documentation
   objname <- "discrete"
