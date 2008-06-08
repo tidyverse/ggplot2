@@ -97,10 +97,12 @@ guide_legend <- function(legend, usage=usage, background = "grey90") {
   
   legend_f <- function(x) {
     geom <- Geom$find(x)
-    used <- names(Filter(function(geom) any(geom == x), usage))
-    function(data) geom$draw_legend(data[used])
+    used <- names(Filter(function(geom) any(geom == x), usage$aesthetics))
+    params <- usage$parameters[[x]]
+    
+    function(data) geom$draw_legend(defaults(params, data[used]))
   }
-  grobs <- lapply(unique(unlist(usage[aesthetics])), legend_f)
+  grobs <- lapply(unique(unlist(usage$aesthetics[aesthetics])), legend_f)
 
   title <- ggname("title", textGrob(legend$name[[1]], x = 0, y = 0.5, just = c("left", "centre"), 
     gp=gpar(fontface="bold")
@@ -113,7 +115,7 @@ guide_legend <- function(legend, usage=usage, background = "grey90") {
   label.heights <- do.call("unit.c", lapply(display$label, function(x) stringHeight(as.expression(x))))
   label.widths  <- do.call("unit.c", lapply(display$label, function(x) stringWidth(as.expression(x))))
 
-  grobwidth <- if ("point" %in% usage[aesthetics] && !is.null(display$size)) {
+  grobwidth <- if ("point" %in% usage$aesthetics[aesthetics] && !is.null(display$size)) {
     unit(max(display$size) / 2, "mm")
   } else {
     unit(0, "mm")
@@ -174,6 +176,8 @@ scale_usage <- function(plot) {
   names(aesthetics) <- geom_names
   names(params) <- geom_names
   
-  browser()
-  lapply(invert(aesthetics), unique)
+  list(
+    aesthetics = lapply(invert(aesthetics), unique), 
+    parameters = params
+  )
 }
