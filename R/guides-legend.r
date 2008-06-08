@@ -147,8 +147,8 @@ guide_legend <- function(legend, usage=usage, background = "grey90") {
   fg <- placeGrob(fg, title, col=1:2, row=1)
   for (i in 1:nkeys) {
     df <- as.list(display[i,, drop=FALSE])
+    fg <- placeGrob(fg, rectGrob(gp=gpar(col=background, fill=background)), col = 1, row = i+1)      
     for(grob in grobs) {
-      fg <- placeGrob(fg, rectGrob(gp=gpar(col=background, fill=background)), col = 1, row = i+1)      
       fg <- placeGrob(fg, ggname("key", grob(df)), col = 1, row = i+1)      
     }
     fg <- placeGrob(fg, ggname("label", textGrob(display$label[[i]], x = vpos, y = 0.5, just = c(valign, "centre"))), col = 3, row = i+1)
