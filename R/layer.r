@@ -73,6 +73,12 @@ Layer <- proto(expr = {
     df
   }
   
+  aesthetics_used <- function(., plot_aesthetics) {
+    aesthetics <- names(compact(defaults(.$aesthetics, plot_aesthetics)))
+    parameters <- names(.$geom_params)
+    setdiff(aesthetics, parameters)
+  }
+  
   pprint <- function(.) {
     if (is.null(.$geom)) {
       cat("Empty layer\n")

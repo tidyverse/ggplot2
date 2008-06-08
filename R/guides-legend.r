@@ -165,8 +165,15 @@ guide_legend <- function(legend, usage=usage, background = "grey90") {
 # @arguments ggplot object
 # @keyword internal
 scale_usage <- function(plot) {
-  aesthetics <- lapply(plot$layers, function(p) c(names(p$aesthetics), names(plot$defaults)))
-  names(aesthetics) <- sapply(plot$layers, function(p) p$geom$guide_geom())
+  aesthetics <- lapply(plot$layers, 
+    function(p) p$aesthetics_used(plot$defaults)
+  )
+  params <- lapply(plot$layers, function(p) p$geom_params)
+
+  geom_names <- sapply(plot$layers, function(p) p$geom$guide_geom())
+  names(aesthetics) <- geom_names
+  names(params) <- geom_names
   
+  browser()
   lapply(invert(aesthetics), unique)
 }
