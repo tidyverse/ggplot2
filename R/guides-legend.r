@@ -28,7 +28,7 @@ guide_legends_box <- function(scales, scale_usage, horizontal = FALSE, backgroun
   } else {
     height <- do.call("sum", lapply(legs, heightDetails))
     widths <- do.call("unit.c", lapply(legs, function(x) widthDetails(x) * 1.1))
-    fg <- frameGrob(grid.layout(ncol=n, 1, widths=widths, heights=height, just="centre"), name="legends")
+    fg <- frameGrob(grid.layout(ncol=n, 1, widths=widths, heights=height, just="centre"), name="legends", vp = "legend_box")
     for(i in 1:n) {
       fg <- placeGrob(fg, legs[[i]], col=i)
     }

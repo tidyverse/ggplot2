@@ -1,15 +1,13 @@
 # ggplot plot
 # Creates a complete ggplot grob.
 #
-# Delegates almost everything to its arguments.  Responsible for the 
-# transformation chain and for collecting everything into one grob with the
-# appropriate viewports
-#
 # @arguments plot object
 # @arguments should the plot be wrapped up inside the pretty accoutrements (labels, legends, etc)
 # @keyword hplot
 # @keyword internal
-ggplot_plot <- function(plot, pretty=TRUE) {
+
+
+ggplot_build <- function(plot) {
   if (length(plot$layers) == 0) stop("No layers to plot", call.=FALSE)
   
   # Apply function to layer and matching data
@@ -57,28 +55,38 @@ ggplot_plot <- function(plot, pretty=TRUE) {
   # Produce grobs
   cs$train(scales)
   grobs <- dlapply(function(d, p) p$make_grobs(d, scales, cs))
-  scales <- scales$minus(plot$scales$get_scales(c("x", "y", "z", "xend", "yend")))
+  scales <- plot$scales$minus(plot$scales$get_scales(c("x", "y", "z")))
   
-  guides <- guides_basic(plot, scales, cs)
-  viewport <- viewport_default(plot, guides, plot$scales, cs)
-  panels <- panels_default(plot, grobs)
+  list(
+    plot = plot,
+    scales = scales,
+    cs = cs,
+    grobs = grobs
+  )
+}
+
+ggplot_print <- function(plot) {
+  pieces <- ggplot_build(plot)
+
+  guides <- guides_basic(plot, pieces$scales, pieces$cs)
+  viewport <- viewport_default(plot, guides, plot$scales, pieces$cs)
+  panels <- panels_default(plot, pieces$grobs)
   
   grobs <- c(
-    unlist(guides, recursive=FALSE), 
+    unlist(guides[setdiff(names(guides), "foreground")], recursive=FALSE), 
     panels = panels, 
     foreground = guides$foreground
   )
   
   plotgrob <- ggname("plot", 
-    gTree(children=do.call("gList", grobs), childrenvp = viewport)
+    gTree(
+      children = do.call("gList", grobs), 
+      childrenvp = viewport, 
+      vp = "plot"
+    )
   )
-  
-  if (pretty) {
-    plotgrob <- ggname("plot", gTree(children=do.call("gList", c(unlist(guides, recursive=FALSE), panels, guides$foreground)), childrenvp = viewport))
-     prettyplot(plot, plotgrob, scales)
-  } else {
-    gTree(children=panels, childrenvp = viewport)
-  }
+    
+  prettyplot(plot, plotgrob, pieces$scales)
 }
 
 # Pretty plot
@@ -107,16 +115,32 @@ prettyplot <- function(plot, plotgrob, scales=plot$scales, cs=plot$coordinates) 
   horiz <- any(c("top", "bottom") %in% position)
   vert <-  any(c("left", "right") %in% position)
   
-  
-  legend <- if (position != "none") guide_legends_box(scales, scale_usage(plot), horiz, background=plot$grid.fill) else NULL
-  if (is.null(legend)) position <- "none"
-  
-  gp <- gpar(fill=plot$background.fill, col=plot$background.colour)
 
-  title <- textGrob(plot$title, gp=gpar(cex=1.3, col=plot$background.colour), just=c("centre", "centre"), name="title")
+  # Generate grobs -----------------------------------------------------------
+  # each of these grobs has a vp set
+  legend_box <- if (position != "none") guide_legends_box(scales, scale_usage(plot), horiz, background = plot$grid.fill) else NULL
+  
+  title <- textGrob(
+    plot$title, 
+    just=c("centre", "centre"), 
+    name="title", 
+    vp = "title",
+    gp = gpar(cex=1.3, col = plot$background.colour)
+  )
+
+  gp <- gpar(fill=plot$background.fill, col=plot$background.colour)
   xlabel <- cs$xlabel(gp)
   ylabel <- cs$ylabel(gp)
-  
+
+  grobs <- list(
+    title = title#, 
+    # xlabel = xlabel, ylabel = ylabel,
+    # plot = plotgrob, legend_box = legend_box
+  )
+
+  # Calculate sizes ----------------------------------------------------------
+  if (is.null(legend_box)) position <- "none"
+    
   ylab_width <- unit(1, "grobwidth", ylabel)
   if (length(ylabel$label) != 0) ylab_width <- ylab_width + unit(0.5, "lines")
 
@@ -124,67 +148,98 @@ prettyplot <- function(plot, plotgrob, scales=plot$scales, cs=plot$coordinates) 
   if (length(xlabel$label) != 0) xlab_height <- xlab_height + unit(0.5, "lines")
 
   widths <- switch(position, 
-    right =  unit.c(unit(2, "grobwidth", ylabel), unit(1, "null"), unit(1, "grobwidth", legend)),
-    left =   unit.c(unit(1, "grobwidth", legend), unit(1.5, "grobwidth", ylabel), unit(1, "null")), 
+    right =  unit.c(ylab_width, unit(1, "null"), grobWidth(legend_box)),
+    left =   unit.c(grobWidth(legend_box), ylab_width, unit(1, "null")), 
     top =    ,
     bottom = ,
     manual = ,
     none =   unit.c(ylab_width, unit(1, "null"))
   )
   heights <- switch(position,
-    top =    unit.c(unit(1, "grobheight", title), unit(1, "grobheight", legend), unit(1, "null"), xlab_height),
-    bottom = unit.c(unit(2, "grobheight", title), unit(1, "null"), xlab_height, unit(1, "grobheight", legend)),
+    top =    unit.c(2 * grobHeight(title), grobHeight(legend_box), unit(1, "null"), xlab_height),
+    bottom = unit.c(2 * grobHeight(title), unit(1, "null"), xlab_height, grobHeight(legend_box)),
     right =  ,
     left =   ,
     manual = ,
-    none =   unit.c(unit(2, "grobheight", title), unit(1, "null"), xlab_height)
+    none =   unit.c(2 * grobHeight(title), unit(1, "null"), xlab_height)
+  )
+  
+  if (position == "manual") {
+    legend_vp <- viewport(
+      name = "legend_box",
+      x = coords[1], y = coords[2], just = plot$legend.justification,
+      width = grobWidth(legend), height = grobHeight(legend)
+    )
+  } else {
+    legend_vp <- NULL
+  }
+  vp <- surround_viewports(position, widths, heights, legend_vp)
+
+  browser()
+  gTree(children = gList(title), childrenvp = vp)
+}
+
+surround_viewports <- function(position, widths, heights, legend_vp) {
+  # Generate viewports -------------------------------------------------------
+  layout <- grid.layout(
+    length(heights), length(widths), 
+    heights=heights, widths=widths
   )
 
-  layout <- grid.layout(length(heights), length(widths), widths=widths, heights=heights)
-
-  lf <- frameGrob(layout, "plot-surrounds")
-  lf <- placeGrob(lf, rectGrob(gp=gpar(fill=plot$background.fill, col=NA), name="background"), row=1:length(heights), col=1:length(widths))
+  vp <- function(name, row, col) {
+    viewport(
+      name = name, 
+      layout = layout, 
+      layout.pos.row = row, 
+      layout.pos.col = col
+    )
+  }
 
   if (position == "right") {
-    lf <- placeGrob(lf, plotgrob, row=2,  col=2)
-    lf <- placeGrob(lf, legend,   row=2,  col=3)
-    lf <- placeGrob(lf, ylabel,   row=2,  col=1)
-    lf <- placeGrob(lf, xlabel,   row=3,  col=2)
-    lf <- placeGrob(lf, title,    row=1,  col=2)
+    viewports <- vpList(
+      vp("plot", 2, 2),
+      vp("legend_box", 2, 3),
+      vp("ylabel", 2, 1),
+      vp("xlabel", 3, 2),
+      vp("title", 1, 2)
+    )
   } else if (position == "left") {
-    lf <- placeGrob(lf, plotgrob, row=2,  col=3)
-    lf <- placeGrob(lf, legend,   row=2,  col=1)
-    lf <- placeGrob(lf, ylabel,   row=2,  col=2)
-    lf <- placeGrob(lf, xlabel,   row=3,  col=3)
-    lf <- placeGrob(lf, title,    row=1,  col=3)
+    viewports <- vpList(
+      vp("plot", 2, 3),
+      vp("legend_box", 2, 1),
+      vp("ylabel", 2, 2),
+      vp("xlabel", 3, 3),
+      vp("title", 1, 3)
+    )
   } else if (position == "top") {
-    lf <- placeGrob(lf, plotgrob, row=3,  col=2)
-    lf <- placeGrob(lf, legend,   row=2,  col=2)
-    lf <- placeGrob(lf, ylabel,   row=3,  col=1)
-    lf <- placeGrob(lf, xlabel,   row=4,  col=2)
-    lf <- placeGrob(lf, title,    row=1,  col=2)
+    viewports <- vpList(
+      vp("plot", 3, 2),
+      vp("legend_box", 2, 2),
+      vp("ylabel", 3, 1),
+      vp("xlabel", 4, 2),
+      vp("title", 1, 2)
+    )
   } else if (position == "bottom") {
-    lf <- placeGrob(lf, plotgrob, row=2,  col=2)
-    lf <- placeGrob(lf, legend,   row=4,  col=2)
-    lf <- placeGrob(lf, ylabel,   row=2,  col=1)
-    lf <- placeGrob(lf, xlabel,   row=3,  col=2)
-    lf <- placeGrob(lf, title,    row=1,  col=2)
+    viewports <- vpList(
+      vp("plot", 2, 2),
+      vp("legend_box", 4, 2),
+      vp("ylabel", 2, 1),
+      vp("xlabel", 3, 2),
+      vp("title", 1, 2)
+    )
   } else {
-    lf <- placeGrob(lf, plotgrob, row=2,  col=2)
-    lf <- placeGrob(lf, ylabel,   row=2,  col=1)
-    lf <- placeGrob(lf, xlabel,   row=3,  col=2)
-    lf <- placeGrob(lf, title,    row=1,  col=2)
-    if (position == "manual") {
-      
-      leg <- ggname("surrounds", gTree(
-        children=gList(legend), 
-        vp=viewport(x=coords[1], y=coords[2], just=plot$legend.justification, width=grobWidth(legend), height=grobHeight(legend))
-      ))
-      lf <- placeGrob(lf, leg, row=2, col=2)
-    }
+    viewports <- vpList(
+      vp("plot", 2, 2),
+      vp("ylabel", 2, 1),
+      vp("xlabel", 3, 2),
+      vp("title", 1, 2),
+      legend_vp
+    )
   }
-  
-  lf
+  vpTree(
+    viewport(name = "background", layout = layout), 
+    viewports
+  )
 }
 
 # Print ggplot

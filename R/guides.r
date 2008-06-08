@@ -49,7 +49,6 @@ guides_basic <- function(plot, scales, coordinates) {
   foreground <- matrix(mapply(name_foreground, pg[,1], pg[,2], SIMPLIFY=FALSE), ncol=nc)
   
   list(
-    background = list(rectGrob(gp=gpar(fill=plot$background.fill, col=NA), name="background")),
     grid =   plot_grob_matrix(grid, "panel"), 
     axes_v = plot_grob_matrix(axes_v, "axis_v"),
     axes_h = plot_grob_matrix(axes_h, "axis_h"),

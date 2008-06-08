@@ -35,8 +35,8 @@ CoordCartesian <- proto(Coord, expr={
     )
   }
   
-  xlabel <- function(., gp) ggname("xlabel", textGrob(.$x()$name, just=c("centre", "centre"), gp=gp))
-  ylabel <- function(., gp) ggname("ylabel", textGrob(.$y()$name, rot=90, just=c("centre","centre"), gp=gp))
+  xlabel <- function(., gp) ggname("xlabel", textGrob(.$x()$name, just=c("centre", "centre"), gp=gp, vp=vpPath("background", "xlabel")))
+  ylabel <- function(., gp) ggname("ylabel", textGrob(.$y()$name, rot=90, just=c("centre","centre"), gp=gp, vp=vpPath("background", "ylabel")))
 
   # Axis labels should go in here somewhere too
   guide_inside <- function(., plot) {
