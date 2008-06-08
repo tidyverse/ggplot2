@@ -1,6 +1,7 @@
 ggplot2 0.6.1  (2008-XX-XX)
 ----------------------------------------
 
+  * scales: any point outside of limits is dropped (this was previously the behaviour for discrete scales, but not continuous scales)
   * improve error message for too many values in domain
   * legends now don't appear when aesthetics are mapped to NULL to set to fixed position
   * legends now respect fixed parameters of the layer

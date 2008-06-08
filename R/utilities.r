@@ -131,8 +131,8 @@ rescale <- function(x, to=c(0,1), from=range(x, na.rm=TRUE)) {
     warning("Categorical variable automatically converted to continuous", call.=FALSE)
     x <- as.numeric(x)
   }
-  
-  (x-from[1])/diff(from)*diff(to) + to[1]
+  scaled <- (x-from[1])/diff(from)*diff(to) + to[1]
+  ifelse(scaled %inside% to, scaled, NA)
 }
 
 
@@ -145,4 +145,8 @@ invert <- function(L) {
   t1 <- unlist(L)
   names(t1) <- rep(names(L), lapply(L, length))
   tapply(names(t1), t1, c)
+}
+
+"%inside%" <- function(x, interval) {
+  x >= interval[1] & x <= interval[2]
 }
