@@ -42,7 +42,7 @@ ScaleDiscrete <- proto(Scale, expr={
   check_domain <- function(.) {
     d <- .$input_set()
     if (length(d) > .$max_levels()) {
-      stop("Too many values in domain (", length(d), " > ", .$max_levels(), ")")
+      stop(.$my_name(), " can deal with a maximum of ", .$max_levels(), " discrete values, but you have ", length(d), ".  See ?scale_manual for a possible alternative", call. = FALSE)
     }  
   }
   
