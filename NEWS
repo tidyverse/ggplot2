@@ -1,6 +1,8 @@
 ggplot2 0.6.1  (2008-XX-XX)
 ----------------------------------------
 
+  * legends now don't appear when aesthetics are mapped to NULL to set to fixed position
+  * legends now respect fixed parameters of the layer
   * scales: major rewrite of internals:
     * all categorical scales accept breaks argument
     * continuous position scale now has minor_breaks argument which controls position of minor breaks
