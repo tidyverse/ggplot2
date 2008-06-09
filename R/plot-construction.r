@@ -52,7 +52,6 @@
       }
     )
   }
-  if (ggopt()$auto.print & length(p$layers) > 0) try(print(p))
   set_last_plot(p)
   p
 }
