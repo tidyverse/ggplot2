@@ -4,6 +4,7 @@
 
 Position <- proto(TopLevel, expr = {
   adjust <- function(., data, scales, ...) data
+
   class <- function(.) "position"
   
   new <- function(.) .$proto()

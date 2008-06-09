@@ -3,6 +3,7 @@
 #
 # @keyword internal
 bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9) {
+  
   if (is.null(weight))  weight <- rep(1, length(x))
   weight[is.na(weight)] <- 0
 
@@ -11,7 +12,7 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
 
   if (is.factor(x)) {
     bins <- factor(x)
-    x <- factor(unique(x))
+    x <- sort(unique(x))
     width <- width    
   } else if (diff(range) == 0) {
     width <- width

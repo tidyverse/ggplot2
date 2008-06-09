@@ -6,7 +6,12 @@ GeomLine <- proto(GeomPath, {
     linesGrob(pos, c(0.2, 0.7, 0.4, 0.8, 0.3))
   }
   
-  default_stat <- function(.) StatSort
+  draw <- function(., data, scales, coordinates, ...) {
+    data <- as.data.frame(data)[order(data$group, data$x), ]
+    GeomPath$draw(data, scales, coordinates, ...)
+  }
+  
+  default_stat <- function(.) StatIdentity
   
   seealso <- list(
     geom_path = GeomPath$desc,
