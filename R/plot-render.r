@@ -65,7 +65,7 @@ ggplot_build <- function(plot) {
   )
 }
 
-ggplot_print <- function(plot) {
+ggplotGrob <- function(plot, ignore = FALSE) {
   pieces <- ggplot_build(plot)
 
   guides <- guides_basic(plot, pieces$scales, pieces$cs)
@@ -81,12 +81,11 @@ ggplot_print <- function(plot) {
   plotgrob <- ggname("plot", 
     gTree(
       children = do.call("gList", grobs), 
-      childrenvp = viewport, 
-      vp = "plot"
+      childrenvp = viewport_default
     )
   )
     
-  prettyplot(plot, plotgrob, pieces$scales)
+  prettyplot(plot, plotgrob, pieces$scales, ignore = ignore)
 }
 
 # Pretty plot
@@ -106,7 +105,7 @@ ggplot_print <- function(plot) {
 # @arguments plot
 # @arguments plot grob
 # @keyword hplot 
-prettyplot <- function(plot, plotgrob, scales=plot$scales, cs=plot$coordinates) {
+prettyplot <- function(plot, plotgrob, scales=plot$scales, cs=plot$coordinates, ignore = FALSE) {
   position <- plot$legend.position
   if (length(position) == 2) {
     coords <- position
@@ -124,7 +123,6 @@ prettyplot <- function(plot, plotgrob, scales=plot$scales, cs=plot$coordinates) 
     plot$title, 
     just=c("centre", "centre"), 
     name="title", 
-    vp = "title",
     gp = gpar(cex=1.3, col = plot$background.colour)
   )
 
@@ -133,10 +131,11 @@ prettyplot <- function(plot, plotgrob, scales=plot$scales, cs=plot$coordinates) 
   ylabel <- cs$ylabel(gp)
 
   grobs <- list(
-    title = title#, 
-    # xlabel = xlabel, ylabel = ylabel,
-    # plot = plotgrob, legend_box = legend_box
+    title = title, 
+    xlabel = xlabel, ylabel = ylabel,
+    plot = plotgrob, legend_box = legend_box
   )
+  grobs[ignore] <- grob()
 
   # Calculate sizes ----------------------------------------------------------
   if (is.null(legend_box)) position <- "none"
@@ -171,12 +170,18 @@ prettyplot <- function(plot, plotgrob, scales=plot$scales, cs=plot$coordinates) 
       width = grobWidth(legend), height = grobHeight(legend)
     )
   } else {
-    legend_vp <- NULL
+    legend_vp <- viewport()
   }
   vp <- surround_viewports(position, widths, heights, legend_vp)
+  
+  # Assign grobs to viewports ------------------------------------------------
+  edit_vp <- function(x, name) {
+    if (is.null(x)) return()
+    editGrob(x, vp=vpPath("background", name))
+  }
+  grobs <- mlply(cbind(x = grobs, name = names(grobs)), edit_vp)
 
-  browser()
-  gTree(children = gList(title), childrenvp = vp)
+  gTree(children = do.call("gList", grobs), childrenvp = vp)
 }
 
 surround_viewports <- function(position, widths, heights, legend_vp) {
