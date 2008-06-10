@@ -21,7 +21,7 @@ nice_ramp <- function(ramp, x, alpha) {
 # @keyword internal 
 alpha <- function(colour, alpha) {
   col <- col2rgb(colour, TRUE) / 255
-  col[4, ] <- rep(alpha, length(colour))
+  col[4, ] <- rep(alpha, length.out = length(colour))
 
   new_col <- rgb(col[1,], col[2,], col[3,], col[4,])
   new_col[is.na(colour)] <- NA  
