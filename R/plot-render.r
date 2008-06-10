@@ -5,7 +5,7 @@
 # @arguments should the plot be wrapped up inside the pretty accoutrements (labels, legends, etc)
 # @keyword hplot
 # @keyword internal
-panelGrob <- function(plot, pieces) {
+panelGrob <- function(plot, pieces = ggplot_build(plot)) {
 
   guides <- guides_basic(plot, pieces$scales, pieces$cs)
   viewport <- viewport_default(plot, guides, plot$scales, pieces$cs)
@@ -60,7 +60,7 @@ ggplotGrob <- function(plot, ignore = c()) {
 
   # Generate grobs -----------------------------------------------------------
   # each of these grobs has a vp set
-  legend_box <- if (position != "none") guide_legends_box(scales, scale_usage(plot), horiz, background = plot$grid.fill) else NULL
+  legend_box <- if (position != "none") guide_legends_box(scales, scale_usage(plot), horiz, background = plot$grid.fill) else nullGrob()
   
   title <- textGrob(
     plot$title, 
@@ -78,7 +78,7 @@ ggplotGrob <- function(plot, ignore = c()) {
     xlabel = xlabel, ylabel = ylabel,
     plot = plotgrob, legend_box = legend_box
   )
-  grobs[ignore] <- rep(list(grob()), length(ignore))
+  grobs[ignore] <- rep(list(nullGrob()), length(ignore))
 
   # Calculate sizes ----------------------------------------------------------
   if (is.null(legend_box)) position <- "none"
@@ -119,7 +119,6 @@ ggplotGrob <- function(plot, ignore = c()) {
   
   # Assign grobs to viewports ------------------------------------------------
   edit_vp <- function(x, name) {
-    if (is.null(x)) return()
     editGrob(x, vp=vpPath("background", name))
   }
   grobs <- mlply(cbind(x = grobs, name = names(grobs)), edit_vp)
