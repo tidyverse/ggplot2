@@ -27,7 +27,7 @@ ScaleHue <- proto(ScaleColour, expr={
   doc <- TRUE
   common <- c("colour", "fill")
 
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
   objname <- "hue"
   desc <- "Colours that vary continuously in hue"
   icon <- function(.) {
@@ -105,7 +105,7 @@ ScaleBrewer <- proto(ScaleColour, expr={
   
   max_levels <- function(.) RColorBrewer:::maxcolors[RColorBrewer:::namelist == .$pal_name()]
 
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
 
   objname <- "brewer"
   desc <- "Colour brewer colour scales"

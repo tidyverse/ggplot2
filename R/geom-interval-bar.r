@@ -28,7 +28,7 @@ GeomBar <- proto(GeomInterval, {
     
   }
   
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
   objname <- "bar"
   desc <- "Bars, rectangles with bases on y-axis"
   guide_geom <- function(.) "tile"

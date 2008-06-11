@@ -93,7 +93,7 @@ CoordPolar <- proto(Coord, {
     )
   }
 
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
 
   objname <- "polar"
   desc <- "Polar coordinates"

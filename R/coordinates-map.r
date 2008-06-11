@@ -66,7 +66,7 @@ CoordMap <- proto(CoordCartesian, {
     )))
   }  
 
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
 
   objname <- "map"
   desc <- "Map projections"

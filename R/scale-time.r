@@ -51,7 +51,7 @@ ScaleDate <- proto(ScaleContinuous,{
     format(.$.tr$inverse(.$input_breaks()), .$break_points()[3])
   }
 
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
 
   objname <- "date"
   desc <- "Continuous scale for date variables"

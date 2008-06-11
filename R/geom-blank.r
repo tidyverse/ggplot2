@@ -2,7 +2,7 @@ GeomBlank <- proto(Geom, {
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes()
 
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
 
   objname <- "blank"
   desc <- "Blank, draws nothing"

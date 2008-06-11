@@ -13,7 +13,7 @@ GeomPolygon <- proto(Geom, {
   }
 
   objname <- "polygon"
-  desc <- "A polygon"
+  desc <- "Polygon, a filled path"
   icon <- function(.) polygonGrob(c(0.1, 0.4, 0.7, 0.9, 0.6, 0.3), c(0.5, 0.8, 0.9, 0.4, 0.2, 0.3), gp=gpar(fill="grey60", col=NA))
   
   default_stat <- function(.) StatIdentity

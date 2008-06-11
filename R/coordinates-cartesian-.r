@@ -61,7 +61,7 @@ CoordCartesian <- proto(Coord, expr={
     )))
   }
   
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
 
   objname <- "cartesian"
   desc <- "Cartesian coordinates"

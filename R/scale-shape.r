@@ -17,7 +17,7 @@ ScaleShape <- proto(ScaleDiscrete, expr={
 
   max_levels <- function(.) 6
   
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
   objname <- "shape"
   description <- "Scale for shapes, aka glyphs"
   icon <- function(.) {

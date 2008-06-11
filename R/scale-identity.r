@@ -25,7 +25,7 @@ ScaleIdentity <- proto(ScaleDiscrete, {
     .super$guide_legend(., background=background)
   }
   
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
 
   objname <- "identity"
   desc <- "Don't remap values, use directly"

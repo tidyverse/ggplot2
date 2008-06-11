@@ -12,7 +12,7 @@ ScaleGrey <- proto(ScaleColour, expr={
 
   max_levels <- function(.) Inf
 
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
 
   objname <- "grey"
   desc <- "Grey colour scale"

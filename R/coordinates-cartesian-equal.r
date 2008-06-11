@@ -57,7 +57,7 @@ CoordEqual <- proto(CoordCartesian, {
     draw_grid(plot, breaks)
   }
 
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
 
   objname <- "equal"
   desc <- "Equal scale cartesian coordinates"

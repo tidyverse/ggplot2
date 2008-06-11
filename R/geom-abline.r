@@ -18,7 +18,7 @@ GeomAbline <- proto(Geom, {
     GeomSegment$draw(unique(data), scales, coordinates)
   }
 
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
 
   objname <- "abline"
   icon <- function(.) linesGrob(c(0, 1), c(0.2, 0.8))

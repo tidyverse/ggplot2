@@ -22,7 +22,7 @@ ScaleGradient <- proto(ScaleContinuous, expr={
   
   common <- c("colour", "fill")
 
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
   
   objname <- "gradient"
   desc <- "Smooth colour gradient"

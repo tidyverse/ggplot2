@@ -54,7 +54,7 @@ CoordTrans <- proto(CoordCartesian, expr={
     )))
   }
 
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
 
   objname <- "trans"
   desc <- "Transformed cartesian coordinate system"

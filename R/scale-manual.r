@@ -20,7 +20,7 @@ ScaleManual <- proto(ScaleDiscrete, {
   output_set <- function(.) .$values
   labels <- function(.) if (.$has_names()) names(.$output_breaks()) else .$.domain
 
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
 
   objname <- "manual"
   desc <- "Simple way of manually controlling scale"

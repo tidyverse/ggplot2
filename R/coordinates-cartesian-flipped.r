@@ -6,7 +6,7 @@ CoordFlip <- proto(CoordCartesian, expr={
   transform <- function(., data) rename(data, c(x="y", y="x", xend="yend", yend="xend"))
   munch <- function(., data) .$transform(data)
 
-  # Documetation -----------------------------------------------
+  # Documentation -----------------------------------------------
 
   objname <- "flip"
   desc <- "Flipped cartesian coordinates"
