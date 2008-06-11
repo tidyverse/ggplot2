@@ -18,6 +18,11 @@ StatFunction <- proto(Stat, {
     n = "number of points to interpolate along",
     args = "list of additional arguments to pass to fun"
   )
+  
+  desc_outputs <- list(
+    x = "x's along a grid",
+    y = "value of function evaluated at corresponding x"
+  )
 
   default_geom <- function(.) GeomPath
   

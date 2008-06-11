@@ -9,6 +9,11 @@ StatSpoke <- proto(Stat, {
 
   objname <- "spoke" 
   desc <- "Convert angle and radius to xend and yend"
+  
+  desc_outputs <- list(
+    xend = "x position of end of line segment",
+    yend = "x position of end of line segment"
+  )
 
   default_aes <- function(.) aes(xend = ..xend.., yend = ..yend..)
   required_aes <- c("x", "y", "angle", "radius")

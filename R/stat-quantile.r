@@ -8,7 +8,7 @@ StatQuantile <- proto(Stat, {
     formula = "formula relating y variables to x variables",
     xseq = "exact points to evaluate smooth at, overrides n"
   )
-  desc_output <- list(
+  desc_outputs <- list(
     quantile = "quantile of distribution"
   )
   

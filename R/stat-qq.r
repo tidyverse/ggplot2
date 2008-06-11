@@ -20,6 +20,11 @@ StatQq <- proto(Stat, {
     data.frame(sample, theoretical)
   }
   
+  desc_outputs <- list(
+    sample = "sample quantiles", 
+    theoretical = "theoretical quantiles"
+  )
+  
   examples <- function(.) {
     # From ?qqplot
     y <- rt(200, df = 5)
@@ -28,8 +33,8 @@ StatQq <- proto(Stat, {
     qplot(sample = y, stat="qq", quantiles=seq(0,1, length=100))
     
     df <- data.frame(y)
-    ggplot(y, aes(sampe = y)) + stat_qq()
-    ggplot(y, aes(sampe = y)) + geom_point(stat = "qq")
+    ggplot(y, aes(sample = y)) + stat_qq()
+    ggplot(y, aes(sample = y)) + geom_point(stat = "qq")
     
     qplot(sample = precip, stat="qq")
   }

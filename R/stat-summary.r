@@ -24,6 +24,8 @@ StatSummary <- proto(Stat, {
     "stat_smooth" = "for continuous analog"
   )
   
+  desc_outputs <- list()
+  
   examples <- function(.) {
     # Basic operation on a small dataset
     c <- qplot(cyl, mpg, data=mtcars)

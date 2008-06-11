@@ -19,6 +19,8 @@ StatStep <- proto(Stat, {
     )
   }
   
+  desc_outputs <- list()
+  
   examples <- function(.) {
     # See geom_step for examples
   }
