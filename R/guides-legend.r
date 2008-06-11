@@ -16,7 +16,7 @@ guide_legends_box <- function(scales, scale_usage, horizontal = FALSE, backgroun
   legs <- guide_legends(scales, scale_usage, background=background)
   
   n <- length(legs)
-  if (n == 0) return()
+  if (n == 0) return(nullGrob())
   
   if (!horizontal) {
     width <-   do.call("max", lapply(legs, widthDetails))
