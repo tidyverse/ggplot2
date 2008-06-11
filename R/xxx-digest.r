@@ -52,6 +52,7 @@ bolus.ggplot <- function(x, ...) {
 
 digest.proto <- function(x, ...) x$hash(, ...)
 digest.ggplot <- function(x, ...) {
+  if (is.null(x)) return()
   try_require("digest")
   digest(bolus(x), ...)
 }
