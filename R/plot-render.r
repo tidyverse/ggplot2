@@ -42,7 +42,7 @@ panelGrob <- function(plot, pieces = ggplot_build(plot)) {
 # @arguments plot
 # @arguments plot grob
 # @keyword hplot 
-ggplotGrob <- function(plot, ignore = c()) {
+ggplotGrob <- function(plot, ignore = NULL, keep = NULL) {
   pieces <- ggplot_build(plot)
   
   plotgrob <- panelGrob(plot, pieces)
@@ -78,7 +78,8 @@ ggplotGrob <- function(plot, ignore = c()) {
     xlabel = xlabel, ylabel = ylabel,
     plot = plotgrob, legend_box = legend_box
   )
-  grobs[ignore] <- rep(list(nullGrob()), length(ignore))
+  if (!is.null(keep)) ignore <- setdiff(names(grobs), keep)
+  if (!is.null(ignore)) grobs[ignore] <- rep(list(nullGrob()), length(ignore))
 
   # Calculate sizes ----------------------------------------------------------
   if (is.null(legend_box)) position <- "none"
