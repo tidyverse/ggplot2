@@ -42,10 +42,10 @@ panelGrob <- function(plot, pieces = ggplot_build(plot)) {
 # @arguments plot
 # @arguments plot grob
 # @keyword hplot 
-ggplotGrob <- function(plot, ignore = NULL, keep = NULL) {
+ggplotGrob <- function(plot, drop = NULL, keep = NULL) {
   pieces <- ggplot_build(plot)
   
-  plotgrob <- panelGrob(plot, pieces)
+  panels <- panelGrob(plot, pieces)
   scales <- pieces$scales
   cs <- pieces$cs
   
@@ -76,10 +76,10 @@ ggplotGrob <- function(plot, ignore = NULL, keep = NULL) {
   grobs <- list(
     title = title, 
     xlabel = xlabel, ylabel = ylabel,
-    plot = plotgrob, legend_box = legend_box
+    panels = panels, legend_box = legend_box
   )
-  if (!is.null(keep)) ignore <- setdiff(names(grobs), keep)
-  if (!is.null(ignore)) grobs[ignore] <- rep(list(nullGrob()), length(ignore))
+  if (!is.null(keep)) drop <- setdiff(names(grobs), keep)
+  if (!is.null(drop)) grobs[drop] <- rep(list(nullGrob()), length(drop))
 
   # Calculate sizes ----------------------------------------------------------
   if (is.null(legend_box)) position <- "none"
@@ -145,7 +145,7 @@ surround_viewports <- function(position, widths, heights, legend_vp) {
 
   if (position == "right") {
     viewports <- vpList(
-      vp("plot", 2, 2),
+      vp("panels", 2, 2),
       vp("legend_box", 2, 3),
       vp("ylabel", 2, 1),
       vp("xlabel", 3, 2),
@@ -153,7 +153,7 @@ surround_viewports <- function(position, widths, heights, legend_vp) {
     )
   } else if (position == "left") {
     viewports <- vpList(
-      vp("plot", 2, 3),
+      vp("panels", 2, 3),
       vp("legend_box", 2, 1),
       vp("ylabel", 2, 2),
       vp("xlabel", 3, 3),
@@ -161,7 +161,7 @@ surround_viewports <- function(position, widths, heights, legend_vp) {
     )
   } else if (position == "top") {
     viewports <- vpList(
-      vp("plot", 3, 2),
+      vp("panels", 3, 2),
       vp("legend_box", 2, 2),
       vp("ylabel", 3, 1),
       vp("xlabel", 4, 2),
@@ -169,7 +169,7 @@ surround_viewports <- function(position, widths, heights, legend_vp) {
     )
   } else if (position == "bottom") {
     viewports <- vpList(
-      vp("plot", 2, 2),
+      vp("panels", 2, 2),
       vp("legend_box", 4, 2),
       vp("ylabel", 2, 1),
       vp("xlabel", 3, 2),
@@ -177,7 +177,7 @@ surround_viewports <- function(position, widths, heights, legend_vp) {
     )
   } else {
     viewports <- vpList(
-      vp("plot", 2, 2),
+      vp("panels", 2, 2),
       vp("ylabel", 2, 1),
       vp("xlabel", 3, 2),
       vp("title", 1, 2),
