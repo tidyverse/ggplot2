@@ -59,8 +59,8 @@ ggsave <- function(plot = last_plot(), filename=default_name(plot), device=defau
   width <- width * scale
   height <- height * scale
   
-  on.exit(capture.output(dev.off()))
   device(file=filename, width=width, height=height, ...)
+  on.exit(capture.output(dev.off()))
   print(plot, keep = keep, drop = drop)
   
   invisible()
