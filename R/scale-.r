@@ -8,6 +8,7 @@ Scale <- proto(TopLevel, expr={
   common <- NULL  
   legend <- TRUE
   limits <- NULL
+  doc <- TRUE
   
   class <- function(.) "scale"
   
