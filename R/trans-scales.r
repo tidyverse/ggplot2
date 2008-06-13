@@ -1,6 +1,6 @@
 ScaleArea <- proto(
   ScaleSize, 
-  desc = "Scale area"
+  desc = "Scale area",
   .tr = Trans$find("sqrt"), 
   objname="area", 
   icon=function(.) ScaleSize$icon(), details = "", doc = FALSE
