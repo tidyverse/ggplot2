@@ -28,7 +28,7 @@ ScaleIdentity <- proto(ScaleDiscrete, {
   # Documentation -----------------------------------------------
 
   objname <- "identity"
-  desc <- "Don't remap values, use directly"
+  desc <- "Use values without scaling"
   icon <- function(.) textGrob("f(x) = x", gp=gpar(cex=1.2))
   
   examples <- function(.) {

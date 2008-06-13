@@ -15,7 +15,7 @@ ScaleGrey <- proto(ScaleColour, expr={
   # Documentation -----------------------------------------------
 
   objname <- "grey"
-  desc <- "Grey colour scale"
+  desc <- "Sequential grey colour scale"
   details <- "<p>Based on ?gray.colors</p>"
   
   desc_params <- list(

@@ -25,7 +25,7 @@ ScaleGradient <- proto(ScaleContinuous, expr={
   # Documentation -----------------------------------------------
   
   objname <- "gradient"
-  desc <- "Smooth colour gradient"
+  desc <- "Smooth gradient between two colours"
   icon <- function(.) {
     g <- scale_fill_gradient()
     g$train(1:5)
@@ -113,7 +113,7 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
   
   objname <-"gradient2"
   common <- c("colour", "fill")
-  desc <- "Smooth colour gradient, with midpoint"
+  desc <- "Smooth gradient between three colours (high, low and midpoints)"
 
   output_breaks <- function(.) .$map(.$input_breaks())
   labels <- function(.) format(.$input_breaks())

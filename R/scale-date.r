@@ -54,7 +54,7 @@ ScaleDate <- proto(ScaleContinuous,{
   # Documentation -----------------------------------------------
 
   objname <- "date"
-  desc <- "Continuous scale for date variables"
+  desc <- "Position scale, date"
   
   icon <- function(.) {
     textGrob("14/10/1979", gp=gpar(cex=1))

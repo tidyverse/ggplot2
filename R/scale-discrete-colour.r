@@ -29,7 +29,7 @@ ScaleHue <- proto(ScaleColour, expr={
 
   # Documentation -----------------------------------------------
   objname <- "hue"
-  desc <- "Colours that vary continuously in hue"
+  desc <- "Qualitative colour scale with evenly spaced hues"
   icon <- function(.) {
     rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21, 
       gp=gpar(fill=hcl(seq(0, 360, length=6)[-6], c=100, l=65), col=NA)
@@ -108,7 +108,7 @@ ScaleBrewer <- proto(ScaleColour, expr={
   # Documentation -----------------------------------------------
 
   objname <- "brewer"
-  desc <- "Colour brewer colour scales"
+  desc <- "Sequential, diverging and qualitative colour scales from colorbrewer.org"
   details <- "<p>See <a href='http://colorbrewer.org'>colorbrewer.org</a> for more info</p>"
   common <- c("colour", "fill")
 

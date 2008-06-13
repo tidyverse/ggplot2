@@ -23,7 +23,7 @@ ScaleManual <- proto(ScaleDiscrete, {
   # Documentation -----------------------------------------------
 
   objname <- "manual"
-  desc <- "Simple way of manually controlling scale"
+  desc <- "Create your own discrete scale"
   icon <- function(.) textGrob("man", gp=gpar(cex=1.2))
   
   examples <- function(.) {
