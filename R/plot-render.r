@@ -42,7 +42,7 @@ panelGrob <- function(plot, pieces = ggplot_build(plot)) {
 # @arguments plot
 # @arguments plot grob
 # @keyword hplot 
-ggplotGrob <- function(plot, drop = NULL, keep = NULL) {
+ggplotGrob <- function(plot, drop = plot$drop, keep = plot$keep) {
   pieces <- ggplot_build(plot)
   
   panels <- panelGrob(plot, pieces)
