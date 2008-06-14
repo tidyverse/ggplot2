@@ -1,7 +1,7 @@
 ScaleGradient <- proto(ScaleContinuous, expr={
   aliases <- c("scale_colour_continuous", "scale_fill_continuous")
 
-  new <- function(., name=NULL, low=muted("darkblue"), high="yellow", space="Lab", breaks = NULL, labels = NULL, limits=NULL, trans="identity", alpha = 1, ..., variable) {
+  new <- function(., name=NULL, low=muted("darkblue"), high="yellow", space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", alpha = 1, ..., variable) {
     if (is.character(trans)) trans <- Trans$find(trans)
     .$proto(name=name, low=low, high=high, space=space, .input=variable, .output=variable, .tr = trans, limits=limits, alpha = alpha, breaks = breaks, .labels = labels, ...)
   }
@@ -91,9 +91,9 @@ ScaleGradient <- proto(ScaleContinuous, expr={
 })
 
 ScaleGradient2 <- proto(ScaleContinuous, expr={  
-  new <- function(., name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="Lab", breaks = NULL, labels = NULL, limits=NULL, trans="identity", alpha=1, ..., variable) {
+  new <- function(., name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", alpha=1, ..., variable) {
     if (is.character(trans)) trans <- Trans$find(trans)
-    .$proto(name=name, low=low, mid=mid, high=high, midpoint=midpoint, space=space, ..., .input=variable, .output=variable, .tr=trans, limits=limits, alpha=alpha, breaks = breaks, .labels = labels,)
+    .$proto(name=name, low=low, mid=mid, high=high, midpoint=midpoint, space=space, ..., .input=variable, .output=variable, .tr=trans, limits=limits, alpha=alpha, breaks = breaks, .labels = labels)
   }
   
   map <- function(., x) {
@@ -184,7 +184,7 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
 
 
 ScaleGradientn <- proto(ScaleContinuous, expr={  
-  new <- function(., name=NULL, colours, values = NULL, rescale = TRUE, space="Lab", breaks = NULL, labels = NULL, limits=NULL, trans="identity", alpha=1, ..., variable) {
+  new <- function(., name=NULL, colours, values = NULL, rescale = TRUE, space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", alpha=1, ..., variable) {
     if (is.character(trans)) trans <- Trans$find(trans)
     .$proto(
       name = name, 
