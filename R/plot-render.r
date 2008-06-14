@@ -122,7 +122,10 @@ ggplotGrob <- function(plot, drop = plot$drop, keep = plot$keep) {
   edit_vp <- function(x, name) {
     editGrob(x, vp=vpPath("background", name))
   }
-  grobs <- mlply(cbind(x = grobs, name = names(grobs)), edit_vp)
+  grobs <- c(
+    list(rectGrob(gp = gpar(fill=plot$background.fill, col = NA), vp = "background")),
+    mlply(cbind(x = grobs, name = names(grobs)), edit_vp)
+  )
 
   gTree(children = do.call("gList", grobs), childrenvp = vp)
 }
