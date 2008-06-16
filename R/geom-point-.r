@@ -3,15 +3,15 @@ GeomPoint <- proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {    
     with(coordinates$transform(data), 
       ggname(.$my_name(), pointsGrob(x, y, size=unit(size, "mm"), pch=shape, 
-      gp=gpar(col=colour, fill = fill)))
+      gp=gpar(col=colour, fill = fill, fontsize = size * .pt)))
     )
   }
 
   draw_legend <- function(., data, ...) {
     data <- aesdefaults(data, .$default_aes(), list(...))
-    with(data, 
+    with(data,
       pointsGrob(0.5, 0.5, size=unit(size, "mm"), pch=shape, 
-      gp=gpar(col=alpha(colour, 1)))
+      gp=gpar(col=alpha(colour, 1), fontsize = size * .pt))
     )
   }
 
