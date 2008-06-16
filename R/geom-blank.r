@@ -13,4 +13,9 @@ GeomBlank <- proto(Geom, {
     # Nothing to see here!
   }
   
+  draw_legend <- function(., data, ...) {
+    nullGrob()
+  }
+  
+  
 })
