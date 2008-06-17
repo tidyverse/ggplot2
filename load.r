@@ -1,5 +1,6 @@
 options(Hverbose=FALSE)
 library(ggplot2)
+l(plyr)
 
 source.with.err <- function(path) {
   tryCatch(source(path), error = function(x) {print(path); print(x)})

@@ -8,16 +8,6 @@
 #X is.integeric(1:10)
 is.integeric <- function(x) all(floor(x) == x)
 
-# Determine if a vector is discrete
-# A discrete vector is a factor or a character vector
-# 
-# @arguments vector to test
-# @keyword internal
-#X is.discrete(1:10)
-#X is.discrete(c("a", "b", "c"))
-#X is.discrete(factor(c("a", "b", "c")))
-is.discrete <- function(x) is.factor(x) || is.character(x) || is.logical(x)
-
 # Add group
 # Ensure that the data frame contains a grouping variable.
 #
