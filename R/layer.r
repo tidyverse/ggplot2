@@ -260,7 +260,10 @@ calc_aesthetics <- function(plot, data = plot$data, aesthetics, ignore.extra = F
   evaled <- evaled[sapply(evaled, is.atomic)]
   
   df <- data.frame(evaled)
-  df <- cbind(df, data[,intersect(names(data), cond), drop=FALSE])
+  facet_vars <- data[, intersect(names(data), cond), drop=FALSE]
+  if (nrow(facet_vars) > 0) {
+    df <- cbind(df, facet_vars)  
+  }
   
   if (is.null(plot$data)) return(df)
   expand.grid.df(df, unique(plot$data[, setdiff(cond, names(df)), drop=FALSE]), unique=FALSE)
