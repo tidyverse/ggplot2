@@ -34,7 +34,7 @@ Stat <- proto(TopLevel, expr={
 
 
   pprint <- function(., newline=TRUE) {
-    cat("stat_", .$objname ,": ", clist(.$parameters()), sep="")
+    cat("stat_", .$objname ,": ", sep="") # , clist(.$parameters())
     if (newline) cat("\n")
   }
   

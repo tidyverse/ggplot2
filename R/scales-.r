@@ -144,7 +144,7 @@ Scales <- proto(Scale, expr={
   pprint <- function(., newline=TRUE) {
     clist <- function(x) paste(x, collapse=",")
     
-    cat("Scales:  ", clist(.$input()), " -> ", clist(.$output()), sep="")
+    cat("Scales:   ", clist(.$input()), " -> ", clist(.$output()), sep="")
     if (newline) cat("\n") 
   }
 

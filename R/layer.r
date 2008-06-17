@@ -85,12 +85,12 @@ Layer <- proto(expr = {
       cat("Empty layer\n")
       return(invisible());
     }
-    .$geom$print(newline=FALSE)
-    cat(" +", clist(.$geom_params), "\n")
-    .$stat$print(newline=FALSE)
-    cat(" +", clist(.$stat_params), "\n")
-    .$position$print()
     cat("mapping:", clist(.$aesthetics), "\n")
+    .$geom$print(newline=FALSE)
+    cat(clist(.$geom_params), "\n")
+    .$stat$print(newline=FALSE)
+    cat(clist(.$stat_params), "\n")
+    .$position$print()
   }
   
   

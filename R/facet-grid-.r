@@ -60,4 +60,9 @@ FacetGrid <- proto(Facet, {
     
   }
   
+  pprint <- function(., newline=TRUE) {
+    cat("facet_", .$objname, "(", .$facets, ", ", .$margins, ")", sep="")
+    if (newline) cat("\n")
+  }
+  
 })

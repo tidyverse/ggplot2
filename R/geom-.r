@@ -36,7 +36,7 @@ Geom <- proto(TopLevel, expr={
   }
   
   pprint <- function(., newline=TRUE) {
-    cat("geom_", .$objname, ": ", clist(.$parameters()), sep="")
+    cat("geom_", .$objname, ": ", sep="") #  , clist(.$parameters())
     if (newline) cat("\n")
   }
   
