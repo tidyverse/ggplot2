@@ -9,19 +9,19 @@ PositionJitter <- proto(Position, {
   adjust <- function(., data, scales) {
     check_required_aesthetics(c("x", "y"), names(data), "position_jitter")
     
-    xrange <- diff(scales$get_scales("x")$output_set())
-    yrange <- diff(scales$get_scales("y")$output_set())
+    xrange <- diff(range(scales$get_scales("x")$output_breaks()))
+    yrange <- diff(range(scales$get_scales("y")$output_set()))
     
     if (is.null(.$xjitter)) .$xjitter <- (is.integeric(resolution(data$x))) * 1
     if (is.null(.$yjitter)) .$yjitter <- (is.integeric(resolution(data$y))) * 1
-    
+
     data <- transform(data, 
       x = jitter(x, amount = .$xjitter * xrange/50),
       y = jitter(y, amount = .$yjitter * yrange/50)
     )
-
-    suppressWarnings(scales$get_scales("x")$train(data$x))
-    suppressWarnings(scales$get_scales("y")$train(data$y))
+    
+    # suppressWarnings(scales$get_scales("x")$train(data$x))
+    # suppressWarnings(scales$get_scales("y")$train(data$y))
     data
   }
   
