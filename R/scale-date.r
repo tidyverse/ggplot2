@@ -36,16 +36,18 @@ ScaleDate <- proto(ScaleContinuous,{
     c(major, minor, format)
   }
   
-  breaks <- function(.) {
+  input_breaks <- function(.) {
     d <- to_date(.$input_set())
     
     .$.tr$transform(seq(d[1], d[2], by=.$break_points()[1]))
   }
+  input_breaks_n <- function(.) as.numeric(.$input_breaks())
   
   output_breaks <- function(., n) {
     d <- structure(.$input_set(), class="Date")
     .$.tr$transform(seq(d[1], d[2], by=.$break_points()[1]))
   }
+  
   
   labels <- function(.) {
     format(.$.tr$inverse(.$input_breaks()), .$break_points()[3])
