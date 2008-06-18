@@ -3,7 +3,7 @@ StatDensity2d <- proto(Stat, {
   desc <- "Density estimation, 2D"
   
   default_geom <- function(.) GeomDensity2d
-  default_aes <- function(.) aes(group = ..piece..)
+  default_aes <- function(.) aes(colour="#3366FF", size=1, group = ..piece..)
   required_aes <- c("x", "y")
 
   desc_outputs <- list(

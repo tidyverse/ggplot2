@@ -21,7 +21,7 @@ GeomSmooth <- proto(GeomInterval, {
   
   default_stat <- function(.) StatSmooth
   required_aes <- c("x", "y")
-  default_aes <- function(.) aes(colour="grey50", fill="black", size=0.5, linetype=1, weight=1, alpha=0.2)
+  default_aes <- function(.) aes(colour="#3366FF", fill="black", size=1, linetype=1, weight=1, alpha=0.2)
 
 
   draw_legend <- function(., data, ...) {
