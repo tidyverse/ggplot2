@@ -6,6 +6,9 @@ Scales <- proto(Scale, expr={
   objname <- "scales"
   
   .scales <- list()
+  
+  n <- function(.) length(.$.scales)
+  
   add <- function(., scale) {
     old <- .$find(scale$output())
 

@@ -11,14 +11,22 @@ summary.ggplot <- function(object, ...) {
   }
   
   cat("Title:    ", object$title, "\n", sep="")
-  cat("Labels:   x=", object$xlabel, ", y=", object$ylabel, "\n", sep="")
   cat("-----------------------------------\n")
-  cat("Data:     ", paste(names(object$data), collapse=", "), " [", nrow(object$data), "x", ncol(object$data), "] ", "\n", sep="")
-  cat("Mapping:  ", defaults(), "\n", sep="")
-  object$scales$pprint()
+  if (!is.null(object$data)) {
+    cat("Data:     ", paste(names(object$data), collapse=", "), " [", nrow(object$data), "x", ncol(object$data), "] ", "\n", sep="")    
+  }
+  if (length(object$defaults) > 0) {
+    cat("Mapping:  ", defaults(), "\n", sep="")    
+  }
+  if (object$scales$n() > 0) {
+    object$scales$pprint()    
+  }
+  
   cat("Faceting: ")
   object$facet$pprint()
-  cat("-----------------------------------\n")
+
+  if (length(object$layers) > 0)
+    cat("-----------------------------------\n")
   invisible(lapply(object$layers, function(x) {print(x); cat("\n")}))
 
 } 
