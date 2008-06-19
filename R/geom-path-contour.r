@@ -7,7 +7,7 @@ GeomContour <- proto(GeomPath, {
       polygonGrob(c(0.25,0.6,0.8, 0.5), c(0.5, 0.2, 0.75, 0.9), gp=gpar(fill=NA))
     )))
   }
-  default_aes <- function(.) defaults(aes(weight=1, colour="grey50"), GeomPath$default_aes())
+  default_aes <- function(.) defaults(aes(weight=1, colour="#3366FF"), GeomPath$default_aes())
 
   default_stat <- function(.) StatContour
   seealso <- list(
