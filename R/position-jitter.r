@@ -12,12 +12,12 @@ PositionJitter <- proto(Position, {
     xrange <- diff(range(scales$get_scales("x")$output_breaks()))
     yrange <- diff(range(scales$get_scales("y")$output_set()))
     
-    if (is.null(.$xjitter)) .$xjitter <- (is.integeric(resolution(data$x))) * 1
-    if (is.null(.$yjitter)) .$yjitter <- (is.integeric(resolution(data$y))) * 1
+    if (is.null(.$xjitter)) .$xjitter <- resolution(data$x) * 0.40
+    if (is.null(.$yjitter)) .$yjitter <- resolution(data$y) * 0.40
 
     data <- transform(data, 
-      x = jitter(x, amount = .$xjitter * xrange/50),
-      y = jitter(y, amount = .$yjitter * yrange/50)
+      x = jitter(x, amount = .$xjitter),
+      y = jitter(y, amount = .$yjitter)
     )
     
     # suppressWarnings(scales$get_scales("x")$train(data$x))
@@ -31,8 +31,8 @@ PositionJitter <- proto(Position, {
   
   icon <- function(.) GeomJitter$icon()
   desc_params <- list(
-    xjitter = "degree of jitter in x direction, see ?jitter for details, defaults to 1 if the x variable is a factor, 0 otherwise", 
-    yjitter = "degree of jitter in y direction, see ?jitter for details, defaults to 1 if the y variable is a factor, 0 otherwise"
+    xjitter = "degree of jitter in x direction. Defaults to 40% of the resolution of the data.", 
+    yjitter = "degree of jitter in y direction. Defaults to 40% of the resolution of the data."
     )
 
   examples <- function(.) {
