@@ -17,8 +17,10 @@ ScaleManual <- proto(ScaleDiscrete, {
 
   has_names <- function(.) !is.null(names(.$output_breaks()))
 
+  output_breaks <- function(.) .$values
   output_set <- function(.) .$values
   labels <- function(.) if (.$has_names()) names(.$output_breaks()) else .$.domain
+  
 
   # Documentation -----------------------------------------------
 
