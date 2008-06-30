@@ -144,18 +144,6 @@ theme_bw <- structure(list(
   border.colour = "black"
 ), class="options")
 
-# Access ggplot options
-# Alias default options to plot object
-# 
-# @keyword internal
-"$.ggplot" <- function(x, i) {
-  if (i %in% names(x)) {
-    x[[i]]
-  } else {
-    ggopt()[[i]]
-  }
-}
-
 update.ggplot <- function(object, ...) {
   dots <- list(...)
   if (length(dots) == 1 && is.list(dots[[1]])) dots <- dots[[1]]

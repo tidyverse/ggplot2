@@ -70,9 +70,7 @@ quickplot <- qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., m
 
   p <- ggplot(data, aesthetics) + facet_grid(facets=deparse(facets), margins=margins)
   
-  if (!is.null(main)) p$title <- main
-  if (!is.null(xlab)) p$xlabel <- xlab
-  if (!is.null(ylab)) p$ylabel <- ylab
+  if (!is.null(main)) p <- p + opts("title" = main)
 
   # Add geoms/statistics
   if (is.proto(position)) position <- list(position)

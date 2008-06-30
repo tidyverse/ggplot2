@@ -18,10 +18,11 @@ ggplot.default <- function(data = NULL, mapping=aes(), ...) {
     layers = list(),
     scales = Scales$new(),
     defaults = mapping,
-    title = NULL
+    options = list(),
+    coordinates = CoordCartesian$new(),
+    facet = FacetGrid$new()
   ), class="ggplot")
-  p$coordinates <- CoordCartesian$new()
-  p$facet <- FacetGrid$new()
+
   p$scales$add_defaults(p$data, p$defaults)
 
   set_last_plot(p)
