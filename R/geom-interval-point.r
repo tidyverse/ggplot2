@@ -16,7 +16,7 @@ GeomPointrange <- proto(GeomInterval, {
     "geom_smooth" = "for continuous analog"
   )
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=1, linetype=1, shape=19)
+  default_aes <- function(.) aes(colour = "black", size=1, linetype=1, shape=19, fill=NA)
   guide_geom <- function(.) "pointrange"
 
   draw <- function(., data, scales, coordinates, ...) {

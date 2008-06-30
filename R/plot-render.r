@@ -114,7 +114,7 @@ ggplotGrob <- function(plot, drop = plot$drop, keep = plot$keep) {
       width = grobWidth(legend), height = grobHeight(legend)
     )
   } else {
-    legend_vp <- viewport()
+    legend_vp <- viewport(name = "legend_box")
   }
   vp <- surround_viewports(position, widths, heights, legend_vp)
   
@@ -137,7 +137,7 @@ surround_viewports <- function(position, widths, heights, legend_vp) {
     heights=heights, widths=widths
   )
 
-  vp <- function(name, row, col) {
+  vp <- function(name, row, col, ...) {
     viewport(
       name = name, 
       layout = layout, 

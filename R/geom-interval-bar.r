@@ -57,6 +57,12 @@ GeomBar <- proto(GeomInterval, {
     # Use qplot
     qplot(factor(cyl), data=mtcars, geom="bar")
     qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(cyl))
+
+    # Stacked bar charts    
+    ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar()
+    ggplot(diamonds, aes(x=clarity, fill=cut)) + geom_bar()
+    ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar() + coord_flip()
+
     
     # Dodged bar charts    
     ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar(position="dodge")
