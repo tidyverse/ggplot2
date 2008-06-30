@@ -3,8 +3,16 @@ print.theme <- function(x, ...) {
   print(call)
 }
 
-draw_element <- function(theme, name, ...) {
+theme_render <- function(theme, name, ...) {
   el <- theme[[name]]
+  if (is.null(el)) {
+    message("Theme element ", name, " missing")
+    nullGrob()
+  }
+
   ggname(name, el(...))
 }
-draw_element(default_theme, "axis.box")
+
+get_plot_theme <- function(x) {
+  defaults(x$options, default_theme)
+}

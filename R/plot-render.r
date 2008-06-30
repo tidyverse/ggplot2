@@ -62,16 +62,11 @@ ggplotGrob <- function(plot, drop = plot$drop, keep = plot$keep) {
   # each of these grobs has a vp set
   legend_box <- if (position != "none") guide_legends_box(scales, scale_usage(plot), horiz, background = plot$grid.fill) else nullGrob()
   
-  title <- textGrob(
-    plot$title, 
-    just=c("centre", "centre"), 
-    name="title", 
-    gp = gpar(cex=1.3, col = plot$background.colour)
-  )
+  theme <- get_plot_theme(plot)
+  title <- theme_render(theme, "plot.title", plot$options$title)
 
-  gp <- gpar(fill=plot$background.fill, col=plot$background.colour)
-  xlabel <- cs$xlabel(gp)
-  ylabel <- cs$ylabel(gp)
+  xlabel <- cs$xlabel(theme)
+  ylabel <- cs$ylabel(theme)
 
   grobs <- list(
     title = title, 
@@ -123,7 +118,7 @@ ggplotGrob <- function(plot, drop = plot$drop, keep = plot$keep) {
     editGrob(x, vp=vpPath("background", name))
   }
   grobs <- c(
-    list(rectGrob(gp = gpar(fill=plot$background.fill, col = NA), vp = "background")),
+    list(theme_render(theme, "plot.box", vp = "background")),
     mlply(cbind(x = grobs, name = names(grobs)), edit_vp)
   )
 
