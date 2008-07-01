@@ -1,3 +1,7 @@
+# Email Paul:  absolute vs relative grobs
+# Exact grob heights
+# Computing max and min at creation where possible
+
 theme_blank <- function() {
   structure(
     function(...) nullGrob(),
@@ -25,6 +29,35 @@ theme_box <- function(fill = NA, colour = "black", size = 0.5, linetype = 1) {
     call = match.call()
   )
 }
+
+theme_line <- function(colour = "black", size = 0.5, linetype = 1) {
+  structure(
+    function(x = 0:1, y = 0:1, ...) {
+      linesGrob(
+        x, y, ..., default.units = "npc",
+        gp=gpar(size=unit(size, "mm"), col=colour, lty=linetype),
+      )
+    },
+    class = "theme",
+    type = "line",
+    call = match.call()
+  )
+}
+
+theme_segment <- function(colour = "black", size = 0.5, linetype = 1) {
+  structure(
+    function(x0 = 0, y0 = 0, x1 = 1, y1 = 1, ...) {
+      segmentsGrob(
+        x, y, ..., default.units = "npc",
+        gp=gpar(size=unit(size, "mm"), col=colour, lty=linetype),
+      )
+    },
+    class = "theme",
+    type = "segment",
+    call = match.call()
+  )
+}
+
 
 # text
 #   family
@@ -54,34 +87,41 @@ theme_text <- function(family = "", face = "plain", colour = "black", size = 10,
   )
 }
 
-default_theme <- list(
-  axis.box =        theme_blank(), 
-  axis.x.title =    theme_text(),
-  axis.y.title =    theme_text(angle = 90),
-                    
-  legend.box =      theme_box(), 
-  legend.key =      theme_text(),
-  legend.title =    theme_text(face = "bold"),
-                    
-  panel.box =       theme_box(fill = "grey90", colour="white", size=1), 
-  panel.strip =     theme_box(fill = "grey80"), 
-  panel.title =     theme_text(),
-  # panel.axis = ?,
-  # panel.grid.major = theme_segment(colour = "white"),
-  # panel.grid.minor = theme_segment(colour = "grey95"),
 
-  plot.box =         theme_box(colour = NA),
-  plot.title =       theme_text(size = 16)
+theme_axis_ticks <- function(length = unit(0.4, "lines"), margin = unit(0.2, "lines")) {
+  
+  function(at, position = "top") {
+    at <- unit(at, "native")
 
-)
+    grob <- switch(position,
+      top =    ,
+      bottom = segmentsGrob(at, margin, at, margin + length),
+      left =   ,
+      right =  segmentsGrob(margin, at, margin + length, at),
+    )
 
+    vp <- switch(position,
+      top =    ,
+      bottom = viewport(height = margin + length),
+      left =   ,
+      right =  viewport(width = margin + length),
+    )
+    grobTree(grob, vp = vp)
+  }
+}
+
+fixed_width <- function(grob) {
+}
 
 # plot.legend
-
 # axis.ticks
-
 # legend.keys
 
-# panel.grid
+
+# grid function to take grob and add:
+#   * padding
+#   * background 
+#   * border
+#   * margins
 
 
