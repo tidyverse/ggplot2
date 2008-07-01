@@ -16,7 +16,7 @@ theme_blank <- function() {
 #   (border) colour
 #   (border) size
 #   (border) linetype
-theme_box <- function(fill = NA, colour = "black", size = 0.5, linetype = 1) {
+theme_rect <- function(fill = NA, colour = "black", size = 0.5, linetype = 1) {
   structure(
     function(x = 0.5, y = 0.5, width = 1, height = 1, ...) {
       rectGrob(
