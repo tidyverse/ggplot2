@@ -52,7 +52,7 @@ guides_basic <- function(plot, scales, coordinates, theme) {
     grid =   plot_grob_matrix(grid, "panel"), 
     axes_v = plot_grob_matrix(axes_v, "axis_v"),
     axes_h = plot_grob_matrix(axes_h, "axis_h"),
-    labels = labels_default(plot),
+    labels = labels_default(plot, theme),
     foreground = plot_grob_matrix(foreground, "panel")
   )
 }

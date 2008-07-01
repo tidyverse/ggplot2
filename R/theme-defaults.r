@@ -19,11 +19,13 @@ default_theme <- list(
                      
   panel.background = theme_box(fill = "grey90", colour = NA), 
   panel.border =     theme_box(fill = NA, colour="white", size=1), 
-  panel.strip =      theme_box(fill = "grey80"), 
-  panel.title.x =    theme_text(),
-  panel.title.y =    theme_text(angle = 90),
   panel.grid.major = theme_line(colour = "white"),
   panel.grid.minor = theme_line(colour = "grey95", size = 0.25),
+
+  strip.background = theme_box(fill = "grey80"), 
+  strip.label =       function(variable, value) value, 
+  strip.title.x =    theme_text(),
+  strip.title.y =    theme_text(angle = -90),
 
   plot.box =         theme_box(colour = NA),
   plot.title =       theme_text(size = 14)
