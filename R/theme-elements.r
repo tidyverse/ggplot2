@@ -32,9 +32,9 @@ theme_box <- function(fill = NA, colour = "black", size = 0.5, linetype = 1) {
 
 theme_line <- function(colour = "black", size = 0.5, linetype = 1) {
   structure(
-    function(x = 0:1, y = 0:1, ...) {
-      linesGrob(
-        x, y, ..., default.units = "npc",
+    function(x = 0:1, y = 0:1, ..., default.units = "npc") {
+      polylineGrob(
+        x, y, ..., default.units = default.units,
         gp=gpar(size=unit(size, "mm"), col=colour, lty=linetype),
       )
     },
@@ -70,10 +70,10 @@ theme_segment <- function(colour = "black", size = 0.5, linetype = 1) {
 #   hjust
 theme_text <- function(family = "", face = "plain", colour = "black", size = 10, hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1.3) {
   structure(
-    function(label, x = 0.5, y = 0.5, ...) {
+    function(label, x = 0.5, y = 0.5, ..., default.units = "npc") {
       textGrob(
         label, x, y, hjust = hjust, vjust = vjust, ...,
-        default.units = "npc",
+        default.units = default.units,
         gp = gpar(
           fontsize = size, col = colour, 
           fontfamily = family, fontface = face, 

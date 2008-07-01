@@ -43,8 +43,8 @@ Coord <- proto(TopLevel, expr={
     if (newline) cat("\n") 
   }
   
-  guide_foreground <- function(., plot) {
-    ggname("border", rectGrob(gp=gpar(col=plot$border.colour, lwd=2, fill=NA)))
+  guide_foreground <- function(., theme) {
+    theme_render(theme, "panel.border")
   }  
   # Html defaults
   

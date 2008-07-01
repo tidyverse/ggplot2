@@ -44,7 +44,7 @@ CoordMap <- proto(CoordCartesian, {
     )
   }
   
-  guide_inside <- function(., plot) {
+  guide_inside <- function(., theme) {
     range <- list(
       x = expand_range(.$x()$output_set(), 0.1),
       y = expand_range(.$y()$output_set(), 0.1)
@@ -58,12 +58,17 @@ CoordMap <- proto(CoordCartesian, {
     xlines <- .$mproject(xgrid)
     ylines <- .$mproject(ygrid)
 
-    gp <- gpar(fill=plot$grid.fill, col=plot$grid.colour)
-    ggname("grill", gTree(children = gList(
-      ggname("background", rectGrob(gp=gpar(fill=plot$grid.fill, col=NA))),
-      ggname("major-verticall", linesGrob(xlines$x, xlines$y, default.units="native", gp = gp)),
-      ggname("major-horizontal", linesGrob(ylines$x, ylines$y, default.units="native", gp = gp))
-    )))
+    ggname("grill", grobTree(
+      theme_render(theme, "panel.background"),
+      theme_render(
+        theme, "panel.grid.major", name = "x", 
+        xlines$x, xlines$y, default.units = "native"
+      ),
+      theme_render(
+        theme, "panel.grid.major", name = "y", 
+        ylines$x, ylines$y, default.units = "native"
+      )
+    ))
   }  
 
   # Documentation -----------------------------------------------

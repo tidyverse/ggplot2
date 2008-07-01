@@ -7,7 +7,8 @@
 # @keyword internal
 panelGrob <- function(plot, pieces = ggplot_build(plot)) {
 
-  guides <- guides_basic(plot, pieces$scales, pieces$cs)
+  theme <- get_plot_theme(plot)
+  guides <- guides_basic(plot, pieces$scales, pieces$cs, theme)
   viewport <- viewport_default(plot, guides, plot$scales, pieces$cs)
   panels <- panels_default(plot, pieces$grobs)
   

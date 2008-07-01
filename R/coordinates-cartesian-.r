@@ -35,30 +35,45 @@ CoordCartesian <- proto(Coord, expr={
     )
   }
   
-  xlabel <- function(., theme) theme_render(theme, "axis.x.title", .$x()$name)
-  ylabel <- function(., theme) theme_render(theme, "axis.y.title", .$y()$name)
+  xlabel <- function(., theme) theme_render(theme, "axis.title.x", .$x()$name)
+  ylabel <- function(., theme) theme_render(theme, "axis.title.y", .$y()$name)
 
   # Axis labels should go in here somewhere too
-  guide_inside <- function(., plot) {
-    breaks <- list(
-      x = list(major = .$x()$input_breaks_n(), minor = .$x()$output_breaks()),
-      y = list(major = .$y()$input_breaks_n(), minor = .$y()$output_breaks())
-    )
+  guide_inside <- function(., theme) {
+    x.major <- unit(.$x()$input_breaks_n(), "native")
+    x.minor <- unit(.$x()$output_breaks(), "native")
+    y.major <- unit(.$y()$input_breaks_n(), "native")
+    y.minor <- unit(.$y()$output_breaks(), "native")
     
-    draw_grid(plot, breaks)
+    draw_grid(theme, x.minor, x.major, y.minor, y.major)
   }
   
-  draw_grid <- function(plot, breaks) {
-    gp <- gpar(col=plot$grid.colour)
-    ggname("grill", gTree(children = gList(
-      ggname("background", rectGrob(gp=gpar(fill=plot$grid.fill, col=NA))),
+  draw_grid <- function(theme, x.minor, x.major, y.minor, y.major) {
+    ggname("grill", grobTree(
+      theme_render(theme, "panel.background"),
+      
+      theme_render(
+        theme, "panel.grid.minor", name = "y",
+        x = rep(0:1, length(y.minor)), y = rep(y.minor, each=2), 
+        id.lengths = rep(2, length(y.minor))
+      ),
+      theme_render(
+        theme, "panel.grid.minor", name = "x", 
+        x = rep(x.minor, each=2), y = rep(0:1, length(x.minor)),
+        id.lengths = rep(2, length(x.minor))
+      ),
 
-      ggname("minor-horizontal", segmentsGrob(unit(0, "npc"), breaks$y$minor, unit(1, "npc"), breaks$y$minor, gp = gpar(col=plot$grid.minor.colour, lwd=0.8), default.units="native")),
-      ggname("minor-vertical", segmentsGrob(breaks$x$minor, unit(0, "npc"), breaks$x$minor, unit(1, "npc"), gp = gpar(col=plot$grid.minor.colour, lwd=0.8), default.units="native")),
-
-      ggname("major-horizontal", segmentsGrob(unit(0, "npc"), breaks$y$major, unit(1, "npc"), breaks$y$major, gp = gp, default.units="native")),
-      ggname("major-vertical", segmentsGrob(breaks$x$major, unit(0, "npc"), breaks$x$major, unit(1, "npc"), gp = gp, default.units="native"))
-    )))
+      theme_render(
+        theme, "panel.grid.major", name = "y",
+        x = rep(0:1, length(y.major)), y = rep(y.major, each=2), 
+        id.lengths = rep(2, length(y.major))
+      ),
+      theme_render(
+        theme, "panel.grid.major", name = "x", 
+        x = rep(x.major, each=2), y = rep(0:1, length(x.major)), 
+        id.lengths = rep(2, length(x.major))
+      )
+    ))
   }
   
   # Documentation -----------------------------------------------

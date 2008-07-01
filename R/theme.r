@@ -3,14 +3,14 @@ print.theme <- function(x, ...) {
   print(call)
 }
 
-theme_render <- function(theme, name, ...) {
-  el <- theme[[name]]
+theme_render <- function(theme, element, ..., name = NULL) {
+  el <- theme[[element]]
   if (is.null(el)) {
-    message("Theme element ", name, " missing")
-    nullGrob()
+    message("Theme element ", element, " missing")
+    return(nullGrob())
   }
-
-  ggname(name, el(...))
+  
+  ggname(ps(element, name, sep = "."), el(...))
 }
 
 get_plot_theme <- function(x) {

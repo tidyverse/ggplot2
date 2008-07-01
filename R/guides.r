@@ -23,7 +23,7 @@
 # @value labels row and column labels
 # @keyword hplot
 # @keyword internal
-guides_basic <- function(plot, scales, coordinates) {
+guides_basic <- function(plot, scales, coordinates, theme) {
   guides <- coordinates$guide_axes()
   
   gm <- plot$facet$grid(plot$data)
@@ -33,10 +33,10 @@ guides_basic <- function(plot, scales, coordinates) {
   axes_v <- matrix(lapply(1:nr, function(n) ggname(paste("yaxis", n, sep="-"), guides$y)), ncol=1)
   axes_h <- matrix(lapply(1:nc, function(n) ggname(paste("xaxis", n, sep="-"), guides$x)), nrow=1)
   
-  foreground <- matrix(rep(list(coordinates$guide_foreground(plot)), nc * nr), ncol = nc)
+  foreground <- matrix(rep(list(coordinates$guide_foreground(theme)), nc * nr), ncol = nc)
   dim(foreground) <- dim(gm)
 
-  grid <- matrix(rep(list(coordinates$guide_inside(plot)), nc * nr), ncol = nc)
+  grid <- matrix(rep(list(coordinates$guide_inside(theme)), nc * nr), ncol = nc)
   grid[is.na(gm)] <- list(rectGrob(gp=gpar(fill=NA, col=NA), name="background-empty"))
   dim(grid) <- dim(gm)
 

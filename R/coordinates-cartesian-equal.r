@@ -46,15 +46,18 @@ CoordEqual <- proto(CoordCartesian, {
       y = guide_axis(grid.pretty(range$y), grid.pretty(range$y), "left", range$y)
     )
   }
-
-  guide_inside <- function(., plot) {
+  
+  guide_inside <- function(., theme) {
     range <- .$output_set()
-    breaks <- list(
-      x = list(major = grid.pretty(range$x), minor = .$x()$output_breaks(b = grid.pretty(range$x))),
-      y = list(major = grid.pretty(range$y), minor = .$y()$output_breaks(b = grid.pretty(range$y)))
-    )
+    y.pretty <- grid.pretty(range$y)
+    x.pretty <- grid.pretty(range$x)
+
+    x.major <- unit(x.pretty, "native")
+    x.minor <- unit(.$x()$output_breaks(b = x.pretty), "native")
+    y.major <- unit(y.pretty, "native")
+    y.minor <- unit(.$y()$output_breaks(b = y.pretty), "native")
     
-    draw_grid(plot, breaks)
+    draw_grid(theme, x.minor, x.major, y.minor, y.major)
   }
 
   # Documentation -----------------------------------------------

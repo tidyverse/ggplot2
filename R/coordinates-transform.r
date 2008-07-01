@@ -39,19 +39,13 @@ CoordTrans <- proto(CoordCartesian, expr={
     )
   }
 
-  guide_inside <- function(., plot) {
-    gp <- gpar(fill=plot$grid.fill, col=plot$grid.colour)
-    ggname("grill", gTree(children = gList(
-      ggname("background", rectGrob(gp=gpar(fill=plot$grid.fill, col=NA))),
-
-      ggname("minor-vertical", segmentsGrob(.$xtr$transform(.$x()$minor_breaks()), unit(0, "npc"), .$xtr$transform(.$x()$minor_breaks()), unit(1, "npc"), gp = gpar(col=plot$grid.minor.colour, lwd=0.5), default.units="native")),
-      ggname("major-vertical", segmentsGrob(.$xtr$transform(.$x()$input_breaks()), unit(0, "npc"), .$xtr$transform(.$x()$input_breaks()), unit(1, "npc"), gp = gp, default.units="native")),
-
-      ggname("minor-horizontal", segmentsGrob(unit(0, "npc"), .$ytr$transform(.$y()$minor_breaks()), unit(1, "npc"), .$ytr$transform(.$y()$minor_breaks()), gp = gpar(col=plot$grid.minor.colour, lwd=0.5), default.units="native")),
-      ggname("major-horizontal",segmentsGrob(unit(0, "npc"), .$ytr$transform(.$y()$input_breaks()), unit(1, "npc"), .$ytr$transform(.$y()$input_breaks()), gp = gp, default.units="native")),
-
-      ggname("border", rectGrob(gp=gpar(col=plot$grid.colour, lwd=3, fill=NA)))
-    )))
+  guide_inside <- function(., theme) {
+    x.major <- unit(.$xtr$transform(.$x()$input_breaks_n()), "native")
+    x.minor <- unit(.$xtr$transform(.$x()$output_breaks()), "native")
+    y.major <- unit(.$ytr$transform(.$y()$input_breaks_n()), "native")
+    y.minor <- unit(.$ytr$transform(.$y()$output_breaks()), "native")
+    
+    draw_grid(theme, x.minor, x.major, y.minor, y.major)
   }
 
   # Documentation -----------------------------------------------

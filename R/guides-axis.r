@@ -19,8 +19,7 @@ guide_axis <- function(at, labels, position="right", scale=c(0,1), theme = theme
   
   ggname("axis", gTree(
     childrenvp = guide_axis_vp(position, labels, scale), 
-    children = gList(ticks_grob, labels_grob), 
-    gp = gpar(col=colour)
+    children = gList(ticks_grob, labels_grob)
   ))
 }
  

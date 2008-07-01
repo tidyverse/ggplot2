@@ -49,7 +49,7 @@ CoordPolar <- proto(Coord, {
     data
   }
   
-  guide_inside <- function(., plot) {
+  guide_inside <- function(., theme) {
     
     theta <- .$theta_rescale(.$theta_scale()$input_breaks())
     thetamin <- .$theta_rescale(.$theta_scale()$output_breaks())
@@ -66,16 +66,36 @@ CoordPolar <- proto(Coord, {
     r <- 1
     rfine <- .$r_rescale(.$r_scale()$input_breaks())
 
-    gp <- gpar(fill=plot$grid.fill, col=plot$grid.colour)
-    
-    ggname("grill", gTree(children = gList(
-      ggname("background", rectGrob(gp=gpar(fill=plot$grid.fill, col=NA))),
-      if (length(labels) > 0) ggname("major-angle", segmentsGrob(0, 0, 5 * sin(theta), 5*cos(theta), gp=gp, default.units="native")),
-      ggname("minor-angle", segmentsGrob(0, 0, 5 * sin(thetamin), 5*cos(thetamin), gp=gp, default.units="native")),
-      if (length(labels) > 0) ggname("labels-angle", textGrob(labels, r * 1.1 * sin(theta), r * 1.1 * cos(theta), gp=gpar(col=plot$axis.colour), default.units="native")),
-      ggname("major-radius", polylineGrob(rep(rfine, each=length(thetafine)) * sin(thetafine), rep(rfine, each=length(thetafine)) * cos(thetafine), default.units="native", gp=gp))# ,
-      #       ggname("labels-radius", textGrob(.$r_scale()$labels(), 0.02, rfine + 0.04, default.units="native", gp=gpar(col=plot$axis.colour), hjust=0))
-    )))
+    ggname("grill", grobTree(
+      theme_render(theme, "panel.background"),
+      if (length(labels) > 0) theme_render(
+        theme, "panel.grid.major", name = "angle", 
+        x = c(rbind(0, 5 * sin(theta))), 
+        y = c(rbind(0, 5 * cos(theta))),
+        id.lengths = rep(2, length(theta)), 
+        default.units="native"
+      ),
+      theme_render(
+        theme, "panel.grid.minor", name = "angle", 
+        x = c(rbind(0, 5 * sin(thetamin))), 
+        y = c(rbind(0, 5 * cos(thetamin))),
+        id.lengths = rep(2, length(thetamin)),  
+        default.units="native"
+      ),
+      
+      if (length(labels) > 0) theme_render(
+        theme, "axis.text.x", 
+        labels, r * 1.1 * sin(theta), r * 1.1 * cos(theta),
+        default.units="native"
+      ),
+      theme_render(
+        theme, "panel.grid.major", name = "radius",
+        x = rep(rfine, each=length(thetafine)) * sin(thetafine), 
+        y = rep(rfine, each=length(thetafine)) * cos(thetafine),
+        id.lengths = rep(length(thetafine), length(rfine)),
+        default.units="native"
+      )
+    ))
   }
 
   
