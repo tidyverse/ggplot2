@@ -141,7 +141,7 @@ guide_legend <- function(legend, usage=usage, theme) {
   # Layout the legend table
   legend.layout <- grid.layout(nkeys + 1, 4, widths = widths, heights = heights, just=c("left","top"))
   fg <- ggname("legend", frameGrob(layout = legend.layout))
-  #fg <- placeGrob(fg, rectGrob(gp=gpar(fill="NA", col="NA", name="legend-background")))
+  fg <- placeGrob(fg, theme_render(theme, "legend.background"))
 
   numeric_labels <- all(sapply(display$label, is.language)) || suppressWarnings(all(!is.na(sapply(display$label, "as.numeric"))))
   valign <- if(numeric_labels) "right" else "left"
