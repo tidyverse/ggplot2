@@ -48,7 +48,7 @@ theme_segment <- function(colour = "black", size = 0.5, linetype = 1) {
   structure(
     function(x0 = 0, y0 = 0, x1 = 1, y1 = 1, ...) {
       segmentsGrob(
-        x, y, ..., default.units = "npc",
+        x0, y0, x1, y1, ..., default.units = "npc",
         gp=gpar(size=unit(size, "mm"), col=colour, lty=linetype),
       )
     },
@@ -73,6 +73,7 @@ theme_text <- function(family = "", face = "plain", colour = "black", size = 10,
     function(label, x = 0.5, y = 0.5, ...) {
       textGrob(
         label, x, y, hjust = hjust, vjust = vjust, ...,
+        default.units = "npc",
         gp = gpar(
           fontsize = size, col = colour, 
           fontfamily = family, fontface = face, 
