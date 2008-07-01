@@ -13,8 +13,9 @@ default_theme <- list(
   axis.title.y =     theme_text(angle = 90),
                      
   legend.box =       theme_box(), 
-  legend.key =       theme_text(),
-  legend.title =     theme_text(face = "bold"),
+  legend.key =       theme_box(fill = "grey95", colour = "grey80"),
+  legend.text =      theme_text(),
+  legend.title =     theme_text(face = "bold", hjust = 0),
                      
   panel.background = theme_box(fill = "grey90", colour = NA), 
   panel.border =     theme_box(fill = NA, colour="white", size=1), 

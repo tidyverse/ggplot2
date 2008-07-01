@@ -12,8 +12,8 @@
 # @keyword hplot 
 # @value frameGrob, or NULL if no legends
 # @keyword internal
-guide_legends_box <- function(scales, scale_usage, horizontal = FALSE, background="grey90") {
-  legs <- guide_legends(scales, scale_usage, background=background)
+guide_legends_box <- function(scales, scale_usage, horizontal = FALSE, theme) {
+  legs <- guide_legends(scales, scale_usage, theme=theme)
   
   n <- length(legs)
   if (n == 0) return(nullGrob())
@@ -43,7 +43,7 @@ guide_legends_box <- function(scales, scale_usage, horizontal = FALSE, backgroun
 # @argument list description usage of aesthetics in geoms
 # @keyword internal
 # @value A list of grobs
-guide_legends <- function(scales, usage, background="grey80") {
+guide_legends <- function(scales, usage, theme) {
   legends <- compact(lapply(scales$get_trained_scales(), function(sc) sc$legend_desc()))
   
   if (length(legends) == 0) 
@@ -62,7 +62,7 @@ guide_legends <- function(scales, usage, background="grey80") {
   keys_merged <- lapply(variables, merge_legends)
   legends_merged <- mapply(function(name, keys) list(name = legend_names[name], display=keys), names(keys_merged), keys_merged, SIMPLIFY = FALSE, USE.NAMES = FALSE)  
   
-  lapply(legends_merged, guide_legend, usage=usage, background=background)
+  lapply(legends_merged, guide_legend, usage=usage, theme=theme)
 }
 
 # Merge legends
@@ -89,7 +89,7 @@ merge_legends <- function(legends) {
 # @argument list description usage of aesthetics in geoms
 # @value A grid grob
 # @keyword internal
-guide_legend <- function(legend, usage=usage, background = "grey90") {
+guide_legend <- function(legend, usage=usage, theme) {
   display <- legend$display
   display <- display[nrow(display):1, ]
 
@@ -104,9 +104,10 @@ guide_legend <- function(legend, usage=usage, background = "grey90") {
   }
   grobs <- lapply(unique(unlist(usage$aesthetics[aesthetics])), legend_f)
 
-  title <- ggname("title", textGrob(legend$name[[1]], x = 0, y = 0.5, just = c("left", "centre"), 
-    gp=gpar(fontface="bold")
-  ))
+  title <- theme_render(
+    theme, "legend.title",
+    legend$name[[1]], x = 0, y = 0.5
+  )
   
   nkeys <- nrow(display)
   hgap <- vgap <- unit(0.3, "lines")
@@ -146,14 +147,20 @@ guide_legend <- function(legend, usage=usage, background = "grey90") {
   valign <- if(numeric_labels) "right" else "left"
   vpos   <- if(numeric_labels) 1 else 0
 
-  fg <- placeGrob(fg, title, col=1:2, row=1)
+  fg <- placeGrob(fg, title, col=1:3, row=1)
   for (i in 1:nkeys) {
     df <- as.list(display[i,, drop=FALSE])
-    fg <- placeGrob(fg, rectGrob(gp=gpar(col=background, fill=background)), col = 1, row = i+1)      
+    
+    fg <- placeGrob(fg, theme_render(theme, "legend.key"), col = 1, row = i+1)      
     for(grob in grobs) {
       fg <- placeGrob(fg, ggname("key", grob(df)), col = 1, row = i+1)      
     }
-    fg <- placeGrob(fg, ggname("label", textGrob(display$label[[i]], x = vpos, y = 0.5, just = c(valign, "centre"))), col = 3, row = i+1)
+    label <- theme_render(
+      theme, "legend.text", 
+      display$label[[i]], just = c(valign, "centre"),
+      x = vpos, y = 0.5
+    )
+    fg <- placeGrob(fg, label, col = 3, row = i+1)
   }
 
   fg

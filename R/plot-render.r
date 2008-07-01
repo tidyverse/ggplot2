@@ -61,9 +61,14 @@ ggplotGrob <- function(plot, drop = plot$drop, keep = plot$keep) {
 
   # Generate grobs -----------------------------------------------------------
   # each of these grobs has a vp set
-  legend_box <- if (position != "none") guide_legends_box(scales, scale_usage(plot), horiz, background = plot$grid.fill) else nullGrob()
-  
   theme <- get_plot_theme(plot)
+
+  legend_box <- if (position != "none") {
+    guide_legends_box(scales, scale_usage(plot), horiz, theme) 
+  } else {
+    nullGrob()
+  } 
+  
   title <- theme_render(theme, "plot.title", plot$options$title)
 
   xlabel <- cs$xlabel(theme)
