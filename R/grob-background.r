@@ -13,7 +13,13 @@ background <- function(grob, fill = NA, colour = NA, padding = unit(0, "lines"),
     x = grobX(grob, "west") - padding$left, hjust = 0,
     y = grobY(grob, "south") - padding$top, vjust = 0,
     width = width.in, height = height.in, 
-    gp = gpar(col = colour, fill = fill, lty = linetype, lwd = size)
+    gp = gpar(col = NA, fill = fill)
+  )
+  border <- rectGrob(
+    x = grobX(grob, "west") - padding$left, hjust = 0,
+    y = grobY(grob, "south") - padding$top, vjust = 0,
+    width = width.in, height = height.in, 
+    gp = gpar(col = colour, fill = NA, lty = linetype, lwd = size)
   )
   margin <- rectGrob(
     x = grobX(grob, "west") - padding$left - margin$left, hjust = 0,
@@ -22,7 +28,7 @@ background <- function(grob, fill = NA, colour = NA, padding = unit(0, "lines"),
     gp = gpar(fill = NA, col = "grey90", size = 0.5, lty = 3)
   )
   
-  grobTree(margin, bg, grob)
+  grobTree(margin, bg, grob, border)
 }
 
 # bg.test <- function(grob) {
