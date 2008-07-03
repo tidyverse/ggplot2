@@ -7,7 +7,7 @@
 # @keyword internal
 panelGrob <- function(plot, pieces = ggplot_build(plot)) {
 
-  theme <- get_plot_theme(plot)
+  theme <- plot_theme(plot)
   guides <- guides_basic(plot, pieces$scales, pieces$cs, theme)
   viewport <- viewport_default(plot, guides, plot$scales, pieces$cs)
   panels <- panels_default(plot, pieces$grobs)
@@ -61,7 +61,7 @@ ggplotGrob <- function(plot, drop = plot$drop, keep = plot$keep) {
 
   # Generate grobs -----------------------------------------------------------
   # each of these grobs has a vp set
-  theme <- get_plot_theme(plot)
+  theme <- plot_theme(plot)
 
   legend_box <- if (position != "none") {
     guide_legends_box(scales, scale_usage(plot), horiz, theme) 

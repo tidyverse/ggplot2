@@ -13,6 +13,30 @@ theme_render <- function(theme, element, ..., name = NULL) {
   ggname(ps(element, name, sep = "."), el(...))
 }
 
-get_plot_theme <- function(x) {
-  defaults(x$options, default_theme)
+plot_theme <- function(x) {
+  defaults(x$options, theme_get())
+}
+
+.theme <- (function() {
+  theme <- theme_gray()
+
+  list(
+    get = function() theme,
+    set = function(new) theme <<- new
+  )
+})()
+theme_get <- .theme$get  
+theme_set <- .theme$set
+
+theme_update <- function(...) {
+  elements <- list(...)
+  if (length(args) == 1 && is.list(elements[[1]])) {
+    elements <- elements[[1]]
+  }
+  
+  theme_set(defaults(elements, theme_get()))  
+}
+
+opts <- function(...) {
+  structure(list(...), class="options")
 }

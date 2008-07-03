@@ -7,7 +7,7 @@
 # @arguments range of data values
 # @keyword hplot 
 # @keyword internal
-guide_axis <- function(at, labels, position="right", scale=c(0,1), theme = theme_default) {
+guide_axis <- function(at, labels, position="right", scale=c(0,1), theme) {
   #assert.equal(length(at), length(labels))
   
   positions <- c("top","bottom", "right","left")
