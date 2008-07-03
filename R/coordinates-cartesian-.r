@@ -7,7 +7,19 @@ CoordCartesian <- proto(Coord, expr={
   x <- function(.) .$.scales$get_scales("x")
   y <- function(.) .$.scales$get_scales("y")
   
-  transform <- function(., data) data
+  transform <- function(., data) {
+    base::transform(data,
+      x = .$transform_x(x),
+      y = .$transform_y(y)
+    )
+  }
+  
+  transform_x <- function(., data) {
+    rescale(data, 0:1, .$output_set()$x)
+  }
+  transform_y <- function(., data) {
+    rescale(data, 0:1, .$output_set()$y)
+  }
   
   # Assumes contiguous series of points
   munch <- function(., data, npieces=1) data
@@ -26,6 +38,19 @@ CoordCartesian <- proto(Coord, expr={
       y = expand_range(range(.$y()$output_set()), expand$y[1], expand$y[2])
     )
   }
+  
+  breaks <- function(.) {
+    list(
+      x = list(
+        major = .$transform_x(.$x()$input_breaks_n()),
+        minor = .$transform_x(.$x()$output_breaks())
+      ), 
+      y = list(
+        major = .$transform_y(.$y()$input_breaks_n()),
+        minor = .$transform_y(.$y()$output_breaks())
+      )
+    )
+  }
 
   guide_axes <- function(.) {
     range <- .$output_set()
@@ -40,10 +65,11 @@ CoordCartesian <- proto(Coord, expr={
 
   # Axis labels should go in here somewhere too
   guide_inside <- function(., theme) {
-    x.major <- unit(.$x()$input_breaks_n(), "native")
-    x.minor <- unit(.$x()$output_breaks(), "native")
-    y.major <- unit(.$y()$input_breaks_n(), "native")
-    y.minor <- unit(.$y()$output_breaks(), "native")
+    breaks <- .$breaks()
+    x.major <- unit(breaks$x$major, "native")
+    x.minor <- unit(breaks$x$minor, "native")
+    y.major <- unit(breaks$y$major, "native")
+    y.minor <- unit(breaks$y$minor, "native")
     
     draw_grid(theme, x.minor, x.major, y.minor, y.major)
   }

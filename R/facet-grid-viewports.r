@@ -13,10 +13,9 @@
 #
 # @arguments plot object
 # @arguments guides grobs
-# @arguments scales grobs
 # @keyword hplot 
 # @keyword internal
-viewport_default <- function(plot, guides, scales, coordinates) {
+viewport_default <- function(plot, guides) {
   gm <- plot$facet$grid(plot$data)
   row.labels <- rrownames(gm)
   col.labels <- rcolnames(gm)
@@ -25,14 +24,13 @@ viewport_default <- function(plot, guides, scales, coordinates) {
   cols <- ncol(gm) + ncol(row.labels) + 1
   
   layout <- plot_layout(gm, rows, cols, row.labels, col.labels, guides$axes_h, guides$axes_v, plot$aspect.ratio)
-  range <- coordinates$output_set()
   
   viewports <- do.call("vpList", c(
-    setup_viewports("strip_h", data=t(col.labels),      offset=c(0,1),       range=range),
-    setup_viewports("strip_v", data=row.labels,         offset=c(ncol(col.labels), cols-ncol(row.labels)), range=range),
-    setup_viewports("axis_h",   rows=1, cols=ncol(gm),   offset=c(rows-1, 1), range=range),
-    setup_viewports("axis_v",   rows=nrow(gm), cols=1,   offset=c(ncol(col.labels), 0),      range=range),
-    setup_viewports("panel",    data=gm,                 offset=c(ncol(col.labels),1), range=range)
+    setup_viewports("strip_h", data=t(col.labels),      offset=c(0,1)),
+    setup_viewports("strip_v", data=row.labels,         offset=c(ncol(col.labels), cols-ncol(row.labels))),
+    setup_viewports("axis_h",   rows=1, cols=ncol(gm),   offset=c(rows-1, 1)),
+    setup_viewports("axis_v",   rows=nrow(gm), cols=1,   offset=c(ncol(col.labels), 0)),
+    setup_viewports("panel",    data=gm,                 offset=c(ncol(col.labels),1))
   ))
   vpTree(viewport(layout=layout, name="layout"), viewports)
 }
@@ -108,8 +106,8 @@ vp_name <- function(row, col, type) {
 # @arguments list containing x and y ranges
 # @keyword hplot 
 # @keyword internal
-setup_viewports <- function(type, rows=nrow(data), cols=ncol(data), data, offset=c(0,0), range, angle=0) {
-  vp <- function(x,y) viewport(name=vp_name(x,y, type), xscale=range$x, yscale=range$y, layout.pos.row=x  + offset[1], layout.pos.col=y  + offset[2], clip="on", angle=angle)
+setup_viewports <- function(type, rows=nrow(data), cols=ncol(data), data, offset=c(0,0), angle=0) {
+  vp <- function(x,y) viewport(name=vp_name(x,y, type), layout.pos.row=x  + offset[1], layout.pos.col=y  + offset[2], clip="on", angle=angle)
   pos <- expand.grid(x=(1:rows), y=(1:cols))
   do.call("vpList", mapply(vp, pos$x, pos$y, SIMPLIFY=FALSE))
 }
