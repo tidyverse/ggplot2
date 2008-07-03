@@ -31,10 +31,10 @@ background <- function(grob, fill = NA, colour = NA, padding = unit(0, "lines"),
   grobTree(margin, bg, grob, border)
 }
 
-# bg.test <- function(grob) {
-#   background(grob, fill=sample(colors(), 1), colour="grey50", padding=unit(1, "lines"), margin=unit(1, "lines"), size=2)
-# }
-# 
+bg.test <- function(grob) {
+  background(grob, fill=sample(colors(), 1), colour="grey50", padding=unit(1, "lines"), margin=unit(1, "lines"), size=2)
+}
+
 # r <- rectGrob(height=unit(3, "cm"), width=unit(2, "cm"), x=0.8, gp=gpar(fill="red"))
 # grid.newpage(); grid.draw(bg.test(r))
 # grid.newpage(); grid.draw(bg.test(bg.test(r)))
