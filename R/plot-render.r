@@ -85,10 +85,10 @@ ggplotGrob <- function(plot, drop = plot$drop, keep = plot$keep) {
   # Calculate sizes ----------------------------------------------------------
   if (is.null(legend_box)) position <- "none"
     
-  ylab_width <- unit(1, "grobwidth", grobs$ylabel)
+  ylab_width <- 1.3 * unit(1, "grobwidth", grobs$ylabel)
   if (length(ylabel$label) != 0) ylab_width <- ylab_width + unit(0.5, "lines")
 
-  xlab_height <- unit(1, "grobheight", grobs$xlabel)
+  xlab_height <- 1.3 * unit(1, "grobheight", grobs$xlabel)
   if (length(xlabel$label) != 0) xlab_height <- xlab_height + unit(0.5, "lines")
 
   widths <- switch(position, 
@@ -100,12 +100,12 @@ ggplotGrob <- function(plot, drop = plot$drop, keep = plot$keep) {
     none =   unit.c(ylab_width, unit(1, "null"))
   )
   heights <- switch(position,
-    top =    unit.c(2 * grobHeight(grobs$title), grobHeight(grobs$legend_box), unit(1, "null"), xlab_height),
-    bottom = unit.c(2 * grobHeight(grobs$title), unit(1, "null"), xlab_height, grobHeight(grobs$legend_box)),
+    top =    unit.c(1.3 * grobHeight(grobs$title), grobHeight(grobs$legend_box), unit(1, "null"), xlab_height),
+    bottom = unit.c(1.3 * grobHeight(grobs$title), unit(1, "null"), xlab_height, grobHeight(grobs$legend_box)),
     right =  ,
     left =   ,
     manual = ,
-    none =   unit.c(2 * grobHeight(grobs$title), unit(1, "null"), xlab_height)
+    none =   unit.c(1.3 * grobHeight(grobs$title), unit(1, "null"), xlab_height)
   )
   
   if (position == "manual") {
