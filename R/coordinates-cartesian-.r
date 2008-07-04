@@ -8,10 +8,16 @@ CoordCartesian <- proto(Coord, expr={
   y <- function(.) .$.scales$get_scales("y")
   
   transform <- function(., data) {
-    base::transform(data,
+    data <- base::transform(data,
       x = .$transform_x(x),
       y = .$transform_y(y)
     )
+    if (!is.null(data$max)) data$max <- .$transform_y(data$max)
+    if (!is.null(data$min)) data$min <- .$transform_y(data$min)
+    if (!is.null(data$xmax)) data$xmax <- .$transform_x(data$xmax)
+    if (!is.null(data$xmin)) data$xmin <- .$transform_x(data$xmin)
+    
+    data
   }
   
   transform_x <- function(., data) {
