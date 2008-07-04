@@ -10,25 +10,22 @@
 # @value gList containg text grobs with appropriate viewports
 # @keyword hplot
 # @keyword internal
-labels_default <- function(plot, theme) {
+labels_default <- function(gm, theme) {
   add.names <- function(x) {
     for(i in 1:ncol(x)) x[[i]] <- theme$strip.label(colnames(x)[i], x[,i])
     x
   }
 
-  gm <- plot$facet$grid(plot$data)
   row.labels <- add.names(rrownames(gm))
   col.labels <- add.names(rcolnames(gm))
   
   strip_h <- apply(col.labels, c(2,1), ggstrip, theme = theme)
   strip_v <- apply(row.labels, c(1,2), ggstrip, horizontal=FALSE, theme=theme)
 
-  labels_grobs <- unlist(compact(list(
-    if (ncol(gm) > 1) plot_grob_matrix(strip_h),
-    if (nrow(gm) > 1) plot_grob_matrix(strip_v)
-  )), recursive=FALSE)
-  
-  if (!is.null(labels_grobs)) do.call("gList", labels_grobs)
+  list(
+    h = strip_h, 
+    v = strip_v
+  )
 }
 
 

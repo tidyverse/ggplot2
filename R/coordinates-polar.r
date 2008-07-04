@@ -49,7 +49,7 @@ CoordPolar <- proto(Coord, {
     data
   }
   
-  guide_inside <- function(., theme) {
+  guide_background <- function(., theme) {
     
     theta <- .$theta_rescale(.$theta_scale()$input_breaks())
     thetamin <- .$theta_rescale(.$theta_scale()$output_breaks())

@@ -39,7 +39,7 @@ CoordTrans <- proto(CoordCartesian, expr={
     )
   }
 
-  guide_inside <- function(., theme) {
+  guide_background <- function(., theme) {
     x.major <- unit(.$xtr$transform(.$x()$input_breaks_n()), "native")
     x.minor <- unit(.$xtr$transform(.$x()$output_breaks()), "native")
     y.major <- unit(.$ytr$transform(.$y()$input_breaks_n()), "native")

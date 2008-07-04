@@ -47,7 +47,7 @@ CoordEqual <- proto(CoordCartesian, {
     )
   }
   
-  guide_inside <- function(., theme) {
+  guide_background <- function(., theme) {
     range <- .$output_set()
     y.pretty <- grid.pretty(range$y)
     x.pretty <- grid.pretty(range$x)

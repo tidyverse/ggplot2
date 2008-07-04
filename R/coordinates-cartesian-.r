@@ -22,7 +22,7 @@ CoordCartesian <- proto(Coord, expr={
   }
   
   # Assumes contiguous series of points
-  munch <- function(., data, npieces=1) data
+  munch <- function(., data, npieces=1) .$transform(data)
   
   expand <- function(.) {
     list(
@@ -64,7 +64,7 @@ CoordCartesian <- proto(Coord, expr={
   ylabel <- function(., theme) theme_render(theme, "axis.title.y", .$y()$name)
 
   # Axis labels should go in here somewhere too
-  guide_inside <- function(., theme) {
+  guide_background <- function(., theme) {
     breaks <- .$breaks()
     x.major <- unit(breaks$x$major, "native")
     x.minor <- unit(breaks$x$minor, "native")

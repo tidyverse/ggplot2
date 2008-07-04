@@ -22,6 +22,7 @@ theme_gray <- function(base_size = 12) {
     panel.border =      theme_rect(fill = NA, colour="white", size=1), 
     panel.grid.major =  theme_line(colour = "white"),
     panel.grid.minor =  theme_line(colour = "grey95", size = 0.25),
+    panel.empty =       theme_rect(fill = "white", colour = NA),
 
     strip.background =  theme_rect(fill = "grey80"), 
     strip.label =       function(variable, value) value, 

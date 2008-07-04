@@ -166,7 +166,8 @@ Layer <- proto(expr = {
       }
     })
   }
-
+  
+  # Return a matrix of grobTrees, matching dimensions of facets
   make_grobs <- function(., data, scales, cs) {
     force(data)
     gg_apply(data, function(x) .$make_grob(x, scales, cs))

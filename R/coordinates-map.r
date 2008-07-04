@@ -44,7 +44,7 @@ CoordMap <- proto(CoordCartesian, {
     )
   }
   
-  guide_inside <- function(., theme) {
+  guide_background <- function(., theme) {
     range <- list(
       x = expand_range(.$x()$output_set(), 0.1),
       y = expand_range(.$y()$output_set(), 0.1)

@@ -6,22 +6,17 @@
 # @keyword hplot
 # @keyword internal
 panelGrob <- function(plot, pieces = ggplot_build(plot)) {
-
   theme <- plot_theme(plot)
-  guides <- guides_basic(plot, pieces$scales, pieces$cs, theme)
-  viewport <- viewport_default(plot, guides)
-  panels <- panels_default(plot, pieces$grobs)
-  
-  grobs <- c(
-    unlist(guides[setdiff(names(guides), "foreground")], recursive=FALSE), 
-    panels = panels, 
-    foreground = guides$foreground
-  )
+
+  grobs <- plot$facet$add_guides(plot$data, pieces$panels, pieces$cs, theme)
+  viewports <- plot$facet$create_viewports(grobs, theme)
+
+  grobs <- assign_viewports(grobs)
   
   ggname("plot", 
     gTree(
       children = do.call("gList", grobs), 
-      childrenvp = viewport
+      childrenvp = viewports
     )
   )
 }
