@@ -37,7 +37,7 @@ labels_default <- function(gm, theme) {
 # @keyword hplot 
 # @keyword internal
 ggstrip <- function(text, horizontal=TRUE, theme) {
-  text_theme <- if (horizontal) "strip.title.x" else "strip.title.y"
+  text_theme <- if (horizontal) "strip.text.x" else "strip.text.y"
   if (is.list(text)) text <- text[[1]]
 
   label <- theme_render(theme, text_theme, text)
