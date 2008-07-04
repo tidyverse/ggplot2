@@ -28,7 +28,13 @@ background <- function(grob, fill = NA, colour = NA, padding = unit(0, "lines"),
     gp = gpar(fill = NA, col = "grey90", size = 0.5, lty = 3)
   )
   
-  grobTree(margin, bg, grob, border)
+  absoluteGrob(
+    grobTree(margin, bg, grob, border),
+    width = width.out,
+    height = height.out,
+    xmin = grobX(margin, "west"),
+    ymin = grobY(margin, "south")
+  )
 }
 
 bg.test <- function(grob) {
