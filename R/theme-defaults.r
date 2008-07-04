@@ -26,8 +26,8 @@ theme_gray <- function(base_size = 12) {
 
     strip.background =  theme_rect(fill = "grey80"), 
     strip.label =       function(variable, value) value, 
-    strip.title.x =     theme_text(size = base_size),
-    strip.title.y =     theme_text(size = base_size, angle = -90),
+    strip.title.x =     theme_text(size = base_size / 1.2),
+    strip.title.y =     theme_text(size = base_size / 1.2, angle = -90),
 
     plot.box =          theme_rect(colour = NA),
     plot.title =        theme_text(size = base_size * 1.4)    

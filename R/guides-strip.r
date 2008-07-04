@@ -38,10 +38,16 @@ labels_default <- function(gm, theme) {
 # @keyword internal
 ggstrip <- function(text, horizontal=TRUE, theme) {
   text_theme <- if (horizontal) "strip.title.x" else "strip.title.y"
-  
   if (is.list(text)) text <- text[[1]]
-  ggname("strip", grobTree(
-    theme_render(theme, "strip.background"),
-    theme_render(theme, text_theme, text)
+
+  label <- theme_render(theme, text_theme, text)
+
+  ggname("strip", absoluteGrob(
+    grobTree(
+      theme_render(theme, "strip.background"),
+      label
+    ),
+    width = grobWidth(label) + unit(0.5, "lines"),
+    height = grobHeight(label) + unit(0.5, "lines")
   ))
 }
