@@ -106,10 +106,10 @@ CoordPolar <- proto(Coord, {
     )
   }
     
-  guide_axes <- function(.) {
+  guide_axes <- function(., theme) {
     list(
-      x = guide_axis(c(-1, 1), "", "bottom", c(-1,1)),
-      y = guide_axis(.$r_rescale(.$r_scale()$input_breaks()) / 2 + 0.6, .$r_scale()$labels(), "left", c(0, 1.2))
+      x = guide_axis(c(-1, 1), "", "bottom", theme),
+      y = guide_axis(.$r_rescale(.$r_scale()$input_breaks()) / 2 + 0.6, .$r_scale()$labels(), "left", theme)
     )
   }
 

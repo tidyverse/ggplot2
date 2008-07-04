@@ -36,11 +36,11 @@ CoordMap <- proto(CoordCartesian, {
     list(x = range[1:2], y = range[3:4])
   }
   
-  guide_axes <- function(.) {
+  guide_axes <- function(., theme) {
     range <- .$output_set()
     list(
-      x = guide_axis(NA, "", "bottom", range$x),
-      y = guide_axis(NA, "", "left", range$y)
+      x = guide_axis(NA, "", "bottom", theme),
+      y = guide_axis(NA, "", "left", theme)
     )
   }
   

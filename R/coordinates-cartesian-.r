@@ -52,11 +52,11 @@ CoordCartesian <- proto(Coord, expr={
     )
   }
 
-  guide_axes <- function(.) {
-    range <- .$output_set()
+  guide_axes <- function(., theme) {
+    breaks <- .$breaks()
     list(
-      x = guide_axis(.$x()$input_breaks_n(), .$x()$labels(), "bottom", range$x),
-      y = guide_axis(.$y()$input_breaks_n(), .$y()$labels(), "left", range$y)
+      x = guide_axis(breaks$x$major, .$x()$labels(), "bottom", theme),
+      y = guide_axis(breaks$y$major, .$y()$labels(), "left", theme)
     )
   }
   

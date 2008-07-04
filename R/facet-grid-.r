@@ -21,7 +21,7 @@ FacetGrid <- proto(Facet, {
   
   # Create grobs for each component of the panel guides
   add_guides <- function(., data, panels, coordinates, theme) {
-    guides <- coordinates$guide_axes()
+    guides <- coordinates$guide_axes(theme)
     
     nr <- nrow(panels)
     nc <- ncol(panels)

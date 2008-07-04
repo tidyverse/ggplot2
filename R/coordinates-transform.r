@@ -31,11 +31,11 @@ CoordTrans <- proto(CoordCartesian, expr={
     )
   }
 
-  guide_axes <- function(.) {
+  guide_axes <- function(., theme) {
     range <- .$output_set()
     list(
-      x = guide_axis(.$xtr$transform(.$x()$input_breaks()), .$x()$labels(), "bottom", range$x),
-      y = guide_axis(.$ytr$transform(.$y()$input_breaks()), .$y()$labels(), "left", range$y)
+      x = guide_axis(.$xtr$transform(.$x()$input_breaks()), .$x()$labels(), "bottom", theme),
+      y = guide_axis(.$ytr$transform(.$y()$input_breaks()), .$y()$labels(), "left", theme)
     )
   }
 

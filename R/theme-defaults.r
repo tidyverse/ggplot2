@@ -7,11 +7,13 @@ theme_gray <- function(base_size = 12) {
   structure(list(
     # axis.box =         theme_blank(), 
     axis.line =         theme_line(),
-    axis.text.x =       theme_text(size = base_size / 1.2 , lineheight = 0.9, colour = "grey50"),
-    axis.text.y =       theme_text(size = base_size / 1.2, lineheight = 0.9, colour = "grey50"),
+    axis.text.x =       theme_text(size = base_size / 1.2 , lineheight = 0.9, colour = "grey50", vjust = 1),
+    axis.text.y =       theme_text(size = base_size / 1.2, lineheight = 0.9, colour = "grey50", hjust = 1),
     axis.ticks =        theme_segment(colour = "grey50"),
     axis.title.x =      theme_text(size = base_size),
     axis.title.y =      theme_text(size = base_size, angle = 90),
+    axis.ticks.length = unit(0.3, "lines"),
+    axis.ticks.margin = unit(0.5, "lines"),
 
     legend.background = theme_rect(colour=NA), 
     legend.key =        theme_rect(fill = "grey95", colour = "grey80"),
