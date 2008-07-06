@@ -6,15 +6,10 @@ GeomHistogram <- proto(GeomBar, {
 
   advice <- "<p>geom_histogram only allows you to set the width of the bins (with the binwidth parameter), not the number of bins, and it certainly does not suport the use of common heuristics to select the number of bins.  In practice, you will need to use multiple bin widths to discover all the signal in the data, and having bins with meaningful widths (rather than some arbitrary fraction of the range of the data) is more interpretable.</p> "
   
-  default_stat <- function(.) StatBin
-  default_pos <- function(.) PositionStack
-  required_aes <- c("x")
-
   icon <- function(.) {
     y <- c(0.2, 0.3, 0.5, 0.6,0.2, 0.8, 0.5, 0.3)
     rectGrob(seq(0.1, 0.9, by=0.1), y, height=y, width=0.1, vjust=1, gp=gpar(fill="grey60", col=NA))
   }
-  guide_geom <- function(.) "tile"
   
   examples <- function(.) {
     
@@ -63,7 +58,5 @@ GeomHistogram <- proto(GeomBar, {
     hist_cut + geom_bar() # defaults to stacking
     hist_cut + geom_bar(position="fill")
     hist_cut + geom_bar(position="dodge")
-    
-
   }
 })

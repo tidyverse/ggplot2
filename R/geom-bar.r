@@ -4,7 +4,7 @@ GeomBar <- proto(GeomInterval, {
   default_pos <- function(.) PositionStack
   default_aes <- function(.) aes(colour=NA, fill="grey60", size=1, linetype=1, width = resolution(x) * 0.9, )
   
-  required_aes <- c("x", "y")
+  required_aes <- c("x")
  
   add_defaults <- function(., df) {
     transform(df,
