@@ -46,12 +46,16 @@ Scale <- proto(TopLevel, expr={
   output <- function(.) .$.output
   output_breaks <- function(.) .$map(.$input_breaks())
   
-  
   # Train scale from a data frame
   train_df <- function(., df) {
     if (!is.null(.$limits)) return()
     
-    .$train(df[[.$input()]])
+    input <- .$input()
+    if (length(input) == 1 && input %in% c("x", "y")) {
+      matches <- grep(paste("^", input, sep =""), names(df))
+      input <- names(df)[matches]
+    }
+    l_ply(input, function(var) .$train(df[[var]]))
   }
 
   # Map values from a data.frame.   Returns data.frame

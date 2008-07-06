@@ -1,6 +1,6 @@
 # dput(c(names(.base_to_ggplot), "group","order", "z",  sort(unique(unlist(sapply(Geom$find_all(), function(y) c(names(y$default_aes()), y$required_aes)))))))
 .all_aesthetics <-  c("col", "color", "pch", "cex", "lty", "lwd", "srt", "adj", "bg", "fg", "group", "order", "z", "angle", "colour", "fill", "height", 
-"hjust", "intercept", "label", "linetype", "max", "min", "shape", "size", "slope", "vjust", "weight", "width", "x", "xend", "xmax", "xmin", "y", "yend", "ymax", "ymin")
+"hjust", "intercept", "label", "linetype", "shape", "size", "slope", "vjust", "weight", "width", "x", "xend", "xmax", "xmin", "y", "yend", "ymax", "ymin")
 
 .base_to_ggplot <- c(
   "col"   = "colour",
@@ -12,7 +12,9 @@
   "srt"   = "angle",
   "adj"   = "hjust",
   "bg"    = "fill",
-  "fg"    = "colour"
+  "fg"    = "colour",
+  "min"   = "ymin", 
+  "max"   = "ymax"
 )
 
 # Generate aesthetic mappings
@@ -47,6 +49,14 @@ aes <- function(x, y, ...) {
 rename_aes <- function(x) {
   rename(x, .base_to_ggplot)
 }
+
+aes_to_scale <- function(var) {
+  if (var %in% c("x", "xmin", "xmax", "xend")) return("x")
+  if (var %in% c("y", "ymin", "ymay", "yend")) return("y")
+  
+  var
+}
+
 
 # Generate aesthetic mappings from a string
 # Aesthetic mappings describe how variables in the data are mapped to visual properties (aesthetics) of geoms.  Compared to aes this function operates on strings rather than expressions.

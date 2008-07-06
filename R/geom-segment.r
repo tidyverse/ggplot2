@@ -16,13 +16,7 @@ GeomSegment <- proto(Geom, {
     
     GeomPath$draw_groups(pieces, scales, coordinates, ...)
   }
-  
-  adjust_scales_data <- function(., scales, data) {
-    scales$get_scales("x")$train(range(data$xend))
-    scales$get_scales("y")$train(range(data$yend))
-    
-    data
-  }
+
   
   objname <- "segment"
   desc <- "Single line segments"

@@ -1,17 +1,16 @@
-GeomBoxplot <- proto(GeomInterval, {
+GeomBoxplot <- proto(Geom, {
   draw <- function(., data, ..., outlier.colour = "black", outlier.shape = 19, outlier.size = 1) {    
     defaults <- with(data, data.frame(x=x, colour=colour, size=size, linetype=1, group=1, xend=x,  width=width, fill=fill, stringsAsFactors=FALSE))
     defaults2 <- defaults[c(1,1), ]
     
     with(data, ggname(.$my_name(), gTree(children = gList(
       if(length(outliers[[1]]) > 1) GeomPoint$draw(data.frame(y = outliers[[1]], x = x[rep(1, length(outliers[[1]]))], colour=I(outlier.colour), shape=outlier.shape, size=outlier.size, fill = NA), ...),
-      GeomPath$draw(data.frame(y=c(upper, max), defaults2), ...),
-      GeomPath$draw(data.frame(y=c(lower, min), defaults2), ...),
+      GeomPath$draw(data.frame(y=c(upper, ymax), defaults2), ...),
+      GeomPath$draw(data.frame(y=c(lower, ymin), defaults2), ...),
       GeomBar$draw(data.frame(max = upper, min = lower, defaults), ...),
       GeomBar$draw(data.frame(max = middle, min = middle, defaults), ...)
     ))))
   }
-  adjust_scales_data <- function(., scales, data) data
 
   objname <- "boxplot"
   desc <- "Box and whiskers plot"
@@ -38,6 +37,7 @@ GeomBoxplot <- proto(GeomInterval, {
   default_stat <- function(.) StatBoxplot
   default_pos <- function(.) PositionDodge
   default_aes <- function(.) aes(weight=1, colour="grey50", fill="white", size=0.5)
+  required_aes <- c("x", "y")
   seealso <- list(
     stat_quantile = "View quantiles conditioned on a continuous variable",
     geom_jitter = "Another way to look at conditional distributions"

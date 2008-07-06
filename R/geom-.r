@@ -29,8 +29,6 @@ Geom <- proto(TopLevel, expr={
     ))
   }
   
-  adjust_scales_data <- function(., scales, data) data
-  
   new <- function(., mapping=NULL, data=NULL, stat=NULL, position=NULL, ...){
     do.call("layer", list(mapping=mapping, data=data, stat=stat, geom=., position=position, ...))
   }
@@ -39,6 +37,8 @@ Geom <- proto(TopLevel, expr={
     cat("geom_", .$objname, ": ", sep="") #  , clist(.$parameters())
     if (newline) cat("\n")
   }
+  
+  add_defaults <- function(., data) data
   
   # Html documentation ----------------------------------
 

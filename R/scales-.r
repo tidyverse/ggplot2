@@ -65,7 +65,7 @@ Scales <- proto(Scale, expr={
     if (is.null(df)) return()
 
     lapply(.$.scales, function(scale) {
-      if (all(scale$input() %in% names(df))) scale$train_df(df)
+      scale$train_df(df)
     })
   }
   
@@ -100,18 +100,18 @@ Scales <- proto(Scale, expr={
   # fixed by the first use in a layer.
   add_defaults <- function(., data, aesthetics) {
     if (is.null(data)) return()
+    names(aesthetics) <- laply(names(aesthetics), aes_to_scale)
     
     new_aesthetics <- setdiff(names(aesthetics), .$input())
+    
+    # No new aesthetics, so no new scales to add
     if(is.null(new_aesthetics)) return()
-
+    
+    # Compute default scale names
     names <- as.vector(sapply(aesthetics[new_aesthetics], deparse))
 
-    datacols <- tryapply(aesthetics[new_aesthetics], eval, envir=data, enclos=parent.frame())
 
-    new_aesthetics <- intersect(new_aesthetics, names(datacols))
-
-    if (length(datacols) == 0) return()
-    
+    # Determine variable type for each column -------------------------------
     vartype <- function(x) {
       if (inherits(x, "Date")) return("date")
       if (is.numeric(x)) return("continuous")
@@ -119,9 +119,17 @@ Scales <- proto(Scale, expr={
       
       "discrete"
     }
+
+    datacols <- tryapply(
+      aesthetics[new_aesthetics], eval, 
+      envir=data, enclos=globalenv()
+    )
+    new_aesthetics <- intersect(new_aesthetics, names(datacols))
+    if (length(datacols) == 0) return()
     
     vartypes <- sapply(datacols, vartype)
-
+    
+    # Work out scale names
     scale_name_type <- paste("scale", new_aesthetics, vartypes, sep="_")
     scale_name <- paste("scale", new_aesthetics, sep="_")
     scale_name_generic <- paste("scale", vartypes, sep="_")

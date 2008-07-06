@@ -8,6 +8,7 @@ GeomHistogram <- proto(GeomBar, {
   
   default_stat <- function(.) StatBin
   default_pos <- function(.) PositionStack
+  required_aes <- c("x")
 
   icon <- function(.) {
     y <- c(0.2, 0.3, 0.5, 0.6,0.2, 0.8, 0.5, 0.3)

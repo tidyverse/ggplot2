@@ -6,7 +6,7 @@ PositionStack <- proto(Position, {
     if (is.null(data)) return() 
     
     check_required_aesthetics(c("x", "y"), names(data), "position_stack")
-    if (!all(data$min == 0)) warning("Stacking not well defined when min != 0")
+    if (!all(data$ymin == 0)) warning("Stacking not well defined when ymin != 0")
   
     adjust <- function(data) {
       data <- data[order(data$x), ]
@@ -15,8 +15,8 @@ PositionStack <- proto(Position, {
       heights <- c(0, cumsum(y))
       if (.$rescale) heights <- rescale(heights, c(0,1))
       transform(data, 
-        min = heights[-length(heights)],
-        max = heights[-1],
+        ymin = heights[-length(heights)],
+        ymax = heights[-1],
         y = heights[-1]
       )
     }

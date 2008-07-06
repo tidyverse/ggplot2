@@ -7,8 +7,8 @@ GeomTile <- proto(Geom, {
     data <- transform(data, 
       xmin = x - width/2, 
       xmax = x + width/2,
-      min = y - height/2,
-      max = y + height/2
+      ymin = y - height/2,
+      ymax = y + height/2
     )
     if (coordinates$muncher()) {
       data <- transform(data, top=y + height/2, bottom= y - height/2, left=x - width/2, right=x + width/2)
@@ -25,8 +25,8 @@ GeomTile <- proto(Geom, {
     } else {  
     with(coordinates$transform(data),
       ggname(.$my_name(), rectGrob(
-        xmin, max, 
-        width=(xmax-xmin) * size, height=(max-min) * size, 
+        xmin, ymax, 
+        width=(xmax-xmin) * size, height=(ymax-ymin) * size, 
         default.units="native", just=c("left","top"), 
         gp=gpar(col=colour, fill=fill))
       )
@@ -38,31 +38,7 @@ GeomTile <- proto(Geom, {
     data <- aesdefaults(data, .$default_aes(), list(...))
 
     rectGrob(gp=gpar(col=NA, fill=data$fill))
-  }
-  
-  adjust_scales_data <- function(., scales, data) {
-    if(is.null(data$width)) data$width <- resolution(data$x)
-    if(is.null(data$height)) data$height <- resolution(data$y)
-    
-    if (is.factor(data$x)) {
-      x <- data$x[1:2]
-    } else {
-      x <- c(max(data$x + data$width/2), min(data$x - data$width/2))
-    }
-    
-    if (is.factor(data$y)) {
-      y <- data$y[1:2]
-    } else {
-      y <- c(max(data$y + data$height /2 ), min(data$y - data$height / 2))
-    }
-
-    df <- data[1:2, ]
-    df$x <- x
-    df$y <- y
-    
-    rbind(data, df)
-  }
-  
+  }  
 
   objname <- "tile"
   desc <- "Tile plot as densely as possible, assuming that every tile is the same size. "

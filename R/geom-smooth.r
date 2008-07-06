@@ -16,7 +16,6 @@ GeomSmooth <- proto(GeomInterval, {
     ))
   }
   
-  adjust_scales_data <- function(., scales, data) data
   guide_geom <- function(.) "smooth"
   
   default_stat <- function(.) StatSmooth

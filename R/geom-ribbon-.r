@@ -1,19 +1,8 @@
 GeomRibbon <- proto(GeomInterval, {
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour="grey60", fill="grey80", size=0.5, linetype=1)
-  required_aes <- c("x", "min", "max")
+  required_aes <- c("x", "ymin", "ymax")
   guide_geom <- function(.) "ribbon"
-
-  adjust_scales_data <- function(., scales, data) {
-    if (!"y" %in% scales$input()) {
-      scales$add(ScaleContinuous$new(variable="y"))  
-    }
-
-    y <- scales$get_scales("y")
-    y$train(data$min)
-    y$train(data$y)
-    y$train(data$max)
-  }
 
   draw_legend <- function(., data, ...)  {
     data <- aesdefaults(data, .$default_aes(), list(...))
@@ -62,12 +51,12 @@ GeomRibbon <- proto(GeomInterval, {
 
     h <- ggplot(huron, aes(x=year))
 
-    h + geom_ribbon(aes(min=0, max=level))
+    h + geom_ribbon(aes(ymin=0, ymax=level))
     h + geom_area(aes(y = level))
 
     # Add aesthetic mappings
-    h + geom_ribbon(aes(min=level-1, max=level+1))
-    h + geom_ribbon(aes(min=level-1, max=level+1)) + geom_line(aes(y=level))
+    h + geom_ribbon(aes(ymin=level-1, ymax=level+1))
+    h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
     
     # Another data set, with multiple y's for each x
     m <- ggplot(movies, aes(y=votes, x=year)) 
@@ -89,7 +78,7 @@ GeomArea <- proto(GeomRibbon,{
 
   draw_groups <- function(., data, scales, coordinates, ...) {
     data <- transform(data, 
-      min = 0,
+      ymin = 0,
       max = y
     )
     GeomRibbon$draw_groups(data, scales, coordinates)

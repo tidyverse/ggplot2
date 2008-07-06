@@ -2,16 +2,21 @@ GeomBar <- proto(GeomInterval, {
   
   default_stat <- function(.) StatBin
   default_pos <- function(.) PositionStack
-  default_aes <- function(.) aes(colour=NA, fill="grey60", min=0, size=1, linetype=1, max=y)
+  default_aes <- function(.) aes(colour=NA, fill="grey60", size=1, linetype=1, width = resolution(x) * 0.9, )
+  
+  required_aes <- c("x", "y")
+ 
+  add_defaults <- function(., df) {
+    transform(df,
+      ymin = 0,
+      ymax = y,
+      xmin = as.numeric(x) - width / 2, 
+      xmax = as.numeric(x) + width / 2,
+      width = NULL
+    )
+  }
  
   draw <- function(., data, scales, coordinates, width = NULL, ...) {
-    width <- nulldefault(width, resolution(data$x) * 0.9)    
-    
-    data <- transform(data, 
-      xmin = x - width/2, 
-      xmax = x + width/2
-    )
-
     if (coordinates$muncher()) {
       data <- transform(data, top=max, bottom=min, left=x - width/2, right=x + width/2)
       ggname("bar",gTree(children=do.call("gList", lapply(1:nrow(data), function(i) {
@@ -27,7 +32,7 @@ GeomBar <- proto(GeomInterval, {
       }))))
     } else {
     with(coordinates$transform(data), 
-      ggname(.$my_name(), rectGrob(xmin, max, width=xmax-xmin, height=max-min, default.units="native", just=c("left", "top"), 
+      ggname(.$my_name(), rectGrob(xmin, ymax, width=xmax-xmin, height=ymax-ymin, default.units="native", just=c("left", "top"), 
       gp=gpar(col=colour, fill=fill, lwd=size * .pt, lty=linetype, lineend="butt"))
     ))
     }

@@ -3,11 +3,11 @@ StatBoxplot <- proto(Stat, {
   desc <- "Calculate components of box and whisker plot"
   desc_outputs <- list(
     "width" = "width of boxplot",
-    "min" = "lower whisker, lower hinge - 1.5 * IQR",
+    "ymin" = "lower whisker, lower hinge - 1.5 * IQR",
     "lower" = "lower hinge, 25% quantile", 
     "middle" = "median, 50% quantile",
     "upper" = "upper hinge, 75% quantile",
-    "max" = "upper whisker, upper hinge + 1.5 * IQR"
+    "ymax" = "upper whisker, upper hinge + 1.5 * IQR"
   )
   required_aes <- c("x", "y")
   
@@ -31,7 +31,7 @@ StatBoxplot <- proto(Stat, {
       } else {
         stats <- as.numeric(quantile(y, qs))
       }
-      names(stats) <- c("min", "lower", "middle", "upper", "max")
+      names(stats) <- c("ymin", "lower", "middle", "upper", "ymax")
     
       iqr <- diff(stats[c(2, 4)])
       

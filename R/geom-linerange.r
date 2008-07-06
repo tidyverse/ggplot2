@@ -1,4 +1,4 @@
-GeomLinerange <- proto(GeomInterval, {
+GeomLinerange <- proto(Geom, {
   objname <- "linerange"
   desc <- "An interval represented by a vertical line"
 
@@ -13,11 +13,12 @@ GeomLinerange <- proto(GeomInterval, {
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1)
   guide_geom <- function(.) "path"
+  required_aes <- c("x", "ymin", "ymax")
 
   draw <- function(., data, scales, coordinates, ...) {
     munched <- coordinates$transform(data)
 
-    ggname(.$my_name(), GeomSegment$draw(transform(data, xend=x, y=min, yend=max), scales, coordinates, ...))
+    ggname(.$my_name(), GeomSegment$draw(transform(data, xend=x, y=ymin, yend=ymax), scales, coordinates, ...))
   }
 
   icon <- function(.) segmentsGrob(c(0.3, 0.7), c(0.1, 0.2), c(0.3, 0.7), c(0.7, 0.95))
@@ -34,7 +35,7 @@ GeomLinerange <- proto(GeomInterval, {
     qplot(cut, fit, data=cuts, geom="bar")
     
     # Display estimates and standard errors in various ways
-    se <- ggplot(cuts, aes(x = cut, min=fit - se.fit, max=fit + se.fit, y=fit))
+    se <- ggplot(cuts, aes(x = cut, ymin=fit - se.fit, ymax=fit + se.fit, y=fit))
     se + geom_linerange()
     se + geom_pointrange()
     se + geom_errorbar(width = 0.5)

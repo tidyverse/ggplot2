@@ -29,8 +29,8 @@ StatSmooth <- proto(Stat, {
       std <- qnorm(level/2 + 0.5)
       data.frame(
         x = xseq, y = as.vector(pred$fit),
-        min = as.vector(pred$fit - std * pred$se), 
-        max = as.vector(pred$fit + std * pred$se),
+        ymin = as.vector(pred$fit - std * pred$se), 
+        ymax = as.vector(pred$fit + std * pred$se),
         se = as.vector(pred$se)
       )
     } else {

@@ -1,4 +1,4 @@
-GeomCrossbar <- proto(GeomInterval, {
+GeomCrossbar <- proto(Geom, {
   objname <- "crossbar"
   desc <- "Hollow bar with middle indicated by horizontal line"
   desc_params <- list(
@@ -22,7 +22,8 @@ GeomCrossbar <- proto(GeomInterval, {
 
   default_stat <- function(.) StatIdentity
   default_pos <- function(.) PositionIdentity
-  default_aes = function(.) aes(colour="black", fill="NA", width=resolution(x) * 0.9, size=0.5, linetype=1, min=y, max=y)
+  default_aes = function(.) aes(colour="black", fill="NA", width=resolution(x) * 0.9, size=0.5, linetype=1, ymin=y, ymax=y)
+  required_aes <- c("x", "y", "ymin", "ymax")
   guide_geom <- function(.) "path"
   
   draw <- function(., data, scales, coordinates, fatten = 2, ...) {

@@ -25,13 +25,14 @@ ggplot_build <- function(plot) {
   # Apply statistics
   data <- dlapply(function(d, p) p$calc_statistics(d, scales))
   data <- dlapply(function(d, p) p$map_statistics(d, plot))
+  data <- dlapply(function(d, p) p$add_defaults(d))
 
   # Adjust position before scaling
   data <- dlapply(function(d, p) p$adjust_position(d, scales, "before"))
   # Transform, train and map scales
   # data <- dlapply(function(d, p) p$scales_transform(d, scales))
   
-  dlapply(function(d, p) p$scales_train(d, scales, adjust=TRUE))
+  dlapply(function(d, p) p$scales_train(d, scales))
   data <- dlapply(function(d, p) p$scales_map(d, scales))
 
   # mappings <- unique(c(names(plot$defaults), unlist(lapply(layers, function(x) names(get("aesthetics", x))))))

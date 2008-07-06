@@ -1,4 +1,4 @@
-GeomPointrange <- proto(GeomInterval, {
+GeomPointrange <- proto(Geom, {
   objname <- "pointrange"
   desc <- "An interval represented by a vertical line, with a point in the middle"
   icon <- function(.) {
@@ -18,6 +18,7 @@ GeomPointrange <- proto(GeomInterval, {
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour = "black", size=1, linetype=1, shape=19, fill=NA)
   guide_geom <- function(.) "pointrange"
+  required_aes <- c("x", "y", "ymin", "ymax")
 
   draw <- function(., data, scales, coordinates, ...) {
     if (is.null(data$y)) return(GeomLinerange$draw(data, scales, coordinates, ...))

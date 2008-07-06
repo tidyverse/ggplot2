@@ -157,6 +157,10 @@ Layer <- proto(expr = {
     data
   }
 
+  add_defaults <- function(., data) {
+    gg_apply(data, function(df) .$geom$add_defaults(df))
+  }
+
   adjust_position <- function(., data, scales, position) {
     gg_apply(data, function(x) {
       if (.$position$position == position) {
@@ -192,7 +196,7 @@ Layer <- proto(expr = {
 
   class <- function(.) "layer"
 
-  # Methods that probably belong elsewhere ------------------------------------
+  # Methods that probably belong elsewhere ---------------------------------
   
   # Stamp data.frame into list of matrices
   
@@ -201,11 +205,8 @@ Layer <- proto(expr = {
   }
   
   # Train scale for this layer
-  scales_train <- function(., data, scale, adjust=FALSE) {
-    gg_apply(data, function(df) {
-      if (adjust) df <- .$geom$adjust_scales_data(scale, df)
-      scale$train_df(df)
-    })
+  scales_train <- function(., data, scale) {
+    gg_apply(data, scale$train_df)
   }
   
   # Map data using scales.

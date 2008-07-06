@@ -25,17 +25,13 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
   transform_df <- function(., df) {
     input <- .$input()
     output <- .$output()
-    transform <- function(var) .$.tr$transform(df[, var])
     
-    # If y transformed, also need to transform min and max
-    if (length(input) == 1) {
-      if (input == "y") {
-        input <- output <- intersect(c("y","min", "max", "yend"), names(df))
-      } else if (input == "x") {
-        input <- output <- intersect(c("x", "xend"), names(df))        
-      }
+    if (length(input) == 1 && input %in% c("x", "y")) {
+      matches <- grep(paste("^", input, sep =""), names(df))
+      input <- output <- names(df)[matches]
     }
-    df <- do.call("data.frame", lapply(input, transform))
+    
+    df <- colwise(.$.tr$transform)(df[input])
     if (ncol(df) == 0) return(NULL)
     names(df) <- output      
     df

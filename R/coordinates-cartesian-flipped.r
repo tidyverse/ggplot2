@@ -2,8 +2,15 @@ CoordFlip <- proto(CoordCartesian, expr={
   x <- function(.) .$.scales$get_scales("y")
   y <- function(.) .$.scales$get_scales("x")
   
-  muncher <- function(.) TRUE
-  transform <- function(., data) rename(data, c(x="y", y="x", xend="yend", yend="xend"))
+  muncher <- function(.) FALSE
+  transform <- function(., data) {
+    rename(data, c(
+      x = "y",       y = "x", 
+      xend = "yend", yend = "xend", 
+      xmin = "ymin", ymin = "xmin",
+      xmax = "ymax", ymax = "ymax")
+    )
+  }
   munch <- function(., data) .$transform(data)
 
   # Documentation -----------------------------------------------

@@ -12,6 +12,7 @@ GeomErrorbar <- proto(GeomInterval, {
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1)
   guide_geom <- function(.) "path"
+  required_aes <- c("x", "ymin", "ymax")
   
 
   seealso <- list(
@@ -29,7 +30,7 @@ GeomErrorbar <- proto(GeomInterval, {
     
     GeomPath$draw(with(data, data.frame( 
       x = as.vector(rbind(l, r, x, x, r, l)), 
-      y = as.vector(rbind(max, max, max, min, min, min)),
+      y = as.vector(rbind(ymax, ymax, ymax, ymin, ymin, ymin)),
       colour = rep(colour, each = 6),
       size = rep(size, each = 6),
       linetype = rep(linetype, each = 6),
@@ -50,7 +51,7 @@ GeomErrorbar <- proto(GeomInterval, {
     df2 <- df[c(1,3),]
     
     # Define the top and bottom of the errorbars
-    limits <- aes(max = resp + se, min=resp - se)
+    limits <- aes(ymax = resp + se, ymin=resp - se)
     
     p <- ggplot(df, aes(fill=group, y=resp, x=trt))
     p + geom_bar(position="dodge", stat="identity")
