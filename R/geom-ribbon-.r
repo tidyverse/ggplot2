@@ -1,4 +1,4 @@
-GeomRibbon <- proto(GeomInterval, {
+GeomRibbon <- proto(Geom, {
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour="grey60", fill="grey80", size=0.5, linetype=1)
   required_aes <- c("x", "ymin", "ymax")

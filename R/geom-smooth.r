@@ -1,4 +1,4 @@
-GeomSmooth <- proto(GeomInterval, {
+GeomSmooth <- proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {
     data$fill <- alpha(data$fill, data$alpha)
     gList(

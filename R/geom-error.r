@@ -1,4 +1,4 @@
-GeomErrorbar <- proto(GeomInterval, {
+GeomErrorbar <- proto(Geom, {
   objname <- "errorbar"
   desc <- "Error bars"
   icon <- function(.) {
