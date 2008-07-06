@@ -3,7 +3,13 @@ GeomTile <- proto(Geom, {
   draw <- function(., data,  scales, coordinates, ...) {
     if (nrow(data) == 1) return(NULL)
     data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
-
+    
+    data <- transform(data, 
+      xmin = x - width/2, 
+      xmax = x + width/2,
+      min = y - height/2,
+      max = y + height/2
+    )
     if (coordinates$muncher()) {
       data <- transform(data, top=y + height/2, bottom= y - height/2, left=x - width/2, right=x + width/2)
       ggname(.$my_name(), gTree(children=do.call("gList", lapply(1:nrow(data), function(i) {
@@ -17,9 +23,13 @@ GeomTile <- proto(Geom, {
         GeomPolygon$draw(df, scales, coordinates)
       }))))
     } else {  
-    with(data, 
-      ggname(.$my_name(), rectGrob(x, y, width=width * size, height=height * size, default.units="native", just=c("centre","centre"), 
-      gp=gpar(col=colour, fill=fill)))
+    with(coordinates$transform(data),
+      ggname(.$my_name(), rectGrob(
+        xmin, max, 
+        width=(xmax-xmin) * size, height=(max-min) * size, 
+        default.units="native", just=c("left","top"), 
+        gp=gpar(col=colour, fill=fill))
+      )
     )
     }
   }
