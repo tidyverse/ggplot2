@@ -157,8 +157,8 @@ Layer <- proto(expr = {
     data
   }
 
-  add_defaults <- function(., data) {
-    gg_apply(data, function(df) .$geom$add_defaults(df))
+  reparameterise <- function(., data) {
+    gg_apply(data, function(df) .$geom$reparameterise(df))
   }
 
   adjust_position <- function(., data, scales, position) {

@@ -38,7 +38,7 @@ Geom <- proto(TopLevel, expr={
     if (newline) cat("\n")
   }
   
-  add_defaults <- function(., data) data
+  reparameterise <- function(., data) data
   
   # Html documentation ----------------------------------
 

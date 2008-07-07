@@ -25,7 +25,7 @@ ggplot_build <- function(plot) {
   # Apply statistics
   data <- dlapply(function(d, p) p$calc_statistics(d, scales))
   data <- dlapply(function(d, p) p$map_statistics(d, plot))
-  data <- dlapply(function(d, p) p$add_defaults(d))
+  data <- dlapply(function(d, p) p$reparameterise(d))
 
   # Adjust position before scaling
   data <- dlapply(function(d, p) p$adjust_position(d, scales, "before"))

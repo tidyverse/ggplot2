@@ -6,7 +6,7 @@ GeomBar <- proto(Geom, {
   
   required_aes <- c("x")
  
-  add_defaults <- function(., df) {
+  reparameterise <- function(., df) {
     transform(df,
       ymin = 0,
       ymax = y,
