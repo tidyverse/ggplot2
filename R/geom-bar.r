@@ -1,4 +1,4 @@
-GeomBar <- proto(GeomInterval, {
+GeomBar <- proto(Geom, {
   
   default_stat <- function(.) StatBin
   default_pos <- function(.) PositionStack
@@ -10,8 +10,8 @@ GeomBar <- proto(GeomInterval, {
     transform(df,
       ymin = 0,
       ymax = y,
-      xmin = as.numeric(x) - width / 2, 
-      xmax = as.numeric(x) + width / 2,
+      xmin = x - width / 2, 
+      xmax = x + width / 2,
       width = NULL
     )
   }

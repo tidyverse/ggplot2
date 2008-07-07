@@ -21,7 +21,6 @@ ScaleDiscrete <- proto(Scale, expr={
   
   labels <- function(.) nulldefault(.$.labels, as.list(.$input_breaks()))
   
-  
   output_set <- function(.) seq_along(.$input_set())
   output_breaks <- function(.) .$map(.$input_breaks())
 
@@ -34,7 +33,7 @@ ScaleDiscrete <- proto(Scale, expr={
 
   train <- function(., x) {
     if (!is.discrete(x)) {
-      warning("Continuous variable (", .$name , ") supplied to the discrete ", .$my_name(), ".", call.=FALSE) 
+      stop("Continuous variable (", .$name , ") supplied to the discrete ", .$my_name(), ".", call.=FALSE) 
     }
     .$.domain <- sort(union(.$.domain, as.character(unique(x))))
   }
