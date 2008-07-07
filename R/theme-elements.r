@@ -69,8 +69,11 @@ theme_segment <- function(colour = "black", size = 0.5, linetype = 1) {
 #   vjust
 #   hjust
 theme_text <- function(family = "", face = "plain", colour = "black", size = 10, hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1.3) {
+  vj <- vjust
+  hj <- hjust
+  
   structure(
-    function(label, x = 0.5, y = 0.5, ..., default.units = "npc") {
+    function(label, x = 0.5, y = 0.5, ..., vjust = vj, hjust = hj, default.units = "npc") {
       textGrob(
         label, x, y, hjust = hjust, vjust = vjust, ...,
         default.units = default.units,

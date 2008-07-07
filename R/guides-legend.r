@@ -144,8 +144,7 @@ guide_legend <- function(legend, usage=usage, theme) {
   fg <- placeGrob(fg, theme_render(theme, "legend.background"))
 
   numeric_labels <- all(sapply(display$label, is.language)) || suppressWarnings(all(!is.na(sapply(display$label, "as.numeric"))))
-  valign <- if(numeric_labels) "right" else "left"
-  vpos   <- if(numeric_labels) 1 else 0
+  hpos <- numeric_labels * 1
 
   fg <- placeGrob(fg, title, col=1:3, row=1)
   for (i in 1:nkeys) {
@@ -157,8 +156,8 @@ guide_legend <- function(legend, usage=usage, theme) {
     }
     label <- theme_render(
       theme, "legend.text", 
-      display$label[[i]], just = c(valign, "centre"),
-      x = vpos, y = 0.5
+      display$label[[i]], hjust = hpos,
+      x = hpos, y = 0.5
     )
     fg <- placeGrob(fg, label, col = 3, row = i+1)
   }
