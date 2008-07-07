@@ -5,8 +5,7 @@
 #   foreground colour  (and interpolate between them? prob won't work)
 theme_gray <- function(base_size = 12) {
   structure(list(
-    # axis.box =         theme_blank(), 
-    axis.line =         theme_line(),
+    axis.line =         theme_blank(),
     axis.text.x =       theme_text(size = base_size / 1.2 , lineheight = 0.9, colour = "grey50", vjust = 1),
     axis.text.y =       theme_text(size = base_size / 1.2, lineheight = 0.9, colour = "grey50", hjust = 1),
     axis.ticks.x =      theme_segment(colour = "grey50"),

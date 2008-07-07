@@ -39,6 +39,13 @@ guide_axis <- function(at, labels, position="right", theme) {
   }
   labels <- theme_render(theme, label_render, labels, label_x, label_y)
   
+  line <- switch(position,
+    top =    theme_render(theme, "axis.line", 0, 0, 1, 0),
+    bottom = theme_render(theme, "axis.line", 0, 1, 1, 1),
+    right =  theme_render(theme, "axis.line", 0, 1, 0, 1),
+    left =   theme_render(theme, "axis.line", 1, 0, 1, 1)
+  )
+  
   ticks <- switch(position,
     top =    theme_render(theme, "axis.ticks.x", at, 0, at, length),
     bottom = theme_render(theme, "axis.ticks.x", at, one - length, at, 1),
@@ -47,7 +54,7 @@ guide_axis <- function(at, labels, position="right", theme) {
   )
     
   absoluteGrob(
-    grobTree(ticks, labels),
+    grobTree(ticks, labels, line),
     width = grobWidth(labels) + label_pos,
     height = grobHeight(labels) + label_pos
   )  

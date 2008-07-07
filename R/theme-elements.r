@@ -49,7 +49,7 @@ theme_segment <- function(colour = "black", size = 0.5, linetype = 1) {
     function(x0 = 0, y0 = 0, x1 = 1, y1 = 1, ...) {
       segmentsGrob(
         x0, y0, x1, y1, ..., default.units = "npc",
-        gp=gpar(size=unit(size, "mm"), col=colour, lty=linetype),
+        gp=gpar(col=colour, lty=linetype, lwd = size),
       )
     },
     class = "theme",
