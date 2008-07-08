@@ -46,7 +46,7 @@ bolus.ggplot <- function(x, ...) {
     facet = facet$hash(),
     coord = coordinates$hash(),
     title = title,
-    options = x[intersect(names(x), names(ggopt()))]
+    options = x$options
   ))
 }
 
