@@ -22,7 +22,11 @@ plot_theme <- function(x) {
 
   list(
     get = function() theme,
-    set = function(new) theme <<- new
+    set = function(new) {
+      old <- theme
+      theme <<- new
+      old
+    }
   )
 })()
 theme_get <- .theme$get  

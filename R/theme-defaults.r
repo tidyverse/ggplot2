@@ -6,8 +6,8 @@
 theme_gray <- function(base_size = 12) {
   structure(list(
     axis.line =         theme_blank(),
-    axis.text.x =       theme_text(size = base_size / 1.2 , lineheight = 0.9, colour = "grey50", vjust = 1),
-    axis.text.y =       theme_text(size = base_size / 1.2, lineheight = 0.9, colour = "grey50", hjust = 1),
+    axis.text.x =       theme_text(size = base_size * 0.8 , lineheight = 0.9, colour = "grey50", vjust = 1),
+    axis.text.y =       theme_text(size = base_size * 0.8, lineheight = 0.9, colour = "grey50", hjust = 1),
     axis.ticks =      theme_segment(colour = "grey50"),
     axis.title.x =      theme_text(size = base_size),
     axis.title.y =      theme_text(size = base_size, angle = 90),
@@ -27,11 +27,11 @@ theme_gray <- function(base_size = 12) {
 
     strip.background =  theme_rect(fill = "grey80"), 
     strip.label =       function(variable, value) value, 
-    strip.text.x =     theme_text(size = base_size / 1.2),
-    strip.text.y =     theme_text(size = base_size / 1.2, angle = -90),
+    strip.text.x =     theme_text(size = base_size * 0.8),
+    strip.text.y =     theme_text(size = base_size * 0.8, angle = -90),
 
     plot.box =          theme_rect(colour = NA),
-    plot.title =        theme_text(size = base_size * 1.4)    
+    plot.title =        theme_text(size = base_size * 1.2)    
   ), class = "options")
 }
 
