@@ -50,10 +50,10 @@ theme_bw <- function(base_size = 12) {
     panel.background =  theme_rect(fill = "white", colour = NA), 
     panel.border =      theme_rect(fill = NA, colour="black", size=1.5), 
     panel.grid.major =  theme_line(colour = "grey80"),
-    panel.grid.minor =  theme_line(colour = "grey95", size = 0.25),
+    panel.grid.minor =  theme_line(colour = "grey95", size = 0.2),
     panel.empty =       theme_rect(fill = "white", colour = NA),
 
-    strip.background =  theme_rect(fill = "grey80"), 
+    strip.background =  theme_rect(fill = "grey80", colour = "black"), 
     strip.label =       function(variable, value) value, 
     strip.text.x =     theme_text(size = base_size * 0.8),
     strip.text.y =     theme_text(size = base_size * 0.8, angle = -90),
