@@ -119,7 +119,7 @@ ggplotGrob <- function(plot, drop = plot$drop, keep = plot$keep) {
     editGrob(x, vp=vpPath("background", name))
   }
   grobs <- c(
-    list(theme_render(theme, "plot.box", vp = "background")),
+    list(theme_render(theme, "plot.background", vp = "background")),
     mlply(cbind(x = grobs, name = names(grobs)), edit_vp)
   )
 
