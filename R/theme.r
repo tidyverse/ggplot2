@@ -25,7 +25,7 @@ plot_theme <- function(x) {
     set = function(new) {
       old <- theme
       theme <<- new
-      old
+      invisible(old)
     }
   )
 })()
