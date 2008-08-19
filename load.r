@@ -1,5 +1,5 @@
 options(Hverbose=FALSE)
-library(ggplot2)
+suppressMessages(library(ggplot2, warn.conflicts = FALSE))
 l(plyr)
 
 paths <- dir("~/documents/ggplot/ggplot/R", full.name=T)
