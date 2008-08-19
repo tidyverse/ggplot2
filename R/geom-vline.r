@@ -16,12 +16,12 @@ GeomVline <- proto(Geom, {
     
     yrange <- coordinates$output_set()$y
 
-    data <- transform(data,
+    data <- coordinates$transform(transform(data,
       y = yrange[1],
       yend = yrange[2],
       x = intercept,
       xend = intercept
-    )
+    ))
     
     GeomSegment$draw(unique(data), scales, coordinates)
   }

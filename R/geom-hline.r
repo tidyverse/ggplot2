@@ -15,12 +15,12 @@ GeomHline <- proto(Geom, {
     
     xrange <- coordinates$output_set()$x
 
-    data <- transform(data,
+    data <- coordinates$transform(transform(data,
       x = xrange[1],
       xend = xrange[2],
       y = intercept,
       yend = intercept
-    )
+    ))
     
     GeomSegment$draw(unique(data), scales, coordinates)
   }

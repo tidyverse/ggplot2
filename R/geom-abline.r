@@ -8,12 +8,12 @@ GeomAbline <- proto(Geom, {
     
     xrange <- coordinates$output_set()$x
 
-    data <- transform(data,
+    data <- coordinates$transform(transform(data,
       x = xrange[1],
       xend = xrange[2],
       y = xrange[1] * slope + intercept,
       yend = xrange[2] * slope + intercept
-    )
+    ))
     
     GeomSegment$draw(unique(data), scales, coordinates)
   }
