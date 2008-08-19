@@ -83,7 +83,7 @@ ScaleBrewer <- proto(ScaleColour, expr={
 
   output_set <- function(.) {
     n <- length(.$input_set())
-    pal <- brewer.pal(n, .$pal_name())
+    pal <- brewer.pal(n, .$pal_name())[1:n]
     alpha(pal, .$.alpha)
   }
 

@@ -20,7 +20,9 @@ labels_default <- function(gm, theme) {
   col.labels <- add.names(rcolnames(gm))
   
   strip_h <- apply(col.labels, c(2,1), ggstrip, theme = theme)
+  # if (nrow(strip_h) == 1 && ncol(strip_h) == 1) strip_h <- matrix(list(nullGrob()))
   strip_v <- apply(row.labels, c(1,2), ggstrip, horizontal=FALSE, theme=theme)
+  # if (nrow(strip_v) == 1 && ncol(strip_v) == 1) strip_v <- matrix(list(nullGrob()))
 
   list(
     h = strip_h, 
