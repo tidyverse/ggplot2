@@ -6,8 +6,10 @@ paths <- dir("~/documents/ggplot/ggplot/R", full.name=T)
 paths <- paths[basename(paths) != "xxx.r"]
 l_ply(paths, source)
 
-accessors_print("~/documents/ggplot/ggplot/R/xxx.r")
-source("~/documents/ggplot/ggplot/R/xxx.r")
+regen <- function() {
+  accessors_print("~/documents/ggplot/ggplot/R/xxx.r")
+  source("~/documents/ggplot/ggplot/R/xxx.r")
+}
 
 if (!exists("curr")) curr <- NULL
 
