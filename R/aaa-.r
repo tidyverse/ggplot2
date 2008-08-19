@@ -22,7 +22,11 @@ TopLevel <- proto(expr = {
     objs
   }
   find <- function(., name) {
-    get(paste(firstUpper(.$class()), firstUpper(name), sep=""))
+    fullname <- paste(firstUpper(.$class()), firstUpper(name), sep="")
+    if (!exists(fullname)) {
+      stop("No ", .$class(), " called ", name, call.=FALSE)
+    }
+    get(fullname)
   }
   
   my_name <- function(., prefix=TRUE) {

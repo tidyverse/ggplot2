@@ -6,7 +6,7 @@ TopLevel$examples_text <- function(.) {
   source <- attr(get("examples", .), "source")
   source <- source[-c(1, length(source))]
   
-  unlist(lapply(source, function(x) gsub("^\t\t", "", x)))
+  unlist(lapply(source, function(x) gsub("^    ", "", x)))
 }
 
 TopLevel$examples_run <- function(., path = NULL, verbose=TRUE) {
@@ -17,12 +17,12 @@ TopLevel$examples_run <- function(., path = NULL, verbose=TRUE) {
 
   require(decumar, quiet=TRUE, warn=FALSE)
   quiet <- if (verbose) force else suppressMessages
-  parsed <- quiet(nice_parse(.$examples_text()))
+  parsed <- weave(.$examples_text())
   plots <- Filter(function(x) inherits(x$value, "ggplot") && x$visible, parsed)
   
   display <- function(x) {
     hash <- digest.ggplot(x$value)
-    if (verbose) cat(x$src, "\n")
+    if (verbose) cat(x$src)
     if (is.null(path)) {
       timing <- try_default(system.time(print(x$value)), c(NA, NA, NA))
     } else {      
@@ -41,6 +41,7 @@ TopLevel$examples_run <- function(., path = NULL, verbose=TRUE) {
     )
   }
   out <- lapply(plots, display)
+  cat("\n")
   invisible(do.call("rbind", out))
 }
 

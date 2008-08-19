@@ -103,7 +103,7 @@ GeomPath <- proto(Geom, {
     # not be used with colour or size that vary across a line
     
     x <- seq(0.01, .99, length=100)
-    df <- data.frame(rep(x, 2), y = c(qlogis(x), 2 * qlogis(x)), group = rep(c("a","b"), each=100))
+    df <- data.frame(x = rep(x, 2), y = c(qlogis(x), 2 * qlogis(x)), group = rep(c("a","b"), each=100))
     p <- ggplot(df, aes(x=x, y=y, group=group))
 
     # Should work
