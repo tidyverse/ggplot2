@@ -96,7 +96,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
     "scale_discrete" = "Discrete position scales"
   )
   examples <- function(.) {
-    (m <- qplot(rating, votes, data=movies))
+    (m <- qplot(rating, votes, data=subset(movies, votes > 1000)))
     
     # Manipulating the default position scales lets you:
 
@@ -114,20 +114,21 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
     m + scale_x_continuous(breaks=c(1,3,7,9))
 
     #  * manually label the ticks
-    m + scale_x_continuous(breaks=c(1,5,10), labels=c("one", "five", "ten"))
-    m + scale_x_continuous(breaks=c(1,5,10), labels=c("horrible", "ok", "awesome"))
-    m + scale_x_continuous(breaks=c(1,5,10), labels=expression(Alpha, Beta, Omega))
+    m + scale_x_continuous(breaks=c(2,5,8), labels=c("two", "five", "eight"))
+    m + scale_x_continuous(breaks=c(2,5,8), labels=c("horrible", "ok", "awesome"))
+    m + scale_x_continuous(breaks=c(2,5,8), labels=expression(Alpha, Beta, Omega))
     
     # There are also a wide range of transformations you can use:
     m + scale_y_log10()
     m + scale_y_log()
     m + scale_y_log2()
     m + scale_y_sqrt()
+    m + scale_y_reverse()
     # see ?transformer for a full list
     
     # qplot allows you to do some of this with a little less typing:
     #   * axis limits
-    qplot(rating, votes, data=movies, xlim=c(5,10), ylim=c(50000, NA))
+    qplot(rating, votes, data=movies, ylim=c(1e4, 5e4))
     #   * axis labels
     qplot(rating, votes, data=movies, xlab="My x axis", ylab="My y axis")
     #   * log scaling

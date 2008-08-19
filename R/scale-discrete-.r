@@ -28,7 +28,7 @@ ScaleDiscrete <- proto(Scale, expr={
   # Domain ------------------------------------------------
   
   transform_df <- function(., df) {
-    df
+    NULL
   }
 
   train <- function(., x) {

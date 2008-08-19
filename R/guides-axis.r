@@ -32,10 +32,12 @@ guide_axis <- function(at, labels, position="right", theme) {
     left = at,
   )
   
-  if (is.language(labels[[1]])) {
-    labels <- do.call(expression, labels)
-  } else {
-    labels <- unlist(labels)    
+  if (is.list(labels)) {
+    if (is.language(labels[[1]])) {
+      labels <- do.call(expression, labels)
+    } else {
+      labels <- unlist(labels)    
+    }
   }
   labels <- theme_render(theme, label_render, labels, label_x, label_y)
   

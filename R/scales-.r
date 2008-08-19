@@ -88,8 +88,7 @@ Scales <- proto(Scale, expr={
     }))
     mapped <- do.call("data.frame", mapped)
     
-    do.call("data.frame", c(mapped, df[!(names(df) %in% .$input())]))
-    
+    data.frame(c(mapped, df[setdiff(names(df), names(mapped))]))
   }
   
   # Add default scales.
