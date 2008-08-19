@@ -35,7 +35,10 @@ ScaleDiscrete <- proto(Scale, expr={
     if (!is.discrete(x)) {
       stop("Continuous variable (", .$name , ") supplied to the discrete ", .$my_name(), ".", call.=FALSE) 
     }
-    .$.domain <- sort(union(.$.domain, as.character(unique(x))))
+    vals <- if (is.factor(x)) levels(x) else as.character(unique(x))
+    if (any(is.na(x))) vals <- c(NA, vals)
+    
+    .$.domain <- union(.$.domain, vals)
   }
 
   check_domain <- function(.) {
@@ -60,15 +63,19 @@ ScaleDiscrete <- proto(Scale, expr={
     # have a discrete position and the only thing you can do with it
     # is change the labels
     
-    (d <- qplot(cut, clarity, data=diamonds, geom="jitter"))
+    (d <- qplot(cut, clarity, data=subset(diamonds, carat > 1), geom="jitter"))
     
     d + scale_x_discrete("Cut")
     d + scale_x_discrete("Cut", labels=c("F","G","VG","P","I"))
+    
     d + scale_y_discrete("Clarity")
     d + scale_x_discrete("Cut") + scale_y_discrete("Clarity")
+
+    # Use limits to adjust the which levels (and in what order)
+    # are displayed
+    d + scale_x_discrete(limits=c("Fair","Ideal"))
+    # See ?reorder to reorder based on the values of another variable
     
-    # To adjust the order you must modify the underlying factor
-    # see ?reorder for one approach to this    
   }
   
 

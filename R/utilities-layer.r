@@ -26,7 +26,7 @@ add_group <- function(data) {
     else 
       data$group <- as.numeric(do.call("interaction", data[,cat, drop=FALSE]))
   }
-  data$group <- factor(data$group)
+  data$group <- as.numeric(factor(data$group, exclude = NULL))
   data
 }
 

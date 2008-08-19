@@ -11,8 +11,8 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
   if (is.null(binwidth)) binwidth <- diff(range) / 30
 
   if (is.factor(x)) {
-    bins <- factor(x)
-    x <- sort(unique(x))
+    bins <- factor(x, exclude = NULL)
+    x <- sort(unique(bins))
     width <- width    
   } else if (diff(range) == 0) {
     width <- width
@@ -33,7 +33,6 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
   }
 
   # if (binwidth < resolution(x)) warning("Binwidth is smaller than the resolution of the data")
-
   results <- data.frame(
     count = as.numeric(tapply(weight, bins, sum, na.rm=TRUE)),
     x = x,

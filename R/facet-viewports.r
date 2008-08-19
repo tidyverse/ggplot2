@@ -27,7 +27,7 @@ assign_viewports <- function(grobs) {
 # @arguments list containing x and y ranges
 # @keyword hplot 
 # @keyword internal
-setup_viewports <- function(type, data, offset=c(0,0)) {
+setup_viewports <- function(type, data, offset = c(0,0), clip = "on") {
   rows <- nrow(data)
   cols <- ncol(data)
   
@@ -37,7 +37,7 @@ setup_viewports <- function(type, data, offset=c(0,0)) {
       name = vp_name(x, y, type), 
       layout.pos.row = x + offset[1], 
       layout.pos.col = y + offset[2], 
-      clip="on"
+      clip=clip
     )
   }
   pos <- expand.grid(x = seq_len(rows), y= seq_len(cols))

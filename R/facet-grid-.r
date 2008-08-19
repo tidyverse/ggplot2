@@ -81,11 +81,11 @@ FacetGrid <- proto(Facet, {
     children_vp <- do.call("vpList", c(
       setup_viewports("strip_h", guides$strip_h, c(0,1)),
       
-      setup_viewports("axis_v",  guides$axis_v,  c(strip_rows, 0)),
+      setup_viewports("axis_v",  guides$axis_v,  c(strip_rows, 0), "off"),
       setup_viewports("panel",   guides$panel,   c(strip_rows, 1)),
       setup_viewports("strip_v", guides$strip_v, c(strip_rows, 1 + panel_cols)),
       
-      setup_viewports("axis_h",  guides$axis_h, c(strip_rows + panel_rows, 1))
+      setup_viewports("axis_h",  guides$axis_h, c(strip_rows + panel_rows, 1), "off")
     ))
     
     vpTree(layout_vp, children_vp)

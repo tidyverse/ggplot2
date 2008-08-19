@@ -16,7 +16,7 @@ Stat <- proto(TopLevel, expr={
     force(data)
     force(scales)
     
-    groups <- split(data, factor(data$group))
+    groups <- split(data, data$group)
     stats <- lapply(groups, function(group) .$calculate(group, scales, ...))
     
     stats <- mapply(function(new, old) {

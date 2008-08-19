@@ -20,7 +20,7 @@ PositionStack <- proto(Position, {
         y = heights[-1]
       )
     }
-
+    
     xs <- split(data, data$x)
     data <- do.call("rbind", lapply(xs, adjust))
   
