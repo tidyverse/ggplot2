@@ -80,7 +80,7 @@ StatBin <- proto(Stat, {
     range <- scales$get_scales("x")$output_set()
 
     if (is.null(breaks) && is.null(binwidth) && is.numeric(data$x) && !.$informed) {
-      message("stat_bin: breaks/binwidth unspecified, using 30 bins as default.")
+      message("stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.")
       .$informed <- TRUE
     }
     
