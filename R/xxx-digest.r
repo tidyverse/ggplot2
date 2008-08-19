@@ -45,7 +45,6 @@ bolus.ggplot <- function(x, ...) {
     scales = scales$hash(),
     facet = facet$hash(),
     coord = coordinates$hash(),
-    title = title,
     options = x$options
   ))
 }
@@ -82,11 +81,16 @@ TopLevel$bolus <- function(.) {
   )
 }
 Scale$bolus <- function(.) {
+  settings <- .$settings()
+  settings$.tr <- settings$.tr.$objname
+  settings$.input <- NULL
+  settings$.output <- NULL
+  
   list(
     name = .$objname,
     input = .$.input,
     output = .$.output,
-    settings = .$settings()
+    settings = compact(settings)
   )
 }
 Layer$bolus <- function(.) {
