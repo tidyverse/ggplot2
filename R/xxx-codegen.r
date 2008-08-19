@@ -22,7 +22,7 @@ Scale$create_accessor <- function(.) {
     var <- NULL
     short <- paste(.$class(), .$objname, sep="_")
   } else {
-    var <- paste("variable = \"", .$common, "\"", sep="")
+    var <- paste("list(variable = \"\\\"", .$common, "\\\"\")", sep="")
     short <- paste(.$class(), .$common, .$objname, sep="_")
   }
 

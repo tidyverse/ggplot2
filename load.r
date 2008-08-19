@@ -7,7 +7,7 @@ paths <- paths[basename(paths) != "xxx.r"]
 l_ply(paths, source)
 
 accessors_print("~/documents/ggplot/ggplot/R/xxx.r")
-# source("~/documents/ggplot/ggplot/R/xxx.r")
+source("~/documents/ggplot/ggplot/R/xxx.r")
 
 if (!exists("curr")) curr <- NULL
 
