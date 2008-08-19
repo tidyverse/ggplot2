@@ -41,16 +41,19 @@ CoordEqual <- proto(CoordCartesian, {
   
   guide_axes <- function(., theme) {
     range <- .$output_set()
+    y.pretty <- grid.pretty(range$y)
+    x.pretty <- grid.pretty(range$x)
+    
     list(
-      x = guide_axis(grid.pretty(range$x), grid.pretty(range$x), "bottom", theme),
-      y = guide_axis(grid.pretty(range$y), grid.pretty(range$y), "left", theme)
+      x = guide_axis(.$transform_x(x.pretty), x.pretty, "bottom", theme),
+      y = guide_axis(.$transform_y(y.pretty), y.pretty, "left", theme)
     )
   }
   
   guide_background <- function(., theme) {
     range <- .$output_set()
-    y.pretty <- grid.pretty(range$y)
-    x.pretty <- grid.pretty(range$x)
+    y.pretty <- .$transform_y(grid.pretty(range$y))
+    x.pretty <- .$transform_x(grid.pretty(range$x))
 
     x.major <- unit(x.pretty, "native")
     x.minor <- unit(.$x()$output_breaks(b = x.pretty), "native")
