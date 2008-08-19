@@ -16,12 +16,12 @@ theme_blank <- function() {
 #   (border) colour
 #   (border) size
 #   (border) linetype
-theme_rect <- function(fill = NA, colour = "black", size = 0.5, linetype = 1) {
+theme_rect <- function(fill = NA, colour = "black", size = 1, linetype = 1) {
   structure(
     function(x = 0.5, y = 0.5, width = 1, height = 1, ...) {
       rectGrob(
         x, y, width, height, ...,
-        gp=gpar(size=unit(size, "mm"), col=colour, fill=fill, lty=linetype),
+        gp=gpar(lwd=size, col=colour, fill=fill, lty=linetype),
       )
     },
     class = "theme",
@@ -68,7 +68,7 @@ theme_segment <- function(colour = "black", size = 0.5, linetype = 1) {
 #   angle
 #   vjust
 #   hjust
-theme_text <- function(family = "", face = "plain", colour = "black", size = 10, hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1.3) {
+theme_text <- function(family = "", face = "plain", colour = "black", size = 10, hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1.1) {
   vj <- vjust
   hj <- hjust
   

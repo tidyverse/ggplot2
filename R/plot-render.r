@@ -80,27 +80,24 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep)
   # Calculate sizes ----------------------------------------------------------
   if (is.null(legend_box)) position <- "none"
     
-  ylab_width <- 1.3 * unit(1, "grobwidth", grobs$ylabel)
-  if (length(ylabel$label) != 0) ylab_width <- ylab_width + unit(0.5, "lines")
-
-  xlab_height <- 1.3 * unit(1, "grobheight", grobs$xlabel)
-  if (length(xlabel$label) != 0) xlab_height <- xlab_height + unit(0.5, "lines")
+  ylab_width <- unit(0.5, "lines") + unit(1, "grobwidth", grobs$ylabel)
+  xlab_height <- unit(0.5, "lines") + unit(1, "grobheight", grobs$xlabel)
 
   widths <- switch(position, 
-    right =  unit.c(ylab_width, unit(1, "null"), grobWidth(grobs$legend_box)),
-    left =   unit.c(grobWidth(grobs$legend_box), ylab_width, unit(1, "null")), 
+    right =  unit.c(ylab_width, unit(1, "null"), grobWidth(grobs$legend_box) + unit(1, "lines")),
+    left =   unit.c(grobWidth(grobs$legend_box) + unit(1, "lines"), ylab_width, unit(1, "null")), 
     top =    ,
     bottom = ,
     manual = ,
     none =   unit.c(ylab_width, unit(1, "null"))
   )
   heights <- switch(position,
-    top =    unit.c(1.3 * grobHeight(grobs$title), grobHeight(grobs$legend_box), unit(1, "null"), xlab_height),
-    bottom = unit.c(1.3 * grobHeight(grobs$title), unit(1, "null"), xlab_height, grobHeight(grobs$legend_box)),
+    top =    unit.c(grobHeight(grobs$title) + unit(1, "lines"), grobHeight(grobs$legend_box), unit(1, "null"), xlab_height),
+    bottom = unit.c(grobHeight(grobs$title)  + unit(1, "lines"), unit(1, "null"), xlab_height, grobHeight(grobs$legend_box)),
     right =  ,
     left =   ,
     manual = ,
-    none =   unit.c(1.3 * grobHeight(grobs$title), unit(1, "null"), xlab_height)
+    none =   unit.c(grobHeight(grobs$title) + unit(1, "lines"), unit(1, "null"), xlab_height)
   )
   
   if (position == "manual") {
@@ -183,10 +180,7 @@ surround_viewports <- function(position, widths, heights, legend_vp) {
       legend_vp
     )
   }
-  vpTree(
-    viewport(name = "background", layout = layout), 
-    viewports
-  )
+  vpTree(viewport(name = "background", layout = layout), viewports)
 }
 
 # Print ggplot

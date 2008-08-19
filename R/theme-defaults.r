@@ -6,8 +6,8 @@ theme_gray <- function(base_size = 12) {
     axis.ticks =        theme_segment(colour = "grey50"),
     axis.title.x =      theme_text(size = base_size),
     axis.title.y =      theme_text(size = base_size, angle = 90),
-    axis.ticks.length = unit(0.3, "lines"),
-    axis.ticks.margin = unit(0.5, "lines"),
+    axis.ticks.length = unit(0.15, "cm"),
+    axis.ticks.margin = unit(0.1, "cm"),
 
     legend.background = theme_rect(colour=NA), 
     legend.key =        theme_rect(fill = "grey95", colour = "grey80"),
@@ -15,7 +15,7 @@ theme_gray <- function(base_size = 12) {
     legend.title =      theme_text(size = base_size, face = "bold", hjust = 0),
 
     panel.background =  theme_rect(fill = "grey90", colour = NA), 
-    panel.border =      theme_rect(fill = NA, colour="white", size=1), 
+    panel.border =      theme_rect(fill = NA, colour="white", size=2), 
     panel.grid.major =  theme_line(colour = "white"),
     panel.grid.minor =  theme_line(colour = "grey95", size = 0.25),
     panel.empty =       theme_rect(fill = "white", colour = NA),
@@ -26,7 +26,7 @@ theme_gray <- function(base_size = 12) {
     strip.text.y =      theme_text(size = base_size * 0.8, angle = -90),
 
     plot.background =   theme_rect(colour = NA),
-    plot.title =        theme_text(size = base_size * 1.2)    
+    plot.title =        theme_text(size = base_size * 1.2)
   ), class = "options")
 }
 
