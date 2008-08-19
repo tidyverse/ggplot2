@@ -1,19 +1,34 @@
-create_accessors <- function(objects, name, short=NULL) {
-  mapply(function(x, oldname) {
-    objname <- get("objname", envir=x)
-    
-    output <- deparse(substitute(
-      short <- obj$build_accessor(),
-      list(
-        short = as.name(paste(name, objname, sep="_")),
-        obj = as.name(oldname)
-      ) 
-    ), width.cutoff = 500)
-    
-    output <- paste(output, "\n", sep="")
-    output
-  }, objects, names(objects))
+# Write out all convenience accessor functions to R file.
+#
+# @keyword internal
+accessors_print <- function(file = "") {
+  funs <- sort(c(
+    Geom$accessors(), Stat$accessors(), Scale$accessors(),
+    Coord$accessors(),  Position$accessors(), Facet$accessors()
+  ))
+  cat(funs, file=file, sep="")
 }
+
+TopLevel$accessors <- function(.) {
+  accessors <- lapply(.$find_all(), function(y) y$create_accessor())
+  unname(unlist(accessors))
+}
+ 
+TopLevel$create_accessor <- function(.) {
+  paste(.$my_name(), " <- ", .$myName(), "$build_accessor()\n", sep="")
+}
+Scale$create_accessor <- function(.) {
+  if (is.null(.$common)) {
+    var <- NULL
+    short <- paste(.$class(), .$objname, sep="_")
+  } else {
+    var <- paste("variable = \"", .$common, "\"", sep="")
+    short <- paste(.$class(), .$common, .$objname, sep="_")
+  }
+
+  paste(short, " <- ", .$myName(), "$build_accessor(", var, ")\n", sep="")
+}
+
 
 TopLevel$build_accessor <- function(., extra_args = c()) {
   layer <- if (.$class() %in% c("geom","stat")) c(
@@ -42,68 +57,3 @@ TopLevel$build_accessor <- function(., extra_args = c()) {
   environment(f) <- globalenv()
   f
 }
-
-
-# Write out all convenience accessor functions to R file.
-# This calls the \code{accessor_print} method for each of the main 
-# ggplot object types
-#
-# @keyword internal
-accessors_print <- function(file = "") {
-  funs <- sort(capture.output({
-    Geom$accessors_print()
-    Stat$accessors_print()
-    Scale$accessors_print()
-    Coord$accessors_print()
-    Position$accessors_print()
-    Facet$accessors_print()
-  }))
-  funs <- paste(paste(funs, collapse="\n"), "\n", sep="")
-  cat(funs, file=file)
-}
-
-TopLevel$accessors <- function(.) create_accessors(.$find_all(), .$class())
-TopLevel$accessors_print <- function(.) invisible(lapply(.$accessors(), cat))
-
-Scale$accessors <- function(.) {
-  objects <- Scale$find_all()
-  name <- "scale"
-  
-  scale_with_var <- function(x, oldname, var) {
-    objname <- get("objname", envir=x)
-    
-    output <- deparse(substitute(
-      short <- obj$build_accessor(c(variable = var)),
-      list(
-        short = as.name(paste(name, var, objname, sep="_")),
-        obj = as.name(oldname),
-        var = ps("\"", var, "\"")
-      ) 
-    ), width.cutoff = 500)
-  }
-  
-  scale <- function(x, oldname) {
-    objname <- get("objname", envir=x)
-    
-    output <- deparse(substitute(
-      short <- obj$build_accessor(),
-      list(
-        short = as.name(paste(name, objname, sep="_")),
-        obj = as.name(oldname)
-      ) 
-    ), width.cutoff = 500)
-    output <- paste(output, "\n", sep="")
-  }
-  
-  
-  mapply(function(object, name) {
-    if(!is.null(object$common)) {
-      paste(paste(sapply(object$common, function(x) scale_with_var(object, name, x)), sep="", collapse="\n"), "\n", sep="")
-    } else {
-      scale(object, name)
-    }
-  }, objects, names(objects))
-}
-  # For all continuous scales ScaleZzz
-  # create scale_x_zzz and and scale_y_zzz
-  # scale_(x|y)_transform(...) = ScaleContinuous$new(variable="x|y", ...) 

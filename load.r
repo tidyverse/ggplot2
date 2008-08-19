@@ -2,15 +2,12 @@ options(Hverbose=FALSE)
 library(ggplot2)
 l(plyr)
 
-source.with.err <- function(path) {
-  tryCatch(source(path), error = function(x) {print(path); print(x)})
-}
 paths <- dir("~/documents/ggplot/ggplot/R", full.name=T)
 paths <- paths[basename(paths) != "xxx.r"]
-lapply(paths, source.with.err)
+l_ply(paths, source)
 
 accessors_print("~/documents/ggplot/ggplot/R/xxx.r")
-source("~/documents/ggplot/ggplot/R/xxx.r")
+# source("~/documents/ggplot/ggplot/R/xxx.r")
 
 if (!exists("curr")) curr <- NULL
 
