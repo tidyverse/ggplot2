@@ -48,8 +48,7 @@ ggplot_build <- function(plot) {
   cs$train(scales)
   grobs <- dlapply(function(d, p) p$make_grobs(d, scales, cs))
   grobs3d <- array(unlist(grobs, recursive=F), c(dim(data[[1]]), length(data)))
-  panels <- aaply(grobs3d, 1:2, splat(grobTree))
-  dim(panels) <- dim(data[[1]])
+  panels <- aaply(grobs3d, 1:2, splat(grobTree), drop. = FALSE)
   
   scales <- plot$scales$minus(plot$scales$get_scales(c("x", "y", "z")))
   

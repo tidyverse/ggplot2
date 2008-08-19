@@ -24,7 +24,7 @@ GeomPath <- proto(Geom, {
       stop("geom_path: If you are using dotted or dashed lines, colour, size and linetype must be constant over the line", call.=FALSE)
     }
     
-    if (solid_lines) {
+    if (!constant) {
       with(munched, 
         segmentsGrob(x[!end], y[!end], x[!start], y[!start], default.units="native",
         gp=gpar(col=colour[!end], lwd=size[!end] * .pt, lty=linetype[!end]))
