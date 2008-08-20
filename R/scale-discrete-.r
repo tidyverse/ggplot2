@@ -55,28 +55,6 @@ ScaleDiscrete <- proto(Scale, expr={
   
   # Documentation
   objname <- "discrete"
-  common <- c("x", "y", "z")
-  desc <- "Discrete position scale"
-  
-  examples <- function(.) {
-    # The discrete position scale is added automatically whenever you
-    # have a discrete position and the only thing you can do with it
-    # is change the labels
-    
-    (d <- qplot(cut, clarity, data=subset(diamonds, carat > 1), geom="jitter"))
-    
-    d + scale_x_discrete("Cut")
-    d + scale_x_discrete("Cut", labels=c("F","G","VG","P","I"))
-    
-    d + scale_y_discrete("Clarity")
-    d + scale_x_discrete("Cut") + scale_y_discrete("Clarity")
-
-    # Use limits to adjust the which levels (and in what order)
-    # are displayed
-    d + scale_x_discrete(limits=c("Fair","Ideal"))
-    # See ?reorder to reorder based on the values of another variable
-    
-  }
   
 
 })

@@ -30,8 +30,8 @@ CoordCartesian <- proto(Coord, expr={
   output_set <- function(.) {
     expand <- .$expand()
     list(
-      x = expand_range(range(.$x()$output_set()), expand$x[1], expand$x[2]),
-      y = expand_range(range(.$y()$output_set()), expand$y[1], expand$y[2])
+      x = expand_range(.$x()$output_set(), expand$x[1], expand$x[2]),
+      y = expand_range(.$y()$output_set(), expand$y[1], expand$y[2])
     )
   }
   
