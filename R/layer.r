@@ -203,6 +203,11 @@ Layer <- proto(expr = {
   scales_transform <- function(., data, scale) {
     gg_apply(data, function(df) scale$transform_df(df))
   }
+
+  scales_map_position <- function(., data, scale) {
+    gg_apply(data, function(df) scale$map_position(df))
+  }
+
   
   # Train scale for this layer
   scales_train <- function(., data, scale) {

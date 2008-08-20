@@ -49,7 +49,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
   # By default, a continuous scale does no transformation in the mapping stage
   # See scale_size for an exception
   map <- function(., values) {
-    ifelse(values %inside% .$output_set(), values, NA)
+    as.numeric(ifelse(values %inside% .$output_set(), values, NA))
   }
 
   # By default, the range of a continuous scale is the same as its

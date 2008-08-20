@@ -22,12 +22,12 @@ ggplot_build <- function(plot) {
   data <- dlapply(function(d, p) p$scales_transform(d, scales))
   dlapply(function(d, p) p$scales_train(d, scales))
 
-  # data <- dlapply(function(d, p) p$scales_map_position(d, scales))
-  data <- dlapply(function(d, p) p$reparameterise(d))
+  data <- dlapply(function(d, p) p$scales_map_position(d, scales))
 
   # Apply statistics
   data <- dlapply(function(d, p) p$calc_statistics(d, scales))
   data <- dlapply(function(d, p) p$map_statistics(d, plot))  
+  data <- dlapply(function(d, p) p$reparameterise(d))
 
   # Adjust position before scaling
   data <- dlapply(function(d, p) p$adjust_position(d, scales, "before"))

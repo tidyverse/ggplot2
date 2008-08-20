@@ -40,6 +40,10 @@ Scales <- proto(Scale, expr={
     }
   }
   
+  has_scale <- function(., output) {
+    any(.$find(output))
+  }
+  
   get_trained_scales <- function(.) {
     Filter(function(x) x$trained(), .$.scales)
   }
@@ -78,6 +82,24 @@ Scales <- proto(Scale, expr={
       c(mapped[sapply(mapped, nrow) > 0], 
       df[!(names(df) %in% .$input())])
     )
+  }
+  
+  map_position <- function(., df) {
+    if (.$has_scale("x")) {
+      scale_x <- .$get_scales("x")
+      trans_x <- function(x) scale_x$map(x)
+    } else {
+      trans_x <- force
+    }
+
+    if (.$has_scale("y")) {
+      scale_y <- .$get_scales("y")
+      trans_y <- function(y) scale_y$map(y)
+    } else {
+      trans_y <- force
+    }
+    
+    transform_position(df, trans_x, trans_y)
   }
   
   transform_df <- function(., df) {
