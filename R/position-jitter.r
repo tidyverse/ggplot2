@@ -11,13 +11,17 @@ PositionJitter <- proto(Position, {
     
     if (is.null(.$xjitter)) .$xjitter <- resolution(data$x) * 0.40
     if (is.null(.$yjitter)) .$yjitter <- resolution(data$y) * 0.40
-
-    data <- within(data, {
-      if(.$xjitter > 0) x <- jitter(x, amount = .$xjitter)
-      if(.$yjitter > 0) y <- jitter(y, amount = .$yjitter)
-    })
     
-    data
+    trans_x <- NULL
+    trans_y <- NULL
+    if(.$xjitter > 0) {
+      trans_x <- function(x) jitter(x, amount = .$xjitter)
+    }
+    if(.$yjitter > 0) {
+      trans_y <- function(x) jitter(x, amount = .$yjitter)
+    }
+    
+    transform_position(data, trans_x, trans_y)
   }
   
   objname <- "jitter" 
