@@ -1,5 +1,4 @@
 PositionStack <- proto(Position, {
-  position <- "before"
   rescale <- FALSE
 
   adjust <- function(., data, scales) {

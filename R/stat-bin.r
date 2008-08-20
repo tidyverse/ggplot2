@@ -10,8 +10,8 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
   if (is.null(range))    range <- range(x, na.rm = TRUE, finite=TRUE)
   if (is.null(binwidth)) binwidth <- diff(range) / 30
 
-  if (is.factor(x)) {
-    bins <- factor(x, exclude = NULL)
+  if (is.integer(x)) {
+    bins <- x
     x <- sort(unique(bins))
     width <- width    
   } else if (diff(range) == 0) {
@@ -78,7 +78,7 @@ StatBin <- proto(Stat, {
   calculate <- function(., data, scales, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, ...) {
     range <- scales$get_scales("x")$output_set()
 
-    if (is.null(breaks) && is.null(binwidth) && is.numeric(data$x) && !.$informed) {
+    if (is.null(breaks) && is.null(binwidth) && !is.integer(data$x) && !.$informed) {
       message("stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.")
       .$informed <- TRUE
     }

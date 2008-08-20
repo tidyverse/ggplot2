@@ -1,6 +1,5 @@
 PositionIdentity <- proto(Position, {
   objname <- "identity"
-  position <- "before"
   desc <- "Don't adjust position"
 
   icon <- function(.) {

@@ -30,7 +30,7 @@ ggplot_build <- function(plot) {
   data <- dlapply(function(d, p) p$reparameterise(d))
 
   # Adjust position before scaling
-  data <- dlapply(function(d, p) p$adjust_position(d, scales, "before"))
+  data <- dlapply(function(d, p) p$adjust_position(d, scales))
   # Transform, train and map scales
   # data <- dlapply(function(d, p) p$scales_transform(d, scales))
   
@@ -42,9 +42,6 @@ ggplot_build <- function(plot) {
   if (length(missing_scales) > 0) {
     stop("ggplot: Some aesthetics (", paste(missing_scales, collapse =", "), ") are missing scales, you will need to add them by hand.", call.=FALSE)
   }
-
-  # Adjust position after scaling
-  data <- dlapply(function(d, p) p$adjust_position(d, scales, "after"))
 
   # Produce grobs
   cs$train(scales)

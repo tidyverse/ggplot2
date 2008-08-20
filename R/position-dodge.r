@@ -24,7 +24,6 @@ PositionDodge <- proto(Position, {
   }  
 
   objname <- "dodge"
-  position <- "after"
   desc <- "Adjust position by dodging overlaps to the side"
   icon <- function(.) {
     y <- c(0.5, 0.3)

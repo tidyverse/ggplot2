@@ -2,6 +2,11 @@ ggplot2 0.6.1  (2008-XX-XX)
 ----------------------------------------
 
   * Fixed bug in remove_missing function will resulted incorrect calculations of some statistics when missing values were present
+  * geom_jitter: setting one jitter direction to 0 now works
+  * Fixes to position adjustment.
+  * stat_bin checks is.integer not is.factor
+  * position adjustments collapsed to single type
+  * position_jitter now deals correctly with 0 jitter:NEWS
   * Direct access to plot options via $ is now disabled
   * ggsave: fixed bug where current device was closed if an error occured
   * scale_gradientn: create colour scale from any list of colours

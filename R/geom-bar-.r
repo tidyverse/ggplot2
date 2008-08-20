@@ -2,7 +2,7 @@ GeomBar <- proto(Geom, {
   
   default_stat <- function(.) StatBin
   default_pos <- function(.) PositionStack
-  default_aes <- function(.) aes(colour=NA, fill="grey60", size=1, linetype=1, width = resolution(x) * 0.9, )
+  default_aes <- function(.) aes(colour=NA, fill="grey60", size=1, linetype=1, width = resolution(x) * 0.9)
   
   required_aes <- c("x")
  
@@ -16,7 +16,7 @@ GeomBar <- proto(Geom, {
     )
   }
  
-  draw <- function(., data, scales, coordinates, width = NULL, ...) {
+  draw <- function(., data, scales, coordinates, ...) {
     if (coordinates$muncher()) {
       data <- transform(data, top=max, bottom=min, left=x - width/2, right=x + width/2)
       ggname("bar",gTree(children=do.call("gList", lapply(1:nrow(data), function(i) {

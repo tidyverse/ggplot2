@@ -12,15 +12,14 @@ PositionJitter <- proto(Position, {
     if (is.null(.$xjitter)) .$xjitter <- resolution(data$x) * 0.40
     if (is.null(.$yjitter)) .$yjitter <- resolution(data$y) * 0.40
 
-    data <- transform(data, 
-      x = jitter(x, amount = .$xjitter),
-      y = jitter(y, amount = .$yjitter)
-    )
+    data <- within(data, {
+      if(.$xjitter > 0) x <- jitter(x, amount = .$xjitter)
+      if(.$yjitter > 0) y <- jitter(y, amount = .$yjitter)
+    })
     
     data
   }
   
-  position <- "after"
   objname <- "jitter" 
   desc <- "Jitter points to avoid overplotting"
   

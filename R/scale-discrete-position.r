@@ -15,7 +15,7 @@ ScaleDiscretePosition <- proto(ScaleDiscrete, {
     if (is.discrete(x)) {
       .$.domain <- discrete_range(.$.domain, x)
     } else {
-      .$cont_domain <- range(.$cont_domain, x)
+      .$cont_domain <- range(.$cont_domain, x, na.rm = TRUE)
     }
   }
   

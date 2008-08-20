@@ -161,13 +161,9 @@ Layer <- proto(expr = {
     gg_apply(data, function(df) .$geom$reparameterise(df))
   }
 
-  adjust_position <- function(., data, scales, position) {
+  adjust_position <- function(., data, scales) {
     gg_apply(data, function(x) {
-      if (.$position$position == position) {
-        .$position$adjust(x, scales)
-      } else {
-        x
-      }
+      .$position$adjust(x, scales)
     })
   }
   
