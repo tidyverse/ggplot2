@@ -7,8 +7,12 @@
 # @arguments numeric vector
 # @keyword hplot
 # @keyword internal 
-resolution <- function(x) {
-  un <- unique(c(0, as.numeric(x)))
+resolution <- function(x, zero = TRUE) {
+  if (zero) {
+    un <- unique(c(0, as.numeric(x)))    
+  } else {
+    un <- unique(as.numeric(x))
+  }
   
   if (length(un) == 1) return(1)
   min(diff(sort(un)))

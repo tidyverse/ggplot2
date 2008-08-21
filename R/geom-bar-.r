@@ -4,39 +4,19 @@ GeomBar <- proto(Geom, {
   default_pos <- function(.) PositionStack
   default_aes <- function(.) aes(colour=NA, fill="grey60", size=1, linetype=1, width = resolution(x) * 0.9)
   
-  required_aes <- c("x")
+  required_aes <- c("x", "width")
  
   reparameterise <- function(., df) {
+    if (is.null(df$width)) df$width <- resolution(df$x, FALSE) * 0.9
+    
     transform(df,
-      ymin = 0,
-      ymax = y,
-      xmin = x - width / 2, 
-      xmax = x + width / 2,
-      width = NULL
+      ymin = 0, ymax = y,
+      xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )
   }
  
   draw <- function(., data, scales, coordinates, ...) {
-    if (coordinates$muncher()) {
-      data <- transform(data, top=max, bottom=min, left=x - width/2, right=x + width/2)
-      ggname("bar",gTree(children=do.call("gList", lapply(1:nrow(data), function(i) {
-        data <- data[i, ]
-        df <- cbind(with(data, rbind(
-          cbind(y=top, x=left),
-          cbind(y=top, x=right),
-          cbind(y=bottom, x=right),
-          cbind(y=bottom, x=left),
-          cbind(y=top, x=left)
-        )), data[rep(1,5), setdiff(names(.$default_aes()), c("min","max"))])
-        GeomPolygon$draw(df, scales, coordinates)
-      }))))
-    } else {
-    with(coordinates$transform(data), 
-      ggname(.$my_name(), rectGrob(xmin, ymax, width=xmax-xmin, height=ymax-ymin, default.units="native", just=c("left", "top"), 
-      gp=gpar(col=colour, fill=fill, lwd=size * .pt, lty=linetype, lineend="butt"))
-    ))
-    }
-    
+    GeomRect$draw(data, scales, coordinates, ...)
   }
   
   # Documentation -----------------------------------------------

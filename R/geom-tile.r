@@ -1,42 +1,21 @@
 GeomTile <- proto(Geom, {
-  draw_groups <- function(., ...) .$draw(...)
-  draw <- function(., data,  scales, coordinates, ...) {
-    if (nrow(data) == 1) return(NULL)
+  reparameterise <- function(., df) {
+    if (is.null(df$width)) df$width <- resolution(df$x, FALSE)
+    if (is.null(df$height)) df$height <- resolution(df$y, FALSE)
+
+    transform(df, 
+      xmin = x - width/2,  xmax = x + width/2, width = NULL,
+      ymin = y - height/2,  ymax = y + height/2, height = NULL 
+    )
+  }
+
+  draw_groups <- function(., data,  scales, coordinates, ...) {
     data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
-    
-    data <- transform(data, 
-      xmin = x - width/2, 
-      xmax = x + width/2,
-      ymin = y - height/2,
-      ymax = y + height/2
-    )
-    if (coordinates$muncher()) {
-      data <- transform(data, top=y + height/2, bottom= y - height/2, left=x - width/2, right=x + width/2)
-      ggname(.$my_name(), gTree(children=do.call("gList", lapply(1:nrow(data), function(i) {
-        data <- data[i, ]
-        df <- cbind(with(data, rbind(
-          cbind(y = top, x=left),
-          cbind(y = top, x=right),
-          cbind(y = bottom, x=right),
-          cbind(y = bottom, x=left)
-        )), data[rep(1,4), names(.$default_aes())])
-        GeomPolygon$draw(df, scales, coordinates)
-      }))))
-    } else {  
-    with(coordinates$transform(data),
-      ggname(.$my_name(), rectGrob(
-        xmin, ymax, 
-        width=(xmax-xmin) * size, height=(ymax-ymin) * size, 
-        default.units="native", just=c("left","top"), 
-        gp=gpar(col=colour, fill=fill))
-      )
-    )
-    }
+    GeomRect$draw(data, scales, coordinates, ...)
   }
   
   draw_legend <- function(., data, ...)  {
     data <- aesdefaults(data, .$default_aes(), list(...))
-
     rectGrob(gp=gpar(col=NA, fill=data$fill))
   }  
 
@@ -50,7 +29,7 @@ GeomTile <- proto(Geom, {
   }
 
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(fill="grey50", colour=NA, width = resolution(x), height = resolution(y), size=1, linetype=1)
+  default_aes <- function(.) aes(fill="grey50", colour=NA, width = resolution(x), height = resolution(y), size=0.1, linetype=1)
   required_aes <- c("x", "y")
   guide_geom <- function(.) "tile"
   
