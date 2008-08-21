@@ -1,14 +1,28 @@
 GeomBoxplot <- proto(Geom, {
+  
+  reparameterise <- function(., df) {
+    if (is.null(df$width)) df$width <- resolution(df$x, FALSE) * 0.9
+    
+    transform(df,
+      xmin = x - width / 2, xmax = x + width / 2, width = NULL
+    )
+  }
+  
   draw <- function(., data, ..., outlier.colour = "black", outlier.shape = 19, outlier.size = 1) {    
-    defaults <- with(data, data.frame(x=x, colour=colour, size=size, linetype=1, group=1, xend=x,  width=width, fill=fill, stringsAsFactors=FALSE))
+    defaults <- with(data, data.frame(
+      x = x, xmin = xmin, xmax = xmax, 
+      colour = colour, size = size, 
+      linetype = 1, group = 1, fill = fill,  
+      stringsAsFactors = FALSE
+    ))
     defaults2 <- defaults[c(1,1), ]
     
     with(data, ggname(.$my_name(), gTree(children = gList(
-      if(length(outliers[[1]]) > 1) GeomPoint$draw(data.frame(y = outliers[[1]], x = x[rep(1, length(outliers[[1]]))], colour=I(outlier.colour), shape=outlier.shape, size=outlier.size, fill = NA), ...),
+      if(length(outliers[[1]]) >= 1) GeomPoint$draw(data.frame(y = outliers[[1]], x = x[rep(1, length(outliers[[1]]))], colour=I(outlier.colour), shape=outlier.shape, size=outlier.size, fill = NA), ...),
       GeomPath$draw(data.frame(y=c(upper, ymax), defaults2), ...),
       GeomPath$draw(data.frame(y=c(lower, ymin), defaults2), ...),
-      GeomBar$draw(data.frame(max = upper, min = lower, defaults), ...),
-      GeomBar$draw(data.frame(max = middle, min = middle, defaults), ...)
+      GeomBar$draw(data.frame(ymax = upper, ymin = lower, defaults), ...),
+      GeomBar$draw(data.frame(ymax = middle, ymin = middle, defaults), ...)
     ))))
   }
 
@@ -37,7 +51,7 @@ GeomBoxplot <- proto(Geom, {
   default_stat <- function(.) StatBoxplot
   default_pos <- function(.) PositionDodge
   default_aes <- function(.) aes(weight=1, colour="grey50", fill="white", size=0.5)
-  required_aes <- c("x", "y")
+  required_aes <- c("x", "lower", "upper", "middle", "ymin", "ymax")
   seealso <- list(
     stat_quantile = "View quantiles conditioned on a continuous variable",
     geom_jitter = "Another way to look at conditional distributions"

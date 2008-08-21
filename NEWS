@@ -2,6 +2,10 @@ ggplot2 0.6.1  (2008-XX-XX)
 ----------------------------------------
 
   * Fixed bug in remove_missing function will resulted incorrect calculations of some statistics when missing values were present
+  * geom_boxplot: previously was not displaying outliers if only one present
+  * show outlier if only one present
+  * use reparameterise
+  * correct required aesthetics:NEWS
   * geom_jitter: setting one jitter direction to 0 now works
   * Fixes to position adjustment.
   * stat_bin checks is.integer not is.factor
