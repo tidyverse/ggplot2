@@ -102,10 +102,6 @@ remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="") {
     if (!na.rm) warning("Removed ", sum(missing), " rows containing missing values", name, ".", call. = FALSE)
   }
 
-  if (any(missing)) {
-    df <- df[!missing, ]
-    if (!na.rm) warning("Removed ", sum(missing), " rows containing missing values", name, ".", call. = FALSE)
-  }
 
   df
 }
