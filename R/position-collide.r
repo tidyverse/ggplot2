@@ -29,7 +29,7 @@ collide <- function(data, width = NULL, name, strategy) {
 }
 
 # Assumes that each set has the same horizontal position
-stack <- function(df, width) {
+pos_stack <- function(df, width) {
   n <- nrow(df) + 1
   y <- with(df, ifelse(is.na(y), 0, y))
   heights <- c(0, cumsum(y))
@@ -40,7 +40,7 @@ stack <- function(df, width) {
   })
 }
 
-fill <- function(df, width) {
+pos_fill <- function(df, width) {
   within(stack(df, width), {
     ymin <- ymin / max(ymax)
     ymax <- ymax / max(ymax)
@@ -48,7 +48,7 @@ fill <- function(df, width) {
 }
 
 # Assumes that each set has the same horizontal position
-dodge <- function(df, width) {
+pos_dodge <- function(df, width) {
   n <- nrow(df)
 
   within(df, {

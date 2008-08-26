@@ -5,7 +5,7 @@ PositionStack <- proto(Position, {
     
     check_required_aesthetics(c("x", "ymax"), names(data), "position_stack")
     if (!all(data$ymin == 0)) warning("Stacking not well defined when ymin != 0")
-    collide(data, .$width, .$my_name(), stack)
+    collide(data, .$width, .$my_name(), pos_stack)
   }  
   
   objname <- "stack"

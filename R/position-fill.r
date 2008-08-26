@@ -7,7 +7,7 @@ PositionFill <- proto(Position, {
     
     check_required_aesthetics(c("x", "ymax"), names(data), "position_fill")
     if (!all(data$ymin == 0)) warning("Filling not well defined when ymin != 0")
-    collide(data, .$width, .$my_name(), fill)
+    collide(data, .$width, .$my_name(), pos_fill)
   }  
 
   objname <- "fill"
