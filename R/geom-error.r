@@ -14,6 +14,13 @@ GeomErrorbar <- proto(Geom, {
   guide_geom <- function(.) "path"
   required_aes <- c("x", "ymin", "ymax")
   
+  reparameterise <- function(., df) {
+    if (is.null(df$width)) df$width <- resolution(df$x, FALSE) * 0.9
+    
+    transform(df,
+      xmin = x - width / 2, xmax = x + width / 2, width = NULL
+    )
+  }
 
   seealso <- list(
     "geom_pointrange" = "range indicated by straight line, with point in the middle",
@@ -24,12 +31,8 @@ GeomErrorbar <- proto(Geom, {
   )
 
   draw <- function(., data, scales, coordinates, width = NULL, ...) {
-    data <- transform(data, 
-      l = x - width / 2, r = x + width / 2
-    )
-    
     GeomPath$draw(with(data, data.frame( 
-      x = as.vector(rbind(l, r, x, x, r, l)), 
+      x = as.vector(rbind(xmin, xmax, x,    x,    xmin, xmax)), 
       y = as.vector(rbind(ymax, ymax, ymax, ymin, ymin, ymin)),
       colour = rep(colour, each = 6),
       size = rep(size, each = 6),

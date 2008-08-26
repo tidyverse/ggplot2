@@ -11,6 +11,11 @@ GeomCrossbar <- proto(Geom, {
       segmentsGrob(c(0.15, 0.55), c(0.5, 0.6), c(0.45, 0.85), c(0.5, 0.6))
     ))
   }
+  
+  reparameterise <- function(., df) {
+    GeomErrorbar$reparameterise(df)
+  }
+  
 
   seealso <- list(
     "geom_errorbar" = "error bars",
@@ -28,8 +33,8 @@ GeomCrossbar <- proto(Geom, {
   
   draw <- function(., data, scales, coordinates, fatten = 2, ...) {
     ggname(.$my_name(), gTree(children=gList(
-      GeomBar$draw(data, scales, coordinates, ...),
-      GeomBar$draw(transform(data, min=y, max=y, size = size * fatten), scales, coordinates, ...)
+      GeomRect$draw(data, scales, coordinates, ...),
+      GeomRect$draw(transform(data, ymin=y, ymax=y, size = size * fatten), scales, coordinates, ...)
     )))
   }
   
