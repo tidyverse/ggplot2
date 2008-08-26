@@ -1,6 +1,7 @@
 ggplot2 0.6.1  (2008-XX-XX)
 ----------------------------------------
 
+  * Arguments to geom_jitter changed to height and width to match other position adjustments
   * Fixed bug in remove_missing function will resulted incorrect calculations of some statistics when missing values were present
   * geom_boxplot: previously was not displaying outliers if only one present
   * show outlier if only one present

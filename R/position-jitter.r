@@ -1,24 +1,17 @@
 PositionJitter <- proto(Position, {
-  
-  xjitter <- NULL
-  yjitter <- NULL
-  new <- function(., xjitter=NULL, yjitter=NULL) {
-    .$proto(xjitter=xjitter, yjitter=yjitter)
-  }
-  
   adjust <- function(., data, scales) {
     check_required_aesthetics(c("x", "y"), names(data), "position_jitter")
     
-    if (is.null(.$xjitter)) .$xjitter <- resolution(data$x) * 0.40
-    if (is.null(.$yjitter)) .$yjitter <- resolution(data$y) * 0.40
+    if (is.null(.$width)) .$width <- resolution(data$x) * 0.40
+    if (is.null(.$height)) .$height <- resolution(data$y) * 0.40
     
     trans_x <- NULL
     trans_y <- NULL
-    if(.$xjitter > 0) {
-      trans_x <- function(x) jitter(x, amount = .$xjitter)
+    if(.$width > 0) {
+      trans_x <- function(x) jitter(x, amount = .$width)
     }
-    if(.$yjitter > 0) {
-      trans_y <- function(x) jitter(x, amount = .$yjitter)
+    if(.$height > 0) {
+      trans_y <- function(x) jitter(x, amount = .$height)
     }
     
     transform_position(data, trans_x, trans_y)
@@ -37,13 +30,8 @@ PositionJitter <- proto(Position, {
     qplot(am, vs, data=mtcars)
     qplot(am, vs, data=mtcars, position="jitter")
     # Control amount of jittering by calling position_jitter
-    qplot(am, vs, data=mtcars, position=position_jitter(x=10, y=0))
-    qplot(am, vs, data=mtcars, position=position_jitter(x=0.5, y=0.5))
-    
-    # See lots of actually useful examples at geom_jitter
-    # You can, however, jitter any geom, however little sense it might make
-    qplot(cut, clarity, data=diamonds, geom="blank", group=1) + geom_path()
-    qplot(cut, clarity, data=diamonds, geom="blank", group=1) + geom_path(position="jitter")
+    qplot(am, vs, data=mtcars, position=position_jitter(w=10, h=0))
+    qplot(am, vs, data=mtcars, position=position_jitter(w=0.5, h=0.5))
   }
   
 })

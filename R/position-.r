@@ -7,7 +7,11 @@ Position <- proto(TopLevel, expr = {
 
   class <- function(.) "position"
   
-  new <- function(.) .$proto()
+  width <- NULL
+  height <- NULL
+  new <- function(., width = NULL, height = NULL) {
+    .$proto(width = width, height = NULL)
+  }
 
   parameters <- function(.) {
     params <- formals(get("new", .))
