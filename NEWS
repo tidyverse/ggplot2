@@ -1,17 +1,13 @@
-ggplot2 0.6.1  (2008-XX-XX)
+ggplot2 0.7  (2008-XX-XX)
 ----------------------------------------
 
+  * Complete rewrite of theming system
+  * New discrete position scales
   * Arguments to geom_jitter changed to height and width to match other position adjustments
   * Fixed bug in remove_missing function will resulted incorrect calculations of some statistics when missing values were present
   * geom_boxplot: previously was not displaying outliers if only one present
-  * show outlier if only one present
-  * use reparameterise
-  * correct required aesthetics:NEWS
   * geom_jitter: setting one jitter direction to 0 now works
-  * Fixes to position adjustment.
-  * stat_bin checks is.integer not is.factor
-  * position adjustments collapsed to single type
-  * position_jitter now deals correctly with 0 jitter:NEWS
+  * position_jitter now deals correctly with 0 jitter
   * Direct access to plot options via $ is now disabled
   * ggsave: fixed bug where current device was closed if an error occured
   * scale_gradientn: create colour scale from any list of colours
