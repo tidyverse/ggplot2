@@ -1,6 +1,6 @@
 GeomRibbon <- proto(Geom, {
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour="grey60", fill="grey80", size=0.5, linetype=1)
+  default_aes <- function(.) aes(colour="grey60", fill="grey60", size=0.5, linetype=1)
   required_aes <- c("x", "ymin", "ymax")
   guide_geom <- function(.) "ribbon"
 
@@ -11,9 +11,9 @@ GeomRibbon <- proto(Geom, {
   }
 
   draw <- function(., data, scales, coordinates, ...) {
-    data <- data[complete.cases(data[, c("x","min","max")]), ]
+    data <- data[complete.cases(data[, c("x","ymin","ymax")]), ]
     tb <- with(data,
-      coordinates$munch(data.frame(x=c(x, rev(x)), y=c(max, rev(min))))
+      coordinates$munch(data.frame(x=c(x, rev(x)), y=c(ymax, rev(ymin))))
     )
     
     with(data, ggname(.$my_name(), gTree(children=gList(
@@ -72,7 +72,7 @@ GeomRibbon <- proto(Geom, {
 })
 
 GeomArea <- proto(GeomRibbon,{
-  default_aes <- function(.) aes(colour="grey60", fill="grey80", size=0.5, linetype=1)
+  default_aes <- function(.) aes(colour=NA, fill="grey60", size=0.5, linetype=1)
   default_pos <- function(.) PositionStack
   required_aes <- c("x", "y")
 

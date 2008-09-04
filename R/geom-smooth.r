@@ -2,7 +2,7 @@ GeomSmooth <- proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {
     data$fill <- alpha(data$fill, data$alpha)
     gList(
-      tryNULL(GeomRibbon$draw(transform(data, colour=NA), scales, coordinates)),
+      GeomRibbon$draw(transform(data, colour=NA), scales, coordinates),
       GeomPath$draw(rename(data, c(middle = "y")), scales, coordinates)
     )
   }
@@ -20,7 +20,7 @@ GeomSmooth <- proto(Geom, {
   
   default_stat <- function(.) StatSmooth
   required_aes <- c("x", "y")
-  default_aes <- function(.) aes(colour="#3366FF", fill="black", size=1, linetype=1, weight=1, alpha=0.2)
+  default_aes <- function(.) aes(colour="#3366FF", fill="grey60", size=0.5, linetype=1, weight=1, alpha=0.4)
 
 
   draw_legend <- function(., data, ...) {

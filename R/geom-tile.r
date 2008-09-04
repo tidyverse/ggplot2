@@ -29,7 +29,7 @@ GeomTile <- proto(Geom, {
   }
 
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(fill="grey50", colour=NA, width = resolution(x), height = resolution(y), size=0.1, linetype=1)
+  default_aes <- function(.) aes(fill="grey60", colour=NA, size=0.1, linetype=1)
   required_aes <- c("x", "y")
   guide_geom <- function(.) "tile"
   

@@ -4,7 +4,7 @@ GeomQuantile <- proto(GeomPath, {
   
   advice <- "<p>This can be used as a continuous analogue of a geom_boxplot.</p>\n"
   default_stat <- function(.) StatQuantile
-  default_aes <- function(.) defaults(aes(weight=1, colour="#3366FF", size=1), GeomPath$default_aes())
+  default_aes <- function(.) defaults(aes(weight=1, colour="#3366FF", size=0.5), GeomPath$default_aes())
   guide_geom <- function(.) "path"
   
 

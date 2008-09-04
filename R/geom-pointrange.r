@@ -16,7 +16,7 @@ GeomPointrange <- proto(Geom, {
     "geom_smooth" = "for continuous analog"
   )
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=1, linetype=1, shape=19, fill=NA)
+  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, shape=19, fill=NA)
   guide_geom <- function(.) "pointrange"
   required_aes <- c("x", "y", "ymin", "ymax")
 

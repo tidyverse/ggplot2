@@ -50,7 +50,7 @@ GeomBoxplot <- proto(Geom, {
   
   default_stat <- function(.) StatBoxplot
   default_pos <- function(.) PositionDodge
-  default_aes <- function(.) aes(weight=1, colour="grey50", fill="white", size=0.5)
+  default_aes <- function(.) aes(weight=1, colour="grey60", fill="white", size=0.5)
   required_aes <- c("x", "lower", "upper", "middle", "ymin", "ymax")
   seealso <- list(
     stat_quantile = "View quantiles conditioned on a continuous variable",

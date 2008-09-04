@@ -2,9 +2,9 @@ GeomBar <- proto(Geom, {
   
   default_stat <- function(.) StatBin
   default_pos <- function(.) PositionStack
-  default_aes <- function(.) aes(colour=NA, fill="grey60", size=1, linetype=1, width = resolution(x) * 0.9)
+  default_aes <- function(.) aes(colour=NA, fill="grey60", size=0.5, linetype=1, weight = 1)
   
-  required_aes <- c("x", "width")
+  required_aes <- c("x")
  
   reparameterise <- function(., df) {
     if (is.null(df$width)) df$width <- resolution(df$x, FALSE) * 0.9
