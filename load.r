@@ -1,4 +1,5 @@
 options(Hverbose=FALSE)
+loaded <- "ggplot2" %in% search()
 suppressMessages(library(ggplot2, warn.conflicts = FALSE))
 l(plyr)
 
@@ -10,6 +11,7 @@ regen <- function() {
   accessors_print("~/documents/ggplot/ggplot/R/xxx.r")
   source("~/documents/ggplot/ggplot/R/xxx.r")
 }
+if (!loaded) regen()
 
 if (!exists("curr")) curr <- NULL
 
