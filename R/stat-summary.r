@@ -149,11 +149,11 @@ wrap_hmisc <- function(x, fun, ...) {
   try_require("Hmisc")
 
   result <- safe.call(fun, list(x=x, ...))
-  rename(data.frame(t(result)), c(Median="y", Mean="y", Lower="min", Upper="max"))
+  rename(data.frame(t(result)), c(Median="y", Mean="y", Lower="ymin", Upper="ymax"))
 }
 
 sum_mean_cl_boot <- function(data, ...) wrap_hmisc(data$y, fun=smean.cl.boot, ...)
 sum_mean_cl_normal <- function(data, ...) wrap_hmisc(data$y, fun=smean.cl.normal, ...)
 sum_mean_sdl <- function(data, ...) wrap_hmisc(data$y, fun=smean.sdl, ...)
 sum_median_hilow <- function(data, ...) wrap_hmisc(data$y, fun=smedian.hilow, ...)
-sum_range <- function(data, ...) data.frame(min=min(data$y, na.rm=TRUE), max=max(data$y, na.rm=TRUE))
+sum_range <- function(data, ...) data.frame(ymin=min(data$y, na.rm=TRUE), ymax=max(data$y, na.rm=TRUE))

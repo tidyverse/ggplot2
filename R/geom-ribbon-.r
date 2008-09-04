@@ -76,14 +76,9 @@ GeomArea <- proto(GeomRibbon,{
   default_pos <- function(.) PositionStack
   required_aes <- c("x", "y")
 
-  draw_groups <- function(., data, scales, coordinates, ...) {
-    data <- transform(data, 
-      ymin = 0,
-      max = y
-    )
-    GeomRibbon$draw_groups(data, scales, coordinates)
+  reparameterise <- function(., df) {
+    transform(df, ymin = 0, ymax = y)
   }
-  
 
   # Documentation -----------------------------------------------
   objname <- "area"
