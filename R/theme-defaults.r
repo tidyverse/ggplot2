@@ -36,7 +36,7 @@ theme_bw <- function(base_size = 12) {
     axis.line =         theme_blank(),
     axis.text.x =       theme_text(size = base_size * 0.8 , lineheight = 0.9, vjust = 1),
     axis.text.y =       theme_text(size = base_size * 0.8, lineheight = 0.9, hjust = 1),
-    axis.ticks =        theme_segment(),
+    axis.ticks =        theme_segment(colour = "grey80", size = 1.5),
     axis.title.x =      theme_text(size = base_size),
     axis.title.y =      theme_text(size = base_size, angle = 90),
     axis.ticks.length = unit(0.3, "lines"),

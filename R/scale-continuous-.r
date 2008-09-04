@@ -74,7 +74,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
 
     l <- .$.tr$label(b)
     numeric <- sapply(l, is.numeric)
-    l[numeric] <- format(unlist(l[numeric]), justify = "none")
+    l[numeric] <- format(unlist(l[numeric]), trim = TRUE)
     l
   }
   
