@@ -8,6 +8,10 @@ collide <- function(data, width = NULL, name, strategy) {
       xmax <- x + width / 2
     })
   } else {
+    if (!(all(c("xmin", "xmax") %in% names(data)))) {
+      return(ddply(data, .(x), function(df) strategy(df, width = 0)))
+    }
+    
     # Width determined from data, must be floating point constant 
     widths <- unique(with(data, xmax - xmin))
     if (length(widths) > 1 && sd(widths) > 1e-6) {
