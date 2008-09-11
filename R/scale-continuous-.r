@@ -30,7 +30,8 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
       matches <- grep(paste("^", input, sep =""), names(df))
       input <- output <- names(df)[matches]
     }
-    
+    input <- intersect(input, names(df))
+
     df <- colwise(.$.tr$transform)(df[input])
     if (ncol(df) == 0) return(NULL)
     names(df) <- output      
