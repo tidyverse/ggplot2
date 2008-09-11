@@ -63,7 +63,6 @@ GeomAbline <- proto(Geom, {
   examples <- function(.) {
     p <- qplot(wt, mpg, data = mtcars)
 
-
     # Fixed slopes and intercepts
     p + geom_abline()
     p + geom_abline(intercept = 20)

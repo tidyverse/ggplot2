@@ -2,7 +2,7 @@ GeomSmooth <- proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {
     data$fill <- alpha(data$fill, data$alpha)
     gList(
-      GeomRibbon$draw(transform(data, colour=NA), scales, coordinates),
+      tryNULL(GeomRibbon$draw(transform(data, colour=NA), scales, coordinates)),
       GeomPath$draw(rename(data, c(middle = "y")), scales, coordinates)
     )
   }
