@@ -16,8 +16,12 @@ ScaleDate <- proto(ScaleContinuous,{
   
   common <- c("x", "y")
   
-  new <- function(., major=NULL, minor=NULL, format=NULL, variable="x", name=NULL) {
-    .$proto(.input=variable, .output=variable, major_seq=major, minor_seq=minor, format=format, name=name, .tr=Trans$find("date"))
+  new <- function(., name=NULL, limits=NULL, major=NULL, minor=NULL, format=NULL, variable="x") {
+    
+    trans <- Trans$find("date")
+    limits <- trans$transform(limits)
+    
+    .$proto(.input=variable, .output=variable, major_seq=major, minor_seq=minor, format=format, name=name, .tr=trans, limits = limits)
   }
   
   train <- function(., values) {
@@ -38,6 +42,8 @@ ScaleDate <- proto(ScaleContinuous,{
   
   input_breaks <- function(.) {
     d <- to_date(.$input_set())
+    
+    
     
     .$.tr$transform(seq(d[1], d[2], by=.$break_points()[1]))
   }

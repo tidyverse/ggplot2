@@ -1,6 +1,7 @@
 ggplot2 0.7  (2008-XX-XX)
 ----------------------------------------
 
+  * scale_date now takes limits argument which allows you to set axis limits
   * geom_step now has parameter direction which can take values vh (vertical then horizontal) or hv (horizontal then vertical) describing the shape of the stairs
   * density2d used consistently (instead of density_2d in some places)
   * qplot: Better error messages when needed variables are missing
