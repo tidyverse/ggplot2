@@ -93,11 +93,14 @@ quickplot <- qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., m
   
   if (!is.na(asp)) p <- p + opts(aspect.ratio = asp)
   
-  if (!missing(xlab)) assign("name", xlab, envir=p$scales$get_scales("x"))
-  if (!missing(ylab)) assign("name", ylab, envir=p$scales$get_scales("y"))
+  x <- p$scales$get_scales("x")
+  y <- p$scales$get_scales("y")
   
-  if (!missing(xlim)) assign("limits", xlim, envir=p$scales$get_scales("x"))
-  if (!missing(ylim)) assign("limits", ylim, envir=p$scales$get_scales("y"))
+  if (!missing(xlab) && !is.null(x)) x$name <- xlab
+  if (!missing(ylab) && !is.null(y)) y$name <- ylab
+  
+  if (!missing(xlim) & !is.null(x)) x$limits <- xlim
+  if (!missing(ylim) & !is.null(y)) y$limits <- ylim
   
   p
 }

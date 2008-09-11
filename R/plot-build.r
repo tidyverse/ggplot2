@@ -1,5 +1,6 @@
 ggplot_build <- function(plot) {
-  if (length(plot$layers) == 0) stop("No layers to plot", call.=FALSE)
+  if (length(plot$layers) == 0) stop("No layers in plot", call.=FALSE)
+  if (length(plot$scales$.scales) == 0) stop("No scales in plot", call.=FALSE)
   
   # Apply function to layer and matching data
   dlapply <- function(f) mapply(f, data, layers, SIMPLIFY=FALSE)
@@ -37,10 +38,10 @@ ggplot_build <- function(plot) {
   dlapply(function(d, p) p$scales_train(d, scales))
   data <- dlapply(function(d, p) p$scales_map(d, scales))
 
-  missing_scales <- setdiff(c("x", "y"), scales$output())
-  if (length(missing_scales) > 0) {
-    stop("ggplot: Some aesthetics (", paste(missing_scales, collapse =", "), ") are missing scales, you will need to add them by hand.", call.=FALSE)
-  }
+  # missing_scales <- setdiff(c("x", "y"), scales$output())
+  # if (length(missing_scales) > 0) {
+  #   stop("ggplot: Some aesthetics (", paste(missing_scales, collapse =", "), ") are missing scales, you will need to add them by hand.", call.=FALSE)
+  # }
 
   # Produce grobs
   cs$train(scales)

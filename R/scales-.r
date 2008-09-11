@@ -27,12 +27,15 @@ Scales <- proto(Scale, expr={
   }
   
   find <- function(., output) {
-    sapply(.$.scales, function(x) any(output %in% x$output()))
+    out <- sapply(.$.scales, function(x) any(output %in% x$output()))
+    if (length(out) == 0) return(logical(0))
+    out
   }
 
   
   get_scales <- function(., output, scales=FALSE) {
     scale <- .$.scales[.$find(output)]
+    if (length(scale) == 0) return()
     if (scales || length(scale) > 1) {
       .$proto(.scales = scale)
     } else {

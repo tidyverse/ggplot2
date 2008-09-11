@@ -1,6 +1,7 @@
 ggplot2 0.7  (2008-XX-XX)
 ----------------------------------------
 
+  * qplot: Better error messages when needed variables are missing
   * Complete rewrite of theming system
   * New discrete position scales
   * Arguments to geom_jitter changed to height and width to match other position adjustments
