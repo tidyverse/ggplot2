@@ -4,13 +4,13 @@ CoordFlip <- proto(CoordCartesian, expr={
   
   muncher <- function(.) FALSE
   transform <- function(., data) {
-    data <- rename(data, c(
+    data <- transform_position(data, .$transform_y, .$transform_x)
+    rename(data, c(
       x = "y",       y = "x", 
       xend = "yend", yend = "xend", 
       xmin = "ymin", ymin = "xmin",
-      xmax = "ymax", ymax = "ymax")
+      xmax = "ymax", ymax = "xmax")
     )
-    transform_position(data, .$transform_x, .$transform_y)
   }
   munch <- function(., data) .$transform(data)
 
