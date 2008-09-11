@@ -44,7 +44,7 @@ pos_stack <- function(df, width) {
 }
 
 pos_fill <- function(df, width) {
-  within(stack(df, width), {
+  within(pos_stack(df, width), {
     ymin <- ymin / max(ymax)
     ymax <- ymax / max(ymax)
   })
