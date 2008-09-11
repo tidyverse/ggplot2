@@ -32,10 +32,12 @@ CoordEqual <- proto(CoordCartesian, {
     xlim <- mean(xlim) + xratio * c(-0.5, 0.5)
     ylim <- mean(ylim) + yratio * c(-0.5, 0.5)
     
-    expand <- .$expand()
+    .$x()$train(xlim)
+    .$y()$train(ylim)
+    
     list(
-      x = expand_range(xlim, expand$x[1], expand$x[2]),
-      y = expand_range(ylim, expand$y[1], expand$y[2])
+      x = .$x()$output_expand(),
+      y = .$y()$output_expand()
     )
   }
   

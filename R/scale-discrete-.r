@@ -32,6 +32,7 @@ ScaleDiscrete <- proto(Scale, expr={
   }
 
   train <- function(., x) {
+    if (is.null(x)) return()
     if (!is.discrete(x)) {
       stop("Continuous variable (", .$name , ") supplied to the discrete ", .$my_name(), ".", call.=FALSE) 
     }

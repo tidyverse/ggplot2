@@ -20,18 +20,10 @@ CoordCartesian <- proto(Coord, expr={
   # Assumes contiguous series of points
   munch <- function(., data, npieces=1) .$transform(data)
   
-  expand <- function(.) {
-    list(
-      x = .$x()$.expand, 
-      y = .$y()$.expand
-    )
-  }
-  
   output_set <- function(.) {
-    expand <- .$expand()
     list(
-      x = expand_range(.$x()$output_set(), expand$x[1], expand$x[2]),
-      y = expand_range(.$y()$output_set(), expand$y[1], expand$y[2])
+      x = .$x()$output_expand(),
+      y = .$y()$output_expand()
     )
   }
   

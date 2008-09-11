@@ -3,11 +3,26 @@ GeomAbline <- proto(Geom, {
     .super$new(., ..., ignore.extra = TRUE)
   }
   
-  draw <- function(., data, scales, coordinates, ...) {
-    data <- aesdefaults(data, .$default_aes(), list(...))
+  draw <- function(., data, scales, coordinates, intercept = NULL, slope = NULL, ...) {
     
-    xrange <- coordinates$output_set()$x
-
+    
+    data <- aesdefaults(data, .$default_aes(), list(...))
+    if (is.null(intercept)) {
+      if (is.null(data$intercept)) data$intercept <- 0
+    } else {
+      data <- data[rep(1, length(intercept)), ]
+      data$intercept <- intercept
+    }
+    if (is.null(slope)) {
+      if (is.null(data$slope)) data$slope <- 0
+    } else {
+      data <- data[rep(1, length(slope)), ]
+      data$slope <- slope
+    }
+    
+    xrange <- scales$get_scales("x")$output_expand()
+    
+    
     data <- coordinates$transform(transform(data,
       x = xrange[1],
       xend = xrange[2],
@@ -33,7 +48,7 @@ GeomAbline <- proto(Geom, {
   guide_geom <- function(.) "abline"
 
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) c(GeomPath$default_aes(), aes(intercept = 0, slope = 1))
+  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, slope=1, intercept=0)
   
   draw_legend <- function(., data, ...) {
     data <- aesdefaults(data, .$default_aes(), list(...))
@@ -46,12 +61,16 @@ GeomAbline <- proto(Geom, {
   
   
   examples <- function(.) {
-    p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
+    p <- qplot(wt, mpg, data = mtcars)
+
 
     # Fixed slopes and intercepts
     p + geom_abline()
-    p + geom_abline(slope=5)
-    p + geom_abline(intercept=30, slope=-5)
+    p + geom_abline(intercept = 20)
+
+    # Calculate slope and intercept of line of best fit
+    coef(lm(mpg ~ wt, data = mtcars))
+    p + geom_abline(intercept = 37, slope = -5)
     p + geom_abline(intercept=10, colour="red", size=2)
     
     # See ?stat_smooth for fitting smooth models to data

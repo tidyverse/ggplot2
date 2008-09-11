@@ -14,8 +14,8 @@ GeomVline <- proto(Geom, {
       data$intercept <- intercept
     }
     
-    yrange <- coordinates$output_set()$y
-
+    yrange <- scales$get_scales("y")$output_expand()
+    
     data <- coordinates$transform(transform(data,
       y = yrange[1],
       yend = yrange[2],
@@ -32,7 +32,7 @@ GeomVline <- proto(Geom, {
   details <- "<p>This geom allows you to annotate the plot with vertical lines (see geom_hline and geom_abline for other types of lines)</p>\n\n<p>There are two ways to use it.  You can either specify the intercept of the line in the call to the geom, in which case the line will be in the same position in every panel.  Alternatively, you can supply a different intercept for each panel using a data.frame.  See the examples for the differences</p>"
   
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) c(GeomPath$default_aes(), aes(intercept=0))
+  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1)
   guide_geom <- function(.) "vline"
 
   draw_legend <- function(., data, ...) {
@@ -54,12 +54,16 @@ GeomVline <- proto(Geom, {
     # Fixed lines
     p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
     p + geom_vline(intercept=5)
-    p + geom_vline(intercept=2:5)
-    p + geom_vline(intercept=2:5, colour="green")
-    p + geom_vline(intercept=mean(mtcars$wt), size=2)
+    p + geom_vline(intercept=1:5)
+    p + geom_vline(intercept=1:5, colour="green")
+    p + geom_vline(intercept="mean", size=2, colour = alpha("red", 0.2))
+    
+    last_plot() + coord_equal()
+    last_plot() + coord_flip()
     
     # Lines from data
-    p <- ggplot(mtcars, aes(x = wt, y=mpg)) + facet_grid(. ~ cyl) + geom_point()
-    p + geom_vline(intercept="mean")
+    p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
+    p + geom_vline(intercept="mean") + facet_grid(. ~ cyl)
+    p + geom_vline(aes(colour = factor(cyl)), intercept="mean")
   }  
 })

@@ -45,6 +45,9 @@ Scale <- proto(TopLevel, expr={
   
   output <- function(.) .$.output
   output_breaks <- function(.) .$map(.$input_breaks())
+  output_expand <- function(.) {
+    expand_range(.$output_set(), .$.expand[1], .$.expand[2])    
+  }
   
   # Train scale from a data frame
   train_df <- function(., df) {
