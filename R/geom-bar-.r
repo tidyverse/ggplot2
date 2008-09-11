@@ -50,11 +50,13 @@ GeomBar <- proto(Geom, {
     qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(cyl))
 
     # Stacked bar charts    
+    qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(vs))
+    qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(gear))
+
     ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar()
     ggplot(diamonds, aes(x=clarity, fill=cut)) + geom_bar()
     ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar() + coord_flip()
 
-    
     # Dodged bar charts    
     ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar(position="dodge")
     ggplot(diamonds, aes(x=clarity, fill=cut)) + geom_bar(position="dodge")

@@ -1,4 +1,4 @@
-collide <- function(data, width = NULL, name, strategy) {
+collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
   
   # Determine width
   if (!is.null(width)) {
@@ -14,7 +14,7 @@ collide <- function(data, width = NULL, name, strategy) {
     
     # Width determined from data, must be floating point constant 
     widths <- unique(with(data, xmax - xmin))
-    if (length(widths) > 1 && sd(widths) > 1e-6) {
+    if (check.width && length(widths) > 1 && sd(widths) > 1e-6) {
       stop(name, " requires constant width", call. = FALSE)
     }
     width <- widths[1]
@@ -53,6 +53,9 @@ pos_fill <- function(df, width) {
 # Assumes that each set has the same horizontal position
 pos_dodge <- function(df, width) {
   n <- nrow(df)
+  if (n == 1) return(df)
+  
+  width <- with(df, max(xmax - xmin))
 
   within(df, {
     xmin <- xmin + width / n * (seq_len(n) - 1)
