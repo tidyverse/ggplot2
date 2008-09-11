@@ -40,8 +40,12 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
   
   train <- function(., x) {
     if (is.null(x)) return()
-    if (!is.numeric(x)) 
-      warning("Non-continuous variable supplied to continuous ", .$my_name(), ".", call.=FALSE)
+    if (!is.numeric(x)) {
+      stop(
+        "Non-continuous variable supplied to ", .$my_full_name(), ".",
+        call.=FALSE
+      )
+    }
     if (all(is.na(x))) return()
     
     .$.domain <- range(x, .$.domain, na.rm=TRUE, finite=TRUE)
