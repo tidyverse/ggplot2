@@ -1,5 +1,5 @@
 StatDensity2d <- proto(Stat, {
-  objname <- "density_2d" 
+  objname <- "density2d" 
   desc <- "Density estimation, 2D"
   
   default_geom <- function(.) GeomDensity2d
@@ -13,7 +13,7 @@ StatDensity2d <- proto(Stat, {
 
   calculate <- function(., data, scales, na.rm = FALSE, ...) {
     df <- data.frame(data[, c("x", "y")])
-    df <- remove_missing(df, na.rm, name = "stat_density_2d")
+    df <- remove_missing(df, na.rm, name = "stat_density2d")
 
     dens <- do.call(MASS::kde2d, c(df, n=100, ...))
     df <- with(dens, data.frame(expand.grid(x = x, y = y), z = as.vector(z)))
@@ -27,18 +27,18 @@ StatDensity2d <- proto(Stat, {
   
   examples <- function(.) {
     m <- ggplot(movies, aes(x=rating, y=length)) + geom_point() + scale_y_continuous(limits=c(1, 500))
-    m + geom_density_2d()
+    m + geom_density2d()
 
     dens <- MASS::kde2d(movies$rating, movies$length, n=100)
     densdf <- data.frame(expand.grid(rating = dens$x, length = dens$y), z=as.vector(dens$z))
     m + geom_contour(aes(z=z), data=densdf)
 
-    m + geom_density_2d() + scale_y_log10()
-    m + geom_density_2d() + coord_trans(y="log10")
+    m + geom_density2d() + scale_y_log10()
+    m + geom_density2d() + coord_trans(y="log10")
     
-    m + stat_density_2d(aes(fill = ..level..), geom="polygon")
+    m + stat_density2d(aes(fill = ..level..), geom="polygon")
 
-    qplot(rating, length, data=movies, geom=c("point","density_2d"), ylim=c(1, 500))
+    qplot(rating, length, data=movies, geom=c("point","density2d"), ylim=c(1, 500))
   }  
   
 })

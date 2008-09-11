@@ -7,11 +7,11 @@ GeomContour <- proto(GeomPath, {
       polygonGrob(c(0.25,0.6,0.8, 0.5), c(0.5, 0.2, 0.75, 0.9), gp=gpar(fill=NA))
     )))
   }
-  default_aes <- function(.) defaults(aes(weight=1, colour="#3366FF"), GeomPath$default_aes())
+  default_aes <- function(.) aes(weight=1, colour="#3366FF", size = 0.5, linetype = 1)
 
   default_stat <- function(.) StatContour
   seealso <- list(
-    geom_density_2d = "Draw 2d density contours"
+    geom_density2d = "Draw 2d density contours"
   )
   examples <- function(.) {
     # See stat_contour for examples
@@ -20,21 +20,3 @@ GeomContour <- proto(GeomPath, {
 })
 
 
-GeomDensity2d <- proto(GeomContour, {
-  objname <- "density_2d"
-  desc <- "Contours from a 2d density estimate"
-  
-  details <- "<p>Perform a 2D kernel density estimatation using kde2d and  display the results with contours.</p>"
-  advice <- "<p>This can be useful for dealing with overplotting.</p>"
-  
-  default_stat <- function(.) StatDensity2d
-
-  seealso <- list(
-    geom_contour = "contour drawing geom",
-    stat_sum = "another way of dealing with overplotting"
-  )
-  
-  examples <- function(.) {
-    # See stat_density_2d for examples
-  }
-})

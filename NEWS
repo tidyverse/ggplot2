@@ -1,6 +1,7 @@
 ggplot2 0.7  (2008-XX-XX)
 ----------------------------------------
 
+  * density2d used consistently (instead of density_2d in some places)
   * qplot: Better error messages when needed variables are missing
   * Complete rewrite of theming system
   * New discrete position scales
