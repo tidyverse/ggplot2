@@ -45,7 +45,7 @@ bolus.ggplot <- function(x, ...) {
     scales = scales$hash(),
     facet = facet$hash(),
     coord = coordinates$hash(),
-    options = x$options
+    options = defaults(x$options, theme_get())
   ))
 }
 
