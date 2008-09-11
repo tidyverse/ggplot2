@@ -13,20 +13,20 @@ regen <- function() {
 }
 if (!loaded) regen()
 
-if (!exists("curr")) curr <- NULL
-
-prev <- curr
-curr <- qplot(mpg, wt, data=mtcars)
-
-curr_d <- digest.ggplot(curr)
-prev_d <- digest.ggplot(prev)
-
-if (!is.null(prev) & !identical(curr_d, prev_d)) {
-  curr_b <- bolus(curr)
-  prev_b <- bolus(prev)
-  diff <- sapply(seq_along(curr_b), function(i) !identical(curr_b[[i]], prev_b[[i]]))
-  
-    
-  stop("Digest has changed from ", prev_d, " to ", curr_d, call. = FALSE)
-}
-
+# if (!exists("curr")) curr <- NULL
+# 
+# prev <- curr
+# curr <- qplot(mpg, wt, data=mtcars)
+# 
+# curr_d <- digest.ggplot(curr)
+# prev_d <- digest.ggplot(prev)
+# 
+# if (!is.null(prev) & !identical(curr_d, prev_d)) {
+#   curr_b <- bolus(curr)
+#   prev_b <- bolus(prev)
+#   diff <- sapply(seq_along(curr_b), function(i) !identical(curr_b[[i]], prev_b[[i]]))
+#   
+#     
+#   stop("Digest has changed from ", prev_d, " to ", curr_d, call. = FALSE)
+# }
+# 
