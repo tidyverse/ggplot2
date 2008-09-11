@@ -116,6 +116,9 @@ Scale <- proto(TopLevel, expr={
     ps(.$class(), .$common, .$objname, sep="_", collapse=NULL)
   }
   
+  my_full_name <- function(.) {
+    ps(.$class(), .$input(), .$objname, sep="_", collapse=NULL)
+  }
   
   parameters <- function(.) {
     params <- formals(get("new", .))
