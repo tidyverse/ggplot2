@@ -10,10 +10,11 @@ CoordTrans <- proto(CoordCartesian, expr={
     do.call("rbind", munched_groups)
   }  
   
-  transform <- function(., data) {
-    data$x <- .$xtr$transform(data$x)
-    data$y <- .$ytr$transform(data$y)
-    data
+  transform_x <- function(., data) {
+    rescale(.$xtr$transform(data), 0:1, .$output_set()$x)
+  }
+  transform_y <- function(., data) {
+    rescale(.$ytr$transform(data), 0:1, .$output_set()$y)
   }
   
   new <- function(., xtrans="identity", ytrans="identity") {
@@ -24,29 +25,28 @@ CoordTrans <- proto(CoordCartesian, expr={
   }
 
   output_set <- function(.) {
-    expand <- .$expand()
     list(
-      x = expand_range(.$xtr$transform(.$x()$output_set()), expand$x[1], expand$x[2]),
-      y = expand_range(.$ytr$transform(.$y()$output_set()), expand$y[1], expand$y[2])
+      x = expand_range(.$xtr$transform(.$x()$output_set()), 0.05),
+      y = expand_range(.$ytr$transform(.$y()$output_set()), 0.05)
     )
   }
 
   guide_axes <- function(., theme) {
-    range <- .$output_set()
+    breaks <- .$breaks()
     list(
-      x = guide_axis(.$xtr$transform(.$x()$input_breaks()), .$x()$labels(), "bottom", theme),
-      y = guide_axis(.$ytr$transform(.$y()$input_breaks()), .$y()$labels(), "left", theme)
+      x = guide_axis(breaks$x$major, .$x()$labels(), "bottom", theme),
+      y = guide_axis(breaks$y$major, .$y()$labels(), "left", theme)
     )
   }
 
-  guide_background <- function(., theme) {
-    x.major <- unit(.$xtr$transform(.$x()$input_breaks_n()), "native")
-    x.minor <- unit(.$xtr$transform(.$x()$output_breaks()), "native")
-    y.major <- unit(.$ytr$transform(.$y()$input_breaks_n()), "native")
-    y.minor <- unit(.$ytr$transform(.$y()$output_breaks()), "native")
-    
-    draw_grid(theme, x.minor, x.major, y.minor, y.major)
-  }
+  # guide_background <- function(., theme) {
+  #   x.major <- unit(.$xtr$transform(.$x()$input_breaks_n()), "native")
+  #   x.minor <- unit(.$xtr$transform(.$x()$output_breaks()), "native")
+  #   y.major <- unit(.$ytr$transform(.$y()$input_breaks_n()), "native")
+  #   y.minor <- unit(.$ytr$transform(.$y()$output_breaks()), "native")
+  #   
+  #   draw_grid(theme, x.minor, x.major, y.minor, y.major)
+  # }
 
   # Documentation -----------------------------------------------
 

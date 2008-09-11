@@ -16,7 +16,7 @@ GeomBoxplot <- proto(Geom, {
       stringsAsFactors = FALSE
     ))
     defaults2 <- defaults[c(1,1), ]
-    
+
     with(data, ggname(.$my_name(), gTree(children = gList(
       if(length(outliers[[1]]) >= 1) GeomPoint$draw(data.frame(y = outliers[[1]], x = x[rep(1, length(outliers[[1]]))], colour=I(outlier.colour), shape=outlier.shape, size=outlier.size, fill = NA), ...),
       GeomPath$draw(data.frame(y=c(upper, ymax), defaults2), ...),

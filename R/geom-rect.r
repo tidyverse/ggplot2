@@ -11,10 +11,10 @@ GeomRect <- proto(Geom, {
       aesthetics <- setdiff(names(data), c("xmin","xmax", "ymin", "ymax"))
       
       polys <- alply(data, 1, function(row) {
-        poly <- with(row[i, ], rect_to_poly(xmin, xmax, ymin, ymax))
-        aes <- row[rep(1,5), aesthetics]
+        poly <- with(row, rect_to_poly(xmin, xmax, ymin, ymax))
+        aes <- as.data.frame(row[aesthetics])[rep(1,5), ]
       
-        GeomPolygon$draw(cbind(poly, aesthetics), scales, coordinates)
+        GeomPolygon$draw(cbind(poly, aes), scales, coordinates)
       })
       
       ggname("bar",do.call("grobTree", polys))
