@@ -1,6 +1,5 @@
 ggplot_build <- function(plot) {
   if (length(plot$layers) == 0) stop("No layers in plot", call.=FALSE)
-  if (length(plot$scales$.scales) == 0) stop("No scales in plot", call.=FALSE)
   
   # Apply function to layer and matching data
   dlapply <- function(f) mapply(f, data, layers, SIMPLIFY=FALSE)
