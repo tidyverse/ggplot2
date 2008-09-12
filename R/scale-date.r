@@ -31,29 +31,31 @@ ScaleDate <- proto(ScaleContinuous,{
   break_points <- function(.) {
     rng <- diff(range(.$input_set()))
     
-    length <- cut(rng, c(0, 10, 56, 500, 5000, Inf), labels=FALSE)
+    length <- cut(rng, c(0, 10, 56, 365, 730, 5000, Inf), labels=FALSE)
     
-    minor <- nulldefault(.$minor_seq, c("10 years", "days", "weeks", "months", "years")[length])
-    major <- nulldefault(.$major_seq, c("days", "weeks", "months", "years", "5 years")[length])
-    format <- nulldefault(.$format, c("%d-%b", "%d-%b", "%b-%y", "%Y", "%Y")[length])
+    major <- nulldefault(.$major_seq, 
+      c("days", "weeks", "months", "3 months", "years", "5 years")[length]
+    )
+    minor <- nulldefault(.$minor_seq, 
+      c("10 years", "days", "weeks", "months", "months", "years")[length]
+    )
+    format <- nulldefault(.$format, 
+      c("%d-%b", "%d-%b", "%b-%y", "%b-%y", "%Y", "%Y")[length]
+    )
     
     c(major, minor, format)
   }
   
   input_breaks <- function(.) {
     d <- to_date(.$input_set())
-    
-    
-    
-    .$.tr$transform(seq(d[1], d[2], by=.$break_points()[1]))
+    as.numeric(fullseq.Date(d, .$break_points()[1]))
   }
   input_breaks_n <- function(.) as.numeric(.$input_breaks())
   
   output_breaks <- function(., n) {
-    d <- structure(.$input_set(), class="Date")
-    .$.tr$transform(seq(d[1], d[2], by=.$break_points()[1]))
+    d <- to_date(.$input_set())
+    as.numeric(fullseq.Date(d, .$break_points()[2]))
   }
-  
   
   labels <- function(.) {
     format(.$.tr$inverse(.$input_breaks()), .$break_points()[3])
@@ -68,8 +70,6 @@ ScaleDate <- proto(ScaleContinuous,{
     textGrob("14/10/1979", gp=gpar(cex=1))
   }
 
-  details <- "<p>Currently somewhat broken due to lack of support for dates in R.</p>"
-
   examples <- function(.) {
     # We'll start by creating some nonsense data with dates
     df <- data.frame(
@@ -77,8 +77,7 @@ ScaleDate <- proto(ScaleContinuous,{
       price = runif(50)
     )
     df <- df[order(df$date), ]
-    dt <- qplot(date, price, data=df, geom="line")
-    dt$aspect.ratio <- 1/4
+    dt <- qplot(date, price, data=df, geom="line") + opts(aspect.ratio = 1/4)
     
     # We can control the format of the labels, and the frequency of 
     # the major and minor tickmarks.  See ?format.Date and ?seq.Date 
@@ -87,7 +86,7 @@ ScaleDate <- proto(ScaleContinuous,{
     dt + scale_x_date(format="%m/%d")
     dt + scale_x_date(format="%W")
     dt + scale_x_date(major="months", minor="weeks", format="%b")
-    dt + scale_x_date(major="months", minor="2 days", format="%b")
+    dt + scale_x_date(major="months", minor="3 days", format="%b")
     dt + scale_x_date(major="years", format="%b-%Y")
     
     # The date scale will attempt to pick sensible defaults for 
@@ -105,13 +104,10 @@ ScaleDate <- proto(ScaleContinuous,{
     qplot(date, psavert, data=economics) 
     qplot(date, psavert, data=economics, geom="path") 
     
-    qplot(date, psavert, data=economics, geom="path", xlim=c(as.Date("2000-1-1"),NA) )
-    qplot(date, psavert, data=economics, geom="path", xlim=c(as.Date("2005-1-1"),NA) )
-    qplot(date, psavert, data=economics, geom="path", xlim=c(as.Date("2007-1-1"),NA) )
-    # cf
-    qplot(date, psavert, data=subset(economics, date > "2000-1-1"), geom="path")
-    qplot(date, psavert, data=subset(economics, date > "2005-1-1"), geom="path")
-    qplot(date, psavert, data=subset(economics, date > "2006-1-1"), geom="path")
+    end <- max(economics$date)
+    last_plot() + scale_x_date(lim = c(as.Date("2000-1-1"), end))
+    last_plot() + scale_x_date(lim = c(as.Date("2005-1-1"), end))
+    last_plot() + scale_x_date(lim = c(as.Date("2006-1-1"), end))
   }
   
 })
