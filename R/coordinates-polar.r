@@ -40,7 +40,7 @@ CoordPolar <- proto(Coord, {
     }
   }
   
-  r_rescale <- function(., x) rescale(x, c(0, 0.45), .$r_range())
+  r_rescale <- function(., x) rescale(x, c(0, 0.4), .$r_range())
   r_discrete <- function(., x) .$.scales$get_scales(.$r)$objname == "discrete"
 
   muncher <- function(.) TRUE
@@ -60,17 +60,8 @@ CoordPolar <- proto(Coord, {
     thetamin <- .$theta_rescale(.$theta_scale()$output_breaks())
     thetafine <- seq(0, 2*pi, length=100)
     
-    labels <- .$theta_scale()$labels()
     
-    # Combine the two ends of the scale if they are close
-    ends_apart <- 1 - (theta[length(theta)] - theta[1]) / (2*pi)
-    if (ends_apart < 0.05) {
-      labels[length(labels)] <- paste(labels[1], labels[length(labels)], sep="/")
-      labels <- labels[-1]
-      theta <- theta[-1]
-    }
-    
-    r <- 0.45
+    r <- 0.4
     rfine <- .$r_rescale(.$r_scale()$input_breaks_n())
 
     ggname("grill", grobTree(
@@ -90,12 +81,6 @@ CoordPolar <- proto(Coord, {
         default.units="native"
       ),
       
-      if (length(labels) > 0) theme_render(
-        theme, "axis.text.x", 
-        labels, r * 1.05 * sin(theta) + 0.5, r * 1.05 * cos(theta) + 0.5,
-        hjust = 0.5, vjust = 0.5,
-        default.units="native"
-      ),
       theme_render(
         theme, "panel.grid.major", name = "radius",
         x = rep(rfine, each=length(thetafine)) * sin(thetafine) + 0.5, 
@@ -105,6 +90,29 @@ CoordPolar <- proto(Coord, {
       )
     ))
   }
+
+  guide_foreground <- function(., theme) {
+    theta <- .$theta_rescale(.$theta_scale()$input_breaks_n())
+    labels <- .$theta_scale()$labels()
+    
+    # Combine the two ends of the scale if they are close
+    ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
+    if (ends_apart < 0.05) {
+      labels[length(labels)] <- paste(labels[1], labels[length(labels)], sep="/")
+      labels <- labels[-1]
+      theta <- theta[-1]
+    }
+      
+    grobTree(
+      if (length(labels) > 0) theme_render(
+        theme, "axis.text.x", 
+        labels, 0.45 * sin(theta) + 0.5, 0.45 * cos(theta) + 0.5,
+        hjust = 0.5, vjust = 0.5,
+        default.units="native"
+      ),      
+      theme_render(theme, "panel.border")
+    )
+  }  
 
   
   output_set <- function(.) {
@@ -171,7 +179,6 @@ CoordPolar <- proto(Coord, {
     doh + geom_bar(width=1) + coord_polar()
     #Doughnut plot
     doh + geom_bar(width=0.9, position="fill") + coord_polar(theta="y")
-    ggopt(aspect.ratio = NULL)
   }
 
 })
