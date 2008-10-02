@@ -86,7 +86,7 @@ ScaleGradient <- proto(ScaleContinuous, expr={
     
     # scale_fill_continuous works similarly, but for fill colours
     (h <- qplot(x - y, data=dsub, geom="histogram", binwidth=0.01, fill=..count..))
-    h + scale_fill_continuous(low="black", high="white", limits=c(0,NA))
+    h + scale_fill_continuous(low="black", high="pink", limits=c(0,3100))
   }
   
   
