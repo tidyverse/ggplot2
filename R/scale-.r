@@ -79,7 +79,7 @@ Scale <- proto(TopLevel, expr={
   # ---------------------------------------------
   legend_desc <- function(.) {
     if (identical(., Scale) || !.$legend) return()
-    
+   
     breaks <- .$output_breaks()
     labels <- .$labels()
     

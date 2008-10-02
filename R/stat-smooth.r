@@ -4,7 +4,8 @@ StatSmooth <- proto(Stat, {
     if (nrow(data) < 2) return(data.frame())
     
     if (length(unique(data$x)) == 1) {
-      stop("geom_smooth: Only one unique x value in this group.  Maybe you want aes(group = 1)?", call. = FALSE)
+      message("geom_smooth: Only one unique x value in this group.  Maybe you want aes(group = 1)?", call. = FALSE)
+      return(NULL)
     }
     
     if (is.null(data$weight)) data$weight <- 1

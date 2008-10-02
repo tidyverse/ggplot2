@@ -3,6 +3,8 @@ loaded <- "ggplot2" %in% search()
 suppressMessages(library(ggplot2, warn.conflicts = FALSE))
 l(plyr)
 
+load("~/documents/ggplot/ggplot/data/mpg.rda")
+
 paths <- dir("~/documents/ggplot/ggplot/R", full.name=T)
 paths <- paths[basename(paths) != "xxx.r"]
 l_ply(paths, source)

@@ -18,7 +18,9 @@ ScaleGradient <- proto(ScaleContinuous, expr={
   }
     
   labels <- function(.) format(.$input_breaks())
-  output_breaks <- function(.) .$map(.$input_breaks())
+  output_breaks <- function(.) {
+    .$map(.$input_breaks()) 
+  }
   
   common <- c("colour", "fill")
 
