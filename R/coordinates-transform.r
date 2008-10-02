@@ -8,7 +8,7 @@ CoordTrans <- proto(CoordCartesian, expr={
     groups <- split(data, data$group)
     munched_groups <- lapply(groups, function(df) .$munch_group(df, npieces))
     do.call("rbind", munched_groups)
-  }  
+  }
   
   transform_x <- function(., data) {
     rescale(.$xtr$transform(data), 0:1, .$output_set()$x)

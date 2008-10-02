@@ -8,11 +8,14 @@ GeomRect <- proto(Geom, {
 
   draw <- function(., data, scales, coordinates, ...) {
     if (coordinates$muncher()) {
-      aesthetics <- setdiff(names(data), c("xmin","xmax", "ymin", "ymax"))
+      aesthetics <- setdiff(
+        names(data), c("x", "y", "xmin","xmax", "ymin", "ymax")
+      )
       
       polys <- alply(data, 1, function(row) {
         poly <- with(row, rect_to_poly(xmin, xmax, ymin, ymax))
-        aes <- as.data.frame(row[aesthetics])[rep(1,5), ]
+        aes <- as.data.frame(row[aesthetics], 
+          stringsAsFactors = FALSE)[rep(1,5), ]
       
         GeomPolygon$draw(cbind(poly, aes), scales, coordinates)
       })

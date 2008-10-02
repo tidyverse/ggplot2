@@ -24,9 +24,9 @@ GeomHistogram <- proto(GeomBar, {
     m + geom_histogram()
     m + geom_histogram(aes(y = ..density..)) + geom_density()
 
-    m + geom_histogram(binwidth=1)
-    m + geom_histogram(binwidth=0.5)
-    m + geom_histogram(binwidth=0.1)
+    m + geom_histogram(binwidth = 1)
+    m + geom_histogram(binwidth = 0.5)
+    m + geom_histogram(binwidth = 0.1)
     
     # Add aesthetic mappings
     m + geom_histogram(aes(weight = votes))
