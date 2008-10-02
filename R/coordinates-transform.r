@@ -2,14 +2,6 @@ CoordTrans <- proto(CoordCartesian, expr={
   
   muncher <- function(.) TRUE
 
-  munch <- function(., data, npieces=50) {
-    data <- add_group(data)
-    
-    groups <- split(data, data$group)
-    munched_groups <- lapply(groups, function(df) .$munch_group(df, npieces))
-    do.call("rbind", munched_groups)
-  }
-  
   transform_x <- function(., data) {
     rescale(.$xtr$transform(data), 0:1, .$output_set()$x)
   }
@@ -20,14 +12,23 @@ CoordTrans <- proto(CoordCartesian, expr={
   new <- function(., xtrans="identity", ytrans="identity") {
     if (is.character(xtrans)) xtrans <- Trans$find(xtrans)
     if (is.character(ytrans)) ytrans <- Trans$find(ytrans)
-  
     .$proto(xtr=xtrans, ytr=ytrans)
   }
 
+  pprint <- function(., newline=TRUE) {
+    cat("coord_", .$objname, ": ", 
+      "x = ", .$xtr$objname, ", ", 
+      "y = ", .$ytr$objname, sep = ""
+    )
+    
+    if (newline) cat("\n") 
+  }
+
   output_set <- function(.) {
+    # range is necessary in case transform has flipped min and max
     list(
-      x = expand_range(.$xtr$transform(.$x()$output_set()), 0.05),
-      y = expand_range(.$ytr$transform(.$y()$output_set()), 0.05)
+      x = expand_range(range(.$xtr$transform(.$x()$output_set())), 0.05),
+      y = expand_range(range(.$ytr$transform(.$y()$output_set())), 0.05)
     )
   }
 
