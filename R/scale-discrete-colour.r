@@ -119,7 +119,8 @@ ScaleBrewer <- proto(ScaleColour, expr={
   }
   
   examples <- function(.) {
-    (d <- qplot(carat, price, data=diamonds, colour=clarity))
+    dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
+    (d <- qplot(carat, price, data=dsamp, colour=clarity))
     
     # Change scale label
     d + scale_colour_brewer()
@@ -137,13 +138,19 @@ ScaleBrewer <- proto(ScaleColour, expr={
     
     # One way to deal with overplotting - use transparency
     # (only works with pdf, quartz and cairo devices)
+    d + scale_colour_brewer(alpha = 0.5)
     d + scale_colour_brewer(alpha = 0.2)
-    d + scale_colour_brewer(alpha = 0.01)
+    
+    # To get remove circular outlines, use shape = 21, colour = NA
+    # and change the fill colour:
+    ggplot(dsamp, aes(carat, price, fill = clarity)) + 
+      geom_point(shape = 21, colour = NA, size = 5) + 
+      scale_fill_brewer(alpha = 0.5)
   
     # scale_fill_brewer works just the same as 
     # scale_colour_brewer but for fill colours
     ggplot(diamonds, aes(x=price, fill=cut)) + 
-      geom_bar(position="dodge") + 
+      geom_histogram(position="dodge", binwidth=1000) + 
       scale_fill_brewer()
     
   }
