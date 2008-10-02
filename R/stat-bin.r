@@ -114,7 +114,8 @@ StatBin <- proto(Stat, {
     # See geom_histogram for more histogram examples
     
     # To create a unit area histogram, use aes(y = ..density..)
-    (linehist <- m + stat_bin(aes(y = ..density..), geom="line"))
+    (linehist <- m + stat_bin(aes(y = ..density..), binwidth=0.1,
+      geom="line", position="identity"))
     linehist + stat_density(colour="blue", fill=NA)
     
     # Also works with categorical variables
