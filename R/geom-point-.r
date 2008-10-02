@@ -54,9 +54,17 @@ GeomPoint <- proto(Geom, {
     # Set aesthetics to fixed value
     p + geom_point(colour = "red", size=3)
         
+    # Transparent points:
+    qplot(mpg, wt, data=mtcars, size=I(5), 
+      colour=I(alpha("black", 0.2)))
+    # to avoid the ring, use shape 21, with NA colour and transparent fill:
+    qplot(mpg, wt, data=mtcars, size=I(5), 
+      shape = I(21), colour=I(NA), fill = I(alpha("black", 0.2)))
+    
     # Use qplot instead
     qplot(x=wt, y=mpg, data=mtcars)
-    qplot(x=wt, y=mpg, data=mtcars, geom="point")
+    qplot(x=wt, y=mpg, data=mtcars, colour = factor(cyl))
+    qplot(x=wt, y=mpg, data=mtcars, colour = I("red"))
   }
   
   
