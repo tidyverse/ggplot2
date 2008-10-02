@@ -12,7 +12,6 @@ StatSum <- proto(Stat, {
       function(x) as.numeric(as.character(x)))
     counts$prop <- counts$sum / sum(counts$sum)
     counts$group <- 1
-    browser()
     counts
   }
   
