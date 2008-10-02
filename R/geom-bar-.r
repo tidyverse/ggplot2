@@ -6,8 +6,9 @@ GeomBar <- proto(Geom, {
   
   required_aes <- c("x")
  
-  reparameterise <- function(., df) {
-    if (is.null(df$width)) df$width <- resolution(df$x, FALSE) * 0.9
+  reparameterise <- function(., df, params) {
+    df$width <- df$width %||% 
+      params$width %||% (resolution(df$x, FALSE) * 0.9)
     
     transform(df,
       ymin = 0, ymax = y,

@@ -1,12 +1,13 @@
 collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
-  
   # Determine width
   if (!is.null(width)) {
     # Width set manually
-    data <- within(data, {
-      xmin <- x - width / 2
-      xmax <- x + width / 2
-    })
+    if (!(all(c("xmin", "xmax") %in% names(data)))) {
+      data <- within(data, {
+        xmin <- x - width / 2
+        xmax <- x + width / 2
+      })      
+    }
   } else {
     if (!(all(c("xmin", "xmax") %in% names(data)))) {
       return(ddply(data, .(x), function(df) strategy(df, width = 0)))
@@ -56,11 +57,12 @@ pos_dodge <- function(df, width) {
   n <- nrow(df)
   if (n == 1) return(df)
   
-  width <- with(df, max(xmax - xmin))
+  d_width <- with(df, max(xmax - xmin))
+  diff <- width - d_width
 
   within(df, {
-    xmin <- xmin + width / n * (seq_len(n) - 1)
-    xmax <- xmin + width / n
+    xmin <- xmin + width / n * (seq_len(n) - 1) - diff / 4
+    xmax <- xmin + d_width / n
     x <- (xmin + xmax) / 2
   })
 }

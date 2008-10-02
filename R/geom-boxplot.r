@@ -1,8 +1,9 @@
 GeomBoxplot <- proto(Geom, {
   
-  reparameterise <- function(., df) {
-    if (is.null(df$width)) df$width <- resolution(df$x, FALSE) * 0.9
-    
+  reparameterise <- function(., df, params) {
+    df$width <- df$width %||% 
+      params$width %||% (resolution(df$x, FALSE) * 0.9)
+
     transform(df,
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )

@@ -1,16 +1,16 @@
 GeomTile <- proto(Geom, {
-  reparameterise <- function(., df) {
-    if (is.null(df$width)) df$width <- resolution(df$x, FALSE)
-    if (is.null(df$height)) df$height <- resolution(df$y, FALSE)
+  reparameterise <- function(., df, params) {
+    df$width <- df$width %||% params$width %||% resolution(df$x, FALSE)
+    df$height <- df$height %||% params$height %||% resolution(df$y, FALSE)
 
     transform(df, 
-      xmin = x - width/2,  xmax = x + width/2, width = NULL,
-      ymin = y - height/2,  ymax = y + height/2, height = NULL 
+      xmin = x - width / 2,  xmax = x + width / 2,  width = NULL,
+      ymin = y - height / 2, ymax = y + height / 2, height = NULL 
     )
   }
 
   draw_groups <- function(., data,  scales, coordinates, ...) {
-    data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
+    # data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
     GeomRect$draw(data, scales, coordinates, ...)
   }
   
@@ -29,7 +29,7 @@ GeomTile <- proto(Geom, {
   }
 
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(fill="grey60", colour=NA, size=0.5, linetype=1)
+  default_aes <- function(.) aes(fill="grey60", colour=NA, size=0.1, linetype=1)
   required_aes <- c("x", "y")
   guide_geom <- function(.) "tile"
   
@@ -49,7 +49,6 @@ GeomTile <- proto(Geom, {
 
     # Add aesthetic mappings
     p + geom_tile(aes(fill=z))
-    p + geom_tile(aes(width=z, height=z))
     
     # Change scale
     p + geom_tile(aes(fill=z)) + scale_fill_gradient(low="green", high="red")

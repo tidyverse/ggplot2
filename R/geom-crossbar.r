@@ -12,8 +12,8 @@ GeomCrossbar <- proto(Geom, {
     ))
   }
   
-  reparameterise <- function(., df) {
-    GeomErrorbar$reparameterise(df)
+  reparameterise <- function(., df, params) {
+    GeomErrorbar$reparameterise(df, params)
   }
   
 
@@ -31,7 +31,7 @@ GeomCrossbar <- proto(Geom, {
   required_aes <- c("x", "y", "ymin", "ymax")
   guide_geom <- function(.) "path"
   
-  draw <- function(., data, scales, coordinates, fatten = 2, ...) {
+  draw <- function(., data, scales, coordinates, fatten = 2, width = NULL, ...) {
     ggname(.$my_name(), gTree(children=gList(
       GeomRect$draw(data, scales, coordinates, ...),
       GeomRect$draw(transform(data, ymin=y, ymax=y, size = size * fatten), scales, coordinates, ...)

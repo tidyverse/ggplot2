@@ -76,7 +76,7 @@ GeomArea <- proto(GeomRibbon,{
   default_pos <- function(.) PositionStack
   required_aes <- c("x", "y")
 
-  reparameterise <- function(., df) {
+  reparameterise <- function(., df, params) {
     transform(df, ymin = 0, ymax = y)
   }
 

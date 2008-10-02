@@ -10,13 +10,14 @@ GeomErrorbar <- proto(Geom, {
   }
   
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1)
+  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, width=0.5)
   guide_geom <- function(.) "path"
   required_aes <- c("x", "ymin", "ymax")
   
-  reparameterise <- function(., df) {
-    if (is.null(df$width)) df$width <- resolution(df$x, FALSE) * 0.9
-    
+  reparameterise <- function(., df, params) {
+    df$width <- df$width %||% 
+      params$width %||% (resolution(df$x, FALSE) * 0.9)
+        
     transform(df,
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )
@@ -80,3 +81,6 @@ GeomErrorbar <- proto(Geom, {
   }
 })
 
+"%||%" <- function(a, b) {
+  if (!is.null(a)) a else b
+}
