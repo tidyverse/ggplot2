@@ -74,7 +74,9 @@ Layer <- proto(expr = {
   }
   
   aesthetics_used <- function(., plot_aesthetics) {
-    aesthetics <- names(compact(defaults(.$aesthetics, plot_aesthetics)))
+    aes <- defaults(.$aesthetics, plot_aesthetics)
+    aes <- defaults(.$stat$default_aes(), aes)
+    aesthetics <- names(compact(aes))
     aesthetics <- intersect(aesthetics, names(.$geom$default_aes()))
     parameters <- names(.$geom_params)
     setdiff(aesthetics, parameters)
