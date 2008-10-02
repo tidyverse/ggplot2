@@ -69,7 +69,7 @@ StatSummary <- proto(Stat, {
     # Summaries are much more useful with a bigger data set:
     m <- ggplot(movies, aes(x=round(rating), y=votes)) + geom_point()
     (m2 <- m + stat_summary(fun="mean_cl_boot", geom="crossbar", colour="red", width=0.3))
-    # Notice how the overplotting skews out visual perception of the mean
+    # Notice how the overplotting skews off visual perception of the mean
     # supplementing the raw data with summary statisitcs is _very_ important
   
     # Next, we'll look at votes on a log scale.
