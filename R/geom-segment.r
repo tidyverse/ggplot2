@@ -1,7 +1,7 @@
 GeomSegment <- proto(Geom, {
   draw <- function(., data, scales, coordinates, arrow=NULL, ...) {
     if (!coordinates$muncher()) {
-      return(with(data, 
+      return(with(coordinates$transform(data), 
         segmentsGrob(x, y, xend, yend, default.units="native",
         gp=gpar(col=colour, lwd=size * .pt, lty=linetype), arrow = arrow)
       ))
