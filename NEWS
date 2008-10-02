@@ -1,47 +1,61 @@
 ggplot2 0.7  (2008-XX-XX)
 ----------------------------------------
 
-  * coord_polar: more tweaks to grid lines to enhance apperance
-  * coord_polar: new expand argument to control whether axes should be expanded outside the range of the data
-  * qplot now captures the environment in which it was run, which should make it much more robust at finding the variables you expect it to find 
-  * scale_date breaks are now accurately rounded to the place that they should be
-  * scale_date now takes limits argument which allows you to set axis limits
-  * geom_step now has parameter direction which can take values vh (vertical then horizontal) or hv (horizontal then vertical) describing the shape of the stairs
-  * density2d used consistently (instead of density_2d in some places)
-  * qplot: Better error messages when needed variables are missing
-  * Complete rewrite of theming system
-  * New discrete position scales
-  * Arguments to geom_jitter changed to height and width to match other position adjustments
-  * Fixed bug in remove_missing function will resulted incorrect calculations of some statistics when missing values were present
-  * geom_boxplot: previously was not displaying outliers if only one present
-  * geom_jitter: setting one jitter direction to 0 now works
-  * position_jitter now deals correctly with 0 jitter
-  * Direct access to plot options via $ is now disabled
-  * ggsave: fixed bug where current device was closed if an error occured
-  * scale_gradientn: create colour scale from any list of colours
-  * scales: any point outside of limits is dropped (this was previously the behaviour for discrete scales, but not continuous scales)
-  * improve error message for too many values in domain
-  * legends now don't appear when aesthetics are mapped to NULL to set to fixed position
-  * legends now respect fixed parameters of the layer
-  * scales: major rewrite of internals:
-    * all categorical scales accept breaks argument
-    * continuous position scale now has minor_breaks argument which controls position of minor breaks
-    * xend and yend now transformed correctly
-    * limits are consistent across discrete and continuous scales (limits c(1, NA) form no longer works for continuous scales)
-  * all discrete scales have limits and labels argument to better control legends
-  * character and logical vectors now reliably treated as discrete scales
-  * can use color instead of colour, and old R names throughout ggplot2
-  * qplot now gains asp argument to set aspect ratio
-  * scales: extra scales now correctly ignored (again)
-  * scale_size: improved documentation for discrete variables
-  * ggsave now correctly uses dpi for raster devices, default dpi changed to 72 (thanks to Brian Ripley for pointing this out)
-  * qplot now treats any arguments wrapped in I() as parameters, not aesthetics:
-    * qplot(mpg, wt, data=mtcars, colour = I("red"))
-    * qplot(mpg, wt, data=mtcars, size = I(5))
-  * geom_segment should now work correctly in all coordinate systems
-  * order of legends reversed to match order of x axis (and to be consistent with previous versions)
-  * background colour of legends key matches plot
-  * documentation improvements: facet_grid
+ggplot2 0.7 introduces a new theming system which allows you to control (almost) every aspect of the appearance of the plot.  This system is documented in the book chapter "Polishing your plots for publication", available from http://had.co.nz/ggplot2/book/polishing.pdf.
+
+Bugs fixed
+
+* geom_boxplot: now displays outliers even if only one present 
+* geom_jitter: setting one jitter direction to 0 now works
+* geom_segment: should now work correctly in all coordinate systems (note that arrows only work in Cartesian coordinates)
+* ggsave: correctly uses dpi for raster devices and default dpi changed to 72 (thanks to Brian Ripley for pointing this out)
+* ggsave: current device no longer closes if error occurs
+* position_jitter: now works correctly with 0 jitter
+* remove_missing: some statistics were calculated incorrectly when missing values were present
+* scales: extra scales ignored (again)
+* scales: legends respect fixed parameters of the layer
+* scales: legends won't appear when aesthetics are mapped to NULL, or set to fixed value
+* scales: xend and yend now transformed correctly
+* scale_date: breaks are now rounded to correct position
+
+New functionality
+
+* geom_step: now has parameter direction which can take values vh (vertical then horizontal) or hv (horizontal then vertical) describing the shape of the stairs
+* qplot: new asp argument to set aspect ratio
+* qplot: now captures the environment in which it was run, which should make it much more robust at finding the variables you expect it to find 
+* qplot: now treats any arguments wrapped in I() as parameters, not aesthetics, e.g. qplot(mpg, wt, data=mtcars, colour = I("red")) or qplot(mpg, wt, data=mtcars, size = I(5))
+* scale_continuous: new minor_breaks argument to controls position of minor breaks
+* scale_discrete: new discrete position scales which make it possible to manually position elements
+* scale_gradientn: new colour scale which creates gradient between any list of colours
+
+More consistent interfaces
+
+* can use color instead of colour, and old R names throughout ggplot2
+* geom_jitter: Arguments changed to height and width to match other position adjustments
+* scales: any point outside of limits is dropped (this was previously the behaviour for discrete scales, but not continuous scales)
+* scales: limits are consistent across discrete and continuous scales (limits c(1, NA) form no longer works for continuous scales)
+* scales: order of legends reversed to match order of x axis (and to be consistent with previous versions)
+* scale_date: new limits argument to set axis limits
+* scale_discrete: all discrete scales accept breaks argument
+* scale_discrete: all discrete scales have limits and labels argument to better control legends
+* scale_discrete: character and logical vectors now reliably treated as discrete scales
+* stat_density2d, geom_density2d: density2d used consistently (instead of density_2d in some places)
+
+Improved aesthetics
+
+* coord_polar: more tweaks to grid lines to enhance appearance
+* coord_polar: new expand argument to control whether axes should be expanded outside the range of the data
+* position_stack, position_dodge: should be more informative if conditions for stacking/dodging not met
+* scales: background colour of legends key matches plot
+* themes: Complete rewrite of theming system, see new book chapter for details
+* themes: direct access to plot options via $ is now disabled
+
+Improved documentation and error messages
+
+* facet_grid: documentation improved
+* qplot: Better error messages when needed variables are missing
+* scale_discrete: improved error message for too many values in domain
+* scale_size: improved documentation for discrete variables
 
 
 See CHANGELOG for changes in previous versions
