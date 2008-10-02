@@ -8,9 +8,11 @@ StatSum <- proto(Stat, {
     if (is.null(data$weight)) data$weight <- 1
     
     counts <- as.data.frame(xtabs(weight ~ x + y, data), responseName="sum")
+    counts[c("x", "y")] <- lapply(counts[c("x", "y")], 
+      function(x) as.numeric(as.character(x)))
     counts$prop <- counts$sum / sum(counts$sum)
     counts$group <- 1
-    
+    browser()
     counts
   }
   
@@ -26,23 +28,25 @@ StatSum <- proto(Stat, {
   )
   
   examples <- function(.) {
-    d <- ggplot(diamonds, aes(x=cut, y=clarity))
+    d <- ggplot(diamonds, aes(x = cut, y = clarity))
     # Need to control which group proportion calculated over
     # Overall proportion
-    d + stat_sum(aes(group=1))
+    d + stat_sum(aes(group = 1))
+    d + stat_sum(aes(group = 1)) + scale_size(to = c(3, 10))
+    d + stat_sum(aes(group = 1)) + scale_area(to = c(3, 10))
     # by cut
-    d + stat_sum(aes(group=cut))
+    d + stat_sum(aes(group = cut))
     # by clarity
-    d + stat_sum(aes(group=clarity))
+    d + stat_sum(aes(group = clarity))
 
     # Can also weight by another variable
-    d + stat_sum(aes(group=1, weight = price))
-    d + stat_sum(aes(group=1, weight = price, size = ..sum..))
+    d + stat_sum(aes(group = 1, weight = price))
+    d + stat_sum(aes(group = 1, weight = price, size = ..sum..))
     
     
     # Or using qplot
-    qplot(cut, clarity, data=diamonds)
-    qplot(cut, clarity, data=diamonds, stat="sum", group=1)
+    qplot(cut, clarity, data = diamonds)
+    qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)
     
   }
   
