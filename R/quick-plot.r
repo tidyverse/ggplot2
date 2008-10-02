@@ -29,13 +29,26 @@
 #X qplot(mpg, wt, data=mtcars, size=cyl)
 #X qplot(mpg, wt, data=mtcars, facets=vs ~ am)
 #X
-#X # Use data from workspace environment
+#X # Use data from local environment
 #X attach(mtcars)
-#X qplot(mpg, wt)
-#X qplot(mpg, wt, colour=cyl)
-#X qplot(mpg, wt, size=cyl)
-#X qplot(mpg, wt, facets=vs ~ am)
+#X qplot(hp, wt)
+#X qplot(hp, wt, colour=cyl)
+#X qplot(hp, wt, size=cyl)
+#X qplot(hp, wt, facets=vs ~ am)
 #X
+#X qplot(1:10, rnorm(10), colour = runif(10))
+#X qplot(1:10, letters[1:10])
+#X mod <- lm(mpg ~ wt, data=mtcars)
+#X qplot(resid(mod), fitted(mod))
+#X qplot(resid(mod), fitted(mod), facets = . ~ vs)
+#X
+#X f <- function() {
+#X    a <- 1:10
+#X    b <- a ^ 2
+#X    qplot(a, b)
+#X } 
+#X f()
+#X 
 #X # Use different geoms
 #X qplot(mpg, wt, geom="path")
 #X qplot(factor(cyl), wt, geom=c("boxplot", "jitter"))
@@ -50,27 +63,24 @@ quickplot <- qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., m
   aesthetics <- rename_aes(aesthetics)
   class(aesthetics) <- "uneval"
   
-  # Create data if not explicitly specified
+  env <- parent.frame()
   if (missing(data)) {
-    var_string <- unique(unlist(lapply(drop_calculated_aes(aesthetics), function(x) all.vars(asOneSidedFormula(x)))))
-    var_names <- unlist(lapply(var_string, as.name))
+    # If data not explicitly specified, will be pulled from workspace
+    data <- data.frame()
 
-    vars <- lapply(var_names, eval, parent.frame(n=2))
-    is_vector <- sapply(vars, is.atomic)
-    data <- as.data.frame(vars[is_vector])
-    names(data) <- var_string[is_vector]
-
+    # Faceting variables must be in a data frame, so pull those out
     facetvars <- all.vars(facets)
     facetvars <- facetvars[facetvars != "."]
     facetsdf <- as.data.frame(sapply(facetvars, get))
-    if (nrow(facetsdf)) data <- cbind(data, facetsdf)
+    if (nrow(facetsdf)) data <- facetsdf
   } else {
     if (!is.data.frame(data)) stop("data is not a data.frame")
     if (ncol(data) == 0) stop("data has no columns")
     if (nrow(data) == 0) stop("data has no rows")
   }
 
-  p <- ggplot(data, aesthetics) + facet_grid(facets=deparse(facets), margins=margins)
+  p <- ggplot(data, aesthetics, environment = env) +
+    facet_grid(facets = deparse(facets), margins = margins)
   
   if (!is.null(main)) p <- p + opts("title" = main)
 

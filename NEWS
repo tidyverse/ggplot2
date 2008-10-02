@@ -1,6 +1,7 @@
 ggplot2 0.7  (2008-XX-XX)
 ----------------------------------------
 
+  * qplot now captures the environment in which it was run, which should make it much more robust at finding the variables you expect it to find 
   * scale_date breaks are now accurately rounded to the place that they should be
   * scale_date now takes limits argument which allows you to set axis limits
   * geom_step now has parameter direction which can take values vh (vertical then horizontal) or hv (horizontal then vertical) describing the shape of the stairs
@@ -32,7 +33,6 @@ ggplot2 0.7  (2008-XX-XX)
   * scales: extra scales now correctly ignored (again)
   * scale_size: improved documentation for discrete variables
   * ggsave now correctly uses dpi for raster devices, default dpi changed to 72 (thanks to Brian Ripley for pointing this out)
-  * qplot now does a better of building the data frame when not explicitly supplied
   * qplot now treats any arguments wrapped in I() as parameters, not aesthetics:
     * qplot(mpg, wt, data=mtcars, colour = I("red"))
     * qplot(mpg, wt, data=mtcars, size = I(5))

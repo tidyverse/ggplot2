@@ -122,7 +122,7 @@ Scales <- proto(Scale, expr={
   # Called everytime a layer is added to the plot, so that default
   # scales are always available for modification.   The type of a scale is
   # fixed by the first use in a layer.
-  add_defaults <- function(., data, aesthetics) {
+  add_defaults <- function(., data, aesthetics, env) {
     if (is.null(data)) return()
     names(aesthetics) <- laply(names(aesthetics), aes_to_scale)
     
@@ -146,7 +146,7 @@ Scales <- proto(Scale, expr={
 
     datacols <- tryapply(
       aesthetics[new_aesthetics], eval, 
-      envir=data, enclos=globalenv()
+      envir=data, enclos=env
     )
     new_aesthetics <- intersect(new_aesthetics, names(datacols))
     if (length(datacols) == 0) return()

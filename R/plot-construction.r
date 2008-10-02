@@ -35,7 +35,7 @@
         p$layers <- append(p$layers, object)
         data <- if(is.null(object$data)) p$data else object$data
         mapping <- if(is.null(object$aesthetics)) p$defaults else object$aesthetics
-        p$scales$add_defaults(data, mapping)
+        p$scales$add_defaults(data, mapping, p$plot_env)
         p
       },
       coord = {

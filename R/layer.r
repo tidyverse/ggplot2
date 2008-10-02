@@ -111,7 +111,7 @@ Layer <- proto(expr = {
     
     # Drop aesthetics that are set manually
     aesthetics <- aesthetics[setdiff(names(aesthetics), names(.$geom_params))]
-    plot$scales$add_defaults(plot$data, aesthetics)
+    plot$scales$add_defaults(plot$data, aesthetics, plot$plot_env)
     
     calc_aesthetics(plot, data, aesthetics, .$ignore.extra)
   }
@@ -152,7 +152,7 @@ Layer <- proto(expr = {
       data[[names(new)[i]]] <- eval(new[[i]], data, baseenv())
     }
     
-    plot$scales$add_defaults(data, new)
+    plot$scales$add_defaults(data, new, plot$plot_env)
     
     data
   }
@@ -246,13 +246,12 @@ layer <- Layer$new
 # @arguments extra arguments supplied by user that should be used first
 # @keyword hplot
 # @keyword internal
-calc_aesthetics <- function(plot, data = plot$data, aesthetics, ignore.extra = FALSE) {
+calc_aesthetics <- function(plot, data = plot$data, aesthetics, ignore.extra = FALSE, env = plot$plot_env) {
   if (is.null(data)) data <- plot$data
   if (!is.data.frame(data)) stop("data is not a data.frame")
   
-  
   err <- if (ignore.extra) tryNULL else force
-  eval.each <- function(dots) compact(lapply(dots, function(x.) err(eval(x., data, globalenv()))))
+  eval.each <- function(dots) compact(lapply(dots, function(x.) err(eval(x., data, env))))
   # Conditioning variables needed for facets
   cond <- plot$facet$conditionals()
   
