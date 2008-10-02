@@ -54,9 +54,11 @@ quickplot <- qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., m
   if (missing(data)) {
     var_string <- unique(unlist(lapply(drop_calculated_aes(aesthetics), function(x) all.vars(asOneSidedFormula(x)))))
     var_names <- unlist(lapply(var_string, as.name))
-    
-    data <- as.data.frame(lapply(var_names, eval, parent.frame(n=2)))
-    names(data) <- var_string
+
+    vars <- lapply(var_names, eval, parent.frame(n=2))
+    is_vector <- sapply(vars, is.atomic)
+    data <- as.data.frame(vars[is_vector])
+    names(data) <- var_string[is_vector]
 
     facetvars <- all.vars(facets)
     facetvars <- facetvars[facetvars != "."]
