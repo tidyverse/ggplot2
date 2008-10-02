@@ -51,7 +51,7 @@ FacetGrid <- proto(Facet, {
   }
   
   create_viewports <- function(., guides, theme) {
-    aspect_ratio <- theme$aspect_ratio
+    aspect_ratio <- theme$aspect.ratio
     respect <- !is.null(aspect_ratio)
     if (is.null(aspect_ratio)) aspect_ratio <- 1
     
