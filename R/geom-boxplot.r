@@ -96,7 +96,6 @@ GeomBoxplot <- proto(Geom, {
     
     # Boxplots with continuous x
     qplot(year, budget, data=movies, geom="boxplot")
-    qplot(year, budget, data=movies, geom="boxplot", group=year)
     qplot(year, budget, data=movies, geom="boxplot", group=round_any(year, 10, floor))
     
     # Use qplot instead
