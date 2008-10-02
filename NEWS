@@ -1,6 +1,8 @@
 ggplot2 0.7  (2008-XX-XX)
 ----------------------------------------
 
+  * coord_polar: more tweaks to grid lines to enhance apperance
+  * coord_polar: new expand argument to control whether axes should be expanded outside the range of the data
   * qplot now captures the environment in which it was run, which should make it much more robust at finding the variables you expect it to find 
   * scale_date breaks are now accurately rounded to the place that they should be
   * scale_date now takes limits argument which allows you to set axis limits

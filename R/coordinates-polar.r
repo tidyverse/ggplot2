@@ -58,25 +58,25 @@ CoordPolar <- proto(Coord, {
     
     theta <- .$theta_rescale(.$theta_scale()$input_breaks_n())
     thetamin <- .$theta_rescale(.$theta_scale()$output_breaks())
-    thetafine <- seq(0, 2*pi, length=100)
+    thetafine <- seq(0, 2 * pi, length=100)
     
     
     r <- 0.4
-    rfine <- .$r_rescale(.$r_scale()$input_breaks_n())
+    rfine <- c(.$r_rescale(.$r_scale()$input_breaks_n()), 0.45)
 
     ggname("grill", grobTree(
       theme_render(theme, "panel.background"),
       if (length(labels) > 0) theme_render(
         theme, "panel.grid.major", name = "angle", 
-        x = c(rbind(0, 2 * sin(theta))) + 0.5, 
-        y = c(rbind(0, 2 * cos(theta))) + 0.5,
+        x = c(rbind(0, 0.45 * sin(theta))) + 0.5, 
+        y = c(rbind(0, 0.45 * cos(theta))) + 0.5,
         id.lengths = rep(2, length(theta)), 
         default.units="native"
       ),
       theme_render(
         theme, "panel.grid.minor", name = "angle", 
-        x = c(rbind(0, 2 * sin(thetamin))) + 0.5, 
-        y = c(rbind(0, 2 * cos(thetamin))) + 0.5,
+        x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5, 
+        y = c(rbind(0, 0.45 * cos(thetamin))) + 0.5,
         id.lengths = rep(2, length(thetamin)),  
         default.units="native"
       ),
@@ -140,7 +140,8 @@ CoordPolar <- proto(Coord, {
   desc_params <- list(
     theta = "variable to map angle to ('x' or 'y')",
     start = "offset from 12 o'clock in radians",
-    direction = "1, clockwise; -1, anticlockwise"
+    direction = "1, clockwise; -1, anticlockwise",
+    expand = "should axes be expanded to slightly outside the range of the data? (default: FALSE)"
   )
   
   examples <- function(.) {
