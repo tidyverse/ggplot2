@@ -20,6 +20,7 @@ Bugs fixed
 
 New functionality
 
+* geom_point: can now control colour and fill separately for point glyphs with borders
 * geom_step: now has parameter direction which can take values vh (vertical then horizontal) or hv (horizontal then vertical) describing the shape of the stairs
 * qplot: new asp argument to set aspect ratio
 * qplot: now captures the environment in which it was run, which should make it much more robust at finding the variables you expect it to find 
@@ -45,6 +46,7 @@ Improved aesthetics
 
 * coord_polar: more tweaks to grid lines to enhance appearance
 * coord_polar: new expand argument to control whether axes should be expanded outside the range of the data
+* geom_contour, geom_smooth, geom_quantile: now use blue lines
 * position_stack, position_dodge: should be more informative if conditions for stacking/dodging not met
 * scales: background colour of legends key matches plot
 * themes: Complete rewrite of theming system, see new book chapter for details
