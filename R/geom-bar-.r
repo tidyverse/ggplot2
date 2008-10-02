@@ -76,8 +76,9 @@ GeomBar <- proto(Geom, {
     
     # A bar chart used to display means
     meanprice <- tapply(diamonds$price, diamonds$cut, mean)
-    qplot(unique(diamonds$cut), meanprice)
-    qplot(unique(diamonds$cut), meanprice, geom="bar", stat="identity")
+    cut <- factor(levels(diamonds$cut), levels = levels(diamonds$cut))
+    qplot(cut, meanprice)
+    qplot(cut, meanprice, geom="bar", stat="identity")
     
     rm(mtcars)
   }  
