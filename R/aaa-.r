@@ -302,23 +302,21 @@ TopLevel <- proto(expr = {
 
   # Examples -----------------------
   html_examples <- function(.) {
-    require(decumar, quiet=TRUE, warn=FALSE)
     if (!.$doc) return(FALSE)
+    l(decumar)
     
-    if (length(parse(text = .$examples_text())) == 0) {
-      output <- paste("> ", highlight.html(.$examples_text()), collapse="\n")
-      return(ps("<h2>Examples</h2>\n", html_auto_link(output)))
-    }
-      
+    # if (length(parse(text = .$examples_text())) == 0) {
+    #   output <- paste("> ", highlight.html(.$examples_text()), collapse="\n")
+    #   return(ps("<h2>Examples</h2>\n", html_auto_link(output)))
+    # }
+    
     curdir <- getwd()
     on.exit(setwd(curdir))
-    setwd("~/Documents/ggplot/ggplot/web/")
-    INCLUDES <<- "graphics"
+    setwd("~/Documents/ggplot/ggplot/web")
     
-    parsed <- nice_parse(.$examples_text())
     html_auto_link(ps(
       "<h2>Examples</h2>\n",
-      ps(capture.output(create_html(parsed)),collapse="\n"),
+      interweave_html(.$examples_text(), outdir = "graphics"),
       "\n"
     ), .$my_name())
   }

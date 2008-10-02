@@ -3,7 +3,10 @@
 
 ScaleDiscretePosition <- proto(ScaleDiscrete, {
   objname <- "discrete"
-  my_name <- function(.) "scale_discrete"
+  my_name <- function(., prefix = TRUE) {
+    if (prefix) "scale_discrete" else "discrete"
+  }
+    
   myName <- function(.) "ScaleDiscretePosition"
   
   common <- c("x", "y", "z")
