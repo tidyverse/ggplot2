@@ -43,7 +43,7 @@ ggsave <- function(plot = last_plot(), filename=default_name(plot), device=defau
   tiff <- function(..., width, height) grDevices::tiff(..., width=width*dpi, height=height*dpi, res = dpi)
   
   default_name <- function(plot) { 
-    paste(path, digest.ggplot(plot), ".pdf", sep="")
+    paste(path, digest.ggplot(plot), ".png", sep="")
   }
   
   default_device <- function(filename) {

@@ -26,7 +26,7 @@ TopLevel$examples_run <- function(., path = NULL, verbose=TRUE) {
     if (is.null(path)) {
       timing <- try_default(system.time(print(x$value)), c(NA, NA, NA))
     } else {      
-      timing <- try_default(system.time(ggsave(x$value, path=path, width=10, height=10)), c(NA, NA, NA))
+      timing <- try_default(system.time(ggsave(x$value, path=path, width=8, height=8)), c(NA, NA, NA))
     }
     timing <- unname(timing)
     data.frame(
@@ -86,14 +86,14 @@ all_examples_run <- function(path=NULL, verbose = TRUE) {
 #  * csv with hash, code and timing info
 # 
 # @keyword internal
-save_examples <- function(name = get_rev("."), verbose = FALSE) {
-  path <- paste("~/documents/ggplot/examples/ex-", name, "/", sep="")
+save_examples <- function(name = get_rev(), verbose = FALSE) {
+  path <- paste("/User/hadley/documents/ggplot/examples/ex-", name, "/", sep="")
   dir.create(path, recursive = TRUE)
   
   info <- all_examples_run(path, verbose = verbose)
   write.table(info, file=file.path(path, "info.csv"), sep=",",col=TRUE, row=FALSE, qmethod="d")
-  system(paste("pdf2png ", path, "*.pdf", sep =""))
-  system(paste("rm ", path, "*.pdf", sep =""))
+  # system(paste("pdf2png ", path, "*.pdf", sep =""))
+  # system(paste("rm ", path, "*.pdf", sep =""))
   
   invisible(info)
 }
@@ -102,11 +102,10 @@ save_examples <- function(name = get_rev("."), verbose = FALSE) {
 # Developer use only
 # 
 # @keyword internal
-get_rev <- function(path = ".") {
-  system(paste("svn up ", path), intern=T)
-  cmd <- paste("svn info ", path, "| grep 'Revision'")
+get_rev <- function() {
+  cmd <- paste("git log -1 --pretty=oneline")
   out <- system(cmd, intern=T)
-  strsplit(out, " ")[[1]][2]
+  substr(out, 0, 6)
 }
 
 
