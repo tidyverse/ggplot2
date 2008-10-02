@@ -12,23 +12,32 @@ CoordMap <- proto(CoordCartesian, {
   munch <- function(., data) .$transform(data)
   
   transform <- function(., data) {
+    # trans <- .$mproject(data[, c("xmin","ymin")])
+    # trans <- .$mproject(data[, c("xmax","ymax")])
+    # trans <- .$mproject(data[, c("xend","yend")])
     trans <- .$mproject(data[, c("x","y")])
-    data.frame(trans[c("x","y")], data[, setdiff(names(data), c("x","y"))])
+    out <- data.frame(
+      trans[c("x", "y")], 
+      data[, setdiff(names(data), c("x", "y"))
+    ])
+    
+    out$x <- rescale(out$x, 0:1, .$output_set()$x)
+    out$y <- rescale(out$y, 0:1, .$output_set()$y)
+    out
   }
   
   mproject <- function(., data) {
     if (is.null(.$orientation)) 
       .$orientation <- c(90, 0, mean(.$x()$output_set()))
     
-    suppressWarnings(do.call("mapproject", 
+    out <- suppressWarnings(do.call("mapproject", 
       list(data, projection=.$projection, parameters  = .$params, orientation = .$orientation)
     ))
   }
   
   output_set <- function(.) {
-    expand <- .$expand()
-    xrange <- expand_range(.$x()$output_set(), expand$x[1], expand$x[2])
-    yrange <- expand_range(.$y()$output_set(), expand$y[1], expand$y[2])
+    xrange <- .$x()$output_expand()
+    yrange <- .$y()$output_expand()
     
     df <- data.frame(x = xrange, y = yrange)
     range <- .$mproject(df)$range
@@ -55,8 +64,8 @@ CoordMap <- proto(CoordCartesian, {
     xgrid <- expand.grid(x = c(seq(range$x[1], range$x[2], len = 100), NA), y = y)
     ygrid <- expand.grid(y = c(seq(range$y[1], range$y[2], len = 100), NA), x = x)
     
-    xlines <- .$mproject(xgrid)
-    ylines <- .$mproject(ygrid)
+    xlines <- .$transform(xgrid)
+    ylines <- .$transform(ygrid)
 
     ggname("grill", grobTree(
       theme_render(theme, "panel.background"),
