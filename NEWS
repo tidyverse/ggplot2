@@ -48,6 +48,7 @@ Improved aesthetics
 * coord_polar: new expand argument to control whether axes should be expanded outside the range of the data
 * geom_contour, geom_smooth, geom_quantile: now use blue lines
 * position_stack, position_dodge: should be more informative if conditions for stacking/dodging not met
+* position_jitter: default amount of jittering tweaked to align with boxplots etc.
 * scales: background colour of legends key matches plot
 * themes: Complete rewrite of theming system, see new book chapter for details
 * themes: direct access to plot options via $ is now disabled

@@ -2,8 +2,8 @@ PositionJitter <- proto(Position, {
   adjust <- function(., data, scales) {
     check_required_aesthetics(c("x", "y"), names(data), "position_jitter")
     
-    if (is.null(.$width)) .$width <- resolution(data$x) * 0.40
-    if (is.null(.$height)) .$height <- resolution(data$y) * 0.40
+    if (is.null(.$width)) .$width <- resolution(data$x) * 0.4
+    if (is.null(.$height)) .$height <- resolution(data$y) * 0.4
     
     trans_x <- NULL
     trans_y <- NULL
@@ -28,10 +28,16 @@ PositionJitter <- proto(Position, {
 
   examples <- function(.) {
     qplot(am, vs, data=mtcars)
+    
+    # Default amount of jittering will generally be too much for 
+    # small datasets:
     qplot(am, vs, data=mtcars, position="jitter")
-    # Control amount of jittering by calling position_jitter
-    qplot(am, vs, data=mtcars, position=position_jitter(w=10, h=0))
-    qplot(am, vs, data=mtcars, position=position_jitter(w=0.5, h=0.5))
+    # Control the amount as follows
+    qplot(am, vs, data=mtcars, position=position_jitter(w=0.1, h=0.1))
+    
+    # The default works better for large datasets, where it will 
+    # will up as much space as a boxplot or a bar
+    qplot(cut, price, data=diamonds, geom=c("boxplot", "jitter"))
   }
   
 })
