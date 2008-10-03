@@ -59,10 +59,13 @@ GeomBar <- proto(Geom, {
     ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar() + coord_flip()
 
     # Dodged bar charts    
-    ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar(position="dodge")
     ggplot(diamonds, aes(x=clarity, fill=cut)) + geom_bar(position="dodge")
     # compare with 
     ggplot(diamonds, aes(x=cut, fill=cut)) + geom_bar() + facet_grid(. ~ clarity)
+    
+    # But may be better to use a line plot instead:
+    ggplot(diamonds, aes(x=clarity, colour=cut)) + 
+      geom_line(aes(group = cut, y = ..count..), stat="bin")
     
     # Often we don't want the height of the bar to represent the
     # count of observations, but the sum of some other variable.
@@ -80,8 +83,6 @@ GeomBar <- proto(Geom, {
     cut <- factor(levels(diamonds$cut), levels = levels(diamonds$cut))
     qplot(cut, meanprice)
     qplot(cut, meanprice, geom="bar", stat="identity")
-    
-    rm(mtcars)
   }  
 
 })
