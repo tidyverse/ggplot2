@@ -90,6 +90,6 @@ GeomTile <- proto(Geom, {
     # You can manually set the colour of the tiles using 
     # scale_manual
     col <- c("darkblue", "blue", "green", "orange", "red")
-    qplot(x, y, fill=col[z], data=example, geom="tile", width=w, group=1) + scale_fill_identity(labels=letters[1:5], breaks=col, guide="tile")
+    qplot(x, y, fill=col[z], data=example, geom="tile", width=w, group=1) + scale_fill_identity(labels=letters[1:5], breaks=col)
   }
 })
