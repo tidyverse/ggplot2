@@ -7,14 +7,14 @@
 \description{
 Quick plot is a convenient wrapper function for creating simple ggplot plot objects.
 }
-\usage{qplot(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE, geom = "point", stat=list(NULL), position=list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "", main = NULL, xlab = deparse(substitute(x)), ylab = deparse(substitute(y)))}
+\usage{qplot(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE, geom = "point", stat=list(NULL), position=list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "", main = NULL, xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA)}
 \arguments{
 \item{x}{x values}
 \item{y}{y values}
 \item{z}{z values}
 \item{...}{other arguments passed on to the geom functions}
 \item{data}{data frame to use (optional)}
-\item{facets}{facetting formula to use}
+\item{facets}{faceting formula to use}
 \item{margins}{whether or not margins will be displayed}
 \item{geom}{geom to use (can be a vector of multiple names)}
 \item{stat}{statistic to use (can be a vector of multiple names)}
@@ -25,9 +25,10 @@ Quick plot is a convenient wrapper function for creating simple ggplot plot obje
 \item{main}{character vector or expression for plot title}
 \item{xlab}{character vector or expression for x axis label}
 \item{ylab}{character vector or expression for y axis label}
+\item{asp}{the y/x aspect ratio}
 }
 
-\details{\code{qplot} provides a quick way to create simple plots.}
+\details{You can use it like you'd use the \code{\link{plot}} function.}
 
 \examples{# Use data from data.frame
 qplot(mpg, wt, data=mtcars)
@@ -35,12 +36,25 @@ qplot(mpg, wt, data=mtcars, colour=cyl)
 qplot(mpg, wt, data=mtcars, size=cyl)
 qplot(mpg, wt, data=mtcars, facets=vs ~ am)
 
-# Use data from workspace environment
+# Use data from local environment
 attach(mtcars)
-qplot(mpg, wt)
-qplot(mpg, wt, colour=cyl)
-qplot(mpg, wt, size=cyl)
-qplot(mpg, wt, facets=vs ~ am)
+qplot(hp, wt)
+qplot(hp, wt, colour=cyl)
+qplot(hp, wt, size=cyl)
+qplot(hp, wt, facets=vs ~ am)
+
+qplot(1:10, rnorm(10), colour = runif(10))
+qplot(1:10, letters[1:10])
+mod <- lm(mpg ~ wt, data=mtcars)
+qplot(resid(mod), fitted(mod))
+qplot(resid(mod), fitted(mod), facets = . ~ vs)
+
+f <- function() {
+a <- 1:10
+b <- a ^ 2
+qplot(a, b)
+} 
+f()
 
 # Use different geoms
 qplot(mpg, wt, geom="path")
