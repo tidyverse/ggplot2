@@ -44,8 +44,10 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep)
   panels <- panelGrob(plot, pieces)
   scales <- pieces$scales
   cs <- pieces$cs
+
+  theme <- plot_theme(plot)
   
-  position <- plot$legend.position
+  position <- theme$legend.position
   if (length(position) == 2) {
     coords <- position
     position <- "manual"
@@ -56,7 +58,6 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep)
 
   # Generate grobs -----------------------------------------------------------
   # each of these grobs has a vp set
-  theme <- plot_theme(plot)
 
   legend_box <- if (position != "none") {
     guide_legends_box(scales, scale_usage(plot), horiz, theme) 
