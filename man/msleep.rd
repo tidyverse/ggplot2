@@ -4,7 +4,7 @@
 \title{An updated and expanded version of the mammals sleep dataset}
 \description{
 
-This is an updated and expanded version of the mammals sleep dataset.  Updated sleep times and weights were taken from V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051–1056, 2007. Additional variables order, conservation status and vore were added from wikipedia data.
+This is an updated and expanded version of the mammals sleep dataset.  Updated sleep times and weights were taken from V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007. Additional variables order, conservation status and vore were added from wikipedia data.
 
 \begin{itemize}
   \item name. common name

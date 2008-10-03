@@ -1,4 +1,4 @@
-ggplot2 0.7  (2008-XX-XX)
+ggplot2 0.7  (2008-10-03)
 ----------------------------------------
 
 ggplot2 0.7 introduces a new theming system which allows you to control (almost) every aspect of the appearance of the plot.  This system is documented in the book chapter "Polishing your plots for publication", available from http://had.co.nz/ggplot2/book/polishing.pdf.
