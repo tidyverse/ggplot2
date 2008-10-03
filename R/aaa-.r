@@ -303,12 +303,7 @@ TopLevel <- proto(expr = {
   # Examples -----------------------
   html_examples <- function(.) {
     if (!.$doc) return(FALSE)
-    l(decumar)
-    
-    # if (length(parse(text = .$examples_text())) == 0) {
-    #   output <- paste("> ", highlight.html(.$examples_text()), collapse="\n")
-    #   return(ps("<h2>Examples</h2>\n", html_auto_link(output)))
-    # }
+    require("decumar", quiet = TRUE)
     
     curdir <- getwd()
     on.exit(setwd(curdir))
