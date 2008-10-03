@@ -25,10 +25,10 @@ GeomStep <- proto(GeomPath, {
     x <- sort(rnorm(47))
     qplot(seq_along(x), x, geom="step")
     
-    # Steps go vertically, then horizontally
+    # Steps go horizontally, then vertically (default)
     qplot(seq_along(x), x, geom="step", direction = "hv")
     plot(x, type = "s")
-    # Steps go horizontally, then vertically (default)
+    # Steps go vertically, then horizontally
     qplot(seq_along(x), x, geom="step", direction = "vh")
     plot(x, type = "S")
   }
