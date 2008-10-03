@@ -1,3 +1,9 @@
+# Collide
+# Detect and prevent collisions
+# 
+# Powers dodging, stacking and filling
+# 
+# @keyword internal
 collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
   # Determine width
   if (!is.null(width)) {

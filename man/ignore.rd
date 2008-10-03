@@ -5,6 +5,15 @@
 \alias{scale_colour}
 \alias{scale_size_discrete}
 \alias{create_accessors}
+\alias{ScaleDiscrete}
+\alias{ScalePow}
+\alias{ScaleProb}
+\alias{scale_x_pow}
+\alias{scale_x_prob}
+\alias{scale_y_pow}
+\alias{scale_y_prob}
+\alias{scale_z_pow}
+\alias{scale_z_prob}
 \alias{Facet}
 \alias{Geom}
 \alias{Layer}
