@@ -3,6 +3,7 @@ ScaleDiscrete <- proto(Scale, expr={
   max_levels <- function(.) Inf
   .expand <- c(0, 0.05)
   .labels <- NULL
+  doc <- FALSE
 
   discrete <- function(.) TRUE
 

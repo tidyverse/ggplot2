@@ -2,6 +2,8 @@
 # one.  
 
 ScaleDiscretePosition <- proto(ScaleDiscrete, {
+  doc <- TRUE
+  
   objname <- "discrete"
   my_name <- function(., prefix = TRUE) {
     if (prefix) "scale_discrete" else "discrete"

@@ -1,4 +1,5 @@
 ScaleLinetype <- proto(ScaleDiscrete, expr={
+  doc <- TRUE
   common <- NULL
   .input <- .output <- "linetype"
 

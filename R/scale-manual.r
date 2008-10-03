@@ -1,4 +1,5 @@
 ScaleManual <- proto(ScaleDiscrete, {  
+  doc <- TRUE
   common <- c("colour","fill","size","shape","linetype")
   values <- c()
   

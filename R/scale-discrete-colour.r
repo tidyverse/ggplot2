@@ -37,10 +37,12 @@ ScaleHue <- proto(ScaleColour, expr={
   }
   
   desc_params <- list(
-    h = "range of hues to use, in degrees", 
-    l = "luminance",
-    c = "chroma",
-    alpha = "alpha"
+    h = "range of hues to use, in [0, 360]", 
+    l = "luminance (lightness), in [0, 100]",
+    c = "chroma (intensity of colour)",
+    alpha = "alpha",
+    h.start = "hue to start at",
+    direction = "direction to travel around the colour wheel, 1 = clockwise, -1 = counter-clockwise"
   )
   
   examples <- function(.) {

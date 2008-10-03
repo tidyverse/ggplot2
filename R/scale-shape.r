@@ -1,4 +1,5 @@
 ScaleShape <- proto(ScaleDiscrete, expr={
+  doc <- TRUE
   common <- NULL
   .input <- .output <- "shape"
   solid <- TRUE

@@ -22,8 +22,8 @@ PositionJitter <- proto(Position, {
   
   icon <- function(.) GeomJitter$icon()
   desc_params <- list(
-    xjitter = "degree of jitter in x direction. Defaults to 40% of the resolution of the data.", 
-    yjitter = "degree of jitter in y direction. Defaults to 40% of the resolution of the data."
+    width = "degree of jitter in x direction. Defaults to 40% of the resolution of the data.", 
+    height = "degree of jitter in y direction. Defaults to 40% of the resolution of the data."
     )
 
   examples <- function(.) {
