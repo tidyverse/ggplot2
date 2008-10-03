@@ -8,7 +8,7 @@
 #   \item \code{options}: update plot options
 #   \item \code{scale}: replace default scale
 #   \item \code{coord}: override default coordinate system
-#   \item \code{facet}: override default coordinate facetting
+#   \item \code{facet}: override default coordinate faceting
 # }
 #
 # @arguments plot object

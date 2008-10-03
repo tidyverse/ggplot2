@@ -9,7 +9,7 @@
 # @arguments z values
 # @arguments other arguments passed on to the geom functions
 # @arguments data frame to use (optional)
-# @arguments facetting formula to use
+# @arguments faceting formula to use
 # @arguments whether or not margins will be displayed
 # @arguments geom to use (can be a vector of multiple names)
 # @arguments statistic to use (can be a vector of multiple names)

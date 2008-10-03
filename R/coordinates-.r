@@ -1,7 +1,7 @@
 # Coordinate system looks at scales and creates transformation
 # Applies transformation after munching transform (if necessary)
 # Draws axes
-# Also takes care of facetting?
+# Also takes care of faceting?
 # 
 # x or y
 # continuous or categorical

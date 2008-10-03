@@ -116,7 +116,7 @@ FacetGrid <- proto(Facet, {
   }  
   
   examples <- function(.) {
-    # Facetting displays subsets of the data in different panels
+    # faceting displays subsets of the data in different panels
     p <- ggplot(diamonds, aes(x=carat, y=..density..)) + geom_histogram(binwidth=0.2)
     
     # With one variable
@@ -129,7 +129,7 @@ FacetGrid <- proto(Facet, {
     p + facet_grid(cut ~ clarity, margins=TRUE)
     
     # You can also use strings, which makes it a little easier
-    # when writing functions that generate facetting specifications
+    # when writing functions that generate faceting specifications
     # p + facet_grid("cut ~ .")
     
     # see also ?plotmatrix for the scatterplot matrix

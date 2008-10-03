@@ -62,7 +62,7 @@ html_index <- function() {
     "<h2>Coordinate systems</h2>\n",
     "<p>Coordinate systems adjust the mapping from coordinates to the 2d plane of the computer screen.  <a href='coord_.html'>Read more</a></p>\n",
     html_linked_list(Coord$find_all()),
-    "<h2>Facetting</h2>\n",
+    "<h2>Faceting</h2>\n",
     "<p>Facets display subsets of the dataset in different panels.  <a href='facet_.html'>Read more</a></p>\n",
     html_linked_list(Facet$find_all()),
     "<h2>Position adjustments</h2>\n",
