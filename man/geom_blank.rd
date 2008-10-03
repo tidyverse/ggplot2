@@ -15,12 +15,12 @@ This page describes geom\_blank, see \code{\link{layer}} and \code{\link{qplot}}
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot/geom_blank.html}
+  \item \url{http://had.co.nz/ggplot2/geom_blank.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    qplot(length, rating, data=movies, geom="blank")
-    # Nothing to see here!
+qplot(length, rating, data=movies, geom="blank")
+# Nothing to see here!
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

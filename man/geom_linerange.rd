@@ -10,8 +10,8 @@ This page describes geom\_linerange, see \code{\link{layer}} and \code{\link{qpl
 The following aesthetics can be used with geom\_linerange.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_linerange(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
-  \item \code{min}: minimum of interval (\strong{required}) 
-  \item \code{max}: maximum of interval (\strong{required}) 
+  \item \code{ymin}: minimum of interval (\strong{required}) 
+  \item \code{ymax}: maximum of interval (\strong{required}) 
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
@@ -31,29 +31,29 @@ The following aesthetics can be used with geom\_linerange.  Aesthetics are mappe
   \item \code{\link{geom_crossbar}}: hollow bar with middle indicated by horizontal line
   \item \code{\link{stat_summary}} : examples of these guys in use
   \item \code{\link{geom_smooth}}: for continuous analog
-  \item \url{http://had.co.nz/ggplot/geom_linerange.html}
+  \item \url{http://had.co.nz/ggplot2/geom_linerange.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    # Generate data: means and standard errors of means for prices
-    # for each type of cut
-    dmod <- lm(price ~ cut, data=diamonds)
-    cuts <- data.frame(cut=unique(diamonds$cut), predict(dmod, data.frame(cut = unique(diamonds$cut)), se=T)[c("fit","se.fit")])
-    
-    qplot(cut, fit, data=cuts)
-    # With a bar chart, we are comparing lengths, so the y-axis is 
-    # automatically extended to include 0
-    qplot(cut, fit, data=cuts, geom="bar")
-    
-    # Display estimates and standard errors in various ways
-    se <- ggplot(cuts, aes(x = cut, min=fit - se.fit, max=fit + se.fit, y=fit))
-    se + geom_linerange()
-    se + geom_pointrange()
-    se + geom_errorbar(width = 0.5)
-    se + geom_crossbar(width = 0.5)
+# Generate data: means and standard errors of means for prices
+# for each type of cut
+dmod <- lm(price ~ cut, data=diamonds)
+cuts <- data.frame(cut=unique(diamonds$cut), predict(dmod, data.frame(cut = unique(diamonds$cut)), se=T)[c("fit","se.fit")])
 
-    # Use coord_flip to flip the x and y axes
-    se + geom_linerange() + coord_flip()
+qplot(cut, fit, data=cuts)
+# With a bar chart, we are comparing lengths, so the y-axis is 
+# automatically extended to include 0
+qplot(cut, fit, data=cuts, geom="bar")
+
+# Display estimates and standard errors in various ways
+se <- ggplot(cuts, aes(x = cut, ymin=fit - se.fit, ymax=fit + se.fit, y=fit))
+se + geom_linerange()
+se + geom_pointrange()
+se + geom_errorbar(width = 0.5)
+se + geom_crossbar(width = 0.5)
+
+# Use coord_flip to flip the x and y axes
+se + geom_linerange() + coord_flip()
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

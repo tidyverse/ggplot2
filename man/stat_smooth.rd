@@ -28,55 +28,60 @@ The following aesthetics can be used with stat\_smooth.  Aesthetics are mapped t
  \item{...}{other arguments are passed to smoothing function}
 }
 \seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot/stat_smooth.html}
+  \item lm: for linear smooths
+  \item glm: for generalised linear smooths
+  \item loess: for local smooths
+  \item rlm: for robust smooths
+  \item gam: for smooth smooths
+  \item \url{http://had.co.nz/ggplot2/stat_smooth.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    c <- ggplot(mtcars, aes(y=wt, x=qsec))
-    c + stat_smooth() 
-    c + stat_smooth() + geom_point()
+c <- ggplot(mtcars, aes(y=wt, x=qsec))
+c + stat_smooth() 
+c + stat_smooth() + geom_point()
 
-    # Adjust parameters
-    c + stat_smooth(se = FALSE) + geom_point()
+# Adjust parameters
+c + stat_smooth(se = FALSE) + geom_point()
 
-    c + stat_smooth(span = 0.9) + geom_point()  
-    c + stat_smooth(method = "lm") + geom_point()  
-    c + stat_smooth(method = lm, formula= y ~ ns(x,3)) + geom_point()  
-    c + stat_smooth(method = rlm, formula= y ~ ns(x,3)) + geom_point()  
-    
-    # The default confidence band uses a transparent colour. 
-    # This currently only works on a limited number of graphics devices 
-    # (including Quartz, PDF, and Cairo) so you may need to set the
-    # fill colour to a opaque colour, as shown below
-    c + stat_smooth(fill="grey50", size=2)
-    c + stat_smooth(fill="blue", size=2)
-    
-    # The colour of the line can be controlled with the colour aesthetic
-    c + stat_smooth(fill="blue", colour="darkblue", size=2)
-    c + stat_smooth(fill=alpha("blue", 0.2), colour="darkblue", size=2)
-    c + geom_point() + stat_smooth(fill=alpha("blue", 0.2), colour="darkblue", size=2)
-    
-    # Smoothers for subsets
-    c <- ggplot(mtcars, aes(y=wt, x=mpg)) + facet_grid(. ~ cyl)
-    c + stat_smooth(method=lm) + geom_point() 
-    c + stat_smooth(method=lm, fullrange=T) + geom_point() 
-    
-    # Geoms and stats are automatically split by aesthetics that are factors
-    c <- ggplot(mtcars, aes(y=wt, x=mpg, colour=factor(cyl)))
-    c + stat_smooth(method=lm) + geom_point() 
-    c + stat_smooth(method=lm, fullrange=TRUE, fill=alpha("black", 0.1)) + geom_point() 
+c + stat_smooth(span = 0.9) + geom_point()  
+c + stat_smooth(method = "lm") + geom_point()  
+c + stat_smooth(method = lm, formula= y ~ ns(x,3)) + geom_point()  
+c + stat_smooth(method = rlm, formula= y ~ ns(x,3)) + geom_point()  
 
-    # Use qplot instead
-    qplot(qsec, wt, data=mtcars, geom=c("smooth", "point"))
-    
-    # Example with logistic regression
-    data("kyphosis", package="rpart")
-    qplot(Age, Kyphosis, data=kyphosis)
-    qplot(Age, Kyphosis, data=kyphosis, position="jitter")
-    qplot(Age, Kyphosis, data=kyphosis, position=position_jitter(y=5))
+# The default confidence band uses a transparent colour. 
+# This currently only works on a limited number of graphics devices 
+# (including Quartz, PDF, and Cairo) so you may need to set the
+# fill colour to a opaque colour, as shown below
+c + stat_smooth(fill="grey50", size=2)
+c + stat_smooth(fill="blue", size=2)
 
-    qplot(Age, as.numeric(Kyphosis) - 1, data=kyphosis) + stat_smooth(method="glm", family="binomial")
-    qplot(Age, as.numeric(Kyphosis) - 1, data=kyphosis) + stat_smooth(method="glm", family="binomial", fill="grey70")
+# The colour of the line can be controlled with the colour aesthetic
+c + stat_smooth(fill="blue", colour="darkblue", size=2)
+c + stat_smooth(fill=alpha("blue", 0.2), colour="darkblue", size=2)
+c + geom_point() + stat_smooth(fill=alpha("blue", 0.2), colour="darkblue", size=2)
+
+# Smoothers for subsets
+c <- ggplot(mtcars, aes(y=wt, x=mpg)) + facet_grid(. ~ cyl)
+c + stat_smooth(method=lm) + geom_point() 
+c + stat_smooth(method=lm, fullrange=T) + geom_point() 
+
+# Geoms and stats are automatically split by aesthetics that are factors
+c <- ggplot(mtcars, aes(y=wt, x=mpg, colour=factor(cyl)))
+c + stat_smooth(method=lm) + geom_point() 
+c + stat_smooth(method=lm, fullrange=TRUE, fill=alpha("black", 0.1)) + geom_point() 
+
+# Use qplot instead
+qplot(qsec, wt, data=mtcars, geom=c("smooth", "point"))
+
+# Example with logistic regression
+data("kyphosis", package="rpart")
+qplot(Age, Kyphosis, data=kyphosis)
+qplot(Age, Kyphosis, data=kyphosis, position="jitter")
+qplot(Age, Kyphosis, data=kyphosis, position=position_jitter(y=5))
+
+qplot(Age, as.numeric(Kyphosis) - 1, data=kyphosis) + stat_smooth(method="glm", family="binomial")
+qplot(Age, as.numeric(Kyphosis) - 1, data=kyphosis) + stat_smooth(method="glm", family="binomial", fill="grey70")
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

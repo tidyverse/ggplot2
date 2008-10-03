@@ -17,7 +17,6 @@ The following aesthetics can be used with geom\_vline.  Aesthetics are mapped to
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
-  \item \code{intercept}: x/y intercept 
 }
 }
 \usage{geom_vline(mapping=NULL, data=NULL, stat="identity", position="identity", ...)}
@@ -32,20 +31,24 @@ The following aesthetics can be used with geom\_vline.  Aesthetics are mapped to
   \item \code{\link{geom_hline}}: for horizontal lines
   \item \code{\link{geom_abline}}: for lines defined by a slope and intercept
   \item \code{\link{geom_segment}}: for a more general approach
-  \item \url{http://had.co.nz/ggplot/geom_vline.html}
+  \item \url{http://had.co.nz/ggplot2/geom_vline.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    # Fixed lines
-    p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
-    p + geom_vline(intercept=5)
-    p + geom_vline(intercept=2:5)
-    p + geom_vline(intercept=2:5, colour="green")
-    p + geom_vline(intercept=mean(mtcars$wt), size=2)
-    
-    # Lines from data
-    p <- ggplot(mtcars, aes(x = wt, y=mpg)) + facet_grid(. ~ cyl) + geom_point()
-    p + geom_vline(intercept="mean")
+# Fixed lines
+p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
+p + geom_vline(intercept=5)
+p + geom_vline(intercept=1:5)
+p + geom_vline(intercept=1:5, colour="green")
+p + geom_vline(intercept="mean", size=2, colour = alpha("red", 0.2))
+
+last_plot() + coord_equal()
+last_plot() + coord_flip()
+
+# Lines from data
+p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
+p + geom_vline(intercept="mean") + facet_grid(. ~ cyl)
+p + geom_vline(aes(colour = factor(cyl)), intercept="mean")
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

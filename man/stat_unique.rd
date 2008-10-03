@@ -15,12 +15,12 @@ This page describes stat\_unique, see \code{\link{layer}} and \code{\link{qplot}
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot/stat_unique.html}
+  \item \url{http://had.co.nz/ggplot2/stat_unique.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    ggplot(mtcars, aes(x=vs, y=am)) + geom_point(colour="#00000010")
-    ggplot(mtcars, aes(x=vs, y=am)) + geom_point(colour="#00000010", stat="unique")
+ggplot(mtcars, aes(x=vs, y=am)) + geom_point(colour="#00000010")
+ggplot(mtcars, aes(x=vs, y=am)) + geom_point(colour="#00000010", stat="unique")
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

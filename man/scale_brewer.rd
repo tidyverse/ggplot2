@@ -4,55 +4,63 @@
 \alias{scale_fill_brewer}
 \alias{ScaleBrewer}
 \title{scale\_brewer}
-\description{Colour brewer colour scales}
+\description{Sequential, diverging and qualitative colour scales from colorbrewer.org}
 \details{
 See <a href='http://colorbrewer.org'>colorbrewer.org</a> for more info
 
 This page describes scale\_brewer, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_brewer(name=NULL, palette=1, type="qual", alpha=1, reverse=FALSE, labels=NULL, ...)
-scale_fill_brewer(name=NULL, palette=1, type="qual", alpha=1, reverse=FALSE, labels=NULL, ...)}
+\usage{scale_colour_brewer(name=NULL, palette=1, type="qual", alpha=1, limits=NULL, breaks=NULL, labels=NULL, ...)
+scale_fill_brewer(name=NULL, palette=1, type="qual", alpha=1, limits=NULL, breaks=NULL, labels=NULL, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis}
  \item{palette}{NULL}
  \item{type}{NULL}
  \item{alpha}{NULL}
- \item{reverse}{NULL}
+ \item{limits}{numeric vector of length 2, giving the extent of the scale}
+ \item{breaks}{numeric vector indicating where breaks should lie}
  \item{labels}{character vector giving labels associated with breaks}
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot/scale_brewer.html}
+  \item \url{http://had.co.nz/ggplot2/scale_brewer.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    (d <- qplot(carat, price, data=diamonds, colour=clarity))
-    
-    # Change scale label
-    d + scale_colour_brewer()
-    d + scale_colour_brewer("clarity")
-    d + scale_colour_brewer(expression(clarity[beta]))
+dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
+(d <- qplot(carat, price, data=dsamp, colour=clarity))
 
-    # Select brewer palette to use, see ?brewer.pal for more details
-    d + scale_colour_brewer(type="seq")
-    d + scale_colour_brewer(type="seq", palette=3)
+# Change scale label
+d + scale_colour_brewer()
+d + scale_colour_brewer("clarity")
+d + scale_colour_brewer(expression(clarity[beta]))
 
-    display.brewer.all(n=8, exact.n=FALSE)
+# Select brewer palette to use, see ?brewer.pal for more details
+d + scale_colour_brewer(type="seq")
+d + scale_colour_brewer(type="seq", palette=3)
 
-    d + scale_colour_brewer(palette="Blues")
-    d + scale_colour_brewer(palette="Set1")
-    
-    # One way to deal with overplotting - use transparency
-    # (only works with pdf, quartz and cairo devices)
-    d + scale_colour_brewer(alpha = 0.2)
-    d + scale_colour_brewer(alpha = 0.01)
+display.brewer.all(n=8, exact.n=FALSE)
+
+d + scale_colour_brewer(palette="Blues")
+d + scale_colour_brewer(palette="Set1")
+
+# One way to deal with overplotting - use transparency
+# (only works with pdf, quartz and cairo devices)
+d + scale_colour_brewer(alpha = 0.5)
+d + scale_colour_brewer(alpha = 0.2)
+
+# To get remove circular outlines, use shape = 21, colour = NA
+# and change the fill colour:
+ggplot(dsamp, aes(carat, price, fill = clarity)) + 
+  geom_point(shape = 21, colour = NA, size = 5) + 
+  scale_fill_brewer(alpha = 0.5)
   
-    # scale_fill_brewer works just the same as 
-    # scale_colour_brewer but for fill colours
-    ggplot(diamonds, aes(x=price, fill=cut)) + 
-      geom_bar(position="dodge") + 
-      scale_fill_brewer()
-    
+# scale_fill_brewer works just the same as 
+# scale_colour_brewer but for fill colours
+ggplot(diamonds, aes(x=price, fill=cut)) + 
+  geom_histogram(position="dodge", binwidth=1000) + 
+  scale_fill_brewer()
+
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

@@ -16,6 +16,7 @@ The following aesthetics can be used with geom\_point.  Aesthetics are mapped to
   \item \code{shape}: shape of point 
   \item \code{colour}: border colour 
   \item \code{size}: size 
+  \item \code{fill}: internal colour 
 }
 }
 \section{Advice}{
@@ -36,31 +37,39 @@ The biggest potential problem with a scatterplot is overplotting: whenever you h
 }
 \seealso{\itemize{
   \item \code{\link{geom_jitter}}: Jittered points for categorical data
-  \item \url{http://had.co.nz/ggplot/geom_point.html}
+  \item \url{http://had.co.nz/ggplot2/geom_point.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    p <- ggplot(mtcars, aes(x=wt, y=mpg))
-    p + geom_point()
+p <- ggplot(mtcars, aes(x=wt, y=mpg))
+p + geom_point()
 
-    # Add aesthetic mappings
-    p + geom_point(aes(colour=qsec))
-    p + geom_point(aes(colour=cyl))
-    p + geom_point(aes(colour=factor(cyl)))
-    p + geom_point(aes(shape=factor(cyl)))
-    p + geom_point(aes(size=qsec))
+# Add aesthetic mappings
+p + geom_point(aes(colour=qsec))
+p + geom_point(aes(colour=cyl))
+p + geom_point(aes(colour=factor(cyl)))
+p + geom_point(aes(shape=factor(cyl)))
+p + geom_point(aes(size=qsec))
 
-    # Change scales
-    p + geom_point(aes(colour=cyl)) + scale_colour_gradient(low="red")
-    p + geom_point(aes(size=qsec)) + scale_area()
-    p + geom_point(aes(shape=factor(cyl))) + scale_shape(solid=FALSE)
+# Change scales
+p + geom_point(aes(colour=cyl)) + scale_colour_gradient(low="red")
+p + geom_point(aes(size=qsec)) + scale_area()
+p + geom_point(aes(shape=factor(cyl))) + scale_shape(solid=FALSE)
+
+# Set aesthetics to fixed value
+p + geom_point(colour = "red", size=3)
     
-    # Set aesthetics to fixed value
-    p + geom_point(colour = "red", size=3)
-        
-    # Use qplot instead
-    qplot(x=wt, y=mpg, data=mtcars)
-    qplot(x=wt, y=mpg, data=mtcars, geom="point")
+# Transparent points:
+qplot(mpg, wt, data=mtcars, size=I(5), 
+  colour=I(alpha("black", 0.2)))
+# to avoid the ring, use shape 21, with NA colour and transparent fill:
+qplot(mpg, wt, data=mtcars, size=I(5), 
+  shape = I(21), colour=I(NA), fill = I(alpha("black", 0.2)))
+
+# Use qplot instead
+qplot(x=wt, y=mpg, data=mtcars)
+qplot(x=wt, y=mpg, data=mtcars, colour = factor(cyl))
+qplot(x=wt, y=mpg, data=mtcars, colour = I("red"))
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

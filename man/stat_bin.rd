@@ -25,24 +25,25 @@ The following aesthetics can be used with stat\_bin.  Aesthetics are mapped to v
  \item{...}{other arguments}
 }
 \seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot/stat_bin.html}
+  \item \url{http://had.co.nz/ggplot2/stat_bin.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    m <- ggplot(movies, aes(x=rating))
-    m + stat_bin()
-    m + stat_bin(binwidth=0.1)
-    m + stat_bin(breaks=seq(4,6, by=0.1))
-    # See geom_histogram for more histogram examples
-    
-    # To create a unit area histogram, use aes(y = ..density..)
-    (linehist <- m + stat_bin(aes(y = ..density..), geom="line"))
-    linehist + stat_density(colour="blue", fill=NA)
-    
-    # Also works with categorical variables
-    ggplot(movies, aes(x=mpaa)) + stat_bin()
-    qplot(mpaa, data=movies, stat="bin")
-    
+m <- ggplot(movies, aes(x=rating))
+m + stat_bin()
+m + stat_bin(binwidth=0.1)
+m + stat_bin(breaks=seq(4,6, by=0.1))
+# See geom_histogram for more histogram examples
+
+# To create a unit area histogram, use aes(y = ..density..)
+(linehist <- m + stat_bin(aes(y = ..density..), binwidth=0.1,
+  geom="line", position="identity"))
+linehist + stat_density(colour="blue", fill=NA)
+
+# Also works with categorical variables
+ggplot(movies, aes(x=mpaa)) + stat_bin()
+qplot(mpaa, data=movies, stat="bin")
+
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

@@ -59,6 +59,8 @@ Improved documentation and error messages
 * qplot: Better error messages when needed variables are missing
 * scale_discrete: improved error message for too many values in domain
 * scale_size: improved documentation for discrete variables
+* online documentation generally tweaked and primped to work a little better and look a little nicer
+* website now includes a search box
 
 
 See CHANGELOG for changes in previous versions

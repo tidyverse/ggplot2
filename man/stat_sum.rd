@@ -24,28 +24,30 @@ The following aesthetics can be used with stat\_sum.  Aesthetics are mapped to v
 }
 \seealso{\itemize{
   \item ggfluctuation: Fluctuation diagram, which is very similar
-  \item \url{http://had.co.nz/ggplot/stat_sum.html}
+  \item \url{http://had.co.nz/ggplot2/stat_sum.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    d <- ggplot(diamonds, aes(x=cut, y=clarity))
-    # Need to control which group proportion calculated over
-    # Overall proportion
-    d + stat_sum(aes(group=1))
-    # by cut
-    d + stat_sum(aes(group=cut))
-    # by clarity
-    d + stat_sum(aes(group=clarity))
+d <- ggplot(diamonds, aes(x = cut, y = clarity))
+# Need to control which group proportion calculated over
+# Overall proportion
+d + stat_sum(aes(group = 1))
+d + stat_sum(aes(group = 1)) + scale_size(to = c(3, 10))
+d + stat_sum(aes(group = 1)) + scale_area(to = c(3, 10))
+# by cut
+d + stat_sum(aes(group = cut))
+# by clarity
+d + stat_sum(aes(group = clarity))
 
-    # Can also weight by another variable
-    d + stat_sum(aes(group=1, weight = price))
-    d + stat_sum(aes(group=1, weight = price, size = ..sum..))
-    
-    
-    # Or using qplot
-    qplot(cut, clarity, data=diamonds)
-    qplot(cut, clarity, data=diamonds, stat="sum", group=1)
-    
+# Can also weight by another variable
+d + stat_sum(aes(group = 1, weight = price))
+d + stat_sum(aes(group = 1, weight = price, size = ..sum..))
+
+
+# Or using qplot
+qplot(cut, clarity, data = diamonds)
+qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)
+
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

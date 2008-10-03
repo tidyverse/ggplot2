@@ -13,24 +13,24 @@ This page describes coord\_flip, see \code{\link{layer}} and \code{\link{qplot}}
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot/coord_flip.html}
+  \item \url{http://had.co.nz/ggplot2/coord_flip.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    # Very useful for creating boxplots, and other interval
-    # geoms in the horizontal instead of vertical position.
-    qplot(cut, price, data=diamonds, geom="boxplot")
-    last_plot() + coord_flip()
+# Very useful for creating boxplots, and other interval
+# geoms in the horizontal instead of vertical position.
+qplot(cut, price, data=diamonds, geom="boxplot")
+last_plot() + coord_flip()
 
-    qplot(cut, data=diamonds, geom="bar")
-    last_plot() + coord_flip()
-    
-    qplot(carat, data=diamonds, geom="histogram")
-    last_plot() + coord_flip()
+qplot(cut, data=diamonds, geom="bar")
+last_plot() + coord_flip()
 
-    # You can also use it to flip lines and area plots:
-    qplot(1:5, (1:5)^2, geom="line")
-    last_plot() + coord_flip()
+qplot(carat, data=diamonds, geom="histogram")
+last_plot() + coord_flip()
+
+# You can also use it to flip lines and area plots:
+qplot(1:5, (1:5)^2, geom="line")
+last_plot() + coord_flip()
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

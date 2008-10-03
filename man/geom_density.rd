@@ -11,13 +11,9 @@ The following aesthetics can be used with geom\_density.  Aesthetics are mapped 
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 
-  \item \code{min}: minimum of interval (\strong{required}) 
-  \item \code{max}: maximum of interval (\strong{required}) 
   \item \code{fill}: internal colour 
   \item \code{weight}: observation weight used in statistical transformation 
   \item \code{colour}: border colour 
-  \item \code{min}: minimum of interval (\strong{required}) 
-  \item \code{max}: maximum of interval (\strong{required}) 
   \item \code{size}: size 
   \item \code{linetype}: line type 
 }
@@ -32,11 +28,11 @@ The following aesthetics can be used with geom\_density.  Aesthetics are mapped 
 }
 \seealso{\itemize{
   \item \code{\link{geom_histogram}}: for the histogram
-  \item \url{http://had.co.nz/ggplot/geom_density.html}
+  \item \url{http://had.co.nz/ggplot2/geom_density.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    # See stat_density for examples
+# See stat_density for examples
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

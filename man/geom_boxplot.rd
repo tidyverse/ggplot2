@@ -10,8 +10,11 @@ This page describes geom\_boxplot, see \code{\link{layer}} and \code{\link{qplot
 The following aesthetics can be used with geom\_boxplot.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_boxplot(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
-  \item \code{min}: minimum of interval (\strong{required}) 
-  \item \code{max}: maximum of interval (\strong{required}) 
+  \item \code{lower}: NULL (\strong{required}) 
+  \item \code{upper}: NULL (\strong{required}) 
+  \item \code{middle}: NULL (\strong{required}) 
+  \item \code{ymin}: minimum of interval (\strong{required}) 
+  \item \code{ymax}: maximum of interval (\strong{required}) 
   \item \code{weight}: observation weight used in statistical transformation 
   \item \code{colour}: border colour 
   \item \code{fill}: internal colour 
@@ -32,49 +35,48 @@ The following aesthetics can be used with geom\_boxplot.  Aesthetics are mapped 
 \seealso{\itemize{
   \item \code{\link{stat_quantile}}: View quantiles conditioned on a continuous variable
   \item \code{\link{geom_jitter}}: Another way to look at conditional distributions
-  \item \url{http://had.co.nz/ggplot/geom_boxplot.html}
+  \item \url{http://had.co.nz/ggplot2/geom_boxplot.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    p <- ggplot(mtcars, aes(y=mpg, x=factor(cyl)))
-    
-    p + geom_boxplot()
-    p + stat_boxplot()
-    p + geom_boxplot() + geom_jitter()
-    p + geom_boxplot() + coord_flip()
-    
-    p + geom_boxplot(outlier.colour = "green", outlier.size = 3)
-    
-    # Add aesthetic mappings
-    p + geom_boxplot(aes(fill=cyl))
-    p + geom_boxplot(aes(fill=factor(cyl)))
-    p + geom_boxplot(aes(colour=cyl), size=1)
-    
-    # Dodged boxplots
-    # - automatically split when an aesthetic variable is a factor
-    p + geom_boxplot(aes(colour=factor(am)))
-    p + geom_boxplot(aes(fill=factor(vs)), colour="black")
-    p + geom_boxplot(aes(size=factor(gear)))
-    
-    # Set aesthetics to fixed value
-    p + geom_boxplot(fill="black", colour="white", size=1)
+p <- ggplot(mtcars, aes(y=mpg, x=factor(cyl)))
 
-    # Scales vs. Coordinate transforms
-    m <- ggplot(movies, aes(y=votes, x=rating, group=round_any(rating,0.5)))
-    m + geom_point()
-    m + geom_boxplot()
-    m + geom_boxplot() + scale_y_log10()
-    m + geom_boxplot() + coord_trans(y="log10")
-    m + geom_boxplot() + scale_y_log10() + coord_trans(y="log10")
-    
-    # Boxplots with continuous x
-    qplot(year, budget, data=movies, geom="boxplot")
-    qplot(year, budget, data=movies, geom="boxplot", group=year)
-    qplot(year, budget, data=movies, geom="boxplot", group=round_any(year, 10, floor))
-    
-    # Use qplot instead
-    qplot(factor(cyl), mpg, data=mtcars, geom="boxplot")
-    qplot(factor(cyl), mpg, data=mtcars, geom="boxplot") + coord_flip()
+p + geom_boxplot()
+p + stat_boxplot()
+p + geom_boxplot() + geom_jitter()
+p + geom_boxplot() + coord_flip()
+
+p + geom_boxplot(outlier.colour = "green", outlier.size = 3)
+
+# Add aesthetic mappings
+p + geom_boxplot(aes(fill=cyl))
+p + geom_boxplot(aes(fill=factor(cyl)))
+p + geom_boxplot(aes(colour=cyl), size=1)
+
+# Dodged boxplots
+# - automatically split when an aesthetic variable is a factor
+p + geom_boxplot(aes(colour=factor(am)))
+p + geom_boxplot(aes(fill=factor(vs)), colour="black")
+p + geom_boxplot(aes(size=factor(gear)))
+
+# Set aesthetics to fixed value
+p + geom_boxplot(fill="black", colour="white", size=1)
+
+# Scales vs. Coordinate transforms
+m <- ggplot(movies, aes(y=votes, x=rating, group=round_any(rating,0.5)))
+m + geom_point()
+m + geom_boxplot()
+m + geom_boxplot() + scale_y_log10()
+m + geom_boxplot() + coord_trans(y="log10")
+m + geom_boxplot() + scale_y_log10() + coord_trans(y="log10")
+
+# Boxplots with continuous x
+qplot(year, budget, data=movies, geom="boxplot")
+qplot(year, budget, data=movies, geom="boxplot", group=round_any(year, 10, floor))
+
+# Use qplot instead
+qplot(factor(cyl), mpg, data=mtcars, geom="boxplot")
+qplot(factor(cyl), mpg, data=mtcars, geom="boxplot") + coord_flip()
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

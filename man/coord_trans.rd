@@ -13,36 +13,36 @@ This page describes coord\_trans, see \code{\link{layer}} and \code{\link{qplot}
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot/coord_trans.html}
+  \item \url{http://had.co.nz/ggplot2/coord_trans.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    # See ?geom_boxplot for other examples
-    
-    # Three ways of doing transformating in ggplot:
-    #  * by transforming the data
-    qplot(log10(carat), log10(price), data=diamonds)
-    #  * by transforming the scales
-    qplot(carat, price, data=diamonds, log="xy")
-    qplot(carat, price, data=diamonds) + scale_x_log10() + scale_y_log10()
-    #  * by transforming the coordinate system:
-    qplot(carat, price, data=diamonds) + coord_trans(x="log10", y="log10")
+# See ?geom_boxplot for other examples
 
-    # The difference between transforming the scales and
-    # transforming the coordinate system is that scale
-    # transformation occurs BEFORE statistics, and coordinate
-    # transformation afterwards.  Coordinate transformation also 
-    # changes the shape of geoms:
-    library(mgcv)
-    qplot(carat, price, data=diamonds, log="xy", geom=c("point","smooth"), method="gam", formula=y ~ s(x, bs="cr"))
-    qplot(carat, price, data=diamonds, geom=c("point","smooth"), method="gam", formula=y ~ s(x, bs="cr"))  + coord_trans(x="log10", y="log10")
-    
-    # With a combination of scale and coordinate transformation, it's
-    # possible to do back-transformations:
-    qplot(carat, price, data=diamonds, log="xy", geom=c("point", "smooth"), method="lm") + coord_trans(x="pow10", y="pow10")
-    # cf.
-    qplot(carat, price, data=diamonds, geom=c("point", "smooth"), method="lm")
-    
+# Three ways of doing transformating in ggplot:
+#  * by transforming the data
+qplot(log10(carat), log10(price), data=diamonds)
+#  * by transforming the scales
+qplot(carat, price, data=diamonds, log="xy")
+qplot(carat, price, data=diamonds) + scale_x_log10() + scale_y_log10()
+#  * by transforming the coordinate system:
+qplot(carat, price, data=diamonds) + coord_trans(x="log10", y="log10")
+
+# The difference between transforming the scales and
+# transforming the coordinate system is that scale
+# transformation occurs BEFORE statistics, and coordinate
+# transformation afterwards.  Coordinate transformation also 
+# changes the shape of geoms:
+library(mgcv)
+qplot(carat, price, data=diamonds, log="xy", geom=c("point","smooth"), method="gam", formula=y ~ s(x, bs="cr"))
+qplot(carat, price, data=diamonds, geom=c("point","smooth"), method="gam", formula=y ~ s(x, bs="cr"))  + coord_trans(x="log10", y="log10")
+
+# With a combination of scale and coordinate transformation, it's
+# possible to do back-transformations:
+qplot(carat, price, data=diamonds, log="xy", geom=c("point", "smooth"), method="lm") + coord_trans(x="pow10", y="pow10")
+# cf.
+qplot(carat, price, data=diamonds, geom=c("point", "smooth"), method="lm")
+
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

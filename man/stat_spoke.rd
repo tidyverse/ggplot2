@@ -26,16 +26,16 @@ The following aesthetics can be used with stat\_spoke.  Aesthetics are mapped to
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot/stat_spoke.html}
+  \item \url{http://had.co.nz/ggplot2/stat_spoke.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    df <- expand.grid(x = 1:10, y=1:10)
-    df$angle <- runif(100, 0, 2*pi)
-    df$speed <- runif(100, 0, 0.5)
-    
-    qplot(x, y, data=df) + stat_spoke(aes(angle=angle), radius = 0.5)
-    qplot(x, y, data=df) + stat_spoke(aes(angle=angle, radius=speed))
+df <- expand.grid(x = 1:10, y=1:10)
+df$angle <- runif(100, 0, 2*pi)
+df$speed <- runif(100, 0, 0.5)
+
+qplot(x, y, data=df) + stat_spoke(aes(angle=angle), radius = 0.5)
+qplot(x, y, data=df) + stat_spoke(aes(angle=angle, radius=speed))
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

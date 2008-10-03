@@ -10,12 +10,14 @@ This page describes geom\_pointrange, see \code{\link{layer}} and \code{\link{qp
 The following aesthetics can be used with geom\_pointrange.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_pointrange(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
-  \item \code{min}: minimum of interval (\strong{required}) 
-  \item \code{max}: maximum of interval (\strong{required}) 
+  \item \code{y}: y position (\strong{required}) 
+  \item \code{ymin}: minimum of interval (\strong{required}) 
+  \item \code{ymax}: maximum of interval (\strong{required}) 
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
   \item \code{shape}: shape of point 
+  \item \code{fill}: internal colour 
 }
 }
 \usage{geom_pointrange(mapping=NULL, data=NULL, stat="identity", position="identity", ...)}
@@ -32,11 +34,11 @@ The following aesthetics can be used with geom\_pointrange.  Aesthetics are mapp
   \item \code{\link{geom_crossbar}}: hollow bar with middle indicated by horizontal line
   \item \code{\link{stat_summary}} : examples of these guys in use
   \item \code{\link{geom_smooth}}: for continuous analog
-  \item \url{http://had.co.nz/ggplot/geom_pointrange.html}
+  \item \url{http://had.co.nz/ggplot2/geom_pointrange.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    # See geom_linerange for examples
+# See geom_linerange for examples
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

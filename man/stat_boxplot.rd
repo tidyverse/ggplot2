@@ -24,11 +24,11 @@ The following aesthetics can be used with stat\_boxplot.  Aesthetics are mapped 
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot/stat_boxplot.html}
+  \item \url{http://had.co.nz/ggplot2/stat_boxplot.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    # See geom_boxplot for examples
+# See geom_boxplot for examples
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

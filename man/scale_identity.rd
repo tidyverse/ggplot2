@@ -7,7 +7,7 @@
 \alias{scale_linetype_identity}
 \alias{ScaleIdentity}
 \title{scale\_identity}
-\description{Don't remap values, use directly}
+\description{Use values without scaling}
 \details{
 This page describes scale\_identity, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
@@ -23,24 +23,23 @@ scale_linetype_identity(name=NULL, breaks=NULL, labels=NULL, ...)}
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot/scale_identity.html}
+  \item \url{http://had.co.nz/ggplot2/scale_identity.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    colour <- c("red","green","blue","yellow")
-    qplot(1:4, 1:4, fill=colour, geom="tile")
-    qplot(1:4, 1:4, fill=colour, geom="tile") + scale_fill_identity()
-    
-    # To get a legend, you also need to supply the labels to
-    # be used on the legend, and the grob to draw them:
-    # grob_tile, grob_line, or grob_point
-    qplot(1:4, 1:4, fill=colour, geom="tile") + scale_fill_identity(labels=letters[1:4], guide="tile", name="trt")
-    
-    # cyl scaled to appropriate size
-    qplot(mpg, wt, data=mtcars, size = cyl)
+colour <- c("red","green","blue","yellow")
+qplot(1:4, 1:4, fill=colour, geom="tile")
+qplot(1:4, 1:4, fill=colour, geom="tile") + scale_fill_identity()
 
-    # cyl used as point size
-    qplot(mpg, wt, data=mtcars, size = cyl) + scale_size_identity()
+# To get a legend, you also need to supply the labels to
+# be used on the legend
+qplot(1:4, 1:4, fill=colour, geom="tile") + scale_fill_identity(labels=letters[1:4], name="trt")
+
+# cyl scaled to appropriate size
+qplot(mpg, wt, data=mtcars, size = cyl)
+
+# cyl used as point size
+qplot(mpg, wt, data=mtcars, size = cyl) + scale_size_identity()
   
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}

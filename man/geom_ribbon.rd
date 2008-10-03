@@ -10,8 +10,8 @@ This page describes geom\_ribbon, see \code{\link{layer}} and \code{\link{qplot}
 The following aesthetics can be used with geom\_ribbon.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_ribbon(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
-  \item \code{min}: minimum of interval (\strong{required}) 
-  \item \code{max}: maximum of interval (\strong{required}) 
+  \item \code{ymin}: minimum of interval (\strong{required}) 
+  \item \code{ymax}: maximum of interval (\strong{required}) 
   \item \code{colour}: border colour 
   \item \code{fill}: internal colour 
   \item \code{size}: size 
@@ -30,33 +30,33 @@ The following aesthetics can be used with geom\_ribbon.  Aesthetics are mapped t
   \item \code{\link{geom_bar}}: Discrete intervals (bars)
   \item \code{\link{geom_linerange}}: Discrete intervals (lines)
   \item \code{\link{geom_polygon}}: General polygons
-  \item \url{http://had.co.nz/ggplot/geom_ribbon.html}
+  \item \url{http://had.co.nz/ggplot2/geom_ribbon.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    # Generate data
-    huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
-    huron$decade <- round_any(huron$year, 10, floor)
+# Generate data
+huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
+huron$decade <- round_any(huron$year, 10, floor)
 
-    h <- ggplot(huron, aes(x=year))
+h <- ggplot(huron, aes(x=year))
 
-    h + geom_ribbon(aes(min=0, max=level))
-    h + geom_area(aes(y = level))
+h + geom_ribbon(aes(ymin=0, ymax=level))
+h + geom_area(aes(y = level))
 
-    # Add aesthetic mappings
-    h + geom_ribbon(aes(min=level-1, max=level+1))
-    h + geom_ribbon(aes(min=level-1, max=level+1)) + geom_line(aes(y=level))
-    
-    # Another data set, with multiple y's for each x
-    m <- ggplot(movies, aes(y=votes, x=year)) 
-    (m <- m + geom_point())
-    
-    # The default summary isn't that useful
-    m + stat_summary(geom="ribbon")
-    m + stat_summary(geom="ribbon", fun="median_hilow")
-    
-    # Use qplot instead
-    qplot(year, level, data=huron, geom=c("area", "line"))
+# Add aesthetic mappings
+h + geom_ribbon(aes(ymin=level-1, ymax=level+1))
+h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
+
+# Another data set, with multiple y's for each x
+m <- ggplot(movies, aes(y=votes, x=year)) 
+(m <- m + geom_point())
+
+# The default summary isn't that useful
+m + stat_summary(geom="ribbon", fun="range")
+m + stat_summary(geom="ribbon", fun="median_hilow")
+
+# Use qplot instead
+qplot(year, level, data=huron, geom=c("area", "line"))
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

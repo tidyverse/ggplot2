@@ -16,8 +16,8 @@ The following aesthetics can be used with geom\_abline.  Aesthetics are mapped t
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
-  \item \code{intercept}: x/y intercept 
   \item \code{slope}: slope of line 
+  \item \code{intercept}: x/y intercept 
 }
 }
 \usage{geom_abline(mapping=NULL, data=NULL, stat="identity", position="identity", ...)}
@@ -33,38 +33,41 @@ The following aesthetics can be used with geom\_abline.  Aesthetics are mapped t
   \item \code{\link{geom_hline}}: for horizontal lines
   \item \code{\link{geom_vline}}: for vertical lines
   \item \code{\link{geom_segment}}: for a more general approach
-  \item \url{http://had.co.nz/ggplot/geom_abline.html}
+  \item \url{http://had.co.nz/ggplot2/geom_abline.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
+p <- qplot(wt, mpg, data = mtcars)
 
-    # Fixed slopes and intercepts
-    p + geom_abline()
-    p + geom_abline(slope=5)
-    p + geom_abline(intercept=30, slope=-5)
-    p + geom_abline(intercept=10, colour="red", size=2)
-    
-    # See ?stat_smooth for fitting smooth models to data
-    p + stat_smooth(method="lm", se=FALSE)
-    
-    # Slopes and intercepts as data
-    p <- ggplot(mtcars, aes(x = wt, y=mpg), . ~ cyl) + geom_point()
-    df <- data.frame(a=rnorm(10, 25), b=rnorm(10, 0))
-    p + geom_abline(aes(intercept=a, slope=b), data=df)
+# Fixed slopes and intercepts
+p + geom_abline()
+p + geom_abline(intercept = 20)
 
-    # Slopes and intercepts from linear model
-    coefs <- do.call(rbind, by(mtcars, mtcars$cyl, function(df) { 
-      m <- lm(mpg ~ wt, data=df)
-      data.frame(cyl = df$cyl[1], a=coef(m)[1], b=coef(m)[2]) 
-    }))
-    str(coefs)
-    p + geom_abline(data=coefs, aes(intercept=a, slope=b))
-    
-    # It's actually a bit easier to do this with stat_smooth
-    p + geom_smooth(aes(group=cyl), method="lm")
-    p + geom_smooth(aes(group=cyl), method="lm", fullrange=TRUE)
-    
+# Calculate slope and intercept of line of best fit
+coef(lm(mpg ~ wt, data = mtcars))
+p + geom_abline(intercept = 37, slope = -5)
+p + geom_abline(intercept=10, colour="red", size=2)
+
+# See ?stat_smooth for fitting smooth models to data
+p + stat_smooth(method="lm", se=FALSE)
+
+# Slopes and intercepts as data
+p <- ggplot(mtcars, aes(x = wt, y=mpg), . ~ cyl) + geom_point()
+df <- data.frame(a=rnorm(10, 25), b=rnorm(10, 0))
+p + geom_abline(aes(intercept=a, slope=b), data=df)
+
+# Slopes and intercepts from linear model
+coefs <- do.call(rbind, by(mtcars, mtcars$cyl, function(df) { 
+  m <- lm(mpg ~ wt, data=df)
+  data.frame(cyl = df$cyl[1], a=coef(m)[1], b=coef(m)[2]) 
+}))
+str(coefs)
+p + geom_abline(data=coefs, aes(intercept=a, slope=b))
+
+# It's actually a bit easier to do this with stat_smooth
+p + geom_smooth(aes(group=cyl), method="lm")
+p + geom_smooth(aes(group=cyl), method="lm", fullrange=TRUE)
+
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

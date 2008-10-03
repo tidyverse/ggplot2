@@ -23,14 +23,14 @@ The following aesthetics can be used with geom\_rug.  Aesthetics are mapped to v
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot/geom_rug.html}
+  \item \url{http://had.co.nz/ggplot2/geom_rug.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    p <- ggplot(mtcars, aes(x=wt, y=mpg))
-    p + geom_point()
-    p + geom_point() + geom_rug()
-    p + geom_point() + geom_rug(position='jitter')
+p <- ggplot(mtcars, aes(x=wt, y=mpg))
+p + geom_point()
+p + geom_point() + geom_rug()
+p + geom_point() + geom_rug(position='jitter')
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

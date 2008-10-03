@@ -15,12 +15,8 @@ The following aesthetics can be used with geom\_area.  Aesthetics are mapped to 
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 
-  \item \code{min}: minimum of interval (\strong{required}) 
-  \item \code{max}: maximum of interval (\strong{required}) 
   \item \code{colour}: border colour 
   \item \code{fill}: internal colour 
-  \item \code{min}: minimum of interval (\strong{required}) 
-  \item \code{max}: maximum of interval (\strong{required}) 
   \item \code{size}: size 
   \item \code{linetype}: line type 
 }
@@ -37,11 +33,11 @@ The following aesthetics can be used with geom\_area.  Aesthetics are mapped to 
   \item \code{\link{geom_bar}}: Discrete intervals (bars)
   \item \code{\link{geom_linerange}}: Discrete intervals (lines)
   \item \code{\link{geom_polygon}}: General polygons
-  \item \url{http://had.co.nz/ggplot/geom_area.html}
+  \item \url{http://had.co.nz/ggplot2/geom_area.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    # Examples to come
+# Examples to come
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

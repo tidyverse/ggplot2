@@ -10,11 +10,12 @@ This page describes geom\_errorbar, see \code{\link{layer}} and \code{\link{qplo
 The following aesthetics can be used with geom\_errorbar.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_errorbar(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
-  \item \code{min}: minimum of interval (\strong{required}) 
-  \item \code{max}: maximum of interval (\strong{required}) 
+  \item \code{ymin}: minimum of interval (\strong{required}) 
+  \item \code{ymax}: maximum of interval (\strong{required}) 
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
+  \item \code{width}: width of geom 
 }
 }
 \usage{geom_errorbar(mapping=NULL, data=NULL, stat="identity", position="identity", ...)}
@@ -31,43 +32,43 @@ The following aesthetics can be used with geom\_errorbar.  Aesthetics are mapped
   \item \code{\link{geom_crossbar}}: hollow bar with middle indicated by horizontal line
   \item \code{\link{stat_summary}} : examples of these guys in use
   \item \code{\link{geom_smooth}}: for continuous analog
-  \item \url{http://had.co.nz/ggplot/geom_errorbar.html}
+  \item \url{http://had.co.nz/ggplot2/geom_errorbar.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    # Create a simple example dataset
-    df <- data.frame(
-      trt = factor(c(1, 1, 2, 2)), 
-      resp = c(1, 5, 3, 4), 
-      group = factor(c(1, 2, 1, 2)), 
-      se = c(0.1, 0.3, 0.3, 0.2)
-    )
-    df2 <- df[c(1,3),]
-    
-    # Define the top and bottom of the errorbars
-    limits <- aes(max = resp + se, min=resp - se)
-    
-    p <- ggplot(df, aes(fill=group, y=resp, x=trt))
-    p + geom_bar(position="dodge", stat="identity")
-    
-    # Because the bars and errorbars have different widths
-    # we need to specify how wide the objects we are dodging are
-    dodge <- position_dodge(width=0.9)
-    p + geom_bar(position=dodge) + geom_errorbar(limits, position=dodge, width=0.25)
-    
-    p <- ggplot(df2, aes(fill=group, y=resp, x=trt))
-    p + geom_bar(position=dodge)
-    p + geom_bar(position=dodge) + geom_errorbar(limits, position=dodge, width=0.25)
+# Create a simple example dataset
+df <- data.frame(
+  trt = factor(c(1, 1, 2, 2)), 
+  resp = c(1, 5, 3, 4), 
+  group = factor(c(1, 2, 1, 2)), 
+  se = c(0.1, 0.3, 0.3, 0.2)
+)
+df2 <- df[c(1,3),]
 
-    p <- ggplot(df, aes(colour=group, y=resp, x=trt))
-    p + geom_point() + geom_errorbar(limits, width=0.2)
-    p + geom_pointrange(limits)
-    p + geom_crossbar(limits, width=0.2)
+# Define the top and bottom of the errorbars
+limits <- aes(ymax = resp + se, ymin=resp - se)
 
-    # If we want to draw lines, we need to manually set the
-    # groups which define the lines - here the groups in the 
-    # original dataframe
-    p + geom_line(aes(group=group)) + geom_errorbar(limits, width=0.2)    
+p <- ggplot(df, aes(fill=group, y=resp, x=trt))
+p + geom_bar(position="dodge", stat="identity")
+
+# Because the bars and errorbars have different widths
+# we need to specify how wide the objects we are dodging are
+dodge <- position_dodge(width=0.9)
+p + geom_bar(position=dodge) + geom_errorbar(limits, position=dodge, width=0.25)
+
+p <- ggplot(df2, aes(fill=group, y=resp, x=trt))
+p + geom_bar(position=dodge)
+p + geom_bar(position=dodge) + geom_errorbar(limits, position=dodge, width=0.25)
+
+p <- ggplot(df, aes(colour=group, y=resp, x=trt))
+p + geom_point() + geom_errorbar(limits, width=0.2)
+p + geom_pointrange(limits)
+p + geom_crossbar(limits, width=0.2)
+
+# If we want to draw lines, we need to manually set the
+# groups which define the lines - here the groups in the 
+# original dataframe
+p + geom_line(aes(group=group)) + geom_errorbar(limits, width=0.2)    
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

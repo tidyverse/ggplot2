@@ -33,11 +33,11 @@ This can be used as a continuous analogue of a geom\_boxplot.
   \item \code{\link{geom_line}}: Functional (ordered) lines
   \item \code{\link{geom_polygon}}: Filled paths (polygons)
   \item \code{\link{geom_segment}}: Line segments
-  \item \url{http://had.co.nz/ggplot/geom_quantile.html}
+  \item \url{http://had.co.nz/ggplot2/geom_quantile.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    # See stat_quantile for examples
+# See stat_quantile for examples
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

@@ -31,17 +31,17 @@ The following aesthetics can be used with geom\_hline.  Aesthetics are mapped to
   \item \code{\link{geom_vline}}: for vertical lines
   \item \code{\link{geom_abline}}: for lines defined by a slope and intercept
   \item \code{\link{geom_segment}}: for a more general approach
-  \item \url{http://had.co.nz/ggplot/geom_hline.html}
+  \item \url{http://had.co.nz/ggplot2/geom_hline.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
+p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
 
-    p + geom_hline(aes(intercept=mpg))
-    p + geom_hline(intercept=20)
-    p + geom_hline(intercept=seq(10, 30, by=5))
-    p + geom_hline(intercept="mean")
-    p + geom_hline(aes(colour=factor(cyl)), intercept="mean")
+p + geom_hline(aes(intercept=mpg))
+p + geom_hline(intercept=20)
+p + geom_hline(intercept=seq(10, 30, by=5))
+p + geom_hline(intercept="mean")
+p + geom_hline(aes(colour=factor(cyl)), intercept="mean")
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

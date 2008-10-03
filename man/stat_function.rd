@@ -18,12 +18,12 @@ This page describes stat\_function, see \code{\link{layer}} and \code{\link{qplo
  \item{...}{other arguments}
 }
 \seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot/stat_function.html}
+  \item \url{http://had.co.nz/ggplot2/stat_function.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    x <- rnorm(100)
-    qplot(x, geom="density") + stat_function(fun = dnorm, colour="red")
+x <- rnorm(100)
+qplot(x, geom="density") + stat_function(fun = dnorm, colour="red")
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

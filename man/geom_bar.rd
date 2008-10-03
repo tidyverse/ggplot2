@@ -14,17 +14,16 @@ This page describes geom\_bar, see \code{\link{layer}} and \code{\link{qplot}} f
 The following aesthetics can be used with geom\_bar.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_bar(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
-  \item \code{min}: minimum of interval (\strong{required}) 
-  \item \code{max}: maximum of interval (\strong{required}) 
   \item \code{colour}: border colour 
   \item \code{fill}: internal colour 
-  \item \code{min}: minimum of interval (\strong{required}) 
   \item \code{size}: size 
   \item \code{linetype}: line type 
-  \item \code{max}: maximum of interval (\strong{required}) 
+  \item \code{weight}: observation weight used in statistical transformation 
 }
 }
 \section{Advice}{
+If you have presummarised data, use <code>stat="identity" to turn off the default summary
+
 Sometimes, bar charts are used not as a distributional summary, but instead of a dotplot.  Generally, it's preferable to use a dotplot (see geom\_point) as it has a better data-ink ratio.  However, if you do want to create this type of plot, you can set y to the value you have calculated, and use stat='identity'.
 
 A bar chart maps the height of the bar to a variable, and so the base of the bar must always been shown to produce a valid visual comparison.  Naomi Robbins has a nice <a href='http://www.b-eye-network.com/view/index.php?cid=2468&amp;fc=0&amp;frss=1&amp;ua'>article on this topic</a>.  This is the reason it doesn't make sense to use a log-scaled y axis.
@@ -42,45 +41,54 @@ A bar chart maps the height of the bar to a variable, and so the base of the bar
   \item \code{\link{stat_bin}}: for more details of the binning alogirithm
   \item \code{\link{position_dodge}}: for creating side-by-side barcharts
   \item \code{\link{position_stack}}: for more info on stacking
-  \item \url{http://had.co.nz/ggplot/geom_bar.html}
+  \item \url{http://had.co.nz/ggplot2/geom_bar.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    # Generate data
-    mtcars$cyl <- factor(mtcars$cyl)
-    c <- ggplot(mtcars, aes(x=cyl))
-    
-    c + geom_bar()
-    c + geom_bar() + coord_flip()
-    c + geom_bar(fill="white", colour="darkgreen")
-    
-    # Use qplot
-    qplot(cyl, data=mtcars, geom="bar")
-    qplot(cyl, data=mtcars, geom="bar", fill=cyl)
-    
-    # Dodged bar charts    
-    ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar(position="dodge")
-    ggplot(diamonds, aes(x=clarity, fill=cut)) + geom_bar(position="dodge")
-    # compare with 
-    ggplot(diamonds, aes(x=cut, fill=cut)) + geom_bar() + facet_grid(. ~ clarity)
-    
-    # Often we don't want the height of the bar to represent the
-    # count of observations, but the sum of some other variable.
-    # For example, the following plot shows the number of movies
-    # in each rating.
-    qplot(rating, data=movies, geom="bar")
-    # If, however, we want to see the number of votes cast in each
-    # category, we need to weight by the votes variable
-    qplot(rating, data=movies, geom="bar", weight=votes)
-    # We could also see the total expenditure for each category:
-    qplot(rating, data=movies, geom="bar", weight=budget)
-    
-    # A bar chart used to display means
-    meanprice <- tapply(diamonds$price, diamonds$cut, mean)
-    qplot(unique(diamonds$cut), meanprice)
-    qplot(unique(diamonds$cut), meanprice, geom="bar", stat="identity")
-    
-    rm(mtcars)
+# Generate data
+c <- ggplot(mtcars, aes(x=factor(cyl)))
+
+c + geom_bar()
+c + geom_bar() + coord_flip()
+c + geom_bar(fill="white", colour="darkgreen")
+
+# Use qplot
+qplot(factor(cyl), data=mtcars, geom="bar")
+qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(cyl))
+
+# Stacked bar charts    
+qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(vs))
+qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(gear))
+
+ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar()
+ggplot(diamonds, aes(x=clarity, fill=cut)) + geom_bar()
+ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar() + coord_flip()
+
+# Dodged bar charts    
+ggplot(diamonds, aes(x=clarity, fill=cut)) + geom_bar(position="dodge")
+# compare with 
+ggplot(diamonds, aes(x=cut, fill=cut)) + geom_bar() + facet_grid(. ~ clarity)
+
+# But may be better to use a line plot instead:
+ggplot(diamonds, aes(x=clarity, colour=cut)) + 
+  geom_line(aes(group = cut, y = ..count..), stat="bin")
+
+# Often we don't want the height of the bar to represent the
+# count of observations, but the sum of some other variable.
+# For example, the following plot shows the number of movies
+# in each rating.
+qplot(rating, data=movies, geom="bar")
+# If, however, we want to see the number of votes cast in each
+# category, we need to weight by the votes variable
+qplot(rating, data=movies, geom="bar", weight=votes)
+# We could also see the total expenditure for each category:
+qplot(rating, data=movies, geom="bar", weight=budget)
+
+# A bar chart used to display means
+meanprice <- tapply(diamonds$price, diamonds$cut, mean)
+cut <- factor(levels(diamonds$cut), levels = levels(diamonds$cut))
+qplot(cut, meanprice)
+qplot(cut, meanprice, geom="bar", stat="identity")
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

@@ -26,12 +26,12 @@ The following aesthetics can be used with geom\_contour.  Aesthetics are mapped 
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item \code{\link{geom_density_2d}}: Draw 2d density contours
-  \item \url{http://had.co.nz/ggplot/geom_contour.html}
+  \item \code{\link{geom_density2d}}: Draw 2d density contours
+  \item \url{http://had.co.nz/ggplot2/geom_contour.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    # See stat_contour for examples
+# See stat_contour for examples
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

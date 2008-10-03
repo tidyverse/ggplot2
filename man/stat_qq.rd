@@ -26,17 +26,21 @@ The following aesthetics can be used with stat\_qq.  Aesthetics are mapped to va
  \item{...}{Other arguments passed to distribution function}
 }
 \seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot/stat_qq.html}
+  \item \url{http://had.co.nz/ggplot2/stat_qq.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    # From ?qqplot
-    y <- rt(200, df = 5)
-    qplot(sample = y, stat="qq")
-    qplot(sample = y, stat="qq", dist=qt, df=5)
-    qplot(sample = y, stat="qq", quantiles=seq(0,1, length=100))
-    
-    qplot(sample = precip, stat="qq")
+# From ?qqplot
+y <- rt(200, df = 5)
+qplot(sample = y, stat="qq")
+qplot(sample = y, stat="qq", dist=qt, df=5)
+qplot(sample = y, stat="qq", quantiles=seq(0,1, length=100))
+
+df <- data.frame(y)
+ggplot(y, aes(sample = y)) + stat_qq()
+ggplot(y, aes(sample = y)) + geom_point(stat = "qq")
+
+qplot(sample = precip, stat="qq")
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

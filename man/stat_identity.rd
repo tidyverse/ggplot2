@@ -15,11 +15,11 @@ This page describes stat\_identity, see \code{\link{layer}} and \code{\link{qplo
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot/stat_identity.html}
+  \item \url{http://had.co.nz/ggplot2/stat_identity.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-    # Doesn't do anything, so hard to come up a useful example
+# Doesn't do anything, so hard to come up a useful example
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}
