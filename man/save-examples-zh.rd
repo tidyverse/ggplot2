@@ -6,7 +6,7 @@
 \description{
 Cache output from all examples in ggplot directory
 }
-\usage{save_examples(name = get_rev("."), verbose = FALSE)}
+\usage{save_examples(name = get_rev(), verbose = FALSE)}
 \arguments{
 \item{name}{}
 \item{verbose}{}

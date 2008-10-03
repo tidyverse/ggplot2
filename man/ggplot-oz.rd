@@ -20,7 +20,7 @@ The elements of a ggplot plot are combined together with addition.
 \item \code{options}: update plot options
 \item \code{scale}: replace default scale
 \item \code{coord}: override default coordinate system
-\item \code{facet}: override default coordinate facetting
+\item \code{facet}: override default coordinate faceting
 }}
 \seealso{\code{\link{set_last_plot}}, \code{\link{ggplot}}}
 \examples{}

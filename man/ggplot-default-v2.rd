@@ -8,11 +8,12 @@
 \description{
 Create a new ggplot plot
 }
-\usage{ggplot.default(data = NULL, mapping=aes(), ...)}
+\usage{ggplot.default(data = NULL, mapping=aes(), ..., environment = globalenv())}
 \arguments{
 \item{data}{default data frame}
 \item{mapping}{default list of aesthetic mappings (these can be colour, size, shape, line type -- see individual geom functions for more details)}
 \item{...}{}
+\item{environment}{}
 }
 
 \details{}

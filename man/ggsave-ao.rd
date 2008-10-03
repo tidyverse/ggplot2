@@ -6,7 +6,7 @@
 \description{
 Save a ggplot with sensible defaults
 }
-\usage{ggsave(plot = last_plot(), filename=default_name(plot), device=default_device(filename), scale=1, width=par("din")[1], height=par("din")[2], dpi=96, path="", ...)}
+\usage{ggsave(plot = last_plot(), filename=default_name(plot), device=default_device(filename), scale=1, width=par("din")[1], height=par("din")[2], dpi=72, path="", keep = plot$options$keep, drop = plot$options$drop, ...)}
 \arguments{
 \item{plot}{plot to save, defaults to last plot displayed}
 \item{filename}{file name/path of plot}
@@ -16,14 +16,19 @@ Save a ggplot with sensible defaults
 \item{height}{height (in inches)}
 \item{dpi}{dpi to use for raster graphics}
 \item{path}{path where file should be saved (if filename unspecified)}
-\item{...}{other arguments passed to graphics device}
+\item{keep}{other arguments passed to graphics device}
+\item{drop}{}
+\item{...}{}
 }
 
 \details{ggsave is a convenient function for saving a plot.  It defaults to
 saving the last plot that you displayed, and for a default size uses
 the size of the current graphics device.  It also guess the type of
 graphics device from the extension.  This means the only argument you
-need to supply is the path.}
+need to supply is the path.
+
+\code{ggsave} currently recognises the extensions ps, tex (pictex), pdf,
+tiff, png, bmp and wmf (windows only).}
 
 \examples{\dontrun{
 ratings <- qplot(rating, data=movies, geom="histogram")

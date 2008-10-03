@@ -6,10 +6,10 @@
 \description{
 Generate default facet labels.
 }
-\usage{labels_default(plot, strip = plot$striplabel)}
+\usage{labels_default(gm, theme)}
 \arguments{
-\item{plot}{plot object}
-\item{strip}{}
+\item{gm}{plot object}
+\item{theme}{}
 }
 \value{gList containg text grobs with appropriate viewports}
 \details{Facet labels are only displayed when there are facets in a particular
