@@ -3,6 +3,8 @@
 #
 # @keyword internal
 col2hcl <- function(colour, h, c, l, alpha = 1) {
+  try_require("colorspace")
+  
   col <- RGB(t(col2rgb(colour)) / 256)
   coords <- coords(as(col, "polarLUV"))
   
