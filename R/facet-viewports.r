@@ -1,3 +1,11 @@
+# Assign viewports
+# Assign viewports to a matrix of grobs
+# 
+# Uses the structure (and names) of the matrix of grobs, to automatically
+# assign each grob to the appropriate viewport
+# 
+# @arguments named matrix of grobs
+# @keywords internal
 assign_viewports <- function(grobs) {
   make_grid <- function(type) {
     data.frame(

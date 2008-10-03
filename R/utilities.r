@@ -143,6 +143,10 @@ invert <- function(L) {
   tapply(names(t1), t1, c)
 }
 
+# Inside
+# Return logical vector indicating if x is inside the interval
+# 
+# @keywords internal
 "%inside%" <- function(x, interval) {
   x >= interval[1] & x <= interval[2]
 }

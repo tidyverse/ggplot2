@@ -1,20 +1,20 @@
 \name{theme_rect}
 \alias{theme_rect}
-\title{box}
+\title{Theme element: rectangle}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-fill
+This element draws a rectangular box
 }
 \usage{theme_rect(fill = NA, colour = "black", size = 1, linetype = 1)}
 \arguments{
-\item{fill}{}
-\item{colour}{}
-\item{size}{}
-\item{linetype}{}
+\item{fill}{fill colour}
+\item{colour}{border color}
+\item{size}{border size}
+\item{linetype}{border linetype}
 }
 
-\details{}
-
+\details{This is most often used for backgrounds and borders}
+\seealso{\code{\link{rectGrob}} for underlying grid function}
 \examples{}
 

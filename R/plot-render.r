@@ -123,8 +123,11 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep)
   gTree(children = do.call("gList", grobs), childrenvp = vp)
 }
 
+# Generate viewports for plot surroundings
+# This some pretty ugly code
+# 
+# @keywords internal
 surround_viewports <- function(position, widths, heights, legend_vp) {
-  # Generate viewports -------------------------------------------------------
   layout <- grid.layout(
     length(heights), length(widths), 
     heights=heights, widths=widths

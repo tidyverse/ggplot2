@@ -7,6 +7,10 @@ ggname <- function(prefix, grob) {
   grob
 }
 
+# Global grob editing
+# To match grid.gedit
+# 
+# @keywords internal
 geditGrob <- function(..., grep = TRUE, global = TRUE) {
   editGrob(..., grep = grep, global = global)
 }

@@ -35,6 +35,10 @@ GeomStep <- proto(GeomPath, {
 })
 
 
+# Calculate stairsteps
+# Used by \code{\link{geom_step}}
+# 
+# @keywords internal
 stairstep <- function(data, direction="hv") {
   direction <- match.arg(direction, c("hv", "vh"))
   data <- as.data.frame(data)[order(data$x), ]
@@ -44,8 +48,8 @@ stairstep <- function(data, direction="hv") {
     xs <- rep(1:n, each = 2)[-2*n]
     ys <- c(1, rep(2:n, each=2))
   } else {
-      ys <- rep(1:n, each = 2)[-2*n]
-      xs <- c(1, rep(2:n, each=2))
+    ys <- rep(1:n, each = 2)[-2*n]
+    xs <- c(1, rep(2:n, each=2))
   }
   
   data.frame(

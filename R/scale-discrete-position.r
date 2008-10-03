@@ -59,6 +59,10 @@ ScaleDiscretePosition <- proto(ScaleDiscrete, {
   
 })
 
+# Calculate range for discrete position variables
+# This is the equivalent of range for discrete variables 
+# 
+# @keywords internal
 discrete_range <- function(...) {
   pieces <- list(...)
   

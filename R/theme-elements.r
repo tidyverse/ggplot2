@@ -2,6 +2,10 @@
 # Exact grob heights
 # Computing max and min at creation where possible
 
+# Theme element: blank
+# This theme element draws nothing, and assigns no space
+# 
+# @keywords dplot
 theme_blank <- function() {
   structure(
     function(...) nullGrob(),
@@ -11,11 +15,17 @@ theme_blank <- function() {
   )  
 }
 
-# box
-#   fill
-#   (border) colour
-#   (border) size
-#   (border) linetype
+# Theme element: rectangle
+# This element draws a rectangular box
+# 
+# This is most often used for backgrounds and borders
+# 
+# @seealso \code{\link{rectGrob}} for underlying grid function
+# @arguments fill colour
+# @arguments border color
+# @arguments border size
+# @arguments border linetype
+# @keywords dplot
 theme_rect <- function(fill = NA, colour = "black", size = 1, linetype = 1) {
   structure(
     function(x = 0.5, y = 0.5, width = 1, height = 1, ...) {
@@ -30,6 +40,14 @@ theme_rect <- function(fill = NA, colour = "black", size = 1, linetype = 1) {
   )
 }
 
+# Theme element: line
+# This element draws a line between two (or more) points
+# 
+# @seealso \code{\link{polylineGrob}} for underlying grid function, \code{link{theme_segment}}
+# @arguments line color
+# @arguments line size
+# @arguments line type
+# @keywords dplot
 theme_line <- function(colour = "black", size = 0.5, linetype = 1) {
   structure(
     function(x = 0:1, y = 0:1, ..., default.units = "npc") {
@@ -44,6 +62,14 @@ theme_line <- function(colour = "black", size = 0.5, linetype = 1) {
   )
 }
 
+# Theme element: segments
+# This element draws segments between a set of points
+# 
+# @seealso \code{\link{segmentsGrob}} for underlying grid function, \code{link{theme_line}}
+# @arguments line color
+# @arguments line size
+# @arguments line type
+# @keywords dplot
 theme_segment <- function(colour = "black", size = 0.5, linetype = 1) {
   structure(
     function(x0 = 0, y0 = 0, x1 = 1, y1 = 1, ...) {
@@ -59,15 +85,19 @@ theme_segment <- function(colour = "black", size = 0.5, linetype = 1) {
 }
 
 
-# text
-#   family
-#   face
-#   size
-#   colour
-#   line height
-#   angle
-#   vjust
-#   hjust
+# Theme element: text
+# This element adds text
+# 
+# @seealso \code{\link{textGrob}} for underlying grid function
+# @arguments font family
+# @arguments font face ("plain", "italic", "bold")
+# @arguments text colour
+# @arguments text size (in pts)
+# @arguments horizontal justification (in [0, 1])
+# @arguments vertical justification (in [0, 1])
+# @arguments angle (in [0, 360])
+# @arguments line height
+# @keywords dplot
 theme_text <- function(family = "", face = "plain", colour = "black", size = 10, hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1.1) {
   vj <- vjust
   hj <- hjust
@@ -90,42 +120,3 @@ theme_text <- function(family = "", face = "plain", colour = "black", size = 10,
     call = match.call()
   )
 }
-
-
-theme_axis_ticks <- function(length = unit(0.4, "lines"), margin = unit(0.2, "lines")) {
-  
-  function(at, position = "top") {
-    at <- unit(at, "native")
-
-    grob <- switch(position,
-      top =    ,
-      bottom = segmentsGrob(at, margin, at, margin + length),
-      left =   ,
-      right =  segmentsGrob(margin, at, margin + length, at),
-    )
-
-    vp <- switch(position,
-      top =    ,
-      bottom = viewport(height = margin + length),
-      left =   ,
-      right =  viewport(width = margin + length),
-    )
-    grobTree(grob, vp = vp)
-  }
-}
-
-fixed_width <- function(grob) {
-}
-
-# plot.legend
-# axis.ticks
-# legend.keys
-
-
-# grid function to take grob and add:
-#   * padding
-#   * background 
-#   * border
-#   * margins
-
-

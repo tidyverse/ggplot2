@@ -81,6 +81,10 @@ GeomErrorbar <- proto(Geom, {
   }
 })
 
+# Null default
+# Analog of || from ruby
+# 
+# @keywords internal
 "%||%" <- function(a, b) {
   if (!is.null(a)) a else b
 }

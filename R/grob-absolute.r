@@ -1,3 +1,14 @@
+# Absolute grob
+# This grob has fixed dimesions and position.
+# 
+# It's still experimental
+# 
+# @alias grobHeight.absoluteGrob
+# @alias grobWidth.absoluteGrob
+# @alias grobX.absoluteGrob
+# @alias grobY.absoluteGrob
+# @alias grid.draw.absoluteGrob
+# @keywords internal
 absoluteGrob <- function(grob, width = NULL, height = NULL, xmin = NULL, ymin = NULL) {
   grob(
     child = grob, 

@@ -117,6 +117,12 @@ qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE,
 }
 quickplot <- qplot
 
+# is.constant
+# Determine if an expression represents a constant value
+# 
+# Used by qplot to determine whether a value should be mapped or set
+#
+# @keywords internal
 is.constant <- function(x) {
   sapply(x, function(x) "I" %in% all.names(asOneSidedFormula(x)))
 }

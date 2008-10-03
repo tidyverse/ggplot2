@@ -46,10 +46,18 @@ aes <- function(x, y, ...) {
   aes
 }
 
+# Rename aesthetics
+# Rename aesthetics named in American spelling or with base R graphic parameter names to ggplot2 names
+# 
+# @keywords internal
 rename_aes <- function(x) {
   rename(x, .base_to_ggplot)
 }
 
+# Aesthetic to scale
+# Look up the scale that should be used for a given aesthetic
+# 
+# @keywords internal
 aes_to_scale <- function(var) {
   if (var %in% c("x", "xmin", "xmax", "xend")) return("x")
   if (var %in% c("y", "ymin", "ymay", "yend")) return("y")
