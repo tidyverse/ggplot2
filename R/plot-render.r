@@ -189,7 +189,7 @@ surround_viewports <- function(position, widths, heights, legend_vp) {
 # @arguments plot to display
 # @arguments draw new (empty) page first?
 # @arguments viewport to draw plot in
-# @arguments other arguments passed on to \\code{\\link{ggplot_plot}}
+# @arguments other arguments passed on to \\code{\\link{ggplotGrob}}
 # @keyword hplot
 # @keyword internal 
 print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {

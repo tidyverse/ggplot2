@@ -48,13 +48,13 @@ ScaleDate <- proto(ScaleContinuous,{
   
   input_breaks <- function(.) {
     d <- to_date(.$input_set())
-    as.numeric(fullseq.Date(d, .$break_points()[1]))
+    as.numeric(fullseq_date(d, .$break_points()[1]))
   }
   input_breaks_n <- function(.) as.numeric(.$input_breaks())
   
   output_breaks <- function(., n) {
     d <- to_date(.$input_set())
-    as.numeric(fullseq.Date(d, .$break_points()[2]))
+    as.numeric(fullseq_date(d, .$break_points()[2]))
   }
   
   labels <- function(.) {

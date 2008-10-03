@@ -11,7 +11,7 @@ Print generic for ggplot.  Plot on current graphics device.
 \item{x}{plot to display}
 \item{newpage}{draw new (empty) page first?}
 \item{vp}{viewport to draw plot in}
-\item{...}{other arguments passed on to \\code{\\link{ggplot_plot}}}
+\item{...}{other arguments passed on to \\code{\\link{ggplotGrob}}}
 }
 
 \details{}

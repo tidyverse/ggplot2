@@ -1,7 +1,7 @@
 options(Hverbose=FALSE)
 loaded <- "ggplot2" %in% search()
 suppressMessages(library(ggplot2, warn.conflicts = FALSE))
-l(plyr)
+library(plyr)
 
 load("~/documents/ggplot/ggplot/data/mpg.rda")
 
