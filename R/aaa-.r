@@ -156,25 +156,21 @@ TopLevel <- proto(expr = {
     if (length(aes) == 0) return("")
 
     scale_links <- sapply(names(aes), .$html_scales)
-    scale_links <- sapply(scale_links, function(x) {
-      if (!is.null(x)) {
-        ps("(scales: ", x, ")")
-      } else {
-        ""
-      }
-    })
+    scale_links <- sapply(scale_links, ps)
 
     ps(
       "<h2>Aesthetics</h2>\n",
-      html_auto_link(ps("<p>The following aesthetics can be used with  ", .$my_name(), ".  Aesthetics are mapped to variables in the data with the aes function: <code>", .$my_name(), "(aes(x = var))</code>. Scales control how the variable is mapped to the aesthetic and are listed after each aesthetic.</p>\n"), .$my_name()),
-      "<ul>\n",
+      html_auto_link(ps("<p>The following aesthetics can be used with  ", .$my_name(), ".  Aesthetics are mapped to variables in the data with the aes function: <code>", .$my_name(), "(aes(x = var))</code>. Note that you do not need quotes around the variable name.</p>\n",
+      "<p>Scales control how the variable is mapped to the aesthetic and are listed after each aesthetic.</p>\n"), .$my_name()),
+      "<table width='100%'>\n",
+      "<tr><th>Aesthetic</th> <th>Default</th> <th>Related scales</th></tr>\n",
       ps(
-        "  <li>", 
-        "<p>", names(aes), ": <code>", aes, "</code> <span class='linklist'>", scale_links, "</span></p>", 
-        "</li>\n"
+        "<tr>\n", 
+        "<td>", names(aes), "</td><td>", aes, "</td><td>", scale_links, "</td>\n", 
+        "</tr>\n"
       ),
-      "</ul>\n",
-      "<p>Layers are divided into groups by the <strong>group</strong> aesthetic.  By default this is set to the interaction of all categorical variables present in the plot</p>\n"
+      "</table>\n",
+      "<p>Layers are divided into groups by the <code>group</code> aesthetic.  By default this is set to the interaction of all categorical variables present in the plot.  </p>\n"
     )
   }
   
