@@ -19,7 +19,7 @@ scale_y_date(name=NULL, limits=NULL, major=NULL, minor=NULL, format=NULL, ...)}
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item \code{\link{\code{\link{scale_discrete}}}}: Discrete position scales
+  \item \code{\link{scale_discrete}}: Discrete position scales
   \item \url{http://had.co.nz/ggplot2/scale_date.html}
 }}
 \value{A \code{\link{layer}}}

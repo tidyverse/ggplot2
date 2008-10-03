@@ -14,15 +14,15 @@ This page describes scale\_hue, see \code{\link{layer}} and \code{\link{qplot}} 
 scale_fill_hue(name=NULL, h=c(0, 360), l=65, c=100, alpha=1, limits=NULL, breaks=NULL, labels=NULL, h.start=0, direction=1, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis}
- \item{h}{range of hues to use, in degrees}
- \item{l}{luminance}
- \item{c}{chroma}
+ \item{h}{range of hues to use, in [0, 360]}
+ \item{l}{luminance (lightness), in [0, 100]}
+ \item{c}{chroma (intensity of colour)}
  \item{alpha}{alpha}
  \item{limits}{numeric vector of length 2, giving the extent of the scale}
  \item{breaks}{numeric vector indicating where breaks should lie}
  \item{labels}{character vector giving labels associated with breaks}
- \item{h.start}{NULL}
- \item{direction}{NULL}
+ \item{h.start}{hue to start at}
+ \item{direction}{direction to travel around the colour wheel, 1 = clockwise, -1 = counter-clockwise}
  \item{...}{other arguments}
 }
 \seealso{\itemize{

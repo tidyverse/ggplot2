@@ -8,8 +8,8 @@ This page describes position\_jitter, see \code{\link{layer}} and \code{\link{qp
 }
 \usage{position_jitter(width=NULL, height=NULL, ...)}
 \arguments{
- \item{width}{NULL}
- \item{height}{NULL}
+ \item{width}{degree of jitter in x direction. Defaults to 40% of the resolution of the data.}
+ \item{height}{degree of jitter in y direction. Defaults to 40% of the resolution of the data.}
  \item{...}{other arguments}
 }
 \seealso{\itemize{

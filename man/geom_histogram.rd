@@ -63,13 +63,24 @@ m + geom_histogram(aes(fill = ..count..))
 # Change scales
 m + geom_histogram(aes(fill = ..count..)) + scale_fill_gradient("Count", low="green", high="red")
 
-m <- m + aes(x=votes)
-m + geom_histogram() + scale_x_log()
+m <- ggplot(movies, aes(x = votes))
+# For transformed scales, binwidth applies to the transformed data.
+# The bins have constant width on the transformed scale.
+m + geom_histogram() + scale_x_log10()
+m + geom_histogram(binwidth = 1) + scale_x_log10()
 m + geom_histogram() + scale_x_sqrt()
+m + geom_histogram(binwidth = 10) + scale_x_sqrt()
 
-# Change coordinate systems
+# For transformed coordinate systems, the binwidth applies to the 
+# raw data.  The bins have constant width on the original scale.
+
+# Using log scales does not work here, because the first
+# bar is anchored at zero, and so when transformed becomes negative
+# infinity.  This is not a problem when transforming the scales, because
+# no observations have 0 ratings.
+m + geom_histogram() + coord_trans(x = "log10")
 m + geom_histogram() + coord_trans(x = "sqrt")
-m + geom_histogram() + coord_trans(y = "sqrt")
+m + geom_histogram(binwidth=1000) + coord_trans(x = "sqrt")
   
 # Set aesthetics to fixed value
 m + geom_histogram(colour="darkgreen", fill="white") + aes(x=rating)

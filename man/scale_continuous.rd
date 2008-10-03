@@ -23,7 +23,7 @@ scale_z_continuous(name=NULL, limits=NULL, breaks=NULL, labels=NULL, trans=NULL,
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item \code{\link{\code{\link{scale_discrete}}}}: Discrete position scales
+  \item \code{\link{scale_discrete}}: Discrete position scales
   \item \url{http://had.co.nz/ggplot2/scale_continuous.html}
 }}
 \value{A \code{\link{layer}}}

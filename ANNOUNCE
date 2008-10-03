@@ -7,7 +7,7 @@ that make plotting a hassle (like drawing legends) as well as
 providing a powerful model of graphics that makes it easy to produce
 complex multi-layered graphics.
 
-Find out more at http://had.co.nz/ggplot2, and check out the over 400
+Find out more at http://had.co.nz/ggplot2, and check out the nearly 500
 examples of ggplot in use.
 
 If you wish to track development of ggplot2, please see the development website, http://github.com/hadley/ggplot2

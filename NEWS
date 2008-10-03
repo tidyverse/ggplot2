@@ -61,6 +61,7 @@ Improved documentation and error messages
 * scale_size: improved documentation for discrete variables
 * online documentation generally tweaked and primped to work a little better and look a little nicer
 * website now includes a search box
+* links from rdoc now point to correct pages
 
 
 See CHANGELOG for changes in previous versions
