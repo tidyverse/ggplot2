@@ -120,7 +120,6 @@ ggfluctuation <- function(table, type="size", floor=0, ceiling=max(table$freq, n
 #X ggmissing(mmissing)
 #X ggmissing(mmissing, order=FALSE, missing.only = FALSE)
 #X ggmissing(mmissing, avoid="dodge") + scale_y_sqrt()
-#X ggmissing(mmissing) + scale_y_log10(limits=c(1, NA))
 ggmissing <- function(data, avoid="stack", order=TRUE, missing.only = TRUE) {
   missings <- mapply(function(var, name) cbind(as.data.frame(table(missing=factor(is.na(var), levels=c(TRUE, FALSE), labels=c("yes", "no")))), variable=name), 
     data, names(data), SIMPLIFY=FALSE
@@ -130,9 +129,10 @@ ggmissing <- function(data, avoid="stack", order=TRUE, missing.only = TRUE) {
   prop <- df[df$missing == "yes", "Freq"] / (df[df$missing == "no", "Freq"] + df[df$missing == "yes", "Freq"])
   df$prop <- rep(prop, each=2)
   
-  
   if (order) {
-    df$variable <- reorder_factor(df$variable, prop)
+    var <- df$variable
+    var <- factor(var, levels = levels(var)[order(1 - prop)])
+    df$variable <- var
   }
 
   if (missing.only) {

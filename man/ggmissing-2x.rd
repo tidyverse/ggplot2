@@ -24,6 +24,5 @@ copied from.}
 mmissing[sample(nrow(movies), 1000), sample(ncol(movies), 5)] <- NA
 ggmissing(mmissing)
 ggmissing(mmissing, order=FALSE, missing.only = FALSE)
-ggmissing(mmissing, avoid="dodge") + scale_y_sqrt()
-ggmissing(mmissing) + scale_y_log10(limits=c(1, NA))}
+ggmissing(mmissing, avoid="dodge") + scale_y_sqrt()}
 \keyword{hplot}
