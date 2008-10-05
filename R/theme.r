@@ -6,6 +6,7 @@
 # 
 # @alias theme_set
 # @alias theme_get
+# @alias ggopts
 theme_update <- function(...) {
   elements <- list(...)
   if (length(args) == 1 && is.list(elements[[1]])) {
@@ -29,6 +30,10 @@ theme_update <- function(...) {
 })()
 theme_get <- .theme$get  
 theme_set <- .theme$set
+
+ggopt <- function(...) {
+  .Deprecated("theme_update")
+}
 
 # Plot options
 # Set options/theme elements for a single plot
