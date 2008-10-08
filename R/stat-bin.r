@@ -32,24 +32,18 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
     width <- diff(breaks)
   }
 
-  # if (binwidth < resolution(x)) warning("Binwidth is smaller than the resolution of the data")
   results <- data.frame(
     count = as.numeric(tapply(weight, bins, sum, na.rm=TRUE)),
     x = x,
     width = width
   )
-  results <- transform(results,
-    density = count / width / sum(count, na.rm=TRUE)
-  )
 
-  # Need to leave zeros in for non-bar representations
-  # results <- subset(results, count > 0)
-  transform(results,
-    ncount = count / max(count, na.rm=TRUE),
-    ndensity = density / max(density, na.rm=TRUE)
-  )
-  
-  
+  within(results, {
+    count[is.na(count)] <- 0
+    density <- count / width / sum(count, na.rm=TRUE)
+    ncount <- count / max(count, na.rm=TRUE)
+    ndensity <- density / max(density, na.rm=TRUE)
+  })
 }
 
 # Generate sequence of fixed size intervals covering range
