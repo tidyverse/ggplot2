@@ -27,13 +27,18 @@ GeomPath <- proto(Geom, {
     if (!constant) {
       with(munched, 
         segmentsGrob(x[!end], y[!end], x[!start], y[!start], default.units="native",
-        gp=gpar(col=colour[!end], lwd=size[!end] * .pt, lty=linetype[!end]))
+        gp = gpar(
+          col = colour[!end], lwd = size[!end] * .pt, 
+          lty = linetype[!end], lineend = "butt"
+        ))
       )
     } else {
       with(munched, 
         polylineGrob(
           x, y, id = as.integer(factor(group)), default.units="native",
-          gp = gpar(col=colour[start], lwd=size[start] * .pt, lty=linetype[start])
+          gp = gpar(
+            col = colour[start], lwd = size[start] * .pt, 
+            lty = linetype[start], lineend = "butt")
         )
       )
     }

@@ -1,7 +1,8 @@
 ggplot2 0.7.1  (2008-XX)
 ----------------------------------------
 
- * ggopt now points to ggtheme
- * stat_boxplot: deal with yet another new output format from quantreg
+* geom_path: lines have squared end
+* ggopt now points to ggtheme
+* stat_boxplot: deal with yet another new output format from quantreg
 
 See CHANGELOG for changes in previous versions
