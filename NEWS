@@ -1,6 +1,7 @@
 ggplot2 0.7.1  (2008-XX)
 ----------------------------------------
 
+* geom_freqpoly: draws frequency polygons (= stat_bin + geom_line)
 * geom_path: lines have squared end
 * ggopt now points to ggtheme
 * stat_boxplot: deal with yet another new output format from quantreg
