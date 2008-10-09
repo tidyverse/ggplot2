@@ -91,7 +91,17 @@ FacetGrid <- proto(Facet, {
     vpTree(layout_vp, children_vp)
   }
   
-
+  # Position scales ----------------------------------------------------------
+  
+  position_map <- function(., data, plot) {
+    dlapply <- function(f) mapply(f, data, plot$layers, SIMPLIFY=FALSE)
+    dlapply(function(d, p) p$scales_map_position(d, plot$scales))
+  }
+  
+  position_train <- function(., data, plot) {
+    dlapply <- function(f) mapply(f, data, plot$layers, SIMPLIFY=FALSE)
+    dlapply(function(d, p) p$scales_train(d, plot$scales))    
+  }
 
   # Documentation ------------------------------------------------------------
 

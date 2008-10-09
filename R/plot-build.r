@@ -5,14 +5,13 @@
 ggplot_build <- function(plot) {
   if (length(plot$layers) == 0) stop("No layers in plot", call.=FALSE)
   
-  # Apply function to layer and matching data
-  dlapply <- function(f) mapply(f, data, layers, SIMPLIFY=FALSE)
-
   plot <- plot_clone(plot)
   layers <- plot$layers
   scales <- plot$scales
   facet <- plot$facet
   cs <- plot$coordinates
+  # Apply function to layer and matching data
+  dlapply <- function(f) mapply(f, data, layers, SIMPLIFY=FALSE)
 
   # Compute aesthetics from values at various levels
   data <- lapply(layers, function(x) x$make_aesthetics(plot))
@@ -23,11 +22,11 @@ ggplot_build <- function(plot) {
   # Transform scales where possible.  Also need to train so statisics
   # (e.g. stat_smooth) have access to info
   data <- dlapply(function(d, p) p$scales_transform(d, scales))
-  dlapply(function(d, p) p$scales_train(d, scales))
+  facet$position_train(data, plot)
 
   # Ensure that position scales are of the correct type: 
   # continuous are numeric, and discrete are integers
-  data <- dlapply(function(d, p) p$scales_map_position(d, scales))
+  data <- facet$position_map(data, plot)
 
   # Apply and map statistics, then reparameterise geoms that need it
   data <- dlapply(function(d, p) p$calc_statistics(d, scales))
@@ -61,3 +60,4 @@ ggplot_build <- function(plot) {
     panels = panels
   )
 }
+
