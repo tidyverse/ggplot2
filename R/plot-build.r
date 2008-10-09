@@ -11,7 +11,7 @@ ggplot_build <- function(plot) {
   facet <- plot$facet
   cs <- plot$coordinates
   # Apply function to layer and matching data
-  dlapply <- function(f) mapply(f, data, layers, SIMPLIFY=FALSE)
+  dlapply <- function(f) mlply(cbind(d = data, p = layers), f)
 
   # Compute aesthetics from values at various levels
   data <- lapply(layers, function(x) x$make_aesthetics(plot))
