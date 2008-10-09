@@ -55,7 +55,7 @@ Scale <- proto(TopLevel, expr={
     
     input <- .$input()
     if (length(input) == 1 && input %in% c("x", "y")) {
-      matches <- grep(paste("^", input, sep =""), names(df))
+      matches <- aes_to_scale(names(df)) == input
       input <- names(df)[matches]
     }
     l_ply(input, function(var) .$train(df[[var]]))
