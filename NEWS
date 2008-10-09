@@ -1,6 +1,8 @@
 ggplot2 0.7.1  (2008-XX)
 ----------------------------------------
 
+* geom_hexbin & stat_hexbin: hexagonal binning and drawing
+* geom_bin2d: 2d binning
 * stat_bin: correctly returns 0 when no observations in a bin (was previously returning NA)
 * geom_freqpoly: draws frequency polygons (= stat_bin + geom_line)
 * geom_path: lines have squared end
