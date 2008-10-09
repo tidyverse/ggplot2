@@ -11,18 +11,24 @@ StatDensity2d <- proto(Stat, {
   )
   icon <- function(.) GeomDensity2d$icon()
 
-  calculate <- function(., data, scales, na.rm = FALSE, ...) {
+  calculate <- function(., data, scales, na.rm = FALSE, contour = TRUE, ...) {
     df <- data.frame(data[, c("x", "y")])
     df <- remove_missing(df, na.rm, name = "stat_density2d")
 
     dens <- do.call(MASS::kde2d, c(df, n=100, ...))
     df <- with(dens, data.frame(expand.grid(x = x, y = y), z = as.vector(z)))
     
-    z_scale <- scale_z_continuous()
-    z_scale$train(df$z)
-    scales$add(z_scale)
-    
-    StatContour$calculate(df, scales, ...)
+    if (contour) {
+      z_scale <- scale_z_continuous()
+      z_scale$train(df$z)
+      scales$add(z_scale)
+
+      StatContour$calculate(df, scales, ...)      
+    } else {
+      names(df) <- c("x", "y", "density")
+      df$piece <- 1
+      df
+    }
   }
   
   examples <- function(.) {
@@ -39,6 +45,17 @@ StatDensity2d <- proto(Stat, {
     m + stat_density2d(aes(fill = ..level..), geom="polygon")
 
     qplot(rating, length, data=movies, geom=c("point","density2d"), ylim=c(1, 500))
+    
+    # Another example ------
+    d <- ggplot(diamonds, aes(carat, price)) + xlim(1,3)
+    d + geom_point() + geom_density2d()
+    
+    # If we turn contouring off, we can use use geoms like tiles:
+    d + stat_density2d(geom="tile", aes(fill = ..density..), contour = FALSE)
+    last_plot() + scale_fill_gradient(limits=c(1e-5,8e-4))
+    
+    # Or points:
+    d + stat_density2d(geom="point", aes(size = ..density..), contour = FALSE)
   }  
   
 })
