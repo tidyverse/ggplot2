@@ -1,6 +1,6 @@
 ggplot2 0.7.1  (2008-XX)
 ----------------------------------------
-
+* scale_gradient: tweak default colours to make more aesthetically pleasing
 * geom_bin: gains drop argument to control whether or not 0 count bins should be removed
 * geom_hexbin & stat_hexbin: hexagonal binning and drawing
 * geom_bin2d: 2d binning

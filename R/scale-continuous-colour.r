@@ -1,7 +1,7 @@
 ScaleGradient <- proto(ScaleContinuous, expr={
   aliases <- c("scale_colour_continuous", "scale_fill_continuous")
 
-  new <- function(., name=NULL, low=muted("darkblue"), high="yellow", space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", alpha = 1, ..., variable) {
+  new <- function(., name=NULL, low="#fffacd", high="#3366FF", space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", alpha = 1, ..., variable) {
     if (is.character(trans)) trans <- Trans$find(trans)
     .$proto(name=name, low=low, high=high, space=space, .input=variable, .output=variable, .tr = trans, limits=limits, alpha = alpha, breaks = breaks, .labels = labels, ...)
   }
