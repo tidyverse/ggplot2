@@ -25,13 +25,29 @@ FacetGrid <- proto(Facet, {
   
   # Create grobs for each component of the panel guides
   add_guides <- function(., data, panels, coordinates, theme) {
-    guides <- coordinates$guide_axes(theme)
-    
     nr <- nrow(panels)
     nc <- ncol(panels)
     
-    axes_v <- matrix(list(guides$y), nrow = nr, ncol = 1)
-    axes_h <- matrix(list(guides$x), nrow = 1, ncol = nc)
+    axes_h <- matrix(list(), nrow = 1, ncol = nc)
+    for(i in seq_along(.$scales_x)) {
+      s <- Scales$new()
+      s$add(.$scales_x[[i]])
+      s$add(.$scales_y[[1]])
+      coordinates$train(s)
+      
+      axes_h[[1, i]] <- coordinates$guide_axis_x(theme)
+    }
+    
+    axes_v <- matrix(list(), nrow = nr, ncol = 1)
+    for(i in seq_along(.$scales_y)) {
+      s <- Scales$new()
+      s$add(.$scales_x[[1]])
+      s$add(.$scales_y[[i]])
+      coordinates$train(s)
+      
+      axes_v[[i, 1]] <- coordinates$guide_axis_y(theme)
+    }    
+    
     labels <- labels_default(.$shape, theme)
 
     # Add background and foreground to panels

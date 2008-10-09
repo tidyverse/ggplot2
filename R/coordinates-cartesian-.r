@@ -40,13 +40,16 @@ CoordCartesian <- proto(Coord, expr={
     )
   }
 
-  guide_axes <- function(., theme) {
+  guide_axis_x <- function(., theme) {
     breaks <- .$breaks()
-    list(
-      x = guide_axis(breaks$x$major, .$x()$labels(), "bottom", theme),
-      y = guide_axis(breaks$y$major, .$y()$labels(), "left", theme)
-    )
+    guide_axis(breaks$x$major, .$x()$labels(), "bottom", theme)
   }
+
+  guide_axis_y <- function(., theme) {
+    breaks <- .$breaks()
+    guide_axis(breaks$y$major, .$y()$labels(), "left", theme)
+  }
+
   
   xlabel <- function(., theme) theme_render(theme, "axis.title.x", .$x()$name)
   ylabel <- function(., theme) theme_render(theme, "axis.title.y", .$y()$name)

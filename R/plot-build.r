@@ -54,7 +54,8 @@ ggplot_build <- function(plot) {
     plot = plot,
     scales = npscales,
     cs = cs,
-    panels = panels
+    panels = panels,
+    facet = facet
   )
 }
 
