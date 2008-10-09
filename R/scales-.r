@@ -66,7 +66,6 @@ Scales <- proto(Scale, expr={
     sapply(.$.scales, function(scale) scale$input())
   }
   
-  
   # Train scale from a data frame
   train_df <- function(., df) {
     if (is.null(df)) return()
@@ -74,6 +73,11 @@ Scales <- proto(Scale, expr={
     lapply(.$.scales, function(scale) {
       scale$train_df(df)
     })
+  }
+  
+  train_position <- function(., df) {
+    pos_df <- df[is_position_aes(names(df))]
+    .$train_df(pos_df)
   }
   
   # Map values from a data.frame. Returns data.frame
@@ -88,23 +92,14 @@ Scales <- proto(Scale, expr={
   }
   
   map_position <- function(., df) {
-    if (.$has_scale("x")) {
-      scale_x <- .$get_scales("x")
-      trans_x <- function(x) scale_x$map(x)
-    } else {
-      trans_x <- force
-    }
-
-    if (.$has_scale("y")) {
-      scale_y <- .$get_scales("y")
-      trans_y <- function(y) scale_y$map(y)
-    } else {
-      trans_y <- force
-    }
-    
-    transform_position(df, trans_x, trans_y)
+    is_pos <- is_position_aes(names(df))
+    cbind(
+      .$map_df(df[is_pos]),
+      df[!is_pos]
+    )
   }
   
+  # Transform values to cardinal representation
   transform_df <- function(., df) {
     if (length(.$.scales) == 0) return(df)
     if (is.null(df)) return(df)

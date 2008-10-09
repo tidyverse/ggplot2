@@ -101,7 +101,7 @@ FacetGrid <- proto(Facet, {
   
   position_train <- function(., data, plot) {
     mlply(cbind(d = data, p = plot$layers), 
-      function(d, p) p$scales_train(d, plot$scales)
+      function(d, p) p$scales_train_position(d, plot$scales)
     )    
   }
 

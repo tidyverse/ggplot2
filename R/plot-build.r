@@ -19,15 +19,14 @@ ggplot_build <- function(plot) {
   # Facet
   data <- mapply(function(d, p) facet$stamp_data(d), data, layers, SIMPLIFY=FALSE)
 
-  # Transform scales where possible.  Also need to train so statisics
-  # (e.g. stat_smooth) have access to info
+  # Transform scales all scales
   data <- dlapply(function(d, p) p$scales_transform(d, scales))
+  
+  # Map and train positions so that statistics have access to ranges
+  # and all variables are numeric
   facet$position_train(data, plot)
-
-  # Ensure that position scales are of the correct type: 
-  # continuous are numeric, and discrete are integers
   data <- facet$position_map(data, plot)
-
+  
   # Apply and map statistics, then reparameterise geoms that need it
   data <- dlapply(function(d, p) p$calc_statistics(d, scales))
   data <- dlapply(function(d, p) p$map_statistics(d, plot))  

@@ -27,7 +27,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
     output <- .$output()
     
     if (length(input) == 1 && input %in% c("x", "y")) {
-      matches <- grep(paste("^", input, sep =""), names(df))
+      matches <- aes_to_scale(names(df)) == input
       input <- output <- names(df)[matches]
     }
     input <- intersect(input, names(df))

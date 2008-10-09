@@ -200,18 +200,23 @@ Layer <- proto(expr = {
   
   # Stamp data.frame into list of matrices
   
-  scales_transform <- function(., data, scale) {
-    gg_apply(data, scale$transform_df)
+  scales_transform <- function(., data, scales) {
+    gg_apply(data, scales$transform_df)
   }
 
-  scales_map_position <- function(., data, scale) {
-    gg_apply(data, scale$map_position)
+  scales_map_position <- function(., data, scales) {
+    gg_apply(data, scales$map_position)
   }
   
   # Train scale for this layer
-  scales_train <- function(., data, scale) {
-    gg_apply(data, scale$train_df)
+  scales_train <- function(., data, scales) {
+    gg_apply(data, scales$train_df)
   }
+
+  scales_train_position <- function(., data, scales) {
+    gg_apply(data, scales$train_position)
+  }
+
   
   # Map data using scales.
   scales_map <- function(., data, scale) {
