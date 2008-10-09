@@ -13,17 +13,17 @@ ggplot_build <- function(plot) {
   # Apply function to layer and matching data
   dlapply <- function(f) mlply(cbind(d = data, p = layers), f)
 
-  # Compute aesthetics from values at various levels
+  # Evaluate aesthetics
   data <- lapply(layers, function(x) x$make_aesthetics(plot))
   
   # Facet
-  data <- mapply(function(d, p) facet$stamp_data(d), data, layers, SIMPLIFY=FALSE)
+  data <- dlapply(function(d, p) facet$stamp_data(d))
 
-  # Transform scales all scales
+  # Transform all scales
   data <- dlapply(function(d, p) p$scales_transform(d, scales))
   
   # Map and train positions so that statistics have access to ranges
-  # and all variables are numeric
+  # and all positions are numeric
   facet$position_train(data, plot)
   data <- facet$position_map(data, plot)
   
@@ -32,17 +32,10 @@ ggplot_build <- function(plot) {
   data <- dlapply(function(d, p) p$map_statistics(d, plot))  
   data <- dlapply(function(d, p) p$reparameterise(d))
 
-  # Adjust position before scaling
+  # Adjust position, update scales, then map all values
   data <- dlapply(function(d, p) p$adjust_position(d, scales))
-
-  # Transform, train and map new scales  
   dlapply(function(d, p) p$scales_train(d, scales))
   data <- dlapply(function(d, p) p$scales_map(d, scales))
-
-  # missing_scales <- setdiff(c("x", "y"), scales$output())
-  # if (length(missing_scales) > 0) {
-  #   stop("ggplot: Some aesthetics (", paste(missing_scales, collapse =", "), ") are missing scales, you will need to add them by hand.", call.=FALSE)
-  # }
 
   # Produce grobs
   cs$train(scales)
