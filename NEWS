@@ -1,5 +1,7 @@
 ggplot2 0.7.1  (2008-XX)
 ----------------------------------------
+
+* ggsave: default dpi changed to 300, on the assumption that you are saving the plot for printing
 * scale_gradient: tweak default colours to make more aesthetically pleasing
 * geom_bin: gains drop argument to control whether or not 0 count bins should be removed
 * geom_hexbin & stat_hexbin: hexagonal binning and drawing
