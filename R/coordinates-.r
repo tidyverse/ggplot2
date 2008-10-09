@@ -1,13 +1,3 @@
-# Coordinate system looks at scales and creates transformation
-# Applies transformation after munching transform (if necessary)
-# Draws axes
-# Also takes care of faceting?
-# 
-# x or y
-# continuous or categorical
-# ideally should bind a few together (and will eventually become coordinate systems)
-
-
 Coord <- proto(TopLevel, expr={
   class <- function(.) "coord"
   train <- function(., scales) .$.scales <- scales

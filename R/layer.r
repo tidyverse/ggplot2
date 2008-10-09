@@ -204,17 +204,9 @@ Layer <- proto(expr = {
     gg_apply(data, scales$transform_df)
   }
 
-  scales_map_position <- function(., data, scales) {
-    gg_apply(data, scales$map_position)
-  }
-  
   # Train scale for this layer
   scales_train <- function(., data, scales) {
     gg_apply(data, scales$train_df)
-  }
-
-  scales_train_position <- function(., data, scales) {
-    gg_apply(data, scales$train_position)
   }
 
   

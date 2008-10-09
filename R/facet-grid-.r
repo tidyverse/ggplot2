@@ -1,7 +1,14 @@
 FacetGrid <- proto(Facet, {
-  new <- function(., facets = . ~ ., margins = FALSE) {
-    if (inherits(facets, "formula")) facets <- deparse(facets) 
-    .$proto(facets=facets, margins=margins)
+  new <- function(., facets = . ~ ., margins = FALSE, scales = "fixed", space = "fixed", free = list(x=T, y =F)) {
+    scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
+    space <- match.arg(scales, c("fixed", "free"))
+    
+    if (is.formula(facets)) facets <- deparse(facets) 
+    .$proto(
+      facets = facets, margins = margins,
+      scales = scales, space = space, free = free,
+      scales_x = NULL, scales_y = NULL
+    )
   }
   
   conditionals <- function(.) {
@@ -10,13 +17,10 @@ FacetGrid <- proto(Facet, {
   }
   
   stamp_data <- function(., data) {
-    data.matrix <- stamp(add_group(data), .$facets, force, margins=.$margins, fill=list(NULL))
+    data.matrix <- stamp(add_group(data), .$facets, force, 
+      margins=.$margins, fill = list(NULL))
     
     force_matrix(data.matrix)
-  }
-  
-  grid <- function(., data) {
-    stamp(data, .$facets, function(x) 0, margins=.$margins)
   }
   
   # Create grobs for each component of the panel guides
@@ -28,7 +32,7 @@ FacetGrid <- proto(Facet, {
     
     axes_v <- matrix(list(guides$y), nrow = nr, ncol = 1)
     axes_h <- matrix(list(guides$x), nrow = 1, ncol = nc)
-    labels <- labels_default(.$grid(data), theme)
+    labels <- labels_default(.$shape, theme)
 
     # Add background and foreground to panels
     fg <- coordinates$guide_foreground(theme)
@@ -90,20 +94,72 @@ FacetGrid <- proto(Facet, {
     
     vpTree(layout_vp, children_vp)
   }
+
+  # Initialisation
+  
+  initialise <- function(., data) {
+    .$shape <- stamp(data[[1]], .$facets, function(x) 0, margins=.$margins)
+  }
+  
+  grid <- function(., data) .$shape
   
   # Position scales ----------------------------------------------------------
   
-  position_map <- function(., data, plot) {
-    mlply(cbind(d = data, p = plot$layers), 
-      function(d, p) p$scales_map_position(d, plot$scales)
-    )    
+  position_train <- function(., data, scales) {
+    if (is.null(.$scales_x)) {
+      fr <- .$free
+      .$scales_x <- scales_list(scales$get_scales("x"), ncol(.$shape), fr$x)
+      .$scales_y <- scales_list(scales$get_scales("y"), nrow(.$shape), fr$y)
+    }
+
+    lapply(data, function(l) {
+      for(i in seq_along(.$scales_x)) {
+        lapply(l[, i], .$scales_x[[i]]$train_df)
+      }
+      for(i in seq_along(.$scales_y)) {
+        lapply(l[i, ], .$scales_y[[i]]$train_df)
+      }
+    })
   }
   
-  position_train <- function(., data, plot) {
-    mlply(cbind(d = data, p = plot$layers), 
-      function(d, p) p$scales_train_position(d, plot$scales)
-    )    
+  position_map <- function(., data, scales) {
+    lapply(data, function(l) {
+      for(i in seq_along(.$scales_x)) {
+        l[, i] <- lapply(l[, i], function(old) {
+          new <- .$scales_x[[i]]$map_df(old)
+          cbind(new, old[setdiff(names(old), names(new))])
+        }) 
+      }
+      for(i in seq_along(.$scales_y)) {
+        l[i, ] <- lapply(l[i, ], function(old) {
+          new <- .$scales_y[[i]]$map_df(old)
+          cbind(new, old[setdiff(names(old), names(new))])
+        }) 
+      }
+      l
+    })
   }
+  
+  make_grobs <- function(., data, layers, cs) {
+    lapply(seq_along(data), function(i) {
+      layer <- layers[[i]]
+      layerd <- data[[i]]
+      grobs <- matrix(list(), nrow = nrow(layerd), ncol = ncol(layerd))
+
+      for(i in seq_len(nrow(layerd))) {
+        for(j in seq_len(ncol(layerd))) {
+          s <- Scales$new()
+          s$add(.$scales_y[[i]])
+          s$add(.$scales_x[[j]])
+          cs$train(s)
+          
+          grobs[[i, j]] <- layer$make_grob(layerd[[i, j]], scales, cs)
+        }
+      }
+      grobs
+    })
+  }
+  
 
   # Documentation ------------------------------------------------------------
 
@@ -154,3 +210,11 @@ FacetGrid <- proto(Facet, {
   }
   
 })
+
+scales_list <- function(scale, n, free) {
+  if (free) {
+    rlply(n, scale$clone())  
+  } else {
+    rep(list(scale), n)  
+  }
+}

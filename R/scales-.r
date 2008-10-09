@@ -51,11 +51,13 @@ Scales <- proto(Scale, expr={
     Filter(function(x) x$trained(), .$.scales)
   }
   
-  minus <- function(., that) {
-    new <- .$proto()
-    keep <- !sapply(new$.scales, function(this) any(sapply(that$.scales, identical, this)))
-    new$.scales <- new$.scales[keep]
-    new
+  position_scales <- function(.) {
+    .$get_scales(c("x","y","z"), TRUE)
+  }
+  
+  non_position_scales <- function(.) {
+    out <- setdiff(.$output(), c("x", "y", "z"))
+    .$get_scales(out, TRUE)
   }
   
   output <- function(.) {
@@ -88,14 +90,6 @@ Scales <- proto(Scale, expr={
     do.call("data.frame",
       c(mapped[sapply(mapped, nrow) > 0], 
       df[!(names(df) %in% .$input())])
-    )
-  }
-  
-  map_position <- function(., df) {
-    is_pos <- is_position_aes(names(df))
-    cbind(
-      .$map_df(df[is_pos]),
-      df[!is_pos]
     )
   }
   
