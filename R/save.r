@@ -32,15 +32,23 @@
 #X }
 ggsave <- function(plot = last_plot(), filename=default_name(plot), device=default_device(filename), scale=1, width=par("din")[1], height=par("din")[2], dpi=72, path="", keep = plot$options$keep, drop = plot$options$drop, ...) {
 
-  ps <- function(..., width, height)  grDevices::postscript(..., width=width, height=height)
-  tex <- function(..., width, height) grDevices::pictex(..., width=width, height=height)
-  pdf <- function(..., version="1.4") grDevices::pdf(..., version=version)
-  wmf <- function(..., width, height) grDevices::win.metafile(..., width=width, height=height)
+  ps <- function(..., width, height)  
+    grDevices::postscript(..., width=width, height=height)
+  tex <- function(..., width, height) 
+    grDevices::pictex(..., width=width, height=height)
+  pdf <- function(..., version="1.4") 
+    grDevices::pdf(..., version=version)
+  wmf <- function(..., width, height) 
+    grDevices::win.metafile(..., width=width, height=height)
 
-  png <- function(..., width, height) grDevices::png(..., width=width*dpi, height=height*dpi, res = dpi)
-  jpeg <- function(..., width, height) grDevices::jpeg(..., width=width*dpi, height=height*dpi, res = dpi)
-  bmp <- function(..., width, height) grDevices::bmp(..., width=width*dpi, height=height*dpi, res = dpi)
-  tiff <- function(..., width, height) grDevices::tiff(..., width=width*dpi, height=height*dpi, res = dpi)
+  png <- function(..., width, height) 
+    grDevices::png(...,  width=width, height=height, res = dpi, units = "in")
+  jpeg <- function(..., width, height) 
+    grDevices::jpeg(..., width=width, height=height, res = dpi, units = "in")
+  bmp <- function(..., width, height) 
+    grDevices::bmp(...,  width=width, height=height, res = dpi, units = "in")
+  tiff <- function(..., width, height) 
+    grDevices::tiff(..., width=width, height=height, res = dpi, units = "in")
   
   default_name <- function(plot) { 
     paste(path, digest.ggplot(plot), ".png", sep="")
