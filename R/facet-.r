@@ -1,4 +1,7 @@
 Facet <- proto(TopLevel, {
+  clone <- function(.) {
+    as.proto(.$as.list(all.names=TRUE), parent=.) 
+  }
   objname <- "Facet"
   class <- function(.) "facet"
   

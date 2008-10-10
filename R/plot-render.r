@@ -8,8 +8,8 @@
 panelGrob <- function(plot, pieces = ggplot_build(plot)) {
   theme <- plot_theme(plot)
 
-  grobs <- plot$facet$add_guides(plot$data, pieces$panels, pieces$cs, theme)
-  viewports <- plot$facet$create_viewports(grobs, theme)
+  grobs <- pieces$facet$add_guides(plot$data, pieces$panels, pieces$cs, theme)
+  viewports <- pieces$facet$create_viewports(grobs, theme)
 
   grobs <- assign_viewports(grobs)
   

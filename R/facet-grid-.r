@@ -91,11 +91,11 @@ FacetGrid <- proto(Facet, {
     widths <- unit.c(
       do.call("max", llply(guides$axis_v, grobWidth)),
       panel_widths,
-      do.call("unit.c", lapply(guides$strip_v[1, ], grobWidth))
+      do.call("max", lapply(guides$strip_v, grobWidth))
     )
     
     heights <- unit.c(
-      do.call("unit.c", lapply(guides$strip_h[, 1], grobHeight)),
+      do.call("max", lapply(guides$strip_h, grobHeight)),
       panel_heights,
       do.call("max", llply(guides$axis_h, grobHeight))
     )
@@ -244,13 +244,19 @@ FacetGrid <- proto(Facet, {
     # You may need to set your own breaks for consitent display:
     mt + facet_grid(. ~ cyl, scales = "free_x", space="free") + 
       scale_x_continuous(breaks = seq(10, 36, by = 2))
+    # Adding scale limits override free scales:
+    last_plot() + xlim(10, 15)
 
     # Free scales are particularly useful for categorical variables
     qplot(cty, model, data=mpg) + 
       facet_grid(manufacturer ~ ., scales = "free", space = "free")
+    # particularly when you reorder factor levels
+    mpg <- within(mpg, {
+      model <- reorder(model, cty)
+      manufacturer <- reorder(manufacturer, cty)
+    })
+    last_plot() %+% mpg + opts(strip.text.y = theme_text())
 
-    # Adding scale limits override free scales:
-    last_plot() + xlim(10, 15)
 
   }
   

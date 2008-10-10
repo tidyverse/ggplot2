@@ -35,6 +35,7 @@ plot_clone <- function(plot) {
   p <- plot
   p$scales <- plot$scales$clone()
   p$layers <- lapply(plot$layers, function(x) x$clone())
+  p$facet <- plot$facet$clone()
   
   p
 }
