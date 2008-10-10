@@ -230,6 +230,21 @@ FacetGrid <- proto(Facet, {
     
     # see also ?plotmatrix for the scatterplot matrix
     
+    # If there isn't any data for a given combination, that panel 
+    # will be empty
+    qplot(mpg, wt, data=mtcars) + facet_grid(cyl ~ vs)
+    
+    # If you combine a facetted dataset with a dataset that lacks those
+    # facetting variables, the data will be repeated across the missing
+    # combinations:
+    p <- qplot(mpg, wt, data=mtcars, facets = vs ~ am)
+
+    df <- data.frame(mpg = 22, wt = 3)
+    p + geom_point(data = df, colour="red", size = 2)
+    
+    df2 <- data.frame(mpg = c(19, 22), wt = c(2,4), vs = c(0, 1))
+    p + geom_point(data = df2, colour="red", size = 2)
+    
     # Example of free scales
     mt <- ggplot(mtcars, aes(mpg, wt, colour = factor(cyl))) + geom_point()
     
@@ -256,8 +271,6 @@ FacetGrid <- proto(Facet, {
       manufacturer <- reorder(manufacturer, cty)
     })
     last_plot() %+% mpg + opts(strip.text.y = theme_text())
-
-
   }
   
   pprint <- function(., newline=TRUE) {
