@@ -121,14 +121,14 @@ tr <- function(x = NULL) traceback(x, max.lines=1)
 # @argument range to scale to
 # @argument range to scale from, defaults to range of data
 # @keyword manip
-rescale <- function(x, to=c(0,1), from=range(x, na.rm=TRUE)) {
+rescale <- function(x, to=c(0,1), from=range(x, na.rm=TRUE), clip = TRUE) {
   if (length(from) == 1 || length(to) == 1  || from[1] == from[2] || to[1] == to[2]) return(x)
   if (is.factor(x)) {
     warning("Categorical variable automatically converted to continuous", call.=FALSE)
     x <- as.numeric(x)
   }
   scaled <- (x-from[1])/diff(from)*diff(to) + to[1]
-  ifelse(scaled %inside% to, scaled, NA)
+  if (clip) ifelse(scaled %inside% to, scaled, NA) else scaled
 }
 
 

@@ -1,6 +1,6 @@
 CoordCartesian <- proto(Coord, expr={  
-  new <- function(.) {
-    .$proto()
+  new <- function(., xlim = NULL, ylim = NULL) {
+    .$proto(limits = list(x = xlim, y = ylim))
   }
   
   transform <- function(., data, scales) {
@@ -10,13 +10,19 @@ CoordCartesian <- proto(Coord, expr={
     transform_position(data, rescale_x, rescale_y)
   }
   rescale_var <- function(., data, scale) {
-    rescale(data, 0:1, scale$output_expand())
+    limits <- .$limits[[scale$output()]]
+    if (!is.null(limits)) {
+      rescale(data, 0:1, limits, clip = FALSE)  
+    } else {
+      rescale(data, 0:1, scale$output_expand())
+    }
   }
   
   # Assumes contiguous series of points
   munch <- function(., data, scales, npieces=1) .$transform(data, scales)
   
   breaks <- function(., scale) {
+    
     list(
       major = .$rescale_var(scale$input_breaks_n(), scale),
       minor = .$rescale_var(scale$output_breaks(), scale)
@@ -89,13 +95,33 @@ CoordCartesian <- proto(Coord, expr={
   }
   
   examples <- function(.) {
-    # There aren't any parameters that you can control with 
-    # the Cartesian coordinate system, and they're the default, so
-    # you should never need to use it explicitly.  Most of the configuration
-    # of the axes and gridlines occurs in the scales, so look at 
-    # scale_continuous and scale_discrete for ideas.
+    # There are two ways of zooming the plot display: with scales or 
+    # with coordinate systems.  They work in two rather different ways.
     
-    qplot(rating, length, data=movies) + coord_cartesian()
+    (p <- qplot(disp, wt, data=mtcars) + geom_smooth())
+    
+    # Setting the limits on a scale will throw away all data that's not
+    # inside these limits.  This is equivalent to plotting a subset of
+    # the original data
+    p + scale_x_continuous(limits = c(325, 500))
+    
+    # Setting the limits on the coordinate system performs a visual zoom
+    # the data is unchanged, and we just view a small portion of the original
+    # plot.  See how the axis labels are the same as the original data, and 
+    # the smooth continue past the points visible on this plot.
+    p + coord_cartesian(xlim = c(325, 500))
+    
+    # You can see the same thing with this 2d histogram
+    d <- ggplot(diamonds, aes(carat, price)) + 
+      stat_bin2d(bins = 50, colour="black")
+    
+    # When zooming the scale, the we get 50 new smaller bins
+    d + scale_x_continuous(limits = c(0, 2))
+    
+    # When zooming the coordinate system, we see a subset of original 50 bins, 
+    # displayed bigger
+    d + coord_cartesian(xlim = c(0, 2))
+  
   }
 
 })
