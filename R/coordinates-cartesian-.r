@@ -1,66 +1,46 @@
 CoordCartesian <- proto(Coord, expr={  
-  
   new <- function(.) {
     .$proto()
   }
   
-  x <- function(.) .$.scales$get_scales("x")
-  y <- function(.) .$.scales$get_scales("y")
-  
-  transform <- function(., data) {
-    transform_position(data, .$transform_x, .$transform_y)
+  transform <- function(., data, scales) {
+    rescale_x <- function(data) .$rescale_var(data, scales$x)
+    rescale_y <- function(data) .$rescale_var(data, scales$y)
+
+    transform_position(data, rescale_x, rescale_y)
   }
-  transform_x <- function(., data) {
-    rescale(data, 0:1, .$output_set()$x)
-  }
-  transform_y <- function(., data) {
-    rescale(data, 0:1, .$output_set()$y)
+  rescale_var <- function(., data, scale) {
+    rescale(data, 0:1, scale$output_expand())
   }
   
   # Assumes contiguous series of points
-  munch <- function(., data, npieces=1) .$transform(data)
+  munch <- function(., data, scales, npieces=1) .$transform(data, scales)
   
-  output_set <- function(.) {
+  breaks <- function(., scale) {
     list(
-      x = .$x()$output_expand(),
-      y = .$y()$output_expand()
-    )
-  }
-  
-  breaks <- function(.) {
-    list(
-      x = list(
-        major = .$transform_x(.$x()$input_breaks_n()),
-        minor = .$transform_x(.$x()$output_breaks())
-      ), 
-      y = list(
-        major = .$transform_y(.$y()$input_breaks_n()),
-        minor = .$transform_y(.$y()$output_breaks())
-      )
+      major = .$rescale_var(scale$input_breaks_n(), scale),
+      minor = .$rescale_var(scale$output_breaks(), scale)
     )
   }
 
-  guide_axis_x <- function(., theme) {
-    breaks <- .$breaks()
-    guide_axis(breaks$x$major, .$x()$labels(), "bottom", theme)
+  guide_axes <- function(., scale, theme, position="bottom") {
+    guide_axis(.$breaks(scale)$major, scale$labels(), position, theme)
   }
 
-  guide_axis_y <- function(., theme) {
-    breaks <- .$breaks()
-    guide_axis(breaks$y$major, .$y()$labels(), "left", theme)
-  }
-
-  
-  xlabel <- function(., theme) theme_render(theme, "axis.title.x", .$x()$name)
-  ylabel <- function(., theme) theme_render(theme, "axis.title.y", .$y()$name)
+  xlabel <- function(., scale, theme) 
+    theme_render(theme, "axis.title.x", scale$name)
+  ylabel <- function(., scale, theme) 
+    theme_render(theme, "axis.title.y", scale$name)
 
   # Axis labels should go in here somewhere too
-  guide_background <- function(., theme) {
-    breaks <- .$breaks()
-    x.major <- unit(breaks$x$major, "native")
-    x.minor <- unit(breaks$x$minor, "native")
-    y.major <- unit(breaks$y$major, "native")
-    y.minor <- unit(breaks$y$minor, "native")
+  guide_background <- function(., scales, theme) {
+    xbreaks <- .$breaks(scales$x)
+    ybreaks <- .$breaks(scales$y)
+
+    x.major <- unit(xbreaks$major, "native")
+    x.minor <- unit(xbreaks$minor, "native")
+    y.major <- unit(ybreaks$major, "native")
+    y.minor <- unit(ybreaks$minor, "native")
     
     draw_grid(theme, x.minor, x.major, y.minor, y.major)
   }

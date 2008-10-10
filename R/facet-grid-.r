@@ -6,7 +6,7 @@ FacetGrid <- proto(Facet, {
     if (is.formula(facets)) facets <- deparse(facets) 
     .$proto(
       facets = facets, margins = margins,
-      scales = scales, space = space, free = free,
+      scales = scales, space_is_free = (space == "free"), free = free,
       scales_x = NULL, scales_y = NULL
     )
   }
@@ -24,43 +24,38 @@ FacetGrid <- proto(Facet, {
   }
   
   # Create grobs for each component of the panel guides
-  add_guides <- function(., data, panels, coordinates, theme) {
-    nr <- nrow(panels)
-    nc <- ncol(panels)
+  add_guides <- function(., data, panels_grob, coordinates, theme) {
+    nr <- nrow(panels_grob)
+    nc <- ncol(panels_grob)
     
     axes_h <- matrix(list(), nrow = 1, ncol = nc)
     for(i in seq_along(.$scales_x)) {
-      s <- Scales$new()
-      s$add(.$scales_x[[i]])
-      s$add(.$scales_y[[1]])
-      coordinates$train(s)
-      
-      axes_h[[1, i]] <- coordinates$guide_axis_x(theme)
+      axes_h[[1, i]] <- coordinates$guide_axes(.$scales_x[[i]], theme, "bottom")
     }
     
     axes_v <- matrix(list(), nrow = nr, ncol = 1)
     for(i in seq_along(.$scales_y)) {
-      s <- Scales$new()
-      s$add(.$scales_x[[1]])
-      s$add(.$scales_y[[i]])
-      coordinates$train(s)
-      
-      axes_v[[i, 1]] <- coordinates$guide_axis_y(theme)
+      axes_v[[i, 1]] <- coordinates$guide_axes(.$scales_y[[i]], theme, "left")
     }    
     
     labels <- labels_default(.$shape, theme)
 
     # Add background and foreground to panels
-    fg <- coordinates$guide_foreground(theme)
-    bg <- coordinates$guide_background(theme)
+    panels <- matrix(list(), nrow=nr, ncol = nc)
+    for(i in seq_len(nr)) {
+      for(j in seq_len(nc)) {
+        scales <- list(
+          x = .$scales_x[[j]], 
+          y = .$scales_y[[i]]
+        )
+        fg <- coordinates$guide_foreground(scales, theme)
+        bg <- coordinates$guide_background(scales, theme)
+
+        panels[[i,j]] <- grobTree(bg, panels_grob[[i, j]], fg)
+      }
+    }
     bg_empty <- theme_render(theme, "panel.empty")
     
-    panels <- aaply(panels, 1:2, function(panel_grob) {
-      if (is.null(panel_grob[[1]])) return(bf_empty) 
-      grobTree(bg, panel_grob[[1]], fg)
-    })
-    dim(panels) <- c(nr, nc)
-
     list(
       panel     = panels, 
       axis_v    = axes_v,
@@ -75,15 +70,29 @@ FacetGrid <- proto(Facet, {
     respect <- !is.null(aspect_ratio)
     if (is.null(aspect_ratio)) aspect_ratio <- 1
     
+    if(.$space_is_free) {
+      panel_widths <- unit(
+        laply(.$scales_x, function(y) diff(y$output_expand())), 
+        "null"
+      )
+      panel_heights <- unit(
+        laply(.$scales_y, function(y) diff(y$output_expand())), 
+        "null"
+      )
+    } else {
+      panel_widths <- rep(unit(1, "null"), ncol(guides$panel))
+      panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow(guides$panel))
+    }
+    
     widths <- unit.c(
       grobWidth(guides$axis_v[[1]]),
-      rep(unit(1, "null"), ncol(guides$panel)),
+      panel_widths,
       do.call("unit.c", lapply(guides$strip_v[1, ], grobWidth))
     )
     
     heights <- unit.c(
       do.call("unit.c", lapply(guides$strip_h[, 1], grobHeight)),
-      rep(unit(1 * aspect_ratio, "null"), nrow(guides$panel)),
+      panel_heights,
       grobHeight(guides$axis_h[[1]])
     )
     
@@ -164,11 +173,10 @@ FacetGrid <- proto(Facet, {
 
       for(i in seq_len(nrow(layerd))) {
         for(j in seq_len(ncol(layerd))) {
-          s <- Scales$new()
-          s$add(.$scales_y[[i]])
-          s$add(.$scales_x[[j]])
-          cs$train(s)
-          
+          scales <- list(
+            x = .$scales_x[[j]], 
+            y = .$scales_y[[i]]
+          )
           grobs[[i, j]] <- layer$make_grob(layerd[[i, j]], scales, cs)
         }
       }

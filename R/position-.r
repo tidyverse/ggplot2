@@ -40,14 +40,14 @@ Position <- proto(TopLevel, expr = {
 
 # Convenience function to ensure that all position variables 
 # (x, xmin, xmax, xend) are transformed in the same way
-transform_position <- function(df, trans_x = NULL, trans_y = NULL) {
+transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
   scales <- aes_to_scale(names(df))
 
   if (!is.null(trans_x)) {
-    df[scales == "x"] <- lapply(df[scales == "x"], trans_x)    
+    df[scales == "x"] <- lapply(df[scales == "x"], trans_x, ...)
   }
   if (!is.null(trans_y)) {
-    df[scales == "y"] <- lapply(df[scales == "y"], trans_y)
+    df[scales == "y"] <- lapply(df[scales == "y"], trans_y, ...)
   }
   
   df

@@ -1,6 +1,5 @@
 Coord <- proto(TopLevel, expr={
   class <- function(.) "coord"
-  train <- function(., scales) .$.scales <- scales
   
   muncher <- function(.) FALSE
   
@@ -33,7 +32,7 @@ Coord <- proto(TopLevel, expr={
     if (newline) cat("\n") 
   }
   
-  guide_foreground <- function(., theme) {
+  guide_foreground <- function(., scales, theme) {
     theme_render(theme, "panel.border")
   }  
   # Html defaults

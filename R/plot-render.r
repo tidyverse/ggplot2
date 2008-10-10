@@ -67,8 +67,8 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep)
   
   title <- theme_render(theme, "plot.title", plot$options$title)
 
-  xlabel <- cs$xlabel(theme)
-  ylabel <- cs$ylabel(theme)
+  xlabel <- cs$xlabel(plot$scales$get_scales("x"), theme)
+  ylabel <- cs$ylabel(plot$scales$get_scales("y"), theme)
 
   grobs <- list(
     title = title, 
