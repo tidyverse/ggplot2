@@ -89,7 +89,7 @@ FacetGrid <- proto(Facet, {
     }
     
     widths <- unit.c(
-      grobWidth(guides$axis_v[[1]]),
+      do.call("max", llply(guides$axis_v, grobWidth)),
       panel_widths,
       do.call("unit.c", lapply(guides$strip_v[1, ], grobWidth))
     )
@@ -97,7 +97,7 @@ FacetGrid <- proto(Facet, {
     heights <- unit.c(
       do.call("unit.c", lapply(guides$strip_h[, 1], grobHeight)),
       panel_heights,
-      grobHeight(guides$axis_h[[1]])
+      do.call("max", llply(guides$axis_h, grobHeight))
     )
     
     layout <- grid.layout(
