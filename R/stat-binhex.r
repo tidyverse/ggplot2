@@ -43,5 +43,9 @@ hexBin <- function(x, y, binwidth) {
   )
   
   # Convert to data frame
-  data.frame(hcell2xy(hb), count = hb@count)
+  data.frame(
+    hcell2xy(hb), 
+    count = hb@count, 
+    density = hb@count / sum(hb@count, na.rm=TRUE)
+  )
 }

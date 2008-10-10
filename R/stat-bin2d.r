@@ -65,6 +65,8 @@ StatBin2d <- proto(Stat, {
       yint <- as.numeric(ybin)
       ymin <- breaks$y[yint]
       ymax <- breaks$y[yint + 1]
+  
+      density <- count / sum(count, na.rm=TRUE)
     })
   }
   
