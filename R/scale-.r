@@ -63,7 +63,7 @@ Scale <- proto(TopLevel, expr={
     # Don't train if limits have already been set
     if (!is.null(.$limits)) return()
     
-    input <- .$input_aesthetics()
+    input <- .$input_aesthetics(df)
     l_ply(input, function(var) .$train(df[[var]]))
   }
 
