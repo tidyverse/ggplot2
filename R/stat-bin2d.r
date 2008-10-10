@@ -5,7 +5,7 @@ StatBin2d <- proto(Stat, {
   required_aes <- c("x", "y")
   default_geom <- function(.) GeomRect
   
-  calculate <- function(., data, scales, binwidth = NULL, breaks = NULL, origin = NULL, drop = TRUE, ...) {
+  calculate <- function(., data, scales, binwidth = NULL, bins = 30, breaks = NULL, origin = NULL, drop = TRUE, ...) {
     
     range <- list(
       x = scales$get_scales("x")$output_set(),
@@ -18,12 +18,12 @@ StatBin2d <- proto(Stat, {
       if (is.integer(data$x)) {
         binwidth[1] <- 1
       } else {
-        binwidth[1] <- diff(range$x) / 30
+        binwidth[1] <- diff(range$x) / bins
       }
       if (is.integer(data$y)) {
         binwidth[2] <- 1
       } else {
-        binwidth[2] <- diff(range$y) / 30
+        binwidth[2] <- diff(range$y) / bins
       }      
     }
     stopifnot(is.numeric(binwidth))
