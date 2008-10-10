@@ -35,6 +35,10 @@ ScaleDiscretePosition <- proto(ScaleDiscrete, {
   
   
   output_set <- function(.) range(seq_along(.$input_set()), .$cont_domain, na.rm = TRUE)
+  output_expand <- function(.) {
+    expand_range(.$output_set(), 0, 0.5)    
+  }
+  
   
   examples <- function(.) {
     # The discrete position scale is added automatically whenever you
@@ -67,7 +71,7 @@ discrete_range <- function(...) {
   pieces <- list(...)
   
   clevels <- function(x) {
-    if (is.factor(x)) levels(x) else as.character(unique(x))
+    if (is.factor(x)) levels(factor(x)) else as.character(unique(x))
   }
   
   vals <- unlist(lapply(pieces, clevels))

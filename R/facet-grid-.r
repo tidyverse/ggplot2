@@ -245,6 +245,10 @@ FacetGrid <- proto(Facet, {
     mt + facet_grid(. ~ cyl, scales = "free_x", space="free") + 
       scale_x_continuous(breaks = seq(10, 36, by = 2))
 
+    # Free scales are particularly useful for categorical variables
+    qplot(cty, model, data=mpg) + 
+      facet_grid(manufacturer ~ ., scales = "free", space = "free")
+
     # Adding scale limits override free scales:
     last_plot() + xlim(10, 15)
 

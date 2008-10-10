@@ -35,7 +35,7 @@ Scales <- proto(Scale, expr={
   
   get_scales <- function(., output, scales=FALSE) {
     scale <- .$.scales[.$find(output)]
-    if (length(scale) == 0) return()
+    if (length(scale) == 0) return(Scales$new())
     if (scales || length(scale) > 1) {
       .$proto(.scales = scale)
     } else {

@@ -39,10 +39,12 @@ ggplot_build <- function(plot) {
   npscales <- scales$non_position_scales()
   
   # Train and map, for final time
-  dlapply(function(d, p) p$scales_train(d, npscales))
+  if (npscales$n() > 0) {
+    dlapply(function(d, p) p$scales_train(d, npscales))
+    data <- dlapply(function(d, p) p$scales_map(d, npscales))
+  }
   facet$position_train(data, scales)
-  data <- dlapply(function(d, p) p$scales_map(d, npscales))
-  data <- facet$position_map(data, scales)
+  data <- facet$position_map(data, scales)    
 
   # Produce grobs
   grobs <- facet$make_grobs(data, layers, cs)
