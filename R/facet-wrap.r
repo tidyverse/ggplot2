@@ -66,9 +66,12 @@ FacetWrap <- proto(Facet, {
 
     np <- nrows * ncols
     panels <- c(panels, rep(list(nullGrob()), np - n))
-    dim(panels) <- c(nrows, ncols)
+    dim(panels) <- c(ncols, nrows)
+    panels <- t(panels)
+
     labels <- c(labels, rep(list(nullGrob()), np - n))
-    dim(labels) <- c(nrows, ncols)
+    dim(labels) <- c(ncols, nrows)
+    labels <- t(labels)    
 
     axes_v <- axes_v[rep(1, nrows), 1, drop = FALSE]
     axes_h <- axes_h[1, rep(1, ncols), drop = FALSE]    
@@ -196,6 +199,10 @@ FacetWrap <- proto(Facet, {
   
   
   examples <- function(.) {
+    d <- ggplot(diamonds, aes(carat, price)) + xlim(0, 2) + stat_bin2d()
+    d + facet_wrap(~ color)
+    d + facet_wrap(~ color, ncol = 4)
+    
   }
   
   pprint <- function(., newline=TRUE) {
