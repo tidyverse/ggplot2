@@ -1,19 +1,9 @@
 GeomHexbin <- proto(Geom, {
   objname <- "hexbin"
-  draw <- function(., data, scales, coordinates, binwidth, ...) { 
-    # Need to convert binwidth to [0, 1], in the same way that the 
-    # data was
-    
-    binwidth <- c(
-      coordinates$transform_x(binwidth[1]),
-      coordinates$transform_y(binwidth[2])
-    )
-    # binwidth <- binwidth /
-    #   c(diff(scales$get_scales("x")$output_set()),
-    #     diff(scales$get_scales("y")$output_set()))
-     
+
+  draw <- function(., data, scales, coordinates, ...) { 
     with(coordinates$transform(data, scales), 
-      ggname(.$my_name(), hexGrob(x, y, binwidth, col=colour, fill = fill))
+      ggname(.$my_name(), hexGrob(x, y, col=colour, fill = fill))
     )
   }
   
@@ -26,14 +16,12 @@ GeomHexbin <- proto(Geom, {
 
 
 # Modified from code by Nicholas Lewin-Koh and Martin Maechler
-hexGrob <- function(x, y, binwidth, size = rep(1, length(x)), colour = "grey50", fill = "grey90") {
-  stopifnot(length(binwidth) == 2)
+hexGrob <- function(x, y, size = rep(1, length(x)), colour = "grey50", fill = "grey90") {
   stopifnot(length(y) == length(x))
   
-  dx <- resolution(x)
-  dy <- resolution(y) / sqrt(3) / 2
-  print(c(dx, dy))
-    
+  dx <- resolution(x, FALSE)
+  dy <- resolution(y, FALSE) / sqrt(3) / 2 * 1.15
+  
   hexC <- hexcoords(dx, dy, n = 1)
   
   n <- length(x)
