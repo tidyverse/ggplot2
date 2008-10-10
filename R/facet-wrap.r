@@ -56,7 +56,7 @@ FacetWrap <- proto(Facet, {
       fg <- coordinates$guide_foreground(scales, theme)
       bg <- coordinates$guide_background(scales, theme)
 
-      panels[[1,i]] <- grobTree(bg, panels_grob[[1, i]], fg)
+      panels[[1,i]] <- ggname("panel", grobTree(bg, panels_grob[[1, i]], fg))
     }
     
     # Arrange 1d structure into a grid -------
@@ -72,6 +72,7 @@ FacetWrap <- proto(Facet, {
     }
     stopifnot(nrows * ncols >= n)
 
+    # Create a grid of interwoven strips and panels
     np <- nrows * ncols
     panels <- c(panels, rep(list(nullGrob()), np - n))
     dim(panels) <- c(ncols, nrows)
@@ -80,12 +81,16 @@ FacetWrap <- proto(Facet, {
     labels <- c(labels, rep(list(nullGrob()), np - n))
     dim(labels) <- c(ncols, nrows)
     labels <- t(labels)    
+    
+    labpanel <- rweave(labels, panels)
 
     axes_v <- axes_v[rep(1, nrows), 1, drop = FALSE]
+    axes_v <- rweave(matrix(list(nullGrob()), nrow = nrows, ncol = 1), axes_v)
+    
     axes_h <- axes_h[1, rep(1, ncols), drop = FALSE]    
     
     list(
-      panel     = panels, 
+      panel     = labpanel, 
       axis_v    = axes_v,
       axis_h    = axes_h
       # strip_h   = labels
@@ -105,15 +110,25 @@ FacetWrap <- proto(Facet, {
     if (is.null(aspect_ratio)) aspect_ratio <- 1
     
     panel_widths <- rep(unit(1, "null"), ncol(guides$panel))
-    panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow(guides$panel))
+    
+    odds <- seq(1, nrow(guides$panel), by = 2)
+    labels <- guides$panel[odds, ]
+    panels <- guides$panel[odds, ]
+    
+    row_heights <- alply(labels, 1, function(x) llply(x, grobHeight))
+    label_height <- do.call("unit.c", llply(row_heights, splat(max)))
+    panel_height <- unit(rep(1 * aspect_ratio, length(odds)), "null")
+    
+    panel_heights <- unit.c(label_height, panel_height)[rep(seq_along(label_height), each = 2) + c(0, length(label_height))]
+    
+    #rep(unit(1 * aspect_ratio, "null"), nrow(guides$panel))
     
     widths <- unit.c(
       do.call("max", llply(guides$axis_v, grobWidth)),
       panel_widths
     )
-    
+        
     heights <- unit.c(
-      # do.call("max", lapply(guides$strip_h, grobHeight)),
       panel_heights,
       do.call("max", llply(guides$axis_h, grobHeight))
     )
@@ -125,16 +140,13 @@ FacetWrap <- proto(Facet, {
     )
     layout_vp <- viewport(layout=layout, name="panels")
     
-    strip_rows <- 0 # nrow(guides$strip_h)
     panel_rows <- nrow(guides$panel)
     panel_cols <- ncol(guides$panel)
     
     children_vp <- do.call("vpList", c(
-      # setup_viewports("strip_h", guides$strip_h, c(0,1)),
-      
-      setup_viewports("axis_v",  guides$axis_v,  c(strip_rows, 0), "off"),
-      setup_viewports("panel",   guides$panel,   c(strip_rows, 1)),
-      setup_viewports("axis_h",  guides$axis_h, c(strip_rows + panel_rows, 1), "off")
+      setup_viewports("axis_v",  guides$axis_v,  c(0, 0), "off"),
+      setup_viewports("panel",   guides$panel,   c(0, 1)),
+      setup_viewports("axis_h",  guides$axis_h,  c(panel_rows, 1), "off")
     ))
     
     vpTree(layout_vp, children_vp)
@@ -213,6 +225,10 @@ FacetWrap <- proto(Facet, {
     d + facet_wrap(~ color, ncol = 4)
     d + facet_wrap(~ color, nrow = 4)
     
+    
+    # Using multiple variables continues to wrap the long ribbon of 
+    # plots into 2d - the ribbon just gets longer
+    d + facet_wrap(~ color + cut)
   }
   
   pprint <- function(., newline=TRUE) {
@@ -221,3 +237,11 @@ FacetWrap <- proto(Facet, {
   }
   
 })
+
+rweave <- function(a, b) {
+  stopifnot(ncol(a) == ncol(b))
+  stopifnot(nrow(a) == nrow(b))
+  n <- nrow(a)
+
+  rbind(a, b)[rep(1:n, each = 2) + c(0, n), , drop = FALSE]
+}
