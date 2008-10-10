@@ -12,7 +12,7 @@ GeomHexbin <- proto(Geom, {
     #   c(diff(scales$get_scales("x")$output_set()),
     #     diff(scales$get_scales("y")$output_set()))
      
-    with(coordinates$transform(data), 
+    with(coordinates$transform(data, scales), 
       ggname(.$my_name(), hexGrob(x, y, binwidth, col=colour, fill = fill))
     )
   }

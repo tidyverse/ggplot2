@@ -13,7 +13,7 @@ GeomRibbon <- proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {
     data <- data[complete.cases(data[, c("x","ymin","ymax")]), ]
     tb <- with(data,
-      coordinates$munch(data.frame(x=c(x, rev(x)), y=c(ymax, rev(ymin))))
+      coordinates$munch(data.frame(x=c(x, rev(x)), y=c(ymax, rev(ymin))), scales)
     )
     
     with(data, ggname(.$my_name(), gTree(children=gList(

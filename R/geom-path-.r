@@ -4,7 +4,7 @@ GeomPath <- proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {
     if (nrow(data) < 2) return()
 
-    munched <- coordinates$munch(data)
+    munched <- coordinates$munch(data, scales)
 
     # Work out whether we should use lines or segments
     g <- split(munched, munched$group)

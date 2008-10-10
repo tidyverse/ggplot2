@@ -1,8 +1,7 @@
 GeomRug <- proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {  
     rugs <- list()
-    data <- coordinates$transform(data)
-    
+    data <- coordinates$transform(data, scales)    
     if (!is.null(data$x)) {
       rugs$x <- with(data, segmentsGrob(
         x0 = unit(x, "native"), x1 = unit(x, "native"), 

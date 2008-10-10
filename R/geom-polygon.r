@@ -4,7 +4,7 @@ GeomPolygon <- proto(Geom, {
     if (n == 1) return()
     
     ggname(.$my_name(), gTree(children=gList(
-      with(coordinates$munch(data), 
+      with(coordinates$munch(data, scales), 
         polygonGrob(x, y, default.units="native",
         gp=gpar(col=colour, fill=fill, lwd=size  * .pt, linetype=linetype))
       )

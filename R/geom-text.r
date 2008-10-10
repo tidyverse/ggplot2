@@ -1,6 +1,6 @@
 GeomText <- proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {
-    with(coordinates$transform(data), 
+    with(coordinates$transform(data, scales), 
       textGrob(label, x, y, default.units="native", hjust=hjust, vjust=vjust, rot=angle, 
       gp=gpar(col=colour, fontsize=size * .pt)) 
     )

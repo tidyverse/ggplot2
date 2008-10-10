@@ -22,7 +22,7 @@ GeomRect <- proto(Geom, {
       
       ggname("bar",do.call("grobTree", polys))
     } else {
-      with(coordinates$transform(data), 
+      with(coordinates$transform(data, scales), 
         ggname(.$my_name(), rectGrob(
           xmin, ymax, 
           width = xmax - xmin, height = ymax - ymin, 
