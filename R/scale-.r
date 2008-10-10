@@ -41,6 +41,15 @@ Scale <- proto(TopLevel, expr={
     nulldefault(.$limits, .$.domain)
   }
   
+  # Return names of all aesthetics in df that should be operated on
+  # by this scale - this is currently used for x and y scales, which also
+  # need to operate of {x,y}{min,max,end}.
+  input_aesthetics <- function(., df) {
+    input <- .$input()
+    matches <- aes_to_scale(names(df)) == input
+    names(df)[matches]
+  }
+  
   # Output -------------------------------------------------------------------
   
   output <- function(.) .$.output
@@ -51,27 +60,25 @@ Scale <- proto(TopLevel, expr={
   
   # Train scale from a data frame
   train_df <- function(., df) {
+    # Don't train if limits have already been set
     if (!is.null(.$limits)) return()
     
-    input <- .$input()
-    if (length(input) == 1 && input %in% c("x", "y")) {
-      matches <- aes_to_scale(names(df)) == input
-      input <- names(df)[matches]
-    }
+    input <- .$input_aesthetics()
     l_ply(input, function(var) .$train(df[[var]]))
   }
 
   # Map values from a data.frame.   Returns data.frame
   map_df <- function(., df) {
-    input <- df[[.$input()]]
-    if (is.null(input)) {
-      output <- data.frame()
-    } else {
-      output <- data.frame(.$map(input))
-    }
+    output <- .$input_aesthetics(df)
+    mapped <- llply(output, function(var) .$map(df[[var]]))
     
-    if (ncol(output) > 0) names(output) <- .$output()
-    output
+    if (length(mapped) == 0) {
+      return(as.data.frame(matrix(nrow = nrow(df), ncol=0)))
+    }
+        
+    output_df <- do.call("data.frame", mapped)
+    names(output_df) <- output
+    output_df
   }
 
   # Guides
