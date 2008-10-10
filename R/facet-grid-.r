@@ -1,12 +1,16 @@
 FacetGrid <- proto(Facet, {
-  new <- function(., facets = . ~ ., margins = FALSE, scales = "fixed", space = "fixed", free = list(x=T, y =F)) {
+  new <- function(., facets = . ~ ., margins = FALSE, scales = "fixed", space = "fixed") {
     scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
-    space <- match.arg(scales, c("fixed", "free"))
+    free <- list(
+      x = any(scales %in% c("free_x", "free")),
+      y = any(scales %in% c("free_y", "free"))
+    )
+    space <- match.arg(space, c("fixed", "free"))
     
     if (is.formula(facets)) facets <- deparse(facets) 
     .$proto(
       facets = facets, margins = margins,
-      scales = scales, space_is_free = (space == "free"), free = free,
+      free = free, space_is_free = (space == "free"),
       scales_x = NULL, scales_y = NULL
     )
   }
@@ -226,6 +230,24 @@ FacetGrid <- proto(Facet, {
     
     # see also ?plotmatrix for the scatterplot matrix
     
+    # Example of free scales
+    mt <- ggplot(mtcars, aes(mpg, wt, colour = factor(cyl))) + geom_point()
+    
+    mt + facet_grid(. ~ cyl, scales = "free")
+    mt + facet_grid(. ~ cyl, scales = "free", space = "free")
+    
+    mt + facet_grid(vs ~ am, scales = "free")
+    mt + facet_grid(vs ~ am, scales = "free_x")
+    mt + facet_grid(vs ~ am, scales = "free_y")
+    mt + facet_grid(vs ~ am, scales = "free", space="free")
+
+    # You may need to set your own breaks for consitent display:
+    mt + facet_grid(. ~ cyl, scales = "free_x", space="free") + 
+      scale_x_continuous(breaks = seq(10, 36, by = 2))
+
+    # Adding scale limits override free scales:
+    last_plot() + xlim(10, 15)
+
   }
   
   pprint <- function(., newline=TRUE) {
