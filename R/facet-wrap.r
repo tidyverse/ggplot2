@@ -60,8 +60,16 @@ FacetWrap <- proto(Facet, {
     }
     
     # Arrange 1d structure into a grid -------
-    ncols <- .$ncols %||% ceiling(sqrt(n))
-    nrows <- .$nrows %||% ceiling(n / ncols)
+    if (is.null(.$ncols) && is.null(.$nrows)) {
+      ncols <- ceiling(sqrt(n))
+      nrows <- ceiling(n / ncols)
+    } else if (is.null(.$ncols)) {
+      nrows <- .$nrows
+      ncols <- ceiling(n / nrows)
+    } else if (is.null(.$nrows)) {
+      ncols <- .$ncols
+      nrows <- ceiling(n / ncols)
+    }
     stopifnot(nrows * ncols >= n)
 
     np <- nrows * ncols
@@ -199,9 +207,11 @@ FacetWrap <- proto(Facet, {
   
   
   examples <- function(.) {
-    d <- ggplot(diamonds, aes(carat, price)) + xlim(0, 2) + stat_bin2d()
+    d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) + 
+      xlim(0, 2) + stat_binhex() + opts(aspect.ratio = 1)
     d + facet_wrap(~ color)
     d + facet_wrap(~ color, ncol = 4)
+    d + facet_wrap(~ color, nrow = 4)
     
   }
   
