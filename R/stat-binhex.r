@@ -1,5 +1,5 @@
-StatHexbin <- proto(Stat, {
-  objname <- "hexbin"
+StatBinhex <- proto(Stat, {
+  objname <- "binhex"
   
   calculate <- function(., data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
     data <- remove_missing(data, na.rm, c("x", "y"), name="stat_hexbin")
@@ -16,7 +16,7 @@ StatHexbin <- proto(Stat, {
   
   default_aes <- function(.) aes(fill = ..count..)
   required_aes <- c("x", "y")
-  default_geom <- function(.) GeomHexbin
+  default_geom <- function(.) GeomHex
   
 })
 
