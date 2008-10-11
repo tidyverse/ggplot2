@@ -1,6 +1,8 @@
 ggplot2 0.7.1  (2008-XX)
 ----------------------------------------
 
+* facet_wrap: new facetter which wraps a 1d ribbon of panels into 2d
+* qplot: now uses facet_wrap if formula looks like ~ a + b (as opposed to a ~ b)
 * facet_grid: new support for varying scales in rows and columns
 * scale_discrete_position: empty levels are no longer displayed by default, if you want them, use breaks = levels(myfactor)
 * ggsave: default dpi changed to 300, on the assumption that you are saving the plot for printing

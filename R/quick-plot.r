@@ -78,8 +78,13 @@ qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE,
     if (nrow(data) == 0) stop("data has no rows")
   }
 
-  p <- ggplot(data, aesthetics, environment = env) +
-    facet_grid(facets = deparse(facets), margins = margins)
+  p <- ggplot(data, aesthetics, environment = env)
+  
+  if (is.formula(facets) && length(facets) == 2) {
+    p <- p + facet_wrap(facets)
+  } else {
+    p <- p + facet_grid(facets = deparse(facets), margins = margins)
+  }
   
   if (!is.null(main)) p <- p + opts("title" = main)
 
