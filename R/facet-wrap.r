@@ -99,7 +99,8 @@ FacetWrap <- proto(Facet, {
   
   labels_default <- function(., gm, theme) {
     labels_df <- attr(gm, "split_labels")
-    labels <- aaply(labels_df, 1, paste, collapse=", ")
+    labels_mat <- t(laply(labels_df, as.character))
+    labels <- aaply(labels_mat, 1, paste, collapse=", ")
 
     llply(labels, ggstrip, theme = theme)
   }
