@@ -1,5 +1,5 @@
 FacetWrap <- proto(Facet, {
-  new <- function(., facets = . ~ ., nrows = NULL, ncols = NULL, scales = "fixed") {
+  new <- function(., facets = . ~ ., nrow = NULL, ncol = NULL, scales = "fixed", as.table = TRUE) {
     scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
     free <- list(
       x = any(scales %in% c("free_x", "free")),
@@ -8,8 +8,8 @@ FacetWrap <- proto(Facet, {
     
     .$proto(
       facets = as.quoted(facets), free = free, 
-      scales = NULL, 
-      ncols = ncols, nrows = nrows
+      scales = NULL, as.table = as.table,
+      ncol = ncol, nrow = nrow
     )
   }
   
@@ -60,34 +60,36 @@ FacetWrap <- proto(Facet, {
     }
     
     # Arrange 1d structure into a grid -------
-    if (is.null(.$ncols) && is.null(.$nrows)) {
-      ncols <- ceiling(sqrt(n))
-      nrows <- ceiling(n / ncols)
-    } else if (is.null(.$ncols)) {
-      nrows <- .$nrows
-      ncols <- ceiling(n / nrows)
-    } else if (is.null(.$nrows)) {
-      ncols <- .$ncols
-      nrows <- ceiling(n / ncols)
+    if (is.null(.$ncol) && is.null(.$nrow)) {
+      ncol <- ceiling(sqrt(n))
+      nrow <- ceiling(n / ncol)
+    } else if (is.null(.$ncol)) {
+      nrow <- .$nrow
+      ncol <- ceiling(n / nrow)
+    } else if (is.null(.$nrow)) {
+      ncol <- .$ncol
+      nrow <- ceiling(n / ncol)
     }
-    stopifnot(nrows * ncols >= n)
+    stopifnot(nrow * ncol >= n)
 
     # Create a grid of interwoven strips and panels
-    np <- nrows * ncols
+    np <- nrow * ncol
     panels <- c(panels, rep(list(nullGrob()), np - n))
-    dim(panels) <- c(ncols, nrows)
+    dim(panels) <- c(ncol, nrow)
     panels <- t(panels)
+    if (!.$as.table) panels <- panels[rev(seq_len(nrow)), ]
 
     labels <- c(labels, rep(list(nullGrob()), np - n))
-    dim(labels) <- c(ncols, nrows)
+    dim(labels) <- c(ncol, nrow)
     labels <- t(labels)    
+    if (!.$as.table) labels <- labels[rev(seq_len(nrow)), ]
     
     labpanel <- rweave(labels, panels)
 
-    axes_v <- axes_v[rep(1, nrows), 1, drop = FALSE]
-    axes_v <- rweave(matrix(list(nullGrob()), nrow = nrows, ncol = 1), axes_v)
+    axes_v <- axes_v[rep(1, nrow), 1, drop = FALSE]
+    axes_v <- rweave(matrix(list(nullGrob()), nrow = nrow, ncol = 1), axes_v)
     
-    axes_h <- axes_h[1, rep(1, ncols), drop = FALSE]    
+    axes_h <- axes_h[1, rep(1, ncol), drop = FALSE]    
     
     list(
       panel     = labpanel, 
