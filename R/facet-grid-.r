@@ -11,7 +11,7 @@ FacetGrid <- proto(Facet, {
     .$proto(
       facets = facets, margins = margins,
       free = free, space_is_free = (space == "free"),
-      scales_x = NULL, scales_y = NULL
+      scales = NULL
     )
   }
   
@@ -33,13 +33,13 @@ FacetGrid <- proto(Facet, {
     nc <- ncol(panels_grob)
     
     axes_h <- matrix(list(), nrow = 1, ncol = nc)
-    for(i in seq_along(.$scales_x)) {
-      axes_h[[1, i]] <- coordinates$guide_axes(.$scales_x[[i]], theme, "bottom")
+    for(i in seq_along(.$scales$x)) {
+      axes_h[[1, i]] <- coordinates$guide_axes(.$scales$x[[i]], theme, "bottom")
     }
     
     axes_v <- matrix(list(), nrow = nr, ncol = 1)
-    for(i in seq_along(.$scales_y)) {
-      axes_v[[i, 1]] <- coordinates$guide_axes(.$scales_y[[i]], theme, "left")
+    for(i in seq_along(.$scales$y)) {
+      axes_v[[i, 1]] <- coordinates$guide_axes(.$scales$y[[i]], theme, "left")
     }    
     
     labels <- .$labels_default(.$shape, theme)
@@ -49,8 +49,8 @@ FacetGrid <- proto(Facet, {
     for(i in seq_len(nr)) {
       for(j in seq_len(nc)) {
         scales <- list(
-          x = .$scales_x[[j]], 
-          y = .$scales_y[[i]]
+          x = .$scales$x[[j]], 
+          y = .$scales$y[[i]]
         )
         fg <- coordinates$guide_foreground(scales, theme)
         bg <- coordinates$guide_background(scales, theme)
@@ -76,11 +76,11 @@ FacetGrid <- proto(Facet, {
     
     if(.$space_is_free) {
       panel_widths <- unit(
-        laply(.$scales_x, function(y) diff(y$output_expand())), 
+        laply(.$scales$x, function(y) diff(y$output_expand())), 
         "null"
       )
       panel_heights <- unit(
-        laply(.$scales_y, function(y) diff(y$output_expand())), 
+        laply(.$scales$y, function(y) diff(y$output_expand())), 
         "null"
       )
     } else {
@@ -153,33 +153,36 @@ FacetGrid <- proto(Facet, {
   # Position scales ----------------------------------------------------------
   
   position_train <- function(., data, scales) {
-    if (is.null(.$scales_x)) {
-      fr <- .$free
-      .$scales_x <- scales_list(scales$get_scales("x"), ncol(.$shape), fr$x)
-      .$scales_y <- scales_list(scales$get_scales("y"), nrow(.$shape), fr$y)
+    if (is.null(.$scales$x) && scales$has_scale("x")) {
+      .$scales$x <- scales_list(
+        scales$get_scales("x"), ncol(.$shape), .$free$x)
+    }
+    if (is.null(.$scales$y) && scales$has_scale("y")) {
+      .$scales$y <- scales_list(
+        scales$get_scales("y"), nrow(.$shape), .$free$y)
     }
 
     lapply(data, function(l) {
-      for(i in seq_along(.$scales_x)) {
-        lapply(l[, i], .$scales_x[[i]]$train_df)
+      for(i in seq_along(.$scales$x)) {
+        lapply(l[, i], .$scales$x[[i]]$train_df)
       }
-      for(i in seq_along(.$scales_y)) {
-        lapply(l[i, ], .$scales_y[[i]]$train_df)
+      for(i in seq_along(.$scales$y)) {
+        lapply(l[i, ], .$scales$y[[i]]$train_df)
       }
     })
   }
   
   position_map <- function(., data, scales) {
     lapply(data, function(l) {
-      for(i in seq_along(.$scales_x)) {
+      for(i in seq_along(.$scales$x)) {
         l[, i] <- lapply(l[, i], function(old) {
-          new <- .$scales_x[[i]]$map_df(old)
+          new <- .$scales$x[[i]]$map_df(old)
           cbind(new, old[setdiff(names(old), names(new))])
         }) 
       }
-      for(i in seq_along(.$scales_y)) {
+      for(i in seq_along(.$scales$y)) {
         l[i, ] <- lapply(l[i, ], function(old) {
-          new <- .$scales_y[[i]]$map_df(old)
+          new <- .$scales$y[[i]]$map_df(old)
           cbind(new, old[setdiff(names(old), names(new))])
         }) 
       }
@@ -196,8 +199,8 @@ FacetGrid <- proto(Facet, {
       for(i in seq_len(nrow(layerd))) {
         for(j in seq_len(ncol(layerd))) {
           scales <- list(
-            x = .$scales_x[[j]], 
-            y = .$scales_y[[i]]
+            x = .$scales$x[[j]], 
+            y = .$scales$y[[i]]
           )
           grobs[[i, j]] <- layer$make_grob(layerd[[i, j]], scales, cs)
         }

@@ -36,7 +36,7 @@ ScaleDiscretePosition <- proto(ScaleDiscrete, {
   
   output_set <- function(.) range(seq_along(.$input_set()), .$cont_domain, na.rm = TRUE)
   output_expand <- function(.) {
-    expand_range(.$output_set(), 0, 0.5)    
+    expand_range(.$output_set(), 0, 0.25)    
   }
   
   

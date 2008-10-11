@@ -99,8 +99,8 @@ FacetWrap <- proto(Facet, {
   
   labels_default <- function(., gm, theme) {
     labels_df <- attr(gm, "split_labels")
-    labels_mat <- t(laply(labels_df, as.character))
-    labels <- aaply(labels_mat, 1, paste, collapse=", ")
+    labels_df[] <- llply(labels_df, format, justify = "none")
+    labels <- aaply(labels_df, 1, paste, collapse=", ")
 
     llply(labels, ggstrip, theme = theme)
   }
@@ -113,8 +113,8 @@ FacetWrap <- proto(Facet, {
     panel_widths <- rep(unit(1, "null"), ncol(guides$panel))
     
     odds <- seq(1, nrow(guides$panel), by = 2)
-    labels <- guides$panel[odds, ]
-    panels <- guides$panel[odds, ]
+    labels <- guides$panel[odds, , drop = FALSE]
+    panels <- guides$panel[odds, , drop = FALSE]
     
     row_heights <- alply(labels, 1, function(x) llply(x, grobHeight))
     label_height <- do.call("unit.c", llply(row_heights, splat(max)))
@@ -157,15 +157,19 @@ FacetWrap <- proto(Facet, {
   # Position scales ----------------------------------------------------------
   
   position_train <- function(., data, scales) {
-    if (is.null(.$scales)) {
-      fr <- .$free
+    fr <- .$free
+    if (is.null(.$scales$x) && scales$has_scale("x")) {
       .$scales$x <- scales_list(scales$get_scales("x"), length(.$shape), fr$x)
+    }
+    if (is.null(.$scales$y) && scales$has_scale("y")) {
       .$scales$y <- scales_list(scales$get_scales("y"), length(.$shape), fr$y)
     }
 
     lapply(data, function(l) {
       for(i in seq_along(.$scales$x)) {
         .$scales$x[[i]]$train_df(l[[1, i]])
+      }
+      for(i in seq_along(.$scales$y)) {
         .$scales$y[[i]]$train_df(l[[1, i]])
       }
     })
@@ -175,13 +179,15 @@ FacetWrap <- proto(Facet, {
     lapply(data, function(l) {
       for(i in seq_along(.$scales$x)) {
         l[1, i] <- lapply(l[1, i], function(old) {
-          new_x <- .$scales$x[[i]]$map_df(old)
-          new_y <- .$scales$y[[i]]$map_df(old)
+          new <- .$scales$x[[i]]$map_df(old)
+          if (!is.null(.$scales$y[[i]])) {
+            new <- cbind(new, .$scales$y[[i]]$map_df(old))
+          }
+          
           
           cbind(
-            new_x, 
-            new_y,
-            old[setdiff(names(old), c(names(new_x), names(new_y)))]
+            new, 
+            old[setdiff(names(old), names(new))]
           )
         }) 
       }

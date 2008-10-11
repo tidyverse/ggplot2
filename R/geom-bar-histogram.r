@@ -35,6 +35,16 @@ GeomHistogram <- proto(GeomBar, {
 
     # Change scales
     m + geom_histogram(aes(fill = ..count..)) + scale_fill_gradient("Count", low="green", high="red")
+
+    # Often we don't want the height of the bar to represent the
+    # count of observations, but the sum of some other variable.
+    # For example, the following plot shows the number of movies
+    # in each rating.
+    qplot(rating, data=movies, geom="bar", binwidth = 0.1)
+    # If, however, we want to see the number of votes cast in each
+    # category, we need to weight by the votes variable
+    qplot(rating, data=movies, geom="bar", binwidth = 0.1,
+      weight=votes, ylab = "votes")
     
     m <- ggplot(movies, aes(x = votes))
     # For transformed scales, binwidth applies to the transformed data.

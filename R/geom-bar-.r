@@ -54,29 +54,27 @@ GeomBar <- proto(Geom, {
     qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(vs))
     qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(gear))
 
-    ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar()
     ggplot(diamonds, aes(x=clarity, fill=cut)) + geom_bar()
-    ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar() + coord_flip()
+    ggplot(diamonds, aes(x=color, fill=cut)) + geom_bar() + coord_flip()
+    ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar()
 
     # Dodged bar charts    
     ggplot(diamonds, aes(x=clarity, fill=cut)) + geom_bar(position="dodge")
     # compare with 
     ggplot(diamonds, aes(x=cut, fill=cut)) + geom_bar() + facet_grid(. ~ clarity)
     
-    # But may be better to use a line plot instead:
+    # But may be better to use a frequency polygons instead:
     ggplot(diamonds, aes(x=clarity, colour=cut)) + 
-      geom_line(aes(group = cut, y = ..count..), stat="bin")
+      geom_freqpoly(aes(group = cut))
     
     # Often we don't want the height of the bar to represent the
     # count of observations, but the sum of some other variable.
-    # For example, the following plot shows the number of movies
-    # in each rating.
-    qplot(rating, data=movies, geom="bar")
-    # If, however, we want to see the number of votes cast in each
-    # category, we need to weight by the votes variable
-    qplot(rating, data=movies, geom="bar", weight=votes)
-    # We could also see the total expenditure for each category:
-    qplot(rating, data=movies, geom="bar", weight=budget)
+    # For example, the following plot shows the number of diamonds
+    # of each colour
+    qplot(color, data=diamonds, geom="bar")
+    # If, however, we want to see the total number of carats in each colour
+    # we need to weight by the carat variable
+    qplot(color, data=diamonds, geom="bar", weight=carat, ylab="carat")
     
     # A bar chart used to display means
     meanprice <- tapply(diamonds$price, diamonds$cut, mean)

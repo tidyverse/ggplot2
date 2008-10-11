@@ -33,10 +33,6 @@ CoordCartesian <- proto(Coord, expr={
     guide_axis(.$breaks(scale)$major, scale$labels(), position, theme)
   }
 
-  xlabel <- function(., scale, theme) 
-    theme_render(theme, "axis.title.x", scale$name)
-  ylabel <- function(., scale, theme) 
-    theme_render(theme, "axis.title.y", scale$name)
 
   # Axis labels should go in here somewhere too
   guide_background <- function(., scales, theme) {
