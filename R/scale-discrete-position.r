@@ -56,7 +56,15 @@ ScaleDiscretePosition <- proto(ScaleDiscrete, {
     # Use limits to adjust the which levels (and in what order)
     # are displayed
     d + scale_x_discrete(limits=c("Fair","Ideal"))
+    
     # See ?reorder to reorder based on the values of another variable
+    qplot(manufacturer, cty, data=mpg)
+    qplot(reorder(manufacturer, cty), cty, data=mpg)
+    qplot(reorder(manufacturer, displ), cty, data=mpg)
+    
+    # Use abbreviate as a formatter to reduce long names
+    qplot(reorder(manufacturer, cty), cty, data=mpg) +  
+      scale_x_discrete(formatter = "abbreviate")
     
   }
   

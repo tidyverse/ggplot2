@@ -1,6 +1,7 @@
 ggplot2 0.7.1  (2008-XX)
 ----------------------------------------
 
+* scale_position: both discrete and continuous gain a new formatter argument to control the default formatting of the axis labels, see also handy numeric formatters: dollar, comma and percent
 * facet_wrap: new facetter which wraps a 1d ribbon of panels into 2d
 * qplot: now uses facet_wrap if formula looks like ~ a + b (as opposed to a ~ b)
 * facet_grid: new support for varying scales in rows and columns

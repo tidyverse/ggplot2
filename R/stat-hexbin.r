@@ -16,7 +16,7 @@ StatHexbin <- proto(Stat, {
   
   default_aes <- function(.) aes(fill = ..count..)
   required_aes <- c("x", "y")
-  default_geom <- function(.) GeomHexbin
+  default_geom <- function(.) GeomHex
   
 })
 

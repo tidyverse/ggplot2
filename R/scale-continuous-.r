@@ -7,7 +7,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
   
   tr_default <- "identity"
 
-  new <- function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, variable, trans = NULL, expand=c(0.05, 0), minor_breaks = NULL, ...) {
+  new <- function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, variable, trans = NULL, expand=c(0.05, 0), minor_breaks = NULL, formatter = scientific, ...) {
     if (is.null(breaks) && !is.null(labels)) stop("Labels can only be specified in conjunction with breaks")
     
     if (is.null(trans))      trans <- .$tr_default
@@ -17,7 +17,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
     limits <- trans$transform(limits)
     breaks <- trans$transform(breaks)
     
-    .$proto(name=name, .input=variable, .output=variable, limits=limits, breaks = breaks, .labels = labels, .expand=expand, .tr = trans, minor_breaks = minor_breaks, ...)
+    .$proto(name=name, .input=variable, .output=variable, limits=limits, breaks = breaks, .labels = labels, .expand=expand, .tr = trans, minor_breaks = minor_breaks, formatter = formatter, ...)
   }
 
   
@@ -79,7 +79,9 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
 
     l <- .$.tr$label(b)
     numeric <- sapply(l, is.numeric)
-    l[numeric] <- format(unlist(l[numeric]), trim = TRUE)
+    
+    f <- match.fun(get("formatter", .))
+    l[numeric] <- f(unlist(l[numeric]))
     l
   }
   
@@ -130,6 +132,15 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
     m + scale_y_sqrt()
     m + scale_y_reverse()
     # see ?transformer for a full list
+    
+    # You can control the formatting of the labels with the formatter
+    # argument.  Some common formats are built in:
+    x <- rnorm(10) * 100000
+    y <- seq(0, 1, length = 10)
+    p <- qplot(x, y)
+    p + scale_y_continuous(formatter = "percent")
+    p + scale_y_continuous(formatter = "dollar")
+    p + scale_x_continuous(formatter = "comma")
     
     # qplot allows you to do some of this with a little less typing:
     #   * axis limits
