@@ -17,7 +17,7 @@ ScaleGradient <- proto(ScaleContinuous, expr={
     nice_ramp(ramp, x, .$alpha)
   }
     
-  labels <- function(.) format(.$input_breaks())
+  labels <- function(.) .$.tr$label(.$input_breaks())
   output_breaks <- function(.) {
     .$map(.$input_breaks()) 
   }
@@ -118,7 +118,7 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
   desc <- "Smooth gradient between three colours (high, low and midpoints)"
 
   output_breaks <- function(.) .$map(.$input_breaks())
-  labels <- function(.) format(.$input_breaks())
+  labels <- function(.) .$.tr$label(.$input_breaks())
 
   icon <- function(.) {
     g <- scale_fill_gradient2()
@@ -214,7 +214,7 @@ ScaleGradientn <- proto(ScaleContinuous, expr={
   desc <- "Smooth gradient between n colours"
 
   output_breaks <- function(.) .$map(.$input_breaks())
-  labels <- function(.) format(.$input_breaks())
+  labels <- function(.) .$.tr$label(.$input_breaks())
 
   icon <- function(.) {
     g <- scale_fill_gradientn(colours = rainbow(7))
