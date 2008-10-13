@@ -36,14 +36,20 @@ ScaleDiscretePosition <- proto(ScaleDiscrete, {
   
   output_set <- function(.) range(seq_along(.$input_set()), .$cont_domain, na.rm = TRUE)
   output_expand <- function(.) {
-    expand_range(.$output_set(), 0, 0.25)    
+    if (is.integer(.$cont_domain)) { 
+      expand_range(.$output_set(), 0, 0.50)
+    } else {
+      expand_range(.$output_set(), 0.05)      
+    }
   }
   
   
   examples <- function(.) {
+    qplot(cut, data=diamonds, stat="bin")
+    qplot(cut, data=diamonds, geom="bar")
+    
     # The discrete position scale is added automatically whenever you
-    # have a discrete position and the only thing you can do with it
-    # is change the labels
+    # have a discrete position.
     
     (d <- qplot(cut, clarity, data=subset(diamonds, carat > 1), geom="jitter"))
     
