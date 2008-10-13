@@ -3,8 +3,8 @@ ScaleManual <- proto(ScaleDiscrete, {
   common <- c("colour","fill","size","shape","linetype")
   values <- c()
   
-  new <- function(., name=NULL, values=NULL, variable="x", limits = NULL, breaks = NULL, labels = NULL) {
-    .$proto(name=name, values=values, .input=variable, .output=variable, limits = limits, breaks = breaks, .labels = labels)
+  new <- function(., name=NULL, values=NULL, variable="x", limits = NULL, breaks = NULL, labels = NULL, formatter = identity) {
+    .$proto(name=name, values=values, .input=variable, .output=variable, limits = limits, breaks = breaks, .labels = labels, formatter = formatter)
   }
 
   map <- function(., values) {

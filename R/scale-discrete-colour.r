@@ -7,8 +7,8 @@ ScaleColour <- proto(ScaleDiscrete, expr={
 ScaleHue <- proto(ScaleColour, expr={
   aliases <- c("scale_colour_discrete", "scale_fill_discrete")
   
-  new <- function(., name=NULL, h=c(0,360), l=65, c=100, alpha=1, limits=NULL, breaks = NULL, labels=NULL, h.start = 0, direction = 1,  variable) {
-    .$proto(name=name, h=h, l=l, c=c, alpha=alpha, .input=variable, .output=variable, .labels = labels, breaks = breaks, direction = direction, start  = h.start, limits = limits)
+  new <- function(., name=NULL, h=c(0,360), l=65, c=100, alpha=1, limits=NULL, breaks = NULL, labels=NULL, h.start = 0, direction = 1,  formatter = identity, variable) {
+    .$proto(name=name, h=h, l=l, c=c, alpha=alpha, .input=variable, .output=variable, .labels = labels, breaks = breaks, direction = direction, start  = h.start, limits = limits, formatter = formatter)
   }
   
   output_set <- function(.) {
@@ -79,8 +79,8 @@ ScaleHue <- proto(ScaleColour, expr={
 ScaleBrewer <- proto(ScaleColour, expr={
   doc <- TRUE
 
-  new <- function(., name=NULL, palette=1, type="qual", alpha=1, limits=NULL, breaks = NULL, labels=NULL, variable) {
-    .$proto(name=name, palette=palette, type=type, .input=variable, .output=variable, .alpha=alpha, .labels = labels, breaks = breaks, limits= limits)
+  new <- function(., name=NULL, palette=1, type="qual", alpha=1, limits=NULL, breaks = NULL, labels=NULL, formatter = identity, variable) {
+    .$proto(name=name, palette=palette, type=type, .input=variable, .output=variable, .alpha=alpha, .labels = labels, breaks = breaks, limits= limits, formatter = formatter)
   }
 
   output_set <- function(.) {
