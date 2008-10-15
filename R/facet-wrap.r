@@ -32,6 +32,9 @@ FacetWrap <- proto(Facet, {
   
   # Create grobs for each component of the panel guides
   add_guides <- function(., data, panels_grob, coordinates, theme) {
+    aspect_ratio <- theme$aspect.ratio
+    if (is.null(aspect_ratio)) aspect_ratio <- 1
+    
     n <- length(.$scales$x)
     
     axes_h <- matrix(list(), nrow = 1, ncol = n)
@@ -73,29 +76,52 @@ FacetWrap <- proto(Facet, {
     stopifnot(nrow * ncol >= n)
 
     # Create a grid of interwoven strips and panels
-    np <- nrow * ncol
-    panels <- c(panels, rep(list(nullGrob()), np - n))
-    dim(panels) <- c(ncol, nrow)
-    panels <- t(panels)
-    if (!.$as.table) panels <- panels[rev(seq_len(nrow)), ]
+    panels <- grobMatrix(panels, nrow, ncol, .$as.table)
+    panels_height <- list(unit(1 * aspect_ratio, "null"))
+    panels_width <-  list(unit(1, "null"))
 
-    labels <- c(labels, rep(list(nullGrob()), np - n))
-    dim(labels) <- c(ncol, nrow)
-    labels <- t(labels)    
-    if (!.$as.table) labels <- labels[rev(seq_len(nrow)), ]
+    labels <- grobMatrix(labels, nrow, ncol, .$as.table)
+    labels_height <- grobRowHeight(labels)
     
-    labpanel <- rweave(labels, panels)
+    gap <- matrix(list(nullGrob()), ncol = ncol, nrow = nrow)
+    
+    if (.$free$y) {
+      axes_v <- grobMatrix(axes_v, nrow, ncol, .$as.table)
+    } else {
+      axes_v <- cbind(
+        grobMatrix(rep(axes_v[1], nrow), nrow, 1, .$as.table),
+        grobMatrix(list(nullGrob()), nrow, ncol - 1, .$as.table)
+      )
+    }
+    axes_width <- grobColWidth(axes_v)
+    
+    axes_h <- grobMatrix(axes_h, nrow, ncol, .$as.table)
+    if (.$free$x) {
+      axes_h <- grobMatrix(axes_h, nrow, ncol, .$as.table)
+    } else {
+      axes_h <- rbind(
+        grobMatrix(list(nullGrob()),        nrow - 1, ncol, .$as.table),
+        grobMatrix(rep(axes_h[1], ncol), 1, ncol, .$as.table)
+      )
+    }
+    axes_height <- grobRowHeight(axes_h)
 
-    axes_v <- axes_v[rep(1, nrow), 1, drop = FALSE]
-    axes_v <- rweave(matrix(list(nullGrob()), nrow = nrow, ncol = 1), axes_v)
+    all <- rweave(labels, panels, axes_h, gap)
+    heights <- interleave(labels_height, panels_height, axes_height, list(unit(0.5, "lines")))
+    heights <- do.call("unit.c", heights)
     
-    axes_h <- axes_h[1, rep(1, ncol), drop = FALSE]    
+    all <- cweave(
+      rweave(gap, axes_v, gap, gap), 
+      all, 
+      rweave(gap, gap, gap, gap)
+    )
+    widths <- interleave(axes_width, panels_width, list(unit(0.5, "lines")))
+    widths <- do.call("unit.c", widths)
     
     list(
-      panel     = labpanel, 
-      axis_v    = axes_v,
-      axis_h    = axes_h
-      # strip_h   = labels
+      panel   = all, 
+      widths  = widths,
+      heights = heights
     )
   }
   
@@ -108,49 +134,18 @@ FacetWrap <- proto(Facet, {
   }
   
   create_viewports <- function(., guides, theme) {
-    aspect_ratio <- theme$aspect.ratio
-    respect <- !is.null(aspect_ratio)
-    if (is.null(aspect_ratio)) aspect_ratio <- 1
-    
-    panel_widths <- rep(unit(1, "null"), ncol(guides$panel))
-    
-    odds <- seq(1, nrow(guides$panel), by = 2)
-    labels <- guides$panel[odds, , drop = FALSE]
-    panels <- guides$panel[odds, , drop = FALSE]
-    
-    row_heights <- alply(labels, 1, function(x) llply(x, grobHeight))
-    label_height <- do.call("unit.c", llply(row_heights, splat(max)))
-    panel_height <- unit(rep(1 * aspect_ratio, length(odds)), "null")
-    
-    panel_heights <- unit.c(label_height, panel_height)[rep(seq_along(label_height), each = 2) + c(0, length(label_height))]
-    
-    #rep(unit(1 * aspect_ratio, "null"), nrow(guides$panel))
-    
-    widths <- unit.c(
-      do.call("max", llply(guides$axis_v, grobWidth)),
-      panel_widths
-    )
-        
-    heights <- unit.c(
-      panel_heights,
-      do.call("max", llply(guides$axis_h, grobHeight))
-    )
+    respect <- !is.null(theme$aspect_ratio)
     
     layout <- grid.layout(
-      ncol = length(widths), widths = widths,
-      nrow = length(heights), heights = heights,
+      ncol = length(guides$widths), widths = guides$widths,
+      nrow = length(guides$heights), heights = guides$heights,
       respect = respect
     )
     layout_vp <- viewport(layout=layout, name="panels")
     
-    panel_rows <- nrow(guides$panel)
-    panel_cols <- ncol(guides$panel)
-    
-    children_vp <- do.call("vpList", c(
-      setup_viewports("axis_v",  guides$axis_v,  c(0, 0), "off"),
-      setup_viewports("panel",   guides$panel,   c(0, 1)),
-      setup_viewports("axis_h",  guides$axis_h,  c(panel_rows, 1), "off")
-    ))
+    children_vp <- vpList(
+      setup_viewports("panel",   guides$panel)
+    )
     
     vpTree(layout_vp, children_vp)
   }
@@ -247,10 +242,76 @@ FacetWrap <- proto(Facet, {
   
 })
 
-rweave <- function(a, b) {
-  stopifnot(ncol(a) == ncol(b))
-  stopifnot(nrow(a) == nrow(b))
-  n <- nrow(a)
 
-  rbind(a, b)[rep(1:n, each = 2) + c(0, n), , drop = FALSE]
+#X a <- matrix(1:10 * 2, ncol = 2)
+#X b <- matrix(1:10 * 3, ncol = 2)
+#X c <- matrix(1:10 * 5, ncol = 2)
+rweave <- function(...) {
+  matrices <- list(...)
+  stopifnot(equal_dims(matrices))
+  
+  n <- nrow(matrices[[1]])
+  p <- length(matrices)
+
+
+  interleave <- rep(1:n, each = p) + seq(0, p - 1) * n
+  do.call("rbind", matrices)[interleave, , drop = FALSE]
+}
+
+cweave <- function(...) {
+  matrices <- list(...)
+  stopifnot(equal_dims(matrices))
+  
+  n <- ncol(matrices[[1]])
+  p <- length(matrices)
+
+  interleave <- rep(1:n, each = p) + seq(0, p - 1) * n
+  do.call("cbind", matrices)[, interleave, drop = FALSE]
+}
+
+interleave <- function(...) {
+  vectors <- list(...)
+  
+  # Check lengths 
+  lengths <- unique(setdiff(laply(vectors, length), 1))
+  stopifnot(length(lengths) == 1)
+  
+  # Replicate elements of length one up to correct length
+  singletons <- laply(vectors, length) == 1
+  vectors[singletons] <- llply(vectors[singletons], rep, lengths)
+  
+  # Interleave vectors
+  n <- lengths
+  p <- length(vectors)
+  interleave <- rep(1:n, each = p) + seq(0, p - 1) * n
+  unlist(vectors, recursive=FALSE)[interleave]
+}
+
+equal_dims <- function(matrices) {
+  are.matrices <- laply(matrices, is.matrix)
+  stopifnot(all(are.matrices))
+  
+  cols <- laply(matrices, ncol)
+  rows <- laply(matrices, ncol)
+
+  length(unique(cols) == 1) && length(unique(rows) == 1)
+} 
+
+grobRowHeight <- function(mat) {
+  row_heights <- alply(mat, 1, function(x) llply(x, grobHeight))
+  do.call("unit.c", llply(row_heights, splat(max)))  
+}
+
+grobColWidth <- function(mat) {
+  col_widths <- alply(mat, 2, function(x) llply(x, grobWidth))
+  do.call("unit.c", llply(col_widths, splat(max)))  
+}
+
+grobMatrix <- function(vec, nrow, ncol, as.table = FALSE) {
+  mat <- c(vec, rep(list(nullGrob()), nrow * ncol - length(vec)))
+  dim(mat) <- c(ncol, nrow)
+  mat <- t(mat)
+  if (!as.table) mat <- mat[rev(seq_len(nrow)), ]
+  
+  mat
 }

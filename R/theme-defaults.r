@@ -21,12 +21,12 @@ theme_gray <- function(base_size = 12) {
     legend.position =   "right",
 
     panel.background =  theme_rect(fill = "grey90", colour = NA), 
-    panel.border =      theme_rect(fill = NA, colour="white", size=2), 
+    panel.border =      theme_blank(), 
     panel.grid.major =  theme_line(colour = "white"),
     panel.grid.minor =  theme_line(colour = "grey95", size = 0.25),
     panel.empty =       theme_rect(fill = "white", colour = NA),
 
-    strip.background =  theme_rect(fill = "grey80"), 
+    strip.background =  theme_rect(fill = "grey80", colour = NA), 
     strip.label =       function(variable, value) value, 
     strip.text.x =      theme_text(size = base_size * 0.8),
     strip.text.y =      theme_text(size = base_size * 0.8, angle = -90),

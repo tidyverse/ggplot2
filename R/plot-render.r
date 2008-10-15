@@ -11,7 +11,7 @@ panelGrob <- function(plot, pieces = ggplot_build(plot)) {
   grobs <- pieces$facet$add_guides(plot$data, pieces$panels, pieces$cs, theme)
   viewports <- pieces$facet$create_viewports(grobs, theme)
 
-  grobs <- assign_viewports(grobs)
+  grobs <- assign_viewports(grobs[setdiff(names(grobs), c("widths", "heights")), drop = FALSE])
   
   ggname("plot", 
     gTree(
