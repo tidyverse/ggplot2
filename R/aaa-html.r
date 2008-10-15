@@ -30,7 +30,7 @@
   "geom" = "geometric used by this layer", 
   "position" = "position adjustment used by this layer",
   "..." = "other arguments", 
-  "name" = "name of scale to appear in legend or on axis",
+  "name" = "name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath",
   "limits" = "numeric vector of length 2, giving the extent of the scale",
   "trans" = "a transformer to use",
   "..." = "ignored",
