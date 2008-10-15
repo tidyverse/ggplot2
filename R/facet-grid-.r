@@ -29,6 +29,9 @@ FacetGrid <- proto(Facet, {
   
   # Create grobs for each component of the panel guides
   add_guides <- function(., data, panels_grob, coordinates, theme) {
+    aspect_ratio <- theme$aspect.ratio
+    if (is.null(aspect_ratio)) aspect_ratio <- 1
+
     nr <- nrow(panels_grob)
     nc <- ncol(panels_grob)
     
@@ -60,12 +63,45 @@ FacetGrid <- proto(Facet, {
     }
     bg_empty <- theme_render(theme, "panel.empty")
     
+    # Add gaps and compute widths and heights
+
+    gap <- matrix(list(nullGrob()), ncol = nc, nrow = nr)
+    panels <- cweave(
+      rweave(panels, gap),
+      rweave(gap,    gap)
+    )
+    panels <- panels[-nrow(panels), -ncol(panels), drop = FALSE]
+    
+    axes_v <- rweave(axes_v, gap[, 1, drop = FALSE])
+    strip_v <- rweave(labels$v, gap[, 1, drop = FALSE])
+
+    axes_h <- cweave(axes_h, gap[1, , drop = FALSE])
+    strip_h <- cweave(labels$h, gap[1, , drop = FALSE])
+    
+    if(.$space_is_free) {
+      size <- function(y) unit(diff(y$output_expand()), "null")
+      panel_widths <- llply(.$scales$x, size)
+      panel_heights <- llply(.$scales$y, size)
+    } else {
+      panel_widths <- rep(list(unit(1, "null")), nc)
+      panel_heights <- rep(list(unit(1 * aspect_ratio, "null")), nr)
+    }
+    panel_widths <-
+      do.call("unit.c", interleave(panel_widths, list(unit(0.25, "lines"))))
+    panel_widths[length(panel_widths)] <- unit(0, "cm")
+    
+    panel_heights <- 
+      do.call("unit.c", interleave(panel_heights, list(unit(0.25, "lines"))))
+    panel_heights[length(panel_heights)] <- unit(0, "cm")
+
     list(
       panel     = panels, 
       axis_v    = axes_v,
-      strip_v   = labels$v,
+      strip_v   = strip_v,
       axis_h    = axes_h,
-      strip_h   = labels$h
+      strip_h   = strip_h,
+      widths    = panel_widths,
+      heights   = panel_heights
     )
   }
   
@@ -74,29 +110,15 @@ FacetGrid <- proto(Facet, {
     respect <- !is.null(aspect_ratio)
     if (is.null(aspect_ratio)) aspect_ratio <- 1
     
-    if(.$space_is_free) {
-      panel_widths <- unit(
-        laply(.$scales$x, function(y) diff(y$output_expand())), 
-        "null"
-      )
-      panel_heights <- unit(
-        laply(.$scales$y, function(y) diff(y$output_expand())), 
-        "null"
-      )
-    } else {
-      panel_widths <- rep(unit(1, "null"), ncol(guides$panel))
-      panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow(guides$panel))
-    }
-    
     widths <- unit.c(
       do.call("max", llply(guides$axis_v, grobWidth)),
-      panel_widths,
+      guides$widths,
       do.call("max", lapply(guides$strip_v, grobWidth))
     )
     
     heights <- unit.c(
       do.call("max", lapply(guides$strip_h, grobHeight)),
-      panel_heights,
+      guides$heights,
       do.call("max", llply(guides$axis_h, grobHeight))
     )
     
@@ -108,8 +130,8 @@ FacetGrid <- proto(Facet, {
     layout_vp <- viewport(layout=layout, name="panels")
     
     strip_rows <- nrow(guides$strip_h)
-    panel_rows <- nrow(guides$panel)
-    panel_cols <- ncol(guides$panel)
+    panel_rows <- nrow(guides$panel) + 1
+    panel_cols <- ncol(guides$panel) + 1
     
     children_vp <- do.call("vpList", c(
       setup_viewports("strip_h", guides$strip_h, c(0,1)),

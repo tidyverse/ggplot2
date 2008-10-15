@@ -106,16 +106,15 @@ FacetWrap <- proto(Facet, {
     }
     axes_height <- grobRowHeight(axes_h)
 
-    all <- rweave(labels, panels, axes_h, gap)
-    heights <- interleave(labels_height, panels_height, axes_height, list(unit(0.5, "lines")))
-    heights <- do.call("unit.c", heights)
-    
     all <- cweave(
-      rweave(gap, axes_v, gap, gap), 
-      all, 
-      rweave(gap, gap, gap, gap)
+      rweave(gap,    axes_v, gap,    gap), 
+      rweave(labels, panels, axes_h, gap), 
+      rweave(gap,    gap,    gap,    gap)
     )
-    widths <- interleave(axes_width, panels_width, list(unit(0.5, "lines")))
+    heights <- interleave(labels_height, panels_height, axes_height, list(unit(0.25, "lines")))
+    heights <- do.call("unit.c", heights)
+
+    widths <- interleave(axes_width, panels_width, list(unit(0.25, "lines")))
     widths <- do.call("unit.c", widths)
     
     list(
@@ -252,8 +251,7 @@ rweave <- function(...) {
   
   n <- nrow(matrices[[1]])
   p <- length(matrices)
-
-
+  
   interleave <- rep(1:n, each = p) + seq(0, p - 1) * n
   do.call("rbind", matrices)[interleave, , drop = FALSE]
 }
@@ -274,7 +272,8 @@ interleave <- function(...) {
   
   # Check lengths 
   lengths <- unique(setdiff(laply(vectors, length), 1))
-  stopifnot(length(lengths) == 1)
+  if (length(lengths) == 0) lengths <- 1
+  stopifnot(length(lengths) <= 1)
   
   # Replicate elements of length one up to correct length
   singletons <- laply(vectors, length) == 1
