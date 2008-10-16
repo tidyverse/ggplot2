@@ -46,7 +46,7 @@ theme_bw <- function(base_size = 12) {
     axis.line =         theme_blank(),
     axis.text.x =       theme_text(size = base_size * 0.8 , lineheight = 0.9, vjust = 1),
     axis.text.y =       theme_text(size = base_size * 0.8, lineheight = 0.9, hjust = 1),
-    axis.ticks =        theme_segment(colour = "grey80", size = 1.5),
+    axis.ticks =        theme_segment(colour = "black", size = 0.2),
     axis.title.x =      theme_text(size = base_size),
     axis.title.y =      theme_text(size = base_size, angle = 90),
     axis.ticks.length = unit(0.3, "lines"),
@@ -59,9 +59,9 @@ theme_bw <- function(base_size = 12) {
     legend.position =   "right",
 
     panel.background =  theme_rect(fill = "white", colour = NA), 
-    panel.border =      theme_rect(fill = NA, colour="black", size=1.5), 
-    panel.grid.major =  theme_line(colour = "grey80"),
-    panel.grid.minor =  theme_line(colour = "grey95", size = 0.2),
+    panel.border =      theme_rect(fill = NA, colour="black"), 
+    panel.grid.major =  theme_line(colour = "black", size = 0.2),
+    panel.grid.minor =  theme_line(colour = "grey95", size = 0.5),
     panel.margin =      unit(0.25, "lines"),
 
     strip.background =  theme_rect(fill = "grey80", colour = "black"), 

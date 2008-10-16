@@ -26,12 +26,12 @@ theme_blank <- function() {
 # @arguments border size
 # @arguments border linetype
 # @keywords dplot
-theme_rect <- function(fill = NA, colour = "black", size = 1, linetype = 1) {
+theme_rect <- function(fill = NA, colour = "black", size = 0.5, linetype = 1) {
   structure(
     function(x = 0.5, y = 0.5, width = 1, height = 1, ...) {
       rectGrob(
         x, y, width, height, ...,
-        gp=gpar(lwd=size, col=colour, fill=fill, lty=linetype),
+        gp=gpar(lwd=size * .pt, col=colour, fill=fill, lty=linetype),
       )
     },
     class = "theme",
@@ -53,7 +53,7 @@ theme_line <- function(colour = "black", size = 0.5, linetype = 1) {
     function(x = 0:1, y = 0:1, ..., default.units = "npc") {
       polylineGrob(
         x, y, ..., default.units = default.units,
-        gp=gpar(size=unit(size, "mm"), col=colour, lty=linetype),
+        gp=gpar(lwd=size * .pt, col=colour, lty=linetype),
       )
     },
     class = "theme",
@@ -75,7 +75,7 @@ theme_segment <- function(colour = "black", size = 0.5, linetype = 1) {
     function(x0 = 0, y0 = 0, x1 = 1, y1 = 1, ...) {
       segmentsGrob(
         x0, y0, x1, y1, ..., default.units = "npc",
-        gp=gpar(col=colour, lty=linetype, lwd = size),
+        gp=gpar(col=colour, lty=linetype, lwd = size * .pt),
       )
     },
     class = "theme",

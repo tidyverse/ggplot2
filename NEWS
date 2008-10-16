@@ -1,6 +1,9 @@
 ggplot2 0.7.1  (2008-XX)
 ----------------------------------------
 
+* theme_bw: tweaks to make black and white theme look a little nicer
+* theme_line: setting size works correctly
+* theme_rect, theme_segment: size now measured in mm, to be consistent with the rest of ggplot
 * theme: panel.empty setting removed as it is no longer used
 * theme: new theme setting panel.margin (a unit) controls gap between panels in facetted plots (for both grid and wrap)
 * scale_gradient*: axes are correctly labelled when a transformation is used
