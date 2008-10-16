@@ -21,7 +21,9 @@ is.integeric <- function(x) all(floor(x) == x)
 add_group <- function(data) {
   if (is.null(data$group)) {
     cat <- sapply(data[setdiff(names(data), "label")], is.discrete)
-    if (sum(cat) == 0)
+    cat <- intersect(names(which(cat)), .all_aesthetics)
+    
+    if (length(cat) == 0)
       data$group <- 1
     else 
       data$group <- as.numeric(do.call("interaction", data[,cat, drop=FALSE]))
