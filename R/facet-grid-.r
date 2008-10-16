@@ -196,12 +196,14 @@ FacetGrid <- proto(Facet, {
     lapply(data, function(l) {
       for(i in seq_along(.$scales$x)) {
         l[, i] <- lapply(l[, i], function(old) {
+          if (is.null(old)) return()
           new <- .$scales$x[[i]]$map_df(old)
           cbind(new, old[setdiff(names(old), names(new))])
         }) 
       }
       for(i in seq_along(.$scales$y)) {
         l[i, ] <- lapply(l[i, ], function(old) {
+          if (is.null(old)) return()
           new <- .$scales$y[[i]]$map_df(old)
           cbind(new, old[setdiff(names(old), names(new))])
         }) 
