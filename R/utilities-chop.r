@@ -1,22 +1,27 @@
 # Chop
 # Chop a continuous variable into a categorical variable.
 #
-# Chop provides a convenient interface to the main methods of
-# converting a continuous variable into a categorical variable.
+# Chop provides a convenient interface for discretising a continuous variable.
+# It will break up a continuous variable into chunks with equal numbers of 
+# points (\code{method = "quantiles"}) or equal ranges (
+# \code{method = "cut"}).  You can specify the number of bins, with \code{n}, 
+# or the "width" of each bin, with \code{width}
 #
-# @argument continuous variable to chop into pieces
-# @argument number of bins to chop into
-# @argument method to use: quantiles (approximately equal numbers), cut (equal lengths) or pretty
-# @argument mid point for diverging factors
+# @arguments continuous variable to chop into pieces
+# @arguments number of bins to chop into
+# @arguments method to use: quantiles (approximately equal numbers), cut (equal lengths) or pretty
+# @arguments mid point for diverging factors
+# @arguments other arguments passed to format
+# @seealso \code[reshape]{round_any}; 
 # @seealso \code{\link{chop.breaks}} to get breaks used
 # @keyword manip
-chop <- function(x, n=5, method="quantiles", midpoint=0, digits=2) {
-  methods <- c("quantiles","cut", "pretty")
+chop <- function(x, n = 10, width = NULL, method="quantiles", midpoint=0, digits=2, ...) {
+  methods <- c("quantiles","cut")
   method <- methods[charmatch(method, methods)]
   if (is.na(method)) stop(paste("Method must be one of:", paste(methods, collapse=", ")))
   
   breaks <- chop.breaks(x, n, method, midpoint)
-  labels <- formatC(breaks, digits=2, width=0)
+  labels <- format(breaks, trim = TRUE, ...)
   
   fac <- ordered(cut(x, breaks, labels=FALSE, include.lowest=TRUE) - attr(breaks,"midpoint.level"),labels=paste(labels[-length(breaks)], labels[-1], sep="-"))
   attr(fac, "breaks") <- breaks
@@ -32,10 +37,10 @@ chop <- function(x, n=5, method="quantiles", midpoint=0, digits=2) {
 # Chop breaks
 # Calculate breakpoints for chop function
 #
-# @argument continuous variable
-# @argument number of bins to chop into
-# @argument method to use: quantiles (approximately equal numbers), cut (equal lengths) or pretty
-# @argument mid point for diverging factors
+# @arguments continuous variable
+# @arguments number of bins to chop into
+# @arguments method to use: quantiles (approximately equal numbers), cut (equal lengths) or pretty
+# @arguments mid point for diverging factors
 # @keyword manip
 # @keyword internal
 chop.breaks <- function(x, n, method, midpoint=NA) {
@@ -70,7 +75,7 @@ chop.breaks <- function(x, n, method, midpoint=NA) {
 # Automatic chop
 # Keep categorical variables as is, chop up continuous variable
 #
-# @argument data
+# @arguments data
 # @keyword manip
 # @keyword internal
 chop_auto <- function(x) {
