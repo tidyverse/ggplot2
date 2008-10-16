@@ -1,6 +1,7 @@
 ggplot2 0.7.1  (2008-XX)
 ----------------------------------------
 
+* geom_bar: default fill colour is now much closer to black to match the defaults in other geoms (point, line, etc)
 * facet_grid: margins now grouped correctly in default case (non-aesthetic variables ignored when generating default group value)
 * theme_bw: tweaks to make black and white theme look a little nicer
 * theme_line: setting size works correctly
