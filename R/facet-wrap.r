@@ -144,7 +144,7 @@ FacetWrap <- proto(Facet, {
     layout_vp <- viewport(layout=layout, name="panels")
     
     children_vp <- vpList(
-      setup_viewports("panel",   guides$panel)
+      setup_viewports("panel",   guides$panel, clip = "off")
     )
     
     vpTree(layout_vp, children_vp)
