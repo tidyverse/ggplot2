@@ -61,7 +61,6 @@ FacetGrid <- proto(Facet, {
         panels[[i,j]] <- grobTree(bg, panels_grob[[i, j]], fg)
       }
     }
-    bg_empty <- theme_render(theme, "panel.empty")
     
     # Add gaps and compute widths and heights
 
@@ -86,12 +85,11 @@ FacetGrid <- proto(Facet, {
       panel_widths <- rep(list(unit(1, "null")), nc)
       panel_heights <- rep(list(unit(1 * aspect_ratio, "null")), nr)
     }
-    panel_widths <-
-      do.call("unit.c", interleave(panel_widths, list(unit(0.25, "lines"))))
+    margin <- list(theme$panel.margin)
+    panel_widths <- do.call("unit.c", interleave(panel_widths, margin))
     panel_widths[length(panel_widths)] <- unit(0, "cm")
     
-    panel_heights <- 
-      do.call("unit.c", interleave(panel_heights, list(unit(0.25, "lines"))))
+    panel_heights <- do.call("unit.c", interleave(panel_heights, margin))
     panel_heights[length(panel_heights)] <- unit(0, "cm")
 
     list(
@@ -292,6 +290,8 @@ FacetGrid <- proto(Facet, {
     mt <- ggplot(mtcars, aes(mpg, wt, colour = factor(cyl))) + geom_point()
     
     mt + facet_grid(. ~ cyl, scales = "free")
+    # If scales and space are free, then the mapping between position
+    # and values in the data will be the same across all panels
     mt + facet_grid(. ~ cyl, scales = "free", space = "free")
     
     mt + facet_grid(vs ~ am, scales = "free")

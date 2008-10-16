@@ -1,6 +1,8 @@
 ggplot2 0.7.1  (2008-XX)
 ----------------------------------------
 
+* theme: panel.empty setting removed as it is no longer used
+* theme: new theme setting panel.margin (a unit) controls gap between panels in facetted plots (for both grid and wrap)
 * scale_gradient*: axes are correctly labelled when a transformation is used
 * scale_discrete_position: more aesthetically pleasing expansion for a wider ranges of plots (picks expansion based on whether or not geom with width used, e.g. bars)
 * scale_position: both discrete and continuous gain a new formatter argument to control the default formatting of the axis labels, see also handy numeric formatters: dollar, comma and percent

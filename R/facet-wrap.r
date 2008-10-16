@@ -111,10 +111,11 @@ FacetWrap <- proto(Facet, {
       rweave(labels, panels, axes_h, gap), 
       rweave(gap,    gap,    gap,    gap)
     )
-    heights <- interleave(labels_height, panels_height, axes_height, list(unit(0.25, "lines")))
+    margin <- list(theme$panel.margin)
+    heights <- interleave(labels_height, panels_height, axes_height, margin)
     heights <- do.call("unit.c", heights)
 
-    widths <- interleave(axes_width, panels_width, list(unit(0.25, "lines")))
+    widths <- interleave(axes_width, panels_width, margin)
     widths <- do.call("unit.c", widths)
     
     list(
