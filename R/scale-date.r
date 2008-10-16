@@ -108,6 +108,17 @@ ScaleDate <- proto(ScaleContinuous,{
     last_plot() + scale_x_date(lim = c(as.Date("2000-1-1"), end))
     last_plot() + scale_x_date(lim = c(as.Date("2005-1-1"), end))
     last_plot() + scale_x_date(lim = c(as.Date("2006-1-1"), end))
+    
+    # If we want to display multiple series, one for each variable
+    # it's easiest to first change the data from a "wide" to a "long"
+    # format:
+    em <- melt(economics, id = "date")
+    
+    # Then we can group and facet by the new "variable" variable
+    qplot(date, value, data = em, geom = "line", group = variable)
+    qplot(date, value, data = em, geom = "line", group = variable) + 
+      facet_grid(variable ~ ., scale = "free_y")
+    
   }
   
 })

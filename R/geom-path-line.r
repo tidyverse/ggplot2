@@ -47,5 +47,8 @@ GeomLine <- proto(GeomPath, {
     qplot(date, pop, data=economics, geom="line", log="y")
     qplot(date, pop, data=subset(economics, date > as.Date("2006-1-1")), geom="line")
     qplot(date, pop, data=economics, size=unemploy/pop, geom="line")
+    
+    # See scale_date for examples of plotting multiple times series on
+    # a single graph
   }
 })
