@@ -123,13 +123,15 @@ Layer <- proto(expr = {
   }
   
   calc_statistic <- function(., data, scales) {
-    if (is.null(data) || nrow(data) == 0) return()
-
-# tryNULL(
-    do.call(.$stat$calculate_groups, c(
+    if (is.null(data) || nrow(data) == 0) return(data.frame())
+    
+    res <- do.call(.$stat$calculate_groups, c(
       list(data=as.name("data"), scales=as.name("scales")), 
       .$stat_params)
-    )#)
+    )
+    if (is.null(res)) return(data.frame())
+    
+    res
     
   }
 
@@ -161,7 +163,11 @@ Layer <- proto(expr = {
 
   reparameterise <- function(., data) {
     gg_apply(data, function(df) {
-      if (!is.null(df)) .$geom$reparameterise(df, .$geom_params)
+      if (!is.null(df)) {
+        .$geom$reparameterise(df, .$geom_params) 
+      } else {
+        data.frame()
+      }
     })
   }
 

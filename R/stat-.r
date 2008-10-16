@@ -11,7 +11,7 @@ Stat <- proto(TopLevel, expr={
   calculate <- function(., data, scales, ...) {}
 
   calculate_groups <- function(., data, scales, ...) {
-    if (is.null(data) || nrow(data) == 0) return()
+    if (is.null(data) || nrow(data) == 0) return(data.frame())
     
     force(data)
     force(scales)
@@ -20,7 +20,7 @@ Stat <- proto(TopLevel, expr={
     stats <- lapply(groups, function(group) .$calculate(group, scales, ...))
     
     stats <- mapply(function(new, old) {
-      if (is.null(new)) return(NULL)
+      if (is.null(new)) return(data.frame())
       unique <- uniquecols(old)
       missing <- !(names(unique) %in% names(new))
       cbind(
