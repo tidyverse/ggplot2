@@ -42,7 +42,7 @@ ScaleDiscrete <- proto(Scale, expr={
     if (!is.discrete(x)) {
       stop("Continuous variable (", .$name , ") supplied to the discrete ", .$my_name(), ".", call.=FALSE) 
     }
-    vals <- if (is.factor(x)) levels(x) else as.character(unique(x))
+    vals <- if (is.factor(x)) levels(factor(x, exclude = NULL)) else as.character(unique(x))
     if (any(is.na(x))) vals <- c(NA, vals)
     
     .$.domain <- union(.$.domain, vals)

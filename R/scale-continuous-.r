@@ -16,6 +16,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
     # Transform limits and breaks
     limits <- trans$transform(limits)
     breaks <- trans$transform(breaks)
+    minor_breaks <- trans$transform(minor_breaks)
     
     .$proto(name=name, .input=variable, .output=variable, limits=limits, breaks = breaks, .labels = labels, .expand=expand, .tr = trans, minor_breaks = minor_breaks, formatter = formatter, ...)
   }

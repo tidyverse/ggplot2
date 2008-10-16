@@ -85,7 +85,7 @@ discrete_range <- function(...) {
   pieces <- list(...)
   
   clevels <- function(x) {
-    if (is.factor(x)) levels(factor(x)) else as.character(unique(x))
+    if (is.factor(x)) levels(factor(x, exclude=NULL)) else as.character(unique(x))
   }
   
   vals <- unlist(lapply(pieces, clevels))
