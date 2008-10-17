@@ -10,16 +10,19 @@ Position <- proto(TopLevel, expr = {
   width <- NULL
   height <- NULL
   new <- function(., width = NULL, height = NULL) {
-    .$proto(width = width, height = NULL)
+    .$proto(width = width, height = height)
   }
 
   parameters <- function(.) {
-    params <- formals(get("new", .))
-    params[setdiff(names(params), c("."))]
+    pnames <- setdiff(names(formals(get("new", .))), ".")
+    values <- lapply(pnames, get, envir = .)
+    names(values) <- pnames
+    
+    values
   }
   
   pprint <- function(., newline=TRUE) {
-    cat("position_", .$objname, ": ()", sep="")
+    cat("position_", .$objname, ": (", clist(.$parameters()), ")", sep="")
     if (newline) cat("\n")
   }
 
@@ -28,11 +31,6 @@ Position <- proto(TopLevel, expr = {
       "<h2>Returns</h2>\n",
       "<p>This function returns a position object.</p>"
     )
-  }
-  
-  parameters <- function(.) {
-    params <- formals(get("new", .))
-    params[setdiff(names(params), c(".","variable"))]
   }
   
 })

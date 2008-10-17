@@ -1,4 +1,6 @@
 PositionJitter <- proto(Position, {
+  
+  
   adjust <- function(., data, scales) {
     check_required_aesthetics(c("x", "y"), names(data), "position_jitter")
     
