@@ -28,7 +28,7 @@ GeomPoint <- proto(Geom, {
   
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y")
-  default_aes <- function(.) aes(shape=19, colour="black", size=2, fill = NA)
+  default_aes <- function(.) aes(shape=16, colour="black", size=2, fill = NA)
 
   seealso <- list(
     # scale_area = "Scale area of points, instead of radius",
