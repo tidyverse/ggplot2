@@ -160,7 +160,7 @@ CoordPolar <- proto(Coord, {
     pie <- ggplot(mtcars, aes(x=factor(1), fill=factor(cyl))) + geom_bar(width=1)
     pie + coord_polar(theta="y")
 
-    # A new type of plot?
+    # The bullseye chart
     pie + coord_polar()
     
     # Hadley's favourite pie chart
@@ -178,7 +178,7 @@ CoordPolar <- proto(Coord, {
     
     # Wind rose
     doh + geom_bar(width=1) + coord_polar()
-    #Doughnut plot
+    # Race track plot
     doh + geom_bar(width=0.9, position="fill") + coord_polar(theta="y")
   }
 
