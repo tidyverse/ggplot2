@@ -1,7 +1,7 @@
 GeomPath <- proto(Geom, {
   draw_groups <- function(., ...) .$draw(...)
 
-  draw <- function(., data, scales, coordinates, ...) {
+  draw <- function(., data, scales, coordinates, arrow = NULL, ...) {
     if (nrow(data) < 2) return()
 
     munched <- coordinates$munch(data, scales)
@@ -26,18 +26,20 @@ GeomPath <- proto(Geom, {
     
     if (!constant) {
       with(munched, 
-        segmentsGrob(x[!end], y[!end], x[!start], y[!start], default.units="native",
+        segmentsGrob(x[!end], y[!end], x[!start], y[!start],
+        default.units="native", arrow = arrow, 
         gp = gpar(
-          col = colour[!end], lwd = size[!end] * .pt, 
+          col = colour[!end], fill = colour[!end], lwd = size[!end] * .pt, 
           lty = linetype[!end], lineend = "butt"
         ))
       )
     } else {
       with(munched, 
         polylineGrob(
-          x, y, id = as.integer(factor(group)), default.units="native",
+          x, y, id = as.integer(factor(group)), 
+          default.units="native", arrow = arrow, 
           gp = gpar(
-            col = colour[start], lwd = size[start] * .pt, 
+            col = colour[start], fill = colour[start], lwd = size[start] * .pt, 
             lty = linetype[start], lineend = "butt")
         )
       )
@@ -45,6 +47,7 @@ GeomPath <- proto(Geom, {
   }
 
   draw_legend <- function(., data, ...) {
+    data$arrow <- NULL
     data <- aesdefaults(data, .$default_aes(), list(...))
 
     with(data, 

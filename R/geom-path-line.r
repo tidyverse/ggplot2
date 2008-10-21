@@ -6,9 +6,9 @@ GeomLine <- proto(GeomPath, {
     linesGrob(pos, c(0.2, 0.7, 0.4, 0.8, 0.3))
   }
   
-  draw <- function(., data, scales, coordinates, ...) {
+  draw <- function(., data, scales, coordinates, arrow = NULL, ...) {
     data <- as.data.frame(data)[order(data$group, data$x), ]
-    GeomPath$draw(data, scales, coordinates, ...)
+    GeomPath$draw(data, scales, coordinates, arrow, ...)
   }
   
   default_stat <- function(.) StatIdentity

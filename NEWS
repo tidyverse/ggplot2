@@ -1,6 +1,7 @@
 ggplot2 0.7.1  (2008-XX)
 ----------------------------------------
 
+* geom_path and geom_line gain arrows argument to match geom_segment
 * geom_point, geom_pointrange and geom_boxplot: now use shape = 16 instead of 19.  This shape does not have a border from R 2.8 on, and so will look better when displayed transparently.
 * xlim and ylim now produce discrete scales when appropriate
 * geom_bar: default fill colour is now much closer to black to match the defaults in other geoms (point, line, etc)
