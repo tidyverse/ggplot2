@@ -62,7 +62,6 @@ qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE,
   aesthetics <- rename_aes(aesthetics)
   class(aesthetics) <- "uneval"
   
-  env <- parent.frame()
   if (missing(data)) {
     # If data not explicitly specified, will be pulled from workspace
     data <- data.frame()
@@ -78,6 +77,7 @@ qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE,
     if (nrow(data) == 0) stop("data has no rows")
   }
 
+  env <- parent.frame()
   p <- ggplot(data, aesthetics, environment = env)
   
   if (is.formula(facets) && length(facets) == 2) {
