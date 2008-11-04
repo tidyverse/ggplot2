@@ -24,7 +24,7 @@ StatSmooth <- proto(Stat, {
     
     method.special <- function(...) method(formula, data=data, weights=weight, ...)
     model <- safe.call(method.special, list(...), names(formals(method)))
-    pred <- predict(model, data.frame(x=xseq), se=se, type="response")
+    pred <- stats::predict(model, data.frame(x=xseq), se=se, type="response")
 
     if (se) {
       std <- qnorm(level/2 + 0.5)

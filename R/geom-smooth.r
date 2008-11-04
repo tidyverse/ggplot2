@@ -46,13 +46,13 @@ GeomSmooth <- proto(Geom, {
       cyl = levels(factor(cyl))
     ))
 
-    grid$mpg <- predict(model, newdata=grid)
+    grid$mpg <- stats::predict(model, newdata=grid)
 
     qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + geom_line(data=grid)
 
     # or with standard errors
 
-    err <- predict(model, newdata=grid, se = TRUE)
+    err <- stats::predict(model, newdata=grid, se = TRUE)
     grid$ucl <- err$fit + 1.96 * err$se.fit
     grid$lcl <- err$fit - 1.96 * err$se.fit
 
