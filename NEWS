@@ -1,6 +1,7 @@
 ggplot2 0.7.1  (2008-XX)
 ----------------------------------------
 
+* theme_grey now aliased to theme_gray
 * geom_smooth calls stat::predict explicit to avoid conflicts with packages that override predict for S4 model classes
 * geom_path and geom_line gain arrows argument to match geom_segment
 * geom_point, geom_pointrange and geom_boxplot: now use shape = 16 instead of 19.  This shape does not have a border from R 2.8 on, and so will look better when displayed transparently.

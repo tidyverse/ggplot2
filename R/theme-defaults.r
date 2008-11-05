@@ -3,6 +3,7 @@
 # 
 # @argument base font size
 # @keywords dplot
+# @alias theme_grey
 theme_gray <- function(base_size = 12) {
   structure(list(
     axis.line =         theme_blank(),
@@ -35,6 +36,7 @@ theme_gray <- function(base_size = 12) {
     plot.title =        theme_text(size = base_size * 1.2)
   ), class = "options")
 }
+theme_grey <- theme_gray
 
 # Black and white theme
 # Produce a theme with white background and black gridlines
