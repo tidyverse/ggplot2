@@ -1,6 +1,9 @@
 ggplot2 0.8  (2008-XX)
 ----------------------------------------
 
+* ggsave now produces postscript files that are actually suitable for embedding in another document
+* ggsave now checks that you are using it with a ggplot plot
+* ggsave now recognises the .svg extension and will produce svg files
 * theme_grey now aliased to theme_gray
 * geom_smooth calls stat::predict explicit to avoid conflicts with packages that override predict for S4 model classes
 * geom_path and geom_line gain arrows argument to match geom_segment
