@@ -13,6 +13,7 @@
 # @arguments plot to save, defaults to last plot displayed
 # @arguments file name/filename of plot
 # @arguments device to use, automatically extract from file name extension
+# @arguments path to save plot to (if you just want to set path and not filename)
 # @arguments scaling factor
 # @arguments width (in inches)
 # @arguments height (in inches)
@@ -29,7 +30,7 @@
 #X # make twice as big as on screen
 #X ggsave(ratings, file="ratings.pdf", scale=2)
 #X }
-ggsave <- function(plot = last_plot(), filename=default_name(plot), device=default_device(filename), scale=1, width=par("din")[1], height=par("din")[2], dpi=300, keep = plot$options$keep, drop = plot$options$drop, ...) {
+ggsave <- function(plot = last_plot(), filename=default_name(plot), device=default_device(filename), path = "", scale=1, width=par("din")[1], height=par("din")[2], dpi=300, keep = plot$options$keep, drop = plot$options$drop, ...) {
   if (!inherits(plot, "ggplot")) stop("plot should be a ggplot2 plot")
 
   eps <- ps <- function(..., width, height)  
@@ -54,7 +55,7 @@ ggsave <- function(plot = last_plot(), filename=default_name(plot), device=defau
     grDevices::tiff(..., width=width, height=height, res = dpi, units = "in")
   
   default_name <- function(plot) { 
-    paste(filename, digest.ggplot(plot), ".png", sep="")
+    paste(path, digest.ggplot(plot), ".pdf", sep="")
   }
   
   default_device <- function(filename) {

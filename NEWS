@@ -1,6 +1,7 @@
 ggplot2 0.8  (2008-XX)
 ----------------------------------------
 
+* grid: correctly expose subcomponents of strips and axes
 * ggsave now produces postscript files that are actually suitable for embedding in another document
 * ggsave now checks that you are using it with a ggplot plot
 * ggsave now recognises the .svg extension and will produce svg files

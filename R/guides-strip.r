@@ -45,7 +45,7 @@ ggstrip <- function(text, horizontal=TRUE, theme) {
   label <- theme_render(theme, text_theme, text)
 
   ggname("strip", absoluteGrob(
-    grobTree(
+    gList(
       theme_render(theme, "strip.background"),
       label
     ),
