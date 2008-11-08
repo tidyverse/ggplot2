@@ -1,6 +1,7 @@
 ggplot2 0.8  (2008-XX)
 ----------------------------------------
 
+* scale_discrete_position: fixed bug when limits were set
 * xlim, ylim and zlim now generate a reverse scale if the minimum is greater than the maximum
 * grid: correctly expose subcomponents of strips and axes
 * ggsave now produces postscript files that are actually suitable for embedding in another document
