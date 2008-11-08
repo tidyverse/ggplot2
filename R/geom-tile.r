@@ -11,7 +11,7 @@ GeomTile <- proto(Geom, {
 
   draw_groups <- function(., data,  scales, coordinates, ...) {
     # data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
-    GeomRect$draw(data, scales, coordinates, ...)
+    GeomRect$draw_groups  (data, scales, coordinates, ...)
   }
   
   draw_legend <- function(., data, ...)  {

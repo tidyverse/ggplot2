@@ -16,8 +16,8 @@ GeomBar <- proto(Geom, {
     )
   }
  
-  draw <- function(., data, scales, coordinates, ...) {
-    GeomRect$draw(data, scales, coordinates, ...)
+  draw_groups <- function(., data, scales, coordinates, ...) {
+    GeomRect$draw_groups(data, scales, coordinates, ...)
   }
   
   # Documentation -----------------------------------------------

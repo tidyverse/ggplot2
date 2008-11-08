@@ -6,7 +6,7 @@ GeomRect <- proto(Geom, {
   
   required_aes <- c("xmin", "xmax", "ymin", "ymax")
 
-  draw <- function(., data, scales, coordinates, ...) {
+  draw_groups <- function(., data, scales, coordinates, ...) {
     if (coordinates$muncher()) {
       aesthetics <- setdiff(
         names(data), c("x", "y", "xmin","xmax", "ymin", "ymax")
