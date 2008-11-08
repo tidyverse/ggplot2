@@ -115,8 +115,8 @@ qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE,
   if (!missing(xlab) && !is.null(x)) x$name <- xlab
   if (!missing(ylab) && !is.null(y)) y$name <- ylab
   
-  if (!missing(xlim) & !is.null(x)) x$limits <- xlim
-  if (!missing(ylim) & !is.null(y)) y$limits <- ylim
+  if (!missing(xlim)) p <- p + xlim(xlim)
+  if (!missing(ylim)) p <- p + ylim(ylim)
   
   p
 }

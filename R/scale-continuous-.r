@@ -116,6 +116,11 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
     m + scale_y_continuous(limits=c(0, 5000))
     m + scale_y_continuous(limits=c(1000, 10000))
     m + scale_x_continuous(limits=c(7, 8))
+    
+    # you can also use the short hand functions xlim and ylim
+    m + ylim(0, 5000)
+    m + ylim(1000, 10000)
+    m + xlim(7, 8)
 
     #  * choose where the ticks appear
     m + scale_x_continuous(breaks=1:10)
