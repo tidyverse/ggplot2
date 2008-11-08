@@ -81,6 +81,7 @@ GeomBar <- proto(Geom, {
     cut <- factor(levels(diamonds$cut), levels = levels(diamonds$cut))
     qplot(cut, meanprice)
     qplot(cut, meanprice, geom="bar", stat="identity")
+    qplot(cut, meanprice, geom="bar", stat="identity", fill = I("grey50"))
   }  
 
 })

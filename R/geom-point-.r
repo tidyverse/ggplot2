@@ -53,6 +53,7 @@ GeomPoint <- proto(Geom, {
     
     # Set aesthetics to fixed value
     p + geom_point(colour = "red", size=3)
+    qplot(wt, mpg, data=mtcars, colour = I("red"), size = I(3))    
         
     # Transparent points:
     qplot(mpg, wt, data=mtcars, size=I(5), 
