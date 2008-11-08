@@ -2,7 +2,7 @@
 ScaleIdentity <- proto(ScaleDiscrete, {  
   doc <- TRUE
   common <- c("colour","fill","size","shape","linetype")
-  new <- function(., name=NULL, breaks=NULL, labels=NULL, formatter = formatter, variable="x") {
+  new <- function(., name=NULL, breaks=NULL, labels=NULL, formatter = NULL, variable="x") {
     .$proto(name=name, breaks=breaks, .labels=labels, .input=variable, .output=variable, formatter = formatter)
   }
 
