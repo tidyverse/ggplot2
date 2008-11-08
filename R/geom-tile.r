@@ -25,11 +25,11 @@ GeomTile <- proto(Geom, {
   details <- "<p>Similar to levelplot and image.</p>"
 
   icon <- function(.) {
-    rectGrob(c(0.25, 0.25, 0.75, 0.75), c(0.25, 0.75, 0.75, 0.25), width=0.5, height=c(0.67, 0.5, 0.67, 0.5), gp=gpar(col="grey60", fill=c("#804070", "#668040")))
+    rectGrob(c(0.25, 0.25, 0.75, 0.75), c(0.25, 0.75, 0.75, 0.25), width=0.5, height=c(0.67, 0.5, 0.67, 0.5), gp=gpar(col="grey20", fill=c("#804070", "#668040")))
   }
 
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(fill="grey60", colour=NA, size=0.1, linetype=1)
+  default_aes <- function(.) aes(fill="grey20", colour=NA, size=0.1, linetype=1)
   required_aes <- c("x", "y")
   guide_geom <- function(.) "tile"
   

@@ -26,7 +26,7 @@ GeomBar <- proto(Geom, {
   guide_geom <- function(.) "tile"
   
   icon <- function(.) {
-    rectGrob(c(0.3, 0.7), c(0.4, 0.8), height=c(0.4, 0.8), width=0.3, vjust=1, gp=gpar(fill="grey60", col=NA))
+    rectGrob(c(0.3, 0.7), c(0.4, 0.8), height=c(0.4, 0.8), width=0.3, vjust=1, gp=gpar(fill="grey20", col=NA))
   }
   details <- "<p>The bar geom is used to produce 1d area plots: bar charts for categorical x, and histograms for continuous y.  stat_bin explains the details of these summaries in more detail.  In particular, you can use the <code>weight</code> aesthetic to create weighted histograms and barcharts where the height of the bar no longer represent a count of observations, but a sum over some other variable.  See the examples for a practical example.</p>\n<p>By default, multiple x's occuring in the same place will be stacked a top one another by position_stack.  If you want them to be dodged from side-to-side, check out position_dodge.  Finally, position_fill shows relative propotions at each x by stacking the bars and then stretch or squashing them all to the same height</p>\n"
   
