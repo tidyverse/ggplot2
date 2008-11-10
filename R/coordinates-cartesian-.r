@@ -11,11 +11,8 @@ CoordCartesian <- proto(Coord, expr={
   }
   rescale_var <- function(., data, scale) {
     limits <- .$limits[[scale$output()]]
-    if (!is.null(limits)) {
-      rescale(data, 0:1, limits, clip = FALSE)  
-    } else {
-      rescale(data, 0:1, scale$output_expand())
-    }
+
+    rescale(data, 0:1, limits %||% scale$output_expand(), clip = FALSE)  
   }
   
   # Assumes contiguous series of points

@@ -1,6 +1,7 @@
 ggplot2 0.8  (2008-XX)
 ----------------------------------------
 
+* coord_cartesian now correctly clips instead of dropping points outside of its limits
 * order aesthetic should now work with bars (and in general more geoms)
 * scale_discrete_position: fixed bug when limits were set
 * xlim, ylim and zlim now generate a reverse scale if the minimum is greater than the maximum
