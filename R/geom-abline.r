@@ -20,7 +20,7 @@ GeomAbline <- proto(Geom, {
       data$slope <- slope
     }
     
-    xrange <- scales$get_scales("x")$output_expand()
+    xrange <- scales$x$output_expand()
     
     
     data <- transform(data,
