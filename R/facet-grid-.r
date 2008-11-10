@@ -231,6 +231,24 @@ FacetGrid <- proto(Facet, {
     })
   }
   
+  calc_statistics <- function(., data, layers) {
+    lapply(seq_along(data), function(i) {
+      layer <- layers[[i]]
+      layerd <- data[[i]]
+      grobs <- matrix(list(), nrow = nrow(layerd), ncol = ncol(layerd))
+
+      for(i in seq_len(nrow(layerd))) {
+        for(j in seq_len(ncol(layerd))) {
+          scales <- list(
+            x = .$scales$x[[j]], 
+            y = .$scales$y[[i]]
+          )
+          grobs[[i, j]] <- layer$calc_statistic(layerd[[i, j]], scales)
+        }
+      }
+      grobs
+    })
+  }
 
   # Documentation ------------------------------------------------------------
 

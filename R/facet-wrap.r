@@ -144,7 +144,7 @@ FacetWrap <- proto(Facet, {
     layout_vp <- viewport(layout=layout, name="panels")
     
     children_vp <- vpList(
-      setup_viewports("panel",   guides$panel, clip = "off")
+      setup_viewports("panel",   guides$panel, clip = "on")
     )
     
     vpTree(layout_vp, children_vp)
@@ -204,6 +204,23 @@ FacetWrap <- proto(Facet, {
           y = .$scales$y[[i]]
         )
         grobs[[1, i]] <- layer$make_grob(layerd[[1, i]], scales, cs)
+      }
+      grobs
+    })
+  }
+  
+  calc_statistics <- function(., data, layers) {
+    lapply(seq_along(data), function(i) {
+      layer <- layers[[i]]
+      layerd <- data[[i]]
+      grobs <- matrix(list(), nrow = nrow(layerd), ncol = ncol(layerd))
+
+      for(i in seq_along(.$scales$x)) {
+        scales <- list(
+          x = .$scales$x[[i]], 
+          y = .$scales$y[[i]]
+        )
+        grobs[[1, i]] <- layer$calc_statistic(layerd[[1, i]], scales)
       }
       grobs
     })

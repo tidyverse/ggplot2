@@ -1,7 +1,7 @@
 StatFunction <- proto(Stat, {
   
   calculate <- function(., data, scales, fun, n=101, args = list(), ...) {
-    range <- scales$get_scales("x")$output_set()
+    range <- scales$x$output_set()
     xseq <- seq(range[1], range[2], length=n)
     
     data.frame(
