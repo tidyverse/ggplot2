@@ -34,8 +34,8 @@ GeomBoxplot <- proto(Geom, {
       outliers_grob,
       GeomPath$draw(data.frame(y=c(upper, ymax), defaults2), ...),
       GeomPath$draw(data.frame(y=c(lower, ymin), defaults2), ...),
-      GeomBar$draw(data.frame(ymax = upper, ymin = lower, defaults), ...),
-      GeomBar$draw(data.frame(ymax = middle, ymin = middle, defaults), ...)
+      GeomRect$draw(data.frame(ymax = upper, ymin = lower, defaults), ...),
+      GeomRect$draw(data.frame(ymax = middle, ymin = middle, defaults), ...)
     )))
   }
 
