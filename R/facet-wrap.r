@@ -1,5 +1,5 @@
 FacetWrap <- proto(Facet, {
-  new <- function(., facets = . ~ ., nrow = NULL, ncol = NULL, scales = "fixed", as.table = TRUE) {
+  new <- function(., facets, nrow = NULL, ncol = NULL, scales = "fixed", as.table = TRUE) {
     scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
     free <- list(
       x = any(scales %in% c("free_x", "free")),
@@ -233,8 +233,10 @@ FacetWrap <- proto(Facet, {
   desc <- "Wrap a 1d ribbon of panels into 2d."
   
   desc_params <- list(
-    facets = "",
-    margins = "logical value, should marginal rows and columns be displayed"
+    nrow = "number of rows",
+    ncol = "number of colums", 
+    facet = "formula specifying variables to facet by",
+    scales = "should scales be fixed, free, or free in one dimension (free_x, free_y) "
   )
 
   
@@ -246,10 +248,19 @@ FacetWrap <- proto(Facet, {
     d + facet_wrap(~ color, ncol = 4)
     d + facet_wrap(~ color, nrow = 4)
     
-    
     # Using multiple variables continues to wrap the long ribbon of 
     # plots into 2d - the ribbon just gets longer
     d + facet_wrap(~ color + cut)
+
+    # You can choose to keep the scales constant across all panels
+    # or vary the x scale, the y scale or both:
+    p <- qplot(price, data = diamonds, geom = "histogram", binwidth = 1000)
+    p + facet_wrap(~ color)
+    p + facet_wrap(~ color, scales = "free_y")
+    
+    p <- qplot(displ, hwy, data = mpg)
+    p + facet_wrap(~ cyl)
+    p + facet_wrap(~ cyl, scales = "free") 
   }
   
   pprint <- function(., newline=TRUE) {
