@@ -17,14 +17,14 @@ ggplot.default <- function(data = NULL, mapping=aes(), ..., environment = global
     data = data, 
     layers = list(),
     scales = Scales$new(),
-    defaults = mapping,
+    mapping = mapping,
     options = list(),
     coordinates = CoordCartesian$new(),
     facet = FacetGrid$new(),
     plot_env = environment
   ), class="ggplot")
 
-  p$scales$add_defaults(p$data, p$defaults, p$plot_env)
+  p$scales$add_defaults(p$data, p$mapping, p$plot_env)
 
   set_last_plot(p)
   p

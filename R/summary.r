@@ -7,7 +7,7 @@ summary.ggplot <- function(object, ...) {
   defaults <- function() {
     paste(mapply(function(x, n) {
       paste(n, deparse(x), sep="=")
-    }, object$defaults, names(object$defaults)), collapse=", ")
+    }, object$mapping, names(object$mapping)), collapse=", ")
   }
   
   cat("Title:    ", object$title, "\n", sep="")
@@ -15,8 +15,8 @@ summary.ggplot <- function(object, ...) {
   if (!is.null(object$data)) {
     cat("Data:     ", paste(names(object$data), collapse=", "), " [", nrow(object$data), "x", ncol(object$data), "] ", "\n", sep="")    
   }
-  if (length(object$defaults) > 0) {
-    cat("Mapping:  ", defaults(), "\n", sep="")    
+  if (length(object$mapping) > 0) {
+    cat("Mapping:  ", clist(object$mapping), "\n", sep="")    
   }
   if (object$scales$n() > 0) {
     object$scales$pprint()    

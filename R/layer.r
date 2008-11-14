@@ -54,7 +54,7 @@ Layer <- proto(expr = {
     proto(., 
       geom=geom, geom_params=geom_params, 
       stat=stat, stat_params=stat_params, 
-      data=data, aesthetics=mapping, 
+      data=data, mapping=mapping, 
       position=position,
       ignore.extra = ignore.extra
     )
@@ -63,7 +63,7 @@ Layer <- proto(expr = {
   clone <- function(.) as.proto(.$as.list(all.names=TRUE))
   
   use_defaults <- function(., data) {
-    df <- aesdefaults(data, .$geom$default_aes(), compact(.$aesthetics))
+    df <- aesdefaults(data, .$geom$default_aes(), compact(.$mapping))
     
     # Override mappings with parameters
     gp <- intersect(c(names(df), .$geom$required_aes), names(.$geom_params))
@@ -74,7 +74,7 @@ Layer <- proto(expr = {
   }
   
   aesthetics_used <- function(., plot_aesthetics) {
-    aes <- defaults(.$aesthetics, plot_aesthetics)
+    aes <- defaults(.$mapping, plot_aesthetics)
     aes <- defaults(.$stat$default_aes(), aes)
     aesthetics <- names(compact(aes))
     aesthetics <- intersect(aesthetics, names(.$geom$default_aes()))
@@ -87,7 +87,7 @@ Layer <- proto(expr = {
       cat("Empty layer\n")
       return(invisible());
     }
-    cat("mapping:", clist(.$aesthetics), "\n")
+    cat("mapping:", clist(.$mapping), "\n")
     .$geom$print(newline=FALSE)
     cat(clist(.$geom_params), "\n")
     .$stat$print(newline=FALSE)
@@ -98,14 +98,14 @@ Layer <- proto(expr = {
   
   # Produce data.frame of evaluated aesthetics
   # Depending on the construction of the layer, we may need
-  # to stitch together a data frame using the defaults from plot\$defaults 
+  # to stitch together a data frame using the defaults from plot\$mapping 
   # and overrides for a given geom.
   #
   make_aesthetics <- function(., plot) {
     data <- nulldefault(.$data, plot$data)
     if (is.null(data)) stop("No data for layer", call.=FALSE)
 
-    aesthetics <- compact(defaults(.$aesthetics, plot$defaults))
+    aesthetics <- compact(defaults(.$mapping, plot$mapping))
     # Override grouping if specified in layer
     if (!is.null(.$geom_params$group)) {
       aesthetics["group"] <- .$geom_params$group
@@ -146,7 +146,7 @@ Layer <- proto(expr = {
   
   map_statistic <- function(., data, plot) {
     if (is.null(data) || length(data) == 0 || nrow(data) == 0) return()
-    aesthetics <- defaults(.$aesthetics, defaults(plot$defaults, .$stat$default_aes()))
+    aesthetics <- defaults(.$mapping, defaults(plot$mapping, .$stat$default_aes()))
     
     match <- "\\.\\.([a-zA-z._]+)\\.\\."
     new <- aesthetics[grep(match, aesthetics)]
@@ -231,7 +231,7 @@ layer <- Layer$new
 # Build data frome for a plot with given data and ... (dots) arguments
 #
 # Depending on the layer, we need
-# to stitch together a data frame using the defaults from plot\$defaults 
+# to stitch together a data frame using the defaults from plot\$mapping 
 # and overrides for a given geom.
 #
 # Arguments in dots are evaluated in the context of \\code{data} so that

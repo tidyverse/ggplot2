@@ -40,7 +40,7 @@ bolus.proto <- function(x) x$bolus()
 bolus.ggplot <- function(x, ...) {
   with(x, list(
     data = digest(data),
-    mapping = defaults[order(names(defaults))],
+    mapping = mapping[order(names(mapping))],
     layers = sapply(layers, function(x) x$hash()),
     scales = scales$hash(),
     facet = facet$hash(),
@@ -98,7 +98,7 @@ Layer$bolus <- function(.) {
   params <- params[!duplicated(params)]
   if (!is.null(params) && length(params) > 1) params <- params[order(names(params))]
   
-  mapping <- .$aesthetics
+  mapping <- .$mapping
   if (!is.null(mapping)) mapping <- mapping[order(names(mapping))]
   
   list(

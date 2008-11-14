@@ -24,7 +24,7 @@
   } else if (inherits(object, "options")) {
     p$options <- defaults(object, p$options)
   } else if(inherits(object, "uneval")) {
-      p$defaults <- defaults(object, p$defaults)
+      p$mapping <- defaults(object, p$mapping)
   } else if(is.list(object)) {
     for (o in object) {
       p <- p + o
@@ -34,7 +34,7 @@
       layer  = {
         p$layers <- append(p$layers, object)
         data <- if(is.null(object$data)) p$data else object$data
-        mapping <- if(is.null(object$aesthetics)) p$defaults else object$aesthetics
+        mapping <- object$mapping %||% p$mapping
         p$scales$add_defaults(data, mapping, p$plot_env)
         p
       },

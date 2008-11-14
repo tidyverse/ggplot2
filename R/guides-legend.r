@@ -97,12 +97,12 @@ guide_legend <- function(legend, usage=usage, theme) {
   
   legend_f <- function(x) {
     geom <- Geom$find(x)
-    used <- names(Filter(function(geom) any(geom == x), usage$aesthetics))
+    used <- names(Filter(function(geom) any(geom == x), usage$aesthetic))
     params <- usage$parameters[[x]]
     
     function(data) geom$draw_legend(defaults(params, data[used]))
   }
-  grobs <- lapply(unique(unlist(usage$aesthetics[aesthetics])), legend_f)
+  grobs <- lapply(unique(unlist(usage$aesthetic[aesthetics])), legend_f)
 
   title <- theme_render(
     theme, "legend.title",
@@ -116,7 +116,7 @@ guide_legend <- function(legend, usage=usage, theme) {
   label.heights <- do.call("unit.c", lapply(display$label, function(x) stringHeight(as.expression(x))))
   label.widths  <- do.call("unit.c", lapply(display$label, function(x) stringWidth(as.expression(x))))
 
-  grobwidth <- if ("point" %in% usage$aesthetics[aesthetics] && !is.null(display$size)) {
+  grobwidth <- if ("point" %in% usage$mapping[aesthetics] && !is.null(display$size)) {
     unit(max(display$size) / 2, "mm")
   } else {
     unit(0, "mm")
@@ -174,7 +174,7 @@ guide_legend <- function(legend, usage=usage, theme) {
 # @keyword internal
 scale_usage <- function(plot) {
   aesthetics <- lapply(plot$layers, 
-    function(p) p$aesthetics_used(plot$defaults)
+    function(p) p$aesthetics_used(plot$mapping)
   )
   params <- lapply(plot$layers, function(p) p$geom_params)
 
