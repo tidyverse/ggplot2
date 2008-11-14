@@ -16,7 +16,7 @@ theme_gray <- function(base_size = 12) {
     axis.ticks.margin = unit(0.1, "cm"),
 
     legend.background = theme_rect(colour=NA), 
-    legend.key =        theme_rect(fill = "grey95", colour = "grey80"),
+    legend.key =        theme_rect(fill = "grey95", colour = "white"),
     legend.text =       theme_text(size = base_size),
     legend.title =      theme_text(size = base_size, face = "bold", hjust = 0),
     legend.position =   "right",
