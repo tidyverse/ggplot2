@@ -51,7 +51,7 @@ GeomPath <- proto(Geom, {
     data <- aesdefaults(data, .$default_aes(), list(...))
 
     with(data, 
-      ggname(.$my_name(), segmentsGrob(0, 0.5, 1, 0.5, default.units="npc",
+      ggname(.$my_name(), segmentsGrob(0.1, 0.5, 0.9, 0.5, default.units="npc",
       gp=gpar(col=colour, lwd=size * .pt, lty=linetype, lineend="butt")))
     )
   }
