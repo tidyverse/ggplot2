@@ -1,6 +1,8 @@
 ggplot2 0.8  (2008-XX)
 ----------------------------------------
 
+* stat_contour now has arguments to control the position of the contours, rather than relying on the z scale
+* scale_z_* now removed because no longer used by anything
 * coord_cartesian now correctly clips instead of dropping points outside of its limits
 * order aesthetic should now work with bars (and in general more geoms)
 * scale_discrete_position: fixed bug when limits were set

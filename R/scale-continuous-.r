@@ -98,7 +98,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
   }
   
   objname <- "continuous"
-  common <- c("x", "y", "z")
+  common <- c("x", "y")
   desc <- "Continuous position scale"
   seealso <- list(
     "scale_discrete" = "Discrete position scales"

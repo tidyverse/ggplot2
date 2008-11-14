@@ -19,10 +19,6 @@ StatDensity2d <- proto(Stat, {
     df <- with(dens, data.frame(expand.grid(x = x, y = y), z = as.vector(z)))
     
     if (contour) {
-      z_scale <- scale_z_continuous()
-      z_scale$train(df$z)
-      scales$add(z_scale)
-
       StatContour$calculate(df, scales, ...)      
     } else {
       names(df) <- c("x", "y", "density")
