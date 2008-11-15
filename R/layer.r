@@ -153,6 +153,7 @@ Layer <- proto(expr = {
       defaults(plot$mapping, .$stat$default_aes()))
 
     new <- strip_dots(aesthetics[is_calculated_aes(aesthetics)])
+    if (length(new) == 0) return(data)
 
     # Add map stat output to aesthetics
     stat_data <- as.data.frame(lapply(new, eval, data, baseenv()))
