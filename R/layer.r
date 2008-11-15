@@ -149,11 +149,10 @@ Layer <- proto(expr = {
   
   map_statistic <- function(., data, plot) {
     if (is.null(data) || length(data) == 0 || nrow(data) == 0) return()
-    aesthetics <- defaults(.$mapping, defaults(plot$mapping, .$stat$default_aes()))
+    aesthetics <- defaults(.$mapping, 
+      defaults(plot$mapping, .$stat$default_aes()))
 
-    match <- "\\.\\.([a-zA-z._]+)\\.\\."
-    new <- aesthetics[grep(match, aesthetics)]
-    new <- lapply(new, function(x) parse(text = sub(match, "\\1", x))[[1]])
+    new <- strip_dots(aesthetics[is_calculated_aes(aesthetics)])
 
     # Add map stat output to aesthetics
     stat_data <- as.data.frame(lapply(new, eval, data, baseenv()))
@@ -260,7 +259,7 @@ calc_aesthetics <- function(plot, data = plot$data, aesthetics, ignore.extra = F
   # Conditioning variables needed for facets
   cond <- plot$facet$conditionals()
   
-  aesthetics <- drop_calculated_aes(aesthetics)
+  aesthetics <- aesthetics[!is_calculated_aes(aesthetics)]
   evaled <- eval.each(aesthetics)
   if (length(evaled) == 0) return(data.frame())
   
@@ -276,13 +275,24 @@ calc_aesthetics <- function(plot, data = plot$data, aesthetics, ignore.extra = F
   expand.grid.df(df, unique(plot$data[, setdiff(cond, names(df)), drop=FALSE]), unique=FALSE)
 }
 
-# Drop calculated aesthetics
-# Remove aesthetics mapped to variables created by statistics
+# Is calculated aesthetic?
+# Determine if aesthetic is calculated from the statistic
 # 
-# @keyword internal
-drop_calculated_aes <- function(aesthetics) {
+# @keywords internal
+is_calculated_aes <- function(aesthetics) {
   match <- "\\.\\.([a-zA-z._]+)\\.\\."
   stats <- rep(F, length(aesthetics))
   stats[grep(match, sapply(aesthetics, as.character))] <- TRUE
-  aesthetics[!stats]
+  stats
+}
+
+# Strip dots
+# Strip dots from expressions that represent mappings of aesthetics to output from statistics
+# 
+# @keywords internal
+strip_dots <- function(aesthetics) {
+  match <- "\\.\\.([a-zA-z._]+)\\.\\."
+  strings <- lapply(aesthetics, deparse)
+  strings <- lapply(strings, gsub, pattern = match, replacement = "\\1")
+  lapply(strings, function(x) parse(text = x)[[1]]) 
 }

@@ -1,6 +1,7 @@
 ggplot2 0.8  (2008-XX)
 ----------------------------------------
 
+* mapping aesthetics to functions of stat output now works in a much wider variety of cases
 * scale_x_log10, scale_y_sqrt etc now correctly transform output from statistics as well as raw data
 * stat_contour now has arguments to control the position of the contours, rather than relying on the z scale
 * scale_z_* now removed because no longer used by anything
