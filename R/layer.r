@@ -140,6 +140,9 @@ Layer <- proto(expr = {
   # of aesthetic mappings occur.  This allows the mapping of variables 
   # created by the statistic, for example, height in a histogram, levels
   # on a contour plot.
+  # 
+  # This also takes care of applying any scale transformations that might
+  # be necessary
   map_statistics <- function(., data, plot) {
     gg_apply(data, function(x) .$map_statistic(x, plot=plot))
   }
@@ -147,18 +150,20 @@ Layer <- proto(expr = {
   map_statistic <- function(., data, plot) {
     if (is.null(data) || length(data) == 0 || nrow(data) == 0) return()
     aesthetics <- defaults(.$mapping, defaults(plot$mapping, .$stat$default_aes()))
-    
+
     match <- "\\.\\.([a-zA-z._]+)\\.\\."
     new <- aesthetics[grep(match, aesthetics)]
     new <- lapply(new, function(x) parse(text = sub(match, "\\1", x))[[1]])
+
+    # Add map stat output to aesthetics
+    stat_data <- as.data.frame(lapply(new, eval, data, baseenv()))
+    names(stat_data) <- names(new)
     
-    for(i in seq_along(new)) {
-      data[[names(new)[i]]] <- eval(new[[i]], data, baseenv())
-    }
-    
+    # Add any new scales, if needed
     plot$scales$add_defaults(data, new, plot$plot_env)
+    stat_data <- plot$scales$transform_df(stat_data)
     
-    data
+    cbind(data, stat_data)
   }
 
   reparameterise <- function(., data) {
