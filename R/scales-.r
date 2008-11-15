@@ -97,12 +97,11 @@ Scales <- proto(Scale, expr={
   transform_df <- function(., df) {
     if (length(.$.scales) == 0) return(df)
     if (is.null(df)) return(df)
-    mapped <- compact(lapply(.$.scales, function(scale) {
+    transformed <- compact(lapply(.$.scales, function(scale) {
       scale$transform_df(df)
     }))
-    mapped <- do.call("data.frame", mapped)
     
-    data.frame(c(mapped, df[setdiff(names(df), names(mapped))]))
+    cunion(as.data.frame(transformed), df)
   }
   
   # Add default scales.

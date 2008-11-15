@@ -182,10 +182,7 @@ FacetWrap <- proto(Facet, {
           }
           
           
-          cbind(
-            new, 
-            old[setdiff(names(old), names(new))]
-          )
+          cunion(new, old)
         }) 
       }
       l
@@ -283,6 +280,10 @@ rweave <- function(...) {
   
   interleave <- rep(1:n, each = p) + seq(0, p - 1) * n
   do.call("rbind", matrices)[interleave, , drop = FALSE]
+}
+
+cunion <- function(a, b) {
+  cbind(a, b[setdiff(names(b), names(a))])
 }
 
 cweave <- function(...) {
