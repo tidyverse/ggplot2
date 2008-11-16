@@ -130,8 +130,7 @@ FacetWrap <- proto(Facet, {
   }
   
   create_viewports <- function(., guides, theme) {
-    respect <- !is.null(theme$aspect_ratio)
-    
+    respect <- !is.null(theme$aspect.ratio)
     layout <- grid.layout(
       ncol = length(guides$widths), widths = guides$widths,
       nrow = length(guides$heights), heights = guides$heights,
