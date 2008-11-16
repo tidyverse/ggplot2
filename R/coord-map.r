@@ -1,71 +1,76 @@
-CoordMap <- proto(CoordCartesian, {  
-  new <- function(., projection="mercator", ..., orientation = NULL) {
+CoordMap <- proto(Coord, {  
+  new <- function(., projection="mercator", ..., orientation = NULL, fast = TRUE) {
     try_require("mapproj")
     .$proto(
       projection = projection, 
       orientation = orientation,
+      fast = fast,
       params = list(...)
     )
   }
   
-  muncher <- function(.) TRUE
-  munch <- function(., data) .$transform(data)
+  # Just transforming because maps tend to have very large numbers of points
+  # anyway.  But this means 
+  muncher <- function(.) !.$fast
   
-  transform <- function(., data) {
-    # trans <- .$mproject(data[, c("xmin","ymin")])
-    # trans <- .$mproject(data[, c("xmax","ymax")])
-    # trans <- .$mproject(data[, c("xend","yend")])
-    trans <- .$mproject(data[, c("x","y")])
-    out <- data.frame(
-      trans[c("x", "y")], 
-      data[, setdiff(names(data), c("x", "y"))
-    ])
+  transform <- function(., data, details) {
+    trans <- .$mproject(data$x, data$y, details$orientation)
+    out <- cunion(trans[c("x", "y")], data)
     
-    out$x <- rescale(out$x, 0:1, .$output_set()$x)
-    out$y <- rescale(out$y, 0:1, .$output_set()$y)
+    out$x <- rescale(out$x, 0:1, details$x.range, clip = FALSE)
+    out$y <- rescale(out$y, 0:1, details$y.range, clip = FALSE)
     out
   }
   
-  mproject <- function(., data) {
-    if (is.null(.$orientation)) 
-      .$orientation <- c(90, 0, mean(.$x()$output_set()))
-    
-    out <- suppressWarnings(do.call("mapproject", 
-      list(data, projection=.$projection, parameters  = .$params, orientation = .$orientation)
-    ))
-  }
   
-  output_set <- function(.) {
-    xrange <- .$x()$output_expand()
-    yrange <- .$y()$output_expand()
-    
-    df <- data.frame(x = xrange, y = yrange)
-    range <- .$mproject(df)$range
+  mproject <- function(., x, y, orientation) {    
+    suppressWarnings(do.call("mapproject",  list(
+      data.frame(x = x, y = y), 
+      projection = .$projection, 
+      parameters  = .$params, 
+      orientation = orientation
+    )))
+  }
 
-    list(x = range[1:2], y = range[3:4])
-  }
-  
-  guide_axes <- function(., theme) {
-    range <- .$output_set()
+  compute_ranges <- function(., scales) {
+    x.raw <- scales$x$output_expand()
+    y.raw <- scales$y$output_expand()
+    orientation <- .$orientation %||% c(90, 0, mean(x.raw))
+    
+    range <- .$mproject(x.raw, y.raw, orientation)$range    
+    
+    x.range <- range[1:2]
+    x.major <- scales$x$input_breaks_n()
+    x.minor <- scales$x$output_breaks()
+    x.labels <- scales$x$labels()
+
+    y.range <- range[3:4]
+    y.major <- scales$y$input_breaks_n()
+    y.minor <- scales$y$output_breaks()
+    y.labels <- scales$y$labels()
+    
     list(
-      x = guide_axis(NA, "", "bottom", theme),
-      y = guide_axis(NA, "", "left", theme)
+      x.raw = x.raw, y.raw = y.raw, orientation = orientation,
+      x.range = x.range, y.range = y.range, 
+      x.major = x.major, x.minor = x.minor, x.labels = x.labels,
+      y.major = y.major, y.minor = y.minor, y.labels = y.labels
     )
   }
   
-  guide_background <- function(., theme) {
-    range <- list(
-      x = expand_range(.$x()$output_set(), 0.1),
-      y = expand_range(.$y()$output_set(), 0.1)
-    )
-    x <- grid.pretty(range$x)
-    y <- grid.pretty(range$y)
-
-    xgrid <- expand.grid(x = c(seq(range$x[1], range$x[2], len = 100), NA), y = y)
-    ygrid <- expand.grid(y = c(seq(range$y[1], range$y[2], len = 100), NA), x = x)
+  guide_background <- function(., details, theme) {    
+    xrange <- expand_range(details$x.raw, 0.2)
+    yrange <- expand_range(details$y.raw, 0.2)
+    xgrid <- with(details, expand.grid(
+      y = c(seq(yrange[1], yrange[2], len = 50), NA),
+      x = x.major
+    ))
+    ygrid <- with(details, expand.grid(
+      x = c(seq(xrange[1], xrange[2], len = 50), NA), 
+      y = y.major
+    ))
     
-    xlines <- .$transform(xgrid)
-    ylines <- .$transform(ygrid)
+    xlines <- .$transform(xgrid, details)
+    ylines <- .$transform(ygrid, details)
 
     ggname("grill", grobTree(
       theme_render(theme, "panel.background"),
@@ -79,6 +84,26 @@ CoordMap <- proto(CoordCartesian, {
       )
     ))
   }  
+
+  guide_axis_h <- function(., details, theme) {
+    x_intercept <- with(details, data.frame(
+      x = x.major,
+      y = y.raw[1]
+    ))
+    pos <- .$transform(x_intercept, details)
+    
+    guide_axis(pos$x, details$x.labels, "bottom", theme)
+  }
+  guide_axis_v <- function(., details, theme) {
+    x_intercept <- with(details, data.frame(
+      x = x.raw[1],
+      y = y.major
+    ))
+    pos <- .$transform(x_intercept, details)
+    
+    guide_axis(pos$y, details$y.labels, "left", theme)
+  }
+
 
   # Documentation -----------------------------------------------
 
