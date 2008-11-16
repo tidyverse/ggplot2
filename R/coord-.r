@@ -10,22 +10,26 @@ Coord <- proto(TopLevel, expr={
     rescale(data, 0:1, range, clip = FALSE)  
   }
   
-  munch <- function(., data, npieces=50) {
-    data <- add_group(data)
-    
-    groups <- split(data, data$group)
-    munched_groups <- lapply(groups, function(df) .$munch_group(df, npieces))
-    do.call("rbind", munched_groups)
+  munch <- function(., data, details, npieces=50) {
+    if (!.$muncher()) {
+      .$transform(data, details)
+    } else {
+      data <- add_group(data)
+
+      groups <- split(data, data$group)
+      munched_groups <- lapply(groups, function(df) .$munch_group(df, details, npieces))
+      do.call("rbind", munched_groups)      
+    }
   }
   
-  munch_group <- function(., data, npieces=50) {
+  munch_group <- function(., data, details, npieces=50) {
     n <- nrow(data)
 
     x <- approx(data$x, n = npieces * (n - 1) + 1)$y
     y <- approx(data$y, n = npieces * (n - 1) + 1)$y
     
     cbind(
-      .$transform(data.frame(x=x, y=y)),
+      .$transform(data.frame(x=x, y=y), details),
       data[c(rep(1:(n-1), each=npieces), n), setdiff(names(data), c("x", "y"))]
     )
   }
