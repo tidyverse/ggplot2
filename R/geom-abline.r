@@ -5,7 +5,6 @@ GeomAbline <- proto(Geom, {
   
   draw <- function(., data, scales, coordinates, intercept = NULL, slope = NULL, ...) {
     
-    
     data <- aesdefaults(data, .$default_aes(), list(...))
     if (is.null(intercept)) {
       if (is.null(data$intercept)) data$intercept <- 0
@@ -20,7 +19,7 @@ GeomAbline <- proto(Geom, {
       data$slope <- slope
     }
     
-    xrange <- scales$x$output_expand()
+    xrange <- scales$x.range
     
     
     data <- transform(data,

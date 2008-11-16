@@ -4,10 +4,8 @@ GeomHline <- proto(Geom, {
   }
 
   draw <- function(., data, scales, coordinates, ...) {
-    xrange <- scales$x$output_expand()
-    
-    data$x    <- xrange[1]
-    data$xend <- xrange[2]    
+    data$x    <- scales$x.range[1]
+    data$xend <- scales$x.range[2]    
     
     GeomSegment$draw(unique(data), scales, coordinates)
   }
