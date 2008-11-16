@@ -23,7 +23,7 @@ GeomBar <- proto(Geom, {
   # Documentation -----------------------------------------------
   objname <- "bar"
   desc <- "Bars, rectangles with bases on y-axis"
-  guide_geom <- function(.) "tile"
+  guide_geom <- function(.) "polygon"
   
   icon <- function(.) {
     rectGrob(c(0.3, 0.7), c(0.4, 0.8), height=c(0.4, 0.8), width=0.3, vjust=1, gp=gpar(fill="grey20", col=NA))

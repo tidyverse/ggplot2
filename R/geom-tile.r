@@ -13,11 +13,6 @@ GeomTile <- proto(Geom, {
     # data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
     GeomRect$draw_groups  (data, scales, coordinates, ...)
   }
-  
-  draw_legend <- function(., data, ...)  {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-    rectGrob(gp=gpar(col=NA, fill=data$fill))
-  }  
 
   objname <- "tile"
   desc <- "Tile plot as densely as possible, assuming that every tile is the same size. "
@@ -31,7 +26,7 @@ GeomTile <- proto(Geom, {
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(fill="grey20", colour=NA, size=0.1, linetype=1)
   required_aes <- c("x", "y")
-  guide_geom <- function(.) "tile"
+  guide_geom <- function(.) "polygon"
   
   
   examples <- function(.) {

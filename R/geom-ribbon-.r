@@ -2,13 +2,8 @@ GeomRibbon <- proto(Geom, {
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1)
   required_aes <- c("x", "ymin", "ymax")
-  guide_geom <- function(.) "ribbon"
+  guide_geom <- function(.) "polygon"
 
-  draw_legend <- function(., data, ...)  {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-  
-    rectGrob(gp=gpar(col=data$colour, fill=data$fill))
-  }
 
   draw <- function(., data, scales, coordinates, ...) {
     data <- data[complete.cases(data[, c("x","ymin","ymax")]), ]

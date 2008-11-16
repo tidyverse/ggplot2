@@ -19,7 +19,16 @@ GeomPolygon <- proto(Geom, {
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour="NA", fill="grey20", size=0.5, linetype=1)
   required_aes <- c("x", "y")
-  guide_geom <- function(.) "tile"
+  guide_geom <- function(.) "polygon"
+
+  draw_legend <- function(., data, ...)  {
+    data <- aesdefaults(data, .$default_aes(), list(...))
+  
+    with(data, grobTree(
+      rectGrob(gp = gpar(col = colour, fill = fill)),
+      linesGrob(gp = gpar(col = colour, lwd = size * .pt, lineend="butt"))
+    ))
+  }
 
   seealso <- list(
     geom_path = "an unfilled polygon",

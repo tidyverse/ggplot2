@@ -10,7 +10,7 @@ GeomHex <- proto(Geom, {
   required_aes <- c("x", "y")
   default_aes <- function(.) aes(colour=NA, fill = "grey50", size=0.5)
   default_stat <- function(.) StatBinhex
-  guide_geom <- function(.) "tile"
+  guide_geom <- function(.) "polygon"
   
 })
 
