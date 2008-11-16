@@ -283,6 +283,9 @@ rweave <- function(...) {
 }
 
 cunion <- function(a, b) {
+  if (length(a) == 0) return(b)
+  if (length(b) == 0) return(a)
+  
   cbind(a, b[setdiff(names(b), names(a))])
 }
 
