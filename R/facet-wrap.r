@@ -39,28 +39,24 @@ FacetWrap <- proto(Facet, {
 
     axes_h <- matrix(list(), nrow = 1, ncol = n)
     axes_v <- matrix(list(), nrow = 1, ncol = n)
-    
-    for(i in seq_len(n)) {
-      axes_h[[1, i]] <- coord$guide_axes(.$scales$x[[i]], theme, "bottom")
-      axes_v[[1, i]] <- coord$guide_axes(.$scales$y[[i]], theme, "left")
+    panels <- matrix(list(), nrow = 1, ncol = n)
+
+    for (i in seq_len(n)) {
+      scales <- list(
+        x = .$scales$x[[i]], 
+        y = .$scales$y[[i]]
+      ) 
+      details <- coord$compute_ranges(scales)
+      axes_h[[1, i]] <- coord$guide_axis_h(details, theme)
+      axes_v[[1, i]] <- coord$guide_axis_v(details, theme)
+
+      fg <- coord$guide_foreground(details, theme)
+      bg <- coord$guide_background(details, theme)
+      panels[[1,i]] <- ggname("panel", grobTree(bg, panels_grob[[1, i]], fg))
     }
 
     labels <- .$labels_default(.$shape, theme)
     dim(labels) <- c(1, length(labels))
-
-    # Add background and foreground to panels
-    panels <- matrix(list(), nrow = 1, ncol = n)
-    
-    for(i in seq_len(n)) {
-      scales <- list(
-        x = .$scales$x[[i]], 
-        y = .$scales$y[[i]]
-      )
-      fg <- coord$guide_foreground(scales, theme)
-      bg <- coord$guide_background(scales, theme)
-
-      panels[[1,i]] <- ggname("panel", grobTree(bg, panels_grob[[1, i]], fg))
-    }
     
     # Arrange 1d structure into a grid -------
     if (is.null(.$ncol) && is.null(.$nrow)) {
@@ -189,7 +185,7 @@ FacetWrap <- proto(Facet, {
     })
   }
   
-  make_grobs <- function(., data, layers, cs) {
+  make_grobs <- function(., data, layers, coord) {
     lapply(seq_along(data), function(i) {
       layer <- layers[[i]]
       layerd <- data[[i]]
@@ -200,7 +196,8 @@ FacetWrap <- proto(Facet, {
           x = .$scales$x[[i]], 
           y = .$scales$y[[i]]
         )
-        grobs[[1, i]] <- layer$make_grob(layerd[[1, i]], scales, cs)
+        details <- coord$compute_ranges(scales)
+        grobs[[1, i]] <- layer$make_grob(layerd[[1, i]], details, coord)
       }
       grobs
     })
