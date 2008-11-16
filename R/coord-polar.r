@@ -14,55 +14,86 @@ CoordPolar <- proto(Coord, {
     )
   }
 
-  theta_scale <- function(.) .$.scales$get_scales(.$theta)
-  theta_range <- function(.) {
+  compute_ranges <- function(., scales) {
     if (.$expand) {
-      .$theta_scale()$output_expand()
+      x.range <- scales$x$output_expand() 
+      y.range <- scales$y$output_expand() 
     } else {
-      .$theta_scale()$output_set()
+      x.range <- scales$x$output_set() 
+      y.range <- scales$y$output_set() 
+    }
+
+    x.major <- scales$x$input_breaks_n()
+    x.minor <- scales$x$output_breaks()
+    x.labels <- scales$x$labels()
+
+    y.major <- scales$y$input_breaks_n()
+    y.minor <- scales$y$output_breaks()
+    y.labels <- scales$y$labels()
+    
+    details <- list(
+      x.range = x.range, y.range = y.range, 
+      x.major = x.major, x.minor = x.minor, x.labels = x.labels,
+      y.major = y.major, y.minor = y.minor, y.labels = y.labels
+    )
+    
+    if (.$theta == "y") {
+      names(details) <- gsub("x\\.", "r.", names(details))
+      names(details) <- gsub("y\\.", "theta.", names(details))
+    } else {
+      names(details) <- gsub("x\\.", "theta.", names(details))      
+      names(details) <- gsub("y\\.", "r.", names(details))
+    }
+    details
+  }
+
+  rename_data <- function(., data) {
+    if (.$theta == "y") {
+      rename(data, c("y" = "theta", "x" = "r"))
+    } else {
+      rename(data, c("y" = "r", "x" = "theta"))
     }
   }
-  theta_rescale <- function(., x) {
+  
+
+  theta_rescale <- function(., x, details) {
     rotate <- function(x) (x + .$start) %% (2 * pi) * .$direction
-    rotate(rescale(x, c(0, 2 * pi), .$theta_range()))
+    rotate(rescale(x, c(0, 2 * pi), details$theta.range))
   }
-  theta_discrete <- function(., x) .$.scales$get_scales(.$theta)$objname == "discrete"
-  
-  xlabel <- function(., gp) textGrob(NULL)
-  ylabel <- function(., gp) textGrob(NULL)
-  
-  r_scale <- function(.) .$.scales$get_scales(.$r)
-  r_range <- function(.) {
-    if (.$expand) {
-      .$r_scale()$output_expand()
-    } else {
-      .$r_scale()$output_set()
-    }
+    
+  r_rescale <- function(., x, details) {
+    rescale(x, c(0, 0.4), details$r.range)
   }
-  
-  r_rescale <- function(., x) rescale(x, c(0, 0.4), .$r_range())
-  r_discrete <- function(., x) .$.scales$get_scales(.$r)$objname == "discrete"
 
   muncher <- function(.) TRUE
-  transform <- function(., data) {
-    r <- .$r_rescale(data[[.$r]])
-    theta <- .$theta_rescale(data[[.$theta]])
+  transform <- function(., data, details) {
+    data <- .$rename_data(data)
     
-    data$x <- r * sin(theta) + 0.5
-    data$y <- r * cos(theta) + 0.5
+    within(data, {
+      r <- .$r_rescale(r, details)
+      theta <- .$theta_rescale(theta, details)
 
-    data
+      x <- r * sin(theta) + 0.5
+      y <- r * cos(theta) + 0.5
+    })
   }
   
-  guide_background <- function(., theme) {
+  guide_axis_v <- function(., details, theme) {
+    guide_axis(.$r_rescale(details$r.major, details) + 0.5, details$r.labels, "left", theme)
+  }
+  guide_axis_h <- function(., details, theme) {
+    guide_axis(NA, "", "bottom", theme)
+  }
+  
+  guide_background <- function(., details, theme) {
+    details <- .$rename_data(details)
     
-    theta <- .$theta_rescale(.$theta_scale()$input_breaks_n())
-    thetamin <- .$theta_rescale(.$theta_scale()$output_breaks())
-    thetafine <- seq(0, 2 * pi, length=100)
-    
+    theta <- .$theta_rescale(details$theta.major, details)
+    thetamin <- .$theta_rescale(details$theta.minor, details)
+    thetafine <- seq(0, 2 * pi, length=100)    
     
     r <- 0.4
-    rfine <- c(.$r_rescale(.$r_scale()$input_breaks_n()), 0.45)
+    rfine <- c(.$r_rescale(details$r.major, details), 0.45)
 
     ggname("grill", grobTree(
       theme_render(theme, "panel.background"),
@@ -91,9 +122,9 @@ CoordPolar <- proto(Coord, {
     ))
   }
 
-  guide_foreground <- function(., theme) {
-    theta <- .$theta_rescale(.$theta_scale()$input_breaks_n())
-    labels <- .$theta_scale()$labels()
+  guide_foreground <- function(., details, theme) {
+    theta <- .$theta_rescale(details$theta.major, details)
+    labels <- details$theta.labels
     
     # Combine the two ends of the scale if they are close
     ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
@@ -114,20 +145,7 @@ CoordPolar <- proto(Coord, {
     )
   }  
 
-  
-  output_set <- function(.) {
-    list(
-      x = expand_range(c(-1, 1), 0.1, 0),
-      y = expand_range(c(-1, 1), 0.1, 0)
-    )
-  }
     
-  guide_axes <- function(., theme) {
-    list(
-      x = guide_axis(c(-1, 1), "", "bottom", theme),
-      y = guide_axis(.$r_rescale(.$r_scale()$input_breaks_n()) + 0.5, .$r_scale()$labels(), "left", theme)
-    )
-  }
 
   # Documentation -----------------------------------------------
 
