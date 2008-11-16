@@ -20,6 +20,10 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
     
     .$proto(name=name, .input=variable, .output=variable, limits=limits, breaks = breaks, .labels = labels, .expand=expand, .tr = trans, minor_breaks = minor_breaks, formatter = formatter, ...)
   }
+  
+  set_limits <- function(., limits) {
+    .$limits <- .$.tr$transform(limits)
+  }
 
   
   # Transform each 

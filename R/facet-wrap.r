@@ -31,18 +31,18 @@ FacetWrap <- proto(Facet, {
   }
   
   # Create grobs for each component of the panel guides
-  add_guides <- function(., data, panels_grob, coordinates, theme) {
+  add_guides <- function(., data, panels_grob, coord, theme) {
     aspect_ratio <- theme$aspect.ratio
     if (is.null(aspect_ratio)) aspect_ratio <- 1
     
     n <- length(.$scales$x)
-    
+
     axes_h <- matrix(list(), nrow = 1, ncol = n)
     axes_v <- matrix(list(), nrow = 1, ncol = n)
-
+    
     for(i in seq_len(n)) {
-      axes_h[[1, i]] <- coordinates$guide_axes(.$scales$x[[i]], theme, "bottom")
-      axes_v[[1, i]] <- coordinates$guide_axes(.$scales$y[[i]], theme, "left")
+      axes_h[[1, i]] <- coord$guide_axes(.$scales$x[[i]], theme, "bottom")
+      axes_v[[1, i]] <- coord$guide_axes(.$scales$y[[i]], theme, "left")
     }
 
     labels <- .$labels_default(.$shape, theme)
@@ -56,8 +56,8 @@ FacetWrap <- proto(Facet, {
         x = .$scales$x[[i]], 
         y = .$scales$y[[i]]
       )
-      fg <- coordinates$guide_foreground(scales, theme)
-      bg <- coordinates$guide_background(scales, theme)
+      fg <- coord$guide_foreground(scales, theme)
+      bg <- coord$guide_background(scales, theme)
 
       panels[[1,i]] <- ggname("panel", grobTree(bg, panels_grob[[1, i]], fg))
     }

@@ -1,68 +1,17 @@
 CoordEqual <- proto(CoordCartesian, {
 
   new <- function(., ratio=1) {
-    list(.$proto(ratio=ratio), opts(aspect.ratio = ratio))
+    list(.$proto(ratio = ratio), opts(aspect.ratio = ratio))
   }
 
-  output_set <- function(.) {
-    xlim <- .$x()$output_set()
-    ylim <- .$y()$output_set()
+  compute_ranges <- function(., scales) {
+    ranges <- equal_ranges(scales$x$output_expand(), scales$y$output_expand(),
+     .$ratio)
     
-    xr <- diff(xlim)
-    yr <- diff(ylim)
+    scales$x$set_limits(ranges$x)
+    scales$y$set_limits(ranges$y)
     
-    desired <- .$ratio
-    actual  <- yr / xr
-    
-    ad <- actual/desired
-    
-    if (desired < actual) {
-      # desired is shorter/fatter than actual - expand x
-      xratio <- xr * ad
-      yratio <- yr   
-    } else {
-      # desired is taller/skinnier than actual - expand y
-      xratio <- xr
-      yratio <- yr / ad
-    }
-    stopifnot(xratio >= xr)
-    stopifnot(yratio >= yr)
-    stopifnot(all.equal(yratio / xratio, desired))
-
-    xlim <- mean(xlim) + xratio * c(-0.5, 0.5)
-    ylim <- mean(ylim) + yratio * c(-0.5, 0.5)
-    
-    .$x()$train(xlim)
-    .$y()$train(ylim)
-    
-    list(
-      x = .$x()$output_expand(),
-      y = .$y()$output_expand()
-    )
-  }
-  
-  guide_axes <- function(., theme) {
-    range <- .$output_set()
-    y.pretty <- grid.pretty(range$y)
-    x.pretty <- grid.pretty(range$x)
-    
-    list(
-      x = guide_axis(.$transform_x(x.pretty), x.pretty, "bottom", theme),
-      y = guide_axis(.$transform_y(y.pretty), y.pretty, "left", theme)
-    )
-  }
-  
-  guide_background <- function(., theme) {
-    range <- .$output_set()
-    y.pretty <- .$transform_y(grid.pretty(range$y))
-    x.pretty <- .$transform_x(grid.pretty(range$x))
-
-    x.major <- unit(x.pretty, "native")
-    x.minor <- unit(.$x()$output_breaks(b = x.pretty), "native")
-    y.major <- unit(y.pretty, "native")
-    y.minor <- unit(.$y()$output_breaks(b = y.pretty), "native")
-    
-    draw_grid(theme, x.minor, x.major, y.minor, y.major)
+    .super$compute_ranges(., scales)
   }
 
   # Documentation -----------------------------------------------
@@ -77,9 +26,9 @@ CoordEqual <- proto(CoordCartesian, {
     # coord_equal ensures that the ranges of axes are equal to the
     # specified ratio (1 by default, indicating equal ranges).
     
-    qplot(mpg, wt, data=mtcars) + coord_equal(ratio=1)
-    qplot(mpg, wt, data=mtcars) + coord_equal(ratio=5)
-    qplot(mpg, wt, data=mtcars) + coord_equal(ratio=1/5)
+    qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 1)
+    qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 5)
+    qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 1/5)
     
     # Resize the plot, and you'll see that the specified aspect ratio is 
     # mantained
@@ -89,3 +38,30 @@ CoordEqual <- proto(CoordCartesian, {
 })
 
 
+equal_ranges <- function(xlim, ylim, ratio) {
+  xr <- diff(xlim)
+  yr <- diff(ylim)
+  
+  desired <- ratio
+  actual  <- yr / xr
+  
+  ad <- actual/desired
+  
+  if (desired < actual) {
+    # desired is shorter/fatter than actual - expand x
+    xratio <- xr * ad
+    yratio <- yr   
+  } else {
+    # desired is taller/skinnier than actual - expand y
+    xratio <- xr
+    yratio <- yr / ad
+  }
+  stopifnot(xratio >= xr)
+  stopifnot(yratio >= yr)
+  stopifnot(all.equal(yratio / xratio, desired))
+
+  list(
+    x = mean(xlim) + xratio * c(-0.5, 0.5),
+    y = mean(ylim) + yratio * c(-0.5, 0.5)
+  )
+} 

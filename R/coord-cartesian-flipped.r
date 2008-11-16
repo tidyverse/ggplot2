@@ -1,10 +1,10 @@
 CoordFlip <- proto(CoordCartesian, expr={
-  x <- function(.) .$.scales$get_scales("y")
-  y <- function(.) .$.scales$get_scales("x")
   
-  muncher <- function(.) FALSE
-  transform <- function(., data) {
-    data <- transform_position(data, .$transform_y, .$transform_x)
+  transform <- function(., data, details) {
+    rescale_x <- function(data) .$rescale_var(data, details$x.range)
+    rescale_y <- function(data) .$rescale_var(data, details$y.range)
+    
+    data <- transform_position(data, rescale_y, rescale_x)
     rename(data, c(
       x = "y",       y = "x", 
       xend = "yend", yend = "xend", 
@@ -12,7 +12,15 @@ CoordFlip <- proto(CoordCartesian, expr={
       xmax = "ymax", ymax = "xmax")
     )
   }
-  munch <- function(., data) .$transform(data)
+
+  compute_ranges <- function(., scales) {
+    details <- .super$compute_ranges(., scales)
+    with(details, list(
+      x.range = y.range, y.range = x.range, 
+      x.major = y.major, x.minor = y.minor, x.labels = y.labels,
+      y.major = x.major, y.minor = x.minor, y.labels = x.labels
+    ))
+  }
 
   # Documentation -----------------------------------------------
 

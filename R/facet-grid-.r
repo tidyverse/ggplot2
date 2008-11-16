@@ -28,21 +28,32 @@ FacetGrid <- proto(Facet, {
   }
   
   # Create grobs for each component of the panel guides
-  add_guides <- function(., data, panels_grob, coordinates, theme) {
+  add_guides <- function(., data, panels_grob, coord, theme) {
     aspect_ratio <- theme$aspect.ratio
     if (is.null(aspect_ratio)) aspect_ratio <- 1
 
     nr <- nrow(panels_grob)
     nc <- ncol(panels_grob)
     
+    coord_details <- matrix(list(), nrow = nr, ncol = nc)
+    for (i in seq_len(nr)) {
+      for(j in seq_len(nc)) {
+        scales <- list(
+          x = .$scales$x[[j]], 
+          y = .$scales$y[[i]]
+        )        
+        coord_details[[i, j]] <- coord$compute_ranges(scales)
+      }
+    }
+    
     axes_h <- matrix(list(), nrow = 1, ncol = nc)
     for(i in seq_along(.$scales$x)) {
-      axes_h[[1, i]] <- coordinates$guide_axes(.$scales$x[[i]], theme, "bottom")
+      axes_h[[1, i]] <- coord$guide_axis_h(coord_details[[1, i]], theme)
     }
     
     axes_v <- matrix(list(), nrow = nr, ncol = 1)
     for(i in seq_along(.$scales$y)) {
-      axes_v[[i, 1]] <- coordinates$guide_axes(.$scales$y[[i]], theme, "left")
+      axes_v[[i, 1]] <- coord$guide_axis_v(coord_details[[i, 1]], theme)
     }    
     
     labels <- .$labels_default(.$shape, theme)
@@ -51,12 +62,8 @@ FacetGrid <- proto(Facet, {
     panels <- matrix(list(), nrow=nr, ncol = nc)
     for(i in seq_len(nr)) {
       for(j in seq_len(nc)) {
-        scales <- list(
-          x = .$scales$x[[j]], 
-          y = .$scales$y[[i]]
-        )
-        fg <- coordinates$guide_foreground(scales, theme)
-        bg <- coordinates$guide_background(scales, theme)
+        fg <- coord$guide_foreground(coord_details[[i, j]], theme)
+        bg <- coord$guide_background(coord_details[[i, j]], theme)
 
         panels[[i,j]] <- grobTree(bg, panels_grob[[i, j]], fg)
       }
@@ -212,7 +219,7 @@ FacetGrid <- proto(Facet, {
     })
   }
   
-  make_grobs <- function(., data, layers, cs) {
+  make_grobs <- function(., data, layers, coord) {
     lapply(seq_along(data), function(i) {
       layer <- layers[[i]]
       layerd <- data[[i]]
@@ -224,7 +231,8 @@ FacetGrid <- proto(Facet, {
             x = .$scales$x[[j]], 
             y = .$scales$y[[i]]
           )
-          grobs[[i, j]] <- layer$make_grob(layerd[[i, j]], scales, cs)
+          details <- coord$compute_ranges(scales)
+          grobs[[i, j]] <- layer$make_grob(layerd[[i, j]], details, coord)
         }
       }
       grobs
@@ -274,7 +282,8 @@ FacetGrid <- proto(Facet, {
   
   examples <- function(.) {
     # faceting displays subsets of the data in different panels
-    p <- ggplot(diamonds, aes(x=carat, y=..density..)) + geom_histogram(binwidth=0.2)
+    p <- ggplot(diamonds, aes(carat, ..density..)) +
+     geom_histogram(binwidth = 0.2)
     
     # With one variable
     p + facet_grid(. ~ cut)

@@ -1,7 +1,7 @@
 CoordPolar <- proto(Coord, {
 
   new <- function(., theta="x", start = 0, direction = 1, expand = FALSE) {
-    theta <- if (theta == "x") "x" else "y"
+    theta <- match.arg(theta, c("x", "y"))
     r <- if (theta == "x") "y" else "x"
 
     c(
@@ -151,14 +151,16 @@ CoordPolar <- proto(Coord, {
     # grammar.  Use with EXTREME caution.
 
     # A coxcomb plot = bar chart + polar coordinates
-    cxc <- ggplot(mtcars, aes(x=factor(cyl))) + geom_bar(width=1, colour="black")
+    cxc <- ggplot(mtcars, aes(x = factor(cyl))) + 
+      geom_bar(width = 1, colour = "black")
     cxc + coord_polar()
     # A new type of plot?
     cxc + coord_polar(theta = "y")
     
     # A pie chart = stacked bar chart + polar coordinates
-    pie <- ggplot(mtcars, aes(x=factor(1), fill=factor(cyl))) + geom_bar(width=1)
-    pie + coord_polar(theta="y")
+    pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
+     geom_bar(width = 1)
+    pie + coord_polar(theta = "y")
 
     # The bullseye chart
     pie + coord_polar()
@@ -168,18 +170,22 @@ CoordPolar <- proto(Coord, {
       variable = c("resembles", "does not resemble"),
       value = c(80, 20)
     )
-    ggplot(df, aes(x = "", y = value, fill = variable)) + geom_bar(width=1) + scale_fill_manual(values = c("red","yellow")) + coord_polar("y", start=pi/3) + opts(title = "Pac man")
+    ggplot(df, aes(x = "", y = value, fill = variable)) + 
+      geom_bar(width = 1) + 
+      scale_fill_manual(values = c("red", "yellow")) + 
+      coord_polar("y", start=pi / 3) + 
+      opts(title = "Pac man")
     
     # Windrose + doughnut plot
     movies$rrating <- factor(round_any(movies$rating, 1))
-    movies$budgetq <- factor(chop(movies$budget, 4), labels=1:4)
+    movies$budgetq <- factor(chop(movies$budget, 4), labels = 1:4)
     
-    doh <- ggplot(movies, aes(x=rrating, fill=budgetq))
+    doh <- ggplot(movies, aes(x = rrating, fill = budgetq))
     
     # Wind rose
-    doh + geom_bar(width=1) + coord_polar()
+    doh + geom_bar(width = 1) + coord_polar()
     # Race track plot
-    doh + geom_bar(width=0.9, position="fill") + coord_polar(theta="y")
+    doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
   }
 
 })
