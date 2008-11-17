@@ -203,15 +203,15 @@ ScaleGradientn <- proto(ScaleContinuous, expr={
   map <- function(., x) {
     if (.$rescale) x <- rescale(x, c(0, 1), .$input_set())
     if (!is.null(.$values)) {
-      xs <- seq(0, 1, length = length(values))      
-      f <- approxfun(values, xs)
+      xs <- seq(0, 1, length = length(.$values))      
+      f <- approxfun(.$values, xs)
       x <- f(x)
     }
     ramp <- colorRamp(.$colours, space=.$space, interpolate="linear")
     nice_ramp(ramp, x, .$alpha)
   }
   
-  objname <-"gradientn"
+  objname <- "gradientn"
   common <- c("colour", "fill")
   desc <- "Smooth gradient between n colours"
 
@@ -252,10 +252,10 @@ ScaleGradientn <- proto(ScaleContinuous, expr={
     max_val <- max(abs(dsub$diff))
     values <- seq(-max_val, max_val, length = 11)
 
-    d + scale_colour_gradientn(colour = topo.colors(10), 
+    d + scale_colour_gradientn(colours = topo.colors(10), 
       values = values, rescale = FALSE)
-    d + scale_colour_gradientn(colour = terrain.colors(10), values = values,
-      rescale = FALSE)
+    d + scale_colour_gradientn(colours = terrain.colors(10), 
+      values = values, rescale = FALSE)
     
 
   }
