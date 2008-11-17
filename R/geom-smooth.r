@@ -28,7 +28,7 @@ GeomSmooth <- proto(Geom, {
     data$fill <- alpha(data$fill, data$alpha)
     
     gTree(children = gList(
-      GeomPolygon$draw_legend(data, ...),
+      rectGrob(gp = gpar(col = NA, fill = data$fill)),
       GeomPath$draw_legend(data, ...)
     ))
   }
