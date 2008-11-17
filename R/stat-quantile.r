@@ -29,7 +29,9 @@ StatQuantile <- proto(Stat, {
     yhats <- stats::predict(model, data.frame(x=xseq), type="matrix")
 
     data.frame(
-      y = as.vector(yhats), x = xseq, quantile = rep(quantiles, each=length(xseq))
+      y = as.vector(yhats), 
+      x = xseq, 
+      quantile = rep(quantiles, each=length(xseq))
     )
   }
   
