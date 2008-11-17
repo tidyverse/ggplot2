@@ -76,43 +76,47 @@ GeomBoxplot <- proto(Geom, {
   )
   
   examples <- function(.) {
-    p <- ggplot(mtcars, aes(y=mpg, x=factor(cyl)))
+    p <- ggplot(mtcars, aes(factor(cyl), mpg))
     
     p + geom_boxplot()
-    p + stat_boxplot()
+    qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot")
+    
     p + geom_boxplot() + geom_jitter()
     p + geom_boxplot() + coord_flip()
+    qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot") +
+      coord_flip()
     
     p + geom_boxplot(outlier.colour = "green", outlier.size = 3)
     
     # Add aesthetic mappings
-    p + geom_boxplot(aes(fill=cyl))
-    p + geom_boxplot(aes(fill=factor(cyl)))
-    p + geom_boxplot(aes(colour=cyl), size=1)
-    
-    # Dodged boxplots
-    # - automatically split when an aesthetic variable is a factor
-    p + geom_boxplot(aes(colour=factor(am)))
-    p + geom_boxplot(aes(fill=factor(vs)), colour="black")
-    p + geom_boxplot(aes(size=factor(gear)))
+    # Note that boxplots are automatically dodged when any aesthetic is 
+    # a factor
+    p + geom_boxplot(aes(fill = cyl))
+    p + geom_boxplot(aes(fill = factor(cyl)))
+    p + geom_boxplot(aes(fill = factor(vs)))
+    p + geom_boxplot(aes(fill = factor(am)))
     
     # Set aesthetics to fixed value
-    p + geom_boxplot(fill="black", colour="white", size=1)
+    p + geom_boxplot(fill="grey80", colour="#3366FF")
+    qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot", 
+      colour = I("#3366FF"))
 
-    # Scales vs. Coordinate transforms
-    m <- ggplot(movies, aes(y=votes, x=rating, group=round_any(rating,0.5)))
-    m + geom_point()
+    # Scales vs. coordinate transforms -------
+    # Scale transformations occur before the boxplot statistics are computed.
+    # Coordinate transformations occur afterwards.  Observe the effect on the
+    # number of outliers.
+    m <- ggplot(movies, aes(y = votes, x = rating,
+       group = round_any(rating, 0.5)))
     m + geom_boxplot()
     m + geom_boxplot() + scale_y_log10()
-    m + geom_boxplot() + coord_trans(y="log10")
-    m + geom_boxplot() + scale_y_log10() + coord_trans(y="log10")
+    m + geom_boxplot() + coord_trans(y = "log10")
+    m + geom_boxplot() + scale_y_log10() + coord_trans(y = "log10")
     
-    # Boxplots with continuous x
-    qplot(year, budget, data=movies, geom="boxplot")
-    qplot(year, budget, data=movies, geom="boxplot", group=round_any(year, 10, floor))
+    # Boxplots with continuous x:
+    # Use the group aesthetic to group observations in boxplots
+    qplot(year, budget, data = movies, geom = "boxplot")
+    qplot(year, budget, data = movies, geom = "boxplot", 
+      group = round_any(year, 10, floor))
     
-    # Use qplot instead
-    qplot(factor(cyl), mpg, data=mtcars, geom="boxplot")
-    qplot(factor(cyl), mpg, data=mtcars, geom="boxplot") + coord_flip()
   }
 })
