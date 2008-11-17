@@ -163,7 +163,7 @@ Layer <- proto(expr = {
     plot$scales$add_defaults(data, new, plot$plot_env)
     stat_data <- plot$scales$transform_df(stat_data)
     
-    cbind(data, stat_data)
+    cunion(stat_data, data)
   }
 
   reparameterise <- function(., data) {
