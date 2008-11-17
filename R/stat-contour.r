@@ -41,7 +41,7 @@ StatContour <- proto(Stat, {
   icon <- function(.) GeomContour$icon()
   
   default_geom <- function(.) GeomPath
-  default_aes <- function(.) aes(group = ..piece..)
+  default_aes <- function(.) aes(group = ..piece.., order = ..level..)
   required_aes <- c("x", "y", "z")
   desc_outputs <- list(
     level = "z value of contour"
