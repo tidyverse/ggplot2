@@ -7,7 +7,7 @@
 #X plotmatrix(mtcars[, 1:3])
 #X plotmatrix(mtcars[, 1:3]) + geom_smooth(method="lm")
 plotmatrix <- function(data, mapping=aes(), colour="black") {
-  data <- rescaler(data, "range")
+  # data <- rescaler(data, "range")
   grid <- expand.grid(x=1:ncol(data), y=1:ncol(data))
   grid <- subset(grid, x != y)
 
@@ -34,10 +34,11 @@ plotmatrix <- function(data, mapping=aes(), colour="black") {
   mapping <- defaults(mapping, aes_string(x="x", y="y"))
   class(mapping) <- "uneval"
 
-  ggplot(all, mapping) + facet_grid(xvar ~ yvar) +
+  ggplot(all, mapping) + facet_grid(xvar ~ yvar, scales = "free") +
     geom_point(colour = colour) +
-    scale_x_continuous("", limits=c(0, 1), breaks = seq(0,1, length=4), labels = "") +
-    scale_y_continuous("", limits=c(0, 1), breaks = seq(0,1, length=4), labels = "") + 
-    stat_density(aes_string(x="x", y = "..scaled.."), data=densities, position="identity", fill="grey60", colour=NA)
+    stat_density(
+      aes(x = x, y = ..scaled.. * diff(range(x)) + min(x)),
+      data = densities, position ="identity", colour = "grey20", geom = "line"
+    )
 }
 
