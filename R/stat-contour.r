@@ -65,6 +65,8 @@ StatContour <- proto(Stat, {
     v + stat_contour(binwidth = 2)
     v + stat_contour(binwidth = 5)
     v + stat_contour(binwidth = 10)
+    v + stat_contour(binwidth = 2, size = 0.5, colour = "grey50") +
+      stat_contour(binwidth = 10, size = 1)
 
     # Add aesthetic mappings
     v + stat_contour(aes(size = ..level..))
