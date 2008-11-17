@@ -32,9 +32,11 @@ GeomCrossbar <- proto(Geom, {
   guide_geom <- function(.) "path"
   
   draw <- function(., data, scales, coordinates, fatten = 2, width = NULL, ...) {
+    middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten)
+    
     ggname(.$my_name(), gTree(children=gList(
       GeomRect$draw(data, scales, coordinates, ...),
-      GeomRect$draw(transform(data, ymin=y, ymax=y, size = size * fatten), scales, coordinates, ...)
+      GeomSegment$draw(middle, scales, coordinates, ...)
     )))
   }
   

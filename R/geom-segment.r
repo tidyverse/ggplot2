@@ -3,7 +3,7 @@ GeomSegment <- proto(Geom, {
     if (!coordinates$muncher()) {
       return(with(coordinates$transform(data, scales), 
         segmentsGrob(x, y, xend, yend, default.units="native",
-        gp = gpar(col=colour, fill=colour, lwd=size * .pt, lty=linetype), 
+        gp = gpar(col=colour, fill=colour, lwd=size * .pt, lty=linetype, lineend = "butt"), 
         arrow = arrow)
       ))
     }
