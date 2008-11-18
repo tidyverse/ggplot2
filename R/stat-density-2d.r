@@ -3,7 +3,7 @@ StatDensity2d <- proto(Stat, {
   desc <- "Density estimation, 2D"
   
   default_geom <- function(.) GeomDensity2d
-  default_aes <- function(.) aes(colour="#3366FF", size=0.5, group = ..piece..)
+  default_aes <- function(.) aes(colour="#3366FF", size=0.5, group = interaction(..piece.., ..level..))
   required_aes <- c("x", "y")
 
   desc_outputs <- list(
@@ -41,6 +41,14 @@ StatDensity2d <- proto(Stat, {
     m + stat_density2d(aes(fill = ..level..), geom="polygon")
 
     qplot(rating, length, data=movies, geom=c("point","density2d"), ylim=c(1, 500))
+    
+    # If you map an aesthetic to a categorical variable, you will get a
+    # set of contours for each value of that variable
+    qplot(rating, length, data = movies, geom = "density2d", 
+      colour = factor(Comedy), ylim = c(0, 150))
+    qplot(rating, length, data = movies, geom = "density2d", 
+      colour = factor(Action), ylim = c(0, 150))
+    qplot(carat, price, data = diamonds, geom = "density2d", colour = cut)
     
     # Another example ------
     d <- ggplot(diamonds, aes(carat, price)) + xlim(1,3)
