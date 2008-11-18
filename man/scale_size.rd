@@ -9,7 +9,7 @@ This page describes scale\_size, see \code{\link{layer}} and \code{\link{qplot}}
 }
 \usage{scale_size(name=NULL, limits=NULL, breaks=NULL, labels=NULL, trans=NULL, to=c(0.5, 3), ...)}
 \arguments{
- \item{name}{name of scale to appear in legend or on axis}
+ \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{limits}{numeric vector of length 2, giving the extent of the scale}
  \item{breaks}{numeric vector indicating where breaks should lie}
  \item{labels}{character vector giving labels associated with breaks}

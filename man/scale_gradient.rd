@@ -10,10 +10,10 @@
 \details{
 This page describes scale\_gradient, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_gradient(name=NULL, low=muted("darkblue"), high="yellow", space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", alpha=1, ...)
-scale_fill_gradient(name=NULL, low=muted("darkblue"), high="yellow", space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", alpha=1, ...)}
+\usage{scale_colour_gradient(name=NULL, low="#fffacd", high="#3366FF", space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", alpha=1, ...)
+scale_fill_gradient(name=NULL, low="#fffacd", high="#3366FF", space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", alpha=1, ...)}
 \arguments{
- \item{name}{name of scale to appear in legend or on axis}
+ \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{low}{colour at low end of scale}
  \item{high}{colour at high end of scale}
  \item{space}{colour space to interpolate through, rgb or Lab, see ?colorRamp for details}

@@ -11,17 +11,18 @@
 \details{
 This page describes scale\_manual, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, ...)
-scale_fill_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, ...)
-scale_size_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, ...)
-scale_shape_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, ...)
-scale_linetype_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, ...)}
+\usage{scale_colour_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, ...)
+scale_fill_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, ...)
+scale_size_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, ...)
+scale_shape_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, ...)
+scale_linetype_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, ...)}
 \arguments{
- \item{name}{name of scale to appear in legend or on axis}
+ \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{values}{NULL}
  \item{limits}{numeric vector of length 2, giving the extent of the scale}
  \item{breaks}{numeric vector indicating where breaks should lie}
  \item{labels}{character vector giving labels associated with breaks}
+ \item{formatter}{NULL}
  \item{...}{ignored }
 }
 \seealso{\itemize{

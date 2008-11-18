@@ -10,10 +10,10 @@
 \details{
 This page describes scale\_hue, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_hue(name=NULL, h=c(0, 360), l=65, c=100, alpha=1, limits=NULL, breaks=NULL, labels=NULL, h.start=0, direction=1, ...)
-scale_fill_hue(name=NULL, h=c(0, 360), l=65, c=100, alpha=1, limits=NULL, breaks=NULL, labels=NULL, h.start=0, direction=1, ...)}
+\usage{scale_colour_hue(name=NULL, h=c(0, 360), l=65, c=100, alpha=1, limits=NULL, breaks=NULL, labels=NULL, h.start=0, direction=1, formatter=identity, ...)
+scale_fill_hue(name=NULL, h=c(0, 360), l=65, c=100, alpha=1, limits=NULL, breaks=NULL, labels=NULL, h.start=0, direction=1, formatter=identity, ...)}
 \arguments{
- \item{name}{name of scale to appear in legend or on axis}
+ \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{h}{range of hues to use, in [0, 360]}
  \item{l}{luminance (lightness), in [0, 100]}
  \item{c}{chroma (intensity of colour)}
@@ -23,6 +23,7 @@ scale_fill_hue(name=NULL, h=c(0, 360), l=65, c=100, alpha=1, limits=NULL, breaks
  \item{labels}{character vector giving labels associated with breaks}
  \item{h.start}{hue to start at}
  \item{direction}{direction to travel around the colour wheel, 1 = clockwise, -1 = counter-clockwise}
+ \item{formatter}{NULL}
  \item{...}{other arguments}
 }
 \seealso{\itemize{

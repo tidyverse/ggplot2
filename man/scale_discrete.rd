@@ -9,15 +9,16 @@
 \details{
 This page describes scale\_discrete, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_x_discrete(name=NULL, expand=c(0.05, 0), limits=NULL, breaks=NULL, labels=NULL, ...)
-scale_y_discrete(name=NULL, expand=c(0.05, 0), limits=NULL, breaks=NULL, labels=NULL, ...)
-scale_z_discrete(name=NULL, expand=c(0.05, 0), limits=NULL, breaks=NULL, labels=NULL, ...)}
+\usage{scale_x_discrete(name=NULL, expand=c(0.05, 0), limits=NULL, breaks=NULL, labels=NULL, formatter=identity, ...)
+scale_y_discrete(name=NULL, expand=c(0.05, 0), limits=NULL, breaks=NULL, labels=NULL, formatter=identity, ...)
+scale_z_discrete(name=NULL, expand=c(0.05, 0), limits=NULL, breaks=NULL, labels=NULL, formatter=identity, ...)}
 \arguments{
- \item{name}{name of scale to appear in legend or on axis}
+ \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{expand}{numeric vector of length 2, giving multiplicative and additive expansion factors}
  \item{limits}{numeric vector of length 2, giving the extent of the scale}
  \item{breaks}{numeric vector indicating where breaks should lie}
  \item{labels}{character vector giving labels associated with breaks}
+ \item{formatter}{NULL}
  \item{...}{ignored }
 }
 \seealso{\itemize{
@@ -25,9 +26,11 @@ scale_z_discrete(name=NULL, expand=c(0.05, 0), limits=NULL, breaks=NULL, labels=
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
+qplot(cut, data=diamonds, stat="bin")
+qplot(cut, data=diamonds, geom="bar")
+
 # The discrete position scale is added automatically whenever you
-# have a discrete position and the only thing you can do with it
-# is change the labels
+# have a discrete position.
 
 (d <- qplot(cut, clarity, data=subset(diamonds, carat > 1), geom="jitter"))
 
@@ -40,7 +43,19 @@ d + scale_x_discrete("Cut") + scale_y_discrete("Clarity")
 # Use limits to adjust the which levels (and in what order)
 # are displayed
 d + scale_x_discrete(limits=c("Fair","Ideal"))
+
+# you can also use the short hand functions xlim and ylim
+d + xlim("Fair","Ideal", "Good")
+d + ylim("I1", "IF")
+
 # See ?reorder to reorder based on the values of another variable
+qplot(manufacturer, cty, data=mpg)
+qplot(reorder(manufacturer, cty), cty, data=mpg)
+qplot(reorder(manufacturer, displ), cty, data=mpg)
+
+# Use abbreviate as a formatter to reduce long names
+qplot(reorder(manufacturer, cty), cty, data=mpg) +  
+  scale_x_discrete(formatter = "abbreviate")
 
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}

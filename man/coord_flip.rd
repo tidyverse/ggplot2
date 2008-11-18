@@ -8,8 +8,10 @@ Flipped cartesian coordinates so that horizontal becomes vertical, and vertical,
 
 This page describes coord\_flip, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{coord_flip(...)}
+\usage{coord_flip(xlim=NULL, ylim=NULL, ...)}
 \arguments{
+ \item{xlim}{NULL}
+ \item{ylim}{NULL}
  \item{...}{ignored }
 }
 \seealso{\itemize{

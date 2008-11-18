@@ -11,7 +11,7 @@ This page describes scale\_date, see \code{\link{layer}} and \code{\link{qplot}}
 \usage{scale_x_date(name=NULL, limits=NULL, major=NULL, minor=NULL, format=NULL, ...)
 scale_y_date(name=NULL, limits=NULL, major=NULL, minor=NULL, format=NULL, ...)}
 \arguments{
- \item{name}{name of scale to appear in legend or on axis}
+ \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{limits}{numeric vector of length 2, giving the extent of the scale}
  \item{major}{NULL}
  \item{minor}{NULL}
@@ -61,6 +61,17 @@ end <- max(economics$date)
 last_plot() + scale_x_date(lim = c(as.Date("2000-1-1"), end))
 last_plot() + scale_x_date(lim = c(as.Date("2005-1-1"), end))
 last_plot() + scale_x_date(lim = c(as.Date("2006-1-1"), end))
+
+# If we want to display multiple series, one for each variable
+# it's easiest to first change the data from a "wide" to a "long"
+# format:
+em <- melt(economics, id = "date")
+
+# Then we can group and facet by the new "variable" variable
+qplot(date, value, data = em, geom = "line", group = variable)
+qplot(date, value, data = em, geom = "line", group = variable) + 
+  facet_grid(variable ~ ., scale = "free_y")
+
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

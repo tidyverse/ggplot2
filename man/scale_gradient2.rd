@@ -11,7 +11,7 @@ This page describes scale\_gradient2, see \code{\link{layer}} and \code{\link{qp
 \usage{scale_colour_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", alpha=1, ...)
 scale_fill_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", alpha=1, ...)}
 \arguments{
- \item{name}{name of scale to appear in legend or on axis}
+ \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{low}{colour at low end of scale}
  \item{mid}{colour at mid point of scale}
  \item{high}{colour at high end of scale}

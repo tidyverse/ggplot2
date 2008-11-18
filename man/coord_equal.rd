@@ -23,9 +23,9 @@ This page describes coord\_equal, see \code{\link{layer}} and \code{\link{qplot}
 # coord_equal ensures that the ranges of axes are equal to the
 # specified ratio (1 by default, indicating equal ranges).
 
-qplot(mpg, wt, data=mtcars) + coord_equal(ratio=1)
-qplot(mpg, wt, data=mtcars) + coord_equal(ratio=5)
-qplot(mpg, wt, data=mtcars) + coord_equal(ratio=1/5)
+qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 1)
+qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 5)
+qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 1/5)
 
 # Resize the plot, and you'll see that the specified aspect ratio is 
 # mantained

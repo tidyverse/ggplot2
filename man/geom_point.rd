@@ -36,40 +36,39 @@ The biggest potential problem with a scatterplot is overplotting: whenever you h
  \item{...}{ignored }
 }
 \seealso{\itemize{
+  \item scale_area: Scale area of points, instead of radius
   \item \code{\link{geom_jitter}}: Jittered points for categorical data
   \item \url{http://had.co.nz/ggplot2/geom_point.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-p <- ggplot(mtcars, aes(x=wt, y=mpg))
+p <- ggplot(mtcars, aes(wt, mpg))
 p + geom_point()
 
 # Add aesthetic mappings
-p + geom_point(aes(colour=qsec))
-p + geom_point(aes(colour=cyl))
-p + geom_point(aes(colour=factor(cyl)))
-p + geom_point(aes(shape=factor(cyl)))
-p + geom_point(aes(size=qsec))
+p + geom_point(aes(colour = qsec))
+p + geom_point(aes(colour = cyl))
+p + geom_point(aes(colour = factor(cyl)))
+p + geom_point(aes(shape = factor(cyl)))
+p + geom_point(aes(size = qsec))
 
 # Change scales
-p + geom_point(aes(colour=cyl)) + scale_colour_gradient(low="red")
-p + geom_point(aes(size=qsec)) + scale_area()
-p + geom_point(aes(shape=factor(cyl))) + scale_shape(solid=FALSE)
+p + geom_point(aes(colour = cyl)) + scale_colour_gradient(low = "red")
+p + geom_point(aes(size = qsec)) + scale_area()
+p + geom_point(aes(shape = factor(cyl))) + scale_shape(solid = FALSE)
 
 # Set aesthetics to fixed value
-p + geom_point(colour = "red", size=3)
+p + geom_point(colour = "red", size = 3)
+qplot(wt, mpg, data = mtcars, colour = I("red"), size = I(3))
     
 # Transparent points:
-qplot(mpg, wt, data=mtcars, size=I(5), 
+qplot(mpg, wt, data = mtcars, size = I(5), 
   colour=I(alpha("black", 0.2)))
-# to avoid the ring, use shape 21, with NA colour and transparent fill:
-qplot(mpg, wt, data=mtcars, size=I(5), 
-  shape = I(21), colour=I(NA), fill = I(alpha("black", 0.2)))
 
 # Use qplot instead
-qplot(x=wt, y=mpg, data=mtcars)
-qplot(x=wt, y=mpg, data=mtcars, colour = factor(cyl))
-qplot(x=wt, y=mpg, data=mtcars, colour = I("red"))
+qplot(wt, mpg, data = mtcars)
+qplot(wt, mpg, data = mtcars, colour = factor(cyl))
+qplot(wt, mpg, data = mtcars, colour = I("red"))
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

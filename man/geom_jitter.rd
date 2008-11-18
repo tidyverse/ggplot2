@@ -47,8 +47,8 @@ p + geom_point(position = "jitter")
 p + geom_jitter(aes(colour=rating))
 
 # Vary parameters
-p + geom_jitter(position=position_jitter(xjitter=5))
-p + geom_jitter(position=position_jitter(yjitter=5))
+p + geom_jitter(position=position_jitter(width=5))
+p + geom_jitter(position=position_jitter(height=5))
 
 # Use qplot instead
 qplot(mpaa, rating, data=movies, geom="jitter")
