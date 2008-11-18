@@ -44,22 +44,3 @@ ylim <- function(...) {
     scale_y_discrete(limits = limits)    
   }
 }
-
-# Set z limits
-# Convenience function to set the limits of the z axis.
-# 
-# @argument if numeric, will create a continuos scale, if factor or character, will create a discrete scale
-# @keyword hplot
-zlim <- function(...) {
-  limits <- c(...)
-  if (is.numeric(limits)) {
-    stopifnot(length(limits) == 2)
-    if (limits[1] > limits[2]) {
-      scale_z_reverse(limits = limits)
-    } else {
-      scale_z_continuous(limits = limits)
-    }
-  } else {
-    scale_z_discrete(limits = limits)    
-  }
-}

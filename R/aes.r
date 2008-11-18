@@ -66,7 +66,7 @@ aes_to_scale <- function(var) {
 }
 
 is_position_aes <- function(vars) {
-  aes_to_scale(vars) %in% c("x", "y", "z")
+  aes_to_scale(vars) %in% c("x", "y")
 }
 
 
