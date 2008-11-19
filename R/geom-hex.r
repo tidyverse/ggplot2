@@ -1,5 +1,6 @@
 GeomHex <- proto(Geom, {
   objname <- "hex"
+  description <- "Tile the plane with hexagons"
 
   draw <- function(., data, scales, coordinates, ...) { 
     with(coordinates$transform(data, scales), 
@@ -12,10 +13,23 @@ GeomHex <- proto(Geom, {
   default_stat <- function(.) StatBinhex
   guide_geom <- function(.) "polygon"
   
+  examples <- function() {
+    # See ?stat_binhex for examples
+    
+  }
+  
 })
 
 
+# Draw hexagon grob
 # Modified from code by Nicholas Lewin-Koh and Martin Maechler
+# 
+# @arguments x positions of hex centres
+# @arguments y positions
+# @argument vector of hex sizes
+# @argument border colour
+# @argument fill colour
+# @keywords internal
 hexGrob <- function(x, y, size = rep(1, length(x)), colour = "grey50", fill = "grey90") {
   stopifnot(length(y) == length(x))
   

@@ -17,7 +17,7 @@ GeomBin2d <- proto(Geom, {
   }
 
   examples <- function(.) {
-    # See stat_bin2d
+    # See ?stat_bin2d
   }
 
 })
