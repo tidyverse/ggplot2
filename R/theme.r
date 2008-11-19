@@ -4,9 +4,20 @@
 # Use \code{theme_update} to modify a small number of elements of the current
 # theme or use \code{theme_set} to completely override it.
 # 
+# @alias theme settings to override
 # @alias theme_set
 # @alias theme_get
-# @alias ggopts
+# @alias ggopt
+#X qplot(mpg, wt, data = mtcars)
+#X old <- theme_set(theme_bw())
+#X qplot(mpg, wt, data = mtcars)
+#X theme_set(old)
+#X qplot(mpg, wt, data = mtcars)
+#X
+#X old <- theme_update(panel.background = theme_rect(colour = "pink"))
+#X qplot(mpg, wt, data = mtcars)
+#X theme_set(old)
+#X theme_get()
 theme_update <- function(...) {
   elements <- list(...)
   if (length(args) == 1 && is.list(elements[[1]])) {
@@ -38,7 +49,14 @@ ggopt <- function(...) {
 # Plot options
 # Set options/theme elements for a single plot
 # 
+# Use this function if you want to modify a few theme settings for 
+# a single plot.
+# 
 # @argument named list of theme settings
+#X p <- qplot(mpg, wt, data = mtcars)
+#X p 
+#X p + opts(panel_background = theme_rect(colour = "pink"))
+#X p + theme_bw()
 opts <- function(...) {
   structure(list(...), class="options")
 }

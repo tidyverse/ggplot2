@@ -2,7 +2,7 @@
 \alias{geom_hex}
 \alias{GeomHex}
 \title{geom\_hex}
-\description{}
+\description{Tile the plane with hexagons}
 \details{
 This page describes geom\_hex, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
@@ -29,7 +29,7 @@ The following aesthetics can be used with geom\_hex.  Aesthetics are mapped to v
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-  # Coming soon
+# See ?stat_binhex for examples  
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

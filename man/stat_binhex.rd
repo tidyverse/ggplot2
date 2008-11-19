@@ -2,7 +2,7 @@
 \alias{stat_binhex}
 \alias{StatBinhex}
 \title{stat\_binhex}
-\description{}
+\description{Bin 2d plane into hexagons}
 \details{
 This page describes stat\_binhex, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
@@ -25,11 +25,28 @@ The following aesthetics can be used with stat\_binhex.  Aesthetics are mapped t
  \item{...}{ignored }
 }
 \seealso{\itemize{
+  \item \code{\link{stat_bin2d}}: For rectangular binning
   \item \url{http://had.co.nz/ggplot2/stat_binhex.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-  # Coming soon
+d <- ggplot(diamonds, aes(carat, price))
+d + stat_binhex()
+d + geom_hex()
+
+# You can control the size of the bins by specifying the number of
+# bins in each direction:
+d + stat_binhex(bins = 10)
+d + stat_binhex(bins = 30)
+
+# Or by specifying the width of the bins
+d + stat_binhex(binwidth = c(1, 1000))
+d + stat_binhex(binwidth = c(.1, 500))
+
+# With qplot
+qplot(x, y, data = diamonds, geom="hex", xlim = c(4, 10), ylim = c(4, 10))
+qplot(x, y, data = diamonds, geom="hex", xlim = c(4, 10), ylim = c(4, 10),
+  binwidth = c(0.1, 0.1))
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

@@ -12,8 +12,7 @@
 # @arguments method to use: quantiles (approximately equal numbers), cut (equal lengths) or pretty
 # @arguments mid point for diverging factors
 # @arguments other arguments passed to format
-# @seealso \code[reshape]{round_any}; 
-# @seealso \code{\link{chop.breaks}} to get breaks used
+# @seealso \code{\link[reshape]{round_any}}, \code{\link{chop.breaks}} to get breaks used
 # @keyword manip
 chop <- function(x, n = 10, width = NULL, method="quantiles", midpoint=0, digits=2, ...) {
   methods <- c("quantiles","cut")

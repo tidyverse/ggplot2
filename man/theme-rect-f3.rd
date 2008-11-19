@@ -6,7 +6,7 @@
 \description{
 This element draws a rectangular box
 }
-\usage{theme_rect(fill = NA, colour = "black", size = 1, linetype = 1)}
+\usage{theme_rect(fill = NA, colour = "black", size = 0.5, linetype = 1)}
 \arguments{
 \item{fill}{fill colour}
 \item{colour}{border color}

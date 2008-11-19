@@ -5,8 +5,6 @@ GeomBin2d <- proto(Geom, {
 
   objname <- "bin2d"
   desc <- "Add heatmap of 2d bin counts"
-  icon <- function(.) {
-  }
   
   guide_geom <- function(.) "polygon"
   

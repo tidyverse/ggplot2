@@ -1,5 +1,6 @@
 \name{theme_gray}
 \alias{theme_gray}
+\alias{theme_grey}
 \title{Gray theme}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 

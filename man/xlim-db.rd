@@ -6,14 +6,16 @@
 \description{
 Convenience function to set the limits of the x axis.
 }
-\usage{xlim(min=NA, max=NA)}
+\usage{xlim(...)}
 \arguments{
-\item{min}{lower limit}
-\item{max}{upper limit}
+\item{...}{}
 }
 
-\details{Works by creating a new continuous scale, so will only work for
-continuous variables.}
+\details{}
 
-\examples{qplot(mpg, wt, data=mtcars) + xlim(15, 20)}
+\examples{xlim(15, 20)
+xlim(20, 15)
+xlim(c(10, 20))
+xlim("a", "b", "c") 
+qplot(mpg, wt, data=mtcars) + xlim(15, 20)}
 \keyword{hplot}

@@ -5,7 +5,7 @@ The two biggest new features in this release are the (long awaited) ability to h
 
 I've also made another round of tweaks to make the plots more aesthetic pleasing.  This is includes using a bright blue colour for geoms used to add statistical summaries to plots (contour, smooth, quantiles), and tweaking the default colour scheme for the continuous colour scale.  Please let me know what you think.  Remember that most of these options are controllable with the theming system - see the book chapter "Polishing your plots for publication".
 
-Accompanying this new release of the package, is an updated and expanded version of the book.  The content of the book is now largely complete, and over the coming months I will be working on make it polished and easy to understand.  See http://had.co.nz/ggplot2/book
+Accompanying this new release of the package is an updated and expanded version of the book.  The content of the book is now largely complete (~170 pages), and over the coming months I will be working on make it polished and easy to understand.  See http://had.co.nz/ggplot2/book
 
 Other new features:
 

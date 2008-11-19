@@ -37,8 +37,14 @@ CoordEqual <- proto(CoordCartesian, {
   
 })
 
-
-equal_ranges <- function(xlim, ylim, ratio) {
+# Compute equal scale ranges
+# Used by \code{\link{coord_equal}} to compute equal ranges for equal scale axes
+# 
+# @arguments x limits
+# @arguments y limits
+# @arguments desired ratio between x and y ranges
+# @keywords internal
+equal_ranges <- function(xlim, ylim, ratio = 1) {
   xr <- diff(xlim)
   yr <- diff(ylim)
   

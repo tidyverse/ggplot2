@@ -6,14 +6,15 @@
 \description{
 Convenience function to set the limits of the y axis.
 }
-\usage{ylim(min=NA, max=NA)}
+\usage{ylim(...)}
 \arguments{
-\item{min}{lower limit}
-\item{max}{upper limit}
+\item{...}{}
 }
 
-\details{Works by creating a new continuous scale, so will only work for
-continuous variables.}
+\details{}
 
-\examples{qplot(mpg, wt, data=mtcars) + ylim(15, 20)}
+\examples{ylim(15, 20)
+ylim(c(10, 20))
+ylim("a", "b", "c") 
+qplot(mpg, wt, data=mtcars) + ylim(15, 20)}
 \keyword{hplot}

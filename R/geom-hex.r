@@ -1,6 +1,6 @@
 GeomHex <- proto(Geom, {
   objname <- "hex"
-  description <- "Tile the plane with hexagons"
+  desc <- "Tile the plane with hexagons"
 
   draw <- function(., data, scales, coordinates, ...) { 
     with(coordinates$transform(data, scales), 
@@ -14,8 +14,7 @@ GeomHex <- proto(Geom, {
   guide_geom <- function(.) "polygon"
   
   examples <- function() {
-    # See ?stat_binhex for examples
-    
+    # See ?stat_binhex for examples  
   }
   
 })

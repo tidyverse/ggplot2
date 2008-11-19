@@ -16,7 +16,7 @@ Build data frome for a plot with given data and ... (dots) arguments
 }
 
 \details{Depending on the layer, we need
-to stitch together a data frame using the defaults from plot\$defaults
+to stitch together a data frame using the defaults from plot\$mapping
 and overrides for a given geom.
 
 Arguments in dots are evaluated in the context of \\code{data} so that

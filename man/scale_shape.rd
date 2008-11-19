@@ -2,7 +2,7 @@
 \alias{scale_shape}
 \alias{ScaleShape}
 \title{scale\_shape}
-\description{Point glyph shapes}
+\description{Scale for shapes, aka glyphs}
 \details{
 This page describes scale\_shape, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }

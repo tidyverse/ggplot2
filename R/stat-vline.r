@@ -41,6 +41,10 @@ StatHline <- proto(Stat, {
 })
 
 
+# Compute intercept from data
+# Compute intercept for vline and hline from data and parameters
+# 
+# @keywords internal
 compute_intercept <- function(data, intercept, var = "x") {
   if (is.null(intercept)) {
     # Intercept comes from data, default to 0 if not set

@@ -17,6 +17,6 @@ Create a new ggplot plot
 }
 
 \details{}
-\seealso{\url{http://had.co.nz/ggplot/ggplot.html}}
+\seealso{\url{http://had.co.nz/ggplot2}}
 \examples{}
 \keyword{hplot}

@@ -11,7 +11,11 @@ Set options/theme elements for a single plot
 \item{...}{}
 }
 
-\details{}
+\details{Use this function if you want to modify a few theme settings for
+a single plot.}
 
-\examples{}
+\examples{p <- qplot(mpg, wt, data = mtcars)
+p 
+p + opts(panel_background = theme_rect(colour = "pink"))
+p + theme_bw()}
 

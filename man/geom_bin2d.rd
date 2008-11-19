@@ -33,7 +33,7 @@ The following aesthetics can be used with geom\_bin2d.  Aesthetics are mapped to
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-# See stat_bin2d
+# See ?stat_bin2d
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

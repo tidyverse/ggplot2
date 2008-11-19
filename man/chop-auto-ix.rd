@@ -8,7 +8,7 @@ Keep categorical variables as is, chop up continuous variable
 }
 \usage{chop_auto(x)}
 \arguments{
-\item{x}{}
+\item{x}{data}
 }
 
 \details{}

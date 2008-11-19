@@ -65,6 +65,10 @@ aes_to_scale <- function(var) {
   var
 }
 
+# Is aesthetic a position aesthetic?
+# Figure out if an aesthetic is a position or not
+# 
+# @keyword internal
 is_position_aes <- function(vars) {
   aes_to_scale(vars) %in% c("x", "y")
 }

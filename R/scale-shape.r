@@ -21,7 +21,7 @@ ScaleShape <- proto(ScaleDiscrete, expr={
   
   # Documentation -----------------------------------------------
   objname <- "shape"
-  description <- "Scale for shapes, aka glyphs"
+  desc <- "Scale for shapes, aka glyphs"
   icon <- function(.) {
     gTree(children=gList(
       circleGrob(0.7, 0.7, r=0.1),

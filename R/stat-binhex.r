@@ -1,6 +1,6 @@
 StatBinhex <- proto(Stat, {
   objname <- "binhex"
-  description <- "Bin 2d plane into hexagons"
+  desc <- "Bin 2d plane into hexagons"
   
   calculate <- function(., data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
     data <- remove_missing(data, na.rm, c("x", "y"), name="stat_hexbin")

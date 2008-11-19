@@ -8,10 +8,10 @@ Calculate breakpoints for chop function
 }
 \usage{chop.breaks(x, n, method, midpoint=NA)}
 \arguments{
-\item{x}{}
-\item{n}{}
-\item{method}{}
-\item{midpoint}{}
+\item{x}{continuous variable}
+\item{n}{number of bins to chop into}
+\item{method}{method to use: quantiles (approximately equal numbers), cut (equal lengths) or pretty}
+\item{midpoint}{mid point for diverging factors}
 }
 
 \details{}

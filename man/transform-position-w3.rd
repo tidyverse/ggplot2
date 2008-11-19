@@ -6,11 +6,12 @@
 \description{
 (x, xmin, xmax, xend) are transformed in the same way
 }
-\usage{transform_position(df, trans_x = NULL, trans_y = NULL)}
+\usage{transform_position(df, trans_x = NULL, trans_y = NULL, ...)}
 \arguments{
 \item{df}{}
 \item{trans_x}{}
 \item{trans_y}{}
+\item{...}{}
 }
 
 \details{}

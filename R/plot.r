@@ -7,7 +7,7 @@ ggplot <- function(data, ...) UseMethod("ggplot")
 # @alias ggplot
 # @arguments default data frame
 # @arguments default list of aesthetic mappings (these can be colour, size, shape, line type -- see individual geom functions for more details)
-# @seealso \url{http://had.co.nz/ggplot/ggplot.html}
+# @seealso \url{http://had.co.nz/ggplot2}
 # @keyword hplot
 ggplot.default <- function(data = NULL, mapping=aes(), ..., environment = globalenv()) {
   if (!is.null(data) && !is.data.frame(data)) stop("Data needs to be a data.frame")

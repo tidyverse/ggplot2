@@ -1,7 +1,9 @@
 \name{theme_update}
 \alias{theme_update}
+\alias{theme settings to override}
 \alias{theme_set}
 \alias{theme_get}
+\alias{ggopt}
 \title{Get, set and update themes.}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
@@ -16,5 +18,14 @@ These three functions get, set and update themes.
 \details{Use \code{theme_update} to modify a small number of elements of the current
 theme or use \code{theme_set} to completely override it.}
 
-\examples{}
+\examples{qplot(mpg, wt, data = mtcars)
+old <- theme_set(theme_bw())
+qplot(mpg, wt, data = mtcars)
+theme_set(old)
+qplot(mpg, wt, data = mtcars)
+
+old <- theme_update(panel.background = theme_rect(colour = "pink"))
+qplot(mpg, wt, data = mtcars)
+theme_set(old)
+theme_get()}
 
