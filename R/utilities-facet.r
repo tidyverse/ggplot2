@@ -25,7 +25,7 @@ add_missing_levels <- function(dfs, vars) {
 # @keywords internal
 ulevels <- function(x) {
   if (is.factor(x)) {
-    levels(x)
+    levels(factor(x))
   } else {
     unique(x)
   }
