@@ -74,7 +74,12 @@ pos_dodge <- function(df, width) {
   n <- nrow(df)
   if (n == 1) return(df)
   
-  d_width <- with(df, max(xmax - xmin))
+  if (!all(c("xmin", "xmax") %in% names(df))) {
+    df$xmin <- df$x
+    df$xmax <- df$x
+  }
+
+  d_width <- with(df, max(xmax - xmin))    
   diff <- width - d_width
 
   within(df, {

@@ -47,6 +47,7 @@ Bug fixes
 * grid: correctly expose subcomponents of strips and axes
 * mapping aesthetics to functions of stat output now works in a much wider variety of cases
 * order aesthetic should now work with bars (and in general more geoms)
+* position_dodge now works with points and other geoms that lack xmin and xmax
 * scale_area works once more
 * scale_discrete_position: empty levels are no longer displayed by default, if you want them, use breaks = levels(myfactor)
 * scale_discrete_position: fixed bug when limits were set
