@@ -81,10 +81,10 @@ FacetGrid <- proto(Facet, {
     panels <- panels[-nrow(panels), -ncol(panels), drop = FALSE]
     
     axes_v <- rweave(axes_v, gap[, 1, drop = FALSE])
-    strip_v <- rweave(labels$v, gap[, 1, drop = FALSE])
+    strip_v <- rweave(labels$v, gap[, rep(1, ncol(labels$v)), drop = FALSE])
 
     axes_h <- cweave(axes_h, gap[1, , drop = FALSE])
-    strip_h <- cweave(labels$h, gap[1, , drop = FALSE])
+    strip_h <- cweave(labels$h, gap[rep(1, nrow(labels$h)), , drop = FALSE])
     
     if(.$space_is_free) {
       size <- function(y) unit(diff(y$output_expand()), "null")
@@ -117,14 +117,22 @@ FacetGrid <- proto(Facet, {
     respect <- !is.null(aspect_ratio)
     if (is.null(aspect_ratio)) aspect_ratio <- 1
     
+    strip_widths <- llply(guides$strip_v, grobWidth)
+    strip_widths <- llply(1:ncol(strip_widths), function(i) 
+      do.call("max", strip_widths[, i]))
+    
     widths <- unit.c(
       do.call("max", llply(guides$axis_v, grobWidth)),
       guides$widths,
-      do.call("max", lapply(guides$strip_v, grobWidth))
+      do.call("unit.c", strip_widths)
     )
     
+    strip_heights <- llply(guides$strip_h, grobHeight)
+    strip_heights <- llply(1:nrow(strip_heights), function(i) 
+      do.call("max", strip_heights[i, ]))
+    
     heights <- unit.c(
-      do.call("max", lapply(guides$strip_h, grobHeight)),
+      do.call("unit.c", strip_heights),
       guides$heights,
       do.call("max", llply(guides$axis_h, grobHeight))
     )
@@ -297,6 +305,7 @@ FacetGrid <- proto(Facet, {
     p + facet_grid(cut ~ clarity, margins=TRUE)
     
     qplot(mpg, wt, data=mtcars, facets = . ~ vs + am)
+    qplot(mpg, wt, data=mtcars, facets = vs + am ~ . )
     
     # You can also use strings, which makes it a little easier
     # when writing functions that generate faceting specifications
