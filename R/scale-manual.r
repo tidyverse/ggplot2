@@ -27,7 +27,7 @@ ScaleManual <- proto(ScaleDiscrete, {
 
   objname <- "manual"
   desc <- "Create your own discrete scale"
-  icon <- function(.) textGrob("man", gp=gpar(cex=1.2))
+  icon <- function(.) textGrob("DIY", gp=gpar(cex=1.2))
   
   examples <- function(.) {
     p <- qplot(mpg, wt, data=mtcars, colour=factor(cyl))

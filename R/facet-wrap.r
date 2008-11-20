@@ -25,9 +25,12 @@ FacetWrap <- proto(Facet, {
   }
   
   stamp_data <- function(., data) {
-    data.matrix <- dlply(add_group(data), .$facets)
-    dim(data.matrix) <- c(1, length(data.matrix))
-    data.matrix
+    data <- add_missing_levels(data, .$conditionals())
+    lapply(data, function(df) {
+      data.matrix <- dlply(add_group(df), .$facets)
+      dim(data.matrix) <- c(1, length(data.matrix))
+      data.matrix
+    })
   }
   
   # Create grobs for each component of the panel guides
@@ -236,14 +239,14 @@ FacetWrap <- proto(Facet, {
   
   examples <- function(.) {
     d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) + 
-      xlim(0, 2) + stat_binhex() + opts(aspect.ratio = 1)
+      xlim(0, 2) + stat_binhex(na.rm = TRUE) + opts(aspect.ratio = 1)
     d + facet_wrap(~ color)
     d + facet_wrap(~ color, ncol = 4)
-    d + facet_wrap(~ color, nrow = 4)
+    d + facet_wrap(~ color, nrow = 3)
     
     # Using multiple variables continues to wrap the long ribbon of 
     # plots into 2d - the ribbon just gets longer
-    d + facet_wrap(~ color + cut)
+    # d + facet_wrap(~ color + cut)
 
     # You can choose to keep the scales constant across all panels
     # or vary the x scale, the y scale or both:

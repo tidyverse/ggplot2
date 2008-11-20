@@ -21,10 +21,12 @@ FacetGrid <- proto(Facet, {
   }
   
   stamp_data <- function(., data) {
-    data.matrix <- stamp(add_group(data), .$facets, force, 
-      margins=.$margins, fill = list(NULL))
-    
-    force_matrix(data.matrix)
+    data <- add_missing_levels(data, .$conditionals())
+    data <- lapply(data, function(df) {
+      df <- stamp(add_group(df), .$facets, force, 
+        margins=.$margins, fill = list(NULL), add.missing = TRUE)
+      force_matrix(df)
+    })
   }
   
   # Create grobs for each component of the panel guides
@@ -188,7 +190,7 @@ FacetGrid <- proto(Facet, {
       .$scales$y <- scales_list(
         scales$get_scales("y"), nrow(.$shape), .$free$y)
     }
-
+    
     lapply(data, function(l) {
       for(i in seq_along(.$scales$x)) {
         lapply(l[, i], .$scales$x[[i]]$train_df)
@@ -294,6 +296,8 @@ FacetGrid <- proto(Facet, {
     p + facet_grid(cut ~ clarity)
     p + facet_grid(cut ~ clarity, margins=TRUE)
     
+    qplot(mpg, wt, data=mtcars, facets = . ~ vs + am)
+    
     # You can also use strings, which makes it a little easier
     # when writing functions that generate faceting specifications
     # p + facet_grid("cut ~ .")
@@ -314,6 +318,10 @@ FacetGrid <- proto(Facet, {
     
     df2 <- data.frame(mpg = c(19, 22), wt = c(2,4), vs = c(0, 1))
     p + geom_point(data = df2, colour="red", size = 2)
+
+    df2 <- data.frame(mpg = c(19, 22), wt = c(2,4), vs = c(1, 1))
+    p + geom_point(data = df2, colour="red", size = 2)
+
     
     # You can also choose whether the scales should be constant
     # across all panels (the default), or whether they should be allowed

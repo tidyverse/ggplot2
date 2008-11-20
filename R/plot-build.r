@@ -18,7 +18,7 @@ ggplot_build <- function(plot) {
   
   # Facet
   facet$initialise(data)
-  data <- dlapply(function(d, p) facet$stamp_data(d))
+  data <- facet$stamp_data(data)
 
   # Transform all scales
   data <- dlapply(function(d, p) p$scales_transform(d, scales))
