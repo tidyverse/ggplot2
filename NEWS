@@ -1,15 +1,15 @@
-ggplot2 0.8  (2008-11)
+ggplot2 0.8  (2008-11-18)
 ----------------------------------------
 
-The two biggest new features in this release are the (long awaited) ability to have scales that vary between facets, and a faceting system that works like lattice (facet_wrap). From qplot, you can use facet_wrap by specifying one sided formula (~ colour, as opposed to . ~ color). To see some potential uses for these new features, see http://had.co.nz/ggplot2/facet_wrap.html, http://had.co.nz/ggplot2/facet_grid.html and http://had.co.nz/ggplot2/scale_discrete.html.  Implementing these changes has required a rewrite of large parts of the coordinate systems code, so if anything seems strange with non-Cartesian coordinate systems, please get in touch.
+The two biggest new features in this release are the (long awaited) ability to have scales that vary between facets, and a faceting system that works like lattice (facet_wrap). From qplot, you can use facet_wrap by specifying one sided formula (~ colour, as opposed to . ~ color). To see some potential uses for these new features, see the "Positioning" chapter of the book.  Implementing these changes has required a rewrite of large parts of the coordinate systems code, so if anything seems strange with non-Cartesian coordinate systems, please get in touch.
 
-I've also made another round of tweaks to make the plots more aesthetic pleasing.  This is includes using a bright blue colour for geoms used to add statistical summaries to plots (contour, smooth, quantiles), and tweaking the default colour scheme for the continuous colour scale.  Please let me know what you think.  Remember that most of these options are controllable with the theming system - see the book chapter "Polishing your plots for publication".
+I've also made another round of tweaks to make the plots more aesthetically pleasing.  This includes using a bright blue colour for geoms used to add statistical summaries to plots (contour, smooth, and quantiles), and tweaking the default colour scheme for the continuous colour scale.  Please let me know what you think.  Remember that most of these options are controllable with the theming system - see the book chapter "Polishing your plots for publication".
 
-Accompanying this new release of the package is an updated and expanded version of the book.  The content of the book is now largely complete (~170 pages), and over the coming months I will be working on make it polished and easy to understand.  See http://had.co.nz/ggplot2/book
+Accompanying this new release of the package is an updated and expanded version of the book.  The content of the book is now largely complete (~170 pages), and over the coming months I will be working on make it polished and easy to understand.  See http://had.co.nz/ggplot2/book.  I love to hear your feedback about the book, but at this point please don't bother reporting minor typos, I would much rather hear about what you want to do, but can't figure out from the book.
 
 Other new features:
 
-* geom_bin2d/stat_bin2d & geom_hex/stat_binhex: for 2d square and hexagon binning, particularly useful for alleviating overplotting in scatterplot
+* geom_bin2d/stat_bin2d & geom_hex/stat_binhex: for 2d square and hexagon binning, particularly useful for alleviating overplotting in scatterplots
 * geom_freqpoly: draws frequency polygons (= stat_bin + geom_line)
 * scale_position: both discrete and continuous gain a new formatter argument to control the default formatting of the axis labels.  See also the handy numeric formatters: dollar, comma and percent
 * the xlim and ylim functions now produce discrete scales when appropriate, and generate a reverse scale if the minimum is greater than the maximum
@@ -18,10 +18,9 @@ Improvements
 
 * coord_map gains experimental axis labels
 * facet_grid: new support for varying scales in rows and columns
-* facet_wrap: new facetter which wraps a 1d ribbon of panels into 2d
-* geom_bin: gains drop argument to control whether or not 0 count bins should be removed
+* facet_wrap: new faceter which wraps a 1d ribbon of panels into 2d, in a similar way to lattice
+* geom_bin: gains a drop argument to control whether or not 0 count bins should be removed
 * geom_path and geom_line gain arrows argument to match geom_segment
-* ggopt now points to ggtheme
 * ggsave now checks that you are using it with a ggplot plot
 * ggsave now produces postscript files that are suitable for embedding in another document
 * ggsave now recognises the .svg extension and will produce svg files, if possible
@@ -43,6 +42,7 @@ Bug fixes
 
 * coord_cartesian now correctly clips instead of dropping points outside of its limits
 * facet_grid: margins now grouped correctly in default case (non-aesthetic variables ignored when generating default group value)
+* facet_grid: fix long standing bug when combining datasets with different levels of facetting variable
 * geom_smooth calls stat::predict explicitly to avoid conflicts with packages that override predict for S4 model classes
 * grid: correctly expose subcomponents of strips and axes
 * mapping aesthetics to functions of stat output now works in a much wider variety of cases
