@@ -85,7 +85,7 @@ ScaleBrewer <- proto(ScaleColour, expr={
 
   output_set <- function(.) {
     n <- length(.$input_set())
-    pal <- brewer.pal(n, .$pal_name())[1:n]
+    pal <- RColorBrewer::brewer.pal(n, .$pal_name())[1:n]
     alpha(pal, .$.alpha)
   }
 
@@ -116,7 +116,7 @@ ScaleBrewer <- proto(ScaleColour, expr={
 
   icon <- function(.) {
     rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21, 
-      gp=gpar(fill=brewer.pal(5, "PuOr"), col=NA)
+      gp=gpar(fill=RColorBrewer::brewer.pal(5, "PuOr"), col=NA)
     )
   }
   
