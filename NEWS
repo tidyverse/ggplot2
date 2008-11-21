@@ -1,3 +1,4 @@
 ggplot2 0.8.1  (2008-XX-XX)
 ----------------------------------------
 
+* fix bug where coord_trans wasn't transforming correctly

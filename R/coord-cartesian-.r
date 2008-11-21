@@ -3,7 +3,6 @@ CoordCartesian <- proto(Coord, expr={
     .$proto(limits = list(x = xlim, y = ylim))
   }
   
-  munch <- function(., data, scales, npieces=1) .$transform(data, scales)
   transform <- function(., data, details) {
     rescale_x <- function(data) .$rescale_var(data, details$x.range)
     rescale_y <- function(data) .$rescale_var(data, details$y.range)
