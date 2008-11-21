@@ -190,7 +190,7 @@ ggdist <- function(data, vars=names(data), facets = . ~ .) {
       geom_bar()
 
     pushViewport(viewport(layout.pos.col=i))
-    grid.draw(ggplotGrob(p, pretty=FALSE))
+    grid.draw(ggplotGrob(p))
     popViewport()
   }, names(data[vars]), cat, 1:ncol(data[vars]))
   invisible()
