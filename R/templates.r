@@ -3,7 +3,7 @@
 # ggplot.
 
 # Parallel coordinates plot.
-# Generate a plot ``template'' for a paralell coordinates plot.
+# Generate a plot ``template'' for a parallel coordinates plot.
 # 
 # One way to think about a parallel coordinates plot, is as plotting 
 # the data after it has transformation been transformed to gain a new
