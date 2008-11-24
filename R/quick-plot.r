@@ -71,10 +71,6 @@ qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE,
     facetvars <- facetvars[facetvars != "."]
     facetsdf <- as.data.frame(sapply(facetvars, get))
     if (nrow(facetsdf)) data <- facetsdf
-  } else {
-    if (!is.data.frame(data)) stop("data is not a data.frame")
-    if (ncol(data) == 0) stop("data has no columns")
-    if (nrow(data) == 0) stop("data has no rows")
   }
 
   env <- parent.frame()

@@ -1,17 +1,37 @@
-ggplot <- function(data, ...) UseMethod("ggplot")
+# Create a new plot
+# Create a new ggplot plot
+# 
+# @alias package-ggplot
+# @seealso \url{http://had.co.nz/ggplot2}
+# @seealso ggplot.data.frame
+# @keyword hplot
+ggplot <- function(data = NULL, ...) UseMethod("ggplot")
+
+# Catch all plotting method
+# 
+ggplot.default <- function(data, mapping = aes(), ...) {
+  if (is.null(data)) {
+    ggplot.data.frame(data, mapping, ...)
+  } else {
+    stop("Unknown data type passed to ggplot()", call. = FALSE)
+  }
+}
 
 # Create a new plot
 # Create a new ggplot plot
 # 
 # @alias package-ggplot
-# @alias ggplot
 # @arguments default data frame
 # @arguments default list of aesthetic mappings (these can be colour, size, shape, line type -- see individual geom functions for more details)
 # @seealso \url{http://had.co.nz/ggplot2}
 # @keyword hplot
-ggplot.default <- function(data = NULL, mapping=aes(), ..., environment = globalenv()) {
-  if (!is.null(data) && !is.data.frame(data)) stop("Data needs to be a data.frame")
+ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be created with aes or aes_string")
+  
+  if (!is.null(data)) {
+    if (ncol(data) == 0) stop("data has no columns")
+    if (nrow(data) == 0) stop("data has no rows")    
+  }
   
   p <- structure(list(
     data = data, 
