@@ -13,7 +13,7 @@ ggplot.default <- function(data, mapping = aes(), ...) {
   if (is.null(data)) {
     ggplot.data.frame(data, mapping, ...)
   } else {
-    stop("Unknown data type passed to ggplot()", call. = FALSE)
+    ggplot.data.frame(fortify(data), mapping, ...)
   }
 }
 

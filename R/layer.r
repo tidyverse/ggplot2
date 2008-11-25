@@ -253,7 +253,10 @@ layer <- Layer$new
 # @keyword internal
 calc_aesthetics <- function(plot, data = plot$data, aesthetics, ignore.extra = FALSE, env = plot$plot_env) {
   if (is.null(data)) data <- plot$data
-  if (!is.data.frame(data)) stop("data is not a data.frame")
+  
+  if (!is.data.frame(data)) {
+    data <- fortify(data)
+  }
   
   err <- if (ignore.extra) tryNULL else force
   eval.each <- function(dots) compact(lapply(dots, function(x.) err(eval(x., data, env))))
