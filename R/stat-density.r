@@ -3,6 +3,7 @@ StatDensity <- proto(Stat, {
     data <- remove_missing(data, na.rm, "x", name = "stat_density")
     
     n <- nrow(data)
+    if (n < 3) return(data.frame())
     if (is.null(data$weight)) data$weight <- rep(1, n) / n
 
     range <- scales$x$output_set()
