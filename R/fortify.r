@@ -30,6 +30,9 @@ fortify <- function(model, data, ...) UseMethod("fortify")
 #X plot(mod, which = 1)
 #X qplot(.fitted, .resid, data = mod) + geom_hline() + geom_smooth(se = F)
 #X qplot(.fitted, .stdresid, data = mod) + geom_hline() + geom_smooth(se = F)
+#X qplot(.fitted, .stdresid, data = fortify(mod, mtcars), 
+#X   colour = factor(cyl))
+#X qplot(mpg, .stdresid, data = fortify(mod, mtcars), colour = factor(cyl))
 #X
 #X plot(mod, which = 2)
 #X qplot(sample =.stdresid, data = mod, stat = "qq") + geom_abline()
