@@ -46,7 +46,7 @@ col2hcl <- function(colour, h, c, l, alpha = 1) {
 }
 
 # Mute standard R colours.
-# This produces colours with moderate luminance and saturation.s
+# This produces colours with moderate luminance and saturation.
 # 
 # @keyword internal
 muted <- function(colour, l=30, c=70) col2hcl(colour, l=l, c=c)
