@@ -73,7 +73,7 @@ Scale <- proto(TopLevel, expr={
     mapped <- llply(output, function(var) .$map(df[[var]]))
     
     if (length(mapped) == 0) {
-      return(as.data.frame(matrix(nrow = nrow(df), ncol=0)))
+      return(data.frame(matrix(nrow = nrow(df), ncol=0)))
     }
         
     output_df <- do.call("data.frame", mapped)

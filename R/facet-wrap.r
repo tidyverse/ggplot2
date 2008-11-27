@@ -20,8 +20,15 @@ FacetWrap <- proto(Facet, {
   # Data shape
   
   initialise <- function(., data) {
-    .$shape <- dlply(data[[1]], .$facets, nrow)
-    dim(.$shape) <- c(1, length(.$shape))
+    vars <- llply(data, function(df) {
+      as.data.frame(eval.quoted(.$facets, df))
+    })
+    labels <- unique(do.call(rbind, vars))
+    labels <- labels[do.call("order", labels), , drop = FALSE]
+    n <- nrow(labels)
+    
+    .$shape <- matrix(NA, 1, n)
+    attr(.$shape, "split_labels") <- labels
   }
   
   stamp_data <- function(., data) {
@@ -257,6 +264,14 @@ FacetWrap <- proto(Facet, {
     p <- qplot(displ, hwy, data = mpg)
     p + facet_wrap(~ cyl)
     p + facet_wrap(~ cyl, scales = "free") 
+    
+    # Add data that does not contain all levels of the faceting variables
+    cyl6 <- subset(mpg, cyl == 6)
+    p + geom_point(data = cyl6, colour = "red", size = 1) + 
+      facet_wrap(~ cyl)
+    p + geom_point(data = transform(cyl6, cyl = 7), colour = "red") + 
+      facet_wrap(~ cyl)
+    
   }
   
   pprint <- function(., newline=TRUE) {

@@ -27,6 +27,6 @@ ulevels <- function(x) {
   if (is.factor(x)) {
     levels(factor(x))
   } else {
-    unique(x)
+    sort(unique(x))
   }
 }
