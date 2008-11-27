@@ -81,25 +81,6 @@ Scale <- proto(TopLevel, expr={
     output_df
   }
 
-  # Guides
-  # ---------------------------------------------
-  legend_desc <- function(.) {
-    if (identical(., Scale) || !.$legend) return()
-   
-    breaks <- .$output_breaks()
-    labels <- .$labels()
-    
-    if (is.null(breaks) || is.null(labels)) return()
-    
-    df <- data.frame(breaks, stringsAsFactors = FALSE)
-    names(df) <- .$output()
-    df$label <- labels
-    list(
-      name = nulldefault(.$name, ""),
-      aesthetic = .$output(),
-      display = df
-    )
-  }
   
   pprint <- function(., newline=TRUE) {
     clist <- function(x) paste(x, collapse=",")

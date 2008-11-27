@@ -54,6 +54,17 @@ GeomPoint <- proto(Geom, {
     # Set aesthetics to fixed value
     p + geom_point(colour = "red", size = 3)
     qplot(wt, mpg, data = mtcars, colour = I("red"), size = I(3))
+    
+    # You can create interesting shapes by layering multiple points of
+    # different sizes
+    p <- ggplot(mtcars, aes(mpg, wt))
+    p + geom_point(colour="grey50", size = 4) + geom_point(aes(colour = cyl))  
+    p + aes(shape = factor(cyl)) + 
+      geom_point(aes(colour = factor(cyl)), size = 4) +
+      geom_point(colour="grey90", size = 1.5)
+    p + geom_point(colour="black", size = 4.5) + 
+      geom_point(colour="pink", size = 4) + 
+      geom_point(aes(shape = factor(cyl)))  
         
     # Transparent points:
     qplot(mpg, wt, data = mtcars, size = I(5), 

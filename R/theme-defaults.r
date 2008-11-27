@@ -17,8 +17,8 @@ theme_gray <- function(base_size = 12) {
 
     legend.background = theme_rect(colour=NA), 
     legend.key =        theme_rect(fill = "grey95", colour = "white"),
-    legend.text =       theme_text(size = base_size),
-    legend.title =      theme_text(size = base_size, face = "bold", hjust = 0),
+    legend.text =       theme_text(size = base_size * 0.8),
+    legend.title =      theme_text(size = base_size * 0.8, face = "bold", hjust = 0),
     legend.position =   "right",
 
     panel.background =  theme_rect(fill = "grey90", colour = NA), 
@@ -56,8 +56,8 @@ theme_bw <- function(base_size = 12) {
 
     legend.background = theme_rect(colour=NA), 
     legend.key =        theme_rect(colour = "grey80"),
-    legend.text =       theme_text(size = base_size),
-    legend.title =      theme_text(size = base_size, face = "bold", hjust = 0),
+    legend.text =       theme_text(size = base_size * 0.8),
+    legend.title =      theme_text(size = base_size * 0.8, face = "bold", hjust = 0),
     legend.position =   "right",
 
     panel.background =  theme_rect(fill = "white", colour = NA), 

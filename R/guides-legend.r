@@ -12,8 +12,8 @@
 # @keyword hplot 
 # @value frameGrob, or NULL if no legends
 # @keyword internal
-guide_legends_box <- function(scales, scale_usage, horizontal = FALSE, theme) {
-  legs <- guide_legends(scales, scale_usage, theme=theme)
+guide_legends_box <- function(scales, layers, default_mapping, horizontal = FALSE, theme) {
+  legs <- guide_legends(scales, layers, default_mapping, theme=theme)
   
   n <- length(legs)
   if (n == 0) return(nullGrob())
@@ -43,44 +43,98 @@ guide_legends_box <- function(scales, scale_usage, horizontal = FALSE, theme) {
 # @argument list description usage of aesthetics in geoms
 # @keyword internal
 # @value A list of grobs
-guide_legends <- function(scales, usage, theme) {
-  legends <- compact(lapply(scales$get_trained_scales(), function(sc) sc$legend_desc()))
+guide_legends <- function(scales, layers, default_mapping, theme) {
+  legends <- scales$legend_desc()
+  if (length(legends) == 0) return()
   
-  if (length(legends) == 0) 
-    return()
-  
-  # Need to collapse legends describing same values into single data.frame
-  # - first group by name
-  legend_names <- unname(unlist(lapply(legends, "[", "name")))
-  name_strings <- sapply(legend_names, deparse)
-  names(legend_names) <- name_strings
-  
-  keys <- lapply(legends, "[[", "display")
-  variables <- split(keys, name_strings)
-
-  # - then merge data.frames
-  keys_merged <- lapply(variables, merge_legends)
-  legends_merged <- mapply(function(name, keys) list(name = legend_names[name], display=keys), names(keys_merged), keys_merged, SIMPLIFY = FALSE, USE.NAMES = FALSE)  
-  
-  lapply(legends_merged, guide_legend, usage=usage, theme=theme)
+  lapply(names(legends), function(var) {
+    build_legend(var, legends[[var]], layers, default_mapping, theme)
+  })
 }
 
-# Merge legends
-# Merge multiple legend descriptions into one
-# 
-# Does not check that it makes sense to merge them.
-# 
-# @arguments list of legends to merge
-# @keyword internal
-merge_legends <- function(legends) {
-  n <- length(legends)
-  if (n < 2) return(legends[[1]])
+build_legend <- function(name, mapping, layers, default_mapping, theme) {
   
-  all <- legends[[1]]
-  for(i in 2:n) 
-    all <- merge(all, legends[[i]], by="label", sort="false")
-  all
+  legend_data <- llply(layers, function(layer) {
+    used <- names(c(layer$mapping, default_mapping))
+    matched <- intersect(used, names(mapping))
+    if (length(matched) > 0) {
+      layer$use_defaults(mapping[matched])
+    } else {
+      layer$use_defaults(NULL)[rep(1, nrow(mapping)), ]
+    }
+  })
+  # if (length(legend_data) == 0) return(nullGrob())
+  
+  # Calculate sizes for keys - mainly for v. large points and lines
+  size_mat <- do.call("cbind", llply(legend_data, "[[", "size"))
+  widths <- size_mat[, laply(layers, function(l) l$geom$objname == "point")]
+  width <- max(0, widths)
+  heights <- apply(size_mat, 1, max)
+
+  title <- theme_render(
+    theme, "legend.title",
+    name, x = 0, y = 0.5
+  )
+  
+  nkeys <- nrow(mapping)
+  hgap <- vgap <- unit(0.3, "lines")
+  
+  label.heights <- do.call("unit.c", 
+    lapply(mapping$.label, function(x) stringHeight(as.expression(x))))
+  label.widths  <- do.call("unit.c", 
+    lapply(mapping$.label, function(x) stringWidth(as.expression(x))))
+
+  widths <- unit.c(
+    max(unit(1.4, "lines"), unit(width, "mm")), 
+    hgap, 
+    max(
+      unit.c(unit(1, "grobwidth", title) - unit(1.4, "lines") - 2 * hgap),
+      label.widths
+    ),
+    hgap
+  )
+
+  heights <- unit.c(
+    unit(1, "grobheight", title) + 2 * vgap, 
+    unit.pmax(unit(1.4, "lines"), vgap + label.heights, unit(heights, "mm"))
+  )  
+
+  # Layout the legend table
+  legend.layout <- grid.layout(nkeys + 1, 4, 
+    widths = widths, heights = heights, just=c("left","top"))
+  fg <- ggname("legend", frameGrob(layout = legend.layout))
+  fg <- placeGrob(fg, theme_render(theme, "legend.background"))
+
+  numeric_labels <- all(sapply(mapping$.labels, is.language)) || suppressWarnings(all(!is.na(sapply(mapping$.labels, "as.numeric"))))
+  hpos <- numeric_labels * 1
+
+  fg <- placeGrob(fg, title, col=1:3, row=1)
+  for (i in 1:nkeys) {
+    
+    fg <- placeGrob(fg, theme_render(theme, "legend.key"), col = 1, row = i+1)      
+    for(j in seq_along(layers)) {
+      key <- layers[[j]]$geom$draw_legend(legend_data[[j]][i, ])
+      fg <- placeGrob(fg, ggname("key", key), col = 1, row = i+1)      
+    }
+    label <- theme_render(
+      theme, "legend.text", 
+      mapping$.label[[i]], hjust = hpos,
+      x = hpos, y = 0.5
+    )
+    fg <- placeGrob(fg, label, col = 3, row = i+1)
+  }
+
+  fg
 }
+
+build_legend_layer <- function(layer, mappings) {
+  matched <- intersect(names(layer$mapping), names(mappings))
+  layer$use_defaults(mappings[matched])
+  
+  
+  layer$geom$draw_legend(df)
+}
+
 
 # Build a legend grob
 # Build the grob for a single legend.

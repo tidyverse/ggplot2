@@ -1,6 +1,7 @@
 ggplot2 0.8.1  (2008-XX-XX)
 ----------------------------------------
 
+* legends should now work in cases where you have multiple layers the use the same geom and have different aesthetic mappings
 * facet_wrap: now works when a layer doesn't contain every level of the faceting variables
 * facet_grid: fix bug where tick labels where being produced outside the range of the axes
 * coord_cartesian now calculates scales correctly again

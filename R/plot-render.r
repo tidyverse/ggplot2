@@ -60,7 +60,7 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep)
   # each of these grobs has a vp set
 
   legend_box <- if (position != "none") {
-    guide_legends_box(scales, scale_usage(plot), horiz, theme) 
+    guide_legends_box(scales, plot$layers, plot$mapping, horiz, theme) 
   } else {
     nullGrob()
   } 

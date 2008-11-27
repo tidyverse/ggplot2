@@ -32,6 +32,7 @@ Scales <- proto(Scale, expr={
     out
   }
 
+
   
   get_scales <- function(., output, scales=FALSE) {
     scale <- .$.scales[.$find(output)]
@@ -43,12 +44,35 @@ Scales <- proto(Scale, expr={
     }
   }
   
+  
   has_scale <- function(., output) {
     any(.$find(output))
   }
   
   get_trained_scales <- function(.) {
     Filter(function(x) x$trained(), .$.scales)
+  }
+  
+  get_scales_by_name <- function(., input) {
+    Filter(function(s) s$name == input, .$get_trained_scales())
+  }
+  
+  variables <- function(.) {
+    unique(sapply(.$.scales, function(scale) scale$name))
+  }
+  
+  legend_desc <- function(.) {
+    # For each input aesthetic, get breaks and labels
+    vars <- .$variables() 
+    names(vars) <- vars
+    lapply(vars, function(var) {
+      scales <- .$get_scales_by_name(var)
+      breaks <- as.data.frame(lapply(scales, function(s) s$output_breaks()))
+      names(breaks)  <- lapply(scales, function(s) s$output())
+      
+      breaks$.labels <- scales[[1]]$labels()
+      breaks
+    })
   }
   
   position_scales <- function(.) {
