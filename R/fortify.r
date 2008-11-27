@@ -55,9 +55,11 @@ fortify <- function(model, data, ...) UseMethod("fortify")
 #X   geom_smooth(se = F, size = 0.5)
 #X
 #X plot(mod, which = 6)
-#X qplot(.hat, .cooksd, data = mod) + geom_smooth(se = F) + 
+#X ggplot(mod, aes(.hat, .cooksd, data = mod)) + 
 #X   geom_vline(colour = NA) + 
-#X   geom_abline(slope = seq(0, 3, by = 0.5), colour = "white")
+#X   geom_abline(slope = seq(0, 3, by = 0.5), colour = "white") +
+#X   geom_smooth(se = F) + 
+#X   geom_point()
 #X qplot(.hat, .cooksd, size = .cooksd / .hat, data = mod) + scale_area()
 fortify.lm <- function(model, data = model$model, ...) {
   infl <- influence(model, do.coef = FALSE)

@@ -1,3 +1,33 @@
+StatAbline <- proto(Stat, {
+  calculate <- function(., data, scales, intercept = NULL, slope = NULL, ...) {
+    data <- aesdefaults(data, .$default_aes(), list(...))
+    if (is.null(intercept)) {
+      if (is.null(data$intercept)) data$intercept <- 0
+    } else {
+      data <- data[rep(1, length(intercept)), ]
+      data$intercept <- intercept
+    }
+    if (is.null(slope)) {
+      if (is.null(data$slope)) data$slope <- 0
+    } else {
+      data <- data[rep(1, length(slope)), ]
+      data$slope <- slope
+    }
+    
+    unique(data)
+  }
+  
+  objname <- "abline" 
+  desc <- "Add a line with slope and intercept"
+  icon <- function(.) GeomAbline$icon()
+  
+  required_aes <- c()
+  default_geom <- function(.) GeomAbline
+  
+  examples <- function(.) {
+  }
+})
+
 StatVline <- proto(Stat, {
   calculate <- function(., data, scales, intercept = NULL, ...) {
     data <- compute_intercept(data, intercept, "x")

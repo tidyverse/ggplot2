@@ -3,24 +3,9 @@ GeomAbline <- proto(Geom, {
     .super$new(., ..., ignore.extra = TRUE)
   }
   
-  draw <- function(., data, scales, coordinates, intercept = NULL, slope = NULL, ...) {
-    
-    data <- aesdefaults(data, .$default_aes(), list(...))
-    if (is.null(intercept)) {
-      if (is.null(data$intercept)) data$intercept <- 0
-    } else {
-      data <- data[rep(1, length(intercept)), ]
-      data$intercept <- intercept
-    }
-    if (is.null(slope)) {
-      if (is.null(data$slope)) data$slope <- 0
-    } else {
-      data <- data[rep(1, length(slope)), ]
-      data$slope <- slope
-    }
-    
+  draw <- function(., data, scales, coordinates, ...) {
+        
     xrange <- scales$x.range
-    
     
     data <- transform(data,
       x = xrange[1],
@@ -46,8 +31,8 @@ GeomAbline <- proto(Geom, {
   )
   guide_geom <- function(.) "abline"
 
-  default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, slope=1, intercept=0)
+  default_stat <- function(.) StatAbline
+  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1)
   
   draw_legend <- function(., data, ...) {
     data <- aesdefaults(data, .$default_aes(), list(...))
@@ -80,10 +65,10 @@ GeomAbline <- proto(Geom, {
     p + geom_abline(aes(intercept=a, slope=b), data=df)
 
     # Slopes and intercepts from linear model
-    coefs <- do.call(rbind, by(mtcars, mtcars$cyl, function(df) { 
+    coefs <- ddply(mtcars, .(cyl), function(df) { 
       m <- lm(mpg ~ wt, data=df)
-      data.frame(cyl = df$cyl[1], a=coef(m)[1], b=coef(m)[2]) 
-    }))
+      data.frame(a = coef(m)[1], b = coef(m)[2]) 
+    })
     str(coefs)
     p + geom_abline(data=coefs, aes(intercept=a, slope=b))
     
