@@ -1,6 +1,7 @@
 ggplot2 0.8.1  (2008-XX-XX)
 ----------------------------------------
 
+* coord_cartesian now calculates scales correctly again
 * geom_abline should now work in a wider variety of situations
 * legend.position and legend.justification work again
 * fix bug where coord_trans wasn't transforming correctly

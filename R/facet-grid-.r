@@ -41,8 +41,8 @@ FacetGrid <- proto(Facet, {
     for (i in seq_len(nr)) {
       for(j in seq_len(nc)) {
         scales <- list(
-          x = .$scales$x[[j]], 
-          y = .$scales$y[[i]]
+          x = .$scales$x[[j]]$clone(), 
+          y = .$scales$y[[i]]$clone()
         )        
         coord_details[[i, j]] <- coord$compute_ranges(scales)
       }
@@ -238,8 +238,8 @@ FacetGrid <- proto(Facet, {
       for(i in seq_len(nrow(layerd))) {
         for(j in seq_len(ncol(layerd))) {
           scales <- list(
-            x = .$scales$x[[j]], 
-            y = .$scales$y[[i]]
+            x = .$scales$x[[j]]$clone(), 
+            y = .$scales$y[[i]]$clone()
           )
           details <- coord$compute_ranges(scales)
           grobs[[i, j]] <- layer$make_grob(layerd[[i, j]], details, coord)

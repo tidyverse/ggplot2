@@ -46,8 +46,8 @@ FacetWrap <- proto(Facet, {
 
     for (i in seq_len(n)) {
       scales <- list(
-        x = .$scales$x[[i]], 
-        y = .$scales$y[[i]]
+        x = .$scales$x[[i]]$clone(), 
+        y = .$scales$y[[i]]$clone()
       ) 
       details <- coord$compute_ranges(scales)
       axes_h[[1, i]] <- coord$guide_axis_h(details, theme)
@@ -195,8 +195,8 @@ FacetWrap <- proto(Facet, {
 
       for(i in seq_along(.$scales$x)) {
         scales <- list(
-          x = .$scales$x[[i]], 
-          y = .$scales$y[[i]]
+          x = .$scales$x[[i]]$clone(), 
+          y = .$scales$y[[i]]$clone()
         )
         details <- coord$compute_ranges(scales)
         grobs[[1, i]] <- layer$make_grob(layerd[[1, i]], details, coord)
