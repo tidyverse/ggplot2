@@ -6,8 +6,8 @@ Coord <- proto(TopLevel, expr={
   
   # Rescaling at coord level should not be clipped: this is what 
   # makes zooming work
-  rescale_var <- function(., data, range) {
-    rescale(data, 0:1, range, clip = FALSE)  
+  rescale_var <- function(., data, range, clip = FALSE) {
+    rescale(data, 0:1, range, clip = clip)  
   }
   
   munch <- function(., data, details, npieces=50) {
