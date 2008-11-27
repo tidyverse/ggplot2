@@ -1,9 +1,10 @@
-# Floor for dates
+# Floor for dates and times
 # Round date up to nearest multiple of time
 # 
 # @arguments date to round
 # @arguments unit of time to round to (see \code{\link{cut.Date}}) for valid values
 # @keywords internal
+# @alias floor_time
 floor_date <- function(date, time) {
   prec <- parse_unit_spec(time)
   if (prec$unit == "day") {
@@ -11,6 +12,10 @@ floor_date <- function(date, time) {
   } else {
     as.Date(cut(date, time))
   }
+}
+floor_time <- function(date, time) {
+  prec <- parse_unit_spec(time)
+  as.POSIXct(cut(date, time))  
 }
 
 # Parse date time unit specification
@@ -31,12 +36,13 @@ parse_unit_spec <- function(unitspec) {
   list(unit = unit, mult = mult)
 }
 
-# Ceiling for dates
+# Ceiling for dates and times
 # Round date down to nearest multiple of time
 # 
 # @arguments date to round
 # @arguments unit of time to round to (see \code{\link{cut.Date}}) for valid values
 # @keywords internal
+# @alias ceiling_time
 ceiling_date <- function(date, time) { 
   prec <- parse_unit_spec(time)
   
@@ -46,18 +52,38 @@ ceiling_date <- function(date, time) {
   floor_date(date, time)
 }
 
-# Fullseq for dates
-# Analog of \code{link{fullseq}}, but for dates
+ceiling_time <- function(date, time) { 
+  prec <- parse_unit_spec(time)
+  
+  up <- c(
+    "sec" = 1, "min" = 60, "hour" = "3600", 
+    c("day" = 1, "week" = 7, "month" = 31, "year" = 365) * 3600 * 24
+  )
+  date <- date + prec$mult * up[prec$unit]
+  
+  floor_time(date, time)
+}
+
+# Fullseq for dates and times
+# Analog of \code{link{fullseq}}, but for dates and times
 # 
 # Use in \code{\link{scale_date}}
 # 
 # @arguments range of dates
 # @argument unit of time to round to
 # @keywords internal
+# @alias fullseq_time
 fullseq_date <- function(range, time) {
   seq.Date(
     floor_date(range[1], time), 
     ceiling_date(range[2], time), 
+    by=time
+  )
+}
+fullseq_time <- function(range, time) {
+  seq.Date(
+    floor_time(range[1], time), 
+    ceiling_time(range[2], time), 
     by=time
   )
 }

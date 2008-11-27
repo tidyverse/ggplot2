@@ -123,3 +123,12 @@ ScaleDate <- proto(ScaleContinuous,{
   
 })
 
+
+TransDate <- Trans$new("date", "as.numeric", "to_date", "as.Date")
+
+# To date
+# Turn numeric vector into date vector
+# 
+# @keyword internal
+to_date <- function(x) structure(x, class="Date")
+

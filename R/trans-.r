@@ -114,10 +114,3 @@ TransPow10 <- Trans$new("pow10",function(x) 10^x, "log10", function(x) log10(x))
 TransProbit <- ProbabilityTrans$new("norm")
 TransReverse <- Trans$new("reverse", function(x) -x, function(x) -x, function(x) bquote(.(-x)))
 TransSqrt <- Trans$new("sqrt", "sqrt", function(x) x^2, function(x) x^2)
-
-# To date
-# Turn numeric vector into date vector
-# 
-# @keyword internal
-to_date <- function(x) structure(x, class="Date")
-
