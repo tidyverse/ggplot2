@@ -1,7 +1,7 @@
 PositionJitter <- proto(Position, {
   
-  
   adjust <- function(., data, scales) {
+    if (nrow(data) == 0) return(data.frame())
     check_required_aesthetics(c("x", "y"), names(data), "position_jitter")
     
     if (is.null(.$width)) .$width <- resolution(data$x) * 0.4

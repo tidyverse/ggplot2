@@ -1,6 +1,6 @@
 PositionDodge <- proto(Position, {
   adjust <- function(., data, scales) {
-    if (nrow(data) == 0) return()
+    if (nrow(data) == 0) return(data.frame())
     check_required_aesthetics("x", names(data), "position_dodge")
     
     collide(data, .$width, .$my_name(), pos_dodge, check.width = FALSE)

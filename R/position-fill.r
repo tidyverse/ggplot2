@@ -1,6 +1,6 @@
 PositionFill <- proto(Position, {
   adjust <- function(., data, scales) {
-    if (is.null(data)) return() 
+    if (nrow(data) == 0) return(data.frame())
     
     y <- scales$get_scales("y")
     y$limits <- c(0, 1)

@@ -96,7 +96,7 @@ Scales <- proto(Scale, expr={
   # Transform values to cardinal representation
   transform_df <- function(., df) {
     if (length(.$.scales) == 0) return(df)
-    if (is.null(df)) return(df)
+    if (is.null(df) || nrow(df) == 0) return(df)
     transformed <- compact(lapply(.$.scales, function(scale) {
       scale$transform_df(df)
     }))
