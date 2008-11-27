@@ -32,8 +32,7 @@ ScaleLinetype <- proto(ScaleDiscrete, expr={
     qplot(date, value, data=ecm, geom="line", linetype=variable)
     qplot(date, value, data=ecm, geom="line", colour=variable)
     
-    # The linetype scale currently has no options, so there's
-    # no point in adding it manually
+    # See scale_manual for more flexibilit
   }
   
 })
