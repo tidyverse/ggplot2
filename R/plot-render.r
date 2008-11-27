@@ -104,8 +104,9 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep)
   if (position == "manual") {
     legend_vp <- viewport(
       name = "legend_box",
-      x = coords[1], y = coords[2], just = plot$legend.justification,
-      width = grobWidth(legend), height = grobHeight(legend)
+      x = coords[1], y = coords[2], just = theme$legend.justification,
+      width = grobWidth(grobs$legend_box), 
+      height = grobHeight(grobs$legend_box)
     )
   } else {
     legend_vp <- viewport(name = "legend_box")

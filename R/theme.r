@@ -18,6 +18,11 @@
 #X qplot(mpg, wt, data = mtcars)
 #X theme_set(old)
 #X theme_get()
+#X 
+#X qplot(mpg, wt, data=mtcars, colour=mpg) + 
+#X   opts(legend.position=c(0.95, 0.95), legend.justification = c(1, 1))
+#X last_plot() + 
+#X  opts(legend.background = theme_rect(fill = "white", col="white", size =3))
 theme_update <- function(...) {
   elements <- list(...)
   if (length(args) == 1 && is.list(elements[[1]])) {

@@ -1,5 +1,6 @@
 ggplot2 0.8.1  (2008-XX-XX)
 ----------------------------------------
 
+* legend.position and legend.justification work again
 * fix bug where coord_trans wasn't transforming correctly
 * facet_wrap: labels will match panels even when factor levels are not in alphabetical order
