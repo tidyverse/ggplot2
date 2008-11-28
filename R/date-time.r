@@ -15,7 +15,13 @@ floor_date <- function(date, time) {
 }
 floor_time <- function(date, time) {
   prec <- parse_unit_spec(time)
-  as.POSIXct(cut(date, time))  
+  if (prec$unit == "sec") {
+    to_time(round_any(as.numeric(date), prec$mult))
+  } else if (prec$unit == "min") {
+    to_time(round_any(as.numeric(date), prec$mult * 60))    
+  } else {
+    as.POSIXct(cut(date, time), tz = attr(date, "tz") %||% "")  
+  }
 }
 
 # Parse date time unit specification
@@ -56,7 +62,7 @@ ceiling_time <- function(date, time) {
   prec <- parse_unit_spec(time)
   
   up <- c(
-    "sec" = 1, "min" = 60, "hour" = "3600", 
+    "sec" = 1, "min" = 60, "hour" = 3600, 
     c("day" = 1, "week" = 7, "month" = 31, "year" = 365) * 3600 * 24
   )
   date <- date + prec$mult * up[prec$unit]
@@ -81,7 +87,7 @@ fullseq_date <- function(range, time) {
   )
 }
 fullseq_time <- function(range, time) {
-  seq.Date(
+  seq.POSIXt(
     floor_time(range[1], time), 
     ceiling_time(range[2], time), 
     by=time

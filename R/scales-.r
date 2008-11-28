@@ -150,8 +150,8 @@ Scales <- proto(Scale, expr={
     # Determine variable type for each column -------------------------------
     vartype <- function(x) {
       if (inherits(x, "Date")) return("date")
+      if (inherits(x, "POSIXt")) return("datetime")
       if (is.numeric(x)) return("continuous")
-      if (is.factor(x)) return("discrete")
       
       "discrete"
     }

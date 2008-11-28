@@ -102,7 +102,6 @@ TransAtanh <- Trans$new(
   "force"
 )
   
-TransDate <- Trans$new("date", "as.numeric", "to_date", "as.Date")
 TransExp <- Trans$new("exp", "exp", "log", function(x) bquote(log(.(x))))
 TransIdentity <- Trans$new("identity", "force", "force", "force")
 TransInverse <- Trans$new(function(x) 1/x, function(x) 1/x, function(x) bquote(phantom()^1 / phantom()[.(x)]))

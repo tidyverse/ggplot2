@@ -10,6 +10,7 @@
 #
 #   * threshold for displaying first/last tick mark outside the data: if the last date point is > threshold * interval (default to 0.9)
 
+TransDate <- Trans$new("date", "as.numeric", "to_date")
 ScaleDate <- proto(ScaleContinuous,{
   .major_seq <- NULL
   .minor_seq <- NULL
@@ -29,21 +30,13 @@ ScaleDate <- proto(ScaleContinuous,{
   }
   
   break_points <- function(.) {
-    rng <- diff(range(.$input_set()))
+    auto <- date_breaks(diff(range(.$input_set()))) 
     
-    length <- cut(rng, c(0, 10, 56, 365, 730, 5000, Inf), labels=FALSE)
-    
-    major <- nulldefault(.$major_seq, 
-      c("days", "weeks", "months", "3 months", "years", "5 years")[length]
+    c(
+      .$major_seq %||% auto$major,
+      .$minor_seq %||% auto$minor,
+      .$format %||% auto$format
     )
-    minor <- nulldefault(.$minor_seq, 
-      c("10 years", "days", "weeks", "months", "months", "years")[length]
-    )
-    format <- nulldefault(.$format, 
-      c("%d-%b", "%d-%b", "%b-%y", "%b-%y", "%Y", "%Y")[length]
-    )
-    
-    c(major, minor, format)
   }
   
   input_breaks <- function(.) {
@@ -124,11 +117,12 @@ ScaleDate <- proto(ScaleContinuous,{
 })
 
 
-TransDate <- Trans$new("date", "as.numeric", "to_date", "as.Date")
+
 
 # To date
 # Turn numeric vector into date vector
 # 
 # @keyword internal
 to_date <- function(x) structure(x, class="Date")
+
 

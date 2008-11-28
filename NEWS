@@ -1,6 +1,7 @@
 ggplot2 0.8.1  (2008-XX-XX)
 ----------------------------------------
 
+* scale_datetime: first attempt at a scale for date time objects of class POSIXt
 * qplot will now use a histogram if you only supply an x variable, and if you only supply a y variable it will set x to seq_along(y).  
 * legends should now work in cases where you have multiple layers the use the same geom and have different aesthetic mappings
 * facet_wrap: now works when a layer doesn't contain every level of the faceting variables
