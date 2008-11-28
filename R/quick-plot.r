@@ -48,10 +48,18 @@
 #X } 
 #X f()
 #X 
+#X # qplot will attempt to guess what geom you want depending on the input
+#X # both x and y supplied = scatterplot
+#X qplot(mpg, wt, data = mtcars)
+#X # just x supplied = histogram
+#X qplot(mpg, data = mtcars)
+#X # just y supplied = scatterplot, with x = seq_along(y)
+#X qplot(y = mpg, data = mtcars)
+#X 
 #X # Use different geoms
 #X qplot(mpg, wt, geom="path")
 #X qplot(factor(cyl), wt, geom=c("boxplot", "jitter"))
-qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE, geom = "point", stat=list(NULL), position=list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "", main = NULL, xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA) {
+qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE, geom = "auto", stat=list(NULL), position=list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "", main = NULL, xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA) {
 
   argnames <- names(as.list(match.call(expand.dots=FALSE)[-1]))
   arguments <- as.list(match.call()[-1])
@@ -71,6 +79,18 @@ qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE,
     facetvars <- facetvars[facetvars != "."]
     facetsdf <- as.data.frame(sapply(facetvars, get))
     if (nrow(facetsdf)) data <- facetsdf
+  }
+
+  # Work out plot data, and modify aesthetics, if necessary
+  if ("auto" %in% geom) {
+    if (missing(y)) {
+      geom[geom == "auto"] <- "histogram"
+    } else {
+      if (missing(x)) {
+        aesthetics$x <- bquote(seq_along(.(y)), aesthetics)
+      }
+      geom[geom == "auto"] <- "point"
+    }
   }
 
   env <- parent.frame()
