@@ -113,7 +113,8 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
     
     fg <- placeGrob(fg, theme_render(theme, "legend.key"), col = 1, row = i+1)      
     for(j in seq_along(layers)) {
-      key <- layers[[j]]$geom$draw_legend(legend_data[[j]][i, ])
+      legend_geom <- Geom$find(layers[[j]]$geom$guide_geom())
+      key <- legend_geom$draw_legend(legend_data[[j]][i, ])
       fg <- placeGrob(fg, ggname("key", key), col = 1, row = i+1)      
     }
     label <- theme_render(
@@ -125,14 +126,6 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
   }
 
   fg
-}
-
-build_legend_layer <- function(layer, mappings) {
-  matched <- intersect(names(layer$mapping), names(mappings))
-  layer$use_defaults(mappings[matched])
-  
-  
-  layer$geom$draw_legend(df)
 }
 
 
