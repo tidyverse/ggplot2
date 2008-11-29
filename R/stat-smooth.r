@@ -1,11 +1,22 @@
 StatSmooth <- proto(Stat, {
-  calculate <- function(., data, scales, method=loess, formula=y~x, se = TRUE, n=80, fullrange=FALSE, xseq = NULL, level=0.95, ...) {
+  calculate <- function(., data, scales, method="auto", formula=y~x, se = TRUE, n=80, fullrange=FALSE, xseq = NULL, level=0.95, ...) {
     data <- data[complete.cases(data[, c("x", "y")]), ]
     if (nrow(data) < 2) return(data.frame())
     
     if (length(unique(data$x)) == 1) {
       message("geom_smooth: Only one unique x value in this group.  Maybe you want aes(group = 1)?")
       return(data.frame())
+    }
+    
+    # Figure out what type of smoothing to do: loess for small datasets,
+    # gam with a cubric regression basis for large data
+    if (method == "auto") {
+      if (nrow(data) < 1000) {
+        method <- "loess"
+      } else {
+        method <- mgcv::gam
+        formula <- y ~ s(x, bs = "cs")
+      }
     }
     
     if (is.null(data$weight)) data$weight <- 1
@@ -19,8 +30,8 @@ StatSmooth <- proto(Stat, {
       }
       
     }
+    if (is.factor(data$x) && method == "loess") stop("geom_smooth: loess smooth does not work with categorical data.  Maybe you want method=lm?", call.=FALSE)
     if (is.character(method)) method <- match.fun(method)
-    if (is.factor(data$x) && identical(method, loess)) stop("geom_smooth: loess smooth does not work with categorical data.  Maybe you want method=lm?", call.=FALSE)
     
     method.special <- function(...) method(formula, data=data, weights=weight, ...)
     model <- safe.call(method.special, list(...), names(formals(method)))
