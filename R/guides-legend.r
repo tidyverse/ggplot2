@@ -53,23 +53,31 @@ guide_legends <- function(scales, layers, default_mapping, theme) {
 }
 
 build_legend <- function(name, mapping, layers, default_mapping, theme) {
-  
   legend_data <- llply(layers, function(layer) {
     used <- names(c(layer$mapping, default_mapping))
     matched <- intersect(used, names(mapping))
     if (length(matched) > 0) {
       layer$use_defaults(mapping[matched])
     } else {
-      layer$use_defaults(NULL)[rep(1, nrow(mapping)), ]
+      if (theme$legend.show_all) {
+        layer$use_defaults(NULL)[rep(1, nrow(mapping)), ]
+      } else {
+        NULL
+      }
     }
   })
   # if (length(legend_data) == 0) return(nullGrob())
   
   # Calculate sizes for keys - mainly for v. large points and lines
   size_mat <- do.call("cbind", llply(legend_data, "[[", "size"))
-  widths <- size_mat[, laply(layers, function(l) l$geom$objname == "point")]
-  width <- max(0, widths)
-  heights <- apply(size_mat, 1, max)
+  if (is.null(size_mat)) {
+    heights <- rep(0, nrow(mapping))
+  } else {
+    heights <- apply(size_mat, 1, max)    
+  }
+
+  points <- laply(layers, function(l) l$geom$objname == "point")
+  width <- max(unlist(llply(legend_data[points], "[[", "size")), 0)
 
   title <- theme_render(
     theme, "legend.title",
@@ -113,9 +121,11 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
     
     fg <- placeGrob(fg, theme_render(theme, "legend.key"), col = 1, row = i+1)      
     for(j in seq_along(layers)) {
-      legend_geom <- Geom$find(layers[[j]]$geom$guide_geom())
-      key <- legend_geom$draw_legend(legend_data[[j]][i, ])
-      fg <- placeGrob(fg, ggname("key", key), col = 1, row = i+1)      
+      if (!is.null(legend_data[[j]])) {
+        legend_geom <- Geom$find(layers[[j]]$geom$guide_geom())
+        key <- legend_geom$draw_legend(legend_data[[j]][i, ])
+        fg <- placeGrob(fg, ggname("key", key), col = 1, row = i+1)              
+      }
     }
     label <- theme_render(
       theme, "legend.text", 
