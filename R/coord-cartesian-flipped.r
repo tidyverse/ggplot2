@@ -21,6 +21,14 @@ CoordFlip <- proto(CoordCartesian, expr={
       y.major = x.major, y.minor = x.minor, y.labels = x.labels
     ))
   }
+  
+  labels <- function(., scales) {
+    list(
+      x = scales$y,
+      y = scales$x
+    )
+  }
+  
 
   # Documentation -----------------------------------------------
 

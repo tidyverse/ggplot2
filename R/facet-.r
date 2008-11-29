@@ -18,7 +18,7 @@ Facet <- proto(TopLevel, {
   }
   
   xlabel <- function(., theme) 
-    theme_render(theme, "axis.title.x", .$scales$x[[1]]$name)
+    .$scales$x[[1]]$name
   ylabel <- function(., theme) 
-    theme_render(theme, "axis.title.y", .$scales$y[[1]]$name)
+    .$scales$y[[1]]$name
 })

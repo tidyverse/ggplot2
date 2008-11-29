@@ -67,8 +67,12 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep)
   
   title <- theme_render(theme, "plot.title", plot$options$title)
 
-  xlabel <- pieces$facet$xlabel(theme)
-  ylabel <- pieces$facet$ylabel(theme)
+  labels <- cs$labels(list(
+    x = pieces$facet$xlabel(),
+    y = pieces$facet$ylabel())
+  )
+  xlabel <- theme_render(theme, "axis.title.x", labels$x)
+  ylabel <- theme_render(theme, "axis.title.y", labels$y)
 
   grobs <- list(
     title = title, 

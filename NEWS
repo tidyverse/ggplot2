@@ -1,6 +1,7 @@
 ggplot2 0.8.1  (2008-XX-XX)
 ----------------------------------------
 
+* coord_flip: flips axes labels again too
 * geom_smooth will switch to an alternative smoothing method (mgcv::gam(y ~ s(x, bs = "cr"))), when there are more than 1000 observations
 * summary: tweaks to improve output
 * scale_datetime: first attempt at a scale for date time objects of class POSIXt

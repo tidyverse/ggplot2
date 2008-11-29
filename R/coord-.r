@@ -34,6 +34,10 @@ Coord <- proto(TopLevel, expr={
     )
   }
   
+  labels <- function(., scales) {
+    scales
+  }
+  
   pprint <- function(., newline=TRUE) {
     args <- formals(get("new", .))
     args <- args[!names(args) %in% c(".", "...")]
