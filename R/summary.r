@@ -10,19 +10,19 @@ summary.ggplot <- function(object, ...) {
     }, object$mapping, names(object$mapping)), collapse=", ")
   }
   
-  cat("Title:    ", object$title, "\n", sep="")
-  cat("-----------------------------------\n")
+  # cat("Title:    ", object$title, "\n", sep="")
+  # cat("-----------------------------------\n")
   if (!is.null(object$data)) {
-    cat("Data:     ", paste(names(object$data), collapse=", "), " [", nrow(object$data), "x", ncol(object$data), "] ", "\n", sep="")    
+    cat("data:     ", paste(names(object$data), collapse=", "), " [", nrow(object$data), "x", ncol(object$data), "] ", "\n", sep="")    
   }
   if (length(object$mapping) > 0) {
-    cat("Mapping:  ", clist(object$mapping), "\n", sep="")    
+    cat("mapping:  ", clist(object$mapping), "\n", sep="")    
   }
   if (object$scales$n() > 0) {
-    object$scales$pprint()    
+    cat("scales:  ", paste(object$scales$output(), collapse = ", "), "\n")
   }
   
-  cat("Faceting: ")
+  cat("faceting: ")
   object$facet$pprint()
 
   if (length(object$layers) > 0)

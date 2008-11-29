@@ -275,7 +275,7 @@ FacetWrap <- proto(Facet, {
   }
   
   pprint <- function(., newline=TRUE) {
-    cat("facet_", .$objname, "(", .$facets, ", ", .$margins, ")", sep="")
+    cat("facet_", .$objname, "(", paste(names(.$facets), collapse = ", "), ")", sep="")
     if (newline) cat("\n")
   }
   

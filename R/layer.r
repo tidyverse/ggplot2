@@ -87,7 +87,9 @@ Layer <- proto(expr = {
       cat("Empty layer\n")
       return(invisible());
     }
-    cat("mapping:", clist(.$mapping), "\n")
+    if (!is.null(.$mapping)) {
+      cat("mapping:", clist(.$mapping), "\n")      
+    }
     .$geom$print(newline=FALSE)
     cat(clist(.$geom_params), "\n")
     .$stat$print(newline=FALSE)
