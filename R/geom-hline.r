@@ -1,6 +1,11 @@
 GeomHline <- proto(Geom, {
-  new <- function(., ...) {
-    .super$new(., ..., ignore.extra = TRUE)
+  new <- function(., data = NULL, mapping = NULL, yintercept = 0, ...) {
+    if (!missing(yintercept) && is.numeric(yintercept)) {
+      df <- data.frame(yintercept = yintercept)
+      .super$new(., aes(yintercept = yintercept), data = df, ignore.extra = TRUE, ...)
+    } else {
+      .super$new(., data = data, mapping = mapping, yintercept = yintercept, ignore.extra = TRUE, ...)
+    }
   }
 
   draw <- function(., data, scales, coordinates, ...) {
@@ -28,10 +33,10 @@ GeomHline <- proto(Geom, {
   examples <- function(.) {
     p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
 
-    p + geom_hline(aes(intercept=mpg))
-    p + geom_hline(intercept=20)
-    p + geom_hline(intercept=seq(10, 30, by=5))
-    p + geom_hline(intercept="mean")
-    p + geom_hline(aes(colour=factor(cyl)), intercept="mean")
+    p + geom_hline(aes(yintercept=mpg))
+    p + geom_hline(yintercept=20)
+    p + geom_hline(yintercept=seq(10, 30, by=5))
+    p + geom_hline(yintercept="mean")
+    p + geom_hline(aes(colour=factor(cyl)), yintercept="mean")
   }  
 })

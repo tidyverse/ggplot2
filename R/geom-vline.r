@@ -1,6 +1,11 @@
 GeomVline <- proto(Geom, {
-  new <- function(., ...) {
-    .super$new(., ..., ignore.extra = TRUE)
+  new <- function(., data = NULL, mapping = NULL, xintercept = 0, ...) {
+    if (!missing(xintercept) && is.numeric(xintercept)) {
+      df <- data.frame(xintercept = xintercept)
+      .super$new(., aes(xintercept = xintercept), data = df, ignore.extra = TRUE, ...)
+    } else {
+      .super$new(., data = data, mapping = mapping, xintercept = xintercept, ignore.extra = TRUE, ...)
+    }
   }
   
   draw <- function(., data, scales, coordinates, ...) {
@@ -36,18 +41,18 @@ GeomVline <- proto(Geom, {
   
   examples <- function(.) {
     # Fixed lines
-    p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
-    p + geom_vline(intercept=5)
-    p + geom_vline(intercept=1:5)
-    p + geom_vline(intercept=1:5, colour="green")
-    p + geom_vline(intercept="mean", size=2, colour = alpha("red", 0.2))
+    p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
+    p + geom_vline(xintercept = 5)
+    p + geom_vline(xintercept = 1:5)
+    p + geom_vline(xintercept = 1:5, colour="green")
+    p + geom_vline(xintercept = "mean", size=2, colour = alpha("red", 0.2))
     
     last_plot() + coord_equal()
     last_plot() + coord_flip()
     
     # Lines from data
-    p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
-    p + geom_vline(intercept="mean") + facet_grid(. ~ cyl)
-    p + geom_vline(aes(colour = factor(cyl)), intercept="mean")
+    p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
+    p + geom_vline(xintercept = "mean") + facet_grid(. ~ cyl)
+    p + geom_vline(aes(colour = factor(cyl)), xintercept = "mean")
   }  
 })

@@ -59,8 +59,8 @@ rename_aes <- function(x) {
 # 
 # @keywords internal
 aes_to_scale <- function(var) {
-  var[var %in% c("x", "xmin", "xmax", "xend")] <- "x"
-  var[var %in% c("y", "ymin", "ymax", "yend")] <- "y"
+  var[var %in% c("x", "xmin", "xmax", "xend", "xintercept")] <- "x"
+  var[var %in% c("y", "ymin", "ymax", "yend", "yintercept")] <- "y"
   
   var
 }

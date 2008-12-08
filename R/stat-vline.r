@@ -29,12 +29,15 @@ StatAbline <- proto(Stat, {
 })
 
 StatVline <- proto(Stat, {
-  calculate <- function(., data, scales, intercept = NULL, ...) {
-    data <- compute_intercept(data, intercept, "x")
+  calculate <- function(., data, scales, xintercept = NULL, intercept, ...) {
+    if (!missing(intercept)) {
+      stop("stat_vline now uses xintercept instead of intercept")
+    }
+    data <- compute_intercept(data, xintercept, "x")
     
     unique(within(data, {
-      x    <- intercept
-      xend <- intercept
+      x    <- xintercept
+      xend <- xintercept
     }))
   }
   
@@ -50,12 +53,16 @@ StatVline <- proto(Stat, {
 })
 
 StatHline <- proto(Stat, {
-  calculate <- function(., data, scales, intercept = NULL, ...) {
-    data <- compute_intercept(data, intercept, "y")
+  calculate <- function(., data, scales, yintercept = NULL, intercept, ...) {
+    if (!missing(intercept)) {
+      stop("stat_vline now uses xintercept instead of intercept")
+    }
+
+    data <- compute_intercept(data, yintercept, "y")
     
     unique(within(data, {
-      y    <- intercept
-      yend <- intercept
+      y    <- yintercept
+      yend <- yintercept
     }))
   }
   
@@ -76,19 +83,23 @@ StatHline <- proto(Stat, {
 # 
 # @keywords internal
 compute_intercept <- function(data, intercept, var = "x") {
+  ivar <- paste(var, "intercept", sep = "")
   if (is.null(intercept)) {
     # Intercept comes from data, default to 0 if not set
-    if (is.null(data$intercept)) data$intercept <- 0
+    if (is.null(data[[ivar]])) data[[ivar]] <- 0
     
   } else if (is.numeric(intercept)) {
     # Intercept is a numeric vector of positions
     data <- data[rep(1, length(intercept)), ]
-    data$intercept <- intercept
+    data[[ivar]] <- intercept
     
   } else if (is.character(intercept) || is.function(intercept)) {
     # Intercept is a function
     f <- match.fun(intercept)
-    trans <- function(data) transform(data, intercept = f(data[[var]]))
+    trans <- function(data) {
+      data[[ivar]] <- f(data[[var]])
+      data
+    }
     data <- ddply(data, .(group), trans)
   } else {
     stop("Invalid intercept type: should be a numeric vector, a function", 
