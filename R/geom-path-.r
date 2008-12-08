@@ -18,29 +18,31 @@ GeomPath <- proto(Geom, {
     end <-   c(group_diff, TRUE)  
     
     solid_lines <- all(sapply(g, function(df) identical(unique(df$linetype), 1)))
-    constant <- all(sapply(g, function(df) nrow(unique(df[, c("colour","size","linetype")])) == 1))
-    
+    constant <- all(sapply(g, function(df) nrow(unique(df[, c("colour", "linetype")])) == 1))
+
     if (!solid_lines && !constant) {
       stop("geom_path: If you are using dotted or dashed lines, colour, size and linetype must be constant over the line", call.=FALSE)
     }
     
     if (!constant) {
       with(munched, 
-        segmentsGrob(x[!end], y[!end], x[!start], y[!start],
-        default.units="native", arrow = arrow, 
-        gp = gpar(
-          col = colour[!end], fill = colour[!end], lwd = size[!end] * .pt, 
-          lty = linetype[!end], lineend = "butt"
-        ))
+        segmentsGrob(
+          x[!end], y[!end], x[!start], y[!start],
+          default.units="native", arrow = arrow, 
+          gp = gpar(
+            col = colour[!end], fill = colour[!end], 
+            lwd = size[!end] * .pt, lty = linetype[!end], lineend = "butt"
+          )
+        )
       )
     } else {
       with(munched, 
         polylineGrob(
           x, y, id = as.integer(factor(group)), 
-          default.units="native", arrow = arrow, 
+          default.units = "native", arrow = arrow, 
           gp = gpar(
-            col = colour[start], fill = colour[start], lwd = size[start] * .pt, 
-            lty = linetype[start], lineend = "butt")
+            col = colour[start], fill = colour[start], 
+            lwd = size[start] * .pt, lty = linetype[start], lineend = "butt")
         )
       )
     }
