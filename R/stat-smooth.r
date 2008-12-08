@@ -1,15 +1,22 @@
 StatSmooth <- proto(Stat, {
-  calculate <- function(., data, scales, method="auto", formula=y~x, se = TRUE, n=80, fullrange=FALSE, xseq = NULL, level=0.95, ...) {
-    data <- data[complete.cases(data[, c("x", "y")]), ]
-    if (nrow(data) < 2) return(data.frame())
+  calculate_groups <- function(., data, scales, ...) {
+    rows <- daply(data, .(group), function(df) length(unique(df$x)))
     
-    if (length(unique(data$x)) == 1) {
-      message("geom_smooth: Only one unique x value in this group.  Maybe you want aes(group = 1)?")
+    if (all(rows == 1)) {
+      message("geom_smooth: Only one unique x value each group.", 
+        "Maybe you want aes(group = 1)?")
       return(data.frame())
     }
     
+    .super$calculate_groups(., data, scales, ...)
+  }
+  
+  calculate <- function(., data, scales, method="auto", formula=y~x, se = TRUE, n=80, fullrange=FALSE, xseq = NULL, level=0.95, na.rm = FALSE, ...) {
+    data <- remove_missing(data, na.rm, c("x", "y"), name="stat_smooth")
+    if (nrow(data) < 2) return(data.frame())
+    
     # Figure out what type of smoothing to do: loess for small datasets,
-    # gam with a cubric regression basis for large data
+    # gam with a cubic regression basis for large data
     if (is.character(method) && method == "auto") {
       if (nrow(data) < 1000) {
         method <- "loess"
@@ -23,32 +30,28 @@ StatSmooth <- proto(Stat, {
     if (is.null(data$weight)) data$weight <- 1
     
     if (is.null(xseq)) {
-      if (is.factor(data$x)) {
-        xseq <- if (fullrange) scales$x$input_set() else levels(data$x)
+      if (is.integer(data$x)) {
+        if (fullrange) {
+          xseq <- scales$x$input_set() 
+        } else {
+          xseq <- sort(unique(data$x))
+        } 
       } else {
-        range <- if (fullrange) scales$x$output_set() else range(data$x, na.rm=TRUE)  
+        if (fullrange) {
+          range <- scales$x$output_set()
+        } else {
+          range <- range(data$x, na.rm=TRUE)  
+        } 
         xseq <- seq(range[1], range[2], length=n)
-      }
-      
+      } 
     }
-    if (is.factor(data$x) && method == "loess") stop("geom_smooth: loess smooth does not work with categorical data.  Maybe you want method=lm?", call.=FALSE)
     if (is.character(method)) method <- match.fun(method)
     
-    method.special <- function(...) method(formula, data=data, weights=weight, ...)
+    method.special <- function(...) 
+      method(formula, data=data, weights=weight, ...)
     model <- safe.call(method.special, list(...), names(formals(method)))
-    pred <- stats::predict(model, data.frame(x=xseq), se=se, type="response")
-
-    if (se) {
-      std <- qnorm(level/2 + 0.5)
-      data.frame(
-        x = xseq, y = as.vector(pred$fit),
-        ymin = as.vector(pred$fit - std * pred$se), 
-        ymax = as.vector(pred$fit + std * pred$se),
-        se = as.vector(pred$se)
-      )
-    } else {
-      data.frame(x = xseq, y = as.vector(pred))
-    }
+    
+    predictdf(model, xseq, se, level)
   }
   
   objname <- "smooth" 
@@ -126,10 +129,14 @@ StatSmooth <- proto(Stat, {
     # Example with logistic regression
     data("kyphosis", package="rpart")
     qplot(Age, Kyphosis, data=kyphosis)
+    qplot(Age, data=kyphosis, facets = . ~ Kyphosis, binwidth = 10)
     qplot(Age, Kyphosis, data=kyphosis, position="jitter")
     qplot(Age, Kyphosis, data=kyphosis, position=position_jitter(y=5))
 
-    qplot(Age, as.numeric(Kyphosis) - 1, data=kyphosis) + stat_smooth(method="glm", family="binomial")
-    qplot(Age, as.numeric(Kyphosis) - 1, data=kyphosis) + stat_smooth(method="glm", family="binomial", fill="grey70")
+    qplot(Age, as.numeric(Kyphosis) - 1, data = kyphosis) +
+      stat_smooth(method="glm", family="binomial")
+    qplot(Age, as.numeric(Kyphosis) - 1, data=kyphosis) +
+      stat_smooth(method="glm", family="binomial", formula = y ~ ns(x, 2))
+    
   }
 })

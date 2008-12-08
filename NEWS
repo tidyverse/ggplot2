@@ -1,6 +1,8 @@
 ggplot2 0.8.1  (2008-XX-XX)
 ----------------------------------------
 
+* geom_smooth gives a more accurate warning when you have incorrectly specified the grouping
+* geom_smooth now gives correct asymmetric standard errors with generalised linear models (thanks to Thierry Onkelinx)
 * new labs, xlab & ylab functions for easily modifying axis labels and legend titles
 * geom_vline and geom_hline now correctly transform their intercepts if the scale is transformed    
 * geom_vline and geom_hline: now use xintercept and yintercept instead of intercept
