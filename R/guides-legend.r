@@ -93,18 +93,18 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
     lapply(mapping$.label, function(x) stringWidth(as.expression(x))))
 
   widths <- unit.c(
-    max(unit(1.4, "lines"), unit(width, "mm")), 
+    max(theme$legend.key.size, unit(width, "mm")), 
     hgap, 
     max(
-      unit.c(unit(1, "grobwidth", title) - unit(1.4, "lines") - 2 * hgap),
+      unit.c(unit(1, "grobwidth", title) - theme$legend.key.size - hgap),
       label.widths
-    ),
-    hgap
+    )
   )
 
   heights <- unit.c(
     unit(1, "grobheight", title) + 2 * vgap, 
-    unit.pmax(unit(1.4, "lines"), vgap + label.heights, unit(heights, "mm"))
+    unit.pmax(theme$legend.key.size, vgap + label.heights, 
+      unit(heights, "mm"))
   )  
 
   # Layout the legend table

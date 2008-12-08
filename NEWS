@@ -1,6 +1,7 @@
 ggplot2 0.8.1  (2008-XX-XX)
 ----------------------------------------
 
+* theme: new theme setting legend.key.size determines size of keys in legend
 * coord_flip: flips axes labels again too
 * geom_smooth will switch to an alternative smoothing method (mgcv::gam(y ~ s(x, bs = "cr"))), when there are more than 1000 observations
 * summary: tweaks to improve output
