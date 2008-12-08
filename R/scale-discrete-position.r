@@ -36,11 +36,11 @@ ScaleDiscretePosition <- proto(ScaleDiscrete, {
   
   output_set <- function(.) range(seq_along(.$input_set()), .$cont_domain, na.rm = TRUE)
   output_expand <- function(.) {
-    if (is.integer(.$cont_domain)) { 
-      expand_range(.$output_set(), 0, 0.50)
-    } else {
-      expand_range(.$output_set(), 0.05)      
-    }
+    disc_range <- c(1, length(.$input_set()))
+    disc <- expand_range(disc_range, 0, .$.expand[2], .$.expand[2])
+    cont <- expand_range(.$output_set(), .$.expand[1], 0, .$.expand[2])
+    
+    c(min(disc[1], cont[1]), max(disc[2], cont[2]))
   }
   
   

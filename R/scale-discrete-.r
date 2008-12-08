@@ -7,7 +7,7 @@ ScaleDiscrete <- proto(Scale, expr={
 
   discrete <- function(.) TRUE
 
-  new <- function(., name=NULL, variable=.$.input, expand = c(0.05, 0), limits = NULL, breaks = NULL, labels = NULL, formatter = identity) {
+  new <- function(., name=NULL, variable=.$.input, expand = c(0, 0.5), limits = NULL, breaks = NULL, labels = NULL, formatter = identity) {
     .$proto(name=name, .input=variable, .output=variable, .expand = expand, .labels = labels, limits = limits, breaks = breaks, formatter = formatter)
   }
 

@@ -1,6 +1,7 @@
 ggplot2 0.8.1  (2008-XX-XX)
 ----------------------------------------
 
+* scale_discrete_position: does a better job of calculating axis limits when plotting a mixture of continuous and discrete values (e.g. with geom_jitter)
 * facet_wrap: labels correctly clipped to axis ranges
 * facet_wrap: fixed bug with ncol = 1 or nrow = 1
 * tweaks to plot and legend layout
