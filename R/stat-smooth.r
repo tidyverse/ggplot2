@@ -10,11 +10,12 @@ StatSmooth <- proto(Stat, {
     
     # Figure out what type of smoothing to do: loess for small datasets,
     # gam with a cubric regression basis for large data
-    if (method == "auto") {
+    if (is.character(method) && method == "auto") {
       if (nrow(data) < 1000) {
         method <- "loess"
       } else {
-        method <- mgcv::gam
+        try_require("mgcv")
+        method <- gam
         formula <- y ~ s(x, bs = "cs")
       }
     }
