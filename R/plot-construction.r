@@ -23,8 +23,14 @@
     p$data <- object
   } else if (inherits(object, "options")) {
     p$options <- defaults(object, p$options)
+  } else if(inherits(object, "labels")) {
+      p <- update_labels(p, object)
   } else if(inherits(object, "uneval")) {
       p$mapping <- defaults(object, p$mapping)
+      
+      labels <- lapply(object, deparse)
+      names(labels) <- names(object)
+      p <- update_labels(p, labels)
   } else if(is.list(object)) {
     for (o in object) {
       p <- p + o

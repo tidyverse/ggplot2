@@ -1,6 +1,7 @@
 ggplot2 0.8.1  (2008-XX-XX)
 ----------------------------------------
 
+* new labs, xlab & ylab functions for easily modifying axis labels and legend titles
 * geom_vline and geom_hline now correctly transform their intercepts if the scale is transformed    
 * geom_vline and geom_hline: now use xintercept and yintercept instead of intercept
 * scale_discrete_position: does a better job of calculating axis limits when plotting a mixture of continuous and discrete values (e.g. with geom_jitter)
