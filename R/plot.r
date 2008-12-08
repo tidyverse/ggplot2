@@ -28,10 +28,10 @@ ggplot.default <- function(data, mapping = aes(), ...) {
 ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be created with aes or aes_string")
   
-  if (!is.null(data)) {
-    if (ncol(data) == 0) stop("data has no columns")
-    if (nrow(data) == 0) stop("data has no rows")    
-  }
+  # if (!is.null(data)) {
+  #   if (ncol(data) == 0) stop("data has no columns")
+  #   if (nrow(data) == 0) stop("data has no rows")    
+  # }
   
   p <- structure(list(
     data = data, 
