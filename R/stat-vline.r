@@ -8,7 +8,7 @@ StatAbline <- proto(Stat, {
       data$intercept <- intercept
     }
     if (is.null(slope)) {
-      if (is.null(data$slope)) data$slope <- 0
+      if (is.null(data$slope)) data$slope <- 1
     } else {
       data <- data[rep(1, length(slope)), ]
       data$slope <- slope
