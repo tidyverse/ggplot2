@@ -43,6 +43,22 @@ guide_legends_box <- function(scales, layers, default_mapping, horizontal = FALS
 # @argument list description usage of aesthetics in geoms
 # @keyword internal
 # @value A list of grobs
+# 
+#X theme_update(legend.background = theme_rect(size = 0.2))
+#X qplot(mpg, wt, data = mtcars)
+#X qplot(mpg, wt, data = mtcars, colour = cyl)
+#X
+#X # Legend with should expand to fit name
+#X qplot(mpg, wt, data = mtcars, colour = factor(cyl))
+#X 
+#X qplot(mpg, wt, data = mtcars, colour = cyl) +
+#X  opts(legend.position = c(0.5, 0.5), 
+#X       legend.background = theme_rect(fill = "white", col = NA))
+#X
+#X mtcars$cyl2 <- factor(mtcars$cyl, 
+#X   labels = c("a", "loooooooooooong", "two\nlines"))
+#X qplot(mpg, wt, data = mtcars, colour = cyl2)
+#X theme_set(theme_grey())
 guide_legends <- function(scales, layers, default_mapping, theme) {
   legends <- scales$legend_desc()
   if (length(legends) == 0) return()
@@ -71,9 +87,9 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
   # Calculate sizes for keys - mainly for v. large points and lines
   size_mat <- do.call("cbind", llply(legend_data, "[[", "size"))
   if (is.null(size_mat)) {
-    heights <- rep(0, nrow(mapping))
+    key_heights <- rep(0, nrow(mapping))
   } else {
-    heights <- apply(size_mat, 1, max)    
+    key_heights <- apply(size_mat, 1, max)    
   }
 
   points <- laply(layers, function(l) l$geom$objname == "point")
@@ -83,48 +99,58 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
     theme, "legend.title",
     name, x = 0, y = 0.5
   )
-  
+
+  # Compute heights and widths of legend table
   nkeys <- nrow(mapping)
   hgap <- vgap <- unit(0.3, "lines")
   
-  label.heights <- do.call("unit.c", 
-    lapply(mapping$.label, function(x) stringHeight(as.expression(x))))
-  label.widths  <- do.call("unit.c", 
-    lapply(mapping$.label, function(x) stringWidth(as.expression(x))))
+  label_width  <- max(stringWidth(mapping$.label))
+  key_width <- max(theme$legend.key.size, unit(width, "mm"))
 
   widths <- unit.c(
-    max(theme$legend.key.size, unit(width, "mm")), 
-    hgap, 
+    hgap, key_width,
+    hgap, label_width,
     max(
-      unit.c(unit(1, "grobwidth", title) - theme$legend.key.size - hgap),
-      label.widths
+      unit(1, "grobwidth", title) - key_width - label_width,
+      hgap
     )
   )
 
+  label.heights <- stringHeight(mapping$.label)
+
   heights <- unit.c(
-    unit(1, "grobheight", title) + 2 * vgap, 
-    unit.pmax(theme$legend.key.size, vgap + label.heights, 
-      unit(heights, "mm"))
+    vgap, 
+    unit(1, "grobheight", title),
+    vgap, 
+    unit.pmax(
+      theme$legend.key.size, 
+      label.heights, 
+      unit(key_heights, "mm")
+    ),
+    vgap
   )  
 
   # Layout the legend table
-  legend.layout <- grid.layout(nkeys + 1, 4, 
-    widths = widths, heights = heights, just=c("left","top"))
+  legend.layout <- grid.layout(
+    length(heights), length(widths), 
+    widths = widths, heights = heights, 
+    just = c("left", "centre")
+  )
   fg <- ggname("legend", frameGrob(layout = legend.layout))
   fg <- placeGrob(fg, theme_render(theme, "legend.background"))
 
   numeric_labels <- all(sapply(mapping$.labels, is.language)) || suppressWarnings(all(!is.na(sapply(mapping$.labels, "as.numeric"))))
   hpos <- numeric_labels * 1
 
-  fg <- placeGrob(fg, title, col=1:3, row=1)
+  fg <- placeGrob(fg, title, col = 2:4, row = 2)
   for (i in 1:nkeys) {
     
-    fg <- placeGrob(fg, theme_render(theme, "legend.key"), col = 1, row = i+1)      
+    fg <- placeGrob(fg, theme_render(theme, "legend.key"), col = 2, row = i+3)      
     for(j in seq_along(layers)) {
       if (!is.null(legend_data[[j]])) {
         legend_geom <- Geom$find(layers[[j]]$geom$guide_geom())
         key <- legend_geom$draw_legend(legend_data[[j]][i, ])
-        fg <- placeGrob(fg, ggname("key", key), col = 1, row = i+1)              
+        fg <- placeGrob(fg, ggname("key", key), col = 2, row = i+3)              
       }
     }
     label <- theme_render(
@@ -132,95 +158,13 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
       mapping$.label[[i]], hjust = hpos,
       x = hpos, y = 0.5
     )
-    fg <- placeGrob(fg, label, col = 3, row = i+1)
+    fg <- placeGrob(fg, label, col = 4, row = i+3)
   }
 
   fg
 }
 
 
-# Build a legend grob
-# Build the grob for a single legend.
-# 
-# @argument a single legend description
-# @argument list description usage of aesthetics in geoms
-# @value A grid grob
-# @keyword internal
-guide_legend <- function(legend, usage=usage, theme) {
-  display <- legend$display
-  display <- display[nrow(display):1, ]
-
-  aesthetics <- setdiff(names(legend$display), "label")
-  
-  legend_f <- function(x) {
-    geom <- Geom$find(x)
-    used <- names(Filter(function(geom) any(geom == x), usage$aesthetic))
-    params <- usage$parameters[[x]]
-    
-    function(data) geom$draw_legend(defaults(params, data[used]))
-  }
-  grobs <- lapply(unique(unlist(usage$aesthetic[aesthetics])), legend_f)
-
-  title <- theme_render(
-    theme, "legend.title",
-    legend$name[[1]], x = 0, y = 0.5
-  )
-  
-  nkeys <- nrow(display)
-  hgap <- vgap <- unit(0.3, "lines")
-
-  
-  label.heights <- do.call("unit.c", lapply(display$label, function(x) stringHeight(as.expression(x))))
-  label.widths  <- do.call("unit.c", lapply(display$label, function(x) stringWidth(as.expression(x))))
-
-  grobwidth <- if ("point" %in% usage$mapping[aesthetics] && !is.null(display$size)) {
-    unit(max(display$size) / 2, "mm")
-  } else {
-    unit(0, "mm")
-  }
-  widths <- unit.c(
-    unit(1.4, "lines"), 
-    hgap, 
-    max(
-      unit.c(unit(1, "grobwidth", title) - unit(1.4, "lines") - 2 * hgap),
-      label.widths,
-      grobwidth 
-    ),
-    hgap
-  )
-
-  grobheight <- unit(nulldefault(display$size, 0), "mm")
-  heights <- unit.c(
-    unit(1, "grobheight", title) + 2 * vgap, 
-    unit.pmax(unit(1.4, "lines"), vgap + label.heights, grobheight)
-  )  
-
-  # Layout the legend table
-  legend.layout <- grid.layout(nkeys + 1, 4, widths = widths, heights = heights, just=c("left","top"))
-  fg <- ggname("legend", frameGrob(layout = legend.layout))
-  fg <- placeGrob(fg, theme_render(theme, "legend.background"))
-
-  numeric_labels <- all(sapply(display$label, is.language)) || suppressWarnings(all(!is.na(sapply(display$label, "as.numeric"))))
-  hpos <- numeric_labels * 1
-
-  fg <- placeGrob(fg, title, col=1:3, row=1)
-  for (i in 1:nkeys) {
-    df <- as.list(display[i,, drop=FALSE])
-    
-    fg <- placeGrob(fg, theme_render(theme, "legend.key"), col = 1, row = i+1)      
-    for(grob in grobs) {
-      fg <- placeGrob(fg, ggname("key", grob(df)), col = 1, row = i+1)      
-    }
-    label <- theme_render(
-      theme, "legend.text", 
-      display$label[[i]], hjust = hpos,
-      x = hpos, y = 0.5
-    )
-    fg <- placeGrob(fg, label, col = 3, row = i+1)
-  }
-
-  fg
-}
 
 # Compute usage of scales
 # Builds a list of aesthetics and the geoms that they are used by.

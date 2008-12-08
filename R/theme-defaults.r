@@ -35,7 +35,8 @@ theme_gray <- function(base_size = 12) {
     strip.text.y =      theme_text(size = base_size * 0.8, angle = -90),
 
     plot.background =   theme_rect(colour = NA),
-    plot.title =        theme_text(size = base_size * 1.2)
+    plot.title =        theme_text(size = base_size * 1.2),
+    plot.margin =       unit(c(1, 1, 0.5, 0.5), "lines")
   ), class = "options")
 }
 theme_grey <- theme_gray
@@ -75,7 +76,8 @@ theme_bw <- function(base_size = 12) {
     strip.text.y =      theme_text(size = base_size * 0.8, angle = -90),
 
     plot.background =   theme_rect(colour = NA),
-    plot.title =        theme_text(size = base_size * 1.2)    
+    plot.title =        theme_text(size = base_size * 1.2),
+    plot.margin =       unit(rep(0.5, 4), "lines")
   ), class = "options")
 }
 
