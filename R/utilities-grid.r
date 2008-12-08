@@ -46,6 +46,10 @@ grobColWidth <- function(mat) {
 # @arguments should the matrix be arranged like a table or a plot
 # @keywords internal
 grobMatrix <- function(vec, nrow, ncol, as.table = FALSE) {
+  if (nrow == 0 || ncol == 0) {
+    return(matrix(ncol = ncol, nrow = nrow))
+  }
+  
   mat <- c(vec, rep(list(nullGrob()), nrow * ncol - length(vec)))
   dim(mat) <- c(ncol, nrow)
   mat <- t(mat)
