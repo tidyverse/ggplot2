@@ -69,7 +69,7 @@ GeomPolygon <- proto(Geom, {
       y = cumsum(runif(50,max = 0.1))
     )
 
-    p + geom_line(data = stream, colour="grey30", size= 5)
+    p + geom_line(data = stream, colour="grey30", size = 5)
     
     # And if the positions are in longitude and latitude, you can use
     # coord_map to produce different map projections.

@@ -69,20 +69,9 @@ guide_legends <- function(scales, layers, default_mapping, theme) {
 }
 
 build_legend <- function(name, mapping, layers, default_mapping, theme) {
-  legend_data <- llply(layers, function(layer) {
-    used <- names(c(layer$mapping, default_mapping))
-    matched <- intersect(used, names(mapping))
-    if (length(matched) > 0) {
-      layer$use_defaults(mapping[matched])
-    } else {
-      if (theme$legend.show_all) {
-        layer$use_defaults(NULL)[rep(1, nrow(mapping)), ]
-      } else {
-        NULL
-      }
-    }
-  })
+  legend_data <- llply(layers, build_legend_data, mapping, default_mapping)
   # if (length(legend_data) == 0) return(nullGrob())
+  # browser()
   
   # Calculate sizes for keys - mainly for v. large points and lines
   size_mat <- do.call("cbind", llply(legend_data, "[[", "size"))
@@ -164,27 +153,26 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
   fg
 }
 
+build_legend_data <- function(layer, mapping, default_mapping) {
+  all <- names(c(layer$mapping, default_mapping))
+  geom <- c(layer$geom$required_aes, names(layer$geom$default_aes()))
+  matched <- intersect(intersect(all, geom), names(mapping))
 
-
-# Compute usage of scales
-# Builds a list of aesthetics and the geoms that they are used by.
-# 
-# Used for drawing legends.
-# 
-# @arguments ggplot object
-# @keyword internal
-scale_usage <- function(plot) {
-  aesthetics <- lapply(plot$layers, 
-    function(p) p$aesthetics_used(plot$mapping)
-  )
-  params <- lapply(plot$layers, function(p) p$geom_params)
-
-  geom_names <- sapply(plot$layers, function(p) p$geom$guide_geom())
-  names(aesthetics) <- geom_names
-  names(params) <- geom_names
-  
-  list(
-    aesthetics = lapply(invert(aesthetics), unique), 
-    parameters = params
-  )
+  if (length(matched) > 0) {
+    # This layer contributes to the legend
+    if (is.na(layer$legend) || layer$legend) {
+      # Default is to include it 
+      layer$use_defaults(mapping[matched])        
+    } else {
+      NULL
+    }
+  } else {
+    # This layer does not contribute to the legend
+    if (is.na(layer$legend) || !layer$legend) {
+      # Default is to exclude it
+      NULL
+    } else {
+      layer$use_defaults(NULL)[rep(1, nrow(mapping)), ]
+    }
+  }
 }

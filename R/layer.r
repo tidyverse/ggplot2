@@ -21,7 +21,7 @@ Layer <- proto(expr = {
   params <- NULL
   ignore.extra <- FALSE
   
-  new <- function (., geom=NULL, geom_params=NULL, stat=NULL, stat_params=NULL, data=NULL, mapping=NULL, position=NULL, params=NULL, ..., ignore.extra = FALSE) {
+  new <- function (., geom=NULL, geom_params=NULL, stat=NULL, stat_params=NULL, data=NULL, mapping=NULL, position=NULL, params=NULL, ..., ignore.extra = FALSE, legend = NA) {
     
     if (is.null(geom) && is.null(stat)) stop("Need at least one of stat and geom")
     
@@ -56,7 +56,8 @@ Layer <- proto(expr = {
       stat=stat, stat_params=stat_params, 
       data=data, mapping=mapping, 
       position=position,
-      ignore.extra = ignore.extra
+      ignore.extra = ignore.extra,
+      legend = legend
     )
   }
   

@@ -65,14 +65,16 @@ Scales <- proto(Scale, expr={
     # For each input aesthetic, get breaks and labels
     vars <- .$variables() 
     names(vars) <- vars
-    lapply(vars, function(var) {
+    compact(lapply(vars, function(var) {
       scales <- .$get_scales_by_name(var)
+      if (length(scales) == 0) return()
+      
       breaks <- as.data.frame(lapply(scales, function(s) s$output_breaks()))
       names(breaks)  <- lapply(scales, function(s) s$output())
       
       breaks$.labels <- scales[[1]]$labels()
       breaks
-    })
+    }))
   }
   
   position_scales <- function(.) {

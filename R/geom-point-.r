@@ -66,6 +66,12 @@ GeomPoint <- proto(Geom, {
       geom_point(colour="pink", size = 4) + 
       geom_point(aes(shape = factor(cyl)))  
         
+    # These extra layers don't usually appear in the legend, but we can
+    # force their inclusion
+    p + geom_point(colour="black", size = 4.5, legend = TRUE) + 
+      geom_point(colour="pink", size = 4, legend = TRUE) + 
+      geom_point(aes(shape = factor(cyl)))  
+        
     # Transparent points:
     qplot(mpg, wt, data = mtcars, size = I(5), 
       colour=I(alpha("black", 0.2)))
