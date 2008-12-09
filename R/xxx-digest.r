@@ -108,7 +108,8 @@ Layer$bolus <- function(.) {
     pos_parms  = .$position$settings(),
     data = .$data,
     mapping = mapping,
-    params = params
+    params = params,
+    legend = .$legend
   )
 }
 

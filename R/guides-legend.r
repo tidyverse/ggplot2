@@ -138,7 +138,8 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
     for(j in seq_along(layers)) {
       if (!is.null(legend_data[[j]])) {
         legend_geom <- Geom$find(layers[[j]]$geom$guide_geom())
-        key <- legend_geom$draw_legend(legend_data[[j]][i, ])
+        key <- legend_geom$draw_legend(legend_data[[j]][i, ],
+           c(layers[[j]]$geom_params, layers[[j]]$stat_params))
         fg <- placeGrob(fg, ggname("key", key), col = 2, row = i+3)              
       }
     }
@@ -157,6 +158,7 @@ build_legend_data <- function(layer, mapping, default_mapping) {
   all <- names(c(layer$mapping, default_mapping))
   geom <- c(layer$geom$required_aes, names(layer$geom$default_aes()))
   matched <- intersect(intersect(all, geom), names(mapping))
+  matched <- setdiff(matched, names(layer$geom_params))
 
   if (length(matched) > 0) {
     # This layer contributes to the legend

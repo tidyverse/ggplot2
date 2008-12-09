@@ -23,14 +23,18 @@ GeomSmooth <- proto(Geom, {
   default_aes <- function(.) aes(colour="#3366FF", fill="grey60", size=0.5, linetype=1, weight=1, alpha=0.4)
 
 
-  draw_legend <- function(., data, ...) {
+  draw_legend <- function(., data, params, ...) {
     data <- aesdefaults(data, .$default_aes(), list(...))
     data$fill <- alpha(data$fill, data$alpha)
     
-    gTree(children = gList(
-      rectGrob(gp = gpar(col = NA, fill = data$fill)),
+    if (is.null(params$se) || params$se) {
+      gTree(children = gList(
+        rectGrob(gp = gpar(col = NA, fill = data$fill)),
+        GeomPath$draw_legend(data, ...)
+      ))      
+    } else {
       GeomPath$draw_legend(data, ...)
-    ))
+    }
   }
   examples <- function(.) {
     # See stat_smooth for examples of using built in model fitting

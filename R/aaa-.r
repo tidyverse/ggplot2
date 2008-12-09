@@ -307,7 +307,7 @@ TopLevel <- proto(expr = {
     
     html_auto_link(ps(
       "<h2>Examples</h2>\n",
-      interweave_html(.$examples_text(), outdir = "graphics"),
+      interweave_html(.$examples_text(), outdir = "graphics", dpi = 72),
       "\n"
     ), .$my_name())
   }
