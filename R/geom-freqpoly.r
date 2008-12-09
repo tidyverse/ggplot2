@@ -9,6 +9,7 @@ GeomFreqpoly <- proto(Geom, {
   default_aes <- function(.) GeomPath$default_aes()
   default_stat <- function(.) StatBin
   draw <- function(., ...) GeomPath$draw(...)
+  guide_geom <- function(.) "path"
   
   
   seealso <- list(
