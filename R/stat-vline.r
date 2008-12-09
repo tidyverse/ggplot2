@@ -55,7 +55,7 @@ StatVline <- proto(Stat, {
 StatHline <- proto(Stat, {
   calculate <- function(., data, scales, yintercept = NULL, intercept, ...) {
     if (!missing(intercept)) {
-      stop("stat_vline now uses xintercept instead of intercept")
+      stop("stat_hline now uses yintercept instead of intercept")
     }
 
     data <- compute_intercept(data, yintercept, "y")
