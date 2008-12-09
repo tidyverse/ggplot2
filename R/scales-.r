@@ -13,6 +13,7 @@ Scales <- proto(Scale, expr={
     old <- .$find(scale$output())
 
     if (length(old) > 0 && sum(old) == 1 && is.null(scale$name)) {
+      scale <- scale$clone()
       scale$name <- .$.scales[old][[1]]$name
     }
     

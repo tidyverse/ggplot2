@@ -13,7 +13,7 @@ update_labels <- function(p, labels) {
   p <- plot_clone(p)
 
   for(name in names(labels)) {
-    scale <- p$scales$get_scales(name)
+    scale <- p$scales$get_scales(name)$clone()
     scale$name <- labels[[name]]
   }
   
