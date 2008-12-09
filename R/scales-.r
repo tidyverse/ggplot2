@@ -55,11 +55,11 @@ Scales <- proto(Scale, expr={
   }
   
   get_scales_by_name <- function(., input) {
-    Filter(function(s) s$name == input, .$get_trained_scales())
+    Filter(function(s) deparse(s$name) == input, .$get_trained_scales())
   }
   
   variables <- function(.) {
-    unique(sapply(.$.scales, function(scale) scale$name))
+    unique(sapply(.$.scales, function(scale) deparse(scale$name)))
   }
   
   legend_desc <- function(.) {

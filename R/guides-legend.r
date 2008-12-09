@@ -84,6 +84,7 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
   points <- laply(layers, function(l) l$geom$objname == "point")
   width <- max(unlist(llply(legend_data[points], "[[", "size")), 0)
 
+  name <- eval(parse(text = name))    
   title <- theme_render(
     theme, "legend.title",
     name, x = 0, y = 0.5
