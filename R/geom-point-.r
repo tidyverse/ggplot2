@@ -1,6 +1,9 @@
 GeomPoint <- proto(Geom, {
   draw_groups <- function(., ...) .$draw(...)
-  draw <- function(., data, scales, coordinates, ...) {    
+  draw <- function(., data, scales, coordinates, na.rm = FALSE, ...) {    
+    data <- remove_missing(data, na.rm, 
+      c("x", "y", "size", "colour", "shape"), name = "geom_point")
+
     with(coordinates$transform(data, scales), 
       ggname(.$my_name(), pointsGrob(x, y, size=unit(size, "mm"), pch=shape, 
       gp=gpar(col=colour, fill = fill, fontsize = size * .pt)))
@@ -75,6 +78,12 @@ GeomPoint <- proto(Geom, {
     # Transparent points:
     qplot(mpg, wt, data = mtcars, size = I(5), 
       colour=I(alpha("black", 0.2)))
+    
+    # geom_point warns when missing values have been dropped from the data set
+    # and not plotted, you can turn this off by setting na.rm = TRUE
+    mtcars2 <- transform(mtcars, mpg = ifelse(runif(32) < 0.2, NA, mpg))
+    qplot(wt, mpg, data = mtcars2)
+    qplot(wt, mpg, data = mtcars2, na.rm = TRUE)
     
     # Use qplot instead
     qplot(wt, mpg, data = mtcars)

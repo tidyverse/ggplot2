@@ -1,6 +1,7 @@
 ggplot2 0.8.1  (2008-XX-XX)
 ----------------------------------------
 
+* geom_point warns if missing values present in data and not displayed on plot
 * layers gain a legend argument, which allow you to force the layer either into (TRUE) or out of (FALSE) the legend
 * position_dodge now works for any number of elements with smaller widths, not just 2!
 * geom_smooth gives a more accurate warning when you have incorrectly specified the grouping
