@@ -3,7 +3,9 @@ GeomPoint <- proto(Geom, {
   draw <- function(., data, scales, coordinates, na.rm = FALSE, ...) {    
     data <- remove_missing(data, na.rm, 
       c("x", "y", "size", "shape"), name = "geom_point")
-
+    if (nrow(data) == 0) return(nullGrob())
+    
+    
     with(coordinates$transform(data, scales), 
       ggname(.$my_name(), pointsGrob(x, y, size=unit(size, "mm"), pch=shape, 
       gp=gpar(col=colour, fill = fill, fontsize = size * .pt)))

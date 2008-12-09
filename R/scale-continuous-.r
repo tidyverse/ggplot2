@@ -108,7 +108,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
     "scale_discrete" = "Discrete position scales"
   )
   examples <- function(.) {
-    (m <- qplot(rating, votes, data=subset(movies, votes > 1000)))
+    (m <- qplot(rating, votes, data=subset(movies, votes > 1000), na.rm = T))
     
     # Manipulating the default position scales lets you:
 
