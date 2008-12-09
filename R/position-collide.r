@@ -81,9 +81,12 @@ pos_dodge <- function(df, width) {
 
   d_width <- with(df, max(xmax - xmin))    
   diff <- width - d_width
-
+  
+  # df <- data.frame(n = c(2:5, 10, 26), div = c(4, 3, 2.666666,  2.5, 2.2, 2.1))
+  # qplot(n, div, data = df)
+  
   within(df, {
-    xmin <- xmin + width / n * (seq_len(n) - 1) - diff / 4
+    xmin <- xmin + width / n * (seq_len(n) - 1) - diff * (n - 1) / (2 * n)
     xmax <- xmin + d_width / n
     x <- (xmin + xmax) / 2
   })
