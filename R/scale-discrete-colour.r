@@ -105,7 +105,9 @@ ScaleBrewer <- proto(ScaleColour, expr={
     )[.$palette]
   }
   
-  max_levels <- function(.) RColorBrewer:::maxcolors[RColorBrewer:::namelist == .$pal_name()]
+  max_levels <- function(.) {
+    RColorBrewer:::maxcolors[RColorBrewer:::namelist == .$pal_name()]
+  }
 
   # Documentation -----------------------------------------------
 
@@ -133,7 +135,7 @@ ScaleBrewer <- proto(ScaleColour, expr={
     d + scale_colour_brewer(type="seq")
     d + scale_colour_brewer(type="seq", palette=3)
 
-    display.brewer.all(n=8, exact.n=FALSE)
+    RColorBrewer::display.brewer.all(n=8, exact.n=FALSE)
 
     d + scale_colour_brewer(palette="Blues")
     d + scale_colour_brewer(palette="Set1")
@@ -142,13 +144,7 @@ ScaleBrewer <- proto(ScaleColour, expr={
     # (only works with pdf, quartz and cairo devices)
     d + scale_colour_brewer(alpha = 0.5)
     d + scale_colour_brewer(alpha = 0.2)
-    
-    # To get remove circular outlines, use shape = 21, colour = NA
-    # and change the fill colour:
-    ggplot(dsamp, aes(carat, price, fill = clarity)) + 
-      geom_point(shape = 21, colour = NA, size = 5) + 
-      scale_fill_brewer(alpha = 0.5)
-  
+      
     # scale_fill_brewer works just the same as 
     # scale_colour_brewer but for fill colours
     ggplot(diamonds, aes(x=price, fill=cut)) + 
