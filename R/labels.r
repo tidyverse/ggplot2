@@ -14,6 +14,7 @@ update_labels <- function(p, labels) {
 
   for(name in names(labels)) {
     scale <- p$scales$get_scales(name)$clone()
+    p$scales$add(scale)
     scale$name <- labels[[name]]
   }
   

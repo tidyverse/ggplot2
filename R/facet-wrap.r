@@ -98,11 +98,13 @@ FacetWrap <- proto(Facet, {
     axes_h <- grobMatrix(axes_h, nrow, ncol, .$as.table)
     axes_height <- grobRowHeight(axes_h)
 
-    all <- cweave(
-      rweave(gap,    axes_v, gap,    gap), 
-      rweave(labels, panels, axes_h, gap), 
-      rweave(gap,    gap,    gap,    gap)
-    )
+    all <- rweave(
+      cweave(gap,    labels, gap),
+      cweave(axes_v, panels, gap),
+      cweave(gap,    axes_h, gap),
+      cweave(gap,    gap,    gap)
+    )    
+    
     margin <- list(theme$panel.margin)
     heights <- interleave(labels_height, panels_height, axes_height, margin)
     heights <- do.call("unit.c", heights)

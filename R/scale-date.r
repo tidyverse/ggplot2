@@ -10,7 +10,6 @@
 #
 #   * threshold for displaying first/last tick mark outside the data: if the last date point is > threshold * interval (default to 0.9)
 
-TransDate <- Trans$new("date", "as.numeric", "to_date")
 ScaleDate <- proto(ScaleContinuous,{
   .major_seq <- NULL
   .minor_seq <- NULL

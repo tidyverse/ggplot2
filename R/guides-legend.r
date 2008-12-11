@@ -43,7 +43,8 @@ guide_legends_box <- function(scales, layers, default_mapping, horizontal = FALS
 # @argument list description usage of aesthetics in geoms
 # @keyword internal
 # @value A list of grobs
-# 
+# @alias build_legend
+# @alias build_legend_data
 #X theme_update(legend.background = theme_rect(size = 0.2))
 #X qplot(mpg, wt, data = mtcars)
 #X qplot(mpg, wt, data = mtcars, colour = cyl)
@@ -84,7 +85,7 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
   points <- laply(layers, function(l) l$geom$objname == "point")
   width <- max(unlist(llply(legend_data[points], "[[", "size")), 0)
 
-  name <- eval(parse(text = name))    
+  name <- eval(parse(text = name))
   title <- theme_render(
     theme, "legend.title",
     name, x = 0, y = 0.5

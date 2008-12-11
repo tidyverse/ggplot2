@@ -1,5 +1,8 @@
+# To time
+# Turn numeric vector into POSIXct vector
+# 
+# @keyword internal
 to_time <- function(x) structure(x, class = c("POSIXt", "POSIXct"))
-TransDatetime <- Trans$new("datetime", "as.numeric", "to_time")
 
 ScaleDatetime <- proto(ScaleDate, {
   .major_seq <- NULL

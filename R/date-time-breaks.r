@@ -1,3 +1,8 @@
+# Time breaks
+# Automatically compute sensible axis breaks for time data
+# 
+# @arguments range in seconds
+# @keyword internal
 time_breaks <- function(seconds) {
   days <- seconds / 86400
   if (days > 5) {
@@ -17,6 +22,11 @@ time_breaks <- function(seconds) {
   
 }
 
+# Date breaks
+# Automatically compute sensible axis breaks for date data
+# 
+# @arguments range in days
+# @keyword internal
 date_breaks <- function(days) {
   length <- cut(days, c(0, 10, 56, 365, 730, 5000, Inf), labels=FALSE)
 

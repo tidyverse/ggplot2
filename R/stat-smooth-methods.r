@@ -4,7 +4,7 @@
 # @keywords internal
 # @alias predictdf.default
 # @alias predictdf.glm
-predictdf <- function(model, ...) UseMethod("predictdf")
+predictdf <- function(model, xseq, se, level) UseMethod("predictdf")
 
 predictdf.default <- function(model, xseq, se, level) {
   pred <- stats::predict(model, data.frame(x = xseq), se = se)

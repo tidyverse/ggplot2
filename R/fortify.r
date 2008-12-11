@@ -10,13 +10,13 @@ fortify <- function(model, data, ...) UseMethod("fortify")
 # The following statistics will be added to the data frame:
 # 
 # \itemize{
-#   \item[.hat] Diagonal of the hat matrix
-#   \item[.sigma] Estimate of residual standard deviation when corresponding
-#      observation is dropped from model
-#   \item{.cooksd} Cooks distance, \code{\link{cooks.distance}}
-#   \item{.fitted} Fitted values of model
-#   \item{.resid} Residual
-#  \item{.stdresid} Standardised residuals
+#   \item{.hat}{Diagonal of the hat matrix}
+#   \item{.sigma}{Estimate of residual standard deviation when corresponding
+#      observation is dropped from model}
+#   \item{.cooksd}{Cooks distance, \code{\link{cooks.distance}}}
+#   \item{.fitted}{Fitted values of model}
+#   \item{.resid}{Residuals}
+#  \item{.stdresid}{Standardised residuals}
 # }
 # 
 # If you have missing values in your model data, you may need to refit 
@@ -69,7 +69,7 @@ fortify.lm <- function(model, data = model$model, ...) {
 
   data$.hat <- infl$hat
   data$.sigma <- infl$sigma 
-  data$.cooksd <- cooks.distance(mod)
+  data$.cooksd <- cooks.distance(model)
 
   data$.fitted <- predict(model)
   data$.resid <- resid(model)

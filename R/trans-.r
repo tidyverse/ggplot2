@@ -113,3 +113,6 @@ TransPow10 <- Trans$new("pow10",function(x) 10^x, "log10", function(x) log10(x))
 TransProbit <- ProbabilityTrans$new("norm")
 TransReverse <- Trans$new("reverse", function(x) -x, function(x) -x, function(x) bquote(.(-x)))
 TransSqrt <- Trans$new("sqrt", "sqrt", function(x) x^2, function(x) x^2)
+
+TransDate <- Trans$new("date", "as.numeric", "to_date")
+TransDatetime <- Trans$new("datetime", "as.numeric", "to_time")

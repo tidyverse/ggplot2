@@ -1,14 +1,11 @@
 # Create a new plot
 # Create a new ggplot plot
 # 
-# @alias package-ggplot
 # @seealso \url{http://had.co.nz/ggplot2}
-# @seealso ggplot.data.frame
+# @alias ggplot.default
 # @keyword hplot
 ggplot <- function(data = NULL, ...) UseMethod("ggplot")
 
-# Catch all plotting method
-# 
 ggplot.default <- function(data, mapping = aes(), ...) {
   if (is.null(data)) {
     ggplot.data.frame(data, mapping, ...)
@@ -24,6 +21,7 @@ ggplot.default <- function(data, mapping = aes(), ...) {
 # @arguments default data frame
 # @arguments default list of aesthetic mappings (these can be colour, size, shape, line type -- see individual geom functions for more details)
 # @seealso \url{http://had.co.nz/ggplot2}
+# @alias package-ggplot
 # @keyword hplot
 ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be created with aes or aes_string")
