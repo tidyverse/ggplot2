@@ -6,10 +6,11 @@
 \description{
 Create and arrange legends for all scales.
 }
-\usage{guide_legends_box(scales, scale_usage, horizontal = FALSE, theme)}
+\usage{guide_legends_box(scales, layers, default_mapping, horizontal = FALSE, theme)}
 \arguments{
 \item{scales}{scales object}
-\item{scale_usage}{direction of scales, vertical by default}
+\item{layers}{direction of scales, vertical by default}
+\item{default_mapping}{}
 \item{horizontal}{}
 \item{theme}{}
 }

@@ -1,6 +1,7 @@
 \name{ceiling_date}
 \alias{ceiling_date}
-\title{Ceiling for dates}
+\alias{ceiling_time}
+\title{Ceiling for dates and times}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{

@@ -14,5 +14,7 @@ Modify geom aesthetic defaults for future plots
 
 \details{}
 
-\examples{}
+\examples{update_geom_defaults("point", aes(colour = "darkblue"))
+qplot(mpg, wt, data = mtcars)
+update_geom_defaults("point", aes(colour = "black"))}
 

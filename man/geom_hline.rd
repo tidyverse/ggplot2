@@ -37,11 +37,11 @@ The following aesthetics can be used with geom\_hline.  Aesthetics are mapped to
 \examples{\dontrun{
 p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
 
-p + geom_hline(aes(intercept=mpg))
-p + geom_hline(intercept=20)
-p + geom_hline(intercept=seq(10, 30, by=5))
-p + geom_hline(intercept="mean")
-p + geom_hline(aes(colour=factor(cyl)), intercept="mean")
+p + geom_hline(aes(yintercept=mpg))
+p + geom_hline(yintercept=20)
+p + geom_hline(yintercept=seq(10, 30, by=5))
+p + geom_hline(yintercept="mean")
+p + geom_hline(aes(colour=factor(cyl)), yintercept="mean")
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

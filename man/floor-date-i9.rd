@@ -1,6 +1,7 @@
 \name{floor_date}
 \alias{floor_date}
-\title{Floor for dates}
+\alias{floor_time}
+\title{Floor for dates and times}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{

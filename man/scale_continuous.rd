@@ -27,7 +27,7 @@ scale_y_continuous(name=NULL, limits=NULL, breaks=NULL, labels=NULL, trans=NULL,
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-(m <- qplot(rating, votes, data=subset(movies, votes > 1000)))
+(m <- qplot(rating, votes, data=subset(movies, votes > 1000), na.rm = T))
 
 # Manipulating the default position scales lets you:
 

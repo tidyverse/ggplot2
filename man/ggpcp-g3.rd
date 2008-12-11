@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-Generate a plot ``template'' for a paralell coordinates plot.
+Generate a plot ``template'' for a parallel coordinates plot.
 }
 \usage{ggpcp(data, vars=names(data), scale="range", ...)}
 \arguments{

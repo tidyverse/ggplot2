@@ -36,19 +36,19 @@ The following aesthetics can be used with geom\_vline.  Aesthetics are mapped to
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
 # Fixed lines
-p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
-p + geom_vline(intercept=5)
-p + geom_vline(intercept=1:5)
-p + geom_vline(intercept=1:5, colour="green")
-p + geom_vline(intercept="mean", size=2, colour = alpha("red", 0.2))
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
+p + geom_vline(xintercept = 5)
+p + geom_vline(xintercept = 1:5)
+p + geom_vline(xintercept = 1:5, colour="green")
+p + geom_vline(xintercept = "mean", size=2, colour = alpha("red", 0.2))
 
 last_plot() + coord_equal()
 last_plot() + coord_flip()
 
 # Lines from data
-p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
-p + geom_vline(intercept="mean") + facet_grid(. ~ cyl)
-p + geom_vline(aes(colour = factor(cyl)), intercept="mean")
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
+p + geom_vline(xintercept = "mean") + facet_grid(. ~ cyl)
+p + geom_vline(aes(colour = factor(cyl)), xintercept = "mean")
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

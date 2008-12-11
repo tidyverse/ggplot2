@@ -32,6 +32,7 @@
 \alias{TransAsn}
 \alias{TransAtanh}
 \alias{TransDate}
+\alias{TransDatetime}
 \alias{TransExp}
 \alias{TransIdentity}
 \alias{TransInverse}

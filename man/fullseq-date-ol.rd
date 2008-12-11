@@ -1,10 +1,11 @@
 \name{fullseq_date}
 \alias{fullseq_date}
-\title{Fullseq for dates}
+\alias{fullseq_time}
+\title{Fullseq for dates and times}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-Analog of \code{link{fullseq}}, but for dates
+Analog of \code{link{fullseq}}, but for dates and times
 }
 \usage{fullseq_date(range, time)}
 \arguments{

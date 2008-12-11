@@ -7,7 +7,7 @@
 \description{
 Quick plot is a convenient wrapper function for creating simple ggplot plot objects.
 }
-\usage{qplot(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE, geom = "point", stat=list(NULL), position=list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "", main = NULL, xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA)}
+\usage{qplot(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE, geom = "auto", stat=list(NULL), position=list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "", main = NULL, xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA)}
 \arguments{
 \item{x}{x values}
 \item{y}{y values}
@@ -55,6 +55,14 @@ b <- a ^ 2
 qplot(a, b)
 } 
 f()
+
+# qplot will attempt to guess what geom you want depending on the input
+# both x and y supplied = scatterplot
+qplot(mpg, wt, data = mtcars)
+# just x supplied = histogram
+qplot(mpg, data = mtcars)
+# just y supplied = scatterplot, with x = seq_along(y)
+qplot(y = mpg, data = mtcars)
 
 # Use different geoms
 qplot(mpg, wt, geom="path")
