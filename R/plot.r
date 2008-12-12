@@ -6,7 +6,7 @@
 # @keyword hplot
 ggplot <- function(data = NULL, ...) UseMethod("ggplot")
 
-ggplot.default <- function(data, mapping = aes(), ...) {
+ggplot.default <- function(data = NULL, mapping = aes(), ...) {
   if (is.null(data)) {
     ggplot.data.frame(data, mapping, ...)
   } else {

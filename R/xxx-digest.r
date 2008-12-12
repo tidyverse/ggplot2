@@ -20,7 +20,7 @@ bolus.proto <- function(x) x$bolus()
 #X     ggplot() + scale_y_continuous() + scale_x_continuous()
 #X   ),
 #X   list(
-#X     qplot(mpg, wt, data=mtcars),
+#X     qplot(mpg, wt, data=mtcars, na.rm = FALSE),
 #X     ggplot(mtcars, aes(y=wt, x=mpg)) + geom_point()
 #X   ),
 #X   list(

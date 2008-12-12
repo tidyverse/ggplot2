@@ -27,7 +27,7 @@ ggplot() + scale_x_continuous() + scale_y_continuous(),
 ggplot() + scale_y_continuous() + scale_x_continuous()
 ),
 list(
-qplot(mpg, wt, data=mtcars),
+qplot(mpg, wt, data=mtcars, na.rm = FALSE),
 ggplot(mtcars, aes(y=wt, x=mpg)) + geom_point()
 ),
 list(
