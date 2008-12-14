@@ -1,2 +1,4 @@
 ggplot2 0.8.2  (2008-XX-XX)
 ----------------------------------------
+
+* scale_manual: labels now correctly sets legend labels.
