@@ -4,3 +4,4 @@ ggplot2 0.8.2  (2008-XX-XX)
 * scale_datetime: fixed bug when range was between 
 * scale_manual: labels now correctly sets legend labels.
 * ggsave: path parameter correctly sets path
+* stat_density_2d: no longer passes unnecessary parameters to kde2d causing an error message (seen when setting aesthetics with qplot)

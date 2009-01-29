@@ -15,7 +15,7 @@ StatDensity2d <- proto(Stat, {
     df <- data.frame(data[, c("x", "y")])
     df <- remove_missing(df, na.rm, name = "stat_density2d")
 
-    dens <- do.call(MASS::kde2d, c(df, n=100, ...))
+    dens <- safe.call(MASS::kde2d, c(df, n=100, ...))
     df <- with(dens, data.frame(expand.grid(x = x, y = y), z = as.vector(z)))
     
     if (contour) {
