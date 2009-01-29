@@ -1,4 +1,6 @@
 ggplot2 0.8.2  (2008-XX-XX)
 ----------------------------------------
 
+* scale_datetime: fixed bug when range was between 
 * scale_manual: labels now correctly sets legend labels.
+* ggsave: path parameter correctly sets path

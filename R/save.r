@@ -30,7 +30,7 @@
 #X # make twice as big as on screen
 #X ggsave(ratings, file="ratings.pdf", scale=2)
 #X }
-ggsave <- function(plot = last_plot(), filename=default_name(plot), device=default_device(filename), path = "", scale=1, width=par("din")[1], height=par("din")[2], dpi=300, keep = plot$options$keep, drop = plot$options$drop, ...) {
+ggsave <- function(plot = last_plot(), filename=default_name(plot), device=default_device(filename), path = NULL, scale=1, width=par("din")[1], height=par("din")[2], dpi=300, keep = plot$options$keep, drop = plot$options$drop, ...) {
   if (!inherits(plot, "ggplot")) stop("plot should be a ggplot2 plot")
 
   eps <- ps <- function(..., width, height)  
@@ -47,7 +47,7 @@ ggsave <- function(plot = last_plot(), filename=default_name(plot), device=defau
 
   png <- function(..., width, height) 
     grDevices::png(...,  width=width, height=height, res = dpi, units = "in")
-  jpeg <- function(..., width, height) 
+  jpg <- jpeg <- function(..., width, height) 
     grDevices::jpeg(..., width=width, height=height, res = dpi, units = "in")
   bmp <- function(..., width, height) 
     grDevices::bmp(...,  width=width, height=height, res = dpi, units = "in")
@@ -55,7 +55,7 @@ ggsave <- function(plot = last_plot(), filename=default_name(plot), device=defau
     grDevices::tiff(..., width=width, height=height, res = dpi, units = "in")
   
   default_name <- function(plot) { 
-    paste(path, digest.ggplot(plot), ".pdf", sep="")
+    paste(digest.ggplot(plot), ".pdf", sep="")
   }
   
   default_device <- function(filename) {
@@ -71,6 +71,9 @@ ggsave <- function(plot = last_plot(), filename=default_name(plot), device=defau
   width <- width * scale
   height <- height * scale
   
+  if (!is.null(path)) {
+    filename <- file.path(path, filename)
+  }
   device(file=filename, width=width, height=height, ...)
   on.exit(capture.output(dev.off()))
   print(plot, keep = keep, drop = drop)
