@@ -83,12 +83,21 @@ ggfluctuation <- function(table, type="size", floor=0, ceiling=max(table$freq, n
       border = ifelse(is.na(freq), "grey90", ifelse(freq > ceiling, "grey30", "grey50"))
     )
     table[is.na(table$freq), "freq"] <- 1
+    table <- subset(table, freq * ceiling >= floor)
   }
 
-  table <- subset(table, freq * ceiling >= floor)
-  
   if (type=="size") {
-    p <- ggplot(table, aes_string(x="x", y="y", height="freq", width="freq", fill="border")) + geom_tile(colour="white") + scale_fill_identity()
+    nx <- length(levels(table$x))
+    ny <- length(levels(table$y))
+    
+    p <- ggplot(table, 
+      aes_string(x="x", y="y", height="freq", width="freq", fill="border")) +
+      geom_tile(colour="white") + 
+      scale_fill_identity() + 
+      opts(aspect.ratio = ny / nx)
+
+      # geom_rect(aes(xmin = as.numeric(x), ymin = as.numeric(y), xmax = as.numeric(x) + freq, ymax = as.numeric(y) + freq), colour="white") + 
+    
   } else {
     p <- ggplot(table, aes_string(x="x", y="y", fill="freq")) + 
       geom_tile(colour="grey50") +

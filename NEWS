@@ -8,3 +8,4 @@ ggplot2 0.8.2  (2008-XX-XX)
 * stat_sum now correctly preserves other aesthetic columns (should be a bit faster too)
 * scale_size and scale_area: increase default size range
 * guides: fix broken legend from default stat aesthetics (e.g. for stat_sum)
+* ggfluctuation: default to aspect ratio that produces squares
