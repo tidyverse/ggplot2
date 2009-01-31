@@ -5,7 +5,7 @@ ScaleArea <- proto(
   icon = function(.) ScaleSize$icon(), 
   details = "", 
   doc = FALSE,
-  new = function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, to = c(0.5, 3)) {
+  new = function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, to = c(1, 6)) {
     .super$new(., name = name, limits = limits, breaks = breaks, 
        labels = labels, trans="sqrt", to = to)
   }
