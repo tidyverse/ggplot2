@@ -83,7 +83,10 @@ qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE,
 
   # Work out plot data, and modify aesthetics, if necessary
   if ("auto" %in% geom) {
-    if (missing(y)) {
+    if (stat == "qq" || "sample" %in% aes_names) {
+      geom[geom == "auto"] <- "point"
+      stat <- "qq"
+    } else if (missing(y)) {
       geom[geom == "auto"] <- "histogram"
     } else {
       if (missing(x)) {

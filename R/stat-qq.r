@@ -12,12 +12,12 @@ StatQq <- proto(Stat, {
   default_aes <- function(.) aes(y = ..sample.., x = ..theoretical..)
   required_aes <- c("sample")
 
-  calculate <- function(., data, scales, quantiles=ppoints(length(data$sample)), distribution=qnorm, na.rm = FALSE, ...) {
+  calculate <- function(., data, scales, quantiles = ppoints(length(data$sample)), distribution = qnorm, na.rm = FALSE, ...) {
     
     theoretical <- safe.call(distribution, list(p = quantiles, ...))
     sample <- quantile(data$sample, probs=quantiles, na.rm=na.rm)
   
-    data.frame(sample, theoretical)
+    data.frame(sample, theoretical, group = 1)
   }
   
   desc_outputs <- list(
@@ -29,14 +29,22 @@ StatQq <- proto(Stat, {
     # From ?qqplot
     y <- rt(200, df = 5)
     qplot(sample = y, stat="qq")
-    qplot(sample = y, stat="qq", dist=qt, df=5)
-    qplot(sample = y, stat="qq", quantiles=seq(0,1, length=100))
+
+    # qplot is smart enough to use stat_qq if you use sample
+    qplot(sample = y)
+    qplot(sample = precip)
+
+    qplot(sample = y, dist = qt, df = 5)
+    qplot(sample = y, quantiles = seq(0,1, length=100))
     
     df <- data.frame(y)
-    ggplot(y, aes(sample = y)) + stat_qq()
-    ggplot(y, aes(sample = y)) + geom_point(stat = "qq")
+    ggplot(df, aes(sample = y)) + stat_qq()
+    ggplot(df, aes(sample = y)) + geom_point(stat = "qq")
     
-    qplot(sample = precip, stat="qq")
+    # Using to explore the distribution of a variable
+    qplot(sample = mpg, data = mtcars)
+    qplot(sample = mpg, data = mtcars, colour = factor(cyl))
+    
   }
   
 })

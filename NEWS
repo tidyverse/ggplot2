@@ -11,3 +11,4 @@ ggplot2 0.8.2  (2008-XX-XX)
 * scale_datetime: improved breaks calculation
 * geom_errorbar now works correctly with dashed lines
 * geom_path will now silently ignore lines with less than 2 points (instead of throwing a mysterious error as before)
+* qplot: if sample aesthetic is used, stat automatically set to qq
