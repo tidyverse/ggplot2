@@ -31,6 +31,14 @@ GeomStep <- proto(GeomPath, {
     # Steps go vertically, then horizontally
     qplot(seq_along(x), x, geom="step", direction = "vh")
     plot(x, type = "S")
+    
+    # Also works with other aesthetics
+    df <- data.frame(
+      x = sort(rnorm(50)),
+      trt = sample(c("a", "b"), 50, rep = T)
+    )
+    qplot(seq_along(x), x, data = df, geom="step", colour = trt)
+    
   }
 })
 
