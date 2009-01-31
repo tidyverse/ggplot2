@@ -39,7 +39,7 @@ update_labels <- function(p, labels) {
 #X
 #X # The labs function also modifies legend labels
 #X p <- qplot(mpg, wt, data = mtcars, colour = cyl)
-#X p + labs("Cylinders")
+#X p + labs(colour = "Cylinders")
 #X
 #X # Can also pass in a list, if that is more convenient
 #X p + labs(list(x = "X", y = "Y")) 
