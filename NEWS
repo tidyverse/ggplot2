@@ -10,3 +10,4 @@ ggplot2 0.8.2  (2008-XX-XX)
 * ggfluctuation: default to aspect ratio that produces squares
 * scale_datetime: improved breaks calculation
 * geom_errorbar now works correctly with dashed lines
+* geom_path will now silently ignore lines with less than 2 points (instead of throwing a mysterious error as before)

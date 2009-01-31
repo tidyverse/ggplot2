@@ -2,7 +2,7 @@ GeomPath <- proto(Geom, {
   draw_groups <- function(., ...) .$draw(...)
 
   draw <- function(., data, scales, coordinates, arrow = NULL, ...) {
-    if (nrow(data) < 2) return()
+    if (nrow(data) < 2) return(nullGrob())
 
     munched <- coordinates$munch(data, scales)
 
@@ -10,7 +10,7 @@ GeomPath <- proto(Geom, {
     g <- split(munched, munched$group)
     g <- g[sapply(g, nrow) >= 2]
     munched <- do.call(rbind, g[sapply(g, nrow) >= 2])
-    if (is.null(munched)) return()
+    if (is.null(munched)) return(nullGrob())
 
     n <- nrow(munched)
     group_diff <- munched$group[-1] != munched$group[-n]
