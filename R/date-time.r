@@ -10,7 +10,7 @@ floor_date <- function(date, time) {
   if (prec$unit == "day") {
     structure(round_any(as.numeric(date), prec$mult), class="Date")
   } else {
-    as.Date(cut(date, time))
+    as.Date(cut(date, time, right = TRUE, include.lowest = TRUE))
   }
 }
 floor_time <- function(date, time) {
@@ -20,7 +20,10 @@ floor_time <- function(date, time) {
   } else if (prec$unit == "min") {
     to_time(round_any(as.numeric(date), prec$mult * 60))    
   } else {
-    as.POSIXct(cut(date, time), tz = attr(date, "tz") %||% "")  
+    as.POSIXct(
+      cut(date, time, right = TRUE, include.lowest = TRUE), 
+      tz = attr(date, "tz") %||% ""
+    )  
   }
 }
 
@@ -88,8 +91,8 @@ fullseq_date <- function(range, time) {
 }
 fullseq_time <- function(range, time) {
   seq.POSIXt(
-    floor_time(range[1], time), 
-    ceiling_time(range[2], time), 
+    floor_time(range[1], time),
+    ceiling_time(range[2], time),
     by=time
   )
 }

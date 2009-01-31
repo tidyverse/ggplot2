@@ -1,7 +1,6 @@
 ggplot2 0.8.2  (2008-XX-XX)
 ----------------------------------------
 
-* scale_datetime: fixed bug when range was between 
 * scale_manual: labels now correctly sets legend labels.
 * ggsave: path parameter correctly sets path
 * stat_density_2d: no longer passes unnecessary parameters to kde2d causing an error message (seen when setting aesthetics with qplot)
@@ -9,3 +8,4 @@ ggplot2 0.8.2  (2008-XX-XX)
 * scale_size and scale_area: increase default size range
 * guides: fix broken legend from default stat aesthetics (e.g. for stat_sum)
 * ggfluctuation: default to aspect ratio that produces squares
+* scale_datetime: improved breaks calculation

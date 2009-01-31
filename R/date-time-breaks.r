@@ -9,16 +9,21 @@ time_breaks <- function(seconds) {
     return(date_breaks(days))
   }
   
-  length <- cut(seconds, c(0, 10, 60, 600, 3600, 5 * 3600, 24 * 3600, Inf), labels=FALSE)
+  # seconds, minutes, hours, days
+  length <- cut(seconds, c(0, 60, 3600, 24 * 3600, Inf) * 1.1, labels=FALSE)
+  duration <- c(1, 60, 3600, 24 * 3600)
+  units <- round(seconds / duration[length])
   
-  major <- 
-    c("2 sec", "15 sec", "1 min",  "30 min", "1 hour", "6 hour")[length]
-  minor <- 
-    c("1 sec", "5 sec",  "30 sec", "10 min", "30 min", "3 hour")[length]
-  format <- 
-    c("%S",    "%S",     "%S",     "%M %S",  "%l:%M",  "%l:%M")[length]
+  major_mult <- round_any(diff(pretty(c(0, units)))[1], 3)
+  minor_mult <- ceiling(diff(pretty(c(0, units), n = 15))[1])
+  major <-  c("sec", "min",   "hour",  "day")[length]  
+  format <-  c("%S", "%M.%S", "%H:%M", "%d-%b")[length]
 
-  list(major = major, minor = minor, format = format)
+  list(
+    major = paste(major_mult, major), 
+    minor = paste(minor_mult, major), 
+    format = format
+  )
   
 }
 
