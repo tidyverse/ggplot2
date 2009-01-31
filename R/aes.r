@@ -105,7 +105,10 @@ str.uneval <- function(object, ...) str(unclass(object), ...)
 aesdefaults <- function(data, y., params.) {
   updated <- updatelist(y., params.)
   
-  df <- as.data.frame(tryapply(defaults(data, updated), function(x) eval(x, data, globalenv())))
+  cols <- tryapply(defaults(data, updated), function(x) eval(x, data, globalenv()))
+  
+  cols <- cols[unlist(llply(cols, is.atomic))]
+  df <- as.data.frame(cols)
   
   factors <- sapply(df, is.factor)
   df[factors] <- lapply(df[factors], as.character)

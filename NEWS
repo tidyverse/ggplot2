@@ -7,3 +7,4 @@ ggplot2 0.8.2  (2008-XX-XX)
 * stat_density_2d: no longer passes unnecessary parameters to kde2d causing an error message (seen when setting aesthetics with qplot)
 * stat_sum now correctly preserves other aesthetic columns (should be a bit faster too)
 * scale_size and scale_area: increase default size range
+* guides: fix broken legend from default stat aesthetics (e.g. for stat_sum)
