@@ -1,6 +1,10 @@
-# dput(c(names(.base_to_ggplot), "group","order", "z",  sort(unique(unlist(sapply(Geom$find_all(), function(y) c(names(y$default_aes()), y$required_aes)))))))
-.all_aesthetics <-  c("col", "color", "pch", "cex", "lty", "lwd", "srt", "adj", "bg", "fg", "group", "order", "z", "angle", "colour", "fill", "height", 
-"hjust", "intercept", "label", "linetype", "shape", "size", "slope", "vjust", "weight", "width", "x", "xend", "xmax", "xmin", "y", "yend", "ymax", "ymin")
+# all_aes <- function(y) c(names(y$default_aes()), y$required_aes)
+# geom_aes <- unlist(lapply(Geom$find_all(), all_aes))
+# stat_aes <- unlist(lapply(Stat$find_all(), all_aes))
+# all <- sort(unique(c(names(.base_to_ggplot), geom_aes, stat_aes)))
+# dput(all)
+
+.all_aesthetics <- c("alpha", "angle", "colour", "fill", "group", "hjust", "label", "linetype", "lower", "middle", "order", "radius", "sample", "shape", "size", "upper", "vjust", "weight", "width", "x", "xend", "xmax", "xmin", "y", "yend", "ymax", "ymin", "z")
 
 .base_to_ggplot <- c(
   "col"   = "colour",
