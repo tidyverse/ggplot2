@@ -170,6 +170,7 @@ Layer <- proto(expr = {
   }
 
   reparameterise <- function(., data) {
+    if (is.null(data)) stop("No data to plot", call. = FALSE)
     gg_apply(data, function(df) {
       if (!is.null(df)) {
         .$geom$reparameterise(df, .$geom_params) 
