@@ -103,7 +103,7 @@ theme_text <- function(family = "", face = "plain", colour = "black", size = 10,
   hj <- hjust
   
   structure(
-    function(label, x = 0.5, y = 0.5, ..., vjust = vj, hjust = hj, default.units = "npc") {
+    function(label, x = hj, y = vj, ..., vjust = vj, hjust = hj, default.units = "npc") {
       textGrob(
         label, x, y, hjust = hjust, vjust = vjust, ...,
         default.units = default.units,

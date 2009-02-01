@@ -13,3 +13,4 @@ ggplot2 0.8.2  (2008-XX-XX)
 * geom_path will now silently ignore lines with less than 2 points (instead of throwing a mysterious error as before)
 * qplot: if sample aesthetic is used, stat automatically set to qq
 * geom_vline and geom_hline: fix bug when mapping intercept to variable in data frame
+* theme_text: now possible to right and left align text with hjust=0 and hjust=1 respectively
