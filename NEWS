@@ -14,3 +14,4 @@ ggplot2 0.8.2  (2008-XX-XX)
 * qplot: if sample aesthetic is used, stat automatically set to qq
 * geom_vline and geom_hline: fix bug when mapping intercept to variable in data frame
 * theme_text: now possible to right and left align text with hjust=0 and hjust=1 respectively
+* stat_pointrange: better relationship between point and line widths
