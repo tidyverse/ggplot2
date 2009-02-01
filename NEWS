@@ -16,3 +16,4 @@ ggplot2 0.8.2  (2008-XX-XX)
 * theme_text: now possible to right and left align text with hjust=0 and hjust=1 respectively
 * stat_pointrange: better relationship between point and line widths
 * stat_summary: reparameterise to make it easier to specify different summary functions
+* theme_set warns if missing needed theme elements

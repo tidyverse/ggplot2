@@ -38,6 +38,12 @@ theme_update <- function(...) {
   list(
     get = function() theme,
     set = function(new) {
+      missing <- setdiff(names(theme_gray()), names(new))
+      if (length(missing) > 0) {
+        warning("New theme missing the following elements: ", 
+          paste(missing, collapse = ", "), call. = FALSE)
+      }
+      
       old <- theme
       theme <<- new
       invisible(old)
