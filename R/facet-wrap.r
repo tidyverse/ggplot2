@@ -95,20 +95,22 @@ FacetWrap <- proto(Facet, {
     if (.$free$y) {
       axes_v <- grobMatrix(axes_v, nrow, ncol, .$as.table)
     } else {
-      axes_v <- cbind(
-        grobMatrix(rep(axes_v[1], nrow), nrow, 1, .$as.table),
-        grobMatrix(list(nullGrob()), nrow, ncol - 1, .$as.table)
-      )
+      axes_v <- grobMatrix(rep(axes_v[1], nrow), nrow, 1, .$as.table)
+      if (ncol > 1) {
+        empty <- grobMatrix(list(nullGrob()), nrow, ncol - 1, .$as.table)
+        axes_v <- cbind(axes_v, empty)
+      }
     }
     axes_width <- grobColWidth(axes_v)
     
     if (.$free$x) {
       axes_h <- grobMatrix(axes_h, nrow, ncol, .$as.table)
     } else {
-      axes_h <- rbind(
-        grobMatrix(list(nullGrob()),        nrow - 1, ncol, .$as.table),
-        grobMatrix(rep(axes_h[1], ncol), 1, ncol, .$as.table)
-      )
+      axes_h <- grobMatrix(rep(axes_h[1], ncol), 1, ncol, .$as.table)
+      if (nrow > 1) {
+        empty <- grobMatrix(list(nullGrob()), nrow - 1, ncol, .$as.table)
+        axes_h <- cbind(axes_h, empty)
+      }
     }
     axes_height <- grobRowHeight(axes_h)
 

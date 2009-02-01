@@ -17,3 +17,4 @@ ggplot2 0.8.2  (2008-XX-XX)
 * stat_pointrange: better relationship between point and line widths
 * stat_summary: reparameterise to make it easier to specify different summary functions
 * theme_set warns if missing needed theme elements
+* facet_wrap: work around R bug so no longer crashers when ncol = 1
