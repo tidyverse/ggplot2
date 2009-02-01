@@ -4,7 +4,7 @@ GeomHline <- proto(Geom, {
       df <- data.frame(yintercept = yintercept)
       .super$new(., aes(yintercept = yintercept), data = df, ignore.extra = TRUE, ...)
     } else {
-      .super$new(., data = data, mapping = mapping, yintercept = yintercept, ignore.extra = TRUE, ...)
+      .super$new(., data = data, mapping = mapping, ignore.extra = TRUE, ...)
     }
   }
 
