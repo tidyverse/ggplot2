@@ -18,3 +18,4 @@ ggplot2 0.8.2  (2008-XX-XX)
 * stat_summary: reparameterise to make it easier to specify different summary functions
 * theme_set warns if missing needed theme elements
 * facet_wrap: work around R bug so no longer crashers when ncol = 1
+* stats: all give useful error message if missing a required aesthetic
