@@ -17,7 +17,7 @@ ScaleDiscretePosition <- proto(ScaleDiscrete, {
   cont_domain <- c(NA, NA)
   
   train <- function(., x) {
-    if (is.discrete(x)) {
+    if (plyr::is.discrete(x)) {
       .$.domain <- discrete_range(.$.domain, x)
     } else {
       .$cont_domain <- range(.$cont_domain, x, na.rm = TRUE)
@@ -25,7 +25,7 @@ ScaleDiscretePosition <- proto(ScaleDiscrete, {
   }
   
   map <- function(., values) {
-    if (is.discrete(values)) {
+    if (plyr::is.discrete(values)) {
       .$check_domain()
       seq_along(.$input_set())[match(as.character(values), .$input_set())]
     } else {

@@ -46,7 +46,7 @@ ScaleDiscrete <- proto(Scale, expr={
 
   train <- function(., x) {
     if (is.null(x)) return()
-    if (!is.discrete(x)) {
+    if (!plyr::is.discrete(x)) {
       stop("Continuous variable (", .$name , ") supplied to the discrete ", .$my_name(), ".", call.=FALSE) 
     }
     vals <- if (is.factor(x)) levels(factor(x, exclude = NULL)) else as.character(unique(x))

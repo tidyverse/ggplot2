@@ -22,7 +22,7 @@ add_group <- function(data) {
   if (nrow(data) == 0) return(data)
   
   if (is.null(data$group)) {
-    cat <- sapply(data[setdiff(names(data), "label")], is.discrete)
+    cat <- sapply(data[setdiff(names(data), "label")], plyr::is.discrete)
     cat <- intersect(names(which(cat)), .all_aesthetics)
     
     if (length(cat) == 0) {
