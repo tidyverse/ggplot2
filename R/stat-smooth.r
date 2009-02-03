@@ -101,8 +101,8 @@ StatSmooth <- proto(Stat, {
 
     c + stat_smooth(span = 0.9) + geom_point()  
     c + stat_smooth(method = "lm") + geom_point()  
-    c + stat_smooth(method = lm, formula= y ~ ns(x,3)) + geom_point()  
-    c + stat_smooth(method = rlm, formula= y ~ ns(x,3)) + geom_point()  
+    c + stat_smooth(method = lm, formula = y ~ ns(x,3)) + geom_point()  
+    c + stat_smooth(method = MASS::rlm, formula= y ~ ns(x,3)) + geom_point()  
     
     # The default confidence band uses a transparent colour. 
     # This currently only works on a limited number of graphics devices 
