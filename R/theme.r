@@ -28,8 +28,10 @@ theme_update <- function(...) {
   if (length(args) == 1 && is.list(elements[[1]])) {
     elements <- elements[[1]]
   }
+  theme <- defaults(elements, theme_get())
+  class(theme) <- c("options")
   
-  theme_set(defaults(elements, theme_get()))  
+  theme_set(theme)  
 }
 
 .theme <- (function() {
