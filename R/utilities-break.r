@@ -1,8 +1,8 @@
 breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
   equal <- match.arg(equal, c("numbers", "width"))
-  # if ((!is.null(nbins) && !missing(binwidth)) || (missing(nbins) && missing(binwidth))) {
-  #   stop("Specify exactly one of n and width")
-  # }
+  if ((!is.null(nbins) && !is.null(binwidth)) || (is.null(nbins) && is.null(binwidth))) {
+    stop("Specify exactly one of n and width")
+  }
   
   rng <- range(x, na.rm = TRUE, finite = TRUE)
   if (equal == "width") {
@@ -22,9 +22,9 @@ breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
   
 }
 
-cut_width <- function(x, nbins = NULL, binwidth = NULL, ...) {
-  cut(x, breaks(x, "width", nbins, binwidth), include.lowest = TRUE, ...)
+cut_interval <- function(x, n = NULL, length = NULL, ...) {
+  cut(x, breaks(x, "width", n, length), include.lowest = TRUE, ...)
 }
-cut_number <- function(x, nbins = NULL, binwidth = NULL, ...) {
-  cut(x, breaks(x, "n", nbins, binwidth), include.lowest = TRUE, ...)
+cut_number <- function(x, n = NULL, ...) {
+  cut(x, breaks(x, "n", n, length), include.lowest = TRUE, ...)
 }
