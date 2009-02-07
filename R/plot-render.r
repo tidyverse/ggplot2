@@ -215,6 +215,7 @@ surround_viewports <- function(position, widths, heights, legend_vp) {
 # @keyword hplot
 # @keyword internal 
 print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
+  set_last_plot(x)
   if (newpage) grid.newpage()
   if (is.null(vp)) {
     grid.draw(ggplotGrob(x, ...)) 
