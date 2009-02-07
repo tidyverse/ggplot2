@@ -10,8 +10,8 @@
 # \code{ggsave} currently recognises the extensions ps, tex (pictex), pdf,
 # tiff, png, bmp and wmf (windows only).
 # 
-# @arguments plot to save, defaults to last plot displayed
 # @arguments file name/filename of plot
+# @arguments plot to save, defaults to last plot displayed
 # @arguments device to use, automatically extract from file name extension
 # @arguments path to save plot to (if you just want to set path and not filename)
 # @arguments scaling factor
@@ -30,7 +30,7 @@
 #X # make twice as big as on screen
 #X ggsave(ratings, file="ratings.pdf", scale=2)
 #X }
-ggsave <- function(plot = last_plot(), filename=default_name(plot), device=default_device(filename), path = NULL, scale=1, width=par("din")[1], height=par("din")[2], dpi=300, keep = plot$options$keep, drop = plot$options$drop, ...) {
+ggsave <- function(filename=default_name(plot), plot = last_plot(), device=default_device(filename), path = NULL, scale=1, width=par("din")[1], height=par("din")[2], dpi=300, keep = plot$options$keep, drop = plot$options$drop, ...) {
   if (!inherits(plot, "ggplot")) stop("plot should be a ggplot2 plot")
 
   eps <- ps <- function(..., width, height)  

@@ -20,3 +20,4 @@ ggplot2 0.8.2  (2008-XX-XX)
 * facet_wrap: work around R bug so no longer crashers when ncol = 1
 * stats: all give useful error message if missing a required aesthetic
 * be explicit about plyr::is.discrete to avoid clash with Hmisc
+* ggsave: filename now first parameter, not second
