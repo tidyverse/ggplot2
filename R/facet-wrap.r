@@ -63,7 +63,8 @@ FacetWrap <- proto(Facet, {
 
       fg <- coord$guide_foreground(details, theme)
       bg <- coord$guide_background(details, theme)
-      panels[[1,i]] <- ggname("panel", grobTree(bg, panels_grob[[1, i]], fg))
+      name <- paste("panel", i, sep = "_")
+      panels[[1,i]] <- ggname(name, grobTree(bg, panels_grob[[1, i]], fg))
     }
 
     labels <- .$labels_default(.$shape, theme)
@@ -109,7 +110,7 @@ FacetWrap <- proto(Facet, {
       axes_h <- grobMatrix(rep(axes_h[1], ncol), 1, ncol, .$as.table)
       if (nrow > 1) {
         empty <- grobMatrix(list(nullGrob()), nrow - 1, ncol, .$as.table)
-        axes_h <- cbind(axes_h, empty)
+        axes_h <- rbind(empty, axes_h)
       }
     }
     axes_height <- grobRowHeight(axes_h)

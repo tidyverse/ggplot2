@@ -67,7 +67,8 @@ FacetGrid <- proto(Facet, {
         fg <- coord$guide_foreground(coord_details[[i, j]], theme)
         bg <- coord$guide_background(coord_details[[i, j]], theme)
 
-        panels[[i,j]] <- grobTree(bg, panels_grob[[i, j]], fg)
+        name <- paste("panel", i, j, sep = "_")
+        panels[[i,j]] <- ggname(name, grobTree(bg, panels_grob[[i, j]], fg))
       }
     }
     

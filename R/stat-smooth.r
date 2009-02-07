@@ -2,7 +2,7 @@ StatSmooth <- proto(Stat, {
   calculate_groups <- function(., data, scales, ...) {
     rows <- daply(data, .(group), function(df) length(unique(df$x)))
     
-    if (all(rows == 1)) {
+    if (all(rows == 1) && length(rows) > 1) {
       message("geom_smooth: Only one unique x value each group.", 
         "Maybe you want aes(group = 1)?")
       return(data.frame())
