@@ -22,3 +22,4 @@ ggplot2 0.8.2  (2008-XX-XX)
 * be explicit about plyr::is.discrete to avoid clash with Hmisc
 * ggsave: filename now first parameter, not second
 * cut_interval and cut_number utility functions to discretise continuous variables
+* scale_gradient: better default colour scheme from red to blue (thanks to Charlotte Wickham for providing the munsell colours)
