@@ -26,5 +26,5 @@ cut_interval <- function(x, n = NULL, length = NULL, ...) {
   cut(x, breaks(x, "width", n, length), include.lowest = TRUE, ...)
 }
 cut_number <- function(x, n = NULL, ...) {
-  cut(x, breaks(x, "n", n, length), include.lowest = TRUE, ...)
+  cut(x, breaks(x, "n", n), include.lowest = TRUE, ...)
 }
