@@ -103,7 +103,8 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep)
   widths <- unit.c(margin$left, widths, margin$right)
 
   legend_height <- grobHeight(grobs$legend_box)
-  title_height <- grobHeight(grobs$title) + unit(0.5, "lines")
+  title_height <- grobHeight(grobs$title) + 
+    if (is.null(plot$options$title)) unit(0, "lines") else unit(0.5, "lines")
   xlab_height <- grobHeight(grobs$xlabel) + unit(0.5, "lines")
 
   heights <- switch(position,
