@@ -20,8 +20,9 @@ StatSummary <- proto(Stat, {
     } else {
       # User supplied individual vector functions
       fs <- compact(list(ymin = fun.ymin, y = fun.y, ymax = fun.ymax))
+      
       fun <- function(df) {
-        res <- llply(fs, function(f) f(df$y))
+        res <- llply(fs, function(f) do.call(f, list(df$y)))
         names(res) <- names(fs)
         as.data.frame(res)
       }
