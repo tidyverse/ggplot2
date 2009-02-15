@@ -11,18 +11,16 @@ StatSummary <- proto(Stat, {
     
     if (!missing(fun.data)) {
       # User supplied function that takes complete data frame as input
-      if (is.character(fun.data)) {
-        sumfun <- paste("sum", fun.data, sep="_")
-        if (exists(sumfun)) fun <- match.fun(sumfun)
-      } else {
-        fun <- fun.data
+      fun.data <- match.fun(fun.data)
+      fun <- function(df, ...) {
+        fun.data(df$y, ...)
       }
     } else {
       # User supplied individual vector functions
       fs <- compact(list(ymin = fun.ymin, y = fun.y, ymax = fun.ymax))
       
-      fun <- function(df) {
-        res <- llply(fs, function(f) do.call(f, list(df$y)))
+      fun <- function(df, ...) {
+        res <- llply(fs, function(f) do.call(f, list(df$y, ...)))
         names(res) <- names(fs)
         as.data.frame(res)
       }
@@ -143,12 +141,18 @@ summarise_by_x <- function(data, summary, ...) {
 wrap_hmisc <- function(x, fun, ...) {
   try_require("Hmisc")
 
-  result <- safe.call(fun, list(x=x, ...))
-  rename(data.frame(t(result)), c(Median="y", Mean="y", Lower="ymin", Upper="ymax"))
+  result <- safe.call(fun, list(x = x, ...))
+  rename(
+    data.frame(t(result)), 
+    c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax")
+  )
 }
 
-sum_mean_cl_boot <- function(data, ...) wrap_hmisc(data$y, fun=smean.cl.boot, ...)
-sum_mean_cl_normal <- function(data, ...) wrap_hmisc(data$y, fun=smean.cl.normal, ...)
-sum_mean_sdl <- function(data, ...) wrap_hmisc(data$y, fun=smean.sdl, ...)
-sum_median_hilow <- function(data, ...) wrap_hmisc(data$y, fun=smedian.hilow, ...)
-sum_range <- function(data, ...) data.frame(ymin=min(data$y, na.rm=TRUE), ymax=max(data$y, na.rm=TRUE))
+mean_cl_boot <- function(x, ...) 
+  wrap_hmisc(x, fun = smean.cl.boot, ...)
+mean_cl_normal <- function(x, ...) 
+  wrap_hmisc(x, fun = smean.cl.normal, ...)
+mean_sdl <- function(x, ...) 
+  wrap_hmisc(x, fun = smean.sdl, ...)
+median_hilow <- function(x, ...) 
+  wrap_hmisc(x, fun = smedian.hilow, ...)
