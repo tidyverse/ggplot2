@@ -89,11 +89,16 @@ discrete_range <- function(...) {
   pieces <- list(...)
   
   clevels <- function(x) {
-    if (is.factor(x)) levels(factor(x, exclude=NULL)) else as.character(unique(x))
+    if (is.null(x)) return(character())
+    
+    if (is.factor(x)) {
+      values <- levels(x)
+    } else {
+      values <- as.character(unique(x)) 
+    }
+    if (any(is.na(x))) values <- c(values, NA)
+    values
   }
   
-  vals <- unlist(lapply(pieces, clevels))
-  if (any(unlist(lapply(compact(pieces), is.na)))) vals <- c(NA, vals)
-
-  unique(vals)
+  unique(unlist(lapply(pieces, clevels)))
 }

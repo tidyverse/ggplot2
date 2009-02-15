@@ -47,12 +47,11 @@ ScaleDiscrete <- proto(Scale, expr={
   train <- function(., x) {
     if (is.null(x)) return()
     if (!plyr::is.discrete(x)) {
-      stop("Continuous variable (", .$name , ") supplied to the discrete ", .$my_name(), ".", call.=FALSE) 
+      stop("Continuous variable (", .$name , ") supplied to discrete ",
+       .$my_name(), ".", call. = FALSE) 
     }
-    vals <- if (is.factor(x)) levels(factor(x, exclude = NULL)) else as.character(unique(x))
-    if (any(is.na(x))) vals <- c(NA, vals)
     
-    .$.domain <- union(.$.domain, vals)
+    .$.domain <- discrete_range(.$.domain, x)
   }
 
   check_domain <- function(.) {
