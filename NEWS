@@ -25,3 +25,4 @@ ggplot2 0.8.2  (2008-XX-XX)
 * scale_gradient: better default colour scheme from red to blue (thanks to Charlotte Wickham for providing the munsell colours)
 * scale_manual now works better with missing values
 * scale_discrete now correctly preserves empty factor levels
+* geom_step now works with multiple groups
