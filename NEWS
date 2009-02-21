@@ -26,3 +26,4 @@ ggplot2 0.8.2  (2008-XX-XX)
 * scale_manual now works better with missing values
 * scale_discrete now correctly preserves empty factor levels
 * geom_step now works with multiple groups
+* geom_polygon etc now correctly displays linetype on legends
