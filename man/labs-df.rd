@@ -27,7 +27,7 @@ p + ylim(2, 4) + ylab("New y label")
 
 # The labs function also modifies legend labels
 p <- qplot(mpg, wt, data = mtcars, colour = cyl)
-p + labs("Cylinders")
+p + labs(colour = "Cylinders")
 
 # Can also pass in a list, if that is more convenient
 p + labs(list(x = "X", y = "Y")) }

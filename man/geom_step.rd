@@ -9,8 +9,6 @@ Equivalent to plot(type='s').This page describes geom\_step, see \code{\link{lay
 \section{Aesthetics}{
 The following aesthetics can be used with geom\_step.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_step(\code{\link{aes}}(x = var))}
 \itemize{
-  \item \code{x}: x position (\strong{required}) 
-  \item \code{y}: y position (\strong{required}) 
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
@@ -26,9 +24,6 @@ The following aesthetics can be used with geom\_step.  Aesthetics are mapped to 
  \item{...}{other arguments}
 }
 \seealso{\itemize{
-  \item \code{\link{geom_line}}: Functional (ordered) lines
-  \item \code{\link{geom_polygon}}: Filled paths (polygons)
-  \item \code{\link{geom_segment}}: Line segments
   \item \url{http://had.co.nz/ggplot2/geom_step.html}
 }}
 \value{A \code{\link{layer}}}
@@ -43,6 +38,14 @@ plot(x, type = "s")
 # Steps go vertically, then horizontally
 qplot(seq_along(x), x, geom="step", direction = "vh")
 plot(x, type = "S")
+
+# Also works with other aesthetics
+df <- data.frame(
+  x = sort(rnorm(50)),
+  trt = sample(c("a", "b"), 50, rep = T)
+)
+qplot(seq_along(x), x, data = df, geom="step", colour = trt)
+
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

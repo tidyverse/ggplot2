@@ -29,7 +29,7 @@ The following aesthetics can be used with geom\_linerange.  Aesthetics are mappe
   \item \code{\link{geom_errorbar}}: error bars
   \item \code{\link{geom_pointrange}}: range indicated by straight line, with point in the middle
   \item \code{\link{geom_crossbar}}: hollow bar with middle indicated by horizontal line
-  \item \code{\link{stat_summary}} : examples of these guys in use
+  \item \code{\link{stat_summary}}: examples of these guys in use
   \item \code{\link{geom_smooth}}: for continuous analog
   \item \url{http://had.co.nz/ggplot2/geom_linerange.html}
 }}

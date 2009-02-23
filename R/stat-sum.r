@@ -19,8 +19,8 @@ StatSum <- proto(Stat, {
   objname <- "sum" 
   desc <- "Sum unique values.  Useful for overplotting on scatterplots"
   seealso <- list(
-    "ggfluctuation" = "Fluctuation diagram, which is very similar",
-    "round_any" = "for rounding continuous observations to desired level of accuracy"
+    "ggfluctuation" = "Fluctuation diagram, which is very similar"
+    # "round_any" = "for rounding continuous observations to desired level of accuracy"
   )
   desc_outputs <- list(
     "n" = "number of observations at position",

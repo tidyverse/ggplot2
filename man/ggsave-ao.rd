@@ -6,10 +6,10 @@
 \description{
 Save a ggplot with sensible defaults
 }
-\usage{ggsave(plot = last_plot(), filename=default_name(plot), device=default_device(filename), path = "", scale=1, width=par("din")[1], height=par("din")[2], dpi=300, keep = plot$options$keep, drop = plot$options$drop, ...)}
+\usage{ggsave(filename=default_name(plot), plot = last_plot(), device=default_device(filename), path = NULL, scale=1, width=par("din")[1], height=par("din")[2], dpi=300, keep = plot$options$keep, drop = plot$options$drop, ...)}
 \arguments{
-\item{plot}{plot to save, defaults to last plot displayed}
 \item{filename}{file name/filename of plot}
+\item{plot}{plot to save, defaults to last plot displayed}
 \item{device}{device to use, automatically extract from file name extension}
 \item{path}{path to save plot to (if you just want to set path and not filename)}
 \item{scale}{scaling factor}

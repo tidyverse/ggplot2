@@ -15,7 +15,6 @@ This page describes facet\_grid, see \code{\link{layer}} and \code{\link{qplot}}
  \item{...}{other arguments}
 }
 \seealso{\itemize{
-  \item cast: the formula and margin arguments are the same as those used in the reshape package
   \item \url{http://had.co.nz/ggplot2/facet_grid.html}
 }}
 \value{A \code{\link{layer}}}

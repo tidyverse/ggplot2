@@ -84,9 +84,7 @@ StatSmooth <- proto(Stat, {
   seealso <- list(
     lm = "for linear smooths",
     glm = "for generalised linear smooths",
-    loess = "for local smooths",
-    rlm = "for robust smooths",
-    gam = "for smooth smooths"
+    loess = "for local smooths"
   )
   
   

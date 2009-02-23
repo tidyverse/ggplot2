@@ -32,7 +32,7 @@ The following aesthetics can be used with geom\_pointrange.  Aesthetics are mapp
   \item \code{\link{geom_errorbar}}: error bars
   \item \code{\link{geom_linerange}}: range indicated by straight line, + examples
   \item \code{\link{geom_crossbar}}: hollow bar with middle indicated by horizontal line
-  \item \code{\link{stat_summary}} : examples of these guys in use
+  \item \code{\link{stat_summary}}: examples of these guys in use
   \item \code{\link{geom_smooth}}: for continuous analog
   \item \url{http://had.co.nz/ggplot2/geom_pointrange.html}
 }}

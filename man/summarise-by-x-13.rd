@@ -1,15 +1,14 @@
-\name{summaryby}
-\alias{summaryby}
+\name{summarise_by_x}
+\alias{summarise_by_x}
 \title{Summarise a data.frame by parts}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
 Summarise a data frame by unique value of x
 }
-\usage{summaryby(data, split, summary, ...)}
+\usage{summarise_by_x(data, summary, ...)}
 \arguments{
 \item{data}{}
-\item{split}{}
 \item{summary}{}
 \item{...}{}
 }

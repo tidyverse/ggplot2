@@ -1,3 +1,37 @@
+# Discretise continuous variable, equal interval length.
+# Cut numeric vector into intervals of equal length.
+# 
+# @arguments numeric vector
+# @arguments number of intervals to create, OR
+# @arguments length of each interval
+# @arguments other arguments passed on to \code{\link{cut}}
+# @keywords manip
+# @seealso \code{\link{cut_number}}
+# 
+#X table(cut_interval(1:100, n = 10))
+#X table(cut_interval(1:100, n = 11))
+#X table(cut_interval(1:100, length = 10))
+cut_interval <- function(x, n = NULL, length = NULL, ...) {
+  cut(x, breaks(x, "width", n, length), include.lowest = TRUE, ...)
+}
+
+# Discretise continuous variable, equal number of points.
+# Cut numeric vector into intervals containing equal number of points.
+# 
+# @arguments numeric vector
+# @arguments number of intervals to create, OR
+# @arguments length of each interval
+# @arguments other arguments passed on to \code{\link{cut}}
+# @keywords manip
+# @seealso \code{\link{cut_interval}}
+#X table(cut_number(runif(1000), n = 10))
+cut_number <- function(x, n = NULL, ...) {
+  cut(x, breaks(x, "n", n), include.lowest = TRUE, ...)
+}
+
+# Discretise continuous vector
+# Method that powers \code{\link{cut_number}} and \code{\link{cut_interval}}
+# @keywords internal
 breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
   equal <- match.arg(equal, c("numbers", "width"))
   if ((!is.null(nbins) && !is.null(binwidth)) || (is.null(nbins) && is.null(binwidth))) {
@@ -22,9 +56,3 @@ breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
   
 }
 
-cut_interval <- function(x, n = NULL, length = NULL, ...) {
-  cut(x, breaks(x, "width", n, length), include.lowest = TRUE, ...)
-}
-cut_number <- function(x, n = NULL, ...) {
-  cut(x, breaks(x, "n", n), include.lowest = TRUE, ...)
-}

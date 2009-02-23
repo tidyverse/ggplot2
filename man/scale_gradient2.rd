@@ -26,7 +26,7 @@ scale_fill_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"
 }
 \seealso{\itemize{
   \item \code{\link{scale_gradient}}: continuous colour scale
-  \item colorRamp: for details of interpolation algorithm
+  \item \code{\link{colorRamp}}: for details of interpolation algorithm
   \item \url{http://had.co.nz/ggplot2/scale_gradient2.html}
 }}
 \value{A \code{\link{layer}}}

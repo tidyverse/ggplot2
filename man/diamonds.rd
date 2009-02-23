@@ -4,7 +4,7 @@
 \title{Prices of 50,000 round cut diamonds}
 \description{
 
-This paper presents a dataset containing the prices and other attributes of almost 54,000 diamonds.  The variables are as follows:
+A dataset containing the prices and other attributes of almost 54,000 diamonds.  The variables are as follows:
 
 \begin{itemize}
   \item price. price in US dollars (\$326--\$18,823)  

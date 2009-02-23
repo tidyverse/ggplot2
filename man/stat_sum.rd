@@ -23,7 +23,7 @@ The following aesthetics can be used with stat\_sum.  Aesthetics are mapped to v
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item ggfluctuation: Fluctuation diagram, which is very similar
+  \item \code{\link{ggfluctuation}}: Fluctuation diagram, which is very similar
   \item \url{http://had.co.nz/ggplot2/stat_sum.html}
 }}
 \value{A \code{\link{layer}}}
@@ -36,18 +36,21 @@ d + stat_sum(aes(group = 1)) + scale_size(to = c(3, 10))
 d + stat_sum(aes(group = 1)) + scale_area(to = c(3, 10))
 # by cut
 d + stat_sum(aes(group = cut))
+d + stat_sum(aes(group = clarity, colour = cut))
 # by clarity
 d + stat_sum(aes(group = clarity))
+d + stat_sum(aes(group = clarity, colour = clarity))
+
+# Instead of proportions, can also use sums
+d + stat_sum(aes(size = ..n..))
 
 # Can also weight by another variable
 d + stat_sum(aes(group = 1, weight = price))
-d + stat_sum(aes(group = 1, weight = price, size = ..sum..))
-
+d + stat_sum(aes(group = 1, weight = price, size = ..n..))
 
 # Or using qplot
 qplot(cut, clarity, data = diamonds)
-qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)
-
+qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)    
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

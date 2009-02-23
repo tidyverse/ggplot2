@@ -3,6 +3,8 @@ ggplot2 0.8.2  (2008-02-23)
 
 New features
 
+* borders, fortify.map and map_data to make it easier to draw map borders and choropleth maps
+
 * cut_interval and cut_number utility functions to discretise continuous variables
 
 * stat_summary has reparameterised to make it easier to specify different summary functions.  It now has four parameters: fun.y, fun.ymin and fun.ymax; and fun.data.  See the documentation for stat_summary for more details
@@ -25,6 +27,7 @@ Bug fixes
 * facet_wrap: work around R bug so no longer crashers when ncol = 1
 * geom_errorbar now works correctly with dashed lines
 * geom_path will now silently ignore lines with less than 2 points (instead of throwing a mysterious error as before)
+* geom_path now responds to the size aesthetic once more
 * geom_polygon etc now correctly displays linetype on legends
 * geom_step now works with multiple groups
 * geom_vline and geom_hline: fix bug when mapping intercept to variable in data frame

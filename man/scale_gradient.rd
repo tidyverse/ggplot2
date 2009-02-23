@@ -10,8 +10,8 @@
 \details{
 This page describes scale\_gradient, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_gradient(name=NULL, low="#fffacd", high="#3366FF", space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", alpha=1, ...)
-scale_fill_gradient(name=NULL, low="#fffacd", high="#3366FF", space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", alpha=1, ...)}
+\usage{scale_colour_gradient(name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", alpha=1, ...)
+scale_fill_gradient(name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", alpha=1, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{low}{colour at low end of scale}
@@ -26,7 +26,7 @@ scale_fill_gradient(name=NULL, low="#fffacd", high="#3366FF", space="rgb", break
 }
 \seealso{\itemize{
   \item \code{\link{scale_gradient2}}: continuous colour scale with midpoint
-  \item colorRamp: for details of interpolation algorithm
+  \item \code{\link{colorRamp}}: for details of interpolation algorithm
   \item \url{http://had.co.nz/ggplot2/scale_gradient.html}
 }}
 \value{A \code{\link{layer}}}

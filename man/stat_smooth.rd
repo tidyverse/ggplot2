@@ -29,11 +29,9 @@ The following aesthetics can be used with stat\_smooth.  Aesthetics are mapped t
  \item{...}{other arguments are passed to smoothing function}
 }
 \seealso{\itemize{
-  \item lm: for linear smooths
-  \item glm: for generalised linear smooths
-  \item loess: for local smooths
-  \item rlm: for robust smooths
-  \item gam: for smooth smooths
+  \item \code{\link{lm}}: for linear smooths
+  \item \code{\link{glm}}: for generalised linear smooths
+  \item \code{\link{loess}}: for local smooths
   \item \url{http://had.co.nz/ggplot2/stat_smooth.html}
 }}
 \value{A \code{\link{layer}}}
@@ -47,8 +45,8 @@ c + stat_smooth(se = FALSE) + geom_point()
 
 c + stat_smooth(span = 0.9) + geom_point()  
 c + stat_smooth(method = "lm") + geom_point()  
-c + stat_smooth(method = lm, formula= y ~ ns(x,3)) + geom_point()  
-c + stat_smooth(method = rlm, formula= y ~ ns(x,3)) + geom_point()  
+c + stat_smooth(method = lm, formula = y ~ ns(x,3)) + geom_point()  
+c + stat_smooth(method = MASS::rlm, formula= y ~ ns(x,3)) + geom_point()  
 
 # The default confidence band uses a transparent colour. 
 # This currently only works on a limited number of graphics devices 

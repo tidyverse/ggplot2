@@ -25,7 +25,7 @@ scale_fill_gradientn(name=NULL, colours, values=NULL, rescale=TRUE, space="rgb",
 }
 \seealso{\itemize{
   \item \code{\link{scale_gradient}}: continuous colour scale with midpoint
-  \item colorRamp: for details of interpolation algorithm
+  \item \code{\link{colorRamp}}: for details of interpolation algorithm
   \item \url{http://had.co.nz/ggplot2/scale_gradientn.html}
 }}
 \value{A \code{\link{layer}}}

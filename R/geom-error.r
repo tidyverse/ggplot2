@@ -27,7 +27,7 @@ GeomErrorbar <- proto(Geom, {
     "geom_pointrange" = "range indicated by straight line, with point in the middle",
     "geom_linerange" = "range indicated by straight line",
     "geom_crossbar" = "hollow bar with middle indicated by horizontal line",
-    "stat_summary " = "examples of these guys in use",
+    "stat_summary" = "examples of these guys in use",
     "geom_smooth" = "for continuous analog"
   )
 

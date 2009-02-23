@@ -27,8 +27,10 @@ scale_y_datetime(name=NULL, limits=NULL, major=NULL, minor=NULL, format=NULL, tz
 \examples{\dontrun{
 start <- ISOdate(2001, 1, 1, tz = "")
 df <- data.frame(
+  day30  = start + round(runif(100, max = 30 * 86400)),
   day7  = start + round(runif(100, max = 7 * 86400)),
   day   = start + round(runif(100, max = 86400)),
+  hour10 = start + round(runif(100, max = 10 * 3600)),
   hour5 = start + round(runif(100, max = 5 * 3600)),
   hour  = start + round(runif(100, max = 3600)),
   min10 = start + round(runif(100, max = 10 * 60)),
@@ -44,8 +46,9 @@ qplot(min5, y, data = df)
 qplot(min10, y, data = df)
 qplot(hour, y, data = df)
 qplot(hour5, y, data = df)
+qplot(hour10, y, data = df)
 qplot(day, y, data = df)
-qplot(day7, y, data = df)
+qplot(day30, y, data = df)
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

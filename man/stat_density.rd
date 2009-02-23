@@ -28,7 +28,7 @@ The following aesthetics can be used with stat\_density.  Aesthetics are mapped 
 }
 \seealso{\itemize{
   \item \code{\link{stat_bin}}: for the histogram
-  \item density: for details of the algorithm used
+  \item \code{\link{density}}: for details of the algorithm used
   \item \url{http://had.co.nz/ggplot2/stat_density.html}
 }}
 \value{A \code{\link{layer}}}

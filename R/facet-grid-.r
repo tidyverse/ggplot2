@@ -280,7 +280,7 @@ FacetGrid <- proto(Facet, {
   )
     
   seealso <- list(
-    "cast" = "the formula and margin arguments are the same as those used in the reshape package"
+    # "cast" = "the formula and margin arguments are the same as those used in the reshape package"
   )  
   
   icon <- function(.) {

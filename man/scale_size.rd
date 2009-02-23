@@ -7,7 +7,7 @@
 \details{
 This page describes scale\_size, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_size(name=NULL, limits=NULL, breaks=NULL, labels=NULL, trans=NULL, to=c(0.5, 3), ...)}
+\usage{scale_size(name=NULL, limits=NULL, breaks=NULL, labels=NULL, trans=NULL, to=c(1, 6), ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{limits}{numeric vector of length 2, giving the extent of the scale}

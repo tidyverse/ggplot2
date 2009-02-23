@@ -12,7 +12,7 @@ GeomPointrange <- proto(Geom, {
     "geom_errorbar" = "error bars",
     "geom_linerange" = "range indicated by straight line, + examples",
     "geom_crossbar" = "hollow bar with middle indicated by horizontal line",
-    "stat_summary " = "examples of these guys in use",
+    "stat_summary" = "examples of these guys in use",
     "geom_smooth" = "for continuous analog"
   )
   default_stat <- function(.) StatIdentity
