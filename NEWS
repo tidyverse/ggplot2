@@ -1,28 +1,37 @@
-ggplot2 0.8.2  (2008-XX-XX)
+ggplot2 0.8.2  (2008-02-23)
 ----------------------------------------
 
-* scale_manual: labels now correctly sets legend labels.
-* ggsave: path parameter correctly sets path
-* stat_density_2d: no longer passes unnecessary parameters to kde2d causing an error message (seen when setting aesthetics with qplot)
-* stat_sum now correctly preserves other aesthetic columns (should be a bit faster too)
-* scale_size and scale_area: increase default size range
-* guides: fix broken legend from default stat aesthetics (e.g. for stat_sum)
+New features
+
+* cut_interval and cut_number utility functions to discretise continuous variables
+
+* stat_summary has reparameterised to make it easier to specify different summary functions.  It now has four parameters: fun.y, fun.ymin and fun.ymax; and fun.data.  See the documentation for stat_summary for more details
+
+Minor improvements
+
 * ggfluctuation: default to aspect ratio that produces squares
+* ggsave: filename now first parameter, not second
+* qplot: if sample aesthetic is used, stat automatically set to qq
 * scale_datetime: improved breaks calculation
+* scale_gradient: better default colour scheme from red to blue (thanks to Charlotte Wickham for providing the Munsell colours)
+* scale_size and scale_area: increased default size range
+* stats: all give useful error message if missing a required aesthetic
+* theme_set warns if missing needed theme elements
+* theme_text: now possible to right and left align text with hjust=0 and hjust=1 respectively
+
+Bug fixes
+
+* be explicit about plyr::is.discrete to avoid clash with Hmisc
+* facet_wrap: work around R bug so no longer crashers when ncol = 1
 * geom_errorbar now works correctly with dashed lines
 * geom_path will now silently ignore lines with less than 2 points (instead of throwing a mysterious error as before)
-* qplot: if sample aesthetic is used, stat automatically set to qq
-* geom_vline and geom_hline: fix bug when mapping intercept to variable in data frame
-* theme_text: now possible to right and left align text with hjust=0 and hjust=1 respectively
-* stat_pointrange: better relationship between point and line widths
-* stat_summary: reparameterise to make it easier to specify different summary functions
-* theme_set warns if missing needed theme elements
-* facet_wrap: work around R bug so no longer crashers when ncol = 1
-* stats: all give useful error message if missing a required aesthetic
-* be explicit about plyr::is.discrete to avoid clash with Hmisc
-* ggsave: filename now first parameter, not second
-* cut_interval and cut_number utility functions to discretise continuous variables
-* scale_gradient: better default colour scheme from red to blue (thanks to Charlotte Wickham for providing the munsell colours)
-* scale_manual now works better with missing values
-* geom_step now works with multiple groups
 * geom_polygon etc now correctly displays linetype on legends
+* geom_step now works with multiple groups
+* geom_vline and geom_hline: fix bug when mapping intercept to variable in data frame
+* ggsave: path parameter correctly sets path
+* guides: fix broken legend from default stat aesthetics (e.g. for stat_sum)
+* scale_manual now works better with missing values
+* scale_manual: labels now correctly sets legend labels.
+* stat_density_2d: no longer passes unnecessary parameters to kde2d causing an error message (seen when setting aesthetics with qplot)
+* stat_pointrange: better relationship between point and line widths
+* stat_sum now correctly preserves other aesthetic columns (should be a bit faster too)
