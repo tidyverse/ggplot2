@@ -4,7 +4,7 @@ GeomVline <- proto(Geom, {
       df <- data.frame(xintercept = xintercept)
       .super$new(., aes(xintercept = xintercept), data = df, ignore.extra = TRUE, ...)
     } else {
-      .super$new(., data = data, mapping = mapping, ignore.extra = TRUE, ...)
+      .super$new(., data = data, mapping = mapping, ignore.extra = TRUE, xintercept = xintercept, ...)
     }
   }
   
