@@ -14,7 +14,7 @@ time_breaks <- function(seconds) {
   duration <- c(1, 60, 3600, 24 * 3600)
   units <- round(seconds / duration[length])
   
-  major_mult <- round_any(diff(pretty(c(0, units)))[1], 3)
+  major_mult <- ceiling(diff(pretty(c(0, units)))[1])
   minor_mult <- ceiling(diff(pretty(c(0, units), n = 15))[1])
   major <-  c("sec", "min",   "hour",  "day")[length]  
   format <-  c("%S", "%M.%S", "%H:%M", "%d-%b")[length]
