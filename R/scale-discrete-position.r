@@ -85,13 +85,13 @@ ScaleDiscretePosition <- proto(ScaleDiscrete, {
 # This is the equivalent of range for discrete variables 
 # 
 # @keywords internal
-discrete_range <- function(...) {
+discrete_range <- function(..., drop = TRUE) {
   pieces <- list(...)
   
   clevels <- function(x) {
     if (is.null(x)) return(character())
     
-    if (is.factor(x)) {
+    if (!drop && is.factor(x)) {
       values <- levels(x)
     } else {
       values <- as.character(unique(x)) 
