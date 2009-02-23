@@ -4,6 +4,7 @@ suppressMessages(library(ggplot2, warn.conflicts = FALSE))
 library(plyr)
 
 load("~/documents/ggplot/ggplot/data/mpg.rda")
+load("~/documents/ggplot/ggplot/data/midwest.rda")
 
 paths <- dir("~/documents/ggplot/ggplot/R", full.name=T)
 paths <- paths[basename(paths) != "xxx.r"]
