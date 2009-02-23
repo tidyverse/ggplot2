@@ -77,7 +77,6 @@ StatSummary <- proto(Stat, {
     c + stat_sum_df("mean_sdl")
     c + stat_sum_df("mean_sdl", mult=1)
     c + stat_sum_df("median_hilow")
-    c + stat_sum_df("range", geom="linerange")
 
     # There are lots of different geoms you can use to display the summaries
         

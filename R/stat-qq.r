@@ -12,7 +12,11 @@ StatQq <- proto(Stat, {
   default_aes <- function(.) aes(y = ..sample.., x = ..theoretical..)
   required_aes <- c("sample")
 
-  calculate <- function(., data, scales, quantiles = ppoints(length(data$sample)), distribution = qnorm, na.rm = FALSE, ...) {
+  calculate <- function(., data, scales, quantiles = NULL, distribution = qnorm, na.rm = FALSE, ...) {
+    
+    if (is.null(quantiles)) {
+      quantiles <- ppoints(length(data$sample))
+    }
     
     theoretical <- safe.call(distribution, list(p = quantiles, ...))
     sample <- quantile(data$sample, probs=quantiles, na.rm=na.rm)
@@ -43,8 +47,7 @@ StatQq <- proto(Stat, {
     
     # Using to explore the distribution of a variable
     qplot(sample = mpg, data = mtcars)
-    qplot(sample = mpg, data = mtcars, colour = factor(cyl))
-    
+    qplot(sample = mpg, data = mtcars, colour = factor(cyl))    
   }
   
 })

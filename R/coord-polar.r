@@ -195,8 +195,8 @@ CoordPolar <- proto(Coord, {
       opts(title = "Pac man")
     
     # Windrose + doughnut plot
-    movies$rrating <- factor(round_any(movies$rating, 1))
-    movies$budgetq <- factor(chop(movies$budget, 4), labels = 1:4)
+    movies$rrating <- cut_interval(movies$rating, length = 1)
+    movies$budgetq <- cut_number(movies$budget, 4)
     
     doh <- ggplot(movies, aes(x = rrating, fill = budgetq))
     
