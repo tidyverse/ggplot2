@@ -138,7 +138,7 @@ Scales <- proto(Scale, expr={
   # scales are always available for modification.   The type of a scale is
   # fixed by the first use in a layer.
   add_defaults <- function(., data, aesthetics, env) {
-    if (is.null(data)) return()
+    if (is.null(data) || is.null(aesthetics)) return()
     names(aesthetics) <- laply(names(aesthetics), aes_to_scale)
     
     new_aesthetics <- setdiff(names(aesthetics), .$input())

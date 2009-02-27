@@ -7,7 +7,7 @@ StatSummary <- proto(Stat, {
   default_geom <- function(.) GeomPointrange
   required_aes <- c("x", "y")
    
-  calculate <- function(., data, scales, fun.data = NULL, fun.y = NULL, fun.ymax = NULL, fun.ymin = NULL, ...) {
+  calculate_groups <- function(., data, scales, fun.data = NULL, fun.y = NULL, fun.ymax = NULL, fun.ymin = NULL, ...) {
     
     if (!missing(fun.data)) {
       # User supplied function that takes complete data frame as input
@@ -120,11 +120,11 @@ StatSummary <- proto(Stat, {
 # @argument other arguments passed on to summary function
 # @keyword internal
 summarise_by_x <- function(data, summary, ...) {
-  summary <- ddply(data, .(x), summary)
-  unique <- ddply(data, .(x), uniquecols)
+  summary <- ddply(data, .(group, x), summary)
+  unique <- ddply(data, .(group, x), uniquecols)
   unique$y <- NULL
   
-  merge(summary, unique, by = "x")
+  merge(summary, unique, by = c("x", "group"))
 }
 
 # Wrap Hmisc summary functions 

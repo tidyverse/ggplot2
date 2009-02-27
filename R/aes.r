@@ -97,6 +97,7 @@ class="uneval")
 
 print.uneval <- function(x, ...) str(unclass(x))
 str.uneval <- function(object, ...) str(unclass(object), ...)
+"[.uneval" <- function(x, i, ...) structure(unclass(x)[i], class = "uneval") 
 
 # Aesthetic defaults
 # Convenience method for setting aesthetic defaults

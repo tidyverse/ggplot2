@@ -3,3 +3,4 @@ ggplot2 0.8.3  (2008-XX-XX)
 
 * facet_wrap: contents guaranteed to be clipped to panel
 * resolution: fixed bug in computation of resolution that lead to (e.g.) incorrect boxplot widths when there was only a single x value in a group.
+* geom_vline, geom_hline, geom_abline: should work in yet more situations

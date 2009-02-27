@@ -1,10 +1,10 @@
 GeomVline <- proto(Geom, {
-  new <- function(., data = NULL, mapping = NULL, xintercept = 0, ...) {
-    if (!missing(xintercept) && is.numeric(xintercept)) {
+  new <- function(., data = NULL, mapping = NULL, xintercept = NULL, ...) {
+    if (is.numeric(xintercept)) {
       df <- data.frame(xintercept = xintercept)
-      .super$new(., aes(xintercept = xintercept), data = df, ignore.extra = TRUE, ...)
+      .super$new(., data = df, mapping = aes(xintercept = xintercept), inherit.aes = FALSE, ...)
     } else {
-      .super$new(., data = data, mapping = mapping, ignore.extra = TRUE, xintercept = xintercept, ...)
+      .super$new(., data = data, mapping = mapping, xintercept = xintercept, ...)
     }
   }
   
@@ -49,6 +49,10 @@ GeomVline <- proto(Geom, {
     
     last_plot() + coord_equal()
     last_plot() + coord_flip()
+    
+    p2 <- p + aes(colour = factor(cyl))
+    p2 + geom_vline(xintercept = 1:5)
+    
     
     # Lines from data
     p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()

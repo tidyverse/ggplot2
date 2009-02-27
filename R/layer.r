@@ -19,9 +19,9 @@ Layer <- proto(expr = {
   mapping <- NULL
   position <- NULL
   params <- NULL
-  ignore.extra <- FALSE
+  inherit.aes <- FALSE
   
-  new <- function (., geom=NULL, geom_params=NULL, stat=NULL, stat_params=NULL, data=NULL, mapping=NULL, position=NULL, params=NULL, ..., ignore.extra = FALSE, legend = NA) {
+  new <- function (., geom=NULL, geom_params=NULL, stat=NULL, stat_params=NULL, data=NULL, mapping=NULL, position=NULL, params=NULL, ..., inherit.aes = TRUE, legend = NA) {
     
     if (is.null(geom) && is.null(stat)) stop("Need at least one of stat and geom")
     
@@ -56,7 +56,7 @@ Layer <- proto(expr = {
       stat=stat, stat_params=stat_params, 
       data=data, mapping=mapping, 
       position=position,
-      ignore.extra = ignore.extra,
+      inherit.aes = inherit.aes,
       legend = legend
     )
   }
@@ -108,7 +108,14 @@ Layer <- proto(expr = {
     data <- nulldefault(.$data, plot$data)
     if (is.null(data)) stop("No data for layer", call.=FALSE)
 
-    aesthetics <- compact(defaults(.$mapping, plot$mapping))
+    # For certain geoms, it is useful to be able to ignore the default
+    # aesthetics and only use those set in the layer
+    if (.$inherit.aes) {
+      aesthetics <- compact(defaults(.$mapping, plot$mapping))      
+    } else {
+      aesthetics <- .$mapping
+    }
+
     # Override grouping if specified in layer
     if (!is.null(.$geom_params$group)) {
       aesthetics["group"] <- .$geom_params$group
@@ -118,7 +125,7 @@ Layer <- proto(expr = {
     aesthetics <- aesthetics[setdiff(names(aesthetics), names(.$geom_params))]
     plot$scales$add_defaults(plot$data, aesthetics, plot$plot_env)
     
-    calc_aesthetics(plot, data, aesthetics, .$ignore.extra)
+    calc_aesthetics(plot, data, aesthetics)
   }
 
   calc_statistics <- function(., data, scales) {
@@ -261,15 +268,15 @@ layer <- Layer$new
 # @arguments extra arguments supplied by user that should be used first
 # @keyword hplot
 # @keyword internal
-calc_aesthetics <- function(plot, data = plot$data, aesthetics, ignore.extra = FALSE, env = plot$plot_env) {
+calc_aesthetics <- function(plot, data = plot$data, aesthetics, env = plot$plot_env) {
   if (is.null(data)) data <- plot$data
   
   if (!is.data.frame(data)) {
     data <- fortify(data)
   }
   
-  err <- if (ignore.extra) tryNULL else force
-  eval.each <- function(dots) compact(lapply(dots, function(x.) err(eval(x., data, env))))
+  eval.each <- function(dots) 
+    compact(lapply(dots, function(x.) eval(x., data, env)))
   # Conditioning variables needed for facets
   cond <- plot$facet$conditionals()
   

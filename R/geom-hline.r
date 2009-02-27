@@ -1,10 +1,10 @@
 GeomHline <- proto(Geom, {
-  new <- function(., data = NULL, mapping = NULL, yintercept = 0, ...) {
-    if (!missing(yintercept) && is.numeric(yintercept)) {
+  new <- function(., data = NULL, mapping = NULL, yintercept = NULL, ...) {
+    if (is.numeric(yintercept)) {
       df <- data.frame(yintercept = yintercept)
-      .super$new(., aes(yintercept = yintercept), data = df, ignore.extra = TRUE, ...)
+      .super$new(., data = df, mapping = aes(yintercept = yintercept), inherit.aes = FALSE, ...)
     } else {
-      .super$new(., data = data, mapping = mapping, ignore.extra = TRUE, yintercept = yintercept, ...)
+      .super$new(., data = data, mapping = mapping, yintercept = yintercept, ...)
     }
   }
 

@@ -4,16 +4,15 @@ StatAbline <- proto(Stat, {
     if (is.null(intercept)) {
       if (is.null(data$intercept)) data$intercept <- 0
     } else {
-      data <- data[rep(1, length(intercept)), ]
+      data <- data[rep(1, length(intercept)), , drop = FALSE]
       data$intercept <- intercept
     }
     if (is.null(slope)) {
       if (is.null(data$slope)) data$slope <- 1
     } else {
-      data <- data[rep(1, length(slope)), ]
+      data <- data[rep(1, length(slope)), , drop = FALSE]
       data$slope <- slope
     }
-    
     unique(data)
   }
   
