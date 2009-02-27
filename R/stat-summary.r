@@ -7,7 +7,8 @@ StatSummary <- proto(Stat, {
   default_geom <- function(.) GeomPointrange
   required_aes <- c("x", "y")
    
-  calculate_groups <- function(., data, scales, fun.data = NULL, fun.y = NULL, fun.ymax = NULL, fun.ymin = NULL, ...) {
+  calculate_groups <- function(., data, scales, fun.data = NULL, fun.y = NULL, fun.ymax = NULL, fun.ymin = NULL, na.rm = FALSE, ...) {
+    data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_summary")
     
     if (!missing(fun.data)) {
       # User supplied function that takes complete data frame as input
@@ -49,8 +50,16 @@ StatSummary <- proto(Stat, {
   examples <- function(.) {
     # Basic operation on a small dataset
     c <- qplot(cyl, mpg, data=mtcars)
-    c + stat_summary()
+    c + stat_summary(fun.data = "mean_cl_boot", colour = "red")
 
+    p <- qplot(cyl, mpg, data = mtcars, stat="summary", fun.y = "mean")
+    p
+    # Don't use ylim to zoom into a summary plot - this throws the
+    # data away
+    p + ylim(15, 30)
+    # Instead use coord_cartesian
+    p + coord_cartesian(ylim = c(15, 30))
+    
     # You can supply individual functions to summarise the value at 
     # each x:
     
@@ -66,6 +75,8 @@ StatSummary <- proto(Stat, {
     c + stat_summary(fun.y = mean, fun.ymin = min, fun.ymax = max, 
       colour = "red")
     
+    c + aes(colour = factor(vs)) + stat_summary(fun.y = mean, geom="line")
+    
     # Alternatively, you can supply a function that operates on a data.frame.
     # A set of useful summary functions is provided from the Hmisc package:
     
@@ -80,10 +91,10 @@ StatSummary <- proto(Stat, {
 
     # There are lots of different geoms you can use to display the summaries
         
-    c + stat_sum_df(fun.data="mean_cl_normal")
-    c + stat_sum_df(fun.data="mean_cl_normal", geom = "errorbar")
-    c + stat_sum_df(fun.data="mean_cl_normal", geom = "pointrange")
-    c + stat_sum_df(fun.data="mean_cl_normal", geom = "smooth")
+    c + stat_sum_df(fun="mean_cl_normal")
+    c + stat_sum_df(fun="mean_cl_normal", geom = "errorbar")
+    c + stat_sum_df(fun="mean_cl_normal", geom = "pointrange")
+    c + stat_sum_df(fun="mean_cl_normal", geom = "smooth")
         
     # Summaries are much more useful with a bigger data set:
     m <- ggplot(movies, aes(x=round(rating), y=votes)) + geom_point()
