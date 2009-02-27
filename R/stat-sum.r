@@ -7,8 +7,9 @@ StatSum <- proto(Stat, {
   calculate_groups <- function(., data, scales, ...) {
     if (is.null(data$weight)) data$weight <- 1
     
+    cols <- names(data)[sapply(data, function(x) length(unique(x)) == 1)]
     counts <- ddply(data, .(x, y, group), function(df) {
-      data.frame(n = sum(df$weight), uniquecols(df))
+      data.frame(n = sum(df$weight), df[1, cols, drop = FALSE])
     })
     counts <- ddply(counts, .(group), transform, prop = n / sum(n))
     counts$group <- 1
