@@ -12,21 +12,23 @@ ScaleManual <- proto(ScaleDiscrete, {
 
     values <- as.character(values)
     values[is.na(values)] <- "NA"
-
+    
     if (.$has_names()) {
-      .$output_breaks()[values]
+      values[!values %in% .$input_set()] <- NA
+      .$output_set()[values]
     } else {
-      .$output_breaks()[match(values, .$input_set())]
+      .$output_set()[match(values, .$input_set())]
     }
   }
 
-  has_names <- function(.) !is.null(names(.$output_breaks()))
+  has_names <- function(.) !is.null(names(.$output_set()))
 
-  output_breaks <- function(.) .$values
+  input_breaks <- function(.) nulldefault(.$breaks, .$input_set())
+  output_breaks <- function(.) .$map(.$input_breaks())
+
   output_set <- function(.) .$values
   labels <- function(.) {
-    if (!is.null(.$.labels)) return(.$.labels)
-    if (.$has_names()) names(.$output_breaks()) else .$.domain
+    .$.labels %||% .$input_breaks()
   }
 
   # Documentation -----------------------------------------------
@@ -36,10 +38,25 @@ ScaleManual <- proto(ScaleDiscrete, {
   icon <- function(.) textGrob("DIY", gp=gpar(cex=1.2))
   
   examples <- function(.) {
-    p <- qplot(mpg, wt, data=mtcars, colour=factor(cyl))
+    p <- qplot(mpg, wt, data = mtcars, colour = factor(cyl))
 
     p + scale_colour_manual(values = c("red","blue", "green"))
-    p + scale_colour_manual(values = c("8" = "red","4" = "blue","6" = "green"))
+    p + scale_colour_manual(
+      values = c("8" = "red","4" = "blue","6" = "green"))
+    
+    # As with other scales you can use breaks to control the appearance
+    # of the legend
+    cols <- c("8" = "red","4" = "blue","6" = "darkgreen", "10" = "orange")
+    p + scale_colour_manual(values = cols)
+    p + scale_colour_manual(values = cols, breaks = c("4", "6", "8"))
+    p + scale_colour_manual(values = cols, breaks = c("8", "6", "4"))
+    p + scale_colour_manual(values = cols, breaks = c("4", "6", "8"),
+      labels = c("four", "six", "eight"))
+    
+    # And limits to control the possible values of the scale
+    p + scale_colour_manual(values = cols, limits = c("4", "8"))
+    p + scale_colour_manual(values = cols, limits = c("4", "6", "8", "10"))
+    
   }
   
 })

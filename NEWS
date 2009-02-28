@@ -6,3 +6,4 @@ ggplot2 0.8.3  (2008-XX-XX)
 * geom_vline, geom_hline, geom_abline: should work in yet more situations
 * stat_summary: should be a little faster
 * stat_summary: now warns when dropping records with missing values
+* scale_manual: breaks and limits 
