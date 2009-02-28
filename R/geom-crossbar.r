@@ -27,7 +27,7 @@ GeomCrossbar <- proto(Geom, {
 
   default_stat <- function(.) StatIdentity
   default_pos <- function(.) PositionIdentity
-  default_aes = function(.) aes(colour="black", fill="NA", size=0.5, linetype=1)
+  default_aes = function(.) aes(colour="black", fill="NA", size=0.5, linetype=1, alpha = 1)
   required_aes <- c("x", "y", "ymin", "ymax")
   guide_geom <- function(.) "path"
   

@@ -6,7 +6,7 @@ GeomDensity2d <- proto(GeomPath, {
   advice <- "<p>This can be useful for dealing with overplotting.</p>"
   
   default_stat <- function(.) StatDensity2d
-  default_aes <- function(.) aes(weight=1, colour="#3366FF", size = 0.5, linetype = 1)
+  default_aes <- function(.) aes(weight=1, colour="#3366FF", size = 0.5, linetype = 1, alpha = 1)
   icon <- function(.) GeomContour$icon()
   
 

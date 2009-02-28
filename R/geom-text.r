@@ -2,7 +2,7 @@ GeomText <- proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {
     with(coordinates$transform(data, scales), 
       textGrob(label, x, y, default.units="native", hjust=hjust, vjust=vjust, rot=angle, 
-      gp=gpar(col=colour, fontsize=size * .pt)) 
+      gp=gpar(col=alpha(colour, alpha), fontsize=size * .pt)) 
     )
   }
 
@@ -10,7 +10,7 @@ GeomText <- proto(Geom, {
     data <- aesdefaults(data, .$default_aes(), list(...))
     with(data,
       textGrob("a", 0.5, 0.5, rot = angle, 
-      gp=gpar(col=colour, fontsize = size * .pt))
+      gp=gpar(col=alpha(colour, alpha), fontsize = size * .pt))
     )
   }
 
@@ -20,7 +20,7 @@ GeomText <- proto(Geom, {
   
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y", "label")
-  default_aes <- function(.) aes(colour="black", size=5 , angle=0, hjust=0.5, vjust=0.5)
+  default_aes <- function(.) aes(colour="black", size=5 , angle=0, hjust=0.5, vjust=0.5, alpha = 1)
   guide_geom <- function(x) "text"
   
   examples <- function(.) {

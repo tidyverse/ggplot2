@@ -10,7 +10,7 @@ GeomStep <- proto(Geom, {
   }
   details <- "Equivalent to plot(type='s')."
 
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1)
+  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = 1)
   
   draw <- function(., data, scales, coordinates, direction = "hv", ...) {
     data <- stairstep(data, direction)

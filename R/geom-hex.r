@@ -4,12 +4,13 @@ GeomHex <- proto(Geom, {
 
   draw <- function(., data, scales, coordinates, ...) { 
     with(coordinates$transform(data, scales), 
-      ggname(.$my_name(), hexGrob(x, y, col=colour, fill = fill))
+      ggname(.$my_name(), hexGrob(x, y, col=alpha(colour, alpha), 
+        fill = fill))
     )
   }
   
   required_aes <- c("x", "y")
-  default_aes <- function(.) aes(colour=NA, fill = "grey50", size=0.5)
+  default_aes <- function(.) aes(colour=NA, fill = "grey50", size=0.5, alpha = 1)
   default_stat <- function(.) StatBinhex
   guide_geom <- function(.) "polygon"
   

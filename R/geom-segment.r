@@ -3,7 +3,8 @@ GeomSegment <- proto(Geom, {
     if (!coordinates$muncher()) {
       return(with(coordinates$transform(data, scales), 
         segmentsGrob(x, y, xend, yend, default.units="native",
-        gp = gpar(col=colour, fill=colour, lwd=size * .pt, lty=linetype, lineend = "butt"), 
+        gp = gpar(col=alpha(colour, alpha), lwd=size * .pt, 
+          lty=linetype, lineend = "butt"), 
         arrow = arrow)
       ))
     }
@@ -34,7 +35,7 @@ GeomSegment <- proto(Geom, {
 
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y", "xend", "yend")
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1)
+  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = 1)
   guide_geom <- function(.) "path"
   
   examples <- function(.) {

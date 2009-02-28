@@ -33,14 +33,15 @@ GeomAbline <- proto(Geom, {
   guide_geom <- function(.) "abline"
 
   default_stat <- function(.) StatAbline
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1)
+  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha=1)
   
   draw_legend <- function(., data, ...) {
     data <- aesdefaults(data, .$default_aes(), list(...))
 
     with(data, 
       ggname(.$my_name(), segmentsGrob(0, 0, 1, 1, default.units="npc",
-      gp=gpar(col=colour, lwd=size * .pt, lty=linetype, lineend="butt")))
+      gp=gpar(col=alpha(colour, alpha), lwd=size * .pt, lty=linetype,
+        lineend="butt")))
     )
   }
   

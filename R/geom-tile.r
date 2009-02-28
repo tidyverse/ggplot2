@@ -11,7 +11,7 @@ GeomTile <- proto(Geom, {
 
   draw_groups <- function(., data,  scales, coordinates, ...) {
     # data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
-    GeomRect$draw_groups  (data, scales, coordinates, ...)
+    GeomRect$draw_groups(data, scales, coordinates, ...)
   }
 
   objname <- "tile"
@@ -24,7 +24,7 @@ GeomTile <- proto(Geom, {
   }
 
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(fill="grey20", colour=NA, size=0.1, linetype=1)
+  default_aes <- function(.) aes(fill="grey20", colour=NA, size=0.1, linetype=1, alpha = 1)
   required_aes <- c("x", "y")
   guide_geom <- function(.) "polygon"
   

@@ -30,7 +30,7 @@ GeomPath <- proto(Geom, {
           x[!end], y[!end], x[!start], y[!start],
           default.units="native", arrow = arrow, 
           gp = gpar(
-            col = colour[!end], fill = colour[!end], 
+            col = alpha(colour, alpha)[!end], 
             lwd = size[!end] * .pt, lty = linetype[!end]
           )
         )
@@ -41,7 +41,7 @@ GeomPath <- proto(Geom, {
           x, y, id = as.integer(factor(group)), 
           default.units = "native", arrow = arrow, 
           gp = gpar(
-            col = colour[start], fill = colour[start], 
+            col = alpha(colour, alpha)[start], 
             lwd = size[start] * .pt, lty = linetype[start], lineend = "butt")
         )
       )
@@ -54,7 +54,8 @@ GeomPath <- proto(Geom, {
 
     with(data, 
       ggname(.$my_name(), segmentsGrob(0.1, 0.5, 0.9, 0.5, default.units="npc",
-      gp=gpar(col=colour, lwd=size * .pt, lty=linetype, lineend="butt")))
+      gp=gpar(col=alpha(colour, alpha), lwd=size * .pt, 
+        lty=linetype, lineend="butt")))
     )
   }
   
@@ -63,7 +64,7 @@ GeomPath <- proto(Geom, {
 
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y")
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1)
+  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = 1)
   icon <- function(.) linesGrob(c(0.2, 0.4, 0.8, 0.6, 0.5), c(0.2, 0.7, 0.4, 0.1, 0.5))
   guide_geom <- function(.) "path"
   

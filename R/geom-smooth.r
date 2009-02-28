@@ -1,9 +1,11 @@
 GeomSmooth <- proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {
-    data$fill <- alpha(data$fill, data$alpha)
+    ribbon <- transform(data, colour = NA)
+    path <- transform(data, alpha = 1)
+    
     gList(
-      tryNULL(GeomRibbon$draw(transform(data, colour=NA), scales, coordinates)),
-      GeomPath$draw(rename(data, c(middle = "y")), scales, coordinates)
+      tryNULL(GeomRibbon$draw(ribbon, scales, coordinates)),
+      GeomPath$draw(path, scales, coordinates)
     )
   }
 

@@ -10,7 +10,7 @@ GeomErrorbar <- proto(Geom, {
   }
   
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, width=0.5)
+  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, width=0.5, alpha = 1)
   guide_geom <- function(.) "path"
   required_aes <- c("x", "ymin", "ymax")
   
@@ -36,6 +36,7 @@ GeomErrorbar <- proto(Geom, {
       x = as.vector(rbind(xmin, xmax, NA, x,    x,    NA, xmin, xmax)), 
       y = as.vector(rbind(ymax, ymax, NA, ymax, ymin, NA, ymin, ymin)),
       colour = rep(colour, each = 8),
+      alpha = rep(alpha, each = 8),
       size = rep(size, each = 8),
       linetype = rep(linetype, each = 8),
       group = rep(1:(nrow(data)), each = 8),

@@ -1,6 +1,6 @@
 GeomRibbon <- proto(Geom, {
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1)
+  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = 1)
   required_aes <- c("x", "ymin", "ymax")
   guide_geom <- function(.) "polygon"
 
@@ -15,7 +15,7 @@ GeomRibbon <- proto(Geom, {
       ggname("fill", polygonGrob(
         tb$x, tb$y,
         default.units="native",
-        gp=gpar(fill=fill, col=NA) 
+        gp=gpar(fill=alpha(fill, alpha), col=NA) 
       )),
       ggname("outline", polygonGrob(
         tb$x, tb$y,
@@ -67,7 +67,7 @@ GeomRibbon <- proto(Geom, {
 })
 
 GeomArea <- proto(GeomRibbon,{
-  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1)
+  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = 1)
   default_pos <- function(.) PositionStack
   required_aes <- c("x", "y")
 

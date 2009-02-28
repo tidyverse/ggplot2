@@ -1,9 +1,9 @@
 ScaleGradient <- proto(ScaleContinuous, expr={
   aliases <- c("scale_colour_continuous", "scale_fill_continuous")
 
-  new <- function(., name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", alpha = 1, ..., variable) {
+  new <- function(., name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", ..., variable) {
     if (is.character(trans)) trans <- Trans$find(trans)
-    .$proto(name=name, low=low, high=high, space=space, .input=variable, .output=variable, .tr = trans, limits=limits, alpha = alpha, breaks = breaks, .labels = labels, ...)
+    .$proto(name=name, low=low, high=high, space=space, .input=variable, .output=variable, .tr = trans, limits=limits, breaks = breaks, .labels = labels, ...)
   }
   
   map <- function(., x) {
@@ -14,7 +14,7 @@ ScaleGradient <- proto(ScaleContinuous, expr={
     
     x <- (x - domain[1]) / diff(domain)
     
-    nice_ramp(ramp, x, .$alpha)
+    nice_ramp(ramp, x)
   }
     
   labels <- function(.) .$.tr$label(.$input_breaks())
@@ -40,7 +40,6 @@ ScaleGradient <- proto(ScaleContinuous, expr={
   desc_params <- list(
     low = "colour at low end of scale", 
     high = "colour at high end of scale",
-    alpha = "alpha value to use for colours",
     space = "colour space to interpolate through, rgb or Lab, see ?colorRamp for details",
     interpolate = "type of interpolation to use, linear or spline, see ?colorRamp for more details"
   )
@@ -81,9 +80,6 @@ ScaleGradient <- proto(ScaleContinuous, expr={
     d + scale_colour_gradient(limits=c(3, 4), low="red", high="white", space="Lab")
     d + scale_colour_gradient(limits=c(3, 4), space="Lab")
     
-    # Can also make partially transparent
-    d + scale_colour_gradient(limits=c(3, 4), alpha=0.5)
-    
     # scale_fill_continuous works similarly, but for fill colours
     (h <- qplot(x - y, data=dsub, geom="histogram", binwidth=0.01, fill=..count..))
     h + scale_fill_continuous(low="black", high="pink", limits=c(0,3100))
@@ -93,9 +89,9 @@ ScaleGradient <- proto(ScaleContinuous, expr={
 })
 
 ScaleGradient2 <- proto(ScaleContinuous, expr={  
-  new <- function(., name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", alpha=1, ..., variable) {
+  new <- function(., name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", ..., variable) {
     if (is.character(trans)) trans <- Trans$find(trans)
-    .$proto(name=name, low=low, mid=mid, high=high, midpoint=midpoint, space=space, ..., .input=variable, .output=variable, .tr=trans, limits=limits, alpha=alpha, breaks = breaks, .labels = labels)
+    .$proto(name=name, low=low, mid=mid, high=high, midpoint=midpoint, space=space, ..., .input=variable, .output=variable, .tr=trans, limits=limits, breaks = breaks, .labels = labels)
   }
   
   map <- function(., x) {
@@ -110,7 +106,7 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
     x <- x - .$midpoint
     x <- x / extent / 2 + 0.5
     
-    nice_ramp(ramp, x, .$alpha)
+    nice_ramp(ramp, x)
   }
   
   objname <-"gradient2"
@@ -133,7 +129,6 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
     mid = "colour at mid point of scale",
     high = "colour at high end of scale",
     midpoint = "position of mid point of scale, defaults to 0",
-    alpha = "alpha value to use for colours",
     space = "colour space to interpolate through, rgb or Lab, see ?colorRamp for details",
     interpolate = "type of interpolation to use, linear or spline, see ?colorRamp for more details"
   )
@@ -186,14 +181,14 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
 
 
 ScaleGradientn <- proto(ScaleContinuous, expr={  
-  new <- function(., name=NULL, colours, values = NULL, rescale = TRUE, space="rgb", breaks = NULL, labels = NULL, limits = NULL, trans="identity", alpha=1, ..., variable) {
+  new <- function(., name=NULL, colours, values = NULL, rescale = TRUE, space="rgb", breaks = NULL, labels = NULL, limits = NULL, trans="identity",  ..., variable) {
     if (is.character(trans)) trans <- Trans$find(trans)
     if (!is.null(values)) limits <- range(values)
     
     .$proto(
       name = name, 
       colours = colours, values = values, rescale = rescale, 
-      space = space,  alpha = alpha, ..., 
+      space = space,  ..., 
       .input = variable, .output = variable, .tr = trans, 
       limits = limits, breaks = breaks, .labels = labels
     )
@@ -208,7 +203,7 @@ ScaleGradientn <- proto(ScaleContinuous, expr={
       x <- f(x)
     }
     ramp <- colorRamp(.$colours, space=.$space, interpolate="linear")
-    nice_ramp(ramp, x, .$alpha)
+    nice_ramp(ramp, x)
   }
   
   objname <- "gradientn"
@@ -227,7 +222,6 @@ ScaleGradientn <- proto(ScaleContinuous, expr={
   }
 
   desc_params <- list(
-    alpha = "alpha value to use for colours",
     space = "colour space to interpolate through, rgb or Lab, see ?colorRamp for details",
     interpolate = "type of interpolation to use, linear or spline, see ?colorRamp for more details"
   )

@@ -8,7 +8,7 @@ GeomPoint <- proto(Geom, {
     
     with(coordinates$transform(data, scales), 
       ggname(.$my_name(), pointsGrob(x, y, size=unit(size, "mm"), pch=shape, 
-      gp=gpar(col=colour, fill = fill, fontsize = size * .pt)))
+      gp=gpar(col=alpha(colour, alpha), fill = fill, fontsize = size * .pt)))
     )
   }
 
@@ -16,7 +16,7 @@ GeomPoint <- proto(Geom, {
     data <- aesdefaults(data, .$default_aes(), list(...))
     with(data,
       pointsGrob(0.5, 0.5, size=unit(size, "mm"), pch=shape, 
-      gp=gpar(col=colour, fill=fill, fontsize = size * .pt))
+      gp=gpar(col=alpha(colour, alpha), fill=fill, fontsize = size * .pt))
     )
   }
 
@@ -33,7 +33,7 @@ GeomPoint <- proto(Geom, {
   
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y")
-  default_aes <- function(.) aes(shape=16, colour="black", size=2, fill = NA)
+  default_aes <- function(.) aes(shape=16, colour="black", size=2, fill = NA, alpha = 1)
 
   seealso <- list(
     scale_size = "To see how to scale area of points, instead of radius",

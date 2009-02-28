@@ -21,7 +21,7 @@ GeomVline <- proto(Geom, {
   details <- "<p>This geom allows you to annotate the plot with vertical lines (see geom_hline and geom_abline for other types of lines)</p>\n\n<p>There are two ways to use it.  You can either specify the intercept of the line in the call to the geom, in which case the line will be in the same position in every panel.  Alternatively, you can supply a different intercept for each panel using a data.frame.  See the examples for the differences</p>"
   
   default_stat <- function(.) StatVline
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1)
+  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = 1)
   guide_geom <- function(.) "vline"
 
   draw_legend <- function(., data, ...) {
@@ -29,7 +29,7 @@ GeomVline <- proto(Geom, {
 
     with(data, 
       ggname(.$my_name(), segmentsGrob(0.5, 0, 0.5, 1, default.units="npc",
-      gp=gpar(col=colour, lwd=size * .pt, lty=linetype, lineend="butt")))
+      gp=gpar(col=alpha(colour, alpha), lwd=size * .pt, lty=linetype, lineend="butt")))
     )
   }
 

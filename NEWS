@@ -12,3 +12,4 @@ ggplot2 0.8.3  (2008-XX-XX)
 * scale_discrete: empty factor levels will be preserved, unless drop = TRUE
 * xlim and ylim now work recognise Date and POSIXct classes to create date and date_time scales respectively
 * geom_text: better legend
+* alpha: new aesthetic, with scale alpha.  Where a geom has both fill and colour, alpha affects the fill.

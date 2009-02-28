@@ -6,7 +6,8 @@ GeomPolygon <- proto(Geom, {
     ggname(.$my_name(), gTree(children=gList(
       with(coordinates$munch(data, scales), 
         polygonGrob(x, y, default.units="native",
-        gp=gpar(col=colour, fill=fill, lwd=size  * .pt, linetype=linetype))
+        gp=gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt,
+         linetype=linetype))
       )
       #GeomPath$draw(data, scales, coordinates)
     )))
@@ -17,7 +18,7 @@ GeomPolygon <- proto(Geom, {
   icon <- function(.) polygonGrob(c(0.1, 0.4, 0.7, 0.9, 0.6, 0.3), c(0.5, 0.8, 0.9, 0.4, 0.2, 0.3), gp=gpar(fill="grey20", col=NA))
   
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour="NA", fill="grey20", size=0.5, linetype=1)
+  default_aes <- function(.) aes(colour="NA", fill="grey20", size=0.5, linetype=1, alpha = 1)
   required_aes <- c("x", "y")
   guide_geom <- function(.) "polygon"
 
@@ -25,7 +26,7 @@ GeomPolygon <- proto(Geom, {
     data <- aesdefaults(data, .$default_aes(), list(...))
   
     with(data, grobTree(
-      rectGrob(gp = gpar(col = colour, fill = fill, lty = linetype)),
+      rectGrob(gp = gpar(col = colour, fill = alpha(fill, alpha), lty = linetype)),
       linesGrob(gp = gpar(col = colour, lwd = size * .pt, lineend="butt", lty = linetype))
     ))
   }
