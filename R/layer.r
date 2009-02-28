@@ -43,12 +43,17 @@ Layer <- proto(expr = {
         params[match(names(possible), names(params), nomatch=0)]
       }
     }
-    
+
     if (is.null(geom_params) && is.null(stat_params)) {
       params <- c(params, list(...))
+      params <- rename_aes(params) # Rename American to British spellings etc
+      
       geom_params <- match.params(geom$parameters(), params)
       stat_params <- match.params(stat$parameters(), params)
-      stat_params <- stat_params[setdiff(names(stat_params), names(geom_params))]
+      stat_params <- stat_params[setdiff(names(stat_params),
+        names(geom_params))]
+    } else {      
+      geom_params <- rename_aes(geom_params)
     }
     
     proto(., 
