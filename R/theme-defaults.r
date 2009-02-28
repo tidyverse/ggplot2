@@ -29,7 +29,6 @@ theme_gray <- function(base_size = 12) {
     panel.margin =      unit(0.25, "lines"),
 
     strip.background =  theme_rect(fill = "grey80", colour = NA), 
-    strip.label =       function(variable, value) value, 
     strip.text.x =      theme_text(size = base_size * 0.8),
     strip.text.y =      theme_text(size = base_size * 0.8, angle = -90),
 
@@ -70,7 +69,6 @@ theme_bw <- function(base_size = 12) {
     panel.margin =      unit(0.25, "lines"),
 
     strip.background =  theme_rect(fill = "grey80", colour = "grey50"), 
-    strip.label =       function(variable, value) value, 
     strip.text.x =      theme_text(size = base_size * 0.8),
     strip.text.y =      theme_text(size = base_size * 0.8, angle = -90),
 

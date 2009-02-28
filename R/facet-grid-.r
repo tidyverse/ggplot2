@@ -1,5 +1,5 @@
 FacetGrid <- proto(Facet, {
-  new <- function(., facets = . ~ ., margins = FALSE, scales = "fixed", space = "fixed") {
+  new <- function(., facets = . ~ ., margins = FALSE, scales = "fixed", space = "fixed", labeller = "label_value") {
     scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
     free <- list(
       x = any(scales %in% c("free_x", "free")),
@@ -11,7 +11,7 @@ FacetGrid <- proto(Facet, {
     .$proto(
       facets = facets, margins = margins,
       free = free, space_is_free = (space == "free"),
-      scales = NULL
+      scales = NULL, labeller = labeller
     )
   }
   
@@ -163,8 +163,9 @@ FacetGrid <- proto(Facet, {
   }
 
   labels_default <- function(., gm, theme) {
+    labeller <- match.fun(.$labeller)
     add.names <- function(x) {
-      for(i in 1:ncol(x)) x[[i]] <- theme$strip.label(colnames(x)[i], x[,i])
+      for(i in 1:ncol(x)) x[[i]] <- labeller(colnames(x)[i], x[,i])
       x
     }
 
