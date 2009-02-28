@@ -5,7 +5,7 @@ ScaleIdentity <- proto(ScaleDiscrete, {
     .$proto(name=name, breaks=breaks, .labels=labels, .input=variable, .output=variable, formatter = formatter)
   }
 
-  train <- function(., data) {
+  train <- function(., data, drop = FALSE) {
     .$breaks <- union(.$breaks, unique(data))
   }
   trained <- function(.) !is.null(.$.labels)  

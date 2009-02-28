@@ -173,10 +173,10 @@ FacetWrap <- proto(Facet, {
 
     lapply(data, function(l) {
       for(i in seq_along(.$scales$x)) {
-        .$scales$x[[i]]$train_df(l[[1, i]])
+        .$scales$x[[i]]$train_df(l[[1, i]], fr$x)
       }
       for(i in seq_along(.$scales$y)) {
-        .$scales$y[[i]]$train_df(l[[1, i]])
+        .$scales$y[[i]]$train_df(l[[1, i]], fr$y)
       }
     })
   }

@@ -7,8 +7,8 @@ ScaleDiscrete <- proto(Scale, expr={
 
   discrete <- function(.) TRUE
 
-  new <- function(., name=NULL, variable=.$.input, expand = c(0.05, 0.55), limits = NULL, breaks = NULL, labels = NULL, formatter = identity) {
-    .$proto(name=name, .input=variable, .output=variable, .expand = expand, .labels = labels, limits = limits, breaks = breaks, formatter = formatter)
+  new <- function(., name=NULL, variable=.$.input, expand = c(0.05, 0.55), limits = NULL, breaks = NULL, labels = NULL, formatter = identity, drop = FALSE) {
+    .$proto(name=name, .input=variable, .output=variable, .expand = expand, .labels = labels, limits = limits, breaks = breaks, formatter = formatter, drop = drop)
   }
 
   # Range -------------------
@@ -39,19 +39,19 @@ ScaleDiscrete <- proto(Scale, expr={
 
   # Override default behaviour: we do need to train, even if limits
   # have been set
-  train_df <- function(., df) {
+  train_df <- function(., df, drop = FALSE) {
     input <- .$input_aesthetics(df)
-    l_ply(input, function(var) .$train(df[[var]]))
+    l_ply(input, function(var) .$train(df[[var]], drop))
   }
 
-  train <- function(., x) {
+  train <- function(., x, drop = .$drop) {
     if (is.null(x)) return()
     if (!plyr::is.discrete(x)) {
       stop("Continuous variable (", .$name , ") supplied to discrete ",
        .$my_name(), ".", call. = FALSE) 
     }
     
-    .$.domain <- discrete_range(.$.domain, x)
+    .$.domain <- discrete_range(.$.domain, x, drop = drop)
   }
 
   check_domain <- function(.) {

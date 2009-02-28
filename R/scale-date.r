@@ -24,7 +24,7 @@ ScaleDate <- proto(ScaleContinuous,{
     .$proto(.input=variable, .output=variable, major_seq=major, minor_seq=minor, format=format, name=name, .tr=trans, limits = limits)
   }
   
-  train <- function(., values) {
+  train <- function(., values, drop = FALSE) {
     .$.domain <- range(c(values, .$.domain), na.rm=TRUE)
   }
   

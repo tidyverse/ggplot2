@@ -2,7 +2,7 @@
 # This is the equivalent of range for discrete variables 
 # 
 # @keywords internal
-discrete_range <- function(..., drop = TRUE) {
+discrete_range <- function(..., drop = FALSE) {
   pieces <- list(...)
   
   clevels <- function(x) {

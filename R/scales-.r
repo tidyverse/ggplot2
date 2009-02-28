@@ -96,11 +96,11 @@ Scales <- proto(Scale, expr={
   }
   
   # Train scale from a data frame
-  train_df <- function(., df) {
+  train_df <- function(., df, drop = FALSE) {
     if (is.null(df)) return()
 
     lapply(.$.scales, function(scale) {
-      scale$train_df(df)
+      scale$train_df(df, drop)
     })
   }
   

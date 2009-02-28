@@ -202,10 +202,10 @@ FacetGrid <- proto(Facet, {
     
     lapply(data, function(l) {
       for(i in seq_along(.$scales$x)) {
-        lapply(l[, i], .$scales$x[[i]]$train_df)
+        lapply(l[, i], .$scales$x[[i]]$train_df, drop = .$free$x)
       }
       for(i in seq_along(.$scales$y)) {
-        lapply(l[i, ], .$scales$y[[i]]$train_df)
+        lapply(l[i, ], .$scales$y[[i]]$train_df, drop = .$free$y)
       }
     })
   }
