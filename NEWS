@@ -10,3 +10,4 @@ ggplot2 0.8.3  (2008-XX-XX)
 * scale_discrete: factor levels no longer mistakenly reordered
 * American spelling of color accepted in more places
 * scale_discrete: empty factor levels will be preserved, unless drop = TRUE
+* xlim and ylim now work recognise Date and POSIXct classes to create date and date_time scales respectively
