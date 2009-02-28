@@ -1,5 +1,5 @@
 ScaleGradient <- proto(ScaleContinuous, expr={
-  aliases <- c("scale_colour_continuous", "scale_fill_continuous")
+  aliases <- c("scale_colour_continuous", "scale_fill_continuous", "scale_color_continuous")
 
   new <- function(., name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", ..., variable) {
     if (is.character(trans)) trans <- Trans$find(trans)
@@ -94,6 +94,7 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
     .$proto(name=name, low=low, mid=mid, high=high, midpoint=midpoint, space=space, ..., .input=variable, .output=variable, .tr=trans, limits=limits, breaks = breaks, .labels = labels)
   }
   
+  aliases <- c("scale_color_gradient2")
   map <- function(., x) {
     rng <- .$output_set()  - .$midpoint
     extent <- max(abs(rng))
@@ -194,6 +195,7 @@ ScaleGradientn <- proto(ScaleContinuous, expr={
     )
   }
 
+  aliases <- c("scale_color_gradientn")
   
   map <- function(., x) {
     if (.$rescale) x <- rescale(x, c(0, 1), .$input_set())

@@ -8,7 +8,7 @@ ggplot2 0.8.3  (2008-XX-XX)
 * stat_summary: now warns when dropping records with missing values
 * scale_manual: breaks and limits 
 * scale_discrete: factor levels no longer mistakenly reordered
-* American spelling of color accepted in more places
+* American spelling of color accepted in as geom parameter, and all colour scales have alias spelled color (e.g. scale_color_hue)
 * scale_discrete: empty factor levels will be preserved, unless drop = TRUE
 * xlim and ylim now work recognise Date and POSIXct classes to create date and date_time scales respectively
 * geom_text: better legend
