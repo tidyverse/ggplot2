@@ -1,7 +1,17 @@
 label_value <- function(variable, value) value
 label_both <- function(variable, value) paste(variable, value, sep = ": ")
-label_parsed <- function(variable, value) parse(text = value)
 
+#X mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
+#X qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2)
+#X qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2, 
+#X   labeller = label_parsed)
+label_parsed <- function(variable, value) {
+  llply(as.character(value), function(x) parse(text = x))
+}
+
+#X p <- qplot(wt, mpg, data = mtcars)
+#X p + facet_grid(~ vs + am, labeller = label_bquote(alpha ^ .(x)))
+#X p + facet_grid(~ vs + am, labeller = label_bquote(.(x) ^ .(x)))
 label_bquote <- function(expr = beta ^ .(x)) {
   quoted <- substitute(expr)
   
