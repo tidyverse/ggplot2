@@ -14,3 +14,4 @@ ggplot2 0.8.3  (2008-XX-XX)
 * geom_text: better legend
 * alpha: new aesthetic, with scale alpha.  Where a geom has both fill and colour, alpha affects the fill.
 * facet_grid now takes strip label function from parameter labeller, not theme setting
+* fortify: full set of methods for turning data from the sp package into data frames that can be plotted with ggplot2
