@@ -16,6 +16,7 @@ GeomStep <- proto(Geom, {
     data <- stairstep(data, direction)
     GeomPath$draw(data, scales, coordinates, ...)
   }
+  guide_geom <- function(.) "path"
 
   desc_params <- list(
     direction = "direction of stairs: 'vh' for vertical then horizontal, or 'hv' for horizontal then vertical"

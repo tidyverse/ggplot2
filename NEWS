@@ -18,3 +18,4 @@ ggplot2 0.8.3  (2008-XX-XX)
 * labels_parsed and labels_bquote functions to make it easier to display expressions on facet labels
 * errorbarh: new geom for horizontal error bars
 * theme_bw: corrected justification of axis.text.y
+* geom_step: improve legend
