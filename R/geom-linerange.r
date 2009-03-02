@@ -34,7 +34,8 @@ GeomLinerange <- proto(Geom, {
     qplot(cut, fit, data=cuts, geom="bar")
     
     # Display estimates and standard errors in various ways
-    se <- ggplot(cuts, aes(x = cut, ymin=fit - se.fit, ymax=fit + se.fit, y=fit))
+    se <- ggplot(cuts, aes(cut, fit, 
+      ymin = fit - se.fit, ymax=fit + se.fit, colour = cut))
     se + geom_linerange()
     se + geom_pointrange()
     se + geom_errorbar(width = 0.5)

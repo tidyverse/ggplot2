@@ -16,25 +16,25 @@ GeomPointrange <- proto(Geom, {
     "geom_smooth" = "for continuous analog"
   )
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=2, linetype=1, shape=16, fill=NA, alpha = 1)
+  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, shape=16, fill=NA, alpha = 1)
   guide_geom <- function(.) "pointrange"
   required_aes <- c("x", "y", "ymin", "ymax")
 
   draw <- function(., data, scales, coordinates, ...) {
     if (is.null(data$y)) return(GeomLinerange$draw(data, scales, coordinates, ...))
     ggname(.$my_name(),gTree(children=gList(
-      GeomLinerange$draw(transform(data, size = size / 4), scales, coordinates, ...),
-      GeomPoint$draw(data, scales, coordinates, ...)
+      GeomLinerange$draw(data, scales, coordinates, ...),
+      GeomPoint$draw(transform(data, size = size * 4), scales, coordinates, ...)
     )))
   }
 
   draw_legend <- function(., data, ...) {
     data <- aesdefaults(data, .$default_aes(), list(...))
     
-    gTree(children = gList(
+    grobTree(
       GeomPath$draw_legend(data, ...),
-      GeomPoint$draw_legend(data, ...)
-    ))
+      GeomPoint$draw_legend(transform(data, size = size * 4), ...)
+    )
   }
   
   
