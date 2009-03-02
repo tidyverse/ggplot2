@@ -7,10 +7,11 @@ fortify.SpatialPolygonsDataFrame <- function(shape, region = NULL) {
   }
   
   # Figure out how polygons should be split up into the region of interest
-  polys <- split(as.numeric(row.names(attr)), list(attr[, region]))
+  polys <- split(as.numeric(row.names(attr)), attr[, region])
   cp <- polygons(shape)
   
   # Union together all polygons that make up a region
+  try_require(c("gpclib", "maptools"))
   unioned <- unionSpatialPolygons(cp, invert(polys))
   
   coords <- fortify(unioned)
