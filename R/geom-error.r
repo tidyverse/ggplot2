@@ -81,11 +81,3 @@ GeomErrorbar <- proto(Geom, {
     p + geom_line(aes(group=group)) + geom_errorbar(limits, width=0.2)    
   }
 })
-
-# Null default
-# Analog of || from ruby
-# 
-# @keywords internal
-"%||%" <- function(a, b) {
-  if (!is.null(a)) a else b
-}
