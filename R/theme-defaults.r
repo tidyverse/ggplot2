@@ -51,7 +51,7 @@ theme_bw <- function(base_size = 12) {
     axis.text.y =       theme_text(size = base_size * 0.8, lineheight = 0.9, hjust = 1),
     axis.ticks =        theme_segment(colour = "black", size = 0.2),
     axis.title.x =      theme_text(size = base_size, vjust = 1),
-    axis.title.y =      theme_text(size = base_size, angle = 90, vjust = 0),
+    axis.title.y =      theme_text(size = base_size, angle = 90, vjust = 0.5),
     axis.ticks.length = unit(0.3, "lines"),
     axis.ticks.margin = unit(0.5, "lines"),
 
