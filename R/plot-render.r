@@ -8,17 +8,8 @@
 panelGrob <- function(plot, pieces = ggplot_build(plot)) {
   theme <- plot_theme(plot)
 
-  grobs <- pieces$facet$add_guides(plot$data, pieces$panels, pieces$cs, theme)
-  viewports <- pieces$facet$create_viewports(grobs, theme)
-
-  grobs <- assign_viewports(grobs[setdiff(names(grobs), c("widths", "heights")), drop = FALSE])
-  
-  ggname("plot", 
-    gTree(
-      children = do.call("gList", grobs), 
-      childrenvp = viewports
-    )
-  )
+  grid <- pieces$facet$add_guides(plot$data, pieces$panels, pieces$cs, theme)
+  gTree.gridGrob(grid)
 }
 
 # Pretty plot

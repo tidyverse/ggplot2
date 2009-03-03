@@ -66,9 +66,6 @@ FacetWrap <- proto(Facet, {
       name <- paste("panel", i, sep = "_")
       panels[[1,i]] <- ggname(name, grobTree(bg, panels_grob[[1, i]], fg))
     }
-
-    labels <- .$labels_default(.$shape, theme)
-    dim(labels) <- c(1, length(labels))
     
     # Arrange 1d structure into a grid -------
     if (is.null(.$ncol) && is.null(.$nrow)) {
@@ -84,56 +81,72 @@ FacetWrap <- proto(Facet, {
     stopifnot(nrow * ncol >= n)
 
     # Create a grid of interwoven strips and panels
-    panels <- grobMatrix(panels, nrow, ncol, .$as.table)
-    panels_height <- list(unit(1 * aspect_ratio, "null"))
-    panels_width <-  list(unit(1, "null"))
+    panelsGrid <- grobGrid(
+      "panel", panels, nrow = nrow, ncol = ncol,
+      heights = 1 * aspect_ratio, widths = 1,
+      as.table = .$as.table
+    )
 
-    labels <- grobMatrix(labels, nrow, ncol, .$as.table)
-    labels_height <- grobRowHeight(labels)
+    strips <- .$labels_default(.$shape, theme)
+    strips_height <- max(do.call("unit.c", llply(strips, grobHeight)))
+    stripsGrid <- grobGrid(
+      "strip", strips, nrow = nrow, ncol = ncol,
+      heights = convertHeight(strips_height, "cm"),
+      widths = 1,
+      as.table = .$as.table
+    )
     
-    gap <- matrix(list(nullGrob()), ncol = ncol, nrow = nrow)
-    
+    axis_widths <- max(do.call("unit.c", llply(axes_v, grobWidth)))
+    axis_widths <- convertWidth(axis_widths, "cm")
     if (.$free$y) {
-      axes_v <- grobMatrix(axes_v, nrow, ncol, .$as.table)
-    } else {
-      axes_v <- grobMatrix(rep(axes_v[1], nrow), nrow, 1, .$as.table)
+      axesvGrid <- grobGrid(
+        "axis_v", axes_v, nrow = nrow, ncol = ncol, 
+        widths = axis_widths, 
+        as.table = .$as.table
+      )
+    } else { 
+      # When scales are not free, there is only really one scale, and this
+      # should be shown only in the first column
+      axesvGrid <- grobGrid(
+        "axis_v", rep(axes_v[1], nrow), nrow = nrow, ncol = 1,
+        widths = axis_widths[1], 
+        as.table = .$as.table)
       if (ncol > 1) {
-        empty <- grobMatrix(list(nullGrob()), nrow, ncol - 1, .$as.table)
-        axes_v <- cbind(axes_v, empty)
+        axesvGrid <- cbind(axesvGrid, 
+          spacer(nrow, ncol - 1, unit(0, "cm"), unit(1, "null")))
+        
       }
     }
-    axes_width <- grobColWidth(axes_v)
     
+    axis_heights <- max(do.call("unit.c", llply(axes_h, grobHeight)))
+    axis_heights <- convertHeight(axis_heights, "cm")
     if (.$free$x) {
-      axes_h <- grobMatrix(axes_h, nrow, ncol, .$as.table)
+      axeshGrid <- grobGrid(
+        "axis_h", axes_h, nrow = nrow, ncol = ncol, 
+        heights = axis_heights, 
+        as.table = .$as.table
+      )
     } else {
-      axes_h <- grobMatrix(rep(axes_h[1], ncol), 1, ncol, .$as.table)
-      if (nrow > 1) {
-        empty <- grobMatrix(list(nullGrob()), nrow - 1, ncol, .$as.table)
-        axes_h <- rbind(empty, axes_h)
-      }
+      grobs <- c(
+        rep(list(nullGrob()), nrow * (ncol - 1)), 
+        rep(axes_h[1], ncol)
+      )
+      axeshGrid <- grobGrid(
+        "axis_h", grobs, nrow = nrow, ncol = ncol,
+        heights = unit.c(unit(rep(0, nrow - 1), "cm"), axis_heights[1]), 
+        as.table = .$as.table)
     }
-    axes_height <- grobRowHeight(axes_h)
 
+    gap <- spacer(ncol, nrow, 0.5, 0.5)
+    fill <- spacer(ncol, nrow, 1, 1, "null")
     all <- rweave(
-      cweave(gap,    labels, gap),
-      cweave(axes_v, panels, gap),
-      cweave(gap,    axes_h, gap),
-      cweave(gap,    gap,    gap)
+      cweave(fill,      stripsGrid, fill),
+      cweave(axesvGrid, panelsGrid, fill),
+      cweave(fill,      axeshGrid,  fill),
+      cweave(fill,      fill,       gap)
     )    
     
-    margin <- list(theme$panel.margin)
-    heights <- interleave(labels_height, panels_height, axes_height, margin)
-    heights <- do.call("unit.c", heights)
-
-    widths <- interleave(axes_width, panels_width, margin)
-    widths <- do.call("unit.c", widths)
-    
-    list(
-      panel   = all, 
-      widths  = widths,
-      heights = heights
-    )
+    all
   }
   
   labels_default <- function(., gm, theme) {
@@ -142,22 +155,6 @@ FacetWrap <- proto(Facet, {
     labels <- apply(labels_df, 1, paste, collapse=", ")
 
     llply(labels, ggstrip, theme = theme)
-  }
-  
-  create_viewports <- function(., guides, theme) {
-    respect <- !is.null(theme$aspect.ratio)
-    layout <- grid.layout(
-      ncol = length(guides$widths), widths = guides$widths,
-      nrow = length(guides$heights), heights = guides$heights,
-      respect = respect
-    )
-    layout_vp <- viewport(layout=layout, name="panels")
-    
-    children_vp <- vpList(
-      setup_viewports("panel",   guides$panel, clip = "on")
-    )
-    
-    vpTree(layout_vp, children_vp)
   }
   
   # Position scales ----------------------------------------------------------
@@ -252,7 +249,9 @@ FacetWrap <- proto(Facet, {
     d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) + 
       xlim(0, 2) + stat_binhex(na.rm = TRUE) + opts(aspect.ratio = 1)
     d + facet_wrap(~ color)
+    d + facet_wrap(~ color, ncol = 1)
     d + facet_wrap(~ color, ncol = 4)
+    d + facet_wrap(~ color, nrow = 1)
     d + facet_wrap(~ color, nrow = 3)
     
     # Using multiple variables continues to wrap the long ribbon of 
