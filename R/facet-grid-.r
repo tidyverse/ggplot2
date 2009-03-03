@@ -104,8 +104,8 @@ FacetGrid <- proto(Facet, {
 
     if(.$space_is_free) {
       size <- function(y) unit(diff(y$output_expand()), "null")
-      panel_widths <- do.call("unit.c", llply(.$scales$x, size))
-      panel_heights <- do.call("unit.c", llply(.$scales$y, size))
+      panel_widths <- rev(do.call("unit.c", llply(.$scales$x, size)))
+      panel_heights <- rev(do.call("unit.c", llply(.$scales$y, size)))
     } else {
       panel_widths <- unit(1, "null")
       panel_heights <- unit(1 * aspect_ratio, "null")
@@ -117,7 +117,6 @@ FacetGrid <- proto(Facet, {
     )
        
     # Add gaps and compute widths and heights
-
     fill <- spacer(nrow = 1, ncol = 1, 1, 1, "null")    
     all <- rbind(
       cbind(fill,      striphGrid, fill      ),
@@ -126,20 +125,20 @@ FacetGrid <- proto(Facet, {
     )
     # theme$panel.margin, theme$panel.margin
     
-    hgap_widths <- unit.c(
+    hgap_widths <- do.call("unit.c", compact(list(
       unit(0, "cm"), # no gap after axis
-      rep(theme$panel.margin, nc - 1), # gap after all panels except last
+      rep.unit2(theme$panel.margin, nc - 1), # gap after all panels except last
       unit(rep(0, ncol(stripvGrid) + 1), "cm") # no gap after strips 
-    )
+    )))
     hgap <- grobGrid("hgap", 
       ncol = ncol(all), nrow = nrow(all),
       widths = hgap_widths, 
     )
-    vgap_heights <- unit.c(
+    vgap_heights <- do.call("unit.c", compact(list(
       unit(0, "cm"), # no gap after axis
-      rep(theme$panel.margin, nr - 1), # gap after all panels except last
+      rep.unit2(theme$panel.margin, nr - 1), # gap after all panels except last
       unit(rep(0, nrow(stripvGrid) + 1), "cm") # no gap after strips 
-    )
+    )))
     vgap <- grobGrid("vgap",
       nrow = nrow(all), ncol = ncol(all) * 2,
       heights = vgap_heights

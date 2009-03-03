@@ -191,3 +191,16 @@ colWidths <- function(mat) {
   col_widths <- alply(mat, 2, function(x) llply(x, grobWidth))
   do.call("unit.c", llply(col_widths, splat(max)))  
 }
+
+rep.unit2 <- function (x, ...) {
+  if (length(x) == 0) 
+      return(x)
+  values <- rep(unclass(x), ...)
+
+  if(length(values) == 0) return(NULL)
+  units <- attr(x, "unit")
+  data <- grid:::recycle.data(attr(x, "data"), TRUE, length(values), units)
+
+  unit <- unit(values, units, data = data)
+  unit
+}
