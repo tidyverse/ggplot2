@@ -137,7 +137,7 @@ FacetWrap <- proto(Facet, {
         as.table = .$as.table)
     }
 
-    gap <- spacer(ncol, nrow, 0.5, 0.5)
+    gap <- spacer(ncol, nrow, theme$panel.margin, theme$panel.margin)
     fill <- spacer(ncol, nrow, 1, 1, "null")
     all <- rweave(
       cweave(fill,      stripsGrid, fill),
