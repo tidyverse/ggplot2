@@ -127,24 +127,29 @@ FacetWrap <- proto(Facet, {
         as.table = .$as.table
       )
     } else {
-      grobs <- c(
-        rep(list(nullGrob()), nrow * (ncol - 1)), 
-        rep(axes_h[1], ncol)
-      )
+      # When scales are not free, there is only really one scale, and this
+      # should be shown only in the bottom row
       axeshGrid <- grobGrid(
-        "axis_h", grobs, nrow = nrow, ncol = ncol,
-        heights = unit.c(unit(rep(0, nrow - 1), "cm"), axis_heights[1]), 
+        "axis_h", rep(axes_h[1], ncol), nrow = 1, ncol = ncol,
+        heights = axis_heights[1], 
         as.table = .$as.table)
+      if (nrow > 1) { 
+        axeshGrid <- rbind(
+          spacer(nrow - 1, ncol, unit(1, "null"), unit(0, "cm")),
+          axeshGrid
+        )
+      }
     }
 
-    gap <- spacer(ncol, nrow, theme$panel.margin, theme$panel.margin)
-    fill <- spacer(ncol, nrow, 1, 1, "null")
+    gap <- spacer(nrow, ncol, theme$panel.margin, theme$panel.margin)
+    fill <- spacer(nrow, ncol, 1, 1, "null")
+    
     all <- rweave(
       cweave(fill,      stripsGrid, fill),
       cweave(axesvGrid, panelsGrid, fill),
       cweave(fill,      axeshGrid,  fill),
       cweave(fill,      fill,       gap)
-    )    
+    )
     
     all
   }

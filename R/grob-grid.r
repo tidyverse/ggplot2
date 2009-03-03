@@ -177,6 +177,11 @@ gTree.gridGrob <- function(grid, name = "layout") {
   )
 }
 
+grid.draw.gridGrob <- function(grid, ...) {
+  grid.newpage()
+  grid.draw(gTree.gridGrob(grid))
+}
+
 
 rowHeights <- function(mat) {
   do.call("unit.c", alply(mat, 1, splat(max)))  
