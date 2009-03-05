@@ -1,5 +1,5 @@
 FacetWrap <- proto(Facet, {
-  new <- function(., facets, nrow = NULL, ncol = NULL, scales = "fixed", as.table = TRUE) {
+  new <- function(., facets, nrow = NULL, ncol = NULL, scales = "fixed", as.table = TRUE, drop = TRUE) {
     scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
     free <- list(
       x = any(scales %in% c("free_x", "free")),
@@ -8,7 +8,7 @@ FacetWrap <- proto(Facet, {
     
     .$proto(
       facets = as.quoted(facets), free = free, 
-      scales = NULL, as.table = as.table,
+      scales = NULL, as.table = as.table, drop = drop,
       ncol = ncol, nrow = nrow
     )
   }
@@ -24,19 +24,13 @@ FacetWrap <- proto(Facet, {
       as.data.frame(eval.quoted(.$facets, df))
     })
     
-    # Order labels correctly: first column varies fastest
-    labels <- unique(do.call(rbind, vars))
-    labels <- labels[do.call("order", rev(labels)), , drop = FALSE]
-    n <- nrow(labels)
-    
-    .$shape <- matrix(NA, 1, n)
-    attr(.$shape, "split_labels") <- labels
+    .$shape <- dlply(data, .$facets, .drop = .$drop)
   }
   
   stamp_data <- function(., data) {
     data <- add_missing_levels(data, .$conditionals())
     lapply(data, function(df) {
-      data.matrix <- dlply(add_group(df), .$facets, .drop = FALSE)
+      data.matrix <- dlply(add_group(df), .$facets, .drop = .$drop)
       data.matrix <- as.list(data.matrix)
       dim(data.matrix) <- c(1, length(data.matrix))
       data.matrix

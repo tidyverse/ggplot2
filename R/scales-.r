@@ -97,7 +97,7 @@ Scales <- proto(Scale, expr={
   
   # Train scale from a data frame
   train_df <- function(., df, drop = FALSE) {
-    if (is.null(df)) return()
+    if (is.null(df) || nrow(df) == 0) return() 
 
     lapply(.$.scales, function(scale) {
       scale$train_df(df, drop)

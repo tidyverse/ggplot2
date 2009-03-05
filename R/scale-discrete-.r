@@ -40,6 +40,8 @@ ScaleDiscrete <- proto(Scale, expr={
   # Override default behaviour: we do need to train, even if limits
   # have been set
   train_df <- function(., df, drop = FALSE) {
+    if (is.null(df) || nrow(df) == 0) return() 
+    
     input <- .$input_aesthetics(df)
     l_ply(input, function(var) .$train(df[[var]], drop))
   }

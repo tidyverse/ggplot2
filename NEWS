@@ -20,3 +20,4 @@ ggplot2 0.8.3  (2008-XX-XX)
 * theme_bw: corrected justification of axis.text.y
 * geom_step: improve legend
 * facet_wrap: corrected labelling when facetting by multiple variables (thank to Charlotte Wickham for a clear test case)
+* facet_wrap: add drop argument to control whether or not panels for non-existent combinations of facetting variables should be dropped or not.  Defaults to TRUE
