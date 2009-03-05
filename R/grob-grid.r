@@ -18,8 +18,14 @@ grobGrid <- function(name, nrow, ncol, grobs = NULL, widths = 1, heights = 1, cl
     mat <- c(grobs, rep(list(nullGrob()), nrow * ncol - length(grobs)))
     dim(mat) <- c(ncol, nrow)
     grobs <- t(mat)
-    if (!as.table) grobs <- grobs[rev(seq_len(nrow)), , drop = FALSE]
   }
+  
+  # If not display as table, reverse order of rows
+  if (!as.table) {
+    grobs <- grobs[rev(seq_len(nrow)), , drop = FALSE]
+    heights <- rev(heights)
+  }
+  
   names <- matrix(name, ncol = ncol, nrow = nrow)
   clip <- matrix(clip, ncol = ncol, nrow = nrow)
     

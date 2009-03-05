@@ -112,8 +112,8 @@ FacetGrid <- proto(Facet, {
 
     if(.$space_is_free) {
       size <- function(y) unit(diff(y$output_expand()), "null")
-      panel_widths <- rev(do.call("unit.c", llply(.$scales$x, size)))
-      panel_heights <- rev(do.call("unit.c", llply(.$scales$y, size)))
+      panel_widths <- do.call("unit.c", llply(.$scales$x, size))
+      panel_heights <- do.call("unit.c", llply(.$scales$y, size))
     } else {
       panel_widths <- unit(1, "null")
       panel_heights <- unit(1 * aspect_ratio, "null")
