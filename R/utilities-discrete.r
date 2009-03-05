@@ -11,12 +11,19 @@ discrete_range <- function(..., drop = FALSE) {
     if (is.factor(x)) {
       if (drop) x <- factor(x)
       values <- levels(x)
+    } else if (is.numeric(x)) {
+      values <- unique(x)
     } else {
       values <- as.character(unique(x)) 
     }
     if (any(is.na(x))) values <- c(values, NA)
     values
   }
+  all <- unique(unlist(lapply(pieces, clevels)))
+  if (is.numeric(all)) {
+    all <- all[order(all)]
+    all <- as.character(all)
+  }
   
-  unique(unlist(lapply(pieces, clevels)))
+  all
 }

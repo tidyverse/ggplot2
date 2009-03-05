@@ -21,3 +21,5 @@ ggplot2 0.8.3  (2008-XX-XX)
 * geom_step: improve legend
 * facet_wrap: corrected labelling when facetting by multiple variables (thank to Charlotte Wickham for a clear test case)
 * facet_wrap: add drop argument to control whether or not panels for non-existent combinations of facetting variables should be dropped or not.  Defaults to TRUE
+* facet_wrap: in general, is much better at dealing with empty factor levels, and varying levels across layers
+* facet_grid: gains as.table argument to control direction of horizontal facets

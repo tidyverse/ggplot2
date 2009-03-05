@@ -2,18 +2,11 @@
 # Ensure all data frames in list have same levels for selected variables
 # 
 # @keywords internal
-add_missing_levels <- function(dfs, vars) {
-  levels <- lapply(vars, function(var) {
-    
-    values <- unique(unlist(lapply(dfs, function(df) ulevels(df[, var]))))
-    if (is.numeric(values)) values <- values[order(values)]
-    values
-  })
-  names(levels) <- vars
-
+add_missing_levels <- function(dfs, levels) {
+  
   lapply(dfs, function(df) {
-    for(var in intersect(names(df), vars)) {
-      df[var] <- factor(df[, var], levels = levels[[var]])
+    for(var in intersect(names(df), names(levels))) {
+      df[var] <- factor(df[, var], levels = ulevels(levels[[var]]))
     }
     df
   })

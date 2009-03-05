@@ -18,22 +18,23 @@ FacetWrap <- proto(Facet, {
   }
   
   # Data shape
-  
   initialise <- function(., data) {
-    vars <- llply(data, function(df) {
+    # Compute facetting variables for all layers
+    vars <- ldply(data, function(df) {
       as.data.frame(eval.quoted(.$facets, df))
     })
     
-    .$shape <- dlply(data, .$facets, .drop = .$drop)
+    .$facet_levels <- split_labels(vars, .$drop)
+    .$facet_levels$PANEL <- factor(1:nrow(.$facet_levels))
   }
   
   stamp_data <- function(., data) {
-    data <- add_missing_levels(data, .$conditionals())
     lapply(data, function(df) {
-      data.matrix <- dlply(add_group(df), .$facets, .drop = .$drop)
-      data.matrix <- as.list(data.matrix)
-      dim(data.matrix) <- c(1, length(data.matrix))
-      data.matrix
+      df <- data.frame(df, eval.quoted(.$facets, df))
+      df <- merge(add_group(df), .$facet_levels, by = .$conditionals())
+      out <- as.list(dlply(df, .(PANEL), .drop = FALSE))
+      dim(out) <- c(1, nrow(.$facet_levels))
+      out
     })
   }
   
@@ -83,7 +84,7 @@ FacetWrap <- proto(Facet, {
       as.table = .$as.table
     )
 
-    strips <- .$labels_default(.$shape, theme)
+    strips <- .$labels_default(.$facet_levels, theme)
     strips_height <- max(do.call("unit.c", llply(strips, grobHeight)))
     stripsGrid <- grobGrid(
       "strip", strips, nrow = nrow, ncol = ncol,
@@ -150,9 +151,11 @@ FacetWrap <- proto(Facet, {
     all
   }
   
-  labels_default <- function(., gm, theme) {
-    labels_df <- attr(gm, "split_labels")
+  labels_default <- function(., labels_df, theme) {
+    # Remove column giving panel number
+    labels_df <- labels_df[, -ncol(labels_df), drop = FALSE]
     labels_df[] <- llply(labels_df, format, justify = "none")
+    
     labels <- apply(labels_df, 1, paste, collapse=", ")
 
     llply(labels, ggstrip, theme = theme)
@@ -162,19 +165,20 @@ FacetWrap <- proto(Facet, {
   
   position_train <- function(., data, scales) {
     fr <- .$free
+    n <- nrow(.$facet_levels)
     if (is.null(.$scales$x) && scales$has_scale("x")) {
-      .$scales$x <- scales_list(scales$get_scales("x"), length(.$shape), fr$x)
+      .$scales$x <- scales_list(scales$get_scales("x"), n, fr$x)
     }
     if (is.null(.$scales$y) && scales$has_scale("y")) {
-      .$scales$y <- scales_list(scales$get_scales("y"), length(.$shape), fr$y)
+      .$scales$y <- scales_list(scales$get_scales("y"), n, fr$y)
     }
 
     lapply(data, function(l) {
       for(i in seq_along(.$scales$x)) {
-        .$scales$x[[i]]$train_df(l[[1, i]], fr$x)
+        .$scales$x[[i]]$train_df(l[[i]], fr$x)
       }
       for(i in seq_along(.$scales$y)) {
-        .$scales$y[[i]]$train_df(l[[1, i]], fr$y)
+        .$scales$y[[i]]$train_df(l[[i]], fr$y)
       }
     })
   }
@@ -258,7 +262,7 @@ FacetWrap <- proto(Facet, {
     # Using multiple variables continues to wrap the long ribbon of 
     # plots into 2d - the ribbon just gets longer
     # d + facet_wrap(~ color + cut)
-
+    
     # You can choose to keep the scales constant across all panels
     # or vary the x scale, the y scale or both:
     p <- qplot(price, data = diamonds, geom = "histogram", binwidth = 1000)
@@ -275,7 +279,14 @@ FacetWrap <- proto(Facet, {
       facet_wrap(~ cyl)
     p + geom_point(data = transform(cyl6, cyl = 7), colour = "red") + 
       facet_wrap(~ cyl)
+    p + geom_point(data = transform(cyl6, cyl = NULL), colour = "red") + 
+      facet_wrap(~ cyl)
     
+    # By default, any empty factor levels will be dropped
+    mpg$cyl2 <- factor(mpg$cyl, levels = c(2, 4, 5, 6, 8, 10))
+    qplot(displ, hwy, data = mpg) + facet_wrap(~ cyl2)
+    # Use drop = FALSE to force their inclusion
+    qplot(displ, hwy, data = mpg) + facet_wrap(~ cyl2, drop = FALSE)
   }
   
   pprint <- function(., newline=TRUE) {

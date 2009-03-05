@@ -282,23 +282,27 @@ calc_aesthetics <- function(plot, data = plot$data, aesthetics, env = plot$plot_
   
   eval.each <- function(dots) 
     compact(lapply(dots, function(x.) eval(x., data, env)))
-  # Conditioning variables needed for facets
-  cond <- plot$facet$conditionals()
   
   aesthetics <- aesthetics[!is_calculated_aes(aesthetics)]
   evaled <- eval.each(aesthetics)
   if (length(evaled) == 0) return(data.frame())
   
   evaled <- evaled[sapply(evaled, is.atomic)]
-  
   df <- data.frame(evaled)
+
+  # Add Conditioning variables needed for facets
+  cond <- plot$facet$conditionals()
   facet_vars <- data[, intersect(names(data), cond), drop=FALSE]
   if (nrow(facet_vars) > 0) {
     df <- cbind(df, facet_vars)  
   }
-  
+    
   if (is.null(plot$data)) return(df)
-  expand.grid.df(df, unique(plot$data[, setdiff(cond, names(df)), drop=FALSE]), unique=FALSE)
+  expand.grid.df(
+    df, 
+    unique(plot$data[, setdiff(cond, names(df)), drop=FALSE]), 
+    unique = FALSE
+  )
 }
 
 # Is calculated aesthetic?

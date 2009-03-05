@@ -1,5 +1,5 @@
 FacetGrid <- proto(Facet, {
-  new <- function(., facets = . ~ ., margins = FALSE, scales = "fixed", space = "fixed", labeller = "label_value") {
+  new <- function(., facets = . ~ ., margins = FALSE, scales = "fixed", space = "fixed", labeller = "label_value", as.table = TRUE) {
     scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
     free <- list(
       x = any(scales %in% c("free_x", "free")),
@@ -11,7 +11,7 @@ FacetGrid <- proto(Facet, {
     .$proto(
       facets = facets, margins = margins,
       free = free, space_is_free = (space == "free"),
-      scales = NULL, labeller = list(labeller)
+      scales = NULL, labeller = list(labeller), as.table = as.table
     )
   }
   
@@ -20,8 +20,17 @@ FacetGrid <- proto(Facet, {
     setdiff(vars, c(".", "..."))
   }
   
+  
+  # Initialisation  
+  initialise <- function(., data) {
+    .$facet_levels <- unique(ldply(data, "[", .$conditionals()))
+    .$shape <- stamp(.$facet_levels, .$facets, margins = .$margins,
+      function(x) 0)
+  }
+
+  
   stamp_data <- function(., data) {
-    data <- add_missing_levels(data, .$conditionals())
+    data <- add_missing_levels(data, .$facet_levels)
     data <- lapply(data, function(df) {
       df <- stamp(add_group(df), .$facets, force, 
         margins=.$margins, fill = list(NULL), add.missing = TRUE)
@@ -68,7 +77,7 @@ FacetGrid <- proto(Facet, {
     axes_v_width <- do.call("max", llply(axes_v, grobWidth))
     axesvGrid <- grobGrid(
       "axis_v", axes_v, nrow = nr, ncol = 1,
-      widths = axes_v_width
+      widths = axes_v_width, as.table = .$as.table
     )
     
     # Strips
@@ -79,7 +88,7 @@ FacetGrid <- proto(Facet, {
       function(i) do.call("max", strip_widths[, i])))
     stripvGrid <- grobGrid(
       "strip_v", labels$v, nrow = nrow(labels$v), ncol = ncol(labels$v),
-      widths = strip_widths
+      widths = strip_widths, as.table = .$as.table
     )
       
     strip_heights <- llply(labels$h, grobHeight)
@@ -97,8 +106,7 @@ FacetGrid <- proto(Facet, {
         fg <- coord$guide_foreground(coord_details[[i, j]], theme)
         bg <- coord$guide_background(coord_details[[i, j]], theme)
 
-        name <- paste("panel", i, j, sep = "_")
-        panels[[i,j]] <- ggname(name, grobTree(bg, panels_grob[[i, j]], fg))
+        panels[[i,j]] <- grobTree(bg, panels_grob[[i, j]], fg)
       }
     }
 
@@ -112,8 +120,8 @@ FacetGrid <- proto(Facet, {
     }
 
     panelGrid <- grobGrid(
-      "panel", panels, ncol = nc, nrow = nr,
-      widths = panel_widths, heights = panel_heights
+      "panel", t(panels), ncol = nc, nrow = nr,
+      widths = panel_widths, heights = panel_heights, as.table = .$as.table
     )
        
     # Add gaps and compute widths and heights
@@ -167,12 +175,6 @@ FacetGrid <- proto(Facet, {
       h = strip_h, 
       v = strip_v
     )
-  }
-
-  # Initialisation
-  
-  initialise <- function(., data) {
-    .$shape <- stamp(data[[1]], .$facets, function(x) 0, margins=.$margins)
   }
   
   # Position scales ----------------------------------------------------------
@@ -308,7 +310,7 @@ FacetGrid <- proto(Facet, {
     # If you combine a facetted dataset with a dataset that lacks those
     # facetting variables, the data will be repeated across the missing
     # combinations:
-    p <- qplot(mpg, wt, data=mtcars, facets = vs ~ am)
+    p <- qplot(mpg, wt, data=mtcars, facets = vs ~ cyl)
 
     df <- data.frame(mpg = 22, wt = 3)
     p + geom_point(data = df, colour="red", size = 2)
@@ -316,8 +318,8 @@ FacetGrid <- proto(Facet, {
     df2 <- data.frame(mpg = c(19, 22), wt = c(2,4), vs = c(0, 1))
     p + geom_point(data = df2, colour="red", size = 2)
 
-    df2 <- data.frame(mpg = c(19, 22), wt = c(2,4), vs = c(1, 1))
-    p + geom_point(data = df2, colour="red", size = 2)
+    df3 <- data.frame(mpg = c(19, 22), wt = c(2,4), vs = c(1, 1))
+    p + geom_point(data = df3, colour="red", size = 2)
 
     
     # You can also choose whether the scales should be constant
