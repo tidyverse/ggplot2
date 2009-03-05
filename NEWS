@@ -19,3 +19,4 @@ ggplot2 0.8.3  (2008-XX-XX)
 * errorbarh: new geom for horizontal error bars
 * theme_bw: corrected justification of axis.text.y
 * geom_step: improve legend
+* facet_wrap: corrected labelling when facetting by multiple variables (thank to Charlotte Wickham for a clear test case)

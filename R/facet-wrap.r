@@ -23,8 +23,10 @@ FacetWrap <- proto(Facet, {
     vars <- llply(data, function(df) {
       as.data.frame(eval.quoted(.$facets, df))
     })
+    
+    # Order labels correctly: first column varies fastest
     labels <- unique(do.call(rbind, vars))
-    labels <- labels[do.call("order", labels), , drop = FALSE]
+    labels <- labels[do.call("order", rev(labels)), , drop = FALSE]
     n <- nrow(labels)
     
     .$shape <- matrix(NA, 1, n)
