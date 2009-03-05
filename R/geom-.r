@@ -20,7 +20,8 @@ Geom <- proto(TopLevel, expr={
 
   draw <- function(...) {}
   draw_groups <- function(., data, scales, coordinates, ...) {
-    if (is.null(data) || nrow(data) == 0) return()
+    if (empty(data)) return(nullGrob())
+    
     groups <- split(data, factor(data$order))
     grobs <- lapply(groups, function(group) .$draw(group, scales, coordinates, ...))
     

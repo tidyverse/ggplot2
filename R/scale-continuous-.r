@@ -28,6 +28,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
   
   # Transform each 
   transform_df <- function(., df) {
+    if (empty(df)) return(data.frame())
     input <- .$input()
     output <- .$output()
     

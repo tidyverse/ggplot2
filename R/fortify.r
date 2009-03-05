@@ -4,3 +4,9 @@
 # @seealso \code{\link{fortify.lm}}
 fortify <- function(model, data, ...) UseMethod("fortify")
 
+fortify.data.frame <- function(model, data, ...) model
+fortify.NULL <- function(model, data, ...) data.frame()
+fortify.default <- function(model, data, ...) {
+  
+  stop("ggplot2 doesn't know how to deal with data of class ", class(model), call. = FALSE)
+}

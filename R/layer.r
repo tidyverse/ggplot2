@@ -25,7 +25,7 @@ Layer <- proto(expr = {
     
     if (is.null(geom) && is.null(stat)) stop("Need at least one of stat and geom")
     
-    if (!is.null(data) && !is.data.frame(data)) stop("Data needs to be a data.frame")
+    data <- fortify(data)
     if (!is.null(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be a list of unevaluated mappings created by aes or aes_string")
     
     if (is.character(geom)) geom <- Geom$find(geom)
@@ -111,7 +111,6 @@ Layer <- proto(expr = {
   #
   make_aesthetics <- function(., plot) {
     data <- nulldefault(.$data, plot$data)
-    if (is.null(data)) stop("No data for layer", call.=FALSE)
 
     # For certain geoms, it is useful to be able to ignore the default
     # aesthetics and only use those set in the layer
@@ -138,7 +137,7 @@ Layer <- proto(expr = {
   }
   
   calc_statistic <- function(., data, scales) {
-    if (is.null(data) || nrow(data) == 0) return(data.frame())
+    if (empty(data)) return(data.frame())
     
     check_required_aesthetics(.$stat$required_aes, 
       c(names(data), names(.$stat_params)), 
@@ -168,7 +167,7 @@ Layer <- proto(expr = {
   }
   
   map_statistic <- function(., data, plot) {
-    if (is.null(data) || length(data) == 0 || nrow(data) == 0) return()
+    if (empty(data)) return(data.frame())
 
     aesthetics <- defaults(.$mapping, 
       defaults(plot$mapping, .$stat$default_aes()))
@@ -188,13 +187,10 @@ Layer <- proto(expr = {
   }
 
   reparameterise <- function(., data) {
-    if (is.null(data)) stop("No data to plot", call. = FALSE)
     gg_apply(data, function(df) {
-      if (!is.null(df)) {
-        .$geom$reparameterise(df, .$geom_params) 
-      } else {
-        data.frame()
-      }
+      if (empty(df)) return(data.frame())
+
+      .$geom$reparameterise(df, .$geom_params) 
     })
   }
 
@@ -205,11 +201,12 @@ Layer <- proto(expr = {
   }
   
   make_grob <- function(., data, scales, cs) {
-    if (is.null(data) || nrow(data) == 0) return(nullGrob())
     data <- .$use_defaults(data)
+    if (empty(data)) return(nullGrob())
     
     check_required_aesthetics(.$geom$required_aes, c(names(data), names(.$geom_params)), paste("geom_", .$geom$objname, sep=""))
     
+    if (is.null(data$group)) data$group <- 1
     if (is.null(data$order)) data$order <- data$group
     data <- data[order(data$order), ]
     
@@ -274,11 +271,7 @@ layer <- Layer$new
 # @keyword hplot
 # @keyword internal
 calc_aesthetics <- function(plot, data = plot$data, aesthetics, env = plot$plot_env) {
-  if (is.null(data)) data <- plot$data
-  
-  if (!is.data.frame(data)) {
-    data <- fortify(data)
-  }
+  if (empty(data)) data <- plot$data
   
   eval.each <- function(dots) 
     compact(lapply(dots, function(x.) eval(x., data, env)))

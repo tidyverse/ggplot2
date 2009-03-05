@@ -30,7 +30,7 @@ ggplot_build <- function(plot) {
   
   # Apply and map statistics, then reparameterise geoms that need it
   data <- facet$calc_statistics(data, layers)
-  data <- dlapply(function(d, p) p$map_statistics(d, plot))  
+  data <- dlapply(function(d, p) p$map_statistics(d, plot)) 
   data <- dlapply(function(d, p) p$reparameterise(d))
 
   # Adjust position

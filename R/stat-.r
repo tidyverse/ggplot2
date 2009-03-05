@@ -11,7 +11,7 @@ Stat <- proto(TopLevel, expr={
   calculate <- function(., data, scales, ...) {}
 
   calculate_groups <- function(., data, scales, ...) {
-    if (is.null(data) || nrow(data) == 0) return(data.frame())
+    if (empty(data)) return(data.frame())
     
     force(data)
     force(scales)

@@ -23,3 +23,4 @@ ggplot2 0.8.3  (2008-XX-XX)
 * facet_wrap: add drop argument to control whether or not panels for non-existent combinations of facetting variables should be dropped or not.  Defaults to TRUE
 * facet_wrap: in general, is much better at dealing with empty factor levels, and varying levels across layers
 * facet_grid: gains as.table argument to control direction of horizontal facets
+* annotate: new annotate function to make it easier to add annotations to plots

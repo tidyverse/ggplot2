@@ -159,3 +159,7 @@ invert <- function(L) {
 "%inside%" <- function(x, interval) {
   x >= interval[1] & x <= interval[2]
 }
+
+empty <- function(df) {
+  (is.null(df) || nrow(df) == 0 || ncol(df) == 0)
+}

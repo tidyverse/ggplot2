@@ -7,11 +7,7 @@
 ggplot <- function(data = NULL, ...) UseMethod("ggplot")
 
 ggplot.default <- function(data = NULL, mapping = aes(), ...) {
-  if (is.null(data)) {
-    ggplot.data.frame(data, mapping, ...)
-  } else {
-    ggplot.data.frame(fortify(data), mapping, ...)
-  }
+  ggplot.data.frame(fortify(data), mapping, ...)
 }
 
 # Create a new plot
@@ -25,11 +21,6 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...) {
 # @keyword hplot
 ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be created with aes or aes_string")
-  
-  # if (!is.null(data)) {
-  #   if (ncol(data) == 0) stop("data has no columns")
-  #   if (nrow(data) == 0) stop("data has no rows")    
-  # }
   
   p <- structure(list(
     data = data, 

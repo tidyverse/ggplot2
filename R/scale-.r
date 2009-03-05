@@ -60,7 +60,7 @@ Scale <- proto(TopLevel, expr={
   
   # Train scale from a data frame
   train_df <- function(., df, drop = FALSE) {
-    if (is.null(df) || nrow(df) == 0) return() 
+    if (empty(df)) return() 
     # Don't train if limits have already been set
     if (!is.null(.$limits)) return()
     

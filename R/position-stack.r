@@ -1,7 +1,7 @@
 PositionStack <- proto(Position, {
 
   adjust <- function(., data, scales) {
-    if (nrow(data) == 0) return(data.frame()) 
+    if (empty(data)) return(data.frame())
     
     check_required_aesthetics(c("x", "ymax"), names(data), "position_stack")
     if (!all(data$ymin == 0)) warning("Stacking not well defined when ymin != 0")

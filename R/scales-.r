@@ -97,7 +97,7 @@ Scales <- proto(Scale, expr={
   
   # Train scale from a data frame
   train_df <- function(., df, drop = FALSE) {
-    if (is.null(df) || nrow(df) == 0) return() 
+    if (empty(df)) return() 
 
     lapply(.$.scales, function(scale) {
       scale$train_df(df, drop)
@@ -123,7 +123,7 @@ Scales <- proto(Scale, expr={
   # Transform values to cardinal representation
   transform_df <- function(., df) {
     if (length(.$.scales) == 0) return(df)
-    if (is.null(df) || nrow(df) == 0) return(df)
+    if (empty(df)) return(data.frame())
     transformed <- compact(lapply(.$.scales, function(scale) {
       scale$transform_df(df)
     }))
@@ -138,7 +138,7 @@ Scales <- proto(Scale, expr={
   # scales are always available for modification.   The type of a scale is
   # fixed by the first use in a layer.
   add_defaults <- function(., data, aesthetics, env) {
-    if (is.null(data) || is.null(aesthetics)) return()
+    if (is.null(aesthetics)) return()
     names(aesthetics) <- laply(names(aesthetics), aes_to_scale)
     
     new_aesthetics <- setdiff(names(aesthetics), .$input())

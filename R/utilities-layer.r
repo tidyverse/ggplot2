@@ -19,7 +19,7 @@ is.integeric <- function(x) all(floor(x) == x)
 # @value data.frame with group variable
 # @keyword internal
 add_group <- function(data) {
-  if (nrow(data) == 0) return(data)
+  if (empty(data)) return(nullGrob())
   
   if (is.null(data$group)) {
     cat <- sapply(data[setdiff(names(data), "label")], plyr::is.discrete)
