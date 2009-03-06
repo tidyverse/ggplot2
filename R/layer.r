@@ -201,8 +201,8 @@ Layer <- proto(expr = {
   }
   
   make_grob <- function(., data, scales, cs) {
-    data <- .$use_defaults(data)
     if (empty(data)) return(nullGrob())
+    data <- .$use_defaults(data)
     
     check_required_aesthetics(.$geom$required_aes, c(names(data), names(.$geom_params)), paste("geom_", .$geom$objname, sep=""))
     

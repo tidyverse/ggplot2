@@ -24,6 +24,7 @@ FacetGrid <- proto(Facet, {
   # Initialisation  
   initialise <- function(., data) {
     .$facet_levels <- unique(ldply(data, "[", .$conditionals()))
+    
     .$shape <- stamp(.$facet_levels, .$facets, margins = .$margins,
       function(x) 0)
   }
@@ -34,7 +35,7 @@ FacetGrid <- proto(Facet, {
     data <- lapply(data, function(df) {
       if (empty(df)) return(force_matrix(data.frame()))
       df <- stamp(add_group(df), .$facets, force, 
-        margins=.$margins, fill = list(NULL), add.missing = TRUE)
+        margins=.$margins, fill = list(data.frame()), add.missing = TRUE)
       force_matrix(df)
     })
   }

@@ -104,11 +104,6 @@ Scales <- proto(Scale, expr={
     })
   }
   
-  train_position <- function(., df) {
-    pos_df <- df[is_position_aes(names(df))]
-    .$train_df(pos_df)
-  }
-  
   # Map values from a data.frame. Returns data.frame
   map_df <- function(., df) {
     if (length(.$.scales) == 0) return(df)
