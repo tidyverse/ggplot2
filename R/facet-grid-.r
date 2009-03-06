@@ -23,7 +23,8 @@ FacetGrid <- proto(Facet, {
   
   # Initialisation  
   initialise <- function(., data) {
-    .$facet_levels <- unique(ldply(data, "[", .$conditionals()))
+    .$facet_levels <- unique(
+      ldply(data, failwith(NULL, "[", quiet = TRUE), .$conditionals()))
     
     .$shape <- stamp(.$facet_levels, .$facets, margins = .$margins,
       function(x) 0)

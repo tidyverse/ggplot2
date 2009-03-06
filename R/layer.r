@@ -21,7 +21,7 @@ Layer <- proto(expr = {
   params <- NULL
   inherit.aes <- FALSE
   
-  new <- function (., geom=NULL, geom_params=NULL, stat=NULL, stat_params=NULL, data=NULL, mapping=NULL, position=NULL, params=NULL, ..., inherit.aes = TRUE, legend = NA) {
+  new <- function (., geom=NULL, geom_params=NULL, stat=NULL, stat_params=NULL, data=NULL, mapping=NULL, position=NULL, params=NULL, ..., inherit.aes = TRUE, legend = NA, subset = NULL) {
     
     if (is.null(geom) && is.null(stat)) stop("Need at least one of stat and geom")
     
@@ -59,7 +59,7 @@ Layer <- proto(expr = {
     proto(., 
       geom=geom, geom_params=geom_params, 
       stat=stat, stat_params=stat_params, 
-      data=data, mapping=mapping, 
+      data=data, mapping=mapping, subset=subset,
       position=position,
       inherit.aes = inherit.aes,
       legend = legend
@@ -110,8 +110,14 @@ Layer <- proto(expr = {
   # and overrides for a given geom.
   #
   make_aesthetics <- function(., plot) {
-    data <- nulldefault(.$data, plot$data)
+    data <- if(empty(.$data)) plot$data else .$data
 
+    # Apply subsetting, if used
+    if (!is.null(.$subset)) {
+      include <- data.frame(eval.quoted(.$subset, data))
+      data <- data[rowSums(include) == ncol(include), ]
+    }
+    
     # For certain geoms, it is useful to be able to ignore the default
     # aesthetics and only use those set in the layer
     if (.$inherit.aes) {
@@ -129,7 +135,29 @@ Layer <- proto(expr = {
     aesthetics <- aesthetics[setdiff(names(aesthetics), names(.$geom_params))]
     plot$scales$add_defaults(plot$data, aesthetics, plot$plot_env)
     
-    calc_aesthetics(plot, data, aesthetics)
+    # Evaluate aesthetics in the context of their data frame
+    eval.each <- function(dots) 
+      compact(lapply(dots, function(x.) eval(x., data, plot$plot_env)))
+
+    aesthetics <- aesthetics[!is_calculated_aes(aesthetics)]
+    evaled <- eval.each(aesthetics)
+    if (length(evaled) == 0) return(data.frame())
+
+    evaled <- evaled[sapply(evaled, is.atomic)]
+    df <- data.frame(evaled)
+
+    # Add Conditioning variables needed for facets
+    cond <- plot$facet$conditionals()
+    facet_vars <- data[, intersect(names(data), cond), drop=FALSE]
+    if (nrow(facet_vars) > 0) {
+      df <- cbind(df, facet_vars)  
+    }
+
+    if (empty(plot$data)) return(df)
+    facet_vars <- unique(plot$data[, setdiff(cond, names(df)), drop=FALSE])
+    
+    if (empty(data)) return(facet_vars)
+    expand.grid.df(df, facet_vars, unique = FALSE)
   }
 
   calc_statistics <- function(., data, scales) {
@@ -251,52 +279,7 @@ gg_apply <- function(gg, f, ...) {
 }
 layer <- Layer$new
 
-# Build data frame
-# Build data frome for a plot with given data and ... (dots) arguments
-#
-# Depending on the layer, we need
-# to stitch together a data frame using the defaults from plot\$mapping 
-# and overrides for a given geom.
-#
-# Arguments in dots are evaluated in the context of \\code{data} so that
-# column names can easily be references. 
-#
-# Also makes sure that it contains all the columns required to correctly
-# place the output into the row+column structure defined by the formula,
-# by using \\code{\\link[reshape]{expand.grid.df}} to add in extra columns if needed.
-#
-# @arguments plot object
-# @arguments data frame to use
-# @arguments extra arguments supplied by user that should be used first
-# @keyword hplot
-# @keyword internal
-calc_aesthetics <- function(plot, data = plot$data, aesthetics, env = plot$plot_env) {
-  if (empty(data)) data <- plot$data
-  
-  eval.each <- function(dots) 
-    compact(lapply(dots, function(x.) eval(x., data, env)))
-  
-  aesthetics <- aesthetics[!is_calculated_aes(aesthetics)]
-  evaled <- eval.each(aesthetics)
-  if (length(evaled) == 0) return(data.frame())
-  
-  evaled <- evaled[sapply(evaled, is.atomic)]
-  df <- data.frame(evaled)
 
-  # Add Conditioning variables needed for facets
-  cond <- plot$facet$conditionals()
-  facet_vars <- data[, intersect(names(data), cond), drop=FALSE]
-  if (nrow(facet_vars) > 0) {
-    df <- cbind(df, facet_vars)  
-  }
-    
-  if (is.null(plot$data)) return(df)
-  expand.grid.df(
-    df, 
-    unique(plot$data[, setdiff(cond, names(df)), drop=FALSE]), 
-    unique = FALSE
-  )
-}
 
 # Is calculated aesthetic?
 # Determine if aesthetic is calculated from the statistic
