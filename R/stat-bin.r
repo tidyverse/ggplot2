@@ -40,9 +40,9 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
 
   res <- within(results, {
     count[is.na(count)] <- 0
-    density <- count / width / sum(count, na.rm=TRUE)
-    ncount <- count / max(count, na.rm=TRUE)
-    ndensity <- density / max(density, na.rm=TRUE)
+    density <- count / width / sum(abs(count), na.rm=TRUE)
+    ncount <- count / max(abs(count), na.rm=TRUE)
+    ndensity <- density / max(abs(density), na.rm=TRUE)
   })
   if (drop) res <- subset(res, count > 0)
   res

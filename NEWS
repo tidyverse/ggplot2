@@ -26,3 +26,4 @@ ggplot2 0.8.3  (2008-XX-XX)
 * annotate: new annotate function to make it easier to add annotations to plots
 * subset: experimental new feature.  Layers now have a subset argument, which takes subsets formatted like .(var1 < 5, var2 == 3) etc.
 * show now works with ggplot objects
+* geom_histogram now works with negative weights (provided position = "identity").  This is useful for creating back to back histograms.
