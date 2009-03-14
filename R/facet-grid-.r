@@ -146,10 +146,11 @@ FacetGrid <- proto(Facet, {
       widths = hgap_widths, 
     )
     vgap_heights <- do.call("unit.c", compact(list(
-      unit(0, "cm"), # no gap after axis
+      unit(rep(0, nrow(stripvGrid)), "cm"), # no gap after strips 
       rep.unit2(theme$panel.margin, nr - 1), # gap after all panels except last
-      unit(rep(0, nrow(stripvGrid) + 1), "cm") # no gap after strips 
+      unit(0, "cm") # no gap after axis
     )))
+    
     vgap <- grobGrid("vgap",
       nrow = nrow(all), ncol = ncol(all) * 2,
       heights = vgap_heights
