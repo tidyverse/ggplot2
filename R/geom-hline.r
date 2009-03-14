@@ -1,11 +1,11 @@
 GeomHline <- proto(Geom, {
   new <- function(., data = NULL, mapping = NULL, yintercept = NULL, ...) {
     if (is.numeric(yintercept)) {
-      df <- data.frame(yintercept = yintercept)
-      .super$new(., data = df, mapping = aes(yintercept = yintercept), inherit.aes = FALSE, ...)
-    } else {
-      .super$new(., data = data, mapping = mapping, yintercept = yintercept, ...)
+      data <- data.frame(yintercept = yintercept)
+      mapping <- aes_all(names(data))
     }
+    .super$new(., data = data, mapping = mapping, inherit.aes = FALSE, 
+      yintercept = yintercept, ...)
   }
 
   draw <- function(., data, scales, coordinates, ...) {
@@ -36,7 +36,12 @@ GeomHline <- proto(Geom, {
     p + geom_hline(aes(yintercept=mpg))
     p + geom_hline(yintercept=20)
     p + geom_hline(yintercept=seq(10, 30, by=5))
-    p + geom_hline(yintercept="mean")
-    p + geom_hline(aes(colour=factor(cyl)), yintercept="mean")
-  }  
+    
+    # To display different lines in different facets, you need to 
+    # create a data frame.
+    p <- qplot(mpg, wt, data=mtcars, facets = vs ~ am)
+
+    hline.data <- data.frame(z = 1:4, vs = c(0,0,1,1), am = c(0,1,0,1))
+    p + geom_hline(aes(yintercept = z), hline.data)
+  } 
 })

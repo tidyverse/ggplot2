@@ -1,11 +1,11 @@
 GeomVline <- proto(Geom, {
   new <- function(., data = NULL, mapping = NULL, xintercept = NULL, ...) {
     if (is.numeric(xintercept)) {
-      df <- data.frame(xintercept = xintercept)
-      .super$new(., data = df, mapping = aes(xintercept = xintercept), inherit.aes = FALSE, ...)
-    } else {
-      .super$new(., data = data, mapping = mapping, xintercept = xintercept, ...)
+      data <- data.frame(xintercept = xintercept)
+      mapping <- aes_all(names(data))
     }
+    .super$new(., data = data, mapping = mapping, inherit.aes = FALSE, 
+      xintercept = xintercept, ...)
   }
   
   draw <- function(., data, scales, coordinates, ...) {
@@ -45,18 +45,11 @@ GeomVline <- proto(Geom, {
     p + geom_vline(xintercept = 5)
     p + geom_vline(xintercept = 1:5)
     p + geom_vline(xintercept = 1:5, colour="green")
-    p + geom_vline(xintercept = "mean", size=2, colour = alpha("red", 0.2))
     
     last_plot() + coord_equal()
     last_plot() + coord_flip()
     
     p2 <- p + aes(colour = factor(cyl))
-    p2 + geom_vline(xintercept = 1:5)
-    
-    
-    # Lines from data
-    p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
-    p + geom_vline(xintercept = "mean") + facet_grid(. ~ cyl)
-    p + geom_vline(aes(colour = factor(cyl)), xintercept = "mean")
+    p2 + geom_vline(xintercept = 15)
   }  
 })
