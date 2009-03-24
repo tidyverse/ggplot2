@@ -45,6 +45,8 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
 # 
 # @keywords internal
 pos_stack <- function(df, width) {
+  if (nrow(df) == 1) return(df)
+  
   n <- nrow(df) + 1
   y <- with(df, ifelse(is.na(y), 0, y))
   heights <- c(0, cumsum(y))
