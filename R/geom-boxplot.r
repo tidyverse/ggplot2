@@ -9,10 +9,10 @@ GeomBoxplot <- proto(Geom, {
     )
   }
   
-  draw <- function(., data, ..., outlier.colour = "black", outlier.shape = 16, outlier.size = 1) {    
+  draw <- function(., data, ..., outlier.colour = "black", outlier.shape = 16, outlier.size = 1) { 
     defaults <- with(data, data.frame(
       x = x, xmin = xmin, xmax = xmax, 
-      colour = alpha(colour, alpha), size = size, 
+      colour = colour, alpha = alpha, size = size, 
       linetype = 1, group = 1, fill = fill,  
       stringsAsFactors = FALSE
     ))
@@ -22,7 +22,7 @@ GeomBoxplot <- proto(Geom, {
       outliers_grob <- with(data,
         GeomPoint$draw(data.frame(
           y = outliers[[1]], x = x[rep(1, length(outliers[[1]]))],
-          colour=I(outlier.colour), shape = outlier.shape, 
+          colour=I(outlier.colour), shape = outlier.shape, alpha = 1, 
           size = outlier.size, fill = NA), ...
         )
       )
