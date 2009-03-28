@@ -21,6 +21,7 @@ nice_ramp <- function(ramp, x, alpha = 1) {
 # @keyword internal 
 alpha <- function(colour, alpha) {
   col <- col2rgb(colour, TRUE) / 255
+  
   if (length(colour) != length(alpha)) {
     if (length(colour) > 1 && length(alpha) > 1) {
       stop("Only one of colour and alpha can be vectorised")
@@ -32,7 +33,8 @@ alpha <- function(colour, alpha) {
       col <- col[, rep(1, length(alpha)), drop = FALSE]
     }
   }
-  col[4, ] <- alpha
+  # Only set if colour is opaque
+  col[4, ] <- ifelse(col[4, ] == 1, alpha, col[4, ])
 
   new_col <- rgb(col[1,], col[2,], col[3,], col[4,])
   new_col[is.na(colour)] <- NA  
