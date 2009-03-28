@@ -80,7 +80,7 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep,
   # Calculate sizes ----------------------------------------------------------
   if (is.null(legend_box)) position <- "none"
     
-  ylab_width <- grobWidth(grobs$ylabel) + unit(0.25, "lines")
+  ylab_width <- grobWidth(grobs$ylabel) + unit(0.5, "lines")
   legend_width <- grobWidth(grobs$legend_box)
 
   widths <- switch(position, 
