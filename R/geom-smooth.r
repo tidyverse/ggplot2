@@ -62,7 +62,8 @@ GeomSmooth <- proto(Geom, {
     grid$ucl <- err$fit + 1.96 * err$se.fit
     grid$lcl <- err$fit - 1.96 * err$se.fit
 
-    qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + geom_smooth(aes(min=lcl, max=ucl), data=grid, stat="identity") 
+    qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + 
+      geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat="identity") 
   }
 
 })

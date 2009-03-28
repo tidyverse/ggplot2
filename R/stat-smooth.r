@@ -76,8 +76,8 @@ StatSmooth <- proto(Stat, {
   )
   desc_outputs <- list(
     "y" = "predicted value",
-    "min" = "lower pointwise confidence interval around the mean",
-    "max" = "upper pointwise confidence interval around the mean",
+    "ymin" = "lower pointwise confidence interval around the mean",
+    "ymax" = "upper pointwise confidence interval around the mean",
     "se" = "standard error"
   )
   
