@@ -9,7 +9,6 @@ GeomBar <- proto(Geom, {
   reparameterise <- function(., df, params) {
     df$width <- df$width %||% 
       params$width %||% (resolution(df$x, FALSE) * 0.9)
-    browser()
     transform(df,
       ymin = pmin(y, 0), ymax = pmax(y, 0),
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
