@@ -57,7 +57,7 @@ guide_axis <- function(at, labels, position="right", theme) {
     
   absoluteGrob(
     gList(ticks, labels, line),
-    width = grobWidth(labels) + label_pos,
-    height = grobHeight(labels) + label_pos
+    width = grobWidth(labels) + label_pos + unit(0.1, "lines"),
+    height = grobHeight(labels) + label_pos + unit(0.1, "lines")
   )  
 }
