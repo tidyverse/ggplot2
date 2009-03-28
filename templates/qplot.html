@@ -46,7 +46,7 @@ qplot(carat, price, data = dsmall, geom = c("smooth", "point"),
 
 <p>You can start to see the limitations of this approach as it is ambiguous which geom the method argument applies to.  The <code>qplot</code> function will break down for complicated examples, but is still useful for quick, disposable plots.  </p>
 
-<p>The qplot function creates a plot object in the same way that <code>gplot</code> does, so you can modify it in the same way:</p>
+<p>The qplot function creates a plot object in the same way that <code>ggplot</code> does, so you can modify it in the same way:</p>
 
 <pre>
 qplot(carat, price, data = dsmall) + scale_x_log10()
