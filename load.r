@@ -19,6 +19,7 @@ l_ply(paths, source)
 # Regenerate and load accessors for geoms etc.
 accessors_print(file.path(PATH, "R", "xxx.r"))
 source(file.path(PATH, "R", "xxx.r"))
+source(file.path(PATH, "R", "zxx.r"))
 
 
 # # Find out whether digest is changing between versions
