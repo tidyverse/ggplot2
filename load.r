@@ -10,7 +10,7 @@ paths <- dir(file.path(PATH, "R"), full.name=T)
 paths <- paths[basename(paths) != "xxx.r"]
 
 # Reorder paths so they're ordered in the same locale as me
-loc <- Sys.setlocale("LC_COLLATE", "en_AU.UTF-8")
+loc <- Sys.setlocale("LC_COLLATE", "C")
 paths <- paths[order(paths)]
 Sys.setlocale("LC_COLLATE", loc)
 
