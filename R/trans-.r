@@ -82,10 +82,11 @@ ProbabilityTrans <- proto(Trans, {
     .$proto(name=family, family = family)
   }
   transform <- function(., values) {
-    match.fun(paste("p", .$family, sep=""))(values)
+    if (is.null(values)) return()
+    match.fun(paste("q", .$family, sep=""))(values)
   }
   inverse <- function(., values) {
-    match.fun(paste("q", .$family, sep=""))(values)
+    match.fun(paste("p", .$family, sep=""))(values)
   }
   label <- function(., values) .$inverse(values)
 })

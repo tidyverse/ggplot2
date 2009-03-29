@@ -35,3 +35,4 @@ Bug fixes
 * stat_summary: now warns when dropping records with missing values
 * stat_summary: should be a little faster
 * theme_bw: corrected justification of axis.text.y
+* trans: bug fixes to logistic transformation
