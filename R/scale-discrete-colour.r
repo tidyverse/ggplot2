@@ -112,6 +112,12 @@ ScaleBrewer <- proto(ScaleColour, expr={
 
   objname <- "brewer"
   desc <- "Sequential, diverging and qualitative colour scales from colorbrewer.org"
+  
+  desc_params <- list(
+    palette = "Either numeric or character.  If numeric, selects the nth palette of type type.  If character, selects the named palette.  Get a complete list of all parameters by running \\code{RColorBrewer::display.brewer.all(n=8, exact.n=FALSE)}",
+    type = "Type of scale.  One of 'div' (diverging), 'qual' (qualitative, the default), 'seq' (sequential), or 'all' (all).  Only used when palette is numeric." 
+  )
+  
   details <- "<p>See <a href='http://colorbrewer.org'>colorbrewer.org</a> for more info</p>"
   common <- c("colour", "fill")
 
