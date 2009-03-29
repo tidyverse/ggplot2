@@ -1,21 +1,27 @@
-options(Hverbose=FALSE)
-loaded <- "ggplot2" %in% search()
+# Load installed package
 suppressMessages(library(ggplot2, warn.conflicts = FALSE))
-library(plyr)
 
-load("~/documents/ggplot/ggplot/data/mpg.rda")
-load("~/documents/ggplot/ggplot/data/midwest.rda")
-
-paths <- dir("~/documents/ggplot/ggplot/R", full.name=T)
+# Find path of this file and source in R files
+FILE <- (function() {
+  attr(body(sys.function()), "srcfile")
+})()$filename
+PATH <- dirname(FILE)
+paths <- dir(file.path(PATH, "R"), full.name=T)
 paths <- paths[basename(paths) != "xxx.r"]
+
+# Reorder paths so they're ordered in the same locale as me
+loc <- Sys.setlocale("LC_COLLATE", "en_AU.UTF-8")
+paths <- paths[order(paths)]
+Sys.setlocale("LC_COLLATE", loc)
+
 l_ply(paths, source)
 
-regen <- function() {
-  accessors_print("~/documents/ggplot/ggplot/R/xxx.r")
-  source("~/documents/ggplot/ggplot/R/xxx.r")
-}
-if (!loaded) regen()
+# Regenerate and load accessors for geoms etc.
+accessors_print(file.path(PATH, "R", "xxx.r"))
+source(file.path(PATH, "R", "xxx.r"))
 
+
+# # Find out whether digest is changing between versions
 # if (!exists("curr")) curr <- NULL
 # 
 # prev <- curr
