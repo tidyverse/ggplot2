@@ -1,30 +1,37 @@
 ggplot2 0.8.3  (2008-XX-XX)
 ----------------------------------------
 
-* facet_wrap: contents guaranteed to be clipped to panel
-* resolution: fixed bug in computation of resolution that lead to (e.g.) incorrect boxplot widths when there was only a single x value in a group.
-* geom_vline, geom_hline, geom_abline: should work in yet more situations
-* stat_summary: should be a little faster
-* stat_summary: now warns when dropping records with missing values
-* scale_manual: breaks and limits 
-* scale_discrete: factor levels no longer mistakenly reordered
-* American spelling of color accepted in as geom parameter, and all colour scales have alias spelled color (e.g. scale_color_hue)
-* scale_discrete: empty factor levels will be preserved, unless drop = TRUE
-* xlim and ylim now work recognise Date and POSIXct classes to create date and date_time scales respectively
-* geom_text: better legend
+New features
+
 * alpha: new aesthetic, with scale alpha.  Where a geom has both fill and colour, alpha affects the fill.
-* facet_grid now takes strip label function from parameter labeller, not theme setting
-* fortify: full set of methods for turning data from the sp package into data frames that can be plotted with ggplot2
-* labels_parsed and labels_bquote functions to make it easier to display expressions on facet labels
-* errorbarh: new geom for horizontal error bars
-* theme_bw: corrected justification of axis.text.y
-* geom_step: improve legend
-* facet_wrap: corrected labelling when facetting by multiple variables (thank to Charlotte Wickham for a clear test case)
-* facet_wrap: add drop argument to control whether or not panels for non-existent combinations of facetting variables should be dropped or not.  Defaults to TRUE
-* facet_wrap: in general, is much better at dealing with empty factor levels, and varying levels across layers
-* facet_grid: gains as.table argument to control direction of horizontal facets
 * annotate: new annotate function to make it easier to add annotations to plots
+* facet_grid now takes strip label function from parameter labeller, not theme setting
+* facet_grid: gains as.table argument to control direction of horizontal facets
+* fortify: full set of methods for turning data from the sp package into data frames that can be plotted with ggplot2
+* geom_errorbarh: new geom for horizontal error bars
+* labels_parsed and labels_bquote functions to make it easier to display expressions on facet labels
+* scale_manual now supports breaks and limits 
 * subset: experimental new feature.  Layers now have a subset argument, which takes subsets formatted like .(var1 < 5, var2 == 3) etc.
-* show now works with ggplot objects
-* geom_histogram now works with negative weights (provided position = "identity").  This is useful for creating back to back histograms.
+* xlim and ylim now work recognise Date and POSIXct classes to create date and date_time scales respectively
+
+Dealing with missing values
+
+* facet_wrap: add drop argument to control whether or not panels for non-existent combinations of facetting variables should be dropped or not.  Defaults to TRUE
+* scale_discrete: empty factor levels will be preserved, unless drop = TRUE
+
+Bug fixes
+
 * added presidents dataset from book to package
+* American spelling of color accepted in as geom parameter, and all colour scales have alias spelled color (e.g. scale_color_hue)
+* facet_wrap: contents guaranteed to be clipped to panel
+* facet_wrap: corrected labelling when facetting by multiple variables (thank to Charlotte Wickham for a clear test case)
+* geom_histogram now works with negative weights (provided position = "identity").  This is useful for creating back to back histograms.
+* geom_step: improve legend
+* geom_text: better legend
+* geom_vline, geom_hline, geom_abline: should work in yet more situations
+* resolution: fixed bug in computation of resolution that lead to (e.g.) incorrect boxplot widths when there was only a single x value in a group.
+* scale_discrete: factor levels no longer mistakenly reordered
+* show now works with ggplot objects
+* stat_summary: now warns when dropping records with missing values
+* stat_summary: should be a little faster
+* theme_bw: corrected justification of axis.text.y
