@@ -2,10 +2,9 @@
 suppressMessages(library(ggplot2, warn.conflicts = FALSE))
 
 # Find path of this file and source in R files
-FILE <- (function() {
-  attr(body(sys.function()), "srcfile")
-})()$filename
-PATH <- dirname(FILE)
+frame_files <- compact(llply(sys.frames(), function(x) x$ofile))
+PATH <- dirname(frame_files[[1]])
+
 paths <- dir(file.path(PATH, "R"), full.name=T)
 paths <- paths[basename(paths) != "xxx.r"]
 
