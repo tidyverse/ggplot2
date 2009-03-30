@@ -82,16 +82,16 @@ GeomPath <- proto(Geom, {
 
   examples <- function(.) {
     # Generate data
-    myear <- do.call(rbind, by(movies, movies$year, function(df) data.frame(year=df$year[1], mean.length = mean(df$length), mean.rating=mean(df$rating))))
-    p <- ggplot(myear, aes(x=mean.length, y=mean.rating))
+    myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
+    p <- ggplot(myear, aes(length, rating))
     p + geom_path()
 
     # Add aesthetic mappings
-    p + geom_path(aes(size=year))
-    p + geom_path(aes(colour=year))
+    p + geom_path(aes(size = year))
+    p + geom_path(aes(colour = year))
     
     # Change scale
-    p + geom_path(aes(size=year)) + scale_size(to=c(1, 3))
+    p + geom_path(aes(size = year)) + scale_size(to = c(1, 3))
 
     # Set aesthetics to fixed value
     p + geom_path(colour = "green")
