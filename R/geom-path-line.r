@@ -7,7 +7,7 @@ GeomLine <- proto(GeomPath, {
   }
   
   draw <- function(., data, scales, coordinates, arrow = NULL, ...) {
-    data <- as.data.frame(data)[order(data$group, data$x), ]
+    data <- data[order(data$group, data$x), ]
     GeomPath$draw(data, scales, coordinates, arrow, ...)
   }
   

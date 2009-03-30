@@ -2,27 +2,33 @@ GeomPath <- proto(Geom, {
   draw_groups <- function(., ...) .$draw(...)
 
   draw <- function(., data, scales, coordinates, arrow = NULL, ...) {
-    if (nrow(data) < 2) return(nullGrob())
-
     munched <- coordinates$munch(data, scales)
 
-    # Work out whether we should use lines or segments
-    g <- split(munched, munched$group)
-    g <- g[sapply(g, nrow) >= 2]
-    munched <- do.call(rbind, g[sapply(g, nrow) >= 2])
-    if (is.null(munched)) return(nullGrob())
+    # Silently drop lines with less than two points, preserving order
+    rows <- ave(seq_len(nrow(munched)), munched$group, FUN = length)
+    munched <- munched[rows >= 2, ]
+    if (nrow(munched) < 2) return(nullGrob())
 
+    # Work out whether we should use lines or segments
+    attr <- ddply(munched, .(group), function(df) {
+      data.frame(
+        solid = identical(unique(df$linetype), 1),
+        constant = nrow(unique(df[, c("colour","size", "linetype")])) == 1
+      )
+    })
+    solid_lines <- all(attr$solid)
+    constant <- all(attr$constant)
+    if (!solid_lines && !constant) {
+      stop("geom_path: If you are using dotted or dashed lines", 
+        ", colour, size and linetype must be constant over the line",
+        call.=FALSE)
+    }
+    
+    # Work out grouping variables for grobs
     n <- nrow(munched)
     group_diff <- munched$group[-1] != munched$group[-n]
     start <- c(TRUE, group_diff)
     end <-   c(group_diff, TRUE)  
-    
-    solid_lines <- all(sapply(g, function(df) identical(unique(df$linetype), 1)))
-    constant <- all(sapply(g, function(df) nrow(unique(df[, c("colour","size", "linetype")])) == 1))
-
-    if (!solid_lines && !constant) {
-      stop("geom_path: If you are using dotted or dashed lines, colour, size and linetype must be constant over the line", call.=FALSE)
-    }
     
     if (!constant) {
       with(munched, 

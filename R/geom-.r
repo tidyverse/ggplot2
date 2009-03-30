@@ -22,7 +22,7 @@ Geom <- proto(TopLevel, expr={
   draw_groups <- function(., data, scales, coordinates, ...) {
     if (empty(data)) return(nullGrob())
     
-    groups <- split(data, factor(data$order))
+    groups <- split(data, factor(data$group))
     grobs <- lapply(groups, function(group) .$draw(group, scales, coordinates, ...))
     
     ggname(paste(.$objname, "s", sep=""), gTree(

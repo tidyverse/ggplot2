@@ -235,8 +235,14 @@ Layer <- proto(expr = {
     check_required_aesthetics(.$geom$required_aes, c(names(data), names(.$geom_params)), paste("geom_", .$geom$objname, sep=""))
     
     if (is.null(data$group)) data$group <- 1
-    if (is.null(data$order)) data$order <- data$group
-    data <- data[order(data$order), ]
+    
+    # If ordering is set, modify group variable according to this order
+    if (!is.null(data$order)) {
+      data$group <- ninteraction(list(data$group, data$order))
+      data$order <- NULL
+    }
+    
+    data <- data[order(data$group), ]
     
     do.call(.$geom$draw_groups, c(
       data = list(as.name("data")), 
