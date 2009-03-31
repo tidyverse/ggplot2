@@ -136,6 +136,7 @@ FacetGrid <- proto(Facet, {
     )
     # theme$panel.margin, theme$panel.margin
     
+    # from left to right
     hgap_widths <- do.call("unit.c", compact(list(
       unit(0, "cm"), # no gap after axis
       rep.unit2(theme$panel.margin, nc - 1), # gap after all panels except last
@@ -145,8 +146,10 @@ FacetGrid <- proto(Facet, {
       ncol = ncol(all), nrow = nrow(all),
       widths = hgap_widths, 
     )
+    
+    # from top to bottom
     vgap_heights <- do.call("unit.c", compact(list(
-      unit(rep(0, nrow(stripvGrid)), "cm"), # no gap after strips 
+      unit(rep(0, nrow(striphGrid) + 1), "cm"), # no gap after strips 
       rep.unit2(theme$panel.margin, nr - 1), # gap after all panels except last
       unit(0, "cm") # no gap after axis
     )))
