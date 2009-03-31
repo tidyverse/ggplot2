@@ -3,7 +3,7 @@ suppressMessages(library(ggplot2, warn.conflicts = FALSE))
 
 # Find path of this file and source in R files
 frame_files <- compact(llply(sys.frames(), function(x) x$ofile))
-PATH <- dirname(frame_files[[1]])
+PATH <- dirname(frame_files[[length(frame_files)]])
 
 paths <- dir(file.path(PATH, "R"), full.name=T)
 paths <- paths[basename(paths) != "xxx.r"]
