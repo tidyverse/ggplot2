@@ -44,7 +44,12 @@ FacetGrid <- proto(Facet, {
   # Create grobs for each component of the panel guides
   add_guides <- function(., data, panels_grob, coord, theme) {
     aspect_ratio <- theme$aspect.ratio
-    if (is.null(aspect_ratio)) aspect_ratio <- 1
+    if (is.null(aspect_ratio)) {
+      aspect_ratio <- 1
+      respect <- FALSE
+    } else {
+      respect <- TRUE
+    }
 
     nr <- nrow(panels_grob)
     nc <- ncol(panels_grob)
@@ -65,10 +70,10 @@ FacetGrid <- proto(Facet, {
     for(i in seq_along(.$scales$x)) {
       axes_h[[i]] <- coord$guide_axis_h(coord_details[[1, i]], theme)
     }
-    axes_h_height <- do.call("max", llply(axes_h, grobHeight))
+    axes_h_height <- do.call("max2", llply(axes_h, grobHeight))
     axeshGrid <- grobGrid(
       "axis_h", axes_h, nrow = 1, ncol = nc,
-      heights = axes_h_height
+      heights = axes_h_height, clip = "off"
     )
     
     
@@ -77,10 +82,10 @@ FacetGrid <- proto(Facet, {
     for(i in seq_along(.$scales$y)) {
       axes_v[[i]] <- coord$guide_axis_v(coord_details[[i, 1]], theme)
     }    
-    axes_v_width <- do.call("max", llply(axes_v, grobWidth))
+    axes_v_width <- do.call("max2", llply(axes_v, grobWidth))
     axesvGrid <- grobGrid(
       "axis_v", axes_v, nrow = nr, ncol = 1,
-      widths = axes_v_width, as.table = .$as.table
+      widths = axes_v_width, as.table = .$as.table, clip = "off"
     )
     
     # Strips
@@ -88,7 +93,7 @@ FacetGrid <- proto(Facet, {
     
     strip_widths <- llply(labels$v, grobWidth)
     strip_widths <- do.call("unit.c", llply(1:ncol(strip_widths), 
-      function(i) do.call("max", strip_widths[, i])))
+      function(i) do.call("max2", strip_widths[, i])))
     stripvGrid <- grobGrid(
       "strip_v", labels$v, nrow = nrow(labels$v), ncol = ncol(labels$v),
       widths = strip_widths, as.table = .$as.table
@@ -96,7 +101,7 @@ FacetGrid <- proto(Facet, {
       
     strip_heights <- llply(labels$h, grobHeight)
     strip_heights <- do.call("unit.c", llply(1:nrow(strip_heights),
-       function(i) do.call("max", strip_heights[i, ])))
+       function(i) do.call("max2", strip_heights[i, ])))
     striphGrid <- grobGrid(
       "strip_h", labels$h, nrow = nrow(labels$h), ncol = ncol(labels$h),
       heights = strip_heights
@@ -124,7 +129,8 @@ FacetGrid <- proto(Facet, {
 
     panelGrid <- grobGrid(
       "panel", t(panels), ncol = nc, nrow = nr,
-      widths = panel_widths, heights = panel_heights, as.table = .$as.table
+      widths = panel_widths, heights = panel_heights, as.table = .$as.table,
+      respect = respect
     )
        
     # Add gaps and compute widths and heights

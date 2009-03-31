@@ -1,4 +1,4 @@
-grobGrid <- function(name, nrow, ncol, grobs = NULL, widths = 1, heights = 1, clip = TRUE, default.units = "null", as.table = FALSE) {
+grobGrid <- function(name, nrow, ncol, grobs = NULL, widths = 1, heights = 1, clip = "on", default.units = "null", as.table = FALSE, respect = FALSE) {
   
   if (!is.unit(widths)) widths <- unit(widths, default.units)
   if (!is.unit(heights)) heights <- unit(heights, default.units)
@@ -34,7 +34,8 @@ grobGrid <- function(name, nrow, ncol, grobs = NULL, widths = 1, heights = 1, cl
     grobs = grobs, 
     clip = clip,
     widths = widths,
-    heights = heights
+    heights = heights,
+    respect = respect
   ), class = "grobGrid")
 }
 
@@ -54,11 +55,11 @@ grobRow <- function(name, grobs = NULL, widths, height = unit(1, "null"), clip =
   grobGrid(name, grobs, widths, height, clip, default.units)
 }
 
-gridLayout <- function(grid, respect = FALSE) {
+gridLayout <- function(grid) {
   grid.layout(
     nrow = nrow(grid), ncol = ncol(grid),
     widths = grid$widths, heights = grid$heights, 
-    respect = respect
+    respect = grid$respect
   )
 }
 
@@ -72,9 +73,25 @@ rbind.grobGrid <- function(...) {
     names =   do.call("rbind", all("names")),
     grobs =   do.call("rbind", all("grobs")),
     clip =    do.call("rbind", all("clip")),
-    widths =  do.call("unit.c", alply(widths, 2, splat(max))),
-    heights = do.call("unit.c", all("heights"))
+    widths =  do.call("unit.c", alply(widths, 2, splat(max2))),
+    heights = do.call("unit.c", all("heights")),
+    respect = do.call("any", all("respect"))
   ), class = "grobGrid") 
+}
+
+max2 <- function(...) {
+  units <- list(...)
+  
+  nulls <- laply(units, function(x) identical(attr(x, "unit"), "null"))
+  
+  if (all(nulls)) {
+    null_length <- max(laply(units, as.numeric))    
+    unit(null_length, "null")
+  } else {
+    to_cm <- function(x) as.numeric(convertX(x, unitTo = "cm"))
+    absolute_length <- max(laply(units[!nulls], to_cm))
+    unit(absolute_length, "cm")
+  }  
 }
 
 as.list.unit <- function(x, ...) {
@@ -95,7 +112,8 @@ rweave.grobGrid <- function(...) {
     grobs =   rweave(all("grobs")),
     clip =    rweave(all("clip")),
     heights =  interleave(all("heights")),
-    widths =  do.call("unit.c", alply(widths, 2, splat(max)))
+    widths =  do.call("unit.c", alply(widths, 2, splat(max2))),
+    respect = do.call("any", all("respect"))
   ), class = "grobGrid") 
   
 }
@@ -111,7 +129,8 @@ cbind.grobGrid <- function(...) {
     grobs =   do.call("cbind", all("grobs")),
     clip =    do.call("cbind", all("clip")),
     widths =  do.call("unit.c", all("widths")),
-    heights = do.call("unit.c", alply(heights, 2, splat(max)))
+    heights = do.call("unit.c", alply(heights, 2, splat(max2))),
+    respect = do.call("any", all("respect"))
   ), class = "grobGrid") 
 }
 
@@ -126,7 +145,8 @@ cweave.grobGrid <- function(...) {
     grobs =   cweave(all("grobs")),
     clip =    cweave(all("clip")),
     widths =  interleave(all("widths")),
-    heights = do.call("unit.c", alply(heights, 2, splat(max)))
+    heights = do.call("unit.c", alply(heights, 2, splat(max2))),
+    respect = do.call("any", all("respect"))
   ), class = "grobGrid") 
 }
 
@@ -190,12 +210,12 @@ grid.draw.gridGrob <- function(grid, ...) {
 
 
 rowHeights <- function(mat) {
-  do.call("unit.c", alply(mat, 1, splat(max)))  
+  do.call("unit.c", alply(mat, 1, splat(max2)))  
 }
 
 colWidths <- function(mat) {
   col_widths <- alply(mat, 2, function(x) llply(x, grobWidth))
-  do.call("unit.c", llply(col_widths, splat(max)))  
+  do.call("unit.c", llply(col_widths, splat(max2)))  
 }
 
 rep.unit2 <- function (x, ...) {
