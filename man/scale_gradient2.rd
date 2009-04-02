@@ -3,13 +3,14 @@
 \alias{scale_colour_gradient2}
 \alias{scale_fill_gradient2}
 \alias{ScaleGradient2}
+\alias{scale_color_gradient2}
 \title{scale\_gradient2}
 \description{Smooth gradient between three colours (high, low and midpoints)}
 \details{
 This page describes scale\_gradient2, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", alpha=1, ...)
-scale_fill_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", alpha=1, ...)}
+\usage{scale_colour_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", ...)
+scale_fill_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{low}{colour at low end of scale}
@@ -21,7 +22,6 @@ scale_fill_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"
  \item{labels}{character vector giving labels associated with breaks}
  \item{limits}{numeric vector of length 2, giving the extent of the scale}
  \item{trans}{a transformer to use}
- \item{alpha}{alpha value to use for colours}
  \item{...}{other arguments}
 }
 \seealso{\itemize{

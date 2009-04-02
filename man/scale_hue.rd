@@ -5,19 +5,19 @@
 \alias{ScaleHue}
 \alias{scale_colour_discrete}
 \alias{scale_fill_discrete}
+\alias{scale_color_hue}
 \title{scale\_hue}
 \description{Qualitative colour scale with evenly spaced hues}
 \details{
 This page describes scale\_hue, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_hue(name=NULL, h=c(0, 360), l=65, c=100, alpha=1, limits=NULL, breaks=NULL, labels=NULL, h.start=0, direction=1, formatter=identity, ...)
-scale_fill_hue(name=NULL, h=c(0, 360), l=65, c=100, alpha=1, limits=NULL, breaks=NULL, labels=NULL, h.start=0, direction=1, formatter=identity, ...)}
+\usage{scale_colour_hue(name=NULL, h=c(0, 360), l=65, c=100, limits=NULL, breaks=NULL, labels=NULL, h.start=0, direction=1, formatter=identity, ...)
+scale_fill_hue(name=NULL, h=c(0, 360), l=65, c=100, limits=NULL, breaks=NULL, labels=NULL, h.start=0, direction=1, formatter=identity, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{h}{range of hues to use, in [0, 360]}
  \item{l}{luminance (lightness), in [0, 100]}
  \item{c}{chroma (intensity of colour)}
- \item{alpha}{alpha}
  \item{limits}{numeric vector of length 2, giving the extent of the scale}
  \item{breaks}{numeric vector indicating where breaks should lie}
  \item{labels}{character vector giving labels associated with breaks}
@@ -53,9 +53,10 @@ d + scale_colour_hue(h=c(270, 360))
 
 # Vary opacity
 # (only works with pdf, quartz and cairo devices)
-d + scale_colour_hue(alpha = 0.9)
-d + scale_colour_hue(alpha = 0.5)
-d + scale_colour_hue(alpha = 0.2)
+d <- ggplot(dsamp, aes(carat, price, colour = clarity))
+d + geom_point(alpha = 0.9)
+d + geom_point(alpha = 0.5)
+d + geom_point(alpha = 0.2)
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

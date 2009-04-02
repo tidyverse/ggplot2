@@ -14,6 +14,7 @@ The following aesthetics can be used with geom\_hex.  Aesthetics are mapped to v
   \item \code{colour}: border colour 
   \item \code{fill}: internal colour 
   \item \code{size}: size 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_hex(mapping=NULL, data=NULL, stat="binhex", position="identity", ...)}

@@ -6,12 +6,14 @@
 \details{
 This page describes facet\_grid, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{facet_grid(facets=. ~ ., margins=FALSE, scales="fixed", space="fixed", ...)}
+\usage{facet_grid(facets=. ~ ., margins=FALSE, scales="fixed", space="fixed", labeller="label_value", as.table=TRUE, ...)}
 \arguments{
  \item{facets}{a formula with the rows (of the tabular display) on the LHS and the columns (of the tabular display) on the RHS; the dot in the formula is used to indicate there should be no faceting on this dimension (either row or column); the formula can also be entered as a string instead of a classical formula object}
  \item{margins}{logical value, should marginal rows and columns be displayed}
  \item{scales}{NULL}
  \item{space}{NULL}
+ \item{labeller}{NULL}
+ \item{as.table}{NULL}
  \item{...}{other arguments}
 }
 \seealso{\itemize{
@@ -48,7 +50,7 @@ qplot(mpg, wt, data=mtcars) + facet_grid(cyl ~ vs)
 # If you combine a facetted dataset with a dataset that lacks those
 # facetting variables, the data will be repeated across the missing
 # combinations:
-p <- qplot(mpg, wt, data=mtcars, facets = vs ~ am)
+p <- qplot(mpg, wt, data=mtcars, facets = vs ~ cyl)
 
 df <- data.frame(mpg = 22, wt = 3)
 p + geom_point(data = df, colour="red", size = 2)
@@ -56,8 +58,8 @@ p + geom_point(data = df, colour="red", size = 2)
 df2 <- data.frame(mpg = c(19, 22), wt = c(2,4), vs = c(0, 1))
 p + geom_point(data = df2, colour="red", size = 2)
 
-df2 <- data.frame(mpg = c(19, 22), wt = c(2,4), vs = c(1, 1))
-p + geom_point(data = df2, colour="red", size = 2)
+df3 <- data.frame(mpg = c(19, 22), wt = c(2,4), vs = c(1, 1))
+p + geom_point(data = df3, colour="red", size = 2)
 
 
 # You can also choose whether the scales should be constant

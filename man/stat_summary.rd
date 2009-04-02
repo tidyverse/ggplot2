@@ -35,7 +35,15 @@ The following aesthetics can be used with stat\_summary.  Aesthetics are mapped 
 \examples{\dontrun{
 # Basic operation on a small dataset
 c <- qplot(cyl, mpg, data=mtcars)
-c + stat_summary()
+c + stat_summary(fun.data = "mean_cl_boot", colour = "red")
+
+p <- qplot(cyl, mpg, data = mtcars, stat="summary", fun.y = "mean")
+p
+# Don't use ylim to zoom into a summary plot - this throws the
+# data away
+p + ylim(15, 30)
+# Instead use coord_cartesian
+p + coord_cartesian(ylim = c(15, 30))
 
 # You can supply individual functions to summarise the value at 
 # each x:
@@ -52,6 +60,8 @@ c + stat_sum_single(sd)
 c + stat_summary(fun.y = mean, fun.ymin = min, fun.ymax = max, 
   colour = "red")
 
+c + aes(colour = factor(vs)) + stat_summary(fun.y = mean, geom="line")
+
 # Alternatively, you can supply a function that operates on a data.frame.
 # A set of useful summary functions is provided from the Hmisc package:
 
@@ -66,10 +76,10 @@ c + stat_sum_df("median_hilow")
 
 # There are lots of different geoms you can use to display the summaries
     
-c + stat_sum_df(fun.data="mean_cl_normal")
-c + stat_sum_df(fun.data="mean_cl_normal", geom = "errorbar")
-c + stat_sum_df(fun.data="mean_cl_normal", geom = "pointrange")
-c + stat_sum_df(fun.data="mean_cl_normal", geom = "smooth")
+c + stat_sum_df("mean_cl_normal")
+c + stat_sum_df("mean_cl_normal", geom = "errorbar")
+c + stat_sum_df("mean_cl_normal", geom = "pointrange")
+c + stat_sum_df("mean_cl_normal", geom = "smooth")
     
 # Summaries are much more useful with a bigger data set:
 m <- ggplot(movies, aes(x=round(rating), y=votes)) + geom_point()

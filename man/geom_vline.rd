@@ -17,6 +17,7 @@ The following aesthetics can be used with geom\_vline.  Aesthetics are mapped to
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_vline(mapping=NULL, data=NULL, stat="vline", position="identity", ...)}
@@ -40,15 +41,12 @@ p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 p + geom_vline(xintercept = 5)
 p + geom_vline(xintercept = 1:5)
 p + geom_vline(xintercept = 1:5, colour="green")
-p + geom_vline(xintercept = "mean", size=2, colour = alpha("red", 0.2))
 
 last_plot() + coord_equal()
 last_plot() + coord_flip()
 
-# Lines from data
-p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
-p + geom_vline(xintercept = "mean") + facet_grid(. ~ cyl)
-p + geom_vline(aes(colour = factor(cyl)), xintercept = "mean")
+p2 <- p + aes(colour = factor(cyl))
+p2 + geom_vline(xintercept = 15)
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

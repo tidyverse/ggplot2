@@ -6,7 +6,7 @@
 \description{
 This is the equivalent of range for discrete variables
 }
-\usage{discrete_range(..., drop = TRUE)}
+\usage{discrete_range(..., drop = FALSE)}
 \arguments{
 \item{...}{}
 \item{drop}{}

@@ -10,11 +10,12 @@ This page describes geom\_linerange, see \code{\link{layer}} and \code{\link{qpl
 The following aesthetics can be used with geom\_linerange.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_linerange(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
-  \item \code{ymin}: minimum of interval (\strong{required}) 
-  \item \code{ymax}: maximum of interval (\strong{required}) 
+  \item \code{ymin}: bottom (vertical minimum) (\strong{required}) 
+  \item \code{ymax}: top (vertical maximum) (\strong{required}) 
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_linerange(mapping=NULL, data=NULL, stat="identity", position="identity", ...)}
@@ -46,7 +47,8 @@ qplot(cut, fit, data=cuts)
 qplot(cut, fit, data=cuts, geom="bar")
 
 # Display estimates and standard errors in various ways
-se <- ggplot(cuts, aes(x = cut, ymin=fit - se.fit, ymax=fit + se.fit, y=fit))
+se <- ggplot(cuts, aes(cut, fit, 
+  ymin = fit - se.fit, ymax=fit + se.fit, colour = cut))
 se + geom_linerange()
 se + geom_pointrange()
 se + geom_errorbar(width = 0.5)

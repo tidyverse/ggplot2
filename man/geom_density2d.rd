@@ -17,6 +17,7 @@ The following aesthetics can be used with geom\_density2d.  Aesthetics are mappe
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
+  \item \code{alpha}: transparency 
 }
 }
 \section{Advice}{

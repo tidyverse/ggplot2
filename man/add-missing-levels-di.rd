@@ -6,10 +6,10 @@
 \description{
 Ensure all data frames in list have same levels for selected variables
 }
-\usage{add_missing_levels(dfs, vars)}
+\usage{add_missing_levels(dfs, levels)}
 \arguments{
 \item{dfs}{}
-\item{vars}{}
+\item{levels}{}
 }
 
 \details{}

@@ -6,7 +6,7 @@
 \description{
 Wrapper for colorRamp that deals with missing values and alpha
 }
-\usage{nice_ramp(ramp, x, alpha)}
+\usage{nice_ramp(ramp, x, alpha = 1)}
 \arguments{
 \item{ramp}{}
 \item{x}{}

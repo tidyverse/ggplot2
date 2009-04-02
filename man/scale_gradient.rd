@@ -5,13 +5,14 @@
 \alias{ScaleGradient}
 \alias{scale_colour_continuous}
 \alias{scale_fill_continuous}
+\alias{scale_color_continuous}
 \title{scale\_gradient}
 \description{Smooth gradient between two colours}
 \details{
 This page describes scale\_gradient, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_gradient(name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", alpha=1, ...)
-scale_fill_gradient(name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", alpha=1, ...)}
+\usage{scale_colour_gradient(name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", ...)
+scale_fill_gradient(name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{low}{colour at low end of scale}
@@ -21,7 +22,6 @@ scale_fill_gradient(name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", break
  \item{labels}{character vector giving labels associated with breaks}
  \item{limits}{numeric vector of length 2, giving the extent of the scale}
  \item{trans}{a transformer to use}
- \item{alpha}{alpha value to use for colours}
  \item{...}{other arguments}
 }
 \seealso{\itemize{
@@ -61,9 +61,6 @@ d + scale_colour_gradient(limits=c(3, 4), low="red", high="white")
 # Much slower
 d + scale_colour_gradient(limits=c(3, 4), low="red", high="white", space="Lab")
 d + scale_colour_gradient(limits=c(3, 4), space="Lab")
-
-# Can also make partially transparent
-d + scale_colour_gradient(limits=c(3, 4), alpha=0.5)
 
 # scale_fill_continuous works similarly, but for fill colours
 (h <- qplot(x - y, data=dsub, geom="histogram", binwidth=0.01, fill=..count..))

@@ -19,6 +19,7 @@ The following aesthetics can be used with geom\_area.  Aesthetics are mapped to 
   \item \code{fill}: internal colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_area(mapping=NULL, data=NULL, stat="identity", position="stack", ...)}

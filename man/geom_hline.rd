@@ -17,6 +17,7 @@ The following aesthetics can be used with geom\_hline.  Aesthetics are mapped to
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_hline(mapping=NULL, data=NULL, stat="hline", position="identity", ...)}
@@ -40,8 +41,13 @@ p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
 p + geom_hline(aes(yintercept=mpg))
 p + geom_hline(yintercept=20)
 p + geom_hline(yintercept=seq(10, 30, by=5))
-p + geom_hline(yintercept="mean")
-p + geom_hline(aes(colour=factor(cyl)), yintercept="mean")
+
+# To display different lines in different facets, you need to 
+# create a data frame.
+p <- qplot(mpg, wt, data=mtcars, facets = vs ~ am)
+
+hline.data <- data.frame(z = 1:4, vs = c(0,0,1,1), am = c(0,1,0,1))
+p + geom_hline(aes(yintercept = z), hline.data)
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

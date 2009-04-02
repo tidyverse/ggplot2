@@ -17,6 +17,7 @@ The following aesthetics can be used with geom\_point.  Aesthetics are mapped to
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{fill}: internal colour 
+  \item \code{alpha}: transparency 
 }
 }
 \section{Advice}{
@@ -48,19 +49,25 @@ p + geom_point()
 
 # Add aesthetic mappings
 p + geom_point(aes(colour = qsec))
-p + geom_point(aes(colour = cyl))
+p + geom_point(aes(alpha = qsec))
 p + geom_point(aes(colour = factor(cyl)))
 p + geom_point(aes(shape = factor(cyl)))
 p + geom_point(aes(size = qsec))
 
 # Change scales
-p + geom_point(aes(colour = cyl)) + scale_colour_gradient(low = "red")
+p + geom_point(aes(colour = cyl)) + scale_colour_gradient(low = "blue")
 p + geom_point(aes(size = qsec)) + scale_area()
 p + geom_point(aes(shape = factor(cyl))) + scale_shape(solid = FALSE)
 
 # Set aesthetics to fixed value
 p + geom_point(colour = "red", size = 3)
 qplot(wt, mpg, data = mtcars, colour = I("red"), size = I(3))
+
+# Varying alpha is useful for large datasets
+d <- ggplot(diamonds, aes(carat, price))
+d + geom_point(alpha = 1/10)
+d + geom_point(alpha = 1/20)
+d + geom_point(alpha = 1/100)
 
 # You can create interesting shapes by layering multiple points of
 # different sizes
@@ -80,8 +87,7 @@ p + geom_point(colour="black", size = 4.5, legend = TRUE) +
   geom_point(aes(shape = factor(cyl)))  
     
 # Transparent points:
-qplot(mpg, wt, data = mtcars, size = I(5), 
-  colour=I(alpha("black", 0.2)))
+qplot(mpg, wt, data = mtcars, size = I(5), alpha = I(0.2))
 
 # geom_point warns when missing values have been dropped from the data set
 # and not plotted, you can turn this off by setting na.rm = TRUE

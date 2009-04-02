@@ -15,6 +15,7 @@ The following aesthetics can be used with geom\_polygon.  Aesthetics are mapped 
   \item \code{fill}: internal colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_polygon(mapping=NULL, data=NULL, stat="identity", position="identity", ...)}

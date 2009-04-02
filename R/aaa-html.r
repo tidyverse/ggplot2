@@ -1,26 +1,29 @@
 # Description of aesthetics
 .desc_aes <- list(
+  "alpha" = "transparency",
   "x"= "x position",
   "y"= "y position", 
-  "z"= "z position", 
   "group"= "how observations are divided into different groups", 
   "colour"= "border colour", 
   "fill"= "internal colour", 
-  "height"= "height of geom", 
   "hjust"= "horizontal justification, between 0 and 1", 
-  "intercept"= "x/y intercept", 
+  "xintercept"= "x intercept", 
+  "yintercept" = "y intercept",
   "label"= "text label", 
   "linetype"= "line type", 
-  "ymax"= "maximum of interval", 
-  "ymin"= "minimum of interval", 
+  "ymax"= "top (vertical maximum)", 
+  "ymin"= "bottom (vertical minimum)", 
+  "xmax"= "right (hortizontal maximum)", 
+  "xmin"= "left (hortizontal minimum)", 
+  "height"= "height", 
+  "width" = "width",
   "angle"= "angle", 
   "shape"= "shape of point", 
   "size"= "size", 
   "slope"= "slope of line", 
   "quantile" = "quantile of distribution",
   "vjust"= "vertical justification, between 0 and 1", 
-  "weight"= "observation weight used in statistical transformation", 
-  "width" = "width of geom"
+  "weight"= "observation weight used in statistical transformation"
 )
 
 .desc_param <- list(
@@ -30,12 +33,12 @@
   "geom" = "geometric used by this layer", 
   "position" = "position adjustment used by this layer",
   "..." = "other arguments", 
-  "name" = "name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath",
-  "limits" = "numeric vector of length 2, giving the extent of the scale",
   "trans" = "a transformer to use",
   "..." = "ignored",
   "to" = "numeric vector of length 2, giving minimum and maximum after transformation",
-  "guide" = "guide type for legend, one of 'point', 'tile', 'line'",
+
+  "name" = "name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath",
+  "limits" = "numeric vector of length 2, giving the extent of the scale",
   "breaks" = "numeric vector indicating where breaks should lie",
   "labels" = "character vector giving labels associated with breaks",
   "expand" = "numeric vector of length 2, giving multiplicative and additive expansion factors"

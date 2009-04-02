@@ -15,6 +15,7 @@ The following aesthetics can be used with geom\_quantile.  Aesthetics are mapped
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
+  \item \code{alpha}: transparency 
 }
 }
 \section{Advice}{

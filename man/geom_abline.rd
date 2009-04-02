@@ -16,6 +16,7 @@ The following aesthetics can be used with geom\_abline.  Aesthetics are mapped t
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_abline(mapping=NULL, data=NULL, stat="abline", position="identity", ...)}
@@ -38,13 +39,13 @@ The following aesthetics can be used with geom\_abline.  Aesthetics are mapped t
 p <- qplot(wt, mpg, data = mtcars)
 
 # Fixed slopes and intercepts
-p + geom_abline()
+p + geom_abline() # Can't see it - outside the range of the data
 p + geom_abline(intercept = 20)
 
 # Calculate slope and intercept of line of best fit
 coef(lm(mpg ~ wt, data = mtcars))
 p + geom_abline(intercept = 37, slope = -5)
-p + geom_abline(intercept=10, colour="red", size=2)
+p + geom_abline(intercept = 10, colour = "red", size = 2)
 
 # See ?stat_smooth for fitting smooth models to data
 p + stat_smooth(method="lm", se=FALSE)

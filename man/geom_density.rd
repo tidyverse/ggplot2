@@ -14,6 +14,7 @@ The following aesthetics can be used with geom\_density.  Aesthetics are mapped 
   \item \code{fill}: internal colour 
   \item \code{weight}: observation weight used in statistical transformation 
   \item \code{colour}: border colour 
+  \item \code{alpha}: transparency 
   \item \code{size}: size 
   \item \code{linetype}: line type 
 }

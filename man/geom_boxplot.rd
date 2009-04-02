@@ -13,12 +13,13 @@ The following aesthetics can be used with geom\_boxplot.  Aesthetics are mapped 
   \item \code{lower}: NULL (\strong{required}) 
   \item \code{upper}: NULL (\strong{required}) 
   \item \code{middle}: NULL (\strong{required}) 
-  \item \code{ymin}: minimum of interval (\strong{required}) 
-  \item \code{ymax}: maximum of interval (\strong{required}) 
+  \item \code{ymin}: bottom (vertical minimum) (\strong{required}) 
+  \item \code{ymax}: top (vertical maximum) (\strong{required}) 
   \item \code{weight}: observation weight used in statistical transformation 
   \item \code{colour}: border colour 
   \item \code{fill}: internal colour 
   \item \code{size}: size 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_boxplot(mapping=NULL, data=NULL, stat="boxplot", position="dodge", outlier.colour="black", outlier.shape=16, outlier.size=1, ...)}

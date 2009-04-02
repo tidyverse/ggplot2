@@ -12,6 +12,7 @@ The following aesthetics can be used with geom\_step.  Aesthetics are mapped to 
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_step(mapping=NULL, data=NULL, stat="identity", position="identity", direction="hv", ...)}

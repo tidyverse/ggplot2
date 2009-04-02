@@ -9,14 +9,15 @@ This page describes geom\_rect, see \code{\link{layer}} and \code{\link{qplot}} 
 \section{Aesthetics}{
 The following aesthetics can be used with geom\_rect.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_rect(\code{\link{aes}}(x = var))}
 \itemize{
-  \item \code{xmin}: NULL (\strong{required}) 
-  \item \code{xmax}: NULL (\strong{required}) 
-  \item \code{ymin}: minimum of interval (\strong{required}) 
-  \item \code{ymax}: maximum of interval (\strong{required}) 
+  \item \code{xmin}: left (hortizontal minimum) (\strong{required}) 
+  \item \code{xmax}: right (hortizontal maximum) (\strong{required}) 
+  \item \code{ymin}: bottom (vertical minimum) (\strong{required}) 
+  \item \code{ymax}: top (vertical maximum) (\strong{required}) 
   \item \code{colour}: border colour 
   \item \code{fill}: internal colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_rect(mapping=NULL, data=NULL, stat="identity", position="identity", ...)}

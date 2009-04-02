@@ -17,6 +17,7 @@ The following aesthetics can be used with geom\_jitter.  Aesthetics are mapped t
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{fill}: internal colour 
+  \item \code{alpha}: transparency 
 }
 }
 \section{Advice}{

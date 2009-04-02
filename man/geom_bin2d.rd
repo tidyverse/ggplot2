@@ -9,15 +9,16 @@ This page describes geom\_bin2d, see \code{\link{layer}} and \code{\link{qplot}}
 \section{Aesthetics}{
 The following aesthetics can be used with geom\_bin2d.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_bin2d(\code{\link{aes}}(x = var))}
 \itemize{
-  \item \code{xmin}: NULL (\strong{required}) 
-  \item \code{xmax}: NULL (\strong{required}) 
-  \item \code{ymin}: minimum of interval (\strong{required}) 
-  \item \code{ymax}: maximum of interval (\strong{required}) 
+  \item \code{xmin}: left (hortizontal minimum) (\strong{required}) 
+  \item \code{xmax}: right (hortizontal maximum) (\strong{required}) 
+  \item \code{ymin}: bottom (vertical minimum) (\strong{required}) 
+  \item \code{ymax}: top (vertical maximum) (\strong{required}) 
   \item \code{colour}: border colour 
   \item \code{fill}: internal colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
   \item \code{weight}: observation weight used in statistical transformation 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_bin2d(mapping=NULL, data=NULL, stat="bin2d", position="identity", ...)}

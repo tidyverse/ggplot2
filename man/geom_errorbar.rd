@@ -10,12 +10,13 @@ This page describes geom\_errorbar, see \code{\link{layer}} and \code{\link{qplo
 The following aesthetics can be used with geom\_errorbar.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_errorbar(\code{\link{aes}}(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
-  \item \code{ymin}: minimum of interval (\strong{required}) 
-  \item \code{ymax}: maximum of interval (\strong{required}) 
+  \item \code{ymin}: bottom (vertical minimum) (\strong{required}) 
+  \item \code{ymax}: top (vertical maximum) (\strong{required}) 
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
-  \item \code{width}: width of geom 
+  \item \code{width}: width 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_errorbar(mapping=NULL, data=NULL, stat="identity", position="identity", ...)}

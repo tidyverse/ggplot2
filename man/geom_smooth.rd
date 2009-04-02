@@ -16,7 +16,7 @@ The following aesthetics can be used with geom\_smooth.  Aesthetics are mapped t
   \item \code{size}: size 
   \item \code{linetype}: line type 
   \item \code{weight}: observation weight used in statistical transformation 
-  \item \code{alpha}: NULL 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_smooth(mapping=NULL, data=NULL, stat="smooth", position="identity", ...)}
@@ -55,7 +55,8 @@ err <- stats::predict(model, newdata=grid, se = TRUE)
 grid$ucl <- err$fit + 1.96 * err$se.fit
 grid$lcl <- err$fit - 1.96 * err$se.fit
 
-qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + geom_smooth(aes(min=lcl, max=ucl), data=grid, stat="identity") 
+qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + 
+  geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat="identity") 
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

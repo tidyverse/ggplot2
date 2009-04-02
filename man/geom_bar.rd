@@ -19,6 +19,7 @@ The following aesthetics can be used with geom\_bar.  Aesthetics are mapped to v
   \item \code{size}: size 
   \item \code{linetype}: line type 
   \item \code{weight}: observation weight used in statistical transformation 
+  \item \code{alpha}: transparency 
 }
 }
 \section{Advice}{

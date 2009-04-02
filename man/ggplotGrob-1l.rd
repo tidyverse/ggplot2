@@ -6,11 +6,12 @@
 \description{
 Build a plot with all the usual bits and pieces.
 }
-\usage{ggplotGrob(plot, drop = plot$options$drop, keep = plot$options$keep)}
+\usage{ggplotGrob(plot, drop = plot$options$drop, keep = plot$options$keep, ...)}
 \arguments{
 \item{plot}{plot}
 \item{drop}{plot grob}
 \item{keep}{}
+\item{...}{}
 }
 
 \details{As well as the plotting area, a plot need:

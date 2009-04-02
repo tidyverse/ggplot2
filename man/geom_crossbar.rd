@@ -11,12 +11,13 @@ The following aesthetics can be used with geom\_crossbar.  Aesthetics are mapped
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 
-  \item \code{ymin}: minimum of interval (\strong{required}) 
-  \item \code{ymax}: maximum of interval (\strong{required}) 
+  \item \code{ymin}: bottom (vertical minimum) (\strong{required}) 
+  \item \code{ymax}: top (vertical maximum) (\strong{required}) 
   \item \code{colour}: border colour 
   \item \code{fill}: internal colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_crossbar(mapping=NULL, data=NULL, stat="identity", position="identity", fatten=2, ...)}

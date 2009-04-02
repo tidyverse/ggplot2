@@ -12,6 +12,7 @@ The following aesthetics can be used with geom\_rug.  Aesthetics are mapped to v
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_rug(mapping=NULL, data=NULL, stat="identity", position="identity", ...)}

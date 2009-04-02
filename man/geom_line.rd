@@ -14,6 +14,7 @@ The following aesthetics can be used with geom\_line.  Aesthetics are mapped to 
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_line(mapping=NULL, data=NULL, stat="identity", position="identity", ...)}

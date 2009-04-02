@@ -17,6 +17,7 @@ The following aesthetics can be used with geom\_histogram.  Aesthetics are mappe
   \item \code{size}: size 
   \item \code{linetype}: line type 
   \item \code{weight}: observation weight used in statistical transformation 
+  \item \code{alpha}: transparency 
 }
 }
 \section{Advice}{

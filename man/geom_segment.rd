@@ -16,6 +16,7 @@ The following aesthetics can be used with geom\_segment.  Aesthetics are mapped 
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_segment(mapping=NULL, data=NULL, stat="identity", position="identity", ...)}
@@ -46,6 +47,15 @@ names(usamap) <- c("long", "lat")
 p <- ggplot(seals, aes(x = long, y = lat))
 (p <- p + geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat), arrow=arrow(length=unit(0.1,"cm"))))
 p + geom_path(data = usamap) + scale_x_continuous(limits=xlim)
+
+# You can also use geom_segment to recreate plot(type = "h") : 
+counts <- as.data.frame(table(x = rpois(100,5)))
+counts$x <- as.numeric(as.character(counts$x))
+with(counts, plot(x, Freq, type = "h", lwd = 10))
+
+qplot(x, Freq, data = counts, geom="segment", 
+  yend = 0, xend = x, size = I(10))
+
 
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}

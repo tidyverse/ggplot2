@@ -17,6 +17,7 @@ The following aesthetics can be used with geom\_text.  Aesthetics are mapped to 
   \item \code{angle}: angle 
   \item \code{hjust}: horizontal justification, between 0 and 1 
   \item \code{vjust}: vertical justification, between 0 and 1 
+  \item \code{alpha}: transparency 
 }
 }
 \usage{geom_text(mapping=NULL, data=NULL, stat="identity", position="identity", ...)}
@@ -50,8 +51,10 @@ p + geom_text(aes(size=wt))
 p + geom_text(aes(size=wt)) + scale_size(to=c(3,6))
 
 # Use qplot instead
-qplot(wt, mpg, data=mtcars, label=rownames(mtcars), geom=c("point","text"))
-qplot(wt, mpg, data=mtcars, label=rownames(mtcars), geom=c("point","text"), size=wt)
+qplot(wt, mpg, data = mtcars, label = rownames(mtcars),
+   geom=c("point", "text"))
+qplot(wt, mpg, data = mtcars, label = rownames(mtcars), size = wt) +
+  geom_text(colour = "red")
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}
