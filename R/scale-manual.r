@@ -12,12 +12,15 @@ ScaleManual <- proto(ScaleDiscrete, {
 
     values <- as.character(values)
     values[is.na(values)] <- "NA"
+    input <- .$input_set()
+    input[is.na(input)] <- "NA"
     
     if (.$has_names()) {
-      values[!values %in% .$input_set()] <- NA
+      values[!values %in% input] <- NA
       .$output_set()[values]
     } else {
-      .$output_set()[match(values, .$input_set())]
+      
+      .$output_set()[match(values, input)]
     }
   }
 
