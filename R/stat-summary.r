@@ -91,10 +91,10 @@ StatSummary <- proto(Stat, {
 
     # There are lots of different geoms you can use to display the summaries
         
-    c + stat_sum_df(fun="mean_cl_normal")
-    c + stat_sum_df(fun="mean_cl_normal", geom = "errorbar")
-    c + stat_sum_df(fun="mean_cl_normal", geom = "pointrange")
-    c + stat_sum_df(fun="mean_cl_normal", geom = "smooth")
+    c + stat_sum_df("mean_cl_normal")
+    c + stat_sum_df("mean_cl_normal", geom = "errorbar")
+    c + stat_sum_df("mean_cl_normal", geom = "pointrange")
+    c + stat_sum_df("mean_cl_normal", geom = "smooth")
         
     # Summaries are much more useful with a bigger data set:
     m <- ggplot(movies, aes(x=round(rating), y=votes)) + geom_point()

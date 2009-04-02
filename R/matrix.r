@@ -35,7 +35,7 @@ plotmatrix <- function(data, mapping=aes(), colour="black") {
   class(mapping) <- "uneval"
 
   ggplot(all, mapping) + facet_grid(xvar ~ yvar, scales = "free") +
-    geom_point(colour = colour) +
+    geom_point(colour = colour, na.rm = TRUE) +
     stat_density(
       aes(x = x, y = ..scaled.. * diff(range(x)) + min(x)),
       data = densities, position ="identity", colour = "grey20", geom = "line"
