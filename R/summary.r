@@ -4,6 +4,11 @@
 # @keyword internal
 #X summary(qplot(mpg, wt, data=mtcars))
 summary.ggplot <- function(object, ...) {
+  wrap <- function(x) paste(
+    paste(strwrap(x, exdent = 2), collapse = "\n"),
+    "\n", sep =""
+    )
+  
   defaults <- function() {
     paste(mapply(function(x, n) {
       paste(n, deparse(x), sep="=")
@@ -13,7 +18,11 @@ summary.ggplot <- function(object, ...) {
   # cat("Title:    ", object$title, "\n", sep="")
   # cat("-----------------------------------\n")
   if (!is.null(object$data)) {
-    cat("data:     ", paste(names(object$data), collapse=", "), " [", nrow(object$data), "x", ncol(object$data), "] ", "\n", sep="")    
+    output <- paste(
+      "data:     ", paste(names(object$data), collapse=", "), 
+      " [", nrow(object$data), "x", ncol(object$data), "] ", 
+      "\n", sep="")
+    cat(wrap(output))
   }
   if (length(object$mapping) > 0) {
     cat("mapping:  ", clist(object$mapping), "\n", sep="")    
