@@ -9,7 +9,7 @@ GeomBoxplot <- proto(Geom, {
     )
   }
   
-  draw <- function(., data, ..., outlier.colour = "black", outlier.shape = 16, outlier.size = 1) { 
+  draw <- function(., data, ..., outlier.colour = "black", outlier.shape = 16, outlier.size = 2) { 
     defaults <- with(data, data.frame(
       x = x, xmin = xmin, xmax = xmax, 
       colour = colour, alpha = alpha, size = size, 
