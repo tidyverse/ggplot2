@@ -33,6 +33,7 @@ Bug fixes
 * position_stack: fixed bug in detection of overlap for very large bins
 * scale_discrete: factor levels no longer mistakenly reordered
 * scale_hue: now spans full range of hue if it less than 360 degrees
+* scale_hue: rotated default hue range by 15 degrees to avoid unfortunate red-green contrast in two colour case
 * show now works with ggplot objects
 * stat_summary: now warns when dropping records with missing values
 * stat_summary: should be a little faster
