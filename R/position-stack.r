@@ -3,8 +3,14 @@ PositionStack <- proto(Position, {
   adjust <- function(., data, scales) {
     if (empty(data)) return(data.frame())
     
-    check_required_aesthetics(c("x", "ymax"), names(data), "position_stack")
-    if (!all(data$ymin == 0)) warning("Stacking not well defined when ymin != 0")
+    if (is.null(data$ymax)) {
+      message("Missing ymax in position = 'stack'. ", 
+        "Maybe you want position = 'identity'?")
+      return(data)
+    }
+
+    if (!all(data$ymin == 0)) 
+      warning("Stacking not well defined when ymin != 0")
     collide(data, .$width, .$my_name(), pos_stack)
   }  
   

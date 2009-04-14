@@ -30,6 +30,7 @@ Bug fixes
 * geom_text: better legend
 * geom_vline, geom_hline, geom_abline: should work in yet more situations
 * resolution: fixed bug in computation of resolution that lead to (e.g.) incorrect boxplot widths when there was only a single x value in a group.
+* position_stack: fixed bug in detection of overlap for very large bins
 * scale_discrete: factor levels no longer mistakenly reordered
 * show now works with ggplot objects
 * stat_summary: now warns when dropping records with missing values
