@@ -12,14 +12,19 @@ ScaleHue <- proto(ScaleColour, expr={
   }
   
   output_set <- function(.) {
+    
     rotate <- function(x) (x + .$start) %% 360 * .$direction
 
     n <- length(.$input_set())
+    if ((diff(.$h) %% 360) < 1) {
+      .$h[2] <- .$h[2] - 360 / n
+    }
+
     grDevices::hcl(
-      h = rotate(seq(.$h[1], .$h[2], length = n+1)), 
+      h = rotate(seq(.$h[1], .$h[2], length = n)), 
       c =.$c, 
       l =.$l
-    )[-(n+1)]
+    )
   }
   max_levels <- function(.) Inf
 
