@@ -18,7 +18,7 @@
 fortify.map <- function(model, data, ...) {
   df <- as.data.frame(model[c("x", "y")])
   names(df) <- c("long", "lat")
-  df$group <- cumsum(is.na(df$long) & is.na(df$long)) + 1
+  df$group <- cumsum(is.na(df$long) & is.na(df$lat)) + 1
   df$order <- 1:nrow(df)
   
   names <- do.call("rbind", lapply(strsplit(model$names, "[:,]"), "[", 1:2))
