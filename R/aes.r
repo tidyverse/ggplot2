@@ -95,6 +95,24 @@ aes_string <- function(...) {
 class="uneval")
 }
 
+# Generate identity mappings
+# Given a character vector, create a set of identity mappings
+# 
+# @arguments vector of variable names
+# @keyword internal
+#X aes_all(names(mtcars))
+#X aes_all(c("x", "y", "col", "pch"))
+aes_all <- function(vars) {
+  names(vars) <- vars
+  vars <- rename_aes(vars)
+  
+  structure(
+    lapply(vars, function(x) parse(text=x)[[1]]),
+    class = "uneval"
+  )
+  
+}
+
 print.uneval <- function(x, ...) str(unclass(x))
 str.uneval <- function(object, ...) str(unclass(object), ...)
 "[.uneval" <- function(x, i, ...) structure(unclass(x)[i], class = "uneval") 

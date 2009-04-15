@@ -15,13 +15,3 @@ annotate <- function(geom, x, y, xmin = NULL, xmax = NULL, ymin = NULL, ymax = N
   )
 }
 
-aes_all <- function(vars) {
-  vars <- rename_aes(vars)
-  names(vars) <- vars
-  
-  structure(
-    lapply(vars, function(x) parse(text=x)[[1]]),
-    class = "uneval"
-  )
-  
-}
