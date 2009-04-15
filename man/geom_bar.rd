@@ -47,7 +47,7 @@ A bar chart maps the height of the bar to a variable, and so the base of the bar
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
 # Generate data
-c <- ggplot(mtcars, aes(x=factor(cyl)))
+c <- ggplot(mtcars, aes(factor(cyl)))
 
 c + geom_bar()
 c + geom_bar() + coord_flip()
@@ -61,17 +61,28 @@ qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(cyl))
 qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(vs))
 qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(gear))
 
-ggplot(diamonds, aes(x=clarity, fill=cut)) + geom_bar()
-ggplot(diamonds, aes(x=color, fill=cut)) + geom_bar() + coord_flip()
-ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar()
+# Stacked bar charts are easy in ggplot2, but not effective visually, 
+# particularly when there are many different things being stacked
+ggplot(diamonds, aes(clarity, fill=cut)) + geom_bar()
+ggplot(diamonds, aes(color, fill=cut)) + geom_bar() + coord_flip()
+
+# Faceting is a good alternative:
+ggplot(diamonds, aes(clarity)) + geom_bar() + 
+  facet_wrap(~ cut)
+# If the x axis is ordered, using a line instead of bars is another
+# possibility:
+ggplot(diamonds, aes(clarity)) + 
+  geom_freqpoly(aes(group = cut, colour = cut))
+
+
 
 # Dodged bar charts    
-ggplot(diamonds, aes(x=clarity, fill=cut)) + geom_bar(position="dodge")
+ggplot(diamonds, aes(clarity, fill=cut)) + geom_bar(position="dodge")
 # compare with 
-ggplot(diamonds, aes(x=cut, fill=cut)) + geom_bar() + facet_grid(. ~ clarity)
+ggplot(diamonds, aes(cut, fill=cut)) + geom_bar() + facet_grid(. ~ clarity)
 
 # But may be better to use a frequency polygons instead:
-ggplot(diamonds, aes(x=clarity, colour=cut)) + 
+ggplot(diamonds, aes(clarity, colour=cut)) + 
   geom_freqpoly(aes(group = cut))
 
 # Often we don't want the height of the bar to represent the

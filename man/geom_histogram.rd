@@ -113,12 +113,27 @@ m + facet_grid(Action ~ Comedy)
 m + facet_wrap(~ mpaa)
 
 # Multiple histograms on the same graph
-# see ?position, ?position_fill, etc for more details
+# see ?position, ?position_fill, etc for more details.  
 ggplot(diamonds, aes(x=price)) + geom_bar()
 hist_cut <- ggplot(diamonds, aes(x=price, fill=cut))
 hist_cut + geom_bar() # defaults to stacking
 hist_cut + geom_bar(position="fill")
 hist_cut + geom_bar(position="dodge")
+
+# This is easy in ggplot2, but not visually effective.  It's better
+# to use a frequency polygon or density plot.  Like this:
+ggplot(diamonds, aes(price, ..density.., colour = cut)) +
+  geom_freqpoly(binwidth = 1000)
+# Or this:
+ggplot(diamonds, aes(price, colour = cut)) +
+  geom_density()
+# Or if you want to be fancy, maybe even this:
+ggplot(diamonds, aes(price, fill = cut)) +
+  geom_density(alpha = 0.2)
+# Which looks better when the distributions are more distinct
+ggplot(diamonds, aes(depth, fill = cut)) +
+  geom_density(alpha = 0.2) + xlim(55, 70)
+
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}
