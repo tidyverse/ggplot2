@@ -1,5 +1,5 @@
 ScaleGradient <- proto(ScaleContinuous, expr={
-  aliases <- c("scale_colour_continuous", "scale_fill_continuous", "scale_color_continuous")
+  aliases <- c("scale_colour_continuous", "scale_fill_continuous", "scale_color_continuous", "scale_color_gradient")
 
   new <- function(., name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", ..., variable) {
     if (is.character(trans)) trans <- Trans$find(trans)
@@ -23,7 +23,6 @@ ScaleGradient <- proto(ScaleContinuous, expr={
   }
   
   common <- c("colour", "fill")
-  aliases <- c("scale_color_gradient")
 
   # Documentation -----------------------------------------------
   

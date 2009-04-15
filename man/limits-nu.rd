@@ -12,9 +12,9 @@
 \description{
 Generate correct scale type for specified limits
 }
-\usage{limits(lim, var)}
+\usage{limits(lims, var)}
 \arguments{
-\item{lim}{vector of limits}
+\item{lims}{vector of limits}
 \item{var}{variable}
 }
 

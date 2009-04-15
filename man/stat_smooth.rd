@@ -44,8 +44,10 @@ c + stat_smooth() + geom_point()
 c + stat_smooth(se = FALSE) + geom_point()
 
 c + stat_smooth(span = 0.9) + geom_point()  
-c + stat_smooth(method = "lm") + geom_point()  
-c + stat_smooth(method = "lm", formula = y ~ splines::ns(x,3)) +
+c + stat_smooth(method = "lm") + geom_point() 
+
+library(splines)
+c + stat_smooth(method = "lm", formula = y ~ ns(x,3)) +
   geom_point()  
 c + stat_smooth(method = MASS::rlm, formula= y ~ ns(x,3)) + geom_point()  
 

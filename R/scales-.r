@@ -108,11 +108,16 @@ Scales <- proto(Scale, expr={
   map_df <- function(., df) {
     if (length(.$.scales) == 0) return(df)
     
+    oldcols <- df[!(names(df) %in% .$input())]
+    
     mapped <- lapply(.$.scales, function(scale) scale$map_df(df))
-    data.frame(
-      mapped[sapply(mapped, nrow) > 0], 
-      df[!(names(df) %in% .$input())]
-    )
+    mapped <- mapped[!sapply(mapped, empty)]
+    
+    if (length(mapped) > 0) {
+      data.frame(mapped, oldcols)
+    } else {
+      oldcols
+    }
   }
   
   # Transform values to cardinal representation
@@ -143,7 +148,6 @@ Scales <- proto(Scale, expr={
     
     # Compute default scale names
     names <- as.vector(sapply(aesthetics[new_aesthetics], deparse))
-
 
     # Determine variable type for each column -------------------------------
     vartype <- function(x) {

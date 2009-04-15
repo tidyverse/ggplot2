@@ -39,7 +39,7 @@
     p <- switch(object$class(),
       layer  = {
         p$layers <- append(p$layers, object)
-        data <- if(is.null(object$data)) p$data else object$data
+        data <- if(empty(object$data)) p$data else object$data
         mapping <- object$mapping %||% p$mapping
         p$scales$add_defaults(data, mapping, p$plot_env)
         p

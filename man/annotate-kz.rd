@@ -1,10 +1,10 @@
 \name{annotate}
 \alias{annotate}
-\title{Add annotation to a plot}
+\title{Annotate a plot}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Add annotations to a plot in a convenient manner
 }
 \usage{annotate(geom, x, y, xmin = NULL, xmax = NULL, ymin = NULL, ymax = NULL, ...)}
 \arguments{
@@ -20,5 +20,5 @@
 
 \details{}
 
-\examples{}
+\examples{annotate("text", x = 0, y = 0, label = "title")}
 

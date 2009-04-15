@@ -74,14 +74,13 @@ ggplot(diamonds, aes(clarity)) + geom_bar() +
 ggplot(diamonds, aes(clarity)) + 
   geom_freqpoly(aes(group = cut, colour = cut))
 
-
-
 # Dodged bar charts    
 ggplot(diamonds, aes(clarity, fill=cut)) + geom_bar(position="dodge")
 # compare with 
-ggplot(diamonds, aes(cut, fill=cut)) + geom_bar() + facet_grid(. ~ clarity)
+ggplot(diamonds, aes(cut, fill=cut)) + geom_bar() + 
+  facet_grid(. ~ clarity)
 
-# But may be better to use a frequency polygons instead:
+# But again, probably better to use frequency polygons instead:
 ggplot(diamonds, aes(clarity, colour=cut)) + 
   geom_freqpoly(aes(group = cut))
 

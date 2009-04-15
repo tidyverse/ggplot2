@@ -30,7 +30,7 @@
 #X ggpcp(mtcars, vars=names(mtcars)[3:6], formula= . ~cyl, scale="I") + geom_line()
 #X ggpcp(mtcars, scale="I") + geom_boxplot(aes(group=variable))
 #X ggpcp(mtcars, vars=names(mtcars[2:6])) + geom_line()
-#X p <- ggpcp(mtcars, vars=names(mtcars[2:6]), formula=.~vs)
+#X p <- ggpcp(mtcars, vars=names(mtcars[2:6]))
 #X p + geom_line()
 #X p + geom_line(aes(colour=mpg)) 
 ggpcp <- function(data, vars=names(data), scale="range", ...) {
@@ -41,8 +41,7 @@ ggpcp <- function(data, vars=names(data), scale="range", ...) {
   data$ROWID <- 1:nrow(data)
   molten <- melt(data, m=vars)
 
-  p <- ggplot(molten, aes_string(x="variable", y="value", group="ROWID"), ...)
-  p + scale_x_discrete()
+  ggplot(molten, aes_string(x = "variable", y = "value", group = "ROWID"), ...)
 }
 
 # Fluctuation plot

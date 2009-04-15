@@ -28,7 +28,7 @@ ggpcp(mtcars, scale="var") + geom_line()
 ggpcp(mtcars, vars=names(mtcars)[3:6], formula= . ~cyl, scale="I") + geom_line()
 ggpcp(mtcars, scale="I") + geom_boxplot(aes(group=variable))
 ggpcp(mtcars, vars=names(mtcars[2:6])) + geom_line()
-p <- ggpcp(mtcars, vars=names(mtcars[2:6]), formula=.~vs)
+p <- ggpcp(mtcars, vars=names(mtcars[2:6]))
 p + geom_line()
 p + geom_line(aes(colour=mpg)) }
 \keyword{hplot}

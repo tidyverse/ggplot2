@@ -36,10 +36,10 @@ d + stat_sum(aes(group = 1)) + scale_size(to = c(3, 10))
 d + stat_sum(aes(group = 1)) + scale_area(to = c(3, 10))
 # by cut
 d + stat_sum(aes(group = cut))
-d + stat_sum(aes(group = clarity, colour = cut))
+d + stat_sum(aes(group = cut, colour = cut))
 # by clarity
 d + stat_sum(aes(group = clarity))
-d + stat_sum(aes(group = clarity, colour = clarity))
+d + stat_sum(aes(group = clarity, colour = cut))
 
 # Instead of proportions, can also use sums
 d + stat_sum(aes(size = ..n..))

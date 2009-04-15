@@ -29,7 +29,6 @@
 # @alias interleave.list
 # @alias interleave.unit
 # @alias max2
-
 grobGrid <- function(name, nrow, ncol, grobs = NULL, widths = 1, heights = 1, clip = "on", default.units = "null", as.table = FALSE, respect = FALSE) {
   
   if (!is.unit(widths)) widths <- unit(widths, default.units)
@@ -235,9 +234,9 @@ gTree.gridGrob <- function(grid, name = "layout") {
   )
 }
 
-grid.draw.gridGrob <- function(grid, ...) {
+grid.draw.gridGrob <- function(x, recording) {
   grid.newpage()
-  grid.draw(gTree.gridGrob(grid))
+  grid.draw(gTree.gridGrob(x))
 }
 
 

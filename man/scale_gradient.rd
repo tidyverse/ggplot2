@@ -3,6 +3,9 @@
 \alias{scale_colour_gradient}
 \alias{scale_fill_gradient}
 \alias{ScaleGradient}
+\alias{scale_colour_continuous}
+\alias{scale_fill_continuous}
+\alias{scale_color_continuous}
 \alias{scale_color_gradient}
 \title{scale\_gradient}
 \description{Smooth gradient between two colours}

@@ -7,8 +7,8 @@
 # @alias fortify.SpatialLinesDataFrame
 # @alias fortify.Lines
 # @alias fortify.Line
-fortify.SpatialPolygonsDataFrame <- function(shape, region = NULL) {
-  attr <- as.data.frame(shape)
+fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
+  attr <- as.data.frame(model)
   # If not specified, split into regions based on first variable in attributes
   if (is.null(region)) {
     region <- names(attr)[1]
@@ -17,7 +17,7 @@ fortify.SpatialPolygonsDataFrame <- function(shape, region = NULL) {
   
   # Figure out how polygons should be split up into the region of interest
   polys <- split(as.numeric(row.names(attr)), attr[, region])
-  cp <- polygons(shape)
+  cp <- polygons(model)
   
   # Union together all polygons that make up a region
   try_require(c("gpclib", "maptools"))

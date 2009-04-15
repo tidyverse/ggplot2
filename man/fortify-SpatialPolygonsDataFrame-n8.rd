@@ -12,10 +12,12 @@
 \description{
 Fortify method for a number of the class from the sp package.
 }
-\usage{fortify.SpatialPolygonsDataFrame(shape, region = NULL)}
+\usage{fortify.SpatialPolygonsDataFrame(model, data, region = NULL, ...)}
 \arguments{
-\item{shape}{}
+\item{model}{}
+\item{data}{}
 \item{region}{}
+\item{...}{}
 }
 
 \details{}

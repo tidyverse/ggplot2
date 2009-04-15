@@ -41,7 +41,7 @@ ylim <- function(...) {
 #X limits(c(5, 1), "x")
 #X limits(c("A", "b", "c"), "x")
 #X limits(as.Date(c("2008-01-01", "2009-01-01")), "x")
-limits <- function(lim, var) UseMethod("limits")
+limits <- function(lims, var) UseMethod("limits")
 limits.numeric <- function(lims, var) {
   stopifnot(length(lims) == 2)
   if (lims[1] > lims[2]) {
