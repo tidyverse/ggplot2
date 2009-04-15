@@ -10,7 +10,7 @@ PositionStack <- proto(Position, {
     }
 
     if (!all(data$ymin == 0)) 
-      warning("Stacking not well defined when ymin != 0")
+      warning("Stacking not well defined when ymin != 0", call. = FALSE)
     collide(data, .$width, .$my_name(), pos_stack)
   }  
   
