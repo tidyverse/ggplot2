@@ -1,6 +1,6 @@
 \name{annotate}
 \alias{annotate}
-\title{annotate("text", x = 0, y = 0, label = "title")}
+\title{Add annotation to a plot}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{

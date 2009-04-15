@@ -1,3 +1,35 @@
+# Experimental tools for create grids of grobs
+# Still a work in progress.
+# 
+# @keyword internal
+# @alias cbind.grobGrid
+# @alias colWidths
+# @alias cweave.grobGrid
+# @alias cweave.list
+# @alias cweave.matrix
+# @alias dim.grobGrid
+# @alias gTree.gridGrob
+# @alias grid.draw.gridGrob
+# @alias gridLayout
+# @alias grobCol
+# @alias grobGrid
+# @alias grobRow
+# @alias grobs.gridGrob
+# @alias print.grobGrid
+# @alias rbind.grobGrid
+# @alias rep.unit2
+# @alias rowHeights
+# @alias rweave.grobGrid
+# @alias rweave.list
+# @alias rweave.matrix
+# @alias spacer
+# @alias viewports.gridGrob
+# @alias as.list.unit
+# @alias interleave.default
+# @alias interleave.list
+# @alias interleave.unit
+# @alias max2
+
 grobGrid <- function(name, nrow, ncol, grobs = NULL, widths = 1, heights = 1, clip = "on", default.units = "null", as.table = FALSE, respect = FALSE) {
   
   if (!is.unit(widths)) widths <- unit(widths, default.units)

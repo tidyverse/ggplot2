@@ -5,7 +5,7 @@
 \alias{limits.factor}
 \alias{limits.Date}
 \alias{limits.POSIXct}
-\alias{limtis.POSIXlt}
+\alias{limits.POSIXlt}
 \title{Scale limits}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 

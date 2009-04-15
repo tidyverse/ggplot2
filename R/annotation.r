@@ -1,3 +1,5 @@
+# Add annotation to a plot
+# 
 # annotate("text", x = 0, y = 0, label = "title")
 annotate <- function(geom, x, y, xmin = NULL, xmax = NULL, ymin = NULL, ymax = NULL, ...) {
   

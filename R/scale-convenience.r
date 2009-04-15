@@ -36,7 +36,7 @@ ylim <- function(...) {
 # @alias limits.factor 
 # @alias limits.Date
 # @alias limits.POSIXct
-# @alias limtis.POSIXlt
+# @alias limits.POSIXlt
 #X limits(c(1, 5), "x")
 #X limits(c(5, 1), "x")
 #X limits(c("A", "b", "c"), "x")

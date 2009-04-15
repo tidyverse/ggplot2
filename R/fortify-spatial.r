@@ -1,3 +1,12 @@
+# Fortify spatial polygons and lines
+# Fortify method for a number of the class from the sp package.
+# 
+# @alias fortify.SpatialPolygons
+# @alias fortify.Polygons
+# @alias fortify.Polygon
+# @alias fortify.SpatialLinesDataFrame
+# @alias fortify.Lines
+# @alias fortify.Line
 fortify.SpatialPolygonsDataFrame <- function(shape, region = NULL) {
   attr <- as.data.frame(shape)
   # If not specified, split into regions based on first variable in attributes

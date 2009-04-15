@@ -23,6 +23,7 @@ ScaleGradient <- proto(ScaleContinuous, expr={
   }
   
   common <- c("colour", "fill")
+  aliases <- c("scale_color_gradient")
 
   # Documentation -----------------------------------------------
   

@@ -2,6 +2,9 @@
 # Generic method to supplement the original data with model fit statistics
 # 
 # @seealso \code{\link{fortify.lm}}
+# @alias fortify.data.frame
+# @alias fortify.NULL
+# @alias fortify.default
 fortify <- function(model, data, ...) UseMethod("fortify")
 
 fortify.data.frame <- function(model, data, ...) model

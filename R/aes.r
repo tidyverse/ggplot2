@@ -34,6 +34,7 @@
 # @keyword internal
 # @alias str.uneval
 # @alias print.uneval
+# @alias [.uneval
 # @seealso \code{\link{aes_string}}
 #X aes(x = mpg, y = wt)
 #X aes(x = mpg ^ 2, y = wt / cyl)

@@ -8,6 +8,7 @@ Description: An implementation of the grammar of graphics in R. It combines the 
 Depends: R (>= 2.7)
 Imports: reshape (>= 0.8.0), plyr (>= 0.1.6), splines, MASS, RColorBrewer, grid, proto
 Suggests: quantreg, Hmisc, mapproj, maps, digest, colorspace, hexbin, gpclib, maptools
+Extends: sp
 License: GPL
 URL: http://had.co.nz/ggplot2/
 LazyLoad: false

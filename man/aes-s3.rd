@@ -2,6 +2,7 @@
 \alias{aes}
 \alias{str.uneval}
 \alias{print.uneval}
+\alias{[.uneval}
 \title{Generate aesthetic mappings}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
