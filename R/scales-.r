@@ -109,9 +109,9 @@ Scales <- proto(Scale, expr={
     if (length(.$.scales) == 0) return(df)
     
     mapped <- lapply(.$.scales, function(scale) scale$map_df(df))
-    do.call("data.frame",
-      c(mapped[sapply(mapped, nrow) > 0], 
-      df[!(names(df) %in% .$input())])
+    data.frame(
+      mapped[sapply(mapped, nrow) > 0], 
+      df[!(names(df) %in% .$input())]
     )
   }
   
