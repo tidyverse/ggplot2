@@ -150,9 +150,9 @@ summarise_by_x <- function(data, summary, ...) {
 # @alias median_hilow
 # @keyword internal
 wrap_hmisc <- function(fun) {
-  try_require("Hmisc")
-  
   function(x, ...) {
+    try_require("Hmisc")
+  
     result <- safe.call(fun, list(x = x, ...))
     rename(
       data.frame(t(result)), 
