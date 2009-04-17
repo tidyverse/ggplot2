@@ -131,7 +131,7 @@ StatSummary <- proto(Stat, {
 # @argument other arguments passed on to summary function
 # @keyword internal
 summarise_by_x <- function(data, summary, ...) {
-  summary <- ddply(data, .(group, x), summary)
+  summary <- ddply(data, .(group, x), summary, ...)
   unique <- ddply(data, .(group, x), uniquecols)
   unique$y <- NULL
   
@@ -139,33 +139,28 @@ summarise_by_x <- function(data, summary, ...) {
 }
 
 # Wrap Hmisc summary functions 
-# Wrap up a selection of Hmisc to make it easy to use them with \code{\link{stat_summary}}
+# Wrap up a selection of Hmisc to make it easy to use with \code{\link{stat_summary}}
 # 
-# @alias sum_mean_cl_boot
-# @alias sum_mean_cl_normal
-# @alias sum_mean_sdl
-# @alias sum_median_hilow
-# @alias sum_range
+# See the Hmisc documentation for details of their options.
+# 
+# @seealso \code{\link[Hmisc]{smean.cl.boot}}, \code{\link[Hmisc]{smean.cl.normal}}, \code{\link[Hmisc]{smean.sdl}}, \code{\link[Hmisc]{smedian.hilon}}
 # @alias mean_cl_boot
 # @alias mean_cl_normal
 # @alias mean_sdl
 # @alias median_hilow
 # @keyword internal
-wrap_hmisc <- function(x, fun, ...) {
+wrap_hmisc <- function(fun) {
   try_require("Hmisc")
-
-  result <- safe.call(fun, list(x = x, ...))
-  rename(
-    data.frame(t(result)), 
-    c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax")
-  )
+  
+  function(x, ...) {
+    result <- safe.call(fun, list(x = x, ...))
+    rename(
+      data.frame(t(result)), 
+      c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax")
+    )    
+  }
 }
-
-mean_cl_boot <- function(x, ...) 
-  wrap_hmisc(x, fun = smean.cl.boot, ...)
-mean_cl_normal <- function(x, ...) 
-  wrap_hmisc(x, fun = smean.cl.normal, ...)
-mean_sdl <- function(x, ...) 
-  wrap_hmisc(x, fun = smean.sdl, ...)
-median_hilow <- function(x, ...) 
-  wrap_hmisc(x, fun = smedian.hilow, ...)
+mean_cl_boot <- wrap_hmisc("smean.cl.boot")
+mean_cl_normal <- wrap_hmisc("smean.cl.normal")
+mean_sdl <- wrap_hmisc("smean.sdl")
+median_hilow <- wrap_hmisc("smedian.hilow")

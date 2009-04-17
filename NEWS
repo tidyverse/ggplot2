@@ -38,6 +38,7 @@ Bug fixes
 * stat_sum: fixed bug which resulted in dropped aesthetics
 * stat_summary: now warns when dropping records with missing values
 * stat_summary: should be a little faster
+* stat_summary: correctly passes ... arguments on fun.data
 * theme_bw: corrected justification of axis.text.y
 * trans: bug fixes to logistic transformation
 * order aesthetic should work again
