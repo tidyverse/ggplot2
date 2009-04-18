@@ -17,9 +17,9 @@ Create and arrange legends for all scales.
 \value{frameGrob, or NULL if no legends}
 \details{This function gathers together all of the legends produced by
 the scales that make up the plot and organises them into a
-\\code{\\link[grid]{frameGrob}}.
+\code{\link[grid]{frameGrob}}.
 
-If there are no legends to create, this function will return \\code{NULL}}
+If there are no legends to create, this function will return \code{NULL}}
 
 \examples{}
 \keyword{hplot}

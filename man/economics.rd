@@ -6,7 +6,7 @@
 
 This dataset was produced from US economic time series data available from \url{http://research.stlouisfed.org/fred2}.
 
-\begin{itemize}
+\itemize{
 	\item date.  Month of data collection
 
 	\item psavert, personal savings rate, \url{http://research.stlouisfed.org/fred2/series/PSAVERT/}
@@ -15,7 +15,7 @@ This dataset was produced from US economic time series data available from \url{
 	\item uempmed, median duration of unemployment, in week, \url{http://research.stlouisfed.org/fred2/series/UEMPMED}
 	\item pop, total population, in thousands, \url{http://research.stlouisfed.org/fred2/series/POP}
 
-\end{itemize}
+}
 
 }
 \usage{data(economics)}

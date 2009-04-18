@@ -3,9 +3,9 @@
 # 
 # This function gathers together all of the legends produced by 
 # the scales that make up the plot and organises them into a 
-# \\code{\\link[grid]{frameGrob}}.  
+# \code{\link[grid]{frameGrob}}.  
 # 
-# If there are no legends to create, this function will return \\code{NULL}
+# If there are no legends to create, this function will return \code{NULL}
 # 
 # @arguments scales object
 # @arguments direction of scales, vertical by default

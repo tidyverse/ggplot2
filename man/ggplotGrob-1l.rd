@@ -14,10 +14,13 @@ Build a plot with all the usual bits and pieces.
 \item{...}{}
 }
 
-\details{As well as the plotting area, a plot need:
+\details{As well as the plotting area, a plot needs:
+
+\itemize{
 \item main title
 \item x and y axis labels
 \item space for legends (currently on the right hand side)
+}
 
 These are stored as options in the plot object.
 

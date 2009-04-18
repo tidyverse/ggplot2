@@ -6,7 +6,7 @@
 
 The variables are as follows:
 
-\begin{itemize}
+\itemize{
  \item PID
  \item county
  \item state
@@ -35,7 +35,7 @@ The variables are as follows:
  \item percelderlypoverty
  \item inmetro.  In a metro area.
  \item category'
-\end{itemize}
+}
 }
 
 \usage{data(midwest)}

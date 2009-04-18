@@ -15,10 +15,13 @@ panelGrob <- function(plot, pieces = ggplot_build(plot)) {
 # Pretty plot
 # Build a plot with all the usual bits and pieces.
 # 
-# As well as the plotting area, a plot need:
+# As well as the plotting area, a plot needs:
+# 
+# \itemize{
 #  \item main title
 #  \item x and y axis labels
 #  \item space for legends (currently on the right hand side)
+# }
 # 
 # These are stored as options in the plot object.
 # 
@@ -203,7 +206,7 @@ surround_viewports <- function(position, widths, heights, legend_vp) {
 # @arguments plot to display
 # @arguments draw new (empty) page first?
 # @arguments viewport to draw plot in
-# @arguments other arguments passed on to \\code{\\link{ggplotGrob}}
+# @arguments other arguments passed on to \code{\link{ggplotGrob}}
 # @keyword hplot
 # @keyword internal 
 print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {

@@ -6,7 +6,7 @@
 
 This dataset contains a subset of the fuel economy data that the EPA makes available on \url{http://fueleconomy.gov}.  It contains only models which had a new release every year between 1999 and 2008 - this was used as a proxy for the popularity of the car.
 
-\begin{itemize}
+\itemize{
   \item manufacturer.
   \item model.
   \item displ. engine displacement, in litres
@@ -18,7 +18,7 @@ This dataset contains a subset of the fuel economy data that the EPA makes avail
   \item hwy. highway miles per gallon
   \item fl.
   \item class.
-\end{itemize}
+}
 
 }
 \usage{data(mpg)}

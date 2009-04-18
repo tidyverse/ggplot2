@@ -7,7 +7,7 @@
 # 
 # One way to think about a parallel coordinates plot, is as plotting 
 # the data after it has transformation been transformed to gain a new
-# variable.  This function does this using \\code{\\link[reshape]{melt}}.
+# variable.  This function does this using \code{\link[reshape]{melt}}.
 # 
 # This gives us enormous flexibility as we have separated out the 
 # type of drawing (lines by tradition) and can now use any of the existing
