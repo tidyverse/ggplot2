@@ -1,5 +1,50 @@
 See NEWS for changes in latest version
 
+ggplot2 0.8.3  (2008-04-20)
+----------------------------------------
+
+New features
+
+* alpha: new aesthetic, with scale alpha.  Where a geom has both fill and colour, alpha affects the fill.
+* annotate: new annotate function to make it easier to add annotations to plots
+* facet_grid now takes strip label function from parameter labeller, not theme setting
+* facet_grid: gains as.table argument to control direction of horizontal facets
+* fortify: full set of methods for turning data from the sp package into data frames that can be plotted with ggplot2
+* geom_errorbarh: new geom for horizontal error bars
+* labels_parsed and labels_bquote functions to make it easier to display expressions on facet labels
+* scale_manual now supports breaks and limits 
+* subset: experimental new feature.  Layers now have a subset argument, which takes subsets formatted like .(var1 < 5, var2 == 3) etc.
+* xlim and ylim now work recognise Date and POSIXct classes to create date and date_time scales respectively
+
+Dealing with missing values
+
+* facet_wrap: add drop argument to control whether or not panels for non-existent combinations of facetting variables should be dropped or not.  Defaults to TRUE
+* scale_discrete: empty factor levels will be preserved, unless drop = TRUE
+
+Bug fixes
+
+* added presidents dataset from book to package
+* American spelling of color accepted in as geom parameter, and all colour scales have alias spelled color (e.g. scale_color_hue)
+* facet_wrap: contents guaranteed to be clipped to panel
+* facet_wrap: corrected labelling when facetting by multiple variables (thank to Charlotte Wickham for a clear test case)
+* geom_histogram now works with negative weights (provided position = "identity").  This is useful for creating back to back histograms.
+* geom_step: improve legend
+* geom_text: better legend
+* geom_vline, geom_hline, geom_abline: should work in yet more situations
+* resolution: fixed bug in computation of resolution that lead to (e.g.) incorrect boxplot widths when there was only a single x value in a group.
+* position_stack: fixed bug in detection of overlap for very large bins
+* scale_discrete: factor levels no longer mistakenly reordered
+* scale_hue: now spans full range of hue if it less than 360 degrees
+* scale_hue: rotated default hue range by 15 degrees to avoid unfortunate red-green contrast in two colour case
+* show now works with ggplot objects
+* stat_sum: fixed bug which resulted in dropped aesthetics
+* stat_summary: now warns when dropping records with missing values
+* stat_summary: should be a little faster
+* stat_summary: correctly passes ... arguments on fun.data
+* theme_bw: corrected justification of axis.text.y
+* trans: bug fixes to logistic transformation
+* order aesthetic should work again
+
 ggplot2 0.8.2  (2008-02-23)
 ----------------------------------------
 
