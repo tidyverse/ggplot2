@@ -1,2 +1,4 @@
 ggplot2 0.8.4  (2008-XX-XX)
 ----------------------------------------
+
+* always sort input to geom_ribbon

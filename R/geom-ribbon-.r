@@ -6,7 +6,10 @@ GeomRibbon <- proto(Geom, {
 
 
   draw <- function(., data, scales, coordinates, ...) {
-    data <- data[complete.cases(data[, c("x","ymin","ymax")]), ]
+    data <- remove_missing(data, na.rm, 
+      c("x","ymin","ymax"), name = "geom_ribbon")
+    data <- data[order(data$group, data$x), ]
+    
     tb <- with(data,
       coordinates$munch(data.frame(x=c(x, rev(x)), y=c(ymax, rev(ymin))), scales)
     )
