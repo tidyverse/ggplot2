@@ -1,6 +1,11 @@
 Stat <- proto(TopLevel, expr={
   objname <- "" 
   desc <- ""
+
+  # Should the values produced by the statistic also be transformed
+  # in the second pass when recently added statistics are trained to 
+  # the scales
+  retransform <- TRUE
   
   default_geom <- function(.) Geom
   default_aes <- function(.) aes()

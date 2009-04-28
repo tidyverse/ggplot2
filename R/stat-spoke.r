@@ -1,5 +1,5 @@
 StatSpoke <- proto(Stat, {
-  
+  retransform <- FALSE
   calculate <- function(., data, scales, radius = 1, ...) {
     transform(data,
       xend = x + sin(angle) * radius,
@@ -25,6 +25,8 @@ StatSpoke <- proto(Stat, {
     df$speed <- runif(100, 0, 0.5)
     
     qplot(x, y, data=df) + stat_spoke(aes(angle=angle), radius = 0.5)
+    last_plot() + scale_y_reverse()
+    
     qplot(x, y, data=df) + stat_spoke(aes(angle=angle, radius=speed))
   }
   

@@ -209,7 +209,11 @@ Layer <- proto(expr = {
     
     # Add any new scales, if needed
     plot$scales$add_defaults(data, new, plot$plot_env)
-    stat_data <- plot$scales$transform_df(stat_data)
+    # Transform the values, if the scale say it's ok 
+    # (see stat_spoke for one exception)
+    if (.$stat$retransform) {
+      stat_data <- plot$scales$transform_df(stat_data)
+    }
     
     cunion(stat_data, data)
   }
