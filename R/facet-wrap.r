@@ -31,6 +31,8 @@ FacetWrap <- proto(Facet, {
   stamp_data <- function(., data) {
     lapply(data, function(df) {
       df <- data.frame(df, eval.quoted(.$facets, df))
+      # Note that this merge reorders the data.  This may be a potential
+      #  problem
       df <- merge(add_group(df), .$facet_levels, by = .$conditionals())
       out <- as.list(dlply(df, .(PANEL), .drop = FALSE))
       dim(out) <- c(1, nrow(.$facet_levels))
