@@ -4,7 +4,8 @@
 # all <- sort(unique(c(names(.base_to_ggplot), geom_aes, stat_aes)))
 # dput(all)
 
-.all_aesthetics <- c("alpha", "angle", "colour", "fill", "group", "hjust", "label", "linetype", "lower", "middle", "order", "radius", "sample", "shape", "size", "upper", "vjust", "weight", "width", "x", "xend", "xmax", "xmin", "y", "yend", "ymax", "ymin", "z")
+.all_aesthetics <- c("adj", "alpha", "angle", "bg", "cex", "col", "color", "colour", "fg", "fill", "group", "hjust", "label", "linetype", "lower", "lty", "lwd", "max", "middle", "min", "order", "pch", "radius", "sample", "shape", "size", "srt", "upper", "vjust", "weight", "width", "x", "xend", "xmax", "xmin", "y", "yend", "ymax", "ymin", "z")
+
 
 .base_to_ggplot <- c(
   "col"   = "colour",
