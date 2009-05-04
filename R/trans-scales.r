@@ -101,12 +101,20 @@ ScaleAtanh <-    proto(ScaleContinuous,
 )
 
 ScaleInverse <-  proto(ScaleContinuous,
-  desc = "Position scale, interse transformed",
+  desc = "Position scale, inverse transformed",
   tr_default = Trans$find("inverse"),
   objname = "inverse",
   doc=FALSE,
   examples=function(.) {}
 )
+ScaleRecip <-  proto(ScaleContinuous,
+  desc = "Position scale, reciprocal",
+  tr_default = Trans$find("inverse"),
+  objname = "recip",
+  doc=FALSE,
+  examples=function(.) {}
+)
+
 ScaleContinuous$tr_default <- Trans$find("identity")
 
 ScaleProb <- proto(ScaleContinuous, {

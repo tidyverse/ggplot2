@@ -105,7 +105,7 @@ TransAtanh <- Trans$new(
   
 TransExp <- Trans$new("exp", "exp", "log", function(x) bquote(log(.(x))))
 TransIdentity <- Trans$new("identity", "force", "force", "force")
-TransInverse <- Trans$new(function(x) 1/x, function(x) 1/x, function(x) bquote(phantom()^1 / phantom()[.(x)]))
+TransInverse <- Trans$new("inverse", function(x) 1/x, function(x) 1/x,  function(x) bquote(phantom()^1 / phantom()[.(x)]))
 TransLog <- Trans$new("log", "log", "exp", function(x) bquote(e^.(x)))
 TransLog10 <- Trans$new("log10", "log10", function(x) 10^x, function(x) bquote(10^.(x)))
 TransLog2 <- Trans$new("log2", "log2", function(x) 2^x, function(x) bquote(2^.(x)))
