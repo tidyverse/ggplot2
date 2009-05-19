@@ -6,3 +6,4 @@ ggplot2 0.8.4  (2008-XX-XX)
 * corrected list of aesthetics to include american spelling of colour as well as base R abbreviations
 * position_stack: fixed bug in detection of overlap for negative values
 * scale_x_inverse, scale_y_inverse now actually work, and added recip as alias
+* geom_smooth was incorrectly applying alpha to line colour in the legend
