@@ -139,6 +139,7 @@ Layer <- proto(expr = {
     eval.each <- function(dots) 
       compact(lapply(dots, function(x.) eval(x., data, plot$plot_env)))
 
+    browser()
     aesthetics <- aesthetics[!is_calculated_aes(aesthetics)]
     evaled <- eval.each(aesthetics)
     if (length(evaled) == 0) return(data.frame())
@@ -298,7 +299,7 @@ layer <- Layer$new
 is_calculated_aes <- function(aesthetics) {
   match <- "\\.\\.([a-zA-z._]+)\\.\\."
   stats <- rep(F, length(aesthetics))
-  stats[grep(match, sapply(aesthetics, as.character))] <- TRUE
+  stats[grep(match, sapply(aesthetics, deparse))] <- TRUE
   stats
 }
 
