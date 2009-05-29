@@ -139,7 +139,6 @@ Layer <- proto(expr = {
     eval.each <- function(dots) 
       compact(lapply(dots, function(x.) eval(x., data, plot$plot_env)))
 
-    browser()
     aesthetics <- aesthetics[!is_calculated_aes(aesthetics)]
     evaled <- eval.each(aesthetics)
     if (length(evaled) == 0) return(data.frame())
