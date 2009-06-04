@@ -5,7 +5,7 @@ GeomRibbon <- proto(Geom, {
   guide_geom <- function(.) "polygon"
 
 
-  draw <- function(., data, scales, coordinates, ...) {
+  draw <- function(., data, scales, coordinates, na.rm = FALSE, ...) {
     data <- remove_missing(data, na.rm, 
       c("x","ymin","ymax"), name = "geom_ribbon")
     data <- data[order(data$group, data$x), ]
