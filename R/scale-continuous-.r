@@ -22,7 +22,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
   }
   
   set_limits <- function(., limits) {
-    .$limits <- .$.tr$transform(limits)
+    .$limits <- sort(.$.tr$transform(limits))
   }
 
   

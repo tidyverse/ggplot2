@@ -10,3 +10,4 @@ ggplot2 0.8.4  (2008-XX-XX)
 * fix bug in detecting which aesthetics are calculated
 * annotate works with missing x and y (e.g. for geom_rect)
 * position_collide now works with missing values
+* continuous scale limits should now be automatically sorted
