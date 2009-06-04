@@ -9,3 +9,4 @@ ggplot2 0.8.4  (2008-XX-XX)
 * geom_smooth was incorrectly applying alpha to line colour in the legend
 * fix bug in detecting which aesthetics are calculated
 * annotate works with missing x and y (e.g. for geom_rect)
+* position_collide now works with missing values

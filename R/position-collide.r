@@ -21,6 +21,7 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
     
     # Width determined from data, must be floating point constant 
     widths <- unique(with(data, xmax - xmin))
+    widths <- widths[!is.na(widths)]
     if (check.width && length(widths) > 1 && sd(widths) > 1e-6) {
       stop(name, " requires constant width", call. = FALSE)
     }
