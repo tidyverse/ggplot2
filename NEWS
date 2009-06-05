@@ -12,3 +12,4 @@ ggplot2 0.8.4  (2008-XX-XX)
 * position_collide now works with missing values
 * continuous scale limits should now be automatically sorted
 * geom_point: the alpha aesthetic now also affects the fill.
+* stat_qq: now correctly groups results

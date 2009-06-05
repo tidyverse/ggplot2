@@ -21,7 +21,7 @@ StatQq <- proto(Stat, {
     theoretical <- safe.call(distribution, list(p = quantiles, ...))
     sample <- quantile(data$sample, probs=quantiles, na.rm=na.rm)
   
-    data.frame(sample, theoretical, group = 1)
+    data.frame(sample, theoretical, group = data$group[1])
   }
   
   desc_outputs <- list(
