@@ -15,7 +15,11 @@ GeomPoint <- proto(Geom, {
     data <- aesdefaults(data, .$default_aes(), list(...))
     with(data,
       pointsGrob(0.5, 0.5, size=unit(size, "mm"), pch=shape, 
-      gp=gpar(col=alpha(colour, alpha), fill=fill, fontsize = size * .pt))
+      gp=gpar(
+        col=alpha(colour, alpha), 
+        fill=alpha(fill, alpha), 
+        fontsize = size * .pt)
+      )
     )
   }
 
