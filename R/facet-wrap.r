@@ -227,16 +227,16 @@ FacetWrap <- proto(Facet, {
     lapply(seq_along(data), function(i) {
       layer <- layers[[i]]
       layerd <- data[[i]]
-      grobs <- matrix(list(), nrow = nrow(layerd), ncol = ncol(layerd))
+      data_out <- matrix(list(), nrow = nrow(layerd), ncol = ncol(layerd))
 
-      for(i in seq_along(.$scales$x)) {
+      for(j in seq_len(nrow(.$facet_levels))) {
         scales <- list(
-          x = .$scales$x[[i]], 
-          y = .$scales$y[[i]]
+          x = .$scales$x[[j]], 
+          y = .$scales$y[[j]]
         )
-        grobs[[1, i]] <- layer$calc_statistic(layerd[[1, i]], scales)
+        data_out[[1, j]] <- layer$calc_statistic(layerd[[1, j]], scales)
       }
-      grobs
+      data_out
     })
   }
   

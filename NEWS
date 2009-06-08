@@ -14,3 +14,4 @@ ggplot2 0.8.4  (2008-XX-XX)
 * geom_point: the alpha aesthetic now also affects the fill.
 * stat_qq: now correctly groups results
 * facet_wrap: can now specify both ncol and nrow without getting an error
+* facet_wrap: now works with statistics that produce both x and y values (e.g. stat_qq)
