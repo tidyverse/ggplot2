@@ -15,3 +15,4 @@ ggplot2 0.8.4  (2008-XX-XX)
 * stat_qq: now correctly groups results
 * facet_wrap: can now specify both ncol and nrow without getting an error
 * facet_wrap: now works with statistics that produce both x and y values (e.g. stat_qq)
+* geom_boxplot: alpha now affects fill colour of boxes only

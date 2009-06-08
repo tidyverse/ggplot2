@@ -12,8 +12,9 @@ GeomBoxplot <- proto(Geom, {
   draw <- function(., data, ..., outlier.colour = "black", outlier.shape = 16, outlier.size = 2) { 
     defaults <- with(data, data.frame(
       x = x, xmin = xmin, xmax = xmax, 
-      colour = colour, alpha = alpha, size = size, 
-      linetype = 1, group = 1, fill = fill,  
+      colour = colour, size = size, 
+      linetype = 1, group = 1, alpha = 1, 
+      fill = alpha(fill, alpha),  
       stringsAsFactors = FALSE
     ))
     defaults2 <- defaults[c(1,1), ]
