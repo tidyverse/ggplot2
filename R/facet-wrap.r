@@ -76,6 +76,9 @@ FacetWrap <- proto(Facet, {
     } else if (is.null(.$nrow)) {
       ncol <- .$ncol
       nrow <- ceiling(n / ncol)
+    } else {
+      ncol <- .$ncol
+      nrow <- .$nrow
     }
     stopifnot(nrow * ncol >= n)
 
