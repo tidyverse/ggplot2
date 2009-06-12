@@ -16,7 +16,7 @@ StatQuantile <- proto(Stat, {
   default_aes <- function(.) aes(group = ..quantile..)
   required_aes <- c("x", "y")
 
-  calculate <- function(., data, scales, quantiles=c(0.25, 0.5, 0.75), formula=y ~ x, xseq = NULL, method=rq, na.rm = FALSE, ...) {
+  calculate <- function(., data, scales, quantiles=c(0.25, 0.5, 0.75), formula=y ~ x, xseq = NULL, method="rq", na.rm = FALSE, ...) {
     try_require("quantreg")
     if (is.null(data$weight)) data$weight <- 1 
 
@@ -24,6 +24,8 @@ StatQuantile <- proto(Stat, {
 
     data <- as.data.frame(data)
     data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_quantile")
+    
+    method <- match.fun(method)
     model <- method(formula, data=data, tau=quantiles, weight=weight, ...)
 
     yhats <- stats::predict(model, data.frame(x=xseq), type="matrix")
