@@ -44,9 +44,9 @@ grobGrid <- function(name, nrow, ncol, grobs = NULL, widths = 1, heights = 1, cl
   
   # stopifnot(is.list(grobs))
   if (is.null(grobs)) {
-    grobs <- matrix(list(nullGrob()), nrow = nrow, ncol = ncol)
+    grobs <- matrix(list(zeroGrob()), nrow = nrow, ncol = ncol)
   } else {  
-    mat <- c(grobs, rep(list(nullGrob()), nrow * ncol - length(grobs)))
+    mat <- c(grobs, rep(list(zeroGrob()), nrow * ncol - length(grobs)))
     dim(mat) <- c(ncol, nrow)
     grobs <- t(mat)
   }

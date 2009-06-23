@@ -14,7 +14,7 @@ GeomBlank <- proto(Geom, {
   }
   
   draw_legend <- function(., data, ...) {
-    nullGrob()
+    zeroGrob()
   }
   
   

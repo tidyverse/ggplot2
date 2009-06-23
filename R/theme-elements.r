@@ -8,7 +8,7 @@
 # @keywords dplot
 theme_blank <- function() {
   structure(
-    function(...) nullGrob(),
+    function(...) zeroGrob(),
     class = "theme",
     type = "any",
     call = match.call()

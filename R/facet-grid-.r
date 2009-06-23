@@ -180,9 +180,9 @@ FacetGrid <- proto(Facet, {
     col.labels <- add.names(rcolnames(gm))
 
     strip_h <- apply(col.labels, c(2,1), ggstrip, theme = theme)
-    if (nrow(strip_h) == 1 && ncol(strip_h) == 1) strip_h <- matrix(list(nullGrob()))
+    if (nrow(strip_h) == 1 && ncol(strip_h) == 1) strip_h <- matrix(list(zeroGrob()))
     strip_v <- apply(row.labels, c(1,2), ggstrip, horizontal=FALSE, theme=theme)
-    if (nrow(strip_v) == 1 && ncol(strip_v) == 1) strip_v <- matrix(list(nullGrob()))
+    if (nrow(strip_v) == 1 && ncol(strip_v) == 1) strip_v <- matrix(list(zeroGrob()))
 
     list(
       h = strip_h, 

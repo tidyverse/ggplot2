@@ -84,7 +84,7 @@ theme_render <- function(theme, element, ..., name = NULL) {
   el <- theme[[element]]
   if (is.null(el)) {
     message("Theme element ", element, " missing")
-    return(nullGrob())
+    return(zeroGrob())
   }
   
   ggname(ps(element, name, sep = "."), el(...))

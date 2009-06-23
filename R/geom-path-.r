@@ -7,7 +7,7 @@ GeomPath <- proto(Geom, {
     # Silently drop lines with less than two points, preserving order
     rows <- ave(seq_len(nrow(munched)), munched$group, FUN = length)
     munched <- munched[rows >= 2, ]
-    if (nrow(munched) < 2) return(nullGrob())
+    if (nrow(munched) < 2) return(zeroGrob())
 
     # Work out whether we should use lines or segments
     attr <- ddply(munched, .(group), function(df) {

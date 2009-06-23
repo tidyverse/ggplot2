@@ -16,7 +16,7 @@ guide_legends_box <- function(scales, layers, default_mapping, horizontal = FALS
   legs <- guide_legends(scales, layers, default_mapping, theme=theme)
   
   n <- length(legs)
-  if (n == 0) return(nullGrob())
+  if (n == 0) return(zeroGrob())
   
   if (!horizontal) {
     width <-   do.call("max", lapply(legs, widthDetails))
@@ -71,7 +71,7 @@ guide_legends <- function(scales, layers, default_mapping, theme) {
 
 build_legend <- function(name, mapping, layers, default_mapping, theme) {
   legend_data <- llply(layers, build_legend_data, mapping, default_mapping)
-  # if (length(legend_data) == 0) return(nullGrob())
+  # if (length(legend_data) == 0) return(zeroGrob())
   # browser()
   
   # Calculate sizes for keys - mainly for v. large points and lines

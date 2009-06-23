@@ -1,19 +1,19 @@
-# Null grob
-# The null grob does nothing and has zero size.
+# Zero grob
+# The zero grob draws nothing and has zero size.
 # 
-# @alias widthDetails.nullGrob
-# @alias heightDetails.nullGrob
-# @alias grobWidth.nullGrob
-# @alias grobHeight.nullGrob
-# @alias drawDetails.nullGrob
+# @alias widthDetails.zeroGrob
+# @alias heightDetails.zeroGrob
+# @alias grobWidth.zeroGrob
+# @alias grobHeight.zeroGrob
+# @alias drawDetails.zeroGrob
 # @keyword internal
-nullGrob <- function() .nullGrob
+zeroGrob <- function() .zeroGrob
 
-.nullGrob <- grob(cl = "nullGrob", name = "NULL")
-widthDetails.nullGrob <-
-heightDetails.nullGrob <- 
-grobWidth.nullGrob <- 
-grobHeight.nullGrob <- function(x) unit(0, "cm")
+.zeroGrob <- grob(cl = "zeroGrob", name = "NULL")
+widthDetails.zeroGrob <-
+heightDetails.zeroGrob <- 
+grobWidth.zeroGrob <- 
+grobHeight.zeroGrob <- function(x) unit(0, "cm")
 
-drawDetails.nullGrob <- function(x, recording) {}
+drawDetails.zeroGrob <- function(x, recording) {}
 

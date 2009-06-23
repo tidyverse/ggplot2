@@ -38,7 +38,7 @@ grobColWidth <- function(mat) {
 # Build grob matrix
 # Build a matrix of grobs given a vector of grobs and the desired dimensions of the matrix
 # 
-# Any missing cells at the end will be filled in with nullGrobs.
+# Any missing cells at the end will be filled in with zeroGrobs.
 # 
 # @arguments vector of grobs
 # @arguments number of rows
@@ -50,7 +50,7 @@ grobMatrix <- function(vec, nrow, ncol, as.table = FALSE) {
     return(matrix(ncol = ncol, nrow = nrow))
   }
   
-  mat <- c(vec, rep(list(nullGrob()), nrow * ncol - length(vec)))
+  mat <- c(vec, rep(list(zeroGrob()), nrow * ncol - length(vec)))
   dim(mat) <- c(ncol, nrow)
   mat <- t(mat)
   if (!as.table) mat <- mat[rev(seq_len(nrow)), ]
