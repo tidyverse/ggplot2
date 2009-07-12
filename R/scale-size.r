@@ -19,6 +19,9 @@ ScaleSize <- proto(ScaleContinuous, expr={
   seealso <- list(
     "scale_manual" = "for sizing discrete variables"
   )
+  desc_params <- list(
+    "to" = "a numeric vector of length 2 that specifies the minimum and maximum size of the plotting symbol after transformation."
+  )
   
   icon <- function(.) {
     pos <- c(0.15, 0.3, 0.5, 0.75)
