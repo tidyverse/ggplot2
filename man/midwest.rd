@@ -1,7 +1,7 @@
 \name{Diamond prices}
 \docType{data}
 \alias{midwest}
-\title{Prices of 50,000 round cut diamonds}
+\title{Demographic information of midwest counties}
 \description{
 
 The variables are as follows:
