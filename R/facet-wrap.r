@@ -104,7 +104,7 @@ FacetWrap <- proto(Facet, {
       axesvGrid <- grobGrid(
         "axis_v", axes_v, nrow = nrow, ncol = ncol, 
         widths = axis_widths, 
-        as.table = .$as.table
+        as.table = .$as.table, clip = "off"
       )
     } else { 
       # When scales are not free, there is only really one scale, and this
@@ -112,7 +112,7 @@ FacetWrap <- proto(Facet, {
       axesvGrid <- grobGrid(
         "axis_v", rep(axes_v[1], nrow), nrow = nrow, ncol = 1,
         widths = axis_widths[1], 
-        as.table = .$as.table)
+        as.table = .$as.table, clip = "off")
       if (ncol > 1) {
         axesvGrid <- cbind(axesvGrid, 
           spacer(nrow, ncol - 1, unit(0, "cm"), unit(1, "null")))
@@ -126,7 +126,7 @@ FacetWrap <- proto(Facet, {
       axeshGrid <- grobGrid(
         "axis_h", axes_h, nrow = nrow, ncol = ncol, 
         heights = axis_heights, 
-        as.table = .$as.table
+        as.table = .$as.table, clip = "off"
       )
     } else {
       # When scales are not free, there is only really one scale, and this
@@ -134,7 +134,7 @@ FacetWrap <- proto(Facet, {
       axeshGrid <- grobGrid(
         "axis_h", rep(axes_h[1], ncol), nrow = 1, ncol = ncol,
         heights = axis_heights[1], 
-        as.table = .$as.table)
+        as.table = .$as.table, clip = "off")
       if (nrow > 1) { 
         axeshGrid <- rbind(
           spacer(nrow - 1, ncol, unit(1, "null"), unit(0, "cm")),
