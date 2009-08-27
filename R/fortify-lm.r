@@ -42,8 +42,8 @@
 #X plot(mod, which = 5)
 #X qplot(.hat, .stdresid, data = mod) + geom_smooth(se = FALSE)
 #X ggplot(mod, aes(.hat, .stdresid)) + 
-#X   geom_vline(size = 2, colour = "white") +
-#X   geom_hline(size = 2, colour = "white") +
+#X   geom_vline(size = 2, colour = "white", xintercept = 0) +
+#X   geom_hline(size = 2, colour = "white", yintercept = 0) +
 #X   geom_point() + geom_smooth(se = FALSE)
 #X 
 #X qplot(.hat, .stdresid, data = mod, size = .cooksd) + 
@@ -58,17 +58,13 @@
 #X qplot(.hat, .cooksd, size = .cooksd / .hat, data = mod) + scale_area()
 fortify.lm <- function(model, data = model$model, ...) {
   infl <- influence(model, do.coef = FALSE)
-  s <- sqrt(deviance(model) / df.residual(model))
-  
-  w <- weights(model) %||% 1
-
   data$.hat <- infl$hat
   data$.sigma <- infl$sigma 
-  data$.cooksd <- cooks.distance(model)
+  data$.cooksd <- cooks.distance(model, infl)
 
   data$.fitted <- predict(model)
   data$.resid <- resid(model)
-  data$.stdresid <- sqrt(w) * data$.resid / (s * sqrt(1 - data$.hat))    
-    
+  data$.stdresid <- rstandard(model, infl)
+
   data
 }
