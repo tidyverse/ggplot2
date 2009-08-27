@@ -83,7 +83,8 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep,
   # Calculate sizes ----------------------------------------------------------
   if (is.null(legend_box)) position <- "none"
     
-  ylab_width <- grobWidth(grobs$ylabel) + unit(0.5, "lines")
+  ylab_width <- grobWidth(grobs$ylabel) + 
+    if (is.zero(grobs$ylabel)) unit(0, "lines") else unit(0.5, "lines")
   legend_width <- grobWidth(grobs$legend_box)
 
   widths <- switch(position, 
@@ -99,7 +100,9 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep,
   legend_height <- grobHeight(grobs$legend_box)
   title_height <- grobHeight(grobs$title) + 
     if (is.null(plot$options$title)) unit(0, "lines") else unit(0.5, "lines")
-  xlab_height <- grobHeight(grobs$xlabel) + unit(0.5, "lines")
+  
+  xlab_height <- grobHeight(grobs$xlabel) + 
+    if (is.zero(grobs$xlabel)) unit(0, "lines") else unit(0.5, "lines")
 
   heights <- switch(position,
     top =    unit.c(
