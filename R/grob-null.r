@@ -6,6 +6,7 @@
 # @alias grobWidth.zeroGrob
 # @alias grobHeight.zeroGrob
 # @alias drawDetails.zeroGrob
+# @alias is.zero
 # @keyword internal
 zeroGrob <- function() .zeroGrob
 
@@ -17,3 +18,4 @@ grobHeight.zeroGrob <- function(x) unit(0, "cm")
 
 drawDetails.zeroGrob <- function(x, recording) {}
 
+is.zero <- function(x) identical(x, .zeroGrob)
