@@ -1,6 +1,7 @@
 ggplot2 0.8.4  (2008-XX-XX)
 ----------------------------------------
 
+* geom_path correctly switches to segments if varying alpha used (thanks to  Karl Ove Hufthammer for the report and Baptiste Auguie for the fix)
 * always sort input to geom_ribbon
 * stat_spoke now works with reversed scales
 * corrected list of aesthetics to include american spelling of colour as well as base R abbreviations

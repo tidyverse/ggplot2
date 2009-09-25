@@ -13,7 +13,7 @@ GeomPath <- proto(Geom, {
     attr <- ddply(munched, .(group), function(df) {
       data.frame(
         solid = identical(unique(df$linetype), 1),
-        constant = nrow(unique(df[, c("colour","size", "linetype")])) == 1
+        constant = nrow(unique(df[, c("alpha", "colour","size", "linetype")])) == 1
       )
     })
     solid_lines <- all(attr$solid)
