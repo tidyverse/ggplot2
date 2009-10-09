@@ -17,7 +17,9 @@ ScaleGradient <- proto(ScaleContinuous, expr={
     nice_ramp(ramp, x)
   }
     
-  labels <- function(.) .$.tr$label(.$input_breaks())
+  labels <- function(.) {
+    nulldefault(.$.labels, .$.tr$label(.$input_breaks()))
+  }
   output_breaks <- function(.) {
     .$map(.$input_breaks()) 
   }
