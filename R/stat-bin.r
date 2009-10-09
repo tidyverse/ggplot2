@@ -1,5 +1,5 @@
 # Bin data
-# This function powers \code{\link{stat_bin}}R
+# This function powers \code{\link{stat_bin}}
 #
 # @keyword internal
 bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE) {
@@ -56,11 +56,19 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
 # @keyword internal
 # @seealso \code{\link{reshape}{round_any}}
 fullseq <- function(range, size) {
-  seq(
+  x <- seq(
     round_any(range[1], size, floor), 
     round_any(range[2], size, ceiling), 
     by=size
   )
+  
+  # By default, we use (a, b] bins, so we should add an extra bin on the 
+  # bottom, if needed
+  if (min(x) == range[[1]]) {
+    x <- c(min(x) - size, x)
+  }
+  
+  x
 }
 
 StatBin <- proto(Stat, {
