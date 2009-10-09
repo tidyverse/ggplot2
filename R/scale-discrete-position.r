@@ -16,9 +16,11 @@ ScaleDiscretePosition <- proto(ScaleDiscrete, {
 
   cont_domain <- c(NA, NA)
   
-  train <- function(., x, drop = .$drop) {
+  # Always drops if .$drop is TRUE - the drop argument is used when
+  # scales = "free" so you don't have to also specify drop = T here.
+  train <- function(., x, drop = FALSE) {
     if (plyr::is.discrete(x)) {
-      .$.domain <- discrete_range(.$.domain, x, drop = drop)
+      .$.domain <- discrete_range(.$.domain, x, drop = drop || .$drop)
     } else {
       .$cont_domain <- range(.$cont_domain, x, na.rm = TRUE)
     }
