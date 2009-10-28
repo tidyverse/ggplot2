@@ -1,4 +1,4 @@
-ggplot2 0.8.4  (2008-XX-XX)
+ggplot2 0.8.4  (2009-XX-XX)
 ----------------------------------------
 
 * fullseq now adds additional break on bottom if necessary, so that the include.lowest argument in cut never comes into play (this the source of a potential bug in histograms)
