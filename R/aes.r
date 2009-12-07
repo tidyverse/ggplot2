@@ -41,15 +41,7 @@
 #X aes(x = mpg ^ 2, y = wt / cyl)
 aes <- function(x, y, ...) {
   aes <- structure(as.list(match.call()[-1]), class="uneval")
-  aes <- rename_aes(aes)
-  
-  new_names <- lapply(names(aes), function(x) {
-    m <- charmatch(x, .all_aesthetics)
-    if (is.na(m) || m == 0) x else .all_aesthetics[m]
-  })
-  
-  names(aes) <- new_names
-  aes
+  rename_aes(aes)
 }
 
 # Rename aesthetics
@@ -57,6 +49,10 @@ aes <- function(x, y, ...) {
 # 
 # @keywords internal
 rename_aes <- function(x) {
+  # Convert prefixes to full names
+  full <- charmatch(names(x), .all_aesthetics)
+  names(x)[!is.na(full)] <- .all_aesthetics[full[!is.na(full)]]
+  
   rename(x, .base_to_ggplot)
 }
 
@@ -93,8 +89,11 @@ is_position_aes <- function(vars) {
 #X aes_string(x = "mpg", y = "wt")
 #X aes(x = mpg, y = wt)
 aes_string <- function(...) {
-  structure(rename_aes(lapply(list(...), function(x) parse(text=x)[[1]])),
-class="uneval")
+  mapping <- list(...)
+  mapping[sapply(mapping, is.null)] <- "NULL"
+  
+  parsed <- lapply(mapping, function(x) parse(text = x)[[1]])
+  structure(rename_aes(parsed), class = "uneval")
 }
 
 # Generate identity mappings

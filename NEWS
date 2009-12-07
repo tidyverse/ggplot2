@@ -22,3 +22,5 @@ ggplot2 0.8.4  (2009-XX-XX)
 * geom_boxplot: alpha now affects fill colour of boxes only
 * nullGrob renamed to zeroGrob to avoid name conflict with grid
 * coord_polar: fix bug if breaks not all inside limits
+* aes and aes_string both convert prefixes to full names
+* aes_string treats NULL as "NULL"
