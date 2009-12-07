@@ -1,27 +1,27 @@
 ggplot2 0.8.4  (2009-XX-XX)
 ----------------------------------------
 
-* fullseq now adds additional break on bottom if necessary, so that the include.lowest argument in cut never comes into play (this the source of a potential bug in histograms)
-* scale_discrete_position now uses drop argument to force dropping of unused levels
-* scale_gradient now uses labels parameters, if supplied
-* geom_path correctly switches to segments if varying alpha used (thanks to  Karl Ove Hufthammer for the report and Baptiste Auguie for the fix)
-* always sort input to geom_ribbon
-* stat_spoke now works with reversed scales
-* corrected list of aesthetics to include american spelling of colour as well as base R abbreviations
-* position_stack: fixed bug in detection of overlap for negative values
-* scale_x_inverse, scale_y_inverse now actually work, and added recip as alias
-* geom_smooth was incorrectly applying alpha to line colour in the legend
-* fix bug in detecting which aesthetics are calculated
-* annotate works with missing x and y (e.g. for geom_rect)
-* position_collide now works with missing values
-* continuous scale limits should now be automatically sorted
-* geom_point: the alpha aesthetic now also affects the fill.
-* stat_qq: now correctly groups results
+* aes and aes_string both convert prefixes to full names
+* aesthetics: corrected list of aesthetics to include american spelling of colour as well as base R abbreviations
+* aesthetics: fix bug in detecting which aesthetics are calculated
+* aes_string treats NULL as "NULL"
+* annotate now works with missing x and y (e.g. for geom_rect)
+* continuous scale limits now automatically sorted
+* coord_polar: fix bug if breaks not all inside limits
 * facet_wrap: can now specify both ncol and nrow without getting an error
 * facet_wrap: now works with statistics that produce both x and y values (e.g. stat_qq)
+* fullseq now adds additional break on bottom if necessary, so that the include.lowest argument in cut never comes into play (this the source of a potential bug in histograms)
 * geom_boxplot: alpha now affects fill colour of boxes only
+* geom_path correctly switches to segments if varying alpha used (thanks to  Karl Ove Hufthammer for the report and Baptiste Auguie for the fix)
+* geom_point: the alpha aesthetic now also affects the fill.
+* geom_ribbon always sorts input to avoid problems with certain pathological inputs
+* geom_smooth was incorrectly applying alpha to line colour in the legend
 * nullGrob renamed to zeroGrob to avoid name conflict with grid
-* coord_polar: fix bug if breaks not all inside limits
-* aes and aes_string both convert prefixes to full names
-* aes_string treats NULL as "NULL"
+* position_collide now works with missing values
+* position_stack: fixed bug in detection of overlap for negative values
+* scale_discrete_position now uses drop argument to force dropping of unused levels
+* scale_gradient now uses labels parameters, if supplied
+* scale_x_inverse, scale_y_inverse now actually work, and added recip as alias
+* stat_qq now correctly groups results
 * stat_smooth will not try and fit a line to 2 or fewer points (previously didn't try for only 1 point)
+* stat_spoke now works with reversed scales
