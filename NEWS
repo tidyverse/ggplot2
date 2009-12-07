@@ -24,3 +24,4 @@ ggplot2 0.8.4  (2009-XX-XX)
 * coord_polar: fix bug if breaks not all inside limits
 * aes and aes_string both convert prefixes to full names
 * aes_string treats NULL as "NULL"
+* stat_smooth will not try and fit a line to 2 or fewer points (previously didn't try for only 1 point)

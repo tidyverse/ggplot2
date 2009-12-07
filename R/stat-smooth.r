@@ -13,7 +13,7 @@ StatSmooth <- proto(Stat, {
   
   calculate <- function(., data, scales, method="auto", formula=y~x, se = TRUE, n=80, fullrange=FALSE, xseq = NULL, level=0.95, na.rm = FALSE, ...) {
     data <- remove_missing(data, na.rm, c("x", "y"), name="stat_smooth")
-    if (length(unique(data$x)) < 2) {
+    if (length(unique(data$x)) <= 2) {
       # Not enough data to perform fit
       return(data.frame())
     }
