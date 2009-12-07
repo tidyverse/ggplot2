@@ -117,7 +117,9 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
   desc <- "Smooth gradient between three colours (high, low and midpoints)"
 
   output_breaks <- function(.) .$map(.$input_breaks())
-  labels <- function(.) .$.tr$label(.$input_breaks())
+  labels <- function(.) {
+    nulldefault(.$.labels, .$.tr$label(.$input_breaks()))
+  }
 
   icon <- function(.) {
     g <- scale_fill_gradient2()
@@ -215,7 +217,9 @@ ScaleGradientn <- proto(ScaleContinuous, expr={
   desc <- "Smooth gradient between n colours"
 
   output_breaks <- function(.) .$map(.$input_breaks())
-  labels <- function(.) .$.tr$label(.$input_breaks())
+  labels <- function(.) {
+    nulldefault(.$.labels, .$.tr$label(.$input_breaks()))
+  }
 
   icon <- function(.) {
     g <- scale_fill_gradientn(colours = rainbow(7))
@@ -242,6 +246,10 @@ ScaleGradientn <- proto(ScaleContinuous, expr={
     (d <- qplot(x, y, data=dsub, colour=diff))
 
     d + scale_colour_gradientn(colour = rainbow(7))
+    breaks <- c(-0.5, 0, 0.5)
+    d + scale_colour_gradientn(colour = rainbow(7), 
+      breaks = breaks, labels = format(breaks))
+    
     d + scale_colour_gradientn(colour = topo.colors(10))
     d + scale_colour_gradientn(colour = terrain.colors(10))
 
