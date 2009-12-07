@@ -35,6 +35,8 @@ df$angle <- runif(100, 0, 2*pi)
 df$speed <- runif(100, 0, 0.5)
 
 qplot(x, y, data=df) + stat_spoke(aes(angle=angle), radius = 0.5)
+last_plot() + scale_y_reverse()
+
 qplot(x, y, data=df) + stat_spoke(aes(angle=angle, radius=speed))
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}

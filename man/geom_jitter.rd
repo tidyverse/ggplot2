@@ -4,7 +4,7 @@
 \title{geom\_jitter}
 \description{Points, jittered to reduce overplotting}
 \details{
-The jitter geom is a convenient default for geom\_point + position\_jitter.  See position\_jitter for more details on adjusting the amount of jittering.
+The jitter geom is a convenient default for geom\_point with position = 'jitter'.  See position\_jitter for more details on adjusting the amount of jittering.
 
 This page describes geom\_jitter, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }

@@ -40,6 +40,7 @@ df <- data.frame(
   y = runif(100)
 )
 
+# Automatic scale selection
 qplot(sec10, y, data = df)
 qplot(min, y, data = df)
 qplot(min5, y, data = df)
@@ -49,6 +50,15 @@ qplot(hour5, y, data = df)
 qplot(hour10, y, data = df)
 qplot(day, y, data = df)
 qplot(day30, y, data = df)
+
+# Manual scale selection
+qplot(day30, y, data = df)
+last_plot() + scale_x_datetime(major = "2 weeks")
+last_plot() + scale_x_datetime(major = "2 weeks", minor = "1 week")
+last_plot() + scale_x_datetime(major = "10 days")
+# See ?strptime for formatting parameters
+last_plot() + scale_x_datetime(major = "10 days", format = "%d/%m")
+
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

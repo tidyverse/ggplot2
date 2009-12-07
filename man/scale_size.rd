@@ -14,8 +14,8 @@ This page describes scale\_size, see \code{\link{layer}} and \code{\link{qplot}}
  \item{breaks}{numeric vector indicating where breaks should lie}
  \item{labels}{character vector giving labels associated with breaks}
  \item{trans}{a transformer to use}
- \item{to}{numeric vector of length 2, giving minimum and maximum after transformation}
- \item{...}{ignored }
+ \item{to}{a numeric vector of length 2 that specifies the minimum and maximum size of the plotting symbol after transformation.}
+ \item{...}{other arguments}
 }
 \seealso{\itemize{
   \item \code{\link{scale_manual}}: for sizing discrete variables
