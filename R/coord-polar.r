@@ -127,6 +127,7 @@ CoordPolar <- proto(Coord, {
     labels <- details$theta.labels
     
     # Combine the two ends of the scale if they are close
+    theta <- theta[!is.na(theta)]
     ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
     if (ends_apart < 0.05) {
       labels[length(labels)] <- paste(labels[1], labels[length(labels)], sep="/")
