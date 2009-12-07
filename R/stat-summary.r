@@ -143,7 +143,7 @@ summarise_by_x <- function(data, summary, ...) {
 # 
 # See the Hmisc documentation for details of their options.
 # 
-# @seealso \code{\link[Hmisc]{smean.cl.boot}}, \code{\link[Hmisc]{smean.cl.normal}}, \code{\link[Hmisc]{smean.sdl}}, \code{\link[Hmisc]{smedian.hilon}}
+# @seealso \code{\link[Hmisc]{smean.cl.boot}}, \code{\link[Hmisc]{smean.cl.normal}}, \code{\link[Hmisc]{smean.sdl}}, \code{\link[Hmisc]{smedian.hilow}}
 # @alias mean_cl_boot
 # @alias mean_cl_normal
 # @alias mean_sdl

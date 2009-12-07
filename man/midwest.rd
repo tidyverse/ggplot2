@@ -1,4 +1,4 @@
-\name{Diamond prices}
+\name{Midwest demographics}
 \docType{data}
 \alias{midwest}
 \title{Demographic information of midwest counties}
