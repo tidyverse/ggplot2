@@ -4,7 +4,7 @@ StatContour <- proto(Stat, {
 
     # If no parameters set, use pretty bins
     if (is.null(bins) && is.null(binwidth) && is.null(breaks)) {
-      breaks <- pretty(range(data$z))
+      breaks <- pretty(range(data$z), 10)
     }
     # If provided, use bins to calculate binwidth
     if (!is.null(bins)) {
