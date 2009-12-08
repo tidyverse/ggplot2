@@ -16,7 +16,9 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
     }
   } else {
     if (!(all(c("xmin", "xmax") %in% names(data)))) {
-      return(ddply(data, .(x), function(df) strategy(df, width = 0)))
+      data <- ddply(data, .(x), function(df) strategy(df, width = 0))
+      data <- data[order(data$x, data$group), ]
+      return(data)
     }
     
     # Width determined from data, must be floating point constant 
