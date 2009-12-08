@@ -7,9 +7,7 @@
 Developer use only
 }
 \usage{get_rev()}
-\arguments{
 
-}
 
 
 

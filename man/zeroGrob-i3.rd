@@ -13,9 +13,7 @@
 The zero grob draws nothing and has zero size.
 }
 \usage{zeroGrob()}
-\arguments{
 
-}
 
 
 
