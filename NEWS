@@ -8,3 +8,4 @@ ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
   user controllable (implements #9)
 * geom_path: linejoin, lineend and linemitre are now user controllable 
   (implements #24)
+* facet_wrap now maintains original order of data
