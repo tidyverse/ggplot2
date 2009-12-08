@@ -1,2 +1,3 @@
 ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
 
+* geom_text gains parse argument which makes it possible to display expressions (implements #50)
