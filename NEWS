@@ -6,3 +6,5 @@ ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
 * stat_contour bump up default number of contours
 * stat_density2d: make number of grid points used for density estimation 
   user controllable (implements #9)
+* geom_path: linejoin, lineend and linemitre are now user controllable 
+  (implements #24)

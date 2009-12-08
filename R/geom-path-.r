@@ -1,7 +1,7 @@
 GeomPath <- proto(Geom, {
   draw_groups <- function(., ...) .$draw(...)
 
-  draw <- function(., data, scales, coordinates, arrow = NULL, ...) {
+  draw <- function(., data, scales, coordinates, arrow = NULL, lineend = "butt", linejoin = "round", linemitre = 1, ...) {
     munched <- coordinates$munch(data, scales)
 
     # Silently drop lines with less than two points, preserving order
@@ -37,7 +37,8 @@ GeomPath <- proto(Geom, {
           default.units="native", arrow = arrow, 
           gp = gpar(
             col = alpha(colour, alpha)[!end], 
-            lwd = size[!end] * .pt, lty = linetype[!end]
+            lwd = size[!end] * .pt, lty = linetype[!end], 
+            lineend = lineend, linejoin = linejoin, linemitre = linemitre
           )
         )
       )
@@ -48,7 +49,8 @@ GeomPath <- proto(Geom, {
           default.units = "native", arrow = arrow, 
           gp = gpar(
             col = alpha(colour, alpha)[start], 
-            lwd = size[start] * .pt, lty = linetype[start], lineend = "butt")
+            lwd = size[start] * .pt, lty = linetype[start], 
+            lineend = lineend, linejoin = linejoin, linemitre = linemitre)
         )
       )
     }
@@ -67,6 +69,14 @@ GeomPath <- proto(Geom, {
   
   objname <- "path"
   desc <- "Connect observations, in original order"
+
+  desc_params <- list(
+    lineend = "Line end style (round, butt, square)",
+    linejoin = "Line join style (round, mitre, bevel)",
+    linemitre = "Line mitre limit (number greater than 1)",
+    arrow = "Arrow specification, as created by ?arrow"
+  )
+  
 
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y")
@@ -95,6 +105,13 @@ GeomPath <- proto(Geom, {
 
     # Set aesthetics to fixed value
     p + geom_path(colour = "green")
+    
+    # Control line join parameters
+    df <- data.frame(x = 1:3, y = c(4, 1, 9))
+    base <- ggplot(df, aes(x, y))
+    base + geom_path(size = 10)
+    base + geom_path(size = 10, lineend = "round")
+    base + geom_path(size = 10, linejoin = "mitre", lineend = "butt")
     
     # Use qplot instead
     qplot(mean.length, mean.rating, data=myear, geom="path")
