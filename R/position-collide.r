@@ -27,9 +27,11 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
     }
     width <- widths[1]
   }
-  
+
+  # Reorder by x position, preserving order of group
+  data <- data[order(data$xmin, data$group), ]
+
   # Check for overlap
-  data <- data[order(data$xmin), ]
   intervals <- as.numeric(t(unique(data[c("xmin", "xmax")])))
   intervals <- scale(intervals[!is.na(intervals)])
   if (any(diff(intervals) < -1e-6)) {

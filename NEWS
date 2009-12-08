@@ -33,3 +33,4 @@ ggplot2 0.8.4 (2009-XX-XX) ----------------------------------------
 * stat_smooth will not try and fit a line to 2 or fewer points (previously
   didn't try for only 1 point)
 * stat_spoke now works with reversed scales
+* grouping: now consistent between different geoms (Issue #33)
