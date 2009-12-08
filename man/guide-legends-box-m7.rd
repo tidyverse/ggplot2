@@ -21,6 +21,6 @@ the scales that make up the plot and organises them into a
 
 If there are no legends to create, this function will return \code{NULL}}
 
-\examples{}
+
 \keyword{hplot}
 \keyword{internal}

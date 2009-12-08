@@ -11,7 +11,7 @@ See templates directory for examples.  Each template is auto linked.
 \item{name}{name of template}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

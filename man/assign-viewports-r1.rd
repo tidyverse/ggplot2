@@ -14,5 +14,5 @@ Assign viewports to a matrix of grobs
 \details{Uses the structure (and names) of the matrix of grobs, to automatically
 assign each grob to the appropriate viewport}
 
-\examples{}
+
 

@@ -11,7 +11,7 @@ See \code{\link{html_index}} for more details
 \item{path}{path to create file in}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

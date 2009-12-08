@@ -13,7 +13,7 @@ This is a convenience function that saves some typing when modifying the axis la
 \item{...}{a list of new names in the form aesthetic = "new name"}
 }
 
-\details{}
+
 
 \examples{p <- qplot(mpg, wt, data = mtcars)
 p + labs(x = "New x label")

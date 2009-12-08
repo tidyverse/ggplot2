@@ -11,7 +11,7 @@ Write out all convenience accessor functions to R file.
 \item{file}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

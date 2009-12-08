@@ -14,7 +14,7 @@ Saves image displaying differences
 \item{path_out}{location where output should be saved}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

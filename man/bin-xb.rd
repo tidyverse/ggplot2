@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-This function powers \code{\link{stat_bin}}R
+This function powers \code{\link{stat_bin}}
 }
 \usage{bin(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE)}
 \arguments{
@@ -18,7 +18,7 @@ This function powers \code{\link{stat_bin}}R
 \item{drop}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

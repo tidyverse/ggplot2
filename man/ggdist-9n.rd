@@ -13,7 +13,7 @@ Experimental template
 \item{facets}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

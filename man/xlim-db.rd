@@ -11,7 +11,7 @@ Convenience function to set the limits of the x axis.
 \item{...}{}
 }
 
-\details{}
+
 
 \examples{xlim(15, 20)
 xlim(20, 15)

@@ -11,7 +11,7 @@ Create all html pages including indices and templates.  Also converts
 \item{path}{path to create files in}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

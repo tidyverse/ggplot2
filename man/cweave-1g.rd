@@ -13,5 +13,5 @@ Weave together two (or more) matrices by column
 
 \details{Matrices must have smae dimensions}
 
-\examples{}
+
 

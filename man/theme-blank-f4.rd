@@ -11,7 +11,7 @@ This theme element draws nothing, and assigns no space
 
 }
 
-\details{}
 
-\examples{}
+
+
 

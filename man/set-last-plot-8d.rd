@@ -11,7 +11,7 @@ Set last plot created or modified
 \item{value}{plot to store}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

@@ -12,7 +12,7 @@ See \code{\link{html_template}} for more details
 \item{path}{path to create file in}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

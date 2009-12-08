@@ -11,7 +11,7 @@ Look up the scale that should be used for a given aesthetic
 \item{var}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

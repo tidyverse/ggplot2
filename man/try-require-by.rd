@@ -11,7 +11,7 @@ Queitly require a package, returning an error message if that package is not ins
 \item{package}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

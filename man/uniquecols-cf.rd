@@ -11,7 +11,7 @@ This is used for figuring out which columns are constant within a group
 \item{df}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

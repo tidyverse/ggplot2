@@ -11,7 +11,7 @@ Build a bulleted list of objects with description and icons
 \item{objects}{list of objects}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

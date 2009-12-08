@@ -14,8 +14,8 @@ Print generic for ggplot.  Plot on current graphics device.
 \item{...}{other arguments passed on to \code{\link{ggplotGrob}}}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{hplot}
 \keyword{internal}

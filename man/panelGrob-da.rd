@@ -12,8 +12,8 @@ Creates a complete ggplot grob.
 \item{pieces}{should the plot be wrapped up inside the pretty accoutrements (labels, legends, etc)}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{hplot}
 \keyword{internal}

@@ -12,7 +12,7 @@ Produce a theme with gray background and white gridlines
 \item{base_size}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

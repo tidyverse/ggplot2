@@ -14,7 +14,7 @@ Build a matrix of grobs given a vector of grobs and the desired dimensions of th
 \item{as.table}{should the matrix be arranged like a table or a plot}
 }
 
-\details{Any missing cells at the end will be filled in with nullGrobs.}
+\details{Any missing cells at the end will be filled in with zeroGrobs.}
 
-\examples{}
+
 

@@ -12,7 +12,7 @@ A plot to investigate the order in which observations were recorded.
 \item{scale}{type of scaling to use.  See \code{\link[reshape]{rescaler}} for options}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{hplot}

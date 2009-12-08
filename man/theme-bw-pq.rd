@@ -11,7 +11,7 @@ Produce a theme with white background and black gridlines
 \item{base_size}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

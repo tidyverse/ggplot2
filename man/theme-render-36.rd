@@ -16,5 +16,5 @@ This function is used internally for all drawing of plot surrounds etc
 
 \details{It also names the created grobs consistently}
 
-\examples{}
+
 

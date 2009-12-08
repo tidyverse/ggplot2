@@ -11,7 +11,7 @@ Determine if aesthetic is calculated from the statistic
 \item{aesthetics}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

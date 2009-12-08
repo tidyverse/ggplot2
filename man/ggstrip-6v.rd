@@ -13,8 +13,8 @@ Grob for strip labels
 \item{theme}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{hplot}
 \keyword{internal}

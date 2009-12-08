@@ -12,7 +12,7 @@ Displays a useful description of a ggplot object
 \item{...}{}
 }
 
-\details{}
+
 
 \examples{summary(qplot(mpg, wt, data=mtcars))}
 \keyword{internal}

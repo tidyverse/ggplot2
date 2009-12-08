@@ -11,7 +11,7 @@ Parse the time unit specification used by \code{\link{cut.Date}} into something 
 \item{unitspec}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

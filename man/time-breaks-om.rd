@@ -11,7 +11,7 @@ Automatically compute sensible axis breaks for time data
 \item{seconds}{range in seconds}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

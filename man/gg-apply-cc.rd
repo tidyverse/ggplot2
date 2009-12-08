@@ -13,7 +13,7 @@ Convenience apply function for facets data structure
 \item{...}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

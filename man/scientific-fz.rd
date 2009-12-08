@@ -11,7 +11,7 @@ Default scientific formatting
 \item{x}{numeric vector to format}
 }
 
-\details{}
 
-\examples{}
+
+
 

@@ -15,5 +15,5 @@ Ensure that the data frame contains a grouping variable.
 variable is generated from the interaction of all discrete (factor or
 character) vectors excluding label.}
 
-\examples{}
+
 \keyword{internal}

@@ -11,8 +11,8 @@ Alias of traceback with fewer keypresses, and severe restriction on number of li
 \item{x}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{manip}
 \keyword{internal}

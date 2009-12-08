@@ -13,7 +13,7 @@ Compute intercept for vline and hline from data and parameters
 \item{var}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

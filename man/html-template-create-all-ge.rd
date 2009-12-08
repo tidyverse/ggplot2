@@ -11,7 +11,7 @@ Render all templates in templates directory
 \item{path}{path to create file in}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

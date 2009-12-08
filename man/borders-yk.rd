@@ -15,7 +15,7 @@ Create a layer of map borders
 \item{...}{other arguments passed on to \code{\link{geom_polygon}}}
 }
 
-\details{}
+
 
 \examples{if (require(maps)) {
 ia <- map_data("county", "iowa")

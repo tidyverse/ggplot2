@@ -11,7 +11,7 @@ Given a matrix of grobs, calculate the height needed for each row
 \item{mat}{matrix of grobs}
 }
 
-\details{}
 
-\examples{}
+
+
 

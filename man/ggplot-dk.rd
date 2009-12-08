@@ -13,7 +13,7 @@ Create a new ggplot plot
 \item{...}{}
 }
 
-\details{}
+
 \seealso{\url{http://had.co.nz/ggplot2}}
-\examples{}
+
 \keyword{hplot}

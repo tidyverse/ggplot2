@@ -11,7 +11,7 @@ Developer use only
 
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

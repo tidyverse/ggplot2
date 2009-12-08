@@ -17,5 +17,5 @@ Detect and prevent collisions
 
 \details{Powers dodging, stacking and filling}
 
-\examples{}
+
 \keyword{internal}

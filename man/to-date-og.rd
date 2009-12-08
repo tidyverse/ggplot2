@@ -11,7 +11,7 @@ Turn numeric vector into date vector
 \item{x}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

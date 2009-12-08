@@ -11,7 +11,7 @@ Print a \code{list(a=1, b=2)} as \code{(a=1, b=2)}
 \item{l}{list to concatenate}
 }
 
-\details{}
+
 
 \examples{clist(list(a=1, b=2))
 clist(par()[1:5])}

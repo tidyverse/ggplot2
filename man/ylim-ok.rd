@@ -11,7 +11,7 @@ Convenience function to set the limits of the y axis.
 \item{...}{}
 }
 
-\details{}
+
 
 \examples{ylim(15, 20)
 ylim(c(10, 20))

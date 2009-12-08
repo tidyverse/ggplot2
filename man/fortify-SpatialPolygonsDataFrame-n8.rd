@@ -20,7 +20,7 @@ Fortify method for a number of the class from the sp package.
 \item{...}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

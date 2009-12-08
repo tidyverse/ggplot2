@@ -12,7 +12,7 @@ A plot which aims to reveal gross structural anomalies in the data
 \item{scale}{type of scaling to use.  See \code{\link[reshape]{rescaler}} for options}
 }
 
-\details{}
+
 
 \examples{ggstructure(mtcars)}
 \keyword{hplot}

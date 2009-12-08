@@ -14,8 +14,8 @@ Grob for axes
 \item{theme}{range of data values}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{hplot}
 \keyword{internal}

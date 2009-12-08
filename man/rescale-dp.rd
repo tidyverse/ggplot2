@@ -14,7 +14,7 @@ Rescale numeric vector to have specified minimum and maximum.
 \item{clip}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{manip}

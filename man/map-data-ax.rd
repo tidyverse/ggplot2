@@ -12,7 +12,7 @@ Convert map to data frame
 \item{region}{region name}
 }
 
-\details{}
+
 
 \examples{if (require(maps)) {
 states <- map_data("state")

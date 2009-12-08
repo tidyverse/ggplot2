@@ -11,7 +11,7 @@ Check that a list of matrices have equal dimensions
 \item{matrices}{list of matrices}
 }
 
-\details{}
 
-\examples{}
+
+
 

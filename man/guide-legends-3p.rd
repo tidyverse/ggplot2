@@ -16,7 +16,7 @@ Build legends, merging where possible
 \item{theme}{}
 }
 \value{A list of grobs}
-\details{}
+
 
 \examples{theme_update(legend.background = theme_rect(size = 0.2))
 qplot(mpg, wt, data = mtcars)

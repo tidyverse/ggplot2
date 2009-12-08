@@ -11,7 +11,7 @@ Compute precision (in power of 10) of a vector of numbers
 \item{x}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

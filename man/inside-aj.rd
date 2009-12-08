@@ -12,7 +12,7 @@ Return logical vector indicating if x is inside the interval
 \item{interval}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

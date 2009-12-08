@@ -11,7 +11,7 @@ Whenever a plot is created or modified, it is recorded.
 
 }
 
-\details{}
+
 \seealso{\code{\link{ggsave}}}
-\examples{}
+
 \keyword{hplot}

@@ -12,7 +12,7 @@ Join together facet value and the name of the variable to create a label.
 \item{value}{}
 }
 
-\details{}
+
 
 \examples{p <- qplot(wt, mpg, data = mtcars)
 p + facet_grid(~ cyl)

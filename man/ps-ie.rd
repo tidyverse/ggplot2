@@ -13,7 +13,7 @@ Alias for paste with a shorter name and convenient defaults
 \item{collapse}{default collapser}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

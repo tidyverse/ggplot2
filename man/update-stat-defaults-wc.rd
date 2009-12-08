@@ -12,7 +12,7 @@ Modify geom aesthetic defaults for future plots
 \item{new}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

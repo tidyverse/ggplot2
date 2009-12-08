@@ -13,7 +13,7 @@ This produces colours with moderate luminance and saturation.
 \item{c}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

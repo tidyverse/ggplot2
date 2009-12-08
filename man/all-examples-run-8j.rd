@@ -12,7 +12,7 @@ Runs all ggplot2 examples
 \item{verbose}{if TRUE, report progress during run}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

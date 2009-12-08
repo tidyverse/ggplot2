@@ -14,7 +14,7 @@ An another algorithm for computing histogram breaks.  Produces irregular bins.
 \item{rx}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

@@ -18,7 +18,7 @@ This element adds text
 \item{lineheight}{line height}
 }
 
-\details{}
+
 \seealso{\code{\link{textGrob}} for underlying grid function}
-\examples{}
+
 

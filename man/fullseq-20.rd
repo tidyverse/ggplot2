@@ -12,7 +12,7 @@ All locations are multiples of size
 \item{size}{interval size}
 }
 
-\details{}
+
 \seealso{\code{\link{reshape}{round_any}}}
-\examples{}
+
 \keyword{internal}

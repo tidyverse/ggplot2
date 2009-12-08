@@ -12,7 +12,7 @@ Give a colour an alpha level
 \item{alpha}{alpha level [0,1]}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

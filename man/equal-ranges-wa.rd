@@ -13,7 +13,7 @@ Used by \code{\link{coord_equal}} to compute equal ranges for equal scale axes
 \item{ratio}{desired ratio between x and y ranges}
 }
 
-\details{}
 
-\examples{}
+
+
 

@@ -13,7 +13,7 @@ Make a list of scales, cloning if necessary
 \item{free}{should the scales be free (TRUE) or fixed (FALSE)}
 }
 
-\details{}
 
-\examples{}
+
+
 

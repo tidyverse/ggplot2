@@ -27,8 +27,8 @@ the size of the current graphics device.  It also guess the type of
 graphics device from the extension.  This means the only argument you
 need to supply is the filename.
 
-\code{ggsave} currently recognises the extensions ps, tex (pictex), pdf,
-tiff, png, bmp and wmf (windows only).}
+\code{ggsave} currently recognises the extensions eps/ps, tex (pictex), pdf,
+jpeg, tiff, png, bmp, svg and wmf (windows only).}
 
 \examples{\dontrun{
 ratings <- qplot(rating, data=movies, geom="histogram")

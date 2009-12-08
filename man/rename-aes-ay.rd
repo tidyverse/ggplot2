@@ -11,7 +11,7 @@ Rename aesthetics named in American spelling or with base R graphic parameter na
 \item{x}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

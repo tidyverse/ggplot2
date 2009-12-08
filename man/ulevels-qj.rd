@@ -11,7 +11,7 @@ Get unique levels of vector
 \item{x}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

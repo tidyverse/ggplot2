@@ -13,7 +13,7 @@ Convenience method for setting aesthetic defaults
 \item{params.}{user specified values}
 }
 \value{a data.frame, with all factors converted to character strings}
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

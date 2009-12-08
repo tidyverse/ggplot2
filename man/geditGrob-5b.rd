@@ -13,7 +13,7 @@ To match grid.gedit
 \item{global}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

@@ -28,5 +28,5 @@ This function sets up the appropriate viewports and packs the
 various components in.  The viewport is set up so that each component
 will only take up the amount of space that it requires.}
 
-\examples{}
+
 \keyword{hplot}

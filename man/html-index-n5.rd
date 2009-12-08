@@ -11,7 +11,7 @@ Static header template stored in templates/index.html
 
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

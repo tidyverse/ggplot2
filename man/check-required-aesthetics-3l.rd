@@ -13,7 +13,7 @@ This is used by geoms and stats to give a more helpful error message
 \item{name}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

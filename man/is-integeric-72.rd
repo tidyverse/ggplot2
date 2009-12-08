@@ -11,7 +11,7 @@ Determine if a vector contains only integers
 \item{x}{vector to test}
 }
 
-\details{}
+
 
 \examples{is.integeric(runif(100))
 is.integeric(rpois(100, 10))

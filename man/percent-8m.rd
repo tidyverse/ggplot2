@@ -11,7 +11,7 @@ Multiply by one hundred and display percent sign
 \item{x}{numeric vector to format}
 }
 
-\details{}
 
-\examples{}
+
+
 

@@ -12,7 +12,7 @@ Format number with commas separating thousands
 \item{...}{other arguments passed on to \code{\link{format}}}
 }
 
-\details{}
 
-\examples{}
+
+
 

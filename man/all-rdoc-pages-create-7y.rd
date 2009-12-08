@@ -11,7 +11,7 @@ Builds rdoc pages for all ggplot2 objects
 \item{path}{path to save rd files}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

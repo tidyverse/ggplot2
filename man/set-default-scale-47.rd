@@ -14,7 +14,7 @@ Overrides the default scale with one of your choosing.
 \item{...}{}
 }
 
-\details{}
+
 
 \examples{qplot(mpg, wt, data=mtcars, colour=factor(cyl)) 
 set_default_scale("colour","discrete", "grey")

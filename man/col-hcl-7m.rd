@@ -15,7 +15,7 @@ Transforms rgb to hcl, sets non-missing arguments and then backtransforms to rgb
 \item{alpha}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

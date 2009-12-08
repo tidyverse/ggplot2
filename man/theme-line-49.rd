@@ -13,7 +13,7 @@ This element draws a line between two (or more) points
 \item{linetype}{line type}
 }
 
-\details{}
+
 \seealso{\code{\link{polylineGrob}} for underlying grid function, \code{link{theme_segment}}}
-\examples{}
+
 

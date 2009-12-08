@@ -14,7 +14,7 @@ This some pretty ugly code
 \item{legend_vp}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

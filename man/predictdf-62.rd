@@ -16,7 +16,7 @@ Get predictions with standard errors into data frame
 \item{level}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

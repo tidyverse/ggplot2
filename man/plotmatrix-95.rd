@@ -13,7 +13,7 @@ Crude experimental scatterplot matrix
 \item{colour}{}
 }
 
-\details{}
+
 
 \examples{plotmatrix(mtcars[, 1:3])
 plotmatrix(mtcars[, 1:3]) + geom_smooth(method="lm")}

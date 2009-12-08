@@ -11,7 +11,7 @@ Build up index of links.
 
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

@@ -13,7 +13,7 @@ Round date down to nearest multiple of time
 \item{time}{unit of time to round to (see \code{\link{cut.Date}}) for valid values}
 }
 
-\details{}
 
-\examples{}
+
+
 

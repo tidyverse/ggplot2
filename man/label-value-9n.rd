@@ -12,7 +12,7 @@ The default facet labelling just uses the value of the variable
 \item{value}{}
 }
 
-\details{}
+
 
 \examples{p <- qplot(wt, mpg, data = mtcars)
 p + facet_grid(~ cyl)

@@ -12,7 +12,7 @@ Analog of || from ruby
 \item{b}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

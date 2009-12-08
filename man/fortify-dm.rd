@@ -16,7 +16,7 @@ Generic method to supplement the original data with model fit statistics
 \item{...}{}
 }
 
-\details{}
+
 \seealso{\code{\link{fortify.lm}}}
-\examples{}
+
 

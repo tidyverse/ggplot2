@@ -14,7 +14,7 @@
 \item{...}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

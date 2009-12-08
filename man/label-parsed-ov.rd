@@ -12,7 +12,7 @@ Parses the facet label, as if
 \item{value}{}
 }
 
-\details{}
+
 \seealso{\code{\link{plotmath}}}
 \examples{mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
 qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2)

@@ -17,6 +17,6 @@ Calculate viewport path.
 entry in a matrix viewport.  This helps ensure a common naming scheme throughout
 ggplot/}
 
-\examples{}
+
 \keyword{hplot}
 \keyword{internal}

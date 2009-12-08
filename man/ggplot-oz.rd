@@ -23,5 +23,5 @@ The elements of a ggplot plot are combined together with addition.
 \item \code{facet}: override default coordinate faceting
 }}
 \seealso{\code{\link{set_last_plot}}, \code{\link{ggplot}}}
-\examples{}
+
 \keyword{internal}

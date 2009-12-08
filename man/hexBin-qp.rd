@@ -13,7 +13,7 @@ Wrapper around \code{\link[hexbin]{hcell2xy}} that returns a data frame
 \item{binwidth}{numeric vector of length 2 giving binwidth in x and y directions}
 }
 
-\details{}
 
-\examples{}
+
+
 

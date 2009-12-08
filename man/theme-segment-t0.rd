@@ -13,7 +13,7 @@ This element draws segments between a set of points
 \item{linetype}{line type}
 }
 
-\details{}
+
 \seealso{\code{\link{segmentsGrob}} for underlying grid function, \code{link{theme_line}}}
-\examples{}
+
 

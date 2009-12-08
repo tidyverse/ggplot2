@@ -11,7 +11,7 @@ Strip dots from expressions that represent mappings of aesthetics to output from
 \item{aesthetics}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

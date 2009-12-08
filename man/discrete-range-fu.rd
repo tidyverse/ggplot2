@@ -12,7 +12,7 @@ This is the equivalent of range for discrete variables
 \item{drop}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

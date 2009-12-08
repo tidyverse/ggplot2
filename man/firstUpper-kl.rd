@@ -11,7 +11,7 @@ This comes from the examples of some R function.
 \item{s}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

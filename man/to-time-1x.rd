@@ -11,7 +11,7 @@ Turn numeric vector into POSIXct vector
 \item{x}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

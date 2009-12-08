@@ -47,7 +47,7 @@ Still a work in progress.
 \item{respect}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

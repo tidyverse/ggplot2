@@ -6,7 +6,7 @@
 \description{
 Add annotations to a plot in a convenient manner
 }
-\usage{annotate(geom, x, y, xmin = NULL, xmax = NULL, ymin = NULL, ymax = NULL, ...)}
+\usage{annotate(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL, ymin = NULL, ymax = NULL, ...)}
 \arguments{
 \item{geom}{}
 \item{x}{}
@@ -18,7 +18,7 @@ Add annotations to a plot in a convenient manner
 \item{...}{}
 }
 
-\details{}
+
 
 \examples{annotate("text", x = 0, y = 0, label = "title")}
 

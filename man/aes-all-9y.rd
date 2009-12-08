@@ -11,7 +11,7 @@ Given a character vector, create a set of identity mappings
 \item{vars}{vector of variable names}
 }
 
-\details{}
+
 
 \examples{aes_all(names(mtcars))
 aes_all(c("x", "y", "col", "pch"))}

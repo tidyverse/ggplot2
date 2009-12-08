@@ -15,7 +15,7 @@ Modified from code by Nicholas Lewin-Koh and Martin Maechler
 \item{fill}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

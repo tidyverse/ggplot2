@@ -11,7 +11,7 @@ Combines plot defaults with current theme to get complete theme for a plot
 \item{x}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

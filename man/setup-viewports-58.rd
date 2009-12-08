@@ -16,8 +16,8 @@ Setup matrix of viewports for a layout with given parameters
 \item{}{list containing x and y ranges}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{hplot}
 \keyword{internal}

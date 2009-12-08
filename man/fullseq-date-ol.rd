@@ -15,5 +15,5 @@ Analog of \code{link{fullseq}}, but for dates and times
 
 \details{Use in \code{\link{scale_date}}}
 
-\examples{}
+
 

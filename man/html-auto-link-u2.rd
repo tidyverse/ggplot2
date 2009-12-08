@@ -12,7 +12,7 @@ Add html links to functions
 \item{skip}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

@@ -16,5 +16,5 @@ Cache output from all examples in ggplot directory
 * png for each example
 * csv with hash, code and timing info}
 
-\examples{}
+
 \keyword{internal}

@@ -16,5 +16,5 @@ This element draws a rectangular box
 
 \details{This is most often used for backgrounds and borders}
 \seealso{\code{\link{rectGrob}} for underlying grid function}
-\examples{}
+
 

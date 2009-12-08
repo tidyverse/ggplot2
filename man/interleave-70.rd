@@ -11,7 +11,7 @@ Interleave (or zip) multiple vectors into a single vector
 \item{...}{vectors to interleave}
 }
 
-\details{}
 
-\examples{}
+
+
 

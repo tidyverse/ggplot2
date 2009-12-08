@@ -11,7 +11,7 @@ Uses md5 checksum to rapidly check if multiple files are equal.
 \item{...}{character vector of paths}
 }
 \value{boolean}
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

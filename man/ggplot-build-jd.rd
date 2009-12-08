@@ -11,7 +11,7 @@ This function is the powerhouse that converts the plot specification into someth
 \item{plot}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

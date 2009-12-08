@@ -12,7 +12,7 @@ Automatically link functions used in rdoc
 \item{skip}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

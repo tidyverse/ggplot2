@@ -18,7 +18,7 @@ Generate correct scale type for specified limits
 \item{var}{variable}
 }
 
-\details{}
+
 
 \examples{limits(c(1, 5), "x")
 limits(c(5, 1), "x")

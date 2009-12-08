@@ -11,7 +11,7 @@ Figure out if an aesthetic is a position or not
 \item{vars}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

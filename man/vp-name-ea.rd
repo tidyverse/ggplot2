@@ -15,6 +15,6 @@ Compute viewport name
 
 \details{This helps ensure a common naming scheme throughout ggplot.}
 
-\examples{}
+
 \keyword{hplot}
 \keyword{internal}

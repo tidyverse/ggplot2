@@ -12,7 +12,7 @@ Convenience function to name grid objects
 \item{grob}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

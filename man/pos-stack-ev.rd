@@ -12,7 +12,7 @@ Assumes that each set has the same horizontal position
 \item{width}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

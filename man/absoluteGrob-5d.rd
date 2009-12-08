@@ -22,5 +22,5 @@ This grob has fixed dimesions and position.
 
 \details{It's still experimental}
 
-\examples{}
+
 

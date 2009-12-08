@@ -14,7 +14,7 @@ Convenience function for expanding a range with a multiplicative or additive con
 \item{zero}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{manip}

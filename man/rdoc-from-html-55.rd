@@ -14,5 +14,5 @@ Crude regexp based conversion from html to rdoc.
 
 \details{Assumes well-formed xhtml.  Also autolinks any ggplot functions.}
 
-\examples{}
+
 \keyword{internal}

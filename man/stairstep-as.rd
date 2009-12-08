@@ -12,7 +12,7 @@ Used by \code{\link{geom_step}}
 \item{direction}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

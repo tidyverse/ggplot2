@@ -11,7 +11,7 @@ Given a matrix of grobs, calculate the width needed for each column
 \item{mat}{matrix of grobs}
 }
 
-\details{}
 
-\examples{}
+
+
 

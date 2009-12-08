@@ -12,7 +12,7 @@ Round to nearest cent and display dollar sign
 \item{...}{other arguments passed on to \code{\link{format}}}
 }
 
-\details{}
 
-\examples{}
+
+
 

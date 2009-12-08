@@ -17,5 +17,5 @@ Summarise a data frame by unique value of x
 data.frame into pieces, summarise each piece, and join the pieces
 back together, retaining original columns unaffected by the summary.}
 
-\examples{}
+
 \keyword{internal}

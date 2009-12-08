@@ -16,7 +16,7 @@ Create a new ggplot plot
 \item{environment}{}
 }
 
-\details{}
+
 \seealso{\url{http://had.co.nz/ggplot2}}
-\examples{}
+
 \keyword{hplot}

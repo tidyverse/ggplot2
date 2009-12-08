@@ -11,7 +11,7 @@ Keys become values, values become keys
 \item{L}{list to invert}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

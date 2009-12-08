@@ -11,7 +11,7 @@ Empty if it's null or it has 0 rows or columns
 \item{df}{data frame to check}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

@@ -11,7 +11,7 @@ If not already a matrix, make a 1x1 matrix
 \item{x}{object to make into a matrix}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

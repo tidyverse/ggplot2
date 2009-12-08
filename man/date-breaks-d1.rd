@@ -11,7 +11,7 @@ Automatically compute sensible axis breaks for date data
 \item{days}{range in days}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

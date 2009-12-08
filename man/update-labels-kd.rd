@@ -12,7 +12,7 @@ Change the scale names of an existing plot
 \item{labels}{}
 }
 
-\details{}
+
 
 \examples{p <- qplot(mpg, wt, data = mtcars)
 update_labels(p, list(x = "New x"))

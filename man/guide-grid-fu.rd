@@ -15,7 +15,7 @@ Produce a grob to be used as a background in panels
 \item{y.major}{major breaks in y axis}
 }
 
-\details{}
 
-\examples{}
+
+
 

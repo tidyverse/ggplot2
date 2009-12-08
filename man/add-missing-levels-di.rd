@@ -12,7 +12,7 @@ Ensure all data frames in list have same levels for selected variables
 \item{levels}{}
 }
 
-\details{}
 
-\examples{}
+
+
 

@@ -12,7 +12,7 @@ Compute the set of differences in file make up between two directories.
 \item{b}{path b}
 }
 \value{list with components only\_a, only\_b and both}
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

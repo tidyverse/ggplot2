@@ -13,7 +13,7 @@ Wrapper for colorRamp that deals with missing values and alpha
 \item{alpha}{}
 }
 
-\details{}
 
-\examples{}
+
+
 \keyword{internal}

@@ -18,5 +18,5 @@
 unless \code{ignore.dots = TRUE}.  Positional arguments are not currently
 supported.}
 
-\examples{}
+
 \keyword{internal}

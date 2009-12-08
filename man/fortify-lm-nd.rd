@@ -53,8 +53,8 @@ stat="identity")
 plot(mod, which = 5)
 qplot(.hat, .stdresid, data = mod) + geom_smooth(se = FALSE)
 ggplot(mod, aes(.hat, .stdresid)) + 
-geom_vline(size = 2, colour = "white") +
-geom_hline(size = 2, colour = "white") +
+geom_vline(size = 2, colour = "white", xintercept = 0) +
+geom_hline(size = 2, colour = "white", yintercept = 0) +
 geom_point() + geom_smooth(se = FALSE)
 
 qplot(.hat, .stdresid, data = mod, size = .cooksd) + 
