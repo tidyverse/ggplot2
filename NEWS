@@ -4,3 +4,5 @@ ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
   expressions (implements #50)
 * stat_contour & stat_density2d: fix grouping bugs (issue #7)
 * stat_contour bump up default number of contours
+* stat_density2d: make number of grid points used for density estimation 
+  user controllable (implements #9)

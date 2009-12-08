@@ -9,13 +9,19 @@ StatDensity2d <- proto(Stat, {
   desc_outputs <- list(
     level = "Computed density"
   )
+  desc_params <- list(
+    contour = "If TRUE, contour the results of the 2d density estimation.",
+    n = "number of grid points in each direction",
+    "..." = "other arguments passed on to ?kde2d"
+  )
+  
   icon <- function(.) GeomDensity2d$icon()
 
-  calculate <- function(., data, scales, na.rm = FALSE, contour = TRUE, ...) {
+  calculate <- function(., data, scales, na.rm = FALSE, contour = TRUE, n = 100, ...) {
     df <- data.frame(data[, c("x", "y")])
     df <- remove_missing(df, na.rm, name = "stat_density2d")
 
-    dens <- safe.call(MASS::kde2d, c(df, n=100, ...))
+    dens <- safe.call(MASS::kde2d, c(df, n = n, ...))
     df <- with(dens, data.frame(expand.grid(x = x, y = y), z = as.vector(z)))
     df$group <- data$group[1]
     
