@@ -58,6 +58,7 @@
 \alias{ScaleLogit}
 \alias{ScalePow10}
 \alias{ScaleProbit}
+\alias{ScaleInverse}
 \alias{ScaleReverse}
 \alias{ScaleSizeDiscrete}
 \alias{ScaleSqrt}
@@ -71,6 +72,7 @@
 \alias{scale_x_logit}
 \alias{scale_x_pow10}
 \alias{scale_x_probit}
+\alias{scale_x_recip}
 \alias{scale_x_reverse}
 \alias{scale_x_sqrt}
 \alias{scale_y_asn}
@@ -84,6 +86,7 @@
 \alias{scale_y_pow10}
 \alias{scale_y_probit}
 \alias{scale_y_reverse}
+\alias{scale_y_recip}
 \alias{scale_y_sqrt}
 \alias{scale_z_asn}
 \alias{scale_z_atanh}
@@ -105,8 +108,3 @@
 \description{
 All documentation is available at \url{http://had.co.nz/ggplot2}.  Future versions will include more documentation in the package itself.
 }
-
-\details{}
-
-\examples{}
-
