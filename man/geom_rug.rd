@@ -7,7 +7,7 @@
 This page describes geom\_rug, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom\_rug.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_rug(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_rug.  Aesthetics are mapped to variables in the data with the aes function: \code{geom\_rug(aes(x = var))}
 \itemize{
   \item \code{colour}: border colour 
   \item \code{size}: size 

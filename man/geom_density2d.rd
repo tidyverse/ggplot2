@@ -9,7 +9,7 @@ Perform a 2D kernel density estimatation using kde2d and  display the results wi
 This page describes geom\_density2d, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom\_density2d.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_density2d(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_density2d.  Aesthetics are mapped to variables in the data with the aes function: \code{geom\_density2d(aes(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 

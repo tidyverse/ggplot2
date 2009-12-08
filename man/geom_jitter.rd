@@ -9,7 +9,7 @@ The jitter geom is a convenient default for geom\_point with position = 'jitter'
 This page describes geom\_jitter, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom\_jitter.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_jitter(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_jitter.  Aesthetics are mapped to variables in the data with the aes function: \code{geom\_jitter(aes(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 

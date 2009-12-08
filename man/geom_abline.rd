@@ -11,7 +11,7 @@ With its siblings geom\_hline and geom\_vline, it's useful for annotating plots.
 This page describes geom\_abline, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom\_abline.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_abline(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_abline.  Aesthetics are mapped to variables in the data with the aes function: \code{geom\_abline(aes(x = var))}
 \itemize{
   \item \code{colour}: border colour 
   \item \code{size}: size 

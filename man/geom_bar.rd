@@ -11,7 +11,7 @@ By default, multiple x's occuring in the same place will be stacked a top one an
 This page describes geom\_bar, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom\_bar.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_bar(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_bar.  Aesthetics are mapped to variables in the data with the aes function: \code{geom\_bar(aes(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{colour}: border colour 

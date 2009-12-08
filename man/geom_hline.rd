@@ -12,7 +12,7 @@ There are two ways to use it.  You can either specify the intercept of the line 
 This page describes geom\_hline, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom\_hline.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_hline(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_hline.  Aesthetics are mapped to variables in the data with the aes function: \code{geom\_hline(aes(x = var))}
 \itemize{
   \item \code{colour}: border colour 
   \item \code{size}: size 

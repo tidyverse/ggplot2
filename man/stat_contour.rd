@@ -7,7 +7,7 @@
 This page describes stat\_contour, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with stat\_contour.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{stat\_contour(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with stat\_contour.  Aesthetics are mapped to variables in the data with the aes function: \code{stat\_contour(aes(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 

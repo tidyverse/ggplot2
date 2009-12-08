@@ -7,7 +7,7 @@
 This page describes geom\_quantile, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom\_quantile.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_quantile(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_quantile.  Aesthetics are mapped to variables in the data with the aes function: \code{geom\_quantile(aes(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 

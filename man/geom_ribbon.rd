@@ -7,7 +7,7 @@
 This page describes geom\_ribbon, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
 \section{Aesthetics}{
-The following aesthetics can be used with geom\_ribbon.  Aesthetics are mapped to variables in the data with the \code{\link{aes}} function: \code{geom\_ribbon(\code{\link{aes}}(x = var))}
+The following aesthetics can be used with geom\_ribbon.  Aesthetics are mapped to variables in the data with the aes function: \code{geom\_ribbon(aes(x = var))}
 \itemize{
   \item \code{x}: x position (\strong{required}) 
   \item \code{ymin}: bottom (vertical minimum) (\strong{required}) 

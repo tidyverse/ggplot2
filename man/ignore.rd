@@ -58,6 +58,7 @@
 \alias{ScaleLogit}
 \alias{ScalePow10}
 \alias{ScaleProbit}
+\alias{ScaleRecip}
 \alias{ScaleInverse}
 \alias{ScaleReverse}
 \alias{ScaleSizeDiscrete}

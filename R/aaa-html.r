@@ -186,7 +186,7 @@ html_autolink_index <- function() {
   links <- lapply(all, function(.) .$html_link_self())
   names(links) <- lapply(all, function(.) .$my_name())
   links <<- c(links, 
-    aes = "<a href='aes.html'>aes</a>", 
+    # aes = "<a href='aes.html'>aes</a>", 
     ggplot = "<a href='ggplot.html'>ggplot</a>", 
     layer = "<a href='layer.html'>layer</a>", 
     qplot = "<a href='qplot.html'>qplot</a>"
