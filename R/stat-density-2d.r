@@ -3,7 +3,7 @@ StatDensity2d <- proto(Stat, {
   desc <- "Density estimation, 2D"
   
   default_geom <- function(.) GeomDensity2d
-  default_aes <- function(.) aes(colour="#3366FF", size=0.5, group = interaction(..piece.., ..level..))
+  default_aes <- function(.) aes(colour = "#3366FF", size = 0.5)
   required_aes <- c("x", "y")
 
   desc_outputs <- list(
@@ -17,6 +17,7 @@ StatDensity2d <- proto(Stat, {
 
     dens <- safe.call(MASS::kde2d, c(df, n=100, ...))
     df <- with(dens, data.frame(expand.grid(x = x, y = y), z = as.vector(z)))
+    df$group <- data$group[1]
     
     if (contour) {
       StatContour$calculate(df, scales, ...)      
@@ -29,11 +30,14 @@ StatDensity2d <- proto(Stat, {
   }
   
   examples <- function(.) {
-    m <- ggplot(movies, aes(x=rating, y=length)) + geom_point() + scale_y_continuous(limits=c(1, 500))
+    m <- ggplot(movies, aes(x=rating, y=length)) + 
+      geom_point() + 
+      scale_y_continuous(limits=c(1, 500))
     m + geom_density2d()
 
     dens <- MASS::kde2d(movies$rating, movies$length, n=100)
-    densdf <- data.frame(expand.grid(rating = dens$x, length = dens$y), z=as.vector(dens$z))
+    densdf <- data.frame(expand.grid(rating = dens$x, length = dens$y),
+     z = as.vector(dens$z))
     m + geom_contour(aes(z=z), data=densdf)
 
     m + geom_density2d() + scale_y_log10()
@@ -41,7 +45,8 @@ StatDensity2d <- proto(Stat, {
     
     m + stat_density2d(aes(fill = ..level..), geom="polygon")
 
-    qplot(rating, length, data=movies, geom=c("point","density2d"), ylim=c(1, 500))
+    qplot(rating, length, data=movies, geom=c("point","density2d")) +     
+      ylim(1, 500)
     
     # If you map an aesthetic to a categorical variable, you will get a
     # set of contours for each value of that variable

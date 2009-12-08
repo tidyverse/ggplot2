@@ -15,24 +15,15 @@ StatContour <- proto(Stat, {
       breaks <- fullseq(range(data$z), binwidth)
     }
     
-    gridise <- function(x) {
-      unique <- sort(unique(x[!is.na(x)]))
-      group <- match(x, unique)
-      list(unique=unique, group=group)
-    }
-
-    gridx <- gridise(data$x)
-    gridy <- gridise(data$y)
-
-    gridz <- matrix(NA, nrow = length(gridx$unique), ncol = length(gridy$unique))
-    gridz[(gridy$group - 1) * length(gridx$unique) + gridx$group] <- data$z
-
-    cl <- contourLines(x = gridx$unique, y = gridy$unique, z = gridz, levels = breaks)  
-     
-    cl <- mapply(function(x, piece) {
-      rbind(data.frame(x, piece=piece), c(NA, NA, NA))
-    }, cl, seq_along(cl), SIMPLIFY=FALSE)
-    do.call("rbind", cl)
+    z <- tapply(data$z, data[c("x", "y")], identity)
+    cl <- contourLines(x = unique(data$x), y = unique(data$y), z = z, 
+      levels = breaks)  
+    cl <- lapply(cl, as.data.frame)
+    
+    contour_df <- rbind.fill(cl)
+    contour_df$piece <- rep(seq_along(cl), sapply(cl, nrow))
+    contour_df$group <- paste(data$group[1], contour_df$piece, sep = "-")
+    contour_df
   }
 
   objname <- "contour" 
@@ -41,7 +32,7 @@ StatContour <- proto(Stat, {
   icon <- function(.) GeomContour$icon()
   
   default_geom <- function(.) GeomPath
-  default_aes <- function(.) aes(group = ..piece.., order = ..level..)
+  default_aes <- function(.) aes(order = ..level..)
   required_aes <- c("x", "y", "z")
   desc_outputs <- list(
     level = "z value of contour"
