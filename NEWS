@@ -1,4 +1,4 @@
-ggplot2 0.8.4 (2009-XX-XX) ----------------------------------------
+ggplot2 0.8.4 (2009-12-08) ----------------------------------------
 
 * aes and aes_string both convert prefixes to full names
 * aesthetics: corrected list of aesthetics to include american spelling of
