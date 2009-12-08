@@ -20,6 +20,18 @@ Stat <- proto(TopLevel, expr={
     
     force(data)
     force(scales)
+
+    # # Alternative approach: cleaner, but much slower
+    # # Compute statistic for each group
+    # stats <- ddply(data, "group", function(group) {
+    #   .$calculate(group, scales, ...) 
+    # })
+    # stats$ORDER <- seq_len(nrow(stats))
+    # 
+    # # Combine statistics with original columns
+    # unique <- ddply(data, .(group), uniquecols)
+    # stats <- merge(stats, unique, by = "group")
+    # stats[stats$ORDER, ]
     
     groups <- split(data, data$group)
     stats <- lapply(groups, function(group) .$calculate(group, scales, ...))
