@@ -2,7 +2,7 @@
 # This function powers \code{\link{stat_bin}}
 #
 # @keyword internal
-bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE) {
+bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
   
   if (is.null(weight))  weight <- rep(1, length(x))
   weight[is.na(weight)] <- 0
@@ -20,12 +20,12 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
   } else { # if (is.numeric(x)) 
     if (is.null(breaks)) {
       if (is.null(origin)) {
-        breaks <- fullseq(range, binwidth)        
+        breaks <- fullseq(range, binwidth, pad = TRUE)        
       } else {
         breaks <- seq(origin, max(range) + binwidth, binwidth)
       }
     }
-    bins <- cut(x, sort(breaks), include.lowest=TRUE)
+    bins <- cut(x, sort(breaks), include.lowest=TRUE, right = right)
     left <- breaks[-length(breaks)]
     right <- breaks[-1]
     x <- (left + right)/2
@@ -55,20 +55,21 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
 # @arguments interval size
 # @keyword internal
 # @seealso \code{\link{reshape}{round_any}}
-fullseq <- function(range, size) {
+fullseq <- function(range, size, pad = FALSE) {
   x <- seq(
     round_any(range[1], size, floor), 
     round_any(range[2], size, ceiling), 
     by=size
   )
   
-  # By default, we use (a, b] bins, so we should add an extra bin on the 
-  # bottom, if needed
-  if (min(x) == range[[1]]) {
-    x <- c(min(x) - size, x)
+  if (pad) {
+    # Add extra bin on bottom and on top, to guarantee that we cover complete
+    # range of data, whether right = T or F
+    c(min(x) - size, x, max(x) + size)
+  } else {
+    x
   }
   
-  x
 }
 
 StatBin <- proto(Stat, {
@@ -79,7 +80,7 @@ StatBin <- proto(Stat, {
     .super$calculate_groups(., data, ...)
   }
   
-  calculate <- function(., data, scales, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, drop = FALSE, ...) {
+  calculate <- function(., data, scales, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, drop = TRUE, right = TRUE, ...) {
     range <- scales$x$output_set()
 
     if (is.null(breaks) && is.null(binwidth) && !is.integer(data$x) && !.$informed) {
@@ -87,7 +88,7 @@ StatBin <- proto(Stat, {
       .$informed <- TRUE
     }
     
-    bin(data$x, data$weight, binwidth=binwidth, origin=origin, breaks=breaks, range=range, width=width, drop = FALSE)
+    bin(data$x, data$weight, binwidth=binwidth, origin=origin, breaks=breaks, range=range, width=width, drop = drop, right = right)
   }
 
   objname <- "bin" 
@@ -95,8 +96,11 @@ StatBin <- proto(Stat, {
   icon <- function(.) GeomHistogram$icon()
   desc_params <- list(
     binwidth = "Bin width to use. Defaults to 1/30 of the range of the data.",
-    breaks = "Actual breaks to use.  Overrides bin width",
-    width = "Width of bars when used on categorical data"
+    breaks = "Actual breaks to use.  Overrides bin width and origin",
+    origin = "Origin of first bin",
+    width = "Width of bars when used with categorical data",
+    right = "Should intervals be closed on the right (a, b], or not [a, b)",
+    drop = "If TRUE (the default), remove all bins with zero counts"
   )
   desc_outputs <- list(
     count = "number of points in bin",
@@ -111,6 +115,13 @@ StatBin <- proto(Stat, {
   default_geom <- function(.) GeomBar
   
   examples <- function(.) {
+    simple <- data.frame(x = rep(1:10, each = 2))
+    base <- ggplot(simple, aes(x))
+    # By default, right = TRUE, and intervals are of the form (a, b]
+    base + stat_bin(binwidth = 1, drop = FALSE, right = TRUE, col = "black")
+    # If right = FALSE intervals are of the form [a, b)
+    base + stat_bin(binwidth = 1, drop = FALSE, right = FALSE, col = "black")
+    
     m <- ggplot(movies, aes(x=rating))
     m + stat_bin()
     m + stat_bin(binwidth=0.1)

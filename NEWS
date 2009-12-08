@@ -9,3 +9,5 @@ ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
 * geom_path: linejoin, lineend and linemitre are now user controllable 
   (implements #24)
 * facet_wrap now maintains original order of data
+* geom_bin now allows you to set whether bins used intervals of the form 
+  (a, b] or [a, b) with the "right" parameter (implements #20)
