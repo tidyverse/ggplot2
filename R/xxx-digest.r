@@ -38,9 +38,14 @@ bolus.proto <- function(x) x$bolus()
 #X   }
 #X })
 bolus.ggplot <- function(x, ...) {
+  sort.by.name <- function(x) {
+    if (is.null(names(x))) return(x)
+    x[order(names(x))]
+  }
+  
   with(x, list(
     data = digest(data),
-    mapping = mapping[order(names(mapping))],
+    mapping = sort.by.name(mapping),
     layers = sapply(layers, function(x) x$hash()),
     scales = scales$hash(),
     facet = facet$hash(),
