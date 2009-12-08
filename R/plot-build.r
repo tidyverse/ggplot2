@@ -53,6 +53,7 @@ ggplot_build <- function(plot) {
   panels <- aaply(grobs3d, 1:2, splat(grobTree), .drop = FALSE)
   
   list(
+    data = data,
     plot = plot,
     scales = npscales,
     cs = cs,
