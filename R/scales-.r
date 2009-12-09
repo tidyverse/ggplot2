@@ -56,6 +56,7 @@ Scales <- proto(Scale, expr={
   legend_desc <- function(., theme) {
     # Loop through all scales, creating a list of titles, and a list of keys
     keys <- titles <- vector("list", .$n())
+    hash <- character(.$n())
     
     for(i in seq_len(.$n())) {
       scale <- .$.scales[[i]]
@@ -70,15 +71,16 @@ Scales <- proto(Scale, expr={
       }
       
       key <- data.frame(
-        scale$output_breaks(), scale$input_breaks(), I(scale$labels()))
-      names(key) <- c(output, ".value", ".label")
+        scale$output_breaks(), I(scale$labels()))
+      names(key) <- c(output, ".label")
       
       keys[[i]] <- key
+      hash[i] <- digest(list(titles[[i]], key$.label))
     }
     
     empty <- sapply(titles, is.null)
     
-    list(titles = titles[!empty], keys = keys[!empty])
+    list(titles = titles[!empty], keys = keys[!empty], hash = hash[!empty])
 
   }
   

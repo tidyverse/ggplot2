@@ -64,12 +64,14 @@ guide_legends <- function(scales, layers, default_mapping, theme) {
   legend <- scales$legend_desc(theme)
   if (length(legend$titles) == 0) return()
   
-  titles <- unique(legend$titles)
-  lapply(titles, function(title) {
-    keys <- legend$keys[sapply(legend$titles, identical, title)]
+  hashes <- unique(legend$hash)
+  lapply(hashes, function(hash) {
+    keys <- legend$keys[legend$hash == hash]
+    title <- legend$title[legend$hash == hash][[1]]
+    
     if (length(keys) > 1) { 
       # Multiple scales for this legend      
-      keys <- merge_recurse(keys, by = c(".value", ".label"))
+      keys <- merge_recurse(keys, by = ".label")
     } else {
       keys <- keys[[1]]
     }
