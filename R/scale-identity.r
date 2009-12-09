@@ -1,11 +1,11 @@
 ScaleIdentity <- proto(ScaleDiscrete, {  
   doc <- TRUE
   common <- c("colour","fill","size","shape","linetype")
-  new <- function(., name=NULL, breaks=NULL, labels=NULL, formatter = NULL, variable="x") {
+  new <- function(., name=NULL, breaks=NULL, labels=NULL, formatter = NULL, legend = TRUE, variable="x") {
     
     b_and_l <- check_breaks_and_labels(breaks, labels)
     
-    .$proto(name=name, breaks=b_and_l$breaks, .labels=b_and_l$labels, .input=variable, .output=variable, formatter = formatter)
+    .$proto(name=name, breaks=b_and_l$breaks, .labels=b_and_l$labels, .input=variable, .output=variable, formatter = formatter, legend = legend)
   }
 
   train <- function(., data, drop = FALSE) {

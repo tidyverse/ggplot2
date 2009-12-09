@@ -15,3 +15,6 @@ ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
   that breaks and labels are the same length (implements #40)
 * scales: if breaks are a named vector, the names will be used as labels
   (thanks to suggestion by David Kahle)
+* scales: all scales now have legend parameter, which defaults to TRUE.  
+  Setting to false will prevent that scale from contributing to the legends.
+  (Implements #27)

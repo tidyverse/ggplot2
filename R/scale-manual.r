@@ -3,10 +3,10 @@ ScaleManual <- proto(ScaleDiscrete, {
   common <- c("colour","fill","size","shape","linetype")
   values <- c()
   
-  new <- function(., name=NULL, values=NULL, variable="x", limits = NULL, breaks = NULL, labels = NULL, formatter = identity) {
+  new <- function(., name=NULL, values=NULL, variable="x", limits = NULL, breaks = NULL, labels = NULL, formatter = identity, legend = TRUE) {
     b_and_l <- check_breaks_and_labels(breaks, labels)
     
-    .$proto(name=name, values=values, .input=variable, .output=variable, limits = limits, breaks = b_and_l$breaks, .labels = b_and_l$labels, formatter = formatter)
+    .$proto(name=name, values=values, .input=variable, .output=variable, limits = limits, breaks = b_and_l$breaks, .labels = b_and_l$labels, formatter = formatter, legend = legend)
   }
 
   map <- function(., values) {

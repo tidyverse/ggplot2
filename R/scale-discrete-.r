@@ -7,11 +7,11 @@ ScaleDiscrete <- proto(Scale, expr={
 
   discrete <- function(.) TRUE
 
-  new <- function(., name=NULL, variable=.$.input, expand = c(0.05, 0.55), limits = NULL, breaks = NULL, labels = NULL, formatter = identity, drop = FALSE) {
+  new <- function(., name=NULL, variable=.$.input, expand = c(0.05, 0.55), limits = NULL, breaks = NULL, labels = NULL, formatter = identity, drop = FALSE, legend = TRUE) {
     
     b_and_l <- check_breaks_and_labels(breaks, labels)
     
-    .$proto(name=name, .input=variable, .output=variable, .expand = expand, .labels = labels, limits = b_and_l$limits, breaks = b_and_l$breaks, formatter = formatter, drop = drop)
+    .$proto(name=name, .input=variable, .output=variable, .expand = expand, .labels = labels, limits = b_and_l$limits, breaks = b_and_l$breaks, formatter = formatter, drop = drop, legend = legend)
   }
 
   # Range -------------------

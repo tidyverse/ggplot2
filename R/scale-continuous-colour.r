@@ -1,12 +1,12 @@
 ScaleGradient <- proto(ScaleContinuous, expr={
   aliases <- c("scale_colour_continuous", "scale_fill_continuous", "scale_color_continuous", "scale_color_gradient")
 
-  new <- function(., name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", ..., variable) {
+  new <- function(., name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", legend = TRUE, ..., variable) {
     if (is.character(trans)) trans <- Trans$find(trans)
     
     b_and_l <- check_breaks_and_labels(breaks, labels)
     
-    .$proto(name=name, low=low, high=high, space=space, .input=variable, .output=variable, .tr = trans, limits=limits, breaks = b_and_l$breaks, .labels = b_and_l$labels, ...)
+    .$proto(name=name, low=low, high=high, space=space, .input=variable, .output=variable, .tr = trans, limits=limits, breaks = b_and_l$breaks, .labels = b_and_l$labels, legend = legend, ...)
   }
   
   map <- function(., x) {
@@ -94,12 +94,12 @@ ScaleGradient <- proto(ScaleContinuous, expr={
 })
 
 ScaleGradient2 <- proto(ScaleContinuous, expr={  
-  new <- function(., name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", ..., variable) {
+  new <- function(., name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", legend = TRUE, ..., variable) {
     if (is.character(trans)) trans <- Trans$find(trans)
     
     b_and_l <- check_breaks_and_labels(breaks, labels)
     
-    .$proto(name=name, low=low, mid=mid, high=high, midpoint=midpoint, space=space, ..., .input=variable, .output=variable, .tr=trans, limits=limits, breaks = b_and_l$breaks, .labels = b_and_l$labels)
+    .$proto(name=name, low=low, mid=mid, high=high, midpoint=midpoint, space=space, ..., .input=variable, .output=variable, .tr=trans, limits=limits, breaks = b_and_l$breaks, .labels = b_and_l$labels, legend = legend)
   }
   
   aliases <- c("scale_color_gradient2")
@@ -192,7 +192,7 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
 
 
 ScaleGradientn <- proto(ScaleContinuous, expr={  
-  new <- function(., name=NULL, colours, values = NULL, rescale = TRUE, space="rgb", breaks = NULL, labels = NULL, limits = NULL, trans="identity",  ..., variable) {
+  new <- function(., name=NULL, colours, values = NULL, rescale = TRUE, space="rgb", breaks = NULL, labels = NULL, limits = NULL, trans="identity", legend = TRUE,  ..., variable) {
     if (is.character(trans)) trans <- Trans$find(trans)
     if (!is.null(values)) limits <- range(values)
     
@@ -203,7 +203,8 @@ ScaleGradientn <- proto(ScaleContinuous, expr={
       colours = colours, values = values, rescale = rescale, 
       space = space,  ..., 
       .input = variable, .output = variable, .tr = trans, 
-      limits = limits, breaks = b_and_l$breaks, .labels = b_and_l$labels
+      limits = limits, breaks = b_and_l$breaks, .labels = b_and_l$labels,
+      legend = legend
     )
   }
 

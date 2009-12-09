@@ -2,11 +2,11 @@ ScaleGrey <- proto(ScaleColour, expr={
   doc <- TRUE
   common <- c("colour", "fill")
 
-  new <- function(., name=NULL, variable, start = 0.2, end = 0.8, limits=NULL, breaks = NULL, labels=NULL, formatter = identity) {
+  new <- function(., name=NULL, variable, start = 0.2, end = 0.8, limits=NULL, breaks = NULL, labels=NULL, formatter = identity, legend = TRUE) {
     
     b_and_l <- check_breaks_and_labels(breaks, labels)
     
-    .$proto(name=name, .input=variable, .output=variable, start=start, end=end, limits = limits, breaks = b_and_l$breaks, .labels = b_and_l$labels, formatter=formatter)
+    .$proto(name=name, .input=variable, .output=variable, start=start, end=end, limits = limits, breaks = b_and_l$breaks, .labels = b_and_l$labels, formatter=formatter, ,legend = legend)
   }
 
   output_set <- function(.) {

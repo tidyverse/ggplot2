@@ -5,11 +5,11 @@ ScaleSize <- proto(ScaleContinuous, expr={
   aliases <- c("scale_area")
   
   
-  new <- function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, trans = NULL, to = c(1, 6)) {
+  new <- function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, trans = NULL, to = c(1, 6), legend = TRUE) {
     
     b_and_l <- check_breaks_and_labels(breaks, labels)
     
-    .super$new(., name=name, limits=limits, breaks=b_and_l$breaks, labels=b_and_l$labels, trans=trans, variable = "size", to = to)
+    .super$new(., name=name, limits=limits, breaks=b_and_l$breaks, labels=b_and_l$labels, trans=trans, variable = "size", to = to, legend = legend)
   }
   
   map <- function(., values) {

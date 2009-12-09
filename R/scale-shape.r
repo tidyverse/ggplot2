@@ -5,10 +5,10 @@ ScaleShape <- proto(ScaleDiscrete, expr={
   desc <- "Point glyph shapes"
   solid <- TRUE
 
-  new <- function(., name=NULL, solid=TRUE, limits = NULL, breaks = NULL, labels = NULL, formatter = identity) {
+  new <- function(., name=NULL, solid=TRUE, limits = NULL, breaks = NULL, labels = NULL, formatter = identity, legend = TRUE) {
     
     b_and_l <- check_breaks_and_labels(breaks, labels)
-    .$proto(name=name, solid=solid, limits = b_and_l$limits, breaks = b_and_l$breaks, .labels = labels, formatter = formatter)
+    .$proto(name=name, solid=solid, limits = b_and_l$limits, breaks = b_and_l$breaks, .labels = labels, formatter = formatter, legend = legend)
   }
   
   output_set <- function(.) {

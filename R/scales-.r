@@ -6,6 +6,8 @@ Scales <- proto(Scale, expr={
   objname <- "scales"
   
   .scales <- list()
+  # Should this scale produce a legend?
+  legend <- TRUE
   
   n <- function(.) length(.$.scales)
   
@@ -68,6 +70,8 @@ Scales <- proto(Scale, expr={
     names(vars) <- vars
     compact(lapply(vars, function(var) {
       scales <- .$get_scales_by_name(var)
+      # Remove scales with legend == FALSE
+      scales <- Filter(function(y) y$legend, scales)
       if (length(scales) == 0) return()
       
       breaks <- as.data.frame(lapply(scales, function(s) s$output_breaks()))

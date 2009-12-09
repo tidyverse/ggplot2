@@ -7,7 +7,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
   
   tr_default <- "identity"
 
-  new <- function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, variable, trans = NULL, expand=c(0.05, 0), minor_breaks = NULL, formatter = "scientific", ...) {
+  new <- function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, variable, trans = NULL, expand=c(0.05, 0), minor_breaks = NULL, formatter = "scientific", legend = TRUE, ...) {
     
     if (is.null(trans))      trans <- .$tr_default
     if (is.character(trans)) trans <- Trans$find(trans)
@@ -19,7 +19,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
     
     b_and_l <- check_breaks_and_labels(breaks, labels)
     
-    .$proto(name=name, .input=variable, .output=variable, limits=limits, breaks = b_and_l$breaks, .labels = b_and_l$labels, .expand=expand, .tr = trans, minor_breaks = minor_breaks, formatter = formatter, ...)
+    .$proto(name=name, .input=variable, .output=variable, limits=limits, breaks = b_and_l$breaks, .labels = b_and_l$labels, .expand=expand, .tr = trans, minor_breaks = minor_breaks, formatter = formatter, legend = legend, ...)
   }
   
   set_limits <- function(., limits) {
