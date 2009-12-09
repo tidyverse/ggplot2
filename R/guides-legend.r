@@ -75,7 +75,6 @@ guide_legends <- function(scales, layers, default_mapping, theme) {
     } else {
       keys <- keys[[1]]
     }
-    
     build_legend(title, keys, layers, default_mapping, theme)
   })
 }
@@ -166,7 +165,7 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
 build_legend_data <- function(layer, mapping, default_mapping) {
   all <- names(c(layer$mapping, default_mapping, layer$stat$default_aes()))
   geom <- c(layer$geom$required_aes, names(layer$geom$default_aes()))
-  
+ 
   matched <- intersect(intersect(all, geom), names(mapping))
   matched <- setdiff(matched, names(layer$geom_params))
 

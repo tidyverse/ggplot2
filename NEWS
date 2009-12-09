@@ -36,3 +36,4 @@ ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
   have formatter argument to match scale_continuous
 * legends will only merge if both the title and all labels are the same.
   (Fixes #16)
+* Fix for bug #19: Legend with three constraints doesn't work 
