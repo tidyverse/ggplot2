@@ -18,4 +18,6 @@ ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
 * scales: all scales now have legend parameter, which defaults to TRUE.  
   Setting to false will prevent that scale from contributing to the legends.
   (Implements #27)
-* xlim, ylim: fix bug when setting limits of discrete scales
+* aesthetics: when _setting_ an aesthetic, you may only set it to a single 
+  value.  This was always a good idea, but now it is enforced with an 
+  informative error message.
