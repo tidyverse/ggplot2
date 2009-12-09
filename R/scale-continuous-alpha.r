@@ -1,6 +1,7 @@
-ScaleAlpha <- proto(ScaleContinuous, expr={
+ScaleAlphaContinuous <- proto(ScaleContinuous, expr={
   doc <- TRUE
   common <- NULL
+  alias <- "scale_alpha"
   
   new <- function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, trans = NULL, to = c(0.1, 1), legend = TRUE) {
     .super$new(., name=name, limits=limits, breaks=breaks, labels=labels, trans=trans, variable = "alpha", to = to, legend = legend)
@@ -11,7 +12,7 @@ ScaleAlpha <- proto(ScaleContinuous, expr={
   }
   output_breaks <- function(.) .$map(.$input_breaks())
   
-  objname <- "alpha"
+  objname <- "alpha_continuous"
   desc <- "Alpha scale for continuous variable"
   
   icon <- function(.) {
