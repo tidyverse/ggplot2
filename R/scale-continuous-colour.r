@@ -10,11 +10,10 @@ ScaleGradient <- proto(ScaleContinuous, expr={
   }
   
   map <- function(., x) {
+    ramp  <- colorRamp(c(.$low, .$high),  space=.$space, interpolate="linear")
+
     domain <- .$input_set()
     x[x < domain[1] | x > domain[2]] <- NA
-
-    ramp  <- colorRamp(c(.$low, .$high),  space=.$space, interpolate="linear")
-    
     x <- (x - domain[1]) / diff(domain)
     
     nice_ramp(ramp, x)
