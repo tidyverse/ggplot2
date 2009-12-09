@@ -1,5 +1,5 @@
 GeomText <- proto(Geom, {
-  draw <- function(., data, scales, coordinates, ..., parse = T) {
+  draw <- function(., data, scales, coordinates, ..., parse = FALSE) {
     
     lab <- data$label
     if (parse) {
