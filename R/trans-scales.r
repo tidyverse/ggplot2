@@ -1,5 +1,5 @@
 ScaleArea <- proto(
-  ScaleSize, 
+  ScaleSizeContinuous, 
   desc = "Scale area",
   objname = "area", 
   icon = function(.) ScaleSize$icon(), 
