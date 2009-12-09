@@ -1,7 +1,8 @@
-ScaleLinetype <- proto(ScaleDiscrete, expr={
+ScaleLinetypeDiscrete <- proto(ScaleDiscrete, expr={
   doc <- TRUE
   common <- NULL
   .input <- .output <- "linetype"
+  alias <- "scale_linetype"
 
   output_set <- function(.) c("solid", "22", "42", "44", "13", "1343", "73", "2262", "12223242", "F282", "F4448444", "224282F2", "F1")[seq_along(.$input_set())]
   max_levels <- function(.) 12
@@ -10,7 +11,7 @@ ScaleLinetype <- proto(ScaleDiscrete, expr={
   
   # Documentation -----------------------------------------------
 
-  objname <- "linetype"
+  objname <- "linetype_discrete"
   desc <- "Scale for line patterns"
   
   icon <- function(.) {
@@ -32,7 +33,7 @@ ScaleLinetype <- proto(ScaleDiscrete, expr={
     qplot(date, value, data=ecm, geom="line", linetype=variable)
     qplot(date, value, data=ecm, geom="line", colour=variable)
     
-    # See scale_manual for more flexibilit
+    # See scale_manual for more flexibility
   }
   
 })
