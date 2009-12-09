@@ -52,10 +52,10 @@ limits.numeric <- function(lims, var) {
   ScaleContinuous$new(var = var, limits = lims, trans = trans)  
 }
 limits.character <- function(lims, var) {
-  ScaleDiscrete$new(var = var, limits = lims)
+  ScaleDiscretePosition$new(var = var, limits = lims)
 }
 limits.factor <- function(lims, var) {
-  ScaleDiscrete$new(var = var, limits = as.character(lims))
+  ScaleDiscretePosition$new(var = var, limits = as.character(lims))
 }
 limits.Date <- function(lims, var) {
   stopifnot(length(lims) == 2)
