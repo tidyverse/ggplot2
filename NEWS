@@ -29,3 +29,5 @@ ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
   instead of the previous behaviour where scales where added as layers were
   added - this could cause problems if you layer modified the plot.
   (Implements #28)
+* scale_shape_discrete and scale_size_continuous added to scales to match 
+  naming convention of all other scales (Fixes #47)
