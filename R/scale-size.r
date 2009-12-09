@@ -6,7 +6,10 @@ ScaleSize <- proto(ScaleContinuous, expr={
   
   
   new <- function(., name=NULL, limits=NULL, breaks=NULL, labels=NULL, trans = NULL, to = c(1, 6)) {
-    .super$new(., name=name, limits=limits, breaks=breaks, labels=labels, trans=trans, variable = "size", to = to)
+    
+    b_and_l <- check_breaks_and_labels(breaks, labels)
+    
+    .super$new(., name=name, limits=limits, breaks=b_and_l$breaks, labels=b_and_l$labels, trans=trans, variable = "size", to = to)
   }
   
   map <- function(., values) {

@@ -8,7 +8,9 @@ ScaleHue <- proto(ScaleColour, expr={
   aliases <- c("scale_colour_discrete", "scale_fill_discrete", "scale_color_hue")
   
   new <- function(., name=NULL, h=c(0,360) + 15, l=65, c=100, limits=NULL, breaks = NULL, labels=NULL, h.start = 0, direction = 1,  formatter = identity, variable) {
-    .$proto(name=name, h=h, l=l, c=c, .input=variable, .output=variable, .labels = labels, breaks = breaks, direction = direction, start  = h.start, limits = limits, formatter = formatter)
+    b_and_l <- check_breaks_and_labels(breaks, labels)
+    
+    .$proto(name=name, h=h, l=l, c=c, .input=variable, .output=variable, .labels = b_and_l$labels, breaks = b_and_l$breaks, direction = direction, start  = h.start, limits = limits, formatter = formatter)
   }
   
   output_set <- function(.) {
@@ -84,7 +86,8 @@ ScaleBrewer <- proto(ScaleColour, expr={
   doc <- TRUE
 
   new <- function(., name=NULL, palette=1, type="qual", limits=NULL, breaks = NULL, labels=NULL, formatter = identity, variable) {
-    .$proto(name=name, palette=palette, type=type, .input=variable, .output=variable, .labels = labels, breaks = breaks, limits= limits, formatter = formatter)
+    b_and_l <- check_breaks_and_labels(breaks, labels)
+    .$proto(name=name, palette=palette, type=type, .input=variable, .output=variable, .labels = b_and_l$labels, breaks = b_and_l$breaks, limits= limits, formatter = formatter)
   }
   aliases <- c("scale_color_brewer")
 

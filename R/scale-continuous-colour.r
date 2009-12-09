@@ -3,7 +3,10 @@ ScaleGradient <- proto(ScaleContinuous, expr={
 
   new <- function(., name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", ..., variable) {
     if (is.character(trans)) trans <- Trans$find(trans)
-    .$proto(name=name, low=low, high=high, space=space, .input=variable, .output=variable, .tr = trans, limits=limits, breaks = breaks, .labels = labels, ...)
+    
+    b_and_l <- check_breaks_and_labels(breaks, labels)
+    
+    .$proto(name=name, low=low, high=high, space=space, .input=variable, .output=variable, .tr = trans, limits=limits, breaks = b_and_l$breaks, .labels = b_and_l$labels, ...)
   }
   
   map <- function(., x) {
@@ -93,7 +96,10 @@ ScaleGradient <- proto(ScaleContinuous, expr={
 ScaleGradient2 <- proto(ScaleContinuous, expr={  
   new <- function(., name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", breaks = NULL, labels = NULL, limits=NULL, trans="identity", ..., variable) {
     if (is.character(trans)) trans <- Trans$find(trans)
-    .$proto(name=name, low=low, mid=mid, high=high, midpoint=midpoint, space=space, ..., .input=variable, .output=variable, .tr=trans, limits=limits, breaks = breaks, .labels = labels)
+    
+    b_and_l <- check_breaks_and_labels(breaks, labels)
+    
+    .$proto(name=name, low=low, mid=mid, high=high, midpoint=midpoint, space=space, ..., .input=variable, .output=variable, .tr=trans, limits=limits, breaks = b_and_l$breaks, .labels = b_and_l$labels)
   }
   
   aliases <- c("scale_color_gradient2")
@@ -190,12 +196,14 @@ ScaleGradientn <- proto(ScaleContinuous, expr={
     if (is.character(trans)) trans <- Trans$find(trans)
     if (!is.null(values)) limits <- range(values)
     
+    b_and_l <- check_breaks_and_labels(breaks, labels)
+    
     .$proto(
       name = name, 
       colours = colours, values = values, rescale = rescale, 
       space = space,  ..., 
       .input = variable, .output = variable, .tr = trans, 
-      limits = limits, breaks = breaks, .labels = labels
+      limits = limits, breaks = b_and_l$breaks, .labels = b_and_l$labels
     )
   }
 

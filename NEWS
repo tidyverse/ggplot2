@@ -11,3 +11,7 @@ ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
 * facet_wrap now maintains original order of data
 * geom_bin now allows you to set whether bins used intervals of the form 
   (a, b] or [a, b) with the "right" parameter (implements #20)
+* scales: all scales check that breaks are supplied if labels are, and 
+  that breaks and labels are the same length (implements #40)
+* scales: if breaks are a named vector, the names will be used as labels
+  (thanks to suggestion by David Kahle)

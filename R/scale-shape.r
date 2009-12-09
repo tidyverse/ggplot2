@@ -6,7 +6,9 @@ ScaleShape <- proto(ScaleDiscrete, expr={
   solid <- TRUE
 
   new <- function(., name=NULL, solid=TRUE, limits = NULL, breaks = NULL, labels = NULL, formatter = identity) {
-    .$proto(name=name, solid=solid, limits = limits, breaks = breaks, .labels = labels, formatter = formatter)
+    
+    b_and_l <- check_breaks_and_labels(breaks, labels)
+    .$proto(name=name, solid=solid, limits = b_and_l$limits, breaks = b_and_l$breaks, .labels = labels, formatter = formatter)
   }
   
   output_set <- function(.) {
