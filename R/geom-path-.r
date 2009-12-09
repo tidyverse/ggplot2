@@ -114,7 +114,7 @@ GeomPath <- proto(Geom, {
     base + geom_path(size = 10, linejoin = "mitre", lineend = "butt")
     
     # Use qplot instead
-    qplot(mean.length, mean.rating, data=myear, geom="path")
+    qplot(length, rating, data=myear, geom="path")
     
     # Using economic data:
     # How is unemployment and personal savings rate related?
