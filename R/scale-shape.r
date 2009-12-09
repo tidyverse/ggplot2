@@ -1,9 +1,11 @@
-ScaleShape <- proto(ScaleDiscrete, expr={
+ScaleShapeDiscrete <- proto(ScaleDiscrete, expr={
   doc <- TRUE
   common <- NULL
   .input <- .output <- "shape"
   desc <- "Point glyph shapes"
   solid <- TRUE
+  aliases <- c("scale_shape")
+  
 
   new <- function(., name=NULL, solid=TRUE, limits = NULL, breaks = NULL, labels = NULL, formatter = identity, legend = TRUE) {
     
@@ -22,7 +24,7 @@ ScaleShape <- proto(ScaleDiscrete, expr={
   max_levels <- function(.) 6
   
   # Documentation -----------------------------------------------
-  objname <- "shape"
+  objname <- "shape_discrete"
   desc <- "Scale for shapes, aka glyphs"
   icon <- function(.) {
     gTree(children=gList(

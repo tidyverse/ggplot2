@@ -1,4 +1,4 @@
-ScaleSize <- proto(ScaleContinuous, expr={
+ScaleSizeContinuous <- proto(ScaleContinuous, expr={
   doc <- TRUE
   common <- NULL
   .input <- .output  <- "size"
@@ -17,7 +17,7 @@ ScaleSize <- proto(ScaleContinuous, expr={
   }
   output_breaks <- function(.) .$map(.$input_breaks())
   
-  objname <- "size"
+  objname <- "size_continuous"
   desc <- "Size scale for continuous variable"
   seealso <- list(
     "scale_manual" = "for sizing discrete variables"

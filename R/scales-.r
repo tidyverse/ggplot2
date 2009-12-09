@@ -169,18 +169,11 @@ Scales <- proto(Scale, expr={
     
     # Work out scale names
     scale_name_type <- paste("scale", new_aesthetics, vartypes, sep="_")
-    scale_name <- paste("scale", new_aesthetics, sep="_")
-    scale_name_generic <- paste("scale", vartypes, sep="_")
 
     for(i in 1:length(new_aesthetics)) {
-      scale <- tryNULL(get(scale_name_type[i]))
-      if (!is.null(scale)) {
-        .$add(scale())
-      } else {      
-        scale <- tryNULL(get(scale_name[i]))
-        if (!is.null(scale)) {
-          .$add(scale())
-        }
+      if (exists(scale_name_type[i])) {
+        scale <- get(scale_name_type[i])()
+        .$add(scale)
       }
     }
     
