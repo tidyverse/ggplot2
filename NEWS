@@ -31,3 +31,5 @@ ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
   (Implements #28)
 * scale_shape_discrete and scale_size_continuous added to scales to match 
   naming convention of all other scales (Fixes #47)
+* scale_colour_gradient, scale_colour_gradient2 & scale_colour_gradientn now
+  have formatter argument to match scale_continuous
