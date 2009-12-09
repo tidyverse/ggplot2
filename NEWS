@@ -22,3 +22,10 @@ ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
   value.  This was always a good idea, but now it is enforced with an 
   informative error message.
 * xlim, ylim: fix bug when setting limits of discrete scales
+* labels are now stored in the options, rather than in individual scales.  
+  This fixes a long standing bug where it was not easy to set the label for
+  computed variable, such as the y axis on a histogram. Additionally, it means
+  default scales are only added to the plot until just prior to plotting, 
+  instead of the previous behaviour where scales where added as layers were
+  added - this could cause problems if you layer modified the plot.
+  (Implements #28)

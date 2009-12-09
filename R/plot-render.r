@@ -53,7 +53,7 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep,
   horiz <- any(c("top", "bottom") %in% position)
   vert <-  any(c("left", "right") %in% position)
   
-
+  
   # Generate grobs -----------------------------------------------------------
   # each of these grobs has a vp set
 
@@ -66,8 +66,8 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep,
   title <- theme_render(theme, "plot.title", plot$options$title)
 
   labels <- cs$labels(list(
-    x = pieces$facet$xlabel(),
-    y = pieces$facet$ylabel())
+    x = pieces$facet$xlabel(theme),
+    y = pieces$facet$ylabel(theme))
   )
   xlabel <- theme_render(theme, "axis.title.x", labels$x)
   ylabel <- theme_render(theme, "axis.title.y", labels$y)

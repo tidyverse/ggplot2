@@ -33,7 +33,7 @@ ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv(
     plot_env = environment
   ), class="ggplot")
 
-  p$scales$add_defaults(p$data, p$mapping, p$plot_env)
+  p$options$labels <- as.list(as.character(mapping))
 
   set_last_plot(p)
   p

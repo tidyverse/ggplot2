@@ -88,6 +88,7 @@ qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE,
       stat <- "qq"
     } else if (missing(y)) {
       geom[geom == "auto"] <- "histogram"
+      if (is.null(ylab)) ylab <- "count"
     } else {
       if (missing(x)) {
         aesthetics$x <- bquote(seq_along(.(y)), aesthetics)

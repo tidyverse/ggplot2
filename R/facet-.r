@@ -17,8 +17,10 @@ Facet <- proto(TopLevel, {
     params[setdiff(names(params), c(".","variable"))]
   }
   
-  xlabel <- function(., theme) 
-    .$scales$x[[1]]$name
+  xlabel <- function(., theme) {
+    nulldefault(.$scales$x[[1]]$name, theme$labels$x)
+  }
+    
   ylabel <- function(., theme) 
-    .$scales$y[[1]]$name
+    nulldefault(.$scales$y[[1]]$name, theme$labels$y)
 })

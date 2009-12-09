@@ -22,6 +22,7 @@
   if (is.data.frame(object)) {
     p$data <- object
   } else if (inherits(object, "options")) {
+    object$labels <- defaults(object$labels, p$options$labels)
     p$options <- defaults(object, p$options)
   } else if(inherits(object, "labels")) {
       p <- update_labels(p, object)
@@ -39,9 +40,13 @@
     p <- switch(object$class(),
       layer  = {
         p$layers <- append(p$layers, object)
-        data <- if(empty(object$data)) p$data else object$data
-        mapping <- object$mapping %||% p$mapping
-        p$scales$add_defaults(data, mapping, p$plot_env)
+        
+        # Add any new labels
+        mapping <- as.list(as.character(object$mapping))
+        default <- as.list(as.character(object$stat$default_aes()))
+        
+        new_labels <- defaults(mapping, default)
+        p$options$labels <- defaults(p$options$labels, new_labels)
         p
       },
       coord = {

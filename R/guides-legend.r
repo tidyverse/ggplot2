@@ -61,18 +61,25 @@ guide_legends_box <- function(scales, layers, default_mapping, horizontal = FALS
 #X qplot(mpg, wt, data = mtcars, colour = cyl2)
 #X theme_set(theme_grey())
 guide_legends <- function(scales, layers, default_mapping, theme) {
-  legends <- scales$legend_desc()
-  if (length(legends) == 0) return()
+  legend <- scales$legend_desc(theme)
+  if (length(legend$titles) == 0) return()
   
-  lapply(names(legends), function(var) {
-    build_legend(var, legends[[var]], layers, default_mapping, theme)
+  titles <- unique(legend$titles)
+  lapply(titles, function(title) {
+    keys <- legend$keys[sapply(legend$titles, identical, title)]
+    if (length(keys) > 1) { 
+      # Multiple scales for this legend      
+      keys <- merge_recurse(keys, by = c(".value", ".label"))
+    } else {
+      keys <- keys[[1]]
+    }
+    
+    build_legend(title, keys, layers, default_mapping, theme)
   })
 }
 
 build_legend <- function(name, mapping, layers, default_mapping, theme) {
   legend_data <- llply(layers, build_legend_data, mapping, default_mapping)
-  # if (length(legend_data) == 0) return(zeroGrob())
-  # browser()
   
   # Calculate sizes for keys - mainly for v. large points and lines
   size_mat <- do.call("cbind", llply(legend_data, "[[", "size"))
@@ -82,10 +89,6 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
     key_heights <- apply(size_mat, 1, max)    
   }
 
-  # points <- laply(layers, function(l) l$geom$objname == "point")
-  width <- max(unlist(llply(legend_data, "[[", "size")), 0)
-
-  name <- eval(parse(text = name))
   title <- theme_render(
     theme, "legend.title",
     name, x = 0, y = 0.5
@@ -96,6 +99,8 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
   hgap <- vgap <- unit(0.3, "lines")
   
   label_width  <- max(stringWidth(mapping$.label))
+
+  width <- max(unlist(llply(legend_data, "[[", "size")), 0)
   key_width <- max(theme$legend.key.size, unit(width, "mm"))
 
   widths <- unit.c(

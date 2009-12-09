@@ -36,6 +36,7 @@
 # @alias str.uneval
 # @alias print.uneval
 # @alias [.uneval
+# @alias as.character.uneval
 # @seealso \code{\link{aes_string}}
 #X aes(x = mpg, y = wt)
 #X aes(x = mpg ^ 2, y = wt / cyl)
@@ -117,6 +118,12 @@ aes_all <- function(vars) {
 print.uneval <- function(x, ...) str(unclass(x))
 str.uneval <- function(object, ...) str(unclass(object), ...)
 "[.uneval" <- function(x, i, ...) structure(unclass(x)[i], class = "uneval") 
+
+as.character.uneval <- function(x, ...) {
+  char <- as.character(unclass(x))
+  names(char) <- names(x)
+  char
+}
 
 # Aesthetic defaults
 # Convenience method for setting aesthetic defaults
