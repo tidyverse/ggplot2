@@ -38,3 +38,6 @@ ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
   (Fixes #16)
 * Fix for bug #19: Legend with three constraints doesn't work 
 * Legend: correctly calculate label widths for all font sizes.  (Fixes #38)
+* facet_wrap: now sets aspect ratio correctly
+* coord_equal: when ratio = NULL (the default), will adjust the aspect ratio
+  of the plot, rather than trying to extend the shortest scale.

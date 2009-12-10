@@ -34,6 +34,10 @@ Coord <- proto(TopLevel, expr={
     )
   }
   
+  compute_aspect <- function(., ranges) {
+    NULL
+  }
+  
   labels <- function(., scales) {
     scales
   }

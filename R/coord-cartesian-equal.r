@@ -1,7 +1,7 @@
 CoordEqual <- proto(CoordCartesian, {
 
-  new <- function(., ratio=1) {
-    list(.$proto(ratio = ratio), opts(aspect.ratio = ratio))
+  new <- function(., ratio = NULL) {
+    .$proto(ratio = ratio)
   }
 
   compute_ranges <- function(., scales) {
@@ -13,6 +13,12 @@ CoordEqual <- proto(CoordCartesian, {
     
     .super$compute_ranges(., scales)
   }
+  
+  compute_aspect <- function(., ranges) {
+    if (!is.null(.$ratio)) return(.$ratio)
+    
+    diff(ranges$y.range) / diff(ranges$x.range)
+  }
 
   # Documentation -----------------------------------------------
 
@@ -23,8 +29,12 @@ CoordEqual <- proto(CoordCartesian, {
   details <- "<p>An equal scale coordinate system plays a similar role to ?eqscplot in MASS, but it works for all types of graphics, not just scatterplots.</p>\n<p>This coordinate system has one parameter, <code>ratio</code>, which specifies the ratio between the x and y scales. An aspect ratio of two means that the plot will be twice as high as wide.  An aspection ratio of 1/2 means that the plot will be twice as wide as high.   By default, the aspect.ratio of the plot will also be set to this value.</p>\n"
   
   examples <- function(.) {
-    # coord_equal ensures that the ranges of axes are equal to the
-    # specified ratio (1 by default, indicating equal ranges).
+    # ratio = NULL, the default, will modify the aspect ratio of the plot
+    # to 
+    qplot(mpg, wt, data = mtcars) + coord_equal()
+
+    # when ratio = a specific number, ensures that the ranges of axes are
+    # equal to the specified ratio by expanding the smallest axis
     
     qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 1)
     qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 5)
@@ -44,7 +54,9 @@ CoordEqual <- proto(CoordCartesian, {
 # @arguments y limits
 # @arguments desired ratio between x and y ranges
 # @keywords internal
-equal_ranges <- function(xlim, ylim, ratio = 1) {
+equal_ranges <- function(xlim, ylim, ratio = NULL) {
+  if (is.null(ratio)) return(list(x = xlim, y = ylim))
+
   xr <- diff(xlim)
   yr <- diff(ylim)
   

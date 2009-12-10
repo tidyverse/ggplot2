@@ -43,7 +43,18 @@ FacetGrid <- proto(Facet, {
   
   # Create grobs for each component of the panel guides
   add_guides <- function(., data, panels_grob, coord, theme) {
+
     aspect_ratio <- theme$aspect.ratio
+    
+    # If user hasn't set aspect ratio, and we have fixed scales, then
+    # ask the coordinate system if it wants to specify one
+    if (is.null(aspect_ratio) && !.$free$x && !.$free$y) {
+      xscale <- .$scales$x[[1]]
+      yscale <- .$scales$y[[1]]
+      ranges <- coord$compute_ranges(list(x = xscale, y = yscale))
+      aspect_ratio <- coord$compute_aspect(ranges)
+    }
+    
     if (is.null(aspect_ratio)) {
       aspect_ratio <- 1
       respect <- FALSE
