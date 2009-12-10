@@ -99,7 +99,17 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
   nkeys <- nrow(mapping)
   hgap <- vgap <- unit(0.3, "lines")
   
-  label_width  <- max(stringWidth(mapping$.label))
+  numeric_labels <- all(sapply(mapping$.labels, is.language)) || suppressWarnings(all(!is.na(sapply(mapping$.labels, "as.numeric"))))
+  hpos <- numeric_labels * 1
+  
+  labels <- lapply(mapping$.label, function(label) {
+    theme_render(theme, "legend.text", label, hjust = hpos, x = hpos, y = 0.5)
+  })
+  
+  label_width <- do.call("max", lapply(labels, grobWidth))
+  label_width <- convertWidth(label_width, "cm")
+  label_heights <- do.call("unit.c", lapply(labels, grobHeight))
+  label_heights <- convertHeight(label_heights, "cm")
 
   width <- max(unlist(llply(legend_data, "[[", "size")), 0)
   key_width <- max(theme$legend.key.size, unit(width, "mm"))
@@ -112,8 +122,7 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
       hgap
     )
   )
-
-  label.heights <- stringHeight(mapping$.label)
+  widths <- convertWidth(widths, "cm")
 
   heights <- unit.c(
     vgap, 
@@ -121,11 +130,12 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
     vgap, 
     unit.pmax(
       theme$legend.key.size, 
-      label.heights, 
+      label_heights, 
       unit(key_heights, "mm")
     ),
     vgap
   )  
+  heights <- convertHeight(heights, "cm")
 
   # Layout the legend table
   legend.layout <- grid.layout(
@@ -136,8 +146,6 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
   fg <- ggname("legend", frameGrob(layout = legend.layout))
   fg <- placeGrob(fg, theme_render(theme, "legend.background"))
 
-  numeric_labels <- all(sapply(mapping$.labels, is.language)) || suppressWarnings(all(!is.na(sapply(mapping$.labels, "as.numeric"))))
-  hpos <- numeric_labels * 1
 
   fg <- placeGrob(fg, title, col = 2:4, row = 2)
   for (i in 1:nkeys) {

@@ -37,3 +37,4 @@ ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
 * legends will only merge if both the title and all labels are the same.
   (Fixes #16)
 * Fix for bug #19: Legend with three constraints doesn't work 
+* Legend: correctly calculate label widths for all font sizes.  (Fixes #38)
