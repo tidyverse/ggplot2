@@ -42,3 +42,5 @@ ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
 * coord_equal: when ratio = NULL (the default), will adjust the aspect ratio
   of the plot, rather than trying to extend the shortest scale.
 * coord_equal: now works with non-linear scales (fixes #13)
+* coord_trans now respects scale expand parameter (expansion occurs after 
+  tranformation) (Fixes #14)
