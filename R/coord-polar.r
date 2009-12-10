@@ -69,7 +69,7 @@ CoordPolar <- proto(Coord, {
   transform <- function(., data, details) {
     data <- .$rename_data(data)
     
-    within(data, {
+    data <- within(data, {
       r <- .$r_rescale(r, details)
       theta <- .$theta_rescale(theta, details)
 

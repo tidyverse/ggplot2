@@ -5,6 +5,8 @@ CoordFlip <- proto(CoordCartesian, expr={
     rescale_y <- function(data) .$rescale_var(data, details$y.range)
     
     data <- transform_position(data, rescale_y, rescale_x)
+    data <- transform_position(data, trim_infinite_01, trim_infinite_01)
+    
     rename(data, c(
       x = "y",       y = "x", 
       xend = "yend", yend = "xend", 

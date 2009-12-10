@@ -1,6 +1,7 @@
 GeomSegment <- proto(Geom, {
   draw <- function(., data, scales, coordinates, arrow=NULL, ...) {
     if (!coordinates$muncher()) {
+      browser()
       return(with(coordinates$transform(data, scales), 
         segmentsGrob(x, y, xend, yend, default.units="native",
         gp = gpar(col=alpha(colour, alpha), lwd=size * .pt, 

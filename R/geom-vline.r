@@ -9,8 +9,8 @@ GeomVline <- proto(Geom, {
   }
   
   draw <- function(., data, scales, coordinates, ...) {
-    data$y    <- scales$y.range[1]
-    data$yend <- scales$y.range[2]    
+    data$y    <- -Inf
+    data$yend <- Inf
     
     GeomSegment$draw(unique(data), scales, coordinates)
   }

@@ -7,7 +7,8 @@ CoordCartesian <- proto(Coord, expr={
     rescale_x <- function(data) .$rescale_var(data, details$x.range)
     rescale_y <- function(data) .$rescale_var(data, details$y.range)
     
-    transform_position(data, rescale_x, rescale_y)
+    data <- transform_position(data, rescale_x, rescale_y)
+    transform_position(data, trim_infinite_01, trim_infinite_01)
   }
   
   compute_ranges <- function(., scales) {

@@ -12,7 +12,8 @@ CoordTrans <- proto(CoordCartesian, expr={
     trans_x <- function(data) .$transform_x(data, details$x.range)
     trans_y <- function(data) .$transform_y(data, details$y.range)
     
-    transform_position(data, trans_x, trans_y)
+    data <- transform_position(data, trans_x, trans_y)
+    transform_position(data, trim_infinite_01, trim_infinite_01)
   }
   transform_x <- function(., data, range) {
     rescale(.$xtr$transform(data), 0:1, range, clip = FALSE)

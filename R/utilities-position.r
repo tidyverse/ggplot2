@@ -12,3 +12,19 @@ expand_range <- function(range, mul = 0, add = 0, zero = 0.5) {
     range + c(-1, 1) * (diff(range) * mul + add)
   }
 }
+
+# Trim non-finite numbers to specified range
+# 
+# @keywords internal
+# @alias trim_infinite_01
+trim_infinite <- function(x, range) {
+  x[x == -Inf] <- range[1]
+  x[x == Inf] <- range[2]
+  x
+}
+
+trim_infinite_01 <- function(x) {
+  trim_infinite(x, c(0, 1))
+}
+
+

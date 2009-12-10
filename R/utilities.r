@@ -136,8 +136,13 @@ rescale <- function(x, to=c(0,1), from=range(x, na.rm=TRUE), clip = TRUE) {
     warning("Categorical variable automatically converted to continuous", call.=FALSE)
     x <- as.numeric(x)
   }
-  scaled <- (x-from[1])/diff(from)*diff(to) + to[1]
-  if (clip) ifelse(scaled %inside% to, scaled, NA) else scaled
+  scaled <- (x - from[1]) / diff(from) * diff(to) + to[1]
+
+  if (clip) {
+    ifelse(!is.finite(scaled) | scaled %inside% to, scaled, NA) 
+  } else {
+    scaled
+  }
 }
 
 
