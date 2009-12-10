@@ -8,8 +8,10 @@ CoordEqual <- proto(CoordCartesian, {
     ranges <- equal_ranges(scales$x$output_expand(), scales$y$output_expand(),
      .$ratio)
     
-    scales$x$set_limits(ranges$x)
-    scales$y$set_limits(ranges$y)
+    # Set limits without transformation, because transformation has already
+    # occured by this point.
+    scales$x$limits <- ranges$x
+    scales$y$limits <- ranges$y
     
     .super$compute_ranges(., scales)
   }
