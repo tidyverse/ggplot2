@@ -49,3 +49,6 @@ ggplot2 0.8.5 (2009-XX-XX) ----------------------------------------
 * x and y position can be set to Inf or -Inf to refer to the top/right and 
   bottom/left extents of the panel (implements #18)
 * geom_hline and geom_vline now work with coord_flip (fixes #30)
+* expand_limits(): a new function to make it easy to force the inclusion of 
+  any set of values in the limits of any aesthetic.
+
