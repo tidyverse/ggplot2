@@ -11,12 +11,20 @@ CoordCartesian <- proto(Coord, expr={
   }
   
   compute_ranges <- function(., scales) {
-    x.range <- .$limits[["x"]] %||% scales$x$output_expand()
+    if (is.null(.$limits$x)) {
+      x.range <- scales$x$output_expand()
+    } else {
+      x.range <- range(scales$x$.tr$transform(.$limits[["x"]]))
+    }
     x.major <- .$rescale_var(scales$x$input_breaks_n(), x.range, TRUE)
     x.minor <- .$rescale_var(scales$x$output_breaks(), x.range, TRUE)
     x.labels <- scales$x$labels()
 
-    y.range <- .$limits[["y"]] %||% scales$y$output_expand()
+    if (is.null(.$limits$y)) {
+      y.range <- scales$y$output_expand()
+    } else {
+      y.range <- range(scales$y$.tr$transform(.$limits[["y"]]))
+    }
     y.major <- .$rescale_var(scales$y$input_breaks_n(), y.range, TRUE)
     y.minor <- .$rescale_var(scales$y$output_breaks(), y.range, TRUE)
     y.labels <- scales$y$labels()
