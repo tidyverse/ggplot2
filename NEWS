@@ -44,6 +44,7 @@ New features (minor)
   (thanks to suggestion by David Kahle)
 * scale_colour_gradient, scale_colour_gradient2 & scale_colour_gradientn now
   have formatter argument to match scale_continuous
+* updated citation to refer to the ggplot2 book
 
 Bug fixes
 
