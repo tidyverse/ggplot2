@@ -32,7 +32,7 @@
 # @arguments x value
 # @arguments y value
 # @arguments List of name value pairs
-# @keyword internal
+# @keyword hplot
 # @alias str.uneval
 # @alias print.uneval
 # @alias [.uneval
