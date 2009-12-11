@@ -145,7 +145,7 @@ FacetGrid <- proto(Facet, {
     )
        
     # Add gaps and compute widths and heights
-    fill <- spacer(nrow = 1, ncol = 1, 1, 1, "null")    
+    fill <- spacer(nrow = 1, ncol = 1, 0, 0, "null")    
     all <- rbind(
       cbind(fill,      striphGrid, fill      ),
       cbind(axesvGrid, panelGrid,  stripvGrid),

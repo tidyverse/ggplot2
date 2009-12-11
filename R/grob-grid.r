@@ -29,7 +29,7 @@
 # @alias interleave.list
 # @alias interleave.unit
 # @alias max2
-grobGrid <- function(name, nrow, ncol, grobs = NULL, widths = 1, heights = 1, clip = "on", default.units = "null", as.table = FALSE, respect = FALSE) {
+grobGrid <- function(name, nrow, ncol, grobs = NULL, widths = 0, heights = 0, clip = "on", default.units = "null", as.table = FALSE, respect = FALSE) {
   
   if (!is.unit(widths)) widths <- unit(widths, default.units)
   if (!is.unit(heights)) heights <- unit(heights, default.units)
@@ -154,7 +154,7 @@ cbind.grobGrid <- function(...) {
 
   grids <- list(...)
   heights <- do.call("rbind", (llply(all("heights"), as.list)))
-  
+
   structure(list(
     names =   do.call("cbind", all("names")),
     grobs =   do.call("cbind", all("grobs")),
@@ -198,7 +198,7 @@ spacer <- function(nrow = 1, ncol = 1, width = 0, height = 0, default.units = "l
 #   cbind(spacer(), axis_h)
 # )                         
 
-viewports.gridGrob <- function(grid, name = "layout") {
+viewports.grobGrid <- function(grid, name = "layout") {
   layout <- gridLayout(grid)
   layout_vp <- viewport(layout = layout, name = name)
   
@@ -215,7 +215,7 @@ viewports.gridGrob <- function(grid, name = "layout") {
   
   vpTree(layout_vp, children_vp)
 }
-grobs.gridGrob <- function(grid) {
+grobs.grobGrid <- function(grid) {
   names <- paste(grid$names, row(grid$names), col(grid$names), sep="-")
   
   llply(seq_along(names), function(i) {
@@ -223,7 +223,7 @@ grobs.gridGrob <- function(grid) {
   })
 }
 
-gTree.gridGrob <- function(grid, name = "layout") {
+gTree.grobGrid <- function(grid, name = "layout") {
   vp <- viewports.gridGrob(grid, name)
   grobs <- grobs.gridGrob(grid)
   
@@ -234,11 +234,10 @@ gTree.gridGrob <- function(grid, name = "layout") {
   )
 }
 
-grid.draw.gridGrob <- function(x, recording) {
+grid.draw.grobGrid <- function(x, recording) {
   grid.newpage()
   grid.draw(gTree.gridGrob(x))
 }
-
 
 rowHeights <- function(mat) {
   do.call("unit.c", alply(mat, 1, splat(max2)))  
