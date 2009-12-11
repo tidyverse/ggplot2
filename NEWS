@@ -5,17 +5,17 @@ New features
 * geom_text gains parse argument which makes it possible to display
   expressions. (Implements #50)
 
-* scales: all scales now have legend parameter, which defaults to TRUE.  
-  Setting to false will prevent that scale from contributing to the legends.
-  (Implements #27)
+* all scales now have legend parameter, which defaults to TRUE. Setting to
+  false will prevent that scale from contributing to the legend (Implements
+  #27)
 
-* labels are now stored in the options, rather than in individual scales.  
-  This fixes a long standing bug where it was not easy to set the label for
-  computed variable, such as the y axis on a histogram. Additionally, it means
-  default scales are only added to the plot until just prior to plotting, 
-  instead of the previous behaviour where scales where added as layers were
-  added - this could cause problems if you later modified the plot.
-  (Implements #28)
+* default axis labels and legend titles are now stored in the options, instead
+  of in each scale. This fixes a long standing bug where it was not easy to
+  set the label for computed variable, such as the y axis on a histogram.
+  Additionally, it means default scales are only added to the plot until just
+  prior to plotting, instead of the previous behaviour where scales where
+  added as layers were added - this could cause problems if you later modified
+  the underlying data. (Implements #28)
 
 * coord_equal: when ratio = NULL (the default), it will adjust the aspect
   ratio of the plot, rather than trying to extend the shortest axis.
@@ -50,7 +50,7 @@ Bug fixes
 * coord_cartesian now correctly sets limits when one or both of the position
   scales are non-linear.  (fixes #17)
 * coord_equal: now works with non-linear scales (fixes #13)
-* coord_map now sets aspect ratio correctly (fixes #4)
+* coord_map sets aspect ratio correctly (fixes #4)
 * coord_polar correctly combines labels on end of axis if expressions
   (fixes #39)
 * coord_trans now respects scale expand parameter (expansion occurs after 
