@@ -63,6 +63,7 @@ Bug fixes
 * facet_wrap now sets aspect ratio correctly
 * facet_wrap now maintains original order of data
 * geom_hline and geom_vline now work with coord_flip (fixes #30)
+* geom_path drops missing values at start and end of each line (fixes #41)
 * scale_shape_discrete, scale_size_continuous, scale_alpha and
   scale_linetype_discrete added to scales to match naming convention of all
   other scales (fixes #47)

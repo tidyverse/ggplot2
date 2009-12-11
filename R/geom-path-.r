@@ -1,7 +1,29 @@
 GeomPath <- proto(Geom, {
   draw_groups <- function(., ...) .$draw(...)
 
-  draw <- function(., data, scales, coordinates, arrow = NULL, lineend = "butt", linejoin = "round", linemitre = 1, ...) {
+  draw <- function(., data, scales, coordinates, arrow = NULL, lineend = "butt", linejoin = "round", linemitre = 1, ..., na.rm = FALSE) {
+
+    keep <- function(x) {
+      # from first non-missing to last non-missing
+      first <- match(FALSE, x, nomatch = 1) - 1
+      last <- length(x) - match(FALSE, rev(x), nomatch = 1) + 1
+      c(
+        rep(FALSE, first), 
+        rep(TRUE, last - first), 
+        rep(FALSE, length(x) - last))
+    }    
+    # Drop missing values at the start or end of a line - can't drop in the 
+    # middle since you expect those to be shown by a break in the line
+    missing <- !complete.cases(data[c("x", "y", "size", "colour",
+      "linetype")])
+    kept <- ave(missing, data$group, FUN=keep)
+    data <- data[kept, ]
+    
+    if (!all(kept) && !na.rm) {
+      warning("Removed ", sum(!kept), " rows containing missing values", 
+        " (geom_path).", call. = FALSE)
+    }
+    
     munched <- coordinates$munch(data, scales)
 
     # Silently drop lines with less than two points, preserving order
@@ -131,6 +153,19 @@ GeomPath <- proto(Geom, {
     qplot(unemploy/pop, uempmed, data=economics, geom="path") +
       geom_text(data=head(economics, 1), label="1967", colour="blue") + 
       geom_text(data=tail(economics, 1), label="2007", colour="blue")
+    
+    # geom_path removes missing values on the ends of a line.
+    # use na.rm = T to suppress the warning message
+    df <- data.frame(
+      x = 1:5,
+      y1 = c(1, 2, 3, 4, NA),
+      y2 = c(NA, 2, 3, 4, 5),
+      y3 = c(1, 2, NA, 4, 5),
+      y4 = c(1, 2, 3, 4, 5))
+    qplot(x, y1, data = df, geom = c("point","line"))
+    qplot(x, y2, data = df, geom = c("point","line"))
+    qplot(x, y3, data = df, geom = c("point","line"))
+    qplot(x, y4, data = df, geom = c("point","line"))
     
     # Setting line type vs colour/size
     # Line type needs to be applied to a line as a whole, so it can
