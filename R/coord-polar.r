@@ -130,7 +130,14 @@ CoordPolar <- proto(Coord, {
     theta <- theta[!is.na(theta)]
     ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
     if (ends_apart < 0.05) {
-      labels[length(labels)] <- paste(labels[1], labels[length(labels)], sep="/")
+      n <- length(labels)
+      if (is.expression(labels)) {
+        combined <- substitute(paste(a, "/", b), 
+          list(a = labels[[1]], b = labels[[n]]))
+      } else {
+        combined <- paste(labels[1], labels[n], sep="/")
+      }
+      labels[[n]] <- combined
       labels <- labels[-1]
       theta <- theta[-1]
     }
