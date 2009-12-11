@@ -22,6 +22,10 @@ CoordMap <- proto(Coord, {
     out
   }
   
+  compute_aspect <- function(., ranges) {
+    diff(ranges$y.range) / diff(ranges$x.range)
+  }
+  
   
   mproject <- function(., x, y, orientation) {    
     suppressWarnings(do.call("mapproject",  list(

@@ -50,6 +50,7 @@ Bug fixes
 * coord_cartesian now correctly sets limits when one or both of the position
   scales are non-linear.  (fixes #17)
 * coord_equal: now works with non-linear scales (fixes #13)
+* coord_map now sets aspect ratio correctly (fixes #4)
 * coord_trans now respects scale expand parameter (expansion occurs after 
   transformation) (fixes #14)
 * facet_grid with scales = "free" and space = "free" now calculates space 
