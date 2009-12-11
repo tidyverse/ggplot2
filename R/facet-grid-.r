@@ -145,11 +145,15 @@ FacetGrid <- proto(Facet, {
     )
        
     # Add gaps and compute widths and heights
-    fill <- spacer(nrow = 1, ncol = 1, 0, 0, "null")    
+    fill_tl <- spacer(nrow(labels$h), 1)
+    fill_tr <- spacer(nrow(labels$h), ncol(labels$v))
+    fill_bl <- spacer(1, 1)
+    fill_br <- spacer(1, ncol(labels$v))
+    
     all <- rbind(
-      cbind(fill,      striphGrid, fill      ),
+      cbind(fill_tl,   striphGrid, fill_tr),
       cbind(axesvGrid, panelGrid,  stripvGrid),
-      cbind(fill,      axeshGrid,  fill      ) 
+      cbind(fill_bl,   axeshGrid,  fill_br) 
     )
     # theme$panel.margin, theme$panel.margin
     

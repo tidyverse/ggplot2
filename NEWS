@@ -55,6 +55,8 @@ Bug fixes
   transformation) (fixes #14)
 * facet_grid with scales = "free" and space = "free" now calculates space 
   correctly if the range of the scale is < 1 (fixes #1)
+* facet_grid works once more when facetting with multiple variables in one
+  direction (fixes #11)
 * facet_wrap now sets aspect ratio correctly
 * facet_wrap now maintains original order of data
 * geom_hline and geom_vline now work with coord_flip (fixes #30)
