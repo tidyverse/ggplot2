@@ -224,8 +224,8 @@ grobs.grobGrid <- function(grid) {
 }
 
 gTree.grobGrid <- function(grid, name = "layout") {
-  vp <- viewports.gridGrob(grid, name)
-  grobs <- grobs.gridGrob(grid)
+  vp <- viewports.grobGrid(grid, name)
+  grobs <- grobs.grobGrid(grid)
   
   gTree(
     children = do.call("gList", grobs), 
@@ -236,7 +236,7 @@ gTree.grobGrid <- function(grid, name = "layout") {
 
 grid.draw.grobGrid <- function(x, recording) {
   grid.newpage()
-  grid.draw(gTree.gridGrob(x))
+  grid.draw(gTree.grobGrid(x))
 }
 
 rowHeights <- function(mat) {

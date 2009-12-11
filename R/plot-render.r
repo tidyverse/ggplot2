@@ -9,7 +9,7 @@ panelGrob <- function(plot, pieces = ggplot_build(plot)) {
   theme <- plot_theme(plot)
 
   grid <- pieces$facet$add_guides(plot$data, pieces$panels, pieces$cs, theme)
-  gTree.gridGrob(grid)
+  gTree.grobGrid(grid)
 }
 
 # Pretty plot
