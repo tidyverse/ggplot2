@@ -8,13 +8,13 @@
 # @alias cweave.list
 # @alias cweave.matrix
 # @alias dim.grobGrid
-# @alias gTree.gridGrob
-# @alias grid.draw.gridGrob
+# @alias gTree.grobGrid
+# @alias grid.draw.grobGrid
 # @alias gridLayout
 # @alias grobCol
 # @alias grobGrid
 # @alias grobRow
-# @alias grobs.gridGrob
+# @alias grobs.grobGrid
 # @alias print.grobGrid
 # @alias rbind.grobGrid
 # @alias rep.unit2
@@ -23,7 +23,7 @@
 # @alias rweave.list
 # @alias rweave.matrix
 # @alias spacer
-# @alias viewports.gridGrob
+# @alias viewports.grobGrid
 # @alias as.list.unit
 # @alias interleave.default
 # @alias interleave.list

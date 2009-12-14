@@ -1,13 +1,13 @@
-\name{scale_size}
-\alias{scale_size}
-\alias{ScaleSize}
+\name{scale_size_continuous}
+\alias{scale_size_continuous}
+\alias{ScaleSizeContinuous}
 \alias{scale_area}
-\title{scale\_size}
+\title{scale\_size\_continuous}
 \description{Size scale for continuous variable}
 \details{
-This page describes scale\_size, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes scale\_size\_continuous, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_size(name=NULL, limits=NULL, breaks=NULL, labels=NULL, trans=NULL, to=c(1, 6), ...)}
+\usage{scale_size_continuous(name=NULL, limits=NULL, breaks=NULL, labels=NULL, trans=NULL, to=c(1, 6), legend=TRUE, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{limits}{numeric vector of length 2, giving the extent of the scale}
@@ -15,11 +15,12 @@ This page describes scale\_size, see \code{\link{layer}} and \code{\link{qplot}}
  \item{labels}{character vector giving labels associated with breaks}
  \item{trans}{a transformer to use}
  \item{to}{a numeric vector of length 2 that specifies the minimum and maximum size of the plotting symbol after transformation.}
+ \item{legend}{NULL}
  \item{...}{other arguments}
 }
 \seealso{\itemize{
   \item \code{\link{scale_manual}}: for sizing discrete variables
-  \item \url{http://had.co.nz/ggplot2/scale_size.html}
+  \item \url{http://had.co.nz/ggplot2/scale_size_continuous.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{

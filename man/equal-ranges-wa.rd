@@ -6,7 +6,7 @@
 \description{
 Used by \code{\link{coord_equal}} to compute equal ranges for equal scale axes
 }
-\usage{equal_ranges(xlim, ylim, ratio = 1)}
+\usage{equal_ranges(xlim, ylim, ratio = NULL)}
 \arguments{
 \item{xlim}{x limits}
 \item{ylim}{y limits}

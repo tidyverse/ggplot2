@@ -23,7 +23,7 @@ The following aesthetics can be used with geom\_line.  Aesthetics are mapped to 
  \item{data}{dataset used in this layer, if not specified uses plot dataset}
  \item{stat}{statistic used by this layer}
  \item{position}{position adjustment used by this layer}
- \item{...}{ignored }
+ \item{...}{other arguments}
 }
 \seealso{\itemize{
   \item \code{\link{geom_path}}: Connect observations, in original order

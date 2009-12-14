@@ -11,16 +11,17 @@
 \details{
 This page describes scale\_identity, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_identity(name=NULL, breaks=NULL, labels=NULL, formatter=NULL, ...)
-scale_fill_identity(name=NULL, breaks=NULL, labels=NULL, formatter=NULL, ...)
-scale_size_identity(name=NULL, breaks=NULL, labels=NULL, formatter=NULL, ...)
-scale_shape_identity(name=NULL, breaks=NULL, labels=NULL, formatter=NULL, ...)
-scale_linetype_identity(name=NULL, breaks=NULL, labels=NULL, formatter=NULL, ...)}
+\usage{scale_colour_identity(name=NULL, breaks=NULL, labels=NULL, formatter=NULL, legend=TRUE, ...)
+scale_fill_identity(name=NULL, breaks=NULL, labels=NULL, formatter=NULL, legend=TRUE, ...)
+scale_size_identity(name=NULL, breaks=NULL, labels=NULL, formatter=NULL, legend=TRUE, ...)
+scale_shape_identity(name=NULL, breaks=NULL, labels=NULL, formatter=NULL, legend=TRUE, ...)
+scale_linetype_identity(name=NULL, breaks=NULL, labels=NULL, formatter=NULL, legend=TRUE, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{breaks}{numeric vector indicating where breaks should lie}
  \item{labels}{character vector giving labels associated with breaks}
  \item{formatter}{NULL}
+ \item{legend}{NULL}
  \item{...}{ignored }
 }
 \seealso{\itemize{

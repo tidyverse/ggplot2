@@ -70,11 +70,8 @@ limits.POSIXlt <- function(lims, var) {
   ScaleDateTime$new(var = var, limits = as.POSIXct(lims))
 }
 
-# Expand the plot limits with data
-# 
-# Some times you may want to ensure limits include a single value, for all 
-# panels or all plots.  This function is a thin wrapper around
-# \code{\link{geom_blank}} that makes it easy to add such values.
+# Expand the plot limits with data.
+# Some times you may want to ensure limits include a single value, for all panels or all plots.  This function is a thin wrapper around \code{\link{geom_blank}} that makes it easy to add such values.
 # 
 # @argument hplot
 # @argument named list of aesthetics specifying the value (or values that should be included.

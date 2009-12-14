@@ -6,10 +6,11 @@
 \description{
 All locations are multiples of size
 }
-\usage{fullseq(range, size)}
+\usage{fullseq(range, size, pad = FALSE)}
 \arguments{
 \item{range}{range}
 \item{size}{interval size}
+\item{pad}{}
 }
 
 

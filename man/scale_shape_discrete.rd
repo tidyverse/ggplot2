@@ -1,12 +1,13 @@
-\name{scale_shape}
+\name{scale_shape_discrete}
+\alias{scale_shape_discrete}
+\alias{ScaleShapeDiscrete}
 \alias{scale_shape}
-\alias{ScaleShape}
-\title{scale\_shape}
+\title{scale\_shape\_discrete}
 \description{Scale for shapes, aka glyphs}
 \details{
-This page describes scale\_shape, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+This page describes scale\_shape\_discrete, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_shape(name=NULL, solid=TRUE, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, ...)}
+\usage{scale_shape_discrete(name=NULL, solid=TRUE, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, legend=TRUE, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{solid}{NULL}
@@ -14,10 +15,11 @@ This page describes scale\_shape, see \code{\link{layer}} and \code{\link{qplot}
  \item{breaks}{numeric vector indicating where breaks should lie}
  \item{labels}{character vector giving labels associated with breaks}
  \item{formatter}{NULL}
+ \item{legend}{NULL}
  \item{...}{ignored }
 }
 \seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot2/scale_shape.html}
+  \item \url{http://had.co.nz/ggplot2/scale_shape_discrete.html}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{

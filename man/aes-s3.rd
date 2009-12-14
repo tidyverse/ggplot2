@@ -3,6 +3,7 @@
 \alias{str.uneval}
 \alias{print.uneval}
 \alias{[.uneval}
+\alias{as.character.uneval}
 \title{Generate aesthetic mappings}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
@@ -22,4 +23,4 @@ new ggplot names (eg. pch to shape, cex to size)}
 \seealso{\code{\link{aes_string}}}
 \examples{aes(x = mpg, y = wt)
 aes(x = mpg ^ 2, y = wt / cyl)}
-\keyword{internal}
+\keyword{hplot}

@@ -12,7 +12,6 @@ The following aesthetics can be used with stat\_contour.  Aesthetics are mapped 
   \item \code{x}: x position (\strong{required}) 
   \item \code{y}: y position (\strong{required}) 
   \item \code{z}: NULL (\strong{required}) 
-  \item \code{group}: how observations are divided into different groups 
   \item \code{order}: NULL 
 }
 }

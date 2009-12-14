@@ -10,7 +10,7 @@ This coordinate system has one parameter, \code{ratio}, which specifies the rati
 
 This page describes coord\_equal, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{coord_equal(ratio=1, ...)}
+\usage{coord_equal(ratio=NULL, ...)}
 \arguments{
  \item{ratio}{NULL}
  \item{...}{ignored }
@@ -20,8 +20,12 @@ This page describes coord\_equal, see \code{\link{layer}} and \code{\link{qplot}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-# coord_equal ensures that the ranges of axes are equal to the
-# specified ratio (1 by default, indicating equal ranges).
+# ratio = NULL, the default, will modify the aspect ratio of the plot
+# to 
+qplot(mpg, wt, data = mtcars) + coord_equal()
+
+# when ratio = a specific number, ensures that the ranges of axes are
+# equal to the specified ratio by expanding the smallest axis
 
 qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 1)
 qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 5)

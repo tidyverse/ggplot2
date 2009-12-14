@@ -11,11 +11,11 @@
 \details{
 This page describes scale\_manual, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, ...)
-scale_fill_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, ...)
-scale_size_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, ...)
-scale_shape_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, ...)
-scale_linetype_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, ...)}
+\usage{scale_colour_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, legend=TRUE, ...)
+scale_fill_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, legend=TRUE, ...)
+scale_size_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, legend=TRUE, ...)
+scale_shape_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, legend=TRUE, ...)
+scale_linetype_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, legend=TRUE, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{values}{NULL}
@@ -23,6 +23,7 @@ scale_linetype_manual(name=NULL, values=NULL, limits=NULL, breaks=NULL, labels=N
  \item{breaks}{numeric vector indicating where breaks should lie}
  \item{labels}{character vector giving labels associated with breaks}
  \item{formatter}{NULL}
+ \item{legend}{NULL}
  \item{...}{ignored }
 }
 \seealso{\itemize{

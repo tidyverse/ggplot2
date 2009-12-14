@@ -3,6 +3,7 @@
 # Analog of || from ruby
 # 
 # @keywords internal
+# @name nulldefault-infix
 "%||%" <- function(a, b) {
   if (!is.null(a)) a else b
 }

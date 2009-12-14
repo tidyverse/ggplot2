@@ -9,8 +9,8 @@
 \details{
 This page describes scale\_gradient2, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", ...)
-scale_fill_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", breaks=NULL, labels=NULL, limits=NULL, trans="identity", ...)}
+\usage{scale_colour_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", ...)
+scale_fill_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{low}{colour at low end of scale}
@@ -18,10 +18,6 @@ scale_fill_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"
  \item{high}{colour at high end of scale}
  \item{midpoint}{position of mid point of scale, defaults to 0}
  \item{space}{colour space to interpolate through, rgb or Lab, see ?colorRamp for details}
- \item{breaks}{numeric vector indicating where breaks should lie}
- \item{labels}{character vector giving labels associated with breaks}
- \item{limits}{numeric vector of length 2, giving the extent of the scale}
- \item{trans}{a transformer to use}
  \item{...}{other arguments}
 }
 \seealso{\itemize{

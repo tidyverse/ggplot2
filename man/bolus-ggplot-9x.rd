@@ -32,7 +32,7 @@ ggplot(mtcars, aes(y=wt, x=mpg)) + geom_point()
 ),
 list(
 qplot(mpg, wt, data=mtcars, xlab = "blah"),
-qplot(mpg, wt, data=mtcars) + scale_x_continuous("blah")
+qplot(mpg, wt, data=mtcars) + xlab("blah")
 )
 )
 
