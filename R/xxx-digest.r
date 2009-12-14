@@ -25,7 +25,7 @@ bolus.proto <- function(x) x$bolus()
 #X   ),
 #X   list(
 #X     qplot(mpg, wt, data=mtcars, xlab = "blah"),
-#X     qplot(mpg, wt, data=mtcars) + scale_x_continuous("blah")
+#X     qplot(mpg, wt, data=mtcars) + xlab("blah")
 #X   )
 #X )
 #X 

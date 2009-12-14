@@ -129,11 +129,8 @@ qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE,
   
   if (!is.na(asp)) p <- p + opts(aspect.ratio = asp)
   
-  x <- p$scales$get_scales("x")
-  y <- p$scales$get_scales("y")
-  
-  if (!missing(xlab) && !is.null(x)) x$name <- xlab
-  if (!missing(ylab) && !is.null(y)) y$name <- ylab
+  if (!missing(xlab)) p <- p + xlab(xlab)
+  if (!missing(ylab)) p <- p + ylab(ylab)
   
   if (!missing(xlim)) p <- p + xlim(xlim)
   if (!missing(ylim)) p <- p + ylim(ylim)
