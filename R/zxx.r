@@ -9,3 +9,9 @@ scale_color_brewer <- scale_colour_brewer
 scale_color_gradient <- scale_colour_gradient
 scale_color_gradient2 <- scale_colour_gradient2
 scale_color_gradientn <- scale_colour_gradientn
+
+# Single name scales
+scale_size <- scale_size_continuous
+scale_linetype <- scale_linetype_discrete
+scale_alpha <- scale_alpha_continuous
+scale_shape <- scale_shape_discrete
