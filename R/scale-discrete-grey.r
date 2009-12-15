@@ -6,7 +6,7 @@ ScaleGrey <- proto(ScaleColour, expr={
     
     b_and_l <- check_breaks_and_labels(breaks, labels)
     
-    .$proto(name=name, .input=variable, .output=variable, start=start, end=end, limits = limits, breaks = b_and_l$breaks, .labels = b_and_l$labels, formatter=formatter, ,legend = legend)
+    .$proto(name=name, .input=variable, .output=variable, start=start, end=end, limits = limits, breaks = b_and_l$breaks, .labels = b_and_l$labels, formatter=formatter, legend = legend)
   }
 
   output_set <- function(.) {
