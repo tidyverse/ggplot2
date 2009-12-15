@@ -13,6 +13,7 @@ expand_range <- function(range, mul = 0, add = 0, zero = 0.5) {
   }
 }
 
+# Trim infinite.
 # Trim non-finite numbers to specified range
 # 
 # @keywords internal

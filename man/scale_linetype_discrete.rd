@@ -1,6 +1,7 @@
 \name{scale_linetype_discrete}
 \alias{scale_linetype_discrete}
 \alias{ScaleLinetypeDiscrete}
+\alias{scale_linetype}
 \title{scale\_linetype\_discrete}
 \description{Scale for line patterns}
 \details{

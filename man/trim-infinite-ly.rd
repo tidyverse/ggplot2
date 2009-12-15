@@ -1,11 +1,11 @@
 \name{trim_infinite}
 \alias{trim_infinite}
 \alias{trim_infinite_01}
-\title{Trim non-finite numbers to specified range}
+\title{Trim infinite.}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-
+Trim non-finite numbers to specified range
 }
 \usage{trim_infinite(x, range)}
 \arguments{

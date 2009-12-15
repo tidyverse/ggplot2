@@ -1,6 +1,7 @@
 \name{scale_alpha_continuous}
 \alias{scale_alpha_continuous}
 \alias{ScaleAlphaContinuous}
+\alias{scale_alpha}
 \title{scale\_alpha\_continuous}
 \description{Alpha scale for continuous variable}
 \details{

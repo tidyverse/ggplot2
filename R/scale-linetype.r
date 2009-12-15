@@ -2,7 +2,7 @@ ScaleLinetypeDiscrete <- proto(ScaleDiscrete, expr={
   doc <- TRUE
   common <- NULL
   .input <- .output <- "linetype"
-  alias <- "scale_linetype"
+  aliases <- "scale_linetype"
 
   output_set <- function(.) c("solid", "22", "42", "44", "13", "1343", "73", "2262", "12223242", "F282", "F4448444", "224282F2", "F1")[seq_along(.$input_set())]
   max_levels <- function(.) 12

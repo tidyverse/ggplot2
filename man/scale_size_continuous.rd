@@ -2,6 +2,7 @@
 \alias{scale_size_continuous}
 \alias{ScaleSizeContinuous}
 \alias{scale_area}
+\alias{scale_size}
 \title{scale\_size\_continuous}
 \description{Size scale for continuous variable}
 \details{
