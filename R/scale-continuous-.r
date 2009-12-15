@@ -166,7 +166,9 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
 })
 
 
-
+# Check breaks and labels.
+# Ensure that breaks and labels are of the correct form
+# @keyword internal
 check_breaks_and_labels <- function(breaks = NULL, labels = NULL) {
   if (is.null(breaks) && is.null(labels)) {
   } else if (is.null(breaks)) {

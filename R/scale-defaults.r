@@ -17,7 +17,6 @@ set_default_scale <- function(aesthetic, type, scale, ...) {
   new_call <- function(...) {
     do.call(new_scale$new, c(settings, list(..., variable=aesthetic)))
   }
-  scale <- paste("scale", aesthetic, scale, sep="_")
   
   # For development
   if (exists(default, 1, inherits=FALSE)) {
