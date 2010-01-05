@@ -13,7 +13,7 @@ StatQuantile <- proto(Stat, {
   )
   
   default_geom <- function(.) GeomQuantile
-  default_aes <- function(.) aes(group = ..quantile..)
+  default_aes <- function(.) aes()
   required_aes <- c("x", "y")
 
   calculate <- function(., data, scales, quantiles=c(0.25, 0.5, 0.75), formula=y ~ x, xseq = NULL, method="rq", na.rm = FALSE, ...) {
@@ -29,11 +29,13 @@ StatQuantile <- proto(Stat, {
     model <- method(formula, data=data, tau=quantiles, weight=weight, ...)
 
     yhats <- stats::predict(model, data.frame(x=xseq), type="matrix")
-
+    
+    quantile <- rep(quantiles, each=length(xseq))
     data.frame(
       y = as.vector(yhats), 
       x = xseq, 
-      quantile = rep(quantiles, each=length(xseq))
+      quantile = quantile,
+      group = paste(data$group[1], quantile, sep = "-")
     )
   }
   
