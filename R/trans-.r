@@ -103,6 +103,7 @@ TransInverse <- Trans$new("inverse", function(x) 1/x, function(x) 1/x,  function
 TransLog <- Trans$new("log", "log", "exp", function(x) bquote(e^.(x)))
 TransLog10 <- Trans$new("log10", "log10", function(x) 10^x, function(x) bquote(10^.(x)))
 TransLog2 <- Trans$new("log2", "log2", function(x) 2^x, function(x) bquote(2^.(x)))
+TransLog1p <- Trans$new("log1p", "log1p", "expm1", function(x) bquote(e^.(x+1)))
 TransPow10 <- Trans$new("pow10",function(x) 10^x, "log10", function(x) log10(x))
 TransReverse <- Trans$new("reverse", function(x) -x, function(x) -x, function(x) bquote(.(-x)))
 TransSqrt <- Trans$new("sqrt", "sqrt", function(x) x^2, function(x) x^2)

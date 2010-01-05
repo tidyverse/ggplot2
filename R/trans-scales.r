@@ -52,6 +52,14 @@ ScaleLog <-      proto(ScaleContinuous,
   examples=function(.) {}
 )
 
+ScaleLog1p <-      proto(ScaleContinuous,
+  desc = "Position scale, log + 1 transformed",
+  tr_default = Trans$find("log1p"),
+  objname = "log1p",
+  doc=FALSE,
+  examples=function(.) {}
+)
+
 ScaleExp <-      proto(ScaleContinuous,
   desc = "Position scale, exponential transformed",
   tr_default = Trans$find("exp"),
