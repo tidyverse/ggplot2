@@ -28,7 +28,9 @@ StatFunction <- proto(Stat, {
   
   examples <- function(.) {
     x <- rnorm(100)
-    qplot(x, geom="density") + stat_function(fun = dnorm, colour="red")
+    base <- qplot(x, geom="density")
+    base + stat_function(fun = dnorm, colour = "red")
+    base + stat_function(fun = dnorm, colour = "red", arg = list(mean = 3))
   }
   
 })
