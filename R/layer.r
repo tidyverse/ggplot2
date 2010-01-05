@@ -84,7 +84,7 @@ Layer <- proto(expr = {
   clone <- function(.) as.proto(.$as.list(all.names=TRUE))
   
   use_defaults <- function(., data) {
-    mapped_vars <- .$mapping[!sapply(.$mapping, is.character)]
+    mapped_vars <- .$mapping[!sapply(.$mapping, is.null)]
     df <- aesdefaults(data, .$geom$default_aes(), mapped_vars)
     
     # Override mappings with parameters
@@ -138,11 +138,11 @@ Layer <- proto(expr = {
     # For certain geoms, it is useful to be able to ignore the default
     # aesthetics and only use those set in the layer
     if (.$inherit.aes) {
-      aesthetics <- compact(defaults(.$mapping, plot$mapping))      
+      aesthetics <- compact(defaults(.$mapping, plot$mapping))
     } else {
       aesthetics <- .$mapping
     }
-
+    
     # Override grouping if specified in layer
     if (!is.null(.$geom_params$group)) {
       aesthetics["group"] <- .$geom_params$group
@@ -251,6 +251,7 @@ Layer <- proto(expr = {
   
   make_grob <- function(., data, scales, cs) {
     if (empty(data)) return(zeroGrob())
+    
     data <- .$use_defaults(data)
     
     check_required_aesthetics(.$geom$required_aes, c(names(data), names(.$geom_params)), paste("geom_", .$geom$objname, sep=""))
