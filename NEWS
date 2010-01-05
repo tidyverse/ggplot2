@@ -6,3 +6,4 @@ ggplot2 0.9 (2009-XX-XX) ----------------------------------------
 * fixed bug when overriding aesthetics with NULL
 * legend: don't try and display legend when unnecessary scale added
 * legend: text labels now correctly left-aligned when non-numeric
+* coord_equal: correctly place tick marks (Fixes #61)

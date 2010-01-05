@@ -11,7 +11,9 @@ CoordEqual <- proto(CoordCartesian, {
     # Set limits without transformation, because transformation has already
     # occured by this point.
     scales$x$limits <- ranges$x
+    scales$x$.expand <- c(0, 0)
     scales$y$limits <- ranges$y
+    scales$y$.expand <- c(0, 0)
     
     .super$compute_ranges(., scales)
   }
