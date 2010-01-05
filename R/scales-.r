@@ -61,6 +61,7 @@ Scales <- proto(Scale, expr={
     for(i in seq_len(.$n())) {
       scale <- .$.scales[[i]]
       if (!scale$legend) next
+      if (is.null(scale$.domain) && is.null(scale$limits)) next
       
       # Figure out legend title
       output <- scale$output()
