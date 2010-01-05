@@ -16,7 +16,8 @@ StatContour <- proto(Stat, {
     }
     
     z <- tapply(data$z, data[c("x", "y")], identity)
-    cl <- contourLines(x = unique(data$x), y = unique(data$y), z = z, 
+    cl <- contourLines(
+      x = sort(unique(data$x)), y = sort(unique(data$y)), z = z, 
       levels = breaks)  
     cl <- lapply(cl, as.data.frame)
     
