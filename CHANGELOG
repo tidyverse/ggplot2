@@ -1,5 +1,82 @@
 See NEWS for changes in latest version
 
+ggplot2 0.8.5 (2009-12-15) ----------------------------------------
+
+New features
+
+* geom_text gains parse argument which makes it possible to display
+  expressions. (Implements #50)
+
+* all scales now have legend parameter, which defaults to TRUE. Setting to
+  false will prevent that scale from contributing to the legend (Implements
+  #27)
+
+* default axis labels and legend titles are now stored in the options, instead
+  of in each scale. This fixes a long standing bug where it was not easy to
+  set the label for computed variable, such as the y axis on a histogram.
+  Additionally, it means default scales are only added to the plot until just
+  prior to plotting, instead of the previous behaviour where scales where
+  added as layers were added - this could cause problems if you later modified
+  the underlying data. (Implements #28)
+
+* coord_equal: when ratio = NULL (the default), it will adjust the aspect
+  ratio of the plot, rather than trying to extend the shortest axis.
+
+* x and y positions can be set to Inf or -Inf to refer to the top/right and 
+  bottom/left extents of the panel. (Implements #18)
+
+* expand_limits(): a new function to make it easy to force the inclusion of 
+  any set of values in the limits of any aesthetic.
+
+New features (minor)
+
+* aesthetics: when _setting_ an aesthetic, you may only set it to a single 
+  value.  This was always a good idea, but now it is enforced with an 
+  informative error message.
+* stat_contour bump up default number of contours
+* stat_density2d: make number of grid points used for density estimation 
+  user controllable (implements #9)
+* geom_bin now allows you to set whether bins used intervals of the form 
+  (a, b] or [a, b) with the "right" parameter (implements #20)
+* geom_path: linejoin, lineend and linemitre are now user controllable 
+  (implements #24)
+* scales: all scales check that breaks are supplied if labels are, and 
+  that breaks and labels are the same length (implements #40)
+* scales: if breaks are a named vector, the names will be used as labels
+  (thanks to suggestion by David Kahle)
+* scale_colour_gradient, scale_colour_gradient2 & scale_colour_gradientn now
+  have formatter argument to match scale_continuous
+* updated citation to refer to the ggplot2 book
+
+Bug fixes
+
+* coord_cartesian now correctly sets limits when one or both of the position
+  scales are non-linear.  (fixes #17)
+* coord_equal: now works with non-linear scales (fixes #13)
+* coord_map sets aspect ratio correctly (fixes #4)
+* coord_polar correctly combines labels on end of axis if expressions
+  (fixes #39)
+* coord_trans now respects scale expand parameter (expansion occurs after 
+  transformation) (fixes #14)
+* facet_grid with scales = "free" and space = "free" now calculates space 
+  correctly if the range of the scale is < 1 (fixes #1)
+* facet_grid works once more when facetting with multiple variables in one
+  direction (fixes #11)
+* facet_wrap now sets aspect ratio correctly
+* facet_wrap now maintains original order of data
+* geom_hline and geom_vline now work with coord_flip (fixes #30)
+* geom_path drops missing values at start and end of each line (fixes #41)
+* scale_shape_discrete, scale_size_continuous, scale_alpha and
+  scale_linetype_discrete added to scales to match naming convention of all
+  other scales (fixes #47)
+* legends now correctly calculate label widths (fixes #38)
+* legends will only merge if both the title and all labels are the same.
+  (fixes #16)
+* legends: fix for bug #19: Legend with three constraints doesn't work 
+* stat_contour & stat_density2d: fix grouping bugs (issue #7)
+* xlim, ylim: fix bug when setting limits of discrete scales
+
+
 ggplot2 0.8.4 (2009-12-08) ----------------------------------------
 
 * aes and aes_string both convert prefixes to full names
