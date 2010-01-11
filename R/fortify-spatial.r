@@ -1,6 +1,9 @@
 # Fortify spatial polygons and lines
 # Fortify method for a number of the class from the sp package.
 # 
+# To figure out the correct variable name for region, inspect 
+# \code{as.data.frame(model)}.
+# 
 # @alias fortify.SpatialPolygons
 # @alias fortify.Polygons
 # @alias fortify.Polygon
@@ -16,7 +19,8 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
   }
   
   # Figure out how polygons should be split up into the region of interest
-  polys <- split(as.numeric(row.names(attr)), attr[, region])
+  
+  polys <- split(as.numeric(row.names(attr)), addNA(attr[, region], TRUE))
   cp <- polygons(model)
   
   # Union together all polygons that make up a region
