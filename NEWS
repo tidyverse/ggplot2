@@ -8,3 +8,4 @@ ggplot2 0.9 (2009-XX-XX) ----------------------------------------
 * legend: text labels now correctly left-aligned when non-numeric
 * coord_equal: correctly place tick marks (Fixes #61)
 * stat_contour: fix error if x or y coordinates were negative
+* stat_qq: always use sorted data (rather than interpolated quantiles) on sample axis.  This makes it behave more like qqnorm

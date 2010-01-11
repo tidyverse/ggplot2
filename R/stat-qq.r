@@ -14,14 +14,20 @@ StatQq <- proto(Stat, {
 
   calculate <- function(., data, scales, quantiles = NULL, distribution = qnorm, na.rm = FALSE, ...) {
     
-    if (is.null(quantiles)) {
-      quantiles <- ppoints(length(data$sample))
-    }
+    data <- remove_missing(data, na.rm, "sample", name = "stat_qq")    
+
+    sample <- sort(data$sample)
+    n <- length(sample)
     
+    # Compute theoretical quantiles
+    if (is.null(quantiles)) {
+      quantiles <- ppoints(n)
+    } else {
+      stopifnot(length(quantiles) == n)
+    }
     theoretical <- safe.call(distribution, list(p = quantiles, ...))
-    sample <- quantile(data$sample, probs=quantiles, na.rm=na.rm)
   
-    data.frame(sample, theoretical, group = data$group[1])
+    data.frame(sample, theoretical)
   }
   
   desc_outputs <- list(
