@@ -25,7 +25,7 @@ ScaleDate <- proto(ScaleContinuous,{
   }
   
   train <- function(., values, drop = FALSE) {
-    .$.domain <- range(c(values, .$.domain), na.rm=TRUE)
+    .$.domain <- range(c(values, .$.domain), na.rm=TRUE, finite = TRUE)
   }
   
   break_points <- function(.) {
