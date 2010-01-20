@@ -34,7 +34,7 @@
   "position" = "position adjustment used by this layer",
   "..." = "other arguments", 
   "trans" = "a transformer to use",
-  "..." = "ignored",
+  "..." = "ignored pass to geom/stat",
   "to" = "numeric vector of length 2, giving minimum and maximum after transformation",
 
   "name" = "name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath",
