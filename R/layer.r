@@ -150,7 +150,7 @@ Layer <- proto(expr = {
     
     # Drop aesthetics that are set manually
     aesthetics <- aesthetics[setdiff(names(aesthetics), names(.$geom_params))]
-    plot$scales$add_defaults(plot$data, aesthetics, plot$plot_env)
+    plot$scales$add_defaults(data, aesthetics, plot$plot_env)
     
     # Evaluate aesthetics in the context of their data frame
     eval.each <- function(dots) 

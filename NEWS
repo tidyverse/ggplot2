@@ -15,6 +15,7 @@ Bug fixes
 * legend: text labels now correctly left-aligned when non-numeric
 * order aesthetic now correctly affects position adjustments  (Fixes #70)
 * scale_date and scale_date_time now work with infinite positions
+* scales were not getting automatically added in many situations (Fixes #69)
 * stat_contour: fix error if x or y coordinates were negative
 * stat_qq: always use sorted data (rather than interpolated quantiles) on sample axis.  This makes it behave more like qqnorm
 * stat_quantile: correctly group results
