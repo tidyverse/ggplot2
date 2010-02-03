@@ -7,7 +7,7 @@
 predictdf <- function(model, xseq, se, level) UseMethod("predictdf")
 
 predictdf.default <- function(model, xseq, se, level) {
-  pred <- stats::predict(model, data.frame(x = xseq), se = se)
+  pred <- stats::predict(model, newdata = data.frame(x = xseq), se = se)
 
   if (se) {
     std <- qnorm(level / 2 + 0.5)
@@ -23,7 +23,7 @@ predictdf.default <- function(model, xseq, se, level) {
 }
 
 predictdf.glm <- function(model, xseq, se, level) {
-  pred <- stats::predict(model, data.frame(x = xseq), se = se, 
+  pred <- stats::predict(model, newdata = data.frame(x = xseq), se = se, 
     type = "link")
   
   if (se) {
