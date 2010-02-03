@@ -2,7 +2,7 @@
 # Row weave
 # Weave together two (or more) matrices by row
 # 
-# Matrices must have smae dimensions
+# Matrices must have same dimensions
 # 
 # @arguments matrices to weave together
 # @keywords internal
@@ -38,7 +38,7 @@ cunion <- function(a, b) {
 # Col weave
 # Weave together two (or more) matrices by column
 # 
-# Matrices must have smae dimensions
+# Matrices must have same dimensions
 # 
 # @arguments matrices to weave together
 # @keywords internal
