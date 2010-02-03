@@ -13,6 +13,7 @@ Bug fixes
 * fortify.SpatialPolygonsDataFrame: fixed bug when region variable had missing values
 * legend: don't try and display legend when unnecessary scale added
 * legend: text labels now correctly left-aligned when non-numeric
+* order aesthetic now correctly affects position adjustments  (Fixes #70)
 * scale_date and scale_date_time now work with infinite positions
 * stat_contour: fix error if x or y coordinates were negative
 * stat_qq: always use sorted data (rather than interpolated quantiles) on sample axis.  This makes it behave more like qqnorm

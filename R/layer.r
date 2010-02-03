@@ -244,8 +244,17 @@ Layer <- proto(expr = {
   }
 
   adjust_position <- function(., data, scales) {
-    gg_apply(data, function(x) {
-      .$position$adjust(x, scales)
+    gg_apply(data, function(df) {
+      if (is.null(df$group)) df$group <- 1
+
+      # If ordering is set, modify group variable according to this order
+      if (!is.null(df$order)) {
+        df$group <- ninteraction(list(df$group, df$order))
+        df$order <- NULL
+      }
+
+      df <- df[order(df$group), ]
+      .$position$adjust(df, scales)
     })
   }
   
@@ -254,17 +263,10 @@ Layer <- proto(expr = {
     
     data <- .$use_defaults(data)
     
-    check_required_aesthetics(.$geom$required_aes, c(names(data), names(.$geom_params)), paste("geom_", .$geom$objname, sep=""))
+    check_required_aesthetics(.$geom$required_aes,
+      c(names(data), names(.$geom_params)), 
+      paste("geom_", .$geom$objname, sep=""))
     
-    if (is.null(data$group)) data$group <- 1
-    
-    # If ordering is set, modify group variable according to this order
-    if (!is.null(data$order)) {
-      data$group <- ninteraction(list(data$group, data$order))
-      data$order <- NULL
-    }
-    
-    data <- data[order(data$group), ]
     
     do.call(.$geom$draw_groups, c(
       data = list(as.name("data")), 
