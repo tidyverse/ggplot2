@@ -245,6 +245,7 @@ Layer <- proto(expr = {
 
   adjust_position <- function(., data, scales) {
     gg_apply(data, function(df) {
+      if (empty(df)) return(data.frame())
       if (is.null(df$group)) df$group <- 1
 
       # If ordering is set, modify group variable according to this order
