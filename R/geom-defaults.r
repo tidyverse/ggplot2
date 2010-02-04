@@ -11,7 +11,7 @@ update_geom_defaults <- function(geom, new) {
   g <- Geom$find(geom)
   old <- g$default_aes()
   
-  aes <- defaults(new, old)
+  aes <- plyr::defaults(new, old)
   g$default_aes <- eval(substitute(function(.) aes, list(aes = aes)))
 }
 
@@ -30,6 +30,6 @@ update_stat_defaults <- function(geom, new) {
   g <- Stat$find(geom)
   old <- g$default_aes()
   
-  aes <- defaults(new, old)
+  aes <- plyr::defaults(new, old)
   g$default_aes <- eval(substitute(function(.) aes, list(aes = aes)))
 }

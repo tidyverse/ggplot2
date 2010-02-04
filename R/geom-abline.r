@@ -1,6 +1,6 @@
 GeomAbline <- proto(Geom, {
   new <- function(., mapping = NULL, ...) {
-    mapping <- compact(defaults(mapping, aes(group = 1)))
+    mapping <- plyr::compact(plyr::defaults(mapping, aes(group = 1)))
     class(mapping) <- "uneval"
     .super$new(., ..., mapping = mapping, inherit.aes = FALSE)
   }

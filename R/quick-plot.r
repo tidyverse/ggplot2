@@ -64,7 +64,7 @@ qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE,
   argnames <- names(as.list(match.call(expand.dots=FALSE)[-1]))
   arguments <- as.list(match.call()[-1])
   
-  aesthetics <- compact(arguments[.all_aesthetics])
+  aesthetics <- plyr::compact(arguments[.all_aesthetics])
   aesthetics <- aesthetics[!is.constant(aesthetics)]
   aes_names <- names(aesthetics)
   aesthetics <- rename_aes(aesthetics)

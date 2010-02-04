@@ -50,7 +50,7 @@ bolus.ggplot <- function(x, ...) {
     scales = scales$hash(),
     facet = facet$hash(),
     coord = coordinates$hash(),
-    options = digest(defaults(x$options, theme_get()))
+    options = digest(plyr::defaults(x$options, theme_get()))
   ))
 }
 
@@ -95,7 +95,7 @@ Scale$bolus <- function(.) {
     name = .$objname,
     input = .$.input,
     output = .$.output,
-    settings = compact(settings)
+    settings = plyr::compact(settings)
   )
 }
 Layer$bolus <- function(.) {

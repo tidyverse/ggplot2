@@ -21,7 +21,7 @@ StatContour <- proto(Stat, {
       levels = breaks)  
     cl <- lapply(cl, as.data.frame)
     
-    contour_df <- rbind.fill(cl)
+    contour_df <- plyr::rbind.fill(cl)
     contour_df$piece <- rep(seq_along(cl), sapply(cl, nrow))
     contour_df$group <- paste(data$group[1], contour_df$piece, sep = "-")
     contour_df

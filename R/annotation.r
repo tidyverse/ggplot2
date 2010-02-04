@@ -8,7 +8,7 @@
 #X annotate("text", x = 0, y = 0, label = "title")
 annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL, ymin = NULL, ymax = NULL, ...) {
   
-  layer_data <- compact(list(
+  layer_data <- plyr::compact(list(
     x = x, xmin = xmin, xmax = xmax, 
     y = y, ymin = ymin, ymax = ymax
   ))

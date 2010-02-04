@@ -136,9 +136,9 @@ as.character.uneval <- function(x, ...) {
 aesdefaults <- function(data, y., params.) {
   updated <- updatelist(y., params.)
   
-  cols <- tryapply(defaults(data, updated), function(x) eval(x, data, globalenv()))
+  cols <- tryapply(plyr::defaults(data, updated), function(x) eval(x, data, globalenv()))
   
-  cols <- cols[unlist(llply(cols, function(x) is.atomic(x) || is.list(x)))]
+  cols <- cols[unlist(plyr::llply(cols, function(x) is.atomic(x) || is.list(x)))]
   df <- as_df(cols)
   
   factors <- sapply(df, is.factor)

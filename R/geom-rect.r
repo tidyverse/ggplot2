@@ -12,7 +12,7 @@ GeomRect <- proto(Geom, {
         names(data), c("x", "y", "xmin","xmax", "ymin", "ymax")
       )
       
-      polys <- alply(data, 1, function(row) {
+      polys <- plyr::alply(data, 1, function(row) {
         poly <- with(row, rect_to_poly(xmin, xmax, ymin, ymax))
         aes <- as.data.frame(row[aesthetics], 
           stringsAsFactors = FALSE)[rep(1,5), ]

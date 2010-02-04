@@ -31,7 +31,7 @@ plotmatrix <- function(data, mapping=aes(), colour="black") {
       x = data[, i]
     )
   }))
-  mapping <- defaults(mapping, aes_string(x="x", y="y"))
+  mapping <- plyr::defaults(mapping, aes_string(x="x", y="y"))
   class(mapping) <- "uneval"
 
   ggplot(all, mapping) + facet_grid(xvar ~ yvar, scales = "free") +

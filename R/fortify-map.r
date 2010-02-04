@@ -39,7 +39,7 @@ fortify.map <- function(model, data, ...) {
 #X if (require(maps)) {
 #X ia <- map_data("county", "iowa")
 #X mid_range <- function(x) mean(range(x))
-#X seats <- ddply(ia, .(subregion), colwise(mid_range, .(lat, long)))
+#X seats <- ddply(ia, .(subregion), plyr::colwise(mid_range, .(lat, long)))
 #X ggplot(seats, aes(long, lat)) + 
 #X   geom_polygon(aes(group = group), fill = NA, colour = "grey60") +
 #X   geom_text(aes(label = subregion), data = seats, size = 2, angle = 45)

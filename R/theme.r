@@ -28,7 +28,7 @@ theme_update <- function(...) {
   if (length(args) == 1 && is.list(elements[[1]])) {
     elements <- elements[[1]]
   }
-  theme <- defaults(elements, theme_get())
+  theme <- plyr::defaults(elements, theme_get())
   class(theme) <- c("options")
   
   theme_set(theme)  
@@ -105,5 +105,5 @@ print.theme <- function(x, ...) {
 # @arugments plot
 # @keywords internal
 plot_theme <- function(x) {
-  defaults(x$options, theme_get())
+  plyr::defaults(x$options, theme_get())
 }

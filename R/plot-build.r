@@ -50,7 +50,7 @@ ggplot_build <- function(plot) {
   grobs <- facet$make_grobs(data, layers, cs)
   
   grobs3d <- array(unlist(grobs, recursive=FALSE), c(dim(data[[1]]), length(data)))
-  panels <- aaply(grobs3d, 1:2, splat(grobTree), .drop = FALSE)
+  panels <- plyr::aaply(grobs3d, 1:2, splat(grobTree), .drop = FALSE)
   
   list(
     data = data,

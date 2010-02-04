@@ -63,19 +63,19 @@ cweave.matrix <- function(...) {
 interleave <- function(...) UseMethod("interleave")
 interleave.list <- function(...) do.call("interleave", ...)
 interleave.unit <- function(...) {
-  do.call("unit.c", do.call("interleave.default", llply(list(...), as.list)))
+  do.call("unit.c", do.call("interleave.default", plyr::llply(list(...), as.list)))
 }
 interleave.default <- function(...) {
   vectors <- list(...)
   
   # Check lengths 
-  lengths <- unique(setdiff(laply(vectors, length), 1))
+  lengths <- unique(setdiff(plyr::laply(vectors, length), 1))
   if (length(lengths) == 0) lengths <- 1
   stopifnot(length(lengths) <= 1)
   
   # Replicate elements of length one up to correct length
-  singletons <- laply(vectors, length) == 1
-  vectors[singletons] <- llply(vectors[singletons], rep, lengths)
+  singletons <- plyr::laply(vectors, length) == 1
+  vectors[singletons] <- plyr::llply(vectors[singletons], rep, lengths)
   
   # Interleave vectors
   n <- lengths
@@ -90,11 +90,11 @@ interleave.default <- function(...) {
 # @arguments list of matrices
 # @keywords internal
 equal_dims <- function(matrices) {
-  are.matrices <- laply(matrices, is.matrix)
+  are.matrices <- plyr::laply(matrices, is.matrix)
   stopifnot(all(are.matrices))
   
-  cols <- laply(matrices, ncol)
-  rows <- laply(matrices, ncol)
+  cols <- plyr::laply(matrices, ncol)
+  rows <- plyr::laply(matrices, ncol)
 
   length(unique(cols) == 1) && length(unique(rows) == 1)
 } 
