@@ -37,7 +37,11 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
     x = x,
     width = width
   )
-
+  
+  if (sum(results$count, na.rm = TRUE) == 0) {
+    return(results)
+  }
+  
   res <- within(results, {
     count[is.na(count)] <- 0
     density <- count / width / sum(abs(count), na.rm=TRUE)

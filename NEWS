@@ -18,6 +18,7 @@ Bug fixes
 * scale_date and scale_date_time now take expand argument
 * scales were not getting automatically added in many situations (Fixes #69)
 * stat_contour: fix error if x or y coordinates were negative
+* stat_bin: now copes with bars of zero height (Fixes #72)
 * stat_qq: always use sorted data (rather than interpolated quantiles) on sample axis.  This makes it behave more like qqnorm
 * stat_quantile: correctly group results
 
