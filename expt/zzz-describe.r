@@ -41,18 +41,18 @@ Layer$call <- function(.) {
 Position$call <- function(.) {
   list(
     name = paste("position", .$objname, sep = "_"),
-    params = compact(list(width = .$width, height = .$height))
+    params = plyr::compact(list(width = .$width, height = .$height))
   )
 }
 
 Scale$call <- function(.) {
   name <- paste("scale", .$.input, .$objname, sep = "_")
-  list(name = name, params = compact(.$params()))
+  list(name = name, params = plyr::compact(.$params()))
 }
 
 Coord$call <- function(.) {
   name <- paste("coord", .$objname, sep = "_")
-  params <- compact(.$params())
+  params <- plyr::compact(.$params())
   
   # if (name == "coord_cartesian" & length(params) == 0) return()
   list(name = name, params = params)

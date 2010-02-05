@@ -47,7 +47,7 @@ ScaleDiscrete <- proto(Scale, expr={
     if (!is.null(.$limits)) return()
     
     input <- .$input_aesthetics(df)
-    l_ply(input, function(var) .$train(df[[var]], drop))
+    plyr::l_ply(input, function(var) .$train(df[[var]], drop))
   }
 
   train <- function(., x, drop = .$drop) {

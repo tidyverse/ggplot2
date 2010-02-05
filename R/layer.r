@@ -97,9 +97,9 @@ Layer <- proto(expr = {
   }
   
   aesthetics_used <- function(., plot_aesthetics) {
-    aes <- defaults(.$mapping, plot_aesthetics)
-    aes <- defaults(.$stat$default_aes(), aes)
-    aesthetics <- names(compact(aes))
+    aes <- plyr::defaults(.$mapping, plot_aesthetics)
+    aes <- plyr::defaults(.$stat$default_aes(), aes)
+    aesthetics <- names(plyr::compact(aes))
     aesthetics <- intersect(aesthetics, names(.$geom$default_aes()))
     parameters <- names(.$geom_params)
     setdiff(aesthetics, parameters)
@@ -138,7 +138,7 @@ Layer <- proto(expr = {
     # For certain geoms, it is useful to be able to ignore the default
     # aesthetics and only use those set in the layer
     if (.$inherit.aes) {
-      aesthetics <- compact(defaults(.$mapping, plot$mapping))
+      aesthetics <- plyr::compact(plyr::defaults(.$mapping, plot$mapping))
     } else {
       aesthetics <- .$mapping
     }
@@ -154,7 +154,7 @@ Layer <- proto(expr = {
     
     # Evaluate aesthetics in the context of their data frame
     eval.each <- function(dots) 
-      compact(lapply(dots, function(x.) eval(x., data, plot$plot_env)))
+      plyr::compact(lapply(dots, function(x.) eval(x., data, plot$plot_env)))
 
     aesthetics <- aesthetics[!is_calculated_aes(aesthetics)]
     evaled <- eval.each(aesthetics)
@@ -214,8 +214,8 @@ Layer <- proto(expr = {
   map_statistic <- function(., data, plot) {
     if (empty(data)) return(data.frame())
 
-    aesthetics <- defaults(.$mapping, 
-      defaults(plot$mapping, .$stat$default_aes()))
+    aesthetics <- plyr::defaults(.$mapping, 
+      plyr::defaults(plot$mapping, .$stat$default_aes()))
 
     new <- strip_dots(aesthetics[is_calculated_aes(aesthetics)])
     if (length(new) == 0) return(data)

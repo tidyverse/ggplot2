@@ -131,7 +131,7 @@ Scales <- proto(Scale, expr={
   transform_df <- function(., df) {
     if (length(.$.scales) == 0) return(df)
     if (empty(df)) return(data.frame())
-    transformed <- compact(lapply(.$.scales, function(scale) {
+    transformed <- plyr::compact(lapply(.$.scales, function(scale) {
       scale$transform_df(df)
     }))
     
@@ -145,7 +145,7 @@ Scales <- proto(Scale, expr={
   # a scale
   add_defaults <- function(., data, aesthetics, env) {
     if (is.null(aesthetics)) return()
-    names(aesthetics) <- laply(names(aesthetics), aes_to_scale)
+    names(aesthetics) <- plyr::laply(names(aesthetics), aes_to_scale)
     
     new_aesthetics <- setdiff(names(aesthetics), .$input())
     

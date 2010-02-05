@@ -41,7 +41,7 @@ clist <- function(l) {
 # @arguments default separator
 # @arguments default collapser
 # @keyword internal
-ps <- function(..., sep="", collapse="") do.call(paste, compact(list(..., sep=sep, collapse=collapse)))
+ps <- function(..., sep="", collapse="") do.call(paste, plyr::compact(list(..., sep=sep, collapse=collapse)))
 
 # Quietly try to require a package
 # Queitly require a package, returning an error message if that package is not installed.

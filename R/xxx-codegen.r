@@ -34,7 +34,7 @@ Scale$create_accessor <- function(.) {
 TopLevel$build_accessor <- function(., extra_args = c()) {
   layer <- if (.$class() %in% c("geom","stat")) c(
     list(mapping=NULL,data=NULL),
-    compact(list(
+    plyr::compact(list(
       geom = if (exists("default_geom", .)) .$default_geom()$objname, 
       stat = if (exists("default_stat", .)) .$default_stat()$objname, 
       position = if (exists("default_pos", .)) .$default_pos()$objname

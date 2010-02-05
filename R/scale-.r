@@ -65,13 +65,13 @@ Scale <- proto(TopLevel, expr={
     if (!is.null(.$limits)) return()
     
     input <- .$input_aesthetics(df)
-    l_ply(input, function(var) .$train(df[[var]], drop))
+    plyr::l_ply(input, function(var) .$train(df[[var]], drop))
   }
 
   # Map values from a data.frame.   Returns data.frame
   map_df <- function(., df) {
     output <- .$input_aesthetics(df)
-    mapped <- llply(output, function(var) .$map(df[[var]]))
+    mapped <- plyr::llply(output, function(var) .$map(df[[var]]))
     
     if (length(mapped) == 0) {
       return(data.frame(matrix(nrow = nrow(df), ncol=0)))
