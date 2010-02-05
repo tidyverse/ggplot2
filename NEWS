@@ -20,3 +20,5 @@ Bug fixes
 * stat_contour: fix error if x or y coordinates were negative
 * stat_qq: always use sorted data (rather than interpolated quantiles) on sample axis.  This makes it behave more like qqnorm
 * stat_quantile: correctly group results
+
+* all plyr functions prefixed with their namespace to avoid clashes with other packages (thanks to Steve Lianoglou)
