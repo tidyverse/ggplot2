@@ -8,7 +8,7 @@ The Cartesian coordinate system is the most familiar, and common, type of coordi
 
 This page describes coord\_cartesian, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{coord_cartesian(xlim=NULL, ylim=NULL, ...)}
+\usage{coord_cartesian(xlim = NULL, ylim = NULL, ...)}
 \arguments{
  \item{xlim}{NULL}
  \item{ylim}{NULL}

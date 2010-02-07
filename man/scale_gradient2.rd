@@ -9,8 +9,8 @@
 \details{
 This page describes scale\_gradient2, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", ...)
-scale_fill_gradient2(name=NULL, low=muted("red"), mid="white", high=muted("blue"), midpoint=0, space="rgb", ...)}
+\usage{scale_colour_gradient2(name = NULL, low = muted("red"), mid = "white", 
+    high = muted("blue"), midpoint = 0, space = "rgb", ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{low}{colour at low end of scale}

@@ -12,8 +12,8 @@
 \details{
 This page describes scale\_gradient, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_gradient(name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", ...)
-scale_fill_gradient(name=NULL, low="#3B4FB8", high="#B71B1A", space="rgb", ...)}
+\usage{scale_colour_gradient(name = NULL, low = "#3B4FB8", high = "#B71B1A", 
+    space = "rgb", ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{low}{colour at low end of scale}

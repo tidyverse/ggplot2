@@ -6,7 +6,7 @@
 \details{
 This page describes position\_fill, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{position_fill(width=NULL, height=NULL, ...)}
+\usage{position_fill(width = NULL, height = NULL, ...)}
 \arguments{
  \item{width}{NULL}
  \item{height}{NULL}

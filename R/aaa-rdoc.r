@@ -145,7 +145,7 @@ TopLevel$call <- function(.) {
 # FIXME: need to generate usage statements for all common scales
 TopLevel$rdoc_usage <- function (.) {
   # add line breaks
-  call <- deparse(parse(text = .$call()))
+  call <- deparse(parse(text = .$call())[[1]])
   
   ps(
     "\\usage{", ps(call, collapse="\n"), "}\n"

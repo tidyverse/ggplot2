@@ -6,7 +6,9 @@
 \details{
 This page describes facet\_grid, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{facet_grid(facets=. ~ ., margins=FALSE, scales="fixed", space="fixed", labeller="label_value", as.table=TRUE, ...)}
+\usage{facet_grid(facets = . ~ ., margins = FALSE, scales = "fixed", 
+    space = "fixed", labeller = "label_value", as.table = TRUE, 
+    ...)}
 \arguments{
  \item{facets}{a formula with the rows (of the tabular display) on the LHS and the columns (of the tabular display) on the RHS; the dot in the formula is used to indicate there should be no faceting on this dimension (either row or column); the formula can also be entered as a string instead of a classical formula object}
  \item{margins}{logical value, should marginal rows and columns be displayed}

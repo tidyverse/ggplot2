@@ -8,8 +8,9 @@
 \details{
 This page describes scale\_continuous, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_x_continuous(name=NULL, limits=NULL, breaks=NULL, labels=NULL, trans=NULL, expand=c(0.05, 0), minor_breaks=NULL, formatter="scientific", legend=TRUE, ...)
-scale_y_continuous(name=NULL, limits=NULL, breaks=NULL, labels=NULL, trans=NULL, expand=c(0.05, 0), minor_breaks=NULL, formatter="scientific", legend=TRUE, ...)}
+\usage{scale_x_continuous(name = NULL, limits = NULL, breaks = NULL, 
+    labels = NULL, trans = NULL, expand = c(0.05, 0), minor_breaks = NULL, 
+    formatter = "scientific", legend = TRUE, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{limits}{numeric vector of length 2, giving the extent of the scale}

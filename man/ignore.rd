@@ -37,6 +37,7 @@
 \alias{TransIdentity}
 \alias{TransInverse}
 \alias{TransLog10}
+\alias{TransLog1p}
 \alias{TransLog2}
 \alias{TransLogit}
 \alias{TransLog}
@@ -53,6 +54,7 @@
 \alias{ScaleExp}
 \alias{ScaleInverse}
 \alias{ScaleLog}
+\alias{ScaleLog1p}
 \alias{ScaleLog10}
 \alias{ScaleLog2}
 \alias{ScaleLogit}
@@ -74,6 +76,8 @@
 \alias{scale_x_pow10}
 \alias{scale_x_probit}
 \alias{scale_x_recip}
+\alias{scale_x_log1p}
+\alias{scale_y_log1p}
 \alias{scale_x_reverse}
 \alias{scale_x_sqrt}
 \alias{scale_y_asn}

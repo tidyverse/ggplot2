@@ -11,8 +11,9 @@
 \details{
 This page describes scale\_hue, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_hue(name=NULL, h=c(0, 360) + 15, l=65, c=100, limits=NULL, breaks=NULL, labels=NULL, h.start=0, direction=1, formatter=identity, legend=TRUE, ...)
-scale_fill_hue(name=NULL, h=c(0, 360) + 15, l=65, c=100, limits=NULL, breaks=NULL, labels=NULL, h.start=0, direction=1, formatter=identity, legend=TRUE, ...)}
+\usage{scale_colour_hue(name = NULL, h = c(0, 360) + 15, l = 65, c = 100, 
+    limits = NULL, breaks = NULL, labels = NULL, h.start = 0, 
+    direction = 1, formatter = identity, legend = TRUE, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{h}{range of hues to use, in [0, 360]}

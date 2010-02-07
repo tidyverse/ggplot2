@@ -6,7 +6,8 @@
 \details{
 This page describes facet\_wrap, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{facet_wrap(facets, nrow=NULL, ncol=NULL, scales="fixed", as.table=TRUE, drop=TRUE, ...)}
+\usage{facet_wrap(facets, nrow = NULL, ncol = NULL, scales = "fixed", 
+    as.table = TRUE, drop = TRUE, ...)}
 \arguments{
  \item{facets}{NULL}
  \item{nrow}{number of rows}

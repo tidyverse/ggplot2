@@ -6,7 +6,7 @@
 \details{
 This page describes position\_jitter, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{position_jitter(width=NULL, height=NULL, ...)}
+\usage{position_jitter(width = NULL, height = NULL, ...)}
 \arguments{
  \item{width}{degree of jitter in x direction. Defaults to 40\% of the resolution of the data.}
  \item{height}{degree of jitter in y direction. Defaults to 40\% of the resolution of the data.}

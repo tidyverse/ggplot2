@@ -11,8 +11,9 @@ See <a href='http://colorbrewer.org'>colorbrewer.org</a> for more info
 
 This page describes scale\_brewer, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_brewer(name=NULL, palette=1, type="qual", limits=NULL, breaks=NULL, labels=NULL, formatter=identity, legend=TRUE, ...)
-scale_fill_brewer(name=NULL, palette=1, type="qual", limits=NULL, breaks=NULL, labels=NULL, formatter=identity, legend=TRUE, ...)}
+\usage{scale_colour_brewer(name = NULL, palette = 1, type = "qual", 
+    limits = NULL, breaks = NULL, labels = NULL, formatter = identity, 
+    legend = TRUE, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{palette}{Either numeric or character.  If numeric, selects the nth palette of type type.  If character, selects the named palette.  Get a complete list of all parameters by running \code{RColorBrewer::display.brewer.all(n=8, exact.n=FALSE)}}

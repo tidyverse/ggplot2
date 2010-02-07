@@ -9,9 +9,9 @@
 \details{
 This page describes scale\_discrete, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_x_discrete(name=NULL, expand=c(0.05, 0.55), limits=NULL, breaks=NULL, labels=NULL, formatter=identity, drop=FALSE, legend=TRUE, ...)
-scale_y_discrete(name=NULL, expand=c(0.05, 0.55), limits=NULL, breaks=NULL, labels=NULL, formatter=identity, drop=FALSE, legend=TRUE, ...)
-scale_z_discrete(name=NULL, expand=c(0.05, 0.55), limits=NULL, breaks=NULL, labels=NULL, formatter=identity, drop=FALSE, legend=TRUE, ...)}
+\usage{scale_x_discrete(name = NULL, expand = c(0.05, 0.55), limits = NULL, 
+    breaks = NULL, labels = NULL, formatter = identity, drop = FALSE, 
+    legend = TRUE, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{expand}{numeric vector of length 2, giving multiplicative and additive expansion factors}

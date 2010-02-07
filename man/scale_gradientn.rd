@@ -9,8 +9,8 @@
 \details{
 This page describes scale\_gradientn, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_gradientn(name=NULL, colours, values=NULL, rescale=TRUE, space="rgb", ...)
-scale_fill_gradientn(name=NULL, colours, values=NULL, rescale=TRUE, space="rgb", ...)}
+\usage{scale_colour_gradientn(name = NULL, colours, values = NULL, rescale = TRUE, 
+    space = "rgb", ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{colours}{NULL}

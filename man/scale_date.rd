@@ -8,14 +8,15 @@
 \details{
 This page describes scale\_date, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_x_date(name=NULL, limits=NULL, major=NULL, minor=NULL, format=NULL, ...)
-scale_y_date(name=NULL, limits=NULL, major=NULL, minor=NULL, format=NULL, ...)}
+\usage{scale_x_date(name = NULL, limits = NULL, major = NULL, minor = NULL, 
+    format = NULL, expand = c(0.05, 0), ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{limits}{numeric vector of length 2, giving the extent of the scale}
  \item{major}{NULL}
  \item{minor}{NULL}
  \item{format}{NULL}
+ \item{expand}{numeric vector of length 2, giving multiplicative and additive expansion factors}
  \item{...}{ignored }
 }
 \seealso{\itemize{

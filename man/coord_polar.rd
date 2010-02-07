@@ -11,7 +11,8 @@ This coordinate system has one argument, \code{theta}, which determines which va
 
 This page describes coord\_polar, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{coord_polar(theta="x", start=0, direction=1, expand=FALSE, ...)}
+\usage{coord_polar(theta = "x", start = 0, direction = 1, expand = FALSE, 
+    ...)}
 \arguments{
  \item{theta}{variable to map angle to ('x' or 'y')}
  \item{start}{offset from 12 o'clock in radians}

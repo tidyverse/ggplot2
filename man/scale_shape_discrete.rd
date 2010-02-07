@@ -7,7 +7,9 @@
 \details{
 This page describes scale\_shape\_discrete, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_shape_discrete(name=NULL, solid=TRUE, limits=NULL, breaks=NULL, labels=NULL, formatter=identity, legend=TRUE, ...)}
+\usage{scale_shape_discrete(name = NULL, solid = TRUE, limits = NULL, 
+    breaks = NULL, labels = NULL, formatter = identity, legend = TRUE, 
+    ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}
  \item{solid}{NULL}
