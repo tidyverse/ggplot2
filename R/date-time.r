@@ -3,7 +3,7 @@
 # 
 # @arguments date to round
 # @arguments unit of time to round to (see \code{\link{cut.Date}}) for valid values
-# @keywords internal
+# @keyword internal
 # @alias floor_time
 floor_date <- function(date, time) {
   prec <- parse_unit_spec(time)
@@ -30,7 +30,7 @@ floor_time <- function(date, time) {
 # Parse date time unit specification
 # Parse the time unit specification used by \code{\link{cut.Date}} into something useful
 # 
-# @keywords internal
+# @keyword internal
 parse_unit_spec <- function(unitspec) {
   parts <- strsplit(unitspec, " ")[[1]]
   if (length(parts) == 1) {
@@ -50,7 +50,7 @@ parse_unit_spec <- function(unitspec) {
 # 
 # @arguments date to round
 # @arguments unit of time to round to (see \code{\link{cut.Date}}) for valid values
-# @keywords internal
+# @keyword internal
 # @alias ceiling_time
 ceiling_date <- function(date, time) { 
   prec <- parse_unit_spec(time)
@@ -80,7 +80,7 @@ ceiling_time <- function(date, time) {
 # 
 # @arguments range of dates
 # @argument unit of time to round to
-# @keywords internal
+# @keyword internal
 # @alias fullseq_time
 fullseq_date <- function(range, time) {
   seq.Date(

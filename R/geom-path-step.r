@@ -49,7 +49,7 @@ GeomStep <- proto(Geom, {
 # Calculate stairsteps
 # Used by \code{\link{geom_step}}
 # 
-# @keywords internal
+# @keyword internal
 stairstep <- function(data, direction="hv") {
   direction <- match.arg(direction, c("hv", "vh"))
   data <- as.data.frame(data)[order(data$x), ]

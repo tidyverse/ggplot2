@@ -3,7 +3,7 @@
 # 
 # @arguments plot
 # @argument named list of new labels
-# @keywords internal
+# @keyword internal
 #X p <- qplot(mpg, wt, data = mtcars)
 #X update_labels(p, list(x = "New x"))
 #X update_labels(p, list(x = expression(x / y ^ 2)))

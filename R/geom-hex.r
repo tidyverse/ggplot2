@@ -29,7 +29,7 @@ GeomHex <- proto(Geom, {
 # @argument vector of hex sizes
 # @argument border colour
 # @argument fill colour
-# @keywords internal
+# @keyword internal
 hexGrob <- function(x, y, size = rep(1, length(x)), colour = "grey50", fill = "grey90") {
   stopifnot(length(y) == length(x))
   

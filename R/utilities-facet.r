@@ -1,7 +1,7 @@
 # Adding missing levels
 # Ensure all data frames in list have same levels for selected variables
 # 
-# @keywords internal
+# @keyword internal
 add_missing_levels <- function(dfs, levels) {
   
   lapply(dfs, function(df) {
@@ -15,7 +15,7 @@ add_missing_levels <- function(dfs, levels) {
 # Unique levels
 # Get unique levels of vector
 # 
-# @keywords internal
+# @keyword internal
 ulevels <- function(x) {
   if (is.factor(x)) {
     levels(factor(x))

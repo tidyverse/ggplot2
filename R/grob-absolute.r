@@ -8,7 +8,7 @@
 # @alias grobX.absoluteGrob
 # @alias grobY.absoluteGrob
 # @alias grid.draw.absoluteGrob
-# @keywords internal
+# @keyword internal
 absoluteGrob <- function(grob, width = NULL, height = NULL, xmin = NULL, ymin = NULL) {
   gTree(
     children = grob, 

@@ -21,4 +21,4 @@ Add annotations to a plot in a convenient manner
 
 
 \examples{annotate("text", x = 0, y = 0, label = "title")}
-
+\keyword{internal}

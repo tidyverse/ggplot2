@@ -16,4 +16,4 @@ This element draws segments between a set of points
 
 \seealso{\code{\link{segmentsGrob}} for underlying grid function, \code{link{theme_line}}}
 
-
+\keyword{dplot}

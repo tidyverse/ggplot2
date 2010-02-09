@@ -11,7 +11,7 @@ Weave together two (or more) matrices by column
 \item{...}{matrices to weave together}
 }
 
-\details{Matrices must have smae dimensions}
+\details{Matrices must have same dimensions}
 
 
-
+\keyword{internal}

@@ -14,4 +14,4 @@ Determine if an expression represents a constant value
 \details{Used by qplot to determine whether a value should be mapped or set}
 
 
-
+\keyword{internal}

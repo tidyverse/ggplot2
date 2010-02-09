@@ -2,7 +2,7 @@
 # Null default
 # Analog of || from ruby
 # 
-# @keywords internal
+# @keyword internal
 # @name nulldefault-infix
 "%||%" <- function(a, b) {
   if (!is.null(a)) a else b
@@ -161,7 +161,7 @@ invert <- function(L) {
 # Inside
 # Return logical vector indicating if x is inside the interval
 # 
-# @keywords internal
+# @keyword internal
 "%inside%" <- function(x, interval) {
   x >= interval[1] & x <= interval[2]
 }

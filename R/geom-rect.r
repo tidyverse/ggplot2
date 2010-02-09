@@ -60,7 +60,7 @@ GeomRect <- proto(Geom, {
 # Convert rectangle to polygon
 # Useful for non-Cartesian coordinate systems where it's easy to work purely in terms of locations, rather than locations and dimensions.
 # 
-# @keywords internal
+# @keyword internal
 rect_to_poly <- function(xmin, xmax, ymin, ymax) {
   data.frame(
     y = c(ymax, ymax, ymin, ymin, ymax),

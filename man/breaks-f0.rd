@@ -17,4 +17,4 @@ Method that powers \code{\link{cut_number}} and \code{\link{cut_interval}}
 
 
 
-
+\keyword{internal}

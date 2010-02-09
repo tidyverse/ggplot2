@@ -17,4 +17,6 @@ Modify geom aesthetic defaults for future plots
 \examples{update_geom_defaults("point", aes(colour = "darkblue"))
 qplot(mpg, wt, data = mtcars)
 update_geom_defaults("point", aes(colour = "black"))}
-
+\keyword{name of geom to modify}
+\keyword{named list of aesthetics}
+\keyword{hplot}

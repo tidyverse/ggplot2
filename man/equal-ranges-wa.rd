@@ -16,4 +16,4 @@ Used by \code{\link{coord_equal}} to compute equal ranges for equal scale axes
 
 
 
-
+\keyword{internal}

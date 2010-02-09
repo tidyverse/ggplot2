@@ -7,7 +7,7 @@
 # @arguments map object
 # @arguments ignored
 # @arguments ignored
-# @keywords hplot
+# @keyword hplot
 #X if (require(maps)) {
 #X ca <- map_data("county", "ca")
 #X qplot(long, lat, data = ca, geom="polygon", group = group)
@@ -35,7 +35,7 @@ fortify.map <- function(model, data, ...) {
 # @arguments fill colour
 # @arguments border colour
 # @arguments other arguments passed on to \code{\link{geom_polygon}}
-# @keywords hplot
+# @keyword hplot
 #X if (require(maps)) {
 #X ia <- map_data("county", "iowa")
 #X mid_range <- function(x) mean(range(x))
@@ -62,7 +62,7 @@ borders <- function(database = "world", regions = ".", fill = NA, colour = "grey
 # 
 # @arguments map name
 # @arguments region name
-# @keywords hplot
+# @keyword hplot
 #X if (require(maps)) {
 #X states <- map_data("state")
 #X arrests <- USArrests

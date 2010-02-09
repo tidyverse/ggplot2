@@ -20,7 +20,8 @@ Fortify method for a number of the class from the sp package.
 \item{...}{}
 }
 
-
+\details{To figure out the correct variable name for region, inspect
+\code{as.data.frame(model)}.}
 
 
 

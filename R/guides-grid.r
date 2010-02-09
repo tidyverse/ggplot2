@@ -6,7 +6,7 @@
 # @arguments major breaks in x axis
 # @arguments minor breaks in y axis
 # @arguments major breaks in y axis
-# @keywords internal
+# @keyword internal
 guide_grid <- function(theme, x.minor, x.major, y.minor, y.major) {
   ggname("grill", grobTree(
     theme_render(theme, "panel.background"),

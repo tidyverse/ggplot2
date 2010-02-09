@@ -19,4 +19,4 @@ Get predictions with standard errors into data frame
 
 
 
-
+\keyword{internal}

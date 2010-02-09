@@ -15,4 +15,4 @@ Return logical vector indicating if x is inside the interval
 
 
 
-
+\keyword{internal}

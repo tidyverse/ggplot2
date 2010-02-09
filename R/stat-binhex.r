@@ -51,7 +51,7 @@ StatBinhex <- proto(Stat, {
 # @arguments x positions
 # @arguments y positions
 # @arguments numeric vector of length 2 giving binwidth in x and y directions
-# @keywords internal
+# @keyword internal
 hexBin <- function(x, y, binwidth) {
   try_require("hexbin")
   

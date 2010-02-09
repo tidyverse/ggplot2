@@ -14,4 +14,4 @@ Parse the time unit specification used by \code{\link{cut.Date}} into something 
 
 
 
-
+\keyword{internal}

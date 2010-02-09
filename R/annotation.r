@@ -4,7 +4,7 @@
 # @argument name of geom to use for annotation
 # @argument x position
 # @argument y position
-# @keywords internal
+# @keyword internal
 #X annotate("text", x = 0, y = 0, label = "title")
 annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL, ymin = NULL, ymax = NULL, ...) {
   

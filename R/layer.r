@@ -315,7 +315,7 @@ layer <- Layer$new
 # Is calculated aesthetic?
 # Determine if aesthetic is calculated from the statistic
 # 
-# @keywords internal
+# @keyword internal
 is_calculated_aes <- function(aesthetics) {
   match <- "\\.\\.([a-zA-z._]+)\\.\\."
   stats <- rep(F, length(aesthetics))
@@ -326,7 +326,7 @@ is_calculated_aes <- function(aesthetics) {
 # Strip dots
 # Strip dots from expressions that represent mappings of aesthetics to output from statistics
 # 
-# @keywords internal
+# @keyword internal
 strip_dots <- function(aesthetics) {
   match <- "\\.\\.([a-zA-z._]+)\\.\\."
   strings <- lapply(aesthetics, deparse)

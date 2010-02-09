@@ -23,4 +23,4 @@ tx <- map_data("county", "texas")
 qplot(long, lat, data = tx, geom="polygon", group = group, 
 colour = I("white"))
 }}
-
+\keyword{hplot}

@@ -14,4 +14,4 @@ Check that a list of matrices have equal dimensions
 
 
 
-
+\keyword{internal}

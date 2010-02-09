@@ -24,4 +24,4 @@ Generate correct scale type for specified limits
 limits(c(5, 1), "x")
 limits(c("A", "b", "c"), "x")
 limits(as.Date(c("2008-01-01", "2009-01-01")), "x")}
-
+\keyword{internal}

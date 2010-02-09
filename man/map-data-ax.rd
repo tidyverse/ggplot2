@@ -27,4 +27,4 @@ geom="polygon")
 qplot(long, lat, data = choro, group = group, fill = assault / murder,
 geom="polygon")
 }}
-
+\keyword{hplot}

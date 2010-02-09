@@ -48,7 +48,7 @@ aes <- function(x, y, ...) {
 # Rename aesthetics
 # Rename aesthetics named in American spelling or with base R graphic parameter names to ggplot2 names
 # 
-# @keywords internal
+# @keyword internal
 rename_aes <- function(x) {
   # Convert prefixes to full names
   full <- charmatch(names(x), .all_aesthetics)
@@ -60,7 +60,7 @@ rename_aes <- function(x) {
 # Aesthetic to scale
 # Look up the scale that should be used for a given aesthetic
 # 
-# @keywords internal
+# @keyword internal
 aes_to_scale <- function(var) {
   var[var %in% c("x", "xmin", "xmax", "xend", "xintercept")] <- "x"
   var[var %in% c("y", "ymin", "ymax", "yend", "yintercept")] <- "y"

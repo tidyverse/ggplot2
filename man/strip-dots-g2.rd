@@ -14,4 +14,4 @@ Strip dots from expressions that represent mappings of aesthetics to output from
 
 
 
-
+\keyword{internal}

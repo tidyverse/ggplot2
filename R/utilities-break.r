@@ -5,7 +5,7 @@
 # @arguments number of intervals to create, OR
 # @arguments length of each interval
 # @arguments other arguments passed on to \code{\link{cut}}
-# @keywords manip
+# @keyword manip
 # @seealso \code{\link{cut_number}}
 # 
 #X table(cut_interval(1:100, n = 10))
@@ -22,7 +22,7 @@ cut_interval <- function(x, n = NULL, length = NULL, ...) {
 # @arguments number of intervals to create, OR
 # @arguments length of each interval
 # @arguments other arguments passed on to \code{\link{cut}}
-# @keywords manip
+# @keyword manip
 # @seealso \code{\link{cut_interval}}
 #X table(cut_number(runif(1000), n = 10))
 cut_number <- function(x, n = NULL, ...) {
@@ -31,7 +31,7 @@ cut_number <- function(x, n = NULL, ...) {
 
 # Discretise continuous vector
 # Method that powers \code{\link{cut_number}} and \code{\link{cut_interval}}
-# @keywords internal
+# @keyword internal
 breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
   equal <- match.arg(equal, c("numbers", "width"))
   if ((!is.null(nbins) && !is.null(binwidth)) || (is.null(nbins) && is.null(binwidth))) {

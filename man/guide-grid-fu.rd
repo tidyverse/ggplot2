@@ -18,4 +18,4 @@ Produce a grob to be used as a background in panels
 
 
 
-
+\keyword{internal}

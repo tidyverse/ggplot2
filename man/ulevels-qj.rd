@@ -14,4 +14,4 @@ Get unique levels of vector
 
 
 
-
+\keyword{internal}

@@ -30,7 +30,7 @@ ylim <- function(...) {
 # 
 # @arguments vector of limits
 # @arguments variable
-# @keywords internal
+# @keyword internal
 # @alias limits.numeric
 # @alias limits.character
 # @alias limits.factor 

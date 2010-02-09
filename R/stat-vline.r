@@ -80,7 +80,7 @@ StatHline <- proto(Stat, {
 # Compute intercept from data
 # Compute intercept for vline and hline from data and parameters
 # 
-# @keywords internal
+# @keyword internal
 compute_intercept <- function(data, intercept, var = "x") {
   ivar <- paste(var, "intercept", sep = "")
   if (is.null(intercept)) {

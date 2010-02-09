@@ -395,7 +395,7 @@ FacetGrid <- proto(Facet, {
 # @arguments input scale
 # @arguments number of scales to produce in output
 # @arguments should the scales be free (TRUE) or fixed (FALSE)
-# @keywords internal
+# @keyword internal
 scales_list <- function(scale, n, free) {
   if (free) {
     plyr::rlply(n, scale$clone())  

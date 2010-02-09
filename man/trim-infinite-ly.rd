@@ -16,4 +16,4 @@ Trim non-finite numbers to specified range
 
 
 
-
+\keyword{internal}

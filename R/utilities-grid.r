@@ -10,7 +10,7 @@ ggname <- function(prefix, grob) {
 # Global grob editing
 # To match grid.gedit
 # 
-# @keywords internal
+# @keyword internal
 geditGrob <- function(..., grep = TRUE, global = TRUE) {
   editGrob(..., grep = grep, global = global)
 }
@@ -19,7 +19,7 @@ geditGrob <- function(..., grep = TRUE, global = TRUE) {
 # Given a matrix of grobs, calculate the height needed for each row
 # 
 # @arguments matrix of grobs
-# @keywords internal
+# @keyword internal
 grobRowHeight <- function(mat) {
   row_heights <- plyr::alply(mat, 1, function(x) plyr::llply(x, grobHeight))
   do.call("unit.c", plyr::llply(row_heights, splat(max)))  
@@ -29,7 +29,7 @@ grobRowHeight <- function(mat) {
 # Given a matrix of grobs, calculate the width needed for each column
 # 
 # @arguments matrix of grobs
-# @keywords internal
+# @keyword internal
 grobColWidth <- function(mat) {
   col_widths <- plyr::alply(mat, 2, function(x) plyr::llply(x, grobWidth))
   do.call("unit.c", plyr::llply(col_widths, splat(max)))  
@@ -44,7 +44,7 @@ grobColWidth <- function(mat) {
 # @arguments number of rows
 # @arguments number of columns
 # @arguments should the matrix be arranged like a table or a plot
-# @keywords internal
+# @keyword internal
 grobMatrix <- function(vec, nrow, ncol, as.table = FALSE) {
   if (nrow == 0 || ncol == 0) {
     return(matrix(ncol = ncol, nrow = nrow))

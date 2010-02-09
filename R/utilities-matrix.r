@@ -5,7 +5,7 @@
 # Matrices must have same dimensions
 # 
 # @arguments matrices to weave together
-# @keywords internal
+# @keyword internal
 #X a <- matrix(1:10 * 2, ncol = 2)
 #X b <- matrix(1:10 * 3, ncol = 2)
 #X c <- matrix(1:10 * 5, ncol = 2)
@@ -27,7 +27,7 @@ rweave.matrix <- function(...) {
 # 
 # @arguments data frame a
 # @arguments data frame b
-# @keywords internal
+# @keyword internal
 cunion <- function(a, b) {
   if (length(a) == 0) return(b)
   if (length(b) == 0) return(a)
@@ -41,7 +41,7 @@ cunion <- function(a, b) {
 # Matrices must have same dimensions
 # 
 # @arguments matrices to weave together
-# @keywords internal
+# @keyword internal
 cweave <- function(...) UseMethod("cweave")
 cweave.list <- function(...) do.call("cweave", ...)
 cweave.matrix <- function(...) {
@@ -59,7 +59,7 @@ cweave.matrix <- function(...) {
 # Interleave (or zip) multiple vectors into a single vector
 # 
 # @arguments vectors to interleave
-# @keywords internal
+# @keyword internal
 interleave <- function(...) UseMethod("interleave")
 interleave.list <- function(...) do.call("interleave", ...)
 interleave.unit <- function(...) {
@@ -88,7 +88,7 @@ interleave.default <- function(...) {
 # Check that a list of matrices have equal dimensions
 # 
 # @arguments list of matrices
-# @keywords internal
+# @keyword internal
 equal_dims <- function(matrices) {
   are.matrices <- plyr::laply(matrices, is.matrix)
   stopifnot(all(are.matrices))

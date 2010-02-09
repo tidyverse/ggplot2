@@ -20,7 +20,7 @@ Create a layer of map borders
 \examples{if (require(maps)) {
 ia <- map_data("county", "iowa")
 mid_range <- function(x) mean(range(x))
-seats <- ddply(ia, .(subregion), colwise(mid_range, .(lat, long)))
+seats <- ddply(ia, .(subregion), plyr::colwise(mid_range, .(lat, long)))
 ggplot(seats, aes(long, lat)) + 
 geom_polygon(aes(group = group), fill = NA, colour = "grey60") +
 geom_text(aes(label = subregion), data = seats, size = 2, angle = 45)
@@ -32,4 +32,4 @@ borders("state") +
 geom_point(aes(size = pop)) + 
 scale_area()
 }}
-
+\keyword{hplot}

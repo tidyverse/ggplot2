@@ -21,4 +21,4 @@ This element adds text
 
 \seealso{\code{\link{textGrob}} for underlying grid function}
 
-
+\keyword{dplot}

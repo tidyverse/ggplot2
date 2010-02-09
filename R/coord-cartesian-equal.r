@@ -57,7 +57,7 @@ CoordEqual <- proto(CoordCartesian, {
 # @arguments x limits
 # @arguments y limits
 # @arguments desired ratio between x and y ranges
-# @keywords internal
+# @keyword internal
 equal_ranges <- function(xlim, ylim, ratio = NULL) {
   if (is.null(ratio)) return(list(x = xlim, y = ylim))
 

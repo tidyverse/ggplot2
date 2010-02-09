@@ -11,9 +11,9 @@ Weave together two (or more) matrices by row
 \item{...}{matrices to weave together}
 }
 
-\details{Matrices must have smae dimensions}
+\details{Matrices must have same dimensions}
 
 \examples{a <- matrix(1:10 * 2, ncol = 2)
 b <- matrix(1:10 * 3, ncol = 2)
 c <- matrix(1:10 * 5, ncol = 2)}
-
+\keyword{internal}

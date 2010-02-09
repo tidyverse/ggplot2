@@ -16,4 +16,4 @@ Wrapper around \code{\link[hexbin]{hcell2xy}} that returns a data frame
 
 
 
-
+\keyword{internal}

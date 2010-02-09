@@ -18,10 +18,10 @@ Cut numeric vector into intervals of equal length.
 @arguments number of intervals to create, OR
 @arguments length of each interval
 @arguments other arguments passed on to \code{\link{cut}}
-@keywords manip
+@keyword manip
 @seealso \code{\link{cut_number}}}
 \seealso{\code{\link{cut_number}}}
 \examples{table(cut_interval(1:100, n = 10))
 table(cut_interval(1:100, n = 11))
 table(cut_interval(1:100, length = 10))}
-
+\keyword{manip}

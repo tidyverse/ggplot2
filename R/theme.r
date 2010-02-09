@@ -79,7 +79,7 @@ opts <- function(...) {
 # 
 # It also names the created grobs consistently
 # 
-# @keywords internal
+# @keyword internal
 theme_render <- function(theme, element, ..., name = NULL) {
   el <- theme[[element]]
   if (is.null(el)) {
@@ -93,7 +93,7 @@ theme_render <- function(theme, element, ..., name = NULL) {
 # Print out a theme element
 # Currently all theme elements save there call, which is printed here
 # 
-# @keywords internal
+# @keyword internal
 print.theme <- function(x, ...) {
   call <- attr(x, "call")
   print(call)
@@ -103,7 +103,7 @@ print.theme <- function(x, ...) {
 # Combines plot defaults with current theme to get complete theme for a plot
 # 
 # @arugments plot
-# @keywords internal
+# @keyword internal
 plot_theme <- function(x) {
   plyr::defaults(x$options, theme_get())
 }

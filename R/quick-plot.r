@@ -144,7 +144,7 @@ quickplot <- qplot
 # 
 # Used by qplot to determine whether a value should be mapped or set
 #
-# @keywords internal
+# @keyword internal
 is.constant <- function(x) {
   sapply(x, function(x) "I" %in% all.names(asOneSidedFormula(x)))
 }

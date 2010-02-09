@@ -143,7 +143,7 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep,
 # Generate viewports for plot surroundings
 # This some pretty ugly code
 # 
-# @keywords internal
+# @keyword internal
 surround_viewports <- function(position, widths, heights, legend_vp) {
   layout <- grid.layout(
     length(heights), length(widths), 

@@ -14,4 +14,4 @@ Combines plot defaults with current theme to get complete theme for a plot
 
 
 
-
+\keyword{internal}

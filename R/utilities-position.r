@@ -16,7 +16,7 @@ expand_range <- function(range, mul = 0, add = 0, zero = 0.5) {
 # Trim infinite.
 # Trim non-finite numbers to specified range
 # 
-# @keywords internal
+# @keyword internal
 # @alias trim_infinite_01
 trim_infinite <- function(x, range) {
   x[x == -Inf] <- range[1]

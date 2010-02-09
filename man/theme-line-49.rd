@@ -16,4 +16,4 @@ This element draws a line between two (or more) points
 
 \seealso{\code{\link{polylineGrob}} for underlying grid function, \code{link{theme_segment}}}
 
-
+\keyword{dplot}

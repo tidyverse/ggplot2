@@ -17,4 +17,4 @@ Cut numeric vector into intervals containing equal number of points.
 
 \seealso{\code{\link{cut_interval}}}
 \examples{table(cut_number(runif(1000), n = 10))}
-
+\keyword{manip}

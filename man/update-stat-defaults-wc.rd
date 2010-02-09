@@ -15,4 +15,6 @@ Modify geom aesthetic defaults for future plots
 
 
 
-
+\keyword{name of geom to modify}
+\keyword{named list of aesthetics}
+\keyword{hplot}

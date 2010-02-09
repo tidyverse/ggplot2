@@ -1,7 +1,7 @@
 # Calculate range for discrete position variables
 # This is the equivalent of range for discrete variables 
 # 
-# @keywords internal
+# @keyword internal
 discrete_range <- function(..., drop = FALSE) {
   pieces <- list(...)
   

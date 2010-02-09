@@ -2,7 +2,7 @@
 # Produce a theme with gray background and white gridlines
 # 
 # @argument base font size
-# @keywords dplot
+# @keyword dplot
 # @alias theme_grey
 theme_gray <- function(base_size = 12) {
   structure(list(
@@ -43,7 +43,7 @@ theme_grey <- theme_gray
 # Produce a theme with white background and black gridlines
 # 
 # @argument base font size
-# @keywords dplot
+# @keyword dplot
 theme_bw <- function(base_size = 12) {
   structure(list(
     axis.line =         theme_blank(),

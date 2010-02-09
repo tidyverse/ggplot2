@@ -1,7 +1,7 @@
 # Prediction data frame
 # Get predictions with standard errors into data frame
 # 
-# @keywords internal
+# @keyword internal
 # @alias predictdf.default
 # @alias predictdf.glm
 predictdf <- function(model, xseq, se, level) UseMethod("predictdf")

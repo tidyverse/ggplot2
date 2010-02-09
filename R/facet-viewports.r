@@ -5,7 +5,7 @@
 # assign each grob to the appropriate viewport
 # 
 # @arguments named matrix of grobs
-# @keywords internal
+# @keyword internal
 assign_viewports <- function(grobs) {
   make_grid <- function(type) {
     data.frame(
