@@ -8,7 +8,7 @@ Combines plot defaults with current theme to get complete theme for a plot
 }
 \usage{plot_theme(x)}
 \arguments{
-\item{x}{}
+\item{x}{plot}
 }
 
 

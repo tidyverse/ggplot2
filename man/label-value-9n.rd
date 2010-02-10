@@ -8,8 +8,8 @@ The default facet labelling just uses the value of the variable
 }
 \usage{label_value(variable, value)}
 \arguments{
-\item{variable}{}
-\item{value}{}
+\item{variable}{variable name passed in by facetter}
+\item{value}{variable value passed in by facetter}
 }
 
 

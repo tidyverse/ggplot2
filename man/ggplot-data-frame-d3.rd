@@ -12,8 +12,8 @@ Create a new ggplot plot
 \arguments{
 \item{data}{default data frame}
 \item{mapping}{default list of aesthetic mappings (these can be colour, size, shape, line type -- see individual geom functions for more details)}
-\item{...}{}
-\item{environment}{}
+\item{...}{ignored}
+\item{environment}{environment in which evaluation of aesthetics should occur}
 }
 
 

@@ -8,14 +8,14 @@ Add annotations to a plot in a convenient manner
 }
 \usage{annotate(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL, ymin = NULL, ymax = NULL, ...)}
 \arguments{
-\item{geom}{}
-\item{x}{}
-\item{y}{}
-\item{xmin}{}
-\item{xmax}{}
-\item{ymin}{}
-\item{ymax}{}
-\item{...}{}
+\item{geom}{name of geom to use for annotation}
+\item{x}{x position}
+\item{y}{y position}
+\item{xmin}{xmin position}
+\item{xmax}{ymin position}
+\item{ymin}{xmax position}
+\item{ymax}{ymax position}
+\item{...}{... other arguments passed to geom as parameters}
 }
 
 

@@ -14,7 +14,7 @@
 #
 # @arguments character vector of required aesthetics
 # @arguments character vector of present aesthetics
-# @argument name of object for error message
+# @arguments name of object for error message
 # @keyword internal
 check_required_aesthetics <- function(required, present, name) {
   missing_aes <- setdiff(required, present)
@@ -46,7 +46,7 @@ ps <- function(..., sep="", collapse="") do.call(paste, plyr::compact(list(..., 
 # Quietly try to require a package
 # Queitly require a package, returning an error message if that package is not installed.
 # 
-# @argument name of package
+# @arguments name of package
 # @keyword internal
 try_require <- function(package) {
   available <- suppressMessages(suppressWarnings(sapply(package, require, quietly = TRUE, character.only = TRUE, warn.conflicts=FALSE)))
@@ -127,9 +127,10 @@ tr <- function(x = NULL) traceback(x, max.lines=1)
 # Rescale numeric vector to have specified minimum and maximum.
 # If vector has length one, it is not rescaled, but is restricted to the range.
 #
-# @argument data to rescale
-# @argument range to scale to
-# @argument range to scale from, defaults to range of data
+# @arguments data to rescale
+# @arguments range to scale to
+# @arguments range to scale from, defaults to range of data
+# @arguments should values be clipped to specified range?
 # @keyword manip
 rescale <- function(x, to=c(0,1), from=range(x, na.rm=TRUE), clip = TRUE) {
   if (length(from) == 1 || length(to) == 1  || from[1] == from[2] || to[1] == to[2]) return(x)

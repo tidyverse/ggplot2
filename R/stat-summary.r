@@ -125,10 +125,10 @@ StatSummary <- proto(Stat, {
 # data.frame into pieces, summarise each piece, and join the pieces
 # back together, retaining original columns unaffected by the summary.
 # 
-# @argument \code{\link{data.frame}} to summarise
-# @argument vector to summarise by
-# @argument summary function (must take and return a data.frame)
-# @argument other arguments passed on to summary function
+# @arguments \code{\link{data.frame}} to summarise
+# @arguments vector to summarise by
+# @arguments summary function (must take and return a data.frame)
+# @arguments other arguments passed on to summary function
 # @keyword internal
 summarise_by_x <- function(data, summary, ...) {
   summary <- ddply(data, .(group, x), summary, ...)

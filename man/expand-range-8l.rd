@@ -11,7 +11,7 @@ Convenience function for expanding a range with a multiplicative or additive con
 \item{range}{range of data}
 \item{mul}{multiplicative constract}
 \item{add}{additive constant}
-\item{zero}{}
+\item{zero}{distance to use if range has zero width}
 }
 
 

@@ -12,7 +12,7 @@ These three functions get, set and update themes.
 }
 \usage{theme_update(...)}
 \arguments{
-\item{...}{}
+\item{...}{named list of theme settings}
 }
 
 \details{Use \code{theme_update} to modify a small number of elements of the current

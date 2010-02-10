@@ -11,9 +11,9 @@ Generic method to supplement the original data with model fit statistics
 }
 \usage{fortify(model, data, ...)}
 \arguments{
-\item{model}{}
-\item{data}{}
-\item{...}{}
+\item{model}{model}
+\item{data}{dataset}
+\item{...}{other arguments passed to methods}
 }
 
 

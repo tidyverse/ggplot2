@@ -29,4 +29,4 @@ various components in.  The viewport is set up so that each component
 will only take up the amount of space that it requires.}
 
 
-\keyword{hplot}
+\keyword{internal}

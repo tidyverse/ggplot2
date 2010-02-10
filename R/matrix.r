@@ -3,6 +3,7 @@
 # 
 # @arguments data frame
 # @arguments any additional aesthetic mappings (do not use x and y)
+# @arguments default point colour
 # @keyword hplot
 #X plotmatrix(mtcars[, 1:3])
 #X plotmatrix(mtcars[, 1:3]) + geom_smooth(method="lm")

@@ -1,8 +1,8 @@
 # Label facets with their value
 # The default facet labelling just uses the value of the variable
 # 
-# @argument variable name passed in by facetter
-# @argument variable value passed in by facetter
+# @arguments variable name passed in by facetter
+# @arguments variable value passed in by facetter
 # @keyword hplot
 #X p <- qplot(wt, mpg, data = mtcars)
 #X p + facet_grid(~ cyl)
@@ -12,8 +12,8 @@ label_value <- function(variable, value) value
 # Label facets with value and variable
 # Join together facet value and the name of the variable to create a label.
 # 
-# @argument variable name passed in by facetter
-# @argument variable value passed in by facetter
+# @arguments variable name passed in by facetter
+# @arguments variable value passed in by facetter
 # @keyword hplot
 #X p <- qplot(wt, mpg, data = mtcars)
 #X p + facet_grid(~ cyl)
@@ -25,8 +25,8 @@ label_both <- function(variable, value) paste(variable, value, sep = ": ")
 # 
 # 
 # @seealso \code{\link{plotmath}}
-# @argument variable name passed in by facetter
-# @argument variable value passed in by facetter
+# @arguments variable name passed in by facetter
+# @arguments variable value passed in by facetter
 # @keyword hplot
 #X mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
 #X qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2)
@@ -42,7 +42,7 @@ label_parsed <- function(variable, value) {
 # See \code{\link{bquote}} for details on the syntax of the argument.  The
 # label value is x. 
 # 
-# @argument expression to use
+# @arguments expression to use
 # @seealso \code{\link{plotmath}}
 # @keyword hplot
 #X p <- qplot(wt, mpg, data = mtcars)

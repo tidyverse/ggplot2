@@ -16,7 +16,9 @@
 # If you have missing values in your model data, you may need to refit 
 # the model with \code{na.action = na.preserve}.
 #
-# @arguments 
+# @arguments linear model
+# @arguments data set, defaults to data used to fit model
+# @arguments not used
 #X mod <- lm(mpg ~ wt, data = mtcars)
 #X fortify(mod)
 #X fortify(mod, mtcars)

@@ -200,7 +200,7 @@ TopLevel$rdoc_keyword<- function(.) {
 # Automatically link functions used in rdoc
 # 
 # @arguments input rdoc string
-# @argument functions to omit
+# @arguments functions to omit
 # @keyword internal
 rdoc_auto_link <- function(input, skip="") {
   if (!exists("links")) html_autolink_index()

@@ -16,9 +16,9 @@ Save a ggplot with sensible defaults
 \item{width}{width (in inches)}
 \item{height}{height (in inches)}
 \item{dpi}{dpi to use for raster graphics}
-\item{keep}{other arguments passed to graphics device}
-\item{drop}{}
-\item{...}{}
+\item{keep}{plot components to keep}
+\item{drop}{plot components to drop}
+\item{...}{other arguments passed to graphics device}
 }
 
 \details{ggsave is a convenient function for saving a plot.  It defaults to

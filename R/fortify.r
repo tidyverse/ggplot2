@@ -5,6 +5,9 @@
 # @alias fortify.data.frame
 # @alias fortify.NULL
 # @alias fortify.default
+# @arguments model
+# @arguments dataset
+# @arguments other arguments passed to methods
 fortify <- function(model, data, ...) UseMethod("fortify")
 
 fortify.data.frame <- function(model, data, ...) model

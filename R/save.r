@@ -18,6 +18,8 @@
 # @arguments width (in inches)
 # @arguments height (in inches)
 # @arguments dpi to use for raster graphics
+# @arguments plot components to keep
+# @arguments plot components to drop
 # @arguments other arguments passed to graphics device
 # @keyword file 
 #X \dontrun{

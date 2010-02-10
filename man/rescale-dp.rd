@@ -8,10 +8,10 @@ Rescale numeric vector to have specified minimum and maximum.
 }
 \usage{rescale(x, to=c(0,1), from=range(x, na.rm=TRUE), clip = TRUE)}
 \arguments{
-\item{x}{}
-\item{to}{}
-\item{from}{}
-\item{clip}{}
+\item{x}{data to rescale}
+\item{to}{range to scale to}
+\item{from}{range to scale from, defaults to range of data}
+\item{clip}{should values be clipped to specified range?}
 }
 
 

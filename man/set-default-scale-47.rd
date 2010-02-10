@@ -8,8 +8,8 @@ Overrides the default scale with one of your choosing.
 }
 \usage{set_default_scale(aesthetic, type, scale, ...)}
 \arguments{
-\item{aesthetic}{}
-\item{type}{}
+\item{aesthetic}{type of variable (discrete, continuous, date)}
+\item{type}{name of new default scale}
 \item{scale}{}
 \item{...}{}
 }

@@ -8,9 +8,10 @@ Summarise a data frame by unique value of x
 }
 \usage{summarise_by_x(data, summary, ...)}
 \arguments{
-\item{data}{}
-\item{summary}{}
-\item{...}{}
+\item{data}{\code{\link{data.frame}} to summarise}
+\item{summary}{vector to summarise by}
+\item{...}{summary function (must take and return a data.frame)}
+\item{}{other arguments passed on to summary function}
 }
 
 \details{This function is used by \code{\link{stat_summary}} to break a

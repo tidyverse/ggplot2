@@ -4,6 +4,8 @@
 # @seealso \url{http://had.co.nz/ggplot2}
 # @alias ggplot.default
 # @keyword hplot
+# @arguments default data set
+# @arguments other arguments passed to specific methods
 ggplot <- function(data = NULL, ...) UseMethod("ggplot")
 
 ggplot.default <- function(data = NULL, mapping = aes(), ...) {
@@ -16,6 +18,8 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...) {
 # @alias package-ggplot
 # @arguments default data frame
 # @arguments default list of aesthetic mappings (these can be colour, size, shape, line type -- see individual geom functions for more details)
+# @arguments ignored
+# @arguments environment in which evaluation of aesthetics should occur
 # @seealso \url{http://had.co.nz/ggplot2}
 # @alias package-ggplot
 # @keyword hplot

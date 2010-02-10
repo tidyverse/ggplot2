@@ -8,7 +8,7 @@ Set options/theme elements for a single plot
 }
 \usage{opts(...)}
 \arguments{
-\item{...}{}
+\item{...}{named list of theme settings}
 }
 
 \details{Use this function if you want to modify a few theme settings for

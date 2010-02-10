@@ -26,9 +26,9 @@ GeomHex <- proto(Geom, {
 # 
 # @arguments x positions of hex centres
 # @arguments y positions
-# @argument vector of hex sizes
-# @argument border colour
-# @argument fill colour
+# @arguments vector of hex sizes
+# @arguments border colour
+# @arguments fill colour
 # @keyword internal
 hexGrob <- function(x, y, size = rep(1, length(x)), colour = "grey50", fill = "grey90") {
   stopifnot(length(y) == length(x))

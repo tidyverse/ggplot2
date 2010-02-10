@@ -79,7 +79,7 @@ ceiling_time <- function(date, time) {
 # Use in \code{\link{scale_date}}
 # 
 # @arguments range of dates
-# @argument unit of time to round to
+# @arguments unit of time to round to
 # @keyword internal
 # @alias fullseq_time
 fullseq_date <- function(range, time) {

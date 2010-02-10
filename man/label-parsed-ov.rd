@@ -8,8 +8,8 @@ Parses the facet label, as if
 }
 \usage{label_parsed(variable, value)}
 \arguments{
-\item{variable}{}
-\item{value}{}
+\item{variable}{variable name passed in by facetter}
+\item{value}{variable value passed in by facetter}
 }
 
 

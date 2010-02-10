@@ -39,8 +39,8 @@ guide_legends_box <- function(scales, layers, default_mapping, horizontal = FALS
 # Build all legend grob
 # Build legends, merging where possible
 # 
-# @argument list of legend descriptions
-# @argument list description usage of aesthetics in geoms
+# @arguments list of legend descriptions
+# @arguments list description usage of aesthetics in geoms
 # @keyword internal
 # @value A list of grobs
 # @alias build_legend

@@ -38,6 +38,8 @@ Position <- proto(TopLevel, expr = {
 
 # Convenience function to ensure that all position variables 
 # (x, xmin, xmax, xend) are transformed in the same way
+# 
+# @keyword internal
 transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
   scales <- aes_to_scale(names(df))
 

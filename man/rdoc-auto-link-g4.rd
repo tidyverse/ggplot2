@@ -9,7 +9,7 @@ Automatically link functions used in rdoc
 \usage{rdoc_auto_link(input, skip="")}
 \arguments{
 \item{input}{input rdoc string}
-\item{skip}{}
+\item{skip}{functions to omit}
 }
 
 

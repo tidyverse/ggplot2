@@ -57,7 +57,7 @@ ggpcp <- function(data, vars=names(data), scale="range", ...) {
 # @arguments a table of values, or a data frame with three columns, the last column being frequency
 # @arguments size, or colour to create traditional heatmap
 # @arguments don't display cells smaller than this value
-# @arguments 
+# @arguments round cells to at most this value
 # @keyword hplot
 #X ggfluctuation(table(movies$Action, movies$Comedy))
 #X ggfluctuation(table(movies$Action, movies$mpaa))

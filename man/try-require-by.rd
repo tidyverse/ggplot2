@@ -8,7 +8,7 @@ Queitly require a package, returning an error message if that package is not ins
 }
 \usage{try_require(package)}
 \arguments{
-\item{package}{}
+\item{package}{name of package}
 }
 
 

@@ -9,8 +9,8 @@ Create a new ggplot plot
 }
 \usage{ggplot(data = NULL, ...)}
 \arguments{
-\item{data}{}
-\item{...}{}
+\item{data}{default data set}
+\item{...}{other arguments passed to specific methods}
 }
 
 

@@ -10,9 +10,9 @@ Modified from code by Nicholas Lewin-Koh and Martin Maechler
 \arguments{
 \item{x}{x positions of hex centres}
 \item{y}{y positions}
-\item{size}{}
-\item{colour}{}
-\item{fill}{}
+\item{size}{vector of hex sizes}
+\item{colour}{border colour}
+\item{fill}{fill colour}
 }
 
 

@@ -2,7 +2,7 @@
 # Change the scale names of an existing plot
 # 
 # @arguments plot
-# @argument named list of new labels
+# @arguments named list of new labels
 # @keyword internal
 #X p <- qplot(mpg, wt, data = mtcars)
 #X update_labels(p, list(x = "New x"))

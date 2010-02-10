@@ -8,8 +8,8 @@ Join together facet value and the name of the variable to create a label.
 }
 \usage{label_both(variable, value)}
 \arguments{
-\item{variable}{}
-\item{value}{}
+\item{variable}{variable name passed in by facetter}
+\item{value}{variable value passed in by facetter}
 }
 
 

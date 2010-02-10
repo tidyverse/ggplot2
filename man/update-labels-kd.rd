@@ -9,7 +9,7 @@ Change the scale names of an existing plot
 \usage{update_labels(p, labels)}
 \arguments{
 \item{p}{plot}
-\item{labels}{}
+\item{labels}{named list of new labels}
 }
 
 

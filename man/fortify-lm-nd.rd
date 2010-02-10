@@ -8,9 +8,9 @@ Supplement the data fitted to a linear model with model fit statistics.
 }
 \usage{fortify.lm(model, data = model$model, ...)}
 \arguments{
-\item{model}{}
-\item{data}{}
-\item{...}{}
+\item{model}{linear model}
+\item{data}{data set, defaults to data used to fit model}
+\item{...}{not used}
 }
 
 \details{The following statistics will be added to the data frame:

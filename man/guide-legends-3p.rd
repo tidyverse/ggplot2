@@ -10,8 +10,8 @@ Build legends, merging where possible
 }
 \usage{guide_legends(scales, layers, default_mapping, theme)}
 \arguments{
-\item{scales}{}
-\item{layers}{}
+\item{scales}{list of legend descriptions}
+\item{layers}{list description usage of aesthetics in geoms}
 \item{default_mapping}{}
 \item{theme}{}
 }

@@ -10,7 +10,7 @@ The elements of a ggplot plot are combined together with addition.
 \usage{"+.ggplot"(p, object)}
 \arguments{
 \item{p}{plot object}
-\item{object}{}
+\item{object}{object to add}
 }
 
 \details{\itemize{

@@ -11,7 +11,7 @@ Create a fluctuation plot.
 \item{table}{a table of values, or a data frame with three columns, the last column being frequency}
 \item{type}{size, or colour to create traditional heatmap}
 \item{floor}{don't display cells smaller than this value}
-\item{ceiling}{}
+\item{ceiling}{round cells to at most this value}
 }
 
 \details{A fluctutation diagram is a graphical representation of a contingency

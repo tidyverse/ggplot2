@@ -8,7 +8,7 @@ Produce a theme with white background and black gridlines
 }
 \usage{theme_bw(base_size = 12)}
 \arguments{
-\item{base_size}{}
+\item{base_size}{base font size}
 }
 
 

@@ -10,7 +10,7 @@ Crude experimental scatterplot matrix
 \arguments{
 \item{data}{data frame}
 \item{mapping}{any additional aesthetic mappings (do not use x and y)}
-\item{colour}{}
+\item{colour}{default point colour}
 }
 
 

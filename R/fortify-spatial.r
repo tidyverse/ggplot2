@@ -10,6 +10,10 @@
 # @alias fortify.SpatialLinesDataFrame
 # @alias fortify.Lines
 # @alias fortify.Line
+# @arguments SpatialPolygonsDataFrame
+# @arguments not used
+# @arguments name of variable to split up regions by
+# @arguments not used
 fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
   attr <- as.data.frame(model)
   # If not specified, split into regions based on first variable in attributes

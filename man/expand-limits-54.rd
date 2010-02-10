@@ -8,7 +8,7 @@ Some times you may want to ensure limits include a single value, for all panels 
 }
 \usage{expand_limits(...)}
 \arguments{
-\item{...}{}
+\item{...}{named list of aesthetics specifying the value (or values that should be included.}
 }
 
 
@@ -22,4 +22,4 @@ qplot(mpg, wt, data = mtcars, colour = cyl) +
 expand_limits(colour = seq(2, 10, by = 2))
 qplot(mpg, wt, data = mtcars, colour = factor(cyl)) + 
 expand_limits(colour = factor(seq(2, 10, by = 2)))}
-
+\keyword{hplot}

@@ -8,8 +8,8 @@ Modify geom aesthetic defaults for future plots
 }
 \usage{update_geom_defaults(geom, new)}
 \arguments{
-\item{geom}{}
-\item{new}{}
+\item{geom}{name of geom to modify}
+\item{new}{named list of aesthetics}
 }
 
 
@@ -17,6 +17,4 @@ Modify geom aesthetic defaults for future plots
 \examples{update_geom_defaults("point", aes(colour = "darkblue"))
 qplot(mpg, wt, data = mtcars)
 update_geom_defaults("point", aes(colour = "black"))}
-\keyword{name of geom to modify}
-\keyword{named list of aesthetics}
 \keyword{hplot}

@@ -10,7 +10,7 @@ Analog of \code{link{fullseq}}, but for dates and times
 \usage{fullseq_date(range, time)}
 \arguments{
 \item{range}{range of dates}
-\item{time}{}
+\item{time}{unit of time to round to}
 }
 
 \details{Use in \code{\link{scale_date}}}

@@ -8,6 +8,7 @@
 # @alias theme_set
 # @alias theme_get
 # @alias ggopt
+# @arguments named list of theme settings
 #X qplot(mpg, wt, data = mtcars)
 #X old <- theme_set(theme_bw())
 #X qplot(mpg, wt, data = mtcars)
@@ -65,7 +66,7 @@ ggopt <- function(...) {
 # Use this function if you want to modify a few theme settings for 
 # a single plot.
 # 
-# @argument named list of theme settings
+# @arguments named list of theme settings
 #X p <- qplot(mpg, wt, data = mtcars)
 #X p 
 #X p + opts(panel_background = theme_rect(colour = "pink"))
@@ -102,7 +103,7 @@ print.theme <- function(x, ...) {
 # Retrieve theme for a plot
 # Combines plot defaults with current theme to get complete theme for a plot
 # 
-# @arugments plot
+# @arguments plot
 # @keyword internal
 plot_theme <- function(x) {
   plyr::defaults(x$options, theme_get())

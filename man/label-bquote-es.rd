@@ -8,7 +8,7 @@ Create facet labels which contain the facet label in a larger expression
 }
 \usage{label_bquote(expr = beta ^ .(x))}
 \arguments{
-\item{expr}{}
+\item{expr}{expression to use}
 }
 
 \details{See \code{\link{bquote}} for details on the syntax of the argument.  The

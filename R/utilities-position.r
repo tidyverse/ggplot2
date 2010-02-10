@@ -4,6 +4,7 @@
 # @arguments range of data
 # @arguments multiplicative constract
 # @arguments additive constant
+# @arguments distance to use if range has zero width
 # @keyword manip 
 expand_range <- function(range, mul = 0, add = 0, zero = 0.5) {
   if (length(range) == 1 || diff(range) == 0) {

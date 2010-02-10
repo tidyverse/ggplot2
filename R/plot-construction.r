@@ -12,7 +12,7 @@
 # }
 #
 # @arguments plot object
-# @argument object to add
+# @arguments object to add
 # @seealso \code{\link{set_last_plot}}, \code{\link{ggplot}}
 # @keyword internal
 # @alias \%+\%

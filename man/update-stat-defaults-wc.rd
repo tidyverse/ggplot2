@@ -8,13 +8,11 @@ Modify geom aesthetic defaults for future plots
 }
 \usage{update_stat_defaults(geom, new)}
 \arguments{
-\item{geom}{}
-\item{new}{}
+\item{geom}{name of geom to modify}
+\item{new}{named list of aesthetics}
 }
 
 
 
 
-\keyword{name of geom to modify}
-\keyword{named list of aesthetics}
 \keyword{hplot}
