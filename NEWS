@@ -14,6 +14,7 @@ Bug fixes
 * legend: don't try and display legend when unnecessary scale added
 * legend: text labels now correctly left-aligned when non-numeric
 * order aesthetic now correctly affects position adjustments  (Fixes #70)
+* qplot loads facetting variables from global environment more correctly
 * scale_date and scale_date_time now work with infinite positions
 * scale_date and scale_date_time now take expand argument
 * scales were not getting automatically added in many situations (Fixes #69)
@@ -21,5 +22,6 @@ Bug fixes
 * stat_bin: now copes with bars of zero height (Fixes #72)
 * stat_qq: always use sorted data (rather than interpolated quantiles) on sample axis.  This makes it behave more like qqnorm
 * stat_quantile: correctly group results
+* xlim now works with datetimes
 
 * all plyr functions prefixed with their namespace to avoid clashes with other packages (thanks to Steve Lianoglou)

@@ -77,7 +77,8 @@ qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE,
     # Faceting variables must be in a data frame, so pull those out
     facetvars <- all.vars(facets)
     facetvars <- facetvars[facetvars != "."]
-    facetsdf <- as.data.frame(sapply(facetvars, get))
+    names(facetvars) <- facetvars
+    facetsdf <- as.data.frame(lapply(facetvars, get))
     if (nrow(facetsdf)) data <- facetsdf
   }
 

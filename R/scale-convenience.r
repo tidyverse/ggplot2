@@ -65,11 +65,11 @@ limits.Date <- function(lims, var) {
 }
 limits.POSIXct <- function(lims, var) {
   stopifnot(length(lims) == 2)
-  ScaleDateTime$new(var = var, limits = lims)
+  ScaleDatetime$new(var = var, limits = lims)
 }
 limits.POSIXlt <- function(lims, var) {
   stopifnot(length(lims) == 2)
-  ScaleDateTime$new(var = var, limits = as.POSIXct(lims))
+  ScaleDatetime$new(var = var, limits = as.POSIXct(lims))
 }
 
 # Expand the plot limits with data.
