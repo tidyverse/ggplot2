@@ -33,7 +33,7 @@ ScaleManual <- proto(ScaleDiscrete, {
 
   output_set <- function(.) .$values
   labels <- function(.) {
-    .$.labels %||% .$input_breaks()
+    as.list(.$.labels %||% .$input_breaks())
   }
 
   # Documentation -----------------------------------------------
