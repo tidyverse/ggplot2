@@ -1,4 +1,4 @@
-\name{"\%||\%"}
+\name{infix-nulldefault}
 \alias{\%||\%}
 \title{Null default}
 \author{Hadley Wickham <h.wickham@gmail.com>}
