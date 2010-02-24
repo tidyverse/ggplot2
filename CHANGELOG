@@ -1,5 +1,36 @@
 See NEWS for changes in latest version
 
+ggplot2 0.8.6 (2010-02-07) ----------------------------------------
+
+New features
+
+* trans_log1p: new log + 1 transformer contributed by Jean-Olivier Irisson
+
+Bug fixes
+
+* aesthetics: fixed bug when overriding aesthetics with NULL
+* annotate: adds layers with legend = FALSE
+* coord_equal: correctly place tick marks (Fixes #61)
+* documentation: usage statements should now be spread over multiple lines
+* fortify.SpatialPolygonsDataFrame: fixed bug when region variable had missing values
+* legend: don't try and display legend when unnecessary scale added
+* legend: text labels now correctly left-aligned when non-numeric
+* order aesthetic now correctly affects position adjustments  (Fixes #70)
+* qplot loads facetting variables from global environment more correctly
+* scale_date and scale_date_time now work with infinite positions
+* scale_date and scale_date_time now take expand argument
+* scales were not getting automatically added in many situations (Fixes #69)
+* scale_manual was not returning labels in the correct format and so legends
+  were not getting merged correctly
+* stat_contour: fix error if x or y coordinates were negative
+* stat_bin: now copes with bars of zero height (Fixes #72)
+* stat_qq: always use sorted data (rather than interpolated quantiles) on sample axis.  This makes it behave more like qqnorm
+* stat_quantile: correctly group results
+* xlim now works with datetimes
+
+* all plyr functions prefixed with their namespace to avoid clashes with other packages (thanks to Steve Lianoglou)
+
+
 ggplot2 0.8.5 (2009-12-15) ----------------------------------------
 
 New features
