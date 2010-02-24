@@ -1,2 +1,3 @@
 ggplot2 0.8.7 (2010-XX-XX) ----------------------------------------
 
+* Fixed bug in stat_density2d when contour = FALSE (Thanks to takahashi kohske) 

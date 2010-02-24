@@ -28,7 +28,7 @@ StatDensity2d <- proto(Stat, {
     if (contour) {
       StatContour$calculate(df, scales, ...)      
     } else {
-      names(df) <- c("x", "y", "density")
+      names(df) <- c("x", "y", "density", "group")
       df$level <- 1
       df$piece <- 1
       df
