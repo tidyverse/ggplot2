@@ -24,7 +24,7 @@ ScaleDiscrete <- proto(Scale, expr={
   input_breaks_n <- function(.) match(.$input_breaks(), .$input_set())
   
   labels <- function(.) {
-    if (!is.null(.$.labels)) return(.$.labels)
+    if (!is.null(.$.labels)) return(as.list(.$.labels))
     
     f <- match.fun(get("formatter", .))
     as.list(f(.$input_breaks()))
