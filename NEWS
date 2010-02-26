@@ -1,3 +1,4 @@
 ggplot2 0.8.7 (2010-XX-XX) ----------------------------------------
 
 * Fixed bug in stat_density2d when contour = FALSE (Thanks to takahashi kohske) 
+* geom_point legend takes more care to ensure that fill colours will be shown
