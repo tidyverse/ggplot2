@@ -6,3 +6,4 @@ ggplot2 0.8.7 (2010-XX-XX) ----------------------------------------
 * stat_bin: deals with floating point rounding issues using the same algorithm as base::hist
 * fullseq: now always returns vector of length two, even when range is 0
 * stat_bin2d: fix typo in breaks calculation
+* scale_area: gains a legend argument like all other scales
