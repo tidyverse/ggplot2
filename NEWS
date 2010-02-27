@@ -7,3 +7,4 @@ ggplot2 0.8.7 (2010-XX-XX) ----------------------------------------
 * fullseq: now always returns vector of length two, even when range is 0
 * stat_bin2d: fix typo in breaks calculation
 * scale_area: gains a legend argument like all other scales
+* scale_colour_brewer: gains na.colour argument to set colour of missing values

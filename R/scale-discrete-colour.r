@@ -85,15 +85,18 @@ ScaleHue <- proto(ScaleColour, expr={
 ScaleBrewer <- proto(ScaleColour, expr={
   doc <- TRUE
 
-  new <- function(., name=NULL, palette=1, type="qual", limits=NULL, breaks = NULL, labels=NULL, formatter = identity, variable, legend = TRUE) {
+  new <- function(., name=NULL, palette=1, type="qual", na.colour  = "grey80", limits=NULL, breaks = NULL, labels=NULL, formatter = identity, variable, legend = TRUE) {
     b_and_l <- check_breaks_and_labels(breaks, labels)
-    .$proto(name=name, palette=palette, type=type, .input=variable, .output=variable, .labels = b_and_l$labels, breaks = b_and_l$breaks, limits= limits, formatter = formatter, legend = legend)
+    .$proto(name=name, palette=palette, type=type, .input=variable, .output=variable, .labels = b_and_l$labels, breaks = b_and_l$breaks, limits= limits, formatter = formatter, legend = legend, na.colour = na.colour)
   }
   aliases <- c("scale_color_brewer")
 
   output_set <- function(.) {
-    n <- length(.$input_set())
-    RColorBrewer::brewer.pal(n, .$pal_name())[1:n]
+    missing <- is.na(.$input_set())
+    n <- sum(!missing)
+    
+    palette <- RColorBrewer::brewer.pal(n, .$pal_name())[1:n]
+    missing_colour(palette, missing, .$na.colour)
   }
 
   pal_name <- function(.) {
