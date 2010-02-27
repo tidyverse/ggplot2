@@ -25,7 +25,18 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
         breaks <- seq(origin, max(range) + binwidth, binwidth)
       }
     }
-    bins <- cut(x, sort(breaks), include.lowest=TRUE, right = right)
+    
+    # Adapt break fuzziness from base::hist - this protects from floating
+    # point rounding errors
+    diddle <- 1e-07 * stats::median(diff(breaks))
+    if (right) {
+      fuzz <- c(-diddle, rep.int(diddle, length(breaks) - 1))
+    } else {
+      fuzz <- c(rep.int(-diddle, length(breaks) - 1), diddle) 
+    }
+    fuzzybreaks <- sort(breaks) + fuzz
+    
+    bins <- cut(x, fuzzybreaks, include.lowest=TRUE, right = right)
     left <- breaks[-length(breaks)]
     right <- breaks[-1]
     x <- (left + right)/2
@@ -60,6 +71,8 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
 # @keyword internal
 # @seealso \code{\link{reshape}{round_any}}
 fullseq <- function(range, size, pad = FALSE) {
+  if (diff(range) < 1e-6) return(c(range[1] - size / 2, range[1] + size / 2))
+  
   x <- seq(
     round_any(range[1], size, floor), 
     round_any(range[2], size, ceiling), 

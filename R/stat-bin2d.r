@@ -42,7 +42,7 @@ StatBin2d <- proto(Stat, {
         )
       } else {
         breaks <- list(
-          seq(origin[1], max(range$x) + binwidth[1], binwidth[2]),
+          seq(origin[1], max(range$x) + binwidth[1], binwidth[1]),
           seq(origin[2], max(range$y) + binwidth[2], binwidth[2])
         )
       }
