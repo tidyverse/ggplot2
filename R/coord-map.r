@@ -1,10 +1,12 @@
 CoordMap <- proto(Coord, {  
-  new <- function(., projection="mercator", ..., orientation = NULL, fast = TRUE) {
+  new <- function(., projection="mercator", ..., orientation = NULL, fast = TRUE, xlim = NULL, ylim = NULL) {
     try_require("mapproj")
     .$proto(
       projection = projection, 
       orientation = orientation,
       fast = fast,
+      xlim = xlim,
+      ylim = ylim,
       params = list(...)
     )
   }
@@ -37,8 +39,8 @@ CoordMap <- proto(Coord, {
   }
 
   compute_ranges <- function(., scales) {
-    x.raw <- scales$x$output_expand()
-    y.raw <- scales$y$output_expand()
+    x.raw <- .$xlim %||% scales$x$output_expand()
+    y.raw <- .$ylim %||% scales$y$output_expand()
     orientation <- .$orientation %||% c(90, 0, mean(x.raw))
     
     range <- .$mproject(x.raw, y.raw, orientation)$range    
