@@ -43,7 +43,12 @@ CoordMap <- proto(Coord, {
     y.raw <- .$ylim %||% scales$y$output_expand()
     orientation <- .$orientation %||% c(90, 0, mean(x.raw))
     
-    range <- .$mproject(x.raw, y.raw, orientation)$range    
+    # Increase chances of creating valid boundary region
+    grid <- expand.grid(
+      x = seq(x.raw[1], x.raw[2], length = 50),
+      y = seq(y.raw[1], y.raw[2], length = 50)
+    )
+    range <- .$mproject(grid$x, grid$y, orientation)$range
     
     x.range <- range[1:2]
     x.major <- scales$x$input_breaks_n()
