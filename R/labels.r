@@ -50,6 +50,7 @@ ylab <- function(label) {
 }
 
 # Convert aesthetic mapping into text labels
+# This is used by ggplot and + to ensure consistent label formatting
 # 
 # @keyword internal
 make_labels <- function(mapping) {

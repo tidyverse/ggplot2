@@ -64,6 +64,10 @@ col2hcl <- function(colour, h, c, l, alpha = 1) {
 # @keyword internal
 muted <- function(colour, l=30, c=70) col2hcl(colour, l=l, c=c)
 
+# Add a missing colour to a colour palette.
+# Convenient method.
+# 
+# @keyword internal
 missing_colour <- function(palette, missing, na.colour) {
   output <- character(length(missing))
   output[which(!missing)] <- palette
