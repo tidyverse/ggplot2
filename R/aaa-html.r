@@ -36,6 +36,9 @@
   "trans" = "a transformer to use",
   "..." = "ignored pass to geom/stat",
   "to" = "numeric vector of length 2, giving minimum and maximum after transformation",
+  "na.colour" = "colour to use for missing values",
+  "xlim" = "x limits",
+  "ylim" = "y limits",
 
   "name" = "name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath",
   "limits" = "numeric vector of length 2, giving the extent of the scale",

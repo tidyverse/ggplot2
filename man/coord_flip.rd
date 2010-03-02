@@ -10,8 +10,8 @@ This page describes coord\_flip, see \code{\link{layer}} and \code{\link{qplot}}
 }
 \usage{coord_flip(xlim = NULL, ylim = NULL, ...)}
 \arguments{
- \item{xlim}{NULL}
- \item{ylim}{NULL}
+ \item{xlim}{x limits}
+ \item{ylim}{y limits}
  \item{...}{ignored }
 }
 \seealso{\itemize{

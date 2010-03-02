@@ -10,8 +10,8 @@ This page describes coord\_cartesian, see \code{\link{layer}} and \code{\link{qp
 }
 \usage{coord_cartesian(xlim = NULL, ylim = NULL, ...)}
 \arguments{
- \item{xlim}{NULL}
- \item{ylim}{NULL}
+ \item{xlim}{x limits}
+ \item{ylim}{y limits}
  \item{...}{ignored }
 }
 \seealso{\itemize{
