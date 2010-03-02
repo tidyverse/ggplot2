@@ -65,11 +65,7 @@ Scales <- proto(Scale, expr={
       
       # Figure out legend title
       output <- scale$output()
-      if (!is.null(scale$name)) {
-        titles[[i]] <- scale$name
-      } else {
-        titles[[i]] <- theme$labels[[output]]
-      }
+      titles[[i]] <- scale$name %||% theme$labels[[output]]
       
       key <- data.frame(
         scale$output_breaks(), I(scale$labels()))

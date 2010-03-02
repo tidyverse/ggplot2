@@ -42,8 +42,8 @@
         p$layers <- append(p$layers, object)
         
         # Add any new labels
-        mapping <- as.list(as.character(object$mapping))
-        default <- as.list(as.character(object$stat$default_aes()))
+        mapping <- make_labels(object$mapping)
+        default <- make_labels(object$stat$default_aes())
         
         new_labels <- plyr::defaults(mapping, default)
         p$options$labels <- plyr::defaults(p$options$labels, new_labels)

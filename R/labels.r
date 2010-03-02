@@ -48,3 +48,14 @@ xlab <- function(label) {
 ylab <- function(label) {
   labs(y = label)
 }
+
+# Convert aesthetic mapping into text labels
+# 
+# @keyword internal
+make_labels <- function(mapping) {
+  remove_dots <- function(x) {
+    gsub("\\.\\.([a-zA-z._]+)\\.\\.", "\\1", x)
+  }
+  
+  lapply(mapping, function(x) remove_dots(deparse(x)))
+}
