@@ -214,9 +214,14 @@ Layer <- proto(expr = {
   map_statistic <- function(., data, plot) {
     if (empty(data)) return(data.frame())
 
-    aesthetics <- plyr::defaults(.$mapping, 
-      plyr::defaults(plot$mapping, .$stat$default_aes()))
-
+    # Assemble aesthetics from layer, plot and stat mappings
+    aesthetics <- .$mapping
+    if (.$inherit.aes) {
+      aesthetics <- plyr::defaults(aesthetics, plot$mapping)
+    }
+    aesthetics <- plyr::defaults(aesthetics, .$stat$default_aes())
+    aesthetics <- plyr::compact(aesthetics)
+  
     new <- strip_dots(aesthetics[is_calculated_aes(aesthetics)])
     if (length(new) == 0) return(data)
 
