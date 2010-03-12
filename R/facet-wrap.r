@@ -34,7 +34,7 @@ FacetWrap <- proto(Facet, {
 
       df$.ORDER <- 1:nrow(df)
       df <- merge(add_group(df), .$facet_levels, by = .$conditionals())
-      df <- df[df$.ORDER, ]
+      df <- df[order(df$PANEL, df$.ORDER), ]
 
       out <- as.list(plyr::dlply(df, .(PANEL), .drop = FALSE))
       dim(out) <- c(1, nrow(.$facet_levels))
