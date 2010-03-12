@@ -1,5 +1,19 @@
 See NEWS for changes in latest version
 
+ggplot2 0.8.7 (2010-03-03) ----------------------------------------
+
+* Fixed bug in stat_density2d when contour = FALSE (Thanks to takahashi kohske) 
+* geom_point legend takes more care to ensure that fill colours will be shown
+* legend: fixed scale merging bug when labels were set manually
+* stat_bin: deals with floating point rounding issues using the same algorithm as base::hist
+* fullseq: now always returns vector of length two, even when range is 0
+* stat_bin2d: fix typo in breaks calculation
+* scale_area: gains a legend argument like all other scales
+* scale_colour_brewer: gains na.colour argument to set colour of missing values
+* corrected label generation for computed aesthetics (..x..) and special names (`x x`)
+* coord_map gains xlim and ylim arguments to control region of projection
+
+
 ggplot2 0.8.6 (2010-02-07) ----------------------------------------
 
 New features
