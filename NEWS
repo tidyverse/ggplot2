@@ -2,3 +2,4 @@ ggplot2 0.8.8 (2010-XX-XX) ----------------------------------------
 
 * statistics now also respect layer parameter inherit.aes (thanks to bug report by Lorenzo Isella and investigation by Brian Diggs)
 * fix ordering bug in facet_wrap (thanks to bug report by Frank Davenport)
+* geom_hline and geom_vline will not impact legend when used for fixed intercepts

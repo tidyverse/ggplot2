@@ -1,11 +1,12 @@
 GeomVline <- proto(Geom, {
-  new <- function(., data = NULL, mapping = NULL, xintercept = NULL, ...) {
+  new <- function(., data = NULL, mapping = NULL, xintercept = NULL, legend = NA, ...) {
     if (is.numeric(xintercept)) {
       data <- data.frame(xintercept = xintercept)
       mapping <- aes_all(names(data))
+      if(is.na(legend)) legend <- FALSE
     }
     .super$new(., data = data, mapping = mapping, inherit.aes = FALSE, 
-      xintercept = xintercept, ...)
+      xintercept = xintercept, legend = legend, ...)
   }
   
   draw <- function(., data, scales, coordinates, ...) {

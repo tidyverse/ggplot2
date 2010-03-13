@@ -1,11 +1,12 @@
 GeomHline <- proto(Geom, {
-  new <- function(., data = NULL, mapping = NULL, yintercept = NULL, ...) {
+  new <- function(., data = NULL, mapping = NULL, yintercept = NULL, legend = NA, ...) {
     if (is.numeric(yintercept)) {
       data <- data.frame(yintercept = yintercept)
       mapping <- aes_all(names(data))
+      if(is.na(legend)) legend <- FALSE
     }
     .super$new(., data = data, mapping = mapping, inherit.aes = FALSE, 
-      yintercept = yintercept, ...)
+      yintercept = yintercept, legend = legend, ...)
   }
 
   draw <- function(., data, scales, coordinates, ...) {
