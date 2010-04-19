@@ -33,12 +33,13 @@ guide_axis <- function(at, labels, position="right", theme) {
   )
   
   if (is.list(labels)) {
-    if (is.language(labels[[1]])) {
+    if (any(sapply(labels, is.language))) {
       labels <- do.call(expression, labels)
     } else {
       labels <- unlist(labels)    
     }
   }
+
   labels <- theme_render(theme, label_render, labels, label_x, label_y)
   
   line <- switch(position,
