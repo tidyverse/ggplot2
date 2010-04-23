@@ -27,7 +27,7 @@ GeomErrorbarh <- proto(Geom, {
     "geom_errorbar" = "vertical error bars"
   )
 
-  draw <- function(., data, scales, coordinates, width = NULL, ...) {
+  draw <- function(., data, scales, coordinates, height = NULL, ...) {
     GeomPath$draw(with(data, data.frame( 
       x = as.vector(rbind(xmax, xmax, NA, xmax, xmin, NA, xmin, xmin)),
       y = as.vector(rbind(ymin, ymax, NA, y,    y,    NA, ymin, ymax)), 
