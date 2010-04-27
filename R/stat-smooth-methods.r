@@ -7,16 +7,13 @@
 predictdf <- function(model, xseq, se, level) UseMethod("predictdf")
 
 predictdf.default <- function(model, xseq, se, level) {
-  pred <- stats::predict(model, newdata = data.frame(x = xseq), se = se)
+  pred <- stats::predict(model, newdata = data.frame(x = xseq), se = se,
+    level = level, interval = if(se) "confidence" else "none")
 
   if (se) {
-    std <- qnorm(level / 2 + 0.5)
-    data.frame(
-      x = xseq, y = as.vector(pred$fit),
-      ymin = as.vector(pred$fit - std * pred$se), 
-      ymax = as.vector(pred$fit + std * pred$se),
-      se = as.vector(pred$se)
-    )
+    fit <- as.data.frame(pred$fit)
+    names(fit) <- c("y", "ymin", "ymax")
+    data.frame(x = xseq, fit, se = pred$se)
   } else {
     data.frame(x = xseq, y = as.vector(pred))
   } 

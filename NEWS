@@ -6,3 +6,4 @@ ggplot2 0.8.8 (2010-XX-XX) ----------------------------------------
 * panels with no non-missing values trigged errors with some statistics. (reported by Giovanni Dall'Olio)
 * check all axis labels for expressions (reported by Benji Oswald)
 * geom_errobarh now respects height parameter
+* stat_smooth now uses built-in confidence interval (with small sample correction) for linear models (thanks to suggestion by Ian Fellows)
