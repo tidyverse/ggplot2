@@ -5,6 +5,7 @@ StatQq <- proto(Stat, {
   desc_params <- list(
     quantiles = "Quantiles to compute and display",
     dist = "Distribution function to use, if x not specified",
+    dparams = "Parameters for distribution function", 
     "..." = "Other arguments passed to distribution function"
   )
   
@@ -12,8 +13,7 @@ StatQq <- proto(Stat, {
   default_aes <- function(.) aes(y = ..sample.., x = ..theoretical..)
   required_aes <- c("sample")
 
-  calculate <- function(., data, scales, quantiles = NULL, distribution = qnorm, na.rm = FALSE, ...) {
-    
+  calculate <- function(., data, scales, quantiles = NULL, distribution = qnorm, dparams = list(), na.rm = FALSE) {
     data <- remove_missing(data, na.rm, "sample", name = "stat_qq")    
 
     sample <- sort(data$sample)
@@ -25,7 +25,8 @@ StatQq <- proto(Stat, {
     } else {
       stopifnot(length(quantiles) == n)
     }
-    theoretical <- safe.call(distribution, list(p = quantiles, ...))
+
+    theoretical <- safe.call(distribution, c(list(p = quantiles), dparams))
   
     data.frame(sample, theoretical)
   }
@@ -44,12 +45,15 @@ StatQq <- proto(Stat, {
     qplot(sample = y)
     qplot(sample = precip)
 
-    qplot(sample = y, dist = qt, df = 5)
-    qplot(sample = y, quantiles = seq(0,1, length=100))
+    qplot(sample = y, dist = qt, dparams = list(df = 5))
     
     df <- data.frame(y)
     ggplot(df, aes(sample = y)) + stat_qq()
     ggplot(df, aes(sample = y)) + geom_point(stat = "qq")
+    
+    # Use fitdistr from MASS to estimate distribution params
+    params <- as.list(MASS::fitdistr(y, "t")$estimate)
+    ggplot(df, aes(sample = y)) + stat_qq(dist = qt, dparam = params)
     
     # Using to explore the distribution of a variable
     qplot(sample = mpg, data = mtcars)

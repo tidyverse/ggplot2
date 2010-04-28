@@ -188,7 +188,6 @@ Layer <- proto(expr = {
       c(names(data), names(.$stat_params)), 
       paste("stat_", .$stat$objname, sep=""))
 
-    
     res <- do.call(.$stat$calculate_groups, c(
       list(data=as.name("data"), scales=as.name("scales")), 
       .$stat_params)

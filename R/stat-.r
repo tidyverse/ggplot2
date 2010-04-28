@@ -34,7 +34,8 @@ Stat <- proto(TopLevel, expr={
     # stats[stats$ORDER, ]
     
     groups <- split(data, data$group)
-    stats <- lapply(groups, function(group) .$calculate(group, scales, ...))
+    stats <- lapply(groups, function(group) 
+      .$calculate(data = group, scales = scales, ...))
     
     stats <- mapply(function(new, old) {
       if (empty(new)) return(data.frame())
