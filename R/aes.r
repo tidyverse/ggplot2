@@ -139,7 +139,7 @@ aesdefaults <- function(data, y., params.) {
   cols <- tryapply(plyr::defaults(data, updated), function(x) eval(x, data, globalenv()))
   
   cols <- cols[unlist(plyr::llply(cols, function(x) is.atomic(x) || is.list(x)))]
-  df <- as_df(cols)
+  df <- as.data.frame(cols)
   
   factors <- sapply(df, is.factor)
   df[factors] <- lapply(df[factors], as.character)
