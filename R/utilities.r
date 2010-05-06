@@ -166,12 +166,3 @@ invert <- function(L) {
 "%inside%" <- function(x, interval) {
   x >= interval[1] & x <= interval[2]
 }
-
-# Check if a data frame is empty
-# Empty if it's null or it has 0 rows or columns
-# 
-# @arguments data frame to check
-# @keyword internal
-empty <- function(df) {
-  (is.null(df) || nrow(df) == 0 || ncol(df) == 0)
-}
