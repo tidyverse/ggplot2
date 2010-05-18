@@ -51,9 +51,11 @@ label_parsed <- function(variable, value) {
 label_bquote <- function(expr = beta ^ .(x)) {
   quoted <- substitute(expr)
   
-  function(variable, value) 
+  function(variable, value) {
+    value <- as.character(value)
     lapply(value, function(x)
       eval(substitute(bquote(expr, list(x = x)), list(expr = quoted))))
+  }
 }
 
 # Grob strip
