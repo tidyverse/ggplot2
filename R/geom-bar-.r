@@ -21,7 +21,7 @@ GeomBar <- proto(Geom, {
   
   # Documentation -----------------------------------------------
   objname <- "bar"
-  desc <- "Bars, rectangles with bases on y-axis"
+  desc <- "Bars, rectangles with bases on x-axis"
   guide_geom <- function(.) "polygon"
   
   icon <- function(.) {
