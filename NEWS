@@ -9,3 +9,4 @@ ggplot2 0.8.8 (2010-XX-XX) ----------------------------------------
 * stat_smooth now uses built-in confidence interval (with small sample correction) for linear models (thanks to suggestion by Ian Fellows)
 * stat_qq has new dparam parameter for specifying distribution parameters (thanks to Yunfeng Zhang for the bug report)
 * label_bquote works with more expressions (factors now cast to characters, thanks to Baptiste Auguie for bug report)
+* stat_bin: fix small bug when dealing with single bin with NA position (reported by John Rauser)
