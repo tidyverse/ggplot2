@@ -166,7 +166,7 @@ Layer <- proto(expr = {
     # Add Conditioning variables needed for facets
     cond <- plot$facet$conditionals()
     facet_vars <- data[, intersect(names(data), cond), drop=FALSE]
-    if (nrow(facet_vars) > 0) {
+    if (!empty(facet_vars)) {
       df <- cbind(df, facet_vars)  
     }
 
