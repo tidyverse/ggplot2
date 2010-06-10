@@ -169,27 +169,27 @@ surround_viewports <- function(position, widths, heights, legend_vp) {
     )
   } else if (position == "left") {
     viewports <- vpList(
-      vp("panels", 2, 3),
-      vp("legend_box", 2, 1),
-      vp("ylabel", 2, 2),
-      vp("xlabel", 3, 3),
-      vp("title", 1, 3)
+      vp("panels", 3, 4),
+      vp("legend_box", 3, 2),
+      vp("ylabel", 3, 3),
+      vp("xlabel", 4, 4),
+      vp("title", 2, 4)
     )
   } else if (position == "top") {
     viewports <- vpList(
-      vp("panels", 3, 2),
-      vp("legend_box", 2, 2),
-      vp("ylabel", 3, 1),
-      vp("xlabel", 4, 2),
-      vp("title", 1, 2)
+      vp("panels", 4, 3),
+      vp("legend_box", 3, 3),
+      vp("ylabel", 4, 2),
+      vp("xlabel", 5, 3),
+      vp("title", 2, 3)
     )
   } else if (position == "bottom") {
     viewports <- vpList(
-      vp("panels", 2, 2),
-      vp("legend_box", 4, 2),
-      vp("ylabel", 2, 1),
-      vp("xlabel", 3, 2),
-      vp("title", 1, 2)
+      vp("panels", 3, 3),
+      vp("legend_box", 5, 3),
+      vp("ylabel", 3, 2),
+      vp("xlabel", 4, 3),
+      vp("title", 2, 3)
     )
   } else {
     viewports <- vpList(
