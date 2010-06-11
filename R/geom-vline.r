@@ -2,6 +2,7 @@ GeomVline <- proto(Geom, {
   new <- function(., data = NULL, mapping = NULL, xintercept = NULL, legend = NA, ...) {
     if (is.numeric(xintercept)) {
       data <- data.frame(xintercept = xintercept)
+      xintercept <- NULL
       mapping <- aes_all(names(data))
       if(is.na(legend)) legend <- FALSE
     }

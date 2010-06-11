@@ -2,6 +2,7 @@ GeomHline <- proto(Geom, {
   new <- function(., data = NULL, mapping = NULL, yintercept = NULL, legend = NA, ...) {
     if (is.numeric(yintercept)) {
       data <- data.frame(yintercept = yintercept)
+      yintercept <- NULL
       mapping <- aes_all(names(data))
       if(is.na(legend)) legend <- FALSE
     }
