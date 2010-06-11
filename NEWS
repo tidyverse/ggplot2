@@ -13,3 +13,4 @@ ggplot2 0.8.8 (2010-XX-XX) ----------------------------------------
 * geom_hline/geom_vline: intercept values not set quite correctly which caused a problem in conjunction with transformed scales (reported by Seth Finnegan)
 * non-left legend positions now work once more (thanks to patch from Karsten Loesing)
 * geom_smooth now deals with missing values in the same way as geom_line (thanks to patch from Karsten Loesing)
+* coord_equal (thanks to continued prompting from Jean-Olivier Irisson )
