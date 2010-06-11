@@ -3,12 +3,21 @@ GeomRibbon <- proto(Geom, {
   default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = 1)
   required_aes <- c("x", "ymin", "ymax")
   guide_geom <- function(.) "polygon"
-
-
+  
+  
   draw <- function(., data, scales, coordinates, na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, 
-      c("x","ymin","ymax"), name = "geom_ribbon")
+    if (na.rm) data <- data[complete.cases(data[required_aes]), ]
     data <- data[order(data$group, data$x), ]
+    
+    # Instead of removing NA values from the data and plotting a single
+    # polygon, we want to "stop" plotting the polygon whenever we're
+    # missing values and "start" a new polygon as soon as we have new
+    # values.  We do this by creating an id vector for polygonGrob that
+    # has distinct polygon numbers for sequences of non-NA values and NA
+    # for NA values in the original data.  Example: c(NA, 2, 2, 2, NA, NA,
+    # 4, 4, 4, NA)
+    poly_ids <- cumsum(!complete.cases(data[required_aes])) + 1
+    poly_ids[!complete.cases(data[required_aes])] <- NA
     
     tb <- with(data,
       coordinates$munch(data.frame(x=c(x, rev(x)), y=c(ymax, rev(ymin))), scales)
@@ -16,12 +25,12 @@ GeomRibbon <- proto(Geom, {
     
     with(data, ggname(.$my_name(), gTree(children=gList(
       ggname("fill", polygonGrob(
-        tb$x, tb$y,
+        tb$x, tb$y, id=c(poly_ids, rev(poly_ids)),
         default.units="native",
         gp=gpar(fill=alpha(fill, alpha), col=NA) 
       )),
       ggname("outline", polygonGrob(
-        tb$x, tb$y,
+        tb$x, tb$y, id=c(poly_ids, rev(poly_ids)),
         default.units="native",
         gp=gpar(fill=NA, col=colour, lwd=size * .pt, lty=linetype)
       ))
@@ -56,6 +65,11 @@ GeomRibbon <- proto(Geom, {
     h + geom_ribbon(aes(ymin=level-1, ymax=level+1))
     h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
     
+    # Take out some values in the middle for an example of NA handling
+    huron[huron$year > 1900 & huron$year < 1910, "level"] <- NA
+    h <- ggplot(huron, aes(x=year))
+    h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
+
     # Another data set, with multiple y's for each x
     m <- ggplot(movies, aes(y=votes, x=year)) 
     (m <- m + geom_point())
