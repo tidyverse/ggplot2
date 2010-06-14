@@ -15,3 +15,5 @@ scale_size <- scale_size_continuous
 scale_linetype <- scale_linetype_discrete
 scale_alpha <- scale_alpha_continuous
 scale_shape <- scale_shape_discrete
+
+coord_equal <- coord_fixed
