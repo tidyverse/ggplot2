@@ -7,8 +7,8 @@ StatBinhex <- proto(Stat, {
 
     if (is.null(binwidth)) {
       binwidth <- c( 
-        diff(range(data$x)) / bins,
-        diff(range(data$y)) / bins
+        diff(scales$x$input_set()) / bins,
+        diff(scales$y$input_set() ) / bins
       )
     }
     
