@@ -16,3 +16,4 @@ ggplot2 0.8.8 (2010-XX-XX) ----------------------------------------
 * coord_equal finally works as expected (thanks to continued prompting from Jean-Olivier Irisson )
 * coord_equal renamed to coord_fixed to better represent capabilities
 * stat_binhex: uses range of data from scales when computing binwidth so hexes are the same size in all facets (thanks to Nicholas Lewin-Koh for the bug report)
+* geom_errorh correctly responds to height parameter outside of aes

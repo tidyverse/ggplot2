@@ -10,7 +10,7 @@ GeomErrorbarh <- proto(Geom, {
   }
   
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, width=0.5, alpha = 1)
+  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, height=0.5, alpha = 1)
   guide_geom <- function(.) "path"
   required_aes <- c("x", "xmin", "xmax")
   
@@ -26,6 +26,10 @@ GeomErrorbarh <- proto(Geom, {
   seealso <- list(
     "geom_errorbar" = "vertical error bars"
   )
+  desc_outputs <- list(
+    "height" = "height of errorbars"
+  )
+  
 
   draw <- function(., data, scales, coordinates, height = NULL, ...) {
     GeomPath$draw(with(data, data.frame( 
@@ -51,11 +55,9 @@ GeomErrorbarh <- proto(Geom, {
     
     # Define the top and bottom of the errorbars
     
-    p <- ggplot(df, aes(resp, trt, fill = group))
+    p <- ggplot(df, aes(resp, trt, colour = group))
     p + geom_point() +
       geom_errorbarh(aes(xmax = resp + se, xmin = resp - se))
-      
-    last_plot() + aes(colour = group)
       
   }
 })
