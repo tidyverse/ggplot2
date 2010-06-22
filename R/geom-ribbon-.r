@@ -8,7 +8,14 @@ GeomRibbon <- proto(Geom, {
   draw <- function(., data, scales, coordinates, na.rm = FALSE, ...) {
     if (na.rm) data <- data[complete.cases(data[required_aes]), ]
     data <- data[order(data$group, data$x), ]
-    
+
+    # Check that aesthetics are constant
+    aes <- unique(data[c("colour", "fill", "size", "linetype", "alpha")])
+    if (nrow(aes) > 1) {
+      stop("Aesthetics can not vary with a ribbon")
+    }
+    aes <- as.list(aes)
+
     # Instead of removing NA values from the data and plotting a single
     # polygon, we want to "stop" plotting the polygon whenever we're
     # missing values and "start" a new polygon as soon as we have new
@@ -16,25 +23,23 @@ GeomRibbon <- proto(Geom, {
     # has distinct polygon numbers for sequences of non-NA values and NA
     # for NA values in the original data.  Example: c(NA, 2, 2, 2, NA, NA,
     # 4, 4, 4, NA)
-    poly_ids <- cumsum(!complete.cases(data[required_aes])) + 1
-    poly_ids[!complete.cases(data[required_aes])] <- NA
-    
-    tb <- with(data,
-      coordinates$munch(data.frame(x=c(x, rev(x)), y=c(ymax, rev(ymin))), scales)
-    )
-    
-    with(data, ggname(.$my_name(), gTree(children=gList(
-      ggname("fill", polygonGrob(
-        tb$x, tb$y, id=c(poly_ids, rev(poly_ids)),
-        default.units="native",
-        gp=gpar(fill=alpha(fill, alpha), col=NA) 
-      )),
-      ggname("outline", polygonGrob(
-        tb$x, tb$y, id=c(poly_ids, rev(poly_ids)),
-        default.units="native",
-        gp=gpar(fill=NA, col=colour, lwd=size * .pt, lty=linetype)
-      ))
-    ))))
+    missing_pos <- !complete.cases(data[required_aes])
+    ids <- cumsum(missing_pos) + 1
+    ids[missing_pos] <- NA
+
+    positions <- summarise(data, 
+      x = c(x, rev(x)), y = c(ymax, rev(ymin)), id = c(ids, rev(ids)))
+    munched <- coordinates$munch(positions, scales)
+
+    ggname(.$my_name(), polygonGrob(
+      munched$x, munched$y, id = munched$id,
+      default.units = "native",
+      gp = gpar(
+        fill = alpha(aes$fill, aes$alpha), 
+        col = aes$colour, 
+        lwd = aes$size * .pt, 
+        lty = aes$linetype)
+    ))
   }
 
   # Documentation -----------------------------------------------
