@@ -1,5 +1,5 @@
 coord_cartesian <- CoordCartesian$build_accessor()
-coord_equal <- CoordEqual$build_accessor()
+coord_fixed <- CoordFixed$build_accessor()
 coord_flip <- CoordFlip$build_accessor()
 coord_map <- CoordMap$build_accessor()
 coord_polar <- CoordPolar$build_accessor()

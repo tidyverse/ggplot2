@@ -11,7 +11,7 @@ CoordFixed <- proto(CoordCartesian, {
   # Documentation -----------------------------------------------
 
   objname <- "fixed"
-  alias <- "equal"
+  aliases <- "equal"
   desc <- "Cartesian coordinates with fixed relationship between x and y scales."
   icon <- function(.) textGrob("=", gp = gpar(cex=3))  
   
