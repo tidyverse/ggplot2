@@ -1,19 +1,16 @@
 CoordMap <- proto(Coord, {  
-  new <- function(., projection="mercator", ..., orientation = NULL, fast = TRUE, xlim = NULL, ylim = NULL) {
+  new <- function(., projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL) {
     try_require("mapproj")
     .$proto(
       projection = projection, 
       orientation = orientation,
-      fast = fast,
       xlim = xlim,
       ylim = ylim,
       params = list(...)
     )
   }
   
-  # Just transforming because maps tend to have very large numbers of points
-  # anyway.  But this means 
-  muncher <- function(.) !.$fast
+  muncher <- function(.) TRUE
   
   transform <- function(., data, details) {
     trans <- .$mproject(data$x, data$y, details$orientation)
