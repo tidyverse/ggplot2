@@ -1,30 +1,45 @@
-munch_data <- function(data, segment_length) {
-  
-  
-  ddply(data, "group", munch_group)
-}
-
-munch_group <- function(data, npieces = 50) {
+#' For munching, only grobs are lines and polygons: everything else is 
+#' transfomed into those special cases by the geom.  
+#'
+#' @examples
+#' @keywords internal
+#' nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
+#' munch_data(nz, segment_length = 0.1)
+munch_data <- function(data, dist = NULL, segment_length = 0.1) {
   n <- nrow(data)
-
-  x <- approx(data$x, n = npieces * (n - 1) + 1)$y
-  y <- approx(data$y, n = npieces * (n - 1) + 1)$y
   
-  data.frame(
-    x = x, y = y,
-    data[c(rep(1:(n-1), each=npieces), n), setdiff(names(data), c("x", "y"))]
-  )
+  if (is.null(dist)) {
+    data <- add_group(data)
+    dist <- compute_distance(data$x, data$y, data$group)
+  }
+  
+  # How many pieces for each old segment
+  extra <- floor(dist / segment_length) + 1
+  extra[is.na(extra)] <- 1
+ 
+  # Generate extra pieces for x and y values
+  x <- unlist(mapply(interp, data$x[-n], data$x[-1], extra, SIMPLIFY = FALSE))
+  y <- unlist(mapply(interp, data$y[-n], data$y[-1], extra, SIMPLIFY = FALSE))
+
+  # Replicate other aesthetics
+  id <- rep(seq_len(nrow(data)), c(extra, 1))
+  aes_df <- data[id, setdiff(names(data), c("x", "y"))]
+  
+  unrowname(data.frame(x = c(x, data$x[n]), y = c(y, data$y[n]), aes_df))
 }
 
-#   if (!.$muncher()) return(data)
-#   n <- nrow(data)
-# 
-#   # Distance between points - NA indicates a break
-#   dist <- with(data, sqrt((x[-n] - x[-1]) ^ 2 + (y[-n] - y[-1]) ^ 2))
-#   dist[data$group[-1] != data$group[-n]] <- NA
-# 
-#   # How many new segments to create per old segment
-#   expand <- ceiling(dist / segment_length)
-# 
-#   x <- approx(data$x, n = npieces * (n - 1) + 1)$y
-#   y <- approx(data$y, n = npieces * (n - 1) + 1)$y
+#' Interpolate n evenly spaced steps from start to end - (end - start) / n.
+interp <- function(start, end, n) {
+  if (n == 1) return(start)
+  start + seq(0, 1, length = n + 1)[-n] * (end - start)
+}
+
+#' Distance between points - NA indicates a break / terminal points
+compute_distance <- function(x, y, group = rep(1, length(x))) {
+  n <- length(x)
+
+  dist <- sqrt((x[-n] - x[-1]) ^ 2 + (y[-n] - y[-1]) ^ 2)
+  dist[group[-1] != group[-n]] <- NA
+  
+  dist
+}
