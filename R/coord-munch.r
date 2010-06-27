@@ -43,3 +43,16 @@ compute_distance <- function(x, y, group = rep(1, length(x))) {
   
   dist
 }
+
+# Probably should actually calculate distance using coord specific distance
+# metric.  The only problem will be the scaling of that distance on to plot
+# distance, and figuring if the great circle distance is appropriate for all 
+# map projections.
+#
+# dist_polar <- function(r, theta) {
+#   n <- length(x)
+#   r1 <- r[-n]
+#   r2 <- r[-1]
+# 
+#   sqrt(r1 ^2 + r2 ^ 2 - 2 * r1 * r2 * cos(diff(theta)))
+# }
