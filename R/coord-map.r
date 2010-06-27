@@ -1,5 +1,10 @@
 CoordMap <- proto(Coord, {  
-  new <- function(., projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL) {
+  new <- function(., projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL, fast = TRUE) {
+    if (!fast) {
+      warning("Fast parameter now ignored.  Munching always occurs", 
+        call. = FALSE)
+    }
+    
     try_require("mapproj")
     .$proto(
       projection = projection, 
