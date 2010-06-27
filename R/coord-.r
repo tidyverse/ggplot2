@@ -10,16 +10,21 @@ Coord <- proto(TopLevel, expr={
     rescale(data, 0:1, range, clip = clip)
   }
   
-  munch <- function(., data, details, segment_length = 0.02) {
+  munch <- function(., data, details, segment_length = 0.01) {
     if (!.$muncher()) return(.$transform(data, details))
     
-    # Transform to calculate distances
-    trans <- .$transform(data[c("x", "y", "group")], details)
-    dist <- compute_distance(trans$x, trans$y, trans$group)
+    # Calculate distances using coord distance metric
+    dist <- .$distance(data$x, data$y, details)
+    dist[data$group[-1] != data$group[-nrow(data)]] <- NA
     
     # Munch and then transform result
     munched <- munch_data(data, dist, segment_length)
     .$transform(munched, details)
+  }
+  
+  distance <- function(., x, y, details) {
+    max_dist <- dist_euclidean(details$x.range, details$y.range)    
+    dist_euclidean(x, y) / max_dist
   }
     
   compute_aspect <- function(., ranges) {

@@ -1,16 +1,17 @@
 #' For munching, only grobs are lines and polygons: everything else is 
 #' transfomed into those special cases by the geom.  
 #'
+#' @param dist distance, scaled from 0 to 1 (maximum distance on plot)
 #' @examples
 #' @keywords internal
 #' nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
 #' munch_data(nz, segment_length = 0.1)
-munch_data <- function(data, dist = NULL, segment_length = 0.1) {
+munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   n <- nrow(data)
   
   if (is.null(dist)) {
     data <- add_group(data)
-    dist <- compute_distance(data$x, data$y, data$group)
+    dist <- dist_euclidean(data$x, data$y, data$group)
   }
   
   # How many pieces for each old segment
@@ -34,25 +35,19 @@ interp <- function(start, end, n) {
   start + seq(0, 1, length = n + 1)[-n] * (end - start)
 }
 
-#' Distance between points - NA indicates a break / terminal points
-compute_distance <- function(x, y, group = rep(1, length(x))) {
+#' Euclidean distance between points.
+#' NA indicates a break / terminal points
+dist_euclidean <- function(x, y) {
   n <- length(x)
 
-  dist <- sqrt((x[-n] - x[-1]) ^ 2 + (y[-n] - y[-1]) ^ 2)
-  dist[group[-1] != group[-n]] <- NA
-  
-  dist
+  sqrt((x[-n] - x[-1]) ^ 2 + (y[-n] - y[-1]) ^ 2)
 }
 
-# Probably should actually calculate distance using coord specific distance
-# metric.  The only problem will be the scaling of that distance on to plot
-# distance, and figuring if the great circle distance is appropriate for all 
-# map projections.
-#
-# dist_polar <- function(r, theta) {
-#   n <- length(x)
-#   r1 <- r[-n]
-#   r2 <- r[-1]
-# 
-#   sqrt(r1 ^2 + r2 ^ 2 - 2 * r1 * r2 * cos(diff(theta)))
-# }
+#' Polar distance between points.
+dist_polar <- function(r, theta, group = rep(1, length(x))) {
+  n <- length(r)
+  r1 <- r[-n]
+  r2 <- r[-1]
+
+  sqrt(r1 ^ 2 + r2 ^ 2 - 2 * r1 * r2 * cos(diff(theta)))
+}

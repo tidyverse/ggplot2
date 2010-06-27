@@ -13,6 +13,16 @@ CoordPolar <- proto(Coord, {
       list(opts(aspect.ratio = 1))
     )
   }
+  
+  distance <- function(., x, y, details) {
+    max_dist <- dist_polar(details$r.range, details$theta.range)
+    
+    if (.$theta == "x") {
+      dist_polar(theta = x, r = y) / max_dist
+    } else {
+      dist_polar(r = x, theta = y) / max_dist
+    }
+  }
 
   compute_ranges <- function(., scales) {
     if (.$expand) {
