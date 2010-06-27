@@ -14,7 +14,7 @@ Coord <- proto(TopLevel, expr={
     if (!.$muncher()) return(.$transform(data, details))
     
     # Transform to calculate distances
-    trans <- .$transform(data[c("x", "y")], details)
+    trans <- .$transform(data[c("x", "y", "group")], details)
     dist <- compute_distance(trans$x, trans$y, trans$group)
     
     # Munch and then transform result
