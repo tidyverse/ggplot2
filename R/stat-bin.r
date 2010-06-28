@@ -98,7 +98,7 @@ StatBin <- proto(Stat, {
     .super$calculate_groups(., data, ...)
   }
   
-  calculate <- function(., data, scales, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, drop = TRUE, right = TRUE, ...) {
+  calculate <- function(., data, scales, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = TRUE, ...) {
     range <- scales$x$output_set()
 
     if (is.null(breaks) && is.null(binwidth) && !is.integer(data$x) && !.$informed) {
@@ -118,7 +118,7 @@ StatBin <- proto(Stat, {
     origin = "Origin of first bin",
     width = "Width of bars when used with categorical data",
     right = "Should intervals be closed on the right (a, b], or not [a, b)",
-    drop = "If TRUE (the default), remove all bins with zero counts"
+    drop = "If TRUE, remove all bins with zero counts"
   )
   desc_outputs <- list(
     count = "number of points in bin",

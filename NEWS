@@ -18,4 +18,4 @@ ggplot2 0.8.8 (2010-XX-XX) ----------------------------------------
 * stat_binhex: uses range of data from scales when computing binwidth so hexes are the same size in all facets (thanks to Nicholas Lewin-Koh for the bug report)
 * geom_errorh correctly responds to height parameter outside of aes
 * coord_polar and coord_polar: new munching system that uses distances (as defined by the coordinate system) to figure out how many pieces each segment should be broken in to (thanks to prompting from Jean-Olivier Irisson)
-
+* stat_bin no longer drops 0-count bins by default
