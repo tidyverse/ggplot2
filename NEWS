@@ -22,3 +22,4 @@ ggplot2 0.8.8 (2010-XX-XX) ----------------------------------------
 * guides: extra 0.5 line border around legend (fixes #71)
 * geom_line: can now stack lines again with position = "stack" (fixes #74)
 * scale_color: add missing US spellings
+* stat_spoke: correctly calculate stat_spoke (cos and sin were flipped, thanks to Jean-Olivier Irisson for bug report and fix)

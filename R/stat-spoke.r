@@ -2,8 +2,8 @@ StatSpoke <- proto(Stat, {
   retransform <- FALSE
   calculate <- function(., data, scales, radius = 1, ...) {
     transform(data,
-      xend = x + sin(angle) * radius,
-      yend = y + cos(angle) * radius
+      xend = x + cos(angle) * radius,
+      yend = y + sin(angle) * radius
     )
   }
 
