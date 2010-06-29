@@ -138,8 +138,13 @@ aesdefaults <- function(data, y., params.) {
   
   cols <- tryapply(plyr::defaults(data, updated), function(x) eval(x, data, globalenv()))
   
-  cols <- cols[unlist(plyr::llply(cols, function(x) is.atomic(x) || is.list(x)))]
-  df <- as.data.frame(cols)
+  # Need to be careful here because stat_boxplot uses a list-column to store
+  # a vector of outliers
+  cols <- Filter(function(x) is.atomic(x) || is.list(x), cols)
+  list_vars <- sapply(cols, is.list)
+  cols[list_vars] <- lapply(cols[list_vars], I)
+  
+  df <- data.frame(cols, stringsAsFactors = FALSE)
   
   factors <- sapply(df, is.factor)
   df[factors] <- lapply(df[factors], as.character)
