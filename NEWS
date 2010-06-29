@@ -19,3 +19,4 @@ ggplot2 0.8.8 (2010-XX-XX) ----------------------------------------
 * geom_errorh correctly responds to height parameter outside of aes
 * coord_polar and coord_polar: new munching system that uses distances (as defined by the coordinate system) to figure out how many pieces each segment should be broken in to (thanks to prompting from Jean-Olivier Irisson)
 * stat_bin no longer drops 0-count bins by default
+* guides: extra 0.5 line border around legend (fixes #71)

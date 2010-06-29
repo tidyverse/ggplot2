@@ -85,7 +85,7 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep,
     
   ylab_width <- grobWidth(grobs$ylabel) + 
     if (is.zero(grobs$ylabel)) unit(0, "lines") else unit(0.5, "lines")
-  legend_width <- grobWidth(grobs$legend_box)
+  legend_width <- grobWidth(grobs$legend_box) + unit(0.5, "lines")
 
   widths <- switch(position, 
     right =  unit.c(ylab_width, unit(1, "null"), legend_width),
