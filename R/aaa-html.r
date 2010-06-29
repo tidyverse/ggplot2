@@ -188,7 +188,7 @@ html_autolink_index <- function() {
 
   links <- lapply(all, function(.) .$html_link_self())
   names(links) <- lapply(all, function(.) .$my_name())
-  links <<- c(links, 
+  .links <<- c(links, 
     # aes = "<a href='aes.html'>aes</a>", 
     ggplot = "<a href='ggplot.html'>ggplot</a>", 
     layer = "<a href='layer.html'>layer</a>", 
@@ -202,7 +202,7 @@ html_autolink_index <- function() {
   )
 }
 
-links <- NULL
+.links <- NULL
 # Add html links to functions
 # Add html links to functions
 # 

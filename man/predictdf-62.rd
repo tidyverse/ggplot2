@@ -2,6 +2,7 @@
 \alias{predictdf}
 \alias{predictdf.default}
 \alias{predictdf.glm}
+\alias{predictdf.loess}
 \title{Prediction data frame}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 

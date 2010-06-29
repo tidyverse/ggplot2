@@ -203,9 +203,9 @@ TopLevel$rdoc_keyword<- function(.) {
 # @arguments functions to omit
 # @keyword internal
 rdoc_auto_link <- function(input, skip="") {
-  if (!exists("links")) html_autolink_index()
+  if (!exists(".links")) html_autolink_index()
   
-  for (n in names(links)[names(links) != skip]) {
+  for (n in names(.links)[names(.links) != skip]) {
     input <- gsub(ps("\\b", n, "\\b"), ps("\\\\code{\\\\link{", n, "}}"), input)
   }
   input

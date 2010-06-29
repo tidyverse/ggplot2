@@ -1,11 +1,10 @@
-#' For munching, only grobs are lines and polygons: everything else is 
-#' transfomed into those special cases by the geom.  
-#'
-#' @param dist distance, scaled from 0 to 1 (maximum distance on plot)
-#' @examples
-#' @keywords internal
-#' nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
-#' munch_data(nz, segment_length = 0.1)
+# For munching, only grobs are lines and polygons: everything else is 
+# transfomed into those special cases by the geom.  
+#
+# @arguments distance, scaled from 0 to 1 (maximum distance on plot)
+# @keyword internal
+#X nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
+#X munch_data(nz, segment_length = 0.1)
 munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   n <- nrow(data)
   
@@ -29,21 +28,29 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   unrowname(data.frame(x = c(x, data$x[n]), y = c(y, data$y[n]), aes_df))
 }
 
-#' Interpolate n evenly spaced steps from start to end - (end - start) / n.
+# Interpolate.
+# Interpolate n evenly spaced steps from start to end - (end - start) / n.
+# 
+# @keyword internal
 interp <- function(start, end, n) {
   if (n == 1) return(start)
   start + seq(0, 1, length = n + 1)[-n] * (end - start)
 }
 
-#' Euclidean distance between points.
-#' NA indicates a break / terminal points
+# Euclidean distance between points.
+# NA indicates a break / terminal points
+# 
+# @keyword internal
 dist_euclidean <- function(x, y) {
   n <- length(x)
 
   sqrt((x[-n] - x[-1]) ^ 2 + (y[-n] - y[-1]) ^ 2)
 }
 
-#' Polar distance between points.
+# Polar dist.
+# Polar distance between points.
+# 
+# @keyword internal
 dist_polar <- function(r, theta) {
   n <- length(r)
   r1 <- r[-n]
