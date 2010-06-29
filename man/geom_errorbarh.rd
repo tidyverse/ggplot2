@@ -15,7 +15,7 @@ The following aesthetics can be used with geom\_errorbarh.  Aesthetics are mappe
   \item \code{colour}: border colour 
   \item \code{size}: size 
   \item \code{linetype}: line type 
-  \item \code{width}: width 
+  \item \code{height}: height 
   \item \code{alpha}: transparency 
 }
 }
@@ -43,11 +43,9 @@ df <- data.frame(
 
 # Define the top and bottom of the errorbars
 
-p <- ggplot(df, aes(resp, trt, fill = group))
+p <- ggplot(df, aes(resp, trt, colour = group))
 p + geom_point() +
   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se))
-  
-last_plot() + aes(colour = group)
   
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}

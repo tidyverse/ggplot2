@@ -202,6 +202,7 @@ html_autolink_index <- function() {
   )
 }
 
+links <- NULL
 # Add html links to functions
 # Add html links to functions
 # 

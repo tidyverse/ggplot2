@@ -2,7 +2,7 @@
 \alias{geom_bar}
 \alias{GeomBar}
 \title{geom\_bar}
-\description{Bars, rectangles with bases on y-axis}
+\description{Bars, rectangles with bases on x-axis}
 \details{
 The bar geom is used to produce 1d area plots: bar charts for categorical x, and histograms for continuous y.  stat\_bin explains the details of these summaries in more detail.  In particular, you can use the \code{weight} aesthetic to create weighted histograms and barcharts where the height of the bar no longer represent a count of observations, but a sum over some other variable.  See the examples for a practical example.
 

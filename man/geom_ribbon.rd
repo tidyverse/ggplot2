@@ -50,6 +50,11 @@ h + geom_area(aes(y = level))
 h + geom_ribbon(aes(ymin=level-1, ymax=level+1))
 h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
 
+# Take out some values in the middle for an example of NA handling
+huron[huron$year > 1900 & huron$year < 1910, "level"] <- NA
+h <- ggplot(huron, aes(x=year))
+h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
+
 # Another data set, with multiple y's for each x
 m <- ggplot(movies, aes(y=votes, x=year)) 
 (m <- m + geom_point())

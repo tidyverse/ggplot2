@@ -65,6 +65,17 @@ qplot(date, pop, data=economics, size=unemploy/pop, geom="line")
 
 # See scale_date for examples of plotting multiple times series on
 # a single graph
+
+# A simple pcp example
+
+y2005 <- runif(300, 20, 120)
+y2010 <- y2005 * runif(300, -1.05, 1.5)
+group <- rep(LETTERS[1:3], each = 100)
+
+df <- data.frame(id = seq_along(group), group, y2005, y2010)
+dfm <- reshape::melt(df, id.var = c("id", "group"))
+ggplot(dfm, aes(variable, value, group = id, colour = group)) + 
+  geom_path(alpha = 0.5)
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}
