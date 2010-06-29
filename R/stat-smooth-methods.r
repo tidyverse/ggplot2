@@ -35,5 +35,18 @@ predictdf.glm <- function(model, xseq, se, level) {
   } else {
     data.frame(x = xseq, y = model$family$linkinv(pred))
   }
-  
+}
+
+predictdf.loess <- function(model, xseq, se, level) {
+  pred <- stats::predict(model, newdata = data.frame(x = xseq), se = se,
+    level = level, interval = if(se) "confidence" else "none")
+
+  if (se) {
+    y = pred$fit
+    ymin = y - pred$se.fit
+    ymax = y + pred$se.fit
+    data.frame(x = xseq, y, ymin, ymax, se = pred$se.fit)
+  } else {
+    data.frame(x = xseq, y = as.vector(pred))
+  }
 }
