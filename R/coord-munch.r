@@ -11,7 +11,7 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   
   if (is.null(dist)) {
     data <- add_group(data)
-    dist <- dist_euclidean(data$x, data$y, data$group)
+    dist <- dist_euclidean(data$x, data$y)
   }
   
   # How many pieces for each old segment
@@ -44,7 +44,7 @@ dist_euclidean <- function(x, y) {
 }
 
 #' Polar distance between points.
-dist_polar <- function(r, theta, group = rep(1, length(x))) {
+dist_polar <- function(r, theta) {
   n <- length(r)
   r1 <- r[-n]
   r2 <- r[-1]
