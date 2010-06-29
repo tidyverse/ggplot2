@@ -6,6 +6,7 @@
 \alias{scale_shape_manual}
 \alias{scale_linetype_manual}
 \alias{ScaleManual}
+\alias{scale_color_manual}
 \title{scale\_manual}
 \description{Create your own discrete scale}
 \details{

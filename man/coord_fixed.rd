@@ -1,7 +1,7 @@
 \name{coord_fixed}
 \alias{coord_fixed}
 \alias{CoordFixed}
-\alias{equal}
+\alias{coord_equal}
 \title{coord\_fixed}
 \description{Cartesian coordinates with fixed relationship between x and y scales.}
 \details{

@@ -1,6 +1,7 @@
 ScaleIdentity <- proto(ScaleDiscrete, {  
   doc <- TRUE
   common <- c("colour","fill","size","shape","linetype")
+  aliases <- "scale_color_identity"
   new <- function(., name=NULL, breaks=NULL, labels=NULL, formatter = NULL, legend = TRUE, variable="x") {
     
     b_and_l <- check_breaks_and_labels(breaks, labels)

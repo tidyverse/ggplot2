@@ -5,7 +5,7 @@ ScaleColour <- proto(ScaleDiscrete, expr={
 })
 
 ScaleHue <- proto(ScaleColour, expr={
-  aliases <- c("scale_colour_discrete", "scale_fill_discrete", "scale_color_hue")
+  aliases <- c("scale_colour_discrete", "scale_fill_discrete", "scale_color_hue", "scale_color_discrete")
   
   new <- function(., name=NULL, h=c(0,360) + 15, l=65, c=100, limits=NULL, breaks = NULL, labels=NULL, h.start = 0, direction = 1,  formatter = identity, legend = TRUE, variable) {
     b_and_l <- check_breaks_and_labels(breaks, labels)

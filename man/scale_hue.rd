@@ -6,6 +6,7 @@
 \alias{scale_colour_discrete}
 \alias{scale_fill_discrete}
 \alias{scale_color_hue}
+\alias{scale_color_discrete}
 \title{scale\_hue}
 \description{Qualitative colour scale with evenly spaced hues}
 \details{

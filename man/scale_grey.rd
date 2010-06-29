@@ -3,6 +3,7 @@
 \alias{scale_colour_grey}
 \alias{scale_fill_grey}
 \alias{ScaleGrey}
+\alias{scale_color_grey}
 \title{scale\_grey}
 \description{Sequential grey colour scale}
 \details{

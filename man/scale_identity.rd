@@ -6,6 +6,7 @@
 \alias{scale_shape_identity}
 \alias{scale_linetype_identity}
 \alias{ScaleIdentity}
+\alias{scale_color_identity}
 \title{scale\_identity}
 \description{Use values without scaling}
 \details{

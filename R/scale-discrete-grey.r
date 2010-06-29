@@ -1,6 +1,7 @@
 ScaleGrey <- proto(ScaleColour, expr={
   doc <- TRUE
   common <- c("colour", "fill")
+  aliases <- "scale_color_grey"
 
   new <- function(., name=NULL, variable, start = 0.2, end = 0.8, limits=NULL, breaks = NULL, labels=NULL, formatter = identity, legend = TRUE) {
     

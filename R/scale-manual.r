@@ -1,6 +1,7 @@
 ScaleManual <- proto(ScaleDiscrete, {  
   doc <- TRUE
   common <- c("colour","fill","size","shape","linetype")
+  aliases <- "scale_color_manual"
   values <- c()
   
   new <- function(., name=NULL, values=NULL, variable="x", limits = NULL, breaks = NULL, labels = NULL, formatter = identity, legend = TRUE) {

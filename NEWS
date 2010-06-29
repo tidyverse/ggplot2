@@ -21,3 +21,4 @@ ggplot2 0.8.8 (2010-XX-XX) ----------------------------------------
 * stat_bin no longer drops 0-count bins by default
 * guides: extra 0.5 line border around legend (fixes #71)
 * geom_line: can now stack lines again with position = "stack" (fixes #74)
+* scale_color: add missing US spellings
