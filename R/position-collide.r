@@ -16,9 +16,8 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
     }
   } else {
     if (!(all(c("xmin", "xmax") %in% names(data)))) {
-      data <- ddply(data, .(x), function(df) strategy(df, width = 0))
-      data <- data[order(data$x, data$group), ]
-      return(data)
+      data$xmin <- data$x
+      data$xmax <- data$x
     }
     
     # Width determined from data, must be floating point constant 
@@ -42,7 +41,17 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
     # The American Statistician, 1999.] should be used
   }
 
-  ddply(data, .(xmin), function(df) strategy(df, width = width))
+  if (!is.null(data$ymax)) {
+    ddply(data, .(xmin), strategy, width = width)
+  } else if (!is.null(data$y)) {
+    message("ymax not defined: adjusting position using y instead")
+    transform(
+      ddply(transform(data, ymax = y), .(xmin), strategy, width = width),
+      y = ymax
+    )
+  } else {
+    stop("Neither y nor ymax defined")
+  }
 }
 
 # Stack overlapping intervals
