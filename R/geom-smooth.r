@@ -4,7 +4,7 @@ GeomSmooth <- proto(Geom, {
     path <- transform(data, alpha = 1)
     
     gList(
-      tryNULL(GeomRibbon$draw(ribbon, scales, coordinates)),
+      plyr::failwith(NULL, GeomRibbon$draw)(ribbon, scales, coordinates),
       GeomLine$draw(path, scales, coordinates)
     )
   }

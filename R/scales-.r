@@ -72,7 +72,7 @@ Scales <- proto(Scale, expr={
       names(key) <- c(output, ".label")
       
       keys[[i]] <- key
-      hash[i] <- digest(list(titles[[i]], key$.label))
+      hash[i] <- digest::digest(list(titles[[i]], key$.label))
     }
     
     empty <- sapply(titles, is.null)

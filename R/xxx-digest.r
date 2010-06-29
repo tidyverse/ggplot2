@@ -44,21 +44,20 @@ bolus.ggplot <- function(x, ...) {
   }
   
   with(x, list(
-    data = digest(data),
+    data = digest::digest(data),
     mapping = sort.by.name(mapping),
     layers = sapply(layers, function(x) x$hash()),
     scales = scales$hash(),
     facet = facet$hash(),
     coord = coordinates$hash(),
-    options = digest(plyr::defaults(x$options, theme_get()))
+    options = digest::digest(plyr::defaults(x$options, theme_get()))
   ))
 }
 
 digest.proto <- function(x, ...) x$hash(, ...)
 digest.ggplot <- function(x, ...) {
   if (is.null(x)) return()
-  try_require("digest")
-  digest(bolus(x), ...)
+  digest::digest(bolus(x), ...)
 }
 
 TopLevel$settings <- function(.) {
@@ -66,7 +65,7 @@ TopLevel$settings <- function(.) {
 }
 
 Layer$hash <- TopLevel$hash <- function(., ...) {
-  digest(.$bolus(), ...)
+  digest::digest(.$bolus(), ...)
 }
 Scales$hash <- function(.) {
   scales <- sapply(.$.scales, function(x) x$hash())

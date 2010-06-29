@@ -1,7 +1,6 @@
 require("proto")
 require("grid")
 require("reshape")
-require("digest")
 
 # INCLUDES <- "web/graphics"
 # FILETYPE <- "html"
