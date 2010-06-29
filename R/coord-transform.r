@@ -7,6 +7,11 @@ CoordTrans <- proto(CoordCartesian, expr={
   }
   
   muncher <- function(.) TRUE
+  
+  distance <- function(., x, y, details) {
+    max_dist <- dist_euclidean(details$x.range, details$y.range)
+    dist_euclidean(.$xtr$transform(x), .$ytr$transform(y)) / max_dist
+  }  
 
   transform <- function(., data, details) {
     trans_x <- function(data) .$transform_x(data, details$x.range)
