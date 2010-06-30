@@ -1,4 +1,4 @@
-ggplot2 0.8.8 (2010-XX-XX) ----------------------------------------
+ggplot2 0.8.8 (2010-07-02) ----------------------------------------
 
 * statistics now also respect layer parameter inherit.aes (thanks to bug report by Lorenzo Isella and investigation by Brian Diggs)
 * fix ordering bug in facet_wrap (thanks to bug report by Frank Davenport)
@@ -13,7 +13,7 @@ ggplot2 0.8.8 (2010-XX-XX) ----------------------------------------
 * geom_hline/geom_vline: intercept values not set quite correctly which caused a problem in conjunction with transformed scales (reported by Seth Finnegan)
 * non-left legend positions now work once more (thanks to patch from Karsten Loesing)
 * geom_smooth now deals with missing values in the same way as geom_line (thanks to patch from Karsten Loesing)
-* coord_equal finally works as expected (thanks to continued prompting from Jean-Olivier Irisson )
+* coord_equal finally works as expected (thanks to continued prompting from Jean-Olivier Irisson)
 * coord_equal renamed to coord_fixed to better represent capabilities
 * stat_binhex: uses range of data from scales when computing binwidth so hexes are the same size in all facets (thanks to Nicholas Lewin-Koh for the bug report)
 * geom_errorh correctly responds to height parameter outside of aes
