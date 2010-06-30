@@ -16,7 +16,7 @@ GeomSegment <- proto(Geom, {
     pieces <- rbind(starts, ends)
     pieces <- pieces[order(pieces$group),]
     
-    GeomPath$draw_groups(pieces, scales, coordinates, ...)
+    GeomPath$draw_groups(pieces, scales, coordinates, arrow = arrow, ...)
   }
 
   

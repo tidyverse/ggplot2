@@ -23,3 +23,4 @@ ggplot2 0.8.8 (2010-XX-XX) ----------------------------------------
 * geom_line: can now stack lines again with position = "stack" (fixes #74)
 * scale_color: add missing US spellings
 * stat_spoke: correctly calculate stat_spoke (cos and sin were flipped, thanks to Jean-Olivier Irisson for bug report and fix)
+* geom_segment: arrows now preserved in non-Cartesian coordinate system (fixes #117)

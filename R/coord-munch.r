@@ -21,11 +21,11 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   x <- unlist(mapply(interp, data$x[-n], data$x[-1], extra, SIMPLIFY = FALSE))
   y <- unlist(mapply(interp, data$y[-n], data$y[-1], extra, SIMPLIFY = FALSE))
 
-  # Replicate other aesthetics
-  id <- rep(seq_len(nrow(data)), c(extra, 1))
+  # Replicate other aesthetics: defined by start point
+  id <- rep(seq_len(nrow(data) - 1), extra)
   aes_df <- data[id, setdiff(names(data), c("x", "y"))]
   
-  unrowname(data.frame(x = c(x, data$x[n]), y = c(y, data$y[n]), aes_df))
+  unrowname(data.frame(x = x, y = y, aes_df))
 }
 
 # Interpolate.
