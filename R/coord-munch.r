@@ -3,8 +3,6 @@
 #
 # @arguments distance, scaled from 0 to 1 (maximum distance on plot)
 # @keyword internal
-#X nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
-#X munch_data(nz, segment_length = 0.1)
 munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   n <- nrow(data)
   

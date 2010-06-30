@@ -167,6 +167,10 @@ invert <- function(L) {
   x >= interval[1] & x <= interval[2]
 }
 
+# Expression should raise an error
+# Used in examples to illustrate when errors should occur
+#
+# @keyword internal
 should_stop <- function(expr) {
   res <- try(print(force(expr)), TRUE)
   if (!inherits(res, "try-error")) stop("No error!", call. = FALSE)

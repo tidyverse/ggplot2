@@ -15,6 +15,5 @@ transfomed into those special cases by the geom.
 
 
 
-\examples{nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
-munch_data(nz, segment_length = 0.1)}
+
 \keyword{internal}
