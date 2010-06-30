@@ -208,9 +208,9 @@ html_autolink_index <- function() {
 # 
 # @keyword internal
 html_auto_link <- function(input, skip="") {
-  if (!exists("links")) html_autolink_index()
+  if (!exists(".links")) html_autolink_index()
   
-  for (n in names(links)[names(links) != skip  ]) {
+  for (n in names(.links)[names(.links) != skip  ]) {
     input <- gsub(ps("\\b", n, "\\b"), links[n], input)
   }
   input
