@@ -167,20 +167,42 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
 
 
 # Check breaks and labels.
-# Ensure that breaks and labels are of the correct form
+# 
 # @keyword internal
+#X check_breaks_and_labels(NULL, NULL)
+#X check_breaks_and_labels(1:5, NULL)
+#X should_stop(check_breaks_and_labels(labels = 1:5))
+#X check_breaks_and_labels(labels = c("a" = 1, "b" = 2))
+#X check_breaks_and_labels(breaks = c("a" = 1, "b" = 2))
+#X check_breaks_and_labels(1:2, c("a", "b"))
 check_breaks_and_labels <- function(breaks = NULL, labels = NULL) {
+  # Both missing, so it's ok
   if (is.null(breaks) && is.null(labels)) {
-  } else if (is.null(breaks)) {
-    stop("Labels can only be specified in conjunction with breaks", 
-      call. = FALSE)
-  } else if (is.null(labels)) {
+    return(list(breaks = NULL, labels = NULL))
+  }
+   
+  # Otherwise check for names, and use them for the complement
+  if (is.null(breaks) && !is.null(names(labels))) {
+    breaks <- names(labels)
+    labels <- unname(labels)
+  } else if (is.null(labels) && !is.null(names(breaks))) {
     labels <- names(breaks)
-  } else { 
+    breaks <- unname(breaks)
+  }
+  
+  # If specified, labels should:
+  if (!is.null(labels)) {
+    # * be accompanied by breaks
+    if (is.null(breaks)) {
+      stop("Labels can only be specified in conjunction with breaks", 
+        call. = FALSE)
+    }
+    
+    # * be the same length as breaks
     if (length(labels) != length(breaks)) {
       stop("Labels and breaks must be same length", call. = FALSE)
     }
   }
-  
+ 
   list(breaks = breaks, labels = labels)  
 }
