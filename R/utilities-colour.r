@@ -48,8 +48,8 @@ alpha <- function(colour, alpha) {
 col2hcl <- function(colour, h, c, l, alpha = 1) {
   try_require("colorspace")
   
-  col <- RGB(t(col2rgb(colour)) / 256)
-  coords <- coords(as(col, "polarLUV"))
+  col <- colorspace::RGB(t(col2rgb(colour)) / 256)
+  coords <- colorspace::coords(as(col, "polarLUV"))
   
   if (missing(h)) h <- coords[, "H"]
   if (missing(c)) h <- coords[, "C"]

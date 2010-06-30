@@ -85,7 +85,7 @@ data("kyphosis", package="rpart")
 qplot(Age, Kyphosis, data=kyphosis)
 qplot(Age, data=kyphosis, facets = . ~ Kyphosis, binwidth = 10)
 qplot(Age, Kyphosis, data=kyphosis, position="jitter")
-qplot(Age, Kyphosis, data=kyphosis, position=position_jitter(y=5))
+qplot(Age, Kyphosis, data=kyphosis, position=position_jitter(height=0.1))
 
 qplot(Age, as.numeric(Kyphosis) - 1, data = kyphosis) +
   stat_smooth(method="glm", family="binomial")

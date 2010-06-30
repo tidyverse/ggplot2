@@ -56,7 +56,8 @@ ScaleDiscretePosition <- proto(ScaleDiscrete, {
     (d <- qplot(cut, clarity, data=subset(diamonds, carat > 1), geom="jitter"))
     
     d + scale_x_discrete("Cut")
-    d + scale_x_discrete("Cut", labels=c("F","G","VG","P","I"))
+    d + scale_x_discrete("Cut", labels = c("Fair" = "F","Good" = "G",
+      "Very Good" = "VG","Perfect" = "P","Ideal" = "I"))
     
     d + scale_y_discrete("Clarity")
     d + scale_x_discrete("Cut") + scale_y_discrete("Clarity")

@@ -107,7 +107,7 @@ p + geom_line(aes(colour = group), linetype = 2)
 p + geom_line(aes(colour = x))
 
 # Should fail
-p + geom_line(aes(colour = x), linetype=2)
+should_stop(p + geom_line(aes(colour = x), linetype=2))
 
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}

@@ -35,7 +35,7 @@ p + scale_colour_grey()
 p + scale_colour_grey(end = 0)
 
 # You may want to turn off the pale grey background with this scale
-p + scale_colour_grey() + theme_bw
+p + scale_colour_grey() + theme_bw()
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

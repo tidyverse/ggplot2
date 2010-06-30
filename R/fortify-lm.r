@@ -20,8 +20,8 @@
 # @arguments data set, defaults to data used to fit model
 # @arguments not used
 #X mod <- lm(mpg ~ wt, data = mtcars)
-#X fortify(mod)
-#X fortify(mod, mtcars)
+#X head(fortify(mod))
+#X head(fortify(mod, mtcars))
 #X 
 #X plot(mod, which = 1)
 #X qplot(.fitted, .resid, data = mod) + geom_hline() + geom_smooth(se = FALSE)

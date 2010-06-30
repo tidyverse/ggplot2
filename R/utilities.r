@@ -166,3 +166,9 @@ invert <- function(L) {
 "%inside%" <- function(x, interval) {
   x >= interval[1] & x <= interval[2]
 }
+
+should_stop <- function(expr) {
+  res <- try(print(force(expr)), TRUE)
+  if (!inherits(res, "try-error")) stop("No error!", call. = FALSE)
+  invisible()
+}

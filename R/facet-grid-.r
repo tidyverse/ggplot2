@@ -311,7 +311,7 @@ FacetGrid <- proto(Facet, {
   examples <- function(.) {
     # faceting displays subsets of the data in different panels
     p <- ggplot(diamonds, aes(carat, ..density..)) +
-     geom_histogram(binwidth = 0.2)
+     geom_histogram(binwidth = 1)
     
     # With one variable
     p + facet_grid(. ~ cut)
@@ -320,7 +320,7 @@ FacetGrid <- proto(Facet, {
     # With two variables
     p + facet_grid(clarity ~ cut)
     p + facet_grid(cut ~ clarity)
-    p + facet_grid(cut ~ clarity, margins=TRUE)
+    # p + facet_grid(cut ~ clarity, margins=TRUE)
     
     qplot(mpg, wt, data=mtcars, facets = . ~ vs + am)
     qplot(mpg, wt, data=mtcars, facets = vs + am ~ . )

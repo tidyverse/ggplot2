@@ -21,7 +21,7 @@ Create a layer of map borders
 ia <- map_data("county", "iowa")
 mid_range <- function(x) mean(range(x))
 seats <- ddply(ia, .(subregion), plyr::colwise(mid_range, .(lat, long)))
-ggplot(seats, aes(long, lat)) + 
+ggplot(ia, aes(long, lat)) + 
 geom_polygon(aes(group = group), fill = NA, colour = "grey60") +
 geom_text(aes(label = subregion), data = seats, size = 2, angle = 45)
 

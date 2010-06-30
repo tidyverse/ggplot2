@@ -29,8 +29,8 @@ If you have missing values in your model data, you may need to refit
 the model with \code{na.action = na.preserve}.}
 
 \examples{mod <- lm(mpg ~ wt, data = mtcars)
-fortify(mod)
-fortify(mod, mtcars)
+head(fortify(mod))
+head(fortify(mod, mtcars))
 
 plot(mod, which = 1)
 qplot(.fitted, .resid, data = mod) + geom_hline() + geom_smooth(se = FALSE)

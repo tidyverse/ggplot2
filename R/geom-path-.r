@@ -181,7 +181,7 @@ GeomPath <- proto(Geom, {
     p + geom_line(aes(colour = x))
     
     # Should fail
-    p + geom_line(aes(colour = x), linetype=2)
+    should_stop(p + geom_line(aes(colour = x), linetype=2))
     
   }  
 })

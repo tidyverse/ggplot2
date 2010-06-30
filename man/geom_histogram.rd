@@ -91,7 +91,7 @@ m + geom_histogram(binwidth = 10) + scale_x_sqrt()
 # bar is anchored at zero, and so when transformed becomes negative
 # infinity.  This is not a problem when transforming the scales, because
 # no observations have 0 ratings.
-m + geom_histogram() + coord_trans(x = "log10")
+should_stop(m + geom_histogram() + coord_trans(x = "log10"))
 m + geom_histogram() + coord_trans(x = "sqrt")
 m + geom_histogram(binwidth=1000) + coord_trans(x = "sqrt")
   

@@ -36,8 +36,6 @@ The following aesthetics can be used with geom\_smooth.  Aesthetics are mapped t
 # See stat_smooth for examples of using built in model fitting
 # if you need some more flexible, this example shows you how to
 # plot the fits from any model of your choosing
-
-library(ggplot2)
 qplot(wt, mpg, data=mtcars, colour=factor(cyl))
 
 model <- lm(mpg ~ wt + factor(cyl), data=mtcars)
