@@ -1,26 +1,27 @@
 ggplot2 0.8.8 (2010-07-02) ----------------------------------------
 
-* statistics now also respect layer parameter inherit.aes (thanks to bug report by Lorenzo Isella and investigation by Brian Diggs)
-* fix ordering bug in facet_wrap (thanks to bug report by Frank Davenport)
-* geom_hline and geom_vline will not impact legend when used for fixed intercepts
-* panels with no non-missing values trigged errors with some statistics. (reported by Giovanni Dall'Olio)
-* check all axis labels for expressions (reported by Benji Oswald)
-* geom_errobarh now respects height parameter
-* stat_smooth now uses built-in confidence interval (with small sample correction) for linear models (thanks to suggestion by Ian Fellows)
-* stat_qq has new dparam parameter for specifying distribution parameters (thanks to Yunfeng Zhang for the bug report)
-* label_bquote works with more expressions (factors now cast to characters, thanks to Baptiste Auguie for bug report)
-* stat_bin: fix small bug when dealing with single bin with NA position (reported by John Rauser)
-* geom_hline/geom_vline: intercept values not set quite correctly which caused a problem in conjunction with transformed scales (reported by Seth Finnegan)
-* non-left legend positions now work once more (thanks to patch from Karsten Loesing)
-* geom_smooth now deals with missing values in the same way as geom_line (thanks to patch from Karsten Loesing)
+Bug fixes:
+
 * coord_equal finally works as expected (thanks to continued prompting from Jean-Olivier Irisson)
 * coord_equal renamed to coord_fixed to better represent capabilities
-* stat_binhex: uses range of data from scales when computing binwidth so hexes are the same size in all facets (thanks to Nicholas Lewin-Koh for the bug report)
-* geom_errorh correctly responds to height parameter outside of aes
 * coord_polar and coord_polar: new munching system that uses distances (as defined by the coordinate system) to figure out how many pieces each segment should be broken in to (thanks to prompting from Jean-Olivier Irisson)
-* stat_bin no longer drops 0-count bins by default
-* guides: extra 0.5 line border around legend (fixes #71)
+* fix ordering bug in facet_wrap (thanks to bug report by Frank Davenport)
+* geom_errorh correctly responds to height parameter outside of aes
+* geom_hline and geom_vline will not impact legend when used for fixed intercepts
+* geom_hline/geom_vline: intercept values not set quite correctly which caused a problem in conjunction with transformed scales (reported by Seth Finnegan)
 * geom_line: can now stack lines again with position = "stack" (fixes #74)
-* scale_color: add missing US spellings
-* stat_spoke: correctly calculate stat_spoke (cos and sin were flipped, thanks to Jean-Olivier Irisson for bug report and fix)
 * geom_segment: arrows now preserved in non-Cartesian coordinate system (fixes #117)
+* geom_smooth now deals with missing values in the same way as geom_line (thanks to patch from Karsten Loesing)
+* guides: check all axis labels for expressions (reported by Benji Oswald)
+* guides: extra 0.5 line margin around legend (fixes #71)
+* guides: non-left legend positions now work once more (thanks to patch from Karsten Loesing)
+* label_bquote works with more expressions (factors now cast to characters, thanks to Baptiste Auguie for bug report)
+* scale_color: add missing US spellings
+* stat: panels with no non-missing values trigged errors with some statistics. (reported by Giovanni Dall'Olio)
+* stat: statistics now also respect layer parameter inherit.aes (thanks to bug report by Lorenzo Isella and investigation by Brian Diggs)
+* stat_bin no longer drops 0-count bins by default
+* stat_bin: fix small bug when dealing with single bin with NA position (reported by John Rauser)
+* stat_binhex: uses range of data from scales when computing binwidth so hexes are the same size in all facets (thanks to Nicholas Lewin-Koh for the bug report)
+* stat_qq has new dparam parameter for specifying distribution parameters (thanks to Yunfeng Zhang for the bug report)
+* stat_smooth now uses built-in confidence interval (with small sample correction) for linear models (thanks to suggestion by Ian Fellows)
+* stat_spoke: correctly calculate stat_spoke (cos and sin were flipped, thanks to Jean-Olivier Irisson for bug report and fix)
