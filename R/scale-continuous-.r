@@ -167,7 +167,8 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
 
 
 # Check breaks and labels.
-# 
+# Ensure that breaks and labels are the correct format.cd .. 
+#
 # @keyword internal
 #X check_breaks_and_labels(NULL, NULL)
 #X check_breaks_and_labels(1:5, NULL)
