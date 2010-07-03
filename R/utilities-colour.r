@@ -20,6 +20,7 @@ nice_ramp <- function(ramp, x, alpha = 1) {
 # @arguments alpha level [0,1]
 # @keyword internal 
 alpha <- function(colour, alpha) {
+  alpha[is.na(alpha)] <- 0
   col <- col2rgb(colour, TRUE) / 255
   
   if (length(colour) != length(alpha)) {

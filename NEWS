@@ -1,6 +1,6 @@
 ggplot2 0.8.9 (2010-XX-XX) ----------------------------------------
 
-
+* scale_alpha: setting limits to a range inside the data now works (thanks to report by Dr Proteome)
 
 ggplot2 0.8.8 (2010-07-02) ----------------------------------------
 
