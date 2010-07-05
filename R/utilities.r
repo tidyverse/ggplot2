@@ -133,7 +133,9 @@ tr <- function(x = NULL) traceback(x, max.lines=1)
 # @arguments should values be clipped to specified range?
 # @keyword manip
 rescale <- function(x, to=c(0,1), from=range(x, na.rm=TRUE), clip = TRUE) {
-  if (length(from) == 1 || length(to) == 1  || from[1] == from[2] || to[1] == to[2]) return(x)
+  if (length(to) == 1 || abs(to[1] - to[2]) < 1e-6) return(to[1])
+  if (length(from) == 1 || abs(from[1] - from[2]) < 1e-6) return(mean(to))
+
   if (is.factor(x)) {
     warning("Categorical variable automatically converted to continuous", call.=FALSE)
     x <- as.numeric(x)

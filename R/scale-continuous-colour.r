@@ -9,10 +9,7 @@ ScaleGradient <- proto(ScaleContinuous, expr={
   map <- function(., x) {
     ramp  <- colorRamp(c(.$low, .$high),  space=.$space, interpolate="linear")
 
-    domain <- .$input_set()
-    x[x < domain[1] | x > domain[2]] <- NA
-    x <- (x - domain[1]) / diff(domain)
-    
+    x <- rescale(x, from = .$input_set(), to = c(0, 1))
     nice_ramp(ramp, x)
   }
     
@@ -94,14 +91,15 @@ ScaleGradient2 <- proto(ScaleContinuous, expr={
   
   aliases <- c("scale_color_gradient2")
   map <- function(., x) {
+    ramp  <- colorRamp(c(.$low, .$mid, .$high), space=.$space,
+      interpolate="linear")
+    
     rng <- .$output_set()  - .$midpoint
     extent <- max(abs(rng))
     
     domain <- .$input_set()
     x[x < domain[1] | x > domain[2]] <- NA
 
-    ramp  <- colorRamp(c(.$low, .$mid, .$high),  space=.$space, interpolate="linear")
-    
     x <- x - .$midpoint
     x <- x / extent / 2 + 0.5
     
