@@ -1,6 +1,8 @@
 ggplot2 0.8.9 (2010-XX-XX) ----------------------------------------
 
-* adding NULL to a plot returns the plot (idempotent under addition) (thanks to suggestion by Matthew O'Meara)
+
+* +: meaningful error message if + doesn't know how to deal with an object type
+* +: adding NULL to a plot returns the plot (idempotent under addition) (thanks to suggestion by Matthew O'Meara)
 * scale_colour_continuous: works correctly with single continuous value (fixes #73)
 * scale_alpha: setting limits to a range inside the data now works (thanks to report by Dr Proteome)
 

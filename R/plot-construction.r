@@ -37,7 +37,7 @@
     for (o in object) {
       p <- p + o
     }
-  } else {
+  } else if(is.proto(object)) {
     p <- switch(object$class(),
       layer  = {
         p$layers <- append(p$layers, object)
@@ -63,6 +63,9 @@
         p
       }
     )
+  } else {
+    stop("Don't know how to add ", deparse(substitute(object)), " to a plot",
+      call. = FALSE)
   }
   set_last_plot(p)
   p
