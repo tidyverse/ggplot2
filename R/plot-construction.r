@@ -17,8 +17,9 @@
 # @keyword internal
 # @alias \%+\%
 "+.ggplot" <- function(p, object) {
-  p <- plot_clone(p)
+  if (is.null(object)) return(p)
 
+  p <- plot_clone(p)
   if (is.data.frame(object)) {
     p$data <- object
   } else if (inherits(object, "options")) {
