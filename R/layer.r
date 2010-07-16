@@ -84,14 +84,12 @@ Layer <- proto(expr = {
   clone <- function(.) as.proto(.$as.list(all.names=TRUE))
   
   use_defaults <- function(., data) {
-    mapped_vars <- .$mapping[!sapply(.$mapping, is.null)]
-    df <- aesdefaults(data, .$geom$default_aes(), mapped_vars)
+    df <- aesdefaults(data, .$geom$default_aes(), NULL)
     
-    # Override mappings with parameters
+    # Override mappings with atomic parameters
     gp <- intersect(c(names(df), .$geom$required_aes), names(.$geom_params))
+    gp <- gp[unlist(lapply(.$geom_params[gp], is.atomic))]
 
-    if (length(.$geom_params[gp])) 
-      gp <- gp[sapply(.$geom_params[gp], is.atomic)]
     df[gp] <- .$geom_params[gp]
     df
   }

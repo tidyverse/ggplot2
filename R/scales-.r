@@ -144,7 +144,6 @@ Scales <- proto(Scale, expr={
     names(aesthetics) <- plyr::laply(names(aesthetics), aes_to_scale)
     
     new_aesthetics <- setdiff(names(aesthetics), .$input())
-    
     # No new aesthetics, so no new scales to add
     if(is.null(new_aesthetics)) return()
     
