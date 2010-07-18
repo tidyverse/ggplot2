@@ -1,6 +1,6 @@
 ggplot2 0.8.9 (2010-XX-XX) ----------------------------------------
 
-* guides: fixed #126
+* stat_smooth: draw line if only 2 unique x values, not three as previously * guides: fixed #126
 * hcl: can now set c and l, and preserves names (thanks to suggestion by Richard Cotton)
 * +: meaningful error message if + doesn't know how to deal with an object type
 * +: adding NULL to a plot returns the plot (idempotent under addition) (thanks to suggestion by Matthew O'Meara)
