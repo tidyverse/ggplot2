@@ -4,8 +4,8 @@ GeomHex <- proto(Geom, {
 
   draw <- function(., data, scales, coordinates, ...) { 
     with(coordinates$transform(data, scales), 
-      ggname(.$my_name(), hexGrob(x, y, col=alpha(colour, alpha), 
-        fill = fill))
+      ggname(.$my_name(), hexGrob(x, y, col=colour, 
+        fill = alpha(fill, alpha)))
     )
   }
   
