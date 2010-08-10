@@ -34,7 +34,7 @@ predictdf.glm <- function(model, xseq, se, level) {
       se = as.vector(pred$se)
     )
   } else {
-    data.frame(x = xseq, y = model$family$linkinv(pred))
+    data.frame(x = xseq, y = model$family$linkinv(as.vector(pred)))
   }
 }
 
