@@ -164,3 +164,12 @@ mean_cl_boot <- wrap_hmisc("smean.cl.boot")
 mean_cl_normal <- wrap_hmisc("smean.cl.normal")
 mean_sdl <- wrap_hmisc("smean.sdl")
 median_hilow <- wrap_hmisc("smedian.hilow")
+
+#' Mean and 1 standard error on either side
+#' @param x numeric vector
+mean_se <- function(x) {  
+  x <- na.omit(x)
+  se <- sqrt(var(x) / length(x))
+  mean <- mean(x)
+  data.frame(y = mean, ymin = mean - se, ymax = mean + se)
+}
