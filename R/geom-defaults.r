@@ -4,14 +4,15 @@
 # @arguments name of geom to modify
 # @arguments named list of aesthetics
 # @keyword hplot
-#X update_geom_defaults("point", aes(colour = "darkblue"))
+#X update_geom_defaults("point", list(colour = "darkblue"))
 #X qplot(mpg, wt, data = mtcars)
-#X update_geom_defaults("point", aes(colour = "black"))
+#X update_geom_defaults("point", list(colour = "black"))
 update_geom_defaults <- function(geom, new) {
   g <- Geom$find(geom)
   old <- g$default_aes()
   
   aes <- plyr::defaults(new, old)
+  
   g$default_aes <- eval(substitute(function(.) aes, list(aes = aes)))
 }
 
