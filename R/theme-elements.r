@@ -102,6 +102,11 @@ theme_text <- function(family = "", face = "plain", colour = "black", size = 10,
   vj <- vjust
   hj <- hjust
   
+  if (angle == 90) {
+    vj <- hjust
+    hj <- vjust
+  }
+  
   structure(
     function(label, x = hj, y = vj, ..., vjust = vj, hjust = hj, default.units = "npc") {
       textGrob(
