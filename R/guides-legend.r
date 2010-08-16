@@ -99,8 +99,12 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
   nkeys <- nrow(mapping)
   hgap <- vgap <- unit(0.3, "lines")
   
-  numeric_labels <- all(sapply(mapping$.label, is.language)) || suppressWarnings(all(!is.na(sapply(mapping$.label, "as.numeric"))))
-  hpos <- numeric_labels * 1
+  if (is.na(theme$legend.text.align)) {
+    numeric_labels <- all(sapply(mapping$.label, is.language)) || suppressWarnings(all(!is.na(sapply(mapping$.label, "as.numeric"))))
+    hpos <- numeric_labels * 1    
+  } else {
+    hpos <- theme$legend.text.align
+  }
   
   labels <- lapply(mapping$.label, function(label) {
     theme_render(theme, "legend.text", label, hjust = hpos, x = hpos, y = 0.5)

@@ -19,6 +19,7 @@ theme_gray <- function(base_size = 12) {
     legend.key =        theme_rect(fill = "grey95", colour = "white"),
     legend.key.size =   unit(1.2, "lines"),
     legend.text =       theme_text(size = base_size * 0.8),
+    legend.text.align =  NA,
     legend.title =      theme_text(size = base_size * 0.8, face = "bold", hjust = 0),
     legend.position =   "right",
 
@@ -59,6 +60,7 @@ theme_bw <- function(base_size = 12) {
     legend.key =        theme_rect(colour = "grey80"),
     legend.key.size =   unit(1.2, "lines"),
     legend.text =       theme_text(size = base_size * 0.8),
+    legend.text.align =  NA,
     legend.title =      theme_text(size = base_size * 0.8, face = "bold", hjust = 0),
     legend.position =   "right",
 

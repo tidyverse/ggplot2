@@ -1,5 +1,6 @@
 ggplot2 0.8.9 (2010-XX-XX) ----------------------------------------
 
+* guides: override legend text alignment with opts(legend.text.align = 0) or opts(legend.text.align = 1)
 * theme_text handles alignment better when angle = 90
 * mean_se: a new summary function to work with stat_summary that calculates mean and one standard error on either side (thanks to contribution from Kohske Takahashi)
 * stat_smooth: once again works if n > 1000 and SE = F (thanks to bug report from Theiry Onkelinx and fix from Kohske Takahashi)
