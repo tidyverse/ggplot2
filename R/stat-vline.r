@@ -24,6 +24,7 @@ StatAbline <- proto(Stat, {
   default_geom <- function(.) GeomAbline
   
   examples <- function(.) {
+    # See geom_abline for examples
   }
 })
 
@@ -48,6 +49,7 @@ StatVline <- proto(Stat, {
   default_geom <- function(.) GeomVline
   
   examples <- function(.) {
+    # See geom_vline for examples
   }
 })
 
@@ -73,6 +75,7 @@ StatHline <- proto(Stat, {
   default_geom <- function(.) GeomHline
   
   examples <- function(.) {
+    # See geom_hline for examples
   }
 })
 
