@@ -1,10 +1,10 @@
-# Gray theme
-# Produce a theme with gray background and white gridlines
+# Grey theme
+# Produce a theme with grey background and white gridlines
 # 
 # @arguments base font size
 # @keyword dplot
-# @alias theme_grey
-theme_gray <- function(base_size = 12) {
+# @alias theme_gray
+theme_grey <- function(base_size = 12) {
   structure(list(
     axis.line =         theme_blank(),
     axis.text.x =       theme_text(size = base_size * 0.8 , lineheight = 0.9, colour = "grey50", vjust = 1),
@@ -38,7 +38,7 @@ theme_gray <- function(base_size = 12) {
     plot.margin =       unit(c(1, 1, 0.5, 0.5), "lines")
   ), class = "options")
 }
-theme_grey <- theme_gray
+theme_gray <- theme_grey
 
 # Black and white theme
 # Produce a theme with white background and black gridlines
