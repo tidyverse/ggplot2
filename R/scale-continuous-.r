@@ -39,7 +39,7 @@ ScaleContinuous <- proto(Scale, funEnvir = globalenv(), {
     }
     input <- intersect(input, names(df))
 
-    df <- plyr::colwise(.$.tr$transform)(df[input])
+    df <- colwise(.$.tr$transform)(df[input])
     if (ncol(df) == 0) return(NULL)
     names(df) <- output      
     df

@@ -21,8 +21,8 @@ geditGrob <- function(..., grep = TRUE, global = TRUE) {
 # @arguments matrix of grobs
 # @keyword internal
 grobRowHeight <- function(mat) {
-  row_heights <- plyr::alply(mat, 1, function(x) plyr::llply(x, grobHeight))
-  do.call("unit.c", plyr::llply(row_heights, splat(max)))  
+  row_heights <- alply(mat, 1, function(x) llply(x, grobHeight))
+  do.call("unit.c", llply(row_heights, splat(max)))  
 }
 
 # Grob column widths
@@ -31,8 +31,8 @@ grobRowHeight <- function(mat) {
 # @arguments matrix of grobs
 # @keyword internal
 grobColWidth <- function(mat) {
-  col_widths <- plyr::alply(mat, 2, function(x) plyr::llply(x, grobWidth))
-  do.call("unit.c", plyr::llply(col_widths, splat(max)))  
+  col_widths <- alply(mat, 2, function(x) llply(x, grobWidth))
+  do.call("unit.c", llply(col_widths, splat(max)))  
 }
 
 # Build grob matrix

@@ -80,10 +80,10 @@ guide_legends <- function(scales, layers, default_mapping, theme) {
 }
 
 build_legend <- function(name, mapping, layers, default_mapping, theme) {
-  legend_data <- plyr::llply(layers, build_legend_data, mapping, default_mapping)
+  legend_data <- llply(layers, build_legend_data, mapping, default_mapping)
   
   # Calculate sizes for keys - mainly for v. large points and lines
-  size_mat <- do.call("cbind", plyr::llply(legend_data, "[[", "size"))
+  size_mat <- do.call("cbind", llply(legend_data, "[[", "size"))
   if (is.null(size_mat)) {
     key_heights <- rep(0, nrow(mapping))
   } else {
@@ -115,7 +115,7 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
   label_heights <- do.call("unit.c", lapply(labels, grobHeight))
   label_heights <- convertHeight(label_heights, "cm")
 
-  width <- max(unlist(plyr::llply(legend_data, "[[", "size")), 0)
+  width <- max(unlist(llply(legend_data, "[[", "size")), 0)
   key_width <- max(theme$legend.key.size, unit(width, "mm"))
 
   widths <- unit.c(

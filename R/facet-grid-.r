@@ -24,7 +24,7 @@ FacetGrid <- proto(Facet, {
   # Initialisation  
   initialise <- function(., data) {
     .$facet_levels <- unique(
-      plyr::ldply(data, plyr::failwith(NULL, "[", quiet = TRUE), .$conditionals()))
+      ldply(data, failwith(NULL, "[", quiet = TRUE), .$conditionals()))
     
     .$shape <- stamp(.$facet_levels, .$facets, margins = .$margins,
       function(x) 0)
@@ -81,7 +81,7 @@ FacetGrid <- proto(Facet, {
     for(i in seq_along(.$scales$x)) {
       axes_h[[i]] <- coord$guide_axis_h(coord_details[[1, i]], theme)
     }
-    axes_h_height <- do.call("max2", plyr::llply(axes_h, grobHeight))
+    axes_h_height <- do.call("max2", llply(axes_h, grobHeight))
     axeshGrid <- grobGrid(
       "axis_h", axes_h, nrow = 1, ncol = nc,
       heights = axes_h_height, clip = "off"
@@ -93,7 +93,7 @@ FacetGrid <- proto(Facet, {
     for(i in seq_along(.$scales$y)) {
       axes_v[[i]] <- coord$guide_axis_v(coord_details[[i, 1]], theme)
     }    
-    axes_v_width <- do.call("max2", plyr::llply(axes_v, grobWidth))
+    axes_v_width <- do.call("max2", llply(axes_v, grobWidth))
     axesvGrid <- grobGrid(
       "axis_v", axes_v, nrow = nr, ncol = 1,
       widths = axes_v_width, as.table = .$as.table, clip = "off"
@@ -102,16 +102,16 @@ FacetGrid <- proto(Facet, {
     # Strips
     labels <- .$labels_default(.$shape, theme)
     
-    strip_widths <- plyr::llply(labels$v, grobWidth)
-    strip_widths <- do.call("unit.c", plyr::llply(1:ncol(strip_widths), 
+    strip_widths <- llply(labels$v, grobWidth)
+    strip_widths <- do.call("unit.c", llply(1:ncol(strip_widths), 
       function(i) do.call("max2", strip_widths[, i])))
     stripvGrid <- grobGrid(
       "strip_v", labels$v, nrow = nrow(labels$v), ncol = ncol(labels$v),
       widths = strip_widths, as.table = .$as.table
     )
       
-    strip_heights <- plyr::llply(labels$h, grobHeight)
-    strip_heights <- do.call("unit.c", plyr::llply(1:nrow(strip_heights),
+    strip_heights <- llply(labels$h, grobHeight)
+    strip_heights <- do.call("unit.c", llply(1:nrow(strip_heights),
        function(i) do.call("max2", strip_heights[i, ])))
     striphGrid <- grobGrid(
       "strip_h", labels$h, nrow = nrow(labels$h), ncol = ncol(labels$h),
@@ -131,8 +131,8 @@ FacetGrid <- proto(Facet, {
 
     if(.$space_is_free) {
       size <- function(y) unit(diff(y$output_expand()), "null")
-      panel_widths <- do.call("unit.c", plyr::llply(.$scales$x, size))
-      panel_heights <- do.call("unit.c", plyr::llply(.$scales$y, size))
+      panel_widths <- do.call("unit.c", llply(.$scales$x, size))
+      panel_heights <- do.call("unit.c", llply(.$scales$y, size))
     } else {
       panel_widths <- unit(1, "null")
       panel_heights <- unit(1 * aspect_ratio, "null")
@@ -158,7 +158,7 @@ FacetGrid <- proto(Facet, {
     # theme$panel.margin, theme$panel.margin
     
     # from left to right
-    hgap_widths <- do.call("unit.c", plyr::compact(list(
+    hgap_widths <- do.call("unit.c", compact(list(
       unit(0, "cm"), # no gap after axis
       rep.unit2(theme$panel.margin, nc - 1), # gap after all panels except last
       unit(rep(0, ncol(stripvGrid) + 1), "cm") # no gap after strips 
@@ -169,7 +169,7 @@ FacetGrid <- proto(Facet, {
     )
     
     # from top to bottom
-    vgap_heights <- do.call("unit.c", plyr::compact(list(
+    vgap_heights <- do.call("unit.c", compact(list(
       unit(rep(0, nrow(striphGrid) + 1), "cm"), # no gap after strips 
       rep.unit2(theme$panel.margin, nr - 1), # gap after all panels except last
       unit(0, "cm") # no gap after axis
@@ -398,7 +398,7 @@ FacetGrid <- proto(Facet, {
 # @keyword internal
 scales_list <- function(scale, n, free) {
   if (free) {
-    plyr::rlply(n, scale$clone())  
+    rlply(n, scale$clone())  
   } else {
     rep(list(scale), n)  
   }

@@ -1,6 +1,6 @@
 StatSmooth <- proto(Stat, {
   calculate_groups <- function(., data, scales, ...) {
-    rows <- plyr::daply(data, .(group), function(df) length(unique(df$x)))
+    rows <- daply(data, .(group), function(df) length(unique(df$x)))
     
     if (all(rows == 1) && length(rows) > 1) {
       message("geom_smooth: Only one unique x value each group.", 

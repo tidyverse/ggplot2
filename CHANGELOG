@@ -232,7 +232,7 @@ Minor improvements
 
 Bug fixes
 
-* be explicit about plyr::is.discrete to avoid clash with Hmisc
+* be explicit about is.discrete to avoid clash with Hmisc
 * facet_wrap: work around R bug so no longer crashers when ncol = 1
 * geom_errorbar now works correctly with dashed lines
 * geom_path will now silently ignore lines with less than 2 points (instead of throwing a mysterious error as before)

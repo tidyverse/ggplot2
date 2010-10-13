@@ -136,7 +136,7 @@ as.character.uneval <- function(x, ...) {
 aesdefaults <- function(data, y., params.) {
   updated <- updatelist(y., params.)
   
-  cols <- tryapply(plyr::defaults(data, updated), function(x) eval(x, data, globalenv()))
+  cols <- tryapply(defaults(data, updated), function(x) eval(x, data, globalenv()))
   
   # Need to be careful here because stat_boxplot uses a list-column to store
   # a vector of outliers

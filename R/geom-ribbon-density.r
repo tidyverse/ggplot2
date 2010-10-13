@@ -14,7 +14,7 @@ GeomDensity <- proto(GeomArea, {
     geom_histogram = "for the histogram"
   )  
 
-  default_aes <- function(.) plyr::defaults(aes(fill=NA, weight=1, colour="black", alpha = 1), GeomArea$default_aes())
+  default_aes <- function(.) defaults(aes(fill=NA, weight=1, colour="black", alpha = 1), GeomArea$default_aes())
 
   examples <- function(.) {
     # See stat_density for examples

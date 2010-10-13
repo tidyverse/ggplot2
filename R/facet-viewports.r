@@ -19,7 +19,7 @@ assign_viewports <- function(grobs) {
     ggname(type, editGrob(grobs[[type]][[x, y]], vp = vp_path(x, y, type)))
   }
   
-  grid <- plyr::ldply(names(grobs), make_grid)
+  grid <- ldply(names(grobs), make_grid)
   mlply(grid, assign_vp)
 }
 

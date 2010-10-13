@@ -55,7 +55,7 @@ TopLevel$all_examples_run <- function(., path=NULL, verbose=TRUE) {
     suppressMessages(x$examples_run(path, verbose))
   })
   
-  invisible(do.call("rbind", plyr::compact(out)))
+  invisible(do.call("rbind", compact(out)))
 }
 
 # Run all examples

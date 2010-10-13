@@ -47,7 +47,7 @@ Stat <- proto(TopLevel, expr={
       )
     }, stats, groups, SIMPLIFY=FALSE)
 
-    do.call(plyr::rbind.fill, stats)
+    do.call(rbind.fill, stats)
   }
 
 

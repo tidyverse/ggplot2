@@ -96,7 +96,7 @@ TopLevel$rdoc_aesthetics <- function(.) {
   if (length(aes) == 0) return("")
 
   req <- ifelse(aes %in% .$required_aes, " (\\strong{required})", "")
-  desc <- paste(plyr::defaults(.$desc_params, .desc_aes)[aes], req, sep="")
+  desc <- paste(defaults(.$desc_params, .desc_aes)[aes], req, sep="")
 
   ps(
     "\\section{Aesthetics}{\n",
@@ -158,7 +158,7 @@ TopLevel$rdoc_arguments <- function(.) {
   
   ps(
     "\\arguments{\n",
-      ps(" \\item{", p, "}{", plyr::defaults(.$desc_params, .desc_param)[p], "}\n"),
+      ps(" \\item{", p, "}{", defaults(.$desc_params, .desc_param)[p], "}\n"),
     "}\n"
   )
 }  

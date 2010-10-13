@@ -33,7 +33,7 @@ label_both <- function(variable, value) paste(variable, value, sep = ": ")
 #X qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2, 
 #X   labeller = label_parsed)
 label_parsed <- function(variable, value) {
-  plyr::llply(as.character(value), function(x) parse(text = x))
+  llply(as.character(value), function(x) parse(text = x))
 }
 
 # Label facet with 'bquoted' expressions

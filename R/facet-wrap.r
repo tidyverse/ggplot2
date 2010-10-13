@@ -7,7 +7,7 @@ FacetWrap <- proto(Facet, {
     )
     
     .$proto(
-      facets = plyr::as.quoted(facets), free = free, 
+      facets = as.quoted(facets), free = free, 
       scales = NULL, as.table = as.table, drop = drop,
       ncol = ncol, nrow = nrow
     )
@@ -20,7 +20,7 @@ FacetWrap <- proto(Facet, {
   # Data shape
   initialise <- function(., data) {
     # Compute facetting variables for all layers
-    vars <- plyr::ldply(data, function(df) {
+    vars <- ldply(data, function(df) {
       as.data.frame(eval.quoted(.$facets, df))
     })
     
@@ -36,7 +36,7 @@ FacetWrap <- proto(Facet, {
       df <- merge(add_group(df), .$facet_levels, by = .$conditionals())
       df <- df[order(df$PANEL, df$.ORDER), ]
 
-      out <- as.list(plyr::dlply(df, .(PANEL), .drop = FALSE))
+      out <- as.list(dlply(df, .(PANEL), .drop = FALSE))
       dim(out) <- c(1, nrow(.$facet_levels))
       out
     })
@@ -108,7 +108,7 @@ FacetWrap <- proto(Facet, {
     )
 
     strips <- .$labels_default(.$facet_levels, theme)
-    strips_height <- max(do.call("unit.c", plyr::llply(strips, grobHeight)))
+    strips_height <- max(do.call("unit.c", llply(strips, grobHeight)))
     stripsGrid <- grobGrid(
       "strip", strips, nrow = nrow, ncol = ncol,
       heights = convertHeight(strips_height, "cm"),
@@ -116,7 +116,7 @@ FacetWrap <- proto(Facet, {
       as.table = .$as.table
     )
     
-    axis_widths <- max(do.call("unit.c", plyr::llply(axes_v, grobWidth)))
+    axis_widths <- max(do.call("unit.c", llply(axes_v, grobWidth)))
     axis_widths <- convertWidth(axis_widths, "cm")
     if (.$free$y) {
       axesvGrid <- grobGrid(
@@ -138,7 +138,7 @@ FacetWrap <- proto(Facet, {
       }
     }
     
-    axis_heights <- max(do.call("unit.c", plyr::llply(axes_h, grobHeight)))
+    axis_heights <- max(do.call("unit.c", llply(axes_h, grobHeight)))
     axis_heights <- convertHeight(axis_heights, "cm")
     if (.$free$x) {
       axeshGrid <- grobGrid(
@@ -177,11 +177,11 @@ FacetWrap <- proto(Facet, {
   labels_default <- function(., labels_df, theme) {
     # Remove column giving panel number
     labels_df <- labels_df[, -ncol(labels_df), drop = FALSE]
-    labels_df[] <- plyr::llply(labels_df, format, justify = "none")
+    labels_df[] <- llply(labels_df, format, justify = "none")
     
     labels <- apply(labels_df, 1, paste, collapse=", ")
 
-    plyr::llply(labels, ggstrip, theme = theme)
+    llply(labels, ggstrip, theme = theme)
   }
   
   # Position scales ----------------------------------------------------------
@@ -266,7 +266,7 @@ FacetWrap <- proto(Facet, {
   
   desc_params <- list(
     nrow = "number of rows",
-    ncol = "number of colums", 
+    ncol = "number of columns", 
     facet = "formula specifying variables to facet by",
     scales = "should scales be fixed, free, or free in one dimension (\\code{free_x}, \\code{free_y}) "
   )

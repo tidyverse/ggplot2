@@ -47,12 +47,12 @@ ScaleDiscrete <- proto(Scale, expr={
     if (!is.null(.$limits)) return()
     
     input <- .$input_aesthetics(df)
-    plyr::l_ply(input, function(var) .$train(df[[var]], drop))
+    l_ply(input, function(var) .$train(df[[var]], drop))
   }
 
   train <- function(., x, drop = .$drop) {
     if (is.null(x)) return()
-    if (!plyr::is.discrete(x)) {
+    if (!is.discrete(x)) {
       stop("Continuous variable (", .$name , ") supplied to discrete ",
        .$my_name(), ".", call. = FALSE) 
     }

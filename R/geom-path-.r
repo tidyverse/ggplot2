@@ -114,7 +114,7 @@ GeomPath <- proto(Geom, {
 
   examples <- function(.) {
     # Generate data
-    myear <- ddply(movies, .(year), plyr::colwise(mean, .(length, rating)))
+    myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
     p <- ggplot(myear, aes(length, rating))
     p + geom_path()
 

@@ -246,7 +246,7 @@ TopLevel <- proto(expr = {
       "<p>Parameters control the appearance of the ", .$class(), ". In addition to the parameters listed below (if any), any aesthetic can be used as a parameter, in which case it will override any aesthetic mapping.</p>\n",
       if(length(param) > 0) ps(
         "<ul>\n",
-        ps("<li><code>", names(param), "</code>: ", plyr::defaults(.$desc_params, .desc_param)[names(param)], "</li>\n"),
+        ps("<li><code>", names(param), "</code>: ", defaults(.$desc_params, .desc_param)[names(param)], "</li>\n"),
         "</ul>\n"
       )
     )

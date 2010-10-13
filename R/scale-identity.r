@@ -1,6 +1,6 @@
 ScaleIdentity <- proto(ScaleDiscrete, {  
   doc <- TRUE
-  common <- c("colour","fill","size","shape","linetype")
+  common <- c("alpha", "colour","fill","size","shape","linetype")
   aliases <- "scale_color_identity"
   new <- function(., name=NULL, breaks=NULL, labels=NULL, formatter = NULL, legend = TRUE, variable="x") {
     

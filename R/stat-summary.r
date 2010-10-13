@@ -18,10 +18,10 @@ StatSummary <- proto(Stat, {
       }
     } else {
       # User supplied individual vector functions
-      fs <- plyr::compact(list(ymin = fun.ymin, y = fun.y, ymax = fun.ymax))
+      fs <- compact(list(ymin = fun.ymin, y = fun.y, ymax = fun.ymax))
       
       fun <- function(df, ...) {
-        res <- plyr::llply(fs, function(f) do.call(f, list(df$y, ...)))
+        res <- llply(fs, function(f) do.call(f, list(df$y, ...)))
         names(res) <- names(fs)
         as.data.frame(res)
       }
