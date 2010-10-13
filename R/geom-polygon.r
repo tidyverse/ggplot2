@@ -7,7 +7,7 @@ GeomPolygon <- proto(Geom, {
       with(coordinates$munch(data, scales), 
         polygonGrob(x, y, default.units="native",
         gp=gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt,
-         linetype=linetype))
+         lty=linetype))
       )
       #GeomPath$draw(data, scales, coordinates)
     )))
