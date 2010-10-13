@@ -56,3 +56,18 @@ dist_polar <- function(r, theta) {
 
   sqrt(r1 ^ 2 + r2 ^ 2 - 2 * r1 * r2 * cos(diff(theta)))
 }
+
+
+# Compute central angle between two points.
+# Multiple by radius of sphere to get great circle distance
+dist_central_angle <- function(lon, lat) {
+  # Convert to radians
+  lat <- lat * pi / 180
+  lon <- lon * pi / 180
+  
+  hav <- function(x) sin(x / 2) ^ 2
+  ahav <- function(x) 2 * asin(x)
+  
+  n <- length(lon)
+  ahav(sqrt(hav(diff(lat)) + cos(lat[-n]) * cos(lat[-1]) * hav(diff(lat))))
+}

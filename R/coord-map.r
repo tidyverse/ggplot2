@@ -26,6 +26,11 @@ CoordMap <- proto(Coord, {
     out
   }
   
+  distance <- function(., x, y, details) {
+    max_dist <- dist_central_angle(details$x.raw, details$y.raw)
+    dist_central_angle(x, y) / max_dist
+  }
+  
   compute_aspect <- function(., ranges) {
     diff(ranges$y.range) / diff(ranges$x.range)
   }
