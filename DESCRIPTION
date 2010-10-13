@@ -9,7 +9,7 @@ Depends: reshape (>= 0.8.0), grid, proto
 Imports: plyr (>= 1.0), splines, MASS, RColorBrewer, digest, colorspace
 Suggests: quantreg, Hmisc, mapproj, maps, hexbin, gpclib, maptools
 Extends: sp
-License: GPL
+License: GPL-2
 URL: http://had.co.nz/ggplot2/
 LazyLoad: false
 LazyData: true
