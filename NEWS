@@ -1,5 +1,6 @@
 ggplot2 0.8.9 (2010-XX-XX) ----------------------------------------
 
+* pos_stack: now works with NAs in x
 * geom_polygon: specifying linetype now works (thanks to fix from Kohske Takahashi)
 * guides: override legend text alignment with opts(legend.text.align = 0) or opts(legend.text.align = 1)
 * theme_text handles alignment better when angle = 90
