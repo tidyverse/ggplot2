@@ -21,8 +21,11 @@ theme_grey <- function(base_size = 12) {
     legend.text =       theme_text(size = base_size * 0.8),
     legend.text.align =  NA,
     legend.title =      theme_text(size = base_size * 0.8, face = "bold", hjust = 0),
+    legend.title.align =  NA,
     legend.position =   "right",
-
+    legend.direction =  "vertical",
+    legend.box =        NA,
+                 
     panel.background =  theme_rect(fill = "grey90", colour = NA), 
     panel.border =      theme_blank(), 
     panel.grid.major =  theme_line(colour = "white"),
@@ -62,8 +65,11 @@ theme_bw <- function(base_size = 12) {
     legend.text =       theme_text(size = base_size * 0.8),
     legend.text.align =  NA,
     legend.title =      theme_text(size = base_size * 0.8, face = "bold", hjust = 0),
+    legend.title.align =  NA,
     legend.position =   "right",
-
+    legend.direction =   "vertical",
+    legend.box =        NA,
+                 
     panel.background =  theme_rect(fill = "white", colour = NA), 
     panel.border =      theme_rect(fill = NA, colour="grey50"), 
     panel.grid.major =  theme_line(colour = "grey90", size = 0.2),

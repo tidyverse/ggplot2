@@ -1,5 +1,8 @@
 ggplot2 0.8.9 (2010-XX-XX) ----------------------------------------
 
+* legends: now can specify the direction of element by opts(legend.direction="vertical") or opts(legend.direction="horizontal")
+* legends: now can override the alignment of legend box by opts(legend.box="vertical") or opts(legend.box="horizontal")
+* legneds: now can override legend title alignment with opts(legend.title.align = 0) or opts(legend.title.align = 1)
 * pos_stack: now works with NAs in x
 * geom_polygon: specifying linetype now works (thanks to fix from Kohske Takahashi)
 * guides: override legend text alignment with opts(legend.text.align = 0) or opts(legend.text.align = 1)
