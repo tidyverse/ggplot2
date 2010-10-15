@@ -1,6 +1,7 @@
 ggplot2 0.8.9 (2010-XX-XX) ----------------------------------------
 
-* legends: now can specify the direction of element by opts(legend.direction="vertical") or opts(legend.direction="horizontal")
+* facet_grid: now labels in facet_grid are correctly aligned when the number of factors is more then one (fixes #87 and #65)
+* legends: now can specify the direction of element by opts(legend.direction="vertical") or opts(legend.direction="horizontal"), and hjust of legend boxs is center if legend.direction=="horizontal"
 * legends: now can override the alignment of legend box by opts(legend.box="vertical") or opts(legend.box="horizontal")
 * legneds: now can override legend title alignment with opts(legend.title.align = 0) or opts(legend.title.align = 1)
 * pos_stack: now works with NAs in x
