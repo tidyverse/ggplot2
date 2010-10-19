@@ -12,6 +12,23 @@
 # @keyword hplot 
 # @value frameGrob, or NULL if no legends
 # @keyword internal
+#X theme_update(legend.background = theme_rect(size = 0.2))
+#X mtcars$long <- factor(sample(3, nrow(mtcars), TRUE),
+#X   labels = c("this is very long label", "this is very long label2", "this is\nvery long\nlabel3"))
+#X mtcars$short_elements_with_long_title <- factor(sample(2, nrow(mtcars), TRUE), labels = c("s1", "s2"))
+#X
+#X # with short title and long key/values
+#X p <- qplot(mpg, wt, data = mtcars, colour = factor(cyl), shape = long)
+#X p
+#X p + opts(legend.direction = "horizontal", legend.position = "bottom")
+#X p + opts(legend.direction = "horizontal", legend.position = "bottom", legend.box = "vertical")
+#X 
+#X # with long title and short key/values
+#X p <- qplot(mpg, wt, data = mtcars, colour = factor(cyl), shape = short_elements_with_long_title)
+#X p
+#X p + opts(legend.direction = "horizontal", legend.position = "bottom") # to be fixed
+#X p + opts(legend.direction = "horizontal", legend.position = "bottom", legend.box = "vertical")
+#X theme_set(theme_grey())
 guide_legends_box <- function(scales, layers, default_mapping, horizontal = FALSE, theme) {
 
   # override alignment of legends box if theme$legend.box is specified
@@ -86,12 +103,17 @@ guide_legends <- function(scales, layers, default_mapping, theme) {
 }
 
 build_legend <- function(name, mapping, layers, default_mapping, theme) {
- legend_data <- plyr::llply(layers, build_legend_data, mapping, default_mapping)
+  legend_data <- llply(layers, build_legend_data, mapping, default_mapping)
 
- direction <- charmatch(theme$legend.direction, c("vertical","horizontal"))
+  # Determine the direction of the elements of legend.
+  if (theme$legend.direction == "horizontal") {
+    direction <- "horizontal"
+  } else {
+    direction <- "vertical"
+  }
 
   # Calculate sizes for keys - mainly for v. large points and lines
-  size_mat <- do.call("cbind", plyr::llply(legend_data, "[[", "size"))
+  size_mat <- do.call("cbind", llply(legend_data, "[[", "size"))
   if (is.null(size_mat)) {
     key_sizes <- rep(0, nrow(mapping))
   } else {
@@ -99,11 +121,21 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
   }
 
   # hjust for title of legend
+  # if direction is vertical, then title is left-aligned
+  # if direction is horizontal, then title is centre-aligned
+  # if legend.title.align is specified, then title is alinged using the value
   if (is.na(theme$legend.title.align)) {
-    title <- theme_render(
-      theme, "legend.title",
-      name, x = 0, y = 0.5
-    )
+    if (direction == "vertical") {
+      title <- theme_render(
+        theme, "legend.title",
+        name, x = 0, y = 0.5
+      )
+    } else if (direction == "horizontal") {
+      title <- theme_render(
+        theme, "legend.title",
+        name, hjust = 0.5, x = 0.5, y = 0.5
+      )
+    }
   } else {
     title <- theme_render(
       theme, "legend.title",
@@ -126,14 +158,13 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
     theme_render(theme, "legend.text", label, hjust = hpos, x = hpos, y = 0.5)
   })
 
-  # direction == vertical (original)
-  if(direction==1){
+  if (direction == "vertical") {
     label_width <- do.call("max", lapply(labels, grobWidth))
     label_width <- convertWidth(label_width, "cm")
     label_heights <- do.call("unit.c", lapply(labels, grobHeight))
     label_heights <- convertHeight(label_heights, "cm")
 
-    width <- max(unlist(plyr::llply(legend_data, "[[", "size")), 0)
+    width <- max(unlist(llply(legend_data, "[[", "size")), 0)
     key_width <- max(theme$legend.key.size, unit(width, "mm"))
 
     widths <- unit.c(
@@ -159,24 +190,27 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
                       )  
     heights <- convertHeight(heights, "cm")
 
-  }else if(direction==2){
+  } else if(direction == "horizontal") {
     label_width <- do.call("unit.c", lapply(labels, grobWidth))
     label_width <- convertWidth(label_width, "cm")
     label_heights <- do.call("max", lapply(labels, grobHeight))
     label_heights <- convertHeight(label_heights, "cm")
 
-    height <- max(unlist(plyr::llply(legend_data, "[[", "size")), 0)
+    height <- max(unlist(llply(legend_data, "[[", "size")), 0)
     key_heights <- max(theme$legend.key.size, unit(height, "mm"))
 
     key_width <- unit.pmax(theme$legend.key.size, unit(key_sizes, "mm"))
     # width of (key gap label gap) x nkeys
-    kglg_width<-do.call("unit.c",lapply(1:length(key_width), function(i)unit.c(key_width[i], hgap, label_width[i], hgap)))
+    kglg_width <- do.call("unit.c",lapply(1:length(key_width), function(i)unit.c(key_width[i], hgap, label_width[i], hgap)))
     widths <- unit.c(
-                      hgap,
+                      max(
+                          hgap,
+                          (unit.c(unit(1, "grobwidth", title) - (sum(kglg_width) - hgap))) * 0.5
+                          ),
                       kglg_width,
                       max(
-                          unit(0,"lines"),
-                          unit.c(unit(1, "grobwidth", title) - (sum(kglg_width) - hgap))
+                          hgap,
+                          (unit.c(unit(1, "grobwidth", title) - (sum(kglg_width) - hgap))) * 0.5
                           )
                       )
     widths <- convertWidth(widths, "cm")
@@ -192,12 +226,16 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
                            ),
                        vgap
                        )  
-  heights <- convertHeight(heights, "cm")
+    heights <- convertHeight(heights, "cm")
 
   }
 
   # horizontally center is pretty when direction is horizontal
-  hjust = c("left","centre")[direction]
+  if (direction == "vertical") {
+    hjust <- "left"
+  } else if (direction == "horizontal") {
+    hjust <- "centre"
+  }
  
   # Layout the legend table
   legend.layout <- grid.layout(
@@ -212,9 +250,9 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
   fg <- placeGrob(fg, title, col = 2:(length(widths)-1), row = 2)
   for (i in 1:nkeys) {
 
-    if(direction==1){
+    if (direction == "vertical") {
       fg <- placeGrob(fg, theme_render(theme, "legend.key"), col = 2, row = i+3)
-    }else if(direction==2){
+    } else if (direction == "horizontal") {
       fg <- placeGrob(fg, theme_render(theme, "legend.key"), col = 1+(i*4)-3, row = 4)
     }
 
@@ -223,9 +261,9 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
         legend_geom <- Geom$find(layers[[j]]$geom$guide_geom())
         key <- legend_geom$draw_legend(legend_data[[j]][i, ],
            c(layers[[j]]$geom_params, layers[[j]]$stat_params))
-        if(direction==1){
+        if (direction == "vertical") {
           fg <- placeGrob(fg, ggname("key", key), col = 2, row = i+3)
-        }else if(direction==2){
+        } else if (direction == "horizontal") {
           fg <- placeGrob(fg, ggname("key", key), col = 1+(i*4)-3, row = 4)
         }
       }
@@ -235,9 +273,9 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
       mapping$.label[[i]], hjust = hpos,
       x = hpos, y = 0.5
     )
-    if(direction==1){
+    if (direction == "vertical") {
       fg <- placeGrob(fg, label, col = 4, row = i+3)
-    }else if(direction==2){
+    } else if (direction == "horizontal") {
       fg <- placeGrob(fg, label, col = 1+(i*4)-1, row = 4)
     }
   }
