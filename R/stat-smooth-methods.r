@@ -51,3 +51,16 @@ predictdf.loess <- function(model, xseq, se, level) {
     data.frame(x = xseq, y = as.vector(pred))
   }
 }
+
+predictdf.locfit <- function(model, xseq, se, level) {
+  pred <- predict(model, newdata = data.frame(x = xseq), se.fit = se)
+                          
+  if (se) {
+    y = pred$fit
+    ymin = y - pred$se.fit
+    ymax = y + pred$se.fit
+    data.frame(x = xseq, y, ymin, ymax, se = pred$se.fit)
+  } else {
+    data.frame(x = xseq, y = as.vector(pred))
+  }
+}

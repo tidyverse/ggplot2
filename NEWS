@@ -1,5 +1,6 @@
 ggplot2 0.8.9 (2010-XX-XX) ----------------------------------------
 
+* stat_smooth: works with locfit (fix #129)
 * coord_poler: fix point division bugs
 * facet_grid: now labels in facet_grid are correctly aligned when the number of factors is more then one (fixes #87 and #65)
 * legends: now can specify the direction of element by opts(legend.direction="vertical") or opts(legend.direction="horizontal"), and hjust of legend boxs is center if legend.direction=="horizontal"
