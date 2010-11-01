@@ -1,5 +1,6 @@
 ggplot2 0.8.9 (2010-XX-XX) ----------------------------------------
 
+* stat_function: now works without y values
 * scale_identity: now show legends (fix #119)
 * coord_cartesian and coord_flip: now can wisely zoom when wise = TRUE
 * stat_smooth: works with locfit (fix #129)

@@ -25,6 +25,7 @@ StatFunction <- proto(Stat, {
   )
 
   default_geom <- function(.) GeomPath
+  default_aes <- function(.) aes(y = ..y..)
   
   examples <- function(.) {
     x <- rnorm(100)
