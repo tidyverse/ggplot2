@@ -1,5 +1,6 @@
 ggplot2 0.8.9 (2010-XX-XX) ----------------------------------------
 
+* axis: can partially hanle text rotation (issue #149)
 * stat_function: now works without y values
 * scale_identity: now show legends (fix #119)
 * coord_cartesian and coord_flip: now can wisely zoom when wise = TRUE
