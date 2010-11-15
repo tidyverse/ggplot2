@@ -63,7 +63,11 @@ pos_stack <- function(df, width) {
   
   n <- nrow(df) + 1
   y <- with(df, ifelse(is.na(y), 0, y))
-  heights <- c(0, cumsum(y))
+  if (all(is.na(df$x))) {
+    heights <- rep(NA, n)
+  } else {
+    heights <- c(0, cumsum(y))
+  }
 
   within(df, {
     ymin <- heights[-n]

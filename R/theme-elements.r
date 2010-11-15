@@ -99,16 +99,28 @@ theme_segment <- function(colour = "black", size = 0.5, linetype = 1) {
 # @arguments line height
 # @keyword dplot
 theme_text <- function(family = "", face = "plain", colour = "black", size = 10, hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1.1) {
+
   vj <- vjust
   hj <- hjust
+  angle <- angle %% 360
   
   if (angle == 90) {
-    vj <- hjust
-    hj <- vjust
+    xp <- vj
+    yp <- hj
+  } else if (angle == 180) {
+    xp <- 1 - hj
+    yp <- vj
+  } else if (angle == 270) {
+    xp <- vj
+    yp <- 1 - hj
+  }else {
+    xp <- hj
+    yp <- vj
   }
-  
+
   structure(
-    function(label, x = hj, y = vj, ..., vjust = vj, hjust = hj, default.units = "npc") {
+    function(label, x = xp, y = yp, ..., vjust = vj, hjust = hj, default.units = "npc") {
+
       textGrob(
         label, x, y, hjust = hjust, vjust = vjust, ...,
         default.units = default.units,

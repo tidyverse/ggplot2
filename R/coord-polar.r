@@ -15,13 +15,20 @@ CoordPolar <- proto(Coord, {
   }
   
   distance <- function(., x, y, details) {
-    max_dist <- dist_polar(details$r.range, details$theta.range)
+    max_dist <- 2*pi*abs(diff(details$r.range))
     
     if (.$theta == "x") {
-      dist_polar(theta = x, r = y) / max_dist
+      r <- y
+      theta <- .$theta_rescale_no_clip(x, details)
     } else {
-      dist_polar(r = x, theta = y) / max_dist
+      r <- x
+      theta <- .$theta_rescale_no_clip(y, details)
     }
+    px <- r*cos(theta)
+    py <- r*sin(theta)
+    pz <- theta*r
+
+    sqrt(diff(px)^2+diff(py)^2+diff(pz)^2) / max_dist
   }
 
   compute_ranges <- function(., scales) {
@@ -64,7 +71,11 @@ CoordPolar <- proto(Coord, {
       rename(data, c("y" = "r", "x" = "theta"))
     }
   }
-  
+
+  theta_rescale_no_clip <- function(., x, details) {
+    rotate <- function(x) (x + .$start) * .$direction
+    rotate(rescale(x, c(0, 2 * pi), details$theta.range, clip = FALSE))
+  }
 
   theta_rescale <- function(., x, details) {
     rotate <- function(x) (x + .$start) %% (2 * pi) * .$direction

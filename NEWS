@@ -1,5 +1,16 @@
 ggplot2 0.8.9 (2010-XX-XX) ----------------------------------------
 
+* axis: can partially hanle text rotation (issue #149)
+* stat_function: now works without y values
+* scale_identity: now show legends (fix #119)
+* coord_cartesian and coord_flip: now can wisely zoom when wise = TRUE
+* stat_smooth: works with locfit (fix #129)
+* coord_poler: fix point division bugs
+* facet_grid: now labels in facet_grid are correctly aligned when the number of factors is more then one (fixes #87 and #65)
+* legends: now can specify the direction of element by opts(legend.direction="vertical") or opts(legend.direction="horizontal"), and hjust of legend boxs is center if legend.direction=="horizontal"
+* legends: now can override the alignment of legend box by opts(legend.box="vertical") or opts(legend.box="horizontal")
+* legneds: now can override legend title alignment with opts(legend.title.align = 0) or opts(legend.title.align = 1)
+* pos_stack: now works with NAs in x
 * geom_polygon: specifying linetype now works (thanks to fix from Kohske Takahashi)
 * guides: override legend text alignment with opts(legend.text.align = 0) or opts(legend.text.align = 1)
 * theme_text handles alignment better when angle = 90

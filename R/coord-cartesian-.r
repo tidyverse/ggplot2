@@ -1,6 +1,6 @@
 CoordCartesian <- proto(Coord, expr={  
-  new <- function(., xlim = NULL, ylim = NULL) {
-    .$proto(limits = list(x = xlim, y = ylim))
+  new <- function(., xlim = NULL, ylim = NULL, wise = FALSE) {
+    .$proto(limits = list(x = xlim, y = ylim), wise = wise)
   }
   
   transform <- function(., data, details) {
@@ -15,7 +15,12 @@ CoordCartesian <- proto(Coord, expr={
     if (is.null(.$limits$x)) {
       x.range <- scales$x$output_expand()
     } else {
-      x.range <- range(scales$x$.tr$transform(.$limits[["x"]]))
+      if (.$wise) {
+        x.range <- expand_range(range(scales$x$.tr$transform(.$limits[["x"]])), scales$x$.expand[1], scales$x$.expand[2])
+        scales$x$.domain<-.$limits[["x"]]
+      } else {
+        x.range <- range(scales$x$.tr$transform(.$limits[["x"]]))
+      }
     }
     x.major <- .$rescale_var(scales$x$input_breaks_n(), x.range, TRUE)
     x.minor <- .$rescale_var(scales$x$output_breaks(), x.range, TRUE)
@@ -24,7 +29,12 @@ CoordCartesian <- proto(Coord, expr={
     if (is.null(.$limits$y)) {
       y.range <- scales$y$output_expand()
     } else {
-      y.range <- range(scales$y$.tr$transform(.$limits[["y"]]))
+      if (.$wise) {
+        y.range <- expand_range(range(scales$y$.tr$transform(.$limits[["y"]])), scales$y$.expand[1], scales$y$.expand[2])
+        scales$y$.domain<-.$limits[["y"]]
+      } else {
+        y.range <- range(scales$y$.tr$transform(.$limits[["y"]]))
+      }
     }
     y.major <- .$rescale_var(scales$y$input_breaks_n(), y.range, TRUE)
     y.minor <- .$rescale_var(scales$y$output_breaks(), y.range, TRUE)

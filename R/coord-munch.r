@@ -14,7 +14,7 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   # How many pieces for each old segment
   extra <- floor(dist / segment_length) + 1
   extra[is.na(extra)] <- 1
- 
+
   # Generate extra pieces for x and y values
   x <- unlist(mapply(interp, data$x[-n], data$x[-1], extra, SIMPLIFY = FALSE))
   y <- unlist(mapply(interp, data$y[-n], data$y[-1], extra, SIMPLIFY = FALSE))
@@ -32,7 +32,7 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
 # @keyword internal
 interp <- function(start, end, n) {
   if (n == 1) return(start)
-  start + seq(0, 1, length = n + 1)[-n] * (end - start)
+  start + seq(0, 1, length = n) * (end - start)
 }
 
 # Euclidean distance between points.

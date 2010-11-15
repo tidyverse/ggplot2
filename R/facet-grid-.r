@@ -106,15 +106,15 @@ FacetGrid <- proto(Facet, {
     strip_widths <- do.call("unit.c", llply(1:ncol(strip_widths), 
       function(i) do.call("max2", strip_widths[, i])))
     stripvGrid <- grobGrid(
-      "strip_v", labels$v, nrow = nrow(labels$v), ncol = ncol(labels$v),
+      "strip_v", t(labels$v), nrow = nrow(labels$v), ncol = ncol(labels$v),
       widths = strip_widths, as.table = .$as.table
     )
-      
+
     strip_heights <- llply(labels$h, grobHeight)
     strip_heights <- do.call("unit.c", llply(1:nrow(strip_heights),
        function(i) do.call("max2", strip_heights[i, ])))
     striphGrid <- grobGrid(
-      "strip_h", labels$h, nrow = nrow(labels$h), ncol = ncol(labels$h),
+      "strip_h", t(labels$h), nrow = nrow(labels$h), ncol = ncol(labels$h),
       heights = strip_heights
     )
       
