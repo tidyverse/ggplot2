@@ -1,28 +1,73 @@
 ggplot2 0.8.9 (2010-XX-XX) ----------------------------------------
 
-* axis: can partially hanle text rotation (issue #149)
-* stat_function: now works without y values
-* scale_identity: now show legends (fix #119)
+A big thanks to Koshke Takahashi, who supplied the majority of improvements in this release!
+
+GUIDE IMPROVEMENTS
+
+* axis: can partially handle text rotation (issue #149)
+
+* legend: now can specify the direction of element by opts(legend.direction =
+  "vertical") or opts(legend.direction = "horizontal"), and legend box is
+  center aligned if horizontal
+
+* legend: now can override the alignment of legend box by
+  opts(legend.box = "vertical") or opts(legend.box = "horizontal")
+
+* legend: now can override legend title alignment with opts(legend.title.align
+  = 0) or opts(legend.title.align = 1)
+
+* legend: can override legend text alignment with opts(legend.text.align = 0)
+  or opts(legend.text.align = 1)
+
+BUG FIXES
+
+* +: adding NULL to a plot returns the plot (idempotent under addition)
+  (thanks to suggestion by Matthew O'Meara)
+
+* +: meaningful error message if + doesn't know how to deal with an object
+  type
+
 * coord_cartesian and coord_flip: now can wisely zoom when wise = TRUE
-* stat_smooth: works with locfit (fix #129)
-* coord_poler: fix point division bugs
-* facet_grid: now labels in facet_grid are correctly aligned when the number of factors is more then one (fixes #87 and #65)
-* legends: now can specify the direction of element by opts(legend.direction="vertical") or opts(legend.direction="horizontal"), and hjust of legend boxs is center if legend.direction=="horizontal"
-* legends: now can override the alignment of legend box by opts(legend.box="vertical") or opts(legend.box="horizontal")
-* legneds: now can override legend title alignment with opts(legend.title.align = 0) or opts(legend.title.align = 1)
+
+* coord_polar: fix point division bugs
+
+* facet_grid: now labels in facet_grid are correctly aligned when the number
+  of factors is more then one (fixes #87 and #65)
+
+* geom_hex: now correctly applies alpha to fill colour not outline colour
+  (thanks to bug report from Ian Fellows)
+
+* geom_polygon: specifying linetype now works (thanks to fix from Kohske
+  Takahashi)
+
+* hcl: can now set c and l, and preserves names (thanks to suggestion by
+  Richard Cotton)
+
+* mean_se: a new summary function to work with stat_summary that calculates
+  mean and one standard error on either side (thanks to contribution from
+  Kohske Takahashi)
+
 * pos_stack: now works with NAs in x
-* geom_polygon: specifying linetype now works (thanks to fix from Kohske Takahashi)
-* guides: override legend text alignment with opts(legend.text.align = 0) or opts(legend.text.align = 1)
+
+* scale_alpha: setting limits to a range inside the data now works (thanks to
+  report by Dr Proteome)
+
+* scale_colour_continuous: works correctly with single continuous value (fixes
+  #73)
+
+* scale_identity: now show legends (fix #119)
+
+* stat_function: now works without y values
+
+* stat_smooth: draw line if only 2 unique x values, not three as previously *
+  guides: fixed #126
+
+* stat_smooth: once again works if n > 1000 and SE = F (thanks to bug report
+  from Theiry Onkelinx and fix from Kohske Takahashi)
+
+* stat_smooth: works with locfit (fix #129)
+
 * theme_text handles alignment better when angle = 90
-* mean_se: a new summary function to work with stat_summary that calculates mean and one standard error on either side (thanks to contribution from Kohske Takahashi)
-* stat_smooth: once again works if n > 1000 and SE = F (thanks to bug report from Theiry Onkelinx and fix from Kohske Takahashi)
-* stat_smooth: draw line if only 2 unique x values, not three as previously * guides: fixed #126
-* hcl: can now set c and l, and preserves names (thanks to suggestion by Richard Cotton)
-* +: meaningful error message if + doesn't know how to deal with an object type
-* +: adding NULL to a plot returns the plot (idempotent under addition) (thanks to suggestion by Matthew O'Meara)
-* scale_colour_continuous: works correctly with single continuous value (fixes #73)
-* scale_alpha: setting limits to a range inside the data now works (thanks to report by Dr Proteome)
-* geom_hex: now correctly applies alpha to fill colour not outline colour (thanks to bug report from Ian Fellows)
 
 ggplot2 0.8.8 (2010-07-02) ----------------------------------------
 
