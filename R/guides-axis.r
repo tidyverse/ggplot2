@@ -13,12 +13,14 @@ guide_axis <- function(at, labels, position="right", theme) {
   at <- unit(at, "native")
   length <- theme$axis.ticks.length
   label_pos <- length + theme$axis.ticks.margin
+
   one <- unit(1, "npc")
   
   label_render <- switch(position,
     top = , bottom = "axis.text.x",
     left = , right = "axis.text.y"
   )
+
   label_x <- switch(position,
     top = , 
     bottom = at,
@@ -65,23 +67,27 @@ guide_axis <- function(at, labels, position="right", theme) {
                                                           widths = one, heights = unit.c(label_pos, grobHeight(labels)))),
                               right =, left = frameGrob(layout = grid.layout(nrow = 1, ncol = 2,
                                                           widths = unit.c(grobWidth(labels), label_pos), heights = one))))
-  fg <- switch(position,
-               top = ,
-               bottom = placeGrob(fg, labels, row = 2, col = 1),
-               right = ,
-               left = placeGrob(fg, labels, row = 1, col = 1))
 
-  fg <- switch(position,
-               top = ,
-               bottom = placeGrob(fg, ticks, row = 1, col = 1),
-               right = ,
-               left = placeGrob(fg, ticks, row = 1, col = 2))
 
-  fg <- switch(position,
-               top = ,
-               bottom = placeGrob(fg, line, row = 1, col = 1),
-               right = ,
-               left = placeGrob(fg, line, row = 1, col = 2))
+  if (!is.zero(labels)) {
+    fg <- switch(position,
+                 top = ,
+                 bottom = placeGrob(fg, labels, row = 2, col = 1),
+                 right = ,
+                 left = placeGrob(fg, labels, row = 1, col = 1))
+  }
 
-  fg
+  if (!is.zero(ticks)) {
+    fg <- switch(position,
+                 top = ,
+                 bottom = placeGrob(fg, ticks, row = 1, col = 1),
+                 right = ,
+                 left = placeGrob(fg, ticks, row = 1, col = 2))
+  }
+
+  absoluteGrob(
+    gList(line, fg),
+    width = grobWidth(fg),
+    height = grobHeight(fg)
+  )
 }
