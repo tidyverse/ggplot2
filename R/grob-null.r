@@ -18,4 +18,4 @@ grobHeight.zeroGrob <- function(x) unit(0, "cm")
 
 drawDetails.zeroGrob <- function(x, recording) {}
 
-is.zero <- function(x) identical(x, .zeroGrob)
+is.zero <- function(x) inherits(x, "zeroGrob")

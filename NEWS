@@ -21,6 +21,8 @@ GUIDE IMPROVEMENTS
 
 BUG FIXES
 
+* is.zero: now correctly works
+
 * +: adding NULL to a plot returns the plot (idempotent under addition)
   (thanks to suggestion by Matthew O'Meara)
 
