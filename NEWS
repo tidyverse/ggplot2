@@ -21,6 +21,8 @@ GUIDE IMPROVEMENTS
 
 BUG FIXES
 
+* facet_grid: fixed hirozontal spacing when nrow of horizontal strip >= 2
+
 * facet_grid: now can manually specify the relative size of each row and column
 
 * is.zero: now correctly works
