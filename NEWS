@@ -21,6 +21,8 @@ GUIDE IMPROVEMENTS
 
 BUG FIXES
 
+* facet_grid: now can manually specify the relative size of each row and column
+
 * is.zero: now correctly works
 
 * +: adding NULL to a plot returns the plot (idempotent under addition)
