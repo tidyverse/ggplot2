@@ -105,6 +105,14 @@ guide_legends <- function(scales, layers, default_mapping, theme) {
 build_legend <- function(name, mapping, layers, default_mapping, theme) {
   legend_data <- llply(layers, build_legend_data, mapping, default_mapping)
 
+  # Determine key width and height
+  if (is.na(theme$legend.key.width)) {
+    theme$legend.key.width <- theme$legend.key.size
+  }
+  if (is.na(theme$legend.key.height)) {
+    theme$legend.key.height <- theme$legend.key.size
+  }
+
   # Determine the direction of the elements of legend.
   if (theme$legend.direction == "horizontal") {
     direction <- "horizontal"
@@ -165,7 +173,7 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
     label_heights <- convertHeight(label_heights, "cm")
 
     width <- max(unlist(llply(legend_data, "[[", "size")), 0)
-    key_width <- max(theme$legend.key.size, unit(width, "mm"))
+    key_width <- max(theme$legend.key.width, unit(width, "mm"))
 
     widths <- unit.c(
                      hgap, key_width,
@@ -182,7 +190,7 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
                       unit(1, "grobheight", title),
                       vgap, 
                       unit.pmax(
-                                theme$legend.key.size, 
+                                theme$legend.key.height, 
                                 label_heights, 
                                 unit(key_sizes, "mm")
                                 ),
@@ -197,9 +205,9 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
     label_heights <- convertHeight(label_heights, "cm")
 
     height <- max(unlist(llply(legend_data, "[[", "size")), 0)
-    key_heights <- max(theme$legend.key.size, unit(height, "mm"))
+    key_heights <- max(theme$legend.key.height, unit(height, "mm"))
 
-    key_width <- unit.pmax(theme$legend.key.size, unit(key_sizes, "mm"))
+    key_width <- unit.pmax(theme$legend.key.width, unit(key_sizes, "mm"))
     # width of (key gap label gap) x nkeys
     kglg_width <- do.call("unit.c",lapply(1:length(key_width), function(i)unit.c(key_width[i], hgap, label_width[i], hgap)))
     widths <- unit.c(
@@ -220,7 +228,7 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
                        unit(1, "grobheight", title),
                        vgap, 
                        max(
-                           theme$legend.key.size,
+                           theme$legend.key.height,
                            label_heights, 
                            key_heights
                            ),

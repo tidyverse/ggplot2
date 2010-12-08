@@ -4,6 +4,8 @@ A big thanks to Koshke Takahashi, who supplied the majority of improvements in t
 
 GUIDE IMPROVEMENTS
 
+* key size: can specify width and height separately
+
 * axis: can partially handle text rotation (issue #149)
 
 * legend: now can specify the direction of element by opts(legend.direction =
