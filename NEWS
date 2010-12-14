@@ -23,6 +23,8 @@ GUIDE IMPROVEMENTS
 
 BUG FIXES
 
+* theme_*: can specify font-family for all text elements other than geom_text
+
 * facet_grid: fixed hirozontal spacing when nrow of horizontal strip >= 2
 
 * facet_grid: now can manually specify the relative size of each row and column
