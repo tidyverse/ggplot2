@@ -21,7 +21,7 @@ This page describes stat\_hline, see \code{\link{layer}} and \code{\link{qplot}}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-
+# See geom_hline for examples
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

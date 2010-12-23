@@ -1,5 +1,6 @@
 \name{scale_identity}
 \alias{scale_identity}
+\alias{scale_alpha_identity}
 \alias{scale_colour_identity}
 \alias{scale_fill_identity}
 \alias{scale_size_identity}
@@ -12,7 +13,7 @@
 \details{
 This page describes scale\_identity, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
-\usage{scale_colour_identity(name = NULL, breaks = NULL, labels = NULL, 
+\usage{scale_alpha_identity(name = NULL, breaks = NULL, labels = NULL, 
     formatter = NULL, legend = TRUE, ...)}
 \arguments{
  \item{name}{name of scale to appear in legend or on axis.  Maybe be an expression: see ?plotmath}

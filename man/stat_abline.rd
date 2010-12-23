@@ -20,7 +20,7 @@ This page describes stat\_abline, see \code{\link{layer}} and \code{\link{qplot}
 }}
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
-
+# See geom_abline for examples
 }}
 \author{Hadley Wickham, \url{http://had.co.nz/}}
 \keyword{hplot}

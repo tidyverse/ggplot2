@@ -40,7 +40,7 @@ The following aesthetics can be used with geom\_path.  Aesthetics are mapped to 
 \value{A \code{\link{layer}}}
 \examples{\dontrun{
 # Generate data
-myear <- ddply(movies, .(year), plyr::colwise(mean, .(length, rating)))
+myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
 p <- ggplot(myear, aes(length, rating))
 p + geom_path()
 
