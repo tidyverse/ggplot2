@@ -4,6 +4,8 @@ A big thanks to Koshke Takahashi, who supplied the majority of improvements in t
 
 GUIDE IMPROVEMENTS
 
+* key size: can specify width and height separately
+
 * axis: can partially handle text rotation (issue #149)
 
 * legend: now can specify the direction of element by opts(legend.direction =
@@ -20,6 +22,14 @@ GUIDE IMPROVEMENTS
   or opts(legend.text.align = 1)
 
 BUG FIXES
+
+* theme_*: can specify font-family for all text elements other than geom_text
+
+* facet_grid: fixed hirozontal spacing when nrow of horizontal strip >= 2
+
+* facet_grid: now can manually specify the relative size of each row and column
+
+* is.zero: now correctly works
 
 * +: adding NULL to a plot returns the plot (idempotent under addition)
   (thanks to suggestion by Matthew O'Meara)

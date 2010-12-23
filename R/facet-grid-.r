@@ -1,5 +1,5 @@
 FacetGrid <- proto(Facet, {
-  new <- function(., facets = . ~ ., margins = FALSE, scales = "fixed", space = "fixed", labeller = "label_value", as.table = TRUE) {
+  new <- function(., facets = . ~ ., margins = FALSE, scales = "fixed", space = "fixed", labeller = "label_value", as.table = TRUE, widths = NULL, heights = NULL) {
     scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
     free <- list(
       x = any(scales %in% c("free_x", "free")),
@@ -11,7 +11,8 @@ FacetGrid <- proto(Facet, {
     .$proto(
       facets = facets, margins = margins,
       free = free, space_is_free = (space == "free"),
-      scales = NULL, labeller = list(labeller), as.table = as.table
+      scales = NULL, labeller = list(labeller), as.table = as.table,
+      space_widths = widths, space_heights = heights
     )
   }
   
@@ -134,9 +135,18 @@ FacetGrid <- proto(Facet, {
       panel_widths <- do.call("unit.c", llply(.$scales$x, size))
       panel_heights <- do.call("unit.c", llply(.$scales$y, size))
     } else {
-      panel_widths <- unit(1, "null")
-      panel_heights <- unit(1 * aspect_ratio, "null")
+      if (!is.null(.$space_widths)) {
+        panel_widths <- do.call("unit.c", lapply(.$space_widths, function(x)unit(x, "null")))
+      } else {
+        panel_widths <- unit(1, "null")
+      }
+      if (!is.null(.$space_heights)) {
+        panel_heights <- do.call("unit.c", lapply(.$space_heights, function(x)unit(x, "null")))
+      } else {
+        panel_heights <- unit(1 * aspect_ratio, "null")
+      }
     }
+    
 
     panelGrid <- grobGrid(
       "panel", t(panels), ncol = nc, nrow = nr,
@@ -170,9 +180,9 @@ FacetGrid <- proto(Facet, {
     
     # from top to bottom
     vgap_heights <- do.call("unit.c", compact(list(
-      unit(rep(0, nrow(striphGrid) + 1), "cm"), # no gap after strips 
+      rep(unit(0, "cm"), 2), # no gap before and after axis
       rep.unit2(theme$panel.margin, nr - 1), # gap after all panels except last
-      unit(0, "cm") # no gap after axis
+      unit(rep(0, nrow(striphGrid)), "cm") # no gap after strips
     )))
     
     vgap <- grobGrid("vgap",
