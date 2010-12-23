@@ -4,7 +4,7 @@
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
-Ensure that breaks and labels are the correct format.
+Ensure that breaks and labels are the correct format.cd ..
 }
 \usage{check_breaks_and_labels(breaks = NULL, labels = NULL)}
 \arguments{

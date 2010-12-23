@@ -5,6 +5,7 @@
 # @alias predictdf.default
 # @alias predictdf.glm
 # @alias predictdf.loess
+# @alias predictdf.locfit
 predictdf <- function(model, xseq, se, level) UseMethod("predictdf")
 
 predictdf.default <- function(model, xseq, se, level) {

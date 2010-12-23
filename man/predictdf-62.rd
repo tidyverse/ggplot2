@@ -3,6 +3,7 @@
 \alias{predictdf.default}
 \alias{predictdf.glm}
 \alias{predictdf.loess}
+\alias{predictdf.locfit}
 \title{Prediction data frame}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 

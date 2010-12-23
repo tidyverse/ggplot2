@@ -11,7 +11,7 @@ This page describes facet\_wrap, see \code{\link{layer}} and \code{\link{qplot}}
 \arguments{
  \item{facets}{NULL}
  \item{nrow}{number of rows}
- \item{ncol}{number of colums}
+ \item{ncol}{number of columns}
  \item{scales}{should scales be fixed, free, or free in one dimension (\code{free_x}, \code{free_y}) }
  \item{as.table}{NULL}
  \item{drop}{NULL}

@@ -21,6 +21,22 @@ the scales that make up the plot and organises them into a
 
 If there are no legends to create, this function will return \code{NULL}}
 
+\examples{theme_update(legend.background = theme_rect(size = 0.2))
+mtcars$long <- factor(sample(3, nrow(mtcars), TRUE),
+labels = c("this is very long label", "this is very long label2", "this is\nvery long\nlabel3"))
+mtcars$short_elements_with_long_title <- factor(sample(2, nrow(mtcars), TRUE), labels = c("s1", "s2"))
 
+# with short title and long key/values
+p <- qplot(mpg, wt, data = mtcars, colour = factor(cyl), shape = long)
+p
+p + opts(legend.direction = "horizontal", legend.position = "bottom")
+p + opts(legend.direction = "horizontal", legend.position = "bottom", legend.box = "vertical")
+
+# with long title and short key/values
+p <- qplot(mpg, wt, data = mtcars, colour = factor(cyl), shape = short_elements_with_long_title)
+p
+p + opts(legend.direction = "horizontal", legend.position = "bottom") # to be fixed
+p + opts(legend.direction = "horizontal", legend.position = "bottom", legend.box = "vertical")
+theme_set(theme_grey())}
 \keyword{hplot}
 \keyword{internal}

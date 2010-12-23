@@ -6,6 +6,12 @@
 \details{
 This page describes stat\_function, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
 }
+\section{Aesthetics}{
+The following aesthetics can be used with stat\_function.  Aesthetics are mapped to variables in the data with the aes function: \code{stat\_function(aes(x = var))}
+\itemize{
+  \item \code{y}: y position 
+}
+}
 \usage{stat_function(mapping = NULL, data = NULL, geom = "path", position = "identity", 
     fun, n = 101, args = list(), ...)}
 \arguments{

@@ -23,7 +23,7 @@ Save a ggplot with sensible defaults
 
 \details{ggsave is a convenient function for saving a plot.  It defaults to
 saving the last plot that you displayed, and for a default size uses
-the size of the current graphics device.  It also guess the type of
+the size of the current graphics device.  It also guesses the type of
 graphics device from the extension.  This means the only argument you
 need to supply is the filename.
 

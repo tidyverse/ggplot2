@@ -60,6 +60,8 @@ dist_polar <- function(r, theta) {
 
 # Compute central angle between two points.
 # Multiple by radius of sphere to get great circle distance
+# @arguments longitude
+# @arguments latitude
 dist_central_angle <- function(lon, lat) {
   # Convert to radians
   lat <- lat * pi / 180
