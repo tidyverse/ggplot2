@@ -15,34 +15,33 @@ TopLevel$examples_run <- function(., path = NULL, verbose=TRUE) {
   # e.g. jittering
   set.seed(141079)
 
-  require(decumar, quiet=TRUE, warn=FALSE)
-  quiet <- if (verbose) force else suppressMessages
-  parsed <- weave(.$examples_text())
-  plots <- Filter(function(x) inherits(x$value, "ggplot") && x$visible, parsed)
+  require(evaluate, quiet=TRUE, warn=FALSE)
+  replay(evaluate(.$examples_text()))
+  invisible()
   
-  display <- function(x) {
-    hash <- digest.ggplot(x$value)
-    if (verbose) cat(x$src)
-    if (is.null(path)) {
-      timing <- try_default(system.time(print(x$value)), c(NA, NA, NA))
-    } else {      
-      timing <- try_default(system.time(ggsave(x$value, path=path, width=8, height=8)), c(NA, NA, NA))
-    }
-    timing <- unname(timing)
-    data.frame(
-      class = .$class(),
-      obj = .$objname,
-      src = x$src,
-      hash = hash,
-      user = timing[1],
-      sys = timing[2],
-      elapsed = timing[3],
-      stringsAsFactors = FALSE
-    )
-  }
-  out <- lapply(plots, display)
-  cat("\n")
-  invisible(do.call("rbind", out))
+  # display <- function(x) {
+  #   hash <- digest.ggplot(x$value)
+  #   if (verbose) cat(x$src)
+  #   if (is.null(path)) {
+  #     timing <- try_default(system.time(print(x$value)), c(NA, NA, NA))
+  #   } else {      
+  #     timing <- try_default(system.time(ggsave(x$value, path=path, width=8, height=8)), c(NA, NA, NA))
+  #   }
+  #   timing <- unname(timing)
+  #   data.frame(
+  #     class = .$class(),
+  #     obj = .$objname,
+  #     src = x$src,
+  #     hash = hash,
+  #     user = timing[1],
+  #     sys = timing[2],
+  #     elapsed = timing[3],
+  #     stringsAsFactors = FALSE
+  #   )
+  # }
+  # out <- lapply(plots, display)
+  # cat("\n")
+  # invisible(do.call("rbind", out))
 }
 
 TopLevel$all_examples_run <- function(., path=NULL, verbose=TRUE) {
