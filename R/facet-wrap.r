@@ -71,8 +71,8 @@ FacetWrap <- proto(Facet, {
 
     for (i in seq_len(n)) {
       scales <- list(
-        x = .$scales$x[[i]]$clone(), 
-        y = .$scales$y[[i]]$clone()
+        x = .$scales$x[[i]], 
+        y = .$scales$y[[i]]
       ) 
       details <- coord$compute_ranges(scales)
       axes_h[[1, i]] <- coord$guide_axis_h(details, theme)
@@ -198,10 +198,10 @@ FacetWrap <- proto(Facet, {
 
     lapply(data, function(l) {
       for(i in seq_along(.$scales$x)) {
-        .$scales$x[[i]]$train_df(l[[i]], fr$x)
+        scale_train_df(.$scales$x[[i]], l[[i]])
       }
       for(i in seq_along(.$scales$y)) {
-        .$scales$y[[i]]$train_df(l[[i]], fr$y)
+        scale_train_df(.$scales$y[[i]], l[[i]])
       }
     })
   }
@@ -210,12 +210,11 @@ FacetWrap <- proto(Facet, {
     lapply(data, function(l) {
       for(i in seq_along(.$scales$x)) {
         l[1, i] <- lapply(l[1, i], function(old) {
-          new <- .$scales$x[[i]]$map_df(old)
+          new <- scales_map_df(.$scales$x[[i]], old)
           if (!is.null(.$scales$y[[i]])) {
-            new <- cbind(new, .$scales$y[[i]]$map_df(old))
+            new <- cbind(new, scales_map_df(.$scales$y[[i]], old))
           }
-          
-          
+
           cunion(new, old)
         }) 
       }
@@ -231,9 +230,10 @@ FacetWrap <- proto(Facet, {
 
       for(i in seq_along(.$scales$x)) {
         scales <- list(
-          x = .$scales$x[[i]]$clone(), 
-          y = .$scales$y[[i]]$clone()
+          x = .$scales$x[[i]], 
+          y = .$scales$y[[i]]
         )
+
         details <- coord$compute_ranges(scales)
         grobs[[1, i]] <- layer$make_grob(layerd[[1, i]], details, coord)
       }

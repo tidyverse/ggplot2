@@ -5,7 +5,6 @@
 ggplot_build <- function(plot) {
   if (length(plot$layers) == 0) stop("No layers in plot", call.=FALSE)
   
-  plot <- plot_clone(plot)
   layers <- plot$layers
   scales <- plot$scales
   facet <- plot$facet
@@ -24,10 +23,11 @@ ggplot_build <- function(plot) {
   data <- dlapply(function(d, p) p$scales_transform(d, scales))
   
   # Map and train positions so that statistics have access to ranges
-  # and all positions are numeric
+  # and all positions are numeric (needed for current implementation of
+  # many stats, and for later reparameterisation)
   facet$position_train(data, scales)
   data <- facet$position_map(data, scales)
-  
+
   # Apply and map statistics, then reparameterise geoms that need it
   data <- facet$calc_statistics(data, layers)
   data <- dlapply(function(d, p) p$map_statistics(d, plot)) 
@@ -35,30 +35,18 @@ ggplot_build <- function(plot) {
 
   # Adjust position
   data <- dlapply(function(d, p) p$adjust_position(d, scales))
-  
+    
+  # Train and map scales for legends
   npscales <- scales$non_position_scales()
-  
-  # Train and map, for final time
-  if (npscales$n() > 0) {
+  if (length(npscales$scales) > 0) {
     dlapply(function(d, p) p$scales_train(d, npscales))
     data <- dlapply(function(d, p) p$scales_map(d, npscales))
   }
+  
+  # Train and map position scales
   facet$position_train(data, scales)
-  data <- facet$position_map(data, scales)    
-
-  # Produce grobs
-  grobs <- facet$make_grobs(data, layers, cs)
+  data <- facet$position_map(data, scales)
   
-  grobs3d <- array(unlist(grobs, recursive=FALSE), c(dim(data[[1]]), length(data)))
-  panels <- aaply(grobs3d, 1:2, splat(grobTree), .drop = FALSE)
-  
-  list(
-    data = data,
-    plot = plot,
-    scales = npscales,
-    cs = cs,
-    panels = panels,
-    facet = facet
-  )
+  data
 }
 

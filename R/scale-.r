@@ -1,120 +1,206 @@
-# Domain: raw, transformed, user (limits)
-# Range:  raw, transformed
+#' Components of a scale:
+#'
+#' Guide related:
+#'   * name 
+#'   * breaks
+#'   * labels
+#'   * expand
+#'
+#' Mapping related:
+#'   * aesthetic
+#'   * limits
+#'   * palette
+#'   * trans
+#'
+#' Scales are an S3 class with a single mutable component implemented with
+#' a reference class - the range of the data.  This mutability makes working
+#' with scales much easier, because it makes it possible to distribute the
+#' training, without having to worry about collecting all the pieces back 
+#' together again.
+#'
+#' @name ggscale
+#' @S3method print scale
+NULL
 
-
-Scale <- proto(TopLevel, expr={
-  .input <- ""
-  .output <- ""
-  common <- NULL  
-  legend <- TRUE
-  limits <- NULL
-  doc <- TRUE
+#' @paramCopy breaks scales::cbreaks
+#' @paramCopy labels scales::cbreaks
+#' @paramCopy palette scales::cscale
+#' @paramCopy na.value scales::cscale
+#' @paramCopy trans scales::cscale
+continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = TRUE, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity") {
   
-  class <- function(.) "scale"
-  
-  new <- function(., name="Unknown") {
-    .$proto(name=name)
+  trans <- as.trans(trans)
+  if (is.numeric(breaks)) {
+    breaks <- trans$trans(breaks)
+  }
+  if (is.numeric(limits)) {
+    limits <- trans$trans(limits)
   }
   
-  clone <- function(.) {
-    as.proto(.$as.list(all.names=TRUE), parent=.) 
-  }
-  
-  trained <- function(.) {
-    !is.null(.$input_set())
-  }
-
-  find <- function(., output, only.documented = FALSE) {
-    scales <- Scales$find_all()
-    select <- sapply(scales, function(x) any(output %in% c(x$output(), get("common", x))))
-    if (only.documented) select <- select & sapply(scales, function(x) get("doc", x))
+  structure(list(
+    call = match.call(), 
     
-    unique(scales[select])
-  }
-
-  # Input --------------------------------------------------------------------
-  
-  breaks <- NULL
-
-  input <- function(.) .$.input
-  input_set <- function(.) {
-    nulldefault(.$limits, .$.domain)
-  }
-  
-  # Return names of all aesthetics in df that should be operated on
-  # by this scale - this is currently used for x and y scales, which also
-  # need to operate of {x,y}{min,max,end}.
-  input_aesthetics <- function(., df) {
-    input <- .$input()
-    matches <- aes_to_scale(names(df)) == input
-    names(df)[matches]
-  }
-  
-  # Output -------------------------------------------------------------------
-  
-  output <- function(.) .$.output
-  output_breaks <- function(.) .$map(.$input_breaks())
-  output_expand <- function(.) {
-    expand_range(.$output_set(), .$.expand[1], .$.expand[2])    
-  }
-  
-  # Train scale from a data frame
-  train_df <- function(., df, drop = FALSE) {
-    if (empty(df)) return() 
-    # Don't train if limits have already been set
-    if (!is.null(.$limits)) return()
+    aesthetics = aesthetics,
+    scale_name = scale_name,
+    palette = palette,
     
-    input <- .$input_aesthetics(df)
-    l_ply(input, function(var) .$train(df[[var]], drop))
-  }
+    range = ContinuousRange$new(),
+    limits = limits,
+    trans = trans, 
+    na.value = na.value,
+    expand = expand,
+    rescaler = rescaler,  # Used by diverging and n colour gradients 
+    oob = oob,
 
-  # Map values from a data.frame.   Returns data.frame
-  map_df <- function(., df) {
-    output <- .$input_aesthetics(df)
-    mapped <- llply(output, function(var) .$map(df[[var]]))
+    name = name, 
+    breaks = breaks, 
+    labels = labels, 
+    legend = legend
+  ), class = c(scale_name, "continuous", "scale"))
+}
+
+
+discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = TRUE, limits = NULL, expand = c(0, 0), na.value = NA, drop = TRUE) {
+  structure(list(
+    call = match.call(), 
+
+    aesthetics = aesthetics,
+    scale_name = scale_name,
+    palette = palette,
     
-    if (length(mapped) == 0) {
-      return(data.frame(matrix(nrow = nrow(df), ncol=0)))
+    range = DiscreteRange$new(),
+    limits = limits,
+    na.value = na.value,
+    expand = expand,
+
+    name = name, 
+    breaks = breaks, 
+    labels = labels, 
+    legend = legend,
+    drop = drop
+  ), class = c(scale_name, "discrete", "scale"))
+}
+
+# Train scale from a data frame.
+#
+# @return updated range (invisibly)
+# @seealso \code{\link{scale_train}} for scale specific generic method
+scale_train_df <- function(scale, df) {
+  if (empty(df)) return() 
+
+  aesthetics <- intersect(scale$aesthetics, names(df))
+  lapply(df[aesthetics], scale_train, scale = scale)
+}
+
+# Train an individual scale from a vector of data.
+scale_train <- function(scale, x) UseMethod("scale_train")
+scale_train.continuous <- function(scale, x) {
+  scale$range$train(x)
+}
+scale_train.discrete <- function(scale, x) {
+  scale$range$train(x, drop = scale$drop)
+}
+
+# @return list of transformed variables
+scale_transform_df <- function(scale, df) {
+  if (empty(df)) return()
+
+  aesthetics <- intersect(scale$aesthetics, names(df))
+  if (length(aesthetics) == 0) return()
+
+  lapply(df[aesthetics], scale_transform, scale = scale)
+}
+
+scale_transform <- function(scale, x) UseMethod("scale_transform")
+
+scale_transform.continuous <- function(scale, x) {
+  scale$trans$trans(x)
+}
+scale_transform.discrete <- function(scale, x) {
+  x
+}
+
+# @return list of mapped variables
+scale_map_df <- function(scale, df) {    
+  if (empty(df)) return()
+
+  aesthetics <- intersect(scale$aesthetics, names(df))
+  if (length(aesthetics) == 0) return()
+  
+  lapply(df[aesthetics], scale_map, scale = scale)
+}
+
+scale_map <- function(scale, x) UseMethod("scale_map")
+
+scale_map.continuous <- function(scale, x) {
+  limits <- scale_limits(scale)
+  x <- scale$oob(scale$rescaler(x, from = limits))
+  pal <- scale$palette(x)
+  ifelse(!is.na(x), pal, scale$na.value)
+}
+
+scale_map.discrete <- function(scale, x) {
+  limits <- scale_limits(scale)
+
+  n <- length(limits)
+  pal <- scale$palette(n)[match(as.character(x), limits)]
+  ifelse(!is.na(x), pal, scale$na.value)
+}
+
+scale_limits <- function(scale) {
+  scale$limits %||% scale$range$range
+}
+
+# The phyical size of the scale, if a position scale
+# Unlike limits, this always returns a numeric vector of length 2
+scale_dimension <- function(scale, expand = scale$expand) UseMethod("scale_dimension")
+
+scale_dimension.continuous  <- function(scale, expand = scale$expand) {
+  expand_range(scale_limits(scale), expand[1], expand[2])  
+}
+scale_dimension.discrete <- function(scale, expand = scale$expand) {
+  expand_range(length(scale_limits(scale)), expand[1], expand[2])  
+}
+
+scale_breaks <- function(scale, limits = scale_limits(scale)) {
+  if (is.null(scale$breaks)) {
+    if (inherits(scale, "continuous")) {      
+      discard(scale$trans$breaks(limits), scale_dimension(scale))
+    } else {
+      scale_map(scale, limits)
     }
-        
-    output_df <- do.call("data.frame", mapped)
-    names(output_df) <- output
-    output_df
+  } else if (is.function(scale$breaks)) {
+    scale$breaks(limits)
+  } else {
+    scale$breaks
   }
+}
 
-  
-  pprint <- function(., newline=TRUE) {
-    clist <- function(x) paste(x, collapse=",")
-    
-    cat("scale_", .$objname, ": ", clist(.$input()),   " -> ", clist(.$output()), sep="")
-    if (!is.null(.$input_set())) {
-      cat(" (", clist(.$input_set()), " -> ", clist(.$output_set()), ")", sep="")
+scale_breaks_minor <- function(scale, n = 2, b = scale_breaks(scale), r = scale_limits(scale)) {
+  if (length(b) == 1) return(b)
+
+  bd <- diff(b)[1]
+  if (min(r) < min(b)) b <- c(b[1] - bd, b)
+  if (max(r) > max(b)) b <- c(b, b[length(b)] + bd)
+  unique(unlist(mapply(seq, b[-length(b)], b[-1], length=n+1, SIMPLIFY=F)))
+}
+
+scale_labels <- function(scale, breaks = scale_breaks(scale)) {
+  if (is.null(scale$labels)) {
+    if (inherits(scale, "continuous")) {
+      scale$trans$format(breaks)
+    } else {
+      format(scale_limits(scale), justify = "none")
     }
-    if (newline) cat("\n") 
+  } else if (is.function(scale$labels)) {
+    scale$labels(breaks)
+  } else {
+    scale$labels
   }
-  
-  html_returns <- function(.) {
-    ps(
-      "<h2>Returns</h2>\n",
-      "<p>This function returns a scale object.</p>"
-    )
-  }
-  
-  my_names <- function(.) {
-    ps(.$class(), .$common, .$objname, sep="_", collapse=NULL)
-  }
-  
-  my_full_name <- function(.) {
-    ps(.$class(), .$input(), .$objname, sep="_", collapse=NULL)
-  }
-  
-  parameters <- function(.) {
-    params <- formals(get("new", .))
-    params[setdiff(names(params), c(".","variable"))]
-  }
-  
-})
+}
 
+print.scale <- function(x, ...) {
+  print(x$call)
+}
 
-
-
+scale_clone <- function(scale) UseMethod("scale_clone")

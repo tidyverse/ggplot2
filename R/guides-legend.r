@@ -84,7 +84,7 @@ guide_legends_box <- function(scales, layers, default_mapping, horizontal = FALS
 #X qplot(mpg, wt, data = mtcars, colour = cyl2)
 #X theme_set(theme_grey())
 guide_legends <- function(scales, layers, default_mapping, theme) {
-  legend <- scales$legend_desc(theme)
+  legend <- scales_legend_desc(scales, theme)
   if (length(legend$titles) == 0) return()
   
   hashes <- unique(legend$hash)

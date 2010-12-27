@@ -21,10 +21,10 @@ CoordTrans <- proto(CoordCartesian, expr={
     transform_position(data, trim_infinite_01, trim_infinite_01)
   }
   transform_x <- function(., data, range) {
-    rescale(.$xtr$transform(data), 0:1, range, clip = FALSE)
+    rescale(.$xtr$transform(data), 0:1, range)
   }
   transform_y <- function(., data, range) {
-    rescale(.$ytr$transform(data), 0:1, range, clip = FALSE)
+    rescale(.$ytr$transform(data), 0:1, range)
   }
 
   compute_ranges <- function(., scales) {

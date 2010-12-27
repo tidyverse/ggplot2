@@ -148,7 +148,7 @@ Layer <- proto(expr = {
     
     # Drop aesthetics that are set manually
     aesthetics <- aesthetics[setdiff(names(aesthetics), names(.$geom_params))]
-    plot$scales$add_defaults(data, aesthetics, plot$plot_env)
+    scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
     
     # Evaluate aesthetics in the context of their data frame
     eval.each <- function(dots) 
@@ -227,11 +227,11 @@ Layer <- proto(expr = {
     names(stat_data) <- names(new)
     
     # Add any new scales, if needed
-    plot$scales$add_defaults(data, new, plot$plot_env)
+    scales_add_defaults(plot$scales, data, new, plot$plot_env)
     # Transform the values, if the scale say it's ok 
     # (see stat_spoke for one exception)
     if (.$stat$retransform) {
-      stat_data <- plot$scales$transform_df(stat_data)
+      stat_data <- scales_transform_df(plot$scales, stat_data)
     }
     
     cunion(stat_data, data)
@@ -286,18 +286,18 @@ Layer <- proto(expr = {
   # Stamp data.frame into list of matrices
   
   scales_transform <- function(., data, scales) {
-    gg_apply(data, scales$transform_df)
+    gg_apply(data, scales_transform_df, scales = scales)
   }
 
   # Train scale for this layer
   scales_train <- function(., data, scales) {
-    gg_apply(data, scales$train_df)
+    gg_apply(data, scales_train_df, scales = scales)
   }
 
   
   # Map data using scales.
-  scales_map <- function(., data, scale) {
-    gg_apply(data, function(x) scale$map_df(x))
+  scales_map <- function(., data, scales) {
+    gg_apply(data, scales_map_df, scales = scales)
   }  
 })
 

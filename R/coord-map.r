@@ -21,8 +21,8 @@ CoordMap <- proto(Coord, {
     trans <- .$mproject(data$x, data$y, details$orientation)
     out <- cunion(trans[c("x", "y")], data)
     
-    out$x <- rescale(out$x, 0:1, details$x.range, clip = FALSE)
-    out$y <- rescale(out$y, 0:1, details$y.range, clip = FALSE)
+    out$x <- rescale(out$x, 0:1, details$x.range)
+    out$y <- rescale(out$y, 0:1, details$y.range)
     out
   }
   
@@ -46,8 +46,8 @@ CoordMap <- proto(Coord, {
   }
 
   compute_ranges <- function(., scales) {
-    x.raw <- .$xlim %||% scales$x$output_expand()
-    y.raw <- .$ylim %||% scales$y$output_expand()
+    x.raw <- .$xlim %||% scale_dimension(scales$x)
+    y.raw <- .$ylim %||% scale_dimension(scales$y)
     orientation <- .$orientation %||% c(90, 0, mean(x.raw))
     
     # Increase chances of creating valid boundary region
@@ -58,14 +58,14 @@ CoordMap <- proto(Coord, {
     range <- .$mproject(grid$x, grid$y, orientation)$range
     
     x.range <- range[1:2]
-    x.major <- scales$x$input_breaks_n()
-    x.minor <- scales$x$output_breaks()
-    x.labels <- scales$x$labels()
+    x.major <- scale_breaks(scales$x)
+    x.minor <- scale_breaks_minor(scales$x)
+    x.labels <- scale_labels(scales$x, x.major)
 
     y.range <- range[3:4]
-    y.major <- scales$y$input_breaks_n()
-    y.minor <- scales$y$output_breaks()
-    y.labels <- scales$y$labels()
+    y.major <- scale_breaks(scales$y)
+    y.minor <- scale_breaks_minor(scales$y)
+    y.labels <- scale_labels(scales$y, y.major)
     
     list(
       x.raw = x.raw, y.raw = y.raw, orientation = orientation,

@@ -33,20 +33,20 @@ CoordPolar <- proto(Coord, {
 
   compute_ranges <- function(., scales) {
     if (.$expand) {
-      x.range <- scales$x$output_expand() 
-      y.range <- scales$y$output_expand() 
+      x.range <- scale_dimension(scales$x)
+      y.range <- scale_dimension(scales$y)
     } else {
-      x.range <- scales$x$output_set() 
-      y.range <- scales$y$output_set() 
+      x.range <- scale_dimension(scales$x, c(0, 0))
+      y.range <- scale_dimension(scales$y, c(0, 0))
     }
 
-    x.major <- scales$x$input_breaks_n()
-    x.minor <- scales$x$output_breaks()
-    x.labels <- scales$x$labels()
+    x.major <- scale_breaks(scales$x)
+    x.minor <- scale_breaks_minor(scales$x)
+    x.labels <- scale_labels(scales$x, x.major)
 
-    y.major <- scales$y$input_breaks_n()
-    y.minor <- scales$y$output_breaks()
-    y.labels <- scales$y$labels()
+    y.major <- scale_breaks(scales$y)
+    y.minor <- scale_breaks_minor(scales$y)
+    y.labels <- scale_labels(scales$y, y.major)
     
     details <- list(
       x.range = x.range, y.range = y.range, 
@@ -74,7 +74,7 @@ CoordPolar <- proto(Coord, {
 
   theta_rescale_no_clip <- function(., x, details) {
     rotate <- function(x) (x + .$start) * .$direction
-    rotate(rescale(x, c(0, 2 * pi), details$theta.range, clip = FALSE))
+    rotate(rescale(x, c(0, 2 * pi), details$theta.range))
   }
 
   theta_rescale <- function(., x, details) {

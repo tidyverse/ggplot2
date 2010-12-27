@@ -25,6 +25,8 @@
   } else if (inherits(object, "options")) {
     object$labels <- defaults(object$labels, p$options$labels)
     p$options <- defaults(object, p$options)
+  } else if (inherits(object, "scale")) {
+    p$scales$add(object)
   } else if(inherits(object, "labels")) {
       p <- update_labels(p, object)
   } else if(inherits(object, "uneval")) {
@@ -56,10 +58,6 @@
       },
       facet = {
         p$facet <- object
-        p
-      },
-      scale = {
-        p$scales$add(object)
         p
       }
     )

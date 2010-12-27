@@ -13,21 +13,22 @@ CoordCartesian <- proto(Coord, expr={
   
   compute_ranges <- function(., scales) {
     if (is.null(.$limits$x)) {
-      x.range <- scales$x$output_expand()
+      x.range <- scale_dimension(scales$x)
     } else {
       if (.$wise) {
         x.range <- expand_range(range(scales$x$.tr$transform(.$limits[["x"]])), scales$x$.expand[1], scales$x$.expand[2])
-        scales$x$.domain<-.$limits[["x"]]
+        scales$x$.domain <- .$limits[["x"]]
       } else {
         x.range <- range(scales$x$.tr$transform(.$limits[["x"]]))
       }
     }
-    x.major <- .$rescale_var(scales$x$input_breaks_n(), x.range, TRUE)
-    x.minor <- .$rescale_var(scales$x$output_breaks(), x.range, TRUE)
-    x.labels <- scales$x$labels()
+    
+    x.major <- .$rescale_var(scale_breaks(scales$x), x.range, TRUE)
+    x.minor <- .$rescale_var(scale_breaks_minor(scales$x), x.range, TRUE)
+    x.labels <- scale_labels(scales$x)
 
     if (is.null(.$limits$y)) {
-      y.range <- scales$y$output_expand()
+      y.range <- scale_dimension(scales$y)
     } else {
       if (.$wise) {
         y.range <- expand_range(range(scales$y$.tr$transform(.$limits[["y"]])), scales$y$.expand[1], scales$y$.expand[2])
@@ -36,9 +37,9 @@ CoordCartesian <- proto(Coord, expr={
         y.range <- range(scales$y$.tr$transform(.$limits[["y"]]))
       }
     }
-    y.major <- .$rescale_var(scales$y$input_breaks_n(), y.range, TRUE)
-    y.minor <- .$rescale_var(scales$y$output_breaks(), y.range, TRUE)
-    y.labels <- scales$y$labels()
+    y.major <- .$rescale_var(scale_breaks(scales$y), y.range, TRUE)
+    y.minor <- .$rescale_var(scale_breaks_minor(scales$y), y.range, TRUE)
+    y.labels <- scale_labels(scales$y)
     
     list(
       x.range = x.range, y.range = y.range, 

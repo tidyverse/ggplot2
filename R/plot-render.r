@@ -5,10 +5,10 @@
 # @arguments should the plot be wrapped up inside the pretty accoutrements (labels, legends, etc)
 # @keyword hplot
 # @keyword internal
-panelGrob <- function(plot, pieces = ggplot_build(plot)) {
+panelGrob <- function(panels, plot, data) {
   theme <- plot_theme(plot)
 
-  grid <- pieces$facet$add_guides(plot$data, pieces$panels, pieces$cs, theme)
+  grid <- plot$facet$add_guides(plot$data, panels, plot$coordinates, theme)
   gTree.grobGrid(grid)
 }
 
@@ -33,11 +33,17 @@ panelGrob <- function(plot, pieces = ggplot_build(plot)) {
 # @arguments plot grob
 # @keyword internal
 ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep, ...) {
-  pieces <- ggplot_build(plot)
+
+  plot <- plot_clone(plot)
+  data <- ggplot_build(plot)
+  grobs <- plot$facet$make_grobs(data, plot$layers, plot$coordinates)
   
-  panels <- panelGrob(plot, pieces)
-  scales <- pieces$scales
-  cs <- pieces$cs
+  grobs3d <- array(unlist(grobs, recursive=FALSE), c(dim(data[[1]]), length(data)))
+  panels <- aaply(grobs3d, 1:2, splat(grobTree), .drop = FALSE)
+  
+  panels <- panelGrob(panels, plot, data)
+  scales <- plot$scales
+  cs <- plot$coordinates
 
   theme <- plot_theme(plot)
   margin <- list(
@@ -66,8 +72,8 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep,
   title <- theme_render(theme, "plot.title", plot$options$title)
 
   labels <- cs$labels(list(
-    x = pieces$facet$xlabel(theme),
-    y = pieces$facet$ylabel(theme))
+    x = plot$facet$xlabel(theme),
+    y = plot$facet$ylabel(theme))
   )
   xlabel <- theme_render(theme, "axis.title.x", labels$x)
   ylabel <- theme_render(theme, "axis.title.y", labels$y)

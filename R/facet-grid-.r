@@ -70,8 +70,8 @@ FacetGrid <- proto(Facet, {
     for (i in seq_len(nr)) {
       for(j in seq_len(nc)) {
         scales <- list(
-          x = .$scales$x[[j]]$clone(), 
-          y = .$scales$y[[i]]$clone()
+          x = .$scales$x[[j]], 
+          y = .$scales$y[[i]]
         )        
         coord_details[[i, j]] <- coord$compute_ranges(scales)
       }
@@ -229,10 +229,10 @@ FacetGrid <- proto(Facet, {
     
     lapply(data, function(l) {
       for(i in seq_along(.$scales$x)) {
-        lapply(l[, i], .$scales$x[[i]]$train_df, drop = .$free$x)
+        lapply(l[, i], scale_train_df, scale = .$scales$x[[i]])
       }
       for(i in seq_along(.$scales$y)) {
-        lapply(l[i, ], .$scales$y[[i]]$train_df, drop = .$free$y)
+        lapply(l[i, ], scale_train_df, scale = .$scales$y[[i]])
       }
     })
   }
@@ -242,14 +242,16 @@ FacetGrid <- proto(Facet, {
       for(i in seq_along(.$scales$x)) {
         l[, i] <- lapply(l[, i], function(old) {
           if (is.null(old)) return(data.frame())
-          new <- .$scales$x[[i]]$map_df(old)
+          new <- scale_map_df(.$scales$x[[i]], old)
+          if (length(new) == 0) return(old)
           cbind(new, old[setdiff(names(old), names(new))])
         }) 
       }
       for(i in seq_along(.$scales$y)) {
         l[i, ] <- lapply(l[i, ], function(old) {
           if (is.null(old)) return(data.frame())
-          new <- .$scales$y[[i]]$map_df(old)
+          new <- scale_map_df(.$scales$y[[i]], old)
+          if (length(new) == 0) return(old)
           cbind(new, old[setdiff(names(old), names(new))])
         }) 
       }
@@ -266,8 +268,8 @@ FacetGrid <- proto(Facet, {
       for(i in seq_len(nrow(layerd))) {
         for(j in seq_len(ncol(layerd))) {
           scales <- list(
-            x = .$scales$x[[j]]$clone(), 
-            y = .$scales$y[[i]]$clone()
+            x = .$scales$x[[j]], 
+            y = .$scales$y[[i]]
           )
           details <- coord$compute_ranges(scales)
           grobs[[i, j]] <- layer$make_grob(layerd[[i, j]], details, coord)
@@ -408,7 +410,7 @@ FacetGrid <- proto(Facet, {
 # @keyword internal
 scales_list <- function(scale, n, free) {
   if (free) {
-    rlply(n, scale$clone())  
+    rlply(n, scale_clone(scale))  
   } else {
     rep(list(scale), n)  
   }

@@ -99,7 +99,7 @@ StatBin <- proto(Stat, {
   }
   
   calculate <- function(., data, scales, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = TRUE, ...) {
-    range <- scales$x$output_set()
+    range <- scale_dimension(scales$x)
 
     if (is.null(breaks) && is.null(binwidth) && !is.integer(data$x) && !.$informed) {
       message("stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.")
