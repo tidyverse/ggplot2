@@ -30,9 +30,6 @@ NULL
 continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = TRUE, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity") {
   
   trans <- as.trans(trans)
-  if (is.numeric(breaks)) {
-    breaks <- trans$trans(breaks)
-  }
   if (is.numeric(limits)) {
     limits <- trans$trans(limits)
   }
@@ -163,12 +160,29 @@ scale_dimension.discrete <- function(scale, expand = scale$expand) {
 }
 
 scale_breaks <- function(scale, limits = scale_limits(scale)) {
+  UseMethod("scale_breaks")
+}
+
+scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
+  # Limits in transformed space need to be converted back to data space
+  limits <- scale$trans$inv(limits)
+
   if (is.null(scale$breaks)) {
-    if (inherits(scale, "continuous")) {      
-      discard(scale$trans$breaks(limits), scale_dimension(scale))
-    } else {
-      scale_map(scale, limits)
-    }
+    breaks <- scale$trans$breaks(limits)
+  } else if (is.function(scale$breaks)) {
+    breaks <- scale$breaks(limits)
+  } else {
+    breaks <- scale$breaks
+  }
+  
+  # Breaks in data space need to be converted back to transformed space
+  # And any breaks outside the dimensions need to be thrown away
+  discard(scale$trans$trans(breaks), scale_dimension(scale))
+}
+
+scale_breaks.discrete <- function(scale, limits = scale_limits(scale)) {
+  if (is.null(scale$breaks)) {
+    scale_map(scale, limits)
   } else if (is.function(scale$breaks)) {
     scale$breaks(limits)
   } else {
@@ -186,12 +200,24 @@ scale_breaks_minor <- function(scale, n = 2, b = scale_breaks(scale), r = scale_
 }
 
 scale_labels <- function(scale, breaks = scale_breaks(scale)) {
+  UseMethod("scale_labels")
+}
+
+scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
+  breaks <- scale$trans$inv(breaks)
+  
   if (is.null(scale$labels)) {
-    if (inherits(scale, "continuous")) {
-      scale$trans$format(breaks)
-    } else {
-      format(scale_limits(scale), justify = "none")
-    }
+    scale$trans$format(breaks)
+  } else if (is.function(scale$labels)) {
+    scale$labels(breaks)
+  } else {
+    scale$labels
+  }
+}
+
+scale_labels.discrete <- function(scale, breaks = scale_breaks(scale)) {
+  if (is.null(scale$labels)) {
+    format(scale_limits(scale), justify = "none")
   } else if (is.function(scale$labels)) {
     scale$labels(breaks)
   } else {
