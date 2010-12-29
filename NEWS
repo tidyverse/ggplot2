@@ -32,6 +32,16 @@ SCALES
   convenience functions for x and y scales. Use `scale_x_continuous(trans =
   "log")` to access others
 
+* `set_default_scale` has been removed. If you want to change the default
+  scale for an aesthetic, just create a function called
+  `scale_aesthetic_continuous` or `scale_aesthetic_discrete` that returns the
+  scale that you want.  For example:
+  
+      p <- qplot(mpg, wt, data = mtcars, colour = factor(cyl))
+      p
+      scale_colour_discrete <- scale_colour_brewer
+      p
+
 ggplot2 0.8.9 (2010-12-24) ---------------------------------------------------
 
 A big thanks to Koshke Takahashi, who supplied the majority of improvements in this release!
