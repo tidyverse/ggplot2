@@ -87,7 +87,7 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
 
   for(i in 1:length(new_aesthetics)) {
     if (exists(scale_name_type[i])) {
-      scale <- get(scale_name_type[i])()
+      scale <- match.fun(scale_name_type[i])()
       scales$add(scale)
     }
   }
