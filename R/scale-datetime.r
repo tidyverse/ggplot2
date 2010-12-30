@@ -39,12 +39,16 @@
 #' last_plot() + scale_x_datetime(major = "10 days", format = "%d/%m")
 scale_x_datetime <- function(...) {
   continuous_scale(c("x", "xmin", "xmax", "xend"), "datetime", identity, ...,
-    position = TRUE, trans = "datetime")
+    trans = "time", legend = FALSE)
+}
+
+scale_map.datetime <- function(scale, x) {
+  x
 }
 
 scale_y_datetime <- function(...) {
   continuous_scale(c("y", "ymin", "ymax", "yend"), "datetime", identity, ...,
-    position = TRUE, trans = "datetime")
+    trans = "time", legend = FALSE)
 }
 
 icon.scale_datetime <- function() {

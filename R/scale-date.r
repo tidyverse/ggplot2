@@ -53,13 +53,18 @@
 #'   facet_grid(variable ~ ., scale = "free_y")
 scale_x_date <- function(...) {
   continuous_scale(c("x", "xmin", "xmax", "xend"), "date", identity, ...,
-    position = TRUE, trans = "date")
+    legend = FALSE, trans = "date")
 }
 
 scale_y_date <- function(...) {
   continuous_scale(c("y", "ymin", "ymax", "yend"), "date", identity, ...,
-    position = TRUE, trans = "date")
+    legend = FALSE, trans = "date")
 }
+
+scale_map.date <- function(scale, x) {
+  x
+}
+
 
 icon.scale_date <- function() {
   textGrob("14/10/1979", gp=gpar(cex=1))
