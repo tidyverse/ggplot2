@@ -11,10 +11,11 @@ SCALES
   limits and expected to return a character vector of breaks
 
 * `labels` parameter can now be a function - this replaces the previous
-  formatter function on some scales. This function should take a vector of
-  breaks as input, and return a character vector or list of expressions as
-  output. See `comma_format`, `dollar_format`, `percent_format`,
-  `scientific_format`, `parse_format` and `math_format` for examples
+  formatter function that only some scales possessed, and the `major` argument
+  to the data time scales. This function should take a vector of breaks as
+  input, and return a character vector or list of expressions as output. See
+  `comma_format`, `dollar_format`, `percent_format`, `scientific_format`,
+  `parse_format` and `math_format` for examples
 
 * transformations now provided by the scales package - see `?trans_new` for
   list of available transformations, and how to create your own. The
