@@ -32,11 +32,10 @@
 #' 
 #' # Manual scale selection
 #' qplot(day30, y, data = df)
-#' last_plot() + scale_x_datetime(major = "2 weeks")
-#' last_plot() + scale_x_datetime(major = "2 weeks", minor = "1 week")
-#' last_plot() + scale_x_datetime(major = "10 days")
-#' # See ?strptime for formatting parameters
-#' last_plot() + scale_x_datetime(major = "10 days", format = "%d/%m")
+#' last_plot() + scale_x_datetime(breaks = date_breaks("2 weeks"))
+#' last_plot() + scale_x_datetime(breaks = date_breaks("10 days"))
+#' last_plot() + scale_x_datetime(breaks = date_breaks("10 days"), 
+#'   labels = date_format("%d/%m"))
 scale_x_datetime <- function(..., expand = c(0.05, 0)) {
   continuous_scale(c("x", "xmin", "xmax", "xend"), "datetime", identity, ...,
     trans = "time", expand = expand, legend = FALSE)

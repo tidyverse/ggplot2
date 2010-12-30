@@ -30,7 +30,7 @@ NULL
 continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = TRUE, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity") {
   
   trans <- as.trans(trans)
-  if (is.numeric(limits)) {
+  if (!is.null(limits)) {
     limits <- trans$trans(limits)
   }
   

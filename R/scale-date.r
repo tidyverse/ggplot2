@@ -16,11 +16,14 @@
 #' # the major and minor tickmarks.  See ?format.Date and ?seq.Date 
 #' # for more details.
 #' dt + scale_x_date()
-#' dt + scale_x_date(format="%m/%d")
-#' dt + scale_x_date(format="%W")
-#' dt + scale_x_date(major="months", minor="weeks", format="%b")
-#' dt + scale_x_date(major="months", minor="3 days", format="%b")
-#' dt + scale_x_date(major="years", format="%b-%Y")
+#' dt + scale_x_date(labels = date_format("%m/%d"))
+#' dt + scale_x_date(labels = date_format("%W"))
+#' dt + scale_x_date(labels = date_format("%W"), breaks = date_breaks("week"))
+#'
+#' dt + scale_x_date(breaks = date_breaks("months"), 
+#'   labels = date_format("%b"))
+#' dt + scale_x_date(breaks = date_breaks("years"), 
+#'   labels = date_format("%b-%Y"))
 #' 
 #' # The date scale will attempt to pick sensible defaults for 
 #' # major and minor tick marks
@@ -38,9 +41,9 @@
 #' qplot(date, psavert, data=economics, geom="path") 
 #' 
 #' end <- max(economics$date)
-#' last_plot() + scale_x_date(lim = c(as.Date("2000-1-1"), end))
-#' last_plot() + scale_x_date(lim = c(as.Date("2005-1-1"), end))
-#' last_plot() + scale_x_date(lim = c(as.Date("2006-1-1"), end))
+#' last_plot() + scale_x_date(limits = c(as.Date("2000-1-1"), end))
+#' last_plot() + scale_x_date(limits = c(as.Date("2005-1-1"), end))
+#' last_plot() + scale_x_date(limits = c(as.Date("2006-1-1"), end))
 #' 
 #' # If we want to display multiple series, one for each variable
 #' # it's easiest to first change the data from a "wide" to a "long"
