@@ -37,18 +37,18 @@
 #' last_plot() + scale_x_datetime(major = "10 days")
 #' # See ?strptime for formatting parameters
 #' last_plot() + scale_x_datetime(major = "10 days", format = "%d/%m")
-scale_x_datetime <- function(...) {
+scale_x_datetime <- function(..., expand = c(0.05, 0)) {
   continuous_scale(c("x", "xmin", "xmax", "xend"), "datetime", identity, ...,
-    trans = "time", legend = FALSE)
+    trans = "time", expand = expand, legend = FALSE)
 }
 
 scale_map.datetime <- function(scale, x) {
   x
 }
 
-scale_y_datetime <- function(...) {
+scale_y_datetime <- function(..., expand = c(0.05, 0)) {
   continuous_scale(c("y", "ymin", "ymax", "yend"), "datetime", identity, ...,
-    trans = "time", legend = FALSE)
+    trans = "time", expand = expand, legend = FALSE)
 }
 
 icon.scale_datetime <- function() {
