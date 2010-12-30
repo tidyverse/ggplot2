@@ -207,12 +207,16 @@ scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
   breaks <- scale$trans$inv(breaks)
   
   if (is.null(scale$labels)) {
-    scale$trans$format(breaks)
+    labels <- scale$trans$format(breaks)
   } else if (is.function(scale$labels)) {
-    scale$labels(breaks)
+    labels <- scale$labels(breaks)
   } else {
-    scale$labels
+    labels <- scale$labels
   }
+  if (length(labels) != length(breaks)) {
+    stop("Breaks and labels are different lengths")
+  }
+  labels
 }
 
 scale_labels.discrete <- function(scale, breaks = scale_breaks(scale)) {
