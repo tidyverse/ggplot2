@@ -1,15 +1,15 @@
-  # Create a new layer
-  # Layer objects store the layer of an object.
-  # 
-  # They have the following attributes:
-  # 
-  #  * data
-  #  * geom + parameters
-  #  * statistic + parameters
-  #  * position + parameters
-  #  * aesthetic mapping
-  # 
-  # Can think about grob creation as a series of data frame transformations.
+# Create a new layer
+# Layer objects store the layer of an object.
+# 
+# They have the following attributes:
+# 
+#  * data
+#  * geom + parameters
+#  * statistic + parameters
+#  * position + parameters
+#  * aesthetic mapping
+# 
+# Can think about grob creation as a series of data frame transformations.
 Layer <- proto(expr = {  
   geom <- NULL
   geom_params <- NULL
@@ -302,9 +302,6 @@ Layer <- proto(expr = {
 })
 
 # Apply function to plot data components
-# Convenience apply function for facets data structure
-# 
-# @keyword internal
 gg_apply <- function(gg, f, ...) {
   apply(gg, c(1,2), function(data) {
     f(data[[1]], ...)
@@ -313,11 +310,7 @@ gg_apply <- function(gg, f, ...) {
 layer <- Layer$new
 
 
-
-# Is calculated aesthetic?
-# Determine if aesthetic is calculated from the statistic
-# 
-# @keyword internal
+# Determine if aesthetic is calculated
 is_calculated_aes <- function(aesthetics) {
   match <- "\\.\\.([a-zA-z._]+)\\.\\."
   stats <- rep(F, length(aesthetics))
@@ -325,10 +318,7 @@ is_calculated_aes <- function(aesthetics) {
   stats
 }
 
-# Strip dots
-# Strip dots from expressions that represent mappings of aesthetics to output from statistics
-# 
-# @keyword internal
+# Strip dots from expressions
 strip_dots <- function(aesthetics) {
   match <- "\\.\\.([a-zA-z._]+)\\.\\."
   strings <- lapply(aesthetics, deparse)

@@ -1,3 +1,26 @@
+#' Flipped cartesian coordinates.
+#' 
+#' Flipped cartesian coordinates so that horizontal becomes vertical, and
+#' vertical, horizontal. This is primarily useful for converting geoms and
+#' statistics which display y conditional on x, to x conditional on y.
+#'
+#' @name coord_flip
+#' @export
+#' @examples
+#' # Very useful for creating boxplots, and other interval
+#' # geoms in the horizontal instead of vertical position.
+#' qplot(cut, price, data=diamonds, geom="boxplot")
+#' last_plot() + coord_flip()
+#'
+#' qplot(cut, data=diamonds, geom="bar")
+#' last_plot() + coord_flip()
+#' 
+#' qplot(carat, data=diamonds, geom="histogram")
+#' last_plot() + coord_flip()
+#'
+#' # You can also use it to flip lines and area plots:
+#' qplot(1:5, (1:5)^2, geom="line")
+#' last_plot() + coord_flip()
 CoordFlip <- proto(CoordCartesian, expr={
   
   transform <- function(., data, details) {
@@ -32,11 +55,6 @@ CoordFlip <- proto(CoordCartesian, expr={
   }
   
 
-  # Documentation -----------------------------------------------
-
-  objname <- "flip"
-  desc <- "Flipped cartesian coordinates"
-  details <- "<p>Flipped cartesian coordinates so that horizontal becomes vertical, and vertical, horizontal.  This is primarily useful for converting geoms and statistics which display y conditional on x, to x conditional on y</p>"
   icon <- function(.) {
     angles <- seq(0, pi/2, length=20)[-c(1, 20)]
     gTree(children=gList(
@@ -45,22 +63,5 @@ CoordFlip <- proto(CoordCartesian, expr={
       linesGrob(0.9 * sin(angles), 0.9 * cos(angles), arrow=arrow(length=unit(0.05, "npc"))),
       linesGrob(0.5 * sin(angles), 0.5 * cos(angles), arrow=arrow(end="first", length= unit(0.05, "npc")))
     ))
-  }
-  
-  examples <- function(.) {
-    # Very useful for creating boxplots, and other interval
-    # geoms in the horizontal instead of vertical position.
-    qplot(cut, price, data=diamonds, geom="boxplot")
-    last_plot() + coord_flip()
-
-    qplot(cut, data=diamonds, geom="bar")
-    last_plot() + coord_flip()
-    
-    qplot(carat, data=diamonds, geom="histogram")
-    last_plot() + coord_flip()
-
-    # You can also use it to flip lines and area plots:
-    qplot(1:5, (1:5)^2, geom="line")
-    last_plot() + coord_flip()
   }
 })

@@ -1,7 +1,4 @@
 # Build ggplot for rendering
-# This function is the powerhouse that converts the plot specification into something that's ready to be rendered on screen
-# 
-# @keyword internal
 ggplot_build <- function(plot) {
   if (length(plot$layers) == 0) stop("No layers in plot", call.=FALSE)
   

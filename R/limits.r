@@ -1,9 +1,9 @@
 # Set x limits
 # Convenience function to set the limits of the x axis.
 # 
-# @arguments if numeric, will create a continuos scale, if factor or character, will create a discrete scale
+# @param if numeric, will create a continuos scale, if factor or character, will create a discrete scale
 # @keyword hplot
-# @arguments limits
+# @param limits
 #X xlim(15, 20)
 #X xlim(20, 15)
 #X xlim(c(10, 20))
@@ -16,9 +16,9 @@ xlim <- function(...) {
 # Set y limits
 # Convenience function to set the limits of the y axis.
 # 
-# @arguments if numeric, will create a continuos scale, if factor or character, will create a discrete scale
+# @param if numeric, will create a continuos scale, if factor or character, will create a discrete scale
 # @keyword hplot
-# @arguments limits
+# @param limits
 #X ylim(15, 20)
 #X ylim(c(10, 20))
 #X ylim("a", "b", "c") 
@@ -30,8 +30,8 @@ ylim <- function(...) {
 # Scale limits
 # Generate correct scale type for specified limits
 # 
-# @arguments vector of limits
-# @arguments variable
+# @param vector of limits
+# @param variable
 # @keyword internal
 # @alias limits.numeric
 # @alias limits.character
@@ -75,7 +75,7 @@ limits.POSIXlt <- function(lims, var) {
 # Expand the plot limits with data.
 # Some times you may want to ensure limits include a single value, for all panels or all plots.  This function is a thin wrapper around \code{\link{geom_blank}} that makes it easy to add such values.
 # 
-# @arguments named list of aesthetics specifying the value (or values that should be included.
+# @param named list of aesthetics specifying the value (or values that should be included.
 # @keyword hplot
 #X p <- qplot(mpg, wt, data = mtcars)
 #X p + expand_limits(x = 0)

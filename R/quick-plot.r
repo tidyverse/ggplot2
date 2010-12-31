@@ -1,65 +1,69 @@
-# Quick plot.
-# Quick plot is a convenient wrapper function for creating simple ggplot plot objects.
-# 
-# You can use it like you'd use the \code{\link{plot}} function.
-# 
-# @arguments x values
-# @arguments y values
-# @arguments z values
-# @arguments other arguments passed on to the geom functions
-# @arguments data frame to use (optional)
-# @arguments faceting formula to use
-# @arguments whether or not margins will be displayed
-# @arguments geom to use (can be a vector of multiple names)
-# @arguments statistic to use (can be a vector of multiple names)
-# @arguments position adjustment to use (can be a vector of multiple names)
-# @arguments limits for x axis (aesthetics to range of data)
-# @arguments limits for y axis (aesthetics to range of data)
-# @arguments which variables to log transform ("x", "y", or "xy")
-# @arguments character vector or expression for plot title
-# @arguments character vector or expression for x axis label
-# @arguments character vector or expression for y axis label
-# @arguments the y/x aspect ratio
-# @keyword hplot 
-# @alias quickplot 
-#X # Use data from data.frame
-#X qplot(mpg, wt, data=mtcars)
-#X qplot(mpg, wt, data=mtcars, colour=cyl)
-#X qplot(mpg, wt, data=mtcars, size=cyl)
-#X qplot(mpg, wt, data=mtcars, facets=vs ~ am)
-#X
-#X # Use data from local environment
-#X attach(mtcars)
-#X qplot(hp, wt)
-#X qplot(hp, wt, colour=cyl)
-#X qplot(hp, wt, size=cyl)
-#X qplot(hp, wt, facets=vs ~ am)
-#X
-#X qplot(1:10, rnorm(10), colour = runif(10))
-#X qplot(1:10, letters[1:10])
-#X mod <- lm(mpg ~ wt, data=mtcars)
-#X qplot(resid(mod), fitted(mod))
-#X qplot(resid(mod), fitted(mod), facets = . ~ vs)
-#X
-#X f <- function() {
-#X    a <- 1:10
-#X    b <- a ^ 2
-#X    qplot(a, b)
-#X } 
-#X f()
-#X 
-#X # qplot will attempt to guess what geom you want depending on the input
-#X # both x and y supplied = scatterplot
-#X qplot(mpg, wt, data = mtcars)
-#X # just x supplied = histogram
-#X qplot(mpg, data = mtcars)
-#X # just y supplied = scatterplot, with x = seq_along(y)
-#X qplot(y = mpg, data = mtcars)
-#X 
-#X # Use different geoms
-#X qplot(mpg, wt, geom="path")
-#X qplot(factor(cyl), wt, geom=c("boxplot", "jitter"))
-qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE, geom = "auto", stat=list(NULL), position=list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "", main = NULL, xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA) {
+#' A convenient wrapper function for creating simple ggplot plot objects.
+#' 
+#' \code{qplot} has been designed to be familiar if you're used to 
+#' \code{\link{plot}}.
+#' 
+#' @param x x values
+#' @param y y values
+#' @param ... other aesthetics passed for each layer
+#' @param data data frame to use (optional).  If not specified, will create 
+#'   one, extracting vectors from the current environment.
+#' @param facets faceting formula to use.  Picks \code{\link{facet_wrap}} or
+#'   \code{\link{facet_grid}} depending on whether the formula is one sided
+#'   or two-sided
+#' @param margins whether or not margins will be displayed
+#' @param geom character vector specifying geom to use.  Defaults to 
+#'  "point" if x and y are specified, and "histogram" is on x is specified.
+#' @param stat character vector specifying statistics to use
+#' @param position character vector giving position adjustment to use
+#' @param xlim limits for x axis
+#' @param ylim limits for y axis
+#' @param log which variables to log transform ("x", "y", or "xy")
+#' @param title character vector or expression for plot title
+#' @param xlab character vector or expression for x axis label
+#' @param ylab character vector or expression for y axis label
+#' @param asp the y/x aspect ratio
+#' @aliases qplot quickplot 
+#' @export qplot quickplot 
+#' @examples
+#' # Use data from data.frame
+#' qplot(mpg, wt, data=mtcars)
+#' qplot(mpg, wt, data=mtcars, colour=cyl)
+#' qplot(mpg, wt, data=mtcars, size=cyl)
+#' qplot(mpg, wt, data=mtcars, facets=vs ~ am)
+#'
+#' # Use data from local environment
+#' attach(mtcars)
+#' qplot(hp, wt)
+#' qplot(hp, wt, colour=cyl)
+#' qplot(hp, wt, size=cyl)
+#' qplot(hp, wt, facets=vs ~ am)
+#'
+#' qplot(1:10, rnorm(10), colour = runif(10))
+#' qplot(1:10, letters[1:10])
+#' mod <- lm(mpg ~ wt, data=mtcars)
+#' qplot(resid(mod), fitted(mod))
+#' qplot(resid(mod), fitted(mod), facets = . ~ vs)
+#'
+#' f <- function() {
+#'    a <- 1:10
+#'    b <- a ^ 2
+#'    qplot(a, b)
+#' } 
+#' f()
+#' 
+#' # qplot will attempt to guess what geom you want depending on the input
+#' # both x and y supplied = scatterplot
+#' qplot(mpg, wt, data = mtcars)
+#' # just x supplied = histogram
+#' qplot(mpg, data = mtcars)
+#' # just y supplied = scatterplot, with x = seq_along(y)
+#' qplot(y = mpg, data = mtcars)
+#' 
+#' # Use different geoms
+#' qplot(mpg, wt, geom="path")
+#' qplot(factor(cyl), wt, geom=c("boxplot", "jitter"))
+qplot <- function(x, y = NULL, ..., data, facets = . ~ ., margins=FALSE, geom = "auto", stat=list(NULL), position=list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "", main = NULL, xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA) {
 
   argnames <- names(as.list(match.call(expand.dots=FALSE)[-1]))
   arguments <- as.list(match.call()[-1])
@@ -141,11 +145,6 @@ qplot <- function(x, y = NULL, z=NULL, ..., data, facets = . ~ ., margins=FALSE,
 quickplot <- qplot
 
 # is.constant
-# Determine if an expression represents a constant value
-# 
-# Used by qplot to determine whether a value should be mapped or set
-#
-# @keyword internal
 is.constant <- function(x) {
   sapply(x, function(x) "I" %in% all.names(asOneSidedFormula(x)))
 }

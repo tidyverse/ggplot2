@@ -1,23 +1,15 @@
 \name{coord_trans}
 \alias{coord_trans}
-\alias{CoordTrans}
-\title{coord\_trans}
-\description{Transformed cartesian coordinate system}
-\details{
-This page describes coord\_trans, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+\title{Transformed cartesian coordinate system.}
+
+\description{
+  Transformed cartesian coordinate system.
 }
-\usage{coord_trans(xtrans = "identity", ytrans = "identity", ...)}
 \arguments{
- \item{xtrans}{NULL}
- \item{ytrans}{NULL}
- \item{...}{ignored }
+  \item{ytrans}{transformer for x axis}
+  \item{xtrans}{transformer for y axis}
 }
-\seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot2/coord_trans.html}
-}}
-\value{A \code{\link{layer}}}
-\examples{\dontrun{
-# See ?geom_boxplot for other examples
+\examples{# See ?geom_boxplot for other examples
 
 # Three ways of doing transformating in ggplot:
 #  * by transforming the data
@@ -36,11 +28,11 @@ qplot(carat, price, data=diamonds) + coord_trans(x = "log10", y = "log10")
 
 d <- subset(diamonds, carat > 0.5)
 qplot(carat, price, data = d, log="xy") + 
-  geom_smooth(method="lm")
+geom_smooth(method="lm")
 qplot(carat, price, data = d) + 
-  geom_smooth(method="lm") +
-  coord_trans(x = "log10", y = "log10")
-  
+geom_smooth(method="lm") +
+coord_trans(x = "log10", y = "log10")
+
 # Here I used a subset of diamonds so that the smoothed line didn't
 # drop below zero, which obviously causes problems on the log-transformed
 # scale
@@ -48,11 +40,7 @@ qplot(carat, price, data = d) +
 # With a combination of scale and coordinate transformation, it's
 # possible to do back-transformations:
 qplot(carat, price, data=diamonds, log="xy") + 
-  geom_smooth(method="lm") + 
-  coord_trans(x="pow10", y="pow10")
+geom_smooth(method="lm") + 
+coord_trans(x="pow10", y="pow10")
 # cf.
-qplot(carat, price, data=diamonds) + geom_smooth(method = "lm")
-
-}}
-\author{Hadley Wickham, \url{http://had.co.nz/}}
-\keyword{hplot}
+qplot(carat, price, data=diamonds) + geom_smooth(method = "lm")}

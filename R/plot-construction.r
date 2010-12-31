@@ -1,21 +1,26 @@
-# Plot construction
-# The elements of a ggplot plot are combined together with addition.
-# 
-# \itemize{
-#   \item \code{data.frame}: replace default data.frame (must use \code{\%+\%})
-#   \item \code{uneval}: replace default aesthetics
-#   \item \code{layer}: add new layer
-#   \item \code{options}: update plot options
-#   \item \code{scale}: replace default scale
-#   \item \code{coord}: override default coordinate system
-#   \item \code{facet}: override default coordinate faceting
-# }
-#
-# @arguments plot object
-# @arguments object to add
-# @seealso \code{\link{set_last_plot}}, \code{\link{ggplot}}
-# @keyword internal
-# @alias \%+\%
+#' Modify a plot by adding on new components.
+#' 
+#' What happens when you add on:
+#'
+#' \itemize{
+#'   \item \code{data.frame}: replace current data.frame 
+#'      (must use \code{\%+\%})
+#'   \item \code{uneval}: replace current aesthetics
+#'   \item \code{layer}: add new layer
+#'   \item \code{options}: update plot options
+#'   \item \code{scale}: replace current scale
+#'   \item \code{coord}: override current coordinate system
+#'   \item \code{facet}: override current coordinate faceting
+#' }
+#'
+#' @param p plot object
+#' @param object component to add
+#' @seealso \code{\link{set_last_plot}}, \code{\link{ggplot}}
+#' @method + ggplot
+#' @aliases +.ggplot %+%
+#' @S3method "+" ggplot
+#' @export "%+%"
+#' @name ggplot-add
 "+.ggplot" <- function(p, object) {
   if (is.null(object)) return(p)
 

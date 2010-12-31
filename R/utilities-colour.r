@@ -16,8 +16,8 @@ nice_ramp <- function(ramp, x, alpha = 1) {
 # alpha
 # Give a colour an alpha level
 # 
-# @arguments colour
-# @arguments alpha level [0,1]
+# @param colour
+# @param alpha level [0,1]
 # @keyword internal 
 alpha <- function(colour, alpha) {
   alpha[is.na(alpha)] <- 0

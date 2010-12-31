@@ -1,3 +1,14 @@
+#' 2d rectangles.
+#'
+#' @name geom_rect
+#' @export
+#' @examples
+#' df <- data.frame(
+#'   x = sample(10, 20, replace = TRUE),
+#'   y = sample(10, 20, replace = TRUE)
+#' )
+#' ggplot(df, aes(xmin = x, xmax = x + 1, ymin = y, ymax = y + 2)) +
+#' geom_rect()
 GeomRect <- proto(Geom, {
   
   default_stat <- function(.) StatIdentity
@@ -36,24 +47,12 @@ GeomRect <- proto(Geom, {
     }
     
   }
-  
-  # Documentation -----------------------------------------------
-  objname <- "rect"
-  desc <- "2d rectangles"
   guide_geom <- function(.) "polygon"
-  
+
   icon <- function(.) {
     rectGrob(c(0.3, 0.7), c(0.4, 0.8), height=c(0.4, 0.8), width=0.3, vjust=1, gp=gpar(fill="grey20", col=NA))
   }
   
-  examples <- function(.) {
-    df <- data.frame(
-      x = sample(10, 20, replace = TRUE),
-      y = sample(10, 20, replace = TRUE)
-    )
-    ggplot(df, aes(xmin = x, xmax = x + 1, ymin = y, ymax = y + 2)) +
-    geom_rect()
-  }  
 
 })
 

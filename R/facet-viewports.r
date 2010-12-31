@@ -1,11 +1,7 @@
-# Assign viewports
 # Assign viewports to a matrix of grobs
 # 
 # Uses the structure (and names) of the matrix of grobs, to automatically
 # assign each grob to the appropriate viewport
-# 
-# @arguments named matrix of grobs
-# @keyword internal
 assign_viewports <- function(grobs) {
   make_grid <- function(type) {
     data.frame(
@@ -23,18 +19,7 @@ assign_viewports <- function(grobs) {
   mlply(grid, assign_vp)
 }
 
-
-# Setup viewports
 # Setup matrix of viewports for a layout with given parameters 
-# 
-# @arguments viewport type
-# @arguments number of rows
-# @arguments number of columns
-# @arguments optional data to compute rows and columns from
-# @arguments offset from top and left
-# @arguments list containing x and y ranges
-# @keyword hplot 
-# @keyword internal
 setup_viewports <- function(type, data, offset = c(0,0), clip = "on") {
   rows <- nrow(data)
   cols <- ncol(data)
@@ -52,32 +37,14 @@ setup_viewports <- function(type, data, offset = c(0,0), clip = "on") {
   do.call("vpList", mlply(pos, vp))
 }
 
-# Viewport path
 # Calculate viewport path.
-# 
-# Convience method for calculating the viewport path to a particular
-# entry in a matrix viewport.  This helps ensure a common naming scheme throughout
-# ggplot/
-# 
-# @arguments row index
-# @arguments column index
-# @arguments viewport type
-# @keyword hplot 
-# @keyword internal
+# Helps ensure a common naming scheme throughout ggplot.
 vp_path <- function(row, col, type) {
   vpPath("panels", vp_name(row, col, type))
 }
 
-# Viewport name
-# Compute viewport name
-# 
-# This helps ensure a common naming scheme throughout ggplot.
-# 
-# @arguments row index
-# @arguments column index
-# @arguments viewport type
-# @keyword hplot 
-# @keyword internal
+# Compute viewport name.
+# Helps ensure a common naming scheme throughout ggplot.
 vp_name <- function(row, col, type) {
   paste(type, row, col, sep="_")
 }

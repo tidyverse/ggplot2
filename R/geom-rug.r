@@ -1,3 +1,12 @@
+#' Marginal rug plots.
+#'
+#' @name geom_rug
+#' @export
+#' @examples
+#' p <- ggplot(mtcars, aes(x=wt, y=mpg))
+#' p + geom_point()
+#' p + geom_point() + geom_rug()
+#' p + geom_point() + geom_rug(position='jitter')
 GeomRug <- proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {  
     rugs <- list()
@@ -20,21 +29,8 @@ GeomRug <- proto(Geom, {
     
     gTree(children = do.call("gList", rugs))
   }
-
-  objname <- "rug"
-  
-  desc <- "Marginal rug plots"
   
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = 1)
   guide_geom <- function(.) "path"
-
-  examples <- function(.) {
-    p <- ggplot(mtcars, aes(x=wt, y=mpg))
-    p + geom_point()
-    p + geom_point() + geom_rug()
-    p + geom_point() + geom_rug(position='jitter')
-  }
-  
-  
 })

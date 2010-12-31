@@ -1,16 +1,16 @@
-# Annotate a plot
-# Add annotations to a plot in a convenient manner
-# 
-# @arguments name of geom to use for annotation
-# @arguments x position
-# @arguments y position
-# @arguments xmin position
-# @arguments ymin position
-# @arguments xmax position
-# @arguments ymax position
-# @arguments ... other arguments passed to geom as parameters
-# @keyword internal
-#X annotate("text", x = 0, y = 0, label = "title")
+#' Annotate a plot
+#' 
+#' @param name of geom to use for annotation
+#' @param x x position
+#' @param y y position
+#' @param xmin xmin position
+#' @param ymin ymin position
+#' @param xmax xmax position
+#' @param ymax ymax position
+#' @param ... other arguments passed to geom as parameters
+#' @export
+#' @examples
+#' annotate("text", x = 0, y = 0, label = "title")
 annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL, ymin = NULL, ymax = NULL, ...) {
   
   layer_data <- compact(list(

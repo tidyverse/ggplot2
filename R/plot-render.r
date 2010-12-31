@@ -1,8 +1,7 @@
-# ggplot plot
 # Creates a complete ggplot grob.
 #
-# @arguments plot object
-# @arguments should the plot be wrapped up inside the pretty accoutrements (labels, legends, etc)
+# @param plot object
+# @param should the plot be wrapped up inside the pretty accoutrements (labels, legends, etc)
 # @keyword hplot
 # @keyword internal
 panelGrob <- function(panels, plot, data) {
@@ -12,7 +11,6 @@ panelGrob <- function(panels, plot, data) {
   gTree.grobGrid(grid)
 }
 
-# Pretty plot
 # Build a plot with all the usual bits and pieces.
 # 
 # As well as the plotting area, a plot needs:
@@ -28,10 +26,6 @@ panelGrob <- function(panels, plot, data) {
 # This function sets up the appropriate viewports and packs the
 # various components in.  The viewport is set up so that each component
 # will only take up the amount of space that it requires.  
-# 
-# @arguments plot
-# @arguments plot grob
-# @keyword internal
 ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep, ...) {
 
   plot <- plot_clone(plot)
@@ -147,9 +141,6 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep,
 }
 
 # Generate viewports for plot surroundings
-# This some pretty ugly code
-# 
-# @keyword internal
 surround_viewports <- function(position, widths, heights, legend_vp) {
   layout <- grid.layout(
     length(heights), length(widths), 
@@ -209,15 +200,15 @@ surround_viewports <- function(position, widths, heights, legend_vp) {
   vpTree(viewport(name = "background", layout = layout), viewports)
 }
 
-# Print ggplot
-# Print generic for ggplot.  Plot on current graphics device.
-#
-# @arguments plot to display
-# @arguments draw new (empty) page first?
-# @arguments viewport to draw plot in
-# @arguments other arguments passed on to \code{\link{ggplotGrob}}
-# @keyword hplot
-# @keyword internal 
+#' Draw plot on current graphics device.
+#'
+#' @param x plot to display
+#' @param newpage draw new (empty) page first?
+#' @param vp viewport to draw plot in
+#' @param ... other arguments passed on to \code{\link{ggplotGrob}}
+#' @keywords hplot
+#' @S3method print ggplot
+#' @method print ggplot
 print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   set_last_plot(x)
   if (newpage) grid.newpage()

@@ -4,7 +4,7 @@
 # 
 # Matrices must have same dimensions
 # 
-# @arguments matrices to weave together
+# @param matrices to weave together
 # @keyword internal
 #X a <- matrix(1:10 * 2, ncol = 2)
 #X b <- matrix(1:10 * 3, ncol = 2)
@@ -25,8 +25,8 @@ rweave.matrix <- function(...) {
 # Col union
 # Form the union of columns in a and b.  If there are columns of the same name in both a and b, take the column from a.
 # 
-# @arguments data frame a
-# @arguments data frame b
+# @param data frame a
+# @param data frame b
 # @keyword internal
 cunion <- function(a, b) {
   if (length(a) == 0) return(b)
@@ -40,7 +40,7 @@ cunion <- function(a, b) {
 # 
 # Matrices must have same dimensions
 # 
-# @arguments matrices to weave together
+# @param matrices to weave together
 # @keyword internal
 cweave <- function(...) UseMethod("cweave")
 cweave.list <- function(...) do.call("cweave", ...)
@@ -58,7 +58,7 @@ cweave.matrix <- function(...) {
 # Interleave vectors
 # Interleave (or zip) multiple vectors into a single vector
 # 
-# @arguments vectors to interleave
+# @param vectors to interleave
 # @keyword internal
 interleave <- function(...) UseMethod("interleave")
 interleave.list <- function(...) do.call("interleave", ...)
@@ -87,7 +87,7 @@ interleave.default <- function(...) {
 # Equal dims?
 # Check that a list of matrices have equal dimensions
 # 
-# @arguments list of matrices
+# @param list of matrices
 # @keyword internal
 equal_dims <- function(matrices) {
   are.matrices <- laply(matrices, is.matrix)

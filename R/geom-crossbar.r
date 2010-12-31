@@ -1,9 +1,15 @@
+#' Hollow bar with middle indicated by horizontal line.
+#' 
+#' @name geom_crossbar
+#' @param fatten a multiplicate factor to fatten middle bar by
+#' @seealso \code{\link{geom_errorbar}} for error bars,
+#' \code{\link{geom_pointrange}} and \code{\link{geom_linerange}} for other
+#' ways of showing mean + error, \code{\link{stat_summary}} to compute
+#' errors from the data, \code{\link{geom_smooth}} for the continuous analog.
+#' @export
+#' @examples
+#' # See geom_linerange for examples
 GeomCrossbar <- proto(Geom, {
-  objname <- "crossbar"
-  desc <- "Hollow bar with middle indicated by horizontal line"
-  desc_params <- list(
-    "fatten" = "a multiplicate factor to fatten middle bar by"
-  )
 
   icon <- function(.) {
     gTree(children=gList(
@@ -15,15 +21,6 @@ GeomCrossbar <- proto(Geom, {
   reparameterise <- function(., df, params) {
     GeomErrorbar$reparameterise(df, params)
   }
-  
-
-  seealso <- list(
-    "geom_errorbar" = "error bars",
-    "geom_pointrange" = "range indicated by straight line, with point in the middle",
-    "geom_linerange" = "range indicated by straight line + examples",
-    "stat_summary" = "examples of these guys in use",
-    "geom_smooth" = "for continuous analog"
-  )
 
   default_stat <- function(.) StatIdentity
   default_pos <- function(.) PositionIdentity
@@ -38,11 +35,5 @@ GeomCrossbar <- proto(Geom, {
       GeomRect$draw(data, scales, coordinates, ...),
       GeomSegment$draw(middle, scales, coordinates, ...)
     )))
-  }
-  
-  examples <- function(.) {
-    # See geom_linerange for examples
-  }
+  }  
 })
-
-

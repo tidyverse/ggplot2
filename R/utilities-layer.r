@@ -1,7 +1,7 @@
 # Are integers?
 # Determine if a vector contains only integers
 # 
-# @arguments vector to test
+# @param vector to test
 # @keyword internal
 #X is.integeric(runif(100))
 #X is.integeric(rpois(100, 10))
@@ -15,7 +15,7 @@ is.integeric <- function(x) all(floor(x) == x)
 # variable is generated from the interaction of all discrete (factor or
 # character) vectors excluding label.
 # 
-# @arguments data.frame
+# @param data.frame
 # @value data.frame with group variable
 # @keyword internal
 add_group <- function(data) {
@@ -38,7 +38,7 @@ add_group <- function(data) {
 # Force matrix
 # If not already a matrix, make a 1x1 matrix
 # 
-# @arguments object to make into a matrix
+# @param object to make into a matrix
 # @keyword internal
 force_matrix <- function(x) {
   if (!is.matrix(x)) {

@@ -1,3 +1,55 @@
+#' Box and whiskers plot.
+#'
+#' @name geom_boxplot
+#' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
+#'   continuous variable,  \code{\link{geom_jitter}} for another way to look 
+#'   at conditional distributions"
+#' @param outlier.colour colour for outlying points
+#' @param outlier.shape shape of outlying points
+#' @param outlier.size size of outlying points
+#' @export
+#' @examples
+#' p <- ggplot(mtcars, aes(factor(cyl), mpg))
+#' 
+#' p + geom_boxplot()
+#' qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot")
+#' 
+#' p + geom_boxplot() + geom_jitter()
+#' p + geom_boxplot() + coord_flip()
+#' qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot") +
+#'   coord_flip()
+#' 
+#' p + geom_boxplot(outlier.colour = "green", outlier.size = 3)
+#' 
+#' # Add aesthetic mappings
+#' # Note that boxplots are automatically dodged when any aesthetic is 
+#' # a factor
+#' p + geom_boxplot(aes(fill = cyl))
+#' p + geom_boxplot(aes(fill = factor(cyl)))
+#' p + geom_boxplot(aes(fill = factor(vs)))
+#' p + geom_boxplot(aes(fill = factor(am)))
+#' 
+#' # Set aesthetics to fixed value
+#' p + geom_boxplot(fill="grey80", colour="#3366FF")
+#' qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot", 
+#'   colour = I("#3366FF"))
+#' 
+#' # Scales vs. coordinate transforms -------
+#' # Scale transformations occur before the boxplot statistics are computed.
+#' # Coordinate transformations occur afterwards.  Observe the effect on the
+#' # number of outliers.
+#' m <- ggplot(movies, aes(y = votes, x = rating,
+#'    group = round_any(rating, 0.5)))
+#' m + geom_boxplot()
+#' m + geom_boxplot() + scale_y_log10()
+#' m + geom_boxplot() + coord_trans(y = "log10")
+#' m + geom_boxplot() + scale_y_log10() + coord_trans(y = "log10")
+#' 
+#' # Boxplots with continuous x:
+#' # Use the group aesthetic to group observations in boxplots
+#' qplot(year, budget, data = movies, geom = "boxplot")
+#' qplot(year, budget, data = movies, geom = "boxplot", 
+#'   group = round_any(year, 10, floor))
 GeomBoxplot <- proto(Geom, {
   
   reparameterise <- function(., df, params) {
@@ -40,10 +92,7 @@ GeomBoxplot <- proto(Geom, {
     )))
   }
 
-  objname <- "boxplot"
-  desc <- "Box and whiskers plot"
-  guide_geom <- function(.) "boxplot"
-  
+  guide_geom <- function(.) "boxplot"  
   draw_legend <- function(., data, ...)  {
     data <- aesdefaults(data, .$default_aes(), list(...))
     gp <- with(data, gpar(col=colour, fill=fill, lwd=size * .pt))
@@ -66,58 +115,5 @@ GeomBoxplot <- proto(Geom, {
   default_pos <- function(.) PositionDodge
   default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = 1)
   required_aes <- c("x", "lower", "upper", "middle", "ymin", "ymax")
-  seealso <- list(
-    stat_quantile = "View quantiles conditioned on a continuous variable",
-    geom_jitter = "Another way to look at conditional distributions"
-  )
-  desc_params <- list(
-    outlier.colour = "colour for outlying points",
-    outlier.shape = "shape of outlying points",
-    outlier.size = "size of outlying points"
-  )
-  
-  examples <- function(.) {
-    p <- ggplot(mtcars, aes(factor(cyl), mpg))
-    
-    p + geom_boxplot()
-    qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot")
-    
-    p + geom_boxplot() + geom_jitter()
-    p + geom_boxplot() + coord_flip()
-    qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot") +
-      coord_flip()
-    
-    p + geom_boxplot(outlier.colour = "green", outlier.size = 3)
-    
-    # Add aesthetic mappings
-    # Note that boxplots are automatically dodged when any aesthetic is 
-    # a factor
-    p + geom_boxplot(aes(fill = cyl))
-    p + geom_boxplot(aes(fill = factor(cyl)))
-    p + geom_boxplot(aes(fill = factor(vs)))
-    p + geom_boxplot(aes(fill = factor(am)))
-    
-    # Set aesthetics to fixed value
-    p + geom_boxplot(fill="grey80", colour="#3366FF")
-    qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot", 
-      colour = I("#3366FF"))
 
-    # Scales vs. coordinate transforms -------
-    # Scale transformations occur before the boxplot statistics are computed.
-    # Coordinate transformations occur afterwards.  Observe the effect on the
-    # number of outliers.
-    m <- ggplot(movies, aes(y = votes, x = rating,
-       group = round_any(rating, 0.5)))
-    m + geom_boxplot()
-    m + geom_boxplot() + scale_y_log10()
-    m + geom_boxplot() + coord_trans(y = "log10")
-    m + geom_boxplot() + scale_y_log10() + coord_trans(y = "log10")
-    
-    # Boxplots with continuous x:
-    # Use the group aesthetic to group observations in boxplots
-    qplot(year, budget, data = movies, geom = "boxplot")
-    qplot(year, budget, data = movies, geom = "boxplot", 
-      group = round_any(year, 10, floor))
-    
-  }
 })

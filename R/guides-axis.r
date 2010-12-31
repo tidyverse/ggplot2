@@ -1,12 +1,9 @@
-# Grob axis
 # Grob for axes
 # 
-# @arguments position of ticks
-# @arguments labels at ticks
-# @arguments position of axis (top, bottom, left or right)
-# @arguments range of data values
-# @keyword hplot 
-# @keyword internal
+# @param position of ticks
+# @param labels at ticks
+# @param position of axis (top, bottom, left or right)
+# @param range of data values
 guide_axis <- function(at, labels, position="right", theme) {
   position <- match.arg(position, c("top", "bottom", "right", "left"))
   

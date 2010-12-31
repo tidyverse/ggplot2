@@ -1,9 +1,5 @@
-# Collide
-# Detect and prevent collisions
-# 
-# Powers dodging, stacking and filling
-# 
-# @keyword internal
+# Detect and prevent collisions.
+# Powers dodging, stacking and filling.
 collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
   # Determine width
   if (!is.null(width)) {
@@ -54,10 +50,8 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
   }
 }
 
-# Stack overlapping intervals
+# Stack overlapping intervals.
 # Assumes that each set has the same horizontal position
-# 
-# @keyword internal
 pos_stack <- function(df, width) {
   if (nrow(df) == 1) return(df)
   
@@ -75,10 +69,8 @@ pos_stack <- function(df, width) {
   })
 }
 
-# Stack overlapping intervals and set height to 1
-# Assumes that each set has the same horizontal position
-# 
-# @keyword internal
+# Stack overlapping intervals and set height to 1.
+# Assumes that each set has the same horizontal position.
 pos_fill <- function(df, width) {
   within(pos_stack(df, width), {
     ymin <- ymin / max(ymax)
@@ -86,10 +78,8 @@ pos_fill <- function(df, width) {
   })
 }
 
-# Dodge overlapping interval
-# Assumes that each set has the same horizontal position
-# 
-# @keyword internal
+# Dodge overlapping interval.
+# Assumes that each set has the same horizontal position.
 pos_dodge <- function(df, width) {
   n <- nrow(df)
   if (n == 1) return(df)

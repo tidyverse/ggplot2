@@ -1,7 +1,7 @@
 # For munching, only grobs are lines and polygons: everything else is 
 # transfomed into those special cases by the geom.  
 #
-# @arguments distance, scaled from 0 to 1 (maximum distance on plot)
+# @param dist distance, scaled from 0 to 1 (maximum distance on plot)
 # @keyword internal
 munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   n <- nrow(data)
@@ -28,8 +28,6 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
 
 # Interpolate.
 # Interpolate n evenly spaced steps from start to end - (end - start) / n.
-# 
-# @keyword internal
 interp <- function(start, end, n) {
   if (n == 1) return(start)
   start + seq(0, 1, length = n) * (end - start)
@@ -37,8 +35,6 @@ interp <- function(start, end, n) {
 
 # Euclidean distance between points.
 # NA indicates a break / terminal points
-# 
-# @keyword internal
 dist_euclidean <- function(x, y) {
   n <- length(x)
 
@@ -47,8 +43,6 @@ dist_euclidean <- function(x, y) {
 
 # Polar dist.
 # Polar distance between points.
-# 
-# @keyword internal
 dist_polar <- function(r, theta) {
   n <- length(r)
   r1 <- r[-n]
@@ -56,7 +50,6 @@ dist_polar <- function(r, theta) {
 
   sqrt(r1 ^ 2 + r2 ^ 2 - 2 * r1 * r2 * cos(diff(theta)))
 }
-
 
 # Compute central angle between two points.
 # Multiple by radius of sphere to get great circle distance

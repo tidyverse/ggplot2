@@ -1,6 +1,31 @@
+#' Bin 2d plane into hexagons.
+#' 
+#' @name stat_binhex
+#' @seealso \code{\link{stat_bin2d}} for rectangular binning
+#' @export
+#' @examples
+#' d <- ggplot(diamonds, aes(carat, price))
+#' d + stat_binhex()
+#' d + geom_hex()
+#' 
+#' # You can control the size of the bins by specifying the number of
+#' # bins in each direction:
+#' d + stat_binhex(bins = 10)
+#' d + stat_binhex(bins = 30)
+#' 
+#' # Or by specifying the width of the bins
+#' d + stat_binhex(binwidth = c(1, 1000))
+#' d + stat_binhex(binwidth = c(.1, 500))
+#' 
+#' # With qplot
+#' qplot(x, y, data = diamonds, geom="hex", xlim = c(4, 10), ylim = c(4, 10))
+#' qplot(x, y, data = diamonds, geom="hex", xlim = c(4, 10), ylim = c(4, 10),
+#'   binwidth = c(0.1, 0.1))
 StatBinhex <- proto(Stat, {
-  objname <- "binhex"
-  desc <- "Bin 2d plane into hexagons"
+  default_aes <- function(.) aes(fill = ..count..)
+  required_aes <- c("x", "y")
+  default_geom <- function(.) GeomHex
+  
   
   calculate <- function(., data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
     try_require("hexbin")
@@ -15,43 +40,16 @@ StatBinhex <- proto(Stat, {
     
     hexBin(data$x, data$y, binwidth)
   }
-  
-  seealso <- list(
-    "stat_bin2d" = "For rectangular binning"
-  )
-  
-  default_aes <- function(.) aes(fill = ..count..)
-  required_aes <- c("x", "y")
-  default_geom <- function(.) GeomHex
-  
-  examples <- function() {
-    d <- ggplot(diamonds, aes(carat, price))
-    d + stat_binhex()
-    d + geom_hex()
-    
-    # You can control the size of the bins by specifying the number of
-    # bins in each direction:
-    d + stat_binhex(bins = 10)
-    d + stat_binhex(bins = 30)
-    
-    # Or by specifying the width of the bins
-    d + stat_binhex(binwidth = c(1, 1000))
-    d + stat_binhex(binwidth = c(.1, 500))
-    
-    # With qplot
-    qplot(x, y, data = diamonds, geom="hex", xlim = c(4, 10), ylim = c(4, 10))
-    qplot(x, y, data = diamonds, geom="hex", xlim = c(4, 10), ylim = c(4, 10),
-      binwidth = c(0.1, 0.1))
-  }
+
   
 })
 
 # Bin 2d plane into hexagons
 # Wrapper around \code{\link[hexbin]{hcell2xy}} that returns a data frame
 # 
-# @arguments x positions
-# @arguments y positions
-# @arguments numeric vector of length 2 giving binwidth in x and y directions
+# @param x positions
+# @param y positions
+# @param numeric vector of length 2 giving binwidth in x and y directions
 # @keyword internal
 hexBin <- function(x, y, binwidth) {
   try_require("hexbin")

@@ -1,3 +1,57 @@
+#' Polar coordinates.
+#' 
+#' The polar coordinate system is most commonly used for pie charts, which 
+#' are a stacked bar chart in polar coordinates.
+#'
+#' @name coord_polar
+#' @param theta variable to map angle to (\code{x} or \code{y})
+#' @param start offset of starting point from 12 o'clock in radians
+#' @param direction 1, clockwise; -1, anticlockwise
+#' @param should axes be expanded to slightly outside the range of the data?
+#'   (default: FALSE)
+#' @export
+#' @examples 
+#' # NOTE: Use these plots with caution - polar coordinates has
+#' # major perceptual problems.  The main point of these examples is 
+#' # to demonstrate how these common plots can be described in the
+#' # grammar.  Use with EXTREME caution.
+#'
+#' # A coxcomb plot = bar chart + polar coordinates
+#' cxc <- ggplot(mtcars, aes(x = factor(cyl))) + 
+#'   geom_bar(width = 1, colour = "black")
+#' cxc + coord_polar()
+#' # A new type of plot?
+#' cxc + coord_polar(theta = "y")
+#' 
+#' # A pie chart = stacked bar chart + polar coordinates
+#' pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
+#'  geom_bar(width = 1)
+#' pie + coord_polar(theta = "y")
+#'
+#' # The bullseye chart
+#' pie + coord_polar()
+#' 
+#' # Hadley's favourite pie chart
+#' df <- data.frame(
+#'   variable = c("resembles", "does not resemble"),
+#'   value = c(80, 20)
+#' )
+#' ggplot(df, aes(x = "", y = value, fill = variable)) + 
+#'   geom_bar(width = 1) + 
+#'   scale_fill_manual(values = c("red", "yellow")) + 
+#'   coord_polar("y", start=pi / 3) + 
+#'   opts(title = "Pac man")
+#' 
+#' # Windrose + doughnut plot
+#' movies$rrating <- cut_interval(movies$rating, length = 1)
+#' movies$budgetq <- cut_number(movies$budget, 4)
+#' 
+#' doh <- ggplot(movies, aes(x = rrating, fill = budgetq))
+#' 
+#' # Wind rose
+#' doh + geom_bar(width = 1) + coord_polar()
+#' # Race track plot
+#' doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
 CoordPolar <- proto(Coord, {
 
   new <- function(., theta="x", start = 0, direction = 1, expand = FALSE) {
@@ -175,64 +229,5 @@ CoordPolar <- proto(Coord, {
   }  
 
     
-
-  # Documentation -----------------------------------------------
-
-  objname <- "polar"
-  desc <- "Polar coordinates"
   icon <- function(.) circleGrob(r = c(0.1, 0.25, 0.45), gp=gpar(fill=NA))
-  
-  details <- "<p>The polar coordinate system is most commonly used for pie charts, which are a stacked bar chart in polar coordinates.</p>\n\n<p>This coordinate system has one argument, <code>theta</code>, which determines which variable is mapped to angle and which to radius.  Valid values are \"x\" and \"y\".</p>\n"
-  
-  desc_params <- list(
-    theta = "variable to map angle to ('x' or 'y')",
-    start = "offset from 12 o'clock in radians",
-    direction = "1, clockwise; -1, anticlockwise",
-    expand = "should axes be expanded to slightly outside the range of the data? (default: FALSE)"
-  )
-  
-  examples <- function(.) {
-    # NOTE: Use these plots with caution - polar coordinates has
-    # major perceptual problems.  The main point of these examples is 
-    # to demonstrate how these common plots can be described in the
-    # grammar.  Use with EXTREME caution.
-
-    # A coxcomb plot = bar chart + polar coordinates
-    cxc <- ggplot(mtcars, aes(x = factor(cyl))) + 
-      geom_bar(width = 1, colour = "black")
-    cxc + coord_polar()
-    # A new type of plot?
-    cxc + coord_polar(theta = "y")
-    
-    # A pie chart = stacked bar chart + polar coordinates
-    pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
-     geom_bar(width = 1)
-    pie + coord_polar(theta = "y")
-
-    # The bullseye chart
-    pie + coord_polar()
-    
-    # Hadley's favourite pie chart
-    df <- data.frame(
-      variable = c("resembles", "does not resemble"),
-      value = c(80, 20)
-    )
-    ggplot(df, aes(x = "", y = value, fill = variable)) + 
-      geom_bar(width = 1) + 
-      scale_fill_manual(values = c("red", "yellow")) + 
-      coord_polar("y", start=pi / 3) + 
-      opts(title = "Pac man")
-    
-    # Windrose + doughnut plot
-    movies$rrating <- cut_interval(movies$rating, length = 1)
-    movies$budgetq <- cut_number(movies$budget, 4)
-    
-    doh <- ggplot(movies, aes(x = rrating, fill = budgetq))
-    
-    # Wind rose
-    doh + geom_bar(width = 1) + coord_polar()
-    # Race track plot
-    doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
-  }
-
 })

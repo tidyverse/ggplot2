@@ -12,9 +12,9 @@
 # This is used by geoms and stats to give a more helpful error message
 # when required aesthetics are missing.
 #
-# @arguments character vector of required aesthetics
-# @arguments character vector of present aesthetics
-# @arguments name of object for error message
+# @param character vector of required aesthetics
+# @param character vector of present aesthetics
+# @param name of object for error message
 # @keyword internal
 check_required_aesthetics <- function(required, present, name) {
   missing_aes <- setdiff(required, present)
@@ -26,7 +26,7 @@ check_required_aesthetics <- function(required, present, name) {
 # Concatenate a named list for output
 # Print a \code{list(a=1, b=2)} as \code{(a=1, b=2)}
 # 
-# @arguments list to concatenate
+# @param list to concatenate
 # @keyword internal
 #X clist(list(a=1, b=2))
 #X clist(par()[1:5])
@@ -37,16 +37,16 @@ clist <- function(l) {
 # Abbreviated paste
 # Alias for paste with a shorter name and convenient defaults
 # 
-# @arguments character vectors to be concatenated
-# @arguments default separator
-# @arguments default collapser
+# @param character vectors to be concatenated
+# @param default separator
+# @param default collapser
 # @keyword internal
 ps <- function(..., sep="", collapse="") do.call(paste, compact(list(..., sep=sep, collapse=collapse)))
 
 # Quietly try to require a package
 # Queitly require a package, returning an error message if that package is not installed.
 # 
-# @arguments name of package
+# @param name of package
 # @keyword internal
 try_require <- function(package) {
   available <- suppressMessages(suppressWarnings(sapply(package, require, quietly = TRUE, character.only = TRUE, warn.conflicts=FALSE)))
@@ -73,10 +73,10 @@ uniquecols <- function(df) {
 # unless \code{ignore.dots = TRUE}.  Positional arguments are not currently
 # supported.
 # 
-# @arguments function to call
+# @param function to call
 # @arugments named list of parameters to be supplied to function
-# @arguments parameter names of function
-# @arguments 
+# @param parameter names of function
+# @param 
 # @keyword internal
 safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRUE) {
   if (!ignore.dots && "..." %in% f.params) {
@@ -95,10 +95,10 @@ safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRU
 # automatically removed with a warning.  If \code{na.rm = TRUE} is supplied
 # to the statistic, the warning will be suppressed.
 # 
-# @arguments data.frame
-# @arguments suppress warning that rows are being removed?
+# @param data.frame
+# @param suppress warning that rows are being removed?
 # @argumnets variables to check for missings in
-# @arguments optional function name to make warning message more informative
+# @param optional function name to make warning message more informative
 # @keyword internal
 #X a <- remove_missing(movies)
 #X a <- remove_missing(movies, na.rm = TRUE)
@@ -127,7 +127,7 @@ tr <- function(x = NULL) traceback(x, max.lines=1)
 # "Invert" a list
 # Keys become values, values become keys
 # 
-# @arguments list to invert
+# @param list to invert
 # @keyword internal
 invert <- function(L) {
   t1 <- unlist(L)

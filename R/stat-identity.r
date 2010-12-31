@@ -1,6 +1,10 @@
+#' Identity statistic.
+#' 
+#' @name stat_identity
+#' @export
+#' @examples
+#' # Doesn't do anything, so hard to come up a useful example
 StatIdentity <- proto(Stat, {
-  objname <- "identity" 
-  desc <- "Don't transform data"
   
   default_geom <- function(.) GeomPoint
   calculate_groups <- function(., data, scales, ...) data
@@ -8,7 +12,4 @@ StatIdentity <- proto(Stat, {
   
   desc_outputs <- list()
   
-  examples <- function(.) {
-    # Doesn't do anything, so hard to come up a useful example
-  }
 })

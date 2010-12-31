@@ -1,3 +1,10 @@
+#' Add a line with slope and intercept.
+#'
+#' @keywords internal
+#' @name stat_abline
+#' @export
+#' @examples
+#' # see geom_abline
 StatAbline <- proto(Stat, {
   calculate <- function(., data, scales, intercept = NULL, slope = NULL, ...) {
     data <- aesdefaults(data, .$default_aes(), list(...))
@@ -16,18 +23,17 @@ StatAbline <- proto(Stat, {
     unique(data)
   }
   
-  objname <- "abline" 
-  desc <- "Add a line with slope and intercept"
   icon <- function(.) GeomAbline$icon()
-  
-  required_aes <- c()
   default_geom <- function(.) GeomAbline
-  
-  examples <- function(.) {
-    # See geom_abline for examples
-  }
 })
 
+#' Add a vertical line
+#'
+#' @keywords internal
+#' @name stat_vline
+#' @export
+#' @examples
+#' # see geom_vline
 StatVline <- proto(Stat, {
   calculate <- function(., data, scales, xintercept = NULL, intercept, ...) {
     if (!missing(intercept)) {
@@ -41,18 +47,19 @@ StatVline <- proto(Stat, {
     }))
   }
   
-  objname <- "vline" 
-  desc <- "Add a vertical line"
   icon <- function(.) GeomVline$icon()
   
   required_aes <- c()
   default_geom <- function(.) GeomVline
-  
-  examples <- function(.) {
-    # See geom_vline for examples
-  }
 })
 
+#' Add a horizontal line
+#'
+#' @keywords internal
+#' @name stat_hline
+#' @export
+#' @examples
+#' # see geom_hline
 StatHline <- proto(Stat, {
   calculate <- function(., data, scales, yintercept = NULL, intercept, ...) {
     if (!missing(intercept)) {
@@ -80,7 +87,6 @@ StatHline <- proto(Stat, {
 })
 
 
-# Compute intercept from data
 # Compute intercept for vline and hline from data and parameters
 # 
 # @keyword internal
