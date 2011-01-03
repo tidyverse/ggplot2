@@ -13,9 +13,8 @@ Description: An implementation of the grammar of graphics
     conditioning system and a consistent interface to map
     data to aesthetic attributes. See the ggplot2 website
     for more information, documentation and examples.
-Depends: reshape (>= 0.8.0), grid, proto
-Imports: plyr (>= 1.0), splines, MASS, RColorBrewer,
-    digest, colorspace
+Depends: reshape (>= 0.8.0)
+Imports: plyr (>= 1.0), digest, grid, proto
 Suggests: quantreg, Hmisc, mapproj, maps, hexbin, gpclib,
     maptools, scales
 Extends: sp
