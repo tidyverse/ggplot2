@@ -9,6 +9,8 @@
 #' # See stat_density for examples
 GeomDensity <- proto(GeomArea, {
   objname <- "density"
+
+  objname <- "density"
   icon <- function(.) {
     x <- seq(0, 1, length=80)
     y <- dnorm(x, mean=0.5, sd=0.15)

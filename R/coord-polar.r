@@ -53,6 +53,7 @@
 #' # Race track plot
 #' doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
 CoordPolar <- proto(Coord, {
+  objname <- "polar"
 
   new <- function(., theta="x", start = 0, direction = 1, expand = FALSE) {
     theta <- match.arg(theta, c("x", "y"))

@@ -14,6 +14,8 @@
 #' ggplot(diamonds, aes(x=price, fill=clarity)) + cde
 #' ggplot(diamonds, aes(x=price, fill=color)) + cde
 PositionFill <- proto(Position, {
+  objname <- "fill"
+
   adjust <- function(., data, scales) {
     if (empty(data)) return(data.frame())
     

@@ -42,6 +42,8 @@
 #' usamap + coord_map(project="conic", lat0 = 30)
 #' usamap + coord_map(project="bonne", lat0 = 50)
 CoordMap <- proto(Coord, {  
+  objname <- "map"
+
   new <- function(., projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL) {    
     try_require("mapproj")
     .$proto(

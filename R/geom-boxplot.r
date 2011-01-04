@@ -51,7 +51,8 @@
 #' qplot(year, budget, data = movies, geom = "boxplot", 
 #'   group = round_any(year, 10, floor))
 GeomBoxplot <- proto(Geom, {
-  
+  objname <- "boxplot"
+
   reparameterise <- function(., df, params) {
     df$width <- df$width %||% 
       params$width %||% (resolution(df$x, FALSE) * 0.9)

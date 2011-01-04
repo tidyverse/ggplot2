@@ -22,6 +22,8 @@
 #' qplot(1:5, (1:5)^2, geom="line")
 #' last_plot() + coord_flip()
 CoordFlip <- proto(CoordCartesian, expr={
+  objname <- "flip"
+
   
   transform <- function(., data, details) {
     rescale_x <- function(data) .$rescale_var(data, details$x.range)

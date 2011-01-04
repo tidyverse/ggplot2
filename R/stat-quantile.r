@@ -31,7 +31,8 @@
 #' # Use qplot instead
 #' qplot(year, rating, data=movies, geom="quantile")
 StatQuantile <- proto(Stat, {
-  
+  objname <- "quantile"
+
   default_geom <- function(.) GeomQuantile
   default_aes <- function(.) aes()
   required_aes <- c("x", "y")

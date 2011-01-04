@@ -11,6 +11,8 @@
 #' @examples
 #' # See geom_linerange for examples
 GeomPointrange <- proto(Geom, {
+  objname <- "pointrange"
+
   icon <- function(.) {
     gTree(children=gList(
       segmentsGrob(c(0.3, 0.7), c(0.1, 0.2), c(0.3, 0.7), c(0.7, 0.95)),

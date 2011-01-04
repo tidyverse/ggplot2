@@ -35,7 +35,16 @@ TopLevel <- proto(expr = {
     ps(firstUpper(.$class()), ps(firstUpper(strsplit(.$objname, "_")[[1]])))
   }
 
-
+  params <- function(.) {
+    param <- .$parameters()
+    if (length(param) == 0) return()
+  
+    if(!exists("required_aes", .)) return(param)
+  
+    aesthetics <- c(.$required_aes, names(.$default_aes()))
+    param <- param[setdiff(names(param), aesthetics)]
+  }
+  
   html_aesthetics <- function(.) {
     if (!exists("default_aes", .)) return("")
     

@@ -45,6 +45,8 @@
 #' # Use drop = FALSE to force their inclusion
 #' qplot(displ, hwy, data = mpg) + facet_wrap(~ cyl2, drop = FALSE)
 FacetWrap <- proto(Facet, {
+  objname <- "wrap"
+
   new <- function(., facets, nrow = NULL, ncol = NULL, scales = "fixed", as.table = TRUE, drop = TRUE) {
     scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
     free <- list(

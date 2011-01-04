@@ -27,6 +27,8 @@
 #' qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + 
 #'   geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat="identity") 
 GeomSmooth <- proto(Geom, {
+  objname <- "smooth"
+
   draw <- function(., data, scales, coordinates, ...) {
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = 1)

@@ -80,6 +80,8 @@
 #' qplot(Age, as.numeric(Kyphosis) - 1, data=kyphosis) +
 #'   stat_smooth(method="glm", family="binomial", formula = y ~ ns(x, 2))
 StatSmooth <- proto(Stat, {
+  objname <- "smooth"
+
   calculate_groups <- function(., data, scales, ...) {
     rows <- daply(data, .(group), function(df) length(unique(df$x)))
     

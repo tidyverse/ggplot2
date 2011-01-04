@@ -6,6 +6,8 @@
 #' @examples
 #' # see geom_abline
 StatAbline <- proto(Stat, {
+  objname <- "abline"
+
   calculate <- function(., data, scales, intercept = NULL, slope = NULL, ...) {
     data <- aesdefaults(data, .$default_aes(), list(...))
     if (is.null(intercept)) {
@@ -35,6 +37,8 @@ StatAbline <- proto(Stat, {
 #' @examples
 #' # see geom_vline
 StatVline <- proto(Stat, {
+  objname <- "vline"
+
   calculate <- function(., data, scales, xintercept = NULL, intercept, ...) {
     if (!missing(intercept)) {
       stop("stat_vline now uses xintercept instead of intercept")

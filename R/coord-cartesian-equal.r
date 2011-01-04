@@ -21,6 +21,7 @@
 #' 
 #' # Resize the plot to see that the specified aspect ratio is mantained
 CoordFixed <- proto(CoordCartesian, {
+  objname <- "fixed"
 
   new <- function(., ratio = 1) {
     .$proto(ratio = ratio)

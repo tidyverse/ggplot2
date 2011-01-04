@@ -44,6 +44,8 @@
 #' # And if the positions are in longitude and latitude, you can use
 #' # coord_map to produce different map projections.
 GeomPolygon <- proto(Geom, {
+  objname <- "polygon"
+
   draw <- function(., data, scales, coordinates, ...) {
     n <- nrow(data)
     if (n == 1) return()

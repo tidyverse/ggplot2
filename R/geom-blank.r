@@ -9,6 +9,8 @@
 #' qplot(length, rating, data=movies, geom="blank")
 #' # Nothing to see here!
 GeomBlank <- proto(Geom, {
+  objname <- "blank"
+
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes()
 

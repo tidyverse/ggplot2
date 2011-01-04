@@ -41,6 +41,8 @@
 #' # cf.
 #' qplot(carat, price, data=diamonds) + geom_smooth(method = "lm")
 CoordTrans <- proto(CoordCartesian, expr={
+  objname <- "trans"
+
   
   new <- function(., xtrans="identity", ytrans="identity") {
     if (is.character(xtrans)) xtrans <- Trans$find(xtrans)

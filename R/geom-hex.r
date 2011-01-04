@@ -5,6 +5,8 @@
 #' @examples
 #' # See ?stat_binhex for examples  
 GeomHex <- proto(Geom, {
+  objname <- "hex"
+
   draw <- function(., data, scales, coordinates, ...) { 
     with(coordinates$transform(data, scales), 
       ggname(.$my_name(), hexGrob(x, y, col=colour, 

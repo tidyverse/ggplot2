@@ -34,6 +34,8 @@
 #' qplot(wt, mpg, data = mtcars, label = rownames(mtcars), size = wt) +
 #'   geom_text(colour = "red")
 GeomText <- proto(Geom, {
+  objname <- "text"
+
   draw <- function(., data, scales, coordinates, ..., parse = FALSE) {
     
     lab <- data$label

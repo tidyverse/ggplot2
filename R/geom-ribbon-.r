@@ -36,6 +36,8 @@
 #' # Use qplot instead
 #' qplot(year, level, data=huron, geom=c("area", "line"))
 GeomRibbon <- proto(Geom, {
+  objname <- "ribbon"
+
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = 1)
   required_aes <- c("x", "ymin", "ymax")

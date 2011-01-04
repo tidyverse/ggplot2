@@ -10,6 +10,7 @@
 #' @examples
 #' # See geom_linerange for examples
 GeomCrossbar <- proto(Geom, {
+  objname <- "crossbar"
 
   icon <- function(.) {
     gTree(children=gList(

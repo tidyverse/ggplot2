@@ -18,6 +18,8 @@
 #' p + geom_point() +
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se))
 GeomErrorbarh <- proto(Geom, {
+  objname <- "errorbarh"
+
   icon <- function(.) {
     gTree(children=gList(
       segmentsGrob(c(0.5, 0.3), c(0.70, 0.30), c(0.9, 0.7), c(0.70, 0.30)),

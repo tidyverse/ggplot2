@@ -49,6 +49,8 @@
 #' p + geom_smooth(aes(group=cyl), method="lm")
 #' p + geom_smooth(aes(group=cyl), method="lm", fullrange=TRUE)
 GeomAbline <- proto(Geom, {
+  objname <- "abline"
+
   new <- function(., mapping = NULL, ...) {
     mapping <- compact(defaults(mapping, aes(group = 1)))
     class(mapping) <- "uneval"

@@ -62,6 +62,8 @@
 #' col <- c("darkblue", "blue", "green", "orange", "red")
 #' qplot(x, y, fill=col[z], data=example, geom="tile", width=w, group=1) + scale_fill_identity(labels=letters[1:5], breaks=col)
 GeomTile <- proto(Geom, {
+  objname <- "tile"
+
   reparameterise <- function(., df, params) {
     df$width <- df$width %||% params$width %||% resolution(df$x, FALSE)
     df$height <- df$height %||% params$height %||% resolution(df$y, FALSE)

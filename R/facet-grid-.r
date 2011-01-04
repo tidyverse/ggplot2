@@ -81,6 +81,8 @@
 #' })
 #' last_plot() %+% mpg + opts(strip.text.y = theme_text())
 FacetGrid <- proto(Facet, {
+  objname <- "grid"
+
   new <- function(., facets = . ~ ., margins = FALSE, scales = "fixed", space = "fixed", labeller = "label_value", as.table = TRUE, widths = NULL, heights = NULL) {
     scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
     free <- list(

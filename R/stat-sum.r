@@ -31,6 +31,8 @@
 #' qplot(cut, clarity, data = diamonds)
 #' qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)    
 StatSum <- proto(Stat, {
+  objname <- "sum"
+
   default_aes <- function(.) aes(size = ..prop..)
   required_aes <- c("x", "y")
   default_geom <- function(.) GeomPoint

@@ -49,6 +49,8 @@
 #' ggplot(dfm, aes(variable, value, group = id, colour = group)) + 
 #'   geom_path(alpha = 0.5)
 GeomLine <- proto(GeomPath, {
+  objname <- "line"
+
   icon <- function(.) {
     pos <- seq(0, 1, length=5)
     linesGrob(pos, c(0.2, 0.7, 0.4, 0.8, 0.3))

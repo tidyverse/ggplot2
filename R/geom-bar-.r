@@ -89,6 +89,7 @@
 #' qplot(cut, meanprice, geom="bar", stat="identity")
 #' qplot(cut, meanprice, geom="bar", stat="identity", fill = I("grey50"))
 GeomBar <- proto(Geom, {
+  objname <- "bar"
   
   default_stat <- function(.) StatBin
   default_pos <- function(.) PositionStack

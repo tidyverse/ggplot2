@@ -14,6 +14,8 @@
 #' base + stat_function(fun = dnorm, colour = "red")
 #' base + stat_function(fun = dnorm, colour = "red", arg = list(mean = 3))
 StatFunction <- proto(Stat, {
+  objname <- "function"
+
   default_geom <- function(.) GeomPath
   default_aes <- function(.) aes(y = ..y..)
   

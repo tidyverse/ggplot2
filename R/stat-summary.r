@@ -93,7 +93,8 @@
 #' # standard errors.
 #' m2 + coord_trans(y="log10")
 StatSummary <- proto(Stat, {
-  
+  objname <- "summary"
+
   default_geom <- function(.) GeomPointrange
   required_aes <- c("x", "y")
    

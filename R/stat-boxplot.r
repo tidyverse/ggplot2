@@ -12,6 +12,7 @@
 #' @examples
 #' # See geom_boxplot for examples
 StatBoxplot <- proto(Stat, {
+  objname <- "boxplot"
   
   required_aes <- c("x", "y")
   icon <- function(.) GeomBoxplot$icon()

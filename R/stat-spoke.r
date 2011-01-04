@@ -15,6 +15,8 @@
 #' 
 #' qplot(x, y, data=df) + stat_spoke(aes(angle=angle, radius=speed))
 StatSpoke <- proto(Stat, {
+  objname <- "spoke"
+
   retransform <- FALSE
   calculate <- function(., data, scales, radius = 1, ...) {
     transform(data,

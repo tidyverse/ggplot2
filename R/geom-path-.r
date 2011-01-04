@@ -78,6 +78,8 @@
 #' # Should fail
 #' should_stop(p + geom_line(aes(colour = x), linetype=2))
 GeomPath <- proto(Geom, {
+  objname <- "path"
+
   draw_groups <- function(., ...) .$draw(...)
 
   draw <- function(., data, scales, coordinates, arrow = NULL, lineend = "butt", linejoin = "round", linemitre = 1, ..., na.rm = FALSE) {

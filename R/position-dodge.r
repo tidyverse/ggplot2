@@ -23,6 +23,8 @@
 #' p + geom_errorbar(aes(ymin = y-1, ymax = y+1, width = 0.2),
 #'   position = position_dodge(width = 0.90))
 PositionDodge <- proto(Position, {
+  objname <- "dodge"
+
   adjust <- function(., data, scales) {
     if (empty(data)) return(data.frame())
     check_required_aesthetics("x", names(data), "position_dodge")

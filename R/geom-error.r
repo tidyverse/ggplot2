@@ -42,6 +42,8 @@
 #' # original dataframe
 #' p + geom_line(aes(group=group)) + geom_errorbar(limits, width=0.2)    
 GeomErrorbar <- proto(Geom, {
+  objname <- "errorbar"
+
   icon <- function(.) {
     gTree(children=gList(
       segmentsGrob(c(0.3, 0.7), c(0.3, 0.5), c(0.3, 0.7), c(0.7, 0.9)),

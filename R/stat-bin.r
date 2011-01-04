@@ -39,6 +39,7 @@
 #' ggplot(movies, aes(x=mpaa)) + stat_bin()
 #' qplot(mpaa, data=movies, stat="bin")
 StatBin <- proto(Stat, {
+  objname <- "bin"
   informed <- FALSE
   
   calculate_groups <- function(., data, ...) {

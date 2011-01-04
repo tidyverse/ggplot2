@@ -14,6 +14,8 @@
 #' qplot(price, ..density.., data = diamonds, geom="freqpoly", 
 #'   binwidth = 1000, colour = color)
 GeomFreqpoly <- proto(Geom, {
+  objname <- "freqpoly"
+
   icon <- function(.) {
     y <- c(0.2, 0.3, 0.5, 0.6,0.2, 0.8, 0.5, 0.3)
     linesGrob(seq(0.1, 0.9, by=0.1), y, gp=gpar(col="grey20"))

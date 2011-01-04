@@ -85,6 +85,8 @@
 #' qplot(wt, mpg, data = mtcars, colour = factor(cyl))
 #' qplot(wt, mpg, data = mtcars, colour = I("red"))
 GeomPoint <- proto(Geom, {
+  objname <- "point"
+
   draw_groups <- function(., ...) .$draw(...)
   draw <- function(., data, scales, coordinates, na.rm = FALSE, ...) {    
     data <- remove_missing(data, na.rm, 

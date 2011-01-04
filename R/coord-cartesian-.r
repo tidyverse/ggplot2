@@ -40,6 +40,7 @@
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 2))
 CoordCartesian <- proto(Coord, expr={  
+  objname <- "cartesian"
   new <- function(., xlim = NULL, ylim = NULL, wise = FALSE) {
     .$proto(limits = list(x = xlim, y = ylim), wise = wise)
   }

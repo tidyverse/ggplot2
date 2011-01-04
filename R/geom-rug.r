@@ -8,6 +8,8 @@
 #' p + geom_point() + geom_rug()
 #' p + geom_point() + geom_rug(position='jitter')
 GeomRug <- proto(Geom, {
+  objname <- "rug"
+
   draw <- function(., data, scales, coordinates, ...) {  
     rugs <- list()
     data <- coordinates$transform(data, scales)    

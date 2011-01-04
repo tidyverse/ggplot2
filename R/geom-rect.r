@@ -10,6 +10,7 @@
 #' ggplot(df, aes(xmin = x, xmax = x + 1, ymin = y, ymax = y + 2)) +
 #' geom_rect()
 GeomRect <- proto(Geom, {
+  objname <- "rect"
   
   default_stat <- function(.) StatIdentity
   default_pos <- function(.) PositionIdentity

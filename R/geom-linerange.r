@@ -29,6 +29,8 @@
 #' # Use coord_flip to flip the x and y axes
 #' se + geom_linerange() + coord_flip()
 GeomLinerange <- proto(Geom, {
+  objname <- "linerange"
+
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, alpha = 1)
   guide_geom <- function(.) "path"

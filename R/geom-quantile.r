@@ -7,6 +7,8 @@
 #' @examples
 #' # See stat_quantile for examples
 GeomQuantile <- proto(GeomPath, {  
+  objname <- "quantile"
+
   default_stat <- function(.) StatQuantile
   default_aes <- function(.) defaults(aes(weight=1, colour="#3366FF", size=0.5), GeomPath$default_aes())
   guide_geom <- function(.) "path"

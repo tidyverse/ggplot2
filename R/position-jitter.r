@@ -20,7 +20,8 @@
 #' # will up as much space as a boxplot or a bar
 #' qplot(cut, price, data=diamonds, geom=c("boxplot", "jitter"))
 PositionJitter <- proto(Position, {
-  
+  objname <- "jitter"
+ 
   adjust <- function(., data, scales) {
     if (empty(data)) return(data.frame())
     check_required_aesthetics(c("x", "y"), names(data), "position_jitter")

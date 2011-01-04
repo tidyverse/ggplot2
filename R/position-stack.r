@@ -24,6 +24,8 @@
 #' # But realise that this makes it *much* harder to compare individual
 #' # trends
 PositionStack <- proto(Position, {
+  objname <- "stack"
+
   adjust <- function(., data, scales) {
     if (empty(data)) return(data.frame())
     

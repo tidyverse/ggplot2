@@ -76,6 +76,8 @@
 #' qplot(length, data=movies, geom="density", weight=rating)
 #' qplot(length, data=movies, geom="density", weight=rating/sum(rating))
 StatDensity <- proto(Stat, {
+  objname <- "density"
+
   calculate <- function(., data, scales, adjust=1, kernel="gaussian", trim=FALSE, na.rm = FALSE, ...) {
     data <- remove_missing(data, na.rm, "x", name = "stat_density")
     

@@ -45,6 +45,8 @@
 #' qplot(x, y, z, data = volcano3d, geom = "contour")
 #' qplot(x, y, z, data = volcano3d, stat = "contour", geom = "path")
 StatContour <- proto(Stat, {
+  objname <- "contour"
+
   calculate <- function(., data, scales, bins=NULL, binwidth=NULL, breaks = NULL, na.rm = FALSE, ...) {
     data <- remove_missing(data, na.rm, name = "stat_contour")
 

@@ -33,7 +33,8 @@
 #' qplot(sample = mpg, data = mtcars)
 #' qplot(sample = mpg, data = mtcars, colour = factor(cyl))    
 StatQq <- proto(Stat, {
-  
+  objname <- "qq"
+
   default_geom <- function(.) GeomPoint
   default_aes <- function(.) aes(y = ..sample.., x = ..theoretical..)
   required_aes <- c("sample")

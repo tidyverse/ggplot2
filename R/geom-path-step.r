@@ -23,6 +23,8 @@
 #' )
 #' qplot(seq_along(x), x, data = df, geom="step", colour = trt)
 GeomStep <- proto(Geom, {
+  objname <- "step"
+
   icon <- function(.) {
     n <- 15
     xs <- rep(0:n, each = 2)[-2*(n + 1)] / 15

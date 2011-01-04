@@ -29,6 +29,8 @@
 #' hline.data <- data.frame(z = 1:4, vs = c(0,0,1,1), am = c(0,1,0,1))
 #' p + geom_hline(aes(yintercept = z), hline.data)
 GeomHline <- proto(Geom, {
+  objname <- "hline"
+
   new <- function(., data = NULL, mapping = NULL, yintercept = NULL, legend = NA, ...) {
     if (is.numeric(yintercept)) {
       data <- data.frame(yintercept = yintercept)

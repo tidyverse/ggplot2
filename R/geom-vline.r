@@ -29,6 +29,8 @@
 #' p2 <- p + aes(colour = factor(cyl))
 #' p2 + geom_vline(xintercept = 15)
 GeomVline <- proto(Geom, {
+  objname <- "vline"
+
   new <- function(., data = NULL, mapping = NULL, xintercept = NULL, legend = NA, ...) {
     if (is.numeric(xintercept)) {
       data <- data.frame(xintercept = xintercept)

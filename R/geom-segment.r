@@ -28,6 +28,8 @@
 #' qplot(x, Freq, data = counts, geom="segment", 
 #'   yend = 0, xend = x, size = I(10))
 GeomSegment <- proto(Geom, {
+  objname <- "segment"
+
   draw <- function(., data, scales, coordinates, arrow=NULL, ...) {
     if (!coordinates$muncher()) {
       return(with(coordinates$transform(data, scales), 

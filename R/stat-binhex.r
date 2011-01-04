@@ -22,6 +22,8 @@
 #' qplot(x, y, data = diamonds, geom="hex", xlim = c(4, 10), ylim = c(4, 10),
 #'   binwidth = c(0.1, 0.1))
 StatBinhex <- proto(Stat, {
+  objname <- "binhex"
+
   default_aes <- function(.) aes(fill = ..count..)
   required_aes <- c("x", "y")
   default_geom <- function(.) GeomHex
