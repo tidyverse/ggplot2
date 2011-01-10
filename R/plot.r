@@ -9,7 +9,7 @@
 ggplot <- function(data = NULL, ...) UseMethod("ggplot")
 
 ggplot.default <- function(data = NULL, mapping = aes(), ...) {
-  ggplot.data.frame(fortify(data), mapping, ...)
+  ggplot.data.frame(fortify(data, ...), mapping)
 }
 
 #' Create a new ggplot plot from a data frame
