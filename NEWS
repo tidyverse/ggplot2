@@ -1,5 +1,8 @@
 ggplot2 0.9.0 ----------------------------------------------------------------
 
+* `collide`, which powers `position_dodge` and `position_stack`, now does not
+  error on single x values (Thanks to Brian Diggs for a fix. #157)
+
 * `...` in `ggplot` now passed on to `fortify` method when used with an object
   other than a data frame
 

@@ -30,8 +30,8 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
 
   # Check for overlap
   intervals <- as.numeric(t(unique(data[c("xmin", "xmax")])))
-  intervals <- scale(intervals[!is.na(intervals)])
-  if (any(diff(intervals) < -1e-6)) {
+  intervals <- intervals[!is.na(intervals)]
+  if (length(unique(intervals)) > 1 & any(diff(scale(intervals)) < -1e-6)) {
     warning(name, " requires non-overlapping x intervals", call. = FALSE)
     # This is where the algorithm from [L. Wilkinson. Dot plots. 
     # The American Statistician, 1999.] should be used
