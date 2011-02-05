@@ -6,6 +6,10 @@ ggplot2 0.9.0 ----------------------------------------------------------------
 * `...` in `ggplot` now passed on to `fortify` method when used with an object
   other than a data frame
 
+* `geom_boxplot`: outlier colour and shape now default to values set by the
+  aesthetic mapping (thanks to suggestion by Ben Bolker)
+
+
 DOCUMENTATION
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems

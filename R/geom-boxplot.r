@@ -62,7 +62,7 @@ GeomBoxplot <- proto(Geom, {
     )
   }
   
-  draw <- function(., data, ..., outlier.colour = "black", outlier.shape = 16, outlier.size = 2) { 
+  draw <- function(., data, ..., outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2) { 
     defaults <- with(data, data.frame(
       x = x, xmin = xmin, xmax = xmax, 
       colour = colour, size = size, 
@@ -73,13 +73,16 @@ GeomBoxplot <- proto(Geom, {
     defaults2 <- defaults[c(1,1), ]
     
     if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
-      outliers_grob <- with(data,
-        GeomPoint$draw(data.frame(
-          y = outliers[[1]], x = x[rep(1, length(outliers[[1]]))],
-          colour=I(outlier.colour), shape = outlier.shape, alpha = 1, 
-          size = outlier.size, fill = NA), ...
-        )
-      )
+      outlier_data <- data.frame(
+        y = data$outliers[[1]],
+        x = data$x[1],
+        colour = outlier.colour %||% data$colour[1],
+        shape =  outlier.shape %||% data$shape[1],
+        size =  outlier.size %||% data$size[1],
+        fill = NA,
+        alpha = 1,
+        stringsAsFactors = FALSE)
+      outliers_grob <- GeomPoint$draw(outlier_data, ...)
     } else {
       outliers_grob <- NULL
     }
@@ -97,7 +100,6 @@ GeomBoxplot <- proto(Geom, {
   draw_legend <- function(., data, ...)  {
     data <- aesdefaults(data, .$default_aes(), list(...))
     gp <- with(data, gpar(col=colour, fill=fill, lwd=size * .pt))
-
     gTree(gp = gp, children = gList(
       linesGrob(0.5, c(0.1, 0.9)),
       rectGrob(height=0.5, width=0.75),
@@ -114,7 +116,7 @@ GeomBoxplot <- proto(Geom, {
   
   default_stat <- function(.) StatBoxplot
   default_pos <- function(.) PositionDodge
-  default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = 1)
+  default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = 1, shape = 16)
   required_aes <- c("x", "lower", "upper", "middle", "ymin", "ymax")
 
 })
