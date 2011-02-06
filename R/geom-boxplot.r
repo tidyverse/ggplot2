@@ -62,38 +62,52 @@ GeomBoxplot <- proto(Geom, {
     )
   }
   
-  draw <- function(., data, ..., outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2) { 
-    defaults <- with(data, data.frame(
-      x = x, xmin = xmin, xmax = xmax, 
-      colour = colour, size = size, 
-      linetype = 1, group = 1, alpha = 1, 
-      fill = alpha(fill, alpha),  
+  draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2) { 
+    common <- data.frame(
+      colour = data$colour, 
+      size = data$size, 
+      linetype = data$linetype,
+      fill = alpha(data$fill, data$alpha),  
+      alpha = 1, 
+      group = 1, 
       stringsAsFactors = FALSE
-    ))
-    defaults2 <- defaults[c(1,1), ]
+    )
+
+    whiskers <- data.frame(
+      x = data$x,
+      xend = data$x, 
+      y = c(data$upper, data$lower), 
+      yend = c(data$ymax, data$ymin), 
+      common)
+
+    box <- data.frame(
+      xmin = data$xmin, 
+      xmax = data$xmax, 
+      ymin = data$lower, 
+      y = data$middle, 
+      ymax = data$upper,
+      common)
     
     if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
-      outlier_data <- data.frame(
+      outliers <- data.frame(
         y = data$outliers[[1]],
         x = data$x[1],
         colour = outlier.colour %||% data$colour[1],
-        shape =  outlier.shape %||% data$shape[1],
-        size =  outlier.size %||% data$size[1],
+        shape = outlier.shape %||% data$shape[1],
+        size = outlier.size %||% data$size[1],
         fill = NA,
         alpha = 1,
         stringsAsFactors = FALSE)
-      outliers_grob <- GeomPoint$draw(outlier_data, ...)
+      outliers_grob <- GeomPoint$draw(outliers, ...)
     } else {
       outliers_grob <- NULL
     }
     
-    with(data, ggname(.$my_name(), grobTree(
+    ggname(.$my_name(), grobTree(
       outliers_grob,
-      GeomPath$draw(data.frame(y=c(upper, ymax), defaults2), ...),
-      GeomPath$draw(data.frame(y=c(lower, ymin), defaults2), ...),
-      GeomRect$draw(data.frame(ymax = upper, ymin = lower, defaults), ...),
-      GeomRect$draw(data.frame(ymax = middle, ymin = middle, defaults), ...)
-    )))
+      GeomSegment$draw(whiskers, ...),
+      GeomCrossbar$draw(box, fatten = fatten, ...)
+    ))
   }
 
   guide_geom <- function(.) "boxplot"  
@@ -116,7 +130,7 @@ GeomBoxplot <- proto(Geom, {
   
   default_stat <- function(.) StatBoxplot
   default_pos <- function(.) PositionDodge
-  default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = 1, shape = 16)
+  default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = 1, shape = 16, linetype = "solid")
   required_aes <- c("x", "lower", "upper", "middle", "ymin", "ymax")
 
 })
