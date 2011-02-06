@@ -65,7 +65,7 @@ CoordCartesian <- proto(Coord, expr={
       }
     }
     
-    x.major <- .$rescale_var(scale_breaks(scales$x), x.range, TRUE)
+    x.major <- .$rescale_var(scale_break_positions(scales$x), x.range, TRUE)
     x.minor <- .$rescale_var(scale_breaks_minor(scales$x), x.range, TRUE)
     x.labels <- scale_labels(scales$x)
 

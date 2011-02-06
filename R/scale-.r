@@ -184,7 +184,7 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
 
 scale_breaks.discrete <- function(scale, limits = scale_limits(scale)) {
   if (is.null(scale$breaks)) {
-    scale_map(scale, limits)
+    limits
   } else if (is.function(scale$breaks)) {
     scale$breaks(limits)
   } else {
@@ -192,7 +192,12 @@ scale_breaks.discrete <- function(scale, limits = scale_limits(scale)) {
   }
 }
 
-scale_breaks_minor <- function(scale, n = 2, b = scale_breaks(scale), r = scale_limits(scale)) {
+# The numeric position of scale breaks, when used for a position guide.
+scale_break_positions <- function(scale) {
+  scale_map(scale, scale_breaks(scale))
+}
+
+scale_breaks_minor <- function(scale, n = 2, b = scale_break_positions(scale), r = scale_limits(scale)) {
   if (length(b) == 1) return(b)
 
   bd <- diff(b)[1]
