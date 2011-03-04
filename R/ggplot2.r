@@ -3,7 +3,7 @@
 #' @name ggplot2
 #' @docType package
 #' @aliases ggplot2 package-ggplot2
-#' @import plyr proto digest scales
+#' @import plyr digest scales
 NULL
 
 #' Prices of 50,000 round cut diamonds
