@@ -1,6 +1,7 @@
 #' Smooth gradient between two colours
 #'
-#' @paramCopy ... ggplot2::scale_continuous_x
+#' @param ... Other arguments passed on to \code{\link{continuous_scale}} 
+#'   to control name, limits, breaks, labels and so forth.
 #' @paramCopy low scales::seq_gradient_pal
 #' @paramCopy high scales::seq_gradient_pal
 #' @paramCopy space scales::seq_gradient_pal

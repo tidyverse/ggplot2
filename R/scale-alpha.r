@@ -1,7 +1,8 @@
 #' Alpha scale for continuous variable.
 #'
-#' @paramCopy ... ggplot2::scale_continuous_x
-#' @paramCopy range scales::alpha_pal
+#' @param ... Other arguments passed on to \code{\link{continuous_scale}} 
+#'   to control name, limits, breaks, labels and so forth.
+#' @param x range of output alpha values.  Should lie between 0 and 1.
 #' @aliases scale_alpha scale_alpha_continuous
 #' @export
 #' @examples
@@ -15,11 +16,14 @@ scale_alpha_continuous <- function(..., range = c(0.1, 1)) {
 }
 scale_alpha <- scale_alpha_continuous
 
+#' Alpha scale for discrete variable.
+#'
+#' @param ... Other arguments passed on to \code{\link{discrete_scale}} 
+#'   to control name, limits, breaks, labels and so forth.
 scale_alpha_discrete <- function(..., range = c(1, 6)) {
   discrete_scale("alpha", "alpha_d",
-    function(n) seq(range[1], range[2], length = n))
+    function(n) seq(range[1], range[2], length = n), ...)
 }
-
 
 icon.alpha <- function() {
   x <- c(0.1, 0.3, 0.5, 0.7, 0.9)

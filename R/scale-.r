@@ -27,6 +27,7 @@ NULL
 #' @paramCopy palette scales::cscale
 #' @paramCopy na.value scales::cscale
 #' @paramCopy trans scales::cscale
+#' @export
 continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = TRUE, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity") {
   
   trans <- as.trans(trans)
@@ -56,7 +57,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
   ), class = c(scale_name, "continuous", "scale"))
 }
 
-
+#' @export
 discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = TRUE, limits = NULL, expand = c(0, 0), na.value = NA, drop = TRUE) {
   structure(list(
     call = match.call(), 

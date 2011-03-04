@@ -8,6 +8,10 @@
 }
 \seealso{\code{\link[scales]{seq_gradient_pal}} for details on underlying
 palette}
+\arguments{
+  \item{...}{Other arguments passed on to \code{\link{continuous_scale}} 
+to control name, limits, breaks, labels and so forth.}
+}
 \examples{# It's hard to see, but look for the bright yellow dot 
 # in the bottom right hand corner
 dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
