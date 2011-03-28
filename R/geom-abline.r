@@ -12,7 +12,7 @@
 #' they can vary from panel to panel.  See the examples for more ideas.
 #' 
 #' @name geom_abline
-#' @seealso \code{\link{stat_smooth} to add lines derived from the data,
+#' @seealso \code{\link{stat_smooth}} to add lines derived from the data,
 #'  \code{\link{geom_hline}} for horizontal lines,
 #'  \code{\link{geom_vline}} for vertical lines
 #'  \code{\link{geom_segment}}

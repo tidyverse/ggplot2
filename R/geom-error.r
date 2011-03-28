@@ -1,7 +1,7 @@
 #' Error bars.
 #' 
 #' @name geom_errorbar
-#' @seealso \code{\link{geom_pointrange}: range indicated by straight line,
+#' @seealso \code{\link{geom_pointrange}}: range indicated by straight line,
 #'   with point in the middle; \code{\link{geom_linerange}}: range indicated
 #'   by straight line; \code{\link{geom_crossbar}}: hollow bar with middle
 #'   indicated by horizontal line; \code{\link{stat_summary}}: examples of

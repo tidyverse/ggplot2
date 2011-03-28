@@ -6,7 +6,6 @@
 #'  \code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
 #'  \code{\link{continuous_scale}} for more details
 #' @seealso \code{\link{scale_discrete}} for discrete position scales
-#' @export
 #' @examples
 #' (m <- qplot(rating, votes, data=subset(movies, votes > 1000), na.rm = T))
 #' 
@@ -70,7 +69,7 @@ scale_y_continuous <- function(..., expand = c(0.05, 0)) {
 
 # Position aesthetics don't map, because the coordinate system takes
 # care of it.
-#' @S3method scale_map cposition
+#' @S3method scale_map position_c
 scale_map.position_c <- function(scale, x) {
   x
 }
