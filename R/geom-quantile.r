@@ -2,7 +2,7 @@
 #'
 #' This can be used as a continuous analogue of a geom_boxplot.
 #' 
-#' @name geom_quatile
+#' @name geom_quantile
 #' @export
 #' @examples
 #' # See stat_quantile for examples

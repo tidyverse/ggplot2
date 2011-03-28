@@ -1,7 +1,7 @@
 \name{scale_continuous}
 \alias{scale_continuous}
 \title{Continuous position scales (x & y).}
-\usage{scale_continuous_x scale_continuous_y}
+\usage{scale_x_continuous scale_x_continuous}
 
 \description{
   Continuous position scales (x & y).
