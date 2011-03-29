@@ -41,10 +41,12 @@ grobGrid <- function(name, nrow, ncol, grobs = NULL, widths = 0, heights = 0, cl
   ), class = "grobGrid")
 }
 
+#' @S3method print grobGrid
 print.grobGrid <- function(x, ...) {
   grid.show.layout(gridLayout(x))
 }
 
+#' @S3method dim grobGrid
 dim.grobGrid <- function(x) {
   dim(x$grobs)
 }
@@ -65,6 +67,7 @@ gridLayout <- function(grid) {
   )
 }
 
+#' @S3method rbind grobGrid
 rbind.grobGrid <- function(...) {
   all <- function(var) llply(grids, "[[", var)
 
@@ -96,14 +99,17 @@ max2 <- function(...) {
   }  
 }
 
+#' @S3method as.list unit
 as.list.unit <- function(x, ...) {
   l <- vector("list", length(x))
   for(i in seq_along(x)) l[[i]] <- x[i]
   l
 }
+#' @S3method interleave unit
 interleave.unit <- function(...) {
   do.call("unit.c", do.call("interleave", llply(list(...), as.list)))
 }
+#' @S3method rweave grobGrid
 rweave.grobGrid <- function(...) {
   grids <- list(...)
   all <- function(var) llply(grids, "[[", var)
@@ -120,6 +126,7 @@ rweave.grobGrid <- function(...) {
   
 }
 
+#' @S3method cbind grobGrid
 cbind.grobGrid <- function(...) {
   all <- function(var) llply(grids, "[[", var)
 
@@ -136,6 +143,7 @@ cbind.grobGrid <- function(...) {
   ), class = "grobGrid") 
 }
 
+#' @S3method cweave grobGrid
 cweave.grobGrid <- function(...) {
   grids <- list(...)
   all <- function(var) llply(grids, "[[", var)
@@ -205,6 +213,7 @@ gTree.grobGrid <- function(grid, name = "layout") {
   )
 }
 
+#' @S3method grid.draw grobGrid
 grid.draw.grobGrid <- function(x, recording) {
   grid.newpage()
   grid.draw(gTree.grobGrid(x))
