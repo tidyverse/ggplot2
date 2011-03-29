@@ -76,6 +76,7 @@ scale_map.position_c <- function(scale, x) {
   x
 }
 
+#' @S3method scale_clone position_c
 scale_clone.position_c <- function(scale) {
   new <- scale
   new$range <- ContinuousRange$new()  

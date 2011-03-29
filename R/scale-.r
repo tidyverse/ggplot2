@@ -90,7 +90,10 @@ scale_train_df <- function(scale, df) {
   lapply(df[aesthetics], scale_train, scale = scale)
 }
 
-# Train an individual scale from a vector of data.
+#' Train an individual scale from a vector of data.
+#'
+#' @S3method scale_train continuous
+#' @S3method scale_train discrete
 scale_train <- function(scale, x) UseMethod("scale_train")
 scale_train.continuous <- function(scale, x) {
   scale$range$train(x)
@@ -109,6 +112,8 @@ scale_transform_df <- function(scale, df) {
   lapply(df[aesthetics], scale_transform, scale = scale)
 }
 
+#' @S3method scale_transform continuous
+#' @S3method scale_transform discrete
 scale_transform <- function(scale, x) UseMethod("scale_transform")
 
 scale_transform.continuous <- function(scale, x) {
@@ -128,6 +133,8 @@ scale_map_df <- function(scale, df) {
   lapply(df[aesthetics], scale_map, scale = scale)
 }
 
+#' @S3method scale_map continuous
+#' @S3method scale_map discrete
 scale_map <- function(scale, x) UseMethod("scale_map")
 
 scale_map.continuous <- function(scale, x) {
@@ -151,6 +158,8 @@ scale_limits <- function(scale) {
 
 # The phyical size of the scale, if a position scale
 # Unlike limits, this always returns a numeric vector of length 2
+#' @S3method scale_dimension continuous
+#' @S3method scale_dimension discrete
 scale_dimension <- function(scale, expand = scale$expand) UseMethod("scale_dimension")
 
 scale_dimension.continuous  <- function(scale, expand = scale$expand) {
@@ -160,6 +169,8 @@ scale_dimension.discrete <- function(scale, expand = scale$expand) {
   expand_range(length(scale_limits(scale)), expand[1], expand[2])  
 }
 
+#' @S3method scale_breaks continuous
+#' @S3method scale_breaks discrete
 scale_breaks <- function(scale, limits = scale_limits(scale)) {
   UseMethod("scale_breaks")
 }
@@ -207,6 +218,8 @@ scale_breaks_minor <- function(scale, n = 2, b = scale_break_positions(scale), r
   unique(unlist(mapply(seq, b[-length(b)], b[-1], length=n+1, SIMPLIFY=F)))
 }
 
+#' @S3method scale_labels continuous
+#' @S3method scale_labels discrete
 scale_labels <- function(scale, breaks = scale_breaks(scale)) {
   UseMethod("scale_labels")
 }
