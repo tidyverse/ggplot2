@@ -1,11 +1,13 @@
 #' Continuous position scales (x & y).
 #' 
 #' @name scale_continuous
-#' @usageFor scale_continuous_x scale_continuous_y
+#' @usageFor scale_x_continuous scale_x_continuous
 #' @param ... common continuous scale parameters: \code{name}, \code{breaks},
 #'  \code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
 #'  \code{\link{continuous_scale}} for more details
 #' @seealso \code{\link{scale_discrete}} for discrete position scales
+#' @alias scale_x_continuous scale_y_continuous
+#' @export scale_x_continuous scale_y_continuous
 #' @examples
 #' (m <- qplot(rating, votes, data=subset(movies, votes > 1000), na.rm = T))
 #' 
@@ -74,6 +76,7 @@ scale_map.position_c <- function(scale, x) {
   x
 }
 
+#' @S3method scale_clone position_c
 scale_clone.position_c <- function(scale) {
   new <- scale
   new$range <- ContinuousRange$new()  

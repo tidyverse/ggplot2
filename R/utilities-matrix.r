@@ -1,11 +1,12 @@
-
-# Row weave
-# Weave together two (or more) matrices by row
-# 
-# Matrices must have same dimensions
-# 
-# @param matrices to weave together
-# @keyword internal
+#' Row weave.
+#' Weave together two (or more) matrices by row.
+#' 
+#' Matrices must have same dimensions.
+#' 
+#' @param ... matrices to weave together
+#' @keywords internal
+#' @S3method rweave list
+#' @S3method rweave matrix
 #X a <- matrix(1:10 * 2, ncol = 2)
 #X b <- matrix(1:10 * 3, ncol = 2)
 #X c <- matrix(1:10 * 5, ncol = 2)
@@ -35,13 +36,15 @@ cunion <- function(a, b) {
   cbind(a, b[setdiff(names(b), names(a))])
 }
 
-# Col weave
-# Weave together two (or more) matrices by column
-# 
-# Matrices must have same dimensions
-# 
-# @param matrices to weave together
-# @keyword internal
+#' Col weave
+#' Weave together two (or more) matrices by column
+#' 
+#' Matrices must have same dimensions
+#' 
+#' @param ... matrices to weave together
+#' @keywords internal
+#' @S3method cweave list
+#' @S3method cweave matrix
 cweave <- function(...) UseMethod("cweave")
 cweave.list <- function(...) do.call("cweave", ...)
 cweave.matrix <- function(...) {
@@ -55,11 +58,13 @@ cweave.matrix <- function(...) {
   do.call("cbind", matrices)[, interleave, drop = FALSE]
 }
 
-# Interleave vectors
-# Interleave (or zip) multiple vectors into a single vector
-# 
-# @param vectors to interleave
-# @keyword internal
+#' Interleave (or zip) multiple vectors into a single vector.
+#' 
+#' @param ... vectors to interleave
+#' @keywords internal
+#' @S3method interleave list
+#' @S3method interleave unit
+#' @S3method interleave default
 interleave <- function(...) UseMethod("interleave")
 interleave.list <- function(...) do.call("interleave", ...)
 interleave.unit <- function(...) {
