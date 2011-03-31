@@ -97,6 +97,7 @@ scales_legend_desc <- function(scales, theme) {
   # Loop through all scales, creating a list of titles, and a list of keys
   keys <- titles <- vector("list", length(scales$scales))
   hash <- character(length(scales$scales))
+  colorbar <- logical(length(scales$scales))
   
   for(i in seq_along(hash)) {
     scale <- scales$scales[[i]]
@@ -105,16 +106,43 @@ scales_legend_desc <- function(scales, theme) {
     # Figure out legend title
     output <- scale$aesthetics[1]
     titles[[i]] <- scale$name %||% theme$labels[[output]]
-    
-    key <- data.frame(
-      scale_map(scale, scale_breaks(scale)), scale_labels(scale), 
-      stringsAsFactors = FALSE)
-    names(key) <- c(output, ".label")
+
+    colorbar[i] <- nulldefault(scale$legend_param$colorbar, FALSE)
+
+    if (colorbar[i]) {
+      
+      if (is.null(scale$breaks)) {
+        breaks <- pretty(scale_limits(scale), nulldefault(scale$legend_param$colorbar_nbreak, 5))
+      } else if (is.function(scale$breaks)) {
+        breaks <- scale$breaks(limits)
+      } else {
+        breaks <- scale$breaks
+      }
+      breaks <- discard(breaks, scale_limits(scale))
+      key <- data.frame(
+        scale_map(scale, breaks), scale_labels(scale, breaks), breaks,
+        stringsAsFactors = FALSE)
+      names(key) <- c(output, ".label", ".value")
+
+      bar <- discard(pretty(scale_limits(scale), n = nulldefault(scale$legend_param$colorbar_nbin, 20)), scale_limits(scale))
+      attr(key, "bar") <- data.frame(colour=scale_map(scale, bar), value=bar, stringsAsFactors = FALSE)
+
+      hash[i] <- digest(list(titles[[i]], key$.label, key[[output]], colorbar[i]))
+      
+    } else {
+      
+      key <- data.frame(
+        scale_map(scale, scale_breaks(scale)), scale_labels(scale), 
+        stringsAsFactors = FALSE)
+        names(key) <- c(output, ".label")
+
+      hash[i] <- digest(list(titles[[i]], key$.label, colorbar[i]))
+    }
+
     keys[[i]] <- key
-    hash[i] <- digest(list(titles[[i]], key$.label))
   }
-  
+
   empty <- sapply(titles, is.null)
   
-  list(titles = titles[!empty], keys = keys[!empty], hash = hash[!empty])
+  list(titles = titles[!empty], keys = keys[!empty], hash = hash[!empty], colorbar=colorbar[!empty])
 }

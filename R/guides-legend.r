@@ -29,6 +29,26 @@
 #X p + opts(legend.direction = "horizontal", legend.position = "bottom") # to be fixed
 #X p + opts(legend.direction = "horizontal", legend.position = "bottom", legend.box = "vertical")
 #X theme_set(theme_grey())
+#X
+#X # color bar
+#X
+#X # colorbar legend (vertical)
+#X p + scale_fill_continuous(legend_param=list(colorbar=T))
+#X # colorbar legend (horizontal)
+#X p + scale_fill_continuous(legend_param=list(colorbar=T)) + opts(legend.position="bottom", legend.direction="horizontal")
+#X # change the size of legend
+#X p + scale_fill_continuous(legend_param=list(colorbar=T)) + opts(legend.key.width=unit(0.5, "line"), legend.key.height=unit(2, "line"))
+#X # specify the number of breaks of legend
+#X p + scale_fill_continuous(legend_param=list(colorbar=T, colorbar_nbreaks=10))
+#X # manually specify the breaks
+#X p + scale_fill_continuous(legend_param=list(colorbar=T), breaks=c(1,4,9,16))
+#X # manually specify the breaks and labels
+#X p + scale_fill_continuous(legend_param=list(colorbar=T), breaks=c(1,4,9,16), labels=c("one^2", "two^2", "three^2", "four^2"))
+#X # change the resolution of colorbar (default = 20)
+#X p + scale_fill_continuous(legend_param=list(colorbar=T, colorbar_nbin=3))
+#X p + scale_fill_continuous(legend_param=list(colorbar=T, colorbar_nbin=100))
+#X # combine with other scales
+#X p + scale_fill_continuous(legend_param=list(colorbar=T)) + geom_point(aes(x=X1, y=X2, size=value))
 guide_legends_box <- function(scales, layers, default_mapping, horizontal = FALSE, theme) {
 
   # override alignment of legends box if theme$legend.box is specified
@@ -91,15 +111,116 @@ guide_legends <- function(scales, layers, default_mapping, theme) {
   lapply(hashes, function(hash) {
     keys <- legend$keys[legend$hash == hash]
     title <- legend$title[legend$hash == hash][[1]]
-    
-    if (length(keys) > 1) { 
+    colorbar <- all(legend$colorbar[legend$hash == hash])
+                                
+    if (!colorbar && length(keys) > 1) { 
       # Multiple scales for this legend      
       keys <- merge_recurse(keys, by = ".label")
     } else {
       keys <- keys[[1]]
     }
-    build_legend(title, keys, layers, default_mapping, theme)
+
+    if (colorbar)
+      build_legend_colorbar(title, keys, layers, default_mapping, theme)
+    else
+      build_legend(title, keys, layers, default_mapping, theme)
   })
+}
+
+build_legend_colorbar <- function(name, mapping, layers, default_mapping, theme) {
+  
+  hgap <- vgap <- unit(0.3, "lines")
+  
+  # Determine key width and height
+  if (is.na(theme$legend.key.width)) {
+    theme$legend.key.width <- theme$legend.key.size
+  }
+  if (is.na(theme$legend.key.height)) {
+    theme$legend.key.height <- theme$legend.key.size
+  }
+
+  # Determine the direction of the elements of legend.
+  if (theme$legend.direction == "horizontal") {
+    direction <- "horizontal"
+  } else {
+    direction <- "vertical"
+  }
+
+  if (direction=="vertical") {
+    
+    mp <<- mapping
+    bar <- attr(mapping, "bar")
+    bar_div_n <- nrow(bar)
+    bar_height <- convertHeight(theme$legend.key.height * 5, "mm")
+    bar_width <- convertWidth(theme$legend.key.width, "mm")
+    bar_div_height <- bar_height * (1/bar_div_n)
+    bar_div_width <- bar_width
+    bar_label_pos_y <- (seq(bar_div_n)-0.5) * bar_div_height
+    bargrob <- rectGrob(0.5, bar_label_pos_y, vjust=0.5, width=bar_div_width, height=bar_div_height, gp=gpar(col=NA, fill=bar$colour))
+    
+    tic <- mapping$.value
+    stic <- rescale(tic, c(0.5, bar_div_n-0.5), range(bar$value))
+    tic_pos_y <- stic * bar_div_height
+
+    title <- theme_render(
+      theme, "legend.title",
+      name, hjust = 0, x = 0, y = 0.5)
+
+    label <- theme_render(
+      theme, "legend.text", 
+      format(mapping$.label), x = 0.5, y = tic_pos_y)
+
+    legend.layout <- grid.layout(
+      3, 3,
+      widths = unit.c(grobWidth(bargrob), hgap, grobWidth(label)),
+      heights = unit.c(grobHeight(title), vgap, grobHeight(bargrob)))
+    
+    fg <- ggname("legend", frameGrob(layout = legend.layout))
+    fg <- placeGrob(fg, title, row=1)
+    fg <- placeGrob(fg, bargrob, col=1, row=3)
+    fg <- placeGrob(fg, segmentsGrob(bar_width * 0, tic_pos_y, bar_width * (1/5), tic_pos_y, gp=gpar(col="white", lwd=0.5, lineend="butt")), col=1, row=3)
+    fg <- placeGrob(fg, segmentsGrob(bar_width * (4/5), tic_pos_y, bar_width * 1, tic_pos_y, gp=gpar(col="white", lwd=0.5, lineend="butt")), col=1, row=3)
+    fg <- placeGrob(fg, label, col=3, row=3)
+    
+  } else if (direction=="horizontal") {
+
+    bar <- attr(mapping, "bar")
+    bar_div_n <- nrow(bar)
+    bar_height <- convertHeight(theme$legend.key.height, "mm")
+    bar_width <- convertWidth(theme$legend.key.width * 5, "mm")
+    bar_div_height <- bar_height
+    bar_div_width <- bar_width * (1/bar_div_n)
+    bar_label_pos_x <- (seq(bar_div_n)-0.5) * bar_div_width
+    bargrob <- rectGrob(bar_label_pos_x, 0.5, hjust=0.5, width=bar_div_width, height=bar_div_height, gp=gpar(col=NA, fill=bar$colour))
+    
+    tic <- mapping$.value
+    stic <- rescale(tic, c(0.5, bar_div_n-0.5), range(bar$value))
+    tic_pos_x <- stic * bar_div_width
+
+    title <- theme_render(
+      theme, "legend.title",
+      name, x = 1, y = 0.5, hjust=1)
+
+    label <- theme_render(
+      theme, "legend.text", 
+      format(mapping$.label), x = tic_pos_x, y = 0.5)
+
+    legend.layout <- grid.layout(
+      3, 3,
+      widths = unit.c(grobWidth(title), hgap, grobWidth(bargrob)),
+      heights = unit.c(grobHeight(bargrob), vgap, grobHeight(label)))
+    
+    fg <- ggname("legend", frameGrob(layout = legend.layout))
+    fg <- placeGrob(fg, title, col=1)
+    fg <- placeGrob(fg, bargrob, col=3, row=1)
+    fg <- placeGrob(fg, segmentsGrob(tic_pos_x, bar_height * 0, tic_pos_x, bar_height * (1/5), gp=gpar(col="white", lwd=0.5, lineend="butt")), col=3, row=1)
+    fg <- placeGrob(fg, segmentsGrob(tic_pos_x, bar_height * (4/5), tic_pos_x, bar_height * 1, gp=gpar(col="white", lwd=0.5, lineend="butt")), col=3, row=1)
+    fg <- placeGrob(fg, label, col=3, row=3)
+
+  }
+  
+  
+  fg
 }
 
 build_legend <- function(name, mapping, layers, default_mapping, theme) {
