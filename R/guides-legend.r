@@ -148,19 +148,12 @@ build_legend_colorbar <- function(name, mapping, layers, default_mapping, theme)
 
   if (direction=="vertical") {
     
-    mp <<- mapping
     bar <- attr(mapping, "bar")
     bar_div_n <- nrow(bar)
     bar_height <- convertHeight(theme$legend.key.height * 5, "mm")
     bar_width <- convertWidth(theme$legend.key.width, "mm")
-    bar_div_height <- bar_height * (1/bar_div_n)
-    bar_div_width <- bar_width
-    bar_label_pos_y <- (seq(bar_div_n)-0.5) * bar_div_height
-    bargrob <- rectGrob(0.5, bar_label_pos_y, vjust=0.5, width=bar_div_width, height=bar_div_height, gp=gpar(col=NA, fill=bar$colour))
-    
-    tic <- mapping$.value
-    stic <- rescale(tic, c(0.5, bar_div_n-0.5), range(bar$value))
-    tic_pos_y <- stic * bar_div_height
+    bargrob <- rasterGrob(bar$colour, 0.5, 0.5, width=bar_width, height=bar_height, gp=gpar(col=NA), interpolate = TRUE)
+    tic_pos_y <- rescale(mapping$.value, c(0.5, bar_div_n-0.5), range(bar$value)) * bar_height * (1/bar_div_n)
 
     title <- theme_render(
       theme, "legend.title",
@@ -188,14 +181,8 @@ build_legend_colorbar <- function(name, mapping, layers, default_mapping, theme)
     bar_div_n <- nrow(bar)
     bar_height <- convertHeight(theme$legend.key.height, "mm")
     bar_width <- convertWidth(theme$legend.key.width * 5, "mm")
-    bar_div_height <- bar_height
-    bar_div_width <- bar_width * (1/bar_div_n)
-    bar_label_pos_x <- (seq(bar_div_n)-0.5) * bar_div_width
-    bargrob <- rectGrob(bar_label_pos_x, 0.5, hjust=0.5, width=bar_div_width, height=bar_div_height, gp=gpar(col=NA, fill=bar$colour))
-    
-    tic <- mapping$.value
-    stic <- rescale(tic, c(0.5, bar_div_n-0.5), range(bar$value))
-    tic_pos_x <- stic * bar_div_width
+    bargrob <- rasterGrob(t(bar$colour), 0.5, 0.5, width=bar_width, height=bar_height, gp=gpar(col=NA), interpolate = TRUE)
+    tic_pos_x <- rescale(mapping$.value, c(0.5, bar_div_n-0.5), range(bar$value)) * bar_width * (1/bar_div_n)
 
     title <- theme_render(
       theme, "legend.title",
