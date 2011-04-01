@@ -168,7 +168,7 @@ build_legend_colorbar <- function(name, mapping, layers, default_mapping, theme)
 
     label <- theme_render(
       theme, "legend.text", 
-      format(mapping$.label), x = 0.5, y = tic_pos_y)
+      mapping$.label, x = 0.5, y = tic_pos_y)
 
     legend.layout <- grid.layout(
       3, 3,
@@ -203,7 +203,7 @@ build_legend_colorbar <- function(name, mapping, layers, default_mapping, theme)
 
     label <- theme_render(
       theme, "legend.text", 
-      format(mapping$.label), x = tic_pos_x, y = 0.5)
+      mapping$.label, x = tic_pos_x, y = 0.5)
 
     legend.layout <- grid.layout(
       3, 3,

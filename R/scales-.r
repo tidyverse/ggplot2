@@ -120,7 +120,7 @@ scales_legend_desc <- function(scales, theme) {
       }
       breaks <- discard(breaks, scale_limits(scale))
       key <- data.frame(
-        scale_map(scale, breaks), scale_labels(scale, breaks), breaks,
+        scale_map(scale, breaks), I(scale_labels(scale, breaks)), breaks,
         stringsAsFactors = FALSE)
       names(key) <- c(output, ".label", ".value")
 
@@ -132,7 +132,7 @@ scales_legend_desc <- function(scales, theme) {
     } else {
       
       key <- data.frame(
-        scale_map(scale, scale_breaks(scale)), scale_labels(scale), 
+        scale_map(scale, scale_breaks(scale)), I(scale_labels(scale)), 
         stringsAsFactors = FALSE)
         names(key) <- c(output, ".label")
 
