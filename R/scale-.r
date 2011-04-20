@@ -28,7 +28,7 @@ NULL
 #' @paramCopy na.value scales::cscale
 #' @paramCopy trans scales::cscale
 #' @export
-continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = TRUE, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", legend_param=NULL) {
+continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, nbreaks = NULL, labels = NULL, legend = TRUE, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="default") {
 
   trans <- as.trans(trans)
   if (!is.null(limits)) {
@@ -51,10 +51,11 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
     oob = oob,
 
     name = name, 
-    breaks = breaks, 
+    breaks = breaks,
+    nbreaks = nbreaks,
     labels = labels, 
     legend = legend,
-    legend_param = legend_param
+    guide = guide
   ), class = c(scale_name, "continuous", "scale"))
 }
 

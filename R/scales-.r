@@ -97,7 +97,7 @@ scales_legend_desc <- function(scales, theme) {
   # Loop through all scales, creating a list of titles, and a list of keys
   keys <- titles <- vector("list", length(scales$scales))
   hash <- character(length(scales$scales))
-  colorbar <- logical(length(scales$scales))
+  guide <- character(length(scales$scales))
   
   for(i in seq_along(hash)) {
     scale <- scales$scales[[i]]
@@ -107,12 +107,12 @@ scales_legend_desc <- function(scales, theme) {
     output <- scale$aesthetics[1]
     titles[[i]] <- scale$name %||% theme$labels[[output]]
 
-    colorbar[i] <- nulldefault(scale$legend_param$colorbar, FALSE)
+    guide[i] <- nulldefault(scale$guide, "default")
 
-    if (colorbar[i]) {
+    if (guide[i] == "colorbar") {
       
       if (is.null(scale$breaks)) {
-        breaks <- pretty(scale_limits(scale), nulldefault(scale$legend_param$colorbar_nbreak, 5))
+        breaks <- pretty(scale_limits(scale), nulldefault(scale$nbreak, 5))
       } else if (is.function(scale$breaks)) {
         breaks <- scale$breaks(limits)
       } else {
@@ -124,19 +124,21 @@ scales_legend_desc <- function(scales, theme) {
         stringsAsFactors = FALSE)
       names(key) <- c(output, ".label", ".value")
 
-      bar <- discard(pretty(scale_limits(scale), n = nulldefault(scale$legend_param$colorbar_nbin, 20)), scale_limits(scale))
+      bar <- discard(pretty(scale_limits(scale), n = nulldefault(theme$legend.colorbar.nbin, 20)), scale_limits(scale))
       attr(key, "bar") <- data.frame(colour=scale_map(scale, bar), value=bar, stringsAsFactors = FALSE)
 
-      hash[i] <- digest(list(titles[[i]], key$.label, key[[output]], colorbar[i]))
+      hash[i] <- digest(list(titles[[i]], key$.label, key[[output]], guide[i]))
       
-    } else {
+    } else if (guide[i] == "default") {
       
       key <- data.frame(
         scale_map(scale, scale_breaks(scale)), I(scale_labels(scale)), 
         stringsAsFactors = FALSE)
         names(key) <- c(output, ".label")
 
-      hash[i] <- digest(list(titles[[i]], key$.label, colorbar[i]))
+      hash[i] <- digest(list(titles[[i]], key$.label, guide[i]))
+    } else {
+      warning("Unknown guide type:", guide[i], call. = FALSE)
     }
 
     keys[[i]] <- key
@@ -144,5 +146,5 @@ scales_legend_desc <- function(scales, theme) {
 
   empty <- sapply(titles, is.null)
   
-  list(titles = titles[!empty], keys = keys[!empty], hash = hash[!empty], colorbar=colorbar[!empty])
+  list(titles = titles[!empty], keys = keys[!empty], hash = hash[!empty], guide=guide[!empty])
 }

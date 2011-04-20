@@ -111,19 +111,20 @@ guide_legends <- function(scales, layers, default_mapping, theme) {
   lapply(hashes, function(hash) {
     keys <- legend$keys[legend$hash == hash]
     title <- legend$title[legend$hash == hash][[1]]
-    colorbar <- all(legend$colorbar[legend$hash == hash])
+    guide <- legend$guide[legend$hash == hash][[1]]
                                 
-    if (!colorbar && length(keys) > 1) { 
+    if (guide == "default" && length(keys) > 1) { 
       # Multiple scales for this legend      
       keys <- merge_recurse(keys, by = ".label")
     } else {
       keys <- keys[[1]]
     }
 
-    if (colorbar)
+    if (guide == "colorbar") {
       build_legend_colorbar(title, keys, layers, default_mapping, theme)
-    else
+    } else {
       build_legend(title, keys, layers, default_mapping, theme)
+    }
   })
 }
 
