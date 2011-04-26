@@ -20,7 +20,7 @@
 #' # Or for short:
 #' d %+% dsmall
 scale_shape <- function(..., solid = TRUE) {
-  discrete_scale("shape", "shape_d", shape_pal(solid))
+  discrete_scale("shape", "shape_d", shape_pal(solid), ...)
 }
 
 scale_shape_discrete <- scale_shape

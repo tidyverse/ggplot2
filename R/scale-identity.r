@@ -16,23 +16,23 @@
 #' # cyl used as point size
 #' qplot(mpg, wt, data = mtcars, size = cyl) + scale_size_identity()
 scale_colour_identity <- function(...) {
-  discrete_scale("colour", "identity", identity_pal())
+  discrete_scale("colour", "identity", identity_pal(), ...)
 }
 scale_fill_identity <- function(...) {
-  discrete_scale("fill", "identity", identity_pal())
+  discrete_scale("fill", "identity", identity_pal(), ...)
 }
 scale_shape_identity <- function(...) {
-  discrete_scale("shape", "identity", identity_pal())
+  discrete_scale("shape", "identity", identity_pal(), ...)
 }
 scale_linetype_identity <- function(...) {
-  discrete_scale("linetype", "identity", identity_pal())
+  discrete_scale("linetype", "identity", identity_pal(), ...)
 }
 
 scale_alpha_identity <- function(...) {
-  continuous_scale("alpha", "identity", identity_pal())
+  continuous_scale("alpha", "identity", identity_pal(), ...)
 }
 scale_size_identity <- function(...) {
-  continuous_scale("size", "identity", identity_pal())
+  continuous_scale("size", "identity", identity_pal(), ...)
 }
 
 icon.identity <- function() textGrob("f(x) = x", gp=gpar(cex=1.2))

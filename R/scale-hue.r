@@ -28,11 +28,11 @@
 #' d + geom_point(alpha = 0.5)
 #' d + geom_point(alpha = 0.2)
 scale_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0, direction = 1) {
-  discrete_scale("colour", "hue", hue_pal(h, c, l, h.start, direction))
+  discrete_scale("colour", "hue", hue_pal(h, c, l, h.start, direction), ...)
 }
 
 scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0, direction = 1) {
-  discrete_scale("fill", "hue", hue_pal(h, c, l, h.start, direction))
+  discrete_scale("fill", "hue", hue_pal(h, c, l, h.start, direction), ...)
 }
 
 icon.hue <- function() {

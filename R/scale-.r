@@ -28,7 +28,7 @@ NULL
 #' @paramCopy na.value scales::cscale
 #' @paramCopy trans scales::cscale
 #' @export
-continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, nbreaks = NULL, labels = NULL, legend = TRUE, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="default") {
+continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, nbreaks = NULL, labels = NULL, legend = TRUE, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="legend") {
 
   trans <- as.trans(trans)
   if (!is.null(limits)) {
@@ -60,7 +60,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 }
 
 #' @export
-discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = TRUE, limits = NULL, expand = c(0, 0), na.value = NA, drop = TRUE) {
+discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, nbreaks = NULL, labels = NULL, legend = TRUE, limits = NULL, expand = c(0, 0), na.value = NA, drop = TRUE, guide="legend") {
   structure(list(
     call = match.call(), 
 
@@ -74,10 +74,12 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks 
     expand = expand,
 
     name = name, 
-    breaks = breaks, 
+    breaks = breaks,
+    nbreaks = nbreaks,
     labels = labels, 
     legend = legend,
-    drop = drop
+    drop = drop,
+    guide = guide
   ), class = c(scale_name, "discrete", "scale"))
 }
 

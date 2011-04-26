@@ -17,7 +17,7 @@
 #' 
 #' # See scale_manual for more flexibility
 scale_linetype_discrete <- function(...) {
-  discrete_scale("linetype", "linetype_d", linetype_pal())
+  discrete_scale("linetype", "linetype_d", linetype_pal(), ...)
 }
 scale_linetype_continuous <- function(...) {
   stop("A continuous variable can not be mapped to linetype", call. = FALSE)

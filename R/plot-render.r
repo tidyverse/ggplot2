@@ -56,13 +56,13 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep,
   
   # Generate grobs -----------------------------------------------------------
   # each of these grobs has a vp set
-
   legend_box <- if (position != "none") {
-    guide_legends_box(scales, plot$layers, plot$mapping, horiz, theme) 
+    guides <- Guides$new(scales=scales, layers=plot$layers, default_mapping=plot$mapping, horizontal=horiz, theme=theme)
+    guides$build_guides()
   } else {
     zeroGrob()
-  } 
-  
+  }
+
   title <- theme_render(theme, "plot.title", plot$options$title)
 
   labels <- cs$labels(list(
@@ -126,8 +126,9 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep,
   } else {
     legend_vp <- viewport(name = "legend_box")
   }
+
   vp <- surround_viewports(position, widths, heights, legend_vp)
-  
+
   # Assign grobs to viewports ------------------------------------------------
   edit_vp <- function(x, name) {
     editGrob(x, vp=vpPath("background", name))
@@ -136,7 +137,6 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep,
     list(theme_render(theme, "plot.background", vp = "background")),
     mlply(cbind(x = grobs, name = names(grobs)), edit_vp)
   )
-
   gTree(children = do.call("gList", grobs), childrenvp = vp)
 }
 

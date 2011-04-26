@@ -170,3 +170,7 @@ S3method(cweave, list)
 S3method(cweave, matrix)
 S3method(interleave, list)
 S3method(interleave, default)
+
+export(guide_legend)
+export(guide_colorbar)
+
