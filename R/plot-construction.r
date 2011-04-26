@@ -33,7 +33,9 @@
   } else if (inherits(object, "scale")) {
     p$scales$add(object)
   } else if(inherits(object, "labels")) {
-      p <- update_labels(p, object)
+    p <- update_labels(p, object)
+  } else if(inherits(object, "guides")) {
+    p <- update_guides(p, object)
   } else if(inherits(object, "uneval")) {
       p$mapping <- defaults(object, p$mapping)
       
