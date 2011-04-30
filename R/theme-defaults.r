@@ -26,7 +26,7 @@ theme_grey <- function(base_size = 12, base_family = "") {
     legend.title =       theme_text(family = base_family, size =  base_size * 0.8, face =  "bold", hjust =  0),
     legend.title.align = NA,
     legend.position =    "right",
-    legend.direction =   "vertical",
+    legend.direction =   NA,
     legend.box =         NA,
                  
     panel.background =   theme_rect(fill =  "grey90", colour =  NA), 
@@ -73,7 +73,7 @@ theme_bw <- function(base_size =  12, base_family = "") {
     legend.title =       theme_text(family = base_family, size =  base_size * 0.8, face =  "bold", hjust =  0),
     legend.title.align = NA,
     legend.position =    "right",
-    legend.direction =   "vertical",
+    legend.direction =   NA,
     legend.box =         NA,
                  
     panel.background =   theme_rect(fill =  "white", colour =  NA), 

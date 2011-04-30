@@ -50,15 +50,11 @@ ggplotGrob <- function(plot, drop = plot$options$drop, keep = plot$options$keep,
     coords <- position
     position <- "manual"
   }
-  horiz <- any(c("top", "bottom") %in% position)
-  vert <-  any(c("left", "right") %in% position)
-  
   
   # Generate grobs -----------------------------------------------------------
   # each of these grobs has a vp set
   legend_box <- if (position != "none") {
-    guides <- Guides$new(scales=scales, layers=plot$layers, default_mapping=plot$mapping, horizontal=horiz, theme=theme)
-    guides$build_guides()
+    build_guides(scales=scales, layers=plot$layers, default_mapping=plot$mapping, theme=theme)
   } else {
     zeroGrob()
   }

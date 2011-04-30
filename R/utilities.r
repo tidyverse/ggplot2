@@ -8,6 +8,14 @@
   if (!is.null(a)) a else b
 }
 
+# Null or NA default
+# 
+# @keyword internal
+# @name nullnadefault-infix
+"%|||%" <- function(a, b) {
+  if (!is.null(a) && !is.na(a)) a else b
+}
+
 # Check required aesthetics are present
 # This is used by geoms and stats to give a more helpful error message
 # when required aesthetics are missing.
