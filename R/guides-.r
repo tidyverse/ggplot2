@@ -24,52 +24,65 @@ update_guides <- function(p, guides) {
 ##      merge gdefs if they are overlayed
 ##      number of gdefs may be less than number of scales
 ##
-## 3. guides_gengrob()
+## 3. guides_geom()
+##      process layer information and generate geom info.
+##
+## 4. guides_gengrob()
 ##      generate ggrob from each gdef
 ##      one ggrob for one gdef
 ##
-## 4. guides_build()
+## 5. guides_build()
 ##      arrange all ggorbs
 
-build_guides <- function(scales, layers, default_mapping, horizontal, theme) {
+build_guides <- function(scales, layers, default_mapping, theme) {
 
   ## set themes w.r.t. guides
-  theme$legend.key.width <- theme$legend.key.width %|||% theme$legend.key.size
-  theme$legend.key.height <- theme$legend.key.height %|||% theme$legend.key.size
+  ## should these theme$legend.XXX be renamed to theme$guide.XXX ?
+  
+  ## by default, horizontal for top and bottom, and vertical for left and right side.
+  theme$legend.box <- theme$legend.box %||% if (any(c("top", "bottom") %in% theme$legend.position)) "horizontal" else "vertical"
+
+  ## size of key (also used for bar in colorbar guide)
+  theme$legend.key.width <- theme$legend.key.width %||% theme$legend.key.size
+  theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
 
   ## by default, direction of each guide depends on the position of the guide.
   theme$legend.direction <-
-    theme$legend.direction %|||%
+    theme$legend.direction %||%
     switch(theme$legend.position, "top" =, "bottom" = "horizontal", "left" =, "right" = "vertical", "vertical")
 
   ## scales -> data for guides
   gdefs <- guides_parse(scales = scales, theme = theme)
+  if (length(gdefs) == 0) return(zeroGrob())
 
   ## merge overlay guides
   gdefs <- guides_merge(gdefs)
 
+  ## process layer information
+  gdefs <- guides_geom(gdefs, layers, default_mapping)
+
   ## generate grob of each guides
-  ggrobs <- guides_gengrob(gdefs, layers, default_mapping, theme)
+  ggrobs <- guides_gengrob(gdefs, theme)
 
   ## build up guides
   grobs <- guides_build(ggrobs, theme)
 
-  return(grobs)
+  grobs
+}
+
+## validate guide object
+validate_guide <- function(guide) {
+  ## if guide is specified by character, then find the corrsponding guide
+  if (is.character(guide))
+    match.fun(paste("guide_", guide, sep=""))()
+  else if (inherits(guide, "guide"))
+    guide
+  else
+    stop("Unknown guide: ", guide)
 }
 
 ## parse each scale in scales and generate the definition of guide
 guides_parse <- function(scales, theme) {
-
-  ## validate guide object
-  validate_guide <- function(guide) {
-    ## if guide is specified by character, then find the corrsponding guide
-    if (is.character(guide))
-      match.fun(paste("guide_", guide, sep=""))()
-    else if (inherits(guide, "guide"))
-      guide
-    else
-      stop("Unknown guide: ", guide)
-  }
 
   gdefs <- list()
   for(scale in scales$scales) {
@@ -84,7 +97,8 @@ guides_parse <- function(scales, theme) {
     ## this should be changed to testing guide == "none"
     ## scale$legend is backward compatibility
     ## if guides(XXX=FALSE), then scale_ZZZ(guides=XXX) is discarded.
-    if ((is.logical(guide) && !guide) || !scale$legend || is.null(scale_limits(scale))) next
+    if (guide=="none" || (is.logical(guide) && !guide)) next
+    if (!scale$legend || is.null(scale_limits(scale))) next ## for backward compatibility
 
     ## check the validity of guide.
     ## if guide is character, then find the guide object
@@ -100,55 +114,36 @@ guides_parse <- function(scales, theme) {
     ## so Guides (i.e., the container of guides) need not to know about them
     gdefs[[length(gdefs)+1]] <- guide_parse(guide, scale)
   }
-  return(gdefs)
+  gdefs
 }
 
 ## merge overlapped guides
 guides_merge <- function(gdefs) {
-  ret_gdefs <- list()
-  hashes <- c()
-  for(gdef in gdefs) {
-
-    ## check guides overlaying
-    hash <- gdef$hash
-    dest <- which(hash == hashes)
-
-    ## logically, this never happens, so maybe need not check
-    if (length(dest) > 1) {
-      stop("Failed to set up guides")
-    }
-    ## a guide whose hash is same already exists
-    ## in this case, this guide is merged to the existing guide.
-    ## the way of merging depends on the type of guide
-    else if (length(dest) == 1) {
-      ret_gdefs[[dest]] <- guide_merge(ret_gdefs[[dest]], gdef)
-    }
-    ## otherwise, this guide is used
-    else {
-      hashes[length(hashes)+1] <- hash
-      ret_gdefs[[length(ret_gdefs)+1]] <- gdef
-    }
-  }
-  return(ret_gdefs)
+  ## split gdefs based on hash, and apply Reduce (guide_merge) to each gdef groug.
+  tapply(gdefs, sapply(gdefs, function(g)g$hash), function(gs)Reduce(guide_merge, gs))
 }
 
+## process layer information
+guides_geom <- function(gdefs, layers, default_mapping) {
+  lapply(gdefs, guide_geom, layers, default_mapping)
+}
+
+
 ## generate grob from each gdef (needs to write this function?)
-guides_gengrob <- function(gdefs, layers, default_mapping, theme) {
-  lapply(gdefs, guide_gengrob, layers, default_mapping, theme)
+guides_gengrob <- function(gdefs, theme) {
+  lapply(gdefs, guide_gengrob, theme)
 }
 
 ## build up all guide-grob into one guides-grob
 ## should be rewritten for more flexibility (?)
 guides_build <- function(ggrobs, theme) {
 
-  horizontal <- (theme$legend.box == "horizontal") %|||% (any(c("top", "bottom") %in% theme$legend.position))
-  
   ## override alignment of legends box if theme$legend.box is specified
   n <- length(ggrobs)
-  box_nrow <- if (horizontal) 1 else n
-  box_ncol <- if (horizontal) n else 1
+  box_nrow <- if (theme$legend.box == "horizontal") 1 else n
+  box_ncol <- if (theme$legend.box == "horizontal") n else 1
   ## create viewport for the guide grobs
-  if (!horizontal) {
+  if (theme$legend.box != "horizontal") {
     widths <-   do.call("max", lapply(ggrobs, function(ggrob) sum(ggrob$vp$layout$widths)))
     heights <- do.call("unit.c", lapply(ggrobs, function(ggrob) sum(ggrob$vp$layout$heights) * 1.1))
     legend.layout <- grid.layout(nrow=n, ncol=1, widths=widths, heights=heights)
@@ -169,4 +164,5 @@ guides_build <- function(ggrobs, theme) {
 ## S3 dispatch
 guide_parse <- function(...) UseMethod("guide_parse")
 guide_merge <- function(...) UseMethod("guide_merge")
+guide_geom <- function(...) UseMethod("guide_geom")
 guide_gengrob <- function(...) UseMethod("guide_gengrob")

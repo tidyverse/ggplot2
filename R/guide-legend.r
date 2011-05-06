@@ -84,40 +84,71 @@ guide_merge.legend <- function(guide, new_guide) {
   guide
 }
 
-guide_gengrob.legend <- function(guide, layers, default_mapping, theme) {
+guide_geom.legend <- function(guide, layers, default_mapping) {
 
+  ## TODO: how to deal with same geoms of multiple layers.
+  ##
+  ## currently all geoms are overlayed irrespective to that they are duplicated or not.
+  ## but probably it is better to sensitive to that and generate only one geom like this:
+  ##
+  ## geoms <- unique(sapply(layers, function(layer) if (is.na(layer$legend) || layer$legend) layer$geom$guide_geom() else NULL))
+  ## 
+  ## but in this case, some conflicts occurs, e.g.,
+  ##
+  ## d <- data.frame(x=1:5, y=1:5, v=factor(1:5))
+  ## ggplot(d, aes(x, y, colour=v, group=1)) + geom_point() + geom_line(colour="red", legend=T) + geom_rug(colour="blue", legend=T)
+  ##
+  ## geom_line generate path geom with red and geom_rug generate it with blue.
+  ## how to deal with them ?
+  
   ## arrange common data for vertical and horizontal guide
-  legend_data <- llply(layers, function(layer) {
+  guide$geoms <- llply(layers, function(layer) {
+
     all <- names(c(layer$mapping, default_mapping, layer$stat$default_aes()))
     geom <- c(layer$geom$required_aes, names(layer$geom$default_aes()))
     matched <- intersect(intersect(all, geom), names(guide$key))
     matched <- setdiff(matched, names(layer$geom_params))
-    if (length(matched) > 0) {
-      ## This layer contributes to the legend
-      if (is.na(layer$legend) || layer$legend) {
-        ## Default is to include it 
-        layer$use_defaults(guide$key[matched])
+    data <- 
+      if (length(matched) > 0) {
+        ## This layer contributes to the legend
+        if (is.na(layer$legend) || layer$legend) {
+          ## Default is to include it 
+          layer$use_defaults(guide$key[matched])
+        } else {
+          NULL
+        }
       } else {
-        NULL
+        ## This layer does not contribute to the legend
+        if (is.na(layer$legend) || !layer$legend) {
+          ## Default is to exclude it
+          NULL
+        } else {
+          layer$use_defaults(NULL)[rep(1, nrow(guide$key)), ]
+        }
       }
-    } else {
-      ## This layer does not contribute to the legend
-      if (is.na(layer$legend) || !layer$legend) {
-        ## Default is to exclude it
-        NULL
-      } else {
-        layer$use_defaults(NULL)[rep(1, nrow(key)), ]
-      }
-    }
-  }
-                       )
+    if (is.null(data)) return(NULL)
+    
+    ## set.aes in guide_legend manually changes the geom
+    for (aes in intersect(names(guide$set.aes), names(data))) data[[aes]] <- guide$set.aes[[aes]]
 
-  if (guide$direction == "horizontal") grob <- guide_gengrob_legend.horizontal(guide, legend_data, layers, default_mapping, theme)
-  else if (guide$direction == "vertical") grob <- guide_gengrob_legend.vertical(guide, legend_data, layers, default_mapping, theme)
-  return(grob)
+    geom <- Geom$find(layer$geom$guide_geom())
+    params <- c(layer$geom_params, layer$stat_params)
+    list(geom = geom, data = data, params = params)
+  }
+  )
+
+  ## remove null geom
+  guide$geoms <- guide$geoms[!sapply(guide$geoms, is.null)]
+  guide
 }
 
-guide_gengrob_legend.horizontal <- function(guide, legend_data, layers, default_mapping, theme) {
+guide_gengrob.legend <- function(guide, theme) {
+  if (guide$direction == "horizontal") grob <- guide_gengrob_legend.horizontal(guide, theme)
+  else if (guide$direction == "vertical") grob <- guide_gengrob_legend.vertical(guide, theme)
+  grob
+}
+
+guide_gengrob_legend.horizontal <- function(guide, theme) {
   
   ## default setting
   label.position <- guide$label.position %||% "right"
@@ -134,8 +165,8 @@ guide_gengrob_legend.horizontal <- function(guide, legend_data, layers, default_
 
   ## title
   ## TODO: hjust of title should depend on title.position
-  title.hjust <- theme$legend.title.align %|||% 0
-  title.x <- theme$legend.title.align %|||% 0
+  title.hjust <- theme$legend.title.align %||% 0
+  title.x <- theme$legend.title.align %||% 0
   title.vjust <- 0.5
   title.y <- 0.5
   grob.title <- {
@@ -158,7 +189,7 @@ guide_gengrob_legend.horizontal <- function(guide, legend_data, layers, default_
   ## TODO: adjust hjust based on the label position.
   ## 
   ## if labels are math expression, them it should be right-aligned. else left-aligned.
-#  label.hjust <- guide$label.hjust %||% theme$legend.text.align %|||% 0.5
+#  label.hjust <- guide$label.hjust %||% theme$legend.text.align %||% 0.5
 #  label.x <- 0.5
 #  label.vjust <- 0.5
 #  label.y <- 0.5
@@ -188,13 +219,13 @@ guide_gengrob_legend.horizontal <- function(guide, legend_data, layers, default_
 
   ## key size
 
-  key_width <- convertWidth(guide$keywidth %||% theme$legend.key.width %|||% theme$legend.key.size, "mm")
-  key_height <- convertHeight(guide$keyheight %||% theme$legend.key.height %|||% theme$legend.key.size, "mm")
+  key_width <- convertWidth(guide$keywidth %||% theme$legend.key.width %||% theme$legend.key.size, "mm")
+  key_height <- convertHeight(guide$keyheight %||% theme$legend.key.height %||% theme$legend.key.size, "mm")
   
   key_width.c <- c(key_width)
   key_height.c <- c(key_height)
 
-  key_size_mat <- do.call("cbind", llply(legend_data, "[[", "size"))
+  key_size_mat <- do.call("cbind", llply(guide$legend_data, "[[", "size"))
   key_sizes <- if (is.null(key_size_mat)) rep(0, nbreak) else apply(key_size_mat, 1, max)
 
   key_widths.c <- pmax(key_width.c, key_sizes)
@@ -275,14 +306,10 @@ guide_gengrob_legend.horizontal <- function(guide, legend_data, layers, default_
     grob.key[[length(grob.key)+1]] <- theme_render(theme, "legend.key", vp = viewport(layout.pos.row = pos.row, layout.pos.col = pos.col))
 
     ## overlay geoms
-    for(j in seq_along(layers)) {
-      if (!is.null(legend_data[[j]])) {
-        legend_geom <- Geom$find(layers[[j]]$geom$guide_geom())
-        .key <- legend_geom$draw_legend(legend_data[[j]][i, ],
-                                        c(layers[[j]]$geom_params, layers[[j]]$stat_params))
-        .key$vp <- viewport(layout.pos.row = pos.row, layout.pos.col = pos.col)
-        grob.key[[length(grob.key)+1]] <- .key
-      }
+    for(geom in guide$geoms) {
+      .key <- geom$geom$draw_legend(geom$data[i,], geom$params)
+      .key$vp <- viewport(layout.pos.row = pos.row, layout.pos.col = pos.col)
+      grob.key[[length(grob.key)+1]] <- .key
     }
     
     ## layout position for label
@@ -306,7 +333,7 @@ guide_gengrob_legend.horizontal <- function(guide, legend_data, layers, default_
         vp = viewport(layout=legend.layout))
 }
 
-guide_gengrob_legend.vertical <- function(guide, legend_data, layers, default_mapping, theme) {
+guide_gengrob_legend.vertical <- function(guide, theme) {
 
   ## default setting
   label.position <- guide$label.position %||% "right"
@@ -323,8 +350,8 @@ guide_gengrob_legend.vertical <- function(guide, legend_data, layers, default_ma
 
   ## title
   ## TODO: hjust of title should depend on title.position
-  title.hjust <- theme$legend.title.align %|||% 0
-  title.x <- theme$legend.title.align %|||% 0
+  title.hjust <- theme$legend.title.align %||% 0
+  title.x <- theme$legend.title.align %||% 0
   title.vjust <- 0.5
   title.y <- 0.5
   grob.title <- {
@@ -347,7 +374,7 @@ guide_gengrob_legend.vertical <- function(guide, legend_data, layers, default_ma
   ## TODO: adjust hjust based on the label position.
   ## 
   ## if labels are math expression, them it should be right-aligned. else left-aligned.
-#  label.hjust <- guide$label.hjust %||% theme$legend.text.align %|||% 0.5
+#  label.hjust <- guide$label.hjust %||% theme$legend.text.align %||% 0.5
 #  label.x <- 0.5
 #  label.vjust <- 0.5
 #  label.y <- 0.5
@@ -377,13 +404,13 @@ guide_gengrob_legend.vertical <- function(guide, legend_data, layers, default_ma
 
   ## key size
 
-  key_width <- convertWidth(guide$keywidth %||% theme$legend.key.width %|||% theme$legend.key.size, "mm")
-  key_height <- convertHeight(guide$keyheight %||% theme$legend.key.height %|||% theme$legend.key.size, "mm")
+  key_width <- convertWidth(guide$keywidth %||% theme$legend.key.width %||% theme$legend.key.size, "mm")
+  key_height <- convertHeight(guide$keyheight %||% theme$legend.key.height %||% theme$legend.key.size, "mm")
   
   key_width.c <- c(key_width)
   key_height.c <- c(key_height)
 
-  key_size_mat <- do.call("cbind", llply(legend_data, "[[", "size"))
+  key_size_mat <- do.call("cbind", llply(guide$legend_data, "[[", "size"))
   key_sizes <- if (is.null(key_size_mat)) rep(0, nbreak) else apply(key_size_mat, 1, max)
 
   key_width.c <- max(key_width.c, key_sizes)
@@ -464,16 +491,12 @@ guide_gengrob_legend.vertical <- function(guide, legend_data, layers, default_ma
     grob.key[[length(grob.key)+1]] <- theme_render(theme, "legend.key", vp = viewport(layout.pos.row = pos.row, layout.pos.col = pos.col))
 
     ## overlay geoms
-    for(j in seq_along(layers)) {
-      if (!is.null(legend_data[[j]])) {
-        legend_geom <- Geom$find(layers[[j]]$geom$guide_geom())
-        .key <- legend_geom$draw_legend(legend_data[[j]][i, ],
-                                        c(layers[[j]]$geom_params, layers[[j]]$stat_params))
-        .key$vp <- viewport(layout.pos.row = pos.row, layout.pos.col = pos.col)
-        grob.key[[length(grob.key)+1]] <- .key
-      }
+    for(geom in guide$geoms) {
+      .key <- geom$geom$draw_legend(geom$data[i, ], geom$params)
+      .key$vp <- viewport(layout.pos.row = pos.row, layout.pos.col = pos.col)
+      grob.key[[length(grob.key)+1]] <- .key
     }
-    
+
     ## layout position for label
     grob.labels[[i]]$vp <- viewport(layout.pos.row = vps$label.row[i], layout.pos.col = vps$label.col[i])
   }
