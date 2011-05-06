@@ -25,7 +25,6 @@ guide_colorbar <- function(
   barwidth = NULL,
   barheight = NULL,
   nbin = 20,
-  nbreak = 5,
   raster = TRUE,
 
   ## ticks
@@ -63,7 +62,6 @@ guide_colorbar <- function(
     barwidth = barwidth,
     barheight = barheight,
     nbin = nbin,
-    nbreak = nbreak,
     raster = raster,
 
     ## ticks
@@ -74,7 +72,7 @@ guide_colorbar <- function(
     ## general
     direction = direction,
     default.unit = default.unit,
-
+                 
     ..., name="colorbar"),
     class=c("guide", "colorbar"))
 }
@@ -82,37 +80,37 @@ guide_colorbar <- function(
 guide_parse.colorbar <- function(guide, scale) {
   ## ticks - label (i.e. breaks)
   output <- scale$aesthetics[1]
-  if (is.null(scale$breaks)) {
-    breaks <- pretty(scale_limits(scale), guide$nbreak)
-  } else if (is.function(scale$breaks)) {
-    breaks <- scale$breaks(limits)
-  } else {
-    breaks <- scale$breaks
-  }
-  breaks <- discard(breaks, scale_limits(scale))
+  breaks <- scale_breaks(scale)
   guide$key <- data.frame(scale_map(scale, breaks), I(scale_labels(scale, breaks)), breaks,
                           stringsAsFactors = FALSE)
+  
+  ## .value = breaks (numeric) is used for determining the position of ticks in gengrob
   names(guide$key) <- c(output, ".label", ".value")
 
   ## bar specification (number of divs etc)
   .bar <- discard(pretty(scale_limits(scale), n = guide$nbin), scale_limits(scale))
   guide$bar <- data.frame(colour=scale_map(scale, .bar), value=.bar, stringsAsFactors = FALSE)
   guide$hash <- with(guide, digest(list(title, key$.label, bar, name)))
-  return(guide)
+  guide
 }
 
 ## simply discards the new guide
 guide_merge.colorbar <- function(guide, new_guide) {
-  return(guide)
+  guide
 }
 
-guide_gengrob.colorbar <- function(guide, layers, default_mapping, theme) {
-  if (guide$direction == "horizontal") grob <- guide_gengrob_colorbar.horizontal(guide, layers, default_mapping, theme)
-  else if (guide$direction == "vertical") grob <- guide_gengrob_colorbar.vertical(guide, layers, default_mapping, theme)
-  return(grob)
+## this guide is not geom-based.
+guide_geom.colorbar <- function(guide, ...) {
+  guide
 }
 
-guide_gengrob_colorbar.horizontal <- function(guide, layers, default_mapping, theme) {
+guide_gengrob.colorbar <- function(guide, theme) {
+  if (guide$direction == "horizontal") grob <- guide_gengrob_colorbar.horizontal(guide, theme)
+  else if (guide$direction == "vertical") grob <- guide_gengrob_colorbar.vertical(guide, theme)
+  grob
+}
+
+guide_gengrob_colorbar.horizontal <- function(guide, theme) {
 
   ## default setting
   label.position <- guide$label.position %||% "bottom"
@@ -254,7 +252,7 @@ guide_gengrob_colorbar.horizontal <- function(guide, layers, default_mapping, th
   gTree(children = gList(grob.background, grob.title, grob.bar, grob.label, grob.ticks), vp = viewport(layout=legend.layout))
 }
 
-guide_gengrob_colorbar.vertical <- function(guide, layers, default_mapping, theme) {
+guide_gengrob_colorbar.vertical <- function(guide, theme) {
 
   ## default setting
   label.position <- guide$label.position %||% "right"

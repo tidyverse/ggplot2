@@ -25,11 +25,11 @@ guide_legend <- function(
   ## key
   keywidth = NULL,
   keyheight = NULL,
-  nbreak = 5,
 
   ## general
   direction = NULL,
   default.unit = "line",
+  set.aes = list(),                       
                          
   ...) {
   
@@ -56,11 +56,11 @@ guide_legend <- function(
     ## bar
     keywidth = keywidth,
     keyheight = keyheight,
-    nbreak = nbreak,
 
     ## general
     direction = direction,
     default.unit = default.unit,
+    set.aes = set.aes,
 
     ..., name="legend"),
     class=c("guide", "legend"))
@@ -71,13 +71,17 @@ guide_parse.legend <- function(guide, scale) {
                      scale_map(scale, scale_breaks(scale)), I(scale_labels(scale)), 
                      stringsAsFactors = FALSE)
   names(guide$key) <- c(scale$aesthetics[1], ".label")
+#  for (aes in names(guide$set.aes)) guide$key[[aes]] <- guide$set.aes[[aes]]
   guide$hash <- with(guide, digest(list(title, key$.label, direction, name)))
-  return(guide)
+  guide
 }
 
 guide_merge.legend <- function(guide, new_guide) {
   guide$key <- merge(guide$key, new_guide$key)
-  return(guide)
+  guide$set.aes <- c(guide$set.aes, new_guide$set.aes)
+  if (any(duplicated(names(guide$set.aes)))) warning("Duplicated set.aes is ignored.")
+  guide$set.aes <- guide$set.aes[!duplicated(names(guide$set.aes))]
+  guide
 }
 
 guide_gengrob.legend <- function(guide, layers, default_mapping, theme) {
