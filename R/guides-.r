@@ -112,7 +112,9 @@ guides_train <- function(scales, theme) {
 
     ## each guide object trains scale within the object,
     ## so Guides (i.e., the container of guides) need not to know about them
-    gdefs[[length(gdefs)+1]] <- guide_train(guide, scale)
+    guide <- guide_train(guide, scale)
+
+    if (!is.null(guide)) gdefs[[length(gdefs)+1]] <- guide
   }
   gdefs
 }

@@ -78,6 +78,18 @@ guide_colorbar <- function(
 }
 
 guide_train.colorbar <- function(guide, scale) {
+
+  ## do nothing if scale are inappropriate
+  if (length(intersect(scale$aesthetics, c("color", "colour", "fill"))) == 0) {
+    warning("colorbar guide needs colour or fill scales.")
+    return(NULL)
+  }
+  if (!inherits(scale, "continuous")) {
+    warning("colorbar guide needs continuous scales.")
+    return(NULL)
+  }
+  
+  
   ## ticks - label (i.e. breaks)
   output <- scale$aesthetics[1]
   breaks <- scale_breaks(scale)
