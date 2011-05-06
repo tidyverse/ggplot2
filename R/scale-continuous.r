@@ -60,12 +60,12 @@
 #' qplot(rating, votes, data=movies, log="xy")
 scale_x_continuous <- function(..., expand = c(0.05, 0)) {
   continuous_scale(c("x", "xmin", "xmax", "xend"), "position_c", identity,
-    ..., expand = expand, legend = FALSE)
+    ..., expand = expand, guide = "none")
 }
 
 scale_y_continuous <- function(..., expand = c(0.05, 0)) {
   continuous_scale(c("y", "ymin", "ymax", "yend"), "position_c", identity,
-    ..., expand = expand, legend = FALSE)
+    ..., expand = expand, guide = "none")
 }
 
 

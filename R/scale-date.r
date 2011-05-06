@@ -56,12 +56,12 @@
 #'   facet_grid(variable ~ ., scale = "free_y")
 scale_x_date <- function(..., expand = c(0.05, 0)) {
   continuous_scale(c("x", "xmin", "xmax", "xend"), "date", identity, ...,
-    legend = FALSE, expand = expand, trans = "date")
+    guide = "none", expand = expand, trans = "date")
 }
 
 scale_y_date <- function(..., expand = c(0.05, 0)) {
   continuous_scale(c("y", "ymin", "ymax", "yend"), "date", identity, ...,
-    legend = FALSE, expand = expand, trans = "date")
+    guide = "none", expand = expand, trans = "date")
 }
 
 scale_map.date <- function(scale, x) {

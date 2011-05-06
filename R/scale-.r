@@ -28,8 +28,14 @@ NULL
 #' @paramCopy na.value scales::cscale
 #' @paramCopy trans scales::cscale
 #' @export
-continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = TRUE, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="legend") {
+continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="legend") {
 
+  if (!is.null(legend)) {
+    warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
+  } else {
+    legend <- nulldefault(TRUE, legend)
+  }
+  
   trans <- as.trans(trans)
   if (!is.null(limits)) {
     limits <- trans$trans(limits)
@@ -59,7 +65,14 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 }
 
 #' @export
-discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = TRUE, limits = NULL, expand = c(0, 0), na.value = NA, drop = TRUE, guide="legend") {
+discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = NULL, limits = NULL, expand = c(0, 0), na.value = NA, drop = TRUE, guide="legend") {
+
+  if (!is.null(legend)) {
+    warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
+  } else {
+    legend <- nulldefault(TRUE, legend)
+  }
+  
   structure(list(
     call = match.call(), 
 
@@ -182,7 +195,7 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   limits <- scale$trans$inv(limits)
   
   if (zero_range(limits)) {
-    breaks <- range[1]
+    breaks <- limits[1]
   } else if (is.null(scale$breaks)) {
     breaks <- scale$trans$breaks(limits)
   } else if (is.function(scale$breaks)) {

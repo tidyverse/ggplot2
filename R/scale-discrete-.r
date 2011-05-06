@@ -40,14 +40,14 @@
 #'   scale_x_discrete(formatter = "abbreviate")
 scale_x_discrete <- function(..., expand = c(0, 0.5)) {
   sc <- discrete_scale(c("x", "xmin", "xmax", "xend"), "position_d", identity, ..., 
-    expand = expand, legend = FALSE)
+    expand = expand, guide = "none")
     
   sc$range_c <- ContinuousRange$new()
   sc
 }
 scale_y_discrete <- function(..., expand = c(0, 0.5)) {
   sc <- discrete_scale(c("y", "ymin", "ymax", "yend"), "position_d", identity, ..., 
-    expand = expand, legend = FALSE)
+    expand = expand, guide = "none")
   sc$range_c <- ContinuousRange$new()
   sc  
 }
