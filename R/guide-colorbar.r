@@ -77,7 +77,7 @@ guide_colorbar <- function(
     class=c("guide", "colorbar"))
 }
 
-guide_parse.colorbar <- function(guide, scale) {
+guide_train.colorbar <- function(guide, scale) {
   ## ticks - label (i.e. breaks)
   output <- scale$aesthetics[1]
   breaks <- scale_breaks(scale)

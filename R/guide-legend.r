@@ -66,7 +66,7 @@ guide_legend <- function(
     class=c("guide", "legend"))
 }
 
-guide_parse.legend <- function(guide, scale) {
+guide_train.legend <- function(guide, scale) {
   guide$key <- data.frame(
                      scale_map(scale, scale_breaks(scale)), I(scale_labels(scale)), 
                      stringsAsFactors = FALSE)

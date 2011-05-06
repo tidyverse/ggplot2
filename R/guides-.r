@@ -16,8 +16,8 @@ update_guides <- function(p, guides) {
 ##
 ## the procedure is as followings:
 ##
-## 1. guides_parse()
-##      parse each scale and generate guide definition for all guides
+## 1. guides_train()
+##      train each scale and generate guide definition for all guides
 ##      here, one gdef for one scale
 ##
 ## 2. guides_merge()
@@ -52,7 +52,7 @@ build_guides <- function(scales, layers, default_mapping, theme) {
     switch(theme$legend.position, "top" =, "bottom" = "horizontal", "left" =, "right" = "vertical", "vertical")
 
   ## scales -> data for guides
-  gdefs <- guides_parse(scales = scales, theme = theme)
+  gdefs <- guides_train(scales = scales, theme = theme)
   if (length(gdefs) == 0) return(zeroGrob())
 
   ## merge overlay guides
@@ -81,8 +81,8 @@ validate_guide <- function(guide) {
     stop("Unknown guide: ", guide)
 }
 
-## parse each scale in scales and generate the definition of guide
-guides_parse <- function(scales, theme) {
+## train each scale in scales and generate the definition of guide
+guides_train <- function(scales, theme) {
 
   gdefs <- list()
   for(scale in scales$scales) {
@@ -110,9 +110,9 @@ guides_parse <- function(scales, theme) {
     ## direction of this grob
     guide$direction <- guide$direction %||% theme$legend.direction
 
-    ## each guide object parses scale within the object,
+    ## each guide object trains scale within the object,
     ## so Guides (i.e., the container of guides) need not to know about them
-    gdefs[[length(gdefs)+1]] <- guide_parse(guide, scale)
+    gdefs[[length(gdefs)+1]] <- guide_train(guide, scale)
   }
   gdefs
 }
@@ -162,7 +162,7 @@ guides_build <- function(ggrobs, theme) {
 }
 
 ## S3 dispatch
-guide_parse <- function(...) UseMethod("guide_parse")
+guide_train <- function(...) UseMethod("guide_train")
 guide_merge <- function(...) UseMethod("guide_merge")
 guide_geom <- function(...) UseMethod("guide_geom")
 guide_gengrob <- function(...) UseMethod("guide_gengrob")
