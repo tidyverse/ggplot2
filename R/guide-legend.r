@@ -7,7 +7,7 @@
 guide_legend <- function(
                          
   ##　title
-  title = NULL,
+  title = waiver(),
   title.position = NULL,
   title.angle = NULL,
   title.hjust = NULL,
@@ -171,7 +171,7 @@ guide_gengrob_legend.horizontal <- function(guide, theme) {
   title.y <- 0.5
   grob.title <- {
     g <-
-      if (is.logical(guide$title) && guide$title == FALSE) zeroGrob()
+      if (is.null(guide$title)) zeroGrob()
       else if(!is.null(guide$title.theme)) guide$title.theme(label=guide$title, name=grobName(NULL, "guide.title"))
       else theme_render(theme, "legend.title", guide$title, hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
     if (!is.null(guide$title.angle)) g <- editGrob(g, rot = guide$title.angle)
@@ -356,7 +356,7 @@ guide_gengrob_legend.vertical <- function(guide, theme) {
   title.y <- 0.5
   grob.title <- {
     g <-
-      if (is.logical(guide$title) && guide$title == FALSE) zeroGrob()
+      if (is.null(guide$title)) zeroGrob()
       else if(!is.null(guide$title.theme)) guide$title.theme(label=guide$title, name=grobName(NULL, "guide.title"))
       else theme_render(theme, "legend.title", guide$title, hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
     if (!is.null(guide$title.angle)) g <- editGrob(g, rot = guide$title.angle)

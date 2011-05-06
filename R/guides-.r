@@ -105,7 +105,7 @@ guides_train <- function(scales, theme) {
     guide <- validate_guide(guide)
 
     ## title of this grob
-    guide$title <- guide$title %||% scale$name %||% theme$labels[[output]]
+    if (is.waive(guide$title)) guide$title <- scale$name %||% theme$labels[[output]]
 
     ## direction of this grob
     guide$direction <- guide$direction %||% theme$legend.direction

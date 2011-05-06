@@ -6,7 +6,7 @@
 guide_colorbar <- function(
                            
   ##　title
-  title = NULL,
+  title = waiver(),
   title.position = NULL,
   title.angle = NULL,
   title.hjust = NULL,
@@ -156,7 +156,7 @@ guide_gengrob_colorbar.horizontal <- function(guide, theme) {
   ## hjust of title should depend on title.position
   grob.title <- {
     g <-
-      if (is.logical(guide$title) && guide$title == FALSE) zeroGrob()
+      if (is.null(guide$title)) zeroGrob()
       else if(!is.null(guide$title.theme)) guide$title.theme(label=guide$title, x = 0.5, y = 0.5, name = grobName(NULL, "guide.title"))
       else theme_render(theme, "legend.title", guide$title, hjust = 1, x = 1, y = 0.5)
     if (!is.null(guide$title.angle)) g <- editGrob(g, rot = guide$title.angle)
@@ -298,7 +298,7 @@ guide_gengrob_colorbar.vertical <- function(guide, theme) {
   ## hjust of title should depend on title.position
   grob.title <- {
     g <-
-      if (is.logical(guide$title) && guide$title == FALSE) zeroGrob()
+      if (is.null(guide$title)) zeroGrob()
       else if(!is.null(guide$title.theme)) guide$title.theme(label=guide$title, x = 0.5, y = 0.5, name = grobName(NULL, "guide.title"))
       else theme_render(theme, "legend.title", guide$title, hjust = 1, x = 1, y = 0.5)
     if (!is.null(guide$title.angle)) g <- editGrob(g, rot = guide$title.angle)

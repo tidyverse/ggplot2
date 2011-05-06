@@ -152,3 +152,8 @@ should_stop <- function(expr) {
   if (!inherits(res, "try-error")) stop("No error!", call. = FALSE)
   invisible()
 }
+
+
+# Waive decision
+waiver <- function() structure(NULL, class="waiver")
+is.waive <- function(x) inherits(x, "waiver")
