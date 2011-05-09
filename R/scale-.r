@@ -180,7 +180,7 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   limits <- scale$trans$inv(limits)
   
   if (zero_range(limits)) {
-    breaks <- range[1]
+    breaks <- limits[1]
   } else if (is.null(scale$breaks)) {
     breaks <- scale$trans$breaks(limits)
   } else if (is.function(scale$breaks)) {
