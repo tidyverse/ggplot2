@@ -258,12 +258,18 @@ FacetWrap <- proto(Facet, {
     lapply(data, function(l) {
       for(i in seq_along(.$scales$x)) {
         l[1, i] <- lapply(l[1, i], function(old) {
-          new <- scales_map_df(.$scales$x[[i]], old)
-          if (!is.null(.$scales$y[[i]])) {
-            new <- cbind(new, scales_map_df(.$scales$y[[i]], old))
-          }
-
-          cunion(new, old)
+          if (is.null(old)) return(data.frame())
+          new <- scale_map_df(.$scales$x[[i]], old)
+          if (length(new) == 0) return(old)
+          cbind(new, old[setdiff(names(old), names(new))])
+        }) 
+      }
+      for(i in seq_along(.$scales$y)) {
+        l[1, i] <- lapply(l[1, i], function(old) {
+          if (is.null(old)) return(data.frame())
+          new <- scale_map_df(.$scales$y[[i]], old)
+          if (length(new) == 0) return(old)
+          cbind(new, old[setdiff(names(old), names(new))])
         }) 
       }
       l
