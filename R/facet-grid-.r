@@ -215,7 +215,7 @@ FacetGrid <- proto(Facet, {
     }
 
     if(.$space_is_free) {
-      size <- function(y) unit(diff(y$output_expand()), "null")
+      size <- function(y) unit(diff(scale_dimension(y)), "null")
       panel_widths <- do.call("unit.c", llply(.$scales$x, size))
       panel_heights <- do.call("unit.c", llply(.$scales$y, size))
     } else {
@@ -407,7 +407,7 @@ FacetGrid <- proto(Facet, {
 # @keyword internal
 scales_list <- function(scale, n, free) {
   if (free) {
-    rlply(n, scale_clone(scale))  
+    rlply(n, scale_mt(scale))  
   } else {
     rep(list(scale), n)  
   }
