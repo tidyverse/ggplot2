@@ -10,7 +10,7 @@
 #' p + scale_alpha("cylinders")
 #' p + scale_alpha("number\nof\ncylinders")
 #' 
-#' p + scale_alpha(to = c(0.4, 0.8))
+#' p + scale_alpha(range = c(0.4, 0.8))
 scale_alpha_continuous <- function(..., range = c(0.1, 1)) {
   continuous_scale("alpha", "alpha_c", rescale_pal(range), ...)
 }

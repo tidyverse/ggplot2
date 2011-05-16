@@ -23,7 +23,7 @@ p + geom_line(aes(colour = rating))
 
 # Change scale
 p + geom_line(aes(colour = rating)) + scale_colour_gradient(low="red")
-p + geom_line(aes(size = rating)) + scale_size(to = c(0.1, 3))
+p + geom_line(aes(size = rating)) + scale_size(range = c(0.1, 3))
 
 # Set aesthetics to fixed value
 p + geom_line(colour = "red", size = 1)

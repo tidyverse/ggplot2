@@ -18,7 +18,7 @@
 #' p + geom_path(aes(colour = year))
 #' 
 #' # Change scale
-#' p + geom_path(aes(size = year)) + scale_size(to = c(1, 3))
+#' p + geom_path(aes(size = year)) + scale_size(range = c(1, 3))
 #' 
 #' # Set aesthetics to fixed value
 #' p + geom_path(colour = "green")

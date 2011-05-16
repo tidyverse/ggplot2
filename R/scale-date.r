@@ -68,7 +68,6 @@ scale_map.date <- function(scale, x) {
   x
 }
 
-
 icon.scale_date <- function() {
   textGrob("14/10/1979", gp=gpar(cex=1))
 }

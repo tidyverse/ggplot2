@@ -14,13 +14,13 @@ maximum size of the plotting symbol after transformation.}
 p + scale_size("cylinders")
 p + scale_size("number\\nof\\ncylinders")
 
-p + scale_size(to = c(0, 10))
-p + scale_size(to = c(1, 2))
+p + scale_size(range = c(0, 10))
+p + scale_size(range = c(1, 2))
 
 # Map area, instead of width/radius
 # Perceptually, this is a little better
 p + scale_area()
-p + scale_area(to = c(1, 25))
+p + scale_area(range = c(1, 25))
 
 # Also works with factors, but not a terribly good
 # idea, unless your factor is ordered, as in this example
