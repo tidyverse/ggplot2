@@ -19,7 +19,7 @@
 }
 \seealso{\code{\link{set_last_plot}}, \code{\link{ggplot}}}
 \alias{+.ggplot}
-\alias{%+%}
+\alias{\%+\%}
 \arguments{
   \item{p}{plot object}
   \item{object}{component to add}

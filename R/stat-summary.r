@@ -22,7 +22,7 @@
 #'   \item{fun.y}{y summary function (should take numeric vector and return
 #'     single number)}
 #'   \item{fun.ymax}{ymax summary function (should take numeric vector and
-#'     return single number)
+#'     return single number)}
 #' @export
 #' @examples
 #' # Basic operation on a small dataset

@@ -37,10 +37,9 @@
   A bar chart maps the height of the bar to a variable, and
   so the base of the bar must always been shown to produce
   a valid visual comparison.  Naomi Robbins has a nice
-  \href{http://www.b-eye-network.com/view/index.php?cid=2468}
-  {article on this topic}</a>.  This is the reason it
-  doesn't make sense to use a log-scaled y axis with a bar
-  chart
+  \href{http://www.b-eye-network.com/view/index.php?cid=2468}{article
+  on this topic}.  This is the reason it doesn't make sense
+  to use a log-scaled y axis with a bar chart
 }
 \seealso{\code{\link{stat_bin}} for more details of the binning alogirithm, 
 \code{\link{position_dodge}} for creating side-by-side barcharts, 

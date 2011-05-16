@@ -30,7 +30,7 @@ return single number)}
 \item{fun.y}{y summary function (should take numeric vector and return
 single number)}
 \item{fun.ymax}{ymax summary function (should take numeric vector and
-return single number)}
+return single number)}}
 \examples{# Basic operation on a small dataset
 c <- qplot(cyl, mpg, data=mtcars)
 c + stat_summary(fun.data = "mean_cl_boot", colour = "red")
