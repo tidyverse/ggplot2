@@ -6,6 +6,7 @@
 #' level, and increasing by one for each level (i.e. the labels are placed
 #' at integer positions).  This is what allows jittering to work.
 #'
+#' @export scale_x_discrete scale_y_discrete
 #' @examples
 #' qplot(cut, data=diamonds, stat="bin")
 #' qplot(cut, data=diamonds, geom="bar")

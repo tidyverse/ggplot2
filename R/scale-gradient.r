@@ -8,7 +8,7 @@
 #' @usageFor scale_colour_gradient scale_fill_gradient
 #' @seealso \code{\link[scales]{seq_gradient_pal}} for details on underlying
 #'   palette
-#' @export
+#' @export scale_colour_gradient scale_fill_gradient
 #' @examples
 #' # It's hard to see, but look for the bright yellow dot 
 #' # in the bottom right hand corner

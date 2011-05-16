@@ -1,5 +1,6 @@
 #' Qualitative colour scale with evenly spaced hues.
 #' 
+#' @export scale_colour_hue scale_fill_hue
 #' @examples
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 #' (d <- qplot(carat, price, data=dsamp, colour=clarity))

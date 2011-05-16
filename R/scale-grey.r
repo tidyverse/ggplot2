@@ -2,6 +2,7 @@
 #'
 #' Based on \code{\link{gray.colors}}
 #'
+#' @export scale_colour_grey scale_fill_grey
 #' @examples
 #' p <- qplot(mpg, wt, data=mtcars, colour=factor(cyl)) 
 #' p + scale_colour_grey()

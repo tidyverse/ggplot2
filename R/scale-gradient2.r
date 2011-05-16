@@ -1,5 +1,6 @@
 #' Diverging colour gradient
 #' 
+#' @export scale_colour_gradient2 scale_fill_gradient2
 #' @examples
 #' dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
 #' dsub$diff <- with(dsub, sqrt(abs(x-y))* sign(x-y))

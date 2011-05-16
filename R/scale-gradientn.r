@@ -1,5 +1,6 @@
 #' Smooth colour gradient between n colours
 #' 
+#' @export scale_colour_gradientn scale_fill_gradientn
 #' @examples
 #' # scale_colour_gradient make it easy to use existing colour palettes
 #' 

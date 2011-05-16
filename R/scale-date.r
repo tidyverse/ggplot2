@@ -2,7 +2,7 @@
 #'
 #' @paramCopy ... ggplot2::scale_continuous_x
 #' @usageFor scale_continuous_x scale_continuous_y
-#' @export
+#' @export scale_x_date scale_y_date
 #' @examples
 #' # We'll start by creating some nonsense data with dates
 #' df <- data.frame(
