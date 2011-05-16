@@ -20,7 +20,7 @@ StatFunction <- proto(Stat, {
   default_aes <- function(.) aes(y = ..y..)
   
   calculate <- function(., data, scales, fun, n=101, args = list(), ...) {
-    range <- scale_dimension(scales$x)
+    range <- scale_dimension(scales$x, c(0, 0))
     xseq <- seq(range[1], range[2], length=n)
     
     data.frame(

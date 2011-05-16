@@ -85,7 +85,7 @@ StatDensity <- proto(Stat, {
     if (n < 3) return(data.frame())
     if (is.null(data$weight)) data$weight <- rep(1, n) / n
 
-    range <- scale_dimension(scales$x)
+    range <- scale_dimension(scales$x, c(0, 0))
     xgrid <- seq(range[1], range[2], length=200)
     
     dens <- density(data$x, adjust=adjust, kernel=kernel, weight=data$weight, from=range[1], to=range[2])
