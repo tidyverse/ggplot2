@@ -70,10 +70,11 @@ scale_y_continuous <- function(..., expand = c(0.05, 0)) {
 
 
 # Position aesthetics don't map, because the coordinate system takes
-# care of it.
+# care of it. But they do need to be made in to doubles, so stat methods
+# can tell the difference between continuous and discrete data.
 #' @S3method scale_map position_c
 scale_map.position_c <- function(scale, x) {
-  x
+  as.numeric(x)
 }
 
 #' @S3method scale_clone position_c
