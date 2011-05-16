@@ -80,7 +80,7 @@ CoordCartesian <- proto(Coord, expr={
         scales$y$domain <- .$limits[["y"]]
       }
     }
-    y.major <- .$rescale_var(scale_breaks(scales$y), y.range, TRUE)
+    y.major <- .$rescale_var(scale_break_positions(scales$y), y.range, TRUE)
     y.minor <- .$rescale_var(scale_breaks_minor(scales$y), y.range, TRUE)
     y.labels <- scale_labels(scales$y)
     

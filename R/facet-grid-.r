@@ -407,7 +407,7 @@ FacetGrid <- proto(Facet, {
 # @keyword internal
 scales_list <- function(scale, n, free) {
   if (free) {
-    rlply(n, scale_mt(scale))  
+    rlply(n, scale_clone(scale))  
   } else {
     rep(list(scale), n)  
   }
