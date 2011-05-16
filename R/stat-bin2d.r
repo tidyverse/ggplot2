@@ -37,8 +37,8 @@ StatBin2d <- proto(Stat, {
   calculate <- function(., data, scales, binwidth = NULL, bins = 30, breaks = NULL, origin = NULL, drop = TRUE, ...) {
     
     range <- list(
-      x = scales$x$output_set(),
-      y = scales$y$output_set()
+      x = scale_limits(scales$x),
+      y = scale_limits(scales$y)
     )
     
     # Determine binwidth, if omitted
