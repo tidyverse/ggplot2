@@ -179,7 +179,7 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   # Limits in transformed space need to be converted back to data space
   limits <- scale$trans$inv(limits)
   
-  if (zero_range(limits)) {
+  if (zero_range(as.numeric(limits))) {
     breaks <- limits[1]
   } else if (is.null(scale$breaks)) {
     breaks <- scale$trans$breaks(limits)
