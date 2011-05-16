@@ -124,7 +124,7 @@ StatSmooth <- proto(Stat, {
         } 
       } else {
         if (fullrange) {
-          range <- scales$x$output_set()
+          range <- scale_dimension(scales$x)
         } else {
           range <- range(data$x, na.rm=TRUE)  
         } 

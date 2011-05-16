@@ -77,13 +77,13 @@ CoordTrans <- proto(CoordCartesian, expr={
       expand_range(range(x, na.rm = TRUE), expand)
     }
     
-    x.range <- trans_range(.$xtr$transform(scales$x$output_set()),
+    x.range <- trans_range(.$xtr$transform(scale_dimension(scales$x)),
       scales$x$.expand)
     x.major <- .$transform_x(scales$x$input_breaks_n(), x.range)
     x.minor <- .$transform_x(scales$x$output_breaks(), x.range)
     x.labels <- scales$x$labels()
 
-    y.range <- trans_range(.$ytr$transform(scales$y$output_set()),
+    y.range <- trans_range(.$ytr$transform(scale_dimension(scales$y)),
       scales$y$.expand)
     y.major <- .$transform_y(scales$y$input_breaks_n(), y.range)
     y.minor <- .$transform_y(scales$y$output_breaks(), y.range)

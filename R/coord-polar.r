@@ -95,11 +95,11 @@ CoordPolar <- proto(Coord, {
       y.range <- scale_dimension(scales$y, c(0, 0))
     }
 
-    x.major <- scale_breaks(scales$x)
+    x.major <- scale_break_positions(scales$x)
     x.minor <- scale_breaks_minor(scales$x)
     x.labels <- scale_labels(scales$x, x.major)
 
-    y.major <- scale_breaks(scales$y)
+    y.major <- scale_break_positions(scales$y)
     y.minor <- scale_breaks_minor(scales$y)
     y.labels <- scale_labels(scales$y, y.major)
     
@@ -116,6 +116,7 @@ CoordPolar <- proto(Coord, {
       names(details) <- gsub("x\\.", "theta.", names(details))      
       names(details) <- gsub("y\\.", "r.", names(details))
     }
+
     details
   }
 
