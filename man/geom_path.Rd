@@ -12,7 +12,7 @@
   \item{lineend}{Line end style (round, butt, square)}
   \item{linejoin}{Line join style (round, mitre, bevel)}
   \item{linemitre}{Line mitre limit (number greater than 1)}
-  \item{arrow}{Arrow specification, as created by ?arrow}
+  \item{arrow}{Arrow specification, as created by ?grid::arrow}
 }
 \examples{# Generate data
 myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
