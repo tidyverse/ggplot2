@@ -6,8 +6,12 @@
 #'  \code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
 #'  \code{\link{continuous_scale}} for more details
 #' @seealso \code{\link{scale_discrete}} for discrete position scales
-#' @alias scale_x_continuous scale_y_continuous
+#' @aliases scale_x_continuous scale_y_continuous
+#'   scale_x_log10 scale_y_log10 scale_x_reverse scale_y_reverse
+#'   scale_x_sqrt scale_y_sqrt
 #' @export scale_x_continuous scale_y_continuous
+#'   scale_x_log10 scale_y_log10 scale_x_reverse scale_y_reverse
+#'   scale_x_sqrt scale_y_sqrt
 #' @examples
 #' (m <- qplot(rating, votes, data=subset(movies, votes > 1000), na.rm = T))
 #' 
