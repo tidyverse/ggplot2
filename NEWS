@@ -25,7 +25,9 @@ DOCUMENTATION
 
 * ggplot2 now uses a `NAMESPACE`, and only exports functions that should be
   user visible - this should make it play considerably more nicely with other
-  packages in the R ecosystem
+  packages in the R ecosystem. Note that this means you now need to explicitly
+  load `plyr` (and other packages) if you are using them elsewhere in your
+  code.
 
 SCALES
 
