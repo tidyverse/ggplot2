@@ -21,6 +21,7 @@
 #' @param vars variables to include in parallel coordinates plot
 #' @param scale scaling function, one of "range", "var" or "I"
 #' @param ... other arguments passed on plot creation
+#' @export
 #' @examples
 #' ggpcp(mtcars) + geom_line()
 #' ggpcp(mtcars, scale="var") + geom_line()
