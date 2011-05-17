@@ -8,6 +8,8 @@
 #' @seealso \code{\link{geom_line}}: Functional (ordered) lines;  
 #'  \code{\link{geom_polygon}}: Filled paths (polygons); 
 #'  \code{\link{geom_segment}}: Line segments
+#' @export
+#' @examples
 #' # Generate data
 #' myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
 #' p <- ggplot(myear, aes(length, rating))
