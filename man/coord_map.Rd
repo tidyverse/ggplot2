@@ -24,7 +24,7 @@ projections, so you will have to supply your own.}
   \item{xlim}{manually specific x limits (in degrees of lontitude)}
   \item{ylim}{manually specific y limits (in degrees of latitude)}
 }
-\examples{try_require("maps")
+\examples{if (require("maps")) {
 # Create a lat-long dataframe from the maps package
 nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
 (nzmap <- qplot(x, y, data=nz, geom="path"))
@@ -46,4 +46,5 @@ usamap + coord_map(project="lagrange")
 usamap + coord_map(project="orthographic")
 usamap + coord_map(project="stereographic")
 usamap + coord_map(project="conic", lat0 = 30)
-usamap + coord_map(project="bonne", lat0 = 50)}
+usamap + coord_map(project="bonne", lat0 = 50)
+}}
