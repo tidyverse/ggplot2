@@ -1,3 +1,23 @@
+#' @export
+#'   scale_colour_discrete
+#'   scale_colour_continuous
+#'   scale_fill_discrete
+#'   scale_fill_continuous
+#'   scale_color_brewer
+#'   scale_color_continuous
+#'   scale_color_discrete
+#'   scale_color_gradient
+#'   scale_color_grey
+#'   scale_color_hue
+#'   scale_color_identity
+#'   scale_color_manual
+#'   scale_size
+#'   scale_linetype
+#'   scale_alpha_continuous
+#'   scale_shape
+#'   coord_equal
+NULL
+
 scale_colour_discrete <- scale_colour_hue
 scale_colour_continuous <- scale_colour_gradient
 scale_fill_discrete <- scale_fill_hue
