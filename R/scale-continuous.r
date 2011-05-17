@@ -47,10 +47,11 @@
 #' # see ?transformer for a full list
 #' 
 #' # You can control the formatting of the labels with the formatter
-#' # argument.  Some common formats are built in:
+#' # argument.  Some common formats are built into the scales package:
 #' x <- rnorm(10) * 100000
 #' y <- seq(0, 1, length = 10)
 #' p <- qplot(x, y)
+#' library(scales)
 #' p + scale_y_continuous(labels = percent)
 #' p + scale_y_continuous(labels = dollar)
 #' p + scale_x_continuous(labels = comma)
