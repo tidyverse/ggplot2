@@ -1,6 +1,7 @@
 #' Smooth colour gradient between n colours
 #' 
 #' @export scale_colour_gradientn scale_fill_gradientn
+#' @param na.value Colour to use for missing values
 #' @examples
 #' # scale_colour_gradient make it easy to use existing colour palettes
 #' 
@@ -25,13 +26,13 @@
 #'   values = values, rescale = function(x, ...) x, oob = identity)
 #' d + scale_colour_gradientn(colours = terrain.colors(10), 
 #'   values = values, rescale = function(x, ...) x, oob = identity)
-scale_colour_gradientn <- function(..., colours, values = NULL, space = "Lab") {
+scale_colour_gradientn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50") {
   continuous_scale("colour", "gradientn", 
-    gradient_n_pal(colours, values, space), ...)
+    gradient_n_pal(colours, values, space), na.value = na.value, ...)
 }
-scale_fill_gradientn <- function(..., colours, values = NULL, space = "Lab") {
+scale_fill_gradientn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50") {
   continuous_scale("fill", "gradientn",
-    gradient_n_pal(colours, values, space), ...)
+    gradient_n_pal(colours, values, space), na.value = na.value, ...)
 }
 
 icon.gradientn <- function(.) {

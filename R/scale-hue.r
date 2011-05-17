@@ -1,5 +1,6 @@
 #' Qualitative colour scale with evenly spaced hues.
 #' 
+#' @param na.value Colour to use for missing values
 #' @export scale_colour_hue scale_fill_hue
 #' @examples
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
@@ -28,12 +29,20 @@
 #' d + geom_point(alpha = 0.9)
 #' d + geom_point(alpha = 0.5)
 #' d + geom_point(alpha = 0.2)
-scale_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0, direction = 1) {
-  discrete_scale("colour", "hue", hue_pal(h, c, l, h.start, direction))
+#'
+#' # Colour of missing values is controlled with na.value:
+#' miss <- factor(sample(c(NA, 1:5), nrow(mtcars), rep = T))
+#' qplot(mpg, wt, data = mtcars, colour = miss)
+#' qplot(mpg, wt, data = mtcars, colour = miss) + 
+#'   scale_colour_hue(na.value = "black")
+scale_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0, direction = 1, na.value = "grey50") {
+  discrete_scale("colour", "hue", hue_pal(h, c, l, h.start, direction),
+    na.value = na.value)
 }
 
-scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0, direction = 1) {
-  discrete_scale("fill", "hue", hue_pal(h, c, l, h.start, direction))
+scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0, direction = 1, na.value = "grey50") {
+  discrete_scale("fill", "hue", hue_pal(h, c, l, h.start, direction), 
+    na.value = na.value)
 }
 
 icon.hue <- function() {

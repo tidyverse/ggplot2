@@ -50,7 +50,8 @@ SCALES
   breaks.
 
 * all scales now accept `na.value` parameter which provides an aesthetic value
-  to be used for NA values in the data
+  to be used for NA values in the data. Colour/fill scales default to values
+  that should stand out as being different from non-missing values.
 
 * the new `oob` (out of bounds) parameter controls how scales deals with
   values outside the limits. The default action is `censor` - see `clip` for

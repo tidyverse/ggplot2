@@ -11,6 +11,7 @@ palette}
 \arguments{
   \item{...}{Other arguments passed on to \code{\link{continuous_scale}} 
 to control name, limits, breaks, labels and so forth.}
+  \item{na.value}{Colour to use for missing values}
 }
 \examples{# It's hard to see, but look for the bright yellow dot 
 # in the bottom right hand corner
@@ -44,4 +45,10 @@ d + scale_colour_gradient(limits=c(3, 4), space="Lab")
 
 # scale_fill_continuous works similarly, but for fill colours
 (h <- qplot(x - y, data=dsub, geom="histogram", binwidth=0.01, fill=..count..))
-h + scale_fill_continuous(low="black", high="pink", limits=c(0,3100))}
+h + scale_fill_continuous(low="black", high="pink", limits=c(0,3100))
+
+# Colour of missing values is controlled with na.value:
+miss <- sample(c(NA, 1:5), nrow(mtcars), rep = T)
+qplot(mpg, wt, data = mtcars, colour = miss)
+qplot(mpg, wt, data = mtcars, colour = miss) + 
+scale_colour_gradient(na.value = "black")}

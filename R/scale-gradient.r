@@ -6,6 +6,7 @@
 #' @paramCopy high scales::seq_gradient_pal
 #' @paramCopy space scales::seq_gradient_pal
 #' @usageFor scale_colour_gradient scale_fill_gradient
+#' @param na.value Colour to use for missing values
 #' @seealso \code{\link[scales]{seq_gradient_pal}} for details on underlying
 #'   palette
 #' @export scale_colour_gradient scale_fill_gradient
@@ -43,14 +44,20 @@
 #' # scale_fill_continuous works similarly, but for fill colours
 #' (h <- qplot(x - y, data=dsub, geom="histogram", binwidth=0.01, fill=..count..))
 #' h + scale_fill_continuous(low="black", high="pink", limits=c(0,3100))
-scale_colour_gradient <- function(..., low = "#3B4FB8", high = "#B71B1A", space = "Lab") {
+#'
+#' # Colour of missing values is controlled with na.value:
+#' miss <- sample(c(NA, 1:5), nrow(mtcars), rep = T)
+#' qplot(mpg, wt, data = mtcars, colour = miss)
+#' qplot(mpg, wt, data = mtcars, colour = miss) + 
+#'   scale_colour_gradient(na.value = "black")
+scale_colour_gradient <- function(..., low = "#3B4FB8", high = "#B71B1A", space = "Lab", na.value = "grey50") {
   continuous_scale("colour", "gradient", seq_gradient_pal(low, high, space),
-    ...)
+    na.value = na.value, ...)
 }
 
-scale_fill_gradient <- function(..., low = "#3B4FB8", high = "#B71B1A", space = "Lab") {
+scale_fill_gradient <- function(..., low = "#3B4FB8", high = "#B71B1A", space = "Lab", na.value = "grey50") {
   continuous_scale("fill", "gradient", seq_gradient_pal(low, high, space),
-    ...)
+    na.value = na.value, ...)
 }
 
 icon.gradient <- function(.) {

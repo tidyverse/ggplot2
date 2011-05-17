@@ -1,10 +1,14 @@
 \name{scale_colour_gradientn}
 \alias{scale_colour_gradientn}
 \title{Smooth colour gradient between n colours...}
-\usage{scale_colour_gradientn(..., colours, values, space="Lab")}
+\usage{scale_colour_gradientn(..., colours, values, space="Lab",
+    na.value="grey50")}
 
 \description{
   Smooth colour gradient between n colours
+}
+\arguments{
+  \item{na.value}{Colour to use for missing values}
 }
 \examples{# scale_colour_gradient make it easy to use existing colour palettes
 
