@@ -44,4 +44,12 @@ qplot(carat, price, data=diamonds, log="xy") +
 geom_smooth(method="lm") + 
 coord_trans(x = exp_trans(10), y = exp_trans(10))
 # cf.
-qplot(carat, price, data=diamonds) + geom_smooth(method = "lm")}
+qplot(carat, price, data=diamonds) + geom_smooth(method = "lm")
+
+# Also works with discrete scales
+df <- data.frame(a = abs(rnorm(26)),letters)
+plot <- ggplot(df,aes(a,letters)) + geom_point() 
+
+plot + coord_trans(x = "log10")
+plot + coord_trans(x = "sqrt")
+plot + coord_trans(x = "sqrt", y = "reverse")}
