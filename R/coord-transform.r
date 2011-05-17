@@ -73,19 +73,16 @@ CoordTrans <- proto(CoordCartesian, expr={
   }
 
   compute_ranges <- function(., scales) {
-    trans_range <- function(x, expand) {
-      # range is necessary in case transform has flipped min and max
-      expand_range(range(x, na.rm = TRUE), expand)
+    exp_trans_range <- function(trans, scale) {
+      range <- trans_range(trans, scale_dimension(scale, c(0, 0)))
+      expand_range(range, scale$expand[1], scale$expand[2])
     }
-    
-    x.range <- trans_range(.$xtr$transform(scale_dimension(scales$x, c(0,0))),
-      scales$x$expand)
+    x.range <- exp_trans_range(.$xtr, scales$x)
     x.major <- .$transform_x(scale_break_positions(scales$x), x.range)
     x.minor <- .$transform_x(scale_breaks_minor(scales$x), x.range)
     x.labels <- scale_labels(scales$x)
 
-    y.range <- trans_range(.$ytr$transform(scale_dimension(scales$y, c(0,0))),
-      scales$y$expand)
+    y.range <- exp_trans_range(.$ytr, scales$y)
     y.major <- .$transform_y(scale_break_positions(scales$y), y.range)
     y.minor <- .$transform_y(scale_breaks_minor(scales$y), y.range)
     y.labels <- scale_labels(scales$y)
