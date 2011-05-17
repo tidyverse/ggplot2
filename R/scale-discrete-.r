@@ -68,7 +68,7 @@ scale_train.position_d <- function(scale, x) {
 }
 
 scale_reset.position_d <- function(scale, x) {
-  scale$range$reset()
+  # Can't reset discrete scale because no way to recover values
   scale$range_c$reset()
 }
 

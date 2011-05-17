@@ -105,7 +105,6 @@ FacetGrid <- proto(Facet, {
     setdiff(vars, c(".", "..."))
   }
   
-  
   # Initialisation  
   initialise <- function(., data) {
     .$facet_levels <- unique(
@@ -114,7 +113,6 @@ FacetGrid <- proto(Facet, {
     .$shape <- stamp(.$facet_levels, .$facets, margins = .$margins,
       function(x) 0)
   }
-
   
   stamp_data <- function(., data) {
     data <- add_missing_levels(data, .$facet_levels)
