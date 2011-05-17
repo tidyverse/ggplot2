@@ -38,7 +38,7 @@
 #' 
 #' # Use abbreviate as a formatter to reduce long names
 #' qplot(reorder(manufacturer, cty), cty, data=mpg) +  
-#'   scale_x_discrete(formatter = "abbreviate")
+#'   scale_x_discrete(labels = abbreviate)
 scale_x_discrete <- function(..., expand = c(0, 0.5)) {
   sc <- discrete_scale(c("x", "xmin", "xmax", "xend"), "position_d", identity, ..., 
     expand = expand, legend = FALSE)

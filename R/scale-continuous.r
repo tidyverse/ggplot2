@@ -47,9 +47,9 @@
 #' x <- rnorm(10) * 100000
 #' y <- seq(0, 1, length = 10)
 #' p <- qplot(x, y)
-#' p + scale_y_continuous(formatter = "percent")
-#' p + scale_y_continuous(formatter = "dollar")
-#' p + scale_x_continuous(formatter = "comma")
+#' p + scale_y_continuous(labels = percent)
+#' p + scale_y_continuous(labels = dollar)
+#' p + scale_x_continuous(labels = comma)
 #' 
 #' # qplot allows you to do some of this with a little less typing:
 #' #   * axis limits

@@ -42,8 +42,8 @@
 #' v + geom_tile(aes(fill = z)) + stat_contour()
 #' 
 #' # Use qplot instead
-#' qplot(x, y, z, data = volcano3d, geom = "contour")
-#' qplot(x, y, z, data = volcano3d, stat = "contour", geom = "path")
+#' qplot(x, y, z = z, data = volcano3d, geom = "contour")
+#' qplot(x, y, z = z, data = volcano3d, stat = "contour", geom = "path")
 StatContour <- proto(Stat, {
   objname <- "contour"
 
