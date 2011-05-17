@@ -10,6 +10,7 @@
 #' @param data not used by this method
 #' @param ... not used by this method
 #' @examples
+#' if (require("maps")) {
 #' ca <- map("county", "ca", plot = FALSE, fill = TRUE)
 #' head(fortify(ca))
 #' qplot(long, lat, data = ca, geom = "polygon", group = group)
@@ -18,6 +19,7 @@
 #' head(fortify(tx))
 #' qplot(long, lat, data = tx, geom = "polygon", group = group, 
 #'  colour = I("white"))
+#' }
 fortify.map <- function(model, data, ...) {
   df <- as.data.frame(model[c("x", "y")])
   names(df) <- c("long", "lat")
