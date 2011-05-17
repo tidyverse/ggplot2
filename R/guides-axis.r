@@ -31,13 +31,6 @@ guide_axis <- function(at, labels, position="right", theme) {
     left = at,
   )
   
-  if (is.na(theme$axis.ticks.x)) {
-    theme$axis.ticks.x <- theme$axis.ticks
-  }
-  if (is.na(theme$axis.ticks.y)) {
-    theme$axis.ticks.y <- theme$axis.ticks
-  }
-
   if (is.list(labels)) {
     if (any(sapply(labels, is.language))) {
       labels <- do.call(expression, labels)
@@ -60,10 +53,10 @@ guide_axis <- function(at, labels, position="right", theme) {
   )
   
   ticks <- switch(position,
-    top =    theme_render(theme, "axis.ticks.x", at, 0, at, length),
-    bottom = theme_render(theme, "axis.ticks.x", at, one - length, at, 1),
-    right =  theme_render(theme, "axis.ticks.y", 0, at, length, at),
-    left =   theme_render(theme, "axis.ticks.y", one - length, at, 1, at)
+    top =    theme_render(theme, "axis.ticks", at, 0, at, length),
+    bottom = theme_render(theme, "axis.ticks", at, one - length, at, 1),
+    right =  theme_render(theme, "axis.ticks", 0, at, length, at),
+    left =   theme_render(theme, "axis.ticks", one - length, at, 1, at)
   )
 
   fg <- ggname("axis", switch(position,
