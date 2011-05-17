@@ -42,13 +42,19 @@
 scale_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "rgb") {
   continuous_scale("colour", "gradient2",
     div_gradient_pal(low, mid, high, space), ...,
-    rescale = rescale_mid(mid = midpoint))
+    rescale = mid_rescaler(mid = midpoint))
 }
 
 scale_fill_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "rgb") {
   continuous_scale("fill", "gradient2", 
     div_gradient_pal(low, mid, high, space), ...,
-    rescale = rescale_mid(mid = midpoint))
+    rescale = mid_rescaler(mid = midpoint))
+}
+
+mid_rescaler <- function(mid) {
+  function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
+    rescale_mid(x, to, from, mid)
+  }
 }
 
 icon.fill_gradient2 <- function(.) {
