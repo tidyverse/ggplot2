@@ -6,7 +6,7 @@
 #' @examples
 #' # See stat_contour for examples
 GeomContour <- proto(GeomPath, {
-  objname <- "contoue"
+  objname <- "contour"
 
   icon <- function(.) {
     ggname(.$my_name(), gTree(children=gList(
