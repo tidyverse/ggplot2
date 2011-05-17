@@ -130,9 +130,16 @@ guides_geom <- function(gdefs, layers, default_mapping) {
   lapply(gdefs, guide_geom, layers, default_mapping)
 }
 
-
 ## generate grob from each gdef (needs to write this function?)
 guides_gengrob <- function(gdefs, theme) {
+  ## common drawing process for all guides
+  gdefs <- lapply(gdefs,
+    function(g) {
+      g$title.position <- g$title.position %||% switch(g$direction, vertical="top", horizontal="left")
+      if (!g$title.position %in% c("top", "bottom", "left", "right")) stop("title position \"", g$title.position, "\" is invalid")
+      g
+    })
+  
   lapply(gdefs, guide_gengrob, theme)
 }
 

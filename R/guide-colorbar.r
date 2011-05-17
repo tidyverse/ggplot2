@@ -124,18 +124,12 @@ guide_gengrob.colorbar <- function(guide, theme) {
       label.position <- guide$label.position %||% "bottom"
       if (!label.position %in% c("top", "bottom")) stop("label position \"", label.position, "\" is invalid")
   
-      title.position <- guide$title.position %||% "left"
-      if (!title.position %in% c("top", "bottom", "left", "right")) stop("title position \"", title.position, "\" is invalid")
-  
       barwidth <- convertWidth(guide$barwidth %||% (theme$legend.key.width * 5), "mm")
       barheight <- convertHeight(guide$barheight %||% theme$legend.key.height, "mm")
     },
     "vertical" = {
       label.position <- guide$label.position %||% "right"
       if (!label.position %in% c("left", "right")) stop("label position \"", label.position, "\" is invalid")
-      
-      title.position <- guide$title.position %||% "top"
-      if (!title.position %in% c("top", "bottom", "left", "right")) stop("title position \"", title.position, "\" is invalid")
       
       barwidth <- convertWidth(guide$barwidth %||% theme$legend.key.width, "mm")
       barheight <- convertHeight(guide$barheight %||% (theme$legend.key.height * 5), "mm")
@@ -256,7 +250,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
     })
 
   ## layout of title and bar+label
-  switch(title.position,
+  switch(guide$title.position,
     "top" = {
       widths <- c(hgap, bl_widths, max(hgap, title_width.c-sum(bl_widths)))
       heights <- c(vgap, title_height.c, vgap, bl_heights, vgap)

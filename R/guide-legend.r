@@ -148,9 +148,6 @@ guide_gengrob.legend <- function(guide, theme) {
   label.position <- guide$label.position %||% "right"
   if (!label.position %in% c("top", "bottom", "left", "right")) stop("label position \"", label.position, "\" is invalid")
   
-  title.position <- guide$title.position %||% switch(guide$direction, vertical="top", horizontal="left")
-  if (!title.position %in% c("top", "bottom", "left", "right")) stop("title position \"", title.position, "\" is invalid")
-  
   nbreak <- nrow(guide$key)
 
   ## gap between keys etc
@@ -285,7 +282,7 @@ guide_gengrob.legend <- function(guide, theme) {
     })
 
   ## layout the title over key-label
-  switch(title.position,
+  switch(guide$title.position,
     "top" = {
       widths <- c(hgap, kl_widths, max(hgap, title_width.c-sum(kl_widths)))
       heights <- c(vgap, title_height.c, vgap, kl_heights, vgap)
