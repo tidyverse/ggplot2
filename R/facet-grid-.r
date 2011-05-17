@@ -124,6 +124,7 @@ FacetGrid <- proto(Facet, {
         margins=.$margins, fill = list(data.frame()), add.missing = TRUE)
       force_matrix(df)
     })
+    data
   }
   
   # Create grobs for each component of the panel guides
