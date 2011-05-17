@@ -245,7 +245,7 @@ Layer <- proto(expr = {
     })
   }
 
-  adjust_position <- function(., data, scales) {
+  adjust_position <- function(., data) {
     gg_apply(data, function(df) {
       if (empty(df)) return(data.frame())
       if (is.null(df$group)) df$group <- 1
@@ -257,7 +257,7 @@ Layer <- proto(expr = {
       }
 
       df <- df[order(df$group), ]
-      .$position$adjust(df, scales)
+      .$position$adjust(df)
     })
   }
   

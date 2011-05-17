@@ -31,7 +31,7 @@ ggplot_build <- function(plot) {
   data <- dlapply(function(d, p) p$reparameterise(d))
 
   # Adjust position
-  data <- dlapply(function(d, p) p$adjust_position(d, scales))
+  data <- dlapply(function(d, p) p$adjust_position(d))
     
   # Train and map scales for legends
   npscales <- scales$non_position_scales()

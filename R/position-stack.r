@@ -26,7 +26,7 @@
 PositionStack <- proto(Position, {
   objname <- "stack"
 
-  adjust <- function(., data, scales) {
+  adjust <- function(., data) {
     if (empty(data)) return(data.frame())
     
     if (is.null(data$ymax) && is.null(data$y)) {

@@ -17,7 +17,7 @@
 PositionFill <- proto(Position, {
   objname <- "fill"
 
-  adjust <- function(., data, scales) {
+  adjust <- function(., data) {
     if (empty(data)) return(data.frame())
     
     check_required_aesthetics(c("x", "ymax"), names(data), "position_fill")
