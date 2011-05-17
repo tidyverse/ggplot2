@@ -40,7 +40,10 @@ ggplot_build <- function(plot) {
     data <- dlapply(function(d, p) p$scales_map(d, npscales))
   }
   
-  # Train and map position scales
+  # Reset position scales, then re-train and map.  This ensures that facets
+  # have control over the range of a plot: is it generated from what's 
+  # displayed, or does it include the range of underlying data
+  facet$position_reset() 
   facet$position_train(data, scales)
   data <- facet$position_map(data, scales)
   

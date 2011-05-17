@@ -102,6 +102,12 @@ scale_train.discrete <- function(scale, x) {
   scale$range$train(x, drop = scale$drop)
 }
 
+# Reset scale, untraining ranges
+scale_reset <- function(scale, x) UseMethod("scale_reset")
+scale_reset.default <- function(scale, x) {
+  scale$range$reset()
+}
+
 # @return list of transformed variables
 scale_transform_df <- function(scale, df) {
   if (empty(df)) return()

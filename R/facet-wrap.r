@@ -47,7 +47,7 @@
 FacetWrap <- proto(Facet, {
   objname <- "wrap"
 
-  new <- function(., facets, nrow = NULL, ncol = NULL, scales = "fixed", as.table = TRUE, drop = TRUE) {
+  new <- function(., facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, as.table = TRUE, drop = TRUE) {
     scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
     free <- list(
       x = any(scales %in% c("free_x", "free")),
@@ -55,7 +55,7 @@ FacetWrap <- proto(Facet, {
     )
     
     .$proto(
-      facets = as.quoted(facets), free = free, 
+      facets = as.quoted(facets), free = free, shrink = shrink,
       scales = NULL, as.table = as.table, drop = drop,
       ncol = ncol, nrow = nrow
     )
