@@ -11,10 +11,6 @@
 #'   scale_color_hue
 #'   scale_color_identity
 #'   scale_color_manual
-#'   scale_size
-#'   scale_linetype
-#'   scale_alpha_continuous
-#'   scale_shape
 #'   coord_equal
 NULL
 
@@ -35,10 +31,5 @@ scale_color_hue <- scale_colour_hue
 scale_color_identity <- scale_colour_identity
 scale_color_manual <- scale_colour_manual
 
-# Single name scales
-scale_size <- scale_size_continuous
-scale_linetype <- scale_linetype_discrete
-scale_alpha_continuous <- scale_alpha
-scale_shape <- scale_shape_discrete
-
+# Old names
 coord_equal <- coord_fixed

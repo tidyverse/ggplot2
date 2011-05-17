@@ -2,7 +2,7 @@
 #' 
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
-#' @export
+#' @export scale_size scale_size_continuous
 #' @examples
 #' (p <- qplot(mpg, cyl, data=mtcars, size=cyl))
 #' p + scale_size("cylinders")
