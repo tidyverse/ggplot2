@@ -28,7 +28,7 @@ summary.ggplot <- function(object, ...) {
     cat("mapping:  ", clist(object$mapping), "\n", sep="")    
   }
   if (object$scales$n() > 0) {
-    cat("scales:  ", paste(object$scales$output(), collapse = ", "), "\n")
+    cat("scales:  ", paste(object$scales$input(), collapse = ", "), "\n")
   }
   
   cat("faceting: ")

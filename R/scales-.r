@@ -16,6 +16,9 @@ Scales <- setRefClass("Scales", fields = "scales", methods = list(
   clone = function() {
     Scales$new(scales)
   },
+  n = function() {
+    length(scales)
+  },
   input = function() {
     unlist(lapply(scales, "[[", "aesthetics"))
   }, 
