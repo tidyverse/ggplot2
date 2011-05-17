@@ -67,6 +67,12 @@ scale_train.position_d <- function(scale, x) {
   }
 }
 
+scale_reset.position_d <- function(scale, x) {
+  # Can't reset discrete scale because no way to recover values
+  scale$range_c$reset()
+}
+
+
 #' @S3method scale_map position_d
 scale_map.position_d <- function(scale, x) {
   if (is.discrete(x)) {

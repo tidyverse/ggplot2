@@ -5,7 +5,8 @@
 #' @export
 #' @examples
 #' # See ?geom_bar and ?geom_area for more examples
-#' ggplot(mtcars, aes(x=factor(cyl), fill=factor(vs))) + geom_bar(position="fill")
+#' ggplot(mtcars, aes(x=factor(cyl), fill=factor(vs))) +
+#'   geom_bar(position="fill")
 #'   
 #' cde <- geom_histogram(position="fill", binwidth = 500)
 #'   
@@ -16,11 +17,8 @@
 PositionFill <- proto(Position, {
   objname <- "fill"
 
-  adjust <- function(., data, scales) {
+  adjust <- function(., data) {
     if (empty(data)) return(data.frame())
-    
-    y <- scales$get_scales("y")
-    y$limits <- c(0, 1)
     
     check_required_aesthetics(c("x", "ymax"), names(data), "position_fill")
     if (!all(data$ymin == 0)) warning("Filling not well defined when ymin != 0")

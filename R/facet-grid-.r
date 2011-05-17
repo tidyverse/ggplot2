@@ -83,7 +83,7 @@
 FacetGrid <- proto(Facet, {
   objname <- "grid"
 
-  new <- function(., facets = . ~ ., margins = FALSE, scales = "fixed", space = "fixed", labeller = "label_value", as.table = TRUE, widths = NULL, heights = NULL) {
+  new <- function(., facets = . ~ ., margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, widths = NULL, heights = NULL) {
     scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
     free <- list(
       x = any(scales %in% c("free_x", "free")),
@@ -94,7 +94,7 @@ FacetGrid <- proto(Facet, {
     if (is.formula(facets)) facets <- deparse(facets) 
     .$proto(
       facets = facets, margins = margins,
-      free = free, space_is_free = (space == "free"),
+      free = free, space_is_free = (space == "free"), shrink = shrink,
       scales = NULL, labeller = list(labeller), as.table = as.table,
       space_widths = widths, space_heights = heights
     )
@@ -105,7 +105,6 @@ FacetGrid <- proto(Facet, {
     setdiff(vars, c(".", "..."))
   }
   
-  
   # Initialisation  
   initialise <- function(., data) {
     .$facet_levels <- unique(
@@ -114,7 +113,6 @@ FacetGrid <- proto(Facet, {
     .$shape <- stamp(.$facet_levels, .$facets, margins = .$margins,
       function(x) 0)
   }
-
   
   stamp_data <- function(., data) {
     data <- add_missing_levels(data, .$facet_levels)
@@ -321,7 +319,7 @@ FacetGrid <- proto(Facet, {
       }
     })
   }
-  
+    
   position_map <- function(., data, scales) {
     lapply(data, function(l) {
       for(i in seq_along(.$scales$x)) {

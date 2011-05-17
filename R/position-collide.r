@@ -66,6 +66,7 @@ pos_stack <- function(df, width) {
   within(df, {
     ymin <- heights[-n]
     ymax <- heights[-1]
+    y <- ymax
   })
 }
 
@@ -75,6 +76,7 @@ pos_fill <- function(df, width) {
   within(pos_stack(df, width), {
     ymin <- ymin / max(ymax)
     ymax <- ymax / max(ymax)
+    y <- ymax
   })
 }
 
