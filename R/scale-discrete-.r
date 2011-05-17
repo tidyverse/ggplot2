@@ -1,79 +1,95 @@
-ScaleDiscrete <- proto(Scale, expr={
-  .domain <- c()
-  max_levels <- function(.) Inf
-  .expand <- c(0, 0.05)
-  .labels <- NULL
-  doc <- FALSE
-
-  discrete <- function(.) TRUE
-
-  new <- function(., name=NULL, variable=.$.input, expand = c(0.05, 0.55), limits = NULL, breaks = NULL, labels = NULL, formatter = identity, drop = FALSE, legend = TRUE) {
+#' Discrete position.
+#'
+#' You can use continuous positions even with a discrete position scale - 
+#' this allows you (e.g.) to place labels between bars in a bar chart.
+#' Continuous positions are numeric values starting at one for the first
+#' level, and increasing by one for each level (i.e. the labels are placed
+#' at integer positions).  This is what allows jittering to work.
+#'
+#' @export scale_x_discrete scale_y_discrete
+#' @examples
+#' qplot(cut, data=diamonds, stat="bin")
+#' qplot(cut, data=diamonds, geom="bar")
+#' 
+#' # The discrete position scale is added automatically whenever you
+#' # have a discrete position.
+#' 
+#' (d <- qplot(cut, clarity, data=subset(diamonds, carat > 1), geom="jitter"))
+#' 
+#' d + scale_x_discrete("Cut")
+#' d + scale_x_discrete("Cut", labels = c("Fair" = "F","Good" = "G",
+#'   "Very Good" = "VG","Perfect" = "P","Ideal" = "I"))
+#' 
+#' d + scale_y_discrete("Clarity")
+#' d + scale_x_discrete("Cut") + scale_y_discrete("Clarity")
+#' 
+#' # Use limits to adjust the which levels (and in what order)
+#' # are displayed
+#' d + scale_x_discrete(limits=c("Fair","Ideal"))
+#' 
+#' # you can also use the short hand functions xlim and ylim
+#' d + xlim("Fair","Ideal", "Good")
+#' d + ylim("I1", "IF")
+#' 
+#' # See ?reorder to reorder based on the values of another variable
+#' qplot(manufacturer, cty, data=mpg)
+#' qplot(reorder(manufacturer, cty), cty, data=mpg)
+#' qplot(reorder(manufacturer, displ), cty, data=mpg)
+#' 
+#' # Use abbreviate as a formatter to reduce long names
+#' qplot(reorder(manufacturer, cty), cty, data=mpg) +  
+#'   scale_x_discrete(labels = abbreviate)
+scale_x_discrete <- function(..., expand = c(0, 0.5)) {
+  sc <- discrete_scale(c("x", "xmin", "xmax", "xend"), "position_d", identity, ..., 
+    expand = expand, legend = FALSE)
     
-    b_and_l <- check_breaks_and_labels(breaks, labels)
-    
-    .$proto(name=name, .input=variable, .output=variable, .expand = expand, .labels = b_and_l$labels, limits = limits, breaks = b_and_l$breaks, formatter = formatter, drop = drop, legend = legend)
-  }
+  sc$range_c <- ContinuousRange$new()
+  sc
+}
+scale_y_discrete <- function(..., expand = c(0, 0.5)) {
+  sc <- discrete_scale(c("y", "ymin", "ymax", "yend"), "position_d", identity, ..., 
+    expand = expand, legend = FALSE)
+  sc$range_c <- ContinuousRange$new()
+  sc  
+}
 
-  # Range -------------------
-  map <- function(., values) {
-    .$check_domain()
-    .$output_set()[match(as.character(values), .$input_set())]
-  }
+# The discrete position scale maintains two separate ranges - one for
+# continuous data and one for discrete data.  This complicates training and
+# mapping, but makes it possible to place objects at non-integer positions,
+# as is necessary for jittering etc.
 
-  input_breaks <- function(.) nulldefault(.$breaks, .$input_set())
-  input_breaks_n <- function(.) match(.$input_breaks(), .$input_set())
+#' @S3method scale_train position_d
+scale_train.position_d <- function(scale, x) {
+  if (is.discrete(x)) {
+    scale$range$train(x, drop = scale$drop)
+  } else {
+    scale$range_c$train(x)
+  }
+}
+
+#' @S3method scale_map position_d
+scale_map.position_d <- function(scale, x) {
+  if (is.discrete(x)) {
+    limits <- scale_limits(scale)
+    seq_along(limits)[match(as.character(x), limits)]
+  } else {
+    x
+  }
+}
+
+#' @S3method scale_dimension position_d
+scale_dimension.position_d <- function(scale, expand = scale$expand) {
+  disc_range <- c(1, length(scale_limits(scale)))
+  disc <- expand_range(disc_range, 0, expand[2], expand[2])
+  cont <- expand_range(scale$range_c$range, expand[1], 0, expand[2])
   
-  labels <- function(.) {
-    if (!is.null(.$.labels)) return(as.list(.$.labels))
-    
-    f <- match.fun(get("formatter", .))
-    as.list(f(.$input_breaks()))
-  }
+  range(disc, cont)
+}
+
+scale_clone.position_d <- function(scale) {
+  new <- scale
+  new$range <- DiscreteRange$new()  
+  new$range_c <- ContinuousRange$new()  
   
-  output_set <- function(.) seq_along(.$input_set())
-  output_breaks <- function(.) .$map(.$input_breaks())
-
-
-  # Domain ------------------------------------------------
-  
-  transform_df <- function(., df) {
-    NULL
-  }
-
-  # Override default behaviour: we do need to train, even if limits
-  # have been set
-  train_df <- function(., df, drop = FALSE) {
-    if (empty(df)) return() 
-    if (!is.null(.$limits)) return()
-    
-    input <- .$input_aesthetics(df)
-    l_ply(input, function(var) .$train(df[[var]], drop))
-  }
-
-  train <- function(., x, drop = .$drop) {
-    if (is.null(x)) return()
-    if (!is.discrete(x)) {
-      stop("Continuous variable (", .$name , ") supplied to discrete ",
-       .$my_name(), ".", call. = FALSE) 
-    }
-    
-    .$.domain <- discrete_range(.$.domain, x, drop = drop)
-  }
-
-  check_domain <- function(.) {
-    d <- .$input_set()
-    if (length(d) > .$max_levels()) {
-      stop(.$my_name(), " can deal with a maximum of ", .$max_levels(), " discrete values, but you have ", length(d), ".  See ?scale_manual for a possible alternative", call. = FALSE)
-    }  
-  }
-  
-  # Guides
-  # -------------------
-
-  minor_breaks <- function(.) NA
-  
-  # Documentation
-  objname <- "discrete"
-  
-
-})
+  new
+}

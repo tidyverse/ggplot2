@@ -4,8 +4,8 @@
 #
 # If there is only one unique value, then the resolution is defined to be one. 
 # 
-# @arguments numeric vector
-# @arguments should a zero value be automatically included in the computation of resolution
+# @param numeric vector
+# @param should a zero value be automatically included in the computation of resolution
 # @keyword hplot
 # @keyword internal 
 #X resolution(1:10)

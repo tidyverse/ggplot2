@@ -1,11 +1,8 @@
-# Email Paul:  absolute vs relative grobs
-# Exact grob heights
-# Computing max and min at creation where possible
-
-# Theme element: blank
-# This theme element draws nothing, and assigns no space
-# 
-# @keyword dplot
+#' Theme element: blank.
+#' This theme element draws nothing, and assigns no space
+#' 
+#' @keywords dplot
+#' @export
 theme_blank <- function() {
   structure(
     function(...) zeroGrob(),
@@ -15,17 +12,17 @@ theme_blank <- function() {
   )  
 }
 
-# Theme element: rectangle
-# This element draws a rectangular box
-# 
-# This is most often used for backgrounds and borders
-# 
-# @seealso \code{\link{rectGrob}} for underlying grid function
-# @arguments fill colour
-# @arguments border color
-# @arguments border size
-# @arguments border linetype
-# @keyword dplot
+#' Theme element: rectangle.
+#' 
+#' Most often used for backgrounds and borders.
+#' 
+#' @seealso \code{\link{rectGrob}} for underlying grid function
+#' @param fill fill colour
+#' @param colour border color
+#' @param size border size
+#' @param linetype border linetype
+#' @keywords dplot
+#' @export
 theme_rect <- function(fill = NA, colour = "black", size = 0.5, linetype = 1) {
   structure(
     function(x = 0.5, y = 0.5, width = 1, height = 1, ...) {
@@ -40,14 +37,17 @@ theme_rect <- function(fill = NA, colour = "black", size = 0.5, linetype = 1) {
   )
 }
 
-# Theme element: line
-# This element draws a line between two (or more) points
-# 
-# @seealso \code{\link{polylineGrob}} for underlying grid function, \code{link{theme_segment}}
-# @arguments line color
-# @arguments line size
-# @arguments line type
-# @keyword dplot
+#' Theme element: line.
+#'
+#' This element draws a line between two (or more) points
+#' 
+#' @seealso \code{\link{polylineGrob}} for underlying grid function,
+#'  \code{link{theme_segment}}
+#' @param colour line color
+#' @param size line size
+#' @param type line type
+#' @keywords dplot
+#' @export
 theme_line <- function(colour = "black", size = 0.5, linetype = 1) {
   structure(
     function(x = 0:1, y = 0:1, ..., default.units = "npc") {
@@ -62,14 +62,17 @@ theme_line <- function(colour = "black", size = 0.5, linetype = 1) {
   )
 }
 
-# Theme element: segments
-# This element draws segments between a set of points
-# 
-# @seealso \code{\link{segmentsGrob}} for underlying grid function, \code{link{theme_line}}
-# @arguments line color
-# @arguments line size
-# @arguments line type
-# @keyword dplot
+#' Theme element: segments.
+#'
+#' This element draws segments between a set of points
+#' 
+#' @seealso \code{\link{segmentsGrob}} for underlying grid function,
+#'   \code{link{theme_line}}
+#' @param colour line color
+#' @param size line size
+#' @param linetype line type
+#' @keywords dplot
+#' @export
 theme_segment <- function(colour = "black", size = 0.5, linetype = 1) {
   structure(
     function(x0 = 0, y0 = 0, x1 = 1, y1 = 1, ...) {
@@ -85,19 +88,19 @@ theme_segment <- function(colour = "black", size = 0.5, linetype = 1) {
 }
 
 
-# Theme element: text
-# This element adds text
-# 
-# @seealso \code{\link{textGrob}} for underlying grid function
-# @arguments font family
-# @arguments font face ("plain", "italic", "bold")
-# @arguments text colour
-# @arguments text size (in pts)
-# @arguments horizontal justification (in [0, 1])
-# @arguments vertical justification (in [0, 1])
-# @arguments angle (in [0, 360])
-# @arguments line height
-# @keyword dplot
+#' Theme element: text.
+#' 
+#' @seealso \code{\link{textGrob}} for underlying grid function
+#' @param family font family
+#' @param face font face ("plain", "italic", "bold")
+#' @param colour text colour
+#' @param size text size (in pts)
+#' @param hjust horizontal justification (in [0, 1])
+#' @param vjust vertical justification (in [0, 1])
+#' @param angle angle (in [0, 360])
+#' @param lineheight line height
+#' @keywords dplot
+#' @export
 theme_text <- function(family = "", face = "plain", colour = "black", size = 10, hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1.1) {
 
   vj <- vjust

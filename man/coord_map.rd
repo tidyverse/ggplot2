@@ -1,32 +1,30 @@
 \name{coord_map}
 \alias{coord_map}
-\alias{CoordMap}
-\title{coord\_map}
-\description{Map projections}
+\title{Map projections.}
+
+\description{
+  Map projections.
+}
+
 \details{
-This coordinate system provides the full range of map projections available in the mapproj package.
+  This coordinate system provides the full range of map
+  projections available in the mapproj package.
 
-
-This is still experimental, and if you have any advice to offer regarding a better (or more correct) way to do this, please let me know
-
-This page describes coord\_map, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+  This is still experimental, and if you have any advice to
+  offer regarding a better (or more correct) way to do
+  this, please let me know
 }
-\usage{coord_map(projection = "mercator", orientation = NULL, xlim = NULL, 
-    ylim = NULL, fast = TRUE, ...)}
 \arguments{
- \item{projection}{projection to use, see ?mapproject for complete list}
- \item{orientation}{orientation, which defaults to c(90, 0, mean(range(x))).  This is not optimal for many projections, so you will have to supply your own.}
- \item{xlim}{x limits}
- \item{ylim}{y limits}
- \item{fast}{NULL}
- \item{...}{other arguments passed on to mapproject}
+  \item{projection}{projection to use, see \code{\link{mapproject}} for
+list}
+  \item{...}{other arguments passed on to \code{\link{mapproject}}}
+  \item{orientation}{projection orientation, which defaults to 
+\code{c(90, 0, mean(range(x)))}.  This is not optimal for many
+projections, so you will have to supply your own.}
+  \item{xlim}{manually specific x limits (in degrees of lontitude)}
+  \item{ylim}{manually specific y limits (in degrees of latitude)}
 }
-\seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot2/coord_map.html}
-}}
-\value{A \code{\link{layer}}}
-\examples{\dontrun{
-try_require("maps")
+\examples{try_require("maps")
 # Create a lat-long dataframe from the maps package
 nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
 (nzmap <- qplot(x, y, data=nz, geom="path"))
@@ -48,7 +46,4 @@ usamap + coord_map(project="lagrange")
 usamap + coord_map(project="orthographic")
 usamap + coord_map(project="stereographic")
 usamap + coord_map(project="conic", lat0 = 30)
-usamap + coord_map(project="bonne", lat0 = 50)
-}}
-\author{Hadley Wickham, \url{http://had.co.nz/}}
-\keyword{hplot}
+usamap + coord_map(project="bonne", lat0 = 50)}

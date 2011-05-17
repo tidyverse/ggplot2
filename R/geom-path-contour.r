@@ -1,6 +1,13 @@
+#' Display contours of a 3d surface in 2d.
+#'
+#' @name geom_contour
+#' @seealso \code{\link{geom_density2d}}: 2d density contours
+#' @export
+#' @examples
+#' # See stat_contour for examples
 GeomContour <- proto(GeomPath, {
   objname <- "contour"
-  desc <- "Display contours of a 3d surface in 2d"
+
   icon <- function(.) {
     ggname(.$my_name(), gTree(children=gList(
       polygonGrob(c(0.45,0.5,0.6, 0.5), c(0.5, 0.4, 0.55, 0.6)),
@@ -9,14 +16,6 @@ GeomContour <- proto(GeomPath, {
   }
   default_aes <- function(.) aes(weight=1, colour="#3366FF", size = 0.5, linetype = 1, alpha = 1)
 
-  default_stat <- function(.) StatContour
-  seealso <- list(
-    geom_density2d = "Draw 2d density contours"
-  )
-  examples <- function(.) {
-    # See stat_contour for examples
-  }
-  
+  default_stat <- function(.) StatContour  
 })
-
 

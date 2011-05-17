@@ -1,6 +1,18 @@
+#' An interval represented by a vertical line, with a point in the middle.
+#' 
+#' @name geom_pointrange
+#' @seealso
+#'  \code{\link{geom_errorbar}} for error bars,
+#'  \code{\link{geom_linerange}} for range indicated by straight line, + examples,
+#'  \code{\link{geom_crossbar}} for hollow bar with middle indicated by horizontal line,
+#'  \code{\link{stat_summary}} for examples of these guys in use,
+#'  \code{\link{geom_smooth}} for continuous analog"
+#' @export
+#' @examples
+#' # See geom_linerange for examples
 GeomPointrange <- proto(Geom, {
   objname <- "pointrange"
-  desc <- "An interval represented by a vertical line, with a point in the middle"
+
   icon <- function(.) {
     gTree(children=gList(
       segmentsGrob(c(0.3, 0.7), c(0.1, 0.2), c(0.3, 0.7), c(0.7, 0.95)),
@@ -8,13 +20,6 @@ GeomPointrange <- proto(Geom, {
     ))
   }
   
-  seealso <- list(
-    "geom_errorbar" = "error bars",
-    "geom_linerange" = "range indicated by straight line, + examples",
-    "geom_crossbar" = "hollow bar with middle indicated by horizontal line",
-    "stat_summary" = "examples of these guys in use",
-    "geom_smooth" = "for continuous analog"
-  )
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, shape=16, fill=NA, alpha = 1)
   guide_geom <- function(.) "pointrange"
@@ -35,11 +40,6 @@ GeomPointrange <- proto(Geom, {
       GeomPath$draw_legend(data, ...),
       GeomPoint$draw_legend(transform(data, size = size * 4), ...)
     )
-  }
-  
-  
-  examples <- function(.) {
-    # See geom_linerange for examples
   }
   
 })

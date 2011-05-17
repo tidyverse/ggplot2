@@ -1,4 +1,52 @@
+#' Wrap a 1d ribbon of panels into 2d.
+#' 
+#' @name facet_wrap
+#' @param nrow number of rows
+#' @param ncol number of columns
+#' @param facet formula specifying variables to facet by
+#' @param scales should scales be fixed, free, or free in one dimension
+#'   (\code{free_x}, \code{free_y})
+#' @export
+#' @examples
+#' d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) + 
+#'   xlim(0, 2) + stat_binhex(na.rm = TRUE) + opts(aspect.ratio = 1)
+#' d + facet_wrap(~ color)
+#' d + facet_wrap(~ color, ncol = 1)
+#' d + facet_wrap(~ color, ncol = 4)
+#' d + facet_wrap(~ color, nrow = 1)
+#' d + facet_wrap(~ color, nrow = 3)
+#' 
+#' # Using multiple variables continues to wrap the long ribbon of 
+#' # plots into 2d - the ribbon just gets longer
+#' # d + facet_wrap(~ color + cut)
+#' 
+#' # You can choose to keep the scales constant across all panels
+#' # or vary the x scale, the y scale or both:
+#' p <- qplot(price, data = diamonds, geom = "histogram", binwidth = 1000)
+#' p + facet_wrap(~ color)
+#' p + facet_wrap(~ color, scales = "free_y")
+#' 
+#' p <- qplot(displ, hwy, data = mpg)
+#' p + facet_wrap(~ cyl)
+#' p + facet_wrap(~ cyl, scales = "free") 
+#' 
+#' # Add data that does not contain all levels of the faceting variables
+#' cyl6 <- subset(mpg, cyl == 6)
+#' p + geom_point(data = cyl6, colour = "red", size = 1) + 
+#'   facet_wrap(~ cyl)
+#' p + geom_point(data = transform(cyl6, cyl = 7), colour = "red") + 
+#'   facet_wrap(~ cyl)
+#' p + geom_point(data = transform(cyl6, cyl = NULL), colour = "red") + 
+#'   facet_wrap(~ cyl)
+#' 
+#' # By default, any empty factor levels will be dropped
+#' mpg$cyl2 <- factor(mpg$cyl, levels = c(2, 4, 5, 6, 8, 10))
+#' qplot(displ, hwy, data = mpg) + facet_wrap(~ cyl2)
+#' # Use drop = FALSE to force their inclusion
+#' qplot(displ, hwy, data = mpg) + facet_wrap(~ cyl2, drop = FALSE)
 FacetWrap <- proto(Facet, {
+  objname <- "wrap"
+
   new <- function(., facets, nrow = NULL, ncol = NULL, scales = "fixed", as.table = TRUE, drop = TRUE) {
     scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
     free <- list(
@@ -71,8 +119,8 @@ FacetWrap <- proto(Facet, {
 
     for (i in seq_len(n)) {
       scales <- list(
-        x = .$scales$x[[i]]$clone(), 
-        y = .$scales$y[[i]]$clone()
+        x = .$scales$x[[i]], 
+        y = .$scales$y[[i]]
       ) 
       details <- coord$compute_ranges(scales)
       axes_h[[1, i]] <- coord$guide_axis_h(details, theme)
@@ -198,10 +246,10 @@ FacetWrap <- proto(Facet, {
 
     lapply(data, function(l) {
       for(i in seq_along(.$scales$x)) {
-        .$scales$x[[i]]$train_df(l[[i]], fr$x)
+        scale_train_df(.$scales$x[[i]], l[[i]])
       }
       for(i in seq_along(.$scales$y)) {
-        .$scales$y[[i]]$train_df(l[[i]], fr$y)
+        scale_train_df(.$scales$y[[i]], l[[i]])
       }
     })
   }
@@ -210,13 +258,18 @@ FacetWrap <- proto(Facet, {
     lapply(data, function(l) {
       for(i in seq_along(.$scales$x)) {
         l[1, i] <- lapply(l[1, i], function(old) {
-          new <- .$scales$x[[i]]$map_df(old)
-          if (!is.null(.$scales$y[[i]])) {
-            new <- cbind(new, .$scales$y[[i]]$map_df(old))
-          }
-          
-          
-          cunion(new, old)
+          if (is.null(old)) return(data.frame())
+          new <- scale_map_df(.$scales$x[[i]], old)
+          if (length(new) == 0) return(old)
+          cbind(new, old[setdiff(names(old), names(new))])
+        }) 
+      }
+      for(i in seq_along(.$scales$y)) {
+        l[1, i] <- lapply(l[1, i], function(old) {
+          if (is.null(old)) return(data.frame())
+          new <- scale_map_df(.$scales$y[[i]], old)
+          if (length(new) == 0) return(old)
+          cbind(new, old[setdiff(names(old), names(new))])
         }) 
       }
       l
@@ -231,9 +284,10 @@ FacetWrap <- proto(Facet, {
 
       for(i in seq_along(.$scales$x)) {
         scales <- list(
-          x = .$scales$x[[i]]$clone(), 
-          y = .$scales$y[[i]]$clone()
+          x = .$scales$x[[i]], 
+          y = .$scales$y[[i]]
         )
+
         details <- coord$compute_ranges(scales)
         grobs[[1, i]] <- layer$make_grob(layerd[[1, i]], details, coord)
       }
@@ -256,60 +310,6 @@ FacetWrap <- proto(Facet, {
       }
       data_out
     })
-  }
-  
-
-  # Documentation ------------------------------------------------------------
-
-  objname <- "wrap"
-  desc <- "Wrap a 1d ribbon of panels into 2d."
-  
-  desc_params <- list(
-    nrow = "number of rows",
-    ncol = "number of columns", 
-    facet = "formula specifying variables to facet by",
-    scales = "should scales be fixed, free, or free in one dimension (\\code{free_x}, \\code{free_y}) "
-  )
-
-  
-  
-  examples <- function(.) {
-    d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) + 
-      xlim(0, 2) + stat_binhex(na.rm = TRUE) + opts(aspect.ratio = 1)
-    d + facet_wrap(~ color)
-    d + facet_wrap(~ color, ncol = 1)
-    d + facet_wrap(~ color, ncol = 4)
-    d + facet_wrap(~ color, nrow = 1)
-    d + facet_wrap(~ color, nrow = 3)
-    
-    # Using multiple variables continues to wrap the long ribbon of 
-    # plots into 2d - the ribbon just gets longer
-    # d + facet_wrap(~ color + cut)
-    
-    # You can choose to keep the scales constant across all panels
-    # or vary the x scale, the y scale or both:
-    p <- qplot(price, data = diamonds, geom = "histogram", binwidth = 1000)
-    p + facet_wrap(~ color)
-    p + facet_wrap(~ color, scales = "free_y")
-    
-    p <- qplot(displ, hwy, data = mpg)
-    p + facet_wrap(~ cyl)
-    p + facet_wrap(~ cyl, scales = "free") 
-    
-    # Add data that does not contain all levels of the faceting variables
-    cyl6 <- subset(mpg, cyl == 6)
-    p + geom_point(data = cyl6, colour = "red", size = 1) + 
-      facet_wrap(~ cyl)
-    p + geom_point(data = transform(cyl6, cyl = 7), colour = "red") + 
-      facet_wrap(~ cyl)
-    p + geom_point(data = transform(cyl6, cyl = NULL), colour = "red") + 
-      facet_wrap(~ cyl)
-    
-    # By default, any empty factor levels will be dropped
-    mpg$cyl2 <- factor(mpg$cyl, levels = c(2, 4, 5, 6, 8, 10))
-    qplot(displ, hwy, data = mpg) + facet_wrap(~ cyl2)
-    # Use drop = FALSE to force their inclusion
-    qplot(displ, hwy, data = mpg) + facet_wrap(~ cyl2, drop = FALSE)
   }
   
   pprint <- function(., newline=TRUE) {

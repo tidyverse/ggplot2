@@ -18,18 +18,6 @@ TopLevel$accessors <- function(.) {
 TopLevel$create_accessor <- function(.) {
   paste(.$my_name(), " <- ", .$myName(), "$build_accessor()\n", sep="")
 }
-Scale$create_accessor <- function(.) {
-  if (is.null(.$common)) {
-    var <- NULL
-    short <- paste(.$class(), .$objname, sep="_")
-  } else {
-    var <- paste("list(variable = \"\\\"", .$common, "\\\"\")", sep="")
-    short <- paste(.$class(), .$common, .$objname, sep="_")
-  }
-
-  paste(short, " <- ", .$myName(), "$build_accessor(", var, ")\n", sep="")
-}
-
 
 TopLevel$build_accessor <- function(., extra_args = c()) {
   layer <- if (.$class() %in% c("geom","stat")) c(
@@ -55,6 +43,6 @@ TopLevel$build_accessor <- function(., extra_args = c()) {
   f <- function() {}
   formals(f) <- as.pairlist(c(args, alist(... =)))
   body(f) <- parse(text = body)
-  environment(f) <- globalenv()
+  environment(f) <- environment(ggplot)
   f
 }

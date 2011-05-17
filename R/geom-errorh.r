@@ -1,6 +1,25 @@
+#' Horizontal error bars
+#' 
+#' @name geom_errorbarh
+#' @seealso \code{\link{geom_errorbar}}: vertical error bars
+#' @param height height of errorbars
+#' @export
+#' @examples
+#' df <- data.frame(
+#'   trt = factor(c(1, 1, 2, 2)), 
+#'   resp = c(1, 5, 3, 4), 
+#'   group = factor(c(1, 2, 1, 2)), 
+#'   se = c(0.1, 0.3, 0.3, 0.2)
+#' )
+#' 
+#' # Define the top and bottom of the errorbars
+#' 
+#' p <- ggplot(df, aes(resp, trt, colour = group))
+#' p + geom_point() +
+#'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se))
 GeomErrorbarh <- proto(Geom, {
   objname <- "errorbarh"
-  desc <- "Horizontal error bars"
+
   icon <- function(.) {
     gTree(children=gList(
       segmentsGrob(c(0.5, 0.3), c(0.70, 0.30), c(0.9, 0.7), c(0.70, 0.30)),
@@ -22,15 +41,7 @@ GeomErrorbarh <- proto(Geom, {
       ymin = y - height / 2, ymax = y + height / 2, height = NULL
     )
   }
-
-  seealso <- list(
-    "geom_errorbar" = "vertical error bars"
-  )
-  desc_outputs <- list(
-    "height" = "height of errorbars"
-  )
   
-
   draw <- function(., data, scales, coordinates, height = NULL, ...) {
     GeomPath$draw(with(data, data.frame( 
       x = as.vector(rbind(xmax, xmax, NA, xmax, xmin, NA, xmin, xmin)),
@@ -45,19 +56,4 @@ GeomErrorbarh <- proto(Geom, {
     )), scales, coordinates, ...)
   }
   
-  examples <- function(.) {
-    df <- data.frame(
-      trt = factor(c(1, 1, 2, 2)), 
-      resp = c(1, 5, 3, 4), 
-      group = factor(c(1, 2, 1, 2)), 
-      se = c(0.1, 0.3, 0.3, 0.2)
-    )
-    
-    # Define the top and bottom of the errorbars
-    
-    p <- ggplot(df, aes(resp, trt, colour = group))
-    p + geom_point() +
-      geom_errorbarh(aes(xmax = resp + se, xmin = resp - se))
-      
-  }
 })
