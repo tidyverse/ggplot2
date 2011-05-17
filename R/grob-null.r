@@ -1,13 +1,10 @@
-# Zero grob
-# The zero grob draws nothing and has zero size.
-# 
-# @alias widthDetails.zeroGrob
-# @alias heightDetails.zeroGrob
-# @alias grobWidth.zeroGrob
-# @alias grobHeight.zeroGrob
-# @alias drawDetails.zeroGrob
-# @alias is.zero
-# @keyword internal
+#' The zero grob draws nothing and has zero size.
+#' 
+#' @S3method widthDetails zeroGrob
+#' @S3method heightDetails zeroGrob
+#' @S3method grobWidth zeroGrob
+#' @S3method grobHeight zeroGrob
+#' @S3method drawDetails zeroGrob
 zeroGrob <- function() .zeroGrob
 
 .zeroGrob <- grob(cl = "zeroGrob", name = "NULL")

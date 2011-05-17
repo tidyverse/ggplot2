@@ -1,13 +1,17 @@
-# Fortify a model with data
-# Generic method to supplement the original data with model fit statistics
-# 
-# @seealso \code{\link{fortify.lm}}
-# @alias fortify.data.frame
-# @alias fortify.NULL
-# @alias fortify.default
-# @arguments model
-# @arguments dataset
-# @arguments other arguments passed to methods
+#' Fortify a model with data.
+#'
+#' Method to convert a generic R object into a data frame useful for plotting. 
+#' Takes its name from the idea of fortifying the original data with model fit
+#' statistics, and vice versa.
+#' 
+#' @seealso \code{\link{fortify.lm}}
+#' @S3method fortify data.frame
+#' @S3method fortify NULL
+#' @S3method fortify default
+#' @param model model or other R object to convert to data frame
+#' @param data original dataset, if needed
+#' @param ... other arguments passed to methods
+#' @export 
 fortify <- function(model, data, ...) UseMethod("fortify")
 
 fortify.data.frame <- function(model, data, ...) model

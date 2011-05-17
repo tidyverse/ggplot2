@@ -18,7 +18,7 @@ geditGrob <- function(..., grep = TRUE, global = TRUE) {
 # Grob row heights
 # Given a matrix of grobs, calculate the height needed for each row
 # 
-# @arguments matrix of grobs
+# @param matrix of grobs
 # @keyword internal
 grobRowHeight <- function(mat) {
   row_heights <- alply(mat, 1, function(x) llply(x, grobHeight))
@@ -28,7 +28,7 @@ grobRowHeight <- function(mat) {
 # Grob column widths
 # Given a matrix of grobs, calculate the width needed for each column
 # 
-# @arguments matrix of grobs
+# @param matrix of grobs
 # @keyword internal
 grobColWidth <- function(mat) {
   col_widths <- alply(mat, 2, function(x) llply(x, grobWidth))
@@ -40,10 +40,10 @@ grobColWidth <- function(mat) {
 # 
 # Any missing cells at the end will be filled in with zeroGrobs.
 # 
-# @arguments vector of grobs
-# @arguments number of rows
-# @arguments number of columns
-# @arguments should the matrix be arranged like a table or a plot
+# @param vector of grobs
+# @param number of rows
+# @param number of columns
+# @param should the matrix be arranged like a table or a plot
 # @keyword internal
 grobMatrix <- function(vec, nrow, ncol, as.table = FALSE) {
   if (nrow == 0 || ncol == 0) {

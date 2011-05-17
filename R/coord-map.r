@@ -1,10 +1,50 @@
+#' Map projections.
+#' 
+#' This coordinate system provides the full range of map projections available
+#' in the mapproj package.
+#' 
+#' This is still experimental, and if you have any advice to offer regarding 
+#' a better (or more correct) way to do this, please let me know
+#' 
+#' @name coord_map
+#' @export
+#' @param projection projection to use, see \code{\link{mapproject}} for
+#'   list
+#' @param ... other arguments passed on to \code{\link{mapproject}}
+#' @param orientation projection orientation, which defaults to 
+#'  \code{c(90, 0, mean(range(x)))}.  This is not optimal for many
+#'  projections, so you will have to supply your own.
+#' @param xlim manually specific x limits (in degrees of lontitude)
+#' @param ylim manually specific y limits (in degrees of latitude)
+#' @export
+#' @examples
+#' try_require("maps")
+#' # Create a lat-long dataframe from the maps package
+#' nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
+#' (nzmap <- qplot(x, y, data=nz, geom="path"))
+#' 
+#' nzmap + coord_map()
+#' nzmap + coord_map(project="cylindrical")
+#' nzmap + coord_map(project='azequalarea',orientation=c(-36.92,174.6,0))
+#' 
+#' states <- data.frame(map("state", plot=FALSE)[c("x","y")])
+#' (usamap <- qplot(x, y, data=states, geom="path"))
+#' usamap + coord_map()
+#' # See ?mapproject for coordinate systems and their parameters
+#' usamap + coord_map(project="gilbert")
+#' usamap + coord_map(project="lagrange")
+#'
+#' # For most projections, you'll need to set the orientation yourself
+#' # as the automatic selection done by mapproject is not available to
+#' # ggplot
+#' usamap + coord_map(project="orthographic")
+#' usamap + coord_map(project="stereographic")
+#' usamap + coord_map(project="conic", lat0 = 30)
+#' usamap + coord_map(project="bonne", lat0 = 50)
 CoordMap <- proto(Coord, {  
-  new <- function(., projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL, fast = TRUE) {
-    if (!fast) {
-      warning("Fast parameter now ignored.  Munching always occurs", 
-        call. = FALSE)
-    }
-    
+  objname <- "map"
+
+  new <- function(., projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL) {    
     try_require("mapproj")
     .$proto(
       projection = projection, 
@@ -21,8 +61,8 @@ CoordMap <- proto(Coord, {
     trans <- .$mproject(data$x, data$y, details$orientation)
     out <- cunion(trans[c("x", "y")], data)
     
-    out$x <- rescale(out$x, 0:1, details$x.range, clip = FALSE)
-    out$y <- rescale(out$y, 0:1, details$y.range, clip = FALSE)
+    out$x <- rescale(out$x, 0:1, details$x.range)
+    out$y <- rescale(out$y, 0:1, details$y.range)
     out
   }
   
@@ -46,8 +86,8 @@ CoordMap <- proto(Coord, {
   }
 
   compute_ranges <- function(., scales) {
-    x.raw <- .$xlim %||% scales$x$output_expand()
-    y.raw <- .$ylim %||% scales$y$output_expand()
+    x.raw <- .$xlim %||% scale_dimension(scales$x)
+    y.raw <- .$ylim %||% scale_dimension(scales$y)
     orientation <- .$orientation %||% c(90, 0, mean(x.raw))
     
     # Increase chances of creating valid boundary region
@@ -58,14 +98,14 @@ CoordMap <- proto(Coord, {
     range <- .$mproject(grid$x, grid$y, orientation)$range
     
     x.range <- range[1:2]
-    x.major <- scales$x$input_breaks_n()
-    x.minor <- scales$x$output_breaks()
-    x.labels <- scales$x$labels()
+    x.major <- scale_breaks(scales$x)
+    x.minor <- scale_breaks_minor(scales$x)
+    x.labels <- scale_labels(scales$x, x.major)
 
     y.range <- range[3:4]
-    y.major <- scales$y$input_breaks_n()
-    y.minor <- scales$y$output_breaks()
-    y.labels <- scales$y$labels()
+    y.major <- scale_breaks(scales$y)
+    y.minor <- scale_breaks_minor(scales$y)
+    y.labels <- scale_labels(scales$y, y.major)
     
     list(
       x.raw = x.raw, y.raw = y.raw, orientation = orientation,
@@ -124,48 +164,11 @@ CoordMap <- proto(Coord, {
 
 
   # Documentation -----------------------------------------------
-
-  objname <- "map"
-  desc <- "Map projections"
   icon <- function(.) {
     nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
     nz$x <- nz$x - min(nz$x, na.rm=TRUE)
     nz$y <- nz$y - min(nz$y, na.rm=TRUE)
     nz <- nz / max(nz, na.rm=TRUE)
     linesGrob(nz$x, nz$y, default.units="npc")
-  }
-  
-  desc_params <- list(
-    "projection" = "projection to use, see ?mapproject for complete list",
-    "..." = "other arguments passed on to mapproject",
-    "orientation" = "orientation, which defaults to c(90, 0, mean(range(x))).  This is not optimal for many projections, so you will have to supply your own."
-  )
-  
-  details <- "<p>This coordinate system provides the full range of map projections available in the mapproj package.</p>\n\n<p>This is still experimental, and if you have any advice to offer regarding a better (or more correct) way to do this, please let me know</p>\n"
-  
-  examples <- function(.) {
-    try_require("maps")
-    # Create a lat-long dataframe from the maps package
-    nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
-    (nzmap <- qplot(x, y, data=nz, geom="path"))
-    
-    nzmap + coord_map()
-    nzmap + coord_map(project="cylindrical")
-    nzmap + coord_map(project='azequalarea',orientation=c(-36.92,174.6,0))
-    
-    states <- data.frame(map("state", plot=FALSE)[c("x","y")])
-    (usamap <- qplot(x, y, data=states, geom="path"))
-    usamap + coord_map()
-    # See ?mapproject for coordinate systems and their parameters
-    usamap + coord_map(project="gilbert")
-    usamap + coord_map(project="lagrange")
-
-    # For most projections, you'll need to set the orientation yourself
-    # as the automatic selection done by mapproject is not available to
-    # ggplot
-    usamap + coord_map(project="orthographic")
-    usamap + coord_map(project="stereographic")
-    usamap + coord_map(project="conic", lat0 = 30)
-    usamap + coord_map(project="bonne", lat0 = 50)
   }
 })

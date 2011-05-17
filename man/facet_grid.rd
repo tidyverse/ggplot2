@@ -1,33 +1,21 @@
 \name{facet_grid}
 \alias{facet_grid}
-\alias{FacetGrid}
-\title{facet\_grid}
-\description{Lay out panels in a rectangular/tabular manner.}
-\details{
-This page describes facet\_grid, see \code{\link{layer}} and \code{\link{qplot}} for how to create a complete plot from individual components.
+\title{Lay out panels in a grid.}
+
+\description{
+  Lay out panels in a grid.
 }
-\usage{facet_grid(facets = . ~ ., margins = FALSE, scales = "fixed", 
-    space = "fixed", labeller = "label_value", as.table = TRUE, 
-    widths = NULL, heights = NULL, ...)}
 \arguments{
- \item{facets}{a formula with the rows (of the tabular display) on the LHS and the columns (of the tabular display) on the RHS; the dot in the formula is used to indicate there should be no faceting on this dimension (either row or column); the formula can also be entered as a string instead of a classical formula object}
- \item{margins}{logical value, should marginal rows and columns be displayed}
- \item{scales}{NULL}
- \item{space}{NULL}
- \item{labeller}{NULL}
- \item{as.table}{NULL}
- \item{widths}{NULL}
- \item{heights}{NULL}
- \item{...}{other arguments}
+  \item{facets}{a formula with the rows (of the tabular display) on the LHS
+and the columns (of the tabular display) on the RHS; the dot in the
+formula is used to indicate there should be no faceting on this dimension
+(either row or column). The formula can also be provided as a string
+instead of a classical formula object}
+  \item{margin}{logical value, should marginal rows and columns be displayed}
 }
-\seealso{\itemize{
-  \item \url{http://had.co.nz/ggplot2/facet_grid.html}
-}}
-\value{A \code{\link{layer}}}
-\examples{\dontrun{
-# faceting displays subsets of the data in different panels
+\examples{# faceting displays subsets of the data in different panels
 p <- ggplot(diamonds, aes(carat, ..density..)) +
- geom_histogram(binwidth = 1)
+geom_histogram(binwidth = 1)
 
 # With one variable
 p + facet_grid(. ~ cut)
@@ -83,19 +71,16 @@ mt + facet_grid(vs ~ am, scales = "free", space="free")
 
 # You may need to set your own breaks for consitent display:
 mt + facet_grid(. ~ cyl, scales = "free_x", space="free") + 
-  scale_x_continuous(breaks = seq(10, 36, by = 2))
+scale_x_continuous(breaks = seq(10, 36, by = 2))
 # Adding scale limits override free scales:
 last_plot() + xlim(10, 15)
 
 # Free scales are particularly useful for categorical variables
 qplot(cty, model, data=mpg) + 
-  facet_grid(manufacturer ~ ., scales = "free", space = "free")
+facet_grid(manufacturer ~ ., scales = "free", space = "free")
 # particularly when you reorder factor levels
 mpg <- within(mpg, {
-  model <- reorder(model, cty)
-  manufacturer <- reorder(manufacturer, cty)
+model <- reorder(model, cty)
+manufacturer <- reorder(manufacturer, cty)
 })
-last_plot() %+% mpg + opts(strip.text.y = theme_text())
-}}
-\author{Hadley Wickham, \url{http://had.co.nz/}}
-\keyword{hplot}
+last_plot() \%+\% mpg + opts(strip.text.y = theme_text())}

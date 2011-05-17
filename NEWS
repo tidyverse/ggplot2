@@ -1,4 +1,77 @@
-ggplot2 0.8.9 (2010-XX-XX) ----------------------------------------
+ggplot2 0.9.0 ----------------------------------------------------------------
+
+* `collide`, which powers `position_dodge` and `position_stack`, now does not
+  error on single x values (Thanks to Brian Diggs for a fix. #157)
+
+* `...` in `ggplot` now passed on to `fortify` method when used with an object
+  other than a data frame
+
+* `geom_boxplot`: outlier colour and shape now default to values set by the
+  aesthetic mapping (thanks to suggestion by Ben Bolker), the width of the
+  median line is now `fatten` times the width of the other lines (thanks to
+  suggestion by Di Cook), and the line type can now be set.
+
+* Scales now automatically shrink to what is actually displayed on the plot,
+  not the underlying data used for statistical transformation. If you want the
+  old behaviour, supply `shrink = FALSE` to the facetting specification.
+  (Fixes #125)
+
+DOCUMENTATION
+
+* ggplot2 has moved away from the two (!!) homegrown documentation systems
+  that it previously relied on, and now uses roxygen extensively. The current
+  downside is that this means that ggplot2 website can no longer be updated,
+  but I hope work with the `helpr` package will resolve that shortly.
+
+* ggplot2 now uses a `NAMESPACE`, and only exports functions that should be
+  user visible - this should make it play considerably more nicely with other
+  packages in the R ecosystem
+
+SCALES
+
+* scales have been rewritten to use the new `scales` package, which does a
+  much better job at defining what a scale is and making it easier for you to
+  create your own scales. Scales should now behave much more consistently, and
+  it should be easier for me to add new features in the future.
+
+* `breaks` parameter can now be a function, which will be passed the scale
+  limits and expected to return a character vector of breaks
+
+* `labels` parameter can now be a function - this replaces the previous
+  formatter function that only some scales possessed, and the `major` argument
+  to the data time scales. This function should take a vector of breaks as
+  input, and return a character vector or list of expressions as output. See
+  `comma_format`, `dollar_format`, `percent_format`, `scientific_format`,
+  `parse_format` and `math_format` for examples
+
+* transformations now provided by the scales package - see `?trans_new` for
+  list of available transformations, and how to create your own. The
+  transformations in this package should do a better job at computing default
+  breaks.
+
+* all scales now accept `na.value` parameter which provides an aesthetic value
+  to be used for NA values in the data. Colour/fill scales default to values
+  that should stand out as being different from non-missing values.
+
+* the new `oob` (out of bounds) parameter controls how scales deals with
+  values outside the limits. The default action is `censor` - see `clip` for
+  another option.
+
+* only `scale_x_log10`, `scale_x_sqrt` and `scale_x_reverse` provided as
+  convenience functions for x and y scales. Use `scale_x_continuous(trans =
+  "log")` to access others
+
+* `set_default_scale` has been removed. If you want to change the default
+  scale for an aesthetic, just create a function called
+  `scale_aesthetic_continuous` or `scale_aesthetic_discrete` that returns the
+  scale that you want.  For example:
+  
+      p <- qplot(mpg, wt, data = mtcars, colour = factor(cyl))
+      p
+      scale_colour_discrete <- scale_colour_brewer
+      p
+
+ggplot2 0.8.9 (2010-12-24) ---------------------------------------------------
 
 A big thanks to Koshke Takahashi, who supplied the majority of improvements in this release!
 

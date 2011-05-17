@@ -1,28 +1,27 @@
-# Create a new plot
-# Create a new ggplot plot
-# 
-# @seealso \url{http://had.co.nz/ggplot2}
-# @alias ggplot.default
-# @keyword hplot
-# @arguments default data set
-# @arguments other arguments passed to specific methods
+#' Create a new ggplot plot
+#' 
+#' @seealso \url{http://had.co.nz/ggplot2}
+#' @export
+#' @S3method ggplot default
+#' @keywords hplot
+#' @param data default data set
+#' @param ... other arguments passed to specific methods
 ggplot <- function(data = NULL, ...) UseMethod("ggplot")
 
 ggplot.default <- function(data = NULL, mapping = aes(), ...) {
-  ggplot.data.frame(fortify(data), mapping, ...)
+  ggplot.data.frame(fortify(data, ...), mapping)
 }
 
-# Create a new plot
-# Create a new ggplot plot
-# 
-# @alias package-ggplot
-# @arguments default data frame
-# @arguments default list of aesthetic mappings (these can be colour, size, shape, line type -- see individual geom functions for more details)
-# @arguments ignored
-# @arguments environment in which evaluation of aesthetics should occur
-# @seealso \url{http://had.co.nz/ggplot2}
-# @alias package-ggplot
-# @keyword hplot
+#' Create a new ggplot plot from a data frame
+#' 
+#' @param data default data frame for plot
+#' @param default list of aesthetic mappings (these can be colour, size,
+#'   shape, line type -- see individual geom functions for more details)
+#' @param ... ignored
+#' @param environment in which evaluation of aesthetics should occur
+#' @seealso \url{http://had.co.nz/ggplot2}
+#' @method ggplot data.frame
+#' @S3method ggplot data.frame
 ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be created with aes or aes_string")
   
@@ -42,7 +41,6 @@ ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv(
   set_last_plot(p)
   p
 }
-
 
 plot_clone <- function(plot) {
   p <- plot

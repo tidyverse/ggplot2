@@ -1,19 +1,21 @@
-# Fortify spatial polygons and lines
-# Fortify method for a number of the class from the sp package.
-# 
-# To figure out the correct variable name for region, inspect 
-# \code{as.data.frame(model)}.
-# 
-# @alias fortify.SpatialPolygons
-# @alias fortify.Polygons
-# @alias fortify.Polygon
-# @alias fortify.SpatialLinesDataFrame
-# @alias fortify.Lines
-# @alias fortify.Line
-# @arguments SpatialPolygonsDataFrame
-# @arguments not used
-# @arguments name of variable to split up regions by
-# @arguments not used
+#' Fortify method for classes from the sp package.
+#' 
+#' To figure out the correct variable name for region, inspect 
+#' \code{as.data.frame(model)}.
+#' 
+#' @S3method fortify SpatialPolygons
+#' @S3method fortify Polygons
+#' @S3method fortify Polygon
+#' @S3method fortify SpatialLinesDataFrame
+#' @S3method fortify Lines
+#' @S3method fortify Line
+#' @param model \code{SpatialPolygonsDataFrame} to convert into a dataframe.
+#' @param data not used by this method
+#' @param region name of variable used to split up regions
+#' @param ... not used by this method
+#' @name fortify.sp
+NULL
+
 fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
   attr <- as.data.frame(model)
   # If not specified, split into regions based on first variable in attributes

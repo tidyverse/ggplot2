@@ -1,4 +1,59 @@
+#' Polar coordinates.
+#' 
+#' The polar coordinate system is most commonly used for pie charts, which 
+#' are a stacked bar chart in polar coordinates.
+#'
+#' @name coord_polar
+#' @param theta variable to map angle to (\code{x} or \code{y})
+#' @param start offset of starting point from 12 o'clock in radians
+#' @param direction 1, clockwise; -1, anticlockwise
+#' @param should axes be expanded to slightly outside the range of the data?
+#'   (default: FALSE)
+#' @export
+#' @examples 
+#' # NOTE: Use these plots with caution - polar coordinates has
+#' # major perceptual problems.  The main point of these examples is 
+#' # to demonstrate how these common plots can be described in the
+#' # grammar.  Use with EXTREME caution.
+#'
+#' # A coxcomb plot = bar chart + polar coordinates
+#' cxc <- ggplot(mtcars, aes(x = factor(cyl))) + 
+#'   geom_bar(width = 1, colour = "black")
+#' cxc + coord_polar()
+#' # A new type of plot?
+#' cxc + coord_polar(theta = "y")
+#' 
+#' # A pie chart = stacked bar chart + polar coordinates
+#' pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
+#'  geom_bar(width = 1)
+#' pie + coord_polar(theta = "y")
+#'
+#' # The bullseye chart
+#' pie + coord_polar()
+#' 
+#' # Hadley's favourite pie chart
+#' df <- data.frame(
+#'   variable = c("resembles", "does not resemble"),
+#'   value = c(80, 20)
+#' )
+#' ggplot(df, aes(x = "", y = value, fill = variable)) + 
+#'   geom_bar(width = 1) + 
+#'   scale_fill_manual(values = c("red", "yellow")) + 
+#'   coord_polar("y", start=pi / 3) + 
+#'   opts(title = "Pac man")
+#' 
+#' # Windrose + doughnut plot
+#' movies$rrating <- cut_interval(movies$rating, length = 1)
+#' movies$budgetq <- cut_number(movies$budget, 4)
+#' 
+#' doh <- ggplot(movies, aes(x = rrating, fill = budgetq))
+#' 
+#' # Wind rose
+#' doh + geom_bar(width = 1) + coord_polar()
+#' # Race track plot
+#' doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
 CoordPolar <- proto(Coord, {
+  objname <- "polar"
 
   new <- function(., theta="x", start = 0, direction = 1, expand = FALSE) {
     theta <- match.arg(theta, c("x", "y"))
@@ -33,20 +88,20 @@ CoordPolar <- proto(Coord, {
 
   compute_ranges <- function(., scales) {
     if (.$expand) {
-      x.range <- scales$x$output_expand() 
-      y.range <- scales$y$output_expand() 
+      x.range <- scale_dimension(scales$x)
+      y.range <- scale_dimension(scales$y)
     } else {
-      x.range <- scales$x$output_set() 
-      y.range <- scales$y$output_set() 
+      x.range <- scale_dimension(scales$x, c(0, 0))
+      y.range <- scale_dimension(scales$y, c(0, 0))
     }
 
-    x.major <- scales$x$input_breaks_n()
-    x.minor <- scales$x$output_breaks()
-    x.labels <- scales$x$labels()
+    x.major <- scale_break_positions(scales$x)
+    x.minor <- scale_breaks_minor(scales$x)
+    x.labels <- scale_labels(scales$x, x.major)
 
-    y.major <- scales$y$input_breaks_n()
-    y.minor <- scales$y$output_breaks()
-    y.labels <- scales$y$labels()
+    y.major <- scale_break_positions(scales$y)
+    y.minor <- scale_breaks_minor(scales$y)
+    y.labels <- scale_labels(scales$y, y.major)
     
     details <- list(
       x.range = x.range, y.range = y.range, 
@@ -61,6 +116,7 @@ CoordPolar <- proto(Coord, {
       names(details) <- gsub("x\\.", "theta.", names(details))      
       names(details) <- gsub("y\\.", "r.", names(details))
     }
+
     details
   }
 
@@ -74,7 +130,7 @@ CoordPolar <- proto(Coord, {
 
   theta_rescale_no_clip <- function(., x, details) {
     rotate <- function(x) (x + .$start) * .$direction
-    rotate(rescale(x, c(0, 2 * pi), details$theta.range, clip = FALSE))
+    rotate(rescale(x, c(0, 2 * pi), details$theta.range))
   }
 
   theta_rescale <- function(., x, details) {
@@ -175,64 +231,5 @@ CoordPolar <- proto(Coord, {
   }  
 
     
-
-  # Documentation -----------------------------------------------
-
-  objname <- "polar"
-  desc <- "Polar coordinates"
   icon <- function(.) circleGrob(r = c(0.1, 0.25, 0.45), gp=gpar(fill=NA))
-  
-  details <- "<p>The polar coordinate system is most commonly used for pie charts, which are a stacked bar chart in polar coordinates.</p>\n\n<p>This coordinate system has one argument, <code>theta</code>, which determines which variable is mapped to angle and which to radius.  Valid values are \"x\" and \"y\".</p>\n"
-  
-  desc_params <- list(
-    theta = "variable to map angle to ('x' or 'y')",
-    start = "offset from 12 o'clock in radians",
-    direction = "1, clockwise; -1, anticlockwise",
-    expand = "should axes be expanded to slightly outside the range of the data? (default: FALSE)"
-  )
-  
-  examples <- function(.) {
-    # NOTE: Use these plots with caution - polar coordinates has
-    # major perceptual problems.  The main point of these examples is 
-    # to demonstrate how these common plots can be described in the
-    # grammar.  Use with EXTREME caution.
-
-    # A coxcomb plot = bar chart + polar coordinates
-    cxc <- ggplot(mtcars, aes(x = factor(cyl))) + 
-      geom_bar(width = 1, colour = "black")
-    cxc + coord_polar()
-    # A new type of plot?
-    cxc + coord_polar(theta = "y")
-    
-    # A pie chart = stacked bar chart + polar coordinates
-    pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
-     geom_bar(width = 1)
-    pie + coord_polar(theta = "y")
-
-    # The bullseye chart
-    pie + coord_polar()
-    
-    # Hadley's favourite pie chart
-    df <- data.frame(
-      variable = c("resembles", "does not resemble"),
-      value = c(80, 20)
-    )
-    ggplot(df, aes(x = "", y = value, fill = variable)) + 
-      geom_bar(width = 1) + 
-      scale_fill_manual(values = c("red", "yellow")) + 
-      coord_polar("y", start=pi / 3) + 
-      opts(title = "Pac man")
-    
-    # Windrose + doughnut plot
-    movies$rrating <- cut_interval(movies$rating, length = 1)
-    movies$budgetq <- cut_number(movies$budget, 4)
-    
-    doh <- ggplot(movies, aes(x = rrating, fill = budgetq))
-    
-    # Wind rose
-    doh + geom_bar(width = 1) + coord_polar()
-    # Race track plot
-    doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
-  }
-
 })

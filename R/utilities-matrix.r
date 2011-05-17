@@ -1,11 +1,12 @@
-
-# Row weave
-# Weave together two (or more) matrices by row
-# 
-# Matrices must have same dimensions
-# 
-# @arguments matrices to weave together
-# @keyword internal
+#' Row weave.
+#' Weave together two (or more) matrices by row.
+#' 
+#' Matrices must have same dimensions.
+#' 
+#' @param ... matrices to weave together
+#' @keywords internal
+#' @S3method rweave list
+#' @S3method rweave matrix
 #X a <- matrix(1:10 * 2, ncol = 2)
 #X b <- matrix(1:10 * 3, ncol = 2)
 #X c <- matrix(1:10 * 5, ncol = 2)
@@ -25,8 +26,8 @@ rweave.matrix <- function(...) {
 # Col union
 # Form the union of columns in a and b.  If there are columns of the same name in both a and b, take the column from a.
 # 
-# @arguments data frame a
-# @arguments data frame b
+# @param data frame a
+# @param data frame b
 # @keyword internal
 cunion <- function(a, b) {
   if (length(a) == 0) return(b)
@@ -35,13 +36,15 @@ cunion <- function(a, b) {
   cbind(a, b[setdiff(names(b), names(a))])
 }
 
-# Col weave
-# Weave together two (or more) matrices by column
-# 
-# Matrices must have same dimensions
-# 
-# @arguments matrices to weave together
-# @keyword internal
+#' Col weave
+#' Weave together two (or more) matrices by column
+#' 
+#' Matrices must have same dimensions
+#' 
+#' @param ... matrices to weave together
+#' @keywords internal
+#' @S3method cweave list
+#' @S3method cweave matrix
 cweave <- function(...) UseMethod("cweave")
 cweave.list <- function(...) do.call("cweave", ...)
 cweave.matrix <- function(...) {
@@ -55,11 +58,13 @@ cweave.matrix <- function(...) {
   do.call("cbind", matrices)[, interleave, drop = FALSE]
 }
 
-# Interleave vectors
-# Interleave (or zip) multiple vectors into a single vector
-# 
-# @arguments vectors to interleave
-# @keyword internal
+#' Interleave (or zip) multiple vectors into a single vector.
+#' 
+#' @param ... vectors to interleave
+#' @keywords internal
+#' @S3method interleave list
+#' @S3method interleave unit
+#' @S3method interleave default
 interleave <- function(...) UseMethod("interleave")
 interleave.list <- function(...) do.call("interleave", ...)
 interleave.unit <- function(...) {
@@ -87,7 +92,7 @@ interleave.default <- function(...) {
 # Equal dims?
 # Check that a list of matrices have equal dimensions
 # 
-# @arguments list of matrices
+# @param list of matrices
 # @keyword internal
 equal_dims <- function(matrices) {
   are.matrices <- laply(matrices, is.matrix)

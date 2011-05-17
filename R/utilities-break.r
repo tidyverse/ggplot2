@@ -1,10 +1,10 @@
 # Discretise continuous variable, equal interval length.
 # Cut numeric vector into intervals of equal length.
 # 
-# @arguments numeric vector
-# @arguments number of intervals to create, OR
-# @arguments length of each interval
-# @arguments other arguments passed on to \code{\link{cut}}
+# @param numeric vector
+# @param number of intervals to create, OR
+# @param length of each interval
+# @param other arguments passed on to \code{\link{cut}}
 # @keyword manip
 # @seealso \code{\link{cut_number}}
 # 
@@ -18,10 +18,10 @@ cut_interval <- function(x, n = NULL, length = NULL, ...) {
 # Discretise continuous variable, equal number of points.
 # Cut numeric vector into intervals containing equal number of points.
 # 
-# @arguments numeric vector
-# @arguments number of intervals to create, OR
-# @arguments length of each interval
-# @arguments other arguments passed on to \code{\link{cut}}
+# @param numeric vector
+# @param number of intervals to create, OR
+# @param length of each interval
+# @param other arguments passed on to \code{\link{cut}}
 # @keyword manip
 # @seealso \code{\link{cut_interval}}
 #X table(cut_number(runif(1000), n = 10))

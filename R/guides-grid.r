@@ -1,12 +1,4 @@
-# Draw a grid
-# Produce a grob to be used as a background in panels
-# 
-# @arguments theme to use to draw elements
-# @arguments minor breaks in x axis
-# @arguments major breaks in x axis
-# @arguments minor breaks in y axis
-# @arguments major breaks in y axis
-# @keyword internal
+# Produce a grob to be used as for panel backgrounds
 guide_grid <- function(theme, x.minor, x.major, y.minor, y.major) {
   ggname("grill", grobTree(
     theme_render(theme, "panel.background"),

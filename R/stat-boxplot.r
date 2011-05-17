@@ -1,16 +1,20 @@
+#' Calculate components of box and whisker plot.
+#' 
+#' @name stat_boxplot
+#' @return A data frame with additional columns:
+#'   \item{width}{width of boxplot}
+#'   \item{ymin}{lower whisker = lower hinge - 1.5 * IQR}
+#'   \item{lower}{lower hinge, 25\% quantile} 
+#'   \item{middle}{median, 50\% quantile}
+#'   \item{upper}{upper hinge, 75\% quantile}
+#'   \item{ymax}{upper whisker = upper hinge + 1.5 * IQR}
+#' @export
+#' @examples
+#' # See geom_boxplot for examples
 StatBoxplot <- proto(Stat, {
-  objname <- "boxplot" 
-  desc <- "Calculate components of box and whisker plot"
-  desc_outputs <- list(
-    "width" = "width of boxplot",
-    "ymin" = "lower whisker = lower hinge - 1.5 * IQR",
-    "lower" = "lower hinge, 25% quantile", 
-    "middle" = "median, 50% quantile",
-    "upper" = "upper hinge, 75% quantile",
-    "ymax" = "upper whisker = upper hinge + 1.5 * IQR"
-  )
-  required_aes <- c("x", "y")
+  objname <- "boxplot"
   
+  required_aes <- c("x", "y")
   icon <- function(.) GeomBoxplot$icon()
   default_geom <- function(.) GeomBoxplot
   
@@ -49,9 +53,4 @@ StatBoxplot <- proto(Stat, {
       )
     })
   }
-  
-  examples <- function(.) {
-    # See geom_boxplot for examples
-  }
-  
 })

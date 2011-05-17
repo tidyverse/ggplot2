@@ -1,12 +1,13 @@
-# Code to create a scatterplot matrix (experimental)
-# Crude experimental scatterplot matrix
-# 
-# @arguments data frame
-# @arguments any additional aesthetic mappings (do not use x and y)
-# @arguments default point colour
-# @keyword hplot
-#X plotmatrix(mtcars[, 1:3])
-#X plotmatrix(mtcars[, 1:3]) + geom_smooth(method="lm")
+#' Code to create a scatterplot matrix (experimental)
+#' 
+#' @param data data frame
+#' @param mapping any additional aesthetic mappings (do not use x and y)
+#' @param colour default point colour
+#' @keywords hplot
+#' @export
+#' @examples
+#' plotmatrix(mtcars[, 1:3])
+#' plotmatrix(mtcars[, 1:3]) + geom_smooth(method="lm")
 plotmatrix <- function(data, mapping=aes(), colour="black") {
   # data <- rescaler(data, "range")
   grid <- expand.grid(x=1:ncol(data), y=1:ncol(data))

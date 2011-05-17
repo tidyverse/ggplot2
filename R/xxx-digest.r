@@ -47,7 +47,7 @@ bolus.ggplot <- function(x, ...) {
     data = digest::digest(data),
     mapping = sort.by.name(mapping),
     layers = sapply(layers, function(x) x$hash()),
-    scales = scales$hash(),
+    scales = digest(scales),
     facet = facet$hash(),
     coord = coordinates$hash(),
     options = digest::digest(defaults(x$options, theme_get()))
@@ -67,36 +67,13 @@ TopLevel$settings <- function(.) {
 Layer$hash <- TopLevel$hash <- function(., ...) {
   digest::digest(.$bolus(), ...)
 }
-Scales$hash <- function(.) {
-  scales <- sapply(.$.scales, function(x) x$hash())
-  if (is.character(scales)) scales <- sort(scales)
-  scales
-}
-
-Scales$bolus <- function(.) {
-  sc <- lapply(.$.scales, function(x) x$bolus())
-  names(sc) <- sapply(sc, "[[", "input")
-  sc[order(names(sc))]
-}
 TopLevel$bolus <- function(.) {
   list(
     name = .$objname,
     settings = .$settings()
   )
 }
-Scale$bolus <- function(.) {
-  settings <- .$settings()
-  settings$.tr <- settings$.tr.$objname
-  settings$.input <- NULL
-  settings$.output <- NULL
-  
-  list(
-    name = .$objname,
-    input = .$.input,
-    output = .$.output,
-    settings = compact(settings)
-  )
-}
+
 Layer$bolus <- function(.) {
   params <- c(.$geom_params, .$stat_params)
   params <- params[!duplicated(params)]

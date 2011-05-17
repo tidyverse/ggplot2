@@ -1,15 +1,15 @@
-  # Create a new layer
-  # Layer objects store the layer of an object.
-  # 
-  # They have the following attributes:
-  # 
-  #  * data
-  #  * geom + parameters
-  #  * statistic + parameters
-  #  * position + parameters
-  #  * aesthetic mapping
-  # 
-  # Can think about grob creation as a series of data frame transformations.
+# Create a new layer
+# Layer objects store the layer of an object.
+# 
+# They have the following attributes:
+# 
+#  * data
+#  * geom + parameters
+#  * statistic + parameters
+#  * position + parameters
+#  * aesthetic mapping
+# 
+# Can think about grob creation as a series of data frame transformations.
 Layer <- proto(expr = {  
   geom <- NULL
   geom_params <- NULL
@@ -148,7 +148,7 @@ Layer <- proto(expr = {
     
     # Drop aesthetics that are set manually
     aesthetics <- aesthetics[setdiff(names(aesthetics), names(.$geom_params))]
-    plot$scales$add_defaults(data, aesthetics, plot$plot_env)
+    scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
     
     # Evaluate aesthetics in the context of their data frame
     eval.each <- function(dots) 
@@ -227,11 +227,11 @@ Layer <- proto(expr = {
     names(stat_data) <- names(new)
     
     # Add any new scales, if needed
-    plot$scales$add_defaults(data, new, plot$plot_env)
+    scales_add_defaults(plot$scales, data, new, plot$plot_env)
     # Transform the values, if the scale say it's ok 
     # (see stat_spoke for one exception)
     if (.$stat$retransform) {
-      stat_data <- plot$scales$transform_df(stat_data)
+      stat_data <- scales_transform_df(plot$scales, stat_data)
     }
     
     cunion(stat_data, data)
@@ -245,7 +245,7 @@ Layer <- proto(expr = {
     })
   }
 
-  adjust_position <- function(., data, scales) {
+  adjust_position <- function(., data) {
     gg_apply(data, function(df) {
       if (empty(df)) return(data.frame())
       if (is.null(df$group)) df$group <- 1
@@ -257,7 +257,7 @@ Layer <- proto(expr = {
       }
 
       df <- df[order(df$group), ]
-      .$position$adjust(df, scales)
+      .$position$adjust(df)
     })
   }
   
@@ -286,25 +286,22 @@ Layer <- proto(expr = {
   # Stamp data.frame into list of matrices
   
   scales_transform <- function(., data, scales) {
-    gg_apply(data, scales$transform_df)
+    gg_apply(data, scales_transform_df, scales = scales)
   }
 
   # Train scale for this layer
   scales_train <- function(., data, scales) {
-    gg_apply(data, scales$train_df)
+    gg_apply(data, scales_train_df, scales = scales)
   }
 
   
   # Map data using scales.
-  scales_map <- function(., data, scale) {
-    gg_apply(data, function(x) scale$map_df(x))
+  scales_map <- function(., data, scales) {
+    gg_apply(data, scales_map_df, scales = scales)
   }  
 })
 
 # Apply function to plot data components
-# Convenience apply function for facets data structure
-# 
-# @keyword internal
 gg_apply <- function(gg, f, ...) {
   apply(gg, c(1,2), function(data) {
     f(data[[1]], ...)
@@ -313,11 +310,7 @@ gg_apply <- function(gg, f, ...) {
 layer <- Layer$new
 
 
-
-# Is calculated aesthetic?
-# Determine if aesthetic is calculated from the statistic
-# 
-# @keyword internal
+# Determine if aesthetic is calculated
 is_calculated_aes <- function(aesthetics) {
   match <- "\\.\\.([a-zA-z._]+)\\.\\."
   stats <- rep(F, length(aesthetics))
@@ -325,10 +318,7 @@ is_calculated_aes <- function(aesthetics) {
   stats
 }
 
-# Strip dots
-# Strip dots from expressions that represent mappings of aesthetics to output from statistics
-# 
-# @keyword internal
+# Strip dots from expressions
 strip_dots <- function(aesthetics) {
   match <- "\\.\\.([a-zA-z._]+)\\.\\."
   strings <- lapply(aesthetics, deparse)

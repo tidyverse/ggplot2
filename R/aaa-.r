@@ -1,7 +1,3 @@
-require("proto")
-require("grid")
-require("reshape")
-
 # INCLUDES <- "web/graphics"
 # FILETYPE <- "html"
 
@@ -39,111 +35,14 @@ TopLevel <- proto(expr = {
     ps(firstUpper(.$class()), ps(firstUpper(strsplit(.$objname, "_")[[1]])))
   }
 
+  params <- function(.) {
+    param <- .$parameters()
+    if (length(param) == 0) return()
   
-  doc <- TRUE
+    if(!exists("required_aes", .)) return(param)
   
-  # Function for html documentation ------------------------------------
-  desc <- ""
-  details <- ""
-  advice <- ""
-  objname <- ""
-  desc_params <- list("..." = "ignored ")
-  icon <- function(.) rectGrob(gp=gpar(fill="white", col=NA))
-  
-  # Name of physical file to create, doesn't include directory
-  html_path <- function(.) {
-    ps(.$my_name(), ".html")
-  }
-  
-  html_link_self <- function(., prefix=TRUE) {
-    ps("<a href='", .$html_path(), "' title='", .$desc, "'>", .$my_name(prefix=prefix), "</a>")
-  }
-
-  html_abbrev_link_self <- function(., prefix=TRUE) {
-    ps("<a href='", .$html_path(), "' title='", .$desc, "'>", .$objname, "</a>")
-  }
-
-  html_parent_link <- function(.) {
-    parent <- parent.env(.)
-    if (identical(parent, TopLevel)) return("")
-    ps(parent$html_parent_link(), " &gt; ", parent$html_link_self())
-  }
-  
-  all_html_pages_create <- function(., path="web/") {
-    invisible(lapply(.$find_all(), function(x) x$html_page_create(path)))
-  }
-    
-  html_page_create <- function(., path="web/") {
-    cat("Creating html documentation for", .$my_name(), "\n")
-    target <- ps(path, .$html_path())
-    
-    .$html_img_draw(path)
-    cat(.$html_page(), file=target)
-  }  
-    
-  html_page <- function(.) {
-    ps(
-      .$html_header(),
-      .$html_head(),
-      .$html_details(),
-      .$html_advice(),
-      .$html_feedback(),
-      .$html_aesthetics(),
-      .$html_outputs(),
-      .$html_parameters(),
-      # .$html_defaults(),
-      .$html_returns(),
-      .$html_seealso(),
-      .$html_examples(),
-      .$html_feedback(),
-      .$html_footer()
-    )
-  }
-  
-  # Header and footer templates -----------------------  
-  html_header <- function(., title = .$my_name()) {
-    template <- ps(readLines("templates/header.html"), collapse="\n")
-    gsub("TITLE", title, template)
-  }  
-
-  html_footer <- function(.) {
-    ps(readLines("templates/footer.html"), collapse="\n")
-  }  
-  
-  # Page header -----------------------
-  html_head <- function(.) {
-    ps(
-      # "<p class='hierarchy'>", .$html_parent_link(), "</p>\n",
-      "<h1>", .$html_img(), .$my_name(), "</h1>\n",
-      "<p class='call'>", ps(.$call(), collapse="<br />\n"), "</p>\n"
-    )
-  }
-  
-  html_details <- function(.) {
-    ps(
-      # "<h2>Details</h2>\n",
-      "<div class='details'>\n",
-      "<p>", .$desc, "</p>\n",
-      html_auto_link(.$details, .$my_name()),
-      "<p>This page describes ", .$my_name(), ", see <a href='layer.html'>layer</a> and <a href='qplot.html'>qplot</a> for how to create a complete plot from individual components.</p>\n",
-      "</div>\n"
-    )
-  }
-
-  html_advice <- function(.) {
-    if (.$advice == "") return()
-    ps(
-      "<h2>Advice</h2>\n",
-      "<div class='details'>\n",
-      html_auto_link(.$advice, .$my_name()),
-      "</div>\n"
-    )
-  }  
-
-  html_scales <- function(., aesthetic) {
-    scales <- Scale$find(aesthetic, only.documented = TRUE)
-    if (length(scales) == 0) return()
-    ps(lapply(scales, function(x) x$html_link_self(prefix=FALSE)), collapse=", ")
+    aesthetics <- c(.$required_aes, names(.$default_aes()))
+    param <- param[setdiff(names(param), aesthetics)]
   }
   
   html_aesthetics <- function(.) {
@@ -178,101 +77,7 @@ TopLevel <- proto(expr = {
     ps("<p class='feedback'>What do you think of the documentation?  <a href='http://hadley.wufoo.com/forms/documentation-feedback/def/field0=", .$my_name(), "'>Please let me know by filling out this short online survey</a>.</p>")
   }
   
-  html_outputs <- function(.) {
-    if (!exists("desc_outputs", .)) return("")
-    
-    ps(
-      "<h2>New variables produced by the statistic</h2>\n",
-      "<p>To use these variables in an aesthetic mapping, you need to surrond them with .., like <code>aes(x = ..output..)</code>. This tells ggplot that the variable isn't the original dataset, but has been created by the statistic.</p>\n",
-      "<ul>\n",
-      ps("<li><code>", names(.$desc_outputs), "</code>, ", .$desc_outputs, "</li>\n"),
-      "</ul>\n"
-    )
-  }
 
-  html_defaults <- function(.) {
-    ps(
-      "<h2>Defaults</h2>\n",
-      "<ul>\n",
-      .$html_defaults_stat(),
-      .$html_defaults_geom(),
-      .$html_defaults_position(),
-      "</ul>\n"
-    )
-  }
-
-  
-  html_defaults_stat <- function(.) {
-    if (!exists("default_stat", .)) return("")
-    
-    ps(
-      "<li>", .$default_stat()$html_link_self(), ".  Override with the <code>stat</code> argument: <code>", .$my_name(), "(stat=\"identity\")</code></li>\n"
-    )
-  }
-  
-  html_defaults_geom <- function(.) {
-    if (!exists("default_geom", .)) return("")
-    
-    ps(
-      "<li>", .$default_geom()$html_link_self(), ".  Override with the  <code>geom</code> argument: <code>", .$my_name(), "(geom=\"point\")</code>.</li>\n"
-    )
-  }
-  
-  html_defaults_position <- function(.) {
-    if (!exists("default_pos", .)) return("")
-    
-    ps(
-      "<li>", .$default_pos()$html_link_self(), ".  Override with the <code>position</code> argument: <code>", .$my_name(), "(position=\"jitter\")</code>.</li>\n"
-    )
-  }
-  
-  params <- function(.) {
-    param <- .$parameters()
-    if (length(param) == 0) return()
-  
-    if(!exists("required_aes", .)) return(param)
-  
-    aesthetics <- c(.$required_aes, names(.$default_aes()))
-    param <- param[setdiff(names(param), aesthetics)]
-  }
-  
-  
-  html_parameters <- function(.) {
-    if (!exists("parameters", .)) return("")
-    param <- .$params()
-    
-    ps(
-      "<h2>Parameters</h2>\n",
-      "<p>Parameters control the appearance of the ", .$class(), ". In addition to the parameters listed below (if any), any aesthetic can be used as a parameter, in which case it will override any aesthetic mapping.</p>\n",
-      if(length(param) > 0) ps(
-        "<ul>\n",
-        ps("<li><code>", names(param), "</code>: ", defaults(.$desc_params, .desc_param)[names(param)], "</li>\n"),
-        "</ul>\n"
-      )
-    )
-  }
-  
-  # See also ---------------------------
-  
-  seealso <- list()
-  html_seealso <- function(.) {
-    if (length(.$seealso) == 0) return()
-    ps(
-      "<h2>See also</h2>",
-      "<ul>\n",
-      ps("<li>", html_auto_link(names(.$seealso)), ": ", .$seealso, "</li>\n"),
-      "</ul>\n"
-    )
-  }
-
-  # Returns ---------------------------
-
-  html_returns <- function(.) {
-    ps(
-      "<h2>Returns</h2>\n",
-      "<p>This function returns a <a href='layer.html'>layer</a> object.</p>"
-    )
-  }
   
   # Object icon -----------------------
   html_img_path <- function(.) {
@@ -314,6 +119,7 @@ TopLevel <- proto(expr = {
 
 })
 
+#' @S3method print proto
 print.proto <- function(x, ...) x$pprint(...)
 pprint <- function(x, ...) print(as.list(x), ...)
 # name.proto <- function (...) {
