@@ -7,7 +7,8 @@
 panelGrob <- function(panels, plot, data) {
   theme <- plot_theme(plot)
 
-  grid <- plot$facet$add_guides(plot$data, panels, plot$coordinates, theme)
+  add_guides <- plot$facet$add_guides
+  grid <- add_guides(panels, plot$coordinates, theme)
   gTree.grobGrid(grid)
 }
 
@@ -29,12 +30,12 @@ panelGrob <- function(panels, plot, data) {
 ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop, keep = plot$options$keep, ...) {
 
   plot <- plot_clone(plot)
-  grobs <- plot$facet$make_grobs(data, plot$layers, plot$coordinates)
+  grobs <- plot$facet$make_grobs(data$data, plot$layers, plot$coordinates)
   
   grobs3d <- array(unlist(grobs, recursive=FALSE), c(dim(data[[1]]), length(data)))
   panels <- aaply(grobs3d, 1:2, splat(grobTree), .drop = FALSE)
   
-  panels <- panelGrob(panels, plot, data)
+  panels <- panelGrob(data$panels, plot, data)
   scales <- plot$scales
   cs <- plot$coordinates
 
