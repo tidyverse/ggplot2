@@ -100,15 +100,15 @@ Panels <- Object$clone()$do({
       
       scale_x <- self$panel_info$SCALE_X[panel]
       layer_data <- ldply(unique(scale_x), function(i) {
-        old <- layer_data[scale_x == i, , ]
-        new <- scales_map_df(self$x_scales[[i]], old)
+        old <- layer_data[scale_x == i, , drop = FALSE]
+        new <- scale_map_df(self$x_scales[[i]], old)
         cunion(new, old)
       })
       
       scale_y <- self$panel_info$SCALE_Y[panel]
       layer_data <- ldply(unique(scale_y), function(i) {
         old <- layer_data[scale_y == i, , ]
-        new <- scales_map_df(self$y_scales[[i]], old)
+        new <- scale_map_df(self$y_scales[[i]], old)
         cunion(new, old)
       })
       
