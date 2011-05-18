@@ -46,7 +46,7 @@ ggplot_build <- function(plot) {
   
   # Train and map non-position scales
   npscales <- scales$non_position_scales()  
-  if (length(npscales$scales) > 0) {
+  if (npscales$n() > 0) {
     lapply(data, scales_train_df, scales = npscales)
     data <- lapply(data, scales_map_df, scales = npscales)
   }

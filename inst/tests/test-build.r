@@ -29,12 +29,26 @@ test_that("position aesthetics coerced to correct type", {
   expect_that(d2$y, is_a("integer"))  
 })
 
+test_that("non-position aesthetics are mapped", {
+  l1 <- ggplot(df, aes(x, y, fill = z, colour = z, shape = z, size = z)) +
+    geom_point() 
+  d1 <- pdata(l1)[[1]]
+  
+  expect_that(sort(names(d1)), 
+    equals(sort(c("x", "y", "fill", "colour", "shape", "size", "PANEL"))))
+
+  l2 <- l1 + scale_colour_manual(values = c("blue", "red", "yellow"))
+  d2 <- pdata(l2)[[1]]
+  expect_that(d2$colour, equals(c("blue", "red", "yellow")))
+    
+})
+
 
 
 # 
 # 
 # p <- ggplot(df, aes(x, y, colour = z)) + geom_point() + 
-#   scale_colour_manual(values = c("blue", "red", "yellow"))
+#   
 # ggplot_build(p)$data
 # 
 # p <- ggplot(df, aes(z, x)) + geom_point()
