@@ -79,8 +79,6 @@ A big thanks to Koshke Takahashi, who supplied the majority of improvements in t
 
 GUIDE IMPROVEMENTS
 
-* axis: can separately specify the x and y ticks.
-
 * key size: can specify width and height separately
 
 * axis: can partially handle text rotation (issue #149)
