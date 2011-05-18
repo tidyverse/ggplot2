@@ -6,8 +6,8 @@ FacetNull <- proto(Facet, {
   # The null facetter has a single panel.
   panel_info <- function(., data) {     
     data.frame(
-      PANEL = 1, ROW = 1, COL = 1, 
-      SCALE_X = 1, SCALE_Y = 1)
+      PANEL = 1L, ROW = 1L, COL = 1L, 
+      SCALE_X = 1L, SCALE_Y = 1L)
   }
 
   map_layer <- function(., data) {
