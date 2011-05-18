@@ -59,9 +59,9 @@ CoordCartesian <- proto(Coord, expr={
     } else {
       x.range <- range(scale_transform(scales$x, .$limits[["x"]]))
       if (.$wise) {
+        scales$x$limits <- x.range
         x.range <- expand_range(x.range, 
-          scales$x$expand[1], scales$x$.expand[2])
-        scales$x$domain <- .$limits[["x"]]
+          scales$x$expand[1], scales$x$expand[2])
       }
     }
     
@@ -75,9 +75,9 @@ CoordCartesian <- proto(Coord, expr={
       y.range <- range(scale_transform(scales$y, .$limits[["y"]]))
       
       if (.$wise) {
-        y.range <- eypand_range(y.range, 
-          scales$y$expand[1], scales$y$.expand[2])
-        scales$y$domain <- .$limits[["y"]]
+        scales$y$limits <- y.range
+        y.range <- expand_range(y.range, 
+          scales$y$expand[1], scales$y$expand[2])
       }
     }
     y.major <- .$rescale_var(scale_break_positions(scales$y), y.range, TRUE)
