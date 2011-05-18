@@ -61,7 +61,7 @@ FacetWrap <- proto(Facet, {
     )
   }
   
-  train <- function(., data) { 
+  panel_info <- function(., data) { 
     panels <- layout_wrap(data, .$facets, .$nrow, .$ncol, .$drop)
     
     # Add scale identification
@@ -69,7 +69,7 @@ FacetWrap <- proto(Facet, {
     panels$SCALE_Y <- if (.$free$y) seq_len(nrow(panels)) else 1
     
     .$panel_info <- panels
-    invisible(NULL)
+    panels
   }
   
   map_layer <- function(., data) {

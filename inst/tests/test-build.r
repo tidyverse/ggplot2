@@ -39,10 +39,26 @@ test_that("non-position aesthetics are mapped", {
 
   l2 <- l1 + scale_colour_manual(values = c("blue", "red", "yellow"))
   d2 <- pdata(l2)[[1]]
-  expect_that(d2$colour, equals(c("blue", "red", "yellow")))
-    
+  expect_that(d2$colour, equals(c("blue", "red", "yellow")))  
 })
 
+test_that("facets split up the data", {
+  l1 <- ggplot(df, aes(x, y)) + geom_point() + facet_wrap(~ z)
+  d1 <- pdata(l1)[[1]]
+  
+  expect_that(d1$PANEL, equals(factor(1:3)))
+
+  l2 <- ggplot(df, aes(x, y)) + geom_point() + facet_grid(. ~ z)
+  l3 <- ggplot(df, aes(x, y)) + geom_point() + facet_grid(z ~ .)
+  
+  d2 <- pdata(l2)[[1]]
+  d3 <- pdata(l3)[[1]]
+  
+  expect_that(d2, equals(d3))
+  expect_that(sort(names(d2)), equals(sort(c("x", "y", "PANEL"))))
+  expect_that(d2$PANEL, equals(factor(1:3)))
+  
+})
 
 
 # 

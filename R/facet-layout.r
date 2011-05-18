@@ -15,18 +15,18 @@ layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL) {
   base <- layout_base(data, c(rows, cols))
 
   # Add margins
-  base <- add_margins(base, names(rows), names(cols), margins)
+  base <- add_margins(base, list(names(rows), names(cols)), margins)
+  # Work around bug in reshape2
+  base <- unique(base)
 
   # Create panel info dataset
   panel <- id(base)
   panel <- factor(panel, levels = seq_len(attr(panel, "n")))
   
-  panels <- cbind(
-    PANEL = panel,
-    ROW = id(base[names(rows)]) %||% 1,
-    COL = id(base[names(cols)]) %||% 1,
-    base
-  )
+  rows <- if (is.null(names(rows))) 1 else id(base[names(rows)])
+  cols <- if (is.null(names(cols))) 1 else id(base[names(cols)])
+  
+  panels <- data.frame(PANEL = panel, ROW = rows, COL = cols, base)
   arrange(panels, PANEL)
 }
 

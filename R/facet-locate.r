@@ -9,7 +9,9 @@ locate_grid <- function(data, panels, rows = NULL, cols = NULL, margins = FALSE)
   vars <- c(names(rows), names(cols))
   
   # Compute facetting values and add margins
-  data <- add_margins(data, names(rows), names(cols), margins)
+  data <- add_margins(data, list(names(rows), names(cols)), margins)
+  # Workaround for bug in reshape
+  data <- unique(data)
   facet_vals <- quoted_df(data, c(rows, cols))
    values <- compact(llply(data, quoted_df, vars = c(rows, cols)))
 

@@ -14,8 +14,8 @@ test_that("two col cases with no missings adds single extra column", {
 
 test_that("margins add extra data", {
   df <- expand.grid(a = 1:2, b = 1:2)
-  panel <- layout_grid(list(df), "a", "b", margins = "grand_col")
-  loc <- locate_grid(df, panel, "a", "b", margins = "grand_col")
+  panel <- layout_grid(list(df), "a", "b", margins = "b")
+  loc <- locate_grid(df, panel, "a", "b", margins = "b")
   
   expect_that(nrow(loc), equals(nrow(df) + 2))
   

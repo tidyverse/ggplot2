@@ -132,6 +132,7 @@ FacetGrid <- proto(Facet, {
     panels$SCALE_X <- if (.$free$x) panels$ROW else 1
     panels$SCALE_Y <- if (.$free$y) panels$COL else 1
     
+    .$panel_info <- panels
     panels
   }
 
