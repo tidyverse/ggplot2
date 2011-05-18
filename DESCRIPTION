@@ -41,6 +41,7 @@ Collate:
     'aaa-html.r'
     'aes.r'
     'annotation.r'
+    'bench.r'
     'coord-.r'
     'coord-cartesian-.r'
     'coord-cartesian-equal.r'
