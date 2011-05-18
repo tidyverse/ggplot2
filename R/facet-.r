@@ -1,4 +1,6 @@
 Facet <- proto(TopLevel, {
+  scales <- list()
+  
   clone <- function(.) {
     as.proto(.$as.list(all.names=TRUE), parent=.) 
   }

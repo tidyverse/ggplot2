@@ -15,6 +15,9 @@ geditGrob <- function(..., grep = TRUE, global = TRUE) {
   editGrob(..., grep = grep, global = global)
 }
 
+width_cm <- function(x) convertWidth(grobWidth(x), "cm", TRUE)
+height_cm <- function(x) convertHeight(grobHeight(x), "cm", TRUE)
+
 # Grob row heights
 # Given a matrix of grobs, calculate the height needed for each row
 # 

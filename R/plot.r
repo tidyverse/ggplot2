@@ -32,7 +32,7 @@ ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv(
     mapping = mapping,
     options = list(),
     coordinates = CoordCartesian$new(),
-    facet = FacetGrid$new(),
+    facet = FacetNull$new(),
     plot_env = environment
   ), class="ggplot")
   
