@@ -4,7 +4,7 @@
 # @param should the plot be wrapped up inside the pretty accoutrements (labels, legends, etc)
 # @keyword hplot
 # @keyword internal
-panelGrob <- function(panels, plot, data) {
+panelGrob <- function(panels, plot) {
   theme <- plot_theme(plot)
 
   add_guides <- plot$facet$add_guides
@@ -29,15 +29,9 @@ panelGrob <- function(panels, plot, data) {
 # will only take up the amount of space that it requires.  
 ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop, keep = plot$options$keep, ...) {
 
-  plot <- plot_clone(plot)
-  grobs <- plot$facet$make_grobs(data$data, plot$layers, plot$coordinates)
-  
-  grobs3d <- array(unlist(grobs, recursive=FALSE), c(dim(data[[1]]), length(data)))
-  panels <- aaply(grobs3d, 1:2, splat(grobTree), .drop = FALSE)
-  
-  panels <- panelGrob(data$panels, plot, data)
-  scales <- plot$scales
-  cs <- plot$coordinates
+  panels <- panelGrob(data$panels, plot)
+  scales <- pieces$scales
+  cs <- pieces$cs
 
   theme <- plot_theme(plot)
   margin <- list(
@@ -66,8 +60,8 @@ ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop
   title <- theme_render(theme, "plot.title", plot$options$title)
 
   labels <- cs$labels(list(
-    x = plot$facet$xlabel(theme),
-    y = plot$facet$ylabel(theme))
+    x = pieces$facet$xlabel(theme),
+    y = pieces$facet$ylabel(theme))
   )
   xlabel <- theme_render(theme, "axis.title.x", labels$x)
   ylabel <- theme_render(theme, "axis.title.y", labels$y)
@@ -85,7 +79,7 @@ ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop
     
   ylab_width <- grobWidth(grobs$ylabel) + 
     if (is.zero(grobs$ylabel)) unit(0, "lines") else unit(0.5, "lines")
-  legend_width <- grobWidth(grobs$legend_box) + unit(0.5, "lines")
+  legend_width <- grobWidth(grobs$legend_box)
 
   widths <- switch(position, 
     right =  unit.c(ylab_width, unit(1, "null"), legend_width),
@@ -138,6 +132,7 @@ ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop
   )
 
   gTree(children = do.call("gList", grobs), childrenvp = vp)
+  
 }
 
 # Generate viewports for plot surroundings

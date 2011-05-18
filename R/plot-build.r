@@ -11,8 +11,9 @@ ggplot_build <- function(plot) {
 
   # Initialise panels, add extra data for margins & missing facetting
   # variables, and add on a PANEL variable to data
-  panels <- Panels$clone(scales, plot$coordinates, plot$facet)
-  panels$train(layer_data, plot$data)
+  
+  panels <- Panels$clone(plot$coordinates, plot$facet)
+  panels$train_panels(layer_data, plot$data)
   data <- panels$map(layer_data, plot$data)
 
   # Compute aesthetics to produce data with generalised variable names
@@ -27,19 +28,19 @@ ggplot_build <- function(plot) {
   data <- panels$map_scales(data)
   
   # Apply and map statistics
-  data <- panels$calc_statistics(data)
+  data <- panels$calculate_stats(data, layers)
   data <- dlapply(function(d, p) p$map_statistic(d, plot)) 
   
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
   data <- dlapply(function(d, p) p$reparameterise(d))
 
   # Apply position adjustments
-  data <- dlapply(function(d, p) p$adjust_position(d, scales))
+  data <- dlapply(function(d, p) p$adjust_position(d))
    
   # Reset position scales, then re-train and map.  This ensures that facets
   # have control over the range of a plot: is it generated from what's 
   # displayed, or does it include the range of underlying data
-  panels$position_reset() 
+  panels$reset_scales()
   panels$train_scales(data, scales)
   data <- panels$map_scales(data)
   
@@ -47,7 +48,7 @@ ggplot_build <- function(plot) {
   npscales <- scales$non_position_scales()  
   if (length(npscales$scales) > 0) {
     lapply(data, scales_train_df, scales = npscales)
-    data <- lapply(data, scales_map_df, scales = npscales))
+    data <- lapply(data, scales_map_df, scales = npscales)
   }
   
   list(data = data, panels = panels)

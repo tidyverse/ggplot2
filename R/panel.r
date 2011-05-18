@@ -1,14 +1,12 @@
 # All data related information should be stored in the panels or scales, not
 # in the facet or coord - these will become strategy objects.
-
+require(mutatr)
 Panels <- Object$clone()$do({
   
-  self$clone <- function(scales, coord, facet) {
+  self$clone <- function(coord, facet) {
     self$facet <- facet
     self$coord <- coord
-    self$scales <- list(x = scales$get_scales("x"), 
-      y = scales$get_scales("y"))
-      
+
     self
   }
   
@@ -19,17 +17,14 @@ Panels <- Object$clone()$do({
   # 
   # @param data a list of data frames (one for each layer)  
   # @param plot_data default plot data frame
-  self$train <- function(data, plot_data) {
+  self$train_panels <- function(data, plot_data) {
     data <- c(list(plot_data), data)
     self$panel_info <- self$facet$panel_info(data)
-
-    # Initialise as many scales as necessary
-    nx <- max(self$panel_info$SCALE_X)
-    self$x_scales <- rlply(nx, self$scales$x$clone())
-
-    ny <- max(self$panel_info$SCALE_Y)
-    self$y_scales <- rlply(ny, self$scales$y$clone())
     
+    # Make space for scales
+    self$x_scales <- vector("list", max(self$panel_info$SCALE_X))
+    self$y_scales <- vector("list", max(self$panel_info$SCALE_Y))
+
     invisible(NULL)
   }
   
@@ -43,30 +38,50 @@ Panels <- Object$clone()$do({
   # 
   # @param data a list of data frames (one for each layer)  
   # @param plot_data default plot data frame
-  self$map <- function(data, plot_data) {
+  self$map <- function(layer_data, plot_data) {
     lapply(layer_data, function(data) {
       if (empty(data)) data <- plot_data
-      facet$map_layer(data, self$panel_info)
+      self$facet$map_layer(data)
     })    
   }
   
-  # Train scales with data.
+  # Train position scales with data.
   # 
   # @param data a list of data frames (one for each layer)  
-  self$train_scales <- function(data) { 
+  self$train_scales <- function(data, scales) { 
     pos <- ldply(data, function(df) df[c("x", "y", "PANEL")])
-    pos <- join(pos, self$panel_info, by = "PANEL")
+    pos <- join(pos, self$panel_info, by = "PANEL", match = "first")
+    
+    new_x_scale <- function() scale_clone(scales$get_scales("x"))
+    new_y_scale <- function() scale_clone(scales$get_scales("y"))
+    
     
     d_ply(pos, "SCALE_X", function(df) {
-      x <- df$SCALE_X[1]
-      self$x_scales[[x]]$train(df$x)
+      if (is.null(df$x)) return()
+      
+      scale_pos <- df$SCALE_X[1]
+      if (is.null(self$x_scales[[scale_pos]])) {
+        self$x_scales[[scale_pos]] <- new_x_scale()
+      }
+      scale_train(self$x_scales[[scale_pos]], df$x)
     })
+    
     d_ply(pos, "SCALE_Y", function(df) {
-      y <- df$SCALE_Y[1]
-      self$y_scales[[y]]$train(df$y)
+      if (is.null(df$y)) return()
+      
+      scale_pos <- df$SCALE_Y[1]
+      if (is.null(self$y_scales[[scale_pos]])) {
+        self$y_scales[[scale_pos]] <- new_y_scale()
+      }
+      scale_train(self$y_scales[[scale_pos]], df$y)
     })
     
     invisible(NULL)
+  }
+  
+  self$reset_scales <- function() {
+    l_ply(self$x_scales, scale_reset)
+    l_ply(self$y_scales, scale_reset)
   }
   
   # Map data with scales.
@@ -74,29 +89,33 @@ Panels <- Object$clone()$do({
   # This operation must be idempotent because it is applied twice: both before
   # and after statistical transformation.
   # 
+  # TODO: see how slow this is, and whether it's more effective to do it
+  # column wise, and using the knowledge that all position scales do is
+  # convert to numeric/integer for x, xmin, xmax, y, ymin, ymax, xend and yend
+  #
   # @param data a list of data frames (one for each layer)  
   self$map_scales <- function(data) {
     lapply(data, function(layer_data) {
-      panel <- match(layer_data$PANEL, .$panel_info$PANEL)
+      panel <- match(layer_data$PANEL, self$panel_info$PANEL)
       
-      scale_x <- .$panel_info$SCALE_X[panel]
+      scale_x <- self$panel_info$SCALE_X[panel]
       layer_data <- ldply(unique(scale_x), function(i) {
-        old <- data[scale_x == i, , ]
-        new <- .$scales$x[[i]]$map_df(old)
+        old <- layer_data[scale_x == i, , ]
+        new <- scales_map_df(self$x_scales[[i]], old)
         cunion(new, old)
       })
       
-      scale_y <- .$panel_info$SCALE_Y[panel]
+      scale_y <- self$panel_info$SCALE_Y[panel]
       layer_data <- ldply(unique(scale_y), function(i) {
-        old <- data[scale_y == i, , ]
-        new <- .$scales$y[[i]]$map_df(old)
+        old <- layer_data[scale_y == i, , ]
+        new <- scales_map_df(self$y_scales[[i]], old)
         cunion(new, old)
       })
       
       layer_data
     })
   }
-  
+    
   # Calculate statistics
   # 
   # @param layers list of layers
@@ -104,10 +123,19 @@ Panels <- Object$clone()$do({
   self$calculate_stats <- function(data, layers) {
     mlply(cbind(d = data, l = layers), function(d, l) {
       ddply(d, "PANEL", function(panel_data) {
-        panel <- self$make_panel(panel_data$PANEL[1])
-        layer$calc_statistic(panel_data, panel)
+        scales <- self$make_panel_scales(panel_data$PANEL[1])
+        l$calc_statistic(panel_data, scales)
       })
     })
+  }
+  
+  self$make_panel_scales <- function(i) {
+    panel <- self$panel_info[self$panel_info$PANEL == i, ]
+    list(
+      x = self$x_scales[[panel$SCALE_X]],
+      y = self$y_scales[[panel$SCALE_Y]]
+    )
+    
   }
   
   # Render the plot, combining axes, contents, strips, legends and labels.

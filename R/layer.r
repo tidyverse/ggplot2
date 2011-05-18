@@ -138,8 +138,8 @@ Layer <- proto(expr = {
     if (!is.null(.$geom_params$group)) {
       aesthetics["group"] <- .$geom_params$group
     }
-    
-    plot$scales$add_defaults(data, aesthetics, plot$plot_env)
+
+    scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
     
     # Evaluate aesthetics in the context of their data frame
     evaled <- compact(

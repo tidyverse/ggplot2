@@ -82,7 +82,6 @@ FacetWrap <- proto(Facet, {
       coord$compute_ranges(.$panel_scales(i))
     })
 
-    browser()
     axes <- .$build_axes(coord, coord_details, theme)
     strips <- .$build_strips(coord_details, theme)
     panels <- .$build_panels(panels_grob, coord, coord_details, theme)
