@@ -10,7 +10,7 @@
   \item{ncol}{number of columns}
   \item{facet}{formula specifying variables to facet by}
   \item{scales}{should scales be fixed, free, or free in one dimension
-(\\code{free_x}, \\code{free_y})}
+(\code{free_x}, \code{free_y})}
 }
 \examples{d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) + 
 xlim(0, 2) + stat_binhex(na.rm = TRUE) + opts(aspect.ratio = 1)

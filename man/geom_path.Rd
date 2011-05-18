@@ -7,8 +7,14 @@
 }
 \seealso{\code{\link{geom_line}}: Functional (ordered) lines;  
 \code{\link{geom_polygon}}: Filled paths (polygons); 
-\code{\link{geom_segment}}: Line segments
-# Generate data
+\code{\link{geom_segment}}: Line segments}
+\arguments{
+  \item{lineend}{Line end style (round, butt, square)}
+  \item{linejoin}{Line join style (round, mitre, bevel)}
+  \item{linemitre}{Line mitre limit (number greater than 1)}
+  \item{arrow}{Arrow specification, as created by ?grid::arrow}
+}
+\examples{# Generate data
 myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
 p <- ggplot(myear, aes(length, rating))
 p + geom_path()
@@ -18,7 +24,7 @@ p + geom_path(aes(size = year))
 p + geom_path(aes(colour = year))
 
 # Change scale
-p + geom_path(aes(size = year)) + scale_size(to = c(1, 3))
+p + geom_path(aes(size = year)) + scale_size(range = c(1, 3))
 
 # Set aesthetics to fixed value
 p + geom_path(colour = "green")
@@ -77,9 +83,3 @@ p + geom_line(aes(colour = x))
 
 # Should fail
 should_stop(p + geom_line(aes(colour = x), linetype=2))}
-\arguments{
-  \item{lineend}{Line end style (round, butt, square)}
-  \item{linejoin}{Line join style (round, mitre, bevel)}
-  \item{linemitre}{Line mitre limit (number greater than 1)}
-  \item{arrow}{Arrow specification, as created by ?arrow}
-}

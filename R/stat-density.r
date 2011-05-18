@@ -3,7 +3,7 @@
 #' @name stat_density
 #' @param adjust see \code{\link{density}} for details
 #' @param kernel kernel used for density estimation, see
-#'   \\code{\\link{density}} for details
+#'   \code{\link{density}} for details
 #' @return data.frame with additional columns:
 #'   \item{density}{density estimate}
 #'   \item{count}{density * number of points - useful for stacked density
@@ -85,7 +85,7 @@ StatDensity <- proto(Stat, {
     if (n < 3) return(data.frame())
     if (is.null(data$weight)) data$weight <- rep(1, n) / n
 
-    range <- scales$x$output_set()
+    range <- scale_dimension(scales$x, c(0, 0))
     xgrid <- seq(range[1], range[2], length=200)
     
     dens <- density(data$x, adjust=adjust, kernel=kernel, weight=data$weight, from=range[1], to=range[2])

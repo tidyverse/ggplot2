@@ -17,7 +17,7 @@
 #' @param object component to add
 #' @seealso \code{\link{set_last_plot}}, \code{\link{ggplot}}
 #' @method + ggplot
-#' @aliases +.ggplot %+%
+#' @aliases +.ggplot \%+\%
 #' @S3method "+" ggplot
 #' @export "%+%"
 #' @name ggplot-add

@@ -2,10 +2,14 @@
 \alias{scale_colour_gradient2}
 \title{Diverging colour gradient...}
 \usage{scale_colour_gradient2(..., low=muted("red"), mid="white",
-    high=muted("blue"), midpoint=0, space="rgb")}
+    high=muted("blue"), midpoint=0, space="rgb",
+    na.value="grey50")}
 
 \description{
   Diverging colour gradient
+}
+\arguments{
+  \item{na.value}{Colour to use for missing values}
 }
 \examples{dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
 dsub$diff <- with(dsub, sqrt(abs(x-y))* sign(x-y))

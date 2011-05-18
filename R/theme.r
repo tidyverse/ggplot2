@@ -4,7 +4,7 @@
 #' theme or use \code{theme_set} to completely override it.
 #' 
 #' @param ... named list of theme settings
-#' @export
+#' @export theme_update theme_set theme_get
 #' @examples
 #' qplot(mpg, wt, data = mtcars)
 #' old <- theme_set(theme_bw())
@@ -80,9 +80,6 @@ theme_render <- function(theme, element, ..., name = NULL) {
   ggname(ps(element, name, sep = "."), el(...))
 }
 
-#' Print out a theme element
-#'
-#' @keywords internal
 #' @S3method print theme
 print.theme <- function(x, ...) {
   call <- attr(x, "call")

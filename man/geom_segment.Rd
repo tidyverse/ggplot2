@@ -10,7 +10,11 @@ segment lines and paths.}
 \arguments{
   \item{arrow}{specification for arrow heads, as created by arrow()}
 }
-\examples{require("maps")
+\examples{library(grid) # needed for arrow function
+p <- ggplot(seals, aes(x = long, y = lat))
+(p <- p + geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat), arrow=arrow(length=unit(0.1,"cm"))))
+
+if (require("maps")) {
 
 xlim <- range(seals$long)
 ylim <- range(seals$lat)
@@ -20,9 +24,8 @@ usamap <- rbind(usamap, NA, data.frame(map('state', xlim = xlim, ylim
 = ylim, plot = FALSE)[c("x","y")]))
 names(usamap) <- c("long", "lat")
 
-p <- ggplot(seals, aes(x = long, y = lat))
-(p <- p + geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat), arrow=arrow(length=unit(0.1,"cm"))))
 p + geom_path(data = usamap) + scale_x_continuous(limits=xlim)
+}
 
 # You can also use geom_segment to recreate plot(type = "h") : 
 counts <- as.data.frame(table(x = rpois(100,5)))

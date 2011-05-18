@@ -2,7 +2,7 @@
 #' 
 #' @seealso \url{http://had.co.nz/ggplot2}
 #' @export
-#' @S3method ggplot.default
+#' @S3method ggplot default
 #' @keywords hplot
 #' @param data default data set
 #' @param ... other arguments passed to specific methods

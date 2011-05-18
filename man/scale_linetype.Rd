@@ -1,7 +1,7 @@
-\name{scale_linetype_discrete}
-\alias{scale_linetype_discrete}
+\name{scale_linetype}
+\alias{scale_linetype}
 \title{Scale for line patterns.}
-\usage{scale_linetype_discrete(...)}
+\usage{scale_linetype(...)}
 
 \description{
   Scale for line patterns.

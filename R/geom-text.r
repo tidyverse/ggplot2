@@ -20,7 +20,7 @@
 #' p + geom_text(aes(colour=factor(cyl))) + scale_colour_discrete(l=40)
 #' 
 #' p + geom_text(aes(size=wt))
-#' p + geom_text(aes(size=wt)) + scale_size(to=c(3,6))
+#' p + geom_text(aes(size=wt)) + scale_size(range=c(3,6))
 #' 
 #' # You can display expressions by setting parse = TRUE.  The 
 #' # details of the display are described in ?plotmath, but note that

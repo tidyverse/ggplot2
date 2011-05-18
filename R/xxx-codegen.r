@@ -43,6 +43,6 @@ TopLevel$build_accessor <- function(., extra_args = c()) {
   f <- function() {}
   formals(f) <- as.pairlist(c(args, alist(... =)))
   body(f) <- parse(text = body)
-  environment(f) <- globalenv()
+  environment(f) <- environment(ggplot)
   f
 }

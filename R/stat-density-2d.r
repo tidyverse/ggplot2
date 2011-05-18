@@ -44,7 +44,7 @@
 #' # Or points:
 #' d + stat_density2d(geom="point", aes(size = ..density..), contour = FALSE)
 StatDensity2d <- proto(Stat, {
-  objname <- "density_2d"
+  objname <- "density2d"
   
   default_geom <- function(.) GeomDensity2d
   default_aes <- function(.) aes(colour = "#3366FF", size = 0.5)

@@ -14,7 +14,7 @@ plots}
 \arguments{
   \item{adjust}{see \code{\link{density}} for details}
   \item{kernel}{kernel used for density estimation, see
-\\code{\\link{density}} for details}
+\code{\link{density}} for details}
 }
 \examples{m <- ggplot(movies, aes(x=rating))
 m + geom_density()

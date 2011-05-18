@@ -25,8 +25,11 @@
 #' head(fortify(mod, mtcars))
 #' 
 #' plot(mod, which = 1)
-#' qplot(.fitted, .resid, data = mod) + geom_hline() + geom_smooth(se = FALSE)
-#' qplot(.fitted, .stdresid, data = mod) + geom_hline() + 
+#' qplot(.fitted, .resid, data = mod) + 
+#'   geom_hline(yintercept = 0) + 
+#'   geom_smooth(se = FALSE)
+#' qplot(.fitted, .stdresid, data = mod) + 
+#'   geom_hline(yintercept = 0) +
 #'   geom_smooth(se = FALSE)
 #' qplot(.fitted, .stdresid, data = fortify(mod, mtcars), 
 #'   colour = factor(cyl))
@@ -54,7 +57,7 @@
 #' 
 #' plot(mod, which = 6)
 #' ggplot(mod, aes(.hat, .cooksd, data = mod)) + 
-#'   geom_vline(colour = NA) + 
+#'   geom_vline(xintercept = 0, colour = NA) + 
 #'   geom_abline(slope = seq(0, 3, by = 0.5), colour = "white") +
 #'   geom_smooth(se = FALSE) + 
 #'   geom_point()

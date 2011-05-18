@@ -6,6 +6,7 @@
 #' level, and increasing by one for each level (i.e. the labels are placed
 #' at integer positions).  This is what allows jittering to work.
 #'
+#' @export scale_x_discrete scale_y_discrete
 #' @examples
 #' qplot(cut, data=diamonds, stat="bin")
 #' qplot(cut, data=diamonds, geom="bar")
@@ -37,7 +38,7 @@
 #' 
 #' # Use abbreviate as a formatter to reduce long names
 #' qplot(reorder(manufacturer, cty), cty, data=mpg) +  
-#'   scale_x_discrete(formatter = "abbreviate")
+#'   scale_x_discrete(labels = abbreviate)
 scale_x_discrete <- function(..., expand = c(0, 0.5)) {
   sc <- discrete_scale(c("x", "xmin", "xmax", "xend"), "position_d", identity, ..., 
     expand = expand, legend = FALSE)
@@ -57,6 +58,7 @@ scale_y_discrete <- function(..., expand = c(0, 0.5)) {
 # mapping, but makes it possible to place objects at non-integer positions,
 # as is necessary for jittering etc.
 
+#' @S3method scale_train position_d
 scale_train.position_d <- function(scale, x) {
   if (is.discrete(x)) {
     scale$range$train(x, drop = scale$drop)
@@ -65,6 +67,14 @@ scale_train.position_d <- function(scale, x) {
   }
 }
 
+#' @S3method scale_reset position_d
+scale_reset.position_d <- function(scale, x) {
+  # Can't reset discrete scale because no way to recover values
+  scale$range_c$reset()
+}
+
+
+#' @S3method scale_map position_d
 scale_map.position_d <- function(scale, x) {
   if (is.discrete(x)) {
     limits <- scale_limits(scale)
@@ -74,6 +84,7 @@ scale_map.position_d <- function(scale, x) {
   }
 }
 
+#' @S3method scale_dimension position_d
 scale_dimension.position_d <- function(scale, expand = scale$expand) {
   disc_range <- c(1, length(scale_limits(scale)))
   disc <- expand_range(disc_range, 0, expand[2], expand[2])

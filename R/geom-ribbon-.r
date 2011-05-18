@@ -104,6 +104,8 @@ GeomRibbon <- proto(Geom, {
 #' @examples
 #' # see geom_ribbon
 GeomArea <- proto(GeomRibbon,{
+  objname <- "area"
+
   default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = 1)
   default_pos <- function(.) PositionStack
   required_aes <- c("x", "y")

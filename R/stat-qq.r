@@ -53,7 +53,7 @@ StatQq <- proto(Stat, {
     }
 
     theoretical <- safe.call(distribution, c(list(p = quantiles), dparams))
-  
+    
     data.frame(sample, theoretical)
   }
   

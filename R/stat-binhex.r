@@ -35,8 +35,8 @@ StatBinhex <- proto(Stat, {
 
     if (is.null(binwidth)) {
       binwidth <- c( 
-        diff(scales$x$input_set()) / bins,
-        diff(scales$y$input_set() ) / bins
+        diff(scale_dimension(scales$x, c(0, 0))) / bins,
+        diff(scale_dimension(scales$y, c(0, 0))) / bins
       )
     }
     

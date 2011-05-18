@@ -2,6 +2,7 @@
 #' 
 #' @param p plot to modify
 #' @param labels named list of new labels
+#' @export
 #' @examples
 #' p <- qplot(mpg, wt, data = mtcars)
 #' update_labels(p, list(x = "New x"))

@@ -1,5 +1,7 @@
 #' Use values without scaling.
 #'
+#' @export scale_colour_identity scale_fill_identity scale_shape_identity
+#'   scale_linetype_identity scale_alpha_identity scale_size_identity
 #' @examples
 #' colour <- c("red", "green", "blue", "yellow")
 #' qplot(1:4, 1:4, fill = colour, geom = "tile")

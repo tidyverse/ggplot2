@@ -35,7 +35,7 @@
 #' @seealso \code{\link{aes_string}}
 #' @S3method str uneval
 #' @S3method print uneval
-#' @S3method [ uneval
+#' @S3method "[" uneval
 #' @S3method as.character uneval
 #' @export
 #' @examples

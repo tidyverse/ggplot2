@@ -1,5 +1,5 @@
-\name{geom_quatile}
-\alias{geom_quatile}
+\name{geom_quantile}
+\alias{geom_quantile}
 \title{Add quantile lines from a quantile regression.}
 
 \description{

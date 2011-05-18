@@ -11,6 +11,10 @@ ggplot2 0.9.0 ----------------------------------------------------------------
   median line is now `fatten` times the width of the other lines (thanks to
   suggestion by Di Cook), and the line type can now be set.
 
+* Scales now automatically shrink to what is actually displayed on the plot,
+  not the underlying data used for statistical transformation. If you want the
+  old behaviour, supply `shrink = FALSE` to the facetting specification.
+  (Fixes #125)
 
 DOCUMENTATION
 
@@ -21,7 +25,9 @@ DOCUMENTATION
 
 * ggplot2 now uses a `NAMESPACE`, and only exports functions that should be
   user visible - this should make it play considerably more nicely with other
-  packages in the R ecosystem
+  packages in the R ecosystem. Note that this means you now need to explicitly
+  load `plyr` (and other packages) if you are using them elsewhere in your
+  code.
 
 SCALES
 
@@ -46,7 +52,8 @@ SCALES
   breaks.
 
 * all scales now accept `na.value` parameter which provides an aesthetic value
-  to be used for NA values in the data
+  to be used for NA values in the data. Colour/fill scales default to values
+  that should stand out as being different from non-missing values.
 
 * the new `oob` (out of bounds) parameter controls how scales deals with
   values outside the limits. The default action is `censor` - see `clip` for
@@ -71,6 +78,8 @@ ggplot2 0.8.9 (2010-12-24) ---------------------------------------------------
 A big thanks to Koshke Takahashi, who supplied the majority of improvements in this release!
 
 GUIDE IMPROVEMENTS
+
+* axis: can separately specify the x and y ticks.
 
 * key size: can specify width and height separately
 

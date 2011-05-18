@@ -7,7 +7,7 @@
 #' @paramCopy palette scales::brewer_pal
 #' @usageFor scale_colour_brewer
 #' @usageFor scale_fill_brewer
-#' @export
+#' @export scale_colour_brewer scale_fill_brewer
 #' @examples
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 #' (d <- qplot(carat, price, data=dsamp, colour=clarity))

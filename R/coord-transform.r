@@ -35,18 +35,27 @@
 #' 
 #' # With a combination of scale and coordinate transformation, it's
 #' # possible to do back-transformations:
+#' library(scales)
 #' qplot(carat, price, data=diamonds, log="xy") + 
 #'   geom_smooth(method="lm") + 
-#'   coord_trans(x="pow10", y="pow10")
+#'   coord_trans(x = exp_trans(10), y = exp_trans(10))
 #' # cf.
 #' qplot(carat, price, data=diamonds) + geom_smooth(method = "lm")
+#'
+#' # Also works with discrete scales
+#' df <- data.frame(a = abs(rnorm(26)),letters)
+#' plot <- ggplot(df,aes(a,letters)) + geom_point() 
+#' 
+#' plot + coord_trans(x = "log10")
+#' plot + coord_trans(x = "sqrt")
+#' plot + coord_trans(x = "sqrt", y = "reverse")
 CoordTrans <- proto(CoordCartesian, expr={
   objname <- "trans"
 
   
   new <- function(., xtrans="identity", ytrans="identity") {
-    if (is.character(xtrans)) xtrans <- Trans$find(xtrans)
-    if (is.character(ytrans)) ytrans <- Trans$find(ytrans)
+    if (is.character(xtrans)) xtrans <- as.trans(xtrans)
+    if (is.character(ytrans)) ytrans <- as.trans(ytrans)
     .$proto(xtr = xtrans, ytr = ytrans)
   }
   
@@ -64,30 +73,27 @@ CoordTrans <- proto(CoordCartesian, expr={
     data <- transform_position(data, trans_x, trans_y)
     transform_position(data, trim_infinite_01, trim_infinite_01)
   }
-  transform_x <- function(., data, range) {
-    rescale(.$xtr$transform(data), 0:1, range)
+  transform_x <- function(., x, range) {
+    rescale(.$xtr$transform(x), 0:1, range)
   }
-  transform_y <- function(., data, range) {
-    rescale(.$ytr$transform(data), 0:1, range)
+  transform_y <- function(., x, range) {
+    rescale(.$ytr$transform(x), 0:1, range)
   }
 
   compute_ranges <- function(., scales) {
-    trans_range <- function(x, expand) {
-      # range is necessary in case transform has flipped min and max
-      expand_range(range(x, na.rm = TRUE), expand)
+    exp_trans_range <- function(trans, scale) {
+      range <- trans_range(trans, scale_dimension(scale, c(0, 0)))
+      expand_range(range, scale$expand[1], scale$expand[2])
     }
-    
-    x.range <- trans_range(.$xtr$transform(scales$x$output_set()),
-      scales$x$.expand)
-    x.major <- .$transform_x(scales$x$input_breaks_n(), x.range)
-    x.minor <- .$transform_x(scales$x$output_breaks(), x.range)
-    x.labels <- scales$x$labels()
+    x.range <- exp_trans_range(.$xtr, scales$x)
+    x.major <- .$transform_x(scale_break_positions(scales$x), x.range)
+    x.minor <- .$transform_x(scale_breaks_minor(scales$x), x.range)
+    x.labels <- scale_labels(scales$x)
 
-    y.range <- trans_range(.$ytr$transform(scales$y$output_set()),
-      scales$y$.expand)
-    y.major <- .$transform_y(scales$y$input_breaks_n(), y.range)
-    y.minor <- .$transform_y(scales$y$output_breaks(), y.range)
-    y.labels <- scales$y$labels()
+    y.range <- exp_trans_range(.$ytr, scales$y)
+    y.major <- .$transform_y(scale_break_positions(scales$y), y.range)
+    y.minor <- .$transform_y(scale_breaks_minor(scales$y), y.range)
+    y.labels <- scale_labels(scales$y)
     
     list(
       x.range = x.range, y.range = y.range, 

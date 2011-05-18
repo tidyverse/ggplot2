@@ -3,6 +3,7 @@ Facet <- proto(TopLevel, {
     as.proto(.$as.list(all.names=TRUE), parent=.) 
   }
   objname <- "Facet"
+  shrink <- TRUE
   class <- function(.) "facet"
   
   html_returns <- function(.) {
@@ -11,6 +12,14 @@ Facet <- proto(TopLevel, {
       "<p>This function returns a facet object.</p>"
     )
   }
+  
+  position_reset <- function(., scales) {
+    if (!.$shrink) return()
+    lapply(.$scales$x, scale_reset)
+    lapply(.$scales$y, scale_reset)
+    invisible()
+  }
+  
   
   parameters <- function(.) {
     params <- formals(get("new", .))

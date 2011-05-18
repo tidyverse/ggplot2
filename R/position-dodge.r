@@ -25,7 +25,7 @@
 PositionDodge <- proto(Position, {
   objname <- "dodge"
 
-  adjust <- function(., data, scales) {
+  adjust <- function(., data) {
     if (empty(data)) return(data.frame())
     check_required_aesthetics("x", names(data), "position_dodge")
     

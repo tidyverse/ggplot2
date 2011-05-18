@@ -46,4 +46,4 @@ qplot(reorder(manufacturer, displ), cty, data=mpg)
 
 # Use abbreviate as a formatter to reduce long names
 qplot(reorder(manufacturer, cty), cty, data=mpg) +  
-scale_x_discrete(formatter = "abbreviate")}
+scale_x_discrete(labels = abbreviate)}
