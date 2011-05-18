@@ -7,7 +7,13 @@ ggplot_build <- function(plot) {
   
   scales <- plot$scales
   # Apply function to layer and matching data
-  dlapply <- function(f) mlply(cbind(d = data, p = layers), f)
+  dlapply <- function(f) {
+    out <- vector("list", length(data))
+    for(i in seq_along(data)) {
+      out[[i]] <- f(d = data[[i]], p = layers[[i]])
+    }
+    out
+  }
 
   # Initialise panels, add extra data for margins & missing facetting
   # variables, and add on a PANEL variable to data
