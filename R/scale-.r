@@ -104,6 +104,7 @@ scale_train.discrete <- function(scale, x) {
 
 # Reset scale, untraining ranges
 scale_reset <- function(scale, x) UseMethod("scale_reset")
+#' @S3method scale_reset default
 scale_reset.default <- function(scale, x) {
   scale$range$reset()
 }

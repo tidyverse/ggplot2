@@ -3,7 +3,7 @@
 #' Default line types based on a set supplied by Richard Pearson, 
 #' University of Manchester.
 #'
-#' @export
+#' @export scale_linetype scale_linetype_continuous scale_linetype_discrete
 #' @examples
 #' ec_scaled <- data.frame(
 #'   date = economics$date, 

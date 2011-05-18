@@ -1,5 +1,4 @@
 \name{scale_continuous}
-\alias{scale_continuous}
 \title{Continuous position scales (x & y).}
 \usage{scale_x_continuous scale_x_continuous}
 
@@ -7,6 +6,14 @@
   Continuous position scales (x & y).
 }
 \seealso{\code{\link{scale_discrete}} for discrete position scales}
+\alias{scale_x_continuous}
+\alias{scale_y_continuous}
+\alias{scale_x_log10}
+\alias{scale_y_log10}
+\alias{scale_x_reverse}
+\alias{scale_y_reverse}
+\alias{scale_x_sqrt}
+\alias{scale_y_sqrt}
 \arguments{
   \item{...}{common continuous scale parameters: \code{name}, \code{breaks},
 \code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
@@ -46,10 +53,11 @@ m + scale_y_reverse()
 # see ?transformer for a full list
 
 # You can control the formatting of the labels with the formatter
-# argument.  Some common formats are built in:
+# argument.  Some common formats are built into the scales package:
 x <- rnorm(10) * 100000
 y <- seq(0, 1, length = 10)
 p <- qplot(x, y)
+library(scales)
 p + scale_y_continuous(labels = percent)
 p + scale_y_continuous(labels = dollar)
 p + scale_x_continuous(labels = comma)

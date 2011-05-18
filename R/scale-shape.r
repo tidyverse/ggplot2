@@ -1,6 +1,6 @@
 #' Scale for shapes, aka glyphs.
 #' 
-#' @export
+#' @export scale_shape scale_shape_discrete scale_shape_continuous
 #' @examples
 #' dsmall <- diamonds[sample(nrow(diamonds), 100), ]
 #' 

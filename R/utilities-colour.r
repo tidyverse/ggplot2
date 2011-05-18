@@ -62,10 +62,15 @@ col2hcl <- function(colour, h, c, l, alpha = 1) {
   hcl_colours
 }
 
-# Mute standard R colours.
-# This produces colours with moderate luminance and saturation.
-# 
-# @keyword internal
+#' Mute standard R colours.
+#'
+#' This produces colours with moderate luminance and saturation.
+#' 
+#' @keywords internal
+#' @export
+#' @param colour colour to modify
+#' @param l new luminance
+#' @param c new chroma
 muted <- function(colour, l=30, c=70) col2hcl(colour, l=l, c=c)
 
 # Add a missing colour to a colour palette.

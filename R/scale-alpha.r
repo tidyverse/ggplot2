@@ -4,7 +4,7 @@
 #'   to control name, limits, breaks, labels and so forth.
 #' @param x range of output alpha values.  Should lie between 0 and 1.
 #' @aliases scale_alpha scale_alpha_continuous
-#' @export
+#' @export scale_alpha scale_alpha_continuous
 #' @examples
 #' (p <- qplot(mpg, cyl, data=mtcars, alpha=cyl))
 #' p + scale_alpha("cylinders")

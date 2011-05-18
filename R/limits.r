@@ -39,11 +39,11 @@ ylim <- function(...) {
 #' @S3method limits POSIXct
 #' @S3method limits POSIXlt
 #' @examples
-#' limits(c(1, 5), "x")
-#' limits(c(5, 1), "x")
-#' limits(c("A", "b", "c"), "x")
-#' limits(c("A", "b", "c"), "fill")
-#' limits(as.Date(c("2008-01-01", "2009-01-01")), "x")
+#' ggplot2:::limits(c(1, 5), "x")
+#' ggplot2:::limits(c(5, 1), "x")
+#' ggplot2:::limits(c("A", "b", "c"), "x")
+#' ggplot2:::limits(c("A", "b", "c"), "fill")
+#' ggplot2:::limits(as.Date(c("2008-01-01", "2009-01-01")), "x")
 limits <- function(lims, var) UseMethod("limits")
 limits.numeric <- function(lims, var) {
   stopifnot(length(lims) == 2)
