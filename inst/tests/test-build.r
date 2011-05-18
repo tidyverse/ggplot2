@@ -3,6 +3,19 @@ context("Plot building")
 
 pdata <- function(x) ggplot_build(x)$data
 
+# Transform the data as the coordinate system does
+cdata <- function(plot) {
+  pieces <- ggplot_build(plot)
+  
+  lapply(pieces$data, function(d) {
+    ddply(d, "PANEL", function(panel_data) {
+      scales <- pieces$panel$make_panel_scales(panel_data$PANEL[1])
+      details <- plot$coord$compute_ranges(scales)
+      plot$coord$transform(panel_data, details)
+    })
+  })
+}
+
 df <- data.frame(x = 1:3, y = 3:1, z = letters[1:3])
 
 test_that("there is one data frame for each layer", {  
@@ -57,18 +70,26 @@ test_that("facets split up the data", {
   expect_that(d2, equals(d3))
   expect_that(sort(names(d2)), equals(sort(c("x", "y", "PANEL"))))
   expect_that(d2$PANEL, equals(factor(1:3)))
-  
 })
 
 
-# 
-# 
-# p <- ggplot(df, aes(x, y, colour = z)) + geom_point() + 
-#   
-# ggplot_build(p)$data
-# 
-# p <- ggplot(df, aes(z, x)) + geom_point()
-# ggplot_build(p)[[1]][[1]]
-# 
-# p <- ggplot(df, aes(z)) + geom_bar()
-# ggplot_build(p)[[1]][[1]]
+
+test_that("facets with free scales scale independently", {
+  l1 <- ggplot(df, aes(x, y)) + geom_point() + 
+    facet_wrap(~ z, scales = "free")
+  d1 <- cdata(l1)[[1]]
+  expect_that(length(unique(d1$x)), equals(1))
+  expect_that(length(unique(d1$y)), equals(1))
+
+  l2 <- ggplot(df, aes(x, y)) + geom_point() + 
+    facet_grid(. ~ z, scales = "free")
+  d2 <- cdata(l2)[[1]]
+  expect_that(length(unique(d2$x)), equals(3))
+  expect_that(length(unique(d2$y)), equals(1))
+  
+  l3 <- ggplot(df, aes(x, y)) + geom_point() + 
+    facet_grid(z ~ ., scales = "free")
+  d3 <- cdata(l3)[[1]]
+  expect_that(length(unique(d3$x)), equals(1))
+  expect_that(length(unique(d3$y)), equals(3))
+})
