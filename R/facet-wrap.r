@@ -68,12 +68,11 @@ FacetWrap <- proto(Facet, {
     panels$SCALE_X <- if (.$free$x) seq_len(nrow(panels)) else 1
     panels$SCALE_Y <- if (.$free$y) seq_len(nrow(panels)) else 1
     
-    .$panel_info <- panels
     panels
   }
   
-  map_layer <- function(., data) {
-    locate_wrap(data, .$panel_info, .$facets)
+  map_layer <- function(., data, panel_info) {
+    locate_wrap(data, panel_info, .$facets)
   }
   
   # Create grobs for each component of the panel guides

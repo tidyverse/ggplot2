@@ -9,7 +9,7 @@ cdata <- function(plot) {
   
   lapply(pieces$data, function(d) {
     ddply(d, "PANEL", function(panel_data) {
-      scales <- pieces$panel$make_panel_scales(panel_data$PANEL[1])
+      scales <- panel_scales(pieces$panel, panel_data$PANEL[1])
       details <- plot$coord$compute_ranges(scales)
       plot$coord$transform(panel_data, details)
     })

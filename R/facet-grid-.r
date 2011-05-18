@@ -136,8 +136,8 @@ FacetGrid <- proto(Facet, {
     panels
   }
 
-  map_layer <- function(., data) {
-    locate_grid(data, .$panel_info, .$rows, .$cols, .$margins)
+  map_layer <- function(., data, panel_info) {
+    locate_grid(data, panel_info, .$rows, .$cols, .$margins)
   }
 
   # Create grobs for each component of the panel guides

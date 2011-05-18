@@ -10,7 +10,7 @@ FacetNull <- proto(Facet, {
       SCALE_X = 1L, SCALE_Y = 1L)
   }
 
-  map_layer <- function(., data) {
+  map_layer <- function(., data, panel_info) {
     transform(data, PANEL = 1)
   }
 
