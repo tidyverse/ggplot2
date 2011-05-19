@@ -71,13 +71,13 @@ facet_train_layout.wrap <- function(facet, data) {
 }
 
 #' @S3method facet_map_layout wrap
-facet_map_layout.wrap <- function(facet, data, panel_info) {
-  locate_wrap(data, panel_info, facet$facets)
+facet_map_layout.wrap <- function(facet, data, layout) {
+  locate_wrap(data, layout, facet$facets)
 }
 
 #' @S3method facet_render wrap
 facet_render.wrap <- function(facet, panels_grob, coord, theme) {
-  coord_details <- llply(.$panel_info$PANEL, function(i) {
+  coord_details <- llply(.$layout$PANEL, function(i) {
     coord$compute_ranges(.$panel_scales(i))
   })
 

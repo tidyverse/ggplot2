@@ -116,30 +116,26 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
 
 #' @S3method facet_train_layout grid
 facet_train_layout.grid <- function(facet, data) { 
-  panels <- layout_grid(data, facet$rows, facet$cols, facet$margins)
+  layout <- layout_grid(data, facet$rows, facet$cols, facet$margins)
 
   # Relax constraints, if necessary
-  panels$SCALE_X <- if (facet$free$x) panels$ROW else 1
-  panels$SCALE_Y <- if (facet$free$y) panels$COL else 1
+  layout$SCALE_X <- if (facet$free$x) layout$ROW else 1
+  layout$SCALE_Y <- if (facet$free$y) layout$COL else 1
   
-  panels
+  layout
 }
 
 
 #' @S3method facet_map_layout grid
-facet_map_layout.grid <- function(facet, data, panel_info) {
-  locate_grid(data, panel_info, facet$rows, facet$cols, facet$margins)
+facet_map_layout.grid <- function(facet, data, layout) {
+  locate_grid(data, layout, facet$rows, facet$cols, facet$margins)
 }
 
 #' @S3method facet_render grid
-facet_render.grid <- function(facet, panels_grob, coord, theme) {
-  coord_details <- llply(.$panel_info$PANEL, function(i) {
-    coord$compute_ranges(.$panel_scales(i))
-  })
-  
-  axes <- .$build_axes(coord, coord_details, theme)
-  strips <- .$build_strips(coord_details, theme)
-  panels <- .$build_panels(panels_grob, coord, coord_details, theme)
+facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
+  axes <- facet_axes(facet, panel, coord, theme)
+  strips <- facet_strips(facet, panel, theme)
+  panels <- facet_panels(facet, panel, coord, theme, geom_grobs)
   # legend
   # labels
   
@@ -161,28 +157,28 @@ facet_render.grid <- function(facet, panels_grob, coord, theme) {
   complete
 }
 
-facet_strips.grid <- function(., coord_details, theme) {
-  col_vars <- unique(.$panel_info[names(.$cols)])
-  row_vars <- unique(.$panel_info[names(.$rows)])
+facet_strips <- function(facet, panel, theme) {
+  col_vars <- unique(panel$layout[names(facet$cols)])
+  row_vars <- unique(panel$layout[names(facet$rows)])
 
   list(
-    r = .$build_strip(row_vars, theme, "r"), 
-    t = .$build_strip(col_vars, theme, "t")
+    r = build_strip(panel, row_vars, facet$labeller, theme, "r"),
+    t = build_strip(panel, col_vars, facet$labeller, theme, "t")
   )
 }
 
-build_strip <- function(., label_df, theme, side = "right") {
-  side <- match.arg(side, c("t", "l", "b", "r"))
-  horizontal <- side %in% c("t", "b")
-  labeller <- match.fun(.$labeller)
+build_strip <- function(panel, label_df, labeller, theme, side = "right") {
+  side <- match.arg(side, c("top", "left", "bottom", "right"))
+  horizontal <- side %in% c("top", "bottom")
+  labeller <- match.fun(labeller)
   
   # No labelling data, so return empty row/col
   if (empty(label_df)) {
     if (horizontal) {
-      widths <- unit(rep(1, max(.$panel_info$COL)), "null")
+      widths <- unit(rep(1, max(panel$layout$COL)), "null")
       return(layout_empty_row(widths))
     } else {
-      heights <- unit(rep(1, max(.$panel_info$ROW)), "null")
+      heights <- unit(rep(1, max(panel$layout$ROW)), "null")
       return(layout_empty_col(heights))
     }
   }
@@ -222,30 +218,30 @@ build_strip <- function(., label_df, theme, side = "right") {
   strips
 }
 
-facet_axes.grid <- function(., coord, coord_details, theme) {
+facet_axes <- function(facet, panel, coord, theme) {
   axes <- list()
-  
+
   # Horizontal axes
-  cols <- which(.$panel_info$ROW == 1)
-  grobs <- lapply(coord_details[cols], coord$guide_axis_h, theme)
+  cols <- which(panel$layout$ROW == 1)
+  grobs <- lapply(panel$ranges[cols], coord$guide_axis_h, theme)
   axes$b <- layout_row("axis-b", grobs)$add_col_space(theme$panel.margin)
-  
+
   # Vertical axes
-  rows <- which(.$panel_info$COL == 1)
-  grobs <- lapply(coord_details[rows], coord$guide_axis_v, theme)
+  rows <- which(panel$layout$COL == 1)
+  grobs <- lapply(panel$ranges[rows], coord$guide_axis_v, theme)
   axes$l <- layout_col("axis-l", grobs)$add_row_space(theme$panel.margin)
 
   axes
 }
-facet_panels.grid <- function(., panels_grob, coord, coord_details, theme) {
-  aspect_ratio <- theme$aspect.ratio
+
+facet_panels <- function(facet, panel, coord, theme, geom_grobs) {
   
   # If user hasn't set aspect ratio, and we have fixed scales, then
   # ask the coordinate system if it wants to specify one
-  if (is.null(aspect_ratio) && !.$free$x && !.$free$y) {
+  aspect_ratio <- theme$aspect.ratio
+  if (is.null(aspect_ratio) && !facet$free$x && !facet$free$y) {
     aspect_ratio <- coord$compute_aspect(coord_details[[1]])
   }
-  
   if (is.null(aspect_ratio)) {
     aspect_ratio <- 1
     respect <- FALSE
@@ -254,30 +250,34 @@ facet_panels.grid <- function(., panels_grob, coord, coord_details, theme) {
   }
   
   # Add background and foreground to panels
-  panels <- .$panel_info$PANEL    
-  ncol <- max(.$panel_info$COL)
-  nrow <- max(.$panel_info$ROW)
+  panels <- panel$layout$PANEL    
+  ncol <- max(panel$layout$COL)
+  nrow <- max(panel$layout$ROW)
+  
   panel_grobs <- lapply(panels, function(i) {
-    fg <- coord$guide_foreground(coord_details[[i]], theme)
-    bg <- coord$guide_background(coord_details[[i]], theme)
-    grobTree(bg, panels_grob[[i]], fg)      
+    fg <- coord$guide_foreground(panel$range[[i]], theme)
+    bg <- coord$guide_background(panel$range[[i]], theme)
+    
+    geom_grobs <- lapply(geom_grobs, "[[", i)
+    panel_grobs <- c(list(bg), geom_grobs, list(fg))
+    
+    gTree(children = do.call("gList", panel_grobs))  
   })
   
   panel_matrix <- matrix(list(nullGrob()), nrow = nrow, ncol = ncol)
   panel_matrix[panels] <- panel_grobs
 
-  if(.$space_is_free) {
-    size <- function(y) unit(diff(y$output_expand()), "null")
-    x_scales <- .$panel_info$scale_x[.$panel_info$ROW == 1]
-    y_scales <- .$panel_info$scale_y[.$panel_info$COL == 1]
+  if(facet$space_is_free) {
+    size <- function(x) unit(diff(scale_dimension(x)), "null")
+    x_scales <- panel$layout$scale_x[panel$layout$ROW == 1]
+    y_scales <- panel$layout$scale_y[panel$layout$COL == 1]
 
-    panel_widths <- do.call("unit.c", llply(.$scales$x, size))[x_scales]
-    panel_heights <- do.call("unit.c", llply(.$scales$y, size))[y_scales]
+    panel_widths <- do.call("unit.c", llply(panel$x_scales, size))[x_scales]
+    panel_heights <- do.call("unit.c", llply(panel$y_scales, size))[y_scales]
   } else {
     panel_widths <- rep(unit(1, "null"), ncol)
     panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow)
   }
-
 
   panels <- layout_matrix("panel", panel_matrix,
     panel_widths, panel_heights)

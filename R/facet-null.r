@@ -18,7 +18,7 @@ facet_train_layout.null <- function(facet, data) {
 }
 
 #' @S3method facet_map_layout null
-facet_map_layout.null <- function(facet, data, panel_info) {
+facet_map_layout.null <- function(facet, data, layout) {
   transform(data, PANEL = 1)
 }
 
@@ -55,7 +55,7 @@ facet_render.null <- function(facet, panel, coord, theme, geom_grobs) {
     widths = unit.c(grobWidth(axis_v), unit(1, "null")),
     heights = unit.c(unit(1, "null"), grobHeight(axis_h))
   )
-
+  
   layout
 }
   

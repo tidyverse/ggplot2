@@ -27,7 +27,7 @@ ylabel <- function(facet, theme) {
 
 # Figure out layout from data from plot and all layers.  
 # 
-# This creates the panel_info data frame which maps from data values to
+# This creates the layout data frame which maps from data values to
 # panel coordinates: ROW, COL and PANEL. It also records the panels that
 # contribute to each x and y scale.
 # 
@@ -36,8 +36,10 @@ ylabel <- function(facet, theme) {
 facet_train_layout <- function(facet, data) 
   UseMethod("facet_train_layout")
 
-facet_map_layout <- function(facet, data, panel_info)
+facet_map_layout <- function(facet, data, layout)
   UseMethod("facet_map_layout")
 
 facet_render <- function(facet, panels_grob, coord, theme, geom_grobs)
   UseMethod("facet_render")
+
+

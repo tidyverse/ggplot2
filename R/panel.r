@@ -26,14 +26,14 @@ new_panel <- function() {
 # @param data a list of data frames (one for each layer), and one for the plot
 # @return an updated panel object
 train_layout <- function(panel, facet, data, plot_data) {
-  panel_info <- facet_train_layout(facet, c(data, list(plot_data)))
+  layout <- facet_train_layout(facet, c(data, list(plot_data)))
 
-  panel$panel_info <- panel_info
+  panel$layout <- layout
   panel$shrink <- facet$shrink
   
   # Make space for scales
-  panel$x_scales <- vector("list", max(panel_info$SCALE_X))
-  panel$y_scales <- vector("list", max(panel_info$SCALE_Y))
+  panel$x_scales <- vector("list", max(layout$SCALE_X))
+  panel$y_scales <- vector("list", max(layout$SCALE_Y))
   
   panel
 }
@@ -53,7 +53,7 @@ train_layout <- function(panel, facet, data, plot_data) {
 map_layout <- function(panel, facet, data, plot_data) {
   lapply(data, function(data) {
     if (empty(data)) data <- plot_data
-    facet_map_layout(facet, data, panel$panel_info)
+    facet_map_layout(facet, data, panel$layout)
   })    
 }
 
@@ -69,7 +69,7 @@ map_layout <- function(panel, facet, data, plot_data) {
 train_position <- function(panel, data, x_scale, y_scale) { 
   # Extract columns relevant for position, and join with panel info
   pos <- ldply(data, function(df) df[c("x", "y", "PANEL")])
-  pos <- join(pos, panel$panel_info, by = "PANEL", match = "first")
+  pos <- join(pos, panel$layout, by = "PANEL", match = "first")
   
   # Loop through data for each scale, creating a new scale if needed
   d_ply(pos, "SCALE_X", function(df) {
@@ -113,16 +113,16 @@ reset_scales <- function(panel) {
 # @param data a list of data frames (one for each layer)  
 map_position <- function(panel, data) {
   lapply(data, function(layer_data) {
-    panel_id <- match(layer_data$PANEL, panel$panel_info$PANEL)
+    panel_id <- match(layer_data$PANEL, panel$layout$PANEL)
     
-    scale_x <- panel$panel_info$SCALE_X[panel_id]
+    scale_x <- panel$layout$SCALE_X[panel_id]
     layer_data <- ldply(unique(scale_x), function(i) {
       old <- layer_data[scale_x == i, , drop = FALSE]
       new <- scale_map_df(panel$x_scales[[i]], old)
       cunion(new, old)
     })
     
-    scale_y <- panel$panel_info$SCALE_Y[panel_id]
+    scale_y <- panel$layout$SCALE_Y[panel_id]
     layer_data <- ldply(unique(scale_y), function(i) {
       old <- layer_data[scale_y == i, , ]
       new <- scale_map_df(panel$y_scales[[i]], old)
@@ -134,7 +134,7 @@ map_position <- function(panel, data) {
 }
 
 panel_scales <- function(panel, i) {
-  this_panel <- panel$panel_info[panel$panel_info$PANEL == i, ]
+  this_panel <- panel$layout[panel$layout$PANEL == i, ]
 
   list(
     x = panel$x_scales[[this_panel$SCALE_X]],
@@ -149,7 +149,7 @@ train_ranges <- function(panel, coord) {
     coord$compute_ranges(list(x = panel$x_scales[[ix]], y = panel$y_scales[[iy]]))
   }
   panel$ranges <- Map(compute_range, 
-    panel$panel_info$SCALE_X, panel$panel_info$SCALE_Y)
+    panel$layout$SCALE_X, panel$layout$SCALE_Y)
   panel
 }
 
