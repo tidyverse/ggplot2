@@ -29,6 +29,7 @@ train_layout <- function(panel, facet, data, plot_data) {
   panel_info <- facet_train_layout(facet, c(data, list(plot_data)))
 
   panel$panel_info <- panel_info
+  panel$shrink <- facet$shrink
   
   # Make space for scales
   panel$x_scales <- vector("list", max(panel_info$SCALE_X))
@@ -95,6 +96,7 @@ train_position <- function(panel, data, x_scale, y_scale) {
 }
 
 reset_scales <- function(panel) {
+  if (!panel$shrink) return()
   l_ply(panel$x_scales, scale_reset)
   l_ply(panel$y_scales, scale_reset)
 }  

@@ -6,8 +6,8 @@
 #' # don't override it with facet_grid or facet_wrap
 #' ggplot(mtcars, aes(mpg, wt)) + geom_point()
 #' qplot(mpg, wt, data = mtcars)
-facet_null <- function() {
-  facet(subclass = "null")
+facet_null <- function(shrink = TRUE) {
+  facet(shrink = shrink, subclass = "null")
 }
 
 #' @S3method facet_train_layout null

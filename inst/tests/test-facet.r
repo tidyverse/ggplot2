@@ -41,3 +41,19 @@ test_that("facets with free scales scale independently", {
   expect_that(length(unique(d3$y)), equals(3))
 })
 
+test_that("shrink parameter affects scaling", {
+  l1 <- ggplot(df, aes(1, y)) + geom_point()
+  r1 <- pranges(l1)
+  
+  expect_that(r1$x[[1]], equals(c(1, 1)))
+  expect_that(r1$y[[1]], equals(c(1, 3)))
+  
+  l2 <- ggplot(df, aes(1, y)) + stat_summary(fun.y = "mean")
+  r2 <- pranges(l2)
+  expect_that(r2$y[[1]], equals(c(2, 2)))
+
+  l3 <- ggplot(df, aes(1, y)) + stat_summary(fun.y = "mean") +
+    facet_null(shrink = FALSE)
+  r3 <- pranges(l3)
+  expect_that(r3$y[[1]], equals(c(1, 3)))
+})
