@@ -32,7 +32,7 @@ ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv(
     mapping = mapping,
     options = list(),
     coordinates = CoordCartesian$new(),
-    facet = FacetNull$new(),
+    facet = facet_null(),
     plot_env = environment
   ), class="ggplot")
   
@@ -46,7 +46,6 @@ plot_clone <- function(plot) {
   p <- plot
   p$scales <- plot$scales$clone()
   p$layers <- lapply(plot$layers, function(x) x$clone())
-  p$facet <- plot$facet$clone()
   
   p
 }

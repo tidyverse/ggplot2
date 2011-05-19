@@ -1,6 +1,8 @@
 \name{facet_wrap}
 \alias{facet_wrap}
 \title{Wrap a 1d ribbon of panels into 2d.}
+\usage{facet_wrap(facets, nrow, ncol, scales="fixed", shrink=TRUE,
+    as.table=TRUE, drop=TRUE)}
 
 \description{
   Wrap a 1d ribbon of panels into 2d.

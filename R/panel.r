@@ -26,7 +26,7 @@ new_panel <- function() {
 # @param data a list of data frames (one for each layer), and one for the plot
 # @return an updated panel object
 train_layout <- function(panel, facet, data, plot_data) {
-  panel_info <- facet$panel_info(c(data, list(plot_data)))
+  panel_info <- facet_train_layout(facet, c(data, list(plot_data)))
 
   panel$panel_info <- panel_info
   
@@ -52,11 +52,11 @@ train_layout <- function(panel, facet, data, plot_data) {
 map_layout <- function(panel, facet, data, plot_data) {
   lapply(data, function(data) {
     if (empty(data)) data <- plot_data
-    facet$map_layer(data, panel$panel_info)
+    facet_map_layout(facet, data, panel$panel_info)
   })    
 }
 
-# Train position scales with data.
+# Train position scales with data
 # 
 # If panel-specific scales are not already present, will clone from
 # the scales provided in the parameter
