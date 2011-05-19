@@ -8,7 +8,7 @@
 #' p <- qplot(wt, mpg, data = mtcars)
 #' p + facet_grid(~ cyl)
 #' p + facet_grid(~ cyl, labeller = label_value)
-label_value <- function(variable, value) value
+label_value <- function(variable, value) as.character(value)
 
 #' Label facets with value and variable.
 #' 
