@@ -1,13 +1,3 @@
-# Are integers?
-# Determine if a vector contains only integers
-# 
-# @param vector to test
-# @keyword internal
-#X is.integeric(runif(100))
-#X is.integeric(rpois(100, 10))
-#X is.integeric(1:10)
-is.integeric <- function(x) all(floor(x) == x)
-
 # Ensure that the data frame contains a grouping variable.
 #
 # If the \code{group} variable is not present, then a new group
@@ -32,19 +22,4 @@ add_group <- function(data) {
     data$group <- id(data["group"], drop = TRUE)
   }
   data
-}
-
-# Force matrix
-# If not already a matrix, make a 1x1 matrix
-# 
-# @param object to make into a matrix
-# @keyword internal
-force_matrix <- function(x) {
-  if (!is.matrix(x)) {
-    mat <- list(x)
-    dim(mat) <- c(1,1)
-    mat
-  } else {
-    x
-  }
 }
