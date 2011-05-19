@@ -43,7 +43,7 @@ test_that("identity scale preserves input values", {
     scale_shape_identity() + 
     scale_size_identity() + 
     scale_alpha_identity()
-  d1 <- ggplot_build(p1)$data[[1]]
+  d1 <- pdata(p1)[[1]]
 
   expect_that(d1$colour, equals(as.character(df$z)))
   expect_that(d1$fill, equals(as.character(df$z)))
