@@ -8,8 +8,8 @@ providing a powerful model of graphics that makes it easy to produce
 complex multi-layered graphics.
 
 To install or update, run:
-        
-        install.packages(c("ggplot2", "plyr"))
+
+    install.packages(c("ggplot2", "plyr"))
 
 Find out more at http://had.co.nz/ggplot2, and check out the nearly 500
 examples of ggplot in use.  If you're interested, you can also sign up to 
