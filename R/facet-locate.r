@@ -1,8 +1,8 @@
-#' Take single layer of data and combine it with panel information to split
-#' data into different panels.  Adds in extra data for missing facetting
-#' levels and for margins.
-#'
-#' @params data a data frame
+# Take single layer of data and combine it with panel information to split
+# data into different panels.  Adds in extra data for missing facetting
+# levels and for margins.
+#
+# @params data a data frame
 locate_grid <- function(data, panels, rows = NULL, cols = NULL, margins = FALSE) {
   rows <- as.quoted(rows)
   cols <- as.quoted(cols)
