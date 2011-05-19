@@ -60,6 +60,12 @@ test_that("grid: crossed rows/cols create no more combinations than necessary", 
   expect_that(nrow(four), equals(1))
 })
 
+test_that("grid: nested rows/cols create no more combinations than necessary", {
+  one <- layout_grid(list(mpg), c("drv", "cyl"))
+  expect_that(one$PANEL, equals(factor(1:9)))
+  expect_that(one$ROW, equals(factor(1:9)))
+})
+
 test_that("grid: margins add correct combinations", {
   one <- layout_grid(list(a), "a", "b", margins = TRUE)
   expect_that(nrow(one), equals(4 + 2 + 2 + 1))

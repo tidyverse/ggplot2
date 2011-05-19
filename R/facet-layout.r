@@ -21,11 +21,11 @@ layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL) {
   base <- unique(base)
 
   # Create panel info dataset
-  panel <- id(base)
+  panel <- id(base, drop = TRUE)
   panel <- factor(panel, levels = seq_len(attr(panel, "n")))
   
-  rows <- if (is.null(names(rows))) 1 else id(base[names(rows)])
-  cols <- if (is.null(names(cols))) 1 else id(base[names(cols)])
+  rows <- if (is.null(names(rows))) 1 else id(base[names(rows)], drop = TRUE)
+  cols <- if (is.null(names(cols))) 1 else id(base[names(cols)], drop = TRUE)
   
   panels <- data.frame(PANEL = panel, ROW = rows, COL = cols, base)
   arrange(panels, PANEL)

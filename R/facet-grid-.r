@@ -147,7 +147,7 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
   bottom <- (axes$b$clone())$
     add_cols(strips$r$widths)$
     add_cols(axes$l$widths, pos = 0)
-    
+  
   complete <- centre$clone()$
     rbind(top, pos = 0)$
     rbind(bottom)
@@ -175,10 +175,10 @@ build_strip <- function(panel, label_df, labeller, theme, side = "right") {
   # No labelling data, so return empty row/col
   if (empty(label_df)) {
     if (horizontal) {
-      widths <- unit(rep(1, max(panel$layout$COL)), "null")
+      widths <- unit(rep(0, max(panel$layout$COL)), "null")
       return(layout_empty_row(widths))
     } else {
-      heights <- unit(rep(1, max(panel$layout$ROW)), "null")
+      heights <- unit(rep(0, max(panel$layout$ROW)), "null")
       return(layout_empty_col(heights))
     }
   }
