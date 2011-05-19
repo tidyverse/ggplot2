@@ -8,30 +8,29 @@
 #X is.integeric(1:10)
 is.integeric <- function(x) all(floor(x) == x)
 
-# Add group
 # Ensure that the data frame contains a grouping variable.
 #
 # If the \code{group} variable is not present, then a new group
 # variable is generated from the interaction of all discrete (factor or
-# character) vectors excluding label.
+# character) vectors.
 # 
 # @param data.frame
 # @value data.frame with group variable
 # @keyword internal
 add_group <- function(data) {
-  if (empty(data)) return(zeroGrob())
+  if (empty(data)) return(data)
   
   if (is.null(data$group)) {
-    cat <- sapply(data[setdiff(names(data), "label")], is.discrete)
-    cat <- intersect(names(which(cat)), .all_aesthetics)
+    disc <- vapply(data, is.discrete, logical(1))
     
-    if (length(cat) == 0) {
-      data$group <- 1
+    if (any(disc)) {
+      data$group <- id(data[disc], drop = TRUE)      
     } else {
-      data$group <- as.numeric(interaction(data[cat]))
+      data$group <- 1L
     }
+  } else {
+    data$group <- id(data["group"], drop = TRUE)
   }
-  data$group <- as.numeric(factor(data$group, exclude = NULL))
   data
 }
 
