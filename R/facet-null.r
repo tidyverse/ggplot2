@@ -23,17 +23,11 @@ facet_map_layout.null <- function(facet, data, panel_info) {
 }
 
 #' @S3method factor_guides null
-facet_guides.null <- function(facet, panels_grob, coord, theme) {
-
-  aspect_ratio <- theme$aspect.ratio
-  coord_details <- coord$compute_ranges(.$panel_scales(1))
+facet_render.null <- function(facet, panel, coord, theme, geom_grobs) {
+  range <- panel$ranges[[1]]
   
-  # If user hasn't set aspect ratio ask the coordinate system if it 
-  # wants to specify one
-  if (is.null(aspect_ratio)) {
-    aspect_ratio <- coord$compute_aspect(coord_details)
-  }
-  
+  # Figure out aspect ratio
+  aspect_ratio <- theme$aspect.ratio %||% coord$compute_aspect(range)
   if (is.null(aspect_ratio)) {
     aspect_ratio <- 1
     respect <- FALSE
@@ -41,22 +35,28 @@ facet_guides.null <- function(facet, panels_grob, coord, theme) {
     respect <- TRUE
   }
   
-  axis_h <- coord$guide_axis_h(coord_details, theme)
-  axis_v <- coord$guide_axis_v(coord_details, theme)
+  fg <- coord$guide_foreground(range, theme)
+  bg <- coord$guide_background(range, theme)
 
-  fg <- coord$guide_foreground(coord_details, theme)
-  bg <- coord$guide_background(coord_details, theme)
-  panel_grob <- grobTree(bg, panels_grob[[1]], fg)      
+  # Flatten layers - we know there's only one panel
+  geom_grobs <- lapply(geom_grobs, "[[", 1)
+  panel_grobs <- c(list(bg), geom_grobs, list(fg))
+  
+  panel_grob <- gTree(children = do.call("gList", panel_grobs))  
+  axis_h <- coord$guide_axis_h(range, theme)
+  axis_v <- coord$guide_axis_v(range, theme)
   
   all <- matrix(list(
     axis_v,     panel_grob,
     zeroGrob(), axis_h
   ), ncol = 2, byrow = T)
   
-  layout_matrix("layout", all, 
+  layout <- layout_matrix("layout", all, 
     widths = unit.c(grobWidth(axis_v), unit(1, "null")),
     heights = unit.c(unit(1, "null"), grobHeight(axis_h))
   )
+
+  layout
 }
   
 icon.facet_null <- function(.) {

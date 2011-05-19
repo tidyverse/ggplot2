@@ -20,8 +20,8 @@ StatBoxplot <- proto(Stat, {
   
   calculate_groups <- function(., data, na.rm = FALSE, width = NULL, ...) {
     data <- remove_missing(data, na.rm, c("y", "weight"), name="stat_boxplot")
-    data$weight <- nulldefault(data$weight, 1)
-    width <- nulldefault(width, resolution(data$x) * 0.75)
+    data$weight <- data$weight %||% 1
+    width <- width %||%  resolution(data$x) * 0.75
         
     .super$calculate_groups(., data, na.rm = na.rm, width = width, ...)
   }

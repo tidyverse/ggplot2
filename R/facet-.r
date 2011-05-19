@@ -39,5 +39,5 @@ facet_train_layout <- function(facet, data)
 facet_map_layout <- function(facet, data, panel_info)
   UseMethod("facet_map_layout")
 
-facet_guides <- function(facet, panels_grob, coord, theme)
-  UseMethod("facet_guides")
+facet_render <- function(facet, panels_grob, coord, theme, geom_grobs)
+  UseMethod("facet_render")

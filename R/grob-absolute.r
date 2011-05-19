@@ -19,10 +19,10 @@ absoluteGrob <- function(grob, width = NULL, height = NULL, xmin = NULL, ymin = 
 }
 
 grobHeight.absoluteGrob <- function(x) {
-  nulldefault(x$height, grobHeight(x$children))
+  x$height %||% grobHeight(x$children)
 }
 grobWidth.absoluteGrob <- function(x) {
-  nulldefault(x$width, grobWidth(x$children))
+  x$width %||%  grobWidth(x$children)
 }
 
 grobX.absoluteGrob <- function(x, theta) {

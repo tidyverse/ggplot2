@@ -1,17 +1,3 @@
-# Creates a complete ggplot grob.
-#
-# @param plot object
-# @param should the plot be wrapped up inside the pretty accoutrements (labels, legends, etc)
-# @keyword hplot
-# @keyword internal
-panelGrob <- function(panels, plot) {
-  theme <- plot_theme(plot)
-
-  add_guides <- plot$facet$add_guides
-  grid <- add_guides(panels, plot$coordinates, theme)
-  gTree.grobGrid(grid)
-}
-
 # Build a plot with all the usual bits and pieces.
 # 
 # As well as the plotting area, a plot needs:
@@ -29,9 +15,23 @@ panelGrob <- function(panels, plot) {
 # will only take up the amount of space that it requires.  
 ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop, keep = plot$options$keep, ...) {
 
-  panels <- panelGrob(data$panels, plot)
-  scales <- pieces$scales
-  cs <- pieces$cs
+  panel <- data$panel
+  data <- data$data
+  
+  build_grob <- function(layer, layer_data) {
+    dlply(layer_data, "PANEL", function(df) layer$make_grob(df, 
+      scales = panel$ranges[[df$PANEL[1]]], cs = plot$coord))
+  }
+
+  # List by layer, list by panel
+  geom_grobs <- Map(build_grob, plot$layer, data)
+
+  panelGrid <- facet_render(plot$facet, panel, plot$coordinates,
+    plot_theme(plot), geom_grobs)
+  panelGrob <- panelGrid$gTree()
+
+  scales <- plot$scales
+  cs <- plot$cs
 
   theme <- plot_theme(plot)
   margin <- list(
@@ -58,18 +58,18 @@ ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop
   } 
   
   title <- theme_render(theme, "plot.title", plot$options$title)
-
-  labels <- cs$labels(list(
-    x = pieces$facet$xlabel(theme),
-    y = pieces$facet$ylabel(theme))
-  )
+  
+  labels <- plot$coordinates$labels(list(
+    x = xlabel(plot$facet, theme),
+    y = ylabel(plot$facet, theme)
+  ))
   xlabel <- theme_render(theme, "axis.title.x", labels$x)
   ylabel <- theme_render(theme, "axis.title.y", labels$y)
 
   grobs <- list(
     title = title, 
     xlabel = xlabel, ylabel = ylabel,
-    panels = panels, legend_box = legend_box
+    panels = panelGrob, legend_box = legend_box
   )
   if (!is.null(keep)) drop <- setdiff(names(grobs), keep)
   if (!is.null(drop)) grobs[drop] <- rep(list(zeroGrob()), length(drop))

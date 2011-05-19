@@ -223,7 +223,6 @@ Layer <- proto(expr = {
       c(names(data), names(.$geom_params)), 
       paste("geom_", .$geom$objname, sep=""))
     
-    
     do.call(.$geom$draw_groups, c(
       data = list(as.name("data")), 
       scales = list(as.name("scales")), 

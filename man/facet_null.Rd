@@ -1,6 +1,7 @@
 \name{facet_null}
 \alias{facet_null}
 \title{Facet specification: a single panel.}
+\usage{facet_null(shrink=TRUE)}
 
 \description{
   Facet specification: a single panel.

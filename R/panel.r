@@ -142,7 +142,17 @@ panel_scales <- function(panel, i) {
   )    
 }
 
-  
+# Compute ranges and dimensions of each panel, using the coord.
+train_ranges <- function(panel, coord) {
+  compute_range <- function(ix, iy) {
+    # TODO: change compute_ranges method to take individual x and y scales
+    coord$compute_ranges(list(x = panel$x_scales[[ix]], y = panel$y_scales[[iy]]))
+  }
+  panel$ranges <- Map(compute_range, 
+    panel$panel_info$SCALE_X, panel$panel_info$SCALE_Y)
+  panel
+}
+
 # Calculate statistics
 # 
 # @param layers list of layers

@@ -131,8 +131,8 @@ facet_map_layout.grid <- function(facet, data, panel_info) {
   locate_grid(data, panel_info, facet$rows, facet$cols, facet$margins)
 }
 
-#' @S3method facet_guides grid
-facet_guides.grid <- function(facet, panels_grob, coord, theme) {
+#' @S3method facet_render grid
+facet_render.grid <- function(facet, panels_grob, coord, theme) {
   coord_details <- llply(.$panel_info$PANEL, function(i) {
     coord$compute_ranges(.$panel_scales(i))
   })

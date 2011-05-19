@@ -60,6 +60,9 @@ ggplot_build <- function(plot) {
     data <- lapply(data, scales_map_df, scales = npscales)
   }
   
-  list(data = data, panels = panel)
+  # Train coordinate system
+  panel <- train_ranges(panel, plot$coordinates)
+  
+  list(data = data, panel = panel)
 }
 
