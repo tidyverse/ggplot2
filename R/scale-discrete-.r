@@ -67,6 +67,16 @@ scale_train.position_d <- function(scale, x) {
   }
 }
 
+# If range not available from discrete range, implies discrete scale been
+# used with purely continuous data, so construct limits accordingly
+#' @S3method scale_limits position_d
+scale_limits.position_d <- function(scale) {
+  dis_limits <- function(x) seq.int(floor(min(x)), ceiling(max(x)), by = 1L)
+  
+  scale$limits %||% scale$range$range %||% dis_limits(scale$range_c$range)
+}
+
+
 #' @S3method scale_reset position_d
 scale_reset.position_d <- function(scale, x) {
   # Can't reset discrete scale because no way to recover values

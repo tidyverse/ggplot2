@@ -159,7 +159,10 @@ scale_map.discrete <- function(scale, x) {
   ifelse(!is.na(x), pal, scale$na.value)
 }
 
-scale_limits <- function(scale) {
+scale_limits <- function(scale)
+  UseMethod("scale_limits")
+
+scale_limits.default <- function(scale) {
   scale$limits %||% scale$range$range
 }
 

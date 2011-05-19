@@ -148,6 +148,7 @@ train_ranges <- function(panel, coord) {
     # TODO: change compute_ranges method to take individual x and y scales
     coord$compute_ranges(list(x = panel$x_scales[[ix]], y = panel$y_scales[[iy]]))
   }
+
   panel$ranges <- Map(compute_range, 
     panel$layout$SCALE_X, panel$layout$SCALE_Y)
   panel

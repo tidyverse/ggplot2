@@ -11,8 +11,10 @@ layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL) {
   rows <- as.quoted(rows)
   cols <- as.quoted(cols)
   
-  base <- layout_base(data, c(rows, cols))
-
+  base_rows <- layout_base(data, rows)
+  base_cols <- layout_base(data, cols)
+  base <- df.grid(base_rows, base_cols)
+  
   # Add margins
   base <- add_margins(base, list(names(rows), names(cols)), margins)
   # Work around bug in reshape2
@@ -62,7 +64,7 @@ layout_null <- function(data) {
 # @params data list of data frames (one for each layer)
 # @keywords internal
 layout_base <- function(data, vars = NULL) {
-  if (length(vars) == 0) return(layout_null())
+  if (length(vars) == 0) return(data.frame())
 
   # For each layer, compute the facet values
   values <- compact(llply(data, quoted_df, vars = vars))
@@ -80,19 +82,26 @@ layout_base <- function(data, vars = NULL) {
     if (empty(value)) next;
     
     old <- base[setdiff(names(base), names(value))]
-    new <- unique(value[intersect(names(base), names(value))])
+    new <- unique(value[intersect(names(base), names(value))])  
     
-    indexes <- expand.grid(
-      i_old = seq_len(nrow(old)), 
-      i_new = seq_len(nrow(new))
-    )
-    both <- cbind(
-      old[indexes$i_old, , drop = FALSE], 
-      new[indexes$i_new, , drop = FALSE]
-    )
-    base <- rbind(base, both)
+    base <- rbind(base, df.grid(old, new))
   }
   base
+}
+
+df.grid <- function(a, b) {
+  if (nrow(a) == 0) return(b)
+  if (nrow(b) == 0) return(a)
+  
+  indexes <- expand.grid(
+    i_a = seq_len(nrow(a)), 
+    i_b = seq_len(nrow(b))
+  )
+  both <- cbind(
+    a[indexes$i_a, , drop = FALSE], 
+    b[indexes$i_b, , drop = FALSE]
+  )
+  
 }
 
 quoted_df <- function(data, vars) {

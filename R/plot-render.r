@@ -19,8 +19,10 @@ ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop
   data <- data$data
   
   build_grob <- function(layer, layer_data) {
-    dlply(layer_data, "PANEL", function(df) layer$make_grob(df, 
-      scales = panel$ranges[[df$PANEL[1]]], cs = plot$coord))
+    dlply(layer_data, "PANEL", function(df) {
+      panel_i <- match(df$PANEL[1], panel$layout$PANEL)
+      layer$make_grob(df, scales = panel$ranges[[panel_i]], cs = plot$coord)
+    }, .drop = FALSE)
   }
 
   # List by layer, list by panel

@@ -6,7 +6,6 @@ c <- data.frame(b = 3)
 empty <- data.frame()
 
 test_that("all: no rows and cols gives null layout", {
-  expect_that(layout_base(list(a)), equals(layout_null()))
   expect_that(layout_grid(list(a)), equals(layout_null()))
   expect_that(layout_wrap(list(a)), equals(layout_null()))
 })
@@ -27,6 +26,13 @@ test_that("grid: single row and single col equivalent", {
   expect_that(row[c("PANEL", "a")], equals(col[c("PANEL", "a")]))
 })
 
+test_that("grid: includes all combinations", {
+  d <- data.frame(a = c(1, 2), b = c(2, 1))
+  all <- layout_grid(list(d), row = "a", col = "b")
+  
+  expect_that(nrow(all), equals(4))
+})
+
 test_that("wrap and grid equivalent for 1d data", {
   rowg <- layout_grid(list(a), row = "a")
   roww <- layout_wrap(list(a), "a", ncol = 1)
@@ -39,22 +45,22 @@ test_that("wrap and grid equivalent for 1d data", {
 
 test_that("grid: crossed rows/cols create no more combinations than necessary", {
   one <- layout_grid(list(a), "a", "b")
-  expect_that(nrow(one), equals(3))
+  expect_that(nrow(one), equals(4))
 
   one_a <- layout_grid(list(a, empty), "a", "b")
-  expect_that(nrow(one_a), equals(3))
+  expect_that(nrow(one_a), equals(4))
   
   two <- layout_grid(list(a, b), "a", "b")
-  expect_that(nrow(two), equals(3 + 2))
+  expect_that(nrow(two), equals(4 + 2))
   
   three <- layout_grid(list(a, b, c), "a", "b")
-  expect_that(nrow(three), equals(8))
+  expect_that(nrow(three), equals(9))
   
-  expect_that(layout_grid(list(b, c), "a", "b"),
-    throws_error("one layer must contain all variables"))
+  four <- layout_grid(list(b, c), "a", "b")
+  expect_that(nrow(four), equals(1))
 })
 
 test_that("grid: margins add correct combinations", {
   one <- layout_grid(list(a), "a", "b", margins = TRUE)
-  expect_that(nrow(one), equals(3 + 2 + 2 + 1))
+  expect_that(nrow(one), equals(4 + 2 + 2 + 1))
 })

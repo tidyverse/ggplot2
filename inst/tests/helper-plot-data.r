@@ -14,7 +14,7 @@ cdata <- function(plot) {
 }
 
 pranges <- function(plot) {
-  panels <- ggplot_build(plot)$panels
+  panels <- ggplot_build(plot)$panel
   
   x_ranges <- lapply(panels$x_scales, scale_limits)
   y_ranges <- lapply(panels$y_scales, scale_limits)
