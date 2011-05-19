@@ -81,9 +81,17 @@ layout_base <- function(data, vars = NULL) {
     if (empty(value)) next;
     
     old <- base[setdiff(names(base), names(value))]
-    new <- value[intersect(names(base), names(value))]
+    new <- unique(value[intersect(names(base), names(value))])
     
-    base <- rbind(base, expand.grid.df(old, new))
+    indexes <- expand.grid(
+      i_old = seq_len(nrow(old)), 
+      i_new = seq_len(nrow(new))
+    )
+    both <- cbind(
+      old[indexes$i_old, , drop = FALSE], 
+      new[indexes$i_new, , drop = FALSE]
+    )
+    base <- rbind(base, both)
   }
   base
 }
