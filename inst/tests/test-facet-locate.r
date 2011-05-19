@@ -1,4 +1,4 @@
-context("Facet panel location") 
+context("Facetting (location)") 
 
 test_that("two col cases with no missings adds single extra column", {
   vscyl <- layout_grid(list(mtcars), "cyl", "vs")

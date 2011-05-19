@@ -20,7 +20,6 @@ test_that("facets split up the data", {
 })
 
 
-
 test_that("facets with free scales scale independently", {
   l1 <- ggplot(df, aes(x, y)) + geom_point() + 
     facet_wrap(~ z, scales = "free")
@@ -40,6 +39,7 @@ test_that("facets with free scales scale independently", {
   expect_that(length(unique(d3$x)), equals(1))
   expect_that(length(unique(d3$y)), equals(3))
 })
+
 
 test_that("shrink parameter affects scaling", {
   l1 <- ggplot(df, aes(1, y)) + geom_point()

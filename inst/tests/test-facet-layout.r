@@ -1,4 +1,4 @@
-context("Facet layout")
+context("Facetting (layout)")
 
 a <- data.frame(a = c(1, 1, 2, 2), b = c(1, 2, 1, 1))
 b <- data.frame(a = 3)
