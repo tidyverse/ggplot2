@@ -212,7 +212,8 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   set_last_plot(x)
   if (newpage) grid.newpage()
   
-  grob <- ggplotGrob(x, ...)
+  data <- ggplot_build(x)
+  grob <- ggplotGrob(x, data, ...)
   if (is.null(vp)) {
     grid.draw(grob) 
   } else {
@@ -220,5 +221,7 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
     grid.draw(grob) 
     upViewport()
   }
+  
+  invisible(data)
 }
 

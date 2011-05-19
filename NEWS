@@ -20,6 +20,12 @@ ggplot2 0.9.0 ----------------------------------------------------------------
   old behaviour, supply `shrink = FALSE` to the facetting specification.
   (Fixes #125)
 
+* When printing a ggplot2 object, the rendered plot information is returned
+  invisibly. You can capture this with (e.g.) `x <- print(qplot(mpg, wt, data
+  = mtcars))` and in the future will be able to use it to get information
+  about the plot computations, such as the range of all the scales, and the
+  exact data that is plotted.
+
 DOCUMENTATION
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems
