@@ -15,7 +15,7 @@ test_that("facets split up the data", {
   d3 <- pdata(l3)[[1]]
   
   expect_that(d2, equals(d3))
-  expect_that(sort(names(d2)), equals(sort(c("x", "y", "PANEL"))))
+  expect_that(sort(names(d2)), equals(sort(c("x", "y", "group", "PANEL"))))
   expect_that(d2$PANEL, equals(factor(1:3)))
 })
 

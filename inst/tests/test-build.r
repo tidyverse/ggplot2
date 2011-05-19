@@ -32,8 +32,8 @@ test_that("non-position aesthetics are mapped", {
     geom_point() 
   d1 <- pdata(l1)[[1]]
   
-  expect_that(sort(names(d1)), 
-    equals(sort(c("x", "y", "fill", "colour", "shape", "size", "PANEL"))))
+  expect_that(sort(names(d1)), equals(sort(c("x", "y", "fill", "group",
+    "colour", "shape", "size", "PANEL"))))
 
   l2 <- l1 + scale_colour_manual(values = c("blue", "red", "yellow"))
   d2 <- pdata(l2)[[1]]

@@ -24,6 +24,7 @@ ggplot_build <- function(plot) {
 
   # Compute aesthetics to produce data with generalised variable names
   data <- dlapply(function(d, p) p$compute_aesthetics(d, plot))
+  data <- lapply(data, add_group)
   
   # Transform all scales
   data <- lapply(data, scales_transform_df, scales = scales)

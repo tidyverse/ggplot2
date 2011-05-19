@@ -12,3 +12,17 @@ cdata <- function(plot) {
     })
   })
 }
+
+pranges <- function(plot) {
+  panels <- ggplot_build(plot)$panels
+  
+  x_ranges <- lapply(panels$x_scales, scale_limits)
+  y_ranges <- lapply(panels$y_scales, scale_limits)
+  
+  
+  npscales <- plot$scales$non_position_scales()  
+  npranges <- lapply(npscales$scales$scales, scale_limits)
+  
+  
+  c(list(x = x_ranges, y = y_ranges), npranges)
+}
