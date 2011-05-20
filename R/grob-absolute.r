@@ -41,7 +41,11 @@ grid.draw.absoluteGrob <- function(x, recording = TRUE) {
 
 ## gTree with absolute size specification
 ##
-## this should be removed in future.
+## currently, this is used for drawing guides.
+## the viewport of guide grob is specified in plot.render(),
+## which nullify the width and height specified in guides().
+## so, grob for guides contains the grob with absolute size, i.e., is doublly wrapped.
+## This should be removed in future.
 sizedGTree <- function(...) {
   gTree(..., cl=c("sizedGTree"))
 }
@@ -50,17 +54,6 @@ grobHeight.sizedGTree <- function(x) {
 }
 grobWidth.sizedGTree <- function(x) {
   nulldefault(x$width, nulldefault(x$vp$width, nulldefault(sum(x$vp$layout$widths), grobWidth(x$children))))
-}
-
-if(0){
-grobX.sizedGTree <- function(x, theta) {
-  if (!is.null(x$xmin) && theta == "west") return(x$xmin)
-  grobX(x$children, theta)
-}
-grobY.sizedGTree <- function(x, theta) {
-  if (!is.null(x$ymin) && theta == "south") return(x$ymin)
-  grobY(x$children, theta)
-}
 }
 grid.draw.sizedGTree <- function(x, recording = TRUE) {
   grid:::drawGTree(x)
