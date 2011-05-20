@@ -210,7 +210,7 @@ Layer <- proto(expr = {
 
   adjust_position <- function(., data) {
     ddply(data, "PANEL", function(data) {
-      .$position$adjust(data, scales)
+      .$position$adjust(data)
     })
   }
   

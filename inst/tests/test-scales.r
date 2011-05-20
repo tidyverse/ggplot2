@@ -53,3 +53,35 @@ test_that("identity scale preserves input values", {
   
   
 })
+
+test_that("position scales updated by all position aesthetics", {
+  df <- data.frame(x = 1:3)
+  
+  aesthetics <- list(
+    aes(xend = x, yend = x),
+    aes(xmin = x, ymin = x),
+    aes(xmax = x, ymax = x)
+  )
+  
+  base <- ggplot(df, aes(x = 1, y = 1)) + geom_point()
+  plots <- lapply(aesthetics, function(x) base %+% x)
+  ranges <- lapply(plots, pranges)
+  
+  lapply(ranges, function(range) {
+    expect_that(range$x[[1]], equals(c(1, 3)))
+    expect_that(range$y[[1]], equals(c(1, 3)))
+  })
+  
+})
+
+test_that("position scales generate after stats", {
+  df <- data.frame(x = factor(c(1, 1, 1)))
+  plot <- ggplot(df, aes(x)) + geom_bar()
+  ranges <- pranges(plot)
+  
+  expect_that(ranges$x[[1]], equals(c("1")))
+  expect_that(ranges$y[[1]], equals(c(0, 3)))
+  
+  
+  
+})

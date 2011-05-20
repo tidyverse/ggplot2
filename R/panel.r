@@ -31,10 +31,6 @@ train_layout <- function(panel, facet, data, plot_data) {
   panel$layout <- layout
   panel$shrink <- facet$shrink
   
-  # Make space for scales
-  panel$x_scales <- vector("list", max(layout$SCALE_X))
-  panel$y_scales <- vector("list", max(layout$SCALE_Y))
-  
   panel
 }
 
@@ -67,33 +63,34 @@ map_layout <- function(panel, facet, data, plot_data) {
 # @param x_scale x scale for the plot
 # @param y_scale y scale for the plot
 train_position <- function(panel, data, x_scale, y_scale) { 
-  # Extract columns relevant for position, and join with panel info
-  pos <- ldply(data, function(df) df[c("x", "y", "PANEL")])
-  pos <- join(pos, panel$layout, by = "PANEL", match = "first")
+  # Initialise scales if needed, and possible.
+  layout <- panel$layout
+  if (is.null(panel$x_scales) && !is.null(x_scale)) {
+    panel$x_scales <- rlply(max(layout$SCALE_X), scale_clone(x_scale))
+  }
+  if (is.null(panel$y_scales) && !is.null(y_scale)) {
+    panel$y_scales <- rlply(max(layout$SCALE_Y), scale_clone(y_scale))
+  }
   
-  # Loop through data for each scale, creating a new scale if needed
-  d_ply(pos, "SCALE_X", function(df) {
-    if (is.null(df$x)) return()
+  # loop over each layer, training x and y scales in turn
+  for(layer_data in data) {
+    pos <- join(layer_data, layout, by = "PANEL")
     
-    i <- df$SCALE_X[1]
-    if (is.null(panel$x_scales[[i]])) {
-      panel$x_scales[[i]] <<- scale_clone(x_scale)
-    }
-    scale_train(panel$x_scales[[i]], df$x)
-  })
-  
-  d_ply(pos, "SCALE_Y", function(df) {
-    if (is.null(df$y)) return()
-    
-    i <- df$SCALE_Y[1]
-    if (is.null(panel$y_scales[[i]])) {
-      panel$y_scales[[i]] <<- scale_clone(y_scale)
-    }
-    scale_train(panel$y_scales[[i]], df$y)
-  })
-  
+    # Loop through data for each scale, creating a new scale if needed
+    d_ply(pos, "SCALE_X", function(df) {
+      if (is.null(x_scale)) return()
+      scale_train_df(panel$x_scales[[df$SCALE_X[1]]], df)
+    })
+
+    d_ply(pos, "SCALE_Y", function(df) {
+      if (is.null(y_scale)) return()
+      scale_train_df(panel$y_scales[[df$SCALE_Y[1]]], df)
+    })
+  }
+
   panel
 }
+
 
 reset_scales <- function(panel) {
   if (!panel$shrink) return()
