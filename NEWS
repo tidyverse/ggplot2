@@ -93,6 +93,9 @@ FACETS
   implemented more efficiently and results in substantial performance
   improvements for un-facetted plots.
 
+* Facetting variables will no longer interfere with aesthetic mappings - 
+  `facet_wrap(~ colour)` will no longer affect the colour of points.
+
 COORDS
 
 * Converted from proto to S3 objects, and class methods (somewhat) documented
