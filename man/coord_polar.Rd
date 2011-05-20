@@ -1,6 +1,7 @@
 \name{coord_polar}
 \alias{coord_polar}
 \title{Polar coordinates.}
+\usage{coord_polar(theta="x", start=0, direction=1, expand=FALSE)}
 
 \description{
   Polar coordinates.

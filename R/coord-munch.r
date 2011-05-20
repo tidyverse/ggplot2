@@ -1,3 +1,15 @@
+coord_munch <- function(coord, data, range, segment_length = 0.01) {
+  if (is.linear(coord)) return(coord_transform(coordinates, range))
+  
+  # Calculate distances using coord distance metric
+  dist <- coord_distance(coord, data$x, data$y, range)
+  dist[data$group[-1] != data$group[-nrow(data)]] <- NA
+  
+  # Munch and then transform result
+  munched <- munch_data(data, dist, segment_length)
+  coord_transform(coord, munched, range)
+}
+
 # For munching, only grobs are lines and polygons: everything else is 
 # transfomed into those special cases by the geom.  
 #

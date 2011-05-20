@@ -31,7 +31,7 @@ ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv(
     scales = Scales$new(),
     mapping = mapping,
     options = list(),
-    coordinates = CoordCartesian$new(),
+    coordinates = coord_cartesian(),
     facet = facet_null(),
     plot_env = environment
   ), class="ggplot")

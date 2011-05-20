@@ -61,7 +61,7 @@ ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop
   
   title <- theme_render(theme, "plot.title", plot$options$title)
   
-  labels <- plot$coordinates$labels(list(
+  labels <- coord_labels(plot$coordinates, list(
     x = xlabel(plot$facet, theme),
     y = ylabel(plot$facet, theme)
   ))

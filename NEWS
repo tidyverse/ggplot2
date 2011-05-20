@@ -83,6 +83,23 @@ SCALES
       scale_colour_discrete <- scale_colour_brewer
       p
 
+FACETS
+
+* Converted from proto to S3 objects, and class methods (somewhat) documented
+  in `facet.r`. This should make it easier to develop new types of facetting
+  specifications.
+
+* New `facet_null` used when for no facetting. This special case is
+  implemented more efficiently and results in substantial performance
+  improvements for un-facetted plots.
+
+COORDS
+
+* Converted from proto to S3 objects, and class methods (somewhat) documented
+  in `coord.r`. This should make it easier to develop new types of coordinate
+  systems.
+
+
 ggplot2 0.8.9 (2010-12-24) ---------------------------------------------------
 
 A big thanks to Koshke Takahashi, who supplied the majority of improvements in this release!

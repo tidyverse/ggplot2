@@ -107,7 +107,7 @@ GeomPath <- proto(Geom, {
         " (geom_path).", call. = FALSE)
     }
     
-    munched <- coordinates$munch(data, scales)
+    munched <- coord_munch(coordinates, data, scales)
 
     # Silently drop lines with less than two points, preserving order
     rows <- ave(seq_len(nrow(munched)), munched$group, FUN = length)

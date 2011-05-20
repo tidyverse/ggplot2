@@ -1,6 +1,7 @@
 \name{coord_flip}
 \alias{coord_flip}
 \title{Flipped cartesian coordinates.}
+\usage{coord_flip(...)}
 
 \description{
   Flipped cartesian coordinates.
