@@ -157,7 +157,7 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
   complete
 }
 
-facet_strips <- function(facet, panel, theme) {
+facet_strips.grid <- function(facet, panel, theme) {
   col_vars <- unique(panel$layout[names(facet$cols)])
   row_vars <- unique(panel$layout[names(facet$rows)])
 
@@ -218,7 +218,7 @@ build_strip <- function(panel, label_df, labeller, theme, side = "right") {
   strips
 }
 
-facet_axes <- function(facet, panel, coord, theme) {
+facet_axes.grid <- function(facet, panel, coord, theme) {
   axes <- list()
 
   # Horizontal axes
@@ -236,13 +236,13 @@ facet_axes <- function(facet, panel, coord, theme) {
   axes
 }
 
-facet_panels <- function(facet, panel, coord, theme, geom_grobs) {
+facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   
   # If user hasn't set aspect ratio, and we have fixed scales, then
   # ask the coordinate system if it wants to specify one
   aspect_ratio <- theme$aspect.ratio
   if (is.null(aspect_ratio) && !facet$free$x && !facet$free$y) {
-    aspect_ratio <- coord_aspect(coord, coord_details[[1]])
+    aspect_ratio <- coord_aspect(coord, panel$ranges[[1]])
   }
   if (is.null(aspect_ratio)) {
     aspect_ratio <- 1

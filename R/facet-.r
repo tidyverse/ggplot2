@@ -42,4 +42,11 @@ facet_map_layout <- function(facet, data, layout)
 facet_render <- function(facet, panels_grob, coord, theme, geom_grobs)
   UseMethod("facet_render")
 
+facet_strips <- function(facet, panel, theme) 
+  UseMethod("facet_strips")
 
+facet_panels <- function(facet, panel, coord, theme, geom_grobs)
+  UseMethod("facet_panels")
+  
+facet_axes <- function(facet, panel, coord, theme)
+  UseMethod("facet_axes")

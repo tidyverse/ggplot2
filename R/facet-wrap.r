@@ -63,9 +63,16 @@ facet_train_layout.wrap <- function(facet, data) {
   panels <- layout_wrap(data, facet$facets, facet$nrow, facet$ncol,
      facet$drop)
   
+  n <- nrow(panels)
+  nrow <- max(panels$ROW)
+  
   # Add scale identification
-  panels$SCALE_X <- if (facet$free$x) seq_len(nrow(panels)) else 1
-  panels$SCALE_Y <- if (facet$free$y) seq_len(nrow(panels)) else 1
+  panels$SCALE_X <- if (facet$free$x) seq_len(n) else 1
+  panels$SCALE_Y <- if (facet$free$y) seq_len(n) else 1
+  
+  # Figure out where axes should go
+  panels$AXIS_X <- if (facet$free$x) TRUE else panels$ROW == nrow
+  panels$AXIS_Y <- if (facet$free$y) TRUE else panels$COL == 1
   
   panels
 }
@@ -75,50 +82,21 @@ facet_map_layout.wrap <- function(facet, data, layout) {
   locate_wrap(data, layout, facet$facets)
 }
 
+# How to think about facet wrap:
+#  * vector of panels
+#  * every panel has strips (strip_pos) and axes (axis_pos)
+#  * if scales fixed, most axes empty
+#  * combine panels, strips and axes, then wrap into 2d
+#  * finally: add title, labels and legend
+#
 #' @S3method facet_render wrap
-facet_render.wrap <- function(facet, panels_grob, coord, theme) {
-  coord_details <- llply(.$layout$PANEL, function(i) {
-    coord$compute_ranges(.$panel_scales(i))
-  })
-
-  axes <- .$build_axes(coord, coord_details, theme)
-  strips <- .$build_strips(coord_details, theme)
-  panels <- .$build_panels(panels_grob, coord, coord_details, theme)
-  
-  # How to think about facet wrap:
-  #  * vector of panels
-  #  * every panel has strips (strip_pos) and axes (axis_pos)
-  #  * if scales fixed, most axes empty
-  #  * combine panels, strips and axes, then wrap into 2d
-  #  * finally: add title, labels and legend
-
-  top <- (strips$t$clone())$
-    add_cols(strips$r$widths)$
-    add_cols(axes$l$widths, pos = 0)
-  centre <- (axes$l$clone())$cbind(panels)$cbind(strips$r)
-  bottom <- (axes$b$clone())$
-    add_cols(strips$r$widths)$
-    add_cols(axes$l$widths, pos = 0)
-    
-  complete <- centre$clone()$
-    rbind(top, pos = 0)$
-    rbind(bottom)
-  complete$respect <- panels$respect
-  complete$name <- "layout"
-  
-  complete
-
-
-
-  aspect_ratio <- theme$aspect.ratio
+facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   
   # If user hasn't set aspect ratio, and we have fixed scales, then
   # ask the coordinate system if it wants to specify one
-  if (is.null(aspect_ratio) && !.$free$x && !.$free$y) {
-    xscale <- .$scales$x[[1]]
-    yscale <- .$scales$y[[1]]
-    ranges <- coord$compute_ranges(list(x = xscale, y = yscale))
-    aspect_ratio <- coord$compute_aspect(ranges)
+  aspect_ratio <- theme$aspect.ratio
+  if (is.null(aspect_ratio) && !facet$free$x && !facet$free$y) {
+    aspect_ratio <- coord_aspect(coord, panel$ranges[[1]])
   }
   
   if (is.null(aspect_ratio)) {
@@ -127,111 +105,119 @@ facet_render.wrap <- function(facet, panels_grob, coord, theme) {
   } else {
     respect <- TRUE
   }
-      
-  n <- length(.$scales$x)
-
-  axes_h <- matrix(list(), nrow = 1, ncol = n)
-  axes_v <- matrix(list(), nrow = 1, ncol = n)
-  panels <- matrix(list(), nrow = 1, ncol = n)
-
-  for (i in seq_len(n)) {
-    scales <- list(
-      x = .$scales$x[[i]]$clone(), 
-      y = .$scales$y[[i]]$clone()
-    ) 
-    details <- coord$compute_ranges(scales)
-    axes_h[[1, i]] <- coord$guide_axis_h(details, theme)
-    axes_v[[1, i]] <- coord$guide_axis_v(details, theme)
-
-    fg <- coord$guide_foreground(details, theme)
-    bg <- coord$guide_background(details, theme)
-    name <- paste("panel", i, sep = "_")
-    panels[[1,i]] <- ggname(name, grobTree(bg, panels_grob[[1, i]], fg))
-  }
   
+  layout <- panel$layout
+  ncol <- max(layout$COL)
+  nrow <- max(layout$ROW)
+  n <- nrow(layout)
 
+  panels <- facet_panels(facet, panel, coord, theme, geom_grobs)
+  axes <- facet_axes(facet, panel, coord, theme)
+  strips <- facet_strips(facet, panel, theme)
 
-  # Create a grid of interwoven strips and panels
-  panelsGrid <- grobGrid(
-    "panel", panels, nrow = nrow, ncol = ncol,
-    heights = 1 * aspect_ratio, widths = 1,
-    as.table = .$as.table, respect = respect
-  )
+  # Should become facet_arrange_grobs
 
-  strips <- .$labels_default(.$facet_levels, theme)
-  strips_height <- max(do.call("unit.c", llply(strips, grobHeight)))
-  stripsGrid <- grobGrid(
-    "strip", strips, nrow = nrow, ncol = ncol,
-    heights = convertHeight(strips_height, "cm"),
-    widths = 1,
-    as.table = .$as.table
-  )
-  
-  axis_widths <- max(do.call("unit.c", llply(axes_v, grobWidth)))
-  axis_widths <- convertWidth(axis_widths, "cm")
-  if (.$free$y) {
-    axesvGrid <- grobGrid(
-      "axis_v", axes_v, nrow = nrow, ncol = ncol, 
-      widths = axis_widths, 
-      as.table = .$as.table, clip = "off"
+  # Locate each element in panel
+  find_pos <- function(layout, loc, size) {
+    n <- nrow(layout)
+    data.frame(
+      l = size[1] * (layout$COL - 1) + loc[1],
+      t = size[2] * (layout$ROW - 1) + loc[2], 
+      id = seq_len(n)
     )
-  } else { 
-    # When scales are not free, there is only really one scale, and this
-    # should be shown only in the first column
-    axesvGrid <- grobGrid(
-      "axis_v", rep(axes_v[1], nrow), nrow = nrow, ncol = 1,
-      widths = axis_widths[1], 
-      as.table = .$as.table, clip = "off")
-    if (ncol > 1) {
-      axesvGrid <- cbind(axesvGrid, 
-        spacer(nrow, ncol - 1, unit(0, "cm"), unit(1, "null")))
-      
-    }
   }
-  
-  axis_heights <- max(do.call("unit.c", llply(axes_h, grobHeight)))
-  axis_heights <- convertHeight(axis_heights, "cm")
-  if (.$free$x) {
-    axeshGrid <- grobGrid(
-      "axis_h", axes_h, nrow = nrow, ncol = ncol, 
-      heights = axis_heights, 
-      as.table = .$as.table, clip = "off"
-    )
-  } else {
-    # When scales are not free, there is only really one scale, and this
-    # should be shown only in the bottom row
-    axeshGrid <- grobGrid(
-      "axis_h", rep(axes_h[1], ncol), nrow = 1, ncol = ncol,
-      heights = axis_heights[1], 
-      as.table = .$as.table, clip = "off")
-    if (nrow > 1) { 
-      axeshGrid <- rbind(
-        spacer(nrow - 1, ncol, unit(1, "null"), unit(0, "cm")),
-        axeshGrid
-      )
-    }
-  }
-
-  gap <- spacer(nrow, ncol, theme$panel.margin, theme$panel.margin)
-  fill <- spacer(nrow, ncol, 0, 0, "null")
-  
-  all <- rweave(
-    cweave(fill,      stripsGrid, fill),
-    cweave(axesvGrid, panelsGrid, fill),
-    cweave(fill,      axeshGrid,  fill),
-    cweave(fill,      fill,       gap)
+  locs <- list(
+    panel =   c(2, 2),
+    strip_t = c(2, 1),
+    axis_l =  c(1, 2),
+    axis_b =  c(2, 3),
+    hspace =  c(2, 4),
+    vspace =  c(3, 2)
+  )
+  grobs <- list(
+    panel = panels,
+    strip_t = strips$t,
+    axis_l = axes$l,
+    axis_b = axes$b
   )
   
-  all
+  info <- ldply(locs, find_pos, layout = layout, size = c(3, 4))
+  names(info)[1] <- "type"
+  info$clip <- TRUE
+  info$name <- paste(info$type, info$id, sep = "-")
+  
+
+  # Bare numbers are taken as cm
+  # If not listed, assume is unit(1, "null")
+  widths <- list(
+    axis_l = width_cm(grobs$axis_l),
+    vspace = ifelse(layout$COL == ncol, 0, height_cm(theme$panel.margin))
+  )
+  heights <- list(
+    panel = unit(aspect_ratio, "null"),
+    strip_t = height_cm(grobs$strip_t),
+    axis_b = height_cm(grobs$axis_b),
+    hspace = ifelse(layout$ROW == nrow, 0, height_cm(theme$panel.margin))
+  )
+  
+  col_widths <- compute_grob_widths(info, widths)
+  row_heights <- compute_grob_heights(info, heights)
+  
+  lay <- TableLayout$clone(
+    info = info[info$type %in% names(grobs), ],
+    grobs = unlist(grobs, recursive = FALSE),
+    heights = row_heights,
+    widths = col_widths, 
+    clip = TRUE,
+    respect = respect
+  )
+  lay
 }
 
-labels_default <- function(., labels_df, theme) {
-  # Remove column giving panel number
-  labels_df <- labels_df[, -ncol(labels_df), drop = FALSE]
+facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
+  panels <- panel$layout$PANEL
+  lapply(panels, function(i) {
+    fg <- coord_render_fg(coord, panel$range[[i]], theme)
+    bg <- coord_render_bg(coord, panel$range[[i]], theme)
+    
+    geom_grobs <- lapply(geom_grobs, "[[", i)
+    panel_grobs <- c(list(bg), geom_grobs, list(fg))
+    
+    ggname(paste("panel", i, sep = "-"), 
+      gTree(children = do.call("gList", panel_grobs)))
+  })
+}
+
+facet_strips.wrap <- function(facet, panel, theme) {
+  labels_df <- panel$layout[names(facet$facets)]
   labels_df[] <- llply(labels_df, format, justify = "none")
   
   labels <- apply(labels_df, 1, paste, collapse=", ")
 
-  llply(labels, ggstrip, theme = theme)
+  list(t = llply(labels, ggstrip, theme = theme))
 }
 
+facet_axes.wrap <- function(facet, panel, coord, theme) {
+  panels <- panel$layout$PANEL
+  
+  axes <- list()
+  axes$b <- lapply(panels, function(i) {
+    if (panel$layout$AXIS_X[i]) {
+      grob <- coord_render_axis_h(coord, panel$range[[i]], theme)      
+    } else {
+      grob <- zeroGrob()
+    }
+    ggname(paste("axis-b-", i, sep = ""), grob)
+  })
+  
+  axes$l <- lapply(panels, function(i) {
+    if (panel$layout$AXIS_Y[i]) {
+      grob <- coord_render_axis_v(coord, panel$range[[i]], theme)      
+    } else {
+      grob <- zeroGrob()
+    }
+    ggname(paste("axis-l-", i, sep = ""), grob)
+  })
+  axes
+  
+}

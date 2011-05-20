@@ -46,12 +46,13 @@ layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, drop = TRUE
   
   dims <- wrap_dims(n, nrow, ncol)
   
-  unrowname(data.frame(
+  df <- unrowname(data.frame(
     PANEL = factor(id, levels = seq_len(n)),
     ROW = (as.integer(id) - 1L) %/% dims[2] + 1L,
     COL = (as.integer(id) - 1L) %% dims[2] + 1L,
     base
   ))
+  df[order(df$PANEL), ]
 }
 
 layout_null <- function(data) { 

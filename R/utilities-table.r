@@ -216,3 +216,34 @@ insert.unit <- function (x, values, after = length(x)) {
 "combine.unit-list" <- function(vectors) {
   do.call("unit.c", vectors)
 }
+
+compute_grob_widths <- function(grob_info, widths) {
+  cols <- split(grob_info, grob_info$l)
+  do.call("unit.c", lapply(cols, compute_grob_dimensions, dims = widths))
+}  
+
+compute_grob_heights <- function(grob_info, heights) {
+  cols <- split(grob_info, grob_info$t)
+  do.call("unit.c", lapply(cols, compute_grob_dimensions, dims = heights))
+}  
+
+compute_grob_dimensions <- function(grob_info, dims) {
+  # If any don't have explicit dims, then width is NULL
+  if (!all(grob_info$type %in% names(dims))) {
+    return(unit(1, "null"))
+  }
+
+  dims <- unique(Map(function(type, pos) {
+    type_width <- dims[[type]]
+    if (length(type_width) == 1) type_width else type_width[pos]
+  }, grob_info$type, grob_info$id))
+  units <- vapply(dims, is.unit, logical(1))
+  raw_max <- unit(max(unlist(dims[!units])), "cm")
+
+  if (any(units)) {
+    unit_max <- max(do.call("unit.c", dims[units]))
+    max(raw_max, unit_max)
+  } else {
+    raw_max
+  }
+}
