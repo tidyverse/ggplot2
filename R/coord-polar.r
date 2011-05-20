@@ -72,10 +72,10 @@ coord_distance.polar <- function(coord, x, y, details) {
   
   if (coord$theta == "x") {
     r <- y
-    theta <- coord$theta_rescale_no_clip(x, details)
+    theta <- theta_rescale_no_clip(coord, x, details)
   } else {
     r <- x
-    theta <- coord$theta_rescale_no_clip(y, details)
+    theta <- theta_rescale_no_clip(coord, y, details)
   }
   px <- r * cos(theta)
   py <- r * sin(theta)
@@ -144,7 +144,6 @@ r_rescale <- function(coord, x, details) {
 #' @S3method coord_transform polar
 coord_transform.polar <- function(coord, data, details) {
   data <- rename_data(coord, data)
-  
   data <- within(data, {
     r <- r_rescale(coord, r, details)
     theta <- theta_rescale(coord, theta, details)
