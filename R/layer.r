@@ -107,7 +107,7 @@ Layer <- proto(expr = {
     set <- aesthetics %in% names(.$geom_params)
     calculated <- is_calculated_aes(aesthetics)
     
-    aesthetics[!set && !calculated]
+    aesthetics[!set & !calculated]
   }
   
   pprint <- function(.) {

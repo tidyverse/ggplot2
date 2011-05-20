@@ -119,8 +119,8 @@ facet_train_layout.grid <- function(facet, data) {
   layout <- layout_grid(data, facet$rows, facet$cols, facet$margins)
 
   # Relax constraints, if necessary
-  layout$SCALE_X <- if (facet$free$x) layout$ROW else 1
-  layout$SCALE_Y <- if (facet$free$y) layout$COL else 1
+  layout$SCALE_X <- if (facet$free$x) layout$COL else 1
+  layout$SCALE_Y <- if (facet$free$y) layout$ROW else 1
   
   layout
 }
@@ -271,8 +271,8 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
 
   if(facet$space_is_free) {
     size <- function(x) unit(diff(scale_dimension(x)), "null")
-    x_scales <- panel$layout$scale_x[panel$layout$ROW == 1]
-    y_scales <- panel$layout$scale_y[panel$layout$COL == 1]
+    x_scales <- panel$layout$SCALE_X[panel$layout$ROW == 1]
+    y_scales <- panel$layout$SCALE_Y[panel$layout$COL == 1]
 
     panel_widths <- do.call("unit.c", llply(panel$x_scales, size))[x_scales]
     panel_heights <- do.call("unit.c", llply(panel$y_scales, size))[y_scales]
