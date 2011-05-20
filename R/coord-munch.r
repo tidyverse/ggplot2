@@ -1,5 +1,5 @@
 coord_munch <- function(coord, data, range, segment_length = 0.01) {
-  if (is.linear(coord)) return(coord_transform(coordinates, range))
+  if (is.linear(coord)) return(coord_transform(coord, data, range))
   
   # Calculate distances using coord distance metric
   dist <- coord_distance(coord, data$x, data$y, range)
