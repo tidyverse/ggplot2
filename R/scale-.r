@@ -82,20 +82,13 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks 
 # Train scale from a data frame.
 #
 # @return updated range (invisibly)
-# @param i row index - if specified, scale is only train only those rows.
-#   this is a performance optimisation because subsetting data frames is so
-#   slow
 # @seealso \code{\link{scale_train}} for scale specific generic method
-scale_train_df <- function(scale, df, i = NULL) {
+scale_train_df <- function(scale, df) {
   if (empty(df)) return() 
 
   aesthetics <- intersect(scale$aesthetics, names(df))
   for(aesthetic in aesthetics) {
-    if (is.null(i)) {
-      scale_train(scale, df[[aesthetic]])
-    } else {
-      scale_train(scale, df[[aesthetic]][i])      
-    }
+    scale_train(scale, df[[aesthetic]])      
   }
   invisible()
 }
