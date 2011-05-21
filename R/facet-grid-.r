@@ -136,21 +136,18 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
   axes <- facet_axes(facet, panel, coord, theme)
   strips <- facet_strips(facet, panel, theme)
   panels <- facet_panels(facet, panel, coord, theme, geom_grobs)
-  # legend
-  # labels
   
   # Combine components into complete plot
-  top <- (strips$t$clone())$
-    add_cols(strips$r$widths)$
-    add_cols(axes$l$widths, pos = 0)
-  centre <- (axes$l$clone())$cbind(panels)$cbind(strips$r)
-  bottom <- (axes$b$clone())$
-    add_cols(strips$r$widths)$
-    add_cols(axes$l$widths, pos = 0)
+  top <- strips$t
+  top <- gtable_add_cols(top, strips$r$widths)
+  top <- gtable_add_cols(top, axes$l$widths, pos = 0)
   
-  complete <- centre$clone()$
-    rbind(top, pos = 0)$
-    rbind(bottom)
+  center <- cbind(cbind(axes$l, panels), strips$r)
+  bottom <- axes$b
+  bottom <- gtable_add_cols(bottom, strips$r$widths)
+  bottom <- gtable_add_cols(bottom, axes$l$widths, pos = 0)
+
+  complete <- rbind(top, rbind(center, bottom))
   complete$respect <- panels$respect
   complete$name <- "layout"
   
@@ -211,11 +208,10 @@ build_strip <- function(panel, label_df, labeller, theme, side = "right") {
   strips <- layout_matrix(name, grobs, heights = heights, widths = widths)
   
   if (horizontal) {
-    strips$add_col_space(theme$panel.margin)
+    gtable_add_col_space(strips, theme$panel.margin)
   } else {
-    strips$add_row_space(theme$panel.margin)
+    gtable_add_row_space(strips, theme$panel.margin)
   }
-  strips
 }
 
 facet_axes.grid <- function(facet, panel, coord, theme) {
@@ -225,13 +221,15 @@ facet_axes.grid <- function(facet, panel, coord, theme) {
   cols <- which(panel$layout$ROW == 1)
   grobs <- lapply(panel$ranges[cols], coord_render_axis_h, 
     coord = coord, theme = theme)
-  axes$b <- layout_row("axis-b", grobs)$add_col_space(theme$panel.margin)
+  axes$b <- gtable_add_col_space(layout_row("axis-b", grobs),
+    theme$panel.margin)
 
   # Vertical axes
   rows <- which(panel$layout$COL == 1)
   grobs <- lapply(panel$ranges[rows], coord_render_axis_v, 
     coord = coord, theme = theme)
-  axes$l <- layout_col("axis-l", grobs)$add_row_space(theme$panel.margin)
+  axes$l <- gtable_add_row_space(layout_col("axis-l", grobs),
+    theme$panel.margin)
 
   axes
 }
@@ -282,10 +280,9 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   }
 
   panels <- layout_matrix("panel", panel_matrix,
-    panel_widths, panel_heights)
-  panels$respect <- respect
-  panels$add_col_space(theme$panel.margin)
-  panels$add_row_space(theme$panel.margin)
+    panel_widths, panel_heights, respect = respect)
+  panels <- gtable_add_col_space(panels, theme$panel.margin)
+  panels <- gtable_add_row_space(panels, theme$panel.margin)
   panels
 }
 

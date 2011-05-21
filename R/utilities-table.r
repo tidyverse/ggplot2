@@ -1,209 +1,251 @@
-require(mutatr)
+# Create a new table grid.
+#
+# A table grid captures all the information needed to layout grobs in a table
+# structure. It supports row and column spanning, and offers some tools to
+# automatically figure out correct dimensions.
+#
+# Each grob is put in its own viewport - grobs in the same location are 
+# not combined into one cell. Each grob takes up the entire cell viewport
+# so justification control is not available.
+#
+# It constructs both the viewports and the gTree needed to display the table.
+#
+# @param grobs a list of grobs
+# @param layout a data frame with one row for each grob, and columns
+#   \code{t}, \code{r}, \code{b}, \code{l} giving top, right, bottom and left
+#   positions respectively, \code{clip} a string, either \code{"on"},
+#   \code{"off"} or \code{"inherit"}, and \code{name}, a character
+#   vector used to name each grob as it is plotted.
+# @param widths a unit vector giving the width of each column
+# @param height a unit vector giving the height of each row
+# @param respect a logical vector of length 1: should the aspect ratio of 
+#   height and width specified in null units be respected.  See
+#   \code{\link{grid.layout}} for more details
+# @param name a string giving the name of the table. This is used to name
+#   the layout viewport
+gtable <- function(grobs = list(), layout = NULL, widths = list(), heights = list(), respect = FALSE, name = "layout") {
+  
+  if (is.null(layout)) {
+    data.frame(
+      t = numeric(), r = numeric(), b = numeric(), l = numeric(), 
+      clip = character(), name = character(), stringsAsFactors = FALSE)
+  }
+  
+  stopifnot(length(grobs) == nrow(layout))
+  
+  structure(list(
+    grobs = grobs, layout = layout, widths = widths, 
+    heights = heights, respect = respect, name = name), 
+    class = "gtable")
+}
 
-# respect is a layout property
-# each grob will occupy it's own viewport -> 
-#   just - never matters because will always be an exact size
-#   clip
-#   layout.pos.row
-#   layout.pos.col
-TableLayout <- Object$clone()$do({
-  self$grobs <- list()
-  self$info <- data.frame(
-    t = numeric(), r = numeric(), b = numeric(), l = numeric(), 
-    clip = character(), name = character(), stringsAsFactors = FALSE)
-  self$widths <- list()
-  self$heights <- list()
-  self$respect <- FALSE
-  self$name <- "layout"
+print.gtable <- function(x, ...) {
+  cat("TableGrob (", nrow(x), " x ", ncol(x), ") \"", x$name, "\": ", 
+    length(x$grobs), " grobs\n", sep = "")
   
-  self$get_rows <- function() length(self$heights)
-  self$get_cols <- function() length(self$widths)
-  
-  # Find location of a grob
-  self$find_location <- function(grob) {
-    pos <- unlist(lapply(self$grobs, identical, grob))
+  pos <- as.data.frame(format(as.matrix(x$layout[c("t", "r", "b", "l")])), 
+    stringsAsFactors = FALSE)
+  grobNames <- vapply(x$grobs, as.character, character(1))
     
-    self$info[pos, ]
-  }
-  
-  # Add a single grob, possibly spanning multiple rows or columns.
-  # 
-  # This will not affect height/width
-  # 
-  # @param grobs a single grob or a list of grobs
-  # @param clip should drawing be clipped to the specified cells
-  #   (\code{"on"}), the entire table (\code{"inherit"}), or not at all 
-  #   (\code{"off"})
-  self$add_grob <- function(grobs, t, l, b = t, r = l, clip = "on", 
-    name = self$name) 
-  {
-    if (is.grob(grobs)) grobs <- list(grobs)
-    self$grobs <- c(self$grobs, grobs)
-    
-    info <- data.frame(t = t, l = l, b = b, r = r, clip = clip, name = name,
-      stringsAsFactors = FALSE)
-    self$info <- rbind(self$info, info)
-    
-    self
-  }
-  
-  # Add rows and cols  -------------------------------------------------------
+  cat(paste("  (", pos$l, "-", pos$l, ",", pos$t, "-", pos$b, ") ",
+    x$layout$name, ": ", grobNames, sep = "", collapse = "\n"), "\n")  
+}
+dim.gtable <- function(x) c(length(x$heights), length(x$widths))
 
-  # Add rows to the bottom
-  # 
-  # @params pos new column will be added below this position. Defaults to
-  #   adding row on bottom. \code{0} adds on the top.
-  self$add_rows <- function(heights, clip = "inherit", pos = self$rows) {
-    stopifnot(length(pos) == 1)
-    n <- length(heights)
-    
-    # Shift existing rows down
-    self$heights <- insert.unit(self$heights, heights, pos)
-    self$info <- transform(self$info,
-      t = ifelse(t > pos, t + n, t),
-      b = ifelse(b > pos, b + n, b)
-    )
+# Find location of a grob
+gtable_find <- function(x, grob) {
+  pos <- vapply(x$grobs, identical, logical(1), grob)
+  x$layout[pos, ]
+} 
 
-    self
-  }
+# Add a single grob, possibly spanning multiple rows or columns.
+# 
+# Does not affect height/width
+# 
+# @param grobs a single grob or a list of grobs
+# @param clip should drawing be clipped to the specified cells
+#   (\code{"on"}), the entire table (\code{"inherit"}), or not at all 
+#   (\code{"off"})
+gtable_add_grob <- function(x, grobs, t, l, b = t, r = l, clip = "on", name = x$name) 
+{
+  if (is.grob(grobs)) grobs <- list(grobs)
+  x$grobs <- c(x$grobs, grobs)
   
-  # Add columns to the right
-  self$add_cols <- function(widths, clip = "inherit", pos = self$cols) {
-    stopifnot(length(pos) == 1)
-    n <- length(widths)
-    
-    # Shift existing columns right
-    self$widths <- insert.unit(self$widths, widths, pos)
-    self$info <- transform(self$info,
-      l = ifelse(l > pos, l + n, l),
-      r = ifelse(r > pos, r + n, r)
-    )
+  layout <- data.frame(t = t, l = l, b = b, r = r, clip = clip, name = name,
+    stringsAsFactors = FALSE)
+  x$layout <- rbind(x$layout, layout)
+  stopifnot(length(x$grobs) == nrow(x$layout))
+  
+  x
+}
 
-    self
-  }
+# Add rows in specified position
+# 
+# @params pos new row will be added below this position. Defaults to
+#   adding row on bottom. \code{0} adds on the top.
+gtable_add_rows <- function(x, heights, clip = "inherit", pos = nrow(x)) {
+  stopifnot(length(pos) == 1)
+  n <- length(heights)
   
-  # Convenience methods for adding empty space -------------------------------
-  
-  # Add column spacing
-  # 
-  # @param width either 1 or row - 1 units
-  self$add_col_space <- function(width) {
-    n <- self$cols - 1
-    if (n == 0) return(self)
-    
-    stopifnot(length(width) == 1 || length(width) == n)
-    width <- rep(width, length = n)
+  # Shift existing rows down
+  x$heights <- insert.unit(x$heights, heights, pos)
+  x$layout$t <- ifelse(x$layout$t > pos, x$layout$t + n, x$layout$t)
+  x$layout$b <- ifelse(x$layout$b > pos, x$layout$b + n, x$layout$b)
 
-    for(i in rev(seq_len(n))) {
-      self$add_cols(width[i], pos = i)
-    }
+  x
+}
 
-    self
-  }
-  self$add_row_space <- function(height) {
-    n <- self$rows - 1
-    if (n == 0) return(self)
-    
-    stopifnot(length(height) == 1 || length(height) == n)
-    height <- rep(height, length = n)
-    
-    for(i in rev(seq_len(n))) {
-      self$add_rows(height[i], pos = i)
-    }
-    
-    self
-  }
+# Add columns to the right
+gtable_add_cols <- function(x, widths, clip = "inherit", pos = ncol(x)) {
+  stopifnot(length(pos) == 1)
+  n <- length(widths)
+  
+  # Shift existing columns right
+  x$widths <- insert.unit(x$widths, widths, pos)
+  x$layout$l <- ifelse(x$layout$l > pos, x$layout$l + n, x$layout$l)
+  x$layout$r <- ifelse(x$layout$r > pos, x$layout$r + n, x$layout$r)
+  
+  x
+}
 
-  # Combine with other layouts -----------------------------------------------
+# Add column spacing
+# 
+# @param width either 1 or row - 1 units
+gtable_add_col_space <- function(x, width) {
+  n <- ncol(x) - 1
+  if (n == 0) return(x)
   
-  self$rbind <- function(other, pos = self$rows) {
-    if (other$rows == 0) return(self)
-    
-    self$heights <- insert.unit(self$heights, other$heights, pos)
-    self$grobs <- append(self$grobs, other$grobs)
-    
-    other_info <- transform(other$info, t = t + pos, b = b + pos)
-    self_info <- transform(self$info, 
-      t = ifelse(t > pos, t + pos + other$rows, t),
-      b = ifelse(b > pos, b + pos + other$rows, b))
-    
-    self$info <- rbind(self_info, other_info)
-    self
-  }
-  
-  self$cbind <- function(other, pos = self$cols) {
-    if (other$cols == 0) return(self)
-    
-    self$widths <- insert.unit(self$widths, other$widths, pos)
-    self$grobs <- append(self$grobs, other$grobs)
-    
-    other_info <- transform(other$info, l = l + pos, r = r + pos)
-    self_info <- transform(self$info, 
-      l = ifelse(l > pos, l + pos + other$cols, l),
-      r = ifelse(r > pos, r + pos + other$cols, r))
-    
-    self$info <- rbind(self_info, other_info)
-    self
-  }
-  
-  # Turn into a grid object --------------------------------------------------
-  
-  self$layout <- function() {
-    grid.layout(
-      nrow = self$rows, heights = self$heights,
-      ncol = self$cols, widths = self$widths,
-      respect = self$respect
-    )
-  }
-  
-  self$show_layout <- function() {
-    grid.show.layout(self$layout())
+  stopifnot(length(width) == 1 || length(width) == n)
+  width <- rep(width, length = n)
+
+  for(i in rev(seq_len(n))) {
+    x <- gtable_add_cols(x, width[i], pos = i)
   }
 
-  self$viewport <- function() {
-    layout_vp <- viewport(layout = self$layout(), name = self$name)
-    
-    vp <- function(i) {
-      with(self$info[i, ], viewport(
-        name = paste(name, t, l, sep = "-"), 
-        layout.pos.row = c(t), 
-        layout.pos.col = c(l), 
-        clip = clip
-      ))
-    }
-    children_vp <- do.call("vpList", llply(seq_along(self$grobs), vp))
-    vpTree(layout_vp, children_vp)    
+  x
+}
+gtable_add_row_space <- function(x, height) {
+  n <- nrow(x) - 1
+  if (n == 0) return(x)
+  
+  stopifnot(length(height) == 1 || length(height) == n)
+  height <- rep(height, length = n)
+  
+  for(i in rev(seq_len(n))) {
+    x <- gtable_add_rows(x, height[i], pos = i)
   }
   
-  self$gList <- function() {
-    names <- with(self$info, paste(name, t, l, sep = "-"))
+  x
+}
 
-    grobs <- llply(seq_along(names), function(i) {
-      editGrob(self$grobs[[i]], vp = vpPath(self$name, names[i]), 
-        name = names[i])
-    })
-    
-    do.call("gList", grobs)
-  }
+# Combine with other layouts -----------------------------------------------
 
-  self$gTree <- function() {
-    gTree(
-      children = self$gList(), 
-      childrenvp = self$viewport()
-    )
-  }
+rbind.gtable <- function(..., pos = nrow(x)) {
+  tables <- list(...)
+  stopifnot(length(tables) == 2)
+
+  x <- tables[[1]]
+  y <- tables[[2]]
+
+  stopifnot(ncol(x) == ncol(y))
+  if (nrow(x) == 0) return(y)
+  if (nrow(y) == 0) return(x)
   
-  self$draw <- function(new_page = TRUE) {
-    if (new_page) grid.newpage()
-    grid.draw(self$gTree())
+  x$heights <- insert.unit(x$heights, y$heights, pos)
+  x$grobs <- append(x$grobs, y$grobs)
+  
+  y$layout$t <- y$layout$t + pos 
+  y$layout$b <- y$layout$b + pos
+
+  x$layout$t <- ifelse(x$layout$t > pos, x$layout$t + nrow(y), x$layout$t)
+  x$layout$b <- ifelse(x$layout$b > pos, x$layout$b + nrow(y), x$layout$b)
+
+  x$layout <- rbind(x$layout, y$layout)
+  x
+}
+
+cbind.gtable <- function(..., pos = ncol(x)) {
+  tables <- list(...)
+  stopifnot(length(tables) == 2)
+
+  x <- tables[[1]]
+  y <- tables[[2]]
+
+  stopifnot(nrow(x) == nrow(y))
+  if (ncol(x) == 0) return(y)
+  if (ncol(y) == 0) return(x)
+  
+  x$widths <- insert.unit(x$widths, y$widths, pos)
+  x$grobs <- append(x$grobs, y$grobs)
+  
+  y$layout$l <- y$layout$l + pos 
+  y$layout$r <- y$layout$r + pos
+  
+  x$layout$l <- ifelse(x$layout$l > pos, x$layout$l + ncol(y), x$layout$l)
+  x$layout$r <- ifelse(x$layout$r > pos, x$layout$r + ncol(y), x$layout$r)  
+
+  x$layout <- rbind(x$layout, y$layout)
+  x
+}
+
+# Turn into a grid object --------------------------------------------------
+
+gtable_layout <- function(x) {
+  grid.layout(
+    nrow = nrow(x), heights = x$heights,
+    ncol = ncol(x), widths = x$widths,
+    respect = x$respect
+  )
+}
+
+gtable_show_layout <- function(x) {
+  grid.show.layout(gtable_layout(x))
+}
+
+gtable_viewport <- function(x) {
+  layout_vp <- viewport(layout = gtable_layout(x), name = x$name)
+  
+  vp <- function(i) {
+    with(x$layout[i, ], viewport(
+      name = paste(name, t, l, sep = "-"), 
+      layout.pos.row = c(t), 
+      layout.pos.col = c(l), 
+      clip = clip
+    ))
   }
-})
+  children_vp <- do.call("vpList", llply(seq_along(x$grobs), vp))
+  vpTree(layout_vp, children_vp)    
+}
+
+gtable_gList <- function(x) {
+  names <- with(x$layout, paste(name, t, l, sep = "-"))
+
+  grobs <- llply(seq_along(names), function(i) {
+    editGrob(x$grobs[[i]], vp = vpPath(x$name, names[i]), 
+      name = names[i])
+  })
+  
+  do.call("gList", grobs)
+}
+
+gtable_gTree <- function(x) {
+  gTree(
+    children = gtable_gList(x), 
+    childrenvp = gtable_viewport(x)
+  )
+}
+
+grid.draw.gtable <- function(x, new_page = TRUE) {
+  if (new_page) grid.newpage()
+  grid.draw(gtable_gTree(x))
+}
+
 
 insert.unit <- function (x, values, after = length(x)) {
   lengx <- length(x)
   if (lengx == 0) return(values)
   if (length(values) == 0) return(x)
-  
+
   if (after <= 0) {
     unit.c(values, x)
   } else if (after >= lengx) {
@@ -213,30 +255,26 @@ insert.unit <- function (x, values, after = length(x)) {
   }
 }
 
-"combine.unit-list" <- function(vectors) {
-  do.call("unit.c", vectors)
-}
-
-compute_grob_widths <- function(grob_info, widths) {
-  cols <- split(grob_info, grob_info$l)
+compute_grob_widths <- function(grob_layout, widths) {
+  cols <- split(grob_layout, grob_layout$l)
   do.call("unit.c", lapply(cols, compute_grob_dimensions, dims = widths))
 }  
 
-compute_grob_heights <- function(grob_info, heights) {
-  cols <- split(grob_info, grob_info$t)
+compute_grob_heights <- function(grob_layout, heights) {
+  cols <- split(grob_layout, grob_layout$t)
   do.call("unit.c", lapply(cols, compute_grob_dimensions, dims = heights))
 }  
 
-compute_grob_dimensions <- function(grob_info, dims) {
+compute_grob_dimensions <- function(grob_layout, dims) {
   # If any don't have explicit dims, then width is NULL
-  if (!all(grob_info$type %in% names(dims))) {
+  if (!all(grob_layout$type %in% names(dims))) {
     return(unit(1, "null"))
   }
 
   dims <- unique(Map(function(type, pos) {
     type_width <- dims[[type]]
     if (length(type_width) == 1) type_width else type_width[pos]
-  }, grob_info$type, grob_info$id))
+  }, grob_layout$type, grob_layout$id))
   units <- vapply(dims, is.unit, logical(1))
   raw_max <- unit(max(unlist(dims[!units])), "cm")
 

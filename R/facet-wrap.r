@@ -143,10 +143,9 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   
   info <- ldply(locs, find_pos, layout = layout, size = c(3, 4))
   names(info)[1] <- "type"
-  info$clip <- TRUE
+  info$clip <- ifelse(info$type == "panel", "on", "off")
   info$name <- paste(info$type, info$id, sep = "-")
   
-
   # Bare numbers are taken as cm
   # If not listed, assume is unit(1, "null")
   widths <- list(
@@ -163,12 +162,11 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   col_widths <- compute_grob_widths(info, widths)
   row_heights <- compute_grob_heights(info, heights)
   
-  lay <- TableLayout$clone(
-    info = info[info$type %in% names(grobs), ],
+  lay <- gtable(
+    layout = info[info$type %in% names(grobs), ],
     grobs = unlist(grobs, recursive = FALSE),
     heights = row_heights,
     widths = col_widths, 
-    clip = TRUE,
     respect = respect
   )
   lay

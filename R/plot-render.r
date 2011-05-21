@@ -30,7 +30,7 @@ ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop
 
   panelGrid <- facet_render(plot$facet, panel, plot$coordinates,
     plot_theme(plot), geom_grobs)
-  panelGrob <- panelGrid$gTree()
+  panelGrob <- gtable_gTree(panelGrid)
 
   scales <- plot$scales
   cs <- plot$cs

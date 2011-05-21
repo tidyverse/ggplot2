@@ -55,7 +55,7 @@ facet_render.null <- function(facet, panel, coord, theme, geom_grobs) {
   layout <- layout_matrix("layout", all, 
     widths = unit.c(grobWidth(axis_v), unit(1, "null")),
     heights = unit.c(unit(1, "null"), grobHeight(axis_h)),
-    respect = respect
+    respect = respect, clip = c("off", "off", "on", "off")
   )
   
   layout
