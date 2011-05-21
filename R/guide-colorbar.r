@@ -160,14 +160,19 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   ## title
   ## hjust of title should depend on title.position
+  title.hjust <- title.x <- guide$title.hjust %||% theme$legend.title.align %||% 0
+  title.vjust <- title.y <- guide$title.vjust %||% 0.5
   grob.title <- {
     g <-
-      if (is.null(guide$title)) zeroGrob()
-      else if(!is.null(guide$title.theme)) guide$title.theme(label=guide$title, x = 0.5, y = 0.5, name = grobName(NULL, "guide.title"))
-      else theme_render(theme, "legend.title", guide$title, hjust = 1, x = 1, y = 0.5)
+      if (is.null(guide$title))
+        zeroGrob()
+      else if(!is.null(guide$title.theme))
+        guide$title.theme(label=guide$title, name=grobName(NULL, "guide.title"),
+          hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
+      else
+        theme_render(theme, "legend.title", guide$title,
+          hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
     if (!is.null(guide$title.angle)) g <- editGrob(g, rot = guide$title.angle)
-    if (!is.null(guide$title.hjust)) g <- editGrob(g, hjust = guide$title.hjust)
-    if (!is.null(guide$title.vjust)) g <- editGrob(g, vjust = guide$title.vjust)
     g
   }
 
@@ -180,13 +185,15 @@ guide_gengrob.colorbar <- function(guide, theme) {
   grob.label <- {
     if (!guide$label) zeroGrob()
     else {
-      switch(guide$direction, "horizontal" = {x <- label_pos; y <- 0.5}, "vertical" = {x <- 0.5; y <- label_pos})
+      hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||% if (any(is.expression(guide$key$.label))) 1 else 0
+      vjust <- y <- guide$label.vjust %||% 0.5
+      switch(guide$direction, horizontal = {x <- label_pos; y <- vjust}, "vertical" = {x <- hjust; y <- label_pos})
       g <-
-        if(!is.null(guide$label.theme)) guide$label.theme(label=guide$key$.label, x = x, y = y, name = grobName(NULL, "guide.label"))
-        else theme_render(theme, "legend.text", guide$key$.label, x = x, y = y)
+        if(!is.null(guide$label.theme))
+          guide$label.theme(label=guide$key$.label, x = x, y = y, hjust = hjust, vjust = vjust, name = grobName(NULL, "guide.label"))
+        else
+          theme_render(theme, "legend.text", guide$key$.label, x = x, y = y, hjust = hjust, vjust = vjust)
       if (!is.null(guide$label.angle)) g <- editGrob(g, rot = guide$label.angle)
-      if (!is.null(guide$label.hjust)) g <- editGrob(g, hjust = guide$label.hjust)
-      if (!is.null(guide$label.vjust)) g <- editGrob(g, vjust = guide$label.vjust)
       g
     }
   }
@@ -260,7 +267,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
       vps <- with(vps,
                   list(bar.row = bar.row+3, bar.col = bar.col+1,
                        label.row = label.row+3, label.col = label.col+1,
-                       title.row = 2, title.col = 2:3))
+                       title.row = 2, title.col = 2:(length(widths)-1)))
     },
     "bottom" = {
       widths <- c(hgap, bl_widths, max(hgap, title_width.c-sum(bl_widths)))
@@ -268,7 +275,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
       vps <- with(vps, 
                   list(bar.row = bar.row+1, bar.col = bar.col+1,
                        label.row = label.row+1, label.col = label.col+1,
-                       title.row = length(heights)-1, title.col = 2:3))
+                       title.row = length(heights)-1, title.col = 2:(length(widths)-1)))
     },
     "left" = {
       widths <- c(hgap, title_width.c, hgap, bl_widths, hgap)
@@ -276,7 +283,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
       vps <- with(vps, 
                   list(bar.row = bar.row+1, bar.col = bar.col+3,
                        label.row = label.row+1, label.col = label.col+3,
-                       title.row = 2:3, title.col = 2))
+                       title.row = 2:(length(heights)-1), title.col = 2))
     },
     "right" = {
       widths <- c(hgap, bl_widths, hgap, title_width.c, hgap)
@@ -284,7 +291,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
       vps <- with(vps, 
                   list(bar.row = bar.row+1, bar.col = bar.col+1,
                        label.row = label.row+1, label.col = label.col+1,
-                       title.row = 2:3, title.col = length(widths)-1))
+                       title.row = 2:(length(heights)-1), title.col = length(widths)-1))
     })
 
   legend.layout <- grid.layout(length(heights), length(widths), 
