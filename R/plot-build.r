@@ -31,9 +31,11 @@ ggplot_build <- function(plot) {
   
   # Map and train positions so that statistics have access to ranges
   # and all positions are numeric
-  panel <- train_position(panel, data, scales$get_scales("x"),
-    scales$get_scales("y"))
-  data <- map_position(panel, data)
+  scale_x <- function() scales$get_scales("x")
+  scale_y <- function() scales$get_scales("y")
+
+  panel <- train_position(panel, data, scale_x(), scale_y())
+  data <- map_position(panel, data, scale_x(), scale_y())
   
   # Apply and map statistics
   data <- calculate_stats(panel, data, layers)
@@ -49,9 +51,8 @@ ggplot_build <- function(plot) {
   # have control over the range of a plot: is it generated from what's 
   # displayed, or does it include the range of underlying data
   reset_scales(panel)
-  panel <- train_position(panel, data, scales$get_scales("x"),
-    scales$get_scales("y"))
-  data <- map_position(panel, data)
+  panel <- train_position(panel, data, scale_x(), scale_y())
+  data <- map_position(panel, data, scale_x(), scale_y())
   
   # Train and map non-position scales
   npscales <- scales$non_position_scales()  

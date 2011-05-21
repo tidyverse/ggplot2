@@ -74,18 +74,25 @@ train_position <- function(panel, data, x_scale, y_scale) {
   
   # loop over each layer, training x and y scales in turn
   for(layer_data in data) {
-    pos <- join(layer_data, layout, by = "PANEL")
     
-    # Loop through data for each scale, creating a new scale if needed
-    d_ply(pos, "SCALE_X", function(df) {
-      if (is.null(x_scale)) return()
-      scale_train_df(panel$x_scales[[df$SCALE_X[1]]], df)
-    })
+    match_id <- match(layer_data$PANEL, layout$PANEL)
+    rows <- seq_len(nrow(layer_data))
+    
+    if (!is.null(x_scale)) {
+      SCALE_X <- layout$SCALE_X[match_id]
+      scale_x_rows <- plyr:::split_indices(rows, SCALE_X, max(layout$SCALE_X))
+      
+      mapply(scale_train_df, scale = panel$x_scales, i = scale_x_rows, 
+        MoreArgs = list(df = layer_data), SIMPLIFY = FALSE, USE.NAMES = FALSE)      
+    }
 
-    d_ply(pos, "SCALE_Y", function(df) {
-      if (is.null(y_scale)) return()
-      scale_train_df(panel$y_scales[[df$SCALE_Y[1]]], df)
-    })
+    if (!is.null(y_scale)) {
+      SCALE_Y <- layout$SCALE_Y[match_id]
+      scale_y_rows <- plyr:::split_indices(rows, SCALE_Y, max(layout$SCALE_Y))
+      
+      mapply(scale_train_df, scale = panel$y_scales, i = scale_y_rows, 
+        MoreArgs = list(df = layer_data), SIMPLIFY = FALSE, USE.NAMES = FALSE)      
+    }
   }
 
   panel
@@ -108,24 +115,41 @@ reset_scales <- function(panel) {
 # convert to numeric/integer for x, xmin, xmax, y, ymin, ymax, xend and yend
 #
 # @param data a list of data frames (one for each layer)  
-map_position <- function(panel, data) {
+map_position <- function(panel, data, x_scale, y_scale) {
+  layout <- panel$layout
+  
   lapply(data, function(layer_data) {
-    panel_id <- match(layer_data$PANEL, panel$layout$PANEL)
+    match_id <- match(layer_data$PANEL, layout$PANEL)
+    rows <- seq_len(nrow(layer_data))
     
-    scale_x <- panel$layout$SCALE_X[panel_id]
-    layer_data <- ldply(unique(scale_x), function(i) {
-      old <- layer_data[scale_x == i, , drop = FALSE]
-      new <- scale_map_df(panel$x_scales[[i]], old)
-      cunion(new, old)
+    x_vars <- intersect(x_scale$aesthetics, names(layer_data))
+    names(x_vars) <- x_vars
+
+    y_vars <- intersect(y_scale$aesthetics, names(layer_data))
+    names(y_vars) <- y_vars
+
+    # Loop through each variable, mapping across each scale, then joining 
+    # back together    
+    SCALE_X <- layout$SCALE_X[match_id]
+    scale_x_rows <- plyr:::split_indices(rows, SCALE_X, max(layout$SCALE_X))
+    new_x <- lapply(x_vars, function(var) {
+      pieces <- lapply(seq_along(scale_x_rows), function(i) {
+        scale_map(panel$x_scales[[i]], layer_data[[var]][scale_x_rows[[i]]])
+      })
+      unlist(pieces)[order(unlist(scale_x_rows))]
     })
     
-    scale_y <- panel$layout$SCALE_Y[panel_id]
-    layer_data <- ldply(unique(scale_y), function(i) {
-      old <- layer_data[scale_y == i, , ]
-      new <- scale_map_df(panel$y_scales[[i]], old)
-      cunion(new, old)
+    SCALE_Y <- layout$SCALE_Y[match_id]
+    scale_y_rows <- plyr:::split_indices(rows, SCALE_Y, max(layout$SCALE_Y))
+    new_y <- lapply(y_vars, function(var) {
+      pieces <- lapply(seq_along(scale_y_rows), function(i) {
+        scale_map(panel$y_scales[[i]], layer_data[[var]][scale_y_rows[[i]]])
+      })
+      unlist(pieces)[order(unlist(scale_y_rows))]
     })
     
+    layer_data[, x_vars] <- new_x
+    layer_data[, y_vars] <- new_y
     layer_data
   })
 }

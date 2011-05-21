@@ -151,10 +151,6 @@ Layer <- proto(expr = {
   }
   
 
-  calc_statistics <- function(., data, scales) {
-    gg_apply(data, function(x) .$calc_statistic(x, scales))  
-  }
-  
   calc_statistic <- function(., data, scales) {
     if (empty(data)) return(data.frame())
     

@@ -82,12 +82,22 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks 
 # Train scale from a data frame.
 #
 # @return updated range (invisibly)
+# @param i row index - if specified, scale is only train only those rows.
+#   this is a performance optimisation because subsetting data frames is so
+#   slow
 # @seealso \code{\link{scale_train}} for scale specific generic method
-scale_train_df <- function(scale, df) {
+scale_train_df <- function(scale, df, i = NULL) {
   if (empty(df)) return() 
 
   aesthetics <- intersect(scale$aesthetics, names(df))
-  lapply(df[aesthetics], scale_train, scale = scale)
+  for(aesthetic in aesthetics) {
+    if (is.null(i)) {
+      scale_train(scale, df[[aesthetic]])
+    } else {
+      scale_train(scale, df[[aesthetic]][i])      
+    }
+  }
+  invisible()
 }
 
 #' Train an individual scale from a vector of data.
@@ -131,13 +141,18 @@ scale_transform.discrete <- function(scale, x) {
 }
 
 # @return list of mapped variables
-scale_map_df <- function(scale, df) {    
+scale_map_df <- function(scale, df, i = NULL) {    
   if (empty(df)) return()
 
   aesthetics <- intersect(scale$aesthetics, names(df))
+  names(aesthetics) <- aesthetics
   if (length(aesthetics) == 0) return()
   
-  lapply(df[aesthetics], scale_map, scale = scale)
+  if (is.null(i)) {
+    lapply(aesthetics, function(j) scale_map(scale, df[[j]])) 
+  } else {
+    lapply(aesthetics, function(j) scale_map(scale, df[[j]][i]))
+  }
 }
 
 #' @S3method scale_map continuous
