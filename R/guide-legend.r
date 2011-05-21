@@ -158,19 +158,19 @@ guide_gengrob.legend <- function(guide, theme) {
   vgap <- hgap
 
   ## title
-  ## TODO: hjust of title should depend on title.position
-  title.hjust <- theme$legend.title.align %||% 0
-  title.x <- theme$legend.title.align %||% 0
-  title.vjust <- 0.5
-  title.y <- 0.5
+  title.hjust <- title.x <- guide$title.hjust %||% theme$legend.title.align %||% 0
+  title.vjust <- title.y <- guide$title.vjust %||% 0.5
   grob.title <- {
     g <-
-      if (is.null(guide$title)) zeroGrob()
-      else if(!is.null(guide$title.theme)) guide$title.theme(label=guide$title, name=grobName(NULL, "guide.title"))
-      else theme_render(theme, "legend.title", guide$title, hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
+      if (is.null(guide$title))
+        zeroGrob()
+      else if(!is.null(guide$title.theme))
+        guide$title.theme(label=guide$title, name=grobName(NULL, "guide.title"),
+          hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
+      else
+        theme_render(theme, "legend.title", guide$title,
+          hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
     if (!is.null(guide$title.angle)) g <- editGrob(g, rot = guide$title.angle)
-    if (!is.null(guide$title.hjust)) g <- editGrob(g, hjust = guide$title.hjust)
-    if (!is.null(guide$title.vjust)) g <- editGrob(g, vjust = guide$title.vjust)
     g
   }
 
@@ -179,31 +179,30 @@ guide_gengrob.legend <- function(guide, theme) {
   title_height <- convertHeight(grobHeight(grob.title), "mm")
   title_height.c <- c(title_height)
 
-  ## label
-  ## TODO: adjust hjust based on the label position.
+  ## Label
+  ## Rules of lable adjustment
+  ##
+  ## label.theme in param of guide_legend() > theme$legend.text.align > default
+  ## hjust/vjust in theme$legend.text and label.theme are ignored.
   ## 
-  ## if labels are math expression, them it should be right-aligned. else left-aligned.
-#  label.hjust <- guide$label.hjust %||% theme$legend.text.align %||% 0.5
-#  label.x <- 0.5
-#  label.vjust <- 0.5
-#  label.y <- 0.5
-#  if (is.na(theme$legend.text.align)) {
-#    numeric_labels <- all(sapply(guide$key$.label, is.language)) || suppressWarnings(all(!is.na(sapply(guide$key$.label, "as.numeric"))))
-#    hpos <- numeric_labels * 1    
-#  } else {
-#    hpos <- theme$legend.text.align
-#  }
+  ## Default:
+  ##   If label includes expression, the label is right-alignd (hjust = 0). Ohterwise, left-aligned (x = 1, hjust = 1).
+  ##   Vertical adjustment is always mid-alined (vjust = 0.5).
   grob.labels <-
     if (!guide$label) zeroGrob()
-    else lapply(guide$key$.label, function(label){
-      g <- 
-        if(!is.null(guide$label.theme)) guide$label.theme(label=label, name=grobName(NULL, "guide.label"))
-        else theme_render(theme, "legend.text", label, hjust = 0, x = 0, y = 0.5)
-      if (!is.null(guide$label.angle)) g <- editGrob(g, rot = guide$label.angle)
-      if (!is.null(guide$label.hjust)) g <- editGrob(g, hjust = guide$label.hjust)
-      if (!is.null(guide$label.vjust)) g <- editGrob(g, vjust = guide$label.vjust)
-      g
-    })
+    else {
+      hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||% if (any(is.expression(guide$key$.label))) 1 else 0
+      vjust <- y <- guide$label.vjust %||% 0.5
+      lapply(guide$key$.label, function(label){
+        g <-
+          if(!is.null(guide$label.theme))
+            guide$label.theme(label=label, name=grobName(NULL, "guide.label"), x = x, y = y, hjust = hjust, vjust = vjust)
+          else
+            theme_render(theme, "legend.text", label, x = x, y = y, hjust = hjust, vjust = vjust)
+        if (!is.null(guide$label.angle)) g <- editGrob(g, rot = guide$label.angle)
+        g
+      })
+    }
 
   label_widths <- lapply(grob.labels, function(g)convertWidth(grobWidth(g), "mm"))
   label_heights <- lapply(grob.labels, function(g)convertHeight(grobHeight(g), "mm"))
