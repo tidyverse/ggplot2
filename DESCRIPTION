@@ -98,7 +98,6 @@ Collate:
     'geom-vline.r'
     'ggplot2.r'
     'grob-absolute.r'
-    'grob-grid.r'
     'grob-null.r'
     'guides-axis.r'
     'guides-grid.r'
