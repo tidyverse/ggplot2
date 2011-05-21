@@ -104,6 +104,10 @@ guides_train <- function(scales, theme) {
     ## if guide is character, then find the guide object
     guide <- validate_guide(guide)
 
+    ## check the consistency of the guide and scale.
+    if (guide$available_aes != "any" && ! scale$aesthetics %in% guide$available_aes)
+      stop (paste("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.", sep=""))
+
     ## title of this grob
     if (is.waive(guide$title)) guide$title <- scale$name %||% theme$labels[[output]]
 

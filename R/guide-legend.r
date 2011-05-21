@@ -62,6 +62,9 @@ guide_legend <- function(
     default.unit = default.unit,
     set.aes = set.aes,
 
+    ## parameter
+    available_aes = c("any"),
+
     ..., name="legend"),
     class=c("guide", "legend"))
 }

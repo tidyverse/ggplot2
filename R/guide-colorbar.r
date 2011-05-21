@@ -35,7 +35,7 @@ guide_colorbar <- function(
   ## general
   direction = NULL,
   default.unit = "line",
-                           
+                          
   ...) {
   
   if (!is.null(barwidth) && !is.unit(barwidth)) barwidth <- unit(barwidth, default.unit)
@@ -72,6 +72,9 @@ guide_colorbar <- function(
     ## general
     direction = direction,
     default.unit = default.unit,
+                 
+    ## parameter
+    available_aes = c("colour", "color", "fill"),
                  
     ..., name="colorbar"),
     class=c("guide", "colorbar"))
