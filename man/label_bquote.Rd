@@ -16,5 +16,5 @@
   \item{expr}{labelling expression to use}
 }
 \examples{p <- qplot(wt, mpg, data = mtcars)
-p + facet_grid(~ vs, labeller = label_bquote(alpha ^ .(x)))
-p + facet_grid(~ vs, labeller = label_bquote(.(x) ^ .(x)))}
+p + facet_grid(. ~ vs, labeller = label_bquote(alpha ^ .(x)))
+p + facet_grid(. ~ vs, labeller = label_bquote(.(x) ^ .(x)))}

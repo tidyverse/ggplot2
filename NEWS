@@ -26,7 +26,10 @@ ggplot2 0.9.0 ----------------------------------------------------------------
   about the plot computations, such as the range of all the scales, and the
   exact data that is plotted.
 
-DOCUMENTATION
+* `scale_shape` finally returns an error when you try and use it with a
+  continuous variable
+
+DEVELOPMENT
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems
   that it previously relied on, and now uses roxygen extensively. The current
@@ -38,6 +41,11 @@ DOCUMENTATION
   packages in the R ecosystem. Note that this means you now need to explicitly
   load `plyr` (and other packages) if you are using them elsewhere in your
   code.
+
+* ggplot2 now has a start on a set of automated tests. As this test suite
+  expands it will help me ensure that bugs stay fixed, and that old bugs don't
+  come back in new versions. A test suite also gives me more confidence when
+  I'm modifying code, which should help with general code quality.
 
 SCALES
 

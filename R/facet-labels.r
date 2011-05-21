@@ -6,8 +6,8 @@
 #' @export
 #' @examples
 #' p <- qplot(wt, mpg, data = mtcars)
-#' p + facet_grid(~ cyl)
-#' p + facet_grid(~ cyl, labeller = label_value)
+#' p + facet_grid(. ~ cyl)
+#' p + facet_grid(. ~ cyl, labeller = label_value)
 label_value <- function(variable, value) as.character(value)
 
 #' Label facets with value and variable.
@@ -17,8 +17,8 @@ label_value <- function(variable, value) as.character(value)
 #' @export
 #' @examples
 #' p <- qplot(wt, mpg, data = mtcars)
-#' p + facet_grid(~ cyl)
-#' p + facet_grid(~ cyl, labeller = label_both)
+#' p + facet_grid(. ~ cyl)
+#' p + facet_grid(. ~ cyl, labeller = label_both)
 label_both <- function(variable, value) paste(variable, value, sep = ": ")
 
 #' Label facets with parsed label.
@@ -46,8 +46,8 @@ label_parsed <- function(variable, value) {
 #' @export
 #' @examples
 #' p <- qplot(wt, mpg, data = mtcars)
-#' p + facet_grid(~ vs, labeller = label_bquote(alpha ^ .(x)))
-#' p + facet_grid(~ vs, labeller = label_bquote(.(x) ^ .(x)))
+#' p + facet_grid(. ~ vs, labeller = label_bquote(alpha ^ .(x)))
+#' p + facet_grid(. ~ vs, labeller = label_bquote(.(x) ^ .(x)))
 label_bquote <- function(expr = beta ^ .(x)) {
   quoted <- substitute(expr)
   

@@ -11,5 +11,5 @@
   \item{value}{variable value passed in by facetter}
 }
 \examples{p <- qplot(wt, mpg, data = mtcars)
-p + facet_grid(~ cyl)
-p + facet_grid(~ cyl, labeller = label_both)}
+p + facet_grid(. ~ cyl)
+p + facet_grid(. ~ cyl, labeller = label_both)}

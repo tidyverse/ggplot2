@@ -265,3 +265,12 @@ print.scale <- function(x, ...) {
 }
 
 scale_clone <- function(scale) UseMethod("scale_clone")
+
+#' @S3method scale_clone continuous
+scale_clone.continuous <- function(scale) {
+  new <- scale
+  new$range <- ContinuousRange$new()  
+  new
+}
+
+
