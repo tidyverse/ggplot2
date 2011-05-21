@@ -30,14 +30,14 @@ test_that("facets with free scales scale independently", {
   l2 <- ggplot(df, aes(x, y)) + geom_point() + 
     facet_grid(. ~ z, scales = "free")
   d2 <- cdata(l2)[[1]]
-  expect_that(length(unique(d2$x)), equals(3))
-  expect_that(length(unique(d2$y)), equals(1))
+  expect_that(length(unique(d2$x)), equals(1))
+  expect_that(length(unique(d2$y)), equals(3))
   
   l3 <- ggplot(df, aes(x, y)) + geom_point() + 
     facet_grid(z ~ ., scales = "free")
   d3 <- cdata(l3)[[1]]
-  expect_that(length(unique(d3$x)), equals(1))
-  expect_that(length(unique(d3$y)), equals(3))
+  expect_that(length(unique(d3$x)), equals(3))
+  expect_that(length(unique(d3$y)), equals(1))
 })
 
 
