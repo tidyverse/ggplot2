@@ -77,7 +77,7 @@ ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop
   if (!is.null(drop)) grobs[drop] <- rep(list(zeroGrob()), length(drop))
 
   # Calculate sizes ----------------------------------------------------------
-  if (is.null(legend_box)) position <- "none"
+  if (is.zero(legend_box)) position <- "none"
     
   ylab_width <- grobWidth(grobs$ylabel) + 
     if (is.zero(grobs$ylabel)) unit(0, "lines") else unit(0.5, "lines")
