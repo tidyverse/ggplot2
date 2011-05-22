@@ -13,7 +13,7 @@ locate_grid <- function(data, panels, rows = NULL, cols = NULL, margins = FALSE)
   # Workaround for bug in reshape
   data <- unique(data)
   facet_vals <- quoted_df(data, c(rows, cols))
-   values <- compact(llply(data, quoted_df, vars = c(rows, cols)))
+  values <- compact(llply(data, quoted_df, vars = c(rows, cols)))
 
   # If any facetting variables are missing, add them in by 
   # duplicating the data
@@ -45,11 +45,27 @@ locate_grid <- function(data, panels, rows = NULL, cols = NULL, margins = FALSE)
 }
 
 locate_wrap <- function(data, panels, vars) {
+  vars <- as.quoted(vars)
+  
   facet_vals <- quoted_df(data, vars)
   facet_vals[] <- lapply(facet_vals[], as.factor)
+  
+  missing_facets <- setdiff(names(vars), names(facet_vals))
+  if (length(missing_facets) > 0) {
+    
+    to_add <- unique(panels[missing_facets])
+    
+    data_rep <- rep.int(1:nrow(data), nrow(to_add))
+    facet_rep <- rep(1:nrow(to_add), each = nrow(data))
+    
+    data <- unrowname(data[data_rep, , drop = FALSE])
+    facet_vals <- unrowname(cbind(
+      facet_vals[data_rep, ,  drop = FALSE], 
+      to_add[facet_rep, , drop = FALSE]))
+  }
   
   keys <- join.keys(facet_vals, panels, by = names(vars))
   
   data$PANEL <- panels$PANEL[match(keys$x, keys$y)]
-  data
+  data[order(data$PANEL), ]
 }
