@@ -46,6 +46,12 @@ coord_cartesian <- function(xlim = NULL, ylim = NULL, wise = FALSE) {
 #' @S3method is.linear cartesian
 is.linear.cartesian <- function(coord) TRUE
 
+#' @S3method coord_distance cartesian
+coord_distance.cartesian <- function(coord, x, y, details) {
+  max_dist <- dist_euclidean(details$x.range, details$y.range)
+  dist_euclidean(x, y) / max_dist
+}  
+
 #' @S3method coord_transform cartesian
 coord_transform.cartesian <- function(., data, details) {
   rescale_x <- function(data) rescale(data, from = details$x.range)

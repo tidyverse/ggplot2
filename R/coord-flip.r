@@ -14,11 +14,13 @@
 #' qplot(cut, data=diamonds, geom="bar")
 #' last_plot() + coord_flip()
 #' 
-#' qplot(carat, data=diamonds, geom="histogram")
-#' last_plot() + coord_flip()
+#' h <- qplot(carat, data=diamonds, geom="histogram")
+#' h
+#' h + coord_flip()
+#' h + coord_flip() + scale_x_reverse()
 #'
 #' # You can also use it to flip lines and area plots:
-#' qplot(1:5, (1:5)^2, geom="line")
+#' qplot(1:5, (1:5)^2, geom="area")
 #' last_plot() + coord_flip()
 coord_flip <- function(...) {
   coord <- coord_cartesian(...)
@@ -36,10 +38,13 @@ flip_labels <- function(x) {
   setNames(x, new_names)
 }
 
+#' @S3method is.linear flip
+is.linear.flip <- function(coord) FALSE
+
 #' @S3method coord_transform flip
 coord_transform.flip <- function(coord, data, details) {
   data <- flip_labels(data)  
-  flip_labels(NextMethod())
+  NextMethod()
 }
 
 #' @S3method coord_train flip
