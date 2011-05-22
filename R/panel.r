@@ -107,10 +107,6 @@ reset_scales <- function(panel) {
 # This operation must be idempotent because it is applied twice: both before
 # and after statistical transformation.
 # 
-# TODO: see how slow this is, and whether it's more effective to do it
-# column wise, and using the knowledge that all position scales do is
-# convert to numeric/integer for x, xmin, xmax, y, ymin, ymax, xend and yend
-#
 # @param data a list of data frames (one for each layer)  
 map_position <- function(panel, data, x_scale, y_scale) {
   layout <- panel$layout
