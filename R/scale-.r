@@ -209,7 +209,12 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   
   # Breaks in data space need to be converted back to transformed space
   # And any breaks outside the dimensions need to be thrown away
-  discard(scale$trans$trans(breaks), scale_dimension(scale))
+  breaks <- discard(scale$trans$trans(breaks), scale_dimension(scale))
+  if (length(breaks) == 0) {
+    stop("Zero breaks in scale for ", paste(scale$aesthetics, collapse = "/"),
+      call. = FALSE)
+  }
+  breaks
 }
 
 scale_breaks.discrete <- function(scale, limits = scale_limits(scale)) {
