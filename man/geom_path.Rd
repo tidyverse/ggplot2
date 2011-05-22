@@ -15,6 +15,7 @@
   \item{arrow}{Arrow specification, as created by ?grid::arrow}
 }
 \examples{# Generate data
+library(plyr)
 myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
 p <- ggplot(myear, aes(length, rating))
 p + geom_path()

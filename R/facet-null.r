@@ -23,7 +23,7 @@ facet_map_layout.null <- function(facet, data, layout) {
   transform(data, PANEL = 1)
 }
 
-#' @S3method factor_guides null
+#' @S3method facet_render null
 facet_render.null <- function(facet, panel, coord, theme, geom_grobs) {
   range <- panel$ranges[[1]]
   

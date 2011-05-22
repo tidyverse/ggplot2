@@ -39,6 +39,7 @@ gtable <- function(grobs = list(), layout = NULL, widths = list(), heights = lis
     class = "gtable")
 }
 
+#' @S3method print gtable
 print.gtable <- function(x, ...) {
   cat("TableGrob (", nrow(x), " x ", ncol(x), ") \"", x$name, "\": ", 
     length(x$grobs), " grobs\n", sep = "")
@@ -50,6 +51,8 @@ print.gtable <- function(x, ...) {
   cat(paste("  (", pos$l, "-", pos$l, ",", pos$t, "-", pos$b, ") ",
     x$layout$name, ": ", grobNames, sep = "", collapse = "\n"), "\n")  
 }
+
+#' @S3method dim gtable
 dim.gtable <- function(x) c(length(x$heights), length(x$widths))
 
 # Find location of a grob
@@ -140,6 +143,7 @@ gtable_add_row_space <- function(x, height) {
 
 # Combine with other layouts -----------------------------------------------
 
+#' @S3method rbind gtable
 rbind.gtable <- function(..., pos = nrow(x)) {
   tables <- list(...)
   stopifnot(length(tables) == 2)
@@ -164,6 +168,7 @@ rbind.gtable <- function(..., pos = nrow(x)) {
   x
 }
 
+#' @S3method cbind gtable
 cbind.gtable <- function(..., pos = ncol(x)) {
   tables <- list(...)
   stopifnot(length(tables) == 2)

@@ -84,7 +84,7 @@ coord_distance.polar <- function(coord, x, y, details) {
   sqrt(diff(px) ^ 2 + diff(py) ^ 2 + diff(pz) ^ 2) / max_dist
 }
 
-#' @S3method coord_ranges polar
+#' @S3method coord_train polar
 coord_train.polar <- function(coord, scales) {
   if (coord$expand) {
     x.range <- scale_dimension(scales$x)
