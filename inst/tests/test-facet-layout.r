@@ -70,3 +70,12 @@ test_that("grid: margins add correct combinations", {
   one <- layout_grid(list(a), "a", "b", margins = TRUE)
   expect_that(nrow(one), equals(4 + 2 + 2 + 1))
 })
+
+test_that("wrap: as.table reverses rows", {
+  one <- layout_wrap(list(a), "a", ncol = 1, as.table = FALSE)
+  expect_that(one$ROW, equals(c(2, 1)))
+  
+  two <- layout_wrap(list(a), "a", nrow = 1, as.table = FALSE)
+  expect_that(two$ROW, equals(c(1, 1)))
+  
+})

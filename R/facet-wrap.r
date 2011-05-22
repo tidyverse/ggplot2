@@ -61,7 +61,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrin
 #' @S3method facet_train_layout wrap
 facet_train_layout.wrap <- function(facet, data) { 
   panels <- layout_wrap(data, facet$facets, facet$nrow, facet$ncol,
-     facet$drop)
+     facet$drop, facet$as.table)
   
   n <- nrow(panels)
   nrow <- max(panels$ROW)

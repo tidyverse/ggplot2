@@ -35,24 +35,28 @@ layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL) {
 #
 # @params drop should missing combinations be excluded from the plot?
 # @keywords internal
-layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, drop = TRUE) {
+layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, drop = TRUE, as.table = TRUE) {
   vars <- as.quoted(vars)
   if (length(vars) == 0) return(layout_null())
 
-  base <- layout_base(data, vars)
+  base <- unrowname(layout_base(data, vars))
 
   id <- id(base, drop = drop)
   n <- attr(id, "n")
   
   dims <- wrap_dims(n, nrow, ncol)
   
-  df <- unrowname(data.frame(
-    PANEL = factor(id, levels = seq_len(n)),
-    ROW = (as.integer(id) - 1L) %/% dims[2] + 1L,
-    COL = (as.integer(id) - 1L) %% dims[2] + 1L,
-    base
-  ))
-  df[order(df$PANEL), ]
+  layout <- data.frame(PANEL = factor(id, levels = seq_len(n)))
+  
+  if (as.table) {
+    layout$ROW <- (as.integer(id) - 1L) %/% dims[2] + 1L
+  } else {
+    layout$ROW <- dims[1] - (as.integer(id) - 1L) %/% dims[2]
+  }
+  layout$COL <- (as.integer(id) - 1L) %% dims[2] + 1L
+  
+  layout <- cbind(layout, base)  
+  layout[order(layout$PANEL), ]
 }
 
 layout_null <- function(data) { 
@@ -114,8 +118,8 @@ quoted_df <- function(data, vars) {
 wrap_dims <- function(n, nrow = NULL, ncol = NULL) {
     if (is.null(ncol) && is.null(nrow)) {
       rc <- grDevices::n2mfrow(n)
-      nrow <- rc[1]
-      ncol <- rc[2]
+      nrow <- rc[2]
+      ncol <- rc[1]
     } else if (is.null(ncol)) {
       ncol <- ceiling(n / nrow)
     } else if (is.null(nrow)) {
