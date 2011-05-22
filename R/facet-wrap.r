@@ -37,13 +37,7 @@
 #'   facet_wrap(~ cyl)
 #' p + geom_point(data = transform(cyl6, cyl = NULL), colour = "red") + 
 #'   facet_wrap(~ cyl)
-#' 
-#' # By default, any empty factor levels will be dropped
-#' mpg$cyl2 <- factor(mpg$cyl, levels = c(2, 4, 5, 6, 8, 10))
-#' qplot(displ, hwy, data = mpg) + facet_wrap(~ cyl2)
-#' # Use drop = FALSE to force their inclusion
-#' qplot(displ, hwy, data = mpg) + facet_wrap(~ cyl2, drop = FALSE)
-facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, as.table = TRUE, drop = TRUE) {
+facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, as.table = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
@@ -61,7 +55,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrin
 #' @S3method facet_train_layout wrap
 facet_train_layout.wrap <- function(facet, data) { 
   panels <- layout_wrap(data, facet$facets, facet$nrow, facet$ncol,
-     facet$drop, facet$as.table)
+     facet$as.table)
   
   n <- nrow(panels)
   nrow <- max(panels$ROW)

@@ -35,13 +35,13 @@ layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL) {
 #
 # @params drop should missing combinations be excluded from the plot?
 # @keywords internal
-layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, drop = TRUE, as.table = TRUE) {
+layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, as.table = TRUE) {
   vars <- as.quoted(vars)
   if (length(vars) == 0) return(layout_null())
 
   base <- unrowname(layout_base(data, vars))
 
-  id <- id(base, drop = drop)
+  id <- id(base, drop = TRUE)
   n <- attr(id, "n")
   
   dims <- wrap_dims(n, nrow, ncol)
