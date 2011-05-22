@@ -36,4 +36,10 @@ parse = T)
 qplot(wt, mpg, data = mtcars, label = rownames(mtcars),
 geom=c("point", "text"))
 qplot(wt, mpg, data = mtcars, label = rownames(mtcars), size = wt) +
-geom_text(colour = "red")}
+geom_text(colour = "red")
+
+# You can specify fontfamily, fontface and lineheight
+p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))
+p + geom_text(fontface=3)
+p + geom_text(aes(fontface=am+1))
+p + geom_text(aes(family=c("serif", "mono")[am+1]))}
