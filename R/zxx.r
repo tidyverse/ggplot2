@@ -30,6 +30,3 @@ scale_color_grey <- scale_colour_grey
 scale_color_hue <- scale_colour_hue
 scale_color_identity <- scale_colour_identity
 scale_color_manual <- scale_colour_manual
-
-# Old names
-coord_equal <- coord_fixed

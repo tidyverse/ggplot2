@@ -1,8 +1,8 @@
 \name{qplot}
 \title{A convenient wrapper function for creating simple ggplot plot objects.}
-\usage{qplot(x, y, ..., data, facets=. ~ ., margins=FALSE,
-    geom="auto", stat=list(NULL), position=list(NULL),
-    xlim=c(NA, NA), ylim=c(NA, NA), log="", main,
+\usage{qplot(x, y, ..., data, facets, margins=FALSE, geom="auto",
+    stat=list(NULL), position=list(NULL), xlim=c(NA, NA),
+    ylim=c(NA, NA), log="", main,
     xlab=deparse(substitute(x)),
     ylab=deparse(substitute(y)), asp=NA)}
 

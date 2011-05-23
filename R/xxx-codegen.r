@@ -4,8 +4,8 @@
 # @keyword internal
 accessors_print <- function(file = "") {
   funs <- sort(c(
-    Geom$accessors(), Stat$accessors(), Scale$accessors(),
-    Coord$accessors(),  Position$accessors(), Facet$accessors()
+    Geom$accessors(), Stat$accessors(),
+    Position$accessors(), 
   ))
   cat(funs, file=file, sep="")
 }

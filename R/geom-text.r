@@ -37,12 +37,12 @@
 #' # You can specify fontfamily, fontface and lineheight
 #' p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))
 #' p + geom_text(fontface=3)
-#' p + geom_text(fontface=am+1)
+#' p + geom_text(aes(fontface=am+1))
 #' p + geom_text(aes(family=c("serif", "mono")[am+1]))
-
 GeomText <- proto(Geom, {
   objname <- "text"
 
+  draw_groups <- function(., ...) .$draw(...)
   draw <- function(., data, scales, coordinates, ..., parse = FALSE) {
     
     lab <- data$label
@@ -50,9 +50,11 @@ GeomText <- proto(Geom, {
       lab <- parse(text = lab)
     }
     
-    with(coordinates$transform(data, scales), 
-      textGrob(lab, x, y, default.units="native", hjust=hjust, vjust=vjust, rot=angle, 
-      gp=gpar(col=alpha(colour, alpha), fontsize=size * .pt, fontfamily=family, fontface=fontface, lineheight=lineheight))
+    with(coord_transform(coordinates, data, scales),
+      textGrob(lab, x, y, default.units="native", 
+        hjust=hjust, vjust=vjust, rot=angle, 
+        gp = gpar(col = alpha(colour, alpha), fontsize = size * .pt,
+          fontfamily = family, fontface = fontface, lineheight = lineheight))
     )
   }
 
@@ -68,7 +70,8 @@ GeomText <- proto(Geom, {
   icon <- function(.) textGrob("text", rot=45, gp=gpar(cex=1.2))
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y", "label")
-  default_aes <- function(.) aes(colour="black", size=5 , angle=0, hjust=0.5, vjust=0.5, alpha = 1, family="", fontface=1, lineheight=1.2)
+  default_aes <- function(.) aes(colour="black", size=5 , angle=0, hjust=0.5,
+    vjust=0.5, alpha = 1, family="", fontface=1, lineheight=1.2)
   guide_geom <- function(x) "text"
   
 })

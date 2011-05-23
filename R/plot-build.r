@@ -3,50 +3,67 @@ ggplot_build <- function(plot) {
   if (length(plot$layers) == 0) stop("No layers in plot", call.=FALSE)
   
   layers <- plot$layers
-  scales <- plot$scales
-  facet <- plot$facet
-  cs <- plot$coordinates
-  # Apply function to layer and matching data
-  dlapply <- function(f) mlply(cbind(d = data, p = layers), f)
-
-  # Evaluate aesthetics
-  data <- lapply(layers, function(x) x$make_aesthetics(plot))
+  layer_data <- lapply(layers, function(y) y$data)
   
-  # Facet
-  facet$initialise(data)
-  data <- facet$stamp_data(data)
+  scales <- plot$scales
+  # Apply function to layer and matching data
+  dlapply <- function(f) {
+    out <- vector("list", length(data))
+    for(i in seq_along(data)) {
+      out[[i]] <- f(d = data[[i]], p = layers[[i]])
+    }
+    out
+  }
+
+  # Initialise panels, add extra data for margins & missing facetting
+  # variables, and add on a PANEL variable to data
+  
+  panel <- new_panel()
+  panel <- train_layout(panel, plot$facet, layer_data, plot$data)
+  data <- map_layout(panel, plot$facet, layer_data, plot$data)
+
+  # Compute aesthetics to produce data with generalised variable names
+  data <- dlapply(function(d, p) p$compute_aesthetics(d, plot))
+  data <- lapply(data, add_group)
   
   # Transform all scales
-  data <- dlapply(function(d, p) p$scales_transform(d, scales))
+  data <- lapply(data, scales_transform_df, scales = scales)
   
   # Map and train positions so that statistics have access to ranges
-  # and all positions are numeric (needed for current implementation of
-  # many stats, and for later reparameterisation)
-  facet$position_train(data, scales)
-  data <- facet$position_map(data, scales)
+  # and all positions are numeric
+  scale_x <- function() scales$get_scales("x")
+  scale_y <- function() scales$get_scales("y")
 
-  # Apply and map statistics, then reparameterise geoms that need it
-  data <- facet$calc_statistics(data, layers)
-  data <- dlapply(function(d, p) p$map_statistics(d, plot)) 
+  panel <- train_position(panel, data, scale_x(), scale_y())
+  data <- map_position(panel, data, scale_x(), scale_y())
+  
+  # Apply and map statistics
+  data <- calculate_stats(panel, data, layers)
+  data <- dlapply(function(d, p) p$map_statistic(d, plot)) 
+  
+  # Reparameterise geoms from (e.g.) y and width to ymin and ymax
   data <- dlapply(function(d, p) p$reparameterise(d))
 
-  # Adjust position
+  # Apply position adjustments
   data <- dlapply(function(d, p) p$adjust_position(d))
-    
-  # Train and map scales for legends
-  npscales <- scales$non_position_scales()
-  if (length(npscales$scales) > 0) {
-    dlapply(function(d, p) p$scales_train(d, npscales))
-    data <- dlapply(function(d, p) p$scales_map(d, npscales))
-  }
-  
+   
   # Reset position scales, then re-train and map.  This ensures that facets
   # have control over the range of a plot: is it generated from what's 
   # displayed, or does it include the range of underlying data
-  facet$position_reset() 
-  facet$position_train(data, scales)
-  data <- facet$position_map(data, scales)
+  reset_scales(panel)
+  panel <- train_position(panel, data, scale_x(), scale_y())
+  data <- map_position(panel, data, scale_x(), scale_y())
   
-  data
+  # Train and map non-position scales
+  npscales <- scales$non_position_scales()  
+  if (npscales$n() > 0) {
+    lapply(data, scales_train_df, scales = npscales)
+    data <- lapply(data, scales_map_df, scales = npscales)
+  }
+  
+  # Train coordinate system
+  panel <- train_ranges(panel, plot$coordinates)
+  
+  list(data = data, panel = panel)
 }
 

@@ -1,6 +1,8 @@
 \name{facet_wrap}
 \alias{facet_wrap}
 \title{Wrap a 1d ribbon of panels into 2d.}
+\usage{facet_wrap(facets, nrow, ncol, scales="fixed", shrink=TRUE,
+    as.table=TRUE)}
 
 \description{
   Wrap a 1d ribbon of panels into 2d.
@@ -41,10 +43,4 @@ facet_wrap(~ cyl)
 p + geom_point(data = transform(cyl6, cyl = 7), colour = "red") + 
 facet_wrap(~ cyl)
 p + geom_point(data = transform(cyl6, cyl = NULL), colour = "red") + 
-facet_wrap(~ cyl)
-
-# By default, any empty factor levels will be dropped
-mpg$cyl2 <- factor(mpg$cyl, levels = c(2, 4, 5, 6, 8, 10))
-qplot(displ, hwy, data = mpg) + facet_wrap(~ cyl2)
-# Use drop = FALSE to force their inclusion
-qplot(displ, hwy, data = mpg) + facet_wrap(~ cyl2, drop = FALSE)}
+facet_wrap(~ cyl)}

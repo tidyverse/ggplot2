@@ -34,8 +34,8 @@ GeomSegment <- proto(Geom, {
   objname <- "segment"
 
   draw <- function(., data, scales, coordinates, arrow=NULL, ...) {
-    if (!coordinates$muncher()) {
-      return(with(coordinates$transform(data, scales), 
+    if (is.linear(coordinates)) {
+      return(with(coord_transform(coordinates, data, scales), 
         segmentsGrob(x, y, xend, yend, default.units="native",
         gp = gpar(col=alpha(colour, alpha), lwd=size * .pt, 
           lty=linetype, lineend = "butt"), 

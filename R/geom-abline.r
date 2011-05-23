@@ -38,6 +38,7 @@
 #' p + geom_abline(aes(intercept=a, slope=b), data=df)
 #'
 #' # Slopes and intercepts from linear model
+#' library(plyr)
 #' coefs <- ddply(mtcars, .(cyl), function(df) { 
 #'   m <- lm(mpg ~ wt, data=df)
 #'   data.frame(a = coef(m)[1], b = coef(m)[2]) 

@@ -1,6 +1,7 @@
 \name{coord_trans}
 \alias{coord_trans}
 \title{Transformed cartesian coordinate system.}
+\usage{coord_trans(xtrans="identity", ytrans="identity")}
 
 \description{
   Transformed cartesian coordinate system.

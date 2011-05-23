@@ -8,7 +8,6 @@
 #' longer than units on the x-axis, and vice versa. This is similar to
 #' \code{\link[MASS]{eqscplot}}, but it works for all types of graphics.
 #'
-#' @name coord_fixed
 #' @aliases coord_fixed coord_equal
 #' @export coord_fixed coord_equal
 #' @examples
@@ -20,17 +19,14 @@
 #' qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 1/5)
 #' 
 #' # Resize the plot to see that the specified aspect ratio is mantained
-CoordFixed <- proto(CoordCartesian, {
-  objname <- "fixed"
+coord_fixed <- function(ratio = 1) {
+  coord(ratio = ratio, subclass = c("fixed", "cartesian"))
+}
+coord_equal <- coord_fixed
 
-  new <- function(., ratio = 1) {
-    .$proto(ratio = ratio)
-  }
+#' @S3method coord_aspect fixed
+coord_aspect.fixed <- function(coord, ranges) {
+  diff(ranges$y.range) / diff(ranges$x.range) * coord$ratio
+}
 
-  compute_aspect <- function(., ranges) {
-    diff(ranges$y.range) / diff(ranges$x.range) * .$ratio
-  }
-
-  icon <- function(.) textGrob("=", gp = gpar(cex=3))  
-
-})
+icon.fixed <- function() textGrob("=", gp = gpar(cex=3))

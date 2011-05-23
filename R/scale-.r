@@ -87,7 +87,10 @@ scale_train_df <- function(scale, df) {
   if (empty(df)) return() 
 
   aesthetics <- intersect(scale$aesthetics, names(df))
-  lapply(df[aesthetics], scale_train, scale = scale)
+  for(aesthetic in aesthetics) {
+    scale_train(scale, df[[aesthetic]])      
+  }
+  invisible()
 }
 
 #' Train an individual scale from a vector of data.
@@ -131,13 +134,18 @@ scale_transform.discrete <- function(scale, x) {
 }
 
 # @return list of mapped variables
-scale_map_df <- function(scale, df) {    
+scale_map_df <- function(scale, df, i = NULL) {    
   if (empty(df)) return()
 
   aesthetics <- intersect(scale$aesthetics, names(df))
+  names(aesthetics) <- aesthetics
   if (length(aesthetics) == 0) return()
   
-  lapply(df[aesthetics], scale_map, scale = scale)
+  if (is.null(i)) {
+    lapply(aesthetics, function(j) scale_map(scale, df[[j]])) 
+  } else {
+    lapply(aesthetics, function(j) scale_map(scale, df[[j]][i]))
+  }
 }
 
 #' @S3method scale_map continuous
@@ -147,8 +155,17 @@ scale_map <- function(scale, x) UseMethod("scale_map")
 scale_map.continuous <- function(scale, x) {
   limits <- scale_limits(scale)
   x <- scale$oob(scale$rescaler(x, from = limits))
-  pal <- scale$palette(x)
-  ifelse(!is.na(x), pal, scale$na.value)
+
+  # Points are rounded to the nearest 500th, to reduce the amount of 
+  # work that the scale palette must do - this is particularly important
+  # for colour scales which are rather slow.  This shouldn't have any
+  # perceptual impacts.
+  x <- round_any(x, 1 / 500)
+  uniq <- unique(x)
+  pal <- scale$palette(uniq)
+  scaled <- pal[match(x, uniq)]
+
+  ifelse(!is.na(scaled), scaled, scale$na.value)
 }
 
 scale_map.discrete <- function(scale, x) {
@@ -159,7 +176,10 @@ scale_map.discrete <- function(scale, x) {
   ifelse(!is.na(x), pal, scale$na.value)
 }
 
-scale_limits <- function(scale) {
+scale_limits <- function(scale)
+  UseMethod("scale_limits")
+
+scale_limits.default <- function(scale) {
   scale$limits %||% scale$range$range
 }
 
@@ -198,7 +218,12 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   
   # Breaks in data space need to be converted back to transformed space
   # And any breaks outside the dimensions need to be thrown away
-  discard(scale$trans$trans(breaks), scale_dimension(scale))
+  breaks <- discard(scale$trans$trans(breaks), scale_dimension(scale))
+  if (length(breaks) == 0) {
+    stop("Zero breaks in scale for ", paste(scale$aesthetics, collapse = "/"),
+      call. = FALSE)
+  }
+  breaks
 }
 
 scale_breaks.discrete <- function(scale, limits = scale_limits(scale)) {
@@ -262,3 +287,12 @@ print.scale <- function(x, ...) {
 }
 
 scale_clone <- function(scale) UseMethod("scale_clone")
+
+#' @S3method scale_clone continuous
+scale_clone.continuous <- function(scale) {
+  new <- scale
+  new$range <- ContinuousRange$new()  
+  new
+}
+
+

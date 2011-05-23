@@ -1,16 +1,3 @@
-# Creates a complete ggplot grob.
-#
-# @param plot object
-# @param should the plot be wrapped up inside the pretty accoutrements (labels, legends, etc)
-# @keyword hplot
-# @keyword internal
-panelGrob <- function(panels, plot, data) {
-  theme <- plot_theme(plot)
-
-  grid <- plot$facet$add_guides(plot$data, panels, plot$coordinates, theme)
-  gTree.grobGrid(grid)
-}
-
 # Build a plot with all the usual bits and pieces.
 # 
 # As well as the plotting area, a plot needs:
@@ -28,15 +15,25 @@ panelGrob <- function(panels, plot, data) {
 # will only take up the amount of space that it requires.  
 ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop, keep = plot$options$keep, ...) {
 
-  plot <- plot_clone(plot)
-  grobs <- plot$facet$make_grobs(data, plot$layers, plot$coordinates)
+  panel <- data$panel
+  data <- data$data
   
-  grobs3d <- array(unlist(grobs, recursive=FALSE), c(dim(data[[1]]), length(data)))
-  panels <- aaply(grobs3d, 1:2, splat(grobTree), .drop = FALSE)
-  
-  panels <- panelGrob(panels, plot, data)
+  build_grob <- function(layer, layer_data) {
+    dlply(layer_data, "PANEL", function(df) {
+      panel_i <- match(df$PANEL[1], panel$layout$PANEL)
+      layer$make_grob(df, scales = panel$ranges[[panel_i]], cs = plot$coord)
+    }, .drop = FALSE)
+  }
+
+  # List by layer, list by panel
+  geom_grobs <- Map(build_grob, plot$layer, data)
+
+  panelGrid <- facet_render(plot$facet, panel, plot$coordinates,
+    plot_theme(plot), geom_grobs)
+  panelGrob <- gtable_gTree(panelGrid)
+
   scales <- plot$scales
-  cs <- plot$coordinates
+  cs <- plot$cs
 
   theme <- plot_theme(plot)
   margin <- list(
@@ -63,28 +60,28 @@ ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop
   } 
   
   title <- theme_render(theme, "plot.title", plot$options$title)
-
-  labels <- cs$labels(list(
-    x = plot$facet$xlabel(theme),
-    y = plot$facet$ylabel(theme))
-  )
+  
+  labels <- coord_labels(plot$coordinates, list(
+    x = xlabel(plot$facet, theme),
+    y = ylabel(plot$facet, theme)
+  ))
   xlabel <- theme_render(theme, "axis.title.x", labels$x)
   ylabel <- theme_render(theme, "axis.title.y", labels$y)
 
   grobs <- list(
     title = title, 
     xlabel = xlabel, ylabel = ylabel,
-    panels = panels, legend_box = legend_box
+    panels = panelGrob, legend_box = legend_box
   )
   if (!is.null(keep)) drop <- setdiff(names(grobs), keep)
   if (!is.null(drop)) grobs[drop] <- rep(list(zeroGrob()), length(drop))
 
   # Calculate sizes ----------------------------------------------------------
-  if (is.null(legend_box)) position <- "none"
+  if (is.zero(legend_box)) position <- "none"
     
   ylab_width <- grobWidth(grobs$ylabel) + 
     if (is.zero(grobs$ylabel)) unit(0, "lines") else unit(0.5, "lines")
-  legend_width <- grobWidth(grobs$legend_box) + unit(0.5, "lines")
+  legend_width <- grobWidth(grobs$legend_box)
 
   widths <- switch(position, 
     right =  unit.c(ylab_width, unit(1, "null"), legend_width),
@@ -137,6 +134,7 @@ ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop
   )
 
   gTree(children = do.call("gList", grobs), childrenvp = vp)
+  
 }
 
 # Generate viewports for plot surroundings

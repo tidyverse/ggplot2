@@ -5,7 +5,6 @@
 #' plot (like you're looking at it with a magnifying class), and will not
 #' change the underlying data like setting limits on a scale will.
 #' 
-#' @name coord_cartesian
 #' @param xlim limits for the x axis
 #' @param ylim limits for the y axis
 #' @param wise If \code{TRUE} will wisely expand the actual range of the plot
@@ -39,82 +38,72 @@
 #' # When zooming the coordinate system, we see a subset of original 50 bins, 
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 2))
-CoordCartesian <- proto(Coord, expr={  
-  objname <- "cartesian"
-  new <- function(., xlim = NULL, ylim = NULL, wise = FALSE) {
-    .$proto(limits = list(x = xlim, y = ylim), wise = wise)
-  }
+coord_cartesian <- function(xlim = NULL, ylim = NULL, wise = FALSE) {
+  coord(limits = list(x = xlim, y = ylim), wise = wise, 
+    subclass = "cartesian")
+}
+
+#' @S3method is.linear cartesian
+is.linear.cartesian <- function(coord) TRUE
+
+#' @S3method coord_distance cartesian
+coord_distance.cartesian <- function(coord, x, y, details) {
+  max_dist <- dist_euclidean(details$x.range, details$y.range)
+  dist_euclidean(x, y) / max_dist
+}  
+
+#' @S3method coord_transform cartesian
+coord_transform.cartesian <- function(., data, details) {
+  rescale_x <- function(data) rescale(data, from = details$x.range)
+  rescale_y <- function(data) rescale(data, from = details$y.range)
   
-  transform <- function(., data, details) {
-    rescale_x <- function(data) .$rescale_var(data, details$x.range)
-    rescale_y <- function(data) .$rescale_var(data, details$y.range)
-    
-    data <- transform_position(data, rescale_x, rescale_y)
-    transform_position(data, trim_infinite_01, trim_infinite_01)
-  }
-  
-  compute_ranges <- function(., scales) {
-    if (is.null(.$limits$x)) {
-      x.range <- scale_dimension(scales$x)
-    } else {
-      x.range <- range(scale_transform(scales$x, .$limits[["x"]]))
-      if (.$wise) {
-        scales$x$limits <- x.range
-        x.range <- expand_range(x.range, 
-          scales$x$expand[1], scales$x$expand[2])
-      }
+  data <- transform_position(data, rescale_x, rescale_y)
+  transform_position(data, trim_infinite_01, trim_infinite_01)
+}
+
+#' @S3method coord_train cartesian
+coord_train.cartesian <- function(coord, scales) {
+  if (is.null(coord$limits$x)) {
+    x.range <- scale_dimension(scales$x)
+  } else {
+    x.range <- range(scale_transform(scales$x, coord$limits[["x"]]))
+    if (coord$wise) {
+      scales$x$limits <- x.range
+      x.range <- expand_range(x.range, 
+        scales$x$expand[1], scales$x$expand[2])
     }
-    
-    x.major <- .$rescale_var(scale_break_positions(scales$x), x.range, TRUE)
-    x.minor <- .$rescale_var(scale_breaks_minor(scales$x), x.range, TRUE)
-    x.labels <- scale_labels(scales$x)
+  }
+  
+  x.major <- rescale(scale_break_positions(scales$x), from = x.range)
+  x.minor <- rescale(scale_breaks_minor(scales$x), from = x.range)
+  x.labels <- scale_labels(scales$x)
 
-    if (is.null(.$limits$y)) {
-      y.range <- scale_dimension(scales$y)
-    } else {
-      y.range <- range(scale_transform(scales$y, .$limits[["y"]]))
-      
-      if (.$wise) {
-        scales$y$limits <- y.range
-        y.range <- expand_range(y.range, 
-          scales$y$expand[1], scales$y$expand[2])
-      }
+  if (is.null(coord$limits$y)) {
+    y.range <- scale_dimension(scales$y)
+  } else {
+    y.range <- range(scale_transform(scales$y, coord$limits$y))
+    
+    if (coord$wise) {
+      scales$y$limits <- y.range
+      y.range <- expand_range(y.range, 
+        scales$y$expand[1], scales$y$expand[2])
     }
-    y.major <- .$rescale_var(scale_break_positions(scales$y), y.range, TRUE)
-    y.minor <- .$rescale_var(scale_breaks_minor(scales$y), y.range, TRUE)
-    y.labels <- scale_labels(scales$y)
-    
-    list(
-      x.range = x.range, y.range = y.range, 
-      x.major = x.major, x.minor = x.minor, x.labels = x.labels,
-      y.major = y.major, y.minor = y.minor, y.labels = y.labels
-    )
   }
+  y.major <- rescale(scale_break_positions(scales$y), from = y.range)
+  y.minor <- rescale(scale_breaks_minor(scales$y), from = y.range)
+  y.labels <- scale_labels(scales$y)
   
-  guide_axis_h <- function(., details, theme) {
-    guide_axis(details$x.major, details$x.labels, "bottom", theme)
-  }
+  list(
+    x.range = x.range, y.range = y.range, 
+    x.major = x.major, x.minor = x.minor, x.labels = x.labels,
+    y.major = y.major, y.minor = y.minor, y.labels = y.labels
+  )
+}
 
-  guide_axis_v <- function(., details, theme) {
-    guide_axis(details$y.major, details$y.labels, "left", theme)
-  }
-
-  
-  guide_background <- function(., details, theme) {
-    x.major <- unit(details$x.major, "native")
-    x.minor <- unit(details$x.minor, "native")
-    y.major <- unit(details$y.major, "native")
-    y.minor <- unit(details$y.minor, "native")
-    
-    guide_grid(theme, x.minor, x.major, y.minor, y.major)
-  }
-  
-  icon <- function(.) {
-    gTree(children = gList(
-      segmentsGrob(c(0, 0.25), c(0.25, 0), c(1, 0.25), c(0.25, 1), gp=gpar(col="grey50", lwd=0.5)),
-      segmentsGrob(c(0, 0.75), c(0.75, 0), c(1, 0.75), c(0.75, 1), gp=gpar(col="grey50", lwd=0.5)),
-      segmentsGrob(c(0, 0.5), c(0.5, 0), c(1, 0.5), c(0.5, 1))
-    ))
-  }
-  
-})
+icon.cartesian <- function(.) {
+  gTree(children = gList(
+    segmentsGrob(c(0, 0.25), c(0.25, 0), c(1, 0.25), c(0.25, 1), gp=gpar(col="grey50", lwd=0.5)),
+    segmentsGrob(c(0, 0.75), c(0.75, 0), c(1, 0.75), c(0.75, 1), gp=gpar(col="grey50", lwd=0.5)),
+    segmentsGrob(c(0, 0.5), c(0.5, 0), c(1, 0.5), c(0.5, 1))
+  ))
+}

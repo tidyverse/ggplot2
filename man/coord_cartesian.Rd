@@ -1,6 +1,7 @@
 \name{coord_cartesian}
 \alias{coord_cartesian}
 \title{Cartesian coordinates.}
+\usage{coord_cartesian(xlim, ylim, wise=FALSE)}
 
 \description{
   Cartesian coordinates.

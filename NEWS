@@ -26,7 +26,10 @@ ggplot2 0.9.0 ----------------------------------------------------------------
   about the plot computations, such as the range of all the scales, and the
   exact data that is plotted.
 
-DOCUMENTATION
+* `scale_shape` finally returns an error when you try and use it with a
+  continuous variable
+
+DEVELOPMENT
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems
   that it previously relied on, and now uses roxygen extensively. The current
@@ -38,6 +41,11 @@ DOCUMENTATION
   packages in the R ecosystem. Note that this means you now need to explicitly
   load `plyr` (and other packages) if you are using them elsewhere in your
   code.
+
+* ggplot2 now has a start on a set of automated tests. As this test suite
+  expands it will help me ensure that bugs stay fixed, and that old bugs don't
+  come back in new versions. A test suite also gives me more confidence when
+  I'm modifying code, which should help with general code quality.
 
 SCALES
 
@@ -82,6 +90,26 @@ SCALES
       p
       scale_colour_discrete <- scale_colour_brewer
       p
+
+FACETS
+
+* Converted from proto to S3 objects, and class methods (somewhat) documented
+  in `facet.r`. This should make it easier to develop new types of facetting
+  specifications.
+
+* New `facet_null` used when for no facetting. This special case is
+  implemented more efficiently and results in substantial performance
+  improvements for un-facetted plots.
+
+* Facetting variables will no longer interfere with aesthetic mappings - 
+  `facet_wrap(~ colour)` will no longer affect the colour of points.
+
+COORDS
+
+* Converted from proto to S3 objects, and class methods (somewhat) documented
+  in `coord.r`. This should make it easier to develop new types of coordinate
+  systems.
+
 
 ggplot2 0.8.9 (2010-12-24) ---------------------------------------------------
 
