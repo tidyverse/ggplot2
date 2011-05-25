@@ -24,8 +24,8 @@ dt + scale_x_date(labels = date_format("\%W"), breaks = date_breaks("week"))
 
 dt + scale_x_date(breaks = date_breaks("months"), 
 labels = date_format("\%b"))
-dt + scale_x_date(breaks = date_breaks("years"), 
-labels = date_format("\%b-\%Y"))
+dt + scale_x_date(breaks = date_breaks("4 weeks"), 
+labels = date_format("\%d-\%b"))
 
 # The date scale will attempt to pick sensible defaults for 
 # major and minor tick marks

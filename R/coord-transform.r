@@ -1,6 +1,5 @@
 #' Transformed cartesian coordinate system.
 #' 
-#' @name coord_trans
 #' @param ytrans transformer for x axis
 #' @param xtrans transformer for y axis
 #' @export
@@ -35,84 +34,77 @@
 #' 
 #' # With a combination of scale and coordinate transformation, it's
 #' # possible to do back-transformations:
+#' library(scales)
 #' qplot(carat, price, data=diamonds, log="xy") + 
 #'   geom_smooth(method="lm") + 
-#'   coord_trans(x="pow10", y="pow10")
+#'   coord_trans(x = exp_trans(10), y = exp_trans(10))
 #' # cf.
 #' qplot(carat, price, data=diamonds) + geom_smooth(method = "lm")
-CoordTrans <- proto(CoordCartesian, expr={
-  objname <- "trans"
+#'
+#' # Also works with discrete scales
+#' df <- data.frame(a = abs(rnorm(26)),letters)
+#' plot <- ggplot(df,aes(a,letters)) + geom_point() 
+#' 
+#' plot + coord_trans(x = "log10")
+#' plot + coord_trans(x = "sqrt")
+#' plot + coord_trans(x = "sqrt", y = "reverse")
+coord_trans <- function(xtrans = "identity", ytrans = "identity") {
+  if (is.character(xtrans)) xtrans <- as.trans(xtrans)
+  if (is.character(ytrans)) ytrans <- as.trans(ytrans)
 
+  coord(xtr = xtrans, ytr = ytrans, subclass = "trans")
+}
+
+#' @S3method coord_distance trans
+coord_distance.trans <- function(coord, x, y, details) {
+  max_dist <- dist_euclidean(details$x.range, details$y.range)
+  dist_euclidean(coord$xtr$transform(x), coord$ytr$transform(y)) / max_dist
+}  
+
+#' @S3method coord_transform trans
+coord_transform.trans <- function(coord, data, details) {
+  trans_x <- function(data) transform_x(coord, data, details$x.range)
+  trans_y <- function(data) transform_y(coord, data, details$y.range)
   
-  new <- function(., xtrans="identity", ytrans="identity") {
-    if (is.character(xtrans)) xtrans <- Trans$find(xtrans)
-    if (is.character(ytrans)) ytrans <- Trans$find(ytrans)
-    .$proto(xtr = xtrans, ytr = ytrans)
+  data <- transform_position(data, trans_x, trans_y)
+  transform_position(data, trim_infinite_01, trim_infinite_01)
+}
+transform_x <- function(coord, x, range) {
+  rescale(coord$xtr$transform(x), 0:1, range)
+}
+transform_y <- function(coord, x, range) {
+  rescale(coord$ytr$transform(x), 0:1, range)
+}
+
+#' @S3method coord_train trans
+coord_train.trans <- function(coord, scales) {
+  exp_trans_range <- function(trans, scale) {
+    range <- trans_range(trans, scale_dimension(scale, c(0, 0)))
+    expand_range(range, scale$expand[1], scale$expand[2])
   }
+  x.range <- exp_trans_range(coord$xtr, scales$x)
+  x.major <- transform_x(coord, scale_break_positions(scales$x), x.range)
+  x.minor <- transform_x(coord, scale_breaks_minor(scales$x), x.range)
+  x.labels <- scale_labels(scales$x)
+
+  y.range <- exp_trans_range(coord$ytr, scales$y)
+  y.major <- transform_y(coord, scale_break_positions(scales$y), y.range)
+  y.minor <- transform_y(coord, scale_breaks_minor(scales$y), y.range)
+  y.labels <- scale_labels(scales$y)
   
-  muncher <- function(.) TRUE
-  
-  distance <- function(., x, y, details) {
-    max_dist <- dist_euclidean(details$x.range, details$y.range)
-    dist_euclidean(.$xtr$transform(x), .$ytr$transform(y)) / max_dist
-  }  
-
-  transform <- function(., data, details) {
-    trans_x <- function(data) .$transform_x(data, details$x.range)
-    trans_y <- function(data) .$transform_y(data, details$y.range)
-    
-    data <- transform_position(data, trans_x, trans_y)
-    transform_position(data, trim_infinite_01, trim_infinite_01)
-  }
-  transform_x <- function(., data, range) {
-    rescale(.$xtr$transform(data), 0:1, range)
-  }
-  transform_y <- function(., data, range) {
-    rescale(.$ytr$transform(data), 0:1, range)
-  }
-
-  compute_ranges <- function(., scales) {
-    trans_range <- function(x, expand) {
-      # range is necessary in case transform has flipped min and max
-      expand_range(range(x, na.rm = TRUE), expand)
-    }
-    
-    x.range <- trans_range(.$xtr$transform(scales$x$output_set()),
-      scales$x$.expand)
-    x.major <- .$transform_x(scales$x$input_breaks_n(), x.range)
-    x.minor <- .$transform_x(scales$x$output_breaks(), x.range)
-    x.labels <- scales$x$labels()
-
-    y.range <- trans_range(.$ytr$transform(scales$y$output_set()),
-      scales$y$.expand)
-    y.major <- .$transform_y(scales$y$input_breaks_n(), y.range)
-    y.minor <- .$transform_y(scales$y$output_breaks(), y.range)
-    y.labels <- scales$y$labels()
-    
-    list(
-      x.range = x.range, y.range = y.range, 
-      x.major = x.major, x.minor = x.minor, x.labels = x.labels,
-      y.major = y.major, y.minor = y.minor, y.labels = y.labels
-    )
-  }
+  list(
+    x.range = x.range, y.range = y.range, 
+    x.major = x.major, x.minor = x.minor, x.labels = x.labels,
+    y.major = y.major, y.minor = y.minor, y.labels = y.labels
+  )
+}
 
 
-  pprint <- function(., newline=TRUE) {
-    cat("coord_", .$objname, ": ", 
-      "x = ", .$xtr$objname, ", ", 
-      "y = ", .$ytr$objname, sep = ""
-    )
-    
-    if (newline) cat("\n") 
-  }
-
-
-  # Documentation -----------------------------------------------
-  icon <- function(.) {
-    breaks <- cumsum(1 / 2^(1:5))
-    gTree(children=gList(
-      segmentsGrob(breaks, 0, breaks, 1),
-      segmentsGrob(0, breaks, 1, breaks)
-    ))
-  }
-})
+# Documentation -----------------------------------------------
+icon <- function(.) {
+  breaks <- cumsum(1 / 2^(1:5))
+  gTree(children=gList(
+    segmentsGrob(breaks, 0, breaks, 1),
+    segmentsGrob(0, breaks, 1, breaks)
+  ))
+}

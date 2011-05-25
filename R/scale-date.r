@@ -2,7 +2,7 @@
 #'
 #' @paramCopy ... ggplot2::scale_continuous_x
 #' @usageFor scale_continuous_x scale_continuous_y
-#' @export
+#' @export scale_x_date scale_y_date
 #' @examples
 #' # We'll start by creating some nonsense data with dates
 #' df <- data.frame(
@@ -22,8 +22,8 @@
 #'
 #' dt + scale_x_date(breaks = date_breaks("months"), 
 #'   labels = date_format("%b"))
-#' dt + scale_x_date(breaks = date_breaks("years"), 
-#'   labels = date_format("%b-%Y"))
+#' dt + scale_x_date(breaks = date_breaks("4 weeks"), 
+#'   labels = date_format("%d-%b"))
 #' 
 #' # The date scale will attempt to pick sensible defaults for 
 #' # major and minor tick marks
@@ -67,7 +67,6 @@ scale_y_date <- function(..., expand = c(0.05, 0)) {
 scale_map.date <- function(scale, x) {
   x
 }
-
 
 icon.scale_date <- function() {
   textGrob("14/10/1979", gp=gpar(cex=1))

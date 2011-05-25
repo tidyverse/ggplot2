@@ -17,7 +17,7 @@
 #' @param object component to add
 #' @seealso \code{\link{set_last_plot}}, \code{\link{ggplot}}
 #' @method + ggplot
-#' @aliases +.ggplot %+%
+#' @aliases +.ggplot \%+\%
 #' @S3method "+" ggplot
 #' @export "%+%"
 #' @name ggplot-add
@@ -42,6 +42,12 @@
       labels <- lapply(object, deparse)
       names(labels) <- names(object)
       p <- update_labels(p, labels)
+  } else if (is.coord(object)) {
+      p$coordinates <- object
+      p
+  } else if (is.facet(object)) {
+      p$facet <- object
+      p
   } else if(is.list(object)) {
     for (o in object) {
       p <- p + o
@@ -61,10 +67,6 @@
       },
       coord = {
         p$coordinates <- object
-        p
-      },
-      facet = {
-        p$facet <- object
         p
       }
     )

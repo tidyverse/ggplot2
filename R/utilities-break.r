@@ -1,37 +1,32 @@
-# Discretise continuous variable, equal interval length.
-# Cut numeric vector into intervals of equal length.
-# 
-# @param numeric vector
-# @param number of intervals to create, OR
-# @param length of each interval
-# @param other arguments passed on to \code{\link{cut}}
-# @keyword manip
-# @seealso \code{\link{cut_number}}
-# 
-#X table(cut_interval(1:100, n = 10))
-#X table(cut_interval(1:100, n = 11))
-#X table(cut_interval(1:100, length = 10))
+#' Cut numeric vector into intervals of equal length.
+#' 
+#' @param x numeric vector
+#' @param n number of intervals to create, OR
+#' @param length length of each interval
+#' @param ... other arguments passed on to \code{\link{cut}}
+#' @seealso \code{\link{cut_number}}
+#' @export
+#' @examples 
+#' table(cut_interval(1:100, n = 10))
+#' table(cut_interval(1:100, n = 11))
+#' table(cut_interval(1:100, length = 10))
 cut_interval <- function(x, n = NULL, length = NULL, ...) {
   cut(x, breaks(x, "width", n, length), include.lowest = TRUE, ...)
 }
 
-# Discretise continuous variable, equal number of points.
-# Cut numeric vector into intervals containing equal number of points.
-# 
-# @param numeric vector
-# @param number of intervals to create, OR
-# @param length of each interval
-# @param other arguments passed on to \code{\link{cut}}
-# @keyword manip
-# @seealso \code{\link{cut_interval}}
-#X table(cut_number(runif(1000), n = 10))
+#' Cut numeric vector into intervals containing equal number of points.
+#' 
+#' @param x numeric vector
+#' @param n number of intervals to create
+#' @param ... other arguments passed on to \code{\link{cut}}
+#' @seealso \code{\link{cut_interval}}
+#' @export
+#' @examples
+#' table(cut_number(runif(1000), n = 10))
 cut_number <- function(x, n = NULL, ...) {
   cut(x, breaks(x, "n", n), include.lowest = TRUE, ...)
 }
 
-# Discretise continuous vector
-# Method that powers \code{\link{cut_number}} and \code{\link{cut_interval}}
-# @keyword internal
 breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
   equal <- match.arg(equal, c("numbers", "width"))
   if ((!is.null(nbins) && !is.null(binwidth)) || (is.null(nbins) && is.null(binwidth))) {

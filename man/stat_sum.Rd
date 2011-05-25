@@ -14,8 +14,8 @@
 # Need to control which group proportion calculated over
 # Overall proportion
 d + stat_sum(aes(group = 1))
-d + stat_sum(aes(group = 1)) + scale_size(to = c(3, 10))
-d + stat_sum(aes(group = 1)) + scale_area(to = c(3, 10))
+d + stat_sum(aes(group = 1)) + scale_size(range = c(3, 10))
+d + stat_sum(aes(group = 1)) + scale_area(range = c(3, 10))
 # by cut
 d + stat_sum(aes(group = cut))
 d + stat_sum(aes(group = cut, colour = cut))

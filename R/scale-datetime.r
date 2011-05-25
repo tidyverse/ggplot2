@@ -2,7 +2,7 @@
 #'
 #' @paramCopy ... ggplot2::scale_continuous_x
 #' @usageFor scale_continuous_x scale_continuous_y
-#' @export
+#' @export scale_x_datetime scale_y_datetime
 #' @examples
 #' start <- ISOdate(2001, 1, 1, tz = "")
 #' df <- data.frame(

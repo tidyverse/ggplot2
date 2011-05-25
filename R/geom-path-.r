@@ -4,11 +4,14 @@
 #' @param lineend Line end style (round, butt, square)
 #' @param linejoin Line join style (round, mitre, bevel)
 #' @param linemitre Line mitre limit (number greater than 1)
-#' @param arrow Arrow specification, as created by ?arrow
+#' @param arrow Arrow specification, as created by ?grid::arrow
 #' @seealso \code{\link{geom_line}}: Functional (ordered) lines;  
 #'  \code{\link{geom_polygon}}: Filled paths (polygons); 
 #'  \code{\link{geom_segment}}: Line segments
+#' @export
+#' @examples
 #' # Generate data
+#' library(plyr)
 #' myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
 #' p <- ggplot(myear, aes(length, rating))
 #' p + geom_path()
@@ -18,7 +21,7 @@
 #' p + geom_path(aes(colour = year))
 #' 
 #' # Change scale
-#' p + geom_path(aes(size = year)) + scale_size(to = c(1, 3))
+#' p + geom_path(aes(size = year)) + scale_size(range = c(1, 3))
 #' 
 #' # Set aesthetics to fixed value
 #' p + geom_path(colour = "green")
@@ -105,7 +108,7 @@ GeomPath <- proto(Geom, {
         " (geom_path).", call. = FALSE)
     }
     
-    munched <- coordinates$munch(data, scales)
+    munched <- coord_munch(coordinates, data, scales)
 
     # Silently drop lines with less than two points, preserving order
     rows <- ave(seq_len(nrow(munched)), munched$group, FUN = length)

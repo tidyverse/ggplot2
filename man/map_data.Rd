@@ -17,7 +17,8 @@ more details.}
   \item{exact}{should the \code{region} be treated as a regular expression
 (\code{FALSE}) or as a fixed string (\code{TRUE}).}
 }
-\examples{states <- map_data("state")
+\examples{if (require("maps")) {
+states <- map_data("state")
 arrests <- USArrests
 names(arrests) <- tolower(names(arrests))
 arrests$region <- tolower(rownames(USArrests))
@@ -27,4 +28,5 @@ choro <- choro[order(choro$order), ]
 qplot(long, lat, data = choro, group = group, fill = assault,
 geom = "polygon")
 qplot(long, lat, data = choro, group = group, fill = assault / murder,
-geom = "polygon")}
+geom = "polygon")
+}}

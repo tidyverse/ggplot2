@@ -4,9 +4,9 @@
 #' @return A data frame with additional columns:
 #'   \item{width}{width of boxplot}
 #'   \item{ymin}{lower whisker = lower hinge - 1.5 * IQR}
-#'   \item{lower}{lower hinge, 25% quantile} 
-#'   \item{middle}{median, 50% quantile}
-#'   \item{upper}{upper hinge, 75% quantile}
+#'   \item{lower}{lower hinge, 25\% quantile} 
+#'   \item{middle}{median, 50\% quantile}
+#'   \item{upper}{upper hinge, 75\% quantile}
 #'   \item{ymax}{upper whisker = upper hinge + 1.5 * IQR}
 #' @export
 #' @examples
@@ -20,8 +20,8 @@ StatBoxplot <- proto(Stat, {
   
   calculate_groups <- function(., data, na.rm = FALSE, width = NULL, ...) {
     data <- remove_missing(data, na.rm, c("y", "weight"), name="stat_boxplot")
-    data$weight <- nulldefault(data$weight, 1)
-    width <- nulldefault(width, resolution(data$x) * 0.75)
+    data$weight <- data$weight %||% 1
+    width <- width %||%  resolution(data$x) * 0.75
         
     .super$calculate_groups(., data, na.rm = na.rm, width = width, ...)
   }

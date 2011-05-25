@@ -24,7 +24,7 @@ p + geom_text(aes(colour=factor(cyl)))
 p + geom_text(aes(colour=factor(cyl))) + scale_colour_discrete(l=40)
 
 p + geom_text(aes(size=wt))
-p + geom_text(aes(size=wt)) + scale_size(to=c(3,6))
+p + geom_text(aes(size=wt)) + scale_size(range=c(3,6))
 
 # You can display expressions by setting parse = TRUE.  The 
 # details of the display are described in ?plotmath, but note that
@@ -36,4 +36,10 @@ parse = T)
 qplot(wt, mpg, data = mtcars, label = rownames(mtcars),
 geom=c("point", "text"))
 qplot(wt, mpg, data = mtcars, label = rownames(mtcars), size = wt) +
-geom_text(colour = "red")}
+geom_text(colour = "red")
+
+# You can specify fontfamily, fontface and lineheight
+p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))
+p + geom_text(fontface=3)
+p + geom_text(aes(fontface=am+1))
+p + geom_text(aes(family=c("serif", "mono")[am+1]))}

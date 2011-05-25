@@ -118,13 +118,13 @@ StatSmooth <- proto(Stat, {
     if (is.null(xseq)) {
       if (is.integer(data$x)) {
         if (fullrange) {
-          xseq <- scales$x$input_set() 
+          xseq <- scale_dimension(scales$x, c(0, 0)) 
         } else {
           xseq <- sort(unique(data$x))
         } 
       } else {
         if (fullrange) {
-          range <- scales$x$output_set()
+          range <- scale_dimension(scales$x, c(0, 0))
         } else {
           range <- range(data$x, na.rm=TRUE)  
         } 

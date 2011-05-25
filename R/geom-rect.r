@@ -19,7 +19,7 @@ GeomRect <- proto(Geom, {
   required_aes <- c("xmin", "xmax", "ymin", "ymax")
 
   draw <- draw_groups <- function(., data, scales, coordinates, ...) {
-    if (coordinates$muncher()) {
+    if (!is.linear(coordinates)) {
       aesthetics <- setdiff(
         names(data), c("x", "y", "xmin","xmax", "ymin", "ymax")
       )
@@ -34,7 +34,7 @@ GeomRect <- proto(Geom, {
       
       ggname("bar",do.call("grobTree", polys))
     } else {
-      with(coordinates$transform(data, scales), 
+      with(coord_transform(coordinates, data, scales), 
         ggname(.$my_name(), rectGrob(
           xmin, ymax, 
           width = xmax - xmin, height = ymax - ymin, 

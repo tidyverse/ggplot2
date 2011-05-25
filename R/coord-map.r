@@ -6,7 +6,6 @@
 #' This is still experimental, and if you have any advice to offer regarding 
 #' a better (or more correct) way to do this, please let me know
 #' 
-#' @name coord_map
 #' @export
 #' @param projection projection to use, see \code{\link{mapproject}} for
 #'   list
@@ -18,7 +17,7 @@
 #' @param ylim manually specific y limits (in degrees of latitude)
 #' @export
 #' @examples
-#' try_require("maps")
+#' if (require("maps")) {
 #' # Create a lat-long dataframe from the maps package
 #' nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
 #' (nzmap <- qplot(x, y, data=nz, geom="path"))
@@ -41,134 +40,132 @@
 #' usamap + coord_map(project="stereographic")
 #' usamap + coord_map(project="conic", lat0 = 30)
 #' usamap + coord_map(project="bonne", lat0 = 50)
-CoordMap <- proto(Coord, {  
-  objname <- "map"
+#' }
+coord_map <- function(projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL) { 
+  try_require("mapproj")
+  coord(
+    projection = projection, 
+    orientation = orientation,
+    xlim = xlim,
+    ylim = ylim,
+    params = list(...),
+    subclass = "map"
+  )
+}
 
-  new <- function(., projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL) {    
-    try_require("mapproj")
-    .$proto(
-      projection = projection, 
-      orientation = orientation,
-      xlim = xlim,
-      ylim = ylim,
-      params = list(...)
+#' @S3method coord_transform map
+coord_transform.map <- function(coord, data, details) {
+  trans <- mproject(coord, data$x, data$y, details$orientation)
+  out <- cunion(trans[c("x", "y")], data)
+  
+  out$x <- rescale(out$x, 0:1, details$x.range)
+  out$y <- rescale(out$y, 0:1, details$y.range)
+  out
+}
+mproject <- function(coord, x, y, orientation) {    
+  suppressWarnings(mapproject(x, y,
+    projection = coord$projection, 
+    parameters  = coord$params, 
+    orientation = orientation
+  ))
+}
+
+#' @S3method coord_distance map
+coord_distance.map <- function(coord, x, y, details) {
+  max_dist <- dist_central_angle(details$x.raw, details$y.raw)
+  dist_central_angle(x, y) / max_dist
+}
+
+#' @S3method coord_aspect map
+coord_aspect.map <- function(coord, ranges) {
+  diff(ranges$y.range) / diff(ranges$x.range)
+}
+
+#' @S3method coord_train map
+coord_train.map <- function(coord, scales) {
+  x.raw <- coord$xlim %||% scale_dimension(scales$x)
+  y.raw <- coord$ylim %||% scale_dimension(scales$y)
+  orientation <- coord$orientation %||% c(90, 0, mean(x.raw))
+  
+  # Increase chances of creating valid boundary region
+  grid <- expand.grid(
+    x = seq(x.raw[1], x.raw[2], length = 50),
+    y = seq(y.raw[1], y.raw[2], length = 50)
+  )
+  range <- mproject(coord, grid$x, grid$y, orientation)$range
+  
+  x.range <- range[1:2]
+  x.major <- scale_breaks(scales$x)
+  x.minor <- scale_breaks_minor(scales$x)
+  x.labels <- scale_labels(scales$x, x.major)
+
+  y.range <- range[3:4]
+  y.major <- scale_breaks(scales$y)
+  y.minor <- scale_breaks_minor(scales$y)
+  y.labels <- scale_labels(scales$y, y.major)
+  
+  list(
+    x.raw = x.raw, y.raw = y.raw, orientation = orientation,
+    x.range = x.range, y.range = y.range, 
+    x.major = x.major, x.minor = x.minor, x.labels = x.labels,
+    y.major = y.major, y.minor = y.minor, y.labels = y.labels
+  )
+}
+
+#' @S3method coord_render_bg map
+coord_render_bg.map <- function(coord, details, theme) {    
+  xrange <- expand_range(details$x.raw, 0.2)
+  yrange <- expand_range(details$y.raw, 0.2)
+  xgrid <- with(details, expand.grid(
+    y = c(seq(yrange[1], yrange[2], len = 50), NA),
+    x = x.major
+  ))
+  ygrid <- with(details, expand.grid(
+    x = c(seq(xrange[1], xrange[2], len = 50), NA), 
+    y = y.major
+  ))
+  
+  xlines <- coord_transform(coord, xgrid, details)
+  ylines <- coord_transform(coord, ygrid, details)
+
+  ggname("grill", grobTree(
+    theme_render(theme, "panel.background"),
+    theme_render(
+      theme, "panel.grid.major", name = "x", 
+      xlines$x, xlines$y, default.units = "native"
+    ),
+    theme_render(
+      theme, "panel.grid.major", name = "y", 
+      ylines$x, ylines$y, default.units = "native"
     )
-  }
-  
-  muncher <- function(.) TRUE
-  
-  transform <- function(., data, details) {
-    trans <- .$mproject(data$x, data$y, details$orientation)
-    out <- cunion(trans[c("x", "y")], data)
-    
-    out$x <- rescale(out$x, 0:1, details$x.range)
-    out$y <- rescale(out$y, 0:1, details$y.range)
-    out
-  }
-  
-  distance <- function(., x, y, details) {
-    max_dist <- dist_central_angle(details$x.raw, details$y.raw)
-    dist_central_angle(x, y) / max_dist
-  }
-  
-  compute_aspect <- function(., ranges) {
-    diff(ranges$y.range) / diff(ranges$x.range)
-  }
-  
-  
-  mproject <- function(., x, y, orientation) {    
-    suppressWarnings(do.call("mapproject",  list(
-      data.frame(x = x, y = y), 
-      projection = .$projection, 
-      parameters  = .$params, 
-      orientation = orientation
-    )))
-  }
+  ))
+}  
 
-  compute_ranges <- function(., scales) {
-    x.raw <- .$xlim %||% scale_dimension(scales$x)
-    y.raw <- .$ylim %||% scale_dimension(scales$y)
-    orientation <- .$orientation %||% c(90, 0, mean(x.raw))
-    
-    # Increase chances of creating valid boundary region
-    grid <- expand.grid(
-      x = seq(x.raw[1], x.raw[2], length = 50),
-      y = seq(y.raw[1], y.raw[2], length = 50)
-    )
-    range <- .$mproject(grid$x, grid$y, orientation)$range
-    
-    x.range <- range[1:2]
-    x.major <- scale_breaks(scales$x)
-    x.minor <- scale_breaks_minor(scales$x)
-    x.labels <- scale_labels(scales$x, x.major)
-
-    y.range <- range[3:4]
-    y.major <- scale_breaks(scales$y)
-    y.minor <- scale_breaks_minor(scales$y)
-    y.labels <- scale_labels(scales$y, y.major)
-    
-    list(
-      x.raw = x.raw, y.raw = y.raw, orientation = orientation,
-      x.range = x.range, y.range = y.range, 
-      x.major = x.major, x.minor = x.minor, x.labels = x.labels,
-      y.major = y.major, y.minor = y.minor, y.labels = y.labels
-    )
-  }
+#' @S3method coord_render_axis_h map
+coord_render_axis_h.map <- function(coord, details, theme) {
+  x_intercept <- with(details, data.frame(
+    x = x.major,
+    y = y.raw[1]
+  ))
+  pos <- coord_transform(coord, x_intercept, details)
   
-  guide_background <- function(., details, theme) {    
-    xrange <- expand_range(details$x.raw, 0.2)
-    yrange <- expand_range(details$y.raw, 0.2)
-    xgrid <- with(details, expand.grid(
-      y = c(seq(yrange[1], yrange[2], len = 50), NA),
-      x = x.major
-    ))
-    ygrid <- with(details, expand.grid(
-      x = c(seq(xrange[1], xrange[2], len = 50), NA), 
-      y = y.major
-    ))
-    
-    xlines <- .$transform(xgrid, details)
-    ylines <- .$transform(ygrid, details)
+  guide_axis(pos$x, details$x.labels, "bottom", theme)
+}
+#' @S3method coord_render_axis_v map
+coord_render_axis_v.map <- function(coord, details, theme) {
+  x_intercept <- with(details, data.frame(
+    x = x.raw[1],
+    y = y.major
+  ))
+  pos <- coord_transform(coord, x_intercept, details)
+  
+  guide_axis(pos$y, details$y.labels, "left", theme)
+}
 
-    ggname("grill", grobTree(
-      theme_render(theme, "panel.background"),
-      theme_render(
-        theme, "panel.grid.major", name = "x", 
-        xlines$x, xlines$y, default.units = "native"
-      ),
-      theme_render(
-        theme, "panel.grid.major", name = "y", 
-        ylines$x, ylines$y, default.units = "native"
-      )
-    ))
-  }  
-
-  guide_axis_h <- function(., details, theme) {
-    x_intercept <- with(details, data.frame(
-      x = x.major,
-      y = y.raw[1]
-    ))
-    pos <- .$transform(x_intercept, details)
-    
-    guide_axis(pos$x, details$x.labels, "bottom", theme)
-  }
-  guide_axis_v <- function(., details, theme) {
-    x_intercept <- with(details, data.frame(
-      x = x.raw[1],
-      y = y.major
-    ))
-    pos <- .$transform(x_intercept, details)
-    
-    guide_axis(pos$y, details$y.labels, "left", theme)
-  }
-
-
-  # Documentation -----------------------------------------------
-  icon <- function(.) {
-    nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
-    nz$x <- nz$x - min(nz$x, na.rm=TRUE)
-    nz$y <- nz$y - min(nz$y, na.rm=TRUE)
-    nz <- nz / max(nz, na.rm=TRUE)
-    linesGrob(nz$x, nz$y, default.units="npc")
-  }
-})
+icon.map <- function(.) {
+  nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
+  nz$x <- nz$x - min(nz$x, na.rm=TRUE)
+  nz$y <- nz$y - min(nz$y, na.rm=TRUE)
+  nz <- nz / max(nz, na.rm=TRUE)
+  linesGrob(nz$x, nz$y, default.units="npc")
+}

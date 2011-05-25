@@ -16,6 +16,9 @@ Scales <- setRefClass("Scales", fields = "scales", methods = list(
   clone = function() {
     Scales$new(scales)
   },
+  n = function() {
+    length(scales)
+  },
   input = function() {
     unlist(lapply(scales, "[[", "aesthetics"))
   }, 
@@ -27,6 +30,7 @@ Scales <- setRefClass("Scales", fields = "scales", methods = list(
   },
   get_scales = function(output) {
     scale <- scales[find(output)]
+    if (length(scale) == 0) return()
     scale[[1]]
   }  
 ))
@@ -49,7 +53,7 @@ scales_map_df <- function(scales, df) {
 
 # Transform values to cardinal representation
 scales_transform_df <- function(scales, df) {
-  if (empty(df) || length(scales$scales) == 0) return()
+  if (empty(df) || length(scales$scales) == 0) return(df)
   
   transformed <- unlist(lapply(scales$scales, scale_transform_df, df = df),
     recursive = FALSE)

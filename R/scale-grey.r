@@ -2,6 +2,8 @@
 #'
 #' Based on \code{\link{gray.colors}}
 #'
+#' @param na.value Colour to use for missing values
+#' @export scale_colour_grey scale_fill_grey
 #' @examples
 #' p <- qplot(mpg, wt, data=mtcars, colour=factor(cyl)) 
 #' p + scale_colour_grey()
@@ -9,11 +11,19 @@
 #' 
 #' # You may want to turn off the pale grey background with this scale
 #' p + scale_colour_grey() + theme_bw()
-scale_colour_grey <- function(..., start = 0.2, end = 0.8) {
-  discrete_scale("colour", "grey", grey_pal(start, end), ...)
+#'
+#' # Colour of missing values is controlled with na.value:
+#' miss <- factor(sample(c(NA, 1:5), nrow(mtcars), rep = T))
+#' qplot(mpg, wt, data = mtcars, colour = miss) + scale_colour_grey()
+#' qplot(mpg, wt, data = mtcars, colour = miss) + 
+#'   scale_colour_grey(na.value = "green")
+scale_colour_grey <- function(..., start = 0.2, end = 0.8, na.value = "red") {
+  discrete_scale("colour", "grey", grey_pal(start, end), 
+    na.value = na.value, ...)
 }
-scale_fill_grey <- function(..., start = 0.2, end = 0.8) {
-  discrete_scale("fill", "grey", grey_pal(start, end), ...)
+scale_fill_grey <- function(..., start = 0.2, end = 0.8, na.value = "grey50") {
+  discrete_scale("fill", "grey", grey_pal(start, end), 
+    na.value = na.value, ...)
 }
 
 icon.grey <- function() {

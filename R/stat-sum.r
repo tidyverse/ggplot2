@@ -11,8 +11,8 @@
 #' # Need to control which group proportion calculated over
 #' # Overall proportion
 #' d + stat_sum(aes(group = 1))
-#' d + stat_sum(aes(group = 1)) + scale_size(to = c(3, 10))
-#' d + stat_sum(aes(group = 1)) + scale_area(to = c(3, 10))
+#' d + stat_sum(aes(group = 1)) + scale_size(range = c(3, 10))
+#' d + stat_sum(aes(group = 1)) + scale_area(range = c(3, 10))
 #' # by cut
 #' d + stat_sum(aes(group = cut))
 #' d + stat_sum(aes(group = cut, colour = cut))
@@ -41,12 +41,9 @@ StatSum <- proto(Stat, {
   calculate_groups <- function(., data, scales, ...) {
     if (is.null(data$weight)) data$weight <- 1
     
-    counts <- ddply(data, .(x, y, group), function(df) {
-      cols <- names(df)[sapply(df, function(x) length(unique(x)) == 1)]
-      data.frame(n = sum(df$weight), df[1, cols, drop = FALSE])
-    })
-    counts <- ddply(counts, .(group), transform, prop = n / sum(n))
-    counts$group <- 1
+    counts <- count(data, c("x", "y", "group"), wt_var = "weight")
+    names(counts)[4] <- "n"
+    counts$prop <- ave(counts$n, counts$group, FUN = prop.table)
 
     counts
   }

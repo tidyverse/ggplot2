@@ -1,5 +1,9 @@
 ggplot2 0.9.0 ----------------------------------------------------------------
 
+* `geom_text` now supports `fontfamily`, `fontface`, and `lineheight`
+  aesthetics for finer control over text display. (Thanks to Kohske Takahashi
+  for the patch. Fixes #60)
+
 * `collide`, which powers `position_dodge` and `position_stack`, now does not
   error on single x values (Thanks to Brian Diggs for a fix. #157)
 
@@ -11,8 +15,21 @@ ggplot2 0.9.0 ----------------------------------------------------------------
   median line is now `fatten` times the width of the other lines (thanks to
   suggestion by Di Cook), and the line type can now be set.
 
+* Scales now automatically shrink to what is actually displayed on the plot,
+  not the underlying data used for statistical transformation. If you want the
+  old behaviour, supply `shrink = FALSE` to the facetting specification.
+  (Fixes #125)
 
-DOCUMENTATION
+* When printing a ggplot2 object, the rendered plot information is returned
+  invisibly. You can capture this with (e.g.) `x <- print(qplot(mpg, wt, data
+  = mtcars))` and in the future will be able to use it to get information
+  about the plot computations, such as the range of all the scales, and the
+  exact data that is plotted.
+
+* `scale_shape` finally returns an error when you try and use it with a
+  continuous variable
+
+DEVELOPMENT
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems
   that it previously relied on, and now uses roxygen extensively. The current
@@ -21,7 +38,14 @@ DOCUMENTATION
 
 * ggplot2 now uses a `NAMESPACE`, and only exports functions that should be
   user visible - this should make it play considerably more nicely with other
-  packages in the R ecosystem
+  packages in the R ecosystem. Note that this means you now need to explicitly
+  load `plyr` (and other packages) if you are using them elsewhere in your
+  code.
+
+* ggplot2 now has a start on a set of automated tests. As this test suite
+  expands it will help me ensure that bugs stay fixed, and that old bugs don't
+  come back in new versions. A test suite also gives me more confidence when
+  I'm modifying code, which should help with general code quality.
 
 SCALES
 
@@ -46,7 +70,8 @@ SCALES
   breaks.
 
 * all scales now accept `na.value` parameter which provides an aesthetic value
-  to be used for NA values in the data
+  to be used for NA values in the data. Colour/fill scales default to values
+  that should stand out as being different from non-missing values.
 
 * the new `oob` (out of bounds) parameter controls how scales deals with
   values outside the limits. The default action is `censor` - see `clip` for
@@ -65,6 +90,26 @@ SCALES
       p
       scale_colour_discrete <- scale_colour_brewer
       p
+
+FACETS
+
+* Converted from proto to S3 objects, and class methods (somewhat) documented
+  in `facet.r`. This should make it easier to develop new types of facetting
+  specifications.
+
+* New `facet_null` used when for no facetting. This special case is
+  implemented more efficiently and results in substantial performance
+  improvements for un-facetted plots.
+
+* Facetting variables will no longer interfere with aesthetic mappings - 
+  `facet_wrap(~ colour)` will no longer affect the colour of points.
+
+COORDS
+
+* Converted from proto to S3 objects, and class methods (somewhat) documented
+  in `coord.r`. This should make it easier to develop new types of coordinate
+  systems.
+
 
 ggplot2 0.8.9 (2010-12-24) ---------------------------------------------------
 

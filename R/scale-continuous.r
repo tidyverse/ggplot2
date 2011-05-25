@@ -6,8 +6,12 @@
 #'  \code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
 #'  \code{\link{continuous_scale}} for more details
 #' @seealso \code{\link{scale_discrete}} for discrete position scales
-#' @alias scale_x_continuous scale_y_continuous
+#' @aliases scale_x_continuous scale_y_continuous
+#'   scale_x_log10 scale_y_log10 scale_x_reverse scale_y_reverse
+#'   scale_x_sqrt scale_y_sqrt
 #' @export scale_x_continuous scale_y_continuous
+#'   scale_x_log10 scale_y_log10 scale_x_reverse scale_y_reverse
+#'   scale_x_sqrt scale_y_sqrt
 #' @examples
 #' (m <- qplot(rating, votes, data=subset(movies, votes > 1000), na.rm = T))
 #' 
@@ -43,13 +47,14 @@
 #' # see ?transformer for a full list
 #' 
 #' # You can control the formatting of the labels with the formatter
-#' # argument.  Some common formats are built in:
+#' # argument.  Some common formats are built into the scales package:
 #' x <- rnorm(10) * 100000
 #' y <- seq(0, 1, length = 10)
 #' p <- qplot(x, y)
-#' p + scale_y_continuous(formatter = "percent")
-#' p + scale_y_continuous(formatter = "dollar")
-#' p + scale_x_continuous(formatter = "comma")
+#' library(scales)
+#' p + scale_y_continuous(labels = percent)
+#' p + scale_y_continuous(labels = dollar)
+#' p + scale_x_continuous(labels = comma)
 #' 
 #' # qplot allows you to do some of this with a little less typing:
 #' #   * axis limits
@@ -70,17 +75,11 @@ scale_y_continuous <- function(..., expand = c(0.05, 0)) {
 
 
 # Position aesthetics don't map, because the coordinate system takes
-# care of it.
+# care of it. But they do need to be made in to doubles, so stat methods
+# can tell the difference between continuous and discrete data.
 #' @S3method scale_map position_c
 scale_map.position_c <- function(scale, x) {
-  x
-}
-
-#' @S3method scale_clone position_c
-scale_clone.position_c <- function(scale) {
-  new <- scale
-  new$range <- ContinuousRange$new()  
-  new
+  as.numeric(x)
 }
 
 # Transformed scales 

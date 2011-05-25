@@ -12,7 +12,7 @@
 #' they can vary from panel to panel.  See the examples for more ideas.
 #' 
 #' @name geom_abline
-#' @seealso \code{\link{stat_smooth} to add lines derived from the data,
+#' @seealso \code{\link{stat_smooth}} to add lines derived from the data,
 #'  \code{\link{geom_hline}} for horizontal lines,
 #'  \code{\link{geom_vline}} for vertical lines
 #'  \code{\link{geom_segment}}
@@ -38,6 +38,7 @@
 #' p + geom_abline(aes(intercept=a, slope=b), data=df)
 #'
 #' # Slopes and intercepts from linear model
+#' library(plyr)
 #' coefs <- ddply(mtcars, .(cyl), function(df) { 
 #'   m <- lm(mpg ~ wt, data=df)
 #'   data.frame(a = coef(m)[1], b = coef(m)[2]) 

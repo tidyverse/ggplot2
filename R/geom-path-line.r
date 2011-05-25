@@ -21,7 +21,7 @@
 #' 
 #' # Change scale
 #' p + geom_line(aes(colour = rating)) + scale_colour_gradient(low="red")
-#' p + geom_line(aes(size = rating)) + scale_size(to = c(0.1, 3))
+#' p + geom_line(aes(size = rating)) + scale_size(range = c(0.1, 3))
 #' 
 #' # Set aesthetics to fixed value
 #' p + geom_line(colour = "red", size = 1)
@@ -45,7 +45,8 @@
 #' group <- rep(LETTERS[1:3], each = 100)
 #' 
 #' df <- data.frame(id = seq_along(group), group, y2005, y2010)
-#' dfm <- reshape::melt(df, id.var = c("id", "group"))
+#' library(reshape2)
+#' dfm <- melt(df, id.var = c("id", "group"))
 #' ggplot(dfm, aes(variable, value, group = id, colour = group)) + 
 #'   geom_path(alpha = 0.5)
 GeomLine <- proto(GeomPath, {

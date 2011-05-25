@@ -1,5 +1,7 @@
 #' Diverging colour gradient
 #' 
+#' @export scale_colour_gradient2 scale_fill_gradient2
+#' @param na.value Colour to use for missing values
 #' @examples
 #' dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
 #' dsub$diff <- with(dsub, sqrt(abs(x-y))* sign(x-y))
@@ -38,16 +40,22 @@
 #' p + scale_fill_gradient2("fill")
 #' # Note how positive and negative values of the same magnitude
 #' # have similar intensity
-scale_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "rgb") {
+scale_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "rgb", na.value = "grey50") {
   continuous_scale("colour", "gradient2",
-    div_gradient_pal(low, mid, high, space), ...,
-    rescale = rescale_mid(mid = midpoint))
+    div_gradient_pal(low, mid, high, space), na.value = na.value, ...,
+    rescale = mid_rescaler(mid = midpoint))
 }
 
-scale_fill_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "rgb") {
+scale_fill_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "rgb", na.value = "grey50") {
   continuous_scale("fill", "gradient2", 
-    div_gradient_pal(low, mid, high, space), ...,
-    rescale = rescale_mid(mid = midpoint))
+    div_gradient_pal(low, mid, high, space), na.value = na.value, ...,
+    rescale = mid_rescaler(mid = midpoint))
+}
+
+mid_rescaler <- function(mid) {
+  function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
+    rescale_mid(x, to, from, mid)
+  }
 }
 
 icon.fill_gradient2 <- function(.) {

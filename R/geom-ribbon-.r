@@ -68,7 +68,7 @@ GeomRibbon <- proto(Geom, {
 
     positions <- summarise(data, 
       x = c(x, rev(x)), y = c(ymax, rev(ymin)), id = c(ids, rev(ids)))
-    munched <- coordinates$munch(positions, scales)
+    munched <- coord_munch(coordinates,positions, scales)
 
     ggname(.$my_name(), polygonGrob(
       munched$x, munched$y, id = munched$id,
@@ -104,6 +104,8 @@ GeomRibbon <- proto(Geom, {
 #' @examples
 #' # see geom_ribbon
 GeomArea <- proto(GeomRibbon,{
+  objname <- "area"
+
   default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = 1)
   default_pos <- function(.) PositionStack
   required_aes <- c("x", "y")
