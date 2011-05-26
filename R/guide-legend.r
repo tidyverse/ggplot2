@@ -80,7 +80,7 @@ guide_train.legend <- function(guide, scale) {
 }
 
 guide_merge.legend <- function(guide, new_guide) {
-  guide$key <- merge(guide$key, new_guide$key)
+  guide$key <- merge(guide$key, new_guide$key, sort=FALSE)
   guide$set.aes <- c(guide$set.aes, new_guide$set.aes)
   if (any(duplicated(names(guide$set.aes)))) warning("Duplicated set.aes is ignored.")
   guide$set.aes <- guide$set.aes[!duplicated(names(guide$set.aes))]
