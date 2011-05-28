@@ -40,8 +40,8 @@ build_guides <- function(scales, layers, default_mapping, theme) {
   ## set themes w.r.t. guides
   ## should these theme$legend.XXX be renamed to theme$guide.XXX ?
   
-  ## by default, horizontal for top and bottom, and vertical for left and right side.
-  theme$legend.box <- theme$legend.box %||% if (any(c("top", "bottom") %in% theme$legend.position)) "horizontal" else "vertical"
+  ## by default, guide boxes are vertically aligned
+  theme$legend.box <- theme$legend.box %||% "vertical"
 
   ## size of key (also used for bar in colorbar guide)
   theme$legend.key.width <- theme$legend.key.width %||% theme$legend.key.size
@@ -148,31 +148,63 @@ guides_gengrob <- function(gdefs, theme) {
   lapply(gdefs, guide_gengrob, theme)
 }
 
-## build up all guide-grob into one guides-grob
-## should be rewritten for more flexibility (?)
+## build up all guide boxes into one guide-boxes.
 guides_build <- function(ggrobs, theme) {
 
-  ## override alignment of legends box if theme$legend.box is specified
   n <- length(ggrobs)
-  box_nrow <- if (theme$legend.box == "horizontal") 1 else n
-  box_ncol <- if (theme$legend.box == "horizontal") n else 1
-  ## create viewport for the guide grobs
-  if (theme$legend.box != "horizontal") {
-    widths <-   do.call("max", lapply(ggrobs, function(ggrob) sum(ggrob$vp$layout$widths)))
-    heights <- do.call("unit.c", lapply(ggrobs, function(ggrob) sum(ggrob$vp$layout$heights) * 1.1))
-    legend.layout <- grid.layout(nrow=n, ncol=1, widths=widths, heights=heights)
-    for (i in seq_along(ggrobs)) {
-      ggrobs[[i]]$vp <- viewport(layout.pos.col = 1, layout.pos.row = i, layout = ggrobs[[i]]$vp$layout)
-    }
-  } else {
-    heights <- do.call("sum", lapply(ggrobs, function(ggrob) sum(ggrob$vp$layout$heights)))
-    widths <- do.call("unit.c", lapply(ggrobs, function(ggrob) sum(ggrob$vp$layout$widths) * 1.1))
-    legend.layout <- grid.layout(nrow=1, ncol=n, widths=widths, heights=heights)
-    for (i in seq_along(ggrobs)) {
-      ggrobs[[i]]$vp <- viewport(layout.pos.col = i, layout.pos.row = 1, layout = ggrobs[[i]]$vp$layout)
-    }
-  }
-  sizedGTree(children = gList(gTree(children=do.call("gList", ggrobs), vp=viewport(layout=legend.layout))), width=sum(widths), height=sum(heights))
+  space <- unit(0.25, "lines")
+  widths <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$widths)))
+  heights <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$heights)))
+
+  ## setting that is different for vergical and horizontal guide-boxes.
+  switch(theme$legend.box,
+    horizontal = {
+      box_nrow <- 1
+      box_ncol <- n
+      twidths <- widths
+      theights <- gheight <- max(heights)
+      spacefun <- gtable_add_col_space
+    },
+    vertical = {
+      box_nrow <- n
+      box_ncol <- 1
+      twidths <- gwidth <- max(widths)
+      theights <- heights
+      spacefun <- gtable_add_row_space
+    })
+
+  ## make gtable for the guide-boxes
+  lay <- data.frame(l = seq(box_ncol), t = seq(box_nrow), r = seq(box_ncol), b = seq(box_nrow),
+                    name = paste("guide-", seq(n), sep = ""),
+                    clip = FALSE)
+  guides <- gtable(lapply(ggrobs, gtable_gTree), lay, twidths, theights)
+
+  ## add space between the guide-boxes.
+  guides <- spacefun(guides, space)
+
+  ## add margins around the guide-boxes.
+  guides <- gtable_add_cols(guides, space, pos = 0)
+  guides <- gtable_add_cols(guides, space, pos = ncol(guides))
+  guides <- gtable_add_rows(guides, space, pos = 0)
+  guides <- gtable_add_rows(guides, space, pos = nrow(guides))
+
+  ## dims of the guide-boxes, used in ggplotGrob()
+  gw <- sum(guides$widths)
+  gh <- sum(guides$heights)
+
+  ## make gTree
+  guides <- gtable_gTree(guides)
+  guides$width <- gw
+  guides$height <- gh
+
+  ## set justification of the guide-boxes
+  ## should be there options for this, e.g., guide.box.just  = c("right", "bottom") ?
+  just <- switch(theme$legend.position,
+    bottom =, top = c("center", "top"),
+    left =, right = c("left", "top"),
+    manual = c("left", "top"), c("center"))
+  for (i in seq(n)) guides$children[[i]]$childrenvp$parent$layout$valid.just <- valid.just(just)
+  guides
 }
 
 ## S3 dispatch

@@ -185,7 +185,11 @@ guide_gengrob.colorbar <- function(guide, theme) {
   grob.label <- {
     if (!guide$label) zeroGrob()
     else {
-      hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||% if (any(is.expression(guide$key$.label))) 1 else 0
+      ## label hjust: default is center for horizontal and left for vertical colorbar.
+      hjust <- x <- guide$label.hjust %||%
+        theme$legend.text.align %||%
+        if (any(is.expression(guide$key$.label))) 1
+        else switch(guide$direction, horizontal = 0.5, vertical = 0)
       vjust <- y <- guide$label.vjust %||% 0.5
       switch(guide$direction, horizontal = {x <- label_pos; y <- vjust}, "vertical" = {x <- hjust; y <- label_pos})
       g <-
@@ -207,7 +211,6 @@ guide_gengrob.colorbar <- function(guide, theme) {
   grob.ticks <-
     if (!guide$ticks) zeroGrob()
     else {
-      
       switch(guide$direction,
         "horizontal" = {
           x0 = rep(tic_pos.c, 2)
@@ -221,7 +224,6 @@ guide_gengrob.colorbar <- function(guide, theme) {
           x1 = c(rep(barwidth.c * (1/5), nbreak), rep(barwidth.c, nbreak))
           y1 = rep(tic_pos.c, 2)
         })
-      
       segmentsGrob(x0 = x0, y0 = y0, x1 = x1, y1 = y1,
                    default.units = "mm", gp = gpar(col="white", lwd=0.5, lineend="butt"))
     }
@@ -294,18 +296,15 @@ guide_gengrob.colorbar <- function(guide, theme) {
                        title.row = 2:(length(heights)-1), title.col = length(widths)-1))
     })
 
-  legend.layout <- grid.layout(length(heights), length(widths), 
-                               widths = unit(widths, "mm"), heights = unit(heights, "mm"), 
-                               just = "left")
-  
   ## background
   grob.background <- theme_render(theme, "legend.background")
 
-  ## set viewpoint
-  grob.title$vp <- viewport(layout.pos.row = vps$title.row, layout.pos.col = vps$title.col)
-  grob.bar$vp <- viewport(layout.pos.row = vps$bar.row, layout.pos.col = vps$bar.col)
-  grob.label$vp <- viewport(layout.pos.row = vps$label.row, layout.pos.col = vps$label.col)
-  grob.ticks$vp <- grob.bar$vp
+  lay <- data.frame(l = c(1, min(vps$bar.col), min(vps$label.col), min(vps$title.col), min(vps$bar.col)),
+                    t = c(1, min(vps$bar.row), min(vps$label.row), min(vps$title.row), min(vps$bar.row)),
+                    r = c(length(widths), max(vps$bar.col), max(vps$label.col), max(vps$title.col), max(vps$bar.col)),
+                    b = c(length(heights), max(vps$bar.row), max(vps$label.row), max(vps$title.row), max(vps$bar.row)),
+                    name = c("background", "bar", "label", "title", "ticks"),
+                    clip = FALSE)
 
-  gTree(children = gList(grob.background, grob.title, grob.bar, grob.label, grob.ticks), vp = viewport(layout=legend.layout))
+  gtable(list(grob.background, grob.bar, grob.label, grob.title, grob.ticks), lay, unit(widths, "mm"), unit(heights, "mm"))
 }

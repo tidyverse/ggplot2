@@ -227,60 +227,58 @@ guide_gengrob.legend <- function(guide, theme) {
       key_height.c <-max(key_height.c, key_sizes)
       switch(label.position,
         "top" = {
-          kl_widths <- interleave(pmax(label_widths.c, key_widths.c), rep(hgap, nbreak))
+          kl_widths <- pmax(label_widths.c, key_widths.c)
           kl_heights <- c(max(label_heights.c), vgap, max(key_height.c))
-          vps <- list(key.row = rep(3, nbreak), key.col = seq(nbreak)*2-1,
-                      label.row = rep(1, nbreak), label.col = seq(nbreak)*2-1)
+          vps <- list(key.row = rep(3, nbreak), key.col = seq(nbreak),
+                      label.row = rep(1, nbreak), label.col = seq(nbreak))
         },
         "bottom" = {
-          kl_widths <- interleave(pmax(label_widths.c, key_widths.c), rep(hgap, nbreak))
+          kl_widths <- pmax(label_widths.c, key_widths.c)
           kl_heights <- c(max(key_height.c), vgap, max(label_heights.c))
-          vps <- list(key.row = rep(1, nbreak), key.col = seq(nbreak)*2-1,
-                      label.row = rep(3, nbreak), label.col = seq(nbreak)*2-1)
+          vps <- list(key.row = rep(1, nbreak), key.col = seq(nbreak),
+                      label.row = rep(3, nbreak), label.col = seq(nbreak))
         },
         "left" = {
-          kl_widths <- interleave(label_widths.c, rep(hgap, nbreak), key_widths.c, rep(hgap, nbreak))
+          kl_widths <- head(interleave(label_widths.c, rep(hgap/2, nbreak), key_widths.c, rep(hgap, nbreak)), -1)
           kl_heights <- max(label_heights.c, key_height.c)
           vps <- list(key.row = rep(1, nbreak), key.col = seq(nbreak)*4-1,
                       label.row = rep(1, nbreak), label.col = seq(nbreak)*4-3)
         },
         "right" = {
-          kl_widths <- interleave(key_widths.c, rep(hgap, nbreak), label_widths.c, rep(hgap, nbreak))
+          kl_widths <- head(interleave(key_widths.c, rep(hgap/2, nbreak), label_widths.c, rep(hgap, nbreak)), -1)
           kl_heights <- max(label_heights.c, key_height.c)
           vps <- list(key.row = rep(1, nbreak), key.col = seq(nbreak)*4-3,
                       label.row = rep(1, nbreak), label.col = seq(nbreak)*4-1)
-          })
-      kl_widths <- kl_widths[-length(kl_widths)] # remove the rightmost hgap
+          })      
     },
     "vertical" = {
       key_width.c <- max(key_width.c, key_sizes)
       key_heights.c <-pmax(key_height.c, key_sizes)
       switch(label.position,
         "top" = {
+          kl_widths <- max(label_widths.c, key_width.c)
+          kl_heights <- head(interleave(label_heights.c, rep(vgap/2, nbreak), key_heights.c, rep(vgap, nbreak)), -1)
           vps <- list(key.row = seq(nbreak)*4-1, key.col = rep(1, nbreak),
                       label.row = seq(nbreak)*4-3, label.col = rep(1, nbreak))
-          kl_widths <- max(label_widths.c, key_width.c)
-          kl_heights <- interleave(label_heights.c, rep(vgap, nbreak), key_heights.c, rep(vgap, nbreak))
         },
         "bottom" = {
+          kl_widths <- max(label_widths.c, key_width.c)
+          kl_heights <- head(interleave(key_heights.c, rep(vgap/2, nbreak), label_heights.c, rep(vgap, nbreak)), -1)
           vps <- list(key.row = seq(nbreak)*4-3, key.col = rep(1, nbreak),
                       label.row = seq(nbreak)*4-1, label.col = rep(1, nbreak))
-          kl_widths <- max(label_widths.c, key_width.c)
-          kl_heights <- interleave(key_heights.c, rep(vgap, nbreak), label_heights.c, rep(vgap, nbreak))
         },
         "left" = {
-          vps <- list(key.row = seq(nbreak)*2-1, key.col = rep(3, nbreak),
-                      label.row = seq(nbreak)*2-1, label.col = rep(1, nbreak))
           kl_widths <- c(max(label_widths.c), hgap, max(key_width.c))
-          kl_heights <- interleave(pmax(key_heights.c, label_heights.c), rep(vgap, nbreak))
+          kl_heights <- pmax(key_heights.c, label_heights.c)
+          vps <- list(key.row = seq(nbreak), key.col = rep(3, nbreak),
+                      label.row = seq(nbreak), label.col = rep(1, nbreak))
         },
         "right" = {
-          vps <- list(key.row = seq(nbreak)*2-1, key.col = rep(1, nbreak),
-                      label.row = seq(nbreak)*2-1, label.col = rep(3, nbreak))
           kl_widths <- c(max(key_width.c), hgap, max(label_widths.c))
-          kl_heights <- interleave(pmax(key_heights.c, label_heights.c), rep(vgap, nbreak))
+          kl_heights <- pmax(key_heights.c, label_heights.c)
+          vps <- list(key.row = seq(nbreak), key.col = rep(1, nbreak),
+                      label.row = seq(nbreak), label.col = rep(3, nbreak))
         })
-      kl_heights <- kl_heights[-length(kl_heights)] # remove the bottom vgap
     })
 
   ## layout the title over key-label
@@ -319,8 +317,8 @@ guide_gengrob.legend <- function(guide, theme) {
     })
 
   ## grob for key
-  grob.key <- list()
-
+  grob.keys <- list()
+  
   for (i in 1:nbreak) {
 
     ## layout position
@@ -328,32 +326,27 @@ guide_gengrob.legend <- function(guide, theme) {
     pos.col <- vps$key.col[i]
 
     ## bg. of key
-    grob.key[[length(grob.key)+1]] <- theme_render(theme, "legend.key", vp = viewport(layout.pos.row = pos.row, layout.pos.col = pos.col))
+    grob.keys[[length(grob.keys)+1]] <- theme_render(theme, "legend.key")
 
     ## overlay geoms
-    for(geom in guide$geoms) {
-      .key <- geom$geom$draw_legend(geom$data[i, ], geom$params)
-      .key$vp <- viewport(layout.pos.row = pos.row, layout.pos.col = pos.col)
-      grob.key[[length(grob.key)+1]] <- .key
-    }
-
-    ## layout position for label
-    grob.labels[[i]]$vp <- viewport(layout.pos.row = vps$label.row[i], layout.pos.col = vps$label.col[i])
+    for(geom in guide$geoms)
+      grob.keys[[length(grob.keys)+1]] <- geom$geom$draw_legend(geom$data[i, ], geom$params)
   }
 
   ## background
   grob.background <- theme_render(theme, "legend.background")
 
-  ## layout position for title
-  grob.title$vp <- viewport(layout.pos.row = vps$title.row, layout.pos.col = vps$title.col)
+  ngeom <- length(guide$geoms) + 1
+  kcols <- rep(vps$key.col, each =  ngeom)
+  krows <- rep(vps$key.row, each =  ngeom)
+  lay <- data.frame(l = c(1,               min(vps$title.col), kcols, vps$label.col),
+                    t = c(1,               min(vps$title.row), krows, vps$label.row),
+                    r = c(length(widths),  max(vps$title.col), kcols, vps$label.col),
+                    b = c(length(heights), max(vps$title.row), krows, vps$label.row),
+                    name = c("background", "title",
+                      paste("key", krows, kcols, c("bg", seq(ngeom-1)), sep = "-"),
+                      paste("label", vps$label.row, vps$label.col, sep = "-")),
+                    clip = FALSE)
 
-  ## layout of the legend guide
-  ## TODO: just specification
-  legend.layout <- grid.layout(length(heights), length(widths), 
-                               widths = unit(widths, "mm"), heights = unit(heights, "mm"), 
-                               just = "left")
-
-  ## return grob tree 
-  gTree(children = do.call("gList", c(list(grob.background, grob.title), grob.key, grob.labels)),
-        vp = viewport(layout=legend.layout))
+  gtable(c(list(grob.background, grob.title), grob.keys, grob.labels), lay, unit(widths, "mm"), unit(heights, "mm"))
 }
