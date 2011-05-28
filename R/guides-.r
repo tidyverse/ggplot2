@@ -50,7 +50,18 @@ build_guides <- function(scales, layers, default_mapping, theme) {
   ## by default, direction of each guide depends on the position of the guide.
   theme$legend.direction <-
     theme$legend.direction %||%
-    switch(theme$legend.position, "top" =, "bottom" = "horizontal", "left" =, "right" = "vertical", "vertical")
+    if (length(theme$legend.position) == 1 && theme$legend.position %in% c("top", "bottom", "left", "right"))
+      switch(theme$legend.position[1], top =, bottom = "horizontal", left =, right = "vertical")
+    else
+      "vertical"
+
+  ## justification of legend boxes
+  theme$legend.box.just <-
+    theme$legend.box.just %||%
+    if (length(theme$legend.position) == 1 && theme$legend.position %in% c("top", "bottom", "left", "right"))
+      switch(theme$legend.position, bottom =, top = c("center", "top"), left =, right = c("left", "top"))
+    else
+      c("center", "center")
 
   ## scales -> data for guides
   gdefs <- guides_train(scales = scales, theme = theme)
@@ -199,11 +210,7 @@ guides_build <- function(ggrobs, theme) {
 
   ## set justification of the guide-boxes
   ## should be there options for this, e.g., guide.box.just  = c("right", "bottom") ?
-  just <- switch(theme$legend.position,
-    bottom =, top = c("center", "top"),
-    left =, right = c("left", "top"),
-    manual = c("left", "top"), c("center"))
-  for (i in seq(n)) guides$children[[i]]$childrenvp$parent$layout$valid.just <- valid.just(just)
+  for (i in seq(n)) guides$children[[i]]$childrenvp$parent$layout$valid.just <- valid.just(theme$legend.box.just)
   guides
 }
 

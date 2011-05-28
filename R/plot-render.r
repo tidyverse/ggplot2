@@ -108,13 +108,13 @@ ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop
     none =   unit.c(title_height, unit(1, "null"), xlab_height)
   )
   heights <- unit.c(margin$top, heights, margin$bottom)
-  
+
   if (position == "manual") {
     legend_vp <- viewport(
       name = "legend_box",
-      x = coords[1], y = coords[2], just = theme$legend.justification,
-      width = grobWidth(grobs$legend_box), 
-      height = grobHeight(grobs$legend_box)
+      x = coords[1], y = coords[2], just = theme$legend.box.just,
+      width = legend_width,
+      height = legend_height
     )
   } else {
     legend_vp <- viewport(name = "legend_box")
