@@ -163,7 +163,11 @@ guides_gengrob <- function(gdefs, theme) {
 guides_build <- function(ggrobs, theme) {
 
   n <- length(ggrobs)
-  space <- unit(0.25, "lines")
+  
+  theme$guide.margin <- theme$guide.margin %||% unit(0.5, "lines")
+  theme$guide.vmargin <- theme$guide.vmargin  %||% theme$guide.margin
+  theme$guide.hmargin <- theme$guide.hmargin  %||% theme$guide.margin
+  
   widths <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$widths)))
   heights <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$heights)))
 
@@ -175,6 +179,7 @@ guides_build <- function(ggrobs, theme) {
       twidths <- widths
       theights <- gheight <- max(heights)
       spacefun <- gtable_add_col_space
+      margin <- theme$guide.hmargin
     },
     vertical = {
       box_nrow <- n
@@ -182,6 +187,7 @@ guides_build <- function(ggrobs, theme) {
       twidths <- gwidth <- max(widths)
       theights <- heights
       spacefun <- gtable_add_row_space
+      margin <- theme$guide.vmargin
     })
 
   ## make gtable for the guide-boxes
@@ -191,13 +197,13 @@ guides_build <- function(ggrobs, theme) {
   guides <- gtable(lapply(ggrobs, gtable_gTree), lay, twidths, theights)
 
   ## add space between the guide-boxes.
-  guides <- spacefun(guides, space)
+  guides <- spacefun(guides, margin)
 
   ## add margins around the guide-boxes.
-  guides <- gtable_add_cols(guides, space, pos = 0)
-  guides <- gtable_add_cols(guides, space, pos = ncol(guides))
-  guides <- gtable_add_rows(guides, space, pos = 0)
-  guides <- gtable_add_rows(guides, space, pos = nrow(guides))
+  guides <- gtable_add_cols(guides, theme$guide.hmargin, pos = 0)
+  guides <- gtable_add_cols(guides, theme$guide.hmargin, pos = ncol(guides))
+  guides <- gtable_add_rows(guides, theme$guide.vmargin, pos = 0)
+  guides <- gtable_add_rows(guides, theme$guide.vmargin, pos = nrow(guides))
 
   ## dims of the guide-boxes, used in ggplotGrob()
   gw <- sum(guides$widths)

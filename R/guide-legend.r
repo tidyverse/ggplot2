@@ -284,36 +284,36 @@ guide_gengrob.legend <- function(guide, theme) {
   ## layout the title over key-label
   switch(guide$title.position,
     "top" = {
-      widths <- c(hgap, kl_widths, max(hgap, title_width.c-sum(kl_widths)))
-      heights <- c(vgap, title_height.c, vgap, kl_heights, vgap)
+      widths <- c(kl_widths, max(0, title_width.c-sum(kl_widths)))
+      heights <- c(title_height.c, vgap, kl_heights)
       vps <- with(vps,
-                  list(key.row = key.row+3, key.col = key.col+1,
-                       label.row = label.row+3, label.col = label.col+1,
-                       title.row = 2, title.col = 2:(length(widths)-1)))
+                  list(key.row = key.row+2, key.col = key.col,
+                       label.row = label.row+2, label.col = label.col,
+                       title.row = 1, title.col = 1:length(widths)))
     },
     "bottom" = {
-      widths <- c(hgap, kl_widths, max(hgap, title_width.c-sum(kl_widths)))
-      heights <- c(vgap, kl_heights, vgap, title_height.c, vgap)
+      widths <- c(kl_widths, max(0, title_width.c-sum(kl_widths)))
+      heights <- c(kl_heights, vgap, title_height.c)
       vps <- with(vps, 
-                  list(key.row = key.row+1, key.col = key.col+1,
-                       label.row = label.row+1, label.col = label.col+1,
-                       title.row = length(heights)-1, title.col = 2:(length(widths)-1)))
+                  list(key.row = key.row, key.col = key.col,
+                       label.row = label.row, label.col = label.col,
+                       title.row = length(heights), title.col = 1:length(widths)))
     },
     "left" = {
-      widths <- c(hgap, title_width.c, hgap, kl_widths, hgap)
-      heights <- c(vgap, kl_heights, max(vgap, title_height.c-sum(kl_heights)))
+      widths <- c(title_width.c, hgap, kl_widths)
+      heights <- c(kl_heights, max(0, title_height.c-sum(kl_heights)))
       vps <- with(vps, 
-                  list(key.row = key.row+1, key.col = key.col+3,
-                       label.row = label.row+1, label.col = label.col+3,
-                       title.row = 2:(length(heights)-1), title.col = 2))
+                  list(key.row = key.row, key.col = key.col+2,
+                       label.row = label.row, label.col = label.col+2,
+                       title.row = 1:length(heights), title.col = 1))
     },
     "right" = {
-      widths <- c(hgap, kl_widths, hgap, title_width.c, hgap)
-      heights <- c(vgap, kl_heights, max(vgap, title_height.c-sum(kl_heights)))
+      widths <- c(kl_widths, hgap, title_width.c)
+      heights <- c(kl_heights, max(0, title_height.c-sum(kl_heights)))
       vps <- with(vps, 
-                  list(key.row = key.row+1, key.col = key.col+1,
-                       label.row = label.row+1, label.col = label.col+1,
-                       title.row = 2:(length(heights)-1), title.col = length(widths)-1))
+                  list(key.row = key.row, key.col = key.col,
+                       label.row = label.row, label.col = label.col,
+                       title.row = 1:length(heights), title.col = length(widths)))
     })
 
   ## grob for key

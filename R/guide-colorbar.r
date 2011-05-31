@@ -264,36 +264,36 @@ guide_gengrob.colorbar <- function(guide, theme) {
   ## layout of title and bar+label
   switch(guide$title.position,
     "top" = {
-      widths <- c(hgap, bl_widths, max(hgap, title_width.c-sum(bl_widths)))
-      heights <- c(vgap, title_height.c, vgap, bl_heights, vgap)
+      widths <- c(bl_widths, max(0, title_width.c-sum(bl_widths)))
+      heights <- c(title_height.c, vgap, bl_heights)
       vps <- with(vps,
-                  list(bar.row = bar.row+3, bar.col = bar.col+1,
-                       label.row = label.row+3, label.col = label.col+1,
-                       title.row = 2, title.col = 2:(length(widths)-1)))
+                  list(bar.row = bar.row+2, bar.col = bar.col,
+                       label.row = label.row+2, label.col = label.col,
+                       title.row = 1, title.col = 1:length(widths)))
     },
     "bottom" = {
-      widths <- c(hgap, bl_widths, max(hgap, title_width.c-sum(bl_widths)))
-      heights <- c(vgap, bl_heights, vgap, title_height.c, vgap)
+      widths <- c(bl_widths, max(0, title_width.c-sum(bl_widths)))
+      heights <- c(bl_heights, vgap, title_height.c)
       vps <- with(vps, 
-                  list(bar.row = bar.row+1, bar.col = bar.col+1,
-                       label.row = label.row+1, label.col = label.col+1,
-                       title.row = length(heights)-1, title.col = 2:(length(widths)-1)))
+                  list(bar.row = bar.row, bar.col = bar.col,
+                       label.row = label.row, label.col = label.col,
+                       title.row = length(heights), title.col = 1:length(widths)))
     },
     "left" = {
-      widths <- c(hgap, title_width.c, hgap, bl_widths, hgap)
-      heights <- c(vgap, bl_heights, max(vgap, title_height.c-sum(bl_heights)))
+      widths <- c(title_width.c, hgap, bl_widths)
+      heights <- c(bl_heights, max(0, title_height.c-sum(bl_heights)))
       vps <- with(vps, 
-                  list(bar.row = bar.row+1, bar.col = bar.col+3,
-                       label.row = label.row+1, label.col = label.col+3,
-                       title.row = 2:(length(heights)-1), title.col = 2))
+                  list(bar.row = bar.row, bar.col = bar.col+2,
+                       label.row = label.row, label.col = label.col+2,
+                       title.row = 1:length(heights), title.col = 1))
     },
     "right" = {
-      widths <- c(hgap, bl_widths, hgap, title_width.c, hgap)
-      heights <- c(vgap, bl_heights, max(vgap, title_height.c-sum(bl_heights)))
+      widths <- c(bl_widths, hgap, title_width.c)
+      heights <- c(bl_heights, max(0, title_height.c-sum(bl_heights)))
       vps <- with(vps, 
-                  list(bar.row = bar.row+1, bar.col = bar.col+1,
-                       label.row = label.row+1, label.col = label.col+1,
-                       title.row = 2:(length(heights)-1), title.col = length(widths)-1))
+                  list(bar.row = bar.row, bar.col = bar.col,
+                       label.row = label.row, label.col = label.col,
+                       title.row = 1:length(heights), title.col = length(widths)))
     })
 
   ## background
