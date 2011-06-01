@@ -1,4 +1,7 @@
-ggplot2 0.9.0 ----------------------------------------------------------------
+ggplot2 0.9.0
+----------------------------------------------------------------
+
+MINOR CHANGES
 
 * `geom_text` now supports `fontfamily`, `fontface`, and `lineheight`
   aesthetics for finer control over text display. (Thanks to Kohske Takahashi
