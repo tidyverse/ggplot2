@@ -48,6 +48,7 @@
 c <- ggplot(mtcars, aes(factor(cyl)))
 
 c + geom_bar()
+c + geom_bar(width=.5)
 c + geom_bar() + coord_flip()
 c + geom_bar(fill="white", colour="darkgreen")
 
