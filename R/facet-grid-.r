@@ -19,8 +19,16 @@
 #' # With two variables
 #' p + facet_grid(clarity ~ cut)
 #' p + facet_grid(cut ~ clarity)
-#' # p + facet_grid(cut ~ clarity, margins=TRUE)
+#' p + facet_grid(cut ~ clarity, margins=TRUE)
 #' 
+#' #To change plot order of facet grid, 
+#' #change the order of varible levels with factor()
+#' diamonds$cut <- factor(diamonds$cut, levels = c("Ideal","Very Good","Fair", "Good", "Premium"))
+#' #Repeat first example with new order
+#' p <- ggplot(diamonds, aes(carat, ..density..)) +
+#'  geom_histogram(binwidth = 1)
+#' p + facet_grid(. ~ cut)
+#'
 #' qplot(mpg, wt, data=mtcars, facets = . ~ vs + am)
 #' qplot(mpg, wt, data=mtcars, facets = vs + am ~ . )
 #' 
