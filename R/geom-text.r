@@ -8,6 +8,8 @@
 #' p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))
 #' 
 #' p + geom_text()
+#' # Change size of the label
+#' p + geom_text(size=10)
 #' p <- p + geom_point()
 #' 
 #' # Set aesthetics to fixed value
@@ -28,6 +30,10 @@
 #' p + geom_text(aes(label = paste(wt, "^(", cyl, ")", sep = "")),
 #'   parse = T)
 #' 
+#' #Add an annotation not from a variable source
+#' c <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
+#' c + geom_text(aes(5, 30, label="plot mpg vs wt"))
+#'
 #' # Use qplot instead
 #' qplot(wt, mpg, data = mtcars, label = rownames(mtcars),
 #'    geom=c("point", "text"))
