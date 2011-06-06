@@ -97,4 +97,18 @@ meanprice <- tapply(diamonds$price, diamonds$cut, mean)
 cut <- factor(levels(diamonds$cut), levels = levels(diamonds$cut))
 qplot(cut, meanprice)
 qplot(cut, meanprice, geom="bar", stat="identity")
-qplot(cut, meanprice, geom="bar", stat="identity", fill = I("grey50"))}
+qplot(cut, meanprice, geom="bar", stat="identity", fill = I("grey50"))
+
+#Another stacked bar chart example
+k <- ggplot(mpg, aes(manufacturer, fill=class))
+k + geom_bar()
+#Alternative method of changing aesthetics defaults
+#Change fill color; see ?set_default_scale for more
+set_default_scale("fill", "discrete", "brewer")
+k + geom_bar()
+#To change plot order of class varible
+#use factor() to change order of levels
+mpg$class <- factor(mpg$class, levels = c("midsize", "minivan", 
+"suv", "compact", "2seater", "subcompact", "pickup"))
+m <- ggplot(mpg, aes(manufacturer, fill=class))
+m + geom_bar()}
