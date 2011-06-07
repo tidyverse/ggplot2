@@ -94,7 +94,8 @@ guide_legends <- function(scales, layers, default_mapping, theme) {
     
     if (length(keys) > 1) { 
       # Multiple scales for this legend      
-      keys <- merge_recurse(keys, by = ".label")
+      
+      keys <- Reduce(function(x, y) join(x, y, by = ".label"), keys)
     } else {
       keys <- keys[[1]]
     }

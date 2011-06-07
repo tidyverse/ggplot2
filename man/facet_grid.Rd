@@ -1,6 +1,9 @@
 \name{facet_grid}
 \alias{facet_grid}
 \title{Lay out panels in a grid.}
+\usage{facet_grid(facets, margins=FALSE, scales="fixed",
+    space="fixed", shrink=TRUE, labeller="label_value",
+    as.table=TRUE)}
 
 \description{
   Lay out panels in a grid.

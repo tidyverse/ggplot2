@@ -1,5 +1,6 @@
 \name{coord_fixed}
 \title{Cartesian coordinates with fixed relationship between x and y scales.}
+\usage{coord_fixed(ratio=1)}
 
 \description{
   Cartesian coordinates with fixed relationship between x

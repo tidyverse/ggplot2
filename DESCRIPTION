@@ -14,12 +14,12 @@ Description: An implementation of the grammar of graphics
     data to aesthetic attributes. See the ggplot2 website
     for more information, documentation and examples.
 Depends:
-    reshape (>= 0.8.0),
     proto
 Imports:
     plyr (>= 1.0),
     digest,
     grid,
+    reshape2,
     scales
 Suggests:
     quantreg,
@@ -41,10 +41,11 @@ Collate:
     'aaa-html.r'
     'aes.r'
     'annotation.r'
+    'bench.r'
     'coord-.r'
     'coord-cartesian-.r'
-    'coord-cartesian-equal.r'
-    'coord-cartesian-flipped.r'
+    'coord-fixed.r'
+    'coord-flip.r'
     'coord-map.r'
     'coord-munch.r'
     'coord-polar.r'
@@ -52,6 +53,9 @@ Collate:
     'facet-.r'
     'facet-grid-.r'
     'facet-labels.r'
+    'facet-layout.r'
+    'facet-locate.r'
+    'facet-null.r'
     'facet-viewports.r'
     'facet-wrap.r'
     'fortify-lm.r'
@@ -94,7 +98,6 @@ Collate:
     'geom-vline.r'
     'ggplot2.r'
     'grob-absolute.r'
-    'grob-grid.r'
     'grob-null.r'
     'guides-axis.r'
     'guides-grid.r'
@@ -103,6 +106,7 @@ Collate:
     'layer.r'
     'limits.r'
     'matrix.r'
+    'panel.r'
     'plot-build.r'
     'plot-construction.r'
     'plot-last.r'
@@ -169,6 +173,8 @@ Collate:
     'utilities-matrix.r'
     'utilities-position.r'
     'utilities-resolution.r'
+    'utilities-table-template.r'
+    'utilities-table.r'
     'utilities.r'
     'xxx-codegen.r'
     'xxx-digest.r'

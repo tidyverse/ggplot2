@@ -3,7 +3,6 @@
 #' The polar coordinate system is most commonly used for pie charts, which 
 #' are a stacked bar chart in polar coordinates.
 #'
-#' @name coord_polar
 #' @param theta variable to map angle to (\code{x} or \code{y})
 #' @param start offset of starting point from 12 o'clock in radians
 #' @param direction 1, clockwise; -1, anticlockwise
@@ -52,184 +51,187 @@
 #' doh + geom_bar(width = 1) + coord_polar()
 #' # Race track plot
 #' doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
-CoordPolar <- proto(Coord, {
-  objname <- "polar"
-
-  new <- function(., theta="x", start = 0, direction = 1, expand = FALSE) {
-    theta <- match.arg(theta, c("x", "y"))
-    r <- if (theta == "x") "y" else "x"
-
-    c(
-      .$proto(
-        theta = theta, r = r, 
-        start = start, direction = sign(direction),
-        expand = expand
-      ), 
-      list(opts(aspect.ratio = 1))
-    )
-  }
+coord_polar <- function(theta = "x", start = 0, direction = 1, expand = FALSE) {
+  theta <- match.arg(theta, c("x", "y"))
+  r <- if (theta == "x") "y" else "x"
   
-  distance <- function(., x, y, details) {
-    max_dist <- 2*pi*abs(diff(details$r.range))
-    
-    if (.$theta == "x") {
-      r <- y
-      theta <- .$theta_rescale_no_clip(x, details)
-    } else {
-      r <- x
-      theta <- .$theta_rescale_no_clip(y, details)
-    }
-    px <- r*cos(theta)
-    py <- r*sin(theta)
-    pz <- theta*r
+  coord(
+    theta = theta, r = r, 
+    start = start, direction = sign(direction),
+    expand = expand, 
+    subclass = "polar"
+  )
+}
 
-    sqrt(diff(px)^2+diff(py)^2+diff(pz)^2) / max_dist
-  }
+#' @S3method coord_aspect polar
+coord_aspect.polar <- function(coord, details) 1
 
-  compute_ranges <- function(., scales) {
-    if (.$expand) {
-      x.range <- scale_dimension(scales$x)
-      y.range <- scale_dimension(scales$y)
-    } else {
-      x.range <- scale_dimension(scales$x, c(0, 0))
-      y.range <- scale_dimension(scales$y, c(0, 0))
-    }
-
-    x.major <- scale_break_positions(scales$x)
-    x.minor <- scale_breaks_minor(scales$x)
-    x.labels <- scale_labels(scales$x, x.major)
-
-    y.major <- scale_break_positions(scales$y)
-    y.minor <- scale_breaks_minor(scales$y)
-    y.labels <- scale_labels(scales$y, y.major)
-    
-    details <- list(
-      x.range = x.range, y.range = y.range, 
-      x.major = x.major, x.minor = x.minor, x.labels = x.labels,
-      y.major = y.major, y.minor = y.minor, y.labels = y.labels
-    )
-    
-    if (.$theta == "y") {
-      names(details) <- gsub("x\\.", "r.", names(details))
-      names(details) <- gsub("y\\.", "theta.", names(details))
-    } else {
-      names(details) <- gsub("x\\.", "theta.", names(details))      
-      names(details) <- gsub("y\\.", "r.", names(details))
-    }
-
-    details
-  }
-
-  rename_data <- function(., data) {
-    if (.$theta == "y") {
-      rename(data, c("y" = "theta", "x" = "r"))
-    } else {
-      rename(data, c("y" = "r", "x" = "theta"))
-    }
-  }
-
-  theta_rescale_no_clip <- function(., x, details) {
-    rotate <- function(x) (x + .$start) * .$direction
-    rotate(rescale(x, c(0, 2 * pi), details$theta.range))
-  }
-
-  theta_rescale <- function(., x, details) {
-    rotate <- function(x) (x + .$start) %% (2 * pi) * .$direction
-    rotate(rescale(x, c(0, 2 * pi), details$theta.range))
-  }
-    
-  r_rescale <- function(., x, details) {
-    rescale(x, c(0, 0.4), details$r.range)
-  }
-
-  muncher <- function(.) TRUE
-  transform <- function(., data, details) {
-    data <- .$rename_data(data)
-    
-    data <- within(data, {
-      r <- .$r_rescale(r, details)
-      theta <- .$theta_rescale(theta, details)
-
-      x <- r * sin(theta) + 0.5
-      y <- r * cos(theta) + 0.5
-    })
-  }
+#' @S3method coord_distance polar
+coord_distance.polar <- function(coord, x, y, details) {
+  max_dist <- 2 * pi * abs(diff(details$r.range))
   
-  guide_axis_v <- function(., details, theme) {
-    guide_axis(.$r_rescale(details$r.major, details) + 0.5, details$r.labels, "left", theme)
+  if (coord$theta == "x") {
+    r <- y
+    theta <- theta_rescale_no_clip(coord, x, details)
+  } else {
+    r <- x
+    theta <- theta_rescale_no_clip(coord, y, details)
   }
-  guide_axis_h <- function(., details, theme) {
-    guide_axis(NA, "", "bottom", theme)
+  px <- r * cos(theta)
+  py <- r * sin(theta)
+  pz <- theta * r
+
+  sqrt(diff(px) ^ 2 + diff(py) ^ 2 + diff(pz) ^ 2) / max_dist
+}
+
+#' @S3method coord_train polar
+coord_train.polar <- function(coord, scales) {
+  if (coord$expand) {
+    x.range <- scale_dimension(scales$x)
+    y.range <- scale_dimension(scales$y)
+  } else {
+    x.range <- scale_dimension(scales$x, c(0, 0))
+    y.range <- scale_dimension(scales$y, c(0, 0))
   }
+
+  x.major <- scale_break_positions(scales$x)
+  x.minor <- scale_breaks_minor(scales$x)
+  x.labels <- scale_labels(scales$x, x.major)
+
+  y.major <- scale_break_positions(scales$y)
+  y.minor <- scale_breaks_minor(scales$y)
+  y.labels <- scale_labels(scales$y, y.major)
   
-  guide_background <- function(., details, theme) {
-    details <- .$rename_data(details)
-    
-    theta <- .$theta_rescale(details$theta.major, details)
-    thetamin <- .$theta_rescale(details$theta.minor, details)
-    thetafine <- seq(0, 2 * pi, length=100)    
-    
-    r <- 0.4
-    rfine <- c(.$r_rescale(details$r.major, details), 0.45)
-
-    ggname("grill", grobTree(
-      theme_render(theme, "panel.background"),
-      if (length(labels) > 0) theme_render(
-        theme, "panel.grid.major", name = "angle", 
-        x = c(rbind(0, 0.45 * sin(theta))) + 0.5, 
-        y = c(rbind(0, 0.45 * cos(theta))) + 0.5,
-        id.lengths = rep(2, length(theta)), 
-        default.units="native"
-      ),
-      theme_render(
-        theme, "panel.grid.minor", name = "angle", 
-        x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5, 
-        y = c(rbind(0, 0.45 * cos(thetamin))) + 0.5,
-        id.lengths = rep(2, length(thetamin)),  
-        default.units="native"
-      ),
-      
-      theme_render(
-        theme, "panel.grid.major", name = "radius",
-        x = rep(rfine, each=length(thetafine)) * sin(thetafine) + 0.5, 
-        y = rep(rfine, each=length(thetafine)) * cos(thetafine) + 0.5,
-        id.lengths = rep(length(thetafine), length(rfine)),
-        default.units="native"
-      )
-    ))
+  details <- list(
+    x.range = x.range, y.range = y.range, 
+    x.major = x.major, x.minor = x.minor, x.labels = x.labels,
+    y.major = y.major, y.minor = y.minor, y.labels = y.labels
+  )
+  
+  if (coord$theta == "y") {
+    names(details) <- gsub("x\\.", "r.", names(details))
+    names(details) <- gsub("y\\.", "theta.", names(details))
+  } else {
+    names(details) <- gsub("x\\.", "theta.", names(details))      
+    names(details) <- gsub("y\\.", "r.", names(details))
   }
 
-  guide_foreground <- function(., details, theme) {
-    theta <- .$theta_rescale(details$theta.major, details)
-    labels <- details$theta.labels
-    
-    # Combine the two ends of the scale if they are close
-    theta <- theta[!is.na(theta)]
-    ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
-    if (ends_apart < 0.05) {
-      n <- length(labels)
-      if (is.expression(labels)) {
-        combined <- substitute(paste(a, "/", b), 
-          list(a = labels[[1]], b = labels[[n]]))
-      } else {
-        combined <- paste(labels[1], labels[n], sep="/")
-      }
-      labels[[n]] <- combined
-      labels <- labels[-1]
-      theta <- theta[-1]
-    }
-      
-    grobTree(
-      if (length(labels) > 0) theme_render(
-        theme, "axis.text.x", 
-        labels, 0.45 * sin(theta) + 0.5, 0.45 * cos(theta) + 0.5,
-        hjust = 0.5, vjust = 0.5,
-        default.units="native"
-      ),      
-      theme_render(theme, "panel.border")
-    )
-  }  
+  details
+}
 
+rename_data <- function(coord, data) {
+  if (coord$theta == "y") {
+    rename(data, c("y" = "theta", "x" = "r"))
+  } else {
+    rename(data, c("y" = "r", "x" = "theta"))
+  }
+}
+
+theta_rescale_no_clip <- function(coord, x, details) {
+  rotate <- function(x) (x + coord$start) * coord$direction
+  rotate(rescale(x, c(0, 2 * pi), details$theta.range))
+}
+
+theta_rescale <- function(coord, x, details) {
+  rotate <- function(x) (x + coord$start) %% (2 * pi) * coord$direction
+  rotate(rescale(x, c(0, 2 * pi), details$theta.range))
+}
+  
+r_rescale <- function(coord, x, details) {
+  rescale(x, c(0, 0.4), details$r.range)
+}
+
+#' @S3method coord_transform polar
+coord_transform.polar <- function(coord, data, details) {
+  data <- rename_data(coord, data)
+  data <- within(data, {
+    r <- r_rescale(coord, r, details)
+    theta <- theta_rescale(coord, theta, details)
+
+    x <- r * sin(theta) + 0.5
+    y <- r * cos(theta) + 0.5
+  })
+}
+
+#' @S3method coord_render_axis_v polar
+coord_render_axis_v.polar <- function(coord, details, theme) {
+  x <- r_rescale(coord,details$r.major, details) + 0.5
+  guide_axis(x, details$r.labels, "left", theme)
+}
+#' @S3method coord_render_axis_h polar
+coord_render_axis_h.polar <- function(coord, details, theme) {
+  guide_axis(NA, "", "bottom", theme)
+}
+
+#' @S3method coord_render_bg polar
+coord_render_bg.polar <- function(coord, details, theme) {
+  details <- rename_data(coord, details)
+  
+  theta <- theta_rescale(coord, details$theta.major, details)
+  thetamin <- theta_rescale(coord, details$theta.minor, details)
+  thetafine <- seq(0, 2 * pi, length=100)    
+  
+  r <- 0.4
+  rfine <- c(r_rescale(coord, details$r.major, details), 0.45)
+
+  ggname("grill", grobTree(
+    theme_render(theme, "panel.background"),
+    if (length(labels) > 0) theme_render(
+      theme, "panel.grid.major", name = "angle", 
+      x = c(rbind(0, 0.45 * sin(theta))) + 0.5, 
+      y = c(rbind(0, 0.45 * cos(theta))) + 0.5,
+      id.lengths = rep(2, length(theta)), 
+      default.units="native"
+    ),
+    theme_render(
+      theme, "panel.grid.minor", name = "angle", 
+      x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5, 
+      y = c(rbind(0, 0.45 * cos(thetamin))) + 0.5,
+      id.lengths = rep(2, length(thetamin)),  
+      default.units="native"
+    ),
     
-  icon <- function(.) circleGrob(r = c(0.1, 0.25, 0.45), gp=gpar(fill=NA))
-})
+    theme_render(
+      theme, "panel.grid.major", name = "radius",
+      x = rep(rfine, each=length(thetafine)) * sin(thetafine) + 0.5, 
+      y = rep(rfine, each=length(thetafine)) * cos(thetafine) + 0.5,
+      id.lengths = rep(length(thetafine), length(rfine)),
+      default.units="native"
+    )
+  ))
+}
+
+#' @S3method coord_render_fg polar
+coord_render_fg.polar <- function(coord, details, theme) {
+  theta <- theta_rescale(coord, details$theta.major, details)
+  labels <- details$theta.labels
+  
+  # Combine the two ends of the scale if they are close
+  theta <- theta[!is.na(theta)]
+  ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
+  if (ends_apart < 0.05) {
+    n <- length(labels)
+    if (is.expression(labels)) {
+      combined <- substitute(paste(a, "/", b), 
+        list(a = labels[[1]], b = labels[[n]]))
+    } else {
+      combined <- paste(labels[1], labels[n], sep="/")
+    }
+    labels[[n]] <- combined
+    labels <- labels[-1]
+    theta <- theta[-1]
+  }
+    
+  grobTree(
+    if (length(labels) > 0) theme_render(
+      theme, "axis.text.x", 
+      labels, 0.45 * sin(theta) + 0.5, 0.45 * cos(theta) + 0.5,
+      hjust = 0.5, vjust = 0.5,
+      default.units="native"
+    ),      
+    theme_render(theme, "panel.border")
+  )
+}  
+
+  
+icon <- function(.) circleGrob(r = c(0.1, 0.25, 0.45), gp=gpar(fill=NA))

@@ -30,6 +30,7 @@ Scales <- setRefClass("Scales", fields = "scales", methods = list(
   },
   get_scales = function(output) {
     scale <- scales[find(output)]
+    if (length(scale) == 0) return()
     scale[[1]]
   }  
 ))

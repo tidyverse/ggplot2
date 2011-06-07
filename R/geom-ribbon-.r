@@ -68,7 +68,7 @@ GeomRibbon <- proto(Geom, {
 
     positions <- summarise(data, 
       x = c(x, rev(x)), y = c(ymax, rev(ymin)), id = c(ids, rev(ids)))
-    munched <- coordinates$munch(positions, scales)
+    munched <- coord_munch(coordinates,positions, scales)
 
     ggname(.$my_name(), polygonGrob(
       munched$x, munched$y, id = munched$id,

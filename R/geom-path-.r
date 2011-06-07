@@ -11,6 +11,7 @@
 #' @export
 #' @examples
 #' # Generate data
+#' library(plyr)
 #' myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
 #' p <- ggplot(myear, aes(length, rating))
 #' p + geom_path()
@@ -107,7 +108,7 @@ GeomPath <- proto(Geom, {
         " (geom_path).", call. = FALSE)
     }
     
-    munched <- coordinates$munch(data, scales)
+    munched <- coord_munch(coordinates, data, scales)
 
     # Silently drop lines with less than two points, preserving order
     rows <- ave(seq_len(nrow(munched)), munched$group, FUN = length)

@@ -126,7 +126,7 @@ aes_all <- function(vars) {
 # @param params. user specified values
 # @value a data.frame, with all factors converted to character strings
 aesdefaults <- function(data, y., params.) {
-  updated <- updatelist(y., params.)
+  updated <- modifyList(y., params. %||% list())
   
   cols <- tryapply(defaults(data, updated), function(x) eval(x, data, globalenv()))
   

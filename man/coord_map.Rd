@@ -1,6 +1,8 @@
 \name{coord_map}
 \alias{coord_map}
 \title{Map projections.}
+\usage{coord_map(projection="mercator", ..., orientation, xlim,
+    ylim)}
 
 \description{
   Map projections.

@@ -39,14 +39,14 @@
 #' # Use abbreviate as a formatter to reduce long names
 #' qplot(reorder(manufacturer, cty), cty, data=mpg) +  
 #'   scale_x_discrete(labels = abbreviate)
-scale_x_discrete <- function(..., expand = c(0, 0.5)) {
+scale_x_discrete <- function(..., expand = c(0, 0.6)) {
   sc <- discrete_scale(c("x", "xmin", "xmax", "xend"), "position_d", identity, ..., 
     expand = expand, legend = FALSE)
     
   sc$range_c <- ContinuousRange$new()
   sc
 }
-scale_y_discrete <- function(..., expand = c(0, 0.5)) {
+scale_y_discrete <- function(..., expand = c(0, 0.6)) {
   sc <- discrete_scale(c("y", "ymin", "ymax", "yend"), "position_d", identity, ..., 
     expand = expand, legend = FALSE)
   sc$range_c <- ContinuousRange$new()
@@ -66,6 +66,16 @@ scale_train.position_d <- function(scale, x) {
     scale$range_c$train(x)
   }
 }
+
+# If range not available from discrete range, implies discrete scale been
+# used with purely continuous data, so construct limits accordingly
+#' @S3method scale_limits position_d
+scale_limits.position_d <- function(scale) {
+  dis_limits <- function(x) seq.int(floor(min(x)), ceiling(max(x)), by = 1L)
+  
+  scale$limits %||% scale$range$range %||% dis_limits(scale$range_c$range)
+}
+
 
 #' @S3method scale_reset position_d
 scale_reset.position_d <- function(scale, x) {

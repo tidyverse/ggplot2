@@ -56,7 +56,7 @@
 #'   geom_smooth(se = FALSE, size = 0.5)
 #' 
 #' plot(mod, which = 6)
-#' ggplot(mod, aes(.hat, .cooksd, data = mod)) + 
+#' ggplot(mod, aes(.hat, .cooksd)) + 
 #'   geom_vline(xintercept = 0, colour = NA) + 
 #'   geom_abline(slope = seq(0, 3, by = 0.5), colour = "white") +
 #'   geom_smooth(se = FALSE) + 

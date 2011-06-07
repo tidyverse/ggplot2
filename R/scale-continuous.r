@@ -82,13 +82,6 @@ scale_map.position_c <- function(scale, x) {
   as.numeric(x)
 }
 
-#' @S3method scale_clone position_c
-scale_clone.position_c <- function(scale) {
-  new <- scale
-  new$range <- ContinuousRange$new()  
-  new
-}
-
 # Transformed scales 
 scale_x_log10 <- function(...) {
   scale_x_continuous(..., trans = log10_trans())
