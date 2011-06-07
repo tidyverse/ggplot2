@@ -210,12 +210,14 @@ gtable_show_layout <- function(x) {
 gtable_viewport <- function(x) {
   layout_vp <- viewport(layout = gtable_layout(x), name = x$name)
   vp <- function(i) {
-    with(x$layout[i, ], viewport(
-      name = paste(name, t, l, sep = "-"), 
-      layout.pos.row = t:b,
-      layout.pos.col = l:r,
-      clip = clip
-    ))
+    with(x$layout[i, ], {
+      if (!exists("b")) b <- t
+      if (!exists("r")) r <- l
+      viewport(name = paste(name, t, l, sep = "-"), 
+        layout.pos.row = t:b,
+        layout.pos.col = l:r,
+        clip = clip
+      )})
   }
   children_vp <- do.call("vpList", llply(seq_along(x$grobs), vp))
   vpTree(layout_vp, children_vp)    
