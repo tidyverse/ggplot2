@@ -165,7 +165,6 @@ Collate:
     'theme-elements.r'
     'theme.r'
     'utilities-break.r'
-    'utilities-colour.r'
     'utilities-discrete.r'
     'utilities-facet.r'
     'utilities-grid.r'
