@@ -34,9 +34,9 @@ p + geom_text(aes(size=wt)) + scale_size(range=c(3,6))
 p + geom_text(aes(label = paste(wt, "^(", cyl, ")", sep = "")),
 parse = T)
 
-#Add an annotation not from a variable source
+# Add an annotation not from a variable source
 c <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
-c + geom_text(aes(5, 30, label="plot mpg vs wt"))
+c + geom_text(aes(5, 30, label="plot mpg vs. wt"))
 
 # Use qplot instead
 qplot(wt, mpg, data = mtcars, label = rownames(mtcars),
