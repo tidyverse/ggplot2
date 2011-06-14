@@ -57,7 +57,7 @@ group = round_any(year, 10, floor))
 
 # Using precomputed statistics
 # generate sample data
-abc <- adply(matrix( rnorm(100), ncol=5), 2 , quantile, c(0, .25, .5, .75, 1))
+abc <- adply(matrix(rnorm(100), ncol=5), 2, quantile, c(0, .25, .5, .75, 1))
 b <- ggplot(abc, aes(x= X1, ymin=`0\%`, lower=`25\%`, middle=`50\%`, upper=`75\%`, ymax=`100\%`)) 
 b + geom_boxplot(stat="identity")
 b + geom_boxplot(stat="identity") + coord_flip()

@@ -31,7 +31,7 @@ p + facet_grid(cut ~ clarity, margins=TRUE)
 
 # To change plot order of facet grid, 
 # change the order of varible levels with factor()
-diamonds$cut <- factor(diamonds$cut, levels = c("Ideal","Very Good","Fair", "Good", "Premium"))
+diamonds$cut <- factor(diamonds$cut, levels = c("Ideal", "Very Good", "Fair", "Good", "Premium"))
 # Repeat first example with new order
 p <- ggplot(diamonds, aes(carat, ..density..)) +
 geom_histogram(binwidth = 1)
