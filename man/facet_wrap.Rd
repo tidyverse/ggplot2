@@ -26,10 +26,10 @@ d + facet_wrap(~ color, nrow = 3)
 # plots into 2d - the ribbon just gets longer
 # d + facet_wrap(~ color + cut)
 
-#To change plot order of facet wrap, 
-#change the order of varible levels with factor()
+# To change plot order of facet wrap, 
+# change the order of varible levels with factor()
 diamonds$color <- factor(diamonds$color, levels = c("G","J","D", "E", "I", "F", "H"))
-#Repeat first example with new order
+# Repeat first example with new order
 d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) + 
 xlim(0, 2) + stat_binhex(na.rm = TRUE) + opts(aspect.ratio = 1)
 d + facet_wrap(~ color)
