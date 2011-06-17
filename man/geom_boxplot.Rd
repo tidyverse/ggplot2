@@ -34,7 +34,7 @@ p + geom_boxplot(aes(fill = factor(vs)))
 p + geom_boxplot(aes(fill = factor(am)))
 
 # Set aesthetics to fixed value
-p + geom_boxplot(fill="grey80", colour="#3366FF")
+p + geom_boxplot(fill = "grey80", colour = "#3366FF")
 qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot", 
 colour = I("#3366FF"))
 
@@ -57,8 +57,8 @@ group = round_any(year, 10, floor))
 
 # Using precomputed statistics
 # generate sample data
-abc <- adply(matrix(rnorm(100), ncol=5), 2, quantile, c(0, .25, .5, .75, 1))
-b <- ggplot(abc, aes(x= X1, ymin=`0\%`, lower=`25\%`, middle=`50\%`, upper=`75\%`, ymax=`100\%`)) 
-b + geom_boxplot(stat="identity")
-b + geom_boxplot(stat="identity") + coord_flip()
-b + geom_boxplot(aes(fill = X1), stat="identity")}
+abc <- adply(matrix(rnorm(100), ncol = 5), 2, quantile, c(0, .25, .5, .75, 1))
+b <- ggplot(abc, aes(x = X1, ymin = `0\%`, lower = `25\%`, middle = `50\%`, upper = `75\%`, ymax = `100\%`)) 
+b + geom_boxplot(stat = "identity")
+b + geom_boxplot(stat = "identity") + coord_flip()
+b + geom_boxplot(aes(fill = X1), stat = "identity")}
