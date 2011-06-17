@@ -37,6 +37,8 @@ parse = T)
 # Add an annotation not from a variable source
 c <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 c + geom_text(aes(5, 30, label="plot mpg vs. wt"))
+# Or, you can use annotate
+c + annotate("text", label = "plot mpg vs. wt", x = 2, y = 15, size = 8, colour = "red")
 
 # Use qplot instead
 qplot(wt, mpg, data = mtcars, label = rownames(mtcars),
