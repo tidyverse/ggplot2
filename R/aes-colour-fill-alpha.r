@@ -1,8 +1,9 @@
-#' aes_colour_fill_alpha
+#' Colour related aesthetics: colour, fill and alpha
 #' 
 #' @name aes_colour_fill_alpha
+#' @alias colour color fill alpha 
 #'
-#' This page demonstrates the usuage of a subgroup 
+#' This page demonstrates the usage of a sub-group 
 #' of aesthetics; colour, fill and alpha.
 #' 
 #' @examples
@@ -15,7 +16,7 @@
 #' c + geom_bar(fill = "red")
 #' # Compare with the colour aesthetic which changes just the bar outline
 #' c + geom_bar(colour = "red")
-#' # Combining both, you can see the changes clearer
+#' # Combining both, you can see the changes more clearly
 #' c + geom_bar(fill = "white", colour = "red")
 #' 
 #' # The aesthetic fill also takes different colouring scales
@@ -42,6 +43,10 @@
 #' h + geom_point()
 #' h + geom_point(colour = alpha("black", .5))
 #' h + geom_point(colour = alpha("black", 1/10))
+#'
+#' #If a geom uses both fill and colour, alpha will only modify the fill colour 
+#' c + geom_bar(fill = "dark grey", colour = "black")
+#' c + geom_bar(fill = "dark grey", colour = "black", alpha = 1/3)
 #' 
 #' # Alpha can also be used to add shading
 #' j <- b + geom_line()
