@@ -295,4 +295,11 @@ scale_clone.continuous <- function(scale) {
   new
 }
 
+#' @S3method scale_clone discrete
+scale_clone.discrete <- function(scale) {
+  new <- scale
+  new$range <- DiscreteRange$new()
+  new
+}
+
 
