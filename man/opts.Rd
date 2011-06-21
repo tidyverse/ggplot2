@@ -13,6 +13,34 @@
 }
 \arguments{
   \item{...}{named list of theme settings}
+  \item{axis.line}{line along axis}
+  \item{axis.text.x}{x axis label}
+  \item{axis.text.y}{y axis label}
+  \item{axis.ticks}{axis tick marks}
+  \item{axis.ticks.length}{tick mark length}
+  \item{axis.ticks.margin}{tick mark  margin spacing}
+  \item{axis.title.x}{horizontal tick labels}
+  \item{axis.title.y}{vertical tick labels}
+  \item{legend.background}{background of legend}
+  \item{legend.key}{background underneath legend keys}
+  \item{legend.key.size}{key background size}
+  \item{legend.key.width}{key background width}
+  \item{legend.text}{legend labels}
+  \item{legend.title}{legend name}
+  \item{legend.position}{placement of legend}
+  \item{legend.justification}{alignment of legend}
+  \item{legend.direction}{horizontal or vertical}
+  \item{panel.background}{background of panel}
+  \item{panel.border}{border around panel}
+  \item{panel.margin}{margin around facet panels}
+  \item{panel.grid.major}{major grid lines}
+  \item{panel.grid.minor}{minor grid lines}
+  \item{plot.background}{background of the entire plot}
+  \item{plot.title}{plot title}
+  \item{plot.margin}{plot margins}
+  \item{strip.background}{background of facet labels}
+  \item{strip.text.x}{text for horizontal strips}
+  \item{strip.text.y}{text for vertical strips}
 }
 \examples{p <- qplot(mpg, wt, data = mtcars)
 p 
@@ -66,6 +94,8 @@ z <- ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) + geom_point()
 z
 z + opts(legend.position = "none")
 z + opts(legend.position = "bottom")
+# Or use relative coordinates between 0 and 1
+z + opts(legend.position = c(.5, .5))
 z + opts(legend.background = theme_rect())
 # Or to just the keys
 z + opts(legend.key = theme_rect())

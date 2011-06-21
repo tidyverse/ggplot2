@@ -59,6 +59,35 @@ theme_set <- .theme$set
 #' a single plot.
 #' 
 #' @param ... named list of theme settings
+#' @param axis.line line along axis
+#' @param axis.text.x x axis label
+#' @param axis.text.y y axis label
+#' @param axis.ticks axis tick marks
+#' @param axis.ticks.length tick mark length
+#' @param axis.ticks.margin tick mark  margin spacing
+#' @param axis.title.x horizontal tick labels
+#' @param axis.title.y vertical tick labels
+#' @param legend.background background of legend
+#' @param legend.key background underneath legend keys
+#' @param legend.key.size key background size 
+#' @param legend.key.width key background width
+#' @param legend.text legend labels
+#' @param legend.title legend name
+#' @param legend.position placement of legend 
+#' @param legend.justification alignment of legend 
+#' @param legend.direction horizontal or vertical
+#' @param panel.background background of panel
+#' @param panel.border border around panel
+#' @param panel.margin margin around facet panels
+#' @param panel.grid.major major grid lines
+#' @param panel.grid.minor minor grid lines
+#' @param plot.background background of the entire plot
+#' @param plot.title plot title
+#' @param plot.margin plot margins
+#' @param strip.background background of facet labels
+#' @param strip.text.x text for horizontal strips
+#' @param strip.text.y text for vertical strips
+#'
 #' @export
 #' @examples
 #' p <- qplot(mpg, wt, data = mtcars)
@@ -113,6 +142,8 @@ theme_set <- .theme$set
 #' z
 #' z + opts(legend.position = "none")
 #' z + opts(legend.position = "bottom")
+#' # Or use relative coordinates between 0 and 1
+#' z + opts(legend.position = c(.5, .5))
 #  # Add a border to the whole legend
 #' z + opts(legend.background = theme_rect())
 #' # Or to just the keys
