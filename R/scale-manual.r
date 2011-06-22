@@ -8,6 +8,8 @@
 #' p + scale_colour_manual(values = c("red","blue", "green"))
 #' p + scale_colour_manual(
 #'   values = c("8" = "red","4" = "blue","6" = "green"))
+#' # With rgb hex values
+#' p + scale_colour_manual(values = c("#FF0000", "#0000FF", "#00FF00"))
 #' 
 #' # As with other scales you can use breaks to control the appearance
 #' # of the legend
