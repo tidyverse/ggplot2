@@ -82,6 +82,4 @@ test_that("position scales generate after stats", {
   expect_that(ranges$x[[1]], equals(c("1")))
   expect_that(ranges$y[[1]], equals(c(0, 3)))
   
-  
-  
 })
