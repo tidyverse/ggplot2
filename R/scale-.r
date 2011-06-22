@@ -36,6 +36,12 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
     legend <- nulldefault(TRUE, legend)
   }
   
+  bad_labels <- is.vector(breaks) && is.vector(labels) && 
+    length(breaks) != length(labels)
+  if (bad_labels) {
+    stop("Breaks and labels have unequal lengths", call. = FALSE)
+  }
+  
   trans <- as.trans(trans)
   if (!is.null(limits)) {
     limits <- trans$trans(limits)
@@ -71,6 +77,12 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks 
     warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
   } else {
     legend <- nulldefault(TRUE, legend)
+  }
+  
+  bad_labels <- is.vector(breaks) && is.vector(labels) && 
+    length(breaks) != length(labels)
+  if (bad_labels) {
+    stop("Breaks and labels have unequal lengths", call. = FALSE)
   }
   
   structure(list(
@@ -243,12 +255,16 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
 
 scale_breaks.discrete <- function(scale, limits = scale_limits(scale)) {
   if (is.null(scale$breaks)) {
-    limits
+    breaks <- limits
   } else if (is.function(scale$breaks)) {
-    scale$breaks(limits)
+    breaks <- scale$breaks(limits)
   } else {
-    scale$breaks
+    breaks <- scale$breaks
   }
+  
+  # Breaks can only occur only on values in domain
+  in_domain <- intersect(breaks, scale_limits(scale))
+  structure(in_domain, pos = match(in_domain, breaks))
 }
 
 # The numeric position of scale breaks, when used for a position guide.
@@ -289,11 +305,18 @@ scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
 
 scale_labels.discrete <- function(scale, breaks = scale_breaks(scale)) {
   if (is.null(scale$labels)) {
-    format(scale_limits(scale), justify = "none")
+    formatC(scale_breaks(scale))
   } else if (is.function(scale$labels)) {
     scale$labels(breaks)
   } else {
-    scale$labels
+    labels <- scale$labels
+    
+    # Need to ensure that if breaks were dropped, corresponding labels are too
+    pos <- attr(breaks, "pos")
+    if (!is.null(pos)) {
+      labels <- labels[pos]
+    }
+    labels    
   }
 }
 
@@ -310,4 +333,9 @@ scale_clone.continuous <- function(scale) {
   new
 }
 
-
+#' @S3method scale_clone discrete
+scale_clone.discrete <- function(scale) {
+  new <- scale
+  new$range <- DiscreteRange$new()
+  new
+}

@@ -23,7 +23,7 @@ test_that("mapping works", {
   
   expect_equal(
     scale_map_df(sc, data.frame(alpha = 1:10))[[1]], 
-    seq(0, 1, length = 10))
+    round_any(seq(0, 1, length = 10), 1 / 500))
     
   expect_equal(scale_map_df(sc, data.frame(alpha = NA))[[1]], 0)
   
@@ -81,7 +81,5 @@ test_that("position scales generate after stats", {
   
   expect_that(ranges$x[[1]], equals(c("1")))
   expect_that(ranges$y[[1]], equals(c(0, 3)))
-  
-  
   
 })

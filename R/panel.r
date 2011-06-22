@@ -193,3 +193,11 @@ calculate_stats <- function(panel, data, layers) {
   }) 
 }
 
+
+xlabel <- function(panel, theme) {
+  panel$x_scales[[1]]$name %||% theme$labels$x
+}
+  
+ylabel <- function(panel, theme) {
+  panel$y_scales[[1]]$name %||% theme$labels$y
+}

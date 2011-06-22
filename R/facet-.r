@@ -17,13 +17,6 @@ facet <- function(..., shrink = TRUE, subclass = c()) {
 #' @export
 is.facet <- function(x) inherits(x, "facet")
 
-xlabel <- function(facet, theme) {
-  facet$scales$x[[1]]$name %||% theme$labels$x
-}
-  
-ylabel <- function(facet, theme) {
-  facet$scales$y[[1]]$name %||% theme$labels$y
-}
 
 # Figure out layout from data from plot and all layers.  
 # 

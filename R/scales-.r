@@ -14,7 +14,8 @@ Scales <- setRefClass("Scales", fields = "scales", methods = list(
     scales <<- c(scales[!find(scale)], list(scale))
   }, 
   clone = function() {
-    Scales$new(scales)
+    new_scales <- lapply(scales, scale_clone)
+    Scales$new(new_scales)
   },
   n = function() {
     length(scales)
