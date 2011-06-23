@@ -94,4 +94,21 @@ mpg <- within(mpg, {
 model <- reorder(model, cty)
 manufacturer <- reorder(manufacturer, cty)
 })
-last_plot() \%+\% mpg + opts(strip.text.y = theme_text())}
+last_plot() \%+\% mpg + opts(strip.text.y = theme_text())
+
+# Use as.table to to control direction of horizontal facets, TRUE by default
+h <- ggplot(mtcars, (aes(x = mpg, y = wt))) + geom_point()
+h + facet_grid(cyl ~ vs)
+h + facet_grid(cyl ~ vs, as.table = FALSE)
+
+# Use labeller to control facet labels, label_value is default
+h + facet_grid(cyl ~ vs, labeller = label_both)
+# Using label_parsed, see ?plotmath for more options
+mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "sqrt(x, y)"))
+k <- qplot(wt, mpg, data = mtcars) 
+k + facet_grid(. ~ cyl2)
+k + facet_grid(. ~ cyl2, labeller = label_parsed)
+# For label_bquote the label value is x.
+p <- qplot(wt, mpg, data = mtcars)
+p + facet_grid(~ vs, labeller = label_bquote(alpha ^ .(x)))
+p + facet_grid(~ vs, labeller = label_bquote(.(x) ^ .(x)))}
