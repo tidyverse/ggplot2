@@ -24,9 +24,12 @@
   \item{legend.background}{background of legend}
   \item{legend.key}{background underneath legend keys}
   \item{legend.key.size}{key background size}
+  \item{legend.key.height}{key background height}
   \item{legend.key.width}{key background width}
   \item{legend.text}{legend labels}
+  \item{legend.text.align}{alignment of legend labels}
   \item{legend.title}{legend name}
+  \item{legend.title.align}{alignment of legend title}
   \item{legend.position}{placement of legend}
   \item{legend.justification}{alignment of legend}
   \item{legend.direction}{horizontal or vertical}

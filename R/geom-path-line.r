@@ -35,6 +35,13 @@
 #' qplot(date, pop, data=subset(economics, date > as.Date("2006-1-1")), geom="line")
 #' qplot(date, pop, data=economics, size=unemploy/pop, geom="line")
 #' 
+#' # Use the arrow parameter to add an arrow to the line
+#' # See ?grid::arrow for more details
+#' c <- ggplot(economics, aes(x = date, y = pop)) 
+#' # Arrow defaults to "last"
+#' c + geom_line(arrow = arrow())
+#' c + geom_line(arrow = arrow(angle = 15, ends = "both", type = "closed"))
+#'
 #' # See scale_date for examples of plotting multiple times series on
 #' # a single graph
 #' 

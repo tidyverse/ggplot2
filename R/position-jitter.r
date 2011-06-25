@@ -17,7 +17,7 @@
 #' qplot(am, vs, data=mtcars, position=position_jitter(w=0.1, h=0.1))
 #' 
 #' # The default works better for large datasets, where it will 
-#' # will up as much space as a boxplot or a bar
+#' # take up as much space as a boxplot or a bar
 #' qplot(cut, price, data=diamonds, geom=c("boxplot", "jitter"))
 PositionJitter <- proto(Position, {
   objname <- "jitter"

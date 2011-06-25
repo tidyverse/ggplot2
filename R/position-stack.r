@@ -5,7 +5,11 @@
 #' @examples 
 #' # Stacking is the default behaviour for most area plots:
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) + geom_bar()
-#'   
+#'    
+#' # To change stacking order, use factor() to change order of levels
+#' mtcars$vs <- factor(mtcars$vs, levels = c(1,0))
+#' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) + geom_bar()
+#'
 #' ggplot(diamonds, aes(price)) + geom_histogram(binwidth=500)
 #' ggplot(diamonds, aes(price, fill = cut)) + geom_histogram(binwidth=500)
 #' 

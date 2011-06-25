@@ -70,9 +70,12 @@ theme_set <- .theme$set
 #' @param legend.background background of legend
 #' @param legend.key background underneath legend keys
 #' @param legend.key.size key background size 
+#' @param legend.key.height key background height
 #' @param legend.key.width key background width
 #' @param legend.text legend labels
+#' @param legend.text.align alignment of legend labels
 #' @param legend.title legend name
+#' @param legend.title.align alignment of legend title
 #' @param legend.position placement of legend 
 #' @param legend.justification alignment of legend 
 #' @param legend.direction horizontal or vertical

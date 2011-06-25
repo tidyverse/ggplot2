@@ -17,6 +17,8 @@
 #' p <- ggplot(df, aes(resp, trt, colour = group))
 #' p + geom_point() +
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se))
+#' p + geom_point() +
+#'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))
 GeomErrorbarh <- proto(Geom, {
   objname <- "errorbarh"
 

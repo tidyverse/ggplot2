@@ -20,4 +20,6 @@ se = c(0.1, 0.3, 0.3, 0.2)
 
 p <- ggplot(df, aes(resp, trt, colour = group))
 p + geom_point() +
-geom_errorbarh(aes(xmax = resp + se, xmin = resp - se))}
+geom_errorbarh(aes(xmax = resp + se, xmin = resp - se))
+p + geom_point() +
+geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))}
