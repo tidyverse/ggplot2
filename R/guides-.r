@@ -6,6 +6,7 @@
 ##' @title Set guides for scales
 ##' @param ... List of scale guide pairs
 ##' @return A list containing mapping between scale and guide.
+##' @export
 ##' @examples
 ##' # ggplot object
 ##' 
@@ -262,8 +263,20 @@ guides_build <- function(ggrobs, theme) {
   guides
 }
 
-## S3 dispatch
+## S3 dispatches
+
+##' @S3method guide_train legend 
+##' @S3method guide_train colorbar
 guide_train <- function(...) UseMethod("guide_train")
+
+##' @S3method guide_merge legend 
+##' @S3method guide_merge colorbar 
 guide_merge <- function(...) UseMethod("guide_merge")
+
+##' @S3method guide_geom legend 
+##' @S3method guide_geom colorbar 
 guide_geom <- function(...) UseMethod("guide_geom")
+
+##' @S3method guide_gengrob legend 
+##' @S3method guide_gengrob colorbar 
 guide_gengrob <- function(...) UseMethod("guide_gengrob")
