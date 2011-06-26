@@ -1,8 +1,90 @@
-## colorbar guide
-##
-## TODO: optimize justification of lable and title automatically based on the position and direction
-## TODO: refactor horizontal and vertical grob gen. Is it better to separate out?
-## TODO: documentation. but after the design and implementation is fixed.
+##' Colorbar type guide
+##'
+##' Colorbar type guide shows a continuous color scales mapped onto values.
+##' Colorbar is available with \code{scale_fill} and \code{scale_colour}.
+##' For more information, see \href{http://www.mathworks.com/help/techdoc/ref/colorbar.html}{Matlab site}.
+##'
+##' Guides can be specified in each scale or in \code{\link{guides}}.
+##' \code{guide="legend"} in scale is syntax suger for \code{guide=guide_legend()}.
+##' As for how to specify the guide for each scales, see \code{\link{guides}}.
+##'
+##' @name guide_colorbar
+##' @title Colorbar guide
+##' @param title A character string or expression indicating a title of guide. If \code{NULL}, the title is not shown. By default (\code{\link{waiver()}}), the name of the scale object or tha name specified in \code{\link{labs}} is used for the title.
+##' @param title.position A character string indicating the position of a title. One of "top" (default for a vertical guide), "bottom", "left" (default for a horizontal guide), or "right."
+##' @param title.angle The angle to rotate the title text.
+##' @param title.hjust A numeric specifying horizontal justification of the title text.
+##' @param title.vjust A numeric specifying vertical justification of the title text.
+##' @param title.theme A theme object for rendering the title text. Usually the object of \code{\link{theme_text}} is expected. By default, the theme is specified by \code{legend.title} in \code{\link{opts}} or theme.
+##' @param label logical. If \code{TRUE} then the labels are drawn. If \code{FALSE} then the labels are invisible.
+##' @param label.position A character string indicating the position of a label. One of "top", "bottom" (default for horizontal guide), "left", or "right" (default for vertical gudie).
+##' @param label.angle The angle to rotate the label text.
+##' @param label.hjust A numeric specifying horizontal justification of the label text.
+##' @param label.vjust A numeric specifying vertical justification of the label text.
+##' @param label.theme A theme object for rendering the label text. Usually the object of \code{\link{theme_text}} is expected. By default, the theme is specified by \code{legend.text} in \code{\link{opts}} or theme.
+##' @param barwidth A numeric or a unit object specifying the width of the colorbar. Default value is \code{legend.key.width} or \code{legend.key.size} in \code{\link{opts}} or theme.
+##' @param barheight A numeric or a unit object specifying the height of the colorbar. Default value is \code{legend.key.height} or \code{legend.key.size} in \code{\link{opts}} or theme.
+##' @param nbin A numeric specifying the number of bins for drawing colorbar. A smoother colorbar for a larger value.
+##' @param raster A logical specifying if the colorbar should be drawn as raster or as vector graphics. Currently, only the raster is supported.
+##' @param ticks A logical specifying if tick marks on colorbar should be visible.
+##' @param draw.ulim A logical specifying if the upper limit tick marks should be visible.
+##' @param draw.llim A logical specifying if the lower limit tick marks should be visible.
+##' @param direction  A character string indicating the direction of the guide. One of "horizontal" or "vertical."
+##' @param default.unit A character string indicating unit for \code{barwidth} and \code{barheight}. 
+##' @param ... ignored.
+##' @return Guide object
+##' @seealso \code{\link{guides}}, \code{\link{guide_legend}}
+##' @export
+##' @examples
+##' # ggplot objects
+##' 
+##' p1 <- function()ggplot(melt(outer(1:4, 1:4)), aes(x = X1, y = X2)) + geom_tile(aes(fill = value))
+##' p2 <- function()ggplot(melt(outer(1:4, 1:4)), aes(x = X1, y = X2)) + geom_tile(aes(fill = value)) + geom_point(aes(size = value))
+##' 
+##' 
+##' ## basic form
+##' 
+##' # short version
+##' p1() + scale_fill_continuous(guide = "colorbar")
+##' 
+##' # long version
+##' 
+##' p1() + scale_fill_continuous(guide = guide_colorbar())
+##' 
+##' # separately set the direction of each guide
+##' p2() + scale_fill_continuous(guide = guide_colorbar(direction = "horizontal")) +
+##'   scale_size(guide = guide_legend(direction = "vertical")) ## separately set the direction of each gui
+##' 
+##' ## control styles
+##' 
+##' # bar size
+##' p1() + scale_fill_continuous(guide = guide_colorbar(barwidth=0.5, barheight=10))
+##' 
+##' # no label
+##' 
+##' p1() + scale_fill_continuous(guide = guide_colorbar(label = FALSE))
+##' 
+##' # no tick marks
+##' p1() + scale_fill_continuous(guide = guide_colorbar(ticks = FALSE))
+##' 
+##' # label position
+##' p1() + scale_fill_continuous(guide = guide_colorbar(label.position = "left"))
+##' 
+##' # small number of bins
+##' p1() + scale_fill_continuous(guide = guide_colorbar(nbin = 3))
+##' 
+##' # large number of bins
+##' p1() + scale_fill_continuous(guide = guide_colorbar(nbin = 100))
+##' 
+##' # make top- and bottom-most ticks invisible
+##' p1() + scale_fill_continuous(limits=c(0,20), breaks=c(0,5,10,15,20),
+##'                             guide = guide_colorbar(nbin=100, draw.ulim = FALSE, draw.llim = FALSE))
+##' 
+##' # combine colorbar and legend guide
+##' p2() + scale_fill_continuous(guide = "colorbar") + scale_size(guide = "legend")
+##' 
+##' # same, but short version
+##' p2() + guides(fill = "colorbar", size = "legend")
 guide_colorbar <- function(
                            
   ##　title
