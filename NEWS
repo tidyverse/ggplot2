@@ -34,6 +34,8 @@ MINOR CHANGES
 
 * `stat_contour` no longer errors if all breaks outside z range (fixes #195).
 
+* `geom_text` remove rows with missing values with warning (fixes #191)
+
 DEVELOPMENT
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems

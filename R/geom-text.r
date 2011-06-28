@@ -44,6 +44,8 @@ GeomText <- proto(Geom, {
 
   draw_groups <- function(., ...) .$draw(...)
   draw <- function(., data, scales, coordinates, ..., parse = FALSE) {
+    data <- remove_missing(data, na.rm, 
+      c("x", "y", "label"), name = "geom_text")
     
     lab <- data$label
     if (parse) {
