@@ -13,7 +13,7 @@
 # This function sets up the appropriate viewports and packs the
 # various components in.  The viewport is set up so that each component
 # will only take up the amount of space that it requires.  
-ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop, keep = plot$options$keep, ...) {
+ggplot_gtable <- function(plot, data = ggplot_build(plot), drop = plot$options$drop, keep = plot$options$keep, ...) {
 
   theme <- plot_theme(plot)
   panel <- data$panel
@@ -69,7 +69,7 @@ ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop
   plot_table <- gtable_add_grob(plot_table, ylabel, name = "ylab",
     l = 1, b = panel_loc()$b, t = panel_loc()$t)
 
-  return(gtable_gTree(plot_table))
+  return(plot_table)
 
   # Legends
   position <- theme$legend.position
@@ -114,7 +114,7 @@ ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop
   if (!is.null(keep)) drop <- setdiff(names(grobs), keep)
   if (!is.null(drop)) grobs[drop] <- rep(list(zeroGrob()), length(drop))
 
-  gtable_gTree(plot_table)  
+  plot_table
 }
 
 #' Draw plot on current graphics device.
@@ -131,12 +131,14 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   if (newpage) grid.newpage()
   
   data <- ggplot_build(x)
-  grob <- ggplotGrob(x, data, ...)
+  
+  gtable <- ggplot_gtable(x, data, ...)
+  gtree <- gtable_gTree(gtable)
   if (is.null(vp)) {
-    grid.draw(grob) 
+    grid.draw(gtree) 
   } else {
     if (is.character(vp)) seekViewport(vp) else pushViewport(vp)
-    grid.draw(grob) 
+    grid.draw(gtree) 
     upViewport()
   }
   
