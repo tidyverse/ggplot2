@@ -15,6 +15,7 @@
 # will only take up the amount of space that it requires.  
 ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop, keep = plot$options$keep, ...) {
 
+  theme <- plot_theme(plot)
   panel <- data$panel
   data <- data$data
   
@@ -28,89 +29,69 @@ ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop
   # List by layer, list by panel
   geom_grobs <- Map(build_grob, plot$layer, data)
 
-  panelGrid <- facet_render(plot$facet, panel, plot$coordinates,
+  plot_table <- facet_render(plot$facet, panel, plot$coordinates,
     plot_theme(plot), geom_grobs)
-  panelGrob <- gtable_gTree(panelGrid)
-
-  scales <- plot$scales
-  cs <- plot$cs
-
-  theme <- plot_theme(plot)
-  margin <- list(
-    top = theme$plot.margin[1], right = theme$plot.margin[2],
-    bottom = theme$plot.margin[3], left = theme$plot.margin[4]
-  )
   
-  position <- theme$legend.position
-  if (length(position) == 2) {
-    coords <- position
-    position <- "manual"
+  panel_loc <- function() {
+    loc <- plot_table$layout[grepl("panel", plot_table$layout$name), ]
+    list(
+      l = min(loc$l), r = max(loc$r),
+      b = min(loc$b), t = max(loc$t)
+    )
   }
-  horiz <- any(c("top", "bottom") %in% position)
-  vert <-  any(c("left", "right") %in% position)
   
-  
-  # Generate grobs -----------------------------------------------------------
-  # each of these grobs has a vp set
-
-  legend_box <- if (position != "none") {
-    guide_legends_box(scales, plot$layers, plot$mapping, horiz, theme) 
-  } else {
-    zeroGrob()
-  } 
-  
+  # Title  
   title <- theme_render(theme, "plot.title", plot$options$title)
+  title_height <- grobHeight(title) + 
+    if (is.null(plot$options$title)) unit(0, "lines") else unit(0.5, "lines")
   
+  plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
+  plot_table <- gtable_add_grob(plot_table, title, name = "title",
+    t = 1, b = 1, l = panel_loc()$l, r = panel_loc()$r)
+  
+  # Axis labels
   labels <- coord_labels(plot$coordinates, list(
     x = xlabel(panel, theme),
     y = ylabel(panel, theme)
   ))
   xlabel <- theme_render(theme, "axis.title.x", labels$x)
   ylabel <- theme_render(theme, "axis.title.y", labels$y)
-
-  grobs <- list(
-    title = title, 
-    xlabel = xlabel, ylabel = ylabel,
-    panels = panelGrob, legend_box = legend_box
-  )
-  if (!is.null(keep)) drop <- setdiff(names(grobs), keep)
-  if (!is.null(drop)) grobs[drop] <- rep(list(zeroGrob()), length(drop))
-
-  # Calculate sizes ----------------------------------------------------------
-  if (is.zero(legend_box)) position <- "none"
-    
-  ylab_width <- grobWidth(grobs$ylabel) + 
-    if (is.zero(grobs$ylabel)) unit(0, "lines") else unit(0.5, "lines")
-  legend_width <- grobWidth(grobs$legend_box)
-
-  widths <- switch(position, 
-    right =  unit.c(ylab_width, unit(1, "null"), legend_width),
-    left =   unit.c(legend_width, ylab_width, unit(1, "null")), 
-    top =    ,
-    bottom = ,
-    manual = ,
-    none =   unit.c(ylab_width, unit(1, "null"))
-  )
-  widths <- unit.c(margin$left, widths, margin$right)
-
-  legend_height <- grobHeight(grobs$legend_box)
-  title_height <- grobHeight(grobs$title) + 
-    if (is.null(plot$options$title)) unit(0, "lines") else unit(0.5, "lines")
   
-  xlab_height <- grobHeight(grobs$xlabel) + 
-    if (is.zero(grobs$xlabel)) unit(0, "lines") else unit(0.5, "lines")
+  xlab_height <- grobHeight(xlabel) + 
+    if (is.zero(xlabel)) unit(0, "lines") else unit(0.5, "lines")
+  plot_table <- gtable_add_rows(plot_table, xlab_height)
+  plot_table <- gtable_add_grob(plot_table, xlabel, name = "xlab",
+    l = panel_loc()$l, r = panel_loc()$r, t = panel_loc()$b + 2)
+  
+  ylab_width <- grobWidth(ylabel) + 
+    if (is.zero(ylabel)) unit(0, "lines") else unit(0.5, "lines")
+  plot_table <- gtable_add_cols(plot_table, xlab_height, pos = 0)
+  plot_table <- gtable_add_grob(plot_table, ylabel, name = "ylab",
+    l = 1, b = panel_loc()$b, t = panel_loc()$t)
 
-  heights <- switch(position,
-    top =    unit.c(
-      title_height, legend_height, unit(1, "null"), xlab_height),
-    bottom = unit.c(
-      title_height, unit(1, "null"), xlab_height, legend_height),
-    right =  ,
-    left =   ,
-    manual = ,
-    none =   unit.c(title_height, unit(1, "null"), xlab_height)
-  )
-  heights <- unit.c(margin$top, heights, margin$bottom)
+  return(gtable_gTree(plot_table))
+
+  # Legends
+  position <- theme$legend.position
+  if (length(position) == 2) {
+    coords <- position
+    position <- "manual"
+  }
+  horiz <- any(c("top", "bottom") %in% position)
+  
+  legend_box <- if (position != "none") {
+    guide_legends_box(plot$scales, plot$layers, plot$mapping, horiz, theme) 
+  } else {
+    zeroGrob()
+  } 
+  legend_width <- grobWidth(legend_box)
+  legend_height <- grobHeight(legend_box)
+  if (is.zero(legend_box)) position <- "none"
+  
+  if (position == "left") {
+    plot_table <- gtable_add_cols(plot_table, 
+      )
+  }
   
   if (position == "manual") {
     legend_vp <- viewport(
@@ -122,79 +103,18 @@ ggplotGrob <- function(plot, data = ggplot_build(plot), drop = plot$options$drop
   } else {
     legend_vp <- viewport(name = "legend_box")
   }
-  vp <- surround_viewports(position, widths, heights, legend_vp)
   
-  # Assign grobs to viewports ------------------------------------------------
-  edit_vp <- function(x, name) {
-    editGrob(x, vp=vpPath("background", name))
-  }
-  grobs <- c(
-    list(theme_render(theme, "plot.background", vp = "background")),
-    mlply(cbind(x = grobs, name = names(grobs)), edit_vp)
-  )
+  # Margins
+  plot_table <- gtable_add_rows(plot_table, theme$plot.margin[1], pos = 0)
+  plot_table <- gtable_add_cols(plot_table, theme$plot.margin[2])
+  plot_table <- gtable_add_rows(plot_table, theme$plot.margin[3])
+  plot_table <- gtable_add_cols(plot_table, theme$plot.margin[4], pos = 0)
 
-  gTree(children = do.call("gList", grobs), childrenvp = vp)
-  
-}
+  # Drop and keep
+  if (!is.null(keep)) drop <- setdiff(names(grobs), keep)
+  if (!is.null(drop)) grobs[drop] <- rep(list(zeroGrob()), length(drop))
 
-# Generate viewports for plot surroundings
-surround_viewports <- function(position, widths, heights, legend_vp) {
-  layout <- grid.layout(
-    length(heights), length(widths), 
-    heights=heights, widths=widths
-  )
-
-  vp <- function(name, row, col) {
-    viewport(
-      name = name, 
-      layout = layout, 
-      layout.pos.row = row, 
-      layout.pos.col = col
-    )
-  }
-
-  if (position == "right") {
-    viewports <- vpList(
-      vp("panels", 3, 3),
-      vp("legend_box", 3, 4),
-      vp("ylabel", 3, 2),
-      vp("xlabel", 4, 3),
-      vp("title", 2, 3)
-    )
-  } else if (position == "left") {
-    viewports <- vpList(
-      vp("panels", 3, 4),
-      vp("legend_box", 3, 2),
-      vp("ylabel", 3, 3),
-      vp("xlabel", 4, 4),
-      vp("title", 2, 4)
-    )
-  } else if (position == "top") {
-    viewports <- vpList(
-      vp("panels", 4, 3),
-      vp("legend_box", 3, 3),
-      vp("ylabel", 4, 2),
-      vp("xlabel", 5, 3),
-      vp("title", 2, 3)
-    )
-  } else if (position == "bottom") {
-    viewports <- vpList(
-      vp("panels", 3, 3),
-      vp("legend_box", 5, 3),
-      vp("ylabel", 3, 2),
-      vp("xlabel", 4, 3),
-      vp("title", 2, 3)
-    )
-  } else {
-    viewports <- vpList(
-      vp("panels", 3, 3),
-      vp("ylabel", 3, 2),
-      vp("xlabel", 4, 3),
-      vp("title", 2, 3),
-      legend_vp
-    )
-  }
-  vpTree(viewport(name = "background", layout = layout), viewports)
+  gtable_gTree(plot_table)  
 }
 
 #' Draw plot on current graphics device.

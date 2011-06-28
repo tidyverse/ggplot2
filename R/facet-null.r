@@ -57,6 +57,7 @@ facet_render.null <- function(facet, panel, coord, theme, geom_grobs) {
     heights = unit.c(unit(1, "null"), grobHeight(axis_h)),
     respect = respect, clip = c("off", "off", "on", "off")
   )
+  layout$layout$name <- c("axis-l", "spacer", "panel", "axis-b")
   
   layout
 }

@@ -26,7 +26,7 @@
 gtable <- function(grobs = list(), layout = NULL, widths = list(), heights = list(), respect = FALSE, name = "layout") {
   
   if (is.null(layout)) {
-    data.frame(
+    layout <- data.frame(
       t = numeric(), r = numeric(), b = numeric(), l = numeric(), 
       clip = character(), name = character(), stringsAsFactors = FALSE)
   }
