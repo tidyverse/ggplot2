@@ -1,6 +1,7 @@
 \name{geom_bar}
 \alias{geom_bar}
 \title{Bars, rectangles with bases on x-axis...}
+\usage{geom_bar(mapping, data, stat="bin", position="stack", ...)}
 
 \description{
   Bars, rectangles with bases on x-axis

@@ -1,6 +1,8 @@
 \name{geom_errorbar}
 \alias{geom_errorbar}
 \title{Error bars.}
+\usage{geom_errorbar(mapping, data, stat="identity",
+    position="identity", ...)}
 
 \description{
   Error bars.

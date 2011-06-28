@@ -1,6 +1,7 @@
 \name{position_stack}
 \alias{position_stack}
 \title{Stack overlapping objects on top of one another.}
+\usage{position_stack(width, height, ...)}
 
 \description{
   Stack overlapping objects on top of one another.

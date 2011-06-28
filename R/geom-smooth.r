@@ -1,6 +1,5 @@
 #' Add a smoothed conditional mean.
 #'
-#' @name geom_smooth
 #' @export
 #' @examples
 #' # See stat_smooth for examples of using built in model fitting
@@ -26,6 +25,10 @@
 #' 
 #' qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + 
 #'   geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat="identity") 
+geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth", position = "identity", ...) { 
+  GeomSmooth$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
 GeomSmooth <- proto(Geom, {
   objname <- "smooth"
 

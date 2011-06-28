@@ -1,6 +1,5 @@
 #' 2d rectangles.
 #'
-#' @name geom_rect
 #' @export
 #' @examples
 #' df <- data.frame(
@@ -9,6 +8,10 @@
 #' )
 #' ggplot(df, aes(xmin = x, xmax = x + 1, ymin = y, ymax = y + 2)) +
 #' geom_rect()
+geom_rect <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
+  GeomRect$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
 GeomRect <- proto(Geom, {
   objname <- "rect"
   

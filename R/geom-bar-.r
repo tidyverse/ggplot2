@@ -28,8 +28,7 @@
 #' Naomi Robbins has a nice
 #' \href{http://www.b-eye-network.com/view/index.php?cid=2468}{article on this topic}.  
 #' This is the reason it doesn't make sense to use a log-scaled y axis with a bar chart
-#' 
-#' @name geom_bar
+#'
 #' @seealso \code{\link{stat_bin}} for more details of the binning alogirithm, 
 #'   \code{\link{position_dodge}} for creating side-by-side barcharts, 
 #'   \code{\link{position_stack}} for more info on stacking,
@@ -103,6 +102,10 @@
 #' "suv", "compact", "2seater", "subcompact", "pickup"))
 #' m <- ggplot(mpg, aes(manufacturer, fill=class))
 #' m + geom_bar()
+geom_bar <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", ...) {
+  GeomBar$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
 GeomBar <- proto(Geom, {
   objname <- "bar"
   

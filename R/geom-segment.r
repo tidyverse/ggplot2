@@ -1,6 +1,5 @@
 #' Single line segments.
 #'
-#' @name geom_segment
 #' @param arrow specification for arrow heads, as created by arrow()
 #' @seealso \code{\link{geom_path}} and \code{\link{geom_line}} for multi-
 #'   segment lines and paths.
@@ -30,6 +29,10 @@
 #' 
 #' qplot(x, Freq, data = counts, geom="segment", 
 #'   yend = 0, xend = x, size = I(10))
+geom_segment <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
+  GeomSegment$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
 GeomSegment <- proto(Geom, {
   objname <- "segment"
 

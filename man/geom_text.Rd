@@ -1,6 +1,8 @@
 \name{geom_text}
 \alias{geom_text}
 \title{Textual annotations.}
+\usage{geom_text(mapping, data, stat="identity",
+    position="identity", parse=FALSE, ...)}
 
 \description{
   Textual annotations.

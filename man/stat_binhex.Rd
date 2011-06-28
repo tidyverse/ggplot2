@@ -1,6 +1,8 @@
 \name{stat_binhex}
 \alias{stat_binhex}
 \title{Bin 2d plane into hexagons.}
+\usage{stat_binhex(mapping, data, geom="hex", position="identity",
+    bins=30, na.rm=FALSE, ...)}
 
 \description{
   Bin 2d plane into hexagons.

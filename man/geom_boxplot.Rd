@@ -1,6 +1,9 @@
 \name{geom_boxplot}
 \alias{geom_boxplot}
 \title{Box and whiskers plot.}
+\usage{geom_boxplot(mapping, data, stat="boxplot",
+    position="dodge", outlier.colour="black",
+    outlier.shape=16, outlier.size=2, ...)}
 
 \description{
   Box and whiskers plot.

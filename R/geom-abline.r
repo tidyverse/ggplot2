@@ -10,8 +10,7 @@
 #' (\code{geom_abline(intercept=0, slope=1)}) then the line will be the same
 #' in all panels.  If the intercept and slope are stored in the data, then 
 #' they can vary from panel to panel.  See the examples for more ideas.
-#' 
-#' @name geom_abline
+#'
 #' @seealso \code{\link{stat_smooth}} to add lines derived from the data,
 #'  \code{\link{geom_hline}} for horizontal lines,
 #'  \code{\link{geom_vline}} for vertical lines
@@ -49,6 +48,10 @@
 #' # It's actually a bit easier to do this with stat_smooth
 #' p + geom_smooth(aes(group=cyl), method="lm")
 #' p + geom_smooth(aes(group=cyl), method="lm", fullrange=TRUE)
+geom_abline <- function (mapping = NULL, data = NULL, stat = "abline", position = "identity", ...) { 
+  GeomAbline$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
 GeomAbline <- proto(Geom, {
   objname <- "abline"
 

@@ -1,6 +1,8 @@
 \name{geom_smooth}
 \alias{geom_smooth}
 \title{Add a smoothed conditional mean.}
+\usage{geom_smooth(mapping, data, stat="smooth",
+    position="identity", ...)}
 
 \description{
   Add a smoothed conditional mean.

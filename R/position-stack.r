@@ -1,6 +1,5 @@
 #' Stack overlapping objects on top of one another.
 #' 
-#' @name position_stack
 #' @export
 #' @examples 
 #' # Stacking is the default behaviour for most area plots:
@@ -27,6 +26,10 @@
 #'   position = "stack")
 #' # But realise that this makes it *much* harder to compare individual
 #' # trends
+position_stack <- function (width = NULL, height = NULL, ...) { 
+  PositionStack$new(width = width, height = height, ...)
+}
+
 PositionStack <- proto(Position, {
   objname <- "stack"
 

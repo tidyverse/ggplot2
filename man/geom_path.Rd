@@ -1,6 +1,9 @@
 \name{geom_path}
 \alias{geom_path}
 \title{Connect observations in original order...}
+\usage{geom_path(mapping, data, stat="identity",
+    position="identity", lineend="butt", linejoin="round",
+    linemitre=1, na.rm=FALSE, ...)}
 
 \description{
   Connect observations in original order

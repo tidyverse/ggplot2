@@ -1,6 +1,8 @@
 \name{stat_sum}
 \alias{stat_sum}
 \title{Sum unique values.}
+\usage{stat_sum(mapping, data, geom="point", position="identity",
+    ...)}
 
 \description{
   Sum unique values.  Useful for overplotting on

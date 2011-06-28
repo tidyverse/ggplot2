@@ -1,6 +1,5 @@
 #' Horizontal error bars
-#' 
-#' @name geom_errorbarh
+#'
 #' @seealso \code{\link{geom_errorbar}}: vertical error bars
 #' @param height height of errorbars
 #' @export
@@ -19,6 +18,10 @@
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se))
 #' p + geom_point() +
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))
+geom_errorbarh <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
+  GeomErrorbarh$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
 GeomErrorbarh <- proto(Geom, {
   objname <- "errorbarh"
 

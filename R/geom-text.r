@@ -1,6 +1,5 @@
 #' Textual annotations.
 #' 
-#' @name geom_text
 #' @param parse If TRUE, the labels will be parsed into expressions and
 #'   displayed as described in ?plotmath
 #' @export
@@ -47,6 +46,12 @@
 #' p + geom_text(fontface=3)
 #' p + geom_text(aes(fontface=am+1))
 #' p + geom_text(aes(family=c("serif", "mono")[am+1]))
+geom_text <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", 
+parse = FALSE, ...) { 
+  GeomText$new(mapping = mapping, data = data, stat = stat, position = position, 
+  parse = parse, ...)
+}
+
 GeomText <- proto(Geom, {
   objname <- "text"
 

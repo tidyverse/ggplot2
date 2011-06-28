@@ -1,6 +1,5 @@
 #' Connect observations, ordered by x value.
 #'
-#' @name geom_line
 #' @seealso \code{\link{geom_path}}: connect observations in data order, 
 #'  \code{\link{geom_segment}}: draw line segments,
 #'  \code{\link{geom_ribbon}}: fill between line and x-axis
@@ -56,6 +55,10 @@
 #' dfm <- melt(df, id.var = c("id", "group"))
 #' ggplot(dfm, aes(variable, value, group = id, colour = group)) + 
 #'   geom_path(alpha = 0.5)
+geom_line <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
+  GeomLine$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
 GeomLine <- proto(GeomPath, {
   objname <- "line"
 

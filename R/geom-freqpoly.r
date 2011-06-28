@@ -1,18 +1,21 @@
 #' Frequency polygon.
 #'
-#' @name geom_freqpoly
 #' @seealso \code{\link{geom_histogram}}: histograms
 #' @export
 #' @examples
-#' qplot(carat, data = diamonds, geom="freqpoly")
-#' qplot(carat, data = diamonds, geom="freqpoly", binwidth = 0.1)
-#' qplot(carat, data = diamonds, geom="freqpoly", binwidth = 0.01)
+#' qplot(carat, data = diamonds, geom = "freqpoly")
+#' qplot(carat, data = diamonds, geom = "freqpoly", binwidth = 0.1)
+#' qplot(carat, data = diamonds, geom = "freqpoly", binwidth = 0.01)
 #' 
-#' qplot(price, data = diamonds, geom="freqpoly", binwidth = 1000)
-#' qplot(price, data = diamonds, geom="freqpoly", binwidth = 1000, 
+#' qplot(price, data = diamonds, geom = "freqpoly", binwidth = 1000)
+#' qplot(price, data = diamonds, geom = "freqpoly", binwidth = 1000, 
 #'   colour = color)
-#' qplot(price, ..density.., data = diamonds, geom="freqpoly", 
+#' qplot(price, ..density.., data = diamonds, geom = "freqpoly", 
 #'   binwidth = 1000, colour = color)
+geom_freqpoly <- function (mapping = NULL, data = NULL, stat = "bin", position = "identity", ...) { 
+  GeomFreqpoly$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
 GeomFreqpoly <- proto(Geom, {
   objname <- "freqpoly"
 

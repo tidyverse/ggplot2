@@ -1,6 +1,5 @@
 #' Box and whiskers plot.
 #'
-#' @name geom_boxplot
 #' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
 #'   continuous variable,  \code{\link{geom_jitter}} for another way to look 
 #'   at conditional distributions"
@@ -58,6 +57,13 @@
 #' b + geom_boxplot(stat = "identity")
 #' b + geom_boxplot(stat = "identity") + coord_flip()
 #' b + geom_boxplot(aes(fill = X1), stat = "identity")
+geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot", position = "dodge", 
+outlier.colour = "black", outlier.shape = 16, outlier.size = 2, ...) {
+  GeomBoxplot$new(mapping = mapping, data = data, stat = stat, 
+  position = position, outlier.colour = outlier.colour, outlier.shape = outlier.shape, 
+  outlier.size = outlier.size, ...)
+}
+
 GeomBoxplot <- proto(Geom, {
   objname <- "boxplot"
 

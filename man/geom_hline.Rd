@@ -1,6 +1,8 @@
 \name{geom_hline}
 \alias{geom_hline}
 \title{Horizontal line.}
+\usage{geom_hline(mapping, data, stat="hline",
+    position="identity", ...)}
 
 \description{
   Horizontal line.

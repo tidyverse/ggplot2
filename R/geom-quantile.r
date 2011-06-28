@@ -2,10 +2,15 @@
 #'
 #' This can be used as a continuous analogue of a geom_boxplot.
 #' 
-#' @name geom_quantile
 #' @export
 #' @examples
 #' # See stat_quantile for examples
+geom_quantile <- function (mapping = NULL, data = NULL, stat = "quantile", position = "identity", 
+lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
+  GeomQuantile$new(mapping = mapping, data = data, stat = stat, position = position,
+  lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, ...)
+}
+
 GeomQuantile <- proto(GeomPath, {  
   objname <- "quantile"
 

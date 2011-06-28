@@ -1,6 +1,8 @@
 \name{geom_line}
 \alias{geom_line}
 \title{Connect observations, ordered by x value.}
+\usage{geom_line(mapping, data, stat="identity",
+    position="identity", ...)}
 
 \description{
   Connect observations, ordered by x value.

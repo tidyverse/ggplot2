@@ -1,6 +1,5 @@
 #' Connect observations by stairs.
 #'
-#' @name geom_step
 #' @param direction direction of stairs: 'vh' for vertical then horizontal, or
 #'   'hv' for horizontal then vertical
 #' @export
@@ -22,6 +21,12 @@
 #'   trt = sample(c("a", "b"), 50, rep = T)
 #' )
 #' qplot(seq_along(x), x, data = df, geom="step", colour = trt)
+geom_step <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", 
+direction = "hv", ...) {
+  GeomStep$new(mapping = mapping, data = data, stat = stat, position = position, 
+  direction = direction, ...)
+}
+
 GeomStep <- proto(Geom, {
   objname <- "step"
 

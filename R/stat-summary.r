@@ -10,7 +10,6 @@
 #' on a data.frame it should return a data frame with variables that the geom
 #' can use.
 #'
-#' @name stat_summary
 #' @seealso \code{\link{geom_errorbar}}, \code{\link{geom_pointrange}}, 
 #'  \code{\link{geom_linerange}}, \code{\link{geom_crossbar}} for geoms to
 #'  display summarised data
@@ -92,6 +91,10 @@
 #' # and stretching the geoms onto the log scale.  Compare the widths of the
 #' # standard errors.
 #' m2 + coord_trans(y="log10")
+stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange", position = "identity", ...) { 
+  StatSummary$new(mapping = mapping, data = data, geom = geom, position = position, ...)
+}
+  
 StatSummary <- proto(Stat, {
   objname <- "summary"
 

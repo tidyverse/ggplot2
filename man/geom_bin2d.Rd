@@ -1,6 +1,8 @@
 \name{geom_bin2d}
 \alias{geom_bin2d}
 \title{Add heatmap of 2d bin counts.}
+\usage{geom_bin2d(mapping, data, stat="bin2d",
+    position="identity", ...)}
 
 \description{
   Add heatmap of 2d bin counts.

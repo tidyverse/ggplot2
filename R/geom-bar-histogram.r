@@ -9,7 +9,6 @@
 #' may need to look at a few to uncover the full story behind your data.
 #'
 #'
-#' @name geom_histogram
 #' @export 
 #' @examples
 #' # Simple examples
@@ -104,6 +103,10 @@
 #' # Which looks better when the distributions are more distinct
 #' ggplot(diamonds, aes(depth, fill = cut)) +
 #'   geom_density(alpha = 0.2) + xlim(55, 70)
+geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", ...) { 
+  GeomHistogram$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
 GeomHistogram <- proto(GeomBar, {
   objname <- "histogram"
 

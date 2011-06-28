@@ -1,6 +1,5 @@
 #' 1d kernel density estimate.
 #'
-#' @name stat_density
 #' @param adjust see \code{\link{density}} for details
 #' @param kernel kernel used for density estimation, see
 #'   \code{\link{density}} for details
@@ -75,6 +74,12 @@
 #' # Use qplot instead
 #' qplot(length, data=movies, geom="density", weight=rating)
 #' qplot(length, data=movies, geom="density", weight=rating/sum(rating))
+stat_density <- function (mapping = NULL, data = NULL, geom = "area", position = "stack", 
+adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, ...) { 
+  StatDensity$new(mapping = mapping, data = data, geom = geom, position = position,
+  adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm, ...)
+}
+  
 StatDensity <- proto(Stat, {
   objname <- "density"
 

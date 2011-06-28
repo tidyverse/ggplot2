@@ -1,6 +1,8 @@
 \name{stat_contour}
 \alias{stat_contour}
 \title{Calculate contours of 3d data.}
+\usage{stat_contour(mapping, data, geom="path",
+    position="identity", na.rm=FALSE, ...)}
 
 \description{
   Calculate contours of 3d data.

@@ -1,6 +1,7 @@
 \name{position_jitter}
 \alias{position_jitter}
 \title{Jitter points to avoid overplotting.}
+\usage{position_jitter(width, height, ...)}
 
 \description{
   Jitter points to avoid overplotting.

@@ -1,6 +1,5 @@
 #' Calculate contours of 3d data.
 #' 
-#' @name stat_contour
 #' @return A data frame with additional column:
 #'  \item{level}{height of contour}
 #' @export
@@ -44,6 +43,12 @@
 #' # Use qplot instead
 #' qplot(x, y, z = z, data = volcano3d, geom = "contour")
 #' qplot(x, y, z = z, data = volcano3d, stat = "contour", geom = "path")
+stat_contour <- function (mapping = NULL, data = NULL, geom = "path", position = "identity", 
+na.rm = FALSE, ...) { 
+  StatContour$new(mapping = mapping, data = data, geom = geom, 
+  position = position, na.rm = na.rm, ...)
+}
+
 StatContour <- proto(Stat, {
   objname <- "contour"
 

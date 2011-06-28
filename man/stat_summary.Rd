@@ -1,6 +1,8 @@
 \name{stat_summary}
 \alias{stat_summary}
 \title{Summarise y values at every unique x.}
+\usage{stat_summary(mapping, data, geom="pointrange",
+    position="identity", ...)}
 
 \description{
   Summarise y values at every unique x.

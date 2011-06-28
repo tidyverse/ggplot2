@@ -1,6 +1,8 @@
 \name{geom_vline}
 \alias{geom_vline}
 \title{Line, vertical.}
+\usage{geom_vline(mapping, data, stat="vline",
+    position="identity", ...)}
 
 \description{
   Line, vertical.
