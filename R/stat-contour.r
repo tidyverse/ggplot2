@@ -67,8 +67,9 @@ StatContour <- proto(Stat, {
     cl <- contourLines(
       x = sort(unique(data$x)), y = sort(unique(data$y)), z = z, 
       levels = breaks)  
-    cl <- lapply(cl, as.data.frame)
-    
+    if (length(cl) == 0) return(data.frame())
+
+    cl <- lapply(cl, as.data.frame)    
     contour_df <- rbind.fill(cl)
     contour_df$piece <- rep(seq_along(cl), sapply(cl, nrow))
     contour_df$group <- paste(data$group[1], contour_df$piece, sep = "-")
