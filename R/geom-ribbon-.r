@@ -1,6 +1,5 @@
 #' Ribbons, y range with continuous x values.
-#' 
-#' @name geom_ribbon
+#'
 #' @seealso
 #'   \code{\link{geom_bar}} for discrete intervals (bars),
 #'   \code{\link{geom_linerange}} for discrete intervals (lines),
@@ -35,6 +34,12 @@
 #' 
 #' # Use qplot instead
 #' qplot(year, level, data=huron, geom=c("area", "line"))
+geom_ribbon <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", 
+na.rm = FALSE, ...) { 
+  GeomRibbon$new(mapping = mapping, data = data, stat = stat, position = position, 
+  na.rm = na.rm, ...)
+}
+
 GeomRibbon <- proto(Geom, {
   objname <- "ribbon"
 
@@ -99,10 +104,15 @@ GeomRibbon <- proto(Geom, {
 #' minimum of the range is fixed to 0, and the position adjustment defaults 
 #' to position_stacked.
 #'
-#' @name geom_area
 #' @export
 #' @examples
 #' # see geom_ribbon
+geom_area <- function (mapping = NULL, data = NULL, stat = "identity", position = "stack", 
+na.rm = FALSE, ...) { 
+  GeomArea$new(mapping = mapping, data = data, stat = stat, position = position, 
+  na.rm = na.rm, ...)
+}
+
 GeomArea <- proto(GeomRibbon,{
   objname <- "area"
 

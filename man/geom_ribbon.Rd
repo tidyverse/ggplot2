@@ -1,6 +1,8 @@
 \name{geom_ribbon}
 \alias{geom_ribbon}
 \title{Ribbons, y range with continuous x values.}
+\usage{geom_ribbon(mapping, data, stat="identity",
+    position="identity", na.rm=FALSE, ...)}
 
 \description{
   Ribbons, y range with continuous x values.

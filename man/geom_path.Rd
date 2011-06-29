@@ -1,6 +1,9 @@
 \name{geom_path}
 \alias{geom_path}
 \title{Connect observations in original order...}
+\usage{geom_path(mapping, data, stat="identity",
+    position="identity", lineend="butt", linejoin="round",
+    linemitre=1, na.rm=FALSE, ...)}
 
 \description{
   Connect observations in original order
@@ -83,4 +86,11 @@ p + geom_line(aes(colour = group), linetype = 2)
 p + geom_line(aes(colour = x))
 
 # Should fail
-should_stop(p + geom_line(aes(colour = x), linetype=2))}
+should_stop(p + geom_line(aes(colour = x), linetype=2))
+
+# Use the arrow parameter to add an arrow to the line
+# See ?grid::arrow for more details
+c <- ggplot(economics, aes(x = date, y = pop)) 
+# Arrow defaults to "last"
+c + geom_path(arrow = arrow())
+c + geom_path(arrow = arrow(angle = 15, ends = "both", length = unit(0.6, "inches")))}

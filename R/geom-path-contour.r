@@ -1,10 +1,15 @@
 #' Display contours of a 3d surface in 2d.
 #'
-#' @name geom_contour
 #' @seealso \code{\link{geom_density2d}}: 2d density contours
 #' @export
 #' @examples
 #' # See stat_contour for examples
+geom_contour <- function (mapping = NULL, data = NULL, stat = "contour", position = "identity", 
+lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) { 
+  GeomContour$new(mapping = mapping, data = data, stat = stat, position = position,
+  lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, ...)
+}
+
 GeomContour <- proto(GeomPath, {
   objname <- "contour"
 

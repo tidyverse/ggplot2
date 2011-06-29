@@ -19,6 +19,14 @@
 #' # plots into 2d - the ribbon just gets longer
 #' # d + facet_wrap(~ color + cut)
 #' 
+#' # To change plot order of facet wrap, 
+#' # change the order of varible levels with factor()
+#' diamonds$color <- factor(diamonds$color, levels = c("G", "J", "D", "E", "I", "F", "H"))
+#' # Repeat first example with new order
+#' d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) + 
+#' xlim(0, 2) + stat_binhex(na.rm = TRUE) + opts(aspect.ratio = 1)
+#' d + facet_wrap(~ color)
+#'
 #' # You can choose to keep the scales constant across all panels
 #' # or vary the x scale, the y scale or both:
 #' p <- qplot(price, data = diamonds, geom = "histogram", binwidth = 1000)
@@ -27,8 +35,11 @@
 #' 
 #' p <- qplot(displ, hwy, data = mpg)
 #' p + facet_wrap(~ cyl)
-#' p + facet_wrap(~ cyl, scales = "free") 
-#' 
+#' p + facet_wrap(~ cyl, scales = "free")
+#'
+#' # Use as.table to to control direction of horizontal facets, TRUE by default
+#' p + facet_wrap(~ cyl, as.table = F)
+#'
 #' # Add data that does not contain all levels of the faceting variables
 #' cyl6 <- subset(mpg, cyl == 6)
 #' p + geom_point(data = cyl6, colour = "red", size = 1) + 

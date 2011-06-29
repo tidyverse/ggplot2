@@ -1,6 +1,4 @@
 #' Calculation for quantile-quantile plot.
-#'
-#' @name stat_qq
 #' 
 #' @param quantiles Quantiles to compute and display
 #' @param dist Distribution function to use, if x not specified
@@ -32,6 +30,12 @@
 #' # Using to explore the distribution of a variable
 #' qplot(sample = mpg, data = mtcars)
 #' qplot(sample = mpg, data = mtcars, colour = factor(cyl))    
+stat_qq <- function (mapping = NULL, data = NULL, geom = "point", position = "identity", 
+distribution = qnorm, dparams = list(), na.rm = FALSE, ...) { 
+  StatQq$new(mapping = mapping, data = data, geom = geom, position = position, 
+  distribution = distribution, dparams = dparams, na.rm = na.rm, ...)
+}
+  
 StatQq <- proto(Stat, {
   objname <- "qq"
 

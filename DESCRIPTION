@@ -175,7 +175,5 @@ Collate:
     'utilities-table-template.r'
     'utilities-table.r'
     'utilities.r'
-    'xxx-codegen.r'
     'xxx-digest.r'
-    'xxx.r'
     'zxx.r'

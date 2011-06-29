@@ -1,6 +1,9 @@
 #' Don't adjust position
 #'
-#' @name position_identity
+position_identity <- function (width = NULL, height = NULL, ...) { 
+  PositionIdentity$new(width = width, height = height, ...)
+}
+
 PositionIdentity <- proto(Position, {
   objname <- "identity"
 

@@ -1,6 +1,5 @@
 #' Superimpose a function.
 #'
-#' @name stat_function
 #' @param fun function to use
 #' @param n number of points to interpolate along
 #' @param args list of additional arguments to pass to \code{fun}
@@ -13,6 +12,12 @@
 #' base <- qplot(x, geom="density")
 #' base + stat_function(fun = dnorm, colour = "red")
 #' base + stat_function(fun = dnorm, colour = "red", arg = list(mean = 3))
+stat_function <- function (mapping = NULL, data = NULL, geom = "path", position = "identity", 
+fun, n = 101, args = list(), ...) { 
+  StatFunction$new(mapping = mapping, data = data, geom = geom, 
+  position = position, fun = fun, n = n, args = args, ...)
+}
+
 StatFunction <- proto(Stat, {
   objname <- "function"
 

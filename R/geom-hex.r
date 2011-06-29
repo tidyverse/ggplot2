@@ -1,9 +1,12 @@
 #' Hexagon bining.
-#' 
-#' @name geom_hex
+#'
 #' @export
 #' @examples
 #' # See ?stat_binhex for examples  
+geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex", position = "identity", ...) { 
+  GeomHex$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
 GeomHex <- proto(Geom, {
   objname <- "hex"
 

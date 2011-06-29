@@ -1,6 +1,5 @@
 #' Connect observations in original order
 #' 
-#' @name geom_path
 #' @param lineend Line end style (round, butt, square)
 #' @param linejoin Line join style (round, mitre, bevel)
 #' @param linemitre Line mitre limit (number greater than 1)
@@ -80,6 +79,19 @@
 #' 
 #' # Should fail
 #' should_stop(p + geom_line(aes(colour = x), linetype=2))
+#'
+#' # Use the arrow parameter to add an arrow to the line
+#' # See ?grid::arrow for more details
+#' c <- ggplot(economics, aes(x = date, y = pop)) 
+#' # Arrow defaults to "last"
+#' c + geom_path(arrow = arrow())
+#' c + geom_path(arrow = arrow(angle = 15, ends = "both", length = unit(0.6, "inches")))
+geom_path <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", 
+lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) { 
+  GeomPath$new(mapping = mapping, data = data, stat = stat, position = position, 
+  lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, ...)
+}
+
 GeomPath <- proto(Geom, {
   objname <- "path"
 

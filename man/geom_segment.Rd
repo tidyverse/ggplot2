@@ -1,6 +1,8 @@
 \name{geom_segment}
 \alias{geom_segment}
 \title{Single line segments.}
+\usage{geom_segment(mapping, data, stat="identity",
+    position="identity", ...)}
 
 \description{
   Single line segments.

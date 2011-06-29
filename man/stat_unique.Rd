@@ -1,6 +1,8 @@
 \name{stat_unique}
 \alias{stat_unique}
 \title{Remove duplicates.}
+\usage{stat_unique(mapping, data, geom="point",
+    position="identity", ...)}
 
 \description{
   Remove duplicates.

@@ -1,6 +1,8 @@
 \name{stat_spoke}
 \alias{stat_spoke}
 \title{Convert angle and radius to xend and yend.}
+\usage{stat_spoke(mapping, data, geom="segment",
+    position="identity", ...)}
 
 \description{
   Convert angle and radius to xend and yend.

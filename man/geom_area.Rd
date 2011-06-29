@@ -1,6 +1,8 @@
 \name{geom_area}
 \alias{geom_area}
 \title{Area plot.}
+\usage{geom_area(mapping, data, stat="identity", position="stack",
+    na.rm=FALSE, ...)}
 
 \description{
   Area plot.

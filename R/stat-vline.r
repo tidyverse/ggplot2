@@ -1,10 +1,13 @@
 #' Add a line with slope and intercept.
 #'
 #' @keywords internal
-#' @name stat_abline
 #' @export
 #' @examples
 #' # see geom_abline
+stat_abline <- function (mapping = NULL, data = NULL, geom = "abline", position = "identity", ...) { 
+  StatAbline$new(mapping = mapping, data = data, geom = geom, position = position, ...)
+}
+
 StatAbline <- proto(Stat, {
   objname <- "abline"
 
@@ -32,10 +35,15 @@ StatAbline <- proto(Stat, {
 #' Add a vertical line
 #'
 #' @keywords internal
-#' @name stat_vline
 #' @export
 #' @examples
 #' # see geom_vline
+stat_vline <- function (mapping = NULL, data = NULL, geom = "vline", position = "identity", 
+intercept, ...) {
+  StatVline$new(mapping = mapping, data = data, geom = geom, position = position, 
+  intercept = intercept, ...)
+}
+
 StatVline <- proto(Stat, {
   objname <- "vline"
 
@@ -60,10 +68,15 @@ StatVline <- proto(Stat, {
 #' Add a horizontal line
 #'
 #' @keywords internal
-#' @name stat_hline
 #' @export
 #' @examples
 #' # see geom_hline
+stat_hline <- function (mapping = NULL, data = NULL, geom = "hline", position = "identity", 
+intercept, ...) { 
+  StatHline$new(mapping = mapping, data = data, geom = geom, position = position, 
+  intercept = intercept, ...)
+}
+  
 StatHline <- proto(Stat, {
   calculate <- function(., data, scales, yintercept = NULL, intercept, ...) {
     if (!missing(intercept)) {

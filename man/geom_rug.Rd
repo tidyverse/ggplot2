@@ -1,6 +1,8 @@
 \name{geom_rug}
 \alias{geom_rug}
 \title{Marginal rug plots.}
+\usage{geom_rug(mapping, data, stat="identity",
+    position="identity", ...)}
 
 \description{
   Marginal rug plots.

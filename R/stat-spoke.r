@@ -1,6 +1,5 @@
 #' Convert angle and radius to xend and yend.
 #'
-#' @name stat_spoke
 #' @return a data.frame with additional columns
 #'   \item{xend}{x position of end of line segment}
 #'   \item{yend}{x position of end of line segment}
@@ -14,6 +13,10 @@
 #' last_plot() + scale_y_reverse()
 #' 
 #' qplot(x, y, data=df) + stat_spoke(aes(angle=angle, radius=speed))
+stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment", position = "identity", ...) { 
+  StatSpoke$new(mapping = mapping, data = data, geom = geom, position = position, ...)
+}
+
 StatSpoke <- proto(Stat, {
   objname <- "spoke"
 

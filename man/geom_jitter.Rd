@@ -1,6 +1,8 @@
 \name{geom_jitter}
 \alias{geom_jitter}
 \title{Points, jittered to reduce overplotting.}
+\usage{geom_jitter(mapping, data, stat="identity",
+    position="jitter", na.rm=FALSE, ...)}
 
 \description{
   Points, jittered to reduce overplotting.
