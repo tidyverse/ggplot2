@@ -59,7 +59,7 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot), drop = plot$options$d
     if (is.null(labels$y)) unit(0, "lines") else unit(0.5, "lines")
   plot_table <- gtable_add_cols(plot_table, ylab_width, pos = 0)
   plot_table <- gtable_add_grob(plot_table, ylabel, name = "ylab",
-    l = 1, b = -2, t = 2)
+    l = 1, b = -3, t = 2)
 
   # Legends
   position <- theme$legend.position
