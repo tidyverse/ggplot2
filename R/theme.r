@@ -68,6 +68,8 @@ theme_set <- .theme$set
 #' @param axis.title.x horizontal tick labels
 #' @param axis.title.y vertical tick labels
 #' @param legend.background background of legend
+#' @param legend.margin extra space added around legend (both width or height
+#'   depending on orientation of legend)
 #' @param legend.key background underneath legend keys
 #' @param legend.key.size key background size 
 #' @param legend.key.height key background height
@@ -149,6 +151,9 @@ theme_set <- .theme$set
 #' z + opts(legend.position = c(.5, .5))
 #  # Add a border to the whole legend
 #' z + opts(legend.background = theme_rect())
+#' # Legend margin controls extra space around outside of legend:
+#' z + opts(legend.background = theme_rect(), legend.margin = unit(1, "cm"))
+#' z + opts(legend.background = theme_rect(), legend.margin = unit(0, "cm"))
 #' # Or to just the keys
 #' z + opts(legend.key = theme_rect())
 #' z + opts(legend.key = theme_rect(fill = "yellow"))

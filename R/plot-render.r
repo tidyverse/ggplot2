@@ -75,7 +75,12 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot), drop = plot$options$d
   }
   legend_width <- grobWidth(legend_box)
   legend_height <- grobHeight(legend_box)
-  if (is.zero(legend_box)) position <- "none"
+  if (is.zero(legend_box)) {
+    position <- "none"
+  } else {
+    legend_width <- legend_width + theme$legend.margin
+    legend_height <- legend_height + theme$legend.margin
+  }
   
   if (position == "left") {
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = 0)

@@ -22,6 +22,8 @@
   \item{axis.title.x}{horizontal tick labels}
   \item{axis.title.y}{vertical tick labels}
   \item{legend.background}{background of legend}
+  \item{legend.margin}{extra space added around legend (both width or height
+depending on orientation of legend)}
   \item{legend.key}{background underneath legend keys}
   \item{legend.key.size}{key background size}
   \item{legend.key.height}{key background height}
@@ -100,6 +102,9 @@ z + opts(legend.position = "bottom")
 # Or use relative coordinates between 0 and 1
 z + opts(legend.position = c(.5, .5))
 z + opts(legend.background = theme_rect())
+# Legend margin controls extra space around outside of legend:
+z + opts(legend.background = theme_rect(), legend.margin = unit(1, "cm"))
+z + opts(legend.background = theme_rect(), legend.margin = unit(0, "cm"))
 # Or to just the keys
 z + opts(legend.key = theme_rect())
 z + opts(legend.key = theme_rect(fill = "yellow"))
