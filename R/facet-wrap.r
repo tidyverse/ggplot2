@@ -125,11 +125,9 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   # Locate each element in panel
   find_pos <- function(layout, loc, size) {
     n <- nrow(layout)
-    data.frame(
-      l = size[1] * (layout$COL - 1) + loc[1],
-      t = size[2] * (layout$ROW - 1) + loc[2], 
-      id = seq_len(n)
-    )
+    l <- size[1] * (layout$COL - 1) + loc[1]
+    t <- size[2] * (layout$ROW - 1) + loc[2]
+    data.frame(t = t, r = l, b = t, l = l, id = seq_len(n))
   }
   locs <- list(
     panel =   c(2, 2),
@@ -168,7 +166,8 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   row_heights <- compute_grob_heights(info, heights)
   
   lay <- gtable(
-    layout = info[info$type %in% names(grobs), ],
+    layout = info[info$type %in% names(grobs), 
+      c("t", "r", "b", "l", "clip", "name")],
     grobs = unlist(grobs, recursive = FALSE),
     heights = row_heights,
     widths = col_widths, 
