@@ -56,3 +56,4 @@
 #' ymin = yrng[1], ymax = yrng[2], data = presidential)
 #' j
 #' j + scale_fill_manual(values = alpha(c("blue", "red"), .3))
+#' testing ...
