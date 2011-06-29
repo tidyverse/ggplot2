@@ -1,6 +1,5 @@
 #' Bin 2d plane into hexagons.
 #' 
-#' @name stat_binhex
 #' @seealso \code{\link{stat_bin2d}} for rectangular binning
 #' @export
 #' @examples
@@ -21,6 +20,12 @@
 #' qplot(x, y, data = diamonds, geom="hex", xlim = c(4, 10), ylim = c(4, 10))
 #' qplot(x, y, data = diamonds, geom="hex", xlim = c(4, 10), ylim = c(4, 10),
 #'   binwidth = c(0.1, 0.1))
+stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex", position = "identity", 
+bins = 30, na.rm = FALSE, ...) { 
+  StatBinhex$new(mapping = mapping, data = data, geom = geom, position = position, 
+  bins = bins, na.rm = na.rm, ...)
+}
+
 StatBinhex <- proto(Stat, {
   objname <- "binhex"
 

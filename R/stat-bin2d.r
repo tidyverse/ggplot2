@@ -1,6 +1,5 @@
 #' Count number of observation in rectangular bins.
 #' 
-#' @name stat_bin2d
 #' @seealso \code{\link{stat_binhex}} for hexagonal binning
 #' @export
 #' @examples
@@ -27,6 +26,12 @@
 #'   xlim = c(4, 10), ylim = c(4, 10))
 #' qplot(x, y, data = diamonds, geom="bin2d", binwidth = c(0.1, 0.1),
 #'   xlim = c(4, 10), ylim = c(4, 10))
+stat_bin2d <- function (mapping = NULL, data = NULL, geom = "rect", position = "identity", 
+bins = 30, drop = TRUE, ...) {
+  StatBin2d$new(mapping = mapping, data = data, geom = geom, position = position, 
+  bins = bins, drop = drop, ...)
+}
+
 StatBin2d <- proto(Stat, {
   objname <- "bin2d"
 

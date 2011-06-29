@@ -1,6 +1,9 @@
 \name{stat_density}
 \alias{stat_density}
 \title{1d kernel density estimate.}
+\usage{stat_density(mapping, data, geom="area", position="stack",
+    adjust=1, kernel="gaussian", trim=FALSE, na.rm=FALSE,
+    ...)}
 
 \description{
   1d kernel density estimate.

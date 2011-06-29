@@ -1,6 +1,8 @@
 \name{stat_qq}
 \alias{stat_qq}
 \title{Calculation for quantile-quantile plot.}
+\usage{stat_qq(mapping, data, geom="point", position="identity",
+    distribution=qnorm, dparams=list(), na.rm=FALSE, ...)}
 
 \description{
   Calculation for quantile-quantile plot.

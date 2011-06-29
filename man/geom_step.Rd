@@ -1,6 +1,8 @@
 \name{geom_step}
 \alias{geom_step}
 \title{Connect observations by stairs.}
+\usage{geom_step(mapping, data, stat="identity",
+    position="identity", direction="hv", ...)}
 
 \description{
   Connect observations by stairs.

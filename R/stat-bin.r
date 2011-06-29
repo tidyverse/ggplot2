@@ -2,7 +2,6 @@
 #' 
 #' Missing values are currently silently dropped.
 #'
-#' @name stat_bin
 #' @param binwidth Bin width to use. Defaults to 1/30 of the range of the
 #'   data
 #' @param breaks Actual breaks to use.  Overrides bin width and origin 
@@ -38,6 +37,12 @@
 #' # Also works with categorical variables
 #' ggplot(movies, aes(x=mpaa)) + stat_bin()
 #' qplot(mpaa, data=movies, stat="bin")
+stat_bin <- function (mapping = NULL, data = NULL, geom = "bar", position = "stack", 
+width = 0.9, drop = FALSE, right = TRUE, ...) { 
+  StatBin$new(mapping = mapping, data = data, geom = geom, position = position, 
+  width = width, drop = drop, right = right, ...)
+}
+
 StatBin <- proto(Stat, {
   objname <- "bin"
   informed <- FALSE

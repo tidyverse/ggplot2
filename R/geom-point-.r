@@ -23,7 +23,6 @@
 #' way, using \code{\link{stat_sum}}. Another technique is to use transparent
 #' points, \code{geom_point(alpha = 0.05)}.
 #'
-#' @name geom_point
 #' @seealso \code{\link{scale_size}} to see scale area of points, instead of
 #'   radius, \code{\link{geom_jitter}} to jitter points to reduce (mild)
 #'   overplotting
@@ -84,6 +83,12 @@
 #' qplot(wt, mpg, data = mtcars)
 #' qplot(wt, mpg, data = mtcars, colour = factor(cyl))
 #' qplot(wt, mpg, data = mtcars, colour = I("red"))
+geom_point <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
+na.rm = FALSE, ...) {
+  GeomPoint$new(mapping = mapping, data = data, stat = stat, position = position, 
+  na.rm = na.rm, ...)
+}
+      
 GeomPoint <- proto(Geom, {
   objname <- "point"
 

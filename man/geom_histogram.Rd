@@ -1,6 +1,8 @@
 \name{geom_histogram}
 \alias{geom_histogram}
 \title{Histogram...}
+\usage{geom_histogram(mapping, data, stat="bin", position="stack",
+    ...)}
 
 \description{
   Histogram

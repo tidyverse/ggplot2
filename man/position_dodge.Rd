@@ -1,6 +1,7 @@
 \name{position_dodge}
 \alias{position_dodge}
 \title{Adjust position by dodging overlaps to the side.}
+\usage{position_dodge(width, height, ...)}
 
 \description{
   Adjust position by dodging overlaps to the side.

@@ -1,6 +1,5 @@
 #' Adjust position by dodging overlaps to the side.
 #'
-#' @name position_dodge
 #' @export
 #' @examples
 #' ggplot(mtcars, aes(x=factor(cyl), fill=factor(vs))) +
@@ -22,6 +21,10 @@
 #'   position="dodge")
 #' p + geom_errorbar(aes(ymin = y-1, ymax = y+1, width = 0.2),
 #'   position = position_dodge(width = 0.90))
+position_dodge <- function (width = NULL, height = NULL, ...) { 
+  PositionDodge$new(width = width, height = height, ...)
+}
+
 PositionDodge <- proto(Position, {
   objname <- "dodge"
 

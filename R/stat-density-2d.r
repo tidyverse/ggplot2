@@ -1,6 +1,5 @@
 #' 2d density estimation.
 #'
-#' @name stat_density2d
 #' @param contour If \code{TRUE}, contour the results of the 2d density
 #'   estimation
 #' @param n number of grid points in each direction
@@ -43,6 +42,12 @@
 #' 
 #' # Or points:
 #' d + stat_density2d(geom="point", aes(size = ..density..), contour = FALSE)
+stat_density2d <- function (mapping = NULL, data = NULL, geom = "density2d", position = "identity", 
+na.rm = FALSE, contour = TRUE, n = 100, ...) {
+  StatDensity2d$new(mapping = mapping, data = data, geom = geom, 
+  position = position, na.rm = na.rm, contour = contour, n = n, ...)
+}
+
 StatDensity2d <- proto(Stat, {
   objname <- "density2d"
   

@@ -1,6 +1,7 @@
 \name{geom_bar}
 \alias{geom_bar}
 \title{Bars, rectangles with bases on x-axis...}
+\usage{geom_bar(mapping, data, stat="bin", position="stack", ...)}
 
 \description{
   Bars, rectangles with bases on x-axis
@@ -48,6 +49,7 @@
 c <- ggplot(mtcars, aes(factor(cyl)))
 
 c + geom_bar()
+c + geom_bar(width=.5)
 c + geom_bar() + coord_flip()
 c + geom_bar(fill="white", colour="darkgreen")
 
@@ -96,4 +98,18 @@ meanprice <- tapply(diamonds$price, diamonds$cut, mean)
 cut <- factor(levels(diamonds$cut), levels = levels(diamonds$cut))
 qplot(cut, meanprice)
 qplot(cut, meanprice, geom="bar", stat="identity")
-qplot(cut, meanprice, geom="bar", stat="identity", fill = I("grey50"))}
+qplot(cut, meanprice, geom="bar", stat="identity", fill = I("grey50"))
+
+# Another stacked bar chart example
+k <- ggplot(mpg, aes(manufacturer, fill=class))
+k + geom_bar()
+# Use scales to change aesthetics defaults
+k + geom_bar() + scale_fill_brewer()
+k + geom_bar() + scale_fill_grey()
+
+# To change plot order of class varible
+# use factor() to change order of levels
+mpg$class <- factor(mpg$class, levels = c("midsize", "minivan", 
+"suv", "compact", "2seater", "subcompact", "pickup"))
+m <- ggplot(mpg, aes(manufacturer, fill=class))
+m + geom_bar()}

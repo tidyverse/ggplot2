@@ -1,6 +1,8 @@
 \name{geom_crossbar}
 \alias{geom_crossbar}
 \title{Hollow bar with middle indicated by horizontal line.}
+\usage{geom_crossbar(mapping, data, stat="identity",
+    position="identity", fatten=2, ...)}
 
 \description{
   Hollow bar with middle indicated by horizontal line.

@@ -1,6 +1,8 @@
 \name{geom_point}
 \alias{geom_point}
 \title{Points, as for a scatterplot...}
+\usage{geom_point(mapping, data, stat="identity",
+    position="identity", na.rm=FALSE, ...)}
 
 \description{
   Points, as for a scatterplot

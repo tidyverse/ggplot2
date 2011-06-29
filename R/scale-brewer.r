@@ -1,6 +1,6 @@
 #' Sequential, diverging and qualitative colour scales from colorbrewer.org
 #'
-#' See \url{http://colorbrewer.org} for more information.
+#' See \url{http://colorbrewer2.org} for more information.
 #'
 #' @paramCopy ... ggplot2::scale_discrete_x
 #' @paramCopy type scales::brewer_pal

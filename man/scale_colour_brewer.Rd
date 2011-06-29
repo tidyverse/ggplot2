@@ -9,7 +9,7 @@
 }
 
 \details{
-  See \url{http://colorbrewer.org} for more information.
+  See \url{http://colorbrewer2.org} for more information.
 }
 \examples{dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 (d <- qplot(carat, price, data=dsamp, colour=clarity))

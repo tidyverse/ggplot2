@@ -1,7 +1,6 @@
 #' Stack overlapping objects on top of one another, and standardise to have
 #' equal height.
 #' 
-#' @name position_fill
 #' @export
 #' @examples
 #' # See ?geom_bar and ?geom_area for more examples
@@ -14,6 +13,10 @@
 #' ggplot(diamonds, aes(x=price, fill=cut)) + cde
 #' ggplot(diamonds, aes(x=price, fill=clarity)) + cde
 #' ggplot(diamonds, aes(x=price, fill=color)) + cde
+position_fill <- function (width = NULL, height = NULL, ...) { 
+  PositionFill$new(width = width, height = height, ...)
+}
+  
 PositionFill <- proto(Position, {
   objname <- "fill"
 

@@ -1,6 +1,5 @@
 #' An interval represented by a vertical line.
 #'
-#' @name geom_linerange
 #' @seealso \code{\link{geom_errorbar}}: error bars;
 #'   \code{\link{geom_pointrange}}: range indicated by straight line, with
 #'   point in the middle; \code{\link{geom_crossbar}}: hollow bar with middle
@@ -28,6 +27,10 @@
 #' 
 #' # Use coord_flip to flip the x and y axes
 #' se + geom_linerange() + coord_flip()
+geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
+  GeomLinerange$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+ 
 GeomLinerange <- proto(Geom, {
   objname <- "linerange"
 

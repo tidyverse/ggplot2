@@ -1,6 +1,8 @@
 \name{stat_bin}
 \alias{stat_bin}
 \title{Bin data.}
+\usage{stat_bin(mapping, data, geom="bar", position="stack",
+    width=0.9, drop=FALSE, right=TRUE, ...)}
 
 \description{
   Bin data.

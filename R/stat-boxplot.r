@@ -1,6 +1,5 @@
 #' Calculate components of box and whisker plot.
 #' 
-#' @name stat_boxplot
 #' @return A data frame with additional columns:
 #'   \item{width}{width of boxplot}
 #'   \item{ymin}{lower whisker = lower hinge - 1.5 * IQR}
@@ -11,6 +10,12 @@
 #' @export
 #' @examples
 #' # See geom_boxplot for examples
+stat_boxplot <- function (mapping = NULL, data = NULL, geom = "boxplot", position = "dodge", 
+na.rm = FALSE, coef = 1.5, ...) { 
+  StatBoxplot$new(mapping = mapping, data = data, geom = geom, 
+  position = position, na.rm = na.rm, coef = coef, ...)
+}
+  
 StatBoxplot <- proto(Stat, {
   objname <- "boxplot"
   
