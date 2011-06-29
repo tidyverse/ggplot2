@@ -1,6 +1,5 @@
 #' Connect observations, ordered by x value.
 #'
-#' @name geom_line
 #' @seealso \code{\link{geom_path}}: connect observations in data order, 
 #'  \code{\link{geom_segment}}: draw line segments,
 #'  \code{\link{geom_ribbon}}: fill between line and x-axis
@@ -35,6 +34,13 @@
 #' qplot(date, pop, data=subset(economics, date > as.Date("2006-1-1")), geom="line")
 #' qplot(date, pop, data=economics, size=unemploy/pop, geom="line")
 #' 
+#' # Use the arrow parameter to add an arrow to the line
+#' # See ?grid::arrow for more details
+#' c <- ggplot(economics, aes(x = date, y = pop)) 
+#' # Arrow defaults to "last"
+#' c + geom_line(arrow = arrow())
+#' c + geom_line(arrow = arrow(angle = 15, ends = "both", type = "closed"))
+#'
 #' # See scale_date for examples of plotting multiple times series on
 #' # a single graph
 #' 
@@ -49,6 +55,10 @@
 #' dfm <- melt(df, id.var = c("id", "group"))
 #' ggplot(dfm, aes(variable, value, group = id, colour = group)) + 
 #'   geom_path(alpha = 0.5)
+geom_line <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
+  GeomLine$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
 GeomLine <- proto(GeomPath, {
   objname <- "line"
 

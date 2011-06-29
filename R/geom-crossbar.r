@@ -1,6 +1,5 @@
 #' Hollow bar with middle indicated by horizontal line.
-#' 
-#' @name geom_crossbar
+#'
 #' @param fatten a multiplicate factor to fatten middle bar by
 #' @seealso \code{\link{geom_errorbar}} for error bars,
 #' \code{\link{geom_pointrange}} and \code{\link{geom_linerange}} for other
@@ -9,6 +8,12 @@
 #' @export
 #' @examples
 #' # See geom_linerange for examples
+geom_crossbar <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", 
+fatten = 2, ...) { 
+  GeomCrossbar$new(mapping = mapping, data = data, stat = stat, 
+  position = position, fatten = fatten, ...)
+}
+
 GeomCrossbar <- proto(Geom, {
   objname <- "crossbar"
 

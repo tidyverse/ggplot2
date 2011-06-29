@@ -1,6 +1,5 @@
 #' An interval represented by a vertical line, with a point in the middle.
 #' 
-#' @name geom_pointrange
 #' @seealso
 #'  \code{\link{geom_errorbar}} for error bars,
 #'  \code{\link{geom_linerange}} for range indicated by straight line, + examples,
@@ -10,6 +9,10 @@
 #' @export
 #' @examples
 #' # See geom_linerange for examples
+geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
+  GeomPointrange$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
 GeomPointrange <- proto(Geom, {
   objname <- "pointrange"
 

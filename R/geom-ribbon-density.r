@@ -3,10 +3,15 @@
 #' A smooth density estimate calculated by \code{\link{stat_density}}.
 #'
 #' @seealso \code{\link{geom_histogram}} for the histogram
-#' @name geom_density
 #' @export
 #' @examples
 #' # See stat_density for examples
+geom_density <- function (mapping = NULL, data = NULL, stat = "density", position = "identity", 
+na.rm = FALSE, ...) {
+  GeomDensity$new(mapping = mapping, data = data, stat = stat, position = position, 
+  na.rm = na.rm, ...)
+}
+
 GeomDensity <- proto(GeomArea, {
   objname <- "density"
 

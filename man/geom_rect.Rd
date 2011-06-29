@@ -1,6 +1,8 @@
 \name{geom_rect}
 \alias{geom_rect}
 \title{2d rectangles.}
+\usage{geom_rect(mapping, data, stat="identity",
+    position="identity", ...)}
 
 \description{
   2d rectangles.

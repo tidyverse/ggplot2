@@ -1,6 +1,8 @@
 \name{geom_polygon}
 \alias{geom_polygon}
 \title{Polygon, a filled path.}
+\usage{geom_polygon(mapping, data, stat="identity",
+    position="identity", ...)}
 
 \description{
   Polygon, a filled path.

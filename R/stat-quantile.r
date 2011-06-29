@@ -1,6 +1,5 @@
 #' Continuous quantiles.
 #'
-#' @name stat_quantile
 #' @param quantiles conditional quantiles of y to calculate and display
 #' @param formula formula relating y variables to x variables
 #' @param xseq exact points to evaluate smooth at, overrides n
@@ -30,6 +29,14 @@
 #' 
 #' # Use qplot instead
 #' qplot(year, rating, data=movies, geom="quantile")
+stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile", position = "identity", 
+quantiles = c(0.25, 0.5, 0.75), formula = y ~ x, method = "rq", 
+na.rm = FALSE, ...) { 
+  StatQuantile$new(mapping = mapping, data = data, geom = geom, 
+  position = position, quantiles = quantiles, formula = formula, 
+  method = method, na.rm = na.rm, ...)
+}
+
 StatQuantile <- proto(Stat, {
   objname <- "quantile"
 

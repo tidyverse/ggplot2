@@ -1,6 +1,8 @@
 \name{geom_linerange}
 \alias{geom_linerange}
 \title{An interval represented by a vertical line.}
+\usage{geom_linerange(mapping, data, stat="identity",
+    position="identity", ...)}
 
 \description{
   An interval represented by a vertical line.

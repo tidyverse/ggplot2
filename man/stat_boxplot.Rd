@@ -1,6 +1,8 @@
 \name{stat_boxplot}
 \alias{stat_boxplot}
 \title{Calculate components of box and whisker plot.}
+\usage{stat_boxplot(mapping, data, geom="boxplot",
+    position="dodge", na.rm=FALSE, coef=1.5, ...)}
 
 \description{
   Calculate components of box and whisker plot.

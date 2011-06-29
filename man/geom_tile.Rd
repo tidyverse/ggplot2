@@ -1,6 +1,8 @@
 \name{geom_tile}
 \alias{geom_tile}
 \title{Tile plane with rectangles.}
+\usage{geom_tile(mapping, data, stat="identity",
+    position="identity", ...)}
 
 \description{
   Tile plane with rectangles.

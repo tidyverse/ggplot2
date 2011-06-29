@@ -1,6 +1,5 @@
 #' Sum unique values.  Useful for overplotting on scatterplots.
 #' 
-#' @name stat_sum
 #' @seealso \code{\link{ggfluctuation}} for a fluctuation diagram, 
 #' @return a data.frame with additional columns
 #'  \item{n}{number of observations at position}
@@ -30,6 +29,10 @@
 #' # Or using qplot
 #' qplot(cut, clarity, data = diamonds)
 #' qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)    
+stat_sum <- function (mapping = NULL, data = NULL, geom = "point", position = "identity", ...) { 
+  StatSum$new(mapping = mapping, data = data, geom = geom, position = position, ...)
+}
+  
 StatSum <- proto(Stat, {
   objname <- "sum"
 

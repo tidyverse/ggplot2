@@ -4,7 +4,6 @@
 #' 'jitter'.  See \code{\link{position_jitter}} to see how to adjust amount 
 #' of jittering.
 #' 
-#' @name geom_jitter
 #' @seealso
 #'  \code{\link{geom_point}} for regular, unjittered points, 
 #'  \code{\link{geom_boxplot}} for another way of looking at the conditional
@@ -28,6 +27,12 @@
 #' qplot(mpaa, rating, data=movies, geom="jitter")
 #' qplot(mpaa, rating, data=movies, geom=c("boxplot","jitter"))
 #' qplot(mpaa, rating, data=movies, geom=c("jitter", "boxplot"))
+geom_jitter <- function (mapping = NULL, data = NULL, stat = "identity", position = "jitter", 
+na.rm = FALSE, ...) { 
+  GeomJitter$new(mapping = mapping, data = data, stat = stat, position = position, 
+  na.rm = na.rm, ...)
+}
+
 GeomJitter <- proto(GeomPoint, {
   objname <- "jitter"
 

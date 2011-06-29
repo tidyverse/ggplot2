@@ -28,8 +28,7 @@
 #' Naomi Robbins has a nice
 #' \href{http://www.b-eye-network.com/view/index.php?cid=2468}{article on this topic}.  
 #' This is the reason it doesn't make sense to use a log-scaled y axis with a bar chart
-#' 
-#' @name geom_bar
+#'
 #' @seealso \code{\link{stat_bin}} for more details of the binning alogirithm, 
 #'   \code{\link{position_dodge}} for creating side-by-side barcharts, 
 #'   \code{\link{position_stack}} for more info on stacking,
@@ -39,6 +38,7 @@
 #' c <- ggplot(mtcars, aes(factor(cyl)))
 #' 
 #' c + geom_bar()
+#' c + geom_bar(width=.5)
 #' c + geom_bar() + coord_flip()
 #' c + geom_bar(fill="white", colour="darkgreen")
 #' 
@@ -88,6 +88,24 @@
 #' qplot(cut, meanprice)
 #' qplot(cut, meanprice, geom="bar", stat="identity")
 #' qplot(cut, meanprice, geom="bar", stat="identity", fill = I("grey50"))
+#'
+#' # Another stacked bar chart example
+#' k <- ggplot(mpg, aes(manufacturer, fill=class))
+#' k + geom_bar()
+#' # Use scales to change aesthetics defaults
+#' k + geom_bar() + scale_fill_brewer()
+#' k + geom_bar() + scale_fill_grey()
+#'
+#' # To change plot order of class varible
+#' # use factor() to change order of levels
+#' mpg$class <- factor(mpg$class, levels = c("midsize", "minivan", 
+#' "suv", "compact", "2seater", "subcompact", "pickup"))
+#' m <- ggplot(mpg, aes(manufacturer, fill=class))
+#' m + geom_bar()
+geom_bar <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", ...) {
+  GeomBar$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
 GeomBar <- proto(Geom, {
   objname <- "bar"
   

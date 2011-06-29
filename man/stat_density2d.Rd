@@ -1,6 +1,9 @@
 \name{stat_density2d}
 \alias{stat_density2d}
 \title{2d density estimation.}
+\usage{stat_density2d(mapping, data, geom="density2d",
+    position="identity", na.rm=FALSE, contour=TRUE, n=100,
+    ...)}
 
 \description{
   2d density estimation.

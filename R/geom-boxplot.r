@@ -1,6 +1,5 @@
 #' Box and whiskers plot.
 #'
-#' @name geom_boxplot
 #' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
 #'   continuous variable,  \code{\link{geom_jitter}} for another way to look 
 #'   at conditional distributions"
@@ -30,7 +29,7 @@
 #' p + geom_boxplot(aes(fill = factor(am)))
 #' 
 #' # Set aesthetics to fixed value
-#' p + geom_boxplot(fill="grey80", colour="#3366FF")
+#' p + geom_boxplot(fill = "grey80", colour = "#3366FF")
 #' qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot", 
 #'   colour = I("#3366FF"))
 #' 
@@ -50,6 +49,21 @@
 #' qplot(year, budget, data = movies, geom = "boxplot")
 #' qplot(year, budget, data = movies, geom = "boxplot", 
 #'   group = round_any(year, 10, floor))
+#'
+#' # Using precomputed statistics
+#' # generate sample data
+#' abc <- adply(matrix(rnorm(100), ncol = 5), 2, quantile, c(0, .25, .5, .75, 1))
+#' b <- ggplot(abc, aes(x = X1, ymin = `0%`, lower = `25%`, middle = `50%`, upper = `75%`, ymax = `100%`)) 
+#' b + geom_boxplot(stat = "identity")
+#' b + geom_boxplot(stat = "identity") + coord_flip()
+#' b + geom_boxplot(aes(fill = X1), stat = "identity")
+geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot", position = "dodge", 
+outlier.colour = "black", outlier.shape = 16, outlier.size = 2, ...) {
+  GeomBoxplot$new(mapping = mapping, data = data, stat = stat, 
+  position = position, outlier.colour = outlier.colour, outlier.shape = outlier.shape, 
+  outlier.size = outlier.size, ...)
+}
+
 GeomBoxplot <- proto(Geom, {
   objname <- "boxplot"
 

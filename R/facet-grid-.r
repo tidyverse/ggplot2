@@ -19,8 +19,16 @@
 #' # With two variables
 #' p + facet_grid(clarity ~ cut)
 #' p + facet_grid(cut ~ clarity)
-#' # p + facet_grid(cut ~ clarity, margins=TRUE)
+#' p + facet_grid(cut ~ clarity, margins=TRUE)
 #' 
+#' # To change plot order of facet grid, 
+#' # change the order of varible levels with factor()
+#' diamonds$cut <- factor(diamonds$cut, levels = c("Ideal", "Very Good", "Fair", "Good", "Premium"))
+#' # Repeat first example with new order
+#' p <- ggplot(diamonds, aes(carat, ..density..)) +
+#' geom_histogram(binwidth = 1)
+#' p + facet_grid(. ~ cut)
+#'
 #' qplot(mpg, wt, data=mtcars, facets = . ~ vs + am)
 #' qplot(mpg, wt, data=mtcars, facets = vs + am ~ . )
 #' 
@@ -79,6 +87,23 @@
 #'   manufacturer <- reorder(manufacturer, cty)
 #' })
 #' last_plot() %+% mpg + opts(strip.text.y = theme_text())
+#'
+#' # Use as.table to to control direction of horizontal facets, TRUE by default
+#' h <- ggplot(mtcars, (aes(x = mpg, y = wt))) + geom_point()
+#' h + facet_grid(cyl ~ vs)
+#' h + facet_grid(cyl ~ vs, as.table = FALSE)
+#' 
+#' # Use labeller to control facet labels, label_value is default
+#' h + facet_grid(cyl ~ vs, labeller = label_both)
+#' # Using label_parsed, see ?plotmath for more options
+#' mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "sqrt(x, y)"))
+#' k <- qplot(wt, mpg, data = mtcars) 
+#' k + facet_grid(. ~ cyl2)
+#' k + facet_grid(. ~ cyl2, labeller = label_parsed)
+#' # For label_bquote the label value is x.
+#' p <- qplot(wt, mpg, data = mtcars)
+#' p + facet_grid(~ vs, labeller = label_bquote(alpha ^ .(x)))
+#' p + facet_grid(~ vs, labeller = label_bquote(.(x) ^ .(x)))
 facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(

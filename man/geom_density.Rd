@@ -1,6 +1,8 @@
 \name{geom_density}
 \alias{geom_density}
 \title{Display a smooth density estimate.}
+\usage{geom_density(mapping, data, stat="density",
+    position="identity", na.rm=FALSE, ...)}
 
 \description{
   Display a smooth density estimate.

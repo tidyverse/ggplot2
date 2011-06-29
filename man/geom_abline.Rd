@@ -1,6 +1,8 @@
 \name{geom_abline}
 \alias{geom_abline}
 \title{Line specified by slope and intercept.}
+\usage{geom_abline(mapping, data, stat="abline",
+    position="identity", ...)}
 
 \description{
   Line specified by slope and intercept.

@@ -1,6 +1,5 @@
 #' Error bars.
-#' 
-#' @name geom_errorbar
+#'
 #' @seealso \code{\link{geom_pointrange}}: range indicated by straight line,
 #'   with point in the middle; \code{\link{geom_linerange}}: range indicated
 #'   by straight line; \code{\link{geom_crossbar}}: hollow bar with middle
@@ -41,6 +40,10 @@
 #' # groups which define the lines - here the groups in the 
 #' # original dataframe
 #' p + geom_line(aes(group=group)) + geom_errorbar(limits, width=0.2)    
+geom_errorbar <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
+  GeomErrorbar$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
 GeomErrorbar <- proto(Geom, {
   objname <- "errorbar"
 

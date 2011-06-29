@@ -1,6 +1,9 @@
 \name{geom_density2d}
 \alias{geom_density2d}
 \title{Contours from a 2d density estimate.}
+\usage{geom_density2d(mapping, data, stat="density2d",
+    position="identity", lineend="butt", linejoin="round",
+    linemitre=1, na.rm=FALSE, ...)}
 
 \description{
   Contours from a 2d density estimate.
