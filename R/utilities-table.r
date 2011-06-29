@@ -48,7 +48,7 @@ print.gtable <- function(x, ...) {
     stringsAsFactors = FALSE)
   grobNames <- vapply(x$grobs, as.character, character(1))
     
-  cat(paste("  (", pos$l, "-", pos$l, ",", pos$t, "-", pos$b, ") ",
+  cat(paste("  (", pos$l, "-", pos$r, ",", pos$t, "-", pos$b, ") ",
     x$layout$name, ": ", grobNames, sep = "", collapse = "\n"), "\n")  
 }
 
