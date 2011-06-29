@@ -94,12 +94,13 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot), drop = plot$options$d
     plot_table <- gtable_add_grob(plot_table, legend_box, 
       t = 1, b = 1, l = 2, r = -1)
   } else if (position == "manual") {
-    legend_vp <- viewport(
-      name = "legend_box",
-      x = coords[1], y = coords[2], just = theme$legend.justification,
-      width = grobWidth(grobs$legend_box), 
-      height = grobHeight(grobs$legend_box)
-    )
+    stop("Not implemented yet")
+    # legend_vp <- viewport(
+    #   name = "legend_box",
+    #   x = coords[1], y = coords[2], just = theme$legend.justification,
+    #   width = grobWidth(grobs$legend_box), 
+    #   height = grobHeight(grobs$legend_box)
+    # )
   }
   
   # Margins
@@ -109,8 +110,9 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot), drop = plot$options$d
   plot_table <- gtable_add_cols(plot_table, theme$plot.margin[4], pos = 0)
 
   # Drop and keep
-  if (!is.null(keep)) drop <- setdiff(names(grobs), keep)
-  if (!is.null(drop)) grobs[drop] <- rep(list(zeroGrob()), length(drop))
+  if (!is.null(keep) || !is.null(drop)) stop("Not implemented yet")
+  # if (!is.null(keep)) drop <- setdiff(names(grobs), keep)
+  # if (!is.null(drop)) grobs[drop] <- rep(list(zeroGrob()), length(drop))
 
   plot_table
 }
