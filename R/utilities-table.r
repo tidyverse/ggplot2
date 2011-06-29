@@ -55,6 +55,10 @@ print.gtable <- function(x, ...) {
 #' @S3method dim gtable
 dim.gtable <- function(x) c(length(x$heights), length(x$widths))
 
+neg_to_pos <- function(x, max) {
+  ifelse(x >= 0, x, max + 1 + x)
+}
+
 # Add a single grob, possibly spanning multiple rows or columns.
 # 
 # Does not affect height/width
@@ -68,6 +72,11 @@ gtable_add_grob <- function(x, grobs, t, l, b = t, r = l, clip = "on", name = x$
   if (is.grob(grobs)) grobs <- list(grobs)
   x$grobs <- c(x$grobs, grobs)
   
+  t <- neg_to_pos(t, nrow(x))
+  b <- neg_to_pos(b, nrow(x))
+  l <- neg_to_pos(l, ncol(x))
+  r <- neg_to_pos(r, ncol(x))
+  
   layout <- data.frame(t = t, l = l, b = b, r = r, clip = clip, name = name,
     stringsAsFactors = FALSE)
   x$layout <- rbind(x$layout, layout)
@@ -80,9 +89,11 @@ gtable_add_grob <- function(x, grobs, t, l, b = t, r = l, clip = "on", name = x$
 # 
 # @params pos new row will be added below this position. Defaults to
 #   adding row on bottom. \code{0} adds on the top.
-gtable_add_rows <- function(x, heights, clip = "inherit", pos = nrow(x)) {
+gtable_add_rows <- function(x, heights, clip = "inherit", pos = -1) {
   stopifnot(length(pos) == 1)
   n <- length(heights)
+  
+  pos <- neg_to_pos(pos, nrow(x))
   
   # Shift existing rows down
   x$heights <- insert.unit(x$heights, heights, pos)
@@ -93,9 +104,11 @@ gtable_add_rows <- function(x, heights, clip = "inherit", pos = nrow(x)) {
 }
 
 # Add columns to the right
-gtable_add_cols <- function(x, widths, clip = "inherit", pos = ncol(x)) {
+gtable_add_cols <- function(x, widths, clip = "inherit", pos = -1) {
   stopifnot(length(pos) == 1)
   n <- length(widths)
+  
+  pos <- neg_to_pos(pos, ncol(x))
   
   # Shift existing columns right
   x$widths <- insert.unit(x$widths, widths, pos)
