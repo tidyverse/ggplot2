@@ -1,28 +1,29 @@
-# Create a new table grid.
-#
-# A table grid captures all the information needed to layout grobs in a table
-# structure. It supports row and column spanning, and offers some tools to
-# automatically figure out correct dimensions.
-#
-# Each grob is put in its own viewport - grobs in the same location are 
-# not combined into one cell. Each grob takes up the entire cell viewport
-# so justification control is not available.
-#
-# It constructs both the viewports and the gTree needed to display the table.
-#
-# @param grobs a list of grobs
-# @param layout a data frame with one row for each grob, and columns
-#   \code{t}, \code{r}, \code{b}, \code{l} giving top, right, bottom and left
-#   positions respectively, \code{clip} a string, either \code{"on"},
-#   \code{"off"} or \code{"inherit"}, and \code{name}, a character
-#   vector used to name each grob as it is plotted.
-# @param widths a unit vector giving the width of each column
-# @param height a unit vector giving the height of each row
-# @param respect a logical vector of length 1: should the aspect ratio of 
-#   height and width specified in null units be respected.  See
-#   \code{\link{grid.layout}} for more details
-# @param name a string giving the name of the table. This is used to name
-#   the layout viewport
+#' Create a new table grid.
+#'
+#' A table grid captures all the information needed to layout grobs in a table
+#' structure. It supports row and column spanning, and offers some tools to
+#' automatically figure out correct dimensions.
+#'
+#' Each grob is put in its own viewport - grobs in the same location are 
+#' not combined into one cell. Each grob takes up the entire cell viewport
+#' so justification control is not available.
+#'
+#' It constructs both the viewports and the gTree needed to display the table.
+#'
+#' @param grobs a list of grobs
+#' @param layout a data frame with one row for each grob, and columns
+#'   \code{t}, \code{r}, \code{b}, \code{l} giving top, right, bottom and left
+#'   positions respectively, \code{clip} a string, either \code{"on"},
+#'   \code{"off"} or \code{"inherit"}, and \code{name}, a character
+#'   vector used to name each grob as it is plotted.
+#' @param widths a unit vector giving the width of each column
+#' @param height a unit vector giving the height of each row
+#' @param respect a logical vector of length 1: should the aspect ratio of 
+#'   height and width specified in null units be respected.  See
+#'   \code{\link{grid.layout}} for more details
+#' @param name a string giving the name of the table. This is used to name
+#'   the layout viewport
+#' @keywords internal
 gtable <- function(grobs = list(), layout = NULL, widths = list(), heights = list(), respect = FALSE, name = "layout") {
   
   if (is.null(layout)) {
