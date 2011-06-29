@@ -79,6 +79,7 @@ gtable_add_grob <- function(x, grobs, t, l, b = t, r = l, clip = "on", name = x$
   
   layout <- data.frame(t = t, l = l, b = b, r = r, clip = clip, name = name,
     stringsAsFactors = FALSE)
+    
   x$layout <- rbind(x$layout, layout)
   stopifnot(length(x$grobs) == nrow(x$layout))
   
@@ -220,8 +221,8 @@ gtable_viewport <- function(x) {
   vp <- function(i) {
     with(x$layout[i, ], viewport(
       name = paste(name, t, l, sep = "-"), 
-      layout.pos.row = c(t), 
-      layout.pos.col = c(l), 
+      layout.pos.row = t:b, 
+      layout.pos.col = l:r, 
       clip = clip
     ))
   }
