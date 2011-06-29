@@ -13,7 +13,7 @@ benchplot <- function(x) {
   stopifnot(inherits(x, "ggplot"))
   
   build <- system.time(data <- ggplot_build(x))
-  render <- system.time(grob <- ggplotGrob(x, data))
+  render <- system.time(grob <- ggplot_gtable(x, data))
   draw <- system.time(grid.draw(grob))
   
   times <- rbind(construct, build, render, draw)[, 1:3]

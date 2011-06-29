@@ -133,12 +133,11 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   data <- ggplot_build(x)
   
   gtable <- ggplot_gtable(x, data, ...)
-  gtree <- gtable_gTree(gtable)
   if (is.null(vp)) {
-    grid.draw(gtree) 
+    grid.draw(gtable) 
   } else {
     if (is.character(vp)) seekViewport(vp) else pushViewport(vp)
-    grid.draw(gtree) 
+    grid.draw(gtable) 
     upViewport()
   }
   
