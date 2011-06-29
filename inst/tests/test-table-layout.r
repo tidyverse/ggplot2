@@ -1,5 +1,11 @@
 library(testthat)
 
+# Find location of a grob
+gtable_find <- function(x, grob) {
+  pos <- vapply(x$grobs, identical, logical(1), grob)
+  x$layout[pos, ]
+}
+
 cm <- unit(1, "cm")
 null <- unit(1, "null")
 grob1 <- rectGrob()

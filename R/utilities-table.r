@@ -55,12 +55,6 @@ print.gtable <- function(x, ...) {
 #' @S3method dim gtable
 dim.gtable <- function(x) c(length(x$heights), length(x$widths))
 
-# Find location of a grob
-gtable_find <- function(x, grob) {
-  pos <- vapply(x$grobs, identical, logical(1), grob)
-  x$layout[pos, ]
-} 
-
 # Add a single grob, possibly spanning multiple rows or columns.
 # 
 # Does not affect height/width
@@ -240,6 +234,7 @@ gtable_gTree <- function(x) {
   )
 }
 
+#' @S3method grid.draw gtable
 grid.draw.gtable <- function(x, new_page = TRUE) {
   if (new_page) grid.newpage()
   grid.draw(gtable_gTree(x))
