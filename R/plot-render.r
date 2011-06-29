@@ -50,14 +50,14 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot), drop = plot$options$d
   ylabel <- theme_render(theme, "axis.title.y", labels$y)
   
   xlab_height <- grobHeight(xlabel) + 
-    if (is.zero(xlabel)) unit(0, "lines") else unit(0.5, "lines")
+    if (is.null(labels$x)) unit(0, "lines") else unit(0.5, "lines")
   plot_table <- gtable_add_rows(plot_table, xlab_height)
   plot_table <- gtable_add_grob(plot_table, xlabel, name = "xlab",
     l = 2, r = -1, t = -1)
   
   ylab_width <- grobWidth(ylabel) + 
-    if (is.zero(ylabel)) unit(0, "lines") else unit(0.5, "lines")
-  plot_table <- gtable_add_cols(plot_table, xlab_height, pos = 0)
+    if (is.null(labels$y)) unit(0, "lines") else unit(0.5, "lines")
+  plot_table <- gtable_add_cols(plot_table, ylab_width, pos = 0)
   plot_table <- gtable_add_grob(plot_table, ylabel, name = "ylab",
     l = 1, b = -2, t = 2)
 
