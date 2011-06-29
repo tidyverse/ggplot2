@@ -1,7 +1,7 @@
 #' Differentiation related aesthetics: linetype, size, shape
 #' 
 #' @name aes_linetype_size_shape
-#' @alias linetype size shape 
+#' @aliases linetype size shape 
 #'
 #' This page demonstrates the usage of a sub-group 
 #' of aesthetics; linetype, size and shape.
@@ -61,3 +61,4 @@
 #' # background colour (fill)
 #' s + geom_point(aes(shape = z), size = 4, colour = "Red")
 #' s + geom_point(aes(shape = z), size = 4, colour = "Red", fill = "Black")
+NULL
