@@ -29,19 +29,20 @@
 #X p + opts(legend.direction = "horizontal", legend.position = "bottom") # to be fixed
 #X p + opts(legend.direction = "horizontal", legend.position = "bottom", legend.box = "vertical")
 #X theme_set(theme_grey())
-guide_legends_box <- function(scales, layers, default_mapping, horizontal = FALSE, theme) {
+guide_legends_box <- function(scales, layers, default_mapping, position, theme) {
 
   # override alignment of legends box if theme$legend.box is specified
   if (!is.na(theme$legend.box)) {
     horizontal <- 1 == charmatch(theme$legend.box, c("horizontal","vertical"))
   }
   
-  legs <- guide_legends(scales, layers, default_mapping, theme=theme)
+  legs <- guide_legends(scales, layers, default_mapping, position,
+    theme = theme)
   
   n <- length(legs)
   if (n == 0) return(zeroGrob())
   
-  if (!horizontal) {
+  if (position %in% c("left", "right")) {
     width <-   do.call("max", lapply(legs, widthDetails))
     heights <- do.call("unit.c", lapply(legs, function(x) heightDetails(x) * 1.1))
     fg <- frameGrob(grid.layout(nrow=n, 1, widths=width, heights=heights, just="centre"), name="legends")
@@ -83,7 +84,7 @@ guide_legends_box <- function(scales, layers, default_mapping, horizontal = FALS
 #X   labels = c("a", "loooooooooooong", "two\nlines"))
 #X qplot(mpg, wt, data = mtcars, colour = cyl2)
 #X theme_set(theme_grey())
-guide_legends <- function(scales, layers, default_mapping, theme) {
+guide_legends <- function(scales, layers, default_mapping, position, theme) {
   legend <- scales_legend_desc(scales, theme)
   if (length(legend$titles) == 0) return()
   
@@ -99,11 +100,11 @@ guide_legends <- function(scales, layers, default_mapping, theme) {
     } else {
       keys <- keys[[1]]
     }
-    build_legend(title, keys, layers, default_mapping, theme)
+    build_legend(title, keys, layers, default_mapping, position, theme)
   })
 }
 
-build_legend <- function(name, mapping, layers, default_mapping, theme) {
+build_legend <- function(name, mapping, layers, default_mapping, position, theme) {
   legend_data <- llply(layers, build_legend_data, mapping, default_mapping)
 
   # Determine key width and height
@@ -115,10 +116,11 @@ build_legend <- function(name, mapping, layers, default_mapping, theme) {
   }
 
   # Determine the direction of the elements of legend.
-  if (theme$legend.direction == "horizontal") {
-    direction <- "horizontal"
+  if (is.na(theme$legend.direction)) {
+    direction <- if (position %in% c("top", "bottom")) "horizontal" else
+      "vertical"
   } else {
-    direction <- "vertical"
+    direction <- theme$legend.direction
   }
 
   # Calculate sizes for keys - mainly for v. large points and lines

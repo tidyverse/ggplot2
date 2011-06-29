@@ -60,7 +60,6 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot), drop = plot$options$d
   plot_table <- gtable_add_cols(plot_table, xlab_height, pos = 0)
   plot_table <- gtable_add_grob(plot_table, ylabel, name = "ylab",
     l = 1, b = -2, t = 2)
-  return(plot_table)
 
   # Legends
   position <- theme$legend.position
@@ -68,31 +67,39 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot), drop = plot$options$d
     coords <- position
     position <- "manual"
   }
-  horiz <- any(c("top", "bottom") %in% position)
   
   legend_box <- if (position != "none") {
-    guide_legends_box(plot$scales, plot$layers, plot$mapping, horiz, theme) 
+    guide_legends_box(plot$scales, plot$layers, plot$mapping, position, theme) 
   } else {
     zeroGrob()
-  } 
+  }
   legend_width <- grobWidth(legend_box)
   legend_height <- grobHeight(legend_box)
   if (is.zero(legend_box)) position <- "none"
   
   if (position == "left") {
-    plot_table <- gtable_add_cols(plot_table, 
-      )
-  }
-  
-  if (position == "manual") {
+    plot_table <- gtable_add_cols(plot_table, legend_width, pos = 0)
+    plot_table <- gtable_add_grob(plot_table, legend_box, 
+      t = 2, b = -3, l = 1, r = 1)
+  } else if (position == "right") {
+    plot_table <- gtable_add_cols(plot_table, legend_width, pos = -1)
+    plot_table <- gtable_add_grob(plot_table, legend_box, 
+      t = 2, b = -3, l = -1, r = -1)
+  } else if (position == "bottom") {
+    plot_table <- gtable_add_rows(plot_table, legend_height, pos = -1)
+    plot_table <- gtable_add_grob(plot_table, legend_box, 
+      t = -1, b = -1, l = 2, r = -1)
+  } else if (position == "top") {
+    plot_table <- gtable_add_rows(plot_table, legend_height, pos = 0)
+    plot_table <- gtable_add_grob(plot_table, legend_box, 
+      t = 1, b = 1, l = 2, r = -1)
+  } else if (position == "manual") {
     legend_vp <- viewport(
       name = "legend_box",
       x = coords[1], y = coords[2], just = theme$legend.justification,
       width = grobWidth(grobs$legend_box), 
       height = grobHeight(grobs$legend_box)
     )
-  } else {
-    legend_vp <- viewport(name = "legend_box")
   }
   
   # Margins
