@@ -32,14 +32,6 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot), drop = plot$options$d
   plot_table <- facet_render(plot$facet, panel, plot$coordinates,
     plot_theme(plot), geom_grobs)
   
-  panel_loc <- function() {
-    loc <- plot_table$layout[grepl("panel", plot_table$layout$name), ]
-    list(
-      l = min(loc$l), r = max(loc$r),
-      b = min(loc$b), t = max(loc$t)
-    )
-  }
-  
   # Title  
   title <- theme_render(theme, "plot.title", plot$options$title)
   title_height <- grobHeight(title) + 
@@ -47,7 +39,7 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot), drop = plot$options$d
   
   plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
   plot_table <- gtable_add_grob(plot_table, title, name = "title",
-    t = 1, b = 1, l = panel_loc()$l, r = panel_loc()$r)
+    t = 1, b = 1, l = 2, r = -1)
   
   # Axis labels
   labels <- coord_labels(plot$coordinates, list(
@@ -61,14 +53,13 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot), drop = plot$options$d
     if (is.zero(xlabel)) unit(0, "lines") else unit(0.5, "lines")
   plot_table <- gtable_add_rows(plot_table, xlab_height)
   plot_table <- gtable_add_grob(plot_table, xlabel, name = "xlab",
-    l = panel_loc()$l, r = panel_loc()$r, t = panel_loc()$b + 2)
+    l = 2, r = -1, t = -1)
   
   ylab_width <- grobWidth(ylabel) + 
     if (is.zero(ylabel)) unit(0, "lines") else unit(0.5, "lines")
   plot_table <- gtable_add_cols(plot_table, xlab_height, pos = 0)
   plot_table <- gtable_add_grob(plot_table, ylabel, name = "ylab",
-    l = 1, b = panel_loc()$b, t = panel_loc()$t)
-
+    l = 1, b = -2, t = 2)
   return(plot_table)
 
   # Legends
