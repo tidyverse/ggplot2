@@ -1,7 +1,7 @@
 \name{scale_size_continuous}
 \alias{scale_size_continuous}
 \title{Size scale for continuous variables...}
-\usage{scale_size_continuous(..., range=c(1, 6))}
+\usage{scale_size_continuous(..., range = c(1, 6))}
 
 \description{
   Size scale for continuous variables
@@ -29,3 +29,4 @@ qplot(mpg, cyl, data=mtcars, size=factor(cyl))
 # To control the size mapping for discrete variable, use 
 # scale_size_manual:
 last_plot() + scale_size_manual(values=c(2,4,6))}
+

@@ -1,8 +1,8 @@
 \name{stat_summary}
 \alias{stat_summary}
 \title{Summarise y values at every unique x.}
-\usage{stat_summary(mapping, data, geom="pointrange",
-    position="identity", ...)}
+\usage{stat_summary(mapping = NULL, data = NULL, geom =
+    "pointrange", position = "identity", ...)}
 
 \description{
   Summarise y values at every unique x.
@@ -100,3 +100,4 @@ m2 + scale_y_log10()
 # and stretching the geoms onto the log scale.  Compare the widths of the
 # standard errors.
 m2 + coord_trans(y="log10")}
+

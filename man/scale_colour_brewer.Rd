@@ -1,7 +1,7 @@
 \name{scale_colour_brewer}
 \alias{scale_colour_brewer}
 \title{Sequential, diverging and qualitative colour scales from colorbrewer...}
-\usage{scale_colour_brewer(..., type="seq", palette=1)}
+\usage{scale_colour_brewer(..., type = "seq", palette = 1)}
 
 \description{
   Sequential, diverging and qualitative colour scales from
@@ -33,3 +33,4 @@ d + scale_colour_brewer(palette="Set1")
 ggplot(diamonds, aes(x=price, fill=cut)) + 
 geom_histogram(position="dodge", binwidth=1000) + 
 scale_fill_brewer()}
+

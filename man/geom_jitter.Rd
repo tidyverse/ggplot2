@@ -1,8 +1,8 @@
 \name{geom_jitter}
 \alias{geom_jitter}
 \title{Points, jittered to reduce overplotting.}
-\usage{geom_jitter(mapping, data, stat="identity",
-    position="jitter", na.rm=FALSE, ...)}
+\usage{geom_jitter(mapping = NULL, data = NULL, stat = "identity",
+    position = "jitter", na.rm = FALSE, ...)}
 
 \description{
   Points, jittered to reduce overplotting.
@@ -34,3 +34,4 @@ p + geom_jitter(position=position_jitter(height=5))
 qplot(mpaa, rating, data=movies, geom="jitter")
 qplot(mpaa, rating, data=movies, geom=c("boxplot","jitter"))
 qplot(mpaa, rating, data=movies, geom=c("jitter", "boxplot"))}
+

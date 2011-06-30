@@ -1,9 +1,10 @@
 \name{stat_quantile}
 \alias{stat_quantile}
 \title{Continuous quantiles.}
-\usage{stat_quantile(mapping, data, geom="quantile",
-    position="identity", quantiles=c(0.25, 0.5, 0.75),
-    formula=y ~ x, method="rq", na.rm=FALSE, ...)}
+\usage{stat_quantile(mapping = NULL, data = NULL, geom =
+    "quantile", position = "identity", quantiles = c(0.25,
+    0.5, 0.75), formula = y ~ x, method = "rq", na.rm =
+    FALSE, ...)}
 
 \description{
   Continuous quantiles.
@@ -37,3 +38,4 @@ m + stat_quantile(colour="red", size=2, linetype=2)
 
 # Use qplot instead
 qplot(year, rating, data=movies, geom="quantile")}
+

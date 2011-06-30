@@ -1,8 +1,8 @@
 \name{geom_vline}
 \alias{geom_vline}
 \title{Line, vertical.}
-\usage{geom_vline(mapping, data, stat="vline",
-    position="identity", ...)}
+\usage{geom_vline(mapping = NULL, data = NULL, stat = "vline",
+    position = "identity", ...)}
 
 \description{
   Line, vertical.
@@ -41,3 +41,4 @@ p2 + geom_vline(xintercept = 15)
 p <- qplot(mpg, wt, data=mtcars, facets = vs ~ am)   
 vline.data <- data.frame(z = c(15, 20, 25, 30), vs = c(0, 0, 1, 1), am = c(0, 1, 0, 1)) 
 p + geom_vline(aes(xintercept = z), vline.data)}
+

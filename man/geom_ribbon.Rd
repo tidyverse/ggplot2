@@ -1,8 +1,8 @@
 \name{geom_ribbon}
 \alias{geom_ribbon}
 \title{Ribbons, y range with continuous x values.}
-\usage{geom_ribbon(mapping, data, stat="identity",
-    position="identity", na.rm=FALSE, ...)}
+\usage{geom_ribbon(mapping = NULL, data = NULL, stat = "identity",
+    position = "identity", na.rm = FALSE, ...)}
 
 \description{
   Ribbons, y range with continuous x values.
@@ -38,3 +38,4 @@ m + stat_summary(geom="ribbon", fun.data="median_hilow")
 
 # Use qplot instead
 qplot(year, level, data=huron, geom=c("area", "line"))}
+

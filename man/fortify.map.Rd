@@ -27,3 +27,4 @@ head(fortify(tx))
 qplot(long, lat, data = tx, geom = "polygon", group = group, 
 colour = I("white"))
 }}
+

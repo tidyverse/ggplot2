@@ -19,3 +19,4 @@
   \item{data}{original dataset, if needed}
   \item{...}{other arguments passed to methods}
 }
+

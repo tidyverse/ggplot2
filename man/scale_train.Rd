@@ -6,3 +6,4 @@
 \description{
   Train an individual scale from a vector of data.
 }
+

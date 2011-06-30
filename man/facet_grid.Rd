@@ -1,9 +1,9 @@
 \name{facet_grid}
 \alias{facet_grid}
 \title{Lay out panels in a grid.}
-\usage{facet_grid(facets, margins=FALSE, scales="fixed",
-    space="fixed", shrink=TRUE, labeller="label_value",
-    as.table=TRUE)}
+\usage{facet_grid(facets, margins = FALSE, scales = "fixed", space
+    = "fixed", shrink = TRUE, labeller = "label_value",
+    as.table = TRUE)}
 
 \description{
   Lay out panels in a grid.
@@ -112,3 +112,4 @@ k + facet_grid(. ~ cyl2, labeller = label_parsed)
 p <- qplot(wt, mpg, data = mtcars)
 p + facet_grid(~ vs, labeller = label_bquote(alpha ^ .(x)))
 p + facet_grid(~ vs, labeller = label_bquote(.(x) ^ .(x)))}
+

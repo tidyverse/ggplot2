@@ -23,3 +23,4 @@
 }
 \examples{aes(x = mpg, y = wt)
 aes(x = mpg ^ 2, y = wt / cyl)}
+

@@ -1,8 +1,8 @@
 \name{ggfluctuation}
 \alias{ggfluctuation}
 \title{Create a fluctuation plot.}
-\usage{ggfluctuation(table, type="size", floor=0,
-    ceiling=max(table$freq, na.rm = TRUE))}
+\usage{ggfluctuation(table, type = "size", floor = 0, ceiling =
+    max(table$freq, na.rm = TRUE))}
 
 \description{
   Create a fluctuation plot.
@@ -30,3 +30,4 @@ the last column being frequency}
 ggfluctuation(table(movies$Action, movies$mpaa))
 ggfluctuation(table(movies$Action, movies$Comedy), type="colour")
 ggfluctuation(table(warpbreaks$breaks, warpbreaks$tension))}
+

@@ -1,9 +1,9 @@
 \name{geom_density2d}
 \alias{geom_density2d}
 \title{Contours from a 2d density estimate.}
-\usage{geom_density2d(mapping, data, stat="density2d",
-    position="identity", lineend="butt", linejoin="round",
-    linemitre=1, na.rm=FALSE, ...)}
+\usage{geom_density2d(mapping = NULL, data = NULL, stat =
+    "density2d", position = "identity", lineend = "butt",
+    linejoin = "round", linemitre = 1, na.rm = FALSE, ...)}
 
 \description{
   Contours from a 2d density estimate.
@@ -18,3 +18,4 @@
 \seealso{\code{\link{geom_contour}} for contour drawing geom, 
 \code{\link{stat_sum}} for another way of dealing with overplotting}
 \examples{# See stat_density2d for examples}
+

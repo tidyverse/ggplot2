@@ -1,8 +1,8 @@
 \name{geom_polygon}
 \alias{geom_polygon}
 \title{Polygon, a filled path.}
-\usage{geom_polygon(mapping, data, stat="identity",
-    position="identity", ...)}
+\usage{geom_polygon(mapping = NULL, data = NULL, stat =
+    "identity", position = "identity", ...)}
 
 \description{
   Polygon, a filled path.
@@ -46,3 +46,4 @@ p + geom_line(data = stream, colour="grey30", size = 5)
 
 # And if the positions are in longitude and latitude, you can use
 # coord_map to produce different map projections.}
+

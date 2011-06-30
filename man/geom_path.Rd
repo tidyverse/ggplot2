@@ -1,9 +1,9 @@
 \name{geom_path}
 \alias{geom_path}
 \title{Connect observations in original order...}
-\usage{geom_path(mapping, data, stat="identity",
-    position="identity", lineend="butt", linejoin="round",
-    linemitre=1, na.rm=FALSE, ...)}
+\usage{geom_path(mapping = NULL, data = NULL, stat = "identity",
+    position = "identity", lineend = "butt", linejoin =
+    "round", linemitre = 1, na.rm = FALSE, ...)}
 
 \description{
   Connect observations in original order
@@ -94,3 +94,4 @@ c <- ggplot(economics, aes(x = date, y = pop))
 # Arrow defaults to "last"
 c + geom_path(arrow = arrow())
 c + geom_path(arrow = arrow(angle = 15, ends = "both", length = unit(0.6, "inches")))}
+

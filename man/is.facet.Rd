@@ -10,3 +10,4 @@
 \arguments{
   \item{x}{object to test}
 }
+

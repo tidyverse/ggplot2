@@ -1,10 +1,10 @@
 \name{stat_smooth}
 \alias{stat_smooth}
 \title{Add a smoother.}
-\usage{stat_smooth(mapping, data, geom="smooth",
-    position="identity", method="auto", formula=y ~ x,
-    se=TRUE, n=80, fullrange=FALSE, level=0.95,
-    na.rm=FALSE, ...)}
+\usage{stat_smooth(mapping = NULL, data = NULL, geom = "smooth",
+    position = "identity", method = "auto", formula = y ~
+    x, se = TRUE, n = 80, fullrange = FALSE, level = 0.95,
+    na.rm = FALSE, ...)}
 
 \description{
   Add a smoother.
@@ -89,3 +89,4 @@ qplot(Age, as.numeric(Kyphosis) - 1, data = kyphosis) +
 stat_smooth(method="glm", family="binomial")
 qplot(Age, as.numeric(Kyphosis) - 1, data=kyphosis) +
 stat_smooth(method="glm", family="binomial", formula = y ~ ns(x, 2))}
+

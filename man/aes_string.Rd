@@ -23,3 +23,4 @@
 }
 \examples{aes_string(x = "mpg", y = "wt")
 aes(x = mpg, y = wt)}
+

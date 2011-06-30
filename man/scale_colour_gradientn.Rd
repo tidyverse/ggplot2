@@ -1,8 +1,8 @@
 \name{scale_colour_gradientn}
 \alias{scale_colour_gradientn}
 \title{Smooth colour gradient between n colours...}
-\usage{scale_colour_gradientn(..., colours, values, space="Lab",
-    na.value="grey50")}
+\usage{scale_colour_gradientn(..., colours, values = NULL, space =
+    "Lab", na.value = "grey50")}
 
 \description{
   Smooth colour gradient between n colours
@@ -33,3 +33,4 @@ d + scale_colour_gradientn(colours = topo.colors(10),
 values = values, rescale = function(x, ...) x, oob = identity)
 d + scale_colour_gradientn(colours = terrain.colors(10), 
 values = values, rescale = function(x, ...) x, oob = identity)}
+

@@ -1,8 +1,8 @@
 \name{geom_crossbar}
 \alias{geom_crossbar}
 \title{Hollow bar with middle indicated by horizontal line.}
-\usage{geom_crossbar(mapping, data, stat="identity",
-    position="identity", fatten=2, ...)}
+\usage{geom_crossbar(mapping = NULL, data = NULL, stat =
+    "identity", position = "identity", fatten = 2, ...)}
 
 \description{
   Hollow bar with middle indicated by horizontal line.
@@ -15,3 +15,4 @@ errors from the data, \code{\link{geom_smooth}} for the continuous analog.}
   \item{fatten}{a multiplicate factor to fatten middle bar by}
 }
 \examples{# See geom_linerange for examples}
+

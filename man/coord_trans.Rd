@@ -1,7 +1,7 @@
 \name{coord_trans}
 \alias{coord_trans}
 \title{Transformed cartesian coordinate system.}
-\usage{coord_trans(xtrans="identity", ytrans="identity")}
+\usage{coord_trans(xtrans = "identity", ytrans = "identity")}
 
 \description{
   Transformed cartesian coordinate system.
@@ -54,3 +54,4 @@ plot <- ggplot(df,aes(a,letters)) + geom_point()
 plot + coord_trans(x = "log10")
 plot + coord_trans(x = "sqrt")
 plot + coord_trans(x = "sqrt", y = "reverse")}
+

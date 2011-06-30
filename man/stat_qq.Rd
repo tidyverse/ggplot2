@@ -1,8 +1,9 @@
 \name{stat_qq}
 \alias{stat_qq}
 \title{Calculation for quantile-quantile plot.}
-\usage{stat_qq(mapping, data, geom="point", position="identity",
-    distribution=qnorm, dparams=list(), na.rm=FALSE, ...)}
+\usage{stat_qq(mapping = NULL, data = NULL, geom = "point",
+    position = "identity", distribution = qnorm, dparams =
+    list(), na.rm = FALSE, ...)}
 
 \description{
   Calculation for quantile-quantile plot.
@@ -37,3 +38,4 @@ ggplot(df, aes(sample = y)) + stat_qq(dist = qt, dparam = params)
 # Using to explore the distribution of a variable
 qplot(sample = mpg, data = mtcars)
 qplot(sample = mpg, data = mtcars, colour = factor(cyl))}
+

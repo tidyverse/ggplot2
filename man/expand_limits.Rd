@@ -25,3 +25,4 @@ qplot(mpg, wt, data = mtcars, colour = cyl) +
 expand_limits(colour = seq(2, 10, by = 2))
 qplot(mpg, wt, data = mtcars, colour = factor(cyl)) + 
 expand_limits(colour = factor(seq(2, 10, by = 2)))}
+

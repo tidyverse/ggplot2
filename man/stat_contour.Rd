@@ -1,8 +1,8 @@
 \name{stat_contour}
 \alias{stat_contour}
 \title{Calculate contours of 3d data.}
-\usage{stat_contour(mapping, data, geom="path",
-    position="identity", na.rm=FALSE, ...)}
+\usage{stat_contour(mapping = NULL, data = NULL, geom = "path",
+    position = "identity", na.rm = FALSE, ...)}
 
 \description{
   Calculate contours of 3d data.
@@ -48,3 +48,4 @@ v + geom_tile(aes(fill = z)) + stat_contour()
 # Use qplot instead
 qplot(x, y, z = z, data = volcano3d, geom = "contour")
 qplot(x, y, z = z, data = volcano3d, stat = "contour", geom = "path")}
+

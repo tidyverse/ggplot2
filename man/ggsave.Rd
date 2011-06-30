@@ -1,10 +1,10 @@
 \name{ggsave}
 \alias{ggsave}
 \title{Save a ggplot with sensible defaults...}
-\usage{ggsave(filename=default_name(plot), plot=last_plot(),
-    device=default_device(filename), path, scale=1,
-    width=par("din")[1], height=par("din")[2], dpi=300,
-    ...)}
+\usage{ggsave(filename = default_name(plot), plot = last_plot(),
+    device = default_device(filename), path = NULL, scale =
+    1, width = par("din")[1], height = par("din")[2], dpi =
+    300, ...)}
 
 \description{
   Save a ggplot with sensible defaults
@@ -44,3 +44,4 @@ ggsave(ratings, file="ratings.pdf", width=4, height=4)
 # make twice as big as on screen
 ggsave(ratings, file="ratings.pdf", scale=2)
 }}
+

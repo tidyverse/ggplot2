@@ -1,7 +1,7 @@
 \name{scale_colour_identity}
 \alias{scale_colour_identity}
 \title{Use values without scaling.}
-\usage{scale_colour_identity(..., legend=FALSE)}
+\usage{scale_colour_identity(..., legend = FALSE)}
 
 \description{
   Use values without scaling.
@@ -24,3 +24,4 @@ qplot(mpg, wt, data = mtcars, size = cyl)
 
 # cyl used as point size
 qplot(mpg, wt, data = mtcars, size = cyl) + scale_size_identity()}
+

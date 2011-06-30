@@ -1,9 +1,9 @@
 \name{geom_boxplot}
 \alias{geom_boxplot}
 \title{Box and whiskers plot.}
-\usage{geom_boxplot(mapping, data, stat="boxplot",
-    position="dodge", outlier.colour="black",
-    outlier.shape=16, outlier.size=2, ...)}
+\usage{geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
+    position = "dodge", outlier.colour = "black",
+    outlier.shape = 16, outlier.size = 2, ...)}
 
 \description{
   Box and whiskers plot.
@@ -65,3 +65,4 @@ b <- ggplot(abc, aes(x = X1, ymin = `0\%`, lower = `25\%`, middle = `50\%`, uppe
 b + geom_boxplot(stat = "identity")
 b + geom_boxplot(stat = "identity") + coord_flip()
 b + geom_boxplot(aes(fill = X1), stat = "identity")}
+

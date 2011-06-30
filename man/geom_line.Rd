@@ -1,8 +1,8 @@
 \name{geom_line}
 \alias{geom_line}
 \title{Connect observations, ordered by x value.}
-\usage{geom_line(mapping, data, stat="identity",
-    position="identity", ...)}
+\usage{geom_line(mapping = NULL, data = NULL, stat = "identity",
+    position = "identity", ...)}
 
 \description{
   Connect observations, ordered by x value.
@@ -60,3 +60,4 @@ library(reshape2)
 dfm <- melt(df, id.var = c("id", "group"))
 ggplot(dfm, aes(variable, value, group = id, colour = group)) + 
 geom_path(alpha = 0.5)}
+

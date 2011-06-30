@@ -22,3 +22,4 @@ qplot(date, value, data=ecm, geom="line", linetype=variable)
 qplot(date, value, data=ecm, geom="line", colour=variable)
 
 # See scale_manual for more flexibility}
+

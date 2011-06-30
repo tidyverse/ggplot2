@@ -1,8 +1,8 @@
 \name{geom_errorbar}
 \alias{geom_errorbar}
 \title{Error bars.}
-\usage{geom_errorbar(mapping, data, stat="identity",
-    position="identity", ...)}
+\usage{geom_errorbar(mapping = NULL, data = NULL, stat =
+    "identity", position = "identity", ...)}
 
 \description{
   Error bars.
@@ -45,3 +45,4 @@ p + geom_crossbar(limits, width=0.2)
 # groups which define the lines - here the groups in the 
 # original dataframe
 p + geom_line(aes(group=group)) + geom_errorbar(limits, width=0.2)}
+

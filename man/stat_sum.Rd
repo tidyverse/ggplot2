@@ -1,8 +1,8 @@
 \name{stat_sum}
 \alias{stat_sum}
 \title{Sum unique values.}
-\usage{stat_sum(mapping, data, geom="point", position="identity",
-    ...)}
+\usage{stat_sum(mapping = NULL, data = NULL, geom = "point",
+    position = "identity", ...)}
 
 \description{
   Sum unique values.  Useful for overplotting on
@@ -35,3 +35,4 @@ d + stat_sum(aes(group = 1, weight = price, size = ..n..))
 # Or using qplot
 qplot(cut, clarity, data = diamonds)
 qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)}
+

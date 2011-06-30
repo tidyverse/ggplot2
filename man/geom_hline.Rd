@@ -1,8 +1,8 @@
 \name{geom_hline}
 \alias{geom_hline}
 \title{Horizontal line.}
-\usage{geom_hline(mapping, data, stat="hline",
-    position="identity", ...)}
+\usage{geom_hline(mapping = NULL, data = NULL, stat = "hline",
+    position = "identity", ...)}
 
 \description{
   Horizontal line.
@@ -35,3 +35,4 @@ p <- qplot(mpg, wt, data=mtcars, facets = vs ~ am)
 
 hline.data <- data.frame(z = 1:4, vs = c(0,0,1,1), am = c(0,1,0,1))
 p + geom_hline(aes(yintercept = z), hline.data)}
+

@@ -1,8 +1,8 @@
 \name{facet_wrap}
 \alias{facet_wrap}
 \title{Wrap a 1d ribbon of panels into 2d.}
-\usage{facet_wrap(facets, nrow, ncol, scales="fixed", shrink=TRUE,
-    as.table=TRUE)}
+\usage{facet_wrap(facets, nrow = NULL, ncol = NULL, scales =
+    "fixed", shrink = TRUE, as.table = TRUE)}
 
 \description{
   Wrap a 1d ribbon of panels into 2d.
@@ -55,3 +55,4 @@ p + geom_point(data = transform(cyl6, cyl = 7), colour = "red") +
 facet_wrap(~ cyl)
 p + geom_point(data = transform(cyl6, cyl = NULL), colour = "red") + 
 facet_wrap(~ cyl)}
+

@@ -1,6 +1,6 @@
 \name{scale_alpha_continuous}
 \title{Alpha scale for continuous variable.}
-\usage{scale_alpha_continuous(..., range=c(0.1, 1))}
+\usage{scale_alpha_continuous(..., range = c(0.1, 1))}
 
 \description{
   Alpha scale for continuous variable.
@@ -17,3 +17,4 @@ p + scale_alpha("cylinders")
 p + scale_alpha("number\\nof\\ncylinders")
 
 p + scale_alpha(range = c(0.4, 0.8))}
+

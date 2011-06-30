@@ -1,8 +1,8 @@
 \name{stat_bin2d}
 \alias{stat_bin2d}
 \title{Count number of observation in rectangular bins.}
-\usage{stat_bin2d(mapping, data, geom="rect", position="identity",
-    bins=30, drop=TRUE, ...)}
+\usage{stat_bin2d(mapping = NULL, data = NULL, geom = "rect",
+    position = "identity", bins = 30, drop = TRUE, ...)}
 
 \description{
   Count number of observation in rectangular bins.
@@ -31,3 +31,4 @@ qplot(x, y, data = diamonds, geom="bin2d",
 xlim = c(4, 10), ylim = c(4, 10))
 qplot(x, y, data = diamonds, geom="bin2d", binwidth = c(0.1, 0.1),
 xlim = c(4, 10), ylim = c(4, 10))}
+

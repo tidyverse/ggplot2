@@ -1,7 +1,7 @@
 \name{scale_shape}
 \alias{scale_shape}
 \title{Scale for shapes, aka glyphs.}
-\usage{scale_shape(..., solid=TRUE)}
+\usage{scale_shape(..., solid = TRUE)}
 
 \description{
   Scale for shapes, aka glyphs.
@@ -23,3 +23,4 @@ qplot(price, carat, data=dsmall, shape=cut)
 
 # Or for short:
 d \%+\% dsmall}
+

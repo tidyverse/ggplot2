@@ -1,9 +1,9 @@
 \name{stat_density2d}
 \alias{stat_density2d}
 \title{2d density estimation.}
-\usage{stat_density2d(mapping, data, geom="density2d",
-    position="identity", na.rm=FALSE, contour=TRUE, n=100,
-    ...)}
+\usage{stat_density2d(mapping = NULL, data = NULL, geom =
+    "density2d", position = "identity", na.rm = FALSE,
+    contour = TRUE, n = 100, ...)}
 
 \description{
   2d density estimation.
@@ -50,3 +50,4 @@ last_plot() + scale_fill_gradient(limits=c(1e-5,8e-4))
 
 # Or points:
 d + stat_density2d(geom="point", aes(size = ..density..), contour = FALSE)}
+

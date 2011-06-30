@@ -1,8 +1,9 @@
 \name{stat_function}
 \alias{stat_function}
 \title{Superimpose a function.}
-\usage{stat_function(mapping, data, geom="path",
-    position="identity", fun, n=101, args=list(), ...)}
+\usage{stat_function(mapping = NULL, data = NULL, geom = "path",
+    position = "identity", fun, n = 101, args = list(),
+    ...)}
 
 \description{
   Superimpose a function.
@@ -19,3 +20,4 @@
 base <- qplot(x, geom="density")
 base + stat_function(fun = dnorm, colour = "red")
 base + stat_function(fun = dnorm, colour = "red", arg = list(mean = 3))}
+

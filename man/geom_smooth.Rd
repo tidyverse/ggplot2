@@ -1,8 +1,8 @@
 \name{geom_smooth}
 \alias{geom_smooth}
 \title{Add a smoothed conditional mean.}
-\usage{geom_smooth(mapping, data, stat="smooth",
-    position="identity", ...)}
+\usage{geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
+    position = "identity", ...)}
 
 \description{
   Add a smoothed conditional mean.
@@ -30,3 +30,4 @@ grid$lcl <- err$fit - 1.96 * err$se.fit
 
 qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + 
 geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat="identity")}
+

@@ -1,8 +1,8 @@
 \name{gtable}
 \alias{gtable}
 \title{Create a new table grid.}
-\usage{gtable(grobs=list(), layout, widths=list(), heights=list(),
-    respect=FALSE, name="layout")}
+\usage{gtable(grobs = list(), layout = NULL, widths = list(),
+    heights = list(), respect = FALSE, name = "layout")}
 
 \description{
   Create a new table grid.
@@ -38,3 +38,4 @@ height and width specified in null units be respected.  See
   \item{name}{a string giving the name of the table. This is used to name
 the layout viewport}
 }
+

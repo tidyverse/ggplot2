@@ -1,8 +1,8 @@
 \name{geom_pointrange}
 \alias{geom_pointrange}
 \title{An interval represented by a vertical line, with a point in the middle.}
-\usage{geom_pointrange(mapping, data, stat="identity",
-    position="identity", ...)}
+\usage{geom_pointrange(mapping = NULL, data = NULL, stat =
+    "identity", position = "identity", ...)}
 
 \description{
   An interval represented by a vertical line, with a point
@@ -14,3 +14,4 @@
 \code{\link{stat_summary}} for examples of these guys in use,
 \code{\link{geom_smooth}} for continuous analog"}
 \examples{# See geom_linerange for examples}
+

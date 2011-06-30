@@ -1,7 +1,7 @@
 \name{map_data}
 \alias{map_data}
 \title{Create a data frame of map data.}
-\usage{map_data(map, region=".", exact=FALSE)}
+\usage{map_data(map, region = ".", exact = FALSE)}
 
 \description{
   Create a data frame of map data.
@@ -30,3 +30,4 @@ geom = "polygon")
 qplot(long, lat, data = choro, group = group, fill = assault / murder,
 geom = "polygon")
 }}
+

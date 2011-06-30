@@ -1,7 +1,7 @@
 \name{ggplot}
 \alias{ggplot}
 \title{Create a new ggplot plot...}
-\usage{ggplot(data, ...)}
+\usage{ggplot(data = NULL, ...)}
 
 \description{
   Create a new ggplot plot
@@ -12,3 +12,4 @@
   \item{data}{default data set}
   \item{...}{other arguments passed to specific methods}
 }
+

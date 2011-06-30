@@ -13,3 +13,4 @@
 }
 \examples{benchplot(qplot(mpg, wt, data = mtcars))
 benchplot(qplot(mpg, wt, data = mtcars) + facet_grid(.~ cyl))}
+

@@ -14,3 +14,4 @@ character, will create a discrete scale}
 ylim(c(10, 20))
 ylim("a", "b", "c") 
 qplot(mpg, wt, data=mtcars) + ylim(15, 20)}
+

@@ -1,7 +1,7 @@
 \name{position_fill}
 \alias{position_fill}
 \title{Stack overlapping objects on top of one another, and standardise to have...}
-\usage{position_fill(width, height, ...)}
+\usage{position_fill(width = NULL, height = NULL, ...)}
 
 \description{
   Stack overlapping objects on top of one another, and
@@ -17,3 +17,4 @@ ggplot(diamonds, aes(x=price)) + cde
 ggplot(diamonds, aes(x=price, fill=cut)) + cde
 ggplot(diamonds, aes(x=price, fill=clarity)) + cde
 ggplot(diamonds, aes(x=price, fill=color)) + cde}
+

@@ -1,7 +1,7 @@
 \name{ggpcp}
 \alias{ggpcp}
 \title{Make a parallel coordinates plot.}
-\usage{ggpcp(data, vars=names(data), scale="range", ...)}
+\usage{ggpcp(data, vars = names(data), scale = "range", ...)}
 
 \description{
   Make a parallel coordinates plot.
@@ -40,3 +40,4 @@ ggpcp(mtcars, vars=names(mtcars[2:6])) + geom_line()
 p <- ggpcp(mtcars, vars=names(mtcars[2:6]))
 p + geom_line()
 p + geom_line(aes(colour=mpg))}
+

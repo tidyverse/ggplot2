@@ -1,7 +1,8 @@
 \name{theme_rect}
 \alias{theme_rect}
 \title{Theme element: rectangle.}
-\usage{theme_rect(fill=NA, colour="black", size=0.5, linetype=1)}
+\usage{theme_rect(fill = NA, colour = "black", size = 0.5,
+    linetype = 1)}
 
 \description{
   Theme element: rectangle.
@@ -18,3 +19,4 @@
   \item{size}{border size}
   \item{linetype}{border linetype}
 }
+

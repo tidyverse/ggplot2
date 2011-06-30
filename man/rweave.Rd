@@ -14,3 +14,4 @@
 \arguments{
   \item{...}{matrices to weave together}
 }
+

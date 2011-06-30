@@ -1,8 +1,8 @@
 \name{ggmissing}
 \alias{ggmissing}
 \title{Create a plot to illustrate patterns of missing values.}
-\usage{ggmissing(data, avoid="stack", order=TRUE,
-    missing.only=TRUE)}
+\usage{ggmissing(data, avoid = "stack", order = TRUE, missing.only
+    = TRUE)}
 
 \description{
   Create a plot to illustrate patterns of missing values.
@@ -30,3 +30,4 @@ mmissing[sample(nrow(movies), 1000), sample(ncol(movies), 5)] <- NA
 ggmissing(mmissing)
 ggmissing(mmissing, order=FALSE, missing.only = FALSE)
 ggmissing(mmissing, avoid="dodge") + scale_y_sqrt()}
+

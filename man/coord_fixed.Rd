@@ -1,6 +1,6 @@
 \name{coord_fixed}
 \title{Cartesian coordinates with fixed relationship between x and y scales.}
-\usage{coord_fixed(ratio=1)}
+\usage{coord_fixed(ratio = 1)}
 
 \description{
   Cartesian coordinates with fixed relationship between x
@@ -29,3 +29,4 @@ qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 5)
 qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 1/5)
 
 # Resize the plot to see that the specified aspect ratio is mantained}
+

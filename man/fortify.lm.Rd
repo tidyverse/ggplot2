@@ -1,7 +1,7 @@
 \name{fortify.lm}
 \alias{fortify.lm}
 \title{Supplement the data fitted to a linear model with model fit statistics.}
-\usage{\method{fortify}{lm} (model, data=model$model, ...)}
+\usage{\method{fortify}{lm} (model, data = model$model, ...)}
 
 \description{
   Supplement the data fitted to a linear model with model
@@ -70,3 +70,4 @@ geom_abline(slope = seq(0, 3, by = 0.5), colour = "white") +
 geom_smooth(se = FALSE) + 
 geom_point()
 qplot(.hat, .cooksd, size = .cooksd / .hat, data = mod) + scale_area()}
+

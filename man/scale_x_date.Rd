@@ -56,3 +56,4 @@ em <- melt(economics, id = "date")
 qplot(date, value, data = em, geom = "line", group = variable)
 qplot(date, value, data = em, geom = "line", group = variable) + 
 facet_grid(variable ~ ., scale = "free_y")}
+

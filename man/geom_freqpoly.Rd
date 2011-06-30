@@ -1,8 +1,8 @@
 \name{geom_freqpoly}
 \alias{geom_freqpoly}
 \title{Frequency polygon.}
-\usage{geom_freqpoly(mapping, data, stat="bin",
-    position="identity", ...)}
+\usage{geom_freqpoly(mapping = NULL, data = NULL, stat = "bin",
+    position = "identity", ...)}
 
 \description{
   Frequency polygon.
@@ -17,3 +17,4 @@ qplot(price, data = diamonds, geom = "freqpoly", binwidth = 1000,
 colour = color)
 qplot(price, ..density.., data = diamonds, geom = "freqpoly", 
 binwidth = 1000, colour = color)}
+

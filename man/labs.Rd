@@ -27,3 +27,4 @@ p + labs(colour = "Cylinders")
 
 # Can also pass in a list, if that is more convenient
 p + labs(list(x = "X", y = "Y"))}
+

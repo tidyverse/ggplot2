@@ -52,3 +52,4 @@ miss <- sample(c(NA, 1:5), nrow(mtcars), rep = T)
 qplot(mpg, wt, data = mtcars, colour = miss)
 qplot(mpg, wt, data = mtcars, colour = miss) + 
 scale_colour_gradient(na.value = "black")}
+

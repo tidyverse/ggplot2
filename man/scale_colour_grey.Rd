@@ -1,7 +1,8 @@
 \name{scale_colour_grey}
 \alias{scale_colour_grey}
 \title{Sequential grey colour scale.}
-\usage{scale_colour_grey(..., start=0.2, end=0.8, na.value="red")}
+\usage{scale_colour_grey(..., start = 0.2, end = 0.8, na.value =
+    "red")}
 
 \description{
   Sequential grey colour scale.
@@ -25,3 +26,4 @@ miss <- factor(sample(c(NA, 1:5), nrow(mtcars), rep = T))
 qplot(mpg, wt, data = mtcars, colour = miss) + scale_colour_grey()
 qplot(mpg, wt, data = mtcars, colour = miss) + 
 scale_colour_grey(na.value = "green")}
+

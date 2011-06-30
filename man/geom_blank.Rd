@@ -1,8 +1,8 @@
 \name{geom_blank}
 \alias{geom_blank}
 \title{Blank, draws nothing.}
-\usage{geom_blank(mapping, data, stat="identity",
-    position="identity", ...)}
+\usage{geom_blank(mapping = NULL, data = NULL, stat = "identity",
+    position = "identity", ...)}
 
 \description{
   Blank, draws nothing.
@@ -14,3 +14,4 @@
 }
 \examples{qplot(length, rating, data=movies, geom="blank")
 # Nothing to see here!}
+

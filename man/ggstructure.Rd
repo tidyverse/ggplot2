@@ -1,7 +1,7 @@
 \name{ggstructure}
 \alias{ggstructure}
 \title{A plot which aims to reveal gross structural anomalies in the data.}
-\usage{ggstructure(data, scale="rank")}
+\usage{ggstructure(data, scale = "rank")}
 
 \description{
   A plot which aims to reveal gross structural anomalies in
@@ -13,3 +13,4 @@
 for options}
 }
 \examples{ggstructure(mtcars)}
+

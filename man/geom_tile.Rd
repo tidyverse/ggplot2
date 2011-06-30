@@ -1,8 +1,8 @@
 \name{geom_tile}
 \alias{geom_tile}
 \title{Tile plane with rectangles.}
-\usage{geom_tile(mapping, data, stat="identity",
-    position="identity", ...)}
+\usage{geom_tile(mapping = NULL, data = NULL, stat = "identity",
+    position = "identity", ...)}
 
 \description{
   Tile plane with rectangles.
@@ -68,3 +68,4 @@ qplot(x, y, fill=factor(z), data=example, geom="tile", width=w)
 # scale_manual
 col <- c("darkblue", "blue", "green", "orange", "red")
 qplot(x, y, fill=col[z], data=example, geom="tile", width=w, group=1) + scale_fill_identity(labels=letters[1:5], breaks=col)}
+

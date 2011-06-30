@@ -22,3 +22,4 @@ a ggplot2 plot.}
 \arguments{
   \item{plot}{ggplot object}
 }
+

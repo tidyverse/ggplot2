@@ -24,3 +24,4 @@
   \item{p}{plot object}
   \item{object}{component to add}
 }
+

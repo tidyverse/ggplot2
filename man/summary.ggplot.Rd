@@ -7,3 +7,4 @@
   Displays a useful description of a ggplot object
 }
 \examples{summary(qplot(mpg, wt, data=mtcars))}
+

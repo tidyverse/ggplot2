@@ -1,8 +1,9 @@
 \name{stat_bin}
 \alias{stat_bin}
 \title{Bin data.}
-\usage{stat_bin(mapping, data, geom="bar", position="stack",
-    width=0.9, drop=FALSE, right=TRUE, ...)}
+\usage{stat_bin(mapping = NULL, data = NULL, geom = "bar",
+    position = "stack", width = 0.9, drop = FALSE, right =
+    TRUE, ...)}
 
 \description{
   Bin data.
@@ -46,3 +47,4 @@ linehist + stat_density(colour="blue", fill=NA)
 # Also works with categorical variables
 ggplot(movies, aes(x=mpaa)) + stat_bin()
 qplot(mpaa, data=movies, stat="bin")}
+

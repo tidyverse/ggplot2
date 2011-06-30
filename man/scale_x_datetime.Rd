@@ -1,7 +1,7 @@
 \name{scale_x_datetime}
 \alias{scale_x_datetime}
 \title{Position scale, date...}
-\usage{scale_continuous_x scale_continuous_y}
+\usage{scale_x_datetime(..., expand = c(0.05, 0))}
 
 \description{
   Position scale, date
@@ -38,3 +38,4 @@ last_plot() + scale_x_datetime(breaks = date_breaks("2 weeks"))
 last_plot() + scale_x_datetime(breaks = date_breaks("10 days"))
 last_plot() + scale_x_datetime(breaks = date_breaks("10 days"), 
 labels = date_format("\%d/\%m"))}
+

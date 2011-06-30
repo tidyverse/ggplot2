@@ -1,7 +1,8 @@
 \name{geom_bar}
 \alias{geom_bar}
 \title{Bars, rectangles with bases on x-axis...}
-\usage{geom_bar(mapping, data, stat="bin", position="stack", ...)}
+\usage{geom_bar(mapping = NULL, data = NULL, stat = "bin",
+    position = "stack", ...)}
 
 \description{
   Bars, rectangles with bases on x-axis
@@ -113,3 +114,4 @@ mpg$class <- factor(mpg$class, levels = c("midsize", "minivan",
 "suv", "compact", "2seater", "subcompact", "pickup"))
 m <- ggplot(mpg, aes(manufacturer, fill=class))
 m + geom_bar()}
+

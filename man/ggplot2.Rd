@@ -7,3 +7,4 @@
 \docType{package}
 \alias{ggplot2}
 \alias{package-ggplot2}
+

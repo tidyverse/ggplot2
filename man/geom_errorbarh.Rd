@@ -1,8 +1,8 @@
 \name{geom_errorbarh}
 \alias{geom_errorbarh}
 \title{Horizontal error bars...}
-\usage{geom_errorbarh(mapping, data, stat="identity",
-    position="identity", ...)}
+\usage{geom_errorbarh(mapping = NULL, data = NULL, stat =
+    "identity", position = "identity", ...)}
 
 \description{
   Horizontal error bars
@@ -25,3 +25,4 @@ p + geom_point() +
 geom_errorbarh(aes(xmax = resp + se, xmin = resp - se))
 p + geom_point() +
 geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))}
+

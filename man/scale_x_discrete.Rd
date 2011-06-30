@@ -1,7 +1,7 @@
 \name{scale_x_discrete}
 \alias{scale_x_discrete}
 \title{Discrete position.}
-\usage{scale_x_discrete(..., expand=c(0, 0.6))}
+\usage{scale_x_discrete(..., expand = c(0, 0.6))}
 
 \description{
   Discrete position.
@@ -47,3 +47,4 @@ qplot(reorder(manufacturer, displ), cty, data=mpg)
 # Use abbreviate as a formatter to reduce long names
 qplot(reorder(manufacturer, cty), cty, data=mpg) +  
 scale_x_discrete(labels = abbreviate)}
+

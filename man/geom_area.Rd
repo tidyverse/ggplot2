@@ -1,8 +1,8 @@
 \name{geom_area}
 \alias{geom_area}
 \title{Area plot.}
-\usage{geom_area(mapping, data, stat="identity", position="stack",
-    na.rm=FALSE, ...)}
+\usage{geom_area(mapping = NULL, data = NULL, stat = "identity",
+    position = "stack", na.rm = FALSE, ...)}
 
 \description{
   Area plot.
@@ -23,3 +23,4 @@
   position_stacked.
 }
 \examples{# see geom_ribbon}
+

@@ -1,7 +1,7 @@
 \name{coord_cartesian}
 \alias{coord_cartesian}
 \title{Cartesian coordinates.}
-\usage{coord_cartesian(xlim, ylim, wise=FALSE)}
+\usage{coord_cartesian(xlim = NULL, ylim = NULL, wise = FALSE)}
 
 \description{
   Cartesian coordinates.
@@ -47,3 +47,4 @@ d + scale_x_continuous(limits = c(0, 2))
 # When zooming the coordinate system, we see a subset of original 50 bins, 
 # displayed bigger
 d + coord_cartesian(xlim = c(0, 2))}
+

@@ -1,8 +1,8 @@
 \name{stat_spoke}
 \alias{stat_spoke}
 \title{Convert angle and radius to xend and yend.}
-\usage{stat_spoke(mapping, data, geom="segment",
-    position="identity", ...)}
+\usage{stat_spoke(mapping = NULL, data = NULL, geom = "segment",
+    position = "identity", ...)}
 
 \description{
   Convert angle and radius to xend and yend.
@@ -18,3 +18,4 @@ qplot(x, y, data=df) + stat_spoke(aes(angle=angle), radius = 0.5)
 last_plot() + scale_y_reverse()
 
 qplot(x, y, data=df) + stat_spoke(aes(angle=angle, radius=speed))}
+

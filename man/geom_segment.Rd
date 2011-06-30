@@ -1,8 +1,8 @@
 \name{geom_segment}
 \alias{geom_segment}
 \title{Single line segments.}
-\usage{geom_segment(mapping, data, stat="identity",
-    position="identity", ...)}
+\usage{geom_segment(mapping = NULL, data = NULL, stat =
+    "identity", position = "identity", ...)}
 
 \description{
   Single line segments.
@@ -36,3 +36,4 @@ with(counts, plot(x, Freq, type = "h", lwd = 10))
 
 qplot(x, Freq, data = counts, geom="segment", 
 yend = 0, xend = x, size = I(10))}
+

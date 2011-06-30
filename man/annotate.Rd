@@ -1,7 +1,8 @@
 \name{annotate}
 \alias{annotate}
 \title{Annotate a plot...}
-\usage{annotate(geom, x, y, xmin, xmax, ymin, ymax, ...)}
+\usage{annotate(geom, x = NULL, y = NULL, xmin = NULL, xmax =
+    NULL, ymin = NULL, ymax = NULL, ...)}
 
 \description{
   Annotate a plot
@@ -17,3 +18,4 @@
   \item{...}{other arguments passed to geom as parameters}
 }
 \examples{annotate("text", x = 0, y = 0, label = "title")}
+

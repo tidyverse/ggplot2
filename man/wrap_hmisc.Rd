@@ -17,3 +17,4 @@
 \alias{mean_cl_normal}
 \alias{mean_sdl}
 \alias{median_hilow}
+

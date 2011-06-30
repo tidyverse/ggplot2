@@ -1,8 +1,8 @@
 \name{geom_abline}
 \alias{geom_abline}
 \title{Line specified by slope and intercept.}
-\usage{geom_abline(mapping, data, stat="abline",
-    position="identity", ...)}
+\usage{geom_abline(mapping = NULL, data = NULL, stat = "abline",
+    position = "identity", ...)}
 
 \description{
   Line specified by slope and intercept.
@@ -57,3 +57,4 @@ p + geom_abline(data=coefs, aes(intercept=a, slope=b))
 # It's actually a bit easier to do this with stat_smooth
 p + geom_smooth(aes(group=cyl), method="lm")
 p + geom_smooth(aes(group=cyl), method="lm", fullrange=TRUE)}
+

@@ -1,9 +1,9 @@
 \name{scale_colour_gradient2}
 \alias{scale_colour_gradient2}
 \title{Diverging colour gradient...}
-\usage{scale_colour_gradient2(..., low=muted("red"), mid="white",
-    high=muted("blue"), midpoint=0, space="rgb",
-    na.value="grey50")}
+\usage{scale_colour_gradient2(..., low = muted("red"), mid =
+    "white", high = muted("blue"), midpoint = 0, space =
+    "rgb", na.value = "grey50")}
 
 \description{
   Diverging colour gradient
@@ -48,3 +48,4 @@ p <- qplot(letters[1:5], 1:5, fill= c(-3, 3, 5, 2, -2), geom="bar")
 p + scale_fill_gradient2("fill")
 # Note how positive and negative values of the same magnitude
 # have similar intensity}
+

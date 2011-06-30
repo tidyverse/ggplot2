@@ -1,9 +1,9 @@
 \name{stat_density}
 \alias{stat_density}
 \title{1d kernel density estimate.}
-\usage{stat_density(mapping, data, geom="area", position="stack",
-    adjust=1, kernel="gaussian", trim=FALSE, na.rm=FALSE,
-    ...)}
+\usage{stat_density(mapping = NULL, data = NULL, geom = "area",
+    position = "stack", adjust = 1, kernel = "gaussian",
+    trim = FALSE, na.rm = FALSE, ...)}
 
 \description{
   1d kernel density estimate.
@@ -82,3 +82,4 @@ m + geom_density(fill=NA) + aes(y = ..count..)
 # Use qplot instead
 qplot(length, data=movies, geom="density", weight=rating)
 qplot(length, data=movies, geom="density", weight=rating/sum(rating))}
+

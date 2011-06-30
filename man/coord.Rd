@@ -1,7 +1,7 @@
 \name{coord}
 \alias{coord}
 \title{New coordinate system.}
-\usage{coord(..., subclass=c())}
+\usage{coord(..., subclass = c())}
 
 \description{
   New coordinate system.
@@ -14,3 +14,4 @@
 \arguments{
   \item{...}{object fields}
 }
+

@@ -1,7 +1,8 @@
 \name{coord_polar}
 \alias{coord_polar}
 \title{Polar coordinates.}
-\usage{coord_polar(theta="x", start=0, direction=1, expand=FALSE)}
+\usage{coord_polar(theta = "x", start = 0, direction = 1, expand =
+    FALSE)}
 
 \description{
   Polar coordinates.
@@ -60,3 +61,4 @@ doh <- ggplot(movies, aes(x = rrating, fill = budgetq))
 doh + geom_bar(width = 1) + coord_polar()
 # Race track plot
 doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")}
+

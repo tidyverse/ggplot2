@@ -1,7 +1,7 @@
 \name{plotmatrix}
 \alias{plotmatrix}
 \title{Code to create a scatterplot matrix (experimental)...}
-\usage{plotmatrix(data, mapping=aes(), colour="black")}
+\usage{plotmatrix(data, mapping = aes(), colour = "black")}
 
 \description{
   Code to create a scatterplot matrix (experimental)
@@ -14,3 +14,4 @@
 }
 \examples{plotmatrix(mtcars[, 1:3])
 plotmatrix(mtcars[, 1:3]) + geom_smooth(method="lm")}
+

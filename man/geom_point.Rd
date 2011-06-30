@@ -1,8 +1,8 @@
 \name{geom_point}
 \alias{geom_point}
 \title{Points, as for a scatterplot...}
-\usage{geom_point(mapping, data, stat="identity",
-    position="identity", na.rm=FALSE, ...)}
+\usage{geom_point(mapping = NULL, data = NULL, stat = "identity",
+    position = "identity", na.rm = FALSE, ...)}
 
 \description{
   Points, as for a scatterplot
@@ -95,3 +95,4 @@ qplot(wt, mpg, data = mtcars2, na.rm = TRUE)
 qplot(wt, mpg, data = mtcars)
 qplot(wt, mpg, data = mtcars, colour = factor(cyl))
 qplot(wt, mpg, data = mtcars, colour = I("red"))}
+

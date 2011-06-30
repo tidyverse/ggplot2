@@ -1,8 +1,8 @@
 \name{coord_map}
 \alias{coord_map}
 \title{Map projections.}
-\usage{coord_map(projection="mercator", ..., orientation, xlim,
-    ylim)}
+\usage{coord_map(projection = "mercator", ..., orientation = NULL,
+    xlim = NULL, ylim = NULL)}
 
 \description{
   Map projections.
@@ -50,3 +50,4 @@ usamap + coord_map(project="stereographic")
 usamap + coord_map(project="conic", lat0 = 30)
 usamap + coord_map(project="bonne", lat0 = 50)
 }}
+

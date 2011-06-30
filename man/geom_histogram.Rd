@@ -1,8 +1,8 @@
 \name{geom_histogram}
 \alias{geom_histogram}
 \title{Histogram...}
-\usage{geom_histogram(mapping, data, stat="bin", position="stack",
-    ...)}
+\usage{geom_histogram(mapping = NULL, data = NULL, stat = "bin",
+    position = "stack", ...)}
 
 \description{
   Histogram
@@ -111,3 +111,4 @@ geom_density(alpha = 0.2)
 # Which looks better when the distributions are more distinct
 ggplot(diamonds, aes(depth, fill = cut)) +
 geom_density(alpha = 0.2) + xlim(55, 70)}
+

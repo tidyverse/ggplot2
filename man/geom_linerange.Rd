@@ -1,8 +1,8 @@
 \name{geom_linerange}
 \alias{geom_linerange}
 \title{An interval represented by a vertical line.}
-\usage{geom_linerange(mapping, data, stat="identity",
-    position="identity", ...)}
+\usage{geom_linerange(mapping = NULL, data = NULL, stat =
+    "identity", position = "identity", ...)}
 
 \description{
   An interval represented by a vertical line.
@@ -32,3 +32,4 @@ se + geom_crossbar(width = 0.5)
 
 # Use coord_flip to flip the x and y axes
 se + geom_linerange() + coord_flip()}
+

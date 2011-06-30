@@ -69,3 +69,4 @@ qplot(rating, votes, data=movies, ylim=c(1e4, 5e4))
 qplot(rating, votes, data=movies, xlab="My x axis", ylab="My y axis")
 #   * log scaling
 qplot(rating, votes, data=movies, log="xy")}
+

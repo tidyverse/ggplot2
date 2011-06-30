@@ -1,10 +1,10 @@
 \name{qplot}
 \title{A convenient wrapper function for creating simple ggplot plot objects.}
-\usage{qplot(x, y, ..., data, facets, margins=FALSE, geom="auto",
-    stat=list(NULL), position=list(NULL), xlim=c(NA, NA),
-    ylim=c(NA, NA), log="", main,
-    xlab=deparse(substitute(x)),
-    ylab=deparse(substitute(y)), asp=NA)}
+\usage{qplot(x, y = NULL, ..., data, facets = NULL, margins =
+    FALSE, geom = "auto", stat = list(NULL), position =
+    list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log =
+    "", main = NULL, xlab = deparse(substitute(x)), ylab =
+    deparse(substitute(y)), asp = NA)}
 
 \description{
   A convenient wrapper function for creating simple ggplot
@@ -76,3 +76,4 @@ qplot(y = mpg, data = mtcars)
 # Use different geoms
 qplot(mpg, wt, geom="path")
 qplot(factor(cyl), wt, geom=c("boxplot", "jitter"))}
+

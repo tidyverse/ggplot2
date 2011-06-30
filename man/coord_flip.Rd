@@ -29,3 +29,4 @@ h + coord_flip() + scale_x_reverse()
 # You can also use it to flip lines and area plots:
 qplot(1:5, (1:5)^2, geom="area")
 last_plot() + coord_flip()}
+

@@ -134,3 +134,4 @@ k + opts(strip.background = theme_rect(colour = "purple", fill = "pink", size = 
 k + opts(strip.text.x = theme_text(colour = "red", angle = 45, size = 10, hjust = 0.5, vjust = 0.5))
 k + opts(panel.margin = unit(5, "lines"))
 k + opts(panel.margin = unit(0, "lines"))}
+

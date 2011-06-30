@@ -1,7 +1,7 @@
 \name{theme_line}
 \alias{theme_line}
 \title{Theme element: line.}
-\usage{theme_line(colour="black", size=0.5, linetype=1)}
+\usage{theme_line(colour = "black", size = 0.5, linetype = 1)}
 
 \description{
   Theme element: line.
@@ -18,3 +18,4 @@
   \item{size}{line size}
   \item{type}{line type}
 }
+
