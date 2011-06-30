@@ -18,8 +18,6 @@
 #' @param width width (in inches)
 #' @param height height (in inches)
 #' @param dpi dpi to use for raster graphics
-#' @param keep plot components to keep
-#' @param drop plot components to drop
 #' @param ... other arguments passed to graphics device
 #' @export
 #' @examples
@@ -33,7 +31,7 @@
 #' # make twice as big as on screen
 #' ggsave(ratings, file="ratings.pdf", scale=2)
 #' }
-ggsave <- function(filename=default_name(plot), plot = last_plot(), device=default_device(filename), path = NULL, scale=1, width=par("din")[1], height=par("din")[2], dpi=300, keep = plot$options$keep, drop = plot$options$drop, ...) {
+ggsave <- function(filename=default_name(plot), plot = last_plot(), device=default_device(filename), path = NULL, scale=1, width=par("din")[1], height=par("din")[2], dpi=300, ...) {
   if (!inherits(plot, "ggplot")) stop("plot should be a ggplot2 plot")
 
   eps <- ps <- function(..., width, height)  
@@ -79,7 +77,7 @@ ggsave <- function(filename=default_name(plot), plot = last_plot(), device=defau
   }
   device(file=filename, width=width, height=height, ...)
   on.exit(capture.output(dev.off()))
-  print(plot, keep = keep, drop = drop)
+  print(plot)
   
   invisible()
 }

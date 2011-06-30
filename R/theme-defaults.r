@@ -17,6 +17,7 @@ theme_grey <- function(base_size = 12, base_family = "") {
     axis.ticks.margin =  unit(0.1, "cm"),
 
     legend.background =  theme_rect(colour="white"),
+    legend.margin =      unit(0.2, "cm"),
     legend.key =         theme_rect(fill = "grey95", colour = "white"),
     legend.key.size =    unit(1.2, "lines"),
     legend.key.height =  NA,
@@ -26,7 +27,7 @@ theme_grey <- function(base_size = 12, base_family = "") {
     legend.title =       theme_text(family = base_family, size = base_size * 0.8, face = "bold", hjust = 0),
     legend.title.align = NA,
     legend.position =    "right",
-    legend.direction =   "vertical",
+    legend.direction =   NA,
     legend.box =         NA,
 
     panel.background =   theme_rect(fill = "grey90", colour = NA),
@@ -64,6 +65,7 @@ theme_bw <- function(base_size = 12, base_family = "") {
     axis.ticks.margin =  unit(0.1, "cm"),
 
     legend.background =  theme_rect(colour=NA),
+    legend.margin =      unit(0.2, "cm"),
     legend.key =         theme_rect(colour = "grey80"),
     legend.key.size =    unit(1.2, "lines"),
     legend.key.height =  NA,
@@ -73,7 +75,7 @@ theme_bw <- function(base_size = 12, base_family = "") {
     legend.title =       theme_text(family = base_family, size = base_size * 0.8, face = "bold", hjust = 0),
     legend.title.align = NA,
     legend.position =    "right",
-    legend.direction =   "vertical",
+    legend.direction =   NA,
     legend.box =         NA,
 
     panel.background =   theme_rect(fill = "white", colour = NA),

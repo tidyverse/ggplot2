@@ -1,32 +1,33 @@
-# Create a new table grid.
-#
-# A table grid captures all the information needed to layout grobs in a table
-# structure. It supports row and column spanning, and offers some tools to
-# automatically figure out correct dimensions.
-#
-# Each grob is put in its own viewport - grobs in the same location are 
-# not combined into one cell. Each grob takes up the entire cell viewport
-# so justification control is not available.
-#
-# It constructs both the viewports and the gTree needed to display the table.
-#
-# @param grobs a list of grobs
-# @param layout a data frame with one row for each grob, and columns
-#   \code{t}, \code{r}, \code{b}, \code{l} giving top, right, bottom and left
-#   positions respectively, \code{clip} a string, either \code{"on"},
-#   \code{"off"} or \code{"inherit"}, and \code{name}, a character
-#   vector used to name each grob as it is plotted.
-# @param widths a unit vector giving the width of each column
-# @param height a unit vector giving the height of each row
-# @param respect a logical vector of length 1: should the aspect ratio of 
-#   height and width specified in null units be respected.  See
-#   \code{\link{grid.layout}} for more details
-# @param name a string giving the name of the table. This is used to name
-#   the layout viewport
+#' Create a new table grid.
+#'
+#' A table grid captures all the information needed to layout grobs in a table
+#' structure. It supports row and column spanning, and offers some tools to
+#' automatically figure out correct dimensions.
+#'
+#' Each grob is put in its own viewport - grobs in the same location are 
+#' not combined into one cell. Each grob takes up the entire cell viewport
+#' so justification control is not available.
+#'
+#' It constructs both the viewports and the gTree needed to display the table.
+#'
+#' @param grobs a list of grobs
+#' @param layout a data frame with one row for each grob, and columns
+#'   \code{t}, \code{r}, \code{b}, \code{l} giving top, right, bottom and left
+#'   positions respectively, \code{clip} a string, either \code{"on"},
+#'   \code{"off"} or \code{"inherit"}, and \code{name}, a character
+#'   vector used to name each grob as it is plotted.
+#' @param widths a unit vector giving the width of each column
+#' @param height a unit vector giving the height of each row
+#' @param respect a logical vector of length 1: should the aspect ratio of 
+#'   height and width specified in null units be respected.  See
+#'   \code{\link{grid.layout}} for more details
+#' @param name a string giving the name of the table. This is used to name
+#'   the layout viewport
+#' @keywords internal
 gtable <- function(grobs = list(), layout = NULL, widths = list(), heights = list(), respect = FALSE, name = "layout") {
   
   if (is.null(layout)) {
-    data.frame(
+    layout <- data.frame(
       t = numeric(), r = numeric(), b = numeric(), l = numeric(), 
       clip = character(), name = character(), stringsAsFactors = FALSE)
   }
@@ -48,18 +49,16 @@ print.gtable <- function(x, ...) {
     stringsAsFactors = FALSE)
   grobNames <- vapply(x$grobs, as.character, character(1))
     
-  cat(paste("  (", pos$l, "-", pos$l, ",", pos$t, "-", pos$b, ") ",
+  cat(paste("  (", pos$l, "-", pos$r, ",", pos$t, "-", pos$b, ") ",
     x$layout$name, ": ", grobNames, sep = "", collapse = "\n"), "\n")  
 }
 
 #' @S3method dim gtable
 dim.gtable <- function(x) c(length(x$heights), length(x$widths))
 
-# Find location of a grob
-gtable_find <- function(x, grob) {
-  pos <- vapply(x$grobs, identical, logical(1), grob)
-  x$layout[pos, ]
-} 
+neg_to_pos <- function(x, max) {
+  ifelse(x >= 0, x, max + 1 + x)
+}
 
 # Add a single grob, possibly spanning multiple rows or columns.
 # 
@@ -74,8 +73,14 @@ gtable_add_grob <- function(x, grobs, t, l, b = t, r = l, clip = "on", name = x$
   if (is.grob(grobs)) grobs <- list(grobs)
   x$grobs <- c(x$grobs, grobs)
   
+  t <- neg_to_pos(t, nrow(x))
+  b <- neg_to_pos(b, nrow(x))
+  l <- neg_to_pos(l, ncol(x))
+  r <- neg_to_pos(r, ncol(x))
+  
   layout <- data.frame(t = t, l = l, b = b, r = r, clip = clip, name = name,
     stringsAsFactors = FALSE)
+    
   x$layout <- rbind(x$layout, layout)
   stopifnot(length(x$grobs) == nrow(x$layout))
   
@@ -86,9 +91,11 @@ gtable_add_grob <- function(x, grobs, t, l, b = t, r = l, clip = "on", name = x$
 # 
 # @params pos new row will be added below this position. Defaults to
 #   adding row on bottom. \code{0} adds on the top.
-gtable_add_rows <- function(x, heights, clip = "inherit", pos = nrow(x)) {
+gtable_add_rows <- function(x, heights, clip = "inherit", pos = -1) {
   stopifnot(length(pos) == 1)
   n <- length(heights)
+  
+  pos <- neg_to_pos(pos, nrow(x))
   
   # Shift existing rows down
   x$heights <- insert.unit(x$heights, heights, pos)
@@ -99,9 +106,11 @@ gtable_add_rows <- function(x, heights, clip = "inherit", pos = nrow(x)) {
 }
 
 # Add columns to the right
-gtable_add_cols <- function(x, widths, clip = "inherit", pos = ncol(x)) {
+gtable_add_cols <- function(x, widths, clip = "inherit", pos = -1) {
   stopifnot(length(pos) == 1)
   n <- length(widths)
+  
+  pos <- neg_to_pos(pos, ncol(x))
   
   # Shift existing columns right
   x$widths <- insert.unit(x$widths, widths, pos)
@@ -211,15 +220,16 @@ gtable_viewport <- function(x) {
   layout_vp <- viewport(layout = gtable_layout(x), name = x$name)
   
   vp <- function(i) {
-    with(x$layout[i, ], viewport(
-      name = paste(name, t, l, sep = "-"), 
-      layout.pos.row = c(t), 
-      layout.pos.col = c(l), 
-      clip = clip
-    ))
+    vp <- x$layout[i, ]
+    viewport(
+      name = paste(vp$name, vp$t, vp$l, sep = "-"), 
+      layout.pos.row = vp$t:vp$b, 
+      layout.pos.col = vp$l:vp$r, 
+      clip = vp$clip
+    )
   }
   children_vp <- do.call("vpList", llply(seq_along(x$grobs), vp))
-  vpTree(layout_vp, children_vp)    
+  vpTree(layout_vp, children_vp)
 }
 
 gtable_gList <- function(x) {
@@ -233,13 +243,13 @@ gtable_gList <- function(x) {
   do.call("gList", grobs)
 }
 
-gtable_gTree <- function(x) {
-  gTree(
-    children = gtable_gList(x), 
-    childrenvp = gtable_viewport(x)
-  )
+gtable_gTree <- function(x, ...) {
+  children <- gtable_gList(x)
+  vp <- gtable_viewport(x)
+  gTree(children = children, childrenvp = vp, ...)
 }
 
+#' @S3method grid.draw gtable
 grid.draw.gtable <- function(x, new_page = TRUE) {
   if (new_page) grid.newpage()
   grid.draw(gtable_gTree(x))

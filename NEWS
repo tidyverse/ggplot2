@@ -23,12 +23,6 @@ MINOR CHANGES
   old behaviour, supply `shrink = FALSE` to the facetting specification.
   (Fixes #125)
 
-* When printing a ggplot2 object, the rendered plot information is returned
-  invisibly. You can capture this with (e.g.) `x <- print(qplot(mpg, wt, data
-  = mtcars))` and in the future will be able to use it to get information
-  about the plot computations, such as the range of all the scales, and the
-  exact data that is plotted.
-
 * `scale_shape` finally returns an error when you try and use it with a
   continuous variable
 
@@ -117,6 +111,27 @@ COORDS
   in `coord.r`. This should make it easier to develop new types of coordinate
   systems.
 
+RENDERING 
+
+* When printing a ggplot2 object, the rendered plot information is returned
+  invisibly. You can capture this with (e.g.) `x <- print(qplot(mpg, wt, data
+  = mtcars))` and in the future will be able to use it to get information
+  about the plot computations, such as the range of all the scales, and the
+  exact data that is plotted.
+
+* Drawing a plot takes place in three documented steps: `ggplot_build` which
+  creates a list of data frames ready for rendering builds, `ggplot_gtable`
+  which creates a `gtable` of grobs, and `grid.draw` which renders the grobs
+  on screen. Each of these returns a data structure which should be useful for
+  understanding and modifying the rendered plot. This is still a work in
+  progress, so please ask questions if anything is confusing.
+
+* The `drop` and `keep` parameters to `ggsave` and `print.ggplot` have been
+  drooped, as the data structure returned by `ggplot_gtable` is sufficiently
+  rich enough to remove the need for them.
+
+* Axis labels are now centred underneath the panels (not the whole plot), and
+  stick close to the panels regardless of the aspect ratio.
 
 ggplot2 0.8.9 (2010-12-24) ---------------------------------------------------
 
