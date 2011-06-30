@@ -220,15 +220,16 @@ gtable_viewport <- function(x) {
   layout_vp <- viewport(layout = gtable_layout(x), name = x$name)
   
   vp <- function(i) {
-    with(x$layout[i, ], viewport(
-      name = paste(name, t, l, sep = "-"), 
-      layout.pos.row = t:b, 
-      layout.pos.col = l:r, 
-      clip = clip
-    ))
+    vp <- x$layout[i, ]
+    viewport(
+      name = paste(vp$name, vp$t, vp$l, sep = "-"), 
+      layout.pos.row = vp$t:vp$b, 
+      layout.pos.col = vp$l:vp$r, 
+      clip = vp$clip
+    )
   }
   children_vp <- do.call("vpList", llply(seq_along(x$grobs), vp))
-  vpTree(layout_vp, children_vp)    
+  vpTree(layout_vp, children_vp)
 }
 
 gtable_gList <- function(x) {
@@ -242,11 +243,10 @@ gtable_gList <- function(x) {
   do.call("gList", grobs)
 }
 
-gtable_gTree <- function(x) {
-  gTree(
-    children = gtable_gList(x), 
-    childrenvp = gtable_viewport(x)
-  )
+gtable_gTree <- function(x, ...) {
+  children <- gtable_gList(x)
+  vp <- gtable_viewport(x)
+  gTree(children = children, childrenvp = vp, ...)
 }
 
 #' @S3method grid.draw gtable
