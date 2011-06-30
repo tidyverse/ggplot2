@@ -100,13 +100,12 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot)) {
     plot_table <- gtable_add_grob(plot_table, legend_box, 
       t = 1, b = 1, l = 2, r = -1)
   } else if (position == "manual") {
-    stop("Not implemented yet")
-    # legend_vp <- viewport(
-    #   name = "legend_box",
-    #   x = coords[1], y = coords[2], just = theme$legend.justification,
-    #   width = grobWidth(grobs$legend_box), 
-    #   height = grobHeight(grobs$legend_box)
-    # )
+    legend_vp <- viewport(
+      name = "legend_box",
+      x = coords[1], y = coords[2], just = theme$legend.justification)
+     legend_container <- grobTree(legend_box, childrenvp = legend_vp)
+     plot_table <- gtable_add_grob(plot_table, legend_container,
+       t = 2, b = -2, l = 2, r = -1)
   }
   
   # Margins
