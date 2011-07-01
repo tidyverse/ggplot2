@@ -4,7 +4,7 @@
 \usage{ggsave(filename=default_name(plot), plot=last_plot(),
     device=default_device(filename), path, scale=1,
     width=par("din")[1], height=par("din")[2], dpi=300,
-    keep=plot$options$keep, drop=plot$options$drop, ...)}
+    ...)}
 
 \description{
   Save a ggplot with sensible defaults
@@ -32,8 +32,6 @@ filename)}
   \item{width}{width (in inches)}
   \item{height}{height (in inches)}
   \item{dpi}{dpi to use for raster graphics}
-  \item{keep}{plot components to keep}
-  \item{drop}{plot components to drop}
   \item{...}{other arguments passed to graphics device}
 }
 \examples{\dontrun{

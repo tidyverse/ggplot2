@@ -17,6 +17,7 @@ theme_grey <- function(base_size = 12, base_family = "") {
     axis.ticks.margin =  unit(0.1, "cm"),
 
     legend.background =  theme_rect(colour="white"),
+    legend.margin =      unit(0.2, "cm"),
     legend.key =         theme_rect(fill = "grey95", colour = "white"),
     legend.key.size =    unit(1.2, "lines"),
     legend.key.height =  NULL,
@@ -64,6 +65,7 @@ theme_bw <- function(base_size = 12, base_family = "") {
     axis.ticks.margin =  unit(0.1, "cm"),
 
     legend.background =  theme_rect(colour=NA),
+    legend.margin =      unit(0.2, "cm"),
     legend.key =         theme_rect(colour = "grey80"),
     legend.key.size =    unit(1.2, "lines"),
     legend.key.height =  NULL,

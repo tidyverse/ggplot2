@@ -78,7 +78,7 @@ update_guides <- function(p, guides) {
 ## 5. guides_build()
 ##      arrange all ggorbs
 
-build_guides <- function(scales, layers, default_mapping, theme) {
+build_guides <- function(scales, layers, default_mapping, position, theme) {
 
   ## set themes w.r.t. guides
   ## should these theme$legend.XXX be renamed to theme$guide.XXX ?
@@ -93,16 +93,16 @@ build_guides <- function(scales, layers, default_mapping, theme) {
   ## by default, direction of each guide depends on the position of the guide.
   theme$legend.direction <-
     theme$legend.direction %||%
-    if (length(theme$legend.position) == 1 && theme$legend.position %in% c("top", "bottom", "left", "right"))
-      switch(theme$legend.position[1], top =, bottom = "horizontal", left =, right = "vertical")
+    if (length(position) == 1 && position %in% c("top", "bottom", "left", "right"))
+      switch(position[1], top =, bottom = "horizontal", left =, right = "vertical")
     else
       "vertical"
 
   ## justification of legend boxes
   theme$legend.box.just <-
     theme$legend.box.just %||%
-    if (length(theme$legend.position) == 1 && theme$legend.position %in% c("top", "bottom", "left", "right"))
-      switch(theme$legend.position, bottom =, top = c("center", "top"), left =, right = c("left", "top"))
+    if (length(position) == 1 && position %in% c("top", "bottom", "left", "right"))
+      switch(position, bottom =, top = c("center", "top"), left =, right = c("left", "top"))
     else
       c("center", "center")
 
