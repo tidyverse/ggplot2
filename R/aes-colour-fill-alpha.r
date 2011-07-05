@@ -1,11 +1,10 @@
 #' Colour related aesthetics: colour, fill and alpha
 #' 
-#' @name aes_colour_fill_alpha
-#' @aliases colour color fill alpha 
-#'
 #' This page demonstrates the usage of a sub-group 
 #' of aesthetics; colour, fill and alpha.
-#' 
+#'
+#' @name aes_colour_fill_alpha
+#' @aliases colour color fill alpha 
 #' @examples
 #' 
 #' # Bar chart example
