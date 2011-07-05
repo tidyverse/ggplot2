@@ -127,7 +127,7 @@ RENDERING
   progress, so please ask questions if anything is confusing.
 
 * The `drop` and `keep` parameters to `ggsave` and `print.ggplot` have been
-  drooped, as the data structure returned by `ggplot_gtable` is sufficiently
+  dropped, as the data structure returned by `ggplot_gtable` is sufficiently
   rich enough to remove the need for them.
 
 * Axis labels are now centred underneath the panels (not the whole plot), and
