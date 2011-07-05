@@ -1,9 +1,13 @@
 \name{scale_colour_grey}
 \alias{scale_colour_grey}
+\alias{scale_fill_grey}
 \title{Sequential grey colour scale.}
 \usage{
   scale_colour_grey(..., start = 0.2, end = 0.8, na.value =
   "red")
+
+  scale_fill_grey(..., start = 0.2, end = 0.8, na.value =
+  "grey50")
 }
 \arguments{
   \item{na.value}{Colour to use for missing values}

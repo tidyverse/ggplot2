@@ -1,7 +1,6 @@
 #' Position scale, date
 #'
-#' @paramCopy ... ggplot2::scale_continuous_x
-#' @documents scale_x_datetime scale_y_datetime 
+#' @rdname scale_datetime
 #' @export 
 #' @examples
 #' start <- ISOdate(2001, 1, 1, tz = "")
@@ -45,6 +44,8 @@ scale_map.datetime <- function(scale, x) {
   x
 }
 
+#' @rdname scale_datetime
+#' @export 
 scale_y_datetime <- function(..., expand = c(0.05, 0)) {
   continuous_scale(c("y", "ymin", "ymax", "yend"), "datetime", identity, ...,
     trans = "time", expand = expand, legend = FALSE)

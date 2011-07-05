@@ -6,7 +6,8 @@
 #' level, and increasing by one for each level (i.e. the labels are placed
 #' at integer positions).  This is what allows jittering to work.
 #'
-#' @export scale_x_discrete scale_y_discrete
+#' @rdname scale_discrete
+#' @export
 #' @examples
 #' qplot(cut, data=diamonds, stat="bin")
 #' qplot(cut, data=diamonds, geom="bar")
@@ -46,6 +47,8 @@ scale_x_discrete <- function(..., expand = c(0, 0.6)) {
   sc$range_c <- ContinuousRange$new()
   sc
 }
+#' @rdname scale_discrete
+#' @export
 scale_y_discrete <- function(..., expand = c(0, 0.6)) {
   sc <- discrete_scale(c("y", "ymin", "ymax", "yend"), "position_d", identity, ..., 
     expand = expand, legend = FALSE)

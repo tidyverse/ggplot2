@@ -1,11 +1,20 @@
 \name{scale_shape}
 \alias{scale_shape}
+\alias{scale_shape_continuous}
+\alias{scale_shape_discrete}
 \title{Scale for shapes, aka glyphs.}
 \usage{
   scale_shape(..., solid = TRUE)
+
+  scale_shape_discrete(..., solid = TRUE)
+
+  scale_shape_continuous(...)
 }
 \description{
   Scale for shapes, aka glyphs.
+}
+\details{
+  A continuous variable can not be mapped to shape.
 }
 \examples{
 dsmall <- diamonds[sample(nrow(diamonds), 100), ]

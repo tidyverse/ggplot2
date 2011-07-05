@@ -1,9 +1,13 @@
 \name{scale_colour_hue}
 \alias{scale_colour_hue}
+\alias{scale_fill_hue}
 \title{Qualitative colour scale with evenly spaced hues.}
 \usage{
   scale_colour_hue(..., h = c(0, 360) + 15, c = 100, l =
   65, h.start = 0, direction = 1, na.value = "grey50")
+
+  scale_fill_hue(..., h = c(0, 360) + 15, c = 100, l = 65,
+  h.start = 0, direction = 1, na.value = "grey50")
 }
 \arguments{
   \item{na.value}{Colour to use for missing values}

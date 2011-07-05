@@ -1,8 +1,14 @@
 \name{scale_size_continuous}
+\alias{scale_size}
 \alias{scale_size_continuous}
-\title{Size scale for continuous variables...}
+\alias{scale_size_discrete}
+\title{Size scale.}
 \usage{
   scale_size_continuous(..., range = c(1, 6))
+
+  scale_size(..., range = c(1, 6))
+
+  scale_size_discrete(..., range = c(1, 6))
 }
 \arguments{
   \item{range}{a numeric vector of length 2 that specifies
@@ -10,7 +16,7 @@
   transformation.}
 }
 \description{
-  Size scale for continuous variables
+  Size scale.
 }
 \examples{
 (p <- qplot(mpg, cyl, data=mtcars, size=cyl))

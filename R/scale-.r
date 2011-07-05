@@ -22,11 +22,6 @@
 #' @S3method print scale
 NULL
 
-#' @paramCopy breaks scales::cbreaks
-#' @paramCopy labels scales::cbreaks
-#' @paramCopy palette scales::cscale
-#' @paramCopy na.value scales::cscale
-#' @paramCopy trans scales::cscale
 #' @export
 continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = TRUE, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity") {
   

@@ -1,7 +1,8 @@
 #' Qualitative colour scale with evenly spaced hues.
 #' 
 #' @param na.value Colour to use for missing values
-#' @export scale_colour_hue scale_fill_hue
+#' @rdname scale_hue
+#' @export
 #' @examples
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 #' (d <- qplot(carat, price, data=dsamp, colour=clarity))
@@ -40,6 +41,8 @@ scale_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start =
     na.value = na.value, ...)
 }
 
+#' @rdname scale_hue
+#' @export
 scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0, direction = 1, na.value = "grey50") {
   discrete_scale("fill", "hue", hue_pal(h, c, l, h.start, direction), 
     na.value = na.value, ...)

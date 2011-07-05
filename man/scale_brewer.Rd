@@ -1,8 +1,11 @@
 \name{scale_colour_brewer}
 \alias{scale_colour_brewer}
+\alias{scale_fill_brewer}
 \title{Sequential, diverging and qualitative colour scales from colorbrewer...}
 \usage{
   scale_colour_brewer(..., type = "seq", palette = 1)
+
+  scale_fill_brewer(..., type = "seq", palette = 1)
 }
 \description{
   Sequential, diverging and qualitative colour scales from

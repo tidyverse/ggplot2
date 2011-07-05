@@ -1,8 +1,11 @@
 \name{scale_x_date}
 \alias{scale_x_date}
+\alias{scale_y_date}
 \title{Position scale, date...}
 \usage{
-  scale_continuous_x scale_continuous_y
+  scale_x_date(..., expand = c(0.05, 0))
+
+  scale_y_date(..., expand = c(0.05, 0))
 }
 \description{
   Position scale, date

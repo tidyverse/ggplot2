@@ -1,8 +1,11 @@
 \name{scale_x_discrete}
 \alias{scale_x_discrete}
+\alias{scale_y_discrete}
 \title{Discrete position.}
 \usage{
   scale_x_discrete(..., expand = c(0, 0.6))
+
+  scale_y_discrete(..., expand = c(0, 0.6))
 }
 \description{
   Discrete position.

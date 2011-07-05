@@ -2,14 +2,11 @@
 #'
 #' @param ... Other arguments passed on to \code{\link{continuous_scale}} 
 #'   to control name, limits, breaks, labels and so forth.
-#' @paramCopy low scales::seq_gradient_pal
-#' @paramCopy high scales::seq_gradient_pal
-#' @paramCopy space scales::seq_gradient_pal
-#' @usageFor scale_colour_gradient scale_fill_gradient
 #' @param na.value Colour to use for missing values
 #' @seealso \code{\link[scales]{seq_gradient_pal}} for details on underlying
 #'   palette
-#' @export scale_colour_gradient scale_fill_gradient
+#' @rdname scale_gradient
+#' @export
 #' @examples
 #' # It's hard to see, but look for the bright yellow dot 
 #' # in the bottom right hand corner
@@ -55,6 +52,8 @@ scale_colour_gradient <- function(..., low = "#3B4FB8", high = "#B71B1A", space 
     na.value = na.value, ...)
 }
 
+#' @rdname scale_gradient
+#' @export
 scale_fill_gradient <- function(..., low = "#3B4FB8", high = "#B71B1A", space = "Lab", na.value = "grey50") {
   continuous_scale("fill", "gradient", seq_gradient_pal(low, high, space),
     na.value = na.value, ...)
@@ -67,8 +66,3 @@ icon.gradient <- function(.) {
     gp=gpar(fill=g$map(1:5), col=NA)
   )    
 }
-
-
-
-
-

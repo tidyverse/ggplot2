@@ -1,9 +1,11 @@
 #' Scale for line patterns.
 #' 
 #' Default line types based on a set supplied by Richard Pearson, 
-#' University of Manchester.
+#' University of Manchester.  Line types can not be mapped to continuous
+#' values.
 #'
-#' @export scale_linetype scale_linetype_continuous scale_linetype_discrete
+#' @rdname scale_linetype
+#' @export
 #' @examples
 #' ec_scaled <- data.frame(
 #'   date = economics$date, 
@@ -19,9 +21,14 @@
 scale_linetype <- function(...) {
   discrete_scale("linetype", "linetype_d", linetype_pal())
 }
+
+#' @rdname scale_linetype
+#' @export
 scale_linetype_continuous <- function(...) {
   stop("A continuous variable can not be mapped to linetype", call. = FALSE)
 }
+#' @rdname scale_linetype
+#' @export
 scale_linetype_discrete <- scale_linetype
  
 icon.linetype <- function(.) {

@@ -1,17 +1,11 @@
 #' Continuous position scales (x & y).
 #' 
-#' @name scale_continuous
-#' @usageFor scale_x_continuous scale_x_continuous
 #' @param ... common continuous scale parameters: \code{name}, \code{breaks},
 #'  \code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
 #'  \code{\link{continuous_scale}} for more details
 #' @seealso \code{\link{scale_discrete}} for discrete position scales
-#' @aliases scale_x_continuous scale_y_continuous
-#'   scale_x_log10 scale_y_log10 scale_x_reverse scale_y_reverse
-#'   scale_x_sqrt scale_y_sqrt
-#' @export scale_x_continuous scale_y_continuous
-#'   scale_x_log10 scale_y_log10 scale_x_reverse scale_y_reverse
-#'   scale_x_sqrt scale_y_sqrt
+#' @rdname scale_continuous
+#' @export
 #' @examples
 #' (m <- qplot(rating, votes, data=subset(movies, votes > 1000), na.rm = T))
 #' 
@@ -68,6 +62,8 @@ scale_x_continuous <- function(..., expand = c(0.05, 0)) {
     ..., expand = expand, legend = FALSE)
 }
 
+#' @rdname scale_continuous
+#' @export
 scale_y_continuous <- function(..., expand = c(0.05, 0)) {
   continuous_scale(c("y", "ymin", "ymax", "yend"), "position_c", identity,
     ..., expand = expand, legend = FALSE)
@@ -82,22 +78,35 @@ scale_map.position_c <- function(scale, x) {
   as.numeric(x)
 }
 
-# Transformed scales 
+# Transformed scales ---------------------------------------------------------
+
+#' @rdname scale_continuous
+#' @export
 scale_x_log10 <- function(...) {
   scale_x_continuous(..., trans = log10_trans())
 }
+#' @rdname scale_continuous
+#' @export
 scale_y_log10 <- function(...) {
   scale_y_continuous(..., trans = log10_trans())
 }
+#' @rdname scale_continuous
+#' @export
 scale_x_reverse <- function(...) {
   scale_x_continuous(..., trans = reverse_trans())
 }
+#' @rdname scale_continuous
+#' @export
 scale_y_reverse <- function(...) {
   scale_y_continuous(..., trans = reverse_trans())
 }
+#' @rdname scale_continuous
+#' @export
 scale_x_sqrt <- function(...) {
   scale_x_continuous(..., trans = sqrt_trans())
 }
+#' @rdname scale_continuous
+#' @export
 scale_y_sqrt <- function(...) {
   scale_y_continuous(..., trans = sqrt_trans())
 }

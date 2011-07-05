@@ -2,12 +2,8 @@
 #'
 #' See \url{http://colorbrewer2.org} for more information.
 #'
-#' @paramCopy ... ggplot2::scale_discrete_x
-#' @paramCopy type scales::brewer_pal
-#' @paramCopy palette scales::brewer_pal
-#' @usageFor scale_colour_brewer
-#' @usageFor scale_fill_brewer
-#' @export scale_colour_brewer scale_fill_brewer
+#' @rdname scale_brewer
+#' @export 
 #' @examples
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 #' (d <- qplot(carat, price, data=dsamp, colour=clarity))
@@ -34,6 +30,9 @@
 scale_colour_brewer <- function(..., type = "seq", palette = 1) {
   discrete_scale("colour", "brewer", brewer_pal(type, palette), ...)
 }
+
+#' @export
+#' @rdname scale_brewer
 scale_fill_brewer <- function(..., type = "seq", palette = 1) {
   discrete_scale("fill", "brewer", brewer_pal(type, palette), ...)
 }

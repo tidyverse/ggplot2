@@ -1,7 +1,7 @@
 #' Create your own discrete scale.
 #' 
-#' @export scale_colour_manual scale_fill_manual scale_shape_manual
-#'   scale_linetype_manual scale_alpha_manual scale_size_manual
+#' @rdname scale_manual
+#' @export
 #' @examples
 #' p <- qplot(mpg, wt, data = mtcars, colour = factor(cyl))
 #' 
@@ -26,21 +26,35 @@
 scale_colour_manual <- function(..., values) {
   discrete_scale("colour", "manual", manual_pal(values))
 }
+
+#' @rdname scale_manual
+#' @export
 scale_fill_manual <- function(..., values) {
   discrete_scale("fill", "manual", manual_pal(values))
 }
+
+#' @rdname scale_manual
+#' @export
 scale_size_manual <- function(..., values) {
   discrete_scale("size", "manual", manual_pal(values))
 }
+
+#' @rdname scale_manual
+#' @export
 scale_shape_manual <- function(..., values) {
   discrete_scale("shape", "manual", manual_pal(values))
 }
+
+#' @rdname scale_manual
+#' @export
 scale_linetype_manual <- function(..., values) {
   discrete_scale("linetype", "manual", manual_pal(values))
 }
+
+#' @rdname scale_manual
+#' @export
 scale_alpha_manual <- function(..., values) {
   discrete_scale("alpha", "manual", manual_pal(values))
 }
 
 icon.manual <- function() textGrob("DIY", gp=gpar(cex=1.2))
-

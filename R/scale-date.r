@@ -1,8 +1,7 @@
 #' Position scale, date
 #'
-#' @paramCopy ... ggplot2::scale_continuous_x
-#' @usageFor scale_continuous_x scale_continuous_y
-#' @export scale_x_date scale_y_date
+#' @rdname scale_date
+#' @export
 #' @examples
 #' # We'll start by creating some nonsense data with dates
 #' df <- data.frame(
@@ -59,6 +58,8 @@ scale_x_date <- function(..., expand = c(0.05, 0)) {
     legend = FALSE, expand = expand, trans = "date")
 }
 
+#' @rdname scale_date
+#' @export
 scale_y_date <- function(..., expand = c(0.05, 0)) {
   continuous_scale(c("y", "ymin", "ymax", "yend"), "date", identity, ...,
     legend = FALSE, expand = expand, trans = "date")

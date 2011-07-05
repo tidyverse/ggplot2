@@ -1,8 +1,13 @@
 \name{scale_colour_gradient}
 \alias{scale_colour_gradient}
+\alias{scale_fill_gradient}
 \title{Smooth gradient between two colours...}
 \usage{
-  scale_colour_gradient scale_fill_gradient
+  scale_colour_gradient(..., low = "#3B4FB8", high =
+  "#B71B1A", space = "Lab", na.value = "grey50")
+
+  scale_fill_gradient(..., low = "#3B4FB8", high =
+  "#B71B1A", space = "Lab", na.value = "grey50")
 }
 \arguments{
   \item{...}{Other arguments passed on to

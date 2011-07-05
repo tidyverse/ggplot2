@@ -1,5 +1,4 @@
-\name{scale_continuous}
-\alias{scale_continuous}
+\name{scale_x_continuous}
 \alias{scale_x_continuous}
 \alias{scale_x_log10}
 \alias{scale_x_reverse}
@@ -10,7 +9,21 @@
 \alias{scale_y_sqrt}
 \title{Continuous position scales (x & y).}
 \usage{
-  scale_x_continuous scale_x_continuous
+  scale_x_continuous(..., expand = c(0.05, 0))
+
+  scale_y_continuous(..., expand = c(0.05, 0))
+
+  scale_x_log10(...)
+
+  scale_y_log10(...)
+
+  scale_x_reverse(...)
+
+  scale_y_reverse(...)
+
+  scale_x_sqrt(...)
+
+  scale_y_sqrt(...)
 }
 \arguments{
   \item{...}{common continuous scale parameters:

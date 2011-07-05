@@ -1,9 +1,9 @@
 #' Use values without scaling.
 #'
-#' @export scale_colour_identity scale_fill_identity scale_shape_identity
-#'   scale_linetype_identity scale_alpha_identity scale_size_identity
 #' @param ... Other arguments passed on to \code{\link{discrete_scale}}
 #' @param legend Should this scale have a legend?  Defaults to \code{FALSE}
+#' @rdname scale_identity
+#' @export
 #' @examples
 #' colour <- c("red", "green", "blue", "yellow")
 #' qplot(1:4, 1:4, fill = colour, geom = "tile")
@@ -23,23 +23,37 @@ scale_colour_identity <- function(..., legend = FALSE) {
   identity_scale(discrete_scale("colour", "identity", identity_pal(), ...,
     legend = legend))
 }
+
+#' @rdname scale_identity
+#' @export
 scale_fill_identity <- function(..., legend = FALSE) {
   identity_scale(discrete_scale("fill", "identity", identity_pal(), ...,
     legend = legend))
 }
+
+#' @rdname scale_identity
+#' @export
 scale_shape_identity <- function(..., legend = FALSE) {
   identity_scale(discrete_scale("shape", "identity", identity_pal(), ...,
     legend = legend))
 }
+
+#' @rdname scale_identity
+#' @export
 scale_linetype_identity <- function(..., legend = FALSE) {
   identity_scale(discrete_scale("linetype", "identity", identity_pal(), ...,
     legend = legend))
 }
 
+#' @rdname scale_identity
+#' @export
 scale_alpha_identity <- function(..., legend = FALSE) {
   identity_scale(continuous_scale("alpha", "identity", identity_pal(), ...,
     legend = legend))
 }
+
+#' @rdname scale_identity
+#' @export
 scale_size_identity <- function(..., legend = FALSE) {
   identity_scale(continuous_scale("size", "identity", identity_pal(), ...,
     legend = legend))

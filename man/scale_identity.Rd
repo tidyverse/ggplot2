@@ -1,8 +1,23 @@
 \name{scale_colour_identity}
+\alias{scale_alpha_identity}
 \alias{scale_colour_identity}
+\alias{scale_fill_identity}
+\alias{scale_linetype_identity}
+\alias{scale_shape_identity}
+\alias{scale_size_identity}
 \title{Use values without scaling.}
 \usage{
   scale_colour_identity(..., legend = FALSE)
+
+  scale_fill_identity(..., legend = FALSE)
+
+  scale_shape_identity(..., legend = FALSE)
+
+  scale_linetype_identity(..., legend = FALSE)
+
+  scale_alpha_identity(..., legend = FALSE)
+
+  scale_size_identity(..., legend = FALSE)
 }
 \arguments{
   \item{...}{Other arguments passed on to

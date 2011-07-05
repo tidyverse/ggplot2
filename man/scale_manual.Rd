@@ -1,8 +1,23 @@
 \name{scale_colour_manual}
+\alias{scale_alpha_manual}
 \alias{scale_colour_manual}
+\alias{scale_fill_manual}
+\alias{scale_linetype_manual}
+\alias{scale_shape_manual}
+\alias{scale_size_manual}
 \title{Create your own discrete scale.}
 \usage{
   scale_colour_manual(..., values)
+
+  scale_fill_manual(..., values)
+
+  scale_size_manual(..., values)
+
+  scale_shape_manual(..., values)
+
+  scale_linetype_manual(..., values)
+
+  scale_alpha_manual(..., values)
 }
 \description{
   Create your own discrete scale.
