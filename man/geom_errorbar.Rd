@@ -1,22 +1,19 @@
 \name{geom_errorbar}
 \alias{geom_errorbar}
 \title{Error bars.}
-\usage{geom_errorbar(mapping = NULL, data = NULL, stat =
-    "identity", position = "identity", ...)}
-
+\usage{
+  geom_errorbar(mapping = NULL, data = NULL, stat =
+  "identity", position = "identity", ...)
+}
 \description{
   Error bars.
 }
-\seealso{\code{\link{geom_pointrange}}: range indicated by straight line,
-with point in the middle; \code{\link{geom_linerange}}: range indicated
-by straight line; \code{\link{geom_crossbar}}: hollow bar with middle
-indicated by horizontal line; \code{\link{stat_summary}}: examples of
-these guys in use, \code{\link{geom_smooth}} for continuous analog}
-\examples{# Create a simple example dataset
+\examples{
+# Create a simple example dataset
 df <- data.frame(
-trt = factor(c(1, 1, 2, 2)), 
-resp = c(1, 5, 3, 4), 
-group = factor(c(1, 2, 1, 2)), 
+trt = factor(c(1, 1, 2, 2)),
+resp = c(1, 5, 3, 4),
+group = factor(c(1, 2, 1, 2)),
 se = c(0.1, 0.3, 0.3, 0.2)
 )
 df2 <- df[c(1,3),]
@@ -42,7 +39,17 @@ p + geom_pointrange(limits)
 p + geom_crossbar(limits, width=0.2)
 
 # If we want to draw lines, we need to manually set the
-# groups which define the lines - here the groups in the 
+# groups which define the lines - here the groups in the
 # original dataframe
-p + geom_line(aes(group=group)) + geom_errorbar(limits, width=0.2)}
+p + geom_line(aes(group=group)) + geom_errorbar(limits, width=0.2)
+}
+\seealso{
+  \code{\link{geom_pointrange}}: range indicated by
+  straight line, with point in the middle;
+  \code{\link{geom_linerange}}: range indicated by straight
+  line; \code{\link{geom_crossbar}}: hollow bar with middle
+  indicated by horizontal line; \code{\link{stat_summary}}:
+  examples of these guys in use, \code{\link{geom_smooth}}
+  for continuous analog
+}
 

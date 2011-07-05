@@ -1,23 +1,27 @@
 \name{geom_path}
 \alias{geom_path}
 \title{Connect observations in original order...}
-\usage{geom_path(mapping = NULL, data = NULL, stat = "identity",
-    position = "identity", lineend = "butt", linejoin =
-    "round", linemitre = 1, na.rm = FALSE, ...)}
+\usage{
+  geom_path(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", lineend = "butt", linejoin =
+  "round", linemitre = 1, na.rm = FALSE, ...)
+}
+\arguments{
+  \item{lineend}{Line end style (round, butt, square)}
 
+  \item{linejoin}{Line join style (round, mitre, bevel)}
+
+  \item{linemitre}{Line mitre limit (number greater than
+  1)}
+
+  \item{arrow}{Arrow specification, as created by
+  ?grid::arrow}
+}
 \description{
   Connect observations in original order
 }
-\seealso{\code{\link{geom_line}}: Functional (ordered) lines;  
-\code{\link{geom_polygon}}: Filled paths (polygons); 
-\code{\link{geom_segment}}: Line segments}
-\arguments{
-  \item{lineend}{Line end style (round, butt, square)}
-  \item{linejoin}{Line join style (round, mitre, bevel)}
-  \item{linemitre}{Line mitre limit (number greater than 1)}
-  \item{arrow}{Arrow specification, as created by ?grid::arrow}
-}
-\examples{# Generate data
+\examples{
+# Generate data
 library(plyr)
 myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
 p <- ggplot(myear, aes(length, rating))
@@ -53,10 +57,10 @@ qplot(unemploy/pop, psavert, data=economics, geom="path", size=as.numeric(date))
 qplot(unemploy/pop, uempmed, data=economics)
 qplot(unemploy/pop, uempmed, data=economics, geom="path")
 qplot(unemploy/pop, uempmed, data=economics, geom="path") +
-geom_point(data=head(economics, 1), colour="red") + 
+geom_point(data=head(economics, 1), colour="red") +
 geom_point(data=tail(economics, 1), colour="blue")
 qplot(unemploy/pop, uempmed, data=economics, geom="path") +
-geom_text(data=head(economics, 1), label="1967", colour="blue") + 
+geom_text(data=head(economics, 1), label="1967", colour="blue") +
 geom_text(data=tail(economics, 1), label="2007", colour="blue")
 
 # geom_path removes missing values on the ends of a line.
@@ -90,8 +94,14 @@ should_stop(p + geom_line(aes(colour = x), linetype=2))
 
 # Use the arrow parameter to add an arrow to the line
 # See ?grid::arrow for more details
-c <- ggplot(economics, aes(x = date, y = pop)) 
+c <- ggplot(economics, aes(x = date, y = pop))
 # Arrow defaults to "last"
 c + geom_path(arrow = arrow())
-c + geom_path(arrow = arrow(angle = 15, ends = "both", length = unit(0.6, "inches")))}
+c + geom_path(arrow = arrow(angle = 15, ends = "both", length = unit(0.6, "inches")))
+}
+\seealso{
+  \code{\link{geom_line}}: Functional (ordered) lines;
+  \code{\link{geom_polygon}}: Filled paths (polygons);
+  \code{\link{geom_segment}}: Line segments
+}
 

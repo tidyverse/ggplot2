@@ -1,17 +1,19 @@
 \name{scale_colour_gradient2}
 \alias{scale_colour_gradient2}
 \title{Diverging colour gradient...}
-\usage{scale_colour_gradient2(..., low = muted("red"), mid =
-    "white", high = muted("blue"), midpoint = 0, space =
-    "rgb", na.value = "grey50")}
-
-\description{
-  Diverging colour gradient
+\usage{
+  scale_colour_gradient2(..., low = muted("red"), mid =
+  "white", high = muted("blue"), midpoint = 0, space =
+  "rgb", na.value = "grey50")
 }
 \arguments{
   \item{na.value}{Colour to use for missing values}
 }
-\examples{dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
+\description{
+  Diverging colour gradient
+}
+\examples{
+dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
 dsub$diff <- with(dsub, sqrt(abs(x-y))* sign(x-y))
 (d <- qplot(x, y, data=dsub, colour=diff))
 
@@ -23,7 +25,7 @@ d + scale_colour_gradient2("Difference\\nbetween\\nwidth and\\nheight")
 # Change limits and colours
 d + scale_colour_gradient2(limits=c(-0.2, 0.2))
 
-# Using "muted" colours makes for pleasant graphics 
+# Using "muted" colours makes for pleasant graphics
 # (and they have better perceptual properties too)
 d + scale_colour_gradient2(low="red", high="blue")
 d + scale_colour_gradient2(low=muted("red"), high=muted("blue"))
@@ -47,5 +49,6 @@ d + scale_colour_gradient2(midpoint=mean(diamonds$price / diamonds$carat))
 p <- qplot(letters[1:5], 1:5, fill= c(-3, 3, 5, 2, -2), geom="bar")
 p + scale_fill_gradient2("fill")
 # Note how positive and negative values of the same magnitude
-# have similar intensity}
+# have similar intensity
+}
 

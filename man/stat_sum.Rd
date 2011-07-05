@@ -1,18 +1,21 @@
 \name{stat_sum}
 \alias{stat_sum}
 \title{Sum unique values.}
-\usage{stat_sum(mapping = NULL, data = NULL, geom = "point",
-    position = "identity", ...)}
-
+\usage{
+  stat_sum(mapping = NULL, data = NULL, geom = "point",
+  position = "identity", ...)
+}
+\value{
+  a data.frame with additional columns \item{n}{number of
+  observations at position} \item{prop}{percent of points
+  in that panel at that position}
+}
 \description{
   Sum unique values.  Useful for overplotting on
   scatterplots.
 }
-\seealso{\code{\link{ggfluctuation}} for a fluctuation diagram,}
-\value{a data.frame with additional columns
-\item{n}{number of observations at position}
-\item{prop}{percent of points in that panel at that position}}
-\examples{d <- ggplot(diamonds, aes(x = cut, y = clarity))
+\examples{
+d <- ggplot(diamonds, aes(x = cut, y = clarity))
 # Need to control which group proportion calculated over
 # Overall proportion
 d + stat_sum(aes(group = 1))
@@ -34,5 +37,9 @@ d + stat_sum(aes(group = 1, weight = price, size = ..n..))
 
 # Or using qplot
 qplot(cut, clarity, data = diamonds)
-qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)}
+qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)
+}
+\seealso{
+  \code{\link{ggfluctuation}} for a fluctuation diagram,
+}
 

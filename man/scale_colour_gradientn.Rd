@@ -1,16 +1,18 @@
 \name{scale_colour_gradientn}
 \alias{scale_colour_gradientn}
 \title{Smooth colour gradient between n colours...}
-\usage{scale_colour_gradientn(..., colours, values = NULL, space =
-    "Lab", na.value = "grey50")}
-
-\description{
-  Smooth colour gradient between n colours
+\usage{
+  scale_colour_gradientn(..., colours, values = NULL, space
+  = "Lab", na.value = "grey50")
 }
 \arguments{
   \item{na.value}{Colour to use for missing values}
 }
-\examples{# scale_colour_gradient make it easy to use existing colour palettes
+\description{
+  Smooth colour gradient between n colours
+}
+\examples{
+# scale_colour_gradient make it easy to use existing colour palettes
 
 dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
 dsub$diff <- with(dsub, sqrt(abs(x-y))* sign(x-y))
@@ -18,19 +20,20 @@ dsub$diff <- with(dsub, sqrt(abs(x-y))* sign(x-y))
 
 d + scale_colour_gradientn(colours = rainbow(7))
 breaks <- c(-0.5, 0, 0.5)
-d + scale_colour_gradientn(colours = rainbow(7), 
+d + scale_colour_gradientn(colours = rainbow(7),
 breaks = breaks, labels = format(breaks))
 
 d + scale_colour_gradientn(colours = topo.colors(10))
 d + scale_colour_gradientn(colours = terrain.colors(10))
 
-# You can force them to be symmetric by supplying a vector of 
+# You can force them to be symmetric by supplying a vector of
 # values, and turning rescaling off
 max_val <- max(abs(dsub$diff))
 values <- seq(-max_val, max_val, length = 11)
 
-d + scale_colour_gradientn(colours = topo.colors(10), 
+d + scale_colour_gradientn(colours = topo.colors(10),
 values = values, rescale = function(x, ...) x, oob = identity)
-d + scale_colour_gradientn(colours = terrain.colors(10), 
-values = values, rescale = function(x, ...) x, oob = identity)}
+d + scale_colour_gradientn(colours = terrain.colors(10),
+values = values, rescale = function(x, ...) x, oob = identity)
+}
 

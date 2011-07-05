@@ -1,15 +1,37 @@
 \name{ggsave}
 \alias{ggsave}
 \title{Save a ggplot with sensible defaults...}
-\usage{ggsave(filename = default_name(plot), plot = last_plot(),
-    device = default_device(filename), path = NULL, scale =
-    1, width = par("din")[1], height = par("din")[2], dpi =
-    300, ...)}
+\usage{
+  ggsave(filename = default_name(plot), plot = last_plot(),
+  device = default_device(filename), path = NULL, scale =
+  1, width = par("din")[1], height = par("din")[2], dpi =
+  300, ...)
+}
+\arguments{
+  \item{filename}{file name/filename of plot}
 
+  \item{plot}{plot to save, defaults to last plot
+  displayed}
+
+  \item{device}{device to use, automatically extract from
+  file name extension}
+
+  \item{path}{path to save plot to (if you just want to set
+  path and not filename)}
+
+  \item{scale}{scaling factor}
+
+  \item{width}{width (in inches)}
+
+  \item{height}{height (in inches)}
+
+  \item{dpi}{dpi to use for raster graphics}
+
+  \item{...}{other arguments passed to graphics device}
+}
 \description{
   Save a ggplot with sensible defaults
 }
-
 \details{
   ggsave is a convenient function for saving a plot.  It
   defaults to saving the last plot that you displayed, and
@@ -22,19 +44,8 @@
   tex (pictex), pdf, jpeg, tiff, png, bmp, svg and wmf
   (windows only).
 }
-\arguments{
-  \item{filename}{file name/filename of plot}
-  \item{plot}{plot to save, defaults to last plot displayed}
-  \item{device}{device to use, automatically extract from file name extension}
-  \item{path}{path to save plot to (if you just want to set path and not
-filename)}
-  \item{scale}{scaling factor}
-  \item{width}{width (in inches)}
-  \item{height}{height (in inches)}
-  \item{dpi}{dpi to use for raster graphics}
-  \item{...}{other arguments passed to graphics device}
-}
-\examples{\dontrun{
+\examples{
+\dontrun{
 ratings <- qplot(rating, data=movies, geom="histogram")
 qplot(length, data=movies, geom="histogram")
 ggsave(file="length-hist.pdf")
@@ -43,5 +54,6 @@ ggsave(ratings, file="ratings.pdf")
 ggsave(ratings, file="ratings.pdf", width=4, height=4)
 # make twice as big as on screen
 ggsave(ratings, file="ratings.pdf", scale=2)
-}}
+}
+}
 

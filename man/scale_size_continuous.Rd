@@ -1,16 +1,19 @@
 \name{scale_size_continuous}
 \alias{scale_size_continuous}
 \title{Size scale for continuous variables...}
-\usage{scale_size_continuous(..., range = c(1, 6))}
-
+\usage{
+  scale_size_continuous(..., range = c(1, 6))
+}
+\arguments{
+  \item{range}{a numeric vector of length 2 that specifies
+  the minimum and maximum size of the plotting symbol after
+  transformation.}
+}
 \description{
   Size scale for continuous variables
 }
-\arguments{
-  \item{range}{a numeric vector of length 2 that specifies the minimum and
-maximum size of the plotting symbol after transformation.}
-}
-\examples{(p <- qplot(mpg, cyl, data=mtcars, size=cyl))
+\examples{
+(p <- qplot(mpg, cyl, data=mtcars, size=cyl))
 p + scale_size("cylinders")
 p + scale_size("number\\nof\\ncylinders")
 
@@ -26,7 +29,8 @@ p + scale_area(range = c(1, 25))
 # idea, unless your factor is ordered, as in this example
 qplot(mpg, cyl, data=mtcars, size=factor(cyl))
 
-# To control the size mapping for discrete variable, use 
+# To control the size mapping for discrete variable, use
 # scale_size_manual:
-last_plot() + scale_size_manual(values=c(2,4,6))}
+last_plot() + scale_size_manual(values=c(2,4,6))
+}
 

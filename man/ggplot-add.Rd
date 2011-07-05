@@ -1,11 +1,16 @@
 \name{ggplot-add}
+\alias{"\%+\%"}
+\alias{"+.ggplot"}
+\alias{ggplot-add}
 \title{Modify a plot by adding on new components.}
-\usage{\method{+}{ggplot} (p, object)}
+\arguments{
+  \item{p}{plot object}
 
+  \item{object}{component to add}
+}
 \description{
   Modify a plot by adding on new components.
 }
-
 \details{
   What happens when you add on:
 
@@ -17,11 +22,7 @@
   override current coordinate system \item \code{facet}:
   override current coordinate faceting }
 }
-\seealso{\code{\link{set_last_plot}}, \code{\link{ggplot}}}
-\alias{+.ggplot}
-\alias{\%+\%}
-\arguments{
-  \item{p}{plot object}
-  \item{object}{component to add}
+\seealso{
+  \code{\link{set_last_plot}}, \code{\link{ggplot}}
 }
 

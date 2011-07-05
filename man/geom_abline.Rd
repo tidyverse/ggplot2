@@ -1,13 +1,13 @@
 \name{geom_abline}
 \alias{geom_abline}
 \title{Line specified by slope and intercept.}
-\usage{geom_abline(mapping = NULL, data = NULL, stat = "abline",
-    position = "identity", ...)}
-
+\usage{
+  geom_abline(mapping = NULL, data = NULL, stat = "abline",
+  position = "identity", ...)
+}
 \description{
   Line specified by slope and intercept.
 }
-
 \details{
   The abline geom adds a line with specified slope and
   intercept to the plot.
@@ -22,11 +22,8 @@
   slope are stored in the data, then they can vary from
   panel to panel.  See the examples for more ideas.
 }
-\seealso{\code{\link{stat_smooth}} to add lines derived from the data,
-\code{\link{geom_hline}} for horizontal lines,
-\code{\link{geom_vline}} for vertical lines
-\code{\link{geom_segment}}}
-\examples{p <- qplot(wt, mpg, data = mtcars)
+\examples{
+p <- qplot(wt, mpg, data = mtcars)
 
 # Fixed slopes and intercepts
 p + geom_abline() # Can't see it - outside the range of the data
@@ -47,14 +44,21 @@ p + geom_abline(aes(intercept=a, slope=b), data=df)
 
 # Slopes and intercepts from linear model
 library(plyr)
-coefs <- ddply(mtcars, .(cyl), function(df) { 
+coefs <- ddply(mtcars, .(cyl), function(df) {
 m <- lm(mpg ~ wt, data=df)
-data.frame(a = coef(m)[1], b = coef(m)[2]) 
+data.frame(a = coef(m)[1], b = coef(m)[2])
 })
 str(coefs)
 p + geom_abline(data=coefs, aes(intercept=a, slope=b))
 
 # It's actually a bit easier to do this with stat_smooth
 p + geom_smooth(aes(group=cyl), method="lm")
-p + geom_smooth(aes(group=cyl), method="lm", fullrange=TRUE)}
+p + geom_smooth(aes(group=cyl), method="lm", fullrange=TRUE)
+}
+\seealso{
+  \code{\link{stat_smooth}} to add lines derived from the
+  data, \code{\link{geom_hline}} for horizontal lines,
+  \code{\link{geom_vline}} for vertical lines
+  \code{\link{geom_segment}}
+}
 

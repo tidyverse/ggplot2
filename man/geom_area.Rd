@@ -1,13 +1,13 @@
 \name{geom_area}
 \alias{geom_area}
 \title{Area plot.}
-\usage{geom_area(mapping = NULL, data = NULL, stat = "identity",
-    position = "stack", na.rm = FALSE, ...)}
-
+\usage{
+  geom_area(mapping = NULL, data = NULL, stat = "identity",
+  position = "stack", na.rm = FALSE, ...)
+}
 \description{
   Area plot.
 }
-
 \details{
   An area plot is the continuous analog of a stacked bar
   chart (see \code{\link{geom_bar}}), and can be used to
@@ -22,5 +22,7 @@
   is fixed to 0, and the position adjustment defaults to
   position_stacked.
 }
-\examples{# see geom_ribbon}
+\examples{
+# see geom_ribbon
+}
 

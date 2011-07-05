@@ -1,13 +1,15 @@
 \name{geom_smooth}
 \alias{geom_smooth}
 \title{Add a smoothed conditional mean.}
-\usage{geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
-    position = "identity", ...)}
-
+\usage{
+  geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
+  position = "identity", ...)
+}
 \description{
   Add a smoothed conditional mean.
 }
-\examples{# See stat_smooth for examples of using built in model fitting
+\examples{
+# See stat_smooth for examples of using built in model fitting
 # if you need some more flexible, this example shows you how to
 # plot the fits from any model of your choosing
 qplot(wt, mpg, data=mtcars, colour=factor(cyl))
@@ -28,6 +30,7 @@ err <- stats::predict(model, newdata=grid, se = TRUE)
 grid$ucl <- err$fit + 1.96 * err$se.fit
 grid$lcl <- err$fit - 1.96 * err$se.fit
 
-qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + 
-geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat="identity")}
+qplot(wt, mpg, data=mtcars, colour=factor(cyl)) +
+geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat="identity")
+}
 

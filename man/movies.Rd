@@ -1,12 +1,13 @@
+\docType{data}
 \name{movies}
 \alias{movies}
 \title{Movie information and user ratings from IMDB...}
-\usage{data(movies)}
-
+\usage{
+  data(movies)
+}
 \description{
   Movie information and user ratings from IMDB.com.
 }
-
 \details{
   The internet movie database, \url{http://imdb.com/}, is a
   website devoted to collecting movie data supplied by
@@ -32,7 +33,8 @@
   romance, short.  Binary variables representing if movie
   was classified as belonging to that genre. }
 }
-\docType{data}
+\references{
+  \url{http://had.co.nz/data/movies/}
+}
 \keyword{datasets}
-\references{\url{http://had.co.nz/data/movies/}}
 

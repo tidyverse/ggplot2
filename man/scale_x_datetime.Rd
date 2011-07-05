@@ -1,12 +1,14 @@
 \name{scale_x_datetime}
 \alias{scale_x_datetime}
 \title{Position scale, date...}
-\usage{scale_x_datetime(..., expand = c(0.05, 0))}
-
+\usage{
+  scale_x_datetime(..., expand = c(0.05, 0))
+}
 \description{
   Position scale, date
 }
-\examples{start <- ISOdate(2001, 1, 1, tz = "")
+\examples{
+start <- ISOdate(2001, 1, 1, tz = "")
 df <- data.frame(
 day30  = start + round(runif(100, max = 30 * 86400)),
 day7  = start + round(runif(100, max = 7 * 86400)),
@@ -36,6 +38,7 @@ qplot(day30, y, data = df)
 qplot(day30, y, data = df)
 last_plot() + scale_x_datetime(breaks = date_breaks("2 weeks"))
 last_plot() + scale_x_datetime(breaks = date_breaks("10 days"))
-last_plot() + scale_x_datetime(breaks = date_breaks("10 days"), 
-labels = date_format("\%d/\%m"))}
+last_plot() + scale_x_datetime(breaks = date_breaks("10 days"),
+labels = date_format("\%d/\%m"))
+}
 

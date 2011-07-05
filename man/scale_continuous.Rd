@@ -1,25 +1,28 @@
 \name{scale_continuous}
+\alias{scale_continuous}
+\alias{scale_x_continuous}
+\alias{scale_x_log10}
+\alias{scale_x_reverse}
+\alias{scale_x_sqrt}
+\alias{scale_y_continuous}
+\alias{scale_y_log10}
+\alias{scale_y_reverse}
+\alias{scale_y_sqrt}
 \title{Continuous position scales (x & y).}
-\usage{scale_x_continuous scale_x_continuous}
-
+\usage{
+  scale_x_continuous scale_x_continuous
+}
+\arguments{
+  \item{...}{common continuous scale parameters:
+  \code{name}, \code{breaks}, \code{labels},
+  \code{na.value}, \code{limits} and \code{trans}.  See
+  \code{\link{continuous_scale}} for more details}
+}
 \description{
   Continuous position scales (x & y).
 }
-\seealso{\code{\link{scale_discrete}} for discrete position scales}
-\alias{scale_x_continuous}
-\alias{scale_y_continuous}
-\alias{scale_x_log10}
-\alias{scale_y_log10}
-\alias{scale_x_reverse}
-\alias{scale_y_reverse}
-\alias{scale_x_sqrt}
-\alias{scale_y_sqrt}
-\arguments{
-  \item{...}{common continuous scale parameters: \code{name}, \code{breaks},
-\code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
-\code{\link{continuous_scale}} for more details}
-}
-\examples{(m <- qplot(rating, votes, data=subset(movies, votes > 1000), na.rm = T))
+\examples{
+(m <- qplot(rating, votes, data=subset(movies, votes > 1000), na.rm = T))
 
 # Manipulating the default position scales lets you:
 
@@ -68,5 +71,9 @@ qplot(rating, votes, data=movies, ylim=c(1e4, 5e4))
 #   * axis labels
 qplot(rating, votes, data=movies, xlab="My x axis", ylab="My y axis")
 #   * log scaling
-qplot(rating, votes, data=movies, log="xy")}
+qplot(rating, votes, data=movies, log="xy")
+}
+\seealso{
+  \code{\link{scale_discrete}} for discrete position scales
+}
 

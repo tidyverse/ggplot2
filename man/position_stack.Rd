@@ -1,12 +1,14 @@
 \name{position_stack}
 \alias{position_stack}
 \title{Stack overlapping objects on top of one another.}
-\usage{position_stack(width = NULL, height = NULL, ...)}
-
+\usage{
+  position_stack(width = NULL, height = NULL, ...)
+}
 \description{
   Stack overlapping objects on top of one another.
 }
-\examples{# Stacking is the default behaviour for most area plots:
+\examples{
+# Stacking is the default behaviour for most area plots:
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) + geom_bar()
 
 # To change stacking order, use factor() to change order of levels
@@ -29,5 +31,6 @@ qplot(Time, Value, data = data.set, colour = Type, geom = "line")
 qplot(Time, Value, data = data.set, colour = Type, geom = "line",
 position = "stack")
 # But realise that this makes it *much* harder to compare individual
-# trends}
+# trends
+}
 

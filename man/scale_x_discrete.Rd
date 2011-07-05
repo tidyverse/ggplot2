@@ -1,12 +1,12 @@
 \name{scale_x_discrete}
 \alias{scale_x_discrete}
 \title{Discrete position.}
-\usage{scale_x_discrete(..., expand = c(0, 0.6))}
-
+\usage{
+  scale_x_discrete(..., expand = c(0, 0.6))
+}
 \description{
   Discrete position.
 }
-
 \details{
   You can use continuous positions even with a discrete
   position scale - this allows you (e.g.) to place labels
@@ -16,7 +16,8 @@
   placed at integer positions).  This is what allows
   jittering to work.
 }
-\examples{qplot(cut, data=diamonds, stat="bin")
+\examples{
+qplot(cut, data=diamonds, stat="bin")
 qplot(cut, data=diamonds, geom="bar")
 
 # The discrete position scale is added automatically whenever you
@@ -45,6 +46,7 @@ qplot(reorder(manufacturer, cty), cty, data=mpg)
 qplot(reorder(manufacturer, displ), cty, data=mpg)
 
 # Use abbreviate as a formatter to reduce long names
-qplot(reorder(manufacturer, cty), cty, data=mpg) +  
-scale_x_discrete(labels = abbreviate)}
+qplot(reorder(manufacturer, cty), cty, data=mpg) +
+scale_x_discrete(labels = abbreviate)
+}
 

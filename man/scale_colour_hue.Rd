@@ -1,16 +1,18 @@
 \name{scale_colour_hue}
 \alias{scale_colour_hue}
 \title{Qualitative colour scale with evenly spaced hues.}
-\usage{scale_colour_hue(..., h = c(0, 360) + 15, c = 100, l = 65,
-    h.start = 0, direction = 1, na.value = "grey50")}
-
-\description{
-  Qualitative colour scale with evenly spaced hues.
+\usage{
+  scale_colour_hue(..., h = c(0, 360) + 15, c = 100, l =
+  65, h.start = 0, direction = 1, na.value = "grey50")
 }
 \arguments{
   \item{na.value}{Colour to use for missing values}
 }
-\examples{dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
+\description{
+  Qualitative colour scale with evenly spaced hues.
+}
+\examples{
+dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 (d <- qplot(carat, price, data=dsamp, colour=clarity))
 
 # Change scale label
@@ -40,6 +42,7 @@ d + geom_point(alpha = 0.2)
 # Colour of missing values is controlled with na.value:
 miss <- factor(sample(c(NA, 1:5), nrow(mtcars), rep = T))
 qplot(mpg, wt, data = mtcars, colour = miss)
-qplot(mpg, wt, data = mtcars, colour = miss) + 
-scale_colour_hue(na.value = "black")}
+qplot(mpg, wt, data = mtcars, colour = miss) +
+scale_colour_hue(na.value = "black")
+}
 

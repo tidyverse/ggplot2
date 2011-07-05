@@ -1,13 +1,13 @@
 \name{geom_vline}
 \alias{geom_vline}
 \title{Line, vertical.}
-\usage{geom_vline(mapping = NULL, data = NULL, stat = "vline",
-    position = "identity", ...)}
-
+\usage{
+  geom_vline(mapping = NULL, data = NULL, stat = "vline",
+  position = "identity", ...)
+}
 \description{
   Line, vertical.
 }
-
 \details{
   This geom allows you to annotate the plot with vertical
   lines (see \code{\link{geom_hline}} and
@@ -20,10 +20,8 @@
   intercept for each panel using a data.frame.  See the
   examples for the differences.
 }
-\seealso{\code{\link{geom_hline}} for horizontal lines,
-\code{\link{geom_abline}} for lines defined by a slope and intercept,
-\code{\link{geom_segment}} for a more general approach"}
-\examples{# Fixed lines
+\examples{
+# Fixed lines
 p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 p + geom_vline(xintercept = 5)
 p + geom_vline(xintercept = 1:5)
@@ -36,9 +34,16 @@ last_plot() + coord_flip()
 p2 <- p + aes(colour = factor(cyl))
 p2 + geom_vline(xintercept = 15)
 
-# To display different lines in different facets, you need to 
+# To display different lines in different facets, you need to
 # create a data frame.
-p <- qplot(mpg, wt, data=mtcars, facets = vs ~ am)   
-vline.data <- data.frame(z = c(15, 20, 25, 30), vs = c(0, 0, 1, 1), am = c(0, 1, 0, 1)) 
-p + geom_vline(aes(xintercept = z), vline.data)}
+p <- qplot(mpg, wt, data=mtcars, facets = vs ~ am)
+vline.data <- data.frame(z = c(15, 20, 25, 30), vs = c(0, 0, 1, 1), am = c(0, 1, 0, 1))
+p + geom_vline(aes(xintercept = z), vline.data)
+}
+\seealso{
+  \code{\link{geom_hline}} for horizontal lines,
+  \code{\link{geom_abline}} for lines defined by a slope
+  and intercept, \code{\link{geom_segment}} for a more
+  general approach"
+}
 

@@ -1,17 +1,19 @@
 \name{geom_text}
 \alias{geom_text}
 \title{Textual annotations.}
-\usage{geom_text(mapping = NULL, data = NULL, stat = "identity",
-    position = "identity", parse = FALSE, ...)}
-
+\usage{
+  geom_text(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", parse = FALSE, ...)
+}
+\arguments{
+  \item{parse}{If TRUE, the labels will be parsed into
+  expressions and displayed as described in ?plotmath}
+}
 \description{
   Textual annotations.
 }
-\arguments{
-  \item{parse}{If TRUE, the labels will be parsed into expressions and
-displayed as described in ?plotmath}
-}
-\examples{p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))
+\examples{
+p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))
 
 p + geom_text()
 # Change size of the label
@@ -30,7 +32,7 @@ p + geom_text(aes(colour=factor(cyl))) + scale_colour_discrete(l=40)
 p + geom_text(aes(size=wt))
 p + geom_text(aes(size=wt)) + scale_size(range=c(3,6))
 
-# You can display expressions by setting parse = TRUE.  The 
+# You can display expressions by setting parse = TRUE.  The
 # details of the display are described in ?plotmath, but note that
 # geom_text uses strings, not expressions.
 p + geom_text(aes(label = paste(wt, "^(", cyl, ")", sep = "")),
@@ -52,5 +54,6 @@ geom_text(colour = "red")
 p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))
 p + geom_text(fontface=3)
 p + geom_text(aes(fontface=am+1))
-p + geom_text(aes(family=c("serif", "mono")[am+1]))}
+p + geom_text(aes(family=c("serif", "mono")[am+1]))
+}
 

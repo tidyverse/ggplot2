@@ -1,18 +1,24 @@
 \name{label_parsed}
 \alias{label_parsed}
 \title{Label facets with parsed label.}
-\usage{label_parsed(variable, value)}
+\usage{
+  label_parsed(variable, value)
+}
+\arguments{
+  \item{variable}{variable name passed in by facetter}
 
+  \item{value}{variable value passed in by facetter}
+}
 \description{
   Label facets with parsed label.
 }
-\seealso{\code{\link{plotmath}}}
-\arguments{
-  \item{variable}{variable name passed in by facetter}
-  \item{value}{variable value passed in by facetter}
-}
-\examples{mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
+\examples{
+mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
 qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2)
-qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2, 
-labeller = label_parsed)}
+qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2,
+labeller = label_parsed)
+}
+\seealso{
+  \code{\link{plotmath}}
+}
 

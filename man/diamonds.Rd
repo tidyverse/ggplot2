@@ -1,12 +1,13 @@
+\docType{data}
 \name{diamonds}
 \alias{diamonds}
 \title{Prices of 50,000 round cut diamonds...}
-\usage{data(diamonds)}
-
+\usage{
+  data(diamonds)
+}
 \description{
   Prices of 50,000 round cut diamonds
 }
-
 \details{
   A dataset containing the prices and other attributes of
   almost 54,000 diamonds. The variables are as follows:
@@ -23,6 +24,5 @@
   mean(x, y) = 2 * z / (x + y) (43--79) \item table. width
   of top of diamond relative to widest point (43--95) }
 }
-\docType{data}
 \keyword{datasets}
 

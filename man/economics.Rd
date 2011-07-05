@@ -1,12 +1,13 @@
+\docType{data}
 \name{economics}
 \alias{economics}
 \title{US economic time series.}
-\usage{data(economics)}
-
+\usage{
+  data(economics)
+}
 \description{
   US economic time series.
 }
-
 \details{
   This dataset was produced from US economic time series
   data available from
@@ -28,6 +29,5 @@
 
   }
 }
-\docType{data}
 \keyword{datasets}
 

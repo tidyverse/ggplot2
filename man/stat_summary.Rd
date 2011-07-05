@@ -1,13 +1,23 @@
 \name{stat_summary}
 \alias{stat_summary}
 \title{Summarise y values at every unique x.}
-\usage{stat_summary(mapping = NULL, data = NULL, geom =
-    "pointrange", position = "identity", ...)}
-
+\usage{
+  stat_summary(mapping = NULL, data = NULL, geom =
+  "pointrange", position = "identity", ...)
+}
+\value{
+  a data.frame with additional columns:
+  \item{fun.data}{Complete summary function. Should take
+  data frame as input and return data frame as output}
+  \item{fun.ymin}{ymin summary function (should take
+  numeric vector and return single number)} \item{fun.y}{y
+  summary function (should take numeric vector and return
+  single number)} \item{fun.ymax}{ymax summary function
+  (should take numeric vector and return single number)}
+}
 \description{
   Summarise y values at every unique x.
 }
-
 \details{
   \code{stat_summary} allows for tremendous flexibilty in
   the specification of summary functions.  The summary
@@ -21,19 +31,8 @@
   data.frame it should return a data frame with variables
   that the geom can use.
 }
-\seealso{\code{\link{geom_errorbar}}, \code{\link{geom_pointrange}}, 
-\code{\link{geom_linerange}}, \code{\link{geom_crossbar}} for geoms to
-display summarised data}
-\value{a data.frame with additional columns:
-\item{fun.data}{Complete summary function. Should take data frame as
-input and return data frame as output}
-\item{fun.ymin}{ymin summary function (should take numeric vector and
-return single number)}
-\item{fun.y}{y summary function (should take numeric vector and return
-single number)}
-\item{fun.ymax}{ymax summary function (should take numeric vector and
-return single number)}}
-\examples{# Basic operation on a small dataset
+\examples{
+# Basic operation on a small dataset
 c <- qplot(cyl, mpg, data=mtcars)
 c + stat_summary(fun.data = "mean_cl_boot", colour = "red")
 
@@ -45,11 +44,11 @@ p + ylim(15, 30)
 # Instead use coord_cartesian
 p + coord_cartesian(ylim = c(15, 30))
 
-# You can supply individual functions to summarise the value at 
+# You can supply individual functions to summarise the value at
 # each x:
 
 stat_sum_single <- function(fun, geom="point", ...) {
-stat_summary(fun.y=fun, colour="red", geom=geom, size = 3, ...)      
+stat_summary(fun.y=fun, colour="red", geom=geom, size = 3, ...)
 }
 
 c + stat_sum_single(mean)
@@ -57,7 +56,7 @@ c + stat_sum_single(mean, geom="line")
 c + stat_sum_single(median)
 c + stat_sum_single(sd)
 
-c + stat_summary(fun.y = mean, fun.ymin = min, fun.ymax = max, 
+c + stat_summary(fun.y = mean, fun.ymin = min, fun.ymax = max,
 colour = "red")
 
 c + aes(colour = factor(vs)) + stat_summary(fun.y = mean, geom="line")
@@ -83,8 +82,8 @@ c + stat_sum_df("mean_cl_normal", geom = "smooth")
 
 # Summaries are much more useful with a bigger data set:
 m <- ggplot(movies, aes(x=round(rating), y=votes)) + geom_point()
-m2 <- m + 
-stat_summary(fun.data = "mean_cl_boot", geom = "crossbar", 
+m2 <- m +
+stat_summary(fun.data = "mean_cl_boot", geom = "crossbar",
 colour = "red", width = 0.3)
 m2
 # Notice how the overplotting skews off visual perception of the mean
@@ -96,8 +95,15 @@ m2
 # This means we're calculating the summary on the logged data
 m2 + scale_y_log10()
 # Transforming the coordinate system performs the transforming after the
-# statistic. This means we're calculating the summary on the raw data, 
+# statistic. This means we're calculating the summary on the raw data,
 # and stretching the geoms onto the log scale.  Compare the widths of the
 # standard errors.
-m2 + coord_trans(y="log10")}
+m2 + coord_trans(y="log10")
+}
+\seealso{
+  \code{\link{geom_errorbar}},
+  \code{\link{geom_pointrange}},
+  \code{\link{geom_linerange}}, \code{\link{geom_crossbar}}
+  for geoms to display summarised data
+}
 

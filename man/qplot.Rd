@@ -1,45 +1,70 @@
 \name{qplot}
+\alias{qplot}
+\alias{quickplot}
 \title{A convenient wrapper function for creating simple ggplot plot objects.}
-\usage{qplot(x, y = NULL, ..., data, facets = NULL, margins =
-    FALSE, geom = "auto", stat = list(NULL), position =
-    list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log =
-    "", main = NULL, xlab = deparse(substitute(x)), ylab =
-    deparse(substitute(y)), asp = NA)}
+\usage{
+  qplot(x, y = NULL, ..., data, facets = NULL, margins =
+  FALSE, geom = "auto", stat = list(NULL), position =
+  list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "",
+  main = NULL, xlab = deparse(substitute(x)), ylab =
+  deparse(substitute(y)), asp = NA)
+}
+\arguments{
+  \item{x}{x values}
 
+  \item{y}{y values}
+
+  \item{...}{other aesthetics passed for each layer}
+
+  \item{data}{data frame to use (optional).  If not
+  specified, will create one, extracting vectors from the
+  current environment.}
+
+  \item{facets}{faceting formula to use.  Picks
+  \code{\link{facet_wrap}} or \code{\link{facet_grid}}
+  depending on whether the formula is one sided or
+  two-sided}
+
+  \item{margins}{whether or not margins will be displayed}
+
+  \item{geom}{character vector specifying geom to use.
+  Defaults to "point" if x and y are specified, and
+  "histogram" is on x is specified.}
+
+  \item{stat}{character vector specifying statistics to
+  use}
+
+  \item{position}{character vector giving position
+  adjustment to use}
+
+  \item{xlim}{limits for x axis}
+
+  \item{ylim}{limits for y axis}
+
+  \item{log}{which variables to log transform ("x", "y", or
+  "xy")}
+
+  \item{title}{character vector or expression for plot
+  title}
+
+  \item{xlab}{character vector or expression for x axis
+  label}
+
+  \item{ylab}{character vector or expression for y axis
+  label}
+
+  \item{asp}{the y/x aspect ratio}
+}
 \description{
   A convenient wrapper function for creating simple ggplot
   plot objects.
 }
-
 \details{
   \code{qplot} has been designed to be familiar if you're
   used to \code{\link{plot}}.
 }
-\alias{qplot}
-\alias{quickplot}
-\arguments{
-  \item{x}{x values}
-  \item{y}{y values}
-  \item{...}{other aesthetics passed for each layer}
-  \item{data}{data frame to use (optional).  If not specified, will create 
-one, extracting vectors from the current environment.}
-  \item{facets}{faceting formula to use.  Picks \code{\link{facet_wrap}} or
-\code{\link{facet_grid}} depending on whether the formula is one sided
-or two-sided}
-  \item{margins}{whether or not margins will be displayed}
-  \item{geom}{character vector specifying geom to use.  Defaults to 
-"point" if x and y are specified, and "histogram" is on x is specified.}
-  \item{stat}{character vector specifying statistics to use}
-  \item{position}{character vector giving position adjustment to use}
-  \item{xlim}{limits for x axis}
-  \item{ylim}{limits for y axis}
-  \item{log}{which variables to log transform ("x", "y", or "xy")}
-  \item{title}{character vector or expression for plot title}
-  \item{xlab}{character vector or expression for x axis label}
-  \item{ylab}{character vector or expression for y axis label}
-  \item{asp}{the y/x aspect ratio}
-}
-\examples{# Use data from data.frame
+\examples{
+# Use data from data.frame
 qplot(mpg, wt, data=mtcars)
 qplot(mpg, wt, data=mtcars, colour=cyl)
 qplot(mpg, wt, data=mtcars, size=cyl)
@@ -62,7 +87,7 @@ f <- function() {
 a <- 1:10
 b <- a ^ 2
 qplot(a, b)
-} 
+}
 f()
 
 # qplot will attempt to guess what geom you want depending on the input
@@ -75,5 +100,6 @@ qplot(y = mpg, data = mtcars)
 
 # Use different geoms
 qplot(mpg, wt, geom="path")
-qplot(factor(cyl), wt, geom=c("boxplot", "jitter"))}
+qplot(factor(cyl), wt, geom=c("boxplot", "jitter"))
+}
 
