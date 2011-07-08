@@ -20,7 +20,8 @@ Imports:
     digest,
     grid,
     reshape2,
-    scales
+    scales,
+    memoise
 Suggests:
     quantreg,
     Hmisc,
