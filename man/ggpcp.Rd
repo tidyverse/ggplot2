@@ -1,12 +1,23 @@
 \name{ggpcp}
 \alias{ggpcp}
 \title{Make a parallel coordinates plot.}
-\usage{ggpcp(data, vars=names(data), scale="range", ...)}
+\usage{
+  ggpcp(data, vars = names(data), scale = "range", ...)
+}
+\arguments{
+  \item{data}{data frame}
 
+  \item{vars}{variables to include in parallel coordinates
+  plot}
+
+  \item{scale}{scaling function, one of "range", "var" or
+  "I"}
+
+  \item{...}{other arguments passed on plot creation}
+}
 \description{
   Make a parallel coordinates plot.
 }
-
 \details{
   One way to think about a parallel coordinates plot, is as
   plotting the data after it has been transformed to gain a
@@ -26,17 +37,14 @@
   0 and variance 1 \item "I": don't scale the coordinates
   at all }
 }
-\arguments{
-  \item{data}{data frame}
-  \item{vars}{variables to include in parallel coordinates plot}
-  \item{scale}{scaling function, one of "range", "var" or "I"}
-  \item{...}{other arguments passed on plot creation}
-}
-\examples{ggpcp(mtcars) + geom_line()
+\examples{
+ggpcp(mtcars) + geom_line()
 ggpcp(mtcars, scale="var") + geom_line()
 ggpcp(mtcars, vars=names(mtcars)[3:6], formula= . ~cyl, scale="I") + geom_line()
 ggpcp(mtcars, scale="I") + geom_boxplot(aes(group=variable))
 ggpcp(mtcars, vars=names(mtcars[2:6])) + geom_line()
 p <- ggpcp(mtcars, vars=names(mtcars[2:6]))
 p + geom_line()
-p + geom_line(aes(colour=mpg))}
+p + geom_line(aes(colour=mpg))
+}
+

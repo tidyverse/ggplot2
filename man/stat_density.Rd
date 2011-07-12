@@ -1,30 +1,33 @@
 \name{stat_density}
 \alias{stat_density}
 \title{1d kernel density estimate.}
-\usage{stat_density(mapping, data, geom="area", position="stack",
-    adjust=1, kernel="gaussian", trim=FALSE, na.rm=FALSE,
-    ...)}
+\usage{
+  stat_density(mapping = NULL, data = NULL, geom = "area",
+  position = "stack", adjust = 1, kernel = "gaussian", trim
+  = FALSE, na.rm = FALSE, ...)
+}
+\arguments{
+  \item{adjust}{see \code{\link{density}} for details}
 
+  \item{kernel}{kernel used for density estimation, see
+  \code{\link{density}} for details}
+}
+\value{
+  data.frame with additional columns:
+  \item{density}{density estimate} \item{count}{density *
+  number of points - useful for stacked density plots}
+  \item{scaled}{density estimate, scaled to maximum of 1}
+}
 \description{
   1d kernel density estimate.
 }
-\value{data.frame with additional columns:
-\item{density}{density estimate}
-\item{count}{density * number of points - useful for stacked density
-plots}
-\item{scaled}{density estimate, scaled to maximum of 1}}
-\seealso{\code{\link{stat_bin}} for the histogram}
-\arguments{
-  \item{adjust}{see \code{\link{density}} for details}
-  \item{kernel}{kernel used for density estimation, see
-\code{\link{density}} for details}
-}
-\examples{m <- ggplot(movies, aes(x=rating))
+\examples{
+m <- ggplot(movies, aes(x=rating))
 m + geom_density()
 
 # Adjust parameters
 m + geom_density(kernel = "rectangular")
-m + geom_density(kernel = "biweight") 
+m + geom_density(kernel = "biweight")
 m + geom_density(kernel = "epanechnikov")
 m + geom_density(adjust=1/5) # Very rough
 m + geom_density(adjust=5) # Very smooth
@@ -48,11 +51,11 @@ m + scale_x_log10() + coord_trans(x="log10")
 m + stat_bin()
 
 # Make a volcano plot
-ggplot(diamonds, aes(x = price)) + 
-stat_density(aes(ymax = ..density..,  ymin = -..density..), 
-fill = "grey50", colour = "grey50", 
-geom = "ribbon", position = "identity") + 
-facet_grid(. ~ cut) + 
+ggplot(diamonds, aes(x = price)) +
+stat_density(aes(ymax = ..density..,  ymin = -..density..),
+fill = "grey50", colour = "grey50",
+geom = "ribbon", position = "identity") +
+facet_grid(. ~ cut) +
 coord_flip()
 
 # Stacked density plots
@@ -75,10 +78,15 @@ m <- ggplot(movies, aes(x=rating, weight=votes/sum(votes)))
 m + geom_histogram(aes(y=..density..)) + geom_density(fill=NA, colour="black")
 
 movies$decade <- round_any(movies$year, 10)
-m <- ggplot(movies, aes(x=rating, colour=decade, group=decade)) 
+m <- ggplot(movies, aes(x=rating, colour=decade, group=decade))
 m + geom_density(fill=NA)
 m + geom_density(fill=NA) + aes(y = ..count..)
 
 # Use qplot instead
 qplot(length, data=movies, geom="density", weight=rating)
-qplot(length, data=movies, geom="density", weight=rating/sum(rating))}
+qplot(length, data=movies, geom="density", weight=rating/sum(rating))
+}
+\seealso{
+  \code{\link{stat_bin}} for the histogram
+}
+

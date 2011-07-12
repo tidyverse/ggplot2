@@ -1,13 +1,13 @@
 \name{geom_point}
 \alias{geom_point}
 \title{Points, as for a scatterplot...}
-\usage{geom_point(mapping, data, stat="identity",
-    position="identity", na.rm=FALSE, ...)}
-
+\usage{
+  geom_point(mapping = NULL, data = NULL, stat =
+  "identity", position = "identity", na.rm = FALSE, ...)
+}
 \description{
   Points, as for a scatterplot
 }
-
 \details{
   The point geom is used to create scatterplots.
 
@@ -25,9 +25,9 @@
   The biggest potential problem with a scatterplot is
   overplotting: whenever you have more than a few points,
   points may be plotted on top of one another.  This can
-  severely distort the visual appearance of the plot.
-  There is no one solution to this problem, but there are
-  some techniques that can help.  You can add additional
+  severely distort the visual appearance of the plot. There
+  is no one solution to this problem, but there are some
+  techniques that can help.  You can add additional
   information with \code{\link{stat_smooth}},
   \code{\link{stat_quantile}} or
   \code{\link{stat_density2d}}.  If you have few unique x
@@ -37,10 +37,8 @@
   \code{\link{stat_sum}}. Another technique is to use
   transparent points, \code{geom_point(alpha = 0.05)}.
 }
-\seealso{\code{\link{scale_size}} to see scale area of points, instead of
-radius, \code{\link{geom_jitter}} to jitter points to reduce (mild)
-overplotting}
-\examples{p <- ggplot(mtcars, aes(wt, mpg))
+\examples{
+p <- ggplot(mtcars, aes(wt, mpg))
 p + geom_point()
 
 # Add aesthetic mappings
@@ -68,19 +66,19 @@ d + geom_point(alpha = 1/100)
 # You can create interesting shapes by layering multiple points of
 # different sizes
 p <- ggplot(mtcars, aes(mpg, wt))
-p + geom_point(colour="grey50", size = 4) + geom_point(aes(colour = cyl))  
-p + aes(shape = factor(cyl)) + 
+p + geom_point(colour="grey50", size = 4) + geom_point(aes(colour = cyl))
+p + aes(shape = factor(cyl)) +
 geom_point(aes(colour = factor(cyl)), size = 4) +
 geom_point(colour="grey90", size = 1.5)
-p + geom_point(colour="black", size = 4.5) + 
-geom_point(colour="pink", size = 4) + 
-geom_point(aes(shape = factor(cyl)))  
+p + geom_point(colour="black", size = 4.5) +
+geom_point(colour="pink", size = 4) +
+geom_point(aes(shape = factor(cyl)))
 
 # These extra layers don't usually appear in the legend, but we can
 # force their inclusion
-p + geom_point(colour="black", size = 4.5, legend = TRUE) + 
-geom_point(colour="pink", size = 4, legend = TRUE) + 
-geom_point(aes(shape = factor(cyl)))  
+p + geom_point(colour="black", size = 4.5, legend = TRUE) +
+geom_point(colour="pink", size = 4, legend = TRUE) +
+geom_point(aes(shape = factor(cyl)))
 
 # Transparent points:
 qplot(mpg, wt, data = mtcars, size = I(5), alpha = I(0.2))
@@ -94,4 +92,11 @@ qplot(wt, mpg, data = mtcars2, na.rm = TRUE)
 # Use qplot instead
 qplot(wt, mpg, data = mtcars)
 qplot(wt, mpg, data = mtcars, colour = factor(cyl))
-qplot(wt, mpg, data = mtcars, colour = I("red"))}
+qplot(wt, mpg, data = mtcars, colour = I("red"))
+}
+\seealso{
+  \code{\link{scale_size}} to see scale area of points,
+  instead of radius, \code{\link{geom_jitter}} to jitter
+  points to reduce (mild) overplotting
+}
+

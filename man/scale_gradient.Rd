@@ -1,26 +1,33 @@
 \name{scale_colour_gradient}
 \alias{scale_colour_gradient}
+\alias{scale_fill_gradient}
 \title{Smooth gradient between two colours...}
-\usage{scale_colour_gradient scale_fill_gradient}
+\usage{
+  scale_colour_gradient(..., low = "#3B4FB8", high =
+  "#B71B1A", space = "Lab", na.value = "grey50")
 
+  scale_fill_gradient(..., low = "#3B4FB8", high =
+  "#B71B1A", space = "Lab", na.value = "grey50")
+}
+\arguments{
+  \item{...}{Other arguments passed on to
+  \code{\link{continuous_scale}} to control name, limits,
+  breaks, labels and so forth.}
+
+  \item{na.value}{Colour to use for missing values}
+}
 \description{
   Smooth gradient between two colours
 }
-\seealso{\code{\link[scales]{seq_gradient_pal}} for details on underlying
-palette}
-\arguments{
-  \item{...}{Other arguments passed on to \code{\link{continuous_scale}} 
-to control name, limits, breaks, labels and so forth.}
-  \item{na.value}{Colour to use for missing values}
-}
-\examples{# It's hard to see, but look for the bright yellow dot 
+\examples{
+# It's hard to see, but look for the bright yellow dot
 # in the bottom right hand corner
 dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
 (d <- qplot(x, y, data=dsub, colour=z))
 # That one point throws our entire scale off.  We could
 # remove it, or manually tweak the limits of the scale
 
-# Tweak scale limits.  Any points outside these limits will not be 
+# Tweak scale limits.  Any points outside these limits will not be
 # plotted, and will not affect the calculation of statistics, etc
 d + scale_colour_gradient(limits=c(3, 10))
 d + scale_colour_gradient(limits=c(3, 4))
@@ -50,5 +57,11 @@ h + scale_fill_continuous(low="black", high="pink", limits=c(0,3100))
 # Colour of missing values is controlled with na.value:
 miss <- sample(c(NA, 1:5), nrow(mtcars), rep = T)
 qplot(mpg, wt, data = mtcars, colour = miss)
-qplot(mpg, wt, data = mtcars, colour = miss) + 
-scale_colour_gradient(na.value = "black")}
+qplot(mpg, wt, data = mtcars, colour = miss) +
+scale_colour_gradient(na.value = "black")
+}
+\seealso{
+  \code{\link[scales]{seq_gradient_pal}} for details on
+  underlying palette
+}
+

@@ -2,6 +2,8 @@
 #' 
 #' @export scale_colour_gradientn scale_fill_gradientn
 #' @param na.value Colour to use for missing values
+#' @rdname scale_gradient2
+#' @export
 #' @examples
 #' # scale_colour_gradient make it easy to use existing colour palettes
 #' 
@@ -30,6 +32,8 @@ scale_colour_gradientn <- function(..., colours, values = NULL, space = "Lab", n
   continuous_scale("colour", "gradientn", 
     gradient_n_pal(colours, values, space), na.value = na.value, ...)
 }
+#' @rdname scale_gradient2
+#' @export
 scale_fill_gradientn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50") {
   continuous_scale("fill", "gradientn",
     gradient_n_pal(colours, values, space), na.value = na.value, ...)

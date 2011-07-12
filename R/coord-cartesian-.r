@@ -63,42 +63,30 @@ coord_transform.cartesian <- function(., data, details) {
 
 #' @S3method coord_train cartesian
 coord_train.cartesian <- function(coord, scales) {
-  if (is.null(coord$limits$x)) {
-    x.range <- scale_dimension(scales$x)
-  } else {
-    x.range <- range(scale_transform(scales$x, coord$limits[["x"]]))
-    if (coord$wise) {
-      scales$x$limits <- x.range
-      x.range <- expand_range(x.range, 
-        scales$x$expand[1], scales$x$expand[2])
-    }
-  }
-  
-  x.major <- rescale(scale_break_positions(scales$x), from = x.range)
-  x.minor <- rescale(scale_breaks_minor(scales$x), from = x.range)
-  x.labels <- scale_labels(scales$x)
-
-  if (is.null(coord$limits$y)) {
-    y.range <- scale_dimension(scales$y)
-  } else {
-    y.range <- range(scale_transform(scales$y, coord$limits$y))
-    
-    if (coord$wise) {
-      scales$y$limits <- y.range
-      y.range <- expand_range(y.range, 
-        scales$y$expand[1], scales$y$expand[2])
-    }
-  }
-  y.major <- rescale(scale_break_positions(scales$y), from = y.range)
-  y.minor <- rescale(scale_breaks_minor(scales$y), from = y.range)
-  y.labels <- scale_labels(scales$y)
-  
-  list(
-    x.range = x.range, y.range = y.range, 
-    x.major = x.major, x.minor = x.minor, x.labels = x.labels,
-    y.major = y.major, y.minor = y.minor, y.labels = y.labels
-  )
+  c(train_cartesian(scales$x, coord$limits$x, "x"),
+    train_cartesian(scales$y, coord$limits$y, "y"))
 }
+
+train_cartesian <- memoise(function(scale, limits, name) {
+  if (is.null(limits)) {
+    range <- scale_dimension(scale)
+  } else {
+    range <- range(scale_transform(scale, limits))
+    if (coord$wise) {
+      scale$limits <- x.range
+      range <- expand_range(range, scale$expand[1], scale$expand[2])
+    }
+  }
+  
+  major <- rescale(scale_break_positions(scale), from = range)
+  minor <- rescale(scale_breaks_minor(scale), from = range)
+  labels <- scale_labels(scale)
+  
+  out <- list(range = range, major = major, minor = minor, labels = labels)
+  names(out) <- paste(name, names(out), sep = ".")
+  out
+})
+
 
 icon.cartesian <- function(.) {
   gTree(children = gList(

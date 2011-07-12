@@ -1,13 +1,14 @@
+\docType{data}
 \name{midwest}
 \alias{midwest}
 \title{Midwest demographics.}
-\usage{data(midwest)}
-
+\usage{
+  data(midwest)
+}
 \description{
   Midwest demographics. Demographic information of midwest
   counties
 }
-
 \details{
   The variables are as follows:
 
@@ -21,12 +22,12 @@
   black. \item percamerindan.  Percent American Indian.
   \item percasian. Percent Asian. \item percother. Percent
   other races. \item popadults.  Number of adults. \item
-  perchsd.  \item percollege.  Percent college educated.
+  perchsd. \item percollege.  Percent college educated.
   \item percprof.  Percent profession. \item
-  poppovertyknown.  \item percpovertyknown \item
+  poppovertyknown. \item percpovertyknown \item
   percbelowpoverty \item percchildbelowpovert \item
   percadultpoverty \item percelderlypoverty \item inmetro.
   In a metro area. \item category' }
 }
-\docType{data}
 \keyword{datasets}
+

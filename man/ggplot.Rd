@@ -1,14 +1,19 @@
 \name{ggplot}
 \alias{ggplot}
 \title{Create a new ggplot plot...}
-\usage{ggplot(data, ...)}
+\usage{
+  ggplot(data = NULL, ...)
+}
+\arguments{
+  \item{data}{default data set}
 
+  \item{...}{other arguments passed to specific methods}
+}
 \description{
   Create a new ggplot plot
 }
-\seealso{\url{http://had.co.nz/ggplot2}}
-\keyword{hplot}
-\arguments{
-  \item{data}{default data set}
-  \item{...}{other arguments passed to specific methods}
+\seealso{
+  \url{http://had.co.nz/ggplot2}
 }
+\keyword{hplot}
+

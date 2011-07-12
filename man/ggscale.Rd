@@ -1,11 +1,9 @@
 \name{ggscale}
 \alias{ggscale}
 \title{Components of a scale:...}
-
 \description{
   Components of a scale:
 }
-
 \details{
   Guide related: * name * breaks * labels * expand
 
@@ -18,3 +16,4 @@
   training, without having to worry about collecting all
   the pieces back together again.
 }
+

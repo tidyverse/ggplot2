@@ -1,12 +1,13 @@
+\docType{data}
 \name{seals}
 \alias{seals}
 \title{Vector field of seal movements.}
-\usage{data(seals)}
-
+\usage{
+  data(seals)
+}
 \description{
   Vector field of seal movements.
 }
-
 \details{
   This vector field was produced from the data described in
   Brillinger, D.R., Preisler, H.K., Ager, A.A. and Kie,
@@ -16,6 +17,8 @@
   "Learning a potential function from a trajectory", Signal
   Processing Letters. December (2007).
 }
-\docType{data}
+\references{
+  \url{http://www.stat.berkeley.edu/~brill/Papers/jspifinal.pdf}
+}
 \keyword{datasets}
-\references{\url{http://www.stat.berkeley.edu/~brill/Papers/jspifinal.pdf}}
+

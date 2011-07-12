@@ -1,13 +1,13 @@
 \name{geom_histogram}
 \alias{geom_histogram}
 \title{Histogram...}
-\usage{geom_histogram(mapping, data, stat="bin", position="stack",
-    ...)}
-
+\usage{
+  geom_histogram(mapping = NULL, data = NULL, stat = "bin",
+  position = "stack", ...)
+}
 \description{
   Histogram
 }
-
 \details{
   \code{geom_histogram} is an alias for
   \code{\link{geom_bar}} plus \code{\link{stat_bin}} so you
@@ -19,7 +19,8 @@
   with different binwidths. You may need to look at a few
   to uncover the full story behind your data.
 }
-\examples{# Simple examples
+\examples{
+# Simple examples
 qplot(rating, data=movies, geom="histogram")
 qplot(rating, data=movies, weight=votes, geom="histogram")
 qplot(rating, data=movies, weight=votes, geom="histogram", binwidth=1)
@@ -40,7 +41,7 @@ m + geom_histogram(aes(y = ..count..))
 m + geom_histogram(aes(fill = ..count..))
 
 # Change scales
-m + geom_histogram(aes(fill = ..count..)) + 
+m + geom_histogram(aes(fill = ..count..)) +
 scale_fill_gradient("Count", low = "green", high = "red")
 
 # Often we don't want the height of the bar to represent the
@@ -61,7 +62,7 @@ m + geom_histogram(binwidth = 1) + scale_x_log10()
 m + geom_histogram() + scale_x_sqrt()
 m + geom_histogram(binwidth = 10) + scale_x_sqrt()
 
-# For transformed coordinate systems, the binwidth applies to the 
+# For transformed coordinate systems, the binwidth applies to the
 # raw data.  The bins have constant width on the original scale.
 
 # Using log scales does not work here, because the first
@@ -73,7 +74,7 @@ m + geom_histogram() + coord_trans(x = "sqrt")
 m + geom_histogram(binwidth=1000) + coord_trans(x = "sqrt")
 
 # You can also transform the y axis.  Remember that the base of the bars
-# has value 0, so log transformations are not appropriate 
+# has value 0, so log transformations are not appropriate
 m <- ggplot(movies, aes(x = rating))
 m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 m + geom_histogram(binwidth = 0.5) + scale_y_reverse()
@@ -91,7 +92,7 @@ m + facet_grid(Action ~ Comedy)
 m + facet_wrap(~ mpaa)
 
 # Multiple histograms on the same graph
-# see ?position, ?position_fill, etc for more details.  
+# see ?position, ?position_fill, etc for more details.
 ggplot(diamonds, aes(x=price)) + geom_bar()
 hist_cut <- ggplot(diamonds, aes(x=price, fill=cut))
 hist_cut + geom_bar() # defaults to stacking
@@ -110,4 +111,6 @@ ggplot(diamonds, aes(price, fill = cut)) +
 geom_density(alpha = 0.2)
 # Which looks better when the distributions are more distinct
 ggplot(diamonds, aes(depth, fill = cut)) +
-geom_density(alpha = 0.2) + xlim(55, 70)}
+geom_density(alpha = 0.2) + xlim(55, 70)
+}
+

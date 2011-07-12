@@ -1,54 +1,88 @@
 \name{opts}
 \alias{opts}
 \title{Set options/theme elements for a single plot...}
-\usage{opts(...)}
+\usage{
+  opts(...)
+}
+\arguments{
+  \item{...}{named list of theme settings}
 
+  \item{axis.line}{line along axis}
+
+  \item{axis.text.x}{x axis label}
+
+  \item{axis.text.y}{y axis label}
+
+  \item{axis.ticks}{axis tick marks}
+
+  \item{axis.ticks.length}{tick mark length}
+
+  \item{axis.ticks.margin}{tick mark margin spacing}
+
+  \item{axis.title.x}{horizontal tick labels}
+
+  \item{axis.title.y}{vertical tick labels}
+
+  \item{legend.background}{background of legend}
+
+  \item{legend.margin}{extra space added around legend
+  (both width or height depending on orientation of
+  legend)}
+
+  \item{legend.key}{background underneath legend keys}
+
+  \item{legend.key.size}{key background size}
+
+  \item{legend.key.height}{key background height}
+
+  \item{legend.key.width}{key background width}
+
+  \item{legend.text}{legend labels}
+
+  \item{legend.text.align}{alignment of legend labels}
+
+  \item{legend.title}{legend name}
+
+  \item{legend.title.align}{alignment of legend title}
+
+  \item{legend.position}{placement of legend}
+
+  \item{legend.justification}{alignment of legend}
+
+  \item{legend.direction}{horizontal or vertical}
+
+  \item{panel.background}{background of panel}
+
+  \item{panel.border}{border around panel}
+
+  \item{panel.margin}{margin around facet panels}
+
+  \item{panel.grid.major}{major grid lines}
+
+  \item{panel.grid.minor}{minor grid lines}
+
+  \item{plot.background}{background of the entire plot}
+
+  \item{plot.title}{plot title}
+
+  \item{plot.margin}{plot margins}
+
+  \item{strip.background}{background of facet labels}
+
+  \item{strip.text.x}{text for horizontal strips}
+
+  \item{strip.text.y}{text for vertical strips}
+}
 \description{
   Set options/theme elements for a single plot
 }
-
 \details{
   Use this function if you want to modify a few theme
   settings for a single plot.
 }
-\arguments{
-  \item{...}{named list of theme settings}
-  \item{axis.line}{line along axis}
-  \item{axis.text.x}{x axis label}
-  \item{axis.text.y}{y axis label}
-  \item{axis.ticks}{axis tick marks}
-  \item{axis.ticks.length}{tick mark length}
-  \item{axis.ticks.margin}{tick mark  margin spacing}
-  \item{axis.title.x}{horizontal tick labels}
-  \item{axis.title.y}{vertical tick labels}
-  \item{legend.background}{background of legend}
-  \item{legend.margin}{extra space added around legend (both width or height
-depending on orientation of legend)}
-  \item{legend.key}{background underneath legend keys}
-  \item{legend.key.size}{key background size}
-  \item{legend.key.height}{key background height}
-  \item{legend.key.width}{key background width}
-  \item{legend.text}{legend labels}
-  \item{legend.text.align}{alignment of legend labels}
-  \item{legend.title}{legend name}
-  \item{legend.title.align}{alignment of legend title}
-  \item{legend.position}{placement of legend}
-  \item{legend.justification}{alignment of legend}
-  \item{legend.direction}{horizontal or vertical}
-  \item{panel.background}{background of panel}
-  \item{panel.border}{border around panel}
-  \item{panel.margin}{margin around facet panels}
-  \item{panel.grid.major}{major grid lines}
-  \item{panel.grid.minor}{minor grid lines}
-  \item{plot.background}{background of the entire plot}
-  \item{plot.title}{plot title}
-  \item{plot.margin}{plot margins}
-  \item{strip.background}{background of facet labels}
-  \item{strip.text.x}{text for horizontal strips}
-  \item{strip.text.y}{text for vertical strips}
-}
-\examples{p <- qplot(mpg, wt, data = mtcars)
-p 
+\examples{
+p <- qplot(mpg, wt, data = mtcars)
+p
 p + opts(panel_background = theme_rect(colour = "pink"))
 p + theme_bw()
 
@@ -56,11 +90,11 @@ p + theme_bw()
 p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 # Calculate slope and intercept of line of best fit
 coef(lm(mpg ~ wt, data = mtcars))
-p + geom_abline(intercept = 37, slope = -5) 
+p + geom_abline(intercept = 37, slope = -5)
 # Calculate correlation coefficient
 with(mtcars, cor(wt, mpg, use = "everything", method = "pearson"))
 #annotate the plot
-p + geom_abline(intercept = 37, slope = -5) + 
+p + geom_abline(intercept = 37, slope = -5) +
 geom_text(data = data.frame(), aes(4.5, 30, label = "Pearson-R = -.87"))
 
 # Change the axis labels
@@ -80,7 +114,7 @@ p + opts(plot.title = theme_text(size = 20, colour = "Blue"))
 # Changing plot look with themes
 m <- ggplot(movies, aes(x = rating)) + geom_histogram()
 #default is theme_grey()
-m 
+m
 # Compare with
 m + theme_bw()
 
@@ -133,4 +167,6 @@ facet_grid(. ~ cut)
 k + opts(strip.background = theme_rect(colour = "purple", fill = "pink", size = 3, linetype = "dashed"))
 k + opts(strip.text.x = theme_text(colour = "red", angle = 45, size = 10, hjust = 0.5, vjust = 0.5))
 k + opts(panel.margin = unit(5, "lines"))
-k + opts(panel.margin = unit(0, "lines"))}
+k + opts(panel.margin = unit(0, "lines"))
+}
+

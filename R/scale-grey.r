@@ -3,7 +3,8 @@
 #' Based on \code{\link{gray.colors}}
 #'
 #' @param na.value Colour to use for missing values
-#' @export scale_colour_grey scale_fill_grey
+#' @rdname scale_grey
+#' @export
 #' @examples
 #' p <- qplot(mpg, wt, data=mtcars, colour=factor(cyl)) 
 #' p + scale_colour_grey()
@@ -21,6 +22,9 @@ scale_colour_grey <- function(..., start = 0.2, end = 0.8, na.value = "red") {
   discrete_scale("colour", "grey", grey_pal(start, end), 
     na.value = na.value, ...)
 }
+
+#' @rdname scale_grey
+#' @export
 scale_fill_grey <- function(..., start = 0.2, end = 0.8, na.value = "grey50") {
   discrete_scale("fill", "grey", grey_pal(start, end), 
     na.value = na.value, ...)

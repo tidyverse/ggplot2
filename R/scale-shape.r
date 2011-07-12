@@ -1,6 +1,9 @@
 #' Scale for shapes, aka glyphs.
 #' 
-#' @export scale_shape scale_shape_discrete scale_shape_continuous
+#' A continuous variable can not be mapped to shape.
+#'
+#' @rdname scale_shape
+#' @export
 #' @examples
 #' dsmall <- diamonds[sample(nrow(diamonds), 100), ]
 #' 
@@ -23,7 +26,12 @@ scale_shape <- function(..., solid = TRUE) {
   discrete_scale("shape", "shape_d", shape_pal(solid), ...)
 }
 
+#' @rdname scale_shape
+#' @export
 scale_shape_discrete <- scale_shape
+
+#' @rdname scale_shape
+#' @export
 scale_shape_continuous <- function(...) {
   stop("A continuous variable can not be mapped to shape", call. = FALSE)
 }

@@ -1,11 +1,10 @@
 #' Differentiation related aesthetics: linetype, size, shape
 #' 
-#' @name aes_linetype_size_shape
-#' @aliases linetype size shape 
-#'
 #' This page demonstrates the usage of a sub-group 
 #' of aesthetics; linetype, size and shape.
 #' 
+#' @name aes_linetype_size_shape
+#' @aliases linetype size shape 
 #' @examples
 #'
 #' # Line types should be specified with either an integer, a name, or with a string of

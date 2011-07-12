@@ -1,15 +1,19 @@
 \name{stat_contour}
 \alias{stat_contour}
 \title{Calculate contours of 3d data.}
-\usage{stat_contour(mapping, data, geom="path",
-    position="identity", na.rm=FALSE, ...)}
-
+\usage{
+  stat_contour(mapping = NULL, data = NULL, geom = "path",
+  position = "identity", na.rm = FALSE, ...)
+}
+\value{
+  A data frame with additional column: \item{level}{height
+  of contour}
+}
 \description{
   Calculate contours of 3d data.
 }
-\value{A data frame with additional column:
-\item{level}{height of contour}}
-\examples{# Generate data
+\examples{
+# Generate data
 volcano3d <- melt(volcano)
 names(volcano3d) <- c("x", "y", "z")
 
@@ -34,7 +38,7 @@ v + stat_contour(aes(size = ..level..))
 v + stat_contour(aes(colour = ..level..))
 
 # Change scale
-v + stat_contour(aes(colour = ..level..), size = 2) + 
+v + stat_contour(aes(colour = ..level..), size = 2) +
 scale_colour_gradient(low = "brown", high = "white")
 
 # Set aesthetics to fixed value
@@ -47,4 +51,6 @@ v + geom_tile(aes(fill = z)) + stat_contour()
 
 # Use qplot instead
 qplot(x, y, z = z, data = volcano3d, geom = "contour")
-qplot(x, y, z = z, data = volcano3d, stat = "contour", geom = "path")}
+qplot(x, y, z = z, data = volcano3d, stat = "contour", geom = "path")
+}
+

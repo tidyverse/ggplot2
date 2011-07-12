@@ -1,8 +1,9 @@
-#' Size scale for continuous variables
+#' Size scale.
 #' 
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
-#' @export scale_size scale_size_continuous
+#' @rdname scale_size
+#' @export
 #' @examples
 #' (p <- qplot(mpg, cyl, data=mtcars, size=cyl))
 #' p + scale_size("cylinders")
@@ -26,10 +27,12 @@
 scale_size_continuous <- function(..., range = c(1, 6)) {
   continuous_scale("size", "size_c", rescale_pal(range), ...)
 }
+
+#' @rdname scale_size
+#' @export
 scale_size <- scale_size_continuous
 
-#' Size scale for discrete variables
-#' 
+#' @rdname scale_size
 #' @export
 scale_size_discrete <- function(..., range = c(1, 6)) {
   discrete_scale("size", "size_d",

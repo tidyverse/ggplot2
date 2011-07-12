@@ -1,28 +1,19 @@
 \name{aes_colour_fill_alpha}
+\alias{aes_colour_fill_alpha}
+\alias{alpha}
+\alias{color}
+\alias{colour}
+\alias{fill}
 \title{Colour related aesthetics: colour, fill and alpha...}
-
 \description{
   Colour related aesthetics: colour, fill and alpha
 }
-\alias{colour}
-\alias{color}
-\alias{fill}
-\alias{alpha}
-\alias{This}
-\alias{page}
-\alias{demonstrates}
-\alias{the}
-\alias{usage}
-\alias{of}
-\alias{a}
-\alias{sub-group}
-\alias{of}
-\alias{aesthetics;}
-\alias{colour,}
-\alias{fill}
-\alias{and}
-\alias{alpha.}
-\examples{# Bar chart example
+\details{
+  This page demonstrates the usage of a sub-group of
+  aesthetics; colour, fill and alpha.
+}
+\examples{
+# Bar chart example
 c <- ggplot(mtcars, aes(factor(cyl)))
 # Default plotting
 c + geom_bar()
@@ -58,7 +49,7 @@ h + geom_point()
 h + geom_point(colour = alpha("black", .5))
 h + geom_point(colour = alpha("black", 1/10))
 
-#If a geom uses both fill and colour, alpha will only modify the fill colour 
+#If a geom uses both fill and colour, alpha will only modify the fill colour
 c + geom_bar(fill = "dark grey", colour = "black")
 c + geom_bar(fill = "dark grey", colour = "black", alpha = 1/3)
 
@@ -66,7 +57,9 @@ c + geom_bar(fill = "dark grey", colour = "black", alpha = 1/3)
 j <- b + geom_line()
 j
 yrng <- range(economics$unemploy)
-j <- j + geom_rect(aes(NULL, NULL, xmin = start, xmax = end, fill = party), 
+j <- j + geom_rect(aes(NULL, NULL, xmin = start, xmax = end, fill = party),
 ymin = yrng[1], ymax = yrng[2], data = presidential)
 j
-j + scale_fill_manual(values = alpha(c("blue", "red"), .3))}
+j + scale_fill_manual(values = alpha(c("blue", "red"), .3))
+}
+

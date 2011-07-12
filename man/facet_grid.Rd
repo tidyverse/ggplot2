@@ -1,22 +1,27 @@
 \name{facet_grid}
 \alias{facet_grid}
 \title{Lay out panels in a grid.}
-\usage{facet_grid(facets, margins=FALSE, scales="fixed",
-    space="fixed", shrink=TRUE, labeller="label_value",
-    as.table=TRUE)}
+\usage{
+  facet_grid(facets, margins = FALSE, scales = "fixed",
+  space = "fixed", shrink = TRUE, labeller = "label_value",
+  as.table = TRUE)
+}
+\arguments{
+  \item{facets}{a formula with the rows (of the tabular
+  display) on the LHS and the columns (of the tabular
+  display) on the RHS; the dot in the formula is used to
+  indicate there should be no faceting on this dimension
+  (either row or column). The formula can also be provided
+  as a string instead of a classical formula object}
 
+  \item{margin}{logical value, should marginal rows and
+  columns be displayed}
+}
 \description{
   Lay out panels in a grid.
 }
-\arguments{
-  \item{facets}{a formula with the rows (of the tabular display) on the LHS
-and the columns (of the tabular display) on the RHS; the dot in the
-formula is used to indicate there should be no faceting on this dimension
-(either row or column). The formula can also be provided as a string
-instead of a classical formula object}
-  \item{margin}{logical value, should marginal rows and columns be displayed}
-}
-\examples{# faceting displays subsets of the data in different panels
+\examples{
+# faceting displays subsets of the data in different panels
 p <- ggplot(diamonds, aes(carat, ..density..)) +
 geom_histogram(binwidth = 1)
 
@@ -29,7 +34,7 @@ p + facet_grid(clarity ~ cut)
 p + facet_grid(cut ~ clarity)
 p + facet_grid(cut ~ clarity, margins=TRUE)
 
-# To change plot order of facet grid, 
+# To change plot order of facet grid,
 # change the order of varible levels with factor()
 diamonds$cut <- factor(diamonds$cut, levels = c("Ideal", "Very Good", "Fair", "Good", "Premium"))
 # Repeat first example with new order
@@ -46,7 +51,7 @@ qplot(mpg, wt, data=mtcars, facets = vs + am ~ . )
 
 # see also ?plotmatrix for the scatterplot matrix
 
-# If there isn't any data for a given combination, that panel 
+# If there isn't any data for a given combination, that panel
 # will be empty
 qplot(mpg, wt, data=mtcars) + facet_grid(cyl ~ vs)
 
@@ -81,13 +86,13 @@ mt + facet_grid(vs ~ am, scales = "free_y")
 mt + facet_grid(vs ~ am, scales = "free", space="free")
 
 # You may need to set your own breaks for consitent display:
-mt + facet_grid(. ~ cyl, scales = "free_x", space="free") + 
+mt + facet_grid(. ~ cyl, scales = "free_x", space="free") +
 scale_x_continuous(breaks = seq(10, 36, by = 2))
 # Adding scale limits override free scales:
 last_plot() + xlim(10, 15)
 
 # Free scales are particularly useful for categorical variables
-qplot(cty, model, data=mpg) + 
+qplot(cty, model, data=mpg) +
 facet_grid(manufacturer ~ ., scales = "free", space = "free")
 # particularly when you reorder factor levels
 mpg <- within(mpg, {
@@ -105,10 +110,12 @@ h + facet_grid(cyl ~ vs, as.table = FALSE)
 h + facet_grid(cyl ~ vs, labeller = label_both)
 # Using label_parsed, see ?plotmath for more options
 mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "sqrt(x, y)"))
-k <- qplot(wt, mpg, data = mtcars) 
+k <- qplot(wt, mpg, data = mtcars)
 k + facet_grid(. ~ cyl2)
 k + facet_grid(. ~ cyl2, labeller = label_parsed)
 # For label_bquote the label value is x.
 p <- qplot(wt, mpg, data = mtcars)
 p + facet_grid(~ vs, labeller = label_bquote(alpha ^ .(x)))
-p + facet_grid(~ vs, labeller = label_bquote(.(x) ^ .(x)))}
+p + facet_grid(~ vs, labeller = label_bquote(.(x) ^ .(x)))
+}
+

@@ -1,18 +1,19 @@
 \name{geom_tile}
 \alias{geom_tile}
 \title{Tile plane with rectangles.}
-\usage{geom_tile(mapping, data, stat="identity",
-    position="identity", ...)}
-
+\usage{
+  geom_tile(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", ...)
+}
 \description{
   Tile plane with rectangles.
 }
-
 \details{
   Similar to \code{\link{levelplot}} and
   \code{\link{image}}.
 }
-\examples{# Generate data
+\examples{
+# Generate data
 pp <- function (n,r=4) {
 x <- seq(-r*pi, r*pi, len=n)
 df <- expand.grid(x=x, y=x)
@@ -64,7 +65,9 @@ qplot(x, y, fill=z, data=example, geom="tile")
 qplot(x, y, fill=z, data=example, geom="tile", width=w)
 qplot(x, y, fill=factor(z), data=example, geom="tile", width=w)
 
-# You can manually set the colour of the tiles using 
+# You can manually set the colour of the tiles using
 # scale_manual
 col <- c("darkblue", "blue", "green", "orange", "red")
-qplot(x, y, fill=col[z], data=example, geom="tile", width=w, group=1) + scale_fill_identity(labels=letters[1:5], breaks=col)}
+qplot(x, y, fill=col[z], data=example, geom="tile", width=w, group=1) + scale_fill_identity(labels=letters[1:5], breaks=col)
+}
+

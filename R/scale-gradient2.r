@@ -2,6 +2,8 @@
 #' 
 #' @export scale_colour_gradient2 scale_fill_gradient2
 #' @param na.value Colour to use for missing values
+#' @rdname scale_gradient2
+#' @export
 #' @examples
 #' dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
 #' dsub$diff <- with(dsub, sqrt(abs(x-y))* sign(x-y))
@@ -46,6 +48,8 @@ scale_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high 
     rescale = mid_rescaler(mid = midpoint))
 }
 
+#' @rdname scale_gradient2
+#' @export
 scale_fill_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "rgb", na.value = "grey50") {
   continuous_scale("fill", "gradient2", 
     div_gradient_pal(low, mid, high, space), na.value = na.value, ...,
