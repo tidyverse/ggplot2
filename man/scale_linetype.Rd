@@ -11,9 +11,6 @@
   scale_linetype_discrete(...)
 }
 \description{
-  Scale for line patterns.
-}
-\details{
   Default line types based on a set supplied by Richard
   Pearson, University of Manchester.  Line types can not be
   mapped to continuous values.

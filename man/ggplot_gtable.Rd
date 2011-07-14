@@ -14,9 +14,6 @@
   a \code{\link{gtable}} object
 }
 \description{
-  Build a plot with all the usual bits and pieces.
-}
-\details{
   This function builds all grobs necessary for displaying
   the plot, and stores them in a special data structure
   called a \code{\link{gtable}}. This object is amenable to

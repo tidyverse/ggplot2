@@ -3,7 +3,7 @@
 \alias{scale_colour_gradientn}
 \alias{scale_fill_gradient2}
 \alias{scale_fill_gradientn}
-\title{Diverging colour gradient...}
+\title{Diverging colour gradient}
 \usage{
   scale_colour_gradient2(..., low = muted("red"), mid =
   "white", high = muted("blue"), midpoint = 0, space =

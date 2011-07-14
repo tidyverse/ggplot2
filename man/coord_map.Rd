@@ -24,12 +24,10 @@
   latitude)}
 }
 \description{
-  Map projections.
-}
-\details{
   This coordinate system provides the full range of map
   projections available in the mapproj package.
-
+}
+\details{
   This is still experimental, and if you have any advice to
   offer regarding a better (or more correct) way to do
   this, please let me know

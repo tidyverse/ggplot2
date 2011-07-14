@@ -9,11 +9,9 @@
   \item{object}{component to add}
 }
 \description{
-  Modify a plot by adding on new components.
+  What happens when you add on:
 }
 \details{
-  What happens when you add on:
-
   \itemize{ \item \code{data.frame}: replace current
   data.frame (must use \code{\%+\%}) \item \code{uneval}:
   replace current aesthetics \item \code{layer}: add new

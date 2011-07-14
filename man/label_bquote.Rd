@@ -1,6 +1,6 @@
 \name{label_bquote}
 \alias{label_bquote}
-\title{Label facet with 'bquoted' expressions...}
+\title{Label facet with 'bquoted' expressions}
 \usage{
   label_bquote(expr = beta^.(x))
 }
@@ -8,9 +8,6 @@
   \item{expr}{labelling expression to use}
 }
 \description{
-  Label facet with 'bquoted' expressions
-}
-\details{
   See \code{\link{bquote}} for details on the syntax of the
   argument.  The label value is x.
 }

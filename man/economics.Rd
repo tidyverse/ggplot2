@@ -2,17 +2,16 @@
 \name{economics}
 \alias{economics}
 \title{US economic time series.}
+\format{A data frame with 478 rows and 6 variables}
 \usage{
   data(economics)
 }
 \description{
-  US economic time series.
-}
-\details{
   This dataset was produced from US economic time series
   data available from
   \url{http://research.stlouisfed.org/fred2}.
-
+}
+\details{
   \itemize{ \item date.  Month of data collection
 
   \item psavert, personal savings rate,

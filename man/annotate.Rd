@@ -1,6 +1,6 @@
 \name{annotate}
 \alias{annotate}
-\title{Annotate a plot...}
+\title{Annotate a plot}
 \usage{
   annotate(geom, x = NULL, y = NULL, xmin = NULL, xmax =
   NULL, ymin = NULL, ymax = NULL, ...)

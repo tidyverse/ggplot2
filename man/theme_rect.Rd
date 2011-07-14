@@ -15,9 +15,6 @@
   \item{linetype}{border linetype}
 }
 \description{
-  Theme element: rectangle.
-}
-\details{
   Most often used for backgrounds and borders.
 }
 \seealso{

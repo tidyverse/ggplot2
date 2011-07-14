@@ -1,7 +1,7 @@
 \name{scale_colour_gradient}
 \alias{scale_colour_gradient}
 \alias{scale_fill_gradient}
-\title{Smooth gradient between two colours...}
+\title{Smooth gradient between two colours}
 \usage{
   scale_colour_gradient(..., low = "#3B4FB8", high =
   "#B71B1A", space = "Lab", na.value = "grey50")

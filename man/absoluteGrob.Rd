@@ -1,12 +1,12 @@
 \name{absoluteGrob}
 \alias{absoluteGrob}
-\title{Absolute grob...}
+\title{Absolute grob}
 \usage{
   absoluteGrob(grob, width = NULL, height = NULL, xmin =
   NULL, ymin = NULL)
 }
 \description{
-  Absolute grob This grob has fixed dimesions and position.
+  This grob has fixed dimesions and position.
 }
 \details{
   It's still experimental

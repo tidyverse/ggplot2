@@ -1,6 +1,6 @@
 \name{aes_all}
 \alias{aes_all}
-\title{Given a character vector, create a set of identity mappings...}
+\title{Given a character vector, create a set of identity mappings}
 \usage{
   aes_all(vars)
 }

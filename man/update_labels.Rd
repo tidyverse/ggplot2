@@ -1,6 +1,6 @@
 \name{update_labels}
 \alias{update_labels}
-\title{Update axis/legend labels...}
+\title{Update axis/legend labels}
 \usage{
   update_labels(p, labels)
 }

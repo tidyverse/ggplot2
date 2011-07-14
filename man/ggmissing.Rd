@@ -18,9 +18,6 @@
   variables with some missing data}
 }
 \description{
-  Create a plot to illustrate patterns of missing values.
-}
-\details{
   The missing values plot is a useful tool to get a rapid
   overview of the number of missings in a dataset.  It's
   strength is much more apparent when used with interactive

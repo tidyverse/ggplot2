@@ -5,9 +5,6 @@
   coord_flip(...)
 }
 \description{
-  Flipped cartesian coordinates.
-}
-\details{
   Flipped cartesian coordinates so that horizontal becomes
   vertical, and vertical, horizontal. This is primarily
   useful for converting geoms and statistics which display

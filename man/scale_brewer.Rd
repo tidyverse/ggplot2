@@ -1,17 +1,13 @@
 \name{scale_colour_brewer}
 \alias{scale_colour_brewer}
 \alias{scale_fill_brewer}
-\title{Sequential, diverging and qualitative colour scales from colorbrewer...}
+\title{Sequential, diverging and qualitative colour scales from colorbrewer.org}
 \usage{
   scale_colour_brewer(..., type = "seq", palette = 1)
 
   scale_fill_brewer(..., type = "seq", palette = 1)
 }
 \description{
-  Sequential, diverging and qualitative colour scales from
-  colorbrewer.org
-}
-\details{
   See \url{http://colorbrewer2.org} for more information.
 }
 \examples{

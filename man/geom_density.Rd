@@ -6,9 +6,6 @@
   "density", position = "identity", na.rm = FALSE, ...)
 }
 \description{
-  Display a smooth density estimate.
-}
-\details{
   A smooth density estimate calculated by
   \code{\link{stat_density}}.
 }

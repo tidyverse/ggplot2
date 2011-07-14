@@ -1,6 +1,7 @@
 \name{benchplot}
 \alias{benchplot}
-\title{Benchmark plot creation time.}
+\title{Benchmark plot creation time.
+Broken down into construct, build, render and draw times.}
 \usage{
   benchplot(x)
 }

@@ -13,9 +13,6 @@
   \item{na.value}{Colour to use for missing values}
 }
 \description{
-  Sequential grey colour scale.
-}
-\details{
   Based on \code{\link{gray.colors}}
 }
 \examples{

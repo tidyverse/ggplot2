@@ -1,6 +1,6 @@
 \name{ggplot}
 \alias{ggplot}
-\title{Create a new ggplot plot...}
+\title{Create a new ggplot plot}
 \usage{
   ggplot(data = NULL, ...)
 }

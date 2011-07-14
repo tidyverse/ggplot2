@@ -1,16 +1,14 @@
 \name{geom_point}
 \alias{geom_point}
-\title{Points, as for a scatterplot...}
+\title{Points, as for a scatterplot}
 \usage{
   geom_point(mapping = NULL, data = NULL, stat =
   "identity", position = "identity", na.rm = FALSE, ...)
 }
 \description{
-  Points, as for a scatterplot
+  The point geom is used to create scatterplots.
 }
 \details{
-  The point geom is used to create scatterplots.
-
   The scatterplot is useful for displaying the relationship
   between two continuous variables, although it can also be
   used with one continuous and one categorical variable, or

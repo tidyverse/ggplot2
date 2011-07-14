@@ -8,9 +8,6 @@
   scale_y_discrete(..., expand = c(0, 0.6))
 }
 \description{
-  Discrete position.
-}
-\details{
   You can use continuous positions even with a discrete
   position scale - this allows you (e.g.) to place labels
   between bars in a bar chart. Continuous positions are

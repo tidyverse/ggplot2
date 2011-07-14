@@ -12,9 +12,6 @@
   \item{linetype}{line type}
 }
 \description{
-  Theme element: segments.
-}
-\details{
   This element draws segments between a set of points
 }
 \seealso{

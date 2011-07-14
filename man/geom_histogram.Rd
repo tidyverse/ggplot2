@@ -1,19 +1,17 @@
 \name{geom_histogram}
 \alias{geom_histogram}
-\title{Histogram...}
+\title{Histogram}
 \usage{
   geom_histogram(mapping = NULL, data = NULL, stat = "bin",
   position = "stack", ...)
 }
 \description{
-  Histogram
-}
-\details{
   \code{geom_histogram} is an alias for
   \code{\link{geom_bar}} plus \code{\link{stat_bin}} so you
   will need to look at the documentation for those objects
   to get more information about the parameters.
-
+}
+\details{
   By default, \code{stat_bin} uses 30 bins - this is not a
   good default, but the idea is to get you experimenting
   with different binwidths. You may need to look at a few

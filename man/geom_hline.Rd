@@ -6,13 +6,11 @@
   position = "identity", ...)
 }
 \description{
-  Horizontal line.
-}
-\details{
   This geom allows you to annotate the plot with horizontal
   lines (see \code{\link{geom_vline}} and
   \code{\link{geom_abline}} for other types of lines).
-
+}
+\details{
   There are two ways to use it. You can either specify the
   intercept of the line in the call to the geom, in which
   case the line will be in the same position in every

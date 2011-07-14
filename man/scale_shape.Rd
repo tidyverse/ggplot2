@@ -11,9 +11,6 @@
   scale_shape_continuous(...)
 }
 \description{
-  Scale for shapes, aka glyphs.
-}
-\details{
   A continuous variable can not be mapped to shape.
 }
 \examples{

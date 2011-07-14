@@ -11,9 +11,6 @@
   not raw data}
 }
 \description{
-  Facet specification.
-}
-\details{
   Create new facetting specification.  For internal use
   only.
 }

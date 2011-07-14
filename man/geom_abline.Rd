@@ -6,12 +6,10 @@
   position = "identity", ...)
 }
 \description{
-  Line specified by slope and intercept.
-}
-\details{
   The abline geom adds a line with specified slope and
   intercept to the plot.
-
+}
+\details{
   With its siblings \code{geom_hline} and
   \code{geom_vline}, it's useful for annotating plots.  You
   can supply the parameters for geom_abline, intercept and

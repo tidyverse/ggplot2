@@ -1,7 +1,7 @@
 \name{scale_x_date}
 \alias{scale_x_date}
 \alias{scale_y_date}
-\title{Position scale, date...}
+\title{Position scale, date}
 \usage{
   scale_x_date(..., expand = c(0.05, 0))
 

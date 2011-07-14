@@ -12,9 +12,6 @@
   \item{...}{not used by this method}
 }
 \description{
-  Fortify method for classes from the sp package.
-}
-\details{
   To figure out the correct variable name for region,
   inspect \code{as.data.frame(model)}.
 }
