@@ -1,7 +1,8 @@
 #' Smooth colour gradient between n colours
 #' 
-#' @export scale_colour_gradientn scale_fill_gradientn
-#' @param na.value Colour to use for missing values
+#' @inheritParams scales::gradient_n_pal
+#' @inheritParams scale_colour_hue
+#' @family colour scales
 #' @rdname scale_gradient2
 #' @export
 #' @examples

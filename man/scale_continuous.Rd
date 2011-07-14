@@ -87,6 +87,11 @@ qplot(rating, votes, data=movies, xlab="My x axis", ylab="My y axis")
 qplot(rating, votes, data=movies, log="xy")
 }
 \seealso{
-  \code{\link{scale_discrete}} for discrete position scales
+  Other position scales: \code{\link{scale_x_date}},
+  \code{\link{scale_x_datetime}},
+  \code{\link{scale_x_discrete}},
+  \code{\link{scale_y_date}},
+  \code{\link{scale_y_datetime}},
+  \code{\link{scale_y_discrete}}
 }
 

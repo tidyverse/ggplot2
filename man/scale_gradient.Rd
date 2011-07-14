@@ -15,6 +15,13 @@
   breaks, labels and so forth.}
 
   \item{na.value}{Colour to use for missing values}
+
+  \item{low}{colour for low end of gradient.}
+
+  \item{high}{colour for high end of gradient.}
+
+  \item{space}{colour space in which to calculate gradient.
+  "Lab" usually best unless gradient goes through white.}
 }
 \description{
   Smooth gradient between two colours
@@ -63,5 +70,16 @@ scale_colour_gradient(na.value = "black")
 \seealso{
   \code{\link[scales]{seq_gradient_pal}} for details on
   underlying palette
+
+  Other colour scales: \code{\link{scale_colour_brewer}},
+  \code{\link{scale_colour_gradient2}},
+  \code{\link{scale_colour_gradientn}},
+  \code{\link{scale_colour_grey}},
+  \code{\link{scale_colour_hue}},
+  \code{\link{scale_fill_brewer}},
+  \code{\link{scale_fill_gradient2}},
+  \code{\link{scale_fill_gradientn}},
+  \code{\link{scale_fill_grey}},
+  \code{\link{scale_fill_hue}}
 }
 

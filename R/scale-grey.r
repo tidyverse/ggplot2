@@ -2,7 +2,9 @@
 #'
 #' Based on \code{\link{gray.colors}}
 #'
-#' @param na.value Colour to use for missing values
+#' @inheritParams scales::grey_pal
+#' @inheritParams scale_colour_hue
+#' @family colour scales
 #' @rdname scale_grey
 #' @export
 #' @examples

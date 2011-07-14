@@ -1,6 +1,7 @@
 #' Position scale, date
 #'
 #' @rdname scale_datetime
+#' @family position scales
 #' @export 
 #' @examples
 #' start <- ISOdate(2001, 1, 1, tz = "")

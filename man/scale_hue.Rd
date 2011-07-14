@@ -11,6 +11,22 @@
 }
 \arguments{
   \item{na.value}{Colour to use for missing values}
+
+  \item{...}{Other arguments passed on to
+  \code{\link{continuous_scale}} to control name, limits,
+  breaks, labels and so forth.}
+
+  \item{h}{range of hues to use, in [0, 360]}
+
+  \item{c}{chroma (intensity of colour), maximum value
+  varies depending on}
+
+  \item{l}{luminance (lightness), in [0, 100]}
+
+  \item{h.start}{hue to start at}
+
+  \item{direction}{direction to travel around the colour
+  wheel, 1 = clockwise, -1 = counter-clockwise}
 }
 \description{
   Qualitative colour scale with evenly spaced hues.
@@ -48,5 +64,17 @@ miss <- factor(sample(c(NA, 1:5), nrow(mtcars), rep = T))
 qplot(mpg, wt, data = mtcars, colour = miss)
 qplot(mpg, wt, data = mtcars, colour = miss) +
 scale_colour_hue(na.value = "black")
+}
+\seealso{
+  Other colour scales: \code{\link{scale_colour_brewer}},
+  \code{\link{scale_colour_gradient}},
+  \code{\link{scale_colour_gradient2}},
+  \code{\link{scale_colour_gradientn}},
+  \code{\link{scale_colour_grey}},
+  \code{\link{scale_fill_brewer}},
+  \code{\link{scale_fill_gradient}},
+  \code{\link{scale_fill_gradient2}},
+  \code{\link{scale_fill_gradientn}},
+  \code{\link{scale_fill_grey}}
 }
 

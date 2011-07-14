@@ -20,9 +20,25 @@
   "Lab", na.value = "grey50")
 }
 \arguments{
-  \item{na.value}{Colour to use for missing values}
+  \item{...}{Other arguments passed on to
+  \code{\link{continuous_scale}} to control name, limits,
+  breaks, labels and so forth.}
 
   \item{na.value}{Colour to use for missing values}
+
+  \item{low}{colour for low end of gradient.}
+
+  \item{mid}{colour for mid point}
+
+  \item{high}{colour for high end of gradient.}
+
+  \item{space}{colour space in which to calculate gradient.
+  "Lab" usually best unless gradient goes through white.}
+
+  \item{colours}{vector of colours}
+
+  \item{values}{if colours should not be evenly positioned
+  along the gradient}
 }
 \description{
   Diverging colour gradient
@@ -91,5 +107,24 @@ d + scale_colour_gradientn(colours = topo.colors(10),
 values = values, rescale = function(x, ...) x, oob = identity)
 d + scale_colour_gradientn(colours = terrain.colors(10),
 values = values, rescale = function(x, ...) x, oob = identity)
+}
+\seealso{
+  Other colour scales: \code{\link{scale_colour_brewer}},
+  \code{\link{scale_colour_gradient}},
+  \code{\link{scale_colour_grey}},
+  \code{\link{scale_colour_hue}},
+  \code{\link{scale_fill_brewer}},
+  \code{\link{scale_fill_gradient}},
+  \code{\link{scale_fill_grey}},
+  \code{\link{scale_fill_hue}}
+
+  Other colour scales: \code{\link{scale_colour_brewer}},
+  \code{\link{scale_colour_gradient}},
+  \code{\link{scale_colour_grey}},
+  \code{\link{scale_colour_hue}},
+  \code{\link{scale_fill_brewer}},
+  \code{\link{scale_fill_gradient}},
+  \code{\link{scale_fill_grey}},
+  \code{\link{scale_fill_hue}}
 }
 

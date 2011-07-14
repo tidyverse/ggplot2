@@ -1,11 +1,11 @@
 #' Smooth gradient between two colours
 #'
-#' @param ... Other arguments passed on to \code{\link{continuous_scale}} 
-#'   to control name, limits, breaks, labels and so forth.
-#' @param na.value Colour to use for missing values
+#' @inheritParams scale_colour_hue
+#' @inheritParams scales::seq_gradient_pal
 #' @seealso \code{\link[scales]{seq_gradient_pal}} for details on underlying
 #'   palette
 #' @rdname scale_gradient
+#' @family colour scales
 #' @export
 #' @examples
 #' # It's hard to see, but look for the bright yellow dot 

@@ -49,4 +49,17 @@ qplot(reorder(manufacturer, displ), cty, data=mpg)
 qplot(reorder(manufacturer, cty), cty, data=mpg) +
 scale_x_discrete(labels = abbreviate)
 }
+\seealso{
+  Other position scales: \code{\link{scale_x_continuous}},
+  \code{\link{scale_x_date}},
+  \code{\link{scale_x_datetime}},
+  \code{\link{scale_x_log10}},
+  \code{\link{scale_x_reverse}},
+  \code{\link{scale_x_sqrt}},
+  \code{\link{scale_y_continuous}},
+  \code{\link{scale_y_date}},
+  \code{\link{scale_y_datetime}},
+  \code{\link{scale_y_log10}},
+  \code{\link{scale_y_reverse}}, \code{\link{scale_y_sqrt}}
+}
 

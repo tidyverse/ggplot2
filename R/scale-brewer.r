@@ -2,6 +2,9 @@
 #'
 #' See \url{http://colorbrewer2.org} for more information.
 #'
+#' @inheritParams scales::brewer_pal
+#' @inheritParams scale_colour_hue
+#' @family colour scales
 #' @rdname scale_brewer
 #' @export 
 #' @examples
