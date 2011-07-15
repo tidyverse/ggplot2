@@ -60,7 +60,8 @@ test_that("position scales updated by all position aesthetics", {
   aesthetics <- list(
     aes(xend = x, yend = x),
     aes(xmin = x, ymin = x),
-    aes(xmax = x, ymax = x)
+    aes(xmax = x, ymax = x),
+    aes(xintercept = x, yintercept = y)
   )
   
   base <- ggplot(df, aes(x = 1, y = 1)) + geom_point()
