@@ -216,7 +216,7 @@ plot_theme <- function(x) {
 ##' @param ... Pairs of name and value of theme parameters.
 ##' @return Updated theme element
 ##' @export
-##' @example
+##' @examples
 ##' x <- theme_text(size = 15)
 ##' update_element(x, colour = "red")
 ##' # Partial matching works
