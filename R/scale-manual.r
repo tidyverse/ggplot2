@@ -54,7 +54,7 @@ scale_linetype_manual <- function(..., values) {
 #' @rdname scale_manual
 #' @export
 scale_alpha_manual <- function(..., values) {
-  discrete_scale("alpha", "manual", manual_pal(values))
+  discrete_scale("alpha", "manual", manual_pal(values), ...)
 }
 
 icon.manual <- function() textGrob("DIY", gp=gpar(cex=1.2))
