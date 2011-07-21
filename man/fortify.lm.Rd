@@ -22,14 +22,11 @@
   \item{.stdresid}{Standardised residuals}
 }
 \description{
-  Supplement the data fitted to a linear model with model
-  fit statistics.
-}
-\details{
   If you have missing values in your model data, you may
   need to refit the model with \code{na.action =
   na.exclude}.
-
+}
+\details{
   The following statistics will be added to the data frame:
 }
 \examples{

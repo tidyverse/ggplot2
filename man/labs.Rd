@@ -2,7 +2,7 @@
 \alias{labs}
 \alias{xlab}
 \alias{ylab}
-\title{Change axis labels and legend titles...}
+\title{Change axis labels and legend titles}
 \usage{
   labs(...)
 }

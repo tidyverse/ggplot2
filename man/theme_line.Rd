@@ -12,9 +12,6 @@
   \item{type}{line type}
 }
 \description{
-  Theme element: line.
-}
-\details{
   This element draws a line between two (or more) points
 }
 \seealso{

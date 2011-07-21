@@ -7,6 +7,7 @@
 #' at integer positions).  This is what allows jittering to work.
 #'
 #' @rdname scale_discrete
+#' @family position scales
 #' @export
 #' @examples
 #' qplot(cut, data=diamonds, stat="bin")

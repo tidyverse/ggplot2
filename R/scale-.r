@@ -22,7 +22,11 @@
 #' @S3method print scale
 NULL
 
+#' Continuous scale constructor.
+#'
 #' @export
+#' @param aesthetics character 
+#' @keywords internal
 continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="legend") {
 
   if (!is.null(legend)) {
@@ -64,7 +68,10 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
   ), class = c(scale_name, "continuous", "scale"))
 }
 
+#' Discrete scale constructor.
+#'
 #' @export
+#' @keywords internal
 discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = NULL, limits = NULL, expand = c(0, 0), na.value = NA, drop = TRUE, guide="legend") {
 
   if (!is.null(legend)) {

@@ -55,6 +55,7 @@ NULL
 NULL
 
 #' Midwest demographics.
+#'
 #' Demographic information of midwest counties
 #'
 #' The variables are as follows:

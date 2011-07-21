@@ -116,14 +116,6 @@ remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="") {
   df
 }
 
-# Traceback alias
-# Alias of traceback with fewer keypresses, and severe restriction on number of lines for each function
-# 
-# @keyword manip 
-# @keyword internal
-tr <- function(x = NULL) traceback(x, max.lines=1)
-
-
 # "Invert" a list
 # Keys become values, values become keys
 # 

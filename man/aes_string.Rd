@@ -1,6 +1,6 @@
 \name{aes_string}
 \alias{aes_string}
-\title{Generate aesthetic mappings from a string...}
+\title{Generate aesthetic mappings from a string}
 \usage{
   aes_string(...)
 }
@@ -8,11 +8,10 @@
   \item{...}{List of name value pairs}
 }
 \description{
-  Generate aesthetic mappings from a string Aesthetic
-  mappings describe how variables in the data are mapped to
-  visual properties (aesthetics) of geoms.  Compared to aes
-  this function operates on strings rather than
-  expressions.
+  Aesthetic mappings describe how variables in the data are
+  mapped to visual properties (aesthetics) of geoms.
+  Compared to aes this function operates on strings rather
+  than expressions.
 }
 \details{
   \code{aes_string} is particularly useful when writing

@@ -3,7 +3,7 @@
 #' @param ... common continuous scale parameters: \code{name}, \code{breaks},
 #'  \code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
 #'  \code{\link{continuous_scale}} for more details
-#' @seealso \code{\link{scale_discrete}} for discrete position scales
+#' @family position scales
 #' @rdname scale_continuous
 #' @export
 #' @examples

@@ -1,6 +1,6 @@
 \name{stat_vline}
 \alias{stat_vline}
-\title{Add a vertical line...}
+\title{Add a vertical line}
 \usage{
   stat_vline(mapping = NULL, data = NULL, geom = "vline",
   position = "identity", intercept, ...)

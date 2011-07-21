@@ -1,7 +1,8 @@
 #' Diverging colour gradient
 #' 
-#' @export scale_colour_gradient2 scale_fill_gradient2
-#' @param na.value Colour to use for missing values
+#' @inheritParams scale_colour_hue
+#' @inheritParams scales::div_gradient_pal
+#' @family colour scales
 #' @rdname scale_gradient2
 #' @export
 #' @examples

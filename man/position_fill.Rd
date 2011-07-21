@@ -1,6 +1,7 @@
 \name{position_fill}
 \alias{position_fill}
-\title{Stack overlapping objects on top of one another, and standardise to have...}
+\title{Stack overlapping objects on top of one another, and standardise to have
+equal height.}
 \usage{
   position_fill(width = NULL, height = NULL, ...)
 }

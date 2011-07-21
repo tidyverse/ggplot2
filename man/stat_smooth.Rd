@@ -38,9 +38,6 @@
   interval around the mean} \item{se}{standard error}
 }
 \description{
-  Add a smoother.
-}
-\details{
   Aids the eye in seeing patterns in the presence of
   overplotting.
 }

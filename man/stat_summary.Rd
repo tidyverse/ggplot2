@@ -16,15 +16,13 @@
   (should take numeric vector and return single number)}
 }
 \description{
-  Summarise y values at every unique x.
-}
-\details{
   \code{stat_summary} allows for tremendous flexibilty in
   the specification of summary functions.  The summary
   function can either operate on a data frame (with
   argument name \code{fun.data}) or on a vector
   (\code{fun.y}, \code{fun.ymax}, \code{fun.ymin}).
-
+}
+\details{
   A simple vector function is easiest to work with as you
   can return a single number, but is somewhat less
   flexible.  If your summary function operates on a

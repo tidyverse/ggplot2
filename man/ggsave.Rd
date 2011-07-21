@@ -1,6 +1,6 @@
 \name{ggsave}
 \alias{ggsave}
-\title{Save a ggplot with sensible defaults...}
+\title{Save a ggplot with sensible defaults}
 \usage{
   ggsave(filename = default_name(plot), plot = last_plot(),
   device = default_device(filename), path = NULL, scale =
@@ -30,16 +30,14 @@
   \item{...}{other arguments passed to graphics device}
 }
 \description{
-  Save a ggplot with sensible defaults
-}
-\details{
   ggsave is a convenient function for saving a plot.  It
   defaults to saving the last plot that you displayed, and
   for a default size uses the size of the current graphics
   device.  It also guesses the type of graphics device from
   the extension.  This means the only argument you need to
   supply is the filename.
-
+}
+\details{
   \code{ggsave} currently recognises the extensions eps/ps,
   tex (pictex), pdf, jpeg, tiff, png, bmp, svg and wmf
   (windows only).

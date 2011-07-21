@@ -2,13 +2,11 @@
 \name{seals}
 \alias{seals}
 \title{Vector field of seal movements.}
+\format{A data frame with 1155 rows and 4 variables}
 \usage{
   data(seals)
 }
 \description{
-  Vector field of seal movements.
-}
-\details{
   This vector field was produced from the data described in
   Brillinger, D.R., Preisler, H.K., Ager, A.A. and Kie,
   J.G. "An exploratory data analysis (EDA) of the paths of

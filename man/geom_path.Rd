@@ -1,6 +1,6 @@
 \name{geom_path}
 \alias{geom_path}
-\title{Connect observations in original order...}
+\title{Connect observations in original order}
 \usage{
   geom_path(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", lineend = "butt", linejoin =

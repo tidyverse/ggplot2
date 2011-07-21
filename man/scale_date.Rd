@@ -1,7 +1,7 @@
 \name{scale_x_date}
 \alias{scale_x_date}
 \alias{scale_y_date}
-\title{Position scale, date...}
+\title{Position scale, date}
 \usage{
   scale_x_date(..., expand = c(0.05, 0))
 
@@ -61,5 +61,18 @@ em <- melt(economics, id = "date")
 qplot(date, value, data = em, geom = "line", group = variable)
 qplot(date, value, data = em, geom = "line", group = variable) +
 facet_grid(variable ~ ., scale = "free_y")
+}
+\seealso{
+  Other position scales: \code{\link{scale_x_continuous}},
+  \code{\link{scale_x_datetime}},
+  \code{\link{scale_x_discrete}},
+  \code{\link{scale_x_log10}},
+  \code{\link{scale_x_reverse}},
+  \code{\link{scale_x_sqrt}},
+  \code{\link{scale_y_continuous}},
+  \code{\link{scale_y_datetime}},
+  \code{\link{scale_y_discrete}},
+  \code{\link{scale_y_log10}},
+  \code{\link{scale_y_reverse}}, \code{\link{scale_y_sqrt}}
 }
 

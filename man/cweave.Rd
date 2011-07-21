@@ -1,6 +1,6 @@
 \name{cweave}
 \alias{cweave}
-\title{Col weave...}
+\title{Col weave}
 \usage{
   cweave(...)
 }
@@ -8,7 +8,7 @@
   \item{...}{matrices to weave together}
 }
 \description{
-  Col weave Weave together two (or more) matrices by column
+  Weave together two (or more) matrices by column
 }
 \details{
   Matrices must have same dimensions

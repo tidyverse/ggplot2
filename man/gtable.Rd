@@ -30,14 +30,12 @@
   is used to name the layout viewport}
 }
 \description{
-  Create a new table grid.
-}
-\details{
   A table grid captures all the information needed to
   layout grobs in a table structure. It supports row and
   column spanning, and offers some tools to automatically
   figure out correct dimensions.
-
+}
+\details{
   Each grob is put in its own viewport - grobs in the same
   location are not combined into one cell. Each grob takes
   up the entire cell viewport so justification control is

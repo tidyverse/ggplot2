@@ -9,9 +9,6 @@
   values) that should be included.}
 }
 \description{
-  Expand the plot limits with data.
-}
-\details{
   panels or all plots.  This function is a thin wrapper
   around \code{\link{geom_blank}} that makes it easy to add
   such values.

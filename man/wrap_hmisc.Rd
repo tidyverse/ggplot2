@@ -4,15 +4,12 @@
 \alias{mean_sdl}
 \alias{median_hilow}
 \alias{wrap_hmisc}
-\title{Wrap up a selection of summary functions from Hmisc to make it easy to use...}
+\title{Wrap up a selection of summary functions from Hmisc to make it easy to use
+with \code{\link{stat_summary}}}
 \usage{
   wrap_hmisc(fun)
 }
 \description{
-  Wrap up a selection of summary functions from Hmisc to
-  make it easy to use with \code{\link{stat_summary}}
-}
-\details{
   See the Hmisc documentation for details of their options.
 }
 \seealso{

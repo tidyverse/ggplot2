@@ -1,4 +1,5 @@
 #' Absolute grob
+#'
 #' This grob has fixed dimesions and position.
 #' 
 #' It's still experimental

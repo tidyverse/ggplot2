@@ -1,8 +1,12 @@
 #' Qualitative colour scale with evenly spaced hues.
 #' 
 #' @param na.value Colour to use for missing values
+#' @param ... Other arguments passed on to \code{\link{continuous_scale}} 
+#'   to control name, limits, breaks, labels and so forth.
+#' @inheritParams scales::hue_pal
 #' @rdname scale_hue
 #' @export
+#' @family colour scales
 #' @examples
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 #' (d <- qplot(carat, price, data=dsamp, colour=clarity))

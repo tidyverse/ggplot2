@@ -6,10 +6,6 @@
   coord_fixed(ratio = 1)
 }
 \description{
-  Cartesian coordinates with fixed relationship between x
-  and y scales.
-}
-\details{
   A fixed scale coordinate system forces a specified ratio
   between the physical representation of data units on the
   axes. The ratio represents the number of units on the
