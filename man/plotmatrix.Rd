@@ -1,6 +1,6 @@
 \name{plotmatrix}
 \alias{plotmatrix}
-\title{Code to create a scatterplot matrix (experimental)...}
+\title{Code to create a scatterplot matrix (experimental)}
 \usage{
   plotmatrix(data, mapping = aes(), colour = "black")
 }

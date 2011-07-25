@@ -1,12 +1,10 @@
 \name{ggscale}
 \alias{ggscale}
-\title{Components of a scale:...}
+\title{Components of a scale:}
 \description{
-  Components of a scale:
+  Guide related: * name * breaks * labels * expand
 }
 \details{
-  Guide related: * name * breaks * labels * expand
-
   Mapping related: * aesthetic * limits * palette * trans
 
   Scales are an S3 class with a single mutable component

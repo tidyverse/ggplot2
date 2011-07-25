@@ -1,6 +1,7 @@
 \name{aes}
 \alias{aes}
-\title{Generate aesthetic mappings that describe how variables in the data are...}
+\title{Generate aesthetic mappings that describe how variables in the data are
+mapped to visual properties (aesthetics) of geoms.}
 \usage{
   aes(x, y, ...)
 }
@@ -12,11 +13,6 @@
   \item{List}{of name value pairs}
 }
 \description{
-  Generate aesthetic mappings that describe how variables
-  in the data are mapped to visual properties (aesthetics)
-  of geoms.
-}
-\details{
   \code{aes} creates a list of unevaluated expressions.
   This function also performs partial name matching,
   converts color to colour, and old style R names to ggplot

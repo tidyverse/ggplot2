@@ -1,17 +1,16 @@
 \docType{data}
 \name{diamonds}
 \alias{diamonds}
-\title{Prices of 50,000 round cut diamonds...}
+\title{Prices of 50,000 round cut diamonds}
+\format{A data frame with 53940 rows and 10 variables}
 \usage{
   data(diamonds)
 }
 \description{
-  Prices of 50,000 round cut diamonds
-}
-\details{
   A dataset containing the prices and other attributes of
   almost 54,000 diamonds. The variables are as follows:
-
+}
+\details{
   \itemize{ \item price. price in US dollars
   (\$326--\$18,823) \item carat. weight of the diamond
   (0.2--5.01) \item cut. quality of the cut (Fair, Good,

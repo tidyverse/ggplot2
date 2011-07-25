@@ -1,6 +1,7 @@
 #' Position scale, date
 #'
 #' @rdname scale_date
+#' @family position scales
 #' @export
 #' @examples
 #' # We'll start by creating some nonsense data with dates

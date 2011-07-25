@@ -31,9 +31,6 @@
   1} \item{ndensity}{density, scaled to maximum of 1}
 }
 \description{
-  Bin data.
-}
-\details{
   Missing values are currently silently dropped.
 }
 \examples{

@@ -8,9 +8,6 @@
   \item{...}{named list of theme settings}
 }
 \description{
-  Get, set and update themes.
-}
-\details{
   Use \code{theme_update} to modify a small number of
   elements of the current theme or use \code{theme_set} to
   completely override it.

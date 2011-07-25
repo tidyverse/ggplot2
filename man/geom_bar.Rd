@@ -1,14 +1,11 @@
 \name{geom_bar}
 \alias{geom_bar}
-\title{Bars, rectangles with bases on x-axis...}
+\title{Bars, rectangles with bases on x-axis}
 \usage{
   geom_bar(mapping = NULL, data = NULL, stat = "bin",
   position = "stack", ...)
 }
 \description{
-  Bars, rectangles with bases on x-axis
-}
-\details{
   The bar geom is used to produce 1d area plots: bar charts
   for categorical x, and histograms for continuous y.
   stat_bin explains the details of these summaries in more
@@ -17,7 +14,8 @@
   where the height of the bar no longer represent a count
   of observations, but a sum over some other variable.  See
   the examples for a practical example.
-
+}
+\details{
   By default, multiple x's occuring in the same place will
   be stacked a top one another by position_stack.  If you
   want them to be dodged from side-to-side, see

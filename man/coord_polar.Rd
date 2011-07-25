@@ -18,9 +18,6 @@
   range of the data? (default: FALSE)}
 }
 \description{
-  Polar coordinates.
-}
-\details{
   The polar coordinate system is most commonly used for pie
   charts, which are a stacked bar chart in polar
   coordinates.

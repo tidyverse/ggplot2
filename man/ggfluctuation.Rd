@@ -20,14 +20,12 @@
   values.}
 }
 \description{
-  Create a fluctuation plot.
-}
-\details{
   A fluctutation diagram is a graphical representation of a
   contingency table.  This fuction currently only supports
   2D contingency tabless but extension to more should be
   relatively straightforward.
-
+}
+\details{
   With the default size fluctuation diagram, area is
   proportional to the count (length of sides proportional
   to sqrt(count))

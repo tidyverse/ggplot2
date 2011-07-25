@@ -8,9 +8,6 @@
   \item{...}{object fields}
 }
 \description{
-  New coordinate system.
-}
-\details{
   Internal use only.
 }
 \keyword{internal}

@@ -1,6 +1,6 @@
 \name{limits}
 \alias{limits}
-\title{Generate correct scale type for specified limits...}
+\title{Generate correct scale type for specified limits}
 \usage{
   limits(lims, var)
 }

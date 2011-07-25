@@ -1,6 +1,7 @@
 \name{label_value}
 \alias{label_value}
-\title{Label facets with their value.}
+\title{Label facets with their value.
+This is the default labelling scheme.}
 \usage{
   label_value(variable, value)
 }

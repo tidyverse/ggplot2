@@ -1,7 +1,7 @@
 \name{scale_x_datetime}
 \alias{scale_x_datetime}
 \alias{scale_y_datetime}
-\title{Position scale, date...}
+\title{Position scale, date}
 \usage{
   scale_x_datetime(..., expand = c(0.05, 0))
 
@@ -43,5 +43,18 @@ last_plot() + scale_x_datetime(breaks = date_breaks("2 weeks"))
 last_plot() + scale_x_datetime(breaks = date_breaks("10 days"))
 last_plot() + scale_x_datetime(breaks = date_breaks("10 days"),
 labels = date_format("\%d/\%m"))
+}
+\seealso{
+  Other position scales: \code{\link{scale_x_continuous}},
+  \code{\link{scale_x_date}},
+  \code{\link{scale_x_discrete}},
+  \code{\link{scale_x_log10}},
+  \code{\link{scale_x_reverse}},
+  \code{\link{scale_x_sqrt}},
+  \code{\link{scale_y_continuous}},
+  \code{\link{scale_y_date}},
+  \code{\link{scale_y_discrete}},
+  \code{\link{scale_y_log10}},
+  \code{\link{scale_y_reverse}}, \code{\link{scale_y_sqrt}}
 }
 

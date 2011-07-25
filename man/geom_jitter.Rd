@@ -6,9 +6,6 @@
   "identity", position = "jitter", na.rm = FALSE, ...)
 }
 \description{
-  Points, jittered to reduce overplotting.
-}
-\details{
   The jitter geom is a convenient default for geom_point
   with position = 'jitter'.  See
   \code{\link{position_jitter}} to see how to adjust amount

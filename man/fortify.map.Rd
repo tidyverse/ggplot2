@@ -12,9 +12,6 @@
   \item{...}{not used by this method}
 }
 \description{
-  Fortify method for map objects.
-}
-\details{
   This function turns a map into a data frame than can more
   easily be plotted with ggplot2.
 }

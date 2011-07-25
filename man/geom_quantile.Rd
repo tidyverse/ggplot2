@@ -7,9 +7,6 @@
   linejoin = "round", linemitre = 1, na.rm = FALSE, ...)
 }
 \description{
-  Add quantile lines from a quantile regression.
-}
-\details{
   This can be used as a continuous analogue of a
   geom_boxplot.
 }

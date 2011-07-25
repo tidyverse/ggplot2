@@ -250,9 +250,8 @@ gtable_gTree <- function(x, ...) {
 }
 
 #' @S3method grid.draw gtable
-grid.draw.gtable <- function(x, new_page = TRUE) {
-  if (new_page) grid.newpage()
-  grid.draw(gtable_gTree(x))
+grid.draw.gtable <- function(x, recording = TRUE) {
+  grid.draw(gtable_gTree(x), recording)
 }
 
 

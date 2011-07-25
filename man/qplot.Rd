@@ -56,10 +56,6 @@
   \item{asp}{the y/x aspect ratio}
 }
 \description{
-  A convenient wrapper function for creating simple ggplot
-  plot objects.
-}
-\details{
   \code{qplot} has been designed to be familiar if you're
   used to \code{\link{plot}}.
 }

@@ -13,9 +13,6 @@
   \item{...}{other arguments passed to methods}
 }
 \description{
-  Fortify a model with data.
-}
-\details{
   Method to convert a generic R object into a data frame
   useful for plotting. Takes its name from the idea of
   fortifying the original data with model fit statistics,

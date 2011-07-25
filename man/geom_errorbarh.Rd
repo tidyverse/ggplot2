@@ -1,6 +1,6 @@
 \name{geom_errorbarh}
 \alias{geom_errorbarh}
-\title{Horizontal error bars...}
+\title{Horizontal error bars}
 \usage{
   geom_errorbarh(mapping = NULL, data = NULL, stat =
   "identity", position = "identity", ...)

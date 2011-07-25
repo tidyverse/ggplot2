@@ -3,11 +3,8 @@
 \alias{linetype}
 \alias{shape}
 \alias{size}
-\title{Differentiation related aesthetics: linetype, size, shape...}
+\title{Differentiation related aesthetics: linetype, size, shape}
 \description{
-  Differentiation related aesthetics: linetype, size, shape
-}
-\details{
   This page demonstrates the usage of a sub-group of
   aesthetics; linetype, size and shape.
 }

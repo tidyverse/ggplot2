@@ -8,9 +8,6 @@
   scale_y_discrete(..., expand = c(0, 0.6))
 }
 \description{
-  Discrete position.
-}
-\details{
   You can use continuous positions even with a discrete
   position scale - this allows you (e.g.) to place labels
   between bars in a bar chart. Continuous positions are
@@ -51,5 +48,18 @@ qplot(reorder(manufacturer, displ), cty, data=mpg)
 # Use abbreviate as a formatter to reduce long names
 qplot(reorder(manufacturer, cty), cty, data=mpg) +
 scale_x_discrete(labels = abbreviate)
+}
+\seealso{
+  Other position scales: \code{\link{scale_x_continuous}},
+  \code{\link{scale_x_date}},
+  \code{\link{scale_x_datetime}},
+  \code{\link{scale_x_log10}},
+  \code{\link{scale_x_reverse}},
+  \code{\link{scale_x_sqrt}},
+  \code{\link{scale_y_continuous}},
+  \code{\link{scale_y_date}},
+  \code{\link{scale_y_datetime}},
+  \code{\link{scale_y_log10}},
+  \code{\link{scale_y_reverse}}, \code{\link{scale_y_sqrt}}
 }
 

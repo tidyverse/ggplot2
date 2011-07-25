@@ -6,9 +6,6 @@
   position = "identity", ...)
 }
 \description{
-  Tile plane with rectangles.
-}
-\details{
   Similar to \code{\link{levelplot}} and
   \code{\link{image}}.
 }

@@ -7,12 +7,10 @@
   linejoin = "round", linemitre = 1, na.rm = FALSE, ...)
 }
 \description{
-  Contours from a 2d density estimate.
-}
-\details{
   Perform a 2D kernel density estimatation using kde2d and
   display the results with contours.
-
+}
+\details{
   This can be useful for dealing with overplotting.
 }
 \examples{

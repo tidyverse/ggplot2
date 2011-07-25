@@ -1,6 +1,6 @@
 \name{opts}
 \alias{opts}
-\title{Set options/theme elements for a single plot...}
+\title{Set options/theme elements for a single plot}
 \usage{
   opts(...)
 }
@@ -74,9 +74,6 @@
   \item{strip.text.y}{text for vertical strips}
 }
 \description{
-  Set options/theme elements for a single plot
-}
-\details{
   Use this function if you want to modify a few theme
   settings for a single plot.
 }

@@ -4,11 +4,8 @@
 \alias{color}
 \alias{colour}
 \alias{fill}
-\title{Colour related aesthetics: colour, fill and alpha...}
+\title{Colour related aesthetics: colour, fill and alpha}
 \description{
-  Colour related aesthetics: colour, fill and alpha
-}
-\details{
   This page demonstrates the usage of a sub-group of
   aesthetics; colour, fill and alpha.
 }

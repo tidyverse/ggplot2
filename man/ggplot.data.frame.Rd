@@ -1,6 +1,6 @@
 \name{ggplot.data.frame}
 \alias{ggplot.data.frame}
-\title{Create a new ggplot plot from a data frame...}
+\title{Create a new ggplot plot from a data frame}
 \usage{
   \method{ggplot}{data.frame} (data, mapping = aes(), ...,
   environment = globalenv())
