@@ -12,9 +12,13 @@
 ##' @param title A character string or expression indicating a title of guide. If \code{NULL}, the title is not shown. By default (\code{\link{waiver()}}), the name of the scale object or tha name specified in \code{\link{labs}} is used for the title.
 ##' @param title.position A character string indicating the position of a title. One of "top" (default for a vertical guide), "bottom", "left" (default for a horizontal guide), or "right."
 ##' @param title.theme A theme object for rendering the title text. Usually the object of \code{\link{theme_text}} is expected. By default, the theme is specified by \code{legend.title} in \code{\link{opts}} or theme.
+##' @param title.hjust A numeric specifying horizontal justification of the title text.
+##' @param title.vjust A numeric specifying vertical justification of the title text.
 ##' @param label logical. If \code{TRUE} then the labels are drawn. If \code{FALSE} then the labels are invisible.
 ##' @param label.position A character string indicating the position of a label. One of "top", "bottom", "left", or "right" (default).
 ##' @param label.theme A theme object for rendering the label text. Usually the object of \code{\link{theme_text}} is expected. By default, the theme is specified by \code{legend.text} in \code{\link{opts}} or theme.
+##' @param label.hjust A numeric specifying horizontal justification of the label text.
+##' @param label.vjust A numeric specifying vertical justification of the label text.
 ##' @param keywidth A numeric or a unit object specifying the width of the legend key. Default value is \code{legend.key.width} or \code{legend.key.size} in \code{\link{opts}} or theme.
 ##' @param keyheight A numeric or a unit object specifying the height of the legend key. Default value is \code{legend.key.height} or \code{legend.key.size} in \code{\link{opts}} or theme.
 ##' @param direction A character string indicating the direction of the guide. One of "horizontal" or "vertical."
@@ -25,19 +29,17 @@
 ##' @seealso \code{\link{guides}}, \code{\link{guide_colorbar}}
 ##' @export
 ##' @examples
-##' # ggplot objects
-##' 
-##' p1 <- function()ggplot(melt(outer(1:4, 1:4)), aes(x = X1, y = X2)) + geom_tile(aes(fill = value))
-##' p2 <- function()ggplot(melt(outer(1:4, 1:4)), aes(x = X1, y = X2)) + geom_tile(aes(fill = value)) + geom_point(aes(size = value))
+##' p1 <- function()ggplot(melt(outer(1:4, 1:4), varnames = c("X1", "X2")), aes(x = X1, y = X2)) + geom_tile(aes(fill = value))
+##' p2 <- function()ggplot(melt(outer(1:4, 1:4), varnames = c("X1", "X2")), aes(x = X1, y = X2)) + geom_tile(aes(fill = value)) + geom_point(aes(size = value))
 ##' 
 ##' # basic form
-##'
+##' ##'
 ##' # short version
 ##' p1() + scale_fill_continuous(guide = "legend")
-##'
+##' ##'
 ##' # long version
 ##' p1() + scale_fill_continuous(guide = guide_legend())
-##'
+##' ##'
 ##' # separately set the direction of each guide
 ##' 
 ##' p2() + scale_fill_continuous(guide = guide_legend(direction = "horizontal")) +
@@ -57,9 +59,6 @@
 ##' # title position
 ##' p1() + scale_fill_continuous(guide = guide_legend(title = "LEFT", title.position = "left"))
 ##' 
-##' # title text styles
-##' p1() + scale_fill_continuous(guide = guide_legend(title = "ROTATE", title.position = "left", title.angle = 90, title.hjust = 0.5))
-##' 
 ##' # title text styles via theme_text
 ##' p1() + scale_fill_continuous(guide = guide_legend(title.theme = theme_text(size=15, face="italic", col="red", angle=45)))
 ##' 
@@ -68,18 +67,18 @@
 ##' 
 ##' # label styles
 ##' p1() + scale_fill_continuous(breaks=c(5, 10, 15), labels=paste("long", c(5, 10, 15)), 
-##'                             guide = guide_legend(direction="horizontal", title.position="top", title.theme=theme_text(hjust=0.5),
-##'                               label.position="bottom", label.angle = 90, label.hjust=0.5, label.vjust=0.5))
+##'                             guide = guide_legend(direction="horizontal", title.position="top",
+##'                               label.position="bottom", label.hjust = 0.5, label.vjust = 0.5, label.theme = theme_text(angle = 90)))
 ##' 
 ##' # set aesthetic of legend key
 ##' 
 ##' # very low alpha value make it difficult to see legend key
-##' p3 <- function()ggplot(melt(outer(1:4, 1:4)), aes(x = X1, y = X2)) + geom_tile(aes(fill = value), alpha = 0.1)
+##' p3 <- function()ggplot(melt(outer(1:4, 1:4), varnames = c("X1", "X2")), aes(x = X1, y = X2))  + geom_tile(aes(fill = value), alpha = 0.1)
 ##' p3()
 ##' 
 ##' # set.aes overwrites the alpha
 ##' p3() + scale_fill_continuous(guide=guide_legend(set.aes = list(alpha=1)))
-##'
+##' 
 ##' # combine colorbar and legend guide
 ##' p2() + scale_fill_continuous(guide = "colorbar") + scale_size(guide = "legend")
 ##' 
@@ -91,12 +90,16 @@ guide_legend <- function(
   title = waiver(),
   title.position = NULL,
   title.theme = NULL,
+  title.hjust = NULL,
+  title.vjust = NULL,
 
   ## label
   label = TRUE,
   label.position = NULL,
   label.theme = NULL,
-
+  label.hjust = NULL,
+  label.vjust = NULL,
+                         
   ## key
   keywidth = NULL,
   keyheight = NULL,
@@ -116,11 +119,15 @@ guide_legend <- function(
     title = title,
     title.position = title.position,
     title.theme = title.theme,
-
+    title.hjust = title.hjust,
+    title.vjust = title.vjust,
+                 
     ## label
     label = label,
     label.position = label.position,
     label.theme = label.theme,
+    label.hjust = label.hjust,
+    label.vjust = label.vjust,
 
     ## size of key
     keywidth = keywidth,
@@ -228,11 +235,15 @@ guide_gengrob.legend <- function(guide, theme) {
 
   ## title
   title.theme <- guide$title.theme %||% theme$legend.title
+  title.hjust <- title.x <- guide$title.hjust %||% theme$legend.title.align %||% 0
+  title.vjust <- title.y <- guide$title.vjust %||% 0.5
+  
   grob.title <- {
     if (is.null(guide$title))
       zeroGrob()
-    else
-      title.theme(label=guide$title, name=grobName(NULL, "guide.title"))
+    else 
+      title.theme(label=guide$title, name=grobName(NULL, "guide.title"),
+                  hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
   }
 
   title_width <- convertWidth(grobWidth(grob.title), "mm")
@@ -253,8 +264,12 @@ guide_gengrob.legend <- function(guide, theme) {
   grob.labels <- {
     if (!guide$label)
       zeroGrob()
-    else
-      lapply(guide$key$.label, function(label) label.theme(label=label, name=grobName(NULL, "guide.label")))
+    else {
+      hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||% if (any(is.expression(guide$key$.label))) 1 else 0
+      vjust <- y <- guide$label.vjust %||% 0.5
+      lapply(guide$key$.label, function(label) label.theme(label=label, name=grobName(NULL, "guide.label"),
+                                                           x = x, y = y, hjust = hjust, vjust = vjust))
+    }
   }
 
   label_widths <- lapply(grob.labels, function(g)convertWidth(grobWidth(g), "mm"))

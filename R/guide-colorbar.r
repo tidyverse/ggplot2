@@ -13,9 +13,13 @@
 ##' @param title A character string or expression indicating a title of guide. If \code{NULL}, the title is not shown. By default (\code{\link{waiver()}}), the name of the scale object or tha name specified in \code{\link{labs}} is used for the title.
 ##' @param title.position A character string indicating the position of a title. One of "top" (default for a vertical guide), "bottom", "left" (default for a horizontal guide), or "right."
 ##' @param title.theme A theme object for rendering the title text. Usually the object of \code{\link{theme_text}} is expected. By default, the theme is specified by \code{legend.title} in \code{\link{opts}} or theme.
+##' @param title.hjust A numeric specifying horizontal justification of the title text.
+##' @param title.vjust A numeric specifying vertical justification of the title text.
 ##' @param label logical. If \code{TRUE} then the labels are drawn. If \code{FALSE} then the labels are invisible.
 ##' @param label.position A character string indicating the position of a label. One of "top", "bottom" (default for horizontal guide), "left", or "right" (default for vertical gudie).
 ##' @param label.theme A theme object for rendering the label text. Usually the object of \code{\link{theme_text}} is expected. By default, the theme is specified by \code{legend.text} in \code{\link{opts}} or theme.
+##' @param label.hjust A numeric specifying horizontal justification of the label text.
+##' @param label.vjust A numeric specifying vertical justification of the label text.
 ##' @param barwidth A numeric or a unit object specifying the width of the colorbar. Default value is \code{legend.key.width} or \code{legend.key.size} in \code{\link{opts}} or theme.
 ##' @param barheight A numeric or a unit object specifying the height of the colorbar. Default value is \code{legend.key.height} or \code{legend.key.size} in \code{\link{opts}} or theme.
 ##' @param nbin A numeric specifying the number of bins for drawing colorbar. A smoother colorbar for a larger value.
@@ -32,8 +36,8 @@
 ##' @examples
 ##' # ggplot objects
 ##' 
-##' p1 <- function()ggplot(melt(outer(1:4, 1:4)), aes(x = X1, y = X2)) + geom_tile(aes(fill = value))
-##' p2 <- function()ggplot(melt(outer(1:4, 1:4)), aes(x = X1, y = X2)) + geom_tile(aes(fill = value)) + geom_point(aes(size = value))
+##' p1 <- function()ggplot(melt(outer(1:4, 1:4), varnames = c("X1", "X2")), aes(x = X1, y = X2)) + geom_tile(aes(fill = value))
+##' p2 <- function()ggplot(melt(outer(1:4, 1:4), varnames = c("X1", "X2")), aes(x = X1, y = X2)) + geom_tile(aes(fill = value)) + geom_point(aes(size = value))
 ##' 
 ##' 
 ##' ## basic form
@@ -55,7 +59,6 @@
 ##' p1() + scale_fill_continuous(guide = guide_colorbar(barwidth=0.5, barheight=10))
 ##' 
 ##' # no label
-##' 
 ##' p1() + scale_fill_continuous(guide = guide_colorbar(label = FALSE))
 ##' 
 ##' # no tick marks
@@ -63,7 +66,10 @@
 ##' 
 ##' # label position
 ##' p1() + scale_fill_continuous(guide = guide_colorbar(label.position = "left"))
-##' 
+##'
+##' # label theme
+##' p1() + scale_fill_continuous(guide = guide_colorbar(label.theme = theme_text(col="blue")))
+##'  
 ##' # small number of bins
 ##' p1() + scale_fill_continuous(guide = guide_colorbar(nbin = 3))
 ##' 
@@ -85,11 +91,15 @@ guide_colorbar <- function(
   title = waiver(),
   title.position = NULL,
   title.theme = NULL,
+  title.hjust = NULL,
+  title.vjust = NULL,
 
   ## label
   label = TRUE,
   label.position = NULL,
   label.theme = NULL,
+  label.hjust = NULL,
+  label.vjust = NULL,
 
   ## bar
   barwidth = NULL,
@@ -116,11 +126,15 @@ guide_colorbar <- function(
     title = title,
     title.position = title.position,
     title.theme = title.theme,
+    title.hjust = title.hjust,
+    title.vjust = title.vjust,
 
     ## label
     label = label,
     label.position = label.position,
     label.theme = label.theme,
+    label.hjust = label.hjust,
+    label.vjust = label.vjust,
 
     ## bar
     barwidth = barwidth,
@@ -225,11 +239,14 @@ guide_gengrob.colorbar <- function(guide, theme) {
   ## title
   ## hjust of title should depend on title.position
   title.theme <- guide$title.theme %||% theme$legend.title
+  title.hjust <- title.x <- guide$title.hjust %||% theme$legend.title.align %||% 0
+  title.vjust <- title.y <- guide$title.vjust %||% 0.5
   grob.title <- {
     if (is.null(guide$title))
       zeroGrob()
     else
-      title.theme(label=guide$title, name=grobName(NULL, "guide.title"))
+      title.theme(label=guide$title, name=grobName(NULL, "guide.title"),
+                  hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
   }
 
   title_width <- convertWidth(grobWidth(grob.title), "mm")
@@ -242,9 +259,14 @@ guide_gengrob.colorbar <- function(guide, theme) {
   grob.label <- {
     if (!guide$label)
       zeroGrob()
-    else
-      switch(guide$direction, horizontal = {x <- label_pos; y <- 0.5}, "vertical" = {x <- 0.5; y <- label_pos})
-      label.theme(label=guide$key$.label, x = x, y = y, name = grobName(NULL, "guide.label"))
+    else {
+      hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||%
+        if (any(is.expression(guide$key$.label))) 1 else switch(guide$direction, horizontal = 0.5, vertical = 0)
+      vjust <- y <- guide$label.vjust %||% 0.5
+      switch(guide$direction, horizontal = {x <- label_pos; y <- vjust}, "vertical" = {x <- hjust; y <- label_pos})
+      label.theme(label=guide$key$.label, name = grobName(NULL, "guide.label"),
+                  hjust = hjust, vjust = vjust, x = x, y = y)
+    }
   }
 
   label_width <- convertWidth(grobWidth(grob.label), "mm")
