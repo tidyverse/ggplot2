@@ -102,13 +102,11 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot)) {
     plot_table <- gtable_add_grob(plot_table, legend_box, 
       t = 1, b = 1, l = 2, r = -1)
   } else if (position == "manual") {
-    legend_box$framevp$x <- unit(coords[1], "npc")
-    legend_box$framevp$y <- unit(coords[2], "npc")
-    legend_vp <- viewport(name = "legend_box",
-      just = theme$legend.justification)
-    legend_container <- grobTree(legend_box, childrenvp = legend_vp)
-    plot_table <- gtable_add_grob(plot_table, legend_container,
-       t = 2, b = -2, l = 2, r = -1)
+    legend_box$childrenvp$parent$x <- unit(coords[1], "npc")
+    legend_box$childrenvp$parent$y <- unit(coords[2], "npc")
+    # should guide box expand whole region or region withoug margin?
+    plot_table <- gtable_add_grob(plot_table, legend_box,
+       t = 2, b = -2, l = 2, r = -1, clip = "off")
   }
   
   # Margins
