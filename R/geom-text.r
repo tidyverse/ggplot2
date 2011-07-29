@@ -56,7 +56,7 @@ GeomText <- proto(Geom, {
   objname <- "text"
 
   draw_groups <- function(., ...) .$draw(...)
-  draw <- function(., data, scales, coordinates, ..., parse = FALSE) {
+  draw <- function(., data, scales, coordinates, ..., parse = FALSE, na.rm = FALSE) {
     data <- remove_missing(data, na.rm, 
       c("x", "y", "label"), name = "geom_text")
     
