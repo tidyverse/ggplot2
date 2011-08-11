@@ -3,11 +3,12 @@
 \title{Colorbar guide}
 \usage{
   guide_colorbar(title = waiver(), title.position = NULL,
-  title.theme = NULL, label = TRUE, label.position = NULL,
-  label.theme = NULL, barwidth = NULL, barheight = NULL,
-  nbin = 20, raster = TRUE, ticks = TRUE, draw.ulim = TRUE,
-  draw.llim = TRUE, direction = NULL, default.unit =
-  "line", ...)
+  title.theme = NULL, title.hjust = NULL, title.vjust =
+  NULL, label = TRUE, label.position = NULL, label.theme =
+  NULL, label.hjust = NULL, label.vjust = NULL, barwidth =
+  NULL, barheight = NULL, nbin = 20, raster = TRUE, ticks =
+  TRUE, draw.ulim = TRUE, draw.llim = TRUE, direction =
+  NULL, default.unit = "line", ...)
 }
 \arguments{
   \item{title}{A character string or expression indicating
@@ -26,6 +27,12 @@
   expected. By default, the theme is specified by
   \code{legend.title} in \code{\link{opts}} or theme.}
 
+  \item{title.hjust}{A numeric specifying horizontal
+  justification of the title text.}
+
+  \item{title.vjust}{A numeric specifying vertical
+  justification of the title text.}
+
   \item{label}{logical. If \code{TRUE} then the labels are
   drawn. If \code{FALSE} then the labels are invisible.}
 
@@ -38,6 +45,12 @@
   text. Usually the object of \code{\link{theme_text}} is
   expected. By default, the theme is specified by
   \code{legend.text} in \code{\link{opts}} or theme.}
+
+  \item{label.hjust}{A numeric specifying horizontal
+  justification of the label text.}
+
+  \item{label.vjust}{A numeric specifying vertical
+  justification of the label text.}
 
   \item{barwidth}{A numeric or a unit object specifying the
   width of the colorbar. Default value is
@@ -98,8 +111,8 @@
 \examples{
 # ggplot objects
 
-p1 <- function()ggplot(melt(outer(1:4, 1:4)), aes(x = X1, y = X2)) + geom_tile(aes(fill = value))
-p2 <- function()ggplot(melt(outer(1:4, 1:4)), aes(x = X1, y = X2)) + geom_tile(aes(fill = value)) + geom_point(aes(size = value))
+p1 <- function()ggplot(melt(outer(1:4, 1:4), varnames = c("X1", "X2")), aes(x = X1, y = X2)) + geom_tile(aes(fill = value))
+p2 <- function()ggplot(melt(outer(1:4, 1:4), varnames = c("X1", "X2")), aes(x = X1, y = X2)) + geom_tile(aes(fill = value)) + geom_point(aes(size = value))
 
 
 ## basic form
@@ -121,7 +134,6 @@ scale_size(guide = guide_legend(direction = "vertical")) ## separately set the d
 p1() + scale_fill_continuous(guide = guide_colorbar(barwidth=0.5, barheight=10))
 
 # no label
-
 p1() + scale_fill_continuous(guide = guide_colorbar(label = FALSE))
 
 # no tick marks
@@ -129,6 +141,9 @@ p1() + scale_fill_continuous(guide = guide_colorbar(ticks = FALSE))
 
 # label position
 p1() + scale_fill_continuous(guide = guide_colorbar(label.position = "left"))
+
+# label theme
+p1() + scale_fill_continuous(guide = guide_colorbar(label.theme = theme_text(col="blue")))
 
 # small number of bins
 p1() + scale_fill_continuous(guide = guide_colorbar(nbin = 3))

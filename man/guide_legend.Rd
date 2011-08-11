@@ -3,10 +3,12 @@
 \title{Legend guide}
 \usage{
   guide_legend(title = waiver(), title.position = NULL,
-  title.theme = NULL, label = TRUE, label.position = NULL,
-  label.theme = NULL, keywidth = NULL, keyheight = NULL,
-  direction = NULL, default.unit = "line", set.aes =
-  list(), ...)
+  title.theme = NULL, title.hjust = NULL, title.vjust =
+  NULL, label = TRUE, label.position = NULL, label.theme =
+  NULL, label.hjust = NULL, label.vjust = NULL, keywidth =
+  NULL, keyheight = NULL, direction = NULL, default.unit =
+  "line", set.aes = list(), nrow = NULL, ncol = NULL, byrow
+  = FALSE, ...)
 }
 \arguments{
   \item{title}{A character string or expression indicating
@@ -25,6 +27,12 @@
   expected. By default, the theme is specified by
   \code{legend.title} in \code{\link{opts}} or theme.}
 
+  \item{title.hjust}{A numeric specifying horizontal
+  justification of the title text.}
+
+  \item{title.vjust}{A numeric specifying vertical
+  justification of the title text.}
+
   \item{label}{logical. If \code{TRUE} then the labels are
   drawn. If \code{FALSE} then the labels are invisible.}
 
@@ -36,6 +44,12 @@
   text. Usually the object of \code{\link{theme_text}} is
   expected. By default, the theme is specified by
   \code{legend.text} in \code{\link{opts}} or theme.}
+
+  \item{label.hjust}{A numeric specifying horizontal
+  justification of the label text.}
+
+  \item{label.vjust}{A numeric specifying vertical
+  justification of the label text.}
 
   \item{keywidth}{A numeric or a unit object specifying the
   width of the legend key. Default value is
@@ -57,6 +71,14 @@
   \item{set.aes}{A list specifying aesthetic parameters of
   legend key. See details and examples.}
 
+  \item{nrow}{The desired number of rows of legends.}
+
+  \item{ncol}{The desired number of column of legends.}
+
+  \item{byrow}{logical. If \code{FALSE} (the default) the
+  legend-matrix is filled by columns, otherwise the
+  legend-matrix is filled by rows.}
+
   \item{...}{ignored.}
 }
 \value{
@@ -77,19 +99,17 @@
   \code{\link{guides}}.
 }
 \examples{
-# ggplot objects
-
-p1 <- function()ggplot(melt(outer(1:4, 1:4)), aes(x = X1, y = X2)) + geom_tile(aes(fill = value))
-p2 <- function()ggplot(melt(outer(1:4, 1:4)), aes(x = X1, y = X2)) + geom_tile(aes(fill = value)) + geom_point(aes(size = value))
+p1 <- function()ggplot(melt(outer(1:4, 1:4), varnames = c("X1", "X2")), aes(x = X1, y = X2)) + geom_tile(aes(fill = value))
+p2 <- function()ggplot(melt(outer(1:4, 1:4), varnames = c("X1", "X2")), aes(x = X1, y = X2)) + geom_tile(aes(fill = value)) + geom_point(aes(size = value))
 
 # basic form
-
+##'
 # short version
 p1() + scale_fill_continuous(guide = "legend")
-
+##'
 # long version
 p1() + scale_fill_continuous(guide = guide_legend())
-
+##'
 # separately set the direction of each guide
 
 p2() + scale_fill_continuous(guide = guide_legend(direction = "horizontal")) +
@@ -109,9 +129,6 @@ p1() + scale_fill_continuous(guide = guide_legend(keywidth = 3, keyheight = 1))
 # title position
 p1() + scale_fill_continuous(guide = guide_legend(title = "LEFT", title.position = "left"))
 
-# title text styles
-p1() + scale_fill_continuous(guide = guide_legend(title = "ROTATE", title.position = "left", title.angle = 90, title.hjust = 0.5))
-
 # title text styles via theme_text
 p1() + scale_fill_continuous(guide = guide_legend(title.theme = theme_text(size=15, face="italic", col="red", angle=45)))
 
@@ -120,13 +137,13 @@ p1() + scale_fill_continuous(guide = guide_legend(label.position = "bottom"))
 
 # label styles
 p1() + scale_fill_continuous(breaks=c(5, 10, 15), labels=paste("long", c(5, 10, 15)),
-guide = guide_legend(direction="horizontal", title.position="top", title.theme=theme_text(hjust=0.5),
-label.position="bottom", label.angle = 90, label.hjust=0.5, label.vjust=0.5))
+guide = guide_legend(direction="horizontal", title.position="top",
+label.position="bottom", label.hjust = 0.5, label.vjust = 0.5, label.theme = theme_text(angle = 90)))
 
 # set aesthetic of legend key
 
 # very low alpha value make it difficult to see legend key
-p3 <- function()ggplot(melt(outer(1:4, 1:4)), aes(x = X1, y = X2)) + geom_tile(aes(fill = value), alpha = 0.1)
+p3 <- function()ggplot(melt(outer(1:4, 1:4), varnames = c("X1", "X2")), aes(x = X1, y = X2))  + geom_tile(aes(fill = value), alpha = 0.1)
 p3()
 
 # set.aes overwrites the alpha
@@ -137,6 +154,13 @@ p2() + scale_fill_continuous(guide = "colorbar") + scale_size(guide = "legend")
 
 # same, but short version
 p2() + guides(fill = "colorbar", size = "legend")
+
+# multiple row/col legends
+p <- qplot(1:20, 1:20, col=letters[1:20])
+p + guides(col=guide_legend(nrow=8))
+p + guides(col=guide_legend(ncol=8))
+p + guides(col=guide_legend(nrow=8, byrow=T))
+p + guides(col=guide_legend(ncol=8, byrow=T))
 }
 \seealso{
   \code{\link{guides}}, \code{\link{guide_colorbar}}
