@@ -161,6 +161,10 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
   axes <- facet_axes(facet, panel, coord, theme)
   strips <- facet_strips(facet, panel, theme)
   panels <- facet_panels(facet, panel, coord, theme, geom_grobs)
+
+  # adjust the size of axes to the size of panel
+  axes$l$heights <- panels$heights
+  axes$b$widths <- panels$widths
   
   # Combine components into complete plot
   top <- strips$t
