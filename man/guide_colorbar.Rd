@@ -66,9 +66,11 @@
   drawing colorbar. A smoother colorbar for a larger
   value.}
 
-  \item{raster}{A logical specifying if the colorbar should
-  be drawn as raster or as vector graphics. Currently, only
-  the raster is supported.}
+  \item{raster}{A logical. If \code{TRUE} then the colorbar
+  is rendered as a raster object. If \code{FALSE} then the
+  colorbar is rendered as a set of rectangles. Note that
+  not all graphics devices are capable of rendering raster
+  image.}
 
   \item{ticks}{A logical specifying if tick marks on
   colorbar should be visible.}
@@ -160,6 +162,9 @@ p2() + scale_fill_continuous(guide = "colorbar") + scale_size(guide = "legend")
 
 # same, but short version
 p2() + guides(fill = "colorbar", size = "legend")
+
+# non-raster colorbar
+p1() + scale_fill_continuous(guide = guide_colorbar(raster = FALSE))
 }
 \seealso{
   \code{\link{guides}}, \code{\link{guide_legend}}

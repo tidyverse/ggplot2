@@ -23,12 +23,12 @@
 ##' @param barwidth A numeric or a unit object specifying the width of the colorbar. Default value is \code{legend.key.width} or \code{legend.key.size} in \code{\link{opts}} or theme.
 ##' @param barheight A numeric or a unit object specifying the height of the colorbar. Default value is \code{legend.key.height} or \code{legend.key.size} in \code{\link{opts}} or theme.
 ##' @param nbin A numeric specifying the number of bins for drawing colorbar. A smoother colorbar for a larger value.
-##' @param raster A logical specifying if the colorbar should be drawn as raster or as vector graphics. Currently, only the raster is supported.
+##' @param raster A logical. If \code{TRUE} then the colorbar is rendered as a raster object. If \code{FALSE} then the colorbar is rendered as a set of rectangles. Note that not all graphics devices are capable of rendering raster image.
 ##' @param ticks A logical specifying if tick marks on colorbar should be visible.
 ##' @param draw.ulim A logical specifying if the upper limit tick marks should be visible.
 ##' @param draw.llim A logical specifying if the lower limit tick marks should be visible.
 ##' @param direction  A character string indicating the direction of the guide. One of "horizontal" or "vertical."
-##' @param default.unit A character string indicating unit for \code{barwidth} and \code{barheight}. 
+##' @param default.unit A character string indicating unit for \code{barwidth} and \code{barheight}.
 ##' @param ... ignored.
 ##' @return Guide object
 ##' @seealso \code{\link{guides}}, \code{\link{guide_legend}}
@@ -85,6 +85,9 @@
 ##' 
 ##' # same, but short version
 ##' p2() + guides(fill = "colorbar", size = "legend")
+##'
+##' # non-raster colorbar
+##' p1() + scale_fill_continuous(guide = guide_colorbar(raster = FALSE))
 guide_colorbar <- function(
                            
   ##　title
@@ -224,10 +227,25 @@ guide_gengrob.colorbar <- function(guide, theme) {
   ## gap between keys etc
   hgap <- c(convertWidth(unit(0.3, "lines"), "mm"))
   vgap <- hgap
-  
-  if (guide$raster) {
-    image <- switch(guide$direction, "horizontal" = t(guide$bar$colour), "vertical" = guide$bar$colour)
-    grob.bar <- rasterGrob(image = image, width=barwidth.c, height=barheight.c, default.units = "mm", gp=gpar(col=NA), interpolate = TRUE)
+
+  grob.bar <- 
+    if (guide$raster) {
+      image <- rev(switch(guide$direction, horizontal = t(guide$bar$colour), vertical = guide$bar$colour))
+      rasterGrob(image = image, width=barwidth.c, height=barheight.c, default.units = "mm", gp=gpar(col=NA), interpolate = TRUE)
+    } else {
+      switch(guide$direction,
+             horizontal = {
+               bw <- barwidth.c / nrow(guide$bar)
+               bx <- (seq(nrow(guide$bar)) - 1) * bw
+               rectGrob(x = bx, y = 0, vjust = 0, hjust = 0, width = bw, height = barheight.c, default.units = "mm",
+                        gp = gpar(col = NA, fill = guide$bar$colour))
+             },
+             vertical = {
+               bh <- barheight.c / nrow(guide$bar)
+               by <- (seq(nrow(guide$bar)) - 1) * bh
+               rectGrob(x = 0, y = by, vjust = 0, hjust = 0, width = barwidth.c, height = bh, default.units = "mm",
+                        gp = gpar(col = NA, fill = guide$bar$colour))
+             })
   }
 
   ## tick and label position
