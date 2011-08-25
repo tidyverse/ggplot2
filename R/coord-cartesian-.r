@@ -77,9 +77,9 @@ train_cartesian <- memoise(function(scale, limits, name) {
       range <- expand_range(range, scale$expand[1], scale$expand[2])
     }
   }
-  
+
   major <- rescale(scale_break_positions(scale), from = range)
-  minor <- rescale(scale_breaks_minor(scale), from = range)
+  minor <- rescale(scale_breaks_minor_positions(scale), from = range)
   labels <- scale_labels(scale)
   
   out <- list(range = range, major = major, minor = minor, labels = labels)

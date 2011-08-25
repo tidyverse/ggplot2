@@ -36,10 +36,10 @@ coord_render_bg <- function(coord, scales, theme)
   UseMethod("coord_render_bg")
 #' @S3method coord_render_bg default
 coord_render_bg.default <- function(coord, details, theme) {
-  x.major <- unit(details$x.major, "native")
-  x.minor <- unit(details$x.minor, "native")
-  y.major <- unit(details$y.major, "native")
-  y.minor <- unit(details$y.minor, "native")
+  x.major <- if(length(details$x.major) > 0) unit(details$x.major, "native")
+  x.minor <- if(length(details$x.minor) > 0) unit(details$x.minor, "native")
+  y.major <- if(length(details$y.major) > 0) unit(details$y.major, "native")
+  y.minor <- if(length(details$y.minor) > 0) unit(details$y.minor, "native")
 
   guide_grid(theme, x.minor, x.major, y.minor, y.major)
 }
