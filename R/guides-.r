@@ -260,6 +260,7 @@ guides_build <- function(ggrobs, theme) {
   ## set justification of the guide-boxes
   ## should be there options for this, e.g., guide.box.just  = c("right", "bottom") ?
   for (i in seq(n)) guides$children[[i]]$childrenvp$parent$layout$valid.just <- valid.just(theme$legend.box.just)
+  guides$name <- "guide-box"
   guides
 }
 

@@ -88,25 +88,25 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot)) {
   if (position == "left") {
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = 0)
     plot_table <- gtable_add_grob(plot_table, legend_box, 
-      t = 2, b = -3, l = 1, r = 1)
+      t = 2, b = -3, l = 1, r = 1, name = "guide-box")
   } else if (position == "right") {
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = -1)
     plot_table <- gtable_add_grob(plot_table, legend_box, 
-      t = 2, b = -3, l = -1, r = -1)
+      t = 2, b = -3, l = -1, r = -1, name = "guide-box")
   } else if (position == "bottom") {
     plot_table <- gtable_add_rows(plot_table, legend_height, pos = -1)
     plot_table <- gtable_add_grob(plot_table, legend_box, 
-      t = -1, b = -1, l = 2, r = -1)
+      t = -1, b = -1, l = 2, r = -1, name = "guide-box")
   } else if (position == "top") {
     plot_table <- gtable_add_rows(plot_table, legend_height, pos = 0)
     plot_table <- gtable_add_grob(plot_table, legend_box, 
-      t = 1, b = 1, l = 2, r = -1)
+      t = 1, b = 1, l = 2, r = -1, name = "guide-box")
   } else if (position == "manual") {
     legend_box$childrenvp$parent$x <- unit(coords[1], "npc")
     legend_box$childrenvp$parent$y <- unit(coords[2], "npc")
     # should guide box expand whole region or region withoug margin?
     plot_table <- gtable_add_grob(plot_table, legend_box,
-       t = 2, b = -2, l = 2, r = -1, clip = "off")
+       t = 2, b = -2, l = 2, r = -1, clip = "off", name = "guide-box")
   }
   
   # Margins
