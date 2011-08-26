@@ -7,8 +7,8 @@
   NULL, label = TRUE, label.position = NULL, label.theme =
   NULL, label.hjust = NULL, label.vjust = NULL, keywidth =
   NULL, keyheight = NULL, direction = NULL, default.unit =
-  "line", set.aes = list(), nrow = NULL, ncol = NULL, byrow
-  = FALSE, ...)
+  "line", override.aes = list(), nrow = NULL, ncol = NULL,
+  byrow = FALSE, ...)
 }
 \arguments{
   \item{title}{A character string or expression indicating
@@ -68,8 +68,8 @@
   \item{default.unit}{A character string indicating unit
   for \code{keywidth} and \code{keyheight}.}
 
-  \item{set.aes}{A list specifying aesthetic parameters of
-  legend key. See details and examples.}
+  \item{override.aes}{A list specifying aesthetic
+  parameters of legend key. See details and examples.}
 
   \item{nrow}{The desired number of rows of legends.}
 
@@ -146,8 +146,8 @@ label.position="bottom", label.hjust = 0.5, label.vjust = 0.5, label.theme = the
 p3 <- function()ggplot(melt(outer(1:4, 1:4), varnames = c("X1", "X2")), aes(x = X1, y = X2))  + geom_tile(aes(fill = value), alpha = 0.1)
 p3()
 
-# set.aes overwrites the alpha
-p3() + scale_fill_continuous(guide=guide_legend(set.aes = list(alpha=1)))
+# override.aes overwrites the alpha
+p3() + scale_fill_continuous(guide=guide_legend(override.aes = list(alpha=1)))
 
 # combine colorbar and legend guide
 p2() + scale_fill_continuous(guide = "colorbar") + scale_size(guide = "legend")

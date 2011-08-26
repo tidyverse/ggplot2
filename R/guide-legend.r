@@ -23,7 +23,7 @@
 ##' @param keyheight A numeric or a unit object specifying the height of the legend key. Default value is \code{legend.key.height} or \code{legend.key.size} in \code{\link{opts}} or theme.
 ##' @param direction A character string indicating the direction of the guide. One of "horizontal" or "vertical."
 ##' @param default.unit A character string indicating unit for \code{keywidth} and \code{keyheight}.
-##' @param set.aes A list specifying aesthetic parameters of legend key. See details and examples.
+##' @param override.aes A list specifying aesthetic parameters of legend key. See details and examples.
 ##' @param nrow The desired number of rows of legends.
 ##' @param ncol The desired number of column of legends.
 ##' @param byrow logical. If \code{FALSE} (the default) the legend-matrix is filled by columns, otherwise the legend-matrix is filled by rows.
@@ -79,8 +79,8 @@
 ##' p3 <- function()ggplot(melt(outer(1:4, 1:4), varnames = c("X1", "X2")), aes(x = X1, y = X2))  + geom_tile(aes(fill = value), alpha = 0.1)
 ##' p3()
 ##' 
-##' # set.aes overwrites the alpha
-##' p3() + scale_fill_continuous(guide=guide_legend(set.aes = list(alpha=1)))
+##' # override.aes overwrites the alpha
+##' p3() + scale_fill_continuous(guide=guide_legend(override.aes = list(alpha=1)))
 ##' 
 ##' # combine colorbar and legend guide
 ##' p2() + scale_fill_continuous(guide = "colorbar") + scale_size(guide = "legend")
@@ -118,7 +118,7 @@ guide_legend <- function(
   ## general
   direction = NULL,
   default.unit = "line",
-  set.aes = list(),
+  override.aes = list(),
   nrow = NULL,
   ncol = NULL,
   byrow = FALSE,
@@ -150,7 +150,7 @@ guide_legend <- function(
     ## general
     direction = direction,
     default.unit = default.unit,
-    set.aes = set.aes,
+    override.aes = override.aes,
     nrow = nrow,
     ncol = ncol,
     byrow = byrow,
@@ -173,9 +173,9 @@ guide_train.legend <- function(guide, scale) {
 
 guide_merge.legend <- function(guide, new_guide) {
   guide$key <- merge(guide$key, new_guide$key, sort=FALSE)
-  guide$set.aes <- c(guide$set.aes, new_guide$set.aes)
-  if (any(duplicated(names(guide$set.aes)))) warning("Duplicated set.aes is ignored.")
-  guide$set.aes <- guide$set.aes[!duplicated(names(guide$set.aes))]
+  guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
+  if (any(duplicated(names(guide$override.aes)))) warning("Duplicated override.aes is ignored.")
+  guide$override.aes <- guide$override.aes[!duplicated(names(guide$override.aes))]
   guide
 }
 
@@ -223,8 +223,8 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       }
     if (is.null(data)) return(NULL)
     
-    ## set.aes in guide_legend manually changes the geom
-    for (aes in intersect(names(guide$set.aes), names(data))) data[[aes]] <- guide$set.aes[[aes]]
+    ## override.aes in guide_legend manually changes the geom
+    for (aes in intersect(names(guide$override.aes), names(data))) data[[aes]] <- guide$override.aes[[aes]]
 
     geom <- Geom$find(layer$geom$guide_geom())
     params <- c(layer$geom_params, layer$stat_params)
