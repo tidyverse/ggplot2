@@ -133,6 +133,18 @@ RENDERING
 * Axis labels are now centred underneath the panels (not the whole plot), and
   stick close to the panels regardless of the aspect ratio.
 
+GUIDES
+
+* guides (used to be "legend") have been rewritten. 
+
+* legend-guide: support multi-row/column legend
+
+* legend-guide: more flexible positioning of title and label
+
+* legend-guide: can override aes. This is usefull, for example, when alpha value in a panel is very low but you want to show vivid legend.
+
+* colorbar-guide: new colorbar guide for color and fill scale.
+
 ggplot2 0.8.9 (2010-12-24) ---------------------------------------------------
 
 A big thanks to Koshke Takahashi, who supplied the majority of improvements in this release!
