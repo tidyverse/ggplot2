@@ -301,7 +301,7 @@ guide_gengrob.legend <- function(guide, theme) {
   key_width.c <- c(key_width)
   key_height.c <- c(key_height)
 
-  key_size_mat <- do.call("cbind", llply(guide$legend_data, "[[", "size"))
+  key_size_mat <- do.call("cbind", llply(guide$geoms, function(g) g$data$size))
   key_sizes <- if (is.null(key_size_mat)) rep(0, nbreak) else apply(key_size_mat, 1, max)
 
   if (!is.null(guide$nrow) && !is.null(guide$ncol) && guide$nrow * guide$ncol < nbreak) 
