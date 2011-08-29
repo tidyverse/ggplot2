@@ -268,23 +268,22 @@ scale_breaks_minor<- function(scale, ...) {
 }
 
 scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_positions(scale), limits = scale_limits(scale)) {
-  breaks <- 
-    if (zero_range(as.numeric(limits))) {
-      limits[1]
-    } else if (is.null(scale$minor_breaks)) {
-      if (length(b) == 1) {
-        b
-      } else {
-        bd <- diff(b)[1]
-        if (min(limits) < min(b)) b <- c(b[1] - bd, b)
-        if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
-        unique(unlist(mapply(seq, b[-length(b)], b[-1], length=n+1, SIMPLIFY=F)))
-      }
-    } else if (is.function(scale$minor_breaks)) {
-      scale$minor_breaks(scale$trans$inv(limits))
+  if (zero_range(as.numeric(limits))) {
+    breaks <- limits[1]
+  } else if (is.null(scale$minor_breaks)) {
+    if (length(b) == 1) {
+    breaks <-   b
     } else {
-      scale$minor_breaks
+      bd <- diff(b)[1]
+      if (min(limits) < min(b)) b <- c(b[1] - bd, b)
+      if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
+      breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length=n+1, SIMPLIFY=F)))
     }
+  } else if (is.function(scale$minor_breaks)) {
+    breaks <- scale$minor_breaks(scale$trans$inv(limits))
+  } else {
+    breaks <- scale$minor_breaks
+  }
   
   # Breaks in data space need to be converted back to transformed space
   # And any breaks outside the dimensions need to be thrown away
