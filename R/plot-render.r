@@ -32,7 +32,7 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot)) {
 
   plot_table <- facet_render(plot$facet, panel, plot$coordinates,
     plot_theme(plot), geom_grobs)
-  
+
   # Title  
   title <- theme_render(theme, "plot.title", plot$options$title)
   title_height <- grobHeight(title) + 
@@ -84,23 +84,29 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot)) {
     legend_width <- legend_width + theme$legend.margin
     legend_height <- legend_height + theme$legend.margin
   }
+
+  panel_layout <- subset(plot_table$layout, grepl("^panel", name))
+  panel_dim <-  summarize(panel_layout, t = min(t), r = max(r), b = max(b), l = min(l))
+
+  # for align-to-device, use this:
+  # panel_dim <-  summarize(plot_table$layout, t = min(t), r = max(r), b = max(b), l = min(l))
   
   if (position == "left") {
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = 0)
     plot_table <- gtable_add_grob(plot_table, legend_box, 
-      t = 2, b = -3, l = 1, r = 1, name = "guide-box")
+      t = panel_dim$t, b = panel_dim$b, l = 1, r = 1, name = "guide-box")
   } else if (position == "right") {
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = -1)
     plot_table <- gtable_add_grob(plot_table, legend_box, 
-      t = 2, b = -3, l = -1, r = -1, name = "guide-box")
+      t = panel_dim$t, b = panel_dim$b, l = -1, r = -1, name = "guide-box")
   } else if (position == "bottom") {
     plot_table <- gtable_add_rows(plot_table, legend_height, pos = -1)
     plot_table <- gtable_add_grob(plot_table, legend_box, 
-      t = -1, b = -1, l = 2, r = -1, name = "guide-box")
+      t = -1, b = -1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
   } else if (position == "top") {
     plot_table <- gtable_add_rows(plot_table, legend_height, pos = 0)
     plot_table <- gtable_add_grob(plot_table, legend_box, 
-      t = 1, b = 1, l = 2, r = -1, name = "guide-box")
+      t = 1, b = 1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
   } else if (position == "manual") {
     legend_box$childrenvp$parent$x <- unit(coords[1], "npc")
     legend_box$childrenvp$parent$y <- unit(coords[2], "npc")
