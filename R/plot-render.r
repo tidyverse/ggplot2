@@ -56,17 +56,19 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot)) {
   xlabel <- theme_render(theme, "axis.title.x", labels$x)
   ylabel <- theme_render(theme, "axis.title.y", labels$y)
   
+  panel_dim <-  find_panel(plot_table)
+
   xlab_height <- grobHeight(xlabel) + 
     if (is.null(labels$x)) unit(0, "lines") else unit(0.5, "lines")
   plot_table <- gtable_add_rows(plot_table, xlab_height)
   plot_table <- gtable_add_grob(plot_table, xlabel, name = "xlab",
-    l = 2, r = -1, t = -1)
+    l = panel_dim$l, r = panel_dim$r, t = -1)
   
   ylab_width <- grobWidth(ylabel) + 
     if (is.null(labels$y)) unit(0, "lines") else unit(0.5, "lines")
   plot_table <- gtable_add_cols(plot_table, ylab_width, pos = 0)
   plot_table <- gtable_add_grob(plot_table, ylabel, name = "ylab",
-    l = 1, b = -3, t = 2)
+    l = 1, b = panel_dim$b, t = panel_dim$t)
 
   # Legends
   position <- theme$legend.position
