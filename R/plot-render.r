@@ -27,6 +27,12 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot)) {
     }, .drop = FALSE)
   }
 
+  # helper function return the position of panels in plot_table
+  find_panel <- function(table) {
+    summarize(subset(table$layout, grepl("^panel", name)),
+      t = min(t), r = max(r), b = max(b), l = min(l))
+  }
+
   # List by layer, list by panel
   geom_grobs <- Map(build_grob, plot$layer, data)
 
@@ -85,8 +91,7 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot)) {
     legend_height <- legend_height + theme$legend.margin
   }
 
-  panel_layout <- subset(plot_table$layout, grepl("^panel", name))
-  panel_dim <-  summarize(panel_layout, t = min(t), r = max(r), b = max(b), l = min(l))
+  panel_dim <-  find_panel(plot_table)
 
   # for align-to-device, use this:
   # panel_dim <-  summarize(plot_table$layout, t = min(t), r = max(r), b = max(b), l = min(l))
