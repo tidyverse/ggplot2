@@ -76,7 +76,7 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot)) {
     coords <- position
     position <- "manual"
   }
-  
+
   legend_box <- if (position != "none") {
     build_guides(plot$scales, plot$layers, plot$mapping, position, theme)
   } else {
@@ -89,12 +89,27 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot)) {
   if (is.zero(legend_box)) {
     position <- "none"
   } else {
+    # these are a bad hack, since it modifies the contents fo viewpoint directly...
     legend_width <- legend_width + theme$legend.margin
     legend_height <- legend_height + theme$legend.margin
+    # vp size = grob size. This enables justification in gtable.
+    legend_box$childrenvp$parent$width <- legend_width
+    legend_box$childrenvp$parent$height <- legend_height
+    legend_box$childrenvp$parent$justification <- theme$legend.justification %||% "center"
+    legend_box$childrenvp$parent$valid.just <- valid.just(theme$legend.justification)
+
+    if (position == "manual") {
+      # x and y are specified via theme$legend.position (i.e., coords)
+      legend_box$childrenvp$parent$x <- unit(coords[1], "npc")
+      legend_box$childrenvp$parent$y <- unit(coords[2], "npc")
+    } else {
+      # x and y are adjusted using justification of legend box (i.e., theme$legend.justification)
+      legend_box$childrenvp$parent$x <- unit(legend_box$childrenvp$parent$valid.just[1], "npc")
+      legend_box$childrenvp$parent$y <- unit(legend_box$childrenvp$parent$valid.just[2], "npc")
+    }
   }
 
   panel_dim <-  find_panel(plot_table)
-
   # for align-to-device, use this:
   # panel_dim <-  summarize(plot_table$layout, t = min(t), r = max(r), b = max(b), l = min(l))
   
@@ -115,11 +130,10 @@ ggplot_gtable <- function(plot, data = ggplot_build(plot)) {
     plot_table <- gtable_add_grob(plot_table, legend_box, 
       t = 1, b = 1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
   } else if (position == "manual") {
-    legend_box$childrenvp$parent$x <- unit(coords[1], "npc")
-    legend_box$childrenvp$parent$y <- unit(coords[2], "npc")
     # should guide box expand whole region or region withoug margin?
     plot_table <- gtable_add_grob(plot_table, legend_box,
-       t = 2, b = -2, l = 2, r = -1, clip = "off", name = "guide-box")
+        t = panel_dim$t, b = panel_dim$b, l = panel_dim$l, r = panel_dim$r,
+        clip = "off", name = "guide-box")
   }
   
   # Margins
