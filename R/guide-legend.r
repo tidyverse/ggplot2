@@ -27,6 +27,7 @@
 ##' @param nrow The desired number of rows of legends.
 ##' @param ncol The desired number of column of legends.
 ##' @param byrow logical. If \code{FALSE} (the default) the legend-matrix is filled by columns, otherwise the legend-matrix is filled by rows.
+##' @param reverse logical. If \code{TRUE} the order of legends is reversed.
 ##' @param ... ignored.
 ##' @return Guide object
 ##' @seealso \code{\link{guides}}, \code{\link{guide_colorbar}}
@@ -94,6 +95,9 @@
 ##' p + guides(col=guide_legend(ncol=8))
 ##' p + guides(col=guide_legend(nrow=8, byrow=T))
 ##' p + guides(col=guide_legend(ncol=8, byrow=T))
+##' 
+##' # reversed order legend
+##' p + guides(col=guide_legend(reverse = TRUE))
 
 guide_legend <- function(
                          
@@ -122,6 +126,7 @@ guide_legend <- function(
   nrow = NULL,
   ncol = NULL,
   byrow = FALSE,
+  reverse = FALSE,
                          
   ...) {
   
@@ -154,6 +159,7 @@ guide_legend <- function(
     nrow = nrow,
     ncol = ncol,
     byrow = byrow,
+    reverse = reverse,
                  
     ## parameter
     available_aes = c("any"),
@@ -167,6 +173,7 @@ guide_train.legend <- function(guide, scale) {
                      scale_map(scale, scale_breaks(scale)), I(scale_labels(scale)), 
                      stringsAsFactors = FALSE)
   names(guide$key) <- c(scale$aesthetics[1], ".label")
+  if (guide$reverse) guide$key <- guide$key[nrow(guide$key):1,]
   guide$hash <- with(guide, digest(list(title, key$.label, direction, name)))
   guide
 }

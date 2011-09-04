@@ -8,7 +8,7 @@
   NULL, label.hjust = NULL, label.vjust = NULL, keywidth =
   NULL, keyheight = NULL, direction = NULL, default.unit =
   "line", override.aes = list(), nrow = NULL, ncol = NULL,
-  byrow = FALSE, ...)
+  byrow = FALSE, reverse = FALSE, ...)
 }
 \arguments{
   \item{title}{A character string or expression indicating
@@ -78,6 +78,9 @@
   \item{byrow}{logical. If \code{FALSE} (the default) the
   legend-matrix is filled by columns, otherwise the
   legend-matrix is filled by rows.}
+
+  \item{reverse}{logical. If \code{TRUE} the order of
+  legends is reversed.}
 
   \item{...}{ignored.}
 }
@@ -161,6 +164,9 @@ p + guides(col=guide_legend(nrow=8))
 p + guides(col=guide_legend(ncol=8))
 p + guides(col=guide_legend(nrow=8, byrow=T))
 p + guides(col=guide_legend(ncol=8, byrow=T))
+
+# reversed order legend
+p + guides(col=guide_legend(reverse = TRUE))
 }
 \seealso{
   \code{\link{guides}}, \code{\link{guide_colorbar}}

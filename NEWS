@@ -135,11 +135,14 @@ RENDERING
 
 GUIDES
 
-* guides (used to be "legend") have been rewritten. 
+* guides (used to be "legend") have been rewritten.
 
-* legend-guide: support multi-row/column legend
+* Now guide system contains two non-positional guides (legend and colorbar) and positional guide (i.e., axis).
+  Axis is not yet moved in a part of new guide system.
 
-* legend-guide: more flexible positioning of title and label
+* legend-guide: support multi-row/column legend and reversed order legend.
+
+* legend-guide: more flexible positioning of title and label.
 
 * legend-guide: can override aes. This is usefull, for example, when alpha value in a panel is very low but you want to show vivid legend.
 
