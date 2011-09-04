@@ -28,6 +28,7 @@ theme_grey <- function(base_size = 12, base_family = "") {
     legend.title.align = NULL,
     legend.position =    "right",
     legend.direction =   NULL,
+    legend.justification = "center",
     legend.box =         NULL,
 
     panel.background =   theme_rect(fill = "grey90", colour = NA),
@@ -76,6 +77,7 @@ theme_bw <- function(base_size = 12, base_family = "") {
     legend.title.align = NULL,
     legend.position =    "right",
     legend.direction =   NULL,
+    legend.justification = "center",
     legend.box =         NULL,
 
     panel.background =   theme_rect(fill = "white", colour = NA),
