@@ -48,6 +48,20 @@ DEVELOPMENT
   come back in new versions. A test suite also gives me more confidence when
   I'm modifying code, which should help with general code quality.
 
+DOCUMENTATION
+
+* Thorough clean up and checking, including documenting all arguments,
+  adding systematic cross-references, and adding commonly requested examples.
+
+* Complete series of aesthetics pages (grouped subsets of aesthetics) with
+  examples of how to use the major ones, see e.g. ?fill
+
+* Added a complete list of theme opts with usage examples. "?opts" now brings
+  this list up.
+
+* Added "translate" pages to demonstrate usage between qplot-ggplot,
+  qplot-base, qplot-lattice, and qplot-gpl.
+
 SCALES
 
 * scales have been rewritten to use the new `scales` package, which does a
