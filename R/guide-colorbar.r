@@ -230,7 +230,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   grob.bar <- 
     if (guide$raster) {
-      image <- rev(switch(guide$direction, horizontal = t(guide$bar$colour), vertical = guide$bar$colour))
+      image <- switch(guide$direction, horizontal = t(guide$bar$colour), vertical = rev(guide$bar$colour))
       rasterGrob(image = image, width=barwidth.c, height=barheight.c, default.units = "mm", gp=gpar(col=NA), interpolate = TRUE)
     } else {
       switch(guide$direction,
