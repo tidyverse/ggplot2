@@ -27,7 +27,7 @@ NULL
 #' @export
 #' @param aesthetics character 
 #' @keywords internal
-continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="legend") {
+continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, minor_breaks = NULL, labels = NULL, legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="legend") {
 
   if (!is.null(legend)) {
     warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
@@ -62,6 +62,8 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 
     name = name, 
     breaks = breaks,
+    minor_breaks = minor_breaks,
+
     labels = labels, 
     legend = legend,
     guide = guide
@@ -272,13 +274,44 @@ scale_break_positions <- function(scale) {
   scale_map(scale, scale_breaks(scale))
 }
 
-scale_breaks_minor <- function(scale, n = 2, b = scale_break_positions(scale), r = scale_limits(scale)) {
-  if (length(b) == 1) return(b)
+#' @S3method scale_breaks_minor continuous
+#' @S3method scale_breaks_minor discrete
+scale_breaks_minor<- function(scale, ...) {
+  UseMethod("scale_breaks_minor")
+}
 
-  bd <- diff(b)[1]
-  if (min(r) < min(b)) b <- c(b[1] - bd, b)
-  if (max(r) > max(b)) b <- c(b, b[length(b)] + bd)
-  unique(unlist(mapply(seq, b[-length(b)], b[-1], length=n+1, SIMPLIFY=F)))
+scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_positions(scale), limits = scale_limits(scale)) {
+  if (zero_range(as.numeric(limits))) {
+    breaks <- limits[1]
+  } else if (is.null(scale$minor_breaks)) {
+    if (length(b) == 1) {
+    breaks <-   b
+    } else {
+      bd <- diff(b)[1]
+      if (min(limits) < min(b)) b <- c(b[1] - bd, b)
+      if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
+      breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length=n+1, SIMPLIFY=F)))
+    }
+  } else if (is.function(scale$minor_breaks)) {
+    breaks <- scale$minor_breaks(scale$trans$inv(limits))
+  } else {
+    breaks <- scale$minor_breaks
+  }
+  
+  # Breaks in data space need to be converted back to transformed space
+  # And any breaks outside the dimensions need to be thrown away
+  breaks <- discard(scale$trans$trans(breaks), scale_dimension(scale))
+  if (length(breaks) == 0) {
+    stop("Zero breaks in scale for ", paste(scale$aesthetics, collapse = "/"),
+      call. = FALSE)
+  }
+  breaks
+}
+
+scale_breaks_minor.discrete <- function(...) NULL
+
+scale_breaks_minor_positions <- function(scale) {
+  scale_map(scale, scale_breaks_minor(scale))
 }
 
 #' @S3method scale_labels continuous
