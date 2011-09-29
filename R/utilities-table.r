@@ -218,7 +218,6 @@ gtable_show_layout <- function(x) {
 
 gtable_viewport <- function(x) {
   layout_vp <- viewport(layout = gtable_layout(x), name = x$name)
-  
   vp <- function(i) {
     vp <- x$layout[i, ]
     viewport(

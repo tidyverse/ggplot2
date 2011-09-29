@@ -27,7 +27,12 @@ NULL
 #' @export
 #' @param aesthetics character 
 #' @keywords internal
-continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = TRUE, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity") {
+continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="legend") {
+
+  if (!is.null(legend)) {
+    warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
+    if (legend == FALSE) guide = "none"
+  }
   
   bad_labels <- is.vector(breaks) && is.vector(labels) && 
     length(breaks) != length(labels)
@@ -56,9 +61,10 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
     oob = oob,
 
     name = name, 
-    breaks = breaks, 
+    breaks = breaks,
     labels = labels, 
-    legend = legend
+    legend = legend,
+    guide = guide
   ), class = c(scale_name, "continuous", "scale"))
 }
 
@@ -66,7 +72,12 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #'
 #' @export
 #' @keywords internal
-discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = TRUE, limits = NULL, expand = c(0, 0), na.value = NA, drop = TRUE) {
+discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = NULL, limits = NULL, expand = c(0, 0), na.value = NA, drop = TRUE, guide="legend") {
+
+  if (!is.null(legend)) {
+    warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
+    if (legend == FALSE) guide = "none"
+  }
   
   bad_labels <- is.vector(breaks) && is.vector(labels) && 
     length(breaks) != length(labels)
@@ -87,10 +98,11 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks 
     expand = expand,
 
     name = name, 
-    breaks = breaks, 
+    breaks = breaks,
     labels = labels, 
     legend = legend,
-    drop = drop
+    drop = drop,
+    guide = guide
   ), class = c(scale_name, "discrete", "scale"))
 }
 

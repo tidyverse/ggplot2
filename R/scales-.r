@@ -97,29 +97,3 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
     }
   }
 }
-
-scales_legend_desc <- function(scales, theme) {
-  # Loop through all scales, creating a list of titles, and a list of keys
-  keys <- titles <- vector("list", length(scales$scales))
-  hash <- character(length(scales$scales))
-  
-  for(i in seq_along(hash)) {
-    scale <- scales$scales[[i]]
-    if (!scale$legend || is.null(scale_limits(scale))) next
-    
-    # Figure out legend title
-    output <- scale$aesthetics[1]
-    titles[[i]] <- scale$name %||% theme$labels[[output]]
-    
-    key <- data.frame(
-      scale_map(scale, scale_breaks(scale)), scale_labels(scale), 
-      stringsAsFactors = FALSE)
-    names(key) <- c(output, ".label")
-    keys[[i]] <- key
-    hash[i] <- digest(list(titles[[i]], key$.label))
-  }
-  
-  empty <- sapply(titles, is.null)
-  
-  list(titles = titles[!empty], keys = keys[!empty], hash = hash[!empty])
-}
