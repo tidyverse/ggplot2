@@ -21,7 +21,7 @@ scale_alpha <- scale_alpha_continuous
 #' @param ... Other arguments passed on to \code{\link{discrete_scale}} 
 #'   to control name, limits, breaks, labels and so forth.
 #' @export
-scale_alpha_discrete <- function(..., range = c(1, 6)) {
+scale_alpha_discrete <- function(..., range = c(0.1, 1)) {
   discrete_scale("alpha", "alpha_d",
     function(n) seq(range[1], range[2], length = n), ...)
 }
