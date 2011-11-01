@@ -82,7 +82,7 @@ GeomBoxplot <- proto(Geom, {
       size = data$size, 
       linetype = data$linetype,
       fill = alpha(data$fill, data$alpha),  
-      alpha = 1, 
+      alpha = data$alpha, 
       group = 1, 
       stringsAsFactors = FALSE
     )
