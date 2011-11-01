@@ -11,7 +11,7 @@ Scales <- setRefClass("Scales", fields = "scales", methods = list(
   },
   add = function(scale) {
     # Remove old scale for this aesthetic (if it exists)
-    scales <<- c(scales[!find(scale)], list(scale))
+    scales <<- c(scales[!find(scale$aesthetics)], list(scale))
   }, 
   clone = function() {
     new_scales <- lapply(scales, scale_clone)
