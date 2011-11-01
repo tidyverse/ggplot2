@@ -82,7 +82,6 @@ GeomBoxplot <- proto(Geom, {
       size = data$size, 
       linetype = data$linetype,
       fill = alpha(data$fill, data$alpha),  
-      alpha = 1, 
       group = 1, 
       stringsAsFactors = FALSE
     )
@@ -91,7 +90,8 @@ GeomBoxplot <- proto(Geom, {
       x = data$x,
       xend = data$x, 
       y = c(data$upper, data$lower), 
-      yend = c(data$ymax, data$ymin), 
+      yend = c(data$ymax, data$ymin),
+      alpha = 1,
       common)
 
     box <- data.frame(
@@ -100,6 +100,7 @@ GeomBoxplot <- proto(Geom, {
       ymin = data$lower, 
       y = data$middle, 
       ymax = data$upper,
+      alpha = data$alpha, 
       common)
     
     if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
