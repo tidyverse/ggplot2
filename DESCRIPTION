@@ -180,3 +180,5 @@ Collate:
     'utilities.r'
     'xxx-digest.r'
     'zxx.r'
+    'stat-aggr-2d.r'
+    'stat-aggr-hex.r'
