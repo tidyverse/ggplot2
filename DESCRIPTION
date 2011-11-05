@@ -182,3 +182,5 @@ Collate:
     'guides-.r'
     'guide-legend.r'
     'guide-colorbar.r'
+    'stat-aggr-2d.r'
+    'stat-aggr-hex.r'
