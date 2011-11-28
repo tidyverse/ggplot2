@@ -38,7 +38,7 @@
 #'   labels = date_format("%d/%m"))
 scale_x_datetime <- function(..., expand = c(0.05, 0)) {
   continuous_scale(c("x", "xmin", "xmax", "xend"), "datetime", identity, ...,
-    trans = "time", expand = expand, legend = FALSE)
+    trans = "time", expand = expand, guide = "none")
 }
 
 scale_map.datetime <- function(scale, x) {
@@ -49,7 +49,7 @@ scale_map.datetime <- function(scale, x) {
 #' @export 
 scale_y_datetime <- function(..., expand = c(0.05, 0)) {
   continuous_scale(c("y", "ymin", "ymax", "yend"), "datetime", identity, ...,
-    trans = "time", expand = expand, legend = FALSE)
+    trans = "time", expand = expand, guide = "none")
 }
 
 icon.scale_datetime <- function() {
