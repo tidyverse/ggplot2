@@ -32,6 +32,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
   if (!is.null(legend)) {
     warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
     if (legend == FALSE) guide = "none"
+    else if (legend == TRUE) guide = "legend"
   }
   
   bad_labels <- is.vector(breaks) && is.vector(labels) && 
@@ -79,6 +80,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks 
   if (!is.null(legend)) {
     warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
     if (legend == FALSE) guide = "none"
+    else if (legend == TRUE) guide = "legend"
   }
   
   bad_labels <- is.vector(breaks) && is.vector(labels) && 
