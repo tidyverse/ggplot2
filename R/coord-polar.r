@@ -95,11 +95,11 @@ coord_train.polar <- function(coord, scales) {
   }
 
   x.major <- scale_break_positions(scales$x)
-  x.minor <- scale_breaks_minor(scales$x)
+  x.minor <- scale_breaks_minor_positions(scales$x)
   x.labels <- scale_labels(scales$x, x.major)
 
   y.major <- scale_break_positions(scales$y)
-  y.minor <- scale_breaks_minor(scales$y)
+  y.minor <- scale_breaks_minor_positions(scales$y)
   y.labels <- scale_labels(scales$y, y.major)
   
   details <- list(
@@ -167,23 +167,23 @@ coord_render_axis_h.polar <- function(coord, details, theme) {
 coord_render_bg.polar <- function(coord, details, theme) {
   details <- rename_data(coord, details)
   
-  theta <- theta_rescale(coord, details$theta.major, details)
-  thetamin <- theta_rescale(coord, details$theta.minor, details)
+  theta <- if (length(details$theta.major) > 0) theta_rescale(coord, details$theta.major, details)
+  thetamin <- if (length(details$theta.minor) > 0) theta_rescale(coord, details$theta.minor, details)
   thetafine <- seq(0, 2 * pi, length=100)    
-  
+
   r <- 0.4
   rfine <- c(r_rescale(coord, details$r.major, details), 0.45)
 
   ggname("grill", grobTree(
     theme_render(theme, "panel.background"),
-    if (length(labels) > 0) theme_render(
+    if (length(theta) > 0) theme_render(
       theme, "panel.grid.major", name = "angle", 
       x = c(rbind(0, 0.45 * sin(theta))) + 0.5, 
       y = c(rbind(0, 0.45 * cos(theta))) + 0.5,
       id.lengths = rep(2, length(theta)), 
       default.units="native"
     ),
-    theme_render(
+    if (length(thetamin) > 0) theme_render(
       theme, "panel.grid.minor", name = "angle", 
       x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5, 
       y = c(rbind(0, 0.45 * cos(thetamin))) + 0.5,

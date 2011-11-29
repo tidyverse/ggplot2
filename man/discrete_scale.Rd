@@ -3,8 +3,9 @@
 \title{Discrete scale constructor.}
 \usage{
   discrete_scale(aesthetics, scale_name, palette, name =
-  NULL, breaks = NULL, labels = NULL, legend = TRUE, limits
-  = NULL, expand = c(0, 0), na.value = NA, drop = TRUE)
+  NULL, breaks = NULL, labels = NULL, legend = NULL, limits
+  = NULL, expand = c(0, 0), na.value = NA, drop = TRUE,
+  guide = "legend")
 }
 \description{
   Discrete scale constructor.

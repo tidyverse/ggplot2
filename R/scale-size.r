@@ -36,7 +36,7 @@ scale_size <- scale_size_continuous
 #' @export
 scale_size_discrete <- function(..., range = c(1, 6)) {
   discrete_scale("size", "size_d",
-    function(n) seq(range[1], range[2], length = n))
+    function(n) seq(range[1], range[2], length = n), ...)
 }
 
 icon.size <- function() {
