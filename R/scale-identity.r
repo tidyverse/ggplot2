@@ -1,6 +1,7 @@
 #' Use values without scaling.
 #'
-#' @param ... Other arguments passed on to \code{\link{discrete_scale}}
+#' @param ... Other arguments passed on to \code{\link{discrete_scale}} or
+#'   \code{\link{continuous_scale}}
 #' @rdname scale_identity
 #' @export
 #' @examples
