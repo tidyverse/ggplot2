@@ -14,14 +14,15 @@ Description: An implementation of the grammar of graphics
     data to aesthetic attributes. See the ggplot2 website
     for more information, documentation and examples.
 Depends:
-    proto
+    R (>= 2.14)
 Imports:
     plyr (>= 1.0),
     digest,
     grid,
     reshape2,
     scales,
-    memoise
+    memoise,
+    proto
 Suggests:
     quantreg,
     Hmisc,
