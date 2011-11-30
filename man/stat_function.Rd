@@ -3,7 +3,8 @@
 \title{Superimpose a function.}
 \usage{
   stat_function(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", fun, n = 101, args = list(), ...)
+    position = "identity", fun, n = 101, args = list(),
+    ...)
 }
 \arguments{
   \item{fun}{function to use}

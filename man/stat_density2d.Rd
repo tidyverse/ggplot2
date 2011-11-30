@@ -2,9 +2,9 @@
 \alias{stat_density2d}
 \title{2d density estimation.}
 \usage{
-  stat_density2d(mapping = NULL, data = NULL, geom =
-  "density2d", position = "identity", na.rm = FALSE,
-  contour = TRUE, n = 100, ...)
+  stat_density2d(mapping = NULL, data = NULL,
+    geom = "density2d", position = "identity",
+    na.rm = FALSE, contour = TRUE, n = 100, ...)
 }
 \arguments{
   \item{contour}{If \code{TRUE}, contour the results of the
@@ -20,13 +20,13 @@
 }
 \examples{
 m <- ggplot(movies, aes(x=rating, y=length)) +
-geom_point() +
-scale_y_continuous(limits=c(1, 500))
+  geom_point() +
+  scale_y_continuous(limits=c(1, 500))
 m + geom_density2d()
 
 dens <- MASS::kde2d(movies$rating, movies$length, n=100)
 densdf <- data.frame(expand.grid(rating = dens$x, length = dens$y),
-z = as.vector(dens$z))
+ z = as.vector(dens$z))
 m + geom_contour(aes(z=z), data=densdf)
 
 m + geom_density2d() + scale_y_log10()
@@ -35,14 +35,14 @@ m + geom_density2d() + coord_trans(y="log10")
 m + stat_density2d(aes(fill = ..level..), geom="polygon")
 
 qplot(rating, length, data=movies, geom=c("point","density2d")) +
-ylim(1, 500)
+  ylim(1, 500)
 
 # If you map an aesthetic to a categorical variable, you will get a
 # set of contours for each value of that variable
 qplot(rating, length, data = movies, geom = "density2d",
-colour = factor(Comedy), ylim = c(0, 150))
+  colour = factor(Comedy), ylim = c(0, 150))
 qplot(rating, length, data = movies, geom = "density2d",
-colour = factor(Action), ylim = c(0, 150))
+  colour = factor(Action), ylim = c(0, 150))
 qplot(carat, price, data = diamonds, geom = "density2d", colour = cut)
 
 # Another example ------

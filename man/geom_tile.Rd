@@ -3,7 +3,7 @@
 \title{Tile plane with rectangles.}
 \usage{
   geom_tile(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ...)
+    position = "identity", ...)
 }
 \description{
   Similar to \code{\link{levelplot}} and
@@ -12,11 +12,11 @@
 \examples{
 # Generate data
 pp <- function (n,r=4) {
-x <- seq(-r*pi, r*pi, len=n)
-df <- expand.grid(x=x, y=x)
-df$r <- sqrt(df$x^2 + df$y^2)
-df$z <- cos(df$r^2)*exp(-df$r/6)
-df
+ x <- seq(-r*pi, r*pi, len=n)
+ df <- expand.grid(x=x, y=x)
+ df$r <- sqrt(df$x^2 + df$y^2)
+ df$z <- cos(df$r^2)*exp(-df$r/6)
+ df
 }
 p <- ggplot(pp(20), aes(x=x,y=y))
 
@@ -52,10 +52,10 @@ cars + stat_density(aes(fill=..count..), geom="tile", position="identity")
 # Another example with with unequal tile sizes
 x.cell.boundary <- c(0, 4, 6, 8, 10, 14)
 example <- data.frame(
-x = rep(c(2, 5, 7, 9, 12), 2),
-y = factor(rep(c(1,2), each=5)),
-z = rep(1:5, each=2),
-w = rep(diff(x.cell.boundary), 2)
+  x = rep(c(2, 5, 7, 9, 12), 2),
+  y = factor(rep(c(1,2), each=5)),
+  z = rep(1:5, each=2),
+  w = rep(diff(x.cell.boundary), 2)
 )
 
 qplot(x, y, fill=z, data=example, geom="tile")

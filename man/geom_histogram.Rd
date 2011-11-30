@@ -3,7 +3,7 @@
 \title{Histogram}
 \usage{
   geom_histogram(mapping = NULL, data = NULL, stat = "bin",
-  position = "stack", ...)
+    position = "stack", ...)
 }
 \description{
   \code{geom_histogram} is an alias for
@@ -40,7 +40,7 @@ m + geom_histogram(aes(fill = ..count..))
 
 # Change scales
 m + geom_histogram(aes(fill = ..count..)) +
-scale_fill_gradient("Count", low = "green", high = "red")
+  scale_fill_gradient("Count", low = "green", high = "red")
 
 # Often we don't want the height of the bar to represent the
 # count of observations, but the sum of some other variable.
@@ -50,7 +50,7 @@ qplot(rating, data=movies, geom="bar", binwidth = 0.1)
 # If, however, we want to see the number of votes cast in each
 # category, we need to weight by the votes variable
 qplot(rating, data=movies, geom="bar", binwidth = 0.1,
-weight=votes, ylab = "votes")
+  weight=votes, ylab = "votes")
 
 m <- ggplot(movies, aes(x = votes))
 # For transformed scales, binwidth applies to the transformed data.
@@ -100,15 +100,15 @@ hist_cut + geom_bar(position="dodge")
 # This is easy in ggplot2, but not visually effective.  It's better
 # to use a frequency polygon or density plot.  Like this:
 ggplot(diamonds, aes(price, ..density.., colour = cut)) +
-geom_freqpoly(binwidth = 1000)
+  geom_freqpoly(binwidth = 1000)
 # Or this:
 ggplot(diamonds, aes(price, colour = cut)) +
-geom_density()
+  geom_density()
 # Or if you want to be fancy, maybe even this:
 ggplot(diamonds, aes(price, fill = cut)) +
-geom_density(alpha = 0.2)
+  geom_density(alpha = 0.2)
 # Which looks better when the distributions are more distinct
 ggplot(diamonds, aes(depth, fill = cut)) +
-geom_density(alpha = 0.2) + xlim(55, 70)
+  geom_density(alpha = 0.2) + xlim(55, 70)
 }
 

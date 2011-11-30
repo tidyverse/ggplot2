@@ -3,7 +3,7 @@
 \title{Add a smoothed conditional mean.}
 \usage{
   geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
-  position = "identity", ...)
+    position = "identity", ...)
 }
 \description{
   Add a smoothed conditional mean.
@@ -16,8 +16,8 @@ qplot(wt, mpg, data=mtcars, colour=factor(cyl))
 
 model <- lm(mpg ~ wt + factor(cyl), data=mtcars)
 grid <- with(mtcars, expand.grid(
-wt = seq(min(wt), max(wt), length = 20),
-cyl = levels(factor(cyl))
+  wt = seq(min(wt), max(wt), length = 20),
+  cyl = levels(factor(cyl))
 ))
 
 grid$mpg <- stats::predict(model, newdata=grid)
@@ -31,6 +31,6 @@ grid$ucl <- err$fit + 1.96 * err$se.fit
 grid$lcl <- err$fit - 1.96 * err$se.fit
 
 qplot(wt, mpg, data=mtcars, colour=factor(cyl)) +
-geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat="identity")
+  geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat="identity")
 }
 

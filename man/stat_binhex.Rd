@@ -3,7 +3,7 @@
 \title{Bin 2d plane into hexagons.}
 \usage{
   stat_binhex(mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", bins = 30, na.rm = FALSE, ...)
+    position = "identity", bins = 30, na.rm = FALSE, ...)
 }
 \description{
   Bin 2d plane into hexagons.
@@ -25,7 +25,7 @@ d + stat_binhex(binwidth = c(.1, 500))
 # With qplot
 qplot(x, y, data = diamonds, geom="hex", xlim = c(4, 10), ylim = c(4, 10))
 qplot(x, y, data = diamonds, geom="hex", xlim = c(4, 10), ylim = c(4, 10),
-binwidth = c(0.1, 0.1))
+  binwidth = c(0.1, 0.1))
 }
 \seealso{
   \code{\link{stat_bin2d}} for rectangular binning

@@ -2,8 +2,8 @@
 \alias{ggfluctuation}
 \title{Create a fluctuation plot.}
 \usage{
-  ggfluctuation(table, type = "size", floor = 0, ceiling =
-  max(table$freq, na.rm = TRUE))
+  ggfluctuation(table, type = "size", floor = 0,
+    ceiling = max(table$freq, na.rm = TRUE))
 }
 \arguments{
   \item{table}{a table of values, or a data frame with

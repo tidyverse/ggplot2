@@ -3,7 +3,7 @@
 \title{Add heatmap of 2d bin counts.}
 \usage{
   geom_bin2d(mapping = NULL, data = NULL, stat = "bin2d",
-  position = "identity", ...)
+    position = "identity", ...)
 }
 \description{
   Add heatmap of 2d bin counts.

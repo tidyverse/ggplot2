@@ -43,8 +43,8 @@ d + scale_colour_brewer(palette="Set1")
 # scale_fill_brewer works just the same as
 # scale_colour_brewer but for fill colours
 ggplot(diamonds, aes(x=price, fill=cut)) +
-geom_histogram(position="dodge", binwidth=1000) +
-scale_fill_brewer()
+  geom_histogram(position="dodge", binwidth=1000) +
+  scale_fill_brewer()
 }
 \seealso{
   Other colour scales: \code{\link{scale_colour_gradient}},

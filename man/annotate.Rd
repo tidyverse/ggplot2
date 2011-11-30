@@ -2,8 +2,8 @@
 \alias{annotate}
 \title{Annotate a plot}
 \usage{
-  annotate(geom, x = NULL, y = NULL, xmin = NULL, xmax =
-  NULL, ymin = NULL, ymax = NULL, ...)
+  annotate(geom, x = NULL, y = NULL, xmin = NULL,
+    xmax = NULL, ymin = NULL, ymax = NULL, ...)
 }
 \arguments{
   \item{name}{of geom to use for annotation}

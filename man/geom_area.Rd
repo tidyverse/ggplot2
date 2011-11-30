@@ -3,7 +3,7 @@
 \title{Area plot.}
 \usage{
   geom_area(mapping = NULL, data = NULL, stat = "identity",
-  position = "stack", na.rm = FALSE, ...)
+    position = "stack", na.rm = FALSE, ...)
 }
 \description{
   An area plot is the continuous analog of a stacked bar

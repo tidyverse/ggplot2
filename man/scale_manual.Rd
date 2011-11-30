@@ -27,7 +27,7 @@ p <- qplot(mpg, wt, data = mtcars, colour = factor(cyl))
 
 p + scale_colour_manual(values = c("red","blue", "green"))
 p + scale_colour_manual(
-values = c("8" = "red","4" = "blue","6" = "green"))
+  values = c("8" = "red","4" = "blue","6" = "green"))
 # With rgb hex values
 p + scale_colour_manual(values = c("#FF0000", "#0000FF", "#00FF00"))
 
@@ -38,7 +38,7 @@ p + scale_colour_manual(values = cols)
 p + scale_colour_manual(values = cols, breaks = c("4", "6", "8"))
 p + scale_colour_manual(values = cols, breaks = c("8", "6", "4"))
 p + scale_colour_manual(values = cols, breaks = c("4", "6", "8"),
-labels = c("four", "six", "eight"))
+  labels = c("four", "six", "eight"))
 
 # And limits to control the possible values of the scale
 p + scale_colour_manual(values = cols, limits = c("4", "8"))

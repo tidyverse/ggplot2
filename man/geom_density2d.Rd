@@ -2,9 +2,10 @@
 \alias{geom_density2d}
 \title{Contours from a 2d density estimate.}
 \usage{
-  geom_density2d(mapping = NULL, data = NULL, stat =
-  "density2d", position = "identity", lineend = "butt",
-  linejoin = "round", linemitre = 1, na.rm = FALSE, ...)
+  geom_density2d(mapping = NULL, data = NULL,
+    stat = "density2d", position = "identity",
+    lineend = "butt", linejoin = "round", linemitre = 1,
+    na.rm = FALSE, ...)
 }
 \description{
   Perform a 2D kernel density estimatation using kde2d and

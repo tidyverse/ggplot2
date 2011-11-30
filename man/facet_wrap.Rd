@@ -2,8 +2,8 @@
 \alias{facet_wrap}
 \title{Wrap a 1d ribbon of panels into 2d.}
 \usage{
-  facet_wrap(facets, nrow = NULL, ncol = NULL, scales =
-  "fixed", shrink = TRUE, as.table = TRUE)
+  facet_wrap(facets, nrow = NULL, ncol = NULL,
+    scales = "fixed", shrink = TRUE, as.table = TRUE)
 }
 \arguments{
   \item{nrow}{number of rows}
@@ -20,7 +20,7 @@
 }
 \examples{
 d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) +
-xlim(0, 2) + stat_binhex(na.rm = TRUE) + opts(aspect.ratio = 1)
+  xlim(0, 2) + stat_binhex(na.rm = TRUE) + opts(aspect.ratio = 1)
 d + facet_wrap(~ color)
 d + facet_wrap(~ color, ncol = 1)
 d + facet_wrap(~ color, ncol = 4)
@@ -55,10 +55,10 @@ p + facet_wrap(~ cyl, as.table = F)
 # Add data that does not contain all levels of the faceting variables
 cyl6 <- subset(mpg, cyl == 6)
 p + geom_point(data = cyl6, colour = "red", size = 1) +
-facet_wrap(~ cyl)
+  facet_wrap(~ cyl)
 p + geom_point(data = transform(cyl6, cyl = 7), colour = "red") +
-facet_wrap(~ cyl)
+  facet_wrap(~ cyl)
 p + geom_point(data = transform(cyl6, cyl = NULL), colour = "red") +
-facet_wrap(~ cyl)
+  facet_wrap(~ cyl)
 }
 

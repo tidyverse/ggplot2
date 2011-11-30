@@ -17,10 +17,8 @@
 #' @param object component to add
 #' @seealso \code{\link{set_last_plot}}, \code{\link{ggplot}}
 #' @method + ggplot
-#' @aliases +.ggplot \%+\%
 #' @S3method "+" ggplot
-#' @export "%+%"
-#' @name ggplot-add
+#' @rdname ggplot-add
 "+.ggplot" <- function(p, object) {
   if (is.null(object)) return(p)
 
@@ -77,4 +75,7 @@
   set_last_plot(p)
   p
 }
+
+#' @rdname ggplot-add
+#' @export
 "%+%" <- `+.ggplot`

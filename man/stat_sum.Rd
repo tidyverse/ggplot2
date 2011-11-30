@@ -3,7 +3,7 @@
 \title{Sum unique values.  Useful for overplotting on scatterplots.}
 \usage{
   stat_sum(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", ...)
+    position = "identity", ...)
 }
 \value{
   a data.frame with additional columns \item{n}{number of

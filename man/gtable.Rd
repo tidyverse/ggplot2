@@ -3,7 +3,7 @@
 \title{Create a new table grid.}
 \usage{
   gtable(grobs = list(), layout = NULL, widths = list(),
-  heights = list(), respect = FALSE, name = "layout")
+    heights = list(), respect = FALSE, name = "layout")
 }
 \arguments{
   \item{grobs}{a list of grobs}

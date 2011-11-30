@@ -2,7 +2,7 @@
 \alias{scale_alpha_discrete}
 \title{Alpha scale for discrete variable.}
 \usage{
-  scale_alpha_discrete(..., range = c(1, 6))
+  scale_alpha_discrete(..., range = c(0.1, 1))
 }
 \arguments{
   \item{...}{Other arguments passed on to

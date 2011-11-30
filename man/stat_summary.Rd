@@ -2,8 +2,8 @@
 \alias{stat_summary}
 \title{Summarise y values at every unique x.}
 \usage{
-  stat_summary(mapping = NULL, data = NULL, geom =
-  "pointrange", position = "identity", ...)
+  stat_summary(mapping = NULL, data = NULL,
+    geom = "pointrange", position = "identity", ...)
 }
 \value{
   a data.frame with additional columns:
@@ -46,7 +46,7 @@ p + coord_cartesian(ylim = c(15, 30))
 # each x:
 
 stat_sum_single <- function(fun, geom="point", ...) {
-stat_summary(fun.y=fun, colour="red", geom=geom, size = 3, ...)
+  stat_summary(fun.y=fun, colour="red", geom=geom, size = 3, ...)
 }
 
 c + stat_sum_single(mean)
@@ -55,7 +55,7 @@ c + stat_sum_single(median)
 c + stat_sum_single(sd)
 
 c + stat_summary(fun.y = mean, fun.ymin = min, fun.ymax = max,
-colour = "red")
+  colour = "red")
 
 c + aes(colour = factor(vs)) + stat_summary(fun.y = mean, geom="line")
 
@@ -63,7 +63,7 @@ c + aes(colour = factor(vs)) + stat_summary(fun.y = mean, geom="line")
 # A set of useful summary functions is provided from the Hmisc package:
 
 stat_sum_df <- function(fun, geom="crossbar", ...) {
-stat_summary(fun.data=fun, colour="red", geom=geom, width=0.2, ...)
+  stat_summary(fun.data=fun, colour="red", geom=geom, width=0.2, ...)
 }
 
 c + stat_sum_df("mean_cl_boot")
@@ -81,8 +81,8 @@ c + stat_sum_df("mean_cl_normal", geom = "smooth")
 # Summaries are much more useful with a bigger data set:
 m <- ggplot(movies, aes(x=round(rating), y=votes)) + geom_point()
 m2 <- m +
-stat_summary(fun.data = "mean_cl_boot", geom = "crossbar",
-colour = "red", width = 0.3)
+   stat_summary(fun.data = "mean_cl_boot", geom = "crossbar",
+     colour = "red", width = 0.3)
 m2
 # Notice how the overplotting skews off visual perception of the mean
 # supplementing the raw data with summary statisitcs is _very_ important

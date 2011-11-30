@@ -3,7 +3,7 @@
 \title{Calculate contours of 3d data.}
 \usage{
   stat_contour(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", na.rm = FALSE, ...)
+    position = "identity", na.rm = FALSE, ...)
 }
 \value{
   A data frame with additional column: \item{level}{height
@@ -31,7 +31,7 @@ v + stat_contour(binwidth = 2)
 v + stat_contour(binwidth = 5)
 v + stat_contour(binwidth = 10)
 v + stat_contour(binwidth = 2, size = 0.5, colour = "grey50") +
-stat_contour(binwidth = 10, size = 1)
+  stat_contour(binwidth = 10, size = 1)
 
 # Add aesthetic mappings
 v + stat_contour(aes(size = ..level..))
@@ -39,7 +39,7 @@ v + stat_contour(aes(colour = ..level..))
 
 # Change scale
 v + stat_contour(aes(colour = ..level..), size = 2) +
-scale_colour_gradient(low = "brown", high = "white")
+  scale_colour_gradient(low = "brown", high = "white")
 
 # Set aesthetics to fixed value
 v + stat_contour(colour = "red")

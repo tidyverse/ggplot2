@@ -32,10 +32,10 @@ qplot(carat, price, data=diamonds) + coord_trans(x = "log10", y = "log10")
 
 d <- subset(diamonds, carat > 0.5)
 qplot(carat, price, data = d, log="xy") +
-geom_smooth(method="lm")
+  geom_smooth(method="lm")
 qplot(carat, price, data = d) +
-geom_smooth(method="lm") +
-coord_trans(x = "log10", y = "log10")
+  geom_smooth(method="lm") +
+  coord_trans(x = "log10", y = "log10")
 
 # Here I used a subset of diamonds so that the smoothed line didn't
 # drop below zero, which obviously causes problems on the log-transformed
@@ -45,8 +45,8 @@ coord_trans(x = "log10", y = "log10")
 # possible to do back-transformations:
 library(scales)
 qplot(carat, price, data=diamonds, log="xy") +
-geom_smooth(method="lm") +
-coord_trans(x = exp_trans(10), y = exp_trans(10))
+  geom_smooth(method="lm") +
+  coord_trans(x = exp_trans(10), y = exp_trans(10))
 # cf.
 qplot(carat, price, data=diamonds) + geom_smooth(method = "lm")
 

@@ -3,7 +3,7 @@
 \title{Remove duplicates.}
 \usage{
   stat_unique(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", ...)
+    position = "identity", ...)
 }
 \description{
   Remove duplicates.

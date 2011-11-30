@@ -3,7 +3,7 @@
 \title{Count number of observation in rectangular bins.}
 \usage{
   stat_bin2d(mapping = NULL, data = NULL, geom = "rect",
-  position = "identity", bins = 30, drop = TRUE, ...)
+    position = "identity", bins = 30, drop = TRUE, ...)
 }
 \description{
   Count number of observation in rectangular bins.
@@ -29,9 +29,9 @@ d + stat_bin2d(breaks = list(x = x, y = y))
 
 # With qplot
 qplot(x, y, data = diamonds, geom="bin2d",
-xlim = c(4, 10), ylim = c(4, 10))
+  xlim = c(4, 10), ylim = c(4, 10))
 qplot(x, y, data = diamonds, geom="bin2d", binwidth = c(0.1, 0.1),
-xlim = c(4, 10), ylim = c(4, 10))
+  xlim = c(4, 10), ylim = c(4, 10))
 }
 \seealso{
   \code{\link{stat_binhex}} for hexagonal binning

@@ -3,8 +3,8 @@
 \title{Theme element: text.}
 \usage{
   theme_text(family = "", face = "plain", colour = "black",
-  size = 10, hjust = 0.5, vjust = 0.5, angle = 0,
-  lineheight = 1.1)
+    size = 10, hjust = 0.5, vjust = 0.5, angle = 0,
+    lineheight = 1.1)
 }
 \arguments{
   \item{family}{font family}

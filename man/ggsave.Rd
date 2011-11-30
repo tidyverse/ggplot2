@@ -3,9 +3,9 @@
 \title{Save a ggplot with sensible defaults}
 \usage{
   ggsave(filename = default_name(plot), plot = last_plot(),
-  device = default_device(filename), path = NULL, scale =
-  1, width = par("din")[1], height = par("din")[2], dpi =
-  300, ...)
+    device = default_device(filename), path = NULL,
+    scale = 1, width = par("din")[1],
+    height = par("din")[2], dpi = 300, ...)
 }
 \arguments{
   \item{filename}{file name/filename of plot}

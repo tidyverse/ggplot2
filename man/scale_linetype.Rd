@@ -17,8 +17,8 @@
 }
 \examples{
 ec_scaled <- data.frame(
-date = economics$date,
-rescaler(economics[, -(1:2)], "range")
+  date = economics$date,
+  rescaler(economics[, -(1:2)], "range")
 )
 ecm <- melt(ec_scaled, id = "date")
 

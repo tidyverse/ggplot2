@@ -3,7 +3,7 @@
 \title{Textual annotations.}
 \usage{
   geom_text(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", parse = FALSE, ...)
+    position = "identity", parse = FALSE, ...)
 }
 \arguments{
   \item{parse}{If TRUE, the labels will be parsed into
@@ -36,7 +36,7 @@ p + geom_text(aes(size=wt)) + scale_size(range=c(3,6))
 # details of the display are described in ?plotmath, but note that
 # geom_text uses strings, not expressions.
 p + geom_text(aes(label = paste(wt, "^(", cyl, ")", sep = "")),
-parse = T)
+  parse = T)
 
 # Add an annotation not from a variable source
 c <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
@@ -46,9 +46,9 @@ c + annotate("text", label = "plot mpg vs. wt", x = 2, y = 15, size = 8, colour 
 
 # Use qplot instead
 qplot(wt, mpg, data = mtcars, label = rownames(mtcars),
-geom=c("point", "text"))
+   geom=c("point", "text"))
 qplot(wt, mpg, data = mtcars, label = rownames(mtcars), size = wt) +
-geom_text(colour = "red")
+  geom_text(colour = "red")
 
 # You can specify fontfamily, fontface and lineheight
 p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))

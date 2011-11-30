@@ -3,7 +3,7 @@
 \title{Hexagon bining.}
 \usage{
   geom_hex(mapping = NULL, data = NULL, stat = "binhex",
-  position = "identity", ...)
+    position = "identity", ...)
 }
 \description{
   Hexagon bining.

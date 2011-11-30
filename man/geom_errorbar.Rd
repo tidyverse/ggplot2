@@ -2,8 +2,8 @@
 \alias{geom_errorbar}
 \title{Error bars.}
 \usage{
-  geom_errorbar(mapping = NULL, data = NULL, stat =
-  "identity", position = "identity", ...)
+  geom_errorbar(mapping = NULL, data = NULL,
+    stat = "identity", position = "identity", ...)
 }
 \description{
   Error bars.
@@ -11,10 +11,10 @@
 \examples{
 # Create a simple example dataset
 df <- data.frame(
-trt = factor(c(1, 1, 2, 2)),
-resp = c(1, 5, 3, 4),
-group = factor(c(1, 2, 1, 2)),
-se = c(0.1, 0.3, 0.3, 0.2)
+  trt = factor(c(1, 1, 2, 2)),
+  resp = c(1, 5, 3, 4),
+  group = factor(c(1, 2, 1, 2)),
+  se = c(0.1, 0.3, 0.3, 0.2)
 )
 df2 <- df[c(1,3),]
 

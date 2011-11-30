@@ -3,7 +3,7 @@
 \title{Connect observations, ordered by x value.}
 \usage{
   geom_line(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ...)
+    position = "identity", ...)
 }
 \description{
   Connect observations, ordered by x value.
@@ -11,8 +11,8 @@
 \examples{
 # Summarise number of movie ratings by year of movie
 mry <- do.call(rbind, by(movies, round(movies$rating), function(df) {
-nums <- tapply(df$length, df$year, length)
-data.frame(rating=round(df$rating[1]), year = as.numeric(names(nums)), number=as.vector(nums))
+  nums <- tapply(df$length, df$year, length)
+  data.frame(rating=round(df$rating[1]), year = as.numeric(names(nums)), number=as.vector(nums))
 }))
 
 p <- ggplot(mry, aes(x=year, y=number, group=rating))
@@ -58,7 +58,7 @@ df <- data.frame(id = seq_along(group), group, y2005, y2010)
 library(reshape2)
 dfm <- melt(df, id.var = c("id", "group"))
 ggplot(dfm, aes(variable, value, group = id, colour = group)) +
-geom_path(alpha = 0.5)
+  geom_path(alpha = 0.5)
 }
 \seealso{
   \code{\link{geom_path}}: connect observations in data

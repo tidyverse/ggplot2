@@ -7,24 +7,22 @@
 \alias{scale_size_identity}
 \title{Use values without scaling.}
 \usage{
-  scale_colour_identity(..., legend = FALSE)
+  scale_colour_identity(..., guide = "none")
 
-  scale_fill_identity(..., legend = FALSE)
+  scale_fill_identity(..., guide = "none")
 
-  scale_shape_identity(..., legend = FALSE)
+  scale_shape_identity(..., guide = "none")
 
-  scale_linetype_identity(..., legend = FALSE)
+  scale_linetype_identity(..., guide = "none")
 
-  scale_alpha_identity(..., legend = FALSE)
+  scale_alpha_identity(..., guide = "none")
 
-  scale_size_identity(..., legend = FALSE)
+  scale_size_identity(..., guide = "none")
 }
 \arguments{
   \item{...}{Other arguments passed on to
-  \code{\link{discrete_scale}}}
-
-  \item{legend}{Should this scale have a legend?  Defaults
-  to \code{FALSE}}
+  \code{\link{discrete_scale}} or
+  \code{\link{continuous_scale}}}
 }
 \description{
   Use values without scaling.
@@ -34,10 +32,10 @@ colour <- c("red", "green", "blue", "yellow")
 qplot(1:4, 1:4, fill = colour, geom = "tile")
 qplot(1:4, 1:4, fill = colour, geom = "tile") + scale_fill_identity()
 
-# To get a legend, you also need to supply labels, and specify legend = T
+# To get a legend guide, you also need to supply labels, and specify guide = "legend"
 qplot(1:4, 1:4, fill = colour, geom = "tile") +
-scale_fill_identity("trt", labels = letters[1:4], breaks = colour,
-legend = TRUE)
+  scale_fill_identity("trt", labels = letters[1:4], breaks = colour,
+   guide = legend)
 
 # cyl scaled to appropriate size
 qplot(mpg, wt, data = mtcars, size = cyl)

@@ -3,8 +3,8 @@
 \title{Bin data.}
 \usage{
   stat_bin(mapping = NULL, data = NULL, geom = "bar",
-  position = "stack", width = 0.9, drop = FALSE, right =
-  TRUE, ...)
+    position = "stack", width = 0.9, drop = FALSE,
+    right = TRUE, ...)
 }
 \arguments{
   \item{binwidth}{Bin width to use. Defaults to 1/30 of the
@@ -49,7 +49,7 @@ m + stat_bin(breaks=seq(4,6, by=0.1))
 
 # To create a unit area histogram, use aes(y = ..density..)
 (linehist <- m + stat_bin(aes(y = ..density..), binwidth=0.1,
-geom="line", position="identity"))
+  geom="line", position="identity"))
 linehist + stat_density(colour="blue", fill=NA)
 
 # Also works with categorical variables

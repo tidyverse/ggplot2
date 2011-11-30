@@ -2,8 +2,8 @@
 \alias{geom_linerange}
 \title{An interval represented by a vertical line.}
 \usage{
-  geom_linerange(mapping = NULL, data = NULL, stat =
-  "identity", position = "identity", ...)
+  geom_linerange(mapping = NULL, data = NULL,
+    stat = "identity", position = "identity", ...)
 }
 \description{
   An interval represented by a vertical line.
@@ -21,7 +21,7 @@ qplot(cut, fit, data=cuts, geom="bar")
 
 # Display estimates and standard errors in various ways
 se <- ggplot(cuts, aes(cut, fit,
-ymin = fit - se.fit, ymax=fit + se.fit, colour = cut))
+  ymin = fit - se.fit, ymax=fit + se.fit, colour = cut))
 se + geom_linerange()
 se + geom_pointrange()
 se + geom_errorbar(width = 0.5)

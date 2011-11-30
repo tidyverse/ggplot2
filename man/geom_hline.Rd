@@ -3,7 +3,7 @@
 \title{Horizontal line.}
 \usage{
   geom_hline(mapping = NULL, data = NULL, stat = "hline",
-  position = "identity", ...)
+    position = "identity", ...)
 }
 \description{
   This geom allows you to annotate the plot with horizontal

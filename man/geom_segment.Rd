@@ -2,8 +2,8 @@
 \alias{geom_segment}
 \title{Single line segments.}
 \usage{
-  geom_segment(mapping = NULL, data = NULL, stat =
-  "identity", position = "identity", ...)
+  geom_segment(mapping = NULL, data = NULL,
+    stat = "identity", position = "identity", ...)
 }
 \arguments{
   \item{arrow}{specification for arrow heads, as created by
@@ -36,7 +36,7 @@ counts$x <- as.numeric(as.character(counts$x))
 with(counts, plot(x, Freq, type = "h", lwd = 10))
 
 qplot(x, Freq, data = counts, geom="segment",
-yend = 0, xend = x, size = I(10))
+  yend = 0, xend = x, size = I(10))
 }
 \seealso{
   \code{\link{geom_path}} and \code{\link{geom_line}} for

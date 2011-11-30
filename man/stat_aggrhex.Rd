@@ -3,8 +3,8 @@
 \title{Aggregate 2d plane into hexagons.}
 \usage{
   stat_aggrhex(mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", bins = 30, na.rm = FALSE, fun =
-  mean, ...)
+    position = "identity", bins = 30, na.rm = FALSE,
+    fun = mean, ...)
 }
 \description{
   Aggregate 2d plane into hexagons.

@@ -3,8 +3,8 @@
 \title{Lay out panels in a grid.}
 \usage{
   facet_grid(facets, margins = FALSE, scales = "fixed",
-  space = "fixed", shrink = TRUE, labeller = "label_value",
-  as.table = TRUE)
+    space = "fixed", shrink = TRUE,
+    labeller = "label_value", as.table = TRUE)
 }
 \arguments{
   \item{facets}{a formula with the rows (of the tabular
@@ -23,7 +23,7 @@
 \examples{
 # faceting displays subsets of the data in different panels
 p <- ggplot(diamonds, aes(carat, ..density..)) +
-geom_histogram(binwidth = 1)
+ geom_histogram(binwidth = 1)
 
 # With one variable
 p + facet_grid(. ~ cut)
@@ -87,17 +87,17 @@ mt + facet_grid(vs ~ am, scales = "free", space="free")
 
 # You may need to set your own breaks for consitent display:
 mt + facet_grid(. ~ cyl, scales = "free_x", space="free") +
-scale_x_continuous(breaks = seq(10, 36, by = 2))
+  scale_x_continuous(breaks = seq(10, 36, by = 2))
 # Adding scale limits override free scales:
 last_plot() + xlim(10, 15)
 
 # Free scales are particularly useful for categorical variables
 qplot(cty, model, data=mpg) +
-facet_grid(manufacturer ~ ., scales = "free", space = "free")
+  facet_grid(manufacturer ~ ., scales = "free", space = "free")
 # particularly when you reorder factor levels
 mpg <- within(mpg, {
-model <- reorder(model, cty)
-manufacturer <- reorder(manufacturer, cty)
+  model <- reorder(model, cty)
+  manufacturer <- reorder(manufacturer, cty)
 })
 last_plot() \%+\% mpg + opts(strip.text.y = theme_text())
 

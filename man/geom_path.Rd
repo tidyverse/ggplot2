@@ -3,8 +3,8 @@
 \title{Connect observations in original order}
 \usage{
   geom_path(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", lineend = "butt", linejoin =
-  "round", linemitre = 1, na.rm = FALSE, ...)
+    position = "identity", lineend = "butt",
+    linejoin = "round", linemitre = 1, na.rm = FALSE, ...)
 }
 \arguments{
   \item{lineend}{Line end style (round, butt, square)}
@@ -57,20 +57,20 @@ qplot(unemploy/pop, psavert, data=economics, geom="path", size=as.numeric(date))
 qplot(unemploy/pop, uempmed, data=economics)
 qplot(unemploy/pop, uempmed, data=economics, geom="path")
 qplot(unemploy/pop, uempmed, data=economics, geom="path") +
-geom_point(data=head(economics, 1), colour="red") +
-geom_point(data=tail(economics, 1), colour="blue")
+  geom_point(data=head(economics, 1), colour="red") +
+  geom_point(data=tail(economics, 1), colour="blue")
 qplot(unemploy/pop, uempmed, data=economics, geom="path") +
-geom_text(data=head(economics, 1), label="1967", colour="blue") +
-geom_text(data=tail(economics, 1), label="2007", colour="blue")
+  geom_text(data=head(economics, 1), label="1967", colour="blue") +
+  geom_text(data=tail(economics, 1), label="2007", colour="blue")
 
 # geom_path removes missing values on the ends of a line.
 # use na.rm = T to suppress the warning message
 df <- data.frame(
-x = 1:5,
-y1 = c(1, 2, 3, 4, NA),
-y2 = c(NA, 2, 3, 4, 5),
-y3 = c(1, 2, NA, 4, 5),
-y4 = c(1, 2, 3, 4, 5))
+  x = 1:5,
+  y1 = c(1, 2, 3, 4, NA),
+  y2 = c(NA, 2, 3, 4, 5),
+  y3 = c(1, 2, NA, 4, 5),
+  y4 = c(1, 2, 3, 4, 5))
 qplot(x, y1, data = df, geom = c("point","line"))
 qplot(x, y2, data = df, geom = c("point","line"))
 qplot(x, y3, data = df, geom = c("point","line"))

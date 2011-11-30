@@ -27,7 +27,7 @@ qplot(cut, data=diamonds, geom="bar")
 
 d + scale_x_discrete("Cut")
 d + scale_x_discrete("Cut", labels = c("Fair" = "F","Good" = "G",
-"Very Good" = "VG","Perfect" = "P","Ideal" = "I"))
+  "Very Good" = "VG","Perfect" = "P","Ideal" = "I"))
 
 d + scale_y_discrete("Clarity")
 d + scale_x_discrete("Cut") + scale_y_discrete("Clarity")
@@ -47,7 +47,7 @@ qplot(reorder(manufacturer, displ), cty, data=mpg)
 
 # Use abbreviate as a formatter to reduce long names
 qplot(reorder(manufacturer, cty), cty, data=mpg) +
-scale_x_discrete(labels = abbreviate)
+  scale_x_discrete(labels = abbreviate)
 }
 \seealso{
   Other position scales: \code{\link{scale_x_continuous}},

@@ -3,7 +3,7 @@
 \title{Bars, rectangles with bases on x-axis}
 \usage{
   geom_bar(mapping = NULL, data = NULL, stat = "bin",
-  position = "stack", ...)
+    position = "stack", ...)
 }
 \description{
   The bar geom is used to produce 1d area plots: bar charts
@@ -65,21 +65,21 @@ ggplot(diamonds, aes(color, fill=cut)) + geom_bar() + coord_flip()
 
 # Faceting is a good alternative:
 ggplot(diamonds, aes(clarity)) + geom_bar() +
-facet_wrap(~ cut)
+  facet_wrap(~ cut)
 # If the x axis is ordered, using a line instead of bars is another
 # possibility:
 ggplot(diamonds, aes(clarity)) +
-geom_freqpoly(aes(group = cut, colour = cut))
+  geom_freqpoly(aes(group = cut, colour = cut))
 
 # Dodged bar charts
 ggplot(diamonds, aes(clarity, fill=cut)) + geom_bar(position="dodge")
 # compare with
 ggplot(diamonds, aes(cut, fill=cut)) + geom_bar() +
-facet_grid(. ~ clarity)
+  facet_grid(. ~ clarity)
 
 # But again, probably better to use frequency polygons instead:
 ggplot(diamonds, aes(clarity, colour=cut)) +
-geom_freqpoly(aes(group = cut))
+  geom_freqpoly(aes(group = cut))
 
 # Often we don't want the height of the bar to represent the
 # count of observations, but the sum of some other variable.

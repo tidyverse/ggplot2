@@ -3,12 +3,14 @@
 \title{Legend guide}
 \usage{
   guide_legend(title = waiver(), title.position = NULL,
-  title.theme = NULL, title.hjust = NULL, title.vjust =
-  NULL, label = TRUE, label.position = NULL, label.theme =
-  NULL, label.hjust = NULL, label.vjust = NULL, keywidth =
-  NULL, keyheight = NULL, direction = NULL, default.unit =
-  "line", override.aes = list(), nrow = NULL, ncol = NULL,
-  byrow = FALSE, reverse = FALSE, ...)
+    title.theme = NULL, title.hjust = NULL,
+    title.vjust = NULL, label = TRUE,
+    label.position = NULL, label.theme = NULL,
+    label.hjust = NULL, label.vjust = NULL,
+    keywidth = NULL, keyheight = NULL, direction = NULL,
+    default.unit = "line", override.aes = list(),
+    nrow = NULL, ncol = NULL, byrow = FALSE,
+    reverse = FALSE, ...)
 }
 \arguments{
   \item{title}{A character string or expression indicating
@@ -116,7 +118,7 @@ p1() + scale_fill_continuous(guide = guide_legend())
 # separately set the direction of each guide
 
 p2() + scale_fill_continuous(guide = guide_legend(direction = "horizontal")) +
-scale_size(guide = guide_legend(direction = "vertical"))
+  scale_size(guide = guide_legend(direction = "vertical"))
 
 # guide title
 
@@ -140,8 +142,8 @@ p1() + scale_fill_continuous(guide = guide_legend(label.position = "bottom"))
 
 # label styles
 p1() + scale_fill_continuous(breaks=c(5, 10, 15), labels=paste("long", c(5, 10, 15)),
-guide = guide_legend(direction="horizontal", title.position="top",
-label.position="bottom", label.hjust = 0.5, label.vjust = 0.5, label.theme = theme_text(angle = 90)))
+                            guide = guide_legend(direction="horizontal", title.position="top",
+                              label.position="bottom", label.hjust = 0.5, label.vjust = 0.5, label.theme = theme_text(angle = 90)))
 
 # set aesthetic of legend key
 

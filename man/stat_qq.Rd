@@ -3,8 +3,8 @@
 \title{Calculation for quantile-quantile plot.}
 \usage{
   stat_qq(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", distribution = qnorm, dparams =
-  list(), na.rm = FALSE, ...)
+    position = "identity", distribution = qnorm,
+    dparams = list(), na.rm = FALSE, ...)
 }
 \arguments{
   \item{quantiles}{Quantiles to compute and display}

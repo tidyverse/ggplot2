@@ -2,8 +2,8 @@
 \alias{coord_map}
 \title{Map projections.}
 \usage{
-  coord_map(projection = "mercator", ..., orientation =
-  NULL, xlim = NULL, ylim = NULL)
+  coord_map(projection = "mercator", ...,
+    orientation = NULL, xlim = NULL, ylim = NULL)
 }
 \arguments{
   \item{projection}{projection to use, see

@@ -3,8 +3,8 @@
 \title{1d kernel density estimate.}
 \usage{
   stat_density(mapping = NULL, data = NULL, geom = "area",
-  position = "stack", adjust = 1, kernel = "gaussian", trim
-  = FALSE, na.rm = FALSE, ...)
+    position = "stack", adjust = 1, kernel = "gaussian",
+    trim = FALSE, na.rm = FALSE, ...)
 }
 \arguments{
   \item{adjust}{see \code{\link{density}} for details}
@@ -52,11 +52,11 @@ m + stat_bin()
 
 # Make a volcano plot
 ggplot(diamonds, aes(x = price)) +
-stat_density(aes(ymax = ..density..,  ymin = -..density..),
-fill = "grey50", colour = "grey50",
-geom = "ribbon", position = "identity") +
-facet_grid(. ~ cut) +
-coord_flip()
+  stat_density(aes(ymax = ..density..,  ymin = -..density..),
+    fill = "grey50", colour = "grey50",
+    geom = "ribbon", position = "identity") +
+  facet_grid(. ~ cut) +
+  coord_flip()
 
 # Stacked density plots
 # If you want to create a stacked density plot, you need to use

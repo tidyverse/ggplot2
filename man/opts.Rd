@@ -46,7 +46,7 @@
   \item{legend.title.align}{alignment of legend title}
 
   \item{legend.position}{A string or numeric vector
-  specifying the position of guides (legends). Possible
+  specifying the position of guides (legends).  Possible
   values are: "left", "right", "bottom", "top", and
   two-element numeric vector.}
 

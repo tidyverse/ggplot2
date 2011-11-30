@@ -2,8 +2,8 @@
 \alias{geom_blank}
 \title{Blank, draws nothing.}
 \usage{
-  geom_blank(mapping = NULL, data = NULL, stat =
-  "identity", position = "identity", ...)
+  geom_blank(mapping = NULL, data = NULL,
+    stat = "identity", position = "identity", ...)
 }
 \description{
   The blank geom draws nothing, but can be a useful way of

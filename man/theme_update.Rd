@@ -25,8 +25,8 @@ theme_set(old)
 theme_get()
 
 qplot(mpg, wt, data=mtcars, colour=mpg) +
-opts(legend.position=c(0.95, 0.95), legend.justification = c(1, 1))
+  opts(legend.position=c(0.95, 0.95), legend.justification = c(1, 1))
 last_plot() +
-opts(legend.background = theme_rect(fill = "white", col="white", size =3))
+ opts(legend.background = theme_rect(fill = "white", col="white", size =3))
 }
 

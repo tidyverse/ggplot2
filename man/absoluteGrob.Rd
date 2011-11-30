@@ -2,8 +2,8 @@
 \alias{absoluteGrob}
 \title{Absolute grob}
 \usage{
-  absoluteGrob(grob, width = NULL, height = NULL, xmin =
-  NULL, ymin = NULL)
+  absoluteGrob(grob, width = NULL, height = NULL,
+    xmin = NULL, ymin = NULL)
 }
 \description{
   This grob has fixed dimesions and position.

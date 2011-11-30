@@ -24,7 +24,7 @@ qplot(long, lat, data = ca, geom = "polygon", group = group)
 tx <- map("county", "texas", plot = FALSE, fill = TRUE)
 head(fortify(tx))
 qplot(long, lat, data = tx, geom = "polygon", group = group,
-colour = I("white"))
+ colour = I("white"))
 }
 }
 \seealso{

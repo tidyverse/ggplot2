@@ -3,7 +3,7 @@
 \title{Convert angle and radius to xend and yend.}
 \usage{
   stat_spoke(mapping = NULL, data = NULL, geom = "segment",
-  position = "identity", ...)
+    position = "identity", ...)
 }
 \value{
   a data.frame with additional columns \item{xend}{x

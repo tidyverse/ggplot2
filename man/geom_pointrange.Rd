@@ -2,8 +2,8 @@
 \alias{geom_pointrange}
 \title{An interval represented by a vertical line, with a point in the middle.}
 \usage{
-  geom_pointrange(mapping = NULL, data = NULL, stat =
-  "identity", position = "identity", ...)
+  geom_pointrange(mapping = NULL, data = NULL,
+    stat = "identity", position = "identity", ...)
 }
 \description{
   An interval represented by a vertical line, with a point

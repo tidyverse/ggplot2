@@ -3,8 +3,8 @@
 \title{Apply function for rectangular bins.}
 \usage{
   stat_aggr2d(mapping = NULL, data = NULL, geom = "rect",
-  position = "identity", bins = 30, drop = TRUE, fun =
-  mean, ...)
+    position = "identity", bins = 30, drop = TRUE,
+    fun = mean, ...)
 }
 \description{
   Apply function for rectangular bins.

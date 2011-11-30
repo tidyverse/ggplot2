@@ -2,8 +2,9 @@
 \alias{geom_jitter}
 \title{Points, jittered to reduce overplotting.}
 \usage{
-  geom_jitter(mapping = NULL, data = NULL, stat =
-  "identity", position = "jitter", na.rm = FALSE, ...)
+  geom_jitter(mapping = NULL, data = NULL,
+    stat = "identity", position = "jitter", na.rm = FALSE,
+    ...)
 }
 \description{
   The jitter geom is a convenient default for geom_point

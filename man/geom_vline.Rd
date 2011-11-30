@@ -3,7 +3,7 @@
 \title{Line, vertical.}
 \usage{
   geom_vline(mapping = NULL, data = NULL, stat = "vline",
-  position = "identity", ...)
+    position = "identity", ...)
 }
 \description{
   This geom allows you to annotate the plot with vertical

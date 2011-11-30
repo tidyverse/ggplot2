@@ -3,7 +3,7 @@
 \title{Add a line with slope and intercept.}
 \usage{
   stat_abline(mapping = NULL, data = NULL, geom = "abline",
-  position = "identity", ...)
+    position = "identity", ...)
 }
 \description{
   Add a line with slope and intercept.

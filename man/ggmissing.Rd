@@ -3,7 +3,7 @@
 \title{Create a plot to illustrate patterns of missing values.}
 \usage{
   ggmissing(data, avoid = "stack", order = TRUE,
-  missing.only = TRUE)
+    missing.only = TRUE)
 }
 \arguments{
   \item{data}{input data.frame}

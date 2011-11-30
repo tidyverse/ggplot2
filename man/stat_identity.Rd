@@ -2,8 +2,8 @@
 \alias{stat_identity}
 \title{Identity statistic.}
 \usage{
-  stat_identity(mapping = NULL, data = NULL, geom =
-  "point", position = "identity", ...)
+  stat_identity(mapping = NULL, data = NULL,
+    geom = "point", position = "identity", ...)
 }
 \description{
   Identity statistic.

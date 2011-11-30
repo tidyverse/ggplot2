@@ -2,9 +2,9 @@
 \alias{stat_boxplot}
 \title{Calculate components of box and whisker plot.}
 \usage{
-  stat_boxplot(mapping = NULL, data = NULL, geom =
-  "boxplot", position = "dodge", na.rm = FALSE, coef = 1.5,
-  ...)
+  stat_boxplot(mapping = NULL, data = NULL,
+    geom = "boxplot", position = "dodge", na.rm = FALSE,
+    coef = 1.5, ...)
 }
 \value{
   A data frame with additional columns: \item{width}{width

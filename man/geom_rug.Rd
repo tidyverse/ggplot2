@@ -3,7 +3,7 @@
 \title{Marginal rug plots.}
 \usage{
   geom_rug(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ...)
+    position = "identity", ...)
 }
 \description{
   Marginal rug plots.

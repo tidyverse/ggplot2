@@ -2,8 +2,9 @@
 \alias{geom_ribbon}
 \title{Ribbons, y range with continuous x values.}
 \usage{
-  geom_ribbon(mapping = NULL, data = NULL, stat =
-  "identity", position = "identity", na.rm = FALSE, ...)
+  geom_ribbon(mapping = NULL, data = NULL,
+    stat = "identity", position = "identity",
+    na.rm = FALSE, ...)
 }
 \description{
   Ribbons, y range with continuous x values.

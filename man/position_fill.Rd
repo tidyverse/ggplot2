@@ -12,7 +12,7 @@ equal height.}
 \examples{
 # See ?geom_bar and ?geom_area for more examples
 ggplot(mtcars, aes(x=factor(cyl), fill=factor(vs))) +
-geom_bar(position="fill")
+  geom_bar(position="fill")
 
 cde <- geom_histogram(position="fill", binwidth = 500)
 

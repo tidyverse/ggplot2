@@ -3,7 +3,7 @@
 \title{Frequency polygon.}
 \usage{
   geom_freqpoly(mapping = NULL, data = NULL, stat = "bin",
-  position = "identity", ...)
+    position = "identity", ...)
 }
 \description{
   Frequency polygon.
@@ -15,9 +15,9 @@ qplot(carat, data = diamonds, geom = "freqpoly", binwidth = 0.01)
 
 qplot(price, data = diamonds, geom = "freqpoly", binwidth = 1000)
 qplot(price, data = diamonds, geom = "freqpoly", binwidth = 1000,
-colour = color)
+  colour = color)
 qplot(price, ..density.., data = diamonds, geom = "freqpoly",
-binwidth = 1000, colour = color)
+  binwidth = 1000, colour = color)
 }
 \seealso{
   \code{\link{geom_histogram}}: histograms

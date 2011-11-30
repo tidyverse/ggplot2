@@ -2,10 +2,10 @@
 \alias{stat_quantile}
 \title{Continuous quantiles.}
 \usage{
-  stat_quantile(mapping = NULL, data = NULL, geom =
-  "quantile", position = "identity", quantiles = c(0.25,
-  0.5, 0.75), formula = y ~ x, method = "rq", na.rm =
-  FALSE, ...)
+  stat_quantile(mapping = NULL, data = NULL,
+    geom = "quantile", position = "identity",
+    quantiles = c(0.25, 0.5, 0.75), formula = y ~ x,
+    method = "rq", na.rm = FALSE, ...)
 }
 \arguments{
   \item{quantiles}{conditional quantiles of y to calculate
@@ -40,7 +40,7 @@ m + stat_quantile(aes(weight=votes))
 # Change scale
 m + stat_quantile(aes(colour = ..quantile..), quantiles = seq(0.05, 0.95, by=0.05))
 m + stat_quantile(aes(colour = ..quantile..), quantiles = seq(0.05, 0.95, by=0.05)) +
-scale_colour_gradient2(midpoint=0.5, low="green", mid="yellow", high="green")
+  scale_colour_gradient2(midpoint=0.5, low="green", mid="yellow", high="green")
 
 # Set aesthetics to fixed value
 m + stat_quantile(colour="red", size=2, linetype=2)

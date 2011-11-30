@@ -2,8 +2,9 @@
 \alias{geom_crossbar}
 \title{Hollow bar with middle indicated by horizontal line.}
 \usage{
-  geom_crossbar(mapping = NULL, data = NULL, stat =
-  "identity", position = "identity", fatten = 2, ...)
+  geom_crossbar(mapping = NULL, data = NULL,
+    stat = "identity", position = "identity", fatten = 2,
+    ...)
 }
 \arguments{
   \item{fatten}{a multiplicate factor to fatten middle bar

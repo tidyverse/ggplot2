@@ -3,11 +3,12 @@
 \alias{quickplot}
 \title{A convenient wrapper function for creating simple ggplot plot objects.}
 \usage{
-  qplot(x, y = NULL, ..., data, facets = NULL, margins =
-  FALSE, geom = "auto", stat = list(NULL), position =
-  list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "",
-  main = NULL, xlab = deparse(substitute(x)), ylab =
-  deparse(substitute(y)), asp = NA)
+  qplot(x, y = NULL, ..., data, facets = NULL,
+    margins = FALSE, geom = "auto", stat = list(NULL),
+    position = list(NULL), xlim = c(NA, NA),
+    ylim = c(NA, NA), log = "", main = NULL,
+    xlab = deparse(substitute(x)),
+    ylab = deparse(substitute(y)), asp = NA)
 }
 \arguments{
   \item{x}{x values}
@@ -80,9 +81,9 @@ qplot(resid(mod), fitted(mod))
 qplot(resid(mod), fitted(mod), facets = . ~ vs)
 
 f <- function() {
-a <- 1:10
-b <- a ^ 2
-qplot(a, b)
+   a <- 1:10
+   b <- a ^ 2
+   qplot(a, b)
 }
 f()
 

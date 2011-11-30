@@ -3,7 +3,7 @@
 \title{Connect observations by stairs.}
 \usage{
   geom_step(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", direction = "hv", ...)
+    position = "identity", direction = "hv", ...)
 }
 \arguments{
   \item{direction}{direction of stairs: 'vh' for vertical
@@ -26,8 +26,8 @@ plot(x, type = "S")
 
 # Also works with other aesthetics
 df <- data.frame(
-x = sort(rnorm(50)),
-trt = sample(c("a", "b"), 50, rep = T)
+  x = sort(rnorm(50)),
+  trt = sample(c("a", "b"), 50, rep = T)
 )
 qplot(seq_along(x), x, data = df, geom="step", colour = trt)
 }

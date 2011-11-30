@@ -2,9 +2,10 @@
 \alias{geom_boxplot}
 \title{Box and whiskers plot.}
 \usage{
-  geom_boxplot(mapping = NULL, data = NULL, stat =
-  "boxplot", position = "dodge", outlier.colour = "black",
-  outlier.shape = 16, outlier.size = 2, ...)
+  geom_boxplot(mapping = NULL, data = NULL,
+    stat = "boxplot", position = "dodge",
+    outlier.colour = "black", outlier.shape = 16,
+    outlier.size = 2, ...)
 }
 \arguments{
   \item{outlier.colour}{colour for outlying points}
@@ -25,7 +26,7 @@ qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot")
 p + geom_boxplot() + geom_jitter()
 p + geom_boxplot() + coord_flip()
 qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot") +
-coord_flip()
+  coord_flip()
 
 p + geom_boxplot(outlier.colour = "green", outlier.size = 3)
 
@@ -40,14 +41,14 @@ p + geom_boxplot(aes(fill = factor(am)))
 # Set aesthetics to fixed value
 p + geom_boxplot(fill = "grey80", colour = "#3366FF")
 qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot",
-colour = I("#3366FF"))
+  colour = I("#3366FF"))
 
 # Scales vs. coordinate transforms -------
 # Scale transformations occur before the boxplot statistics are computed.
 # Coordinate transformations occur afterwards.  Observe the effect on the
 # number of outliers.
 m <- ggplot(movies, aes(y = votes, x = rating,
-group = round_any(rating, 0.5)))
+   group = round_any(rating, 0.5)))
 m + geom_boxplot()
 m + geom_boxplot() + scale_y_log10()
 m + geom_boxplot() + coord_trans(y = "log10")
@@ -57,7 +58,7 @@ m + geom_boxplot() + scale_y_log10() + coord_trans(y = "log10")
 # Use the group aesthetic to group observations in boxplots
 qplot(year, budget, data = movies, geom = "boxplot")
 qplot(year, budget, data = movies, geom = "boxplot",
-group = round_any(year, 10, floor))
+  group = round_any(year, 10, floor))
 
 # Using precomputed statistics
 # generate sample data

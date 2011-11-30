@@ -39,7 +39,7 @@ p + coord_cartesian(xlim = c(325, 500))
 
 # You can see the same thing with this 2d histogram
 (d <- ggplot(diamonds, aes(carat, price)) +
-stat_bin2d(bins = 25, colour="grey50"))
+  stat_bin2d(bins = 25, colour="grey50"))
 
 # When zooming the scale, the we get 25 new bins that are the same
 # size on the plot, but represent smaller regions of the data space

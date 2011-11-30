@@ -3,11 +3,11 @@
 \alias{scale_fill_gradient}
 \title{Smooth gradient between two colours}
 \usage{
-  scale_colour_gradient(..., low = "#3B4FB8", high =
-  "#B71B1A", space = "Lab", na.value = "grey50")
+  scale_colour_gradient(..., low = "#3B4FB8",
+    high = "#B71B1A", space = "Lab", na.value = "grey50")
 
-  scale_fill_gradient(..., low = "#3B4FB8", high =
-  "#B71B1A", space = "Lab", na.value = "grey50")
+  scale_fill_gradient(..., low = "#3B4FB8",
+    high = "#B71B1A", space = "Lab", na.value = "grey50")
 }
 \arguments{
   \item{...}{Other arguments passed on to
@@ -65,7 +65,7 @@ h + scale_fill_continuous(low="black", high="pink", limits=c(0,3100))
 miss <- sample(c(NA, 1:5), nrow(mtcars), rep = T)
 qplot(mpg, wt, data = mtcars, colour = miss)
 qplot(mpg, wt, data = mtcars, colour = miss) +
-scale_colour_gradient(na.value = "black")
+  scale_colour_gradient(na.value = "black")
 }
 \seealso{
   \code{\link[scales]{seq_gradient_pal}} for details on

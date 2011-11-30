@@ -1,8 +1,12 @@
-\name{ggplot-add}
-\alias{"\%+\%"}
-\alias{"+.ggplot"}
-\alias{ggplot-add}
+\name{+.ggplot}
+\alias{\%+\%}
+\alias{+.ggplot}
 \title{Modify a plot by adding on new components.}
+\usage{
+  \method{+}{ggplot} (p, object)
+
+  %+%(p, object)
+}
 \arguments{
   \item{p}{plot object}
 

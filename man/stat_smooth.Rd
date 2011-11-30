@@ -3,9 +3,9 @@
 \title{Add a smoother.}
 \usage{
   stat_smooth(mapping = NULL, data = NULL, geom = "smooth",
-  position = "identity", method = "auto", formula = y ~ x,
-  se = TRUE, n = 80, fullrange = FALSE, level = 0.95, na.rm
-  = FALSE, ...)
+    position = "identity", method = "auto",
+    formula = y ~ x, se = TRUE, n = 80, fullrange = FALSE,
+    level = 0.95, na.rm = FALSE, ...)
 }
 \arguments{
   \item{method}{smoothing method (function) to use, eg. lm,
@@ -54,7 +54,7 @@ c + stat_smooth(method = "lm") + geom_point()
 
 library(splines)
 c + stat_smooth(method = "lm", formula = y ~ ns(x,3)) +
-geom_point()
+  geom_point()
 c + stat_smooth(method = MASS::rlm, formula= y ~ ns(x,3)) + geom_point()
 
 # The default confidence band uses a transparent colour.
@@ -68,7 +68,7 @@ c + stat_smooth(fill = "blue", size = 2, alpha = 1)
 c + stat_smooth(fill="blue", colour="darkblue", size=2)
 c + stat_smooth(fill="blue", colour="darkblue", size=2, alpha = 0.2)
 c + geom_point() +
-stat_smooth(fill="blue", colour="darkblue", size=2, alpha = 0.2)
+  stat_smooth(fill="blue", colour="darkblue", size=2, alpha = 0.2)
 
 # Smoothers for subsets
 c <- ggplot(mtcars, aes(y=wt, x=mpg)) + facet_grid(. ~ cyl)
@@ -92,9 +92,9 @@ qplot(Age, Kyphosis, data=kyphosis, position="jitter")
 qplot(Age, Kyphosis, data=kyphosis, position=position_jitter(height=0.1))
 
 qplot(Age, as.numeric(Kyphosis) - 1, data = kyphosis) +
-stat_smooth(method="glm", family="binomial")
+  stat_smooth(method="glm", family="binomial")
 qplot(Age, as.numeric(Kyphosis) - 1, data=kyphosis) +
-stat_smooth(method="glm", family="binomial", formula = y ~ ns(x, 2))
+  stat_smooth(method="glm", family="binomial", formula = y ~ ns(x, 2))
 }
 \seealso{
   \code{\link{lm}} for linear smooths, \code{\link{glm}}

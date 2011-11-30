@@ -3,12 +3,14 @@
 \title{Colorbar guide}
 \usage{
   guide_colorbar(title = waiver(), title.position = NULL,
-  title.theme = NULL, title.hjust = NULL, title.vjust =
-  NULL, label = TRUE, label.position = NULL, label.theme =
-  NULL, label.hjust = NULL, label.vjust = NULL, barwidth =
-  NULL, barheight = NULL, nbin = 20, raster = TRUE, ticks =
-  TRUE, draw.ulim = TRUE, draw.llim = TRUE, direction =
-  NULL, default.unit = "line", ...)
+    title.theme = NULL, title.hjust = NULL,
+    title.vjust = NULL, label = TRUE,
+    label.position = NULL, label.theme = NULL,
+    label.hjust = NULL, label.vjust = NULL,
+    barwidth = NULL, barheight = NULL, nbin = 20,
+    raster = TRUE, ticks = TRUE, draw.ulim = TRUE,
+    draw.llim = TRUE, direction = NULL,
+    default.unit = "line", ...)
 }
 \arguments{
   \item{title}{A character string or expression indicating
@@ -128,7 +130,7 @@ p1() + scale_fill_continuous(guide = guide_colorbar())
 
 # separately set the direction of each guide
 p2() + scale_fill_continuous(guide = guide_colorbar(direction = "horizontal")) +
-scale_size(guide = guide_legend(direction = "vertical")) ## separately set the direction of each gui
+  scale_size(guide = guide_legend(direction = "vertical")) ## separately set the direction of each gui
 
 ## control styles
 
@@ -155,7 +157,7 @@ p1() + scale_fill_continuous(guide = guide_colorbar(nbin = 100))
 
 # make top- and bottom-most ticks invisible
 p1() + scale_fill_continuous(limits=c(0,20), breaks=c(0,5,10,15,20),
-guide = guide_colorbar(nbin=100, draw.ulim = FALSE, draw.llim = FALSE))
+                            guide = guide_colorbar(nbin=100, draw.ulim = FALSE, draw.llim = FALSE))
 
 # combine colorbar and legend guide
 p2() + scale_fill_continuous(guide = "colorbar") + scale_size(guide = "legend")

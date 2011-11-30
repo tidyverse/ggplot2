@@ -2,8 +2,9 @@
 \alias{geom_point}
 \title{Points, as for a scatterplot}
 \usage{
-  geom_point(mapping = NULL, data = NULL, stat =
-  "identity", position = "identity", na.rm = FALSE, ...)
+  geom_point(mapping = NULL, data = NULL,
+    stat = "identity", position = "identity",
+    na.rm = FALSE, ...)
 }
 \description{
   The point geom is used to create scatterplots.
@@ -66,17 +67,17 @@ d + geom_point(alpha = 1/100)
 p <- ggplot(mtcars, aes(mpg, wt))
 p + geom_point(colour="grey50", size = 4) + geom_point(aes(colour = cyl))
 p + aes(shape = factor(cyl)) +
-geom_point(aes(colour = factor(cyl)), size = 4) +
-geom_point(colour="grey90", size = 1.5)
+  geom_point(aes(colour = factor(cyl)), size = 4) +
+  geom_point(colour="grey90", size = 1.5)
 p + geom_point(colour="black", size = 4.5) +
-geom_point(colour="pink", size = 4) +
-geom_point(aes(shape = factor(cyl)))
+  geom_point(colour="pink", size = 4) +
+  geom_point(aes(shape = factor(cyl)))
 
 # These extra layers don't usually appear in the legend, but we can
 # force their inclusion
 p + geom_point(colour="black", size = 4.5, legend = TRUE) +
-geom_point(colour="pink", size = 4, legend = TRUE) +
-geom_point(aes(shape = factor(cyl)))
+  geom_point(colour="pink", size = 4, legend = TRUE) +
+  geom_point(aes(shape = factor(cyl)))
 
 # Transparent points:
 qplot(mpg, wt, data = mtcars, size = I(5), alpha = I(0.2))
