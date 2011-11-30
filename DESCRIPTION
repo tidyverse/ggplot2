@@ -34,7 +34,6 @@ Extends:
     sp
 License: GPL-2
 URL: http://had.co.nz/ggplot2/
-LazyLoad: false
 LazyData: true
 Collate:
     'aaa-.r'
