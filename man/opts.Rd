@@ -45,11 +45,18 @@
 
   \item{legend.title.align}{alignment of legend title}
 
-  \item{legend.position}{placement of legend}
+  \item{legend.position}{A string or numeric vector
+  specifying the position of guides (legends). Possible
+  values are: "left", "right", "bottom", "top", and
+  two-element numeric vector.}
 
   \item{legend.justification}{alignment of legend}
 
   \item{legend.direction}{horizontal or vertical}
+
+  \item{legend.box}{A string specifying the direction of
+  multiple guides. Possible string values are: "horizontal"
+  and "vertical".}
 
   \item{panel.background}{background of panel}
 

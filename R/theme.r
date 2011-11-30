@@ -78,9 +78,11 @@ theme_set <- .theme$set
 #' @param legend.text.align alignment of legend labels
 #' @param legend.title legend name
 #' @param legend.title.align alignment of legend title
-#' @param legend.position placement of legend 
+#' @param legend.position A string or numeric vector specifying the position of guides (legends).
+#'    Possible values are: "left", "right", "bottom", "top", and two-element numeric vector.
 #' @param legend.justification alignment of legend 
 #' @param legend.direction horizontal or vertical
+#' @param legend.box A string specifying the direction of multiple guides. Possible string values are: "horizontal" and "vertical". 
 #' @param panel.background background of panel
 #' @param panel.border border around panel
 #' @param panel.margin margin around facet panels
@@ -207,4 +209,58 @@ print.theme <- function(x, ...) {
 # Combine plot defaults with current theme to get complete theme for a plot
 plot_theme <- function(x) {
   defaults(x$options, theme_get())
+}
+
+##' Update contents of a theme
+##'
+##' @title Update theme param
+##' @param name name of a theme element
+##' @param ... Pairs of name and value of theme parameters.
+##' @return Updated theme element
+##' @export
+##' @examples
+##' x <- theme_text(size = 15)
+##' update_element(x, colour = "red")
+##' # Partial matching works
+##' update_element(x, col = "red")
+##' # So does positional
+##' update_element(x, "Times New Roman")
+##' # And it throws an error if you use an argument that doesn't exist
+##' update_element(x, noargument = 12)
+##' # Or multiple arguments with the same name
+##' update_element(x, size = 12, size = 15)
+##' 
+##' # Will look up element if given name
+##' update_element("axis.text.x", colour = 20)
+##' # Throws error if incorrectly named
+##' update_element("axis.text", colour = 20)
+update_element <- function(name, ...) {
+ if (is.character(name)) {
+   ele <- theme_get()[[name]]
+   if (is.null(ele)) {
+     stop("Could not find theme element ", name, call. = FALSE)
+   }
+ } else {
+   ele <- name
+ }
+
+ call <- attr(ele, "call")
+ stopifnot(!is.null(call))
+
+ # Partial matching of named ... args with full names
+ f <- eval(call[[1]])
+ new_args <- match.call()
+ new_args$name <- NULL
+ new_args <- as.list(match.call(f, new_args)[-1])
+
+ # Combine old call with new args
+ old <- as.list(call)
+
+ # evaluate old args in its env
+ evaled_old_args <- llply(names(old[-1]), get, environment(ele))
+ names(evaled_old_args) <- names(old[-1])
+ # replace premise with evaluated vars
+ old <- modifyList(old, evaled_old_args)
+
+ eval(as.call(modifyList(old, new_args)))
 }

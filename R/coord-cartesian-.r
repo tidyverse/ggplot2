@@ -63,23 +63,23 @@ coord_transform.cartesian <- function(., data, details) {
 
 #' @S3method coord_train cartesian
 coord_train.cartesian <- function(coord, scales) {
-  c(train_cartesian(scales$x, coord$limits$x, "x"),
-    train_cartesian(scales$y, coord$limits$y, "y"))
+  c(train_cartesian(scales$x, coord$limits$x, "x", coord$wise),
+    train_cartesian(scales$y, coord$limits$y, "y", coord$wise))
 }
 
-train_cartesian <- memoise(function(scale, limits, name) {
+train_cartesian <- memoise(function(scale, limits, name, wise) {
   if (is.null(limits)) {
     range <- scale_dimension(scale)
   } else {
     range <- range(scale_transform(scale, limits))
-    if (coord$wise) {
-      scale$limits <- x.range
+    if (wise) {
+      scale$limits <- limits
       range <- expand_range(range, scale$expand[1], scale$expand[2])
     }
   }
-  
+
   major <- rescale(scale_break_positions(scale), from = range)
-  minor <- rescale(scale_breaks_minor(scale), from = range)
+  minor <- rescale(scale_breaks_minor_positions(scale), from = range)
   labels <- scale_labels(scale)
   
   out <- list(range = range, major = major, minor = minor, labels = labels)

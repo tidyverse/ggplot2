@@ -3,9 +3,9 @@
 \title{Continuous scale constructor.}
 \usage{
   continuous_scale(aesthetics, scale_name, palette, name =
-  NULL, breaks = NULL, labels = NULL, legend = TRUE, limits
+  NULL, breaks = NULL, minor_breaks = NULL, labels = NULL, legend = NULL, limits
   = NULL, rescaler = rescale, oob = censor, expand = c(0,
-  0), na.value = NA, trans = "identity")
+  0), na.value = NA, trans = "identity", guide = "legend")
 }
 \arguments{
   \item{aesthetics}{character}

@@ -59,12 +59,19 @@ guide_axis <- function(at, labels, position="right", theme) {
     left =   theme_render(theme, "axis.ticks", one - length, at, 1, at)
   )
 
+  just <- switch(position,
+    top =    "bottom",
+    bottom = "top",
+    right =  "left",
+    left =   "right"
+  )
+
   fg <- ggname("axis", switch(position,
                               top =, bottom = frameGrob(layout = grid.layout(nrow = 2, ncol = 1,
-                                                          widths = one, heights = unit.c(label_pos, grobHeight(labels)))),
+                                                          widths = one, heights = unit.c(label_pos, grobHeight(labels)), just = just)),
                               right =, left = frameGrob(layout = grid.layout(nrow = 1, ncol = 2,
-                                                          widths = unit.c(grobWidth(labels), label_pos), heights = one))))
-
+                                                          widths = unit.c(grobWidth(labels), label_pos), heights = one, just = just))))
+  
 
   if (!is.zero(labels)) {
     fg <- switch(position,

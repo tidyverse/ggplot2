@@ -19,7 +19,7 @@
 #' 
 #' # See scale_manual for more flexibility
 scale_linetype <- function(...) {
-  discrete_scale("linetype", "linetype_d", linetype_pal())
+  discrete_scale("linetype", "linetype_d", linetype_pal(), ...)
 }
 
 #' @rdname scale_linetype
