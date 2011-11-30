@@ -6,6 +6,30 @@
     stat = "identity", position = "identity",
     na.rm = FALSE, ...)
 }
+\arguments{
+  \item{mapping}{The aesthetic mapping, usually constructed
+  with \code{\link{aes}} or \code{\link{aes_string}}. Only
+  needs to be set at the layer level if you are overriding
+  the plot defaults.}
+
+  \item{data}{A layer specific dataset - only needed if you
+  want to override the plot defaults.}
+
+  \item{stat}{The statistical transformation to use on the
+  data for this layer.}
+
+  \item{position}{The position adjustment to use for
+  overlappling points on this layer}
+
+  \item{na.rm}{If \code{FALSE} (the default), removes
+  missing values with a warning.  If \code{TRUE} silently
+  removes missing values.}
+
+  \item{...}{other arguments passed on to
+  \code{\link{layer}}. This can include aesthetics whose
+  values you want to set, not map. See \code{\link{layer}}
+  for more details.}
+}
 \description{
   The point geom is used to create scatterplots.
 }
@@ -23,7 +47,7 @@
 
   The biggest potential problem with a scatterplot is
   overplotting: whenever you have more than a few points,
-  points may be plotted on top of one another.  This can
+  points may be plotted on top of one another. This can
   severely distort the visual appearance of the plot. There
   is no one solution to this problem, but there are some
   techniques that can help.  You can add additional
@@ -35,6 +59,16 @@
   each location and display that in some way, using
   \code{\link{stat_sum}}. Another technique is to use
   transparent points, \code{geom_point(alpha = 0.05)}.
+}
+\section{Aesthetics}{
+  \code{geom_point} understands the following aesthetics:
+
+  \itemize{ \item \code{x}: horizontal position \item
+  \code{y}: vertical position \item \code{shape}: point
+  shape.  \item \code{colour}: point colour.  \item
+  \code{fill}: fill colour, only affects solid points \item
+  \code{size}: size.  \item \code{alpha}: alpha
+  transparency modifies colour. }
 }
 \examples{
 p <- ggplot(mtcars, aes(wt, mpg))
