@@ -185,3 +185,4 @@ Collate:
     'stat-aggr-2d.r'
     'stat-aggr-hex.r'
     'geom-raster.r'
+    'annotation-raster.r'
