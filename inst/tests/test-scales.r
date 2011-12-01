@@ -55,7 +55,7 @@ test_that("identity scale preserves input values", {
 })
 
 test_that("position scales updated by all position aesthetics", {
-  df <- data.frame(x = 1:3)
+  df <- data.frame(x = 1:3, y = 1:3)
   
   aesthetics <- list(
     aes(xend = x, yend = x),
