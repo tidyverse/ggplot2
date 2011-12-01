@@ -1,3 +1,6 @@
+#' @include geom-.r
+NULL
+
 #' High-performance rectangular tiling.
 #'
 #' This is a special case of \code{\link{geom_tile}} where all tiles are
