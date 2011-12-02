@@ -19,6 +19,10 @@
 # Generate data
 rainbow <- matrix(hcl(seq(0, 360, length = 50 * 50), 80, 70), nrow = 50)
 qplot(mpg, wt, data = mtcars) +
-  annotation_raster(redGradient, 15, 20, 3, 4)
+  annotation_raster(rainbow, 15, 20, 3, 4)
+# To fill up whole plot
+qplot(mpg, wt, data = mtcars) +
+  annotation_raster(rainbow, -Inf, Inf, -Inf, Inf) +
+  geom_point()
 }
 
