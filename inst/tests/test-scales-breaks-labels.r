@@ -12,12 +12,22 @@ test_that("labels match breaks, even when outside limits", {
 })
 
 
-
 test_that("labels must match breaks", {
   expect_that(scale_x_discrete(breaks = 1:3, labels = 1:2),
     throws_error("unequal lengths"))
   expect_that(scale_x_continuous(breaks = 1:3, labels = 1:2),
     throws_error("unequal lengths"))
+})
+
+test_that("labels don't have extra spaces", {
+  labels <- c("a", "abc", "abcdef")
+
+  sc1 <- scale_x_discrete(limits = labels)
+  sc2 <- scale_fill_discrete(limits = labels)
+  
+  expect_equal(scale_labels(sc1), labels)
+  expect_equal(scale_labels(sc2), labels)
+  
 })
 
 init_scale <- function(...) {

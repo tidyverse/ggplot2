@@ -342,7 +342,7 @@ scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
 
 scale_labels.discrete <- function(scale, breaks = scale_breaks(scale)) {
   if (is.null(scale$labels)) {
-    formatC(scale_breaks(scale))
+    format(scale_breaks(scale), justify = "none", trim = TRUE)
   } else if (is.function(scale$labels)) {
     scale$labels(breaks)
   } else {
