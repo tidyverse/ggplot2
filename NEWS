@@ -9,6 +9,8 @@ NEW GEOMS/ANNOTATIONS
 
 * `annotation_raster`
 
+* `annotation_map`
+
 MINOR CHANGES
 
 * `geom_text` now supports `fontfamily`, `fontface`, and `lineheight`

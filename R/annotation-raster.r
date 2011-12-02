@@ -16,10 +16,16 @@ NULL
 #' # Generate data
 #' rainbow <- matrix(hcl(seq(0, 360, length = 50 * 50), 80, 70), nrow = 50)
 #' qplot(mpg, wt, data = mtcars) +
-#'   annotation_raster(redGradient, 15, 20, 3, 4)
+#'   annotation_raster(rainbow, 15, 20, 3, 4)
+#' # To fill up whole plot
+#' qplot(mpg, wt, data = mtcars) +
+#'   annotation_raster(rainbow, -Inf, Inf, -Inf, Inf) + 
+#'   geom_point()
 annotation_raster <- function (raster, xmin, xmax, ymin, ymax) { 
   raster <- as.raster(raster)
-  GeomRasterAnn$new(geom_params = list(raster = raster, xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax), stat = "identity", position = "identity")
+  GeomRasterAnn$new(geom_params = list(raster = raster, xmin = xmin, 
+    xmax = xmax, ymin = ymin, ymax = ymax), stat = "identity", 
+    position = "identity", data = NULL, inherit.aes = TRUE)
 }
 
 GeomRasterAnn <- proto(GeomRaster, {

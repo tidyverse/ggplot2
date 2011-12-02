@@ -145,7 +145,7 @@ Layer <- proto(expr = {
     evaled <- compact(
       eval.quoted(aesthetics, data, plot$plot_env))
 
-    # if (length(evaled) == 0) return(data.frame())
+    if (length(evaled) == 0) return(data.frame(PANEL = unique(data$PANEL)))
     # evaled <- evaled[sapply(evaled, is.atomic)]
     data.frame(evaled, PANEL = data$PANEL)
   }

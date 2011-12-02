@@ -187,3 +187,4 @@ Collate:
     'zxx.r'
     'geom-raster.r'
     'annotation-raster.r'
+    'annotation-map.r'

@@ -29,6 +29,22 @@ positions <- data.frame(
   2.2, 2.1, 1.7, 2.1, 3.2, 2.8, 2.1, 2.2, 3.3, 3.2)
 )
 
-ggplot(values, aes(x=x, y=y)) + geom_map(aes(map_id = id), map = positions)
+ggplot(values) + geom_map(aes(map_id = id), map = positions) +
+  expand_limits(positions)
+ggplot(values, aes(fill = value)) +
+  geom_map(aes(map_id = id), map = positions) +
+  expand_limits(positions)
+ggplot(values, aes(fill = value)) +
+  geom_map(aes(map_id = id), map = positions) +
+  expand_limits(positions) + ylim(0, 3)
+
+# Better example
+crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
+crimesm <- melt(crimes, id = 1)
+if (require(maps)) {
+  states_map <- map_data("state")
+  ggplot(crimes, aes(map_id = state)) + geom_map(aes(fill = Murder), map = states_map) + expand_limits(x = states_map$long, y = states_map$lat)
+  ggplot(crimesm, aes(map_id = state)) + geom_map(aes(fill = value), map = states_map) + expand_limits(x = states_map$long, y = states_map$lat) + facet_wrap( ~ variable)
+}
 }
 

@@ -62,6 +62,7 @@ GeomMap <- proto(GeomPolygon, {
   objname <- "map"
 
   draw_groups <- function(., data, scales, coordinates, map, ...) {
+    if (!is.null(data$map_id))
     data <- data[data$map_id %in% names(map), , drop = FALSE]
 
     polys <- rbind.fill(map[data$map_id])
