@@ -1,23 +1,33 @@
-StatBoxplot <- proto(Stat, {
-  objname <- "boxplot" 
-  desc <- "Calculate components of box and whisker plot"
-  desc_outputs <- list(
-    "width" = "width of boxplot",
-    "ymin" = "lower whisker = lower hinge - 1.5 * IQR",
-    "lower" = "lower hinge, 25% quantile", 
-    "middle" = "median, 50% quantile",
-    "upper" = "upper hinge, 75% quantile",
-    "ymax" = "upper whisker = upper hinge + 1.5 * IQR"
-  )
-  required_aes <- c("x", "y")
+#' Calculate components of box and whisker plot.
+#' 
+#' @return A data frame with additional columns:
+#'   \item{width}{width of boxplot}
+#'   \item{ymin}{lower whisker = lower hinge - 1.5 * IQR}
+#'   \item{lower}{lower hinge, 25\% quantile} 
+#'   \item{middle}{median, 50\% quantile}
+#'   \item{upper}{upper hinge, 75\% quantile}
+#'   \item{ymax}{upper whisker = upper hinge + 1.5 * IQR}
+#' @export
+#' @examples
+#' # See geom_boxplot for examples
+stat_boxplot <- function (mapping = NULL, data = NULL, geom = "boxplot", position = "dodge", 
+na.rm = FALSE, coef = 1.5, ...) { 
+  StatBoxplot$new(mapping = mapping, data = data, geom = geom, 
+  position = position, na.rm = na.rm, coef = coef, ...)
+}
   
+StatBoxplot <- proto(Stat, {
+  objname <- "boxplot"
+  
+  required_aes <- c("x", "y")
   icon <- function(.) GeomBoxplot$icon()
   default_geom <- function(.) GeomBoxplot
   
   calculate_groups <- function(., data, na.rm = FALSE, width = NULL, ...) {
-    data <- remove_missing(data, na.rm, c("y", "weight"), name="stat_boxplot")
-    data$weight <- nulldefault(data$weight, 1)
-    width <- nulldefault(width, resolution(data$x) * 0.75)
+    data <- remove_missing(data, na.rm, c("y", "weight"), name="stat_boxplot", 
+      finite = TRUE)
+    data$weight <- data$weight %||% 1
+    width <- width %||%  resolution(data$x) * 0.75
         
     .super$calculate_groups(., data, na.rm = na.rm, width = width, ...)
   }
@@ -49,9 +59,4 @@ StatBoxplot <- proto(Stat, {
       )
     })
   }
-  
-  examples <- function(.) {
-    # See geom_boxplot for examples
-  }
-  
 })

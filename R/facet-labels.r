@@ -1,53 +1,53 @@
-# Label facets with their value
-# The default facet labelling just uses the value of the variable
-# 
-# @arguments variable name passed in by facetter
-# @arguments variable value passed in by facetter
-# @keyword hplot
-#X p <- qplot(wt, mpg, data = mtcars)
-#X p + facet_grid(~ cyl)
-#X p + facet_grid(~ cyl, labeller = label_value)
-label_value <- function(variable, value) value
+#' Label facets with their value.
+#' This is the default labelling scheme.
+#' 
+#' @param variable variable name passed in by facetter
+#' @param value variable value passed in by facetter
+#' @export
+#' @examples
+#' p <- qplot(wt, mpg, data = mtcars)
+#' p + facet_grid(. ~ cyl)
+#' p + facet_grid(. ~ cyl, labeller = label_value)
+label_value <- function(variable, value) as.character(value)
 
-# Label facets with value and variable
-# Join together facet value and the name of the variable to create a label.
-# 
-# @arguments variable name passed in by facetter
-# @arguments variable value passed in by facetter
-# @keyword hplot
-#X p <- qplot(wt, mpg, data = mtcars)
-#X p + facet_grid(~ cyl)
-#X p + facet_grid(~ cyl, labeller = label_both)
+#' Label facets with value and variable.
+#' 
+#' @param variable variable name passed in by facetter
+#' @param value variable value passed in by facetter
+#' @export
+#' @examples
+#' p <- qplot(wt, mpg, data = mtcars)
+#' p + facet_grid(. ~ cyl)
+#' p + facet_grid(. ~ cyl, labeller = label_both)
 label_both <- function(variable, value) paste(variable, value, sep = ": ")
 
-# Label facets with parsed label.
-# Parses the facet label, as if 
-# 
-# 
-# @seealso \code{\link{plotmath}}
-# @arguments variable name passed in by facetter
-# @arguments variable value passed in by facetter
-# @keyword hplot
-#X mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
-#X qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2)
-#X qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2, 
-#X   labeller = label_parsed)
+#' Label facets with parsed label.
+#' 
+#' @seealso \code{\link{plotmath}}
+#' @param variable variable name passed in by facetter
+#' @param value variable value passed in by facetter
+#' @export
+#' @examples
+#' mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
+#' qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2)
+#' qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2, 
+#'   labeller = label_parsed)
 label_parsed <- function(variable, value) {
   llply(as.character(value), function(x) parse(text = x))
 }
 
-# Label facet with 'bquoted' expressions
-# Create facet labels which contain the facet label in a larger expression
-# 
-# See \code{\link{bquote}} for details on the syntax of the argument.  The
-# label value is x. 
-# 
-# @arguments expression to use
-# @seealso \code{\link{plotmath}}
-# @keyword hplot
-#X p <- qplot(wt, mpg, data = mtcars)
-#X p + facet_grid(~ vs, labeller = label_bquote(alpha ^ .(x)))
-#X p + facet_grid(~ vs, labeller = label_bquote(.(x) ^ .(x)))
+#' Label facet with 'bquoted' expressions
+#' 
+#' See \code{\link{bquote}} for details on the syntax of the argument.  The
+#' label value is x. 
+#' 
+#' @param expr labelling expression to use
+#' @seealso \code{\link{plotmath}}
+#' @export
+#' @examples
+#' p <- qplot(wt, mpg, data = mtcars)
+#' p + facet_grid(. ~ vs, labeller = label_bquote(alpha ^ .(x)))
+#' p + facet_grid(. ~ vs, labeller = label_bquote(.(x) ^ .(x)))
 label_bquote <- function(expr = beta ^ .(x)) {
   quoted <- substitute(expr)
   
@@ -58,13 +58,7 @@ label_bquote <- function(expr = beta ^ .(x)) {
   }
 }
 
-# Grob strip
 # Grob for strip labels
-# 
-# @arguments text to display
-# @arguments orientation, horizontal or vertical
-# @keyword hplot 
-# @keyword internal
 ggstrip <- function(text, horizontal=TRUE, theme) {
   text_theme <- if (horizontal) "strip.text.x" else "strip.text.y"
   if (is.list(text)) text <- text[[1]]

@@ -1,4 +1,48 @@
+#' Ribbons, y range with continuous x values.
+#'
+#' @seealso
+#'   \code{\link{geom_bar}} for discrete intervals (bars),
+#'   \code{\link{geom_linerange}} for discrete intervals (lines),
+#'   \code{\link{geom_polygon}} for general polygons"
+#' @export
+#' @examples
+#' # Generate data
+#' huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
+#' huron$decade <- round_any(huron$year, 10, floor)
+#' 
+#' h <- ggplot(huron, aes(x=year))
+#' 
+#' h + geom_ribbon(aes(ymin=0, ymax=level))
+#' h + geom_area(aes(y = level))
+#' 
+#' # Add aesthetic mappings
+#' h + geom_ribbon(aes(ymin=level-1, ymax=level+1))
+#' h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
+#' 
+#' # Take out some values in the middle for an example of NA handling
+#' huron[huron$year > 1900 & huron$year < 1910, "level"] <- NA
+#' h <- ggplot(huron, aes(x=year))
+#' h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
+#' 
+#' # Another data set, with multiple y's for each x
+#' m <- ggplot(movies, aes(y=votes, x=year)) 
+#' (m <- m + geom_point())
+#' 
+#' # The default summary isn't that useful
+#' m + stat_summary(geom="ribbon", fun.ymin="min", fun.ymax="max")
+#' m + stat_summary(geom="ribbon", fun.data="median_hilow")
+#' 
+#' # Use qplot instead
+#' qplot(year, level, data=huron, geom=c("area", "line"))
+geom_ribbon <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", 
+na.rm = FALSE, ...) { 
+  GeomRibbon$new(mapping = mapping, data = data, stat = stat, position = position, 
+  na.rm = na.rm, ...)
+}
+
 GeomRibbon <- proto(Geom, {
+  objname <- "ribbon"
+
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = 1)
   required_aes <- c("x", "ymin", "ymax")
@@ -29,7 +73,7 @@ GeomRibbon <- proto(Geom, {
 
     positions <- summarise(data, 
       x = c(x, rev(x)), y = c(ymax, rev(ymin)), id = c(ids, rev(ids)))
-    munched <- coordinates$munch(positions, scales)
+    munched <- coord_munch(coordinates,positions, scales)
 
     ggname(.$my_name(), polygonGrob(
       munched$x, munched$y, id = munched$id,
@@ -43,52 +87,35 @@ GeomRibbon <- proto(Geom, {
   }
 
   # Documentation -----------------------------------------------
-  objname <- "ribbon"
-  desc <- "Ribbons, y range with continuous x values"
-  
   icon <- function(.) {
     polygonGrob(c(0, 0.3, 0.5, 0.8, 1, 1, 0.8, 0.5, 0.3, 0), c(0.5, 0.3, 0.4, 0.2, 0.3, 0.7, 0.5, 0.6, 0.5, 0.7), gp=gpar(fill="grey20", col=NA))
   }
-  
-  seealso <- list(
-    geom_bar = "Discrete intervals (bars)",
-    geom_linerange = "Discrete intervals (lines)",
-    geom_polygon = "General polygons"
-  )
-  
-  examples <- function(.) {
-    # Generate data
-    huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
-    huron$decade <- round_any(huron$year, 10, floor)
+  })
 
-    h <- ggplot(huron, aes(x=year))
-
-    h + geom_ribbon(aes(ymin=0, ymax=level))
-    h + geom_area(aes(y = level))
-
-    # Add aesthetic mappings
-    h + geom_ribbon(aes(ymin=level-1, ymax=level+1))
-    h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
-    
-    # Take out some values in the middle for an example of NA handling
-    huron[huron$year > 1900 & huron$year < 1910, "level"] <- NA
-    h <- ggplot(huron, aes(x=year))
-    h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
-
-    # Another data set, with multiple y's for each x
-    m <- ggplot(movies, aes(y=votes, x=year)) 
-    (m <- m + geom_point())
-    
-    # The default summary isn't that useful
-    m + stat_summary(geom="ribbon", fun.ymin="min", fun.ymax="max")
-    m + stat_summary(geom="ribbon", fun.data="median_hilow")
-    
-    # Use qplot instead
-    qplot(year, level, data=huron, geom=c("area", "line"))
-  }  
-})
+#' Area plot.
+#' 
+#' An area plot is the continuous analog of a stacked bar chart (see
+#' \code{\link{geom_bar}}), and can be used to show how composition of the
+#' whole varies over the range of x.  Choosing the order in which different
+#' components is stacked is very important, as it becomes increasing hard to
+#' see the individual pattern as you move up the stack.
+#'
+#' An area plot is a special case of \code{\link{geom_ribbon}}, where the
+#' minimum of the range is fixed to 0, and the position adjustment defaults 
+#' to position_stacked.
+#'
+#' @export
+#' @examples
+#' # see geom_ribbon
+geom_area <- function (mapping = NULL, data = NULL, stat = "identity", position = "stack", 
+na.rm = FALSE, ...) { 
+  GeomArea$new(mapping = mapping, data = data, stat = stat, position = position, 
+  na.rm = na.rm, ...)
+}
 
 GeomArea <- proto(GeomRibbon,{
+  objname <- "area"
+
   default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = 1)
   default_pos <- function(.) PositionStack
   required_aes <- c("x", "y")
@@ -98,17 +125,7 @@ GeomArea <- proto(GeomRibbon,{
   }
 
   # Documentation -----------------------------------------------
-  objname <- "area"
-  desc <- "Area plots"
-
   icon <- function(.) {
     polygonGrob(c(0, 0,0.3, 0.5, 0.8, 1, 1), c(0, 1,0.5, 0.6, 0.3, 0.8, 0), gp=gpar(fill="grey20", col=NA))
-  }
-
-  details <- "<p>An area plot is the continuous analog of a stacked bar chart (see geom_bar), and can be used to show how composition of the whole varies over the range of x.  Choosing the order in which different components is stacked is very important, as it becomes increasing hard to see the individual pattern as you move up the stack.</p>\n<p>An area plot is a special case of geom_ribbon, where the minimum of the range is fixed to 0, and the position adjustment defaults to position_stacked.</p>"
-
-
-  examples <- function(.) {
-    # Examples to come
   }
 })

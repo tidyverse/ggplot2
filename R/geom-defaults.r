@@ -1,8 +1,8 @@
 # Update geom defaults
 # Modify geom aesthetic defaults for future plots
 # 
-# @arguments name of geom to modify
-# @arguments named list of aesthetics
+# @param name of geom to modify
+# @param named list of aesthetics
 # @keyword hplot
 #X update_geom_defaults("point", list(colour = "darkblue"))
 #X qplot(mpg, wt, data = mtcars)
@@ -24,8 +24,8 @@ update_geom_defaults <- function(geom, new) {
 # Update geom defaults
 # Modify geom aesthetic defaults for future plots
 # 
-# @arguments name of geom to modify
-# @arguments named list of aesthetics
+# @param name of geom to modify
+# @param named list of aesthetics
 # @keyword hplot
 update_stat_defaults <- function(geom, new) {
   g <- Stat$find(geom)

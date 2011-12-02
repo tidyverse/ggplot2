@@ -1,9 +1,5 @@
-# Collide
-# Detect and prevent collisions
-# 
-# Powers dodging, stacking and filling
-# 
-# @keyword internal
+# Detect and prevent collisions.
+# Powers dodging, stacking and filling.
 collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
   # Determine width
   if (!is.null(width)) {
@@ -23,7 +19,7 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
     # Width determined from data, must be floating point constant 
     widths <- unique(with(data, xmax - xmin))
     widths <- widths[!is.na(widths)]
-    if (check.width && length(widths) > 1 && sd(widths) > 1e-6) {
+    if (!zero_range(range(widths))) {
       stop(name, " requires constant width", call. = FALSE)
     }
     width <- widths[1]
@@ -34,8 +30,9 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
 
   # Check for overlap
   intervals <- as.numeric(t(unique(data[c("xmin", "xmax")])))
-  intervals <- scale(intervals[!is.na(intervals)])
-  if (any(diff(intervals) < -1e-6)) {
+  intervals <- intervals[!is.na(intervals)]
+  
+  if (length(unique(intervals)) > 1 & any(diff(scale(intervals)) < -1e-6)) {
     warning(name, " requires non-overlapping x intervals", call. = FALSE)
     # This is where the algorithm from [L. Wilkinson. Dot plots. 
     # The American Statistician, 1999.] should be used
@@ -54,10 +51,8 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
   }
 }
 
-# Stack overlapping intervals
+# Stack overlapping intervals.
 # Assumes that each set has the same horizontal position
-# 
-# @keyword internal
 pos_stack <- function(df, width) {
   if (nrow(df) == 1) return(df)
   
@@ -72,24 +67,22 @@ pos_stack <- function(df, width) {
   within(df, {
     ymin <- heights[-n]
     ymax <- heights[-1]
+    y <- ymax
   })
 }
 
-# Stack overlapping intervals and set height to 1
-# Assumes that each set has the same horizontal position
-# 
-# @keyword internal
+# Stack overlapping intervals and set height to 1.
+# Assumes that each set has the same horizontal position.
 pos_fill <- function(df, width) {
   within(pos_stack(df, width), {
     ymin <- ymin / max(ymax)
     ymax <- ymax / max(ymax)
+    y <- ymax
   })
 }
 
-# Dodge overlapping interval
-# Assumes that each set has the same horizontal position
-# 
-# @keyword internal
+# Dodge overlapping interval.
+# Assumes that each set has the same horizontal position.
 pos_dodge <- function(df, width) {
   n <- nrow(df)
   if (n == 1) return(df)

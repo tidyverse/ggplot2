@@ -1,0 +1,18 @@
+\name{should_stop}
+\alias{should_stop}
+\title{Used in examples to illustrate when errors should occur.}
+\usage{
+  should_stop(expr)
+}
+\arguments{
+  \item{expr}{code to evaluate.}
+}
+\description{
+  Used in examples to illustrate when errors should occur.
+}
+\examples{
+should_stop(stop("Hi!"))
+should_stop(should_stop("Hi!"))
+}
+\keyword{internal}
+

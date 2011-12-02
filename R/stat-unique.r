@@ -1,3 +1,13 @@
+#' Remove duplicates.
+#'
+#' @export
+#' @examples
+#' ggplot(mtcars, aes(vs, am)) + geom_point(alpha = 0.1)
+#' ggplot(mtcars, aes(vs, am)) + geom_point(alpha = 0.1, stat="unique")
+stat_unique <- function (mapping = NULL, data = NULL, geom = "point", position = "identity", ...) { 
+  StatUnique$new(mapping = mapping, data = data, geom = geom, position = position, ...)
+}
+  
 StatUnique <- proto(Stat, {
   objname <- "unique" 
   desc <- "Remove duplicates"
@@ -5,11 +15,4 @@ StatUnique <- proto(Stat, {
   default_geom <- function(.) GeomPoint
   
   calculate_groups <- function(., data, scales, ...) unique(data)
-  
-  desc_outputs <- list()
-  
-  examples <- function(.) {
-    ggplot(mtcars, aes(x=vs, y=am)) + geom_point(colour="#00000010")
-    ggplot(mtcars, aes(x=vs, y=am)) + geom_point(colour="#00000010", stat="unique")
-  }
 })

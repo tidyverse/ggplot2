@@ -1,14 +1,15 @@
-# Absolute grob
-# This grob has fixed dimesions and position.
-# 
-# It's still experimental
-# 
-# @alias grobHeight.absoluteGrob
-# @alias grobWidth.absoluteGrob
-# @alias grobX.absoluteGrob
-# @alias grobY.absoluteGrob
-# @alias grid.draw.absoluteGrob
-# @keyword internal
+#' Absolute grob
+#'
+#' This grob has fixed dimesions and position.
+#' 
+#' It's still experimental
+#' 
+#' @S3method grobHeight absoluteGrob
+#' @S3method grobWidth absoluteGrob
+#' @S3method grobX absoluteGrob
+#' @S3method grobY absoluteGrob
+#' @S3method grid.draw absoluteGrob
+#' @keywords internal
 absoluteGrob <- function(grob, width = NULL, height = NULL, xmin = NULL, ymin = NULL) {
   gTree(
     children = grob, 
@@ -19,10 +20,10 @@ absoluteGrob <- function(grob, width = NULL, height = NULL, xmin = NULL, ymin = 
 }
 
 grobHeight.absoluteGrob <- function(x) {
-  nulldefault(x$height, grobHeight(x$children))
+  x$height %||% grobHeight(x$children)
 }
 grobWidth.absoluteGrob <- function(x) {
-  nulldefault(x$width, grobWidth(x$children))
+  x$width %||%  grobWidth(x$children)
 }
 
 grobX.absoluteGrob <- function(x, theta) {

@@ -1,4 +1,19 @@
+#' 2d rectangles.
+#'
+#' @export
+#' @examples
+#' df <- data.frame(
+#'   x = sample(10, 20, replace = TRUE),
+#'   y = sample(10, 20, replace = TRUE)
+#' )
+#' ggplot(df, aes(xmin = x, xmax = x + 1, ymin = y, ymax = y + 2)) +
+#' geom_rect()
+geom_rect <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
+  GeomRect$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
 GeomRect <- proto(Geom, {
+  objname <- "rect"
   
   default_stat <- function(.) StatIdentity
   default_pos <- function(.) PositionIdentity
@@ -7,7 +22,7 @@ GeomRect <- proto(Geom, {
   required_aes <- c("xmin", "xmax", "ymin", "ymax")
 
   draw <- draw_groups <- function(., data, scales, coordinates, ...) {
-    if (coordinates$muncher()) {
+    if (!is.linear(coordinates)) {
       aesthetics <- setdiff(
         names(data), c("x", "y", "xmin","xmax", "ymin", "ymax")
       )
@@ -22,7 +37,7 @@ GeomRect <- proto(Geom, {
       
       ggname("bar",do.call("grobTree", polys))
     } else {
-      with(coordinates$transform(data, scales), 
+      with(coord_transform(coordinates, data, scales), 
         ggname(.$my_name(), rectGrob(
           xmin, ymax, 
           width = xmax - xmin, height = ymax - ymin, 
@@ -36,24 +51,12 @@ GeomRect <- proto(Geom, {
     }
     
   }
-  
-  # Documentation -----------------------------------------------
-  objname <- "rect"
-  desc <- "2d rectangles"
   guide_geom <- function(.) "polygon"
-  
+
   icon <- function(.) {
     rectGrob(c(0.3, 0.7), c(0.4, 0.8), height=c(0.4, 0.8), width=0.3, vjust=1, gp=gpar(fill="grey20", col=NA))
   }
   
-  examples <- function(.) {
-    df <- data.frame(
-      x = sample(10, 20, replace = TRUE),
-      y = sample(10, 20, replace = TRUE)
-    )
-    ggplot(df, aes(xmin = x, xmax = x + 1, ymin = y, ymax = y + 2)) +
-    geom_rect()
-  }  
 
 })
 

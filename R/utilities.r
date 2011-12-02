@@ -12,9 +12,9 @@
 # This is used by geoms and stats to give a more helpful error message
 # when required aesthetics are missing.
 #
-# @arguments character vector of required aesthetics
-# @arguments character vector of present aesthetics
-# @arguments name of object for error message
+# @param character vector of required aesthetics
+# @param character vector of present aesthetics
+# @param name of object for error message
 # @keyword internal
 check_required_aesthetics <- function(required, present, name) {
   missing_aes <- setdiff(required, present)
@@ -26,7 +26,7 @@ check_required_aesthetics <- function(required, present, name) {
 # Concatenate a named list for output
 # Print a \code{list(a=1, b=2)} as \code{(a=1, b=2)}
 # 
-# @arguments list to concatenate
+# @param list to concatenate
 # @keyword internal
 #X clist(list(a=1, b=2))
 #X clist(par()[1:5])
@@ -37,16 +37,16 @@ clist <- function(l) {
 # Abbreviated paste
 # Alias for paste with a shorter name and convenient defaults
 # 
-# @arguments character vectors to be concatenated
-# @arguments default separator
-# @arguments default collapser
+# @param character vectors to be concatenated
+# @param default separator
+# @param default collapser
 # @keyword internal
 ps <- function(..., sep="", collapse="") do.call(paste, compact(list(..., sep=sep, collapse=collapse)))
 
 # Quietly try to require a package
 # Queitly require a package, returning an error message if that package is not installed.
 # 
-# @arguments name of package
+# @param name of package
 # @keyword internal
 try_require <- function(package) {
   available <- suppressMessages(suppressWarnings(sapply(package, require, quietly = TRUE, character.only = TRUE, warn.conflicts=FALSE)))
@@ -73,10 +73,10 @@ uniquecols <- function(df) {
 # unless \code{ignore.dots = TRUE}.  Positional arguments are not currently
 # supported.
 # 
-# @arguments function to call
+# @param function to call
 # @arugments named list of parameters to be supplied to function
-# @arguments parameter names of function
-# @arguments 
+# @param parameter names of function
+# @param 
 # @keyword internal
 safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRUE) {
   if (!ignore.dots && "..." %in% f.params) {
@@ -95,65 +95,46 @@ safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRU
 # automatically removed with a warning.  If \code{na.rm = TRUE} is supplied
 # to the statistic, the warning will be suppressed.
 # 
-# @arguments data.frame
-# @arguments suppress warning that rows are being removed?
+# @param data.frame
+# @param suppress warning that rows are being removed?
 # @argumnets variables to check for missings in
-# @arguments optional function name to make warning message more informative
+# @param optional function name to make warning message more informative
 # @keyword internal
 #X a <- remove_missing(movies)
 #X a <- remove_missing(movies, na.rm = TRUE)
 #X qplot(mpaa, budget, data=movies, geom="boxplot")
-remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="") {
+remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = FALSE) {
   vars <- intersect(vars, names(df))
   if (name != "") name <- ps(" (", name, ")")
-  missing <- !complete.cases(df[, vars])
+  
+  if (finite) {
+    missing <- !finite.cases(df[, vars, drop = FALSE])
+    str <- "non-finite"
+  } else {
+    missing <- !complete.cases(df[, vars, drop = FALSE])
+    str <- "missing"
+  }
+  
   if (any(missing)) {
     df <- df[!missing, ]
-    if (!na.rm) warning("Removed ", sum(missing), " rows containing missing values", name, ".", call. = FALSE)
+    if (!na.rm) warning("Removed ", sum(missing), " rows containing ", str, 
+      " values", name, ".", call. = FALSE)
   }
 
 
   df
 }
 
-# Traceback alias
-# Alias of traceback with fewer keypresses, and severe restriction on number of lines for each function
-# 
-# @keyword manip 
-# @keyword internal
-tr <- function(x = NULL) traceback(x, max.lines=1)
-
-# Rescale numeric vector
-# Rescale numeric vector to have specified minimum and maximum.
-# If vector has length one, it is not rescaled, but is restricted to the range.
-#
-# @arguments data to rescale
-# @arguments range to scale to
-# @arguments range to scale from, defaults to range of data
-# @arguments should values be clipped to specified range?
-# @keyword manip
-rescale <- function(x, to=c(0,1), from=range(x, na.rm=TRUE), clip = TRUE) {
-  if (length(to) == 1 || abs(to[1] - to[2]) < 1e-6) return(to[1])
-  if (length(from) == 1 || abs(from[1] - from[2]) < 1e-6) return(mean(to))
-
-  if (is.factor(x)) {
-    warning("Categorical variable automatically converted to continuous", call.=FALSE)
-    x <- as.numeric(x)
-  }
-  scaled <- (x - from[1]) / diff(from) * diff(to) + to[1]
-
-  if (clip) {
-    ifelse(!is.finite(scaled) | scaled %inside% to, scaled, NA) 
-  } else {
-    scaled
-  }
+finite.cases <- function(x) UseMethod("finite.cases")
+finite.cases.data.frame <- function(x) {
+  rowSums(vapply(x, is.finite, logical(nrow(x)))) == ncol(x)
 }
 
 
 # "Invert" a list
 # Keys become values, values become keys
 # 
-# @arguments list to invert
+# @param list to invert
 # @keyword internal
 invert <- function(L) {
   t1 <- unlist(L)
@@ -169,12 +150,21 @@ invert <- function(L) {
   x >= interval[1] & x <= interval[2]
 }
 
-# Expression should raise an error
-# Used in examples to illustrate when errors should occur
-#
-# @keyword internal
+#' Used in examples to illustrate when errors should occur.
+#'
+#' @param expr code to evaluate.
+#' @export
+#' @keywords internal
+#' @examples
+#' should_stop(stop("Hi!"))
+#' should_stop(should_stop("Hi!"))
 should_stop <- function(expr) {
   res <- try(print(force(expr)), TRUE)
   if (!inherits(res, "try-error")) stop("No error!", call. = FALSE)
   invisible()
 }
+
+
+# Waive decision
+waiver <- function() structure(NULL, class="waiver")
+is.waive <- function(x) inherits(x, "waiver")

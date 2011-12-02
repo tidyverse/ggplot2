@@ -1,62 +1,74 @@
-ScaleIdentity <- proto(ScaleDiscrete, {  
-  doc <- TRUE
-  common <- c("alpha", "colour","fill","size","shape","linetype")
-  aliases <- "scale_color_identity"
-  new <- function(., name=NULL, breaks=NULL, labels=NULL, formatter = NULL, legend = TRUE, variable="x") {
+#' Use values without scaling.
+#'
+#' @param ... Other arguments passed on to \code{\link{discrete_scale}} or
+#'   \code{\link{continuous_scale}}
+#' @rdname scale_identity
+#' @export
+#' @examples
+#' colour <- c("red", "green", "blue", "yellow")
+#' qplot(1:4, 1:4, fill = colour, geom = "tile")
+#' qplot(1:4, 1:4, fill = colour, geom = "tile") + scale_fill_identity()
+#' 
+#' # To get a legend guide, you also need to supply labels, and specify guide = "legend"
+#' qplot(1:4, 1:4, fill = colour, geom = "tile") +
+#'   scale_fill_identity("trt", labels = letters[1:4], breaks = colour, 
+#'    guide = legend)
+#' 
+#' # cyl scaled to appropriate size
+#' qplot(mpg, wt, data = mtcars, size = cyl)
+#' 
+#' # cyl used as point size
+#' qplot(mpg, wt, data = mtcars, size = cyl) + scale_size_identity()
+scale_colour_identity <- function(..., guide = "none") {
+  identity_scale(discrete_scale("colour", "identity", identity_pal(), ..., guide = guide))
+}
+
+#' @rdname scale_identity
+#' @export
+scale_fill_identity <- function(..., guide = "none") {
+  identity_scale(discrete_scale("fill", "identity", identity_pal(), ..., guide = guide))
     
-    b_and_l <- check_breaks_and_labels(breaks, labels)
-#    legend <- legend && !is.null(b_and_l$labels)
+}
+
+#' @rdname scale_identity
+#' @export
+scale_shape_identity <- function(..., guide = "none") {
+  identity_scale(discrete_scale("shape", "identity", identity_pal(), ..., guide = guide))
     
-    .$proto(name=name, breaks=b_and_l$breaks, .labels=b_and_l$labels, .input=variable, .output=variable, formatter = formatter, legend = legend)
-  }
+}
 
-  train <- function(., data, drop = FALSE) {
-    .$breaks <- union(.$breaks, unique(data))
-    if (is.numeric(data)) {
-      if (all(is.na(data)) || all(!is.finite(data))) return()
-      .$.domain <- range(data, .$.domain, na.rm=TRUE, finite=TRUE)
-    } else {
-      .$.domain <- discrete_range(.$.domain, data, drop = drop)
-    }
-  }
-
-  map_df <- function(., data) {
-    if (!all(.$input() %in% names(data))) return(data.frame())
-    data[, .$input(), drop=FALSE]
-  }
-  output_breaks <- function(.) .$breaks
-  labels <- function(.) {
-    if (!is.null(.$.labels)) return(as.list(.$.labels))
-
-    if (is.null(get("formatter", .))) {
-      f <- match.fun(identity)
-    } else {
-      f <- match.fun(get("formatter", .))
-    }
-    as.list(f(.$input_breaks()))
-  }
-
-  # Documentation -----------------------------------------------
-
-  objname <- "identity"
-  desc <- "Use values without scaling"
-  icon <- function(.) textGrob("f(x) = x", gp=gpar(cex=1.2))
-  
-  examples <- function(.) {
-    colour <- c("red", "green", "blue", "yellow")
-    qplot(1:4, 1:4, fill = colour, geom = "tile")
-    qplot(1:4, 1:4, fill = colour, geom = "tile") + scale_fill_identity()
+#' @rdname scale_identity
+#' @export
+scale_linetype_identity <- function(..., guide = "none") {
+  identity_scale(discrete_scale("linetype", "identity", identity_pal(), ..., guide = guide))
     
-    # To get a legend, you also need to supply the labels to
-    # be used on the legend
-    qplot(1:4, 1:4, fill = colour, geom = "tile") +
-      scale_fill_identity("trt", labels = letters[1:4], breaks = colour)
-    
-    # cyl scaled to appropriate size
-    qplot(mpg, wt, data = mtcars, size = cyl)
+}
 
-    # cyl used as point size
-    qplot(mpg, wt, data = mtcars, size = cyl) + scale_size_identity()
+#' @rdname scale_identity
+#' @export
+scale_alpha_identity <- function(..., guide = "none") {
+  identity_scale(continuous_scale("alpha", "identity", identity_pal(), ..., guide = guide))
+    
+}
+
+#' @rdname scale_identity
+#' @export
+scale_size_identity <- function(..., guide = "none") {
+  identity_scale(continuous_scale("size", "identity", identity_pal(), ..., guide = guide))
+    
+}
+
+identity_scale <- function(x) {
+  structure(x, class = c("identity", class(x)))
+}
+
+#' @S3method scale_map identity
+scale_map.identity <- function(scale, x) {
+  if (is.factor(x)) {
+    as.character(x)
+  } else {
+    x
   }
-  
-})
+}
+
+icon.identity <- function() textGrob("f(x) = x", gp=gpar(cex=1.2))
