@@ -210,7 +210,6 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
   
   ## arrange common data for vertical and horizontal guide
   guide$geoms <- llply(layers, function(layer) {
-
     all <- names(c(layer$mapping, default_mapping, layer$stat$default_aes()))
     geom <- c(layer$geom$required_aes, names(layer$geom$default_aes()))
     matched <- intersect(intersect(all, geom), names(guide$key))
@@ -218,7 +217,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     data <- 
       if (length(matched) > 0) {
         ## This layer contributes to the legend
-        if (is.na(layer$legend) || layer$legend) {
+        if (is.na(layer$guide) || layer$guide) {
           ## Default is to include it 
           layer$use_defaults(guide$key[matched])
         } else {
@@ -226,7 +225,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
         }
       } else {
         ## This layer does not contribute to the legend
-        if (is.na(layer$legend) || !layer$legend) {
+        if (is.na(layer$guide) || !layer$guide) {
           ## Default is to exclude it
           NULL
         } else {

@@ -21,7 +21,20 @@ Layer <- proto(expr = {
   params <- NULL
   inherit.aes <- FALSE
   
-  new <- function (., geom=NULL, geom_params=NULL, stat=NULL, stat_params=NULL, data=NULL, mapping=NULL, position=NULL, params=NULL, ..., inherit.aes = TRUE, legend = NA, subset = NULL) {
+  new <- function (., geom=NULL, geom_params=NULL, stat=NULL, stat_params=NULL, data=NULL, mapping=NULL, position=NULL, params=NULL, ..., inherit.aes = TRUE, legend = NA, subset = NULL, guide = NA) {
+
+    # now, as for the guide, we can choose only if the layer is included or not in the guide: guide = TRUE or guide = FALSE
+    # in future, it may be better if we can choose which aes of this layer is included in the guide, e.g.: guide = c(colour = TRUE, size = FALSE)
+    if (!is.na(legend)) {
+      warning("\"legend\" argument in geom_XXX and stat_XXX is deprecated. Use guide = TRUE or guid = FALSE for display or suppress the guide display.")
+      if (legend == FALSE) guide = FALSE
+      else if (legend == TRUE) guide = TRUE
+    }
+
+    if (!is.na(guide) && !is.logical(guide)) {
+      guide = FALSE
+    }
+
     
     if (is.null(geom) && is.null(stat)) stop("Need at least one of stat and geom")
     
@@ -77,7 +90,7 @@ Layer <- proto(expr = {
       data=data, mapping=mapping, subset=subset,
       position=position,
       inherit.aes = inherit.aes,
-      legend = legend
+      guide = guide,
     )
   }
   
