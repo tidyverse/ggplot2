@@ -51,13 +51,18 @@ facet_render.null <- function(facet, panel, coord, theme, geom_grobs) {
     axis_v,     panel_grob,
     zeroGrob(), axis_h
   ), ncol = 2, byrow = T)
-  
+
   layout <- layout_matrix("layout", all, 
     widths = unit.c(grobWidth(axis_v), unit(1, "null")),
     heights = unit.c(unit(aspect_ratio, "null"), grobHeight(axis_h)),
     respect = respect, clip = c("off", "off", "on", "off")
   )
   layout$layout$name <- c("axis-l", "spacer", "panel", "axis-b")
+
+  # reorder the drawing so that the axis is over the panel.
+  ord <- c(2, 3, 1, 4) # order: scape -> panel -> axis v -> axis h
+  layout$grobs <- layout$grobs[ord]
+  layout$layout <- layout$layout[ord, ]
   
   layout
 }

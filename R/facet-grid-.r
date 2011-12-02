@@ -179,7 +179,15 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
   complete <- rbind(top, rbind(center, bottom))
   complete$respect <- panels$respect
   complete$name <- "layout"
-  
+
+  # reorder the drawing so that the axis is over the panel.
+  ind.panel <- grep("^panel", complete$layout$name)
+  ind.strip <- grep("^strip", complete$layout$name)  
+  ind.axis <- grep("^axis", complete$layout$name)
+  ord <- c(ind.panel, ind.strip, ind.axis)  # order: panel -> strip -> axis
+  complete$grobs <- complete$grobs[ord]
+  complete$layout <- complete$layout[ord, ]
+
   complete
 }
 
