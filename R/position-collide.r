@@ -19,7 +19,7 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
     # Width determined from data, must be floating point constant 
     widths <- unique(with(data, xmax - xmin))
     widths <- widths[!is.na(widths)]
-    if (check.width && length(widths) > 1 && sd(widths) > 1e-6) {
+    if (!zero_range(range(widths))) {
       stop(name, " requires constant width", call. = FALSE)
     }
     width <- widths[1]
@@ -31,6 +31,7 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
   # Check for overlap
   intervals <- as.numeric(t(unique(data[c("xmin", "xmax")])))
   intervals <- intervals[!is.na(intervals)]
+  
   if (length(unique(intervals)) > 1 & any(diff(scale(intervals)) < -1e-6)) {
     warning(name, " requires non-overlapping x intervals", call. = FALSE)
     # This is where the algorithm from [L. Wilkinson. Dot plots. 
