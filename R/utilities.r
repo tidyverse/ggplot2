@@ -103,18 +103,33 @@ safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRU
 #X a <- remove_missing(movies)
 #X a <- remove_missing(movies, na.rm = TRUE)
 #X qplot(mpaa, budget, data=movies, geom="boxplot")
-remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="") {
+remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = FALSE) {
   vars <- intersect(vars, names(df))
   if (name != "") name <- ps(" (", name, ")")
-  missing <- !complete.cases(df[, vars])
+  
+  if (finite) {
+    missing <- !finite.cases(df[, vars, drop = FALSE])
+    str <- "non-finite"
+  } else {
+    missing <- !complete.cases(df[, vars, drop = FALSE])
+    str <- "missing"
+  }
+  
   if (any(missing)) {
     df <- df[!missing, ]
-    if (!na.rm) warning("Removed ", sum(missing), " rows containing missing values", name, ".", call. = FALSE)
+    if (!na.rm) warning("Removed ", sum(missing), " rows containing ", str, 
+      " values", name, ".", call. = FALSE)
   }
 
 
   df
 }
+
+finite.cases <- function(x) UseMethod("finite.cases")
+finite.cases.data.frame <- function(x) {
+  rowSums(vapply(x, is.finite, logical(nrow(x)))) == ncol(x)
+}
+
 
 # "Invert" a list
 # Keys become values, values become keys

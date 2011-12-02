@@ -84,7 +84,8 @@ StatDensity <- proto(Stat, {
   objname <- "density"
 
   calculate <- function(., data, scales, adjust=1, kernel="gaussian", trim=FALSE, na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, "x", name = "stat_density")
+    data <- remove_missing(data, na.rm, "x", name = "stat_density", 
+      finite = TRUE)
     
     n <- nrow(data)
     if (n < 3) return(data.frame())

@@ -24,7 +24,8 @@ StatBoxplot <- proto(Stat, {
   default_geom <- function(.) GeomBoxplot
   
   calculate_groups <- function(., data, na.rm = FALSE, width = NULL, ...) {
-    data <- remove_missing(data, na.rm, c("y", "weight"), name="stat_boxplot")
+    data <- remove_missing(data, na.rm, c("y", "weight"), name="stat_boxplot", 
+      finite = TRUE)
     data$weight <- data$weight %||% 1
     width <- width %||%  resolution(data$x) * 0.75
         

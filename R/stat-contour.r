@@ -53,7 +53,7 @@ StatContour <- proto(Stat, {
   objname <- "contour"
 
   calculate <- function(., data, scales, bins=NULL, binwidth=NULL, breaks = NULL, na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, name = "stat_contour")
+    data <- remove_missing(data, na.rm, name = "stat_contour", finite = TRUE)
 
     # If no parameters set, use pretty bins
     if (is.null(bins) && is.null(binwidth) && is.null(breaks)) {

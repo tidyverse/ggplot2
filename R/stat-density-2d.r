@@ -60,7 +60,7 @@ StatDensity2d <- proto(Stat, {
 
   calculate <- function(., data, scales, na.rm = FALSE, contour = TRUE, n = 100, ...) {
     df <- data.frame(data[, c("x", "y")])
-    df <- remove_missing(df, na.rm, name = "stat_density2d")
+    df <- remove_missing(df, na.rm, name = "stat_density2d", finite = TRUE)
 
     dens <- safe.call(MASS::kde2d, c(df, n = n, ...))
     df <- with(dens, data.frame(expand.grid(x = x, y = y), z = as.vector(z)))
