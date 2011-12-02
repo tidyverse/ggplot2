@@ -30,6 +30,15 @@ test_that("labels don't have extra spaces", {
   
 })
 
+test_that("no minor breaks when only one break", {
+  sc1 <- scale_x_discrete(limits = "a")
+  sc2 <- scale_x_continuous(limits = 1)
+  
+  expect_equal(length(scale_breaks_minor(sc1)), 0)
+  expect_equal(length(scale_breaks_minor(sc2)), 0)
+  
+})
+
 init_scale <- function(...) {
   sc <- scale_x_discrete(...)
   scale_train(sc, factor(1:100))
