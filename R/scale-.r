@@ -248,8 +248,8 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   }
   
   # Breaks in data space need to be converted back to transformed space
-  # And any breaks outside the dimensions need to be thrown away
-  breaks <- discard(scale$trans$trans(breaks), scale_dimension(scale))
+  # And any breaks outside the dimensions need to be flagged as missing
+  breaks <- censor(scale$trans$trans(breaks), scale_dimension(scale))
   if (length(breaks) == 0) {
     stop("Zero breaks in scale for ", paste(scale$aesthetics, collapse = "/"),
       call. = FALSE)
@@ -286,13 +286,15 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
   if (zero_range(as.numeric(limits))) {
     breaks <- limits[1]
   } else if (is.null(scale$minor_breaks)) {
+    b <- b[!is.na(b)]
     if (length(b) == 1) {
-    breaks <-   b
+      breaks <- b
     } else {
       bd <- diff(b)[1]
       if (min(limits) < min(b)) b <- c(b[1] - bd, b)
       if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
-      breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length=n+1, SIMPLIFY=F)))
+      breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length=n+1,
+        SIMPLIFY = FALSE)))
     }
   } else if (is.function(scale$minor_breaks)) {
     breaks <- scale$minor_breaks(scale$trans$inv(limits))
