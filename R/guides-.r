@@ -115,6 +115,7 @@ build_guides <- function(scales, layers, default_mapping, position, theme) {
 
   ## process layer information
   gdefs <- guides_geom(gdefs, layers, default_mapping)
+  if (length(gdefs) == 0) return(zeroGrob())
 
   ## generate grob of each guides
   ggrobs <- guides_gengrob(gdefs, theme)
@@ -186,7 +187,7 @@ guides_merge <- function(gdefs) {
 
 ## process layer information
 guides_geom <- function(gdefs, layers, default_mapping) {
-  lapply(gdefs, guide_geom, layers, default_mapping)
+  Filter(Negate(is.null), lapply(gdefs, guide_geom, layers, default_mapping))
 }
 
 ## generate grob from each gdef (needs to write this function?)
