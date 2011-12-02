@@ -39,3 +39,4 @@ test_that("non-position aesthetics are mapped", {
   d2 <- pdata(l2)[[1]]
   expect_that(d2$colour, equals(c("blue", "red", "yellow")))  
 })
+

@@ -1,5 +1,15 @@
 context("Scales")
 
+test_that("buidling a plot does not affect its scales", {
+  dat <- data.frame(x = rnorm(20), y = rnorm(20))
+
+  p <- ggplot(dat, aes(x, y)) + geom_point()
+  expect_equal(length(p$scales$scales), 0)
+  
+  ggplot_build(p)
+  expect_equal(length(p$scales$scales), 0)  
+})
+
 test_that("ranges update only for variables listed in aesthetics", {
   sc <- scale_alpha()
 

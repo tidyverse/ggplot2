@@ -14,6 +14,7 @@
 ggplot_build <- function(plot) {
   if (length(plot$layers) == 0) stop("No layers in plot", call.=FALSE)
   
+  plot <- plot_clone(plot)
   layers <- plot$layers
   layer_data <- lapply(layers, function(y) y$data)
   
@@ -76,6 +77,6 @@ ggplot_build <- function(plot) {
   # Train coordinate system
   panel <- train_ranges(panel, plot$coordinates)
   
-  list(data = data, panel = panel)
+  list(data = data, panel = panel, plot = plot)
 }
 
