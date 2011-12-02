@@ -39,7 +39,7 @@ flip_labels <- function(x) {
 }
 
 #' @S3method is.linear flip
-is.linear.flip <- function(coord) FALSE
+is.linear.flip <- function(coord) TRUE
 
 #' @S3method coord_transform flip
 coord_transform.flip <- function(coord, data, details) {
