@@ -157,11 +157,12 @@ Layer <- proto(expr = {
     check_required_aesthetics(.$stat$required_aes, 
       c(names(data), names(.$stat_params)), 
       paste("stat_", .$stat$objname, sep=""))
-
-    res <- do.call(.$stat$calculate_groups, c(
+    
+    res <- NULL
+    try(res <- do.call(.$stat$calculate_groups, c(
       list(data=as.name("data"), scales=as.name("scales")), 
       .$stat_params)
-    )
+    ))
     if (is.null(res)) return(data.frame())
     
     res
