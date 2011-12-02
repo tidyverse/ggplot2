@@ -18,14 +18,8 @@ development at http://github.com/hadley/ggplot2
 
 # Development
 
-`ggplot2` follows the [git flow](http://object.io/site/2011/enter-git-flow/) branching model.  There are two main long-lived branches:
+To install the development version of ggplot2, it's easiest to use the `devtools` package:
 
-* `master`: main branch containing production-ready (i.e. releasable to CRAN)
-  code. This branch should always pass `R CMD check`
-
-* `develop`: where all development occurs. Small changes maybe be made
-  directly in this branch, but any larger changes should be made in a feature
-  branch created with `git flow feature start`
-
-Other branches are described in more detail on the [main git flow page](http://nvie.com/posts/a-successful-git-branching-model/).
-
+    # install.packages("devtools")
+    library(devtools)
+    install_github("ggplot2")
