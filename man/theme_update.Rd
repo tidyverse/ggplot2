@@ -1,8 +1,14 @@
 \name{theme_update}
+\alias{theme_get}
+\alias{theme_set}
 \alias{theme_update}
 \title{Get, set and update themes.}
 \usage{
   theme_update(...)
+
+  theme_get()
+
+  theme_set(new)
 }
 \arguments{
   \item{...}{named list of theme settings}
