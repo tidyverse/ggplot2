@@ -169,11 +169,12 @@ guide_legend <- function(
 }
 
 guide_train.legend <- function(guide, scale) {
+  breaks <- scale_breaks(scale)
   key <- data.frame(
-    breaks = scale_map(scale, scale_breaks(scale)), 
+    values = scale_map(scale, breaks),
     labels = scale_labels(scale),
     stringsAsFactors = FALSE)
-  key <- key[!is.na(key$breaks), , drop = FALSE]
+  key <- key[!is.na(breaks), , drop = FALSE]
   names(key) <- c(scale$aesthetics[1], ".label")
   if (guide$reverse) key <- key[nrow(guide$key):1, ]
   
