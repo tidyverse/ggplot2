@@ -34,15 +34,14 @@ geom_hline <- function (mapping = NULL, data = NULL, stat = "hline", position = 
 GeomHline <- proto(Geom, {
   objname <- "hline"
 
-  new <- function(., data = NULL, mapping = NULL, yintercept = NULL, legend = NA, ...) {
+  new <- function(., data = NULL, mapping = NULL, yintercept = NULL, ...) {
     if (is.numeric(yintercept)) {
       data <- data.frame(yintercept = yintercept)
       yintercept <- NULL
       mapping <- aes_all(names(data))
-      if(is.na(legend)) legend <- FALSE
     }
     .super$new(., data = data, mapping = mapping, inherit.aes = FALSE, 
-      yintercept = yintercept, legend = legend, ...)
+      yintercept = yintercept, ...)
   }
 
   draw <- function(., data, scales, coordinates, ...) {

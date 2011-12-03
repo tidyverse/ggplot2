@@ -41,15 +41,14 @@ geom_vline <- function (mapping = NULL, data = NULL, stat = "vline", position = 
 GeomVline <- proto(Geom, {
   objname <- "vline"
 
-  new <- function(., data = NULL, mapping = NULL, xintercept = NULL, legend = NA, ...) {
+  new <- function(., data = NULL, mapping = NULL, xintercept = NULL, ...) {
     if (is.numeric(xintercept)) {
       data <- data.frame(xintercept = xintercept)
       xintercept <- NULL
       mapping <- aes_all(names(data))
-      if(is.na(legend)) legend <- FALSE
     }
     .super$new(., data = data, mapping = mapping, inherit.aes = FALSE, 
-      xintercept = xintercept, legend = legend, ...)
+      xintercept = xintercept, ...)
   }
   
   draw <- function(., data, scales, coordinates, ...) {
