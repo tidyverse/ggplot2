@@ -48,17 +48,19 @@ GeomCrossbar <- proto(Geom, {
 
       box <- data.frame(
               x=c(data$xmin, data$xmin, data$xmin + notchindent, data$xmin, data$xmin,
-                  data$xmax, data$xmax, data$xmax - notchindent, data$xmax, data$xmax),
+                  data$xmax, data$xmax, data$xmax - notchindent, data$xmax, data$xmax,
+                  data$xmin),
               y=c(data$ymax, data$ynotchupper, data$y, data$ynotchlower, data$ymin,
-                  data$ymin, data$ynotchlower, data$y, data$ynotchupper, data$ymax),
+                  data$ymin, data$ynotchlower, data$y, data$ynotchupper, data$ymax,
+                  data$ymax),
               alpha=data$alpha, colour=data$colour, size=data$size, linetype=data$linetype,
               fill=data$fill, group=data$group, stringsAsFactors=FALSE)
 
     } else {
       # No notch
       box <- data.frame(
-              x=c(data$xmin, data$xmin, data$xmax, data$xmax),
-              y=c(data$ymax, data$ymin, data$ymin, data$ymax),
+              x=c(data$xmin, data$xmin, data$xmax, data$xmax, data$xmin),
+              y=c(data$ymax, data$ymin, data$ymin, data$ymax, data$ymax),
               alpha=data$alpha, colour=data$colour, size=data$size, linetype=data$linetype,
               fill=data$fill, group=data$group, stringsAsFactors=FALSE)
     }
