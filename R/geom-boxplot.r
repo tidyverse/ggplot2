@@ -17,6 +17,9 @@
 #' p + geom_boxplot() + coord_flip()
 #' qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot") +
 #'   coord_flip()
+#'
+#' p + geom_boxplot(notch=TRUE)
+#' p + geom_boxplot(notch=TRUE, notchwidth=.3)
 #' 
 #' p + geom_boxplot(outlier.colour = "green", outlier.size = 3)
 #' 
@@ -58,10 +61,11 @@
 #' b + geom_boxplot(stat = "identity") + coord_flip()
 #' b + geom_boxplot(aes(fill = X1), stat = "identity")
 geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot", position = "dodge", 
-outlier.colour = "black", outlier.shape = 16, outlier.size = 2, ...) {
+outlier.colour = "black", outlier.shape = 16, outlier.size = 2,
+notch = FALSE, notchwidth = .5, ...) {
   GeomBoxplot$new(mapping = mapping, data = data, stat = stat, 
   position = position, outlier.colour = outlier.colour, outlier.shape = outlier.shape, 
-  outlier.size = outlier.size, ...)
+  outlier.size = outlier.size, notch = notch, notchwidth = notchwidth, ...)
 }
 
 GeomBoxplot <- proto(Geom, {
@@ -76,7 +80,8 @@ GeomBoxplot <- proto(Geom, {
     )
   }
   
-  draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2) { 
+  draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2,
+                   notch = FALSE, notchwidth = .5) { 
     common <- data.frame(
       colour = data$colour, 
       size = data$size, 
@@ -100,6 +105,9 @@ GeomBoxplot <- proto(Geom, {
       ymin = data$lower, 
       y = data$middle, 
       ymax = data$upper,
+      ynotchlower = ifelse(notch, data$notchlower, NA),
+      ynotchupper = ifelse(notch, data$notchupper, NA),
+      notchwidth = notchwidth,
       alpha = data$alpha, 
       common)
     

@@ -36,10 +36,39 @@ GeomCrossbar <- proto(Geom, {
   
   draw <- function(., data, scales, coordinates, fatten = 2, width = NULL, ...) {
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten)
-    
-    ggname(.$my_name(), gTree(children=gList(
-      GeomRect$draw(data, scales, coordinates, ...),
-      GeomSegment$draw(middle, scales, coordinates, ...)
-    )))
-  }  
+
+    with(data, {
+
+      # If there's a notch
+      if (!is.na(ynotchlower) && !is.na(ynotchupper)) {
+        if (ynotchlower < ymin  ||  ynotchupper > ymax)
+          warning("notch went outside hinges. Try setting notch=FALSE.")
+
+        notchindent <- (1 - notchwidth) * (xmax - xmin) / 2
+
+        middle <- transform(middle, x = x + notchindent, xend = xend - notchindent)
+
+        box <- data.frame(
+                  x=c(xmin, xmin, xmin + notchindent, xmin, xmin,
+                      xmax, xmax, xmax - notchindent, xmax, xmax),
+                  y=c(ymax, ynotchupper, y, ynotchlower, ymin,
+                      ymin, ynotchlower, y, ynotchupper, ymax),
+                  alpha=alpha, colour=colour, size=size, linetype=linetype,
+                  fill=fill, group=group, stringsAsFactors=FALSE)
+
+      } else {
+        # No notch
+        box <- data.frame(
+                  x=c(xmin, xmin, xmax, xmax),
+                  y=c(ymax, ymin, ymin, ymax),
+                  alpha=alpha, colour=colour, size=size, linetype=linetype,
+                  fill=fill, group=group, stringsAsFactors=FALSE)
+      }
+
+      ggname(.$my_name(), gTree(children=gList(
+        GeomPolygon$draw(box, scales, coordinates, ...),
+        GeomSegment$draw(middle, scales, coordinates, ...)
+      )))
+    }
+  }
 })

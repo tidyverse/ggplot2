@@ -53,6 +53,15 @@ StatBoxplot <- proto(Stat, {
       df <- as.data.frame(as.list(stats))
       df$outliers <- I(list(y[outliers]))
 
+      if (is.null(weight))
+        n <- sum(!is.na(y))
+      else
+        # Sum up weights for non-NA positions of y and weight
+        n <- sum(weight[!is.na(y) & !is.na(weight)])
+
+      df$notchupper <- df$middle + 1.58 * iqr / sqrt(n)
+      df$notchlower <- df$middle - 1.58 * iqr / sqrt(n)
+
       transform(df,
         x = if (is.factor(x)) x[1] else mean(range(x)),
         width = width
