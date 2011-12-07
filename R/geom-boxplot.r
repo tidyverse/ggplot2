@@ -18,8 +18,8 @@
 #' qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot") +
 #'   coord_flip()
 #'
-#' p + geom_boxplot(notch=TRUE)
-#' p + geom_boxplot(notch=TRUE, notchwidth=.3)
+#' p + geom_boxplot(notch = TRUE)
+#' p + geom_boxplot(notch = TRUE, notchwidth = .3)
 #' 
 #' p + geom_boxplot(outlier.colour = "green", outlier.size = 3)
 #' 
