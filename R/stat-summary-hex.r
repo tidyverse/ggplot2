@@ -1,22 +1,22 @@
-#' Aggregate 2d plane into hexagons.
+#' Apply functions to hexagonal bins.
 #' 
-#' @seealso \code{\link{stat_aggr2d}} for rectangular aggregation. \code{\link{stat_bin2d}} for the hexagon-ing options.
+#' @seealso \code{\link{stat_summary2d}} for rectangular summarization. \code{\link{stat_bin2d}} for the hexagon-ing options.
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, price))
-#' d + stat_aggrhex()
+#' d + stat_summary_hex()
 #' 
 #' # Specifying function
-#' d + stat_aggrhex(fun = function(x) sum(x^2))
-#' d + stat_aggrhex(fun = var)
-stat_aggrhex <- function (mapping = NULL, data = NULL, geom = "hex", position = "identity", 
+#' d + stat_summary_hex(fun = function(x) sum(x^2))
+#' d + stat_summary_hex(fun = var, na.rm = T)
+stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex", position = "identity", 
 bins = 30, na.rm = FALSE, fun = mean, ...) { 
-  StatAggrhex$new(mapping = mapping, data = data, geom = geom, position = position, 
+  StatSummaryhex$new(mapping = mapping, data = data, geom = geom, position = position, 
   bins = bins, na.rm = na.rm, fun = fun, ...)
 }
 
-StatAggrhex <- proto(Stat, {
-  objname <- "aggrhex"
+StatSummaryhex <- proto(Stat, {
+  objname <- "summaryhex"
 
   default_aes <- function(.) aes(fill = ..value..)
   required_aes <- c("x", "y", "z")
@@ -24,7 +24,7 @@ StatAggrhex <- proto(Stat, {
   
   calculate <- function(., data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, fun = mean, ...) {
     try_require("hexbin")
-    data <- remove_missing(data, na.rm, c("x", "y"), name="stat_aggrbin")
+    data <- remove_missing(data, na.rm, c("x", "y"), name="stat_summaryhex")
 
     if (is.null(binwidth)) {
       binwidth <- c( 
@@ -58,7 +58,7 @@ StatAggrhex <- proto(Stat, {
       IDs = TRUE
     )
     
-    value <- tapply(data$z, hb@cID, fun)
+    value <- tapply(data$z, hb@cID, fun, ...)
     
     # Convert to data frame
     data.frame(hcell2xy(hb), value)
