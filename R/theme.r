@@ -4,7 +4,7 @@
 #' theme or use \code{theme_set} to completely override it.
 #' 
 #' @param ... named list of theme settings
-#' @export theme_update theme_set theme_get
+#' @export
 #' @examples
 #' qplot(mpg, wt, data = mtcars)
 #' old <- theme_set(theme_bw())
@@ -50,7 +50,12 @@ theme_update <- function(...) {
     }
   )
 })()
+
+#' @rdname theme_update
+#' @export
 theme_get <- .theme$get  
+#' @rdname theme_update
+#' @export
 theme_set <- .theme$set
 
 #' Set options/theme elements for a single plot

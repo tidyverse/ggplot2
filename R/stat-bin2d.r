@@ -26,8 +26,9 @@
 #'   xlim = c(4, 10), ylim = c(4, 10))
 #' qplot(x, y, data = diamonds, geom="bin2d", binwidth = c(0.1, 0.1),
 #'   xlim = c(4, 10), ylim = c(4, 10))
-stat_bin2d <- function (mapping = NULL, data = NULL, geom = "rect", position = "identity", 
+stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL, position = "identity", 
 bins = 30, drop = TRUE, ...) {
+  
   StatBin2d$new(mapping = mapping, data = data, geom = geom, position = position, 
   bins = bins, drop = drop, ...)
 }
@@ -45,6 +46,17 @@ StatBin2d <- proto(Stat, {
       x = scale_dimension(scales$x, c(0, 0)),
       y = scale_dimension(scales$y, c(0, 0))
     )
+    
+    # Determine origin, if omitted
+    if (is.null(origin)) {
+      origin <- c(NA, NA)
+    } else {
+      stopifnot(is.numeric(origin))
+      stopifnot(length(origin) == 2)
+    }    
+    originf <- function(x) if (is.integer(x)) -0.5 else min(x)
+    if (is.na(origin[1])) origin[1] <- originf(data$x)
+    if (is.na(origin[2])) origin[2] <- originf(data$y)
     
     # Determine binwidth, if omitted
     if (is.null(binwidth)) {
@@ -65,21 +77,15 @@ StatBin2d <- proto(Stat, {
     
     # Determine breaks, if omitted
     if (is.null(breaks)) {
-      if (is.null(origin)) {
-        breaks <- list(
-          fullseq(range$x, binwidth[1]),
-          fullseq(range$y, binwidth[2])
-        )
-      } else {
-        breaks <- list(
-          seq(origin[1], max(range$x) + binwidth[1], binwidth[1]),
-          seq(origin[2], max(range$y) + binwidth[2], binwidth[2])
-        )
-      }
+      breaks <- list(
+        seq(origin[1], max(range$x) + binwidth[1], binwidth[1]),
+        seq(origin[2], max(range$y) + binwidth[2], binwidth[2])
+      )
+    } else {
+      stopifnot(is.list(breaks))
+      stopifnot(length(breaks) == 2)      
+      stopifnot(all(sapply(breaks, is.numeric)))
     }
-    stopifnot(is.list(breaks))
-    stopifnot(length(breaks) == 2)
-    stopifnot(all(sapply(breaks, is.numeric)))
     names(breaks) <- c("x", "y")
     
     xbin <- cut(data$x, sort(breaks$x), include.lowest=TRUE)

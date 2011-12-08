@@ -1,7 +1,11 @@
 \name{annotation_map}
 \alias{annotation_map}
+\title{Annotation: maps.}
 \usage{
   annotation_map(map, ...)
+}
+\description{
+  Annotation: maps.
 }
 \examples{
 library(maps)
