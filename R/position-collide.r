@@ -84,7 +84,7 @@ pos_fill <- function(df, width) {
 # Dodge overlapping interval.
 # Assumes that each set has the same horizontal position.
 pos_dodge <- function(df, width) {
-  n <- nrow(df)
+  n <- length(unique(df$group))
   if (n == 1) return(df)
   
   if (!all(c("xmin", "xmax") %in% names(df))) {
@@ -98,9 +98,14 @@ pos_dodge <- function(df, width) {
   # df <- data.frame(n = c(2:5, 10, 26), div = c(4, 3, 2.666666,  2.5, 2.2, 2.1))
   # qplot(n, div, data = df)
   
-  within(df, {
-    xmin <- xmin + width / n * (seq_len(n) - 1) - diff * (n - 1) / (2 * n)
-    xmax <- xmin + d_width / n
-    x <- (xmin + xmax) / 2
+  # Have a new group index from 1 to number of groups.
+  # This might be needed if the group numbers in this set don't include all of 1:n
+  groupidx <- rep(0, max(df$group))
+  groupidx[unique(df$group)] <- 1:n
+
+  within(df, {xmin <- xmin + width / n * (groupidx[group] - 1)
+                                  - diff * (n - 1) / (2 * n)
+              xmax <- xmin + d_width / n
+              x <-  (xmin + xmax) / 2
   })
 }
