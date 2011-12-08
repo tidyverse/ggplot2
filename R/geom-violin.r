@@ -81,7 +81,7 @@ GeomViolin <- proto(Geom, {
 
   }
   
-  draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2) { 
+  draw <- function(., data, ...) { 
 
     # Find the points for the line to go all the way around
     data <- transform(data, xminv = x - scaled * (x-xmin),
