@@ -47,6 +47,8 @@ MINOR CHANGES
   specific to a given data structure. Default implementation throws
   an error. It is designed to have implementations provided by other
   packages.
+  
+* `ggpcp` loses the `scale` argument because it relied on reshape(1) code
 
 DEVELOPMENT
 
