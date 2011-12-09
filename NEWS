@@ -50,6 +50,8 @@ MINOR CHANGES
   
 * `ggpcp` loses the `scale` argument because it relied on reshape(1) code
 
+* `map_data` passes `...` on to `maps::map` (Fixes #223)
+
 DEVELOPMENT
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems

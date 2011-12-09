@@ -43,6 +43,7 @@ fortify.map <- function(model, data, ...) {
 #'   more details.
 #' @param exact should the \code{region} be treated as a regular expression
 #'   (\code{FALSE}) or as a fixed string (\code{TRUE}).
+#' @param ... all other arguments passed on to \code{\link[maps]{map}}
 #' @export
 #' @examples
 #' if (require("maps")) {
@@ -58,6 +59,6 @@ fortify.map <- function(model, data, ...) {
 #' qplot(long, lat, data = choro, group = group, fill = assault / murder,
 #'   geom = "polygon")
 #' }
-map_data <- function(map, region = ".", exact = FALSE) {
-  fortify(map(map, region, exact = exact, plot = FALSE, fill = TRUE))
+map_data <- function(map, region = ".", exact = FALSE, ...) {
+  fortify(map(map, region, exact = exact, plot = FALSE, fill = TRUE, ...))
 }
