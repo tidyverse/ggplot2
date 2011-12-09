@@ -40,6 +40,11 @@ MINOR CHANGES
 
 * `geom_text` remove rows with missing values with warning (fixes #191)
 
+* New generic function `autoplot` for the creation of complete plots
+  specific to a given data structure. Default implementation throws
+  an error. It is designed to have implementations provided by other
+  packages.
+
 DEVELOPMENT
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems

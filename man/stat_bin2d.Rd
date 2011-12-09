@@ -2,7 +2,7 @@
 \alias{stat_bin2d}
 \title{Count number of observation in rectangular bins.}
 \usage{
-  stat_bin2d(mapping = NULL, data = NULL, geom = "rect",
+  stat_bin2d(mapping = NULL, data = NULL, geom = NULL,
     position = "identity", bins = 30, drop = TRUE, ...)
 }
 \description{

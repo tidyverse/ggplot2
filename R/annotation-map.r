@@ -1,6 +1,8 @@
 #' @include geom-map.r
 NULL
 
+#' Annotation: maps.
+#'
 #' @export
 #' @examples
 #' library(maps)

@@ -2,7 +2,7 @@
 \alias{ggplot_gtable}
 \title{Build a plot with all the usual bits and pieces.}
 \usage{
-  ggplot_gtable(plot, data = ggplot_build(plot))
+  ggplot_gtable(data)
 }
 \arguments{
   \item{plot}{plot object}

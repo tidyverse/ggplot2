@@ -35,6 +35,9 @@ PositionStack <- proto(Position, {
 
   adjust <- function(., data) {
     if (empty(data)) return(data.frame())
+
+    data <- remove_missing(data, FALSE, 
+      c("x", "y", "ymin", "ymax", "xmin", "xmax"), name = "position_stack")
     
     if (is.null(data$ymax) && is.null(data$y)) {
       message("Missing y and ymax in position = 'stack'. ", 
