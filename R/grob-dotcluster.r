@@ -4,7 +4,7 @@ dotclusterGrob <- function (
     bincounts = 0,
     bintotals = 0, 
     baseline = unit(0.5, "npc"),
-    binwidth = unit(1, "npc"), heightratio = 1,
+    binwidth = unit(1, "npc"),
     stackdir = "up",
     stackratio = 1,
     dotsize =1,
@@ -19,8 +19,7 @@ dotclusterGrob <- function (
         binwidth <- unit(binwidth, default.units)
 
     grob(binaxis = binaxis, binpositions = binpositions, bincounts = bincounts, bintotals = bintotals, 
-         baseline = baseline,
-         binwidth = binwidth, heightratio = heightratio,
+         baseline = baseline, binwidth = binwidth,
          stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, just = just,
          name = name, gp = gp, vp = vp, 
          cl = "dotclustergrob")

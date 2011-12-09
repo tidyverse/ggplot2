@@ -37,11 +37,16 @@
 #' # Also works with categorical variables
 #' ggplot(movies, aes(x=mpaa)) + stat_bin()
 #' qplot(mpaa, data=movies, stat="bin")
-stat_bindot <- function (mapping = NULL, data = NULL, geom = "bar", position = "stack", 
-width = 0.9, binstataxis="x", drop = FALSE, right = TRUE, ...) { 
+stat_bindot <- function (mapping = NULL, data = NULL, geom = "dotplot", position = "stack",
+width = 0.9, binstataxis = "x", binmethod = "dotdensity", drop = FALSE, right = TRUE, ...) {
   StatBindot$new(mapping = mapping, data = data, geom = geom, position = position, 
-  width = width, binstataxis = binstataxis, drop = drop, right = right, ...)
+  width = width, binstataxis = binstataxis, binmethod = binmethod,
+  drop = drop, right = right, ...)
 }
+
+#TODO: test weighted binning for both methods, and error on non-integer weights
+#TODO: check that binmethod is valid
+#TODO: add smoothing from Wilkinson paper?
 
 StatBindot <- proto(Stat, {
   objname <- "bindot"
@@ -52,26 +57,42 @@ StatBindot <- proto(Stat, {
     .super$calculate_groups(., data, ...)
   }
   
-  calculate <- function(., data, scales, binwidth=NULL, binstataxis="x", origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = TRUE, ...) {
-    # Is there a nicer way to generalize over x and y?
-    if(binstataxis=="x") {
-      range <- scale_dimension(scales$x)
-      if (is.null(breaks) && is.null(binwidth) && !is.integer(data$x) && !.$informed) {
-        message("stat_bindot: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.")
-        .$informed <- TRUE
-      }
-    
-      bindot(data$x, data$weight, binwidth=binwidth, binstataxis=binstataxis, origin=origin, breaks=breaks, range=range, width=width, drop = drop, right = right)
-    
+  calculate <- function(., data, scales, binwidth=NULL, binstataxis="x", binmethod = "dotdensity",
+                        origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = TRUE, ...) {
+
+    # This function taken from integer help page
+    is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
+
+    # Check that weights are whole numbers (for dots, weights must be whole)
+    if (!is.null(data$weight) && !all(is.wholenumber(data$weight)))
+        stop("Weights for stat_bindot must be whole numbers.")
+
+    if (binstataxis=="x") {
+      range  <- scale_dimension(scales$x)
+      values <- data$x
     } else if (binstataxis=="y") {
-      range <- scale_dimension(scales$y)
-      if (is.null(breaks) && is.null(binwidth) && !is.integer(data$y) && !.$informed) {
-        message("stat_bindot: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.")
-        .$informed <- TRUE
-      }
-    
-      bindot(data$y, data$weight, binwidth=binwidth, binstataxis=binstataxis, origin=origin, breaks=breaks, range=range, width=width, drop = drop, right = right)
+      range  <- scale_dimension(scales$y)
+      values <- data$y
     }
+
+    if (is.null(breaks) && is.null(binwidth) && !is.integer(values) && !.$informed) {
+      message("stat_bindot: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.")
+      .$informed <- TRUE
+    }
+    
+    data <- bindot(values, data$weight, binwidth=binwidth,
+                binmethod=binmethod, origin=origin, breaks=breaks, range=range,
+                width=width, drop = drop, right = right)
+
+    if (binstataxis=="x") {
+      # For x binning, the width of the geoms is same as the width of the bin
+      data$width <- data$binwidth
+    } else if (binstataxis=="y") {
+      # bindot returns the data values in a column named x; change the name to y
+      names(data)[names(data)=="x"] <- "y"
+    }
+
+    return(data)
   }
 
   icon <- function(.) GeomHistogram$icon()
@@ -82,78 +103,72 @@ StatBindot <- proto(Stat, {
   
 })
 
-bindot <- function(x, weight=NULL, binwidth=NULL, binstataxis=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
+# TODO: make use of some of these parameters in dotdensity??
+# Bin the values.
+# histodot just uses stat_bin
+# dotdensity is from Wilkinson (1999)
+bindot <- function(x, weight=NULL, binwidth=NULL, binmethod=binmethod, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
   
-  if (length(na.omit(x)) == 0) return(data.frame())
-  if (is.null(weight))  weight <- rep(1, length(x))
-  weight[is.na(weight)] <- 0
+  if(binmethod == "histodot") {
+    # Use the function from stat_bin
+    results <- bin(x=x, weight=weight, binwidth=binwidth, origin=origin, breaks=breaks,
+                   range=range, width=width, drop=drop, right=right)
 
-  if (is.null(range))    range <- range(x, na.rm = TRUE, finite=TRUE)
-  if (is.null(binwidth)) binwidth <- diff(range) / 30
-
-  if (is.integer(x)) {
-    bins <- x
-    x <- sort(unique(bins))
-    width <- width    
-  } else if (diff(range) == 0) {
-    width <- width
-    bins <- x
-  } else { # if (is.numeric(x)) 
-    if (is.null(breaks)) {
-      if (is.null(origin)) {
-        breaks <- fullseq(range, binwidth, pad = TRUE)        
-      } else {
-        breaks <- seq(origin, max(range) + binwidth, binwidth)
-      }
-    }
-    
-    # Adapt break fuzziness from base::hist - this protects from floating
-    # point rounding errors
-    diddle <- 1e-07 * stats::median(diff(breaks))
-    if (right) {
-      fuzz <- c(-diddle, rep.int(diddle, length(breaks) - 1))
-    } else {
-      fuzz <- c(rep.int(-diddle, length(breaks) - 1), diddle) 
-    }
-    fuzzybreaks <- sort(breaks) + fuzz
-    
-    bins <- cut(x, fuzzybreaks, include.lowest=TRUE, right = right)
-    left <- breaks[-length(breaks)]
-    right <- breaks[-1]
-    x <- (left + right)/2
-    width <- diff(breaks)
-  }
-
-  # There is an asymmetry here because there is width param but no height param.
-  if(binstataxis=="x") {
-    results <- data.frame(
-      count = as.numeric(tapply(weight, bins, sum, na.rm=TRUE)),
-      x = x,
-      width = width,
-      binwidth = width
-    )
-  } else if(binstataxis=="y") {
-    results <- data.frame(
-      count = as.numeric(tapply(weight, bins, sum, na.rm=TRUE)),
-      y = x,
-      binwidth = width
-    )
-  }
-
-
-  if (sum(results$count, na.rm = TRUE) == 0) {
+    # Change "width" column to "binwidth" for consistency
+    names(results)[names(results)=="width"] <- "binwidth"
     return(results)
-  }
-  
-  res <- within(results, {
-    count[is.na(count)] <- 0
-    density <- count / width / sum(abs(count), na.rm=TRUE)
-    ncount <- count / max(abs(count), na.rm=TRUE)
-    ndensity <- density / max(abs(density), na.rm=TRUE)
-  })
-  if (drop) res <- subset(res, count > 0)
 
-  res
+  } else if (binmethod == "dotdensity") {
+
+    if (length(na.omit(x)) == 0) return(data.frame())
+    if (is.null(weight))  weight <- rep(1, length(x))
+    weight[is.na(weight)] <- 0
+
+    if (is.null(range))    range <- range(x, na.rm = TRUE, finite=TRUE)
+    if (is.null(binwidth)) binwidth <- diff(range) / 30
+
+    # TODO: deal with fuzziness
+    # Sort weight and x, by x
+    weight <- weight[order(x)]
+    x      <- x[order(x)]
+
+    cbin <- 0                            # Current bin ID
+    bins    <- integer(length=length(x)) # The bin ID for each observation
+    binend  <- -Inf                      # End position of current bin (scan left to right)
+
+    # Scan list and put dots in bins
+    for (i in 1:length(x)) {
+        # If past end of bin, start a new bin at this point
+        if (x[i] >= binend) {
+            binend <- x[i] + binwidth
+            cbin <- cbin + 1
+        }
+
+        bins[i] <- cbin
+    }
+
+    results <- data.frame(
+      count = as.numeric(tapply(weight, bins, sum, na.rm=TRUE)),
+      # Center of each bin - centering is not weighted
+      x = as.numeric(tapply(x, bins, FUN = function(a) { (min(a) + max(a)) / 2 })),
+      binwidth = binwidth
+    )
+
+    if (sum(results$count, na.rm = TRUE) == 0) {
+      return(results)
+    }
+
+# TODO: check that density value is correct. (should it sum to 1? Because it doesn't always)
+    res <- within(results, {
+      count[is.na(count)] <- 0
+      density <- count / width / sum(abs(count), na.rm=TRUE)
+      ncount <- count / max(abs(count), na.rm=TRUE)
+      ndensity <- density / max(abs(density), na.rm=TRUE)
+    })
+    if (drop) res <- subset(res, count > 0)
+
+    return(res)
+  }
 }
 
 # Generate sequence of fixed size intervals covering range
