@@ -188,3 +188,4 @@ Collate:
     'geom-raster.r'
     'annotation-raster.r'
     'annotation-map.r'
+    'autoplot.r'
