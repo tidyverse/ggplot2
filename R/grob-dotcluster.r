@@ -1,14 +1,15 @@
+# TODO: make sure params are correct units, etc.
 dotclusterGrob <- function (
     binaxis = "x",
     binpositions = unit(0.5, "npc"),
-    bincounts = 0,
+    stackpos = 0,
     bintotals = 0, 
     baseline = unit(0.5, "npc"),
     binwidth = unit(1, "npc"),
     stackdir = "up",
     stackratio = 1,
     dotsize =1,
-    just = NULL, default.units = "npc", name = NULL, gp = gpar(), 
+    default.units = "npc", name = NULL, gp = gpar(), 
     vp = NULL) 
 {
     if (!is.unit(binpositions)) 
@@ -18,11 +19,10 @@ dotclusterGrob <- function (
     if (!is.unit(binwidth)) 
         binwidth <- unit(binwidth, default.units)
 
-    grob(binaxis = binaxis, binpositions = binpositions, bincounts = bincounts, bintotals = bintotals, 
+    grob(binaxis = binaxis, binpositions = binpositions, stackpos = stackpos, bintotals = bintotals, 
          baseline = baseline, binwidth = binwidth,
-         stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, just = just,
-         name = name, gp = gp, vp = vp, 
-         cl = "dotclustergrob")
+         stackdir = stackdir, stackratio = stackratio, dotsize = dotsize,
+         name = name, gp = gp, vp = vp, cl = "dotclustergrob")
 }
 
 drawDetails.dotclustergrob <- function(x, recording=TRUE) {
@@ -49,29 +49,17 @@ drawDetails.dotclustergrob <- function(x, recording=TRUE) {
   baselinenpc <- convert_binaxis(x$baseline, "npc", valueOnly=TRUE)
 
   # Center position of the first dot in each stack, in npc coordinates
-  firstdotcenternpc <- baselinenpc + (0.5-x$just) * dotheightnpc
+  firstdotcenternpc <- baselinenpc
 
   # Start from 0
   bincounts <- x$bincounts-1
 
-  # Do stacking
-  if (x$stackdir == "up")
-    stackpos <- firstdotcenternpc + bincounts * stackheightnpc
-  else if (x$stackdir == "down")
-    stackpos <- firstdotcenternpc - bincounts * stackheightnpc
-  else if (x$stackdir == "center")
-    stackpos <- firstdotcenternpc + (bincounts+0.5-(x$bintotals/2)) * stackheightnpc
-  else if (x$stackdir == "centerwhole")
-    stackpos <- firstdotcenternpc + ceiling(bincounts+0.5-(x$bintotals/2)) * stackheightnpc
-  else if (x$stackdir == "centerwholedown")
-    stackpos <- firstdotcenternpc + floor  (bincounts+0.5-(x$bintotals/2)) * stackheightnpc
 
-  
   if(x$binaxis == "x") {
     xpos <- x$binpositions
-    ypos <- stackpos
+    ypos <- firstdotcenternpc + x$stackpos * dotheightnpc * x$stackratio
   } else if(x$binaxis == "y") {
-    xpos <- stackpos
+    xpos <- firstdotcenternpc + x$stackpos * dotheightnpc * x$stackratio
     ypos <- x$binpositions
   }
 

@@ -1,10 +1,10 @@
 #' Dot plot
 #' 
 geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot", position = "identity",
-na.rm = FALSE, just = 0.5, binaxis = "x", binstataxis = "x", binmethod="dotdensity", stackdir = "up",
+na.rm = FALSE, binaxis = "x", binstataxis = "x", binmethod="dotdensity", stackdir = "up",
 stackratio = 1, dotsize = 1, ...) {
   GeomDotplot$new(mapping = mapping, data = data, stat = stat, position = position, 
-  na.rm = na.rm, just = just, binaxis = binaxis, binstataxis = binstataxis,
+  na.rm = na.rm, binaxis = binaxis, binstataxis = binstataxis,
   binmethod = binmethod, stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, ...)
 }
 
@@ -24,12 +24,25 @@ GeomDotplot <- proto(Geom, {
     df$width <- df$width %||% 
       params$width %||% (resolution(df$x, FALSE) * 0.9)
 
+    # Set up the stacking function
+    if(params$stackdir=="up")
+      stackdots <- function(a) return(a-.5)
+    else if (params$stackdir=="down")
+      stackdots <- function(a) return(-a+.5)
+    else if (params$stackdir=="center")
+      stackdots <- function(a) return(a-1-max(a-1)/2)
+    else if (params$stackdir=="centerwhole")
+      stackdots <- function(a) return(a-1-floor(max(a-1)/2))
+    else if (params$stackdir=="centerwholedown")
+      stackdots <- function(a) return(a-1-ceiling(max(a-1)/2))
+
     if (params$binaxis=="x") {
       # Fill the bins: at a given x, if count=3, make 3 entries at that x, with y=1,2,3
       df <- ddply(df, .(x, group), function(xx) {
                       if(xx$count==0) return(NULL)
                       xx[1:xx$count, ] <- xx[1, ]   # replicate the row count times
                       xx$countidx <- 1:(xx$count[1])
+                      xx$y <- stackdots(xx$countidx)
                       xx
                     })
 
@@ -40,8 +53,8 @@ GeomDotplot <- proto(Geom, {
       # works. They're set to the max count value so that it's possible to align
       # the dots with the y axis.
       df <- ddply(df, .(group), transform,
-            ymin = min(y)-1,
-            ymax = max(y),
+            ymin = min(y)-.5,
+            ymax = max(y)+.5,
             xmin = min(x) - binwidth[1]/2,
             xmax = max(x) + binwidth[1]/2)
 
@@ -50,6 +63,7 @@ GeomDotplot <- proto(Geom, {
                       if(xx$count==0) return(NULL)
                       xx[1:xx$count, ] <- xx[1, ]   # replicate the row count times
                       xx$countidx <- 1:(xx$count[1])
+                      xx$xoffset <- stackdots(xx$countidx)
                       xx
                     })
 
@@ -60,15 +74,19 @@ GeomDotplot <- proto(Geom, {
       # In the future, each dot should have its own bounding rectangle.
       df <- ddply(df, .(group), transform,
             ymin = min(y) - binwidth[1]/2,
-            ymax = max(y) + binwidth[1]/2,
-            xmin = x - width / 2,
-            xmax = x + width / 2)
+            ymax = max(y) + binwidth[1]/2)
+
+      # For y binning,, it is impossible to stack with each dot at 1 greater x.
+      # I don't really know why.
+      # Instead, we'll scale the dot clusters to fit within the specified width.
+      df$xmin <- df$x - df$width / 2
+      df$xmax <- df$x + df$width / 2
     }
     df
   }
   
 
-  draw <- function(., data, scales, coordinates, na.rm = FALSE, just = 0, binaxis = "x",
+  draw <- function(., data, scales, coordinates, na.rm = FALSE, binaxis = "x",
                    stackdir = "up", stackratio = 1, dotsize = 1, ...) {
     data <- remove_missing(data, na.rm, 
       c("x", "y", "size", "shape"), name = "geom_dotplot")
@@ -82,22 +100,28 @@ GeomDotplot <- proto(Geom, {
     # Is there a better way of generalizing over x and y?
     if (binaxis=="x") {
       dotwidthnpc  <- tdata$binwidth[1] / (max(scales$x.range) - min(scales$x.range))
-      stackbaselinenpc <- min(tdata$ymin)
+
+      # A little hack-y way to get the x=0 and y=0 in npc coordinates
+      zeronpc <- coord_transform(coordinates, data.frame(y=0), scales)
+      stackbaselinenpc <- zeronpc$y
       binpositions <- tdata$x
+      stackpositions <- data$y
 
     } else if (binaxis=="y") {
       dotwidthnpc  <- tdata$binwidth[1] / (max(scales$y.range) - min(scales$y.range))
-      stackbaselinenpc <- min(tdata$x)
+      stackbaselinenpc <- tdata$x
       binpositions <- tdata$y
+      # This is handled differently from y because x can be grouped in factors
+      stackpositions <- data$xoffset
     }
 
 
     ggname(.$my_name(),
       grobTree(
-        dotclusterGrob(binaxis, binpositions, bincounts=tdata$countidx, bintotals=tdata$count,
+        dotclusterGrob(binaxis, binpositions, stackpos=stackpositions, bintotals=tdata$count,
                 baseline=stackbaselinenpc, binwidth=dotwidthnpc,
                 stackdir=stackdir, stackratio=stackratio, dotsize=dotsize,
-                just=just, default.units="npc",
+                default.units="npc",
                 gp=gpar(col=alpha(tdata$colour, tdata$alpha),
                         fill=alpha(tdata$fill, tdata$alpha))))
     )
