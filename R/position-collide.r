@@ -103,9 +103,9 @@ pos_dodge <- function(df, width) {
   groupidx <- rep(0, max(df$group))
   groupidx[unique(df$group)] <- 1:n
 
-  within(df, {xmin <- xmin + width / n * (groupidx[group] - 1)
-                                  - diff * (n - 1) / (2 * n)
-              xmax <- xmin + d_width / n
-              x <-  (xmin + xmax) / 2
+  df <- within(df, {
+    xmin <- xmin + width / n * (groupidx[group] - 1) - diff * (n - 1) / (2 * n)
+    xmax <- xmin + d_width / n
+    x <-  (xmin + xmax) / 2
   })
 }
