@@ -6,6 +6,8 @@ dotclusterGrob <- function (
     baseline = unit(0.5, "npc"),
     binwidth = unit(1, "npc"), heightratio = 1,
     stackdir = "up",
+    stackratio = 1,
+    dotsize =1,
     just = NULL, default.units = "npc", name = NULL, gp = gpar(), 
     vp = NULL) 
 {
@@ -19,7 +21,7 @@ dotclusterGrob <- function (
     grob(binaxis = binaxis, binpositions = binpositions, bincounts = bincounts, bintotals = bintotals, 
          baseline = baseline,
          binwidth = binwidth, heightratio = heightratio,
-         stackdir = stackdir, just = just, 
+         stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, just = just,
          name = name, gp = gp, vp = vp, 
          cl = "dotclustergrob")
 }
@@ -36,25 +38,34 @@ drawDetails.dotclustergrob <- function(x, recording=TRUE) {
     convert_stackaxis <- convertX
   }
 
-  # Some of these conversions are necessary to do arithmetic on the units
-  binwidthmm   <- convert_binaxis(x$binwidth, "mm", valueOnly=TRUE)
-  binwidthnpc  <- convert_binaxis(x$binwidth, "npc", valueOnly=TRUE)
-  binheightmm  <- binwidthmm
-  binheightnpc <- convert_stackaxis(unit(binheightmm,"mm"), "npc", valueOnly=TRUE)
+  # Some conversions to absolute coordinates are needed because in npc coordinates,
+  # x and y aren't necessarily square.
+  # Some of these conversions are needed so we can do arithmetic on the units
+  binwidthnpc    <- convert_binaxis(x$binwidth, "npc", valueOnly=TRUE)
+  binwidthmm     <- convert_binaxis(x$binwidth, "mm", valueOnly=TRUE)
+  dotdiamm       <- binwidthmm * x$dotsize
+  dotheightnpc   <- convert_stackaxis(unit(dotdiamm, "mm"), "npc", valueOnly=TRUE)
+  stackheightnpc <- dotheightnpc * x$stackratio
 
   baselinenpc <- convert_binaxis(x$baseline, "npc", valueOnly=TRUE)
 
+  # Center position of the first dot in each stack, in npc coordinates
+  firstdotcenternpc <- baselinenpc + (0.5-x$just) * dotheightnpc
+
+  # Start from 0
+  bincounts <- x$bincounts-1
+
   # Do stacking
   if (x$stackdir == "up")
-    stackpos <-  (x$bincounts-0.5-x$just) * binheightnpc + baselinenpc
+    stackpos <- firstdotcenternpc + bincounts * stackheightnpc
   else if (x$stackdir == "down")
-    stackpos <- (-x$bincounts+1.5-x$just) * binheightnpc + baselinenpc
+    stackpos <- firstdotcenternpc - bincounts * stackheightnpc
   else if (x$stackdir == "center")
-    stackpos <- (x$bincounts-(x$bintotals/2)-x$just) * binheightnpc + baselinenpc
+    stackpos <- firstdotcenternpc + (bincounts+0.5-(x$bintotals/2)) * stackheightnpc
   else if (x$stackdir == "centerwhole")
-    stackpos <- ceiling((x$bincounts-(x$bintotals/2)-x$just)) * binheightnpc + baselinenpc
+    stackpos <- firstdotcenternpc + ceiling(bincounts+0.5-(x$bintotals/2)) * stackheightnpc
   else if (x$stackdir == "centerwholedown")
-    stackpos <- floor  ((x$bincounts-(x$bintotals/2)-x$just)) * binheightnpc + baselinenpc
+    stackpos <- firstdotcenternpc + floor  (bincounts+0.5-(x$bintotals/2)) * stackheightnpc
 
   
   if(x$binaxis == "x") {
@@ -67,7 +78,7 @@ drawDetails.dotclustergrob <- function(x, recording=TRUE) {
 
   grid.draw(
     circleGrob(x=xpos, y=ypos,
-               r=unit(binwidthmm/2, "mm"),   # Need absolute measurement because if you use npc coordinates, r is relative to the smaller direction of x and y
+               r=unit(dotdiamm/2, "mm"),   # Need absolute measurement because if you use npc coordinates, r is relative to the smaller direction of x and y
                name=x$name, gp=x$gp, vp=x$vp),
   )
 }

@@ -1,21 +1,19 @@
 #' Dot plot
 #' 
 geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot", position = "identity",
-na.rm = FALSE, just = 0, binaxis = "x", binstataxis = "x", stackdir = "up", ...) {
+na.rm = FALSE, just = 0.5, binaxis = "x", binstataxis = "x", stackdir = "up",
+stackratio = 1, dotsize = 1, ...) {
   GeomDotplot$new(mapping = mapping, data = data, stat = stat, position = position, 
-  na.rm = na.rm, just = just, binaxis = binaxis, binstataxis = binstataxis, stackdir = stackdir, ...)
+  na.rm = na.rm, just = just, binaxis = binaxis, binstataxis = binstataxis,
+  stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, ...)
 }
 
 # TODO:
-# Get rid of binstataxis parameter - use only binaxis
-# Vertically align points either on grid, or physically touch
-# Bin overlap
-# Stack overlap
+# Get rid of binstataxis parameter - use only binaxis - how do you get that parameter to stat and Geom$draw?
+# Option to vertically align points on grid?
 # Add dot density algorithm
 # xmin, xmax bounding box
-# Set y range without using coord
-# Better way of setting baseline
-# Legends when used with violin
+# Legends when used with violin?
 
 GeomDotplot <- proto(Geom, {
   objname <- "dotplot"
@@ -37,13 +35,13 @@ GeomDotplot <- proto(Geom, {
                     })
 
       # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
-      # But not really.
-      # This is not the same as for y! fix me!
+      # Can't do bounding box per dot, because it doesn't play well with pos_dodge.
+      # In the future, each dot should have its own bounding rectangle.
       df <- ddply(df, .(group), transform,
-            ymin = min(y),
+            ymin = min(y)-1,
             ymax = max(y),
-            xmin = min(x),
-            xmax = max(x))
+            xmin = min(x) - binwidth[1]/2,
+            xmax = max(x) + binwidth[1]/2)
 
     } else if (params$binaxis=="y") {
       df <- ddply(df, .(y, group), function(xx) {
@@ -66,7 +64,8 @@ GeomDotplot <- proto(Geom, {
   }
   
 
-  draw <- function(., data, scales, coordinates, na.rm = FALSE, just = 0, binaxis = "x", stackdir = "up", ...) {
+  draw <- function(., data, scales, coordinates, na.rm = FALSE, just = 0, binaxis = "x",
+                   stackdir = "up", stackratio = 1, dotsize = 1, ...) {
     data <- remove_missing(data, na.rm, 
       c("x", "y", "size", "shape"), name = "geom_dotplot")
     if (empty(data)) return(zeroGrob())
@@ -80,7 +79,7 @@ GeomDotplot <- proto(Geom, {
     if (binaxis=="x") {
       dotwidthnpc  <- tdata$binwidth[1] / (max(scales$x.range) - min(scales$x.range))
       # This isn't necessarily a reliable way to get the baseline...
-      stackbaselinenpc <- min(tdata$y)
+      stackbaselinenpc <- min(tdata$ymin)
       
       binpositions <- tdata$x
 
@@ -97,10 +96,12 @@ GeomDotplot <- proto(Geom, {
                 baseline=stackbaselinenpc, 
                 binwidth=dotwidthnpc, heightratio=1,
                 stackdir=stackdir,
+                stackratio=stackratio,
+                dotsize=dotsize,
                 just=just,
-                 default.units="npc",
-                 gp=gpar(col=alpha(tdata$colour, tdata$alpha),
-                         fill=alpha(tdata$fill, tdata$alpha))))
+                default.units="npc",
+                gp=gpar(col=alpha(tdata$colour, tdata$alpha),
+                        fill=alpha(tdata$fill, tdata$alpha))))
     )
 
   }
