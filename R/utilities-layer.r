@@ -21,5 +21,12 @@ add_group <- function(data) {
   } else {
     data$group <- id(data["group"], drop = TRUE)
   }
+  
   data
+}
+
+order_groups <- function(data) {
+  if (is.null(data$order)) return(data)
+  
+  data[order(data$order), ]
 }

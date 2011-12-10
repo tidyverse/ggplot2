@@ -35,3 +35,29 @@ test_that("group aesthetic overrides defaults", {
 #   plot <- ggplot(df, aes(a, b)) + geom_point(group = 1)
 #   expect_that(groups(plot), equals(1))
 # })
+
+test_that("order affects plotting order of points", {
+  base <- ggplot(df, aes(a, x)) + geom_point()
+  
+  ord1 <- ggplot_build(base)$data[[1]]
+  ord2 <- ggplot_build(base + aes(order = x))$data[[1]]
+  rev1 <- ggplot_build(base + aes(order = -x))$data[[1]]
+  rev2 <- ggplot_build(base + aes(order = desc(x)))$data[[1]]
+
+  expect_equal(ord1$y, 1:4)
+  expect_equal(ord2$y, 1:4)
+  expect_equal(rev1$y, 4:1)
+  expect_equal(rev2$y, 4:1)
+})
+
+test_that("order affects plotting order of bars", {
+  base <- ggplot(df, aes(a, fill = b)) + geom_bar()
+  
+  ord1 <- ggplot_build(base)$data[[1]]
+  ord2 <- ggplot_build(base + aes(order = a))$data[[1]]
+  rev1 <- ggplot_build(base + aes(order = desc(b)))$data[[1]]
+
+  expect_equal(ord1$group, 1:4)
+  expect_equal(ord2$group, 1:4)
+  expect_equal(rev1$group, c(2, 1, 4, 3))
+})
