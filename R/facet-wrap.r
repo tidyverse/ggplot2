@@ -223,3 +223,7 @@ facet_axes.wrap <- function(facet, panel, coord, theme) {
   axes
   
 }
+
+facet_vars.wrap <- function(facet) {
+  paste(lapply(facet$facets, paste, collapse = ", "), collapse = " ~ ")
+}

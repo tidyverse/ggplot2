@@ -43,3 +43,20 @@ facet_panels <- function(facet, panel, coord, theme, geom_grobs)
   
 facet_axes <- function(facet, panel, coord, theme)
   UseMethod("facet_axes")
+
+# Text description of facetting variables
+facet_vars <- function(facet)
+  UseMethod("facet_vars")
+
+
+#' @S3method format facet
+format.facet <- function(x, ...) {
+  name <- paste(rev(class(x)), collapse = "_")
+
+  paste(name, "(", facet_vars(x), ")", sep = "")
+}
+
+#' @S3method print facet
+print.facet <- function(x, ...) {
+  cat(format(x, ...), "\n")
+}
