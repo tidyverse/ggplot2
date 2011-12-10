@@ -52,6 +52,9 @@ MINOR CHANGES
 
 * `map_data` passes `...` on to `maps::map` (Fixes #223)
 
+* `coord_fixed` accepts `xlim` and `ylim` parameters to zoom in on x and y
+  scales (Fixes #91)
+
 DEVELOPMENT
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems
