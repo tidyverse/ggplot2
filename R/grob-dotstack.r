@@ -1,6 +1,6 @@
 dotstackGrob <- function (
-    x = unit(0.5, "npc"),  # x pos of the dotstack's origin
-    y = unit(0.5, "npc"),  # y pos of the dotstack's origin
+    x = unit(0.5, "npc"),     # x pos of the dotstack's origin
+    y = unit(0.5, "npc"),     # y pos of the dotstack's origin
     stackaxis = "y",
     dotdia = unit(1, "npc"),  # Dot diameter in the non-stack axis, should be in npc
     stackposition = 0,        # Position of each dot in the stack, relative to origin
@@ -26,22 +26,22 @@ drawDetails.dotstackgrob <- function(x, recording=TRUE) {
 
   # Need absolute coordinates because when using npc coords with circleGrob,
   # the radius is in the _smaller_ of the two axes. We need the radius
-  # to be defined in terms of the non-stack axis.
+  # to instead be defined in terms of the non-stack axis.
   xmm   <- convertX(x$x, "mm", valueOnly=TRUE)
   ymm   <- convertY(x$y, "mm", valueOnly=TRUE)
 
   if(x$stackaxis == "x") {
     dotdiamm <- convertY(x$dotdia, "mm", valueOnly=TRUE)
-    xpos <- xmm + x$stackposition * dotdiamm * x$stackratio
+    xpos <- xmm + dotdiamm * (x$stackposition * x$stackratio + (1 - x$stackratio) / 2)
     ypos <- ymm
   } else if(x$stackaxis == "y") {
     dotdiamm <- convertX(x$dotdia, "mm", valueOnly=TRUE)
     xpos <- xmm
-    ypos <- ymm + x$stackposition * dotdiamm * x$stackratio
+    ypos <- ymm + dotdiamm * (x$stackposition * x$stackratio + (1 - x$stackratio) / 2)
   }
 
   grid.draw(
-    circleGrob(x=xpos, y=ypos, r=dotdiamm/2, default.unit="mm",
+    circleGrob(x=xpos, y=ypos, r=dotdiamm/2, default.units="mm",
                name=x$name, gp=x$gp, vp=x$vp),
   )
 }

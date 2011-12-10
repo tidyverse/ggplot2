@@ -22,68 +22,83 @@ GeomDotplot <- proto(Geom, {
     df$width <- df$width %||% 
       params$width %||% (resolution(df$x, FALSE) * 0.9)
 
-    # Set up the stacking function
-    if(params$stackdir=="up")
-      stackdots <- function(a) return(a-.5)
-    else if (params$stackdir=="down")
-      stackdots <- function(a) return(-a+.5)
-    else if (params$stackdir=="center")
-      stackdots <- function(a) return(a-1-max(a-1)/2)
-    else if (params$stackdir=="centerwhole")
-      stackdots <- function(a) return(a-1-floor(max(a-1)/2))
-    else if (params$stackdir=="centerwholedown")
-      stackdots <- function(a) return(a-1-ceiling(max(a-1)/2))
+    # Set up the stacking and range-setting functions
+    if(params$stackdir=="up") {
+      stackdots <- function(a)  a - .5
+      stackaxismin <- 0
+      stackaxismax <- 1
+    }
+    else if (params$stackdir=="down") {
+      stackdots <- function(a) -a + .5
+      stackaxismin <- -1
+      stackaxismax <- 0
+    }
+    else if (params$stackdir=="center") {
+      stackdots <- function(a)  a - 1 - max(a - 1) / 2
+      stackaxismin <- -.5
+      stackaxismax <- .5
+    }
+    else if (params$stackdir=="centerwhole") {
+      stackdots <- function(a)  a - 1 - floor(max(a - 1) / 2)
+      stackaxismin <- -.5
+      stackaxismax <- .5
+    }
+    else if (params$stackdir=="centerwholedown") {
+      stackdots <- function(a)  a - 1 - ceiling(max( a -  1) / 2)
+      stackaxismin <- -.5
+      stackaxismax <- .5
+    }
 
     if (params$binaxis=="x") {
-      # Fill the bins: at a given x, if count=3, make 3 entries at that x, with y=1,2,3
+      # Fill the bins: at a given x, if count=3, make 3 entries at that x, with
+      # coutidx=1,2,3, and set y according to stack function
       df <- ddply(df, .(x, group), function(xx) {
                       if(xx$count==0) return(NULL)
                       xx[1:xx$count, ] <- xx[1, ]   # replicate the row count times
                       xx$countidx <- 1:(xx$count[1])
-                      xx$y <- stackdots(xx$countidx)
+                      xx$stackpos <- stackdots(xx$countidx)
                       xx
                     })
 
-      # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
-      # Can't do bounding box per dot, because it doesn't play well with pos_dodge.
-      # In the future, each dot should have its own bounding rectangle.
-      # xmin and xmax aren't really the x bounds, because of the odd way the grob
-      # works. They're set to the max count value so that it's possible to align
-      # the dots with the y axis.
+      # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
+      # Can't do bounding box per dot, because y position isn't real.
+      # After position code is rewritten, each dot should have its own bounding box.
       df <- ddply(df, .(group), transform,
-            ymin = min(y)-.5,
-            ymax = max(y)+.5,
             xmin = min(x) - binwidth[1]/2,
             xmax = max(x) + binwidth[1]/2)
 
+      df$ymin <- stackaxismin
+      df$ymax <- stackaxismax
+      df$y    <- (stackaxismin + stackaxismax) / 2
+
     } else if (params$binaxis=="y") {
+      # Fill the bins: at a given y, if count=3, make 3 entries at that y, with
+      # coutidx=1,2,3, and set xoffset according to stack function
       df <- ddply(df, .(y, group), function(xx) {
                       if(xx$count==0) return(NULL)
                       xx[1:xx$count, ] <- xx[1, ]   # replicate the row count times
                       xx$countidx <- 1:(xx$count[1])
-                      xx$xoffset <- stackdots(xx$countidx)
+                      xx$stackpos <- stackdots(xx$countidx)
                       xx
                     })
 
-      # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
+      # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
+      # Can't do bounding box per dot, because x position isn't real.
       # xmin and xmax aren't really the x bounds, because of the odd way the grob
       # works. They're just set to the standard x +- width/2 so that dot clusters
       # can be dodged like other geoms.
-      # In the future, each dot should have its own bounding rectangle.
+      # After position code is rewritten, each dot should have its own bounding box.
       df <- ddply(df, .(group), transform,
             ymin = min(y) - binwidth[1]/2,
             ymax = max(y) + binwidth[1]/2)
 
-      # For y binning,, it is impossible to stack with each dot at 1 greater x.
-      # I don't really know why.
-      # Instead, we'll scale the dot clusters to fit within the specified width.
-      df$xmin <- df$x - df$width / 2
-      df$xmax <- df$x + df$width / 2
+      df$xmin <- df$x + df$width * stackaxismin
+      df$xmax <- df$x + df$width * stackaxismax
+      # Can't change x because it will cause problems with dodging
     }
     df
   }
   
-
   draw <- function(., data, scales, coordinates, na.rm = FALSE, binaxis = "x",
                    stackdir = "up", stackratio = 1, dotsize = 1, ...) {
     data <- remove_missing(data, na.rm, 
@@ -101,19 +116,16 @@ GeomDotplot <- proto(Geom, {
       # Get y=0 in npc coordinates
       zeronpc <- coord_transform(coordinates, data.frame(y=0), scales)
       ynpc <- zeronpc$y
-      stackpositions <- data$y
 
     } else if (binaxis=="y") {
       stackaxis = "x"
       dotdianpc <- dotsize * tdata$binwidth[1] / (max(scales$y.range) - min(scales$y.range))
       ynpc <- tdata$y
-      # This is handled differently from y because x can be grouped in factors
-      stackpositions <- data$xoffset
     }
 
     ggname(.$my_name(),
       dotstackGrob(stackaxis, x=tdata$x, y=ynpc, dotdia=dotdianpc,
-                  stackposition=stackpositions, stackratio=stackratio,
+                  stackposition=tdata$stackpos, stackratio=stackratio,
                   default.units="npc",
                   gp=gpar(col=alpha(tdata$colour, tdata$alpha),
                           fill=alpha(tdata$fill, tdata$alpha)))
