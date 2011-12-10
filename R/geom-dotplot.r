@@ -13,12 +13,10 @@ stackratio = 1, dotsize = 1, ...) {
 # Option to vertically align points on grid - do without stretching
 # Legend appearance
 # Icon
+# npc seems to refer to the entire window. What does native refer to?
 
 GeomDotplot <- proto(Geom, {
   objname <- "dotplot"
-
-# Is draw_groups needed?
-#  draw_groups <- function(., ...) .$draw(...)
 
   reparameterise <- function(., df, params) {
     df$width <- df$width %||% 
@@ -92,40 +90,34 @@ GeomDotplot <- proto(Geom, {
       c("x", "y", "size", "shape"), name = "geom_dotplot")
     if (empty(data)) return(zeroGrob())
 
-
     # Transform the data to the new coordinates
     tdata <- coord_transform(coordinates, data, scales)
 
-
     # Is there a better way of generalizing over x and y?
     if (binaxis=="x") {
-      dotwidthnpc  <- tdata$binwidth[1] / (max(scales$x.range) - min(scales$x.range))
+      stackaxis = "y"
+      dotdianpc <- dotsize * tdata$binwidth[1] / (max(scales$x.range) - min(scales$x.range))
 
-      # A little hack-y way to get the x=0 and y=0 in npc coordinates
+      # Get y=0 in npc coordinates
       zeronpc <- coord_transform(coordinates, data.frame(y=0), scales)
-      stackbaselinenpc <- zeronpc$y
-      binpositions <- tdata$x
+      ynpc <- zeronpc$y
       stackpositions <- data$y
 
     } else if (binaxis=="y") {
-      dotwidthnpc  <- tdata$binwidth[1] / (max(scales$y.range) - min(scales$y.range))
-      stackbaselinenpc <- tdata$x
-      binpositions <- tdata$y
+      stackaxis = "x"
+      dotdianpc <- dotsize * tdata$binwidth[1] / (max(scales$y.range) - min(scales$y.range))
+      ynpc <- tdata$y
       # This is handled differently from y because x can be grouped in factors
       stackpositions <- data$xoffset
     }
 
-
     ggname(.$my_name(),
-      grobTree(
-        dotclusterGrob(binaxis, binpositions, stackpos=stackpositions, bintotals=tdata$count,
-                baseline=stackbaselinenpc, binwidth=dotwidthnpc,
-                stackdir=stackdir, stackratio=stackratio, dotsize=dotsize,
-                default.units="npc",
-                gp=gpar(col=alpha(tdata$colour, tdata$alpha),
-                        fill=alpha(tdata$fill, tdata$alpha))))
+      dotstackGrob(stackaxis, x=tdata$x, y=ynpc, dotdia=dotdianpc,
+                  stackposition=stackpositions, stackratio=stackratio,
+                  default.units="npc",
+                  gp=gpar(col=alpha(tdata$colour, tdata$alpha),
+                          fill=alpha(tdata$fill, tdata$alpha)))
     )
-
   }
 
   draw_legend <- function(., data, ...) {

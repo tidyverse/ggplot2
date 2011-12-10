@@ -104,7 +104,7 @@ Collate:
     'geom-vline.r'
     'ggplot2.r'
     'grob-absolute.r'
-    'grob-dotcluster.r'
+    'grob-dotstack.r'
     'grob-null.r'
     'guide-colorbar.r'
     'guide-legend.r'
