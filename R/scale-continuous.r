@@ -65,7 +65,7 @@ scale_x_continuous <- function(..., expand = c(0.05, 0)) {
 #' @rdname scale_continuous
 #' @export
 scale_y_continuous <- function(..., expand = c(0.05, 0)) {
-  continuous_scale(c("y", "ymin", "ymax", "yend", "yintercept"), "position_c", identity,
+  continuous_scale(c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final"), "position_c", identity,
     ..., expand = expand, guide = "none")
 }
 
