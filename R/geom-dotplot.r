@@ -10,9 +10,8 @@ stackratio = 1, dotsize = 1, ...) {
 
 # TODO:
 # Get rid of binstataxis parameter - use only binaxis - how do you get that parameter to stat and Geom$draw?
+# change y axis from "count" to something else
 # Option to vertically align points on grid - do without stretching
-# Legend appearance
-# Icon
 # npc seems to refer to the entire window. What does native refer to?
 
 GeomDotplot <- proto(Geom, {
@@ -51,7 +50,7 @@ GeomDotplot <- proto(Geom, {
 
     if (params$binaxis=="x") {
       # Fill the bins: at a given x, if count=3, make 3 entries at that x, with
-      # coutidx=1,2,3, and set y according to stack function
+      # coutidx=1,2,3, and set stackpos according to stack function
       df <- ddply(df, .(x, group), function(xx) {
                       if(xx$count==0) return(NULL)
                       xx[1:xx$count, ] <- xx[1, ]   # replicate the row count times
@@ -73,7 +72,7 @@ GeomDotplot <- proto(Geom, {
 
     } else if (params$binaxis=="y") {
       # Fill the bins: at a given y, if count=3, make 3 entries at that y, with
-      # coutidx=1,2,3, and set xoffset according to stack function
+      # coutidx=1,2,3, and set stackpos according to stack function
       df <- ddply(df, .(y, group), function(xx) {
                       if(xx$count==0) return(NULL)
                       xx[1:xx$count, ] <- xx[1, ]   # replicate the row count times
@@ -132,30 +131,29 @@ GeomDotplot <- proto(Geom, {
     )
   }
 
+  guide_geom <- function(.) "dotplot"
   draw_legend <- function(., data, ...) {
-    # If fill is set, ensure that you can actually see it
-    if (!is.null(data$fill) && !all(is.na(data$fill)) && data$shape == 16) {
-      data$shape <- 21
-    } 
+    data$shape <- 21
+
     data <- aesdefaults(data, .$default_aes(), list(...))
     
     with(data,
-      pointsGrob(0.5, 0.5, size=unit(size, "mm"), pch=shape, 
+      pointsGrob(0.5, 0.5, size=unit(.5, "npc"), pch=shape,
         gp=gpar(
           col=alpha(colour, alpha), 
-          fill=alpha(fill, alpha), 
-          fontsize = size * .pt)
+          fill=alpha(fill, alpha))
       )
     )
   }
 
   icon <- function(.) {
-    pos <- seq(0.1, 0.9, length=6)
-    pointsGrob(x=pos, y=pos, pch=19, gp=gpar(col="black", cex=0.5), default.units="npc")
+    xpos <- c(1,1,2,3,3,3,4,4,5,5,5,5,6,7,7,7,8,8,9)/10
+    ypos <- c(1,2,1,1,2,3,1,2,1,2,3,4,1,1,2,3,1,2,1)/10
+    pointsGrob(x=xpos, y=ypos, pch=19, size=unit(.1, "npc"), gp=gpar(col="black", cex=0.5), default.units="npc")
   }
   
   default_stat <- function(.) StatBindot
   required_aes <- c("x", "y")
-  default_aes <- function(.) aes(y=..count.., shape=16, colour="black", size=2, fill = "black", alpha = 1)
+  default_aes <- function(.) aes(y=..count.., colour="black", fill = "black", alpha = 1)
   
 })
