@@ -1,22 +1,22 @@
 #' Apply function for rectangular bins.
 #' 
-#' @seealso \code{\link{stat_aggrhex}} for hexagonal aggregation. \code{\link{stat_bin2d}} for the binning options.
+#' @seealso \code{\link{stat_summary_hex}} for hexagonal summarization. \code{\link{stat_bin2d}} for the binning options.
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, depth, z = price))
-#' d + stat_aggr2d()
+#' d + stat_summary2d()
 #'
 #' # Specifying function
-#' d + stat_aggr2d(fun = function(x) sum(x^2))
-#' d + stat_aggr2d(fun = var)
-stat_aggr2d <- function (mapping = NULL, data = NULL, geom = "rect", position = "identity", 
+#' d + stat_summary2d(fun = function(x) sum(x^2))
+#' d + stat_summary2d(fun = var)
+stat_summary2d <- function (mapping = NULL, data = NULL, geom = "rect", position = "identity", 
 bins = 30, drop = TRUE, fun = mean, ...) {
-  StatAggr2d$new(mapping = mapping, data = data, geom = geom, position = position, 
+  StatSummary2d$new(mapping = mapping, data = data, geom = geom, position = position, 
   bins = bins, drop = drop, fun = fun, ...)
 }
 
-StatAggr2d <- proto(Stat, {
-  objname <- "aggr2d"
+StatSummary2d <- proto(Stat, {
+  objname <- "Summary2d"
 
   default_aes <- function(.) aes(fill = ..value..)
   required_aes <- c("x", "y", "z")
@@ -67,9 +67,9 @@ StatAggr2d <- proto(Stat, {
 
     xbin <- cut(data$x, sort(breaks$x), include.lowest=TRUE)
     ybin <- cut(data$y, sort(breaks$y), include.lowest=TRUE)
-browser()
+
     if (is.null(data$weight)) data$weight <- 1
-    ans <- ddply(data.frame(data, xbin, ybin), .(xbin, ybin), function(d) data.frame(value = fun(d$z)))
+    ans <- ddply(data.frame(data, xbin, ybin), .(xbin, ybin), function(d) data.frame(value = fun(d$z, ...)))
 
     within(ans,{
       xint <- as.numeric(xbin)
