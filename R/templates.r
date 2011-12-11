@@ -9,37 +9,28 @@
 #' geom functions.  In particular this makes it very easy to create parallel
 #' boxplots, as shown in the example.
 #' 
-#' Three different scaling function are available:
-#'
-#' \itemize{
-#'   \item "range": scale coordinates to have common range $[0, 1]
-#'   \item "var": scale coordinates to have mean 0 and variance 1
-#'   \item "I": don't scale the coordinates at all 
-#' }
-#'
 #' @param data data frame
 #' @param vars variables to include in parallel coordinates plot
-#' @param scale scaling function, one of "range", "var" or "I"
 #' @param ... other arguments passed on plot creation
 #' @export
 #' @examples
 #' ggpcp(mtcars) + geom_line()
-#' ggpcp(mtcars, scale="var") + geom_line()
-#' ggpcp(mtcars, vars=names(mtcars)[3:6], formula= . ~cyl, scale="I") + geom_line()
-#' ggpcp(mtcars, scale="I") + geom_boxplot(aes(group=variable))
 #' ggpcp(mtcars, vars=names(mtcars[2:6])) + geom_line()
+#' ggpcp(mtcars) + geom_boxplot(aes(group=variable))
+#'
 #' p <- ggpcp(mtcars, vars=names(mtcars[2:6]))
 #' p + geom_line()
 #' p + geom_line(aes(colour=mpg)) 
-ggpcp <- function(data, vars=names(data), scale="range", ...) {
-  force(vars)  
-  scaled <- rescaler(data[, vars], type=scale)
+ggpcp <- function(data, vars=names(data), ...) {
+  
+  scaled <- as.data.frame(lapply(data[, vars], rescale01))
   data <- cunion(scaled, data)
   
   data$ROWID <- 1:nrow(data)
   molten <- melt(data, m=vars)
 
-  ggplot(molten, aes_string(x = "variable", y = "value", group = "ROWID"), ...)
+  ggplot(molten, aes_string(x = "variable", y = "value", group = "ROWID"),
+    ...)
 }
 
 #' Create a fluctuation plot.

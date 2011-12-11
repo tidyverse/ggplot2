@@ -28,6 +28,9 @@ MINOR CHANGES
   median line is now `fatten` times the width of the other lines (thanks to
   suggestion by Di Cook), and the line type can now be set.
 
+* `ggsave` can work with cm and mm `units` (Thanks to patch from Jean-Olivier
+  Irisson)
+
 * Scales now automatically shrink to what is actually displayed on the plot,
   not the underlying data used for statistical transformation. If you want the
   old behaviour, supply `shrink = FALSE` to the facetting specification.
@@ -39,6 +42,15 @@ MINOR CHANGES
 * `stat_contour` no longer errors if all breaks outside z range (fixes #195).
 
 * `geom_text` remove rows with missing values with warning (fixes #191)
+
+* New generic function `autoplot` for the creation of complete plots
+  specific to a given data structure. Default implementation throws
+  an error. It is designed to have implementations provided by other
+  packages.
+  
+* `ggpcp` loses the `scale` argument because it relied on reshape(1) code
+
+* `map_data` passes `...` on to `maps::map` (Fixes #223)
 
 DEVELOPMENT
 

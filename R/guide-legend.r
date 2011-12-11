@@ -174,8 +174,24 @@ guide_train.legend <- function(guide, scale) {
     values = scale_map(scale, breaks),
     labels = scale_labels(scale),
     stringsAsFactors = FALSE)
-  key <- key[!is.na(breaks), , drop = FALSE]
+
+  ## this is a quick fix for #118
+  ## some scales have NA as na.value (e.g., size)
+  ## some scales have non NA as na.value (e.g., "grey50" for colour)
+  ## drop rows if data (instead of the mapped value) is NA
+  ##
+  ## Also, drop out-of-range values for continuous scale
+  ## (should use scale$oob?)
+  if (inherits(scale, "continuous")) {
+    limits <- scale_limits(scale)
+    noob <- !is.na(breaks) & limits[1] <= breaks & breaks <= limits[2]
+    key <- key[noob, , drop = FALSE]
+  } else {
+    key <- key[!is.na(breaks), , drop = FALSE]
+  }
+  
   names(key) <- c(scale$aesthetics[1], ".label")
+
   if (guide$reverse) key <- key[nrow(guide$key):1, ]
   
   guide$key <- key

@@ -2,16 +2,13 @@
 \alias{ggpcp}
 \title{Make a parallel coordinates plot.}
 \usage{
-  ggpcp(data, vars = names(data), scale = "range", ...)
+  ggpcp(data, vars = names(data), ...)
 }
 \arguments{
   \item{data}{data frame}
 
   \item{vars}{variables to include in parallel coordinates
   plot}
-
-  \item{scale}{scaling function, one of "range", "var" or
-  "I"}
 
   \item{...}{other arguments passed on plot creation}
 }
@@ -27,20 +24,12 @@
   use any of the existing geom functions.  In particular
   this makes it very easy to create parallel boxplots, as
   shown in the example.
-
-  Three different scaling function are available:
-
-  \itemize{ \item "range": scale coordinates to have common
-  range $[0, 1] \item "var": scale coordinates to have mean
-  0 and variance 1 \item "I": don't scale the coordinates
-  at all }
 }
 \examples{
 ggpcp(mtcars) + geom_line()
-ggpcp(mtcars, scale="var") + geom_line()
-ggpcp(mtcars, vars=names(mtcars)[3:6], formula= . ~cyl, scale="I") + geom_line()
-ggpcp(mtcars, scale="I") + geom_boxplot(aes(group=variable))
 ggpcp(mtcars, vars=names(mtcars[2:6])) + geom_line()
+ggpcp(mtcars) + geom_boxplot(aes(group=variable))
+
 p <- ggpcp(mtcars, vars=names(mtcars[2:6]))
 p + geom_line()
 p + geom_line(aes(colour=mpg))
