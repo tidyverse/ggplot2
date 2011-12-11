@@ -86,14 +86,15 @@ coord_train.map <- function(coord, scales) {
   x.raw <- coord$xlim %||% scale_dimension(scales$x)
   y.raw <- coord$ylim %||% scale_dimension(scales$y)
   orientation <- coord$orientation %||% c(90, 0, mean(x.raw))
-  
+
   # Increase chances of creating valid boundary region
   grid <- expand.grid(
     x = seq(x.raw[1], x.raw[2], length = 50),
     y = seq(y.raw[1], y.raw[2], length = 50)
   )
   range <- mproject(coord, grid$x, grid$y, orientation)$range
-  
+
+  # major and minor values in data space
   x.range <- range[1:2]
   x.major <- scale_breaks(scales$x)
   x.minor <- scale_breaks_minor(scales$x)
@@ -103,7 +104,27 @@ coord_train.map <- function(coord, scales) {
   y.major <- scale_breaks(scales$y)
   y.minor <- scale_breaks_minor(scales$y)
   y.labels <- scale_labels(scales$y, y.major)
-  
+
+  # if the scale is continuous, drop out-of-range values
+  if (inherits(scales$x, "continuous")) {
+    major_inside_range <- x.raw[1] <= x.major & x.major <= x.raw[2]
+    major_inside_range <- major_inside_range & !is.na(major_inside_range)
+    minor_inside_range <- x.raw[1] <= x.minor  & x.minor <= x.raw[2]
+    minor_inside_range <- minor_inside_range & !is.na(minor_inside_range)
+    x.major <- x.major[major_inside_range]
+    x.minor <- x.major[minor_inside_range]
+    x.labels <- x.labels[major_inside_range]
+  }
+  if (inherits(scales$y, "continuous")) {
+    major_inside_range <- y.raw[1] <= y.major & y.major <= y.raw[2]
+    major_inside_range <- major_inside_range & !is.na(major_inside_range)
+    minor_inside_range <- y.raw[1] <= y.minor  & y.minor <= y.raw[2]
+    minor_inside_range <- minor_inside_range & !is.na(minor_inside_range)
+    y.major <- y.major[major_inside_range]
+    y.minor <- y.major[minor_inside_range]
+    y.labels <- y.labels[major_inside_range]
+  }
+
   list(
     x.raw = x.raw, y.raw = y.raw, orientation = orientation,
     x.range = x.range, y.range = y.range, 
