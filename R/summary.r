@@ -32,7 +32,7 @@ summary.ggplot <- function(object, ...) {
   }
   
   cat("faceting: ")
-  object$facet$pprint()
+  print(object$facet)
 
   if (length(object$layers) > 0)
     cat("-----------------------------------\n")

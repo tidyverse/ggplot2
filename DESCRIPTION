@@ -173,8 +173,6 @@ Collate:
     'theme-elements.r'
     'theme.r'
     'utilities-break.r'
-    'utilities-discrete.r'
-    'utilities-facet.r'
     'utilities-grid.r'
     'utilities-layer.r'
     'utilities-matrix.r'
@@ -188,3 +186,4 @@ Collate:
     'geom-raster.r'
     'annotation-raster.r'
     'annotation-map.r'
+    'autoplot.r'

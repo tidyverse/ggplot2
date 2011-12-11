@@ -321,3 +321,8 @@ icon.grid <- function(.) {
     segmentsGrob(c(0, 0.475), c(0.475, 0), c(1, 0.475), c(0.475, 1))
   ))
 }  
+
+facet_vars.grid <- function(facet) {
+  paste(lapply(list(facet$rows, facet$cols), paste, collapse = ", "), 
+    collapse = " ~ ")
+}

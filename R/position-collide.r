@@ -25,8 +25,9 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
     width <- widths[1]
   }
 
-  # Reorder by x position, preserving order of group
-  data <- data[order(data$xmin, data$group), ]
+  # Reorder by x position, relying on stable sort to preserve existing 
+  # ordering, which may be by group or order.
+  data <- data[order(data$xmin), ]
 
   # Check for overlap
   intervals <- as.numeric(t(unique(data[c("xmin", "xmax")])))

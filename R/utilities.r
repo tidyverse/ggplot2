@@ -168,3 +168,9 @@ should_stop <- function(expr) {
 # Waive decision
 waiver <- function() structure(NULL, class="waiver")
 is.waive <- function(x) inherits(x, "waiver")
+
+
+rescale01 <- function(x) {
+  rng <- range(x, na.rm = TRUE)
+  (x - rng[1]) / (rng[2] - rng[1])
+}

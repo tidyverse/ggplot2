@@ -69,3 +69,5 @@ icon.facet_null <- function(.) {
     segmentsGrob(c(0, 0.475), c(0.475, 0), c(1, 0.475), c(0.475, 1))
   ))
 }  
+
+facet_vars.null <- function(facet) ""
