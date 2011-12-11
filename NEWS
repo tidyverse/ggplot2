@@ -1,7 +1,7 @@
 ggplot2 0.9.0
 ----------------------------------------------------------------
 
-NEW GEOMS/ANNOTATIONS
+NEW GEOMS/ANNOTATIONS/STATS
 
 * `geom_map`
 
@@ -10,6 +10,10 @@ NEW GEOMS/ANNOTATIONS
 * `annotation_raster`
 
 * `annotation_map`
+
+* `stat_summary2d` / `stat_summary_hex`. These are arbitrary function version
+  of stat_bin2d / stat_binhex. Any summarization (as stat-summary for 1D) can
+  be done for 2D.
 
 MINOR CHANGES
 
