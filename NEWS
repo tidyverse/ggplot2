@@ -109,6 +109,12 @@ SCALES
   transformations in this package should do a better job at computing default
   breaks.
 
+* transformations for continuous scales are now detected automatically when
+  the default scales are added. This ensures that dates and date times will
+  display correctly when used for any aesthetic - previously they only worked
+  with position scales. The system is now also easier to extend to new types
+  of continuous data that you might want to plot.  (Fixes 48)
+
 * all scales now accept `na.value` parameter which provides an aesthetic value
   to be used for NA values in the data. Colour/fill scales default to values
   that should stand out as being different from non-missing values.

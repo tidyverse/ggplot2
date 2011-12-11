@@ -67,33 +67,41 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
   
   new_aesthetics <- setdiff(names(aesthetics), scales$input())
   # No new aesthetics, so no new scales to add
-  if(is.null(new_aesthetics)) return()
+  if (is.null(new_aesthetics)) return()
   
-  # Determine variable type for each column -------------------------------
-  vartype <- function(x) {
-    if (inherits(x, "Date")) return("date")
-    if (inherits(x, "POSIXt")) return("datetime")
-    if (is.numeric(x)) return("continuous")
-    
-    "discrete"
-  }
-
   datacols <- tryapply(
     aesthetics[new_aesthetics], eval, 
-    envir=data, enclos=env
+    envir = data, enclos = env
   )
   new_aesthetics <- intersect(new_aesthetics, names(datacols))
   if (length(datacols) == 0) return()
   
-  vartypes <- sapply(datacols, vartype)
-  
-  # Work out scale names
-  scale_name_type <- paste("scale", new_aesthetics, vartypes, sep="_")
-
-  for(i in 1:length(new_aesthetics)) {
-    if (exists(scale_name_type[i])) {
-      scale <- get(scale_name_type[i], globalenv())()
-      scales$add(scale)
+  for(aes in new_aesthetics) {
+    disc <- is.discrete(datacols[[aes]])
+    type <- if (disc) "discrete" else "continuous"
+    scale_name <- paste("scale", aes, type, sep="_")
+    
+    # Skip aesthetics with no scales (e.g. group, order, etc)
+    if (!exists(scale_name, globalenv())) next
+    
+    if (disc) {
+      args <- list()
+    } else {
+      args <- list(trans = trans_type(datacols[[aes]]))
     }
+    scale <- do.call(scale_name, args)
+    scales$add(scale)
+  }
+  
+}
+
+# Determine default transformation for continuous scales
+trans_type <- function(x) {
+  if (inherits(x, "Date")) {
+    "date"
+  } else if (inherits(x, "POSIXt")) {
+    "time"
+  } else {
+    "identity"
   }
 }
