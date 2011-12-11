@@ -3,7 +3,17 @@
 \alias{coord_fixed}
 \title{Cartesian coordinates with fixed relationship between x and y scales.}
 \usage{
-  coord_fixed(ratio = 1)
+  coord_fixed(ratio = 1, xlim = NULL, ylim = NULL,
+    wise = FALSE)
+}
+\arguments{
+  \item{xlim}{limits for the x axis}
+
+  \item{ylim}{limits for the y axis}
+
+  \item{wise}{If \code{TRUE} will wisely expand the actual
+  range of the plot a little, in the way that setting the
+  limits on the scales does}
 }
 \description{
   A fixed scale coordinate system forces a specified ratio
