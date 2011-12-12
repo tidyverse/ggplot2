@@ -1,21 +1,47 @@
 #' Dot plot
 #' 
 geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot", position = "identity",
-na.rm = FALSE, binaxis = "x", binstataxis = "x", binmethod="dotdensity", stackdir = "up",
+na.rm = FALSE, binaxis = "x", binmethod="dotdensity", stackdir = "up",
 stackratio = 1, dotsize = 1, ...) {
   GeomDotplot$new(mapping = mapping, data = data, stat = stat, position = position, 
-  na.rm = na.rm, binaxis = binaxis, binstataxis = binstataxis,
+  na.rm = na.rm, binaxis = binaxis,
   binmethod = binmethod, stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, ...)
 }
 
 # TODO:
-# Get rid of binstataxis parameter - use only binaxis - how do you get that parameter to stat and Geom$draw?
 # change y axis from "count" to something else
 # Option to vertically align points on grid - do without stretching
 # npc seems to refer to the entire window. What does native refer to?
+# Stacking
+# Add stat option to do dotdensity binning across all groups
 
 GeomDotplot <- proto(Geom, {
   objname <- "dotplot"
+
+  new <- function(., mapping=NULL, data=NULL, stat=NULL, position=NULL, ...){
+    # This code is adapted from Layer$new. We need to pull out the stat_params
+    # and geom_params, then manually add binaxis to both sets of params. Otherwise
+    # Layer$new will give binaxis only to the geom.
+
+    stat <- Stat$find(stat)
+    match.params <- function(possible, params) {
+      if ("..." %in% names(possible)) {
+        params
+      } else {
+        params[match(names(possible), names(params), nomatch=0)]
+      }
+    }
+
+    params <- list(...)
+    geom_params <- match.params(.$parameters(), params)
+    stat_params <- match.params(stat$parameters(), params)
+    stat_params <- stat_params[setdiff(names(stat_params), names(geom_params))]
+    # Add back binaxis
+    stat_params <- c(stat_params, binaxis=params$binaxis)
+
+    do.call("layer", list(mapping=mapping, data=data, stat=stat, geom=., position=position,
+                          geom_params=geom_params, stat_params=stat_params, ...))
+  }
 
   reparameterise <- function(., df, params) {
     df$width <- df$width %||% 

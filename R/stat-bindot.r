@@ -38,9 +38,9 @@
 #' ggplot(movies, aes(x=mpaa)) + stat_bin()
 #' qplot(mpaa, data=movies, stat="bin")
 stat_bindot <- function (mapping = NULL, data = NULL, geom = "dotplot", position = "stack",
-width = 0.9, binstataxis = "x", binmethod = "dotdensity", drop = FALSE, right = TRUE, ...) {
+width = 0.9, binaxis = "x", binmethod = "dotdensity", drop = FALSE, right = TRUE, ...) {
   StatBindot$new(mapping = mapping, data = data, geom = geom, position = position, 
-  width = width, binstataxis = binstataxis, binmethod = binmethod,
+  width = width, binaxis = binaxis, binmethod = binmethod,
   drop = drop, right = right, ...)
 }
 
@@ -57,7 +57,7 @@ StatBindot <- proto(Stat, {
     .super$calculate_groups(., data, ...)
   }
   
-  calculate <- function(., data, scales, binwidth=NULL, binstataxis="x", binmethod = "dotdensity",
+  calculate <- function(., data, scales, binwidth=NULL, binaxis="x", binmethod = "dotdensity",
                         origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = TRUE, ...) {
 
     # This function taken from integer help page
@@ -67,10 +67,10 @@ StatBindot <- proto(Stat, {
     if (!is.null(data$weight) && !all(is.wholenumber(data$weight)))
         stop("Weights for stat_bindot must be whole numbers.")
 
-    if (binstataxis=="x") {
+    if (binaxis=="x") {
       range  <- scale_dimension(scales$x)
       values <- data$x
-    } else if (binstataxis=="y") {
+    } else if (binaxis=="y") {
       range  <- scale_dimension(scales$y)
       values <- data$y
     }
@@ -84,10 +84,10 @@ StatBindot <- proto(Stat, {
                 binmethod=binmethod, origin=origin, breaks=breaks, range=range,
                 width=width, drop = drop, right = right)
 
-    if (binstataxis=="x") {
+    if (binaxis=="x") {
       # For x binning, the width of the geoms is same as the width of the bin
       data$width <- data$binwidth
-    } else if (binstataxis=="y") {
+    } else if (binaxis=="y") {
       # bindot returns the data values in a column named x; change the name to y
       names(data)[names(data)=="x"] <- "y"
     }
