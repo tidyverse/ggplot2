@@ -10,9 +10,10 @@
 #' d + stat_summary_hex(fun = function(x) sum(x^2))
 #' d + stat_summary_hex(fun = var, na.rm = T)
 stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex", position = "identity", 
-bins = 30, na.rm = FALSE, fun = mean, ...) { 
+bins = 30, drop = TRUE, fun = mean, ...) {
+  
   StatSummaryhex$new(mapping = mapping, data = data, geom = geom, position = position, 
-  bins = bins, na.rm = na.rm, fun = fun, ...)
+  bins = bins, drop = drop, fun = fun, ...)
 }
 
 StatSummaryhex <- proto(Stat, {
@@ -22,9 +23,9 @@ StatSummaryhex <- proto(Stat, {
   required_aes <- c("x", "y", "z")
   default_geom <- function(.) GeomHex
   
-  calculate <- function(., data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, fun = mean, ...) {
+  calculate <- function(., data, scales, binwidth = NULL, bins = 30, drop = TRUE, fun = mean, ...) {
     try_require("hexbin")
-    data <- remove_missing(data, na.rm, c("x", "y"), name="stat_summaryhex")
+    data <- remove_missing(data, FALSE, c("x", "y", "z"), name="stat_summary_hex")
 
     if (is.null(binwidth)) {
       binwidth <- c( 
@@ -59,8 +60,10 @@ StatSummaryhex <- proto(Stat, {
     )
     
     value <- tapply(data$z, hb@cID, fun, ...)
-    
+
     # Convert to data frame
-    data.frame(hcell2xy(hb), value)
+    ret <- data.frame(hcell2xy(hb), value)
+    if (drop) ret <- na.omit(ret)
+    ret
   }
 })
