@@ -39,23 +39,22 @@ StatYdensity <- proto(Stat, {
     if (is.null(data$weight)) data$weight <- rep(1, n) / n
 
     if(trim) 
-      dens <- density(data$y, adjust=adjust, kernel=kernel,
-                      from=min(data$y), to=max(data$y), weight=data$weight)
+      dens <- density(data$y, adjust=adjust, kernel=kernel, weight=data$weight, n=200,
+                      from=min(data$y), to=max(data$y))
     else 
-      dens <- density(data$y, adjust=adjust, kernel=kernel, weight=data$weight)
+      dens <- density(data$y, adjust=adjust, kernel=kernel, weight=data$weight, n=200)
 
-    densdf <- data.frame(x=dens$y, y=dens$x) # Do a swap on x and y
-    densdf$scaled <- densdf$x / max(densdf$x, na.rm = TRUE)
+    # We predict ydensity from y ('density' calls them y and x, respectively)
+    densdf <- data.frame(ydensity=dens$y, y=dens$x)
+    densdf$scaled <- densdf$ydensity / max(densdf$ydensity, na.rm = TRUE)
 
     if (length(unique(data$x)) > 1) width <- diff(range(data$x)) * 0.9
 
-    within(densdf, {
-      ydensity <- x
-      x <- if (is.factor(data$x)) data$x[1] else mean(range(data$x))
-      count <- x * n
-      width <- width
-    })
+    densdf$x <- if (is.factor(data$x)) data$x[1] else mean(range(data$x))
+    densdf$count <- densdf$x * n
+    densdf$width <- width
 
+    densdf
   }
 
   icon <- function(.) GeomViolin$icon()

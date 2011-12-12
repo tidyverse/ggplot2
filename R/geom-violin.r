@@ -95,10 +95,7 @@ GeomViolin <- proto(Geom, {
     # Needed for coord_polar and such
     newdata <- rbind(newdata, newdata[1,])
 
-    ggname(.$my_name(), grobTree(
-      GeomPolygon$draw(newdata, ...)
-    ))
-
+    ggname(.$my_name(), GeomPolygon$draw(newdata, ...))
   }
 
   guide_geom <- function(.) "violin"
@@ -113,18 +110,21 @@ GeomViolin <- proto(Geom, {
 
   icon <- function(.) {
     y <- seq(-.3, .3, length=40)
-    x <- dnorm(y, mean=0, sd=0.1)
+    x1 <- dnorm(y, mean=-.15, sd=0.05) + 1.5*dnorm(y, mean=0.1, sd=0.1)
+    x2 <- dnorm(y, mean=-.1, sd=0.1) + dnorm(y, mean=0.1, sd=0.1)
 
     y <- c(y,rev(y))
-    x <- c(x,-rev(x))/max(6*x)
-
-    linesGrob(x + .25, y + .35, default="npc")
-    linesGrob(x + .75, y + .65, default="npc")
+    x1 <- c(x1,-rev(x1))/max(8*x1)
+    x2 <- c(x2,-rev(x2))/max(8*x2)
+    gTree(children=gList(
+      polygonGrob(x1 + .30, y + .35, default="npc", gp=gpar(fill="black")),
+      polygonGrob(x2 + .70, y + .55, default="npc", gp=gpar(fill="black"))
+    ))
   }
   
   default_stat <- function(.) StatYdensity
   default_pos <- function(.) PositionDodge
-  default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = 1, shape = 16, linetype = "solid")
+  default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = 1, linetype = "solid")
   required_aes <- c("x", "y")
 
 })
