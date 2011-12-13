@@ -3,29 +3,33 @@
 #' @return A data frame with additional columns:
 #'   \item{width}{width of violin bounding box}
 #'   \item{vdensity}{density estimate}
-#'   \item{scaled}{density estimate, scaled to maximum of 1}
+#'   \item{scaled}{density estimate, scaled depending on scalearea and scalecount}
 #'   \item{count}{density * number of points} 
+#'   \item{counttotal}{number of points} 
 #' @examples
 #' # See geom_violin for examples
 #' # Also see stat_density for similar examples with data along x axis
 stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin", position = "dodge", 
-adjust = 1, kernel = "gaussian", trim = TRUE, fullwidth = TRUE, na.rm = FALSE, ...) { 
+adjust = 1, kernel = "gaussian", trim = TRUE, scalearea = FALSE, scalecount = FALSE, na.rm = FALSE, ...) {
   StatYdensity$new(mapping = mapping, data = data, geom = geom, position = position,
-  adjust = adjust, kernel = kernel, trim = trim, fullwidth = fullwidth, na.rm = na.rm, ...)
+  adjust = adjust, kernel = kernel, trim = trim, scalearea = scalearea, scalecount = scalecount,
+  na.rm = na.rm, ...)
 }
   
 StatYdensity <- proto(Stat, {
   objname <- "ydensity"
 
-  calculate_groups <- function(., data, na.rm = FALSE, width = NULL, fullwidth=TRUE, ...) {
+  calculate_groups <- function(., data, na.rm = FALSE, width = NULL,
+                               scalearea = FALSE, scalecount = FALSE, ...) {
     data <- remove_missing(data, na.rm, "y", name = "stat_ydensity", finite = TRUE)
     data <- .super$calculate_groups(., data, na.rm = na.rm, width = width, ...)
 
-    # If !fullwidth, scale so that the widest violin has scaled=1, and others
-    #  are proportionally narrower, based on their density curves.
-    if (!fullwidth) {
+    if (scalearea)
       data$scaled <- data$ydensity / max(data$ydensity)
-    }
+
+    if (scalecount)
+      data$scaled <- data$scaled * data$counttotal/max(data$counttotal)
+
     data
   }
 
@@ -51,7 +55,8 @@ StatYdensity <- proto(Stat, {
     if (length(unique(data$x)) > 1) width <- diff(range(data$x)) * 0.9
 
     densdf$x <- if (is.factor(data$x)) data$x[1] else mean(range(data$x))
-    densdf$count <- densdf$x * n
+    densdf$count <- densdf$ydensity * n
+    densdf$counttotal <- n
     densdf$width <- width
 
     densdf

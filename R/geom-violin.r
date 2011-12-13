@@ -18,10 +18,15 @@
 #' qplot(factor(cyl), mpg, data = mtcars, geom = "violin") +
 #'   coord_flip()
 #' 
-#' # Default is to scale each violin so that maximum width is the same.
-#' # However, each density curve may have a different width before scaling.
-#' # To scale each violin relative to the width of the widest:
-#' p + geom_violin(fullwidth = FALSE)
+#' # Default is to scale each violin so that they have equal maximum widths.
+#' # Scale each violin to have equal areas:
+#' p + geom_violin(scalearea = TRUE)
+#' 
+#' # Scale maximum width proportional to sample size:
+#' p + geom_violin(scalecount = TRUE)
+#' 
+#' # Scale areas proportional to sample size:
+#' p + geom_violin(scalearea = TRUE, scalecount = TRUE)
 #' 
 #' # Default is to trim violins to the range of the data. To disable:
 #' p + geom_violin(trim = FALSE)
@@ -59,10 +64,10 @@
 #' qplot(year, budget, data = movies, geom = "violin", 
 #'   group = round_any(year, 10, floor))
 #'
-geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity", position = "dodge", 
-trim = TRUE, fullwidth = TRUE, ...) {
+geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity", position = "dodge",
+trim = TRUE, scalearea = FALSE, scalecount = FALSE, ...) {
   GeomViolin$new(mapping = mapping, data = data, stat = stat, 
-  position = position, trim = trim, fullwidth = fullwidth, ...)
+  position = position, trim = trim, scalearea = scalearea, scalecount = scalecount, ...)
 }
 
 GeomViolin <- proto(Geom, {
