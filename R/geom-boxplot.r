@@ -70,8 +70,9 @@ GeomBoxplot <- proto(Geom, {
   reparameterise <- function(., df, params) {
     df$width <- df$width %||% 
       params$width %||% (resolution(df$x, FALSE) * 0.9)
-    df$ymin_final <- min(df$outliers[[1]])
-    df$ymax_final <- max(df$outliers[[1]])
+
+    df$ymin_final <- sapply(1:nrow(df), function(i) min(c(df[i, ]$ymin, df[i, ]$outliers[[1]])))
+    df$ymax_final <- sapply(1:nrow(df), function(i) max(c(df[i, ]$ymax, df[i, ]$outliers[[1]])))
     transform(df,
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )
