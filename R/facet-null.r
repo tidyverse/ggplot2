@@ -20,7 +20,8 @@ facet_train_layout.null <- function(facet, data) {
 #' @S3method facet_map_layout null
 facet_map_layout.null <- function(facet, data, layout) {
   if (empty(data)) return(data.frame(PANEL = 1))
-  transform(data, PANEL = 1)
+  data$PANEL <- 1L
+  data
 }
 
 #' @S3method facet_render null
