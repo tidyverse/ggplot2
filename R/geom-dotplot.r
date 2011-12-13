@@ -1,19 +1,17 @@
 #' Dot plot
 #' 
 geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot", position = "identity",
-na.rm = FALSE, binaxis = "x", binmethod="dotdensity", stackdir = "up",
+na.rm = FALSE, binaxis = "x", binmethod="dotdensity", binpositions = "bygroup", stackdir = "up",
 stackratio = 1, dotsize = 1, ...) {
-  GeomDotplot$new(mapping = mapping, data = data, stat = stat, position = position, 
-  na.rm = na.rm, binaxis = binaxis,
-  binmethod = binmethod, stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, ...)
+  GeomDotplot$new(mapping = mapping, data = data, stat = stat, position = position,
+  na.rm = na.rm, binaxis = binaxis, binmethod = binmethod, binpositions = binpositions,
+  stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, ...)
 }
 
 # TODO:
 # change y axis from "count" to something else
-# Option to vertically align points on grid - do without stretching
-# npc seems to refer to the entire window. What does native refer to?
+# ? Option to vertically align points on grid - do without stretching
 # Stacking
-# Add stat option to do dotdensity binning across all groups
 
 GeomDotplot <- proto(Geom, {
   objname <- "dotplot"

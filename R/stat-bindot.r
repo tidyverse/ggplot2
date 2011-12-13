@@ -38,34 +38,65 @@
 #' ggplot(movies, aes(x=mpaa)) + stat_bin()
 #' qplot(mpaa, data=movies, stat="bin")
 stat_bindot <- function (mapping = NULL, data = NULL, geom = "dotplot", position = "stack",
-width = 0.9, binaxis = "x", binmethod = "dotdensity", drop = FALSE, right = TRUE, ...) {
-  StatBindot$new(mapping = mapping, data = data, geom = geom, position = position, 
-  width = width, binaxis = binaxis, binmethod = binmethod,
+width = 0.9, binaxis = "x", binmethod = "dotdensity", binpositions = "bygroup",
+drop = FALSE, right = TRUE, ...) {
+  StatBindot$new(mapping = mapping, data = data, geom = geom, position = position,
+  width = width, binaxis = binaxis, binmethod = binmethod, binpositions = binpositions,
   drop = drop, right = right, ...)
 }
 
 #TODO: test weighted binning for both methods, and error on non-integer weights
-#TODO: check that binmethod is valid
 #TODO: add smoothing from Wilkinson paper?
+#TODO: check that density value is correct. (should it sum to 1? Because it doesn't always)
 
 StatBindot <- proto(Stat, {
   objname <- "bindot"
   informed <- FALSE
   
-  calculate_groups <- function(., data, ...) {
+  calculate_groups <- function(., data, binwidth=NULL, binaxis="x",
+                        binmethod = "dotdensity", binpositions = "bygroup", ...) {
     .$informed <- FALSE
-    .super$calculate_groups(., data, ...)
+
+    # If using dotdensity and binning over all, we need to find the bin centers
+    # for all data before it's split into groups.
+    if (binmethod=="dotdensity" && binpositions=="all") {
+      if (binaxis=="x") {
+        newdata <- densitybin(x=data$x, weight=data$weight, binwidth=binwidth,
+                      binmethod=binmethod)
+
+        data    <- arrange(data, x)
+        newdata <- arrange(newdata, x)
+
+      } else if (binaxis=="y") {
+        newdata <- densitybin(x=data$y, weight=data$weight, binwidth=binwidth,
+                    binmethod=binmethod)
+
+        data    <- arrange(data, y)
+        newdata <- arrange(newdata, x)
+      }
+
+        data$bin       <- newdata$bin
+        data$binwidth  <- newdata$binwidth
+        data$weight    <- newdata$weight
+        data$bincenter <- newdata$bincenter
+
+    }
+
+    .super$calculate_groups(., data, binwidth=binwidth, binaxis=binaxis,
+            binmethod=binmethod, binpositions=binpositions, ...)
   }
-  
+
+
   calculate <- function(., data, scales, binwidth=NULL, binaxis="x", binmethod = "dotdensity",
+                        binpositions = "bygroup",
                         origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = TRUE, ...) {
 
     # This function taken from integer help page
     is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
 
     # Check that weights are whole numbers (for dots, weights must be whole)
-    if (!is.null(data$weight) && !all(is.wholenumber(data$weight)))
-        stop("Weights for stat_bindot must be whole numbers.")
+    if (!is.null(data$weight) && any(!is.wholenumber(data$weight)) && any(data$weight < 0))
+      stop("Weights for stat_bindot must be nonnegative integers.")
 
     if (binaxis=="x") {
       range  <- scale_dimension(scales$x)
@@ -79,46 +110,57 @@ StatBindot <- proto(Stat, {
       message("stat_bindot: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.")
       .$informed <- TRUE
     }
+
+
+  if(binmethod == "histodot") {
+    # Use the function from stat_bin
+    data <- bin(x=values, weight=data$weight, binwidth=binwidth, origin=origin, breaks=breaks,
+                   range=range, width=width, drop=drop, right=right)
+
+    # Change "width" column to "binwidth" for consistency
+    names(data)[names(data)=="width"] <- "binwidth"
+
+  } else if (binmethod == "dotdensity") {
+
+    # If bin centers are found by group instead of by all, find the bin centers
+    # (If binpositions=="all", then we'll already have bin centers.)
+    if (binpositions=="bygroup")
+      data <- densitybin(x=values, weight=data$weight, binwidth=binwidth,
+                binmethod=binmethod, range=range)
     
-    data <- bindot(values, data$weight, binwidth=binwidth,
-                binmethod=binmethod, origin=origin, breaks=breaks, range=range,
-                width=width, drop = drop, right = right)
+    # Collapse each bin and get a count
+    data <- ddply(data, .(bincenter), summarise, binwidth=binwidth[1], count=sum(weight))
+
+    if (sum(data$count, na.rm = TRUE) != 0) {
+      data$count[is.na(data$count)] <- 0
+      data$density <- data$count / data$binwidth / sum(abs(data$count), na.rm=TRUE)
+      data$ncount <- data$count / max(abs(data$count), na.rm=TRUE)
+      data$ndensity <- data$density / max(abs(data$density), na.rm=TRUE)
+      if (drop) data <- subset(data, count > 0)
+    }
+  }
+    
 
     if (binaxis=="x") {
+      names(data)[names(data)=="bincenter"] <- "x"
       # For x binning, the width of the geoms is same as the width of the bin
       data$width <- data$binwidth
     } else if (binaxis=="y") {
-      # bindot returns the data values in a column named x; change the name to y
-      names(data)[names(data)=="x"] <- "y"
+      names(data)[names(data)=="bincenter"] <- "y"
     }
-
     return(data)
   }
 
-  icon <- function(.) GeomHistogram$icon()
-#TODO: Are the aes things necessary?
+  icon <- function(.) GeomDotplot$icon()
   default_aes <- function(.) aes(y = ..count..)
   required_aes <- c("x")
   default_geom <- function(.) GeomDotplot
   
 })
 
-# TODO: make use of some of these parameters in dotdensity??
-# Bin the values.
-# histodot just uses stat_bin
-# dotdensity is from Wilkinson (1999)
-bindot <- function(x, weight=NULL, binwidth=NULL, binmethod=binmethod, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
-  
-  if(binmethod == "histodot") {
-    # Use the function from stat_bin
-    results <- bin(x=x, weight=weight, binwidth=binwidth, origin=origin, breaks=breaks,
-                   range=range, width=width, drop=drop, right=right)
-
-    # Change "width" column to "binwidth" for consistency
-    names(results)[names(results)=="width"] <- "binwidth"
-    return(results)
-
-  } else if (binmethod == "dotdensity") {
+# This does density binning, but does not collapse each bin with a count.
+# It returns a data frame with the original data (x), weights, bin #, and the bin centers.
+densitybin <- function(x, weight=NULL, binwidth=NULL, binmethod=binmethod, range=NULL) {
 
     if (length(na.omit(x)) == 0) return(data.frame())
     if (is.null(weight))  weight <- rep(1, length(x))
@@ -127,14 +169,13 @@ bindot <- function(x, weight=NULL, binwidth=NULL, binmethod=binmethod, origin=NU
     if (is.null(range))    range <- range(x, na.rm = TRUE, finite=TRUE)
     if (is.null(binwidth)) binwidth <- diff(range) / 30
 
-    # TODO: deal with fuzziness
     # Sort weight and x, by x
     weight <- weight[order(x)]
     x      <- x[order(x)]
 
-    cbin <- 0                            # Current bin ID
-    bins    <- integer(length=length(x)) # The bin ID for each observation
-    binend  <- -Inf                      # End position of current bin (scan left to right)
+    cbin <- 0                         # Current bin ID
+    bin     <- rep.int(NA, length(x)) # The bin ID for each observation
+    binend  <- -Inf                   # End position of current bin (scan left to right)
 
     # Scan list and put dots in bins
     for (i in 1:length(x)) {
@@ -144,29 +185,14 @@ bindot <- function(x, weight=NULL, binwidth=NULL, binmethod=binmethod, origin=NU
             cbin <- cbin + 1
         }
 
-        bins[i] <- cbin
+        bin[i] <- cbin
     }
 
-    results <- data.frame(
-      count = as.numeric(tapply(weight, bins, sum, na.rm=TRUE)),
-      # Center of each bin - centering is not weighted
-      x = as.numeric(tapply(x, bins, FUN = function(a) { (min(a) + max(a)) / 2 })),
-      binwidth = binwidth
-    )
+    results <- data.frame(x, bin, binwidth, weight)
+    results <- ddply(results, .(bin), function(df) {
+                    df$bincenter = (min(df$x) + max(df$x)) / 2
+                    return(df)
+                  })
 
-    if (sum(results$count, na.rm = TRUE) == 0) {
-      return(results)
-    }
-
-# TODO: check that density value is correct. (should it sum to 1? Because it doesn't always)
-    res <- within(results, {
-      count[is.na(count)] <- 0
-      density <- count / width / sum(abs(count), na.rm=TRUE)
-      ncount <- count / max(abs(count), na.rm=TRUE)
-      ndensity <- density / max(abs(density), na.rm=TRUE)
-    })
-    if (drop) res <- subset(res, count > 0)
-
-    return(res)
-  }
+    return(results)
 }
