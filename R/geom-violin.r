@@ -1,11 +1,7 @@
 #' Violin plot.
 #'
-#' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
-#'   continuous variable,  \code{\link{geom_jitter}} for another way to look 
-#'   at conditional distributions"
-#' @param trim
-#' @param outlier.shape shape of outlying points
-#' @param outlier.size size of outlying points
+#' @param trim If \code{TRUE} (default), trim the violins to the range of the
+#'   data. If \code{FALSE}, don't trim.
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))
@@ -103,27 +99,19 @@ GeomViolin <- proto(Geom, {
     ggname(.$my_name(), GeomPolygon$draw(newdata, ...))
   }
 
-  guide_geom <- function(.) "violin"
-  draw_legend <- function(., data, ...)  {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-
-    with(data, grobTree(
-      rectGrob(gp = gpar(col = colour, fill = alpha(fill, alpha), lty = linetype)),
-      linesGrob(gp = gpar(col = colour, lwd = size * .pt, lineend="butt", lty = linetype))
-    ))
-  }
+  guide_geom <- function(.) "polygon"
 
   icon <- function(.) {
     y <- seq(-.3, .3, length=40)
-    x1 <- dnorm(y, mean=-.15, sd=0.05) + 1.5*dnorm(y, mean=0.1, sd=0.1)
-    x2 <- dnorm(y, mean=-.1, sd=0.1) + dnorm(y, mean=0.1, sd=0.1)
+    x1 <- dnorm(y, mean = -.15, sd = 0.05) + 1.5*dnorm(y, mean = 0.1, sd = 0.1)
+    x2 <- dnorm(y, mean = -.1, sd = 0.1) + dnorm(y, mean = 0.1, sd = 0.1)
 
-    y <- c(y,rev(y))
-    x1 <- c(x1,-rev(x1))/max(8*x1)
-    x2 <- c(x2,-rev(x2))/max(8*x2)
-    gTree(children=gList(
-      polygonGrob(x1 + .30, y + .35, default="npc", gp=gpar(fill="black")),
-      polygonGrob(x2 + .70, y + .55, default="npc", gp=gpar(fill="black"))
+    y <- c(y, rev(y))
+    x1 <- c(x1, -rev(x1)) / max(8 * x1)
+    x2 <- c(x2, -rev(x2)) / max(8 * x2)
+    gTree(children = gList(
+      polygonGrob(x1 + .30, y + .35, default = "npc", gp = gpar(fill = "black")),
+      polygonGrob(x2 + .70, y + .55, default = "npc", gp = gpar(fill = "black"))
     ))
   }
   

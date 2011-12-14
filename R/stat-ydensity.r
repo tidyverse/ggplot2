@@ -1,10 +1,14 @@
 #' 1d kernel density estimate along y axis, for violin plot.
 #'
+#' @inheritParams stat_density
+#' @param trim If \code{TRUE} (default), trim the output to the range of the
+#'   data. If \code{FALSE}, don't trim.
+#'
 #' @return A data frame with additional columns:
 #'   \item{width}{width of violin bounding box}
-#'   \item{vdensity}{density estimate}
+#'   \item{ydensity}{density estimate}
 #'   \item{scaled}{density estimate, scaled depending on scalearea and scalecount}
-#'   \item{count}{density * number of points} 
+#'   \item{count}{ydensity * number of points}
 #'   \item{counttotal}{number of points} 
 #' @examples
 #' # See geom_violin for examples
@@ -39,22 +43,24 @@ StatYdensity <- proto(Stat, {
     n <- nrow(data)
 
     # If just 1 point, return a flat violin
-    if (n < 2) return(data.frame(data, scaled=1, ydensity=1, count=1))
-    if (is.null(data$weight)) data$weight <- rep(1, n) / n
+    if (n < 2) { return(data.frame(data, scaled = 1, ydensity = 1, count = 1)) }
+    if (is.null(data$weight)) { data$weight <- rep(1, n) / n }
 
-    if(trim) 
-      dens <- density(data$y, adjust=adjust, kernel=kernel, weight=data$weight, n=200,
-                      from=min(data$y), to=max(data$y))
-    else 
-      dens <- density(data$y, adjust=adjust, kernel=kernel, weight=data$weight, n=200)
+    if(trim) {
+      dens <- density(data$y, adjust = adjust, kernel = kernel, weight = data$weight,
+                      n = 200, from = min(data$y), to = max(data$y))
+    } else  {
+      dens <- density(data$y, adjust = adjust, kernel = kernel, weight = data$weight,
+                      n = 200)
+    }
 
     # We predict ydensity from y ('density' calls them y and x, respectively)
-    densdf <- data.frame(ydensity=dens$y, y=dens$x)
+    densdf <- data.frame(ydensity = dens$y, y = dens$x)
     densdf$scaled <- densdf$ydensity / max(densdf$ydensity, na.rm = TRUE)
 
-    if (length(unique(data$x)) > 1) width <- diff(range(data$x)) * 0.9
+    if (length(unique(data$x)) > 1) { width <- diff(range(data$x)) * 0.9 }
 
-    densdf$x <- if (is.factor(data$x)) data$x[1] else mean(range(data$x))
+    densdf$x <- mean(range(data$x))
     densdf$count <- densdf$ydensity * n
     densdf$counttotal <- n
     densdf$width <- width
