@@ -92,7 +92,7 @@ GeomDotplot <- proto(Geom, {
 
       df$ymin <- stackaxismin
       df$ymax <- stackaxismax
-      df$y    <- (stackaxismin + stackaxismax) / 2
+      df$y    <- 0
 
     } else if (params$binaxis=="y") {
       # Fill the bins: at a given y, if count=3, make 3 entries at that y, with
@@ -131,23 +131,22 @@ GeomDotplot <- proto(Geom, {
     # Transform the data to the new coordinates
     tdata <- coord_transform(coordinates, data, scales)
 
+    # Swap axes if using coord_flip
+    if ("flip" %in% attr(coordinates,"class"))
+      binaxis <- ifelse (binaxis=="x", "y", "x")
+
     # Is there a better way of generalizing over x and y?
     if (binaxis=="x") {
       stackaxis = "y"
       dotdianpc <- dotsize * tdata$binwidth[1] / (max(scales$x.range) - min(scales$x.range))
 
-      # Get y=0 in npc coordinates
-      zeronpc <- coord_transform(coordinates, data.frame(y=0), scales)
-      ynpc <- zeronpc$y
-
     } else if (binaxis=="y") {
       stackaxis = "x"
       dotdianpc <- dotsize * tdata$binwidth[1] / (max(scales$y.range) - min(scales$y.range))
-      ynpc <- tdata$y
     }
 
     ggname(.$my_name(),
-      dotstackGrob(stackaxis, x=tdata$x, y=ynpc, dotdia=dotdianpc,
+      dotstackGrob(stackaxis, x=tdata$x, y=tdata$y, dotdia=dotdianpc,
                   stackposition=tdata$stackpos, stackratio=stackratio,
                   default.units="npc",
                   gp=gpar(col=alpha(tdata$colour, tdata$alpha),
