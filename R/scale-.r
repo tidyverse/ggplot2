@@ -289,7 +289,7 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
   
   if (is.null(scale$minor_breaks)) {
     b <- b[!is.na(b)]
-    if (length(b) == 1) return()
+    if (length(b) < 2) return()
 
     bd <- diff(b)[1]
     if (min(limits) < min(b)) b <- c(b[1] - bd, b)
