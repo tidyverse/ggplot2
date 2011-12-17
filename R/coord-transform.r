@@ -1,5 +1,12 @@
 #' Transformed cartesian coordinate system.
 #' 
+#' \code{coord_trans} is different to scale transformations in that it occurs after 
+#' statistical transformation and will affect the visual appearance of geoms - there is
+#' no guarantee that straight lines will continue to be straight.
+#'
+#' All current transformations only work with continuous values - see \code[scale]{trans_new}
+#' for list of transformations, and instructions on how to create your own.
+#'
 #' @param ytrans transformer for x axis
 #' @param xtrans transformer for y axis
 #' @export
@@ -47,7 +54,6 @@
 #' 
 #' plot + coord_trans(x = "log10")
 #' plot + coord_trans(x = "sqrt")
-#' plot + coord_trans(x = "sqrt", y = "reverse")
 coord_trans <- function(xtrans = "identity", ytrans = "identity") {
   if (is.character(xtrans)) xtrans <- as.trans(xtrans)
   if (is.character(ytrans)) ytrans <- as.trans(ytrans)

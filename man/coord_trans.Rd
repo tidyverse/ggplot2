@@ -10,7 +10,17 @@
   \item{xtrans}{transformer for y axis}
 }
 \description{
-  Transformed cartesian coordinate system.
+  \code{coord_trans} is different to scale transformations
+  in that it occurs after statistical transformation and
+  will affect the visual appearance of geoms - there is no
+  guarantee that straight lines will continue to be
+  straight.
+}
+\details{
+  All current transformations only work with continuous
+  values - see \code[scale]{trans_new} for list of
+  transformations, and instructions on how to create your
+  own.
 }
 \examples{
 # See ?geom_boxplot for other examples
@@ -56,6 +66,5 @@ plot <- ggplot(df,aes(a,letters)) + geom_point()
 
 plot + coord_trans(x = "log10")
 plot + coord_trans(x = "sqrt")
-plot + coord_trans(x = "sqrt", y = "reverse")
 }
 
