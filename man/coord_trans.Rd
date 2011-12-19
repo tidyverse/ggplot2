@@ -18,7 +18,7 @@
 }
 \details{
   All current transformations only work with continuous
-  values - see \code[scale]{trans_new} for list of
+  values - see \code{scale}{trans_new} for list of
   transformations, and instructions on how to create your
   own.
 }
