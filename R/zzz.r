@@ -12,5 +12,3 @@ tips <- c(
   tip <- sample(tips, 1)
   packageStartupMessage(tip)
 }
-  
-  
