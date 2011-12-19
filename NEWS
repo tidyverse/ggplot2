@@ -55,6 +55,9 @@ MINOR CHANGES
 * `coord_fixed` accepts `xlim` and `ylim` parameters to zoom in on x and y
   scales (Fixes #91)
 
+* ggplot2 will occasionally display a useful hint or tip on startup.  Use
+  `suppressPackageStartupMessages` to eliminate
+
 DEVELOPMENT
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems

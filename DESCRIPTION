@@ -187,3 +187,4 @@ Collate:
     'annotation-raster.r'
     'annotation-map.r'
     'autoplot.r'
+    'zzz.r'
