@@ -86,8 +86,8 @@ limits.POSIXlt <- function(lims, var) {
 #' panels or all plots.  This function is a thin wrapper around
 #' \code{\link{geom_blank}} that makes it easy to add such values.
 #' 
-#' @param named list of aesthetics specifying the value (or values) that 
-#' should be included.
+#' @param ... named list of aesthetics specifying the value (or values) that 
+#'   should be included in each scale.
 #' @export
 #' @examples
 #' p <- qplot(mpg, wt, data = mtcars)
