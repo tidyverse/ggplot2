@@ -40,13 +40,13 @@ predictdf.glm <- function(model, xseq, se, level) {
 }
 
 predictdf.loess <- function(model, xseq, se, level) {
-  pred <- stats::predict(model, newdata = data.frame(x = xseq), se = se,
-    level = level, interval = if(se) "confidence" else "none")
+  pred <- stats::predict(model, newdata = data.frame(x = xseq), se = se)
 
   if (se) {
     y = pred$fit
-    ymin = y - pred$se.fit
-    ymax = y + pred$se.fit
+    ci <- pred$se.fit * qt(level / 2 + .5, pred$df)
+    ymin = y - ci
+    ymax = y + ci
     data.frame(x = xseq, y, ymin, ymax, se = pred$se.fit)
   } else {
     data.frame(x = xseq, y = as.vector(pred))
