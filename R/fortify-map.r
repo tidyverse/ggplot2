@@ -62,3 +62,35 @@ fortify.map <- function(model, data, ...) {
 map_data <- function(map, region = ".", exact = FALSE, ...) {
   fortify(map(map, region, exact = exact, plot = FALSE, fill = TRUE, ...))
 }
+
+#' Create a layer of map borders.
+#' 
+#' @param database map data, see \code{\link[maps]{map}} for details
+#' @param regions map region
+#' @param fill fill colour
+#' @param colour border colour
+#' @param ... other arguments passed onto \code{\link{geom_polygon}}
+#' @export
+#' @examples
+#' if (require("maps")) {
+#'
+#' ia <- map_data("county", "iowa")
+#' mid_range <- function(x) mean(range(x))
+#' seats <- ddply(ia, .(subregion), colwise(mid_range, .(lat, long)))
+#' ggplot(ia, aes(long, lat)) +
+#'   geom_polygon(aes(group = group), fill = NA, colour = "grey60") +
+#'   geom_text(aes(label = subregion), data = seats, size = 2, angle = 45)
+#'
+#' data(us.cities)
+#' capitals <- subset(us.cities, capital == 2)
+#' ggplot(capitals, aes(long, lat)) +
+#'   borders("state") +
+#'   geom_point(aes(size = pop)) +
+#'   scale_area()
+#'
+#' }
+borders <- function(database = "world", regions = ".", fill = NA, colour = "grey50", ...) {
+  df <- map_data(database, regions)
+  geom_polygon(aes(long, lat, group = group), data = df, 
+    fill = fill, colour = colour, ...)
+}
