@@ -1,7 +1,7 @@
 ggplot2 0.9.0
 ----------------------------------------------------------------
 
-NEW GEOMS/ANNOTATIONS
+NEW FEATURES
 
 * `geom_map`
 
@@ -10,6 +10,8 @@ NEW GEOMS/ANNOTATIONS
 * `annotation_raster`
 
 * `annotation_map`
+
+* New fortify methods for objects produced by the `multcomp` package.
 
 MINOR CHANGES
 

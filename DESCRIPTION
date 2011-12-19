@@ -30,7 +30,8 @@ Suggests:
     maps,
     hexbin,
     gpclib,
-    maptools
+    maptools,
+    multcomp
 Extends:
     sp
 License: GPL-2
@@ -188,3 +189,4 @@ Collate:
     'annotation-map.r'
     'autoplot.r'
     'zzz.r'
+    'fortify-multcomp.r'

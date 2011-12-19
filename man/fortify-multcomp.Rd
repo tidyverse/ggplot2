@@ -1,0 +1,51 @@
+\name{fortify-multcomp}
+\alias{fortify-multcomp}
+\alias{fortify.cld}
+\alias{fortify.confint.glht}
+\alias{fortify.glht}
+\alias{fortify.summary.glht}
+\title{Fortify methods for objects produced by \pkg{multcomp}}
+\usage{
+  \method{fortify}{glht} (model, data, ...)
+
+  \method{fortify}{confint.glht} (model, data, ...)
+
+  \method{fortify}{summary.glht} (model, data, ...)
+
+  \method{fortify}{cld} (model, data, ...)
+}
+\arguments{
+  \item{model}{an object of class \code{glht},
+  \code{confint.glht}, \code{summary.glht} or
+  \code{\link{cld}}}
+
+  \item{data,...}{other arguments to the generic ignored in
+  this method.}
+}
+\description{
+  Fortify methods for objects produced by \pkg{multcomp}
+}
+\examples{
+if (require("multcomp")) {
+amod <- aov(breaks ~ wool + tension, data = warpbreaks)
+wht <- glht(amod, linfct = mcp(tension = "Tukey"))
+
+fortify(wht)
+ggplot(wht, aes(lhs, estimate)) + geom_point()
+
+CI <- confint(wht)
+fortify(CI)
+ggplot(CI, aes(lhs, estimate, ymin = lwr, ymax = upr)) +
+   geom_pointrange()
+
+fortify(summary(wht))
+ggplot(mapping = aes(lhs, estimate)) +
+   geom_linerange(aes(ymin = lwr, ymax = upr), data = CI) +
+   geom_point(aes(size = p), data = summary(wht)) +
+   scale_size(trans = "reverse")
+
+cld <- cld(wht)
+fortify(cld)
+}
+}
+
