@@ -2,6 +2,12 @@
 #' 
 #' Aids the eye in seeing patterns in the presence of overplotting.
 #'
+#' Calculation is performed by the (currently undocumented) 
+#' \code{predictdf} generic function and its methods.  For most methods
+#' the confidence bounds are computed using the \code{\link{predict}}
+#' method - the exception is for \code{loess} which uses a t-based 
+#' appromxiation
+#'
 #' @param method smoothing method (function) to use, eg. lm, glm, gam, loess,
 #'   rlm
 #' @param formula formula to use in smoothing function, eg. \code{y ~ x}, 

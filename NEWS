@@ -61,6 +61,9 @@ MINOR CHANGES
 * `stat_binhex` uses correct binwidth for computing y axis bounds. (Fixes #299, 
   thanks to Dave Henderson for bug report and fix.)
 
+* `stat_smooth` now adjusts confidence intervals from \code{loess} using a 
+  t-based approximation
+
 DEVELOPMENT
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems

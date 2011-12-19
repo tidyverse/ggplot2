@@ -41,6 +41,13 @@
   Aids the eye in seeing patterns in the presence of
   overplotting.
 }
+\details{
+  Calculation is performed by the (currently undocumented)
+  \code{predictdf} generic function and its methods.  For
+  most methods the confidence bounds are computed using the
+  \code{\link{predict}} method - the exception is for
+  \code{loess} which uses a t-based appromxiation
+}
 \examples{
 c <- ggplot(mtcars, aes(qsec, wt))
 c + stat_smooth()
@@ -50,6 +57,7 @@ c + stat_smooth() + geom_point()
 c + stat_smooth(se = FALSE) + geom_point()
 
 c + stat_smooth(span = 0.9) + geom_point()
+c + stat_smooth(level = 0.99) + geom_point()
 c + stat_smooth(method = "lm") + geom_point()
 
 library(splines)
