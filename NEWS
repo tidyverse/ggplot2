@@ -57,6 +57,9 @@ MINOR CHANGES
 
 * ggplot2 will occasionally display a useful hint or tip on startup.  Use
   `suppressPackageStartupMessages` to eliminate
+  
+* `stat_binhex` uses correct binwidth for computing y axis bounds. (Fixes #299, 
+  thanks to Dave Henderson for bug report and fix.)
 
 DEVELOPMENT
 

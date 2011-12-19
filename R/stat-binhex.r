@@ -69,7 +69,7 @@ hexBin <- function(x, y, binwidth) {
   xbins <- diff(xbnds) / binwidth[1]
 
   ybnds <- c(
-    round_any(min(y), binwidth[1], floor) - 1e-6, 
+    round_any(min(y), binwidth[2], floor) - 1e-6, 
     round_any(max(y), binwidth[2], ceiling) + 1e-6
   )
   ybins <- diff(ybnds) / binwidth[2]
