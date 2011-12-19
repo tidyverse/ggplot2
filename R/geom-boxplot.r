@@ -6,6 +6,10 @@
 #' @param outlier.colour colour for outlying points
 #' @param outlier.shape shape of outlying points
 #' @param outlier.size size of outlying points
+#' @param notch if \code{FALSE} (default) make a standard box plot. If
+#'    \code{TRUE}, make a notched box plot.
+#' @param notchwidth for a notched box plot, width of the notch relative to
+#'    the body (default 0.5)
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))

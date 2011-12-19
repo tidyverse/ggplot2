@@ -4,7 +4,9 @@
 #'   \item{width}{width of boxplot}
 #'   \item{ymin}{lower whisker = lower hinge - 1.5 * IQR}
 #'   \item{lower}{lower hinge, 25\% quantile} 
+#'   \item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
 #'   \item{middle}{median, 50\% quantile}
+#'   \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
 #'   \item{upper}{upper hinge, 75\% quantile}
 #'   \item{ymax}{upper whisker = upper hinge + 1.5 * IQR}
 #' @export
@@ -53,11 +55,12 @@ StatBoxplot <- proto(Stat, {
       df <- as.data.frame(as.list(stats))
       df$outliers <- I(list(y[outliers]))
 
-      if (is.null(weight))
+      if (is.null(weight)) {
         n <- sum(!is.na(y))
-      else
+      } else {
         # Sum up weights for non-NA positions of y and weight
         n <- sum(weight[!is.na(y) & !is.na(weight)])
+      }
 
       df$notchupper <- df$middle + 1.58 * iqr / sqrt(n)
       df$notchlower <- df$middle - 1.58 * iqr / sqrt(n)
