@@ -165,8 +165,17 @@ should_stop <- function(expr) {
 }
 
 
-# Waive decision
+#' A waiver object.
+#' 
+#' A waiver is a "flag" object, similar to \code{NULL}, that indicates the 
+#' calling function should just use the default value.  It is used in certain
+#' functions to distinguish between displaying nothing (\code{NULL}) and
+#' displaying a default value calculated elsewhere (\code{waiver()})
+#' 
+#' @export
+#' @keywords internal
 waiver <- function() structure(NULL, class="waiver")
+
 is.waive <- function(x) inherits(x, "waiver")
 
 

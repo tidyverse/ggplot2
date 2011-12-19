@@ -1,7 +1,7 @@
 #' Fortify methods for objects produced by \pkg{multcomp}
 #'
 #' @param model an object of class \code{glht}, \code{confint.glht},
-#'  \code{summary.glht} or \code{\link{cld}}
+#'  \code{summary.glht} or \code{\link[multcomp]{cld}}
 #' @param data,... other arguments to the generic ignored in this method.
 #' @name fortify-multcomp
 #' @examples

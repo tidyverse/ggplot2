@@ -22,8 +22,7 @@
   Create a layer of map borders.
 }
 \examples{
-require("maps")
-require("ggplot2")
+if (require("maps")) {
 
 ia <- map_data("county", "iowa")
 mid_range <- function(x) mean(range(x))
@@ -38,5 +37,7 @@ ggplot(capitals, aes(long, lat)) +
   borders("state") +
   geom_point(aes(size = pop)) +
   scale_area()
+
+}
 }
 

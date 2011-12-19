@@ -12,8 +12,7 @@
 
   \item{vp}{viewport to draw plot in}
 
-  \item{...}{other arguments passed on to
-  \code{\link{ggplotGrob}}}
+  \item{...}{other arguments not used by this method}
 }
 \description{
   Draw plot on current graphics device.

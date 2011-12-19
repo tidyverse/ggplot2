@@ -25,6 +25,6 @@
   override current coordinate faceting }
 }
 \seealso{
-  \code{\link{set_last_plot}}, \code{\link{ggplot}}
+  \code{\link{ggplot}}
 }
 
