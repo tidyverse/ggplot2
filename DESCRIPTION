@@ -43,7 +43,6 @@ LazyData: true
 Collate:
     'aaa-.r'
     'aaa-constants.r'
-    'aaa-html.r'
     'aes-colour-fill-alpha.r'
     'aes-linetype-size-shape.r'
     'aes.r'
