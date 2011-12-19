@@ -19,4 +19,8 @@ p <- qplot(wt, mpg, data = mtcars)
 p + facet_grid(. ~ cyl)
 p + facet_grid(. ~ cyl, labeller = label_value)
 }
+\seealso{
+  Other facet labellers: \code{\link{label_both}},
+  \code{\link{label_bquote}}, \code{\link{label_parsed}}
+}
 

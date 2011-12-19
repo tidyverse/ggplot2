@@ -5,7 +5,25 @@
 #'   formula is used to indicate there should be no faceting on this dimension
 #'   (either row or column). The formula can also be provided as a string
 #'   instead of a classical formula object
-#' @param margin logical value, should marginal rows and columns be displayed
+#' @param margins logical value, should marginal rows and columns be displayed
+#' @param scales Are scales shared across all facets (the default,
+#'   \code{"fixed"}), or do they vary across rows (\code{"free_x"}),
+#'   columns (\code{"free_y"}), or both rows and columns (\code{"free"})
+#' @param space If \code{"fixed"}, the default, all panels have the same size.
+#'   If \code{"free_y"} their height will be proportional to the length of the
+#'   y scale; if \code{"free_x"} their width will be proportional to the 
+#'  length of the x scale; or if \code{"free"} both height and width will 
+#'  vary.  This setting has no effect unless the appropriate scales also vary.
+#' @param labeller A function that takes two arguments (\code{variable} and 
+#'   \code{value}) and returns a string suitable for display in the facet
+#'   strip. See \code{\link{label_value}} for more details and pointers
+#'   to other options.
+#' @param as.table If \code{TRUE}, the default, the facets are laid out like
+#'   a table with highest values at the bottom-right. If \code{FALSE}, the 
+#'   facet are laid out like a plot with the highest value at the top-right.
+#' @param shrink If \code{TRUE}, will shrink scales to fit output of
+#'   statistics, not raw data. If \code{FALSE}, will be range of raw data
+#'   before statistical summary.
 #' @export
 #' @examples 
 #' # faceting displays subsets of the data in different panels

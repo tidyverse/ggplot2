@@ -1,5 +1,6 @@
 #' Facet specification: a single panel.
 #'
+#' @inheritParams facet_grid
 #' @export
 #' @examples
 #' # facet_null is the default facetting specification if you 
