@@ -15,6 +15,10 @@
   \item{...}{other arguments passed on to
   \code{\link{kde2d}}}
 }
+\value{
+  A data frame in the same format as
+  \code{\link{stat_contour}}
+}
 \description{
   2d density estimation.
 }

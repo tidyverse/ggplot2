@@ -4,6 +4,7 @@
 #'   estimation
 #' @param n number of grid points in each direction
 #' @param ... other arguments passed on to \code{\link{kde2d}}
+#' @return A data frame in the same format as \code{\link{stat_contour}}
 #' @export
 #' @examples
 #' m <- ggplot(movies, aes(x=rating, y=length)) + 
