@@ -1,5 +1,9 @@
 \name{scale_colour_gradient}
+\alias{scale_color_continuous}
+\alias{scale_color_gradient}
+\alias{scale_colour_continuous}
 \alias{scale_colour_gradient}
+\alias{scale_fill_continuous}
 \alias{scale_fill_gradient}
 \title{Smooth gradient between two colours}
 \usage{
@@ -7,6 +11,18 @@
     high = "#B71B1A", space = "Lab", na.value = "grey50")
 
   scale_fill_gradient(..., low = "#3B4FB8",
+    high = "#B71B1A", space = "Lab", na.value = "grey50")
+
+  scale_colour_continuous(..., low = "#3B4FB8",
+    high = "#B71B1A", space = "Lab", na.value = "grey50")
+
+  scale_fill_continuous(..., low = "#3B4FB8",
+    high = "#B71B1A", space = "Lab", na.value = "grey50")
+
+  scale_color_continuous(..., low = "#3B4FB8",
+    high = "#B71B1A", space = "Lab", na.value = "grey50")
+
+  scale_color_gradient(..., low = "#3B4FB8",
     high = "#B71B1A", space = "Lab", na.value = "grey50")
 }
 \arguments{
@@ -71,12 +87,20 @@ qplot(mpg, wt, data = mtcars, colour = miss) +
   \code{\link[scales]{seq_gradient_pal}} for details on
   underlying palette
 
-  Other colour scales: \code{\link{scale_colour_brewer}},
+  Other colour scales: \code{\link{scale_color_brewer}},
+  \code{\link{scale_color_discrete}},
+  \code{\link{scale_color_gradient2}},
+  \code{\link{scale_color_gradientn}},
+  \code{\link{scale_color_grey}},
+  \code{\link{scale_color_hue}},
+  \code{\link{scale_colour_brewer}},
+  \code{\link{scale_colour_discrete}},
   \code{\link{scale_colour_gradient2}},
   \code{\link{scale_colour_gradientn}},
   \code{\link{scale_colour_grey}},
   \code{\link{scale_colour_hue}},
   \code{\link{scale_fill_brewer}},
+  \code{\link{scale_fill_discrete}},
   \code{\link{scale_fill_gradient2}},
   \code{\link{scale_fill_gradientn}},
   \code{\link{scale_fill_grey}},
