@@ -33,6 +33,7 @@
 #' c + stat_smooth(se = FALSE) + geom_point()
 #' 
 #' c + stat_smooth(span = 0.9) + geom_point()  
+#' c + stat_smooth(level = 0.99) + geom_point()
 #' c + stat_smooth(method = "lm") + geom_point() 
 #' 
 #' library(splines)
