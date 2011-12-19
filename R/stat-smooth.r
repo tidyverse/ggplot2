@@ -43,9 +43,10 @@
 #' c + stat_smooth(method = "lm") + geom_point() 
 #' 
 #' library(splines)
+#' library(MASS)
 #' c + stat_smooth(method = "lm", formula = y ~ ns(x,3)) +
 #'   geom_point()  
-#' c + stat_smooth(method = MASS::rlm, formula= y ~ ns(x,3)) + geom_point()  
+#' c + stat_smooth(method = rlm, formula= y ~ ns(x,3)) + geom_point()  
 #' 
 #' # The default confidence band uses a transparent colour. 
 #' # This currently only works on a limited number of graphics devices 

@@ -28,7 +28,8 @@ m <- ggplot(movies, aes(x=rating, y=length)) +
   scale_y_continuous(limits=c(1, 500))
 m + geom_density2d()
 
-dens <- MASS::kde2d(movies$rating, movies$length, n=100)
+library(MASS)
+dens <- kde2d(movies$rating, movies$length, n=100)
 densdf <- data.frame(expand.grid(rating = dens$x, length = dens$y),
  z = as.vector(dens$z))
 m + geom_contour(aes(z=z), data=densdf)

@@ -14,7 +14,9 @@ Description: An implementation of the grammar of graphics
     data to aesthetic attributes. See the ggplot2 website
     for more information, documentation and examples.
 Depends:
-    R (>= 2.14)
+    R (>= 2.14),
+    stats,
+    methods
 Imports:
     plyr (>= 1.0),
     digest,
@@ -22,7 +24,8 @@ Imports:
     reshape2,
     scales,
     memoise,
-    proto
+    proto,
+    MASS
 Suggests:
     quantreg,
     Hmisc,

@@ -5,6 +5,7 @@
 #' @param n number of grid points in each direction
 #' @param ... other arguments passed on to \code{\link{kde2d}}
 #' @return A data frame in the same format as \code{\link{stat_contour}}
+#' @importFrom MASS kde2d
 #' @export
 #' @examples
 #' m <- ggplot(movies, aes(x=rating, y=length)) + 
@@ -12,7 +13,8 @@
 #'   scale_y_continuous(limits=c(1, 500))
 #' m + geom_density2d()
 #' 
-#' dens <- MASS::kde2d(movies$rating, movies$length, n=100)
+#' library(MASS)
+#' dens <- kde2d(movies$rating, movies$length, n=100)
 #' densdf <- data.frame(expand.grid(rating = dens$x, length = dens$y),
 #'  z = as.vector(dens$z))
 #' m + geom_contour(aes(z=z), data=densdf)
@@ -63,7 +65,7 @@ StatDensity2d <- proto(Stat, {
     df <- data.frame(data[, c("x", "y")])
     df <- remove_missing(df, na.rm, name = "stat_density2d", finite = TRUE)
 
-    dens <- safe.call(MASS::kde2d, c(df, n = n, ...))
+    dens <- safe.call(kde2d, c(df, n = n, ...))
     df <- with(dens, data.frame(expand.grid(x = x, y = y), z = as.vector(z)))
     df$group <- data$group[1]
     

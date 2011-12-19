@@ -5,9 +5,9 @@ tips <- c(
     "\", package = \"ggplot2\")", sep = ""),
   "Use suppressPackageStartupMessages to eliminate package startup messages."
 )  
-  
+
 .onLoad <- function(...) {
-  if (runif(1) > 0.1) return()
+  if (stats::runif(1) > 0.1) return()
   
   tip <- sample(tips, 1)
   packageStartupMessage(tip)
