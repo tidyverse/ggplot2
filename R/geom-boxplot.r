@@ -7,7 +7,9 @@
 #' @param outlier.shape shape of outlying points
 #' @param outlier.size size of outlying points
 #' @param notch if \code{FALSE} (default) make a standard box plot. If
-#'    \code{TRUE}, make a notched box plot.
+#'    \code{TRUE}, make a notched box plot. Notches are used to compare groups;
+#'    if the notches of two boxes do not overlap, this is strong evidence that 
+#'    the medians differ.
 #' @param notchwidth for a notched box plot, width of the notch relative to
 #'    the body (default 0.5)
 #' @export
