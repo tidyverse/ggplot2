@@ -1,17 +1,17 @@
 #' Dot plot
 #'
 #' @param binaxis which axis to bin along "x" (default) or "y"
-#' @param binmethod "dotdensity" (default) for dot-density binning, or
+#' @param method "dotdensity" (default) for dot-density binning, or
 #'   "histodot" for fixed bin widths (like stat_bin)
-#' @param binwidth When \code{binmethod} is "dotdensity", this specifies maximum bin width.
-#'    When binmethod is "histodot", this specifies bin width.
+#' @param binwidth When \code{method} is "dotdensity", this specifies maximum bin width.
+#'    When method is "histodot", this specifies bin width.
 #'   Defaults to 1/30 of the range of the data
-#' @param binpositions When \code{binmethod} is "dotdensity", "bygroup" (default)
+#' @param binpositions When \code{method} is "dotdensity", "bygroup" (default)
 #'   determines positions of the bins for each group separately. "all" determines
 #'   positions of the bins with all the data taken together; this is used for
 #'   aligning dot stacks across multiple groups.
 #' @param stackdir which direction to stack the dots. "up" (default), 
-#'   "down", "center", "centerwhole", or "centerwholedown"
+#'   "down", "center", "centerwhole" (centered, but with dots aligned)
 #' @param stackratio how close to stack the dots. Default is 1, where dots just
 #'   just touch. Use smaller values for closer, overlapping dots.
 #' @param dotsize The diameter of the dots relative to \code{binwidth}, default 1.
@@ -23,7 +23,7 @@
 #'
 #' # Use fixed-width bins
 #' ggplot(mtcars, aes(x = mpg)) + 
-#'   geom_dotplot(binmethod="histodot", binwidth = 1.5)
+#'   geom_dotplot(method="histodot", binwidth = 1.5)
 #'
 #' # Some other stacking methods
 #' ggplot(mtcars, aes(x = mpg)) +
@@ -60,10 +60,10 @@
 #'   geom_dotplot(binaxis = "y", stackdir = "center", binpositions="all")
 #'
 geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot", position = "identity",
-na.rm = FALSE, binaxis = "x", binmethod="dotdensity", binpositions = "bygroup", stackdir = "up",
+na.rm = FALSE, binaxis = "x", method="dotdensity", binpositions = "bygroup", stackdir = "up",
 stackratio = 1, dotsize = 1, ...) {
   GeomDotplot$new(mapping = mapping, data = data, stat = stat, position = position,
-  na.rm = na.rm, binaxis = binaxis, binmethod = binmethod, binpositions = binpositions,
+  na.rm = na.rm, binaxis = binaxis, method = method, binpositions = binpositions,
   stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, ...)
 }
 
@@ -105,24 +105,16 @@ GeomDotplot <- proto(Geom, {
       stackdots <- function(a)  a - .5
       stackaxismin <- 0
       stackaxismax <- 1
-    }
-    else if (params$stackdir == "down") {
+    } else if (params$stackdir == "down") {
       stackdots <- function(a) -a + .5
       stackaxismin <- -1
       stackaxismax <- 0
-    }
-    else if (params$stackdir == "center") {
+    } else if (params$stackdir == "center") {
       stackdots <- function(a)  a - 1 - max(a - 1) / 2
       stackaxismin <- -.5
       stackaxismax <- .5
-    }
-    else if (params$stackdir == "centerwhole") {
+    } else if (params$stackdir == "centerwhole") {
       stackdots <- function(a)  a - 1 - floor(max(a - 1) / 2)
-      stackaxismin <- -.5
-      stackaxismax <- .5
-    }
-    else if (params$stackdir == "centerwholedown") {
-      stackdots <- function(a)  a - 1 - ceiling(max( a -  1) / 2)
       stackaxismin <- -.5
       stackaxismax <- .5
     }
