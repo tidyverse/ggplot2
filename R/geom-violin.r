@@ -1,7 +1,10 @@
 #' Violin plot.
 #'
-#' @param trim If \code{TRUE} (default), trim the violins to the range of the
-#'   data. If \code{FALSE}, don't trim.
+#' @param trim If \code{TRUE} (default), trim the tails of the violins
+#'   to the range of the data. If \code{FALSE}, don't trim the tails.
+#' @param scalefactor if "equal" (default), all violins have the same area (to be
+#'   precise, they would have the same area if tails are not trimmed). If
+#'   "count", the areas are scaled proportionally to the number of observations.
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))
@@ -14,15 +17,8 @@
 #' qplot(factor(cyl), mpg, data = mtcars, geom = "violin") +
 #'   coord_flip()
 #' 
-#' # Default is to scale each violin so that they have equal maximum widths.
-#' # Scale each violin to have equal areas:
-#' p + geom_violin(scalearea = TRUE)
-#' 
 #' # Scale maximum width proportional to sample size:
-#' p + geom_violin(scalecount = TRUE)
-#' 
-#' # Scale areas proportional to sample size:
-#' p + geom_violin(scalearea = TRUE, scalecount = TRUE)
+#' p + geom_violin(scalefactor = "count")
 #' 
 #' # Default is to trim violins to the range of the data. To disable:
 #' p + geom_violin(trim = FALSE)
@@ -61,9 +57,9 @@
 #'   group = round_any(year, 10, floor))
 #'
 geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity", position = "dodge",
-trim = TRUE, scalearea = FALSE, scalecount = FALSE, ...) {
+trim = TRUE, scalefactor = "equal", ...) {
   GeomViolin$new(mapping = mapping, data = data, stat = stat, 
-  position = position, trim = trim, scalearea = scalearea, scalecount = scalecount, ...)
+  position = position, trim = trim, scalefactor = scalefactor, ...)
 }
 
 GeomViolin <- proto(Geom, {

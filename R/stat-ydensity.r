@@ -1,8 +1,11 @@
 #' 1d kernel density estimate along y axis, for violin plot.
 #'
 #' @inheritParams stat_density
-#' @param trim If \code{TRUE} (default), trim the output to the range of the
-#'   data. If \code{FALSE}, don't trim.
+#' @param trim If \code{TRUE} (default), trim the tails of the violins
+#'   to the range of the data. If \code{FALSE}, don't trim the tails.
+#' @param scalefactor if "equal" (default), all violins have the same area (to be
+#'   precise, they would have the same area if tails are not trimmed). If
+#'   "count", the areas are scaled proportionally to the number of observations.
 #'
 #' @return A data frame with additional columns:
 #'   \item{width}{width of violin bounding box}
@@ -14,9 +17,9 @@
 #' # See geom_violin for examples
 #' # Also see stat_density for similar examples with data along x axis
 stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin", position = "dodge", 
-adjust = 1, kernel = "gaussian", trim = TRUE, scalearea = FALSE, scalecount = FALSE, na.rm = FALSE, ...) {
+adjust = 1, kernel = "gaussian", trim = TRUE, scalefactor = "equal", na.rm = FALSE, ...) {
   StatYdensity$new(mapping = mapping, data = data, geom = geom, position = position,
-  adjust = adjust, kernel = kernel, trim = trim, scalearea = scalearea, scalecount = scalecount,
+  adjust = adjust, kernel = kernel, trim = trim, scalefactor = scalefactor,
   na.rm = na.rm, ...)
 }
   
@@ -24,15 +27,18 @@ StatYdensity <- proto(Stat, {
   objname <- "ydensity"
 
   calculate_groups <- function(., data, na.rm = FALSE, width = NULL,
-                               scalearea = FALSE, scalecount = FALSE, ...) {
+                               scalefactor = "equal", ...) {
     data <- remove_missing(data, na.rm, "y", name = "stat_ydensity", finite = TRUE)
     data <- .super$calculate_groups(., data, na.rm = na.rm, width = width, ...)
 
-    if (scalearea)
-      data$scaled <- data$ydensity / max(data$ydensity)
+    # Scale to have equal areas
+    data$scaled <- data$ydensity / max(data$ydensity)
 
-    if (scalecount)
+    if (scalefactor == "count") {
       data$scaled <- data$scaled * data$counttotal/max(data$counttotal)
+    } else if (scalefactor != "equal") {
+      stop('scalefactor must be "equal" or "count".')
+    }
 
     data
   }
