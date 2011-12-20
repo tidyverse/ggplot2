@@ -100,11 +100,13 @@ StatBindot <- proto(Stat, {
     }
 
     if (binaxis == "x") {
-      range  <- scale_dimension(scales$x)
-      values <- data$x
+      range   <- scale_dimension(scales$x)
+      values  <- data$x
     } else if (binaxis == "y") {
       range  <- scale_dimension(scales$y)
       values <- data$y
+      # The middle of each group, on the stack axis
+      midline <- mean(range(data$x))
     }
 
     if (is.null(breaks) && is.null(binwidth) && !is.integer(values) && !.$informed) {
@@ -146,6 +148,8 @@ StatBindot <- proto(Stat, {
       data$width <- data$binwidth
     } else if (binaxis == "y") {
       names(data)[names(data) == "bincenter"] <- "y"
+      # For y binning, set the x midline. This is needed for continuous x axis
+      data$x <- midline
     }
     return(data)
   }
