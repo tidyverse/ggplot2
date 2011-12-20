@@ -1,5 +1,16 @@
 #' Box and whiskers plot.
 #'
+#' The upper and lower "hinges" correspond to the first and third quartiles.
+#' This differs slightly from the method used by the \code{boxplot} function,
+#' and may be apparent with small samples. See \code{\link{boxplot.stats}} for
+#' for more information on how hinge positions are calculated for
+#' \code{boxplot}.
+#'
+#' In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)} from
+#' the median where IQR is the inter-quartile range, or distance between the
+#' first and third quartiles. This gives a roughly 95% confidence interval
+#' for comparing medians. See McGill et al. (1978) for more details.
+#'
 #' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
 #'   continuous variable,  \code{\link{geom_jitter}} for another way to look 
 #'   at conditional distributions"
@@ -13,6 +24,10 @@
 #' @param notchwidth for a notched box plot, width of the notch relative to
 #'    the body (default 0.5)
 #' @export
+#'
+#' @references McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
+#'     box plots. The American Statistician 32, 12-16.
+#'
 #' @examples
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))
 #' 

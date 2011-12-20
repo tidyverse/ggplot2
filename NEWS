@@ -26,7 +26,9 @@ MINOR CHANGES
 * `geom_boxplot`: outlier colour and shape now default to values set by the
   aesthetic mapping (thanks to suggestion by Ben Bolker), the width of the
   median line is now `fatten` times the width of the other lines (thanks to
-  suggestion by Di Cook), and the line type can now be set.
+  suggestion by Di Cook), and the line type can now be set. Notched box
+  plots are now supported by setting `notch = TRUE` (thanks to Winston Chang
+  for the patch).
 
 * Scales now automatically shrink to what is actually displayed on the plot,
   not the underlying data used for statistical transformation. If you want the
