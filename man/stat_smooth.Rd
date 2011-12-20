@@ -45,8 +45,11 @@
   Calculation is performed by the (currently undocumented)
   \code{predictdf} generic function and its methods.  For
   most methods the confidence bounds are computed using the
-  \code{\link{predict}} method - the exception is for
-  \code{loess} which uses a t-based appromxiation
+  \code{\link{predict}} method - the exceptions are
+  \code{loess} which uses a t-based approximation, and for
+  \code{glm} where the normal confidence interval is
+  constructed on the link scale, and then back-transformed
+  to the response scale.
 }
 \examples{
 c <- ggplot(mtcars, aes(qsec, wt))
