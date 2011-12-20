@@ -1,14 +1,30 @@
-#' Apply functions to hexagonal bins.
-#' 
-#' @seealso \code{\link{stat_summary2d}} for rectangular summarization. \code{\link{stat_bin2d}} for the hexagon-ing options.
-#' @export
-#' @examples
-#' d <- ggplot(diamonds, aes(carat, price))
-#' d + stat_summary_hex()
-#' 
-#' # Specifying function
-#' d + stat_summary_hex(fun = function(x) sum(x^2))
-#' d + stat_summary_hex(fun = var, na.rm = T)
+##' Apply function for 2D hexagonal bins.
+##'
+##' \code{stat_summary2d} is hexagonal version of \code{\link{stat_summary}}. The data are devided by \code{x} and \code{y}.
+##' \code{z} in each cell is passed to arbitral summary function.
+##' 
+##' \code{stat_summary-hex} requires the following aesthetics:
+##'
+##' \itemize{
+##'  \item \code{x}: horizontal position
+##'  \item \code{y}: vertical position
+##'  \item \code{z}: value passed to the summary function
+##' }
+##' 
+##' @seealso \code{\link{stat_summary2d}} for rectangular summarization. \code{\link{stat_bin2d}} for the hexagon-ing options.
+##' @title Apply funciton for 2D hexagonal bins.
+##' @param bins see \code{\link{stat_binhex}}
+##' @param drop drop if the output of \code{fun} is \code{NA}.
+##' @param fun function for summary.
+##' @param ... parameters passed to \code{fun}
+##' @export
+##' @examples
+##' d <- ggplot(diamonds, aes(carat, depth, z = price))
+##' d + stat_summary_hex()
+##' 
+##' # Specifying function
+##' d + stat_summary_hex(fun = function(x) sum(x^2))
+##' d + stat_summary_hex(fun = var, na.rm = T)
 stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex", position = "identity", 
 bins = 30, drop = TRUE, fun = mean, ...) {
   
