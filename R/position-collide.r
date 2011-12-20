@@ -100,11 +100,10 @@ pos_dodge <- function(df, width) {
   
   # Have a new group index from 1 to number of groups.
   # This might be needed if the group numbers in this set don't include all of 1:n
-  groupidx <- rep(0, max(df$group))
-  groupidx[unique(df$group)] <- 1:n
+  groupidx <- match(df$group, sort(unique(df$group)))
 
   within(df, {
-    xmin <- xmin + width / n * (groupidx[group] - 1) - diff * (n - 1) / (2 * n)
+    xmin <- xmin + width / n * (groupidx - 1) - diff * (n - 1) / (2 * n)
     xmax <- xmin + d_width / n
     x <- (xmin + xmax) / 2
   })
