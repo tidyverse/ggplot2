@@ -2,7 +2,7 @@
 #'
 #' @param trim If \code{TRUE} (default), trim the tails of the violins
 #'   to the range of the data. If \code{FALSE}, don't trim the tails.
-#' @param scalefactor if "equal" (default), all violins have the same area (to be
+#' @param scale if "equal" (default), all violins have the same area (to be
 #'   precise, they would have the same area if tails are not trimmed). If
 #'   "count", the areas are scaled proportionally to the number of observations.
 #' @export
@@ -18,7 +18,7 @@
 #'   coord_flip()
 #' 
 #' # Scale maximum width proportional to sample size:
-#' p + geom_violin(scalefactor = "count")
+#' p + geom_violin(scale = "count")
 #' 
 #' # Default is to trim violins to the range of the data. To disable:
 #' p + geom_violin(trim = FALSE)
@@ -57,9 +57,9 @@
 #'   group = round_any(year, 10, floor))
 #'
 geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity", position = "dodge",
-trim = TRUE, scalefactor = "equal", ...) {
+trim = TRUE, scale = "equal", ...) {
   GeomViolin$new(mapping = mapping, data = data, stat = stat, 
-  position = position, trim = trim, scalefactor = scalefactor, ...)
+  position = position, trim = trim, scale = scale, ...)
 }
 
 GeomViolin <- proto(Geom, {

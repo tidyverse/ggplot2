@@ -3,7 +3,7 @@
 #' @inheritParams stat_density
 #' @param trim If \code{TRUE} (default), trim the tails of the violins
 #'   to the range of the data. If \code{FALSE}, don't trim the tails.
-#' @param scalefactor if "equal" (default), all violins have the same area (to be
+#' @param scale if "equal" (default), all violins have the same area (to be
 #'   precise, they would have the same area if tails are not trimmed). If
 #'   "count", the areas are scaled proportionally to the number of observations.
 #'
@@ -17,9 +17,9 @@
 #' # See geom_violin for examples
 #' # Also see stat_density for similar examples with data along x axis
 stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin", position = "dodge", 
-adjust = 1, kernel = "gaussian", trim = TRUE, scalefactor = "equal", na.rm = FALSE, ...) {
+adjust = 1, kernel = "gaussian", trim = TRUE, scale = "equal", na.rm = FALSE, ...) {
   StatYdensity$new(mapping = mapping, data = data, geom = geom, position = position,
-  adjust = adjust, kernel = kernel, trim = trim, scalefactor = scalefactor,
+  adjust = adjust, kernel = kernel, trim = trim, scale = scale,
   na.rm = na.rm, ...)
 }
   
@@ -27,17 +27,17 @@ StatYdensity <- proto(Stat, {
   objname <- "ydensity"
 
   calculate_groups <- function(., data, na.rm = FALSE, width = NULL,
-                               scalefactor = "equal", ...) {
+                               scale = "equal", ...) {
     data <- remove_missing(data, na.rm, "y", name = "stat_ydensity", finite = TRUE)
     data <- .super$calculate_groups(., data, na.rm = na.rm, width = width, ...)
 
     # Scale to have equal areas
     data$scaled <- data$ydensity / max(data$ydensity)
 
-    if (scalefactor == "count") {
+    if (scale == "count") {
       data$scaled <- data$scaled * data$counttotal/max(data$counttotal)
-    } else if (scalefactor != "equal") {
-      stop('scalefactor must be "equal" or "count".')
+    } else if (scale != "equal") {
+      stop('scale must be "equal" or "count".')
     }
 
     data
