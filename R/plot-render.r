@@ -160,7 +160,7 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   if (newpage) grid.newpage()
   
   data <- ggplot_build(x)
-  
+
   gtable <- ggplot_gtable(data)
   if (is.null(vp)) {
     grid.draw(gtable) 
@@ -171,5 +171,36 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   }
   
   invisible(data)
+}
+
+#' Get grob of guides withoug drawing
+#'
+#' @param x plot to display
+get_guide <- function(x) {
+  data <- ggplot_build(x)
+  theme <- plot_theme(data$plot)
+  position <- theme$legend.position
+  if (length(position) == 2) {
+    position <- "manual"
+  }
+  if (position != "none") {
+    ret <- build_guides(data$plot$scales, data$plot$layers, data$plot$mapping, position, theme)
+    class(ret) <- c("ggplot.guide", class(ret))
+    ret
+  } else {
+    zeroGrob()
+  }
+}
+
+#' aux print method for ggplot2 guide grob
+print.ggplot.guide <- function(x, newpage = is.null(vp), vp = NULL, ...) {
+  if (newpage) grid.newpage()
+  if (is.null(vp)) {
+    grid.draw(x) 
+  } else {
+    if (is.character(vp)) seekViewport(vp) else pushViewport(vp)
+    grid.draw(x) 
+    upViewport()
+  }
 }
 
