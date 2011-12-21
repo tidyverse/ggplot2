@@ -171,7 +171,7 @@ guide_legend <- function(
 guide_train.legend <- function(guide, scale) {
   key <- data.frame(
     breaks = scale_map(scale, scale_breaks(scale)), 
-    labels = scale_labels(scale),
+    labels = I(scale_labels(scale)),
     stringsAsFactors = FALSE)
   key <- key[!is.na(key$breaks), , drop = FALSE]
   names(key) <- c(scale$aesthetics[1], ".label")
