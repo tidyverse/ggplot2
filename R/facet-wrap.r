@@ -2,9 +2,11 @@
 #' 
 #' @param nrow number of rows
 #' @param ncol number of columns
-#' @param facet formula specifying variables to facet by
-#' @param scales should scales be fixed, free, or free in one dimension
-#'   (\code{free_x}, \code{free_y})
+#' @param facets formula specifying variables to facet by
+#' @param scales should scales be fixed (\code{"fixed"}, the default), 
+#'   free (\code{"free"}), or free in one dimension  (\code{"free_x"},
+#'   \code{"free_y"})
+#' @inheritParams facet_grid
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) + 
@@ -176,6 +178,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   lay
 }
 
+#' @S3method facet_panels wrap
 facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   panels <- panel$layout$PANEL
   lapply(panels, function(i) {
@@ -190,6 +193,7 @@ facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   })
 }
 
+#' @S3method facet_strips wrap
 facet_strips.wrap <- function(facet, panel, theme) {
   labels_df <- panel$layout[names(facet$facets)]
   labels_df[] <- llply(labels_df, format, justify = "none")
@@ -199,6 +203,7 @@ facet_strips.wrap <- function(facet, panel, theme) {
   list(t = llply(labels, ggstrip, theme = theme))
 }
 
+#' @S3method facet_axes wrap
 facet_axes.wrap <- function(facet, panel, coord, theme) {
   panels <- panel$layout$PANEL
   
@@ -222,4 +227,9 @@ facet_axes.wrap <- function(facet, panel, coord, theme) {
   })
   axes
   
+}
+
+#' @S3method facet_vars wrap
+facet_vars.wrap <- function(facet) {
+  paste(lapply(facet$facets, paste, collapse = ", "), collapse = " ~ ")
 }

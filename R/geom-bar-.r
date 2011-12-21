@@ -33,6 +33,7 @@
 #'   \code{\link{position_dodge}} for creating side-by-side barcharts, 
 #'   \code{\link{position_stack}} for more info on stacking,
 #' @export
+#' @inheritParams geom_point
 #' @examples
 #' # Generate data
 #' c <- ggplot(mtcars, aes(factor(cyl)))

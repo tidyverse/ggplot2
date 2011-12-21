@@ -203,13 +203,21 @@ scale_map.discrete <- function(scale, x) {
   limits <- scale_limits(scale)
 
   n <- length(limits)
-  pal <- scale$palette(n)[match(as.character(x), limits)]
-  ifelse(!is.na(x), pal, scale$na.value)
+  pal <- scale$palette(n)
+  
+  if (is.null(names(pal))) {
+    pal_match <- pal[match(as.character(x), limits)]
+  } else {
+    pal_match <- pal[match(as.character(x), names(pal))]    
+  } 
+  
+  ifelse(!is.na(x), pal_match, scale$na.value)
 }
 
 scale_limits <- function(scale)
   UseMethod("scale_limits")
 
+#' @S3method scale_limits default
 scale_limits.default <- function(scale) {
   scale$limits %||% scale$range$range
 }

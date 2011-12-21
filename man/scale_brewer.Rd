@@ -1,4 +1,5 @@
 \name{scale_colour_brewer}
+\alias{scale_color_brewer}
 \alias{scale_colour_brewer}
 \alias{scale_fill_brewer}
 \title{Sequential, diverging and qualitative colour scales from colorbrewer.org}
@@ -6,6 +7,8 @@
   scale_colour_brewer(..., type = "seq", palette = 1)
 
   scale_fill_brewer(..., type = "seq", palette = 1)
+
+  scale_color_brewer(..., type = "seq", palette = 1)
 }
 \arguments{
   \item{type}{One of seq (sequential), div (diverging) or
@@ -47,11 +50,23 @@ ggplot(diamonds, aes(x=price, fill=cut)) +
   scale_fill_brewer()
 }
 \seealso{
-  Other colour scales: \code{\link{scale_colour_gradient}},
+  Other colour scales:
+  \code{\link{scale_color_continuous}},
+  \code{\link{scale_color_discrete}},
+  \code{\link{scale_color_gradient}},
+  \code{\link{scale_color_gradient2}},
+  \code{\link{scale_color_gradientn}},
+  \code{\link{scale_color_grey}},
+  \code{\link{scale_color_hue}},
+  \code{\link{scale_colour_continuous}},
+  \code{\link{scale_colour_discrete}},
+  \code{\link{scale_colour_gradient}},
   \code{\link{scale_colour_gradient2}},
   \code{\link{scale_colour_gradientn}},
   \code{\link{scale_colour_grey}},
   \code{\link{scale_colour_hue}},
+  \code{\link{scale_fill_continuous}},
+  \code{\link{scale_fill_discrete}},
   \code{\link{scale_fill_gradient}},
   \code{\link{scale_fill_gradient2}},
   \code{\link{scale_fill_gradientn}},

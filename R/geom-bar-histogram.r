@@ -10,6 +10,7 @@
 #'
 #'
 #' @export 
+#' @inheritParams geom_point
 #' @examples
 #' # Simple examples
 #' qplot(rating, data=movies, geom="histogram")

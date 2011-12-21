@@ -11,6 +11,11 @@ NULL
 #'
 #' Most useful for adding bitmap images.
 #'
+#' @param raster raster object to display
+#' @param xmin,xmax x location (in data coordinates) giving horizontal
+#'   location of raster
+#' @param ymin,ymax y location (in data coordinates) giving vertical
+#'   location of raster
 #' @export
 #' @examples
 #' # Generate data

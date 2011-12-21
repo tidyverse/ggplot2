@@ -14,6 +14,7 @@
 #'  \code{\link{geom_abline}} for lines defined by a slope and intercept,
 #'  \code{\link{geom_segment}} for a more general approach
 #' @export
+#' @inheritParams geom_point
 #' @examples
 #' p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
 #' 

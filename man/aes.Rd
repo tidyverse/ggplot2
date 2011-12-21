@@ -10,7 +10,8 @@ mapped to visual properties (aesthetics) of geoms.}
 
   \item{y}{y value}
 
-  \item{List}{of name value pairs}
+  \item{...}{List of name value pairs giving aesthetics to
+  map.}
 }
 \description{
   \code{aes} creates a list of unevaluated expressions.

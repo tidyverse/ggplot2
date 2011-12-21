@@ -10,6 +10,7 @@
 #' intercept for each panel using a data.frame.  See the examples for the
 #' differences.
 #'
+#' @inheritParams geom_point
 #' @seealso
 #'  \code{\link{geom_hline}} for horizontal lines,
 #'  \code{\link{geom_abline}} for lines defined by a slope and intercept,

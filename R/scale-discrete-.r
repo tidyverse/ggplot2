@@ -107,6 +107,7 @@ scale_dimension.position_d <- function(scale, expand = scale$expand) {
   range(disc, cont)
 }
 
+#' @S3method scale_clone position_d
 scale_clone.position_d <- function(scale) {
   new <- scale
   new$range <- DiscreteRange$new()  

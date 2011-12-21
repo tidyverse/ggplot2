@@ -1,44 +1,20 @@
 ggplot2 0.9.0
 ----------------------------------------------------------------
 
-NEW GEOMS/ANNOTATIONS
+NEW FEATURES
 
-* `geom_map`
+* `geom_map`: a new special case of `geom_polygon` useful when you are drawing
+  maps, particularly choropleth maps. It is matched with `annotation_map`, an
+  even faster special case when you want the same map drawn in each panel.
 
-* `geom_raster`
+* `geom_raster` is a special case of `geom_tile` for equally sized rectangular
+  tiles. It uses the raster functionality of R graphics devices for massively
+  increased speed and much decreased file sizes. It is matched with
+  `annotation_raster`, an even faster special case, for when you want to draw
+  the same raster in each panel.
 
-* `annotation_raster`
-
-* `annotation_map`
-
-MINOR CHANGES
-
-* `geom_text` now supports `fontfamily`, `fontface`, and `lineheight`
-  aesthetics for finer control over text display. (Thanks to Kohske Takahashi
-  for the patch. Fixes #60)
-
-* `collide`, which powers `position_dodge` and `position_stack`, now does not
-  error on single x values (Thanks to Brian Diggs for a fix. #157)
-
-* `...` in `ggplot` now passed on to `fortify` method when used with an object
-  other than a data frame
-
-* `geom_boxplot`: outlier colour and shape now default to values set by the
-  aesthetic mapping (thanks to suggestion by Ben Bolker), the width of the
-  median line is now `fatten` times the width of the other lines (thanks to
-  suggestion by Di Cook), and the line type can now be set.
-
-* Scales now automatically shrink to what is actually displayed on the plot,
-  not the underlying data used for statistical transformation. If you want the
-  old behaviour, supply `shrink = FALSE` to the facetting specification.
-  (Fixes #125)
-
-* `scale_shape` finally returns an error when you try and use it with a
-  continuous variable
-
-* `stat_contour` no longer errors if all breaks outside z range (fixes #195).
-
-* `geom_text` remove rows with missing values with warning (fixes #191)
+* New fortify methods have been added for objects produced by the `multcomp`
+  package.
 
 DEVELOPMENT
 
@@ -60,13 +36,14 @@ DEVELOPMENT
 
 DOCUMENTATION
 
-* Thorough clean up and checking, including documenting all arguments,
-  adding systematic cross-references, and adding commonly requested examples.
+* Thorough clean up and checking, including documenting all arguments, adding
+  systematic cross-references, and adding commonly requested examples. Thanks
+  to Jake Russ for the help.
 
 * Complete series of aesthetics pages (grouped subsets of aesthetics) with
-  examples of how to use the major ones, see e.g. ?fill
+  examples of how to use the major ones, see e.g. `?fill`, `?shape`
 
-* Added a complete list of theme opts with usage examples. "?opts" now brings
+* Added a complete list of theme opts with usage examples. `?opts` now brings
   this list up.
 
 * Added "translate" pages to demonstrate usage between qplot-ggplot,
@@ -74,7 +51,7 @@ DOCUMENTATION
 
 SCALES
 
-* scales have been rewritten to use the new `scales` package, which does a
+* Scales have been rewritten to use the new `scales` package, which does a
   much better job at defining what a scale is and making it easier for you to
   create your own scales. Scales should now behave much more consistently, and
   it should be easier for me to add new features in the future.
@@ -89,22 +66,28 @@ SCALES
   `comma_format`, `dollar_format`, `percent_format`, `scientific_format`,
   `parse_format` and `math_format` for examples
 
-* transformations now provided by the scales package - see `?trans_new` for
-  list of available transformations, and how to create your own. The
+* Transformations are now provided by the scales package - see `?trans_new`
+  for list of available transformations, and how to create your own. The
   transformations in this package should do a better job at computing default
   breaks.
 
-* all scales now accept `na.value` parameter which provides an aesthetic value
-  to be used for NA values in the data. Colour/fill scales default to values
-  that should stand out as being different from non-missing values.
+* Transformations for continuous scales are now detected automatically when
+  the default scales are added. This ensures that dates and date times will
+  display correctly when used for any aesthetic - previously they only worked
+  with position scales. The system is now also easier to extend to new types
+  of continuous data that you might want to plot.  (Fixes #48)
 
-* the new `oob` (out of bounds) parameter controls how scales deals with
+* All scales now accept a `na.value` parameter which provides an aesthetic
+  value to be used for `NA` values in the data. Colour/fill scales default to
+  grey, which should stand out as different from non-missing values.
+
+* The new `oob` (out of bounds) parameter controls how scales deals with
   values outside the limits. The default action is `censor` - see `clip` for
   another option.
 
-* only `scale_x_log10`, `scale_x_sqrt` and `scale_x_reverse` provided as
-  convenience functions for x and y scales. Use `scale_x_continuous(trans =
-  "log")` to access others
+* Only `scale_x_log10`, `scale_x_sqrt` and `scale_x_reverse` provided as
+  convenience functions for x and y scales. Use e.g. `scale_x_continuous(trans
+  = "log")` to access others
 
 * `set_default_scale` has been removed. If you want to change the default
   scale for an aesthetic, just create a function called
@@ -116,15 +99,24 @@ SCALES
       scale_colour_discrete <- scale_colour_brewer
       p
 
+* Scales now automatically shrink to what is actually displayed on the plot,
+  not the underlying data used for statistical transformation. If you want the
+  old behaviour, supply `shrink = FALSE` to the facetting specification.
+  (Fixes #125)
+
+* `scale_colour_gradient` and `scale_fill_gradient` now use a colour scheme
+  with constant hue but varying chroma and luminance. This is better because
+  it creates a natural ordering inline with the order of the colour values.
+
 FACETS
 
 * Converted from proto to S3 objects, and class methods (somewhat) documented
   in `facet.r`. This should make it easier to develop new types of facetting
   specifications.
 
-* New `facet_null` used when for no facetting. This special case is
-  implemented more efficiently and results in substantial performance
-  improvements for un-facetted plots.
+* The new `facet_null` specification is applied in the default case of no
+  faceting. This special case is implemented more efficiently and results in
+  substantial performance improvements for non-facetted plots.
 
 * Facetting variables will no longer interfere with aesthetic mappings - 
   `facet_wrap(~ colour)` will no longer affect the colour of points.
@@ -159,18 +151,69 @@ RENDERING
 
 GUIDES
 
-* guides (used to be "legend") have been rewritten.
+* Guides (particularly legends) have been rewritten by Kohske Takahashi to provide considerably more layout flexibility.
 
-* Now guide system contains two non-positional guides (legend and colorbar) and positional guide (i.e., axis).
-  Axis is not yet moved in a part of new guide system.
+* `guide_legend` now supports multi-row/column legend and reversed order,
+  gives more flexible positioning of title and label, and can override
+  aesthetics settings. This is useful, for example, when alpha value in a
+  panel is very low but you want to show vivid legend.
 
-* legend-guide: support multi-row/column legend and reversed order legend.
+* `guide_colorbar` is a guide specially for continuous colour scales as
+  produced by colour and fill scales.
 
-* legend-guide: more flexible positioning of title and label.
+MINOR CHANGES
 
-* legend-guide: can override aes. This is usefull, for example, when alpha value in a panel is very low but you want to show vivid legend.
+* `geom_text` now supports `fontfamily`, `fontface`, and `lineheight`
+  aesthetics for finer control over text display. (Thanks to Kohske Takahashi
+  for the patch. Fixes #60)
 
-* colorbar-guide: new colorbar guide for color and fill scale.
+* `collide`, which powers `position_dodge` and `position_stack`, now does not
+  error on single x values (Thanks to Brian Diggs for a fix. #157)
+
+* `...` in `ggplot` now passed on to `fortify` method when used with an object
+  other than a data frame
+
+* `geom_boxplot`: outlier colour and shape now default to values set by the
+  aesthetic mapping (thanks to suggestion by Ben Bolker), the width of the
+  median line is now `fatten` times the width of the other lines (thanks to
+  suggestion by Di Cook), and the line type can now be set. Notched box
+  plots are now supported by setting `notch = TRUE` (thanks to Winston Chang
+  for the patch).
+
+* `ggsave` can work with cm and mm `units` (Thanks to patch from Jean-Olivier
+  Irisson)
+
+* `scale_shape` finally returns an error when you try and use it with a
+  continuous variable
+
+* `stat_contour` no longer errors if all breaks outside z range (fixes #195).
+
+* `geom_text` remove rows with missing values with warning (fixes #191)
+
+* New generic function `autoplot` for the creation of complete plots
+  specific to a given data structure. Default implementation throws
+  an error. It is designed to have implementations provided by other
+  packages.
+  
+* `ggpcp` loses the `scale` argument because it relied on reshape(1) code
+
+* `map_data` passes `...` on to `maps::map` (Fixes #223)
+
+* `coord_fixed` accepts `xlim` and `ylim` parameters to zoom in on x and y
+  scales (Fixes #91)
+
+* ggplot2 will occasionally display a useful hint or tip on startup.  Use
+  `suppressPackageStartupMessages` to eliminate
+
+* `stat_binhex` uses correct bin width for computing y axis bounds. (Fixes
+  #299, thanks to Dave Henderson for bug report and fix.)
+
+* `stat_smooth` now adjusts confidence intervals from \code{loess} using a 
+  t-based approximation
+
+* `stat_bin` and `geom_histogram` now use right-open, left-closed intervals by
+  default. Use `right = TRUE` to return to previous behaviour.
+
 
 ggplot2 0.8.9 (2010-12-24) ---------------------------------------------------
 

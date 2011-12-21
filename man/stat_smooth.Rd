@@ -41,6 +41,16 @@
   Aids the eye in seeing patterns in the presence of
   overplotting.
 }
+\details{
+  Calculation is performed by the (currently undocumented)
+  \code{predictdf} generic function and its methods.  For
+  most methods the confidence bounds are computed using the
+  \code{\link{predict}} method - the exceptions are
+  \code{loess} which uses a t-based approximation, and for
+  \code{glm} where the normal confidence interval is
+  constructed on the link scale, and then back-transformed
+  to the response scale.
+}
 \examples{
 c <- ggplot(mtcars, aes(qsec, wt))
 c + stat_smooth()
@@ -50,12 +60,14 @@ c + stat_smooth() + geom_point()
 c + stat_smooth(se = FALSE) + geom_point()
 
 c + stat_smooth(span = 0.9) + geom_point()
+c + stat_smooth(level = 0.99) + geom_point()
 c + stat_smooth(method = "lm") + geom_point()
 
 library(splines)
+library(MASS)
 c + stat_smooth(method = "lm", formula = y ~ ns(x,3)) +
   geom_point()
-c + stat_smooth(method = MASS::rlm, formula= y ~ ns(x,3)) + geom_point()
+c + stat_smooth(method = rlm, formula= y ~ ns(x,3)) + geom_point()
 
 # The default confidence band uses a transparent colour.
 # This currently only works on a limited number of graphics devices
