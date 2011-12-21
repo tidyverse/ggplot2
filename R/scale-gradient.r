@@ -1,5 +1,11 @@
 #' Smooth gradient between two colours
 #'
+#' Default colours are generated with \pkg{munsell} and 
+#' \code{mnsl(c("2.5PB 2/4", "2.5PB 7/10")}. Generally, for continuous
+#' colour scales you want to keep hue constant, but vary chroma and
+#' luminance. The \pkg{munsell} package makes this easy to do using the
+#' Munsell colour system.
+#'
 #' @inheritParams scale_colour_hue
 #' @inheritParams scales::seq_gradient_pal
 #' @seealso \code{\link[scales]{seq_gradient_pal}} for details on underlying
@@ -47,14 +53,14 @@
 #' qplot(mpg, wt, data = mtcars, colour = miss)
 #' qplot(mpg, wt, data = mtcars, colour = miss) + 
 #'   scale_colour_gradient(na.value = "black")
-scale_colour_gradient <- function(..., low = "#3B4FB8", high = "#B71B1A", space = "Lab", na.value = "grey50") {
+scale_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab", na.value = "grey50") {
   continuous_scale("colour", "gradient", seq_gradient_pal(low, high, space),
     na.value = na.value, ...)
 }
 
 #' @rdname scale_gradient
 #' @export
-scale_fill_gradient <- function(..., low = "#3B4FB8", high = "#B71B1A", space = "Lab", na.value = "grey50") {
+scale_fill_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab", na.value = "grey50") {
   continuous_scale("fill", "gradient", seq_gradient_pal(low, high, space),
     na.value = na.value, ...)
 }

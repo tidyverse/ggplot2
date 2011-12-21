@@ -3,6 +3,9 @@ NULL
 
 #' Annotation: maps.
 #'
+#' @param map data frame representing a map.  Most map objects can be 
+#'   converted into the right format by using \code{\link{fortify}}
+#' @param ... other arguments used to modify aesthetics
 #' @export
 #' @examples
 #' library(maps)

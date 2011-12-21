@@ -7,9 +7,10 @@
 #' a better (or more correct) way to do this, please let me know
 #' 
 #' @export
-#' @param projection projection to use, see \code{\link{mapproject}} for
-#'   list
-#' @param ... other arguments passed on to \code{\link{mapproject}}
+#' @param projection projection to use, see
+#'    \code{\link[mapproj]{mapproject}} for list
+#' @param ... other arguments passed on to
+#'   \code{\link[mapproj]{mapproject}}
 #' @param orientation projection orientation, which defaults to 
 #'  \code{c(90, 0, mean(range(x)))}.  This is not optimal for many
 #'  projections, so you will have to supply your own.

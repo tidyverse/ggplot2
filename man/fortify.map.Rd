@@ -28,6 +28,6 @@ qplot(long, lat, data = tx, geom = "polygon", group = group,
 }
 }
 \seealso{
-  \code{\link{map_data}} and \code{\link{border}}
+  \code{\link{map_data}} and \code{\link{borders}}
 }
 

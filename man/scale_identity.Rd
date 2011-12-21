@@ -1,5 +1,6 @@
 \name{scale_colour_identity}
 \alias{scale_alpha_identity}
+\alias{scale_color_identity}
 \alias{scale_colour_identity}
 \alias{scale_fill_identity}
 \alias{scale_linetype_identity}
@@ -18,6 +19,8 @@
   scale_alpha_identity(..., guide = "none")
 
   scale_size_identity(..., guide = "none")
+
+  scale_color_identity(..., guide = "none")
 }
 \arguments{
   \item{...}{Other arguments passed on to

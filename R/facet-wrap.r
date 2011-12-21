@@ -2,9 +2,11 @@
 #' 
 #' @param nrow number of rows
 #' @param ncol number of columns
-#' @param facet formula specifying variables to facet by
-#' @param scales should scales be fixed, free, or free in one dimension
-#'   (\code{free_x}, \code{free_y})
+#' @param facets formula specifying variables to facet by
+#' @param scales should scales be fixed (\code{"fixed"}, the default), 
+#'   free (\code{"free"}), or free in one dimension  (\code{"free_x"},
+#'   \code{"free_y"})
+#' @inheritParams facet_grid
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) + 

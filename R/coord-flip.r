@@ -5,6 +5,7 @@
 #' statistics which display y conditional on x, to x conditional on y.
 #'
 #' @export
+#' @param ... Other arguments passed onto \code{\link{coord_cartesian}}
 #' @examples
 #' # Very useful for creating boxplots, and other interval
 #' # geoms in the horizontal instead of vertical position.
