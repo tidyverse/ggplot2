@@ -183,13 +183,31 @@ guide_legend <- function(
 }
 
 guide_train.legend <- function(guide, scale) {
+  breaks <- scale_breaks(scale)
   key <- data.frame(
-    breaks = scale_map(scale, scale_breaks(scale)), 
+    values = scale_map(scale, breaks),
     labels = I(scale_labels(scale)),
     stringsAsFactors = FALSE)
-  key <- key[!is.na(key$breaks), , drop = FALSE]
+
+  ## this is a quick fix for #118
+  ## some scales have NA as na.value (e.g., size)
+  ## some scales have non NA as na.value (e.g., "grey50" for colour)
+  ## drop rows if data (instead of the mapped value) is NA
+  ##
+  ## Also, drop out-of-range values for continuous scale
+  ## (should use scale$oob?)
+  if (inherits(scale, "continuous")) {
+    limits <- scale_limits(scale)
+    noob <- !is.na(breaks) & limits[1] <= breaks & breaks <= limits[2]
+    key <- key[noob, , drop = FALSE]
+  } else {
+    key <- key[!is.na(breaks), , drop = FALSE]
+  }
+  
+  if (empty(key) || all(is.na(breaks))) return(NULL)
   names(key) <- c(scale$aesthetics[1], ".label")
-  if (guide$reverse) key <- key[nrow(guide$key):1, ]
+
+  if (guide$reverse) key <- key[nrow(key):1, ]
   
   guide$key <- key
   guide$hash <- with(guide, digest(list(title, key$.label, direction, name)))
@@ -223,7 +241,6 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
   
   ## arrange common data for vertical and horizontal guide
   guide$geoms <- llply(layers, function(layer) {
-
     all <- names(c(layer$mapping, default_mapping, layer$stat$default_aes()))
     geom <- c(layer$geom$required_aes, names(layer$geom$default_aes()))
     matched <- intersect(intersect(all, geom), names(guide$key))
@@ -231,7 +248,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     data <- 
       if (length(matched) > 0) {
         ## This layer contributes to the legend
-        if (is.na(layer$legend) || layer$legend) {
+        if (is.na(layer$show_guide) || layer$show_guide) {
           ## Default is to include it 
           layer$use_defaults(guide$key[matched])
         } else {
@@ -239,7 +256,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
         }
       } else {
         ## This layer does not contribute to the legend
-        if (is.na(layer$legend) || !layer$legend) {
+        if (is.na(layer$show_guide) || !layer$show_guide) {
           ## Default is to exclude it
           NULL
         } else {
@@ -258,7 +275,10 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
   )
 
   ## remove null geom
-  guide$geoms <- guide$geoms[!sapply(guide$geoms, is.null)]
+  guide$geoms <- compact(guide$geoms)
+
+  ## Finally, remove this guide if no layer is drawn
+  if (length(guide$geoms) == 0) guide <- NULL
   guide
 }
 

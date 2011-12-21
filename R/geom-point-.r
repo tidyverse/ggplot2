@@ -133,10 +133,6 @@ GeomPoint <- proto(Geom, {
   }
 
   draw_legend <- function(., data, ...) {
-    # If fill is set, ensure that you can actually see it
-    if (!is.null(data$fill) && !all(is.na(data$fill)) && data$shape == 16) {
-      data$shape <- 21
-    } 
     data <- aesdefaults(data, .$default_aes(), list(...))
     
     with(data,
