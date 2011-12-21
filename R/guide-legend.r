@@ -234,7 +234,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     data <- 
       if (length(matched) > 0) {
         ## This layer contributes to the legend
-        if (is.na(layer$guide) || layer$guide) {
+        if (is.na(layer$show_guide) || layer$show_guide) {
           ## Default is to include it 
           layer$use_defaults(guide$key[matched])
         } else {
@@ -242,7 +242,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
         }
       } else {
         ## This layer does not contribute to the legend
-        if (is.na(layer$guide) || !layer$guide) {
+        if (is.na(layer$show_guide) || !layer$show_guide) {
           ## Default is to exclude it
           NULL
         } else {
