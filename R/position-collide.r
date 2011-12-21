@@ -20,7 +20,8 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
     widths <- unique(with(data, xmax - xmin))
     widths <- widths[!is.na(widths)]
     if (!zero_range(range(widths))) {
-      stop(name, " requires constant width", call. = FALSE)
+      warning(name, " requires constant width: output may be incorrect", 
+        call. = FALSE)
     }
     width <- widths[1]
   }
