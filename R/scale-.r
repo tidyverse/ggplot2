@@ -217,6 +217,7 @@ scale_map.discrete <- function(scale, x) {
 scale_limits <- function(scale)
   UseMethod("scale_limits")
 
+#' @S3method scale_limits default
 scale_limits.default <- function(scale) {
   scale$limits %||% scale$range$range
 }

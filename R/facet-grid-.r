@@ -201,6 +201,7 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
   complete
 }
 
+#' @S3method facet_strips grid
 facet_strips.grid <- function(facet, panel, theme) {
   col_vars <- unique(panel$layout[names(facet$cols)])
   row_vars <- unique(panel$layout[names(facet$rows)])
@@ -261,6 +262,7 @@ build_strip <- function(panel, label_df, labeller, theme, side = "right") {
   }
 }
 
+#' @S3method facet_axes grid
 facet_axes.grid <- function(facet, panel, coord, theme) {
   axes <- list()
 
@@ -281,6 +283,7 @@ facet_axes.grid <- function(facet, panel, coord, theme) {
   axes
 }
 
+#' @S3method facet_panels grid
 facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   
   # If user hasn't set aspect ratio, and we have fixed scales, then
@@ -340,6 +343,7 @@ icon.grid <- function(.) {
   ))
 }  
 
+#' @S3method facet_vars grid
 facet_vars.grid <- function(facet) {
   paste(lapply(list(facet$rows, facet$cols), paste, collapse = ", "), 
     collapse = " ~ ")

@@ -178,6 +178,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   lay
 }
 
+#' @S3method facet_panels wrap
 facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   panels <- panel$layout$PANEL
   lapply(panels, function(i) {
@@ -192,6 +193,7 @@ facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   })
 }
 
+#' @S3method facet_strips wrap
 facet_strips.wrap <- function(facet, panel, theme) {
   labels_df <- panel$layout[names(facet$facets)]
   labels_df[] <- llply(labels_df, format, justify = "none")
@@ -201,6 +203,7 @@ facet_strips.wrap <- function(facet, panel, theme) {
   list(t = llply(labels, ggstrip, theme = theme))
 }
 
+#' @S3method facet_axes wrap
 facet_axes.wrap <- function(facet, panel, coord, theme) {
   panels <- panel$layout$PANEL
   
@@ -226,6 +229,7 @@ facet_axes.wrap <- function(facet, panel, coord, theme) {
   
 }
 
+#' @S3method facet_vars wrap
 facet_vars.wrap <- function(facet) {
   paste(lapply(facet$facets, paste, collapse = ", "), collapse = " ~ ")
 }
