@@ -184,6 +184,10 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
   axes$l$heights <- panels$heights
   axes$b$widths <- panels$widths
   
+  # adjust the size of the strips to the size of the panels
+  strips$r$heights <- panels$heights
+  strips$t$widths <- panels$widths
+  
   # Combine components into complete plot
   top <- strips$t
   top <- gtable_add_cols(top, strips$r$widths)
@@ -332,6 +336,7 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
     panel_widths, panel_heights, respect = respect)
   panels <- gtable_add_col_space(panels, theme$panel.margin)
   panels <- gtable_add_row_space(panels, theme$panel.margin)
+    
   panels
 }
 
