@@ -28,22 +28,21 @@
 #' 
 #' hline.data <- data.frame(z = 1:4, vs = c(0,0,1,1), am = c(0,1,0,1))
 #' p + geom_hline(aes(yintercept = z), hline.data)
-geom_hline <- function (mapping = NULL, data = NULL, stat = "hline", position = "identity", ...) { 
-  GeomHline$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_hline <- function (mapping = NULL, data = NULL, stat = "hline", position = "identity", show_guide = FALSE, ...) { 
+  GeomHline$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
 }
 
 GeomHline <- proto(Geom, {
   objname <- "hline"
 
-  new <- function(., data = NULL, mapping = NULL, yintercept = NULL, legend = NA, ...) {
+  new <- function(., data = NULL, mapping = NULL, yintercept = NULL, ...) {
     if (is.numeric(yintercept)) {
       data <- data.frame(yintercept = yintercept)
       yintercept <- NULL
       mapping <- aes_all(names(data))
-      if(is.na(legend)) legend <- FALSE
     }
     .super$new(., data = data, mapping = mapping, inherit.aes = FALSE, 
-      yintercept = yintercept, legend = legend, ...)
+      yintercept = yintercept, ...)
   }
 
   draw <- function(., data, scales, coordinates, ...) {
