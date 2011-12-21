@@ -187,7 +187,7 @@ guides_merge <- function(gdefs) {
 
 ## process layer information
 guides_geom <- function(gdefs, layers, default_mapping) {
-  Filter(Negate(is.null), lapply(gdefs, guide_geom, layers, default_mapping))
+  compact(lapply(gdefs, guide_geom, layers, default_mapping))
 }
 
 ## generate grob from each gdef (needs to write this function?)

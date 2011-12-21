@@ -261,7 +261,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
   )
 
   ## remove null geom
-  guide$geoms <- guide$geoms[!sapply(guide$geoms, is.null)]
+  guide$geoms <- compact(guide$geoms)
 
   ## Finally, remove this guide if no layer is drawn
   if (length(guide$geoms) == 0) guide <- NULL
