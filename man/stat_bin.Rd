@@ -4,7 +4,7 @@
 \usage{
   stat_bin(mapping = NULL, data = NULL, geom = "bar",
     position = "stack", width = 0.9, drop = FALSE,
-    right = TRUE, ...)
+    right = FALSE, ...)
 }
 \arguments{
   \item{binwidth}{Bin width to use. Defaults to 1/30 of the
@@ -18,8 +18,8 @@
   \item{width}{Width of bars when used with categorical
   data}
 
-  \item{right}{Should intervals be closed on the right (a,
-  b], or not [a, b)}
+  \item{right}{If \code{TRUE}, right-closed, left-open, if
+  \code{FALSE},}
 
   \item{drop}{If TRUE, remove all bins with zero counts}
 }

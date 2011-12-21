@@ -1,12 +1,13 @@
-# Update geom defaults
-# Modify geom aesthetic defaults for future plots
-# 
-# @param name of geom to modify
-# @param named list of aesthetics
-# @keyword hplot
-#X update_geom_defaults("point", list(colour = "darkblue"))
-#X qplot(mpg, wt, data = mtcars)
-#X update_geom_defaults("point", list(colour = "black"))
+#' Modify geom/stat aesthetic defaults for future plots
+#' 
+#' @param stat,geom name of geom/stat to modify
+#' @param new named list of aesthetics
+#' @export
+#' @examples
+#' update_geom_defaults("point", list(colour = "darkblue"))
+#' qplot(mpg, wt, data = mtcars)
+#' update_geom_defaults("point", list(colour = "black"))
+#' @rdname update_defaults
 update_geom_defaults <- function(geom, new) {
   g <- Geom$find(geom)
   old <- g$default_aes()
@@ -16,18 +17,9 @@ update_geom_defaults <- function(geom, new) {
   g$default_aes <- eval(substitute(function(.) aes, list(aes = aes)))
 }
 
-# change geom aesthetics
-# change geom defaults for other params
-# change scale defaults
-# change default scale for given aesthetic
-
-# Update geom defaults
-# Modify geom aesthetic defaults for future plots
-# 
-# @param name of geom to modify
-# @param named list of aesthetics
-# @keyword hplot
-update_stat_defaults <- function(geom, new) {
+#' @rdname update_defaults
+#' @export
+update_stat_defaults <- function(stat, new) {
   g <- Stat$find(geom)
   old <- g$default_aes()
   

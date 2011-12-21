@@ -68,6 +68,7 @@ coord_train.cartesian <- function(coord, scales) {
 }
 
 train_cartesian <- memoise(function(scale, limits, name, wise) {
+  # range is the limits in data space
   if (is.null(limits)) {
     range <- scale_dimension(scale)
   } else {
@@ -78,9 +79,25 @@ train_cartesian <- memoise(function(scale, limits, name, wise) {
     }
   }
 
-  major <- rescale(scale_break_positions(scale), from = range)
-  minor <- rescale(scale_breaks_minor_positions(scale), from = range)
-  labels <- scale_labels(scale)
+  # major and minor values in data space
+  major_v <- scale_break_positions(scale)
+  minor_v <- scale_breaks_minor_positions(scale)
+  
+  # if the scale is continuous, drop out-of-range values
+  if (inherits(scale, "continuous")) {
+    major_inside_range <- range[1] <= major_v  & major_v <= range[2]
+    major_inside_range <- major_inside_range & !is.na(major_inside_range)
+    minor_inside_range <- range[1] <= minor_v  & minor_v <= range[2]
+    minor_inside_range <- minor_inside_range & !is.na(minor_inside_range)
+  } else {
+    major_inside_range <- TRUE
+    minor_inside_range <- TRUE
+  }
+
+  # major and minor values in plot space
+  major <- rescale(major_v[major_inside_range], from = range)
+  minor <- rescale(minor_v[minor_inside_range], from = range)
+  labels <- scale_labels(scale)[major_inside_range]
   
   out <- list(range = range, major = major, minor = minor, labels = labels)
   names(out) <- paste(name, names(out), sep = ".")

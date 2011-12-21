@@ -2,6 +2,7 @@
 #'
 #' Similar to \code{\link{levelplot}} and \code{\link{image}}.
 #'
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' # Generate data

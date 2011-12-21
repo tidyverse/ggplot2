@@ -4,6 +4,11 @@
 \usage{
   facet_null(shrink = TRUE)
 }
+\arguments{
+  \item{shrink}{If \code{TRUE}, will shrink scales to fit
+  output of statistics, not raw data. If \code{FALSE}, will
+  be range of raw data before statistical summary.}
+}
 \description{
   Facet specification: a single panel.
 }

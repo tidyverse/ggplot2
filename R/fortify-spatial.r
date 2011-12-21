@@ -4,6 +4,7 @@
 #' \code{as.data.frame(model)}.
 #' 
 #' @S3method fortify SpatialPolygons
+#' @S3method fortify SpatialPolygonsDataFrame
 #' @S3method fortify Polygons
 #' @S3method fortify Polygon
 #' @S3method fortify SpatialLinesDataFrame

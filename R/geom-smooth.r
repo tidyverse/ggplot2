@@ -1,5 +1,6 @@
 #' Add a smoothed conditional mean.
 #'
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' # See stat_smooth for examples of using built in model fitting

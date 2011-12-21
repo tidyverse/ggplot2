@@ -66,6 +66,7 @@ scale_y_date <- function(..., expand = c(0.05, 0)) {
     guide = "none", expand = expand, trans = "date")
 }
 
+#' @S3method scale_map date
 scale_map.date <- function(scale, x) {
   x
 }

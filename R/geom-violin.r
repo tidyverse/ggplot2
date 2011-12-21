@@ -1,11 +1,10 @@
 #' Violin plot.
 #'
-#' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
-#'   continuous variable,  \code{\link{geom_jitter}} for another way to look 
-#'   at conditional distributions"
-#' @param trim
-#' @param outlier.shape shape of outlying points
-#' @param outlier.size size of outlying points
+#' @param trim If \code{TRUE} (default), trim the tails of the violins
+#'   to the range of the data. If \code{FALSE}, don't trim the tails.
+#' @param scale if "equal" (default), all violins have the same area (to be
+#'   precise, they would have the same area if tails are not trimmed). If
+#'   "count", the areas are scaled proportionally to the number of observations.
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))
@@ -18,10 +17,8 @@
 #' qplot(factor(cyl), mpg, data = mtcars, geom = "violin") +
 #'   coord_flip()
 #' 
-#' # Default is to scale each violin so that maximum width is the same.
-#' # However, each density curve may have a different width before scaling.
-#' # To scale each violin relative to the width of the widest:
-#' p + geom_violin(fullwidth = FALSE)
+#' # Scale maximum width proportional to sample size:
+#' p + geom_violin(scale = "count")
 #' 
 #' # Default is to trim violins to the range of the data. To disable:
 #' p + geom_violin(trim = FALSE)
@@ -59,10 +56,10 @@
 #' qplot(year, budget, data = movies, geom = "violin", 
 #'   group = round_any(year, 10, floor))
 #'
-geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity", position = "dodge", 
-trim = TRUE, fullwidth = TRUE, ...) {
+geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity", position = "dodge",
+trim = TRUE, scale = "equal", ...) {
   GeomViolin$new(mapping = mapping, data = data, stat = stat, 
-  position = position, trim = trim, fullwidth = fullwidth, ...)
+  position = position, trim = trim, scale = scale, ...)
 }
 
 GeomViolin <- proto(Geom, {
@@ -95,36 +92,28 @@ GeomViolin <- proto(Geom, {
     # Needed for coord_polar and such
     newdata <- rbind(newdata, newdata[1,])
 
-    ggname(.$my_name(), grobTree(
-      GeomPolygon$draw(newdata, ...)
-    ))
-
+    ggname(.$my_name(), GeomPolygon$draw(newdata, ...))
   }
 
-  guide_geom <- function(.) "violin"
-  draw_legend <- function(., data, ...)  {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-
-    with(data, grobTree(
-      rectGrob(gp = gpar(col = colour, fill = alpha(fill, alpha), lty = linetype)),
-      linesGrob(gp = gpar(col = colour, lwd = size * .pt, lineend="butt", lty = linetype))
-    ))
-  }
+  guide_geom <- function(.) "polygon"
 
   icon <- function(.) {
     y <- seq(-.3, .3, length=40)
-    x <- dnorm(y, mean=0, sd=0.1)
+    x1 <- dnorm(y, mean = -.15, sd = 0.05) + 1.5*dnorm(y, mean = 0.1, sd = 0.1)
+    x2 <- dnorm(y, mean = -.1, sd = 0.1) + dnorm(y, mean = 0.1, sd = 0.1)
 
-    y <- c(y,rev(y))
-    x <- c(x,-rev(x))/max(6*x)
-
-    linesGrob(x + .25, y + .35, default="npc")
-    linesGrob(x + .75, y + .65, default="npc")
+    y <- c(y, rev(y))
+    x1 <- c(x1, -rev(x1)) / max(8 * x1)
+    x2 <- c(x2, -rev(x2)) / max(8 * x2)
+    gTree(children = gList(
+      polygonGrob(x1 + .30, y + .35, default = "npc", gp = gpar(fill = "black")),
+      polygonGrob(x2 + .70, y + .55, default = "npc", gp = gpar(fill = "black"))
+    ))
   }
   
   default_stat <- function(.) StatYdensity
   default_pos <- function(.) PositionDodge
-  default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = 1, shape = 16, linetype = "solid")
+  default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = 1, linetype = "solid")
   required_aes <- c("x", "y")
 
 })

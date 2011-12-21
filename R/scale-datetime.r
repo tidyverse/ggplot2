@@ -41,6 +41,7 @@ scale_x_datetime <- function(..., expand = c(0.05, 0)) {
     trans = "time", expand = expand, guide = "none")
 }
 
+#' @S3method scale_map datetime
 scale_map.datetime <- function(scale, x) {
   x
 }

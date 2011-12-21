@@ -15,7 +15,7 @@
 #'
 #' @param p plot object
 #' @param object component to add
-#' @seealso \code{\link{set_last_plot}}, \code{\link{ggplot}}
+#' @seealso \code{\link{ggplot}}
 #' @method + ggplot
 #' @S3method "+" ggplot
 #' @rdname ggplot-add

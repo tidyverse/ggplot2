@@ -25,8 +25,9 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
     width <- widths[1]
   }
 
-  # Reorder by x position, preserving order of group
-  data <- data[order(data$xmin, data$group), ]
+  # Reorder by x position, relying on stable sort to preserve existing 
+  # ordering, which may be by group or order.
+  data <- data[order(data$xmin), ]
 
   # Check for overlap
   intervals <- as.numeric(t(unique(data[c("xmin", "xmax")])))
@@ -100,12 +101,11 @@ pos_dodge <- function(df, width) {
   
   # Have a new group index from 1 to number of groups.
   # This might be needed if the group numbers in this set don't include all of 1:n
-  groupidx <- rep(0, max(df$group))
-  groupidx[unique(df$group)] <- 1:n
+  groupidx <- match(df$group, sort(unique(df$group)))
 
-  df <- within(df, {
-    xmin <- xmin + width / n * (groupidx[group] - 1) - diff * (n - 1) / (2 * n)
+  within(df, {
+    xmin <- xmin + width / n * (groupidx - 1) - diff * (n - 1) / (2 * n)
     xmax <- xmin + d_width / n
-    x <-  (xmin + xmax) / 2
+    x <- (xmin + xmax) / 2
   })
 }

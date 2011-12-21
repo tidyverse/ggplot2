@@ -18,5 +18,8 @@ p + facet_grid(. ~ vs, labeller = label_bquote(.(x) ^ .(x)))
 }
 \seealso{
   \code{\link{plotmath}}
+
+  Other facet labellers: \code{\link{label_both}},
+  \code{\link{label_parsed}}, \code{\link{label_value}}
 }
 

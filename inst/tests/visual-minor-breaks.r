@@ -19,3 +19,8 @@ print(p + coord_polar())
 p <- ggplot(NULL, aes(letters[1:3], 1:3)) + geom_point()
 print(p)
 
+p <- qplot(1:1e4, 1:1e4) + scale_x_continuous(trans = log2_trans()) + scale_y_log10()
+print(p)
+
+p <- qplot(1:5, 1:5) + scale_x_continuous(trans = exp_trans(2)) + scale_y_continuous(trans = exp_trans(2))
+print(p)
