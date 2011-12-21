@@ -72,6 +72,9 @@ MINOR CHANGES
   with constant hue but varying chroma and luminance. This is better because
   it creates a natural ordering inline with the order of the colour values.
 
+* `stat_bin` and `geom_histogram` now use right-open, left-closed intervals by
+  default. Use `right = TRUE` to return to previous behaviour.
+
 DEVELOPMENT
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems

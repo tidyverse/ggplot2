@@ -5,7 +5,7 @@
   geom_boxplot(mapping = NULL, data = NULL,
     stat = "boxplot", position = "dodge",
     outlier.colour = "black", outlier.shape = 16,
-    outlier.size = 2, ...)
+    outlier.size = 2, notch = FALSE, notchwidth = 0.5, ...)
 }
 \arguments{
   \item{outlier.colour}{colour for outlying points}
@@ -13,9 +13,31 @@
   \item{outlier.shape}{shape of outlying points}
 
   \item{outlier.size}{size of outlying points}
+
+  \item{notch}{if \code{FALSE} (default) make a standard
+  box plot. If \code{TRUE}, make a notched box plot.
+  Notches are used to compare groups; if the notches of two
+  boxes do not overlap, this is strong evidence that the
+  medians differ.}
+
+  \item{notchwidth}{for a notched box plot, width of the
+  notch relative to the body (default 0.5)}
 }
 \description{
-  Box and whiskers plot.
+  The upper and lower "hinges" correspond to the first and
+  third quartiles. This differs slightly from the method
+  used by the \code{boxplot} function, and may be apparent
+  with small samples. See \code{\link{boxplot.stats}} for
+  for more information on how hinge positions are
+  calculated for \code{boxplot}.
+}
+\details{
+  In a notched box plot, the notches extend \code{1.58 *
+  IQR / sqrt(n)} from the median where IQR is the
+  inter-quartile range, or distance between the first and
+  third quartiles. This gives a roughly 95% confidence
+  interval for comparing medians. See McGill et al. (1978)
+  for more details.
 }
 \examples{
 p <- ggplot(mtcars, aes(factor(cyl), mpg))
@@ -27,6 +49,9 @@ p + geom_boxplot() + geom_jitter()
 p + geom_boxplot() + coord_flip()
 qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot") +
   coord_flip()
+
+p + geom_boxplot(notch = TRUE)
+p + geom_boxplot(notch = TRUE, notchwidth = .3)
 
 p + geom_boxplot(outlier.colour = "green", outlier.size = 3)
 
@@ -67,6 +92,11 @@ b <- ggplot(abc, aes(x = X1, ymin = `0\%`, lower = `25\%`, middle = `50\%`, uppe
 b + geom_boxplot(stat = "identity")
 b + geom_boxplot(stat = "identity") + coord_flip()
 b + geom_boxplot(aes(fill = X1), stat = "identity")
+}
+\references{
+  McGill, R., Tukey, J. W. and Larsen, W. A. (1978)
+  Variations of box plots. The American Statistician 32,
+  12-16.
 }
 \seealso{
   \code{\link{stat_quantile}} to view quantiles conditioned

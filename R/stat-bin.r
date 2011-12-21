@@ -7,7 +7,8 @@
 #' @param breaks Actual breaks to use.  Overrides bin width and origin 
 #' @param origin Origin of first bin 
 #' @param width Width of bars when used with categorical data 
-#' @param right Should intervals be closed on the right (a, b], or not [a, b) 
+#' @param right If \code{TRUE}, right-closed, left-open, if \code{FALSE}, 
+#"   the default, right-open, left-closed.
 #' @param drop If TRUE, remove all bins with zero counts
 #' @return New data frame with additional columns:
 #'   \item{count}{number of points in bin}
@@ -38,7 +39,7 @@
 #' ggplot(movies, aes(x=mpaa)) + stat_bin()
 #' qplot(mpaa, data=movies, stat="bin")
 stat_bin <- function (mapping = NULL, data = NULL, geom = "bar", position = "stack", 
-width = 0.9, drop = FALSE, right = TRUE, ...) { 
+width = 0.9, drop = FALSE, right = FALSE, ...) { 
   StatBin$new(mapping = mapping, data = data, geom = geom, position = position, 
   width = width, drop = drop, right = right, ...)
 }
@@ -52,7 +53,7 @@ StatBin <- proto(Stat, {
     .super$calculate_groups(., data, ...)
   }
   
-  calculate <- function(., data, scales, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = TRUE, ...) {
+  calculate <- function(., data, scales, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = FALSE, ...) {
     range <- scale_dimension(scales$x)
 
     if (is.null(breaks) && is.null(binwidth) && !is.integer(data$x) && !.$informed) {
@@ -71,6 +72,7 @@ StatBin <- proto(Stat, {
 })
 
 bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
+  print(right)
   
   if (length(na.omit(x)) == 0) return(data.frame())
   if (is.null(weight))  weight <- rep(1, length(x))
