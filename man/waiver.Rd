@@ -1,0 +1,16 @@
+\name{waiver}
+\alias{waiver}
+\title{A waiver object.}
+\usage{
+  waiver()
+}
+\description{
+  A waiver is a "flag" object, similar to \code{NULL}, that
+  indicates the calling function should just use the
+  default value.  It is used in certain functions to
+  distinguish between displaying nothing (\code{NULL}) and
+  displaying a default value calculated elsewhere
+  (\code{waiver()})
+}
+\keyword{internal}
+

@@ -1,12 +1,33 @@
 #' Box and whiskers plot.
 #'
+#' The upper and lower "hinges" correspond to the first and third quartiles.
+#' This differs slightly from the method used by the \code{boxplot} function,
+#' and may be apparent with small samples. See \code{\link{boxplot.stats}} for
+#' for more information on how hinge positions are calculated for
+#' \code{boxplot}.
+#'
+#' In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)} from
+#' the median where IQR is the inter-quartile range, or distance between the
+#' first and third quartiles. This gives a roughly 95% confidence interval
+#' for comparing medians. See McGill et al. (1978) for more details.
+#'
 #' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
 #'   continuous variable,  \code{\link{geom_jitter}} for another way to look 
 #'   at conditional distributions"
 #' @param outlier.colour colour for outlying points
 #' @param outlier.shape shape of outlying points
 #' @param outlier.size size of outlying points
+#' @param notch if \code{FALSE} (default) make a standard box plot. If
+#'    \code{TRUE}, make a notched box plot. Notches are used to compare groups;
+#'    if the notches of two boxes do not overlap, this is strong evidence that 
+#'    the medians differ.
+#' @param notchwidth for a notched box plot, width of the notch relative to
+#'    the body (default 0.5)
 #' @export
+#'
+#' @references McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
+#'     box plots. The American Statistician 32, 12-16.
+#'
 #' @examples
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))
 #' 
@@ -17,6 +38,9 @@
 #' p + geom_boxplot() + coord_flip()
 #' qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot") +
 #'   coord_flip()
+#'
+#' p + geom_boxplot(notch = TRUE)
+#' p + geom_boxplot(notch = TRUE, notchwidth = .3)
 #' 
 #' p + geom_boxplot(outlier.colour = "green", outlier.size = 3)
 #' 
@@ -58,10 +82,11 @@
 #' b + geom_boxplot(stat = "identity") + coord_flip()
 #' b + geom_boxplot(aes(fill = X1), stat = "identity")
 geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot", position = "dodge", 
-outlier.colour = "black", outlier.shape = 16, outlier.size = 2, ...) {
+outlier.colour = "black", outlier.shape = 16, outlier.size = 2,
+notch = FALSE, notchwidth = .5, ...) {
   GeomBoxplot$new(mapping = mapping, data = data, stat = stat, 
   position = position, outlier.colour = outlier.colour, outlier.shape = outlier.shape, 
-  outlier.size = outlier.size, ...)
+  outlier.size = outlier.size, notch = notch, notchwidth = notchwidth, ...)
 }
 
 GeomBoxplot <- proto(Geom, {
@@ -70,15 +95,21 @@ GeomBoxplot <- proto(Geom, {
   reparameterise <- function(., df, params) {
     df$width <- df$width %||% 
       params$width %||% (resolution(df$x, FALSE) * 0.9)
-    df$ymin_final <- min(df$outliers[[1]])
-    df$ymax_final <- max(df$outliers[[1]])
+
+    suppressWarnings({
+      out_min <- vapply(df$outliers, min, numeric(1))
+      out_max <- vapply(df$outliers, max, numeric(1))
+    })
+    df$ymin_final <- pmin(out_min, df$ymin)
+    df$ymax_final <- pmax(out_max, df$ymax)
     transform(df,
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )
 
   }
   
-  draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2) { 
+  draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2,
+                   notch = FALSE, notchwidth = .5) { 
     common <- data.frame(
       colour = data$colour, 
       size = data$size, 
@@ -102,6 +133,9 @@ GeomBoxplot <- proto(Geom, {
       ymin = data$lower, 
       y = data$middle, 
       ymax = data$upper,
+      ynotchlower = ifelse(notch, data$notchlower, NA),
+      ynotchupper = ifelse(notch, data$notchupper, NA),
+      notchwidth = notchwidth,
       alpha = data$alpha, 
       common)
     

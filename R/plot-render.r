@@ -151,7 +151,7 @@ ggplot_gtable <- function(data) {
 #' @param x plot to display
 #' @param newpage draw new (empty) page first?
 #' @param vp viewport to draw plot in
-#' @param ... other arguments passed on to \code{\link{ggplotGrob}}
+#' @param ... other arguments not used by this method
 #' @keywords hplot
 #' @S3method print ggplot
 #' @method print ggplot

@@ -7,10 +7,10 @@
 }
 \arguments{
   \item{projection}{projection to use, see
-  \code{\link{mapproject}} for list}
+  \code{\link[mapproj]{mapproject}} for list}
 
   \item{...}{other arguments passed on to
-  \code{\link{mapproject}}}
+  \code{\link[mapproj]{mapproject}}}
 
   \item{orientation}{projection orientation, which defaults
   to \code{c(90, 0, mean(range(x)))}.  This is not optimal

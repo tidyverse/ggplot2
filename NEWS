@@ -1,7 +1,7 @@
 ggplot2 0.9.0
 ----------------------------------------------------------------
 
-NEW GEOMS/ANNOTATIONS
+NEW FEATURES
 
 * `geom_map`
 
@@ -10,6 +10,8 @@ NEW GEOMS/ANNOTATIONS
 * `annotation_raster`
 
 * `annotation_map`
+
+* New fortify methods for objects produced by the `multcomp` package.
 
 MINOR CHANGES
 
@@ -26,7 +28,9 @@ MINOR CHANGES
 * `geom_boxplot`: outlier colour and shape now default to values set by the
   aesthetic mapping (thanks to suggestion by Ben Bolker), the width of the
   median line is now `fatten` times the width of the other lines (thanks to
-  suggestion by Di Cook), and the line type can now be set.
+  suggestion by Di Cook), and the line type can now be set. Notched box
+  plots are now supported by setting `notch = TRUE` (thanks to Winston Chang
+  for the patch).
 
 * `ggsave` can work with cm and mm `units` (Thanks to patch from Jean-Olivier
   Irisson)
@@ -54,6 +58,22 @@ MINOR CHANGES
 
 * `coord_fixed` accepts `xlim` and `ylim` parameters to zoom in on x and y
   scales (Fixes #91)
+
+* ggplot2 will occasionally display a useful hint or tip on startup.  Use
+  `suppressPackageStartupMessages` to eliminate
+  
+* `stat_binhex` uses correct binwidth for computing y axis bounds. (Fixes #299, 
+  thanks to Dave Henderson for bug report and fix.)
+
+* `stat_smooth` now adjusts confidence intervals from \code{loess} using a 
+  t-based approximation
+
+* `scale_colour_gradient` and `scale_fill_gradient` now use a colour scheme
+  with constant hue but varying chroma and luminance. This is better because
+  it creates a natural ordering inline with the order of the colour values.
+
+* `stat_bin` and `geom_histogram` now use right-open, left-closed intervals by
+  default. Use `right = TRUE` to return to previous behaviour.
 
 DEVELOPMENT
 
@@ -108,6 +128,12 @@ SCALES
   list of available transformations, and how to create your own. The
   transformations in this package should do a better job at computing default
   breaks.
+
+* transformations for continuous scales are now detected automatically when
+  the default scales are added. This ensures that dates and date times will
+  display correctly when used for any aesthetic - previously they only worked
+  with position scales. The system is now also easier to extend to new types
+  of continuous data that you might want to plot.  (Fixes 48)
 
 * all scales now accept `na.value` parameter which provides an aesthetic value
   to be used for NA values in the data. Colour/fill scales default to values

@@ -6,8 +6,8 @@
 #' @param theta variable to map angle to (\code{x} or \code{y})
 #' @param start offset of starting point from 12 o'clock in radians
 #' @param direction 1, clockwise; -1, anticlockwise
-#' @param should axes be expanded to slightly outside the range of the data?
-#'   (default: FALSE)
+#' @param expand should axes be expanded to slightly outside the range of the
+#'   data? (default: \code{FALSE})
 #' @export
 #' @examples 
 #' # NOTE: Use these plots with caution - polar coordinates has

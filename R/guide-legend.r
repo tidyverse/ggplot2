@@ -9,7 +9,7 @@
 ##' 
 ##' @name guide_legend
 ##' @title Legend guide
-##' @param title A character string or expression indicating a title of guide. If \code{NULL}, the title is not shown. By default (\code{\link{waiver()}}), the name of the scale object or tha name specified in \code{\link{labs}} is used for the title.
+##' @param title A character string or expression indicating a title of guide. If \code{NULL}, the title is not shown. By default (\code{\link{waiver}}), the name of the scale object or tha name specified in \code{\link{labs}} is used for the title.
 ##' @param title.position A character string indicating the position of a title. One of "top" (default for a vertical guide), "bottom", "left" (default for a horizontal guide), or "right."
 ##' @param title.theme A theme object for rendering the title text. Usually the object of \code{\link{theme_text}} is expected. By default, the theme is specified by \code{legend.title} in \code{\link{opts}} or theme.
 ##' @param title.hjust A numeric specifying horizontal justification of the title text.
@@ -172,7 +172,7 @@ guide_train.legend <- function(guide, scale) {
   breaks <- scale_breaks(scale)
   key <- data.frame(
     values = scale_map(scale, breaks),
-    labels = scale_labels(scale),
+    labels = I(scale_labels(scale)),
     stringsAsFactors = FALSE)
 
   ## this is a quick fix for #118

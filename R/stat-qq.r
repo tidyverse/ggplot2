@@ -24,7 +24,8 @@
 #' ggplot(df, aes(sample = y)) + geom_point(stat = "qq")
 #' 
 #' # Use fitdistr from MASS to estimate distribution params
-#' params <- as.list(MASS::fitdistr(y, "t")$estimate)
+#' library(MASS)
+#' params <- as.list(fitdistr(y, "t")$estimate)
 #' ggplot(df, aes(sample = y)) + stat_qq(dist = qt, dparam = params)
 #' 
 #' # Using to explore the distribution of a variable

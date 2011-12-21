@@ -31,7 +31,7 @@
 #' 
 #' @param x x value
 #' @param y y value
-#' @param List of name value pairs
+#' @param ... List of name value pairs giving aesthetics to map.
 #' @seealso \code{\link{aes_string}}
 #' @S3method str uneval
 #' @S3method print uneval

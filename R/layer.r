@@ -244,6 +244,10 @@ Layer <- proto(expr = {
   class <- function(.) "layer"
 })
 
+#' Create a new layer
+#' 
+#' @keywords internal
+#' @export
 layer <- Layer$new
 
 # Determine if aesthetic is calculated

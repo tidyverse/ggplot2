@@ -1,5 +1,9 @@
 # Produce a grob to be used as for panel backgrounds
 guide_grid <- function(theme, x.minor, x.major, y.minor, y.major) {
+  
+  x.minor <- setdiff(x.minor, x.major)
+  y.minor <- setdiff(y.minor, y.major)
+  
   ggname("grill", grobTree(
     theme_render(theme, "panel.background"),
     if(length(y.minor) > 0) theme_render(

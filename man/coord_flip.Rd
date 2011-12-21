@@ -4,6 +4,10 @@
 \usage{
   coord_flip(...)
 }
+\arguments{
+  \item{...}{Other arguments passed onto
+  \code{\link{coord_cartesian}}}
+}
 \description{
   Flipped cartesian coordinates so that horizontal becomes
   vertical, and vertical, horizontal. This is primarily

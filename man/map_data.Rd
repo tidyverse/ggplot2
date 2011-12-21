@@ -5,15 +5,16 @@
   map_data(map, region = ".", exact = FALSE, ...)
 }
 \arguments{
-  \item{map}{name of map provided by \code{\link{maps}}
-  package.  These include \code{\link{county}},
-  \code{\link{france}}, \code{\link{italy}},
-  \code{\link{nz}}, \code{\link{state}}, \code{\link{usa}},
-  \code{\link{world}}, \code{\link{world2}}.}
+  \item{map}{name of map provided by the \pkg{maps}
+  package.  These include \code{\link[maps]{county}},
+  \code{\link[maps]{france}}, \code{\link[maps]{italy}},
+  \code{\link[maps]{nz}}, \code{\link[maps]{state}},
+  \code{\link[maps]{usa}}, \code{\link[maps]{world}},
+  \code{\link[maps]{world2}}.}
 
   \item{region}{name of subregions to include.  Defaults to
   \code{.} which includes all subregion.  See documentation
-  for \code{\link{map}} for more details.}
+  for \code{\link[maps]{map}} for more details.}
 
   \item{exact}{should the \code{region} be treated as a
   regular expression (\code{FALSE}) or as a fixed string
