@@ -1,5 +1,6 @@
 #' Hollow bar with middle indicated by horizontal line.
 #'
+#' @inheritParams geom_point
 #' @param fatten a multiplicate factor to fatten middle bar by
 #' @seealso \code{\link{geom_errorbar}} for error bars,
 #' \code{\link{geom_pointrange}} and \code{\link{geom_linerange}} for other

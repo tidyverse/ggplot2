@@ -6,6 +6,7 @@ NULL
 #' Does not affect position scales.  
 #' 
 #' @export
+#' @inheritParams geom_point
 #' @examples
 #' # When using geom_polygon, you will typically need two data frames:
 #' # one contains the coordinates of each polygon (positions),  and the

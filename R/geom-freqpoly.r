@@ -1,6 +1,7 @@
 #' Frequency polygon.
 #'
 #' @seealso \code{\link{geom_histogram}}: histograms
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' qplot(carat, data = diamonds, geom = "freqpoly")

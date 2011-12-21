@@ -7,6 +7,7 @@ NULL
 #' the same size.  It is implemented highly efficiently using the internal
 #' \code{rasterGrob} function.
 #'
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' # Generate data

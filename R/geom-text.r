@@ -1,5 +1,6 @@
 #' Textual annotations.
 #' 
+#' @inheritParams geom_point
 #' @param parse If TRUE, the labels will be parsed into expressions and
 #'   displayed as described in ?plotmath
 #' @export
