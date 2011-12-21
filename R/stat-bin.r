@@ -72,7 +72,6 @@ StatBin <- proto(Stat, {
 })
 
 bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
-  print(right)
   
   if (length(na.omit(x)) == 0) return(data.frame())
   if (is.null(weight))  weight <- rep(1, length(x))
