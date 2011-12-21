@@ -13,6 +13,9 @@ NEW FEATURES
   `annotation_raster`, an even faster special case, for when you want to draw
   the same raster in each panel.
 
+* `geom_violin`: an implementation violin plots, which are a way of visualizing
+  kernel density estimates. (Thanks to Winston Chang)
+
 * New fortify methods have been added for objects produced by the `multcomp`
   package.
 
