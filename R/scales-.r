@@ -83,13 +83,14 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
     
     # Skip aesthetics with no scales (e.g. group, order, etc)
     if (!exists(scale_name, globalenv())) next
+    scale_f <- get(scale_name, globalenv())
     
     if (disc) {
       args <- list()
     } else {
       args <- list(trans = trans_type(datacols[[aes]]))
     }
-    scale <- do.call(scale_name, args)
+    scale <- do.call(scale_f, args)
     scales$add(scale)
   }
   

@@ -309,9 +309,8 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
     breaks <- scale$minor_breaks
   }
   
-  # Breaks in data space need to be converted back to transformed space
-  # And any minor breaks outside the dimensions need to be thrown away
-  discard(scale$trans$trans(breaks), scale_dimension(scale))
+  # Any minor breaks outside the dimensions need to be thrown away
+  discard(breaks, scale_dimension(scale))
 }
 
 scale_breaks_minor.discrete <- function(...) NULL

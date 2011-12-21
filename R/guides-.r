@@ -1,48 +1,45 @@
-##' Set guides for each scale
-##'
-##' Guides for each scale can be set in call of \code{scale_*} with argument \code{gudie}, or in \code{guides}.
-##' 
-##' @name guides
-##' @title Set guides for scales
-##' @param ... List of scale guide pairs
-##' @return A list containing mapping between scale and guide.
-##' @export
-##' @examples
-##' # ggplot object
-##' 
-##' dat <- data.frame(x=1:5, y=1:5, p=1:5, q=factor(1:5), r=factor(1:5))
-##' p <- function()ggplot(dat, aes(x, y, colour=p, size=q, shape=r)) + geom_point()
-##' 
-##' # without guide specificatoin
-##' 
-##' p()
-##' 
-##' # Show colorbar guide for colour.
-##' # All these examples below have a same effect.
-##' 
-##' p() + guides(colour = "colorbar", size = "legend", shape = "legend")
-##' p() + guides(colour = guide_colorbar(), size = guide_legend(), shape = guide_legend())
-##' p() + scale_colour_continuous(guide="colorbar") + scale_size_discrete(guide="legend") + scale_shape(guide="legend")
-##' 
-##' # all guides are integrated if possible
-##' 
-##' p() + guides(colour = guide_legend("title"), size = guide_legend("title"), shape = guide_legend("title"))
-##' 
-##' # same as
-##' 
-##' g <- guide_legend("title")
-##' p() + guides(colour = g, size = g, shape = g)
-##' 
-##' 
-##' # style of guides
-##' 
-##' # position of guides
-##' 
-##' p() + opts(legend.position = "bottom")
-##' 
-##' # position of guides
-##' 
-##' p() + opts(legend.position = "bottom", legend.box = "horizontal")
+#' Set guides for each scale.
+#'
+#' Guides for each scale can be set in call of \code{scale_*} with argument
+#' \code{guide}, or in \code{guides}.
+#' 
+#' @param ... List of scale guide pairs
+#' @return A list containing mapping between scale and guide.
+#' @export
+#' @examples
+#' # ggplot object
+#' 
+#' dat <- data.frame(x = 1:5, y = 1:5, p = 1:5, q = factor(1:5), 
+#'  r = factor(1:5))
+#' p <- ggplot(dat, aes(x, y, colour = p, size = q, shape = r)) + geom_point()
+#' 
+#' # without guide specificatoin
+#' p
+#' 
+#' # Show colorbar guide for colour.
+#' # All these examples below have a same effect.
+#' 
+#' p + guides(colour = "colorbar", size = "legend", shape = "legend")
+#' p + guides(colour = guide_colorbar(), size = guide_legend(), 
+#'   shape = guide_legend())
+#' p + 
+#'  scale_colour_continuous(guide = "colorbar") +
+#'  scale_size_discrete(guide = "legend") + 
+#'  scale_shape(guide = "legend")
+#' 
+#' # Guides are integrated where possible
+#' 
+#' p + guides(colour = guide_legend("title"), size = guide_legend("title"),
+#'   shape = guide_legend("title"))
+#' # same as
+#' g <- guide_legend("title")
+#' p + guides(colour = g, size = g, shape = g)
+#' 
+#' p + opts(legend.position = "bottom")
+#'
+#' # position of guides
+#' 
+#' p + opts(legend.position = "bottom", legend.box = "horizontal")
 guides <- function(...) {
   args <- list(...)
   if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]
@@ -267,18 +264,18 @@ guides_build <- function(ggrobs, theme) {
 
 ## S3 dispatches
 
-##' @S3method guide_train legend 
-##' @S3method guide_train colorbar
+#' @S3method guide_train legend 
+#' @S3method guide_train colorbar
 guide_train <- function(...) UseMethod("guide_train")
 
-##' @S3method guide_merge legend 
-##' @S3method guide_merge colorbar 
+#' @S3method guide_merge legend 
+#' @S3method guide_merge colorbar 
 guide_merge <- function(...) UseMethod("guide_merge")
 
-##' @S3method guide_geom legend 
-##' @S3method guide_geom colorbar 
+#' @S3method guide_geom legend 
+#' @S3method guide_geom colorbar 
 guide_geom <- function(...) UseMethod("guide_geom")
 
-##' @S3method guide_gengrob legend 
-##' @S3method guide_gengrob colorbar 
+#' @S3method guide_gengrob legend 
+#' @S3method guide_gengrob colorbar 
 guide_gengrob <- function(...) UseMethod("guide_gengrob")
