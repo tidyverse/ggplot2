@@ -68,6 +68,10 @@ MINOR CHANGES
 * `stat_smooth` now adjusts confidence intervals from \code{loess} using a 
   t-based approximation
 
+* `scale_colour_gradient` and `scale_fill_gradient` now use a colour scheme
+  with constant hue but varying chroma and luminance. This is better because
+  it creates a natural ordering inline with the order of the colour values.
+
 DEVELOPMENT
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems
