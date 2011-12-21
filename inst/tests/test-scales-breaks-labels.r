@@ -70,3 +70,8 @@ test_that("discrete labels match breaks", {
 })
 
 
+test_that("scale breaks with numeric log transformation", {
+  sc <- scale_x_continuous(limits = c(1, 1e5), trans = log10_trans())
+  expect_equal(scale_breaks(sc), c(0, 2, 4)) # 1, 100, 10000
+  expect_equal(scale_breaks_minor(sc), c(0, 1, 2, 3, 4, 5))
+})
