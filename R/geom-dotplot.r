@@ -133,10 +133,8 @@ GeomDotplot <- proto(Geom, {
       # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
       # Can't do bounding box per dot, because y position isn't real.
       # After position code is rewritten, each dot should have its own bounding box.
-      df <- ddply(df, .(group), transform,
-            xmin = min(x) - binwidth[1] / 2,
-            xmax = max(x) + binwidth[1] / 2)
-
+      df$xmin <- df$x - df$binwidth / 2
+      df$xmax <- df$x + df$binwidth / 2
       df$ymin <- stackaxismin
       df$ymax <- stackaxismax
       df$y    <- 0
