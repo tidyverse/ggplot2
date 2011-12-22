@@ -4,6 +4,7 @@
 #' scales between different plots.
 #'
 #' @export
+#' @inheritParams geom_point
 #' @examples
 #' qplot(length, rating, data=movies, geom="blank")
 #' # Nothing to see here!

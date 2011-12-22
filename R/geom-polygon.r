@@ -4,6 +4,7 @@
 #'  \code{\link{geom_path}} for an unfilled polygon,
 #'  \code{\link{geom_ribbon}} for a polygon anchored on the x-axis
 #' @export
+#' @inheritParams geom_point
 #' @examples
 #' # When using geom_polygon, you will typically need two data frames:
 #' # one contains the coordinates of each polygon (positions),  and the

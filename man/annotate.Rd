@@ -6,7 +6,7 @@
     xmax = NULL, ymin = NULL, ymax = NULL, ...)
 }
 \arguments{
-  \item{name}{of geom to use for annotation}
+  \item{geom}{name of geom to use for annotation}
 
   \item{x}{x position}
 

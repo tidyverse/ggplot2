@@ -1,6 +1,7 @@
 #' Hexagon bining.
 #'
 #' @export
+#' @inheritParams geom_point
 #' @examples
 #' # See ?stat_binhex for examples  
 geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex", position = "identity", ...) { 

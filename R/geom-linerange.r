@@ -6,6 +6,7 @@
 #'   indicated by horizontal line; \code{\link{stat_summary}}: examples of
 #'   these guys in use; \code{\link{geom_smooth}}: for continuous analog
 #' @export
+#' @inheritParams geom_point
 #' @examples
 #' # Generate data: means and standard errors of means for prices
 #' # for each type of cut

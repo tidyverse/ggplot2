@@ -4,6 +4,7 @@
 #'   \code{\link{geom_bar}} for discrete intervals (bars),
 #'   \code{\link{geom_linerange}} for discrete intervals (lines),
 #'   \code{\link{geom_polygon}} for general polygons"
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' # Generate data
@@ -104,6 +105,7 @@ GeomRibbon <- proto(Geom, {
 #' minimum of the range is fixed to 0, and the position adjustment defaults 
 #' to position_stacked.
 #'
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' # see geom_ribbon

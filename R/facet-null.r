@@ -1,5 +1,6 @@
 #' Facet specification: a single panel.
 #'
+#' @inheritParams facet_grid
 #' @export
 #' @examples
 #' # facet_null is the default facetting specification if you 
@@ -20,7 +21,8 @@ facet_train_layout.null <- function(facet, data) {
 #' @S3method facet_map_layout null
 facet_map_layout.null <- function(facet, data, layout) {
   if (empty(data)) return(data.frame(PANEL = 1))
-  transform(data, PANEL = 1)
+  data$PANEL <- 1L
+  data
 }
 
 #' @S3method facet_render null
@@ -69,3 +71,6 @@ icon.facet_null <- function(.) {
     segmentsGrob(c(0, 0.475), c(0.475, 0), c(1, 0.475), c(0.475, 1))
   ))
 }  
+
+#' @S3method facet_vars null
+facet_vars.null <- function(facet) ""

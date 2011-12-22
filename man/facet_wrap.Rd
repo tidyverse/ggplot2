@@ -10,10 +10,20 @@
 
   \item{ncol}{number of columns}
 
-  \item{facet}{formula specifying variables to facet by}
+  \item{facets}{formula specifying variables to facet by}
 
-  \item{scales}{should scales be fixed, free, or free in
-  one dimension (\code{free_x}, \code{free_y})}
+  \item{scales}{should scales be fixed (\code{"fixed"}, the
+  default), free (\code{"free"}), or free in one dimension
+  (\code{"free_x"}, \code{"free_y"})}
+
+  \item{shrink}{If \code{TRUE}, will shrink scales to fit
+  output of statistics, not raw data. If \code{FALSE}, will
+  be range of raw data before statistical summary.}
+
+  \item{as.table}{If \code{TRUE}, the default, the facets
+  are laid out like a table with highest values at the
+  bottom-right. If \code{FALSE}, the facet are laid out
+  like a plot with the highest value at the top-right.}
 }
 \description{
   Wrap a 1d ribbon of panels into 2d.

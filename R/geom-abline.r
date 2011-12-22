@@ -15,6 +15,7 @@
 #'  \code{\link{geom_hline}} for horizontal lines,
 #'  \code{\link{geom_vline}} for vertical lines
 #'  \code{\link{geom_segment}}
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' p <- qplot(wt, mpg, data = mtcars)

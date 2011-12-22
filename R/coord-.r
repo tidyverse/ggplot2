@@ -22,13 +22,16 @@ distance <- function(., x, y, details) {
 
 coord_aspect <- function(coord, ranges)
   UseMethod("coord_aspect")
+#' @S3method coord_aspect default
 coord_aspect.default <- function(coord, ranges) NULL
 
 coord_labels <- function(coord, scales) UseMethod("coord_labels")
+#' @S3method coord_labels default
 coord_labels.default <- function(coord, scales) scales
 
 coord_render_fg <- function(coord, scales, theme) 
   UseMethod("coord_render_fg")
+#' @S3method coord_render_fg default
 coord_render_fg.default <- function(coord, scales, theme)
   theme_render(theme, "panel.border")
 

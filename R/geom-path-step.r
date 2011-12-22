@@ -1,5 +1,6 @@
 #' Connect observations by stairs.
 #'
+#' @inheritParams geom_point
 #' @param direction direction of stairs: 'vh' for vertical then horizontal, or
 #'   'hv' for horizontal then vertical
 #' @export

@@ -1,5 +1,6 @@
 #' Marginal rug plots.
 #'
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(x=wt, y=mpg))

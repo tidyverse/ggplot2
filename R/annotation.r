@@ -1,6 +1,6 @@
 #' Annotate a plot
 #' 
-#' @param name of geom to use for annotation
+#' @param geom name of geom to use for annotation
 #' @param x x position
 #' @param y y position
 #' @param xmin xmin position

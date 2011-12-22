@@ -6,6 +6,13 @@
 # @param range of data values
 guide_axis <- function(at, labels, position="right", theme) {
   position <- match.arg(position, c("top", "bottom", "right", "left"))
+
+  # Quick fix for conflicts #297 and #118
+  # Previously, at = NA if there is no breaks (breaks = NA).
+  # Fix for oob bug changed so that at = numeric(0) if there is no breaks.
+  # Temporally, at is set as NA if there is no breaks.
+  # see also SHA: f332070fca77399a84ea7a116e8c63f6990abaf6, SHA: 2ae13ad0a856c24cab6a69b523da0936ef7a94d8
+  if (length(at) == 0) at <- NA
   
   at <- unit(at, "native")
   length <- theme$axis.ticks.length

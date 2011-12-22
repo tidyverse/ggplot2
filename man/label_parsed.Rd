@@ -20,5 +20,8 @@ qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2,
 }
 \seealso{
   \code{\link{plotmath}}
+
+  Other facet labellers: \code{\link{label_both}},
+  \code{\link{label_bquote}}, \code{\link{label_value}}
 }
 

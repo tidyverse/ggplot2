@@ -1,5 +1,6 @@
 #' Display contours of a 3d surface in 2d.
 #'
+#' @inheritParams geom_point
 #' @seealso \code{\link{geom_density2d}}: 2d density contours
 #' @export
 #' @examples
