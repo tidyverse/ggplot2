@@ -1,0 +1,55 @@
+\name{stat_summary2d}
+\alias{stat_summary2d}
+\title{Apply funciton for 2D rectangular bins.}
+\usage{
+  stat_summary2d(mapping = NULL, data = NULL, geom = NULL,
+    position = "identity", bins = 30, drop = TRUE,
+    fun = mean, ...)
+}
+\arguments{
+  \item{mapping}{}
+
+  \item{data}{}
+
+  \item{geom}{}
+
+  \item{position}{}
+
+  \item{bins}{see \code{\link{stat_bin2d}}}
+
+  \item{drop}{drop if the output of \code{fun} is
+  \code{NA}.}
+
+  \item{fun}{function for summary.}
+
+  \item{...}{parameters passed to \code{fun}}
+}
+\description{
+  Apply function for 2D rectangular bins.
+}
+\details{
+  \code{stat_summary2d} is 2D version of
+  \code{\link{stat_summary}}. The data are devided by
+  \code{x} and \code{y}. \code{z} in each cell is passed to
+  arbitral summary function.
+
+  \code{stat_summary2d} requires the following aesthetics:
+
+  \itemize{ \item \code{x}: horizontal position \item
+  \code{y}: vertical position \item \code{z}: value passed
+  to the summary function }
+}
+\examples{
+d <- ggplot(diamonds, aes(carat, depth, z = price))
+d + stat_summary2d()
+
+# Specifying function
+d + stat_summary2d(fun = function(x) sum(x^2))
+d + stat_summary2d(fun = var)
+}
+\seealso{
+  \code{\link{stat_summary_hex}} for hexagonal
+  summarization. \code{\link{stat_bin2d}} for the binning
+  options.
+}
+

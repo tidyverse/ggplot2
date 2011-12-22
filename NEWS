@@ -19,6 +19,10 @@ NEW FEATURES
 * New fortify methods have been added for objects produced by the `multcomp`
   package.
 
+* `stat_summary2d` / `stat_summary_hex`. These are arbitrary function version
+  of stat_bin2d / stat_binhex. Any summarization (as stat-summary for 1D) can
+  be done for 2D.
+
 DEVELOPMENT
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems
