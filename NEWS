@@ -25,8 +25,7 @@ NEW FEATURES
 
 * `facet_grid`: now supports `free_x` and `free_y`, this allows the user to 
    adjust the scaling of the facets to either the x or y direction. This is especially 
-  useful when the scales are very different.
-  Willem Ligtenberg - willem.ligtenberg@openanalytics.eu
+  useful when the scales are very different. (Thanks to Willem Ligtenberg)
 
 DEVELOPMENT
 
