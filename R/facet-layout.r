@@ -55,7 +55,8 @@ layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, as.table = 
   }
   layout$COL <- as.integer((id - 1L) %% dims[2] + 1L)
   
-  cbind(layout, unrowname(base))
+  panels <- cbind(layout, unrowname(base))
+  panels[order(panels$PANEL), ]
 }
 
 layout_null <- function(data) { 
