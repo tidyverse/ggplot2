@@ -75,15 +75,15 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
   )
   new_aesthetics <- intersect(new_aesthetics, names(datacols))
   if (length(datacols) == 0) return()
-  
+
   for(aes in new_aesthetics) {
     disc <- is.discrete(datacols[[aes]])
     type <- if (disc) "discrete" else "continuous"
     scale_name <- paste("scale", aes, type, sep="_")
-    
+
     # Skip aesthetics with no scales (e.g. group, order, etc)
-    if (!exists(scale_name, globalenv())) next
-    scale_f <- get(scale_name, globalenv())
+    scale_f <- find_global(scale_name)
+    if (is.null(scale_f)) next
     
     if (disc) {
       args <- list()
@@ -94,6 +94,21 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
     scales$add(scale)
   }
   
+}
+
+# Look for object first in global environment and if not found, then in 
+# ggplot2 package environment.  This makes it possible to override default
+# scales by setting them in the default environment.
+find_global <- function(name) {
+  if (exists(name, globalenv())) {
+    return(get(name, globalenv()))
+  }
+  
+  if (exists(name, "package::ggplot2")) {
+    return(get(name, "package::ggplot2"))
+  }
+  
+  NULL
 }
 
 # Determine default transformation for continuous scales
