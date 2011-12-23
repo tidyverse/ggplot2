@@ -24,8 +24,9 @@ NEW FEATURES
   count). They are 2d analogs of `stat_summary`
 
 * `facet_grid`: now supports `free_x` and `free_y`, this allows the user to 
-  the scaling of the facets to either the x or y direction. Which is especially 
+   adjust the scaling of the facets to either the x or y direction. This is especially 
   useful when the scales are very different.
+  Willem Ligtenberg - willem.ligtenberg@openanalytics.eu
 
 DEVELOPMENT
 

@@ -331,19 +331,19 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   
   panel_matrix <- matrix(panel_grobs, nrow = nrow, ncol = ncol, byrow = T)
   
-  # Set default to fixed space
-  panel_widths <- rep(unit(1, "null"), ncol)
-  panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow)
-  
   size <- function(x) unit(diff(scale_dimension(x)), "null")
   
   if (facet$space_free$x) {
     x_scales <- panel$layout$SCALE_X[panel$layout$ROW == 1]
     panel_widths <- do.call("unit.c", llply(panel$x_scales, size))[x_scales]
+  } else {
+    panel_widths <- rep(unit(1, "null"), ncol)
   }
   if (facet$space_free$y) {
     y_scales <- panel$layout$SCALE_Y[panel$layout$COL == 1]
     panel_heights <- do.call("unit.c", llply(panel$y_scales, size))[y_scales]
+  } else {
+    panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow)
   }
   
   panels <- layout_matrix("panel", panel_matrix,
