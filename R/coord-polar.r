@@ -233,5 +233,14 @@ coord_render_fg.polar <- function(coord, details, theme) {
   )
 }  
 
+#' @S3method coord_labels poler
+coord_labels.polar <- function(coord, scales) {
+  if (coord$theta == "y") {
+    list(x = scales$y, y = scales$x)
+  } else {
+    scales
+  }
+}
+
   
 icon <- function(.) circleGrob(r = c(0.1, 0.25, 0.45), gp=gpar(fill=NA))
