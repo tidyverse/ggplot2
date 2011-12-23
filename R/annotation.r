@@ -23,7 +23,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL, ymin = 
     stat = "identity", 
     inherit.aes = FALSE,
     data = data.frame(layer_data), mapping = aes_all(names(layer_data)),
-    legend = FALSE
+    show_guide = FALSE
   )
 }
 
