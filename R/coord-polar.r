@@ -233,7 +233,7 @@ coord_render_fg.polar <- function(coord, details, theme) {
   )
 }  
 
-#' @S3method coord_labels poler
+#' @S3method coord_labels polar
 coord_labels.polar <- function(coord, scales) {
   if (coord$theta == "y") {
     list(x = scales$y, y = scales$x)
