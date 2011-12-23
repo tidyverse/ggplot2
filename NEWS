@@ -23,6 +23,12 @@ NEW FEATURES
   and stat_binhex but allow any summarisation function (instead of just
   count). They are 2d analogs of `stat_summary`
 
+* `facet_grid`: The space argument now supports `free_x` and `free_y` 
+  next to `free` and `fixed, this allows the user to adjust the spatial scaling of 
+  the facets in either the x or y direction. This is especially useful when the scales 
+  are very different. In this case space = `free` could make some facets very small. 
+  (Thanks to Willem Ligtenberg)
+
 DEVELOPMENT
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems
