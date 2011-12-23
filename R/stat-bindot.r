@@ -38,10 +38,10 @@
 #'
 stat_bindot <- function (mapping = NULL, data = NULL, geom = "dotplot", position = "identity",
 width = 0.9, binaxis = "x", method = "dotdensity", binpositions = "bygroup",
-drop = FALSE, right = TRUE, ...) {
+drop = FALSE, right = TRUE, na.rm = FALSE, ...) {
   StatBindot$new(mapping = mapping, data = data, geom = geom, position = position,
   width = width, binaxis = binaxis, method = method, binpositions = binpositions,
-  drop = drop, right = right, ...)
+  drop = drop, right = right, na.rm = na.rm, ...)
 }
 
 
@@ -49,8 +49,11 @@ StatBindot <- proto(Stat, {
   objname <- "bindot"
   informed <- FALSE
   
-  calculate_groups <- function(., data, binwidth = NULL, binaxis = "x",
+  calculate_groups <- function(., data, na.rm = FALSE, binwidth = NULL, binaxis = "x",
                         method = "dotdensity", binpositions = "bygroup", ...) {
+    data <- remove_missing(data, na.rm, c(binaxis, "weight"), name="stat_bindot", 
+      finite = TRUE)
+
     .$informed <- FALSE
 
     # If using dotdensity and binning over all, we need to find the bin centers
