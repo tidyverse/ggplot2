@@ -23,6 +23,10 @@ NEW FEATURES
   and stat_binhex but allow any summarisation function (instead of just
   count). They are 2d analogs of `stat_summary`
 
+* `facet_grid`: now supports `free_x` and `free_y`, this allows the user to 
+  the scaling of the facets to either the x or y direction. Which is especially 
+  useful when the scales are very different.
+
 DEVELOPMENT
 
 * ggplot2 has moved away from the two (!!) homegrown documentation systems

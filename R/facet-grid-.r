@@ -92,6 +92,8 @@
 #' mt + facet_grid(vs ~ am, scales = "free_x")
 #' mt + facet_grid(vs ~ am, scales = "free_y")
 #' mt + facet_grid(vs ~ am, scales = "free", space="free")
+#' mt + facet_grid(vs ~ am, scales = "free", space="free_x")
+#' mt + facet_grid(vs ~ am, scales = "free", space="free_y")
 #' 
 #' # You may need to set your own breaks for consitent display:
 #' mt + facet_grid(. ~ cyl, scales = "free_x", space="free") + 
@@ -131,7 +133,12 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
   )
-  space <- match.arg(space, c("fixed", "free"))
+  
+  space <- match.arg(space, c("fixed", "free_x", "free_y", "free"))
+  space_free <- list(
+      x = any(space %in% c("free_x", "free")),
+      y = any(space %in% c("free_y", "free"))
+  )
   
   # Facets can either be a formula, a string, or a list of things to be
   # convert to quoted
@@ -154,7 +161,7 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
   
   facet(
     rows = rows, cols = cols, margins = margins, shrink = shrink,
-    free = free, space_is_free = (space == "free"),
+    free = free, space_free = space_free, 
     labeller = labeller, as.table = as.table, drop = drop,
     subclass = "grid"
   )
@@ -323,19 +330,22 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   })
   
   panel_matrix <- matrix(panel_grobs, nrow = nrow, ncol = ncol, byrow = T)
-
-  if(facet$space_is_free) {
-    size <- function(x) unit(diff(scale_dimension(x)), "null")
+  
+  # Set default to fixed space
+  panel_widths <- rep(unit(1, "null"), ncol)
+  panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow)
+  
+  size <- function(x) unit(diff(scale_dimension(x)), "null")
+  
+  if (facet$space_free$x) {
     x_scales <- panel$layout$SCALE_X[panel$layout$ROW == 1]
-    y_scales <- panel$layout$SCALE_Y[panel$layout$COL == 1]
-
     panel_widths <- do.call("unit.c", llply(panel$x_scales, size))[x_scales]
-    panel_heights <- do.call("unit.c", llply(panel$y_scales, size))[y_scales]
-  } else {
-    panel_widths <- rep(unit(1, "null"), ncol)
-    panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow)
   }
-
+  if (facet$space_free$y) {
+    y_scales <- panel$layout$SCALE_Y[panel$layout$COL == 1]
+    panel_heights <- do.call("unit.c", llply(panel$y_scales, size))[y_scales]
+  }
+  
   panels <- layout_matrix("panel", panel_matrix,
     panel_widths, panel_heights, respect = respect)
   panels <- gtable_add_col_space(panels, theme$panel.margin)
