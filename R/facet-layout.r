@@ -6,13 +6,14 @@
 # @return a data frame with columns \code{PANEL}, \code{ROW} and \code{COL},
 #   that match the facetting variable values up with their position in the 
 #   grid
-layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL) {
+layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL, drop = TRUE) {
   if (length(rows) == 0 && length(cols) == 0) return(layout_null())
   rows <- as.quoted(rows)
   cols <- as.quoted(cols)
+
   
-  base_rows <- layout_base(data, rows)
-  base_cols <- layout_base(data, cols)
+  base_rows <- layout_base(data, rows, drop = drop)
+  base_cols <- layout_base(data, cols, drop = drop)
   base <- df.grid(base_rows, base_cols)
   
   # Add margins
@@ -24,8 +25,8 @@ layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL) {
   panel <- id(base, drop = TRUE)
   panel <- factor(panel, levels = seq_len(attr(panel, "n")))
   
-  rows <- if (is.null(names(rows))) 1 else id(base[names(rows)], drop = TRUE)
-  cols <- if (is.null(names(cols))) 1 else id(base[names(cols)], drop = TRUE)
+  rows <- if (is.null(names(rows))) 1L else id(base[names(rows)], drop = TRUE)
+  cols <- if (is.null(names(cols))) 1L else id(base[names(cols)], drop = TRUE)
   
   panels <- data.frame(PANEL = panel, ROW = rows, COL = cols, base)
   arrange(panels, PANEL)
@@ -35,28 +36,26 @@ layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL) {
 #
 # @params drop should missing combinations be excluded from the plot?
 # @keywords internal
-layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, as.table = TRUE) {
+layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, as.table = TRUE, drop = TRUE) {
   vars <- as.quoted(vars)
   if (length(vars) == 0) return(layout_null())
 
-  base <- unrowname(layout_base(data, vars))
+  base <- unrowname(layout_base(data, vars, drop = drop))
 
   id <- id(base, drop = TRUE)
   n <- attr(id, "n")
   
   dims <- wrap_dims(n, nrow, ncol)
-  
   layout <- data.frame(PANEL = factor(id, levels = seq_len(n)))
   
   if (as.table) {
-    layout$ROW <- (as.integer(id) - 1L) %/% dims[2] + 1L
+    layout$ROW <- as.integer((id - 1L) %/% dims[2] + 1L)
   } else {
-    layout$ROW <- dims[1] - (as.integer(id) - 1L) %/% dims[2]
+    layout$ROW <- as.integer(dims[1] - (id - 1L) %/% dims[2])
   }
-  layout$COL <- (as.integer(id) - 1L) %% dims[2] + 1L
+  layout$COL <- as.integer((id - 1L) %% dims[2] + 1L)
   
-  layout <- cbind(layout, base)  
-  layout[order(layout$PANEL), ]
+  cbind(layout, unrowname(base))
 }
 
 layout_null <- function(data) { 
@@ -68,7 +67,7 @@ layout_null <- function(data) {
 #
 # @params data list of data frames (one for each layer)
 # @keywords internal
-layout_base <- function(data, vars = NULL) {
+layout_base <- function(data, vars = NULL, drop = TRUE) {
   if (length(vars) == 0) return(data.frame())
 
   # For each layer, compute the facet values
@@ -80,7 +79,11 @@ layout_base <- function(data, vars = NULL) {
   if (!any(has_all)) {
     stop("At least one layer must contain all variables used for facetting")
   }
-  base <- unique(ldply(values[has_all]))
+  
+  base <- unique(ldply(values[has_all]))    
+  if (!drop) {
+    base <- unique_combs(base)
+  }
   
   # Systematically add on missing combinations
   for (value in values[!has_all]) {
@@ -88,10 +91,30 @@ layout_base <- function(data, vars = NULL) {
     
     old <- base[setdiff(names(base), names(value))]
     new <- unique(value[intersect(names(base), names(value))])  
+    if (drop) {
+      new <- unique_combs(new)
+    }
     
     base <- rbind(base, df.grid(old, new))
   }
   base
+}
+
+ulevels <- function(x) {
+  if (is.factor(x)) {
+    x <- addNA(x, TRUE)
+    factor(levels(x), levels(x), exclude = NULL)
+  } else {
+    sort(unique(x))
+  }
+}
+
+unique_combs <- function(df) {
+  if (length(df) == 0) return()
+  
+  unique_values <- llply(df, ulevels)
+  rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE, 
+    KEEP.OUT.ATTRS = TRUE))
 }
 
 df.grid <- function(a, b) {
@@ -102,11 +125,10 @@ df.grid <- function(a, b) {
     i_a = seq_len(nrow(a)), 
     i_b = seq_len(nrow(b))
   )
-  both <- cbind(
+  unrowname(cbind(
     a[indexes$i_a, , drop = FALSE], 
     b[indexes$i_b, , drop = FALSE]
-  )
-  
+  ))
 }
 
 quoted_df <- function(data, vars) {

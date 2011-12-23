@@ -50,7 +50,7 @@
 #'   facet_wrap(~ cyl)
 #' p + geom_point(data = transform(cyl6, cyl = NULL), colour = "red") + 
 #'   facet_wrap(~ cyl)
-facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, as.table = TRUE) {
+facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, as.table = TRUE, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
@@ -68,14 +68,14 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrin
 #' @S3method facet_train_layout wrap
 facet_train_layout.wrap <- function(facet, data) { 
   panels <- layout_wrap(data, facet$facets, facet$nrow, facet$ncol,
-     facet$as.table)
+     facet$as.table, facet$drop)
   
   n <- nrow(panels)
   nrow <- max(panels$ROW)
   
   # Add scale identification
-  panels$SCALE_X <- if (facet$free$x) seq_len(n) else 1
-  panels$SCALE_Y <- if (facet$free$y) seq_len(n) else 1
+  panels$SCALE_X <- if (facet$free$x) seq_len(n) else 1L
+  panels$SCALE_Y <- if (facet$free$y) seq_len(n) else 1L
   
   # Figure out where axes should go
   panels$AXIS_X <- if (facet$free$x) TRUE else panels$ROW == nrow

@@ -24,6 +24,9 @@
 #' @param shrink If \code{TRUE}, will shrink scales to fit output of
 #'   statistics, not raw data. If \code{FALSE}, will be range of raw data
 #'   before statistical summary.
+#' @param drop If \code{TRUE}, the default, all factor levels not used in the
+#'   data will automatically be dropped. If \code{FALSE}, all factor levels
+#'   will be shown, regardless of whether or not they appear in the data.
 #' @export
 #' @examples 
 #' # faceting displays subsets of the data in different panels
@@ -122,7 +125,7 @@
 #' p <- qplot(wt, mpg, data = mtcars)
 #' p + facet_grid(~ vs, labeller = label_bquote(alpha ^ .(x)))
 #' p + facet_grid(~ vs, labeller = label_bquote(.(x) ^ .(x)))
-facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE) {
+facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
@@ -152,18 +155,19 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
   facet(
     rows = rows, cols = cols, margins = margins, shrink = shrink,
     free = free, space_is_free = (space == "free"),
-    labeller = labeller, as.table = as.table,
+    labeller = labeller, as.table = as.table, drop = drop,
     subclass = "grid"
   )
 }
 
 #' @S3method facet_train_layout grid
 facet_train_layout.grid <- function(facet, data) { 
-  layout <- layout_grid(data, facet$rows, facet$cols, facet$margins)
-
+  layout <- layout_grid(data, facet$rows, facet$cols, facet$margins,
+    facet$drop)
+    
   # Relax constraints, if necessary
-  layout$SCALE_X <- if (facet$free$x) layout$COL else 1
-  layout$SCALE_Y <- if (facet$free$y) layout$ROW else 1
+  layout$SCALE_X <- if (facet$free$x) layout$COL else 1L
+  layout$SCALE_Y <- if (facet$free$y) layout$ROW else 1L
   
   layout
 }
