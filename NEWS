@@ -13,8 +13,14 @@ NEW FEATURES
   `annotation_raster`, an even faster special case, for when you want to draw
   the same raster in each panel.
 
-* `geom_violin`: an implementation violin plots, which are a way of
+* `geom_violin`: an implementation of violin plots, which are a way of
   visualizing kernel density estimates. (Thanks to Winston Chang)
+
+* `geom_dotplot`: dot plots, as described in Wilkinson (1999). To bin the data,
+  it uses `stat_bindot` to bin the data, which has two methods: histodot and
+  dot-density. Histodot binning uses fixed-width bins just like `stat_bin`,
+  while dot-density binning uses variable-width bins. A new grob,
+  `grob_dotstack` is used to render the dots. (Thanks to Winston Chang)
 
 * New fortify methods have been added for objects produced by the `multcomp`
   package.
