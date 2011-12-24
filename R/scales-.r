@@ -104,8 +104,9 @@ find_global <- function(name) {
     return(get(name, globalenv()))
   }
   
-  if (exists(name, "package:ggplot2")) {
-    return(get(name, "package:ggplot2"))
+  pkg <- getNamespace("ggplot2")
+  if (exists(name, pkg)) {
+    return(get(name, pkg))
   }
   
   NULL
