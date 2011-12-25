@@ -118,19 +118,17 @@ aes_all <- function(vars) {
   )  
 }
 
-#' .. content for \description{} (no empty lines) ..
+#' Automatic aesthetic mapping
 #'
-#' .. content for \details{} ..
-#' @title 
-#' @param data data.frame or names of data.frame
+#' @param data data.frame or names of variables
 #' @param ... aesthetics that need to be explicitly mapped.
 #' @export
 #' @examples
-#' df <- data.frame(x = 1:3, y = 1:3, colour = 1:3, label = letters[1:3])
+#' df <- data.frame(x = 1, y = 1, colour = 1, label = 1, pch = 1)
 #' aes_auto(df)
 #' aes_auto(names(df))
 #' 
-#' df <- data.frame(xp = 1:3, y = 1:3, colour = 1:3, txt = letters[1:3], foo = 1:3)
+#' df <- data.frame(xp = 1, y = 1, colour = 1, txt = 1, foo = 1)
 #' aes_auto(df, x = xp, label = txt)
 #' aes_auto(names(df), x = xp, label = txt)
 #' 
@@ -151,13 +149,14 @@ aes_auto <- function(data = NULL, ...) {
   vars <- intersect(.all_aesthetics, vars)
   names(vars) <- vars
   aes <- lapply(vars, function(x) parse(text=x)[[1]])
-  
+
   # explicitly defined aes
   if (length(match.call()) > 2) {
-    aes <- c(aes, as.list(match.call()[-(1:2)]))
+    args <- as.list(match.call()[-1])
+    aes <- c(aes, args[names(args) != "data"])
   }
-  
-  structure(aes, class = "uneval")
+
+  structure(rename_aes(aes), class = "uneval")
 }
 
 # Aesthetic defaults
