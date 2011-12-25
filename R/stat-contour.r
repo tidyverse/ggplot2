@@ -72,7 +72,10 @@ StatContour <- proto(Stat, {
     cl <- contourLines(
       x = sort(unique(data$x)), y = sort(unique(data$y)), z = z, 
       levels = breaks)  
-    if (length(cl) == 0) return(data.frame())
+    if (length(cl) == 0) {
+      warning("Not possible to generate contour data", call. = FALSE)
+      return(data.frame())
+    }
 
     cl <- lapply(cl, as.data.frame)    
     contour_df <- rbind.fill(cl)

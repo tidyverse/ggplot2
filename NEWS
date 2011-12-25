@@ -13,8 +13,14 @@ NEW FEATURES
   `annotation_raster`, an even faster special case, for when you want to draw
   the same raster in each panel.
 
-* `geom_violin`: an implementation violin plots, which are a way of
+* `geom_violin`: an implementation of violin plots, which are a way of
   visualizing kernel density estimates. (Thanks to Winston Chang)
+
+* `geom_dotplot`: dot plots, as described in Wilkinson (1999). To bin the data,
+  it uses `stat_bindot` to bin the data, which has two methods: histodot and
+  dot-density. Histodot binning uses fixed-width bins just like `stat_bin`,
+  while dot-density binning uses variable-width bins. A new grob,
+  `grob_dotstack` is used to render the dots. (Thanks to Winston Chang)
 
 * New fortify methods have been added for objects produced by the `multcomp`
   package.
@@ -22,6 +28,12 @@ NEW FEATURES
 * `stat_summary2d` and `stat_summary_hex`. These are work like `stat_bin2d`
   and stat_binhex but allow any summarisation function (instead of just
   count). They are 2d analogs of `stat_summary`
+
+* `facet_grid`: The space argument now supports `free_x` and `free_y` 
+  next to `free` and `fixed, this allows the user to adjust the spatial scaling of 
+  the facets in either the x or y direction. This is especially useful when the scales 
+  are very different. In this case space = `free` could make some facets very small. 
+  (Thanks to Willem Ligtenberg)
 
 DEVELOPMENT
 

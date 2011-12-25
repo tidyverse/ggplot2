@@ -4,7 +4,7 @@
 \usage{
   facet_grid(facets, margins = FALSE, scales = "fixed",
     space = "fixed", shrink = TRUE,
-    labeller = "label_value", as.table = TRUE)
+    labeller = "label_value", as.table = TRUE, drop = TRUE)
 }
 \arguments{
   \item{facets}{a formula with the rows (of the tabular
@@ -44,6 +44,12 @@
   \item{shrink}{If \code{TRUE}, will shrink scales to fit
   output of statistics, not raw data. If \code{FALSE}, will
   be range of raw data before statistical summary.}
+
+  \item{drop}{If \code{TRUE}, the default, all factor
+  levels not used in the data will automatically be
+  dropped. If \code{FALSE}, all factor levels will be
+  shown, regardless of whether or not they appear in the
+  data.}
 }
 \description{
   Lay out panels in a grid.
