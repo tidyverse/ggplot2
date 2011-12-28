@@ -19,7 +19,7 @@
 #' @param xlim limits for x axis
 #' @param ylim limits for y axis
 #' @param log which variables to log transform ("x", "y", or "xy")
-#' @param title character vector or expression for plot title
+#' @param main character vector or expression for plot title
 #' @param xlab character vector or expression for x axis label
 #' @param ylab character vector or expression for y axis label
 #' @param asp the y/x aspect ratio
