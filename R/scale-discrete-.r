@@ -6,6 +6,12 @@
 #' level, and increasing by one for each level (i.e. the labels are placed
 #' at integer positions).  This is what allows jittering to work.
 #'
+#' @param ... common continuous scale parameters: \code{name}, \code{breaks},
+#'  \code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
+#'  \code{\link{continuous_scale}} for more details.
+#' @param expand Numeric vector of length two, giving multiplicative and 
+#'               additive expansion factors. Default: c(0, 0.6).
+#'
 #' @rdname scale_discrete
 #' @family position scales
 #' @export

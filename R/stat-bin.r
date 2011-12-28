@@ -10,11 +10,6 @@
 #' @param geom The geom to apply to the data for this layer. 
 #' @param position The position adjustment to use for overlapping points
 #'    on this layer.
-
-##' @param binwidth Bin width to use. Defaults to 1/30 of the range of the
-##'   data
-##' @param breaks Actual breaks to use.  Overrides bin width and origin 
-##' @param origin Origin of first bin 
 #' @param width Width of bars when used with categorical data 
 #' @param right If \code{TRUE}, right-closed, left-open, if \code{FALSE}, 
 #"   the default, right-open, left-closed.

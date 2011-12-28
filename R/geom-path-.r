@@ -4,7 +4,6 @@
 #' @param lineend Line end style (round, butt, square)
 #' @param linejoin Line join style (round, mitre, bevel)
 #' @param linemitre Line mitre limit (number greater than 1)
-##' @param arrow Arrow specification, as created by ?grid::arrow
 #' @seealso \code{\link{geom_line}}: Functional (ordered) lines;  
 #'  \code{\link{geom_polygon}}: Filled paths (polygons); 
 #'  \code{\link{geom_segment}}: Line segments

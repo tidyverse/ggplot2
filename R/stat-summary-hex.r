@@ -19,14 +19,12 @@
 #' @param geom The geom to apply to the data for this layer. 
 #' @param position The position adjustment to use for overlapping points
 #'    on this layer.
-#' @param ... other arguments passed on to the function. 
-#'
-##' @seealso \code{\link{stat_summary2d}} for rectangular summarization. \code{\link{stat_bin2d}} for the hexagon-ing options.
-##' @title Apply funciton for 2D hexagonal bins.
 ##' @param bins see \code{\link{stat_binhex}}
 ##' @param drop drop if the output of \code{fun} is \code{NA}.
 ##' @param fun function for summary.
 ##' @param ... parameters passed to \code{fun}
+##' @seealso \code{\link{stat_summary2d}} for rectangular summarization. \code{\link{stat_bin2d}} for the hexagon-ing options.
+##' @title Apply funciton for 2D hexagonal bins.
 ##' @export
 ##' @examples
 ##' d <- ggplot(diamonds, aes(carat, depth, z = price))

@@ -15,7 +15,6 @@
 #'    a warning.  If \code{TRUE} silently removes missing values.
 #' @param ... Additional arguments to be passed to the function.
 #'
-##' @param xseq exact points to evaluate smooth at, overrides n
 #' @return a data.frame with additional columns:
 #'   \item{quantile}{quantile of distribution}
 #' @export

@@ -64,7 +64,7 @@ theme_set <- .theme$set
 #' Use this function if you want to modify a few theme settings for 
 #' a single plot. The individual theme elements are:
 #' 
-#' \tabular{ll} {
+#' \tabular{ll}{
 #' axis.line     \tab  line along axis
 #'   axis.text.x   \tab   x axis label
 #'   axis.text.y    \tab  y axis label

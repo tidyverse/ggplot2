@@ -161,6 +161,8 @@ summarise_by_x <- function(data, summary, ...) {
 #' 
 #' See the Hmisc documentation for details of their options.
 #' 
+#' @param fun Hmisc function to be applied. See the aliases below for 
+#'   the list of candidate functions.
 #' @seealso \code{\link[Hmisc]{smean.cl.boot}},
 #'   \code{\link[Hmisc]{smean.cl.normal}}, \code{\link[Hmisc]{smean.sdl}},
 #'    \code{\link[Hmisc]{smedian.hilow}}

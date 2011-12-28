@@ -30,7 +30,6 @@
 #' @param n number of points at which to evaluate the smoother
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #' a warning.  If \code{TRUE}, silently removes missing values.
-##' @param xseq exact points to evaluate smooth at, overrides n
 #' @param ... other arguments passed to smoothing function.
 #' @return a data.frame with additional columns 
 #'   \item{y}{predicted value}

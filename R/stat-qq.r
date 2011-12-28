@@ -14,7 +14,6 @@
 #'    a warning.  If \code{TRUE} silently removes missing values.
 #' @param ... Other arguments passed to the distribution function.
 #'
-##' @param quantiles Quantiles to compute and display
 #' @return a data.frame with additional columns:
 #'   \item{sample}{sample quantiles}
 #'   \item{theoretical}{theoretical quantiles}

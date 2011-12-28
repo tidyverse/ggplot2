@@ -18,8 +18,6 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...) {
 #' @param mapping The aesthetic mapping, usually constructed with
 #'    \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
 #'    at the layer level if you are overriding the plot defaults.
-##' @param default list of aesthetic mappings (these can be colour, size,
-##'   shape, line type -- see individual geom functions for more details)
 #' @param ... ignored
 #' @param environment in which evaluation of aesthetics should occur
 #' @seealso \url{http://had.co.nz/ggplot2}
