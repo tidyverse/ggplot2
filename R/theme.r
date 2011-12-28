@@ -65,40 +65,40 @@ theme_set <- .theme$set
 #' a single plot. The individual theme elements are:
 #' 
 #' \tabular{ll}{
-#' axis.line     \tab  line along axis
-#'   axis.text.x   \tab   x axis label
-#'   axis.text.y    \tab  y axis label
-#'   axis.ticks     \tab  axis tick marks
-#'   axis.ticks.length \tab  tick mark length
-#'   axis.ticks.margin   \tab   tick mark margin spacing
-#'   axis.title.x  \tab   horizontal tick labels
-#'   axis.title.y  \tab   vertical tick labels
-#'   legend.background   \tab   background of legend
-#'   legend.margin \tab   extra space added around legend (both width or height depending on orientation of legend)
-#'   legend.key   \tab    background underneath legend keys
-#'   legend.key.size   \tab     key background size 
-#'   legend.key.height \tab     key background height
-#'   legend.key.width  \tab     key background width
-#'   legend.text       \tab     legend labels
-#'   legend.text.align \tab     alignment of legend labels
-#'   legend.title      \tab     legend name
-#'   legend.title.align  \tab   alignment of legend title
-#'   legend.position    \tab    A string or numeric vector specifying the position of guides (legends).
-#'    Possible values are: "left", "right", "bottom", "top", and two-element numeric vector.
-#'   legend.justification \tab  alignment of legend 
-#'   legend.direction     \tab  horizontal or vertical
-#'   legend.box   \tab    A string specifying the direction of multiple guides. Possible string values are: "horizontal" and "vertical". 
-#'   panel.background   \tab    background of panel
-#'   panel.border       \tab    border around panel
-#'   panel.margin       \tab    margin around facet panels
-#'   panel.grid.major   \tab    major grid lines
-#'   panel.grid.minor   \tab    minor grid lines
-#'   plot.background    \tab    background of the entire plot
-#'   plot.title         \tab    plot title
-#'   plot.margin        \tab    plot margins
-#'   strip.background   \tab    background of facet labels
-#'   strip.text.x       \tab    text for horizontal strips
-#'   strip.text.y       \tab    text for vertical strips
+#' axis.line     \tab  line along axis \cr
+#'   axis.text.x   \tab   x axis label \cr
+#'   axis.text.y    \tab  y axis label \cr
+#'   axis.ticks     \tab  axis tick marks \cr
+#'   axis.ticks.length \tab  tick mark length \cr 
+#'   axis.ticks.margin   \tab   tick mark margin spacing \cr
+#'   axis.title.x  \tab   horizontal tick labels \cr
+#'   axis.title.y  \tab   vertical tick labels \cr
+#'   legend.background   \tab   background of legend \cr
+#'   legend.margin \tab   extra space added around legend (both width or height depending on orientation of legend) \cr
+#'   legend.key   \tab    background underneath legend keys \cr
+#'   legend.key.size   \tab     key background size \cr
+#'   legend.key.height \tab     key background height \cr
+#'   legend.key.width  \tab     key background width \cr
+#'   legend.text       \tab     legend labels \cr
+#'   legend.text.align \tab     alignment of legend labels \cr
+#'   legend.title      \tab     legend name \cr
+#'   legend.title.align  \tab   alignment of legend title \cr
+#'   legend.position    \tab    A string or numeric vector  specifying the position of guides (legends). \cr
+#'    Possible values are: "left", "right", "bottom", "top", and two-element numeric vector. \cr
+#'   legend.justification \tab  alignment of legend \cr
+#'   legend.direction     \tab  horizontal or vertical \cr
+#'   legend.box   \tab    A string specifying the direction of multiple guides. Possible string values are: "horizontal" and "vertical". \cr
+#'   panel.background   \tab    background of panel \cr
+#'   panel.border       \tab    border around panel \cr
+#'   panel.margin       \tab    margin around facet panels \cr
+#'   panel.grid.major   \tab    major grid lines \cr 
+#'   panel.grid.minor   \tab    minor grid lines \cr
+#'   plot.background    \tab    background of the entire plot \cr
+#'   plot.title         \tab    plot title \cr
+#'   plot.margin        \tab    plot margins \cr
+#'   strip.background   \tab    background of facet labels \cr
+#'   strip.text.x       \tab    text for horizontal strips \cr
+#'   strip.text.y       \tab    text for vertical strips \cr
 #'  }
 #'
 #' @param ... Theme elements passed to the function.
