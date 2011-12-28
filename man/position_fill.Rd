@@ -5,6 +5,15 @@ equal height.}
 \usage{
   position_fill(width = NULL, height = NULL, ...)
 }
+\arguments{
+  \item{width}{Horizontal width from the center point to
+  dodge.}
+
+  \item{height}{Vertical height from the center point to
+  dodge.}
+
+  \item{...}{Other arguments to be passed to the function.}
+}
 \description{
   Stack overlapping objects on top of one another, and
   standardise to have equal height.

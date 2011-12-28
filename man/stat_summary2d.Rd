@@ -1,26 +1,32 @@
 \name{stat_summary2d}
 \alias{stat_summary2d}
-\title{Apply funciton for 2D rectangular bins.}
+\title{Apply a function to produce 2D rectangular bins.}
 \usage{
   stat_summary2d(mapping = NULL, data = NULL, geom = NULL,
     position = "identity", bins = 30, drop = TRUE,
     fun = mean, ...)
 }
 \arguments{
-  \item{mapping}{}
+  \item{mapping}{The aesthetic mapping, usually constructed
+  with \code{\link{aes}} or \code{\link{aes_string}}. Only
+  needs to be set at the layer level if you are overriding
+  the plot defaults.}
 
-  \item{data}{}
+  \item{data}{A layer specific dataset - only needed if you
+  want to override the plot defaults.}
 
-  \item{geom}{}
+  \item{geom}{The geom to apply to the data for this
+  layer.}
 
-  \item{position}{}
+  \item{position}{The position adjustment to use for
+  overlapping points on this layer.}
 
   \item{bins}{see \code{\link{stat_bin2d}}}
 
   \item{drop}{drop if the output of \code{fun} is
   \code{NA}.}
 
-  \item{fun}{function for summary.}
+  \item{fun}{summarization function. Default: mean.}
 
   \item{...}{parameters passed to \code{fun}}
 }

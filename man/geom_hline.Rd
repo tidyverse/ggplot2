@@ -6,6 +6,8 @@
     position = "identity", show_guide = FALSE, ...)
 }
 \arguments{
+  \item{show_guide}{should a legend be drawn?}
+
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
   needs to be set at the layer level if you are overriding

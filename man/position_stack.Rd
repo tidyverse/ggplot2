@@ -4,6 +4,13 @@
 \usage{
   position_stack(width = NULL, height = NULL, ...)
 }
+\arguments{
+  \item{width}{Horizontal width from the center to stack.}
+
+  \item{height}{Vertical height from the center to stack.}
+
+  \item{...}{Other arguments passed to the function.}
+}
 \description{
   Stack overlapping objects on top of one another.
 }

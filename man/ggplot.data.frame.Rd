@@ -8,9 +8,10 @@
 \arguments{
   \item{data}{default data frame for plot}
 
-  \item{default}{list of aesthetic mappings (these can be
-  colour, size, shape, line type -- see individual geom
-  functions for more details)}
+  \item{mapping}{The aesthetic mapping, usually constructed
+  with \code{\link{aes}} or \code{\link{aes_string}}. Only
+  needs to be set at the layer level if you are overriding
+  the plot defaults.}
 
   \item{...}{ignored}
 

@@ -17,6 +17,9 @@
     space = "rgb", na.value = "grey50")
 }
 \arguments{
+  \item{midpoint}{the location of the midpoint of the
+  gradient scale}
+
   \item{...}{Other arguments passed on to
   \code{\link{continuous_scale}} to control name, limits,
   breaks, labels and so forth.}

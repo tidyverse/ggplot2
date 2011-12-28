@@ -10,6 +10,9 @@
 
   scale_linetype_discrete(...)
 }
+\arguments{
+  \item{...}{line types to be passed}
+}
 \description{
   Default line types based on a set supplied by Richard
   Pearson, University of Manchester.  Line types can not be

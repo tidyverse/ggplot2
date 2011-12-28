@@ -17,10 +17,19 @@
   want to override the plot defaults.}
 
   \item{stat}{The statistical transformation to use on the
-  data for this layer.}
+  data for this layer. Default: 'contour'.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer.}
+
+  \item{lineend}{Line end style (round, butt, square).
+  Default: 'butt'.}
+
+  \item{linejoin}{Line join style (round, mitre, bevel).
+  Default: 'round'.}
+
+  \item{linemitre}{Line mitre limit (number greater than
+  1).}
 
   \item{na.rm}{If \code{FALSE} (the default), removes
   missing values with a warning.  If \code{TRUE} silently

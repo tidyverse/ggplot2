@@ -9,7 +9,9 @@
   40\% of the resolution of the data.}
 
   \item{height}{degree of jitter in y direction. Defaults
-  to 40\% of the resolution of the data}
+  to 40\% of the resolution of the data.}
+
+  \item{...}{Other arguments to be passed to the function.}
 }
 \description{
   Jitter points to avoid overplotting.

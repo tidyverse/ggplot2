@@ -6,9 +6,6 @@
     stat = "identity", position = "identity", ...)
 }
 \arguments{
-  \item{arrow}{specification for arrow heads, as created by
-  arrow()}
-
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
   needs to be set at the layer level if you are overriding

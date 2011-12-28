@@ -8,14 +8,34 @@
     method = "rq", na.rm = FALSE, ...)
 }
 \arguments{
+  \item{mapping}{The aesthetic mapping, usually constructed
+  with \code{\link{aes}} or \code{\link{aes_string}}. Only
+  needs to be set at the layer level if you are overriding
+  the plot defaults.}
+
+  \item{data}{A layer specific dataset - only needed if you
+  want to override the plot defaults.}
+
+  \item{geom}{The geom to apply to the data for this
+  layer.}
+
+  \item{position}{The position adjustment to use for
+  overlapping points on this layer.}
+
   \item{quantiles}{conditional quantiles of y to calculate
   and display}
 
   \item{formula}{formula relating y variables to x
   variables}
 
-  \item{xseq}{exact points to evaluate smooth at, overrides
-  n}
+  \item{method}{Modeling function to apply. Default: 'rq'.}
+
+  \item{na.rm}{If \code{FALSE} (the default), removes
+  missing values with a warning.  If \code{TRUE} silently
+  removes missing values.}
+
+  \item{...}{Additional arguments to be passed to the
+  function.}
 }
 \value{
   a data.frame with additional columns:

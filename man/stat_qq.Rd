@@ -7,15 +7,31 @@
     dparams = list(), na.rm = FALSE, ...)
 }
 \arguments{
-  \item{quantiles}{Quantiles to compute and display}
+  \item{mapping}{The aesthetic mapping, usually constructed
+  with \code{\link{aes}} or \code{\link{aes_string}}. Only
+  needs to be set at the layer level if you are overriding
+  the plot defaults.}
 
-  \item{dist}{Distribution function to use, if x not
-  specified}
+  \item{data}{A layer specific dataset - only needed if you
+  want to override the plot defaults.}
 
-  \item{dparams}{Parameters for distribution function}
+  \item{geom}{The geom to apply to the data for this
+  layer.}
 
-  \item{...}{Other arguments passed to distribution
-  function}
+  \item{position}{The position adjustment to use for
+  overlapping points on this layer.}
+
+  \item{distribution}{Distribution function to use, if x
+  not specified.}
+
+  \item{dparams}{Parameters for distribution function.}
+
+  \item{na.rm}{If \code{FALSE} (the default), removes
+  missing values with a warning.  If \code{TRUE} silently
+  removes missing values.}
+
+  \item{...}{Other arguments passed to the distribution
+  function.}
 }
 \value{
   a data.frame with additional columns:

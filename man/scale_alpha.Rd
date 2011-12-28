@@ -12,7 +12,7 @@
   \code{\link{continuous_scale}} to control name, limits,
   breaks, labels and so forth.}
 
-  \item{x}{range of output alpha values.  Should lie
+  \item{range}{range of output alpha values.  Should lie
   between 0 and 1.}
 }
 \description{

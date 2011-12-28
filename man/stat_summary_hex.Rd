@@ -7,6 +7,20 @@
     drop = TRUE, fun = mean, ...)
 }
 \arguments{
+  \item{mapping}{The aesthetic mapping, usually constructed
+  with \code{\link{aes}} or \code{\link{aes_string}}. Only
+  needs to be set at the layer level if you are overriding
+  the plot defaults.}
+
+  \item{data}{A layer specific dataset - only needed if you
+  want to override the plot defaults.}
+
+  \item{geom}{The geom to apply to the data for this
+  layer.}
+
+  \item{position}{The position adjustment to use for
+  overlapping points on this layer.}
+
   \item{bins}{see \code{\link{stat_binhex}}}
 
   \item{drop}{drop if the output of \code{fun} is

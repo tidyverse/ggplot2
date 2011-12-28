@@ -4,6 +4,11 @@
 \usage{
   scale_train(scale, x)
 }
+\arguments{
+  \item{scale}{scale function}
+
+  \item{x}{data vector}
+}
 \description{
   Train an individual scale from a vector of data.
 }

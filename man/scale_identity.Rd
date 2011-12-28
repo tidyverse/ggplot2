@@ -26,6 +26,9 @@
   \item{...}{Other arguments passed on to
   \code{\link{discrete_scale}} or
   \code{\link{continuous_scale}}}
+
+  \item{guide}{Type of guide to be drawn. Possible values
+  are 'none' (default) and 'legend'.}
 }
 \description{
   Use values without scaling.

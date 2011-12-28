@@ -8,6 +8,15 @@
     na.rm = FALSE, ...)
 }
 \arguments{
+  \item{lineend}{Line end style (round, butt, square).
+  Default: 'butt'.}
+
+  \item{linejoin}{Line join style (round, mitre, bevel).
+  Default: 'round'.}
+
+  \item{linemitre}{Line mitre limit (number greater than
+  1).}
+
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
   needs to be set at the layer level if you are overriding

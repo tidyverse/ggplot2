@@ -7,13 +7,19 @@
     right = FALSE, ...)
 }
 \arguments{
-  \item{binwidth}{Bin width to use. Defaults to 1/30 of the
-  range of the data}
+  \item{mapping}{The aesthetic mapping, usually constructed
+  with \code{\link{aes}} or \code{\link{aes_string}}. Only
+  needs to be set at the layer level if you are overriding
+  the plot defaults.}
 
-  \item{breaks}{Actual breaks to use.  Overrides bin width
-  and origin}
+  \item{data}{A layer specific dataset - only needed if you
+  want to override the plot defaults.}
 
-  \item{origin}{Origin of first bin}
+  \item{geom}{The geom to apply to the data for this
+  layer.}
+
+  \item{position}{The position adjustment to use for
+  overlapping points on this layer.}
 
   \item{width}{Width of bars when used with categorical
   data}
@@ -22,6 +28,8 @@
   \code{FALSE},}
 
   \item{drop}{If TRUE, remove all bins with zero counts}
+
+  \item{...}{other arguments passed on to the function.}
 }
 \value{
   New data frame with additional columns:

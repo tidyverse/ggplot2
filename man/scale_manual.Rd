@@ -22,6 +22,17 @@
 
   scale_color_manual(..., values)
 }
+\arguments{
+  \item{...}{optional arguments to pass to the function,
+  typically \code{breaks = } and possibly \code{labels = },
+  but other arguments can be passed that are specific to
+  individual scales, such as \code{name}, \code{na.value},
+  \code{limits} and \code{trans}. If labels are specified,
+  then breaks must also be specified.}
+
+  \item{values}{a set of values to be mapped to the
+  breaks.}
+}
 \description{
   Create your own discrete scale.
 }

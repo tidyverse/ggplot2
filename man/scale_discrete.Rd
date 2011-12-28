@@ -7,6 +7,16 @@
 
   scale_y_discrete(..., expand = c(0, 0.6))
 }
+\arguments{
+  \item{...}{common continuous scale parameters:
+  \code{name}, \code{breaks}, \code{labels},
+  \code{na.value}, \code{limits} and \code{trans}.  See
+  \code{\link{continuous_scale}} for more details.}
+
+  \item{expand}{Numeric vector of length two, giving
+  multiplicative and additive expansion factors. Default:
+  c(0, 0.6).}
+}
 \description{
   You can use continuous positions even with a discrete
   position scale - this allows you (e.g.) to place labels

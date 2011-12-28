@@ -10,6 +10,14 @@
 
   scale_shape_continuous(...)
 }
+\arguments{
+  \item{...}{potential scale parameters: \code{name},
+  \code{breaks}, \code{labels}, \code{na.value},
+  \code{limits} and \code{trans}.  See the argument list of
+  \code{\link{discrete_scale}}.}
+
+  \item{solid}{Are the shapes solid? Default: TRUE.}
+}
 \description{
   A continuous variable can not be mapped to shape.
 }

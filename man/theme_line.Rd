@@ -9,7 +9,7 @@
 
   \item{size}{line size}
 
-  \item{type}{line type}
+  \item{linetype}{line type}
 }
 \description{
   This element draws a line between two (or more) points

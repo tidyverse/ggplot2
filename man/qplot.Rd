@@ -45,7 +45,7 @@
   \item{log}{which variables to log transform ("x", "y", or
   "xy")}
 
-  \item{title}{character vector or expression for plot
+  \item{main}{character vector or expression for plot
   title}
 
   \item{xlab}{character vector or expression for x axis

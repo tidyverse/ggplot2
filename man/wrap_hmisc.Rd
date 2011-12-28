@@ -9,6 +9,10 @@ with \code{\link{stat_summary}}}
 \usage{
   wrap_hmisc(fun)
 }
+\arguments{
+  \item{fun}{Hmisc function to be applied. See the aliases
+  below for the list of candidate functions.}
+}
 \description{
   See the Hmisc documentation for details of their options.
 }
