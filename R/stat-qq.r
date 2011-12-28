@@ -4,6 +4,7 @@
 #' @param dist Distribution function to use, if x not specified
 #' @param dparams Parameters for distribution function
 #' @param ... Other arguments passed to distribution function
+#' @inheritParams stat_identity
 #' @return a data.frame with additional columns:
 #'   \item{sample}{sample quantiles}
 #'   \item{theoretical}{theoretical quantiles}

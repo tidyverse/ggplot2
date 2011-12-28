@@ -7,14 +7,6 @@
     fun = mean, ...)
 }
 \arguments{
-  \item{mapping}{}
-
-  \item{data}{}
-
-  \item{geom}{}
-
-  \item{position}{}
-
   \item{bins}{see \code{\link{stat_bin2d}}}
 
   \item{drop}{drop if the output of \code{fun} is
@@ -23,6 +15,19 @@
   \item{fun}{function for summary.}
 
   \item{...}{parameters passed to \code{fun}}
+
+  \item{mapping}{The aesthetic mapping, usually constructed
+  with \code{\link{aes}} or \code{\link{aes_string}}. Only
+  needs to be set at the layer level if you are overriding
+  the plot defaults.}
+
+  \item{data}{A layer specific dataset - only needed if you
+  want to override the plot defaults.}
+
+  \item{geom}{The geometric object to use display the data}
+
+  \item{position}{The position adjustment to use for
+  overlappling points on this layer}
 }
 \description{
   Apply function for 2D rectangular bins.

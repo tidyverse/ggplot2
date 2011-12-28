@@ -13,10 +13,7 @@
 ##' 
 ##' @seealso \code{\link{stat_summary_hex}} for hexagonal summarization. \code{\link{stat_bin2d}} for the binning options.
 ##' @title Apply funciton for 2D rectangular bins.
-##' @param mapping 
-##' @param data 
-##' @param geom 
-##' @param position 
+##' @inheritParams stat_identity
 ##' @param bins see \code{\link{stat_bin2d}}
 ##' @param drop drop if the output of \code{fun} is \code{NA}.
 ##' @param fun function for summary.

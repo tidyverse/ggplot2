@@ -1,5 +1,6 @@
 #' Count number of observation in rectangular bins.
 #' 
+#' @inheritParams stat_identity
 #' @seealso \code{\link{stat_binhex}} for hexagonal binning
 #' @export
 #' @examples

@@ -9,6 +9,7 @@
 #'   \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
 #'   \item{upper}{upper hinge, 75\% quantile}
 #'   \item{ymax}{upper whisker = upper hinge + 1.5 * IQR}
+#' @inheritParams stat_identity
 #' @export
 #' @examples
 #' # See geom_boxplot for examples

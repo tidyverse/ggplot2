@@ -2,6 +2,7 @@
 #' 
 #' Missing values are currently silently dropped.
 #'
+#' @inheritParams stat_identity
 #' @param binwidth Bin width to use. Defaults to 1/30 of the range of the
 #'   data
 #' @param breaks Actual breaks to use.  Overrides bin width and origin 

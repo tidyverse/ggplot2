@@ -1,6 +1,7 @@
 #' Bin 2d plane into hexagons.
 #' 
 #' @seealso \code{\link{stat_bin2d}} for rectangular binning
+#' @inheritParams stat_identity
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, price))

@@ -22,6 +22,7 @@
 #' @param n number of points to evaluate smoother at
 #' @param xseq exact points to evaluate smooth at, overrides n
 #' @param ... other arguments are passed to smoothing function
+#' @inheritParams stat_identity
 #' @return a data.frame with additional columns 
 #'   \item{y}{predicted value}
 #'   \item{ymin}{lower pointwise confidence interval around the mean}

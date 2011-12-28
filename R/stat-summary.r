@@ -13,6 +13,7 @@
 #' @seealso \code{\link{geom_errorbar}}, \code{\link{geom_pointrange}}, 
 #'  \code{\link{geom_linerange}}, \code{\link{geom_crossbar}} for geoms to
 #'  display summarised data
+#' @inheritParams stat_identity
 #' @return a data.frame with additional columns:
 #'   \item{fun.data}{Complete summary function. Should take data frame as
 #'      input and return data frame as output}

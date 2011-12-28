@@ -3,6 +3,7 @@
 #' Missing values are currently silently dropped.
 #' If weights are used, they must be integer values.
 #'
+#' @inheritParams stat_identity
 #' @param binaxis The axis to bin along, "x" (default) or "y"
 #' @param method "dotdensity" (default) for dot-density binning, or
 #'   "histodot" for fixed bin widths (like stat_bin)

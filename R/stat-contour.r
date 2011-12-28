@@ -1,5 +1,6 @@
 #' Calculate contours of 3d data.
 #' 
+#' @inheritParams stat_identity
 #' @return A data frame with additional column:
 #'  \item{level}{height of contour}
 #' @export

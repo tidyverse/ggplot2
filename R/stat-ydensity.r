@@ -1,6 +1,7 @@
 #' 1d kernel density estimate along y axis, for violin plot.
 #'
 #' @inheritParams stat_density
+#' @inheritParams stat_identity
 #' @param trim If \code{TRUE} (default), trim the tails of the violins
 #'   to the range of the data. If \code{FALSE}, don't trim the tails.
 #' @param scale if "equal" (default), all violins have the same area (to be

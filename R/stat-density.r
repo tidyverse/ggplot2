@@ -3,6 +3,7 @@
 #' @param adjust see \code{\link{density}} for details
 #' @param kernel kernel used for density estimation, see
 #'   \code{\link{density}} for details
+#' @inheritParams stat_identity
 #' @return data.frame with additional columns:
 #'   \item{density}{density estimate}
 #'   \item{count}{density * number of points - useful for stacked density
