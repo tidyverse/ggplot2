@@ -21,8 +21,8 @@
 #'   position="dodge")
 #' p + geom_errorbar(aes(ymin = y-1, ymax = y+1, width = 0.2),
 #'   position = position_dodge(width = 0.90))
-position_dodge <- function (width = NULL, height = NULL, ...) { 
-  PositionDodge$new(width = width, height = height, ...)
+position_dodge <- function (width = NULL, height = NULL) { 
+  PositionDodge$new(width = width, height = height)
 }
 
 PositionDodge <- proto(Position, {

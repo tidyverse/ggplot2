@@ -2,7 +2,7 @@
 \alias{position_jitter}
 \title{Jitter points to avoid overplotting.}
 \usage{
-  position_jitter(width = NULL, height = NULL, ...)
+  position_jitter(width = NULL, height = NULL)
 }
 \arguments{
   \item{width}{degree of jitter in x direction. Defaults to

@@ -3,7 +3,7 @@
 \title{Stack overlapping objects on top of one another, and standardise to have
 equal height.}
 \usage{
-  position_fill(width = NULL, height = NULL, ...)
+  position_fill(width = NULL, height = NULL)
 }
 \description{
   Stack overlapping objects on top of one another, and

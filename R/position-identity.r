@@ -1,7 +1,7 @@
 #' Don't adjust position
 #'
-position_identity <- function (width = NULL, height = NULL, ...) { 
-  PositionIdentity$new(width = width, height = height, ...)
+position_identity <- function (width = NULL, height = NULL) { 
+  PositionIdentity$new(width = width, height = height)
 }
 
 PositionIdentity <- proto(Position, {

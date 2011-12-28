@@ -2,7 +2,7 @@
 \alias{position_stack}
 \title{Stack overlapping objects on top of one another.}
 \usage{
-  position_stack(width = NULL, height = NULL, ...)
+  position_stack(width = NULL, height = NULL)
 }
 \description{
   Stack overlapping objects on top of one another.

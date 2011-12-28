@@ -2,7 +2,7 @@
 \alias{position_identity}
 \title{Don't adjust position}
 \usage{
-  position_identity(width = NULL, height = NULL, ...)
+  position_identity(width = NULL, height = NULL)
 }
 \description{
   Don't adjust position

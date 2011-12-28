@@ -13,8 +13,8 @@
 #' ggplot(diamonds, aes(x=price, fill=cut)) + cde
 #' ggplot(diamonds, aes(x=price, fill=clarity)) + cde
 #' ggplot(diamonds, aes(x=price, fill=color)) + cde
-position_fill <- function (width = NULL, height = NULL, ...) { 
-  PositionFill$new(width = width, height = height, ...)
+position_fill <- function (width = NULL, height = NULL) { 
+  PositionFill$new(width = width, height = height)
 }
   
 PositionFill <- proto(Position, {
