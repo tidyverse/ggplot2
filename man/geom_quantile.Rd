@@ -30,6 +30,13 @@
   \code{\link{layer}}. This can include aesthetics whose
   values you want to set, not map. See \code{\link{layer}}
   for more details.}
+
+  \item{lineend}{Line end style (round, butt, square)}
+
+  \item{linejoin}{Line join style (round, mitre, bevel)}
+
+  \item{linemitre}{Line mitre limit (number greater than
+  1)}
 }
 \description{
   This can be used as a continuous analogue of a

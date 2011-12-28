@@ -30,8 +30,8 @@
 #' 
 #' qplot(x, Freq, data = counts, geom="segment", 
 #'   yend = 0, xend = x, size = I(10))
-geom_segment <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
-  GeomSegment$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_segment <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", arrow = NULL, ...) { 
+  GeomSegment$new(mapping = mapping, data = data, stat = stat, position = position, arrow = arrow, ...)
 }
 
 GeomSegment <- proto(Geom, {

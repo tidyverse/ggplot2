@@ -3,7 +3,8 @@
 \title{Single line segments.}
 \usage{
   geom_segment(mapping = NULL, data = NULL,
-    stat = "identity", position = "identity", ...)
+    stat = "identity", position = "identity", arrow = NULL,
+    ...)
 }
 \arguments{
   \item{arrow}{specification for arrow heads, as created by

@@ -8,6 +8,7 @@
 #' @seealso \code{\link{geom_contour}} for contour drawing geom, 
 #'  \code{\link{stat_sum}} for another way of dealing with overplotting
 #' @inheritParams geom_point
+#' @inheritParams geom_path
 #' @export
 #' @examples
 #' # See stat_density2d for examples
