@@ -8,9 +8,9 @@
 \arguments{
   \item{data}{default data frame for plot}
 
-  \item{default}{list of aesthetic mappings (these can be
-  colour, size, shape, line type -- see individual geom
-  functions for more details)}
+  \item{mapping}{default list of aesthetic mappings (these
+  can be colour, size, shape, line type -- see individual
+  geom functions for more details)}
 
   \item{...}{ignored}
 
