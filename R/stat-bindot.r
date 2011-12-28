@@ -14,13 +14,11 @@
 #'   determines positions of the bins for each group separately. "all" determines
 #'   positions of the bins with all the data taken together; this is used for
 #'   aligning dot stacks across multiple groups.
-#' @param breaks When \code{method} is "histodot", actual breaks to use.  
-#'   Overrides bin width and origin 
 #' @param origin When \code{method} is "histodot", origin of first bin 
-#' @param width When \code{method} is "histodot", width of bars when used 
-#'   with categorical data 
 #' @param right When \code{method} is "histodot", should intervals be closed
 #'   on the right (a, b], or not [a, b) 
+#' @param width When \code{binaxis} is "y", the spacing of the dot stacks
+#'   for dodging.
 #' @param drop If TRUE, remove all bins with zero counts
 #'
 #' @return New data frame with additional columns:
@@ -38,11 +36,12 @@
 #' # See geom_dotplot for examples
 #'
 stat_bindot <- function (mapping = NULL, data = NULL, geom = "dotplot", position = "identity",
-width = 0.9, binaxis = "x", method = "dotdensity", binpositions = "bygroup",
-drop = FALSE, right = TRUE, na.rm = FALSE, ...) {
+binwidth = NULL, origin = NULL, width = 0.9, binaxis = "x", method = "dotdensity",
+binpositions = "bygroup", drop = FALSE, right = TRUE, na.rm = FALSE, ...) {
   StatBindot$new(mapping = mapping, data = data, geom = geom, position = position,
-  width = width, binaxis = binaxis, method = method, binpositions = binpositions,
-  drop = drop, right = right, na.rm = na.rm, ...)
+  binwidth = binwidth, origin = origin, width = width, binaxis = binaxis,
+  method = method, binpositions = binpositions, drop = drop, right = right,
+  na.rm = na.rm, ...)
 }
 
 
