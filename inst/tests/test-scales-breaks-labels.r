@@ -1,8 +1,5 @@
 context("Scales: breaks and labels")
 
-
-
-
 test_that("labels match breaks, even when outside limits", {
   sc <- scale_y_continuous(breaks=1:4, labels=1:4, limits = c(1, 3))
   
@@ -74,4 +71,21 @@ test_that("scale breaks with numeric log transformation", {
   sc <- scale_x_continuous(limits = c(1, 1e5), trans = log10_trans())
   expect_equal(scale_breaks(sc), c(0, 2, 4)) # 1, 100, 10000
   expect_equal(scale_breaks_minor(sc), c(0, 1, 2, 3, 4, 5))
+})
+
+test_that("continuous scales with no data have no breaks or labels", {
+  sc <- scale_x_continuous()
+  
+  expect_equal(scale_breaks(sc), numeric())
+  expect_equal(scale_labels(sc), character())
+  expect_equal(scale_limits(sc), c(0, 1))
+  
+})
+
+test_that("discrete scales with no data have no breaks or labels", {
+  sc <- scale_x_discrete()
+  
+  expect_equal(scale_breaks(sc), numeric())
+  expect_equal(scale_labels(sc), character())
+  expect_equal(scale_limits(sc), c(0, 1))
 })

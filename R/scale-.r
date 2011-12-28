@@ -143,6 +143,11 @@ scale_reset.default <- function(scale, x) {
   scale$range$reset()
 }
 
+scale_is_empty <- function(scale) UseMethod("scale_is_empty")
+scale_is_empty.default <- function(scale) {
+  is.null(scale$range$range) && is.null(scale$limits)
+}
+
 # @return list of transformed variables
 scale_transform_df <- function(scale, df) {
   if (empty(df)) return()
@@ -214,11 +219,15 @@ scale_map.discrete <- function(scale, x) {
   ifelse(!is.na(x), pal_match, scale$na.value)
 }
 
-scale_limits <- function(scale)
+scale_limits <- function(scale) {
+  if (scale_is_empty(scale)) return(c(0, 1))
+
   UseMethod("scale_limits")
+}
+  
 
 #' @S3method scale_limits default
-scale_limits.default <- function(scale) {
+scale_limits.default <- function(scale) {  
   scale$limits %||% scale$range$range
 }
 
@@ -238,6 +247,8 @@ scale_dimension.discrete <- function(scale, expand = scale$expand) {
 #' @S3method scale_breaks continuous
 #' @S3method scale_breaks discrete
 scale_breaks <- function(scale, limits = scale_limits(scale)) {
+  if (scale_is_empty(scale)) return(numeric())
+  
   UseMethod("scale_breaks")
 }
 
@@ -323,6 +334,8 @@ scale_breaks_minor_positions <- function(scale) {
 #' @S3method scale_labels continuous
 #' @S3method scale_labels discrete
 scale_labels <- function(scale, breaks = scale_breaks(scale)) {
+  if (scale_is_empty(scale)) return(character())
+  
   UseMethod("scale_labels")
 }
 
