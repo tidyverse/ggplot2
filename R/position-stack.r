@@ -1,5 +1,7 @@
 #' Stack overlapping objects on top of one another.
 #' 
+#' @inheritParams position_identity
+#' @family position adjustments
 #' @export
 #' @examples 
 #' # Stacking is the default behaviour for most area plots:

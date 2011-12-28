@@ -1,6 +1,8 @@
 #' Stack overlapping objects on top of one another, and standardise to have
 #' equal height.
 #' 
+#' @inheritParams position_identity
+#' @family position adjustments
 #' @export
 #' @examples
 #' # See ?geom_bar and ?geom_area for more examples

@@ -4,6 +4,13 @@
 \usage{
   position_stack(width = NULL, height = NULL)
 }
+\arguments{
+  \item{width}{Manually specify width (does not affect all
+  position adjustments)}
+
+  \item{height}{Manually specify height (does not affect
+  all position adjustments)}
+}
 \description{
   Stack overlapping objects on top of one another.
 }
@@ -32,5 +39,11 @@ qplot(Time, Value, data = data.set, colour = Type, geom = "line",
   position = "stack")
 # But realise that this makes it *much* harder to compare individual
 # trends
+}
+\seealso{
+  Other position adjustments: \code{\link{position_dodge}},
+  \code{\link{position_fill}},
+  \code{\link{position_identity}},
+  \code{\link{position_jitter}}
 }
 

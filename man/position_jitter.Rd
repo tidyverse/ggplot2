@@ -27,4 +27,10 @@ qplot(am, vs, data=mtcars, position=position_jitter(w=0.1, h=0.1))
 # take up as much space as a boxplot or a bar
 qplot(cut, price, data=diamonds, geom=c("boxplot", "jitter"))
 }
+\seealso{
+  Other position adjustments: \code{\link{position_dodge}},
+  \code{\link{position_fill}},
+  \code{\link{position_identity}},
+  \code{\link{position_stack}}
+}
 

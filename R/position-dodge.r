@@ -1,5 +1,7 @@
 #' Adjust position by dodging overlaps to the side.
 #'
+#' @inheritParams position_identity
+#' @family position adjustments
 #' @export
 #' @examples
 #' ggplot(mtcars, aes(x=factor(cyl), fill=factor(vs))) +
