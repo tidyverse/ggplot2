@@ -2,6 +2,7 @@
 #'
 #' @rdname scale_datetime
 #' @family position scales
+#' @inheritParams scale_x_continuous
 #' @export 
 #' @examples
 #' start <- ISOdate(2001, 1, 1, tz = "")

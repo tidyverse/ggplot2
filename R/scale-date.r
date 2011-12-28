@@ -1,6 +1,7 @@
 #' Position scale, date
 #'
 #' @rdname scale_date
+#' @inheritParams scale_x_continuous
 #' @family position scales
 #' @export
 #' @examples
