@@ -3,6 +3,8 @@
 #' @param ... common continuous scale parameters: \code{name}, \code{breaks},
 #'  \code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
 #'  \code{\link{continuous_scale}} for more details
+#' @param expand Numeric vector of length two, giving multiplicative and 
+#' additive expansion factors. Default: c(0.05, 0).
 #' @family position scales
 #' @rdname scale_continuous
 #' @export

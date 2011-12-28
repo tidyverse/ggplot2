@@ -4,6 +4,7 @@
 #' theme or use \code{theme_set} to completely override it.
 #' 
 #' @param ... named list of theme settings
+#' @param new theme object that contains the updates
 #' @export
 #' @examples
 #' qplot(mpg, wt, data = mtcars)
@@ -61,44 +62,46 @@ theme_set <- .theme$set
 #' Set options/theme elements for a single plot
 #' 
 #' Use this function if you want to modify a few theme settings for 
-#' a single plot.
+#' a single plot. The individual theme elements are:
 #' 
-#' @param ... named list of theme settings
-#' @param axis.line line along axis
-#' @param axis.text.x x axis label
-#' @param axis.text.y y axis label
-#' @param axis.ticks axis tick marks
-#' @param axis.ticks.length tick mark length
-#' @param axis.ticks.margin tick mark  margin spacing
-#' @param axis.title.x horizontal tick labels
-#' @param axis.title.y vertical tick labels
-#' @param legend.background background of legend
-#' @param legend.margin extra space added around legend (both width or height
-#'   depending on orientation of legend)
-#' @param legend.key background underneath legend keys
-#' @param legend.key.size key background size 
-#' @param legend.key.height key background height
-#' @param legend.key.width key background width
-#' @param legend.text legend labels
-#' @param legend.text.align alignment of legend labels
-#' @param legend.title legend name
-#' @param legend.title.align alignment of legend title
-#' @param legend.position A string or numeric vector specifying the position of guides (legends).
+#' \tabular{ll} {
+#' axis.line     \tab  line along axis
+#'   axis.text.x   \tab   x axis label
+#'   axis.text.y    \tab  y axis label
+#'   axis.ticks     \tab  axis tick marks
+#'   axis.ticks.length \tab  tick mark length
+#'   axis.ticks.margin   \tab   tick mark margin spacing
+#'   axis.title.x  \tab   horizontal tick labels
+#'   axis.title.y  \tab   vertical tick labels
+#'   legend.background   \tab   background of legend
+#'   legend.margin \tab   extra space added around legend (both width or height depending on orientation of legend)
+#'   legend.key   \tab    background underneath legend keys
+#'   legend.key.size   \tab     key background size 
+#'   legend.key.height \tab     key background height
+#'   legend.key.width  \tab     key background width
+#'   legend.text       \tab     legend labels
+#'   legend.text.align \tab     alignment of legend labels
+#'   legend.title      \tab     legend name
+#'   legend.title.align  \tab   alignment of legend title
+#'   legend.position    \tab    A string or numeric vector specifying the position of guides (legends).
 #'    Possible values are: "left", "right", "bottom", "top", and two-element numeric vector.
-#' @param legend.justification alignment of legend 
-#' @param legend.direction horizontal or vertical
-#' @param legend.box A string specifying the direction of multiple guides. Possible string values are: "horizontal" and "vertical". 
-#' @param panel.background background of panel
-#' @param panel.border border around panel
-#' @param panel.margin margin around facet panels
-#' @param panel.grid.major major grid lines
-#' @param panel.grid.minor minor grid lines
-#' @param plot.background background of the entire plot
-#' @param plot.title plot title
-#' @param plot.margin plot margins
-#' @param strip.background background of facet labels
-#' @param strip.text.x text for horizontal strips
-#' @param strip.text.y text for vertical strips
+#'   legend.justification \tab  alignment of legend 
+#'   legend.direction     \tab  horizontal or vertical
+#'   legend.box   \tab    A string specifying the direction of multiple guides. Possible string values are: "horizontal" and "vertical". 
+#'   panel.background   \tab    background of panel
+#'   panel.border       \tab    border around panel
+#'   panel.margin       \tab    margin around facet panels
+#'   panel.grid.major   \tab    major grid lines
+#'   panel.grid.minor   \tab    minor grid lines
+#'   plot.background    \tab    background of the entire plot
+#'   plot.title         \tab    plot title
+#'   plot.margin        \tab    plot margins
+#'   strip.background   \tab    background of facet labels
+#'   strip.text.x       \tab    text for horizontal strips
+#'   strip.text.y       \tab    text for vertical strips
+#'  }
+#'
+#' @param ... Theme elements passed to the function.
 #'
 #' @export
 #' @examples

@@ -1,5 +1,7 @@
 #' Displays a useful description of a ggplot object
 #' 
+#' @param object An object of class ggplot.
+#' @param ... Extra arguments to be passed to the function.
 #' @S3method summary ggplot
 #' @examples
 #' summary(qplot(mpg, wt, data=mtcars))

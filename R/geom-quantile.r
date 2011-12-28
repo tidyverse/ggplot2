@@ -2,6 +2,10 @@
 #'
 #' This can be used as a continuous analogue of a geom_boxplot.
 #' 
+#' @param lineend  Line end style (round, butt, square). Default: 'butt'.
+#' @param linejoin Line join style (round, mitre, bevel). Default: 'round'.
+#' @param linemitre Line mitre limit (number greater than 1).
+#'
 #' @export
 #' @inheritParams geom_point
 #' @examples

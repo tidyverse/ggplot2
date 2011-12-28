@@ -2,6 +2,8 @@
 #'
 #' @param ... Other arguments passed on to \code{\link{discrete_scale}} or
 #'   \code{\link{continuous_scale}}
+#' @param guide Type of guide to be drawn. Possible values are
+#'   'none' (default) and 'legend'.
 #' @rdname scale_identity
 #' @export
 #' @examples

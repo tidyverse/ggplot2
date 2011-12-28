@@ -1,5 +1,9 @@
 #' Adjust position by dodging overlaps to the side.
 #'
+#' @param width Horizontal width from the center point to dodge.
+#' @param height Vertical height from the center point to dodge.
+#' @param ... Other arguments to be passed to the function.
+#'
 #' @export
 #' @examples
 #' ggplot(mtcars, aes(x=factor(cyl), fill=factor(vs))) +

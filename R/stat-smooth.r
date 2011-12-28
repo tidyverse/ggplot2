@@ -10,18 +10,28 @@
 #' is constructed on the link scale, and then back-transformed to the response
 #' scale.
 #'
-#' @param method smoothing method (function) to use, eg. lm, glm, gam, loess,
+#' @param mapping The aesthetic mapping, usually constructed with
+#'    \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+#'    at the layer level if you are overriding the plot defaults.
+#' @param data A layer specific dataset - only needed if you want to override
+#'    the plot defaults.
+#' @param geom The geom to apply to the data for this layer. 
+#' @param position The position adjustment to use for overlapping points
+#'    on this layer.
+#' @param method smoothing method (function) to use, e.g., lm, glm, gam, loess,
 #'   rlm
-#' @param formula formula to use in smoothing function, eg. \code{y ~ x}, 
+#' @param formula formula to use in smoothing function, e.g., \code{y ~ x}, 
 #'   \code{y ~ poly(x, 2)}, \code{y ~ log(x)}
 #' @param se display confidence interval around smooth? (TRUE by default, see
 #'   level to control
 #' @param fullrange should the fit span the full range of the plot, or just
 #'   the data
 #' @param level level of confidence interval to use (0.95 by default)
-#' @param n number of points to evaluate smoother at
-#' @param xseq exact points to evaluate smooth at, overrides n
-#' @param ... other arguments are passed to smoothing function
+#' @param n number of points at which to evaluate the smoother
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#' a warning.  If \code{TRUE}, silently removes missing values.
+##' @param xseq exact points to evaluate smooth at, overrides n
+#' @param ... other arguments passed to smoothing function.
 #' @return a data.frame with additional columns 
 #'   \item{y}{predicted value}
 #'   \item{ymin}{lower pointwise confidence interval around the mean}

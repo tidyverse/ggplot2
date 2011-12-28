@@ -1,6 +1,9 @@
 #' Stack overlapping objects on top of one another, and standardise to have
 #' equal height.
 #' 
+#' @param width Horizontal width from the center point to dodge.
+#' @param height Vertical height from the center point to dodge.
+#' @param ... Other arguments to be passed to the function.
 #' @export
 #' @examples
 #' # See ?geom_bar and ?geom_area for more examples

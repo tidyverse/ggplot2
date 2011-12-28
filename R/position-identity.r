@@ -1,5 +1,9 @@
 #' Don't adjust position
 #'
+#' @param width Horizontal width from the center point to dodge.
+#' @param height Vertical height from the center point to dodge.
+#' @param ... Other arguments to be passed to the function.
+#'
 position_identity <- function (width = NULL, height = NULL, ...) { 
   PositionIdentity$new(width = width, height = height, ...)
 }

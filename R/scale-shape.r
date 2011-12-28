@@ -2,6 +2,11 @@
 #' 
 #' A continuous variable can not be mapped to shape.
 #'
+#' @param ... potential scale parameters: \code{name}, \code{breaks},
+#'  \code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
+#'  the argument list of \code{\link{discrete_scale}}.
+#' @param solid Are the shapes solid? Default: TRUE.
+#'
 #' @rdname scale_shape
 #' @export
 #' @examples

@@ -1,5 +1,6 @@
 #' Diverging colour gradient
 #' 
+#' @param midpoint the location of the midpoint of the gradient scale
 #' @inheritParams scale_colour_hue
 #' @inheritParams scales::div_gradient_pal
 #' @family colour scales

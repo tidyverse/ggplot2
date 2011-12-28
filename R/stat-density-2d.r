@@ -1,5 +1,15 @@
 #' 2d density estimation.
 #'
+#' @param mapping The aesthetic mapping, usually constructed with
+#'    \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+#'    at the layer level if you are overriding the plot defaults.
+#' @param data A layer specific dataset - only needed if you want to override
+#'    the plot defaults.
+#' @param geom The geom to apply to the data for this layer. 
+#' @param position The position adjustment to use for overlapping points
+#'    on this layer.
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @param contour If \code{TRUE}, contour the results of the 2d density
 #'   estimation
 #' @param n number of grid points in each direction

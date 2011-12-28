@@ -1,4 +1,8 @@
 #' Stack overlapping objects on top of one another.
+#'
+#' @param width Horizontal width from the center to stack.
+#' @param height Vertical height from the center to stack.
+#' @param ... Other arguments passed to the function.
 #' 
 #' @export
 #' @examples 

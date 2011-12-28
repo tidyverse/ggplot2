@@ -5,6 +5,7 @@ NULL
 #'
 #' Does not affect position scales.  
 #' 
+#' @param map Data frame that contains the map coordinates.
 #' @export
 #' @inheritParams geom_point
 #' @examples

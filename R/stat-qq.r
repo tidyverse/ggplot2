@@ -1,9 +1,20 @@
 #' Calculation for quantile-quantile plot.
 #' 
-#' @param quantiles Quantiles to compute and display
-#' @param dist Distribution function to use, if x not specified
-#' @param dparams Parameters for distribution function
-#' @param ... Other arguments passed to distribution function
+#' @param mapping The aesthetic mapping, usually constructed with
+#'    \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+#'    at the layer level if you are overriding the plot defaults.
+#' @param data A layer specific dataset - only needed if you want to override
+#'    the plot defaults.
+#' @param geom The geom to apply to the data for this layer. 
+#' @param position The position adjustment to use for overlapping points
+#'    on this layer.
+#' @param distribution Distribution function to use, if x not specified.
+#' @param dparams Parameters for distribution function.
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
+#' @param ... Other arguments passed to the distribution function.
+#'
+##' @param quantiles Quantiles to compute and display
 #' @return a data.frame with additional columns:
 #'   \item{sample}{sample quantiles}
 #'   \item{theoretical}{theoretical quantiles}

@@ -1,11 +1,23 @@
 #' 1d kernel density estimate along y axis, for violin plot.
 #'
 #' @inheritParams stat_density
+#' @param mapping The aesthetic mapping, usually constructed with
+#'    \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+#'    at the layer level if you are overriding the plot defaults.
+#' @param data A layer specific dataset - only needed if you want to override
+#'    the plot defaults.
+#' @param geom The geom to apply to the data for this layer. 
+#' @param position The position adjustment to use for overlapping points
+#'    on this layer.
 #' @param trim If \code{TRUE} (default), trim the tails of the violins
 #'   to the range of the data. If \code{FALSE}, don't trim the tails.
 #' @param scale if "equal" (default), all violins have the same area (to be
 #'   precise, they would have the same area if tails are not trimmed). If
 #'   "count", the areas are scaled proportionally to the number of observations.
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
+#' @param ... other arguments passed on to the function. 
+#'
 #'
 #' @return A data frame with additional columns:
 #'   \item{width}{width of violin bounding box}

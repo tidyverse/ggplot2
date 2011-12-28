@@ -10,6 +10,7 @@
 #' intercept for each panel using a data.frame. See the examples for the
 #' differences
 #'
+#' @param show_guide should a legend be drawn?
 #' @seealso \code{\link{geom_vline}} for vertical lines, 
 #'  \code{\link{geom_abline}} for lines defined by a slope and intercept,
 #'  \code{\link{geom_segment}} for a more general approach

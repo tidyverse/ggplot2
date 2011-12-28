@@ -1,5 +1,12 @@
 #' Create your own discrete scale.
 #' 
+#' @param ... optional arguments to pass to the function, 
+#'  typically \code{breaks = } and possibly \code{labels = }, but 
+#'  other arguments can be passed that are specific to individual 
+#'  scales, such as \code{name}, \code{na.value}, \code{limits}
+#'  and \code{trans}. If labels are specified, then breaks must
+#'  also be specified.
+#' @param values a set of values to be mapped to the breaks.
 #' @rdname scale_manual
 #' @export
 #' @examples

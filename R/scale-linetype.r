@@ -4,6 +4,7 @@
 #' University of Manchester.  Line types can not be mapped to continuous
 #' values.
 #'
+#' @param ... line types to be passed
 #' @rdname scale_linetype
 #' @export
 #' @examples

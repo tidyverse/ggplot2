@@ -2,14 +2,24 @@
 #' 
 #' Missing values are currently silently dropped.
 #'
-#' @param binwidth Bin width to use. Defaults to 1/30 of the range of the
-#'   data
-#' @param breaks Actual breaks to use.  Overrides bin width and origin 
-#' @param origin Origin of first bin 
+#' @param mapping The aesthetic mapping, usually constructed with
+#'    \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+#'    at the layer level if you are overriding the plot defaults.
+#' @param data A layer specific dataset - only needed if you want to override
+#'    the plot defaults.
+#' @param geom The geom to apply to the data for this layer. 
+#' @param position The position adjustment to use for overlapping points
+#'    on this layer.
+
+##' @param binwidth Bin width to use. Defaults to 1/30 of the range of the
+##'   data
+##' @param breaks Actual breaks to use.  Overrides bin width and origin 
+##' @param origin Origin of first bin 
 #' @param width Width of bars when used with categorical data 
 #' @param right If \code{TRUE}, right-closed, left-open, if \code{FALSE}, 
 #"   the default, right-open, left-closed.
 #' @param drop If TRUE, remove all bins with zero counts
+#' @param ... other arguments passed on to the function.
 #' @return New data frame with additional columns:
 #'   \item{count}{number of points in bin}
 #'   \item{density}{density of points in bin, scaled to integrate to 1}

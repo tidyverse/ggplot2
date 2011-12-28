@@ -5,6 +5,25 @@
 #' 
 #' This can be useful for dealing with overplotting.
 #'
+#' @param mapping The aesthetic mapping, usually constructed with
+#'    \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+#'    at the layer level if you are overriding the plot defaults.
+#' @param data A layer specific dataset - only needed if you want to override
+#'    the plot defaults.
+#' @param stat The statistical transformation to use on the data for this
+#'    layer. Default: 'density2d'.
+#' @param position The position adjustment to use for overlapping points
+#'    on this layer.
+#' @param lineend  Line end style (round, butt, square). Default: 'butt'.
+#' @param linejoin Line join style (round, mitre, bevel). Default: 'round'.
+#' @param linemitre Line mitre limit (number greater than 1)
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
+#' @param ... other arguments passed on to \code{\link{layer}}. This can 
+#'   include aesthetics whose values you want to set, not map. See
+#'   \code{\link{layer}} for more details.
+#'
+
 #' @seealso \code{\link{geom_contour}} for contour drawing geom, 
 #'  \code{\link{stat_sum}} for another way of dealing with overplotting
 #' @inheritParams geom_point

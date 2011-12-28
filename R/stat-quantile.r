@@ -1,8 +1,21 @@
 #' Continuous quantiles.
 #'
+#' @param mapping The aesthetic mapping, usually constructed with
+#'    \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+#'    at the layer level if you are overriding the plot defaults.
+#' @param data A layer specific dataset - only needed if you want to override
+#'    the plot defaults.
+#' @param geom The geom to apply to the data for this layer. 
+#' @param position The position adjustment to use for overlapping points
+#'    on this layer.
 #' @param quantiles conditional quantiles of y to calculate and display
 #' @param formula formula relating y variables to x variables
-#' @param xseq exact points to evaluate smooth at, overrides n
+#' @param method Modeling function to apply. Default: 'rq'.
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
+#' @param ... Additional arguments to be passed to the function.
+#'
+##' @param xseq exact points to evaluate smooth at, overrides n
 #' @return a data.frame with additional columns:
 #'   \item{quantile}{quantile of distribution}
 #' @export

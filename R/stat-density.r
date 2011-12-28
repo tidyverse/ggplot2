@@ -1,8 +1,21 @@
 #' 1d kernel density estimate.
 #'
+#' @param mapping The aesthetic mapping, usually constructed with
+#'    \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+#'    at the layer level if you are overriding the plot defaults.
+#' @param data A layer specific dataset - only needed if you want to override
+#'    the plot defaults.
+#' @param geom The geom to apply to the data for this layer. 
+#' @param position The position adjustment to use for overlapping points
+#'    on this layer.
 #' @param adjust see \code{\link{density}} for details
 #' @param kernel kernel used for density estimation, see
 #'   \code{\link{density}} for details
+#' @param trim Default: FALSE.
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
+#' @param ... other arguments passed to the function. 
+#'
 #' @return data.frame with additional columns:
 #'   \item{density}{density estimate}
 #'   \item{count}{density * number of points - useful for stacked density
