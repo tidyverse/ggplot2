@@ -118,6 +118,8 @@ mt + facet_grid(vs ~ am, scales = "free")
 mt + facet_grid(vs ~ am, scales = "free_x")
 mt + facet_grid(vs ~ am, scales = "free_y")
 mt + facet_grid(vs ~ am, scales = "free", space="free")
+mt + facet_grid(vs ~ am, scales = "free", space="free_x")
+mt + facet_grid(vs ~ am, scales = "free", space="free_y")
 
 # You may need to set your own breaks for consitent display:
 mt + facet_grid(. ~ cyl, scales = "free_x", space="free") +
