@@ -1,5 +1,8 @@
 #' Displays a useful description of a ggplot object
 #' 
+#' @param object ggplot2 object to summarise
+#' @param ... other arguments ignored (for compatibility with generic)
+#' @keywords internal
 #' @S3method summary ggplot
 #' @examples
 #' summary(qplot(mpg, wt, data=mtcars))
