@@ -55,6 +55,7 @@ theme_update <- function(...) {
 #' @export
 theme_get <- .theme$get  
 #' @rdname theme_update
+#' @param new new theme (a list of theme elements)
 #' @export
 theme_set <- .theme$set
 

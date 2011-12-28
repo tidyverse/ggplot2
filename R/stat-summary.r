@@ -148,15 +148,18 @@ summarise_by_x <- function(data, summary, ...) {
 }
 
 #' Wrap up a selection of summary functions from Hmisc to make it easy to use
-#' with \code{\link{stat_summary}}
+#' with \code{\link{stat_summary}}.
 #' 
 #' See the Hmisc documentation for details of their options.
 #' 
+#' @param x a numeric vector
+#' @param ... other arguments passed on to the respective Hmisc function.
 #' @seealso \code{\link[Hmisc]{smean.cl.boot}},
 #'   \code{\link[Hmisc]{smean.cl.normal}}, \code{\link[Hmisc]{smean.sdl}},
 #'    \code{\link[Hmisc]{smedian.hilow}}
-#' @aliases mean_cl_boot mean_cl_normal mean_sdl median_hilow
-#' @export mean_cl_boot mean_cl_normal mean_sdl median_hilow
+#' @name hmisc
+NULL
+
 wrap_hmisc <- function(fun) {
   function(x, ...) {
     try_require("Hmisc")
@@ -168,9 +171,17 @@ wrap_hmisc <- function(fun) {
     )    
   }
 }
+#' @export 
+#' @rdname hmisc
 mean_cl_boot <- wrap_hmisc("smean.cl.boot")
+#' @export 
+#' @rdname hmisc
 mean_cl_normal <- wrap_hmisc("smean.cl.normal")
+#' @export 
+#' @rdname hmisc
 mean_sdl <- wrap_hmisc("smean.sdl")
+#' @export 
+#' @rdname hmisc
 median_hilow <- wrap_hmisc("smedian.hilow")
 
 #' Calculate mean and standard errors on either side.

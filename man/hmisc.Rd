@@ -1,13 +1,25 @@
-\name{wrap_hmisc}
+\name{hmisc}
+\alias{hmisc}
 \alias{mean_cl_boot}
 \alias{mean_cl_normal}
 \alias{mean_sdl}
 \alias{median_hilow}
-\alias{wrap_hmisc}
 \title{Wrap up a selection of summary functions from Hmisc to make it easy to use
-with \code{\link{stat_summary}}}
+with \code{\link{stat_summary}}.}
 \usage{
-  wrap_hmisc(fun)
+  mean_cl_boot(x, ...)
+
+  mean_cl_normal(x, ...)
+
+  mean_sdl(x, ...)
+
+  median_hilow(x, ...)
+}
+\arguments{
+  \item{x}{a numeric vector}
+
+  \item{...}{other arguments passed on to the respective
+  Hmisc function.}
 }
 \description{
   See the Hmisc documentation for details of their options.

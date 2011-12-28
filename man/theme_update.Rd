@@ -12,6 +12,8 @@
 }
 \arguments{
   \item{...}{named list of theme settings}
+
+  \item{new}{new theme (a list of theme elements)}
 }
 \description{
   Use \code{theme_update} to modify a small number of
