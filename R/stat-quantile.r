@@ -2,7 +2,8 @@
 #'
 #' @param quantiles conditional quantiles of y to calculate and display
 #' @param formula formula relating y variables to x variables
-#' @param xseq exact points to evaluate smooth at, overrides n
+#' @param method Quantile regression method to use.  Currently only supports
+#'    \code{\link[quantreg]{rq}}.
 #' @inheritParams stat_identity
 #' @return a data.frame with additional columns:
 #'   \item{quantile}{quantile of distribution}

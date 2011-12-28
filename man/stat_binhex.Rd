@@ -6,6 +6,9 @@
     position = "identity", bins = 30, na.rm = FALSE, ...)
 }
 \arguments{
+  \item{bins}{numeric vector specifying number of bins in
+  both x and y directions.}
+
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
   needs to be set at the layer level if you are overriding
@@ -18,10 +21,6 @@
 
   \item{position}{The position adjustment to use for
   overlappling points on this layer}
-
-  \item{na.rm}{If \code{FALSE} (the default), removes
-  missing values with a warning.  If \code{TRUE} silently
-  removes missing values.}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose

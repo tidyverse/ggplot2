@@ -20,7 +20,6 @@
 #'   the data
 #' @param level level of confidence interval to use (0.95 by default)
 #' @param n number of points to evaluate smoother at
-#' @param xseq exact points to evaluate smooth at, overrides n
 #' @param ... other arguments are passed to smoothing function
 #' @inheritParams stat_identity
 #' @return a data.frame with additional columns 

@@ -7,15 +7,17 @@
     dparams = list(), na.rm = FALSE, ...)
 }
 \arguments{
-  \item{quantiles}{Quantiles to compute and display}
-
-  \item{dist}{Distribution function to use, if x not
-  specified}
+  \item{distribution}{Distribution function to use, if x
+  not specified}
 
   \item{dparams}{Parameters for distribution function}
 
   \item{...}{Other arguments passed to distribution
   function}
+
+  \item{na.rm}{If \code{FALSE} (the default), removes
+  missing values with a warning.  If \code{TRUE} silently
+  removes missing values.}
 
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
@@ -29,10 +31,6 @@
 
   \item{position}{The position adjustment to use for
   overlappling points on this layer}
-
-  \item{na.rm}{If \code{FALSE} (the default), removes
-  missing values with a warning.  If \code{TRUE} silently
-  removes missing values.}
 }
 \value{
   a data.frame with additional columns:

@@ -1,6 +1,9 @@
 #' Count number of observation in rectangular bins.
 #' 
 #' @inheritParams stat_identity
+#' @param bins numeric vector giving number of bins in both vertical and 
+#'   horizontal directions.
+#' @param drop if \code{TRUE} removes all cells with 0 counts.
 #' @seealso \code{\link{stat_binhex}} for hexagonal binning
 #' @export
 #' @examples

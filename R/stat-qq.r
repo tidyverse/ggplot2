@@ -1,9 +1,10 @@
 #' Calculation for quantile-quantile plot.
 #' 
-#' @param quantiles Quantiles to compute and display
-#' @param dist Distribution function to use, if x not specified
+#' @param distribution Distribution function to use, if x not specified
 #' @param dparams Parameters for distribution function
 #' @param ... Other arguments passed to distribution function
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
 #' @return a data.frame with additional columns:
 #'   \item{sample}{sample quantiles}

@@ -35,10 +35,6 @@
   \item{kernel}{kernel used for density estimation, see
   \code{\link{density}} for details}
 
-  \item{na.rm}{If \code{FALSE} (the default), removes
-  missing values with a warning.  If \code{TRUE} silently
-  removes missing values.}
-
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose
   values you want to set, not map. See \code{\link{layer}}

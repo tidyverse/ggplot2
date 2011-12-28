@@ -1,5 +1,7 @@
 #' Calculate components of box and whisker plot.
 #' 
+#' @param coef length of the whiskers as multiple of IQR.  Defaults to 1.5
+#' @inheritParams stat_identity
 #' @return A data frame with additional columns:
 #'   \item{width}{width of boxplot}
 #'   \item{ymin}{lower whisker = lower hinge - 1.5 * IQR}
@@ -9,7 +11,6 @@
 #'   \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
 #'   \item{upper}{upper hinge, 75\% quantile}
 #'   \item{ymax}{upper whisker = upper hinge + 1.5 * IQR}
-#' @inheritParams stat_identity
 #' @export
 #' @examples
 #' # See geom_boxplot for examples

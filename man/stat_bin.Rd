@@ -4,7 +4,8 @@
 \usage{
   stat_bin(mapping = NULL, data = NULL, geom = "bar",
     position = "stack", width = 0.9, drop = FALSE,
-    right = FALSE, ...)
+    right = FALSE, binwidth = NULL, origin = NULL,
+    breaks = NULL, ...)
 }
 \arguments{
   \item{binwidth}{Bin width to use. Defaults to 1/30 of the

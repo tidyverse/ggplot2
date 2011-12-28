@@ -7,6 +7,9 @@
     coef = 1.5, ...)
 }
 \arguments{
+  \item{coef}{length of the whiskers as multiple of IQR.
+  Defaults to 1.5}
+
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
   needs to be set at the layer level if you are overriding
@@ -19,10 +22,6 @@
 
   \item{position}{The position adjustment to use for
   overlappling points on this layer}
-
-  \item{na.rm}{If \code{FALSE} (the default), removes
-  missing values with a warning.  If \code{TRUE} silently
-  removes missing values.}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose

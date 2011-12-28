@@ -12,6 +12,12 @@
   \item{kernel}{kernel used for density estimation, see
   \code{\link{density}} for details}
 
+  \item{trim}{if \code{TRUE}, the default, densities are
+  trimmed to the actually range of the data.  If
+  \code{FALSE}, they are extended by the default 3
+  bandwidths (as specified by the \code{cut} parameter to
+  \code{\link{density}})}
+
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
   needs to be set at the layer level if you are overriding
@@ -24,10 +30,6 @@
 
   \item{position}{The position adjustment to use for
   overlappling points on this layer}
-
-  \item{na.rm}{If \code{FALSE} (the default), removes
-  missing values with a warning.  If \code{TRUE} silently
-  removes missing values.}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose

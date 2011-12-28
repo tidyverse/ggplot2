@@ -3,6 +3,10 @@
 #' @param adjust see \code{\link{density}} for details
 #' @param kernel kernel used for density estimation, see
 #'   \code{\link{density}} for details
+#' @param trim if \code{TRUE}, the default, densities are trimmed to the
+#'   actually range of the data.  If \code{FALSE}, they are extended by the
+#'   default 3 bandwidths (as specified by the \code{cut} parameter to
+#'   \code{\link{density}})
 #' @inheritParams stat_identity
 #' @return data.frame with additional columns:
 #'   \item{density}{density estimate}

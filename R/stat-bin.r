@@ -40,9 +40,9 @@
 #' ggplot(movies, aes(x=mpaa)) + stat_bin()
 #' qplot(mpaa, data=movies, stat="bin")
 stat_bin <- function (mapping = NULL, data = NULL, geom = "bar", position = "stack", 
-width = 0.9, drop = FALSE, right = FALSE, ...) { 
+width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, origin = NULL, breaks = NULL, ...) { 
   StatBin$new(mapping = mapping, data = data, geom = geom, position = position, 
-  width = width, drop = drop, right = right, ...)
+  width = width, drop = drop, right = right, binwidth = binwidth, origin = origin, breaks = breaks, ...)
 }
 
 StatBin <- proto(Stat, {

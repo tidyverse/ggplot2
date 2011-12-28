@@ -14,8 +14,8 @@
   \item{formula}{formula relating y variables to x
   variables}
 
-  \item{xseq}{exact points to evaluate smooth at, overrides
-  n}
+  \item{method}{Quantile regression method to use.
+  Currently only supports \code{\link[quantreg]{rq}}.}
 
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
@@ -29,10 +29,6 @@
 
   \item{position}{The position adjustment to use for
   overlappling points on this layer}
-
-  \item{na.rm}{If \code{FALSE} (the default), removes
-  missing values with a warning.  If \code{TRUE} silently
-  removes missing values.}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose

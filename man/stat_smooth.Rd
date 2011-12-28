@@ -25,9 +25,6 @@
 
   \item{n}{number of points to evaluate smoother at}
 
-  \item{xseq}{exact points to evaluate smooth at, overrides
-  n}
-
   \item{...}{other arguments are passed to smoothing
   function}
 
@@ -43,10 +40,6 @@
 
   \item{position}{The position adjustment to use for
   overlappling points on this layer}
-
-  \item{na.rm}{If \code{FALSE} (the default), removes
-  missing values with a warning.  If \code{TRUE} silently
-  removes missing values.}
 }
 \value{
   a data.frame with additional columns \item{y}{predicted

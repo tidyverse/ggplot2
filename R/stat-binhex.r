@@ -1,6 +1,8 @@
 #' Bin 2d plane into hexagons.
 #' 
 #' @seealso \code{\link{stat_bin2d}} for rectangular binning
+#' @param bins numeric vector specifying number of bins in both x and y 
+#'   directions.
 #' @inheritParams stat_identity
 #' @export
 #' @examples
