@@ -1,5 +1,6 @@
 #' Dot plot
 #'
+#' @inheritParams geom_point
 #' @param binaxis which axis to bin along "x" (default) or "y"
 #' @param method "dotdensity" (default) for dot-density binning, or
 #'   "histodot" for fixed bin widths (like stat_bin)
