@@ -98,12 +98,16 @@ GeomBoxplot <- proto(Geom, {
     df$width <- df$width %||% 
       params$width %||% (resolution(df$x, FALSE) * 0.9)
 
-    suppressWarnings({
-      out_min <- vapply(df$outliers, min, numeric(1))
-      out_max <- vapply(df$outliers, max, numeric(1))
-    })
-    df$ymin_final <- pmin(out_min, df$ymin)
-    df$ymax_final <- pmax(out_max, df$ymax)
+    if (!is.null(df$outliers)) {
+      suppressWarnings({
+        out_min <- vapply(df$outliers, min, numeric(1))
+        out_max <- vapply(df$outliers, max, numeric(1))
+      })
+      
+      df$ymin_final <- pmin(out_min, df$ymin)
+      df$ymax_final <- pmax(out_max, df$ymax)
+    } 
+    
     transform(df,
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )
