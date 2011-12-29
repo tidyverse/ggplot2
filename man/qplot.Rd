@@ -1,7 +1,13 @@
 \name{qplot}
 \alias{qplot}
 \alias{quickplot}
-\title{A convenient wrapper function for creating simple ggplot plot objects.}
+\title{\code{qplot} is the basic plotting function in the ggplot2 package,
+designed to be familiar if you're used to \code{\link{plot}}
+from the base package. It is a convenient wrapper for creating
+a number of different types of plots using a consistent
+calling scheme. See \url{http://had.co.nz/ggplot2/book/qplot.pdf}
+for the chapter in the \code{ggplot2} book which describes the usage
+of \code{qplot} in detail.}
 \usage{
   qplot(x, y = NULL, ..., data, facets = NULL,
     margins = FALSE, geom = "auto", stat = list(NULL),
@@ -30,7 +36,7 @@
 
   \item{geom}{character vector specifying geom to use.
   Defaults to "point" if x and y are specified, and
-  "histogram" is on x is specified.}
+  "histogram" if only x is specified.}
 
   \item{stat}{character vector specifying statistics to
   use}
@@ -57,8 +63,14 @@
   \item{asp}{the y/x aspect ratio}
 }
 \description{
-  \code{qplot} has been designed to be familiar if you're
-  used to \code{\link{plot}}.
+  \code{qplot} is the basic plotting function in the
+  ggplot2 package, designed to be familiar if you're used
+  to \code{\link{plot}} from the base package. It is a
+  convenient wrapper for creating a number of different
+  types of plots using a consistent calling scheme. See
+  \url{http://had.co.nz/ggplot2/book/qplot.pdf} for the
+  chapter in the \code{ggplot2} book which describes the
+  usage of \code{qplot} in detail.
 }
 \examples{
 # Use data from data.frame
@@ -86,6 +98,14 @@ f <- function() {
    qplot(a, b)
 }
 f()
+
+# to set a plot aesthetic to a fixed value, wrap it with I():
+qplot(hp, wt, data = mtcars, alpha = I(0.2))
+qplot(hp, wt, data = mtcars, colour = I('violetred'))
+# This is what happens when you don't wrap I() around a plot
+# aesthetic you want to set:
+qplot(hp, wt, data = mtcars, colour = 'violetred')
+
 
 # qplot will attempt to guess what geom you want depending on the input
 # both x and y supplied = scatterplot
