@@ -61,10 +61,10 @@
 #'   geom_dotplot(binaxis = "y", stackdir = "center", binpositions="all")
 #'
 geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot", position = "identity",
-na.rm = FALSE, binaxis = "x", method="dotdensity", binpositions = "bygroup", stackdir = "up",
+na.rm = FALSE, binwidth = NULL, binaxis = "x", method="dotdensity", binpositions = "bygroup", stackdir = "up",
 stackratio = 1, dotsize = 1, ...) {
   GeomDotplot$new(mapping = mapping, data = data, stat = stat, position = position,
-  na.rm = na.rm, binaxis = binaxis, method = method, binpositions = binpositions,
+  na.rm = na.rm, binwidth = binwidth, binaxis = binaxis, method = method, binpositions = binpositions,
   stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, ...)
 }
 
