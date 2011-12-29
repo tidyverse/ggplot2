@@ -1,13 +1,7 @@
 \name{qplot}
 \alias{qplot}
 \alias{quickplot}
-\title{\code{qplot} is the basic plotting function in the ggplot2 package,
-designed to be familiar if you're used to \code{\link{plot}}
-from the base package. It is a convenient wrapper for creating
-a number of different types of plots using a consistent
-calling scheme. See \url{http://had.co.nz/ggplot2/book/qplot.pdf}
-for the chapter in the \code{ggplot2} book which describes the usage
-of \code{qplot} in detail.}
+\title{Quick plot}
 \usage{
   qplot(x, y = NULL, ..., data, facets = NULL,
     margins = FALSE, geom = "auto", stat = list(NULL),
@@ -92,6 +86,7 @@ mod <- lm(mpg ~ wt, data=mtcars)
 qplot(resid(mod), fitted(mod))
 qplot(resid(mod), fitted(mod), facets = . ~ vs)
 
+# Use qplot() inside a function body
 f <- function() {
    a <- 1:10
    b <- a ^ 2
@@ -99,7 +94,7 @@ f <- function() {
 }
 f()
 
-# to set a plot aesthetic to a fixed value, wrap it with I():
+# To set a plot aesthetic to a fixed value, wrap it with I():
 qplot(hp, wt, data = mtcars, alpha = I(0.2))
 qplot(hp, wt, data = mtcars, colour = I('violetred'))
 # This is what happens when you don't wrap I() around a plot
@@ -108,15 +103,16 @@ qplot(hp, wt, data = mtcars, colour = 'violetred')
 
 
 # qplot will attempt to guess what geom you want depending on the input
-# both x and y supplied = scatterplot
+# x and y supplied, both numeric = scatterplot
 qplot(mpg, wt, data = mtcars)
-# just x supplied = histogram
+# just numeric x supplied = histogram
 qplot(mpg, data = mtcars)
-# just y supplied = scatterplot, with x = seq_along(y)
+# just numeric y supplied = scatterplot, with x = seq_along(y)
 qplot(y = mpg, data = mtcars)
 
 # Use different geoms
 qplot(mpg, wt, geom="path")
 qplot(factor(cyl), wt, geom=c("boxplot", "jitter"))
+detach(mtcars)
 }
 
