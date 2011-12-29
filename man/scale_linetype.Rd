@@ -26,7 +26,7 @@ library(reshape2)
 library(plyr)
 ecm <- melt(economics, id = "date")
 rescale01 <- function(x) (x - min(x)) / diff(range(x))
-ecm <- ddply(ecm, "variable", mutate, value = rescale01(value))
+ecm <- ddply(ecm, "variable", transform, value = rescale01(value))
 
 qplot(date, value, data=ecm, geom="line", group=variable)
 qplot(date, value, data=ecm, geom="line", linetype=variable)

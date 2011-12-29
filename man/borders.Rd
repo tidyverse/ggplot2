@@ -26,6 +26,7 @@ if (require("maps")) {
 
 ia <- map_data("county", "iowa")
 mid_range <- function(x) mean(range(x))
+library(plyr)
 seats <- ddply(ia, .(subregion), colwise(mid_range, .(lat, long)))
 ggplot(ia, aes(long, lat)) +
   geom_polygon(aes(group = group), fill = NA, colour = "grey60") +
