@@ -17,6 +17,9 @@
     space = "rgb", na.value = "grey50")
 }
 \arguments{
+  \item{midpoint}{The midpoint (in data value) of the
+  diverging scale.  Defaults to 0.}
+
   \item{...}{Other arguments passed on to
   \code{\link{continuous_scale}} to control name, limits,
   breaks, labels and so forth.}

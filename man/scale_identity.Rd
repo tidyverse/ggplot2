@@ -26,6 +26,9 @@
   \item{...}{Other arguments passed on to
   \code{\link{discrete_scale}} or
   \code{\link{continuous_scale}}}
+
+  \item{guide}{Guide to use for this scale - defaults to
+  \code{"none"}.}
 }
 \description{
   Use values without scaling.
