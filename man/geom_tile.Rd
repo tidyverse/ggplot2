@@ -58,6 +58,7 @@ p + geom_tile()
 
 # Input that works with image
 image(t(volcano)[ncol(volcano):1,])
+library(reshape2) # for melt
 ggplot(melt(volcano), aes(x=Var1, y=Var2, fill=value)) + geom_tile()
 
 # inspired by the image-density plots of Ken Knoblauch

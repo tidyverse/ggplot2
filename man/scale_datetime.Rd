@@ -50,8 +50,10 @@ qplot(day30, y, data = df)
 
 # Manual scale selection
 qplot(day30, y, data = df)
+library(scales) # to access breaks/formatting functions
 last_plot() + scale_x_datetime(breaks = date_breaks("2 weeks"))
 last_plot() + scale_x_datetime(breaks = date_breaks("10 days"))
+library(scales) # to access breaks/formatting functions
 last_plot() + scale_x_datetime(breaks = date_breaks("10 days"),
   labels = date_format("\%d/\%m"))
 }

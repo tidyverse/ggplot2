@@ -63,6 +63,7 @@ ggplot(values, aes(fill = value)) +
 
 # Better example
 crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
+library(reshape2) # for melt
 crimesm <- melt(crimes, id = 1)
 if (require(maps)) {
   states_map <- map_data("state")

@@ -83,6 +83,7 @@
 #'
 #' # Use the arrow parameter to add an arrow to the line
 #' # See ?grid::arrow for more details
+#' library(grid)
 #' c <- ggplot(economics, aes(x = date, y = pop)) 
 #' # Arrow defaults to "last"
 #' c + geom_path(arrow = arrow())

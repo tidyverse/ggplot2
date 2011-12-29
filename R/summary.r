@@ -3,7 +3,8 @@
 #' @param object ggplot2 object to summarise
 #' @param ... other arguments ignored (for compatibility with generic)
 #' @keywords internal
-#' @S3method summary ggplot
+#' @method summary ggplot
+#' @export
 #' @examples
 #' summary(qplot(mpg, wt, data=mtcars))
 summary.ggplot <- function(object, ...) {

@@ -40,7 +40,8 @@
   Continuous position scales (x & y).
 }
 \examples{
-(m <- qplot(rating, votes, data=subset(movies, votes > 1000), na.rm = T))
+(m <- qplot(rating, votes, data=subset(movies, votes > 1000),
+  na.rm = TRUE))
 
 # Manipulating the default position scales lets you:
 

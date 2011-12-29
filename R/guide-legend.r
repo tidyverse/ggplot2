@@ -56,7 +56,7 @@
 #' @seealso \code{\link{guides}}, \code{\link{guide_colorbar}}
 #' @export
 #' @examples
-#' library(reshape2)
+#' library(reshape2) # for melt
 #' df <- melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
 #' 
 #' p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
@@ -108,8 +108,8 @@
 #' p <- qplot(1:20, 1:20, colour = letters[1:20])
 #' p + guides(col = guide_legend(nrow = 8))
 #' p + guides(col = guide_legend(ncol = 8))
-#' p + guides(col = guide_legend(nrow = 8, byrow = T))
-#' p + guides(col = guide_legend(ncol = 8, byrow = T))
+#' p + guides(col = guide_legend(nrow = 8, byrow = TRUE))
+#' p + guides(col = guide_legend(ncol = 8, byrow = TRUE))
 #' 
 #' # reversed order legend
 #' p + guides(col = guide_legend(reverse = TRUE))

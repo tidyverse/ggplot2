@@ -329,7 +329,7 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
     gTree(children = do.call("gList", panel_grobs))  
   })
   
-  panel_matrix <- matrix(panel_grobs, nrow = nrow, ncol = ncol, byrow = T)
+  panel_matrix <- matrix(panel_grobs, nrow = nrow, ncol = ncol, byrow = TRUE)
   
   size <- function(x) unit(diff(scale_dimension(x)), "null")
   

@@ -37,6 +37,7 @@
 }
 \examples{
 # Generate data
+library(reshape2) # for melt
 volcano3d <- melt(volcano)
 names(volcano3d) <- c("x", "y", "z")
 

@@ -75,6 +75,7 @@ qplot(factor(cyl), mpg, data = mtcars, geom = "violin",
 # Scale transformations occur before the density statistics are computed.
 # Coordinate transformations occur afterwards.  Observe the effect on the
 # number of outliers.
+library(plyr) # to access round_any
 m <- ggplot(movies, aes(y = votes, x = rating,
    group = round_any(rating, 0.5)))
 m + geom_violin()

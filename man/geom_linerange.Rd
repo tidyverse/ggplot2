@@ -32,7 +32,7 @@
 # Generate data: means and standard errors of means for prices
 # for each type of cut
 dmod <- lm(price ~ cut, data=diamonds)
-cuts <- data.frame(cut=unique(diamonds$cut), predict(dmod, data.frame(cut = unique(diamonds$cut)), se=T)[c("fit","se.fit")])
+cuts <- data.frame(cut=unique(diamonds$cut), predict(dmod, data.frame(cut = unique(diamonds$cut)), se=TRUE)[c("fit","se.fit")])
 
 qplot(cut, fit, data=cuts)
 # With a bar chart, we are comparing lengths, so the y-axis is

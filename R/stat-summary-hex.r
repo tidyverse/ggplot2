@@ -25,7 +25,7 @@
 ##' 
 ##' # Specifying function
 ##' d + stat_summary_hex(fun = function(x) sum(x^2))
-##' d + stat_summary_hex(fun = var, na.rm = T)
+##' d + stat_summary_hex(fun = var, na.rm = TRUE)
 stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex", position = "identity", 
 bins = 30, drop = TRUE, fun = mean, ...) {
   

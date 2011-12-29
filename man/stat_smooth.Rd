@@ -99,7 +99,7 @@ c + geom_point() +
 # Smoothers for subsets
 c <- ggplot(mtcars, aes(y=wt, x=mpg)) + facet_grid(. ~ cyl)
 c + stat_smooth(method=lm) + geom_point()
-c + stat_smooth(method=lm, fullrange=T) + geom_point()
+c + stat_smooth(method=lm, fullrange = TRUE) + geom_point()
 
 # Geoms and stats are automatically split by aesthetics that are factors
 c <- ggplot(mtcars, aes(y=wt, x=mpg, colour=factor(cyl)))

@@ -36,7 +36,7 @@
 #' d + geom_point(alpha = 0.2)
 #'
 #' # Colour of missing values is controlled with na.value:
-#' miss <- factor(sample(c(NA, 1:5), nrow(mtcars), rep = T))
+#' miss <- factor(sample(c(NA, 1:5), nrow(mtcars), rep = TRUE))
 #' qplot(mpg, wt, data = mtcars, colour = miss)
 #' qplot(mpg, wt, data = mtcars, colour = miss) + 
 #'   scale_colour_hue(na.value = "black")

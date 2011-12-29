@@ -36,6 +36,7 @@
 \examples{
 # Generate data
 huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
+library(plyr) # to access round_any
 huron$decade <- round_any(huron$year, 10, floor)
 
 h <- ggplot(huron, aes(x=year))

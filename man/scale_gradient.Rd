@@ -82,7 +82,7 @@ d + scale_colour_gradient(limits=c(3, 4), space="Lab")
 h + scale_fill_continuous(low="black", high="pink", limits=c(0,3100))
 
 # Colour of missing values is controlled with na.value:
-miss <- sample(c(NA, 1:5), nrow(mtcars), rep = T)
+miss <- sample(c(NA, 1:5), nrow(mtcars), rep = TRUE)
 qplot(mpg, wt, data = mtcars, colour = miss)
 qplot(mpg, wt, data = mtcars, colour = miss) +
   scale_colour_gradient(na.value = "black")

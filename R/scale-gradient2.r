@@ -22,6 +22,7 @@
 #' 
 #' # Using "muted" colours makes for pleasant graphics 
 #' # (and they have better perceptual properties too)
+#' library(scales) # for muted
 #' d + scale_colour_gradient2(low="red", high="blue")
 #' d + scale_colour_gradient2(low=muted("red"), high=muted("blue"))
 #' 

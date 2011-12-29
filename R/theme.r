@@ -150,6 +150,7 @@ theme_set <- .theme$set
 #' m + theme_bw()
 #' 
 #' # Manipulate Axis Attributes
+#' library(grid) # for unit
 #' m + opts(axis.line = theme_segment())
 #' m + opts(axis.line = theme_segment(colour = "red", linetype = "dotted"))
 #' m + opts(axis.text.x = theme_text(colour = "blue"))

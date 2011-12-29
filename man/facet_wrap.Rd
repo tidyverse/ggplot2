@@ -67,7 +67,7 @@ p + facet_wrap(~ cyl)
 p + facet_wrap(~ cyl, scales = "free")
 
 # Use as.table to to control direction of horizontal facets, TRUE by default
-p + facet_wrap(~ cyl, as.table = F)
+p + facet_wrap(~ cyl, as.table = FALSE)
 
 # Add data that does not contain all levels of the faceting variables
 cyl6 <- subset(mpg, cyl == 6)

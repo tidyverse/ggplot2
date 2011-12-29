@@ -254,7 +254,7 @@ layer <- Layer$new
 # Determine if aesthetic is calculated
 is_calculated_aes <- function(aesthetics) {
   match <- "\\.\\.([a-zA-z._]+)\\.\\."
-  stats <- rep(F, length(aesthetics))
+  stats <- rep(FALSE, length(aesthetics))
   grepl(match, sapply(aesthetics, deparse))
 }
 

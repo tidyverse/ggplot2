@@ -73,6 +73,7 @@
 #' m <- ggplot(movies, aes(x=rating, weight=votes/sum(votes)))
 #' m + geom_histogram(aes(y=..density..)) + geom_density(fill=NA, colour="black")
 #' 
+#' library(plyr) # to access round_any
 #' movies$decade <- round_any(movies$year, 10)
 #' m <- ggplot(movies, aes(x=rating, colour=decade, group=decade)) 
 #' m + geom_density(fill=NA)

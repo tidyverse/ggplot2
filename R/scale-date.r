@@ -16,6 +16,7 @@
 #' # We can control the format of the labels, and the frequency of 
 #' # the major and minor tickmarks.  See ?format.Date and ?seq.Date 
 #' # for more details.
+#' library(scales) # to access breaks/formatting functions
 #' dt + scale_x_date()
 #' dt + scale_x_date(labels = date_format("%m/%d"))
 #' dt + scale_x_date(labels = date_format("%W"))
@@ -49,6 +50,7 @@
 #' # If we want to display multiple series, one for each variable
 #' # it's easiest to first change the data from a "wide" to a "long"
 #' # format:
+#' library(reshape2) # for melt
 #' em <- melt(economics, id = "date")
 #' 
 #' # Then we can group and facet by the new "variable" variable

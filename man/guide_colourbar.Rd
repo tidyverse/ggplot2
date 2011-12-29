@@ -123,7 +123,7 @@
   \code{\link{guides}}.
 }
 \examples{
-library(reshape2)
+library(reshape2) # for melt
 df <- melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
 
 p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))

@@ -51,7 +51,7 @@ d + stat_summary_hex()
 
 # Specifying function
 d + stat_summary_hex(fun = function(x) sum(x^2))
-d + stat_summary_hex(fun = var, na.rm = T)
+d + stat_summary_hex(fun = var, na.rm = TRUE)
 }
 \seealso{
   \code{\link{stat_summary2d}} for rectangular
