@@ -6,6 +6,12 @@
     stat = "identity", ...)
 }
 \arguments{
+  \item{map}{Data frame that contains the map coordinates.
+  This will typically be created using
+  \code{\link{fortify}} on a spatial object.  It must
+  contain columns \code{x} or \code{long}, \code{y} or
+  \code{lat}, and \code{region} or \code{id}.}
+
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
   needs to be set at the layer level if you are overriding

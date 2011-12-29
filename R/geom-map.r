@@ -6,6 +6,10 @@ NULL
 #' Does not affect position scales.  
 #' 
 #' @export
+#' @param map Data frame that contains the map coordinates.  This will 
+#'   typically be created using \code{\link{fortify}} on a spatial object. 
+#'   It must contain columns \code{x} or \code{long}, \code{y} or
+#'   \code{lat}, and \code{region} or \code{id}.
 #' @inheritParams geom_point
 #' @examples
 #' # When using geom_polygon, you will typically need two data frames:
