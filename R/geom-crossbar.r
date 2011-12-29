@@ -38,8 +38,10 @@ GeomCrossbar <- proto(Geom, {
   draw <- function(., data, scales, coordinates, fatten = 2, width = NULL, ...) {
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten)
 
-    # If there's a notch
-    if (!is.na(data$ynotchlower) && !is.na(data$ynotchupper)) {
+    has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) && 
+      !is.na(data$ynotchlower) && !is.na(data$ynotchupper)
+
+    if (has_notch) {
       if (data$ynotchlower < data$ymin  ||  data$ynotchupper > data$ymax)
         warning("notch went outside hinges. Try setting notch=FALSE.")
 
