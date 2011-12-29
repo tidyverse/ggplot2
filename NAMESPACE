@@ -1,5 +1,6 @@
 export("%+%")
 export(aes_all)
+export(aes_auto)
 export(aes_string)
 export(aes)
 export(annotate)

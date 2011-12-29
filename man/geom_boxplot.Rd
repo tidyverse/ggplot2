@@ -44,17 +44,22 @@
 }
 \description{
   The upper and lower "hinges" correspond to the first and
-  third quartiles. This differs slightly from the method
-  used by the \code{boxplot} function, and may be apparent
-  with small samples. See \code{\link{boxplot.stats}} for
-  for more information on how hinge positions are
-  calculated for \code{boxplot}.
+  third quartiles (the 25th and 7th percentiles). This
+  differs slightly from the method used by the
+  \code{boxplot} function, and may be apparent with small
+  samples. See \code{\link{boxplot.stats}} for for more
+  information on how hinge positions are calculated for
+  \code{boxplot}.
 }
 \details{
+  The upper whisker extends from the hinge to the highest
+  value that is within 1.5 * IQR of the hinge, where IQR is
+  the inter-quartile range, or distance between the first
+  and third quartiles. The lower whisker extends from the
+  hinge to the lowest value within 1.5 * IQR of the hinge.
+
   In a notched box plot, the notches extend \code{1.58 *
-  IQR / sqrt(n)} from the median where IQR is the
-  inter-quartile range, or distance between the first and
-  third quartiles. This gives a roughly 95% confidence
+  IQR / sqrt(n)}. This gives a roughly 95% confidence
   interval for comparing medians. See McGill et al. (1978)
   for more details.
 }
