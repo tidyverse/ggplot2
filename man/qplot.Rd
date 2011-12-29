@@ -67,8 +67,12 @@ qplot(mpg, wt, data=mtcars, colour=cyl)
 qplot(mpg, wt, data=mtcars, size=cyl)
 qplot(mpg, wt, data=mtcars, facets=vs ~ am)
 
-# Use data from local environment
-attach(mtcars)
+# It will use data from local environment
+hp <- mtcars$hp
+wt <- mtcars$wt
+cyl <- mtcars$cyl
+vs <- mtcars$vs
+am <- mtcars$am
 qplot(hp, wt)
 qplot(hp, wt, colour=cyl)
 qplot(hp, wt, size=cyl)
