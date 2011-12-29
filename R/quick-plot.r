@@ -1,7 +1,10 @@
-#' A convenient wrapper function for creating simple ggplot plot objects.
-#' 
-#' \code{qplot} has been designed to be familiar if you're used to 
-#' \code{\link{plot}}.
+#' \code{qplot} is the basic plotting function in the ggplot2 package, 
+#' designed to be familiar if you're used to \code{\link{plot}} 
+#' from the base package. It is a convenient wrapper for creating 
+#' a number of different types of plots using a consistent 
+#' calling scheme. See \url{http://had.co.nz/ggplot2/book/qplot.pdf}
+#' for the chapter in the \code{ggplot2} book which describes the usage
+#' of \code{qplot} in detail.
 #' 
 #' @param x x values
 #' @param y y values
@@ -13,7 +16,7 @@
 #'   or two-sided
 #' @param margins whether or not margins will be displayed
 #' @param geom character vector specifying geom to use.  Defaults to 
-#'  "point" if x and y are specified, and "histogram" is on x is specified.
+#'  "point" if x and y are specified, and "histogram" if only x is specified.
 #' @param stat character vector specifying statistics to use
 #' @param position character vector giving position adjustment to use
 #' @param xlim limits for x axis
@@ -52,6 +55,14 @@
 #' } 
 #' f()
 #' 
+#' # to set a plot aesthetic to a fixed value, wrap it with I():
+#' qplot(hp, wt, data = mtcars, alpha = I(0.2))
+#' qplot(hp, wt, data = mtcars, colour = I('violetred'))
+#' # This is what happens when you don't wrap I() around a plot
+#' # aesthetic you want to set:
+#' qplot(hp, wt, data = mtcars, colour = 'violetred')
+#'
+#'
 #' # qplot will attempt to guess what geom you want depending on the input
 #' # both x and y supplied = scatterplot
 #' qplot(mpg, wt, data = mtcars)
