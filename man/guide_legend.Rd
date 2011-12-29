@@ -122,17 +122,17 @@ p1 + scale_fill_continuous(guide = guide_legend(title = NULL)) # no title
 # Control styles
 
 # key size
-p1 + guide(fill = guide_legend(keywidth = 3, keyheight = 1))
+p1 + guides(fill = guide_legend(keywidth = 3, keyheight = 1))
 
 # title position
-p1 + guide(fill = guide_legend(title = "LEFT", title.position = "left"))
+p1 + guides(fill = guide_legend(title = "LEFT", title.position = "left"))
 
 # title text styles via theme_text
-p1 + guide(fill = guide_legend(
+p1 + guides(fill = guide_legend(
   title.theme = theme_text(size=15, face="italic", col="red", angle=45)))
 
 # label position
-p1 + guide(fill = guide_legend(label.position = "bottom"))
+p1 + guides(fill = guide_legend(label.position = "bottom"))
 
 # label styles
 p1 + scale_fill_continuous(breaks = c(5, 10, 15),
