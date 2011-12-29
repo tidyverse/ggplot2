@@ -71,6 +71,7 @@ GeomMap <- proto(GeomPolygon, {
     data <- data[data$map_id %in% names(map), , drop = FALSE]
 
     polys <- rbind.fill(map[data$map_id])
+    polys$group <- polys$group %||% polys$id
     id <- match(polys$group, unique(polys$group))
     coords <- coord_munch(coordinates, polys, scales)
 
