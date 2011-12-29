@@ -37,6 +37,10 @@
   \item{width}{When \code{binaxis} is "y", the spacing of
   the dot stacks for dodging.}
 
+  \item{na.rm}{If \code{FALSE} (the default), removes
+  missing values with a warning.  If \code{TRUE} silently
+  removes missing values.}
+
   \item{drop}{If TRUE, remove all bins with zero counts}
 
   \item{mapping}{The aesthetic mapping, usually constructed

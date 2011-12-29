@@ -20,6 +20,8 @@
 #'   the data
 #' @param level level of confidence interval to use (0.95 by default)
 #' @param n number of points to evaluate smoother at
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @param ... other arguments are passed to smoothing function
 #' @inheritParams stat_identity
 #' @return a data.frame with additional columns 

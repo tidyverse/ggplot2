@@ -1,6 +1,8 @@
 #' Calculate contours of 3d data.
 #' 
 #' @inheritParams stat_identity
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @return A data frame with additional column:
 #'  \item{level}{height of contour}
 #' @export

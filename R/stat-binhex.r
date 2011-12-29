@@ -4,6 +4,8 @@
 #' @param bins numeric vector specifying number of bins in both x and y 
 #'   directions.
 #' @inheritParams stat_identity
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, price))

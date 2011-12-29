@@ -15,6 +15,10 @@
   \item{...}{other arguments passed on to
   \code{\link{kde2d}}}
 
+  \item{na.rm}{If \code{FALSE} (the default), removes
+  missing values with a warning.  If \code{TRUE} silently
+  removes missing values.}
+
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
   needs to be set at the layer level if you are overriding

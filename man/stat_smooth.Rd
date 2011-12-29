@@ -25,6 +25,10 @@
 
   \item{n}{number of points to evaluate smoother at}
 
+  \item{na.rm}{If \code{FALSE} (the default), removes
+  missing values with a warning.  If \code{TRUE} silently
+  removes missing values.}
+
   \item{...}{other arguments are passed to smoothing
   function}
 

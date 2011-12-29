@@ -4,6 +4,8 @@
 #'   estimation
 #' @param n number of grid points in each direction
 #' @param ... other arguments passed on to \code{\link{kde2d}}
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
 #' @return A data frame in the same format as \code{\link{stat_contour}}
 #' @importFrom MASS kde2d

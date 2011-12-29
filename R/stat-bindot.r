@@ -19,6 +19,8 @@
 #'   on the right (a, b], or not [a, b) 
 #' @param width When \code{binaxis} is "y", the spacing of the dot stacks
 #'   for dodging.
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @param drop If TRUE, remove all bins with zero counts
 #'
 #' @return New data frame with additional columns:

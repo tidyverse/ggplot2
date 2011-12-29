@@ -7,6 +7,8 @@
 #' @param scale if "equal" (default), all violins have the same area (to be
 #'   precise, they would have the same area if tails are not trimmed). If
 #'   "count", the areas are scaled proportionally to the number of observations.
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #'
 #' @return A data frame with additional columns:
 #'   \item{width}{width of violin bounding box}

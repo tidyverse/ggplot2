@@ -1,6 +1,8 @@
 #' Calculate components of box and whisker plot.
 #' 
 #' @param coef length of the whiskers as multiple of IQR.  Defaults to 1.5
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
 #' @return A data frame with additional columns:
 #'   \item{width}{width of boxplot}

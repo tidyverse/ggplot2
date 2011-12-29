@@ -4,6 +4,8 @@
 #' @param formula formula relating y variables to x variables
 #' @param method Quantile regression method to use.  Currently only supports
 #'    \code{\link[quantreg]{rq}}.
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
 #' @return a data.frame with additional columns:
 #'   \item{quantile}{quantile of distribution}

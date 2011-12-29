@@ -7,6 +7,8 @@
 #'   actually range of the data.  If \code{FALSE}, they are extended by the
 #'   default 3 bandwidths (as specified by the \code{cut} parameter to
 #'   \code{\link{density}})
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
 #' @return data.frame with additional columns:
 #'   \item{density}{density estimate}
