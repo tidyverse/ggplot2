@@ -5,84 +5,49 @@
   opts(...)
 }
 \arguments{
-  \item{...}{named list of theme settings}
-
-  \item{axis.line}{line along axis}
-
-  \item{axis.text.x}{x axis label}
-
-  \item{axis.text.y}{y axis label}
-
-  \item{axis.ticks}{axis tick marks}
-
-  \item{axis.ticks.length}{tick mark length}
-
-  \item{axis.ticks.margin}{tick mark margin spacing}
-
-  \item{axis.title.x}{horizontal tick labels}
-
-  \item{axis.title.y}{vertical tick labels}
-
-  \item{legend.background}{background of legend}
-
-  \item{legend.margin}{extra space added around legend
-  (both width or height depending on orientation of
-  legend)}
-
-  \item{legend.key}{background underneath legend keys}
-
-  \item{legend.key.size}{key background size}
-
-  \item{legend.key.height}{key background height}
-
-  \item{legend.key.width}{key background width}
-
-  \item{legend.text}{legend labels}
-
-  \item{legend.text.align}{alignment of legend labels}
-
-  \item{legend.title}{legend name}
-
-  \item{legend.title.align}{alignment of legend title}
-
-  \item{legend.position}{A string or numeric vector
-  specifying the position of guides (legends).  Possible
-  values are: "left", "right", "bottom", "top", and
-  two-element numeric vector.}
-
-  \item{legend.justification}{alignment of legend}
-
-  \item{legend.direction}{horizontal or vertical}
-
-  \item{legend.box}{A string specifying the direction of
-  multiple guides. Possible string values are: "horizontal"
-  and "vertical".}
-
-  \item{panel.background}{background of panel}
-
-  \item{panel.border}{border around panel}
-
-  \item{panel.margin}{margin around facet panels}
-
-  \item{panel.grid.major}{major grid lines}
-
-  \item{panel.grid.minor}{minor grid lines}
-
-  \item{plot.background}{background of the entire plot}
-
-  \item{plot.title}{plot title}
-
-  \item{plot.margin}{plot margins}
-
-  \item{strip.background}{background of facet labels}
-
-  \item{strip.text.x}{text for horizontal strips}
-
-  \item{strip.text.y}{text for vertical strips}
+  \item{...}{a list of element name, element pairings that
+  modify the existing theme.}
 }
 \description{
   Use this function if you want to modify a few theme
   settings for a single plot.
+}
+\section{Theme elements}{
+  The individual theme elements are:
+
+  \tabular{ll}{ axis.line \tab line along axis \cr
+  axis.text.x \tab x axis label \cr axis.text.y \tab y axis
+  label \cr axis.ticks \tab axis tick marks \cr
+  axis.ticks.length \tab tick mark length \cr
+  axis.ticks.margin \tab tick mark margin spacing \cr
+  axis.title.x \tab horizontal tick labels \cr axis.title.y
+  \tab vertical tick labels \cr legend.background \tab
+  background of legend \cr legend.margin \tab extra space
+  added around legend (both width or height depending on
+  orientation of legend) \cr legend.key \tab background
+  underneath legend keys \cr legend.key.size \tab key
+  background size \cr legend.key.height \tab key background
+  height \cr legend.key.width \tab key background width \cr
+  legend.text \tab legend labels \cr legend.text.align \tab
+  alignment of legend labels \cr legend.title \tab legend
+  name \cr legend.title.align \tab alignment of legend
+  title \cr legend.position \tab A string or numeric vector
+  specifying the position of guides (legends).  Possible
+  values are: "left", "right", "bottom", "top", and
+  two-element numeric vector. \cr legend.justification \tab
+  alignment of legend \cr legend.direction \tab horizontal
+  or vertical \cr legend.box \tab A string specifying the
+  direction of multiple guides. Possible string values are:
+  "horizontal" and "vertical". \cr panel.background \tab
+  background of panel \cr panel.border \tab border around
+  panel \cr panel.margin \tab margin around facet panels
+  \cr panel.grid.major \tab major grid lines \cr
+  panel.grid.minor \tab minor grid lines \cr
+  plot.background \tab background of the entire plot \cr
+  plot.title \tab plot title \cr plot.margin \tab plot
+  margins \cr strip.background \tab background of facet
+  labels \cr strip.text.x \tab text for horizontal strips
+  \cr strip.text.y \tab text for vertical strips \cr }
 }
 \examples{
 p <- qplot(mpg, wt, data = mtcars)
