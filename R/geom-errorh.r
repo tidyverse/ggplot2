@@ -2,7 +2,6 @@
 #'
 #' @seealso \code{\link{geom_errorbar}}: vertical error bars
 #' @inheritParams geom_point
-#' @param height height of errorbars
 #' @export
 #' @examples
 #' df <- data.frame(
