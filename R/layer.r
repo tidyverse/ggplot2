@@ -27,7 +27,7 @@ Layer <- proto(expr = {
     # now, as for the guide, we can choose only if the layer is included or not in the guide: guide = TRUE or guide = FALSE
     # in future, it may be better if we can choose which aes of this layer is included in the guide, e.g.: guide = c(colour = TRUE, size = FALSE)
     if (!is.na(legend)) {
-      warning("\"legend\" argument in geom_XXX and stat_XXX is deprecated. Use shou_guide = TRUE or show_guide = FALSE for display or suppress the guide display.")
+      warning("\"legend\" argument in geom_XXX and stat_XXX is deprecated. Use show_guide = TRUE or show_guide = FALSE for display or suppress the guide display.")
       show_guide = legend
     }
 
