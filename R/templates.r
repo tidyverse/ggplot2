@@ -56,11 +56,10 @@ ggpcp <- function(data, vars=names(data), ...) {
 #' ggfluctuation(table(warpbreaks$breaks, warpbreaks$tension))
 ggfluctuation <- function(table, type="size", floor=0, ceiling=max(table$freq, na.rm=TRUE)) {
   if (is.table(table)) table <- as.data.frame(t(table))
-
+  
   oldnames <- names(table)
   names(table) <- c("x","y", "result")
   
-  table <- add.all.combinations(table, list("x","y"))  
   table <- transform(table,
     x = as.factor(x),
     y = as.factor(y),
