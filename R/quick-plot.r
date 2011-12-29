@@ -1,3 +1,5 @@
+#' Quick plot
+#'
 #' \code{qplot} is the basic plotting function in the ggplot2 package, 
 #' designed to be familiar if you're used to \code{\link{plot}} 
 #' from the base package. It is a convenient wrapper for creating 
@@ -48,6 +50,7 @@
 #' qplot(resid(mod), fitted(mod))
 #' qplot(resid(mod), fitted(mod), facets = . ~ vs)
 #'
+#' # Use qplot() inside a function body
 #' f <- function() {
 #'    a <- 1:10
 #'    b <- a ^ 2
@@ -55,7 +58,7 @@
 #' } 
 #' f()
 #' 
-#' # to set a plot aesthetic to a fixed value, wrap it with I():
+#' # To set a plot aesthetic to a fixed value, wrap it with I():
 #' qplot(hp, wt, data = mtcars, alpha = I(0.2))
 #' qplot(hp, wt, data = mtcars, colour = I('violetred'))
 #' # This is what happens when you don't wrap I() around a plot
@@ -64,16 +67,17 @@
 #'
 #'
 #' # qplot will attempt to guess what geom you want depending on the input
-#' # both x and y supplied = scatterplot
+#' # x and y supplied, both numeric = scatterplot
 #' qplot(mpg, wt, data = mtcars)
-#' # just x supplied = histogram
+#' # just numeric x supplied = histogram
 #' qplot(mpg, data = mtcars)
-#' # just y supplied = scatterplot, with x = seq_along(y)
+#' # just numeric y supplied = scatterplot, with x = seq_along(y)
 #' qplot(y = mpg, data = mtcars)
 #' 
 #' # Use different geoms
 #' qplot(mpg, wt, geom="path")
 #' qplot(factor(cyl), wt, geom=c("boxplot", "jitter"))
+#' detach(mtcars)
 qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE, geom = "auto", stat=list(NULL), position=list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "", main = NULL, xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA) {
 
   argnames <- names(as.list(match.call(expand.dots=FALSE)[-1]))
