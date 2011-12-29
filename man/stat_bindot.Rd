@@ -3,7 +3,8 @@
 \title{Bin data for dot plot.}
 \usage{
   stat_bindot(mapping = NULL, data = NULL,
-    geom = "dotplot", position = "identity", width = 0.9,
+    geom = "dotplot", position = "identity",
+    binwidth = NULL, origin = NULL, width = 0.9,
     binaxis = "x", method = "dotdensity",
     binpositions = "bygroup", drop = FALSE, right = TRUE,
     na.rm = FALSE, ...)
@@ -27,17 +28,14 @@
   bins with all the data taken together; this is used for
   aligning dot stacks across multiple groups.}
 
-  \item{breaks}{When \code{method} is "histodot", actual
-  breaks to use.  Overrides bin width and origin}
-
   \item{origin}{When \code{method} is "histodot", origin of
   first bin}
 
-  \item{width}{When \code{method} is "histodot", width of
-  bars when used with categorical data}
-
   \item{right}{When \code{method} is "histodot", should
   intervals be closed on the right (a, b], or not [a, b)}
+
+  \item{width}{When \code{binaxis} is "y", the spacing of
+  the dot stacks for dodging.}
 
   \item{drop}{If TRUE, remove all bins with zero counts}
 
