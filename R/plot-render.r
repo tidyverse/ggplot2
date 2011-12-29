@@ -175,3 +175,12 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   invisible(data)
 }
 
+#' Generate a ggplot2 plot grob.
+#' 
+#' @param x ggplot2 object
+#' @keywords internal
+#' @export
+ggplotGrob <- function(x) {
+  gtable_gTree(ggplot_gtable(ggplot_build(x)))
+}
+
