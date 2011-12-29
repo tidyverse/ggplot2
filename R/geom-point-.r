@@ -94,8 +94,8 @@
 #'     
 #' # These extra layers don't usually appear in the legend, but we can
 #' # force their inclusion
-#' p + geom_point(colour="black", size = 4.5, legend = TRUE) + 
-#'   geom_point(colour="pink", size = 4, legend = TRUE) + 
+#' p + geom_point(colour="black", size = 4.5, show_guide = TRUE) + 
+#'   geom_point(colour="pink", size = 4, show_guide = TRUE) + 
 #'   geom_point(aes(shape = factor(cyl)))  
 #'     
 #' # Transparent points:
