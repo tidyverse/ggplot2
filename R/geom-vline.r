@@ -10,6 +10,7 @@
 #' intercept for each panel using a data.frame.  See the examples for the
 #' differences.
 #'
+#' @param show_guide should a legend be drawn? (defaults to \code{FALSE})
 #' @inheritParams geom_point
 #' @seealso
 #'  \code{\link{geom_hline}} for horizontal lines,

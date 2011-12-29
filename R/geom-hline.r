@@ -15,6 +15,7 @@
 #'  \code{\link{geom_segment}} for a more general approach
 #' @export
 #' @inheritParams geom_point
+#' @param show_guide should a legend be drawn? (defaults to \code{FALSE})
 #' @examples
 #' p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
 #' 
