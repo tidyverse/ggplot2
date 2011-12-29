@@ -22,6 +22,15 @@
 
   scale_color_manual(..., values)
 }
+\arguments{
+  \item{values}{a set of aesthetic values to map data
+  values to.}
+
+  \item{...}{common discrete scale parameters: \code{name},
+  \code{breaks}, \code{labels}, \code{na.value},
+  \code{limits} and \code{guide}.  See
+  \code{\link{discrete_scale}} for more details}
+}
 \description{
   Create your own discrete scale.
 }

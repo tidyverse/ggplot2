@@ -1,6 +1,8 @@
 #' Create your own discrete scale.
 #' 
 #' @rdname scale_manual
+#' @inheritParams scale_x_discrete
+#' @param values a set of aesthetic values to map data values to.
 #' @export
 #' @examples
 #' p <- qplot(mpg, wt, data = mtcars, colour = factor(cyl))

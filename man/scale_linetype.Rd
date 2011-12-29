@@ -10,6 +10,12 @@
 
   scale_linetype_discrete(...)
 }
+\arguments{
+  \item{...}{common discrete scale parameters: \code{name},
+  \code{breaks}, \code{labels}, \code{na.value},
+  \code{limits} and \code{guide}.  See
+  \code{\link{discrete_scale}} for more details}
+}
 \description{
   Default line types based on a set supplied by Richard
   Pearson, University of Manchester.  Line types can not be
