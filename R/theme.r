@@ -241,14 +241,14 @@ plot_theme <- function(x) {
 ##' # So does positional
 ##' update_element(x, "Times New Roman")
 ##' # And it throws an error if you use an argument that doesn't exist
-##' update_element(x, noargument = 12)
+##' \dontrun{update_element(x, noargument = 12)}
 ##' # Or multiple arguments with the same name
-##' update_element(x, size = 12, size = 15)
+##' \dontrun{update_element(x, size = 12, size = 15)}
 ##' 
 ##' # Will look up element if given name
 ##' update_element("axis.text.x", colour = 20)
 ##' # Throws error if incorrectly named
-##' update_element("axis.text", colour = 20)
+##' \dontrun{update_element("axis.text", colour = 20)}
 update_element <- function(name, ...) {
  if (is.character(name)) {
    ele <- theme_get()[[name]]
