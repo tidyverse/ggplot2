@@ -25,7 +25,12 @@ f + geom_line(linetype = "dotdash")
 f + geom_line(linetype = "3313")
 
 # Mapping line type from a variable
-ec_scaled <- data.frame(date = economics$date, rescaler(economics[, -(1:2)], "range"))
+library(plyr)
+library(reshape2)
+rescale01 <- function(x) (x - min(x)) / diff(range(x))
+ec_scaled <- data.frame(
+  date = economics$date,
+  colwise(rescale01)(economics[, -(1:2)]))
 ecm <- melt(ec_scaled, id = "date")
 qplot(date, value, data = ecm, geom = "line", linetype = variable)
 
@@ -50,16 +55,16 @@ p + geom_point(shape = NA)
 
 # Shape can also be mapped from a variable
 p + geom_point(aes(shape = factor(cyl)))
-# Compare to this plot which uses the values of cyl
-p + geom_point(aes(shape = cyl))
 
 # A look at all 25 symbols
 df2 <- data.frame(x = 1:5 , y = 1:25, z = 1:25)
 s <- ggplot(df2, aes(x = x, y = y))
-s + geom_point(aes(shape = z), size = 4)
+s + geom_point(aes(shape = z), size = 4) + scale_shape_identity()
 # While all symbols have a foreground colour, symbols 19-25 also take a
 # background colour (fill)
-s + geom_point(aes(shape = z), size = 4, colour = "Red")
-s + geom_point(aes(shape = z), size = 4, colour = "Red", fill = "Black")
+s + geom_point(aes(shape = z), size = 4, colour = "Red") +
+  scale_shape_identity()
+s + geom_point(aes(shape = z), size = 4, colour = "Red", fill = "Black") +
+  scale_shape_identity()
 }
 

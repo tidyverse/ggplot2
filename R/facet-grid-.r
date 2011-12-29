@@ -125,8 +125,8 @@
 #' k + facet_grid(. ~ cyl2, labeller = label_parsed)
 #' # For label_bquote the label value is x.
 #' p <- qplot(wt, mpg, data = mtcars)
-#' p + facet_grid(~ vs, labeller = label_bquote(alpha ^ .(x)))
-#' p + facet_grid(~ vs, labeller = label_bquote(.(x) ^ .(x)))
+#' p + facet_grid(. ~ vs, labeller = label_bquote(alpha ^ .(x)))
+#' p + facet_grid(. ~ vs, labeller = label_bquote(.(x) ^ .(x)))
 facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
