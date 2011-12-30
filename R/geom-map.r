@@ -10,9 +10,9 @@ NULL
 #' @inheritParams geom_point
 #' @examples
 #' # When using geom_polygon, you will typically need two data frames:
-#' # one contains the coordinates of each polygon (positions),  and the
+#' # one that contains the coordinates of each polygon (positions),  and the
 #' # other the values associated with each polygon (values).  An id
-#' # variable links the two together
+#' # variable links the two together.
 #' 
 #' ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))
 #' 

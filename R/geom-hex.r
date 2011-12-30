@@ -1,4 +1,4 @@
-#' Hexagon bining.
+#' Hexagonal binning.
 #'
 #' @export
 #' @inheritParams geom_point

@@ -4,12 +4,12 @@
 #' plot.
 #' 
 #' With its siblings \code{geom_hline} and \code{geom_vline}, it's useful for
-#' annotating plots.  You can supply the parameters for geom_abline, 
-#' intercept and slope, in two ways: either explicitly as fixed values, or
+#' annotating plots.  You can supply the parameters for \code{geom_abline}, 
+#' its intercept and slope, in two ways: either explicitly as fixed values or as variables 
 #' in a data frame.  If you specify the fixed values
 #' (\code{geom_abline(intercept=0, slope=1)}) then the line will be the same
-#' in all panels.  If the intercept and slope are stored in the data, then 
-#' they can vary from panel to panel.  See the examples for more ideas.
+#' in all panels.  If the intercept and slope are stored in a data frame, then 
+#' they can vary from panel to panel in a facetted plot.  See the examples for more ideas.
 #'
 #' @seealso \code{\link{stat_smooth}} to add lines derived from the data,
 #'  \code{\link{geom_hline}} for horizontal lines,

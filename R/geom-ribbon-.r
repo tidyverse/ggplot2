@@ -1,5 +1,17 @@
 #' Ribbons, y range with continuous x values.
 #'
+#' \code{geom_ribbon} produces vertical bands over a continuous 
+#' domain of x values. It takes two arguments inside \code{aes()}:
+#' ymin and ymax, whose values can be fixed constants or variables.
+#' ymin provides the lower limits of the ribbon while ymax 
+#' provides the corresponding upper limits. For example, 
+#' confidence bands in \code{geom_smooth()} are drawn by 
+#' \code{geom_ribbon()}, where the lower and upper pointwise 
+#' confidence limits over a set of x values comprise the 
+#' variables mapped to ymin and ymax, respectively. It is also
+#' possible to map ymin and/or ymax to a fixed distance from
+#' the values of an (estimated) function or to set either 
+#' or both of them to fixed values. See below for illustrative examples. 
 #' @seealso
 #'   \code{\link{geom_bar}} for discrete intervals (bars),
 #'   \code{\link{geom_linerange}} for discrete intervals (lines),
@@ -13,6 +25,7 @@
 #' 
 #' h <- ggplot(huron, aes(x=year))
 #' 
+#' # ymin set to a constant, ymax mapped to a variable
 #' h + geom_ribbon(aes(ymin=0, ymax=level))
 #' h + geom_area(aes(y = level))
 #' 

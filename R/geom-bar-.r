@@ -1,37 +1,37 @@
 #' Bars, rectangles with bases on x-axis
 #' 
-#' The bar geom is used to produce 1d area plots: bar charts for categorical
-#' x, and histograms for continuous y.  stat_bin explains the details of 
-#' these summaries in more detail.  In particular, you can use the
-#' \code{weight} aesthetic to create weighted histograms and barcharts where
-#' the height of the bar no longer represent a count of observations, but a
-#' sum over some other variable.  See the examples for a practical
-#' example.
+#' The bar geom is used to produce 1d area plots: bar charts for categorical variables
+#' and histograms for continuous variables. \code{stat_bin} explains the details of 
+#' these summaries.  In particular, the \code{weight} aesthetic 
+#' can be used to create weighted histograms and barcharts where
+#' the height of the bar no longer represents a count of observations, but a
+#' sum over some other variable.  See the Examples section for a practical
+#' application.
 #'
-#' By default, multiple x's occuring in the same place will be stacked a top
-#' one another by position_stack.  If you want them to be dodged from
-#' side-to-side, see \code{\link{position_dodge}}. Finally, 
-#' \code{\link{position_fill}} shows relative propotions at each x by stacking
+#' By default, multiple x's occurring in the same location will be stacked atop
+#' one another by \code{\link{position_stack}}.  If you want them to be dodged 
+#' (i.e., side-by-side), see \code{\link{position_dodge}}. Finally, 
+#' \code{\link{position_fill}} shows relative proportions at each x by stacking
 #' the bars and then stretching or squashing to the same height.
 #'
 #' If you have presummarised data, use \code{stat="identity"} to turn off the
 #' default summary.
 #'
 #' Sometimes, bar charts are used not as a distributional summary, but 
-#' instead of a dotplot.  Generally, it's preferable to use a dotplot (see
-#' \code{geom_point}) as it has a better data-ink ratio.  However, if you do
+#' as a substitute for a dotplot.  Generally, it's preferable to use a dotplot (see
+#' \code{\link{geom_point}}) as it has a better data-ink ratio.  However, if you do
 #' want to create this type of plot, you can set y to the value you have
-#' calculated, and use \code{stat='identity'}
+#' calculated, and use \code{stat='identity'}.
 #'
 #' A bar chart maps the height of the bar to a variable, and so the base of
-#' the bar must always been shown to produce a valid visual comparison.  
+#' the bar must always produce a valid visual reference point.  
 #' Naomi Robbins has a nice
 #' \href{http://www.b-eye-network.com/view/index.php?cid=2468}{article on this topic}.  
-#' This is the reason it doesn't make sense to use a log-scaled y axis with a bar chart
+#' This is the reason it doesn't make sense to use a log-scaled y axis with a bar chart.
 #'
-#' @seealso \code{\link{stat_bin}} for more details of the binning alogirithm, 
-#'   \code{\link{position_dodge}} for creating side-by-side barcharts, 
-#'   \code{\link{position_stack}} for more info on stacking,
+#' @seealso \code{\link{stat_bin}} for more details of the binning algorithm, 
+#'   \code{\link{position_dodge}} for creating side-by-side barcharts and 
+#'   \code{\link{position_stack}} for more info on stacking.
 #' @export
 #' @inheritParams geom_point
 #' @examples

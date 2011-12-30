@@ -1,7 +1,7 @@
 #' Contours from a 2d density estimate.
 #'
-#' Perform a 2D kernel density estimatation using kde2d and display the
-#' results with contours.
+#' Performs 2D kernel density estimation using 
+#' \code{\link{MASS::kde2d} and displays the resulting contours.
 #' 
 #' This can be useful for dealing with overplotting.
 #'
