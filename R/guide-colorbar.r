@@ -1,15 +1,15 @@
-#' Contiuous colour bar guide.
+#' Continuous colour bar guide.
 #'
-#' Colour bar guide shows continuous color scales mapped onto values.
+#' A colour bar guide shows continuous color scales mapped onto a set of values.
 #' Colour bar is available with \code{scale_fill} and \code{scale_colour}.
 #' For more information, see the inspiration for this function:
 #' \href{http://www.mathworks.com/help/techdoc/ref/colorbar.html}{Matlab's colorbar function}.
 #'
 #' Guides can be specified in each scale or in \code{\link{guides}}.
-#' \code{guide="legend"} in scale is syntax sugar for
+#' \code{guide="legend"} in scale is syntactic sugar for
 #' \code{guide=guide_legend()} - but the second form allows you to specify 
 #' more options. As for how to specify the guide for each
-#' scales, see \code{\link{guides}}.
+#' scale, see \code{\link{guides}}.
 #'
 #' @inheritParams guide_legend
 #' @param barwidth A numeric or a unit object specifying the width of the
@@ -18,11 +18,10 @@
 #' @param barheight A numeric or a unit object specifying the height of the
 #'   colorbar. Default value is \code{legend.key.height} or
 #'   \code{legend.key.size} in \code{\link{opts}} or theme.
-#' @param nbin A numeric specifying the number of bins for drawing colorbar. A
-#'   smoother colorbar for a larger value.
-#' @param raster A logical. If \code{TRUE} then the colorbar is rendered as a
-#'   raster object. If \code{FALSE} then the colorbar is rendered as a set of
-#'   rectangles. Note that not all graphics devices are capable of rendering
+#' @param nbin A numeric specifying the number of bins for drawing a colorbar. More bins produce smoother colorbars. 
+#' @param raster A logical. If \code{TRUE}, the colorbar is rendered as a
+#'   raster object. If \code{FALSE}, the colorbar is rendered as a set of
+#'   rectangles. Note that not all graphics devices are capable of rendering a
 #'   raster image.
 #' @param ticks A logical specifying if tick marks on colorbar should be
 #'   visible.
@@ -32,7 +31,7 @@
 #'   be visible.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
-#' @param default.unit A character string indicating unit for \code{barwidth}
+#' @param default.unit A character string indicating the unit for \code{barwidth}
 #    and \code{barheight}.
 #' @param ... ignored.
 #' @return A guide object
@@ -88,7 +87,7 @@
 #'   scale_size(guide = guide_legend(direction = "vertical")) 
 guide_colourbar <- function(
                            
-  ##　title
+  ##title
   title = waiver(),
   title.position = NULL,
   title.theme = NULL,
@@ -123,7 +122,7 @@ guide_colourbar <- function(
   if (!is.null(barheight) && !is.unit(barheight)) barheight <- unit(barheight, default.unit)
 
   structure(list(
-    ##　title
+    ##title
     title = title,
     title.position = title.position,
     title.theme = title.theme,

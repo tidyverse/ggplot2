@@ -1,12 +1,12 @@
 #' Legend guide.
 #'
-#' Legend type guide shows key (i.e., geoms) mapped onto values.
+#' A legend type guide shows keys (i.e., geoms) mapped onto values.
 #' Legend guides for various scales are integrated if possible.
 #' 
 #' Guides can be specified in each scale or in \code{\link{guides}}.
 #' \code{guide="legend"} in scale is syntactic sugar for
 #' \code{guide=guide_legend()}. As for how to specify the guide for each
-#' scales in more detail, see \code{\link{guides}}.
+#' scale in more detail, see \code{\link{guides}}.
 #' 
 #' @param title A character string or expression indicating a title of guide.
 #'   If \code{NULL}, the title is not shown. By default
