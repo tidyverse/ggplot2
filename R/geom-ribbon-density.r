@@ -3,6 +3,7 @@
 #' A smooth density estimate calculated by \code{\link{stat_density}}.
 #'
 #' @seealso \code{\link{geom_histogram}} for the histogram
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' # See stat_density for examples

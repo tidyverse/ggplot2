@@ -1,5 +1,6 @@
 #' An interval represented by a vertical line, with a point in the middle.
 #' 
+#' @inheritParams geom_point
 #' @seealso
 #'  \code{\link{geom_errorbar}} for error bars,
 #'  \code{\link{geom_linerange}} for range indicated by straight line, + examples,

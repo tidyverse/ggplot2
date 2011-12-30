@@ -2,9 +2,11 @@
 #' 
 #' @param nrow number of rows
 #' @param ncol number of columns
-#' @param facet formula specifying variables to facet by
-#' @param scales should scales be fixed, free, or free in one dimension
-#'   (\code{free_x}, \code{free_y})
+#' @param facets formula specifying variables to facet by
+#' @param scales should scales be fixed (\code{"fixed"}, the default), 
+#'   free (\code{"free"}), or free in one dimension  (\code{"free_x"},
+#'   \code{"free_y"})
+#' @inheritParams facet_grid
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) + 
@@ -38,7 +40,7 @@
 #' p + facet_wrap(~ cyl, scales = "free")
 #'
 #' # Use as.table to to control direction of horizontal facets, TRUE by default
-#' p + facet_wrap(~ cyl, as.table = F)
+#' p + facet_wrap(~ cyl, as.table = FALSE)
 #'
 #' # Add data that does not contain all levels of the faceting variables
 #' cyl6 <- subset(mpg, cyl == 6)
@@ -48,7 +50,7 @@
 #'   facet_wrap(~ cyl)
 #' p + geom_point(data = transform(cyl6, cyl = NULL), colour = "red") + 
 #'   facet_wrap(~ cyl)
-facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, as.table = TRUE) {
+facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, as.table = TRUE, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
@@ -66,14 +68,14 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrin
 #' @S3method facet_train_layout wrap
 facet_train_layout.wrap <- function(facet, data) { 
   panels <- layout_wrap(data, facet$facets, facet$nrow, facet$ncol,
-     facet$as.table)
+     facet$as.table, facet$drop)
   
   n <- nrow(panels)
   nrow <- max(panels$ROW)
   
   # Add scale identification
-  panels$SCALE_X <- if (facet$free$x) seq_len(n) else 1
-  panels$SCALE_Y <- if (facet$free$y) seq_len(n) else 1
+  panels$SCALE_X <- if (facet$free$x) seq_len(n) else 1L
+  panels$SCALE_Y <- if (facet$free$y) seq_len(n) else 1L
   
   # Figure out where axes should go
   panels$AXIS_X <- if (facet$free$x) TRUE else panels$ROW == nrow
@@ -176,6 +178,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   lay
 }
 
+#' @S3method facet_panels wrap
 facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   panels <- panel$layout$PANEL
   lapply(panels, function(i) {
@@ -190,6 +193,7 @@ facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   })
 }
 
+#' @S3method facet_strips wrap
 facet_strips.wrap <- function(facet, panel, theme) {
   labels_df <- panel$layout[names(facet$facets)]
   labels_df[] <- llply(labels_df, format, justify = "none")
@@ -199,6 +203,7 @@ facet_strips.wrap <- function(facet, panel, theme) {
   list(t = llply(labels, ggstrip, theme = theme))
 }
 
+#' @S3method facet_axes wrap
 facet_axes.wrap <- function(facet, panel, coord, theme) {
   panels <- panel$layout$PANEL
   
@@ -222,4 +227,9 @@ facet_axes.wrap <- function(facet, panel, coord, theme) {
   })
   axes
   
+}
+
+#' @S3method facet_vars wrap
+facet_vars.wrap <- function(facet) {
+  paste(lapply(facet$facets, paste, collapse = ", "), collapse = " ~ ")
 }

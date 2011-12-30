@@ -59,3 +59,32 @@ test_that("wrap: missing facet columns are duplicated", {
   expect_that(loc_c$PANEL, equals(factor(1:4)))
 
 })
+
+# Missing behaviour ----------------------------------------------------------
+
+a3 <- data.frame(
+#  a = c(1:3, NA), Not currently supported
+  b = factor(c(1:3, NA)),
+  c = factor(c(1:3, NA), exclude = NULL)
+)
+
+test_that("wrap: missing values located correctly", {
+  panel_b <- layout_wrap(list(a3), "b", ncol = 1)
+  loc_b <- locate_wrap(data.frame(b = NA), panel_b, "b")
+  expect_equal(as.character(loc_b$PANEL), "4")
+
+  panel_c <- layout_wrap(list(a3), "c", ncol = 1)
+  loc_c <- locate_wrap(data.frame(c = NA), panel_c, "c")
+  expect_equal(as.character(loc_c$PANEL), "4")
+  
+})
+
+test_that("grid: missing values located correctly", {
+  panel_b <- layout_grid(list(a3), "b")
+  loc_b <- locate_grid(data.frame(b = NA), panel_b, "b")
+  expect_equal(as.character(loc_b$PANEL), "4")
+
+  panel_c <- layout_grid(list(a3), "c")
+  loc_c <- locate_grid(data.frame(c = NA), panel_c, "c")
+  expect_equal(as.character(loc_c$PANEL), "4")
+})

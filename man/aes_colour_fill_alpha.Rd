@@ -43,8 +43,8 @@ b + geom_point(colour = "red")
 df <- data.frame(x = rnorm(5000), y = rnorm(5000))
 h  <- ggplot(df, aes(x,y))
 h + geom_point()
-h + geom_point(colour = alpha("black", .5))
-h + geom_point(colour = alpha("black", 1/10))
+h + geom_point(alpha = 0.5)
+h + geom_point(alpha = 1/10)
 
 #If a geom uses both fill and colour, alpha will only modify the fill colour
 c + geom_bar(fill = "dark grey", colour = "black")
@@ -57,6 +57,7 @@ yrng <- range(economics$unemploy)
 j <- j + geom_rect(aes(NULL, NULL, xmin = start, xmax = end, fill = party),
 ymin = yrng[1], ymax = yrng[2], data = presidential)
 j
+library(scales) # to access the alpha function
 j + scale_fill_manual(values = alpha(c("blue", "red"), .3))
 }
 

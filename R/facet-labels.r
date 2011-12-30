@@ -3,6 +3,7 @@
 #' 
 #' @param variable variable name passed in by facetter
 #' @param value variable value passed in by facetter
+#' @family facet labellers
 #' @export
 #' @examples
 #' p <- qplot(wt, mpg, data = mtcars)
@@ -14,6 +15,7 @@ label_value <- function(variable, value) as.character(value)
 #' 
 #' @param variable variable name passed in by facetter
 #' @param value variable value passed in by facetter
+#' @family facet labellers
 #' @export
 #' @examples
 #' p <- qplot(wt, mpg, data = mtcars)
@@ -26,6 +28,7 @@ label_both <- function(variable, value) paste(variable, value, sep = ": ")
 #' @seealso \code{\link{plotmath}}
 #' @param variable variable name passed in by facetter
 #' @param value variable value passed in by facetter
+#' @family facet labellers
 #' @export
 #' @examples
 #' mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
@@ -42,6 +45,7 @@ label_parsed <- function(variable, value) {
 #' label value is x. 
 #' 
 #' @param expr labelling expression to use
+#' @family facet labellers
 #' @seealso \code{\link{plotmath}}
 #' @export
 #' @examples

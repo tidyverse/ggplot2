@@ -7,15 +7,30 @@
     dparams = list(), na.rm = FALSE, ...)
 }
 \arguments{
-  \item{quantiles}{Quantiles to compute and display}
-
-  \item{dist}{Distribution function to use, if x not
-  specified}
+  \item{distribution}{Distribution function to use, if x
+  not specified}
 
   \item{dparams}{Parameters for distribution function}
 
   \item{...}{Other arguments passed to distribution
   function}
+
+  \item{na.rm}{If \code{FALSE} (the default), removes
+  missing values with a warning.  If \code{TRUE} silently
+  removes missing values.}
+
+  \item{mapping}{The aesthetic mapping, usually constructed
+  with \code{\link{aes}} or \code{\link{aes_string}}. Only
+  needs to be set at the layer level if you are overriding
+  the plot defaults.}
+
+  \item{data}{A layer specific dataset - only needed if you
+  want to override the plot defaults.}
+
+  \item{geom}{The geometric object to use display the data}
+
+  \item{position}{The position adjustment to use for
+  overlappling points on this layer}
 }
 \value{
   a data.frame with additional columns:
@@ -41,7 +56,8 @@ ggplot(df, aes(sample = y)) + stat_qq()
 ggplot(df, aes(sample = y)) + geom_point(stat = "qq")
 
 # Use fitdistr from MASS to estimate distribution params
-params <- as.list(MASS::fitdistr(y, "t")$estimate)
+library(MASS)
+params <- as.list(fitdistr(y, "t")$estimate)
 ggplot(df, aes(sample = y)) + stat_qq(dist = qt, dparam = params)
 
 # Using to explore the distribution of a variable

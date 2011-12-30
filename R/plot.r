@@ -2,12 +2,12 @@
 #' 
 #' @seealso \url{http://had.co.nz/ggplot2}
 #' @export
-#' @S3method ggplot default
-#' @keywords hplot
+#' @keywords internal
 #' @param data default data set
 #' @param ... other arguments passed to specific methods
 ggplot <- function(data = NULL, ...) UseMethod("ggplot")
 
+#' @S3method ggplot default
 ggplot.default <- function(data = NULL, mapping = aes(), ...) {
   ggplot.data.frame(fortify(data, ...), mapping)
 }
@@ -15,8 +15,8 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...) {
 #' Create a new ggplot plot from a data frame
 #' 
 #' @param data default data frame for plot
-#' @param default list of aesthetic mappings (these can be colour, size,
-#'   shape, line type -- see individual geom functions for more details)
+#' @param mapping default list of aesthetic mappings (these can be colour,
+#'   size, shape, line type -- see individual geom functions for more details)
 #' @param ... ignored
 #' @param environment in which evaluation of aesthetics should occur
 #' @seealso \url{http://had.co.nz/ggplot2}

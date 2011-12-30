@@ -4,7 +4,7 @@
 \usage{
   facet_grid(facets, margins = FALSE, scales = "fixed",
     space = "fixed", shrink = TRUE,
-    labeller = "label_value", as.table = TRUE)
+    labeller = "label_value", as.table = TRUE, drop = TRUE)
 }
 \arguments{
   \item{facets}{a formula with the rows (of the tabular
@@ -14,8 +14,42 @@
   (either row or column). The formula can also be provided
   as a string instead of a classical formula object}
 
-  \item{margin}{logical value, should marginal rows and
+  \item{margins}{logical value, should marginal rows and
   columns be displayed}
+
+  \item{scales}{Are scales shared across all facets (the
+  default, \code{"fixed"}), or do they vary across rows
+  (\code{"free_x"}), columns (\code{"free_y"}), or both
+  rows and columns (\code{"free"})}
+
+  \item{space}{If \code{"fixed"}, the default, all panels
+  have the same size.  If \code{"free_y"} their height will
+  be proportional to the length of the y scale; if
+  \code{"free_x"} their width will be proportional to the
+  length of the x scale; or if \code{"free"} both height
+  and width will vary.  This setting has no effect unless
+  the appropriate scales also vary.}
+
+  \item{labeller}{A function that takes two arguments
+  (\code{variable} and \code{value}) and returns a string
+  suitable for display in the facet strip. See
+  \code{\link{label_value}} for more details and pointers
+  to other options.}
+
+  \item{as.table}{If \code{TRUE}, the default, the facets
+  are laid out like a table with highest values at the
+  bottom-right. If \code{FALSE}, the facet are laid out
+  like a plot with the highest value at the top-right.}
+
+  \item{shrink}{If \code{TRUE}, will shrink scales to fit
+  output of statistics, not raw data. If \code{FALSE}, will
+  be range of raw data before statistical summary.}
+
+  \item{drop}{If \code{TRUE}, the default, all factor
+  levels not used in the data will automatically be
+  dropped. If \code{FALSE}, all factor levels will be
+  shown, regardless of whether or not they appear in the
+  data.}
 }
 \description{
   Lay out panels in a grid.
@@ -84,6 +118,8 @@ mt + facet_grid(vs ~ am, scales = "free")
 mt + facet_grid(vs ~ am, scales = "free_x")
 mt + facet_grid(vs ~ am, scales = "free_y")
 mt + facet_grid(vs ~ am, scales = "free", space="free")
+mt + facet_grid(vs ~ am, scales = "free", space="free_x")
+mt + facet_grid(vs ~ am, scales = "free", space="free_y")
 
 # You may need to set your own breaks for consitent display:
 mt + facet_grid(. ~ cyl, scales = "free_x", space="free") +
@@ -115,7 +151,7 @@ k + facet_grid(. ~ cyl2)
 k + facet_grid(. ~ cyl2, labeller = label_parsed)
 # For label_bquote the label value is x.
 p <- qplot(wt, mpg, data = mtcars)
-p + facet_grid(~ vs, labeller = label_bquote(alpha ^ .(x)))
-p + facet_grid(~ vs, labeller = label_bquote(.(x) ^ .(x)))
+p + facet_grid(. ~ vs, labeller = label_bquote(alpha ^ .(x)))
+p + facet_grid(. ~ vs, labeller = label_bquote(.(x) ^ .(x)))
 }
 

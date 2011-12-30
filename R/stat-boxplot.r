@@ -1,12 +1,18 @@
 #' Calculate components of box and whisker plot.
 #' 
+#' @param coef length of the whiskers as multiple of IQR.  Defaults to 1.5
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
+#' @inheritParams stat_identity
 #' @return A data frame with additional columns:
 #'   \item{width}{width of boxplot}
-#'   \item{ymin}{lower whisker = lower hinge - 1.5 * IQR}
+#'   \item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR}
 #'   \item{lower}{lower hinge, 25\% quantile} 
+#'   \item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
 #'   \item{middle}{median, 50\% quantile}
+#'   \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
 #'   \item{upper}{upper hinge, 75\% quantile}
-#'   \item{ymax}{upper whisker = upper hinge + 1.5 * IQR}
+#'   \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
 #' @export
 #' @examples
 #' # See geom_boxplot for examples
@@ -46,12 +52,24 @@ StatBoxplot <- proto(Stat, {
       iqr <- diff(stats[c(2, 4)])
       
       outliers <- y < (stats[2] - coef * iqr) | y > (stats[4] + coef * iqr)
-      if (any(outliers)) stats[c(1, 5)] <- range(y[!outliers], na.rm=TRUE)
+      if (any(outliers)) {
+        stats[c(1, 5)] <- range(c(stats[2:4], y[!outliers]), na.rm=TRUE)
+      }
       
       if (length(unique(x)) > 1) width <- diff(range(x)) * 0.9
     
       df <- as.data.frame(as.list(stats))
       df$outliers <- I(list(y[outliers]))
+
+      if (is.null(weight)) {
+        n <- sum(!is.na(y))
+      } else {
+        # Sum up weights for non-NA positions of y and weight
+        n <- sum(weight[!is.na(y) & !is.na(weight)])
+      }
+
+      df$notchupper <- df$middle + 1.58 * iqr / sqrt(n)
+      df$notchlower <- df$middle - 1.58 * iqr / sqrt(n)
 
       transform(df,
         x = if (is.factor(x)) x[1] else mean(range(x)),

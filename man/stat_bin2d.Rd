@@ -5,6 +5,31 @@
   stat_bin2d(mapping = NULL, data = NULL, geom = NULL,
     position = "identity", bins = 30, drop = TRUE, ...)
 }
+\arguments{
+  \item{bins}{numeric vector giving number of bins in both
+  vertical and horizontal directions.}
+
+  \item{drop}{if \code{TRUE} removes all cells with 0
+  counts.}
+
+  \item{mapping}{The aesthetic mapping, usually constructed
+  with \code{\link{aes}} or \code{\link{aes_string}}. Only
+  needs to be set at the layer level if you are overriding
+  the plot defaults.}
+
+  \item{data}{A layer specific dataset - only needed if you
+  want to override the plot defaults.}
+
+  \item{geom}{The geometric object to use display the data}
+
+  \item{position}{The position adjustment to use for
+  overlappling points on this layer}
+
+  \item{...}{other arguments passed on to
+  \code{\link{layer}}. This can include aesthetics whose
+  values you want to set, not map. See \code{\link{layer}}
+  for more details.}
+}
 \description{
   Count number of observation in rectangular bins.
 }

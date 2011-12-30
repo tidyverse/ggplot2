@@ -1,5 +1,6 @@
 \name{scale_colour_manual}
 \alias{scale_alpha_manual}
+\alias{scale_color_manual}
 \alias{scale_colour_manual}
 \alias{scale_fill_manual}
 \alias{scale_linetype_manual}
@@ -18,6 +19,17 @@
   scale_linetype_manual(..., values)
 
   scale_alpha_manual(..., values)
+
+  scale_color_manual(..., values)
+}
+\arguments{
+  \item{values}{a set of aesthetic values to map data
+  values to.}
+
+  \item{...}{common discrete scale parameters: \code{name},
+  \code{breaks}, \code{labels}, \code{na.value},
+  \code{limits} and \code{guide}.  See
+  \code{\link{discrete_scale}} for more details}
 }
 \description{
   Create your own discrete scale.

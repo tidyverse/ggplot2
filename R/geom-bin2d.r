@@ -1,6 +1,7 @@
 #' Add heatmap of 2d bin counts.
 #'
 #' @export
+#' @inheritParams geom_point
 #' @examples
 #' d <- ggplot(diamonds, aes(x = x, y = y)) + xlim(4,10) + ylim(4,10)
 #' d + geom_bin2d()

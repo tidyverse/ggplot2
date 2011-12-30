@@ -27,7 +27,6 @@ new_panel <- function() {
 # @return an updated panel object
 train_layout <- function(panel, facet, data, plot_data) {
   layout <- facet_train_layout(facet, c(data, list(plot_data)))
-
   panel$layout <- layout
   panel$shrink <- facet$shrink
   
@@ -141,6 +140,7 @@ scale_apply <- function(data, vars, f, scale_id, scales) {
   if (length(vars) == 0) return()
   
   n <- length(scales)
+  if (any(is.na(scale_id))) stop()
   scale_index <- plyr:::split_indices(seq_len(nrow(data)), scale_id, n)
 
   lapply(vars, function(var) {

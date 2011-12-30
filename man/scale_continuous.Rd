@@ -30,12 +30,18 @@
   \code{name}, \code{breaks}, \code{labels},
   \code{na.value}, \code{limits} and \code{trans}.  See
   \code{\link{continuous_scale}} for more details}
+
+  \item{expand}{a numeric vector of length two giving
+  multiplicative and additive expansion constants. These
+  constants ensure that the data is placed some distance
+  away from the axes.}
 }
 \description{
   Continuous position scales (x & y).
 }
 \examples{
-(m <- qplot(rating, votes, data=subset(movies, votes > 1000), na.rm = T))
+(m <- qplot(rating, votes, data=subset(movies, votes > 1000),
+  na.rm = TRUE))
 
 # Manipulating the default position scales lets you:
 

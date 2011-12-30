@@ -6,8 +6,8 @@
 #' @param theta variable to map angle to (\code{x} or \code{y})
 #' @param start offset of starting point from 12 o'clock in radians
 #' @param direction 1, clockwise; -1, anticlockwise
-#' @param should axes be expanded to slightly outside the range of the data?
-#'   (default: FALSE)
+#' @param expand should axes be expanded to slightly outside the range of the
+#'   data? (default: \code{FALSE})
 #' @export
 #' @examples 
 #' # NOTE: Use these plots with caution - polar coordinates has
@@ -232,6 +232,15 @@ coord_render_fg.polar <- function(coord, details, theme) {
     theme_render(theme, "panel.border")
   )
 }  
+
+#' @S3method coord_labels polar
+coord_labels.polar <- function(coord, scales) {
+  if (coord$theta == "y") {
+    list(x = scales$y, y = scales$x)
+  } else {
+    scales
+  }
+}
 
   
 icon <- function(.) circleGrob(r = c(0.1, 0.25, 0.45), gp=gpar(fill=NA))

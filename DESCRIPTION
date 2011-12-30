@@ -14,7 +14,9 @@ Description: An implementation of the grammar of graphics
     data to aesthetic attributes. See the ggplot2 website
     for more information, documentation and examples.
 Depends:
-    R (>= 2.14)
+    R (>= 2.14),
+    stats,
+    methods
 Imports:
     plyr (>= 1.0),
     digest,
@@ -22,7 +24,8 @@ Imports:
     reshape2,
     scales,
     memoise,
-    proto
+    proto,
+    MASS
 Suggests:
     quantreg,
     Hmisc,
@@ -30,7 +33,8 @@ Suggests:
     maps,
     hexbin,
     gpclib,
-    maptools
+    maptools,
+    multcomp
 Extends:
     sp
 License: GPL-2
@@ -39,7 +43,6 @@ LazyData: true
 Collate:
     'aaa-.r'
     'aaa-constants.r'
-    'aaa-html.r'
     'aes-colour-fill-alpha.r'
     'aes-linetype-size-shape.r'
     'aes.r'
@@ -74,6 +77,7 @@ Collate:
     'geom-boxplot.r'
     'geom-crossbar.r'
     'geom-defaults.r'
+    'geom-dotplot.r'
     'geom-error.r'
     'geom-errorh.r'
     'geom-freqpoly.r'
@@ -99,9 +103,11 @@ Collate:
     'geom-smooth.r'
     'geom-text.r'
     'geom-tile.r'
+    'geom-violin.r'
     'geom-vline.r'
     'ggplot2.r'
     'grob-absolute.r'
+    'grob-dotstack.r'
     'grob-null.r'
     'guide-colorbar.r'
     'guide-legend.r'
@@ -147,8 +153,8 @@ Collate:
     'scale-size.r'
     'scales-.r'
     'stat-.r'
-    'stat-aggr-2d.r'
-    'stat-aggr-hex.r'
+    'stat-summary-2d.r'
+    'stat-summary-hex.r'
     'stat-bin.r'
     'stat-bin2d.r'
     'stat-binhex.r'
@@ -156,6 +162,7 @@ Collate:
     'stat-contour.r'
     'stat-density-2d.r'
     'stat-density.r'
+    'stat-bindot.r'
     'stat-function.r'
     'stat-identity.r'
     'stat-qq.r'
@@ -167,14 +174,13 @@ Collate:
     'stat-summary.r'
     'stat-unique.r'
     'stat-vline.r'
+    'stat-ydensity.r'
     'summary.r'
     'templates.r'
     'theme-defaults.r'
     'theme-elements.r'
     'theme.r'
     'utilities-break.r'
-    'utilities-discrete.r'
-    'utilities-facet.r'
     'utilities-grid.r'
     'utilities-layer.r'
     'utilities-matrix.r'
@@ -188,3 +194,6 @@ Collate:
     'geom-raster.r'
     'annotation-raster.r'
     'annotation-map.r'
+    'autoplot.r'
+    'zzz.r'
+    'fortify-multcomp.r'

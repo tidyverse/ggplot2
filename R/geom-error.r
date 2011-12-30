@@ -5,6 +5,7 @@
 #'   by straight line; \code{\link{geom_crossbar}}: hollow bar with middle
 #'   indicated by horizontal line; \code{\link{stat_summary}}: examples of
 #'   these guys in use, \code{\link{geom_smooth}} for continuous analog
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' # Create a simple example dataset

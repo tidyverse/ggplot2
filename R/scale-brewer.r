@@ -16,11 +16,9 @@
 #' d + scale_colour_brewer("clarity")
 #' d + scale_colour_brewer(expression(clarity[beta]))
 #' 
-#' # Select brewer palette to use, see ?brewer.pal for more details
+#' # Select brewer palette to use, see ?scales::brewer_pal for more details
 #' d + scale_colour_brewer(type="seq")
 #' d + scale_colour_brewer(type="seq", palette=3)
-#' 
-#' RColorBrewer::display.brewer.all(n=8, exact.n=FALSE)
 #' 
 #' d + scale_colour_brewer(palette="Blues")
 #' d + scale_colour_brewer(palette="Set1")
@@ -40,8 +38,8 @@ scale_fill_brewer <- function(..., type = "seq", palette = 1) {
   discrete_scale("fill", "brewer", brewer_pal(type, palette), ...)
 }
 
-icon.brewer <- function() {
-  rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21, 
-    gp=gpar(fill=RColorBrewer::brewer.pal(5, "PuOr"), col=NA)
-  )
-}
+# icon.brewer <- function() {
+#   rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21, 
+#     gp=gpar(fill=RColorBrewer::brewer.pal(5, "PuOr"), col=NA)
+#   )
+# }

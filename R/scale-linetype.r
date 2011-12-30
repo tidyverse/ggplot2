@@ -4,14 +4,15 @@
 #' University of Manchester.  Line types can not be mapped to continuous
 #' values.
 #'
+#' @inheritParams scale_x_discrete
 #' @rdname scale_linetype
 #' @export
 #' @examples
-#' ec_scaled <- data.frame(
-#'   date = economics$date, 
-#'   rescaler(economics[, -(1:2)], "range")
-#' )
-#' ecm <- melt(ec_scaled, id = "date")
+#' library(reshape2) # for melt
+#' library(plyr) # for ddply
+#' ecm <- melt(economics, id = "date")
+#' rescale01 <- function(x) (x - min(x)) / diff(range(x))
+#' ecm <- ddply(ecm, "variable", transform, value = rescale01(value))
 #' 
 #' qplot(date, value, data=ecm, geom="line", group=variable)
 #' qplot(date, value, data=ecm, geom="line", linetype=variable)

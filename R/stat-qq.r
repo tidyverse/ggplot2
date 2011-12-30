@@ -1,9 +1,11 @@
 #' Calculation for quantile-quantile plot.
 #' 
-#' @param quantiles Quantiles to compute and display
-#' @param dist Distribution function to use, if x not specified
+#' @param distribution Distribution function to use, if x not specified
 #' @param dparams Parameters for distribution function
 #' @param ... Other arguments passed to distribution function
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
+#' @inheritParams stat_identity
 #' @return a data.frame with additional columns:
 #'   \item{sample}{sample quantiles}
 #'   \item{theoretical}{theoretical quantiles}
@@ -24,7 +26,8 @@
 #' ggplot(df, aes(sample = y)) + geom_point(stat = "qq")
 #' 
 #' # Use fitdistr from MASS to estimate distribution params
-#' params <- as.list(MASS::fitdistr(y, "t")$estimate)
+#' library(MASS)
+#' params <- as.list(fitdistr(y, "t")$estimate)
 #' ggplot(df, aes(sample = y)) + stat_qq(dist = qt, dparam = params)
 #' 
 #' # Using to explore the distribution of a variable

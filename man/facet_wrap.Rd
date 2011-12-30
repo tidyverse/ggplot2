@@ -3,17 +3,34 @@
 \title{Wrap a 1d ribbon of panels into 2d.}
 \usage{
   facet_wrap(facets, nrow = NULL, ncol = NULL,
-    scales = "fixed", shrink = TRUE, as.table = TRUE)
+    scales = "fixed", shrink = TRUE, as.table = TRUE,
+    drop = TRUE)
 }
 \arguments{
   \item{nrow}{number of rows}
 
   \item{ncol}{number of columns}
 
-  \item{facet}{formula specifying variables to facet by}
+  \item{facets}{formula specifying variables to facet by}
 
-  \item{scales}{should scales be fixed, free, or free in
-  one dimension (\code{free_x}, \code{free_y})}
+  \item{scales}{should scales be fixed (\code{"fixed"}, the
+  default), free (\code{"free"}), or free in one dimension
+  (\code{"free_x"}, \code{"free_y"})}
+
+  \item{shrink}{If \code{TRUE}, will shrink scales to fit
+  output of statistics, not raw data. If \code{FALSE}, will
+  be range of raw data before statistical summary.}
+
+  \item{as.table}{If \code{TRUE}, the default, the facets
+  are laid out like a table with highest values at the
+  bottom-right. If \code{FALSE}, the facet are laid out
+  like a plot with the highest value at the top-right.}
+
+  \item{drop}{If \code{TRUE}, the default, all factor
+  levels not used in the data will automatically be
+  dropped. If \code{FALSE}, all factor levels will be
+  shown, regardless of whether or not they appear in the
+  data.}
 }
 \description{
   Wrap a 1d ribbon of panels into 2d.
@@ -50,7 +67,7 @@ p + facet_wrap(~ cyl)
 p + facet_wrap(~ cyl, scales = "free")
 
 # Use as.table to to control direction of horizontal facets, TRUE by default
-p + facet_wrap(~ cyl, as.table = F)
+p + facet_wrap(~ cyl, as.table = FALSE)
 
 # Add data that does not contain all levels of the faceting variables
 cyl6 <- subset(mpg, cyl == 6)

@@ -1,6 +1,7 @@
 #' Sum unique values.  Useful for overplotting on scatterplots.
 #' 
 #' @seealso \code{\link{ggfluctuation}} for a fluctuation diagram, 
+#' @inheritParams stat_identity
 #' @return a data.frame with additional columns
 #'  \item{n}{number of observations at position}
 #'  \item{prop}{percent of points in that panel at that position}

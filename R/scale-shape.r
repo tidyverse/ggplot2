@@ -2,6 +2,8 @@
 #' 
 #' A continuous variable can not be mapped to shape.
 #'
+#' @param solid Are the shapes solid, \code{TRUE}, or hollow \code{FALSE}? 
+#' @inheritParams scale_x_discrete
 #' @rdname scale_shape
 #' @export
 #' @examples

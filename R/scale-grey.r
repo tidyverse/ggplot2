@@ -16,7 +16,7 @@
 #' p + scale_colour_grey() + theme_bw()
 #'
 #' # Colour of missing values is controlled with na.value:
-#' miss <- factor(sample(c(NA, 1:5), nrow(mtcars), rep = T))
+#' miss <- factor(sample(c(NA, 1:5), nrow(mtcars), rep = TRUE))
 #' qplot(mpg, wt, data = mtcars, colour = miss) + scale_colour_grey()
 #' qplot(mpg, wt, data = mtcars, colour = miss) + 
 #'   scale_colour_grey(na.value = "green")

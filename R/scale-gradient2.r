@@ -2,6 +2,8 @@
 #' 
 #' @inheritParams scale_colour_hue
 #' @inheritParams scales::div_gradient_pal
+#' @param midpoint The midpoint (in data value) of the diverging scale. 
+#'   Defaults to 0.
 #' @family colour scales
 #' @rdname scale_gradient2
 #' @export
@@ -20,6 +22,7 @@
 #' 
 #' # Using "muted" colours makes for pleasant graphics 
 #' # (and they have better perceptual properties too)
+#' library(scales) # for muted
 #' d + scale_colour_gradient2(low="red", high="blue")
 #' d + scale_colour_gradient2(low=muted("red"), high=muted("blue"))
 #' 

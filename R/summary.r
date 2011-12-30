@@ -1,6 +1,10 @@
 #' Displays a useful description of a ggplot object
 #' 
-#' @S3method summary ggplot
+#' @param object ggplot2 object to summarise
+#' @param ... other arguments ignored (for compatibility with generic)
+#' @keywords internal
+#' @method summary ggplot
+#' @export
 #' @examples
 #' summary(qplot(mpg, wt, data=mtcars))
 summary.ggplot <- function(object, ...) {
@@ -32,7 +36,7 @@ summary.ggplot <- function(object, ...) {
   }
   
   cat("faceting: ")
-  object$facet$pprint()
+  print(object$facet)
 
   if (length(object$layers) > 0)
     cat("-----------------------------------\n")

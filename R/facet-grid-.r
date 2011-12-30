@@ -5,7 +5,28 @@
 #'   formula is used to indicate there should be no faceting on this dimension
 #'   (either row or column). The formula can also be provided as a string
 #'   instead of a classical formula object
-#' @param margin logical value, should marginal rows and columns be displayed
+#' @param margins logical value, should marginal rows and columns be displayed
+#' @param scales Are scales shared across all facets (the default,
+#'   \code{"fixed"}), or do they vary across rows (\code{"free_x"}),
+#'   columns (\code{"free_y"}), or both rows and columns (\code{"free"})
+#' @param space If \code{"fixed"}, the default, all panels have the same size.
+#'   If \code{"free_y"} their height will be proportional to the length of the
+#'   y scale; if \code{"free_x"} their width will be proportional to the 
+#'  length of the x scale; or if \code{"free"} both height and width will 
+#'  vary.  This setting has no effect unless the appropriate scales also vary.
+#' @param labeller A function that takes two arguments (\code{variable} and 
+#'   \code{value}) and returns a string suitable for display in the facet
+#'   strip. See \code{\link{label_value}} for more details and pointers
+#'   to other options.
+#' @param as.table If \code{TRUE}, the default, the facets are laid out like
+#'   a table with highest values at the bottom-right. If \code{FALSE}, the 
+#'   facet are laid out like a plot with the highest value at the top-right.
+#' @param shrink If \code{TRUE}, will shrink scales to fit output of
+#'   statistics, not raw data. If \code{FALSE}, will be range of raw data
+#'   before statistical summary.
+#' @param drop If \code{TRUE}, the default, all factor levels not used in the
+#'   data will automatically be dropped. If \code{FALSE}, all factor levels
+#'   will be shown, regardless of whether or not they appear in the data.
 #' @export
 #' @examples 
 #' # faceting displays subsets of the data in different panels
@@ -71,6 +92,8 @@
 #' mt + facet_grid(vs ~ am, scales = "free_x")
 #' mt + facet_grid(vs ~ am, scales = "free_y")
 #' mt + facet_grid(vs ~ am, scales = "free", space="free")
+#' mt + facet_grid(vs ~ am, scales = "free", space="free_x")
+#' mt + facet_grid(vs ~ am, scales = "free", space="free_y")
 #' 
 #' # You may need to set your own breaks for consitent display:
 #' mt + facet_grid(. ~ cyl, scales = "free_x", space="free") + 
@@ -102,15 +125,20 @@
 #' k + facet_grid(. ~ cyl2, labeller = label_parsed)
 #' # For label_bquote the label value is x.
 #' p <- qplot(wt, mpg, data = mtcars)
-#' p + facet_grid(~ vs, labeller = label_bquote(alpha ^ .(x)))
-#' p + facet_grid(~ vs, labeller = label_bquote(.(x) ^ .(x)))
-facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE) {
+#' p + facet_grid(. ~ vs, labeller = label_bquote(alpha ^ .(x)))
+#' p + facet_grid(. ~ vs, labeller = label_bquote(.(x) ^ .(x)))
+facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
   )
-  space <- match.arg(space, c("fixed", "free"))
+  
+  space <- match.arg(space, c("fixed", "free_x", "free_y", "free"))
+  space_free <- list(
+      x = any(space %in% c("free_x", "free")),
+      y = any(space %in% c("free_y", "free"))
+  )
   
   # Facets can either be a formula, a string, or a list of things to be
   # convert to quoted
@@ -133,19 +161,20 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
   
   facet(
     rows = rows, cols = cols, margins = margins, shrink = shrink,
-    free = free, space_is_free = (space == "free"),
-    labeller = labeller, as.table = as.table,
+    free = free, space_free = space_free, 
+    labeller = labeller, as.table = as.table, drop = drop,
     subclass = "grid"
   )
 }
 
 #' @S3method facet_train_layout grid
 facet_train_layout.grid <- function(facet, data) { 
-  layout <- layout_grid(data, facet$rows, facet$cols, facet$margins)
-
+  layout <- layout_grid(data, facet$rows, facet$cols, facet$margins,
+    facet$drop)
+    
   # Relax constraints, if necessary
-  layout$SCALE_X <- if (facet$free$x) layout$COL else 1
-  layout$SCALE_Y <- if (facet$free$y) layout$ROW else 1
+  layout$SCALE_X <- if (facet$free$x) layout$COL else 1L
+  layout$SCALE_Y <- if (facet$free$y) layout$ROW else 1L
   
   layout
 }
@@ -165,6 +194,10 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
   # adjust the size of axes to the size of panel
   axes$l$heights <- panels$heights
   axes$b$widths <- panels$widths
+  
+  # adjust the size of the strips to the size of the panels
+  strips$r$heights <- panels$heights
+  strips$t$widths <- panels$widths
   
   # Combine components into complete plot
   top <- strips$t
@@ -191,6 +224,7 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
   complete
 }
 
+#' @S3method facet_strips grid
 facet_strips.grid <- function(facet, panel, theme) {
   col_vars <- unique(panel$layout[names(facet$cols)])
   row_vars <- unique(panel$layout[names(facet$rows)])
@@ -251,6 +285,7 @@ build_strip <- function(panel, label_df, labeller, theme, side = "right") {
   }
 }
 
+#' @S3method facet_axes grid
 facet_axes.grid <- function(facet, panel, coord, theme) {
   axes <- list()
 
@@ -271,6 +306,7 @@ facet_axes.grid <- function(facet, panel, coord, theme) {
   axes
 }
 
+#' @S3method facet_panels grid
 facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   
   # If user hasn't set aspect ratio, and we have fixed scales, then
@@ -301,24 +337,28 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
     gTree(children = do.call("gList", panel_grobs))  
   })
   
-  panel_matrix <- matrix(panel_grobs, nrow = nrow, ncol = ncol, byrow = T)
-
-  if(facet$space_is_free) {
-    size <- function(x) unit(diff(scale_dimension(x)), "null")
+  panel_matrix <- matrix(panel_grobs, nrow = nrow, ncol = ncol, byrow = TRUE)
+  
+  size <- function(x) unit(diff(scale_dimension(x)), "null")
+  
+  if (facet$space_free$x) {
     x_scales <- panel$layout$SCALE_X[panel$layout$ROW == 1]
-    y_scales <- panel$layout$SCALE_Y[panel$layout$COL == 1]
-
     panel_widths <- do.call("unit.c", llply(panel$x_scales, size))[x_scales]
-    panel_heights <- do.call("unit.c", llply(panel$y_scales, size))[y_scales]
   } else {
     panel_widths <- rep(unit(1, "null"), ncol)
+  }
+  if (facet$space_free$y) {
+    y_scales <- panel$layout$SCALE_Y[panel$layout$COL == 1]
+    panel_heights <- do.call("unit.c", llply(panel$y_scales, size))[y_scales]
+  } else {
     panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow)
   }
-
+  
   panels <- layout_matrix("panel", panel_matrix,
     panel_widths, panel_heights, respect = respect)
   panels <- gtable_add_col_space(panels, theme$panel.margin)
   panels <- gtable_add_row_space(panels, theme$panel.margin)
+    
   panels
 }
 
@@ -329,3 +369,9 @@ icon.grid <- function(.) {
     segmentsGrob(c(0, 0.475), c(0.475, 0), c(1, 0.475), c(0.475, 1))
   ))
 }  
+
+#' @S3method facet_vars grid
+facet_vars.grid <- function(facet) {
+  paste(lapply(list(facet$rows, facet$cols), paste, collapse = ", "), 
+    collapse = " ~ ")
+}

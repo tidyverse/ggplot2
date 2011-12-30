@@ -14,8 +14,8 @@
 
   \item{direction}{1, clockwise; -1, anticlockwise}
 
-  \item{should}{axes be expanded to slightly outside the
-  range of the data?  (default: FALSE)}
+  \item{expand}{should axes be expanded to slightly outside
+  the range of the data? (default: \code{FALSE})}
 }
 \description{
   The polar coordinate system is most commonly used for pie

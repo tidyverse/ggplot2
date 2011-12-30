@@ -36,6 +36,7 @@ locate_grid <- function(data, panels, rows = NULL, cols = NULL, margins = FALSE)
     data$PANEL <- 1
   } else {
     facet_vals[] <- lapply(facet_vals[], as.factor)
+    facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
     keys <- join.keys(facet_vals, panels, by = vars)
 
     data$PANEL <- panels$PANEL[match(keys$x, keys$y)]

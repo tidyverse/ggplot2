@@ -15,6 +15,8 @@
 #'  \code{\link{geom_hline}} for horizontal lines,
 #'  \code{\link{geom_vline}} for vertical lines
 #'  \code{\link{geom_segment}}
+#' @param show_guide should a legend be drawn? (defaults to \code{FALSE})
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' p <- qplot(wt, mpg, data = mtcars)
@@ -48,8 +50,8 @@
 #' # It's actually a bit easier to do this with stat_smooth
 #' p + geom_smooth(aes(group=cyl), method="lm")
 #' p + geom_smooth(aes(group=cyl), method="lm", fullrange=TRUE)
-geom_abline <- function (mapping = NULL, data = NULL, stat = "abline", position = "identity", ...) { 
-  GeomAbline$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_abline <- function (mapping = NULL, data = NULL, stat = "abline", position = "identity", show_guide = FALSE, ...) { 
+  GeomAbline$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
 }
 
 GeomAbline <- proto(Geom, {

@@ -4,6 +4,13 @@
 \usage{
   annotation_map(map, ...)
 }
+\arguments{
+  \item{map}{data frame representing a map.  Most map
+  objects can be converted into the right format by using
+  \code{\link{fortify}}}
+
+  \item{...}{other arguments used to modify aesthetics}
+}
 \description{
   Annotation: maps.
 }
@@ -16,7 +23,7 @@ ggplot(seal.sub, aes(x = long, y = lat)) +
   annotation_map(usamap, fill = "NA", colour = "grey50") +
   geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat))
 
-seal2 <- mutate(seal.sub,
+seal2 <- transform(seal.sub,
   latr = cut(lat, 2),
   longr = cut(long, 2))
 

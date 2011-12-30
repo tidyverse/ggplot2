@@ -1,6 +1,11 @@
 #' Bin 2d plane into hexagons.
 #' 
 #' @seealso \code{\link{stat_bin2d}} for rectangular binning
+#' @param bins numeric vector specifying number of bins in both x and y 
+#'   directions.
+#' @inheritParams stat_identity
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, price))
@@ -69,7 +74,7 @@ hexBin <- function(x, y, binwidth) {
   xbins <- diff(xbnds) / binwidth[1]
 
   ybnds <- c(
-    round_any(min(y), binwidth[1], floor) - 1e-6, 
+    round_any(min(y), binwidth[2], floor) - 1e-6, 
     round_any(max(y), binwidth[2], ceiling) + 1e-6
   )
   ybins <- diff(ybnds) / binwidth[2]

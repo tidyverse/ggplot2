@@ -45,7 +45,7 @@
   \item{log}{which variables to log transform ("x", "y", or
   "xy")}
 
-  \item{title}{character vector or expression for plot
+  \item{main}{character vector or expression for plot
   title}
 
   \item{xlab}{character vector or expression for x axis
@@ -67,8 +67,12 @@ qplot(mpg, wt, data=mtcars, colour=cyl)
 qplot(mpg, wt, data=mtcars, size=cyl)
 qplot(mpg, wt, data=mtcars, facets=vs ~ am)
 
-# Use data from local environment
-attach(mtcars)
+# It will use data from local environment
+hp <- mtcars$hp
+wt <- mtcars$wt
+cyl <- mtcars$cyl
+vs <- mtcars$vs
+am <- mtcars$am
 qplot(hp, wt)
 qplot(hp, wt, colour=cyl)
 qplot(hp, wt, size=cyl)
@@ -96,7 +100,7 @@ qplot(mpg, data = mtcars)
 qplot(y = mpg, data = mtcars)
 
 # Use different geoms
-qplot(mpg, wt, geom="path")
-qplot(factor(cyl), wt, geom=c("boxplot", "jitter"))
+qplot(mpg, wt, data = mtcars, geom="path")
+qplot(factor(cyl), wt, data = mtcars, geom=c("boxplot", "jitter"))
 }
 

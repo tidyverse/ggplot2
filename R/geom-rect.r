@@ -1,5 +1,6 @@
 #' 2d rectangles.
 #'
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' df <- data.frame(

@@ -5,8 +5,8 @@
   expand_limits(...)
 }
 \arguments{
-  \item{named}{list of aesthetics specifying the value (or
-  values) that should be included.}
+  \item{...}{named list of aesthetics specifying the value
+  (or values) that should be included in each scale.}
 }
 \description{
   panels or all plots.  This function is a thin wrapper
