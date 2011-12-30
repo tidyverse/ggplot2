@@ -93,7 +93,7 @@
 #' mt + facet_grid(vs ~ am, scales = "free_y")
 #' mt + facet_grid(vs ~ am, scales = "free", space="free")
 #' 
-#' # You may need to set your own breaks for consitent display:
+#' # You may need to set your own breaks for consistent display:
 #' mt + facet_grid(. ~ cyl, scales = "free_x", space="free") + 
 #'   scale_x_continuous(breaks = seq(10, 36, by = 2))
 #' # Adding scale limits override free scales:

@@ -2,7 +2,7 @@
 #' 
 #' @param nrow number of rows
 #' @param ncol number of columns
-#' @param facets formula specifying variables to facet by
+#' @param facets formula specifying faceting variables 
 #' @param scales should scales be fixed (\code{"fixed"}, the default), 
 #'   free (\code{"free"}), or free in one dimension  (\code{"free_x"},
 #'   \code{"free_y"})
@@ -22,7 +22,7 @@
 #' # d + facet_wrap(~ color + cut)
 #' 
 #' # To change plot order of facet wrap, 
-#' # change the order of varible levels with factor()
+#' # change the order of variable levels with factor()
 #' diamonds$color <- factor(diamonds$color, levels = c("G", "J", "D", "E", "I", "F", "H"))
 #' # Repeat first example with new order
 #' d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) + 
