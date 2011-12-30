@@ -1,7 +1,8 @@
 #' Polar coordinates.
 #' 
-#' The polar coordinate system is most commonly used for pie charts, which 
-#' are a stacked bar chart in polar coordinates.
+#' The polar coordinate system is most commonly used in 
+#' statistical graphics for pie charts, which 
+#' are stacked bar charts represented in polar coordinates.
 #'
 #' @param theta variable to map angle to (\code{x} or \code{y})
 #' @param start offset of starting point from 12 o'clock in radians
@@ -10,7 +11,7 @@
 #'   data? (default: \code{FALSE})
 #' @export
 #' @examples 
-#' # NOTE: Use these plots with caution - polar coordinates has
+#' # NOTE: Use these plots with caution - polar coordinates have
 #' # major perceptual problems.  The main point of these examples is 
 #' # to demonstrate how these common plots can be described in the
 #' # grammar.  Use with EXTREME caution.

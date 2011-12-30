@@ -1,13 +1,13 @@
 #' Cartesian coordinates.
 #'
-#' The Cartesian coordinate system is the most familiar, and common, type of
+#' The Cartesian coordinate system is the most familiar and common type of
 #' coordinate system. Setting limits on the coordinate system will zoom the
-#' plot (like you're looking at it with a magnifying class), and will not
-#' change the underlying data like setting limits on a scale will.
+#' plot (as though you were looking at it with a magnifying class), and will not
+#' change the underlying data as would setting limits on a scale.
 #' 
 #' @param xlim limits for the x axis
 #' @param ylim limits for the y axis
-#' @param wise If \code{TRUE} will wisely expand the actual range of the plot
+#' @param wise If \code{TRUE}, will wisely expand the actual range of the plot
 #'   a little, in the way that setting the limits on the scales does
 #' @export
 #' @examples 
@@ -21,17 +21,17 @@
 #' # the original data
 #' p + scale_x_continuous(limits = c(325, 500))
 #' 
-#' # Setting the limits on the coordinate system performs a visual zoom
-#' # the data is unchanged, and we just view a small portion of the original
-#' # plot.  See how the axis labels are the same as the original data, and 
-#' # the smooth continue past the points visible on this plot.
+#' # Setting the limits on the coordinate system performs a visual zoom.
+#' # The data is unchanged, and we just view a small portion of the original
+#' # plot. Observe how the axis labels are the same as the original data, and 
+#' # the smooth continues past the points visible on this plot.
 #' p + coord_cartesian(xlim = c(325, 500))
 #' 
 #' # You can see the same thing with this 2d histogram
 #' (d <- ggplot(diamonds, aes(carat, price)) + 
 #'   stat_bin2d(bins = 25, colour="grey50"))
 #' 
-#' # When zooming the scale, the we get 25 new bins that are the same
+#' # When zooming the scale, we get 25 new bins that are the same
 #' # size on the plot, but represent smaller regions of the data space
 #' d + scale_x_continuous(limits = c(0, 2))
 #' 

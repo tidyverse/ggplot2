@@ -1,19 +1,25 @@
-#' Transformed cartesian coordinate system.
+#' Transformed Cartesian coordinate system.
 #' 
-#' \code{coord_trans} is different to scale transformations in that it occurs after 
-#' statistical transformation and will affect the visual appearance of geoms - there is
-#' no guarantee that straight lines will continue to be straight.
+#' \code{coord_trans} specifies coordinate 
+#' transformations. This differs from scale transformations in 
+#' that it occurs after statistical transformation has 
+#' taken place and will affect the visual 
+#' appearance of geoms. For example, if a straight line is fit 
+#' to data in the original x and y scales, a coordinate 
+#' transformation is applied after the fit and is likely 
+#' to warp the fitted line into a curve in the transformed
+#' coordinate system.
 #'
-#' All current transformations only work with continuous values - see \code{scale}{trans_new}
-#' for list of transformations, and instructions on how to create your own.
+#' All current transformations only work with continuous values - see \code{scales::trans_new}
+#' for list of transformations and instructions on how to create your own.
 #'
 #' @param ytrans transformer for x axis
 #' @param xtrans transformer for y axis
 #' @export
 #' @examples
-#' # See ?geom_boxplot for other examples
+#' # See ?geom_boxplot for further examples.
 #' 
-#' # Three ways of doing transformating in ggplot:
+#' # Three ways of doing transformations in ggplot:
 #' #  * by transforming the data
 #' qplot(log10(carat), log10(price), data=diamonds)
 #' #  * by transforming the scales
@@ -35,7 +41,7 @@
 #'   geom_smooth(method="lm") +
 #'   coord_trans(x = "log10", y = "log10")
 #'   
-#' # Here I used a subset of diamonds so that the smoothed line didn't
+#' # A subset of diamonds is used so that the smoothed line doesn't
 #' # drop below zero, which obviously causes problems on the log-transformed
 #' # scale
 #' 

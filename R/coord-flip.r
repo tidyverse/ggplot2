@@ -1,7 +1,7 @@
 #' Flipped cartesian coordinates.
 #' 
-#' Flipped cartesian coordinates so that horizontal becomes vertical, and
-#' vertical, horizontal. This is primarily useful for converting geoms and
+#' Flips the axes of Cartesian coordinates so that horizontal becomes vertical, and
+#' vertical, horizontal. This is most useful for converting geoms and
 #' statistics which display y conditional on x, to x conditional on y.
 #'
 #' @export
@@ -21,7 +21,11 @@
 #' h + coord_flip() + scale_x_reverse()
 #'
 #' # You can also use it to flip lines and area plots:
-#' qplot(1:5, (1:5)^2, geom="area")
+#' qplot(1:10, (1:10)^2, geom="area")
+#' last_plot() + coord_flip()
+#' # Quick and dirty plot of a monotone continuous function 
+#' # and its inverse:
+#' qplot(1:10, (1:10)^2, geom = 'line')
 #' last_plot() + coord_flip()
 coord_flip <- function(...) {
   coord <- coord_cartesian(...)
