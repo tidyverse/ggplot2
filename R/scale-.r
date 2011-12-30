@@ -126,7 +126,10 @@ scale_train_df <- function(scale, df) {
 
 # Train an individual scale from a vector of data.
 #
-scale_train <- function(scale, x) UseMethod("scale_train")
+scale_train <- function(scale, x) {
+  if (length(x) == 0) return()
+  UseMethod("scale_train")
+}
 
 #' @S3method scale_train continuous
 scale_train.continuous <- function(scale, x) {
