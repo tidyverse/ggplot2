@@ -1,7 +1,7 @@
 #' Differentiation related aesthetics: linetype, size, shape
 #' 
-#' This page demonstrates the usage of a sub-group 
-#' of aesthetics; linetype, size and shape.
+#' This page demonstrates the usage of a subgroup 
+#' of aesthetics: linetype, size and shape.
 #' 
 #' @name aes_linetype_size_shape
 #' @aliases linetype size shape 
@@ -47,9 +47,9 @@
 #' p + geom_point(shape = ".")
 #' p + geom_point(shape = NA)
 #'
-#' # Shape can also be mapped from a variable
+#' # Shape can also be mapped to a variable:
 #' p + geom_point(aes(shape = factor(cyl)))
-#' # Compare to this plot which uses the values of cyl
+#' # Compare to this plot, which uses the values of cyl
 #' p + geom_point(aes(shape = cyl))
 #'  
 #' # A look at all 25 symbols

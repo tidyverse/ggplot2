@@ -27,7 +27,20 @@
 #' 
 #' \code{aes} creates a list of unevaluated expressions.  This function also
 #' performs partial name matching, converts color to colour, and old style R
-#' names to ggplot names (eg. pch to shape, cex to size)
+#' names to corresponding ggplot names (e.g., pch to shape, cex to size).
+#'
+#' \code{Context:  } In ggplot2, an aesthetic is a visual 
+#' property of a geom; for 
+#' example, in a scatterplot drawn by \code{geom_point}, the x 
+#' and y coordinates, the shape of the points, their size and 
+#' their colour are all aesthetics. Within a \code{ggplot()} or
+#' \code{geom_*()} call, 
+#' aesthetics may be mapped to variables in a data frame or set to specific 
+#' values. Aesthetics to be mapped belong inside an \code{aes()}
+#' call; those to be set belong outside \code{aes()}.
+#' See \link{aes_colour_fill_alpha} or \link{aes_linetype_size_shape}
+#' for examples.
+#' 
 #' 
 #' @param x x value
 #' @param y y value
