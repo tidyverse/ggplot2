@@ -62,8 +62,7 @@ theme_set <- .theme$set
 #' Set options/theme elements for a single plot
 #' 
 #' Use this function if you want to modify a few theme settings for 
-#' a single plot. The individual theme elements are:
-#' 
+#' a single plot. The individual theme elements are: 
 #' \tabular{ll}{
 #' axis.line     \tab  line along axis \cr
 #'   axis.text.x   \tab   x axis label \cr
@@ -84,10 +83,10 @@ theme_set <- .theme$set
 #'   legend.title      \tab     legend name \cr
 #'   legend.title.align  \tab   alignment of legend title \cr
 #'   legend.position    \tab    A string or numeric vector  specifying the position of guides (legends). \cr
-#'    Possible values are: "left", "right", "bottom", "top", and two-element numeric vector. \cr
+#'       \tab  Possible values are: "left", "right", "bottom", "top", and two-element numeric vector. \cr
 #'   legend.justification \tab  alignment of legend \cr
 #'   legend.direction     \tab  horizontal or vertical \cr
-#'   legend.box   \tab    A string specifying the direction of multiple guides. Possible string values are: "horizontal" and "vertical". \cr
+#'   legend.box   \tab  Specify direction in which a guide is rendered. Possible values are "horizontal" or "vertical" (default). \cr
 #'   panel.background   \tab    background of panel \cr
 #'   panel.border       \tab    border around panel \cr
 #'   panel.margin       \tab    margin around facet panels \cr
@@ -110,7 +109,7 @@ theme_set <- .theme$set
 #' p + opts(panel_background = theme_rect(colour = "pink"))
 #' p + theme_bw()
 #'
-#' # Scatter plot of gas milage by vehicle weight
+#' # Scatterplot of gas mileage by vehicle weight
 #' p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 #' # Calculate slope and intercept of line of best fit
 #' coef(lm(mpg ~ wt, data = mtcars))
@@ -135,7 +134,7 @@ theme_set <- .theme$set
 #' p + opts(plot.title = theme_text(size = 20))
 #' p + opts(plot.title = theme_text(size = 20, colour = "Blue"))
 #'
-#' # Changing plot look with themes
+#' # Changing the look of a plot with themes
 #' m <- ggplot(movies, aes(x = rating)) + geom_histogram()
 #' #default is theme_grey()
 #' m 
