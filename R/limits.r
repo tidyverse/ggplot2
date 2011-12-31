@@ -1,7 +1,7 @@
 #' Convenience function to set the limits of the x axis.
 #' 
-#' @param ... if numeric, will create a continuos scale, if factor or
-#'   character, will create a discrete scale
+#' @param ... if numeric, will create a continuous scale, if factor or
+#'   character, will create a discrete scale.
 #' @export
 #' @examples
 #' xlim(15, 20)
@@ -15,8 +15,8 @@ xlim <- function(...) {
 
 #' Convenience function to set the limits of the y axis.
 #' 
-#' @param ... if numeric, will create a continuos scale, if factor or
-#'   character, will create a discrete scale
+#' @param ... if numeric, will create a continuous scale, if factor or
+#'   character, will create a discrete scale.
 #' @export
 #' @examples
 #' ylim(15, 20)
