@@ -28,7 +28,7 @@
 }
 \examples{
 # Dummy plot
-dummy <- qplot(1:10,1:10, geom="blank") + theme_bw()
+base <- qplot(1:10,1:10, geom="blank") + theme_bw()
 # Adding a table
 \dontrun{ require(gridExtra)
 base + annotation_custom(grob=tableGrob(head(iris[,1:3])),
