@@ -20,7 +20,7 @@
 #' qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 5)
 #' qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 1/5)
 #' 
-#' # Resize the plot to see that the specified aspect ratio is mantained
+#' # Resize the plot to see that the specified aspect ratio is maintained
 coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL, wise = FALSE) {
   coord(limits = list(x = xlim, y = ylim), ratio = ratio, wise = wise,
     subclass = c("fixed", "cartesian"))
