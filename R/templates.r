@@ -36,11 +36,12 @@ ggpcp <- function(data, vars=names(data), ...) {
 #' Create a fluctuation plot.
 #' 
 #' A fluctutation diagram is a graphical representation of a contingency
-#' table.  This fuction currently only supports 2D contingency tabless
-#' but extension to more should be relatively straightforward.
+#' table.  This function only supports 2D contingency tables
+#' at present but extension to higher dimensions should be 
+#' relatively straightforward.
 #' 
 #' With the default size fluctuation diagram, area is proportional to the 
-#' count (length of sides proportional to sqrt(count))
+#' count (length of sides proportional to sqrt(count)).
 #' 
 #' @param table a table of values, or a data frame with three columns, 
 #'   the last column being frequency
@@ -101,7 +102,8 @@ ggfluctuation <- function(table, type="size", floor=0, ceiling=max(table$freq, n
 #' Create a plot to illustrate patterns of missing values.
 #' 
 #' The missing values plot is a useful tool to get a rapid
-#' overview of the number of missings in a dataset.  It's strength
+#' overview of the number and pattern of missing values in a 
+#' dataset. Its strength
 #' is much more apparent when used with interactive graphics, as you can
 #' see in Mondrian (\url{http://rosuda.org/mondrian}) where this plot was
 #' copied from.

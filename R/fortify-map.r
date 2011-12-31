@@ -1,6 +1,6 @@
 #' Fortify method for map objects.
 #' 
-#' This function turns a map into a data frame than can more easily be
+#' This function turns a map into a data frame that can more easily be
 #' plotted with ggplot2.
 #' 
 #' @method fortify map

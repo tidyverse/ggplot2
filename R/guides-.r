@@ -4,7 +4,7 @@
 #' \code{guide}, or in \code{guides}.
 #' 
 #' @param ... List of scale guide pairs
-#' @return A list containing mapping between scale and guide.
+#' @return A list containing the mapping between scale and guide.
 #' @export
 #' @examples
 #' # ggplot object
@@ -13,7 +13,7 @@
 #'  r = factor(1:5))
 #' p <- ggplot(dat, aes(x, y, colour = p, size = q, shape = r)) + geom_point()
 #' 
-#' # without guide specificatoin
+#' # without guide specification
 #' p
 #' 
 #' # Show colorbar guide for colour.
@@ -53,7 +53,7 @@ update_guides <- function(p, guides) {
 }
 
 
-## builing guides - called in ggplotGrob (plot-render.r)
+## building guides - called in ggplotGrob (plot-render.r)
 ##
 ## the procedure is as followings:
 ##
