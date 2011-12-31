@@ -197,3 +197,4 @@ Collate:
     'autoplot.r'
     'zzz.r'
     'fortify-multcomp.r'
+    'annotation-custom.r'
