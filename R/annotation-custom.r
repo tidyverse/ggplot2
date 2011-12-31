@@ -32,7 +32,9 @@ NULL
 #' # Inset plot
 #' g <- ggplotGrob(qplot(1, 1) + opts(plot.background = theme_rect(col = "black")))
 #' base + annotation_custom(grob = g, xmin = 1, xmax = 10, ymin = 8, ymax = 10)
-#' 
+#' # full panel
+#' base + annotation_custom(grob = roundrectGrob(),
+#'           xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
 annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) { 
   GeomCustomAnn$new(geom_params = list(grob = grob, xmin = xmin, 
     xmax = xmax, ymin = ymin, ymax = ymax), stat = "identity", 
