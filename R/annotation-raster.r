@@ -5,9 +5,9 @@ NULL
 #' Annotation: High-performance rectangular tiling.
 #'
 #' This is a special version of \code{\link{geom_raster}} optimised for static
-#' anotations that are the same in every panel. These anotations will not 
+#' annotations that are the same in every panel. These annotations will not 
 #' affect scales (i.e. the x and y axes will not grow to cover the range
-#' of the raster, and the raster must already have it's own colours).
+#' of the raster, and the raster must already have its own colours).
 #'
 #' Most useful for adding bitmap images.
 #'

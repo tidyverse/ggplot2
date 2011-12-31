@@ -3,7 +3,6 @@
 #' If you have missing values in your model data, you may need to refit 
 #' the model with \code{na.action = na.exclude}.
 #'  
-#' The following statistics will be added to the data frame:
 #' 
 #' @return The original data with extra columns:
 #'   \item{.hat}{Diagonal of the hat matrix}
