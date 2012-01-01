@@ -46,7 +46,7 @@
 p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 p + geom_vline(xintercept = 5)
 p + geom_vline(xintercept = 1:5)
-p + geom_vline(xintercept = 1:5, colour="green", linetype = "longdash")
+p + geom_vline(xintercept = 1:5, colour = "green", linetype = "longdash")
 p + geom_vline(aes(xintercept = wt))
 
 last_plot() + coord_equal()
@@ -57,7 +57,7 @@ p2 + geom_vline(xintercept = 15)
 
 # To display different lines in different facets, you need to
 # create a data frame.
-p <- qplot(mpg, wt, data=mtcars, facets = vs ~ am)
+p <- qplot(mpg, wt, data = mtcars, facets = vs ~ am)
 vline.data <- data.frame(z = c(15, 20, 25, 30), vs = c(0, 0, 1, 1), am = c(0, 1, 0, 1))
 p + geom_vline(aes(xintercept = z), vline.data)
 }

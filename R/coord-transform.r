@@ -15,12 +15,12 @@
 #' 
 #' # Three ways of doing transformating in ggplot:
 #' #  * by transforming the data
-#' qplot(log10(carat), log10(price), data=diamonds)
+#' qplot(log10(carat), log10(price), data = diamonds)
 #' #  * by transforming the scales
-#' qplot(carat, price, data=diamonds, log="xy")
-#' qplot(carat, price, data=diamonds) + scale_x_log10() + scale_y_log10()
+#' qplot(carat, price, data = diamonds, log="xy")
+#' qplot(carat, price, data = diamonds) + scale_x_log10() + scale_y_log10()
 #' #  * by transforming the coordinate system:
-#' qplot(carat, price, data=diamonds) + coord_trans(x = "log10", y = "log10")
+#' qplot(carat, price, data = diamonds) + coord_trans(x = "log10", y = "log10")
 #'
 #' # The difference between transforming the scales and
 #' # transforming the coordinate system is that scale
@@ -29,10 +29,10 @@
 #' # changes the shape of geoms:
 #' 
 #' d <- subset(diamonds, carat > 0.5)
-#' qplot(carat, price, data = d, log="xy") + 
-#'   geom_smooth(method="lm")
+#' qplot(carat, price, data = d, log = "xy") + 
+#'   geom_smooth(method = "lm")
 #' qplot(carat, price, data = d) + 
-#'   geom_smooth(method="lm") +
+#'   geom_smooth(method = "lm") +
 #'   coord_trans(x = "log10", y = "log10")
 #'   
 #' # Here I used a subset of diamonds so that the smoothed line didn't
@@ -42,11 +42,11 @@
 #' # With a combination of scale and coordinate transformation, it's
 #' # possible to do back-transformations:
 #' library(scales)
-#' qplot(carat, price, data=diamonds, log="xy") + 
-#'   geom_smooth(method="lm") + 
+#' qplot(carat, price, data = diamonds, log = "xy") + 
+#'   geom_smooth(method = "lm") + 
 #'   coord_trans(x = exp_trans(10), y = exp_trans(10))
 #' # cf.
-#' qplot(carat, price, data=diamonds) + geom_smooth(method = "lm")
+#' qplot(carat, price, data = diamonds) + geom_smooth(method = "lm")
 #'
 #' # Also works with discrete scales
 #' df <- data.frame(a = abs(rnorm(26)),letters)

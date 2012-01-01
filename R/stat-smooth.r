@@ -11,7 +11,9 @@
 #' scale.
 #'
 #' @param method smoothing method (function) to use, eg. lm, glm, gam, loess,
-#'   rlm
+#'   rlm. For datasets with n < 1000 default is \code{\link{loess}}. For datasets  
+#'   with 1000 or more observations defaults to gam, see \code{\link[mgcv]{gam}}
+#'   for more details.
 #' @param formula formula to use in smoothing function, eg. \code{y ~ x}, 
 #'   \code{y ~ poly(x, 2)}, \code{y ~ log(x)}
 #' @param se display confidence interval around smooth? (TRUE by default, see

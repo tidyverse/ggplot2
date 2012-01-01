@@ -44,8 +44,8 @@
   each x by stacking the bars and then stretching or
   squashing to the same height.
 
-  If you have presummarised data, use
-  \code{stat="identity"} to turn off the default summary.
+  If you have presummarised data, use \code{stat =
+  "identity"} to turn off the default summary.
 
   Sometimes, bar charts are used not as a distributional
   summary, but instead of a dotplot.  Generally, it's
@@ -66,22 +66,22 @@
 c <- ggplot(mtcars, aes(factor(cyl)))
 
 c + geom_bar()
-c + geom_bar(width=.5)
+c + geom_bar(width = .5)
 c + geom_bar() + coord_flip()
-c + geom_bar(fill="white", colour="darkgreen")
+c + geom_bar(fill = "white", colour = "darkgreen")
 
 # Use qplot
-qplot(factor(cyl), data=mtcars, geom="bar")
-qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(cyl))
+qplot(factor(cyl), data = mtcars, geom = "bar")
+qplot(factor(cyl), data = mtcars, geom = "bar", fill = factor(cyl))
 
 # Stacked bar charts
-qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(vs))
-qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(gear))
+qplot(factor(cyl), data = mtcars, geom = "bar", fill = factor(vs))
+qplot(factor(cyl), data = mtcars, geom = "bar", fill = factor(gear))
 
 # Stacked bar charts are easy in ggplot2, but not effective visually,
 # particularly when there are many different things being stacked
-ggplot(diamonds, aes(clarity, fill=cut)) + geom_bar()
-ggplot(diamonds, aes(color, fill=cut)) + geom_bar() + coord_flip()
+ggplot(diamonds, aes(clarity, fill = cut)) + geom_bar()
+ggplot(diamonds, aes(color, fill = cut)) + geom_bar() + coord_flip()
 
 # Faceting is a good alternative:
 ggplot(diamonds, aes(clarity)) + geom_bar() +
@@ -92,33 +92,33 @@ ggplot(diamonds, aes(clarity)) +
   geom_freqpoly(aes(group = cut, colour = cut))
 
 # Dodged bar charts
-ggplot(diamonds, aes(clarity, fill=cut)) + geom_bar(position="dodge")
+ggplot(diamonds, aes(clarity, fill = cut)) + geom_bar(position = "dodge")
 # compare with
-ggplot(diamonds, aes(cut, fill=cut)) + geom_bar() +
+ggplot(diamonds, aes(cut, fill = cut)) + geom_bar() +
   facet_grid(. ~ clarity)
 
 # But again, probably better to use frequency polygons instead:
-ggplot(diamonds, aes(clarity, colour=cut)) +
+ggplot(diamonds, aes(clarity, colour = cut)) +
   geom_freqpoly(aes(group = cut))
 
 # Often we don't want the height of the bar to represent the
 # count of observations, but the sum of some other variable.
 # For example, the following plot shows the number of diamonds
 # of each colour
-qplot(color, data=diamonds, geom="bar")
+qplot(color, data = diamonds, geom = "bar")
 # If, however, we want to see the total number of carats in each colour
 # we need to weight by the carat variable
-qplot(color, data=diamonds, geom="bar", weight=carat, ylab="carat")
+qplot(color, data = diamonds, geom = "bar", weight = carat, ylab = "carat")
 
 # A bar chart used to display means
 meanprice <- tapply(diamonds$price, diamonds$cut, mean)
 cut <- factor(levels(diamonds$cut), levels = levels(diamonds$cut))
 qplot(cut, meanprice)
-qplot(cut, meanprice, geom="bar", stat="identity")
-qplot(cut, meanprice, geom="bar", stat="identity", fill = I("grey50"))
+qplot(cut, meanprice, geom = "bar", stat = "identity")
+qplot(cut, meanprice, geom = "bar", stat = "identity", fill = I("grey50"))
 
 # Another stacked bar chart example
-k <- ggplot(mpg, aes(manufacturer, fill=class))
+k <- ggplot(mpg, aes(manufacturer, fill = class))
 k + geom_bar()
 # Use scales to change aesthetics defaults
 k + geom_bar() + scale_fill_brewer()
@@ -128,7 +128,7 @@ k + geom_bar() + scale_fill_grey()
 # use factor() to change order of levels
 mpg$class <- factor(mpg$class, levels = c("midsize", "minivan",
 "suv", "compact", "2seater", "subcompact", "pickup"))
-m <- ggplot(mpg, aes(manufacturer, fill=class))
+m <- ggplot(mpg, aes(manufacturer, fill = class))
 m + geom_bar()
 }
 \seealso{

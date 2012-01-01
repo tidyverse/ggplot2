@@ -20,27 +20,27 @@
 #' @examples
 #' if (require("maps")) {
 #' # Create a lat-long dataframe from the maps package
-#' nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
-#' (nzmap <- qplot(x, y, data=nz, geom="path"))
+#' nz <- data.frame(map("nz", plot = FALSE)[c("x", "y")])
+#' (nzmap <- qplot(x, y, data = nz, geom = "path"))
 #' 
 #' nzmap + coord_map()
-#' nzmap + coord_map(project="cylindrical")
-#' nzmap + coord_map(project='azequalarea',orientation=c(-36.92,174.6,0))
+#' nzmap + coord_map(project = "cylindrical")
+#' nzmap + coord_map(project = 'azequalarea', orientation = c(-36.92,174.6,0))
 #' 
-#' states <- data.frame(map("state", plot=FALSE)[c("x","y")])
-#' (usamap <- qplot(x, y, data=states, geom="path"))
+#' states <- data.frame(map("state", plot = FALSE)[c("x","y")])
+#' (usamap <- qplot(x, y, data = states, geom = "path"))
 #' usamap + coord_map()
 #' # See ?mapproject for coordinate systems and their parameters
-#' usamap + coord_map(project="gilbert")
-#' usamap + coord_map(project="lagrange")
+#' usamap + coord_map(project = "gilbert")
+#' usamap + coord_map(project = "lagrange")
 #'
 #' # For most projections, you'll need to set the orientation yourself
 #' # as the automatic selection done by mapproject is not available to
 #' # ggplot
-#' usamap + coord_map(project="orthographic")
-#' usamap + coord_map(project="stereographic")
-#' usamap + coord_map(project="conic", lat0 = 30)
-#' usamap + coord_map(project="bonne", lat0 = 50)
+#' usamap + coord_map(project = "orthographic")
+#' usamap + coord_map(project = "stereographic")
+#' usamap + coord_map(project = "conic", lat0 = 30)
+#' usamap + coord_map(project = "bonne", lat0 = 50)
 #' }
 coord_map <- function(projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL) { 
   try_require("mapproj")

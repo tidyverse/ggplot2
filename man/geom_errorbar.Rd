@@ -39,29 +39,31 @@ df <- data.frame(
 df2 <- df[c(1,3),]
 
 # Define the top and bottom of the errorbars
-limits <- aes(ymax = resp + se, ymin=resp - se)
+limits <- aes(ymax = resp + se, ymin = resp - se)
 
-p <- ggplot(df, aes(fill=group, y=resp, x=trt))
-p + geom_bar(position="dodge", stat="identity")
+p <- ggplot(df, aes(fill = group, y = resp, x = trt))
+p + geom_bar(position = "dodge", stat = "identity")
 
 # Because the bars and errorbars have different widths
 # we need to specify how wide the objects we are dodging are
-dodge <- position_dodge(width=0.9)
-p + geom_bar(position=dodge) + geom_errorbar(limits, position=dodge, width=0.25)
+dodge <- position_dodge(width = 0.9)
+p + geom_bar(position = dodge) + geom_errorbar(limits, position = dodge,
+  width = 0.25)
 
-p <- ggplot(df2, aes(fill=group, y=resp, x=trt))
-p + geom_bar(position=dodge)
-p + geom_bar(position=dodge) + geom_errorbar(limits, position=dodge, width=0.25)
+p <- ggplot(df2, aes(fill = group, y = resp, x = trt))
+p + geom_bar(position = dodge)
+p + geom_bar(position = dodge) + geom_errorbar(limits, position = dodge,
+  width = 0.25)
 
-p <- ggplot(df, aes(colour=group, y=resp, x=trt))
-p + geom_point() + geom_errorbar(limits, width=0.2)
+p <- ggplot(df, aes(colour = group, y = resp, x = trt))
+p + geom_point() + geom_errorbar(limits, width = 0.2)
 p + geom_pointrange(limits)
-p + geom_crossbar(limits, width=0.2)
+p + geom_crossbar(limits, width = 0.2)
 
 # If we want to draw lines, we need to manually set the
 # groups which define the lines - here the groups in the
 # original dataframe
-p + geom_line(aes(group=group)) + geom_errorbar(limits, width=0.2)
+p + geom_line(aes(group = group)) + geom_errorbar(limits, width = 0.2)
 }
 \seealso{
   \code{\link{geom_pointrange}}: range indicated by

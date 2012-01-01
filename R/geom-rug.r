@@ -3,10 +3,10 @@
 #' @inheritParams geom_point
 #' @export
 #' @examples
-#' p <- ggplot(mtcars, aes(x=wt, y=mpg))
+#' p <- ggplot(mtcars, aes(x = wt, y = mpg))
 #' p + geom_point()
 #' p + geom_point() + geom_rug()
-#' p + geom_point() + geom_rug(position='jitter')
+#' p + geom_point() + geom_rug(position = 'jitter')
 geom_rug <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
   GeomRug$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }

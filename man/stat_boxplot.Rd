@@ -34,13 +34,15 @@
 }
 \value{
   A data frame with additional columns: \item{width}{width
-  of boxplot} \item{ymin}{lower whisker = lower hinge - 1.5
-  * IQR} \item{lower}{lower hinge, 25\% quantile}
+  of boxplot} \item{ymin}{lower whisker = smallest
+  observation greater than or equal to lower hinge - 1.5 *
+  IQR} \item{lower}{lower hinge, 25\% quantile}
   \item{notchlower}{lower edge of notch = median - 1.58 *
   IQR / sqrt(n)} \item{middle}{median, 50\% quantile}
   \item{notchupper}{upper edge of notch = median + 1.58 *
   IQR / sqrt(n)} \item{upper}{upper hinge, 75\% quantile}
-  \item{ymax}{upper whisker = upper hinge + 1.5 * IQR}
+  \item{ymax}{upper whisker = largest observation less than
+  or equal to upper hinge + 1.5 * IQR}
 }
 \description{
   Calculate components of box and whisker plot.

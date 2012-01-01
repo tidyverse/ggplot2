@@ -31,17 +31,18 @@
 \examples{
 # Generate data: means and standard errors of means for prices
 # for each type of cut
-dmod <- lm(price ~ cut, data=diamonds)
-cuts <- data.frame(cut=unique(diamonds$cut), predict(dmod, data.frame(cut = unique(diamonds$cut)), se=TRUE)[c("fit","se.fit")])
+dmod <- lm(price ~ cut, data = diamonds)
+cuts <- data.frame(cut = unique(diamonds$cut), predict(dmod,
+  data.frame(cut = unique(diamonds$cut)), se = TRUE)[c("fit", "se.fit")])
 
-qplot(cut, fit, data=cuts)
+qplot(cut, fit, data = cuts)
 # With a bar chart, we are comparing lengths, so the y-axis is
 # automatically extended to include 0
-qplot(cut, fit, data=cuts, geom="bar")
+qplot(cut, fit, data = cuts, geom = "bar")
 
 # Display estimates and standard errors in various ways
 se <- ggplot(cuts, aes(cut, fit,
-  ymin = fit - se.fit, ymax=fit + se.fit, colour = cut))
+  ymin = fit - se.fit, ymax = fit + se.fit, colour = cut))
 se + geom_linerange()
 se + geom_pointrange()
 se + geom_errorbar(width = 0.5)

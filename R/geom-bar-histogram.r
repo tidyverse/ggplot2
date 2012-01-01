@@ -13,13 +13,13 @@
 #' @inheritParams geom_point
 #' @examples
 #' # Simple examples
-#' qplot(rating, data=movies, geom="histogram")
-#' qplot(rating, data=movies, weight=votes, geom="histogram")
-#' qplot(rating, data=movies, weight=votes, geom="histogram", binwidth=1)
-#' qplot(rating, data=movies, weight=votes, geom="histogram", binwidth=0.1)
+#' qplot(rating, data = movies, geom = "histogram")
+#' qplot(rating, data = movies, weight = votes, geom = "histogram")
+#' qplot(rating, data = movies, weight = votes, geom = "histogram", binwidth = 1)
+#' qplot(rating, data = movies, weight = votes, geom = "histogram", binwidth = 0.1)
 #' 
 #' # More complex
-#' m <- ggplot(movies, aes(x=rating))
+#' m <- ggplot(movies, aes(x = rating))
 #' m + geom_histogram()
 #' m + geom_histogram(aes(y = ..density..)) + geom_density()
 #'
@@ -40,11 +40,11 @@
 #' # count of observations, but the sum of some other variable.
 #' # For example, the following plot shows the number of movies
 #' # in each rating.
-#' qplot(rating, data=movies, geom="bar", binwidth = 0.1)
+#' qplot(rating, data = movies, geom = "bar", binwidth = 0.1)
 #' # If, however, we want to see the number of votes cast in each
 #' # category, we need to weight by the votes variable
-#' qplot(rating, data=movies, geom="bar", binwidth = 0.1,
-#'   weight=votes, ylab = "votes")
+#' qplot(rating, data = movies, geom = "bar", binwidth = 0.1,
+#'   weight = votes, ylab = "votes")
 #' 
 #' m <- ggplot(movies, aes(x = votes))
 #' # For transformed scales, binwidth applies to the transformed data.
@@ -63,7 +63,7 @@
 #' # no observations have 0 ratings.
 #' should_stop(m + geom_histogram() + coord_trans(x = "log10"))
 #' m + geom_histogram() + coord_trans(x = "sqrt")
-#' m + geom_histogram(binwidth=1000) + coord_trans(x = "sqrt")
+#' m + geom_histogram(binwidth = 1000) + coord_trans(x = "sqrt")
 #'   
 #' # You can also transform the y axis.  Remember that the base of the bars
 #' # has value 0, so log transformations are not appropriate 
@@ -85,11 +85,11 @@
 #'
 #' # Multiple histograms on the same graph
 #' # see ?position, ?position_fill, etc for more details.  
-#' ggplot(diamonds, aes(x=price)) + geom_bar()
-#' hist_cut <- ggplot(diamonds, aes(x=price, fill=cut))
+#' ggplot(diamonds, aes(x = price)) + geom_bar()
+#' hist_cut <- ggplot(diamonds, aes(x = price, fill = cut))
 #' hist_cut + geom_bar() # defaults to stacking
-#' hist_cut + geom_bar(position="fill")
-#' hist_cut + geom_bar(position="dodge")
+#' hist_cut + geom_bar(position = "fill")
+#' hist_cut + geom_bar(position = "dodge")
 #' 
 #' # This is easy in ggplot2, but not visually effective.  It's better
 #' # to use a frequency polygon or density plot.  Like this:

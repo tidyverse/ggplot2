@@ -40,7 +40,7 @@
 #' # With two variables
 #' p + facet_grid(clarity ~ cut)
 #' p + facet_grid(cut ~ clarity)
-#' p + facet_grid(cut ~ clarity, margins=TRUE)
+#' p + facet_grid(cut ~ clarity, margins = TRUE)
 #' 
 #' # To change plot order of facet grid, 
 #' # change the order of varible levels with factor()
@@ -50,8 +50,8 @@
 #' geom_histogram(binwidth = 1)
 #' p + facet_grid(. ~ cut)
 #'
-#' qplot(mpg, wt, data=mtcars, facets = . ~ vs + am)
-#' qplot(mpg, wt, data=mtcars, facets = vs + am ~ . )
+#' qplot(mpg, wt, data = mtcars, facets = . ~ vs + am)
+#' qplot(mpg, wt, data = mtcars, facets = vs + am ~ . )
 #' 
 #' # You can also use strings, which makes it a little easier
 #' # when writing functions that generate faceting specifications
@@ -61,21 +61,21 @@
 #' 
 #' # If there isn't any data for a given combination, that panel 
 #' # will be empty
-#' qplot(mpg, wt, data=mtcars) + facet_grid(cyl ~ vs)
+#' qplot(mpg, wt, data = mtcars) + facet_grid(cyl ~ vs)
 #' 
 #' # If you combine a facetted dataset with a dataset that lacks those
 #' # facetting variables, the data will be repeated across the missing
 #' # combinations:
-#' p <- qplot(mpg, wt, data=mtcars, facets = vs ~ cyl)
+#' p <- qplot(mpg, wt, data = mtcars, facets = vs ~ cyl)
 #' 
 #' df <- data.frame(mpg = 22, wt = 3)
-#' p + geom_point(data = df, colour="red", size = 2)
+#' p + geom_point(data = df, colour = "red", size = 2)
 #' 
 #' df2 <- data.frame(mpg = c(19, 22), wt = c(2,4), vs = c(0, 1))
-#' p + geom_point(data = df2, colour="red", size = 2)
+#' p + geom_point(data = df2, colour = "red", size = 2)
 #' 
 #' df3 <- data.frame(mpg = c(19, 22), wt = c(2,4), vs = c(1, 1))
-#' p + geom_point(data = df3, colour="red", size = 2)
+#' p + geom_point(data = df3, colour = "red", size = 2)
 #' 
 #' 
 #' # You can also choose whether the scales should be constant
@@ -91,18 +91,18 @@
 #' mt + facet_grid(vs ~ am, scales = "free")
 #' mt + facet_grid(vs ~ am, scales = "free_x")
 #' mt + facet_grid(vs ~ am, scales = "free_y")
-#' mt + facet_grid(vs ~ am, scales = "free", space="free")
-#' mt + facet_grid(vs ~ am, scales = "free", space="free_x")
-#' mt + facet_grid(vs ~ am, scales = "free", space="free_y")
+#' mt + facet_grid(vs ~ am, scales = "free", space = "free")
+#' mt + facet_grid(vs ~ am, scales = "free", space = "free_x")
+#' mt + facet_grid(vs ~ am, scales = "free", space = "free_y")
 #' 
 #' # You may need to set your own breaks for consitent display:
-#' mt + facet_grid(. ~ cyl, scales = "free_x", space="free") + 
+#' mt + facet_grid(. ~ cyl, scales = "free_x", space = "free") + 
 #'   scale_x_continuous(breaks = seq(10, 36, by = 2))
 #' # Adding scale limits override free scales:
 #' last_plot() + xlim(10, 15)
 #' 
 #' # Free scales are particularly useful for categorical variables
-#' qplot(cty, model, data=mpg) + 
+#' qplot(cty, model, data = mpg) + 
 #'   facet_grid(manufacturer ~ ., scales = "free", space = "free")
 #' # particularly when you reorder factor levels
 #' mpg <- within(mpg, {

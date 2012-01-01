@@ -7,11 +7,11 @@
 #' @examples
 #' # We'll start by creating some nonsense data with dates
 #' df <- data.frame(
-#'   date = seq(Sys.Date(), len=100, by="1 day")[sample(100, 50)],
+#'   date = seq(Sys.Date(), len = 100, by = "1 day")[sample(100, 50)],
 #'   price = runif(50)
 #' )
 #' df <- df[order(df$date), ]
-#' dt <- qplot(date, price, data=df, geom="line") + opts(aspect.ratio = 1/4)
+#' dt <- qplot(date, price, data = df, geom = "line") + opts(aspect.ratio = 1/4)
 #' 
 #' # We can control the format of the labels, and the frequency of 
 #' # the major and minor tickmarks.  See ?format.Date and ?seq.Date 
@@ -29,18 +29,18 @@
 #' 
 #' # The date scale will attempt to pick sensible defaults for 
 #' # major and minor tick marks
-#' qplot(date, price, data=df[1:10,], geom="line")
-#' qplot(date, price, data=df[1:4,], geom="line")
+#' qplot(date, price, data = df[1:10,], geom = "line")
+#' qplot(date, price, data = df[1:4,], geom = "line")
 #' 
 #' df <- data.frame(
-#'   date = seq(Sys.Date(), len=1000, by="1 day"),
+#'   date = seq(Sys.Date(), len = 1000, by = "1 day"),
 #'   price = runif(500)
 #' )
-#' qplot(date, price, data=df, geom="line")
+#' qplot(date, price, data = df, geom = "line")
 #' 
 #' # A real example using economic time series data
-#' qplot(date, psavert, data=economics) 
-#' qplot(date, psavert, data=economics, geom="path") 
+#' qplot(date, psavert, data = economics) 
+#' qplot(date, psavert, data = economics, geom = "path") 
 #' 
 #' end <- max(economics$date)
 #' last_plot() + scale_x_date(limits = c(as.Date("2000-1-1"), end))

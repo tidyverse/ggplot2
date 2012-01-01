@@ -4,7 +4,7 @@
 \usage{
   geom_dotplot(mapping = NULL, data = NULL,
     stat = "bindot", position = "identity", na.rm = FALSE,
-    binaxis = "x", method = "dotdensity",
+    binwidth = NULL, binaxis = "x", method = "dotdensity",
     binpositions = "bygroup", stackdir = "up",
     stackratio = 1, dotsize = 1, ...)
 }

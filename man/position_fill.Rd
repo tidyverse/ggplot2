@@ -18,15 +18,15 @@ equal height.}
 }
 \examples{
 # See ?geom_bar and ?geom_area for more examples
-ggplot(mtcars, aes(x=factor(cyl), fill=factor(vs))) +
-  geom_bar(position="fill")
+ggplot(mtcars, aes(x = factor(cyl), fill = factor(vs))) +
+  geom_bar(position = "fill")
 
-cde <- geom_histogram(position="fill", binwidth = 500)
+cde <- geom_histogram(position = "fill", binwidth = 500)
 
-ggplot(diamonds, aes(x=price)) + cde
-ggplot(diamonds, aes(x=price, fill=cut)) + cde
-ggplot(diamonds, aes(x=price, fill=clarity)) + cde
-ggplot(diamonds, aes(x=price, fill=color)) + cde
+ggplot(diamonds, aes(x = price)) + cde
+ggplot(diamonds, aes(x = price, fill = cut)) + cde
+ggplot(diamonds, aes(x = price, fill = clarity)) + cde
+ggplot(diamonds, aes(x = price, fill = color)) + cde
 }
 \seealso{
   Other position adjustments: \code{\link{position_dodge}},
