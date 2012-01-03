@@ -5,7 +5,7 @@ NEW FEATURES
 
 * `annotation_custom`: a new geom intended for use as static annnotations 
    that are the same in every panel. Can be used to add inset plots, tables, 
-   and other grid-based decorations inside the plot area (Contributed by Baptiste Auguié).
+   and other grid-based decorations inside the plot area (Contributed by Baptiste Augui√©).
 
 * `geom_map`: a new special case of `geom_polygon` useful when you are drawing
   maps, particularly choropleth maps. It is matched with `annotation_map`, an
