@@ -3,6 +3,10 @@ ggplot2 0.9.0
 
 NEW FEATURES
 
+* `annotation_custom`: a new geom intended for use as static annnotations 
+   that are the same in every panel. Can be used to add inset plots, tables, 
+   and other grid-based decorations inside the plot area (Contributed by Baptiste Auguié).
+
 * `geom_map`: a new special case of `geom_polygon` useful when you are drawing
   maps, particularly choropleth maps. It is matched with `annotation_map`, an
   even faster special case when you want the same map drawn in each panel.
