@@ -2,6 +2,7 @@
 #'
 #' @rdname scale_datetime
 #' @family position scales
+#' @inheritParams scale_x_continuous
 #' @export 
 #' @examples
 #' start <- ISOdate(2001, 1, 1, tz = "")
@@ -32,8 +33,10 @@
 #' 
 #' # Manual scale selection
 #' qplot(day30, y, data = df)
+#' library(scales) # to access breaks/formatting functions
 #' last_plot() + scale_x_datetime(breaks = date_breaks("2 weeks"))
 #' last_plot() + scale_x_datetime(breaks = date_breaks("10 days"))
+#' library(scales) # to access breaks/formatting functions
 #' last_plot() + scale_x_datetime(breaks = date_breaks("10 days"), 
 #'   labels = date_format("%d/%m"))
 scale_x_datetime <- function(..., expand = c(0.05, 0)) {
@@ -41,6 +44,7 @@ scale_x_datetime <- function(..., expand = c(0.05, 0)) {
     trans = "time", expand = expand, guide = "none")
 }
 
+#' @S3method scale_map datetime
 scale_map.datetime <- function(scale, x) {
   x
 }

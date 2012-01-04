@@ -11,6 +11,34 @@
 
   \item{kernel}{kernel used for density estimation, see
   \code{\link{density}} for details}
+
+  \item{trim}{if \code{TRUE}, the default, densities are
+  trimmed to the actually range of the data.  If
+  \code{FALSE}, they are extended by the default 3
+  bandwidths (as specified by the \code{cut} parameter to
+  \code{\link{density}})}
+
+  \item{na.rm}{If \code{FALSE} (the default), removes
+  missing values with a warning.  If \code{TRUE} silently
+  removes missing values.}
+
+  \item{mapping}{The aesthetic mapping, usually constructed
+  with \code{\link{aes}} or \code{\link{aes_string}}. Only
+  needs to be set at the layer level if you are overriding
+  the plot defaults.}
+
+  \item{data}{A layer specific dataset - only needed if you
+  want to override the plot defaults.}
+
+  \item{geom}{The geometric object to use display the data}
+
+  \item{position}{The position adjustment to use for
+  overlappling points on this layer}
+
+  \item{...}{other arguments passed on to
+  \code{\link{layer}}. This can include aesthetics whose
+  values you want to set, not map. See \code{\link{layer}}
+  for more details.}
 }
 \value{
   data.frame with additional columns:
@@ -77,6 +105,7 @@ m + geom_histogram(aes(y = ..count..)) + geom_density(fill=NA)
 m <- ggplot(movies, aes(x=rating, weight=votes/sum(votes)))
 m + geom_histogram(aes(y=..density..)) + geom_density(fill=NA, colour="black")
 
+library(plyr) # to access round_any
 movies$decade <- round_any(movies$year, 10)
 m <- ggplot(movies, aes(x=rating, colour=decade, group=decade))
 m + geom_density(fill=NA)

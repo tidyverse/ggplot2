@@ -3,6 +3,13 @@
 #' @param adjust see \code{\link{density}} for details
 #' @param kernel kernel used for density estimation, see
 #'   \code{\link{density}} for details
+#' @param trim if \code{TRUE}, the default, densities are trimmed to the
+#'   actually range of the data.  If \code{FALSE}, they are extended by the
+#'   default 3 bandwidths (as specified by the \code{cut} parameter to
+#'   \code{\link{density}})
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
+#' @inheritParams stat_identity
 #' @return data.frame with additional columns:
 #'   \item{density}{density estimate}
 #'   \item{count}{density * number of points - useful for stacked density
@@ -66,6 +73,7 @@
 #' m <- ggplot(movies, aes(x=rating, weight=votes/sum(votes)))
 #' m + geom_histogram(aes(y=..density..)) + geom_density(fill=NA, colour="black")
 #' 
+#' library(plyr) # to access round_any
 #' movies$decade <- round_any(movies$year, 10)
 #' m <- ggplot(movies, aes(x=rating, colour=decade, group=decade)) 
 #' m + geom_density(fill=NA)

@@ -19,7 +19,7 @@
 #' @param xlim limits for x axis
 #' @param ylim limits for y axis
 #' @param log which variables to log transform ("x", "y", or "xy")
-#' @param title character vector or expression for plot title
+#' @param main character vector or expression for plot title
 #' @param xlab character vector or expression for x axis label
 #' @param ylab character vector or expression for y axis label
 #' @param asp the y/x aspect ratio
@@ -32,8 +32,12 @@
 #' qplot(mpg, wt, data=mtcars, size=cyl)
 #' qplot(mpg, wt, data=mtcars, facets=vs ~ am)
 #'
-#' # Use data from local environment
-#' attach(mtcars)
+#' # It will use data from local environment
+#' hp <- mtcars$hp
+#' wt <- mtcars$wt
+#' cyl <- mtcars$cyl
+#' vs <- mtcars$vs
+#' am <- mtcars$am
 #' qplot(hp, wt)
 #' qplot(hp, wt, colour=cyl)
 #' qplot(hp, wt, size=cyl)
@@ -61,8 +65,8 @@
 #' qplot(y = mpg, data = mtcars)
 #' 
 #' # Use different geoms
-#' qplot(mpg, wt, geom="path")
-#' qplot(factor(cyl), wt, geom=c("boxplot", "jitter"))
+#' qplot(mpg, wt, data = mtcars, geom="path")
+#' qplot(factor(cyl), wt, data = mtcars, geom=c("boxplot", "jitter"))
 qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE, geom = "auto", stat=list(NULL), position=list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "", main = NULL, xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA) {
 
   argnames <- names(as.list(match.call(expand.dots=FALSE)[-1]))

@@ -17,6 +17,9 @@
     space = "rgb", na.value = "grey50")
 }
 \arguments{
+  \item{midpoint}{The midpoint (in data value) of the
+  diverging scale.  Defaults to 0.}
+
   \item{...}{Other arguments passed on to
   \code{\link{continuous_scale}} to control name, limits,
   breaks, labels and so forth.}
@@ -50,6 +53,7 @@ d + scale_colour_gradient2(limits=c(-0.2, 0.2))
 
 # Using "muted" colours makes for pleasant graphics
 # (and they have better perceptual properties too)
+library(scales) # for muted
 d + scale_colour_gradient2(low="red", high="blue")
 d + scale_colour_gradient2(low=muted("red"), high=muted("blue"))
 

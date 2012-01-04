@@ -25,11 +25,25 @@
 
   \item{n}{number of points to evaluate smoother at}
 
-  \item{xseq}{exact points to evaluate smooth at, overrides
-  n}
+  \item{na.rm}{If \code{FALSE} (the default), removes
+  missing values with a warning.  If \code{TRUE} silently
+  removes missing values.}
 
   \item{...}{other arguments are passed to smoothing
   function}
+
+  \item{mapping}{The aesthetic mapping, usually constructed
+  with \code{\link{aes}} or \code{\link{aes_string}}. Only
+  needs to be set at the layer level if you are overriding
+  the plot defaults.}
+
+  \item{data}{A layer specific dataset - only needed if you
+  want to override the plot defaults.}
+
+  \item{geom}{The geometric object to use display the data}
+
+  \item{position}{The position adjustment to use for
+  overlappling points on this layer}
 }
 \value{
   a data.frame with additional columns \item{y}{predicted
@@ -45,8 +59,11 @@
   Calculation is performed by the (currently undocumented)
   \code{predictdf} generic function and its methods.  For
   most methods the confidence bounds are computed using the
-  \code{\link{predict}} method - the exception is for
-  \code{loess} which uses a t-based appromxiation
+  \code{\link{predict}} method - the exceptions are
+  \code{loess} which uses a t-based approximation, and for
+  \code{glm} where the normal confidence interval is
+  constructed on the link scale, and then back-transformed
+  to the response scale.
 }
 \examples{
 c <- ggplot(mtcars, aes(qsec, wt))
@@ -82,7 +99,7 @@ c + geom_point() +
 # Smoothers for subsets
 c <- ggplot(mtcars, aes(y=wt, x=mpg)) + facet_grid(. ~ cyl)
 c + stat_smooth(method=lm) + geom_point()
-c + stat_smooth(method=lm, fullrange=T) + geom_point()
+c + stat_smooth(method=lm, fullrange = TRUE) + geom_point()
 
 # Geoms and stats are automatically split by aesthetics that are factors
 c <- ggplot(mtcars, aes(y=wt, x=mpg, colour=factor(cyl)))

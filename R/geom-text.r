@@ -1,5 +1,6 @@
 #' Textual annotations.
 #' 
+#' @inheritParams geom_point
 #' @param parse If TRUE, the labels will be parsed into expressions and
 #'   displayed as described in ?plotmath
 #' @export
@@ -27,7 +28,7 @@
 #' # details of the display are described in ?plotmath, but note that
 #' # geom_text uses strings, not expressions.
 #' p + geom_text(aes(label = paste(wt, "^(", cyl, ")", sep = "")),
-#'   parse = T)
+#'   parse = TRUE)
 #' 
 #' # Add an annotation not from a variable source
 #' c <- ggplot(mtcars, aes(wt, mpg)) + geom_point()

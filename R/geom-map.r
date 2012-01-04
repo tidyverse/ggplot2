@@ -6,6 +6,11 @@ NULL
 #' Does not affect position scales.  
 #' 
 #' @export
+#' @param map Data frame that contains the map coordinates.  This will 
+#'   typically be created using \code{\link{fortify}} on a spatial object. 
+#'   It must contain columns \code{x} or \code{long}, \code{y} or
+#'   \code{lat}, and \code{region} or \code{id}.
+#' @inheritParams geom_point
 #' @examples
 #' # When using geom_polygon, you will typically need two data frames:
 #' # one contains the coordinates of each polygon (positions),  and the
@@ -38,6 +43,7 @@ NULL
 #'
 #' # Better example
 #' crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
+#' library(reshape2) # for melt
 #' crimesm <- melt(crimes, id = 1)
 #' if (require(maps)) {
 #'   states_map <- map_data("state")
@@ -66,6 +72,7 @@ GeomMap <- proto(GeomPolygon, {
     data <- data[data$map_id %in% names(map), , drop = FALSE]
 
     polys <- rbind.fill(map[data$map_id])
+    polys$group <- polys$group %||% polys$id
     id <- match(polys$group, unique(polys$group))
     coords <- coord_munch(coordinates, polys, scales)
 

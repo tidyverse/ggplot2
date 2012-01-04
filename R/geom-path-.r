@@ -1,5 +1,6 @@
 #' Connect observations in original order
 #' 
+#' @inheritParams geom_point
 #' @param lineend Line end style (round, butt, square)
 #' @param linejoin Line join style (round, mitre, bevel)
 #' @param linemitre Line mitre limit (number greater than 1)
@@ -82,14 +83,15 @@
 #'
 #' # Use the arrow parameter to add an arrow to the line
 #' # See ?grid::arrow for more details
+#' library(grid)
 #' c <- ggplot(economics, aes(x = date, y = pop)) 
 #' # Arrow defaults to "last"
 #' c + geom_path(arrow = arrow())
 #' c + geom_path(arrow = arrow(angle = 15, ends = "both", length = unit(0.6, "inches")))
 geom_path <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", 
-lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) { 
+lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, arrow = NULL, ...) { 
   GeomPath$new(mapping = mapping, data = data, stat = stat, position = position, 
-  lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, ...)
+  lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, arrow = arrow, ...)
 }
 
 GeomPath <- proto(Geom, {
@@ -99,7 +101,7 @@ GeomPath <- proto(Geom, {
 
   draw <- function(., data, scales, coordinates, arrow = NULL, lineend = "butt", linejoin = "round", linemitre = 1, ..., na.rm = FALSE) {
     if (!anyDuplicated(data$group)) {
-      message("geom_path: Every group consistents of only one observation. Do you need to adjust the group aesthetic?")
+      message("geom_path: Each group consist of only one observation. Do you need to adjust the group aesthetic?")
     }
 
     keep <- function(x) {

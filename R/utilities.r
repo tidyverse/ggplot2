@@ -126,6 +126,7 @@ remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = 
 }
 
 finite.cases <- function(x) UseMethod("finite.cases")
+#' @S3method finite.cases data.frame
 finite.cases.data.frame <- function(x) {
   rowSums(vapply(x, is.finite, logical(nrow(x)))) == ncol(x)
 }

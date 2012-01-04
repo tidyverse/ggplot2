@@ -45,7 +45,7 @@ theme_rect <- function(fill = NA, colour = "black", size = 0.5, linetype = 1) {
 #'  \code{link{theme_segment}}
 #' @param colour line color
 #' @param size line size
-#' @param type line type
+#' @param linetype line type
 #' @keywords dplot
 #' @export
 theme_line <- function(colour = "black", size = 0.5, linetype = 1) {

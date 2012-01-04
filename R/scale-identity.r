@@ -2,6 +2,7 @@
 #'
 #' @param ... Other arguments passed on to \code{\link{discrete_scale}} or
 #'   \code{\link{continuous_scale}}
+#' @param guide Guide to use for this scale - defaults to \code{"none"}.
 #' @rdname scale_identity
 #' @export
 #' @examples
@@ -9,10 +10,11 @@
 #' qplot(1:4, 1:4, fill = colour, geom = "tile")
 #' qplot(1:4, 1:4, fill = colour, geom = "tile") + scale_fill_identity()
 #' 
-#' # To get a legend guide, you also need to supply labels, and specify guide = "legend"
+#' # To get a legend guide, you also need to supply labels, and specify 
+#' # guide = "legend"
 #' qplot(1:4, 1:4, fill = colour, geom = "tile") +
 #'   scale_fill_identity("trt", labels = letters[1:4], breaks = colour, 
-#'    guide = legend)
+#'    guide = "legend")
 #' 
 #' # cyl scaled to appropriate size
 #' qplot(mpg, wt, data = mtcars, size = cyl)
@@ -33,7 +35,7 @@ scale_fill_identity <- function(..., guide = "none") {
 #' @rdname scale_identity
 #' @export
 scale_shape_identity <- function(..., guide = "none") {
-  identity_scale(discrete_scale("shape", "identity", identity_pal(), ..., guide = guide))
+  identity_scale(continuous_scale("shape", "identity", identity_pal(), ..., guide = guide))
     
 }
 

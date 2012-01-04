@@ -94,8 +94,8 @@
 #'     
 #' # These extra layers don't usually appear in the legend, but we can
 #' # force their inclusion
-#' p + geom_point(colour="black", size = 4.5, legend = TRUE) + 
-#'   geom_point(colour="pink", size = 4, legend = TRUE) + 
+#' p + geom_point(colour="black", size = 4.5, show_guide = TRUE) + 
+#'   geom_point(colour="pink", size = 4, show_guide = TRUE) + 
 #'   geom_point(aes(shape = factor(cyl)))  
 #'     
 #' # Transparent points:
@@ -133,10 +133,6 @@ GeomPoint <- proto(Geom, {
   }
 
   draw_legend <- function(., data, ...) {
-    # If fill is set, ensure that you can actually see it
-    if (!is.null(data$fill) && !all(is.na(data$fill)) && data$shape == 16) {
-      data$shape <- 21
-    } 
     data <- aesdefaults(data, .$default_aes(), list(...))
     
     with(data,

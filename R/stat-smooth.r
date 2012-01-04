@@ -5,8 +5,10 @@
 #' Calculation is performed by the (currently undocumented) 
 #' \code{predictdf} generic function and its methods.  For most methods
 #' the confidence bounds are computed using the \code{\link{predict}}
-#' method - the exception is for \code{loess} which uses a t-based 
-#' appromxiation
+#' method - the exceptions are \code{loess} which uses a t-based 
+#' approximation, and for \code{glm} where the normal confidence interval
+#' is constructed on the link scale, and then back-transformed to the response
+#' scale.
 #'
 #' @param method smoothing method (function) to use, eg. lm, glm, gam, loess,
 #'   rlm
@@ -18,8 +20,10 @@
 #'   the data
 #' @param level level of confidence interval to use (0.95 by default)
 #' @param n number of points to evaluate smoother at
-#' @param xseq exact points to evaluate smooth at, overrides n
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @param ... other arguments are passed to smoothing function
+#' @inheritParams stat_identity
 #' @return a data.frame with additional columns 
 #'   \item{y}{predicted value}
 #'   \item{ymin}{lower pointwise confidence interval around the mean}
@@ -64,7 +68,7 @@
 #' # Smoothers for subsets
 #' c <- ggplot(mtcars, aes(y=wt, x=mpg)) + facet_grid(. ~ cyl)
 #' c + stat_smooth(method=lm) + geom_point() 
-#' c + stat_smooth(method=lm, fullrange=T) + geom_point() 
+#' c + stat_smooth(method=lm, fullrange = TRUE) + geom_point() 
 #' 
 #' # Geoms and stats are automatically split by aesthetics that are factors
 #' c <- ggplot(mtcars, aes(y=wt, x=mpg, colour=factor(cyl)))

@@ -4,10 +4,12 @@
 #'   \code{\link{geom_bar}} for discrete intervals (bars),
 #'   \code{\link{geom_linerange}} for discrete intervals (lines),
 #'   \code{\link{geom_polygon}} for general polygons"
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' # Generate data
 #' huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
+#' library(plyr) # to access round_any
 #' huron$decade <- round_any(huron$year, 10, floor)
 #' 
 #' h <- ggplot(huron, aes(x=year))
@@ -104,6 +106,7 @@ GeomRibbon <- proto(Geom, {
 #' minimum of the range is fixed to 0, and the position adjustment defaults 
 #' to position_stacked.
 #'
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' # see geom_ribbon

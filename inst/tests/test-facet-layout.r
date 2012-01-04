@@ -79,3 +79,61 @@ test_that("wrap: as.table reverses rows", {
   expect_that(two$ROW, equals(c(1, 1)))
   
 })
+
+# Drop behaviour -------------------------------------------------------------
+
+a2 <- data.frame(
+  a = factor(1:3, levels = 1:4),
+  b = factor(1:3, levels = 4:1)
+)
+
+test_that("layout_wrap: drop = FALSE preserves unused levels", {
+  wrap_a <- layout_wrap(list(a2), "a", drop = FALSE)
+  expect_equal(nrow(wrap_a), 4)
+  expect_equal(as.character(wrap_a$a), as.character(1:4))
+  
+  wrap_b <- layout_wrap(list(a2), "b", drop = FALSE)
+  expect_equal(nrow(wrap_b), 4)
+  expect_equal(as.character(wrap_b$b), as.character(4:1))
+  
+})
+
+test_that("layout_grid: drop = FALSE preserves unused levels", {
+  grid_a <- layout_grid(list(a2), "a", drop = FALSE)
+  expect_equal(nrow(grid_a), 4)
+  expect_equal(as.character(grid_a$a), as.character(1:4))
+  
+  grid_b <- layout_grid(list(a2), "b", drop = FALSE)
+  expect_equal(nrow(grid_b), 4)
+  expect_equal(as.character(grid_b$b), as.character(4:1))
+
+  grid_ab <- layout_grid(list(a2), "a", "b", drop = FALSE)
+  expect_equal(nrow(grid_ab), 16)
+  expect_equal(as.character(grid_ab$a), as.character(rep(1:4, each = 4)))
+  expect_equal(as.character(grid_ab$b), as.character(rep(4:1, 4)))
+  
+})
+
+# Missing behaviour ----------------------------------------------------------
+
+a3 <- data.frame(
+  a = c(1:3, NA),
+  b = factor(c(1:3, NA)),
+  c = factor(c(1:3, NA), exclude = NULL)
+)
+
+test_that("missing values get a panel", {
+  wrap_a <- layout_wrap(list(a3), "a")
+  wrap_b <- layout_wrap(list(a3), "b")
+  wrap_c <- layout_wrap(list(a3), "c")
+  grid_a <- layout_grid(list(a3), "a")
+  grid_b <- layout_grid(list(a3), "b")
+  grid_c <- layout_grid(list(a3), "c")
+  
+  expect_equal(nrow(wrap_a), 4)
+  expect_equal(nrow(wrap_b), 4)
+  expect_equal(nrow(wrap_c), 4)
+  expect_equal(nrow(grid_a), 4)
+  expect_equal(nrow(grid_b), 4)
+  expect_equal(nrow(grid_c), 4)
+})

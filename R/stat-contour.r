@@ -1,10 +1,14 @@
 #' Calculate contours of 3d data.
 #' 
+#' @inheritParams stat_identity
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @return A data frame with additional column:
 #'  \item{level}{height of contour}
 #' @export
 #' @examples
 #' # Generate data
+#' library(reshape2) # for melt
 #' volcano3d <- melt(volcano)
 #' names(volcano3d) <- c("x", "y", "z")
 #' 
@@ -72,7 +76,10 @@ StatContour <- proto(Stat, {
     cl <- contourLines(
       x = sort(unique(data$x)), y = sort(unique(data$y)), z = z, 
       levels = breaks)  
-    if (length(cl) == 0) return(data.frame())
+    if (length(cl) == 0) {
+      warning("Not possible to generate contour data", call. = FALSE)
+      return(data.frame())
+    }
 
     cl <- lapply(cl, as.data.frame)    
     contour_df <- rbind.fill(cl)

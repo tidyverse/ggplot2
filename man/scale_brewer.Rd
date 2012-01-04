@@ -34,11 +34,9 @@ d + scale_colour_brewer()
 d + scale_colour_brewer("clarity")
 d + scale_colour_brewer(expression(clarity[beta]))
 
-# Select brewer palette to use, see ?brewer.pal for more details
+# Select brewer palette to use, see ?scales::brewer_pal for more details
 d + scale_colour_brewer(type="seq")
 d + scale_colour_brewer(type="seq", palette=3)
-
-RColorBrewer::display.brewer.all(n=8, exact.n=FALSE)
 
 d + scale_colour_brewer(palette="Blues")
 d + scale_colour_brewer(palette="Set1")

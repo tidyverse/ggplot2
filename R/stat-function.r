@@ -3,6 +3,7 @@
 #' @param fun function to use
 #' @param n number of points to interpolate along
 #' @param args list of additional arguments to pass to \code{fun}
+#' @inheritParams stat_identity
 #' @return a data.frame with additional columns:
 #'   \item{x}{x's along a grid}
 #'   \item{y}{value of function evaluated at corresponding x}

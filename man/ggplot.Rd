@@ -15,5 +15,5 @@
 \seealso{
   \url{http://had.co.nz/ggplot2}
 }
-\keyword{hplot}
+\keyword{internal}
 

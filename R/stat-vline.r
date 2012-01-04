@@ -1,6 +1,7 @@
 #' Add a line with slope and intercept.
 #'
 #' @keywords internal
+#' @inheritParams stat_identity
 #' @export
 #' @examples
 #' # see geom_abline
@@ -35,6 +36,7 @@ StatAbline <- proto(Stat, {
 #' Add a vertical line
 #'
 #' @keywords internal
+#' @inheritParams stat_identity
 #' @export
 #' @examples
 #' # see geom_vline
@@ -68,6 +70,7 @@ StatVline <- proto(Stat, {
 #' Add a horizontal line
 #'
 #' @keywords internal
+#' @inheritParams stat_identity
 #' @export
 #' @examples
 #' # see geom_hline

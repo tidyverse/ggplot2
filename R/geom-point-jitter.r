@@ -4,6 +4,7 @@
 #' 'jitter'.  See \code{\link{position_jitter}} to see how to adjust amount 
 #' of jittering.
 #' 
+#' @inheritParams geom_point
 #' @seealso
 #'  \code{\link{geom_point}} for regular, unjittered points, 
 #'  \code{\link{geom_boxplot}} for another way of looking at the conditional

@@ -1,5 +1,115 @@
 See NEWS for changes in latest version
 
+ggplot2 0.8.9 (2010-12-24) ---------------------------------------------------
+
+A big thanks to Koshke Takahashi, who supplied the majority of improvements in this release!
+
+GUIDE IMPROVEMENTS
+
+* key size: can specify width and height separately
+
+* axis: can partially handle text rotation (issue #149)
+
+* legend: now can specify the direction of element by opts(legend.direction =
+  "vertical") or opts(legend.direction = "horizontal"), and legend box is
+  center aligned if horizontal
+
+* legend: now can override the alignment of legend box by
+  opts(legend.box = "vertical") or opts(legend.box = "horizontal")
+
+* legend: now can override legend title alignment with opts(legend.title.align
+  = 0) or opts(legend.title.align = 1)
+
+* legend: can override legend text alignment with opts(legend.text.align = 0)
+  or opts(legend.text.align = 1)
+
+BUG FIXES
+
+* theme_*: can specify font-family for all text elements other than geom_text
+
+* facet_grid: fixed hirozontal spacing when nrow of horizontal strip >= 2
+
+* facet_grid: now can manually specify the relative size of each row and column
+
+* is.zero: now correctly works
+
+* +: adding NULL to a plot returns the plot (idempotent under addition)
+  (thanks to suggestion by Matthew O'Meara)
+
+* +: meaningful error message if + doesn't know how to deal with an object
+  type
+
+* coord_cartesian and coord_flip: now can wisely zoom when wise = TRUE
+
+* coord_polar: fix point division bugs
+
+* facet_grid: now labels in facet_grid are correctly aligned when the number
+  of factors is more then one (fixes #87 and #65)
+
+* geom_hex: now correctly applies alpha to fill colour not outline colour
+  (thanks to bug report from Ian Fellows)
+
+* geom_polygon: specifying linetype now works (thanks to fix from Kohske
+  Takahashi)
+
+* hcl: can now set c and l, and preserves names (thanks to suggestion by
+  Richard Cotton)
+
+* mean_se: a new summary function to work with stat_summary that calculates
+  mean and one standard error on either side (thanks to contribution from
+  Kohske Takahashi)
+
+* pos_stack: now works with NAs in x
+
+* scale_alpha: setting limits to a range inside the data now works (thanks to
+  report by Dr Proteome)
+
+* scale_colour_continuous: works correctly with single continuous value (fixes
+  #73)
+
+* scale_identity: now show legends (fix #119)
+
+* stat_function: now works without y values
+
+* stat_smooth: draw line if only 2 unique x values, not three as previously *
+  guides: fixed #126
+
+* stat_smooth: once again works if n > 1000 and SE = F (thanks to bug report
+  from Theiry Onkelinx and fix from Kohske Takahashi)
+
+* stat_smooth: works with locfit (fix #129)
+
+* theme_text handles alignment better when angle = 90
+
+ggplot2 0.8.8 (2010-07-02) ----------------------------------------
+
+Bug fixes:
+
+* coord_equal finally works as expected (thanks to continued prompting from Jean-Olivier Irisson)
+* coord_equal renamed to coord_fixed to better represent capabilities
+* coord_polar and coord_polar: new munching system that uses distances (as defined by the coordinate system) to figure out how many pieces each segment should be broken in to (thanks to prompting from Jean-Olivier Irisson)
+* fix ordering bug in facet_wrap (thanks to bug report by Frank Davenport)
+* geom_errorh correctly responds to height parameter outside of aes
+* geom_hline and geom_vline will not impact legend when used for fixed intercepts
+* geom_hline/geom_vline: intercept values not set quite correctly which caused a problem in conjunction with transformed scales (reported by Seth Finnegan)
+* geom_line: can now stack lines again with position = "stack" (fixes #74)
+* geom_segment: arrows now preserved in non-Cartesian coordinate system (fixes #117)
+* geom_smooth now deals with missing values in the same way as geom_line (thanks to patch from Karsten Loesing)
+* guides: check all axis labels for expressions (reported by Benji Oswald)
+* guides: extra 0.5 line margin around legend (fixes #71)
+* guides: non-left legend positions now work once more (thanks to patch from Karsten Loesing)
+* label_bquote works with more expressions (factors now cast to characters, thanks to Baptiste Auguie for bug report)
+* scale_color: add missing US spellings
+* stat: panels with no non-missing values trigged errors with some statistics. (reported by Giovanni Dall'Olio)
+* stat: statistics now also respect layer parameter inherit.aes (thanks to bug report by Lorenzo Isella and investigation by Brian Diggs)
+* stat_bin no longer drops 0-count bins by default
+* stat_bin: fix small bug when dealing with single bin with NA position (reported by John Rauser)
+* stat_binhex: uses range of data from scales when computing binwidth so hexes are the same size in all facets (thanks to Nicholas Lewin-Koh for the bug report)
+* stat_qq has new dparam parameter for specifying distribution parameters (thanks to Yunfeng Zhang for the bug report)
+* stat_smooth now uses built-in confidence interval (with small sample correction) for linear models (thanks to suggestion by Ian Fellows)
+* stat_spoke: correctly calculate stat_spoke (cos and sin were flipped, thanks to Jean-Olivier Irisson for bug report and fix)
+
+
 ggplot2 0.8.7 (2010-03-03) ----------------------------------------
 
 * coord_map gains xlim and ylim arguments to control region of projection

@@ -22,6 +22,8 @@ ggplot_gtable <- function(data) {
   theme <- plot_theme(plot)
   
   build_grob <- function(layer, layer_data) {
+    if (nrow(layer_data) == 0) return()
+
     dlply(layer_data, "PANEL", function(df) {
       panel_i <- match(df$PANEL[1], panel$layout$PANEL)
       layer$make_grob(df, scales = panel$ranges[[panel_i]], cs = plot$coord)
@@ -183,4 +185,13 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   }
   
   invisible(data)
+}
+
+#' Generate a ggplot2 plot grob.
+#' 
+#' @param x ggplot2 object
+#' @keywords internal
+#' @export
+ggplotGrob <- function(x) {
+  gtable_gTree(ggplot_gtable(ggplot_build(x)))
 }

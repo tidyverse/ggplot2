@@ -1,6 +1,6 @@
 #' Jitter points to avoid overplotting.
 #'
-#' 
+#' @family position adjustments
 #' @param width degree of jitter in x direction. Defaults to 40\% of the
 #'   resolution of the data.
 #' @param height degree of jitter in y direction. Defaults to 40\% of the
@@ -18,8 +18,8 @@
 #' # The default works better for large datasets, where it will 
 #' # take up as much space as a boxplot or a bar
 #' qplot(cut, price, data=diamonds, geom=c("boxplot", "jitter"))
-position_jitter <- function (width = NULL, height = NULL, ...) { 
-  PositionJitter$new(width = width, height = height, ...)
+position_jitter <- function (width = NULL, height = NULL) { 
+  PositionJitter$new(width = width, height = height)
 }
 
 PositionJitter <- proto(Position, {

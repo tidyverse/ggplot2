@@ -124,14 +124,18 @@ scale_train_df <- function(scale, df) {
   invisible()
 }
 
-#' Train an individual scale from a vector of data.
-#'
+# Train an individual scale from a vector of data.
+#
+scale_train <- function(scale, x) {
+  if (length(x) == 0) return()
+  UseMethod("scale_train")
+}
+
 #' @S3method scale_train continuous
-#' @S3method scale_train discrete
-scale_train <- function(scale, x) UseMethod("scale_train")
 scale_train.continuous <- function(scale, x) {
   scale$range$train(x)
 }
+#' @S3method scale_train discrete
 scale_train.discrete <- function(scale, x) {
   scale$range$train(x, drop = scale$drop)
 }
@@ -141,6 +145,11 @@ scale_reset <- function(scale, x) UseMethod("scale_reset")
 #' @S3method scale_reset default
 scale_reset.default <- function(scale, x) {
   scale$range$reset()
+}
+
+scale_is_empty <- function(scale) UseMethod("scale_is_empty")
+scale_is_empty.default <- function(scale) {
+  is.null(scale$range$range) && is.null(scale$limits)
 }
 
 # @return list of transformed variables
@@ -153,13 +162,13 @@ scale_transform_df <- function(scale, df) {
   lapply(df[aesthetics], scale_transform, scale = scale)
 }
 
-#' @S3method scale_transform continuous
-#' @S3method scale_transform discrete
 scale_transform <- function(scale, x) UseMethod("scale_transform")
 
+#' @S3method scale_transform continuous
 scale_transform.continuous <- function(scale, x) {
   scale$trans$trans(x)
 }
+#' @S3method scale_transform discrete
 scale_transform.discrete <- function(scale, x) {
   x
 }
@@ -179,10 +188,9 @@ scale_map_df <- function(scale, df, i = NULL) {
   }
 }
 
-#' @S3method scale_map continuous
-#' @S3method scale_map discrete
 scale_map <- function(scale, x) UseMethod("scale_map")
 
+#' @S3method scale_map continuous
 scale_map.continuous <- function(scale, x) {
   limits <- scale_limits(scale)
   x <- scale$oob(scale$rescaler(x, from = limits))
@@ -199,40 +207,54 @@ scale_map.continuous <- function(scale, x) {
   ifelse(!is.na(scaled), scaled, scale$na.value)
 }
 
+#' @S3method scale_map discrete
 scale_map.discrete <- function(scale, x) {
   limits <- scale_limits(scale)
 
   n <- length(limits)
-  pal <- scale$palette(n)[match(as.character(x), limits)]
-  ifelse(!is.na(x), pal, scale$na.value)
+  pal <- scale$palette(n)
+  
+  if (is.null(names(pal))) {
+    pal_match <- pal[match(as.character(x), limits)]
+  } else {
+    pal_match <- pal[match(as.character(x), names(pal))]    
+  } 
+  
+  ifelse(!is.na(x), pal_match, scale$na.value)
 }
 
-scale_limits <- function(scale)
-  UseMethod("scale_limits")
+scale_limits <- function(scale) {
+  if (scale_is_empty(scale)) return(c(0, 1))
 
-scale_limits.default <- function(scale) {
+  UseMethod("scale_limits")
+}
+  
+
+#' @S3method scale_limits default
+scale_limits.default <- function(scale) {  
   scale$limits %||% scale$range$range
 }
 
 # The phyical size of the scale, if a position scale
 # Unlike limits, this always returns a numeric vector of length 2
-#' @S3method scale_dimension continuous
-#' @S3method scale_dimension discrete
 scale_dimension <- function(scale, expand = scale$expand) UseMethod("scale_dimension")
 
+#' @S3method scale_dimension continuous
 scale_dimension.continuous  <- function(scale, expand = scale$expand) {
   expand_range(scale_limits(scale), expand[1], expand[2])  
 }
+#' @S3method scale_dimension discrete
 scale_dimension.discrete <- function(scale, expand = scale$expand) {
   expand_range(length(scale_limits(scale)), expand[1], expand[2])  
 }
 
-#' @S3method scale_breaks continuous
-#' @S3method scale_breaks discrete
 scale_breaks <- function(scale, limits = scale_limits(scale)) {
+  if (scale_is_empty(scale)) return(numeric())
+  
   UseMethod("scale_breaks")
 }
 
+#' @S3method scale_breaks continuous
 scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   # Limits in transformed space need to be converted back to data space
   limits <- scale$trans$inv(limits)
@@ -257,6 +279,7 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   breaks
 }
 
+#' @S3method scale_breaks discrete
 scale_breaks.discrete <- function(scale, limits = scale_limits(scale)) {
   if (is.null(scale$breaks)) {
     breaks <- limits
@@ -276,12 +299,11 @@ scale_break_positions <- function(scale) {
   scale_map(scale, scale_breaks(scale))
 }
 
-#' @S3method scale_breaks_minor continuous
-#' @S3method scale_breaks_minor discrete
 scale_breaks_minor<- function(scale, ...) {
   UseMethod("scale_breaks_minor")
 }
 
+#' @S3method scale_breaks_minor continuous
 scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_positions(scale), limits = scale_limits(scale)) {
   if (zero_range(as.numeric(limits))) {
     return()
@@ -289,7 +311,7 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
   
   if (is.null(scale$minor_breaks)) {
     b <- b[!is.na(b)]
-    if (length(b) == 1) return()
+    if (length(b) < 2) return()
 
     bd <- diff(b)[1]
     if (min(limits) < min(b)) b <- c(b[1] - bd, b)
@@ -302,23 +324,24 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
     breaks <- scale$minor_breaks
   }
   
-  # Breaks in data space need to be converted back to transformed space
-  # And any minor breaks outside the dimensions need to be thrown away
-  discard(scale$trans$trans(breaks), scale_dimension(scale))
+  # Any minor breaks outside the dimensions need to be thrown away
+  discard(breaks, scale_dimension(scale))
 }
 
+#' @S3method scale_breaks_minor discrete
 scale_breaks_minor.discrete <- function(...) NULL
 
 scale_breaks_minor_positions <- function(scale) {
   scale_map(scale, scale_breaks_minor(scale))
 }
 
-#' @S3method scale_labels continuous
-#' @S3method scale_labels discrete
 scale_labels <- function(scale, breaks = scale_breaks(scale)) {
+  if (scale_is_empty(scale)) return(character())
+  
   UseMethod("scale_labels")
 }
 
+#' @S3method scale_labels continuous
 scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
   breaks <- scale$trans$inv(breaks)
   
@@ -335,6 +358,7 @@ scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
   labels
 }
 
+#' @S3method scale_labels discrete
 scale_labels.discrete <- function(scale, breaks = scale_breaks(scale)) {
   if (is.null(scale$labels)) {
     format(scale_breaks(scale), justify = "none", trim = TRUE)

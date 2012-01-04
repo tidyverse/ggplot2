@@ -3,6 +3,7 @@
 #' @seealso \code{\link{geom_path}}: connect observations in data order, 
 #'  \code{\link{geom_segment}}: draw line segments,
 #'  \code{\link{geom_ribbon}}: fill between line and x-axis
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' # Summarise number of movie ratings by year of movie
@@ -38,6 +39,7 @@
 #' # See ?grid::arrow for more details
 #' c <- ggplot(economics, aes(x = date, y = pop)) 
 #' # Arrow defaults to "last"
+#' library(grid)
 #' c + geom_line(arrow = arrow())
 #' c + geom_line(arrow = arrow(angle = 15, ends = "both", type = "closed"))
 #'
@@ -51,7 +53,7 @@
 #' group <- rep(LETTERS[1:3], each = 100)
 #' 
 #' df <- data.frame(id = seq_along(group), group, y2005, y2010)
-#' library(reshape2)
+#' library(reshape2) # for melt
 #' dfm <- melt(df, id.var = c("id", "group"))
 #' ggplot(dfm, aes(variable, value, group = id, colour = group)) + 
 #'   geom_path(alpha = 0.5)
