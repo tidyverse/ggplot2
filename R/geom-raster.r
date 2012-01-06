@@ -37,14 +37,14 @@ GeomRaster <- proto(Geom, {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }
     data <- coord_transform(coordinates, data, scales)
-    raster <- acast(data, list("x", "y"), value.var = "fill")
+    raster <- acast(data, list("y", "x"), value.var = "fill")
     
     width <- resolution(data$x)
     height <- resolution(data$y)
     
     x_rng <- range(data$x, na.rm = TRUE)
     y_rng <- range(data$y, na.rm = TRUE)
-    
+
     rasterGrob(raster[nrow(raster):1, , drop = FALSE], x_rng[1] - width / 2, y_rng[1] - height / 2, 
       diff(x_rng) + width, diff(y_rng) + height, default.units = "native", 
       just = c("left","bottom"), interpolate = FALSE)
