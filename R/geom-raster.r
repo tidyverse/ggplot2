@@ -45,7 +45,7 @@ GeomRaster <- proto(Geom, {
     x_rng <- range(data$x, na.rm = TRUE)
     y_rng <- range(data$y, na.rm = TRUE)
     
-    rasterGrob(raster[nrow(raster):1, ], x_rng[1] - width / 2, y_rng[1] - height / 2, 
+    rasterGrob(raster[nrow(raster):1, , drop = FALSE], x_rng[1] - width / 2, y_rng[1] - height / 2, 
       diff(x_rng) + width, diff(y_rng) + height, default.units = "native", 
       just = c("left","bottom"), interpolate = FALSE)
   }
