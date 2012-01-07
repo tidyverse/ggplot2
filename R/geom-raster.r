@@ -39,8 +39,8 @@ GeomRaster <- proto(Geom, {
     data <- coord_transform(coordinates, data, scales)
     raster <- acast(data, list("y", "x"), value.var = "fill")
     
-    width <- resolution(data$x)
-    height <- resolution(data$y)
+    width <- resolution(data$x, zero = FALSE)
+    height <- resolution(data$y, zero = FALSE)
     
     x_rng <- range(data$x, na.rm = TRUE)
     y_rng <- range(data$y, na.rm = TRUE)
