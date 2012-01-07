@@ -8,6 +8,7 @@ NULL
 #' \code{rasterGrob} function.
 #'
 #' @inheritParams geom_point
+#' @param hpad,vpad horizontal and vertical padding.
 #' @export
 #' @examples
 #' # Generate data
@@ -32,22 +33,32 @@ geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", positio
 
 GeomRaster <- proto(Geom, {
   objname <- "raster"
-  draw <- function(., data, scales, coordinates, ...) {
+  draw <- function(., data, scales, coordinates, hpad = NULL, vpad = NULL, ...) {
     if (!inherits(coordinates, "cartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }
     data <- coord_transform(coordinates, data, scales)
     raster <- acast(data, list("y", "x"), value.var = "fill")
-    
-    width <- resolution(data$x, zero = FALSE)
-    height <- resolution(data$y, zero = FALSE)
-    
+    raster <- raster[nrow(raster):1, , drop = FALSE]
+
+    # horizontal padding
+    if (is.null(hpad)) hpad <- resolution(c(0, 1, data$x), zero = FALSE)
+    else hpad <- 2 * abs(diff(coord_transform(coordinates, data.frame(x = c(0, hpad)), scales)$x))
+
+    # vertical padding
+    if (is.null(vpad)) vpad <- resolution(c(0, 1, data$y), zero = FALSE)
+    else vpad <- 2 * abs(diff(coord_transform(coordinates, data.frame(y = c(0, vpad)), scales)$y))
+
+    # data range
     x_rng <- range(data$x, na.rm = TRUE)
     y_rng <- range(data$y, na.rm = TRUE)
 
-    rasterGrob(raster[nrow(raster):1, , drop = FALSE], x_rng[1] - width / 2, y_rng[1] - height / 2, 
-      diff(x_rng) + width, diff(y_rng) + height, default.units = "native", 
-      just = c("left","bottom"), interpolate = FALSE)
+    x <- mean(x_rng)
+    y <- mean(y_rng)
+    w <- diff(x_rng) + hpad
+    h <- diff(y_rng) + vpad
+
+    rasterGrob(raster, x = x, y = y, width = w, height = h , default.units = "native", interpolate = FALSE)
   }
 
 
