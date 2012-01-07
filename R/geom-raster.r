@@ -27,8 +27,8 @@ NULL
 #' base <- ggplot(pp200, aes(x, y, fill = z))
 #' benchplot(base + geom_raster())
 #' benchplot(base + geom_tile())
-geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
-  GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", hpad = NULL, vpad = NULL, ...) { 
+  GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, hpad = hpad, vpad = vpad, ...)
 }
 
 GeomRaster <- proto(Geom, {
