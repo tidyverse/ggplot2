@@ -34,6 +34,8 @@
 #'   One of "horizontal" or "vertical."
 #' @param default.unit A character string indicating unit for \code{barwidth}
 #    and \code{barheight}.
+#' @param reverse logical. If \code{TRUE} the colorbar is reversed. By default,
+#'   the highest value is on the top and the lowest value is on the bottom
 #' @param ... ignored.
 #' @return A guide object
 #' @seealso \code{\link{guides}}, \code{\link{guide_legend}}
@@ -116,7 +118,8 @@ guide_colourbar <- function(
   ## general
   direction = NULL,
   default.unit = "line",
-                          
+  reverse = FALSE,
+
   ...) {
   
   if (!is.null(barwidth) && !is.unit(barwidth)) barwidth <- unit(barwidth, default.unit)
@@ -151,7 +154,8 @@ guide_colourbar <- function(
     ## general
     direction = direction,
     default.unit = default.unit,
-                 
+    reverse = reverse,
+
     ## parameter
     available_aes = c("colour", "color", "fill"),
                  
@@ -184,6 +188,10 @@ guide_train.colorbar <- function(guide, scale) {
   ## bar specification (number of divs etc)
   .bar <- discard(pretty(scale_limits(scale), n = guide$nbin), scale_limits(scale))
   guide$bar <- data.frame(colour=scale_map(scale, .bar), value=.bar, stringsAsFactors = FALSE)
+  if (guide$reverse) {
+    guide$key <- guide$key[nrow(guide$key):1, ]
+    guide$bar <- guide$bar[nrow(guide$bar):1, ]
+  }
   guide$hash <- with(guide, digest(list(title, key$.label, bar, name)))
   guide
 }
@@ -247,7 +255,10 @@ guide_gengrob.colorbar <- function(guide, theme) {
   }
 
   ## tick and label position
-  tic_pos.c <- rescale(guide$key$.value, c(0.5, guide$nbin-0.5), range(guide$bar$value)) * barlength.c / guide$nbin
+  if (guide$reverse)
+    tic_pos.c <- rescale(guide$key$.value, c(guide$nbin-0.5, 0.5), range(guide$bar$value)) * barlength.c / guide$nbin
+  else
+    tic_pos.c <- rescale(guide$key$.value, c(0.5, guide$nbin-0.5), range(guide$bar$value)) * barlength.c / guide$nbin
   label_pos <- unit(tic_pos.c, "mm")
   if (!guide$draw.ulim) tic_pos.c <- tic_pos.c[-1]
   if (!guide$draw.llim) tic_pos.c <- tic_pos.c[-length(tic_pos.c)]
