@@ -12,6 +12,8 @@
 #' @export 
 #' @inheritParams geom_point
 #' @examples
+#' set.seed(5689)
+#' movies <- movies[sample(nrow(movies), 1000), ]
 #' # Simple examples
 #' qplot(rating, data=movies, geom="histogram")
 #' qplot(rating, data=movies, weight=votes, geom="histogram")
@@ -84,7 +86,9 @@
 #' m + facet_wrap(~ mpaa)
 #'
 #' # Multiple histograms on the same graph
-#' # see ?position, ?position_fill, etc for more details.  
+#' # see ?position, ?position_fill, etc for more details. 
+#' set.seed(6298)
+#' diamonds <- diamonds[sample(nrow(diamonds), 1000), ] 
 #' ggplot(diamonds, aes(x=price)) + geom_bar()
 #' hist_cut <- ggplot(diamonds, aes(x=price, fill=cut))
 #' hist_cut + geom_bar() # defaults to stacking
