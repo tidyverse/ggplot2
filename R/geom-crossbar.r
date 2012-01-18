@@ -36,7 +36,7 @@ GeomCrossbar <- proto(Geom, {
   guide_geom <- function(.) "path"
   
   draw <- function(., data, scales, coordinates, fatten = 2, width = NULL, ...) {
-    middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten)
+    middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = 1)
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) && 
       !is.na(data$ynotchlower) && !is.na(data$ynotchupper)
