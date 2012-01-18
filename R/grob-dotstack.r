@@ -18,10 +18,11 @@ dotstackGrob <- function (
 
     grob(x = x, y = y, stackaxis = stackaxis, dotdia = dotdia,
          stackposition = stackposition, stackratio = stackratio,
-         name = name, gp = gp, vp = vp, cl = "dotstackgrob")
+         name = name, gp = gp, vp = vp, cl = "dotstackGrob")
 }
 
-drawDetails.dotstackgrob <- function(x, recording = TRUE) {
+#' @S3method drawDetails dotstackGrob
+drawDetails.dotstackGrob <- function(x, recording = TRUE) {
 
   # Need absolute coordinates because when using npc coords with circleGrob,
   # the radius is in the _smaller_ of the two axes. We need the radius
