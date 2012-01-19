@@ -64,7 +64,11 @@ GeomAbline <- proto(Geom, {
   }
   
   draw <- function(., data, scales, coordinates, ...) {
-    xrange <- scales$x.range
+    if (inherits(coordinates, "flip")) {
+      xrange <- scales$y.range
+    } else {
+      xrange <- scales$x.range
+    }
     
     data <- transform(data,
       x = xrange[1],
