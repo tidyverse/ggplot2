@@ -42,12 +42,18 @@ GeomRaster <- proto(Geom, {
     raster <- raster[nrow(raster):1, , drop = FALSE]
 
     # horizontal padding
-    if (is.null(hpad)) hpad <- resolution(c(0, 1, data$x), zero = FALSE)
-    else hpad <- 2 * abs(diff(coord_transform(coordinates, data.frame(x = c(0, hpad)), scales)$x))
+    if (is.null(hpad)) {
+      hpad <- resolution(c(0, 1, data$x), zero = FALSE)
+    } else {
+      hpad <- 2 * abs(diff(coord_transform(coordinates, data.frame(x = c(0, hpad)), scales)$x))
+    }
 
     # vertical padding
-    if (is.null(vpad)) vpad <- resolution(c(0, 1, data$y), zero = FALSE)
-    else vpad <- 2 * abs(diff(coord_transform(coordinates, data.frame(y = c(0, vpad)), scales)$y))
+    if (is.null(vpad)) {
+      vpad <- resolution(c(0, 1, data$y), zero = FALSE)
+    } else {
+      vpad <- 2 * abs(diff(coord_transform(coordinates, data.frame(y = c(0, vpad)), scales)$y))
+    }
 
     # data range
     x_rng <- range(data$x, na.rm = TRUE)
