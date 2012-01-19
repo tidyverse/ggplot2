@@ -255,10 +255,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
   }
 
   ## tick and label position
-  if (guide$reverse)
-    tic_pos.c <- rescale(guide$key$.value, c(guide$nbin-0.5, 0.5), range(guide$bar$value)) * barlength.c / guide$nbin
-  else
-    tic_pos.c <- rescale(guide$key$.value, c(0.5, guide$nbin-0.5), range(guide$bar$value)) * barlength.c / guide$nbin
+  tic_pos.c <- rescale(guide$key$.value, c(0.5, guide$nbin-0.5), guide$bar$value[c(1, nrow(guide$bar))]) * barlength.c / guide$nbin
   label_pos <- unit(tic_pos.c, "mm")
   if (!guide$draw.ulim) tic_pos.c <- tic_pos.c[-1]
   if (!guide$draw.llim) tic_pos.c <- tic_pos.c[-length(tic_pos.c)]
