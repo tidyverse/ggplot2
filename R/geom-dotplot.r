@@ -174,6 +174,10 @@ GeomDotplot <- proto(Geom, {
       c("x", "y", "size", "shape"), name = "geom_dotplot")
     if (empty(data)) return(zeroGrob())
 
+    if (!is.linear(coordinates)) {
+      warning("geom_dotplot does not work properly with non-linear coordinates.")
+    }
+
     tdata <- coord_transform(coordinates, data, scales)
 
     # Swap axes if using coord_flip
