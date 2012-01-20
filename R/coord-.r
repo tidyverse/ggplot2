@@ -61,6 +61,17 @@ coord_render_axis_v.default <- function(coord, details, theme) {
   guide_axis(details$y.major, details$y.labels, "left", theme)
 }
 
+coord_mapping <- function(coord, varname)
+  UseMethod("coord_mapping")
+
+#' @S3method coord_mapping default
+coord_mapping.default <- function(coord, varname) {
+  if (varname == "x" || varname == "y")
+    return(varname)
+  else
+    stop("Unknown coordinate transform variable name: ", varname)
+}
+
 coord_train <- function(coord, scales) 
   UseMethod("coord_train")
 

@@ -242,5 +242,14 @@ coord_labels.polar <- function(coord, scales) {
   }
 }
 
-  
+#' @S3method coord_mapping polar
+coord_mapping.polar <- function(coord, varname) {
+  if (varname == "x")
+    return("theta")
+  else if (varname == "y")
+    return("r")
+  else
+    stop("Unknown coordinate transform variable name: ", varname)
+}
+
 icon <- function(.) circleGrob(r = c(0.1, 0.25, 0.45), gp=gpar(fill=NA))
