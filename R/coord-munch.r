@@ -84,5 +84,5 @@ dist_central_angle <- function(lon, lat) {
   ahav <- function(x) 2 * asin(x)
   
   n <- length(lon)
-  ahav(sqrt(hav(diff(lat)) + cos(lat[-n]) * cos(lat[-1]) * hav(diff(lat))))
+  ahav(sqrt(hav(diff(lat)) + cos(lat[-n]) * cos(lat[-1]) * hav(diff(lon))))
 }
