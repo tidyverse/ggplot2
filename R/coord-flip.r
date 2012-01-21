@@ -60,12 +60,7 @@ coord_labels.flip <- function(coord, scales) {
 
 #' @S3method coord_mapping flip
 coord_mapping.flip <- function(coord, varname) {
-  if (varname == "x")
-    return("y")
-  else if (varname == "y")
-    return("x")
-  else
-    stop("Unknown coordinate transform variable name: ", varname)
+  return(list(x = "y", y = "x"))
 }
 
 icon.flip <- function(.) {

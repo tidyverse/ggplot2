@@ -54,8 +54,8 @@ GeomVline <- proto(Geom, {
   }
   
   draw <- function(., data, scales, coordinates, ...) {
-    # Get the post-coord-transform name for the x variable
-    yvar   <- coord_mapping(coordinates, "y")
+    # Get the post-coord-transform name for the y variable
+    yvar <- coord_mapping(coordinates)$y
     yrange <- scales[[paste(yvar, ".range", sep="")]]
     data$y    <- yrange[1]
     data$yend <- yrange[2]
