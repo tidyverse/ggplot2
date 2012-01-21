@@ -52,4 +52,4 @@ ggplot(dat, aes(x=x, y=y)) + geom_bar() +
 ggplot(dat, aes(x=x, y=y)) + geom_bar() +
   geom_vline(xintercept = 2, colour = "red") +
   coord_polar() +
-  opts(title="geom_vline, coord_polar: intercept=2\nShould have a circle at r=2")
+  opts(title="geom_vline, coord_polar: intercept=2\nShould have a ray at 2")
