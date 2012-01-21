@@ -53,3 +53,24 @@ ggplot(dat, aes(x=x, y=y)) + geom_bar() +
   geom_vline(xintercept = 2, colour = "red") +
   coord_polar() +
   opts(title="geom_vline, coord_polar: intercept=2\nShould have a ray at 2")
+
+
+# hline, vline, and abline tests with coord_map
+
+library(maps)
+library(mapproj)
+
+nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
+nzmap <- qplot(x, y, data=nz, geom="path")
+
+nzmap + geom_hline(yintercept=-45) + coord_map()
+nzmap + geom_vline(xintercept=172) + coord_map()
+nzmap + geom_abline(intercept=130, slope=-1) + coord_map()
+
+nzmap + geom_hline(yintercept=-45) + coord_map(project="cylindrical")
+nzmap + geom_vline(xintercept=172) + coord_map(project="cylindrical")
+nzmap + geom_abline(intercept=130, slope=-1) + coord_map(project="cylindrical")
+
+nzmap + geom_hline(yintercept=-45) + coord_map(project='azequalarea',orientation=c(-36.92,174.6,0))
+nzmap + geom_vline(xintercept=172) + coord_map(project='azequalarea',orientation=c(-36.92,174.6,0))
+nzmap + geom_abline(intercept=130, slope=-1) + coord_map(project='azequalarea',orientation=c(-36.92,174.6,0))
