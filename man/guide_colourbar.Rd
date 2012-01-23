@@ -11,7 +11,7 @@
     barwidth = NULL, barheight = NULL, nbin = 20,
     raster = TRUE, ticks = TRUE, draw.ulim = TRUE,
     draw.llim = TRUE, direction = NULL,
-    default.unit = "line", ...)
+    default.unit = "line", reverse = FALSE, ...)
 
   guide_colorbar(title = waiver(), title.position = NULL,
     title.theme = NULL, title.hjust = NULL,
@@ -21,7 +21,7 @@
     barwidth = NULL, barheight = NULL, nbin = 20,
     raster = TRUE, ticks = TRUE, draw.ulim = TRUE,
     draw.llim = TRUE, direction = NULL,
-    default.unit = "line", ...)
+    default.unit = "line", reverse = FALSE, ...)
 }
 \arguments{
   \item{barwidth}{A numeric or a unit object specifying the
@@ -59,6 +59,10 @@
 
   \item{default.unit}{A character string indicating unit
   for \code{barwidth}}
+
+  \item{reverse}{logical. If \code{TRUE} the colorbar is
+  reversed. By default, the highest value is on the top and
+  the lowest value is on the bottom}
 
   \item{...}{ignored.}
 
