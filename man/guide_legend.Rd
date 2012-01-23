@@ -149,7 +149,7 @@ p3 <- qplot(carat, price, data = diamonds, colour = color,
 p3
 
 # override.aes overwrites the alpha
-p3 + guides(fill = guide_legend(override.aes = list(alpha = 1)))
+p3 + guides(colour = guide_legend(override.aes = list(alpha = 1)))
 
 # multiple row/col legends
 p <- qplot(1:20, 1:20, colour = letters[1:20])
