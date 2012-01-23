@@ -50,6 +50,10 @@
 #' # It's actually a bit easier to do this with stat_smooth
 #' p + geom_smooth(aes(group=cyl), method="lm")
 #' p + geom_smooth(aes(group=cyl), method="lm", fullrange=TRUE)
+#' 
+#' # With coordinate transforms
+#' p + geom_abline(intercept = 37, slope = -5) + coord_flip()
+#' p + geom_abline(intercept = 37, slope = -5) + coord_polar()
 geom_abline <- function (mapping = NULL, data = NULL, stat = "abline", position = "identity", show_guide = FALSE, ...) { 
   GeomAbline$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
 }
@@ -64,15 +68,13 @@ GeomAbline <- proto(Geom, {
   }
   
   draw <- function(., data, scales, coordinates, ...) {
-    xrange <- scales$x.range
-    
-    data <- transform(data,
-      x = xrange[1],
-      xend = xrange[2],
-      y = xrange[1] * slope + intercept,
-      yend = xrange[2] * slope + intercept
-    )
-    
+    ranges <- coord_range(coordinates, scales)
+
+    data$x    <- ranges$x[1]
+    data$xend <- ranges$x[2]
+    data$y    <- ranges$x[1] * data$slope + data$intercept
+    data$yend <- ranges$x[2] * data$slope + data$intercept
+
     GeomSegment$draw(unique(data), scales, coordinates)
   }
 

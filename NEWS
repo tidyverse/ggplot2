@@ -232,3 +232,9 @@ MINOR CHANGES
 
 * `stat_bin` and `geom_histogram` now use right-open, left-closed intervals by
   default. Use `right = TRUE` to return to previous behaviour.
+
+* A new method `coord_range` for finding the x and y range even after
+  coordinates have been transformed to other names (eg., theta and r).
+
+* `geom_vline`, `geom_hline`, and `geom_abline` now work with coordinate
+  transforms.

@@ -23,6 +23,11 @@
 #' p + geom_hline(yintercept=20)
 #' p + geom_hline(yintercept=seq(10, 30, by=5))
 #' 
+#' # With coordinate transforms
+#' p + geom_hline(aes(yintercept=mpg)) + coord_equal()
+#' p + geom_hline(aes(yintercept=mpg)) + coord_flip()
+#' p + geom_hline(aes(yintercept=mpg)) + coord_polar()
+#' 
 #' # To display different lines in different facets, you need to 
 #' # create a data frame.
 #' p <- qplot(mpg, wt, data=mtcars, facets = vs ~ am)
@@ -47,8 +52,10 @@ GeomHline <- proto(Geom, {
   }
 
   draw <- function(., data, scales, coordinates, ...) {
-    data$x    <- -Inf
-    data$xend <- Inf
+    ranges <- coord_range(coordinates, scales)
+
+    data$x    <- ranges$x[1]
+    data$xend <- ranges$x[2]
     
     GeomSegment$draw(unique(data), scales, coordinates)
   }

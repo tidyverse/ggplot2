@@ -48,6 +48,11 @@ coord_transform.flip <- function(coord, data, details) {
   NextMethod()
 }
 
+#' @S3method coord_range flip
+coord_range.flip <- function(coord, scales) {
+  return(list(x = scales$y.range, y = scales$x.range))
+}
+
 #' @S3method coord_train flip
 coord_train.flip <- function(coord, scales) {
   flip_labels(NextMethod())

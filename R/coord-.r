@@ -61,6 +61,14 @@ coord_render_axis_v.default <- function(coord, details, theme) {
   guide_axis(details$y.major, details$y.labels, "left", theme)
 }
 
+coord_range <- function(coord, scales)
+  UseMethod("coord_range")
+
+#' @S3method coord_range default
+coord_range.default <- function(coord, scales) {
+  return(list(x = scales$x.range, y = scales$y.range))
+}
+
 coord_train <- function(coord, scales) 
   UseMethod("coord_train")
 
