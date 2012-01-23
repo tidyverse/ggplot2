@@ -50,6 +50,10 @@
 #' # It's actually a bit easier to do this with stat_smooth
 #' p + geom_smooth(aes(group=cyl), method="lm")
 #' p + geom_smooth(aes(group=cyl), method="lm", fullrange=TRUE)
+#' 
+#' # With coordinate transforms
+#' p + geom_abline(intercept = 37, slope = -5) + coord_flip()
+#' p + geom_abline(intercept = 37, slope = -5) + coord_polar()
 geom_abline <- function (mapping = NULL, data = NULL, stat = "abline", position = "identity", show_guide = FALSE, ...) { 
   GeomAbline$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
 }

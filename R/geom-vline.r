@@ -25,8 +25,10 @@
 #' p + geom_vline(xintercept = 1:5, colour="green", linetype = "longdash")
 #' p + geom_vline(aes(xintercept = wt))
 #' 
-#' last_plot() + coord_equal()
-#' last_plot() + coord_flip()
+#' # With coordinate transforms
+#' p + geom_vline(aes(xintercept = wt)) + coord_equal()
+#' p + geom_vline(aes(xintercept = wt)) + coord_flip()
+#' p + geom_vline(aes(xintercept = wt)) + coord_polar()
 #' 
 #' p2 <- p + aes(colour = factor(cyl))
 #' p2 + geom_vline(xintercept = 15)
