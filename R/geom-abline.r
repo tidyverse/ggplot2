@@ -64,7 +64,9 @@ GeomAbline <- proto(Geom, {
   }
   
   draw <- function(., data, scales, coordinates, ...) {
-    xrange <- scales$x.range
+    # Get the post-coord-transform name for the x variable
+    xvar <- coord_mapping(coordinates)$x
+    xrange <- scales[[paste(xvar, ".range", sep="")]]
     
     data <- transform(data,
       x = xrange[1],

@@ -58,6 +58,11 @@ coord_labels.flip <- function(coord, scales) {
   flip_labels(NextMethod())
 }
 
+#' @S3method coord_mapping flip
+coord_mapping.flip <- function(coord, varname) {
+  return(list(x = "y", y = "x"))
+}
+
 icon.flip <- function(.) {
   angles <- seq(0, pi/2, length=20)[-c(1, 20)]
   gTree(children=gList(
