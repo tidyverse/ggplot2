@@ -61,7 +61,7 @@ coord_render_axis_v.default <- function(coord, details, theme) {
   guide_axis(details$y.major, details$y.labels, "left", theme)
 }
 
-coord_mapping <- function(coord, varname)
+coord_mapping <- function(coord)
   UseMethod("coord_mapping")
 
 #' @S3method coord_mapping default
