@@ -114,19 +114,20 @@ StatSmooth <- proto(Stat, {
     # gam with a cubic regression basis for large data
     # This is based on the size of the _largest_ group.
     if (is.character(method) && method == "auto") {
-      # Get the size of each group
-      nrows_group <- ddply(data, .(group), "nrow")
+      groups <- count(data, "group")
 
-      if (max(nrows_group$nrow) < 1000) {
+      if (max(groups$freq) < 1000) {
         method <- "loess"
         message('geom_smooth: method="auto" and size of largest group is <1000,',
-                ' so using loess smoothing.')
+                ' so using loess.',
+                ' Use \'method = x\' to change the smoothing method.')
       } else {
         try_require("mgcv")
         method <- "gam"
         formula <- y ~ s(x, bs = "cs")
         message('geom_smooth: method="auto" and size of largest group is >=1000,',
-                ' so using gam with formula: y ~ s(x, bs = "cs").')
+                ' so using gam with formula: y ~ s(x, bs = "cs").',
+                ' Use \'method = x\' to change the smoothing method.')
       }
     }
 
