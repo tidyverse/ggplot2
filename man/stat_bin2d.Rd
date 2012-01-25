@@ -7,7 +7,8 @@
 }
 \arguments{
   \item{bins}{numeric vector giving number of bins in both
-  vertical and horizontal directions.}
+  vertical and horizontal directions. Set to 30 by
+  default.}
 
   \item{drop}{if \code{TRUE} removes all cells with 0
   counts.}

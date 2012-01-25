@@ -35,14 +35,24 @@
 }
 \examples{
 d <- ggplot(diamonds, aes(x = cut, y = clarity))
-# Need to control which group proportion calculated over
-# Overall proportion
+# By default, all categorical variables in the plot form grouping
+# variables, and the default behavior in stat_sum is to show the
+# proportion. Specifying stat_sum with no group identifier leads to
+# a plot which is not meaningful:
+d + stat_sum()
+# To correct this problem and achieve a more desirable plot, we need
+# to specify which group the proportion is to be calculated over.
+# There are several ways to do this:
+
+# by overall proportion
 d + stat_sum(aes(group = 1))
 d + stat_sum(aes(group = 1)) + scale_size(range = c(3, 10))
 d + stat_sum(aes(group = 1)) + scale_area(range = c(3, 10))
+
 # by cut
 d + stat_sum(aes(group = cut))
 d + stat_sum(aes(group = cut, colour = cut))
+
 # by clarity
 d + stat_sum(aes(group = clarity))
 d + stat_sum(aes(group = clarity, colour = cut))

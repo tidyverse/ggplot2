@@ -62,7 +62,19 @@
   for more details.}
 }
 \description{
-  Dot plot
+  In a dot plot, the width of a dot corresponds to the bin
+  width (or maximum width, depending on the binning
+  algorithm), and dots are stacked, with each dot
+  representing one observation.
+}
+\details{
+  With dot-density binning, the bin positions are
+  determined by the data and \code{binwidth}, which is the
+  maximum width of each bin. See Wilkinson (1999) for
+  details on the dot-density binning algorithm.
+
+  With histodot binning, the bins have fixed positions and
+  fixed widths, much like a histogram.
 }
 \examples{
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot()
@@ -105,5 +117,9 @@ ggplot(mtcars, aes(x = factor(vs), fill = factor(cyl), y = mpg)) +
 # binpositions="all" ensures that the bins are aligned between groups
 ggplot(mtcars, aes(x = factor(am), y = mpg)) +
   geom_dotplot(binaxis = "y", stackdir = "center", binpositions="all")
+}
+\references{
+  Wilkinson, L. (1999) Dot plots. The American
+  Statistician, 53(3), 276-281.
 }
 

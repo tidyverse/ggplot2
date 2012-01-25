@@ -53,4 +53,10 @@ grid$lcl <- err$fit - 1.96 * err$se.fit
 qplot(wt, mpg, data=mtcars, colour=factor(cyl)) +
   geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat="identity")
 }
+\seealso{
+  The default stat for this geom is
+  \code{\link{stat_smooth}} see that documentation for more
+  options to control the underlying statistical
+  transformation.
+}
 

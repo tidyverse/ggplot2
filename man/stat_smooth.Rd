@@ -9,7 +9,10 @@
 }
 \arguments{
   \item{method}{smoothing method (function) to use, eg. lm,
-  glm, gam, loess, rlm}
+  glm, gam, loess, rlm. For datasets with n < 1000 default
+  is \code{\link{loess}}. For datasets with 1000 or more
+  observations defaults to gam, see \code{\link[mgcv]{gam}}
+  for more details.}
 
   \item{formula}{formula to use in smoothing function, eg.
   \code{y ~ x}, \code{y ~ poly(x, 2)}, \code{y ~ log(x)}}
