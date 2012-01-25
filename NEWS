@@ -227,8 +227,11 @@ MINOR CHANGES
 * `stat_binhex` uses correct bin width for computing y axis bounds. (Fixes
   #299, thanks to Dave Henderson for bug report and fix.)
 
-* `stat_smooth` now adjusts confidence intervals from \code{loess} using a 
+* `stat_smooth` now adjusts confidence intervals from `loess` using a 
   t-based approximation
+
+* `stat_smooth` now gives a message when method is "auto", reporting what
+  method is being used.
 
 * `stat_bin` and `geom_histogram` now use right-open, left-closed intervals by
   default. Use `right = TRUE` to return to previous behaviour.
