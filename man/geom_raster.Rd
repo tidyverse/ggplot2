@@ -3,11 +3,14 @@
 \title{High-performance rectangular tiling.}
 \usage{
   geom_raster(mapping = NULL, data = NULL,
-    stat = "identity", position = "identity", hpad = NULL,
-    vpad = NULL, ...)
+    stat = "identity", position = "identity", hjust = 0.5,
+    vjust = 0.5, ...)
 }
 \arguments{
-  \item{hpad,vpad}{horizontal and vertical padding.}
+  \item{hjust,vjust}{horizontal and vertical justification
+  of the grob.  Each justification value should be a number
+  between 0 and 1.  Defaults to 0.5 for both, centering
+  each pixel over its data location.}
 
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
@@ -34,6 +37,13 @@
   efficiently using the internal \code{rasterGrob}
   function.
 }
+\details{
+  By default, \code{geom_raster} add a vertical and
+  horizontal padding. The size of padding depends on the
+  resolution of data. If you want to manually set the
+  padding (e.g. want zero-padding), you can change the
+  behavior by setting \code{hpad} and \code{vpad}.
+}
 \examples{
 # Generate data
 pp <- function (n,r=4) {
@@ -51,5 +61,13 @@ pp200 <- pp(200)
 base <- ggplot(pp200, aes(x, y, fill = z))
 benchplot(base + geom_raster())
 benchplot(base + geom_tile())
+
+# padding
+df <- expand.grid(x = 0:5, y = 0:5)
+df$z <- runif(nrow(df))
+# default is compatible with geom_tile()
+ggplot(df, aes(x, y, fill = z)) + geom_raster()
+# zero padding
+ggplot(df, aes(x, y, fill = z)) + geom_raster(hpad = 0, vpad = 0)
 }
 

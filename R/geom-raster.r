@@ -13,7 +13,9 @@ NULL
 #' you can change the behavior by setting \code{hpad} and \code{vpad}.
 #'
 #' @inheritParams geom_point
-#' @param hpad,vpad horizontal and vertical padding in data unit.
+#' @param hjust,vjust horizontal and vertical justification of the grob.  Each
+#'   justification value should be a number between 0 and 1.  Defaults to 0.5 
+#'   for both, centering each pixel over its data location.
 #' @export
 #' @examples
 #' # Generate data
@@ -40,25 +42,28 @@ NULL
 #' ggplot(df, aes(x, y, fill = z)) + geom_raster()
 #' # zero padding
 #' ggplot(df, aes(x, y, fill = z)) + geom_raster(hpad = 0, vpad = 0)
-
-geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", hpad = NULL, vpad = NULL, ...) { 
-  GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, hpad = hpad, vpad = vpad, ...)
+geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", hjust = 0.5, vjust = 0.5, ...) { 
+  stopifnot(is.numeric(hjust), length(hjust) == 1)
+  stopifnot(is.numeric(vjust), length(vjust) == 1)
+  
+  GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, hjust = hjust, vjust = vjust, ...)
 }
 
 GeomRaster <- proto(Geom, {
   objname <- "raster"
   
   reparameterise <- function(., df, params) {
-    df$hpad <- df$hpad %||% params$hpad %||% resolution(df$x, FALSE)
-    df$vpad <- df$vpad %||% params$vpad %||% resolution(df$y, FALSE)
+    w <- resolution(df$x, FALSE)
+    h <- resolution(df$y, FALSE)
     
-    transform(df, 
-      xmin = x - hpad / 2,  xmax = x + hpad / 2, hpad = NULL,
-      ymin = y - vpad / 2, ymax = y + vpad / 2, vpad = NULL
-    )
+    df$xmin <- df$x - w * (1 - params$hjust)
+    df$xmax <- df$x + w * params$hjust
+    df$ymin <- df$y - h * (1 - params$vjust)
+    df$ymax <- df$y + h * params$vjust
+    df
   }
   
-  draw <- function(., data, scales, coordinates, hpad = NULL, vpad = NULL, ...) {
+  draw <- function(., data, scales, coordinates, hjust = NULL, vjust = NULL, ...) {
 
     if (!inherits(coordinates, "cartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
@@ -67,16 +72,12 @@ GeomRaster <- proto(Geom, {
     raster <- acast(data, list("y", "x"), value.var = "fill")
     raster <- raster[nrow(raster):1, , drop = FALSE]
 
-    # data range
-    x_rng <- range(data$x, na.rm = TRUE)
-    y_rng <- range(data$y, na.rm = TRUE)
+    x_rng <- c(min(data$xmin, na.rm = TRUE), max(data$xmax, na.rm = TRUE))
+    y_rng <- c(min(data$ymin, na.rm = TRUE), max(data$ymax, na.rm = TRUE))
 
-    x <- mean(x_rng)
-    y <- mean(y_rng)
-    w <- abs(max(data$xmax, na.rm = TRUE) - min(data$xmin, na.rm = TRUE))
-    h <- abs(max(data$ymax, na.rm = TRUE) - min(data$ymin, na.rm = TRUE))
-
-    rasterGrob(raster, x = x, y = y, width = w, height = h , default.units = "native", interpolate = FALSE)
+    rasterGrob(raster, x = mean(x_rng), y = mean(y_rng), 
+      width = diff(x_rng), height = diff(y_rng), 
+      default.units = "native", interpolate = FALSE)
   }
 
 
