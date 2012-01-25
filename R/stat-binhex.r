@@ -2,7 +2,7 @@
 #' 
 #' @seealso \code{\link{stat_bin2d}} for rectangular binning
 #' @param bins numeric vector specifying number of bins in both x and y 
-#'   directions.
+#'   directions. Set to 30 by default.
 #' @inheritParams stat_identity
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
