@@ -2,6 +2,8 @@
 #'
 #' @rdname scale_date
 #' @inheritParams scale_x_continuous
+#' @param breaks We can also use character string for the breaks in
+#'   \code{scale_date}. See \code{\link{by}} argument in \code{\link{seq.Date}}.
 #' @family position scales
 #' @export
 #' @examples
@@ -26,6 +28,10 @@
 #'   labels = date_format("%b"))
 #' dt + scale_x_date(breaks = date_breaks("4 weeks"), 
 #'   labels = date_format("%d-%b"))
+#'
+#' # We can use character string for breaks.
+#' # See \code{\link{by}} argument in \code{\link{seq.Date}}.
+#' dt + scale_x_date(breaks = "2 weeks")
 #' 
 #' # The date scale will attempt to pick sensible defaults for 
 #' # major and minor tick marks
@@ -57,16 +63,39 @@
 #' qplot(date, value, data = em, geom = "line", group = variable)
 #' qplot(date, value, data = em, geom = "line", group = variable) + 
 #'   facet_grid(variable ~ ., scale = "free_y")
-scale_x_date <- function(..., expand = c(0.05, 0)) {
-  continuous_scale(c("x", "xmin", "xmax", "xend"), "date", identity, ...,
-    guide = "none", expand = expand, trans = "date")
+scale_x_date <- function(..., expand = c(0.05, 0), breaks = NULL,
+  minor_breaks = NULL) {
+  
+  scale_date(c("x", "xmin", "xmax", "xend"), expand = expand, breaks = breaks,
+             minor_breaks = minor_breaks, ...)
 }
 
 #' @rdname scale_date
 #' @export
-scale_y_date <- function(..., expand = c(0.05, 0)) {
-  continuous_scale(c("y", "ymin", "ymax", "yend"), "date", identity, ...,
-    guide = "none", expand = expand, trans = "date")
+scale_y_date <- function(..., expand = c(0.05, 0), breaks = NULL,
+  minor_breaks = NULL) {
+
+  scale_date(c("y", "ymin", "ymax", "yend"), expand = expand, breaks = breaks,
+             minor_breaks = minor_breaks, ...)
+}
+
+# base class for scale_{xy}_date
+scale_date <- function(aesthetics, expand = c(0.05, 0), breaks = NULL,
+  minor_breaks = NULL, ...) {
+
+  if (is_date_by(breaks)) {
+    breaks_str <- breaks
+    breaks <- date_breaks(breaks_str)
+  }
+  
+  if (is_date_by(minor_breaks)) {
+    mbreaks_str <- minor_breaks
+    minor_breaks <- date_breaks(mbreaks_str)
+  }
+  
+  continuous_scale(aesthetics, "date", identity, breaks = breaks,
+    minor_breaks = minor_breaks, guide = "none", expand = expand,
+    trans = "date", ...)
 }
 
 #' @S3method scale_map date
@@ -77,3 +106,12 @@ scale_map.date <- function(scale, x) {
 icon.scale_date <- function() {
   textGrob("14/10/1979", gp=gpar(cex=1))
 }
+
+# test if it can be parsed as date interval
+is_date_by <- function(by) {
+  r <- NULL
+  dummy <- Sys.Date()
+  try(r <- seq.Date(dummy, dummy, by), silent = TRUE)
+  !is.null(r)
+}
+      
