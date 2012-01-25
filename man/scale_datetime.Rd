@@ -3,11 +3,20 @@
 \alias{scale_y_datetime}
 \title{Position scale, date}
 \usage{
-  scale_x_datetime(..., expand = c(0.05, 0))
+  scale_x_datetime(..., expand = c(0.05, 0), breaks = NULL,
+    minor_breaks = NULL)
 
-  scale_y_datetime(..., expand = c(0.05, 0))
+  scale_y_datetime(..., expand = c(0.05, 0), breaks = NULL,
+    minor_breaks = NULL)
 }
 \arguments{
+  \item{breaks}{A vector of breaks, a function that given
+  the scale limits returns a vector of breaks, or a
+  character vector, specifying the width between breaks.
+  For more information about the first two, see
+  \code{\link{continuous_scale}}, for more information
+  about the last, see \code{\link[scales]{date_breaks}}`.}
+
   \item{...}{common continuous scale parameters:
   \code{name}, \code{breaks}, \code{labels},
   \code{na.value}, \code{limits} and \code{trans}.  See
