@@ -3,9 +3,12 @@
 \title{High-performance rectangular tiling.}
 \usage{
   geom_raster(mapping = NULL, data = NULL,
-    stat = "identity", position = "identity", ...)
+    stat = "identity", position = "identity", hpad = NULL,
+    vpad = NULL, ...)
 }
 \arguments{
+  \item{hpad,vpad}{horizontal and vertical padding.}
+
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
   needs to be set at the layer level if you are overriding
