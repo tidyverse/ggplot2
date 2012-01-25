@@ -10,9 +10,12 @@
     minor_breaks = NULL)
 }
 \arguments{
-  \item{breaks}{We can also use character string for the
-  breaks in \code{scale_date}. See \code{\link{by}}
-  argument in \code{\link{seq.Date}}.}
+  \item{breaks}{A vector of breaks, a function that given
+  the scale limits returns a vector of breaks, or a
+  character vector, specifying the width between breaks.
+  For more information about the first two, see
+  \code{\link{continuous_scale}}, for more information
+  about the last, see \code{\link[scales]{date_breaks}}`.}
 
   \item{...}{common continuous scale parameters:
   \code{name}, \code{breaks}, \code{labels},

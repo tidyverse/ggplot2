@@ -2,8 +2,11 @@
 #'
 #' @rdname scale_date
 #' @inheritParams scale_x_continuous
-#' @param breaks We can also use character string for the breaks in
-#'   \code{scale_date}. See \code{\link{by}} argument in \code{\link{seq.Date}}.
+#' @param breaks  A vector of breaks, a function that given the scale limits
+#'   returns a vector of breaks, or a character vector, specifying the width
+#'   between breaks. For more information about the first two, see
+#'   \code{\link{continuous_scale}}, for more information about the last,
+#'   see \code{\link[scales]{date_breaks}}`.
 #' @family position scales
 #' @export
 #' @examples
@@ -67,7 +70,7 @@ scale_x_date <- function(..., expand = c(0.05, 0), breaks = NULL,
   minor_breaks = NULL) {
   
   scale_date(c("x", "xmin", "xmax", "xend"), expand = expand, breaks = breaks,
-             minor_breaks = minor_breaks, ...)
+    minor_breaks = minor_breaks, ...)
 }
 
 #' @rdname scale_date
@@ -76,19 +79,19 @@ scale_y_date <- function(..., expand = c(0.05, 0), breaks = NULL,
   minor_breaks = NULL) {
 
   scale_date(c("y", "ymin", "ymax", "yend"), expand = expand, breaks = breaks,
-             minor_breaks = minor_breaks, ...)
+    minor_breaks = minor_breaks, ...)
 }
 
 # base class for scale_{xy}_date
 scale_date <- function(aesthetics, expand = c(0.05, 0), breaks = NULL,
   minor_breaks = NULL, ...) {
 
-  if (is_date_by(breaks)) {
+  if (is.character(breaks)) {
     breaks_str <- breaks
     breaks <- date_breaks(breaks_str)
   }
   
-  if (is_date_by(minor_breaks)) {
+  if (is.character(minor_breaks)) {
     mbreaks_str <- minor_breaks
     minor_breaks <- date_breaks(mbreaks_str)
   }
@@ -106,12 +109,3 @@ scale_map.date <- function(scale, x) {
 icon.scale_date <- function() {
   textGrob("14/10/1979", gp=gpar(cex=1))
 }
-
-# test if it can be parsed as date interval
-is_date_by <- function(by) {
-  r <- NULL
-  dummy <- Sys.Date()
-  try(r <- seq.Date(dummy, dummy, by), silent = TRUE)
-  !is.null(r)
-}
-      
