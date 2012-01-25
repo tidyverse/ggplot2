@@ -53,17 +53,20 @@ GeomRaster <- proto(Geom, {
   objname <- "raster"
   
   reparameterise <- function(., df, params) {
+    hjust <- params$hjust %||% 0.5
+    vjust <- params$vjust %||% 0.5
+    
     w <- resolution(df$x, FALSE)
     h <- resolution(df$y, FALSE)
     
-    df$xmin <- df$x - w * (1 - params$hjust)
-    df$xmax <- df$x + w * params$hjust
-    df$ymin <- df$y - h * (1 - params$vjust)
-    df$ymax <- df$y + h * params$vjust
+    df$xmin <- df$x - w * (1 - hjust)
+    df$xmax <- df$x + w * hjust
+    df$ymin <- df$y - h * (1 - vjust)
+    df$ymax <- df$y + h * vjust
     df
   }
   
-  draw <- function(., data, scales, coordinates, hjust = NULL, vjust = NULL, ...) {
+  draw <- function(., data, scales, coordinates, hjust = 0.5, vjust = 0.5, ...) {
 
     if (!inherits(coordinates, "cartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
