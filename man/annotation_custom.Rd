@@ -41,12 +41,14 @@ base <- qplot(1:10, 1:10, geom = "blank") + theme_bw()
 require(gridExtra)
 base + annotation_custom(grob = tableGrob(head(iris[ ,1:3])),
         xmin = 3, xmax = 6, ymin = 2, ymax = 8)
-}
-# Inset plot
-g <- ggplotGrob(qplot(1, 1) + opts(plot.background = theme_rect(col = "black")))
-base + annotation_custom(grob = g, xmin = 1, xmax = 10, ymin = 8, ymax = 10)
 # full panel
 base + annotation_custom(grob = roundrectGrob(),
           xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
+}
+# Inset plot
+g <- ggplotGrob(qplot(1, 1) +
+  opts(plot.background = theme_rect(col = "black")))
+base +
+  annotation_custom(grob = g, xmin = 1, xmax = 10, ymin = 8, ymax = 10)
 }
 

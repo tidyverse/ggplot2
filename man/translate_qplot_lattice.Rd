@@ -8,6 +8,7 @@
   complicated situations.
 }
 \examples{
+\dontrun{
 xyplot(rating ~ year, data=movies)
 qplot(year, rating, data=movies)
 
@@ -70,5 +71,6 @@ qplot(mpg, wt, data = mtcars, asp = 1)
 # and trellis.par.get() to theme_set() and theme_get().
 # More complicated lattice formulas are equivalent to rearranging the data
 # before using ggplot2.
+}
 }
 

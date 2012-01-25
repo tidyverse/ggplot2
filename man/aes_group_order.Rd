@@ -32,7 +32,11 @@ a + geom_bar(aes(fill = factor(vs)))
 
 # Using linetypes
 library(reshape2) # for melt
-ec_scaled <- data.frame(date = economics$date, rescaler(economics[, -(1:2)], "range"))
+library(plyr) # for colwise
+rescale01 <- function(x) (x - min(x)) / diff(range(x))
+ec_scaled <- data.frame(
+  date = economics$date,
+  colwise(rescale01)(economics[, -(1:2)]))
 ecm <- melt(ec_scaled, id = "date")
 f <- ggplot(ecm, aes(date, value))
 f + geom_line(aes(linetype = variable))
@@ -59,10 +63,10 @@ h + geom_line(aes(group = Subject))
 h <- h + geom_line(aes(group = Subject))
 # Using the group aesthetic with both geom_line() and geom_smooth()
 # groups the data the same way for both layers
-h + geom_smooth(aes(group = Subject), method = "lm", se = F)
+h + geom_smooth(aes(group = Subject), method = "lm", se = FALSE)
 # Changing the group aesthetic for the smoother layer
 # fits a single line of best fit across all boys
-h + geom_smooth(aes(group = 1), size = 2, method = "lm", se = F)
+h + geom_smooth(aes(group = 1), size = 2, method = "lm", se = FALSE)
 
 # Overriding the default grouping
 # The plot has a discrete scale but you want to draw lines that connect across

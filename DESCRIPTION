@@ -34,7 +34,8 @@ Suggests:
     hexbin,
     gpclib,
     maptools,
-    multcomp
+    multcomp,
+    nlme
 Extends:
     sp
 License: GPL-2
