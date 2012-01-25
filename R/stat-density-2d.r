@@ -12,6 +12,8 @@
 #' @export
 #' @examples
 #' library("MASS")
+#' data(geyser, "MASS")
+#'
 #' m <- ggplot(geyser, aes(x = duration, y = waiting)) + 
 #'   geom_point() + xlim(0.5, 6) + ylim(40, 110)
 #' m + geom_density2d()
@@ -27,7 +29,7 @@
 #' 
 #' m + stat_density2d(aes(fill = ..level..), geom="polygon")
 #' 
-#' qplot(duration, waiting, data=geysers, geom=c("point","density2d")) +     
+#' qplot(duration, waiting, data=geyser, geom=c("point","density2d")) +     
 #'   xlim(0.5, 6) + ylim(40, 110)
 #' 
 #' # If you map an aesthetic to a categorical variable, you will get a

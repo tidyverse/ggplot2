@@ -18,7 +18,7 @@
 #' @seealso \code{\link{stat_bin}} for the histogram
 #' @export
 #' @examples
-#' m <- ggplot(movies, aes(x=rating))
+#' m <- ggplot(movies, aes(x = rating))
 #' m + geom_density()
 #' 
 #' # Adjust parameters

@@ -38,6 +38,8 @@
   to uncover the full story behind your data.
 }
 \examples{
+set.seed(5689)
+movies <- movies[sample(nrow(movies), 1000), ]
 # Simple examples
 qplot(rating, data=movies, geom="histogram")
 qplot(rating, data=movies, weight=votes, geom="histogram")
@@ -111,24 +113,26 @@ m + facet_wrap(~ mpaa)
 
 # Multiple histograms on the same graph
 # see ?position, ?position_fill, etc for more details.
-ggplot(diamonds, aes(x=price)) + geom_bar()
-hist_cut <- ggplot(diamonds, aes(x=price, fill=cut))
+set.seed(6298)
+diamonds_small <- diamonds[sample(nrow(diamonds), 1000), ]
+ggplot(diamonds_small, aes(x=price)) + geom_bar()
+hist_cut <- ggplot(diamonds_small, aes(x=price, fill=cut))
 hist_cut + geom_bar() # defaults to stacking
 hist_cut + geom_bar(position="fill")
 hist_cut + geom_bar(position="dodge")
 
 # This is easy in ggplot2, but not visually effective.  It's better
 # to use a frequency polygon or density plot.  Like this:
-ggplot(diamonds, aes(price, ..density.., colour = cut)) +
+ggplot(diamonds_small, aes(price, ..density.., colour = cut)) +
   geom_freqpoly(binwidth = 1000)
 # Or this:
-ggplot(diamonds, aes(price, colour = cut)) +
+ggplot(diamonds_small, aes(price, colour = cut)) +
   geom_density()
 # Or if you want to be fancy, maybe even this:
-ggplot(diamonds, aes(price, fill = cut)) +
+ggplot(diamonds_small, aes(price, fill = cut)) +
   geom_density(alpha = 0.2)
 # Which looks better when the distributions are more distinct
-ggplot(diamonds, aes(depth, fill = cut)) +
+ggplot(diamonds_small, aes(depth, fill = cut)) +
   geom_density(alpha = 0.2) + xlim(55, 70)
 }
 

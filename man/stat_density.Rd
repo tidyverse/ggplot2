@@ -50,7 +50,7 @@
   1d kernel density estimate.
 }
 \examples{
-m <- ggplot(movies, aes(x=rating))
+m <- ggplot(movies, aes(x = rating))
 m + geom_density()
 
 # Adjust parameters
