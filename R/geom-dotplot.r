@@ -1,5 +1,16 @@
 #' Dot plot
 #'
+#' In a dot plot, the width of a dot corresponds to the bin width
+#' (or maximum width, depending on the binning algorithm), and dots are
+#' stacked, with each dot representing one observation.
+#'
+#' With dot-density binning, the bin positions are determined by the data and
+#' \code{binwidth}, which is the maximum width of each bin. See Wilkinson
+#' (1999) for details on the dot-density binning algorithm.
+#'
+#' With histodot binning, the bins have fixed positions and fixed widths, much
+#' like a histogram.
+#'
 #' @inheritParams geom_point
 #' @param binaxis which axis to bin along "x" (default) or "y"
 #' @param method "dotdensity" (default) for dot-density binning, or
@@ -17,6 +28,10 @@
 #'   just touch. Use smaller values for closer, overlapping dots.
 #' @param dotsize The diameter of the dots relative to \code{binwidth}, default 1.
 #' @export
+#'
+#' @references Wilkinson, L. (1999) Dot plots. The American Statistician,
+#'    53(3), 276-281.
+#'
 #' @examples
 #'
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot()

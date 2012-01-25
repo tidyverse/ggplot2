@@ -15,17 +15,21 @@
   Jitter points to avoid overplotting.
 }
 \examples{
-qplot(am, vs, data=mtcars)
+qplot(am, vs, data = mtcars)
 
 # Default amount of jittering will generally be too much for
 # small datasets:
-qplot(am, vs, data=mtcars, position="jitter")
+qplot(am, vs, data = mtcars, position = "jitter")
 # Control the amount as follows
-qplot(am, vs, data=mtcars, position=position_jitter(w=0.1, h=0.1))
+qplot(am, vs, data = mtcars, position = position_jitter(w = 0.1, h = 0.1))
+
+# With ggplot
+ggplot(mtcars, aes(x = am, y = vs)) + geom_point(position = "jitter")
+ggplot(mtcars, aes(x = am, y = vs)) + geom_point(position = position_jitter(w = 0.1, h = 0.1))
 
 # The default works better for large datasets, where it will
 # take up as much space as a boxplot or a bar
-qplot(cut, price, data=diamonds, geom=c("boxplot", "jitter"))
+qplot(cut, price, data = diamonds, geom = c("boxplot", "jitter"))
 }
 \seealso{
   Other position adjustments: \code{\link{position_dodge}},

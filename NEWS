@@ -3,6 +3,11 @@ ggplot2 0.9.0
 
 NEW FEATURES
 
+* `annotation_custom`: a new geom intended for use as static annnotations that
+  are the same in every panel. Can be used to add inset plots, tables, and
+  other grid-based decorations inside the plot area (Contributed by Baptiste
+  Auguié).
+
 * `geom_map`: a new special case of `geom_polygon` useful when you are drawing
   maps, particularly choropleth maps. It is matched with `annotation_map`, an
   even faster special case when you want the same map drawn in each panel.
@@ -16,10 +21,10 @@ NEW FEATURES
 * `geom_violin`: an implementation of violin plots, which are a way of
   visualizing kernel density estimates. (Thanks to Winston Chang)
 
-* `geom_dotplot`: dot plots, as described in Wilkinson (1999). To bin the data,
-  it uses `stat_bindot` to bin the data, which has two methods: histodot and
-  dot-density. Histodot binning uses fixed-width bins just like `stat_bin`,
-  while dot-density binning uses variable-width bins. A new grob,
+* `geom_dotplot`: dot plots, as described in Wilkinson (1999). To bin the
+  data, it uses `stat_bindot` to bin the data, which has two methods: histodot
+  and dot-density. Histodot binning uses fixed-width bins just like
+  `stat_bin`, while dot-density binning uses variable-width bins. A new grob,
   `grob_dotstack` is used to render the dots. (Thanks to Winston Chang)
 
 * New fortify methods have been added for objects produced by the `multcomp`
@@ -29,44 +34,26 @@ NEW FEATURES
   and stat_binhex but allow any summarisation function (instead of just
   count). They are 2d analogs of `stat_summary`
 
-* `facet_grid`: The space argument now supports `free_x` and `free_y` 
-  next to `free` and `fixed, this allows the user to adjust the spatial scaling of 
-  the facets in either the x or y direction. This is especially useful when the scales 
-  are very different. In this case space = `free` could make some facets very small. 
-  (Thanks to Willem Ligtenberg)
-
-DEVELOPMENT
-
-* ggplot2 has moved away from the two (!!) homegrown documentation systems
-  that it previously relied on, and now uses roxygen extensively. The current
-  downside is that this means that ggplot2 website can no longer be updated,
-  but I hope work with the `helpr` package will resolve that shortly.
-
-* ggplot2 now uses a `NAMESPACE`, and only exports functions that should be
-  user visible - this should make it play considerably more nicely with other
-  packages in the R ecosystem. Note that this means you now need to explicitly
-  load `plyr` (and other packages) if you are using them elsewhere in your
-  code.
-
-* ggplot2 now has a start on a set of automated tests. As this test suite
-  expands it will help me ensure that bugs stay fixed, and that old bugs don't
-  come back in new versions. A test suite also gives me more confidence when
-  I'm modifying code, which should help with general code quality.
+* `facet_grid`: The space argument now supports `free_x` and `free_y` next to
+  `free` and `fixed, this allows the user to adjust the spatial scaling of the
+  facets in either the x or y direction. This is especially useful when the
+  scales are very different. In this case space = `free` could make some
+  facets very small. (Thanks to Willem Ligtenberg)
 
 DOCUMENTATION
 
 * Thorough clean up and checking, including documenting all arguments, adding
   systematic cross-references, and adding commonly requested examples. Thanks
-  to Jake Russ for the help.
+  to Jake Russ and Dennis Murphy for the help.
 
 * Complete series of aesthetics pages (grouped subsets of aesthetics) with
-  examples of how to use the major ones, see e.g. `?fill`, `?shape`
+  examples of how to use the major ones, see e.g. `?fill`, `?shape`, `?x`,
 
-* Added a complete list of theme opts with usage examples. `?opts` now brings
-  this list up.
+* Added a complete list of theme opts with usage examples in `?opts`
 
-* Added "translate" pages to demonstrate usage between qplot-ggplot,
-  qplot-base, qplot-lattice, and qplot-gpl.
+* Added "translate" pages to demonstrate usage between qplot and ggplot, GPL,
+  base and lattice graphics: `?translate_qplot_base`, `?translate_qplot_gpl`,
+  `?translate_qplot_lattice`, `?translate_qplot_ggplot`,
 
 SCALES
 
@@ -140,11 +127,33 @@ FACETS
 * Facetting variables will no longer interfere with aesthetic mappings - 
   `facet_wrap(~ colour)` will no longer affect the colour of points.
 
+DEVELOPMENT
+
+* ggplot2 has moved away from the two (!!) homegrown documentation systems
+  that it previously relied on, and now uses roxygen extensively. The current
+  downside is that this means that ggplot2 website can no longer be updated,
+  but I hope work with the `helpr` package will resolve that shortly.
+
+* ggplot2 now uses a `NAMESPACE`, and only exports functions that should be
+  user visible - this should make it play considerably more nicely with other
+  packages in the R ecosystem. Note that this means you now need to explicitly
+  load `plyr` (and other packages) if you are using them elsewhere in your
+  code.
+
+* ggplot2 now has a start on a set of automated tests. As this test suite
+  expands it will help me ensure that bugs stay fixed, and that old bugs don't
+  come back in new versions. A test suite also gives me more confidence when
+  I'm modifying code, which should help with general code quality.
+
 COORDS
 
 * Converted from proto to S3 objects, and class methods (somewhat) documented
   in `coord.r`. This should make it easier to develop new types of coordinate
   systems.
+
+* Added a new method `coord_range` for finding the x and y range even after
+  coordinates have been transformed to other names (eg., theta and r). (Thanks
+  to Winston Chang)
 
 RENDERING 
 
@@ -170,7 +179,8 @@ RENDERING
 
 GUIDES
 
-* Guides (particularly legends) have been rewritten by Kohske Takahashi to provide considerably more layout flexibility.
+* Guides (particularly legends) have been rewritten by Kohske Takahashi to
+  provide considerably more layout flexibility.
 
 * `guide_legend` now supports multi-row/column legend and reversed order,
   gives more flexible positioning of title and label, and can override
@@ -212,7 +222,7 @@ MINOR CHANGES
 * New generic function `autoplot` for the creation of complete plots
   specific to a given data structure. Default implementation throws
   an error. It is designed to have implementations provided by other
-  packages.
+  packages.  (Thanks to suggestion by Brian Diggs)
   
 * `ggpcp` loses the `scale` argument because it relied on reshape(1) code
 
@@ -227,14 +237,15 @@ MINOR CHANGES
 * `stat_binhex` uses correct bin width for computing y axis bounds. (Fixes
   #299, thanks to Dave Henderson for bug report and fix.)
 
-* `stat_smooth` now adjusts confidence intervals from \code{loess} using a 
+* `stat_smooth` now adjusts confidence intervals from `loess` using a 
   t-based approximation
 
+* `stat_smooth` reports what method is used when method is "auto". It also
+  picks the method based on the size of the largest group, not individually by
+  group. (Thanks to Winston Chang)
+
 * `stat_bin` and `geom_histogram` now use right-open, left-closed intervals by
-  default. Use `right = TRUE` to return to previous behaviour.
+  default. Use `right = TRUE` to return to previous behaviour. 
 
-* A new method `coord_range` for finding the x and y range even after
-  coordinates have been transformed to other names (eg., theta and r).
-
-* `geom_vline`, `geom_hline`, and `geom_abline` now work with coordinate
-  transforms.
+* `geom_vline`, `geom_hline`, and `geom_abline` now work with non-Cartesian
+  coordinate systems. (Thanks to Winston Chang)

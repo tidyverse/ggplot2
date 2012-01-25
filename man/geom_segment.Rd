@@ -35,7 +35,7 @@
 \examples{
 library(grid) # needed for arrow function
 p <- ggplot(seals, aes(x = long, y = lat))
-(p <- p + geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat), arrow=arrow(length=unit(0.1,"cm"))))
+(p <- p + geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat), arrow = arrow(length = unit(0.1,"cm"))))
 
 if (require("maps")) {
 
@@ -47,7 +47,7 @@ usamap <- rbind(usamap, NA, data.frame(map('state', xlim = xlim, ylim
 = ylim, plot = FALSE)[c("x","y")]))
 names(usamap) <- c("long", "lat")
 
-p + geom_path(data = usamap) + scale_x_continuous(limits=xlim)
+p + geom_path(data = usamap) + scale_x_continuous(limits = xlim)
 }
 
 # You can also use geom_segment to recreate plot(type = "h") :
@@ -55,8 +55,15 @@ counts <- as.data.frame(table(x = rpois(100,5)))
 counts$x <- as.numeric(as.character(counts$x))
 with(counts, plot(x, Freq, type = "h", lwd = 10))
 
-qplot(x, Freq, data = counts, geom="segment",
+qplot(x, Freq, data = counts, geom = "segment",
   yend = 0, xend = x, size = I(10))
+
+# Adding line segments
+library(grid) # needed for arrow function
+b <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
+b + geom_segment(aes(x = 2, y = 15, xend = 2, yend = 25))
+b + geom_segment(aes(x = 2, y = 15, xend = 3, yend = 15))
+b + geom_segment(aes(x = 5, y = 30, xend = 3.5, yend = 25), arrow = arrow(length = unit(0.5, "cm")))
 }
 \seealso{
   \code{\link{geom_path}} and \code{\link{geom_line}} for

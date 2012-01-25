@@ -57,6 +57,8 @@
   the inter-quartile range, or distance between the first
   and third quartiles. The lower whisker extends from the
   hinge to the lowest value within 1.5 * IQR of the hinge.
+  Data beyond the end of the whiskers are outliers and
+  plotted as points (as specified by Tukey).
 
   In a notched box plot, the notches extend \code{1.58 *
   IQR / sqrt(n)}. This gives a roughly 95% confidence

@@ -7,7 +7,7 @@
 }
 \arguments{
   \item{bins}{numeric vector specifying number of bins in
-  both x and y directions.}
+  both x and y directions. Set to 30 by default.}
 
   \item{na.rm}{If \code{FALSE} (the default), removes
   missing values with a warning.  If \code{TRUE} silently
