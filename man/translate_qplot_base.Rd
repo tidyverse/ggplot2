@@ -15,7 +15,9 @@
 \examples{
 # High-level plotting commands
 
-plot(x, y); dotchart(x, y); stripchart(x, y)
+x <- runif(10)
+y <- 1:10
+plot(x, y); dotchart(x, y)
 qplot(x, y)
 
 plot(x, y, type = "l")
@@ -33,17 +35,17 @@ qplot(x, y, geom = "boxplot")
 hist(x)
 qplot(x, geom = "histogram")
 
-cdplot(x, y)
-qplot(x, fill = y, geom = "density", position = "fill")
+# cdplot(factor(x), y)
+# qplot(x, fill = y, geom = "density", position = "fill")
 
-coplot(y ~ x | a + b)
-qplot(x, y, facets = a ~ b)
+# coplot(y ~ x | a + b)
+# qplot(x, y, facets = a ~ b)
 
 # Many of the geoms are parameterised differently than base graphics. For
 # example, hist() is parameterised in terms of the number of bins, while
 # geom_histogram() is parameterised in terms of the width of each bin.
-hist(x, bins = 100)
-qplot(x, geom = "histogram", binwidth = 1)
+hist(x, bins = 10)
+qplot(x, geom = "histogram", binwidth = .1)
 
 # qplot() often requires data in a slightly different format to the base
 # graphics functions. For example, the bar geom works with untabulated data,
@@ -53,18 +55,19 @@ barplot(table(x))
 qplot(x, geom = "bar")
 
 barplot(x)
-qplot(names(x), x, geom = "bar", stat = "identity")
+qplot(seq_along(x), x, geom = "bar", stat = "identity")
 
-image(x)
-qplot(X1, X2, data = melt(x), geom = "tile", fill = value)
+# image(x)
+# qplot(X1, X2, data = melt(x), geom = "tile", fill = value)
 
-contour(x)
-qplot(X1, X2, data = melt(x), geom = "contour", fill = value)
+# contour(x)
+# qplot(X1, X2, data = melt(x), geom = "contour", fill = value)
 
 # Generally, the base graphics functions work with individual vectors, not
 # data frames like ggplot2. qplot() will try to construct a data frame if one
 # is not specified, but it is not always possible. If you get strange errors,
 # you may need to create the data frame yourself.
+df <- data.frame(x = x, y = y)
 with(df, plot(x, y))
 qplot(x, y, data = df)
 
@@ -124,10 +127,11 @@ plot(1:5, 1:5, col = 1:5, pch = 19, cex = 4)
 qplot(1:5, 1:5, col = factor(1:5), size = I(4))
 last_plot() + scale_colour_manual(values = rainbow(5))
 
-# In ggplot2, you can also use palettes with continuous values, with intermediate
-# values being linearly interpolated.
+# In ggplot2, you can also use palettes with continuous values,
+# with intermediate values being linearly interpolated.
 
-qplot(0:100, 0:100, col = 0:100, size = I(4)) + scale_colour_gradientn(colours = rainbow(7))
+qplot(0:100, 0:100, col = 0:100, size = I(4)) +
+  scale_colour_gradientn(colours = rainbow(7))
 last_plot() + scale_colour_gradientn(colours = terrain.colors(7))
 
 # Graphical parameters

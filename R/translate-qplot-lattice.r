@@ -6,7 +6,7 @@
 #'
 #' @name translate_qplot_lattice 
 #' @examples
-#'
+#' \dontrun{
 #' xyplot(rating ~ year, data=movies)
 #' qplot(year, rating, data=movies)
 #'
@@ -69,4 +69,5 @@
 #' # and trellis.par.get() to theme_set() and theme_get().
 #' # More complicated lattice formulas are equivalent to rearranging the data
 #' # before using ggplot2.
+#' }
 NULL

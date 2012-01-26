@@ -6,6 +6,7 @@
 #' @name aes_colour_fill_alpha
 #' @aliases colour color fill alpha 
 #' @examples
+#' \donttest
 #' 
 #' # Bar chart example
 #' c <- ggplot(mtcars, aes(factor(cyl)))

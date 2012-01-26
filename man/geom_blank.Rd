@@ -41,7 +41,7 @@ a + geom_abline(aes(intercept = a, slope = b), data = df)
 # Suppose you then wanted to remove the geom_point layer
 # If you just remove geom_point, you will get an error
 b <- ggplot(mtcars, aes(x = wt, y = mpg), . ~ cyl)
-b + geom_abline(aes(intercept = a, slope = b), data = df)
+\dontrun{b + geom_abline(aes(intercept = a, slope = b), data = df)}
 # Switching to geom_blank() gets the desired plot
 c <- ggplot(mtcars, aes(x = wt, y = mpg), . ~ cyl) + geom_blank()
 c + geom_abline(aes(intercept = a, slope = b), data = df)

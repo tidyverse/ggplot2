@@ -11,13 +11,14 @@
 #' # for each type of cut 
 #' dmod <- lm(price ~ cut, data = diamonds) 
 #' cuts <- data.frame(cut = unique(diamonds$cut), predict(dmod, data.frame(cut = 
-#' unique(diamonds$cut)), se = T)[c("fit", "se.fit")])
+#' unique(diamonds$cut)), se = TRUE)[c("fit", "se.fit")])
 #' se <- ggplot(cuts, aes(x = cut, y = fit, ymin = fit - se.fit, 
 #' ymax = fit + se.fit, colour = cut)) 
 #' se + geom_pointrange()
 #'
 #' # Boxplot with precomputed statistics
 #' # generate sample data
+#' library(plyr)
 #' abc <- adply(matrix(rnorm(100), ncol = 5), 2, quantile, c(0, .25, .5, .75, 1))
 #' b <- ggplot(abc, aes(x = X1, ymin = "0%", lower = "25%", middle = "50%", upper = "75%", ymax = "100%")) 
 #' b + geom_boxplot(stat = "identity")

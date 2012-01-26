@@ -26,8 +26,8 @@
 #' @export
 #' @examples
 #' # Basic operation on a small dataset
-#' c <- qplot(cyl, mpg, data=mtcars)
-#' c + stat_summary(fun.data = "mean_cl_boot", colour = "red")
+#' d <- qplot(cyl, mpg, data=mtcars)
+#' d + stat_summary(fun.data = "mean_cl_boot", colour = "red")
 #' 
 #' p <- qplot(cyl, mpg, data = mtcars, stat="summary", fun.y = "mean")
 #' p
@@ -44,15 +44,15 @@
 #'   stat_summary(fun.y=fun, colour="red", geom=geom, size = 3, ...)      
 #' }
 #' 
-#' c + stat_sum_single(mean)
-#' c + stat_sum_single(mean, geom="line")
-#' c + stat_sum_single(median)
-#' c + stat_sum_single(sd)
+#' d + stat_sum_single(mean)
+#' d + stat_sum_single(mean, geom="line")
+#' d + stat_sum_single(median)
+#' d + stat_sum_single(sd)
 #' 
-#' c + stat_summary(fun.y = mean, fun.ymin = min, fun.ymax = max, 
+#' d + stat_summary(fun.y = mean, fun.ymin = min, fun.ymax = max, 
 #'   colour = "red")
 #' 
-#' c + aes(colour = factor(vs)) + stat_summary(fun.y = mean, geom="line")
+#' d + aes(colour = factor(vs)) + stat_summary(fun.y = mean, geom="line")
 #' 
 #' # Alternatively, you can supply a function that operates on a data.frame.
 #' # A set of useful summary functions is provided from the Hmisc package:
@@ -61,34 +61,43 @@
 #'   stat_summary(fun.data=fun, colour="red", geom=geom, width=0.2, ...)
 #' }
 #' 
-#' c + stat_sum_df("mean_cl_boot")
-#' c + stat_sum_df("mean_sdl")
-#' c + stat_sum_df("mean_sdl", mult=1)
-#' c + stat_sum_df("median_hilow")
+#' d + stat_sum_df("mean_cl_boot")
+#' d + stat_sum_df("mean_sdl")
+#' d + stat_sum_df("mean_sdl", mult=1)
+#' d + stat_sum_df("median_hilow")
 #' 
 #' # There are lots of different geoms you can use to display the summaries
 #'     
-#' c + stat_sum_df("mean_cl_normal")
-#' c + stat_sum_df("mean_cl_normal", geom = "errorbar")
-#' c + stat_sum_df("mean_cl_normal", geom = "pointrange")
-#' c + stat_sum_df("mean_cl_normal", geom = "smooth")
+#' d + stat_sum_df("mean_cl_normal")
+#' d + stat_sum_df("mean_cl_normal", geom = "errorbar")
+#' d + stat_sum_df("mean_cl_normal", geom = "pointrange")
+#' d + stat_sum_df("mean_cl_normal", geom = "smooth")
 #'     
-#' # Summaries are much more useful with a bigger data set:
-#' m <- ggplot(movies, aes(x=round(rating), y=votes)) + geom_point()
-#' m2 <- m + 
-#'    stat_summary(fun.data = "mean_cl_boot", geom = "crossbar", 
-#'      colour = "red", width = 0.3)
+#' # Summaries are more useful with a bigger data set:
+#' mpg2 <- subset(mpg, cyl != 5L)
+#' m <- ggplot(mpg2, aes(x=cyl, y=hwy)) + 
+#'         geom_point() +
+#'         stat_summary(fun.data = "mean_sdl", geom = "linerange",
+#'                      colour = "red", size = 2, mult = 1) +
+#'        xlab("cyl")
+#' m
+#' # An example with highly skewed distributions:
+#' set.seed(596)
+#' mov <- movies[sample(nrow(movies), 1000), ]
+#'  m2 <- ggplot(mov, aes(x= factor(round(rating)), y=votes)) + geom_point()
+#'  m2 <- m2 + stat_summary(fun.data = "mean_cl_boot", geom = "crossbar",
+#'                          colour = "red", width = 0.3) + xlab("rating")
 #' m2
 #' # Notice how the overplotting skews off visual perception of the mean
-#' # supplementing the raw data with summary statisitcs is _very_ important
+#' # supplementing the raw data with summary statistics is _very_ important
 #' 
 #' # Next, we'll look at votes on a log scale.
 #' 
-#' # Transforming the scale performs the transforming before the statistic.
-#' # This means we're calculating the summary on the logged data
+#' # Transforming the scale means the data are transformed 
+#' # first, after which statistics are computed:
 #' m2 + scale_y_log10()
-#' # Transforming the coordinate system performs the transforming after the
-#' # statistic. This means we're calculating the summary on the raw data, 
+#' # Transforming the coordinate system occurs after the
+#' # statistic has been computed. This means we're calculating the summary on the raw data 
 #' # and stretching the geoms onto the log scale.  Compare the widths of the
 #' # standard errors.
 #' m2 + coord_trans(y="log10")

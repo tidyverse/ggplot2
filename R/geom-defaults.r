@@ -20,7 +20,7 @@ update_geom_defaults <- function(geom, new) {
 #' @rdname update_defaults
 #' @export
 update_stat_defaults <- function(stat, new) {
-  g <- Stat$find(geom)
+  g <- Stat$find(stat)
   old <- g$default_aes()
   
   aes <- defaults(new, old)
