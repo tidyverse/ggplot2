@@ -37,6 +37,7 @@
 #'   \code{\link{loess}} for local smooths
 #' @export
 #' @examples
+#' \donttest{
 #' c <- ggplot(mtcars, aes(qsec, wt))
 #' c + stat_smooth() 
 #' c + stat_smooth() + geom_point()
@@ -92,6 +93,7 @@
 #'   stat_smooth(method="glm", family="binomial")
 #' qplot(Age, as.numeric(Kyphosis) - 1, data=kyphosis) +
 #'   stat_smooth(method="glm", family="binomial", formula = y ~ ns(x, 2))
+#' }
 stat_smooth <- function (mapping = NULL, data = NULL, geom = "smooth", position = "identity", 
 method = "auto", formula = y ~ x, se = TRUE, n = 80, fullrange = FALSE, 
 level = 0.95, na.rm = FALSE, ...) { 

@@ -17,6 +17,7 @@ equal height.}
   standardise to have equal height.
 }
 \examples{
+\donttest{
 # See ?geom_bar and ?geom_area for more examples
 ggplot(mtcars, aes(x=factor(cyl), fill=factor(vs))) +
   geom_bar(position="fill")
@@ -27,6 +28,7 @@ ggplot(diamonds, aes(x=price)) + cde
 ggplot(diamonds, aes(x=price, fill=cut)) + cde
 ggplot(diamonds, aes(x=price, fill=clarity)) + cde
 ggplot(diamonds, aes(x=price, fill=color)) + cde
+}
 }
 \seealso{
   Other position adjustments: \code{\link{position_dodge}},

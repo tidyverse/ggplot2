@@ -15,6 +15,7 @@
   Adjust position by dodging overlaps to the side.
 }
 \examples{
+\donttest{
 ggplot(mtcars, aes(x=factor(cyl), fill=factor(vs))) +
   geom_bar(position="dodge")
 ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar(position="dodge")
@@ -34,6 +35,7 @@ p + geom_errorbar(aes(ymin = y-1, ymax = y+1), width = 0.2,
   position="dodge")
 p + geom_errorbar(aes(ymin = y-1, ymax = y+1, width = 0.2),
   position = position_dodge(width = 0.90))
+}
 }
 \seealso{
   Other position adjustments: \code{\link{position_fill}},

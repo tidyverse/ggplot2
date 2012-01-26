@@ -38,6 +38,7 @@
   to uncover the full story behind your data.
 }
 \examples{
+\donttest{
 set.seed(5689)
 movies <- movies[sample(nrow(movies), 1000), ]
 # Simple examples
@@ -134,5 +135,6 @@ ggplot(diamonds_small, aes(price, fill = cut)) +
 # Which looks better when the distributions are more distinct
 ggplot(diamonds_small, aes(depth, fill = cut)) +
   geom_density(alpha = 0.2) + xlim(55, 70)
+}
 }
 

@@ -35,6 +35,7 @@
 #' @export
 #' @inheritParams geom_point
 #' @examples
+#' \donttest{
 #' # Generate data
 #' c <- ggplot(mtcars, aes(factor(cyl)))
 #' 
@@ -103,6 +104,7 @@
 #' "suv", "compact", "2seater", "subcompact", "pickup"))
 #' m <- ggplot(mpg, aes(manufacturer, fill=class))
 #' m + geom_bar()
+#' }
 geom_bar <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", ...) {
   GeomBar$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }

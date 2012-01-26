@@ -61,6 +61,7 @@
   used to \code{\link{plot}}.
 }
 \examples{
+\donttest{
 # Use data from data.frame
 qplot(mpg, wt, data=mtcars)
 qplot(mpg, wt, data=mtcars, colour=cyl)
@@ -102,5 +103,6 @@ qplot(y = mpg, data = mtcars)
 # Use different geoms
 qplot(mpg, wt, data = mtcars, geom="path")
 qplot(factor(cyl), wt, data = mtcars, geom=c("boxplot", "jitter"))
+}
 }
 

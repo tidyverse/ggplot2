@@ -8,6 +8,7 @@
 #' @export
 #' @family colour scales
 #' @examples
+#' \donttest{
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 #' (d <- qplot(carat, price, data=dsamp, colour=clarity))
 #' 
@@ -40,6 +41,7 @@
 #' qplot(mpg, wt, data = mtcars, colour = miss)
 #' qplot(mpg, wt, data = mtcars, colour = miss) + 
 #'   scale_colour_hue(na.value = "black")
+#' }
 scale_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0, direction = 1, na.value = "grey50") {
   discrete_scale("colour", "hue", hue_pal(h, c, l, h.start, direction),
     na.value = na.value, ...)

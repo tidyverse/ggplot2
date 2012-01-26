@@ -40,6 +40,7 @@
   2d density estimation.
 }
 \examples{
+\donttest{
 library("MASS")
 data(geyser, "MASS")
 
@@ -77,5 +78,6 @@ last_plot() + scale_fill_gradient(limits=c(1e-5,8e-4))
 
 # Or points:
 d + stat_density2d(geom="point", aes(size = ..density..), contour = FALSE)
+}
 }
 

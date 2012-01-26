@@ -18,6 +18,7 @@ NULL
 #'   for both, centering each pixel over its data location.
 #' @export
 #' @examples
+#' \donttest{
 #' # Generate data
 #' pp <- function (n,r=4) {
 #'  x <- seq(-r*pi, r*pi, len=n)
@@ -42,6 +43,7 @@ NULL
 #' ggplot(df, aes(x, y, fill = z)) + geom_raster()
 #' # zero padding
 #' ggplot(df, aes(x, y, fill = z)) + geom_raster(hpad = 0, vpad = 0)
+#' }
 geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", hjust = 0.5, vjust = 0.5, ...) { 
   stopifnot(is.numeric(hjust), length(hjust) == 1)
   stopifnot(is.numeric(vjust), length(vjust) == 1)

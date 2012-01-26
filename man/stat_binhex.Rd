@@ -35,6 +35,7 @@
   Bin 2d plane into hexagons.
 }
 \examples{
+\donttest{
 d <- ggplot(diamonds, aes(carat, price))
 d + stat_binhex()
 d + geom_hex()
@@ -52,6 +53,7 @@ d + stat_binhex(binwidth = c(.1, 500))
 qplot(x, y, data = diamonds, geom="hex", xlim = c(4, 10), ylim = c(4, 10))
 qplot(x, y, data = diamonds, geom="hex", xlim = c(4, 10), ylim = c(4, 10),
   binwidth = c(0.1, 0.1))
+}
 }
 \seealso{
   \code{\link{stat_bin2d}} for rectangular binning

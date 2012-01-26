@@ -18,6 +18,7 @@
 #' @seealso \code{\link{stat_bin}} for the histogram
 #' @export
 #' @examples
+#' \donttest{
 #' m <- ggplot(movies, aes(x = rating))
 #' m + geom_density()
 #' 
@@ -82,6 +83,7 @@
 #' # Use qplot instead
 #' qplot(length, data=movies, geom="density", weight=rating)
 #' qplot(length, data=movies, geom="density", weight=rating/sum(rating))
+#' }
 stat_density <- function (mapping = NULL, data = NULL, geom = "area", position = "stack", 
 adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, ...) { 
   StatDensity$new(mapping = mapping, data = data, geom = geom, position = position,

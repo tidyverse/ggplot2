@@ -23,6 +23,7 @@
   own.
 }
 \examples{
+\donttest{
 # See ?geom_boxplot for other examples
 
 # Three ways of doing transformating in ggplot:
@@ -66,5 +67,6 @@ plot <- ggplot(df,aes(a,letters)) + geom_point()
 
 plot + coord_trans(x = "log10")
 plot + coord_trans(x = "sqrt")
+}
 }
 

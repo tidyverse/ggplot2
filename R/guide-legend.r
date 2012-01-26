@@ -56,6 +56,7 @@
 #' @seealso \code{\link{guides}}, \code{\link{guide_colorbar}}
 #' @export
 #' @examples
+#' \donttest{
 #' library(reshape2) # for melt
 #' df <- melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
 #' 
@@ -113,6 +114,7 @@
 #' 
 #' # reversed order legend
 #' p + guides(col = guide_legend(reverse = TRUE))
+#' }
 guide_legend <- function(
                          
   ##　title

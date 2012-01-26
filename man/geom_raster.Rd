@@ -45,6 +45,7 @@
   behavior by setting \code{hpad} and \code{vpad}.
 }
 \examples{
+\donttest{
 # Generate data
 pp <- function (n,r=4) {
  x <- seq(-r*pi, r*pi, len=n)
@@ -69,5 +70,6 @@ df$z <- runif(nrow(df))
 ggplot(df, aes(x, y, fill = z)) + geom_raster()
 # zero padding
 ggplot(df, aes(x, y, fill = z)) + geom_raster(hpad = 0, vpad = 0)
+}
 }
 

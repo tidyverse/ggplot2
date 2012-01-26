@@ -11,6 +11,7 @@
 #' @importFrom MASS kde2d
 #' @export
 #' @examples
+#' \donttest{
 #' library("MASS")
 #' data(geyser, "MASS")
 #'
@@ -48,6 +49,7 @@
 #' 
 #' # Or points:
 #' d + stat_density2d(geom="point", aes(size = ..density..), contour = FALSE)
+#' }
 stat_density2d <- function (mapping = NULL, data = NULL, geom = "density2d", position = "identity", 
 na.rm = FALSE, contour = TRUE, n = 100, ...) {
   StatDensity2d$new(mapping = mapping, data = data, geom = geom, 

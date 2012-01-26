@@ -47,6 +47,7 @@
   Continuous quantiles.
 }
 \examples{
+\donttest{
 msamp <- movies[sample(nrow(movies), 1000), ]
 m <- ggplot(msamp, aes(y=rating, x=year)) + geom_point()
 m + stat_quantile()
@@ -69,5 +70,6 @@ m + stat_quantile(colour="red", size=2, linetype=2)
 
 # Use qplot instead
 qplot(year, rating, data=movies, geom="quantile")
+}
 }
 

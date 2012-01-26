@@ -10,6 +10,8 @@
   aesthetics; colour, fill and alpha.
 }
 \examples{
+\donttest{
+
 # Bar chart example
 c <- ggplot(mtcars, aes(factor(cyl)))
 # Default plotting
@@ -59,5 +61,6 @@ ymin = yrng[1], ymax = yrng[2], data = presidential)
 j
 library(scales) # to access the alpha function
 j + scale_fill_manual(values = alpha(c("blue", "red"), .3))
+}
 }
 

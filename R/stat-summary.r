@@ -25,6 +25,7 @@
 #'     return single number)}
 #' @export
 #' @examples
+#' \donttest{
 #' # Basic operation on a small dataset
 #' d <- qplot(cyl, mpg, data=mtcars)
 #' d + stat_summary(fun.data = "mean_cl_boot", colour = "red")
@@ -101,6 +102,7 @@
 #' # and stretching the geoms onto the log scale.  Compare the widths of the
 #' # standard errors.
 #' m2 + coord_trans(y="log10")
+#' }
 stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange", position = "identity", ...) { 
   StatSummary$new(mapping = mapping, data = data, geom = geom, position = position, ...)
 }

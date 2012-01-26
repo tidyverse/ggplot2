@@ -37,7 +37,7 @@
 # Dummy plot
 base <- qplot(1:10, 1:10, geom = "blank") + theme_bw()
 # Adding a table
-\dontrun{
+\donttest{
 require(gridExtra)
 base + annotation_custom(grob = tableGrob(head(iris[ ,1:3])),
         xmin = 3, xmax = 6, ymin = 2, ymax = 8)

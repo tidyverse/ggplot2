@@ -39,6 +39,7 @@
   Violin plot.
 }
 \examples{
+\donttest{
 p <- ggplot(mtcars, aes(factor(cyl), mpg))
 
 p + geom_violin()
@@ -88,5 +89,6 @@ m + geom_violin() + scale_y_log10() + coord_trans(y = "log10")
 qplot(year, budget, data = movies, geom = "violin")
 qplot(year, budget, data = movies, geom = "violin",
   group = round_any(year, 10, floor))
+}
 }
 

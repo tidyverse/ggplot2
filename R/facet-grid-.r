@@ -29,8 +29,8 @@
 #'   will be shown, regardless of whether or not they appear in the data.
 #' @export
 #' @examples 
+#' \donttest{
 #' p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
-
 #' # With one variable
 #' p + facet_grid(. ~ cyl)
 #' p + facet_grid(cyl ~ .)
@@ -130,6 +130,7 @@
 #' p <- qplot(wt, mpg, data = mtcars)
 #' p + facet_grid(. ~ vs, labeller = label_bquote(alpha ^ .(x)))
 #' p + facet_grid(. ~ vs, labeller = label_bquote(.(x) ^ .(x))) 
+#' }
 facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(

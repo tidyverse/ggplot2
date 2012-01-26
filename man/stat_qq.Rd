@@ -41,6 +41,7 @@
   Calculation for quantile-quantile plot.
 }
 \examples{
+\donttest{
 # From ?qqplot
 y <- rt(200, df = 5)
 qplot(sample = y, stat="qq")
@@ -63,5 +64,6 @@ ggplot(df, aes(sample = y)) + stat_qq(dist = qt, dparam = params)
 # Using to explore the distribution of a variable
 qplot(sample = mpg, data = mtcars)
 qplot(sample = mpg, data = mtcars, colour = factor(cyl))
+}
 }
 

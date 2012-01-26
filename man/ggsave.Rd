@@ -49,7 +49,7 @@
   (windows only).
 }
 \examples{
-\dontrun{
+\donttest{
 ratings <- qplot(rating, data=movies, geom="histogram")
 qplot(length, data=movies, geom="histogram")
 ggsave(file="length-hist.pdf")

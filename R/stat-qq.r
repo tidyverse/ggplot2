@@ -11,6 +11,7 @@
 #'   \item{theoretical}{theoretical quantiles}
 #' @export
 #' @examples
+#' \donttest{
 #' # From ?qqplot
 #' y <- rt(200, df = 5)
 #' qplot(sample = y, stat="qq")
@@ -33,6 +34,7 @@
 #' # Using to explore the distribution of a variable
 #' qplot(sample = mpg, data = mtcars)
 #' qplot(sample = mpg, data = mtcars, colour = factor(cyl))    
+#' }
 stat_qq <- function (mapping = NULL, data = NULL, geom = "point", position = "identity", 
 distribution = qnorm, dparams = list(), na.rm = FALSE, ...) { 
   StatQq$new(mapping = mapping, data = data, geom = geom, position = position, 

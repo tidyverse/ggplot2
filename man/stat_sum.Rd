@@ -34,6 +34,7 @@
   scatterplots.
 }
 \examples{
+\donttest{
 d <- ggplot(diamonds, aes(x = cut, y = clarity))
 # By default, all categorical variables in the plot form grouping
 # variables, and the default behavior in stat_sum is to show the
@@ -67,6 +68,7 @@ d + stat_sum(aes(group = 1, weight = price, size = ..n..))
 # Or using qplot
 qplot(cut, clarity, data = diamonds)
 qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)
+}
 }
 \seealso{
   \code{\link{ggfluctuation}} for a fluctuation diagram,

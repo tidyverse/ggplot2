@@ -7,6 +7,7 @@
 #'  \item{prop}{percent of points in that panel at that position}
 #' @export
 #' @examples
+#' \donttest{
 #' d <- ggplot(diamonds, aes(x = cut, y = clarity))
 #' # By default, all categorical variables in the plot form grouping
 #' # variables, and the default behavior in stat_sum is to show the
@@ -40,6 +41,7 @@
 #' # Or using qplot
 #' qplot(cut, clarity, data = diamonds)
 #' qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)    
+#' }
 stat_sum <- function (mapping = NULL, data = NULL, geom = "point", position = "identity", ...) { 
   StatSum$new(mapping = mapping, data = data, geom = geom, position = position, ...)
 }

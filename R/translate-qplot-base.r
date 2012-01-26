@@ -10,6 +10,7 @@
 #'
 #' @name translate_qplot_base 
 #' @examples
+#' \donttest{
 #' 
 #' # High-level plotting commands
 #' 
@@ -140,4 +141,5 @@
 #' # plot.background theme elements. Instead of using title(), the plot title is
 #' # set with the title option. See ?opts for more theme elements.
 #' last_plot() + opts(title = "My Plot Title")
+#' }
 NULL

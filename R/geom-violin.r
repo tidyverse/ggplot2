@@ -8,6 +8,7 @@
 #'   "count", the areas are scaled proportionally to the number of observations.
 #' @export
 #' @examples
+#' \donttest{
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))
 #' 
 #' p + geom_violin()
@@ -57,7 +58,7 @@
 #' qplot(year, budget, data = movies, geom = "violin")
 #' qplot(year, budget, data = movies, geom = "violin", 
 #'   group = round_any(year, 10, floor))
-#'
+#' }
 geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity", position = "dodge",
 trim = TRUE, scale = "equal", ...) {
   GeomViolin$new(mapping = mapping, data = data, stat = stat, 

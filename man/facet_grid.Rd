@@ -55,6 +55,7 @@
   Lay out panels in a grid.
 }
 \examples{
+\donttest{
 p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
 # With one variable
 p + facet_grid(. ~ cyl)
@@ -152,5 +153,6 @@ k + facet_grid(. ~ cyl2, labeller = label_parsed)
 p <- qplot(wt, mpg, data = mtcars)
 p + facet_grid(. ~ vs, labeller = label_bquote(alpha ^ .(x)))
 p + facet_grid(. ~ vs, labeller = label_bquote(.(x) ^ .(x)))
+}
 }
 

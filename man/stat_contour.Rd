@@ -36,6 +36,7 @@
   Calculate contours of 3d data.
 }
 \examples{
+\donttest{
 # Generate data
 library(reshape2) # for melt
 volcano3d <- melt(volcano)
@@ -76,5 +77,6 @@ v + geom_tile(aes(fill = z)) + stat_contour()
 # Use qplot instead
 qplot(x, y, z = z, data = volcano3d, geom = "contour")
 qplot(x, y, z = z, data = volcano3d, stat = "contour", geom = "path")
+}
 }
 

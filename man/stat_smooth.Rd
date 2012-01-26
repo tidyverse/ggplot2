@@ -69,6 +69,7 @@
   to the response scale.
 }
 \examples{
+\donttest{
 c <- ggplot(mtcars, aes(qsec, wt))
 c + stat_smooth()
 c + stat_smooth() + geom_point()
@@ -124,6 +125,7 @@ qplot(Age, as.numeric(Kyphosis) - 1, data = kyphosis) +
   stat_smooth(method="glm", family="binomial")
 qplot(Age, as.numeric(Kyphosis) - 1, data=kyphosis) +
   stat_smooth(method="glm", family="binomial", formula = y ~ ns(x, 2))
+}
 }
 \seealso{
   \code{\link{lm}} for linear smooths, \code{\link{glm}}

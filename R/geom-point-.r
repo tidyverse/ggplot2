@@ -56,6 +56,7 @@
 #'   \code{\link{layer}} for more details.
 #' @export
 #' @examples
+#' \donttest{
 #' p <- ggplot(mtcars, aes(wt, mpg))
 #' p + geom_point()
 #' 
@@ -111,6 +112,7 @@
 #' qplot(wt, mpg, data = mtcars)
 #' qplot(wt, mpg, data = mtcars, colour = factor(cyl))
 #' qplot(wt, mpg, data = mtcars, colour = I("red"))
+#' }
 geom_point <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
 na.rm = FALSE, ...) {
   GeomPoint$new(mapping = mapping, data = data, stat = stat, position = position, 

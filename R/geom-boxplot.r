@@ -35,6 +35,7 @@
 #'     box plots. The American Statistician 32, 12-16.
 #'
 #' @examples
+#' \donttest{
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))
 #' 
 #' p + geom_boxplot()
@@ -88,6 +89,7 @@
 #' b + geom_boxplot(stat = "identity")
 #' b + geom_boxplot(stat = "identity") + coord_flip()
 #' b + geom_boxplot(aes(fill = X1), stat = "identity")
+#' }
 geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot", position = "dodge", 
 outlier.colour = "black", outlier.shape = 16, outlier.size = 2,
 notch = FALSE, notchwidth = .5, ...) {

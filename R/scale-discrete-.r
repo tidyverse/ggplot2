@@ -17,6 +17,7 @@
 #' @family position scales
 #' @export
 #' @examples
+#' \donttest{
 #' qplot(cut, data=diamonds, stat="bin")
 #' qplot(cut, data=diamonds, geom="bar")
 #' 
@@ -48,6 +49,7 @@
 #' # Use abbreviate as a formatter to reduce long names
 #' qplot(reorder(manufacturer, cty), cty, data=mpg) +  
 #'   scale_x_discrete(labels = abbreviate)
+#' }
 scale_x_discrete <- function(..., expand = c(0, 0.6)) {
   sc <- discrete_scale(c("x", "xmin", "xmax", "xend"), "position_d", identity, ..., 
     expand = expand, guide = "none")

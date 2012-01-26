@@ -13,6 +13,8 @@
   replicated with ggplot2: filled.contour() and persp()
 }
 \examples{
+\donttest{
+
 # High-level plotting commands
 
 x <- runif(10)
@@ -142,5 +144,6 @@ last_plot() + scale_colour_gradientn(colours = terrain.colors(7))
 # plot.background theme elements. Instead of using title(), the plot title is
 # set with the title option. See ?opts for more theme elements.
 last_plot() + opts(title = "My Plot Title")
+}
 }
 

@@ -10,6 +10,7 @@
 #'   data? (default: \code{FALSE})
 #' @export
 #' @examples 
+#' \donttest{
 #' # NOTE: Use these plots with caution - polar coordinates has
 #' # major perceptual problems.  The main point of these examples is 
 #' # to demonstrate how these common plots can be described in the
@@ -51,6 +52,7 @@
 #' doh + geom_bar(width = 1) + coord_polar()
 #' # Race track plot
 #' doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
+#' }
 coord_polar <- function(theta = "x", start = 0, direction = 1, expand = FALSE) {
   theta <- match.arg(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"

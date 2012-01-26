@@ -29,7 +29,7 @@ ggplot(mtcars, aes(x = am, y = vs)) + geom_point(position = position_jitter(w = 
 
 # The default works better for large datasets, where it will
 # take up as much space as a boxplot or a bar
-qplot(cut, price, data = diamonds, geom = c("boxplot", "jitter"))
+qplot(class, hwy, data = mpg, geom = c("boxplot", "jitter"))
 }
 \seealso{
   Other position adjustments: \code{\link{position_dodge}},

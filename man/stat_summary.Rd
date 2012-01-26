@@ -49,6 +49,7 @@
   that the geom can use.
 }
 \examples{
+\donttest{
 # Basic operation on a small dataset
 d <- qplot(cyl, mpg, data=mtcars)
 d + stat_summary(fun.data = "mean_cl_boot", colour = "red")
@@ -125,6 +126,7 @@ m2 + scale_y_log10()
 # and stretching the geoms onto the log scale.  Compare the widths of the
 # standard errors.
 m2 + coord_trans(y="log10")
+}
 }
 \seealso{
   \code{\link{geom_errorbar}},

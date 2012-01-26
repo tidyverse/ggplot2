@@ -26,6 +26,7 @@
 #' @aliases qplot quickplot 
 #' @export qplot quickplot 
 #' @examples
+#' \donttest{
 #' # Use data from data.frame
 #' qplot(mpg, wt, data=mtcars)
 #' qplot(mpg, wt, data=mtcars, colour=cyl)
@@ -67,6 +68,7 @@
 #' # Use different geoms
 #' qplot(mpg, wt, data = mtcars, geom="path")
 #' qplot(factor(cyl), wt, data = mtcars, geom=c("boxplot", "jitter"))
+#' }
 qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE, geom = "auto", stat=list(NULL), position=list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "", main = NULL, xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA) {
 
   argnames <- names(as.list(match.call(expand.dots=FALSE)[-1]))

@@ -34,6 +34,7 @@
   Ribbons, y range with continuous x values.
 }
 \examples{
+\donttest{
 # Generate data
 huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
 library(plyr) # to access round_any
@@ -63,6 +64,7 @@ m + stat_summary(geom="ribbon", fun.data="median_hilow")
 
 # Use qplot instead
 qplot(year, level, data=huron, geom=c("area", "line"))
+}
 }
 \seealso{
   \code{\link{geom_bar}} for discrete intervals (bars),

@@ -7,6 +7,7 @@
 #' @export
 #' @param ... Other arguments passed onto \code{\link{coord_cartesian}}
 #' @examples
+#' \donttest{
 #' # Very useful for creating boxplots, and other interval
 #' # geoms in the horizontal instead of vertical position.
 #' qplot(cut, price, data=diamonds, geom="boxplot")
@@ -23,6 +24,7 @@
 #' # You can also use it to flip lines and area plots:
 #' qplot(1:5, (1:5)^2, geom="area")
 #' last_plot() + coord_flip()
+#' }
 coord_flip <- function(...) {
   coord <- coord_cartesian(...)
   structure(coord, class = c("flip", class(coord)))

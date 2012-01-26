@@ -53,6 +53,7 @@
   Missing values are currently silently dropped.
 }
 \examples{
+\donttest{
 simple <- data.frame(x = rep(1:10, each = 2))
 base <- ggplot(simple, aes(x))
 # By default, right = TRUE, and intervals are of the form (a, b]
@@ -74,5 +75,6 @@ linehist + stat_density(colour="blue", fill=NA)
 # Also works with categorical variables
 ggplot(movies, aes(x=mpaa)) + stat_bin()
 qplot(mpaa, data=movies, stat="bin")
+}
 }
 

@@ -32,6 +32,7 @@
   Smooth colour gradient between n colours
 }
 \examples{
+\donttest{
 # scale_colour_gradient make it easy to use existing colour palettes
 
 dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
@@ -55,6 +56,7 @@ d + scale_colour_gradientn(colours = topo.colors(10),
   values = values, rescale = function(x, ...) x, oob = identity)
 d + scale_colour_gradientn(colours = terrain.colors(10),
   values = values, rescale = function(x, ...) x, oob = identity)
+}
 }
 \seealso{
   Other colour scales: \code{\link{scale_color_brewer}},

@@ -10,6 +10,7 @@
 #'  \code{\link{geom_segment}}: Line segments
 #' @export
 #' @examples
+#' \donttest{
 #' # Generate data
 #' library(plyr)
 #' myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
@@ -88,6 +89,7 @@
 #' # Arrow defaults to "last"
 #' c + geom_path(arrow = arrow())
 #' c + geom_path(arrow = arrow(angle = 15, ends = "both", length = unit(0.6, "inches")))
+#' }
 geom_path <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", 
 lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, arrow = NULL, ...) { 
   GeomPath$new(mapping = mapping, data = data, stat = stat, position = position, 

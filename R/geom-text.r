@@ -5,6 +5,7 @@
 #'   displayed as described in ?plotmath
 #' @export
 #' @examples
+#' \donttest{
 #' p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))
 #' 
 #' p + geom_text()
@@ -47,6 +48,7 @@
 #' p + geom_text(fontface=3)
 #' p + geom_text(aes(fontface=am+1))
 #' p + geom_text(aes(family=c("serif", "mono")[am+1]))
+#' }
 geom_text <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", 
 parse = FALSE, ...) { 
   GeomText$new(mapping = mapping, data = data, stat = stat, position = position, 

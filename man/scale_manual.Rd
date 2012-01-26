@@ -35,6 +35,7 @@
   Create your own discrete scale.
 }
 \examples{
+\donttest{
 p <- qplot(mpg, wt, data = mtcars, colour = factor(cyl))
 
 p + scale_colour_manual(values = c("red","blue", "green"))
@@ -55,5 +56,6 @@ p + scale_colour_manual(values = cols, breaks = c("4", "6", "8"),
 # And limits to control the possible values of the scale
 p + scale_colour_manual(values = cols, limits = c("4", "8"))
 p + scale_colour_manual(values = cols, limits = c("4", "6", "8", "10"))
+}
 }
 

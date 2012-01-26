@@ -66,6 +66,7 @@
   for more details.
 }
 \examples{
+\donttest{
 p <- ggplot(mtcars, aes(factor(cyl), mpg))
 
 p + geom_boxplot()
@@ -119,6 +120,7 @@ b <- ggplot(abc, aes(x = X1, ymin = `0\%`, lower = `25\%`, middle = `50\%`, uppe
 b + geom_boxplot(stat = "identity")
 b + geom_boxplot(stat = "identity") + coord_flip()
 b + geom_boxplot(aes(fill = X1), stat = "identity")
+}
 }
 \references{
   McGill, R., Tukey, J. W. and Larsen, W. A. (1978)

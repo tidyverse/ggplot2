@@ -35,6 +35,7 @@
   Count number of observation in rectangular bins.
 }
 \examples{
+\donttest{
 d <- ggplot(diamonds, aes(carat, price))
 d + stat_bin2d()
 d + geom_bin2d()
@@ -58,6 +59,7 @@ qplot(x, y, data = diamonds, geom="bin2d",
   xlim = c(4, 10), ylim = c(4, 10))
 qplot(x, y, data = diamonds, geom="bin2d", binwidth = c(0.1, 0.1),
   xlim = c(4, 10), ylim = c(4, 10))
+}
 }
 \seealso{
   \code{\link{stat_binhex}} for hexagonal binning

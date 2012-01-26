@@ -21,7 +21,7 @@
 #' 
 #' # The default works better for large datasets, where it will 
 #' # take up as much space as a boxplot or a bar
-#' qplot(cut, price, data = diamonds, geom = c("boxplot", "jitter"))
+#' qplot(class, hwy, data = mpg, geom = c("boxplot", "jitter"))
 position_jitter <- function (width = NULL, height = NULL) { 
   PositionJitter$new(width = width, height = height)
 }

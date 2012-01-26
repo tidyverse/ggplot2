@@ -103,6 +103,7 @@
   see \code{\link{guides}}.
 }
 \examples{
+\donttest{
 library(reshape2) # for melt
 df <- melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
 
@@ -160,6 +161,7 @@ p + guides(col = guide_legend(ncol = 8, byrow = TRUE))
 
 # reversed order legend
 p + guides(col = guide_legend(reverse = TRUE))
+}
 }
 \seealso{
   \code{\link{guides}}, \code{\link{guide_colorbar}}

@@ -9,6 +9,7 @@
 #' @inheritParams facet_grid
 #' @export
 #' @examples
+#' \donttest{
 #' d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) + 
 #'   xlim(0, 2) + stat_binhex(na.rm = TRUE) + opts(aspect.ratio = 1)
 #' d + facet_wrap(~ color)
@@ -50,6 +51,7 @@
 #'   facet_wrap(~ cyl)
 #' p + geom_point(data = transform(cyl6, cyl = NULL), colour = "red") + 
 #'   facet_wrap(~ cyl)
+#' }
 facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, as.table = TRUE, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(

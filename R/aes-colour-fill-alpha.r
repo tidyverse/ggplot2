@@ -6,7 +6,7 @@
 #' @name aes_colour_fill_alpha
 #' @aliases colour color fill alpha 
 #' @examples
-#' \donttest
+#' \donttest{
 #' 
 #' # Bar chart example
 #' c <- ggplot(mtcars, aes(factor(cyl)))
@@ -57,4 +57,5 @@
 #' j
 #' library(scales) # to access the alpha function
 #' j + scale_fill_manual(values = alpha(c("blue", "red"), .3))
+#' }
 NULL
