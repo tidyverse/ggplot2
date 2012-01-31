@@ -54,7 +54,7 @@ StatSum <- proto(Stat, {
   default_geom <- function(.) GeomPoint
   icon <- function(.) textGrob(expression(Sigma), gp=gpar(cex=4))
   
-  calculate_groups <- function(., data, scales, ...) {
+  calculate <- function(., data, scales, ...) {
     if (is.null(data$weight)) data$weight <- 1
     
     counts <- count(data, c("x", "y", "group"), wt_var = "weight")
