@@ -35,6 +35,7 @@
 #' # We can use character string for breaks.
 #' # See \code{\link{by}} argument in \code{\link{seq.Date}}.
 #' dt + scale_x_date(breaks = "2 weeks")
+#' dt + scale_x_date(breaks = "1 month", minor_breaks = "1 week")
 #' 
 #' # The date scale will attempt to pick sensible defaults for 
 #' # major and minor tick marks

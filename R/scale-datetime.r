@@ -44,6 +44,8 @@
 #' library(scales) # to access breaks/formatting functions
 #' last_plot() + scale_x_datetime(breaks = date_breaks("10 days"), 
 #'   labels = date_format("%d/%m"))
+#' last_plot() + scale_x_datetime(breaks = date_breaks("1 day"),
+#'   minor_breaks = date_breaks("2 hour"))
 scale_x_datetime <- function(..., expand = c(0.05, 0), breaks = NULL,
   minor_breaks = NULL) {
   
