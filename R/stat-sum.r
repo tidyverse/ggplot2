@@ -56,10 +56,10 @@ StatSum <- proto(Stat, {
   
   calculate <- function(., data, scales, ...) {
     if (is.null(data$weight)) data$weight <- 1
-    
-    counts <- count(data, c("x", "y", "group"), wt_var = "weight")
-    names(counts)[4] <- "n"
-    counts$prop <- ave(counts$n, counts$group, FUN = prop.table)
+
+    counts <- count(data, c("x", "y"), wt_var = "weight")
+    counts <- rename(counts, c(freq = "n"))
+    counts$prop <- prop.table(counts$n)
 
     counts
   }
