@@ -6,6 +6,7 @@
 #' @param ... List of scale guide pairs
 #' @return A list containing mapping between scale and guide.
 #' @export
+#' @seealso \code{\link{guide_legend}}, \code{\link{guide_colourbar}}
 #' @examples
 #' \donttest{
 #' # ggplot object
