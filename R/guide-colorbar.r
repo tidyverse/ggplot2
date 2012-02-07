@@ -38,7 +38,7 @@
 #'   the highest value is on the top and the lowest value is on the bottom
 #' @param ... ignored.
 #' @return A guide object
-#' @seealso \code{\link{guides}}, \code{\link{guide_legend}}
+#' @family guides
 #' @export
 #' @examples
 #' library(reshape2) # for melt
