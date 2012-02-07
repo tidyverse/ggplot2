@@ -1,6 +1,6 @@
 \name{+.ggplot}
-\alias{\%+\%}
 \alias{+.ggplot}
+\alias{\%+\%}
 \title{Modify a plot by adding on new components.}
 \usage{
   \method{+}{ggplot} (p, object)
