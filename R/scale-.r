@@ -211,8 +211,7 @@ scale_map.continuous <- function(scale, x) {
 scale_map.discrete <- function(scale, x) {
   limits <- scale_limits(scale)
 
-  n <- length(limits)
-  pal <- scale$palette(n)
+  pal <- scale$palette(limits = limits)
   
   if (is.null(names(pal))) {
     pal_match <- pal[match(as.character(x), limits)]
