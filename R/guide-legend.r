@@ -53,8 +53,8 @@
 #' @param reverse logical. If \code{TRUE} the order of legends is reversed.
 #' @param ... ignored.
 #' @return A guide object
-#' @seealso \code{\link{guides}}, \code{\link{guide_colorbar}}
 #' @export
+#' @family guides
 #' @examples
 #' \donttest{
 #' library(reshape2) # for melt

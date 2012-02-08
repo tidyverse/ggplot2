@@ -6,6 +6,7 @@
 #' @param ... List of scale guide pairs
 #' @return A list containing mapping between scale and guide.
 #' @export
+#' @family guides
 #' @examples
 #' \donttest{
 #' # ggplot object

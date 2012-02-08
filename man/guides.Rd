@@ -52,4 +52,8 @@ p + opts(legend.position = "bottom")
 p + opts(legend.position = "bottom", legend.box = "horizontal")
 }
 }
+\seealso{
+  Other guides: \code{\link{guide_colorbar}},
+  \code{\link{guide_colourbar}}, \code{\link{guide_legend}}
+}
 
