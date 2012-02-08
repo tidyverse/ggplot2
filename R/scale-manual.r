@@ -28,37 +28,43 @@
 #' p + scale_colour_manual(values = cols, limits = c("4", "6", "8", "10"))
 #' }
 scale_colour_manual <- function(..., values) {
-  discrete_scale("colour", "manual", manual_pal(values), ...)
+  manual_scale("colour", values, ...)
 }
 
 #' @rdname scale_manual
 #' @export
 scale_fill_manual <- function(..., values) {
-  discrete_scale("fill", "manual", manual_pal(values), ...)
+  manual_scale("fill", values, ...)
 }
 
 #' @rdname scale_manual
 #' @export
 scale_size_manual <- function(..., values) {
-  discrete_scale("size", "manual", manual_pal(values), ...)
+  manual_scale("size", values, ...)
 }
 
 #' @rdname scale_manual
 #' @export
 scale_shape_manual <- function(..., values) {
-  discrete_scale("shape", "manual", manual_pal(values), ...)
+  manual_scale("shape", values, ...)
 }
 
 #' @rdname scale_manual
 #' @export
 scale_linetype_manual <- function(..., values) {
-  discrete_scale("linetype", "manual", manual_pal(values), ...)
+  manual_scale("linetype", values, ...)
 }
 
 #' @rdname scale_manual
 #' @export
 scale_alpha_manual <- function(..., values) {
-  discrete_scale("alpha", "manual", manual_pal(values), ...)
+  manual_scale("alpha", values, ...)
 }
 
 icon.manual <- function() textGrob("DIY", gp=gpar(cex=1.2))
+
+manual_scale <- function(aesthetic, values, ...) {
+  pal <- function(n) values
+  discrete_scale(aesthetic, "manual", pal, ...)
+}
+
