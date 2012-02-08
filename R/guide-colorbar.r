@@ -389,11 +389,16 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   # background
   grob.background <- theme_render(theme, "legend.background")
+  
+  # padding
+  padding <- c(convertWidth(unit(0.3, "lines"), "mm"))
+  widths <- c(padding, widths, padding)
+  heights <- c(padding, heights, padding)
 
-  lay <- data.frame(l = c(1, min(vps$bar.col), min(vps$label.col), min(vps$title.col), min(vps$bar.col)),
-                    t = c(1, min(vps$bar.row), min(vps$label.row), min(vps$title.row), min(vps$bar.row)),
-                    r = c(length(widths), max(vps$bar.col), max(vps$label.col), max(vps$title.col), max(vps$bar.col)),
-                    b = c(length(heights), max(vps$bar.row), max(vps$label.row), max(vps$title.row), max(vps$bar.row)),
+  lay <- data.frame(l = c(1, min(vps$bar.col) + 1, min(vps$label.col) + 1, min(vps$title.col) + 1, min(vps$bar.col) + 1),
+                    t = c(1, min(vps$bar.row) + 1, min(vps$label.row) + 1, min(vps$title.row) + 1, min(vps$bar.row) + 1),
+                    r = c(length(widths), max(vps$bar.col) + 1, max(vps$label.col) + 1, max(vps$title.col) + 1, max(vps$bar.col) + 1),
+                    b = c(length(heights), max(vps$bar.row) + 1, max(vps$label.row) + 1, max(vps$title.row) + 1, max(vps$bar.row) + 1),
                     name = c("background", "bar", "label", "title", "ticks"),
                     clip = FALSE)
 
