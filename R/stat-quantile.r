@@ -11,6 +11,7 @@
 #'   \item{quantile}{quantile of distribution}
 #' @export
 #' @examples
+#' \donttest{
 #' msamp <- movies[sample(nrow(movies), 1000), ]
 #' m <- ggplot(msamp, aes(y=rating, x=year)) + geom_point() 
 #' m + stat_quantile()
@@ -33,6 +34,7 @@
 #' 
 #' # Use qplot instead
 #' qplot(year, rating, data=movies, geom="quantile")
+#' }
 stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile", position = "identity", 
 quantiles = c(0.25, 0.5, 0.75), formula = y ~ x, method = "rq", 
 na.rm = FALSE, ...) { 

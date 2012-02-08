@@ -6,6 +6,7 @@
 #' @rdname scale_size
 #' @export
 #' @examples
+#' \donttest{
 #' (p <- qplot(mpg, cyl, data=mtcars, size=cyl))
 #' p + scale_size("cylinders")
 #' p + scale_size("number\nof\ncylinders")
@@ -25,6 +26,7 @@
 #' # To control the size mapping for discrete variable, use 
 #' # scale_size_manual:
 #' last_plot() + scale_size_manual(values=c(2,4,6))
+#' }
 scale_size_continuous <- function(..., range = c(1, 6)) {
   continuous_scale("size", "size_c", rescale_pal(range), ...)
 }

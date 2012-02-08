@@ -45,6 +45,7 @@
   Connect observations in original order
 }
 \examples{
+\donttest{
 # Generate data
 library(plyr)
 myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
@@ -123,6 +124,7 @@ c <- ggplot(economics, aes(x = date, y = pop))
 # Arrow defaults to "last"
 c + geom_path(arrow = arrow())
 c + geom_path(arrow = arrow(angle = 15, ends = "both", length = unit(0.6, "inches")))
+}
 }
 \seealso{
   \code{\link{geom_line}}: Functional (ordered) lines;

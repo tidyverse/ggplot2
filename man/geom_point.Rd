@@ -71,6 +71,7 @@
   transparency modifies colour. }
 }
 \examples{
+\donttest{
 p <- ggplot(mtcars, aes(wt, mpg))
 p + geom_point()
 
@@ -126,6 +127,7 @@ qplot(wt, mpg, data = mtcars2, na.rm = TRUE)
 qplot(wt, mpg, data = mtcars)
 qplot(wt, mpg, data = mtcars, colour = factor(cyl))
 qplot(wt, mpg, data = mtcars, colour = I("red"))
+}
 }
 \seealso{
   \code{\link{scale_size}} to see scale area of points,

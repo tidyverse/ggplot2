@@ -7,6 +7,7 @@
 #' @inheritParams geom_point
 #' @export
 #' @examples
+#' \donttest{
 #' # Generate data
 #' huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
 #' library(plyr) # to access round_any
@@ -36,6 +37,7 @@
 #' 
 #' # Use qplot instead
 #' qplot(year, level, data=huron, geom=c("area", "line"))
+#' }
 geom_ribbon <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", 
 na.rm = FALSE, ...) { 
   GeomRibbon$new(mapping = mapping, data = data, stat = stat, position = position, 

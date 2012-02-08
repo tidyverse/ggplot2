@@ -18,6 +18,7 @@
 #'   \item{ndensity}{density, scaled to maximum of 1}
 #' @export
 #' @examples
+#' \donttest{
 #' simple <- data.frame(x = rep(1:10, each = 2))
 #' base <- ggplot(simple, aes(x))
 #' # By default, right = TRUE, and intervals are of the form (a, b]
@@ -39,6 +40,7 @@
 #' # Also works with categorical variables
 #' ggplot(movies, aes(x=mpaa)) + stat_bin()
 #' qplot(mpaa, data=movies, stat="bin")
+#' }
 stat_bin <- function (mapping = NULL, data = NULL, geom = "bar", position = "stack", 
 width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, origin = NULL, breaks = NULL, ...) { 
   StatBin$new(mapping = mapping, data = data, geom = geom, position = position, 

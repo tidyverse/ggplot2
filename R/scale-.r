@@ -218,9 +218,10 @@ scale_map.discrete <- function(scale, x) {
     pal_match <- pal[match(as.character(x), limits)]
   } else {
     pal_match <- pal[match(as.character(x), names(pal))]    
-  } 
-  
-  ifelse(!is.na(x), pal_match, scale$na.value)
+    pal_match <- unname(pal_match)
+  }
+
+  ifelse(is.na(x) | is.na(pal_match), scale$na.value, pal_match)
 }
 
 scale_limits <- function(scale) {

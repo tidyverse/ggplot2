@@ -62,6 +62,7 @@
   to use a log-scaled y axis with a bar chart
 }
 \examples{
+\donttest{
 # Generate data
 c <- ggplot(mtcars, aes(factor(cyl)))
 
@@ -130,6 +131,7 @@ mpg$class <- factor(mpg$class, levels = c("midsize", "minivan",
 "suv", "compact", "2seater", "subcompact", "pickup"))
 m <- ggplot(mpg, aes(manufacturer, fill=class))
 m + geom_bar()
+}
 }
 \seealso{
   \code{\link{stat_bin}} for more details of the binning

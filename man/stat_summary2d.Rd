@@ -45,12 +45,14 @@
   to the summary function }
 }
 \examples{
+\donttest{
 d <- ggplot(diamonds, aes(carat, depth, z = price))
 d + stat_summary2d()
 
 # Specifying function
 d + stat_summary2d(fun = function(x) sum(x^2))
 d + stat_summary2d(fun = var)
+}
 }
 \seealso{
   \code{\link{stat_summary_hex}} for hexagonal

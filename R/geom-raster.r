@@ -7,9 +7,18 @@ NULL
 #' the same size.  It is implemented highly efficiently using the internal
 #' \code{rasterGrob} function.
 #'
+#' By default, \code{geom_raster} add a vertical and horizontal padding.
+#' The size of padding depends on the resolution of data.
+#' If you want to manually set the padding (e.g. want zero-padding),
+#' you can change the behavior by setting \code{hpad} and \code{vpad}.
+#'
 #' @inheritParams geom_point
+#' @param hjust,vjust horizontal and vertical justification of the grob.  Each
+#'   justification value should be a number between 0 and 1.  Defaults to 0.5 
+#'   for both, centering each pixel over its data location.
 #' @export
 #' @examples
+#' \donttest{
 #' # Generate data
 #' pp <- function (n,r=4) {
 #'  x <- seq(-r*pi, r*pi, len=n)
@@ -26,28 +35,54 @@ NULL
 #' base <- ggplot(pp200, aes(x, y, fill = z))
 #' benchplot(base + geom_raster())
 #' benchplot(base + geom_tile())
-geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
-  GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+#'
+#' # padding
+#' df <- expand.grid(x = 0:5, y = 0:5)
+#' df$z <- runif(nrow(df))
+#' # default is compatible with geom_tile()
+#' ggplot(df, aes(x, y, fill = z)) + geom_raster()
+#' # zero padding
+#' ggplot(df, aes(x, y, fill = z)) + geom_raster(hpad = 0, vpad = 0)
+#' }
+geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", hjust = 0.5, vjust = 0.5, ...) { 
+  stopifnot(is.numeric(hjust), length(hjust) == 1)
+  stopifnot(is.numeric(vjust), length(vjust) == 1)
+  
+  GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, hjust = hjust, vjust = vjust, ...)
 }
 
 GeomRaster <- proto(Geom, {
   objname <- "raster"
-  draw <- function(., data, scales, coordinates, ...) {
+  
+  reparameterise <- function(., df, params) {
+    hjust <- params$hjust %||% 0.5
+    vjust <- params$vjust %||% 0.5
+    
+    w <- resolution(df$x, FALSE)
+    h <- resolution(df$y, FALSE)
+    
+    df$xmin <- df$x - w * (1 - hjust)
+    df$xmax <- df$x + w * hjust
+    df$ymin <- df$y - h * (1 - vjust)
+    df$ymax <- df$y + h * vjust
+    df
+  }
+  
+  draw <- function(., data, scales, coordinates, hjust = 0.5, vjust = 0.5, ...) {
+
     if (!inherits(coordinates, "cartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }
     data <- coord_transform(coordinates, data, scales)
-    raster <- acast(data, list("x", "y"), value.var = "fill")
-    
-    width <- resolution(data$x)
-    height <- resolution(data$y)
-    
-    x_rng <- range(data$x, na.rm = TRUE)
-    y_rng <- range(data$y, na.rm = TRUE)
-    
-    rasterGrob(raster[nrow(raster):1, ], x_rng[1] - width / 2, y_rng[1] - height / 2, 
-      diff(x_rng) + width, diff(y_rng) + height, default.units = "native", 
-      just = c("left","bottom"), interpolate = FALSE)
+    raster <- acast(data, list("y", "x"), value.var = "fill")
+    raster <- raster[nrow(raster):1, , drop = FALSE]
+
+    x_rng <- c(min(data$xmin, na.rm = TRUE), max(data$xmax, na.rm = TRUE))
+    y_rng <- c(min(data$ymin, na.rm = TRUE), max(data$ymax, na.rm = TRUE))
+
+    rasterGrob(raster, x = mean(x_rng), y = mean(y_rng), 
+      width = diff(x_rng), height = diff(y_rng), 
+      default.units = "native", interpolate = FALSE)
   }
 
 

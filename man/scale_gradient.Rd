@@ -47,6 +47,7 @@
   makes this easy to do using the Munsell colour system.
 }
 \examples{
+\donttest{
 # It's hard to see, but look for the bright yellow dot
 # in the bottom right hand corner
 dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
@@ -86,6 +87,7 @@ miss <- sample(c(NA, 1:5), nrow(mtcars), rep = TRUE)
 qplot(mpg, wt, data = mtcars, colour = miss)
 qplot(mpg, wt, data = mtcars, colour = miss) +
   scale_colour_gradient(na.value = "black")
+}
 }
 \seealso{
   \code{\link[scales]{seq_gradient_pal}} for details on

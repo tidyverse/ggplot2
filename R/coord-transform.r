@@ -11,6 +11,7 @@
 #' @param xtrans transformer for y axis
 #' @export
 #' @examples
+#' \donttest{
 #' # See ?geom_boxplot for other examples
 #' 
 #' # Three ways of doing transformating in ggplot:
@@ -54,6 +55,7 @@
 #' 
 #' plot + coord_trans(x = "log10")
 #' plot + coord_trans(x = "sqrt")
+#' }
 coord_trans <- function(xtrans = "identity", ytrans = "identity") {
   if (is.character(xtrans)) xtrans <- as.trans(xtrans)
   if (is.character(ytrans)) ytrans <- as.trans(ytrans)

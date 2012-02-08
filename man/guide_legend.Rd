@@ -103,6 +103,7 @@
   see \code{\link{guides}}.
 }
 \examples{
+\donttest{
 library(reshape2) # for melt
 df <- melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
 
@@ -149,7 +150,7 @@ p3 <- qplot(carat, price, data = diamonds, colour = color,
 p3
 
 # override.aes overwrites the alpha
-p3 + guides(fill = guide_legend(override.aes = list(alpha = 1)))
+p3 + guides(colour = guide_legend(override.aes = list(alpha = 1)))
 
 # multiple row/col legends
 p <- qplot(1:20, 1:20, colour = letters[1:20])
@@ -161,7 +162,9 @@ p + guides(col = guide_legend(ncol = 8, byrow = TRUE))
 # reversed order legend
 p + guides(col = guide_legend(reverse = TRUE))
 }
+}
 \seealso{
-  \code{\link{guides}}, \code{\link{guide_colorbar}}
+  Other guides: \code{\link{guide_colorbar}},
+  \code{\link{guide_colourbar}}, \code{\link{guides}}
 }
 

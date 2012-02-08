@@ -1,6 +1,8 @@
 #' Add a smoothed conditional mean.
 #'
 #' @inheritParams geom_point
+#' @seealso The default stat for this geom is \code{\link{stat_smooth}} see 
+#'   that documentation for more options to control the underlying statistical transformation.
 #' @export
 #' @examples
 #' # See stat_smooth for examples of using built in model fitting

@@ -53,9 +53,10 @@
 #' @param reverse logical. If \code{TRUE} the order of legends is reversed.
 #' @param ... ignored.
 #' @return A guide object
-#' @seealso \code{\link{guides}}, \code{\link{guide_colorbar}}
 #' @export
+#' @family guides
 #' @examples
+#' \donttest{
 #' library(reshape2) # for melt
 #' df <- melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
 #' 
@@ -102,7 +103,7 @@
 #' p3
 #' 
 #' # override.aes overwrites the alpha
-#' p3 + guides(fill = guide_legend(override.aes = list(alpha = 1)))
+#' p3 + guides(colour = guide_legend(override.aes = list(alpha = 1)))
 #' 
 #' # multiple row/col legends
 #' p <- qplot(1:20, 1:20, colour = letters[1:20])
@@ -113,6 +114,7 @@
 #' 
 #' # reversed order legend
 #' p + guides(col = guide_legend(reverse = TRUE))
+#' }
 guide_legend <- function(
                          
   ##　title

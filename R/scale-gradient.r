@@ -14,6 +14,7 @@
 #' @family colour scales
 #' @export
 #' @examples
+#' \donttest{
 #' # It's hard to see, but look for the bright yellow dot 
 #' # in the bottom right hand corner
 #' dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
@@ -53,6 +54,7 @@
 #' qplot(mpg, wt, data = mtcars, colour = miss)
 #' qplot(mpg, wt, data = mtcars, colour = miss) + 
 #'   scale_colour_gradient(na.value = "black")
+#' }
 scale_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab", na.value = "grey50") {
   continuous_scale("colour", "gradient", seq_gradient_pal(low, high, space),
     na.value = na.value, ...)

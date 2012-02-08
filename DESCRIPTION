@@ -34,7 +34,8 @@ Suggests:
     hexbin,
     gpclib,
     maptools,
-    multcomp
+    multcomp,
+    nlme
 Extends:
     sp
 License: GPL-2
@@ -197,3 +198,10 @@ Collate:
     'autoplot.r'
     'zzz.r'
     'fortify-multcomp.r'
+    'annotation-custom.r'
+    'aes-group-order.r'
+    'aes-position.r'
+    'translate-qplot-base.r'
+    'translate-qplot-ggplot.r'
+    'translate-qplot-gpl.r'
+    'translate-qplot-lattice.r'

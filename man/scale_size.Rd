@@ -24,6 +24,7 @@
   Size scale.
 }
 \examples{
+\donttest{
 (p <- qplot(mpg, cyl, data=mtcars, size=cyl))
 p + scale_size("cylinders")
 p + scale_size("number\\nof\\ncylinders")
@@ -43,5 +44,6 @@ qplot(mpg, cyl, data=mtcars, size=factor(cyl))
 # To control the size mapping for discrete variable, use
 # scale_size_manual:
 last_plot() + scale_size_manual(values=c(2,4,6))
+}
 }
 

@@ -2,10 +2,10 @@
 \alias{autoplot}
 \title{Create a complete ggplot appropriate to a particular data type}
 \usage{
-  autoplot(x, ...)
+  autoplot(data, ...)
 }
 \arguments{
-  \item{x}{an object}
+  \item{data}{an object}
 
   \item{...}{other arguments passed to specific methods}
 }

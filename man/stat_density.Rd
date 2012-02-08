@@ -50,7 +50,8 @@
   1d kernel density estimate.
 }
 \examples{
-m <- ggplot(movies, aes(x=rating))
+\donttest{
+m <- ggplot(movies, aes(x = rating))
 m + geom_density()
 
 # Adjust parameters
@@ -114,6 +115,7 @@ m + geom_density(fill=NA) + aes(y = ..count..)
 # Use qplot instead
 qplot(length, data=movies, geom="density", weight=rating)
 qplot(length, data=movies, geom="density", weight=rating/sum(rating))
+}
 }
 \seealso{
   \code{\link{stat_bin}} for the histogram

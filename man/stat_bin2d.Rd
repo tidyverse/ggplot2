@@ -7,7 +7,8 @@
 }
 \arguments{
   \item{bins}{numeric vector giving number of bins in both
-  vertical and horizontal directions.}
+  vertical and horizontal directions. Set to 30 by
+  default.}
 
   \item{drop}{if \code{TRUE} removes all cells with 0
   counts.}
@@ -34,6 +35,7 @@
   Count number of observation in rectangular bins.
 }
 \examples{
+\donttest{
 d <- ggplot(diamonds, aes(carat, price))
 d + stat_bin2d()
 d + geom_bin2d()
@@ -57,6 +59,7 @@ qplot(x, y, data = diamonds, geom="bin2d",
   xlim = c(4, 10), ylim = c(4, 10))
 qplot(x, y, data = diamonds, geom="bin2d", binwidth = c(0.1, 0.1),
   xlim = c(4, 10), ylim = c(4, 10))
+}
 }
 \seealso{
   \code{\link{stat_binhex}} for hexagonal binning

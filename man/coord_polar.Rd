@@ -23,6 +23,7 @@
   coordinates.
 }
 \examples{
+\donttest{
 # NOTE: Use these plots with caution - polar coordinates has
 # major perceptual problems.  The main point of these examples is
 # to demonstrate how these common plots can be described in the
@@ -64,5 +65,6 @@ doh <- ggplot(movies, aes(x = rrating, fill = budgetq))
 doh + geom_bar(width = 1) + coord_polar()
 # Race track plot
 doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
+}
 }
 

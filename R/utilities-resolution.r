@@ -14,7 +14,7 @@
 #' resolution((1:10) - 0.5, FALSE)
 #' resolution(c(1,2, 10, 20, 50))
 resolution <- function(x, zero = TRUE) {
-  if (zero_range(range(x, na.rm = TRUE))) return(1)
+  if (zero_range(range(x, na.rm = TRUE))) return(0.5)
   
   x <- unique(as.numeric(x))
   if (zero) {

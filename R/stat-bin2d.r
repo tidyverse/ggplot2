@@ -2,11 +2,12 @@
 #' 
 #' @inheritParams stat_identity
 #' @param bins numeric vector giving number of bins in both vertical and 
-#'   horizontal directions.
+#'   horizontal directions. Set to 30 by default.
 #' @param drop if \code{TRUE} removes all cells with 0 counts.
 #' @seealso \code{\link{stat_binhex}} for hexagonal binning
 #' @export
 #' @examples
+#' \donttest{
 #' d <- ggplot(diamonds, aes(carat, price))
 #' d + stat_bin2d()
 #' d + geom_bin2d()
@@ -30,6 +31,7 @@
 #'   xlim = c(4, 10), ylim = c(4, 10))
 #' qplot(x, y, data = diamonds, geom="bin2d", binwidth = c(0.1, 0.1),
 #'   xlim = c(4, 10), ylim = c(4, 10))
+#' }
 stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL, position = "identity", 
 bins = 30, drop = TRUE, ...) {
   

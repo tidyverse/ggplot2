@@ -40,6 +40,7 @@
   Continuous position scales (x & y).
 }
 \examples{
+\donttest{
 (m <- qplot(rating, votes, data=subset(movies, votes > 1000),
   na.rm = TRUE))
 
@@ -91,6 +92,7 @@ qplot(rating, votes, data=movies, ylim=c(1e4, 5e4))
 qplot(rating, votes, data=movies, xlab="My x axis", ylab="My y axis")
 #   * log scaling
 qplot(rating, votes, data=movies, log="xy")
+}
 }
 \seealso{
   Other position scales: \code{\link{scale_x_date}},

@@ -36,6 +36,7 @@
   Wrap a 1d ribbon of panels into 2d.
 }
 \examples{
+\donttest{
 d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) +
   xlim(0, 2) + stat_binhex(na.rm = TRUE) + opts(aspect.ratio = 1)
 d + facet_wrap(~ color)
@@ -77,5 +78,6 @@ p + geom_point(data = transform(cyl6, cyl = 7), colour = "red") +
   facet_wrap(~ cyl)
 p + geom_point(data = transform(cyl6, cyl = NULL), colour = "red") +
   facet_wrap(~ cyl)
+}
 }
 

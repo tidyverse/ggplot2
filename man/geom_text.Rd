@@ -32,6 +32,7 @@
   Textual annotations.
 }
 \examples{
+\donttest{
 p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))
 
 p + geom_text()
@@ -74,5 +75,6 @@ p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))
 p + geom_text(fontface=3)
 p + geom_text(aes(fontface=am+1))
 p + geom_text(aes(family=c("serif", "mono")[am+1]))
+}
 }
 

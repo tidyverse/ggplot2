@@ -112,12 +112,13 @@ theme_set <- .theme$set
 #'   existing theme.
 #' @export
 #' @examples
+#' \donttest{
 #' p <- qplot(mpg, wt, data = mtcars)
 #' p 
 #' p + opts(panel_background = theme_rect(colour = "pink"))
 #' p + theme_bw()
 #'
-#' # Scatter plot of gas milage by vehicle weight
+#' # Scatter plot of gas mileage by vehicle weight
 #' p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 #' # Calculate slope and intercept of line of best fit
 #' coef(lm(mpg ~ wt, data = mtcars))
@@ -143,7 +144,8 @@ theme_set <- .theme$set
 #' p + opts(plot.title = theme_text(size = 20, colour = "Blue"))
 #'
 #' # Changing plot look with themes
-#' m <- ggplot(movies, aes(x = rating)) + geom_histogram()
+#' DF <- data.frame(x = rnorm(400))
+#' m <- ggplot(DF, aes(x = x)) + geom_histogram()
 #' #default is theme_grey()
 #' m 
 #' # Compare with
@@ -195,12 +197,15 @@ theme_set <- .theme$set
 #' z + opts(plot.background = theme_rect(fill = "grey"))
 #'
 #' # Faceting Attributes
-#' k <- ggplot(diamonds, aes(carat, ..density..)) +  geom_histogram(binwidth = 0.2) +
+#' set.seed(4940)
+#' dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
+#' k <- ggplot(dsmall, aes(carat, ..density..)) +  geom_histogram(binwidth = 0.2) +
 #' facet_grid(. ~ cut)
 #' k + opts(strip.background = theme_rect(colour = "purple", fill = "pink", size = 3, linetype = "dashed"))
 #' k + opts(strip.text.x = theme_text(colour = "red", angle = 45, size = 10, hjust = 0.5, vjust = 0.5))
 #' k + opts(panel.margin = unit(5, "lines"))
 #' k + opts(panel.margin = unit(0, "lines"))
+#' }
 opts <- function(...) {
   structure(list(...), class="options")
 }
@@ -242,14 +247,14 @@ plot_theme <- function(x) {
 ##' # So does positional
 ##' update_element(x, "Times New Roman")
 ##' # And it throws an error if you use an argument that doesn't exist
-##' \dontrun{update_element(x, noargument = 12)}
+##' \donttest{update_element(x, noargument = 12)}
 ##' # Or multiple arguments with the same name
-##' \dontrun{update_element(x, size = 12, size = 15)}
+##' \donttest{update_element(x, size = 12, size = 15)}
 ##' 
 ##' # Will look up element if given name
 ##' update_element("axis.text.x", colour = 20)
 ##' # Throws error if incorrectly named
-##' \dontrun{update_element("axis.text", colour = 20)}
+##' \donttest{update_element("axis.text", colour = 20)}
 update_element <- function(name, ...) {
  if (is.character(name)) {
    ele <- theme_get()[[name]]

@@ -30,6 +30,7 @@
   \code{\link{image}}.
 }
 \examples{
+\donttest{
 # Generate data
 pp <- function (n,r=4) {
  x <- seq(-r*pi, r*pi, len=n)
@@ -87,5 +88,6 @@ qplot(x, y, fill=factor(z), data=example, geom="tile", width=w)
 # scale_manual
 col <- c("darkblue", "blue", "green", "orange", "red")
 qplot(x, y, fill=col[z], data=example, geom="tile", width=w, group=1) + scale_fill_identity(labels=letters[1:5], breaks=col)
+}
 }
 

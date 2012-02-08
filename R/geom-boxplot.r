@@ -9,7 +9,8 @@
 #' The upper whisker extends from the hinge to the highest value that is within
 #' 1.5 * IQR of the hinge, where IQR is the inter-quartile range, or distance
 #' between the first and third quartiles. The lower whisker extends from the
-#' hinge to the lowest value within 1.5 * IQR of the hinge.
+#' hinge to the lowest value within 1.5 * IQR of the hinge. Data beyond the
+#' end of the whiskers are outliers and plotted as points (as specified by Tukey).
 #'
 #' In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
 #' This gives a roughly 95% confidence interval for comparing medians.
@@ -34,6 +35,7 @@
 #'     box plots. The American Statistician 32, 12-16.
 #'
 #' @examples
+#' \donttest{
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))
 #' 
 #' p + geom_boxplot()
@@ -87,6 +89,7 @@
 #' b + geom_boxplot(stat = "identity")
 #' b + geom_boxplot(stat = "identity") + coord_flip()
 #' b + geom_boxplot(aes(fill = X1), stat = "identity")
+#' }
 geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot", position = "dodge", 
 outlier.colour = "black", outlier.shape = 16, outlier.size = 2,
 notch = FALSE, notchwidth = .5, ...) {
@@ -174,9 +177,10 @@ GeomBoxplot <- proto(Geom, {
   guide_geom <- function(.) "boxplot"  
   draw_legend <- function(., data, ...)  {
     data <- aesdefaults(data, .$default_aes(), list(...))
-    gp <- with(data, gpar(col=colour, fill=fill, lwd=size * .pt))
+    gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt))
     gTree(gp = gp, children = gList(
-      linesGrob(0.5, c(0.1, 0.9)),
+      linesGrob(0.5, c(0.1, 0.25)),
+      linesGrob(0.5, c(0.75, 0.9)),
       rectGrob(height=0.5, width=0.75),
       linesGrob(c(0.125, 0.875), 0.5)
     ))

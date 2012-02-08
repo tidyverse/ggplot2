@@ -52,6 +52,7 @@
   Qualitative colour scale with evenly spaced hues.
 }
 \examples{
+\donttest{
 dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 (d <- qplot(carat, price, data=dsamp, colour=clarity))
 
@@ -84,6 +85,7 @@ miss <- factor(sample(c(NA, 1:5), nrow(mtcars), rep = TRUE))
 qplot(mpg, wt, data = mtcars, colour = miss)
 qplot(mpg, wt, data = mtcars, colour = miss) +
   scale_colour_hue(na.value = "black")
+}
 }
 \seealso{
   Other colour scales: \code{\link{scale_color_brewer}},

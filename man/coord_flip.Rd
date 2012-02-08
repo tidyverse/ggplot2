@@ -15,6 +15,7 @@
   y conditional on x, to x conditional on y.
 }
 \examples{
+\donttest{
 # Very useful for creating boxplots, and other interval
 # geoms in the horizontal instead of vertical position.
 qplot(cut, price, data=diamonds, geom="boxplot")
@@ -31,5 +32,6 @@ h + coord_flip() + scale_x_reverse()
 # You can also use it to flip lines and area plots:
 qplot(1:5, (1:5)^2, geom="area")
 last_plot() + coord_flip()
+}
 }
 

@@ -39,6 +39,7 @@
   Diverging colour gradient
 }
 \examples{
+\donttest{
 dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
 dsub$diff <- with(dsub, sqrt(abs(x-y))* sign(x-y))
 (d <- qplot(x, y, data=dsub, colour=diff))
@@ -77,6 +78,7 @@ p <- qplot(letters[1:5], 1:5, fill= c(-3, 3, 5, 2, -2), geom="bar")
 p + scale_fill_gradient2("fill")
 # Note how positive and negative values of the same magnitude
 # have similar intensity
+}
 }
 \seealso{
   Other colour scales: \code{\link{scale_color_brewer}},

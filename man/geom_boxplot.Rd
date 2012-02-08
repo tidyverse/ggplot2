@@ -57,6 +57,8 @@
   the inter-quartile range, or distance between the first
   and third quartiles. The lower whisker extends from the
   hinge to the lowest value within 1.5 * IQR of the hinge.
+  Data beyond the end of the whiskers are outliers and
+  plotted as points (as specified by Tukey).
 
   In a notched box plot, the notches extend \code{1.58 *
   IQR / sqrt(n)}. This gives a roughly 95% confidence
@@ -64,6 +66,7 @@
   for more details.
 }
 \examples{
+\donttest{
 p <- ggplot(mtcars, aes(factor(cyl), mpg))
 
 p + geom_boxplot()
@@ -117,6 +120,7 @@ b <- ggplot(abc, aes(x = X1, ymin = `0\%`, lower = `25\%`, middle = `50\%`, uppe
 b + geom_boxplot(stat = "identity")
 b + geom_boxplot(stat = "identity") + coord_flip()
 b + geom_boxplot(aes(fill = X1), stat = "identity")
+}
 }
 \references{
   McGill, R., Tukey, J. W. and Larsen, W. A. (1978)

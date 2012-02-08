@@ -11,7 +11,9 @@
 #' scale.
 #'
 #' @param method smoothing method (function) to use, eg. lm, glm, gam, loess,
-#'   rlm
+#'   rlm. For datasets with n < 1000 default is \code{\link{loess}}. For datasets  
+#'   with 1000 or more observations defaults to gam, see \code{\link[mgcv]{gam}}
+#'   for more details.
 #' @param formula formula to use in smoothing function, eg. \code{y ~ x}, 
 #'   \code{y ~ poly(x, 2)}, \code{y ~ log(x)}
 #' @param se display confidence interval around smooth? (TRUE by default, see
@@ -35,6 +37,7 @@
 #'   \code{\link{loess}} for local smooths
 #' @export
 #' @examples
+#' \donttest{
 #' c <- ggplot(mtcars, aes(qsec, wt))
 #' c + stat_smooth() 
 #' c + stat_smooth() + geom_point()
@@ -90,6 +93,7 @@
 #'   stat_smooth(method="glm", family="binomial")
 #' qplot(Age, as.numeric(Kyphosis) - 1, data=kyphosis) +
 #'   stat_smooth(method="glm", family="binomial", formula = y ~ ns(x, 2))
+#' }
 stat_smooth <- function (mapping = NULL, data = NULL, geom = "smooth", position = "identity", 
 method = "auto", formula = y ~ x, se = TRUE, n = 80, fullrange = FALSE, 
 level = 0.95, na.rm = FALSE, ...) { 
@@ -101,7 +105,7 @@ level = 0.95, na.rm = FALSE, ...) {
 StatSmooth <- proto(Stat, {
   objname <- "smooth"
 
-  calculate_groups <- function(., data, scales, ...) {
+  calculate_groups <- function(., data, scales, method="auto", formula=y~x, ...) {
     rows <- daply(data, .(group), function(df) length(unique(df$x)))
     
     if (all(rows == 1) && length(rows) > 1) {
@@ -109,8 +113,29 @@ StatSmooth <- proto(Stat, {
         "Maybe you want aes(group = 1)?")
       return(data.frame())
     }
-    
-    .super$calculate_groups(., data, scales, ...)
+
+    # Figure out what type of smoothing to do: loess for small datasets,
+    # gam with a cubic regression basis for large data
+    # This is based on the size of the _largest_ group.
+    if (is.character(method) && method == "auto") {
+      groups <- count(data, "group")
+
+      if (max(groups$freq) < 1000) {
+        method <- "loess"
+        message('geom_smooth: method="auto" and size of largest group is <1000,',
+                ' so using loess.',
+                ' Use \'method = x\' to change the smoothing method.')
+      } else {
+        try_require("mgcv")
+        method <- "gam"
+        formula <- y ~ s(x, bs = "cs")
+        message('geom_smooth: method="auto" and size of largest group is >=1000,',
+                ' so using gam with formula: y ~ s(x, bs = "cs").',
+                ' Use \'method = x\' to change the smoothing method.')
+      }
+    }
+
+    .super$calculate_groups(., data, scales, method = method, formula = formula, ...)
   }
   
   calculate <- function(., data, scales, method="auto", formula=y~x, se = TRUE, n=80, fullrange=FALSE, xseq = NULL, level=0.95, na.rm = FALSE, ...) {
@@ -118,18 +143,6 @@ StatSmooth <- proto(Stat, {
     if (length(unique(data$x)) < 2) {
       # Not enough data to perform fit
       return(data.frame())
-    }
-    
-    # Figure out what type of smoothing to do: loess for small datasets,
-    # gam with a cubic regression basis for large data
-    if (is.character(method) && method == "auto") {
-      if (nrow(data) < 1000) {
-        method <- "loess"
-      } else {
-        try_require("mgcv")
-        method <- gam
-        formula <- y ~ s(x, bs = "cs")
-      }
     }
     
     if (is.null(data$weight)) data$weight <- 1

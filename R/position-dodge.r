@@ -4,6 +4,7 @@
 #' @family position adjustments
 #' @export
 #' @examples
+#' \donttest{
 #' ggplot(mtcars, aes(x=factor(cyl), fill=factor(vs))) +
 #'   geom_bar(position="dodge")
 #' ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar(position="dodge")
@@ -23,6 +24,7 @@
 #'   position="dodge")
 #' p + geom_errorbar(aes(ymin = y-1, ymax = y+1, width = 0.2),
 #'   position = position_dodge(width = 0.90))
+#' }
 position_dodge <- function (width = NULL, height = NULL) { 
   PositionDodge$new(width = width, height = height)
 }

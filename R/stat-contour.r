@@ -7,6 +7,7 @@
 #'  \item{level}{height of contour}
 #' @export
 #' @examples
+#' \donttest{
 #' # Generate data
 #' library(reshape2) # for melt
 #' volcano3d <- melt(volcano)
@@ -47,6 +48,7 @@
 #' # Use qplot instead
 #' qplot(x, y, z = z, data = volcano3d, geom = "contour")
 #' qplot(x, y, z = z, data = volcano3d, stat = "contour", geom = "path")
+#' }
 stat_contour <- function (mapping = NULL, data = NULL, geom = "path", position = "identity", 
 na.rm = FALSE, ...) { 
   StatContour$new(mapping = mapping, data = data, geom = geom, 

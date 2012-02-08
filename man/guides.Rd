@@ -16,6 +16,7 @@
   \code{guides}.
 }
 \examples{
+\donttest{
 # ggplot object
 
 dat <- data.frame(x = 1:5, y = 1:5, p = 1:5, q = factor(1:5),
@@ -49,5 +50,10 @@ p + opts(legend.position = "bottom")
 # position of guides
 
 p + opts(legend.position = "bottom", legend.box = "horizontal")
+}
+}
+\seealso{
+  Other guides: \code{\link{guide_colorbar}},
+  \code{\link{guide_colourbar}}, \code{\link{guide_legend}}
 }
 

@@ -28,6 +28,7 @@
   jittering to work.
 }
 \examples{
+\donttest{
 qplot(cut, data=diamonds, stat="bin")
 qplot(cut, data=diamonds, geom="bar")
 
@@ -59,6 +60,7 @@ qplot(reorder(manufacturer, displ), cty, data=mpg)
 # Use abbreviate as a formatter to reduce long names
 qplot(reorder(manufacturer, cty), cty, data=mpg) +
   scale_x_discrete(labels = abbreviate)
+}
 }
 \seealso{
   Other position scales: \code{\link{scale_x_continuous}},

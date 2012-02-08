@@ -59,7 +59,6 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity", ...) {
   if (!is.null(map$long)) map$x <- map$long
   if (!is.null(map$region)) map$id <- map$region
   stopifnot(all(c("x", "y", "id") %in% names(map)))
-  map <- split(map, map$id)
   
   GeomMap$new(geom_params = list(map = map), mapping = mapping, data = data, stat = stat, ...)
 }
@@ -68,15 +67,22 @@ GeomMap <- proto(GeomPolygon, {
   objname <- "map"
 
   draw_groups <- function(., data, scales, coordinates, map, ...) {
-    if (!is.null(data$map_id))
-    data <- data[data$map_id %in% names(map), , drop = FALSE]
+    # Only use matching data and map ids
+    common <- intersect(data$map_id, map$id)
+    data <- data[data$map_id %in% common, , drop = FALSE]
+    map <- map[map$id %in% common, , drop = FALSE]
+    
+    # Set up id variable for polygonGrob - must be sequential integers
+    map$group <- map$group %||% map$id
+    grob_id <- match(map$group, unique(map$group))
 
-    polys <- rbind.fill(map[data$map_id])
-    polys$group <- polys$group %||% polys$id
-    id <- match(polys$group, unique(polys$group))
-    coords <- coord_munch(coordinates, polys, scales)
+    # Align data with map
+    data_rows <- match(map$id[!duplicated(grob_id)], data$map_id)
+    data <- data[data_rows, , drop = FALSE]
+    
+    coords <- coord_munch(coordinates, map, scales)
 
-    polygonGrob(coords$x, coords$y, default.units = "native", id = id,
+    polygonGrob(coords$x, coords$y, default.units = "native", id = grob_id,
       gp = gpar(
         col = data$colour, fill = alpha(data$fill, data$alpha), 
         lwd = data$size * .pt))

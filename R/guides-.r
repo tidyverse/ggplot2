@@ -6,7 +6,9 @@
 #' @param ... List of scale guide pairs
 #' @return A list containing mapping between scale and guide.
 #' @export
+#' @family guides
 #' @examples
+#' \donttest{
 #' # ggplot object
 #' 
 #' dat <- data.frame(x = 1:5, y = 1:5, p = 1:5, q = factor(1:5), 
@@ -40,6 +42,7 @@
 #' # position of guides
 #' 
 #' p + opts(legend.position = "bottom", legend.box = "horizontal")
+#' }
 guides <- function(...) {
   args <- list(...)
   if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]

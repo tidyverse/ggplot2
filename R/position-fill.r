@@ -5,6 +5,7 @@
 #' @family position adjustments
 #' @export
 #' @examples
+#' \donttest{
 #' # See ?geom_bar and ?geom_area for more examples
 #' ggplot(mtcars, aes(x=factor(cyl), fill=factor(vs))) +
 #'   geom_bar(position="fill")
@@ -15,6 +16,7 @@
 #' ggplot(diamonds, aes(x=price, fill=cut)) + cde
 #' ggplot(diamonds, aes(x=price, fill=clarity)) + cde
 #' ggplot(diamonds, aes(x=price, fill=color)) + cde
+#' }
 position_fill <- function (width = NULL, height = NULL) { 
   PositionFill$new(width = width, height = height)
 }

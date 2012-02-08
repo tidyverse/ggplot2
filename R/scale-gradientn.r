@@ -6,6 +6,7 @@
 #' @rdname scale_gradientn
 #' @export
 #' @examples
+#' \donttest{
 #' # scale_colour_gradient make it easy to use existing colour palettes
 #' 
 #' dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
@@ -29,6 +30,7 @@
 #'   values = values, rescale = function(x, ...) x, oob = identity)
 #' d + scale_colour_gradientn(colours = terrain.colors(10), 
 #'   values = values, rescale = function(x, ...) x, oob = identity)
+#' }
 scale_colour_gradientn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50") {
   continuous_scale("colour", "gradientn", 
     gradient_n_pal(colours, values, space), na.value = na.value, ...)

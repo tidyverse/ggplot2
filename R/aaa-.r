@@ -42,7 +42,7 @@ TopLevel <- proto(expr = {
     if(!exists("required_aes", .)) return(param)
   
     aesthetics <- c(.$required_aes, names(.$default_aes()))
-    param <- param[setdiff(names(param), aesthetics)]
+    param[setdiff(names(param), aesthetics)]
   }
   
   html_aesthetics <- function(.) {
