@@ -38,8 +38,8 @@
 #'   the highest value is on the top and the lowest value is on the bottom
 #' @param ... ignored.
 #' @return A guide object
-#' @seealso \code{\link{guides}}, \code{\link{guide_legend}}
 #' @export
+#' @family guides
 #' @examples
 #' library(reshape2) # for melt
 #' df <- melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
