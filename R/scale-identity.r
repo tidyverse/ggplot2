@@ -35,7 +35,7 @@ scale_fill_identity <- function(..., guide = "none") {
 #' @rdname scale_identity
 #' @export
 scale_shape_identity <- function(..., guide = "none") {
-  identity_scale(continuous_scale("shape", "identity", identity_pal(), ..., guide = guide))
+  identity_scale(discrete_scale("shape", "identity", identity_pal(), ..., guide = guide))
     
 }
 
