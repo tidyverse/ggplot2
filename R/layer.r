@@ -144,7 +144,7 @@ Layer <- proto(expr = {
     aesthetics <- .$layer_mapping(plot$mapping)
     
     if (!is.null(.$subset)) {
-      include <- data.frame(eval.quoted(.$subset, data, emptyenv()))
+      include <- data.frame(eval.quoted(.$subset, data, plot$env))
       data <- data[rowSums(include, na.rm = TRUE) == ncol(include), ]
     }
     
