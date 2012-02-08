@@ -164,6 +164,7 @@ p + guides(col = guide_legend(reverse = TRUE))
 }
 }
 \seealso{
-  \code{\link{guides}}, \code{\link{guide_colorbar}}
+  Other guides: \code{\link{guide_colorbar}},
+  \code{\link{guide_colourbar}}, \code{\link{guides}}
 }
 
