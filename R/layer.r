@@ -118,7 +118,7 @@ Layer <- proto(expr = {
     }
     
     # Drop aesthetics that are set or calculated
-    set <- aesthetics %in% names(.$geom_params)
+    set <- names(aesthetics) %in% names(.$geom_params)
     calculated <- is_calculated_aes(aesthetics)
     
     aesthetics[!set & !calculated]
