@@ -341,8 +341,10 @@ scale_breaks_minor.date <- function(scale, n = 2, b = scale_break_positions(scal
   if (zero_range(as.numeric(limits))) {
     return()
   }
-  
+
   if (is.null(scale$minor_breaks)) {
+    return(NULL)
+  } else if (is.waive(scale$minor_breaks)) {
     b <- b[!is.na(b)]
     if (length(b) < 2) return()
 
