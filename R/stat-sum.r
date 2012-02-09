@@ -54,13 +54,15 @@ StatSum <- proto(Stat, {
   default_geom <- function(.) GeomPoint
   icon <- function(.) textGrob(expression(Sigma), gp=gpar(cex=4))
   
-  calculate <- function(., data, scales, ...) {
+  calculate_groups <- function(., data, scales, ...) {
+
     if (is.null(data$weight)) data$weight <- 1
 
-    counts <- count(data, c("x", "y"), wt_var = "weight")
-    counts <- rename(counts, c(freq = "n"))
-    counts$prop <- prop.table(counts$n)
+    group_by <- setdiff(intersect(names(data), .all_aesthetics), "weight")
 
+    counts <- count(data, group_by, wt_var = "weight")
+    counts <- rename(counts, c(freq = "n"))
+    counts$prop <- ave(counts$n, counts$group, FUN = prop.table)
     counts
   }
 })
