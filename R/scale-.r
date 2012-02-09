@@ -27,7 +27,7 @@ NULL
 #' @export
 #' @param aesthetics character 
 #' @keywords internal
-continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, minor_breaks = NULL, labels = NULL, legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="legend") {
+continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="legend") {
 
   if (!is.null(legend)) {
     warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
@@ -75,7 +75,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #'
 #' @export
 #' @keywords internal
-discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = NULL, limits = NULL, expand = c(0, 0), na.value = NA, drop = TRUE, guide="legend") {
+discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, expand = c(0, 0), na.value = NA, drop = TRUE, guide="legend") {
 
   if (!is.null(legend)) {
     warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
@@ -259,10 +259,12 @@ scale_breaks <- function(scale, limits = scale_limits(scale)) {
 scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   # Limits in transformed space need to be converted back to data space
   limits <- scale$trans$inv(limits)
-  
-  if (zero_range(as.numeric(limits))) {
+
+  if (is.null(scale$breaks)) {
+    return(NULL)
+  } else if (zero_range(as.numeric(limits))) {
     breaks <- limits[1]
-  } else if (is.null(scale$breaks)) {
+  } else if (is.waive(scale$breaks)) {
     breaks <- scale$trans$breaks(limits)
   } else if (is.function(scale$breaks)) {
     breaks <- scale$breaks(limits)
@@ -283,6 +285,8 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
 #' @S3method scale_breaks discrete
 scale_breaks.discrete <- function(scale, limits = scale_limits(scale)) {
   if (is.null(scale$breaks)) {
+    return(NULL)
+  } else if (is.waive(scale$breaks)) {
     breaks <- limits
   } else if (is.function(scale$breaks)) {
     breaks <- scale$breaks(limits)
@@ -309,8 +313,10 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
   if (zero_range(as.numeric(limits))) {
     return()
   }
-  
+
   if (is.null(scale$minor_breaks)) {
+    return(NULL)
+  } else if (is.waive(scale$minor_breaks)) {
     b <- b[!is.na(b)]
     if (length(b) < 2) return()
 
@@ -344,9 +350,13 @@ scale_labels <- function(scale, breaks = scale_breaks(scale)) {
 
 #' @S3method scale_labels continuous
 scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
+  if (is.null(breaks)) return(NULL)
+                                                                          
   breaks <- scale$trans$inv(breaks)
-  
+
   if (is.null(scale$labels)) {
+    return(NULL)
+  } else if (is.waive(scale$labels)) {
     labels <- scale$trans$format(breaks)
   } else if (is.function(scale$labels)) {
     labels <- scale$labels(breaks)
@@ -361,7 +371,11 @@ scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
 
 #' @S3method scale_labels discrete
 scale_labels.discrete <- function(scale, breaks = scale_breaks(scale)) {
+  if (is.null(breaks)) return(NULL)
+  
   if (is.null(scale$labels)) {
+    return(NULL)
+  } else if (is.waive(scale$labels)) {
     format(scale_breaks(scale), justify = "none", trim = TRUE)
   } else if (is.function(scale$labels)) {
     scale$labels(breaks)

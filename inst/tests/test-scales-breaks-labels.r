@@ -89,3 +89,12 @@ test_that("discrete scales with no data have no breaks or labels", {
   expect_equal(scale_labels(sc), character())
   expect_equal(scale_limits(sc), c(0, 1))
 })
+
+test_that("suppressing breaks, minor_breask, and labels", {
+  expect_equal(scale_breaks(scale_x_continuous(breaks = NULL, limits = c(1, 3))), NULL)
+  expect_equal(scale_breaks(scale_x_discrete(breaks = NULL, limits = c(1, 3))), NULL)
+  expect_equal(scale_breaks_minor(scale_x_continuous(minor_breaks = NULL, limits = c(1, 3))), NULL)
+
+  expect_equal(scale_labels(scale_x_continuous(labels = NULL, limits = c(1, 3))), NULL)
+  expect_equal(scale_labels(scale_x_discrete(labels = NULL, limits = c(1, 3))), NULL)
+})
