@@ -475,14 +475,14 @@ guide_gengrob.legend <- function(guide, theme) {
   krows <- rep(vps$key.row, each =  ngeom)
 
   # padding
-  padding <- c(convertWidth(unit(0.3, "lines"), "mm"))
+  padding <- unit(1.5, "mm")
   widths <- c(padding, widths, padding)
   heights <- c(padding, heights, padding)
- 
-  lay <- data.frame(l = c(1,               min(vps.title.col) + 1, kcols + 1, vps$label.col + 1),
-                    t = c(1,               min(vps.title.row) + 1, krows + 1, vps$label.row + 1),
-                    r = c(length(widths),  max(vps.title.col) + 1, kcols + 1, vps$label.col + 1),
-                    b = c(length(heights), max(vps.title.row) + 1, krows + 1, vps$label.row + 1),
+
+  lay <- data.frame(l = 1 + c(0,                   min(vps.title.col), kcols, vps$label.col),
+                    t = 1 + c(0,                   min(vps.title.row), krows, vps$label.row),
+                    r = 1 + c(length(widths) - 1,  max(vps.title.col), kcols, vps$label.col),
+                    b = 1 + c(length(heights) - 1, max(vps.title.row), krows, vps$label.row),
                     name = c("background", "title",
                       paste("key", krows, kcols, c("bg", seq(ngeom-1)), sep = "-"),
                       paste("label", vps$label.row, vps$label.col, sep = "-")),
