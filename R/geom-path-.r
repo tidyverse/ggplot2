@@ -168,9 +168,10 @@ GeomPath <- proto(Geom, {
         )
       )
     } else {
+      id <- match(munched$group, unique(munched$group))
       with(munched, 
         polylineGrob(
-          x, y, id = as.integer(factor(group)), 
+          x, y, id = id, 
           default.units = "native", arrow = arrow, 
           gp = gpar(
             col = alpha(colour, alpha)[start], 
