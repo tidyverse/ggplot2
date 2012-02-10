@@ -262,6 +262,9 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
 
   if (is.null(scale$breaks)) {
     return(NULL)
+  } else if (length(scale$breaks) == 1 && !is.function(scale$breaks) && is.na(scale$breaks)) {
+    warning("Use `breaks = NULL` instead of `breaks = NA` for suppressing breaks.")
+    return(NULL)
   } else if (zero_range(as.numeric(limits))) {
     breaks <- limits[1]
   } else if (is.waive(scale$breaks)) {
@@ -285,6 +288,9 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
 #' @S3method scale_breaks discrete
 scale_breaks.discrete <- function(scale, limits = scale_limits(scale)) {
   if (is.null(scale$breaks)) {
+    return(NULL)
+  } else if (length(scale$breaks) == 1 && !is.function(scale$breaks) && is.na(scale$breaks)) {
+    warning("Use `breaks = NULL` instead of `breaks = NA` for suppressing breaks.")
     return(NULL)
   } else if (is.waive(scale$breaks)) {
     breaks <- limits
@@ -316,6 +322,9 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
 
   if (is.null(scale$minor_breaks)) {
     return(NULL)
+  } else if (length(scale$minor_breaks) == 1 && !is.function(scale$minor_breaks) && is.na(scale$minor_breaks)) {
+    warning("Use `minor_breaks = NULL` instead of `minor_breaks = NA` for suppressing breaks.")
+    return(NULL)
   } else if (is.waive(scale$minor_breaks)) {
     b <- b[!is.na(b)]
     if (length(b) < 2) return()
@@ -339,10 +348,13 @@ scale_breaks_minor.date <- function(scale, n = 2, b = scale_break_positions(scal
   limits <- scale$trans$inv(limits)
   
   if (zero_range(as.numeric(limits))) {
-    return()
+    return(NULL)
   }
 
   if (is.null(scale$minor_breaks)) {
+    return(NULL)
+  } else if (length(scale$minor_breaks) == 1 && !is.function(scale$minor_breaks) && is.na(scale$minor_breaks)) {
+    warning("Use `minor_breaks = NULL` instead of `minor_breaks = NA` for suppressing breaks.")
     return(NULL)
   } else if (is.waive(scale$minor_breaks)) {
     b <- b[!is.na(b)]
@@ -385,6 +397,9 @@ scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
 
   if (is.null(scale$labels)) {
     return(NULL)
+  } else if (length(scale$labels) == 1 && !is.function(scale$labels) && is.na(scale$labels)) {
+    warning("Use `labels = NULL` instead of `labels = NA` for suppressing breaks.")
+    return(NULL)
   } else if (is.waive(scale$labels)) {
     labels <- scale$trans$format(breaks)
   } else if (is.function(scale$labels)) {
@@ -404,7 +419,10 @@ scale_labels.discrete <- function(scale, breaks = scale_breaks(scale)) {
   
   if (is.null(scale$labels)) {
     return(NULL)
-  } else if (is.waive(scale$labels)) {
+  } else if (length(scale$labels) == 1 && !is.function(scale$labels) && is.na(scale$labels)) {
+      warning("Use `labels = NULL` instead of `labels = NA` for suppressing breaks.")
+    return(NULL)
+  }else if (is.waive(scale$labels)) {
     format(scale_breaks(scale), justify = "none", trim = TRUE)
   } else if (is.function(scale$labels)) {
     scale$labels(breaks)
