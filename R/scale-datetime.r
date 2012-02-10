@@ -46,8 +46,8 @@
 #'   labels = date_format("%d/%m"))
 #' last_plot() + scale_x_datetime(breaks = date_breaks("1 day"),
 #'   minor_breaks = date_breaks("2 hour"))
-scale_x_datetime <- function(..., expand = c(0.05, 0), breaks = NULL,
-  minor_breaks = NULL) {
+scale_x_datetime <- function(..., expand = c(0.05, 0), breaks = waiver(),
+  minor_breaks = waiver()) {
   
   scale_datetime(c("x", "xmin", "xmax", "xend"), expand = expand,
     breaks = breaks, minor_breaks = minor_breaks, ...)
@@ -60,8 +60,8 @@ scale_map.datetime <- function(scale, x) {
 
 #' @rdname scale_datetime
 #' @export 
-scale_y_datetime <- function(..., expand = c(0.05, 0), breaks = NULL,
-  minor_breaks = NULL) {
+scale_y_datetime <- function(..., expand = c(0.05, 0), breaks = waiver(),
+  minor_breaks = waiver()) {
   
   scale_datetime(c("y", "ymin", "ymax", "yend"), expand = expand,
     breaks = breaks, minor_breaks = minor_breaks, ...)
@@ -72,8 +72,8 @@ icon.scale_datetime <- function() {
 }
 
 # base class for scale_{xy}_datetime
-scale_datetime <- function(aesthetics, expand = c(0.05, 0), breaks = NULL,
-  minor_breaks = NULL, ...) {
+scale_datetime <- function(aesthetics, expand = c(0.05, 0), breaks = waiver(),
+  minor_breaks = waiver(), ...) {
 
   if (is.character(breaks)) {
     breaks_str <- breaks
