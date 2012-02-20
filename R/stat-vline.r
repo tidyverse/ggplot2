@@ -13,7 +13,6 @@ StatAbline <- proto(Stat, {
   objname <- "abline"
 
   calculate <- function(., data, scales, intercept = NULL, slope = NULL, ...) {
-    data <- aesdefaults(data, .$default_aes(), list(...))
     if (is.null(intercept)) {
       if (is.null(data$intercept)) data$intercept <- 0
     } else {

@@ -75,7 +75,7 @@ coord_transform.trans <- function(coord, data, details) {
   trans_y <- function(data) transform_y(coord, data, details$y.range)
   
   data <- transform_position(data, trans_x, trans_y)
-  transform_position(data, trim_infinite_01, trim_infinite_01)
+  transform_position(data, squish_infinite, squish_infinite)
 }
 transform_x <- function(coord, x, range) {
   rescale(coord$xtr$transform(x), 0:1, range)
