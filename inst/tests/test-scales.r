@@ -129,3 +129,34 @@ test_that("scale_breaks with explicit NA options", {
   expect_identical(scale_breaks(scc), NA)
     
 })
+
+test_that("oob affects position values", {
+  dat <- data.frame(x=c("a", "b", "c"), y=c(1, 5, 10))
+  base <- ggplot(dat, aes(x=x, y=y)) + 
+    geom_bar() + 
+    annotate("point", x = "a", y = c(-Inf, Inf))
+
+  y_scale <- function(limits, oob = censor) {
+    scale_y_continuous(limits = limits, oob = oob, expand = c(0, 0))
+  }
+
+  low_censor <- cdata(base + y_scale(c(0, 5), censor))
+  mid_censor <- cdata(base + y_scale(c(3, 7), censor))
+
+  low_squish <- cdata(base + y_scale(c(0, 5), squish))
+  mid_squish <- cdata(base + y_scale(c(3, 7), squish))
+  
+  # Points are always at the top and bottom
+  expect_equal(low_censor[[2]]$y, c(0, 1))
+  expect_equal(mid_censor[[2]]$y, c(0, 1))
+  expect_equal(low_squish[[2]]$y, c(0, 1))
+  expect_equal(mid_squish[[2]]$y, c(0, 1))
+  
+  # Bars depend on limits and oob
+  expect_equal(low_censor[[1]]$y, c(0.2, 1))
+  expect_equal(mid_censor[[1]]$y, c(0.5))
+  expect_equal(low_squish[[1]]$y, c(0.2, 1, 1))
+  expect_equal(mid_squish[[1]]$y, c(0, 0.5, 1))
+  
+  
+})
