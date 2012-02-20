@@ -49,7 +49,7 @@ ggplot_gtable <- function(data) {
   
   plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
   plot_table <- gtable_add_grob(plot_table, title, name = "title",
-    t = 1, b = 1, l = 2, r = -1)
+    t = 1, b = 1, l = 2, r = -1, clip = "off")
   
   # Axis labels
   labels <- coord_labels(plot$coordinates, list(
@@ -65,13 +65,13 @@ ggplot_gtable <- function(data) {
     if (is.null(labels$x)) unit(0, "lines") else unit(0.5, "lines")
   plot_table <- gtable_add_rows(plot_table, xlab_height)
   plot_table <- gtable_add_grob(plot_table, xlabel, name = "xlab",
-    l = panel_dim$l, r = panel_dim$r, t = -1)
+    l = panel_dim$l, r = panel_dim$r, t = -1, clip = "off")
   
   ylab_width <- grobWidth(ylabel) + 
     if (is.null(labels$y)) unit(0, "lines") else unit(0.5, "lines")
   plot_table <- gtable_add_cols(plot_table, ylab_width, pos = 0)
   plot_table <- gtable_add_grob(plot_table, ylabel, name = "ylab",
-    l = 1, b = panel_dim$b, t = panel_dim$t)
+    l = 1, b = panel_dim$b, t = panel_dim$t, clip = "off")
 
   # Legends
   position <- theme$legend.position
@@ -118,19 +118,19 @@ ggplot_gtable <- function(data) {
   
   if (position == "left") {
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = 0)
-    plot_table <- gtable_add_grob(plot_table, legend_box, 
+    plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = panel_dim$t, b = panel_dim$b, l = 1, r = 1, name = "guide-box")
   } else if (position == "right") {
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = -1)
-    plot_table <- gtable_add_grob(plot_table, legend_box, 
+    plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off", 
       t = panel_dim$t, b = panel_dim$b, l = -1, r = -1, name = "guide-box")
   } else if (position == "bottom") {
     plot_table <- gtable_add_rows(plot_table, legend_height, pos = -1)
-    plot_table <- gtable_add_grob(plot_table, legend_box, 
+    plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = -1, b = -1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
   } else if (position == "top") {
     plot_table <- gtable_add_rows(plot_table, legend_height, pos = 0)
-    plot_table <- gtable_add_grob(plot_table, legend_box, 
+    plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = 1, b = 1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
   } else if (position == "manual") {
     # should guide box expand whole region or region withoug margin?
