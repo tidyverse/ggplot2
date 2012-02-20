@@ -58,7 +58,7 @@ coord_transform.cartesian <- function(., data, details) {
   rescale_y <- function(data) rescale(data, from = details$y.range)
   
   data <- transform_position(data, rescale_x, rescale_y)
-  transform_position(data, trim_infinite_01, trim_infinite_01)
+  transform_position(data, squish_infinite, squish_infinite)
 }
 
 #' @S3method coord_train cartesian
