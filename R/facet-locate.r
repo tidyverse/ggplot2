@@ -9,7 +9,10 @@ locate_grid <- function(data, panels, rows = NULL, cols = NULL, margins = FALSE)
   vars <- c(names(rows), names(cols))
   
   # Compute facetting values and add margins
-  data <- add_margins(data, list(names(rows), names(cols)), margins)
+  margin_vars <- list(intersect(names(rows), names(data)),
+    intersect(names(cols), names(data)))
+  data <- add_margins(data, margin_vars, margins)
+
   # Workaround for bug in reshape
   data <- unique(data)
   facet_vals <- quoted_df(data, c(rows, cols))
@@ -37,6 +40,7 @@ locate_grid <- function(data, panels, rows = NULL, cols = NULL, margins = FALSE)
   } else {
     facet_vals[] <- lapply(facet_vals[], as.factor)
     facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
+    
     keys <- join.keys(facet_vals, panels, by = vars)
 
     data$PANEL <- panels$PANEL[match(keys$x, keys$y)]
