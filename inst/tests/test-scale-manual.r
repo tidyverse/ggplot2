@@ -31,3 +31,10 @@ test_that("named values work regardless of order", {
   expect_equal(cols(p + fill_scale(c(1, 3))), c("red", "black"))
 
 })
+
+test_that("values are matched when scale contains more unique valuesthan are in the data", {
+  s <- scale_colour_manual(values = c("8" = "c", "4" = "a",
+    "22" = "d", "6"  = "b"))
+  scale_train(s, c("4", "6", "8"))
+  expect_equal(scale_map(s, c("4", "6", "8")), c("a", "b", "c"))
+})
