@@ -16,3 +16,7 @@ p1 + facet_wrap(am~vs) + opts(legend.position = "left")
 p1 + facet_wrap(am~vs) + opts(legend.position = "bottom")
 p1 + facet_wrap(am~vs) + opts(legend.position = "right")
 p1 + facet_wrap(am~vs) + opts(legend.position = "top")
+
+# padding
+dat <- data.frame(x=LETTERS[1:3], y=1)
+ggplot(dat, aes(x=x, y=y, fill=x, colour = 1:3)) + geom_bar() + opts(legend.background = theme_rect()) + guides(color = "colorbar")
