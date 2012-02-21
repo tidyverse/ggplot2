@@ -27,7 +27,7 @@ NULL
 #' @export
 #' @param aesthetics character 
 #' @keywords internal
-continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, minor_breaks = NULL, labels = NULL, legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="legend") {
+continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="legend") {
 
   if (!is.null(legend)) {
     warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
@@ -75,7 +75,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #'
 #' @export
 #' @keywords internal
-discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = NULL, labels = NULL, legend = NULL, limits = NULL, expand = c(0, 0), na.value = NA, drop = TRUE, guide="legend") {
+discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, expand = c(0, 0), na.value = NA, drop = TRUE, guide="legend") {
 
   if (!is.null(legend)) {
     warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
@@ -259,10 +259,15 @@ scale_breaks <- function(scale, limits = scale_limits(scale)) {
 scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   # Limits in transformed space need to be converted back to data space
   limits <- scale$trans$inv(limits)
-  
-  if (zero_range(as.numeric(limits))) {
+
+  if (is.null(scale$breaks)) {
+    return(NULL)
+  } else if (length(scale$breaks) == 1 && !is.function(scale$breaks) && is.na(scale$breaks)) {
+    warning("breaks = NA is deprecated. Please use breaks = NULL to remove breaks in the scale.")
+    return(NULL)
+  } else if (zero_range(as.numeric(limits))) {
     breaks <- limits[1]
-  } else if (is.null(scale$breaks)) {
+  } else if (is.waive(scale$breaks)) {
     breaks <- scale$trans$breaks(limits)
   } else if (is.function(scale$breaks)) {
     breaks <- scale$breaks(limits)
@@ -283,6 +288,11 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
 #' @S3method scale_breaks discrete
 scale_breaks.discrete <- function(scale, limits = scale_limits(scale)) {
   if (is.null(scale$breaks)) {
+    return(NULL)
+  } else if (length(scale$breaks) == 1 && !is.function(scale$breaks) && is.na(scale$breaks)) {
+    warning("breaks = NA is deprecated. Please use breaks = NULL to remove breaks in the scale.")
+    return(NULL)
+  } else if (is.waive(scale$breaks)) {
     breaks <- limits
   } else if (is.function(scale$breaks)) {
     breaks <- scale$breaks(limits)
@@ -309,8 +319,13 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
   if (zero_range(as.numeric(limits))) {
     return()
   }
-  
+
   if (is.null(scale$minor_breaks)) {
+    return(NULL)
+  } else if (length(scale$minor_breaks) == 1 && !is.function(scale$minor_breaks) && is.na(scale$minor_breaks)) {
+    warning("minor_breaks = NA is deprecated. Please use minor_breaks = NULL to remove minor breaks in the scale.")
+    return(NULL)
+  } else if (is.waive(scale$minor_breaks)) {
     b <- b[!is.na(b)]
     if (length(b) < 2) return()
 
@@ -329,6 +344,38 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
   discard(breaks, scale_dimension(scale))
 }
 
+scale_breaks_minor.date <- function(scale, n = 2, b = scale_break_positions(scale), limits = scale_limits(scale)) {
+  limits <- scale$trans$inv(limits)
+  
+  if (zero_range(as.numeric(limits))) {
+    return(NULL)
+  }
+
+  if (is.null(scale$minor_breaks)) {
+    return(NULL)
+  } else if (length(scale$minor_breaks) == 1 && !is.function(scale$minor_breaks) && is.na(scale$minor_breaks)) {
+    warning("minor_breaks = NA is deprecated. Please use minor_breaks = NULL to remove minor breaks in the scale.")
+    return(NULL)
+  } else if (is.waive(scale$minor_breaks)) {
+    b <- b[!is.na(b)]
+    if (length(b) < 2) return()
+
+    bd <- diff(b)[1]
+    if (min(limits) < min(b)) b <- c(b[1] - bd, b)
+    if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
+    breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length=n+1,
+      SIMPLIFY = FALSE)))
+  } else if (is.function(scale$minor_breaks)) {
+    breaks <- scale$minor_breaks(scale$trans$inv(limits))
+  } else {
+    breaks <- scale$minor_breaks
+  }
+  
+  # Any minor breaks outside the dimensions need to be thrown away
+  breaks <- censor(scale$trans$trans(breaks), scale_dimension(scale))
+}
+scale_breaks_minor.datetime <- scale_breaks_minor.date
+
 #' @S3method scale_breaks_minor discrete
 scale_breaks_minor.discrete <- function(...) NULL
 
@@ -344,9 +391,16 @@ scale_labels <- function(scale, breaks = scale_breaks(scale)) {
 
 #' @S3method scale_labels continuous
 scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
+  if (is.null(breaks)) return(NULL)
+                                                                          
   breaks <- scale$trans$inv(breaks)
-  
+
   if (is.null(scale$labels)) {
+    return(NULL)
+  } else if (length(scale$labels) == 1 && !is.function(scale$labels) && is.na(scale$labels)) {
+    warning("labels = NA is deprecated. Please use labels = NULL to remove labels in the scale.")
+    return(NULL)
+  } else if (is.waive(scale$labels)) {
     labels <- scale$trans$format(breaks)
   } else if (is.function(scale$labels)) {
     labels <- scale$labels(breaks)
@@ -361,7 +415,14 @@ scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
 
 #' @S3method scale_labels discrete
 scale_labels.discrete <- function(scale, breaks = scale_breaks(scale)) {
+  if (is.null(breaks)) return(NULL)
+  
   if (is.null(scale$labels)) {
+    return(NULL)
+  } else if (length(scale$labels) == 1 && !is.function(scale$labels) && is.na(scale$labels)) {
+    warning("labels = NA is deprecated. Please use labels = NULL to remove labels in the scale.")
+    return(NULL)
+  }else if (is.waive(scale$labels)) {
     format(scale_breaks(scale), justify = "none", trim = TRUE)
   } else if (is.function(scale$labels)) {
     scale$labels(breaks)
