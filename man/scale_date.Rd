@@ -3,11 +3,11 @@
 \alias{scale_y_date}
 \title{Position scale, date}
 \usage{
-  scale_x_date(..., expand = c(0.05, 0), breaks = NULL,
-    minor_breaks = NULL)
+  scale_x_date(..., expand = c(0.05, 0), breaks = waiver(),
+    minor_breaks = waiver())
 
-  scale_y_date(..., expand = c(0.05, 0), breaks = NULL,
-    minor_breaks = NULL)
+  scale_y_date(..., expand = c(0.05, 0), breaks = waiver(),
+    minor_breaks = waiver())
 }
 \arguments{
   \item{breaks}{A vector of breaks, a function that given
@@ -56,6 +56,7 @@ dt + scale_x_date(breaks = date_breaks("4 weeks"),
 # We can use character string for breaks.
 # See \\code{\\link{by}} argument in \\code{\\link{seq.Date}}.
 dt + scale_x_date(breaks = "2 weeks")
+dt + scale_x_date(breaks = "1 month", minor_breaks = "1 week")
 
 # The date scale will attempt to pick sensible defaults for
 # major and minor tick marks

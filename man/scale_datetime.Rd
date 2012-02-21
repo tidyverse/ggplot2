@@ -3,11 +3,11 @@
 \alias{scale_y_datetime}
 \title{Position scale, date}
 \usage{
-  scale_x_datetime(..., expand = c(0.05, 0), breaks = NULL,
-    minor_breaks = NULL)
+  scale_x_datetime(..., expand = c(0.05, 0),
+    breaks = waiver(), minor_breaks = waiver())
 
-  scale_y_datetime(..., expand = c(0.05, 0), breaks = NULL,
-    minor_breaks = NULL)
+  scale_y_datetime(..., expand = c(0.05, 0),
+    breaks = waiver(), minor_breaks = waiver())
 }
 \arguments{
   \item{breaks}{A vector of breaks, a function that given
@@ -65,6 +65,8 @@ last_plot() + scale_x_datetime(breaks = date_breaks("10 days"))
 library(scales) # to access breaks/formatting functions
 last_plot() + scale_x_datetime(breaks = date_breaks("10 days"),
   labels = date_format("\%d/\%m"))
+last_plot() + scale_x_datetime(breaks = date_breaks("1 day"),
+  minor_breaks = date_breaks("2 hour"))
 }
 \seealso{
   Other position scales: \code{\link{scale_x_continuous}},
