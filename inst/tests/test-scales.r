@@ -95,41 +95,6 @@ test_that("position scales generate after stats", {
   
 })
 
-test_that("scale_breaks with explicit NA options", {
-  # X
-  sxc <- scale_x_continuous(breaks=NA)
-  scale_train(sxc, 1:3)
-  expect_identical(scale_breaks(sxc), NA)
-  expect_identical(scale_breaks_minor(sxc), NULL)
-  
-  # Y
-  syc <- scale_y_continuous(breaks=NA)
-  scale_train(syc, 1:3)
-  expect_identical(scale_breaks(syc), NA)
-  expect_identical(scale_breaks_minor(syc), NULL)
-  
-  # Alpha
-  sac <- scale_alpha_continuous(breaks=NA)
-  scale_train(sac,1:3)
-  expect_identical(scale_breaks(sac), NA)
-  
-  # Size
-  ssc <- scale_size_continuous(breaks=NA)
-  scale_train(ssc,1:3)
-  expect_identical(scale_breaks(ssc), NA)
-  
-  # Fill
-  sfc <- scale_fill_continuous(breaks=NA)
-  scale_train(sfc,1:3)
-  expect_identical(scale_breaks(sfc), NA)
-  
-  # Colour
-  scc <- scale_colour_continuous(breaks=NA)
-  scale_train(scc,1:3)
-  expect_identical(scale_breaks(scc), NA)
-    
-})
-
 test_that("oob affects position values", {
   dat <- data.frame(x=c("a", "b", "c"), y=c(1, 5, 10))
   base <- ggplot(dat, aes(x=x, y=y)) + 
@@ -160,3 +125,4 @@ test_that("oob affects position values", {
   
   
 })
+
