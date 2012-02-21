@@ -150,9 +150,12 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
     facets <- as.formula(facets)
   }
   if (is.formula(facets)) {
-    rows <- as.quoted(facets[[2]])
+    lhs <- function(x) if(length(x) == 2) NULL else x[-3]
+    rhs <- function(x) if(length(x) == 2) x else x[-2]
+    
+    rows <- as.quoted(lhs(facets))
     rows <- rows[!sapply(rows, identical, as.name("."))]
-    cols <- as.quoted(facets[[3]])
+    cols <- as.quoted(rhs(facets))
     cols <- cols[!sapply(cols, identical, as.name("."))]
   }
   if (is.list(facets)) {
@@ -170,6 +173,7 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
     subclass = "grid"
   )
 }
+
 
 #' @S3method facet_train_layout grid
 facet_train_layout.grid <- function(facet, data) { 
