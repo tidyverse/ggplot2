@@ -113,7 +113,7 @@ scale_map.position_d <- function(scale, x) {
 #' @S3method scale_dimension position_d
 scale_dimension.position_d <- function(scale, expand = scale$expand) {
   disc_range <- c(1, length(scale_limits(scale)))
-  disc <- expand_range(disc_range, 0, expand[2], expand[2])
+  disc <- expand_range(disc_range, 0, expand[2], 1)
   cont <- expand_range(scale$range_c$range, expand[1], 0, expand[2])
   
   range(disc, cont)
