@@ -121,7 +121,9 @@ GeomPath <- proto(Geom, {
       "linetype")])
     kept <- ave(missing, data$group, FUN=keep)
     data <- data[kept, ]
-    
+    # must be sorted on group
+    data <- arrange(data, group)
+
     if (!all(kept) && !na.rm) {
       warning("Removed ", sum(!kept), " rows containing missing values", 
         " (geom_path).", call. = FALSE)
