@@ -101,6 +101,10 @@ GeomDotplot <- proto(Geom, {
     }
 
     params <- list(...)
+    # American names must be changed here so that they'll go to geom_params;
+    # otherwise they'll end up in stat_params
+    params <- rename_aes(params)
+
     geom_params <- match.params(.$parameters(), params)
     stat_params <- match.params(stat$parameters(), params)
     stat_params <- stat_params[setdiff(names(stat_params), names(geom_params))]
