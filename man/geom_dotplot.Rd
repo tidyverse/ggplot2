@@ -75,6 +75,12 @@
 
   With histodot binning, the bins have fixed positions and
   fixed widths, much like a histogram.
+
+  When binning along the x axis and stacking along the y
+  axis, the numbers on y axis are not meaningful, due to
+  technical limitations of ggplot2. You can hide the y
+  axis, as in one of the examples, or manually scale it to
+  match the number of dots.
 }
 \examples{
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot()
