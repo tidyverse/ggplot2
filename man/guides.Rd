@@ -8,7 +8,7 @@
   \item{...}{List of scale guide pairs}
 }
 \value{
-  A list containing mapping between scale and guide.
+  A list containing the mapping between scale and guide.
 }
 \description{
   Guides for each scale can be set in call of
@@ -23,7 +23,7 @@ dat <- data.frame(x = 1:5, y = 1:5, p = 1:5, q = factor(1:5),
  r = factor(1:5))
 p <- ggplot(dat, aes(x, y, colour = p, size = q, shape = r)) + geom_point()
 
-# without guide specificatoin
+# without guide specification
 p
 
 # Show colorbar guide for colour.

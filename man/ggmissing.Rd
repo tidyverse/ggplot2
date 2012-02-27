@@ -19,9 +19,9 @@
 }
 \description{
   The missing values plot is a useful tool to get a rapid
-  overview of the number of missings in a dataset.  It's
-  strength is much more apparent when used with interactive
-  graphics, as you can see in Mondrian
+  overview of the number and pattern of missing values in a
+  dataset. Its strength is much more apparent when used
+  with interactive graphics, as you can see in Mondrian
   (\url{http://rosuda.org/mondrian}) where this plot was
   copied from.
 }

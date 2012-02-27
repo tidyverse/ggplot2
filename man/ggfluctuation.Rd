@@ -21,14 +21,14 @@
 }
 \description{
   A fluctutation diagram is a graphical representation of a
-  contingency table.  This fuction currently only supports
-  2D contingency tabless but extension to more should be
-  relatively straightforward.
+  contingency table.  This function only supports 2D
+  contingency tables at present but extension to higher
+  dimensions should be relatively straightforward.
 }
 \details{
   With the default size fluctuation diagram, area is
   proportional to the count (length of sides proportional
-  to sqrt(count))
+  to sqrt(count)).
 }
 \examples{
 ggfluctuation(table(movies$Action, movies$Comedy))

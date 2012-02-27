@@ -44,8 +44,8 @@
 #' df <- data.frame(gp = factor(rep(letters[1:3], each = 10)),
 #'                  y = rnorm(30))
 #' # Compute sample mean and standard deviation in each group
-#' ds <- plyr::ddply(df, .(gp), summarise,
-#'                  mean = mean(y), sd = sd(y))
+#' library(plyr)
+#' ds <- ddply(df, .(gp), summarise, mean = mean(y), sd = sd(y))
 #'
 #' # Declare the data frame and common aesthetics.
 #' # The summary data frame ds is used to plot
@@ -71,8 +71,6 @@
 #'   geom_errorbar(data = ds, aes(x = gp, y = mean, 
 #'                     ymin = mean - sd, ymax = mean + sd),
 #'                     colour = 'red', width = 0.4)
-#' 
-
 ggplot <- function(data = NULL, ...) UseMethod("ggplot")
 
 #' @S3method ggplot default
@@ -89,8 +87,7 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...) {
 #' @param environment in which evaluation of aesthetics should occur
 #' @seealso \url{http://had.co.nz/ggplot2}
 #' @method ggplot data.frame
-
-#' @S3method ggplot data.frame
+#' @export
 ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be created with aes or aes_string")
   

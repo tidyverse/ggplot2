@@ -23,7 +23,7 @@
 
   \item{as.table}{If \code{TRUE}, the default, the facets
   are laid out like a table with highest values at the
-  bottom-right. If \code{FALSE}, the facet are laid out
+  bottom-right. If \code{FALSE}, the facets are laid out
   like a plot with the highest value at the top-right.}
 
   \item{drop}{If \code{TRUE}, the default, all factor

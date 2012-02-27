@@ -12,7 +12,7 @@
   \item{...}{not used by this method}
 }
 \description{
-  This function turns a map into a data frame than can more
+  This function turns a map into a data frame that can more
   easily be plotted with ggplot2.
 }
 \examples{

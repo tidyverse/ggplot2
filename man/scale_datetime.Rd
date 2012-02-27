@@ -17,6 +17,12 @@
   \code{\link{continuous_scale}}, for more information
   about the last, see \code{\link[scales]{date_breaks}}`.}
 
+  \item{minor_breaks}{Either \code{NULL} for no minor
+  breaks, \code{waiver()} for the default breaks (one minor
+  break between each major break), a numeric vector of
+  positions, or a function that given the limits returns a
+  vector of minor breaks.}
+
   \item{...}{common continuous scale parameters:
   \code{name}, \code{breaks}, \code{labels},
   \code{na.value}, \code{limits} and \code{trans}.  See

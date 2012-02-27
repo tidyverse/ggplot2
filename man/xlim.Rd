@@ -5,8 +5,8 @@
   xlim(...)
 }
 \arguments{
-  \item{...}{if numeric, will create a continuos scale, if
-  factor or character, will create a discrete scale}
+  \item{...}{if numeric, will create a continuous scale, if
+  factor or character, will create a discrete scale.}
 }
 \description{
   Convenience function to set the limits of the x axis.
