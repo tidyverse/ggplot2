@@ -71,6 +71,6 @@ icon.flip <- function(.) {
     segmentsGrob(0, 0, 0, 1),
     segmentsGrob(0, 0, 1, 0),
     linesGrob(0.9 * sin(angles), 0.9 * cos(angles), arrow=arrow(length=unit(0.05, "npc"))),
-    linesGrob(0.5 * sin(angles), 0.5 * cos(angles), arrow=arrow(end="first", length= unit(0.05, "npc")))
+    linesGrob(0.5 * sin(angles), 0.5 * cos(angles), arrow=arrow(ends="first", length= unit(0.05, "npc")))
   ))
 }

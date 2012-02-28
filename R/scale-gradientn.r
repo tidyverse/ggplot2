@@ -27,9 +27,9 @@
 #' values <- seq(-max_val, max_val, length = 11)
 #' 
 #' d + scale_colour_gradientn(colours = topo.colors(10), 
-#'   values = values, rescale = function(x, ...) x, oob = identity)
+#'   values = values, rescaler = function(x, ...) x, oob = identity)
 #' d + scale_colour_gradientn(colours = terrain.colors(10), 
-#'   values = values, rescale = function(x, ...) x, oob = identity)
+#'   values = values, rescaler = function(x, ...) x, oob = identity)
 #' }
 scale_colour_gradientn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50") {
   continuous_scale("colour", "gradientn", 
