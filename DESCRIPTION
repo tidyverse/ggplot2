@@ -160,6 +160,7 @@ Collate:
     'stat-bin2d.r'
     'stat-binhex.r'
     'stat-boxplot.r'
+    'stat-cbin.r'
     'stat-contour.r'
     'stat-density-2d.r'
     'stat-density.r'
