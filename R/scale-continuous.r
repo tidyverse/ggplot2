@@ -39,11 +39,12 @@
 #' m + scale_x_continuous(breaks=c(2,5,8), labels=c("horrible", "ok", "awesome"))
 #' m + scale_x_continuous(breaks=c(2,5,8), labels=expression(Alpha, Beta, Omega))
 #' 
-#' # There are also a wide range of transformations you can use:
+#' # There are a few built in transformation that you can use:
 #' m + scale_y_log10()
 #' m + scale_y_sqrt()
 #' m + scale_y_reverse()
-#' # see ?transformer for a full list
+#' # You can also create you own and supply them to the trans argument.
+#' # See ?scale::trans_new
 #' 
 #' # You can control the formatting of the labels with the formatter
 #' # argument.  Some common formats are built into the scales package:

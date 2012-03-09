@@ -11,6 +11,11 @@
 }
 \arguments{
   \item{aesthetics}{character}
+
+  \item{trans}{A transformation object, as created by
+  \code{\link[scales]{trans_new}}.  You can also give the
+  name of the transformer: e.g. instead of
+  \code{log2_trans()} you can use \code{"log2"}.}
 }
 \description{
   Continuous scale constructor.
