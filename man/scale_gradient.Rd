@@ -103,6 +103,8 @@ Other colour scales: \code{\link{scale_color_brewer}},
   \code{\link{scale_fill_brewer}};
   \code{\link{scale_color_discrete}},
   \code{\link{scale_color_hue}},
+  \code{\link{scale_colour_brewer}},
+  \code{\link{scale_colour_brewerc}},
   \code{\link{scale_colour_discrete}},
   \code{\link{scale_colour_hue}},
   \code{\link{scale_fill_discrete}},
@@ -116,5 +118,13 @@ Other colour scales: \code{\link{scale_color_brewer}},
   \code{\link{scale_color_grey}},
   \code{\link{scale_colour_grey}},
   \code{\link{scale_fill_grey}}
+  \code{\link{scale_colour_hue}},
+  \code{\link{scale_fill_brewer}},
+  \code{\link{scale_fill_brewerc}},
+  \code{\link{scale_fill_discrete}},
+  \code{\link{scale_fill_gradient2}},
+  \code{\link{scale_fill_gradientn}},
+  \code{\link{scale_fill_grey}},
+  \code{\link{scale_fill_hue}}
 }
 
