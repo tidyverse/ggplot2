@@ -1,12 +1,20 @@
 \name{scale_colour_brewer}
 \alias{scale_color_brewer}
 \alias{scale_colour_brewer}
+\alias{scale_colour_brewerc}
 \alias{scale_fill_brewer}
+\alias{scale_fill_brewerc}
 \title{Sequential, diverging and qualitative colour scales from colorbrewer.org}
 \usage{
   scale_colour_brewer(..., type = "seq", palette = 1)
 
   scale_fill_brewer(..., type = "seq", palette = 1)
+
+  scale_colour_brewerc(..., type = "seq", palette = 1,
+    values = NULL, space = "Lab", na.value = "grey50")
+
+  scale_fill_brewerc(..., type = "seq", palette = 1,
+    values = NULL, space = "Lab", na.value = "grey50")
 
   scale_color_brewer(..., type = "seq", palette = 1)
 }
@@ -21,6 +29,8 @@
   \item{...}{Other arguments passed on to
   \code{\link{discrete_scale}} to control name, limits,
   breaks, labels and so forth.}
+
+  \item{na.value}{Colour to use for missing values}
 }
 \description{
   See \url{http://colorbrewer2.org} for more information.
