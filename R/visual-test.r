@@ -1,31 +1,30 @@
 # Set the context of the visual tests
 # This creates vis_context and vis_info in the Global environment
 vcontext <- function(context) {
-  assign("vis_context", context, envir = .GlobalEnv)
-  assign("vis_info", list(), envir = .GlobalEnv)
+  .GlobalEnv$vis_context <- context
+  .GlobalEnv$vis_info <- list()
   message("\n", context, appendLF = FALSE)
 }
 
-
 # Save a test to file, and record information to vis_info
-save_vtest <- function(name = "", desc = NULL, subdir = NULL, width = 4, height = 4, dpi = 72, device = "Cairo_png") {
+save_vtest <- function(name = "", desc = NULL, subdir = NULL, width = 4, height = 4,
+                       dpi = 72, device = "pdf") {
 
-  # Cairo_png from cairoDevice package seems to be only good cross-platform output device
-  if (device == "Cairo_png") require(cairoDevice)
   if (is.character(device)) device <- match.fun(device)
 
   if (is.null(subdir))
-    subdir <-  get("vis_context", envir = .GlobalEnv)
+    subdir <- .GlobalEnv$vis_context
 
   destdir <- file.path("visual_test", subdir)
   dir.create(destdir, showWarnings = FALSE)
 
-  filename <- paste(name, ".png", sep="")
-  ggsave(file.path(destdir, filename), width = width, height = height, dpi = dpi, device = device)
+  filename <- paste(name, device , sep=".")
+  ggsave(file.path(destdir, filename), width = width, height = height,
+         dpi = dpi, device = device, compress = FALSE)
 
   testinfo <- list(filename = filename, name = name, desc = desc)
   # Append the info for this test in the vis_info list
-  assign("vis_info", c(get("vis_info", envir = .GlobalEnv), list(testinfo)), envir = .GlobalEnv)
+  .GlobalEnv$vis_info <- c(.GlobalEnv$vis_info, list(testinfo))
 
   message(".", appendLF = FALSE)
 }
@@ -34,7 +33,7 @@ save_vtest <- function(name = "", desc = NULL, subdir = NULL, width = 4, height 
 # Make the web page for the current test context
 # Reads from vis_context and vis_info
 make_vtest_webpage <- function() {
-  context <- get("vis_context", envir = .GlobalEnv)
+  context <- .GlobalEnv$vis_context
 
   outfile <- file.path("visual_test", context, "index.html")
 
@@ -52,9 +51,8 @@ make_vtest_webpage <- function() {
 
   write("<TABLE border='1'>\n", outfile, append = TRUE)
   # Get the list of info about all tests
-  info <- get("vis_info", envir = .GlobalEnv)
   # Write information about all the items in vis_info
-  write(sapply(info, item_html), outfile, sep = "\n", append = TRUE)
+  write(sapply(.GlobalEnv$vis_info, item_html), outfile, sep = "\n", append = TRUE)
 
   write("</TABLE></BODY></HTML>", outfile, append = TRUE)
 
