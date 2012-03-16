@@ -357,3 +357,10 @@ relativePath <- function(path, start = NULL) {
   # Build the relative path, adding ..'s for each path level in s
   paste(c(rep("..", length(s)-lastmatch), p), collapse="/")
 }
+
+
+# Run all the visual tests
+visual_test <- function(pattern = "\\.r$") {
+  files <- dir("visual_test", pattern, full.names = TRUE, include.dirs = FALSE)
+  lapply(files, source)
+}
