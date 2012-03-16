@@ -1,6 +1,5 @@
 # Set the context of the visual tests
 # This creates vis_context and vis_info in the Global environment
-# TODO: Give message if previous context is not closed
 
 
 get_vcontext <- NULL
@@ -43,6 +42,7 @@ finish_vcontext <- function() {
 # This presently only works with pdf; other file types will fail
 save_vtest <- function(desc = NULL, subdir = NULL, width = 4, height = 4,
                        dpi = 72, device = "pdf") {
+  # TODO: check for active context
   # TODO: Check that device must be "pdf" (others may be possible in future)
   require(digest)
 
@@ -194,6 +194,7 @@ convert_pdf2png <- function(t, indir, outdir) {
 
 
 # Make visual diff from two refs
+# TODO: when convertpng==TRUE, don't convert PDFs twice if they're identical
 vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE) {
   # TODO: Check 'git' in path, or allow passing in git path
   # TODO: Check imagemagick in path

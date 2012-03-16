@@ -1,58 +1,60 @@
+vcontext("lines")
+
 dat <- data.frame(x=LETTERS[1:5], y=1:5)
 
 # geom_abline tests
 
 ggplot(dat, aes(x=x, y=y)) + geom_bar() +
-  geom_abline(intercept = 2, slope = 0, colour = "red") +
-  opts(title="geom_abline: intercept=2, slope=0")
+  geom_abline(intercept = 2, slope = 0, colour = "red")
+save_vtest("geom_abline: intercept=2, slope=0")
 
 ggplot(dat, aes(x=x, y=y)) + geom_bar() +
   geom_abline(intercept = 0, slope = 1, colour = "red") +
-  opts(title="geom_abline: intercept=0, slope=1\nShould have same values as bars")
+save_vtest("geom_abline: intercept=0, slope=1 Should have same values as bars")
 
 ggplot(dat, aes(x=x, y=y)) + geom_bar() +
   geom_abline(intercept = 2, slope = 0, colour = "red") +
   coord_flip() +
-  opts(title="geom_abline, coord_flip: intercept=2, slope=0")
+save_vtest("geom_abline, coord_flip: intercept=2, slope=0")
 
 ggplot(dat, aes(x=x, y=y)) + geom_bar() +
   geom_abline(intercept = 0, slope = 1, colour = "red") +
   coord_flip() +
-  opts(title="geom_abline, coord_flip: intercept=0, slope=1\nShould have same values as bars")
+save_vtest("geom_abline, coord_flip: intercept=0, slope=1, should have same values as bars")
 
 
 # geom_hline tests
 
 ggplot(dat, aes(x=x, y=y)) + geom_bar() +
   geom_hline(yintercept = 2, colour = "red") +
-  opts(title="geom_hline: intercept=2")
+save_vtest("geom_hline: intercept=2")
 
 ggplot(dat, aes(x=x, y=y)) + geom_bar() +
   geom_hline(yintercept = 2, colour = "red") +
   coord_flip() +
-  opts(title="geom_hline, coord_flip: intercept=2")
+save_vtest("geom_hline, coord_flip: intercept=2")
 
 ggplot(dat, aes(x=x, y=y)) + geom_bar() +
   geom_hline(yintercept = 2, colour = "red") +
   coord_polar() +
-  opts(title="geom_hline, coord_polar: intercept=2\nShould have a circle at r=2")
+save_vtest("geom_hline, coord_polar: intercept=2, should have a circle at r=2")
 
 
 # geom_vline tests
 
 ggplot(dat, aes(x=x, y=y)) + geom_bar() +
   geom_vline(xintercept = 2, colour = "red") +
-  opts(title="geom_vline: intercept=2")
+save_vtest("geom_vline: intercept=2")
 
 ggplot(dat, aes(x=x, y=y)) + geom_bar() +
   geom_vline(xintercept = 2, colour = "red") +
   coord_flip() +
-  opts(title="geom_vline, coord_flip: intercept=2")
+save_vtest("geom_vline, coord_flip: intercept=2")
 
 ggplot(dat, aes(x=x, y=y)) + geom_bar() +
   geom_vline(xintercept = 2, colour = "red") +
   coord_polar() +
-  opts(title="geom_vline, coord_polar: intercept=2\nShould have a ray at 2")
+save_vtest("geom_vline, coord_polar: intercept=2, should have a ray at 2")
 
 
 # hline, vline, and abline tests with coord_map
@@ -63,25 +65,27 @@ nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
 nzmap <- qplot(x, y, data=nz, geom="path")
 
 nzmap + geom_hline(yintercept=-45) + coord_map() +
-  opts(title="geom_hline: intercept=-45,\nprojection=mercator")
+  opts(title="geom_hline: intercept=-45, projection=mercator")
 nzmap + geom_vline(xintercept=172) + coord_map() +
-  opts(title="geom_vline: intercept=172,\nprojection=mercator")
+  opts(title="geom_vline: intercept=172, projection=mercator")
 nzmap + geom_abline(intercept=130, slope=-1) + coord_map() +
-  opts(title="geom_abline: intercept=130, slope=-1\nprojection=mercator")
+  opts(title="geom_abline: intercept=130, slope=-1 projection=mercator")
 
 nzmap + geom_hline(yintercept=-45) + coord_map(project="cylindrical") +
-  opts(title="geom_hline: intercept=-45,\nprojection=cylindrical")
+  opts(title="geom_hline: intercept=-45, projection=cylindrical")
 nzmap + geom_vline(xintercept=172) + coord_map(project="cylindrical") +
-  opts(title="geom_vline: intercept=172,\nprojection=cylindrical")
+  opts(title="geom_vline: intercept=172, projection=cylindrical")
 nzmap + geom_abline(intercept=130, slope=-1) + coord_map(project="cylindrical") +
-  opts(title="geom_abline: intercept=130, slope=-1\nprojection=cylindrical")
+  opts(title="geom_abline: intercept=130, slope=-1 projection=cylindrical")
 
 nzmap + geom_hline(yintercept=-45) +
   coord_map(project='azequalarea',orientation=c(-36.92,174.6,0))  +
-  opts(title="geom_hline: intercept=-45,\nprojection=azequalarea")
+  opts(title="geom_hline: intercept=-45, projection=azequalarea")
 nzmap + geom_vline(xintercept=172) +
   coord_map(project='azequalarea',orientation=c(-36.92,174.6,0)) +
-  opts(title="geom_vline: intercept=172,\nprojection=azequalara")
+  opts(title="geom_vline: intercept=172, projection=azequalara")
 nzmap + geom_abline(intercept=130, slope=-1) +
   coord_map(project='azequalarea',orientation=c(-36.92,174.6,0)) +
-  opts(title="geom_abline: intercept=130, slope=-1\nprojection=azequalarea")
+  opts(title="geom_abline: intercept=130, slope=-1 projection=azequalarea")
+
+finish_vcontext()
