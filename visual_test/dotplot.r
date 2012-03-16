@@ -110,4 +110,4 @@ ggplot(dat2, aes(x=as.numeric(x), y=y)) +
   geom_dotplot(binwidth=.2, binaxis="y", stackdir="center")
 save_vtest("biny-contx-singlex", "Bin y, continous x-axis, single x group")
 
-make_vtest_webpage()
+finish_vcontext()

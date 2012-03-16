@@ -25,4 +25,4 @@ save_vtest("grid-row-0.3", "Width is 3 times height, 2 row facets")
 p + facet_grid(f1~f2) + opts(aspect.ratio=1/3)
 save_vtest("grid-row-col-0.3", "Width is 3 times height, 2x2 facets")
 
-make_vtest_webpage()
+finish_vcontext()
