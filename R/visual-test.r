@@ -7,20 +7,32 @@ vcontext <- function(context) {
 }
 
 # Save a test to file, and record information to vis_info
+# This presently only works with pdf; other file types will fail
 save_vtest <- function(name = "", desc = NULL, subdir = NULL, width = 4, height = 4,
                        dpi = 72, device = "pdf") {
 
-  if (is.character(device)) device <- match.fun(device)
-
-  if (is.null(subdir))
-    subdir <- .GlobalEnv$vis_context
+  if (is.null(subdir))  subdir <- .GlobalEnv$vis_context
 
   destdir <- file.path("visual_test", subdir)
   dir.create(destdir, showWarnings = FALSE)
 
-  filename <- paste(name, device , sep=".")
-  ggsave(file.path(destdir, filename), width = width, height = height,
+  device <- match.fun(device)
+  # Save it to vistest.pdf in the temp dir
+  ggsave(file.path(tempdir(), "vistest.pdf"), width = width, height = height,
          dpi = dpi, device = device, compress = FALSE)
+
+  # Load vistest.pdf and modify the CreationDate and ModDate (lines 5 and 6)
+  temppdf <- file(file.path(tempdir(), "vistest.pdf"), "r")
+  pdftext <- readLines(temppdf)
+  close(temppdf)
+  pdftext[5] <- "/CreationDate (D:00000000000000)"
+  pdftext[6] <- "/ModDate (D:00000000000000)"
+
+  # Write the modified PDF file to the final destination file
+  filename <- paste(name, device , sep=".")
+  outpdf <- file(file.path(destdir, filename), "w")
+  writeLines(pdftext, outpdf)
+  close(outpdf)
 
   testinfo <- list(filename = filename, name = name, desc = desc)
   # Append the info for this test in the vis_info list
