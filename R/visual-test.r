@@ -1,17 +1,54 @@
 # Set the context of the visual tests
 # This creates vis_context and vis_info in the Global environment
+# TODO: Give message if previous context is not closed
+
+
+get_vcontext <- NULL
+set_vcontext <- NULL
+get_vtestinfo <- NULL
+append_vtestinfo <- NULL
+
+local({
+  context <- NULL
+  testinfo <- NULL
+
+  get_vcontext <<- function() context
+  set_vcontext <<- function(value) {
+    context <<- value
+    testinfo <<- list()
+  }
+  get_vtestinfo <<- function() testinfo
+  append_vtestinfo <<- function(value) testinfo <<- c(testinfo, list(value))
+})
+
+
+# ISSUE: move this into the local block?
 vcontext <- function(context) {
-  .GlobalEnv$vis_context <- context
-  .GlobalEnv$vis_info <- list()
-  message("\n", context, appendLF = FALSE)
+  if (!is.null(get_vcontext()))
+    stop("Can't open new context while current context is still open. Use finish_vcontext().")
+  set_vcontext(context)
+  message(context, appendLF = FALSE)
 }
 
-# Save a test to file, and record information to vis_info
-# This presently only works with pdf; other file types will fail
-save_vtest <- function(name = "", desc = NULL, subdir = NULL, width = 4, height = 4,
-                       dpi = 72, device = "pdf") {
+# ISSUE: move this into the local block?
+finish_vcontext <- function() {
+  message("")         # Print a newline
+  make_vtest_webpage()
+  dput(get_vtestinfo(), file.path("visual_test", get_vcontext(), "testinfo.dat"))
+  set_vcontext(NULL)  # Reset the context
+}
 
-  subdir <-  .GlobalEnv$vis_context
+
+# Save an individual test to file, and record information using apped_vtestinfo
+# This presently only works with pdf; other file types will fail
+save_vtest <- function(desc = NULL, subdir = NULL, width = 4, height = 4,
+                       dpi = 72, device = "pdf") {
+  # TODO: Check that device must be "pdf" (others may be possible in future)
+  require(digest)
+
+  if (is.null(desc))  stop("desc must not be NULL")
+
+  subdir <- get_vcontext()
 
   destdir <- file.path("visual_test", subdir)
   dir.create(destdir, showWarnings = FALSE)    # Create dir if missing
@@ -29,58 +66,140 @@ save_vtest <- function(name = "", desc = NULL, subdir = NULL, width = 4, height 
   pdftext[6] <- "/ModDate (D:00000000000000)"
 
   # Write the modified PDF file to the final destination file
-  filename <- paste(name, device , sep=".")
+  hash <- digest(desc)
+  filename <- paste(hash, device, sep=".")
   outpdf <- file(file.path(destdir, filename), "w")
   writeLines(pdftext, outpdf)
   close(outpdf)
 
-  testinfo <- list(filename = filename, name = name, desc = desc)
   # Append the info for this test in the vis_info list
-  .GlobalEnv$vis_info <- c(.GlobalEnv$vis_info, list(testinfo))
+  append_vtestinfo(list(filename = filename, desc = desc, hash = hash, type = device, 
+                        width = width, height = height, dpi = dpi))
 
   message(".", appendLF = FALSE)
 }
 
 
-finish_vcontext <- function() {
-  make_vtest_webpage()
-  dput(.GlobalEnv$vis_info, file.path("visual_test", .GlobalEnv$vis_context, "testinfo.dat"))
-  message("")  # Print a newline
-}
-
-
 # Make the web page for the current test context
 # Reads from vis_context and vis_info
-make_vtest_webpage <- function() {
-  context <- .GlobalEnv$vis_context
+make_vtest_webpage <- function(subdir=NULL) {
 
-  outfile <- file.path("visual_test", context, "index.html")
+  if (is.null(subdir)) {
+    # By default, use the current vcontext (subdir is same as context)
+    subdir <- get_vcontext()
+    testinfo <- get_vtestinfo()
+  } else {
+    # If subdir is specified, read the testinfo from the file
+    testinfo <- dget(file.path("visual_test", subdir, "testinfo.dat"))
+  }
 
   # Write HTML code to show a single test
   item_html <- function(t) {
-    paste("<TR><TD ALIGN='center'>", t$name, "</TD></TR>\n",
-          "<TR><TD ALIGN='center'>", t$desc, "<BR>\n",
-          "  <IMG SRC='", t$filename , "'></TD></TR>\n",
-          "<TR><TD BGCOLOR='#000000'> &nbsp; </TD></TR>\n", sep="")
+    paste("<tr><td align='center'>", t$filename, "</td></tr>\n",
+          "<tr><td align='center'>", t$desc, "<br>\n",
+          "  <img src='", t$filename , "'></td></tr>\n",
+          "<tr><td bgcolor='#000000'> &nbsp; </td></tr>\n", sep="")
   }
 
-  write(paste("<HTML><HEAD><TITLE>ggplot2 tests: ", context,
-              "</TITLE></HEAD><BODY><H1>ggplot2 tests: ", context,
-              "</H1>\n", sep = ""), outfile)
+  outfile <- file.path("visual_test", subdir, "index.html")
+  message("Writing ", outfile)
 
-  write("<TABLE BORDER='1'>\n", outfile, append = TRUE)
+  write(paste("<html><head><title>ggplot2 tests: ", subdir,
+              "</title></head><body><h1>ggplot2 tests: ", subdir,
+              "</h1>\n", sep = ""), outfile)
+
+  write("<table border='1'>\n", outfile, append = TRUE)
   # Get the list of info about all tests
   # Write information about all the items in vis_info
-  write(sapply(.GlobalEnv$vis_info, item_html), outfile, sep = "\n", append = TRUE)
+  write(sapply(testinfo, item_html), outfile, sep = "\n", append = TRUE)
 
-  write("</TABLE></BODY></HTML>", outfile, append = TRUE)
+  write("</table></body></html>", outfile, append = TRUE)
 
 }
+
+
+convert_vtest_webpage_png <- function(subdir=NULL) {
+
+  if (is.null(subdir)) {
+    # By default, use the current vcontext (subdir is same as context)
+    subdir <- get_vcontext()
+    testinfo <- get_vtestinfo()
+  } else {
+    # If subdir is specified, read the testinfo from the file
+    testinfo <- dget(file.path("visual_test", subdir, "testinfo.dat"))
+  }
+
+  # Set the input and output directories
+  indir  <- file.path("visual_test", subdir)
+  outdir <- file.path("visual_test", "png", subdir)
+  unlink(outdir, recursive= TRUE)
+  dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
+
+  # Write HTML code to show a single test
+  item_html <- function(t) {
+    paste("<tr><td align='center'>", t$filename, "</td></tr>\n",
+          "<tr><td align='center'>", t$desc, "<br>\n",
+          "  <img src='", sub("\\.pdf$", "\\.png", t$filename) , "'></td></tr>\n",
+          "<tr><td bgcolor='#000000'> &nbsp; </td></tr>\n", sep="")
+  }
+
+  gen_images(testinfo, indir, outdir)
+
+  outfile <- file.path(outdir, "index.html")
+  message("Writing ", outfile)
+
+  write(paste("<html><head><title>ggplot2 tests: ", subdir,
+              "</title></head><body><h1>ggplot2 tests: ", subdir,
+              "</h1>\n", sep = ""), outfile)
+
+  write("<table border='1'>\n", outfile, append = TRUE)
+  # Get the list of info about all tests
+  # Write information about all the items in vis_info
+  write(sapply(testinfo, item_html), outfile, sep = "\n", append = TRUE)
+
+  write("</table></body></html>", outfile, append = TRUE)
+
+}
+
+
+# Generate the PNG images for a directory
+convert_pdf2png <- function(t, indir, outdir) {
+  filenames <- sapply(t, "[[", "filename")           # Filenames without path
+  infiles <- filenames[grepl("\\.pdf$", filenames)]  # Keep the .pdf files only
+  outfiles <- sub("\\.pdf$", ".png", infiles)
+
+  # Prepend paths
+  infiles  <- file.path(indir, infiles)
+  outfiles <- file.path(outdir, outfiles)
+
+  message("Converting ", length(infiles), " PDF files in ", indir, " to PNG in ", outdir)
+
+  # Convert multiple PNGs by building a command string like this:
+  # convert \( a.pdf -write a.png +delete \) \( b.pdf -write b.png +delete \) null:
+
+  cmd <- NULL
+  for (i in seq_along(infiles)) {
+    cmd <- c(cmd, "\\(", infiles[i], "-density", "72x72", "-write", outfiles[i],
+             "+delete", "\\)")
+  }
+
+  # Need the these "null:" to suppress convert warnings, for some reason
+  cmd <- c(cmd, "null:", "null:")
+
+  system2("convert", cmd)
+}
+
+
 
 
 
 # Make visual diff from two refs
-vdiff <- function(ref1 = "HEAD", ref2 = "") {
+vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE) {
+  # TODO: Check 'git' in path, or allow passing in git path
+  # TODO: Check imagemagick in path
+  # TODO: print message about png option, and slow png vs safari-only pdf
+  # TODO: Add subdir option
+  # TODO: deal with different file sets in ref1 and ref2
 
   # A function for checking out visual_test from a commit ref, or "" for current state
   checkout_vtests <- function(ref = "", dir = "temp", checkoutdir = "visual_test") {
@@ -101,6 +220,8 @@ vdiff <- function(ref1 = "HEAD", ref2 = "") {
     } else {
       # Checkout the git ref into dir
       system2("git", c("--work-tree", dir, "checkout", ref, "--", checkoutdir))
+      # Need to reset git index status (this is a little confusing)
+      invisible(system2("git", c("reset", "--mixed"), stdout = TRUE))
     }
   }
 
@@ -108,20 +229,25 @@ vdiff <- function(ref1 = "HEAD", ref2 = "") {
   if (getwd() != system2("git", c("rev-parse", "--show-toplevel"), stdout = TRUE))
     stop("This must be run from the top level of the git tree.")
 
+  # The directories for ref1, ref2, and the diffs
+  path1 <- file.path("visual_test", "diff", "1")
+  path2 <- file.path("visual_test", "diff", "2")
+  pathd <- file.path("visual_test", "diff", "diff")
+
   # Checkout copies of the visual tests into diff/1 and diff/2
-  checkout_vtests(ref1, dir = file.path("diff", "1"), checkoutdir = "visual_test")
-  checkout_vtests(ref2, dir = file.path("diff", "2"), checkoutdir = "visual_test")
+  checkout_vtests(ref1, dir = path1, checkoutdir = "visual_test")
+  checkout_vtests(ref2, dir = path2, checkoutdir = "visual_test")
 
   # Find different files using git diff
   dfiles <- system2("git", c("diff", "--name-only", "HEAD"), stdout = TRUE)
 
   dfiles <- dfiles[grepl("\\.pdf$", dfiles)]
   message("Changed test images:\n", paste(dfiles, collapse="\n"))
-  dfiles1 <- file.path("diff", "1", dfiles)
-  dfiles2 <- file.path("diff", "2", dfiles)
+  dfiles1 <- file.path(path1, dfiles)
+  dfiles2 <- file.path(path2, dfiles)
 
-  unlink(file.path("diff", "diff"), recursive = TRUE)                # Remove old diff files
-  dfilesout <- file.path("diff", "diff", dfiles)   # Where the diff files go
+  unlink(pathd, recursive = TRUE)         # Remove old diff files
+  dfilesout <- file.path(pathd, dfiles)   # Where the diff files go
   # Find which directories need to be created, and then create them
   newdirs <- unique(dirname(dfilesout))
   sapply(newdirs, dir.create, recursive = TRUE, showWarnings = FALSE)
@@ -140,58 +266,93 @@ vdiff <- function(ref1 = "HEAD", ref2 = "") {
   }
 
   # Find the subdirs that have testinfo.dat, and generate diff webpages for them
-  testdirs <- dirname(list.files(file.path("diff", "2", "visual_test"),
-                                 pattern = "testinfo.dat", recursive = TRUE))
+  testdirs <- dirname(list.files(file.path(path2, "visual_test"), pattern = "testinfo.dat",
+                                 recursive = TRUE))
 
   # Make diff pages for each of these directories
-  sapply(testdirs, make_diffpage)
+  sapply(testdirs, make_diffpage,
+    file.path(path1, "visual_test"), file.path(path2, "visual_test"),
+    file.path(pathd, "visual_test"), convertpng = convertpng)
 
   invisible()
 }
 
 
-make_diffpage <- function(dir) {
-  outfile <- file.path("diff", "diff", "visual_test", dir, "index.html")
-  message("Writing ", outfile)
-
-  dir1 <- file.path("diff", "1", "visual_test", dir)    # Files from ref1
-  dir2 <- file.path("diff", "2", "visual_test", dir)    # Files from ref2
-  dird <- file.path("diff", "diff", "visual_test", dir) # Files for diff
+make_diffpage <- function(subdir, path1, path2, pathd, convertpng = FALSE) {
+  dir1 <- file.path(path1, subdir)  # Files from ref1
+  dir2 <- file.path(path2, subdir)  # Files from ref2
+  dird <- file.path(pathd, subdir)  # Files for diff
 
   dir.create(dird, recursive = TRUE, showWarnings = FALSE) # Create diff dir if needed
 
   # Get the information about the tests
+  # TODO: make this robust to changes in tests from dir1 to dir2?
   testinfo <- dget(file.path(dir2, "testinfo.dat"))
 
+  if (convertpng) {
+    # Generate PNGs from PDFs, if asked
+    convert_pdf2png(testinfo, dir1, dir1)
+    convert_pdf2png(testinfo, dir2, dir2)
+  }
+
+
+  outfile <- file.path(pathd, subdir, "index.html")
+  message("Writing ", outfile)
+
   # Write HTML code to show a single test
-  item_html <- function(t) {
+  item_html <- function(t, dir1, dir2, dird) {
     # TODO: change to use div
     #<div class="float">name <img src="…"/ > </div>
     #.float {float: left; width: 200px}
     
-    # The diff image (if it exists) is a png, not a pdf
-    dfilename <- sub("\\.pdf$", ".png", t$filename)
-    
+    # The diff file is a png. If convertpng==TRUE, so are the 1/ and 2/ files
+    pngfile <- sub("\\.pdf$", ".png", t$filename)
+    if (convertpng) reffile <- pngfile       # The filename in dirs 1/ and 2/
+    else            reffile <- t$filename
+
+    if (file.exists(file.path(dird, pngfile)))
+      diffcontent <- paste("<img src='", pngfile, "'>", sep="")
+    else
+      diffcontent <- "identical"
+
     paste("<table border=1>\n",
           "<tr><td align='center' colspan='3'>", t$name, "</td></tr>\n",
           "<tr><td align='center' colspan='3'>", t$desc, "</td></tr>\n",
           "<tr>\n",
-          "  <td><img src='", paste("../../../..", dir1, t$filename, sep="/"), "'></td>\n",
-          "  <td><img src='", paste("../../../..", dir2, t$filename, sep="/") , "'></td>\n",
-          "  <td><img src='", dfilename, "'></td>\n",
+          "  <td><img src='", relativePath(file.path(dir1, reffile), dird), "'></td>\n",
+          "  <td><img src='", relativePath(file.path(dir2, reffile), dird), "'></td>\n",
+          "  <td>", diffcontent, "</td>\n",
           "</tr>\n",
           "</table>\n", sep="")
   }
 
-  write(paste("<html><head><title>ggplot2 tests: ", dir,
-              "</title></head><body><h1>ggplot2 tests: ", dir,
+  write(paste("<html><head><title>ggplot2 tests: ", subdir,
+              "</title></head><body><h1>ggplot2 tests: ", subdir,
               "</h1>\n", sep = ""), outfile)
 
   write("<table border='1'>\n", outfile, append = TRUE)
 
   # Write information about all the test items in testinfo
-  write(sapply(testinfo, item_html), outfile, sep = "\n", append = TRUE)
+  write(sapply(testinfo, item_html, dir1, dir2, dird), outfile, sep = "\n", append = TRUE)
 
   write("</table></body></html>", outfile, append = TRUE)
 
+}
+
+# Find path to d, relative to start. If `start` is NULL, use current dir
+# if d is ./foo/bar and start is ./foo, then return "bar"
+# if d is ./zz and start is ./foo/bar, then return "../../zz"
+relativePath <- function(path, start = NULL) {
+  if (is.null(start)) start <- getwd()
+
+  p <- strsplit(normalizePath(path,  winslash = "/"), "/")[[1]]
+  s <- strsplit(normalizePath(start, winslash = "/"), "/")[[1]]
+
+  len <- min(length(s), length(p))
+  lastmatch <- min(which(s[1:len] != p[1:len])) - 1 # last path part that is the same
+  lastmatch <- min(lastmatch, len)                  # if no match found, lastmatch <- len
+  p <- p[-(1:lastmatch)]                            # remove everything that matches
+
+  # Build the relative path, adding ..'s for each path level in s
+  paste(c(rep("..", length(s)-lastmatch), p), collapse="/")
 }

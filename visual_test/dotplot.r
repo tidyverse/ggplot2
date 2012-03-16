@@ -5,30 +5,30 @@ dat <- data.frame(x=rnorm(20), g=LETTERS[1:2])
 
 # Basic dotplot with binning along x axis
 ggplot(dat, aes(x)) + geom_dotplot(binwidth=.4)
-save_vtest("basic", "Basic dotplot with dot-density binning, binwidth=.4")
+save_vtest("Basic dotplot with dot-density binning, binwidth=.4")
 
 ggplot(dat, aes(x)) + geom_dotplot(binwidth=.4, method="histodot")
-save_vtest("histodot", "Histodot binning (equal bin spacing)")
+save_vtest("Histodot binning (equal bin spacing)")
 
 ggplot(dat, aes(x)) + geom_dotplot(binwidth=.4, stackratio=.8)
-save_vtest("stackratio", "Dots stacked closer: stackratio=.8")
+save_vtest("Dots stacked closer: stackratio=.8")
 
 ggplot(dat, aes(x)) + geom_dotplot(binwidth=.4, dotsize=1.4)
-save_vtest("dotsize", "Larger dots: dotsize=1.4")
+save_vtest("Larger dots: dotsize=1.4")
 
 
 # Stacking methods
 ggplot(dat, aes(x)) + geom_dotplot(binwidth=.4, stackdir="up")
-save_vtest("stack-up", "Stack up")
+save_vtest("Stack up")
 
 ggplot(dat, aes(x)) + geom_dotplot(binwidth=.4, stackdir="down")
-save_vtest("stack-down", "Stack down")
+save_vtest("Stack down")
 
 ggplot(dat, aes(x)) + geom_dotplot(binwidth=.4, stackdir="center")
-save_vtest("stack-center", "Stack center")
+save_vtest("Stack center")
 
 ggplot(dat, aes(x)) + geom_dotplot(binwidth=.4, stackdir="centerwhole")
-save_vtest("stack-centerwhole", "Stack centerwhole")
+save_vtest("Stack centerwhole")
 
 
 # Stacking methods with coord_flip
