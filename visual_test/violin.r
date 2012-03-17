@@ -43,7 +43,9 @@ save_vtest("continuous x axis, multiple groups (center should be 2)")
 ggplot(dat, aes(x=as.numeric(1), y=y)) + geom_violin()
 save_vtest("continuous x axis, single group")
 
-ggplot(d2, aes(x=x, y=y, fill=g)) + geom_violin()
+dat2 <- data.frame(x=LETTERS[1:3], y=rnorm(90), g=letters[5:6])
+
+ggplot(dat2, aes(x=x, y=y, fill=g)) + geom_violin()
 save_vtest("grouping on x and fill")
 
 finish_vcontext()

@@ -1,7 +1,6 @@
 # Set the context of the visual tests
 # This creates vis_context and vis_info in the Global environment
 
-
 get_vcontext <- NULL
 set_vcontext <- NULL
 get_vtestinfo <- NULL
@@ -21,7 +20,7 @@ local({
 })
 
 
-# ISSUE: move this into the local block?
+# Start a visual test context
 vcontext <- function(context) {
   if (!is.null(get_vcontext()))
     stop("Can't open new context while current context is still open. Use finish_vcontext().")
@@ -29,12 +28,22 @@ vcontext <- function(context) {
   message(context, appendLF = FALSE)
 }
 
-# ISSUE: move this into the local block?
+# Finish a visual test context.
+# This will generate the web page for the context (a version of the webpage with PDFs)
+# TODO: add a function that will force-close the context, even if something bad happened in the middle.
 finish_vcontext <- function() {
   message("")         # Print a newline
+
   make_vtest_webpage()
+
+  # TODO: find a better way to do this
+  if (isTRUE(globalenv()$convertpng))  # might be NULL, so test with isTRUE
+    make_vtest_webpage(convertpng = TRUE) # also generate PNG version
+
+  # Save the test information into a file
   dput(get_vtestinfo(), file.path("visual_test", get_vcontext(), "testinfo.dat"))
-  set_vcontext(NULL)  # Reset the context
+  # Reset the context
+  set_vcontext(NULL)
 }
 
 
@@ -86,7 +95,9 @@ save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
 
 
 # Make the web page for the current test context
-# Reads from vis_context and vis_info
+# * convertpng: if TRUE, create a parallel visual_test/png/ subdir, create a
+#     webpage in the dir, and convert the source PDF files to PNG.
+# Reads from vcontext and vtestinfo
 make_vtest_webpage <- function(subdir = NULL, convertpng = FALSE) {
 
   if (is.null(subdir)) {
@@ -260,6 +271,8 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE) {
 }
 
 
+# Make a web page with diffs between one path and another path
+# This assumes that they contain all the same files. If they don't, it won't be happy.
 make_diffpage <- function(subdir, path1, path2, pathd, convertpng = FALSE) {
   dir1 <- file.path(path1, subdir)  # Files from ref1
   dir2 <- file.path(path2, subdir)  # Files from ref2
@@ -341,7 +354,13 @@ relativePath <- function(path, start = NULL) {
 
 
 # Run all the visual tests
-visual_test <- function(pattern = "\\.r$") {
+# * convertpng: if TRUE, generate the PNG versions of the web page as well.
+visual_test <- function(pattern = "\\.r$", convertpng = FALSE) {
+  # TODO: There must be a better way to do this. This is horrible
+  # This is used so that we can enable PNG versions of the web pages, without altering
+  #   the individual test scripts.
+  .GlobalEnv$convertpng <- convertpng
+
   files <- dir("visual_test", pattern, full.names = TRUE, include.dirs = FALSE)
   lapply(files, source)
 }
