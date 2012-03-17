@@ -181,17 +181,19 @@ convert_pdf2png <- function(t, indir, outdir) {
 
 # Make visual diff from two refs
 # TODO: when convertpng==TRUE, don't convert PDFs twice if they're identical
-vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE) {
+vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE, prompt = TRUE) {
   # TODO: check color space in conversion
-  # TODO: Check 'git' in path, or allow passing in git path
   # TODO: Check imagemagick in path
   # TODO: print message about png option, and slow png vs safari-only pdf
   # TODO: Add subdir option
   # TODO: deal with different file sets in ref1 and ref2
   # TODO: allow ^C termination somehow
+  # TODO: Check out work tree in tempdir()
 
   # A function for checking out visual_test from a commit ref, or "" for current state
-  checkout_vtests <- function(ref = "", dir = "temp", checkoutdir = "visual_test") {
+  checkout_vtests <- function(ref = "", dir = "temp", checkoutdir = NULL) {
+
+    if (is.null(checkoutdir))  checkoutdir <- file.path(tempdir(), "vdiff")
 
     unlink(dir, recursive = TRUE)      # Delete existing directory
     dir.create(dir, recursive = TRUE)  # Create the new directory
@@ -208,15 +210,25 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE) {
 
     } else {
       # Checkout the git ref into dir
-      system2("git", c("--work-tree", dir, "checkout", ref, "--", checkoutdir))
-      # Need to reset git index status (this is a little confusing)
-      invisible(system2("git", c("reset", "--mixed"), stdout = TRUE))
+      if (system2("git", c("--work-tree", dir, "checkout", ref, "--", checkoutdir)) != 0)
+        stop("git checkout failed.")
+      # Need to reset git index status after the checkout (so git doesn't get confused)
+      system2("git", c("reset", "--mixed"), stdout = TRUE)
     }
   }
 
   # Check we're in top level of the repo
   if (getwd() != system2("git", c("rev-parse", "--show-toplevel"), stdout = TRUE))
     stop("This must be run from the top level of the git tree.")
+
+  if (prompt) {
+    resp <- readline(paste("This will unstage changes to the git index, so if you have staged any changes",
+      "with 'git add' or similar commands, you will need to stage them again. This will",
+      "not change files in the working tree. (Use `prompt=FALSE` to disable this messsage.)",
+      "Do you want to continue? (y/n) ", sep="\n"))
+    if (tolower(resp) != "y")
+      return(invisible())
+  }
 
   # The directories for ref1, ref2, and the diffs
   path1 <- file.path("visual_test", "diff", "1")
@@ -333,6 +345,7 @@ make_diffpage <- function(subdir, path1, path2, pathd, convertpng = FALSE) {
   write("</table></body></html>", outfile, append = TRUE)
 
 }
+
 
 # Find path to d, relative to start. If `start` is NULL, use current dir
 # if d is ./foo/bar and start is ./foo, then return "bar"
