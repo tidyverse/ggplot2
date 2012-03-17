@@ -40,24 +40,29 @@ finish_vcontext <- function() {
 
 # Save an individual test to file, and record information using apped_vtestinfo
 # This presently only works with pdf; other file types will fail
-save_vtest <- function(desc = NULL, subdir = NULL, width = 4, height = 4,
+# * desc: a short description of the test
+# * filename: output filename (not including extension, like ".pdf"). If NULL, use MD5
+#     hash of `desc` as the filename.
+# * width: width in inches
+# * height: height in inches
+# * dpi: pixels per inch (OK, it really should be ppi)
+# * device: string with name of output device. Only "pdf" is supported now.
+save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
                        dpi = 72, device = "pdf") {
-  # TODO: check for active context
-  # TODO: Check that device must be "pdf" (others may be possible in future)
   require(digest)
+  if (is.null(get_vcontext())) stop("Must have active vcontext")
+  if (is.null(desc))           stop("desc must not be NULL")
+  if (device != "pdf")         stop('Only "pdf" device supported at this time')
 
-  if (is.null(desc))  stop("desc must not be NULL")
-
-  subdir <- get_vcontext()
-
-  destdir <- file.path("visual_test", subdir)
+  # Put files in visual_test/<subdir>, where subdir is the vcontext
+  destdir <- file.path("visual_test", get_vcontext())
   dir.create(destdir, showWarnings = FALSE)    # Create dir if missing
 
   # Save it to vistest.pdf in the temp dir
   ggsave(file.path(tempdir(), "vistest.pdf"), width = width, height = height,
          dpi = dpi, device = match.fun(device), compress = FALSE)
 
-  # TODO: Be more careful about these lines
+  # TODO: Be more careful about editing these lines in the PDF
   # Load vistest.pdf and modify the CreationDate and ModDate (lines 5 and 6)
   temppdf <- file(file.path(tempdir(), "vistest.pdf"), "r")
   pdftext <- readLines(temppdf)
@@ -82,7 +87,7 @@ save_vtest <- function(desc = NULL, subdir = NULL, width = 4, height = 4,
 
 # Make the web page for the current test context
 # Reads from vis_context and vis_info
-make_vtest_webpage <- function(subdir=NULL) {
+make_vtest_webpage <- function(subdir = NULL, convertpng = FALSE) {
 
   if (is.null(subdir)) {
     # By default, use the current vcontext (subdir is same as context)
@@ -94,56 +99,29 @@ make_vtest_webpage <- function(subdir=NULL) {
   }
 
   # Write HTML code to show a single test
-  item_html <- function(t) {
-    paste("<tr><td align='center'>", t$hash, "</td></tr>\n",
+  item_html <- function(t, convertPNG = FALSE) {
+    if (convertPNG) filename <- sub("\\.pdf$", "\\.png", t$filename)
+    else            filename <- t$filename
+
+    paste("<table border='1'>",
+          "<tr><td align='center'>", t$hash, "</td></tr>\n",
           "<tr><td align='center'>", t$desc, "<br>\n",
-          "  <img src='", t$filename , "'></td></tr>\n",
-          "<tr><td bgcolor='#000000'> &nbsp; </td></tr>\n", sep="")
+          "  <img src='", filename , "'></td></tr>\n",
+          "</table>\n", sep="")
   }
 
-  outfile <- file.path("visual_test", subdir, "index.html")
-  message("Writing ", outfile)
+  if (convertpng) {
+    # Conversion to PNG
+    # Set the input and output directories
+    indir  <- file.path("visual_test", subdir)
+    outdir <- file.path("visual_test", "png", subdir)
+    unlink(outdir, recursive= TRUE)
+    dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
 
-  write(paste("<html><head><title>ggplot2 tests: ", subdir,
-              "</title></head><body><h1>ggplot2 tests: ", subdir,
-              "</h1>\n", sep = ""), outfile)
-
-  write("<table border='1'>\n", outfile, append = TRUE)
-  # Get the list of info about all tests
-  # Write information about all the items in vis_info
-  write(sapply(testinfo, item_html), outfile, sep = "\n", append = TRUE)
-
-  write("</table></body></html>", outfile, append = TRUE)
-
-}
-
-
-convert_vtest_webpage_png <- function(subdir=NULL) {
-
-  if (is.null(subdir)) {
-    # By default, use the current vcontext (subdir is same as context)
-    subdir <- get_vcontext()
-    testinfo <- get_vtestinfo()
+    convert_pdf2png(testinfo, indir, outdir)  # Convert the images to PNG
   } else {
-    # If subdir is specified, read the testinfo from the file
-    testinfo <- dget(file.path("visual_test", subdir, "testinfo.dat"))
+    outdir <- file.path("visual_test", subdir)
   }
-
-  # Set the input and output directories
-  indir  <- file.path("visual_test", subdir)
-  outdir <- file.path("visual_test", "png", subdir)
-  unlink(outdir, recursive= TRUE)
-  dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
-
-  # Write HTML code to show a single test
-  item_html <- function(t) {
-    paste("<tr><td align='center'>", t$filename, "</td></tr>\n",
-          "<tr><td align='center'>", t$desc, "<br>\n",
-          "  <img src='", sub("\\.pdf$", "\\.png", t$filename) , "'></td></tr>\n",
-          "<tr><td bgcolor='#000000'> &nbsp; </td></tr>\n", sep="")
-  }
-
-  gen_images(testinfo, indir, outdir)
 
   outfile <- file.path(outdir, "index.html")
   message("Writing ", outfile)
@@ -152,13 +130,10 @@ convert_vtest_webpage_png <- function(subdir=NULL) {
               "</title></head><body><h1>ggplot2 tests: ", subdir,
               "</h1>\n", sep = ""), outfile)
 
-  write("<table border='1'>\n", outfile, append = TRUE)
-  # Get the list of info about all tests
-  # Write information about all the items in vis_info
-  write(sapply(testinfo, item_html), outfile, sep = "\n", append = TRUE)
+  # Get the list of info about all tests, then write information about each of the items
+  write(sapply(testinfo, item_html, convertpng), outfile, sep = "\n", append = TRUE)
 
-  write("</table></body></html>", outfile, append = TRUE)
-
+  write("</body></html>", outfile, append = TRUE)
 }
 
 
