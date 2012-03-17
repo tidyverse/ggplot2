@@ -95,7 +95,7 @@ make_vtest_webpage <- function(subdir=NULL) {
 
   # Write HTML code to show a single test
   item_html <- function(t) {
-    paste("<tr><td align='center'>", t$filename, "</td></tr>\n",
+    paste("<tr><td align='center'>", t$hash, "</td></tr>\n",
           "<tr><td align='center'>", t$desc, "<br>\n",
           "  <img src='", t$filename , "'></td></tr>\n",
           "<tr><td bgcolor='#000000'> &nbsp; </td></tr>\n", sep="")
@@ -196,17 +196,19 @@ convert_pdf2png <- function(t, indir, outdir) {
 # Make visual diff from two refs
 # TODO: when convertpng==TRUE, don't convert PDFs twice if they're identical
 vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE) {
+  # TODO: check color space in conversion
   # TODO: Check 'git' in path, or allow passing in git path
   # TODO: Check imagemagick in path
   # TODO: print message about png option, and slow png vs safari-only pdf
   # TODO: Add subdir option
   # TODO: deal with different file sets in ref1 and ref2
+  # TODO: allow ^C termination somehow
 
   # A function for checking out visual_test from a commit ref, or "" for current state
   checkout_vtests <- function(ref = "", dir = "temp", checkoutdir = "visual_test") {
 
-    unlink(dir, recursive = TRUE)          # Delete existing directory
-    dir.create(dir, showWarnings = FALSE)  # Create the new directory
+    unlink(dir, recursive = TRUE)      # Delete existing directory
+    dir.create(dir, recursive = TRUE)  # Create the new directory
 
     if (ref == "") {
       # If blank, simply copy the existing files over
@@ -263,12 +265,16 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE) {
 
     system2("convert", c("-density", "72x72", f1, f1png))
     system2("convert", c("-density", "72x72", f2, f2png))
-    system2("compare", c(f1png, f2png, sub(".pdf$", ".png", dfilesout[i])))
+    system2("compare", c("-dissimilarity-threshold", "1", f1png, f2png,
+                         sub(".pdf$", ".png", dfilesout[i])))
   }
 
   # Find the subdirs that have testinfo.dat, and generate diff webpages for them
-  testdirs <- dirname(list.files(file.path(path2, "visual_test"), pattern = "testinfo.dat",
+  testdirs <- dirname(list.files(file.path(path2, "visual_test"),
+                                 pattern = "testinfo.dat",
                                  recursive = TRUE))
+
+  testdirs <- testdirs[!grepl("^diff", testdirs)]  # Ignore subdirs in diff/
 
   # Make diff pages for each of these directories
   sapply(testdirs, make_diffpage,
@@ -317,7 +323,7 @@ make_diffpage <- function(subdir, path1, path2, pathd, convertpng = FALSE) {
       diffcontent <- "identical"
 
     paste("<table border=1>\n",
-          "<tr><td align='center' colspan='3'>", t$name, "</td></tr>\n",
+          "<tr><td align='center' colspan='3'>", t$hash, "</td></tr>\n",
           "<tr><td align='center' colspan='3'>", t$desc, "</td></tr>\n",
           "<tr>\n",
           "  <td><img src='", relativePath(file.path(dir1, reffile), dird), "'></td>\n",
