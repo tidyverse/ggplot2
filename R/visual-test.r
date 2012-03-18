@@ -124,9 +124,14 @@ save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
 
 # This is the function that the user calls
 # * convertpng: if TRUE, convert the source PDFs files to PNG instead.
-vtest_webpage <- function(filter = NULL, convertpng = TRUE) {
-  dirs <- list.files("visual_test", filter, include.dirs = TRUE)
-  dirs <- dirs[file.info(file.path("visual_test", dirs))$isdir]  # Pull out just the directories
+vtest_webpage <- function(filter = "", convertpng = TRUE) {
+  # Find subdirs with testinfo.dat
+  dirs <- dirname(list.files("visual_test", pattern = "testinfo.dat",
+                             recursive = TRUE))
+
+  dirs <- dirs[grepl(filter, dirs)]
+  dirs <- dirs[!grepl("^diff/", dirs)]
+  dirs <- dirs[!grepl("^html/", dirs)]
 
   for(d in dirs) {
     make_vtest_webpage(file.path("visual_test", d), 
