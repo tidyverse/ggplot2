@@ -9,12 +9,13 @@ append_vtestinfo <- NULL
 local({
   context <- NULL
   testinfo <- NULL
-  count <- 1
+  count <- NULL
 
   get_vcontext <<- function() context
   set_vcontext <<- function(value) {
     context <<- value
     testinfo <<- list()
+    count <<- 1
   }
   get_vtestinfo <<- function() testinfo
   append_vtestinfo <<- function(value) {
@@ -26,17 +27,24 @@ local({
 
 # Start a visual test context
 vcontext <- function(context) {
+  # Check we're in top level of the repo
+  if (getwd() != system2("git", c("rev-parse", "--show-toplevel"), stdout = TRUE))
+    stop("This must be run from the top level of the git tree.")
+
   if (!is.null(get_vcontext()))
     stop("Can't open new context while current context is still open. Use finish_vcontext().")
   set_vcontext(context)
   message(context, appendLF = FALSE)
+  unlink(file.path("visual_test", context), recursive = TRUE)
 }
 
 # Finish a visual test context.
 # This will generate the web page for the context (a version of the webpage with PDFs)
-# TODO: add a function that will force-close the context, even if something bad happened in the middle.
 finish_vcontext <- function() {
   message("")         # Print a newline
+  set_vcontext(NULL)  # Reset the context
+  # Save the test information into a file
+  dput(get_vtestinfo(), file.path("visual_test", get_vcontext(), "testinfo.dat"))
 
   make_vtest_webpage()
 
@@ -44,10 +52,6 @@ finish_vcontext <- function() {
   if (isTRUE(globalenv()$convertpng))  # might be NULL, so test with isTRUE
     make_vtest_webpage(convertpng = TRUE) # also generate PNG version
 
-  # Save the test information into a file
-  dput(get_vtestinfo(), file.path("visual_test", get_vcontext(), "testinfo.dat"))
-  # Reset the context
-  set_vcontext(NULL)
 }
 
 
@@ -114,8 +118,8 @@ make_vtest_webpage <- function(subdir = NULL, convertpng = FALSE) {
   }
 
   # Write HTML code to show a single test
-  item_html <- function(t, convertPNG = FALSE) {
-    if (convertPNG) filename <- sub("\\.pdf$", "\\.png", t$filename)
+  item_html <- function(t, convertpng = FALSE) {
+    if (convertpng) filename <- sub("\\.pdf$", "\\.png", t$filename)
     else            filename <- t$filename
 
     paste("<table border='1'>",
@@ -155,6 +159,7 @@ make_vtest_webpage <- function(subdir = NULL, convertpng = FALSE) {
 
 # Generate the PNG images for a directory
 convert_pdf2png <- function(filenames, indir = NULL, outdir = NULL) {
+  if (length(filenames) == 0) return()
   infiles <- filenames[grepl("\\.pdf$", filenames)]  # Keep the .pdf files only
   outfiles <- sub("\\.pdf$", ".png", infiles)
 
@@ -162,7 +167,7 @@ convert_pdf2png <- function(filenames, indir = NULL, outdir = NULL) {
   if (!is.null(indir))   infiles  <- file.path(indir, infiles)
   if (!is.null(outdir))  outfiles <- file.path(outdir, outfiles)
 
-  message("Converting ", length(infiles), " PDF files")
+  message("Converting ", length(infiles), " PDF files to PNG")
 
   # Convert multiple PNGs by building a command string like this:
   # convert \( a.pdf -write a.png +delete \) \( b.pdf -write b.png +delete \) null:
@@ -180,19 +185,27 @@ convert_pdf2png <- function(filenames, indir = NULL, outdir = NULL) {
 }
 
 
+# Compare png files
+compare_png <- function(files1, files2, filesout) {
+  if (length(files1) == 0) return()
+  message("Comparing ", length(files1), " pairs of images")
+
+  # Not sure how to build a single command line string to compare (as was done 
+  #   with convert in convert_pdf2png), so do them individually.  
+  for (i in seq_along(files1)) {
+    system2("compare", c("-dissimilarity-threshold", "1", files1[i], files2[i], filesout[i]))
+  }
+}
 
 
 
 # Make visual diff from two refs
-# TODO: when convertpng==TRUE, don't convert PDFs twice if they're identical
 vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE, prompt = TRUE) {
+  # TODO: Move diff dir out of temp (?)
+  # TODO: option for using gs
   # TODO: check color space in conversion
-  # TODO: Check imagemagick in path
   # TODO: print message about png option, and slow png vs safari-only pdf
-  # TODO: Add subdir option
-  # TODO: deal with different file sets in ref1 and ref2
   # TODO: allow ^C termination somehow
-  # TODO: Check out work tree in tempdir()
 
   if (ref1 == "")  stop('ref1 must not be blank "" (because git doesn\'t like it)')
 
@@ -242,8 +255,6 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE, prompt = TRUE) {
   path2 <- normalizePath(file.path(tempdir(), "vdiff2"))
   pathd <- normalizePath(file.path(tempdir(), "diff"))
 
-# NOTE: can't handle vdiff("", "HEAD"), but vdiff("HEAD", "") works. This is because
-# diff --name-status only works in one direction when comparing to working tree
 
   # Checkout the files for ref1
   checkout(ref1, dir = path1, paths = "visual_test")
@@ -262,33 +273,6 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE, prompt = TRUE) {
   checkout(ref2, dir = path2, paths = ref2_changed)
 
 
-  # Generate diff image only for Modified files
-if(F) {
-  dfiles <- subset(changed, status == "M" & grepl("\\.pdf", filename), select = filename, drop = TRUE)
-  message("Changed test PDF images:\n", paste(dfiles, collapse="\n"))
-  dfiles1 <- file.path(path1, dfiles)
-  dfiles2 <- file.path(path2, dfiles)
-
-  unlink(pathd, recursive = TRUE)         # Remove old diff files
-  dfilesout <- file.path(pathd, dfiles)   # Where the diff files go
-  # Find which directories need to be created, and then create them
-  newdirs <- unique(dirname(dfilesout))
-  sapply(newdirs, dir.create, recursive = TRUE, showWarnings = FALSE)
-
-  # Convert the changed files to png and run image diffs on each
-  for (i in seq_along(dfiles)) {
-    message("Generating diff image for ", dfiles2[i])
-    f1    <- dfiles1[i]
-    f2    <- dfiles2[i]
-    f1png <- sub(".pdf$", ".png", dfiles1[i])
-    f2png <- sub(".pdf$", ".png", dfiles2[i])
-
-    system2("convert", c("-density", "72", f1, f1png))
-    system2("convert", c("-density", "72", f2, f2png))
-    system2("compare", c("-dissimilarity-threshold", "1", f1png, f2png,
-                         sub(".pdf$", ".png", dfilesout[i])))
-  }
-}
   # Find the subdirs that have testinfo.dat, and generate diff webpages for them
   testdirs <- dirname(list.files(file.path(path1, "visual_test"),
                                  pattern = "testinfo.dat",
@@ -304,7 +288,7 @@ if(F) {
     # Strip off the leading path part of the filename
     cfiles$filename <- sub(paste("visual_test/", t, "/", sep = ""), "",
                            cfiles$filename, fixed = TRUE)
-    make_diffpage(cfiles,
+    make_diffpage(cfiles, name = t,
                   file.path(path1, "visual_test", t),
                   file.path(path2, "visual_test", t), 
                   file.path(pathd, "visual_test", t), convertpng = convertpng)
@@ -315,12 +299,9 @@ if(F) {
 }
 
 
-# TODO: Make the webpages work!
-#   - make use of 'changed'
-#   - finihs changing "dirx" to "pathx"
 # Make a web page with diffs between one path and another path
 # This assumes that they contain all the same files. If they don't, it won't be happy.
-make_diffpage <- function(changed, path1, path2, pathd, convertpng = FALSE) {
+make_diffpage <- function(changed, name = "", path1, path2, pathd, convertpng = FALSE) {
 
   dir.create(pathd, recursive = TRUE, showWarnings = FALSE) # Create diff dir if needed
 
@@ -332,17 +313,23 @@ make_diffpage <- function(changed, path1, path2, pathd, convertpng = FALSE) {
     testinfo2 <- testinfo1   # If testinfo2 doesn't exist, then it's unchanged from testinfo1
 
   # Convert them from nested lists to data frames
-  testinfo1 <- ldply(testinfo1, data.frame)
-  testinfo2 <- ldply(testinfo2, data.frame)
+  testinfo1 <- ldply(testinfo1, data.frame, stringsAsFactors = FALSE)
+  testinfo2 <- ldply(testinfo2, data.frame, stringsAsFactors = FALSE)
 
   # We want to merge 'changed' together with testinfo1 and testinfo2
   # This is a little tricky
   testinfo1 <- merge(changed, testinfo1, by = "filename", all.y = TRUE)
   testinfo2 <- merge(changed, testinfo2, by = "filename", all.y = TRUE)
-  testinfo <- merge(testinfo2, testinfo2, all = TRUE)
+
+  # id numbers can change if a test is inserted. So we have to do some acrobatics.
+  mergeby <- intersect(names(testinfo1), names(testinfo2))
+  mergeby <- mergeby[mergeby != "id"]
+  testinfo <- merge(testinfo1, testinfo2, by = mergeby, all = TRUE)
+
+  testinfo <- arrange(testinfo, id.x, id.y)  # Order by ref1 and then ref2
+  testinfo$id <- seq_len(nrow(testinfo))     # Assign new id (used for ordering items)
 
   testinfo$status[is.na(testinfo$status)] <- "U" # Set status to U for unchanged files
-
 
   # Figure out which files need to be converted to png.
   # All Modified files need to be converted (so they can be diffed)
@@ -350,25 +337,21 @@ make_diffpage <- function(changed, path1, path2, pathd, convertpng = FALSE) {
   afiles <- testinfo$filename[testinfo$status == "A"]  # Added files (in path2)
   mfiles <- testinfo$filename[testinfo$status == "M"]  # Modified files (in path1 and path2), also create a diff
   ufiles <- testinfo$filename[testinfo$status == "U"]  # Unchanged files (in path1)
+
   convertfiles <- c(file.path(path1, mfiles), file.path(path2, mfiles))
 
-  # Add in the other files, if asked
+  # Add in the other files to convert, if convertpng==TRUE
   if (convertpng) {
     convertfiles <- c(convertfiles, file.path(path1, c(dfiles, ufiles)),
                                     file.path(path2, afiles))
   }
 
-  # TODO: move this to the bottom
-  convert_pdf2png(convertfiles)
 
-# TODO: continue from here, only convert files that exist, link to single copy if no change
-browser()
-
-  outfile <- file.path(pathd, subdir, "index.html")
+  outfile <- file.path(pathd, "index.html")
   message("Writing ", outfile)
 
   # Write HTML code to show a single test
-  item_html <- function(t, path1, path2, pathd) {
+  item_html <- function(t, path1, path2, pathd, convertpng) {
     # TODO: change to use div
     #<div class="float">name <img src="…"/ > </div>
     #.float {float: left; width: 200px}
@@ -378,32 +361,54 @@ browser()
     if (convertpng) reffile <- pngfile       # The filename in dirs 1/ and 2/
     else            reffile <- t$filename
 
-    if (file.exists(file.path(pathd, pngfile)))
-      diffcontent <- paste("<img src='", pngfile, "'>", sep="")
-    else
-      diffcontent <- "identical"
+    if (t$status == "D") {           # Deleted file
+      cell1 <- paste("<img src='", relativePath(file.path(path1, reffile), pathd), "'>", sep="")
+      cell2 <- "Not present (deleted)"
+      celld <- "Not applicable"
+    } else if (t$status == "A") {    # Added file
+      cell1 <- "Not present (added)"
+      cell2 <- paste("<img src='", relativePath(file.path(path2, reffile), pathd), "'>", sep="")
+      celld <- "Not applicable"    
+    } else if (t$status == "M") {    # Modified file
+      cell1 <- paste("<img src='", relativePath(file.path(path1, reffile), pathd), "'>", sep="")
+      cell2 <- paste("<img src='", relativePath(file.path(path2, reffile), pathd), "'>", sep="")
+      celld <- paste("<img src='", pngfile, "'>", sep="")
+    } else if (t$status == "U") {    # Unchanged file
+      cell1 <- paste("<img src='", relativePath(file.path(path1, reffile), pathd), "'>", sep="")
+      cell2 <- "Identical"
+      celld <- "Identical"
+    }
 
     paste("<table border=1>\n",
           "<tr><td align='center' colspan='3'>", t$hash, "</td></tr>\n",
           "<tr><td align='center' colspan='3'>", t$desc, "</td></tr>\n",
           "<tr>\n",
-          "  <td><img src='", relativePath(file.path(path1, reffile), pathd), "'></td>\n",
-          "  <td><img src='", relativePath(file.path(path2, reffile), pathd), "'></td>\n",
-          "  <td>", diffcontent, "</td>\n",
+          "  <td>", cell1, "</td>\n",
+          "  <td>", cell2, "</td>\n",
+          "  <td>", celld, "</td>\n",
           "</tr>\n",
           "</table>\n", sep="")
   }
 
-  write(paste("<html><head><title>ggplot2 tests: ", subdir,
-              "</title></head><body><h1>ggplot2 tests: ", subdir,
+  write(paste("<html><head><title>Tests: ", name,
+              "</title></head><body><h1>Tests: ", name,
               "</h1>\n", sep = ""), outfile)
 
   write("<table border='1'>\n", outfile, append = TRUE)
 
   # Write information about all the test items in testinfo
-  write(sapply(testinfo, item_html, path1, path2, pathd), outfile, sep = "\n", append = TRUE)
+  for (i in seq_len(nrow(testinfo))) {
+    write(item_html(testinfo[i, ], path1, path2, pathd, convertpng), outfile, append = TRUE)
+  }
 
   write("</table></body></html>", outfile, append = TRUE)
+
+  convert_pdf2png(convertfiles)
+
+  mfilespng <- sub("\\.pdf$", ".png", mfiles)  # For the compared files, use png
+  compare_png(file.path(path1, mfilespng),
+              file.path(path2, mfilespng),
+              file.path(pathd, mfilespng))
 
 }
 
@@ -414,8 +419,8 @@ browser()
 relativePath <- function(path, start = NULL) {
   if (is.null(start)) start <- getwd()
 
-  p <- strsplit(normalizePath(path,  winslash = "/"), "/")[[1]]
-  s <- strsplit(normalizePath(start, winslash = "/"), "/")[[1]]
+  p <- strsplit(normalizePath(path,  winslash = "/", mustWork = FALSE), "/")[[1]]
+  s <- strsplit(normalizePath(start, winslash = "/", mustWork = FALSE), "/")[[1]]
 
   len <- min(length(s), length(p))
   lastmatch <- min(which(s[1:len] != p[1:len])) - 1 # last path part that is the same
