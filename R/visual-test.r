@@ -25,6 +25,19 @@ local({
 })
 
 
+# Run all the visual tests
+# * convertpng: if TRUE, generate the PNG versions of the web page as well.
+visual_test <- function(pattern = "\\.r$", convertpng = FALSE) {
+  # TODO: There must be a better way to do this. This is horrible
+  # This is used so that we can enable PNG versions of the web pages, without altering
+  #   the individual test scripts.
+  .GlobalEnv$convertpng <- convertpng
+
+  files <- dir("visual_test", pattern, full.names = TRUE, include.dirs = FALSE)
+  lapply(files, source)
+}
+
+
 # Start a visual test context
 vcontext <- function(context) {
   # Check we're in top level of the repo
@@ -41,12 +54,10 @@ vcontext <- function(context) {
 # Finish a visual test context.
 # This will generate the web page for the context (a version of the webpage with PDFs)
 finish_vcontext <- function() {
-  message("")         # Print a newline
-
   # Save the test information into a file
   dput(get_vtestinfo(), file.path("visual_test", get_vcontext(), "testinfo.dat"))
 
-  tryCatch(make_vtest_webpage(), error = function(e) e)
+  tryCatch(make_vtest_webpage(subdir = get_vcontext()), error = function(e) e)
 
   set_vcontext(NULL)  # Reset the context
 
@@ -107,17 +118,11 @@ save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
 # Make the web page for the current test context
 # * convertpng: if TRUE, create a parallel visual_test/png/ subdir, create a
 #     webpage in the dir, and convert the source PDF files to PNG.
-# Reads from vcontext and vtestinfo
 make_vtest_webpage <- function(subdir = NULL, convertpng = FALSE) {
+  if (is.null(subdir))  stop("subdir cannot be  NULL")
 
-  if (is.null(subdir)) {
-    # By default, use the current vcontext (subdir is same as context)
-    subdir <- get_vcontext()
-    testinfo <- get_vtestinfo()
-  } else {
-    # If subdir is specified, read the testinfo from the file
-    testinfo <- dget(file.path("visual_test", subdir, "testinfo.dat"))
-  }
+  # Read in the information about the tests
+  testinfo <- dget(file.path("visual_test", subdir, "testinfo.dat"))
 
   # Write HTML code to show a single test
   item_html <- function(t, convertpng = FALSE) {
@@ -444,17 +449,4 @@ relativePath <- function(path, start = NULL) {
 
   # Build the relative path, adding ..'s for each path level in s
   paste(c(rep("..", length(s)-lastmatch), p), collapse="/")
-}
-
-
-# Run all the visual tests
-# * convertpng: if TRUE, generate the PNG versions of the web page as well.
-visual_test <- function(pattern = "\\.r$", convertpng = FALSE) {
-  # TODO: There must be a better way to do this. This is horrible
-  # This is used so that we can enable PNG versions of the web pages, without altering
-  #   the individual test scripts.
-  .GlobalEnv$convertpng <- convertpng
-
-  files <- dir("visual_test", pattern, full.names = TRUE, include.dirs = FALSE)
-  lapply(files, source)
 }
