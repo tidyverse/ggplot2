@@ -137,11 +137,11 @@ make_vtest_webpage <- function(subdir = NULL, convertpng = FALSE) {
     if (convertpng) filename <- sub("\\.pdf$", "\\.png", t$filename)
     else            filename <- t$filename
 
-    paste("<table border='1'>",
-          "<tr><td align='center'>", t$hash, "</td></tr>\n",
-          "<tr><td align='center'>", t$desc, "<br>\n",
-          "  <img src='", filename , "'></td></tr>\n",
-          "</table>\n", sep="")
+    paste('<div class="float">\n',
+          '  <div class="name">', t$hash, '</div>\n',
+          '  <div class="description">', t$desc, '</div>\n',
+          '  <div class="image">', '  <img src="', filename , '"></div>\n',
+          '</div>\n', sep="")
   }
 
   if (convertpng) {
@@ -161,14 +161,17 @@ make_vtest_webpage <- function(subdir = NULL, convertpng = FALSE) {
   outfile <- file.path(outdir, "index.html")
   message("Writing ", outfile)
 
-  write(paste("<html><head><title>ggplot2 tests: ", subdir,
-              "</title></head><body><h1>ggplot2 tests: ", subdir,
-              "</h1>\n", sep = ""), outfile)
+  write(paste('<html><head>\n',
+              '<link rel="stylesheet" type="text/css" href="',
+                relativePath("visual_test", outdir), '/style.css" media="screen" />',
+              '<title>Visual tests: ', subdir,
+              '</title></head><body><h1>Visual tests: ', subdir,
+              '</h1>\n', sep = ""), outfile)
 
   # Get the list of info about all tests, then write information about each of the items
   write(sapply(testinfo, item_html, convertpng), outfile, sep = "\n", append = TRUE)
 
-  write("</body></html>", outfile, append = TRUE)
+  write('</body></html>', outfile, append = TRUE)
 }
 
 
@@ -182,6 +185,9 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
                   method = "ghostscript", prompt = TRUE) {
   # TODO: message about weird color space in conversion using convert
   # TODO: print message about png option, and slow png vs safari-only pdf
+
+  # TODO: de-hard code this?
+  cssfile <- "visual_test/style.css"
 
   if (ref1 == "")  stop('ref1 must not be blank "" (because git doesn\'t like it)')
 
@@ -244,8 +250,10 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
   # We only care about files in visual_test/
   changed <- subset(changed, grepl("^visual_test/", filename))
 
-  # Special case where ref2 is the working tree. This is a bit hacky. Also add all
-  # the untracked files in the visual_test dir
+  # Special case where ref2 is the working tree. This is a bit hacky. Add all
+  # the untracked files in the visual_test dir. Because they're not committed, we
+  # can't tell exactly which files *should* be compared. So copy all the untracked
+  # files over.
   if (ref2 == "") {
     wfiles <- system2("git", c("ls-files", "--other", "--exclude-standard", "visual_test/"),
               stdout = TRUE)
@@ -259,6 +267,11 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
   # Check out from ref1 only the Modified and Deleted files
   checkout(ref2, dir = path2, paths = ref2_changed)
 
+
+  # Copy the CSS file over to the diff/visual_test dir
+  dir.create(file.path(pathd, "visual_test"), recursive = TRUE, showWarnings = FALSE)
+  css_outfile <- file.path(pathd, "visual_test", basename(cssfile))
+  file.copy(cssfile, css_outfile, overwrite = TRUE)
 
   # Find the subdirs that have testinfo.dat, and generate diff webpages for them
   testdirs <- dirname(list.files(file.path(path1, "visual_test"),
@@ -274,8 +287,9 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
                            cfiles$filename, fixed = TRUE)
     make_diffpage(cfiles, name = t,
                   file.path(path1, "visual_test", t),
-                  file.path(path2, "visual_test", t), 
+                  file.path(path2, "visual_test", t),
                   file.path(pathd, "visual_test", t),
+                  cssfile = css_outfile,
                   convertpng = convertpng, method = method, refnames = c(ref1, ref2))
   }
 
@@ -285,8 +299,8 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
 
 # Make a web page with diffs between one path and another path
 # This assumes that they contain all the same files. If they don't, it won't be happy.
-make_diffpage <- function(changed, name = "", path1, path2, pathd, convertpng = FALSE,
-                          method = "ghostscript", refnames = c("","")) {
+make_diffpage <- function(changed, name = "", path1, path2, pathd, cssfile,
+    convertpng = FALSE, method = "ghostscript", refnames = c("","")) {
 
   dir.create(pathd, recursive = TRUE, showWarnings = FALSE) # Create diff dir if needed
 
@@ -353,41 +367,43 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, convertpng = 
     else            reffile <- t$filename
 
     if (t$status == "D") {           # Deleted file
-      cell1 <- paste("<img src='", relativePath(file.path(path1, reffile), pathd), "'>", sep="")
+      cell1 <- paste("<img src='", file.path(relativePath(path1, pathd), reffile), "'>", sep="")
       cell2 <- "Not present (deleted)"
       celld <- "Not applicable"
     } else if (t$status == "A") {    # Added file
       cell1 <- "Not present (added)"
-      cell2 <- paste("<img src='", relativePath(file.path(path2, reffile), pathd), "'>", sep="")
+      cell2 <- paste("<img src='", file.path(relativePath(path2, pathd), reffile), "'>", sep="")
       celld <- "Not applicable"    
     } else if (t$status == "M") {    # Modified file
-      cell1 <- paste("<img src='", relativePath(file.path(path1, reffile), pathd), "'>", sep="")
-      cell2 <- paste("<img src='", relativePath(file.path(path2, reffile), pathd), "'>", sep="")
+      cell1 <- paste("<img src='", file.path(relativePath(path1, pathd), reffile), "'>", sep="")
+      cell2 <- paste("<img src='", file.path(relativePath(path2, pathd), reffile), "'>", sep="")
       celld <- paste("<img src='", pngfile, "'>", sep="")
     } else if (t$status == "U") {    # Unchanged file
-      cell1 <- paste("<img src='", relativePath(file.path(path1, reffile), pathd), "'>", sep="")
+      cell1 <- paste("<img src='", file.path(relativePath(path1, pathd), reffile), "'>", sep="")
       cell2 <- cell1
       celld <- "Identical"
     }
 
-    paste("<table border=1>\n",
-          "<tr><td align='center' colspan='3'>", t$hash, "</td></tr>\n",
-          "<tr><td align='center' colspan='3'>", t$desc, "</td></tr>\n",
-          "<tr>\n",
-          "  <td>", cell1, "</td>\n",
-          "  <td>", cell2, "</td>\n",
-          "  <td>", celld, "</td>\n",
-          "</tr>\n",
-          "</table>\n", sep="")
+    paste('<div class="float">\n',
+          '  <div class="name">', t$hash, '</div>\n',
+          '  <div class="description">', t$desc, '</div>\n',
+          '  <div class="imageset">\n',
+          '  <span class="image">', cell1, '</span>\n',
+          '  <span class="image">', cell2, '</span>\n',
+          '  <span class="image">', celld, '</span>\n',
+          '  </div>\n',
+          '</div>\n', sep="")
   }
 
-  write(paste("<html><head><title>Tests: ", name,
-              "</title></head><body><h1>Tests: ", name,
-              "</h1><h2>Comparing ", refnames[1], " to ",
-                ifelse(refnames[2] == "", "working tree", refnames[2]),
-              "</h2>\n", sep = ""), outfile)
-
-  write("<table border='1'>\n", outfile, append = TRUE)
+  write(paste('<html><head>\n',
+        '<link rel="stylesheet" type="text/css" href="../style.css" media="screen" />',
+        '<title>Visual tests diffs: ', name,
+        '</title></head><body>\n',
+        '<h1>Visual tests diffs: ', name, '</h1>\n',
+        '<h2>Comparing <span class="refspec">', refnames[1],
+        '</span> to <span class="refspec">',
+          ifelse(refnames[2] == "", "working tree", refnames[2]),
+        '</span></h2>\n', sep = ""), outfile)
 
   # Write information about all the test items in testinfo
   for (i in seq_len(nrow(testinfo))) {
@@ -472,12 +488,20 @@ compare_png <- function(files1, files2, filesout) {
 relativePath <- function(path, start = NULL) {
   if (is.null(start)) start <- getwd()
 
-  p <- strsplit(normalizePath(path,  winslash = "/", mustWork = FALSE), "/")[[1]]
-  s <- strsplit(normalizePath(start, winslash = "/", mustWork = FALSE), "/")[[1]]
+  # If either of these fail (with a warning), it'll give an incorrect relative
+  # path, so throw an error.
+  tryCatch({
+    p <- strsplit(normalizePath(path,  winslash = "/"), "/")[[1]]
+    s <- strsplit(normalizePath(start, winslash = "/"), "/")[[1]]
+  }, warning = function(w) stop(w) )
 
   len <- min(length(s), length(p))
-  lastmatch <- min(which(s[1:len] != p[1:len])) - 1 # last path part that is the same
-  lastmatch <- min(lastmatch, len)                  # if no match found, lastmatch <- len
+  # Find if any of these pieces are different. If so, that's the first mismatch;
+  #   if not, then the next piece is the first mismatch.
+  mismatches <- s[1:len] != p[1:len]
+  if (any(mismatches))  lastmatch <- min(which(mismatches)) - 1
+  else                  lastmatch <- len
+
   p <- p[-(1:lastmatch)]                            # remove everything that matches
 
   # Build the relative path, adding ..'s for each path level in s
