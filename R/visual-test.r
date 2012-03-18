@@ -23,17 +23,21 @@ local({
     count <<- count + 1
   }
 })
-
+# TODO: next make webpages separate
 
 # Run all the visual tests
 # * convertpng: if TRUE, generate the PNG versions of the web page as well.
-visual_test <- function(pattern = "\\.r$", convertpng = FALSE) {
+visual_test <- function(filter = NULL, convertpng = FALSE) {
   # TODO: There must be a better way to do this. This is horrible
   # This is used so that we can enable PNG versions of the web pages, without altering
   #   the individual test scripts.
   .GlobalEnv$convertpng <- convertpng
 
-  files <- dir("visual_test", pattern, full.names = TRUE, include.dirs = FALSE)
+  if (!file.exists("visual_test")) 
+    return()
+
+  files <- dir("visual_test", filter, full.names = TRUE, include.dirs = FALSE)
+  files <- files[grepl("\\.[rR]$", files)]
   lapply(files, source)
 }
 
