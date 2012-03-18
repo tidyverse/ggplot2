@@ -27,18 +27,15 @@ local({
 
 # Run all the visual tests
 # * convertpng: if TRUE, generate the PNG versions of the web page as well.
-visual_test <- function(filter = NULL, convertpng = FALSE) {
-  # TODO: There must be a better way to do this. This is horrible
-  # This is used so that we can enable PNG versions of the web pages, without altering
-  #   the individual test scripts.
-  .GlobalEnv$convertpng <- convertpng
-
+visual_test <- function(filter = NULL) {
   if (!file.exists("visual_test")) 
     return()
 
   files <- dir("visual_test", filter, full.names = TRUE, include.dirs = FALSE)
   files <- files[grepl("\\.[rR]$", files)]
   lapply(files, source)
+
+  message("Run vtest_webpage(\"", filter, "\") to generate web pages for viewing tests")
 }
 
 
@@ -61,14 +58,7 @@ finish_vcontext <- function() {
   # Save the test information into a file
   dput(get_vtestinfo(), file.path("visual_test", get_vcontext(), "testinfo.dat"))
 
-  tryCatch(make_vtest_webpage(subdir = get_vcontext()), error = function(e) e)
-
   set_vcontext(NULL)  # Reset the context
-
-  # TODO: find a better way to do this
-  if (isTRUE(globalenv()$convertpng))  # might be NULL, so test with isTRUE
-    make_vtest_webpage(convertpng = TRUE) # also generate PNG version
-
 }
 
 
@@ -124,10 +114,21 @@ save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
 }
 
 
+# =============================================================
+# Functions for generating web pages to view tests
+# =============================================================
+
+vtest_webpage <- function(filter = NULL, convertpng = TRUE) {
+  dirs <- list.files("visual_test", filter, include.dirs = TRUE)
+  dirs <- dirs[file.info(file.path("visual_test", dirs))$isdir]  # Pull out just the directories
+
+  invisible(lapply(dirs, make_vtest_webpage, convertpng = convertpng))
+}
+
+
 # Make the web page for the current test context
-# * convertpng: if TRUE, create a parallel visual_test/png/ subdir, create a
-#     webpage in the dir, and convert the source PDF files to PNG.
-make_vtest_webpage <- function(subdir = NULL, convertpng = FALSE) {
+# * convertpng: if TRUE, convert the source PDFs files to PNG instead.
+make_vtest_webpage <- function(subdir = NULL, convertpng = TRUE) {
   if (is.null(subdir))  stop("subdir cannot be  NULL")
 
   # Read in the information about the tests
@@ -178,10 +179,6 @@ make_vtest_webpage <- function(subdir = NULL, convertpng = FALSE) {
   write('</body></html>', outfile, append = TRUE)
 }
 
-
-# =============================================================
-# Functions for generating visual diffs
-# =============================================================
 
 
 # Make visual diff from two refs
