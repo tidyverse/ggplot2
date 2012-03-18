@@ -118,67 +118,80 @@ save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
 # Functions for generating web pages to view tests
 # =============================================================
 
+# This is the function that the user calls
+# * convertpng: if TRUE, convert the source PDFs files to PNG instead.
 vtest_webpage <- function(filter = NULL, convertpng = TRUE) {
   dirs <- list.files("visual_test", filter, include.dirs = TRUE)
   dirs <- dirs[file.info(file.path("visual_test", dirs))$isdir]  # Pull out just the directories
 
-  invisible(lapply(dirs, make_vtest_webpage, convertpng = convertpng))
+  for(d in dirs) {
+    make_vtest_webpage(file.path("visual_test", d), 
+      outdir = file.path("visual_test", "html", d), convertpng = convertpng)
+  }
+
+  # Copy the css file
+  file.copy(file.path("visual_test", "style.css"), file.path("visual_test", "html"))
+  invisible()
 }
 
 
-# Make the web page for the current test context
-# * convertpng: if TRUE, convert the source PDFs files to PNG instead.
-make_vtest_webpage <- function(subdir = NULL, convertpng = TRUE) {
-  if (is.null(subdir))  stop("subdir cannot be  NULL")
+# Make a single web page (user shouldn't use this function)
+make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
+  if (is.null(dir))     stop("dir cannot be  NULL")
+  if (is.null(outdir))  stop("outdir cannot be  NULL")
 
   # Read in the information about the tests
-  testinfo <- dget(file.path("visual_test", subdir, "testinfo.dat"))
+  testinfo <- dget(file.path(dir, "testinfo.dat"))
 
   # Sort by id (complicated because of list)
   testinfo <- testinfo[order(sapply(testinfo, "[[", "id"))]
 
+  unlink(outdir, recursive= TRUE)
+  dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
+
+  pdffiles <- sapply(testinfo, "[[", "filename")
+
+  if (convertpng)
+    convert_pdf2png(pdffiles, dir, outdir)
+  else
+    file.copy(file.path(dir, pdffiles), outdir)
+
+  htmlfile <- file.path(outdir, "index.html")
+  message("Writing ", htmlfile)
+
+  # Get the name of the subdirectory of visual tests
+  vname <- strsplit(dir, "/")[[1]]
+  vname <- vname[length(vname)]
+
+  write(paste('<html><head>\n',
+              '<link rel="stylesheet" type="text/css" href="../style.css" media="screen" />',
+              '<title>Visual tests: ', vname,
+              '</title></head><body><h1>Visual tests: ', vname,
+              '</h1>\n', sep = ""), htmlfile)
+
   # Write HTML code to show a single test
   item_html <- function(t, convertpng = FALSE) {
-    if (convertpng) filename <- sub("\\.pdf$", "\\.png", t$filename)
-    else            filename <- t$filename
+    if (convertpng) f <- sub("\\.pdf$", "\\.png", t$filename)
+    else            f <- t$filename
 
     paste('<div class="float">\n',
           '  <div class="name">', t$hash, '</div>\n',
           '  <div class="description">', t$desc, '</div>\n',
-          '  <div class="image">', '  <img src="', filename , '"></div>\n',
+          '  <div class="image">', '  <img src="', f , '"></div>\n',
           '</div>\n', sep="")
   }
 
-  if (convertpng) {
-    # Conversion to PNG
-    # Set the input and output directories
-    indir  <- file.path("visual_test", subdir)
-    outdir <- file.path("visual_test", "png", subdir)
-    unlink(outdir, recursive= TRUE)
-    dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
-
-    convertfiles <- sapply(testinfo, "[[", "filename")
-    convert_pdf2png(convertfiles, indir, outdir)       # Convert the images to PNG
-  } else {
-    outdir <- file.path("visual_test", subdir)
-  }
-
-  outfile <- file.path(outdir, "index.html")
-  message("Writing ", outfile)
-
-  write(paste('<html><head>\n',
-              '<link rel="stylesheet" type="text/css" href="',
-                relativePath("visual_test", outdir), '/style.css" media="screen" />',
-              '<title>Visual tests: ', subdir,
-              '</title></head><body><h1>Visual tests: ', subdir,
-              '</h1>\n', sep = ""), outfile)
-
   # Get the list of info about all tests, then write information about each of the items
-  write(sapply(testinfo, item_html, convertpng), outfile, sep = "\n", append = TRUE)
+  write(sapply(testinfo, item_html, convertpng), htmlfile, sep = "\n", append = TRUE)
 
-  write('</body></html>', outfile, append = TRUE)
+  write('</body></html>', htmlfile, append = TRUE)
 }
 
+
+
+# =============================================================
+# Functions for generating visual diff pages
+# =============================================================
 
 
 # Make visual diff from two refs
