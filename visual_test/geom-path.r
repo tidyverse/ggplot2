@@ -18,4 +18,4 @@ save_vtest("NEED DESCRIPTION, change data order")
 ggplot(df2) + geom_path(aes(x = value, y = category, group = item, colour=item))
 save_vtest("NEED DESCRIPTION, change data order, use colour")
 
-finish_vcontext()
+end_vcontext()

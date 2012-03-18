@@ -15,4 +15,4 @@ save_vtest("contract range, wise=TRUE")
 p + coord_cartesian(xlim = c(2, 4), ylim = c(20, 40), wise = FALSE)
 save_vtest("contract range, wise=FALSE")
 
-finish_vcontext()
+end_vcontext()

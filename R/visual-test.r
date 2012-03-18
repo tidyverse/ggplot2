@@ -1,5 +1,4 @@
 # Set the context of the visual tests
-# This creates vis_context and vis_info in the Global environment
 
 get_vcontext <- NULL
 set_vcontext <- NULL
@@ -23,11 +22,10 @@ local({
     count <<- count + 1
   }
 })
-# TODO: next make webpages separate
 
-# Run all the visual tests
-# * convertpng: if TRUE, generate the PNG versions of the web page as well.
-visual_test <- function(filter = NULL) {
+
+# Run visual tests
+vtest <- function(filter = NULL) {
   if (!file.exists("visual_test")) 
     return()
 
@@ -35,7 +33,12 @@ visual_test <- function(filter = NULL) {
   files <- files[grepl("\\.[rR]$", files)]
   lapply(files, source)
 
-  message("Run vtest_webpage(\"", filter, "\") to generate web pages for viewing tests")
+  f_quote    <- ifelse(is.null(filter), '', paste('"', filter, '"', sep = ""))
+  fopt_quote <- ifelse(is.null(filter), '', paste('filter="', filter, '"', sep = ""))
+  message("\nRun vtest_webpage(", f_quote, ") to generate web pages for viewing tests.\n",
+    "Or run vdiff(", fopt_quote, ") to compare results to another commit in the git repository." )
+
+  # If this is moved out of ggplot2, should check for visual_test/.gitignore
 }
 
 
@@ -54,11 +57,12 @@ vcontext <- function(context) {
 
 # Finish a visual test context.
 # This will generate the web page for the context (a version of the webpage with PDFs)
-finish_vcontext <- function() {
+end_vcontext <- function() {
   # Save the test information into a file
   dput(get_vtestinfo(), file.path("visual_test", get_vcontext(), "testinfo.dat"))
 
   set_vcontext(NULL)  # Reset the context
+  message("")         # Print a newline
 }
 
 
@@ -156,7 +160,7 @@ make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
   else
     file.copy(file.path(dir, pdffiles), outdir)
 
-  htmlfile <- file.path(outdir, "index.html")
+  htmlfile <- file.path(normalizePath(outdir), "index.html")
   message("Writing ", htmlfile)
 
   # Get the name of the subdirectory of visual tests

@@ -25,4 +25,4 @@ save_vtest("width is 3 times height, 2 row facets")
 p + facet_grid(f1~f2) + opts(aspect.ratio=1/3)
 save_vtest("width is 3 times height, 2x2 facets")
 
-finish_vcontext()
+end_vcontext()

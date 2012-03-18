@@ -110,4 +110,4 @@ ggplot(dat2, aes(x=as.numeric(x), y=y)) +
   geom_dotplot(binwidth=.2, binaxis="y", stackdir="center")
 save_vtest("bin y, continous x-axis, single x group")
 
-finish_vcontext()
+end_vcontext()

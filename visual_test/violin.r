@@ -48,4 +48,4 @@ dat2 <- data.frame(x=LETTERS[1:3], y=rnorm(90), g=letters[5:6])
 ggplot(dat2, aes(x=x, y=y, fill=g)) + geom_violin()
 save_vtest("grouping on x and fill")
 
-finish_vcontext()
+end_vcontext()

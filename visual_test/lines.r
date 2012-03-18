@@ -96,4 +96,4 @@ nzmap + geom_abline(intercept=130, slope=-1) +
   coord_map(project='azequalarea', orientation=c(-36.92,174.6,0))
 save_vtest("geom_abline: intercept=130, slope=-1, projection=azequalarea")
 
-finish_vcontext()
+end_vcontext()
