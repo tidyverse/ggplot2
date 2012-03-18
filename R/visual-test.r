@@ -124,6 +124,9 @@ make_vtest_webpage <- function(subdir = NULL, convertpng = FALSE) {
   # Read in the information about the tests
   testinfo <- dget(file.path("visual_test", subdir, "testinfo.dat"))
 
+  # Sort by id (complicated because of list)
+  testinfo <- testinfo[order(sapply(testinfo, "[[", "id"))]
+
   # Write HTML code to show a single test
   item_html <- function(t, convertpng = FALSE) {
     if (convertpng) filename <- sub("\\.pdf$", "\\.png", t$filename)
