@@ -366,7 +366,7 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, convertpng = 
       celld <- paste("<img src='", pngfile, "'>", sep="")
     } else if (t$status == "U") {    # Unchanged file
       cell1 <- paste("<img src='", relativePath(file.path(path1, reffile), pathd), "'>", sep="")
-      cell2 <- "Identical"
+      cell2 <- cell1
       celld <- "Identical"
     }
 
