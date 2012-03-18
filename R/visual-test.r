@@ -42,11 +42,13 @@ vcontext <- function(context) {
 # This will generate the web page for the context (a version of the webpage with PDFs)
 finish_vcontext <- function() {
   message("")         # Print a newline
-  set_vcontext(NULL)  # Reset the context
+
   # Save the test information into a file
   dput(get_vtestinfo(), file.path("visual_test", get_vcontext(), "testinfo.dat"))
 
-  make_vtest_webpage()
+  tryCatch(make_vtest_webpage(), error = function(e) e)
+
+  set_vcontext(NULL)  # Reset the context
 
   # TODO: find a better way to do this
   if (isTRUE(globalenv()$convertpng))  # might be NULL, so test with isTRUE
@@ -158,7 +160,7 @@ make_vtest_webpage <- function(subdir = NULL, convertpng = FALSE) {
 
 
 # Generate the PNG images for a directory
-convert_pdf2png <- function(filenames, indir = NULL, outdir = NULL) {
+convert_pdf2png <- function(filenames, indir = NULL, outdir = NULL, method = "ghostscript") {
   if (length(filenames) == 0) return()
   infiles <- filenames[grepl("\\.pdf$", filenames)]  # Keep the .pdf files only
   outfiles <- sub("\\.pdf$", ".png", infiles)
@@ -167,21 +169,33 @@ convert_pdf2png <- function(filenames, indir = NULL, outdir = NULL) {
   if (!is.null(indir))   infiles  <- file.path(indir, infiles)
   if (!is.null(outdir))  outfiles <- file.path(outdir, outfiles)
 
-  message("Converting ", length(infiles), " PDF files to PNG")
+  message("Converting ", length(infiles), " PDF files to PNG, using method ", method)
 
   # Convert multiple PNGs by building a command string like this:
   # convert \( a.pdf -write a.png +delete \) \( b.pdf -write b.png +delete \) null:
 
-  args <- NULL
-  for (i in seq_along(infiles)) {
-    args <- c(args, "\\(", infiles[i], "-density", "72x72", "-write", outfiles[i],
-             "+delete", "\\)")
+  if (method == "ghostscript") {
+    for (i in seq_along(infiles)) {
+      system2("gs", c("-dNOPAUSE", "-dBATCH", "-sDEVICE=png16m", "-r72",
+        "-dTextAlphaBits=4", "-dGraphicsAlphaBits=4",
+        paste("-sOutputFile=", outfiles[i], sep=""), infiles[i]), stdout = TRUE)
+    }
+
+  } else if (method == "imagemagick") {
+    args <- NULL
+    for (i in seq_along(infiles)) {
+      args <- c(args, "\\(", infiles[i], "-density", "72x72", "-write", outfiles[i],
+               "+delete", "\\)")
+    }
+  
+    # Need the these "null:" to suppress convert warnings, for some reason
+    args <- c(args, "null:", "null:")
+  
+    system2("convert", args)
+
+  } else {
+    stop("Unknown method.")
   }
-
-  # Need the these "null:" to suppress convert warnings, for some reason
-  args <- c(args, "null:", "null:")
-
-  system2("convert", args)
 }
 
 
@@ -200,12 +214,12 @@ compare_png <- function(files1, files2, filesout) {
 
 
 # Make visual diff from two refs
-vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE, prompt = TRUE) {
-  # TODO: Move diff dir out of temp (?)
-  # TODO: option for using gs
-  # TODO: check color space in conversion
+vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
+                  method = "ghostscript", prompt = TRUE) {
+  # TODO: message about weird color space in conversion using convert
   # TODO: print message about png option, and slow png vs safari-only pdf
   # TODO: allow ^C termination somehow
+  # TODO: add refspec to pages
 
   if (ref1 == "")  stop('ref1 must not be blank "" (because git doesn\'t like it)')
 
@@ -251,10 +265,9 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE, prompt = TRUE) {
   }
 
   # The directories for ref1, ref2, and the diffs
-  path1 <- normalizePath(file.path(tempdir(), "vdiff1"))
-  path2 <- normalizePath(file.path(tempdir(), "vdiff2"))
-  pathd <- normalizePath(file.path(tempdir(), "diff"))
-
+  path1 <- normalizePath(file.path("visual_test", "diff", "1"), mustWork = FALSE)
+  path2 <- normalizePath(file.path("visual_test", "diff", "2"), mustWork = FALSE)
+  pathd <- normalizePath(file.path("visual_test", "diff", "diff"), mustWork = FALSE)
 
   # Checkout the files for ref1
   checkout(ref1, dir = path1, paths = "visual_test")
@@ -291,7 +304,8 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE, prompt = TRUE) {
     make_diffpage(cfiles, name = t,
                   file.path(path1, "visual_test", t),
                   file.path(path2, "visual_test", t), 
-                  file.path(pathd, "visual_test", t), convertpng = convertpng)
+                  file.path(pathd, "visual_test", t),
+                  convertpng = convertpng, method = method)
   }
   # sapply(testdirs, make_diffpage, changedm path1, path2, pathd, convertpng = convertpng)
 
@@ -301,7 +315,8 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE, prompt = TRUE) {
 
 # Make a web page with diffs between one path and another path
 # This assumes that they contain all the same files. If they don't, it won't be happy.
-make_diffpage <- function(changed, name = "", path1, path2, pathd, convertpng = FALSE) {
+make_diffpage <- function(changed, name = "", path1, path2, pathd, convertpng = FALSE,
+                          method = "ghostscript") {
 
   dir.create(pathd, recursive = TRUE, showWarnings = FALSE) # Create diff dir if needed
 
@@ -403,7 +418,7 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, convertpng = 
 
   write("</table></body></html>", outfile, append = TRUE)
 
-  convert_pdf2png(convertfiles)
+  convert_pdf2png(convertfiles, method = method)
 
   mfilespng <- sub("\\.pdf$", ".png", mfiles)  # For the compared files, use png
   compare_png(file.path(path1, mfilespng),
