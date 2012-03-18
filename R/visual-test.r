@@ -347,42 +347,43 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, cssfile,
 
   # Write HTML code to show a single test
   item_html <- function(t, path1, path2, pathd, convertpng) {
-    # TODO: change to use div
-    #<div class="float">name <img src="…"/ > </div>
-    #.float {float: left; width: 200px}
-    
+
     # The diff file is a png. If convertpng==TRUE, so are the 1/ and 2/ files
     pngfile <- sub("\\.pdf$", ".png", t$filename)
     if (convertpng) reffile <- pngfile       # The filename in dirs 1/ and 2/
     else            reffile <- t$filename
 
     if (t$status == "D") {           # Deleted file
+      status <- "changed"
       cell1 <- paste("<img src='", file.path(relativePath(path1, pathd), reffile), "'>", sep="")
       cell2 <- "Not present (deleted)"
       celld <- "Not applicable"
     } else if (t$status == "A") {    # Added file
+      status <- "changed"
       cell1 <- "Not present (added)"
       cell2 <- paste("<img src='", file.path(relativePath(path2, pathd), reffile), "'>", sep="")
       celld <- "Not applicable"    
     } else if (t$status == "M") {    # Modified file
+      status <- "changed"
       cell1 <- paste("<img src='", file.path(relativePath(path1, pathd), reffile), "'>", sep="")
       cell2 <- paste("<img src='", file.path(relativePath(path2, pathd), reffile), "'>", sep="")
       celld <- paste("<img src='", pngfile, "'>", sep="")
     } else if (t$status == "U") {    # Unchanged file
+      status <- "unchanged"
       cell1 <- paste("<img src='", file.path(relativePath(path1, pathd), reffile), "'>", sep="")
       cell2 <- cell1
       celld <- "Identical"
     }
 
-    paste('<div class="float">\n',
-          '  <div class="name">', t$hash, '</div>\n',
+    paste('<div class="float"><div class="', status, '">\n',
+          '  <div class="name">',t$hash, '</div>\n',
           '  <div class="description">', t$desc, '</div>\n',
           '  <div class="imageset">\n',
-          '  <span class="image">', cell1, '</span>\n',
-          '  <span class="image">', cell2, '</span>\n',
-          '  <span class="image">', celld, '</span>\n',
+          '    <span class="image">', cell1, '</span>\n',
+          '    <span class="image">', cell2, '</span>\n',
+          '    <span class="image">', celld, '</span>\n',
           '  </div>\n',
-          '</div>\n', sep="")
+          '</div></div>\n', sep="")
   }
 
   write(paste('<html><head>\n',
