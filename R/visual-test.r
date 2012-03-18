@@ -230,7 +230,6 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
 
   # A function for checking out visual_test from a commit ref, or "" for current state
   checkout <- function(ref = "", dir = NULL, paths = "") {
-
     if (is.null(dir))  dir <- file.path(tempdir(), "gitcheckout")
 
     # TODO: change this - it's very dangerous if someone uses "/"!
@@ -239,7 +238,10 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
 
     if (ref == "") {
       # If blank ref, simply copy the files over from the working tree
-      files <- list.files(paths, recursive = TRUE, full.names = TRUE)
+      # First get the (non-dir) files only, then recurse into directories
+      dirs <- file.info(paths)$isdir
+      files <- paths[!dirs]
+      files <- c(files, list.files(paths[dirs], recursive = TRUE, full.names = TRUE))
 
       # Find which directories need to be created, and then create them
       newdirs <- unique(file.path(dir, dirname(files)))
@@ -284,6 +286,16 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
   changed <- setNames(changed, c("status", "filename"))
   # We only care about files in visual_test/
   changed <- subset(changed, grepl("^visual_test/", filename))
+
+  # Special case where ref2 is the working tree. This is a bit hacky. Also add all
+  # the untracked files in the visual_test dir
+  if (ref2 == "") {
+    wfiles <- system2("git", c("ls-files", "--other", "--exclude-standard", "visual_test/"),
+              stdout = TRUE)
+    changed <- rbind(changed, data.frame(status = "A",  filename = wfiles,
+                                         stringsAsFactors = FALSE))
+  }
+
   # The Modified and Added files
   ref2_changed <- subset(changed, (status =="M" | status=="A"), select = filename, drop = TRUE)
 
@@ -345,6 +357,12 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, convertpng = 
   mergeby <- intersect(names(testinfo1), names(testinfo2))
   mergeby <- mergeby[mergeby != "id"]
   testinfo <- merge(testinfo1, testinfo2, by = mergeby, all = TRUE)
+
+  # In the special case where comparing a commit-ref against working dir (""),
+  # added files won't have an "A" in changed$status (which is from git diff --name-status).
+  # We can detect these cases, because they will be missing id.x, and manually
+  # set the status to A.
+  testinfo$status[is.na(testinfo$id.x) & !is.na(testinfo$id.y)] <- "A"
 
   testinfo <- arrange(testinfo, id.x, id.y)  # Order by ref1 and then ref2
   testinfo$id <- seq_len(nrow(testinfo))     # Assign new id (used for ordering items)
