@@ -92,11 +92,16 @@ save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
   ggsave(file.path(tempdir(), "vistest.pdf"), width = width, height = height,
          dpi = dpi, device = match.fun(device), compress = FALSE)
 
-  # TODO: Be more careful about editing these lines in the PDF
   # Load vistest.pdf and modify the CreationDate and ModDate (lines 5 and 6)
+  # so that the files are exactly the same, regardless of date + time.
   temppdf <- file(file.path(tempdir(), "vistest.pdf"), "r")
   pdftext <- readLines(temppdf)
   close(temppdf)
+
+  if (!grepl("^/CreationDate ", pdftext[5]) || !grepl("^/ModDate ", pdftext[6]))
+    stop("Unexpected structure of PDF file. CreationDate or ModDate not found in right place in ",
+         file.path(tempdir(), "vistest.pdf"))
+
   pdftext[5] <- "/CreationDate (D:00000000000000)"
   pdftext[6] <- "/ModDate (D:00000000000000)"
 
