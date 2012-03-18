@@ -195,45 +195,15 @@ make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
 
 
 # Make visual diff from two refs
-vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
+vdiff <- function(ref1 = "HEAD", ref2 = "", filter = "", convertpng = TRUE,
                   method = "ghostscript", prompt = TRUE) {
   # TODO: message about weird color space in conversion using convert
   # TODO: print message about png option, and slow png vs safari-only pdf
 
   # TODO: de-hard code this?
-  cssfile <- "visual_test/style.css"
+  cssfile <- file.path("visual_test", "style.css")
 
   if (ref1 == "")  stop('ref1 must not be blank "" (because git doesn\'t like it)')
-
-  # A function for checking out visual_test from a commit ref, or "" for current state
-  checkout <- function(ref = "", dir = NULL, paths = "") {
-    if (is.null(dir))  dir <- file.path(tempdir(), "gitcheckout")
-
-    # TODO: change this - it's very dangerous if someone uses "/"!
-    unlink(dir, recursive = TRUE)      # Delete existing directory
-    dir.create(dir, recursive = TRUE)  # Create the new directory
-
-    if (ref == "") {
-      # If blank ref, simply copy the files over from the working tree
-      # First get the (non-dir) files only, then recurse into directories
-      dirs <- file.info(paths)$isdir
-      files <- paths[!dirs]
-      files <- c(files, list.files(paths[dirs], recursive = TRUE, full.names = TRUE))
-
-      # Find which directories need to be created, and then create them
-      newdirs <- unique(file.path(dir, dirname(files)))
-      sapply(newdirs, dir.create, recursive = TRUE, showWarnings = FALSE)
-      # Copy the files over
-      file.copy(files, file.path(dir, files))
-
-    } else {
-      # Checkout the git ref into dir
-      if (system2("git", c("--work-tree", dir, "checkout", ref, "--", paths)) != 0)
-        stop("git checkout failed.")
-      # Need to reset git index status after the checkout (so git doesn't get confused)
-      system2("git", c("reset", "--mixed"), stdout = TRUE)
-    }
-  }
 
   # Check we're in top level of the repo
   if (getwd() != system2("git", c("rev-parse", "--show-toplevel"), stdout = TRUE))
@@ -254,7 +224,7 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
   pathd <- normalizePath(file.path("visual_test", "diff", "diff"), mustWork = FALSE)
 
   # Checkout the files for ref1
-  checkout(ref1, dir = path1, paths = "visual_test")
+  checkout_worktree(ref1, outdir = path1, paths = "visual_test")
 
   # These are the files that were added or modified between ref1 and ref2
   # We already checked out ref1, so now we'll check out these specific files from ref2
@@ -279,7 +249,7 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
   ref2_changed <- subset(changed, (status =="M" | status=="A"), select = filename, drop = TRUE)
 
   # Check out from ref1 only the Modified and Deleted files
-  checkout(ref2, dir = path2, paths = ref2_changed)
+  checkout_worktree(ref2, outdir = path2, paths = ref2_changed)
 
 
   # Copy the CSS file over to the diff/visual_test dir
@@ -291,6 +261,8 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
   testdirs <- dirname(list.files(file.path(path1, "visual_test"),
                                  pattern = "testinfo.dat",
                                  recursive = TRUE))
+
+  testdirs <- testdirs[grepl(filter, testdirs)]
 
   # Make diff pages for each of these directories
   for (t in testdirs) {
@@ -494,6 +466,37 @@ compare_png <- function(files1, files2, filesout) {
   }
 }
 
+
+# A function for checking out a path (like "visual_test) from a commit ref,
+#  or use "" for current state
+checkout_worktree <- function(ref = "", outdir = NULL, paths = "") {
+  if (is.null(outdir))  outdir <- file.path(tempdir(), "checkout-workdir")
+
+  # TODO: change this - it's dangerous if someone uses "/"!
+  unlink(outdir, recursive = TRUE)      # Delete existing directory
+  dir.create(outdir, recursive = TRUE)  # Create the new directory
+
+  if (ref == "") {
+    # If blank ref, simply copy the files over from the working tree
+    # First get the (non-dir) files only, then recurse into directories
+    dirs <- file.info(paths)$isdir
+    files <- paths[!dirs]
+    files <- c(files, list.files(paths[dirs], recursive = TRUE, full.names = TRUE))
+
+    # Find which directories need to be created, and then create them
+    newdirs <- unique(file.path(outdir, dirname(files)))
+    sapply(newdirs, dir.create, recursive = TRUE, showWarnings = FALSE)
+    # Copy the files over
+    file.copy(files, file.path(outdir, files))
+
+  } else {
+    # Checkout the git ref into outdir
+    if (system2("git", c("--work-tree", outdir, "checkout", ref, "--", paths)) != 0)
+      stop("git checkout failed.")
+    # Need to reset git index status after the checkout (so git doesn't get confused)
+    system2("git", c("reset", "--mixed"), stdout = TRUE)
+  }
+}
 
 
 # Find path to d, relative to start. If `start` is NULL, use current dir
