@@ -182,8 +182,6 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
                   method = "ghostscript", prompt = TRUE) {
   # TODO: message about weird color space in conversion using convert
   # TODO: print message about png option, and slow png vs safari-only pdf
-  # TODO: allow ^C termination somehow
-  # TODO: add refspec to pages
 
   if (ref1 == "")  stop('ref1 must not be blank "" (because git doesn\'t like it)')
 
@@ -267,9 +265,6 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
                                  pattern = "testinfo.dat",
                                  recursive = TRUE))
 
-  # TODO: remove if no problems -- this shouldn't be needed:
-  #testdirs <- testdirs[!grepl("^diff", testdirs)]  # Ignore ^diff subdirs in the diff dir
-
   # Make diff pages for each of these directories
   for (t in testdirs) {
     # Just the changed files in this directory
@@ -281,9 +276,8 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
                   file.path(path1, "visual_test", t),
                   file.path(path2, "visual_test", t), 
                   file.path(pathd, "visual_test", t),
-                  convertpng = convertpng, method = method)
+                  convertpng = convertpng, method = method, refnames = c(ref1, ref2))
   }
-  # sapply(testdirs, make_diffpage, changedm path1, path2, pathd, convertpng = convertpng)
 
   invisible()
 }
@@ -292,7 +286,7 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", convertpng = FALSE,
 # Make a web page with diffs between one path and another path
 # This assumes that they contain all the same files. If they don't, it won't be happy.
 make_diffpage <- function(changed, name = "", path1, path2, pathd, convertpng = FALSE,
-                          method = "ghostscript") {
+                          method = "ghostscript", refnames = c("","")) {
 
   dir.create(pathd, recursive = TRUE, showWarnings = FALSE) # Create diff dir if needed
 
@@ -389,7 +383,9 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, convertpng = 
 
   write(paste("<html><head><title>Tests: ", name,
               "</title></head><body><h1>Tests: ", name,
-              "</h1>\n", sep = ""), outfile)
+              "</h1><h2>Comparing ", refnames[1], " to ",
+                ifelse(refnames[2] == "", "working tree", refnames[2]),
+              "</h2>\n", sep = ""), outfile)
 
   write("<table border='1'>\n", outfile, append = TRUE)
 
