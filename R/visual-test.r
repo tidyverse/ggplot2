@@ -169,11 +169,6 @@ make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
   unlink(outdir, recursive= TRUE)
   dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
 
-  if (convertpng)
-    convert_pdf2png(testinfo$filename, dir, outdir)
-  else
-    file.copy(file.path(dir, testinfo$filename), outdir)
-
   htmlfile <- file.path(normalizePath(outdir), "index.html")
   message("Writing ", htmlfile)
 
@@ -208,6 +203,12 @@ make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
   }
 
   write('</body></html>', htmlfile, append = TRUE)
+
+  if (convertpng)
+    convert_pdf2png(testinfo$filename, dir, outdir)
+  else
+    file.copy(file.path(dir, testinfo$filename), outdir)
+
 }
 
 
@@ -224,8 +225,14 @@ make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
 vdiffstat <- function(ref1 = "HEAD", ref2 = "", filter = "") {
   if (ref1 == "")  stop('ref1 must not be blank "" (because git doesn\'t like it)')
 
-  changed <- read.table(text = system2("git", c("diff", "--name-status",
-                          ref1, ref2), stdout = TRUE), stringsAsFactors = FALSE)
+  gittext <- system2("git", c("diff", "--name-status", ref1, ref2), stdout = TRUE)
+  if (length(gittext) == 0) {
+    # Create an empty data frame
+    changed = data.frame(V1=character(), V2=character())
+  } else {
+    changed <- read.table(text = system2("git", c("diff", "--name-status",
+                            ref1, ref2), stdout = TRUE), stringsAsFactors = FALSE)
+  }
   changed <- setNames(changed, c("status", "filename"))
   changed <- subset(changed, grepl("^visual_test/", filename))
 
