@@ -225,13 +225,18 @@ make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
 vdiffstat <- function(ref1 = "HEAD", ref2 = "", filter = "") {
   if (ref1 == "")  stop('ref1 must not be blank "" (because git doesn\'t like it)')
 
-  gittext <- system2("git", c("diff", "--name-status", ref1, ref2), stdout = TRUE)
-  if (length(gittext) == 0) {
-    # Create an empty data frame
-    changed = data.frame(V1=character(), V2=character())
+  gitstat <- systemCall("git", c("diff", "--name-status", ref1, ref2),
+                        stdout = TRUE, stderr = TRUE)
+
+  if (gitstat$status != 0) {
+    # Git failed to run for some reason. it would be nice to print the output,
+    # but we can't because of issues with system2 in systemCall
+    stop("git returned code ", gitstat$status, ". Make sure you use valid refs.")
+  } else if (length(gitstat$output) == 0) {
+    # There were no changes; create an empty data frame
+    changed <- data.frame(V1=character(), V2=character())
   } else {
-    changed <- read.table(text = system2("git", c("diff", "--name-status",
-                            ref1, ref2), stdout = TRUE), stringsAsFactors = FALSE)
+    changed <- read.table(gitstat$output)
   }
   changed <- setNames(changed, c("status", "filename"))
   changed <- subset(changed, grepl("^visual_test/", filename))
@@ -575,4 +580,31 @@ relativePath <- function(path, start = NULL) {
 
   # Build the relative path, adding ..'s for each path level in s
   paste(c(rep("..", length(s)-lastmatch), p), collapse="/")
+}
+
+
+# Call system2, but capture both the exit code and the stdout+stderr
+# Supposedly in the next version of R, system2 will return this information,
+# making this wrapper unnecessary.
+# Note, this doesn't capture the output correctly if there's an error return value,
+# in contrast to what's said here:
+# http://stackoverflow.com/questions/7014081/capture-both-exit-status-and-output-from-a-system-call-in-r
+systemCall <- function(commands, args = character(),
+             stdout = "", stderr = "", stdin = "", input = NULL,
+             env = character(), wait = TRUE) {
+  output <- ""  # Need to set variable in case there's no output
+  status <- 0
+  warn <- NULL
+
+  out <- tryCatch(
+    output <- system2(commands, args, stdout, stderr, stdin, input, env, wait),
+    warning = function(w) {warn <<- w})
+
+  # This should get the exit code from the warning string
+  if (!is.null(warn)) {
+    status <- sub( ".*status (\\d+)$", "\\1", warn$message)
+    status <- as.integer(status)
+  }
+
+  return(list(status = status, output = output))
 }
