@@ -425,7 +425,9 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, cssfile,
         '<h1>Visual tests diffs: ', name, '</h1>\n',
         '<h2>Comparing <span class="refspec">', refnames[1],
         '</span> to <span class="refspec">', refnames[2],
-        '</span></h2>\n', sep = ""), outfile)
+        '</span></h2>\n',
+        '<h2>', sum(testinfo$status != "U"), ' of ', nrow(testinfo),
+        ' test files changed.</h2>\n', sep = ""), outfile)
 
   # Write information about all the test items in testinfo
   for (i in seq_len(nrow(testinfo))) {

@@ -14,6 +14,12 @@ h1 {
   padding: 10px;
 }
 
+h2 {
+  font-size: 200%;
+  margin-left: 10px;
+  line-height .5;
+}
+
 .refspec {
   background-color: #eeeeee;
   border: 1px solid #dddddd;
