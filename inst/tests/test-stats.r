@@ -64,3 +64,30 @@ test_that("stat_sum", {
   expect_equal(sum(ret$n), sum(d$price))
   expect_equal(sum(ret$prop), 1)
 })
+
+# helper function for stat calc tests.
+test_stat_scale <- function(stat, scale) {
+  stat$data <- transform(stat$data, PANEL = 1)
+  dat <- stat$compute_aesthetics(stat$data, ggplot())
+  dat <- add_group(dat)
+  stat$calc_statistic(dat, scale)
+}
+
+context("stat-bin2d")
+
+test_that("stat-bin2d", {
+  d <- diamonds[1:1000,]
+
+  full_scales <- list(x = scale_x_continuous(limits = range(d$carat, na.rm=TRUE)),
+                      y = scale_y_continuous(limits = range(d$depth, na.rm=TRUE)))
+  ret <- test_stat_scale(stat_bin2d(aes(x = carat, y = depth), data=d), full_scales)
+  expect_equal(dim(ret), c(191,12))
+
+  d$carat[1] <- NA
+  d$depth[2] <- NA
+
+  full_scales <- list(x = scale_x_continuous(limits = range(d$carat, na.rm=TRUE)),
+                      y = scale_y_continuous(limits = range(d$depth, na.rm=TRUE)))
+  ret <- test_stat_scale(stat_bin2d(aes(x = carat, y = depth), data=d), full_scales)
+  expect_equal(dim(ret), c(191,12))
+})

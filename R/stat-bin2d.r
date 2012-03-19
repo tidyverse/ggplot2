@@ -60,7 +60,7 @@ StatBin2d <- proto(Stat, {
       stopifnot(is.numeric(origin))
       stopifnot(length(origin) == 2)
     }    
-    originf <- function(x) if (is.integer(x)) -0.5 else min(x)
+    originf <- function(x) if (is.integer(x)) -0.5 else min(x, na.rm=TRUE)
     if (is.na(origin[1])) origin[1] <- originf(data$x)
     if (is.na(origin[2])) origin[2] <- originf(data$y)
     
