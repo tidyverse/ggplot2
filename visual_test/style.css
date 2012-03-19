@@ -15,10 +15,10 @@ h1 {
 }
 
 .refspec {
-  font-family: Menlo, Monaco, "Courier New", monospace;
-  font-weight: normal;
   background-color: #eeeeee;
   border: 1px solid #dddddd;
+  font-family: Menlo, Monaco, "Courier New", monospace;
+  font-weight: normal;
   border-radius: 2px;
   padding: 0 2px;
 }
@@ -44,30 +44,33 @@ h1 {
   padding: 5px;
 }
 
-.float .name {
-  background-color: #444444;
+.float .description {
+  background-color: #333333;
   color: #ffffff;
-  border-radius: 2px;
-  padding: 5px;
-  font-size: 80%;
+  border-radius: 3px;
+  padding: 15px 5px 5px 5px;
   text-align: center;
 }
 
-.float .description {
-  color: #000000;
-  text-align: center;
-  height: 4 em;
+.float .name {
+  font-size: 75%;
 }
 
 .float .imageset {
   white-space: nowrap;
   overflow: hidden;
+  padding: 5px;
 }
 
-.float .image {
+.float .imagewrap {
   min-width: 250px;
+  min-height: 250px;
   float: left;
   text-align: center;  
+  display: table-cell;
+}
+
+.float .imagewrap .image {
 }
 
 .float img {

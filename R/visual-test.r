@@ -139,7 +139,8 @@ vtest_webpage <- function(filter = "", convertpng = TRUE) {
   }
 
   # Copy the css file
-  file.copy(file.path("visual_test", "style.css"), file.path("visual_test", "html"))
+  file.copy(file.path("visual_test", "style.css"), file.path("visual_test", "html"),
+            overwrite = TRUE)
   invisible()
 }
 
@@ -184,9 +185,12 @@ make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
     else            f <- t$filename
 
     paste('<div class="float">\n',
-          '  <div class="name">', t$hash, '</div>\n',
-          '  <div class="description">', t$desc, '</div>\n',
-          '  <div class="image">', '  <img src="', f , '"></div>\n',
+          '  <div class="description">', t$desc, '<p class="name">', t$hash, '</p>', '</div>\n',
+          '  <div class="imageset">\n',
+          '    <span class="imagewrap">\n',
+          '      <div class="image"><img src="', f, '"></div>\n',
+          '    </span>\n',
+          '  </div>\n',
           '</div>\n', sep="")
   }
 
@@ -285,7 +289,8 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", filter = "", convertpng = TRUE,
                   file.path(path2, "visual_test", t),
                   file.path(pathd, "visual_test", t),
                   cssfile = css_outfile,
-                  convertpng = convertpng, method = method, refnames = c(ref1, ref2))
+                  convertpng = convertpng, method = method,
+                  refnames = c(ref1, ifelse(ref2 == "", "working tree", ref2)))
   }
 
   invisible()
@@ -361,13 +366,13 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, cssfile,
     if (t$status == "D") {           # Deleted file
       status <- "changed"
       cell1 <- paste("<img src='", file.path(relativePath(path1, pathd), reffile), "'>", sep="")
-      cell2 <- "Not present (deleted)"
-      celld <- "Not applicable"
+      cell2 <- "Not present"
+      celld <- "NA"
     } else if (t$status == "A") {    # Added file
       status <- "changed"
-      cell1 <- "Not present (added)"
+      cell1 <- "Not present"
       cell2 <- paste("<img src='", file.path(relativePath(path2, pathd), reffile), "'>", sep="")
-      celld <- "Not applicable"    
+      celld <- "NA"    
     } else if (t$status == "M") {    # Modified file
       status <- "changed"
       cell1 <- paste("<img src='", file.path(relativePath(path1, pathd), reffile), "'>", sep="")
@@ -381,12 +386,20 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, cssfile,
     }
 
     paste('<div class="float"><div class="', status, '">\n',
-          '  <div class="name">',t$hash, '</div>\n',
-          '  <div class="description">', t$desc, '</div>\n',
+          '  <div class="description">', t$desc, '<p class="name">', t$hash, '</p>', '</div>\n',
           '  <div class="imageset">\n',
-          '    <span class="image">', cell1, '</span>\n',
-          '    <span class="image">', cell2, '</span>\n',
-          '    <span class="image">', celld, '</span>\n',
+          '    <span class="imagewrap">\n',
+          '      <div><span class="refspec">', refnames[1],'</span></div>\n',
+          '      <div class="image">', cell1, '</div>\n',
+          '    </span>\n',
+          '    <span class="imagewrap">\n',
+          '      <div><span class="refspec">', refnames[2],'</span></div>\n',
+          '      <div class="image">', cell2, '</div>\n',
+          '    </span>\n',
+          '    <span class="imagewrap">\n',
+          '      <div>Difference</div>\n',
+          '      <div class="image">', celld, '</div>\n',
+          '    </span>\n',
           '  </div>\n',
           '</div></div>\n', sep="")
   }
@@ -397,8 +410,7 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, cssfile,
         '</title></head><body>\n',
         '<h1>Visual tests diffs: ', name, '</h1>\n',
         '<h2>Comparing <span class="refspec">', refnames[1],
-        '</span> to <span class="refspec">',
-          ifelse(refnames[2] == "", "working tree", refnames[2]),
+        '</span> to <span class="refspec">', refnames[2],
         '</span></h2>\n', sep = ""), outfile)
 
   # Write information about all the test items in testinfo
