@@ -37,7 +37,9 @@ vtest <- function(filter = NULL) {
   fopt_quote <- ifelse(is.null(filter), '', paste('filter="', filter, '"', sep = ""))
   message("\nRun vtest_webpage(", f_quote, ") to generate web pages for viewing tests.\n",
     "Run vdiffstat(", fopt_quote, ") to see what files have changed.\n",
-    "Run vdiff_webpage(", fopt_quote, ") to generate web pages comparing results to another commit in the git repository." )
+    "Run vdiff_webpage(", fopt_quote,
+    ") to generate web pages comparing results to another commit in the git repository.\n",
+    "If you have added new tests, remember to add the output files to the git repository.")
 
   # If this is moved out of ggplot2, should check for visual_test/.gitignore
 }
@@ -125,6 +127,7 @@ save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
 
 # This is the function that the user calls
 # * convertpng: if TRUE, convert the source PDFs files to PNG instead.
+# TODO: Create overall index file?
 vtest_webpage <- function(filter = "", convertpng = TRUE) {
   # Find subdirs with testinfo.dat
   dirs <- dirname(list.files("visual_test", pattern = "testinfo.dat",
@@ -147,6 +150,7 @@ vtest_webpage <- function(filter = "", convertpng = TRUE) {
 
 
 # Make a single web page (user shouldn't use this function)
+# TODO: display filename if it differs from hash
 make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
   if (is.null(dir))     stop("dir cannot be  NULL")
   if (is.null(outdir))  stop("outdir cannot be  NULL")
@@ -238,10 +242,12 @@ vdiffstat <- function(ref1 = "HEAD", ref2 = "", filter = "") {
 
 
 # Make visual diff from two refs
+# TODO: Create overall index file, with status
 vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", filter = "", convertpng = TRUE,
                   method = "ghostscript", prompt = TRUE) {
   # TODO: message about weird color space in conversion using convert
   # TODO: print message about png option, and slow png vs safari-only pdf
+  # TODO: display filename if it differs from hash
 
   # TODO: de-hard code this?
   cssfile <- file.path("visual_test", "style.css")
