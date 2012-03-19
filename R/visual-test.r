@@ -134,6 +134,10 @@ save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
 # * convertpng: if TRUE, convert the source PDFs files to PNG instead.
 # TODO: Create overall index file?
 vtest_webpage <- function(filter = "", convertpng = TRUE) {
+  # Check we're in top level of the repo
+  if (getwd() != system2("git", c("rev-parse", "--show-toplevel"), stdout = TRUE))
+    stop("This must be run from the top level of the git tree.")
+
   # Find subdirs with testinfo.dat
   dirs <- dirname(list.files("visual_test", pattern = "testinfo.dat",
                              recursive = TRUE))
@@ -266,6 +270,10 @@ vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", filter = "", convertpng = TR
   # TODO: print message about png option, and slow png vs safari-only pdf
   # TODO: display filename if it differs from hash
 
+  # Check we're in top level of the repo
+  if (getwd() != system2("git", c("rev-parse", "--show-toplevel"), stdout = TRUE))
+    stop("This must be run from the top level of the git tree.")
+
   # TODO: de-hard code this?
   cssfile <- file.path("visual_test", "style.css")
 
@@ -335,7 +343,7 @@ vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", filter = "", convertpng = TR
 
 
 # Make a web page with diffs between one path and another path
-# This assumes that they contain all the same files. If they don't, it won't be happy.
+# This shouldn't be called by the user - users should call vdiff_webpage()
 make_diffpage <- function(changed, name = "", path1, path2, pathd, cssfile,
     convertpng = FALSE, method = "ghostscript", refnames = c("","")) {
 
