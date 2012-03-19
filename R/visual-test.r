@@ -13,12 +13,12 @@ local({
   get_vcontext <<- function() context
   set_vcontext <<- function(value) {
     context <<- value
-    testinfo <<- list()
+    testinfo <<- data.frame()
     count <<- 1
   }
   get_vtestinfo <<- function() testinfo
   append_vtestinfo <<- function(value) {
-    testinfo <<- c(testinfo, list(c(value, id = count)))
+    testinfo <<- rbind(testinfo, cbind(value, data.frame(id = count)))
     count <<- count + 1
   }
 })
@@ -69,7 +69,7 @@ end_vcontext <- function() {
 }
 
 
-# Save an individual test to file, and record information using apped_vtestinfo
+# Save an individual test to file, and record information using append_vtestinfo
 # This presently only works with pdf; other file types will fail
 # * desc: a short description of the test
 # * filename: output filename (not including extension, like ".pdf"). If NULL, use MD5
@@ -118,8 +118,9 @@ save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
   unlink(temppdf)
 
   # Append the info for this test in the vis_info list
-  append_vtestinfo(list(filename = filename, desc = desc, hash = hash, type = device, 
-                        width = width, height = height, dpi = dpi))
+  append_vtestinfo(data.frame(filename = filename, desc = desc, hash = hash,
+                    type = device, width = width, height = height, dpi = dpi,
+                    stringsAsFactors = FALSE))
 
   message(".", appendLF = FALSE)
 }
@@ -162,18 +163,16 @@ make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
   # Read in the information about the tests
   testinfo <- dget(file.path(dir, "testinfo.dat"))
 
-  # Sort by id (complicated because of list)
-  testinfo <- testinfo[order(sapply(testinfo, "[[", "id"))]
+  # Sort by id
+  testinfo <- testinfo[order(testinfo$id), ]
 
   unlink(outdir, recursive= TRUE)
   dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
 
-  pdffiles <- sapply(testinfo, "[[", "filename")
-
   if (convertpng)
-    convert_pdf2png(pdffiles, dir, outdir)
+    convert_pdf2png(testinfo$filename, dir, outdir)
   else
-    file.copy(file.path(dir, pdffiles), outdir)
+    file.copy(file.path(dir, testinfo$filename), outdir)
 
   htmlfile <- file.path(normalizePath(outdir), "index.html")
   message("Writing ", htmlfile)
@@ -204,7 +203,9 @@ make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
   }
 
   # Get the list of info about all tests, then write information about each of the items
-  write(sapply(testinfo, item_html, convertpng), htmlfile, sep = "\n", append = TRUE)
+  for (i in seq_len(nrow(testinfo))) {
+    write(item_html(testinfo[i, ], convertpng), htmlfile, append = TRUE)
+  }
 
   write('</body></html>', htmlfile, append = TRUE)
 }
@@ -334,10 +335,6 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, cssfile,
     testinfo2 <- dget(file.path(path2, "testinfo.dat"))
   else
     testinfo2 <- testinfo1   # If testinfo2 doesn't exist, then it's unchanged from testinfo1
-
-  # Convert them from nested lists to data frames
-  testinfo1 <- ldply(testinfo1, data.frame, stringsAsFactors = FALSE)
-  testinfo2 <- ldply(testinfo2, data.frame, stringsAsFactors = FALSE)
 
   # We want to merge 'changed' together with testinfo1 and testinfo2
   # This is a little tricky
