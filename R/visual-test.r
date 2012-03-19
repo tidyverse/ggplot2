@@ -36,7 +36,8 @@ vtest <- function(filter = NULL) {
   f_quote    <- ifelse(is.null(filter), '', paste('"', filter, '"', sep = ""))
   fopt_quote <- ifelse(is.null(filter), '', paste('filter="', filter, '"', sep = ""))
   message("\nRun vtest_webpage(", f_quote, ") to generate web pages for viewing tests.\n",
-    "Or run vdiff(", fopt_quote, ") to compare results to another commit in the git repository." )
+    "Run vdiffstat(", fopt_quote, ") to see what files have changed.\n",
+    "Run vdiff(", fopt_quote, ") to generate web pages comparing results to another commit in the git repository." )
 
   # If this is moved out of ggplot2, should check for visual_test/.gitignore
 }
@@ -207,6 +208,35 @@ make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
 # =============================================================
 
 
+# Find files modified between ref1 and ref2
+# If ref2 is "" (the working tree), then we don't know exactly which of the new files
+# the user plans to commit. So we just assume all new files in the working tree are
+# added files (marked with A).
+vdiffstat <- function(ref1 = "HEAD", ref2 = "", filter = "") {
+  if (ref1 == "")  stop('ref1 must not be blank "" (because git doesn\'t like it)')
+
+  changed <- read.table(text = system2("git", c("diff", "--name-status",
+                          ref1, ref2), stdout = TRUE), stringsAsFactors = FALSE)
+  changed <- setNames(changed, c("status", "filename"))
+  changed <- subset(changed, grepl("^visual_test/", filename))
+
+  # Special case where ref2 is the working tree. This is a bit hacky. Add all
+  # the untracked files in the visual_test dir. Because they're not committed, we
+  # can't tell exactly which files *should* be compared. So copy all the untracked
+  # files over.
+  if (ref2 == "") {
+    wfiles <- system2("git", c("ls-files", "--other", "--exclude-standard", "visual_test/"),
+              stdout = TRUE)
+    changed <- rbind(changed, data.frame(status = "A",  filename = wfiles,
+                                         stringsAsFactors = FALSE))
+  }
+
+  # use 'filter' on the second part of the path (right after visual_test/)
+  cpaths <- strsplit(changed$filename,"/")
+  changed[grepl(filter, sapply(cpaths, "[[", 2)), ]
+}
+
+
 # Make visual diff from two refs
 vdiff <- function(ref1 = "HEAD", ref2 = "", filter = "", convertpng = TRUE,
                   method = "ghostscript", prompt = TRUE) {
@@ -239,24 +269,8 @@ vdiff <- function(ref1 = "HEAD", ref2 = "", filter = "", convertpng = TRUE,
   # Checkout the files for ref1
   checkout_worktree(ref1, outdir = path1, paths = "visual_test")
 
-  # These are the files that were added or modified between ref1 and ref2
-  # We already checked out ref1, so now we'll check out these specific files from ref2
-  changed <- read.table(text = system2("git", c("diff", "--name-status",
-                          ref1, ref2), stdout = TRUE), stringsAsFactors = FALSE)
-  changed <- setNames(changed, c("status", "filename"))
-  # We only care about files in visual_test/
-  changed <- subset(changed, grepl("^visual_test/", filename))
-
-  # Special case where ref2 is the working tree. This is a bit hacky. Add all
-  # the untracked files in the visual_test dir. Because they're not committed, we
-  # can't tell exactly which files *should* be compared. So copy all the untracked
-  # files over.
-  if (ref2 == "") {
-    wfiles <- system2("git", c("ls-files", "--other", "--exclude-standard", "visual_test/"),
-              stdout = TRUE)
-    changed <- rbind(changed, data.frame(status = "A",  filename = wfiles,
-                                         stringsAsFactors = FALSE))
-  }
+  # Find what changed between ref1 and ref2
+  changed <- vdiffstat(ref1, ref2)
 
   # The Modified and Added files
   ref2_changed <- subset(changed, (status =="M" | status=="A"), select = filename, drop = TRUE)
