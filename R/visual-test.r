@@ -238,12 +238,13 @@ vdiffstat <- function(ref1 = "HEAD", ref2 = "", filter = "") {
   if (gitstat$status != 0) {
     # Git failed to run for some reason. it would be nice to print the output,
     # but we can't because of issues with system2 in systemCall
-    stop("git returned code ", gitstat$status, ". Make sure you use valid refs.")
+    stop("git returned code ", gitstat$status, ". Make sure you use valid git commit refs.")
   } else if (length(gitstat$output) == 0) {
     # There were no changes; create an empty data frame
     changed <- data.frame(V1=character(), V2=character())
   } else {
-    changed <- read.table(gitstat$output)
+    changed <- read.table(con <- textConnection(gitstat$output), stringsAsFactors = FALSE)
+    close(con)
   }
   changed <- setNames(changed, c("status", "filename"))
   changed <- subset(changed, grepl("^visual_test/", filename))
@@ -255,9 +256,13 @@ vdiffstat <- function(ref1 = "HEAD", ref2 = "", filter = "") {
   if (ref2 == "") {
     wfiles <- system2("git", c("ls-files", "--other", "--exclude-standard", "visual_test/"),
               stdout = TRUE)
-    changed <- rbind(changed, data.frame(status = "A",  filename = wfiles,
-                                         stringsAsFactors = FALSE))
+
+    if (length(wfiles) > 0)
+      changed <- rbind(changed, data.frame(status = "A",  filename = wfiles,
+                                           stringsAsFactors = FALSE))
   }
+
+  if (nrow(changed) == 0) return(changed)
 
   # use 'filter' on the second part of the path (right after visual_test/)
   cpaths <- strsplit(changed$filename,"/")
