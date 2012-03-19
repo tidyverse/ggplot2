@@ -41,7 +41,7 @@ vtest <- function(filter = NULL, showhelp = TRUE) {
       "Run vdiff_webpage(", fopt_quote,
       ") to generate web pages comparing results to another commit in the git repository.\n",
       "If you have added new tests, remember to add the output files to the git repository.\n",
-      "Hide this message with showhelp=FALSE.")
+      "(Hide this message with showhelp=FALSE.)")
   }
 
   # If this is moved out of ggplot2, should check for visual_test/.gitignore
