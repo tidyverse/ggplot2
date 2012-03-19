@@ -401,7 +401,7 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, cssfile,
   }
 
 
-  outfile <- file.path(pathd, "index.html")
+  outfile <- file.path(normalizePath(pathd), "index.html")
   message("Writing ", outfile)
 
   # Write HTML code to show a single test
