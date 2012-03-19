@@ -60,7 +60,7 @@ StatBin2d <- proto(Stat, {
       stopifnot(is.numeric(origin))
       stopifnot(length(origin) == 2)
     }    
-    originf <- function(x) if (is.integer(x)) -0.5 else min(x, na.rm=TRUE)
+    originf <- function(x) if (is.integer(x)) -0.5 else min(x, na.rm = TRUE)
     if (is.na(origin[1])) origin[1] <- originf(data$x)
     if (is.na(origin[2])) origin[2] <- originf(data$y)
     
@@ -94,13 +94,13 @@ StatBin2d <- proto(Stat, {
     }
     names(breaks) <- c("x", "y")
     
-    xbin <- cut(data$x, sort(breaks$x), include.lowest=TRUE)
-    ybin <- cut(data$y, sort(breaks$y), include.lowest=TRUE)
+    xbin <- cut(data$x, sort(breaks$x), include.lowest = TRUE)
+    ybin <- cut(data$y, sort(breaks$y), include.lowest = TRUE)
     
     if (is.null(data$weight)) data$weight <- 1
     
     counts <- as.data.frame(
-      xtabs(weight ~ xbin + ybin, data), responseName="count")
+      xtabs(weight ~ xbin + ybin, data), responseName = "count")
     if (drop) counts <- subset(counts, count > 0)
     
     within(counts,{
@@ -112,7 +112,7 @@ StatBin2d <- proto(Stat, {
       ymin <- breaks$y[yint]
       ymax <- breaks$y[yint + 1]
   
-      density <- count / sum(count, na.rm=TRUE)
+      density <- count / sum(count, na.rm = TRUE)
     })
   }  
 })
