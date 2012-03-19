@@ -81,27 +81,28 @@ end_vcontext <- function() {
 save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
                        dpi = 72, device = "pdf") {
   require(digest)
-  if (is.null(get_vcontext())) stop("Must have active vcontext")
-  if (is.null(desc))           stop("desc must not be NULL")
-  if (device != "pdf")         stop('Only "pdf" device supported at this time')
+  if (is.null(get_vcontext()))     stop("Must have active vcontext")
+  if (is.null(desc) || desc == "") stop("desc must not be empty")
+  if (device != "pdf")             stop('Only "pdf" device supported at this time')
 
   # Put files in visual_test/<subdir>, where subdir is the vcontext
   destdir <- file.path("visual_test", get_vcontext())
   dir.create(destdir, showWarnings = FALSE)    # Create dir if missing
 
-  # Save it to vistest.pdf in the temp dir
-  ggsave(file.path(tempdir(), "vistest.pdf"), width = width, height = height,
-         dpi = dpi, device = match.fun(device), compress = FALSE)
+  # Save it to a temporary file
+  temppdf <- tempfile("vtest", fileext = ".pdf")
+  ggsave(temppdf, width = width, height = height, dpi = dpi,
+    device = match.fun(device), compress = FALSE)
 
-  # Load vistest.pdf and modify the CreationDate and ModDate (lines 5 and 6)
+  # Load the tempfile and modify the CreationDate and ModDate (lines 5 and 6)
   # so that the files are exactly the same, regardless of date + time.
-  temppdf <- file(file.path(tempdir(), "vistest.pdf"), "r")
-  pdftext <- readLines(temppdf)
-  close(temppdf)
+  temppdf_fd <- file(temppdf, "r")
+  pdftext <- readLines(temppdf_fd)
+  close(temppdf_fd)
 
   if (!grepl("^/CreationDate ", pdftext[5]) || !grepl("^/ModDate ", pdftext[6]))
     stop("Unexpected structure of PDF file. CreationDate or ModDate not found in right place in ",
-         file.path(tempdir(), "vistest.pdf"))
+         temppdf)
 
   pdftext[5] <- "/CreationDate (D:00000000000000)"
   pdftext[6] <- "/ModDate (D:00000000000000)"
@@ -112,6 +113,9 @@ save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
   outpdf <- file(file.path(destdir, filename), "w")
   writeLines(pdftext, outpdf)
   close(outpdf)
+
+  # Remove temp file
+  unlink(temppdf)
 
   # Append the info for this test in the vis_info list
   append_vtestinfo(list(filename = filename, desc = desc, hash = hash, type = device, 
