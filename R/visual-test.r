@@ -25,7 +25,7 @@ local({
 
 
 # Run visual tests
-vtest <- function(filter = NULL) {
+vtest <- function(filter = NULL, showhelp = TRUE) {
   if (!file.exists("visual_test")) 
     return()
 
@@ -35,11 +35,14 @@ vtest <- function(filter = NULL) {
 
   f_quote    <- ifelse(is.null(filter), '', paste('"', filter, '"', sep = ""))
   fopt_quote <- ifelse(is.null(filter), '', paste('filter="', filter, '"', sep = ""))
-  message("\nRun vtest_webpage(", f_quote, ") to generate web pages for viewing tests.\n",
-    "Run vdiffstat(", fopt_quote, ") to see what files have changed.\n",
-    "Run vdiff_webpage(", fopt_quote,
-    ") to generate web pages comparing results to another commit in the git repository.\n",
-    "If you have added new tests, remember to add the output files to the git repository.")
+  if (showhelp) {
+    message("\nRun vtest_webpage(", f_quote, ") to generate web pages for viewing tests.\n",
+      "Run vdiffstat(", fopt_quote, ") to see what files have changed.\n",
+      "Run vdiff_webpage(", fopt_quote,
+      ") to generate web pages comparing results to another commit in the git repository.\n",
+      "If you have added new tests, remember to add the output files to the git repository.\n",
+      "Hide this message with showhelp=FALSE.")
+  }
 
   # If this is moved out of ggplot2, should check for visual_test/.gitignore
 }
