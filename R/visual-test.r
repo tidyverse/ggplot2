@@ -18,6 +18,10 @@ local({
   }
   get_vtestinfo <<- function() testinfo
   append_vtestinfo <<- function(value) {
+    # Check that hash isn't already used
+    if (sum(value$hash == testinfo$hash) != 0)
+      stop("Hash ", value$hash, " cannot be added because it is already present.")
+
     testinfo <<- rbind(testinfo, cbind(value, data.frame(id = count)))
     count <<- count + 1
   }
@@ -77,6 +81,7 @@ end_vcontext <- function() {
 # * desc: a short description of the test
 # * filename: output filename (not including extension, like ".pdf"). If NULL, use MD5
 #     hash of `desc` as the filename.
+# * hash: a hash of the description (this is used as a unique id)
 # * width: width in inches
 # * height: height in inches
 # * dpi: pixels per inch (OK, it really should be ppi)
