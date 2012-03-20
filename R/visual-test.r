@@ -200,7 +200,9 @@ make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
     else            f <- t$filename
 
     paste('<div class="float">\n',
-          '  <div class="description">', t$desc, '<p class="name">', t$hash, '</p>', '</div>\n',
+          '  <div class="header">',
+          '    <p class="description">', t$desc, '</p>\n',
+          '    <p class="hash">', t$hash, '</p>', '</div>\n',
           '  <div class="imageset">\n',
           '    <span class="imagewrap">\n',
           '      <div class="image"><img src="', f, '"></div>\n',
@@ -446,7 +448,9 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, cssfile,
     }
 
     paste('<div class="float"><div class="', status, '">\n',
-          '  <div class="description">', t$desc, '<p class="name">', t$hash, '</p>', '</div>\n',
+          '  <div class="header">',
+          '    <p class="description">', t$desc, '</p>\n',
+          '    <p class="hash">', t$hash, '</p>', '</div>\n',
           '  <div class="imageset">\n',
           '    <span class="imagewrap">\n',
           '      <div><span class="refspec">', refnames[1],'</span></div>\n',
@@ -472,8 +476,11 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, cssfile,
         '<h2>Comparing <span class="refspec">', refnames[1],
         '</span> to <span class="refspec">', refnames[2],
         '</span></h2>\n',
-        '<h2>', sum(testinfo$status != "U"), ' of ', nrow(testinfo),
-        ' test files changed.</h2>\n', sep = ""), outfile)
+        '<p class="changestatus">', nrow(testinfo), ' tests</p>\n',
+        '<p class="changestatus">', sum(testinfo$status == "M"), ' changed</p>\n',
+        '<p class="changestatus">', sum(testinfo$status == "A"), ' added</p>\n',
+        '<p class="changestatus">', sum(testinfo$status == "D"), ' deleted</p>\n',
+        sep = ""), outfile)
 
   # Write information about all the test items in testinfo
   for (i in seq_len(nrow(testinfo))) {

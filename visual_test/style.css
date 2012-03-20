@@ -20,6 +20,11 @@ h2 {
   line-height .5;
 }
 
+.changestatus {
+  font-size: 150%;
+  margin: 5px 10px 5px 10px;
+}
+
 .refspec {
   background-color: #eeeeee;
   border: 1px solid #dddddd;
@@ -50,16 +55,21 @@ h2 {
   padding: 5px;
 }
 
-.float .description {
+.float .header {
   background-color: #333333;
   color: #ffffff;
   border-radius: 3px;
-  padding: 15px 5px 5px 5px;
+  padding: 5px;
   text-align: center;
 }
 
-.float .name {
+.float .header .description {
+  margin: 4px 0px;
+}
+
+.float .header .hash {
   font-size: 75%;
+  margin: 4px 0px;
 }
 
 .float .imageset {
