@@ -91,7 +91,9 @@ save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
   require(digest)
   if (is.null(get_vcontext()))     stop("Must have active vcontext")
   if (is.null(desc) || desc == "") stop("desc must not be empty")
-  if (device != "pdf")             stop('Only "pdf" device supported at this time')
+
+  if (device == "pdf")  dpi <- NA
+  else                  stop('Only "pdf" device supported at this time')
 
   # Put files in visual_test/<subdir>, where subdir is the vcontext
   destdir <- file.path("visual_test", get_vcontext())
