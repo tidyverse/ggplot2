@@ -76,7 +76,7 @@ coord_distance.polar <- function(coord, x, y, details) {
     r <- rescale(y, from = details$r.range)
     theta <- theta_rescale_no_clip(coord, x, details)
   } else {
-    r <- rescale(y, from = details$r.range)
+    r <- rescale(x, from = details$r.range)
     theta <- theta_rescale_no_clip(coord, y, details)
   }
   px <- r * cos(theta)
