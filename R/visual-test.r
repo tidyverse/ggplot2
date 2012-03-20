@@ -229,8 +229,14 @@ make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
 # If ref2 is "" (the working tree), then we don't know exactly which of the new files
 # the user plans to commit. So we just assume all new files in the working tree are
 # added files (marked with A).
-vdiffstat <- function(ref1 = "HEAD", ref2 = "", filter = "") {
+vdiffstat <- function(ref1 = "HEAD", ref2 = "", filter = "", showhelp = TRUE) {
   if (ref1 == "")  stop('ref1 must not be blank "" (because git doesn\'t like it)')
+
+  ref2text <- ifelse(ref2 == "", "working tree", ref2)
+  message("Comparing ", ref1, " to ", ref2text);
+  if (ref2 == "")
+    message("The status of Added files is a guess when using working tree.\n",
+      "  (All new files are reported as Added.)")
 
   gitstat <- systemCall("git", c("diff", "--name-status", ref1, ref2),
                         stdout = TRUE, stderr = TRUE)
@@ -309,7 +315,7 @@ vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", filter = "", convertpng = TR
   checkout_worktree(ref1, outdir = path1, paths = "visual_test")
 
   # Find what changed between ref1 and ref2
-  changed <- vdiffstat(ref1, ref2)
+  changed <- vdiffstat(ref1, ref2, showhelp = FALSE)
 
   # The Modified and Added files
   ref2_changed <- subset(changed, (status =="M" | status=="A"), select = filename, drop = TRUE)
