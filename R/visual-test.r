@@ -1,4 +1,8 @@
 # Set the context of the visual tests
+set_vtest_pkg <- NULL
+get_vtest_pkg <- NULL
+set_vtest_path <- NULL
+get_vtest_path <- NULL
 
 get_vcontext <- NULL
 set_vcontext <- NULL
@@ -6,34 +10,52 @@ get_vtestinfo <- NULL
 append_vtestinfo <- NULL
 
 local({
-  context <- NULL
-  testinfo <- NULL
-  count <- NULL
+  pkg <- NULL      # The package object
+  testpath <- NULL # The path to the test (usually package/visual_test/)
 
+  context <- NULL  # The context of a set of tests (usually in one script)
+  testinfo <- NULL # Information about each test in a context
+
+  # These are used by the top-level vtest function
+  set_vtest_pkg <<- function(value) pkg <<- value
+  get_vtest_pkg <<- function() pkg
+  set_vtest_path <<- function (value) testpath <<- value
+  get_vtest_path <<- function () testpath
+
+  # These are used by each test script
   get_vcontext <<- function() context
   set_vcontext <<- function(value) {
     context <<- value
     testinfo <<- data.frame()
-    count <<- 1
   }
+
+  # These are used by the individual tests within a test
   get_vtestinfo <<- function() testinfo
   append_vtestinfo <<- function(value) {
     # Check that hash isn't already used
     if (sum(value$hash == testinfo$hash) != 0)
       stop("Hash ", value$hash, " cannot be added because it is already present.")
 
-    testinfo <<- rbind(testinfo, cbind(value, data.frame(id = count)))
-    count <<- count + 1
+    testinfo <<- rbind(testinfo, cbind(value, data.frame(id = nrow(testinfo)+1)))
   }
+
 })
 
 
 # Run visual tests
-vtest <- function(filter = NULL, showhelp = TRUE) {
-  if (!file.exists("visual_test")) 
+vtest <- function(pkg = NULL, filter = NULL, showhelp = TRUE) {
+  pkg <- as.package(pkg)
+  load_all(pkg)
+
+  set_vtest_pkg(pkg)
+
+  test_path <- file.path(pkg$path, "visual_test")
+  if (!file.exists(test_path)) 
     return()
 
-  files <- dir("visual_test", filter, full.names = TRUE, include.dirs = FALSE)
+  set_vtest_path(test_path)
+
+  files <- dir(test_path, filter, full.names = TRUE, include.dirs = FALSE)
   files <- files[grepl("\\.[rR]$", files)]
   lapply(files, source)
 
@@ -47,29 +69,27 @@ vtest <- function(filter = NULL, showhelp = TRUE) {
       "If you have added new tests, remember to add the output files to the git repository.\n",
       "(Hide this message with showhelp=FALSE.)")
   }
-
-  # If this is moved out of ggplot2, should check for visual_test/.gitignore
 }
 
 
 # Start a visual test context
 vcontext <- function(context) {
-  # Check we're in top level of the repo
-  if (getwd() != system2("git", c("rev-parse", "--show-toplevel"), stdout = TRUE))
-    stop("This must be run from the top level of the git tree.")
-
   if (!is.null(get_vcontext()))
     stop("Can't open new context while current context is still open. Use finish_vcontext().")
+
   set_vcontext(context)
   message(context, appendLF = FALSE)
-  unlink(file.path("visual_test", context), recursive = TRUE)
+
+  destdir <- file.path(get_vtest_path(), context)
+  unlink(dir(destdir))
+  dir.create(destdir, showWarnings = FALSE)
 }
 
+
 # Finish a visual test context.
-# This will generate the web page for the context (a version of the webpage with PDFs)
 end_vcontext <- function() {
   # Save the test information into a file
-  dput(get_vtestinfo(), file.path("visual_test", get_vcontext(), "testinfo.dat"))
+  dput(get_vtestinfo(), file.path(get_vtest_path(), get_vcontext(), "testinfo.dat"))
 
   set_vcontext(NULL)  # Reset the context
   message("")         # Print a newline
@@ -95,11 +115,10 @@ save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
   if (device == "pdf")  dpi <- NA
   else                  stop('Only "pdf" device supported at this time')
 
-  # Put files in visual_test/<subdir>, where subdir is the vcontext
-  destdir <- file.path("visual_test", get_vcontext())
-  dir.create(destdir, showWarnings = FALSE)    # Create dir if missing
+  # Put files in the subdir (typically visual_test/<context>
+  destdir <- file.path(get_vtest_path(), get_vcontext())
 
-  # Save it to a temporary file
+  # Save the pdf to a temporary file
   temppdf <- tempfile("vtest", fileext = ".pdf")
   ggsave(temppdf, width = width, height = height, dpi = dpi,
     device = match.fun(device), compress = FALSE)
@@ -134,6 +153,7 @@ save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
 
   message(".", appendLF = FALSE)
 }
+
 
 
 # =============================================================
