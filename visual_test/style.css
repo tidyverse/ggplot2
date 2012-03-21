@@ -1,0 +1,102 @@
+html {
+  background-color: #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  font-size: 300%;
+  background-color: #333333;
+  color: #ffffff;
+  padding: 10px;
+}
+
+h2 {
+  font-size: 200%;
+  margin-left: 10px;
+  line-height .5;
+}
+
+.changestatus {
+  font-size: 150%;
+  margin: 5px 10px 5px 10px;
+}
+
+.refspec {
+  background-color: #eeeeee;
+  border: 1px solid #dddddd;
+  font-family: Menlo, Monaco, "Courier New", monospace;
+  font-weight: normal;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+.float {
+  background-color: #eeeeee;
+  border: 1px solid #000000;
+  border-radius: 3px;
+  margin: 20px 10px;
+  width: 1%;
+  display: table;
+  float: left;
+}
+
+.float .changed {
+  background-color: #ffdddd;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.float .unchanged {
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.float .header {
+  background-color: #333333;
+  color: #ffffff;
+  border-radius: 3px;
+  padding: 5px;
+  text-align: center;
+}
+
+.float .header .description {
+  margin: 4px 0px;
+}
+
+.float .header .hash {
+  font-size: 75%;
+  margin: 4px 0px;
+}
+
+.float .imageset {
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 5px;
+}
+
+.float .imagewrap {
+  min-width: 250px;
+  min-height: 250px;
+  float: left;
+  text-align: center;  
+  display: table-cell;
+}
+
+.float .imagewrap .image {
+}
+
+.float img {
+  background-color: #FFFFFF;
+  padding: 0px;
+  box-shadow: 2px 2px 12px -5px #666666;
+  margin: 5px 5px;
+}
+
+.nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+}
