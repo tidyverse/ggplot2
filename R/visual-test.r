@@ -365,13 +365,10 @@ vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", pkg = NULL, filter = "",
     # Strip off the leading path part of the filename
     cfiles$filename <- sub(paste("visual_test/", t, "/", sep = ""), "",
                            cfiles$filename, fixed = TRUE)
-    make_diffpage(cfiles, name = t,
-                  file.path(path1_vtest, t),
-                  file.path(path2_vtest, t),
-                  file.path(pathd_vtest, t),
-                  cssfile = css_outfile,
-                  convertpng = convertpng, method = method,
-                  refnames = c(ref1, ifelse(ref2 == "", "working tree", ref2)))
+    make_vdiff_webpage(cfiles, name = t,
+      file.path(path1_vtest, t), file.path(path2_vtest, t), file.path(pathd_vtest, t),
+      cssfile = css_outfile, convertpng = convertpng, method = method,
+      refnames = c(ref1, ifelse(ref2 == "", "working tree", ref2)))
   }
 
   invisible()
@@ -380,7 +377,7 @@ vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", pkg = NULL, filter = "",
 
 # Make a web page with diffs between one path and another path
 # This shouldn't be called by the user - users should call vdiff_webpage()
-make_diffpage <- function(changed, name = "", path1, path2, pathd, cssfile,
+make_vdiff_webpage <- function(changed, name = "", path1, path2, pathd, cssfile,
     convertpng = FALSE, method = "ghostscript", refnames = c("","")) {
 
   dir.create(pathd, recursive = TRUE, showWarnings = FALSE) # Create diff dir if needed
