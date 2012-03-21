@@ -75,7 +75,7 @@ vtest <- function(pkg = NULL, filter = NULL, showhelp = TRUE) {
 # Start a visual test context
 vcontext <- function(context) {
   if (!is.null(get_vcontext()))
-    stop("Can't open new context while current context is still open. Use finish_vcontext().")
+    stop("Can't open new context while current context is still open. Use end_vcontext().")
 
   set_vcontext(context)
   message(context, appendLF = FALSE)
@@ -115,39 +115,21 @@ save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
   if (device == "pdf")  dpi <- NA
   else                  stop('Only "pdf" device supported at this time')
 
-  # Put files in the subdir (typically visual_test/<context>
-  destdir <- file.path(get_vtest_path(), get_vcontext())
+  hash <- digest(desc)
 
   # Save the pdf to a temporary file
   temppdf <- tempfile("vtest", fileext = ".pdf")
   ggsave(temppdf, width = width, height = height, dpi = dpi,
     device = match.fun(device), compress = FALSE)
 
-  # Load the tempfile and modify the CreationDate and ModDate (lines 5 and 6)
-  # so that the files are exactly the same, regardless of date + time.
-  temppdf_fd <- file(temppdf, "r")
-  pdftext <- readLines(temppdf_fd)
-  close(temppdf_fd)
+  # Zero out the dates and write modified PDF file to the final destination
+  outfile <- paste(hash, device, sep=".")
+  zero_pdf_date(temppdf, file.path(get_vtest_path(), get_vcontext(), outfile))
 
-  if (!grepl("^/CreationDate ", pdftext[5]) || !grepl("^/ModDate ", pdftext[6]))
-    stop("Unexpected structure of PDF file. CreationDate or ModDate not found in right place in ",
-         temppdf)
-
-  pdftext[5] <- "/CreationDate (D:00000000000000)"
-  pdftext[6] <- "/ModDate (D:00000000000000)"
-
-  # Write the modified PDF file to the final destination file
-  hash <- digest(desc)
-  filename <- paste(hash, device, sep=".")
-  outpdf <- file(file.path(destdir, filename), "w")
-  writeLines(pdftext, outpdf)
-  close(outpdf)
-
-  # Remove temp file
-  unlink(temppdf)
+  unlink(temppdf)  # Remove temp file
 
   # Append the info for this test in the vis_info list
-  append_vtestinfo(data.frame(filename = filename, desc = desc, hash = hash,
+  append_vtestinfo(data.frame(filename = outfile, desc = desc, hash = hash,
                     type = device, width = width, height = height, dpi = dpi,
                     stringsAsFactors = FALSE))
 
@@ -525,6 +507,29 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, cssfile,
 # =============================================================
 # Utility functions
 # =============================================================
+
+# For a PDF, modify the CreationDate and ModDate (lines 5 and 6)
+# so that the files are exactly the same, regardless of date + time they
+# were created. The output must be written to a different file.
+zero_pdf_date <- function(infile = NULL, outfile = NULL) {
+  if (is.null(infile) || is.null(outfile))
+    stop("Can't operate on NULL infile or outfile")
+
+  infile_fd <- file(infile, "r")
+  pdftext <- readLines(infile_fd)
+  close(infile_fd)
+
+  if (!grepl("^/CreationDate ", pdftext[5]) || !grepl("^/ModDate ", pdftext[6]))
+    stop("Unexpected structure of PDF file. CreationDate or ModDate not found in right place in ",
+         infile)
+
+  pdftext[5] <- "/CreationDate (D:00000000000000)"
+  pdftext[6] <- "/ModDate (D:00000000000000)"
+
+  outfile_fd <- file(outfile, "w")
+  writeLines(pdftext, outfile_fd)
+  close(outfile_fd)
+}
 
 
 # Generate the PNG images for a directory
