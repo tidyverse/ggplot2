@@ -241,7 +241,8 @@ make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
 # If ref2 is "" (the working tree), then we don't know exactly which of the new files
 # the user plans to commit. So we just assume all new files in the working tree are
 # added files (marked with A).
-vdiffstat <- function(ref1 = "HEAD", ref2 = "", filter = "", showhelp = TRUE) {
+vdiffstat <- function(ref1 = "HEAD", ref2 = "", pkg = NULL, filter = "", showhelp = TRUE) {
+  pkg <- as.package(pkg)
 
   if (ref1 == "")  stop('ref1 must not be blank "" (because git doesn\'t like it)')
 
@@ -252,7 +253,7 @@ vdiffstat <- function(ref1 = "HEAD", ref2 = "", filter = "", showhelp = TRUE) {
       "  (All new files are reported as Added.)")
 
   gitstat <- systemCall("git", c("diff", "--name-status", ref1, ref2),
-                        stdout = TRUE, stderr = TRUE)
+                        stdout = TRUE, stderr = TRUE, rundir = pkg$path)
 
   if (gitstat$status != 0) {
     # Git failed to run for some reason. it would be nice to print the output,
@@ -262,6 +263,7 @@ vdiffstat <- function(ref1 = "HEAD", ref2 = "", filter = "", showhelp = TRUE) {
     # There were no changes; create an empty data frame
     changed <- data.frame(V1=character(), V2=character())
   } else {
+    # There were some changes
     changed <- read.table(con <- textConnection(gitstat$output), stringsAsFactors = FALSE)
     close(con)
   }
@@ -273,11 +275,11 @@ vdiffstat <- function(ref1 = "HEAD", ref2 = "", filter = "", showhelp = TRUE) {
   # can't tell exactly which files *should* be compared. So copy all the untracked
   # files over.
   if (ref2 == "") {
-    wfiles <- system2("git", c("ls-files", "--other", "--exclude-standard", "visual_test/"),
-              stdout = TRUE)
+    wfiles <- systemCall("git", c("ls-files", "--other", "--exclude-standard", "visual_test/"),
+              stdout = TRUE, stderr = TRUE, rundir = pkg$path)
 
     if (length(wfiles) > 0)
-      changed <- rbind(changed, data.frame(status = "A",  filename = wfiles,
+      changed <- rbind(changed, data.frame(status = "A", filename = wfiles$output,
                                            stringsAsFactors = FALSE))
   }
 
@@ -307,7 +309,8 @@ vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", pkg = NULL, filter = "",
   if (ref1 == "")  stop('ref1 must not be blank "" (because git doesn\'t like it)')
 
   # Check we're in top level of the repo
-  if (getwd() != system2("git", c("rev-parse", "--show-toplevel"), stdout = TRUE))
+  if (getwd() != systemCall("git", c("rev-parse", "--show-toplevel"),
+                   stdout = TRUE, stderr = TRUE, rundir = pkg$path))
     stop("This must be run from the top level of the git tree.")
 
   if (prompt) {
@@ -330,16 +333,17 @@ vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", pkg = NULL, filter = "",
   pathd_vtest <- file.path(pathd, "visual_test")
 
   # Checkout the files for ref1
-  checkout_worktree(ref1, outdir = path1, paths = "visual_test")
+  checkout_worktree(ref1, outdir = path1, paths = "visual_test", pkgpath = pkg$path)
 
   # Find what changed between ref1 and ref2
-  changed <- vdiffstat(ref1, ref2, showhelp = FALSE)
+  # TODO: add filtering here?
+  changed <- vdiffstat(ref1, ref2, pkg, showhelp = FALSE)
 
   # The Modified and Added files
   ref2_changed <- subset(changed, (status =="M" | status=="A"), select = filename, drop = TRUE)
 
   # Check out from ref1 only the Modified and Deleted files
-  checkout_worktree(ref2, outdir = path2, paths = ref2_changed)
+  checkout_worktree(ref2, outdir = path2, paths = ref2_changed, pkgpath = pkg$path)
 
 
   # Copy the CSS file over to the diff/visual_test dir
@@ -594,7 +598,7 @@ compare_png <- function(files1, files2, filesout) {
 
 # A function for checking out a path (like "visual_test) from a commit ref,
 #  or use "" for current state
-checkout_worktree <- function(ref = "", outdir = NULL, paths = "") {
+checkout_worktree <- function(ref = "", outdir = NULL, paths = "", pkgpath = NULL) {
   if (is.null(outdir))  outdir <- file.path(tempdir(), "checkout-workdir")
 
   # TODO: change this - it's dangerous if someone uses "/"!
@@ -616,10 +620,11 @@ checkout_worktree <- function(ref = "", outdir = NULL, paths = "") {
 
   } else {
     # Checkout the git ref into outdir
-    if (system2("git", c("--work-tree", outdir, "checkout", ref, "--", paths)) != 0)
+    if (systemCall("git", c("--work-tree", outdir, "checkout", ref, "--", paths),
+                   rundir = pkgpath) != 0)
       stop("git checkout failed.")
     # Need to reset git index status after the checkout (so git doesn't get confused)
-    system2("git", c("reset", "--mixed"), stdout = TRUE)
+    systemCall("git", c("reset", "--mixed"), stdout = TRUE, rundir = pkgpath)
   }
 }
 
@@ -652,17 +657,24 @@ relativePath <- function(path, start = NULL) {
 
 
 # Call system2, but capture both the exit code and the stdout+stderr
-# Supposedly in the next version of R, system2 will return this information,
-# making this wrapper unnecessary.
+# Supposedly in the next version of R, system2 will return this information.
+# This function also will go to `rundir` before running the command, then return
+# to the starting dir.
 # Note, this doesn't capture the output correctly if there's an error return value,
 # in contrast to what's said here:
 # http://stackoverflow.com/questions/7014081/capture-both-exit-status-and-output-from-a-system-call-in-r
 systemCall <- function(commands, args = character(),
              stdout = "", stderr = "", stdin = "", input = NULL,
-             env = character(), wait = TRUE) {
+             env = character(), wait = TRUE, rundir = NULL) {
   output <- ""  # Need to set variable in case there's no output
   status <- 0
   warn <- NULL
+
+  # Save current dir and go to rundir before running the command
+  if (!is.null(rundir)) {
+    startdir <- getwd()
+    setwd(rundir)
+  }
 
   out <- tryCatch(
     output <- system2(commands, args, stdout, stderr, stdin, input, env, wait),
@@ -673,6 +685,9 @@ systemCall <- function(commands, args = character(),
     status <- sub( ".*status (\\d+)$", "\\1", warn$message)
     status <- as.integer(status)
   }
+
+  # Return to the starting directory
+  if (!is.null(rundir))  setwd(startdir)
 
   return(list(status = status, output = output))
 }
