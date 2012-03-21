@@ -309,9 +309,9 @@ vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", pkg = NULL, filter = "",
   if (ref1 == "")  stop('ref1 must not be blank "" (because git doesn\'t like it)')
 
   # Check we're in top level of the repo
-  if (getwd() != systemCall("git", c("rev-parse", "--show-toplevel"),
-                   stdout = TRUE, stderr = TRUE, rundir = pkg$path))
-    stop("This must be run from the top level of the git tree.")
+  if (pkg$path != systemCall("git", c("rev-parse", "--show-toplevel"),
+                    stdout = TRUE, stderr = TRUE, rundir = pkg$path)$output)
+    stop("The path of pkg must also be the top level of the git tree.")
 
   if (prompt) {
     resp <- readline(paste("This will unstage changes to the git index, so if you have staged any changes",
@@ -608,20 +608,25 @@ checkout_worktree <- function(ref = "", outdir = NULL, paths = "", pkgpath = NUL
   if (ref == "") {
     # If blank ref, simply copy the files over from the working tree
     # First get the (non-dir) files only, then recurse into directories
-    dirs <- file.info(paths)$isdir
-    files <- paths[!dirs]
-    files <- c(files, list.files(paths[dirs], recursive = TRUE, full.names = TRUE))
+    fullpaths <- file.path(pkgpath, paths)
+    dirs <- file.info(fullpaths)$isdir
+    fullpaths <- fullpaths[!dirs]  # Drop the dirs from the vector of full paths
+    fullpaths <- c(fullpaths, list.files(fullpaths[dirs], recursive = TRUE,
+                                         full.names = TRUE))
+
+    # Get the paths, relative to pkgpath
+    relpaths <- sapply(fullpaths, relativePath, pkgpath, USE.NAMES = FALSE)
 
     # Find which directories need to be created, and then create them
-    newdirs <- unique(file.path(outdir, dirname(files)))
+    newdirs <- unique(file.path(outdir, dirname(relpaths)))
     sapply(newdirs, dir.create, recursive = TRUE, showWarnings = FALSE)
     # Copy the files over
-    file.copy(files, file.path(outdir, files))
+    file.copy(fullpaths, file.path(outdir, relpaths))
 
   } else {
     # Checkout the git ref into outdir
     if (systemCall("git", c("--work-tree", outdir, "checkout", ref, "--", paths),
-                   rundir = pkgpath) != 0)
+                   rundir = pkgpath)$status != 0)
       stop("git checkout failed.")
     # Need to reset git index status after the checkout (so git doesn't get confused)
     systemCall("git", c("reset", "--mixed"), stdout = TRUE, rundir = pkgpath)
