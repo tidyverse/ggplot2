@@ -242,6 +242,7 @@ make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
 # the user plans to commit. So we just assume all new files in the working tree are
 # added files (marked with A).
 vdiffstat <- function(ref1 = "HEAD", ref2 = "", filter = "", showhelp = TRUE) {
+
   if (ref1 == "")  stop('ref1 must not be blank "" (because git doesn\'t like it)')
 
   ref2text <- ifelse(ref2 == "", "working tree", ref2)
@@ -290,18 +291,18 @@ vdiffstat <- function(ref1 = "HEAD", ref2 = "", filter = "", showhelp = TRUE) {
 
 # Make visual diff from two refs
 # TODO: Create overall index file, with status
-vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", filter = "", convertpng = TRUE,
-                  method = "ghostscript", prompt = TRUE) {
+vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", pkg = NULL, filter = "",
+      convertpng = TRUE, method = "ghostscript", prompt = TRUE) {
   # TODO: message about weird color space in conversion using convert
   # TODO: print message about png option, and slow png vs safari-only pdf
   # TODO: display filename if it differs from hash
 
-  # Check we're in top level of the repo
-  if (getwd() != system2("git", c("rev-parse", "--show-toplevel"), stdout = TRUE))
-    stop("This must be run from the top level of the git tree.")
+  pkg <- as.package(pkg)
+
+  test_path <- file.path(pkg$path, "visual_test")
 
   # TODO: de-hard code this?
-  cssfile <- file.path("visual_test", "style.css")
+  cssfile <- file.path(test_path, "style.css")
 
   if (ref1 == "")  stop('ref1 must not be blank "" (because git doesn\'t like it)')
 
@@ -319,9 +320,14 @@ vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", filter = "", convertpng = TR
   }
 
   # The directories for ref1, ref2, and the diffs
-  path1 <- normalizePath(file.path("visual_test", "diff", "1"), mustWork = FALSE)
-  path2 <- normalizePath(file.path("visual_test", "diff", "2"), mustWork = FALSE)
-  pathd <- normalizePath(file.path("visual_test", "diff", "diff"), mustWork = FALSE)
+  path1 <- file.path(test_path, "diff", "1")
+  path2 <- file.path(test_path, "diff", "2")
+  pathd <- file.path(test_path, "diff", "diff")
+
+  # visual_test dirs within the path1, path2, pathd
+  path1_vtest <- file.path(path1, "visual_test")
+  path2_vtest <- file.path(path2, "visual_test")
+  pathd_vtest <- file.path(pathd, "visual_test")
 
   # Checkout the files for ref1
   checkout_worktree(ref1, outdir = path1, paths = "visual_test")
@@ -337,12 +343,12 @@ vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", filter = "", convertpng = TR
 
 
   # Copy the CSS file over to the diff/visual_test dir
-  dir.create(file.path(pathd, "visual_test"), recursive = TRUE, showWarnings = FALSE)
-  css_outfile <- file.path(pathd, "visual_test", basename(cssfile))
+  dir.create(pathd_vtest, recursive = TRUE, showWarnings = FALSE)
+  css_outfile <- file.path(pathd_vtest, basename(cssfile))
   file.copy(cssfile, css_outfile, overwrite = TRUE)
 
   # Find the subdirs that have testinfo.dat, and generate diff webpages for them
-  testdirs <- dirname(list.files(file.path(path1, "visual_test"),
+  testdirs <- dirname(list.files(path1_vtest,
                                  pattern = "testinfo.dat",
                                  recursive = TRUE))
 
@@ -356,9 +362,9 @@ vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", filter = "", convertpng = TR
     cfiles$filename <- sub(paste("visual_test/", t, "/", sep = ""), "",
                            cfiles$filename, fixed = TRUE)
     make_diffpage(cfiles, name = t,
-                  file.path(path1, "visual_test", t),
-                  file.path(path2, "visual_test", t),
-                  file.path(pathd, "visual_test", t),
+                  file.path(path1_vtest, t),
+                  file.path(path2_vtest, t),
+                  file.path(pathd_vtest, t),
                   cssfile = css_outfile,
                   convertpng = convertpng, method = method,
                   refnames = c(ref1, ifelse(ref2 == "", "working tree", ref2)))
