@@ -59,12 +59,11 @@ vtest <- function(pkg = NULL, filter = NULL, showhelp = TRUE) {
   files <- files[grepl("\\.[rR]$", files)]
   lapply(files, source)
 
-  f_quote    <- ifelse(is.null(filter), '', paste('"', filter, '"', sep = ""))
-  fopt_quote <- ifelse(is.null(filter), '', paste('filter="', filter, '"', sep = ""))
+  f_quote <- ifelse(is.null(filter), '', paste('filter="', filter, '"', sep = ""))
   if (showhelp) {
     message("\nRun vtest_webpage(", f_quote, ") to generate web pages for viewing tests.\n",
-      "Run vdiffstat(", fopt_quote, ") to see what files have changed.\n",
-      "Run vdiff_webpage(", fopt_quote,
+      "Run vdiffstat(", f_quote, ") to see what files have changed.\n",
+      "Run vdiff_webpage(", f_quote,
       ") to generate web pages comparing results to another commit in the git repository.\n",
       "If you have added new tests, remember to add the output files to the git repository.\n",
       "(Hide this message with showhelp=FALSE.)")
