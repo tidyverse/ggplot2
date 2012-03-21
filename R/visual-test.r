@@ -145,26 +145,28 @@ save_vtest <- function(desc = NULL, filename = NULL, width = 4, height = 4,
 # This is the function that the user calls
 # * convertpng: if TRUE, convert the source PDFs files to PNG instead.
 # TODO: Create overall index file?
-vtest_webpage <- function(filter = "", convertpng = TRUE) {
-  # Check we're in top level of the repo
-  if (getwd() != system2("git", c("rev-parse", "--show-toplevel"), stdout = TRUE))
-    stop("This must be run from the top level of the git tree.")
+vtest_webpage <- function(pkg = NULL, filter = "", convertpng = TRUE) {
+  pkg <- as.package(pkg)
 
-  # Find subdirs with testinfo.dat
-  dirs <- dirname(list.files("visual_test", pattern = "testinfo.dat",
+  test_path <- file.path(pkg$path, "visual_test")
+  if (!file.exists(test_path))
+    return()
+
+  # Find subdirs with testinfo.dat - these are where html files will be made
+  dirs <- dirname(list.files(test_path, pattern = "testinfo.dat",
                              recursive = TRUE))
 
   dirs <- dirs[grepl(filter, dirs)]
-  dirs <- dirs[!grepl("^diff/", dirs)]
-  dirs <- dirs[!grepl("^html/", dirs)]
+  dirs <- dirs[!grepl("^diff/", dirs)]  # Ignore diff dir
+  dirs <- dirs[!grepl("^html/", dirs)]  # Ignore html dir
 
   for(d in dirs) {
-    make_vtest_webpage(file.path("visual_test", d), 
-      outdir = file.path("visual_test", "html", d), convertpng = convertpng)
+    make_vtest_webpage(file.path(test_path, d),
+      outdir = file.path(test_path, "html", d), convertpng = convertpng)
   }
 
   # Copy the css file
-  file.copy(file.path("visual_test", "style.css"), file.path("visual_test", "html"),
+  file.copy(file.path(test_path, "style.css"), file.path(test_path, "html"),
             overwrite = TRUE)
   invisible()
 }
