@@ -36,7 +36,7 @@ local({
     if (sum(value$hash == testinfo$hash) != 0)
       stop("Hash ", value$hash, " cannot be added because it is already present.")
 
-    testinfo <<- rbind(testinfo, cbind(value, data.frame(id = nrow(testinfo)+1)))
+    testinfo <<- rbind(testinfo, cbind(value, data.frame(order = nrow(testinfo)+1)))
   }
 
 })
@@ -181,8 +181,8 @@ make_vtest_webpage <- function(dir = NULL, outdir = NULL, convertpng = TRUE) {
   # Read in the information about the tests
   testinfo <- dget(file.path(dir, "testinfo.dat"))
 
-  # Sort by id
-  testinfo <- testinfo[order(testinfo$id), ]
+  # Sort by order
+  testinfo <- testinfo[order(testinfo$order), ]
 
   unlink(outdir, recursive= TRUE)
   dir.create(outdir, recursive = TRUE, showWarnings = FALSE)
@@ -388,19 +388,19 @@ make_diffpage <- function(changed, name = "", path1, path2, pathd, cssfile,
   testinfo1 <- merge(changed, testinfo1, by = "filename", all.y = TRUE)
   testinfo2 <- merge(changed, testinfo2, by = "filename", all.y = TRUE)
 
-  # id numbers can change if a test is inserted. So we have to do some acrobatics.
+  # order numbers can change if a test is inserted. So we have to do some acrobatics.
   mergeby <- intersect(names(testinfo1), names(testinfo2))
-  mergeby <- mergeby[mergeby != "id"]
+  mergeby <- mergeby[mergeby != "order"]
   testinfo <- merge(testinfo1, testinfo2, by = mergeby, all = TRUE)
 
   # In the special case where comparing a commit-ref against working dir (""),
   # added files won't have an "A" in changed$status (which is from git diff --name-status).
-  # We can detect these cases, because they will be missing id.x, and manually
+  # We can detect these cases, because they will be missing order.x, and manually
   # set the status to A.
-  testinfo$status[is.na(testinfo$id.x) & !is.na(testinfo$id.y)] <- "A"
+  testinfo$status[is.na(testinfo$order.x) & !is.na(testinfo$order.y)] <- "A"
 
-  testinfo <- arrange(testinfo, id.x, id.y)  # Order by ref1 and then ref2
-  testinfo$id <- seq_len(nrow(testinfo))     # Assign new id (used for ordering items)
+  testinfo <- arrange(testinfo, order.x, order.y)  # Order by ref1 and then ref2
+  testinfo$order <- seq_len(nrow(testinfo))     # Assign new order (used for ordering items)
 
   testinfo$status[is.na(testinfo$status)] <- "U" # Set status to U for unchanged files
 
