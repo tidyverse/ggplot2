@@ -368,7 +368,7 @@ vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", pkg = NULL, filter = "",
     make_vdiff_webpage(cfiles, name = t,
       file.path(path1_vtest, t), file.path(path2_vtest, t), file.path(pathd_vtest, t),
       cssfile = css_outfile, convertpng = convertpng, method = method,
-      refnames = c(ref1, ifelse(ref2 == "", "working tree", ref2)))
+      refname1 = ref1, refname2 = ifelse(ref2 == "", "working tree", ref2))
   }
 
   invisible()
@@ -378,7 +378,7 @@ vdiff_webpage <- function(ref1 = "HEAD", ref2 = "", pkg = NULL, filter = "",
 # Make a web page with diffs between one path and another path
 # This shouldn't be called by the user - users should call vdiff_webpage()
 make_vdiff_webpage <- function(changed, name = "", path1, path2, pathd, cssfile,
-    convertpng = FALSE, method = "ghostscript", refnames = c("","")) {
+    convertpng = FALSE, method = "ghostscript", refname1 = "", refname2 = "") {
 
   dir.create(pathd, recursive = TRUE, showWarnings = FALSE) # Create diff dir if needed
 
@@ -465,11 +465,11 @@ make_vdiff_webpage <- function(changed, name = "", path1, path2, pathd, cssfile,
           '    <p class="hash">', t$hash, '</p>', '</div>\n',
           '  <div class="imageset">\n',
           '    <span class="imagewrap">\n',
-          '      <div><span class="refspec">', refnames[1],'</span></div>\n',
+          '      <div><span class="refspec">', refname1,'</span></div>\n',
           '      <div class="image">', cell1, '</div>\n',
           '    </span>\n',
           '    <span class="imagewrap">\n',
-          '      <div><span class="refspec">', refnames[2],'</span></div>\n',
+          '      <div><span class="refspec">', refname2,'</span></div>\n',
           '      <div class="image">', cell2, '</div>\n',
           '    </span>\n',
           '    <span class="imagewrap">\n',
@@ -485,8 +485,8 @@ make_vdiff_webpage <- function(changed, name = "", path1, path2, pathd, cssfile,
         '<title>Visual tests diffs: ', name,
         '</title></head><body>\n',
         '<h1>Visual tests diffs: ', name, '</h1>\n',
-        '<h2>Comparing <span class="refspec">', refnames[1],
-        '</span> to <span class="refspec">', refnames[2],
+        '<h2>Comparing <span class="refspec">', refname1,
+        '</span> to <span class="refspec">', refname2,
         '</span></h2>\n',
         '<p class="changestatus">', nrow(testinfo), ' tests</p>\n',
         '<p class="changestatus">', sum(testinfo$status == "M"), ' changed</p>\n',
