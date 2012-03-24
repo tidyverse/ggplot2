@@ -2,7 +2,7 @@ df <- data.frame(
   dx = seq(Sys.Date(), len=100, by="1 day")[sample(100, 50)],
   price = runif(50)
 )
-df <- df[order(df$date), ]
+df <- df[order(df$dx), ]
 
 dt <- qplot(dx, price, data=df, geom="line")
 dt + scale_x_date(breaks = date_breaks("2 weeks"))
