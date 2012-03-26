@@ -1,9 +1,15 @@
+vcontext("guide-axis")
+
 ## align the labels for facets
 
-p <- qplot(hwy, reorder(model, hwy), data = mpg) + 
-  facet_grid(manufacturer ~ ., scales = "free", space = "free") + 
+qplot(hwy, reorder(model, hwy), data = mpg) +
+  facet_grid(manufacturer ~ ., scales = "free", space = "free") +
   opts(strip.text.y = theme_text())
+save_vtest("align facet labels, facets horizontal")
 
-p <- qplot(reorder(model, hwy), hwy, data = mpg) + 
-  facet_grid(. ~ manufacturer, scales = "free", space = "free") + 
+qplot(reorder(model, hwy), hwy, data = mpg) +
+  facet_grid(. ~ manufacturer, scales = "free", space = "free") +
   opts(strip.text.x = theme_text(), axis.text.x = theme_text(angle = 90, hjust = 1))
+save_vtest("align facet labels, facets vertical")
+
+end_vcontext()
