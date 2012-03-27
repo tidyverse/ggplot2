@@ -53,10 +53,6 @@ ggplot(dat, aes(x, fill=g)) +
   geom_dotplot(binwidth=.4, alpha=.4, binpositions="all")
 save_vtest("multiple groups, bins aligned")
 
-ggplot(dat, aes(x, fill=g)) +
-  geom_dotplot(binwidth=.4, alpha=.4, binpositions="all", position="stack")
-save_vtest("multiple groups with aligned bins, stacked (currently doesn't work)")
-
 
 # Binning along y axis
 ggplot(dat, aes(x=0, y=x)) +
@@ -109,5 +105,31 @@ save_vtest("bin y, continous x-axis, grouping by x")
 ggplot(dat2, aes(x=as.numeric(x), y=y)) +
   geom_dotplot(binwidth=.2, binaxis="y", stackdir="center")
 save_vtest("bin y, continous x-axis, single x group")
+
+
+# Stacking groups
+ggplot(dat2, aes(x=y, fill=x)) +
+  geom_dotplot(binwidth=.25, stackgroups=TRUE, binpositions="all", alpha=0.5)
+save_vtest("stackgroups with 3 groups, dot-density with aligned bins")
+
+ggplot(dat2, aes(x=y, fill=x)) +
+  geom_dotplot(binwidth=.25, stackgroups=TRUE, method="histodot", alpha=0.5)
+save_vtest("stackgroups with 3 groups, histodot")
+
+ggplot(dat2, aes(x=1, y=y, fill=x)) +
+  geom_dotplot(binaxis="y", binwidth=.25, stackgroups=TRUE, method="histodot", alpha=0.5)
+save_vtest("stackgroups with 3 groups, bin y, histodot")
+
+# This one is currently broken but it would be a really rare case, and it
+# probably requires a really ugly hack to fix
+ggplot(dat2, aes(x=x, y=y, fill=g)) +
+  geom_dotplot(binaxis="y", binwidth=.25, stackgroups=TRUE, method="histodot",
+    alpha=0.5, stackdir="centerwhole")
+save_vtest("bin y, dodging, stackgroups with 3 groups, histodot (currently broken)")
+
+ggplot(dat2, aes(x=y, fill=g)) +
+  geom_dotplot(binwidth=.25, stackgroups=TRUE, method="histodot", alpha=0.5) +
+  facet_grid(x ~ .)
+save_vtest("facets, 3 groups, histodot, stackgroups")
 
 end_vcontext()
