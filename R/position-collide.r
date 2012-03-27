@@ -94,7 +94,7 @@ pos_dodge <- function(df, width) {
     df$xmax <- df$x
   }
 
-  d_width <- with(df, max(xmax - xmin))    
+  d_width <- max(df$xmax - df$xmin)
   diff <- width - d_width
   
   # df <- data.frame(n = c(2:5, 10, 26), div = c(4, 3, 2.666666,  2.5, 2.2, 2.1))
@@ -104,9 +104,10 @@ pos_dodge <- function(df, width) {
   # This might be needed if the group numbers in this set don't include all of 1:n
   groupidx <- match(df$group, sort(unique(df$group)))
 
-  within(df, {
-    xmin <- xmin + width / n * (groupidx - 1) - diff * (n - 1) / (2 * n)
-    xmax <- xmin + d_width / n
-    x <- (xmin + xmax) / 2
-  })
+  # Find the center for each group, then use that to calculate xmin and xmax
+  df$x <- df$x + width * ((groupidx - 0.5) / n - .5)
+  df$xmin <- df$x - d_width / n / 2
+  df$xmax <- df$x + d_width / n / 2
+
+  df
 }
