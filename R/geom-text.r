@@ -33,7 +33,7 @@
 #' 
 #' # Add an annotation not from a variable source
 #' c <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
-#' c + geom_text(data = data.frame(), aes(5, 30, label = "plot mpg vs. wt"))
+#' c + geom_text(data = NULL, x = 5, y = 30, label = "plot mpg vs. wt")
 #' # Or, you can use annotate
 #' c + annotate("text", label = "plot mpg vs. wt", x = 2, y = 15, size = 8, colour = "red")
 #'
@@ -43,7 +43,7 @@
 #' qplot(wt, mpg, data = mtcars, label = rownames(mtcars), size = wt) +
 #'   geom_text(colour = "red")
 #'
-#' # You can specify fontfamily, fontface and lineheight
+#' # You can specify family, fontface and lineheight
 #' p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))
 #' p + geom_text(fontface=3)
 #' p + geom_text(aes(fontface=am+1))
