@@ -1,5 +1,5 @@
 
-# m x n 
+# m x n
 df <- data.frame(x = rep(c(-1, 1), each = 3), y = rep(-1:1, 2), z = 1:6)
 
 ggplot(df, aes(x, y, fill = z)) + geom_raster() + geom_point(colour = "red")
