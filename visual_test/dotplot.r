@@ -10,11 +10,11 @@ save_vtest("basic dotplot with dot-density binning, binwidth=.4")
 ggplot(dat, aes(x)) + geom_dotplot(binwidth=.4, method="histodot")
 save_vtest("histodot binning (equal bin spacing)")
 
-ggplot(dat, aes(x)) + geom_dotplot(binwidth=.4, stackratio=.8)
-save_vtest("dots stacked closer: stackratio=.8")
+ggplot(dat, aes(x)) + geom_dotplot(binwidth=.4, stackratio=.5, fill="white")
+save_vtest("dots stacked closer: stackratio=.5, fill=white")
 
-ggplot(dat, aes(x)) + geom_dotplot(binwidth=.4, dotsize=1.4)
-save_vtest("larger dots: dotsize=1.4")
+ggplot(dat, aes(x)) + geom_dotplot(binwidth=.4, dotsize=1.4, fill="white")
+save_vtest("larger dots: dotsize=1.5, fill=white")
 
 
 # Stacking methods
