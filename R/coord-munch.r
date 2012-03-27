@@ -1,13 +1,16 @@
 coord_munch <- function(coord, data, range, segment_length = 0.01) {
   if (is.linear(coord)) return(coord_transform(coord, data, range))
   
+  # range has theta and r values; get corresponding x and y values
+  ranges <- coord_range(coord, range)
+
   # Convert any infinite locations into max/min
   # Only need to work with x and y because for munching, those are the 
   # only position aesthetics that are transformed
-  data$x[data$x == -Inf] <- range$x.range[1]
-  data$x[data$x == Inf] <- range$x.range[2]
-  data$y[data$y == -Inf] <- range$y.range[1]
-  data$y[data$y == Inf] <- range$y.range[2]
+  data$x[data$x == -Inf] <- ranges$x[1]
+  data$x[data$x == Inf]  <- ranges$x[2]
+  data$y[data$y == -Inf] <- ranges$y[1]
+  data$y[data$y == Inf]  <- ranges$y[2]
   
   # Calculate distances using coord distance metric
   dist <- coord_distance(coord, data$x, data$y, range)

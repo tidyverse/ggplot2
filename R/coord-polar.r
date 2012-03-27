@@ -88,7 +88,7 @@ coord_distance.polar <- function(coord, x, y, details) {
 
 #' @S3method coord_range polar
 coord_range.polar <- function(coord, scales) {
-  return(list(x = scales$theta.range, y = scales$r.range))
+  setNames(list(scales$theta.range, scales$r.range), c(coord$theta, coord$r))
 }
 
 #' @S3method coord_train polar
