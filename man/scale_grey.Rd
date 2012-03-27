@@ -43,6 +43,7 @@ qplot(mpg, wt, data = mtcars, colour = miss) +
 }
 \seealso{
   Other colour scales: \code{\link{scale_color_brewer}},
+  \code{\link{scale_color_brewerc}},
   \code{\link{scale_color_continuous}},
   \code{\link{scale_color_discrete}},
   \code{\link{scale_color_gradient}},
