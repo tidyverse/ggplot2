@@ -1,5 +1,6 @@
 \name{scale_colour_brewer}
 \alias{scale_color_brewer}
+\alias{scale_color_brewerc}
 \alias{scale_colour_brewer}
 \alias{scale_colour_brewerc}
 \alias{scale_fill_brewer}
@@ -17,6 +18,9 @@
     values = NULL, space = "Lab", na.value = "grey50")
 
   scale_color_brewer(..., type = "seq", palette = 1)
+
+  scale_color_brewerc(..., type = "seq", palette = 1,
+    values = NULL, space = "Lab", na.value = "grey50")
 }
 \arguments{
   \item{type}{One of seq (sequential), div (diverging) or
