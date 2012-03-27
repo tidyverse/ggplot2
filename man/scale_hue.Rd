@@ -85,9 +85,11 @@ qplot(mpg, wt, data = mtcars, colour = miss) +
 }
 }
 \seealso{
+<<<<<<< HEAD
 Other colour scales: \code{\link{scale_color_brewer}},
+  \code{\link{scale_color_brewerc}},
   \code{\link{scale_colour_brewer}},
-  \code{\link{scale_fill_brewer}};
+  \code{\link{scale_colour_brewerc}},
   \code{\link{scale_color_continuous}},
   \code{\link{scale_color_gradient}},
   \code{\link{scale_color_gradient2}},
