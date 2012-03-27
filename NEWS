@@ -2,6 +2,10 @@
   of the usual position="stack", for technical reasons. It also will stack in
   the x direction when binning along the y axis. (Thanks to Winston Chang)
 
+BUG FIXES
+
+* `munch_range` properly reports the x and y range. (Thanks to Winston Chang)
+
 ggplot2 0.9.0
 ----------------------------------------------------------------
 
