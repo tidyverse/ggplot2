@@ -6,7 +6,7 @@
     stat = "bindot", position = "identity", na.rm = FALSE,
     binwidth = NULL, binaxis = "x", method = "dotdensity",
     binpositions = "bygroup", stackdir = "up",
-    stackratio = 1, dotsize = 1, ...)
+    stackratio = 1, dotsize = 1, stackgroups = FALSE, ...)
 }
 \arguments{
   \item{binaxis}{which axis to bin along "x" (default) or
@@ -37,6 +37,11 @@
 
   \item{dotsize}{The diameter of the dots relative to
   \code{binwidth}, default 1.}
+
+  \item{stackgroups}{should dots be stacked across groups?
+  This has the effect that \code{position = "stack"} should
+  have, but can't (because this geom has some odd
+  properties).}
 
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
@@ -123,6 +128,16 @@ ggplot(mtcars, aes(x = factor(vs), fill = factor(cyl), y = mpg)) +
 # binpositions="all" ensures that the bins are aligned between groups
 ggplot(mtcars, aes(x = factor(am), y = mpg)) +
   geom_dotplot(binaxis = "y", stackdir = "center", binpositions="all")
+
+# Stacking multiple groups, with different fill
+ggplot(mtcars, aes(x = mpg, fill = factor(cyl))) +
+  geom_dotplot(stackgroups = TRUE, binwidth = 1, binpositions = "all")
+
+ggplot(mtcars, aes(x = mpg, fill = factor(cyl))) +
+  geom_dotplot(stackgroups = TRUE, binwidth = 1, method = "histodot")
+
+ggplot(mtcars, aes(x = 1, y = mpg, fill = factor(cyl))) +
+  geom_dotplot(binaxis = "y", stackgroups = TRUE, binwidth = 1, method = "histodot")
 }
 \references{
   Wilkinson, L. (1999) Dot plots. The American

@@ -32,6 +32,9 @@
 #' @param stackratio how close to stack the dots. Default is 1, where dots just
 #'   just touch. Use smaller values for closer, overlapping dots.
 #' @param dotsize The diameter of the dots relative to \code{binwidth}, default 1.
+#' @param stackgroups should dots be stacked across groups? This has the effect
+#'   that \code{position = "stack"} should have, but can't (because this geom has
+#'   some odd properties).
 #' @export
 #'
 #' @references Wilkinson, L. (1999) Dot plots. The American Statistician,
@@ -80,12 +83,22 @@
 #' ggplot(mtcars, aes(x = factor(am), y = mpg)) + 
 #'   geom_dotplot(binaxis = "y", stackdir = "center", binpositions="all")
 #'
+#' # Stacking multiple groups, with different fill
+#' ggplot(mtcars, aes(x = mpg, fill = factor(cyl))) +
+#'   geom_dotplot(stackgroups = TRUE, binwidth = 1, binpositions = "all")
+#'
+#' ggplot(mtcars, aes(x = mpg, fill = factor(cyl))) +
+#'   geom_dotplot(stackgroups = TRUE, binwidth = 1, method = "histodot")
+#'
+#' ggplot(mtcars, aes(x = 1, y = mpg, fill = factor(cyl))) +
+#'   geom_dotplot(binaxis = "y", stackgroups = TRUE, binwidth = 1, method = "histodot")
+#'
 geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot", position = "identity",
 na.rm = FALSE, binwidth = NULL, binaxis = "x", method="dotdensity", binpositions = "bygroup", stackdir = "up",
-stackratio = 1, dotsize = 1, ...) {
+stackratio = 1, dotsize = 1, stackgroups = FALSE, ...) {
   GeomDotplot$new(mapping = mapping, data = data, stat = stat, position = position,
   na.rm = na.rm, binwidth = binwidth, binaxis = binaxis, method = method, binpositions = binpositions,
-  stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, ...)
+  stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, stackgroups = stackgroups, ...)
 }
 
 GeomDotplot <- proto(Geom, {
@@ -116,6 +129,14 @@ GeomDotplot <- proto(Geom, {
     # Add back binaxis
     stat_params <- c(stat_params, binaxis=params$binaxis)
 
+    # If position=="stack" or position is position_stack() (the test is kind of complex),
+    #   tell them to use stackgroups=TRUE instead
+    if (!is.null(position) && (position == "stack" || (is.proto(position) && position$objname == "stack")))
+      message("position=\"stack\" doesn't work properly with geom_dotplot. Use stackgroups=TRUE instead.")
+
+    if (params$stackgroups && params$method == "dotdensity" && params$binpositions == "bygroup")
+      message('geom_dotplot called with stackgroups=TRUE and method="dotdensity". You probably want to set binpositions="all"')
+
     do.call("layer", list(mapping = mapping, data = data, stat = stat, geom = ., position = position,
                           geom_params = geom_params, stat_params = stat_params, ...))
   }
@@ -144,17 +165,26 @@ GeomDotplot <- proto(Geom, {
       stackaxismax <- .5
     }
 
-    if (params$binaxis == "x") {
-      # Fill the bins: at a given x, if count=3, make 3 entries at that x, with
-      # coutidx=1,2,3, and set stackpos according to stack function
-      df <- ddply(df, .(x, group), function(xx) {
-                      if(xx$count == 0) return(NULL)
-                      xx[1:xx$count, ] <- xx[1, ]   # replicate the row count times
-                      xx$countidx <- 1:(xx$count[1])
-                      xx$stackpos <- stackdots(xx$countidx)
-                      xx
-                    })
 
+    # Fill the bins: at a given x (or y), if count=3, make 3 entries at that x
+    df <- df[rep(1:nrow(df), df$count), ]
+
+    # Next part will set the position of each dot within each stack
+    # If stackgroups=TRUE, split only on x (or y) and panel; if not stacking, also split by group
+    plyvars <- c(params$binaxis, "PANEL")
+    if (!params$stackgroups)
+      plyvars <- c(plyvars, "group")
+
+    # Within each x, or x+group, set countidx=1,2,3, and set stackpos according to stack function
+    df <- ddply(df, plyvars, function(xx) {
+            xx$countidx <- 1:nrow(xx)
+            xx$stackpos <- stackdots(xx$countidx)
+            xx
+          })
+
+
+    # Set the bounding boxes for the dots
+    if (params$binaxis == "x") {
       # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
       # Can't do bounding box per dot, because y position isn't real.
       # After position code is rewritten, each dot should have its own bounding box.
@@ -165,16 +195,6 @@ GeomDotplot <- proto(Geom, {
       df$y    <- 0
 
     } else if (params$binaxis == "y") {
-      # Fill the bins: at a given y, if count=3, make 3 entries at that y, with
-      # coutidx=1,2,3, and set stackpos according to stack function
-      df <- ddply(df, .(y, group), function(xx) {
-                      if(xx$count == 0) return(NULL)
-                      xx[1:xx$count, ] <- xx[1, ]   # replicate the row count times
-                      xx$countidx <- 1:(xx$count[1])
-                      xx$stackpos <- stackdots(xx$countidx)
-                      xx
-                    })
-
       # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
       # Can't do bounding box per dot, because x position isn't real.
       # xmin and xmax aren't really the x bounds, because of the odd way the grob
@@ -191,11 +211,12 @@ GeomDotplot <- proto(Geom, {
     }
     df
   }
-  
+
+
   draw <- function(., data, scales, coordinates, na.rm = FALSE, binaxis = "x",
-                   stackdir = "up", stackratio = 1, dotsize = 1, ...) {
-    data <- remove_missing(data, na.rm, 
-      c("x", "y", "size", "shape"), name = "geom_dotplot")
+                   stackdir = "up", stackratio = 1, dotsize = 1, stackgroups = FALSE, ...) {
+
+    data <- remove_missing(data, na.rm, c("x", "y", "size", "shape"), name = "geom_dotplot")
     if (empty(data)) return(zeroGrob())
 
     if (!is.linear(coordinates)) {
@@ -222,7 +243,7 @@ GeomDotplot <- proto(Geom, {
                   stackposition = tdata$stackpos, stackratio = stackratio,
                   default.units = "npc",
                   gp = gpar(col = alpha(tdata$colour, tdata$alpha),
-                          fill = alpha(tdata$fill, tdata$alpha)))
+                            fill = alpha(tdata$fill, tdata$alpha)))
     )
   }
 

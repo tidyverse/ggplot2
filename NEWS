@@ -1,3 +1,7 @@
+* `geom_dotplot`: now supports stacking. It uses `stackgroups = TRUE` instead
+  of the usual position="stack", for technical reasons. It also will stack in
+  the x direction when binning along the y axis. (Thanks to Winston Chang)
+
 ggplot2 0.9.0
 ----------------------------------------------------------------
 
