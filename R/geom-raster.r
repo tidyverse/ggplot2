@@ -69,11 +69,12 @@ GeomRaster <- proto(Geom, {
   }
   
   draw <- function(., data, scales, coordinates, hjust = 0.5, vjust = 0.5, ...) {
-
     if (!inherits(coordinates, "cartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }
+    data <- remove_missing(data, TRUE, c("x", "y", "fill"), name = "geom_raster")
     data <- coord_transform(coordinates, data, scales)
+    
     raster <- acast(data, list("y", "x"), value.var = "fill")
     raster <- raster[nrow(raster):1, , drop = FALSE]
 
