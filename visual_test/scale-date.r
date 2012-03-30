@@ -2,7 +2,7 @@ vcontext("scale-date")
 
 set.seed(321)
 df <- data.frame(
-  dx = seq(Sys.Date(), len=100, by="1 day")[sample(100, 50)],
+  dx = seq(as.Date("2012-02-29"), len=100, by="1 day")[sample(100, 50)],
   price = runif(50)
 )
 df <- df[order(df$dx), ]

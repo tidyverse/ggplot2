@@ -11,7 +11,7 @@ save_vtest("manual minor breaks with coord_polar")
 
 set.seed(342)
 df <- data.frame(
-  date = seq(Sys.Date(), len=100, by="1 day")[sample(100, 50)],
+  date = seq(as.Date("2012-2-29"), len=100, by="1 day")[sample(100, 50)],
   price = runif(50)
 )
 df <- df[order(df$date), ]
