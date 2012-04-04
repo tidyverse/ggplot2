@@ -9,7 +9,7 @@ test_that("plot succeeds even if some computation fails", {
   b1 <- ggplot_build(p1)
   expect_equal(length(b1$data), 1)
   
-  b2 <- ggplot_build(p2)
+  expect_warning(b2 <- ggplot_build(p2))
   expect_equal(length(b2$data), 2)
   
 })
