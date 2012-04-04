@@ -101,54 +101,71 @@ test_that("suppressing breaks, minor_breask, and labels", {
   # date, datetime
   lims <- as.Date(c("2000/1/1", "2000/2/1"))
   expect_equal(scale_breaks(scale_x_date(breaks = NULL, limits = lims)), NULL)
-  expect_equal(scale_breaks(scale_x_date(breaks = NA, limits = lims)), NULL)  
+  # NA is deprecated, should throw warning
+  expect_warning(s <- scale_breaks(scale_x_date(breaks = NA, limits = lims)))
+  expect_equal(s, NULL)
   expect_equal(scale_labels(scale_x_date(labels = NULL, limits = lims)), NULL)
-  expect_equal(scale_labels(scale_x_date(labels = NA, limits = lims)), NULL)  
+  expect_warning(s <- scale_labels(scale_x_date(labels = NA, limits = lims)))
+  expect_equal(s, NULL)
   expect_equal(scale_breaks_minor(scale_x_date(minor_breaks= NULL, limits = lims)), NULL)
-  expect_equal(scale_breaks_minor(scale_x_date(minor_breaks= NA, limits = lims)), NULL)
+  expect_warning(s <-scale_breaks_minor(scale_x_date(minor_breaks= NA, limits = lims)))
+  expect_equal(s, NULL)
 
   # date, datetime
   lims <- as.POSIXct(c("2000/1/1 0:0:0", "2010/1/1 0:0:0"))
   expect_equal(scale_breaks(scale_x_datetime(breaks = NULL, limits = lims)), NULL)
-  expect_equal(scale_breaks(scale_x_datetime(breaks = NA, limits = lims)), NULL)  
+  expect_warning(s <- scale_breaks(scale_x_datetime(breaks = NA, limits = lims)))
+  expect_equal(s, NULL)
   expect_equal(scale_labels(scale_x_datetime(labels = NULL, limits = lims)), NULL)
-  expect_equal(scale_labels(scale_x_datetime(labels = NA, limits = lims)), NULL)  
+  expect_warning(s <- scale_labels(scale_x_datetime(labels = NA, limits = lims)))
+  expect_equal(s, NULL)
   expect_equal(scale_breaks_minor(scale_x_datetime(minor_breaks= NULL, limits = lims)), NULL)
-  expect_equal(scale_breaks_minor(scale_x_datetime(minor_breaks= NA, limits = lims)), NULL)  
+  expect_warning(s <- scale_breaks_minor(scale_x_datetime(minor_breaks= NA, limits = lims)))
+  expect_equal(s, NULL)
 
 })
 
 test_that("scale_breaks with explicit NA options (deprecated)", {
+  # NA is deprecated, should throw warning
+  
   # X
   sxc <- scale_x_continuous(breaks=NA)
   scale_train(sxc, 1:3)
-  expect_identical(scale_breaks(sxc), NULL)
-  expect_identical(scale_breaks_minor(sxc), NULL)
+  expect_warning(s <- scale_breaks(sxc))
+  expect_identical(s, NULL)
+  expect_warning(s <- scale_breaks_minor(sxc))
+  expect_identical(s, NULL)
   
   # Y
   syc <- scale_y_continuous(breaks=NA)
   scale_train(syc, 1:3)
-  expect_identical(scale_breaks(syc), NULL)
-  expect_identical(scale_breaks_minor(syc), NULL)
+  expect_warning(s <- scale_breaks(syc))
+  expect_identical(s, NULL)
+  expect_warning(s <- scale_breaks_minor(syc))
+  expect_identical(s, NULL)
   
   # Alpha
   sac <- scale_alpha_continuous(breaks=NA)
   scale_train(sac,1:3)
-  expect_identical(scale_breaks(sac), NULL)
+  expect_warning(s <- scale_breaks(sac))
+  expect_identical(s, NULL)
   
   # Size
   ssc <- scale_size_continuous(breaks=NA)
   scale_train(ssc,1:3)
-  expect_identical(scale_breaks(ssc), NULL)
+  expect_warning(s <- scale_breaks(ssc))
+  expect_identical(s, NULL)
   
   # Fill
   sfc <- scale_fill_continuous(breaks=NA)
   scale_train(sfc,1:3)
-  expect_identical(scale_breaks(sfc), NULL)
+  expect_warning(s <- scale_breaks(sfc))
+  expect_identical(s, NULL)
   
   # Colour
   scc <- scale_colour_continuous(breaks=NA)
   scale_train(scc,1:3)
-  expect_identical(scale_breaks(scc), NULL)
+  expect_warning(s <- scale_breaks(scc))
+  expect_identical(s, NULL)
     
 })
