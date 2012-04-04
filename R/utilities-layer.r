@@ -2,7 +2,7 @@
 #
 # If the \code{group} variable is not present, then a new group
 # variable is generated from the interaction of all discrete (factor or
-# character) vectors.
+# character) vectors, excluding \code{label}.
 # 
 # @param data.frame
 # @value data.frame with group variable
@@ -12,6 +12,7 @@ add_group <- function(data) {
   
   if (is.null(data$group)) {
     disc <- vapply(data, is.discrete, logical(1))
+    disc[names(disc) == "label"] <- FALSE
     
     if (any(disc)) {
       data$group <- id(data[disc], drop = TRUE)      
