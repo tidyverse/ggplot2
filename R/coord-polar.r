@@ -151,13 +151,13 @@ r_rescale <- function(coord, x, details) {
 #' @S3method coord_transform polar
 coord_transform.polar <- function(coord, data, details) {
   data <- rename_data(coord, data)
-  within(data, {
-    r <- r_rescale(coord, r, details)
-    theta <- theta_rescale(coord, theta, details)
-
-    x <- r * sin(theta) + 0.5
-    y <- r * cos(theta) + 0.5
-  }
+  
+  data$r  <- r_rescale(coord, data$r, details)
+  data$theta <- theta_rescale(coord, data$theta, details)
+  data$x <- data$r * sin(data$theta) + 0.5
+  data$y <- data$r * cos(data$theta) + 0.5
+  
+  data
 }
 
 #' @S3method coord_render_axis_v polar
