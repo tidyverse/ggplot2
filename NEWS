@@ -12,6 +12,10 @@ BUG FIXES
 
 * `munch_range` properly reports the x and y range. (Thanks to Winston Chang)
 
+* `stat_bin2d` handles data with NA in the position variables. Error was
+  triggered when scale was limited to a range smaller than the range of
+  the data. (Bug reported by Tao Gao; diagnosed and fixed by Brian Diggs)
+
 ggplot2 0.9.0
 ----------------------------------------------------------------
 
