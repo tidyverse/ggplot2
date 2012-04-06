@@ -103,10 +103,14 @@ coord_train.polar <- function(coord, scales) {
 
   x.major <- scale_break_positions(scales$x)
   x.minor <- scale_breaks_minor_positions(scales$x)
+  x.major <- x.major[!is.na(x.major)]
+  x.minor <- x.minor[!is.na(x.minor)]
   x.labels <- scale_labels(scales$x, x.major)
 
   y.major <- scale_break_positions(scales$y)
   y.minor <- scale_breaks_minor_positions(scales$y)
+  y.major <- y.major[!is.na(y.major)]
+  y.minor <- y.minor[!is.na(y.minor)]
   y.labels <- scale_labels(scales$y, y.major)
   
   details <- list(
