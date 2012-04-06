@@ -113,7 +113,7 @@ coord_train.map <- function(coord, scales) {
     minor_inside_range <- x.range[1] <= x.minor  & x.minor <= x.range[2]
     minor_inside_range <- minor_inside_range & !is.na(minor_inside_range)
     x.major <- x.major[major_inside_range]
-    x.minor <- x.major[minor_inside_range]
+    x.minor <- x.minor[minor_inside_range]
     x.labels <- x.labels[major_inside_range]
   }
   if (inherits(scales$y, "continuous")) {
@@ -122,7 +122,7 @@ coord_train.map <- function(coord, scales) {
     minor_inside_range <- y.range[1] <= y.minor  & y.minor <= y.range[2]
     minor_inside_range <- minor_inside_range & !is.na(minor_inside_range)
     y.major <- y.major[major_inside_range]
-    y.minor <- y.major[minor_inside_range]
+    y.minor <- y.minor[minor_inside_range]
     y.labels <- y.labels[major_inside_range]
   }
 
