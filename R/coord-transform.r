@@ -93,11 +93,15 @@ coord_train.trans <- function(coord, scales) {
   x.range <- exp_trans_range(coord$xtr, scales$x)
   x.major <- transform_x(coord, scale_break_positions(scales$x), x.range)
   x.minor <- transform_x(coord, scale_breaks_minor(scales$x), x.range)
+  x.major <- x.major[!is.na(x.major)]
+  x.minor <- x.minor[!is.na(x.minor)]
   x.labels <- scale_labels(scales$x)
 
   y.range <- exp_trans_range(coord$ytr, scales$y)
   y.major <- transform_y(coord, scale_break_positions(scales$y), y.range)
   y.minor <- transform_y(coord, scale_breaks_minor(scales$y), y.range)
+  y.major <- y.major[!is.na(y.major)]
+  y.minor <- y.minor[!is.na(y.minor)]
   y.labels <- scale_labels(scales$y)
   
   list(
