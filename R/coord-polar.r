@@ -90,8 +90,6 @@ coord_range.polar <- function(coord, scales) {
 
 #' @S3method coord_train polar
 coord_train.polar <- function(coord, scales) {
-  scales <- coord_expand_defaults(coord, scales)
-
   x.range <- scale_dimension(scales$x)
   y.range <- scale_dimension(scales$y)
 
@@ -143,15 +141,19 @@ r_rescale <- function(coord, x, details) {
 }
 
 #' @S3method coord_expand_defaults polar
-coord_expand_defaults.polar <- function(coord, scales) {
+coord_expand_defaults.polar <- function(coord, scale, aesthetic) {
   if (coord$theta == "x") {
-    scales$x$expand <- expand_default(scales$x, c(0, 0.5), c(0, 0))
-    scales$y$expand <- expand_default(scales$y, c(0, 0),   c(0, 0))
+    if (aesthetic == "x")
+      scale$expand <- expand_default(scale, c(0, 0.5), c(0, 0))
+    else if (aesthetic == "y")
+      scale$expand <- expand_default(scale, c(0, 0),   c(0, 0))
   } else if (coord$theta == "y") {
-    scales$x$expand <- expand_default(scales$x, c(0, 0),   c(0, 0))
-    scales$y$expand <- expand_default(scales$y, c(0, 0.5), c(0, 0))
+    if (aesthetic == "x")
+      scale$expand <- expand_default(scale, c(0, 0),   c(0, 0))
+    else if (aesthetic == "y")
+      scale$expand <- expand_default(scale, c(0, 0.5), c(0, 0))
   }
-  return(scales)
+  return(scale)
 }
 
 #' @S3method coord_transform polar

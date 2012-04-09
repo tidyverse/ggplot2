@@ -84,8 +84,6 @@ coord_aspect.map <- function(coord, ranges) {
 
 #' @S3method coord_train map
 coord_train.map <- function(coord, scales) {
-  scales <- coord_expand_defaults(coord, scales)
-
   x.range <- coord$xlim %||% scale_dimension(scales$x)
   y.range <- coord$ylim %||% scale_dimension(scales$y)
   orientation <- coord$orientation %||% c(90, 0, mean(x.range))
