@@ -64,14 +64,14 @@
 #' #   * log scaling
 #' qplot(rating, votes, data=movies, log="xy")
 #' }
-scale_x_continuous <- function(..., expand = c(0.05, 0)) {
+scale_x_continuous <- function(..., expand = waiver()) {
   continuous_scale(c("x", "xmin", "xmax", "xend", "xintercept"), "position_c", identity,
     ..., expand = expand, guide = "none")
 }
 
 #' @rdname scale_continuous
 #' @export
-scale_y_continuous <- function(..., expand = c(0.05, 0)) {
+scale_y_continuous <- function(..., expand = waiver()) {
   continuous_scale(c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final"), "position_c", identity,
     ..., expand = expand, guide = "none")
 }

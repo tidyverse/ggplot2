@@ -80,3 +80,29 @@ coord_distance <- function(coord, x, y, details)
 
 is.linear <- function(coord) UseMethod("is.linear")
 is.linear.default <- function(coord) FALSE
+
+#' Set the default expand values for the scale, if NA
+#' @keyword internal
+coord_expand_defaults <- function(coord, scales)
+  UseMethod("coord_expand_defaults")
+
+#' @S3method coord_expand_defaults default
+coord_expand_defaults.default <- function(coord, scales) {
+  scales$x$expand <- expand_default(scales$x, c(0, 0.6), c(0.05, 0))
+  scales$y$expand <- expand_default(scales$y, c(0, 0.6), c(0.05, 0))
+  return(scales)
+}
+
+# This is a utility function used by coord_expand_defaults, to expand a single scale
+# d1 and d2 are used if the scale is discrete;
+# c1 and c2 are used if the scale is continuous
+expand_default <- function(scale, discrete = c(0, 0), continuous = c(0, 0)) {
+  # Default expand values for discrete and continuous scales
+  if (is.waive(scale$expand)) {
+    if      ("discrete"   %in% class(scale))  return(discrete)
+    else if ("continuous" %in% class(scale))  return(continuous)
+
+  } else {
+    return(expand)
+  }
+}

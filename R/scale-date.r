@@ -71,7 +71,7 @@
 #' qplot(date, value, data = em, geom = "line", group = variable)
 #' qplot(date, value, data = em, geom = "line", group = variable) + 
 #'   facet_grid(variable ~ ., scale = "free_y")
-scale_x_date <- function(..., expand = c(0.05, 0), breaks = waiver(),
+scale_x_date <- function(..., expand = waiver(), breaks = waiver(),
   minor_breaks = waiver()) {
   
   scale_date(c("x", "xmin", "xmax", "xend"), expand = expand, breaks = breaks,
@@ -80,7 +80,7 @@ scale_x_date <- function(..., expand = c(0.05, 0), breaks = waiver(),
 
 #' @rdname scale_date
 #' @export
-scale_y_date <- function(..., expand = c(0.05, 0), breaks = waiver(),
+scale_y_date <- function(..., expand = waiver(), breaks = waiver(),
   minor_breaks = waiver()) {
 
   scale_date(c("y", "ymin", "ymax", "yend"), expand = expand, breaks = breaks,
@@ -88,7 +88,7 @@ scale_y_date <- function(..., expand = c(0.05, 0), breaks = waiver(),
 }
 
 # base class for scale_{xy}_date
-scale_date <- function(aesthetics, expand = c(0.05, 0), breaks = waiver(),
+scale_date <- function(aesthetics, expand = waiver(), breaks = waiver(),
   minor_breaks = waiver(), ...) {
 
   if (is.character(breaks)) {

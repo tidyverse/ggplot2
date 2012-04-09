@@ -90,6 +90,9 @@ coord_train.trans <- function(coord, scales) {
     range <- trans_range(trans, scale_dimension(scale, c(0, 0)))
     expand_range(range, scale$expand[1], scale$expand[2])
   }
+
+  scales <- coord_expand_defaults(coord, scales)
+
   x.range <- exp_trans_range(coord$xtr, scales$x)
   x.major <- transform_x(coord, scale_break_positions(scales$x), x.range)
   x.minor <- transform_x(coord, scale_breaks_minor(scales$x), x.range)

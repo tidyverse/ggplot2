@@ -63,6 +63,8 @@ coord_transform.cartesian <- function(., data, details) {
 
 #' @S3method coord_train cartesian
 coord_train.cartesian <- function(coord, scales) {
+  scales <- coord_expand_defaults(coord, scales)
+
   c(train_cartesian(scales$x, coord$limits$x, "x", coord$wise),
     train_cartesian(scales$y, coord$limits$y, "y", coord$wise))
 }
