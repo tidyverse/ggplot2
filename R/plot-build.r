@@ -47,25 +47,13 @@ ggplot_build <- function(plot) {
   scale_x <- function() scales$get_scales("x")
   scale_y <- function() scales$get_scales("y")
 
-  # Set the default expand values for the scales
-  # Replace old x and y scales with new versions with updated expand values
-  if (!is.null(scale_x()))
-    plot$scales$add(coord_expand_defaults(plot$coordinates, scale_x(), "x"))
-  if (!is.null(scale_y()))
-    plot$scales$add(coord_expand_defaults(plot$coordinates, scale_y(), "y"))
-
-  panel <- train_position(panel, data, scale_x(), scale_y())
+  panel <- train_position(panel, data, plot$coordinates, scale_x(), scale_y())
   data <- map_position(panel, data, scale_x(), scale_y())
   
   # Apply and map statistics
   data <- calculate_stats(panel, data, layers)
   data <- dlapply(function(d, p) p$map_statistic(d, plot)) 
   data <- lapply(data, order_groups)
-
-  # Set the default expand values again. This is needed if, for example, the
-  # the y scale didn't exist before but was created by a stat.
-  plot$scales$add(coord_expand_defaults(plot$coordinates, scale_x(), "x"))
-  plot$scales$add(coord_expand_defaults(plot$coordinates, scale_y(), "y"))
   
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
   data <- dlapply(function(d, p) p$reparameterise(d))
@@ -77,7 +65,7 @@ ggplot_build <- function(plot) {
   # have control over the range of a plot: is it generated from what's 
   # displayed, or does it include the range of underlying data
   reset_scales(panel)
-  panel <- train_position(panel, data, scale_x(), scale_y())
+  panel <- train_position(panel, data, plot$coordinates, scale_x(), scale_y())
   data <- map_position(panel, data, scale_x(), scale_y())
   
   # Train and map non-position scales

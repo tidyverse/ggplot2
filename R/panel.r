@@ -57,17 +57,20 @@ map_layout <- function(panel, facet, data, plot_data) {
 # If panel-specific scales are not already present, will clone from
 # the scales provided in the parameter
 #
-# @param the panel object to train
+# @param panel the panel object to train
 # @param data a list of data frames (one for each layer)  
+# @param coords a coord object for the plot
 # @param x_scale x scale for the plot
 # @param y_scale y scale for the plot
-train_position <- function(panel, data, x_scale, y_scale) { 
+train_position <- function(panel, data, coords, x_scale, y_scale) {
   # Initialise scales if needed, and possible.
   layout <- panel$layout
   if (is.null(panel$x_scales) && !is.null(x_scale)) {
+    x_scale <- coord_expand_defaults(coords, x_scale, "x")
     panel$x_scales <- rlply(max(layout$SCALE_X), scale_clone(x_scale))
   }
   if (is.null(panel$y_scales) && !is.null(y_scale)) {
+    y_scale <- coord_expand_defaults(coords, y_scale, "y")
     panel$y_scales <- rlply(max(layout$SCALE_Y), scale_clone(y_scale))
   }
   
