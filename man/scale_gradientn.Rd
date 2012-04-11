@@ -23,7 +23,7 @@
   "Lab" usually best unless gradient goes through white.}
 
   \item{...}{Other arguments passed on to
-  \code{\link{continuous_scale}} to control name, limits,
+  \code{\link{discrete_scale}} to control name, limits,
   breaks, labels and so forth.}
 
   \item{na.value}{Colour to use for missing values}
