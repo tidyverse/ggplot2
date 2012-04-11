@@ -8,6 +8,10 @@
 * `geom_rug` now allows control over which sides to put the rug lines, with
   the `sides` argument. (Thanks to Winston Chang)
 
+* `annotation_logticks`: a new geom that adds tick marks on the inside of the
+  plotting rectangle that have diminishing spacing for log-10 axes. (Thanks
+  to Winston Chang)
+
 BUG FIXES
 
 * `munch_range` properly reports the x and y range. (Thanks to Winston Chang)
