@@ -1,5 +1,6 @@
 #' Sequential, diverging and qualitative colour scales from colorbrewer.org
 #'
+#' Create discrete or continuous colour scales based on ColorBrewer colors.
 #' See \url{http://colorbrewer2.org} for more information.
 #'
 #' @inheritParams scales::brewer_pal
