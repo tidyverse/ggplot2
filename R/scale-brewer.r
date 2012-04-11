@@ -1,10 +1,14 @@
 #' Sequential, diverging and qualitative colour scales from colorbrewer.org
 #'
-#' Create discrete or continuous colour scales based on ColorBrewer colors.
+#' Create colour scales based on ColorBrewer colours.
+#' 
+#' ColorBrewer provides sequential, diverging and qualitative colour schemes which are particularly suited and tested to display discrete values (levels of a factor) on a map. ggplot2 can use those colours in discrete scales. It also allows to smoothly interpolate the colours to a continuous scale, although the original colour schemes (particularly the qualitative ones) were not intended for this. The perceptual result is left to the appreciation of the user.
+#'
 #' See \url{http://colorbrewer2.org} for more information.
 #'
 #' @inheritParams scales::brewer_pal
 #' @inheritParams scale_colour_hue
+#' @inheritParams scale_colour_gradient
 #' @family colour scales
 #' @rdname scale_brewer
 #' @export
