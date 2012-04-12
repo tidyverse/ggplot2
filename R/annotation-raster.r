@@ -16,6 +16,8 @@ NULL
 #'   location of raster
 #' @param ymin,ymax y location (in data coordinates) giving vertical
 #'   location of raster
+#' @param interpolate If \code{TRUE} interpolate linearly, if \code{FALSE} 
+#'   (the default) don't interpolate.
 #' @export
 #' @examples
 #' # Generate data
@@ -26,11 +28,20 @@ NULL
 #' qplot(mpg, wt, data = mtcars) +
 #'   annotation_raster(rainbow, -Inf, Inf, -Inf, Inf) + 
 #'   geom_point()
-annotation_raster <- function (raster, xmin, xmax, ymin, ymax) { 
+#'
+#' rainbow2 <- matrix(hcl(seq(0, 360, length = 10), 80, 70), nrow = 1)
+#' qplot(mpg, wt, data = mtcars) +
+#'   annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf) + 
+#'   geom_point()
+#' rainbow2 <- matrix(hcl(seq(0, 360, length = 10), 80, 70), nrow = 1)
+#' qplot(mpg, wt, data = mtcars) +
+#'   annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf, interpolate = TRUE) + 
+#'   geom_point()
+annotation_raster <- function (raster, xmin, xmax, ymin, ymax, interpolate = FALSE) { 
   raster <- as.raster(raster)
   GeomRasterAnn$new(geom_params = list(raster = raster, xmin = xmin, 
-    xmax = xmax, ymin = ymin, ymax = ymax), stat = "identity", 
-    position = "identity", data = NULL, inherit.aes = TRUE)
+    xmax = xmax, ymin = ymin, ymax = ymax, interpolate = interpolate), 
+    stat = "identity", position = "identity", data = NULL, inherit.aes = TRUE)
 }
 
 GeomRasterAnn <- proto(GeomRaster, {
@@ -40,7 +51,7 @@ GeomRasterAnn <- proto(GeomRaster, {
   }
   
   draw_groups <- function(., data, scales, coordinates, raster, xmin, xmax,
-    ymin, ymax, ...) {
+    ymin, ymax, interpolate = FALSE, ...) {
     if (!inherits(coordinates, "cartesian")) {
       stop("annotation_raster only works with Cartesian coordinates", 
         call. = FALSE)
@@ -53,6 +64,6 @@ GeomRasterAnn <- proto(GeomRaster, {
         
     rasterGrob(raster, x_rng[1], y_rng[1], 
       diff(x_rng), diff(y_rng), default.units = "native", 
-      just = c("left","bottom"), interpolate = FALSE)
+      just = c("left","bottom"), interpolate = interpolate)
   }
 })

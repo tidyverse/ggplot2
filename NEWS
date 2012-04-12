@@ -1,3 +1,6 @@
+* `geom_raster` and `annotation_raster` gain new `interpolate` argument for
+  controlling whether or not rasters are interpolated
+
 * Added `plot` as an alias for `print` for ggplot objects.
 
 * Visual tests have been moved to /visual_test and modified to work with the

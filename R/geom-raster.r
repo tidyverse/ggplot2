@@ -16,6 +16,8 @@ NULL
 #' @param hjust,vjust horizontal and vertical justification of the grob.  Each
 #'   justification value should be a number between 0 and 1.  Defaults to 0.5 
 #'   for both, centering each pixel over its data location.
+#' @param interpolate If \code{TRUE} interpolate linearly, if \code{FALSE} 
+#'   (the default) don't interpolate.
 #' @export
 #' @examples
 #' \donttest{
@@ -28,6 +30,9 @@ NULL
 #'  df
 #' }
 #' qplot(x, y, data = pp(20), fill = z, geom = "raster")
+#' # Interpolation worsens the apperance of this plot, but can help when 
+#' # rendering images.
+#' qplot(x, y, data = pp(20), fill = z, geom = "raster", interpolate = TRUE)
 #'
 #' # For the special cases where it is applicable, geom_raster is much
 #' # faster than geom_tile:
@@ -44,11 +49,11 @@ NULL
 #' # zero padding
 #' ggplot(df, aes(x, y, fill = z)) + geom_raster(hpad = 0, vpad = 0)
 #' }
-geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", hjust = 0.5, vjust = 0.5, ...) { 
+geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", hjust = 0.5, vjust = 0.5, interpolate = FALSE, ...) { 
   stopifnot(is.numeric(hjust), length(hjust) == 1)
   stopifnot(is.numeric(vjust), length(vjust) == 1)
   
-  GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, hjust = hjust, vjust = vjust, ...)
+  GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, hjust = hjust, vjust = vjust, interpolate = interpolate, ...)
 }
 
 GeomRaster <- proto(Geom, {
@@ -68,7 +73,7 @@ GeomRaster <- proto(Geom, {
     df
   }
   
-  draw <- function(., data, scales, coordinates, hjust = 0.5, vjust = 0.5, ...) {
+  draw <- function(., data, scales, coordinates, hjust = 0.5, vjust = 0.5, interpolate = FALSE, ...) {
     if (!inherits(coordinates, "cartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }
@@ -83,7 +88,7 @@ GeomRaster <- proto(Geom, {
 
     rasterGrob(raster, x = mean(x_rng), y = mean(y_rng), 
       width = diff(x_rng), height = diff(y_rng), 
-      default.units = "native", interpolate = FALSE)
+      default.units = "native", interpolate = interpolate)
   }
 
 
