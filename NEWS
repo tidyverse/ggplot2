@@ -33,6 +33,8 @@ BUG FIXES
 
 * `geom_map` now works with `coord_map` (Fixes #480)
 
+* discrete scales now accept named vectors of labels again (Fixes #427)
+
 
 ggplot2 0.9.0
 ----------------------------------------------------------------

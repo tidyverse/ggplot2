@@ -79,6 +79,10 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #'
 #' @export
 #' @keywords internal
+#' @param labels \code{NULL} for no labels, \code{waiver()} for default
+#'  labels (labels the same as breaks), a character vector the same length
+#'  as breaks, or a named character vector whose names are used to match
+#'  replacement the labels for matching breaks.
 discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, expand = c(0, 0), na.value = NA, drop = TRUE, guide="legend") {
 
   if (!is.null(legend)) {
@@ -431,15 +435,30 @@ scale_labels.discrete <- function(scale, breaks = scale_breaks(scale)) {
   } else if (is.function(scale$labels)) {
     scale$labels(breaks)
   } else {
-    labels <- scale$labels
-    
-    # Need to ensure that if breaks were dropped, corresponding labels are too
-    pos <- attr(breaks, "pos")
-    if (!is.null(pos)) {
-      labels <- labels[pos]
+    if (!is.null(names(scale$labels))) {
+      # If labels have names, use them to match with breaks
+      labels <- breaks
+      
+      map <- match(names(scale$labels), labels, nomatch = 0)
+      labels[map] <- scale$labels[map != 0]
+      labels
+    } else {
+      labels <- scale$labels
+      
+      # Need to ensure that if breaks were dropped, corresponding labels are too
+      pos <- attr(breaks, "pos")
+      if (!is.null(pos)) {
+        labels <- labels[pos]
+      }
+      labels    
     }
-    labels    
+    
   }
+}
+
+named_labels <- function(breaks, labels) {
+  breaks[match(names(labels), breaks, nomatch = 0)] <- labels
+  breaks
 }
 
 print.scale <- function(x, ...) {

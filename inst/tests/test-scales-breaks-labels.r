@@ -169,3 +169,29 @@ test_that("scale_breaks with explicit NA options (deprecated)", {
   expect_identical(s, NULL)
     
 })
+
+
+test_that("breaks can be specified by names of labels", {
+  labels <- setNames(LETTERS[1:4], letters[1:4])
+  
+  s <- scale_x_discrete(limits = letters[1:4], labels = labels)
+  expect_equal(as.vector(scale_breaks(s)), letters[1:4])
+  expect_equal(as.vector(scale_labels(s)), LETTERS[1:4])
+  
+  s <- scale_x_discrete(limits = letters[1:4], labels = rev(labels))
+  expect_equal(as.vector(scale_breaks(s)), letters[1:4])
+  expect_equal(as.vector(scale_labels(s)), LETTERS[1:4])
+  
+  s <- scale_x_discrete(limits = letters[1:4], labels = labels[1:2])
+  expect_equal(as.vector(scale_breaks(s)), letters[1:4])
+  expect_equal(as.vector(scale_labels(s)), c("A", "B", "c", "d"))
+
+  s <- scale_x_discrete(limits = letters[1:4], labels = labels[3:4])
+  expect_equal(as.vector(scale_breaks(s)), letters[1:4])
+  expect_equal(as.vector(scale_labels(s)), c("a", "b", "C", "D"))
+
+  s <- scale_x_discrete(limits = letters[1:3], labels = labels)
+  expect_equal(as.vector(scale_breaks(s)), letters[1:3])
+  expect_equal(as.vector(scale_labels(s)), LETTERS[1:3])
+
+})
