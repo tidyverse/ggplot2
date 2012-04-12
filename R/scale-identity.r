@@ -10,11 +10,13 @@
 #' qplot(1:4, 1:4, fill = colour, geom = "tile")
 #' qplot(1:4, 1:4, fill = colour, geom = "tile") + scale_fill_identity()
 #' 
-#' # To get a legend guide, you also need to supply labels, and specify 
-#' # guide = "legend"
-#' qplot(1:4, 1:4, fill = colour, geom = "tile") +
+#' # To get a legend guide, specify guide = "legend"
+#' qplot(1:4, 1:4, fill = colour, geom = "tile") + 
+#'   scale_fill_identity(guide = "legend")
+#' # But you'll typically also need to supply breaks and labels:
+#' qplot(1:4, 1:4, fill = colour, geom = "tile") + 
 #'   scale_fill_identity("trt", labels = letters[1:4], breaks = colour, 
-#'    guide = "legend")
+#'   guide = "legend")
 #' 
 #' # cyl scaled to appropriate size
 #' qplot(mpg, wt, data = mtcars, size = cyl)
@@ -72,7 +74,9 @@ scale_map.identity <- function(scale, x) {
 }
 #' @S3method scale_train identity
 scale_train.identity <- function(scale, x) {
-  # do nothing
+  # do nothing if no guide, otherwise train so we know what breaks to use
+  if (scale$guide == "none") return()
+  NextMethod()
 }
 
 icon.identity <- function() textGrob("f(x) = x", gp=gpar(cex=1.2))

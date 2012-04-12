@@ -25,6 +25,10 @@ BUG FIXES
   triggered when scale was limited to a range smaller than the range of
   the data. (Bug reported by Tao Gao; diagnosed and fixed by Brian Diggs)
 
+* `scale_*_identity` will now produce a legend when `guide = "legend"` and no
+  breaks or labels are supplied (Fixes #453)
+
+
 ggplot2 0.9.0
 ----------------------------------------------------------------
 
