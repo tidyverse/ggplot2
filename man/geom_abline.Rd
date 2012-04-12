@@ -29,39 +29,38 @@
   for more details.}
 }
 \description{
-  The abline geom adds a line with specified slope and
-  intercept to the plot.
+  The abline geom adds lines with a slope and intercept
+  (see \code{\link{geom_vline}} and
+  \code{\link{geom_abline}} for other types of lines).
 }
 \details{
-  With its siblings \code{geom_hline} and
-  \code{geom_vline}, it's useful for annotating plots.  You
-  can supply the parameters for geom_abline, intercept and
-  slope, in two ways: either explicitly as fixed values, or
-  in a data frame.  If you specify the fixed values
-  (\code{geom_abline(intercept=0, slope=1)}) then the line
-  will be the same in all panels.  If the intercept and
-  slope are stored in the data, then they can vary from
-  panel to panel.  See the examples for more ideas.
+  To specify the slope and intercept of the line with fixed
+  values, use \code{annotate_vline}. With this method, the
+  lines with be the same in every panel. To map variables
+  from the data to the slope and y-intercept, use
+  \code{geom_abline}. With this method, the slope and
+  intercept can vary from panel to panel. See the examples
+  for more ideas.
 }
 \examples{
 p <- qplot(wt, mpg, data = mtcars)
 
-# Fixed slopes and intercepts
-p + geom_abline() # Can't see it - outside the range of the data
-p + geom_abline(intercept = 20)
+# Specify a fixed slope and intercept
+p + annotate_abline(intercept = 20, slope = 1)
+p + annotate_abline(intercept = 20, slope = 1, colour = "red", size = 2)
 
 # Calculate slope and intercept of line of best fit
 coef(lm(mpg ~ wt, data = mtcars))
-p + geom_abline(intercept = 37, slope = -5)
-p + geom_abline(intercept = 10, colour = "red", size = 2)
+p + annotate_abline(intercept = 37, slope = -5)
 
 # See ?stat_smooth for fitting smooth models to data
-p + stat_smooth(method="lm", se=FALSE)
+p + stat_smooth(method = "lm", se=FALSE)
 
-# Slopes and intercepts as data
-p <- ggplot(mtcars, aes(x = wt, y=mpg), . ~ cyl) + geom_point()
-df <- data.frame(a=rnorm(10, 25), b=rnorm(10, 0))
-p + geom_abline(aes(intercept=a, slope=b), data=df)
+# Mapping data to slopes and intercepts
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
+df <- data.frame(a = rnorm(10, 25), b = rnorm(10, 0))
+p + geom_abline(data = df, aes(intercept = a, slope = b),
+  inherit.aes = FALSE)
 
 # Slopes and intercepts from linear model
 library(plyr)
@@ -70,15 +69,16 @@ coefs <- ddply(mtcars, .(cyl), function(df) {
   data.frame(a = coef(m)[1], b = coef(m)[2])
 })
 str(coefs)
-p + geom_abline(data=coefs, aes(intercept=a, slope=b))
+p + geom_abline(data = coefs, aes(intercept = a, slope = b),
+  inherit.aes = FALSE)
 
 # It's actually a bit easier to do this with stat_smooth
-p + geom_smooth(aes(group=cyl), method="lm")
-p + geom_smooth(aes(group=cyl), method="lm", fullrange=TRUE)
+p + geom_smooth(aes(group = cyl), method = "lm", se = FALSE)
+p + geom_smooth(aes(group = cyl), method = "lm", se = FALSE, fullrange = TRUE)
 
 # With coordinate transforms
-p + geom_abline(intercept = 37, slope = -5) + coord_flip()
-p + geom_abline(intercept = 37, slope = -5) + coord_polar()
+p + annotate_abline(intercept = 37, slope = -5) + coord_flip()
+p + annotate_abline(intercept = 37, slope = -5) + coord_polar()
 }
 \seealso{
   \code{\link{stat_smooth}} to add lines derived from the

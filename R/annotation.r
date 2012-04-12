@@ -27,11 +27,12 @@
 #' p + annotate("segment", x = 2.5, xend = 4, y = 15, yend = 25, colour = "blue")
 #' p + annotate("pointrange", x = 3.5, y = 20, ymin = 12, ymax = 28,
 #'   colour = "red", size = 1.5)
-annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL, ymin = NULL, ymax = NULL, ...) {
+annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
+  xintercept = NULL, ymin = NULL, ymax = NULL, yintercept = NULL, ...) {
   
   layer_data <- compact(list(
-    x = x, xmin = xmin, xmax = xmax, 
-    y = y, ymin = ymin, ymax = ymax
+    x = x, xmin = xmin, xmax = xmax, xintercept = xintercept,
+    y = y, ymin = ymin, ymax = ymax, yintercept = yintercept
   ))
   
   layer(

@@ -174,7 +174,6 @@ Collate:
     'stat-sum.r'
     'stat-summary.r'
     'stat-unique.r'
-    'stat-vline.r'
     'stat-ydensity.r'
     'summary.r'
     'templates.r'
@@ -205,3 +204,4 @@ Collate:
     'translate-qplot-gpl.r'
     'translate-qplot-lattice.r'
     'annotation-logticks.r'
+    'stat-vline.r'
