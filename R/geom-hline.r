@@ -36,16 +36,18 @@
 #' 
 #' hline.data <- data.frame(z = 1:4, vs = c(0,0,1,1), am = c(0,1,0,1))
 #' p + geom_hline(aes(yintercept = z), hline.data, inherit.aes = FALSE)
-geom_hline <- function (mapping = NULL, data = NULL, stat = "hline", position = "identity", show_guide = FALSE, ...) { 
+geom_hline <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = FALSE, ...) { 
   GeomHline$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
 }
 
 GeomHline <- proto(Geom, {
   objname <- "hline"
 
-  draw <- function(., data, scales, coordinates, ...) {
+  draw <- function(., data, scales, coordinates, yintercept = NULL, ...) {
     ranges <- coord_range(coordinates, scales)
 
+    data$y    <- yintercept %||% data$yintercept
+    data$yend <- data$y
     data$x    <- ranges$x[1]
     data$xend <- ranges$x[2]
     

@@ -40,16 +40,18 @@
 #' p <- qplot(mpg, wt, data = mtcars, facets = vs ~ am)
 #' vline.data <- data.frame(z = c(15, 20, 25, 30), vs = c(0, 0, 1, 1), am = c(0, 1, 0, 1)) 
 #' p + geom_vline(aes(xintercept = z), vline.data, inherit.aes = FALSE)
-geom_vline <- function (mapping = NULL, data = NULL, stat = "vline", position = "identity", show_guide = FALSE, ...) { 
+geom_vline <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = FALSE, ...) { 
   GeomVline$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
 }
 
 GeomVline <- proto(Geom, {
   objname <- "vline"
 
-  draw <- function(., data, scales, coordinates, ...) {
+  draw <- function(., data, scales, coordinates, xintercept = NULL, ...) {
     ranges <- coord_range(coordinates, scales)
 
+    data$x    <- xintercept %||% data$xintercept
+    data$xend <- data$x
     data$y    <- ranges$y[1]
     data$yend <- ranges$y[2]
     

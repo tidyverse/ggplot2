@@ -56,15 +56,20 @@
 #' # With coordinate transforms
 #' p + annotate_abline(intercept = 37, slope = -5) + coord_flip()
 #' p + annotate_abline(intercept = 37, slope = -5) + coord_polar()
-geom_abline <- function (mapping = NULL, data = NULL, stat = "abline", position = "identity", show_guide = FALSE, ...) { 
+geom_abline <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = FALSE, ...) { 
   GeomAbline$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
 }
 
 GeomAbline <- proto(Geom, {
   objname <- "abline"
 
-  draw <- function(., data, scales, coordinates, ...) {
+  draw <- function(., data, scales, coordinates, intercept = NULL, slope = NULL, ...) {
     ranges <- coord_range(coordinates, scales)
+
+    if (!is.null(intercept))
+      data$intercept <- intercept
+    if (!is.null(slope))
+      data$slope <- slope
 
     data$x    <- ranges$x[1]
     data$xend <- ranges$x[2]
