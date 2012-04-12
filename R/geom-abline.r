@@ -71,7 +71,7 @@ GeomAbline <- proto(Geom, {
     data$y    <- ranges$x[1] * data$slope + data$intercept
     data$yend <- ranges$x[2] * data$slope + data$intercept
 
-    GeomSegment$draw(unique(data), scales, coordinates)
+    GeomSegment$draw(data, scales, coordinates)
   }
 
   icon <- function(.) linesGrob(c(0, 1), c(0.2, 0.8))

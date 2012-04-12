@@ -53,7 +53,7 @@ GeomVline <- proto(Geom, {
     data$y    <- ranges$y[1]
     data$yend <- ranges$y[2]
     
-    GeomSegment$draw(unique(data), scales, coordinates)
+    GeomSegment$draw(data, scales, coordinates)
   }
 
   

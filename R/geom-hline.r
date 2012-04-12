@@ -49,7 +49,7 @@ GeomHline <- proto(Geom, {
     data$x    <- ranges$x[1]
     data$xend <- ranges$x[2]
     
-    GeomSegment$draw(unique(data), scales, coordinates)
+    GeomSegment$draw(data, scales, coordinates)
   }
 
   icon <- function(.) linesGrob(c(0, 1), c(0.5, 0.5))

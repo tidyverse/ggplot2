@@ -13,19 +13,13 @@ StatAbline <- proto(Stat, {
   objname <- "abline"
 
   calculate <- function(., data, scales, intercept = NULL, slope = NULL, ...) {
-    if (is.null(intercept)) {
-      if (is.null(data$intercept)) data$intercept <- 0
-    } else {
-      data <- data[rep(1, length(intercept)), , drop = FALSE]
+    if (!is.null(intercept))
       data$intercept <- intercept
-    }
-    if (is.null(slope)) {
-      if (is.null(data$slope)) data$slope <- 1
-    } else {
-      data <- data[rep(1, length(slope)), , drop = FALSE]
+
+    if (!is.null(slope))
       data$slope <- slope
-    }
-    unique(data)
+
+    data
   }
   
   icon <- function(.) GeomAbline$icon()
@@ -52,12 +46,12 @@ StatVline <- proto(Stat, {
     if (!missing(intercept)) {
       stop("stat_vline now uses xintercept instead of intercept")
     }
+
     data <- compute_intercept(data, xintercept, "x")
     
-    unique(within(data, {
-      x    <- xintercept
-      xend <- xintercept
-    }))
+    data$x    <- data$xintercept
+    data$xend <- data$xintercept
+    data
   }
   
   icon <- function(.) GeomVline$icon()
@@ -87,10 +81,9 @@ StatHline <- proto(Stat, {
 
     data <- compute_intercept(data, yintercept, "y")
     
-    unique(within(data, {
-      y    <- yintercept
-      yend <- yintercept
-    }))
+    data$y    <- data$yintercept
+    data$yend <- data$yintercept
+    data
   }
   
   objname <- "hline" 
@@ -117,7 +110,6 @@ compute_intercept <- function(data, intercept, var = "x") {
     
   } else if (is.numeric(intercept)) {
     # Intercept is a numeric vector of positions
-    data <- data[rep(1, length(intercept)), ]
     data[[ivar]] <- intercept
     
   } else if (is.character(intercept) || is.function(intercept)) {
