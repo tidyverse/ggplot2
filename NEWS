@@ -31,6 +31,8 @@ BUG FIXES
 * `scale_*_identity` will now produce a legend when `guide = "legend"` and no
   breaks or labels are supplied (Fixes #453)
 
+* `geom_map` now works with `coord_map` (Fixes #480)
+
 
 ggplot2 0.9.0
 ----------------------------------------------------------------

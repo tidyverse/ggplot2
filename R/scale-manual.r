@@ -2,7 +2,11 @@
 #' 
 #' @rdname scale_manual
 #' @inheritParams scale_x_discrete
-#' @param values a set of aesthetic values to map data values to.
+#' @param values a set of aesthetic values to map data values to.  If this
+#'   is a named vector, then the values will be matched based on the names.
+#'   If unnamed, values will be matched in order (usually alphabetical, but
+#'   could be modified with the limits argument to the scale).  Any data
+#'   values that don't match, will be given \code{na.value}.
 #' @export
 #' @examples
 #' \donttest{
