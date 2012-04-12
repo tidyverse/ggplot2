@@ -142,17 +142,11 @@ r_rescale <- function(coord, x, details) {
 
 #' @S3method coord_expand_defaults polar
 coord_expand_defaults.polar <- function(coord, scale, aesthetic) {
-  if (coord$theta == "x") {
-    if (aesthetic == "x")
-      scale$expand <- expand_default(scale, c(0, 0.5), c(0, 0))
-    else if (aesthetic == "y")
-      scale$expand <- expand_default(scale, c(0, 0),   c(0, 0))
-  } else if (coord$theta == "y") {
-    if (aesthetic == "x")
-      scale$expand <- expand_default(scale, c(0, 0),   c(0, 0))
-    else if (aesthetic == "y")
-      scale$expand <- expand_default(scale, c(0, 0.5), c(0, 0))
-  }
+  if (coord$theta == aesthetic)
+    scale$expand <- expand_default(scale, c(0, 0.5), c(0, 0))
+  else
+    scale$expand <- expand_default(scale, c(0, 0),   c(0, 0))
+
   return(scale)
 }
 
