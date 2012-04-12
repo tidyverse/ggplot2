@@ -34,11 +34,14 @@
   for other types of lines).
 }
 \details{
+  To specify the intercept of the line directly, use
+  \code{annotate_hline}. If you use this, the lines will be
+  in the same position in each panel.
+
   To map variables from the data to the y-intercept
-  position of the lines, use \code{geom_hline}. To specify
-  the intercept of the line directly, use
-  \code{annotate_hline}. In this case, the lines will be in
-  the same position in every panel.
+  position of the lines, use \code{geom_hline}. If you use
+  this the lines can be in different positions in each
+  panel.
 }
 \examples{
 p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()

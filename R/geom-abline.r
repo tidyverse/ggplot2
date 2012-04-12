@@ -1,12 +1,13 @@
 #' Line specified by slope and intercept.
 #' 
 #' The abline geom adds lines with a slope and intercept (see
-#' \code{\link{geom_vline}} and \code{\link{geom_abline}} for other types of
+#' \code{\link{geom_hline}} and \code{\link{geom_vline}} for other types of
 #' lines).
 #' 
 #' To specify the slope and intercept of the line with fixed values, use
-#' \code{annotate_vline}. With this method, the lines with be the same in
+#' \code{annotate_abline}. With this method, the lines with be the same in
 #' every panel.
+#'
 #' To map variables from the data to the slope and y-intercept,
 #' use \code{geom_abline}. With this method, the slope and intercept can vary
 #' from panel to panel. See the examples for more ideas.
@@ -34,10 +35,8 @@
 #' p + stat_smooth(method = "lm", se=FALSE)
 #' 
 #' # Mapping data to slopes and intercepts
-#' p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 #' df <- data.frame(a = rnorm(10, 25), b = rnorm(10, 0))
-#' p + geom_abline(data = df, aes(intercept = a, slope = b),
-#'   inherit.aes = FALSE)
+#' p + geom_abline(data = df, aes(intercept = a, slope = b), inherit.aes = FALSE)
 #'
 #' # Slopes and intercepts from linear model
 #' library(plyr)

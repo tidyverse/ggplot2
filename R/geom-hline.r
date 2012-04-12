@@ -4,10 +4,12 @@
 #' \code{\link{geom_vline}} and \code{\link{geom_abline}} for other types of
 #' lines).
 #'
+#' To specify the intercept of the line directly, use \code{annotate_hline}.
+#' If you use this, the lines will be in the same position in each panel.
+#'
 #' To map variables from the data to the y-intercept position of the lines,
-#' use \code{geom_hline}. To specify the intercept of the line directly,
-#' use \code{annotate_hline}. In this case, the lines will be in the
-#' same position in every panel.
+#' use \code{geom_hline}. If you use this the lines can be in different
+#' positions in each panel.
 #'
 #' @param show_guide should a legend be drawn? (defaults to \code{FALSE})
 #' @inheritParams geom_point
