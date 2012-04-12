@@ -75,6 +75,10 @@ GeomAbline <- proto(Geom, {
     data$y    <- ranges$x[1] * data$slope + data$intercept
     data$yend <- ranges$x[2] * data$slope + data$intercept
 
+    if(nrow(data) > 1 && nrow(unique(data)) == 1)
+      message("There are ", nrow(data), " identical ablines. If you want just one line, use annontate(\"abline\") instead of geom_abline().")
+
+
     GeomSegment$draw(data, scales, coordinates)
   }
 

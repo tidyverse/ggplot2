@@ -54,6 +54,9 @@ GeomHline <- proto(Geom, {
     data$x    <- ranges$x[1]
     data$xend <- ranges$x[2]
     
+    if(nrow(data) > 1 && nrow(unique(data)) == 1)
+      message(nrow(data), " identical hlines were drawn. If you want just one line, use annontate(\"hline\") instead of geom_hline().")
+
     GeomSegment$draw(data, scales, coordinates)
   }
 

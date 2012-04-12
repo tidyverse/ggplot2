@@ -57,6 +57,9 @@ GeomVline <- proto(Geom, {
     data$y    <- ranges$y[1]
     data$yend <- ranges$y[2]
     
+    if(nrow(data) > 1 && nrow(unique(data)) == 1)
+      message(nrow(data), " identical vlines were drawn. If you want just one line, use annontate(\"vline\") instead of geom_vline().")
+
     GeomSegment$draw(data, scales, coordinates)
   }
 
