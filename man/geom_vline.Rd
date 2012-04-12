@@ -2,8 +2,9 @@
 \alias{geom_vline}
 \title{Line, vertical.}
 \usage{
-  geom_vline(mapping = NULL, data = NULL, stat = "vline",
-    position = "identity", show_guide = FALSE, ...)
+  geom_vline(mapping = NULL, data = NULL,
+    stat = "identity", position = "identity",
+    show_guide = FALSE, ...)
 }
 \arguments{
   \item{show_guide}{should a legend be drawn? (defaults to

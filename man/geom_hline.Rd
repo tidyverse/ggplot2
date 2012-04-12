@@ -2,8 +2,9 @@
 \alias{geom_hline}
 \title{Horizontal line.}
 \usage{
-  geom_hline(mapping = NULL, data = NULL, stat = "hline",
-    position = "identity", show_guide = FALSE, ...)
+  geom_hline(mapping = NULL, data = NULL,
+    stat = "identity", position = "identity",
+    show_guide = FALSE, ...)
 }
 \arguments{
   \item{show_guide}{should a legend be drawn? (defaults to

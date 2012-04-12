@@ -204,4 +204,3 @@ Collate:
     'translate-qplot-gpl.r'
     'translate-qplot-lattice.r'
     'annotation-logticks.r'
-    'stat-vline.r'

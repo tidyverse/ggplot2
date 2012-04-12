@@ -2,8 +2,9 @@
 \alias{geom_abline}
 \title{Line specified by slope and intercept.}
 \usage{
-  geom_abline(mapping = NULL, data = NULL, stat = "abline",
-    position = "identity", show_guide = FALSE, ...)
+  geom_abline(mapping = NULL, data = NULL,
+    stat = "identity", position = "identity",
+    show_guide = FALSE, ...)
 }
 \arguments{
   \item{show_guide}{should a legend be drawn? (defaults to
