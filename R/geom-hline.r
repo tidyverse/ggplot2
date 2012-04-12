@@ -9,12 +9,13 @@
 #' use \code{annotate_hline}. In this case, the lines will be in the
 #' same position in every panel.
 #'
-#' @seealso \code{\link{geom_vline}} for vertical lines, 
+#' @param show_guide should a legend be drawn? (defaults to \code{FALSE})
+#' @inheritParams geom_point
+#' @seealso
+#'  \code{\link{geom_vline}} for vertical lines,
 #'  \code{\link{geom_abline}} for lines defined by a slope and intercept,
 #'  \code{\link{geom_segment}} for a more general approach
 #' @export
-#' @inheritParams geom_point
-#' @param show_guide should a legend be drawn? (defaults to \code{FALSE})
 #' @examples
 #' p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 #' 
