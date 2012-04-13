@@ -37,6 +37,10 @@ BUG FIXES
 
 * `geom_raster` works better with categorical input (Fixes #463)
 
+* `qplot` no longer uses non-standard evaluation for geom/stat arguments - it
+  doesn't seem to be needed and was causing problems when qplot was used in
+  special environments (e.g. in knitr) (Fixes #377)
+
 ggplot2 0.9.0
 ----------------------------------------------------------------
 
