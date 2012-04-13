@@ -1,33 +1,48 @@
-#' Horizontal line.
+#' Horizontal, vertical, and sloped lines.
 #'
-#' This geom allows you to add horizontal lines (see
-#' \code{\link{geom_vline}} and \code{\link{geom_abline}} for other types of
-#' lines).
+#' You can either add lines at specified positions with
+#' \code{annotate(geom="hline")} (or \code{vline} or \code{abline},
+#' or you can use variables from a data frame to specify the positions,
+#' using \code{geom_hline}.
 #'
-#' To specify the intercept of the line directly, use \code{annotate_hline}.
-#' If you use this, the lines will be in the same position in each panel.
+#' The \code{annotate} form is useful for adding individual lines to a plot,
+#' while the \code{geom} form is useful for drawing lines directly from the
+#' data
 #'
-#' To map variables from the data to the y-intercept position of the lines,
-#' use \code{geom_hline}. If you use this the lines can be in different
-#' positions in each panel.
+#' For \code{geom_hline}, specify the y-intercept with \code{yintercept}.
+#'
+#' For \code{geom_vline}, specify the x-intercept with \code{xintercept}.
+#'
+#' For \code{geom_abline}, specify the y-intercept with \code{intercept}
+#' and the slope with \code{slope}.
 #'
 #' @param show_guide should a legend be drawn? (defaults to \code{FALSE})
 #' @inheritParams geom_point
 #' @seealso
-#'  \code{\link{geom_vline}} for vertical lines,
-#'  \code{\link{geom_abline}} for lines defined by a slope and intercept,
-#'  \code{\link{geom_segment}} for a more general approach
+#'  \code{\link{annotate}} for adding annotations.
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 #' 
-#' # Map a variable to yintercept
-#' p + geom_hline(aes(yintercept = mpg))
+#' # Individual lines
+#' p + annotate("hline", yintercept = 20)
+#' p + annotate("vline", xintercept = 5, colour = "blue")
+#' p + annotate("abline", intercept = 20, slope = 1)
 #'
-#' # Specify yintercept directly
-#' p + annotate_hline(yintercept = 20)
-#' p + annotate_hline(yintercept = seq(10, 30, by = 5))
+#' # Using vectors to specify lines
+#' p + annotate("hline", yintercept = seq(10, 30, by = 5))
+#' p + annotate("vline", xintercept = 1:5, colour="darkgreen", linetype = "longdash")
+#' p + annotate("abline", intercept = c(17, 22), slope = c(0.5, 1))
 #' 
+#' # Map a variable to line properties
+#' p + geom_hline(aes(yintercept = mpg))
+#' p + geom_vline(aes(xintercept = wt), colour = "blue")
+#' p + geom_abline(aes(intercept = mpg, slope = wt))
+#'
+#' # Calculate slope and intercept of line of best fit
+#' coef(lm(mpg ~ wt, data = mtcars))
+#' p + annotate_abline(intercept = 37, slope = -5)
+#'
 #' # With coordinate transforms
 #' p + geom_hline(aes(yintercept = mpg)) + coord_equal()
 #' p + geom_hline(aes(yintercept = mpg)) + coord_flip()
