@@ -35,6 +35,7 @@ BUG FIXES
 
 * discrete scales now accept named vectors of labels again (Fixes #427)
 
+* `geom_raster` works better with categorical input (Fixes #463)
 
 ggplot2 0.9.0
 ----------------------------------------------------------------
