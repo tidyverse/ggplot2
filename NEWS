@@ -1,3 +1,6 @@
+* `ggstructure` and `ggorder`, which call `ggpcp`, no longer have a 
+  `scale` argument since `ggpcp` does not have one.
+
 * built in datasets have been checked to make sure they use characters,
   factors and ordered factors appropriately
 
