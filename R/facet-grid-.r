@@ -338,18 +338,24 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   })
   
   panel_matrix <- matrix(panel_grobs, nrow = nrow, ncol = ncol, byrow = TRUE)
-  
-  size <- function(x) unit(diff(scale_dimension(x)), "null")
-  
+
+  # @kohske
+  # Now size of each panel is calculated using PANEL$ranges, which is given by
+  # coord_train called by train_range.
+  # So here, "scale" need not to be referred.
+  #
+  # In general, panel has all information for building facet.
   if (facet$space_free$x) {
-    x_scales <- panel$layout$SCALE_X[panel$layout$ROW == 1]
-    panel_widths <- do.call("unit.c", llply(panel$x_scales, size))[x_scales]
+    ps <- as.numeric(panel$layout$PANEL[panel$layout$ROW == 1])
+    panel_widths <- do.call("unit.c",
+                            llply(ps, function(p) unit(diff(panel$range[[p]]$x.range), "null")))
   } else {
     panel_widths <- rep(unit(1, "null"), ncol)
   }
   if (facet$space_free$y) {
-    y_scales <- panel$layout$SCALE_Y[panel$layout$COL == 1]
-    panel_heights <- do.call("unit.c", llply(panel$y_scales, size))[y_scales]
+    ps <- as.numeric(panel$layout$PANEL[panel$layout$COL == 1])
+    panel_heights <- do.call("unit.c",
+                             llply(ps, function(p) unit(diff(panel$range[[p]]$y.range), "null")))
   } else {
     panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow)
   }

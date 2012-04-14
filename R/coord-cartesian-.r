@@ -69,16 +69,17 @@ coord_train.cartesian <- function(coord, scales) {
 
 train_cartesian <- memoise(function(scale, limits, name, wise) {
   # range is the limits in data space
+  expand <- coord_expand_defaults(coord, scale)
   if (is.null(limits)) {
-    range <- scale_dimension(scale)
+    range <- scale_dimension(scale, expand)
   } else {
     range <- range(scale_transform(scale, limits))
     if (wise) {
       scale$limits <- limits
-      range <- expand_range(range, scale$expand[1], scale$expand[2])
+      range <- expand_range(range, expand[1], expand[2])
     }
   }
-
+  
   # major and minor values in data space
   major_v <- scale_break_positions(scale)
   minor_v <- scale_breaks_minor_positions(scale)
