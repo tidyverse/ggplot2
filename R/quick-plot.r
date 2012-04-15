@@ -134,7 +134,11 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE, geom = "
     if(is.character(s)) s <- Stat$find(s)
     if(is.character(ps)) ps <- Position$find(ps)
     
-    params <- list(...)[setdiff(names(arguments), c(aes_names, argnames))]    
+    # Have to use non-standard evaluation because we can't evaluate ...
+    params <- arguments[setdiff(names(arguments), c(aes_names, argnames))]
+    # 1: mapply, 2: qplot, 3: caller of qplot
+    params <- lapply(params, eval, parent.frame(3))
+    
     p <<- p + layer(geom=g, stat=s, geom_params=params, stat_params=params, position=ps)
   }, geom, stat, position)
   
