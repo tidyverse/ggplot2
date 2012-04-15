@@ -68,7 +68,10 @@ coord_train.cartesian <- function(coord, scales) {
 }
 
 train_cartesian <- memoise(function(scale, limits, name, wise) {
-  # range is the limits in data space
+
+  # first, calculate the range that is the numerical limits in data space
+
+  # expand defined by scale OR coord
   expand <- coord_expand_defaults(coord, scale)
   if (is.null(limits)) {
     range <- scale_dimension(scale, expand)
@@ -79,26 +82,38 @@ train_cartesian <- memoise(function(scale, limits, name, wise) {
       range <- expand_range(range, expand[1], expand[2])
     }
   }
-  
-  # major and minor values in data space
-  major_v <- scale_break_positions(scale)
-  minor_v <- scale_breaks_minor_positions(scale)
-  
-  # if the scale is continuous, drop out-of-range values
-  if (inherits(scale, "continuous")) {
-    major_inside_range <- range[1] <= major_v  & major_v <= range[2]
-    major_inside_range <- major_inside_range & !is.na(major_inside_range)
-    minor_inside_range <- range[1] <= minor_v  & minor_v <= range[2]
-    minor_inside_range <- minor_inside_range & !is.na(minor_inside_range)
-  } else {
-    major_inside_range <- TRUE
-    minor_inside_range <- TRUE
-  }
 
+  # @kohske
+  # TODO:
+  # In future, all code below may be moved into construction of position guide.
+  # Some guides dont use these breaks (e.g., guide_range)
+  # But most of them use that, so these may be kept here.
+  
+  # major and minor breaks in data space specifying the range of coord.
+  # oob breaks are flaged by NA so drop it.
+
+  # breaks
+  # @kohske
+  # Here we need different steps for continuous and discrete scale.
+  # This is because:
+  #   Continuous: breaks spans outside scale-limits, the limits of breaks are
+  #               the limits of coord (i.e. the range)
+  #   Discrete: coord does not care about oob. Only scale$limits specify it.
+  if (inherits(scale, "continuous")) {
+    major_v <- c(na.omit(scale_map(scale, scale_breaks(scale, range), range)))
+    labels <- scale_labels(scale, major_v)
+
+    minor_v <- c(na.omit(scale_map(scale, scale_breaks_minor(scale, b = major_v, limits = range), range)))
+  } else {
+    b <- scale_breaks(scale, scale_limits(scale))
+    major_v <- c(na.omit(scale_map(scale, b)))
+    labels <- scale_labels(scale, b)
+    minor_v <- NULL
+  }
+      
   # major and minor values in plot space
-  major <- rescale(major_v[major_inside_range], from = range)
-  minor <- rescale(minor_v[minor_inside_range], from = range)
-  labels <- scale_labels(scale)[major_inside_range]
+  major <- rescale(major_v, from = range)
+  minor <- rescale(minor_v, from = range)
   
   out <- list(range = range, major = major, minor = minor, labels = labels)
   names(out) <- paste(name, names(out), sep = ".")

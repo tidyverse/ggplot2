@@ -196,11 +196,10 @@ scale_map_df <- function(scale, df, i = NULL) {
   }
 }
 
-scale_map <- function(scale, x) UseMethod("scale_map")
+scale_map <- function(scale, x, limits) UseMethod("scale_map")
 
 #' @S3method scale_map continuous
-scale_map.continuous <- function(scale, x) {
-  limits <- scale_limits(scale)
+scale_map.continuous <- function(scale, x, limits = scale_limits(scale)) {
   x <- scale$oob(scale$rescaler(x, from = limits))
 
   # Points are rounded to the nearest 500th, to reduce the amount of 
@@ -216,9 +215,7 @@ scale_map.continuous <- function(scale, x) {
 }
 
 #' @S3method scale_map discrete
-scale_map.discrete <- function(scale, x) {
-  limits <- scale_limits(scale)
-
+scale_map.discrete <- function(scale, x, limits = scale_limits(scale)) {
   n <- length(limits)
   pal <- scale$palette(n)
   
@@ -244,23 +241,31 @@ scale_limits.default <- function(scale) {
   scale$limits %||% scale$range$range
 }
 
+# @kohske
+# this (internal) function always returns a vector of length 2 of giving
+# multiplicative and additive expansion constants. 
+# if scale' expand is specified, return it.
+# if is.waive, return c(0, 0)
+scale_expand <- function(scale) UseMethod("scale_expand")
+#' @S3method scale_expand default
+scale_expand.default <- function(scale) {
+  if (is.waive(scale$expand)) c(0, 0)
+  else scale$expand
+}
+
 # The phyical size of the scale, if a position scale
 # Unlike limits, this always returns a numeric vector of length 2
-scale_dimension <- function(scale, expand = scale$expand) UseMethod("scale_dimension")
+# @kohske
+# scale_dimension uses scale_expand(scale) for expansion by default.
+scale_dimension <- function(scale, expand = scale_expand(scale)) UseMethod("scale_dimension")
 
 #' @S3method scale_dimension continuous
-scale_dimension.continuous  <- function(scale, expand = scale$expand) {
-  if(is.waive(expand))
-    scale_limits(scale)
-  else
-    expand_range(scale_limits(scale), expand[1], expand[2])
+scale_dimension.continuous  <- function(scale, expand = scale_expand(scale)) {
+  expand_range(scale_limits(scale), expand[1], expand[2])
 }
 #' @S3method scale_dimension discrete
-scale_dimension.discrete <- function(scale, expand = scale$expand) {
-  if(is.waive(expand))
-    scale_limits(scale)
-  else
-    expand_range(length(scale_limits(scale)), expand[1], expand[2])
+scale_dimension.discrete <- function(scale, expand = scale_expand(scale)) {
+  expand_range(length(scale_limits(scale)), expand[1], expand[2])
 }
 
 scale_breaks <- function(scale, limits = scale_limits(scale)) {
@@ -288,10 +293,14 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   } else {
     breaks <- scale$breaks
   }
-  
+
   # Breaks in data space need to be converted back to transformed space
   # And any breaks outside the dimensions need to be flagged as missing
-  breaks <- censor(scale$trans$trans(breaks), scale_dimension(scale))
+  #
+  # @kohske
+  # TODO: replace NA with something else for flag.
+  #       guides cannot discriminate oob from missing value.
+  breaks <- censor(scale$trans$trans(breaks), scale$trans$trans(limits))
   if (length(breaks) == 0) {
     stop("Zero breaks in scale for ", paste(scale$aesthetics, collapse = "/"),
       call. = FALSE)
@@ -319,12 +328,12 @@ scale_breaks.discrete <- function(scale, limits = scale_limits(scale)) {
   structure(in_domain, pos = match(in_domain, breaks))
 }
 
-# The numeric position of scale breaks, when used for a position guide.
-scale_break_positions <- function(scale) {
-  scale_map(scale, scale_breaks(scale))
+# The numeric position of scale breaks, used by coord/guide
+scale_break_positions <- function(scale, range = scale_limits(scale)) {
+  scale_map(scale, scale_breaks(scale, range))
 }
 
-scale_breaks_minor<- function(scale, ...) {
+scale_breaks_minor<- function(scale, n = 2, b = scale_break_positions(scale), limits = scale_limits(scale)) {
   UseMethod("scale_breaks_minor")
 }
 
@@ -355,7 +364,7 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
   }
   
   # Any minor breaks outside the dimensions need to be thrown away
-  discard(breaks, scale_dimension(scale))
+  discard(breaks, limits)
 }
 
 scale_breaks_minor.date <- function(scale, n = 2, b = scale_break_positions(scale), limits = scale_limits(scale)) {
@@ -386,7 +395,7 @@ scale_breaks_minor.date <- function(scale, n = 2, b = scale_break_positions(scal
   }
   
   # Any minor breaks outside the dimensions need to be thrown away
-  breaks <- censor(scale$trans$trans(breaks), scale_dimension(scale))
+  breaks <- censor(scale$trans$trans(breaks), scale_limits(scale))
 }
 scale_breaks_minor.datetime <- scale_breaks_minor.date
 

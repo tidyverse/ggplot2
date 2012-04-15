@@ -101,9 +101,8 @@ scale_reset.position_d <- function(scale, x) {
 
 
 #' @S3method scale_map position_d
-scale_map.position_d <- function(scale, x) {
+scale_map.position_d <- function(scale, x, limits = scale_limits(scale)) {
   if (is.discrete(x)) {
-    limits <- scale_limits(scale)
     seq_along(limits)[match(as.character(x), limits)]
   } else {
     x
