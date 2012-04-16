@@ -20,7 +20,8 @@ facet_train_layout.null <- function(facet, data) {
 
 #' @S3method facet_map_layout null
 facet_map_layout.null <- function(facet, data, layout) {
-  if (empty(data)) return(data.frame(PANEL = 1))
+  if (is.waive(data)) return(data.frame(PANEL = 1))
+  if (nrow(data) == 0) return(cbind(data, PANEL = integer(0)))
   data$PANEL <- 1L
   data
 }
