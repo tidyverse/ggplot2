@@ -88,6 +88,7 @@ facet_train_layout.wrap <- function(facet, data) {
 
 #' @S3method facet_map_layout wrap
 facet_map_layout.wrap <- function(facet, data, layout) {
+  if (nrow(data) == 0) return(cbind(data, PANEL = integer(0)))
   locate_wrap(data, layout, facet$facets)
 }
 

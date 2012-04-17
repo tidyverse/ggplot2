@@ -98,6 +98,11 @@ layout_base <- function(data, vars = NULL, drop = TRUE) {
     
     base <- rbind(base, df.grid(old, new))
   }
+
+  if (is.null(base)) {
+    stop("Faceting variables must have at least one value")
+  }
+
   base
 }
 

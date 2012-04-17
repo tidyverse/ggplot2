@@ -190,6 +190,7 @@ facet_train_layout.grid <- function(facet, data) {
 
 #' @S3method facet_map_layout grid
 facet_map_layout.grid <- function(facet, data, layout) {
+  if (nrow(data) == 0) return(cbind(data, PANEL = integer(0)))
   locate_grid(data, layout, facet$rows, facet$cols, facet$margins)
 }
 
