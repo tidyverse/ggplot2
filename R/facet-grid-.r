@@ -346,16 +346,16 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   #
   # In general, panel has all information for building facet.
   if (facet$space_free$x) {
-    ps <- as.numeric(panel$layout$PANEL[panel$layout$ROW == 1])
-    panel_widths <- do.call("unit.c",
-                            llply(ps, function(p) unit(diff(panel$range[[p]]$x.range), "null")))
+    ps <- panel$layout$PANEL[panel$layout$ROW == 1]
+    widths <- vapply(ps, function(i) diff(panel$range[[i]]$x.range), numeric(1))
+    panel_widths <- unit(widths, "null")
   } else {
     panel_widths <- rep(unit(1, "null"), ncol)
   }
   if (facet$space_free$y) {
-    ps <- as.numeric(panel$layout$PANEL[panel$layout$COL == 1])
-    panel_heights <- do.call("unit.c",
-                             llply(ps, function(p) unit(diff(panel$range[[p]]$y.range), "null")))
+    ps <- panel$layout$PANEL[panel$layout$COL == 1]
+    heights <- vapply(ps, function(i) diff(panel$range[[i]]$y.range), numeric(1))
+    panel_heights <- unit(heights, "null")
   } else {
     panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow)
   }
