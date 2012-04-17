@@ -161,7 +161,19 @@ Layer <- proto(expr = {
 
     if (length(evaled) == 0) return(data.frame(PANEL = unique(data$PANEL)))
     # evaled <- evaled[sapply(evaled, is.atomic)]
-    data.frame(evaled, PANEL = data$PANEL)
+
+    if (empty(data)) {
+      if (length(evaled[[1]]) == 0) {
+        # No data and no vector of values for aesthetics
+        return(data.frame(PANEL = numeric(0)))
+      } else {
+        # No data but with a vector passed to aesthetics, as in qplot(1:3, 1:3)
+        return(data.frame(evaled, PANEL = 1))
+      }
+    }
+    else {
+      return(data.frame(evaled, PANEL = data$PANEL))
+    }
   }
   
 
