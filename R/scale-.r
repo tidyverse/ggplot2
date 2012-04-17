@@ -196,6 +196,15 @@ scale_map_df <- function(scale, df, i = NULL) {
   }
 }
 
+# @kohske
+# scale_map tentatively accept limits argument.
+# scale_map replaces oob (i.e., outside limits) values with NA.
+#
+# Previously limits are always scale_limits(scale).
+# But if this function is called to get breaks,
+# and breaks spans oob, the oob breaks is replaces by NA.
+# This makes impossible to display oob breaks.
+# Now coord_train calls this function with limits determined by coord (with expansion).
 scale_map <- function(scale, x, limits) UseMethod("scale_map")
 
 #' @S3method scale_map continuous
