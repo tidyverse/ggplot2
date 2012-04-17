@@ -69,8 +69,8 @@ train_cartesian <- memoise(function(scale, limits, name) {
   # first, calculate the range that is the numerical limits in data space
 
   # expand defined by scale OR coord
-  expand <- coord_expand_defaults(coord, scale)
   if (is.null(limits)) {
+    expand <- coord_expand_defaults(coord, scale)
     range <- scale_dimension(scale, expand)
   } else {
     range <- range(scale_transform(scale, limits))
