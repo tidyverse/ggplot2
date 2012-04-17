@@ -7,8 +7,6 @@
 #' 
 #' @param xlim limits for the x axis
 #' @param ylim limits for the y axis
-#' @param wise If \code{TRUE} will wisely expand the actual range of the plot
-#'   a little, in the way that setting the limits on the scales does
 #' @export
 #' @examples 
 #' # There are two ways of zooming the plot display: with scales or 
@@ -38,9 +36,8 @@
 #' # When zooming the coordinate system, we see a subset of original 50 bins, 
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 2))
-coord_cartesian <- function(xlim = NULL, ylim = NULL, wise = FALSE) {
-  coord(limits = list(x = xlim, y = ylim), wise = wise, 
-    subclass = "cartesian")
+coord_cartesian <- function(xlim = NULL, ylim = NULL) {
+  coord(limits = list(x = xlim, y = ylim), subclass = "cartesian")
 }
 
 #' @S3method is.linear cartesian
@@ -63,11 +60,11 @@ coord_transform.cartesian <- function(., data, details) {
 
 #' @S3method coord_train cartesian
 coord_train.cartesian <- function(coord, scales) {
-  c(train_cartesian(scales$x, coord$limits$x, "x", coord$wise),
-    train_cartesian(scales$y, coord$limits$y, "y", coord$wise))
+  c(train_cartesian(scales$x, coord$limits$x, "x"),
+    train_cartesian(scales$y, coord$limits$y, "y"))
 }
 
-train_cartesian <- memoise(function(scale, limits, name, wise) {
+train_cartesian <- memoise(function(scale, limits, name) {
 
   # first, calculate the range that is the numerical limits in data space
 
@@ -77,10 +74,6 @@ train_cartesian <- memoise(function(scale, limits, name, wise) {
     range <- scale_dimension(scale, expand)
   } else {
     range <- range(scale_transform(scale, limits))
-    if (wise) {
-      scale$limits <- limits
-      range <- expand_range(range, expand[1], expand[2])
-    }
   }
 
   # @kohske
