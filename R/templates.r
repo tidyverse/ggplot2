@@ -2,7 +2,7 @@
 #' 
 #' One way to think about a parallel coordinates plot, is as plotting 
 #' the data after it has been transformed to gain a new variable.  This
-#' function does this using \code{\link[reshape]{melt}}.
+#' function does this using \code{\link[reshape2]{melt}}.
 #' 
 #' This gives us enormous flexibility as we have separated out the 
 #' type of drawing (lines by tradition) and can now use any of the existing
@@ -148,13 +148,11 @@ ggmissing <- function(data, avoid="stack", order=TRUE, missing.only = TRUE) {
 #' A plot which aims to reveal gross structural anomalies in the data.
 #' 
 #' @param data data set to plot
-#' @param scale type of scaling to use.  See \code{\link[reshape]{rescaler}}
-#'   for options
 #' @export
 #' @examples
 #' ggstructure(mtcars)
-ggstructure <- function(data, scale = "rank") {
-  ggpcp(data, scale=scale) + 
+ggstructure <- function(data) {
+  ggpcp(data) + 
     aes_string(y="ROWID", fill="value", x="variable") +
     geom_tile() +
     scale_y_continuous("row number", expand = c(0, 1)) +
@@ -164,11 +162,9 @@ ggstructure <- function(data, scale = "rank") {
 #' A plot to investigate the order in which observations were recorded.
 #' 
 #' @param data data set to plot
-#' @param scale type of scaling to use.  See \code{\link[reshape]{rescaler}}
-#'   for options
 #' @export
-ggorder <- function(data, scale="rank") {
-  ggpcp(data, scale="rank") +
+ggorder <- function(data) {
+  ggpcp(data) +
     aes_string(x="ROWID", group="variable", y="value") +
     facet_grid(. ~ variable) +
     geom_line() +

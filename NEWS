@@ -1,3 +1,6 @@
+* `ggstructure` and `ggorder`, which call `ggpcp`, no longer have a 
+  `scale` argument since `ggpcp` does not have one.
+
 * built in datasets have been checked to make sure they use characters,
   factors and ordered factors appropriately
 
@@ -35,6 +38,11 @@ BUG FIXES
 
 * discrete scales now accept named vectors of labels again (Fixes #427)
 
+* `geom_raster` works better with categorical input (Fixes #463)
+
+* `qplot` no longer uses non-standard evaluation for geom/stat arguments - it
+  doesn't seem to be needed and was causing problems when qplot was used in
+  special environments (e.g. in knitr) (Fixes #377)
 
 ggplot2 0.9.0
 ----------------------------------------------------------------
