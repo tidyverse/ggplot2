@@ -47,8 +47,7 @@ coord_map <- function(projection="mercator", ..., orientation = NULL, xlim = NUL
   coord(
     projection = projection, 
     orientation = orientation,
-    xlim = xlim,
-    ylim = ylim,
+    limits = list(x = xlim, y = ylim),
     params = list(...),
     subclass = "map"
   )
@@ -84,54 +83,78 @@ coord_aspect.map <- function(coord, ranges) {
 
 #' @S3method coord_train map
 coord_train.map <- function(coord, scales) {
-  x.range <- coord$xlim %||% scale_dimension(scales$x)
-  y.range <- coord$ylim %||% scale_dimension(scales$y)
-  orientation <- coord$orientation %||% c(90, 0, mean(x.range))
+
+  # range in scale
+  ranges <- list()
+  for (n in c("x", "y")) {
+    
+    scale <- scales[[n]]
+    limits <- coord$limits[[n]]
+    
+    if (is.null(limits)) {
+      expand <- coord_expand_defaults(coord, scale, n)
+      range <- scale_dimension(scale, expand)
+    } else {
+      range <- range(scale_transform(scale, limits))
+    }
+    ranges[[n]] <- range
+  }
+  
+  orientation <- coord$orientation %||% c(90, 0, mean(ranges$x))
 
   # Increase chances of creating valid boundary region
   grid <- expand.grid(
-    x = seq(x.range[1], x.range[2], length = 50),
-    y = seq(y.range[1], y.range[2], length = 50)
+    x = seq(ranges$x[1], ranges$x[2], length = 50),
+    y = seq(ranges$y[1], ranges$y[2], length = 50)
   )
-  range <- mproject(coord, grid$x, grid$y, orientation)$range
 
-  # major and minor values in data space
-  x.proj <- range[1:2]
-  x.major <- scale_breaks(scales$x)
-  x.minor <- scale_breaks_minor(scales$x)
-  x.labels <- scale_labels(scales$x, x.major)
+  ret <- list(x = list(), y = list())
 
-  y.proj <- range[3:4]
-  y.major <- scale_breaks(scales$y)
-  y.minor <- scale_breaks_minor(scales$y)
-  y.labels <- scale_labels(scales$y, y.major)
+  # range in map
+  proj <- mproject(coord, grid$x, grid$y, orientation)$range
+  ret$x$proj <- proj[1:2]
+  ret$y$proj <- proj[3:4]
+  
+  for (n in c("x", "y")) {
 
-  # if the scale is continuous, drop out-of-range values
-  if (inherits(scales$x, "continuous")) {
-    major_inside_range <- x.range[1] <= x.major & x.major <= x.range[2]
-    major_inside_range <- major_inside_range & !is.na(major_inside_range)
-    minor_inside_range <- x.range[1] <= x.minor  & x.minor <= x.range[2]
-    minor_inside_range <- minor_inside_range & !is.na(minor_inside_range)
-    x.major <- x.major[major_inside_range]
-    x.minor <- x.minor[minor_inside_range]
-    x.labels <- x.labels[major_inside_range]
+    scale <- scales[[n]]
+    limits <- coord$limits[[n]]
+    range <- ranges[[n]]
+
+    # @kohske
+    # TODO
+    # these codes is reusable
+    # probably scale_breaks(scale, range) that returns
+    # list(major, minor, labels, range)
+    if (inherits(scale, "continuous")) {
+      major_v <- c(na.omit(scale_map(scale, scale_breaks(scale, range), range)))
+      labels <- scale_labels(scale, major_v)
+      minor_v <- c(na.omit(scale_map(scale, scale_breaks_minor(scale, b = major_v, limits = range), range)))
+    } else {
+      b <- scale_breaks(scale, scale_limits(scale))
+      major_v <- c(na.omit(scale_map(scale, b)))
+      labels <- scale_labels(scale, b)
+      minor_v <- NULL
+    }
+
+    # major and minor values in plot space
+    major <- rescale(major_v, from = range)
+    minor <- rescale(minor_v, from = range)
+
+    ret[[n]]$range <- range
+    ret[[n]]$major <- major_v
+    ret[[n]]$minor <- minor_v
+    ret[[n]]$labels <- labels
   }
-  if (inherits(scales$y, "continuous")) {
-    major_inside_range <- y.range[1] <= y.major & y.major <= y.range[2]
-    major_inside_range <- major_inside_range & !is.na(major_inside_range)
-    minor_inside_range <- y.range[1] <= y.minor  & y.minor <= y.range[2]
-    minor_inside_range <- minor_inside_range & !is.na(minor_inside_range)
-    y.major <- y.major[major_inside_range]
-    y.minor <- y.minor[minor_inside_range]
-    y.labels <- y.labels[major_inside_range]
-  }
 
-  list(
-    x.range = x.range, y.range = y.range, orientation = orientation,
-    x.proj = x.proj, y.proj = y.proj,
-    x.major = x.major, x.minor = x.minor, x.labels = x.labels,
-    y.major = y.major, y.minor = y.minor, y.labels = y.labels
+  details <- list(
+    orientation = orientation,
+    x.range = ret$x$range, y.range = ret$y$range,
+    x.proj = ret$x$proj, y.proj = ret$y$proj,
+    x.major = ret$x$major, x.minor = ret$x$minor, x.labels = ret$x$labels,
+    y.major = ret$y$major, y.minor = ret$y$minor, y.labels = ret$y$labels
   )
+  details
 }
 
 #' @S3method coord_render_bg map
