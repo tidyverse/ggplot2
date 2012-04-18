@@ -4,6 +4,10 @@
 #
 # @params data a data frame
 locate_grid <- function(data, panels, rows = NULL, cols = NULL, margins = FALSE) {
+  if (empty(data)) {
+    return(cbind(data, PANEL = integer(0)))
+  }
+
   rows <- as.quoted(rows)
   cols <- as.quoted(cols)
   vars <- c(names(rows), names(cols))
@@ -48,6 +52,9 @@ locate_grid <- function(data, panels, rows = NULL, cols = NULL, margins = FALSE)
 }
 
 locate_wrap <- function(data, panels, vars) {
+  if (empty(data)) {
+    return(cbind(data, PANEL = integer(0)))
+  }
   vars <- as.quoted(vars)
   
   facet_vals <- quoted_df(data, vars)
