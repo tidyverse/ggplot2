@@ -104,30 +104,11 @@ coord_train.polar <- function(coord, scales) {
       range <- range(scale_transform(scale, limits))
     }
 
-    # @kohske
-    # TODO
-    # these codes is reusable
-    # probably scale_breaks(scale, range) that returns
-    # list(major, minor, labels, range)
-    if (inherits(scale, "continuous")) {
-      major_v <- c(na.omit(scale_map(scale, scale_breaks(scale, range), range)))
-      labels <- scale_labels(scale, major_v)
-      minor_v <- c(na.omit(scale_map(scale, scale_breaks_minor(scale, b = major_v, limits = range), range)))
-    } else {
-      b <- scale_breaks(scale, scale_limits(scale))
-      major_v <- c(na.omit(scale_map(scale, b)))
-      labels <- scale_labels(scale, b)
-      minor_v <- NULL
-    }
-
-    # major and minor values in plot space
-    major <- rescale(major_v, from = range)
-    minor <- rescale(minor_v, from = range)
-
-    ret[[n]]$range <- range
-    ret[[n]]$major <- major_v
-    ret[[n]]$minor <- minor_v
-    ret[[n]]$labels <- labels
+    out <- scale_break_info(scale, range)
+    ret[[n]]$range <- out$range
+    ret[[n]]$major <- out$major_source
+    ret[[n]]$minor <- out$minor_source
+    ret[[n]]$labels <- out$labels
   }
 
   details <- list(
