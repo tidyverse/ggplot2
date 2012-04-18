@@ -227,7 +227,7 @@ scale_map.continuous <- function(scale, x, limits = scale_limits(scale)) {
 scale_map.discrete <- function(scale, x, limits = scale_limits(scale)) {
   n <- length(limits)
   pal <- scale$palette(n)
-  
+
   if (is.null(names(pal))) {
     pal_match <- pal[match(as.character(x), limits)]
   } else {
@@ -504,3 +504,55 @@ scale_clone.discrete <- function(scale) {
   new$range <- DiscreteRange$new()
   new
 }
+
+#' @S3method scale_clone discrete
+scale_break_info <- function(scale, range = NULL)  UseMethod("scale_break_info")
+scale_break_info.discrete <- function(scale, range = NULL) {
+
+  # for discrete, limits != range
+  limits <- scale_limits(scale)
+  
+  major <- scale_breaks(scale, limits)
+
+  labels <- scale_labels(scale, major)
+  labels <- c(na.omit(labels))
+
+  major <- scale_map(scale, major)
+  major <- c(na.omit(major))
+
+  # rescale breaks [0, 1], which are used by coord/guide
+  major_n <- rescale(major, from = range)
+
+  list(range = range, labels = labels,
+       major = major_n, minor = NULL, 
+       major_source = major, minor_source = NULL)
+}
+
+scale_break_info.continuous <- function(scale, range = NULL) {
+  # range
+  if (is.null(range)) range <- scale_dimension(scale)
+
+  # major breaks
+  major <- scale_breaks(scale, range)
+  major <- c(na.omit(major))
+
+  # labels
+  labels <- scale_labels(scale, major)
+
+  # minor breaks
+  minor <- scale_breaks_minor(scale, b = major, limits = range)
+  minor <- c(na.omit(minor))
+
+  # rescale breaks [0, 1], which are used by coord/guide
+  major_n <- rescale(major, from = range)
+  minor_n <- rescale(minor, from = range)
+  
+  list(range = range, labels = labels,
+       major = major_n, minor = minor_n, 
+       major_source = major, minor_source = minor)
+}
+#scale_break_info.date <- function(scale, range = NULL) {
+#  if (is.null(range)) range <- scale_dimension(scale)
+#}
+#scale_break_info.datetime <- scale_break_info.date
+  

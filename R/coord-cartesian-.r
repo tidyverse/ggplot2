@@ -68,6 +68,9 @@ train_cartesian <- memoise(function(scale, limits, name) {
 
   # first, calculate the range that is the numerical limits in data space
 
+  # TODO @kohske
+  # inspect if ranges calculation can be moved to scales function.
+  #
   # expand defined by scale OR coord
   if (is.null(limits)) {
     expand <- coord_expand_defaults(coord, scale)
@@ -76,43 +79,10 @@ train_cartesian <- memoise(function(scale, limits, name) {
     range <- range(scale_transform(scale, limits))
   }
 
-  # @kohske
-  # TODO:
-  # In future, all code below may be moved into construction of position guide.
-  # Some guides dont use these breaks (e.g., guide_range)
-  # But most of them use that, so these may be kept here.
-  
-  # major and minor breaks in data space specifying the range of coord.
-  # oob breaks are flaged by NA so drop it.
-
-  # breaks
-  # @kohske
-  # Here we need different steps for continuous and discrete scale.
-  # This is because:
-  #   Continuous: breaks spans outside scale-limits, the limits of breaks are
-  #               the limits of coord (i.e. the range)
-  #   Discrete: coord does not care about oob. Only scale$limits specify it.
-  if (inherits(scale, "continuous")) {
-    major_v <- c(na.omit(scale_map(scale, scale_breaks(scale, range), range)))
-    labels <- scale_labels(scale, major_v)
-
-    minor_v <- c(na.omit(scale_map(scale, scale_breaks_minor(scale, b = major_v, limits = range), range)))
-  } else {
-    b <- scale_breaks(scale, scale_limits(scale))
-    major_v <- c(na.omit(scale_map(scale, b)))
-    labels <- scale_labels(scale, b)
-    minor_v <- NULL
-  }
-      
-  # major and minor values in plot space
-  major <- rescale(major_v, from = range)
-  minor <- rescale(minor_v, from = range)
-  
-  out <- list(range = range, major = major, minor = minor, labels = labels)
+  out <- scale_break_info(scale, range)
   names(out) <- paste(name, names(out), sep = ".")
   out
 })
-
 
 icon.cartesian <- function(.) {
   gTree(children = gList(
