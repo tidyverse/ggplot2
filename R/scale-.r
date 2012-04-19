@@ -358,14 +358,17 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
     warning("minor_breaks = NA is deprecated. Please use minor_breaks = NULL to remove minor breaks in the scale.")
     return(NULL)
   } else if (is.waive(scale$minor_breaks)) {
-    b <- b[!is.na(b)]
-    if (length(b) < 2) return()
+    if (is.null(b)) breaks <- NULL
+    else {
+      b <- b[!is.na(b)]
+      if (length(b) < 2) return()
 
-    bd <- diff(b)[1]
-    if (min(limits) < min(b)) b <- c(b[1] - bd, b)
-    if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
-    breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length=n+1,
-      SIMPLIFY = FALSE)))
+      bd <- diff(b)[1]
+      if (min(limits) < min(b)) b <- c(b[1] - bd, b)
+      if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
+      breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length=n+1,
+        SIMPLIFY = FALSE)))
+    }
   } else if (is.function(scale$minor_breaks)) {
     breaks <- scale$minor_breaks(scale$trans$inv(limits))
   } else {
@@ -514,16 +517,20 @@ scale_break_info.discrete <- function(scale, range = NULL) {
   limits <- scale_limits(scale)
   
   major <- scale_breaks(scale, limits)
+  if (is.null(major)) {
+    labels <- major_n <- NULL
+  } else {
 
-  labels <- scale_labels(scale, major)
-  labels <- c(na.omit(labels))
+    labels <- scale_labels(scale, major)
+    labels <- c(na.omit(labels))
 
-  major <- scale_map(scale, major)
-  major <- c(na.omit(major))
+    major <- scale_map(scale, major)
+    major <- c(na.omit(major))
 
-  # rescale breaks [0, 1], which are used by coord/guide
-  major_n <- rescale(major, from = range)
-
+    # rescale breaks [0, 1], which are used by coord/guide
+    major_n <- rescale(major, from = range)
+  }
+  
   list(range = range, labels = labels,
        major = major_n, minor = NULL, 
        major_source = major, minor_source = NULL)
@@ -535,14 +542,14 @@ scale_break_info.continuous <- function(scale, range = NULL) {
 
   # major breaks
   major <- scale_breaks(scale, range)
-  major <- c(na.omit(major))
+  if (!is.null(major)) major <- c(na.omit(major))
 
   # labels
   labels <- scale_labels(scale, major)
 
   # minor breaks
   minor <- scale_breaks_minor(scale, b = major, limits = range)
-  minor <- c(na.omit(minor))
+  if (!is.null(minor)) minor <- c(na.omit(minor))
 
   # rescale breaks [0, 1], which are used by coord/guide
   major_n <- rescale(major, from = range)
