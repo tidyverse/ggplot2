@@ -159,21 +159,22 @@ Layer <- proto(expr = {
     evaled <- compact(
       eval.quoted(aesthetics, data, plot$plot_env))
 
-    # If all aesthetics are set
-    if (length(evaled) == 0) return(data.frame(PANEL = data$PANEL))
+    lengths <- vapply(evaled, length, integer(1))
+    n <- if (length(lengths) > 0) max(lengths) else 0
 
-    if (empty(data)) {
-      if (length(evaled[[1]]) == 0) {
-        # No data and no vector of values for aesthetics
-        return(data.frame(PANEL = numeric(0)))
-      } else {
-        # No data but with a vector passed to aesthetics, as in qplot(1:3, 1:3)
-        return(data.frame(evaled, PANEL = 1))
-      }
+    wrong <- lengths != 1 & lengths != n
+    if (any(wrong)) {
+      stop("Aesthetics must either be length one, or the same length as the data",
+        "Problems:", paste(aesthetics[wrong], collapse = ", "), call. = FALSE)
     }
-    else {
-      return(data.frame(evaled, PANEL = data$PANEL))
+
+    if (empty(data) && n > 0) {
+      # No data, and vectors suppled to aesthetics
+      evaled$PANEL <- 1
+    } else {
+      evaled$PANEL <- data$PANEL
     }
+    data.frame(evaled)
   }
   
 
