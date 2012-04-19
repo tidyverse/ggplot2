@@ -2,7 +2,7 @@ context('Empty data')
 
 df0 <- data.frame(mpg=numeric(0), wt=numeric(0), am=numeric(0), cyl=numeric(0))
 
-test_that("plots with empty data work", {
+test_that("layers with empty data are silently omitted", {
   # Empty data (no visible points)
   d <- pdata(ggplot(df0, aes(x=mpg,y=wt)) + geom_point())
   expect_equal(nrow(d[[1]]), 0)
@@ -35,7 +35,7 @@ test_that("plots with empty data and vectors for aesthetics work", {
 })
 
 
-test_that("plots with empty data and facets work", {
+test_that("layers with empty data are silently omitted with facets", {
   # Empty data, facet_wrap, throws error
   expect_error(ggplot_build(ggplot(df0, aes(x=mpg, y=wt)) + geom_point() + facet_wrap(~ cyl)))
 
@@ -60,14 +60,16 @@ test_that("data is not inherited when when data=data.frame()", {
   expect_error(ggplot_build(ggplot(mtcars, aes(x=mpg, y=wt)) + geom_point() +
     geom_point(data=data.frame())))
 
-  # Should error when totally empty data frame, even when aesthetics are set
-  expect_error(ggplot_build(ggplot(mtcars, aes(x=mpg, y=wt)) + geom_point() +
-    geom_point(data=data.frame(), x = 20, y = 3, colour = "red", size = 5)))
-
 
   # No extra points when x and y vars exist, but are empty
   d <- pdata(ggplot(mtcars, aes(x=mpg, y=wt)) + geom_point() +
     geom_point(data = data.frame(mpg=numeric(0), wt=numeric(0))))
+  expect_equal(nrow(d[[1]]), nrow(mtcars))
+  expect_equal(nrow(d[[2]]), 0)
+
+  # No extra points when x and y vars don't exist but are set
+  d <- pdata(ggplot(mtcars, aes(x=mpg, y=wt)) + geom_point() +
+    geom_point(data=data.frame(mpg=numeric(0), wt=numeric(0)), x = 20, y = 3, colour = "red", size = 5))
   expect_equal(nrow(d[[1]]), nrow(mtcars))
   expect_equal(nrow(d[[2]]), 0)
 
