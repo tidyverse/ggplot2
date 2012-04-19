@@ -51,6 +51,9 @@
 #' @param byrow logical. If \code{FALSE} (the default) the legend-matrix is
 #'   filled by columns, otherwise the legend-matrix is filled by rows.
 #' @param reverse logical. If \code{TRUE} the order of legends is reversed.
+#' @param order positive integer less that 99 that specify the order of
+#'   this guide in the multiple guides. If 0 (default), the order is determined
+#'   by a secret algorithm.
 #' @param ... ignored.
 #' @return A guide object
 #' @export
@@ -143,6 +146,7 @@ guide_legend <- function(
   ncol = NULL,
   byrow = FALSE,
   reverse = FALSE,
+  order = 0,                         
                          
   ...) {
   
@@ -176,6 +180,7 @@ guide_legend <- function(
     ncol = ncol,
     byrow = byrow,
     reverse = reverse,
+    order = order,
                  
     # parameter
     available_aes = c("any"),
