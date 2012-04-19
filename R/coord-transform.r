@@ -97,37 +97,33 @@ train_trans <- memoise(function(scale, limits, trans, name) {
   # first, calculate the range that is the numerical limits in data space
 
   # expand defined by scale OR coord
+  # @kohske
+  # Expansion of data range sometimes go beyond domain,
+  # so in trasn, expansion takes place at the fnial stage.
   if (is.null(limits)) {
-    expand <- coord_expand_defaults(coord, scale)
-    # range in trans'd space
-    range <- trans_range(trans, scale_dimension(scale, c(0, 0)))
-    # expand range on trans'd space
-    range <- expand_range(range, expand[1], expand[2])
-    # inv-trans range into data space
-    range <- trans$inverse(range)
+    range <- scale_dimension(scale, c(0, 0))
   } else {
     range <- range(scale_transform(scale, limits))
   }
 
-  # breaks
-  if (inherits(scale, "continuous")) {
-    major_v <- c(na.omit(scale_map(scale, scale_breaks(scale, range), range))) # data space
-    labels <- scale_labels(scale, major_v)
-
-    minor_v <- c(na.omit(scale_map(scale, scale_breaks_minor(scale, b = major_v, limits = range), range)))
-
-  } else {
-    stop("coord_trans does not work with discrete scale")
-  }
+  # breaks on data space
+  out <- scale_break_info(scale, range)    
 
   # trans'd range
-  range <- trans$transform(range)
+  out$range <- trans$transform(out$range)
+  
+  # expansion if limits are not specified
+  if (is.null(limits)) {
+    expand <- coord_expand_defaults(coord, scale)
+    out$range <- expand_range(out$range, expand[1], expand[2])
+  }
   
   # major and minor values in plot space
-  major_v <- transform_value(trans, major_v, range)
-  minor_v <- transform_value(trans, minor_v, range)
+  out$major_source <- transform_value(trans, out$major_source, out$range)
+  out$minor_source <- transform_value(trans, out$minor_source, out$range)
 
-  out <- list(range = range, major = major_v, minor = minor_v, labels = labels)
+  out <- list(range = out$range, labels = out$labels,
+              major = out$major_source, minor = out$minor_source)
   names(out) <- paste(name, names(out), sep = ".")
   out
 })
