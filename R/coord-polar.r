@@ -220,9 +220,13 @@ coord_render_bg.polar <- function(coord, details, theme) {
 
 #' @S3method coord_render_fg polar
 coord_render_fg.polar <- function(coord, details, theme) {
+  if (is.null(details$theta.major)) {
+    return(grobTree(theme_render(theme, "panel.border")))
+  }
+  
   theta <- theta_rescale(coord, details$theta.major, details)
   labels <- details$theta.labels
-  
+
   # Combine the two ends of the scale if they are close
   theta <- theta[!is.na(theta)]
   ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
