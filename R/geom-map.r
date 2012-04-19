@@ -85,7 +85,7 @@ GeomMap <- proto(GeomPolygon, {
 
     polygonGrob(coords$x, coords$y, default.units = "native", id = grob_id,
       gp = gpar(
-        col = data$colour, fill = alpha(data$fill, data$alpha), 
+        col = alpha(data$colour, data$alpha), fill = alpha(data$fill, data$alpha), 
         lwd = data$size * .pt))
   }
   

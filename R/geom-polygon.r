@@ -57,7 +57,7 @@ GeomPolygon <- proto(Geom, {
     ggname(.$my_name(), gTree(children=gList(
       with(coord_munch(coordinates,data, scales), 
         polygonGrob(x, y, default.units="native",
-        gp=gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt,
+        gp=gpar(col=alpha(colour, alpha), fill=alpha(fill, alpha), lwd=size * .pt,
          lty=linetype))
       )
       #GeomPath$draw(data, scales, coordinates)
@@ -75,8 +75,8 @@ GeomPolygon <- proto(Geom, {
     data <- aesdefaults(data, .$default_aes(), list(...))
   
     with(data, grobTree(
-      rectGrob(gp = gpar(col = colour, fill = alpha(fill, alpha), lty = linetype)),
-      linesGrob(gp = gpar(col = colour, lwd = size * .pt, lineend="butt", lty = linetype))
+      rectGrob(gp = gpar(col = alpha(colour, alpha), fill = alpha(fill, alpha), lty = linetype)),
+      linesGrob(gp = gpar(col = alpha(colour, alpha), lwd = size * .pt, lineend="butt", lty = linetype))
     ))
   }
 

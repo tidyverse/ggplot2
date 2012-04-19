@@ -13,7 +13,7 @@ GeomHex <- proto(Geom, {
 
   draw <- function(., data, scales, coordinates, ...) { 
     with(coord_transform(coordinates, data, scales), 
-      ggname(.$my_name(), hexGrob(x, y, col=colour, 
+      ggname(.$my_name(), hexGrob(x, y, col=alpha(colour, alpha), 
         fill = alpha(fill, alpha)))
     )
   }

@@ -177,7 +177,7 @@ GeomBoxplot <- proto(Geom, {
   guide_geom <- function(.) "boxplot"  
   draw_legend <- function(., data, ...)  {
     data <- aesdefaults(data, .$default_aes(), list(...))
-    gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt))
+    gp <- with(data, gpar(col=alpha(colour, alpha), fill=alpha(fill, alpha), lwd=size * .pt))
     gTree(gp = gp, children = gList(
       linesGrob(0.5, c(0.1, 0.25)),
       linesGrob(0.5, c(0.75, 0.9)),
