@@ -53,3 +53,77 @@ test_that("plots with empty data and facets work", {
   expect_equal(nrow(d[[1]]), nrow(mtcars))
   expect_equal(nrow(d[[2]]), 0)
 })
+
+
+test_that("data is not inherited when when data=data.frame()", {
+  # Should error when totally empty data frame because there's no x and y
+  expect_error(ggplot_build(ggplot(mtcars, aes(x=mpg, y=wt)) + geom_point() +
+    geom_point(data=data.frame())))
+
+  # Should error when totally empty data frame, even when aesthetics are set
+  expect_error(ggplot_build(ggplot(mtcars, aes(x=mpg, y=wt)) + geom_point() +
+    geom_point(data=data.frame(), x = 20, y = 3, colour = "red", size = 5)))
+
+
+  # No extra points when x and y vars exist, but are empty
+  d <- pdata(ggplot(mtcars, aes(x=mpg, y=wt)) + geom_point() +
+    geom_point(data = data.frame(mpg=numeric(0), wt=numeric(0))))
+  expect_equal(nrow(d[[1]]), nrow(mtcars))
+  expect_equal(nrow(d[[2]]), 0)
+
+  # No extra points when x and y vars exist, but are empty, even when aesthetics are set
+  d <- pdata(ggplot(mtcars, aes(x=mpg, y=wt)) + geom_point() +
+    geom_point(data=data.frame(mpg=numeric(0), wt=numeric(0)), x = 20, y = 3, colour = "red", size = 5))
+  expect_equal(nrow(d[[1]]), nrow(mtcars))
+  expect_equal(nrow(d[[2]]), 0)
+})
+
+
+test_that("data is inherited when data=NULL", {
+  # NULL should inherit data
+  d <- pdata(ggplot(mtcars, aes(x=mpg, y=wt)) + geom_point() +
+    geom_point(data=NULL))
+  expect_equal(nrow(d[[1]]), nrow(mtcars))
+  expect_equal(nrow(d[[2]]), nrow(mtcars))
+
+  # NULL should inherit data when all aesthetics are set
+  d <- pdata(ggplot(mtcars, aes(x=mpg, y=wt)) + geom_point() +
+    geom_point(data=NULL, x = 20, y = 3, colour = "red", size = 5))
+  expect_equal(nrow(d[[1]]), nrow(mtcars))
+  expect_equal(nrow(d[[2]]), nrow(mtcars))
+
+
+  # NULL should inherit data when facet_wrap is used
+  d <- pdata(ggplot(mtcars, aes(x=mpg, y=wt)) + geom_point() +
+    geom_point(data=NULL) +
+    facet_wrap(~ cyl))
+  expect_equal(nrow(d[[1]]), nrow(mtcars))
+  expect_equal(nrow(d[[2]]), nrow(mtcars))
+
+  # NULL should inherit data when all aesthetics are set and facet_wrap is used
+  d <- pdata(ggplot(mtcars, aes(x=mpg, y=wt)) + geom_point() +
+    geom_point(data=NULL, x = 20, y = 3, colour = "red", size = 5) +
+    facet_wrap(~ cyl))
+  expect_equal(nrow(d[[1]]), nrow(mtcars))
+  expect_equal(nrow(d[[2]]), nrow(mtcars))
+  expect_equal(sort(d[[1]]$PANEL), sort(d[[2]]$PANEL))
+
+
+  # NULL should inherit data when facet_grid is used
+  d <- pdata(ggplot(mtcars, aes(x=mpg, y=wt)) + geom_point() +
+    geom_point(data=NULL) +
+    facet_grid(am ~ cyl))
+  expect_equal(nrow(d[[1]]), nrow(mtcars))
+  expect_equal(nrow(d[[2]]), nrow(mtcars))
+
+  # NULL should inherit data when all aesthetics are set and facet_grid is used
+  d <- pdata(ggplot(mtcars, aes(x=mpg, y=wt)) + geom_point() +
+    geom_point(data=NULL, x = 20, y = 3, colour = "red", size = 5) +
+    facet_grid(am ~ cyl))
+  expect_equal(nrow(d[[1]]), nrow(mtcars))
+  expect_equal(nrow(d[[2]]), nrow(mtcars))
+  expect_equal(sort(d[[1]]$PANEL), sort(d[[2]]$PANEL))
+
+  # In the future, the behavior of NULL may change, and a test for waiver will
+  # also be added.
+})
