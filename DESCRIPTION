@@ -176,6 +176,7 @@ Collate:
     'stat-unique.r'
     'stat-vline.r'
     'stat-ydensity.r'
+    'stat-ecdf.r'
     'summary.r'
     'templates.r'
     'theme-defaults.r'
@@ -206,3 +207,4 @@ Collate:
     'translate-qplot-lattice.r'
     'annotation-logticks.r'
     'utilities-help.r'
+
