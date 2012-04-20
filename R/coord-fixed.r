@@ -21,7 +21,10 @@
 #' qplot(mpg, wt, data = mtcars) + coord_fixed(ratio = 1/5)
 #' 
 #' # Resize the plot to see that the specified aspect ratio is maintained
-coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL) {
+coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL, wise = NULL) {
+  if (!is.null(wise))
+    warning("Deprecated: wise argument to coord_cartesian is ignored", call. = FALSE)
+
   coord(limits = list(x = xlim, y = ylim), ratio = ratio,
     subclass = c("fixed", "cartesian"))
 }

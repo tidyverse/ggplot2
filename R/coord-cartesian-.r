@@ -36,7 +36,9 @@
 #' # When zooming the coordinate system, we see a subset of original 50 bins, 
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 2))
-coord_cartesian <- function(xlim = NULL, ylim = NULL) {
+coord_cartesian <- function(xlim = NULL, ylim = NULL, wise = NULL) {
+  if (!is.null(wise))
+    warning("Deprecated: wise argument to coord_cartesian is ignored", call. = FALSE)
   coord(limits = list(x = xlim, y = ylim), subclass = "cartesian")
 }
 
