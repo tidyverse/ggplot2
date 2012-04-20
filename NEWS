@@ -1,3 +1,5 @@
+MINOR FEATURES
+
 * `ggstructure` and `ggorder`, which call `ggpcp`, no longer have a 
   `scale` argument since `ggpcp` does not have one.
 
@@ -24,6 +26,8 @@
   to Winston Chang)
 
 BUG FIXES
+
+* `facet_grid` no longer drops duplicate cases (Fixes #443)
 
 * `munch_range` properly reports the x and y range. (Thanks to Winston Chang)
 
