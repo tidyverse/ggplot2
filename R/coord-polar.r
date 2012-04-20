@@ -6,8 +6,6 @@
 #' @param theta variable to map angle to (\code{x} or \code{y})
 #' @param start offset of starting point from 12 o'clock in radians
 #' @param direction 1, clockwise; -1, anticlockwise
-#' @param expand should axes be expanded to slightly outside the range of the
-#'   data? (default: \code{FALSE})
 #' @export
 #' @examples 
 #' \donttest{
@@ -53,14 +51,13 @@
 #' # Race track plot
 #' doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
 #' }
-coord_polar <- function(theta = "x", start = 0, direction = 1, expand = FALSE) {
+coord_polar <- function(theta = "x", start = 0, direction = 1) {
   theta <- match.arg(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
   
   coord(
     theta = theta, r = r, 
     start = start, direction = sign(direction),
-    expand = expand, 
     subclass = "polar"
   )
 }
@@ -93,13 +90,8 @@ coord_range.polar <- function(coord, scales) {
 
 #' @S3method coord_train polar
 coord_train.polar <- function(coord, scales) {
-  if (coord$expand) {
-    x.range <- scale_dimension(scales$x)
-    y.range <- scale_dimension(scales$y)
-  } else {
-    x.range <- scale_dimension(scales$x, c(0, 0))
-    y.range <- scale_dimension(scales$y, c(0, 0))
-  }
+  x.range <- scale_dimension(scales$x)
+  y.range <- scale_dimension(scales$y)
 
   x.major <- scale_break_positions(scales$x)
   x.minor <- scale_breaks_minor_positions(scales$x)
@@ -150,6 +142,16 @@ theta_rescale <- function(coord, x, details) {
   
 r_rescale <- function(coord, x, details) {
   rescale(x, c(0, 0.4), details$r.range)
+}
+
+#' @S3method coord_expand_defaults polar
+coord_expand_defaults.polar <- function(coord, scale, aesthetic) {
+  if (coord$theta == aesthetic)
+    scale$expand <- expand_default(scale, c(0, 0.5), c(0, 0))
+  else
+    scale$expand <- expand_default(scale, c(0, 0),   c(0, 0))
+
+  return(scale)
 }
 
 #' @S3method coord_transform polar

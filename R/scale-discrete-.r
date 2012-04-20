@@ -50,7 +50,7 @@
 #' qplot(reorder(manufacturer, cty), cty, data=mpg) +  
 #'   scale_x_discrete(labels = abbreviate)
 #' }
-scale_x_discrete <- function(..., expand = c(0, 0.6)) {
+scale_x_discrete <- function(..., expand = waiver()) {
   sc <- discrete_scale(c("x", "xmin", "xmax", "xend"), "position_d", identity, ..., 
     expand = expand, guide = "none")
     
@@ -59,7 +59,7 @@ scale_x_discrete <- function(..., expand = c(0, 0.6)) {
 }
 #' @rdname scale_discrete
 #' @export
-scale_y_discrete <- function(..., expand = c(0, 0.6)) {
+scale_y_discrete <- function(..., expand = waiver()) {
   sc <- discrete_scale(c("y", "ymin", "ymax", "yend"), "position_d", identity, ..., 
     expand = expand, guide = "none")
   sc$range_c <- ContinuousRange$new()
@@ -112,6 +112,8 @@ scale_map.position_d <- function(scale, x) {
 
 #' @S3method scale_dimension position_d
 scale_dimension.position_d <- function(scale, expand = scale$expand) {
+  if(is.waive(expand))
+    expand <- c(0, 0)
   disc_range <- c(1, length(scale_limits(scale)))
   disc <- expand_range(disc_range, 0, expand[2], 1)
   cont <- expand_range(scale$range_c$range, expand[1], 0, expand[2])

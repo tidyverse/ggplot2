@@ -31,7 +31,7 @@ NULL
 #'   transformer: e.g. instead of \code{log2_trans()} you can use 
 #'   \code{"log2"}.
 #' @keywords internal
-continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = c(0, 0), na.value = NA, trans = "identity", guide="legend") {
+continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA, trans = "identity", guide="legend") {
 
   if (!is.null(legend)) {
     warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
@@ -83,7 +83,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #'  labels (labels the same as breaks), a character vector the same length
 #'  as breaks, or a named character vector whose names are used to match
 #'  replacement the labels for matching breaks.
-discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, expand = c(0, 0), na.value = NA, drop = TRUE, guide="legend") {
+discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, expand = waiver(), na.value = NA, drop = TRUE, guide="legend") {
 
   if (!is.null(legend)) {
     warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
@@ -250,11 +250,17 @@ scale_dimension <- function(scale, expand = scale$expand) UseMethod("scale_dimen
 
 #' @S3method scale_dimension continuous
 scale_dimension.continuous  <- function(scale, expand = scale$expand) {
-  expand_range(scale_limits(scale), expand[1], expand[2])  
+  if(is.waive(expand))
+    scale_limits(scale)
+  else
+    expand_range(scale_limits(scale), expand[1], expand[2])
 }
 #' @S3method scale_dimension discrete
 scale_dimension.discrete <- function(scale, expand = scale$expand) {
-  expand_range(length(scale_limits(scale)), expand[1], expand[2])  
+  if(is.waive(expand))
+    scale_limits(scale)
+  else
+    expand_range(length(scale_limits(scale)), expand[1], expand[2])
 }
 
 scale_breaks <- function(scale, limits = scale_limits(scale)) {
