@@ -56,61 +56,77 @@
 #' plot + coord_trans(x = "log10")
 #' plot + coord_trans(x = "sqrt")
 #' }
-coord_trans <- function(xtrans = "identity", ytrans = "identity") {
+coord_trans <- function(xtrans = "identity", ytrans = "identity", limx = NULL, limy = NULL) {
+  # @kohske
+  # Now limits are implemented.
+  # But for backward compatibility, xlim -> limx, ylim -> ylim
+  # Because there are many examples such as
+  # > coord_trans(x = "log10", y = "log10")
+  # Maybe this is changed.
   if (is.character(xtrans)) xtrans <- as.trans(xtrans)
   if (is.character(ytrans)) ytrans <- as.trans(ytrans)
 
-  coord(xtr = xtrans, ytr = ytrans, subclass = "trans")
+  coord(trans = list(x = xtrans, y = ytrans), limits = list(x = limx, y = limy), subclass = "trans")
 }
 
 #' @S3method coord_distance trans
 coord_distance.trans <- function(coord, x, y, details) {
   max_dist <- dist_euclidean(details$x.range, details$y.range)
-  dist_euclidean(coord$xtr$transform(x), coord$ytr$transform(y)) / max_dist
+  dist_euclidean(coord$trans$x$transform(x), coord$trans$y$transform(y)) / max_dist
 }  
 
 #' @S3method coord_transform trans
 coord_transform.trans <- function(coord, data, details) {
-  trans_x <- function(data) transform_x(coord, data, details$x.range)
-  trans_y <- function(data) transform_y(coord, data, details$y.range)
+  trans_x <- function(data) transform_value(coord$trans$x, data, details$x.range)
+  trans_y <- function(data) transform_value(coord$trans$y, data, details$y.range)
   
   data <- transform_position(data, trans_x, trans_y)
   transform_position(data, squish_infinite, squish_infinite)
 }
-transform_x <- function(coord, x, range) {
-  rescale(coord$xtr$transform(x), 0:1, range)
-}
-transform_y <- function(coord, x, range) {
-  rescale(coord$ytr$transform(x), 0:1, range)
+transform_value <- function(trans, value, range) {
+  rescale(trans$transform(value), 0:1, range)
 }
 
 #' @S3method coord_train trans
 coord_train.trans <- function(coord, scales) {
-  exp_trans_range <- function(trans, scale) {
-    range <- trans_range(trans, scale_dimension(scale, c(0, 0)))
-    expand_range(range, scale$expand[1], scale$expand[2])
-  }
-  x.range <- exp_trans_range(coord$xtr, scales$x)
-  x.major <- transform_x(coord, scale_break_positions(scales$x), x.range)
-  x.minor <- transform_x(coord, scale_breaks_minor(scales$x), x.range)
-  if (!is.null(x.major)) x.major <- x.major[!is.na(x.major)]
-  if (!is.null(x.minor)) x.minor <- x.minor[!is.na(x.minor)]
-  x.labels <- scale_labels(scales$x)
-
-  y.range <- exp_trans_range(coord$ytr, scales$y)
-  y.major <- transform_y(coord, scale_break_positions(scales$y), y.range)
-  y.minor <- transform_y(coord, scale_breaks_minor(scales$y), y.range)
-  if (!is.null(y.major)) y.major <- y.major[!is.na(y.major)]
-  if (!is.null(y.minor)) y.minor <- y.minor[!is.na(y.minor)]
-  y.labels <- scale_labels(scales$y)
-  
-  list(
-    x.range = x.range, y.range = y.range, 
-    x.major = x.major, x.minor = x.minor, x.labels = x.labels,
-    y.major = y.major, y.minor = y.minor, y.labels = y.labels
-  )
+  c(train_trans(scales$x, coord$limits$x, coord$trans$x, "x"),
+    train_trans(scales$y, coord$limits$y, coord$trans$y, "y"))
 }
 
+train_trans <- memoise(function(scale, limits, trans, name) {
+  # first, calculate the range that is the numerical limits in data space
+
+  # expand defined by scale OR coord
+  # @kohske
+  # Expansion of data range sometimes go beyond domain,
+  # so in trasn, expansion takes place at the fnial stage.
+  if (is.null(limits)) {
+    range <- scale_dimension(scale, c(0, 0))
+  } else {
+    range <- range(scale_transform(scale, limits))
+  }
+
+  # breaks on data space
+  out <- scale_break_info(scale, range)    
+
+  # trans'd range
+  out$range <- trans$transform(out$range)
+  
+  # expansion if limits are not specified
+  if (is.null(limits)) {
+    expand <- coord_expand_defaults(coord, scale)
+    out$range <- expand_range(out$range, expand[1], expand[2])
+  }
+  
+  # major and minor values in plot space
+  out$major_source <- transform_value(trans, out$major_source, out$range)
+  out$minor_source <- transform_value(trans, out$minor_source, out$range)
+
+  out <- list(range = out$range, labels = out$labels,
+              major = out$major_source, minor = out$minor_source)
+  names(out) <- paste(name, names(out), sep = ".")
+  out
+})
 
 # Documentation -----------------------------------------------
 icon <- function(.) {
