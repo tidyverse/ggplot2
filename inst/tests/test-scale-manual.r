@@ -17,7 +17,7 @@ cols <- function(x) ggplot_build(x)$data[[1]][, "fill"]
 test_that("named values work regardless of order", {
   fill_scale <- function(order) scale_fill_manual(values = col[order], 
     na.value = "black")
-
+    
   # Order of value vector shouldn't matter
   expect_equal(cols(p + fill_scale(1:3)), c("red", "green"))
   expect_equal(cols(p + fill_scale(1:2)), c("red", "green"))
@@ -25,21 +25,26 @@ test_that("named values work regardless of order", {
   expect_equal(cols(p + fill_scale(c(3, 2, 1))), c("red", "green"))
   expect_equal(cols(p + fill_scale(c(3, 1, 2))), c("red", "green"))
   expect_equal(cols(p + fill_scale(c(1, 3, 2))), c("red", "green"))
-
-  # Missing value replaced with na.value
-  expect_equal(cols(p + fill_scale(c(3, 1))), c("red", "black"))
-  expect_equal(cols(p + fill_scale(c(1, 3))), c("red", "black"))
-  expect_equal(cols(p + fill_scale(3)), c("black", "black"))
 })
 
 test_that("missing values replaced with na.value", {
-  fill_scale <- function(n) scale_fill_manual(values = col[seq_len(n)], 
-    na.value = "black")
+  df <- data.frame(x = 1, y = 1:3, z = factor(c(1:2, NA), exclude = NULL))
+  pdata <- ggplot_build(qplot(x, y, data = df, colour = z) +
+    scale_colour_manual(values = c("black", "black"), na.value = "red"))
   
-  expect_equal(cols(p + fill_scale(1)), c("red", "black"))
-  expect_equal(cols(p + fill_scale(2)), c("red", "green"))
-  expect_equal(cols(p + fill_scale(3)), c("red", "green"))
+  expect_equal(pdata$data[[1]]$colour, c("black", "black", "red"))  
+})
+
+test_that("insufficient values raise an error", {
+  df <- data.frame(x = 1, y = 1:3, z = factor(c(1:2, NA), exclude = NULL))
+  p <- qplot(x, y, data = df, colour = z) 
   
+  expect_error(ggplot_build(p + scale_colour_manual(values = "black")),
+    "Insufficient values")
+
+  # Should be sufficient
+  ggplot_build(p + scale_colour_manual(values = c("black", "black")))
+    
 })
 
 test_that("values are matched when scale contains more unique valuesthan are in the data", {

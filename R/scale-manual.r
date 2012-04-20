@@ -68,7 +68,12 @@ scale_alpha_manual <- function(..., values) {
 icon.manual <- function() textGrob("DIY", gp=gpar(cex=1.2))
 
 manual_scale <- function(aesthetic, values, ...) {
-  pal <- function(n) values
+  pal <- function(n) {
+    if (n > length(values)) {
+      stop("Insufficient values in manual scale. ", n, " needed but only ", 
+        length(values), " provided.", call. = FALSE)
+    }
+    values
+  }
   discrete_scale(aesthetic, "manual", pal, ...)
 }
-

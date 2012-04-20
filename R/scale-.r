@@ -219,7 +219,7 @@ scale_map.continuous <- function(scale, x) {
 scale_map.discrete <- function(scale, x) {
   limits <- scale_limits(scale)
 
-  n <- length(limits)
+  n <- sum(!is.na(limits))
   pal <- scale$palette(n)
   
   if (is.null(names(pal))) {
