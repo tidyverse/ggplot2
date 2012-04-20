@@ -90,23 +90,33 @@ coord_range.polar <- function(coord, scales) {
 
 #' @S3method coord_train polar
 coord_train.polar <- function(coord, scales) {
-  x.range <- scale_dimension(scales$x)
-  y.range <- scale_dimension(scales$y)
 
-  x.major <- scale_break_positions(scales$x)
-  x.minor <- scale_breaks_minor_positions(scales$x)
-  x.labels <- scale_labels(scales$x, x.major)
+  ret <- list(x = list(), y = list())
+  for (n in c("x", "y")) {
 
-  y.major <- scale_break_positions(scales$y)
-  y.minor <- scale_breaks_minor_positions(scales$y)
-  y.labels <- scale_labels(scales$y, y.major)
-  
+    scale <- scales[[n]]
+    limits <- coord$limits[[n]]
+    
+    if (is.null(limits)) {
+      expand <- coord_expand_defaults(coord, scale, n)
+      range <- scale_dimension(scale, expand)
+    } else {
+      range <- range(scale_transform(scale, limits))
+    }
+
+    out <- scale_break_info(scale, range)
+    ret[[n]]$range <- out$range
+    ret[[n]]$major <- out$major_source
+    ret[[n]]$minor <- out$minor_source
+    ret[[n]]$labels <- out$labels
+  }
+
   details <- list(
-    x.range = x.range, y.range = y.range, 
-    x.major = x.major, x.minor = x.minor, x.labels = x.labels,
-    y.major = y.major, y.minor = y.minor, y.labels = y.labels
+    x.range = ret$x$range, y.range = ret$y$range, 
+    x.major = ret$x$major, x.minor = ret$x$minor, x.labels = ret$x$labels,
+    y.major = ret$y$major, y.minor = ret$y$minor, y.labels = ret$y$labels
   )
-  
+
   if (coord$theta == "y") {
     names(details) <- gsub("x\\.", "r.", names(details))
     names(details) <- gsub("y\\.", "theta.", names(details))
@@ -143,11 +153,9 @@ r_rescale <- function(coord, x, details) {
 #' @S3method coord_expand_defaults polar
 coord_expand_defaults.polar <- function(coord, scale, aesthetic) {
   if (coord$theta == aesthetic)
-    scale$expand <- expand_default(scale, c(0, 0.5), c(0, 0))
+    expand_default(scale, c(0, 0.5), c(0, 0))
   else
-    scale$expand <- expand_default(scale, c(0, 0),   c(0, 0))
-
-  return(scale)
+    expand_default(scale, c(0, 0),   c(0, 0))
 }
 
 #' @S3method coord_transform polar
@@ -212,9 +220,13 @@ coord_render_bg.polar <- function(coord, details, theme) {
 
 #' @S3method coord_render_fg polar
 coord_render_fg.polar <- function(coord, details, theme) {
+  if (is.null(details$theta.major)) {
+    return(grobTree(theme_render(theme, "panel.border")))
+  }
+  
   theta <- theta_rescale(coord, details$theta.major, details)
   labels <- details$theta.labels
-  
+
   # Combine the two ends of the scale if they are close
   theta <- theta[!is.na(theta)]
   ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)

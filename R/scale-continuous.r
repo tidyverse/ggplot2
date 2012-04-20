@@ -81,8 +81,7 @@ scale_y_continuous <- function(..., expand = waiver()) {
 # care of it. But they do need to be made in to doubles, so stat methods
 # can tell the difference between continuous and discrete data.
 #' @S3method scale_map position_c
-scale_map.position_c <- function(scale, x) {
-  limits <- scale_limits(scale)
+scale_map.position_c <- function(scale, x, limits = scale_limits(scale)) {
   as.numeric(scale$oob(x, limits))
 }
 
