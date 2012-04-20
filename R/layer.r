@@ -159,9 +159,22 @@ Layer <- proto(expr = {
     evaled <- compact(
       eval.quoted(aesthetics, data, plot$plot_env))
 
-    if (length(evaled) == 0) return(data.frame(PANEL = unique(data$PANEL)))
-    # evaled <- evaled[sapply(evaled, is.atomic)]
-    data.frame(evaled, PANEL = data$PANEL)
+    lengths <- vapply(evaled, length, integer(1))
+    n <- if (length(lengths) > 0) max(lengths) else 0
+
+    wrong <- lengths != 1 & lengths != n
+    if (any(wrong)) {
+      stop("Aesthetics must either be length one, or the same length as the data",
+        "Problems:", paste(aesthetics[wrong], collapse = ", "), call. = FALSE)
+    }
+
+    if (empty(data) && n > 0) {
+      # No data, and vectors suppled to aesthetics
+      evaled$PANEL <- 1
+    } else {
+      evaled$PANEL <- data$PANEL
+    }
+    data.frame(evaled)
   }
   
 
