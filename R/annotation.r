@@ -18,6 +18,8 @@
 #' @param ymin ymin position
 #' @param xmax xmax position
 #' @param ymax ymax position
+#' @param xintercept xintercept position
+#' @param yintercept yintercept position
 #' @param ... other arguments passed to geom as parameters
 #' @export
 #' @examples
