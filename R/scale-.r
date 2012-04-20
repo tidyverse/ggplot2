@@ -358,8 +358,9 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
     warning("minor_breaks = NA is deprecated. Please use minor_breaks = NULL to remove minor breaks in the scale.")
     return(NULL)
   } else if (is.waive(scale$minor_breaks)) {
-    if (is.null(b)) breaks <- NULL
-    else {
+    if (is.null(b)) {
+      breaks <- NULL
+    } else {
       b <- b[!is.na(b)]
       if (length(b) < 2) return()
 
@@ -522,10 +523,10 @@ scale_break_info.discrete <- function(scale, range = NULL) {
   } else {
 
     labels <- scale_labels(scale, major)
-    labels <- c(na.omit(labels))
+    labels <- labels[!is.na(labels)]
 
     major <- scale_map(scale, major)
-    major <- c(na.omit(major))
+    major <- major[!is.na(major)]
 
     # rescale breaks [0, 1], which are used by coord/guide
     major_n <- rescale(major, from = range)
