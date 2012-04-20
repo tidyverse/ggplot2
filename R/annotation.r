@@ -4,9 +4,12 @@
 #' the properties of the geoms are not mapped from variables of a data frame.
 #' The aesthetic properties, such as x-position, are passed in as vectors.
 #'
-#' This is useful for adding individual text objects to a plot, and it can
+#' This is useful for adding individual labels to a plot, and it can
 #' also be used for drawing geoms from data in vectors.
 #'
+#' Note that all position aesthetics are scaled (i.e. they will expand the
+#' limits of the plot so they are visible), but all other aesthetics are 
+#' set.
 #' 
 #' @param geom name of geom to use for annotation
 #' @param x x position
