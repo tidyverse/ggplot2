@@ -222,7 +222,7 @@ coord_render_bg.polar <- function(coord, details, theme) {
 #' @S3method coord_render_fg polar
 coord_render_fg.polar <- function(coord, details, theme) {
   if (is.null(details$theta.major)) {
-    return(grobTree(theme_render(theme, "panel.border")))
+    return(theme_render(theme, "panel.border"))
   }
   
   theta <- theta_rescale(coord, details$theta.major, details)
