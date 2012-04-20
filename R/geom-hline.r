@@ -63,6 +63,6 @@ GeomHline <- proto(Geom, {
   icon <- function(.) linesGrob(c(0, 1), c(0.5, 0.5))
     
   default_stat <- function(.) StatHline
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = 1)
+  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
   guide_geom <- function(.) "path"
 })

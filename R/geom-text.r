@@ -89,7 +89,7 @@ GeomText <- proto(Geom, {
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y", "label")
   default_aes <- function(.) aes(colour="black", size=5 , angle=0, hjust=0.5,
-    vjust=0.5, alpha = 1, family="", fontface=1, lineheight=1.2)
+    vjust=0.5, alpha = NA, family="", fontface=1, lineheight=1.2)
   guide_geom <- function(x) "text"
   
 })

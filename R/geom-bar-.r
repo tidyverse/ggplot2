@@ -114,7 +114,7 @@ GeomBar <- proto(Geom, {
   
   default_stat <- function(.) StatBin
   default_pos <- function(.) PositionStack
-  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, weight = 1, alpha = 1)
+  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, weight = 1, alpha = NA)
   
   required_aes <- c("x")
  

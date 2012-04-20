@@ -110,7 +110,7 @@ GeomRaster <- proto(Geom, {
   }
 
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(fill = "grey20", alpha = 1)
+  default_aes <- function(.) aes(fill = "grey20", alpha = NA)
   required_aes <- c("x", "y")
   guide_geom <- function(.) "polygon"
 })

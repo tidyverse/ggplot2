@@ -25,5 +25,5 @@ GeomDensity <- proto(GeomArea, {
   default_stat <- function(.) StatDensity
   default_pos <- function(.) PositionIdentity
   
-  default_aes <- function(.) defaults(aes(fill=NA, weight=1, colour="black", alpha = 1), GeomArea$default_aes())
+  default_aes <- function(.) defaults(aes(fill=NA, weight=1, colour="black", alpha = NA), GeomArea$default_aes())
 })

@@ -154,6 +154,6 @@ GeomPoint <- proto(Geom, {
   
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y")
-  default_aes <- function(.) aes(shape=16, colour="black", size=2, fill = NA, alpha = 1)
+  default_aes <- function(.) aes(shape=16, colour="black", size=2, fill = NA, alpha = NA)
   
 })

@@ -18,7 +18,7 @@ GeomRect <- proto(Geom, {
   
   default_stat <- function(.) StatIdentity
   default_pos <- function(.) PositionIdentity
-  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = 1)
+  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = NA)
   
   required_aes <- c("xmin", "xmax", "ymin", "ymax")
 

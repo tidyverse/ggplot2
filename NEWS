@@ -48,6 +48,9 @@ BUG FIXES
   dropped silently, instead of inheriting data from the plot. (Thanks to
   Winston Chang. Fixes #31, #332, #506 and #507)
 
+* The alpha value of set colours is now preserved by default. To return to the
+  old behaviour, set `alpha = 1`. (Fixes #475)
+
 ggplot2 0.9.0
 ----------------------------------------------------------------
 

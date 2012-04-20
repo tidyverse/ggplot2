@@ -116,7 +116,7 @@ GeomViolin <- proto(Geom, {
   
   default_stat <- function(.) StatYdensity
   default_pos <- function(.) PositionDodge
-  default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = 1, linetype = "solid")
+  default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = NA, linetype = "solid")
   required_aes <- c("x", "y")
 
 })

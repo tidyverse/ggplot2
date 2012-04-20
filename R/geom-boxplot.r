@@ -128,7 +128,7 @@ GeomBoxplot <- proto(Geom, {
       size = data$size, 
       linetype = data$linetype,
       fill = alpha(data$fill, data$alpha),  
-      group = 1, 
+      group = NA, 
       stringsAsFactors = FALSE
     )
 
@@ -137,7 +137,7 @@ GeomBoxplot <- proto(Geom, {
       xend = data$x, 
       y = c(data$upper, data$lower), 
       yend = c(data$ymax, data$ymin),
-      alpha = 1,
+      alpha = NA,
       common)
 
     box <- data.frame(
@@ -160,7 +160,7 @@ GeomBoxplot <- proto(Geom, {
         shape = outlier.shape %||% data$shape[1],
         size = outlier.size %||% data$size[1],
         fill = NA,
-        alpha = 1,
+        alpha = NA,
         stringsAsFactors = FALSE)
       outliers_grob <- GeomPoint$draw(outliers, ...)
     } else {
@@ -195,7 +195,7 @@ GeomBoxplot <- proto(Geom, {
   
   default_stat <- function(.) StatBoxplot
   default_pos <- function(.) PositionDodge
-  default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = 1, shape = 16, linetype = "solid")
+  default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = NA, shape = 16, linetype = "solid")
   required_aes <- c("x", "lower", "upper", "middle", "ymin", "ymax")
 
 })

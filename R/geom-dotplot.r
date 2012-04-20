@@ -271,6 +271,6 @@ GeomDotplot <- proto(Geom, {
   
   default_stat <- function(.) StatBindot
   required_aes <- c("x", "y")
-  default_aes <- function(.) aes(y=..count.., colour="black", fill = "black", alpha = 1)
+  default_aes <- function(.) aes(y=..count.., colour="black", fill = "black", alpha = NA)
   
 })
