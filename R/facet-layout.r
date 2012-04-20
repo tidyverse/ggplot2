@@ -6,13 +6,16 @@
 # @return a data frame with columns \code{PANEL}, \code{ROW} and \code{COL},
 #   that match the facetting variable values up with their position in the 
 #   grid
-layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL, drop = TRUE) {
+layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL, drop = TRUE, as.table = TRUE) {
   if (length(rows) == 0 && length(cols) == 0) return(layout_null())
   rows <- as.quoted(rows)
   cols <- as.quoted(cols)
-
   
   base_rows <- layout_base(data, rows, drop = drop)
+  if (!as.table) {
+    rev_order <- function(x) factor(x, levels = rev(ulevels(x)))
+    base_rows[] <- lapply(base_rows, rev_order)
+  }
   base_cols <- layout_base(data, cols, drop = drop)
   base <- df.grid(base_rows, base_cols)
   

@@ -53,6 +53,8 @@ BUG FIXES
 
 * `scale_*_manual` will throw an error if you have too few values. (Fixes
   #512)
+  
+* `facet_wrap` gets the `as.table` argument back. (Fixes #497)
 
 ggplot2 0.9.0
 ----------------------------------------------------------------

@@ -178,8 +178,8 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
 #' @S3method facet_train_layout grid
 facet_train_layout.grid <- function(facet, data) { 
   layout <- layout_grid(data, facet$rows, facet$cols, facet$margins,
-    facet$drop)
-    
+    drop = facet$drop, as.table = facet$as.table)
+  
   # Relax constraints, if necessary
   layout$SCALE_X <- if (facet$free$x) layout$COL else 1L
   layout$SCALE_Y <- if (facet$free$y) layout$ROW else 1L
