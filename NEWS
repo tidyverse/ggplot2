@@ -44,6 +44,10 @@ BUG FIXES
   doesn't seem to be needed and was causing problems when qplot was used in
   special environments (e.g. in knitr) (Fixes #377)
 
+* Empty data frames are now handled correctly: layers with empty data are
+  dropped silently, instead of inheriting data from the plot. (Thanks to
+  Winston Chang. Fixes #31, #332, #506 and #507)
+
 ggplot2 0.9.0
 ----------------------------------------------------------------
 
