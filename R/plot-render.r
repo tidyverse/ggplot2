@@ -134,10 +134,12 @@ ggplot_gtable <- function(data) {
   title <- theme_render(theme, "plot.title", plot$options$title)
   title_height <- grobHeight(title) + 
     if (is.null(plot$options$title)) unit(0, "lines") else unit(0.5, "lines")
+
+  pans <- subset(plot_table$layout, grepl("^panel", name))
   
   plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
   plot_table <- gtable_add_grob(plot_table, title, name = "title",
-    t = 1, b = 1, l = 2, r = -1, clip = "off")
+    t = 1, b = 1, l = min(pans$l), r = max(pans$r), clip = "off")
   
   # Margins
   plot_table <- gtable_add_rows(plot_table, theme$plot.margin[1], pos = 0)
