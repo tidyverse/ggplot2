@@ -1,17 +1,13 @@
 #' Empirical Cumulative Density Function
 #' 
 #' @inheritParams stat_identity
-#' @param n number of points to interpolate along
 #' @return a data.frame with additional columns:
-#'   \item{x}{x's along a grid}
+#'   \item{x}{x in data}
 #'   \item{y}{cumulative density corresponding x}
 #' @export
 #' @examples
 #' \donttest{
-#' l(ggplot2, T)
-#' set.seed(42)
-#' x <- c(rnorm(1000))
-#' qplot(x, stat = "ecdf", geom = "step")
+#' qplot(c(rnorm(1000)), stat = "ecdf", geom = "step")
 #' 
 #' df <- data.frame(x = c(rnorm(100, 0, 3), rnorm(100, 0, 10)),
 #'                  g = gl(2, 100))
