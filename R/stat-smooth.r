@@ -150,7 +150,7 @@ StatSmooth <- proto(Stat, {
     if (is.null(xseq)) {
       if (is.integer(data$x)) {
         if (fullrange) {
-          xseq <- scale_dimension(scales$x, c(0, 0)) 
+          xseq <- scale_dimension(scales$x, c(0, 0))
         } else {
           xseq <- sort(unique(data$x))
         } 

@@ -82,7 +82,7 @@ GeomAbline <- proto(Geom, {
   guide_geom <- function(.) "abline"
 
   default_stat <- function(.) StatAbline
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha=1)
+  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
   
   draw_legend <- function(., data, ...) {
     data <- aesdefaults(data, .$default_aes(), list(...))

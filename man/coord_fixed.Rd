@@ -33,10 +33,10 @@
 # ensures that the ranges of axes are equal to the specified ratio by
 # adjusting the plot aspect ratio
 
-qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 1)
-qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 5)
-qplot(mpg, wt, data = mtcars) + coord_equal(ratio = 1/5)
+qplot(mpg, wt, data = mtcars) + coord_fixed(ratio = 1)
+qplot(mpg, wt, data = mtcars) + coord_fixed(ratio = 5)
+qplot(mpg, wt, data = mtcars) + coord_fixed(ratio = 1/5)
 
-# Resize the plot to see that the specified aspect ratio is mantained
+# Resize the plot to see that the specified aspect ratio is maintained
 }
 

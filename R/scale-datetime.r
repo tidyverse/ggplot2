@@ -3,6 +3,15 @@
 #' @rdname scale_datetime
 #' @family position scales
 #' @inheritParams scale_x_continuous
+#' @param breaks  A vector of breaks, a function that given the scale limits
+#'   returns a vector of breaks, or a character vector, specifying the width
+#'   between breaks. For more information about the first two, see
+#'   \code{\link{continuous_scale}}, for more information about the last,
+#'   see \code{\link[scales]{date_breaks}}`.
+#' @param minor_breaks Either \code{NULL} for no minor breaks, \code{waiver()}
+#'   for the default breaks (one minor break between each major break), a 
+#'   numeric vector of positions, or a function that given the limits returns
+#'   a vector of minor breaks.
 #' @export 
 #' @examples
 #' start <- ISOdate(2001, 1, 1, tz = "")
@@ -39,23 +48,48 @@
 #' library(scales) # to access breaks/formatting functions
 #' last_plot() + scale_x_datetime(breaks = date_breaks("10 days"), 
 #'   labels = date_format("%d/%m"))
-scale_x_datetime <- function(..., expand = c(0.05, 0)) {
-  continuous_scale(c("x", "xmin", "xmax", "xend"), "datetime", identity, ...,
-    trans = "time", expand = expand, guide = "none")
+#' last_plot() + scale_x_datetime(breaks = date_breaks("1 day"),
+#'   minor_breaks = date_breaks("2 hour"))
+scale_x_datetime <- function(..., expand = waiver(), breaks = waiver(),
+  minor_breaks = waiver()) {
+  
+  scale_datetime(c("x", "xmin", "xmax", "xend"), expand = expand,
+    breaks = breaks, minor_breaks = minor_breaks, ...)
 }
 
 #' @S3method scale_map datetime
-scale_map.datetime <- function(scale, x) {
+scale_map.datetime <- function(scale, x, limits = scale_limits(scale)) {
   x
 }
 
 #' @rdname scale_datetime
 #' @export 
-scale_y_datetime <- function(..., expand = c(0.05, 0)) {
-  continuous_scale(c("y", "ymin", "ymax", "yend"), "datetime", identity, ...,
-    trans = "time", expand = expand, guide = "none")
+scale_y_datetime <- function(..., expand = waiver(), breaks = waiver(),
+  minor_breaks = waiver()) {
+  
+  scale_datetime(c("y", "ymin", "ymax", "yend"), expand = expand,
+    breaks = breaks, minor_breaks = minor_breaks, ...)
 }
 
 icon.scale_datetime <- function() {
   textGrob("14/10/1979\n10:14am", gp=gpar(cex=0.9))
+}
+
+# base class for scale_{xy}_datetime
+scale_datetime <- function(aesthetics, expand = waiver(), breaks = waiver(),
+  minor_breaks = waiver(), ...) {
+
+  if (is.character(breaks)) {
+    breaks_str <- breaks
+    breaks <- date_breaks(breaks_str)
+  }
+  
+  if (is.character(minor_breaks)) {
+    mbreaks_str <- minor_breaks
+    minor_breaks <- date_breaks(mbreaks_str)
+  }
+  
+  continuous_scale(aesthetics, "datetime", identity, breaks = breaks,
+    minor_breaks = minor_breaks, guide = "none", expand = expand,
+    trans = "time", ...)
 }

@@ -48,6 +48,7 @@ NULL
 #' if (require(maps)) {
 #'   states_map <- map_data("state")
 #'   ggplot(crimes, aes(map_id = state)) + geom_map(aes(fill = Murder), map = states_map) + expand_limits(x = states_map$long, y = states_map$lat)
+#'   last_plot() + coord_map()
 #'   ggplot(crimesm, aes(map_id = state)) + geom_map(aes(fill = value), map = states_map) + expand_limits(x = states_map$long, y = states_map$lat) + facet_wrap( ~ variable)
 #' }
 #' 
@@ -72,15 +73,15 @@ GeomMap <- proto(GeomPolygon, {
     data <- data[data$map_id %in% common, , drop = FALSE]
     map <- map[map$id %in% common, , drop = FALSE]
     
-    # Set up id variable for polygonGrob - must be sequential integers
-    map$group <- map$group %||% map$id
-    grob_id <- match(map$group, unique(map$group))
-
-    # Align data with map
-    data_rows <- match(map$id[!duplicated(grob_id)], data$map_id)
-    data <- data[data_rows, , drop = FALSE]
-    
+    # Munch, then set up id variable for polygonGrob -
+    # must be sequential integers
     coords <- coord_munch(coordinates, map, scales)
+    coords$group <- coords$group %||% coords$id
+    grob_id <- match(coords$group, unique(coords$group))
+    
+    # Align data with map
+    data_rows <- match(coords$id[!duplicated(grob_id)], data$map_id)
+    data <- data[data_rows, , drop = FALSE]
 
     polygonGrob(coords$x, coords$y, default.units = "native", id = grob_id,
       gp = gpar(

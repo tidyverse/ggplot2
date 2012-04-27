@@ -37,7 +37,7 @@ GeomSmooth <- proto(Geom, {
 
   draw <- function(., data, scales, coordinates, ...) {
     ribbon <- transform(data, colour = NA)
-    path <- transform(data, alpha = 1)
+    path <- transform(data, alpha = NA)
     
     has_ribbon <- function(x) !is.null(data$ymax) && !is.null(data$ymin)
         

@@ -130,7 +130,7 @@ GeomPoint <- proto(Geom, {
     
     with(coord_transform(coordinates, data, scales), 
       ggname(.$my_name(), pointsGrob(x, y, size=unit(size, "mm"), pch=shape, 
-      gp=gpar(col=alpha(colour, alpha), fill = fill, fontsize = size * .pt)))
+      gp=gpar(col=alpha(colour, alpha), fill = alpha(fill, alpha), fontsize = size * .pt)))
     )
   }
 
@@ -154,6 +154,6 @@ GeomPoint <- proto(Geom, {
   
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y")
-  default_aes <- function(.) aes(shape=16, colour="black", size=2, fill = NA, alpha = 1)
+  default_aes <- function(.) aes(shape=16, colour="black", size=2, fill = NA, alpha = NA)
   
 })

@@ -20,7 +20,10 @@ facet_train_layout.null <- function(facet, data) {
 
 #' @S3method facet_map_layout null
 facet_map_layout.null <- function(facet, data, layout) {
-  if (empty(data)) return(data.frame(PANEL = 1))
+  # Need the is.waive check for special case where no data, but aesthetics
+  # are mapped to vectors, like qplot(1:5, 1:5)
+  if (is.waive(data) || empty(data))
+    return(cbind(data, PANEL = integer(0)))
   data$PANEL <- 1L
   data
 }

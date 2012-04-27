@@ -31,12 +31,12 @@ GeomCrossbar <- proto(Geom, {
 
   default_stat <- function(.) StatIdentity
   default_pos <- function(.) PositionIdentity
-  default_aes = function(.) aes(colour="black", fill=NA, size=0.5, linetype=1, alpha = 1)
+  default_aes = function(.) aes(colour="black", fill=NA, size=0.5, linetype=1, alpha = NA)
   required_aes <- c("x", "y", "ymin", "ymax")
   guide_geom <- function(.) "path"
   
   draw <- function(., data, scales, coordinates, fatten = 2, width = NULL, ...) {
-    middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = 1)
+    middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) && 
       !is.na(data$ynotchlower) && !is.na(data$ynotchupper)

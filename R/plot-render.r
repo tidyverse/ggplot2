@@ -42,15 +42,6 @@ ggplot_gtable <- function(data) {
   plot_table <- facet_render(plot$facet, panel, plot$coordinates,
     plot_theme(plot), geom_grobs)
 
-  # Title  
-  title <- theme_render(theme, "plot.title", plot$options$title)
-  title_height <- grobHeight(title) + 
-    if (is.null(plot$options$title)) unit(0, "lines") else unit(0.5, "lines")
-  
-  plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
-  plot_table <- gtable_add_grob(plot_table, title, name = "title",
-    t = 1, b = 1, l = 2, r = -1)
-  
   # Axis labels
   labels <- coord_labels(plot$coordinates, list(
     x = xlabel(panel, theme),
@@ -65,13 +56,13 @@ ggplot_gtable <- function(data) {
     if (is.null(labels$x)) unit(0, "lines") else unit(0.5, "lines")
   plot_table <- gtable_add_rows(plot_table, xlab_height)
   plot_table <- gtable_add_grob(plot_table, xlabel, name = "xlab",
-    l = panel_dim$l, r = panel_dim$r, t = -1)
+    l = panel_dim$l, r = panel_dim$r, t = -1, clip = "off")
   
   ylab_width <- grobWidth(ylabel) + 
     if (is.null(labels$y)) unit(0, "lines") else unit(0.5, "lines")
   plot_table <- gtable_add_cols(plot_table, ylab_width, pos = 0)
   plot_table <- gtable_add_grob(plot_table, ylabel, name = "ylab",
-    l = 1, b = panel_dim$b, t = panel_dim$t)
+    l = 1, b = panel_dim$b, t = panel_dim$t, clip = "off")
 
   # Legends
   position <- theme$legend.position
@@ -118,19 +109,19 @@ ggplot_gtable <- function(data) {
   
   if (position == "left") {
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = 0)
-    plot_table <- gtable_add_grob(plot_table, legend_box, 
+    plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = panel_dim$t, b = panel_dim$b, l = 1, r = 1, name = "guide-box")
   } else if (position == "right") {
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = -1)
-    plot_table <- gtable_add_grob(plot_table, legend_box, 
+    plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off", 
       t = panel_dim$t, b = panel_dim$b, l = -1, r = -1, name = "guide-box")
   } else if (position == "bottom") {
     plot_table <- gtable_add_rows(plot_table, legend_height, pos = -1)
-    plot_table <- gtable_add_grob(plot_table, legend_box, 
+    plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = -1, b = -1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
   } else if (position == "top") {
     plot_table <- gtable_add_rows(plot_table, legend_height, pos = 0)
-    plot_table <- gtable_add_grob(plot_table, legend_box, 
+    plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = 1, b = 1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
   } else if (position == "manual") {
     # should guide box expand whole region or region withoug margin?
@@ -138,6 +129,15 @@ ggplot_gtable <- function(data) {
         t = panel_dim$t, b = panel_dim$b, l = panel_dim$l, r = panel_dim$r,
         clip = "off", name = "guide-box")
   }
+
+  # Title  
+  title <- theme_render(theme, "plot.title", plot$options$title)
+  title_height <- grobHeight(title) + 
+    if (is.null(plot$options$title)) unit(0, "lines") else unit(0.5, "lines")
+  
+  plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
+  plot_table <- gtable_add_grob(plot_table, title, name = "title",
+    t = 1, b = 1, l = 2, r = -1, clip = "off")
   
   # Margins
   plot_table <- gtable_add_rows(plot_table, theme$plot.margin[1], pos = 0)
@@ -145,6 +145,13 @@ ggplot_gtable <- function(data) {
   plot_table <- gtable_add_rows(plot_table, theme$plot.margin[3])
   plot_table <- gtable_add_cols(plot_table, theme$plot.margin[4], pos = 0)
 
+  # TODO: use z-ordering of gtable 
+  if (inherits(theme$plot.background, "theme")) {
+    plot_table <- gtable_add_grob(plot_table, theme_render(theme, "plot.background", vp = "background"),
+                                  t = 1, l = 1, b = length(plot_table$heights), r = length(plot_table$widths))
+    plot_table$layout <- plot_table$layout[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1)),]
+    plot_table$grobs <- plot_table$grobs[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1))]
+  }
   plot_table
 }
 
@@ -155,7 +162,7 @@ ggplot_gtable <- function(data) {
 #' @param vp viewport to draw plot in
 #' @param ... other arguments not used by this method
 #' @keywords hplot
-#' @S3method print ggplot
+#' @export
 #' @method print ggplot
 print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   set_last_plot(x)
@@ -174,6 +181,11 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   
   invisible(data)
 }
+#' @rdname print.ggplot
+#' @method plot ggplot
+#' @export
+plot.ggplot <- print.ggplot
+
 
 #' Generate a ggplot2 plot grob.
 #' 

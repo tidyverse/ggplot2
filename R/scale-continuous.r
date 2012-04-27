@@ -39,11 +39,12 @@
 #' m + scale_x_continuous(breaks=c(2,5,8), labels=c("horrible", "ok", "awesome"))
 #' m + scale_x_continuous(breaks=c(2,5,8), labels=expression(Alpha, Beta, Omega))
 #' 
-#' # There are also a wide range of transformations you can use:
+#' # There are a few built in transformation that you can use:
 #' m + scale_y_log10()
 #' m + scale_y_sqrt()
 #' m + scale_y_reverse()
-#' # see ?transformer for a full list
+#' # You can also create you own and supply them to the trans argument.
+#' # See ?scale::trans_new
 #' 
 #' # You can control the formatting of the labels with the formatter
 #' # argument.  Some common formats are built into the scales package:
@@ -63,14 +64,14 @@
 #' #   * log scaling
 #' qplot(rating, votes, data=movies, log="xy")
 #' }
-scale_x_continuous <- function(..., expand = c(0.05, 0)) {
+scale_x_continuous <- function(..., expand = waiver()) {
   continuous_scale(c("x", "xmin", "xmax", "xend", "xintercept"), "position_c", identity,
     ..., expand = expand, guide = "none")
 }
 
 #' @rdname scale_continuous
 #' @export
-scale_y_continuous <- function(..., expand = c(0.05, 0)) {
+scale_y_continuous <- function(..., expand = waiver()) {
   continuous_scale(c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final"), "position_c", identity,
     ..., expand = expand, guide = "none")
 }
@@ -80,8 +81,8 @@ scale_y_continuous <- function(..., expand = c(0.05, 0)) {
 # care of it. But they do need to be made in to doubles, so stat methods
 # can tell the difference between continuous and discrete data.
 #' @S3method scale_map position_c
-scale_map.position_c <- function(scale, x) {
-  as.numeric(x)
+scale_map.position_c <- function(scale, x, limits = scale_limits(scale)) {
+  as.numeric(scale$oob(x, limits))
 }
 
 # Transformed scales ---------------------------------------------------------

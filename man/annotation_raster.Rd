@@ -2,7 +2,8 @@
 \alias{annotation_raster}
 \title{Annotation: High-performance rectangular tiling.}
 \usage{
-  annotation_raster(raster, xmin, xmax, ymin, ymax)
+  annotation_raster(raster, xmin, xmax, ymin, ymax,
+    interpolate = FALSE)
 }
 \arguments{
   \item{raster}{raster object to display}
@@ -12,13 +13,16 @@
 
   \item{ymin,ymax}{y location (in data coordinates) giving
   vertical location of raster}
+
+  \item{interpolate}{If \code{TRUE} interpolate linearly,
+  if \code{FALSE} (the default) don't interpolate.}
 }
 \description{
   This is a special version of \code{\link{geom_raster}}
-  optimised for static anotations that are the same in
-  every panel. These anotations will not affect scales
+  optimised for static annotations that are the same in
+  every panel. These annotations will not affect scales
   (i.e. the x and y axes will not grow to cover the range
-  of the raster, and the raster must already have it's own
+  of the raster, and the raster must already have its own
   colours).
 }
 \details{
@@ -32,6 +36,15 @@ qplot(mpg, wt, data = mtcars) +
 # To fill up whole plot
 qplot(mpg, wt, data = mtcars) +
   annotation_raster(rainbow, -Inf, Inf, -Inf, Inf) +
+  geom_point()
+
+rainbow2 <- matrix(hcl(seq(0, 360, length = 10), 80, 70), nrow = 1)
+qplot(mpg, wt, data = mtcars) +
+  annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf) +
+  geom_point()
+rainbow2 <- matrix(hcl(seq(0, 360, length = 10), 80, 70), nrow = 1)
+qplot(mpg, wt, data = mtcars) +
+  annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf, interpolate = TRUE) +
   geom_point()
 }
 

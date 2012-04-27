@@ -80,6 +80,15 @@ test_that("wrap: as.table reverses rows", {
   
 })
 
+test_that("grid: as.table reverses rows", {
+  one <- layout_grid(list(a), "a", as.table = FALSE)
+  expect_that(as.character(one$a), equals(c("2", "1")))
+  
+  two <- layout_grid(list(a), "a", as.table = TRUE)
+  expect_that(as.character(two$a), equals(c("1", "2")))
+  
+})
+
 # Drop behaviour -------------------------------------------------------------
 
 a2 <- data.frame(

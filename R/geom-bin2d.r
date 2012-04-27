@@ -24,7 +24,7 @@ GeomBin2d <- proto(Geom, {
   default_stat <- function(.) StatBin2d
   required_aes <- c("xmin", "xmax", "ymin", "ymax")
   default_aes <- function(.) {
-    aes(colour = NA, fill = "grey60", size = 0.5, linetype = 1, weight = 1, , alpha = 1)
+    aes(colour = NA, fill = "grey60", size = 0.5, linetype = 1, weight = 1, , alpha = NA)
   }
 
 })

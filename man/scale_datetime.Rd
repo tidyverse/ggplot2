@@ -3,11 +3,26 @@
 \alias{scale_y_datetime}
 \title{Position scale, date}
 \usage{
-  scale_x_datetime(..., expand = c(0.05, 0))
+  scale_x_datetime(..., expand = c(0.05, 0),
+    breaks = waiver(), minor_breaks = waiver())
 
-  scale_y_datetime(..., expand = c(0.05, 0))
+  scale_y_datetime(..., expand = c(0.05, 0),
+    breaks = waiver(), minor_breaks = waiver())
 }
 \arguments{
+  \item{breaks}{A vector of breaks, a function that given
+  the scale limits returns a vector of breaks, or a
+  character vector, specifying the width between breaks.
+  For more information about the first two, see
+  \code{\link{continuous_scale}}, for more information
+  about the last, see \code{\link[scales]{date_breaks}}`.}
+
+  \item{minor_breaks}{Either \code{NULL} for no minor
+  breaks, \code{waiver()} for the default breaks (one minor
+  break between each major break), a numeric vector of
+  positions, or a function that given the limits returns a
+  vector of minor breaks.}
+
   \item{...}{common continuous scale parameters:
   \code{name}, \code{breaks}, \code{labels},
   \code{na.value}, \code{limits} and \code{trans}.  See
@@ -56,6 +71,8 @@ last_plot() + scale_x_datetime(breaks = date_breaks("10 days"))
 library(scales) # to access breaks/formatting functions
 last_plot() + scale_x_datetime(breaks = date_breaks("10 days"),
   labels = date_format("\%d/\%m"))
+last_plot() + scale_x_datetime(breaks = date_breaks("1 day"),
+  minor_breaks = date_breaks("2 hour"))
 }
 \seealso{
   Other position scales: \code{\link{scale_x_continuous}},

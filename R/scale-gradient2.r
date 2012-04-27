@@ -51,7 +51,7 @@
 scale_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "rgb", na.value = "grey50") {
   continuous_scale("colour", "gradient2",
     div_gradient_pal(low, mid, high, space), na.value = na.value, ...,
-    rescale = mid_rescaler(mid = midpoint))
+    rescaler = mid_rescaler(mid = midpoint))
 }
 
 #' @rdname scale_gradient2
@@ -59,7 +59,7 @@ scale_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high 
 scale_fill_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "rgb", na.value = "grey50") {
   continuous_scale("fill", "gradient2", 
     div_gradient_pal(low, mid, high, space), na.value = na.value, ...,
-    rescale = mid_rescaler(mid = midpoint))
+    rescaler = mid_rescaler(mid = midpoint))
 }
 
 mid_rescaler <- function(mid) {

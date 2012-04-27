@@ -1,6 +1,6 @@
 #' Fortify method for map objects.
 #' 
-#' This function turns a map into a data frame than can more easily be
+#' This function turns a map into a data frame that can more easily be
 #' plotted with ggplot2.
 #' 
 #' @method fortify map
@@ -61,6 +61,7 @@ fortify.map <- function(model, data, ...) {
 #'   geom = "polygon")
 #' }
 map_data <- function(map, region = ".", exact = FALSE, ...) {
+  try_require("maps")
   fortify(map(map, region, exact = exact, plot = FALSE, fill = TRUE, ...))
 }
 

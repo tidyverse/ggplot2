@@ -70,13 +70,13 @@ theme_set <- .theme$set
 #' 
 #' \tabular{ll}{
 #'   axis.line     \tab  line along axis \cr
-#'   axis.text.x   \tab   x axis label \cr
-#'   axis.text.y    \tab  y axis label \cr
+#'   axis.title.x   \tab   x axis label \cr
+#'   axis.title.y    \tab  y axis label \cr
 #'   axis.ticks     \tab  axis tick marks \cr
 #'   axis.ticks.length \tab  tick mark length \cr 
 #'   axis.ticks.margin   \tab   tick mark margin spacing \cr
-#'   axis.title.x  \tab   horizontal tick labels \cr
-#'   axis.title.y  \tab   vertical tick labels \cr
+#'   axis.text.x  \tab   horizontal tick labels \cr
+#'   axis.text.y  \tab   vertical tick labels \cr
 #'   legend.background   \tab   background of legend \cr
 #'   legend.margin \tab   extra space added around legend (both width or
 #'      height depending on orientation of legend) \cr

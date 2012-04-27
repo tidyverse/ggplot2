@@ -1,7 +1,7 @@
 \name{qplot}
 \alias{qplot}
 \alias{quickplot}
-\title{A convenient wrapper function for creating simple ggplot plot objects.}
+\title{Quick plot}
 \usage{
   qplot(x, y = NULL, ..., data, facets = NULL,
     margins = FALSE, geom = "auto", stat = list(NULL),
@@ -57,8 +57,14 @@
   \item{asp}{the y/x aspect ratio}
 }
 \description{
-  \code{qplot} has been designed to be familiar if you're
-  used to \code{\link{plot}}.
+  \code{qplot} is the basic plotting function in the
+  ggplot2 package, designed to be familiar if you're used
+  to \code{\link{plot}} from the base package. It is a
+  convenient wrapper for creating a number of different
+  types of plots using a consistent calling scheme. See
+  \url{http://had.co.nz/ggplot2/book/qplot.pdf} for the
+  chapter in the \code{ggplot2} book which describes the
+  usage of \code{qplot} in detail.
 }
 \examples{
 \donttest{

@@ -16,6 +16,8 @@ NULL
 #' @param hjust,vjust horizontal and vertical justification of the grob.  Each
 #'   justification value should be a number between 0 and 1.  Defaults to 0.5 
 #'   for both, centering each pixel over its data location.
+#' @param interpolate If \code{TRUE} interpolate linearly, if \code{FALSE} 
+#'   (the default) don't interpolate.
 #' @export
 #' @examples
 #' \donttest{
@@ -28,6 +30,9 @@ NULL
 #'  df
 #' }
 #' qplot(x, y, data = pp(20), fill = z, geom = "raster")
+#' # Interpolation worsens the apperance of this plot, but can help when 
+#' # rendering images.
+#' qplot(x, y, data = pp(20), fill = z, geom = "raster", interpolate = TRUE)
 #'
 #' # For the special cases where it is applicable, geom_raster is much
 #' # faster than geom_tile:
@@ -36,19 +41,19 @@ NULL
 #' benchplot(base + geom_raster())
 #' benchplot(base + geom_tile())
 #'
-#' # padding
+#' # justification
 #' df <- expand.grid(x = 0:5, y = 0:5)
 #' df$z <- runif(nrow(df))
 #' # default is compatible with geom_tile()
 #' ggplot(df, aes(x, y, fill = z)) + geom_raster()
 #' # zero padding
-#' ggplot(df, aes(x, y, fill = z)) + geom_raster(hpad = 0, vpad = 0)
+#' ggplot(df, aes(x, y, fill = z)) + geom_raster(hjust = 0, vjust = 0)
 #' }
-geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", hjust = 0.5, vjust = 0.5, ...) { 
+geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", hjust = 0.5, vjust = 0.5, interpolate = FALSE, ...) { 
   stopifnot(is.numeric(hjust), length(hjust) == 1)
   stopifnot(is.numeric(vjust), length(vjust) == 1)
   
-  GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, hjust = hjust, vjust = vjust, ...)
+  GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, hjust = hjust, vjust = vjust, interpolate = interpolate, ...)
 }
 
 GeomRaster <- proto(Geom, {
@@ -68,21 +73,35 @@ GeomRaster <- proto(Geom, {
     df
   }
   
-  draw <- function(., data, scales, coordinates, hjust = 0.5, vjust = 0.5, ...) {
-
+  # This is a dummy function to make sure that vjust and hjust are recongised
+  # as parameters and are accessible to reparameterise.
+  draw <- function(vjust = 0.5, hjust = 0.5) {}
+  
+  draw_groups <- function(., data, scales, coordinates, interpolate = FALSE, ...) {
     if (!inherits(coordinates, "cartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }
+    data <- remove_missing(data, TRUE, c("x", "y", "fill"), 
+      name = "geom_raster")
     data <- coord_transform(coordinates, data, scales)
-    raster <- acast(data, list("y", "x"), value.var = "fill")
-    raster <- raster[nrow(raster):1, , drop = FALSE]
 
+    # Convert vector of data to raster
+    x_pos <- as.integer((data$x - min(data$x)) / resolution(data$x, FALSE))
+    y_pos <- as.integer((data$y - min(data$y)) / resolution(data$y, FALSE))
+    
+    nrow <- max(y_pos) + 1
+    ncol <- max(x_pos) + 1
+    
+    raster <- matrix(NA_character_, nrow = nrow, ncol = ncol)
+    raster[cbind(nrow - y_pos, x_pos + 1)] <- data$fill
+    
+    # Figure out dimensions of raster on plot
     x_rng <- c(min(data$xmin, na.rm = TRUE), max(data$xmax, na.rm = TRUE))
     y_rng <- c(min(data$ymin, na.rm = TRUE), max(data$ymax, na.rm = TRUE))
-
+    
     rasterGrob(raster, x = mean(x_rng), y = mean(y_rng), 
       width = diff(x_rng), height = diff(y_rng), 
-      default.units = "native", interpolate = FALSE)
+      default.units = "native", interpolate = interpolate)
   }
 
 
@@ -91,7 +110,7 @@ GeomRaster <- proto(Geom, {
   }
 
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(fill = "grey20", alpha = 1)
+  default_aes <- function(.) aes(fill = "grey20", alpha = NA)
   required_aes <- c("x", "y")
   guide_geom <- function(.) "polygon"
 })

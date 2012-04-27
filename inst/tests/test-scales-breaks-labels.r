@@ -89,3 +89,109 @@ test_that("discrete scales with no data have no breaks or labels", {
   expect_equal(scale_labels(sc), character())
   expect_equal(scale_limits(sc), c(0, 1))
 })
+
+test_that("suppressing breaks, minor_breask, and labels", {
+  expect_equal(scale_breaks(scale_x_continuous(breaks = NULL, limits = c(1, 3))), NULL)
+  expect_equal(scale_breaks(scale_x_discrete(breaks = NULL, limits = c(1, 3))), NULL)
+  expect_equal(scale_breaks_minor(scale_x_continuous(minor_breaks = NULL, limits = c(1, 3))), NULL)
+
+  expect_equal(scale_labels(scale_x_continuous(labels = NULL, limits = c(1, 3))), NULL)
+  expect_equal(scale_labels(scale_x_discrete(labels = NULL, limits = c(1, 3))), NULL)
+
+  # date, datetime
+  lims <- as.Date(c("2000/1/1", "2000/2/1"))
+  expect_equal(scale_breaks(scale_x_date(breaks = NULL, limits = lims)), NULL)
+  # NA is deprecated, should throw warning
+  expect_warning(s <- scale_breaks(scale_x_date(breaks = NA, limits = lims)))
+  expect_equal(s, NULL)
+  expect_equal(scale_labels(scale_x_date(labels = NULL, limits = lims)), NULL)
+  expect_warning(s <- scale_labels(scale_x_date(labels = NA, limits = lims)))
+  expect_equal(s, NULL)
+  expect_equal(scale_breaks_minor(scale_x_date(minor_breaks= NULL, limits = lims)), NULL)
+  expect_warning(s <-scale_breaks_minor(scale_x_date(minor_breaks= NA, limits = lims)))
+  expect_equal(s, NULL)
+
+  # date, datetime
+  lims <- as.POSIXct(c("2000/1/1 0:0:0", "2010/1/1 0:0:0"))
+  expect_equal(scale_breaks(scale_x_datetime(breaks = NULL, limits = lims)), NULL)
+  expect_warning(s <- scale_breaks(scale_x_datetime(breaks = NA, limits = lims)))
+  expect_equal(s, NULL)
+  expect_equal(scale_labels(scale_x_datetime(labels = NULL, limits = lims)), NULL)
+  expect_warning(s <- scale_labels(scale_x_datetime(labels = NA, limits = lims)))
+  expect_equal(s, NULL)
+  expect_equal(scale_breaks_minor(scale_x_datetime(minor_breaks= NULL, limits = lims)), NULL)
+  expect_warning(s <- scale_breaks_minor(scale_x_datetime(minor_breaks= NA, limits = lims)))
+  expect_equal(s, NULL)
+
+})
+
+test_that("scale_breaks with explicit NA options (deprecated)", {
+  # NA is deprecated, should throw warning
+  
+  # X
+  sxc <- scale_x_continuous(breaks=NA)
+  scale_train(sxc, 1:3)
+  expect_warning(s <- scale_breaks(sxc))
+  expect_identical(s, NULL)
+  expect_warning(s <- scale_breaks_minor(sxc))
+  expect_identical(s, NULL)
+  
+  # Y
+  syc <- scale_y_continuous(breaks=NA)
+  scale_train(syc, 1:3)
+  expect_warning(s <- scale_breaks(syc))
+  expect_identical(s, NULL)
+  expect_warning(s <- scale_breaks_minor(syc))
+  expect_identical(s, NULL)
+  
+  # Alpha
+  sac <- scale_alpha_continuous(breaks=NA)
+  scale_train(sac,1:3)
+  expect_warning(s <- scale_breaks(sac))
+  expect_identical(s, NULL)
+  
+  # Size
+  ssc <- scale_size_continuous(breaks=NA)
+  scale_train(ssc,1:3)
+  expect_warning(s <- scale_breaks(ssc))
+  expect_identical(s, NULL)
+  
+  # Fill
+  sfc <- scale_fill_continuous(breaks=NA)
+  scale_train(sfc,1:3)
+  expect_warning(s <- scale_breaks(sfc))
+  expect_identical(s, NULL)
+  
+  # Colour
+  scc <- scale_colour_continuous(breaks=NA)
+  scale_train(scc,1:3)
+  expect_warning(s <- scale_breaks(scc))
+  expect_identical(s, NULL)
+    
+})
+
+
+test_that("breaks can be specified by names of labels", {
+  labels <- setNames(LETTERS[1:4], letters[1:4])
+  
+  s <- scale_x_discrete(limits = letters[1:4], labels = labels)
+  expect_equal(as.vector(scale_breaks(s)), letters[1:4])
+  expect_equal(as.vector(scale_labels(s)), LETTERS[1:4])
+  
+  s <- scale_x_discrete(limits = letters[1:4], labels = rev(labels))
+  expect_equal(as.vector(scale_breaks(s)), letters[1:4])
+  expect_equal(as.vector(scale_labels(s)), LETTERS[1:4])
+  
+  s <- scale_x_discrete(limits = letters[1:4], labels = labels[1:2])
+  expect_equal(as.vector(scale_breaks(s)), letters[1:4])
+  expect_equal(as.vector(scale_labels(s)), c("A", "B", "c", "d"))
+
+  s <- scale_x_discrete(limits = letters[1:4], labels = labels[3:4])
+  expect_equal(as.vector(scale_breaks(s)), letters[1:4])
+  expect_equal(as.vector(scale_labels(s)), c("a", "b", "C", "D"))
+
+  s <- scale_x_discrete(limits = letters[1:3], labels = labels)
+  expect_equal(as.vector(scale_breaks(s)), letters[1:3])
+  expect_equal(as.vector(scale_labels(s)), LETTERS[1:3])
+
+})

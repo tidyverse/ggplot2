@@ -1,7 +1,12 @@
-#' A convenient wrapper function for creating simple ggplot plot objects.
-#' 
-#' \code{qplot} has been designed to be familiar if you're used to 
-#' \code{\link{plot}}.
+#' Quick plot
+#'
+#' \code{qplot} is the basic plotting function in the ggplot2 package, 
+#' designed to be familiar if you're used to \code{\link{plot}} 
+#' from the base package. It is a convenient wrapper for creating 
+#' a number of different types of plots using a consistent 
+#' calling scheme. See \url{http://had.co.nz/ggplot2/book/qplot.pdf}
+#' for the chapter in the \code{ggplot2} book which describes the usage
+#' of \code{qplot} in detail.
 #' 
 #' @param x x values
 #' @param y y values
@@ -128,9 +133,11 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE, geom = "
     if(is.character(g)) g <- Geom$find(g)
     if(is.character(s)) s <- Stat$find(s)
     if(is.character(ps)) ps <- Position$find(ps)
-
+    
+    # Have to use non-standard evaluation because we can't evaluate ...
     params <- arguments[setdiff(names(arguments), c(aes_names, argnames))]
-    params <- lapply(params, eval, parent.frame(n=1))
+    # 1: mapply, 2: qplot, 3: caller of qplot
+    params <- lapply(params, eval, parent.frame(3))
     
     p <<- p + layer(geom=g, stat=s, geom_params=params, stat_params=params, position=ps)
   }, geom, stat, position)

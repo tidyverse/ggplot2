@@ -23,7 +23,7 @@
   "Lab" usually best unless gradient goes through white.}
 
   \item{...}{Other arguments passed on to
-  \code{\link{continuous_scale}} to control name, limits,
+  \code{\link{discrete_scale}} to control name, limits,
   breaks, labels and so forth.}
 
   \item{na.value}{Colour to use for missing values}
@@ -53,9 +53,9 @@ max_val <- max(abs(dsub$diff))
 values <- seq(-max_val, max_val, length = 11)
 
 d + scale_colour_gradientn(colours = topo.colors(10),
-  values = values, rescale = function(x, ...) x, oob = identity)
+  values = values, rescaler = function(x, ...) x, oob = identity)
 d + scale_colour_gradientn(colours = terrain.colors(10),
-  values = values, rescale = function(x, ...) x, oob = identity)
+  values = values, rescaler = function(x, ...) x, oob = identity)
 }
 }
 \seealso{

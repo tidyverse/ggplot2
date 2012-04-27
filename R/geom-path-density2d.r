@@ -22,7 +22,7 @@ GeomDensity2d <- proto(GeomPath, {
   objname <- "density2d"
 
   default_stat <- function(.) StatDensity2d
-  default_aes <- function(.) aes(weight=1, colour="#3366FF", size = 0.5, linetype = 1, alpha = 1)
+  default_aes <- function(.) aes(weight=1, colour="#3366FF", size = 0.5, linetype = 1, alpha = NA)
   icon <- function(.) GeomContour$icon()
   
 })

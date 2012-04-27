@@ -6,8 +6,6 @@
 #' @param theta variable to map angle to (\code{x} or \code{y})
 #' @param start offset of starting point from 12 o'clock in radians
 #' @param direction 1, clockwise; -1, anticlockwise
-#' @param expand should axes be expanded to slightly outside the range of the
-#'   data? (default: \code{FALSE})
 #' @export
 #' @examples 
 #' \donttest{
@@ -53,14 +51,13 @@
 #' # Race track plot
 #' doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
 #' }
-coord_polar <- function(theta = "x", start = 0, direction = 1, expand = FALSE) {
+coord_polar <- function(theta = "x", start = 0, direction = 1) {
   theta <- match.arg(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
   
   coord(
     theta = theta, r = r, 
     start = start, direction = sign(direction),
-    expand = expand, 
     subclass = "polar"
   )
 }
@@ -70,13 +67,13 @@ coord_aspect.polar <- function(coord, details) 1
 
 #' @S3method coord_distance polar
 coord_distance.polar <- function(coord, x, y, details) {
-  max_dist <- 2 * pi * abs(diff(details$r.range))
+  max_dist <- 2 * pi
   
   if (coord$theta == "x") {
-    r <- y
+    r <- rescale(y, from = details$r.range)
     theta <- theta_rescale_no_clip(coord, x, details)
   } else {
-    r <- x
+    r <- rescale(x, from = details$r.range)
     theta <- theta_rescale_no_clip(coord, y, details)
   }
   px <- r * cos(theta)
@@ -88,33 +85,38 @@ coord_distance.polar <- function(coord, x, y, details) {
 
 #' @S3method coord_range polar
 coord_range.polar <- function(coord, scales) {
-  return(list(x = scales$theta.range, y = scales$r.range))
+  setNames(list(scales$theta.range, scales$r.range), c(coord$theta, coord$r))
 }
 
 #' @S3method coord_train polar
 coord_train.polar <- function(coord, scales) {
-  if (coord$expand) {
-    x.range <- scale_dimension(scales$x)
-    y.range <- scale_dimension(scales$y)
-  } else {
-    x.range <- scale_dimension(scales$x, c(0, 0))
-    y.range <- scale_dimension(scales$y, c(0, 0))
+
+  ret <- list(x = list(), y = list())
+  for (n in c("x", "y")) {
+
+    scale <- scales[[n]]
+    limits <- coord$limits[[n]]
+    
+    if (is.null(limits)) {
+      expand <- coord_expand_defaults(coord, scale, n)
+      range <- scale_dimension(scale, expand)
+    } else {
+      range <- range(scale_transform(scale, limits))
+    }
+
+    out <- scale_break_info(scale, range)
+    ret[[n]]$range <- out$range
+    ret[[n]]$major <- out$major_source
+    ret[[n]]$minor <- out$minor_source
+    ret[[n]]$labels <- out$labels
   }
 
-  x.major <- scale_break_positions(scales$x)
-  x.minor <- scale_breaks_minor_positions(scales$x)
-  x.labels <- scale_labels(scales$x, x.major)
-
-  y.major <- scale_break_positions(scales$y)
-  y.minor <- scale_breaks_minor_positions(scales$y)
-  y.labels <- scale_labels(scales$y, y.major)
-  
   details <- list(
-    x.range = x.range, y.range = y.range, 
-    x.major = x.major, x.minor = x.minor, x.labels = x.labels,
-    y.major = y.major, y.minor = y.minor, y.labels = y.labels
+    x.range = ret$x$range, y.range = ret$y$range, 
+    x.major = ret$x$major, x.minor = ret$x$minor, x.labels = ret$x$labels,
+    y.major = ret$y$major, y.minor = ret$y$minor, y.labels = ret$y$labels
   )
-  
+
   if (coord$theta == "y") {
     names(details) <- gsub("x\\.", "r.", names(details))
     names(details) <- gsub("y\\.", "theta.", names(details))
@@ -148,16 +150,25 @@ r_rescale <- function(coord, x, details) {
   rescale(x, c(0, 0.4), details$r.range)
 }
 
+#' @S3method coord_expand_defaults polar
+coord_expand_defaults.polar <- function(coord, scale, aesthetic) {
+  if (coord$theta == aesthetic) {
+    expand_default(scale, c(0, 0.5), c(0, 0))
+  } else {
+    expand_default(scale, c(0, 0),   c(0, 0))
+  }
+}
+
 #' @S3method coord_transform polar
 coord_transform.polar <- function(coord, data, details) {
   data <- rename_data(coord, data)
-  data <- within(data, {
-    r <- r_rescale(coord, r, details)
-    theta <- theta_rescale(coord, theta, details)
-
-    x <- r * sin(theta) + 0.5
-    y <- r * cos(theta) + 0.5
-  })
+  
+  data$r  <- r_rescale(coord, data$r, details)
+  data$theta <- theta_rescale(coord, data$theta, details)
+  data$x <- data$r * sin(data$theta) + 0.5
+  data$y <- data$r * cos(data$theta) + 0.5
+  
+  data
 }
 
 #' @S3method coord_render_axis_v polar
@@ -210,9 +221,13 @@ coord_render_bg.polar <- function(coord, details, theme) {
 
 #' @S3method coord_render_fg polar
 coord_render_fg.polar <- function(coord, details, theme) {
+  if (is.null(details$theta.major)) {
+    return(theme_render(theme, "panel.border"))
+  }
+  
   theta <- theta_rescale(coord, details$theta.major, details)
   labels <- details$theta.labels
-  
+
   # Combine the two ends of the scale if they are close
   theta <- theta[!is.na(theta)]
   ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)

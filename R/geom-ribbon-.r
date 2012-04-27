@@ -48,7 +48,7 @@ GeomRibbon <- proto(Geom, {
   objname <- "ribbon"
 
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = 1)
+  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = NA)
   required_aes <- c("x", "ymin", "ymax")
   guide_geom <- function(.) "polygon"
   
@@ -121,7 +121,7 @@ na.rm = FALSE, ...) {
 GeomArea <- proto(GeomRibbon,{
   objname <- "area"
 
-  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = 1)
+  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = NA)
   default_pos <- function(.) PositionStack
   required_aes <- c("x", "y")
 

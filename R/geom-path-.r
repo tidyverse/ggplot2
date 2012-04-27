@@ -121,7 +121,9 @@ GeomPath <- proto(Geom, {
       "linetype")])
     kept <- ave(missing, data$group, FUN=keep)
     data <- data[kept, ]
-    
+    # must be sorted on group
+    data <- arrange(data, group)
+
     if (!all(kept) && !na.rm) {
       warning("Removed ", sum(!kept), " rows containing missing values", 
         " (geom_path).", call. = FALSE)
@@ -195,7 +197,7 @@ GeomPath <- proto(Geom, {
 
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y")
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = 1)
+  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
   icon <- function(.) linesGrob(c(0.2, 0.4, 0.8, 0.6, 0.5), c(0.2, 0.7, 0.4, 0.1, 0.5))
   guide_geom <- function(.) "path"
   

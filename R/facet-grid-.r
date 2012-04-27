@@ -5,7 +5,13 @@
 #'   formula is used to indicate there should be no faceting on this dimension
 #'   (either row or column). The formula can also be provided as a string
 #'   instead of a classical formula object
-#' @param margins logical value, should marginal rows and columns be displayed
+#' @param margins either a logical value or a character
+#'   vector. Margins are additional facets which contain all the data
+#'   for each of the possible values of the faceting variables. If
+#'   \code{FALSE}, no additional facets are included (the
+#'   default). If \code{TRUE}, margins are included for all faceting
+#'   variables. If specified as a character vector, it is the names of
+#'   variables for which margins are to be created.
 #' @param scales Are scales shared across all facets (the default,
 #'   \code{"fixed"}), or do they vary across rows (\code{"free_x"}),
 #'   columns (\code{"free_y"}), or both rows and columns (\code{"free"})
@@ -20,7 +26,7 @@
 #'   to other options.
 #' @param as.table If \code{TRUE}, the default, the facets are laid out like
 #'   a table with highest values at the bottom-right. If \code{FALSE}, the 
-#'   facet are laid out like a plot with the highest value at the top-right.
+#'   facets are laid out like a plot with the highest value at the top-right.
 #' @param shrink If \code{TRUE}, will shrink scales to fit output of
 #'   statistics, not raw data. If \code{FALSE}, will be range of raw data
 #'   before statistical summary.
@@ -130,6 +136,19 @@
 #' p <- qplot(wt, mpg, data = mtcars)
 #' p + facet_grid(. ~ vs, labeller = label_bquote(alpha ^ .(x)))
 #' p + facet_grid(. ~ vs, labeller = label_bquote(.(x) ^ .(x))) 
+#'
+#' # Margins can be specified by logically (all yes or all no) or by specific
+#' # variables as (character) variable names
+#' mg <- ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point()
+#' mg + facet_grid(vs + am ~ gear)
+#' mg + facet_grid(vs + am ~ gear, margins = TRUE)
+#' mg + facet_grid(vs + am ~ gear, margins = "am")
+#' # when margins are made over "vs", since the facets for "am" vary
+#' # within the values of "vs", the marginal facet for "vs" is also
+#' # a margin over "am".
+#' mg + facet_grid(vs + am ~ gear, margins = "vs")
+#' mg + facet_grid(vs + am ~ gear, margins = "gear")
+#' mg + facet_grid(vs + am ~ gear, margins = c("gear", "am"))
 #' }
 facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
@@ -150,9 +169,12 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
     facets <- as.formula(facets)
   }
   if (is.formula(facets)) {
-    rows <- as.quoted(facets[[2]])
+    lhs <- function(x) if(length(x) == 2) NULL else x[-3]
+    rhs <- function(x) if(length(x) == 2) x else x[-2]
+    
+    rows <- as.quoted(lhs(facets))
     rows <- rows[!sapply(rows, identical, as.name("."))]
-    cols <- as.quoted(facets[[3]])
+    cols <- as.quoted(rhs(facets))
     cols <- cols[!sapply(cols, identical, as.name("."))]
   }
   if (is.list(facets)) {
@@ -171,11 +193,12 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
   )
 }
 
+
 #' @S3method facet_train_layout grid
 facet_train_layout.grid <- function(facet, data) { 
   layout <- layout_grid(data, facet$rows, facet$cols, facet$margins,
-    facet$drop)
-    
+    drop = facet$drop, as.table = facet$as.table)
+  
   # Relax constraints, if necessary
   layout$SCALE_X <- if (facet$free$x) layout$COL else 1L
   layout$SCALE_Y <- if (facet$free$y) layout$ROW else 1L
@@ -342,18 +365,24 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   })
   
   panel_matrix <- matrix(panel_grobs, nrow = nrow, ncol = ncol, byrow = TRUE)
-  
-  size <- function(x) unit(diff(scale_dimension(x)), "null")
-  
+
+  # @kohske
+  # Now size of each panel is calculated using PANEL$ranges, which is given by
+  # coord_train called by train_range.
+  # So here, "scale" need not to be referred.
+  #
+  # In general, panel has all information for building facet.
   if (facet$space_free$x) {
-    x_scales <- panel$layout$SCALE_X[panel$layout$ROW == 1]
-    panel_widths <- do.call("unit.c", llply(panel$x_scales, size))[x_scales]
+    ps <- panel$layout$PANEL[panel$layout$ROW == 1]
+    widths <- vapply(ps, function(i) diff(panel$range[[i]]$x.range), numeric(1))
+    panel_widths <- unit(widths, "null")
   } else {
     panel_widths <- rep(unit(1, "null"), ncol)
   }
   if (facet$space_free$y) {
-    y_scales <- panel$layout$SCALE_Y[panel$layout$COL == 1]
-    panel_heights <- do.call("unit.c", llply(panel$y_scales, size))[y_scales]
+    ps <- panel$layout$PANEL[panel$layout$COL == 1]
+    heights <- vapply(ps, function(i) diff(panel$range[[i]]$y.range), numeric(1))
+    panel_heights <- unit(heights, "null")
   } else {
     panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow)
   }

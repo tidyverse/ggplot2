@@ -47,7 +47,7 @@ train_layout <- function(panel, facet, data, plot_data) {
 # @param plot_data default plot data frame
 map_layout <- function(panel, facet, data, plot_data) {
   lapply(data, function(data) {
-    if (empty(data)) data <- plot_data
+    if (is.waive(data)) data <- plot_data
     facet_map_layout(facet, data, panel$layout)
   })    
 }
@@ -57,11 +57,11 @@ map_layout <- function(panel, facet, data, plot_data) {
 # If panel-specific scales are not already present, will clone from
 # the scales provided in the parameter
 #
-# @param the panel object to train
+# @param panel the panel object to train
 # @param data a list of data frames (one for each layer)  
 # @param x_scale x scale for the plot
 # @param y_scale y scale for the plot
-train_position <- function(panel, data, x_scale, y_scale) { 
+train_position <- function(panel, data, x_scale, y_scale) {
   # Initialise scales if needed, and possible.
   layout <- panel$layout
   if (is.null(panel$x_scales) && !is.null(x_scale)) {
@@ -138,6 +138,7 @@ map_position <- function(panel, data, x_scale, y_scale) {
 # speed
 scale_apply <- function(data, vars, f, scale_id, scales) {
   if (length(vars) == 0) return()
+  if (nrow(data) == 0) return()
   
   n <- length(scales)
   if (any(is.na(scale_id))) stop()

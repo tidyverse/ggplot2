@@ -1,8 +1,12 @@
 \name{print.ggplot}
+\alias{plot.ggplot}
 \alias{print.ggplot}
 \title{Draw plot on current graphics device.}
 \usage{
   \method{print}{ggplot} (x, newpage = is.null(vp),
+    vp = NULL, ...)
+
+  \method{plot}{ggplot} (x, newpage = is.null(vp),
     vp = NULL, ...)
 }
 \arguments{

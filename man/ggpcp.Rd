@@ -16,7 +16,7 @@
   One way to think about a parallel coordinates plot, is as
   plotting the data after it has been transformed to gain a
   new variable.  This function does this using
-  \code{\link[reshape]{melt}}.
+  \code{\link[reshape2]{melt}}.
 }
 \details{
   This gives us enormous flexibility as we have separated

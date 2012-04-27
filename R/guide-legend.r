@@ -117,25 +117,25 @@
 #' }
 guide_legend <- function(
                          
-  ##　title
+  #　title
   title = waiver(),
   title.position = NULL,
   title.theme = NULL,
   title.hjust = NULL,
   title.vjust = NULL,
 
-  ## label
+  # label
   label = TRUE,
   label.position = NULL,
   label.theme = NULL,
   label.hjust = NULL,
   label.vjust = NULL,
                          
-  ## key
+  # key
   keywidth = NULL,
   keyheight = NULL,
 
-  ## general
+  # general
   direction = NULL,
   default.unit = "line",
   override.aes = list(),
@@ -150,25 +150,25 @@ guide_legend <- function(
   if (!is.null(keyheight) && !is.unit(keyheight)) keyheight <- unit(keyheight, default.unit)
   
   structure(list(
-    ##　title
+    #　title
     title = title,
     title.position = title.position,
     title.theme = title.theme,
     title.hjust = title.hjust,
     title.vjust = title.vjust,
                  
-    ## label
+    # label
     label = label,
     label.position = label.position,
     label.theme = label.theme,
     label.hjust = label.hjust,
     label.vjust = label.vjust,
 
-    ## size of key
+    # size of key
     keywidth = keywidth,
     keyheight = keyheight,
 
-    ## general
+    # general
     direction = direction,
     default.unit = default.unit,
     override.aes = override.aes,
@@ -177,7 +177,7 @@ guide_legend <- function(
     byrow = byrow,
     reverse = reverse,
                  
-    ## parameter
+    # parameter
     available_aes = c("any"),
 
     ..., name="legend"),
@@ -191,13 +191,13 @@ guide_train.legend <- function(guide, scale) {
     labels = I(scale_labels(scale)),
     stringsAsFactors = FALSE)
 
-  ## this is a quick fix for #118
-  ## some scales have NA as na.value (e.g., size)
-  ## some scales have non NA as na.value (e.g., "grey50" for colour)
-  ## drop rows if data (instead of the mapped value) is NA
-  ##
-  ## Also, drop out-of-range values for continuous scale
-  ## (should use scale$oob?)
+  # this is a quick fix for #118
+  # some scales have NA as na.value (e.g., size)
+  # some scales have non NA as na.value (e.g., "grey50" for colour)
+  # drop rows if data (instead of the mapped value) is NA
+  #
+  # Also, drop out-of-range values for continuous scale
+  # (should use scale$oob?)
   if (inherits(scale, "continuous")) {
     limits <- scale_limits(scale)
     noob <- !is.na(breaks) & limits[1] <= breaks & breaks <= limits[2]
@@ -226,22 +226,22 @@ guide_merge.legend <- function(guide, new_guide) {
 
 guide_geom.legend <- function(guide, layers, default_mapping) {
 
-  ## TODO: how to deal with same geoms of multiple layers.
-  ##
-  ## currently all geoms are overlayed irrespective to that they are duplicated or not.
-  ## but probably it is better to sensitive to that and generate only one geom like this:
-  ##
-  ## geoms <- unique(sapply(layers, function(layer) if (is.na(layer$legend) || layer$legend) layer$geom$guide_geom() else NULL))
-  ## 
-  ## but in this case, some conflicts occurs, e.g.,
-  ##
-  ## d <- data.frame(x=1:5, y=1:5, v=factor(1:5))
-  ## ggplot(d, aes(x, y, colour=v, group=1)) + geom_point() + geom_line(colour="red", legend=T) + geom_rug(colour="blue", legend=T)
-  ##
-  ## geom_line generate path geom with red and geom_rug generate it with blue.
-  ## how to deal with them ?
+  # TODO: how to deal with same geoms of multiple layers.
+  #
+  # currently all geoms are overlayed irrespective to that they are duplicated or not.
+  # but probably it is better to sensitive to that and generate only one geom like this:
+  #
+  # geoms <- unique(sapply(layers, function(layer) if (is.na(layer$legend) || layer$legend) layer$geom$guide_geom() else NULL))
+  # 
+  # but in this case, some conflicts occurs, e.g.,
+  #
+  # d <- data.frame(x=1:5, y=1:5, v=factor(1:5))
+  # ggplot(d, aes(x, y, colour=v, group=1)) + geom_point() + geom_line(colour="red", legend=T) + geom_rug(colour="blue", legend=T)
+  #
+  # geom_line generate path geom with red and geom_rug generate it with blue.
+  # how to deal with them ?
   
-  ## arrange common data for vertical and horizontal guide
+  # arrange common data for vertical and horizontal guide
   guide$geoms <- llply(layers, function(layer) {
     all <- names(c(layer$mapping, default_mapping, layer$stat$default_aes()))
     geom <- c(layer$geom$required_aes, names(layer$geom$default_aes()))
@@ -249,17 +249,17 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     matched <- setdiff(matched, names(layer$geom_params))
     data <- 
       if (length(matched) > 0) {
-        ## This layer contributes to the legend
+        # This layer contributes to the legend
         if (is.na(layer$show_guide) || layer$show_guide) {
-          ## Default is to include it 
+          # Default is to include it 
           layer$use_defaults(guide$key[matched])
         } else {
           NULL
         }
       } else {
-        ## This layer does not contribute to the legend
+        # This layer does not contribute to the legend
         if (is.na(layer$show_guide) || !layer$show_guide) {
-          ## Default is to exclude it
+          # Default is to exclude it
           NULL
         } else {
           layer$use_defaults(NULL)[rep(1, nrow(guide$key)), ]
@@ -267,7 +267,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       }
     if (is.null(data)) return(NULL)
     
-    ## override.aes in guide_legend manually changes the geom
+    # override.aes in guide_legend manually changes the geom
     for (aes in intersect(names(guide$override.aes), names(data))) data[[aes]] <- guide$override.aes[[aes]]
 
     geom <- Geom$find(layer$geom$guide_geom())
@@ -276,27 +276,27 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
   }
   )
 
-  ## remove null geom
+  # remove null geom
   guide$geoms <- compact(guide$geoms)
 
-  ## Finally, remove this guide if no layer is drawn
+  # Finally, remove this guide if no layer is drawn
   if (length(guide$geoms) == 0) guide <- NULL
   guide
 }
 
 guide_gengrob.legend <- function(guide, theme) {
 
-  ## default setting
+  # default setting
   label.position <- guide$label.position %||% "right"
   if (!label.position %in% c("top", "bottom", "left", "right")) stop("label position \"", label.position, "\" is invalid")
   
   nbreak <- nrow(guide$key)
 
-  ## gap between keys etc
+  # gap between keys etc
   hgap <- c(convertWidth(unit(0.3, "lines"), "mm"))
   vgap <- hgap
 
-  ## title
+  # title
   title.theme <- guide$title.theme %||% theme$legend.title
   title.hjust <- title.x <- guide$title.hjust %||% theme$legend.title.align %||% 0
   title.vjust <- title.y <- guide$title.vjust %||% 0.5
@@ -314,15 +314,15 @@ guide_gengrob.legend <- function(guide, theme) {
   title_height <- convertHeight(grobHeight(grob.title), "mm")
   title_height.c <- c(title_height)
 
-  ## Label
-  ## Rules of lable adjustment
-  ##
-  ## label.theme in param of guide_legend() > theme$legend.text.align > default
-  ## hjust/vjust in theme$legend.text and label.theme are ignored.
-  ## 
-  ## Default:
-  ##   If label includes expression, the label is right-alignd (hjust = 0). Ohterwise, left-aligned (x = 1, hjust = 1).
-  ##   Vertical adjustment is always mid-alined (vjust = 0.5).
+  # Label
+  # Rules of lable adjustment
+  #
+  # label.theme in param of guide_legend() > theme$legend.text.align > default
+  # hjust/vjust in theme$legend.text and label.theme are ignored.
+  # 
+  # Default:
+  #   If label includes expression, the label is right-alignd (hjust = 0). Ohterwise, left-aligned (x = 1, hjust = 1).
+  #   Vertical adjustment is always mid-alined (vjust = 0.5).
   label.theme <- guide$label.theme %||% theme$legend.text
   grob.labels <- {
     if (!guide$label)
@@ -340,7 +340,7 @@ guide_gengrob.legend <- function(guide, theme) {
   label_widths.c <- unlist(label_widths)
   label_heights.c <- unlist(label_heights)
 
-  ## key size
+  # key size
 
   key_width <- convertWidth(guide$keywidth %||% theme$legend.key.width %||% theme$legend.key.size, "mm")
   key_height <- convertHeight(guide$keyheight %||% theme$legend.key.height %||% theme$legend.key.size, "mm")
@@ -376,7 +376,7 @@ guide_gengrob.legend <- function(guide, theme) {
   else vps <- data.frame(arrayInd(seq(nbreak), dim(key_sizes)))
   names(vps) <- c("R", "C")
 
-  ## layout of key-label depends on the direction of the guide
+  # layout of key-label depends on the direction of the guide
   if (guide$byrow == TRUE) {
     switch(label.position,
       "top" = {
@@ -423,7 +423,7 @@ guide_gengrob.legend <- function(guide, theme) {
       })
   }
 
-  ## layout the title over key-label
+  # layout the title over key-label
   switch(guide$title.position,
     "top" = {
       widths <- c(kl_widths, max(0, title_width.c-sum(kl_widths)))
@@ -450,33 +450,39 @@ guide_gengrob.legend <- function(guide, theme) {
       vps.title.row = 1:length(heights); vps.title.col = length(widths)
     })
 
-  ## grob for key
+  # grob for key
   grob.keys <- list()
   
   for (i in 1:nbreak) {
 
-    ## layout position
+    # layout position
     pos.row <- vps$key.row[i]
     pos.col <- vps$key.col[i]
 
-    ## bg. of key
+    # bg. of key
     grob.keys[[length(grob.keys)+1]] <- theme_render(theme, "legend.key")
 
-    ## overlay geoms
+    # overlay geoms
     for(geom in guide$geoms)
       grob.keys[[length(grob.keys)+1]] <- geom$geom$draw_legend(geom$data[i, ], geom$params)
   }
 
-  ## background
+  # background
   grob.background <- theme_render(theme, "legend.background")
 
   ngeom <- length(guide$geoms) + 1
   kcols <- rep(vps$key.col, each =  ngeom)
   krows <- rep(vps$key.row, each =  ngeom)
-  lay <- data.frame(l = c(1,               min(vps.title.col), kcols, vps$label.col),
-                    t = c(1,               min(vps.title.row), krows, vps$label.row),
-                    r = c(length(widths),  max(vps.title.col), kcols, vps$label.col),
-                    b = c(length(heights), max(vps.title.row), krows, vps$label.row),
+
+  # padding
+  padding <- unit(1.5, "mm")
+  widths <- c(padding, widths, padding)
+  heights <- c(padding, heights, padding)
+
+  lay <- data.frame(l = 1 + c(0,                   min(vps.title.col), kcols, vps$label.col),
+                    t = 1 + c(0,                   min(vps.title.row), krows, vps$label.row),
+                    r = 1 + c(length(widths) - 1,  max(vps.title.col), kcols, vps$label.col),
+                    b = 1 + c(length(heights) - 1, max(vps.title.row), krows, vps$label.row),
                     name = c("background", "title",
                       paste("key", krows, kcols, c("bg", seq(ngeom-1)), sep = "-"),
                       paste("label", vps$label.row, vps$label.col, sep = "-")),

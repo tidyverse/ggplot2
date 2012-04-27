@@ -67,7 +67,7 @@ GeomPolygon <- proto(Geom, {
   icon <- function(.) polygonGrob(c(0.1, 0.4, 0.7, 0.9, 0.6, 0.3), c(0.5, 0.8, 0.9, 0.4, 0.2, 0.3), gp=gpar(fill="grey20", col=NA))
   
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour="NA", fill="grey20", size=0.5, linetype=1, alpha = 1)
+  default_aes <- function(.) aes(colour="NA", fill="grey20", size=0.5, linetype=1, alpha = NA)
   required_aes <- c("x", "y")
   guide_geom <- function(.) "polygon"
 

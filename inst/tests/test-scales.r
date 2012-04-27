@@ -95,37 +95,34 @@ test_that("position scales generate after stats", {
   
 })
 
-test_that("scale_breaks with explicit NA options", {
-  # X
-  sxc <- scale_x_continuous(breaks=NA)
-  scale_train(sxc, 1:3)
-  expect_identical(scale_breaks(sxc), NA)
-  expect_identical(scale_breaks_minor(sxc), NULL)
+test_that("oob affects position values", {
+  dat <- data.frame(x=c("a", "b", "c"), y=c(1, 5, 10))
+  base <- ggplot(dat, aes(x=x, y=y)) + 
+    geom_bar() + 
+    annotate("point", x = "a", y = c(-Inf, Inf))
+
+  y_scale <- function(limits, oob = censor) {
+    scale_y_continuous(limits = limits, oob = oob, expand = c(0, 0))
+  }
+
+  low_censor <- cdata(base + y_scale(c(0, 5), censor))
+  mid_censor <- cdata(base + y_scale(c(3, 7), censor))
+
+  low_squish <- cdata(base + y_scale(c(0, 5), squish))
+  mid_squish <- cdata(base + y_scale(c(3, 7), squish))
   
-  # Y
-  syc <- scale_y_continuous(breaks=NA)
-  scale_train(syc, 1:3)
-  expect_identical(scale_breaks(syc), NA)
-  expect_identical(scale_breaks_minor(syc), NULL)
+  # Points are always at the top and bottom
+  expect_equal(low_censor[[2]]$y, c(0, 1))
+  expect_equal(mid_censor[[2]]$y, c(0, 1))
+  expect_equal(low_squish[[2]]$y, c(0, 1))
+  expect_equal(mid_squish[[2]]$y, c(0, 1))
   
-  # Alpha
-  sac <- scale_alpha_continuous(breaks=NA)
-  scale_train(sac,1:3)
-  expect_identical(scale_breaks(sac), NA)
+  # Bars depend on limits and oob
+  expect_equal(low_censor[[1]]$y, c(0.2, 1))
+  expect_equal(mid_censor[[1]]$y, c(0.5))
+  expect_equal(low_squish[[1]]$y, c(0.2, 1, 1))
+  expect_equal(mid_squish[[1]]$y, c(0, 0.5, 1))
   
-  # Size
-  ssc <- scale_size_continuous(breaks=NA)
-  scale_train(ssc,1:3)
-  expect_identical(scale_breaks(ssc), NA)
   
-  # Fill
-  sfc <- scale_fill_continuous(breaks=NA)
-  scale_train(sfc,1:3)
-  expect_identical(scale_breaks(sfc), NA)
-  
-  # Colour
-  scc <- scale_colour_continuous(breaks=NA)
-  scale_train(scc,1:3)
-  expect_identical(scale_breaks(scc), NA)
-    
 })
+

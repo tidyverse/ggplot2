@@ -26,9 +26,6 @@
   need to refit the model with \code{na.action =
   na.exclude}.
 }
-\details{
-  The following statistics will be added to the data frame:
-}
 \examples{
 mod <- lm(mpg ~ wt, data = mtcars)
 head(fortify(mod))

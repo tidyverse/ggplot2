@@ -16,6 +16,7 @@
 #'   \item{scaled}{density estimate, scaled depending on scalearea and scalecount}
 #'   \item{count}{ydensity * number of points}
 #'   \item{counttotal}{number of points} 
+#' @export
 #' @examples
 #' # See geom_violin for examples
 #' # Also see stat_density for similar examples with data along x axis

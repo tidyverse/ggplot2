@@ -2,7 +2,7 @@
 #' 
 #' One way to think about a parallel coordinates plot, is as plotting 
 #' the data after it has been transformed to gain a new variable.  This
-#' function does this using \code{\link[reshape]{melt}}.
+#' function does this using \code{\link[reshape2]{melt}}.
 #' 
 #' This gives us enormous flexibility as we have separated out the 
 #' type of drawing (lines by tradition) and can now use any of the existing
@@ -36,11 +36,12 @@ ggpcp <- function(data, vars=names(data), ...) {
 #' Create a fluctuation plot.
 #' 
 #' A fluctutation diagram is a graphical representation of a contingency
-#' table.  This fuction currently only supports 2D contingency tabless
-#' but extension to more should be relatively straightforward.
+#' table.  This function only supports 2D contingency tables
+#' at present but extension to higher dimensions should be 
+#' relatively straightforward.
 #' 
 #' With the default size fluctuation diagram, area is proportional to the 
-#' count (length of sides proportional to sqrt(count))
+#' count (length of sides proportional to sqrt(count)).
 #' 
 #' @param table a table of values, or a data frame with three columns, 
 #'   the last column being frequency
@@ -101,7 +102,8 @@ ggfluctuation <- function(table, type="size", floor=0, ceiling=max(table$freq, n
 #' Create a plot to illustrate patterns of missing values.
 #' 
 #' The missing values plot is a useful tool to get a rapid
-#' overview of the number of missings in a dataset.  It's strength
+#' overview of the number and pattern of missing values in a 
+#' dataset. Its strength
 #' is much more apparent when used with interactive graphics, as you can
 #' see in Mondrian (\url{http://rosuda.org/mondrian}) where this plot was
 #' copied from.
@@ -146,13 +148,11 @@ ggmissing <- function(data, avoid="stack", order=TRUE, missing.only = TRUE) {
 #' A plot which aims to reveal gross structural anomalies in the data.
 #' 
 #' @param data data set to plot
-#' @param scale type of scaling to use.  See \code{\link[reshape]{rescaler}}
-#'   for options
 #' @export
 #' @examples
 #' ggstructure(mtcars)
-ggstructure <- function(data, scale = "rank") {
-  ggpcp(data, scale=scale) + 
+ggstructure <- function(data) {
+  ggpcp(data) + 
     aes_string(y="ROWID", fill="value", x="variable") +
     geom_tile() +
     scale_y_continuous("row number", expand = c(0, 1)) +
@@ -162,11 +162,9 @@ ggstructure <- function(data, scale = "rank") {
 #' A plot to investigate the order in which observations were recorded.
 #' 
 #' @param data data set to plot
-#' @param scale type of scaling to use.  See \code{\link[reshape]{rescaler}}
-#'   for options
 #' @export
-ggorder <- function(data, scale="rank") {
-  ggpcp(data, scale="rank") +
+ggorder <- function(data) {
+  ggpcp(data) +
     aes_string(x="ROWID", group="variable", y="value") +
     facet_grid(. ~ variable) +
     geom_line() +
