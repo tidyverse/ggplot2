@@ -58,7 +58,7 @@ as.character.uneval <- function(x, ...) {
 # Rename American or old-style aesthetics name
 rename_aes <- function(x) {
   # Convert prefixes to full names
-  full <- charmatch(names(x), .all_aesthetics)
+  full <- match(names(x), .all_aesthetics)
   names(x)[!is.na(full)] <- .all_aesthetics[full[!is.na(full)]]
   
   rename(x, .base_to_ggplot)
