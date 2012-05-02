@@ -149,31 +149,46 @@ coord_render_bg.map <- function(coord, details, theme) {
   xlines <- coord_transform(coord, xgrid, details)
   ylines <- coord_transform(coord, ygrid, details)
 
-  ggname("grill", grobTree(
-    theme_render(theme, "panel.background"),
-    theme_render(
+  if (nrow(xlines) > 0) {
+    grob.xlines <- theme_render(
       theme, "panel.grid.major", name = "x", 
       xlines$x, xlines$y, default.units = "native"
-    ),
-    theme_render(
+    )
+  } else {
+    grob.xlines <- zeroGrob()
+  }
+
+  if (nrow(ylines) > 0) {
+    grob.ylines <- theme_render(
       theme, "panel.grid.major", name = "y", 
       ylines$x, ylines$y, default.units = "native"
     )
+  } else {
+    grob.ylines <- zeroGrob()
+  }
+
+  ggname("grill", grobTree(
+    theme_render(theme, "panel.background"),
+    grob.xlines, grob.ylines
   ))
 }  
 
 #' @S3method coord_render_axis_h map
 coord_render_axis_h.map <- function(coord, details, theme) {
+  if (is.null(details$x.major)) return(zeroGrob())
+
   x_intercept <- with(details, data.frame(
     x = x.major,
     y = y.range[1]
   ))
   pos <- coord_transform(coord, x_intercept, details)
-  
+
   guide_axis(pos$x, details$x.labels, "bottom", theme)
 }
 #' @S3method coord_render_axis_v map
 coord_render_axis_v.map <- function(coord, details, theme) {
+  if (is.null(details$y.major)) return(zeroGrob())
+  
   x_intercept <- with(details, data.frame(
     x = x.range[1],
     y = y.major
