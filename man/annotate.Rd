@@ -3,7 +3,8 @@
 \title{Annotate a plot}
 \usage{
   annotate(geom, x = NULL, y = NULL, xmin = NULL,
-    xmax = NULL, ymin = NULL, ymax = NULL, ...)
+    xmax = NULL, xintercept = NULL, ymin = NULL,
+    ymax = NULL, yintercept = NULL, ...)
 }
 \arguments{
   \item{geom}{name of geom to use for annotation}

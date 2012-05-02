@@ -174,7 +174,6 @@ Collate:
     'stat-sum.r'
     'stat-summary.r'
     'stat-unique.r'
-    'stat-vline.r'
     'stat-ydensity.r'
     'summary.r'
     'templates.r'
