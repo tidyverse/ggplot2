@@ -1,14 +1,26 @@
 \name{scale_colour_brewer}
 \alias{scale_color_brewer}
+\alias{scale_color_brewerc}
 \alias{scale_colour_brewer}
+\alias{scale_colour_brewerc}
 \alias{scale_fill_brewer}
+\alias{scale_fill_brewerc}
 \title{Sequential, diverging and qualitative colour scales from colorbrewer.org}
 \usage{
   scale_colour_brewer(..., type = "seq", palette = 1)
 
   scale_fill_brewer(..., type = "seq", palette = 1)
 
+  scale_colour_brewerc(..., type = "seq", palette = 1,
+    values = NULL, space = "Lab", na.value = "grey50")
+
+  scale_fill_brewerc(..., type = "seq", palette = 1,
+    values = NULL, space = "Lab", na.value = "grey50")
+
   scale_color_brewer(..., type = "seq", palette = 1)
+
+  scale_color_brewerc(..., type = "seq", palette = 1,
+    values = NULL, space = "Lab", na.value = "grey50")
 }
 \arguments{
   \item{type}{One of seq (sequential), div (diverging) or
@@ -21,8 +33,23 @@
   \item{...}{Other arguments passed on to
   \code{\link{discrete_scale}} to control name, limits,
   breaks, labels and so forth.}
+
+  \item{na.value}{Colour to use for missing values}
 }
 \description{
+  Create colour scales based on ColorBrewer colours.
+}
+\details{
+  ColorBrewer provides sequential, diverging and
+  qualitative colour schemes which are particularly suited
+  and tested to display discrete values (levels of a
+  factor) on a map. ggplot2 can use those colours in
+  discrete scales. It also allows to smoothly interpolate
+  the colours to a continuous scale, although the original
+  colour schemes (particularly the qualitative ones) were
+  not intended for this. The perceptual result is left to
+  the appreciation of the user.
+
   See \url{http://colorbrewer2.org} for more information.
 }
 \examples{

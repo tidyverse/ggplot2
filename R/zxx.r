@@ -23,6 +23,10 @@ scale_fill_continuous <- scale_fill_gradient
 scale_color_brewer <- scale_colour_brewer
 
 #' @export
+#' @rdname scale_brewer
+scale_color_brewerc <- scale_colour_brewerc
+
+#' @export
 #' @rdname scale_gradient
 scale_color_continuous <- scale_colour_gradient
 
