@@ -25,6 +25,10 @@ MINOR FEATURES
   plotting rectangle that have diminishing spacing for log-10 axes. (Thanks
   to Winston Chang)
 
+* Coordinate expansion is now handled by an interaction of the scale and
+  coord, rather than by the scale only. Also, the `wise` argument is no
+  longer needed. (Thanks to Winston Chang and Kohske Takahashi)
+
 BUG FIXES
 
 * `facet_grid` no longer drops duplicate cases (Fixes #443)
@@ -48,9 +52,15 @@ BUG FIXES
   doesn't seem to be needed and was causing problems when qplot was used in
   special environments (e.g. in knitr) (Fixes #377)
 
+* `coord_train.polar` and `coord_train.trans` remove NAs from breaks.
+  (Thanks to Winston Chang. Fixes #422)
+
+* Theta breaks with `coord_polar` have equal angular spacing. (Thanks to
+  Winston Chang and Kohske Takahashi. Fixes #288)
+
 * Empty data frames are now handled correctly: layers with empty data are
   dropped silently, instead of inheriting data from the plot. (Thanks to
-  Winston Chang and Kohske Takahashi. Fixes #31, #332, #506 and #507)
+  Winston Chang. Fixes #31, #332, #506 and #507)
 
 * The alpha value of set colours is now preserved by default. To return to the
   old behaviour, set `alpha = 1`. (Fixes #475)
