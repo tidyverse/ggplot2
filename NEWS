@@ -50,7 +50,7 @@ BUG FIXES
 
 * Empty data frames are now handled correctly: layers with empty data are
   dropped silently, instead of inheriting data from the plot. (Thanks to
-  Winston Chang. Fixes #31, #332, #506 and #507)
+  Winston Chang and Kohske Takahashi. Fixes #31, #332, #506 and #507)
 
 * The alpha value of set colours is now preserved by default. To return to the
   old behaviour, set `alpha = 1`. (Fixes #475)
@@ -59,6 +59,17 @@ BUG FIXES
   #512)
   
 * `facet_wrap` gets the `as.table` argument back. (Fixes #497)
+
+* `resolution` now returns 1 when range is zero. (Fixes #526)
+
+* Titles are displayed above legend when legend is on top. (Thanks to
+  Kohske Takahashi. Fixes #432)
+
+* Specifying breaks outside coord limits works. (Thanks to Kohske Takahashi.
+  Fixes #430)
+
+* `renames_aes` now uses exact matching instead of partial matching. (Thanks
+  to Winston Chang. Fixes #529)
 
 ggplot2 0.9.0
 ----------------------------------------------------------------
