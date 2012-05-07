@@ -81,6 +81,9 @@ BUG FIXES
 * `renames_aes` now uses exact matching instead of partial matching. (Thanks
   to Winston Chang. Fixes #529)
 
+* `labs()` now works with American spellings. (Thanks to Winston Chang.
+  Fixes #521)
+
 ggplot2 0.9.0
 ----------------------------------------------------------------
 
