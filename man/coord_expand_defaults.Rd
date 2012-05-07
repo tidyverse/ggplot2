@@ -7,4 +7,5 @@
 \description{
   Set the default expand values for the scale, if NA
 }
+\keyword{internal}
 
