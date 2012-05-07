@@ -3,10 +3,10 @@
 \alias{scale_y_datetime}
 \title{Position scale, date}
 \usage{
-  scale_x_datetime(..., expand = c(0.05, 0),
+  scale_x_datetime(..., expand = waiver(),
     breaks = waiver(), minor_breaks = waiver())
 
-  scale_y_datetime(..., expand = c(0.05, 0),
+  scale_y_datetime(..., expand = waiver(),
     breaks = waiver(), minor_breaks = waiver())
 }
 \arguments{

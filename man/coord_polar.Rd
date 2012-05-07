@@ -2,8 +2,7 @@
 \alias{coord_polar}
 \title{Polar coordinates.}
 \usage{
-  coord_polar(theta = "x", start = 0, direction = 1,
-    expand = FALSE)
+  coord_polar(theta = "x", start = 0, direction = 1)
 }
 \arguments{
   \item{theta}{variable to map angle to (\code{x} or
@@ -13,9 +12,6 @@
   radians}
 
   \item{direction}{1, clockwise; -1, anticlockwise}
-
-  \item{expand}{should axes be expanded to slightly outside
-  the range of the data? (default: \code{FALSE})}
 }
 \description{
   The polar coordinate system is most commonly used for pie

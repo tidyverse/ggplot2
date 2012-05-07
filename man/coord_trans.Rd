@@ -2,7 +2,8 @@
 \alias{coord_trans}
 \title{Transformed cartesian coordinate system.}
 \usage{
-  coord_trans(xtrans = "identity", ytrans = "identity")
+  coord_trans(xtrans = "identity", ytrans = "identity",
+    limx = NULL, limy = NULL)
 }
 \arguments{
   \item{ytrans}{transformer for x axis}

@@ -2,16 +2,12 @@
 \alias{coord_cartesian}
 \title{Cartesian coordinates.}
 \usage{
-  coord_cartesian(xlim = NULL, ylim = NULL, wise = FALSE)
+  coord_cartesian(xlim = NULL, ylim = NULL, wise = NULL)
 }
 \arguments{
   \item{xlim}{limits for the x axis}
 
   \item{ylim}{limits for the y axis}
-
-  \item{wise}{If \code{TRUE} will wisely expand the actual
-  range of the plot a little, in the way that setting the
-  limits on the scales does}
 }
 \description{
   The Cartesian coordinate system is the most familiar, and
