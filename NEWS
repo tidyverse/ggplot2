@@ -84,6 +84,9 @@ BUG FIXES
 * `labs()` now works with American spellings. (Thanks to Winston Chang.
   Fixes #521)
 
+* `stat_density2d` sets the limits for `kde2d` from the limits of the x and
+  y scales. (Thanks to Winston Chang)
+
 ggplot2 0.9.0
 ----------------------------------------------------------------
 
