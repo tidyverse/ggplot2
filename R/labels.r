@@ -39,6 +39,7 @@ update_labels <- function(p, labels) {
 labs <- function(...) {
   args <- list(...)
   if (is.list(args[[1]])) args <- args[[1]]
+  args <- rename_aes(args)
   structure(args, class = "labels")
 }
 
