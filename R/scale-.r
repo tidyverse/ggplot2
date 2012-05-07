@@ -511,7 +511,7 @@ scale_clone.discrete <- function(scale) {
 
 
 scale_break_info <- function(scale, range = NULL)  UseMethod("scale_break_info")
-#' @S3method scale_info discrete
+#' @S3method scale_break_info discrete
 scale_break_info.discrete <- function(scale, range = NULL) {
 
   # for discrete, limits != range
@@ -536,7 +536,7 @@ scale_break_info.discrete <- function(scale, range = NULL) {
        major = major_n, minor = NULL, 
        major_source = major, minor_source = NULL)
 }
-#' @S3method scale_info continuous
+#' @S3method scale_break_info continuous
 scale_break_info.continuous <- function(scale, range = NULL) {
   # range
   if (is.null(range)) range <- scale_dimension(scale)
