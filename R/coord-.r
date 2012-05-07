@@ -82,7 +82,7 @@ is.linear <- function(coord) UseMethod("is.linear")
 is.linear.default <- function(coord) FALSE
 
 #' Set the default expand values for the scale, if NA
-#' @keyword internal
+#' @keywords internal
 coord_expand_defaults <- function(coord, scale, aesthetic = NULL)
   UseMethod("coord_expand_defaults")
 
