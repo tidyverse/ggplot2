@@ -91,3 +91,21 @@ test_that("stat-bin2d", {
   ret <- test_stat_scale(stat_bin2d(aes(x = carat, y = depth), data=d), full_scales)
   expect_equal(dim(ret), c(191,12))
 })
+
+
+context("stat-density2d")
+
+test_that("stat-density2d", {
+
+  full_scales <- list(x = scale_x_continuous(limits=c(1,6)),
+                      y = scale_y_continuous(limits=c(5,40)))
+  ret <- test_stat_scale(stat_density2d(aes(x = wt, y = mpg), data = mtcars), full_scales)
+  # Check that the contour data goes beyond data range.
+  # The specific values below are sort of arbitrary; but they go beyond the range
+  # of the data
+  expect_true(min(ret$x) < 1.2)
+  expect_true(max(ret$x) > 5.8)
+  expect_true(min(ret$y) < 8)
+  expect_true(max(ret$y) > 35)
+
+})
