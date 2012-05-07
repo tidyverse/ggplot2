@@ -70,7 +70,7 @@ StatDensity2d <- proto(Stat, {
     df <- data.frame(data[, c("x", "y")])
     df <- remove_missing(df, na.rm, name = "stat_density2d", finite = TRUE)
 
-    dens <- safe.call(kde2d, c(df, n = n, ...))
+    dens <- safe.call(kde2d, list(x = df$x, y = df$y, n = n, ...))
     df <- with(dens, data.frame(expand.grid(x = x, y = y), z = as.vector(z)))
     df$group <- data$group[1]
     
