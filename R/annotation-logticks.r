@@ -16,6 +16,7 @@
 #'   (default) when the data is already transformed with \code{log10()} or when
 #'   using \code{scale_y_log10}. It should be \code{FALSE} when using
 #'   \code{coord_trans(y = "log10")}.
+#' @param ... Other parameters passed on to the layer
 #'
 #' @export
 #' @seealso \code{\link{scale_y_continuous}}, \code{\link{scale_y_log10}} for log scale
@@ -70,10 +71,10 @@
 #' a + annotation_logticks(short = unit(.5,"mm"), mid = unit(3,"mm"), long = unit(4,"mm"))
 #'
 annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
-      short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm")) {
+      short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm"), ...) {
 
   GeomLogticks$new(base = base, sides = sides, raw = raw, scaled = scaled,
-                   short = short, mid = mid, long = long)
+                   short = short, mid = mid, long = long, ...)
 }
 
 GeomLogticks <- proto(Geom, {

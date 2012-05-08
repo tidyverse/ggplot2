@@ -4,7 +4,7 @@
 \usage{
   annotation_logticks(base = 10, sides = "bl",
     scaled = TRUE, short = unit(0.1, "cm"),
-    mid = unit(0.2, "cm"), long = unit(0.3, "cm"))
+    mid = unit(0.2, "cm"), long = unit(0.3, "cm"), ...)
 }
 \arguments{
   \item{base}{the base of the log (default 10)}
@@ -30,6 +30,8 @@
   transformed with \code{log10()} or when using
   \code{scale_y_log10}. It should be \code{FALSE} when
   using \code{coord_trans(y = "log10")}.}
+
+  \item{...}{Other parameters passed on to the layer}
 }
 \description{
   This annotation adds log tick marks with diminishing
