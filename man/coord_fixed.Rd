@@ -12,6 +12,8 @@
   \item{xlim}{limits for the x axis}
 
   \item{ylim}{limits for the y axis}
+
+  \item{wise}{deprecated in 0.9.1}
 }
 \description{
   A fixed scale coordinate system forces a specified ratio

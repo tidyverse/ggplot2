@@ -79,6 +79,7 @@ coord_distance <- function(coord, x, y, details)
   UseMethod("coord_distance")
 
 is.linear <- function(coord) UseMethod("is.linear")
+#' @S3method is.linear default
 is.linear.default <- function(coord) FALSE
 
 #' Set the default expand values for the scale, if NA

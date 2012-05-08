@@ -6,9 +6,10 @@
     limx = NULL, limy = NULL)
 }
 \arguments{
-  \item{ytrans}{transformer for x axis}
+  \item{xtrans,ytrans}{transformers for x and y axes}
 
-  \item{xtrans}{transformer for y axis}
+  \item{limx,limy}{limits for x and y axes. (Named so for
+  backward compatability)}
 }
 \description{
   \code{coord_trans} is different to scale transformations

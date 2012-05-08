@@ -1,4 +1,5 @@
 context("Aesthetics (grouping)")
+library(plyr)
 
 df <- data.frame(
   x = 1:4,

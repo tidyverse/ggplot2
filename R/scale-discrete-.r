@@ -89,6 +89,7 @@ scale_limits.position_d <- function(scale) {
   scale$limits %||% scale$range$range %||% dis_limits(scale$range_c$range)
 }
 
+#' @S3method scale_is_empty position_d
 scale_is_empty.position_d <- function(scale) {
   NextMethod() && is.null(scale$range_c$range)
 }

@@ -7,6 +7,7 @@
 #' 
 #' @param xlim limits for the x axis
 #' @param ylim limits for the y axis
+#' @param wise deprecated in 0.9.1
 #' @export
 #' @examples 
 #' # There are two ways of zooming the plot display: with scales or 

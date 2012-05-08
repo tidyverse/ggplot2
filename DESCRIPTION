@@ -35,7 +35,8 @@ Suggests:
     gpclib,
     maptools,
     multcomp,
-    nlme
+    nlme,
+    testthat
 Extends:
     sp
 License: GPL-2

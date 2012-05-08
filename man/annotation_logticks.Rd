@@ -4,7 +4,7 @@
 \usage{
   annotation_logticks(base = 10, sides = "bl",
     scaled = TRUE, short = unit(0.1, "cm"),
-    mid = unit(0.2, "cm"), long = unit(0.3, "cm"), ...)
+    mid = unit(0.2, "cm"), long = unit(0.3, "cm"))
 }
 \arguments{
   \item{base}{the base of the log (default 10)}

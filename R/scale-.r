@@ -156,6 +156,8 @@ scale_reset.default <- function(scale, x) {
 }
 
 scale_is_empty <- function(scale) UseMethod("scale_is_empty")
+
+#' @S3method scale_is_empty default
 scale_is_empty.default <- function(scale) {
   is.null(scale$range$range) && is.null(scale$limits)
 }
@@ -380,7 +382,9 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
   discard(breaks, limits)
 }
 
-scale_breaks_minor.date <- function(scale, n = 2, b = scale_break_positions(scale), limits = scale_limits(scale)) {
+#' @S3method scale_breaks_minor date
+scale_breaks_minor.date <- function(scale, n = 2, b = 
+scale_break_positions(scale), limits = scale_limits(scale)) {
   limits <- scale$trans$inv(limits)
   
   if (zero_range(as.numeric(limits))) {
@@ -410,6 +414,7 @@ scale_breaks_minor.date <- function(scale, n = 2, b = scale_break_positions(scal
   # Any minor breaks outside the dimensions need to be thrown away
   breaks <- censor(scale$trans$trans(breaks), scale_limits(scale))
 }
+#' @S3method scale_breaks_minor datetime
 scale_breaks_minor.datetime <- scale_breaks_minor.date
 
 #' @S3method scale_breaks_minor discrete

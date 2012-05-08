@@ -7,8 +7,9 @@
 #' All current transformations only work with continuous values - see \code{scale}{trans_new}
 #' for list of transformations, and instructions on how to create your own.
 #'
-#' @param ytrans transformer for x axis
-#' @param xtrans transformer for y axis
+#' @param xtrans,ytrans transformers for x and y axes
+#' @param limx,limy limits for x and y axes. (Named so for backward
+#'    compatability)
 #' @export
 #' @examples
 #' \donttest{
