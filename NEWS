@@ -1,3 +1,6 @@
+ggplot2 0.9.1
+----------------------------------------------------------------
+
 MINOR FEATURES
 
 * `ggstructure` and `ggorder`, which call `ggpcp`, no longer have a 

@@ -1,7 +1,7 @@
 Package: ggplot2
 Type: Package
 Title: An implementation of the Grammar of Graphics
-Version: 0.9.0
+Version: 0.9.1
 Author: Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 Description: An implementation of the grammar of graphics
