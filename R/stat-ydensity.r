@@ -37,8 +37,6 @@ StatYdensity <- proto(Stat, {
     data <- remove_missing(data, na.rm, "y", name = "stat_ydensity", finite = TRUE)
     data <- .super$calculate_groups(., data, na.rm = na.rm, width = width, ...)
 
-    print(data)
-
     # choose how violins are scaled relative to each other
     scale <- match.arg(scale)
 
