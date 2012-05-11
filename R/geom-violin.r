@@ -6,9 +6,9 @@
 #' @inheritParams geom_point
 #' @param trim If \code{TRUE} (default), trim the tails of the violins
 #'   to the range of the data. If \code{FALSE}, don't trim the tails.
-#' @param scale if "equal" (default), all violins have the same area (to be
-#'   precise, they would have the same area if tails are not trimmed). If
-#'   "count", the areas are scaled proportionally to the number of observations.
+#' @param scale if "area" (default), all violins have the same area (before trimming
+#'   the tails). If "count", areas are scaled proportionally to the number of
+#'   observations. If "width", all violins have the same maximum width.
 #' @export
 #' @examples
 #' \donttest{
@@ -24,6 +24,9 @@
 #' 
 #' # Scale maximum width proportional to sample size:
 #' p + geom_violin(scale = "count")
+#'
+#' # Scale maximum width to 1 for all violins:
+#' p + geom_violin(scale = "width")
 #' 
 #' # Default is to trim violins to the range of the data. To disable:
 #' p + geom_violin(trim = FALSE)
@@ -63,7 +66,7 @@
 #'   group = round_any(year, 10, floor))
 #' }
 geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity", position = "dodge",
-trim = TRUE, scale = "equal", ...) {
+trim = TRUE, scale = c("area", "count", "width"), ...) {
   GeomViolin$new(mapping = mapping, data = data, stat = stat, 
   position = position, trim = trim, scale = scale, ...)
 }
@@ -87,8 +90,8 @@ GeomViolin <- proto(Geom, {
   draw <- function(., data, ...) { 
 
     # Find the points for the line to go all the way around
-    data <- transform(data, xminv = x - scaled * (x-xmin),
-                            xmaxv = x + scaled * (xmax-x))
+    data <- transform(data, xminv = x - violinwidth * (x-xmin),
+                            xmaxv = x + violinwidth * (xmax-x))
 
     # Make sure it's sorted properly to draw the outline
     newdata <- rbind(arrange(transform(data, x = xminv), y),
