@@ -1,0 +1,121 @@
+{
+  "index": {
+
+    "Geoms": {
+      "description": "Geoms, short for geometric objects, describe the type of plot you will produce.",
+      "items": [
+        { "geom_abline": "Line, specified by slope and intercept"},
+        { "geom_area": "Area plots" },
+        { "geom_bar": "Bars, rectangles with bases on y-axis" },
+        { "geom_bin2d": "Add heatmap of 2d bin counts" },
+        { "geom_blank": "Blank, draws nothing" },
+        { "geom_boxplot": "Box and whiskers plot" },
+        { "geom_contour": "Display contours of a 3d surface in 2d" },
+        { "geom_crossbar": "Hollow bar with middle indicated by horizontal line" },
+        { "geom_density": "Display a smooth density estimate" },
+        { "geom_density2d": "Contours from a 2d density estimate" },
+        { "geom_errorbar": "Error bars" },
+        { "geom_errorbarh": "Horizontal error bars" },
+        { "geom_freqpoly": "Frequency polygon" },
+        { "geom_hex": "Tile the plane with hexagons" },
+        { "geom_histogram": "Histogram" },
+        { "geom_hline": "Line, horizontal" },
+        { "geom_jitter": "Points, jittered to reduce overplotting" },
+        { "geom_line": "Connect observations, in ordered by x value" },
+        { "geom_linerange": "An interval represented by a vertical line" },
+        { "geom_path": "Connect observations, in original order" },
+        { "geom_point": "Points, as for a scatterplot" },
+        { "geom_pointrange": "An interval represented by a vertical line, with a point in the middle" },
+        { "geom_polygon": "Polygon, a filled path" },
+        { "geom_quantile": "Add quantile lines from a quantile regression" },
+        { "geom_rect": "2d rectangles" },
+        { "geom_ribbon": "Ribbons, y range with continuous x values" },
+        { "geom_rug": "Marginal rug plots" },
+        { "geom_segment": "Single line segments" },
+        { "geom_smooth": "Add a smoothed condition mean" },
+        { "geom_step": "Connect observations by stairs" },
+        { "geom_text": "Textual annotations" },
+        { "geom_tile": "Tile plot as densely as possible, assuming that every tile is the same size" },
+        { "geom_vline": "Line, vertical" }
+      ]
+    },
+
+    "Statistics": {
+      "description": "It's often useful to transform your data before plotting, and that's what statistical transformations do.",
+      "items": [
+        { "stat_abline": "Add a line with slope and intercept" },
+        { "stat_bin": "Bin data" },
+        { "stat_bin2d": "Bin 2d plane into rectangles" },
+        { "stat_binhex": "Bin 2d plane into hexagons" },
+        { "stat_boxplot": "Calculate components of box and whisker plot" },
+        { "stat_contour": "Contours of 3d data" },
+        { "stat_density": "Density estimation, 1D" },
+        { "stat_density2d": "Density estimation, 2D" },
+        { "stat_function": "Superimpose a function" },
+        { "stat_hline": "Add a horizontal line" },
+        { "stat_identity": "Don't transform data" },
+        { "stat_qq": "Calculation for quantile-quantile plot" },
+        { "stat_quantile": "Continuous quantiles" },
+        { "stat_smooth": "Add a smoother" },
+        { "stat_spoke": "Convert angle and radius to xend and yend" },
+        { "stat_sum": "Sum unique values. Useful for overplotting on scatterplots" },
+        { "stat_summary": "Summarise y values at every unique x" },
+        { "stat_unique": "Remove duplicates" },
+        { "stat_vline": "Add a vertical line" }
+      ]
+    },
+
+    "Scales": {
+      "description": "Scales control the mapping between data and aesthetics.",
+      "items": [
+        { "scale_alpha": "Alpha scale for continuous variable" },
+        { "scale_continuous": "Continuous position scale" },
+        { "scale_datetime": "Position scale, date time" },
+        { "scale_gradient": "Smooth gradient between two colours" },
+        { "scale_gradientn": "Smooth gradient between n colours" },
+        { "scale_hue": "Qualitative colour scale with evenly spaced hues" },
+        { "scale_linetype": "Scale for line patterns" },
+        { "scale_shape": "Scale for shapes, aka glyphs" },
+        { "scale_brewer": "Sequential, diverging and qualitative colour scales from colorbrewer.org" },
+        { "scale_date": "Position scale, date" },
+        { "scale_discrete": "Discrete position scale" },
+        { "scale_gradient2": "Smooth gradient between three colours (high, low and midpoints)" },
+        { "scale_grey": "Sequential grey colour scale" },
+        { "scale_identity": "Use values without scaling" },
+        { "scale_manual": "Create your own discrete scale" },
+        { "scale_size": "Size scale for continuous variable" }
+      ]
+    },
+
+    "Coordinate systems": {
+      "description": "Coordinate systems adjust the mapping from coordinates to the 2d plane of the computer screen.",
+      "items": [
+        { "coord_cartesian": "Cartesian coordinates" },
+        { "coord_equal": "Equal scale cartesian coordinates" },
+        { "coord_flip": "Flipped cartesian coordinates" },
+        { "coord_map": "Map projections" },
+        { "coord_polar": "Polar coordinates" },
+        { "coord_trans": "Transformed cartesian coordinate system" }
+      ]
+    },
+
+    "Faceting": {
+      "description": "Facets display subsets of the dataset in different panels.",
+      "items": [
+      { "facet_grid": "Lay out panels in a rectangular/tabular manner." },
+      { "facet_wrap": "Wrap a 1d ribbon of panels into 2d." }
+      ]
+    },
+
+    "Position adjustments": {
+      "description": "Position adjustments can be used to fine tune positioning of objects to achieve effects like dodging, jittering and stacking.",
+      "items": [
+        { "position_dodge": "Adjust position by dodging overlaps to the side" },
+        { "position_fill": "Stack overlapping objects on top of one another, and standardise have equal height" },
+        { "position_identity": "Don't adjust position" },
+        { "position_stack": "Stack overlapping objects on top of one another" },
+        { "position_jitter": "Jitter points to avoid overplotting" }
+      ]
+    }
+  }
+}
