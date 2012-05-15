@@ -27,6 +27,14 @@ test_that("labels don't have extra spaces", {
   
 })
 
+test_that("oob breaks are dropped", {
+  sc <- scale_x_continuous(breaks=1:4, labels=letters[1:4], limits = c(1, 3))
+  bi <- scale_break_info(sc)
+  expect_equal(bi$labels, letters[1:3])
+  expect_equal(bi$major, c(0, 0.5, 1))
+  expect_equal(bi$major_source, 1:3)
+})
+
 test_that("no minor breaks when only one break", {
   sc1 <- scale_x_discrete(limits = "a")
   sc2 <- scale_x_continuous(limits = 1)
