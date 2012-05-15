@@ -101,11 +101,12 @@ theme_set <- .theme$set
 #'   panel.grid.major   \tab    major grid lines \cr 
 #'   panel.grid.minor   \tab    minor grid lines \cr
 #'   plot.background    \tab    background of the entire plot \cr
-#'   plot.title         \tab    plot title \cr
+#'   plot.title         \tab    plot title (text appearance) \cr
 #'   plot.margin        \tab    plot margins \cr
 #'   strip.background   \tab    background of facet labels \cr
 #'   strip.text.x       \tab    text for horizontal strips \cr
 #'   strip.text.y       \tab    text for vertical strips \cr
+#'   title              \tab    A string containing the title of the plot \cr
 #'  }
 #'
 #' @param ... a list of element name, element pairings that modify the
