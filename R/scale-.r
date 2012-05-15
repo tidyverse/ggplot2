@@ -248,8 +248,23 @@ scale_limits <- function(scale) {
   
 
 #' @S3method scale_limits default
-scale_limits.default <- function(scale) {  
+scale_limits.default <- function(scale) {
   scale$limits %||% scale$range$range
+}
+
+#' @S3method scale_limits continuous
+scale_limits.continuous <- function(scale) {
+  if (!is.null(scale$limits)) {
+    scale$limits
+  } else if (!is.null(scale$breaks) &&
+             !is.function(scale$breaks) &&
+             !is.waive(scale$breaks)) {
+    rb <- range(scale$breaks)
+    rd <- scale$range$range
+    c(min(rb[1], rd[1]), max(rb[2], rd[2]))
+  } else {
+    scale$range$range
+  }
 }
 
 # @kohske
@@ -548,14 +563,17 @@ scale_break_info.continuous <- function(scale, range = NULL) {
 
   # major breaks
   major <- scale_breaks(scale, range)
-  if (!is.null(major)) major <- c(na.omit(major))
 
   # labels
   labels <- scale_labels(scale, major)
 
+  # drop oob breaks/labels by testing major == NA
+  if (!is.null(labels)) labels <- labels[!is.na(major)]  
+  if (!is.null(major)) major <- major[!is.na(major)]
+  
   # minor breaks
   minor <- scale_breaks_minor(scale, b = major, limits = range)
-  if (!is.null(minor)) minor <- c(na.omit(minor))
+  if (!is.null(minor)) minor <- minor[!is.na(minor)]
 
   # rescale breaks [0, 1], which are used by coord/guide
   major_n <- rescale(major, from = range)
