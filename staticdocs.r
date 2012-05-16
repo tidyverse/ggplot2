@@ -1,5 +1,4 @@
-index <- list(
-
+list(
   list(
     name        = "Geoms",
     description = "Geoms, short for geometric objects, describe the type of plot you will produce.",  
