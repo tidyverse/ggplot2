@@ -252,21 +252,6 @@ scale_limits.default <- function(scale) {
   scale$limits %||% scale$range$range
 }
 
-#' @S3method scale_limits continuous
-scale_limits.continuous <- function(scale) {
-  if (!is.null(scale$limits)) {
-    scale$limits
-  } else if (!is.null(scale$breaks) &&
-             !is.function(scale$breaks) &&
-             !is.waive(scale$breaks)) {
-    rb <- range(scale$breaks)
-    rd <- scale$range$range
-    c(min(rb[1], rd[1]), max(rb[2], rd[2]))
-  } else {
-    scale$range$range
-  }
-}
-
 # @kohske
 # this (internal) function always returns a vector of length 2 of giving
 # multiplicative and additive expansion constants. 
