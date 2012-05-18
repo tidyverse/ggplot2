@@ -1,293 +1,118 @@
 library(staticdocs)
 list(
   index = list(
-    name        = "Geoms",
-    description = "Geoms, short for geometric objects, describe the type of plot you will produce.",  
+    sd_section("Geoms",
+      "Geoms, short for geometric objects, describe the type of plot you will produce.",  
+      c(
+        "geom_abline", 
+        "geom_area", 
+        "geom_bar", 
+        "geom_bin2d",
+        "geom_blank", 
+        "geom_boxplot", 
+        "geom_contour", 
+        "geom_crossbar",
+        "geom_density", 
+        "geom_density2d", 
+        "geom_errorbar", 
+        "geom_errorbarh",
+        "geom_freqpoly", 
+        "geom_hex", 
+        "geom_histogram", 
+        "geom_hline",
+        "geom_jitter", 
+        "geom_line", 
+        "geom_linerange", 
+        "geom_path", 
+        "geom_point", 
+        "geom_pointrange", 
+        "geom_polygon", 
+        "geom_quantile", 
+        "geom_rect", 
+        "geom_ribbon", 
+        "geom_rug", 
+        "geom_segment", 
+        "geom_smooth", 
+        "geom_step", 
+        "geom_text", 
+        "geom_tile", 
+        "geom_vline"
+      )
+    ), 
+    sd_section("Statistics",
+      "It's often useful to transform your data before plotting, and that's what statistical transformations do.",
+      c(
+        "stat_abline",
+        "stat_bin",
+        "stat_bin2d",
+        "stat_binhex",
+        "stat_boxplot",
+        "stat_contour",
+        "stat_density",
+        "stat_density2d",
+        "stat_function",
+        "stat_hline",
+        "stat_identity",
+        "stat_qq",
+        "stat_quantile",
+        "stat_smooth",
+        "stat_spoke",
+        "stat_sum",
+        "stat_summary",
+        "stat_unique",
+        "stat_vline"
+      )
+    ),
+    sd_section("Scales",
+      "Scales control the mapping between data and aesthetics.",
+      c(
+        "scale_alpha",
+        "scale_continuous",
+        "scale_datetime",
+        "scale_gradient",
+        "scale_gradientn",
+        "scale_hue",
+        "scale_linetype",
+        "scale_shape",
+        "scale_brewer",
+        "scale_date",
+        "scale_discrete",
+        "scale_gradient2",
+        "scale_grey",
+        "scale_identity",
+        "scale_manual",
+        "scale_size"      
+      )
+    ),
+    sd_section("Coordinate systems",
+      "Coordinate systems adjust the mapping from coordinates to the 2d plane of the computer screen.",
+      c(
+        "coord_cartesian",
+        "coord_equal",
+        "coord_flip",
+        "coord_map",
+        "coord_polar",
+        "coord_trans"
+      )
+    ),
 
-    items = list(
-      list(
-        name        = "geom_abline",
-        description = "Line, specified by slope and intercept" ),
-      list(
-        name        = "geom_area",
-        description = "Area plots" ),
-      list(
-        name        = "geom_bar",
-        description = "Bars, rectangles with bases on y-axis" ),
-      list(
-        name        = "geom_bin2d",
-        description = "Add heatmap of 2d bin counts" ),
-      list(
-        name        = "geom_blank",
-        description = "Blank, draws nothing" ),
-      list(
-        name        = "geom_boxplot",
-        description = "Box and whiskers plot" ),
-      list(
-        name        = "geom_contour",
-        description = "Display contours of a 3d surface in 2d" ),
-      list(
-        name        = "geom_crossbar",
-        description = "Hollow bar with middle indicated by horizontal line" ),
-      list(
-        name        = "geom_density",
-        description = "Display a smooth density estimate" ),
-      list(
-        name        = "geom_density2d",
-        description = "Contours from a 2d density estimate" ),
-      list(
-        name        = "geom_errorbar",
-        description = "Error bars" ),
-      list(
-        name        = "geom_errorbarh",
-        description = "Horizontal error bars" ),
-      list(
-        name        = "geom_freqpoly",
-        description = "Frequency polygon" ),
-      list(
-        name        = "geom_hex",
-        description = "Tile the plane with hexagons" ),
-      list(
-        name        = "geom_histogram",
-        description = "Histogram" ),
-      list(
-        name        = "geom_hline",
-        description = "Line, horizontal" ),
-      list(
-        name        = "geom_jitter",
-        description = "Points, jittered to reduce overplotting" ),
-      list(
-        name        = "geom_line",
-        description = "Connect observations, in ordered by x value" ),
-      list(
-        name        = "geom_linerange",
-        description = "An interval represented by a vertical line" ),
-      list(
-        name        = "geom_path",
-        description = "Connect observations, in original order" ),
-      list(
-        name        = "geom_point",
-        description = "Points, as for a scatterplot" ),
-      list(
-        name        = "geom_pointrange",
-        description = "An interval represented by a vertical line, with a point in the middle" ),
-      list(
-        name        = "geom_polygon",
-        description = "Polygon, a filled path" ),
-      list(
-        name        = "geom_quantile",
-        description = "Add quantile lines from a quantile regression" ),
-      list(
-        name        = "geom_rect",
-        description = "2d rectangles" ),
-      list(
-        name        = "geom_ribbon",
-        description = "Ribbons, y range with continuous x values" ),
-      list(
-        name        = "geom_rug",
-        description = "Marginal rug plots" ),
-      list(
-        name        = "geom_segment",
-        description = "Single line segments" ),
-      list(
-        name        = "geom_smooth",
-        description = "Add a smoothed condition mean" ),
-      list(
-        name        = "geom_step",
-        description = "Connect observations by stairs" ),
-      list(
-        name        = "geom_text",
-        description = "Textual annotations" ),
-      list(
-        name        = "geom_tile",
-        description = "Tile plot as densely as possible, assuming that every tile is the same size" ),
-      list(
-        name        = "geom_vline",
-        description = "Line, vertical" )
-    )
-  ), 
+    sd_section("Faceting",
+      "Facets display subsets of the dataset in different panels.",
+      c(
+        "facet_grid",
+        "facet_wrap"
+      )
+    ),
 
-  list(
-    name        = "Statistics",
-    description = "It's often useful to transform your data before plotting, and that's what statistical transformations do.",
-
-    items = list (
-      list(
-        name        = "stat_abline",
-        description = "Add a line with slope and intercept" ),
-      list(
-        name        = "stat_bin",
-        description = "Bin data" ),
-      list(
-        name        = "stat_bin2d",
-        description = "Bin 2d plane into rectangles" ),
-      list(
-        name        = "stat_binhex",
-        description = "Bin 2d plane into hexagons" ),
-      list(
-        name        = "stat_boxplot",
-        description = "Calculate components of box and whisker plot" ),
-      list(
-        name        = "stat_contour",
-        description = "Contours of 3d data" ),
-      list(
-        name        = "stat_density",
-        description = "Density estimation, 1D" ),
-      list(
-        name        = "stat_density2d",
-        description = "Density estimation, 2D" ),
-      list(
-        name        = "stat_function",
-        description = "Superimpose a function" ),
-      list(
-        name        = "stat_hline",
-        description = "Add a horizontal line" ),
-      list(
-        name        = "stat_identity",
-        description = "Don't transform data" ),
-      list(
-        name        = "stat_qq",
-        description = "Calculation for quantile-quantile plot" ),
-      list(
-        name        = "stat_quantile",
-        description = "Continuous quantiles" ),
-      list(
-        name        = "stat_smooth",
-        description = "Add a smoother" ),
-      list(
-        name        = "stat_spoke",
-        description = "Convert angle and radius to xend and yend" ),
-      list(
-        name        = "stat_sum",
-        description = "Sum unique values. Useful for overplotting on scatterplots" ),
-      list(
-        name        = "stat_summary",
-        description = "Summarise y values at every unique x" ),
-      list(
-        name        = "stat_unique",
-        description = "Remove duplicates" ),
-      list(
-        name        = "stat_vline",
-        description = "Add a vertical line" )
-    )
-  ),
-
-  list(
-    name        = "Scales",
-    description = "Scales control the mapping between data and aesthetics.",
-
-    items = list(
-      list(
-        name        = "scale_alpha",
-        description = "Alpha scale for continuous variable" ),
-      list(
-        name        = "scale_continuous",
-        description = "Continuous position scale" ),
-      list(
-        name        = "scale_datetime",
-        description = "Position scale, date time" ),
-      list(
-        name        = "scale_gradient",
-        description = "Smooth gradient between two colours" ),
-      list(
-        name        = "scale_gradientn",
-        description = "Smooth gradient between n colours" ),
-      list(
-        name        = "scale_hue",
-        description = "Qualitative colour scale with evenly spaced hues" ),
-      list(
-        name        = "scale_linetype",
-        description = "Scale for line patterns" ),
-      list(
-        name        = "scale_shape",
-        description = "Scale for shapes, aka glyphs" ),
-      list(
-        name        = "scale_brewer",
-        description = "Sequential, diverging and qualitative colour scales from colorbrewer.org" ),
-      list(
-        name        = "scale_date",
-        description = "Position scale, date" ),
-      list(
-        name        = "scale_discrete",
-        description = "Discrete position scale" ),
-      list(
-        name        = "scale_gradient2",
-        description = "Smooth gradient between three colours (high, low and midpoints)" ),
-      list(
-        name        = "scale_grey",
-        description = "Sequential grey colour scale" ),
-      list(
-        name        = "scale_identity",
-        description = "Use values without scaling" ),
-      list(
-        name        = "scale_manual",
-        description = "Create your own discrete scale" ),
-      list(
-        name        = "scale_size",
-        description = "Size scale for continuous variable" )
-    )
-  ),
-
-  list(
-    name        = "Coordinate systems",
-    description = "Coordinate systems adjust the mapping from coordinates to the 2d plane of the computer screen.",
-
-    items = list(
-      list(
-        name        = "coord_cartesian",
-        description = "Cartesian coordinates" ),
-      list(
-        name        = "coord_equal",
-        description = "Equal scale cartesian coordinates" ),
-      list(
-        name        = "coord_flip",
-        description = "Flipped cartesian coordinates" ),
-      list(
-        name        = "coord_map",
-        description = "Map projections" ),
-      list(
-        name        = "coord_polar",
-        description = "Polar coordinates" ),
-      list(
-        name        = "coord_trans",
-        description = "Transformed cartesian coordinate system" )
-    )
-  ),
-
-  list(
-    name        = "Faceting",
-    description = "Facets display subsets of the dataset in different panels.",
-
-    items = list(
-      list(
-        name        = "facet_grid",
-        description = "Lay out panels in a rectangular/tabular manner." ),
-      list(
-        name        = "facet_wrap",
-        description = "Wrap a 1d ribbon of panels into 2d." )
-    )
-  ),
-
-  list(
-    name        = "Position adjustments",
-    description = "Position adjustments can be used to fine tune positioning of objects to achieve effects like dodging, jittering and stacking.",
-
-    items = list(
-      list(
-        name        = "position_dodge",
-        description = "Adjust position by dodging overlaps to the side" ),
-      list(
-        name        = "position_fill",
-        description = "Stack overlapping objects on top of one another, and standardise have equal height" ),
-      list(
-        name        = "position_identity",
-        description = "Don't adjust position" ),
-      list(
-        name        = "position_stack",
-        description = "Stack overlapping objects on top of one another" ),
-      list(
-        name        = "position_jitter",
-        description = "Jitter points to avoid overplotting" )
+    sd_section("Position adjustments",
+      "Position adjustments can be used to fine tune positioning of objects to achieve effects like dodging, jittering and stacking.",
+      c(
+        "position_dodge",
+        "position_fill",
+        "position_identity",
+        "position_stack",
+        "position_jitter"
+      )
     )
   ), 
   icons = list(  
