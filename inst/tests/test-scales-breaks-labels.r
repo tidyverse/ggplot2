@@ -27,13 +27,60 @@ test_that("labels don't have extra spaces", {
   
 })
 
-test_that("oob breaks are dropped", {
-  sc <- scale_x_continuous(breaks=1:4, labels=letters[1:4], limits = c(1, 3))
+
+test_that("out-of-range breaks are dropped", {
+  # Limits are explicitly specified, automatic labels
+  sc <- scale_x_continuous(breaks=1:5, limits = c(2, 4))
   bi <- scale_break_info(sc)
-  expect_equal(bi$labels, letters[1:3])
+  expect_equal(bi$labels, as.character(2:4))
   expect_equal(bi$major, c(0, 0.5, 1))
-  expect_equal(bi$major_source, 1:3)
+  expect_equal(bi$major_source, 2:4)
+
+
+  # Limits and labels are explicitly specified
+  sc <- scale_x_continuous(breaks=1:5, labels=letters[1:5], limits = c(2, 4))
+  bi <- scale_break_info(sc)
+  expect_equal(bi$labels, letters[2:4])
+  expect_equal(bi$major, c(0, 0.5, 1))
+  expect_equal(bi$major_source, 2:4)
+
+
+  # Limits are specified, and all breaks are out of range
+  sc <- scale_x_continuous(breaks=c(1,5), labels=letters[c(1,5)], limits = c(2, 4))
+  bi <- scale_break_info(sc)
+  expect_equal(length(bi$labels), 0)
+  expect_equal(length(bi$major), 0)
+  expect_equal(length(bi$major_source), 0)
+
+
+  # limits aren't specified, automatic labels
+  # limits are set by the data
+  sc <- scale_x_continuous(breaks=1:5)
+  scale_train_df(sc, data.frame(x=2:4))
+  bi <- scale_break_info(sc)
+  expect_equal(bi$labels, as.character(2:4))
+  expect_equal(bi$major_source, 2:4)
+  expect_equal(bi$major, c(0, 0.5, 1))
+
+
+  # Limits and labels are specified
+  sc <- scale_x_continuous(breaks=1:5, labels=letters[1:5])
+  scale_train_df(sc, data.frame(x=2:4))
+  bi <- scale_break_info(sc)
+  expect_equal(bi$labels, letters[2:4])
+  expect_equal(bi$major_source, 2:4)
+  expect_equal(bi$major, c(0, 0.5, 1))
+
+
+  # Limits aren't specified, and all breaks are out of range of data
+  sc <- scale_x_continuous(breaks=c(1,5), labels=letters[c(1,5)])
+  scale_train_df(sc, data.frame(x=2:4))
+  bi <- scale_break_info(sc)
+  expect_equal(length(bi$labels), 0)
+  expect_equal(length(bi$major), 0)
+  expect_equal(length(bi$major_source), 0)
 })
+
 
 test_that("no minor breaks when only one break", {
   sc1 <- scale_x_discrete(limits = "a")
