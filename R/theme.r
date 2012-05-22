@@ -286,3 +286,10 @@ update_element <- function(name, ...) {
 
  eval(as.call(modifyList(old, new_args)))
 }
+
+
+#' Relative sizing for theme elements
+#' @export
+rel <- function(x) {
+  structure(x, class = "rel")
+}
