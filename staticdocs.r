@@ -77,6 +77,8 @@ list(
         "guide_colourbar",
         "scale_alpha",
         "scale_area",
+        "scale_colour_brewer",
+        "scale_colour_gradient",
         "scale_colour_gradient2",
         "scale_colour_gradientn",
         "scale_colour_grey",
