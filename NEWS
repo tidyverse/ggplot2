@@ -1,3 +1,7 @@
+* all "template" plots (`plotmatrix`, `ggorder` etc) have been deprecated and
+  will be removed in a future version. These plots are poorly tested and
+  poorly supported and really belong in a separate package.
+
 ggplot2 0.9.1
 ----------------------------------------------------------------
 
