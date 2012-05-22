@@ -6,9 +6,7 @@
 theme_blank <- function() {
   structure(
     function(...) zeroGrob(),
-    class = "theme",
-    type = "any",
-    call = match.call()
+    class = "element"
   )  
 }
 
@@ -31,9 +29,7 @@ theme_rect <- function(fill = NA, colour = "black", size = 0.5, linetype = 1) {
         gp=gpar(lwd=size * .pt, col=colour, fill=fill, lty=linetype),
       )
     },
-    class = "theme",
-    type = "box",
-    call = match.call()
+    class = c("element", "element_rect")
   )
 }
 
@@ -56,9 +52,7 @@ theme_line <- function(colour = "black", size = 0.5, linetype = 1) {
         gp=gpar(lwd=size * .pt, col=colour, lty=linetype),
       )
     },
-    class = "theme",
-    type = "line",
-    call = match.call()
+    class = c("element", "element_line")
   )
 }
 
@@ -81,9 +75,7 @@ theme_segment <- function(colour = "black", size = 0.5, linetype = 1) {
         gp=gpar(col=colour, lty=linetype, lwd = size * .pt),
       )
     },
-    class = "theme",
-    type = "segment",
-    call = match.call()
+    class = c("element", "element_segment")
   )
 }
 
@@ -135,8 +127,6 @@ theme_text <- function(family = "", face = "plain", colour = "black", size = 10,
         rot = angle
       )
     },
-    class = "theme",
-    type = "text",
-    call = match.call()
+    class = c("element", "element_text")
   )
 }
