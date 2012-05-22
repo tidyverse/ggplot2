@@ -1,3 +1,11 @@
+ggplot2 0.9.2
+----------------------------------------------------------------
+
+MINOR FEATURES
+
+* Default guide for continuous color/fill scale is colourbar.
+
+
 ggplot2 0.9.1
 ----------------------------------------------------------------
 
@@ -31,8 +39,6 @@ MINOR FEATURES
 * Coordinate expansion is now handled by an interaction of the scale and
   coord, rather than by the scale only. Also, the `wise` argument is no
   longer needed. (Thanks to Winston Chang and Kohske Takahashi)
-
-* Default guide for continuous color/fill scale is colorbar.
 
 BUG FIXES
 
