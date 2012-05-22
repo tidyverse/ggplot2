@@ -196,6 +196,36 @@ list(
     
   ), 
   icons = list(  
+    coord_cartesian = sd_icon({
+      gTree(children = gList(
+        segmentsGrob(c(0, 0.25), c(0.25, 0), c(1, 0.25), c(0.25, 1),
+          gp=gpar(col="grey50", lwd=0.5)),
+        segmentsGrob(c(0, 0.75), c(0.75, 0), c(1, 0.75), c(0.75, 1),
+          gp=gpar(col="grey50", lwd=0.5)),
+        segmentsGrob(c(0, 0.5), c(0.5, 0), c(1, 0.5), c(0.5, 1))
+      ))
+    }),
+    coord_fixed = sd_icon({
+      textGrob("=", gp = gpar(cex=3))
+    }),
+    coord_flip = sd_icon({
+      angles <- seq(0, pi/2, length=20)[-c(1, 20)]
+      gTree(children=gList(
+        segmentsGrob(0, 0, 0, 1),
+        segmentsGrob(0, 0, 1, 0),
+        linesGrob(0.9 * sin(angles), 0.9 * cos(angles),
+          arrow=arrow(length=unit(0.05, "npc"))),
+        linesGrob(0.5 * sin(angles), 0.5 * cos(angles),
+          arrow=arrow(ends="first", length= unit(0.05, "npc")))
+      ))
+    }),
+    coord_map = sd_icon({
+      nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
+      nz$x <- nz$x - min(nz$x, na.rm=TRUE)
+      nz$y <- nz$y - min(nz$y, na.rm=TRUE)
+      nz <- nz / max(nz, na.rm=TRUE)
+      linesGrob(nz$x, nz$y, default.units="npc")
+    }),
     coord_polar = sd_icon({
       circleGrob(r = c(0.1, 0.25, 0.45),  gp = gpar(fill = NA))
     }),
@@ -204,6 +234,24 @@ list(
       gTree(children = gList(
         segmentsGrob(breaks, 0, breaks, 1),
         segmentsGrob(0, breaks, 1, breaks)
+      ))
+    }),
+    facet_grid = sd_icon({
+      gTree(children = gList(
+        rectGrob(0, 1, width=0.95, height=0.05, hjust=0, vjust=1,
+          gp=gpar(fill="grey60", col=NA)),
+        rectGrob(0.95, 0.95, width=0.05, height=0.95, hjust=0, vjust=1,
+          gp=gpar(fill="grey60", col=NA)),
+        segmentsGrob(c(0, 0.475), c(0.475, 0), c(1, 0.475), c(0.475, 1))
+      ))
+    }),
+    facet_null = sd_icon({
+      gTree(children = gList(
+        rectGrob(0, 1, width=0.95, height=0.05, hjust=0, vjust=1,
+          gp=gpar(fill="grey60", col=NA)),
+        rectGrob(0.95, 0.95, width=0.05, height=0.95, hjust=0, vjust=1,
+          gp=gpar(fill="grey60", col=NA)),
+        segmentsGrob(c(0, 0.475), c(0.475, 0), c(1, 0.475), c(0.475, 1))
       ))
     }),
     geom_abline = sd_icon(linesGrob(c(0, 1), c(0.2, 0.8))),
@@ -390,6 +438,75 @@ list(
       y <- c(0.5, 0.8)
       rectGrob(0.5, c(0.5, 0.8), width = 0.4, height = c(0.5, 0.3),
         gp = gpar(col = "grey60", fill = c('#804070', '#668040')), vjust = 1)
+    }),
+    scale_alpha = sd_icon({
+      x <- c(0.1, 0.3, 0.5, 0.7, 0.9)
+      rectGrob(x, width=0.25,
+        gp=gpar(fill=alpha("black", x), col=NA)
+      )
+    }),
+    scale_scale_date = sd_icon({
+      textGrob("14/10/1979", gp=gpar(cex=1))
+    }),
+    scale_scale_datetime = sd_icon({
+      textGrob("14/10/1979\n10:14am", gp=gpar(cex=0.9))
+    }),
+    scale_gradient = sd_icon({
+      g <- scale_fill_gradient()
+      g$train(1:5)
+      rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21,
+        gp=gpar(fill=g$map(1:5), col=NA)
+      )
+    }),
+    scale_fill_gradient2 = sd_icon({
+      g <- scale_fill_gradient2()
+      g$train(1:5 - 3)
+      rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21,
+        gp=gpar(fill=g$map(1:5 - 3), col=NA)
+      )
+    }),
+    scale_gradientn = sd_icon({
+      g <- scale_fill_gradientn(colours = rainbow(7))
+      g$train(1:5)
+      rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21,
+        gp=gpar(fill = g$map(1:5), col=NA)
+      )
+    }),
+    scale_grey = sd_icon({
+      rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21,
+        gp=gpar(fill=gray(seq(0, 1, length=5)), col=NA)
+      )
+    }),
+    scale_hue = sd_icon({
+      rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21,
+        gp=gpar(fill=hcl(seq(0, 360, length=6)[-6], c=100, l=65), col=NA)
+      )
+    }),
+    scale_identity = sd_icon({
+      textGrob("f(x) = x", gp=gpar(cex=1.2))
+    }),
+    scale_linetype = sd_icon({
+      gTree(children=gList(
+        segmentsGrob(0, 0.25, 1, 0.25, gp=gpar(lty=1)),
+        segmentsGrob(0, 0.50, 1, 0.50, gp=gpar(lty=2)),
+        segmentsGrob(0, 0.75, 1, 0.75, gp=gpar(lty=3))
+      ))
+    }),
+    scale_manual = sd_icon({
+      textGrob("DIY", gp=gpar(cex=1.2))
+    }),
+    scale_shape = sd_icon({
+      gTree(children=gList(
+        circleGrob(0.7, 0.7, r=0.1),
+        segmentsGrob(0.2, 0.3, 0.4, 0.3),
+        segmentsGrob(0.3, 0.2, 0.3, 0.4),
+        polygonGrob(c(0.2, 0.2, 0.4, 0.4), c(0.8, 0.6, 0.6, 0.8)),
+        polygonGrob(c(0.6, 0.7, 0.8), c(0.2, 0.4, 0.2))
+      ))
+    }),
+    scale_size = sd_icon({
+      pos <- c(0.15, 0.3, 0.5, 0.75)
+      circleGrob(pos, pos, r=(c(0.1, 0.2, 0.3, 0.4)/2.5), gp=gpar(fill="grey50", col=NA))
     }),
     stat_bin = sd_icon(inherit = "geom_histogram" ),
     stat_bindot = sd_icon(inherit = "geom_dotplot" ),
