@@ -16,7 +16,7 @@ examples of ggplot in use.  If you're interested, you can also sign up to
 the ggplot2 mailing list at http://groups.google.com/group/ggplot2, or track
 development at http://github.com/hadley/ggplot2
 
-# Development
+## Development
 
 To install the development version of ggplot2, it's easiest to use the `devtools` package:
 

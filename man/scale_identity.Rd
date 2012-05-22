@@ -1,8 +1,8 @@
-\name{scale_colour_identity}
+\name{scale_identity}
 \alias{scale_alpha_identity}
 \alias{scale_color_identity}
-\alias{scale_colour_identity}
 \alias{scale_fill_identity}
+\alias{scale_identity}
 \alias{scale_linetype_identity}
 \alias{scale_shape_identity}
 \alias{scale_size_identity}

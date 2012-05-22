@@ -3,7 +3,7 @@
 #' @inheritParams scale_x_continuous
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
-#' @rdname scale_size
+#' @name scale_size
 #' @export
 #' @examples
 #' \donttest{
