@@ -31,13 +31,13 @@
 #' d + scale_colour_gradientn(colours = terrain.colors(10), 
 #'   values = values, rescaler = function(x, ...) x, oob = identity)
 #' }
-scale_colour_gradientn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50", guide = "colorbar") {
+scale_colour_gradientn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50", guide = "colourbar") {
   continuous_scale("colour", "gradientn", 
     gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
 }
 #' @rdname scale_gradientn
 #' @export
-scale_fill_gradientn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50", guide = "colorbar") {
+scale_fill_gradientn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50", guide = "colourbar") {
   continuous_scale("fill", "gradientn",
     gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
 }
