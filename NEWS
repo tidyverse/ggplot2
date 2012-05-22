@@ -32,6 +32,8 @@ MINOR FEATURES
   coord, rather than by the scale only. Also, the `wise` argument is no
   longer needed. (Thanks to Winston Chang and Kohske Takahashi)
 
+* Default guide for continuous color/fill scale is colorbar.
+
 BUG FIXES
 
 * `facet_grid` no longer drops duplicate cases (Fixes #443)
