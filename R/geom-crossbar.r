@@ -1,5 +1,8 @@
 #' Hollow bar with middle indicated by horizontal line.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "crossbar")}
+#'
 #' @inheritParams geom_point
 #' @param fatten a multiplicate factor to fatten middle bar by
 #' @seealso \code{\link{geom_errorbar}} for error bars,

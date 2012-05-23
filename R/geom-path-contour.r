@@ -1,5 +1,8 @@
 #' Display contours of a 3d surface in 2d.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "contour")}
+#'
 #' @inheritParams geom_point
 #' @inheritParams geom_path
 #' @seealso \code{\link{geom_density2d}}: 2d density contours

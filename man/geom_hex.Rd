@@ -28,6 +28,10 @@
 \description{
   Hexagon bining.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "hex")}
+}
 \examples{
 # See ?stat_binhex for examples
 }

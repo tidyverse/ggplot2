@@ -36,6 +36,10 @@
   \code{\link{position_jitter}} to see how to adjust amount
   of jittering.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "jitter")}
+}
 \examples{
 p <- ggplot(mpg, aes(displ, hwy))
 p + geom_point()

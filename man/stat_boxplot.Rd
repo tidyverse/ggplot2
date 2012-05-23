@@ -47,6 +47,10 @@
 \description{
   Calculate components of box and whisker plot.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "boxplot")}
+}
 \examples{
 # See geom_boxplot for examples
 }

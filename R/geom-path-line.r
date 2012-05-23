@@ -1,5 +1,8 @@
 #' Connect observations, ordered by x value.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "line")}
+#'
 #' @seealso \code{\link{geom_path}}: connect observations in data order, 
 #'  \code{\link{geom_segment}}: draw line segments,
 #'  \code{\link{geom_ribbon}}: fill between line and x-axis

@@ -54,6 +54,10 @@
 \description{
   1d kernel density estimate along y axis, for violin plot.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "unique")}
+}
 \examples{
 # See geom_violin for examples
 # Also see stat_density for similar examples with data along x axis

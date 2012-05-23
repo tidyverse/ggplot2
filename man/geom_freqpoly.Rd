@@ -28,6 +28,10 @@
 \description{
   Frequency polygon.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "freqpoly")}
+}
 \examples{
 qplot(carat, data = diamonds, geom = "freqpoly")
 qplot(carat, data = diamonds, geom = "freqpoly", binwidth = 0.1)

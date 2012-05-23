@@ -32,6 +32,10 @@
 \description{
   Hollow bar with middle indicated by horizontal line.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "crossbar")}
+}
 \examples{
 # See geom_linerange for examples
 }

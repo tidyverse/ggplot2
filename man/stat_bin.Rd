@@ -52,6 +52,10 @@
 \description{
   Missing values are currently silently dropped.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "bin")}
+}
 \examples{
 \donttest{
 simple <- data.frame(x = rep(1:10, each = 2))

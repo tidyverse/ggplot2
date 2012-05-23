@@ -2,6 +2,9 @@
 #' 
 #' Missing values are currently silently dropped.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bin")}
+#'
 #' @inheritParams stat_identity
 #' @param binwidth Bin width to use. Defaults to 1/30 of the range of the
 #'   data

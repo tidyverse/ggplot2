@@ -1,5 +1,8 @@
 #' Single line segments.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "segment")}
+#'
 #' @inheritParams geom_point
 #' @param arrow specification for arrow heads, as created by arrow()
 #' @seealso \code{\link{geom_path}} and \code{\link{geom_line}} for multi-

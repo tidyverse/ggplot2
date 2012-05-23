@@ -32,7 +32,10 @@
 \description{
   Apply function for 2D rectangular bins.
 }
-\details{
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "summary2d")}
+
   \code{stat_summary2d} is 2D version of
   \code{\link{stat_summary}}. The data are devided by
   \code{x} and \code{y}. \code{z} in each cell is passed to

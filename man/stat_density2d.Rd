@@ -39,6 +39,10 @@
 \description{
   2d density estimation.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "density2d")}
+}
 \examples{
 \donttest{
 library("MASS")

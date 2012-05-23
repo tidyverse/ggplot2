@@ -1,5 +1,8 @@
 #' Error bars.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "errorbar")}
+#'
 #' @seealso \code{\link{geom_pointrange}}: range indicated by straight line,
 #'   with point in the middle; \code{\link{geom_linerange}}: range indicated
 #'   by straight line; \code{\link{geom_crossbar}}: hollow bar with middle

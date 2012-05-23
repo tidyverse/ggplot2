@@ -1,5 +1,8 @@
 #' Add a smoothed conditional mean.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "smooth")}
+#'
 #' @inheritParams geom_point
 #' @seealso The default stat for this geom is \code{\link{stat_smooth}} see 
 #'   that documentation for more options to control the underlying statistical transformation.

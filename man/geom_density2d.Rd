@@ -45,6 +45,10 @@
 \details{
   This can be useful for dealing with overplotting.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "density2d")}
+}
 \examples{
 # See stat_density2d for examples
 }

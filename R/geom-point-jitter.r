@@ -4,6 +4,9 @@
 #' 'jitter'.  See \code{\link{position_jitter}} to see how to adjust amount 
 #' of jittering.
 #' 
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "jitter")}
+#'
 #' @inheritParams geom_point
 #' @seealso
 #'  \code{\link{geom_point}} for regular, unjittered points, 

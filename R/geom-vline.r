@@ -10,6 +10,9 @@
 #' intercept for each panel using a data.frame.  See the examples for the
 #' differences.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "vline")}
+#'
 #' @param show_guide should a legend be drawn? (defaults to \code{FALSE})
 #' @inheritParams geom_point
 #' @seealso

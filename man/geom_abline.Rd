@@ -43,6 +43,10 @@
   slope are stored in the data, then they can vary from
   panel to panel.  See the examples for more ideas.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "abline")}
+}
 \examples{
 p <- qplot(wt, mpg, data = mtcars)
 

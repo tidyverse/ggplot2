@@ -34,6 +34,10 @@
 \description{
   Count number of observation in rectangular bins.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "bin2d")}
+}
 \examples{
 \donttest{
 d <- ggplot(diamonds, aes(carat, price))

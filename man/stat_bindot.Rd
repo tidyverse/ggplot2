@@ -77,6 +77,10 @@
   Missing values are currently silently dropped. If weights
   are used, they must be integer values.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "bindot")}
+}
 \examples{
 # See geom_dotplot for examples
 }

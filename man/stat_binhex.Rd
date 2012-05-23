@@ -34,6 +34,10 @@
 \description{
   Bin 2d plane into hexagons.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "binhex")}
+}
 \examples{
 \donttest{
 d <- ggplot(diamonds, aes(carat, price))

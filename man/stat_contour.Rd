@@ -35,6 +35,10 @@
 \description{
   Calculate contours of 3d data.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "contour")}
+}
 \examples{
 \donttest{
 # Generate data

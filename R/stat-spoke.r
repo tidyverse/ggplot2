@@ -1,5 +1,8 @@
 #' Convert angle and radius to xend and yend.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "spoke")}
+#'
 #' @inheritParams stat_identity
 #' @return a data.frame with additional columns
 #'   \item{xend}{x position of end of line segment}

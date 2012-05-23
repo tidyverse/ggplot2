@@ -1,5 +1,8 @@
 #' An interval represented by a vertical line.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "linerange")}
+#'
 #' @seealso \code{\link{geom_errorbar}}: error bars;
 #'   \code{\link{geom_pointrange}}: range indicated by straight line, with
 #'   point in the middle; \code{\link{geom_crossbar}}: hollow bar with middle

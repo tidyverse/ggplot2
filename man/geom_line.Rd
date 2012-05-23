@@ -28,6 +28,10 @@
 \description{
   Connect observations, ordered by x value.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "line")}
+}
 \examples{
 # Summarise number of movie ratings by year of movie
 mry <- do.call(rbind, by(movies, round(movies$rating), function(df) {

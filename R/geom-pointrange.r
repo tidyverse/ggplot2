@@ -1,5 +1,8 @@
 #' An interval represented by a vertical line, with a point in the middle.
 #' 
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "pointrange")}
+#'
 #' @inheritParams geom_point
 #' @seealso
 #'  \code{\link{geom_errorbar}} for error bars,

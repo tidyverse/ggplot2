@@ -12,6 +12,9 @@ NULL
 #' If you want to manually set the padding (e.g. want zero-padding),
 #' you can change the behavior by setting \code{hpad} and \code{vpad}.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "raster")}
+#'
 #' @inheritParams geom_point
 #' @param hjust,vjust horizontal and vertical justification of the grob.  Each
 #'   justification value should be a number between 0 and 1.  Defaults to 0.5 

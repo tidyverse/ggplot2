@@ -1,5 +1,8 @@
 #' Polygon, a filled path.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "polygon")}
+#'
 #' @seealso 
 #'  \code{\link{geom_path}} for an unfilled polygon,
 #'  \code{\link{geom_ribbon}} for a polygon anchored on the x-axis

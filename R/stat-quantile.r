@@ -1,5 +1,8 @@
 #' Continuous quantiles.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "quantile")}
+#'
 #' @param quantiles conditional quantiles of y to calculate and display
 #' @param formula formula relating y variables to x variables
 #' @param method Quantile regression method to use.  Currently only supports

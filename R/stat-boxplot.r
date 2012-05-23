@@ -1,5 +1,8 @@
 #' Calculate components of box and whisker plot.
 #' 
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "boxplot")}
+#'
 #' @param coef length of the whiskers as multiple of IQR.  Defaults to 1.5
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.

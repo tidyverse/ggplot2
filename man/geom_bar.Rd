@@ -61,6 +61,10 @@
   on this topic}. This is the reason it doesn't make sense
   to use a log-scaled y axis with a bar chart
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "bar")}
+}
 \examples{
 \donttest{
 # Generate data

@@ -29,6 +29,9 @@
 #' \href{http://www.b-eye-network.com/view/index.php?cid=2468}{article on this topic}.  
 #' This is the reason it doesn't make sense to use a log-scaled y axis with a bar chart
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "bar")}
+#'
 #' @seealso \code{\link{stat_bin}} for more details of the binning alogirithm, 
 #'   \code{\link{position_dodge}} for creating side-by-side barcharts, 
 #'   \code{\link{position_stack}} for more info on stacking,

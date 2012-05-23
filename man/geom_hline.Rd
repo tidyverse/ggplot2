@@ -41,6 +41,10 @@
   intercept for each panel using a data.frame. See the
   examples for the differences
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "hline")}
+}
 \examples{
 p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()
 

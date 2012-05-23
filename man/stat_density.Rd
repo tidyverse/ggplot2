@@ -49,6 +49,10 @@
 \description{
   1d kernel density estimate.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "density")}
+}
 \examples{
 \donttest{
 m <- ggplot(movies, aes(x = rating))

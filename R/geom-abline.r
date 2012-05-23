@@ -11,6 +11,9 @@
 #' in all panels.  If the intercept and slope are stored in the data, then 
 #' they can vary from panel to panel.  See the examples for more ideas.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "abline")}
+#'
 #' @seealso \code{\link{stat_smooth}} to add lines derived from the data,
 #'  \code{\link{geom_hline}} for horizontal lines,
 #'  \code{\link{geom_vline}} for vertical lines

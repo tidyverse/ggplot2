@@ -33,6 +33,10 @@
   Sum unique values.  Useful for overplotting on
   scatterplots.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "sum")}
+}
 \examples{
 \donttest{
 d <- ggplot(diamonds, aes(x = cut, y = clarity))

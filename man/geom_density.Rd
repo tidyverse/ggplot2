@@ -34,6 +34,10 @@
   A smooth density estimate calculated by
   \code{\link{stat_density}}.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "density")}
+}
 \examples{
 # See stat_density for examples
 }

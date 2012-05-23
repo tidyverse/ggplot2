@@ -23,19 +23,8 @@
 #' way, using \code{\link{stat_sum}}. Another technique is to use transparent
 #' points, \code{geom_point(alpha = 0.05)}.
 #'
-#' @section Aesthetics:
-#'
-#' \code{geom_point} understands the following aesthetics:
-#'
-#' \itemize{
-#'  \item \code{x}: horizontal position
-#'  \item \code{y}: vertical position
-#'  \item \code{shape}: point shape.
-#'  \item \code{colour}: point colour. 
-#'  \item \code{fill}: fill colour, only affects solid points
-#'  \item \code{size}: size.
-#'  \item \code{alpha}: alpha transparency modifies colour.
-#' }
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
 #'
 #' @seealso \code{\link{scale_size}} to see scale area of points, instead of
 #'   radius, \code{\link{geom_jitter}} to jitter points to reduce (mild)

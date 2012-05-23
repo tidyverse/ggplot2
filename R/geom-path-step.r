@@ -1,5 +1,8 @@
 #' Connect observations by stairs.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "step")}
+#'
 #' @inheritParams geom_point
 #' @param direction direction of stairs: 'vh' for vertical then horizontal, or
 #'   'hv' for horizontal then vertical

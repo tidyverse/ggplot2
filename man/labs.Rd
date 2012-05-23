@@ -5,6 +5,10 @@
 \title{Change axis labels and legend titles}
 \usage{
   labs(...)
+
+  xlab(label)
+
+  ylab(label)
 }
 \arguments{
   \item{...}{a list of new names in the form aesthetic =

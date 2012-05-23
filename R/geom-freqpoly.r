@@ -1,5 +1,8 @@
 #' Frequency polygon.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "freqpoly")}
+#'
 #' @seealso \code{\link{geom_histogram}}: histograms
 #' @inheritParams geom_point
 #' @export

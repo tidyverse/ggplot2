@@ -1,5 +1,8 @@
 #' Bin 2d plane into hexagons.
 #' 
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "binhex")}
+#'
 #' @seealso \code{\link{stat_bin2d}} for rectangular binning
 #' @param bins numeric vector specifying number of bins in both x and y 
 #'   directions. Set to 30 by default.

@@ -2,6 +2,9 @@
 #'
 #' A smooth density estimate calculated by \code{\link{stat_density}}.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "density")}
+#'
 #' @seealso \code{\link{geom_histogram}} for the histogram
 #' @inheritParams geom_point
 #' @export

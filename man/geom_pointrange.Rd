@@ -29,6 +29,10 @@
   An interval represented by a vertical line, with a point
   in the middle.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "pointrange")}
+}
 \examples{
 # See geom_linerange for examples
 }

@@ -8,6 +8,8 @@
 #' but the idea is to get you experimenting with different binwidths. You
 #' may need to look at a few to uncover the full story behind your data.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "histogram")}
 #'
 #' @export 
 #' @inheritParams geom_point
