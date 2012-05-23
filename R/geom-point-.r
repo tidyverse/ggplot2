@@ -147,11 +147,6 @@ GeomPoint <- proto(Geom, {
     )
   }
 
-  icon <- function(.) {
-    pos <- seq(0.1, 0.9, length=6)
-    pointsGrob(x=pos, y=pos, pch=19, gp=gpar(col="black", cex=0.5), default.units="npc")
-  }
-  
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y")
   default_aes <- function(.) aes(shape=16, colour="black", size=2, fill = NA, alpha = NA)

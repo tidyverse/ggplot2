@@ -48,6 +48,4 @@ PositionJitter <- proto(Position, {
     transform_position(data, trans_x, trans_y)
   }
   
-  icon <- function(.) GeomJitter$icon()
-  
 })

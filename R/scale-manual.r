@@ -67,7 +67,6 @@ scale_alpha_manual <- function(..., values) {
   manual_scale("alpha", values, ...)
 }
 
-icon.manual <- function() textGrob("DIY", gp=gpar(cex=1.2))
 
 manual_scale <- function(aesthetic, values, ...) {
   pal <- function(n) {

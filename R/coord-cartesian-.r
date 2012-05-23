@@ -83,11 +83,3 @@ train_cartesian <- memoise(function(scale, limits, name) {
   names(out) <- paste(name, names(out), sep = ".")
   out
 })
-
-icon.cartesian <- function(.) {
-  gTree(children = gList(
-    segmentsGrob(c(0, 0.25), c(0.25, 0), c(1, 0.25), c(0.25, 1), gp=gpar(col="grey50", lwd=0.5)),
-    segmentsGrob(c(0, 0.75), c(0.75, 0), c(1, 0.75), c(0.75, 1), gp=gpar(col="grey50", lwd=0.5)),
-    segmentsGrob(c(0, 0.5), c(0.5, 0), c(1, 0.5), c(0.5, 1))
-  ))
-}

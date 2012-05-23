@@ -71,9 +71,6 @@ scale_y_datetime <- function(..., expand = waiver(), breaks = waiver(),
     breaks = breaks, minor_breaks = minor_breaks, ...)
 }
 
-icon.scale_datetime <- function() {
-  textGrob("14/10/1979\n10:14am", gp=gpar(cex=0.9))
-}
 
 # base class for scale_{xy}_datetime
 scale_datetime <- function(aesthetics, expand = waiver(), breaks = waiver(),

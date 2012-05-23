@@ -171,9 +171,7 @@ StatSmooth <- proto(Stat, {
     
     predictdf(model, xseq, se, level)
   }
-  
-  icon <- function(.) GeomSmooth$icon()
-  
+
   required_aes <- c("x", "y")
   default_geom <- function(.) GeomSmooth
 })

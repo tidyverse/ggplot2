@@ -67,7 +67,6 @@ StatBin <- proto(Stat, {
     bin(data$x, data$weight, binwidth=binwidth, origin=origin, breaks=breaks, range=range, width=width, drop = drop, right = right)
   }
 
-  icon <- function(.) GeomHistogram$icon()
   default_aes <- function(.) aes(y = ..count..)
   required_aes <- c("x")
   default_geom <- function(.) GeomBar

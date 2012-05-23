@@ -104,11 +104,6 @@ GeomRaster <- proto(Geom, {
       default.units = "native", interpolate = interpolate)
   }
 
-
-  icon <- function(.) {
-    rectGrob(c(0.25, 0.25, 0.75, 0.75), c(0.25, 0.75, 0.75, 0.25), width=0.5, height=c(0.67, 0.5, 0.67, 0.5), gp=gpar(col="grey20", fill=c("#804070", "#668040")))
-  }
-
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(fill = "grey20", alpha = NA)
   required_aes <- c("x", "y")

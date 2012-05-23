@@ -80,5 +80,3 @@ scale_train.identity <- function(scale, x) {
   if (scale$guide == "none") return()
   NextMethod()
 }
-
-icon.identity <- function() textGrob("f(x) = x", gp=gpar(cex=1.2))

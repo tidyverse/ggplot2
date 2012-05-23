@@ -26,7 +26,6 @@ StatBoxplot <- proto(Stat, {
   objname <- "boxplot"
   
   required_aes <- c("x", "y")
-  icon <- function(.) GeomBoxplot$icon()
   default_geom <- function(.) GeomBoxplot
   
   calculate_groups <- function(., data, na.rm = FALSE, width = NULL, ...) {

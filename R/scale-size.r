@@ -41,8 +41,3 @@ scale_size_discrete <- function(..., range = c(1, 6)) {
   discrete_scale("size", "size_d",
     function(n) seq(range[1], range[2], length = n), ...)
 }
-
-icon.size <- function() {
-  pos <- c(0.15, 0.3, 0.5, 0.75)
-  circleGrob(pos, pos, r=(c(0.1, 0.2, 0.3, 0.4)/2.5), gp=gpar(fill="grey50", col=NA))
-}

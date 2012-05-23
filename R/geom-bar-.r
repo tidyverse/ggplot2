@@ -131,9 +131,4 @@ GeomBar <- proto(Geom, {
     GeomRect$draw_groups(data, scales, coordinates, ...)
   }
   guide_geom <- function(.) "polygon"
-  
-  
-  icon <- function(.) {
-    rectGrob(c(0.3, 0.7), c(0.4, 0.8), height=c(0.4, 0.8), width=0.3, vjust=1, gp=gpar(fill="grey20", col=NA))
-  }
 })

@@ -114,7 +114,6 @@ StatDensity <- proto(Stat, {
     rename(densdf, c(y = "density"))
   }
 
-  icon <- function(.) GeomDensity$icon()
   default_geom <- function(.) GeomArea
   default_aes <- function(.) aes(y = ..density.., fill=NA)
   required_aes <- c("x")

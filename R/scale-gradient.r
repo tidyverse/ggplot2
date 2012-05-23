@@ -66,11 +66,3 @@ scale_fill_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = 
   continuous_scale("fill", "gradient", seq_gradient_pal(low, high, space),
     na.value = na.value, ...)
 }
-
-icon.gradient <- function(.) {
-  g <- scale_fill_gradient()
-  g$train(1:5)
-  rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21, 
-    gp=gpar(fill=g$map(1:5), col=NA)
-  )    
-}

@@ -31,10 +31,3 @@ scale_alpha_discrete <- function(..., range = c(0.1, 1)) {
   discrete_scale("alpha", "alpha_d",
     function(n) seq(range[1], range[2], length = n), ...)
 }
-
-icon.alpha <- function() {
-  x <- c(0.1, 0.3, 0.5, 0.7, 0.9)
-  rectGrob(x, width=0.25, 
-    gp=gpar(fill=alpha("black", x), col=NA)
-  )
-}

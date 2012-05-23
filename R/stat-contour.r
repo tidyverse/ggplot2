@@ -91,8 +91,6 @@ StatContour <- proto(Stat, {
   }
 
   
-  icon <- function(.) GeomContour$icon()
-  
   default_geom <- function(.) GeomPath
   default_aes <- function(.) aes(order = ..level..)
   required_aes <- c("x", "y", "z")

@@ -128,12 +128,3 @@ train_trans <- memoise(function(scale, limits, trans, name) {
   names(out) <- paste(name, names(out), sep = ".")
   out
 })
-
-# Documentation -----------------------------------------------
-icon <- function(.) {
-  breaks <- cumsum(1 / 2^(1:5))
-  gTree(children=gList(
-    segmentsGrob(breaks, 0, breaks, 1),
-    segmentsGrob(0, breaks, 1, breaks)
-  ))
-}

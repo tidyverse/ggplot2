@@ -38,11 +38,6 @@ na.rm = FALSE, ...) {
 GeomJitter <- proto(GeomPoint, {
   objname <- "jitter"
 
-  icon <- function(.) {
-    pos <- seq(0.1, 0.9, length=6)
-    pointsGrob(x=pos, y=jitter(pos, 3), pch=19, gp=gpar(col="black", cex=0.5), default.units="npc")
-  }
-  
   default_stat <- function(.) StatIdentity
   default_pos <- function(.) PositionJitter
 })

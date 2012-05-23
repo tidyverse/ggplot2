@@ -67,11 +67,3 @@ mid_rescaler <- function(mid) {
     rescale_mid(x, to, from, mid)
   }
 }
-
-icon.fill_gradient2 <- function(.) {
-  g <- scale_fill_gradient2()
-  g$train(1:5 - 3)
-  rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21, 
-    gp=gpar(fill=g$map(1:5 - 3), col=NA)
-  )
-}

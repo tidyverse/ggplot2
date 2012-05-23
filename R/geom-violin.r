@@ -100,20 +100,6 @@ GeomViolin <- proto(Geom, {
 
   guide_geom <- function(.) "polygon"
 
-  icon <- function(.) {
-    y <- seq(-.3, .3, length=40)
-    x1 <- dnorm(y, mean = -.15, sd = 0.05) + 1.5*dnorm(y, mean = 0.1, sd = 0.1)
-    x2 <- dnorm(y, mean = -.1, sd = 0.1) + dnorm(y, mean = 0.1, sd = 0.1)
-
-    y <- c(y, rev(y))
-    x1 <- c(x1, -rev(x1)) / max(8 * x1)
-    x2 <- c(x2, -rev(x2)) / max(8 * x2)
-    gTree(children = gList(
-      polygonGrob(x1 + .30, y + .35, default = "npc", gp = gpar(fill = "black")),
-      polygonGrob(x2 + .70, y + .55, default = "npc", gp = gpar(fill = "black"))
-    ))
-  }
-  
   default_stat <- function(.) StatYdensity
   default_pos <- function(.) PositionDodge
   default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = NA, linetype = "solid")

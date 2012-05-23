@@ -116,10 +116,4 @@ geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin", position 
 
 GeomHistogram <- proto(GeomBar, {
   objname <- "histogram"
-
-  icon <- function(.) {
-    y <- c(0.2, 0.3, 0.5, 0.6,0.2, 0.8, 0.5, 0.3)
-    rectGrob(seq(0.1, 0.9, by=0.1), y, height=y, width=0.1, vjust=1, gp=gpar(fill="grey20", col=NA))
-  }
-
 })

@@ -197,11 +197,3 @@ coord_render_axis_v.map <- function(coord, details, theme) {
   
   guide_axis(pos$y, details$y.labels, "left", theme)
 }
-
-icon.map <- function(.) {
-  nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
-  nz$x <- nz$x - min(nz$x, na.rm=TRUE)
-  nz$y <- nz$y - min(nz$y, na.rm=TRUE)
-  nz <- nz / max(nz, na.rm=TRUE)
-  linesGrob(nz$x, nz$y, default.units="npc")
-}

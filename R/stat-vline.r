@@ -28,7 +28,6 @@ StatAbline <- proto(Stat, {
     unique(data)
   }
   
-  icon <- function(.) GeomAbline$icon()
   default_geom <- function(.) GeomAbline
 })
 
@@ -59,8 +58,6 @@ StatVline <- proto(Stat, {
       xend <- xintercept
     }))
   }
-  
-  icon <- function(.) GeomVline$icon()
   
   required_aes <- c()
   default_geom <- function(.) GeomVline
@@ -95,7 +92,6 @@ StatHline <- proto(Stat, {
   
   objname <- "hline" 
   desc <- "Add a horizontal line"
-  icon <- function(.) GeomHline$icon()
   
   required_aes <- c()
   default_geom <- function(.) GeomHline

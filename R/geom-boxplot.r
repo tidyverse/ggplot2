@@ -185,13 +185,6 @@ GeomBoxplot <- proto(Geom, {
       linesGrob(c(0.125, 0.875), 0.5)
     ))
   }
-  icon <- function(.) {
-    gTree(children=gList(
-      segmentsGrob(c(0.3, 0.7), c(0.1, 0.2), c(0.3, 0.7), c(0.7, 0.95)),
-      rectGrob(c(0.3, 0.7), c(0.6, 0.8), width=0.3, height=c(0.4, 0.4), vjust=1),
-      segmentsGrob(c(0.15, 0.55), c(0.5, 0.6), c(0.45, 0.85), c(0.5, 0.6))
-    ))
-  }
   
   default_stat <- function(.) StatBoxplot
   default_pos <- function(.) PositionDodge

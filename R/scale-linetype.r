@@ -31,11 +31,3 @@ scale_linetype_continuous <- function(...) {
 #' @rdname scale_linetype
 #' @export
 scale_linetype_discrete <- scale_linetype
- 
-icon.linetype <- function(.) {
-  gTree(children=gList(
-    segmentsGrob(0, 0.25, 1, 0.25, gp=gpar(lty=1)),
-    segmentsGrob(0, 0.50, 1, 0.50, gp=gpar(lty=2)),
-    segmentsGrob(0, 0.75, 1, 0.75, gp=gpar(lty=3))
-  ))
-}

@@ -63,11 +63,6 @@ geom_line <- function (mapping = NULL, data = NULL, stat = "identity", position 
 
 GeomLine <- proto(GeomPath, {
   objname <- "line"
-
-  icon <- function(.) {
-    pos <- seq(0, 1, length=5)
-    linesGrob(pos, c(0.2, 0.7, 0.4, 0.8, 0.3))
-  }
   
   draw <- function(., data, scales, coordinates, arrow = NULL, ...) {
     data <- data[order(data$group, data$x), ]

@@ -64,13 +64,3 @@ coord_train.flip <- function(coord, scales) {
 coord_labels.flip <- function(coord, scales) {
   flip_labels(NextMethod())
 }
-
-icon.flip <- function(.) {
-  angles <- seq(0, pi/2, length=20)[-c(1, 20)]
-  gTree(children=gList(
-    segmentsGrob(0, 0, 0, 1),
-    segmentsGrob(0, 0, 1, 0),
-    linesGrob(0.9 * sin(angles), 0.9 * cos(angles), arrow=arrow(length=unit(0.05, "npc"))),
-    linesGrob(0.5 * sin(angles), 0.5 * cos(angles), arrow=arrow(ends="first", length= unit(0.05, "npc")))
-  ))
-}

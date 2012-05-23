@@ -17,13 +17,6 @@ fatten = 2, ...) {
 
 GeomCrossbar <- proto(Geom, {
   objname <- "crossbar"
-
-  icon <- function(.) {
-    gTree(children=gList(
-      rectGrob(c(0.3, 0.7), c(0.6, 0.8), width=0.3, height=c(0.4, 0.4), vjust=1),
-      segmentsGrob(c(0.15, 0.55), c(0.5, 0.6), c(0.45, 0.85), c(0.5, 0.6))
-    ))
-  }
   
   reparameterise <- function(., df, params) {
     GeomErrorbar$reparameterise(df, params)

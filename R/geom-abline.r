@@ -78,7 +78,6 @@ GeomAbline <- proto(Geom, {
     GeomSegment$draw(unique(data), scales, coordinates)
   }
 
-  icon <- function(.) linesGrob(c(0, 1), c(0.2, 0.8))
   guide_geom <- function(.) "abline"
 
   default_stat <- function(.) StatAbline

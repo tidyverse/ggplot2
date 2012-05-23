@@ -41,11 +41,3 @@ scale_fill_gradientn <- function(..., colours, values = NULL, space = "Lab", na.
   continuous_scale("fill", "gradientn",
     gradient_n_pal(colours, values, space), na.value = na.value, ...)
 }
-
-icon.gradientn <- function(.) {
-  g <- scale_fill_gradientn(colours = rainbow(7))
-  g$train(1:5)
-  rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21, 
-    gp=gpar(fill = g$map(1:5), col=NA)
-  )
-}

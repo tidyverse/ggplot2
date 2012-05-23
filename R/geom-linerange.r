@@ -44,7 +44,5 @@ GeomLinerange <- proto(Geom, {
     munched <- coord_transform(coordinates, data, scales)
     ggname(.$my_name(), GeomSegment$draw(transform(data, xend=x, y=ymin, yend=ymax), scales, coordinates, ...))
   }
-
-  icon <- function(.) segmentsGrob(c(0.3, 0.7), c(0.1, 0.2), c(0.3, 0.7), c(0.7, 0.95))
   
 })

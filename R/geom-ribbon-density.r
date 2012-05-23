@@ -17,11 +17,6 @@ GeomDensity <- proto(GeomArea, {
   objname <- "density"
 
   objname <- "density"
-  icon <- function(.) {
-    x <- seq(0, 1, length=80)
-    y <- dnorm(x, mean=0.5, sd=0.15)
-    linesGrob(x, 0.05 + y / max(y) * 0.9, default="npc")
-  }
   default_stat <- function(.) StatDensity
   default_pos <- function(.) PositionIdentity
   

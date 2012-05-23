@@ -47,13 +47,6 @@ GeomSmooth <- proto(Geom, {
     )
   }
 
-  icon <- function(.) {
-    gTree(children=gList(
-      polygonGrob(c(0, 0.3, 0.5, 0.8, 1, 1, 0.8, 0.5, 0.3, 0), c(0.5, 0.3, 0.4, 0.2, 0.3, 0.7, 0.5, 0.6, 0.5, 0.7), gp=gpar(fill="grey60", col=NA)),
-      linesGrob(c(0, 0.3, 0.5, 0.8, 1), c(0.6, 0.4, 0.5, 0.4, 0.6))
-    ))
-  }
-  
   guide_geom <- function(.) "smooth"
   
   default_stat <- function(.) StatSmooth

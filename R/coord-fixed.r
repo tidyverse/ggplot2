@@ -34,5 +34,3 @@ coord_equal <- coord_fixed
 coord_aspect.fixed <- function(coord, ranges) {
   diff(ranges$y.range) / diff(ranges$x.range) * coord$ratio
 }
-
-icon.fixed <- function() textGrob("=", gp = gpar(cex=3))

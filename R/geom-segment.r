@@ -65,9 +65,6 @@ GeomSegment <- proto(Geom, {
   }
 
   
-  icon <- function(.) segmentsGrob(c(0.1, 0.3, 0.5, 0.7), c(0.3, 0.5, 0.1, 0.9), c(0.2, 0.5, 0.7, 0.9), c(0.8, 0.7, 0.4, 0.3))
-
-
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y", "xend", "yend")
   default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)

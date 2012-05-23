@@ -49,7 +49,6 @@ StatQuantile <- proto(Stat, {
   default_geom <- function(.) GeomQuantile
   default_aes <- function(.) aes()
   required_aes <- c("x", "y")
-  icon <- function(.) GeomQuantile$icon()
 
   calculate <- function(., data, scales, quantiles=c(0.25, 0.5, 0.75), formula=y ~ x, xseq = NULL, method="rq", na.rm = FALSE, ...) {
     try_require("quantreg")

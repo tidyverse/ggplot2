@@ -159,7 +159,6 @@ StatBindot <- proto(Stat, {
     return(data)
   }
 
-  icon <- function(.) GeomDotplot$icon()
   default_aes <- function(.) aes(y = ..count..)
   required_aes <- c("x")
   default_geom <- function(.) GeomDotplot

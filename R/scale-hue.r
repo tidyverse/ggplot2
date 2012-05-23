@@ -53,9 +53,3 @@ scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0
   discrete_scale("fill", "hue", hue_pal(h, c, l, h.start, direction), 
     na.value = na.value, ...)
 }
-
-icon.hue <- function() {
-  rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21, 
-    gp=gpar(fill=hcl(seq(0, 360, length=6)[-6], c=100, l=65), col=NA)
-  )
-}

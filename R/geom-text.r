@@ -85,7 +85,6 @@ GeomText <- proto(Geom, {
   }
 
   
-  icon <- function(.) textGrob("text", rot=45, gp=gpar(cex=1.2))
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y", "label")
   default_aes <- function(.) aes(colour="black", size=5 , angle=0, hjust=0.5,

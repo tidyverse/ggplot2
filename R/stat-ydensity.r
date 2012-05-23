@@ -78,7 +78,6 @@ StatYdensity <- proto(Stat, {
     densdf
   }
 
-  icon <- function(.) GeomViolin$icon()
   default_geom <- function(.) GeomViolin
   required_aes <- c("x", "y")
 

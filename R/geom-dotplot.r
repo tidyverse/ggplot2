@@ -261,13 +261,6 @@ GeomDotplot <- proto(Geom, {
       )
     )
   }
-
-  icon <- function(.) {
-    xpos <- c(1,1,2,3,3,3,4,4,5,5,5,5,6,7,7,7,8,8,9)/10
-    ypos <- c(1,2,1,1,2,3,1,2,1,2,3,4,1,1,2,3,1,2,1)/10
-    pointsGrob(x = xpos, y = ypos, pch = 19, size = unit(.1, "npc"),
-               gp = gpar(col = "black", cex = 0.5), default.units = "npc")
-  }
   
   default_stat <- function(.) StatBindot
   required_aes <- c("x", "y")
