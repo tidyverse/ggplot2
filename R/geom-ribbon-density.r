@@ -16,7 +16,6 @@ na.rm = FALSE, ...) {
 GeomDensity <- proto(GeomArea, {
   objname <- "density"
 
-  objname <- "density"
   default_stat <- function(.) StatDensity
   default_pos <- function(.) PositionIdentity
   
