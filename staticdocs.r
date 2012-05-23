@@ -445,11 +445,10 @@ list(
         gp=gpar(fill=alpha("black", x), col=NA)
       )
     }),
-    scale_x_date = sd_icon({
-      textGrob("14/10/1979", gp=gpar(cex=1))
-    }),
-    scale_x_datetime = sd_icon({
-      textGrob("14/10/1979\n10:14am", gp=gpar(cex=0.9))
+    scale_colour_brewer = sd_icon({
+      rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21, 
+        gp=gpar(fill=RColorBrewer::brewer.pal(5, "PuOr"), col=NA)
+      )
     }),
     scale_colour_gradient = sd_icon({
       g <- scale_fill_gradient()
@@ -507,6 +506,12 @@ list(
     scale_size = sd_icon({
       pos <- c(0.15, 0.3, 0.5, 0.75)
       circleGrob(pos, pos, r=(c(0.1, 0.2, 0.3, 0.4)/2.5), gp=gpar(fill="grey50", col=NA))
+    }),
+    scale_x_date = sd_icon({
+      textGrob("14/10/1979", gp=gpar(cex=1))
+    }),
+    scale_x_datetime = sd_icon({
+      textGrob("14/10/1979\n10:14am", gp=gpar(cex=0.9))
     }),
     stat_bin = sd_icon(inherit = "geom_histogram" ),
     stat_bindot = sd_icon(inherit = "geom_dotplot" ),
