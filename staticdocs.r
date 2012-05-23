@@ -445,39 +445,39 @@ list(
         gp=gpar(fill=alpha("black", x), col=NA)
       )
     }),
-    scale_scale_date = sd_icon({
+    scale_x_date = sd_icon({
       textGrob("14/10/1979", gp=gpar(cex=1))
     }),
-    scale_scale_datetime = sd_icon({
+    scale_x_datetime = sd_icon({
       textGrob("14/10/1979\n10:14am", gp=gpar(cex=0.9))
     }),
-    scale_gradient = sd_icon({
+    scale_colour_gradient = sd_icon({
       g <- scale_fill_gradient()
-      g$train(1:5)
+      scale_train(g, 1:5)
       rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21,
-        gp=gpar(fill=g$map(1:5), col=NA)
+        gp=gpar(fill=scale_map(g, 1:5), col=NA)
       )
     }),
-    scale_fill_gradient2 = sd_icon({
+    scale_colour_gradient2 = sd_icon({
       g <- scale_fill_gradient2()
-      g$train(1:5 - 3)
+      scale_train(g, 1:5 - 3)
       rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21,
-        gp=gpar(fill=g$map(1:5 - 3), col=NA)
+        gp=gpar(fill=scale_map(g, 1:5 - 3), col=NA)
       )
     }),
-    scale_gradientn = sd_icon({
+    scale_colour_gradientn = sd_icon({
       g <- scale_fill_gradientn(colours = rainbow(7))
-      g$train(1:5)
+      scale_train(g, 1:5)
       rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21,
-        gp=gpar(fill = g$map(1:5), col=NA)
+        gp=gpar(fill = scale_map(g, 1:5), col=NA)
       )
     }),
-    scale_grey = sd_icon({
+    scale_colour_grey = sd_icon({
       rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21,
         gp=gpar(fill=gray(seq(0, 1, length=5)), col=NA)
       )
     }),
-    scale_hue = sd_icon({
+    scale_colour_hue = sd_icon({
       rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21,
         gp=gpar(fill=hcl(seq(0, 360, length=6)[-6], c=100, l=65), col=NA)
       )
