@@ -24,13 +24,6 @@ Position <- proto(TopLevel, expr = {
     cat("position_", .$objname, ": (", clist(.$parameters()), ")", sep="")
     if (newline) cat("\n")
   }
-
-  html_returns <- function(.) {
-    ps(
-      "<h2>Returns</h2>\n",
-      "<p>This function returns a position object.</p>"
-    )
-  }
   
 })
 
