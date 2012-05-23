@@ -1,7 +1,7 @@
 #' Box and whiskers plot.
 #'
 #' The upper and lower "hinges" correspond to the first and third quartiles
-#' (the 25th and 7th percentiles). This differs slightly from the method used
+#' (the 25th and 75th percentiles). This differs slightly from the method used
 #' by the \code{boxplot} function, and may be apparent with small samples.
 #' See \code{\link{boxplot.stats}} for for more information on how hinge
 #' positions are calculated for \code{boxplot}.
