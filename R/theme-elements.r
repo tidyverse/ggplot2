@@ -6,7 +6,7 @@
 theme_blank <- function() {
   structure(
     function(...) zeroGrob(),
-    class = "element"
+    class = c("element", "element_any")
   )  
 }
 
