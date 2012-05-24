@@ -17,6 +17,7 @@ update_labels <- function(p, labels) {
 #' Change axis labels and legend titles
 #' 
 #' @param ... a list of new names in the form aesthetic = "new name"
+#' @export
 #' @examples
 #' p <- qplot(mpg, wt, data = mtcars)
 #' p + labs(x = "New x label")
