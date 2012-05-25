@@ -290,6 +290,8 @@ opts <- function(...) {
 
 # Render a theme element
 theme_render <- function(theme, element, ..., name = NULL) {
+
+  # Get the element from the theme, calculating inheritance
   el <- calc_element(element, element_tree, theme)
   if (is.null(el)) {
     message("Theme element ", element, " missing")
@@ -302,32 +304,28 @@ theme_render <- function(theme, element, ..., name = NULL) {
 element_grob <- function(element, ...)
   UseMethod("element_grob")
 
-# TODO: Make this work more cleanly
 # TODO: Get rid of ... and id.lengths
-#' @S3method element_grob element_any
-element_grob.element_any <- function(element, ...)  zeroGrob()
+#' @S3method element_grob element_blank
+element_grob.element_blank <- function(element, ...)  zeroGrob()
 
 #' @S3method element_grob element_rect
 element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
-  width = 1, height = 1, gp = list()) {
+  width = 1, height = 1, ...) {
 
-  theme_gp <- gpar(lwd = element$size * .pt, col = element$colour,
+  element_gp <- gpar(lwd = element$size * .pt, col = element$colour,
     fill = element$fill, lty = element$linetype)
 
-  rectGrob(x, y, width, height, gp = modifyList(theme_gp, gp))
+  rectGrob(x, y, width, height, gp = element_gp)
 }
 
 
 #' @S3method element_grob element_text
 element_grob.element_text <- function(element,
-  label = "", x = 0.5, y = 0.5,
-  family = "", face = "plain", colour = "black", size = 10,
-  hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1.1,
-  default.units = "npc", gp = list()) {
+  label = "", x = 0.5, y = 0.5, default.units = "npc") {
 
-  vj <- vjust
-  hj <- hjust
-  angle <- angle %% 360
+  vj <- element$vjust
+  hj <- element$hjust
+  angle <- element$angle %% 360
   
   if (angle == 90) {
     xp <- vj
@@ -343,17 +341,13 @@ element_grob.element_text <- function(element,
     yp <- vj
   }
 
-  theme_gp <- gpar(lwd = element$size * .pt, col = element$colour,
+  element_gp <- gpar(lwd = element$size * .pt, col = element$colour,
     fill = element$fill, lty = element$linetype)
 
   textGrob(
-    label, x, y, hjust = hjust, vjust = vjust,
+    label, x, y, hjust = hj, vjust = vj,
     default.units = default.units,
-    gp = gpar(
-      fontsize = size, col = colour,
-      fontfamily = family, fontface = face,
-      lineheight = lineheight
-    ),
+    gp = element_gp,
     rot = angle
   )
 }
@@ -361,15 +355,14 @@ element_grob.element_text <- function(element,
 
 #' @S3method element_grob element_segment
 element_grob.element_segment <- function(element, x0 = 0, y0 = 0,
-  x1 = 1, y1 = 1, colour = "black", size = 0.5, linetype = 1,
-  gp = list()) {
+  x1 = 1, y1 = 1) {
 
-  theme_gp <- gpar(lwd = element$size * .pt, col = element$colour,
+  element_gp <- gpar(lwd = element$size * .pt, col = element$colour,
     lty = element$linetype)
 
   segmentsGrob(
     x0, y0, x1, y1, default.units = "npc",
-    gp=gpar(col=colour, lty=linetype, lwd = size * .pt),
+    gp = element_gp
   )
 }
 
@@ -377,15 +370,15 @@ element_grob.element_segment <- function(element, x0 = 0, y0 = 0,
 # TODO: remove this ... and get rid of id.lengths
 #' @S3method element_grob element_line
 element_grob.element_line <- function(element, x = 0:1, y = 0:1,
-  colour = "black", size = 0.5, linetype = 1, default.units = "npc",
-  gp = list(), ...) {
+  default.units = "npc", id.lengths = NULL) {
 
-  theme_gp <- gpar(lwd = element$size * .pt, col = element$colour,
+  element_gp <- gpar(lwd = element$size * .pt, col = element$colour,
     lty = element$linetype)
 
   polylineGrob(
     x, y, default.units = default.units,
-    gp=gpar(lwd=size * .pt, col=colour, lty=linetype),
+    gp = element_gp,
+    id.lengths = id.lengths
   )
 }
 
@@ -462,6 +455,10 @@ update_element <- function(name, ...) {
 # @param tree An element inheritance tree
 # @theme theme A theme object (like theme_grey())
 calc_element <- function(element, tree, theme) {
+  # If this is element_blank, don't inherit anything from parents
+  if (inherits(theme[[element]], "element_blank"))
+    return(theme[[element]])
+
   # Get the names of parents from the inheritance tree
   pnames <- tree[[element]]$inherits
 

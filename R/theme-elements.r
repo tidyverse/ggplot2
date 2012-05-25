@@ -5,7 +5,7 @@
 element_blank <- function() {
   structure(
     list(),
-    class = c("element", "element_any")
+    class = c("element", "element_blank")
   )  
 }
 
