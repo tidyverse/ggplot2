@@ -3,7 +3,7 @@
 #' 
 #' @keywords dplot
 #' @export
-theme_blank <- function() {
+element_blank <- function() {
   structure(
     function(...) zeroGrob(),
     class = c("element", "element_any")
@@ -21,7 +21,7 @@ theme_blank <- function() {
 #' @param linetype border linetype
 #' @keywords dplot
 #' @export
-theme_rect <- function(fill = NA, colour = "black", size = 0.5, linetype = 1) {
+element_rect <- function(fill = NA, colour = "black", size = 0.5, linetype = 1) {
   structure(
     function(x = 0.5, y = 0.5, width = 1, height = 1, ...) {
       rectGrob(
@@ -44,7 +44,7 @@ theme_rect <- function(fill = NA, colour = "black", size = 0.5, linetype = 1) {
 #' @param linetype line type
 #' @keywords dplot
 #' @export
-theme_line <- function(colour = "black", size = 0.5, linetype = 1) {
+element_line <- function(colour = "black", size = 0.5, linetype = 1) {
   structure(
     function(x = 0:1, y = 0:1, ..., default.units = "npc") {
       polylineGrob(
@@ -67,7 +67,7 @@ theme_line <- function(colour = "black", size = 0.5, linetype = 1) {
 #' @param linetype line type
 #' @keywords dplot
 #' @export
-theme_segment <- function(colour = "black", size = 0.5, linetype = 1) {
+element_segment <- function(colour = "black", size = 0.5, linetype = 1) {
   structure(
     function(x0 = 0, y0 = 0, x1 = 1, y1 = 1, ...) {
       segmentsGrob(
@@ -93,7 +93,7 @@ theme_segment <- function(colour = "black", size = 0.5, linetype = 1) {
 #' @param lineheight line height
 #' @keywords dplot
 #' @export
-theme_text <- function(family = "", face = "plain", colour = "black", size = 10, hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1.1) {
+element_text <- function(family = "", face = "plain", colour = "black", size = 10, hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1.1) {
 
   vj <- vjust
   hj <- hjust
@@ -129,4 +129,31 @@ theme_text <- function(family = "", face = "plain", colour = "black", size = 10,
     },
     class = c("element", "element_text")
   )
+}
+
+
+# Deprecated theme_xxx functions
+theme_blank <- function() {
+  .Deprecated()
+  element_blank()
+}
+
+theme_rect <- function() {
+  .Deprecated()
+  element_rect()
+}
+
+theme_line <- function() {
+  .Deprecated()
+  element_line()
+}
+
+theme_segment <- function() {
+  .Deprecated()
+  element_segment()
+}
+
+theme_text <- function() {
+  .Deprecated()
+  element_text()
 }
