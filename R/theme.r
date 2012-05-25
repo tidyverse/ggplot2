@@ -1,3 +1,78 @@
+# This data structure represents the theme elements and the inheritance
+# among them.
+element_tree <- list(
+  line                = el_def("element_line"),
+  text                = el_def("element_text"),
+  axis.text           = el_def("element_text", "text"),
+  axis.title          = el_def("element_text", "text"),
+  axis.ticks          = el_def("element_segment"),
+  axis.ticks.length   = el_def("unit"),
+  legend.key.size     = el_def("unit"),
+  panel.grid          = el_def("element_line", "line"),
+  panel.grid.major    = el_def("element_line", "panel.grid"),
+  panel.grid.minor    = el_def("element_line", "panel.grid"),
+  strip.text          = el_def("element_text", "text"),
+
+  axis.line           = el_def("element_line", "line"),
+  axis.text.x         = el_def("element_text", "axis.text"),
+  axis.text.y         = el_def("element_text", "axis.text"),
+  # x and y versions of these are new
+  axis.ticks.x        = el_def("element_line", "axis.ticks"),
+  axis.ticks.y        = el_def("element_line", "axis.ticks"),
+  axis.title.x        = el_def("element_text", "axis.title"),
+  axis.title.y        = el_def("element_text", "axis.title"),
+  # x and y versions of these are new
+  axis.ticks.length.x = el_def("unit", "axis.ticks.length"),
+  axis.ticks.length.y = el_def("unit", "axis.ticks.length"),
+  axis.ticks.margin   = el_def("unit"),
+
+  legend.background   = el_def("element_rect"),
+  legend.margin       = el_def("unit"),
+  legend.key          = el_def("element_rect"),
+  legend.key.height   = el_def("unit", "legend.key.size"),
+  legend.key.width    = el_def("unit", "legend.key.size"),
+  legend.text         = el_def("element_text", "text"),
+  legend.text.align   = el_def("character"),
+  legend.title        = el_def("element_text", "text"),
+  legend.title.align  = el_def("character"),
+  legend.position     = el_def("character"),  # Need to also accept numbers
+  legend.direction    = el_def("character"),
+  legend.justification = el_def("character"),
+  legend.box          = el_def("character"),
+
+  panel.background    = el_def("element_rect"),
+  panel.border        = el_def("element_rect"),
+  panel.margin        = el_def("unit"),
+  # x and y versions of these are new
+  panel.grid.major.x  = el_def("element_line", "panel.grid.major"),
+  panel.grid.major.y  = el_def("element_line", "panel.grid.major"),
+  # x and y versions of these are new
+  panel.grid.minor.x  = el_def("element_line", "panel.grid.minor"),
+  panel.grid.minor.y  = el_def("element_line", "panel.grid.minor"),
+
+  strip.background    = el_def("element_rect"),
+  strip.text.x        = el_def("element_text", "strip.text"),
+  strip.text.y        = el_def("element_text", "strip.text"),
+
+  plot.background     = el_def("element_rect"),
+  plot.title          = el_def("element_text", "text"),
+  plot.margin         = el_def("unit"),
+  title               = el_def("character")
+)
+
+
+# Define an element's class and what other elements it inherits from
+#
+# @param class The name of class (like "element_line", "element_text",
+#  or the reserved "character", which means a character vector (not
+#  "character" class)
+# @param inherits A vector of strings, naming the elements that this
+#  element inherits from.
+el_def <- function(class = NULL, inherits = NULL, description = NULL) {
+  list(class = class, inherits = inherits, description = description)
+}
+
+
 #' Get, set and update themes.
 #' 
 #' Use \code{theme_update} to modify a small number of elements of the current
