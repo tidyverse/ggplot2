@@ -7,12 +7,20 @@
 #' @export theme_gray theme_grey
 theme_grey <- function(base_size = 12, base_family = "") {
   structure(list(
+    line               = element_line(colour = "black", size = 0.5, linetype = 1),
+    rect               = element_rect(fill = NA, colour = "black", size = 0.5, linetype = 1),
+    segment            = element_segment(colour = "black", size = 0.5, linetype = 1),
+    text               = element_text(family = base_family, face = "plain",
+                            colour = "black", size = base_size,
+                            hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 0.9),
+    axis.text          = element_text(size = rel(0.8), colour = "grey50"),
+
     axis.line =          element_blank(),
-    axis.text.x =        element_text(family = base_family, size = base_size * 0.8, lineheight = 0.9, colour = "grey50", vjust = 1),
-    axis.text.y =        element_text(family = base_family, size = base_size * 0.8, lineheight = 0.9, colour = "grey50", hjust = 1),
+    axis.text.x =        element_text(vjust = 1),
+    axis.text.y =        element_text(hjust = 1),
     axis.ticks =         element_segment(colour = "grey50"),
-    axis.title.x =       element_text(family = base_family, size = base_size, vjust = 0.5),
-    axis.title.y =       element_text(family = base_family, size = base_size, angle = 90, vjust = 0.5),
+    axis.title.x =       element_text(),
+    axis.title.y =       element_text(angle = 90),
     axis.ticks.length =  unit(0.15, "cm"),
     axis.ticks.margin =  unit(0.1, "cm"),
 
@@ -22,9 +30,9 @@ theme_grey <- function(base_size = 12, base_family = "") {
     legend.key.size =    unit(1.2, "lines"),
     legend.key.height =  NULL,
     legend.key.width =   NULL,
-    legend.text =        element_text(family = base_family, size = base_size * 0.8),
+    legend.text =        element_text(size = rel(0.8)),
     legend.text.align =  NULL,
-    legend.title =       element_text(family = base_family, size = base_size * 0.8, face = "bold", hjust = 0),
+    legend.title =       element_text(size = rel(0.8), face = "bold", hjust = 0),
     legend.title.align = NULL,
     legend.position =    "right",
     legend.direction =   NULL,
@@ -38,11 +46,11 @@ theme_grey <- function(base_size = 12, base_family = "") {
     panel.margin =       unit(0.25, "lines"),
 
     strip.background =   element_rect(fill = "grey80", colour = NA),
-    strip.text.x =       element_text(family = base_family, size = base_size * 0.8),
-    strip.text.y =       element_text(family = base_family, size = base_size * 0.8, angle = -90),
+    strip.text.x =       element_text(size = rel(0.8)),
+    strip.text.y =       element_text(size = rel(0.8), angle = -90),
 
     plot.background =    element_rect(colour = NA, fill = "white"),
-    plot.title =         element_text(family = base_family, size = base_size * 1.2),
+    plot.title =         element_text(size = rel(1.2)),
     plot.margin =        unit(c(1, 1, 0.5, 0.5), "lines")
   ), class = "options")
 }
@@ -56,8 +64,9 @@ theme_gray <- theme_grey
 #' @export
 theme_bw <- function(base_size = 12, base_family = "") {
   structure(list(
+    text = element_text( size = base_size),
     axis.line =          element_blank(),
-    axis.text.x =        element_text(family = base_family, size = base_size * 0.8, lineheight = 0.9, vjust = 1),
+    axis.text.x =        element_text(family = base_family, size = rel(0.5), lineheight = 0.9, vjust = 1),
     axis.text.y =        element_text(family = base_family, size = base_size * 0.8, lineheight = 0.9, hjust = 1),
     axis.ticks =         element_segment(colour = "black", size = 0.2),
     axis.title.x =       element_text(family = base_family, size = base_size, vjust = 0.5),
