@@ -1,13 +1,15 @@
 \name{theme_blank}
 \alias{theme_blank}
-\title{Theme element: blank.
-This theme element draws nothing, and assigns no space}
+\alias{theme_line}
+\alias{theme_rect}
+\alias{theme_segment}
+\alias{theme_text}
+\title{Deprecated theme_xxx functions}
 \usage{
-  theme_blank()
+  theme_blank(...)
 }
 \description{
-  Theme element: blank. This theme element draws nothing,
-  and assigns no space
+  The \code{theme_xx} functions have been deprecated. They
+  are replaced with the \code{element_xx} functions.
 }
-\keyword{dplot}
 
