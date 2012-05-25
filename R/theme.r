@@ -1,3 +1,15 @@
+# Define an element's class and what other elements it inherits from
+#
+# @param class The name of class (like "element_line", "element_text",
+#  or the reserved "character", which means a character vector (not
+#  "character" class)
+# @param inherits A vector of strings, naming the elements that this
+#  element inherits from.
+el_def <- function(class = NULL, inherits = NULL, description = NULL) {
+  list(class = class, inherits = inherits, description = description)
+}
+
+
 # This data structure represents the theme elements and the inheritance
 # among them.
 element_tree <- list(
@@ -59,18 +71,6 @@ element_tree <- list(
   plot.margin         = el_def("unit"),
   title               = el_def("character")
 )
-
-
-# Define an element's class and what other elements it inherits from
-#
-# @param class The name of class (like "element_line", "element_text",
-#  or the reserved "character", which means a character vector (not
-#  "character" class)
-# @param inherits A vector of strings, naming the elements that this
-#  element inherits from.
-el_def <- function(class = NULL, inherits = NULL, description = NULL) {
-  list(class = class, inherits = inherits, description = description)
-}
 
 
 #' Get, set and update themes.

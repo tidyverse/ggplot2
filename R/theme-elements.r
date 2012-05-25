@@ -86,27 +86,27 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 
 
 # Deprecated theme_xxx functions
-theme_blank <- function() {
+theme_blank <- function(...) {
   .Deprecated()
-  element_blank()
+  element_blank(...)
 }
 
-theme_rect <- function() {
+theme_rect <- function(...) {
   .Deprecated()
-  element_rect()
+  element_rect(...)
 }
 
-theme_line <- function() {
+theme_line <- function(...) {
   .Deprecated()
-  element_line()
+  element_line(...)
 }
 
-theme_segment <- function() {
+theme_segment <- function(...) {
   .Deprecated()
-  element_segment()
+  element_segment(...)
 }
 
-theme_text <- function() {
+theme_text <- function(...) {
   .Deprecated()
-  element_text()
+  element_text(...)
 }
