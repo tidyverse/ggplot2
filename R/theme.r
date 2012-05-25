@@ -374,3 +374,50 @@ print.rel <- function(x, ...) print(noquote(paste(x, " *", sep = "")))
 
 #' Reports whether x is a rel object
 is.rel <- function(x) inherits(x, "rel")
+
+
+# Calculate the element properties, by inheriting properties from its parents
+#
+# @param element The name of the theme element to calculate
+# @param tree An element inheritance tree
+# @theme theme A theme object (like theme_grey())
+calc_element <- function(element, tree, theme) {
+  # Get the names of parents from the inheritance tree
+  pnames <- tree[[element]]$inherits
+
+  # If no parents, just return this element
+  if (is.null(pnames))
+    return(theme[[element]])
+
+  # Calculate the parent objects' inheritance
+  parents <- lapply(pnames, calc_element, tree, theme)
+
+  # Combine the propertiesl of this element with all parents
+  Reduce(combine_elements, parents, theme[[element]])
+}
+
+
+# Combine the properties of two elements
+#
+# @param e1 An element object
+# @param e2 An element object which e1 inherits from
+combine_elements <- function(e1, e2) {
+  # TODO Check that classes align
+
+  # If e2 is NULL, nothing to inherit
+  if (is.null(e2))  return(e1)
+
+  # If e1 is NULL, inherit everything from e2
+  if (is.null(e1))  return(e2)
+
+  # If e1 has any NULL properties, inherit them from e2
+  n <- sapply(e1[names(e2)], is.null)
+  e1[n] <- e2[n]
+
+  # Calculate relative sizes
+  if (is.rel(e1$size)) {
+    e1$size <- e2$size * unclass(e1$size)
+  }
+
+  e1
+}
