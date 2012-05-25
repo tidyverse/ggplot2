@@ -14,10 +14,12 @@ el_def <- function(class = NULL, inherits = NULL, description = NULL) {
 # among them.
 element_tree <- list(
   line                = el_def("element_line"),
+  rect                = el_def("element_rect"),
+  segment             = el_def("element_segment"),
   text                = el_def("element_text"),
   axis.text           = el_def("element_text", "text"),
   axis.title          = el_def("element_text", "text"),
-  axis.ticks          = el_def("element_segment"),
+  axis.ticks          = el_def("element_segment", "segment"),
   axis.ticks.length   = el_def("unit"),
   legend.key.size     = el_def("unit"),
   panel.grid          = el_def("element_line", "line"),
@@ -38,9 +40,9 @@ element_tree <- list(
   axis.ticks.length.y = el_def("unit", "axis.ticks.length"),
   axis.ticks.margin   = el_def("unit"),
 
-  legend.background   = el_def("element_rect"),
+  legend.background   = el_def("element_rect", "rect"),
   legend.margin       = el_def("unit"),
-  legend.key          = el_def("element_rect"),
+  legend.key          = el_def("element_rect", "rect"),
   legend.key.height   = el_def("unit", "legend.key.size"),
   legend.key.width    = el_def("unit", "legend.key.size"),
   legend.text         = el_def("element_text", "text"),
@@ -52,8 +54,8 @@ element_tree <- list(
   legend.justification = el_def("character"),
   legend.box          = el_def("character"),
 
-  panel.background    = el_def("element_rect"),
-  panel.border        = el_def("element_rect"),
+  panel.background    = el_def("element_rect", "rect"),
+  panel.border        = el_def("element_rect", "rect"),
   panel.margin        = el_def("unit"),
   # x and y versions of these are new
   panel.grid.major.x  = el_def("element_line", "panel.grid.major"),
@@ -62,11 +64,11 @@ element_tree <- list(
   panel.grid.minor.x  = el_def("element_line", "panel.grid.minor"),
   panel.grid.minor.y  = el_def("element_line", "panel.grid.minor"),
 
-  strip.background    = el_def("element_rect"),
+  strip.background    = el_def("element_rect", "rect"),
   strip.text.x        = el_def("element_text", "strip.text"),
   strip.text.y        = el_def("element_text", "strip.text"),
 
-  plot.background     = el_def("element_rect"),
+  plot.background     = el_def("element_rect", "rect"),
   plot.title          = el_def("element_text", "text"),
   plot.margin         = el_def("unit"),
   title               = el_def("character")
