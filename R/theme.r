@@ -365,19 +365,6 @@ update_element <- function(name, ...) {
 }
 
 
-#' Relative sizing for theme elements
-#' @export
-rel <- function(x) {
-  structure(x, class = "rel")
-}
-
-#' @S3method print rel
-print.rel <- function(x, ...) print(noquote(paste(x, " *", sep = "")))
-
-#' Reports whether x is a rel object
-is.rel <- function(x) inherits(x, "rel")
-
-
 # Calculate the element properties, by inheriting properties from its parents
 #
 # @param element The name of the theme element to calculate
