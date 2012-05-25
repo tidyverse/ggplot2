@@ -80,27 +80,37 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 }
 
 
-# Deprecated theme_xxx functions
+#' Deprecated theme_xxx functions
+#'
+#' The \code{theme_xx} functions have been deprecated. They are replaced
+#' with the \code{element_xx} functions.
+#'
+#' @aliases theme_blank theme_rect theme_line theme_segment theme_text
+#' @export
 theme_blank <- function(...) {
   .Deprecated()
   element_blank(...)
 }
 
+#' @export
 theme_rect <- function(...) {
   .Deprecated()
   element_rect(...)
 }
 
+#' @export
 theme_line <- function(...) {
   .Deprecated()
   element_line(...)
 }
 
+#' @export
 theme_segment <- function(...) {
   .Deprecated()
   element_segment(...)
 }
 
+#' @export
 theme_text <- function(...) {
   .Deprecated()
   element_text(...)
