@@ -290,14 +290,105 @@ opts <- function(...) {
 
 # Render a theme element
 theme_render <- function(theme, element, ..., name = NULL) {
-  el <- theme[[element]]
+  el <- calc_element(element, element_tree, theme)
   if (is.null(el)) {
     message("Theme element ", element, " missing")
     return(zeroGrob())
   }
-  
-  ggname(ps(element, name, sep = "."), el(...))
+
+  ggname(ps(element, name, sep = "."), element_grob(el, ...))
 }
+
+element_grob <- function(element, ...)
+  UseMethod("element_grob")
+
+# TODO: Make this work more cleanly
+# TODO: Get rid of ... and id.lengths
+#' @S3method element_grob element_any
+element_grob.element_any <- function(element, ...)  zeroGrob()
+
+#' @S3method element_grob element_rect
+element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
+  width = 1, height = 1, gp = list()) {
+
+  theme_gp <- gpar(lwd = element$size * .pt, col = element$colour,
+    fill = element$fill, lty = element$linetype)
+
+  rectGrob(x, y, width, height, gp = modifyList(theme_gp, gp))
+}
+
+
+#' @S3method element_grob element_text
+element_grob.element_text <- function(element,
+  label = "", x = 0.5, y = 0.5,
+  family = "", face = "plain", colour = "black", size = 10,
+  hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 1.1,
+  default.units = "npc", gp = list()) {
+
+  vj <- vjust
+  hj <- hjust
+  angle <- angle %% 360
+  
+  if (angle == 90) {
+    xp <- vj
+    yp <- hj
+  } else if (angle == 180) {
+    xp <- 1 - hj
+    yp <- vj
+  } else if (angle == 270) {
+    xp <- vj
+    yp <- 1 - hj
+  }else {
+    xp <- hj
+    yp <- vj
+  }
+
+  theme_gp <- gpar(lwd = element$size * .pt, col = element$colour,
+    fill = element$fill, lty = element$linetype)
+
+  textGrob(
+    label, x, y, hjust = hjust, vjust = vjust,
+    default.units = default.units,
+    gp = gpar(
+      fontsize = size, col = colour,
+      fontfamily = family, fontface = face,
+      lineheight = lineheight
+    ),
+    rot = angle
+  )
+}
+
+
+#' @S3method element_grob element_segment
+element_grob.element_segment <- function(element, x0 = 0, y0 = 0,
+  x1 = 1, y1 = 1, colour = "black", size = 0.5, linetype = 1,
+  gp = list()) {
+
+  theme_gp <- gpar(lwd = element$size * .pt, col = element$colour,
+    lty = element$linetype)
+
+  segmentsGrob(
+    x0, y0, x1, y1, default.units = "npc",
+    gp=gpar(col=colour, lty=linetype, lwd = size * .pt),
+  )
+}
+
+
+# TODO: remove this ... and get rid of id.lengths
+#' @S3method element_grob element_line
+element_grob.element_line <- function(element, x = 0:1, y = 0:1,
+  colour = "black", size = 0.5, linetype = 1, default.units = "npc",
+  gp = list(), ...) {
+
+  theme_gp <- gpar(lwd = element$size * .pt, col = element$colour,
+    lty = element$linetype)
+
+  polylineGrob(
+    x, y, default.units = default.units,
+    gp=gpar(lwd=size * .pt, col=colour, lty=linetype),
+  )
+}
+
 
 #' @S3method print theme
 print.theme <- function(x, ...) {
