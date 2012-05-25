@@ -1,7 +1,6 @@
 #' Theme element: blank.
 #' This theme element draws nothing, and assigns no space
 #' 
-#' @keywords dplot
 #' @export
 element_blank <- function() {
   structure(
@@ -18,7 +17,6 @@ element_blank <- function() {
 #' @param colour border color
 #' @param size border size
 #' @param linetype border linetype
-#' @keywords dplot
 #' @export
 element_rect <- function(fill = NULL, colour = NULL, size = NULL, linetype = NULL) {
   structure(
@@ -35,7 +33,6 @@ element_rect <- function(fill = NULL, colour = NULL, size = NULL, linetype = NUL
 #' @param colour line color
 #' @param size line size
 #' @param linetype line type
-#' @keywords dplot
 #' @export
 element_line <- function(colour = NULL, size = NULL, linetype = NULL) {
   structure(
@@ -52,7 +49,6 @@ element_line <- function(colour = NULL, size = NULL, linetype = NULL) {
 #' @param colour line color
 #' @param size line size
 #' @param linetype line type
-#' @keywords dplot
 #' @export
 element_segment <- function(colour = NULL, size = NULL, linetype = NULL) {
   structure(
@@ -72,7 +68,6 @@ element_segment <- function(colour = NULL, size = NULL, linetype = NULL) {
 #' @param vjust vertical justification (in [0, 1])
 #' @param angle angle (in [0, 360])
 #' @param lineheight line height
-#' @keywords dplot
 #' @export
 element_text <- function(family = NULL, face = NULL, colour = NULL,
   size = NULL, hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL) {
