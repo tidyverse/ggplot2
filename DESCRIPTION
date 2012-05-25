@@ -178,7 +178,6 @@ Collate:
     'stat-ydensity.r'
     'summary.r'
     'templates.r'
-    'theme-aaa.r'
     'theme-defaults.r'
     'theme-elements.r'
     'theme.r'

@@ -80,6 +80,19 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 }
 
 
+#' Relative sizing for theme elements
+#' @export
+rel <- function(x) {
+  structure(x, class = "rel")
+}
+
+#' @S3method print rel
+print.rel <- function(x, ...) print(noquote(paste(x, " *", sep = "")))
+
+#' Reports whether x is a rel object
+is.rel <- function(x) inherits(x, "rel")
+
+
 #' Deprecated theme_xxx functions
 #'
 #' The \code{theme_xx} functions have been deprecated. They are replaced
