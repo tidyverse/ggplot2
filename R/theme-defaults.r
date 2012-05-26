@@ -15,6 +15,7 @@ theme_grey <- function(base_size = 12, base_family = "Helvetica") {
                             colour = "black", size = base_size,
                             hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 0.9),
     axis.text          = element_text(size = rel(0.8), colour = "grey50"),
+    strip.text         = element_text(size = rel(0.8)),
 
     axis.line =          element_blank(),
     axis.text.x =        element_text(vjust = 1),
@@ -47,8 +48,8 @@ theme_grey <- function(base_size = 12, base_family = "Helvetica") {
     panel.margin =       unit(0.25, "lines"),
 
     strip.background =   element_rect(fill = "grey80", colour = NA),
-    strip.text.x =       element_text(size = rel(0.8)),
-    strip.text.y =       element_text(size = rel(0.8), angle = -90),
+    strip.text.x =       element_text(),
+    strip.text.y =       element_text(angle = -90),
 
     plot.background =    element_rect(colour = NA, fill = "white"),
     plot.title =         element_text(size = rel(1.2)),

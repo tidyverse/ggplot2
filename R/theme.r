@@ -329,7 +329,7 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
 
 
 #' @S3method element_grob element_text
-element_grob.element_text <- function(element, label = "", x = 0.5, y = 0.5,
+element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   family = NULL, face = NULL, colour = NULL, size = NULL,
   hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
   default.units = "npc") {
@@ -351,6 +351,9 @@ element_grob.element_text <- function(element, label = "", x = 0.5, y = 0.5,
     xp <- hj
     yp <- vj
   }
+
+  x <- x %||% xp
+  y <- y %||% yp
 
   # The gp settings can override element_gp
   gp <- gpar(fontsize = size, col = colour,
