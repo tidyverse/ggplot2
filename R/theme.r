@@ -281,22 +281,21 @@ update_element <- function(name, ...) {
 # Calculate the element properties, by inheriting properties from its parents
 #
 # @param element The name of the theme element to calculate
-# @param tree An element inheritance tree
 # @theme theme A theme object (like theme_grey())
-calc_element <- function(element, tree, theme) {
+calc_element <- function(element, theme) {
   # If this is element_blank, don't inherit anything from parents
   if (inherits(theme[[element]], "element_blank"))
     return(theme[[element]])
 
   # Get the names of parents from the inheritance tree
-  pnames <- tree[[element]]$inherits
+  pnames <- .element_tree[[element]]$inherits
 
   # If no parents, just return this element
   if (is.null(pnames))
     return(theme[[element]])
 
   # Calculate the parent objects' inheritance
-  parents <- lapply(pnames, calc_element, tree, theme)
+  parents <- lapply(pnames, calc_element, theme)
 
   # Combine the propertiesl of this element with all parents
   Reduce(combine_elements, parents, theme[[element]])

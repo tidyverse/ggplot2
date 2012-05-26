@@ -297,7 +297,7 @@ guide_gengrob.legend <- function(guide, theme) {
   vgap <- hgap
 
   # title
-  title.theme <- guide$title.theme %||% calc_element("legend.title", element_tree, theme)
+  title.theme <- guide$title.theme %||% calc_element("legend.title", theme)
   title.hjust <- title.x <- guide$title.hjust %||% theme$legend.title.align %||% 0
   title.vjust <- title.y <- guide$title.vjust %||% 0.5
   
@@ -325,7 +325,7 @@ guide_gengrob.legend <- function(guide, theme) {
   # Default:
   #   If label includes expression, the label is right-alignd (hjust = 0). Ohterwise, left-aligned (x = 1, hjust = 1).
   #   Vertical adjustment is always mid-alined (vjust = 0.5).
-  label.theme <- guide$label.theme %||% calc_element("legend.text", element_tree, theme)
+  label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
   grob.labels <- {
     if (!guide$label)
       zeroGrob()

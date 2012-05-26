@@ -262,7 +262,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   # title
   # hjust of title should depend on title.position
-  title.theme <- guide$title.theme %||% calc_element("legend.title", element_tree, theme)
+  title.theme <- guide$title.theme %||% calc_element("legend.title", theme)
   title.hjust <- title.x <- guide$title.hjust %||% theme$legend.title.align %||% 0
   title.vjust <- title.y <- guide$title.vjust %||% 0.5
   grob.title <- {
@@ -281,7 +281,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
   title_height.c <- c(title_height)
 
   # label
-  label.theme <- guide$label.theme %||% calc_element("legend.text", element_tree, theme)
+  label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
   grob.label <- {
     if (!guide$label)
       zeroGrob()

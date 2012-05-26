@@ -134,7 +134,7 @@ theme_text <- function(...) {
 element_render <- function(theme, element, ..., name = NULL) {
 
   # Get the element from the theme, calculating inheritance
-  el <- calc_element(element, element_tree, theme)
+  el <- calc_element(element, theme)
   if (is.null(el)) {
     message("Theme element ", element, " missing")
     return(zeroGrob())
@@ -266,7 +266,7 @@ el_def <- function(class = NULL, inherits = NULL, description = NULL) {
 
 # This data structure represents the theme elements and the inheritance
 # among them.
-element_tree <- list(
+.element_tree <- list(
   line                = el_def("element_line"),
   rect                = el_def("element_rect"),
   segment             = el_def("element_segment"),
