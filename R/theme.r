@@ -301,6 +301,12 @@ theme_render <- function(theme, element, ..., name = NULL) {
   ggname(ps(element, name, sep = "."), element_grob(el, ...))
 }
 
+# Returns NULL if x is length 0
+len0_null <- function(x) {
+  if (length(x) == 0)  NULL
+  else                 x
+}
+
 element_grob <- function(element, ...)
   UseMethod("element_grob")
 
@@ -310,21 +316,26 @@ element_grob.element_blank <- function(element, ...)  zeroGrob()
 
 #' @S3method element_grob element_rect
 element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
-  width = 1, height = 1, ...) {
+  width = 1, height = 1,
+  fill = NULL, colour = NULL, size = NULL, linetype = NULL) {
 
-  element_gp <- gpar(lwd = element$size * .pt, col = element$colour,
+  # The gp settings can override element_gp
+  gp <- gpar(lwd = len0_null(size * .pt), col = colour, fill = fill, lty = linetype)
+  element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
     fill = element$fill, lty = element$linetype)
 
-  rectGrob(x, y, width, height, gp = element_gp)
+  rectGrob(x, y, width, height, gp = modifyList(element_gp, gp))
 }
 
 
 #' @S3method element_grob element_text
-element_grob.element_text <- function(element,
-  label = "", x = 0.5, y = 0.5, default.units = "npc") {
+element_grob.element_text <- function(element, label = "", x = 0.5, y = 0.5,
+  family = NULL, face = NULL, colour = NULL, size = NULL,
+  hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
+  default.units = "npc") {
 
-  vj <- element$vjust
-  hj <- element$hjust
+  vj <- vjust %||% element$vjust
+  hj <- hjust %||% element$hjust
   angle <- element$angle %% 360
   
   if (angle == 90) {
@@ -341,13 +352,18 @@ element_grob.element_text <- function(element,
     yp <- vj
   }
 
-  element_gp <- gpar(lwd = element$size * .pt, col = element$colour,
-    fill = element$fill, lty = element$linetype)
+  # The gp settings can override element_gp
+  gp <- gpar(fontsize = size, col = colour,
+    fontfamily = family, fontface = face,
+    lineheight = lineheight)
+  element_gp <- gpar(fontsize = element$size, col = element$colour,
+    fontfamily = element$family, fontface = element$face,
+    lineheight = element$lineheight)
 
   textGrob(
     label, x, y, hjust = hj, vjust = vj,
     default.units = default.units,
-    gp = element_gp,
+    gp = modifyList(element_gp, gp),
     rot = angle
   )
 }
@@ -355,14 +371,16 @@ element_grob.element_text <- function(element,
 
 #' @S3method element_grob element_segment
 element_grob.element_segment <- function(element, x0 = 0, y0 = 0,
-  x1 = 1, y1 = 1) {
+  x1 = 1, y1 = 1, colour = NULL, size = NULL, linetype = NULL) {
 
-  element_gp <- gpar(lwd = element$size * .pt, col = element$colour,
+  # The gp settings can override element_gp
+  gp <- gpar(lwd=len0_null(size * .pt), col=colour, lty=linetype)
+  element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
     lty = element$linetype)
 
   segmentsGrob(
     x0, y0, x1, y1, default.units = "npc",
-    gp = element_gp
+    gp = modifyList(element_gp, gp)
   )
 }
 
@@ -370,14 +388,17 @@ element_grob.element_segment <- function(element, x0 = 0, y0 = 0,
 # TODO: remove this ... and get rid of id.lengths
 #' @S3method element_grob element_line
 element_grob.element_line <- function(element, x = 0:1, y = 0:1,
+  colour = NULL, size = NULL, linetype = NULL,
   default.units = "npc", id.lengths = NULL) {
 
-  element_gp <- gpar(lwd = element$size * .pt, col = element$colour,
+  # The gp settings can override element_gp
+  gp <- gpar(lwd=len0_null(size * .pt), col=colour, lty=linetype)
+  element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
     lty = element$linetype)
 
   polylineGrob(
     x, y, default.units = default.units,
-    gp = element_gp,
+    gp = modifyList(element_gp, gp),
     id.lengths = id.lengths
   )
 }

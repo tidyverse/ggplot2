@@ -262,15 +262,17 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   # title
   # hjust of title should depend on title.position
-  title.theme <- guide$title.theme %||% theme$legend.title
+  title.theme <- guide$title.theme %||% calc_element("legend.title", element_tree, theme)
   title.hjust <- title.x <- guide$title.hjust %||% theme$legend.title.align %||% 0
   title.vjust <- title.y <- guide$title.vjust %||% 0.5
   grob.title <- {
     if (is.null(guide$title))
       zeroGrob()
-    else
-      title.theme(label=guide$title, name=grobName(NULL, "guide.title"),
-                  hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
+    else {
+      g <- element_grob(title.theme, label=guide$title,
+        hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
+      ggname("guide.title", g)
+    }
   }
 
   title_width <- convertWidth(grobWidth(grob.title), "mm")
@@ -279,7 +281,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
   title_height.c <- c(title_height)
 
   # label
-  label.theme <- guide$label.theme %||% theme$legend.text
+  label.theme <- guide$label.theme %||% calc_element("legend.text", element_tree, theme)
   grob.label <- {
     if (!guide$label)
       zeroGrob()
@@ -288,8 +290,10 @@ guide_gengrob.colorbar <- function(guide, theme) {
         if (any(is.expression(guide$key$.label))) 1 else switch(guide$direction, horizontal = 0.5, vertical = 0)
       vjust <- y <- guide$label.vjust %||% 0.5
       switch(guide$direction, horizontal = {x <- label_pos; y <- vjust}, "vertical" = {x <- hjust; y <- label_pos})
-      label.theme(label=guide$key$.label, name = grobName(NULL, "guide.label"),
-                  hjust = hjust, vjust = vjust, x = x, y = y)
+
+      g <- element_grob(element = label.theme, label = guide$key$.label, 
+        x = x, y = y, hjust = hjust, vjust = vjust)
+      ggname("guide.label", g)
     }
   }
 

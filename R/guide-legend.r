@@ -297,16 +297,18 @@ guide_gengrob.legend <- function(guide, theme) {
   vgap <- hgap
 
   # title
-  title.theme <- guide$title.theme %||% theme$legend.title
+  title.theme <- guide$title.theme %||% calc_element("legend.title", element_tree, theme)
   title.hjust <- title.x <- guide$title.hjust %||% theme$legend.title.align %||% 0
   title.vjust <- title.y <- guide$title.vjust %||% 0.5
   
   grob.title <- {
     if (is.null(guide$title))
       zeroGrob()
-    else 
-      title.theme(label=guide$title, name=grobName(NULL, "guide.title"),
-                  hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
+    else {
+      g <- element_grob(title.theme, label=guide$title,
+        hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
+      ggname("guide.title", g)
+    }
   }
 
   title_width <- convertWidth(grobWidth(grob.title), "mm")
@@ -323,15 +325,22 @@ guide_gengrob.legend <- function(guide, theme) {
   # Default:
   #   If label includes expression, the label is right-alignd (hjust = 0). Ohterwise, left-aligned (x = 1, hjust = 1).
   #   Vertical adjustment is always mid-alined (vjust = 0.5).
-  label.theme <- guide$label.theme %||% theme$legend.text
+  label.theme <- guide$label.theme %||% calc_element("legend.text", element_tree, theme)
   grob.labels <- {
     if (!guide$label)
       zeroGrob()
     else {
-      hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||% if (any(is.expression(guide$key$.label))) 1 else 0
+      hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||%
+        if (any(is.expression(guide$key$.label))) 1 else 0
       vjust <- y <- guide$label.vjust %||% 0.5
-      lapply(guide$key$.label, function(label) label.theme(label=label, name=grobName(NULL, "guide.label"),
-                                                           x = x, y = y, hjust = hjust, vjust = vjust))
+
+      lapply(guide$key$.label,
+        function(label, ...) {
+          g <- element_grob(element = label.theme, label = label, 
+            x = x, y = y, hjust = hjust, vjust = vjust)
+          ggname("guide.label", g)
+        }
+      )
     }
   }
 

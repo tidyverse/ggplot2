@@ -6,7 +6,7 @@
 #' @aliases theme_gray theme_grey
 #' @import theme-elements.r
 #' @export theme_gray theme_grey
-theme_grey <- function(base_size = 12, base_family = "") {
+theme_grey <- function(base_size = 12, base_family = "Helvetica") {
   structure(list(
     line               = element_line(colour = "black", size = 0.5, linetype = 1),
     rect               = element_rect(fill = NA, colour = "black", size = 0.5, linetype = 1),
