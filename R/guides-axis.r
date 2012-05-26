@@ -48,22 +48,22 @@ guide_axis <- function(at, labels, position="right", theme) {
 
   labels <- switch(position,
                    top = ,
-                   bottom = theme_render(theme, label_render, labels, x = label_x),
+                   bottom = element_render(theme, label_render, labels, x = label_x),
                    right = ,
-                   left =  theme_render(theme, label_render, labels, y = label_y))
+                   left =  element_render(theme, label_render, labels, y = label_y))
   
   line <- switch(position,
-    top =    theme_render(theme, "axis.line", 0, 0, 1, 0),
-    bottom = theme_render(theme, "axis.line", 0, 1, 1, 1),
-    right =  theme_render(theme, "axis.line", 0, 1, 0, 1),
-    left =   theme_render(theme, "axis.line", 1, 0, 1, 1)
+    top =    element_render(theme, "axis.line", 0, 0, 1, 0),
+    bottom = element_render(theme, "axis.line", 0, 1, 1, 1),
+    right =  element_render(theme, "axis.line", 0, 1, 0, 1),
+    left =   element_render(theme, "axis.line", 1, 0, 1, 1)
   )
   
   ticks <- switch(position,
-    top =    theme_render(theme, "axis.ticks", at, 0, at, length),
-    bottom = theme_render(theme, "axis.ticks", at, one - length, at, 1),
-    right =  theme_render(theme, "axis.ticks", 0, at, length, at),
-    left =   theme_render(theme, "axis.ticks", one - length, at, 1, at)
+    top =    element_render(theme, "axis.ticks", at, 0, at, length),
+    bottom = element_render(theme, "axis.ticks", at, one - length, at, 1),
+    right =  element_render(theme, "axis.ticks", 0, at, length, at),
+    left =   element_render(theme, "axis.ticks", one - length, at, 1, at)
   )
 
   just <- switch(position,

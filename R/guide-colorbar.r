@@ -392,7 +392,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
     })
 
   # background
-  grob.background <- theme_render(theme, "legend.background")
+  grob.background <- element_render(theme, "legend.background")
   
   # padding
   padding <- unit(1.5, "mm")

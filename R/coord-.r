@@ -33,7 +33,7 @@ coord_render_fg <- function(coord, scales, theme)
   UseMethod("coord_render_fg")
 #' @S3method coord_render_fg default
 coord_render_fg.default <- function(coord, scales, theme)
-  theme_render(theme, "panel.border")
+  element_render(theme, "panel.border")
 
 coord_render_bg <- function(coord, scales, theme) 
   UseMethod("coord_render_bg")

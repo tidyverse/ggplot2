@@ -469,7 +469,7 @@ guide_gengrob.legend <- function(guide, theme) {
     pos.col <- vps$key.col[i]
 
     # bg. of key
-    grob.keys[[length(grob.keys)+1]] <- theme_render(theme, "legend.key")
+    grob.keys[[length(grob.keys)+1]] <- element_render(theme, "legend.key")
 
     # overlay geoms
     for(geom in guide$geoms)
@@ -477,7 +477,7 @@ guide_gengrob.legend <- function(guide, theme) {
   }
 
   # background
-  grob.background <- theme_render(theme, "legend.background")
+  grob.background <- element_render(theme, "legend.background")
 
   ngeom <- length(guide$geoms) + 1
   kcols <- rep(vps$key.col, each =  ngeom)

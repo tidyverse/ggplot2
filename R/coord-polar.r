@@ -193,15 +193,15 @@ coord_render_bg.polar <- function(coord, details, theme) {
   rfine <- c(r_rescale(coord, details$r.major, details), 0.45)
 
   ggname("grill", grobTree(
-    theme_render(theme, "panel.background"),
-    if (length(theta) > 0) theme_render(
+    element_render(theme, "panel.background"),
+    if (length(theta) > 0) element_render(
       theme, "panel.grid.major", name = "angle", 
       x = c(rbind(0, 0.45 * sin(theta))) + 0.5, 
       y = c(rbind(0, 0.45 * cos(theta))) + 0.5,
       id.lengths = rep(2, length(theta)), 
       default.units="native"
     ),
-    if (length(thetamin) > 0) theme_render(
+    if (length(thetamin) > 0) element_render(
       theme, "panel.grid.minor", name = "angle", 
       x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5, 
       y = c(rbind(0, 0.45 * cos(thetamin))) + 0.5,
@@ -209,7 +209,7 @@ coord_render_bg.polar <- function(coord, details, theme) {
       default.units="native"
     ),
     
-    theme_render(
+    element_render(
       theme, "panel.grid.major", name = "radius",
       x = rep(rfine, each=length(thetafine)) * sin(thetafine) + 0.5, 
       y = rep(rfine, each=length(thetafine)) * cos(thetafine) + 0.5,
@@ -222,7 +222,7 @@ coord_render_bg.polar <- function(coord, details, theme) {
 #' @S3method coord_render_fg polar
 coord_render_fg.polar <- function(coord, details, theme) {
   if (is.null(details$theta.major)) {
-    return(theme_render(theme, "panel.border"))
+    return(element_render(theme, "panel.border"))
   }
   
   theta <- theta_rescale(coord, details$theta.major, details)
@@ -245,13 +245,13 @@ coord_render_fg.polar <- function(coord, details, theme) {
   }
     
   grobTree(
-    if (length(labels) > 0) theme_render(
+    if (length(labels) > 0) element_render(
       theme, "axis.text.x", 
       labels, 0.45 * sin(theta) + 0.5, 0.45 * cos(theta) + 0.5,
       hjust = 0.5, vjust = 0.5,
       default.units="native"
     ),      
-    theme_render(theme, "panel.border")
+    element_render(theme, "panel.border")
   )
 }  
 

@@ -47,8 +47,8 @@ ggplot_gtable <- function(data) {
     x = xlabel(panel, theme),
     y = ylabel(panel, theme)
   ))
-  xlabel <- theme_render(theme, "axis.title.x", labels$x)
-  ylabel <- theme_render(theme, "axis.title.y", labels$y)
+  xlabel <- element_render(theme, "axis.title.x", labels$x)
+  ylabel <- element_render(theme, "axis.title.y", labels$y)
   
   panel_dim <-  find_panel(plot_table)
 
@@ -131,7 +131,7 @@ ggplot_gtable <- function(data) {
   }
 
   # Title  
-  title <- theme_render(theme, "plot.title", plot$options$title)
+  title <- element_render(theme, "plot.title", plot$options$title)
   title_height <- grobHeight(title) + 
     if (is.null(plot$options$title)) unit(0, "lines") else unit(0.5, "lines")
 
@@ -149,7 +149,7 @@ ggplot_gtable <- function(data) {
 
   # TODO: use z-ordering of gtable 
   if (inherits(theme$plot.background, "theme")) {
-    plot_table <- gtable_add_grob(plot_table, theme_render(theme, "plot.background", vp = "background"),
+    plot_table <- gtable_add_grob(plot_table, element_render(theme, "plot.background", vp = "background"),
                                   t = 1, l = 1, b = length(plot_table$heights), r = length(plot_table$widths))
     plot_table$layout <- plot_table$layout[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1)),]
     plot_table$grobs <- plot_table$grobs[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1))]
