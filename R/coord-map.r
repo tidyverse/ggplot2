@@ -151,7 +151,7 @@ coord_render_bg.map <- function(coord, details, theme) {
 
   if (nrow(xlines) > 0) {
     grob.xlines <- element_render(
-      theme, "panel.grid.major", name = "x", 
+      theme, "panel.grid.major.x",
       xlines$x, xlines$y, default.units = "native"
     )
   } else {
@@ -160,7 +160,7 @@ coord_render_bg.map <- function(coord, details, theme) {
 
   if (nrow(ylines) > 0) {
     grob.ylines <- element_render(
-      theme, "panel.grid.major", name = "y", 
+      theme, "panel.grid.major.y",
       ylines$x, ylines$y, default.units = "native"
     )
   } else {

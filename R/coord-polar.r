@@ -192,17 +192,23 @@ coord_render_bg.polar <- function(coord, details, theme) {
   r <- 0.4
   rfine <- c(r_rescale(coord, details$r.major, details), 0.45)
 
+  # This gets the proper theme element for theta and r grid lines:
+  #   panel.grid.major.x or .y
+  majortheta <- paste("panel.grid.major.", coord$theta, sep = "")
+  minortheta <- paste("panel.grid.minor.", coord$theta, sep = "")
+  majorr     <- paste("panel.grid.major.", coord$r,     sep = "")
+
   ggname("grill", grobTree(
     element_render(theme, "panel.background"),
     if (length(theta) > 0) element_render(
-      theme, "panel.grid.major", name = "angle", 
+      theme, majortheta, name = "angle",
       x = c(rbind(0, 0.45 * sin(theta))) + 0.5, 
       y = c(rbind(0, 0.45 * cos(theta))) + 0.5,
       id.lengths = rep(2, length(theta)), 
       default.units="native"
     ),
     if (length(thetamin) > 0) element_render(
-      theme, "panel.grid.minor", name = "angle", 
+      theme, minortheta, name = "angle",
       x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5, 
       y = c(rbind(0, 0.45 * cos(thetamin))) + 0.5,
       id.lengths = rep(2, length(thetamin)),  
@@ -210,7 +216,7 @@ coord_render_bg.polar <- function(coord, details, theme) {
     ),
     
     element_render(
-      theme, "panel.grid.major", name = "radius",
+      theme, majorr, name = "radius",
       x = rep(rfine, each=length(thetafine)) * sin(thetafine) + 0.5, 
       y = rep(rfine, each=length(thetafine)) * cos(thetafine) + 0.5,
       id.lengths = rep(length(thetafine), length(rfine)),
