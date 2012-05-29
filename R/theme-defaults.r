@@ -10,7 +10,6 @@ theme_grey <- function(base_size = 12, base_family = "Helvetica") {
     # by others
     line =               element_line(colour = "black", size = 0.5, linetype = 1),
     rect =               element_rect(fill = NA, colour = "black", size = 0.5, linetype = 1),
-    segment =            element_segment(colour = "black", size = 0.5, linetype = 1),
     text =               element_text(family = base_family, face = "plain",
                             colour = "black", size = base_size,
                             hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 0.9),
@@ -20,7 +19,7 @@ theme_grey <- function(base_size = 12, base_family = "Helvetica") {
     axis.line =          element_blank(),
     axis.text.x =        element_text(vjust = 1),
     axis.text.y =        element_text(hjust = 1),
-    axis.ticks =         element_segment(colour = "grey50"),
+    axis.ticks =         element_line(colour = "grey50"),
     axis.title.x =       element_text(),
     axis.title.y =       element_text(angle = 90),
     axis.ticks.length =  unit(0.15, "cm"),
@@ -69,7 +68,7 @@ theme_bw <- function(base_size = 12, base_family = "Helvetica") {
   theme <- theme_grey(base_size = base_size, base_family = base_family)
 
   theme$axis.text         <- element_text(size = rel(0.8), colour = "black")
-  theme$axis.ticks        <- element_segment(colour = "black")
+  theme$axis.ticks        <- element_line(colour = "black")
 
   theme$legend.background <- element_rect(colour=NA)
   theme$legend.key        <- element_rect(colour = "grey80")

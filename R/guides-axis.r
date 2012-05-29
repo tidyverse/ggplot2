@@ -18,6 +18,9 @@ guide_axis <- function(at, labels, position="right", theme) {
   length <- theme$axis.ticks.length
   label_pos <- length + theme$axis.ticks.margin
 
+  nticks <- length(at)
+
+  zero <- unit(0, "npc")
   one <- unit(1, "npc")
   
   label_render <- switch(position,
@@ -60,10 +63,22 @@ guide_axis <- function(at, labels, position="right", theme) {
   )
   
   ticks <- switch(position,
-    top =    element_render(theme, "axis.ticks", at, 0, at, length),
-    bottom = element_render(theme, "axis.ticks", at, one - length, at, 1),
-    right =  element_render(theme, "axis.ticks", 0, at, length, at),
-    left =   element_render(theme, "axis.ticks", one - length, at, 1, at)
+    top = element_render(theme, "axis.ticks",
+      x          = rep(at, each=2),
+      y          = rep(unit.c(zero, length), nticks),
+      id.lengths = rep(2, nticks)),
+    bottom = element_render(theme, "axis.ticks", 
+      x          = rep(at, each=2),
+      y          = rep(unit.c(one-length, one), nticks),
+      id.lengths = rep(2, nticks)),
+    right = element_render(theme, "axis.ticks",
+      x          = rep(unit.c(zero, length), nticks),
+      y          = rep(at, each=2),
+      id.lengths = rep(2, nticks)),
+    left = element_render(theme, "axis.ticks",
+      x          = rep(unit.c(one-length, one), nticks),
+      y          = rep(at, each=2),
+      id.lengths = rep(2, nticks))
   )
 
   just <- switch(position,

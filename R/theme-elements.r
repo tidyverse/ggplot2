@@ -29,7 +29,6 @@ element_rect <- function(fill = NULL, colour = NULL, size = NULL, linetype = NUL
 #'
 #' This element draws a line between two (or more) points
 #' 
-#' @seealso \code{link{theme_segment}}
 #' @param colour line color
 #' @param size line size
 #' @param linetype line type
@@ -38,22 +37,6 @@ element_line <- function(colour = NULL, size = NULL, linetype = NULL) {
   structure(
     list(colour = colour, size = size, linetype = linetype),
     class = c("element", "element_line")
-  )
-}
-
-#' Theme element: segments.
-#'
-#' This element draws segments between a set of points
-#' 
-#' @seealso \code{link{theme_line}}
-#' @param colour line color
-#' @param size line size
-#' @param linetype line type
-#' @export
-element_segment <- function(colour = NULL, size = NULL, linetype = NULL) {
-  structure(
-    list(colour = colour, size = size, linetype = linetype),
-    class = c("element", "element_segment")
   )
 }
 
@@ -119,8 +102,8 @@ theme_line <- function(...) {
 
 #' @export
 theme_segment <- function(...) {
-  .Deprecated(new = "element_segment")
-  element_segment(...)
+  .Deprecated(new = "element_line")
+  element_line(...)
 }
 
 #' @export
@@ -217,22 +200,6 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
 }
 
 
-#' @S3method element_grob element_segment
-element_grob.element_segment <- function(element, x0 = 0, y0 = 0,
-  x1 = 1, y1 = 1, colour = NULL, size = NULL, linetype = NULL) {
-
-  # The gp settings can override element_gp
-  gp <- gpar(lwd=len0_null(size * .pt), col=colour, lty=linetype)
-  element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
-    lty = element$linetype)
-
-  segmentsGrob(
-    x0, y0, x1, y1, default.units = "npc",
-    gp = modifyList(element_gp, gp)
-  )
-}
-
-
 #' @S3method element_grob element_line
 element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   colour = NULL, size = NULL, linetype = NULL,
@@ -269,11 +236,10 @@ el_def <- function(class = NULL, inherits = NULL, description = NULL) {
 .element_tree <- list(
   line                = el_def("element_line"),
   rect                = el_def("element_rect"),
-  segment             = el_def("element_segment"),
   text                = el_def("element_text"),
   axis.text           = el_def("element_text", "text"),
   axis.title          = el_def("element_text", "text"),
-  axis.ticks          = el_def("element_segment", "segment"),
+  axis.ticks          = el_def("element_line", "line"),
   axis.ticks.length   = el_def("unit"),
   legend.key.size     = el_def("unit"),
   panel.grid          = el_def("element_line", "line"),
