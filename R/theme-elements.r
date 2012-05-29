@@ -250,6 +250,8 @@ el_def <- function(class = NULL, inherits = NULL, description = NULL) {
   axis.line           = el_def("element_line", "line"),
   axis.text.x         = el_def("element_text", "axis.text"),
   axis.text.y         = el_def("element_text", "axis.text"),
+  axis.ticks.x        = el_def("element_line", "axis.ticks"),
+  axis.ticks.y        = el_def("element_line", "axis.ticks"),
   axis.title.x        = el_def("element_text", "axis.title"),
   axis.title.y        = el_def("element_text", "axis.title"),
   axis.ticks.margin   = el_def("unit"),
