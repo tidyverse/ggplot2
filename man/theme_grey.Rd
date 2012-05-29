@@ -13,5 +13,4 @@
 \description{
   A theme with grey background and white gridlines.
 }
-\keyword{dplot}
 

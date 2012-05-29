@@ -3,7 +3,6 @@
 #' @param base_size base font size
 #' @param base_family base font family
 #' @aliases theme_gray theme_grey
-#' @import theme-elements.r
 #' @export theme_gray theme_grey
 theme_grey <- function(base_size = 12, base_family = "Helvetica") {
   structure(list(

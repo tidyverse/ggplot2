@@ -4,7 +4,7 @@
 \alias{theme_rect}
 \alias{theme_segment}
 \alias{theme_text}
-\title{Deprecated theme_xxx functions}
+\title{Deprecated theme_xx functions}
 \usage{
   theme_blank(...)
 }
