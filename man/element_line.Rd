@@ -14,7 +14,4 @@
 \description{
   This element draws a line between two (or more) points
 }
-\seealso{
-  \code{link{theme_segment}}
-}
 
