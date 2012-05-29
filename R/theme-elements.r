@@ -32,10 +32,11 @@ element_rect <- function(fill = NULL, colour = NULL, size = NULL, linetype = NUL
 #' @param colour line color
 #' @param size line size
 #' @param linetype line type
+#' @param lineend line end
 #' @export
-element_line <- function(colour = NULL, size = NULL, linetype = NULL) {
+element_line <- function(colour = NULL, size = NULL, linetype = NULL, lineend = NULL) {
   structure(
-    list(colour = colour, size = size, linetype = linetype),
+    list(colour = colour, size = size, linetype = linetype, lineend = lineend),
     class = c("element", "element_line")
   )
 }
@@ -202,13 +203,13 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
 
 #' @S3method element_grob element_line
 element_grob.element_line <- function(element, x = 0:1, y = 0:1,
-  colour = NULL, size = NULL, linetype = NULL,
+  colour = NULL, size = NULL, linetype = NULL, lineend = NULL,
   default.units = "npc", id.lengths = NULL) {
 
   # The gp settings can override element_gp
-  gp <- gpar(lwd=len0_null(size * .pt), col=colour, lty=linetype)
+  gp <- gpar(lwd=len0_null(size * .pt), col=colour, lty=linetype, lineend = lineend)
   element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
-    lty = element$linetype)
+    lty = element$linetype, lineend = element$lineend)
 
   polylineGrob(
     x, y, default.units = default.units,

@@ -304,6 +304,11 @@ calc_element <- function(element, theme) {
   # Calculate the parent objects' inheritance
   parents <- lapply(pnames, calc_element, theme)
 
+  # If this element is not NULL, then
+  # don't try to inherit from parents that are element_blank
+  if (!is.null(theme[[element]]))
+    parents <- parents[!sapply(parents, inherits, "element_blank")]
+
   # Combine the propertiesl of this element with all parents
   Reduce(combine_elements, parents, theme[[element]])
 }

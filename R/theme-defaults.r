@@ -8,7 +8,8 @@ theme_grey <- function(base_size = 12, base_family = "Helvetica") {
   structure(list(
     # Elements in this first block aren't used directly, but are inherited
     # by others
-    line =               element_line(colour = "black", size = 0.5, linetype = 1),
+    line =               element_line(colour = "black", size = 0.5, linetype = 1,
+                            lineend = "butt"),
     rect =               element_rect(fill = NA, colour = "black", size = 0.5, linetype = 1),
     text =               element_text(family = base_family, face = "plain",
                             colour = "black", size = base_size,
