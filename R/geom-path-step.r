@@ -1,5 +1,8 @@
 #' Connect observations by stairs.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "step")}
+#'
 #' @inheritParams geom_point
 #' @param direction direction of stairs: 'vh' for vertical then horizontal, or
 #'   'hv' for horizontal then vertical
@@ -31,13 +34,6 @@ direction = "hv", ...) {
 GeomStep <- proto(Geom, {
   objname <- "step"
 
-  icon <- function(.) {
-    n <- 15
-    xs <- rep(0:n, each = 2)[-2*(n + 1)] / 15
-    ys <- c(0, rep(1:n, each=2)) / 15
-    
-    linesGrob(xs, ys, gp=gpar(col="grey20"))
-  }
   details <- "Equivalent to plot(type='s')."
 
   default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)

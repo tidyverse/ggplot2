@@ -37,13 +37,3 @@ scale_shape_discrete <- scale_shape
 scale_shape_continuous <- function(...) {
   stop("A continuous variable can not be mapped to shape", call. = FALSE)
 }
-
-icon.shape <- function(.) {
-  gTree(children=gList(
-    circleGrob(0.7, 0.7, r=0.1),
-    segmentsGrob(0.2, 0.3, 0.4, 0.3),
-    segmentsGrob(0.3, 0.2, 0.3, 0.4),
-    polygonGrob(c(0.2, 0.2, 0.4, 0.4), c(0.8, 0.6, 0.6, 0.8)),
-    polygonGrob(c(0.6, 0.7, 0.8), c(0.2, 0.4, 0.2))
-  ))
-}

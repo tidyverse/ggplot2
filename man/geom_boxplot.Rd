@@ -65,6 +65,10 @@
   interval for comparing medians. See McGill et al. (1978)
   for more details.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "boxplot")}
+}
 \examples{
 \donttest{
 p <- ggplot(mtcars, aes(factor(cyl), mpg))

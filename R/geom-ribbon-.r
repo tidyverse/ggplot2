@@ -1,5 +1,8 @@
 #' Ribbons, y range with continuous x values.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "ribbon")}
+#'
 #' @seealso
 #'   \code{\link{geom_bar}} for discrete intervals (bars),
 #'   \code{\link{geom_linerange}} for discrete intervals (lines),
@@ -90,11 +93,7 @@ GeomRibbon <- proto(Geom, {
     ))
   }
 
-  # Documentation -----------------------------------------------
-  icon <- function(.) {
-    polygonGrob(c(0, 0.3, 0.5, 0.8, 1, 1, 0.8, 0.5, 0.3, 0), c(0.5, 0.3, 0.4, 0.2, 0.3, 0.7, 0.5, 0.6, 0.5, 0.7), gp=gpar(fill="grey20", col=NA))
-  }
-  })
+})
 
 #' Area plot.
 #' 
@@ -129,8 +128,4 @@ GeomArea <- proto(GeomRibbon,{
     transform(df, ymin = 0, ymax = y)
   }
 
-  # Documentation -----------------------------------------------
-  icon <- function(.) {
-    polygonGrob(c(0, 0,0.3, 0.5, 0.8, 1, 1), c(0, 1,0.5, 0.6, 0.3, 0.8, 0), gp=gpar(fill="grey20", col=NA))
-  }
 })

@@ -1,5 +1,8 @@
 #' An interval represented by a vertical line, with a point in the middle.
 #' 
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "pointrange")}
+#'
 #' @inheritParams geom_point
 #' @seealso
 #'  \code{\link{geom_errorbar}} for error bars,
@@ -17,13 +20,6 @@ geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity", pos
 GeomPointrange <- proto(Geom, {
   objname <- "pointrange"
 
-  icon <- function(.) {
-    gTree(children=gList(
-      segmentsGrob(c(0.3, 0.7), c(0.1, 0.2), c(0.3, 0.7), c(0.7, 0.95)),
-      pointsGrob(c(0.3, 0.7), c(0.4, 0.6), pch=19, gp=gpar(col="black", cex=0.5), default.units="npc")
-    ))
-  }
-  
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, shape=16, fill=NA, alpha = NA)
   guide_geom <- function(.) "pointrange"

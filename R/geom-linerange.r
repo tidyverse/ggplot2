@@ -1,5 +1,8 @@
 #' An interval represented by a vertical line.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "linerange")}
+#'
 #' @seealso \code{\link{geom_errorbar}}: error bars;
 #'   \code{\link{geom_pointrange}}: range indicated by straight line, with
 #'   point in the middle; \code{\link{geom_crossbar}}: hollow bar with middle
@@ -44,7 +47,5 @@ GeomLinerange <- proto(Geom, {
     munched <- coord_transform(coordinates, data, scales)
     ggname(.$my_name(), GeomSegment$draw(transform(data, xend=x, y=ymin, yend=ymax), scales, coordinates, ...))
   }
-
-  icon <- function(.) segmentsGrob(c(0.3, 0.7), c(0.1, 0.2), c(0.3, 0.7), c(0.7, 0.95))
   
 })

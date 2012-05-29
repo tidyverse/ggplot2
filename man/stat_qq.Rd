@@ -40,6 +40,10 @@
 \description{
   Calculation for quantile-quantile plot.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "qq")}
+}
 \examples{
 \donttest{
 # From ?qqplot

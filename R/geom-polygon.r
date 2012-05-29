@@ -1,5 +1,8 @@
 #' Polygon, a filled path.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "polygon")}
+#'
 #' @seealso 
 #'  \code{\link{geom_path}} for an unfilled polygon,
 #'  \code{\link{geom_ribbon}} for a polygon anchored on the x-axis
@@ -64,8 +67,6 @@ GeomPolygon <- proto(Geom, {
     )))
   }
 
-  icon <- function(.) polygonGrob(c(0.1, 0.4, 0.7, 0.9, 0.6, 0.3), c(0.5, 0.8, 0.9, 0.4, 0.2, 0.3), gp=gpar(fill="grey20", col=NA))
-  
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour="NA", fill="grey20", size=0.5, linetype=1, alpha = NA)
   required_aes <- c("x", "y")

@@ -68,6 +68,10 @@
   constructed on the link scale, and then back-transformed
   to the response scale.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "smooth")}
+}
 \examples{
 \donttest{
 c <- ggplot(mtcars, aes(qsec, wt))

@@ -1,5 +1,8 @@
 #' Connect observations in original order
 #' 
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "path")}
+#'
 #' @inheritParams geom_point
 #' @param lineend Line end style (round, butt, square)
 #' @param linejoin Line join style (round, mitre, bevel)
@@ -198,7 +201,6 @@ GeomPath <- proto(Geom, {
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y")
   default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
-  icon <- function(.) linesGrob(c(0.2, 0.4, 0.8, 0.6, 0.5), c(0.2, 0.7, 0.4, 0.1, 0.5))
   guide_geom <- function(.) "path"
   
 })

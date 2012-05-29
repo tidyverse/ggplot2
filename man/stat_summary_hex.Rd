@@ -32,7 +32,10 @@
 \description{
   Apply function for 2D hexagonal bins.
 }
-\details{
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "summaryhex")}
+
   \code{stat_summary2d} is hexagonal version of
   \code{\link{stat_summary}}. The data are devided by
   \code{x} and \code{y}. \code{z} in each cell is passed to

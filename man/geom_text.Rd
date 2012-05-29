@@ -31,6 +31,10 @@
 \description{
   Textual annotations.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "text")}
+}
 \examples{
 \donttest{
 p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))

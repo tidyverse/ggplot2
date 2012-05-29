@@ -47,6 +47,10 @@
   padding (e.g. want zero-padding), you can change the
   behavior by setting \code{hpad} and \code{vpad}.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "raster")}
+}
 \examples{
 \donttest{
 # Generate data

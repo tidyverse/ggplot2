@@ -46,6 +46,10 @@
 \description{
   Continuous quantiles.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "quantile")}
+}
 \examples{
 \donttest{
 msamp <- movies[sample(nrow(movies), 1000), ]

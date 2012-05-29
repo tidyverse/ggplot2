@@ -2,6 +2,9 @@
 #'
 #' Similar to \code{\link{levelplot}} and \code{\link{image}}.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "tile")}
+#'
 #' @inheritParams geom_point
 #' @export
 #' @examples
@@ -86,10 +89,6 @@ GeomTile <- proto(Geom, {
     GeomRect$draw_groups(data, scales, coordinates, ...)
   }
 
-
-  icon <- function(.) {
-    rectGrob(c(0.25, 0.25, 0.75, 0.75), c(0.25, 0.75, 0.75, 0.25), width=0.5, height=c(0.67, 0.5, 0.67, 0.5), gp=gpar(col="grey20", fill=c("#804070", "#668040")))
-  }
 
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(fill="grey20", colour=NA, size=0.1, linetype=1, alpha = NA)

@@ -1,5 +1,8 @@
 #' 1d kernel density estimate.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "density")}
+#'
 #' @param adjust see \code{\link{density}} for details
 #' @param kernel kernel used for density estimation, see
 #'   \code{\link{density}} for details
@@ -114,7 +117,6 @@ StatDensity <- proto(Stat, {
     rename(densdf, c(y = "density"))
   }
 
-  icon <- function(.) GeomDensity$icon()
   default_geom <- function(.) GeomArea
   default_aes <- function(.) aes(y = ..density.., fill=NA)
   required_aes <- c("x")

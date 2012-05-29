@@ -1,9 +1,9 @@
-\name{scale_colour_manual}
+\name{scale_manual}
 \alias{scale_alpha_manual}
 \alias{scale_color_manual}
-\alias{scale_colour_manual}
 \alias{scale_fill_manual}
 \alias{scale_linetype_manual}
+\alias{scale_manual}
 \alias{scale_shape_manual}
 \alias{scale_size_manual}
 \title{Create your own discrete scale.}

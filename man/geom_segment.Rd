@@ -32,6 +32,10 @@
 \description{
   Single line segments.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "segment")}
+}
 \examples{
 library(grid) # needed for arrow function
 p <- ggplot(seals, aes(x = long, y = lat))

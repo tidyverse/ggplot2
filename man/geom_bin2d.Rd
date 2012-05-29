@@ -28,6 +28,10 @@
 \description{
   Add heatmap of 2d bin counts.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "bin2d")}
+}
 \examples{
 d <- ggplot(diamonds, aes(x = x, y = y)) + xlim(4,10) + ylim(4,10)
 d + geom_bin2d()

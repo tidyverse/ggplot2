@@ -17,8 +17,7 @@ update_labels <- function(p, labels) {
 #' Change axis labels and legend titles
 #' 
 #' @param ... a list of new names in the form aesthetic = "new name"
-#' @aliases labs xlab ylab
-#' @export labs xlab ylab
+#' @export
 #' @examples
 #' p <- qplot(mpg, wt, data = mtcars)
 #' p + labs(x = "New x label")
@@ -43,9 +42,13 @@ labs <- function(...) {
   structure(args, class = "labels")
 }
 
+#' @rdname labs
+#' @export
 xlab <- function(label) {
   labs(x = label)
 }
+#' @rdname labs
+#' @export
 ylab <- function(label) {
   labs(y = label)
 }

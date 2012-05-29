@@ -28,6 +28,10 @@
 \description{
   An interval represented by a vertical line.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "linerange")}
+}
 \examples{
 # Generate data: means and standard errors of means for prices
 # for each type of cut

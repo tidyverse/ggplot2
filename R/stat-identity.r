@@ -1,5 +1,8 @@
 #' Identity statistic.
 #' 
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "identity")}
+#'
 #' @param mapping The aesthetic mapping, usually constructed with
 #'    \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
 #'    at the layer level if you are overriding the plot defaults.
@@ -24,7 +27,6 @@ StatIdentity <- proto(Stat, {
 
   default_geom <- function(.) GeomPoint
   calculate_groups <- function(., data, scales, ...) data
-  icon <- function(.) textGrob("f(x) = x", gp=gpar(cex=1.2))
   
   desc_outputs <- list()
   

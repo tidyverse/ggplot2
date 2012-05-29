@@ -27,6 +27,10 @@
 \description{
   Identity statistic.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "identity")}
+}
 \examples{
 # Doesn't do anything, so hard to come up a useful example
 }

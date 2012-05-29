@@ -61,14 +61,8 @@
   transparent points, \code{geom_point(alpha = 0.05)}.
 }
 \section{Aesthetics}{
-  \code{geom_point} understands the following aesthetics:
-
-  \itemize{ \item \code{x}: horizontal position \item
-  \code{y}: vertical position \item \code{shape}: point
-  shape.  \item \code{colour}: point colour.  \item
-  \code{fill}: fill colour, only affects solid points \item
-  \code{size}: size.  \item \code{alpha}: alpha
-  transparency modifies colour. }
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "point")}
 }
 \examples{
 \donttest{

@@ -28,6 +28,10 @@
 \description{
   Error bars.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "errorbar")}
+}
 \examples{
 # Create a simple example dataset
 df <- data.frame(

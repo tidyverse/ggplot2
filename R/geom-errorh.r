@@ -1,5 +1,8 @@
 #' Horizontal error bars
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "errorbarh")}
+#'
 #' @seealso \code{\link{geom_errorbar}}: vertical error bars
 #' @inheritParams geom_point
 #' @export
@@ -24,14 +27,6 @@ geom_errorbarh <- function (mapping = NULL, data = NULL, stat = "identity", posi
 
 GeomErrorbarh <- proto(Geom, {
   objname <- "errorbarh"
-
-  icon <- function(.) {
-    gTree(children=gList(
-      segmentsGrob(c(0.5, 0.3), c(0.70, 0.30), c(0.9, 0.7), c(0.70, 0.30)),
-      segmentsGrob(c(0.5, 0.3), c(0.55, 0.15), c(0.5, 0.3), c(0.85, 0.45)),
-      segmentsGrob(c(0.9, 0.7), c(0.55, 0.15), c(0.9, 0.7), c(0.85, 0.45))
-    ))
-  }
   
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, height=0.5, alpha = NA)

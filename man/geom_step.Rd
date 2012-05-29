@@ -31,6 +31,10 @@
 \description{
   Connect observations by stairs.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "step")}
+}
 \examples{
 # Simple quantiles/ECDF from examples(plot)
 x <- sort(rnorm(47))

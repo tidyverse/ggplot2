@@ -33,6 +33,10 @@
 \description{
   Ribbons, y range with continuous x values.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "ribbon")}
+}
 \examples{
 \donttest{
 # Generate data

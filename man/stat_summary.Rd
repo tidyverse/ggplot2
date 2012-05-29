@@ -48,6 +48,10 @@
   data.frame it should return a data frame with variables
   that the geom can use.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "summary")}
+}
 \examples{
 \donttest{
 # Basic operation on a small dataset

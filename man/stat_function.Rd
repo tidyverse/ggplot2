@@ -40,6 +40,10 @@
 \description{
   Superimpose a function.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
+  "function")}
+}
 \examples{
 x <- rnorm(100)
 base <- qplot(x, geom = "density")

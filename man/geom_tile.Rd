@@ -29,6 +29,10 @@
   Similar to \code{\link{levelplot}} and
   \code{\link{image}}.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "tile")}
+}
 \examples{
 \donttest{
 # Generate data

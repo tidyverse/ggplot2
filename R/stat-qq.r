@@ -1,5 +1,8 @@
 #' Calculation for quantile-quantile plot.
 #' 
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "qq")}
+#'
 #' @param distribution Distribution function to use, if x not specified
 #' @param dparams Parameters for distribution function
 #' @param ... Other arguments passed to distribution function

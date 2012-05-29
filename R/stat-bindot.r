@@ -3,6 +3,9 @@
 #' Missing values are currently silently dropped.
 #' If weights are used, they must be integer values.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bindot")}
+#'
 #' @inheritParams stat_identity
 #' @param binaxis The axis to bin along, "x" (default) or "y"
 #' @param method "dotdensity" (default) for dot-density binning, or
@@ -159,7 +162,6 @@ StatBindot <- proto(Stat, {
     return(data)
   }
 
-  icon <- function(.) GeomDotplot$icon()
   default_aes <- function(.) aes(y = ..count..)
   required_aes <- c("x")
   default_geom <- function(.) GeomDotplot

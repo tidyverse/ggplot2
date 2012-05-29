@@ -31,9 +31,3 @@ scale_fill_grey <- function(..., start = 0.2, end = 0.8, na.value = "grey50") {
   discrete_scale("fill", "grey", grey_pal(start, end), 
     na.value = na.value, ...)
 }
-
-icon.grey <- function() {
-  rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21, 
-    gp=gpar(fill=gray(seq(0, 1, length=5)), col=NA)
-  )
-}

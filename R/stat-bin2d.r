@@ -1,5 +1,8 @@
 #' Count number of observation in rectangular bins.
 #' 
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bin2d")}
+#'
 #' @inheritParams stat_identity
 #' @param bins numeric vector giving number of bins in both vertical and 
 #'   horizontal directions. Set to 30 by default.

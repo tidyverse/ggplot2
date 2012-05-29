@@ -1,10 +1,9 @@
 #' Use values without scaling.
 #'
+#' @name scale_identity
 #' @param ... Other arguments passed on to \code{\link{discrete_scale}} or
 #'   \code{\link{continuous_scale}}
 #' @param guide Guide to use for this scale - defaults to \code{"none"}.
-#' @rdname scale_identity
-#' @export
 #' @examples
 #' colour <- c("red", "green", "blue", "yellow")
 #' qplot(1:4, 1:4, fill = colour, geom = "tile")
@@ -23,6 +22,9 @@
 #' 
 #' # cyl used as point size
 #' qplot(mpg, wt, data = mtcars, size = cyl) + scale_size_identity()
+
+#' @rdname scale_identity
+#' @export scale_colour_identity
 scale_colour_identity <- function(..., guide = "none") {
   identity_scale(discrete_scale("colour", "identity", identity_pal(), ..., guide = guide))
 }
@@ -78,5 +80,3 @@ scale_train.identity <- function(scale, x) {
   if (scale$guide == "none") return()
   NextMethod()
 }
-
-icon.identity <- function() textGrob("f(x) = x", gp=gpar(cex=1.2))

@@ -10,6 +10,9 @@
 #' intercept for each panel using a data.frame.  See the examples for the
 #' differences.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "vline")}
+#'
 #' @param show_guide should a legend be drawn? (defaults to \code{FALSE})
 #' @inheritParams geom_point
 #' @seealso
@@ -65,7 +68,6 @@ GeomVline <- proto(Geom, {
   }
 
   
-  icon <- function(.) linesGrob(c(0.5, 0.5), c(0, 1))
   default_stat <- function(.) StatVline
   default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
   guide_geom <- function(.) "vline"

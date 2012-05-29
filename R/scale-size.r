@@ -3,7 +3,7 @@
 #' @inheritParams scale_x_continuous
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
-#' @rdname scale_size
+#' @name scale_size
 #' @export
 #' @examples
 #' \donttest{
@@ -40,9 +40,4 @@ scale_size <- scale_size_continuous
 scale_size_discrete <- function(..., range = c(1, 6)) {
   discrete_scale("size", "size_d",
     function(n) seq(range[1], range[2], length = n), ...)
-}
-
-icon.size <- function() {
-  pos <- c(0.15, 0.3, 0.5, 0.75)
-  circleGrob(pos, pos, r=(c(0.1, 0.2, 0.3, 0.4)/2.5), gp=gpar(fill="grey50", col=NA))
 }

@@ -1,5 +1,8 @@
 #' Add heatmap of 2d bin counts.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "bin2d")}
+#'
 #' @export
 #' @inheritParams geom_point
 #' @examples

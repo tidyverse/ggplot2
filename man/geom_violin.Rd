@@ -38,6 +38,10 @@
 \description{
   Violin plot.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "violin")}
+}
 \examples{
 \donttest{
 p <- ggplot(mtcars, aes(factor(cyl), mpg))

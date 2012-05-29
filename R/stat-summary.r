@@ -10,6 +10,9 @@
 #' on a data.frame it should return a data frame with variables that the geom
 #' can use.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "summary")}
+#'
 #' @seealso \code{\link{geom_errorbar}}, \code{\link{geom_pointrange}}, 
 #'  \code{\link{geom_linerange}}, \code{\link{geom_crossbar}} for geoms to
 #'  display summarised data

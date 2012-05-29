@@ -16,6 +16,9 @@
 #' hide the y axis, as in one of the examples, or manually scale it
 #' to match the number of dots.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "dotplot")}
+#'
 #' @inheritParams geom_point
 #' @param binaxis which axis to bin along "x" (default) or "y"
 #' @param method "dotdensity" (default) for dot-density binning, or
@@ -260,13 +263,6 @@ GeomDotplot <- proto(Geom, {
           fill = alpha(fill, alpha))
       )
     )
-  }
-
-  icon <- function(.) {
-    xpos <- c(1,1,2,3,3,3,4,4,5,5,5,5,6,7,7,7,8,8,9)/10
-    ypos <- c(1,2,1,1,2,3,1,2,1,2,3,4,1,1,2,3,1,2,1)/10
-    pointsGrob(x = xpos, y = ypos, pch = 19, size = unit(.1, "npc"),
-               gp = gpar(col = "black", cex = 0.5), default.units = "npc")
   }
   
   default_stat <- function(.) StatBindot

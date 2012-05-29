@@ -28,6 +28,10 @@
 \description{
   2d rectangles.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "rect")}
+}
 \examples{
 df <- data.frame(
   x = sample(10, 20, replace = TRUE),

@@ -2,6 +2,9 @@
 #' 
 #' Missing values are currently silently dropped.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bin")}
+#'
 #' @inheritParams stat_identity
 #' @param binwidth Bin width to use. Defaults to 1/30 of the range of the
 #'   data
@@ -67,7 +70,6 @@ StatBin <- proto(Stat, {
     bin(data$x, data$weight, binwidth=binwidth, origin=origin, breaks=breaks, range=range, width=width, drop = drop, right = right)
   }
 
-  icon <- function(.) GeomHistogram$icon()
   default_aes <- function(.) aes(y = ..count..)
   required_aes <- c("x")
   default_geom <- function(.) GeomBar

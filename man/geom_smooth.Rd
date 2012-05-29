@@ -28,6 +28,10 @@
 \description{
   Add a smoothed conditional mean.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "smooth")}
+}
 \examples{
 # See stat_smooth for examples of using built in model fitting
 # if you need some more flexible, this example shows you how to

@@ -1,13 +1,12 @@
 #' Create your own discrete scale.
 #' 
-#' @rdname scale_manual
+#' @name scale_manual
 #' @inheritParams scale_x_discrete
 #' @param values a set of aesthetic values to map data values to.  If this
 #'   is a named vector, then the values will be matched based on the names.
 #'   If unnamed, values will be matched in order (usually alphabetical, but
 #'   could be modified with the limits argument to the scale).  Any data
 #'   values that don't match, will be given \code{na.value}.
-#' @export
 #' @examples
 #' \donttest{
 #' p <- qplot(mpg, wt, data = mtcars, colour = factor(cyl))
@@ -31,6 +30,9 @@
 #' p + scale_colour_manual(values = cols, limits = c("4", "8"))
 #' p + scale_colour_manual(values = cols, limits = c("4", "6", "8", "10"))
 #' }
+
+#' @rdname scale_manual
+#' @export scale_colour_manual
 scale_colour_manual <- function(..., values) {
   manual_scale("colour", values, ...)
 }
@@ -65,7 +67,6 @@ scale_alpha_manual <- function(..., values) {
   manual_scale("alpha", values, ...)
 }
 
-icon.manual <- function() textGrob("DIY", gp=gpar(cex=1.2))
 
 manual_scale <- function(aesthetic, values, ...) {
   pal <- function(n) {

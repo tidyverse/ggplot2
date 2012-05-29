@@ -87,6 +87,10 @@
   axis, as in one of the examples, or manually scale it to
   match the number of dots.
 }
+\section{Aesthetics}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
+  "dotplot")}
+}
 \examples{
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot()
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5)

@@ -10,6 +10,9 @@
 #' is constructed on the link scale, and then back-transformed to the response
 #' scale.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "smooth")}
+#'
 #' @param method smoothing method (function) to use, eg. lm, glm, gam, loess,
 #'   rlm. For datasets with n < 1000 default is \code{\link{loess}}. For datasets  
 #'   with 1000 or more observations defaults to gam, see \code{\link[mgcv]{gam}}
@@ -171,9 +174,7 @@ StatSmooth <- proto(Stat, {
     
     predictdf(model, xseq, se, level)
   }
-  
-  icon <- function(.) GeomSmooth$icon()
-  
+
   required_aes <- c("x", "y")
   default_geom <- function(.) GeomSmooth
 })

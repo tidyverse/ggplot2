@@ -1,5 +1,8 @@
 #' Continuous quantiles.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "quantile")}
+#'
 #' @param quantiles conditional quantiles of y to calculate and display
 #' @param formula formula relating y variables to x variables
 #' @param method Quantile regression method to use.  Currently only supports
@@ -49,7 +52,6 @@ StatQuantile <- proto(Stat, {
   default_geom <- function(.) GeomQuantile
   default_aes <- function(.) aes()
   required_aes <- c("x", "y")
-  icon <- function(.) GeomQuantile$icon()
 
   calculate <- function(., data, scales, quantiles=c(0.25, 0.5, 0.75), formula=y ~ x, xseq = NULL, method="rq", na.rm = FALSE, ...) {
     try_require("quantreg")

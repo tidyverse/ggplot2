@@ -5,6 +5,9 @@
 #' 
 #' This can be useful for dealing with overplotting.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "density2d")}
+#'
 #' @seealso \code{\link{geom_contour}} for contour drawing geom, 
 #'  \code{\link{stat_sum}} for another way of dealing with overplotting
 #' @inheritParams geom_point
@@ -22,7 +25,5 @@ GeomDensity2d <- proto(GeomPath, {
   objname <- "density2d"
 
   default_stat <- function(.) StatDensity2d
-  default_aes <- function(.) aes(weight=1, colour="#3366FF", size = 0.5, linetype = 1, alpha = NA)
-  icon <- function(.) GeomContour$icon()
-  
+  default_aes <- function(.) aes(weight=1, colour="#3366FF", size = 0.5, linetype = 1, alpha = NA)  
 })

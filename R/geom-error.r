@@ -1,5 +1,8 @@
 #' Error bars.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "errorbar")}
+#'
 #' @seealso \code{\link{geom_pointrange}}: range indicated by straight line,
 #'   with point in the middle; \code{\link{geom_linerange}}: range indicated
 #'   by straight line; \code{\link{geom_crossbar}}: hollow bar with middle
@@ -47,14 +50,6 @@ geom_errorbar <- function (mapping = NULL, data = NULL, stat = "identity", posit
 
 GeomErrorbar <- proto(Geom, {
   objname <- "errorbar"
-
-  icon <- function(.) {
-    gTree(children=gList(
-      segmentsGrob(c(0.3, 0.7), c(0.3, 0.5), c(0.3, 0.7), c(0.7, 0.9)),
-      segmentsGrob(c(0.15, 0.55), c(0.3, 0.5), c(0.45, 0.85), c(0.3, 0.5)),
-      segmentsGrob(c(0.15, 0.55), c(0.7, 0.9), c(0.45, 0.85), c(0.7, 0.9))
-    ))
-  }
   
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, width=0.5, alpha = NA)

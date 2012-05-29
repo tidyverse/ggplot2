@@ -46,6 +46,8 @@ ggsave <- function(filename=default_name(plot), plot = last_plot(), device=defau
     grDevices::svg(...)
   wmf <- function(..., width, height) 
     grDevices::win.metafile(..., width=width, height=height)
+  emf <- function(..., width, height)
+    grDevices::win.metafile(..., width=width, height=height)
 
   png <- function(..., width, height) 
     grDevices::png(...,  width=width, height=height, res = dpi, units = "in")

@@ -1,5 +1,8 @@
 #' Connect observations, ordered by x value.
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "line")}
+#'
 #' @seealso \code{\link{geom_path}}: connect observations in data order, 
 #'  \code{\link{geom_segment}}: draw line segments,
 #'  \code{\link{geom_ribbon}}: fill between line and x-axis
@@ -63,11 +66,6 @@ geom_line <- function (mapping = NULL, data = NULL, stat = "identity", position 
 
 GeomLine <- proto(GeomPath, {
   objname <- "line"
-
-  icon <- function(.) {
-    pos <- seq(0, 1, length=5)
-    linesGrob(pos, c(0.2, 0.7, 0.4, 0.8, 0.3))
-  }
   
   draw <- function(., data, scales, coordinates, arrow = NULL, ...) {
     data <- data[order(data$group, data$x), ]

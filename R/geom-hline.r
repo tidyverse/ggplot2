@@ -10,6 +10,9 @@
 #' intercept for each panel using a data.frame. See the examples for the
 #' differences
 #'
+#' @section Aesthetics: 
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "hline")}
+#'
 #' @seealso \code{\link{geom_vline}} for vertical lines, 
 #'  \code{\link{geom_abline}} for lines defined by a slope and intercept,
 #'  \code{\link{geom_segment}} for a more general approach
@@ -60,8 +63,6 @@ GeomHline <- proto(Geom, {
     GeomSegment$draw(unique(data), scales, coordinates)
   }
 
-  icon <- function(.) linesGrob(c(0, 1), c(0.5, 0.5))
-    
   default_stat <- function(.) StatHline
   default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
   guide_geom <- function(.) "path"
