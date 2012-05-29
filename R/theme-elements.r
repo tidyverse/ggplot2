@@ -284,14 +284,8 @@ el_def <- function(class = NULL, inherits = NULL, description = NULL) {
   axis.line           = el_def("element_line", "line"),
   axis.text.x         = el_def("element_text", "axis.text"),
   axis.text.y         = el_def("element_text", "axis.text"),
-  # x and y versions of these are new
-  axis.ticks.x        = el_def("element_line", "axis.ticks"),
-  axis.ticks.y        = el_def("element_line", "axis.ticks"),
   axis.title.x        = el_def("element_text", "axis.title"),
   axis.title.y        = el_def("element_text", "axis.title"),
-  # x and y versions of these are new
-  axis.ticks.length.x = el_def("unit", "axis.ticks.length"),
-  axis.ticks.length.y = el_def("unit", "axis.ticks.length"),
   axis.ticks.margin   = el_def("unit"),
 
   legend.background   = el_def("element_rect", "rect"),
@@ -311,10 +305,8 @@ el_def <- function(class = NULL, inherits = NULL, description = NULL) {
   panel.background    = el_def("element_rect", "rect"),
   panel.border        = el_def("element_rect", "rect"),
   panel.margin        = el_def("unit"),
-  # x and y versions of these are new
   panel.grid.major.x  = el_def("element_line", "panel.grid.major"),
   panel.grid.major.y  = el_def("element_line", "panel.grid.major"),
-  # x and y versions of these are new
   panel.grid.minor.x  = el_def("element_line", "panel.grid.minor"),
   panel.grid.minor.y  = el_def("element_line", "panel.grid.minor"),
 
