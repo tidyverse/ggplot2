@@ -56,10 +56,10 @@ guide_axis <- function(at, labels, position="right", theme) {
                    left =  element_render(theme, label_render, labels, y = label_y))
   
   line <- switch(position,
-    top =    element_render(theme, "axis.line", 0, 0, 1, 0),
-    bottom = element_render(theme, "axis.line", 0, 1, 1, 1),
-    right =  element_render(theme, "axis.line", 0, 1, 0, 1),
-    left =   element_render(theme, "axis.line", 1, 0, 1, 1)
+    top =    element_render(theme, "axis.line.x", c(0, 0), c(1, 0), id.lengths = 2),
+    bottom = element_render(theme, "axis.line.x", c(0, 1), c(1, 1), id.lengths = 2),
+    right =  element_render(theme, "axis.line.y", c(0, 1), c(0, 1), id.lengths = 2),
+    left =   element_render(theme, "axis.line.y", c(1, 0), c(1, 1), id.lengths = 2)
   )
   
   ticks <- switch(position,
