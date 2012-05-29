@@ -287,6 +287,13 @@ calc_element <- function(element, theme) {
   if (inherits(theme[[element]], "element_blank"))
     return(theme[[element]])
 
+  # If the element is defined (and not just inherited), check that
+  # it is of the class specified in .element_tree
+  if (!is.null(theme[[element]]) &&
+      !inherits(theme[[element]], .element_tree[[element]]$class)) {
+    stop(element, " should have class ", .element_tree[[element]]$class)
+  }
+
   # Get the names of parents from the inheritance tree
   pnames <- .element_tree[[element]]$inherits
 
