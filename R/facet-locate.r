@@ -18,7 +18,6 @@ locate_grid <- function(data, panels, rows = NULL, cols = NULL, margins = FALSE)
   data <- add_margins(data, margin_vars, margins)
   
   facet_vals <- quoted_df(data, c(rows, cols))
-  values <- compact(llply(data, quoted_df, vars = c(rows, cols)))
 
   # If any facetting variables are missing, add them in by 
   # duplicating the data
