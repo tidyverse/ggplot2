@@ -82,31 +82,34 @@ is.rel <- function(x) inherits(x, "rel")
 #' The \code{theme_xx} functions have been deprecated. They are replaced
 #' with the \code{element_xx} functions.
 #'
-#' @aliases theme_blank theme_rect theme_line theme_segment theme_text
 #' @export
 theme_blank <- function(...) {
   .Deprecated(new = "element_blank")
   element_blank(...)
 }
 
+#' @rdname theme_blank
 #' @export
 theme_rect <- function(...) {
   .Deprecated(new = "element_rect")
   element_rect(...)
 }
 
+#' @rdname theme_blank
 #' @export
 theme_line <- function(...) {
   .Deprecated(new = "element_line")
   element_line(...)
 }
 
+#' @rdname theme_blank
 #' @export
 theme_segment <- function(...) {
   .Deprecated(new = "element_line")
   element_line(...)
 }
 
+#' @rdname theme_blank
 #' @export
 theme_text <- function(...) {
   .Deprecated(new = "element_text")
