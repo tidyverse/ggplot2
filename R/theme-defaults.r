@@ -26,7 +26,7 @@ theme_grey <- function(base_size = 12, base_family = "Helvetica") {
     axis.ticks.length =  unit(0.15, "cm"),
     axis.ticks.margin =  unit(0.1, "cm"),
 
-    legend.background =  element_rect(colour="white"),
+    legend.background =  element_rect(colour = "white"),
     legend.margin =      unit(0.2, "cm"),
     legend.key =         element_rect(fill = "grey95", colour = "white"),
     legend.key.size =    unit(1.2, "lines"),
@@ -71,7 +71,7 @@ theme_bw <- function(base_size = 12, base_family = "Helvetica") {
   theme$axis.text         <- element_text(size = rel(0.8), colour = "black")
   theme$axis.ticks        <- element_line(colour = "black")
 
-  theme$legend.background <- element_rect(colour=NA)
+  theme$legend.background <- element_rect(colour = NA)
   theme$legend.key        <- element_rect(colour = "grey80")
 
   theme$panel.background  <- element_rect(fill = "white", colour = NA)
