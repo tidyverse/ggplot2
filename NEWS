@@ -6,6 +6,9 @@ MINOR FEATURES
   will be removed in a future version. These plots are poorly tested and
   poorly supported and really belong in a separate package.
 
+* The default guide for continuous color/fill scale is now colourbar.
+  (Kohske Takahashi. Fixes #555)
+
 DOCUMENTATION
 
 * All geoms and stats now document their aesthetics. (Fixes #447)
