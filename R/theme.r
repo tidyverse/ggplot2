@@ -215,6 +215,58 @@ plot_theme <- function(x) {
   defaults(x$options, theme_get())
 }
 
+
+#' Modify properties of an element in a theme object
+#'
+#' In contrast with the \code{+.theme} operator, this operator does not
+#' replace the entire element; it only updates element properties which
+#' are present (not NULL) in the second object.
+#'
+#' @param e1 theme object
+#' @param e2 theme object to use for updating
+#' @examples
+#' # Compare these results
+#' mod_el <- theme_grey() | opts(text = element_text(family = "Times"))
+#' add_el <- theme_grey() + opts(text = element_text(family = "Times"))
+#'
+#' mod_el$text
+#' add_el$text
+#'
+#' @S3method "|" theme
+#' @rdname theme-element-update
+"|.theme" <- function(t1, t2) {
+  if (!inherits(t2, "theme")) {
+    stop("Don't know how to add ", orig_args(t2), " to an options object",
+      call. = FALSE)
+  }
+
+  # Iterate over the elements that are to be updated
+  for (item in names(t2)) {
+    x <- t1[[item]]
+    y <- t2[[item]]
+
+    if (is.null(x)) {
+      # If x is NULL, then just assign it y
+      x <- y
+    } else {
+      # If x is not NULL, then copy over the non-NULL properties from y
+      # Get logical vector of non-NULL properties in y
+      idx <- !vapply(y, is.null, logical(1))
+      # Get the names of TRUE items
+      idx <- names(idx[idx])
+
+      # Update non-NULL items
+      x[idx] <- y[idx]
+    }
+
+    # Assign it back to t1
+    t1[[item]] <- x
+  }
+
+  t1
+}
+
+
 ##' Update contents of a theme
 ##'
 ##' @title Update theme param

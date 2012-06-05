@@ -104,13 +104,12 @@ add_ggplot <- function(p, object) {
 
 
 add_theme <- function(e1, e2) {
-  if (inherits(e2, "theme")) {
-    # Can't use modifyList here since it works recursively and drops NULLs
-    e1[names(e2)] <- e2
-  } else {
+  if (!inherits(e2, "theme")) {
     stop("Don't know how to add ", orig_args(e2), " to an options object",
       call. = FALSE)
   }
 
+  # Can't use modifyList here since it works recursively and drops NULLs
+  e1[names(e2)] <- e2
   e1
 }
