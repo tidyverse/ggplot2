@@ -12,7 +12,7 @@
 #' theme_set(old)
 #' qplot(mpg, wt, data = mtcars)
 #'
-#' old <- theme_update(panel.background = theme_rect(colour = "pink"))
+#' old <- theme_update(panel.background = element_rect(colour = "pink"))
 #' qplot(mpg, wt, data = mtcars)
 #' theme_set(old)
 #' theme_get()
@@ -20,16 +20,10 @@
 #' qplot(mpg, wt, data=mtcars, colour=mpg) + 
 #'   opts(legend.position=c(0.95, 0.95), legend.justification = c(1, 1))
 #' last_plot() + 
-#'  opts(legend.background = theme_rect(fill = "white", col="white", size =3))
+#'  opts(legend.background = element_rect(fill = "white", col="white", size = 3))
 theme_update <- function(...) {
-  elements <- list(...)
-  if (length(args) == 1 && is.list(elements[[1]])) {
-    elements <- elements[[1]]
-  }
-  theme <- defaults(elements, theme_get())
-  class(theme) <- c("theme")
-  
-  theme_set(theme)  
+  # Make a call to opts, then add to theme
+  theme_set(theme_get() + do.call(opts, list(...)))
 }
 
 .theme <- (function() {
