@@ -298,8 +298,16 @@ calc_element <- function(element, theme) {
   pnames <- .element_tree[[element]]$inherits
 
   # If no parents, just return this element
-  if (is.null(pnames))
+  if (is.null(pnames)) {
+    # First check that there all the properties of this element are non-NULL
+    nullprops <- sapply(theme[[element]], is.null)
+    if (any(nullprops)) {
+      stop("Theme element ", element, " has NULL property: ",
+        paste(names(nullprops)[nullprops], collapse = ", "))
+    }
+
     return(theme[[element]])
+  }
 
   # Calculate the parent objects' inheritance
   parents <- lapply(pnames, calc_element, theme)
@@ -309,7 +317,7 @@ calc_element <- function(element, theme) {
   if (!is.null(theme[[element]]))
     parents <- parents[!sapply(parents, inherits, "element_blank")]
 
-  # Combine the propertiesl of this element with all parents
+  # Combine the properties of this element with all parents
   Reduce(combine_elements, parents, theme[[element]])
 }
 
