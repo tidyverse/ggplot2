@@ -3,9 +3,9 @@
 \alias{+.ggplot}
 \title{Modify a plot by adding on new components.}
 \usage{
-  \method{+}{ggplot} (p, object)
+  \method{+}{ggplot} (e1, e2)
 
-  %+%(p, object)
+  %+%(e1, e2)
 }
 \arguments{
   \item{p}{plot object}

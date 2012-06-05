@@ -7,6 +7,14 @@
 \title{Deprecated theme_xx functions}
 \usage{
   theme_blank(...)
+
+  theme_rect(...)
+
+  theme_line(...)
+
+  theme_segment(...)
+
+  theme_text(...)
 }
 \description{
   The \code{theme_xx} functions have been deprecated. They

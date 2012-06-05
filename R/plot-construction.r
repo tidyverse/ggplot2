@@ -18,8 +18,30 @@
 #' @seealso \code{\link{ggplot}}
 #' @method + ggplot
 #' @S3method "+" ggplot
+#' @S3method "+" theme
 #' @rdname ggplot-add
-"+.ggplot" <- function(p, object) {
+"+.ggplot" <- function(e1, e2) {
+  if      (is.theme(e1))  add_theme(e1, e2)
+  else if (is.ggplot(e1)) add_ggplot(e1, e2)
+}
+# This wrapper function is needed because S3 tries to dispatch on both
+# arguments and gets confused when +.ggplot and +.theme are different.
+# If they're defined to be the same, it works, but then we need to manually
+# dispatch based on the type of the objects.
+
+#' Modify a theme object
+#'
+#' @param e1 theme object
+#' @param e2 theme object to add
+#' @examples
+#' mytheme <- theme_grey() + opts(axis.title.x = element_text(family = "Times"))
+#'
+#' @S3method "+" theme
+#' @rdname theme-add
+"+.theme" <- `+.ggplot`
+
+
+add_ggplot <- function(p, object) {
   if (is.null(object)) return(p)
 
   p <- plot_clone(p)
@@ -69,7 +91,7 @@
       }
     )
   } else {
-    stop("Don't know how to add ", deparse(substitute(object)), " to a plot",
+    stop("Don't know how to add ", orig_args(object), " to a plot",
       call. = FALSE)
   }
   set_last_plot(p)
@@ -79,3 +101,16 @@
 #' @rdname ggplot-add
 #' @export
 "%+%" <- `+.ggplot`
+
+
+add_theme <- function(e1, e2) {
+  if (inherits(e2, "theme")) {
+    # Can't use modifyList here since it works recursively and drops NULLs
+    e1[names(e2)] <- e2
+  } else {
+    stop("Don't know how to add ", orig_args(e2), " to an options object",
+      call. = FALSE)
+  }
+
+  e1
+}

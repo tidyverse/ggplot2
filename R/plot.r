@@ -78,6 +78,10 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...) {
   ggplot.data.frame(fortify(data, ...), mapping)
 }
 
+#' Reports whether x is a ggplot object
+#' @export
+is.ggplot <- function(x) inherits(x, "ggplot")
+
 #' Create a new ggplot plot from a data frame
 #' 
 #' @param data default data frame for plot

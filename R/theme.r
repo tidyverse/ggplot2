@@ -59,6 +59,11 @@ theme_get <- .theme$get
 #' @export
 theme_set <- .theme$set
 
+#' Reports whether x is a theme object
+#' @export
+is.theme <- function(x) inherits(x, "theme")
+
+
 #' Set options/theme elements for a single plot
 #' 
 #' 
