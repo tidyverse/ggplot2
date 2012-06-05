@@ -27,7 +27,7 @@ theme_update <- function(...) {
     elements <- elements[[1]]
   }
   theme <- defaults(elements, theme_get())
-  class(theme) <- c("options")
+  class(theme) <- c("theme")
   
   theme_set(theme)  
 }
@@ -208,7 +208,7 @@ theme_set <- .theme$set
 #' k + opts(panel.margin = unit(0, "lines"))
 #' }
 opts <- function(...) {
-  structure(list(...), class="options")
+  structure(list(...), class="theme")
 }
 
 # Combine plot defaults with current theme to get complete theme for a plot

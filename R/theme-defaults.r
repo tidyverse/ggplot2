@@ -54,7 +54,7 @@ theme_grey <- function(base_size = 12, base_family = "Helvetica") {
     plot.background =    element_rect(colour = NA),
     plot.title =         element_text(size = rel(1.2)),
     plot.margin =        unit(c(1, 1, 0.5, 0.5), "lines")
-  ), class = "options")
+  ), class = "theme")
 }
 theme_gray <- theme_grey
 

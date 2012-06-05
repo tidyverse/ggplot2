@@ -25,7 +25,7 @@
   p <- plot_clone(p)
   if (is.data.frame(object)) {
     p$data <- object
-  } else if (inherits(object, "options")) {
+  } else if (inherits(object, "theme")) {
     object$labels <- defaults(object$labels, p$options$labels)
     p$options <- defaults(object, p$options)
   } else if (inherits(object, "scale")) {
