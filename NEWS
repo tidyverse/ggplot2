@@ -1,6 +1,25 @@
+MINOR FEATURES
+
+* `ggsave` now supports emf output files.
+
 * all "template" plots (`plotmatrix`, `ggorder` etc) have been deprecated and
   will be removed in a future version. These plots are poorly tested and
   poorly supported and really belong in a separate package.
+
+DOCUMENTATION
+
+* All geoms and stats now document their aesthetics. (Fixes #447)
+
+BUG FIXES
+
+* Setting breaks outside the limits of the x or y axis no longer causes
+  errors. (Kohske Takahashi. Fixes #552)
+
+* `facet_locate` no longer evaluates unneeded expressions. (Winston
+  Chang. Fixes #565)
+
+* `annotation_map` now gets group id from munched data. (Winston Chang.
+  Fixes #568)
 
 ggplot2 0.9.1
 ----------------------------------------------------------------
