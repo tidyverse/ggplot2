@@ -293,7 +293,7 @@ calc_element <- function(element, theme) {
   # If no parents, just return this element
   if (is.null(pnames)) {
     # First check that there all the properties of this element are non-NULL
-    nullprops <- sapply(theme[[element]], is.null)
+    nullprops <- vapply(theme[[element]], is.null, logical(1))
     if (any(nullprops)) {
       stop("Theme element ", element, " has NULL property: ",
         paste(names(nullprops)[nullprops], collapse = ", "))
@@ -308,7 +308,7 @@ calc_element <- function(element, theme) {
   # If this element is not NULL, then
   # don't try to inherit from parents that are element_blank
   if (!is.null(theme[[element]]))
-    parents <- parents[!sapply(parents, inherits, "element_blank")]
+    parents <- parents[!vapply(parents, inherits, logical(1), "element_blank")]
 
   # Combine the properties of this element with all parents
   Reduce(combine_elements, parents, theme[[element]])
@@ -329,7 +329,7 @@ combine_elements <- function(e1, e2) {
   if (is.null(e1))  return(e2)
 
   # If e1 has any NULL properties, inherit them from e2
-  n <- sapply(e1[names(e2)], is.null)
+  n <- vapply(e1[names(e2)], is.null, logical(1))
   e1[n] <- e2[n]
 
   # Calculate relative sizes
