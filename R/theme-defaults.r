@@ -66,20 +66,16 @@ theme_gray <- theme_grey
 #' @export
 theme_bw <- function(base_size = 12, base_family = "Helvetica") {
   # Starts with theme_grey and then modify some parts
-  theme <- theme_grey(base_size = base_size, base_family = base_family)
-
-  theme$axis.text         <- element_text(size = rel(0.8), colour = "black")
-  theme$axis.ticks        <- element_line(colour = "black")
-
-  theme$legend.key        <- element_rect(colour = "grey80")
-
-  theme$panel.background  <- element_rect(fill = "white")
-  theme$panel.border      <- element_rect(fill = NA, colour = "grey50")
-  theme$panel.grid.major  <- element_line(colour = "grey90", size = 0.2)
-  theme$panel.grid.minor  <- element_line(colour = "grey98", size = 0.5)
-
-  theme$strip.background  <- element_rect(fill = "grey80", colour = "grey50")
-  theme$strip.background  <- element_rect(fill = "grey80", colour = "grey50")
-
-  theme
+  theme_grey(base_size = base_size, base_family = base_family) +
+    opts(
+      axis.text         = element_text(size = rel(0.8), colour = "black"),
+      axis.ticks        = element_line(colour = "black"),
+      legend.key        = element_rect(colour = "grey80"),
+      panel.background  = element_rect(fill = "white"),
+      panel.border      = element_rect(fill = NA, colour = "grey50"),
+      panel.grid.major  = element_line(colour = "grey90", size = 0.2),
+      panel.grid.minor  = element_line(colour = "grey98", size = 0.5),
+      strip.background  = element_rect(fill = "grey80", colour = "grey50"),
+      strip.background  = element_rect(fill = "grey80", colour = "grey50")
+    )
 }
