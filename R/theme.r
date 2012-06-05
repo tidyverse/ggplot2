@@ -211,13 +211,6 @@ opts <- function(...) {
   structure(list(...), class="options")
 }
 
-
-#' @S3method print theme
-print.theme <- function(x, ...) {
-  call <- attr(x, "call")
-  print(call)
-}
-
 # Combine plot defaults with current theme to get complete theme for a plot
 plot_theme <- function(x) {
   defaults(x$options, theme_get())
