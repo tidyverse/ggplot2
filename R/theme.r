@@ -57,6 +57,8 @@ theme_set <- .theme$set
 #' @export
 is.theme <- function(x) inherits(x, "theme")
 
+#' @S3method print theme
+print.theme <- function(x, ...) str(x)
 
 #' Set options/theme elements for a single plot
 #' 

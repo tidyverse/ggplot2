@@ -64,6 +64,10 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 }
 
 
+#' @S3method print element
+print.element <- function(x, ...) str(x)
+
+
 #' Relative sizing for theme elements
 #' @export
 rel <- function(x) {
