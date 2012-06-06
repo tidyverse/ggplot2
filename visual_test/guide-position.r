@@ -1,6 +1,7 @@
 vcontext("guide-position")
 
-p1 <- ggplot(mtcars, aes(mpg, disp, colour=cyl)) + geom_point() + theme(title = "title of plot", axis.text.x = element_text(angle = 90)) +
+p1 <- ggplot(mtcars, aes(mpg, disp, colour=cyl)) + geom_point() + labs(title = "title of plot") +
+  theme(axis.text.x = element_text(angle = 90)) +
   scale_x_continuous(breaks = mean(mtcars$mpg), labels = "very very long long axis label") +
   scale_y_continuous(breaks = mean(mtcars$disp), labels = "very very long long axis label")
 

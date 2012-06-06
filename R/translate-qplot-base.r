@@ -140,6 +140,6 @@
 #' # by box() can be controlled in a similar way by the panel.background and
 #' # plot.background theme elements. Instead of using title(), the plot title is
 #' # set with the title option. See ?theme for more theme elements.
-#' last_plot() + theme(title = "My Plot Title")
+#' last_plot() + labs(title = "My Plot Title")
 #' }
 NULL

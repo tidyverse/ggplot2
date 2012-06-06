@@ -111,10 +111,8 @@ print.theme <- function(x, ...) str(x)
 #' # Or
 #' p + labs(x = "Vehicle Weight", y = "Miles per Gallon")
 #' 
-#' # Add a title to the plot
-#' p + theme(title = "Vehicle Weight-Gas Mileage Relationship")
 #' # Change title appearance
-#' p <- p + theme(title = "Vehicle Weight-Gas Mileage Relationship")
+#' p <- p + labs(title = "Vehicle Weight-Gas Mileage Relationship")
 #' p + theme(plot.title = element_text(size = 20))
 #' p + theme(plot.title = element_text(size = 20, colour = "Blue"))
 #'
@@ -182,7 +180,17 @@ print.theme <- function(x, ...) str(x)
 #' k + theme(panel.margin = unit(0, "lines"))
 #' }
 theme <- function(...) {
-  structure(list(...), class="theme")
+  # Add check for deprecated elements
+  extra <- NULL
+  elements <- list(...)
+  if (!is.null(elements[["title"]])) {
+    # This is kind of a hack, but fortunately it will be removed in future versions
+    warning('Setting the plot title with theme(title="...") is deprecated.',
+      ' Use labs(title="...") or ggtitle("...") instead.')
+    elements$labels <- labs(title = elements[["title"]])
+  }
+
+  structure(elements, class="theme")
 }
 
 

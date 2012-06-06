@@ -20,9 +20,11 @@ update_labels <- function(p, labels) {
 #' @export
 #' @examples
 #' p <- qplot(mpg, wt, data = mtcars)
+#' p + labs(title = "New plot title")
 #' p + labs(x = "New x label")
 #' p + xlab("New x label")
 #' p + ylab("New y label")
+#' p + ggtitle("New plot title")
 #'
 #' # This should work indepdendently of other functions that modify the 
 #' # the scale names
@@ -34,7 +36,7 @@ update_labels <- function(p, labels) {
 #' p + labs(colour = "Cylinders")
 #'
 #' # Can also pass in a list, if that is more convenient
-#' p + labs(list(x = "X", y = "Y")) 
+#' p + labs(list(title = "Title", x = "X", y = "Y")) 
 labs <- function(...) {
   args <- list(...)
   if (is.list(args[[1]])) args <- args[[1]]
@@ -51,6 +53,11 @@ xlab <- function(label) {
 #' @export
 ylab <- function(label) {
   labs(y = label)
+}
+#' @rdname labs
+#' @export
+ggtitle <- function(label) {
+  labs(title = label)
 }
 
 # Convert aesthetic mapping into text labels

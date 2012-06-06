@@ -131,9 +131,9 @@ ggplot_gtable <- function(data) {
   }
 
   # Title  
-  title <- element_render(theme, "plot.title", plot$options$title)
+  title <- element_render(theme, "plot.title", plot$options$label$title)
   title_height <- grobHeight(title) + 
-    if (is.null(plot$options$title)) unit(0, "lines") else unit(0.5, "lines")
+    if (is.null(plot$options$label$title)) unit(0, "lines") else unit(0.5, "lines")
 
   pans <- subset(plot_table$layout, grepl("^panel", name))
   

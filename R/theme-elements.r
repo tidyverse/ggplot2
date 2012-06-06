@@ -295,6 +295,5 @@ el_def <- function(class = NULL, inherits = NULL, description = NULL) {
 
   plot.background     = el_def("element_rect", "rect"),
   plot.title          = el_def("element_text", "text.title"),
-  plot.margin         = el_def("unit"),
-  title               = el_def("character")
+  plot.margin         = el_def("unit")
 )
