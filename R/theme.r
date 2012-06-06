@@ -324,10 +324,11 @@ update_element <- function(name, ...) {
 }
 
 
-# Calculate the element properties, by inheriting properties from its parents
-#
-# @param element The name of the theme element to calculate
-# @theme theme A theme object (like theme_grey())
+#' Calculate the element properties, by inheriting properties from its parents
+#'
+#' @param element The name of the theme element to calculate
+#' @param theme A theme object (like theme_grey())
+#' @export
 calc_element <- function(element, theme) {
   # If this is element_blank, don't inherit anything from parents
   if (inherits(theme[[element]], "element_blank"))
