@@ -180,17 +180,7 @@ print.theme <- function(x, ...) str(x)
 #' k + theme(panel.margin = unit(0, "lines"))
 #' }
 theme <- function(...) {
-  # Add check for deprecated elements
-  extra <- NULL
-  elements <- list(...)
-  if (!is.null(elements[["title"]])) {
-    # This is kind of a hack, but fortunately it will be removed in future versions
-    warning('Setting the plot title with theme(title="...") is deprecated.',
-      ' Use labs(title="...") or ggtitle("...") instead.')
-    elements$labels <- labs(title = elements[["title"]])
-  }
-
-  structure(elements, class="theme")
+  structure(list(...), class="theme")
 }
 
 
@@ -201,7 +191,21 @@ theme <- function(...) {
 #' @export
 opts <- function(...) {
   .Deprecated(new = "theme")
-  theme(...)
+
+  # Add check for deprecated elements
+  extra <- NULL
+  elements <- list(...)
+  if (!is.null(elements[["title"]])) {
+    # This is kind of a hack, but fortunately it will be removed in future versions
+    warning('Setting the plot title with opts(title="...") is deprecated.',
+      ' Use labs(title="...") or ggtitle("...") instead.')
+
+    title <- elements$title
+    elements$title <- NULL
+    return(list(ggtitle(title), theme(elements)))
+  }
+
+  theme(elements)
 }
 
 # Combine plot defaults with current theme to get complete theme for a plot
