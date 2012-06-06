@@ -246,7 +246,7 @@ theme_set <- .theme$set
 #' @rdname theme-add
 #' @export
 "%+replace%" <- function(e1, e2) {
-  if (!inherits(e1, "theme") || !inherits(e2, "theme")) {
+  if (!is.theme(e1) || !is.theme(e2)) {
     stop("%+replace% requires two theme objects", call. = FALSE)
   }
 
@@ -261,7 +261,7 @@ theme_set <- .theme$set
 #' @seealso +.theme
 #'
 add_theme <- function(t1, t2) {
-  if (!inherits(t2, "theme")) {
+  if (!is.theme(t2)) {
     stop("Don't know how to add ", orig_args(t2), " to an options object",
       call. = FALSE)
   }
