@@ -141,7 +141,7 @@ mpg <- within(mpg, {
   model <- reorder(model, cty)
   manufacturer <- reorder(manufacturer, cty)
 })
-last_plot() \%+\% mpg + opts(strip.text.y = theme_text())
+last_plot() \%+\% mpg + theme(strip.text.y = element_text())
 
 # Use as.table to to control direction of horizontal facets, TRUE by default
 h <- ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point()

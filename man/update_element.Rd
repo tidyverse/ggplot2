@@ -16,7 +16,7 @@
   Update contents of a theme
 }
 \examples{
-x <- theme_text(size = 15)
+x <- element_text(size = 15)
 update_element(x, colour = "red")
 # Partial matching works
 update_element(x, col = "red")

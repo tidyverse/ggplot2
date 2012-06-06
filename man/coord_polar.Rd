@@ -49,7 +49,7 @@ ggplot(df, aes(x = "", y = value, fill = variable)) +
   geom_bar(width = 1) +
   scale_fill_manual(values = c("red", "yellow")) +
   coord_polar("y", start=pi / 3) +
-  opts(title = "Pac man")
+  theme(title = "Pac man")
 
 # Windrose + doughnut plot
 movies$rrating <- cut_interval(movies$rating, length = 1)
