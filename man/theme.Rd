@@ -76,10 +76,8 @@ p + xlab("Vehicle Weight") + ylab("Miles per Gallon")
 # Or
 p + labs(x = "Vehicle Weight", y = "Miles per Gallon")
 
-# Add a title to the plot
-p + theme(title = "Vehicle Weight-Gas Mileage Relationship")
 # Change title appearance
-p <- p + theme(title = "Vehicle Weight-Gas Mileage Relationship")
+p <- p + labs(title = "Vehicle Weight-Gas Mileage Relationship")
 p + theme(plot.title = element_text(size = 20))
 p + theme(plot.title = element_text(size = 20, colour = "Blue"))
 
