@@ -85,7 +85,7 @@ ggfluctuation <- function(table, type="size", floor=0, ceiling=max(table$freq, n
       aes_string(x="x", y="y", height="freq", width="freq", fill="border")) +
       geom_tile(colour="white") + 
       scale_fill_identity() + 
-      opts(aspect.ratio = ny / nx)
+      theme(aspect.ratio = ny / nx)
 
       # geom_rect(aes(xmin = as.numeric(x), ymin = as.numeric(y), xmax = as.numeric(x) + freq, ymax = as.numeric(y) + freq), colour="white") + 
     

@@ -18,12 +18,12 @@
 #' theme_get()
 #' 
 #' qplot(mpg, wt, data=mtcars, colour=mpg) + 
-#'   opts(legend.position=c(0.95, 0.95), legend.justification = c(1, 1))
+#'   theme(legend.position=c(0.95, 0.95), legend.justification = c(1, 1))
 #' last_plot() + 
-#'  opts(legend.background = element_rect(fill = "white", col="white", size = 3))
+#'  theme(legend.background = element_rect(fill = "white", col="white", size = 3))
 theme_update <- function(...) {
-  # Make a call to opts, then add to theme
-  theme_set(theme_get() + do.call(opts, list(...)))
+  # Make a call to theme, then add to theme
+  theme_set(theme_get() + do.call(theme, list(...)))
 }
 
 #' Reports whether x is a theme object
@@ -90,7 +90,7 @@ print.theme <- function(x, ...) str(x)
 #' \donttest{
 #' p <- qplot(mpg, wt, data = mtcars)
 #' p 
-#' p + opts(panel_background = theme_rect(colour = "pink"))
+#' p + theme(panel_background = theme_rect(colour = "pink"))
 #' p + theme_bw()
 #'
 #' # Scatter plot of gas mileage by vehicle weight
@@ -112,11 +112,11 @@ print.theme <- function(x, ...) str(x)
 #' p + labs(x = "Vehicle Weight", y = "Miles per Gallon")
 #' 
 #' # Add a title to the plot
-#' p + opts(title = "Vehicle Weight-Gas Mileage Relationship")
+#' p + theme(title = "Vehicle Weight-Gas Mileage Relationship")
 #' # Change title appearance
-#' p <- p + opts(title = "Vehicle Weight-Gas Mileage Relationship")
-#' p + opts(plot.title = theme_text(size = 20))
-#' p + opts(plot.title = theme_text(size = 20, colour = "Blue"))
+#' p <- p + theme(title = "Vehicle Weight-Gas Mileage Relationship")
+#' p + theme(plot.title = theme_text(size = 20))
+#' p + theme(plot.title = theme_text(size = 20, colour = "Blue"))
 #'
 #' # Changing plot look with themes
 #' DF <- data.frame(x = rnorm(400))
@@ -128,33 +128,33 @@ print.theme <- function(x, ...) str(x)
 #' 
 #' # Manipulate Axis Attributes
 #' library(grid) # for unit
-#' m + opts(axis.line = theme_segment())
-#' m + opts(axis.line = theme_segment(colour = "red", linetype = "dotted"))
-#' m + opts(axis.text.x = theme_text(colour = "blue"))
-#' m + opts(axis.text.y = theme_blank())
-#' m + opts(axis.ticks = theme_segment(size = 2))
-#' m + opts(axis.title.y = theme_text(size = 20, angle = 90))
-#' m + opts(axis.title.x = theme_blank())
-#' m + opts(axis.ticks.length = unit(.85, "cm"))
+#' m + theme(axis.line = theme_segment())
+#' m + theme(axis.line = theme_segment(colour = "red", linetype = "dotted"))
+#' m + theme(axis.text.x = theme_text(colour = "blue"))
+#' m + theme(axis.text.y = theme_blank())
+#' m + theme(axis.ticks = theme_segment(size = 2))
+#' m + theme(axis.title.y = theme_text(size = 20, angle = 90))
+#' m + theme(axis.title.x = theme_blank())
+#' m + theme(axis.ticks.length = unit(.85, "cm"))
 #'
 #' # Legend Attributes
 #' z <- ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) + geom_point()
 #' z
-#' z + opts(legend.position = "none")
-#' z + opts(legend.position = "bottom")
+#' z + theme(legend.position = "none")
+#' z + theme(legend.position = "bottom")
 #' # Or use relative coordinates between 0 and 1
-#' z + opts(legend.position = c(.5, .5))
+#' z + theme(legend.position = c(.5, .5))
 #  # Add a border to the whole legend
-#' z + opts(legend.background = theme_rect())
+#' z + theme(legend.background = theme_rect())
 #' # Legend margin controls extra space around outside of legend:
-#' z + opts(legend.background = theme_rect(), legend.margin = unit(1, "cm"))
-#' z + opts(legend.background = theme_rect(), legend.margin = unit(0, "cm"))
+#' z + theme(legend.background = theme_rect(), legend.margin = unit(1, "cm"))
+#' z + theme(legend.background = theme_rect(), legend.margin = unit(0, "cm"))
 #' # Or to just the keys
-#' z + opts(legend.key = theme_rect())
-#' z + opts(legend.key = theme_rect(fill = "yellow"))
-#' z + opts(legend.key.size = unit(2.5, "cm"))
-#' z + opts(legend.text = theme_text(size = 20, colour = "red", angle = 45))
-#' z + opts(legend.title = theme_text(face = "italic"))
+#' z + theme(legend.key = theme_rect())
+#' z + theme(legend.key = theme_rect(fill = "yellow"))
+#' z + theme(legend.key.size = unit(2.5, "cm"))
+#' z + theme(legend.text = theme_text(size = 20, colour = "red", angle = 45))
+#' z + theme(legend.title = theme_text(face = "italic"))
 #'
 #' # To change the title of the legend use the name argument
 #' # in one of the scale options
@@ -162,24 +162,24 @@ print.theme <- function(x, ...) str(x)
 #' z + scale_colour_grey(name = "Number of \nCylinders")
 #'
 #' # Panel and Plot Attributes
-#' z + opts(panel.background = theme_rect())
-#' z + opts(panel.background = theme_rect(fill = "black"))
-#' z + opts(panel.border = theme_rect(linetype = "dashed"))
-#' z + opts(panel.grid.major = theme_line(colour = "blue"))
-#' z + opts(panel.grid.minor = theme_line(colour = "red", linetype = "dotted"))
-#' z + opts(panel.grid.major = theme_line(size = 2))
-#' z + opts(plot.background = theme_rect())
-#' z + opts(plot.background = theme_rect(fill = "grey"))
+#' z + theme(panel.background = theme_rect())
+#' z + theme(panel.background = theme_rect(fill = "black"))
+#' z + theme(panel.border = theme_rect(linetype = "dashed"))
+#' z + theme(panel.grid.major = theme_line(colour = "blue"))
+#' z + theme(panel.grid.minor = theme_line(colour = "red", linetype = "dotted"))
+#' z + theme(panel.grid.major = theme_line(size = 2))
+#' z + theme(plot.background = theme_rect())
+#' z + theme(plot.background = theme_rect(fill = "grey"))
 #'
 #' # Faceting Attributes
 #' set.seed(4940)
 #' dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
 #' k <- ggplot(dsmall, aes(carat, ..density..)) +  geom_histogram(binwidth = 0.2) +
 #' facet_grid(. ~ cut)
-#' k + opts(strip.background = theme_rect(colour = "purple", fill = "pink", size = 3, linetype = "dashed"))
-#' k + opts(strip.text.x = theme_text(colour = "red", angle = 45, size = 10, hjust = 0.5, vjust = 0.5))
-#' k + opts(panel.margin = unit(5, "lines"))
-#' k + opts(panel.margin = unit(0, "lines"))
+#' k + theme(strip.background = theme_rect(colour = "purple", fill = "pink", size = 3, linetype = "dashed"))
+#' k + theme(strip.text.x = theme_text(colour = "red", angle = 45, size = 10, hjust = 0.5, vjust = 0.5))
+#' k + theme(panel.margin = unit(5, "lines"))
+#' k + theme(panel.margin = unit(0, "lines"))
 #' }
 theme <- function(...) {
   structure(list(...), class="theme")

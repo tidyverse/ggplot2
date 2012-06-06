@@ -37,11 +37,11 @@
 #' g <- guide_legend("title")
 #' p + guides(colour = g, size = g, shape = g)
 #' 
-#' p + opts(legend.position = "bottom")
+#' p + theme(legend.position = "bottom")
 #'
 #' # position of guides
 #' 
-#' p + opts(legend.position = "bottom", legend.box = "horizontal")
+#' p + theme(legend.position = "bottom", legend.box = "horizontal")
 #' }
 guides <- function(...) {
   args <- list(...)
@@ -52,7 +52,7 @@ guides <- function(...) {
 
 update_guides <- function(p, guides) {
   p <- plot_clone(p)
-  p + opts(guides = guides)
+  p + theme(guides = guides)
 }
 
 

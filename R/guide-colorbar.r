@@ -14,10 +14,10 @@
 #' @inheritParams guide_legend
 #' @param barwidth A numeric or a unit object specifying the width of the
 #'   colorbar. Default value is \code{legend.key.width} or
-#'   \code{legend.key.size} in \code{\link{opts}} or theme.
+#'   \code{legend.key.size} in \code{\link{theme}} or theme.
 #' @param barheight A numeric or a unit object specifying the height of the
 #'   colorbar. Default value is \code{legend.key.height} or
-#'   \code{legend.key.size} in \code{\link{opts}} or theme.
+#'   \code{legend.key.size} in \code{\link{theme}} or theme.
 #' @param nbin A numeric specifying the number of bins for drawing colorbar. A
 #'   smoother colorbar for a larger value.
 #' @param raster A logical. If \code{TRUE} then the colorbar is rendered as a

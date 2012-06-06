@@ -11,7 +11,7 @@
 #' update_labels(p, list(colour = "Fail silently"))
 update_labels <- function(p, labels) {
   p <- plot_clone(p)
-  p + opts(labels = labels)
+  p + theme(labels = labels)
 }
 
 #' Change axis labels and legend titles

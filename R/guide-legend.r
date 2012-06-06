@@ -17,7 +17,7 @@
 #'  (default for a horizontal guide), or "right."
 #' @param title.theme A theme object for rendering the title text. Usually the
 #'   object of \code{\link{theme_text}} is expected. By default, the theme is
-#'   specified by \code{legend.title} in \code{\link{opts}} or theme.
+#'   specified by \code{legend.title} in \code{\link{theme}} or theme.
 #' @param title.hjust A number specifying horizontal justification of the
 #'   title text.
 #' @param title.vjust A number specifying vertical justification of the title
@@ -29,17 +29,17 @@
 #'   "right" (default for vertical gudie).
 #' @param label.theme A theme object for rendering the label text. Usually the
 #'   object of \code{\link{theme_text}} is expected. By default, the theme is
-#'   specified by \code{legend.text} in \code{\link{opts}} or theme.
+#'   specified by \code{legend.text} in \code{\link{theme}} or theme.
 #' @param label.hjust A numeric specifying horizontal justification of the
 #'   label text.
 #' @param label.vjust A numeric specifying vertical justification of the label
 #'   text.
 #' @param keywidth A numeric or a unit object specifying the width of the
 #'   legend key. Default value is \code{legend.key.width} or
-#'   \code{legend.key.size} in \code{\link{opts}} or theme.
+#'   \code{legend.key.size} in \code{\link{theme}} or theme.
 #' @param keyheight A numeric or a unit object specifying the height of the
 #'   legend key. Default value is \code{legend.key.height} or
-#'   \code{legend.key.size} in \code{\link{opts}} or theme.
+#'   \code{legend.key.size} in \code{\link{theme}} or theme.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
 #' @param default.unit A character string indicating unit for \code{keywidth}
