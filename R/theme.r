@@ -90,7 +90,7 @@ print.theme <- function(x, ...) str(x)
 #' \donttest{
 #' p <- qplot(mpg, wt, data = mtcars)
 #' p 
-#' p + theme(panel_background = theme_rect(colour = "pink"))
+#' p + theme(panel_background = element_rect(colour = "pink"))
 #' p + theme_bw()
 #'
 #' # Scatter plot of gas mileage by vehicle weight
@@ -115,8 +115,8 @@ print.theme <- function(x, ...) str(x)
 #' p + theme(title = "Vehicle Weight-Gas Mileage Relationship")
 #' # Change title appearance
 #' p <- p + theme(title = "Vehicle Weight-Gas Mileage Relationship")
-#' p + theme(plot.title = theme_text(size = 20))
-#' p + theme(plot.title = theme_text(size = 20, colour = "Blue"))
+#' p + theme(plot.title = element_text(size = 20))
+#' p + theme(plot.title = element_text(size = 20, colour = "Blue"))
 #'
 #' # Changing plot look with themes
 #' DF <- data.frame(x = rnorm(400))
@@ -128,13 +128,13 @@ print.theme <- function(x, ...) str(x)
 #' 
 #' # Manipulate Axis Attributes
 #' library(grid) # for unit
-#' m + theme(axis.line = theme_segment())
-#' m + theme(axis.line = theme_segment(colour = "red", linetype = "dotted"))
-#' m + theme(axis.text.x = theme_text(colour = "blue"))
-#' m + theme(axis.text.y = theme_blank())
-#' m + theme(axis.ticks = theme_segment(size = 2))
-#' m + theme(axis.title.y = theme_text(size = 20, angle = 90))
-#' m + theme(axis.title.x = theme_blank())
+#' m + theme(axis.line = element_segment())
+#' m + theme(axis.line = element_segment(colour = "red", linetype = "dotted"))
+#' m + theme(axis.text.x = element_text(colour = "blue"))
+#' m + theme(axis.text.y = element_blank())
+#' m + theme(axis.ticks = element_segment(size = 2))
+#' m + theme(axis.title.y = element_text(size = 20, angle = 90))
+#' m + theme(axis.title.x = element_blank())
 #' m + theme(axis.ticks.length = unit(.85, "cm"))
 #'
 #' # Legend Attributes
@@ -145,16 +145,16 @@ print.theme <- function(x, ...) str(x)
 #' # Or use relative coordinates between 0 and 1
 #' z + theme(legend.position = c(.5, .5))
 #  # Add a border to the whole legend
-#' z + theme(legend.background = theme_rect())
+#' z + theme(legend.background = element_rect())
 #' # Legend margin controls extra space around outside of legend:
-#' z + theme(legend.background = theme_rect(), legend.margin = unit(1, "cm"))
-#' z + theme(legend.background = theme_rect(), legend.margin = unit(0, "cm"))
+#' z + theme(legend.background = element_rect(), legend.margin = unit(1, "cm"))
+#' z + theme(legend.background = element_rect(), legend.margin = unit(0, "cm"))
 #' # Or to just the keys
-#' z + theme(legend.key = theme_rect())
-#' z + theme(legend.key = theme_rect(fill = "yellow"))
+#' z + theme(legend.key = element_rect())
+#' z + theme(legend.key = element_rect(fill = "yellow"))
 #' z + theme(legend.key.size = unit(2.5, "cm"))
-#' z + theme(legend.text = theme_text(size = 20, colour = "red", angle = 45))
-#' z + theme(legend.title = theme_text(face = "italic"))
+#' z + theme(legend.text = element_text(size = 20, colour = "red", angle = 45))
+#' z + theme(legend.title = element_text(face = "italic"))
 #'
 #' # To change the title of the legend use the name argument
 #' # in one of the scale options
@@ -162,22 +162,22 @@ print.theme <- function(x, ...) str(x)
 #' z + scale_colour_grey(name = "Number of \nCylinders")
 #'
 #' # Panel and Plot Attributes
-#' z + theme(panel.background = theme_rect())
-#' z + theme(panel.background = theme_rect(fill = "black"))
-#' z + theme(panel.border = theme_rect(linetype = "dashed"))
-#' z + theme(panel.grid.major = theme_line(colour = "blue"))
-#' z + theme(panel.grid.minor = theme_line(colour = "red", linetype = "dotted"))
-#' z + theme(panel.grid.major = theme_line(size = 2))
-#' z + theme(plot.background = theme_rect())
-#' z + theme(plot.background = theme_rect(fill = "grey"))
+#' z + theme(panel.background = element_rect())
+#' z + theme(panel.background = element_rect(fill = "black"))
+#' z + theme(panel.border = element_rect(linetype = "dashed"))
+#' z + theme(panel.grid.major = element_line(colour = "blue"))
+#' z + theme(panel.grid.minor = element_line(colour = "red", linetype = "dotted"))
+#' z + theme(panel.grid.major = element_line(size = 2))
+#' z + theme(plot.background = element_rect())
+#' z + theme(plot.background = element_rect(fill = "grey"))
 #'
 #' # Faceting Attributes
 #' set.seed(4940)
 #' dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
 #' k <- ggplot(dsmall, aes(carat, ..density..)) +  geom_histogram(binwidth = 0.2) +
 #' facet_grid(. ~ cut)
-#' k + theme(strip.background = theme_rect(colour = "purple", fill = "pink", size = 3, linetype = "dashed"))
-#' k + theme(strip.text.x = theme_text(colour = "red", angle = 45, size = 10, hjust = 0.5, vjust = 0.5))
+#' k + theme(strip.background = element_rect(colour = "purple", fill = "pink", size = 3, linetype = "dashed"))
+#' k + theme(strip.text.x = element_text(colour = "red", angle = 45, size = 10, hjust = 0.5, vjust = 0.5))
 #' k + theme(panel.margin = unit(5, "lines"))
 #' k + theme(panel.margin = unit(0, "lines"))
 #' }
@@ -289,7 +289,7 @@ add_theme <- function(t1, t2) {
 ##' @return Updated theme element
 ##' @export
 ##' @examples
-##' x <- theme_text(size = 15)
+##' x <- element_text(size = 15)
 ##' update_element(x, colour = "red")
 ##' # Partial matching works
 ##' update_element(x, col = "red")

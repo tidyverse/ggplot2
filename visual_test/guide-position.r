@@ -1,6 +1,6 @@
 vcontext("guide-position")
 
-p1 <- ggplot(mtcars, aes(mpg, disp, colour=cyl)) + geom_point() + theme(title = "title of plot", axis.text.x = theme_text(angle = 90)) +
+p1 <- ggplot(mtcars, aes(mpg, disp, colour=cyl)) + geom_point() + theme(title = "title of plot", axis.text.x = element_text(angle = 90)) +
   scale_x_continuous(breaks = mean(mtcars$mpg), labels = "very very long long axis label") +
   scale_y_continuous(breaks = mean(mtcars$disp), labels = "very very long long axis label")
 
@@ -34,7 +34,7 @@ save_vtest("facet_wrap, legend on top")
 # padding
 dat <- data.frame(x=LETTERS[1:3], y=1)
 ggplot(dat, aes(x=x, y=y, fill=x, colour = 1:3)) + geom_bar() +
-  theme(legend.background = theme_rect()) + guides(color = "colorbar")
+  theme(legend.background = element_rect()) + guides(color = "colorbar")
 save_vtest("padding in legend box")
 
 end_vcontext()

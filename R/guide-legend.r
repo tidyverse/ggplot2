@@ -16,7 +16,7 @@
 #'   title. One of "top" (default for a vertical guide), "bottom", "left"
 #'  (default for a horizontal guide), or "right."
 #' @param title.theme A theme object for rendering the title text. Usually the
-#'   object of \code{\link{theme_text}} is expected. By default, the theme is
+#'   object of \code{\link{element_text}} is expected. By default, the theme is
 #'   specified by \code{legend.title} in \code{\link{theme}} or theme.
 #' @param title.hjust A number specifying horizontal justification of the
 #'   title text.
@@ -28,7 +28,7 @@
 #'   label. One of "top", "bottom" (default for horizontal guide), "left", or
 #'   "right" (default for vertical gudie).
 #' @param label.theme A theme object for rendering the label text. Usually the
-#'   object of \code{\link{theme_text}} is expected. By default, the theme is
+#'   object of \code{\link{element_text}} is expected. By default, the theme is
 #'   specified by \code{legend.text} in \code{\link{theme}} or theme.
 #' @param label.hjust A numeric specifying horizontal justification of the
 #'   label text.
@@ -81,9 +81,9 @@
 #' # title position
 #' p1 + guides(fill = guide_legend(title = "LEFT", title.position = "left"))
 #' 
-#' # title text styles via theme_text
+#' # title text styles via element_text
 #' p1 + guides(fill = guide_legend(
-#'   title.theme = theme_text(size=15, face="italic", col="red", angle=45)))
+#'   title.theme = element_text(size=15, face="italic", col="red", angle=45)))
 #' 
 #' # label position
 #' p1 + guides(fill = guide_legend(label.position = "bottom"))
@@ -93,7 +93,7 @@
 #'   labels = paste("long", c(5, 10, 15)), 
 #'   guide = guide_legend(direction = "horizontal", title.position = "top",
 #'     label.position="bottom", label.hjust = 0.5, label.vjust = 0.5,
-#'     label.theme = theme_text(angle = 90)))
+#'     label.theme = element_text(angle = 90)))
 #' 
 #' # Set aesthetic of legend key
 #' 
