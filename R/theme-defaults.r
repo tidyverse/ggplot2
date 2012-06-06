@@ -67,7 +67,7 @@ theme_gray <- theme_grey
 theme_bw <- function(base_size = 12, base_family = "Helvetica") {
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) +
-    opts(
+    theme(
       axis.text         = element_text(size = rel(0.8), colour = "black"),
       axis.ticks        = element_line(colour = "black"),
       legend.key        = element_rect(colour = "grey80"),

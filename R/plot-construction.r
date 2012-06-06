@@ -18,7 +18,6 @@
 #' @seealso \code{\link{ggplot}}
 #' @method + ggplot
 #' @S3method "+" ggplot
-#' @S3method "+" theme
 #' @rdname ggplot-add
 "+.ggplot" <- function(e1, e2) {
   if      (is.theme(e1))  add_theme(e1, e2)
@@ -29,12 +28,29 @@
 # If they're defined to be the same, it works, but then we need to manually
 # dispatch based on the type of the objects.
 
-#' Modify a theme object
+
+#' Modify elements in a theme object
+#'
+#' The \code{+} operator and the \code{\%+replace\%} can be used to modify
+#' elements in themes.
+#'
+#' The \code{+} operator completely replaces elements
+#' with elements from e2.
+#'
+#' In contrast, the \code{\%+replace\%} operator does not replace the
+#' entire element; it only updates element properties which are present
+#' (not NULL) in the second object.
 #'
 #' @param e1 theme object
-#' @param e2 theme object to add
+#' @param e2 theme object to use for updating e1
+#' @export
 #' @examples
-#' mytheme <- theme_grey() + opts(axis.title.x = element_text(family = "Times"))
+#' # Compare these results
+#' add_el <- theme_grey() + theme(text = element_text(family = "Times"))
+#' rep_el <- theme_grey() %+replace% theme(text = element_text(family = "Times"))
+#'
+#' add_el$text
+#' rep_el$text
 #'
 #' @S3method "+" theme
 #' @rdname theme-add
@@ -101,15 +117,3 @@ add_ggplot <- function(p, object) {
 #' @rdname ggplot-add
 #' @export
 "%+%" <- `+.ggplot`
-
-
-add_theme <- function(e1, e2) {
-  if (!inherits(e2, "theme")) {
-    stop("Don't know how to add ", orig_args(e2), " to an options object",
-      call. = FALSE)
-  }
-
-  # Can't use modifyList here since it works recursively and drops NULLs
-  e1[names(e2)] <- e2
-  e1
-}

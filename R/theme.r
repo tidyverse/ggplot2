@@ -26,33 +26,6 @@ theme_update <- function(...) {
   theme_set(theme_get() + do.call(opts, list(...)))
 }
 
-.theme <- (function() {
-  theme <- theme_gray()
-
-  list(
-    get = function() theme,
-    set = function(new) {
-      missing <- setdiff(names(theme_gray()), names(new))
-      if (length(missing) > 0) {
-        warning("New theme missing the following elements: ", 
-          paste(missing, collapse = ", "), call. = FALSE)
-      }
-      
-      old <- theme
-      theme <<- new
-      invisible(old)
-    }
-  )
-})()
-
-#' @rdname theme_update
-#' @export
-theme_get <- .theme$get  
-#' @rdname theme_update
-#' @param new new theme (a list of theme elements)
-#' @export
-theme_set <- .theme$set
-
 #' Reports whether x is a theme object
 #' @export
 is.theme <- function(x) inherits(x, "theme")
@@ -215,7 +188,7 @@ theme <- function(...) {
 
 #' Build a theme (or partial theme) from theme elements
 #'
-#' \code{opts} is deprecated. See the \link{\code{theme}} function.
+#' \code{opts} is deprecated. See the \code{\link{theme}} function.
 #'
 #' @export
 opts <- function(...) {
@@ -229,25 +202,53 @@ plot_theme <- function(x) {
 }
 
 
+.theme <- (function() {
+  theme <- theme_gray()
+
+  list(
+    get = function() theme,
+    set = function(new) {
+      missing <- setdiff(names(theme_gray()), names(new))
+      if (length(missing) > 0) {
+        warning("New theme missing the following elements: ",
+          paste(missing, collapse = ", "), call. = FALSE)
+      }
+
+      old <- theme
+      theme <<- new
+      invisible(old)
+    }
+  )
+})()
+
+
+#' @rdname theme_update
+#' @export
+theme_get <- .theme$get
+#' @rdname theme_update
+#' @param new new theme (a list of theme elements)
+#' @export
+theme_set <- .theme$set
+
+
+#' @rdname theme-add
+#' @export
+"%+replace%" <- function(e1, e2) {
+  if (!inherits(e1, "theme") || !inherits(e2, "theme")) {
+    stop("%+replace% requires two theme objects", call. = FALSE)
+  }
+
+  # Can't use modifyList here since it works recursively and drops NULLs
+  e1[names(e2)] <- e2
+  e1
+}
+
+
 #' Modify properties of an element in a theme object
 #'
-#' In contrast with the \code{+.theme} operator, this operator does not
-#' replace the entire element; it only updates element properties which
-#' are present (not NULL) in the second object.
+#' @seealso +.theme
 #'
-#' @param e1 theme object
-#' @param e2 theme object to use for updating
-#' @examples
-#' # Compare these results
-#' mod_el <- theme_grey() | opts(text = element_text(family = "Times"))
-#' add_el <- theme_grey() + opts(text = element_text(family = "Times"))
-#'
-#' mod_el$text
-#' add_el$text
-#'
-#' @S3method "|" theme
-#' @rdname theme-element-update
-"|.theme" <- function(t1, t2) {
+add_theme <- function(t1, t2) {
   if (!inherits(t2, "theme")) {
     stop("Don't know how to add ", orig_args(t2), " to an options object",
       call. = FALSE)
