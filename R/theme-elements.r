@@ -295,5 +295,40 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 
   plot.background     = el_def("element_rect", "rect"),
   plot.title          = el_def("element_text", "text.title"),
-  plot.margin         = el_def("unit")
+  plot.margin         = el_def("unit"),
+
+  aspect.ratio        = el_def("character")
 )
+
+
+# Check that an element object has the proper class
+#
+# Given an element object and the name of the element, this function
+# checks it against the element inheritance tree to make sure the
+# element is of the correct class
+#
+# It throws error if invalid, and returns invisible() if valid.
+#
+# @param el an element
+# @param elname the name of the element
+validate_element <- function(el, elname) {
+  eldef <- .element_tree[[elname]]
+
+  if (is.null(eldef)) {
+    stop('"', elname, '" is not a valid theme element name.')
+  }
+
+  # NULL values for elements are OK
+  if (is.null(el)) return()
+
+  if (eldef$class == "character") {
+    # Need to be a bit looser here since sometimes it's a string like "top"
+    # but sometimes its a vector like c(0,0)
+    if (!is.character(el) && !is.numeric(el))
+      stop("Element ", elname, " must be a string or numeric vector.")
+
+  } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
+      stop("Element ", elname, " must be a ", eldef$class, " object.")
+  }
+  invisible()
+}

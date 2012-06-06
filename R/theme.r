@@ -180,7 +180,12 @@ print.theme <- function(x, ...) str(x)
 #' k + theme(panel.margin = unit(0, "lines"))
 #' }
 theme <- function(...) {
-  structure(list(...), class="theme")
+  elements <- list(...)
+
+  # Check that all elements have the correct class (element_text, unit, etc)
+  mapply(validate_element, elements, names(elements))
+
+  structure(elements, class="theme")
 }
 
 
