@@ -5,7 +5,7 @@
 #' @aliases theme_gray theme_grey
 #' @export theme_gray theme_grey
 theme_grey <- function(base_size = 12, base_family = "Helvetica") {
-  structure(list(
+  theme(
     # Elements in this first block aren't used directly, but are inherited
     # by others
     line =               element_line(colour = "black", size = 0.5, linetype = 1,
@@ -54,7 +54,7 @@ theme_grey <- function(base_size = 12, base_family = "Helvetica") {
     plot.background =    element_rect(colour = NA),
     plot.title =         element_text(size = rel(1.2)),
     plot.margin =        unit(c(1, 1, 0.5, 0.5), "lines")
-  ), class = "theme")
+  )
 }
 theme_gray <- theme_grey
 

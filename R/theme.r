@@ -208,8 +208,19 @@ print.theme <- function(x, ...) str(x)
 #' k + opts(panel.margin = unit(5, "lines"))
 #' k + opts(panel.margin = unit(0, "lines"))
 #' }
-opts <- function(...) {
+theme <- function(...) {
   structure(list(...), class="theme")
+}
+
+
+#' Build a theme (or partial theme) from theme elements
+#'
+#' \code{opts} is deprecated. See the \link{\code{theme}} function.
+#'
+#' @export
+opts <- function(...) {
+  .Deprecated(new = "theme")
+  theme(...)
 }
 
 # Combine plot defaults with current theme to get complete theme for a plot
