@@ -44,8 +44,8 @@ ggplot_gtable <- function(data) {
 
   # Axis labels
   labels <- coord_labels(plot$coordinates, list(
-    x = xlabel(panel, theme),
-    y = ylabel(panel, theme)
+    x = xlabel(panel, plot$labels),
+    y = ylabel(panel, plot$labels)
   ))
   xlabel <- element_render(theme, "axis.title.x", labels$x)
   ylabel <- element_render(theme, "axis.title.y", labels$y)
@@ -72,7 +72,7 @@ ggplot_gtable <- function(data) {
   }
 
   legend_box <- if (position != "none") {
-    build_guides(plot$scales, plot$layers, plot$mapping, position, theme)
+    build_guides(plot$scales, plot$layers, plot$mapping, position, theme, plot$labels)
   } else {
     zeroGrob()
   }
@@ -131,9 +131,9 @@ ggplot_gtable <- function(data) {
   }
 
   # Title  
-  title <- element_render(theme, "plot.title", plot$options$label$title)
+  title <- element_render(theme, "plot.title", plot$labels$title)
   title_height <- grobHeight(title) + 
-    if (is.null(plot$options$label$title)) unit(0, "lines") else unit(0.5, "lines")
+    if (is.null(plot$labels$title)) unit(0, "lines") else unit(0.5, "lines")
 
   pans <- subset(plot_table$layout, grepl("^panel", name))
   

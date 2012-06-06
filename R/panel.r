@@ -195,10 +195,10 @@ calculate_stats <- function(panel, data, layers) {
 }
 
 
-xlabel <- function(panel, theme) {
-  panel$x_scales[[1]]$name %||% theme$labels$x
+xlabel <- function(panel, labels) {
+  panel$x_scales[[1]]$name %||% labels$x
 }
   
-ylabel <- function(panel, theme) {
-  panel$y_scales[[1]]$name %||% theme$labels$y
+ylabel <- function(panel, labels) {
+  panel$y_scales[[1]]$name %||% labels$y
 }

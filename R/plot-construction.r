@@ -64,7 +64,6 @@ add_ggplot <- function(p, object) {
   if (is.data.frame(object)) {
     p$data <- object
   } else if (inherits(object, "theme")) {
-    object$labels <- defaults(object$labels, p$options$labels)
     p$options <- defaults(object, p$options)
   } else if (inherits(object, "scale")) {
     p$scales$add(object)
@@ -98,7 +97,7 @@ add_ggplot <- function(p, object) {
         default <- make_labels(object$stat$default_aes())
         
         new_labels <- defaults(mapping, default)
-        p$options$labels <- defaults(p$options$labels, new_labels)
+        p$labels <- defaults(p$labels, new_labels)
         p
       },
       coord = {

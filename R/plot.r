@@ -106,7 +106,7 @@ ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv(
     plot_env = environment
   ), class="ggplot")
   
-  p$options$labels <- make_labels(mapping)
+  p$labels <- make_labels(mapping)
 
   set_last_plot(p)
   p
