@@ -366,7 +366,7 @@ calc_element <- function(element, theme) {
   }
 
   # Get the names of parents from the inheritance tree
-  pnames <- .element_tree[[element]]$inherits
+  pnames <- .element_tree[[element]]$inherit
 
   # If no parents, just return this element
   if (is.null(pnames)) {

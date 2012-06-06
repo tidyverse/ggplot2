@@ -232,10 +232,10 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 # @param class The name of class (like "element_line", "element_text",
 #  or the reserved "character", which means a character vector (not
 #  "character" class)
-# @param inherits A vector of strings, naming the elements that this
+# @param inherit A vector of strings, naming the elements that this
 #  element inherits from.
-el_def <- function(class = NULL, inherits = NULL, description = NULL) {
-  list(class = class, inherits = inherits, description = description)
+el_def <- function(class = NULL, inherit = NULL, description = NULL) {
+  list(class = class, inherit = inherit, description = description)
 }
 
 
