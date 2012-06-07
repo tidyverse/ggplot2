@@ -286,6 +286,9 @@ add_theme <- function(t1, t2) {
     if (is.null(x)) {
       # If x is NULL, then just assign it y
       x <- y
+    } else if (is.character(y) || is.numeric(y)) {
+      # If y is a string or numeric vector, just replace x
+      x <- y
     } else {
       # If x is not NULL, then copy over the non-NULL properties from y
       # Get logical vector of non-NULL properties in y
