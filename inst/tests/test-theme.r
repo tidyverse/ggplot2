@@ -31,6 +31,22 @@ test_that("Modifying theme element properties with + operator", {
 })
 
 
+test_that("Adding theme object to ggplot object with + operator", {
+
+  p <- qplot(1:3, 1:3)
+  p <- p + theme(axis.title = element_text(size = 20))
+  expect_true(p$theme$axis.title$size == 20)
+
+  # Should update specified properties, but not reset other properties
+  p <- p + theme(text = element_text(colour='red'))
+  expect_true(p$theme$text$colour == 'red')
+  tt <- theme_grey()$text
+  tt$colour <- 'red'
+  expect_identical(p$theme$text, tt)
+
+})
+
+
 test_that("Replacing theme elements with %+replace% operator", {
   # Changing a "leaf node" works
   t <- theme_grey() %+replace% theme(axis.title.x = element_text(colour='red'))

@@ -426,7 +426,7 @@ calc_element <- function(element, theme, verbose = FALSE) {
     # Check that all the properties of this element are non-NULL
     nullprops <- vapply(theme[[element]], is.null, logical(1))
     if (any(nullprops)) {
-      stop("Theme element ", element, " has NULL property: ",
+      stop("Theme element '", element, "' has NULL property: ",
         paste(names(nullprops)[nullprops], collapse = ", "))
     }
 
