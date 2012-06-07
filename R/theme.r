@@ -1,12 +1,12 @@
 #' Get, set and update themes. (Deprecated)
 #' 
-#' This function is deprecated. Use \code{\link{%+replace%}} or
+#' This function is deprecated. Use \code{\link{\%+replace\%}} or
 #' \code{\link{+.theme}} instead.
 #' Use \code{theme_update} to modify a small number of elements of the current
 #' theme or use \code{theme_set} to completely override it.
 #' 
 #' @param ... named list of theme settings
-#' @seealso \code{\link{%+replace%}} and \code{\link{+.theme}}
+#' @seealso \code{\link{\%+replace\%}} and \code{\link{+.theme}}
 #' @export
 #' @examples
 #' qplot(mpg, wt, data = mtcars)
@@ -337,14 +337,14 @@ update_theme <- function(theme, newtheme) {
 
 ##' Update contents of a theme. (Deprecated)
 ##'
-##' This function is deprecated. Use \code{\link{%+replace%}} or
+##' This function is deprecated. Use \code{\link{\%+replace\%}} or
 ##' \code{\link{+.theme}} instead.
 ##'
 ##' @title Update theme param
 ##' @param name name of a theme element
 ##' @param ... Pairs of name and value of theme parameters.
 ##' @return Updated theme element
-##' @seealso \code{\link{%+replace%}} and \code{\link{+.theme}}
+##' @seealso \code{\link{\%+replace\%}} and \code{\link{+.theme}}
 ##' @export
 ##' @examples
 ##' x <- element_text(size = 15)

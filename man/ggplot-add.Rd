@@ -19,7 +19,7 @@
   \itemize{ \item \code{data.frame}: replace current
   data.frame (must use \code{\%+\%}) \item \code{uneval}:
   replace current aesthetics \item \code{layer}: add new
-  layer \item \code{options}: update plot options \item
+  layer \item \code{theme}: update plot theme \item
   \code{scale}: replace current scale \item \code{coord}:
   override current coordinate system \item \code{facet}:
   override current coordinate faceting }
