@@ -30,7 +30,7 @@ theme_update <- function(...) {
       "\nUse the '%+replace%' or '+.theme' operators instead. For example:",
       "\n  theme_set(theme_get() + theme(text = element_text(colour='red')))"))
   # Make a call to theme, then add to theme
-  theme_set(theme_get() + do.call(theme, list(...)))
+  theme_set(theme_get() %+replace% do.call(theme, list(...)))
 }
 
 #' Reports whether x is a theme object
