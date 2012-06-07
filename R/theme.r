@@ -331,25 +331,9 @@ update_element <- function(name, ...) {
    ele <- name
  }
 
- call <- attr(ele, "call")
- stopifnot(!is.null(call))
+  stopifnot(inherits(ele, "element"))
 
- # Partial matching of named ... args with full names
- f <- eval(call[[1]])
- new_args <- match.call()
- new_args$name <- NULL
- new_args <- as.list(match.call(f, new_args)[-1])
-
- # Combine old call with new args
- old <- as.list(call)
-
- # evaluate old args in its env
- evaled_old_args <- llply(names(old[-1]), get, environment(ele))
- names(evaled_old_args) <- names(old[-1])
- # replace premise with evaluated vars
- old <- modifyList(old, evaled_old_args)
-
- eval(as.call(modifyList(old, new_args)))
+  modifyList(ele, list(...))
 }
 
 
