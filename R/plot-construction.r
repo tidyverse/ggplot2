@@ -7,7 +7,7 @@
 #'      (must use \code{\%+\%})
 #'   \item \code{uneval}: replace current aesthetics
 #'   \item \code{layer}: add new layer
-#'   \item \code{options}: update plot options
+#'   \item \code{theme}: update plot theme
 #'   \item \code{scale}: replace current scale
 #'   \item \code{coord}: override current coordinate system
 #'   \item \code{facet}: override current coordinate faceting
@@ -64,7 +64,7 @@ add_ggplot <- function(p, object) {
   if (is.data.frame(object)) {
     p$data <- object
   } else if (is.theme(object)) {
-    p$options <- defaults(object, p$options)
+    p$theme <- defaults(object, p$theme)
   } else if (inherits(object, "scale")) {
     p$scales$add(object)
   } else if(inherits(object, "labels")) {

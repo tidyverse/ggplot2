@@ -215,7 +215,7 @@ opts <- function(...) {
 
 # Combine plot defaults with current theme to get complete theme for a plot
 plot_theme <- function(x) {
-  defaults(x$options, theme_get())
+  defaults(x$theme, theme_get())
 }
 
 
@@ -267,7 +267,7 @@ theme_set <- .theme$set
 #'
 add_theme <- function(t1, t2) {
   if (!is.theme(t2)) {
-    stop("Don't know how to add ", orig_args(t2), " to an options object",
+    stop("Don't know how to add ", orig_args(t2), " to an theme object",
       call. = FALSE)
   }
 

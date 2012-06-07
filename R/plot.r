@@ -100,7 +100,7 @@ ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv(
     layers = list(),
     scales = Scales$new(),
     mapping = mapping,
-    options = list(),
+    theme = list(),
     coordinates = coord_cartesian(),
     facet = facet_null(),
     plot_env = environment
