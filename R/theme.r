@@ -386,11 +386,30 @@ update_element <- function(name, ...) {
 #'
 #' @param element The name of the theme element to calculate
 #' @param theme A theme object (like theme_grey())
+#' @param verbose If TRUE, print out which elements this one inherits from
+#' @examples
+#' t <- theme_grey()
+#' calc_element('text', t)
+#'
+#' # Compare the "raw" element definition to the element with calculated inheritance
+#' t$axis.text.x
+#' calc_element('axis.text.x', t, verbose = TRUE)
+#'
+#' # This reports that axis.text.x inherits from axis.text, 
+#' # which inherits from text. You can view each of them with:
+#' t$axis.text.x
+#' t$axis.text
+#' t$text
+#'
 #' @export
-calc_element <- function(element, theme) {
+calc_element <- function(element, theme, verbose = FALSE) {
+  if (verbose) message(element, " --> ", appendLF = FALSE)
+
   # If this is element_blank, don't inherit anything from parents
-  if (inherits(theme[[element]], "element_blank"))
+  if (inherits(theme[[element]], "element_blank")) {
+    if (verbose) message("element_blank (no inheritance)")
     return(theme[[element]])
+  }
 
   # If the element is defined (and not just inherited), check that
   # it is of the class specified in .element_tree
@@ -402,25 +421,28 @@ calc_element <- function(element, theme) {
   # Get the names of parents from the inheritance tree
   pnames <- .element_tree[[element]]$inherit
 
-  # If no parents, just return this element
+  # If no parents, this is a "root" node. Just return this element.
   if (is.null(pnames)) {
-    # First check that there all the properties of this element are non-NULL
+    # Check that all the properties of this element are non-NULL
     nullprops <- vapply(theme[[element]], is.null, logical(1))
     if (any(nullprops)) {
       stop("Theme element ", element, " has NULL property: ",
         paste(names(nullprops)[nullprops], collapse = ", "))
     }
 
+    if (verbose) message("nothing (top level)")
     return(theme[[element]])
   }
 
   # Calculate the parent objects' inheritance
-  parents <- lapply(pnames, calc_element, theme)
+  if (verbose) message(paste(pnames, collapse = ", "))
+  parents <- lapply(pnames, calc_element, theme, verbose)
 
   # If this element is not NULL, then
   # don't try to inherit from parents that are element_blank
-  if (!is.null(theme[[element]]))
+  if (!is.null(theme[[element]])) {
     parents <- parents[!vapply(parents, inherits, logical(1), "element_blank")]
+  }
 
   # Combine the properties of this element with all parents
   Reduce(combine_elements, parents, theme[[element]])
@@ -432,7 +454,6 @@ calc_element <- function(element, theme) {
 # @param e1 An element object
 # @param e2 An element object which e1 inherits from
 combine_elements <- function(e1, e2) {
-  # TODO Check that classes align
 
   # If e2 is NULL, nothing to inherit
   if (is.null(e2))  return(e1)
