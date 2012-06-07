@@ -1,4 +1,3 @@
-
 # Null default
 # Analog of || from ruby
 # 
@@ -47,13 +46,21 @@ ps <- function(..., sep="", collapse="") do.call(paste, compact(list(..., sep=se
 # Queitly require a package, returning an error message if that package is not installed.
 # 
 # @param name of package
+# @param whether all or at least one package(s) are required
 # @keyword internal
-try_require <- function(package) {
-  available <- suppressMessages(suppressWarnings(sapply(package, require, quietly = TRUE, character.only = TRUE, warn.conflicts=FALSE)))
+try_require <- function(package, all=TRUE) {
+  available <- suppressMessages(suppressWarnings(sapply(package, require, 
+                                                        quietly = TRUE, 
+                                                        character.only = TRUE, 
+                                                        warn.conflicts=FALSE)))
   missing <- package[!available]
-
-  if (length(missing) > 0) 
-    stop(paste(package, collapse=", "), " package required for this functionality.  Please install and try again.", call. = FALSE)
+  
+  if ((all & length(missing) > 0) | (!all & length(missing) == length(package)))
+    stop(ifelse(all, "", "At least one of the "), 
+         paste(package, collapse=", "),
+         ifelse(all, " package", " packages"),
+         " is required for this functionality.  Please install and try again.",
+         call. = FALSE)
 }
 
 # Return unique columns
