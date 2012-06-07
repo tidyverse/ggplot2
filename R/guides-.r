@@ -52,7 +52,8 @@ guides <- function(...) {
 
 update_guides <- function(p, guides) {
   p <- plot_clone(p)
-  p + theme(guides = guides)
+  p$guides <- defaults(guides, p$guides)
+  p
 }
 
 
@@ -78,7 +79,7 @@ update_guides <- function(p, guides) {
 # 5. guides_build()
 #      arrange all ggrobs
 
-build_guides <- function(scales, layers, default_mapping, position, theme, labels) {
+build_guides <- function(scales, layers, default_mapping, position, theme, guides, labels) {
 
   # set themes w.r.t. guides
   # should these theme$legend.XXX be renamed to theme$guide.XXX ?
@@ -107,7 +108,7 @@ build_guides <- function(scales, layers, default_mapping, position, theme, label
       c("center", "center")
 
   # scales -> data for guides
-  gdefs <- guides_train(scales = scales, theme = theme, labels = labels)
+  gdefs <- guides_train(scales = scales, theme = theme, guides = guides, labels = labels)
   if (length(gdefs) == 0) return(zeroGrob())
 
   # merge overlay guides
@@ -138,17 +139,17 @@ validate_guide <- function(guide) {
 }
 
 # train each scale in scales and generate the definition of guide
-guides_train <- function(scales, theme, labels) {
+guides_train <- function(scales, theme, guides, labels) {
 
   gdefs <- list()
   for(scale in scales$scales) {
 
-    # guides(XXX) is stored in theme$guides[[XXX]],
+    # guides(XXX) is stored in guides[[XXX]],
     # which is prior to scale_ZZZ(guide=XXX)
     # guide is determined in order of:
     #   + guides(XXX) > + scale_ZZZ(guide=XXX) > default(i.e., legend)
     output <- scale$aesthetics[1]
-    guide <- theme$guides[[output]] %||% scale$guide 
+    guide <- guides[[output]] %||% scale$guide
 
     # this should be changed to testing guide == "none"
     # scale$legend is backward compatibility

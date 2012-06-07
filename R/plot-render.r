@@ -72,7 +72,7 @@ ggplot_gtable <- function(data) {
   }
 
   legend_box <- if (position != "none") {
-    build_guides(plot$scales, plot$layers, plot$mapping, position, theme, plot$labels)
+    build_guides(plot$scales, plot$layers, plot$mapping, position, theme, plot$guides, plot$labels)
   } else {
     zeroGrob()
   }
