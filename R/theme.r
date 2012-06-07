@@ -305,6 +305,36 @@ add_theme <- function(t1, t2) {
 }
 
 
+# Update a theme from a plot object
+#
+# This is called from add_ggplot. It adds elements from 'newtheme' to
+# 'theme'. However, if theme doesn't already contain those elements,
+# it searches the current default theme, grabs the elements with the
+# same name as those from newtheme, and uses those as the base which
+# newtheme is added to. This makes it possible to do things like:
+#   qplot(1:3, 1:3) + theme(text = element_text(colour = 'red'))
+# and have 'text' inherit properties from the default theme. Otherwise
+# you would have to set all the element properties, like family, size,
+# etc.
+#
+# @param theme an existing theme, usually from a plot object, like
+#   plot$theme. This could be an empty list.
+# @param newtheme a new theme object to add to the existing theme
+update_theme <- function(theme, newtheme) {
+  new_names <- names(newtheme)
+  # These are elements that aren't set in theme
+  new <- vapply(theme[new_names], is.null, logical(1))
+
+  # Get the new elements from the current default theme
+  theme[new_names] <- theme_get()[new_names]
+
+  # Update the theme elements with the things from newtheme
+  # Need to set to 'theme' class first
+  class(theme) <- "theme"
+  theme + newtheme
+}
+
+
 ##' Update contents of a theme. (Deprecated)
 ##'
 ##' This function is deprecated. Use \code{\link{%+replace%}} or
