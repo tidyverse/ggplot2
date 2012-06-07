@@ -47,7 +47,7 @@ GeomRect <- proto(Geom, {
           width = xmax - xmin, height = ymax - ymin, 
           default.units = "native", just = c("left", "top"), 
           gp=gpar(
-            col=colour, fill=alpha(fill, alpha), 
+            col=alpha(colour, alpha), fill=alpha(fill, alpha), 
             lwd=size * .pt, lty=linetype, lineend="butt"
           )
         ))
