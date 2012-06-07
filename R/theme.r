@@ -1,9 +1,12 @@
-#' Get, set and update themes.
+#' Get, set and update themes. (Deprecated)
 #' 
+#' This function is deprecated. Use \code{\link{%+replace%}} or
+#' \code{\link{+.theme}} instead.
 #' Use \code{theme_update} to modify a small number of elements of the current
 #' theme or use \code{theme_set} to completely override it.
 #' 
 #' @param ... named list of theme settings
+#' @seealso \code{\link{%+replace%}} and \code{\link{+.theme}}
 #' @export
 #' @examples
 #' qplot(mpg, wt, data = mtcars)
@@ -22,6 +25,10 @@
 #' last_plot() + 
 #'  theme(legend.background = element_rect(fill = "white", col="white", size = 3))
 theme_update <- function(...) {
+  .Deprecated(new = "%+replace%",
+    msg = paste("'theme_update' is deprecated.",
+      "\nUse the '%+replace%' or '+.theme' operators instead. For example:",
+      "\n  theme_set(theme_get() + theme(text = element_text(colour='red')))"))
   # Make a call to theme, then add to theme
   theme_set(theme_get() + do.call(theme, list(...)))
 }
@@ -298,12 +305,16 @@ add_theme <- function(t1, t2) {
 }
 
 
-##' Update contents of a theme
+##' Update contents of a theme. (Deprecated)
+##'
+##' This function is deprecated. Use \code{\link{%+replace%}} or
+##' \code{\link{+.theme}} instead.
 ##'
 ##' @title Update theme param
 ##' @param name name of a theme element
 ##' @param ... Pairs of name and value of theme parameters.
 ##' @return Updated theme element
+##' @seealso \code{\link{%+replace%}} and \code{\link{+.theme}}
 ##' @export
 ##' @examples
 ##' x <- element_text(size = 15)
@@ -322,6 +333,7 @@ add_theme <- function(t1, t2) {
 ##' # Throws error if incorrectly named
 ##' \donttest{update_element("axis.text", colour = 20)}
 update_element <- function(name, ...) {
+  .Deprecated(new = "+.theme")
  if (is.character(name)) {
    ele <- theme_get()[[name]]
    if (is.null(ele)) {
