@@ -82,7 +82,8 @@ scale_y_continuous <- function(..., expand = waiver()) {
 # can tell the difference between continuous and discrete data.
 #' @S3method scale_map position_c
 scale_map.position_c <- function(scale, x, limits = scale_limits(scale)) {
-  as.numeric(scale$oob(x, limits))
+  scaled <- as.numeric(scale$oob(x, limits))
+  ifelse(!is.na(scaled), scaled, scale$na.value)
 }
 
 # Transformed scales ---------------------------------------------------------

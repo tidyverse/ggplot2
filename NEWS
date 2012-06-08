@@ -27,6 +27,8 @@ DOCUMENTATION
 
 BUG FIXES
 
+* `scale_x_continuous` now respects `na.value` (Fixes #522)
+
 * `geom_map` now correctly uses set aesthetics (e.g. `colour = "green"`)
 
 * Setting breaks outside the limits of the x or y axis no longer causes
