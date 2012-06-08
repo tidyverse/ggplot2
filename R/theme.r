@@ -208,10 +208,11 @@ opts <- function(...) {
 
     title <- elements$title
     elements$title <- NULL
-    return(list(ggtitle(title), theme(elements)))
+
+    return(list(ggtitle(title), do.call(theme, elements)))
   }
 
-  theme(elements)
+  do.call(theme, elements)
 }
 
 # Combine plot defaults with current theme to get complete theme for a plot
