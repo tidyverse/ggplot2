@@ -70,21 +70,6 @@ Layer <- proto(expr = {
       geom_params <- rename_aes(geom_params)
     }
     
-    if (!is.null(geom_params)) {
-      set_aesthetics <- geom_params[intersect(names(geom_params), .all_aesthetics)]
-      # Check that all set aesthetics have length 1
-      if (length(set_aesthetics) > 0) {
-        lengths <- sapply(set_aesthetics, length)
-        if (any(lengths > 1)) {
-          stop("When _setting_ aesthetics, they may only take one value. ", 
-            "Problems: ",
-            paste(names(set_aesthetics)[lengths > 1], collapse = ","), 
-            call. = FALSE)
-        }
-        
-      }
-    }
-    
     proto(., 
       geom=geom, geom_params=geom_params, 
       stat=stat, stat_params=stat_params, 
@@ -103,6 +88,15 @@ Layer <- proto(expr = {
     # Override mappings with atomic parameters
     gp <- intersect(c(names(df), .$geom$required_aes), names(.$geom_params))
     gp <- gp[unlist(lapply(.$geom_params[gp], is.atomic))]
+
+    # Check that mappings are compatable length: either 1 or the same length
+    # as the data
+    param_lengths <- vapply(.$geom_params[gp], length, numeric(1))
+    bad <- param_lengths != 1L & param_lengths != nrow(df)
+    if (any(bad)) {
+      stop("Incompatible lengths for set aesthetics: ", 
+        paste(names(bad), collapse = ", "), call. = FALSE)
+    }
 
     df[gp] <- .$geom_params[gp]
     df

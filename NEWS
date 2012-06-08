@@ -1,5 +1,11 @@
 MINOR FEATURES
 
+* The condition that set parameters (e.g. `colour = "red"`) could only be of
+  length one has been relaxed - they may now be of length one, or exactly the
+  same length as the data. Recycling is not done because it makes it harder to
+  spot problems. This makes `annotate` considerably more flexible. (Fixes
+  #489)
+
 * `stat_contour` is now somewhat faster
 
 * Dependency on `gpclib` removed, and `fortify.SpatialPolygonsDataFrame` will
