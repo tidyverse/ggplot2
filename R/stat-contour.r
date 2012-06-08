@@ -61,7 +61,7 @@ na.rm = FALSE, ...) {
 StatContour <- proto(Stat, {
   objname <- "contour"
 
-  calculate <- function(., data, scales, bins=NULL, binwidth=NULL, breaks = NULL, na.rm = FALSE, ...) {
+  calculate <- function(., data, scales, bins=NULL, binwidth=NULL, breaks = NULL, complete = FALSE, na.rm = FALSE, ...) {
     data <- remove_missing(data, na.rm, name = "stat_contour", finite = TRUE)
 
     # If no parameters set, use pretty bins
@@ -77,20 +77,7 @@ StatContour <- proto(Stat, {
       breaks <- fullseq(range(data$z), binwidth)
     }
     
-    z <- tapply(data$z, data[c("x", "y")], identity)
-    cl <- contourLines(
-      x = sort(unique(data$x)), y = sort(unique(data$y)), z = z, 
-      levels = breaks)  
-    if (length(cl) == 0) {
-      warning("Not possible to generate contour data", call. = FALSE)
-      return(data.frame())
-    }
-
-    cl <- lapply(cl, as.data.frame)    
-    contour_df <- rbind.fill(cl)
-    contour_df$piece <- rep(seq_along(cl), sapply(cl, nrow))
-    contour_df$group <- paste(data$group[1], contour_df$piece, sep = "-")
-    contour_df
+    contour_lines(data, breaks, complete = complete)
   }
 
   
@@ -98,4 +85,36 @@ StatContour <- proto(Stat, {
   default_aes <- function(.) aes(order = ..level..)
   required_aes <- c("x", "y", "z")
 })
+
+
+# v3d <- reshape2::melt(volcano)
+# names(v3d) <- c("x", "y", "z")
+# contour_lines(v3d, seq(95, 195, 10))
+contour_lines <- function(data, breaks, complete = FALSE) {
+  z <- tapply(data$z, data[c("x", "y")], identity)
+
+  cl <- contourLines(
+    x = sort(unique(data$x)), y = sort(unique(data$y)), z = z, 
+    levels = breaks)  
+
+  if (length(cl) == 0) {
+    warning("Not possible to generate contour data", call. = FALSE)
+    return(data.frame())
+  }
+
+  # Convert list of lists into single data frame
+  lengths <- vapply(cl, function(x) length(x$x), integer(1))
+  levels <- vapply(cl, "[[", "level", FUN.VALUE = double(1))
+  xs <- unlist(lapply(cl, "[[", "x"), use.names = FALSE)
+  ys <- unlist(lapply(cl, "[[", "y"), use.names = FALSE)
+  pieces <- rep(seq_along(cl), lengths)
+  
+  data.frame(
+    level = rep(levels, lengths),
+    x = xs,
+    y = ys,
+    piece = pieces,
+    group = paste(data$group[1], pieces, sep = "-")
+  )
+}
 
