@@ -78,11 +78,40 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #' Discrete scale constructor.
 #'
 #' @export
-#' @keywords internal
+#' @param aesthetics the names of the aesthetics that this scale works with
+#' @param scale_name the name of the scale
+#' @param palette a palette function that when call with a single integer
+#'   argument (the number of levels in the scale) returns the values that
+#'   they should take
+#' @param name the name of the scale - used as the axis label or the legend
+#'  title
+#' @param breaks control the breaks in the guide.  There are four possible
+#'   types of input:
+#'   \itemize{
+#'     \item \code{NULL}: don't display any breaks
+#'     \item a character vector giving the breaks as they should appear on the
+#'      axis or in the legend.  
+#'     \item \code{waiver()} to use the default break computation.
+#'     \item a function, that when called with a single argument, a character
+#'       vector giving the limits of the scale, returns a character vector
+#'       specifying which breaks to display.
+#'   }
+#'   This parameter does not affect in any way how the data is scaled - it
+#'   only affects the appearance of the legend.
+#' @param limits A character vector specifying the data range for the scale. 
+#   The limits control what levels are displayed in the plot, their order,
+#'  and the default order of their display in guides.
 #' @param labels \code{NULL} for no labels, \code{waiver()} for default
-#'  labels (labels the same as breaks), a character vector the same length
-#'  as breaks, or a named character vector whose names are used to match
-#'  replacement the labels for matching breaks.
+#'   labels (labels the same as breaks), a character vector the same length
+#'   as breaks, or a named character vector whose names are used to match
+#'   replacement the labels for matching breaks.
+#' @param legend deprecated.  Use \code{guide} instead.
+#' @param expand a numeric vector of length two, giving a multiplicative and
+#'   additive constant used to expand the range of the scales so that there
+#'   is a small gap between the data and the axes.
+#' @param na.value how should missing values be displayed?
+#' @param guide the name of, or actual function, used to create the 
+#'   guide.
 discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, expand = waiver(), na.value = NA, drop = TRUE, guide="legend") {
 
   if (!is.null(legend)) {
