@@ -5,13 +5,16 @@
 \title{Smooth colour gradient between n colours}
 \usage{
   scale_colour_gradientn(..., colours, values = NULL,
-    space = "Lab", na.value = "grey50")
+    space = "Lab", na.value = "grey50",
+    guide = "colourbar")
 
   scale_fill_gradientn(..., colours, values = NULL,
-    space = "Lab", na.value = "grey50")
+    space = "Lab", na.value = "grey50",
+    guide = "colourbar")
 
   scale_color_gradientn(..., colours, values = NULL,
-    space = "Lab", na.value = "grey50")
+    space = "Lab", na.value = "grey50",
+    guide = "colourbar")
 }
 \arguments{
   \item{colours}{vector of colours}

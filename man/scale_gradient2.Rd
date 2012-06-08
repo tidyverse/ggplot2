@@ -6,15 +6,18 @@
 \usage{
   scale_colour_gradient2(..., low = muted("red"),
     mid = "white", high = muted("blue"), midpoint = 0,
-    space = "rgb", na.value = "grey50")
+    space = "rgb", na.value = "grey50",
+    guide = "colourbar")
 
   scale_fill_gradient2(..., low = muted("red"),
     mid = "white", high = muted("blue"), midpoint = 0,
-    space = "rgb", na.value = "grey50")
+    space = "rgb", na.value = "grey50",
+    guide = "colourbar")
 
   scale_color_gradient2(..., low = muted("red"),
     mid = "white", high = muted("blue"), midpoint = 0,
-    space = "rgb", na.value = "grey50")
+    space = "rgb", na.value = "grey50",
+    guide = "colourbar")
 }
 \arguments{
   \item{midpoint}{The midpoint (in data value) of the
