@@ -245,10 +245,10 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   line                = el_def("element_line"),
   rect                = el_def("element_rect"),
   text                = el_def("element_text"),
-  text.title          = el_def("element_text", "text"),
+  title               = el_def("element_text", "text"),
   axis.line           = el_def("element_line", "line"),
   axis.text           = el_def("element_text", "text"),
-  axis.title          = el_def("element_text", "text.title"),
+  axis.title          = el_def("element_text", "title"),
   axis.ticks          = el_def("element_line", "line"),
   legend.key.size     = el_def("unit"),
   panel.grid          = el_def("element_line", "line"),
@@ -274,7 +274,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.key.width    = el_def("unit", "legend.key.size"),
   legend.text         = el_def("element_text", "text"),
   legend.text.align   = el_def("character"),
-  legend.title        = el_def("element_text", "text.title"),
+  legend.title        = el_def("element_text", "title"),
   legend.title.align  = el_def("character"),
   legend.position     = el_def("character"),  # Need to also accept numbers
   legend.direction    = el_def("character"),
@@ -294,7 +294,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   strip.text.y        = el_def("element_text", "strip.text"),
 
   plot.background     = el_def("element_rect", "rect"),
-  plot.title          = el_def("element_text", "text.title"),
+  plot.title          = el_def("element_text", "title"),
   plot.margin         = el_def("unit"),
 
   aspect.ratio        = el_def("character")
