@@ -16,8 +16,7 @@
 #' @param p plot object
 #' @param object component to add
 #' @seealso \code{\link{ggplot}}
-#' @method + ggplot
-#' @S3method "+" ggplot
+#' @method "+" ggplot
 #' @rdname ggplot-add
 "+.ggplot" <- function(e1, e2) {
   if      (is.theme(e1))  add_theme(e1, e2)
@@ -52,7 +51,7 @@
 #' add_el$text
 #' rep_el$text
 #'
-#' @S3method "+" theme
+#' @method "+" theme
 #' @rdname theme-add
 "+.theme" <- `+.ggplot`
 
