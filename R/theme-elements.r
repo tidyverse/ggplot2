@@ -14,11 +14,15 @@ element_blank <- function() {
 #' Most often used for backgrounds and borders.
 #' 
 #' @param fill fill colour
-#' @param colour border color
+#' @param colour border colour
 #' @param size border size
 #' @param linetype border linetype
+#' @param color an alias for \code{colour}
 #' @export
-element_rect <- function(fill = NULL, colour = NULL, size = NULL, linetype = NULL) {
+element_rect <- function(fill = NULL, colour = NULL, size = NULL,
+  linetype = NULL, color = NULL) {
+
+  if (!is.null(color))  colour <- color
   structure(
     list(fill = fill, colour = colour, size = size, linetype = linetype),
     class = c("element", "element_rect")
@@ -26,15 +30,17 @@ element_rect <- function(fill = NULL, colour = NULL, size = NULL, linetype = NUL
 }
 
 #' Theme element: line.
-#'
-#' This element draws a line between two (or more) points
 #' 
-#' @param colour line color
+#' @param colour line colour
 #' @param size line size
 #' @param linetype line type
 #' @param lineend line end
+#' @param color an alias for \code{colour}
 #' @export
-element_line <- function(colour = NULL, size = NULL, linetype = NULL, lineend = NULL) {
+element_line <- function(colour = NULL, size = NULL, linetype = NULL,
+  lineend = NULL, color = NULL) {
+
+  if (!is.null(color))  colour <- color
   structure(
     list(colour = colour, size = size, linetype = linetype, lineend = lineend),
     class = c("element", "element_line")
@@ -45,17 +51,20 @@ element_line <- function(colour = NULL, size = NULL, linetype = NULL, lineend = 
 #' Theme element: text.
 #' 
 #' @param family font family
-#' @param face font face ("plain", "italic", "bold")
+#' @param face font face ("plain", "italic", "bold", "bold.italic")
 #' @param colour text colour
 #' @param size text size (in pts)
 #' @param hjust horizontal justification (in [0, 1])
 #' @param vjust vertical justification (in [0, 1])
 #' @param angle angle (in [0, 360])
 #' @param lineheight line height
+#' @param color an alias for \code{colour}
 #' @export
 element_text <- function(family = NULL, face = NULL, colour = NULL,
-  size = NULL, hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL) {
+  size = NULL, hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
+  color = NULL) {
 
+  if (!is.null(color))  colour <- color
   structure(
     list(family = family, face = face, colour = colour, size = size,
       hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight),
