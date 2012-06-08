@@ -31,16 +31,30 @@
 #' p + annotate("text", x = 2:3, y = 20:21, label = c("my label", "label 2"))
 annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL, ymin = NULL, ymax = NULL, ...) {
   
-  layer_data <- compact(list(
+  position <- compact(list(
     x = x, xmin = xmin, xmax = xmax, 
     y = y, ymin = ymin, ymax = ymax
   ))
+  aesthetics <- c(position, list(...))
   
+  # Check that all aesthetic have compatible lengths
+  lengths <- vapply(aesthetics, length, integer(1))
+  unequal <- length(unique(setdiff(lengths, 1L))) > 1L
+  if (unequal) {
+    bad <- lengths != 1L
+    details <- paste(names(aesthetics)[bad], " (", lengths[bad], ")", 
+      sep = "", collapse = ", ")
+    stop("Unequal parameter lengths: ", details, call. = FALSE)
+  }
+  
+  data <- data.frame(position)
   layer(
-    geom = geom, geom_params = list(...), 
+    geom = geom, 
+    geom_params = list(...), 
     stat = "identity", 
+    data = data, 
+    mapping = aes_all(names(data)),
     inherit.aes = FALSE,
-    data = data.frame(layer_data), mapping = aes_all(names(layer_data)),
     show_guide = FALSE
   )
 }
