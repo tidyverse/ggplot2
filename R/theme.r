@@ -1,7 +1,5 @@
-#' Get, set and update themes. (Deprecated)
+#' Get, set and update themes.
 #' 
-#' This function is deprecated. Use \code{\link{\%+replace\%}} or
-#' \code{\link{+.theme}} instead.
 #' Use \code{theme_update} to modify a small number of elements of the current
 #' theme or use \code{theme_set} to completely override it.
 #' 
@@ -25,10 +23,6 @@
 #' last_plot() + 
 #'  theme(legend.background = element_rect(fill = "white", col="white", size = 3))
 theme_update <- function(...) {
-  .Deprecated(new = "%+replace%",
-    msg = paste("'theme_update' is deprecated.",
-      "\nUse the '%+replace%' or '+.theme' operators instead. For example:",
-      "\n  theme_set(theme_get() + theme(text = element_text(colour='red')))"))
   # Make a call to theme, then add to theme
   theme_set(theme_get() %+replace% do.call(theme, list(...)))
 }
