@@ -1,5 +1,9 @@
 MINOR FEATURES
 
+* Dependency on `gpclib` removed, and `fortify.SpatialPolygonsDataFrame` will
+  now use `rgeos` if available - this is particularly useful if you're not
+  able to use the non-free `gpclib`.
+
 * `ggsave` now supports emf output files.
 
 * all "template" plots (`plotmatrix`, `ggorder` etc) have been deprecated and

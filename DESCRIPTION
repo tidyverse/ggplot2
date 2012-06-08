@@ -32,7 +32,6 @@ Suggests:
     mapproj,
     maps,
     hexbin,
-    gpclib,
     maptools,
     multcomp,
     nlme,
