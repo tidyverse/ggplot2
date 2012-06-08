@@ -267,9 +267,9 @@ theme_set <- .theme$set
 #'
 #' @seealso +.theme
 #'
-add_theme <- function(t1, t2) {
+add_theme <- function(t1, t2, t2name) {
   if (!is.theme(t2)) {
-    stop("Don't know how to add ", orig_args(t2), " to an theme object",
+    stop("Don't know how to add ", t2name, " to a theme object",
       call. = FALSE)
   }
 

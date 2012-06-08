@@ -184,19 +184,3 @@ rescale01 <- function(x) {
   rng <- range(x, na.rm = TRUE)
   (x - rng[1]) / (rng[2] - rng[1])
 }
-
-
-# Get the original name of an argument passed into a function.
-# For example, orig_args(foo) returns "foo"
-# This can also be called from inside another function, and it will
-# return the name of the argument passed into that function.
-orig_args <- function(x) {
-  newname <- substitute(x)
-
-  # Travel up the frame stack until we hit the top.
-  for(i in seq_len(sys.nframe())) {
-    oldname <- do.call("substitute", list(as.name(newname), parent.frame(i)))
-    newname <- oldname
-  }
-  return(deparse(newname))
-}
