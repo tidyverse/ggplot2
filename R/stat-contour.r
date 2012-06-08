@@ -89,7 +89,10 @@ StatContour <- proto(Stat, {
 
 # v3d <- reshape2::melt(volcano)
 # names(v3d) <- c("x", "y", "z")
-# contour_lines(v3d, seq(95, 195, 10))
+#
+# breaks <- seq(95, 195, length = 10)
+# contours <- contour_lines(v3d, breaks)
+# qplot(x, y, data = contours, geom = "path") + facet_wrap(~ piece)
 contour_lines <- function(data, breaks, complete = FALSE) {
   z <- tapply(data$z, data[c("x", "y")], identity)
 
@@ -118,3 +121,23 @@ contour_lines <- function(data, breaks, complete = FALSE) {
   )
 }
 
+#
+# broken <- subset(contours, piece <= 5)
+# qplot(x, y, data = broken, geom = "path") + facet_wrap(~ piece)
+#
+# To fix breaks and complete the polygons, we need to add 0-4 corner points.
+# Hardest thing is to figure out the direction of the contour - is it 
+# inward facing or outward facing?
+#
+#
+# complete_contour(subset(broken, piece == 1))
+# complete_contour <- function(contour) {
+#   midx <- mean(range(contour$x))
+#   midy <- mean(range(contour$y))
+#   
+#   angle <- atan2(contour$y - midy, contour$x - midx)
+#   
+#   browser()
+# }
+# 
+# 
