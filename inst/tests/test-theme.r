@@ -88,3 +88,71 @@ test_that("Calculating theme element inheritance", {
   ex <- calc_element('axis.title.x', t)
   expect_identical(ex$size, 3)
 })
+
+
+test_that("Complete and non-complete themes interact correctly with each other", {
+  # The 'complete' attribute of t1 + t2 is the OR of their 'complete' attributes.
+
+  # But for _element properties_, the one on the right modifies the one on the left.
+  t <- theme_bw() + theme(text = element_text(colour='red'))
+  expect_true(attr(t, "complete"))
+  expect_equal(t$text$colour, 'red')
+
+  # A complete theme object (like theme_bw) always trumps a non-complete theme object
+  t <- theme(text = element_text(colour='red')) + theme_bw()
+  expect_true(attr(t, "complete"))
+  expect_equal(t$text$colour, theme_bw()$text$colour)
+
+  # Adding two non-complete themes: the one on the right modifies the one on the left.
+  t <- theme(text = element_text(colour='blue')) +
+    theme(text = element_text(colour='red'))
+  expect_false(attr(t, "complete"))
+  expect_equal(t$text$colour, 'red')
+})
+
+
+test_that("Complete and non-complete themes interact correctly with ggplot objects", {
+  # Check that adding two theme successive theme objects to a ggplot object
+  # works like adding the two theme object to each other
+  p <- ggplot_build(qplot(1:3, 1:3) + theme_bw() + theme(text=element_text(colour='red')))
+  expect_true(attr(p$plot$theme, "complete"))
+
+  # Compare the theme objects, after sorting the items, because item order can differ
+  pt <- p$plot$theme
+  tt <- theme_bw() + theme(text=element_text(colour='red'))
+  pt <- pt[order(names(pt))]
+  tt <- tt[order(names(tt))]
+  expect_identical(pt, tt)
+
+
+  p <- ggplot_build(qplot(1:3, 1:3) + theme(text=element_text(colour='red')) + theme_bw())
+  expect_true(attr(p$plot$theme, "complete"))
+  # Compare the theme objects, after sorting the items, because item order can differ
+  pt <- p$plot$theme
+  tt <- theme(text=element_text(colour='red')) + theme_bw()
+  pt <- pt[order(names(pt))]
+  tt <- tt[order(names(tt))]
+  expect_identical(pt, tt)
+
+
+  p <- ggplot_build(qplot(1:3, 1:3) + theme(text=element_text(colour='red', face='italic')))
+  expect_false(attr(p$plot$theme, "complete"))
+  expect_equal(p$plot$theme$text$colour, "red")
+  expect_equal(p$plot$theme$text$face, "italic")
+
+
+  p <- ggplot_build(qplot(1:3, 1:3) + theme(text=element_text(colour='red')) +
+    theme(text=element_text(face='italic')))
+  expect_false(attr(p$plot$theme, "complete"))
+  expect_equal(p$plot$theme$text$colour, "red")
+  expect_equal(p$plot$theme$text$face, "italic")
+
+
+  # Only gets red property; because of the way lists are processed in R, the
+  # the second item doesn't get used properly. But I think that's OK.
+  p <- ggplot_build(qplot(1:3, 1:3) +
+    theme(text=element_text(colour='red'), text=element_text(face='italic')))
+  expect_false(attr(p$plot$theme, "complete"))
+  expect_equal(p$plot$theme$text$colour, "red")
+  expect_equal(p$plot$theme$text$face, "plain")
+})
