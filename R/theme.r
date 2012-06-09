@@ -180,13 +180,13 @@ print.theme <- function(x, ...) str(x)
 #' k + theme(panel.margin = unit(5, "lines"))
 #' k + theme(panel.margin = unit(0, "lines"))
 #' }
-theme <- function(...) {
+theme <- function(..., complete = FALSE) {
   elements <- list(...)
 
   # Check that all elements have the correct class (element_text, unit, etc)
   mapply(validate_element, elements, names(elements))
 
-  structure(elements, class="theme")
+  structure(elements, class = "theme", complete = complete)
 }
 
 
@@ -299,37 +299,53 @@ add_theme <- function(t1, t2, t2name) {
     t1[[item]] <- x
   }
 
+  # If either theme is complete, then the combined theme is complete
+  attr(t1, "complete") <- attr(t1, "complete") || attr(t2, "complete")
   t1
 }
 
 
 # Update a theme from a plot object
 #
-# This is called from add_ggplot. It adds elements from 'newtheme' to
-# 'theme'. However, if theme doesn't already contain those elements,
+# This is called from add_ggplot.
+#
+# If newtheme is a *complete* theme, then it is meant to replace
+# oldtheme; this function just returns newtheme.
+#
+# Otherwise, it adds elements from newtheme to oldtheme:
+# If oldtheme doesn't already contain those elements,
 # it searches the current default theme, grabs the elements with the
-# same name as those from newtheme, and uses those as the base which
-# newtheme is added to. This makes it possible to do things like:
+# same name as those from newtheme, and puts them in oldtheme. Then
+# it adds elements from newtheme to oldtheme.
+# This makes it possible to do things like:
 #   qplot(1:3, 1:3) + theme(text = element_text(colour = 'red'))
-# and have 'text' inherit properties from the default theme. Otherwise
+# and have 'text' keep properties from the default theme. Otherwise
 # you would have to set all the element properties, like family, size,
 # etc.
 #
-# @param theme an existing theme, usually from a plot object, like
+# @param oldtheme an existing theme, usually from a plot object, like
 #   plot$theme. This could be an empty list.
 # @param newtheme a new theme object to add to the existing theme
-update_theme <- function(theme, newtheme) {
-  new_names <- names(newtheme)
-  # These are elements that aren't set in theme
-  new <- vapply(theme[new_names], is.null, logical(1))
+update_theme <- function(oldtheme, newtheme) {
+  # If the newtheme is a complete one, don't bother searching
+  # the default theme -- just replace everything with newtheme
+  if (attr(newtheme, "complete"))
+    return(newtheme)
 
-  # Get the new elements from the current default theme
-  theme[new_names] <- theme_get()[new_names]
+  # These are elements in newtheme that aren't already set in oldtheme.
+  # They will be pulled from the default theme.
+  newitems <- ! names(newtheme) %in% names(oldtheme)
+  newitem_names <- names(newtheme)[newitems]
+  oldtheme[newitem_names] <- theme_get()[newitem_names]
 
   # Update the theme elements with the things from newtheme
-  # Need to set to 'theme' class first
-  class(theme) <- "theme"
-  theme + newtheme
+  # Turn the 'theme' list into a proper theme object first, and preserve
+  # the 'complete' attribute. It's possible that oldtheme is an empty
+  # list, and in that case, set complete to FALSE.
+  oldtheme <- do.call(theme, c(oldtheme,
+    complete = isTRUE(attr(oldtheme, "complete"))))
+
+  oldtheme + newtheme
 }
 
 

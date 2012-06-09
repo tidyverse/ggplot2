@@ -53,7 +53,9 @@ theme_grey <- function(base_size = 12, base_family = "Helvetica") {
 
     plot.background =    element_rect(colour = NA),
     plot.title =         element_text(size = rel(1.2)),
-    plot.margin =        unit(c(1, 1, 0.5, 0.5), "lines")
+    plot.margin =        unit(c(1, 1, 0.5, 0.5), "lines"),
+
+    complete = TRUE
   )
 }
 theme_gray <- theme_grey
@@ -68,7 +70,7 @@ theme_bw <- function(base_size = 12, base_family = "Helvetica") {
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
     theme(
-      axis.text         = element_text(size = rel(0.8), colour = "black"),
+      axis.text         = element_text(size = rel(0.8)),
       axis.ticks        = element_line(colour = "black"),
       legend.key        = element_rect(colour = "grey80"),
       panel.background  = element_rect(fill = "white"),
