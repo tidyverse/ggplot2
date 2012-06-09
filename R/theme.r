@@ -281,8 +281,8 @@ add_theme <- function(t1, t2, t2name) {
     if (is.null(x)) {
       # If x is NULL, then just assign it y
       x <- y
-    } else if (is.character(y) || is.numeric(y)) {
-      # If y is a string or numeric vector, just replace x
+    } else if (is.null(y) || is.character(y) || is.numeric(y)) {
+      # If y is NULL, or a string or numeric vector, just replace x
       x <- y
     } else {
       # If x is not NULL, then copy over the non-NULL properties from y
@@ -296,7 +296,9 @@ add_theme <- function(t1, t2, t2name) {
     }
 
     # Assign it back to t1
-    t1[[item]] <- x
+    # This is like doing t1[[item]] <- x, except that it preserves NULLs.
+    # The other form will simply drop NULL values
+    t1[item] <- list(x)
   }
 
   # If either theme is complete, then the combined theme is complete
