@@ -24,7 +24,7 @@ scale_color_brewer <- scale_colour_brewer
 
 #' @export
 #' @rdname scale_brewer
-scale_color_brewerc <- scale_colour_brewerc
+scale_color_distiller <- scale_colour_distiller
 
 #' @export
 #' @rdname scale_gradient

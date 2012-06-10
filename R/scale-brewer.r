@@ -51,25 +51,25 @@ scale_fill_brewer <- function(..., type = "seq", palette = 1) {
 
 #' @export
 #' @rdname scale_brewer
-scale_colour_brewerc <- function(..., type = "seq", palette = 1, values = NULL, space = "Lab", na.value = "grey50") {
+scale_colour_distiller <- function(..., type = "seq", palette = 1, values = NULL, space = "Lab", na.value = "grey50") {
   # warn about using a qualitative brewer palette to generate the gradient
   type <- match.arg(type, c("seq", "div", "qual"))
   if (type == "qual") {
     warning("Using a discrete colour palette in a continuous scale.\n  Consider using type=\"seq\" or type=\"div\" instead")
   }
-  continuous_scale("colour", "brewerc",
+  continuous_scale("colour", "distiller",
     gradient_n_pal(brewer_pal(type, palette)(6), values, space), na.value = na.value, ...)
   # NB: 6 colours per palette gives nice gradients; more results in more saturated colours which do not look as good
 }
 
 #' @export
 #' @rdname scale_brewer
-scale_fill_brewerc <- function(..., type = "seq", palette = 1, values = NULL, space = "Lab", na.value = "grey50") {
+scale_fill_distiller <- function(..., type = "seq", palette = 1, values = NULL, space = "Lab", na.value = "grey50") {
   type <- match.arg(type, c("seq", "div", "qual"))
   if (type == "qual") {
     warning("Using a discrete colour palette in a continuous scale.\n  Consider using type=\"seq\" or type=\"div\" instead")
   }
-  continuous_scale("fill", "brewerc",
+  continuous_scale("fill", "distiller",
     gradient_n_pal(brewer_pal(type, palette)(6), values, space), na.value = na.value, ...)
 }
 
