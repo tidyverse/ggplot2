@@ -1,25 +1,25 @@
 \name{scale_colour_brewer}
 \alias{scale_color_brewer}
-\alias{scale_color_brewerc}
+\alias{scale_color_distiller}
 \alias{scale_colour_brewer}
-\alias{scale_colour_brewerc}
+\alias{scale_colour_distiller}
 \alias{scale_fill_brewer}
-\alias{scale_fill_brewerc}
+\alias{scale_fill_distiller}
 \title{Sequential, diverging and qualitative colour scales from colorbrewer.org}
 \usage{
   scale_colour_brewer(..., type = "seq", palette = 1)
 
   scale_fill_brewer(..., type = "seq", palette = 1)
 
-  scale_colour_brewerc(..., type = "seq", palette = 1,
+  scale_colour_distiller(..., type = "seq", palette = 1,
     values = NULL, space = "Lab", na.value = "grey50")
 
-  scale_fill_brewerc(..., type = "seq", palette = 1,
+  scale_fill_distiller(..., type = "seq", palette = 1,
     values = NULL, space = "Lab", na.value = "grey50")
 
   scale_color_brewer(..., type = "seq", palette = 1)
 
-  scale_color_brewerc(..., type = "seq", palette = 1,
+  scale_color_distiller(..., type = "seq", palette = 1,
     values = NULL, space = "Lab", na.value = "grey50")
 }
 \arguments{
