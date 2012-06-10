@@ -74,6 +74,22 @@ d + scale_colour_brewer(palette="Set1")
 ggplot(diamonds, aes(x=price, fill=cut)) +
   geom_histogram(position="dodge", binwidth=1000) +
   scale_fill_brewer()
+
+# Generate map data
+library(reshape2) # for melt
+volcano3d <- melt(volcano)
+names(volcano3d) <- c("x", "y", "z")
+
+# Basic plot
+v <- ggplot() + geom_tile(aes(x=x, y=y, fill=z), data=volcano3d)
+v
+v + scale_fill_distiller()
+v + scale_fill_distiller(palette=2)
+v + scale_fill_distiller(type="div")
+v + scale_fill_distiller(palette="Spectral")
+v + scale_fill_distiller(palette="Spectral", trans="reverse")
+v + scale_fill_distiller(type="qual")
+# Not appropriate for continuous data, issues a warning
 }
 \seealso{
 Other colour scales: \code{\link{scale_color_continuous}},
