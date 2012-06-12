@@ -36,13 +36,13 @@ NULL
 #' This dataset was produced from US economic time series data available from \url{http://research.stlouisfed.org/fred2}.
 #' 
 #' \itemize{
-#' 	\item date.  Month of data collection
+#'   \item date.  Month of data collection
 #' 
-#' 	\item psavert, personal savings rate, \url{http://research.stlouisfed.org/fred2/series/PSAVERT/}
-#' 	\item pce, personal consumption expenditures, in billions of dollars, \url{http://research.stlouisfed.org/fred2/series/PCE}
-#' 	\item unemploy, number of unemployed in thousands, \url{http://research.stlouisfed.org/fred2/series/UNEMPLOY}
-#' 	\item uempmed, median duration of unemployment, in week, \url{http://research.stlouisfed.org/fred2/series/UEMPMED}
-#' 	\item pop, total population, in thousands, \url{http://research.stlouisfed.org/fred2/series/POP}
+#'   \item psavert, personal savings rate, \url{http://research.stlouisfed.org/fred2/series/PSAVERT/}
+#'   \item pce, personal consumption expenditures, in billions of dollars, \url{http://research.stlouisfed.org/fred2/series/PCE}
+#'   \item unemploy, number of unemployed in thousands, \url{http://research.stlouisfed.org/fred2/series/UNEMPLOY}
+#'   \item uempmed, median duration of unemployment, in week, \url{http://research.stlouisfed.org/fred2/series/UEMPMED}
+#'   \item pop, total population, in thousands, \url{http://research.stlouisfed.org/fred2/series/POP}
 #' 
 #' }
 #'
@@ -111,15 +111,15 @@ NULL
 #' Movies were selected for inclusion if they had a known length and had been rated by at least one imdb user.  The data set contains the following fields:
 #' 
 #' \itemize{
-#' 	\item title.  Title of the movie.
-#' 	\item year.  Year of release.
-#' 	\item budget.  Total budget (if known) in US dollars
-#' 	\item length.  Length in minutes.
-#' 	\item rating.  Average IMDB user rating.
-#' 	\item votes.  Number of IMDB users who rated this movie.
-#' 	\item r1-10.  Multiplying by ten gives percentile (to nearest 10\%) of users who rated this movie a 1.
-#' 	\item mpaa.  MPAA rating.
-#' 	\item action, animation, comedy, drama, documentary, romance, short.  Binary variables representing if movie was classified as belonging to that genre.
+#'   \item title.  Title of the movie.
+#'   \item year.  Year of release.
+#'   \item budget.  Total budget (if known) in US dollars
+#'   \item length.  Length in minutes.
+#'   \item rating.  Average IMDB user rating.
+#'   \item votes.  Number of IMDB users who rated this movie.
+#'   \item r1-10.  Multiplying by ten gives percentile (to nearest 10\%) of users who rated this movie a 1.
+#'   \item mpaa.  MPAA rating.
+#'   \item action, animation, comedy, drama, documentary, romance, short.  Binary variables representing if movie was classified as belonging to that genre.
 #' }
 #' 
 #' @docType data

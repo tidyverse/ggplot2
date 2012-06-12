@@ -10,12 +10,12 @@
 #' @export
 #' @seealso \code{\link{ggplot}} and \code{\link{fortify}}
 autoplot <- function(object, ...) {
-	UseMethod("autoplot")
+  UseMethod("autoplot")
 }
 
 #' @S3method autoplot default
 autoplot.default <- function(object, ...) {
-	error.msg <- paste("Objects of type",class(object),"not supported by autoplot.  Please use qplot() or ggplot() instead.\n")
-	stop(error.msg, call.=FALSE)
+  error.msg <- paste("Objects of type",class(object),"not supported by autoplot.  Please use qplot() or ggplot() instead.\n")
+  stop(error.msg, call.=FALSE)
 }
 
