@@ -38,7 +38,11 @@ StatYdensity <- proto(Stat, {
     data <- .super$calculate_groups(., data, na.rm = na.rm, width = width, ...)
 
     # choose how violins are scaled relative to each other
-    scale <- match.arg(scale, c("area", "count", "width"))
+    scale <- match.arg(scale, c("area", "equal", "count", "width"))
+    if (scale == "equal") {
+      .Deprecated("scale=\"area\"", old="scale=\"equal\"")
+      scale <- "area"
+    }
 
     data$violinwidth <- switch(scale,
       # area : keep the original densities but scale them to a max width of 1
