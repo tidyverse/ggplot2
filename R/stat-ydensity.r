@@ -23,7 +23,7 @@
 #' # See geom_violin for examples
 #' # Also see stat_density for similar examples with data along x axis
 stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin", position = "dodge",
-adjust = 1, kernel = "gaussian", trim = TRUE, scale = c("area", "count", "width"), na.rm = FALSE, ...) {
+adjust = 1, kernel = "gaussian", trim = TRUE, scale = "area", na.rm = FALSE, ...) {
   StatYdensity$new(mapping = mapping, data = data, geom = geom, position = position,
   adjust = adjust, kernel = kernel, trim = trim, scale = scale,
   na.rm = na.rm, ...)
@@ -33,12 +33,12 @@ StatYdensity <- proto(Stat, {
   objname <- "ydensity"
 
   calculate_groups <- function(., data, na.rm = FALSE, width = NULL,
-                               scale = c("area", "count", "width"), ...) {
+                               scale = "area", ...) {
     data <- remove_missing(data, na.rm, "y", name = "stat_ydensity", finite = TRUE)
     data <- .super$calculate_groups(., data, na.rm = na.rm, width = width, ...)
 
     # choose how violins are scaled relative to each other
-    scale <- match.arg(scale)
+    scale <- match.arg(scale, c("area", "count", "width"))
 
     data$violinwidth <- switch(scale,
       # area : keep the original densities but scale them to a max width of 1
