@@ -41,6 +41,8 @@ MINOR FEATURES
 
 * `stat_contour` is now somewhat faster
 
+* new stat class `stat_ecdf` that shows empirical cumulative distribution function.
+
 * Dependency on `gpclib` removed, and `fortify.SpatialPolygonsDataFrame` will
   now use `rgeos` if available - this is particularly useful if you're not
   able to use the non-free `gpclib`.
