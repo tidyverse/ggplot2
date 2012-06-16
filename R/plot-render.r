@@ -171,8 +171,20 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   if (newpage) grid.newpage()
   
   data <- ggplot_build(x)
-  
   gtable <- ggplot_gtable(data)
+
+  ## opts(keep = "guide") drops main panel
+  keep <- x$options$keep
+  if (!is.null(keep) && charmatch(keep, c("guide", "legend"))) {
+    ggi <- which(gtable$layout$name == "guide-box")
+    if (length(ggi) > 0) {
+      gtable <- gtable$grob[[ggi]]
+    } else {
+      warning('opts(keep = "guide") was detected but there is no guides.')
+      gtable <- zeroGrob()
+    }
+  }
+  
   if (is.null(vp)) {
     grid.draw(gtable) 
   } else {
@@ -197,4 +209,3 @@ plot.ggplot <- print.ggplot
 ggplotGrob <- function(x) {
   gtable_gTree(ggplot_gtable(ggplot_build(x)))
 }
-
