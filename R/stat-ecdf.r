@@ -21,9 +21,7 @@ stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step", position = "i
 StatEcdf <- proto(Stat, {
   objname <- "ecdf"
   
-  calculate <- function(., data, scales, n = 101, ...) {
-    range <- scale_dimension(scales$x)
-    f <- ecdf(data$x)
+  calculate <- function(., data, scales, ...) {
     x <- sort(data$x)
     y <- ecdf(data$x)(x)
     data.frame(x = x, y = y)
