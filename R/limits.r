@@ -1,7 +1,11 @@
 #' Convenience function to set the limits of the x axis.
+#'
+#' Convenience function to set the limits of the x axis. Any observations not in
+#' this range will be excluded from the plot.
 #' 
 #' @param ... if numeric, will create a continuous scale, if factor or
 #'   character, will create a discrete scale.
+#' @seealso \code{\link{coord_cartesian}} for adjusting x and y limits without removing data (i.e. zooming in/out).
 #' @export
 #' @examples
 #' xlim(15, 20)
@@ -14,9 +18,13 @@ xlim <- function(...) {
 }
 
 #' Convenience function to set the limits of the y axis.
+#'
+#' Convenience function to set the limits of the y axis. Any observations not in
+#' this range will be excluded from the plot.
 #' 
 #' @param ... if numeric, will create a continuous scale, if factor or
 #'   character, will create a discrete scale.
+#' @seealso \code{\link{coord_cartesian}} for adjusting x and y limits without removing data (i.e. zooming in/out).
 #' @export
 #' @examples
 #' ylim(15, 20)
