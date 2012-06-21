@@ -1,6 +1,22 @@
 aesthetics <- function(x) {
-  sort(c(x$required_aes, names(x$default_aes())))
+	req_aes <- x$required_aes
+	def_aes <- names(x$default_aes())
+	def_aes <- setdiff(def_aes,req_aes)
+	if (length(req_aes) == 0){
+		return(sort(names(x$default_aes())))
+	}
+	if (length(def_aes) == 0){
+		return(paste("\\strong{",sort(x$required_aes),"}",sep = ""))
+	}
+	if (length(req_aes) > 0 & length(def_aes) > 0){
+		return(c(paste("\\strong{",sort(x$required_aes),"}",sep = ""), sort(def_aes)))
+	}
 }
+
+# aesthetics <- function(x) {
+# 	
+#  	sort(c(x$required_aes, names(x$default_aes())))
+# }
 geom_aesthetics <- function(x) {
   aesthetics(Geom$find(x))
 }
