@@ -32,7 +32,9 @@
 #' @param x x value
 #' @param y y value
 #' @param ... List of name value pairs giving aesthetics to map.
-#' @seealso \code{\link{aes_string}}
+#' @seealso \code{\link{aes_string}} for passing quoted variable names; useful when creating plots within user defined functions. Also,
+#'    \code{\link{aes_colour_fill_alpha}}, \code{\link{aes_group_order}},\code{\link{aes_linetype_size_shape}} and \code{\link{aes_position}}
+#'    for more specific examples with different aesthetics.
 #' @S3method str uneval
 #' @S3method print uneval
 #' @S3method "[" uneval
