@@ -9,7 +9,7 @@
 #' @inheritParams geom_point
 #' @inheritParams geom_path
 #' @examples
-#' # See stat_quantile for examples
+#' # See \code{\link{stat_quantile}} for examples
 geom_quantile <- function (mapping = NULL, data = NULL, stat = "quantile", position = "identity", 
 lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
   GeomQuantile$new(mapping = mapping, data = data, stat = stat, position = position,

@@ -9,6 +9,12 @@
   This page demonstrates the usage of a sub-group of
   aesthetics; colour, fill and alpha.
 }
+\details{
+  Both colour and fill change the color of plot elements,
+  but their behavior differs for two dimensional regions:
+  colour will affect only the border of the region while
+  fill will alter the color of the interior.
+}
 \examples{
 \donttest{
 

@@ -1,10 +1,10 @@
 #' Transformed cartesian coordinate system.
 #' 
-#' \code{coord_trans} is different to scale transformations in that it occurs after 
+#' \code{coord_trans} is different from scale transformations in that it occurs after 
 #' statistical transformation and will affect the visual appearance of geoms - there is
 #' no guarantee that straight lines will continue to be straight.
 #'
-#' All current transformations only work with continuous values - see \code{scale}{trans_new}
+#' All current transformations only work with continuous values - see \code{\link[scale]{trans_new}}
 #' for list of transformations, and instructions on how to create your own.
 #'
 #' @param xtrans,ytrans transformers for x and y axes
