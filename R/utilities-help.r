@@ -29,7 +29,7 @@ rd_aesthetics <- function(type, name) {
   aes <- aesthetics(obj$find(name))
   
   paste("\\code{", type, "_", name, "} ", 
-    "understands the following aesthetics:\n\n", 
+    "understands the following aesthetics (bold aesthetics are required):\n\n", 
     "\\itemize{\n",
     paste("  \\item \\code{", aes, "}", collapse = "\n", sep = ""),
     "\n}\n", sep = "")
