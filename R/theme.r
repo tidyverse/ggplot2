@@ -186,7 +186,7 @@ theme <- function(..., complete = FALSE) {
   # Check that all elements have the correct class (element_text, unit, etc)
   mapply(validate_element, elements, names(elements))
 
-  structure(elements, class = "theme", complete = complete)
+  structure(elements, class = c("theme", "gg"), complete = complete)
 }
 
 
@@ -250,7 +250,7 @@ theme_get <- .theme$get
 theme_set <- .theme$set
 
 
-#' @rdname theme-add
+#' @rdname gg-add
 #' @export
 "%+replace%" <- function(e1, e2) {
   if (!is.theme(e1) || !is.theme(e2)) {
@@ -265,7 +265,7 @@ theme_set <- .theme$set
 
 #' Modify properties of an element in a theme object
 #'
-#' @seealso +.theme
+#' @seealso +.gg
 #'
 add_theme <- function(t1, t2, t2name) {
   if (!is.theme(t2)) {

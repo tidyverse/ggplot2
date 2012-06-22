@@ -104,7 +104,7 @@ ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv(
     coordinates = coord_cartesian(),
     facet = facet_null(),
     plot_env = environment
-  ), class="ggplot")
+  ), class = c("gg", "ggplot"))
   
   p$labels <- make_labels(mapping)
 
