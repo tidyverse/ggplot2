@@ -56,7 +56,7 @@
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
-  "unique")}
+  "ydensity")}
 }
 \examples{
 # See geom_violin for examples
