@@ -1,3 +1,33 @@
+THEME SYSTEM
+
+* The theme system has been completely rewritten. (Winston Chang)
+
+* The functions `theme_text`, `theme_line`, and so on have been renamed to
+  `element_text`, `element_line`, and so on.
+
+* The `opts()` function has been renamed to `theme()`.
+
+* To set the plot title, use `labs(title = "...")` instead of
+  `opts(title = "...")`.
+
+* Elements are now just lists of properties, instead of functions that
+  return grobs.
+
+* Theme elements now can inherit properties. For example, `axis.title.x`
+  inherits properties from `axis.title`, which in turn inherits from
+  `text`. The inheritance tree is stored in ggplot2::.element_tree
+
+* Theme objects can now be added to each other with `+`, without a ggplot
+  object. There is also a new `%replace%` operator for adding theme
+  objects together.
+
+* Vertical and horizontal grid lines can now be controlled independently,
+  with `axis.grid.major.x`, `axis.grid.major.y` (and the same for minor);
+  `axis.ticks.x` and `axis.ticks.y`; and `axis.line.x` and `axis.line.y`.
+
+* The `size` property of theme elements can be defined relative to the
+  parent objects, using the `rel()` function.
+
 MINOR FEATURES
 
 * The condition that set parameters (e.g. `colour = "red"`) could only be of
