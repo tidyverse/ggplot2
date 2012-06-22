@@ -78,6 +78,9 @@ print.element <- function(x, ...) str(x)
 
 
 #' Relative sizing for theme elements
+#'
+#' @examples
+#' qplot(1:3, 1:3) + theme(axis.title.x = element_text(size = rel(2.5)))
 #' @export
 rel <- function(x) {
   structure(x, class = "rel")
