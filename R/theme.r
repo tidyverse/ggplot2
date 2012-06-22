@@ -179,6 +179,34 @@ print.theme <- function(x, ...) str(x)
 #' k + theme(strip.text.x = element_text(colour = "red", angle = 45, size = 10, hjust = 0.5, vjust = 0.5))
 #' k + theme(panel.margin = unit(5, "lines"))
 #' k + theme(panel.margin = unit(0, "lines"))
+#'
+#'
+#' ## Generate a graph of the element inheritance tree
+#' build_element_graph <- function(tree) {
+#'   require(igraph)
+#'   require(plyr)
+#'
+#'   inheritdf <- function(name, item) {
+#'     if (length(item$inherit) == 0)
+#'       data.frame()
+#'     else
+#'       data.frame(child = name, parent = item$inherit)
+#'   }
+#'
+#'   edges <- rbind.fill(mapply(inheritdf, names(tree), tree))
+#'
+#'   # Explicitly add vertices (since not all are in edge list)
+#'   vertices <- data.frame(name = names(tree))
+#'   graph.data.frame(edges, vertices = vertices)
+#' }
+#'
+#' g <- build_element_graph(ggplot2:::.element_tree)
+#' V(g)$label <- V(g)$name
+#'
+#' set.seed(324)
+#' par(mar=c(0,0,0,0)) # Remove unnecessary margins
+#' plot(g, layout=layout.fruchterman.reingold, vertex.size=4, vertex.label.dist=.25)
+#'
 #' }
 theme <- function(..., complete = FALSE) {
   elements <- list(...)
