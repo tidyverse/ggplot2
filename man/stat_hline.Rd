@@ -28,7 +28,7 @@
   Add a horizontal line
 }
 \examples{
-# see geom_hline
+# see \\code{\\link{geom_hline}}
 }
 \keyword{internal}
 

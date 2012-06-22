@@ -28,7 +28,7 @@
   Add a vertical line
 }
 \examples{
-# see geom_vline
+# see \\code{\\link{geom_vline}}
 }
 \keyword{internal}
 
