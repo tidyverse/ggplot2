@@ -1,7 +1,12 @@
 #' Convenience function to set the limits of the x axis.
+#'
+#' Observations not in this range will be dropped completely and
+#' not passed to other layers.
 #' 
 #' @param ... if numeric, will create a continuous scale, if factor or
 #'   character, will create a discrete scale.
+#' @seealso For changing x or y axis limits \strong{without} dropping data 
+#'   observations, see \code{\link{coord_cartesian}}.
 #' @export
 #' @examples
 #' xlim(15, 20)
@@ -17,6 +22,8 @@ xlim <- function(...) {
 #' 
 #' @param ... if numeric, will create a continuous scale, if factor or
 #'   character, will create a discrete scale.
+#' @seealso For changing x or y axis limits \strong{without} dropping data 
+#'   observations, see \code{\link{coord_cartesian}}.
 #' @export
 #' @examples
 #' ylim(15, 20)
