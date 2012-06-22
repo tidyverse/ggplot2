@@ -1,7 +1,7 @@
 #' 1d kernel density estimate along y axis, for violin plot.
 #'
 #' @section Aesthetics: 
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "unique")}
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "ydensity")}
 #'
 #' @inheritParams stat_density
 #' @inheritParams stat_identity
