@@ -9,7 +9,8 @@
   factor or character, will create a discrete scale.}
 }
 \description{
-  Convenience function to set the limits of the x axis.
+  Observations not in this range will be dropped completely
+  and not passed to other layers.
 }
 \examples{
 xlim(15, 20)
@@ -17,5 +18,9 @@ xlim(20, 15)
 xlim(c(10, 20))
 xlim("a", "b", "c")
 qplot(mpg, wt, data=mtcars) + xlim(15, 20)
+}
+\seealso{
+  For changing x or y axis limits \strong{without} dropping
+  data observations, see \code{\link{coord_cartesian}}.
 }
 

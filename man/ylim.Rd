@@ -17,4 +17,8 @@ ylim(c(10, 20))
 ylim("a", "b", "c")
 qplot(mpg, wt, data=mtcars) + ylim(15, 20)
 }
+\seealso{
+  For changing x or y axis limits \strong{without} dropping
+  data observations, see \code{\link{coord_cartesian}}.
+}
 
