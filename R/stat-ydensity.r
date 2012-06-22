@@ -21,8 +21,8 @@
 #'   \item{counttotal}{number of points} 
 #' @export
 #' @examples
-#' # See geom_violin for examples
-#' # Also see stat_density for similar examples with data along x axis
+#' # See \code{\link{geom_violin}} for examples
+#' # Also see \code{\link{stat_density} for similar examples with data along x axis
 stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin", position = "dodge", 
 adjust = 1, kernel = "gaussian", trim = TRUE, scale = "equal", na.rm = FALSE, ...) {
   StatYdensity$new(mapping = mapping, data = data, geom = geom, position = position,
