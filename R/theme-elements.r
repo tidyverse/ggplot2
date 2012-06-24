@@ -165,14 +165,14 @@ element_grob.element_blank <- function(element, ...)  zeroGrob()
 #' @S3method element_grob element_rect
 element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
   width = 1, height = 1,
-  fill = NULL, colour = NULL, size = NULL, linetype = NULL) {
+  fill = NULL, colour = NULL, size = NULL, linetype = NULL, ...) {
 
   # The gp settings can override element_gp
   gp <- gpar(lwd = len0_null(size * .pt), col = colour, fill = fill, lty = linetype)
   element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
     fill = element$fill, lty = element$linetype)
 
-  rectGrob(x, y, width, height, gp = modifyList(element_gp, gp))
+  rectGrob(x, y, width, height, gp = modifyList(element_gp, gp), ...)
 }
 
 
@@ -180,7 +180,7 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
 element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   family = NULL, face = NULL, colour = NULL, size = NULL,
   hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  default.units = "npc") {
+  default.units = "npc", ...) {
 
   vj <- vjust %||% element$vjust
   hj <- hjust %||% element$hjust
@@ -215,7 +215,7 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
     label, x, y, hjust = hj, vjust = vj,
     default.units = default.units,
     gp = modifyList(element_gp, gp),
-    rot = angle
+    rot = angle, ...
   )
 }
 
@@ -223,7 +223,7 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
 #' @S3method element_grob element_line
 element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   colour = NULL, size = NULL, linetype = NULL, lineend = NULL,
-  default.units = "npc", id.lengths = NULL) {
+  default.units = "npc", id.lengths = NULL, ...) {
 
   # The gp settings can override element_gp
   gp <- gpar(lwd=len0_null(size * .pt), col=colour, lty=linetype, lineend = lineend)
@@ -233,7 +233,7 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   polylineGrob(
     x, y, default.units = default.units,
     gp = modifyList(element_gp, gp),
-    id.lengths = id.lengths
+    id.lengths = id.lengths, ...
   )
 }
 

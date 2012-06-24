@@ -51,7 +51,7 @@ theme_grey <- function(base_size = 12, base_family = "Helvetica") {
     strip.text.x =       element_text(),
     strip.text.y =       element_text(angle = -90),
 
-    plot.background =    element_rect(colour = NA),
+    plot.background =    element_rect(colour = "white"),
     plot.title =         element_text(size = rel(1.2)),
     plot.margin =        unit(c(1, 1, 0.5, 0.5), "lines"),
 
