@@ -57,7 +57,7 @@
 #'
 #' @export
 #'
-#' @seealso \code{\link{ggplot}} and \code{\link{theme}}
+#' @seealso \code{\link{theme}}
 #' @method "+" gg
 #' @rdname gg-add
 "+.gg" <- function(e1, e2) {

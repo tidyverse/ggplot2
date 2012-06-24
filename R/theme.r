@@ -34,58 +34,142 @@ is.theme <- function(x) inherits(x, "theme")
 #' @S3method print theme
 print.theme <- function(x, ...) str(x)
 
-#' Set options/theme elements for a single plot
+#' Set theme elements
 #' 
 #' 
-#' Use this function if you want to modify a few theme settings for 
-#' a single plot. 
-#' 
+#' Use this function to modify theme settings.
+#'
+#' Theme elements can inherit properties from other theme elements.
+#' For example, \code{axis.title.x} inherits from \code{axis.title}, 
+#' which in turn inherits from \code{text}. All text elements inherit
+#' directly or indirectly from \code{text}; all lines inherit from
+#' \code{line}, and all rectangular objects inherit from \code{rect}.
+#'
+#' For more examples of modifying properties using inheritance, see
+#' \code{\link{+.gg}} and \code{\link{\%+replace\%}}.
+#'
+#' To see a graphical representation of the inheritance tree, see the
+#' last example below.
+#'
 #' @section Theme elements:
 #' The individual theme elements are:
 #' 
-#' \tabular{ll}{
-#'   axis.line     \tab  line along axis \cr
-#'   axis.title.x   \tab   x axis label \cr
-#'   axis.title.y    \tab  y axis label \cr
-#'   axis.ticks     \tab  axis tick marks \cr
-#'   axis.ticks.length \tab  tick mark length \cr 
-#'   axis.ticks.margin   \tab   tick mark margin spacing \cr
-#'   axis.text.x  \tab   horizontal tick labels \cr
-#'   axis.text.y  \tab   vertical tick labels \cr
-#'   legend.background   \tab   background of legend \cr
-#'   legend.margin \tab   extra space added around legend (both width or
-#'      height depending on orientation of legend) \cr
-#'   legend.key   \tab    background underneath legend keys \cr
-#'   legend.key.size   \tab     key background size \cr
-#'   legend.key.height \tab     key background height \cr
-#'   legend.key.width  \tab     key background width \cr
-#'   legend.text       \tab     legend labels \cr
-#'   legend.text.align \tab     alignment of legend labels \cr
-#'   legend.title      \tab     legend name \cr
-#'   legend.title.align  \tab   alignment of legend title \cr
-#'   legend.position    \tab    A string or numeric vector  specifying the
-#'      position of guides (legends).  Possible values are: "left", "right",
-#'     "bottom", "top", and two-element numeric vector. \cr
-#'   legend.justification \tab  alignment of legend \cr
-#'   legend.direction     \tab  horizontal or vertical \cr
-#'   legend.box   \tab    A string specifying the direction of multiple
-#'     guides. Possible string values are: "horizontal" and "vertical". \cr
-#'   panel.background   \tab    background of panel \cr
-#'   panel.border       \tab    border around panel \cr
-#'   panel.margin       \tab    margin around facet panels \cr
-#'   panel.grid.major   \tab    major grid lines \cr 
-#'   panel.grid.minor   \tab    minor grid lines \cr
-#'   plot.background    \tab    background of the entire plot \cr
-#'   plot.title         \tab    plot title (text appearance) \cr
-#'   plot.margin        \tab    plot margins \cr
-#'   strip.background   \tab    background of facet labels \cr
-#'   strip.text.x       \tab    text for horizontal strips \cr
-#'   strip.text.y       \tab    text for vertical strips \cr
-#'   title              \tab    A string containing the title of the plot \cr
-#'  }
+#' \tabular{llll}{
+#'   line             \tab all line elements
+#'                    (\code{element_text}) \cr
+#'   rect             \tab all rectangluar elements
+#'                    (\code{element_rect}) \cr
+#'   text             \tab all text elements
+#'                    (\code{element_text}) \cr
+#'   title            \tab all title elements: plot, axes, legends
+#'                    (\code{element_text}; inherits from \code{text}) \cr
+#'
+#'   axis.title       \tab label of axes
+#'                    (\code{element_text}; inherits from \code{text}) \cr
+#'   axis.title.x     \tab x axis label
+#'                    (\code{element_text}; inherits from \code{axis.title}) \cr
+#'   axis.title.y     \tab y axis label
+#'                    (\code{element_text}; inherits from \code{axis.title}) \cr
+#'   axis.text        \tab tick labels along axes
+#'                    (\code{element_text}; inherits from \code{text}) \cr
+#'   axis.text.x      \tab x axis tick labels
+#'                    (\code{element_text}; inherits from \code{axis.text}) \cr
+#'   axis.text.y      \tab y axis tick labels
+#'                    (\code{element_text}; inherits from \code{axis.text}) \cr
+#'   axis.ticks       \tab tick marks along axes
+#'                    (\code{element_line}; inherits from \code{line}) \cr
+#'   axis.ticks.x     \tab x axis tick marks
+#'                    (\code{element_line}; inherits from \code{axis.ticks}) \cr
+#'   axis.ticks.y     \tab y axis tick marks
+#'                    (\code{element_line}; inherits from \code{axis.ticks}) \cr
+#'   axis.ticks.length  \tab length of tick marks
+#'                    (\code{unit}) \cr
+#'   axis.ticks.margin  \tab space between tick mark and tick label
+#'                    (\code{unit}) \cr
+#'   axis.line        \tab lines along axes
+#'                    (\code{element_line}; inherits from \code{line}) \cr
+#'   axis.line.x      \tab line along x axis
+#'                    (\code{element_line}; inherits from \code{axis.line}) \cr
+#'   axis.line.y      \tab line along y axis
+#'                    (\code{element_line}; inherits from \code{axis.line}) \cr
+#'
+#'   legend.background  \tab background of legend
+#'                    (\code{element_rect}; inherits from \code{rect}) \cr
+#'   legend.margin    \tab extra space added around legend
+#'                    (\code{unit}) \cr
+#'   legend.key       \tab background underneath legend keys
+#'                    (\code{element_rect}; inherits from \code{rect}) \cr
+#'   legend.key.size  \tab size of legend keys
+#'                    (\code{unit}; inherits from \code{legend.key.size}) \cr
+#'   legend.key.height  \tab key background height
+#'                    (\code{unit}; inherits from \code{legend.key.size}) \cr
+#'   legend.key.width   \tab key background width
+#'                    (\code{unit}; inherits from \code{legend.key.size}) \cr
+#'   legend.text      \tab legend item labels
+#'                    (\code{element_text}; inherits from \code{text}) \cr
+#'   legend.text.align  \tab alignment of legend labels
+#'                    (number from 0 (left) to 1 (right)) \cr
+#'   legend.title     \tab title of legend
+#'                    (\code{element_text}; inherits from \code{title}) \cr
+#'   legend.title.align \tab alignment of legend title
+#'                    (number from 0 (left) to 1 (right)) \cr
+#'   legend.position  \tab the position of legends.
+#'                    ("left", "right", "bottom", "top", or two-element
+#'                      numeric vector) \cr
+#'   legend.direction \tab layout of items in legends
+#'                    ("horizontal" or "vertical") \cr
+#'   legend.justification \tab anchor point for positioning legend inside plot
+#'                    ("center" or two-element numeric vector) \cr
+#'   legend.box       \tab arrangement of multiple legends
+#'                    ("horizontal" or "vertical") \cr
+#'
+#'   panel.background \tab background of plotting area
+#'                    (\code{element_rect}; inherits from \code{rect}) \cr
+#'   panel.border     \tab border around plotting area
+#'                    (\code{element_rect}; inherits from \code{rect}) \cr
+#'   panel.margin     \tab margin around facet panels
+#'                    (\code{unit}) \cr
+#'   panel.grid       \tab grid lines
+#'                    (\code{element_line}; inherits from \code{line}) \cr
+#'   panel.grid.major \tab major grid lines
+#'                    (\code{element_line}; inherits from \code{panel.grid}) \cr
+#'   panel.grid.minor \tab minor grid lines
+#'                    (\code{element_line}; inherits from \code{panel.grid}) \cr
+#'   panel.grid.major.x \tab vertical major grid lines
+#'                    (\code{element_line}; inherits from \code{panel.grid.major}) \cr
+#'   panel.grid.major.y \tab horizontal major grid lines
+#'                    (\code{element_line}; inherits from \code{panel.grid.major}) \cr
+#'   panel.grid.minor.x \tab vertical minor grid lines
+#'                    (\code{element_line}; inherits from \code{panel.grid.minor}) \cr
+#'   panel.grid.minor.y \tab horizontal minor grid lines
+#'                    (\code{element_line}; inherits from \code{panel.grid.minor}) \cr
+#'
+#'   plot.background  \tab background of the entire plot
+#'                    (\code{element_rect}; inherits from \code{rect}) \cr
+#'   plot.title       \tab plot title (text appearance)
+#'                    (\code{element_text}; inherits from \code{title}) \cr
+#'   plot.margin      \tab margin around entire plot
+#'                    (\code{unit}) \cr
+#'
+#'   strip.background \tab background of facet labels
+#'                    (\code{element_rect}; inherits from \code{rect}) \cr
+#'   strip.text       \tab facet labels
+#'                    (\code{element_text}; inherits from \code{text}) \cr
+#'   strip.text.x     \tab facet labels along horizontal direction
+#'                    (\code{element_text}; inherits from \code{strip.text}) \cr
+#'   strip.text.y     \tab facet labels along vertical direction
+#'                    (\code{element_text}; inherits from \code{strip.text}) \cr
+#' }
 #'
 #' @param ... a list of element name, element pairings that modify the
 #'   existing theme.
+#' @param complete set this to TRUE if this is a complete theme, such as
+#'   the one returned \code{by theme_grey()}. Complete themes behave
+#'   differently when added to a ggplot object.
+#'
+#' @seealso \code{\link{+.gg}}
+#' @seealso \code{\link{\%+replace\%}}
+#' @seealso \code{\link{rel}}
 #' @export
 #' @examples
 #' \donttest{
@@ -114,25 +198,25 @@ print.theme <- function(x, ...) str(x)
 #' 
 #' # Change title appearance
 #' p <- p + labs(title = "Vehicle Weight-Gas Mileage Relationship")
-#' p + theme(plot.title = element_text(size = 20))
-#' p + theme(plot.title = element_text(size = 20, colour = "Blue"))
+#' # Set title to twice the base font size
+#' p + theme(plot.title = element_text(size = rel(2)))
+#' p + theme(plot.title = element_text(size = rel(2), colour = "blue"))
 #'
 #' # Changing plot look with themes
 #' DF <- data.frame(x = rnorm(400))
 #' m <- ggplot(DF, aes(x = x)) + geom_histogram()
-#' #default is theme_grey()
+#' # Default is theme_grey()
 #' m 
 #' # Compare with
 #' m + theme_bw()
 #' 
 #' # Manipulate Axis Attributes
 #' library(grid) # for unit
-#' m + theme(axis.line = element_segment())
-#' m + theme(axis.line = element_segment(colour = "red", linetype = "dotted"))
-#' m + theme(axis.text.x = element_text(colour = "blue"))
+#' m + theme(axis.line = element_line(size = 3, colour = "red", linetype = "dotted"))
+#' m + theme(axis.text = element_text(colour = "blue"))
 #' m + theme(axis.text.y = element_blank())
-#' m + theme(axis.ticks = element_segment(size = 2))
-#' m + theme(axis.title.y = element_text(size = 20, angle = 90))
+#' m + theme(axis.ticks = element_line(size = 2))
+#' m + theme(axis.title.y = element_text(size = rel(1.5), angle = 90))
 #' m + theme(axis.title.x = element_blank())
 #' m + theme(axis.ticks.length = unit(.85, "cm"))
 #'
@@ -144,12 +228,12 @@ print.theme <- function(x, ...) str(x)
 #' # Or use relative coordinates between 0 and 1
 #' z + theme(legend.position = c(.5, .5))
 #  # Add a border to the whole legend
-#' z + theme(legend.background = element_rect())
+#' z + theme(legend.background = element_rect(colour = "black"))
 #' # Legend margin controls extra space around outside of legend:
 #' z + theme(legend.background = element_rect(), legend.margin = unit(1, "cm"))
 #' z + theme(legend.background = element_rect(), legend.margin = unit(0, "cm"))
 #' # Or to just the keys
-#' z + theme(legend.key = element_rect())
+#' z + theme(legend.key = element_rect(colour = "black"))
 #' z + theme(legend.key = element_rect(fill = "yellow"))
 #' z + theme(legend.key.size = unit(2.5, "cm"))
 #' z + theme(legend.text = element_text(size = 20, colour = "red", angle = 45))
@@ -161,27 +245,34 @@ print.theme <- function(x, ...) str(x)
 #' z + scale_colour_grey(name = "Number of \nCylinders")
 #'
 #' # Panel and Plot Attributes
-#' z + theme(panel.background = element_rect())
 #' z + theme(panel.background = element_rect(fill = "black"))
-#' z + theme(panel.border = element_rect(linetype = "dashed"))
+#' z + theme(panel.border = element_rect(linetype = "dashed", colour = "black"))
 #' z + theme(panel.grid.major = element_line(colour = "blue"))
 #' z + theme(panel.grid.minor = element_line(colour = "red", linetype = "dotted"))
 #' z + theme(panel.grid.major = element_line(size = 2))
+#' z + theme(panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank())
 #' z + theme(plot.background = element_rect())
-#' z + theme(plot.background = element_rect(fill = "grey"))
+#' z + theme(plot.background = element_rect(fill = "green"))
 #'
 #' # Faceting Attributes
 #' set.seed(4940)
 #' dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
-#' k <- ggplot(dsmall, aes(carat, ..density..)) +  geom_histogram(binwidth = 0.2) +
+#' k <- ggplot(dsmall, aes(carat, ..density..)) + geom_histogram(binwidth = 0.2) +
 #' facet_grid(. ~ cut)
-#' k + theme(strip.background = element_rect(colour = "purple", fill = "pink", size = 3, linetype = "dashed"))
-#' k + theme(strip.text.x = element_text(colour = "red", angle = 45, size = 10, hjust = 0.5, vjust = 0.5))
+#' k + theme(strip.background = element_rect(colour = "purple", fill = "pink",
+#'                                           size = 3, linetype = "dashed"))
+#' k + theme(strip.text.x = element_text(colour = "red", angle = 45, size = 10,
+#'                                       hjust = 0.5, vjust = 0.5))
 #' k + theme(panel.margin = unit(5, "lines"))
 #' k + theme(panel.margin = unit(0, "lines"))
 #'
 #'
-#' ## Generate a graph of the element inheritance tree
+#' # Modify a theme and save it
+#' mytheme <- theme_grey() + theme(plot.title = element_text(colour = "red"))
+#' p + mytheme
+#'
+#'
+#' ## Run this to generate a graph of the element inheritance tree
 #' build_element_graph <- function(tree) {
 #'   require(igraph)
 #'   require(plyr)
