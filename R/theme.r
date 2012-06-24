@@ -400,8 +400,9 @@ add_theme <- function(t1, t2, t2name) {
     if (is.null(x)) {
       # If x is NULL, then just assign it y
       x <- y
-    } else if (is.null(y) || is.character(y) || is.numeric(y)) {
-      # If y is NULL, or a string or numeric vector, just replace x
+    } else if (is.null(y) || is.character(y) || is.numeric(y) ||
+               inherits(y, "element_blank")) {
+      # If y is NULL, or a string or numeric vector, or is element_blank, just replace x
       x <- y
     } else {
       # If x is not NULL, then copy over the non-NULL properties from y
@@ -570,12 +571,6 @@ calc_element <- function(element, theme, verbose = FALSE) {
   if (verbose) message(paste(pnames, collapse = ", "))
   parents <- lapply(pnames, calc_element, theme, verbose)
 
-  # If this element is not NULL, then
-  # don't try to inherit from parents that are element_blank
-  if (!is.null(theme[[element]])) {
-    parents <- parents[!vapply(parents, inherits, logical(1), "element_blank")]
-  }
-
   # Combine the properties of this element with all parents
   Reduce(combine_elements, parents, theme[[element]])
 }
@@ -590,8 +585,8 @@ combine_elements <- function(e1, e2) {
   # If e2 is NULL, nothing to inherit
   if (is.null(e2))  return(e1)
 
-  # If e1 is NULL, inherit everything from e2
-  if (is.null(e1))  return(e2)
+  # If e1 is NULL, or if e2 is element_blank, inherit everything from e2
+  if (is.null(e1) || inherits(e2, "element_blank"))  return(e2)
 
   # If e1 has any NULL properties, inherit them from e2
   n <- vapply(e1[names(e2)], is.null, logical(1))

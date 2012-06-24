@@ -60,4 +60,10 @@ t <- theme_bw() %+replace% theme(axis.title.y = element_text(size = rel(2)))
 p + t
 save_vtest("theme_bw %+replace% larger relative size for axis.title.y - result is angle=0")
 
+
+t <- theme_bw() + theme(text = element_blank())
+p + t
+save_vtest("text is element_blank - result is no text")
+
+
 end_vcontext()

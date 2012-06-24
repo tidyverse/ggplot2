@@ -23,6 +23,10 @@ test_that("Modifying theme element properties with + operator", {
   # Descendent is unchanged
   expect_identical(t$axis.title.x, theme_grey()$axis.title.x)
 
+  # Adding element_blank replaces element
+  t <- theme_grey() + theme(axis.text.y = element_blank())
+  expect_identical(t$axis.text.y, element_blank())
+
   # Adding empty theme() has no effect
   t <- theme_grey() + theme()
   expect_identical(t, theme_grey())
@@ -87,6 +91,11 @@ test_that("Calculating theme element inheritance", {
   expect_identical(e$size, 6)
   ex <- calc_element('axis.title.x', t)
   expect_identical(ex$size, 3)
+
+
+  # Check that a theme_blank in a parent node gets passed along to children
+  t <- theme_grey() + theme(text = element_blank())
+  expect_identical(calc_element('axis.title.x', t), element_blank())
 })
 
 
