@@ -71,6 +71,6 @@ add_el$text
 rep_el$text
 }
 \seealso{
-  \code{\link{ggplot}} and \code{\link{theme}}
+  \code{\link{theme}}
 }
 

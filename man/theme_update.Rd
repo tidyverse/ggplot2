@@ -2,7 +2,7 @@
 \alias{theme_get}
 \alias{theme_set}
 \alias{theme_update}
-\title{Get, set and update themes. (Deprecated)}
+\title{Get, set and update themes.}
 \usage{
   theme_update(...)
 
@@ -16,11 +16,9 @@
   \item{new}{new theme (a list of theme elements)}
 }
 \description{
-  This function is deprecated. Use
-  \code{\link{\%+replace\%}} or \code{\link{+.theme}}
-  instead. Use \code{theme_update} to modify a small number
-  of elements of the current theme or use \code{theme_set}
-  to completely override it.
+  Use \code{theme_update} to modify a small number of
+  elements of the current theme or use \code{theme_set} to
+  completely override it.
 }
 \examples{
 qplot(mpg, wt, data = mtcars)

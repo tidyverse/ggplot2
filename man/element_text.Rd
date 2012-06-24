@@ -4,12 +4,13 @@
 \usage{
   element_text(family = NULL, face = NULL, colour = NULL,
     size = NULL, hjust = NULL, vjust = NULL, angle = NULL,
-    lineheight = NULL)
+    lineheight = NULL, color = NULL)
 }
 \arguments{
   \item{family}{font family}
 
-  \item{face}{font face ("plain", "italic", "bold")}
+  \item{face}{font face ("plain", "italic", "bold",
+  "bold.italic")}
 
   \item{colour}{text colour}
 
@@ -22,6 +23,8 @@
   \item{angle}{angle (in [0, 360])}
 
   \item{lineheight}{line height}
+
+  \item{color}{an alias for \code{colour}}
 }
 \description{
   Theme element: text.

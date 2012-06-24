@@ -3,18 +3,20 @@
 \title{Theme element: line.}
 \usage{
   element_line(colour = NULL, size = NULL, linetype = NULL,
-    lineend = NULL)
+    lineend = NULL, color = NULL)
 }
 \arguments{
-  \item{colour}{line color}
+  \item{colour}{line colour}
 
   \item{size}{line size}
 
   \item{linetype}{line type}
 
   \item{lineend}{line end}
+
+  \item{color}{an alias for \code{colour}}
 }
 \description{
-  This element draws a line between two (or more) points
+  Theme element: line.
 }
 
