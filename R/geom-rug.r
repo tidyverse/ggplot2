@@ -29,7 +29,7 @@ GeomRug <- proto(Geom, {
       if(grepl("b", sides)) {
         rugs$x_b <- segmentsGrob(
           x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
-          y0 = unit(0, "npc"), y1 = unit(0.03, "npc"),
+          y0 = unit(0, "npc"), y1 = unit(data$length, "npc"),
           gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
         )
       }
@@ -37,7 +37,7 @@ GeomRug <- proto(Geom, {
       if(grepl("t", sides)) {
         rugs$x_t <- segmentsGrob(
           x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
-          y0 = unit(1, "npc"), y1 = unit(0.97, "npc"),
+          y0 = unit(1, "npc"), y1 = unit(1-data$length, "npc"),
           gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
         )
       }
@@ -47,7 +47,7 @@ GeomRug <- proto(Geom, {
       if(grepl("l", sides)) {
         rugs$y_l <- segmentsGrob(
           y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
-          x0 = unit(0, "npc"), x1 = unit(0.03, "npc"),
+          x0 = unit(0, "npc"), x1 = unit(data$length, "npc"),
           gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
         )
       }
@@ -55,7 +55,7 @@ GeomRug <- proto(Geom, {
       if(grepl("r", sides)) {
         rugs$y_r <- segmentsGrob(
           y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
-          x0 = unit(1, "npc"), x1 = unit(0.97, "npc"),
+          x0 = unit(1, "npc"), x1 = unit(1-data$length, "npc"),
           gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
         )
       }
@@ -65,6 +65,6 @@ GeomRug <- proto(Geom, {
   }
 
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
+  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA, length=0.03)
   guide_geom <- function(.) "path"
 })
