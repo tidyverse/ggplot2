@@ -22,7 +22,7 @@ Imports:
     digest,
     grid,
     reshape2,
-    scales (>= 0.2.1),
+    scales (>= 0.2.1.1),
     memoise,
     proto,
     MASS
