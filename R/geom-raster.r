@@ -94,9 +94,12 @@ GeomRaster <- proto(Geom, {
     
     nrow <- max(y_pos) + 1
     ncol <- max(x_pos) + 1
-    
+
     raster <- matrix(NA_character_, nrow = nrow, ncol = ncol)
-    raster[cbind(nrow - y_pos, x_pos + 1)] <- data$fill
+    raster[cbind(nrow - y_pos, x_pos + 1)] <-
+      aaply(rbind(col2rgb(data$fill), ifelse(is.na(data$alpha), 1, data$alpha) *255), 2,
+            function(x) do.call("rgb", as.list(c(x, max = 255))))
+
     
     # Figure out dimensions of raster on plot
     x_rng <- c(min(data$xmin, na.rm = TRUE), max(data$xmax, na.rm = TRUE))
