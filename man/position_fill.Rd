@@ -31,6 +31,9 @@ ggplot(diamonds, aes(x=price, fill=color)) + cde
 }
 }
 \seealso{
+  See \code{\link{geom_bar}} and \code{\link{geom_area}}
+  for more examples.
+
   Other position adjustments: \code{\link{position_dodge}},
   \code{\link{position_identity}},
   \code{\link{position_jitter}},

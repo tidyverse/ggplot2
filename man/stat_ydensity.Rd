@@ -59,7 +59,12 @@
   "ydensity")}
 }
 \examples{
-# See \\code{\\link{geom_violin}} for examples
-# Also see \\code{\\link{stat_density} for similar examples with data along x axis
+# See geom_violin for examples
+# Also see stat_density for similar examples with data along x axis
+}
+\seealso{
+  \code{\link{geom_violin}} for examples, and
+  \code{\link{stat_density}} for examples with data along
+  the x axis.
 }
 

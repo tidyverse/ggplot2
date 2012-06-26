@@ -49,4 +49,7 @@
 \examples{
 # See stat_quantile for examples
 }
+\seealso{
+  See \code{\link{stat_quantile}} for examples.
+}
 
