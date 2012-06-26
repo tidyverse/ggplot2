@@ -3,6 +3,8 @@
 #' 
 #' @inheritParams position_identity
 #' @family position adjustments
+#' @seealso See \code{\link{geom_bar}} and \code{\link{geom_area}} for
+#'   more examples.
 #' @export
 #' @examples
 #' \donttest{
