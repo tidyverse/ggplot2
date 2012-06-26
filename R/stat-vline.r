@@ -2,9 +2,10 @@
 #'
 #' @keywords internal
 #' @inheritParams stat_identity
+#' @seealso \code{\link{geom_abline}} for code examples.
 #' @export
 #' @examples
-#' # see \code{\link{geom_abline}}
+#' # see geom_abline
 stat_abline <- function (mapping = NULL, data = NULL, geom = "abline", position = "identity", ...) { 
   StatAbline$new(mapping = mapping, data = data, geom = geom, position = position, ...)
 }
@@ -35,9 +36,10 @@ StatAbline <- proto(Stat, {
 #'
 #' @keywords internal
 #' @inheritParams stat_identity
+#' @seealso \code{\link{geom_vline}} for code examples.
 #' @export
 #' @examples
-#' # see \code{\link{geom_vline}}
+#' # see geom_vline
 stat_vline <- function (mapping = NULL, data = NULL, geom = "vline", position = "identity", 
 intercept, ...) {
   StatVline$new(mapping = mapping, data = data, geom = geom, position = position, 
@@ -67,9 +69,10 @@ StatVline <- proto(Stat, {
 #'
 #' @keywords internal
 #' @inheritParams stat_identity
+#' @seealso \code{\link{geom_hline}} for code examples.
 #' @export
 #' @examples
-#' # see \code{\link{geom_hline}}
+#' # see geom_hline
 stat_hline <- function (mapping = NULL, data = NULL, geom = "hline", position = "identity", 
 intercept, ...) { 
   StatHline$new(mapping = mapping, data = data, geom = geom, position = position, 
