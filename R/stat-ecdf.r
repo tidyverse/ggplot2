@@ -30,6 +30,8 @@ StatEcdf <- proto(Stat, {
     else              xvals <- x
 
     fn <- ecdf(x)
+
+    xvals <- unique(xvals)
     y <- fn(xvals)
 
     # make point with y = 0, from plot.stepfun
@@ -41,7 +43,7 @@ StatEcdf <- proto(Stat, {
     x1 <- rx[2] + dr
     y0 <- 0
     y1 <- 1
-    
+
     data.frame(x = c(x0, xvals, x1), y = c(y0, y, y1))
   }
 
