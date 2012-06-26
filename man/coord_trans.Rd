@@ -20,7 +20,7 @@
 }
 \details{
   All current transformations only work with continuous
-  values - see \code[scales]{trans_new} for list of
+  values - see \code{\link[scales]{trans_new}} for list of
   transformations, and instructions on how to create your
   own.
 }
