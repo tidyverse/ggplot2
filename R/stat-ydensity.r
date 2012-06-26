@@ -19,10 +19,12 @@
 #'   \item{scaled}{density estimate, scaled depending on scalearea and scalecount}
 #'   \item{count}{ydensity * number of points}
 #'   \item{counttotal}{number of points} 
+#' @seealso \code{\link{geom_violin}} for examples, and \code{\link{stat_density}}
+#'   for examples with data along the x axis.
 #' @export
 #' @examples
-#' # See \code{\link{geom_violin}} for examples
-#' # Also see \code{\link{stat_density} for similar examples with data along x axis
+#' # See geom_violin for examples
+#' # Also see stat_density for similar examples with data along x axis
 stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin", position = "dodge", 
 adjust = 1, kernel = "gaussian", trim = TRUE, scale = "equal", na.rm = FALSE, ...) {
   StatYdensity$new(mapping = mapping, data = data, geom = geom, position = position,
