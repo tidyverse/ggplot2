@@ -1,12 +1,13 @@
-#' Convenience function to set the limits of the x axis.
+#' Convenience functions to set the limits of the x and y axis.
 #'
 #' Observations not in this range will be dropped completely and
-#' not passed to other layers.
+#' not passed to any other layers.
 #' 
 #' @param ... if numeric, will create a continuous scale, if factor or
 #'   character, will create a discrete scale.
 #' @seealso For changing x or y axis limits \strong{without} dropping data 
 #'   observations, see \code{\link{coord_cartesian}}.
+#' @rdname limits
 #' @export
 #' @examples
 #' xlim(15, 20)
@@ -14,22 +15,16 @@
 #' xlim(c(10, 20))
 #' xlim("a", "b", "c") 
 #' qplot(mpg, wt, data=mtcars) + xlim(15, 20)
-xlim <- function(...) {
-  limits(c(...), "x")
-}
-
-#' Convenience function to set the limits of the y axis.
-#' 
-#' @param ... if numeric, will create a continuous scale, if factor or
-#'   character, will create a discrete scale.
-#' @seealso For changing x or y axis limits \strong{without} dropping data 
-#'   observations, see \code{\link{coord_cartesian}}.
-#' @export
-#' @examples
 #' ylim(15, 20)
 #' ylim(c(10, 20))
 #' ylim("a", "b", "c") 
 #' qplot(mpg, wt, data=mtcars) + ylim(15, 20)
+xlim <- function(...) {
+  limits(c(...), "x")
+}
+
+#' @rdname limits
+#' @export
 ylim <- function(...) {
   limits(c(...), "y")
 }
