@@ -4,8 +4,9 @@
 #' statistical transformation and will affect the visual appearance of geoms - there is
 #' no guarantee that straight lines will continue to be straight.
 #'
-#' All current transformations only work with continuous values - see \code[scales]{trans_new}
-#' for list of transformations, and instructions on how to create your own.
+#' All current transformations only work with continuous values - see 
+#' \code{\link[scales]{trans_new}} for list of transformations, and instructions on 
+#' how to create your own.
 #'
 #' @param xtrans,ytrans transformers for x and y axes
 #' @param limx,limy limits for x and y axes. (Named so for backward
