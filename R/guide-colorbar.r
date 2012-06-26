@@ -395,14 +395,24 @@ guide_gengrob.colorbar <- function(guide, theme) {
   widths <- c(padding, widths, padding)
   heights <- c(padding, heights, padding)
 
-  lay <- data.frame(l = 1 + c(0,                   min(vps$bar.col), min(vps$label.col), min(vps$title.col), min(vps$bar.col)),
-                    t = 1 + c(0,                   min(vps$bar.row), min(vps$label.row), min(vps$title.row), min(vps$bar.row)),
-                    r = 1 + c(length(widths) - 1,  max(vps$bar.col), max(vps$label.col), max(vps$title.col), max(vps$bar.col)),
-                    b = 1 + c(length(heights) - 1, max(vps$bar.row), max(vps$label.row), max(vps$title.row), max(vps$bar.row)),
-                    name = c("background", "bar", "label", "title", "ticks"),
-                    clip = FALSE)
+  gt <- gtable(widths = unit(widths, "mm"), heights = unit(heights, "mm"))
+  gt <- gtable_add_grob(gt, grob.background, name = "background", clip = "off",
+                        l = 1, t = 1,
+                        r = length(widths) - 1, b = length(heights) - 1)
+  gt <- gtable_add_grob(gt, grob.bar, name = "bar", clip = "off",
+                        l = 1 + min(vps$bar.col), t = 1 + min(vps$bar.row),
+                        r = 1 + max(vps$bar.col), b = 1 + max(vps$bar.row))
+  gt <- gtable_add_grob(gt, grob.label, name = "label", clip = "off",
+                        l = 1 + min(vps$label.col), t = 1 + min(vps$label.row),
+                        r = 1 + max(vps$label.col), b = 1 + max(vps$label.row))
+  gt <- gtable_add_grob(gt, grob.title, name = "title", clip = "off",
+                        l = 1 + min(vps$title.col), t = 1 + min(vps$title.row),
+                        r = 1 + max(vps$title.col), b = 1 + max(vps$title.row))
+  gt <- gtable_add_grob(gt, grob.ticks, name = "ticks", clip = "off",
+                        l = 1 + min(vps$bar.col), t = 1 + min(vps$bar.row),
+                        r = 1 + max(vps$bar.col), b = 1 + max(vps$bar.row))
 
-  gtable(list(grob.background, grob.bar, grob.label, grob.title, grob.ticks), lay, unit(widths, "mm"), unit(heights, "mm"))
+  gt
 }
 
 #' @export

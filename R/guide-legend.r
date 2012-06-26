@@ -479,14 +479,22 @@ guide_gengrob.legend <- function(guide, theme) {
   widths <- c(padding, widths, padding)
   heights <- c(padding, heights, padding)
 
-  lay <- data.frame(l = 1 + c(0,                   min(vps.title.col), kcols, vps$label.col),
-                    t = 1 + c(0,                   min(vps.title.row), krows, vps$label.row),
-                    r = 1 + c(length(widths) - 1,  max(vps.title.col), kcols, vps$label.col),
-                    b = 1 + c(length(heights) - 1, max(vps.title.row), krows, vps$label.row),
-                    name = c("background", "title",
-                      paste("key", krows, kcols, c("bg", seq(ngeom-1)), sep = "-"),
-                      paste("label", vps$label.row, vps$label.col, sep = "-")),
-                    clip = FALSE)
+  # Create the gtable for the legend
+  gt <- gtable(widths = unit(widths, "mm"), heights = unit(heights, "mm"))
+  gt <- gtable_add_grob(gt, grob.background, name = "background", clip = "off",
+                        l = 1, t = 1,
+                        r = length(widths) - 1, b = length(heights) - 1)
+  gt <- gtable_add_grob(gt, grob.title, name = "title", clip = "off",
+                        l = 1 + min(vps.title.col), t = 1 + min(vps.title.row),
+                        r = 1 + max(vps.title.col), b = 1 + max(vps.title.row))
+  gt <- gtable_add_grob(gt, grob.keys,
+                        name = paste("key", krows, kcols, c("bg", seq(ngeom-1)), sep = "-"), clip = "off",
+                        l = 1 + kcols, t = 1 + krows,
+                        r = 1 + kcols, b = 1 + krows)
+  gt <- gtable_add_grob(gt, grob.labels,
+                        name = paste("label", vps$label.row, vps$label.col, sep = "-"), clip = "off",
+                        l = 1 + vps$label.col, t = 1 + vps$label.row,
+                        r = 1 + vps$label.col, b = 1 + vps$label.row)
 
-  gtable(c(list(grob.background, grob.title), grob.keys, grob.labels), lay, unit(widths, "mm"), unit(heights, "mm"))
+  gt
 }
