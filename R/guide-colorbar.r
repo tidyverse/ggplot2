@@ -103,6 +103,7 @@ guide_colourbar <- function(
   label.theme = NULL,
   label.hjust = NULL,
   label.vjust = NULL,
+  parse = FALSE,                            
 
   # bar
   barwidth = NULL,
@@ -139,6 +140,7 @@ guide_colourbar <- function(
     label.theme = label.theme,
     label.hjust = label.hjust,
     label.vjust = label.vjust,
+    parse = parse,             
 
     # bar
     barwidth = barwidth,
@@ -292,7 +294,9 @@ guide_gengrob.colorbar <- function(guide, theme) {
       switch(guide$direction, horizontal = {x <- label_pos; y <- vjust}, "vertical" = {x <- hjust; y <- label_pos})
       
       label <- guide$key$.label
-      if (any(laply(label, is.expression)) || any(laply(label, is.call))) {
+      if (guide$parse) {
+        label <- parse(text = label)
+      } else if (any(laply(label, is.expression)) || any(laply(label, is.call))) {
         label <- llply(label, function(l) if (is.call(l)) substitute(expression(x), list(x = l)))
         label <- do.call("c", label)
       }
