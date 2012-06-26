@@ -168,16 +168,21 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   
   col_widths <- compute_grob_widths(info, widths)
   row_heights <- compute_grob_heights(info, heights)
-  
-  lay <- gtable(
-    layout = info[info$type %in% names(grobs), 
-      c("t", "r", "b", "l", "clip", "name")],
-    grobs = unlist(grobs, recursive = FALSE),
-    heights = row_heights,
-    widths = col_widths, 
-    respect = respect
-  )
-  lay
+
+  # Create the gtable for the legend
+  gt <- gtable(widths = col_widths, heights = row_heights, respect = respect)
+
+  # Keep only the rows in info that refer to grobs
+  info  <- info[info$type %in% names(grobs), ]
+  grobs <- unlist(grobs, recursive = FALSE)
+  # Add each grob
+  for (i in seq(nrow(info))) {
+      gt <- gtable_add_grob(gt, grobs[i],
+        name = info$name[i], clip = info$clip[i],
+        l = info$l[i], t = info$t[i], r = info$r[i], b = info$b[i])
+  }
+
+  gt
 }
 
 #' @S3method facet_panels wrap
