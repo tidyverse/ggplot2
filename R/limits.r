@@ -7,7 +7,7 @@
 #'   character, will create a discrete scale.
 #' @seealso For changing x or y axis limits \strong{without} dropping data 
 #'   observations, see \code{\link{coord_cartesian}}.
-#' @rdname limits
+#' @rdname xylim
 #' @export
 #' @examples
 #' xlim(15, 20)
@@ -23,7 +23,7 @@ xlim <- function(...) {
   limits(c(...), "x")
 }
 
-#' @rdname limits
+#' @rdname xylim
 #' @export
 ylim <- function(...) {
   limits(c(...), "y")
