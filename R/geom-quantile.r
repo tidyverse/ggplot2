@@ -8,6 +8,7 @@
 #' @export
 #' @inheritParams geom_point
 #' @inheritParams geom_path
+#' @seealso See \code{\link{stat_quantile}} for examples.
 #' @examples
 #' # See stat_quantile for examples
 geom_quantile <- function (mapping = NULL, data = NULL, stat = "quantile", position = "identity", 

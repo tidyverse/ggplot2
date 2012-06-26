@@ -36,6 +36,7 @@
 #'   \item{density}{density of points in bin, scaled to integrate to 1, 
 #'     if method is "histodot"}
 #'   \item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
+#' @seealso See \code{\link{geom_dotplot}} for examples.
 #' @export
 #' @examples
 #' # See geom_dotplot for examples
