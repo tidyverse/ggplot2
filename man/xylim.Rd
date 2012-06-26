@@ -16,11 +16,14 @@
   and not passed to any other layers.
 }
 \examples{
+# xlim
 xlim(15, 20)
 xlim(20, 15)
 xlim(c(10, 20))
 xlim("a", "b", "c")
 qplot(mpg, wt, data=mtcars) + xlim(15, 20)
+
+# ylim
 ylim(15, 20)
 ylim(c(10, 20))
 ylim("a", "b", "c")
