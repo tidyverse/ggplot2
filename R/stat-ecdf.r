@@ -16,19 +16,18 @@
 #'                  
 #' ggplot(df, aes(x, colour = g)) + stat_ecdf()
 #' }
-stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step", position = "identity", n = 200, ...) {
+stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step", position = "identity", n = NULL, ...) {
   StatEcdf$new(mapping = mapping, data = data, geom = geom, position = position, n = n, ...)
 }
 
 StatEcdf <- proto(Stat, {
   objname <- "ecdf"
   
-  calculate <- function(., data, scales, n = 200, ...) {
+  calculate <- function(., data, scales, n = NULL, ...) {
     x <- sort(data$x)
 
-    # If the number of x data points exceeds n, then interpolate with n points
-    if (length(x) > n)  xvals <- seq(min(x), max(x), length.out = n)
-    else                xvals <- x
+    if (!is.null(n))  xvals <- seq(min(x), max(x), length.out = n)
+    else              xvals <- x
 
     y <- ecdf(x)(xvals)
 
