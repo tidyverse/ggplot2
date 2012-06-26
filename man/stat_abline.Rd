@@ -28,7 +28,10 @@
   Add a line with slope and intercept.
 }
 \examples{
-# see \\code{\\link{geom_abline}}
+# see geom_abline
+}
+\seealso{
+  \code{\link{geom_abline}} for code examples.
 }
 \keyword{internal}
 
