@@ -29,9 +29,20 @@ StatEcdf <- proto(Stat, {
     if (!is.null(n))  xvals <- seq(min(x), max(x), length.out = n)
     else              xvals <- x
 
-    y <- ecdf(x)(xvals)
+    fn <- ecdf(x)
+    y <- fn(xvals)
 
-    data.frame(x = xvals, y = y)
+    # make point with y = 0, from plot.stepfun
+    rx <- range(xvals)
+    if (length(xvals) > 1L) dr <- max(0.08 * diff(rx), median(diff(xvals)))
+    else dr <- abs(xvals)/16
+
+    x0 <- rx[1] - dr
+    x1 <- rx[2] + dr
+    y0 <- 0
+    y1 <- 1
+    
+    data.frame(x = c(x0, xvals, x1), y = c(y0, y, y1))
   }
 
   default_aes <- function(.) aes(y = ..y..)
