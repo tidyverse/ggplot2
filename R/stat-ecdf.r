@@ -35,10 +35,9 @@ StatEcdf <- proto(Stat, {
     data.frame(x = xvals, y = y)
   }
 
-  icon <- function(.) GeomPath$icon()
   default_aes <- function(.) aes(y = ..y..)
   required_aes <- c("x")
-  default_geom <- function(.) GeomPath
+  default_geom <- function(.) GeomStep
 
 })
 
