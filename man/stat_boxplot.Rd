@@ -54,4 +54,7 @@
 \examples{
 # See geom_boxplot for examples
 }
+\seealso{
+  See \code{\link{geom_boxplot}} for examples.
+}
 

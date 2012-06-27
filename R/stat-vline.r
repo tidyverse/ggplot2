@@ -2,6 +2,7 @@
 #'
 #' @keywords internal
 #' @inheritParams stat_identity
+#' @seealso \code{\link{geom_abline}} for code examples.
 #' @export
 #' @examples
 #' # see geom_abline
@@ -35,6 +36,7 @@ StatAbline <- proto(Stat, {
 #'
 #' @keywords internal
 #' @inheritParams stat_identity
+#' @seealso \code{\link{geom_vline}} for code examples.
 #' @export
 #' @examples
 #' # see geom_vline
@@ -67,6 +69,7 @@ StatVline <- proto(Stat, {
 #'
 #' @keywords internal
 #' @inheritParams stat_identity
+#' @seealso \code{\link{geom_hline}} for code examples.
 #' @export
 #' @examples
 #' # see geom_hline

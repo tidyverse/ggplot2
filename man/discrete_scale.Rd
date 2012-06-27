@@ -13,7 +13,7 @@
 
   \item{scale_name}{the name of the scale}
 
-  \item{palette}{a palette function that when call with a
+  \item{palette}{a palette function that when called with a
   single integer argument (the number of levels in the
   scale) returns the values that they should take}
 
