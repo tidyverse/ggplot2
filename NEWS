@@ -30,6 +30,9 @@ THEME SYSTEM
 
 MINOR FEATURES
 
+* ggplot2 now uses the external gtable package instead of internal gtable
+  functions.
+
 * The condition that set parameters (e.g. `colour = "red"`) could only be of
   length one has been relaxed - they may now be of length one, or exactly the
   same length as the data. Recycling is not done because it makes it harder to
