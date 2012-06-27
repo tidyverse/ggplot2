@@ -3,7 +3,7 @@
 \alias{theme_grey}
 \title{A theme with grey background and white gridlines.}
 \usage{
-  theme_grey(base_size = 12, base_family = "")
+  theme_grey(base_size = 12, base_family = "Helvetica")
 }
 \arguments{
   \item{base_size}{base font size}
@@ -13,5 +13,4 @@
 \description{
   A theme with grey background and white gridlines.
 }
-\keyword{dplot}
 

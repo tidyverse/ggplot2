@@ -45,11 +45,11 @@ p + guides(colour = guide_legend("title"), size = guide_legend("title"),
 g <- guide_legend("title")
 p + guides(colour = g, size = g, shape = g)
 
-p + opts(legend.position = "bottom")
+p + theme(legend.position = "bottom")
 
 # position of guides
 
-p + opts(legend.position = "bottom", legend.box = "horizontal")
+p + theme(legend.position = "bottom", legend.box = "horizontal")
 }
 }
 \seealso{

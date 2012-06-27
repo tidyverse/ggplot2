@@ -13,10 +13,15 @@
   Updated theme element
 }
 \description{
-  Update contents of a theme
+  Update contents of a theme. (Deprecated)
+}
+\details{
+  This function is deprecated. Use
+  \code{\link{\%+replace\%}} or \code{\link{+.theme}}
+  instead.
 }
 \examples{
-x <- theme_text(size = 15)
+x <- element_text(size = 15)
 update_element(x, colour = "red")
 # Partial matching works
 update_element(x, col = "red")
@@ -31,5 +36,8 @@ update_element(x, "Times New Roman")
 update_element("axis.text.x", colour = 20)
 # Throws error if incorrectly named
 \donttest{update_element("axis.text", colour = 20)}
+}
+\seealso{
+  \code{\link{\%+replace\%}} and \code{\link{+.theme}}
 }
 

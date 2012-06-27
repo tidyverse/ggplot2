@@ -37,11 +37,11 @@
 #' g <- guide_legend("title")
 #' p + guides(colour = g, size = g, shape = g)
 #' 
-#' p + opts(legend.position = "bottom")
+#' p + theme(legend.position = "bottom")
 #'
 #' # position of guides
 #' 
-#' p + opts(legend.position = "bottom", legend.box = "horizontal")
+#' p + theme(legend.position = "bottom", legend.box = "horizontal")
 #' }
 guides <- function(...) {
   args <- list(...)
@@ -52,7 +52,8 @@ guides <- function(...) {
 
 update_guides <- function(p, guides) {
   p <- plot_clone(p)
-  p + opts(guides = guides)
+  p$guides <- defaults(guides, p$guides)
+  p
 }
 
 
@@ -78,7 +79,7 @@ update_guides <- function(p, guides) {
 # 5. guides_build()
 #      arrange all ggrobs
 
-build_guides <- function(scales, layers, default_mapping, position, theme) {
+build_guides <- function(scales, layers, default_mapping, position, theme, guides, labels) {
 
   # set themes w.r.t. guides
   # should these theme$legend.XXX be renamed to theme$guide.XXX ?
@@ -107,7 +108,7 @@ build_guides <- function(scales, layers, default_mapping, position, theme) {
       c("center", "center")
 
   # scales -> data for guides
-  gdefs <- guides_train(scales = scales, theme = theme)
+  gdefs <- guides_train(scales = scales, theme = theme, guides = guides, labels = labels)
   if (length(gdefs) == 0) return(zeroGrob())
 
   # merge overlay guides
@@ -138,17 +139,17 @@ validate_guide <- function(guide) {
 }
 
 # train each scale in scales and generate the definition of guide
-guides_train <- function(scales, theme) {
+guides_train <- function(scales, theme, guides, labels) {
 
   gdefs <- list()
   for(scale in scales$scales) {
 
-    # guides(XXX) is stored in theme$guides[[XXX]],
+    # guides(XXX) is stored in guides[[XXX]],
     # which is prior to scale_ZZZ(guide=XXX)
     # guide is determined in order of:
     #   + guides(XXX) > + scale_ZZZ(guide=XXX) > default(i.e., legend)
     output <- scale$aesthetics[1]
-    guide <- theme$guides[[output]] %||% scale$guide 
+    guide <- guides[[output]] %||% scale$guide
 
     # this should be changed to testing guide == "none"
     # scale$legend is backward compatibility
@@ -165,7 +166,7 @@ guides_train <- function(scales, theme) {
       stop (paste("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.", sep=""))
 
     # title of this grob
-    if (is.waive(guide$title)) guide$title <- scale$name %||% theme$labels[[output]]
+    if (is.waive(guide$title)) guide$title <- scale$name %||% labels[[output]]
 
     # direction of this grob
     guide$direction <- guide$direction %||% theme$legend.direction

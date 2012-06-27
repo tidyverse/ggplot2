@@ -16,8 +16,8 @@
 #'   title. One of "top" (default for a vertical guide), "bottom", "left"
 #'  (default for a horizontal guide), or "right."
 #' @param title.theme A theme object for rendering the title text. Usually the
-#'   object of \code{\link{theme_text}} is expected. By default, the theme is
-#'   specified by \code{legend.title} in \code{\link{opts}} or theme.
+#'   object of \code{\link{element_text}} is expected. By default, the theme is
+#'   specified by \code{legend.title} in \code{\link{theme}} or theme.
 #' @param title.hjust A number specifying horizontal justification of the
 #'   title text.
 #' @param title.vjust A number specifying vertical justification of the title
@@ -28,18 +28,18 @@
 #'   label. One of "top", "bottom" (default for horizontal guide), "left", or
 #'   "right" (default for vertical gudie).
 #' @param label.theme A theme object for rendering the label text. Usually the
-#'   object of \code{\link{theme_text}} is expected. By default, the theme is
-#'   specified by \code{legend.text} in \code{\link{opts}} or theme.
+#'   object of \code{\link{element_text}} is expected. By default, the theme is
+#'   specified by \code{legend.text} in \code{\link{theme}} or theme.
 #' @param label.hjust A numeric specifying horizontal justification of the
 #'   label text.
 #' @param label.vjust A numeric specifying vertical justification of the label
 #'   text.
 #' @param keywidth A numeric or a unit object specifying the width of the
 #'   legend key. Default value is \code{legend.key.width} or
-#'   \code{legend.key.size} in \code{\link{opts}} or theme.
+#'   \code{legend.key.size} in \code{\link{theme}} or theme.
 #' @param keyheight A numeric or a unit object specifying the height of the
 #'   legend key. Default value is \code{legend.key.height} or
-#'   \code{legend.key.size} in \code{\link{opts}} or theme.
+#'   \code{legend.key.size} in \code{\link{theme}} or theme.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
 #' @param default.unit A character string indicating unit for \code{keywidth}
@@ -81,9 +81,9 @@
 #' # title position
 #' p1 + guides(fill = guide_legend(title = "LEFT", title.position = "left"))
 #' 
-#' # title text styles via theme_text
+#' # title text styles via element_text
 #' p1 + guides(fill = guide_legend(
-#'   title.theme = theme_text(size=15, face="italic", col="red", angle=45)))
+#'   title.theme = element_text(size=15, face="italic", col="red", angle=45)))
 #' 
 #' # label position
 #' p1 + guides(fill = guide_legend(label.position = "bottom"))
@@ -93,7 +93,7 @@
 #'   labels = paste("long", c(5, 10, 15)), 
 #'   guide = guide_legend(direction = "horizontal", title.position = "top",
 #'     label.position="bottom", label.hjust = 0.5, label.vjust = 0.5,
-#'     label.theme = theme_text(angle = 90)))
+#'     label.theme = element_text(angle = 90)))
 #' 
 #' # Set aesthetic of legend key
 #' 
@@ -297,16 +297,18 @@ guide_gengrob.legend <- function(guide, theme) {
   vgap <- hgap
 
   # title
-  title.theme <- guide$title.theme %||% theme$legend.title
+  title.theme <- guide$title.theme %||% calc_element("legend.title", theme)
   title.hjust <- title.x <- guide$title.hjust %||% theme$legend.title.align %||% 0
   title.vjust <- title.y <- guide$title.vjust %||% 0.5
   
   grob.title <- {
     if (is.null(guide$title))
       zeroGrob()
-    else 
-      title.theme(label=guide$title, name=grobName(NULL, "guide.title"),
-                  hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
+    else {
+      g <- element_grob(title.theme, label=guide$title,
+        hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
+      ggname("guide.title", g)
+    }
   }
 
   title_width <- convertWidth(grobWidth(grob.title), "mm")
@@ -323,15 +325,22 @@ guide_gengrob.legend <- function(guide, theme) {
   # Default:
   #   If label includes expression, the label is right-alignd (hjust = 0). Ohterwise, left-aligned (x = 1, hjust = 1).
   #   Vertical adjustment is always mid-alined (vjust = 0.5).
-  label.theme <- guide$label.theme %||% theme$legend.text
+  label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
   grob.labels <- {
     if (!guide$label)
       zeroGrob()
     else {
-      hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||% if (any(is.expression(guide$key$.label))) 1 else 0
+      hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||%
+        if (any(is.expression(guide$key$.label))) 1 else 0
       vjust <- y <- guide$label.vjust %||% 0.5
-      lapply(guide$key$.label, function(label) label.theme(label=label, name=grobName(NULL, "guide.label"),
-                                                           x = x, y = y, hjust = hjust, vjust = vjust))
+
+      lapply(guide$key$.label,
+        function(label, ...) {
+          g <- element_grob(element = label.theme, label = label, 
+            x = x, y = y, hjust = hjust, vjust = vjust)
+          ggname("guide.label", g)
+        }
+      )
     }
   }
 
@@ -460,7 +469,7 @@ guide_gengrob.legend <- function(guide, theme) {
     pos.col <- vps$key.col[i]
 
     # bg. of key
-    grob.keys[[length(grob.keys)+1]] <- theme_render(theme, "legend.key")
+    grob.keys[[length(grob.keys)+1]] <- element_render(theme, "legend.key")
 
     # overlay geoms
     for(geom in guide$geoms)
@@ -468,7 +477,7 @@ guide_gengrob.legend <- function(guide, theme) {
   }
 
   # background
-  grob.background <- theme_render(theme, "legend.background")
+  grob.background <- element_render(theme, "legend.background")
 
   ngeom <- length(guide$geoms) + 1
   kcols <- rep(vps$key.col, each =  ngeom)

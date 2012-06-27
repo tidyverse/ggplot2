@@ -18,6 +18,9 @@ guide_axis <- function(at, labels, position="right", theme) {
   length <- theme$axis.ticks.length
   label_pos <- length + theme$axis.ticks.margin
 
+  nticks <- length(at)
+
+  zero <- unit(0, "npc")
   one <- unit(1, "npc")
   
   label_render <- switch(position,
@@ -48,22 +51,34 @@ guide_axis <- function(at, labels, position="right", theme) {
 
   labels <- switch(position,
                    top = ,
-                   bottom = theme_render(theme, label_render, labels, x = label_x),
+                   bottom = element_render(theme, label_render, labels, x = label_x),
                    right = ,
-                   left =  theme_render(theme, label_render, labels, y = label_y))
+                   left =  element_render(theme, label_render, labels, y = label_y))
   
   line <- switch(position,
-    top =    theme_render(theme, "axis.line", 0, 0, 1, 0),
-    bottom = theme_render(theme, "axis.line", 0, 1, 1, 1),
-    right =  theme_render(theme, "axis.line", 0, 1, 0, 1),
-    left =   theme_render(theme, "axis.line", 1, 0, 1, 1)
+    top =    element_render(theme, "axis.line.x", c(0, 1), c(0, 0), id.lengths = 2),
+    bottom = element_render(theme, "axis.line.x", c(0, 1), c(1, 1), id.lengths = 2),
+    right =  element_render(theme, "axis.line.y", c(0, 0), c(0, 1), id.lengths = 2),
+    left =   element_render(theme, "axis.line.y", c(1, 1), c(0, 1), id.lengths = 2)
   )
   
   ticks <- switch(position,
-    top =    theme_render(theme, "axis.ticks", at, 0, at, length),
-    bottom = theme_render(theme, "axis.ticks", at, one - length, at, 1),
-    right =  theme_render(theme, "axis.ticks", 0, at, length, at),
-    left =   theme_render(theme, "axis.ticks", one - length, at, 1, at)
+    top = element_render(theme, "axis.ticks.x",
+      x          = rep(at, each=2),
+      y          = rep(unit.c(zero, length), nticks),
+      id.lengths = rep(2, nticks)),
+    bottom = element_render(theme, "axis.ticks.x",
+      x          = rep(at, each=2),
+      y          = rep(unit.c(one-length, one), nticks),
+      id.lengths = rep(2, nticks)),
+    right = element_render(theme, "axis.ticks.y",
+      x          = rep(unit.c(zero, length), nticks),
+      y          = rep(at, each=2),
+      id.lengths = rep(2, nticks)),
+    left = element_render(theme, "axis.ticks.y",
+      x          = rep(unit.c(one-length, one), nticks),
+      y          = rep(at, each=2),
+      id.lengths = rep(2, nticks))
   )
 
   just <- switch(position,

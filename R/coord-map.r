@@ -150,8 +150,8 @@ coord_render_bg.map <- function(coord, details, theme) {
   ylines <- coord_transform(coord, ygrid, details)
 
   if (nrow(xlines) > 0) {
-    grob.xlines <- theme_render(
-      theme, "panel.grid.major", name = "x", 
+    grob.xlines <- element_render(
+      theme, "panel.grid.major.x",
       xlines$x, xlines$y, default.units = "native"
     )
   } else {
@@ -159,8 +159,8 @@ coord_render_bg.map <- function(coord, details, theme) {
   }
 
   if (nrow(ylines) > 0) {
-    grob.ylines <- theme_render(
-      theme, "panel.grid.major", name = "y", 
+    grob.ylines <- element_render(
+      theme, "panel.grid.major.y",
       ylines$x, ylines$y, default.units = "native"
     )
   } else {
@@ -168,7 +168,7 @@ coord_render_bg.map <- function(coord, details, theme) {
   }
 
   ggname("grill", grobTree(
-    theme_render(theme, "panel.background"),
+    element_render(theme, "panel.background"),
     grob.xlines, grob.ylines
   ))
 }  

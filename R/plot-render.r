@@ -44,11 +44,11 @@ ggplot_gtable <- function(data) {
 
   # Axis labels
   labels <- coord_labels(plot$coordinates, list(
-    x = xlabel(panel, theme),
-    y = ylabel(panel, theme)
+    x = xlabel(panel, plot$labels),
+    y = ylabel(panel, plot$labels)
   ))
-  xlabel <- theme_render(theme, "axis.title.x", labels$x)
-  ylabel <- theme_render(theme, "axis.title.y", labels$y)
+  xlabel <- element_render(theme, "axis.title.x", labels$x)
+  ylabel <- element_render(theme, "axis.title.y", labels$y)
   
   panel_dim <-  find_panel(plot_table)
 
@@ -72,7 +72,7 @@ ggplot_gtable <- function(data) {
   }
 
   legend_box <- if (position != "none") {
-    build_guides(plot$scales, plot$layers, plot$mapping, position, theme)
+    build_guides(plot$scales, plot$layers, plot$mapping, position, theme, plot$guides, plot$labels)
   } else {
     zeroGrob()
   }
@@ -131,9 +131,9 @@ ggplot_gtable <- function(data) {
   }
 
   # Title  
-  title <- theme_render(theme, "plot.title", plot$options$title)
+  title <- element_render(theme, "plot.title", plot$labels$title)
   title_height <- grobHeight(title) + 
-    if (is.null(plot$options$title)) unit(0, "lines") else unit(0.5, "lines")
+    if (is.null(plot$labels$title)) unit(0, "lines") else unit(0.5, "lines")
 
   pans <- subset(plot_table$layout, grepl("^panel", name))
   
@@ -148,8 +148,8 @@ ggplot_gtable <- function(data) {
   plot_table <- gtable_add_cols(plot_table, theme$plot.margin[4], pos = 0)
 
   # TODO: use z-ordering of gtable 
-  if (inherits(theme$plot.background, "theme")) {
-    plot_table <- gtable_add_grob(plot_table, theme_render(theme, "plot.background", vp = "background"),
+  if (inherits(theme$plot.background, "element_rect")) {
+    plot_table <- gtable_add_grob(plot_table, element_render(theme, "plot.background", vp = "background"),
                                   t = 1, l = 1, b = length(plot_table$heights), r = length(plot_table$widths))
     plot_table$layout <- plot_table$layout[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1)),]
     plot_table$grobs <- plot_table$grobs[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1))]

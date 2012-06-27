@@ -38,7 +38,7 @@
 #'   geom_bar(width = 1) + 
 #'   scale_fill_manual(values = c("red", "yellow")) + 
 #'   coord_polar("y", start=pi / 3) + 
-#'   opts(title = "Pac man")
+#'   labs(title = "Pac man")
 #' 
 #' # Windrose + doughnut plot
 #' movies$rrating <- cut_interval(movies$rating, length = 1)
@@ -192,25 +192,31 @@ coord_render_bg.polar <- function(coord, details, theme) {
   r <- 0.4
   rfine <- c(r_rescale(coord, details$r.major, details), 0.45)
 
+  # This gets the proper theme element for theta and r grid lines:
+  #   panel.grid.major.x or .y
+  majortheta <- paste("panel.grid.major.", coord$theta, sep = "")
+  minortheta <- paste("panel.grid.minor.", coord$theta, sep = "")
+  majorr     <- paste("panel.grid.major.", coord$r,     sep = "")
+
   ggname("grill", grobTree(
-    theme_render(theme, "panel.background"),
-    if (length(theta) > 0) theme_render(
-      theme, "panel.grid.major", name = "angle", 
+    element_render(theme, "panel.background"),
+    if (length(theta) > 0) element_render(
+      theme, majortheta, name = "angle",
       x = c(rbind(0, 0.45 * sin(theta))) + 0.5, 
       y = c(rbind(0, 0.45 * cos(theta))) + 0.5,
       id.lengths = rep(2, length(theta)), 
       default.units="native"
     ),
-    if (length(thetamin) > 0) theme_render(
-      theme, "panel.grid.minor", name = "angle", 
+    if (length(thetamin) > 0) element_render(
+      theme, minortheta, name = "angle",
       x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5, 
       y = c(rbind(0, 0.45 * cos(thetamin))) + 0.5,
       id.lengths = rep(2, length(thetamin)),  
       default.units="native"
     ),
     
-    theme_render(
-      theme, "panel.grid.major", name = "radius",
+    element_render(
+      theme, majorr, name = "radius",
       x = rep(rfine, each=length(thetafine)) * sin(thetafine) + 0.5, 
       y = rep(rfine, each=length(thetafine)) * cos(thetafine) + 0.5,
       id.lengths = rep(length(thetafine), length(rfine)),
@@ -222,7 +228,7 @@ coord_render_bg.polar <- function(coord, details, theme) {
 #' @S3method coord_render_fg polar
 coord_render_fg.polar <- function(coord, details, theme) {
   if (is.null(details$theta.major)) {
-    return(theme_render(theme, "panel.border"))
+    return(element_render(theme, "panel.border"))
   }
   
   theta <- theta_rescale(coord, details$theta.major, details)
@@ -245,13 +251,13 @@ coord_render_fg.polar <- function(coord, details, theme) {
   }
     
   grobTree(
-    if (length(labels) > 0) theme_render(
+    if (length(labels) > 0) element_render(
       theme, "axis.text.x", 
       labels, 0.45 * sin(theta) + 0.5, 0.45 * cos(theta) + 0.5,
       hjust = 0.5, vjust = 0.5,
       default.units="native"
     ),      
-    theme_render(theme, "panel.border")
+    element_render(theme, "panel.border")
   )
 }  
 
