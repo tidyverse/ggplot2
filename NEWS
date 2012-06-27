@@ -54,6 +54,10 @@ MINOR FEATURES
 * The arrowhead of geom-path and geom-segment with `arrow = TRUE` is
   now filled with the same colour as the path.
 
+* The algorithm for calculating breaks locations has been changed from
+  `pretty_breaks()` to `extended_breaks()` from the 'labeling' package
+  by Justin Talbot. (Winston Chang. Fixes #580)
+
 DOCUMENTATION
 
 * All geoms and stats now document their aesthetics. (Fixes #447)
