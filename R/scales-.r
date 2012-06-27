@@ -105,15 +105,31 @@ find_global <- function(name) {
   NULL
 }
 
+
 # Determine default type of a scale
-scale_type <- function(x) {
-  if (is.discrete(x)) {
-    "discrete"
-  } else if (inherits(x, "Date")) {
-    "date"
-  } else if (inherits(x, "POSIXt")) {
-    "datetime"
-  } else {
-    "continuous"
-  }
+scale_type <- function(x) UseMethod("scale_type")
+
+#' @S3method scale_type default
+scale_type.default <- function(x) {
+  message("Don't know how to automatically pick scale for object of type ",
+    paste(class(x), collapse = "/"), ". Defaulting to continuous")
+  "continuous"
 }
+
+#' @S3method scale_type logical
+scale_type.logical <- function(x) "discrete"
+
+#' @S3method scale_type character
+scale_type.character <- function(x) "discrete"
+
+#' @S3method scale_type factor
+scale_type.factor <- function(x) "discrete"
+
+#' @S3method scale_type POSIXt
+scale_type.POSIXt <- function(x) "datetime"
+
+#' @S3method scale_type Date
+scale_type.Date <- function(x) "date"
+
+#' @S3method scale_type numeric
+scale_type.numeric <- function(x) "continuous"

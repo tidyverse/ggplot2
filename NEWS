@@ -58,6 +58,12 @@ MINOR FEATURES
   `pretty_breaks()` to `extended_breaks()` from the 'labeling' package
   by Justin Talbot. (Winston Chang. Fixes #580)
 
+* `scale_type`, the function used to pick which type of scale should be
+   used for a given type of input variable is now an S3 generic. That
+   means that if you want to add a new default type of scale you can
+   provide a method - it should return a string giving the name of the
+   scale to use (e.g. "continuous", "discrete", "date")
+
 DOCUMENTATION
 
 * All geoms and stats now document their aesthetics. (Fixes #447)
