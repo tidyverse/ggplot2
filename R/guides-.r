@@ -217,22 +217,21 @@ guides_build <- function(ggrobs, theme) {
 
   # setting that is different for vergical and horizontal guide-boxes.
   if (theme$legend.box == "horizontal") {
-    spacefun <- gtable_add_col_space
-    margin <- theme$guide.hmargin
     guides <- gtable_row(name = "guides",
                          grobs = lapply(ggrobs, gtable_gTree),
                          widths = widths, height = max(heights))
+
+    # add space between the guide-boxes
+    guides <- gtable_add_col_space(guides, theme$guide.hmargin)
+
   } else if (theme$legend.box == "vertical") {
-    spacefun <- gtable_add_row_space
-    margin <- theme$guide.vmargin
     guides <- gtable_col(name = "guides",
                          grobs = lapply(ggrobs, gtable_gTree),
                          width = max(widths), heights = heights)
+
+    # add space between the guide-boxes
+    guides <- gtable_add_row_space(guides, theme$guide.vmargin)
   }
-
-
-  # add space between the guide-boxes.
-  guides <- spacefun(guides, margin)
 
   # add margins around the guide-boxes.
   guides <- gtable_add_cols(guides, theme$guide.hmargin, pos = 0)
