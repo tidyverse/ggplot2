@@ -187,7 +187,6 @@ Collate:
     'utilities-layer.r'
     'utilities-matrix.r'
     'utilities-resolution.r'
-    'utilities-table-template.r'
     'utilities-table.r'
     'utilities.r'
     'xxx-digest.r'
