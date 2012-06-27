@@ -55,6 +55,7 @@ list(
         "stat_contour",
         "stat_density",
         "stat_density2d",
+        "stat_ecdf",
         "stat_function",
         "stat_identity",
         "stat_qq",
@@ -518,6 +519,7 @@ list(
     stat_boxplot = sd_icon(inherit = "geom_boxplot" ),
     stat_contour = sd_icon(inherit = "geom_contour" ),
     stat_density2d = sd_icon(inherit = "geom_density2d" ),
+    stat_ecdf = sd_icon(inherit = "geom_step"),
     stat_density = sd_icon(inherit = "geom_density" ),
     stat_identity = sd_icon({
       textGrob('f(x) = x', gp = gpar(cex = 1.2))
