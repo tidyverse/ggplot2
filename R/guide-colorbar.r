@@ -401,20 +401,20 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   gt <- gtable(widths = unit(widths, "mm"), heights = unit(heights, "mm"))
   gt <- gtable_add_grob(gt, grob.background, name = "background", clip = "off",
-                        l = 1, t = 1,
-                        r = length(widths) - 1, b = length(heights) - 1)
+    t = 1, r = length(widths) - 1,
+    b = length(heights) - 1, l = 1)
   gt <- gtable_add_grob(gt, grob.bar, name = "bar", clip = "off",
-                        l = 1 + min(vps$bar.col), t = 1 + min(vps$bar.row),
-                        r = 1 + max(vps$bar.col), b = 1 + max(vps$bar.row))
+    t = 1 + min(vps$bar.row), r = 1 + max(vps$bar.col),
+    b = 1 + max(vps$bar.row), l = 1 + min(vps$bar.col))
   gt <- gtable_add_grob(gt, grob.label, name = "label", clip = "off",
-                        l = 1 + min(vps$label.col), t = 1 + min(vps$label.row),
-                        r = 1 + max(vps$label.col), b = 1 + max(vps$label.row))
+    t = 1 + min(vps$label.row), r = 1 + max(vps$label.col),
+    b = 1 + max(vps$label.row), l = 1 + min(vps$label.col))
   gt <- gtable_add_grob(gt, grob.title, name = "title", clip = "off",
-                        l = 1 + min(vps$title.col), t = 1 + min(vps$title.row),
-                        r = 1 + max(vps$title.col), b = 1 + max(vps$title.row))
+    t = 1 + min(vps$title.row), r = 1 + max(vps$title.col),
+    b = 1 + max(vps$title.row), l = 1 + min(vps$title.col))
   gt <- gtable_add_grob(gt, grob.ticks, name = "ticks", clip = "off",
-                        l = 1 + min(vps$bar.col), t = 1 + min(vps$bar.row),
-                        r = 1 + max(vps$bar.col), b = 1 + max(vps$bar.row))
+    t = 1 + min(vps$bar.row), r = 1 + max(vps$bar.col),
+    b = 1 + max(vps$bar.row), l = 1 + min(vps$bar.col))
 
   gt
 }
