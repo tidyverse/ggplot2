@@ -491,8 +491,7 @@ guide_gengrob.legend <- function(guide, theme) {
   # Create the gtable for the legend
   gt <- gtable(widths = unit(widths, "mm"), heights = unit(heights, "mm"))
   gt <- gtable_add_grob(gt, grob.background, name = "background", clip = "off",
-    t = 1, r = length(widths) - 1,
-    b = length(heights) - 1, l = 1)
+    t = 1, r = -1, b = -1, l = 1)
   gt <- gtable_add_grob(gt, grob.title, name = "title", clip = "off",
     t = 1 + min(vps.title.row), r = 1 + max(vps.title.col),
     b = 1 + max(vps.title.row), l = 1 + min(vps.title.col))

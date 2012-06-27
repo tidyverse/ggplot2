@@ -401,8 +401,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   gt <- gtable(widths = unit(widths, "mm"), heights = unit(heights, "mm"))
   gt <- gtable_add_grob(gt, grob.background, name = "background", clip = "off",
-    t = 1, r = length(widths) - 1,
-    b = length(heights) - 1, l = 1)
+    t = 1, r = -1, b = -1, l = 1)
   gt <- gtable_add_grob(gt, grob.bar, name = "bar", clip = "off",
     t = 1 + min(vps$bar.row), r = 1 + max(vps$bar.col),
     b = 1 + max(vps$bar.row), l = 1 + min(vps$bar.col))
