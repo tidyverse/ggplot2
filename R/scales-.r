@@ -77,21 +77,14 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
   if (length(datacols) == 0) return()
 
   for(aes in new_aesthetics) {
-    disc <- is.discrete(datacols[[aes]])
-    type <- if (disc) "discrete" else "continuous"
+    type <- scale_type(datacols[[aes]])
     scale_name <- paste("scale", aes, type, sep="_")
 
     # Skip aesthetics with no scales (e.g. group, order, etc)
     scale_f <- find_global(scale_name)
     if (is.null(scale_f)) next
-    
-    if (disc) {
-      args <- list()
-    } else {
-      args <- list(trans = trans_type(datacols[[aes]]))
-    }
-    scale <- do.call(scale_f, args)
-    scales$add(scale)
+
+    scales$add(scale_f())
   }
   
 }
@@ -112,13 +105,31 @@ find_global <- function(name) {
   NULL
 }
 
-# Determine default transformation for continuous scales
-trans_type <- function(x) {
-  if (inherits(x, "Date")) {
-    "date"
-  } else if (inherits(x, "POSIXt")) {
-    "time"
-  } else {
-    "identity"
-  }
+
+# Determine default type of a scale
+scale_type <- function(x) UseMethod("scale_type")
+
+#' @S3method scale_type default
+scale_type.default <- function(x) {
+  message("Don't know how to automatically pick scale for object of type ",
+    paste(class(x), collapse = "/"), ". Defaulting to continuous")
+  "continuous"
 }
+
+#' @S3method scale_type logical
+scale_type.logical <- function(x) "discrete"
+
+#' @S3method scale_type character
+scale_type.character <- function(x) "discrete"
+
+#' @S3method scale_type factor
+scale_type.factor <- function(x) "discrete"
+
+#' @S3method scale_type POSIXt
+scale_type.POSIXt <- function(x) "datetime"
+
+#' @S3method scale_type Date
+scale_type.Date <- function(x) "date"
+
+#' @S3method scale_type numeric
+scale_type.numeric <- function(x) "continuous"
