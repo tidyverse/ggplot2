@@ -44,6 +44,11 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
   if (bad_labels) {
     stop("Breaks and labels have unequal lengths", call. = FALSE)
   }
+
+  if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
+    warning("NULL breaks for non-positional scale is invalid. Guide for this scale is suppressed.")
+    guide <- "none"
+  }
   
   trans <- as.trans(trans)
   if (!is.null(limits)) {
@@ -125,7 +130,12 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks 
   if (bad_labels) {
     stop("Breaks and labels have unequal lengths", call. = FALSE)
   }
-  
+
+  if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
+    warning("NULL breaks for non-positional scale is invalid. Guide for this scale is suppressed.")
+    guide <- "none"
+  }
+
   structure(list(
     call = match.call(), 
 
