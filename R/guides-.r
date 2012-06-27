@@ -217,32 +217,22 @@ guides_build <- function(ggrobs, theme) {
   heights <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$heights)))
 
   # setting that is different for vergical and horizontal guide-boxes.
-  switch(theme$legend.box,
-    horizontal = {
-      box_nrow <- 1
-      box_ncol <- n
-      twidths <- widths
-      theights <- gheight <- max(heights)
-      spacefun <- gtable_add_col_space
-      margin <- theme$guide.hmargin
-    },
-    vertical = {
-      box_nrow <- n
-      box_ncol <- 1
-      twidths <- gwidth <- max(widths)
-      theights <- heights
-      spacefun <- gtable_add_row_space
-      margin <- theme$guide.vmargin
-    })
+  if (theme$legend.box == "horizontal") {
+    guides <- gtable_row(name = "guides",
+      grobs = lapply(ggrobs, gtable_gTree),
+      widths = widths, height = max(heights))
 
-  # make gtable for the guide-boxes
-  lay <- data.frame(l = seq(box_ncol), t = seq(box_nrow), r = seq(box_ncol), b = seq(box_nrow),
-                    name = paste("guide-", seq(n), sep = ""),
-                    clip = FALSE)
-  guides <- gtable(lapply(ggrobs, gtable_gTree), lay, twidths, theights)
+    # add space between the guide-boxes
+    guides <- gtable_add_col_space(guides, theme$guide.hmargin)
 
-  # add space between the guide-boxes.
-  guides <- spacefun(guides, margin)
+  } else if (theme$legend.box == "vertical") {
+    guides <- gtable_col(name = "guides",
+      grobs = lapply(ggrobs, gtable_gTree),
+      width = max(widths), heights = heights)
+
+    # add space between the guide-boxes
+    guides <- gtable_add_row_space(guides, theme$guide.vmargin)
+  }
 
   # add margins around the guide-boxes.
   guides <- gtable_add_cols(guides, theme$guide.hmargin, pos = 0)

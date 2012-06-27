@@ -21,6 +21,7 @@ Imports:
     plyr (>= 1.0),
     digest,
     grid,
+    gtable (>= 0.1),
     reshape2,
     scales (>= 0.2.1.1),
     memoise,
@@ -186,7 +187,6 @@ Collate:
     'utilities-layer.r'
     'utilities-matrix.r'
     'utilities-resolution.r'
-    'utilities-table-template.r'
     'utilities-table.r'
     'utilities.r'
     'xxx-digest.r'
