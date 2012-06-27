@@ -21,6 +21,9 @@ MINOR FEATURES
 * The default guide for continuous color/fill scale is now colourbar.
   (Kohske Takahashi. Fixes #555)
 
+* The arrowhead of geom-path and geom-segment with `arrow = TRUE` is
+  now filled with the same colour as the path.
+
 DOCUMENTATION
 
 * All geoms and stats now document their aesthetics. (Fixes #447)
