@@ -220,13 +220,13 @@ guides_build <- function(ggrobs, theme) {
   if (theme$legend.box == "horizontal") {
     spacefun <- gtable_add_col_space
     margin <- theme$guide.hmargin
-    guides <- gtable_row(name = paste("guide-", seq(n), sep = ""),
+    guides <- gtable_row(name = "guides",
                          grobs = lapply(ggrobs, gtable_gTree),
                          widths = widths, height = max(heights))
   } else if (theme$legend.box == "vertical") {
     spacefun <- gtable_add_row_space
     margin <- theme$guide.vmargin
-    guides <- gtable_col(name = paste("guide-", seq(n), sep = ""),
+    guides <- gtable_col(name = "guides",
                          grobs = lapply(ggrobs, gtable_gTree),
                          width = max(widths), heights = heights)
   }
