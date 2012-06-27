@@ -86,6 +86,8 @@ BUG FIXES
 * `annotation_map` now gets group id from munched data. (Winston Chang.
   Fixes #568)
 
+* `geom_raster` now supports alpha. (Kohske Takahashi. Fixes #596)
+
 ggplot2 0.9.1
 ----------------------------------------------------------------
 
