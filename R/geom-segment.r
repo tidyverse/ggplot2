@@ -51,8 +51,8 @@ GeomSegment <- proto(Geom, {
     if (is.linear(coordinates)) {
       return(with(coord_transform(coordinates, data, scales), 
         segmentsGrob(x, y, xend, yend, default.units="native",
-        gp = gpar(col=alpha(colour, alpha), lwd=size * .pt, 
-          lty=linetype, lineend = "butt"), 
+        gp = gpar(col=alpha(colour, alpha), fill = alpha(colour, alpha),
+          lwd=size * .pt, lty=linetype, lineend = "butt"), 
         arrow = arrow)
       ))
     }
