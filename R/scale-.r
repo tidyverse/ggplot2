@@ -46,7 +46,6 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
   }
 
   if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
-    warning("NULL breaks for non-positional scale is invalid. Guide for this scale is suppressed.")
     guide <- "none"
   }
   
@@ -132,7 +131,6 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks 
   }
 
   if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
-    warning("NULL breaks for non-positional scale is invalid. Guide for this scale is suppressed.")
     guide <- "none"
   }
 
