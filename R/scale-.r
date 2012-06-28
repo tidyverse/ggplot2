@@ -25,11 +25,15 @@ NULL
 #' Continuous scale constructor.
 #'
 #' @export
-#' @param aesthetics character 
-#' @param trans A transformation object, as created by
-#'   \code{\link[scales]{trans_new}}.  You can also give the name of the 
-#'   transformer: e.g. instead of \code{log2_trans()} you can use 
-#'   \code{"log2"}.
+#' @inheritParams discrete_scale
+#' @param minor_breaks Used with date or datetime scales. Either \code{NULL} for 
+#'   no minor breaks, \code{waiver()} for the default breaks (one minor break 
+#'   between each major break), a numeric vector of positions, or a function 
+#'   that given the limits returns a vector of minor breaks.
+#' @param limits A numeric vector of length two describing the scale limits. 
+#' @param rescaler  Used by diverging and n colour gradients 
+#'   (i.e. \code{\link{scale_colour_gradient2}}, \code{\link{scale_colour_gradientn}}).
+#' @param oob What to do with values outside scale limits (out of bounds)?
 #' @keywords internal
 continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA, trans = "identity", guide="legend") {
 
@@ -84,7 +88,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #' @export
 #' @param aesthetics the names of the aesthetics that this scale works with
 #' @param scale_name the name of the scale
-#' @param palette a palette function that when call with a single integer
+#' @param palette a palette function that when called with a single integer
 #'   argument (the number of levels in the scale) returns the values that
 #'   they should take
 #' @param name the name of the scale - used as the axis label or the legend

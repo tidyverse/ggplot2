@@ -4,10 +4,10 @@
 \title{Position scale, date}
 \usage{
   scale_x_datetime(..., expand = waiver(),
-    breaks = waiver(), minor_breaks = waiver())
+    breaks = pretty_breaks(), minor_breaks = waiver())
 
   scale_y_datetime(..., expand = waiver(),
-    breaks = waiver(), minor_breaks = waiver())
+    breaks = pretty_breaks(), minor_breaks = waiver())
 }
 \arguments{
   \item{breaks}{A vector of breaks, a function that given
