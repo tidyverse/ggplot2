@@ -30,5 +30,8 @@
 \examples{
 # see geom_abline
 }
+\seealso{
+  \code{\link{geom_abline}} for code examples.
+}
 \keyword{internal}
 

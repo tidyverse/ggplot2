@@ -3,11 +3,11 @@
 \alias{scale_y_date}
 \title{Position scale, date}
 \usage{
-  scale_x_date(..., expand = waiver(), breaks = waiver(),
-    minor_breaks = waiver())
+  scale_x_date(..., expand = waiver(),
+    breaks = pretty_breaks(), minor_breaks = waiver())
 
-  scale_y_date(..., expand = waiver(), breaks = waiver(),
-    minor_breaks = waiver())
+  scale_y_date(..., expand = waiver(),
+    breaks = pretty_breaks(), minor_breaks = waiver())
 }
 \arguments{
   \item{breaks}{A vector of breaks, a function that given

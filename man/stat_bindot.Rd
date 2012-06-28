@@ -84,4 +84,7 @@
 \examples{
 # See geom_dotplot for examples
 }
+\seealso{
+  See \code{\link{geom_dotplot}} for examples.
+}
 

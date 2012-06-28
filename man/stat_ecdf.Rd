@@ -3,10 +3,11 @@
 \title{Empirical Cumulative Density Function}
 \usage{
   stat_ecdf(mapping = NULL, data = NULL, geom = "step",
-    position = "identity", n = 101, ...)
+    position = "identity", n = NULL, ...)
 }
 \arguments{
-  \item{n}{number of points to interpolate along}
+  \item{n}{if NULL, do not interpolate. If not NULL, this
+  is the number of points to interpolate with.}
 
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
@@ -27,18 +28,15 @@
   for more details.}
 }
 \value{
-  a data.frame with additional columns: \item{x}{x's along
-  a grid} \item{y}{cumulative density corresponding x}
+  a data.frame with additional columns: \item{x}{x in data}
+  \item{y}{cumulative density corresponding x}
 }
 \description{
   Empirical Cumulative Density Function
 }
 \examples{
 \donttest{
-l(ggplot2, T)
-set.seed(42)
-x <- c(rnorm(1000))
-qplot(x, stat = "ecdf", geom = "step")
+qplot(rnorm(1000), stat = "ecdf", geom = "step")
 
 df <- data.frame(x = c(rnorm(100, 0, 3), rnorm(100, 0, 10)),
                  g = gl(2, 100))
