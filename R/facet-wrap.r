@@ -175,12 +175,9 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   # Keep only the rows in info that refer to grobs
   info  <- info[info$type %in% names(grobs), ]
   grobs <- unlist(grobs, recursive = FALSE)
-  # Add each grob
-  for (i in seq(nrow(info))) {
-      gt <- gtable_add_grob(gt, grobs[i],
-        name = info$name[i], clip = info$clip[i],
-        l = info$l[i], t = info$t[i], r = info$r[i], b = info$b[i])
-  }
+  # Add the grobs
+  gt <- gtable_add_grob(gt, grobs, l = info$l, t = info$t, r = info$r,
+    b = info$b, name = info$name, clip = info$clip)
 
   gt
 }
