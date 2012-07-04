@@ -76,12 +76,12 @@ ggplot(dat2, aes(x=x, y=y)) +
 save_vtest("bin y, three x groups, stack centerwhole")
 
 ggplot(dat2, aes(x=x, y=y)) +
-  geom_dotplot(binwidth=.25, binaxis="y", stackdir="center", binpositions="all") +
+  geom_dotplot(binwidth=.25, binaxis="y", stackdir="center", binpositions="all")
 save_vtest("bin y, three x groups, bins aligned across groups")
 
 ggplot(dat2, aes(x=x, y=y)) +
   geom_dotplot(binwidth=.25, binaxis="y", stackdir="center", binpositions="all") +
-  coord_flip() +
+  coord_flip()
 save_vtest("bin y, three x groups, bins aligned, coord_flip")
 
 ggplot(dat2, aes(x="foo", y=y, fill=x)) + scale_y_continuous(breaks=seq(-4,4,.4)) +
