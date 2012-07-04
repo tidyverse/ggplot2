@@ -146,7 +146,7 @@ guide_legend <- function(
   ncol = NULL,
   byrow = FALSE,
   reverse = FALSE,
-  order = 0,                         
+  order = 0,
                          
   ...) {
   
