@@ -42,6 +42,13 @@
 #' # position of guides
 #' 
 #' p + theme(legend.position = "bottom", legend.box = "horizontal")
+#'
+#' # order of multi-guides
+#'
+#' qplot(data = mpg,x = displ, y = cty, size = hwy, colour = class, alpha = cyl) +
+#'    guides(size = guide_legend(order = 3),
+#'           colour = guide_colorbar(order = 1),
+#'           alpha = guide_legend(order = 2))
 #' }
 guides <- function(...) {
   args <- list(...)
@@ -183,6 +190,11 @@ guides_train <- function(scales, theme, guides, labels) {
 # merge overlapped guides
 guides_merge <- function(gdefs) {
   # split gdefs based on hash, and apply Reduce (guide_merge) to each gdef groug.
+  gdefs <- lapply(gdefs, function(g) {
+    if (g$order == 0) { order <- "99" } else { order <- sprintf("%02d", g$order) }
+    g$hash <- paste(order, g$hash, sep = "_")
+    g
+  })
   tapply(gdefs, sapply(gdefs, function(g)g$hash), function(gs)Reduce(guide_merge, gs))
 }
 
