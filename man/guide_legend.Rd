@@ -10,7 +10,7 @@
     keywidth = NULL, keyheight = NULL, direction = NULL,
     default.unit = "line", override.aes = list(),
     nrow = NULL, ncol = NULL, byrow = FALSE,
-    reverse = FALSE, ...)
+    reverse = FALSE, order = 0, ...)
 }
 \arguments{
   \item{title}{A character string or expression indicating
@@ -84,6 +84,11 @@
 
   \item{reverse}{logical. If \code{TRUE} the order of
   legends is reversed.}
+
+  \item{order}{positive integer less that 99 that specify
+  the order of this guide in the multiple guides. If 0
+  (default), the order is determined by a secret
+  algorithm.}
 
   \item{...}{ignored.}
 }

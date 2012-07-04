@@ -11,7 +11,7 @@
     barwidth = NULL, barheight = NULL, nbin = 20,
     raster = TRUE, ticks = TRUE, draw.ulim = TRUE,
     draw.llim = TRUE, direction = NULL,
-    default.unit = "line", reverse = FALSE, ...)
+    default.unit = "line", reverse = FALSE, order = 0, ...)
 
   guide_colorbar(title = waiver(), title.position = NULL,
     title.theme = NULL, title.hjust = NULL,
@@ -21,7 +21,7 @@
     barwidth = NULL, barheight = NULL, nbin = 20,
     raster = TRUE, ticks = TRUE, draw.ulim = TRUE,
     draw.llim = TRUE, direction = NULL,
-    default.unit = "line", reverse = FALSE, ...)
+    default.unit = "line", reverse = FALSE, order = 0, ...)
 }
 \arguments{
   \item{barwidth}{A numeric or a unit object specifying the
@@ -106,6 +106,11 @@
 
   \item{label.vjust}{A numeric specifying vertical
   justification of the label text.}
+
+  \item{order}{positive integer less that 99 that specify
+  the order of this guide in the multiple guides. If 0
+  (default), the order is determined by a secret
+  algorithm.}
 }
 \value{
   A guide object

@@ -119,6 +119,7 @@ guide_colourbar <- function(
   direction = NULL,
   default.unit = "line",
   reverse = FALSE,
+  order = 0,
 
   ...) {
   
@@ -155,6 +156,7 @@ guide_colourbar <- function(
     direction = direction,
     default.unit = default.unit,
     reverse = reverse,
+    order = order,
 
     # parameter
     available_aes = c("colour", "color", "fill"),
