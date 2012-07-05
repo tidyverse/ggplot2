@@ -81,7 +81,7 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
     scale_name <- paste("scale", aes, type, sep="_")
 
     # Skip aesthetics with no scales (e.g. group, order, etc)
-    scale_f <- find_global(scale_name)
+    scale_f <- find_global(scale_name, env)
     if (is.null(scale_f)) next
 
     scales$add(scale_f())
@@ -89,12 +89,12 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
   
 }
 
-# Look for object first in global environment and if not found, then in 
+# Look for object first in parent environment and if not found, then in 
 # ggplot2 package environment.  This makes it possible to override default
-# scales by setting them in the default environment.
-find_global <- function(name) {
-  if (exists(name, globalenv())) {
-    return(get(name, globalenv()))
+# scales by setting them in the parent environment.
+find_global <- function(name, env) {
+  if (exists(name, env)) {
+    return(get(name, env))
   }
 
   if (exists(name, "package:ggplot2")) {
