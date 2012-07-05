@@ -27,6 +27,10 @@ test_that("Modifying theme element properties with + operator", {
   t <- theme_grey() + theme(axis.text.y = element_blank())
   expect_identical(t$axis.text.y, element_blank())
 
+  # Adding a non-blank element to an element_blank() replaces it
+  t <- t + theme(axis.text.y = element_text(colour='red'))
+  expect_identical(t$axis.text.y, element_text(colour='red'))
+
   # Adding empty theme() has no effect
   t <- theme_grey() + theme()
   expect_identical(t, theme_grey())

@@ -231,14 +231,15 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
   top <- gtable_add_cols(top, strips$r$widths)
   top <- gtable_add_cols(top, axes$l$widths, pos = 0)
   
-  center <- cbind(cbind(axes$l, panels), strips$r)
+  center <- cbind(axes$l, panels, strips$r, z = c(2, 1, 3))
   bottom <- axes$b
   bottom <- gtable_add_cols(bottom, strips$r$widths)
   bottom <- gtable_add_cols(bottom, axes$l$widths, pos = 0)
 
-  complete <- rbind(top, rbind(center, bottom))
+  complete <- rbind(top, center, bottom, z = c(1, 2, 3))
   complete$respect <- panels$respect
   complete$name <- "layout"
+  bottom <- axes$b
   
   complete
 }
