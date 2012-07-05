@@ -33,8 +33,8 @@ PositionJitter <- proto(Position, {
     if (empty(data)) return(data.frame())
     check_required_aesthetics(c("x", "y"), names(data), "position_jitter")
     
-    if (is.null(.$width)) .$width <- resolution(data$x) * 0.4
-    if (is.null(.$height)) .$height <- resolution(data$y) * 0.4
+    if (is.null(.$width)) .$width <- resolution(data$x, zero = FALSE) * 0.4
+    if (is.null(.$height)) .$height <- resolution(data$y, zero = FALSE) * 0.4
     
     trans_x <- NULL
     trans_y <- NULL
