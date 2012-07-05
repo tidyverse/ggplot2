@@ -3,7 +3,7 @@
 # 
 # @keyword internal
 ggname <- function(prefix, grob) {
-  grob$name <- grobName(grob, prefix)
+  grob$name <- paste(prefix, class(grob)[1L], sep = ".")  
   grob
 }
 
