@@ -96,10 +96,17 @@ find_global <- function(name) {
   if (exists(name, globalenv())) {
     return(get(name, globalenv()))
   }
-  
-  pkg <- getNamespace("ggplot2")
-  if (exists(name, pkg)) {
-    return(get(name, pkg))
+
+  # If loaded with load_all, envname == "package:ggplot2"
+  # If installed and loaded in package, envname == "ggplot2"
+  # Look in ggplot2 package only if ggplot2 is installed and loaded.
+  # This is because getNamespace() always loads the installed package,
+  # which can cause conflicts when developing with load_all().
+  if (environmentName(parent.env(environment())) == "ggplot2") {
+    pkg <- getNamespace("ggplot2")
+    if (exists(name, pkg)) {
+      return(get(name, pkg))
+    }
   }
   
   NULL

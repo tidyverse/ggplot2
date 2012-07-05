@@ -397,8 +397,8 @@ add_theme <- function(t1, t2, t2name) {
     x <- t1[[item]]
     y <- t2[[item]]
 
-    if (is.null(x)) {
-      # If x is NULL, then just assign it y
+    if (is.null(x) || inherits(x, "element_blank")) {
+      # If x is NULL or element_blank, then just assign it y
       x <- y
     } else if (is.null(y) || is.character(y) || is.numeric(y) ||
                inherits(y, "element_blank")) {
