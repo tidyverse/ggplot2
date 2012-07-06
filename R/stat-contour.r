@@ -121,23 +121,21 @@ contour_lines <- function(data, breaks, complete = FALSE) {
   )
 }
 
-#
-# broken <- subset(contours, piece <= 5)
-# qplot(x, y, data = broken, geom = "path") + facet_wrap(~ piece)
-#
+# 1 = clockwise, -1 = counterclockwise, 0 = 0 area
+# From http://stackoverflow.com/questions/1165647
+# x <- c(5, 6, 4, 1, 1)
+# y <- c(0, 4, 5, 5, 0)
+# poly_dir(x, y)
+poly_dir <- function(x, y) {
+  xdiff <- c(x[-1], x[1]) - x
+  ysum <- c(y[-1], y[1]) + y
+  sign(sum(xdiff * ysum))
+}
+
 # To fix breaks and complete the polygons, we need to add 0-4 corner points.
-# Hardest thing is to figure out the direction of the contour - is it 
-# inward facing or outward facing?
 #
-#
-# complete_contour(subset(broken, piece == 1))
-# complete_contour <- function(contour) {
-#   midx <- mean(range(contour$x))
-#   midy <- mean(range(contour$y))
-#   
-#   angle <- atan2(contour$y - midy, contour$x - midx)
-#   
-#   browser()
-# }
-# 
-# 
+# contours <- ddply(contours, "piece", mutate, dir = poly_dir(x, y))
+# qplot(x, y, data = contours, geom = "path", group = piece, 
+#   colour = factor(dir))
+# last_plot() + facet_wrap(~ level)
+
