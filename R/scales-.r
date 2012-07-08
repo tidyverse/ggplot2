@@ -10,8 +10,18 @@ Scales <- setRefClass("Scales", fields = "scales", methods = list(
     any(find(aesthetic))
   },
   add = function(scale) {
+    prev_aes <- find(scale$aesthetics)
+    if (any(prev_aes)) {
+      # Get only the first aesthetic name in the returned vector -- it can
+      # sometimes be c("x", "xmin", "xmax", ....)
+      scalename <- scales[[prev_aes]]$aesthetics[1]
+      message("Scale for '", scalename,
+        "' is already present. Adding another scale for '", scalename,
+        "', which will replace the existing scale.")
+    }
+
     # Remove old scale for this aesthetic (if it exists)
-    scales <<- c(scales[!find(scale$aesthetics)], list(scale))
+    scales <<- c(scales[!prev_aes], list(scale))
   }, 
   clone = function() {
     new_scales <- lapply(scales, scale_clone)
