@@ -2,7 +2,7 @@
 #' 
 #' @name ggplot2
 #' @docType package
-#' @import plyr digest scales grid reshape2 memoise proto
+#' @import plyr digest scales grid reshape2 memoise proto gtable
 NULL
 
 #' Prices of 50,000 round cut diamonds
