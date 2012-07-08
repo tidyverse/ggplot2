@@ -211,7 +211,7 @@ facet_strips.wrap <- function(facet, panel, theme) {
   
   labels <- apply(labels_df, 1, paste, collapse=", ")
 
-  list(t = llply(labels, ggstrip, theme = theme))
+  list(t = llply(labels, striptext_grob, theme = theme))
 }
 
 #' @S3method facet_axes wrap

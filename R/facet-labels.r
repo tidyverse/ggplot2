@@ -63,15 +63,31 @@ label_bquote <- function(expr = beta ^ .(x)) {
 }
 
 # Grob for strip labels
-ggstrip <- function(text, horizontal=TRUE, theme) {
+striptext_grob <- function(text, horizontal=TRUE, theme) {
   text_theme <- if (horizontal) "strip.text.x" else "strip.text.y"
   if (is.list(text)) text <- text[[1]]
 
   label <- element_render(theme, text_theme, text)
 
-  ggname("strip", absoluteGrob(
+  ggname("strip.text", absoluteGrob(
     gList(
       element_render(theme, "strip.background"),
+      label
+    ),
+    width = grobWidth(label) + unit(0.5, "lines"),
+    height = grobHeight(label) + unit(0.5, "lines")
+  ))
+}
+
+# Grob for strip title
+striptitle_grob <- function(title, horizontal = TRUE, theme) {
+  text_theme <- if (horizontal) "strip.title.x" else "strip.title.y"
+
+  label <- element_render(theme, text_theme, title)
+
+  ggname("strip.title", absoluteGrob(
+    gList(
+      element_render(theme, "strip.title.background"),
       label
     ),
     width = grobWidth(label) + unit(0.5, "lines"),
