@@ -41,7 +41,8 @@ MINOR FEATURES
 
 * `stat_contour` is now somewhat faster
 
-* new stat class `stat_ecdf` that shows empirical cumulative distribution function.
+* new stat class `stat_ecdf` that shows empirical cumulative distribution
+  function. (Kohske Takahashi)
 
 * Dependency on `gpclib` removed, and `fortify.SpatialPolygonsDataFrame` will
   now use `rgeos` if available - this is particularly useful if you're not
@@ -69,9 +70,18 @@ MINOR FEATURES
    provide a method - it should return a string giving the name of the
    scale to use (e.g. "continuous", "discrete", "date")
 
+* When there are multiple guides (legends), the order that they are
+  displayed can now be controlled manually. (Kohske Takahashi. Fixes
+  #470)
+
+* When a scale for a given aesthetic is added to a plot more than once,
+  display a message indicating that the first scale will be replaced.
+  (Winston Chang. Fixes #518)
+
 DOCUMENTATION
 
-* All geoms and stats now document their aesthetics. (Fixes #447)
+* All geoms and stats now document their aesthetics. (Thanks to joranE.
+  Fixes #447)
 
 BUG FIXES
 
@@ -89,6 +99,15 @@ BUG FIXES
   Fixes #568)
 
 * `geom_raster` now supports alpha. (Kohske Takahashi. Fixes #596)
+
+* Both axis lines are now drawn above the plotting area panel.
+  (Winston Chang. Fixes #585)
+
+* The jitter resolution is now correctly calculated when the data
+  does _not_ include zero. (Thanks to Karl Ove Hufthammer. Fixes #572)
+
+* Legend icons for `geom_boxplot` now display linetype. (Kohske
+  Takahashi. Fixes #608)
 
 ggplot2 0.9.1
 ----------------------------------------------------------------
