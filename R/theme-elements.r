@@ -79,6 +79,7 @@ print.element <- function(x, ...) str(x)
 
 #' Relative sizing for theme elements
 #'
+#' @param x A number representing the relative size
 #' @examples
 #' qplot(1:3, 1:3) + theme(axis.title.x = element_text(size = rel(2.5)))
 #' @export
@@ -90,6 +91,7 @@ rel <- function(x) {
 print.rel <- function(x, ...) print(noquote(paste(x, " *", sep = "")))
 
 #' Reports whether x is a rel object
+#' @param x An object to test
 is.rel <- function(x) inherits(x, "rel")
 
 
@@ -97,6 +99,8 @@ is.rel <- function(x) inherits(x, "rel")
 #'
 #' The \code{theme_xx} functions have been deprecated. They are replaced
 #' with the \code{element_xx} functions.
+#' @param ... Arguments to be passed to the appropriate \code{element_xx}
+#'   function.
 #'
 #' @export
 theme_blank <- function(...) {

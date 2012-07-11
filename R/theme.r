@@ -4,7 +4,7 @@
 #' theme or use \code{theme_set} to completely override it.
 #' 
 #' @param ... named list of theme settings
-#' @seealso \code{\link{\%+replace\%}} and \code{\link{+.theme}}
+#' @seealso \code{\link{\%+replace\%}} and \code{\link{+.gg}}
 #' @export
 #' @examples
 #' qplot(mpg, wt, data = mtcars)
@@ -28,6 +28,7 @@ theme_update <- function(...) {
 }
 
 #' Reports whether x is a theme object
+#' @param x An object to test
 #' @export
 is.theme <- function(x) inherits(x, "theme")
 
@@ -312,6 +313,7 @@ theme <- function(..., complete = FALSE) {
 #' Build a theme (or partial theme) from theme elements
 #'
 #' \code{opts} is deprecated. See the \code{\link{theme}} function.
+#' @param ... Arguments to be passed on to the \code{theme} function.
 #'
 #' @export
 opts <- function(...) {
@@ -383,6 +385,11 @@ theme_set <- .theme$set
 
 
 #' Modify properties of an element in a theme object
+#'
+#' @param t1 A theme object
+#' @param t2 A theme object that is to be added to \code{t1}
+#' @param t2name A name of the t2 object. This is used for printing
+#'   informative error messages.
 #'
 #' @seealso +.gg
 #'
@@ -474,13 +481,13 @@ update_theme <- function(oldtheme, newtheme) {
 ##' Update contents of a theme. (Deprecated)
 ##'
 ##' This function is deprecated. Use \code{\link{\%+replace\%}} or
-##' \code{\link{+.theme}} instead.
+##' \code{\link{+.gg}} instead.
 ##'
 ##' @title Update theme param
 ##' @param name name of a theme element
 ##' @param ... Pairs of name and value of theme parameters.
 ##' @return Updated theme element
-##' @seealso \code{\link{\%+replace\%}} and \code{\link{+.theme}}
+##' @seealso \code{\link{\%+replace\%}} and \code{\link{+.gg}}
 ##' @export
 ##' @examples
 ##' x <- element_text(size = 15)
@@ -499,7 +506,7 @@ update_theme <- function(oldtheme, newtheme) {
 ##' # Throws error if incorrectly named
 ##' \donttest{update_element("axis.text", colour = 20)}
 update_element <- function(name, ...) {
-  .Deprecated(new = "+.theme")
+  .Deprecated(new = "+.gg")
  if (is.character(name)) {
    ele <- theme_get()[[name]]
    if (is.null(ele)) {

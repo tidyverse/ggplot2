@@ -58,7 +58,7 @@
 #' @export
 #'
 #' @seealso \code{\link{theme}}
-#' @method "+" gg
+#' @method + gg
 #' @rdname gg-add
 "+.gg" <- function(e1, e2) {
   # Get the name of what was passed in as e2, and pass along so that it

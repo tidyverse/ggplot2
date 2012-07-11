@@ -17,6 +17,7 @@ update_labels <- function(p, labels) {
 
 #' Change axis labels and legend titles
 #' 
+#' @param label The text for the axis or plot title.
 #' @param ... a list of new names in the form aesthetic = "new name"
 #' @export
 #' @examples

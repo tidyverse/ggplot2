@@ -79,6 +79,7 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...) {
 }
 
 #' Reports whether x is a ggplot object
+#' @param x An object to test
 #' @export
 is.ggplot <- function(x) inherits(x, "ggplot")
 
