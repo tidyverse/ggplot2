@@ -90,6 +90,9 @@ BUG FIXES
 
 * `geom_raster` now supports alpha. (Kohske Takahashi. Fixes #596)
 
+* Facets now appear in the correct order when layers with different
+  factor levels are added. (Winston Chang. Fixes #543)
+
 ggplot2 0.9.1
 ----------------------------------------------------------------
 
