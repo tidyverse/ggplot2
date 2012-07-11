@@ -109,6 +109,9 @@ BUG FIXES
 * Legend icons for `geom_boxplot` now display linetype. (Kohske
   Takahashi. Fixes #608)
 
+* Facets now appear in the correct order when layers with different
+  factor levels are added. (Winston Chang. Fixes #543)
+
 ggplot2 0.9.1
 ----------------------------------------------------------------
 

@@ -68,6 +68,8 @@ layout_null <- function(data) {
 
 # Base layout function that generates all combinations of data needed for
 # facetting
+# The first data frame in the list should be the default data for the plot.
+# Other data frames in the list are ones that are added to layers.
 #
 # @params data list of data frames (one for each layer)
 # @keywords internal
