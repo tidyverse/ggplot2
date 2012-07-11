@@ -112,6 +112,9 @@ BUG FIXES
 * Facets now appear in the correct order when layers with different
   factor levels are added. (Winston Chang. Fixes #543)
 
+* Distances in polar coordinates are calculated along spiral arcs,
+  instead of straight-line distance. (Winston Chang. Fixes #471)
+
 ggplot2 0.9.1
 ----------------------------------------------------------------
 
