@@ -23,6 +23,10 @@
   \item{midpoint}{The midpoint (in data value) of the
   diverging scale.  Defaults to 0.}
 
+  \item{guide}{Type of legend. Use \code{"colourbar"} for
+  continuous colour bar, or \code{"legend"} for discrete
+  colour legend.}
+
   \item{...}{Other arguments passed on to
   \code{\link{discrete_scale}} to control name, limits,
   breaks, labels and so forth.}

@@ -1,6 +1,7 @@
 \name{scale_identity}
 \alias{scale_alpha_identity}
 \alias{scale_color_identity}
+\alias{scale_colour_identity}
 \alias{scale_fill_identity}
 \alias{scale_identity}
 \alias{scale_linetype_identity}

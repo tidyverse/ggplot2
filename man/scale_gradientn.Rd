@@ -17,6 +17,10 @@
     guide = "colourbar")
 }
 \arguments{
+  \item{guide}{Type of legend. Use \code{"colourbar"} for
+  continuous colour bar, or \code{"legend"} for discrete
+  colour legend.}
+
   \item{colours}{vector of colours}
 
   \item{values}{if colours should not be evenly positioned

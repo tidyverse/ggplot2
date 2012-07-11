@@ -20,6 +20,9 @@
   \item{name}{the name of the scale - used as the axis
   label or the legend title}
 
+  \item{drop}{drop unused factor levels from the scale
+  (\code{TRUE} or \code{FALSE})}
+
   \item{breaks}{control the breaks in the guide.  There are
   four possible types of input: \itemize{ \item
   \code{NULL}: don't display any breaks \item a character

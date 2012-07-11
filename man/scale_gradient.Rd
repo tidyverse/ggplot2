@@ -32,6 +32,10 @@
     guide = "colourbar")
 }
 \arguments{
+  \item{guide}{Type of legend. Use \code{"colourbar"} for
+  continuous colour bar, or \code{"legend"} for discrete
+  colour legend.}
+
   \item{...}{Other arguments passed on to
   \code{\link{discrete_scale}} to control name, limits,
   breaks, labels and so forth.}
