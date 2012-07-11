@@ -5,6 +5,7 @@
 #'
 #' @inheritParams geom_point
 #' @param arrow specification for arrow heads, as created by arrow()
+#' @param lineend Line end style (round, butt, square)
 #' @seealso \code{\link{geom_path}} and \code{\link{geom_line}} for multi-
 #'   segment lines and paths.
 #' @export
@@ -40,19 +41,19 @@
 #' b + geom_segment(aes(x = 2, y = 15, xend = 2, yend = 25))
 #' b + geom_segment(aes(x = 2, y = 15, xend = 3, yend = 15))
 #' b + geom_segment(aes(x = 5, y = 30, xend = 3.5, yend = 25), arrow = arrow(length = unit(0.5, "cm")))
-geom_segment <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", arrow = NULL, ...) { 
-  GeomSegment$new(mapping = mapping, data = data, stat = stat, position = position, arrow = arrow, ...)
+geom_segment <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", arrow = NULL, lineend = "butt", ...) {
+  GeomSegment$new(mapping = mapping, data = data, stat = stat, position = position, arrow = arrow, lineend = lineend, ...)
 }
 
 GeomSegment <- proto(Geom, {
   objname <- "segment"
 
-  draw <- function(., data, scales, coordinates, arrow=NULL, ...) {
+  draw <- function(., data, scales, coordinates, arrow=NULL, lineend = lineend, ...) {
     if (is.linear(coordinates)) {
       return(with(coord_transform(coordinates, data, scales), 
         segmentsGrob(x, y, xend, yend, default.units="native",
         gp = gpar(col=alpha(colour, alpha), fill = alpha(colour, alpha),
-          lwd=size * .pt, lty=linetype, lineend = "butt"), 
+          lwd=size * .pt, lty=linetype, lineend = lineend),
         arrow = arrow)
       ))
     }
