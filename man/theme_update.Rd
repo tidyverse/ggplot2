@@ -38,6 +38,6 @@ last_plot() +
  theme(legend.background = element_rect(fill = "white", col="white", size = 3))
 }
 \seealso{
-  \code{\link{\%+replace\%}} and \code{\link{+.theme}}
+  \code{\link{\%+replace\%}} and \code{\link{+.gg}}
 }
 

@@ -14,6 +14,8 @@
   ggtitle(label)
 }
 \arguments{
+  \item{label}{The text for the axis or plot title.}
+
   \item{...}{a list of new names in the form aesthetic =
   "new name"}
 }

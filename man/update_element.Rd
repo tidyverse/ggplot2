@@ -17,8 +17,7 @@
 }
 \details{
   This function is deprecated. Use
-  \code{\link{\%+replace\%}} or \code{\link{+.theme}}
-  instead.
+  \code{\link{\%+replace\%}} or \code{\link{+.gg}} instead.
 }
 \examples{
 x <- element_text(size = 15)
@@ -38,6 +37,6 @@ update_element("axis.text.x", colour = 20)
 \donttest{update_element("axis.text", colour = 20)}
 }
 \seealso{
-  \code{\link{\%+replace\%}} and \code{\link{+.theme}}
+  \code{\link{\%+replace\%}} and \code{\link{+.gg}}
 }
 

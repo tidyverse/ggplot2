@@ -16,6 +16,10 @@
 
   theme_text(...)
 }
+\arguments{
+  \item{...}{Arguments to be passed to the appropriate
+  \code{element_xx} function.}
+}
 \description{
   The \code{theme_xx} functions have been deprecated. They
   are replaced with the \code{element_xx} functions.

@@ -4,6 +4,9 @@
 \usage{
   rel(x)
 }
+\arguments{
+  \item{x}{A number representing the relative size}
+}
 \description{
   Relative sizing for theme elements
 }
