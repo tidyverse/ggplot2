@@ -67,8 +67,6 @@ coord_aspect.polar <- function(coord, details) 1
 
 #' @S3method coord_distance polar
 coord_distance.polar <- function(coord, x, y, details) {
-  max_dist <- 2 * pi
-  
   if (coord$theta == "x") {
     r <- rescale(y, from = details$r.range)
     theta <- theta_rescale_no_clip(coord, x, details)
@@ -76,11 +74,8 @@ coord_distance.polar <- function(coord, x, y, details) {
     r <- rescale(x, from = details$r.range)
     theta <- theta_rescale_no_clip(coord, y, details)
   }
-  px <- r * cos(theta)
-  py <- r * sin(theta)
-  pz <- theta * r
 
-  sqrt(diff(px) ^ 2 + diff(py) ^ 2 + diff(pz) ^ 2) / max_dist
+  dist_polar(r, theta)
 }
 
 #' @S3method coord_range polar

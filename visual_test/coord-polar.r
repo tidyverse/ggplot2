@@ -18,6 +18,15 @@ ggplot(dat, aes(x=x, y=y*100, group=factor(y))) + geom_line() + coord_polar()
 save_vtest("Concentric circles at theta = 1:80 * 100")
 
 
+dat <- data.frame(
+  theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
+  r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, .5),
+  g     = 1:8)
+ggplot(dat, aes(x=theta, y=r, colour = g)) + geom_path() +
+  geom_point(alpha=0.3, colour="black") + coord_polar()
+save_vtest("Rays, circular arcs, and spiral arcs")
+
+
 dat <- data.frame(x=LETTERS[1:6], y=11:16)
 ggplot(dat, aes(x=x, y=y)) + geom_bar() + coord_polar()
 save_vtest("rose plot with has equal spacing")
