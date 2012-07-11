@@ -8,6 +8,8 @@
 #'
 #' @inheritParams scale_colour_hue
 #' @inheritParams scales::seq_gradient_pal
+#' @param guide Type of legend. Use \code{"colourbar"} for continuous
+#'   colour bar, or \code{"legend"} for discrete colour legend.
 #' @seealso \code{\link[scales]{seq_gradient_pal}} for details on underlying
 #'   palette
 #' @rdname scale_gradient

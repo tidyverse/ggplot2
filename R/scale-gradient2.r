@@ -4,6 +4,8 @@
 #' @inheritParams scales::div_gradient_pal
 #' @param midpoint The midpoint (in data value) of the diverging scale. 
 #'   Defaults to 0.
+#' @param guide Type of legend. Use \code{"colourbar"} for continuous
+#'   colour bar, or \code{"legend"} for discrete colour legend.
 #' @family colour scales
 #' @rdname scale_gradient2
 #' @export

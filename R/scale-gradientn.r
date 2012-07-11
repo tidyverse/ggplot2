@@ -2,6 +2,8 @@
 #' 
 #' @inheritParams scales::gradient_n_pal
 #' @inheritParams scale_colour_hue
+#' @param guide Type of legend. Use \code{"colourbar"} for continuous
+#'   colour bar, or \code{"legend"} for discrete colour legend.
 #' @family colour scales
 #' @rdname scale_gradientn
 #' @export

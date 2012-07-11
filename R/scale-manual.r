@@ -34,9 +34,10 @@
 #' p + scale_colour_manual(limits = c(6, 8, 4), breaks = c(8, 4, 6),
 #'   values = c("grey50", "grey80", "black"))
 #' }
+NULL
 
 #' @rdname scale_manual
-#' @export scale_colour_manual
+#' @export
 scale_colour_manual <- function(..., values) {
   manual_scale("colour", values, ...)
 }

@@ -1,10 +1,9 @@
 #' Size scale.
 #' 
+#' @name scale_size
 #' @inheritParams scale_x_continuous
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
-#' @name scale_size
-#' @export
 #' @examples
 #' \donttest{
 #' (p <- qplot(mpg, cyl, data=mtcars, size=cyl))
@@ -27,6 +26,10 @@
 #' # scale_size_manual:
 #' last_plot() + scale_size_manual(values=c(2,4,6))
 #' }
+NULL
+
+#' @rdname scale_size
+#' @export
 scale_size_continuous <- function(..., range = c(1, 6)) {
   continuous_scale("size", "size_c", rescale_pal(range), ...)
 }
