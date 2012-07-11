@@ -64,16 +64,6 @@ dist_euclidean <- function(x, y) {
   sqrt((x[-n] - x[-1]) ^ 2 + (y[-n] - y[-1]) ^ 2)
 }
 
-# Polar dist.
-# Polar distance between points.
-dist_polar <- function(r, theta) {
-  n <- length(r)
-  r1 <- r[-n]
-  r2 <- r[-1]
-
-  sqrt(r1 ^ 2 + r2 ^ 2 - 2 * r1 * r2 * cos(diff(theta)))
-}
-
 # Compute central angle between two points.
 # Multiple by radius of sphere to get great circle distance
 # @arguments longitude
@@ -90,6 +80,64 @@ dist_central_angle <- function(lon, lat) {
   ahav(sqrt(hav(diff(lat)) + cos(lat[-n]) * cos(lat[-1]) * hav(diff(lon))))
 }
 
+
+# Polar dist.
+# Polar distance between points. This does not give the straight-line
+# distance between points in polar space. Instead, it gives the distance
+# along lines that _were_ straight in cartesian space, but have been
+# warped into polar space. These lines are all spiral arcs, circular
+# arcs, or segments of rays.
+dist_polar <- function(r, theta) {
+
+  # Pretending that theta is x and r is y, find the slope and intercepts
+  # for each line segment.
+  # This is just like finding the x-intercept of a line in cartesian coordinates.
+  lf <- find_line_formula(theta, r)
+
+  # Rename x and y columns to r and t, since we're working in polar
+  # Note that 'slope' actually means the spiral slope, 'a' in the spiral
+  #   formula r = a * theta
+  lf <- rename(lf, c(x1 = "t1", x2 = "t2", y1 = "r1", y2 = "r2",
+    yintercept = "r_int",  xintercept = "t_int"))
+
+  # Re-normalize the theta values so that intercept for each is 0
+  # This is necessary for calculating spiral arc length.
+  # If the formula is r=a*theta, there's a big difference between
+  # calculating the arc length from theta = 0 to pi/2, vs.
+  # theta = 2*pi to pi/2
+  lf$tn1 <- lf$t1 - lf$t_int
+  lf$tn2 <- lf$t2 - lf$t_int
+
+  # Add empty distance column
+  lf$dist <- NA_real_
+
+  # There are three types of lines, which we handle in turn:
+  # - Spiral arcs (r and theta change)
+  # - Circular arcs (r is constant)
+  # - Rays (theta is constant)
+
+  # Get spiral arc length for segments that have non-zero, non-infinite slope
+  # (spiral_arc_length only works for actual spirals, not circle arcs or rays)
+  # Use the _normalized_ theta values for arc length calculation
+  idx <- lf$slope != 0 & !is.infinite(lf$slope)
+  lf$dist[idx] <-
+    spiral_arc_length(lf$slope[idx], lf$tn1[idx], lf$tn2[idx])
+
+  # Get cicular arc length for segments that have zero slope (r1 == r2)
+  idx <- lf$slope == 0
+  lf$dist[idx] <- lf$r1[idx] * (lf$t2[idx] - lf$t1[idx])
+
+  # Get radial length for segments that have infinite slope (t1 == t2)
+  idx <- is.infinite(lf$slope)
+  lf$dist[idx] <- lf$r1[idx] - lf$r2[idx]
+
+  # Find the maximum possible length, a spiral line from
+  # (r=0, theta=0) to (r=1, theta=2*pi)
+  max_dist <- spiral_arc_length(1 / (2 * pi), 0, 2 * pi)
+
+  # Final distance values, normalized
+  abs(lf$dist / max_dist)
+}
 
 # Given n points, find the slope, xintercept, and yintercept of
 # the lines connecting them.

@@ -75,54 +75,7 @@ coord_distance.polar <- function(coord, x, y, details) {
     theta <- theta_rescale_no_clip(coord, y, details)
   }
 
-  # Pretending that theta is x and r is y, find the slope and intercepts
-  # for each line segment.
-  # This is just like finding the x-intercept of a line in cartesian coordinates.
-  lf <- find_line_formula(theta, r)
-
-  # Rename x and y columns to r and t, since we're working in polar
-  # Note that 'slope' actually means the spiral slope, 'a' in the spiral
-  #   formula r = a * theta
-  lf <- rename(lf, c(x1 = "t1", x2 = "t2", y1 = "r1", y2 = "r2",
-    yintercept = "r_int",  xintercept = "t_int"))
-
-  # Re-normalize the theta values so that intercept for each is 0
-  # This is necessary for calculating spiral arc length.
-  # If the formula is r=a*theta, there's a big difference between
-  # calculating the arc length from theta = 0 to pi/2, vs.
-  # theta = 2*pi to pi/2
-  lf$tn1 <- lf$t1 - lf$t_int
-  lf$tn2 <- lf$t2 - lf$t_int
-
-  # Add empty distance column
-  lf$dist <- NA_real_
-
-  # There are three types of lines, which we handle in turn:
-  # - Spiral arcs (r and theta change)
-  # - Circular arcs (r is constant)
-  # - Rays (theta is constant)
-
-  # Get spiral arc length for segments that have non-zero, non-infinite slope
-  # (spiral_arc_length only works for actual spirals, not circle arcs or rays)
-  # Use the _normalized_ theta values for arc length calculation
-  idx <- lf$slope != 0 & !is.infinite(lf$slope)
-  lf$dist[idx] <-
-    spiral_arc_length(lf$slope[idx], lf$tn1[idx], lf$tn2[idx])
-
-  # Get cicular arc length for segments that have zero slope (r1 == r2)
-  idx <- lf$slope == 0
-  lf$dist[idx] <- lf$r1[idx] * (lf$t2[idx] - lf$t1[idx])
-
-  # Get radial length for segments that have infinite slope (t1 == t2)
-  idx <- is.infinite(lf$slope)
-  lf$dist[idx] <- lf$r1[idx] - lf$r2[idx]
-
-  # Find the maximum possible length, a spiral line from
-  # (r=0, theta=0) to (r=1, theta=2*pi)
-  max_dist <- spiral_arc_length(1 / (2 * pi), 0, 2 * pi)
-
-  # Final distance values, normalized
-  abs(lf$dist / max_dist)
+  dist_polar(r, theta)
 }
 
 #' @S3method coord_range polar
