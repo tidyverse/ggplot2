@@ -89,3 +89,43 @@ dist_central_angle <- function(lon, lat) {
   n <- length(lat)
   ahav(sqrt(hav(diff(lat)) + cos(lat[-n]) * cos(lat[-1]) * hav(diff(lon))))
 }
+
+
+# Given n points, find the slope, xintercept, and yintercept of
+# the lines connecting them.
+#
+# This returns a data frame with length(x)-1 rows
+#
+# @param x A vector of x values
+# @param y A vector of y values
+# @examples
+# find_line_formula(c(4, 7), c(1, 5))
+# find_line_formula(c(4, 7, 9), c(1, 5, 3))
+find_line_formula <- function(x, y) {
+  slope <- diff(y) / diff(x)
+  yintercept <- y[-1] - (slope * x[-1])
+  xintercept <- x[-1] - (y[-1] / slope)
+  data.frame(x1 = x[-length(x)], y1 = y[-length(y)],
+    x2 = x[-1], y2 = y[-1],
+    slope = slope, yintercept = yintercept, xintercept = xintercept)
+}
+
+# Spiral arc length
+#
+# Each segment consists of a spiral line of slope 'a' between angles
+# 'theta1' and 'theta2'. Because each segment has its own _normalized_
+# slope, the ending theta2 value may not be the same as the starting
+# theta1 value of the next point.
+#
+# @param a A vector of spiral "slopes". Each spiral is defined as r = a * theta.
+# @param theta1 A vector of starting theta values.
+# @param theta2 A vector of ending theta values.
+# @examples
+# spiral_arc_length(a = c(0.2, 0.5), c(0.5 * pi, pi), c(pi, 1.25 * pi))
+spiral_arc_length <- function(a, theta1, theta2) {
+  # Archimedes' spiral arc length formula from
+  # http://mathworld.wolfram.com/ArchimedesSpiral.html
+  0.5 * a * (
+    (theta1 * sqrt(1 + theta1 * theta1) + asinh(theta1)) -
+    (theta2 * sqrt(1 + theta2 * theta2) + asinh(theta2)))
+}
