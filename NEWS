@@ -115,6 +115,9 @@ BUG FIXES
 * Distances in polar coordinates are calculated along spiral arcs,
   instead of straight-line distance. (Winston Chang. Fixes #471)
 
+* `fortify.SpatialPolygonsDataFrame` now uses the correct ordering.
+  (Charlotte Wickham. Fixes #434)
+
 ggplot2 0.9.1
 ----------------------------------------------------------------
 
