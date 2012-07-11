@@ -455,7 +455,7 @@ scale_break_positions(scale), limits = scale_limits(scale)) {
   }
   
   # Any minor breaks outside the dimensions need to be thrown away
-  breaks <- censor(scale$trans$trans(breaks), scale_limits(scale))
+  censor(breaks, scale_limits(scale))
 }
 #' @S3method scale_breaks_minor datetime
 scale_breaks_minor.datetime <- scale_breaks_minor.date
