@@ -22,23 +22,19 @@ NULL
 #' @method fortify SpatialPolygonsDataFrame
 fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
   attr <- as.data.frame(model)
-  # If not specified, split into regions based on first variable in attributes
+  # If not specified, split into regions based on polygons
   if (is.null(region)) {
-    region <- names(attr)[1]
-    message("Using ", region, " to define regions.")
+    coords <- ldply(model@polygons,fortify)
+    message("Regions defined for each Polygons")
+  } else {
+    cp <- polygons(model)
+    try_require("maptools")
+
+    # Union together all polygons that make up a region
+    unioned <- unionSpatialPolygons(cp, attr[, region])
+    coords <- fortify(unioned)
+    coords$order <- 1:nrow(coords)
   }
-  
-  # Figure out how polygons should be split up into the region of interest
-  polys <- split(as.numeric(row.names(attr)), addNA(attr[, region], TRUE))
-  cp <- polygons(model)
-  
-  try_require("maptools")
-  
-  # Union together all polygons that make up a region
-  unioned <- unionSpatialPolygons(cp, invert(polys))
-  
-  coords <- fortify(unioned)
-  coords$order <- 1:nrow(coords)
   coords
 }
 
