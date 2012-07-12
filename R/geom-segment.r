@@ -48,7 +48,7 @@ geom_segment <- function (mapping = NULL, data = NULL, stat = "identity", positi
 GeomSegment <- proto(Geom, {
   objname <- "segment"
 
-  draw <- function(., data, scales, coordinates, arrow=NULL, lineend = lineend, ...) {
+  draw <- function(., data, scales, coordinates, arrow = NULL, lineend = "butt", ...) {
     if (is.linear(coordinates)) {
       return(with(coord_transform(coordinates, data, scales), 
         segmentsGrob(x, y, xend, yend, default.units="native",
