@@ -1,5 +1,5 @@
 .onAttach <- function(...) {
-  if (stats::runif(1) > 0.1) return()
+  if (!interactive() || stats::runif(1) > 0.1) return()
 
   tips <- c(
     "Need help? Try the ggplot2 mailing list: http://groups.google.com/group/ggplot2.",
