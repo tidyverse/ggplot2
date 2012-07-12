@@ -83,16 +83,34 @@ guide_axis <- function(at, labels, position="right", theme) {
 
   # Create the gtable for the ticks + labels
   gt <- switch(position,
-    bottom = gtable_col("axis", list(ticks, labels),
-      width = one, heights = unit.c(label_pos, grobHeight(labels))),
-    left   = gtable_row("axis", list(labels, ticks),
-      widths = unit.c(grobWidth(labels), label_pos), height = one)
+    top    = gtable_col("axis",
+      grobs   = list(labels, ticks),
+      width   = one,
+      heights = unit.c(grobHeight(labels), label_pos)),
+    bottom = gtable_col("axis",
+      grobs   = list(ticks, labels),
+      width   = one,
+      heights = unit.c(label_pos, grobHeight(labels))),
+    right  = gtable_row("axis",
+      grobs   = list(ticks, labels),
+      widths  = unit.c(label_pos, grobWidth(labels)),
+      height  = one),
+    left   = gtable_row("axis",
+      grobs   = list(labels, ticks),
+      widths  = unit.c(grobWidth(labels), label_pos),
+      height  = one)
   )
 
   # Create the gtable and wrap it in a gtable_gTree for justification
   gtt <- switch(position, 
+    top = gtable_gTree(gt,
+      vp = viewport(y = 0, just = "bottom", height = gtable_height(gt))
+    ),
     bottom = gtable_gTree(gt,
       vp = viewport(y = 1, just = "top", height = gtable_height(gt))
+    ),
+    right = gtable_gTree(gt,
+      vp = viewport(x = 0, just = "left", width = gtable_width(gt))
     ),
     left = gtable_gTree(gt,
       vp = viewport(x = 1, just = "right", width = gtable_width(gt))
