@@ -101,25 +101,18 @@ guide_axis <- function(at, labels, position="right", theme) {
       height  = one)
   )
 
-  # Create the gtable and wrap it in a gtable_gTree for justification
-  gtt <- switch(position, 
-    top = gtable_gTree(gt,
-      vp = viewport(y = 0, just = "bottom", height = gtable_height(gt))
-    ),
-    bottom = gtable_gTree(gt,
-      vp = viewport(y = 1, just = "top", height = gtable_height(gt))
-    ),
-    right = gtable_gTree(gt,
-      vp = viewport(x = 0, just = "left", width = gtable_width(gt))
-    ),
-    left = gtable_gTree(gt,
-      vp = viewport(x = 1, just = "right", width = gtable_width(gt))
-    )
+  # Viewport for justifying the axis grob
+  justvp <- switch(position,
+    top    = viewport(y = 0, just = "bottom", height = gtable_height(gt)),
+    bottom = viewport(y = 1, just = "top",    height = gtable_height(gt)),
+    right  = viewport(x = 0, just = "left",   width  = gtable_width(gt)),
+    left   = viewport(x = 1, just = "right",  width  = gtable_width(gt))
   )
 
   absoluteGrob(
-    gList(line, gtt),
+    gList(line, gt),
     width = gtable_width(gt),
-    height = gtable_height(gt)
+    height = gtable_height(gt),
+    vp = justvp
   )
 }
