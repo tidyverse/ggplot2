@@ -118,6 +118,10 @@ BUG FIXES
 * `fortify.SpatialPolygonsDataFrame` now uses the correct ordering.
   (Charlotte Wickham. Fixes #434)
 
+* `stat_vline` and `stat_hline` no longer throw errors when
+  `xintercept` and `yintercept` are passed to them. (Winston Chang.
+  Fixes #624)
+
 ggplot2 0.9.1
 ----------------------------------------------------------------
 
