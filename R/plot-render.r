@@ -76,16 +76,13 @@ ggplot_gtable <- function(data) {
   } else {
     zeroGrob()
   }
-  # here, use $widths and $heights for legend gtable.
-  # grobWidth() and grobHeight() cannot work with it.
-  legend_width <- sum(legend_box$widths)
-  legend_height <- sum(legend_box$heights)
+
   if (is.zero(legend_box)) {
     position <- "none"
   } else {
     # these are a bad hack, since it modifies the contents fo viewpoint directly...
-    legend_width <- legend_width + theme$legend.margin
-    legend_height <- legend_height + theme$legend.margin
+    legend_width  <- gtable_width(legend_box)  + theme$legend.margin
+    legend_height <- gtable_height(legend_box) + theme$legend.margin
 
     # Set the justification of the legend box
     # First value is xjust, second value is yjust
@@ -100,7 +97,7 @@ ggplot_gtable <- function(data) {
       # x and y are specified via theme$legend.position (i.e., coords)
       legend_box <- editGrob(legend_box,
         vp = viewport(x = xpos, y = ypos, just = c(xjust, yjust),
-          height = gtable_height(legend_box), width = gtable_width(legend_box)))
+          height = legend_height, width = legend_width))
     } else {
       # x and y are adjusted using justification of legend box (i.e., theme$legend.justification)
       legend_box <- editGrob(legend_box,
