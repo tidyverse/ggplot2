@@ -34,8 +34,25 @@ save_vtest("facet_wrap, legend on top")
 
 # padding
 dat <- data.frame(x=LETTERS[1:3], y=1)
-ggplot(dat, aes(x=x, y=y, fill=x, colour = 1:3)) + geom_bar() +
+p2 <- ggplot(dat, aes(x=x, y=y, fill=x, colour = 1:3)) + geom_bar() +
   theme(legend.background = element_rect(colour="black")) + guides(color = "colorbar")
+p2
 save_vtest("padding in legend box")
+
+
+# Placement of legend inside
+p2 + theme(legend.position=c(.5, .5))
+save_vtest("legend inside plot, centered")
+
+p2 + theme(legend.justification=c(0,0), legend.position=c(0,0))
+save_vtest("legend inside plot, bottom left")
+
+p2 + theme(legend.justification=c(1,1), legend.position=c(1,1))
+save_vtest("legend inside plot, top right")
+
+p2 + theme(legend.justification=c(0,0), legend.position=c(.5,.5))
+save_vtest("legend inside plot, bottom left of legend at center")
+
+
 
 end_vcontext()
