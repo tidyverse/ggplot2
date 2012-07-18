@@ -76,30 +76,32 @@ ggplot_gtable <- function(data) {
   } else {
     zeroGrob()
   }
-  # here, use $width and $height for legend gtable.
-  # grobWidth() and grobHeight() cannot work with it.
-  legend_width <- legend_box$width
-  legend_height <- legend_box$height
+
   if (is.zero(legend_box)) {
     position <- "none"
   } else {
     # these are a bad hack, since it modifies the contents fo viewpoint directly...
-    legend_width <- legend_width + theme$legend.margin
-    legend_height <- legend_height + theme$legend.margin
-    # vp size = grob size. This enables justification in gtable.
-    legend_box$childrenvp$parent$width <- legend_width
-    legend_box$childrenvp$parent$height <- legend_height
-    legend_box$childrenvp$parent$justification <- theme$legend.justification %||% "center"
-    legend_box$childrenvp$parent$valid.just <- valid.just(theme$legend.justification)
+    legend_width  <- gtable_width(legend_box)  + theme$legend.margin
+    legend_height <- gtable_height(legend_box) + theme$legend.margin
+
+    # Set the justification of the legend box
+    # First value is xjust, second value is yjust
+    just <- valid.just(theme$legend.justification)
+    xjust <- just[1]
+    yjust <- just[2]
 
     if (position == "manual") {
+      xpos <- theme$legend.position[1]
+      ypos <- theme$legend.position[2]
+
       # x and y are specified via theme$legend.position (i.e., coords)
-      legend_box$childrenvp$parent$x <- unit(coords[1], "npc")
-      legend_box$childrenvp$parent$y <- unit(coords[2], "npc")
+      legend_box <- editGrob(legend_box,
+        vp = viewport(x = xpos, y = ypos, just = c(xjust, yjust),
+          height = legend_height, width = legend_width))
     } else {
       # x and y are adjusted using justification of legend box (i.e., theme$legend.justification)
-      legend_box$childrenvp$parent$x <- unit(legend_box$childrenvp$parent$valid.just[1], "npc")
-      legend_box$childrenvp$parent$y <- unit(legend_box$childrenvp$parent$valid.just[2], "npc")
+      legend_box <- editGrob(legend_box,
+        vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust)))
     }
   }
 
@@ -195,6 +197,6 @@ plot.ggplot <- print.ggplot
 #' @keywords internal
 #' @export
 ggplotGrob <- function(x) {
-  gtable_gTree(ggplot_gtable(ggplot_build(x)))
+  ggplot_gtable(ggplot_build(x))
 }
 
