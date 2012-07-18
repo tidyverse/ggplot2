@@ -232,12 +232,19 @@ guides_build <- function(ggrobs, theme) {
   widths <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$widths)))
   heights <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$heights)))
 
+  # Set the justification of each legend within the legend box
+  # First value is xjust, second value is yjust
+  just <- valid.just(theme$legend.box.just)
+  xjust <- just[1]
+  yjust <- just[2]
+
   # setting that is different for vergical and horizontal guide-boxes.
   if (theme$legend.box == "horizontal") {
     # Set justification for each legend
     for (i in seq_along(ggrobs)) {
       ggrobs[[i]] <- editGrob(ggrobs[[i]],
-        vp = viewport(y = 1, just = "top", height = heightDetails(ggrobs[[i]])))
+        vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust),
+          height = heightDetails(ggrobs[[i]])))
     }
 
     guides <- gtable_row(name = "guides",
@@ -251,7 +258,8 @@ guides_build <- function(ggrobs, theme) {
     # Set justification for each legend
     for (i in seq_along(ggrobs)) {
       ggrobs[[i]] <- editGrob(ggrobs[[i]],
-        vp = viewport(x = 0, just = "left", width = widthDetails(ggrobs[[i]])))
+        vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust),
+          width = widthDetails(ggrobs[[i]])))
     }
 
     guides <- gtable_col(name = "guides",
