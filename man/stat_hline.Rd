@@ -3,7 +3,7 @@
 \title{Add a horizontal line}
 \usage{
   stat_hline(mapping = NULL, data = NULL, geom = "hline",
-    position = "identity", intercept, ...)
+    position = "identity", yintercept, ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
