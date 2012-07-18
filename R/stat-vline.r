@@ -41,9 +41,9 @@ StatAbline <- proto(Stat, {
 #' @examples
 #' # see geom_vline
 stat_vline <- function (mapping = NULL, data = NULL, geom = "vline", position = "identity", 
-intercept, ...) {
+xintercept, ...) {
   StatVline$new(mapping = mapping, data = data, geom = geom, position = position, 
-  intercept = intercept, ...)
+  xintercept = xintercept, ...)
 }
 
 StatVline <- proto(Stat, {
@@ -74,9 +74,9 @@ StatVline <- proto(Stat, {
 #' @examples
 #' # see geom_hline
 stat_hline <- function (mapping = NULL, data = NULL, geom = "hline", position = "identity", 
-intercept, ...) { 
+yintercept, ...) {
   StatHline$new(mapping = mapping, data = data, geom = geom, position = position, 
-  intercept = intercept, ...)
+  yintercept = yintercept, ...)
 }
   
 StatHline <- proto(Stat, {
