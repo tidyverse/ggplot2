@@ -76,10 +76,10 @@ ggplot_gtable <- function(data) {
   } else {
     zeroGrob()
   }
-  # here, use $width and $height for legend gtable.
+  # here, use $widths and $heights for legend gtable.
   # grobWidth() and grobHeight() cannot work with it.
-  legend_width <- legend_box$width
-  legend_height <- legend_box$height
+  legend_width <- sum(legend_box$widths)
+  legend_height <- sum(legend_box$heights)
   if (is.zero(legend_box)) {
     position <- "none"
   } else {
@@ -195,6 +195,6 @@ plot.ggplot <- print.ggplot
 #' @keywords internal
 #' @export
 ggplotGrob <- function(x) {
-  gtable_gTree(ggplot_gtable(ggplot_build(x)))
+  ggplot_gtable(ggplot_build(x))
 }
 

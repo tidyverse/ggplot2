@@ -10,12 +10,13 @@
 #' @S3method grobY absoluteGrob
 #' @S3method grid.draw absoluteGrob
 #' @keywords internal
-absoluteGrob <- function(grob, width = NULL, height = NULL, xmin = NULL, ymin = NULL) {
+absoluteGrob <- function(grob, width = NULL, height = NULL,
+  xmin = NULL, ymin = NULL, vp = NULL) {
   gTree(
     children = grob, 
     width = width, height = height, 
     xmin = xmin, ymin = ymin,
-    cl="absoluteGrob"
+    vp = vp, cl="absoluteGrob"
   )
 }
 

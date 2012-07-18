@@ -234,16 +234,28 @@ guides_build <- function(ggrobs, theme) {
 
   # setting that is different for vergical and horizontal guide-boxes.
   if (theme$legend.box == "horizontal") {
+    # Set justification for each legend
+    for (i in seq_along(ggrobs)) {
+      ggrobs[[i]] <- editGrob(ggrobs[[i]],
+        vp = viewport(y = 1, just = "top", height = heightDetails(ggrobs[[i]])))
+    }
+
     guides <- gtable_row(name = "guides",
-      grobs = lapply(ggrobs, gtable_gTree),
+      grobs = ggrobs,
       widths = widths, height = max(heights))
 
     # add space between the guide-boxes
     guides <- gtable_add_col_space(guides, theme$guide.hmargin)
 
   } else if (theme$legend.box == "vertical") {
+    # Set justification for each legend
+    for (i in seq_along(ggrobs)) {
+      ggrobs[[i]] <- editGrob(ggrobs[[i]],
+        vp = viewport(x = 0, just = "left", width = widthDetails(ggrobs[[i]])))
+    }
+
     guides <- gtable_col(name = "guides",
-      grobs = lapply(ggrobs, gtable_gTree),
+      grobs = ggrobs,
       width = max(widths), heights = heights)
 
     # add space between the guide-boxes
@@ -256,18 +268,6 @@ guides_build <- function(ggrobs, theme) {
   guides <- gtable_add_rows(guides, theme$guide.vmargin, pos = 0)
   guides <- gtable_add_rows(guides, theme$guide.vmargin, pos = nrow(guides))
 
-  # dims of the guide-boxes, used in ggplotGrob()
-  gw <- sum(guides$widths)
-  gh <- sum(guides$heights)
-
-  # make gTree
-  guides <- gtable_gTree(guides)
-  guides$width <- gw
-  guides$height <- gh
-
-  # set justification of the guide-boxes
-  # should be there options for this, e.g., guide.box.just  = c("right", "bottom") ?
-  for (i in seq(n)) guides$children[[i]]$childrenvp$parent$layout$valid.just <- valid.just(theme$legend.box.just)
   guides$name <- "guide-box"
   guides
 }
