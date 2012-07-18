@@ -35,7 +35,7 @@ NULL
 #'   (i.e. \code{\link{scale_colour_gradient2}}, \code{\link{scale_colour_gradientn}}).
 #' @param oob What to do with values outside scale limits (out of bounds)?
 #' @keywords internal
-continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA, trans = "identity", guide="legend") {
+continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_, trans = "identity", guide="legend") {
 
   if (!is.null(legend)) {
     warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")

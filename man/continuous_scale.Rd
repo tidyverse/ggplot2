@@ -6,7 +6,7 @@
     name = NULL, breaks = waiver(),
     minor_breaks = waiver(), labels = waiver(),
     legend = NULL, limits = NULL, rescaler = rescale,
-    oob = censor, expand = waiver(), na.value = NA,
+    oob = censor, expand = waiver(), na.value = NA_real_,
     trans = "identity", guide = "legend")
 }
 \arguments{
