@@ -158,7 +158,7 @@ p1 + guides(fill = guide_colorbar(ticks = FALSE))
 p1 + guides(fill = guide_colorbar(label.position = "left"))
 
 # label theme
-p1 + guides(fill = guide_colorbar(label.theme = element_text(col="blue")))
+p1 + guides(fill = guide_colorbar(label.theme = element_text(colour = "blue", angle = 0)))
 
 # small number of bins
 p1 + guides(fill = guide_colorbar(nbin = 3))

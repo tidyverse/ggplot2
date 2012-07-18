@@ -86,7 +86,7 @@
 #' 
 #' # title text styles via element_text
 #' p1 + guides(fill = guide_legend(
-#'   title.theme = element_text(size=15, face="italic", col="red", angle=45)))
+#'   title.theme = element_text(size=15, face="italic", colour = "red", angle = 45)))
 #' 
 #' # label position
 #' p1 + guides(fill = guide_legend(label.position = "bottom"))

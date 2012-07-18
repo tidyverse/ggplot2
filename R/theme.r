@@ -21,7 +21,7 @@
 #' qplot(mpg, wt, data=mtcars, colour=mpg) + 
 #'   theme(legend.position=c(0.95, 0.95), legend.justification = c(1, 1))
 #' last_plot() + 
-#'  theme(legend.background = element_rect(fill = "white", col="white", size = 3))
+#'  theme(legend.background = element_rect(fill = "white", colour = "white", size = 3))
 theme_update <- function(...) {
   # Make a call to theme, then add to theme
   theme_set(theme_get() %+replace% do.call(theme, list(...)))
