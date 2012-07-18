@@ -416,7 +416,9 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
         SIMPLIFY = FALSE)))
     }
   } else if (is.function(scale$minor_breaks)) {
+    # Find breaks in data space, and convert to numeric
     breaks <- scale$minor_breaks(scale$trans$inv(limits))
+    breaks <- scale$trans$trans(breaks)
   } else {
     breaks <- scale$minor_breaks
   }
@@ -424,41 +426,6 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
   # Any minor breaks outside the dimensions need to be thrown away
   discard(breaks, limits)
 }
-
-#' @S3method scale_breaks_minor date
-scale_breaks_minor.date <- function(scale, n = 2, b = 
-scale_break_positions(scale), limits = scale_limits(scale)) {
-  limits <- scale$trans$inv(limits)
-  
-  if (zero_range(as.numeric(limits))) {
-    return(NULL)
-  }
-
-  if (is.null(scale$minor_breaks)) {
-    return(NULL)
-  } else if (length(scale$minor_breaks) == 1 && !is.function(scale$minor_breaks) && is.na(scale$minor_breaks)) {
-    warning("minor_breaks = NA is deprecated. Please use minor_breaks = NULL to remove minor breaks in the scale.")
-    return(NULL)
-  } else if (is.waive(scale$minor_breaks)) {
-    b <- b[!is.na(b)]
-    if (length(b) < 2) return()
-
-    bd <- diff(b)[1]
-    if (min(limits) < min(b)) b <- c(b[1] - bd, b)
-    if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
-    breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length=n+1,
-      SIMPLIFY = FALSE)))
-  } else if (is.function(scale$minor_breaks)) {
-    breaks <- scale$minor_breaks(scale$trans$inv(limits))
-  } else {
-    breaks <- scale$minor_breaks
-  }
-  
-  # Any minor breaks outside the dimensions need to be thrown away
-  censor(breaks, scale_limits(scale))
-}
-#' @S3method scale_breaks_minor datetime
-scale_breaks_minor.datetime <- scale_breaks_minor.date
 
 #' @S3method scale_breaks_minor discrete
 scale_breaks_minor.discrete <- function(...) NULL
