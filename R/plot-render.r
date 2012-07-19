@@ -32,7 +32,7 @@ ggplot_gtable <- function(data) {
 
   # helper function return the position of panels in plot_table
   find_panel <- function(table) {
-    summarize(subset(table$layout, grepl("^panel", name)),
+    summarise(subset(table$layout, grepl("^panel", name)),
       t = min(t), r = max(r), b = max(b), l = min(l))
   }
 
