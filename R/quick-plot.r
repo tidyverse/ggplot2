@@ -124,7 +124,7 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE, geom = "
     p <- p + facet_grid(facets = deparse(facets), margins = margins)
   }
   
-  if (!is.null(main)) p <- p + theme("title" = main)
+  if (!is.null(main)) p <- p + ggtitle(main)
 
   # Add geoms/statistics
   if (is.proto(position)) position <- list(position)
