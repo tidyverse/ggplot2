@@ -12,4 +12,8 @@ qplot(reorder(model, hwy), hwy, data = mpg) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 save_vtest("align facet labels, facets vertical")
 
+qplot(wt, mpg, data=mtcars) +
+  theme(axis.line = element_line(size=5, lineend="square"))
+save_vtest("thick axis lines")
+
 end_vcontext()
