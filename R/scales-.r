@@ -14,7 +14,7 @@ Scales <- setRefClass("Scales", fields = "scales", methods = list(
     if (any(prev_aes)) {
       # Get only the first aesthetic name in the returned vector -- it can
       # sometimes be c("x", "xmin", "xmax", ....)
-      scalename <- scales[[prev_aes]]$aesthetics[1]
+      scalename <- scales[prev_aes][[1]]$aesthetics[1]
       message("Scale for '", scalename,
         "' is already present. Adding another scale for '", scalename,
         "', which will replace the existing scale.")
