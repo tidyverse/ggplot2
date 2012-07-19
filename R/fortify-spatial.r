@@ -28,7 +28,7 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
     message("Regions defined for each Polygons")
   } else {
     cp <- polygons(model)
-    try_require("maptools")
+    try_require(c("rgeos","maptools"))
 
     # Union together all polygons that make up a region
     unioned <- unionSpatialPolygons(cp, attr[, region])
