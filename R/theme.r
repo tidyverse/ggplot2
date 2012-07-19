@@ -176,7 +176,7 @@ print.theme <- function(x, ...) str(x)
 #' \donttest{
 #' p <- qplot(mpg, wt, data = mtcars)
 #' p 
-#' p + theme(panel_background = element_rect(colour = "pink"))
+#' p + theme(panel.background = element_rect(colour = "pink"))
 #' p + theme_bw()
 #'
 #' # Scatter plot of gas mileage by vehicle weight

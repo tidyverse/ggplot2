@@ -9,6 +9,8 @@
 }
 \examples{
 \donttest{
+library(lattice)
+
 xyplot(rating ~ year, data=movies)
 qplot(year, rating, data=movies)
 
@@ -46,7 +48,9 @@ xyplot(wt ~ mpg | cyl, mtcars, scales = list(log = 10))
 qplot(mpg, wt, data = mtcars, log = "xy")
 
 xyplot(wt ~ mpg | cyl, mtcars, scales = list(log = 2))
-qplot(mpg, wt, data = mtcars) + scale_x_log2() + scale_y_log2()
+library(scales)  # Load scales for log2_trans
+qplot(mpg, wt, data = mtcars) + scale_x_continuous(trans = log2_trans()) +
+  scale_y_continuous(trans = log2_trans())
 
 xyplot(wt ~ mpg, mtcars, group = cyl, auto.key = TRUE)
 # Map directly to an aesthetic like colour, size, or shape.
