@@ -107,7 +107,7 @@ ggplot_gtable <- function(data) {
 
   panel_dim <-  find_panel(plot_table)
   # for align-to-device, use this:
-  # panel_dim <-  summarize(plot_table$layout, t = min(t), r = max(r), b = max(b), l = min(l))
+  # panel_dim <-  summarise(plot_table$layout, t = min(t), r = max(r), b = max(b), l = min(l))
   
   if (position == "left") {
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = 0)
