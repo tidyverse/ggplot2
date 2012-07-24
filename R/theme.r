@@ -55,7 +55,7 @@ print.theme <- function(x, ...) str(x)
 #' @section Theme elements:
 #' The individual theme elements are:
 #' 
-#' \tabular{llll}{
+#' \tabular{ll}{
 #'   line             \tab all line elements
 #'                    (\code{element_text}) \cr
 #'   rect             \tab all rectangluar elements

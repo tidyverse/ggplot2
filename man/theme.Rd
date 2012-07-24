@@ -35,7 +35,7 @@
 \section{Theme elements}{
   The individual theme elements are:
 
-  \tabular{llll}{ line \tab all line elements
+  \tabular{ll}{ line \tab all line elements
   (\code{element_text}) \cr rect \tab all rectangluar
   elements (\code{element_rect}) \cr text \tab all text
   elements (\code{element_text}) \cr title \tab all title
