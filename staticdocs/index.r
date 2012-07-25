@@ -74,6 +74,7 @@ list(
       "Scales control the mapping between data and aesthetics.",
       c(
         "expand_limits",
+        "guides",
         "guide_legend",
         "guide_colourbar",
         "scale_alpha",
@@ -95,8 +96,7 @@ list(
         "scale_x_discrete",
         "labs",
         "update_labels",
-        "xlim",
-        "ylim"
+        "xlim"
       )
     ),
     sd_section("Coordinate systems",
@@ -116,7 +116,11 @@ list(
       c(
         "facet_grid",
         "facet_null",
-        "facet_wrap"
+        "facet_wrap",
+        "label_both",
+        "label_bquote",
+        "label_parsed",
+        "label_value"
       )
     ),
 
@@ -169,16 +173,32 @@ list(
     sd_section("Themes", 
       "Themes control non-data components of the plot",
       c(
+        "add_theme",
+        "calc_element",
+        "element_blank",
+        "element_line",
+        "element_rect",
+        "element_text",
+        "is.rel",
+        "is.theme",
         "opts",
-        "theme_blank",
+        "rel",
+        "theme",
         "theme_bw",
         "theme_grey",
-        "theme_line",
-        "theme_rect",
-        "theme_segment",
-        "theme_text",
         "theme_update",
         "update_element"
+      )
+    ),
+    sd_section("Plot creation", "",
+      c(
+        "ggplot",
+        "qplot",
+        "+.gg",
+        "autoplot",
+        "ggplot.data.frame", 
+        "is.ggplot",
+        "print.ggplot"
       )
     ),
     sd_section("Aesthetics", 
