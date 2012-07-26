@@ -21,9 +21,9 @@ Imports:
     plyr (>= 1.0),
     digest,
     grid,
-    gtable (>= 0.1.0.4),
+    gtable (>= 0.1.1),
     reshape2,
-    scales (>= 0.2.1.3),
+    scales (>= 0.2.2),
     memoise,
     proto,
     MASS
