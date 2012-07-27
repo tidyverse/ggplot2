@@ -1,3 +1,6 @@
+ggplot2 0.9.2
+----------------------------------------------------------------
+
 THEME SYSTEM
 
 * The theme system has been completely rewritten. (Winston Chang)
@@ -7,15 +10,15 @@ THEME SYSTEM
 
 * The `opts()` function has been renamed to `theme()`.
 
-* To set the plot title, use `labs(title = "...")` instead of
-  `opts(title = "...")`.
+* To set the plot title, use `labs(title = "...")` or `ggtitle("...")
+  instead of `opts(title = "...")`.
 
 * Elements are now just lists of properties, instead of functions that
   return grobs.
 
 * Theme elements now can inherit properties. For example, `axis.title.x`
   inherits properties from `axis.title`, which in turn inherits from
-  `text`. The inheritance tree is stored in ggplot2::.element_tree
+  `text`. The inheritance tree is stored in ggplot2::.element_tree.
 
 * Theme objects can now be added to each other with `+`, without a ggplot
   object. There is also a new `%replace%` operator for adding theme
