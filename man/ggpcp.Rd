@@ -26,6 +26,7 @@
   shown in the example.
 }
 \examples{
+\dontrun{
 ggpcp(mtcars) + geom_line()
 ggpcp(mtcars, vars=names(mtcars[2:6])) + geom_line()
 ggpcp(mtcars) + geom_boxplot(aes(group=variable))
@@ -33,5 +34,6 @@ ggpcp(mtcars) + geom_boxplot(aes(group=variable))
 p <- ggpcp(mtcars, vars=names(mtcars[2:6]))
 p + geom_line()
 p + geom_line(aes(colour=mpg))
+}
 }
 
