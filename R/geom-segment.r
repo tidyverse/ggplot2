@@ -49,6 +49,11 @@ GeomSegment <- proto(Geom, {
   objname <- "segment"
 
   draw <- function(., data, scales, coordinates, arrow = NULL, lineend = "butt", ...) {
+    data <- remove_missing(data, na.rm = FALSE,
+      c("x", "y", "xend", "yend", "linetype", "size", "shape"),
+      name = "geom_segment")
+    if (empty(data)) return(zeroGrob())
+
     if (is.linear(coordinates)) {
       return(with(coord_transform(coordinates, data, scales), 
         segmentsGrob(x, y, xend, yend, default.units="native",
