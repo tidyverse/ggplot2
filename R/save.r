@@ -19,6 +19,9 @@
 #' @param height height (defaults to the height of current plotting window)
 #' @param units units for width and height when either one is explicitly specified (in, cm, or mm)
 #' @param dpi dpi to use for raster graphics
+#' @param limitsize when \code{TRUE} (the default), \code{ggsave} will not
+#'   save images larger than 50x50 inches, to prevent the common error of
+#'   specifying dimensions in pixels.
 #' @param ... other arguments passed to graphics device
 #' @export
 #' @examples
@@ -32,7 +35,11 @@
 #' # make twice as big as on screen
 #' ggsave(ratings, file="ratings.pdf", scale=2)
 #' }
-ggsave <- function(filename=default_name(plot), plot = last_plot(), device=default_device(filename), path = NULL, scale=1, width=par("din")[1], height=par("din")[2], units=c("in", "cm", "mm"), dpi=300, ...) {
+ggsave <- function(filename = default_name(plot), plot = last_plot(),
+  device = default_device(filename), path = NULL, scale = 1,
+  width = par("din")[1], height = par("din")[2], units = c("in", "cm", "mm"),
+  dpi = 300, limitsize = TRUE, ...) {
+
   if (!inherits(plot, "ggplot")) stop("plot should be a ggplot2 plot")
 
   eps <- ps <- function(..., width, height)  
@@ -101,6 +108,11 @@ ggsave <- function(filename=default_name(plot), plot = last_plot(), device=defau
 
   width <- width * scale
   height <- height * scale
+
+  if (limitsize && (width >= 50 || height >= 50)) {
+    stop("Dimensions exceed 50 inches (height and width are specified in inches/cm/mm, not pixels).",
+      " If you are sure you want these dimensions, use 'limitsize=FALSE'.")
+  }
   
   if (!is.null(path)) {
     filename <- file.path(path, filename)
