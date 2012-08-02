@@ -38,7 +38,7 @@ bins = 30, drop = TRUE, fun = mean, ...) {
   bins = bins, drop = drop, fun = fun, ...)
 }
 
-StatSummary2d <- proto(Stat, {
+StatSummary2d <- gg(proto(Stat, {
   objname <- "Summary2d"
 
   default_aes <- function(.) aes(fill = ..value..)
@@ -113,4 +113,4 @@ StatSummary2d <- proto(Stat, {
       ymax <- breaks$y[yint + 1]
     })
   }
-})
+}))

@@ -68,7 +68,7 @@ trim = TRUE, scale = "equal", ...) {
   position = position, trim = trim, scale = scale, ...)
 }
 
-GeomViolin <- proto(Geom, {
+GeomViolin <- gg(proto(Geom, {
   objname <- "violin"
 
   reparameterise <- function(., df, params) {
@@ -108,4 +108,4 @@ GeomViolin <- proto(Geom, {
   default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = NA, linetype = "solid")
   required_aes <- c("x", "y")
 
-})
+}))

@@ -99,7 +99,7 @@ lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, arrow = NULL
   lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, arrow = arrow, ...)
 }
 
-GeomPath <- proto(Geom, {
+GeomPath <- gg(proto(Geom, {
   objname <- "path"
 
   draw_groups <- function(., ...) .$draw(...)
@@ -203,5 +203,5 @@ GeomPath <- proto(Geom, {
   default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
   guide_geom <- function(.) "path"
   
-})
+}))
 

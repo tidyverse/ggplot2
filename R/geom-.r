@@ -1,4 +1,4 @@
-Geom <- proto(TopLevel, expr={
+Geom <- gg(proto(TopLevel, expr={
   class <- function(.) "geom"
 
   parameters <- function(.) {
@@ -45,4 +45,4 @@ Geom <- proto(TopLevel, expr={
 
     
   
-})
+}))

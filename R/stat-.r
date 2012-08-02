@@ -1,4 +1,4 @@
-Stat <- proto(TopLevel, expr={
+Stat <- gg(proto(TopLevel, expr={
   objname <- "" 
   desc <- ""
 
@@ -67,4 +67,4 @@ Stat <- proto(TopLevel, expr={
     do.call("layer", list(mapping=mapping, data=data, geom=geom, stat=., position=position, ...))
   }
 
-})
+}))

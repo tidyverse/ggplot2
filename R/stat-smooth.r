@@ -105,7 +105,7 @@ level = 0.95, na.rm = FALSE, ...) {
   level = level, na.rm = na.rm, ...)
 }
 
-StatSmooth <- proto(Stat, {
+StatSmooth <- gg(proto(Stat, {
   objname <- "smooth"
 
   calculate_groups <- function(., data, scales, method="auto", formula=y~x, ...) {
@@ -177,4 +177,4 @@ StatSmooth <- proto(Stat, {
 
   required_aes <- c("x", "y")
   default_geom <- function(.) GeomSmooth
-})
+}))

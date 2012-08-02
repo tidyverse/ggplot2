@@ -17,10 +17,10 @@ lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
   lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, ...)
 }
 
-GeomQuantile <- proto(GeomPath, {  
+GeomQuantile <- gg(proto(GeomPath, {
   objname <- "quantile"
 
   default_stat <- function(.) StatQuantile
   default_aes <- function(.) defaults(aes(weight=1, colour="#3366FF", size=0.5), GeomPath$default_aes())
   guide_geom <- function(.) "path"
-})
+}))

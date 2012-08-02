@@ -42,7 +42,7 @@ bins = 30, drop = TRUE, ...) {
   bins = bins, drop = drop, ...)
 }
 
-StatBin2d <- proto(Stat, {
+StatBin2d <- gg(proto(Stat, {
   objname <- "bin2d"
 
   default_aes <- function(.) aes(fill = ..count..)
@@ -118,4 +118,4 @@ StatBin2d <- proto(Stat, {
       density <- count / sum(count, na.rm = TRUE)
     })
   }  
-})
+}))

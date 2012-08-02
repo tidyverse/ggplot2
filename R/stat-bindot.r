@@ -51,7 +51,7 @@ binpositions = "bygroup", drop = FALSE, right = TRUE, na.rm = FALSE, ...) {
 }
 
 
-StatBindot <- proto(Stat, {
+StatBindot <- gg(proto(Stat, {
   objname <- "bindot"
   informed <- FALSE
   
@@ -167,7 +167,7 @@ StatBindot <- proto(Stat, {
   required_aes <- c("x")
   default_geom <- function(.) GeomDotplot
   
-})
+}))
 
 # This does density binning, but does not collapse each bin with a count.
 # It returns a data frame with the original data (x), weights, bin #, and the bin centers.

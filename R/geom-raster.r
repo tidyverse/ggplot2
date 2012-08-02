@@ -59,7 +59,7 @@ geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", positio
   GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, hjust = hjust, vjust = vjust, interpolate = interpolate, ...)
 }
 
-GeomRaster <- proto(Geom, {
+GeomRaster <- gg(proto(Geom, {
   objname <- "raster"
   
   reparameterise <- function(., df, params) {
@@ -111,4 +111,4 @@ GeomRaster <- proto(Geom, {
   default_aes <- function(.) aes(fill = "grey20", alpha = NA)
   required_aes <- c("x", "y")
   guide_geom <- function(.) "polygon"
-})
+}))

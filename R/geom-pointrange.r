@@ -17,7 +17,7 @@ geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity", pos
   GeomPointrange$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
-GeomPointrange <- proto(Geom, {
+GeomPointrange <- gg(proto(Geom, {
   objname <- "pointrange"
 
   default_stat <- function(.) StatIdentity
@@ -42,4 +42,4 @@ GeomPointrange <- proto(Geom, {
     )
   }
   
-})
+}))

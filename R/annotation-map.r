@@ -37,7 +37,7 @@ annotation_map <- function(map, ...) {
     NULL, inherit.aes = FALSE)
 }
 
-GeomAnnotationMap <- proto(GeomMap, {
+GeomAnnotationMap <- gg(proto(GeomMap, {
   objname <- "map"
 
   draw_groups <- function(., data, scales, coordinates, map, ...) {
@@ -56,4 +56,4 @@ GeomAnnotationMap <- proto(GeomMap, {
   
   required_aes <- c()
   
-})
+}))

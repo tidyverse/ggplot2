@@ -21,7 +21,7 @@ stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment", position 
   StatSpoke$new(mapping = mapping, data = data, geom = geom, position = position, ...)
 }
 
-StatSpoke <- proto(Stat, {
+StatSpoke <- gg(proto(Stat, {
   objname <- "spoke"
 
   retransform <- FALSE
@@ -36,4 +36,4 @@ StatSpoke <- proto(Stat, {
   required_aes <- c("x", "y", "angle", "radius")
   default_geom <- function(.) GeomSegment
     
-})
+}))

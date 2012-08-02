@@ -112,7 +112,7 @@ geom_bar <- function (mapping = NULL, data = NULL, stat = "bin", position = "sta
   GeomBar$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
-GeomBar <- proto(Geom, {
+GeomBar <- gg(proto(Geom, {
   objname <- "bar"
   
   default_stat <- function(.) StatBin
@@ -134,4 +134,4 @@ GeomBar <- proto(Geom, {
     GeomRect$draw_groups(data, scales, coordinates, ...)
   }
   guide_geom <- function(.) "polygon"
-})
+}))

@@ -77,7 +77,7 @@ annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
                    short = short, mid = mid, long = long, ...)
 }
 
-GeomLogticks <- proto(Geom, {
+GeomLogticks <- gg(proto(Geom, {
   objname <- "logticks"
 
   draw <- function(., data, scales, coordinates, base = 10, sides = "bl", scaled = TRUE,
@@ -155,7 +155,7 @@ GeomLogticks <- proto(Geom, {
 
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour = "black", size = 0.5, linetype = 1, alpha = 1)
-})
+}))
 
 
 # Calculate the position of log tick marks

@@ -35,7 +35,7 @@ geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity", posi
   GeomLinerange$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
  
-GeomLinerange <- proto(Geom, {
+GeomLinerange <- gg(proto(Geom, {
   objname <- "linerange"
 
   default_stat <- function(.) StatIdentity
@@ -48,4 +48,4 @@ GeomLinerange <- proto(Geom, {
     ggname(.$my_name(), GeomSegment$draw(transform(data, xend=x, y=ymin, yend=ymax), scales, coordinates, ...))
   }
   
-})
+}))

@@ -18,7 +18,7 @@ fatten = 2, ...) {
   position = position, fatten = fatten, ...)
 }
 
-GeomCrossbar <- proto(Geom, {
+GeomCrossbar <- gg(proto(Geom, {
   objname <- "crossbar"
   
   reparameterise <- function(., df, params) {
@@ -72,4 +72,4 @@ GeomCrossbar <- proto(Geom, {
       GeomSegment$draw(middle, scales, coordinates, ...)
     )))
   }
-})
+}))

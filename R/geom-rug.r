@@ -19,7 +19,7 @@ geom_rug <- function (mapping = NULL, data = NULL, stat = "identity", position =
   GeomRug$new(mapping = mapping, data = data, stat = stat, position = position, sides = sides, ...)
 }
 
-GeomRug <- proto(Geom, {
+GeomRug <- gg(proto(Geom, {
   objname <- "rug"
 
   draw <- function(., data, scales, coordinates, sides, ...) {
@@ -67,4 +67,4 @@ GeomRug <- proto(Geom, {
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
   guide_geom <- function(.) "path"
-})
+}))

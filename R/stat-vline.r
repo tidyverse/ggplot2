@@ -10,7 +10,7 @@ stat_abline <- function (mapping = NULL, data = NULL, geom = "abline", position 
   StatAbline$new(mapping = mapping, data = data, geom = geom, position = position, ...)
 }
 
-StatAbline <- proto(Stat, {
+StatAbline <- gg(proto(Stat, {
   objname <- "abline"
 
   calculate <- function(., data, scales, intercept = NULL, slope = NULL, ...) {
@@ -30,7 +30,7 @@ StatAbline <- proto(Stat, {
   }
   
   default_geom <- function(.) GeomAbline
-})
+}))
 
 #' Add a vertical line
 #'
@@ -46,7 +46,7 @@ xintercept, ...) {
   xintercept = xintercept, ...)
 }
 
-StatVline <- proto(Stat, {
+StatVline <- gg(proto(Stat, {
   objname <- "vline"
 
   calculate <- function(., data, scales, xintercept = NULL, intercept, ...) {
@@ -63,7 +63,7 @@ StatVline <- proto(Stat, {
   
   required_aes <- c()
   default_geom <- function(.) GeomVline
-})
+}))
 
 #' Add a horizontal line
 #'
@@ -79,7 +79,7 @@ yintercept, ...) {
   yintercept = yintercept, ...)
 }
   
-StatHline <- proto(Stat, {
+StatHline <- gg(proto(Stat, {
   calculate <- function(., data, scales, yintercept = NULL, intercept, ...) {
     if (!missing(intercept)) {
       stop("stat_hline now uses yintercept instead of intercept")
@@ -102,7 +102,7 @@ StatHline <- proto(Stat, {
   examples <- function(.) {
     # See geom_hline for examples
   }
-})
+}))
 
 
 # Compute intercept for vline and hline from data and parameters

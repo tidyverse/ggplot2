@@ -25,7 +25,7 @@ geom_errorbarh <- function (mapping = NULL, data = NULL, stat = "identity", posi
   GeomErrorbarh$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
-GeomErrorbarh <- proto(Geom, {
+GeomErrorbarh <- gg(proto(Geom, {
   objname <- "errorbarh"
   
   default_stat <- function(.) StatIdentity
@@ -56,4 +56,4 @@ GeomErrorbarh <- proto(Geom, {
     )), scales, coordinates, ...)
   }
   
-})
+}))

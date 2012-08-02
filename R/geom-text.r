@@ -58,7 +58,7 @@ parse = FALSE, ...) {
   parse = parse, ...)
 }
 
-GeomText <- proto(Geom, {
+GeomText <- gg(proto(Geom, {
   objname <- "text"
 
   draw_groups <- function(., ...) .$draw(...)
@@ -94,4 +94,4 @@ GeomText <- proto(Geom, {
     vjust=0.5, alpha = NA, family="", fontface=1, lineheight=1.2)
   guide_geom <- function(x) "text"
   
-})
+}))

@@ -104,7 +104,7 @@ stackratio = 1, dotsize = 1, stackgroups = FALSE, ...) {
   stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, stackgroups = stackgroups, ...)
 }
 
-GeomDotplot <- proto(Geom, {
+GeomDotplot <- gg(proto(Geom, {
   objname <- "dotplot"
 
   new <- function(., mapping = NULL, data = NULL, stat = NULL, position = NULL, ...){
@@ -269,4 +269,4 @@ GeomDotplot <- proto(Geom, {
   required_aes <- c("x", "y")
   default_aes <- function(.) aes(y=..count.., colour="black", fill = "black", alpha = NA)
   
-})
+}))

@@ -110,7 +110,7 @@ stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange", posi
   StatSummary$new(mapping = mapping, data = data, geom = geom, position = position, ...)
 }
   
-StatSummary <- proto(Stat, {
+StatSummary <- gg(proto(Stat, {
   objname <- "summary"
 
   default_geom <- function(.) GeomPointrange
@@ -139,7 +139,7 @@ StatSummary <- proto(Stat, {
   }
   
   
-})
+}))
 
 # Summarise a data.frame by parts
 # Summarise a data frame by unique value of x

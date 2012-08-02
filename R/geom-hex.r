@@ -11,7 +11,7 @@ geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex", position = "
   GeomHex$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
-GeomHex <- proto(Geom, {
+GeomHex <- gg(proto(Geom, {
   objname <- "hex"
 
   draw <- function(., data, scales, coordinates, ...) { 
@@ -26,7 +26,7 @@ GeomHex <- proto(Geom, {
   default_stat <- function(.) StatBinhex
   guide_geom <- function(.) "polygon"
   
-})
+}))
 
 
 # Draw hexagon grob

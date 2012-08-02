@@ -67,7 +67,7 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity", ...) {
     data = data, stat = stat, ...)
 }
 
-GeomMap <- proto(GeomPolygon, {
+GeomMap <- gg(proto(GeomPolygon, {
   objname <- "map"
 
   draw_groups <- function(., data, scales, coordinates, map, ...) {
@@ -94,4 +94,4 @@ GeomMap <- proto(GeomPolygon, {
   
   required_aes <- c("map_id")
   
-})
+}))

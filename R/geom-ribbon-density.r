@@ -17,11 +17,11 @@ na.rm = FALSE, ...) {
   na.rm = na.rm, ...)
 }
 
-GeomDensity <- proto(GeomArea, {
+GeomDensity <- gg(proto(GeomArea, {
   objname <- "density"
 
   default_stat <- function(.) StatDensity
   default_pos <- function(.) PositionIdentity
   
   default_aes <- function(.) defaults(aes(fill=NA, weight=1, colour="black", alpha = NA), GeomArea$default_aes())
-})
+}))

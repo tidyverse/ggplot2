@@ -16,7 +16,7 @@ geom_rect <- function (mapping = NULL, data = NULL, stat = "identity", position 
   GeomRect$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
-GeomRect <- proto(Geom, {
+GeomRect <- gg(proto(Geom, {
   objname <- "rect"
   
   default_stat <- function(.) StatIdentity
@@ -57,7 +57,7 @@ GeomRect <- proto(Geom, {
   }
   guide_geom <- function(.) "polygon"
 
-})
+}))
 
 # Convert rectangle to polygon
 # Useful for non-Cartesian coordinate systems where it's easy to work purely in terms of locations, rather than locations and dimensions.

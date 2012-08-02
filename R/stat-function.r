@@ -45,7 +45,7 @@ fun, n = 101, args = list(), ...) {
   position = position, fun = fun, n = n, args = args, ...)
 }
 
-StatFunction <- proto(Stat, {
+StatFunction <- gg(proto(Stat, {
   objname <- "function"
 
   default_geom <- function(.) GeomPath
@@ -60,4 +60,4 @@ StatFunction <- proto(Stat, {
       y = do.call(fun, c(list(xseq), args))
     )
   }  
-})
+}))

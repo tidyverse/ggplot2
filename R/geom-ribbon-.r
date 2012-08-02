@@ -47,7 +47,7 @@ na.rm = FALSE, ...) {
   na.rm = na.rm, ...)
 }
 
-GeomRibbon <- proto(Geom, {
+GeomRibbon <- gg(proto(Geom, {
   objname <- "ribbon"
 
   default_stat <- function(.) StatIdentity
@@ -93,7 +93,7 @@ GeomRibbon <- proto(Geom, {
     ))
   }
 
-})
+}))
 
 #' Area plot.
 #' 
@@ -117,7 +117,7 @@ na.rm = FALSE, ...) {
   na.rm = na.rm, ...)
 }
 
-GeomArea <- proto(GeomRibbon,{
+GeomArea <- gg(proto(GeomRibbon,{
   objname <- "area"
 
   default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = NA)
@@ -128,4 +128,4 @@ GeomArea <- proto(GeomRibbon,{
     transform(df, ymin = 0, ymax = y)
   }
 
-})
+}))

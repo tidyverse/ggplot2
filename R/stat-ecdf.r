@@ -20,7 +20,7 @@ stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step", position = "i
   StatEcdf$new(mapping = mapping, data = data, geom = geom, position = position, n = n, ...)
 }
 
-StatEcdf <- proto(Stat, {
+StatEcdf <- gg(proto(Stat, {
   objname <- "ecdf"
   
   calculate <- function(., data, scales, n = NULL, ...) {
@@ -54,5 +54,5 @@ StatEcdf <- proto(Stat, {
   required_aes <- c("x")
   default_geom <- function(.) GeomStep
 
-})
+}))
 

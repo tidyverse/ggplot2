@@ -50,7 +50,7 @@ width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, origin = NULL, breaks
   width = width, drop = drop, right = right, binwidth = binwidth, origin = origin, breaks = breaks, ...)
 }
 
-StatBin <- proto(Stat, {
+StatBin <- gg(proto(Stat, {
   objname <- "bin"
   informed <- FALSE
   
@@ -74,7 +74,7 @@ StatBin <- proto(Stat, {
   required_aes <- c("x")
   default_geom <- function(.) GeomBar
   
-})
+}))
 
 bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
   

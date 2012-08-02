@@ -35,7 +35,7 @@ geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth", position 
   GeomSmooth$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
-GeomSmooth <- proto(Geom, {
+GeomSmooth <- gg(proto(Geom, {
   objname <- "smooth"
 
   draw <- function(., data, scales, coordinates, ...) {
@@ -72,4 +72,4 @@ GeomSmooth <- proto(Geom, {
     }
   }
 
-})
+}))
