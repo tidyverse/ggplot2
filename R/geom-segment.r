@@ -41,14 +41,24 @@
 #' b + geom_segment(aes(x = 2, y = 15, xend = 2, yend = 25))
 #' b + geom_segment(aes(x = 2, y = 15, xend = 3, yend = 15))
 #' b + geom_segment(aes(x = 5, y = 30, xend = 3.5, yend = 25), arrow = arrow(length = unit(0.5, "cm")))
-geom_segment <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", arrow = NULL, lineend = "butt", ...) {
-  GeomSegment$new(mapping = mapping, data = data, stat = stat, position = position, arrow = arrow, lineend = lineend, ...)
+geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE, ...) {
+
+  GeomSegment$new(mapping = mapping, data = data, stat = stat,
+    position = position, arrow = arrow, lineend = lineend, na.rm = na.rm, ...)
 }
 
 GeomSegment <- proto(Geom, {
   objname <- "segment"
 
-  draw <- function(., data, scales, coordinates, arrow = NULL, lineend = "butt", ...) {
+  draw <- function(., data, scales, coordinates, arrow = NULL,
+    lineend = "butt", na.rm = FALSE, ...) {
+
+    data <- remove_missing(data, na.rm = na.rm,
+      c("x", "y", "xend", "yend", "linetype", "size", "shape"),
+      name = "geom_segment")
+    if (empty(data)) return(zeroGrob())
+
     if (is.linear(coordinates)) {
       return(with(coord_transform(coordinates, data, scales), 
         segmentsGrob(x, y, xend, yend, default.units="native",
