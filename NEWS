@@ -1,3 +1,21 @@
+MINOR FEATURES
+
+* `geom_segment` allows setting `lineend`. (Jean-Olivier Irisson)
+
+* `ggsave` raises an error when making images larger than 50x50 inches.
+  This prevents accidentally creating extremely large bitmap images that
+  hang R and eat up memory. (Winston Chang. Fixes #517)
+
+BUG FIXES
+
+* With `geom_segment`, when a variable mapped to `linetype` had an NA
+  value, it would raise an error. This is now fixed. (Winston Chang.
+  Fixes #623)
+
+* When using `coord_map` with some projections, latitude lines wrapped
+  around the globe and added extra lines. (Winston Chang. Fixes #562)
+
+
 ggplot2 0.9.2
 ----------------------------------------------------------------
 
