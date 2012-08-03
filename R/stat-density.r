@@ -7,11 +7,11 @@
 #' @param kernel kernel used for density estimation, see
 #'   \code{\link{density}} for details
 #' @param trim if \code{TRUE}, the default, densities are trimmed to the
-#'   actually range of the data.  If \code{FALSE}, they are extended by the
+#'   actually range of the data. If \code{FALSE}, they are extended by the
 #'   default 3 bandwidths (as specified by the \code{cut} parameter to
 #'   \code{\link{density}})
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
+#'    a warning. If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
 #' @return data.frame with additional columns:
 #'   \item{density}{density estimate}
@@ -88,7 +88,7 @@
 #' qplot(length, data=movies, geom="density", weight=rating/sum(rating))
 #' }
 stat_density <- function (mapping = NULL, data = NULL, geom = "area", position = "stack", 
-adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, ...) { 
+adjust = 1, kernel = "gaussian", trim = TRUE, na.rm = FALSE, ...) {
   StatDensity$new(mapping = mapping, data = data, geom = geom, position = position,
   adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm, ...)
 }
@@ -96,18 +96,15 @@ adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, ...) {
 StatDensity <- proto(Stat, {
   objname <- "density"
 
-  calculate <- function(., data, scales, adjust=1, kernel="gaussian", trim=FALSE, na.rm = FALSE, ...) {
+  calculate <- function(., data, scales, adjust=1, kernel="gaussian", trim=TRUE, na.rm = FALSE, ...) {
     data <- remove_missing(data, na.rm, "x", name = "stat_density", 
       finite = TRUE)
     
     n <- nrow(data)
     if (n < 3) return(data.frame())
     if (is.null(data$weight)) data$weight <- rep(1, n) / n
-
-    range <- scale_dimension(scales$x, c(0, 0))
-    xgrid <- seq(range[1], range[2], length=200)
     
-    dens <- density(data$x, adjust=adjust, kernel=kernel, weight=data$weight, from=range[1], to=range[2])
+    dens <- density(data$x, adjust=adjust, kernel=kernel, weight=data$weight)
     densdf <- as.data.frame(dens[c("x","y")])
 
     densdf$scaled <- densdf$y / max(densdf$y, na.rm = TRUE)
