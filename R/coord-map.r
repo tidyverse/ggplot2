@@ -137,6 +137,13 @@ coord_train.map <- function(coord, scales) {
 coord_render_bg.map <- function(coord, details, theme) {    
   xrange <- expand_range(details$x.range, 0.2)
   yrange <- expand_range(details$y.range, 0.2)
+
+  # Limit ranges so that lines don't wrap around globe
+  xrange[xrange < 0]   <- 0
+  xrange[xrange > 360] <- 360
+  yrange[yrange < -90] <- -90
+  yrange[yrange > 90]  <- 90
+
   xgrid <- with(details, expand.grid(
     y = c(seq(yrange[1], yrange[2], len = 50), NA),
     x = x.major
