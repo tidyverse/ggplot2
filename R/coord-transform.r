@@ -95,7 +95,7 @@ coord_train.trans <- function(coord, scales) {
     train_trans(scales$y, coord$limits$y, coord$trans$y, "y"))
 }
 
-train_trans <- memoise(function(scale, limits, trans, name) {
+train_trans <- function(scale, limits, trans, name) {
   # first, calculate the range that is the numerical limits in data space
 
   # expand defined by scale OR coord
@@ -128,4 +128,4 @@ train_trans <- memoise(function(scale, limits, trans, name) {
               major = out$major_source, minor = out$minor_source)
   names(out) <- paste(name, names(out), sep = ".")
   out
-})
+}

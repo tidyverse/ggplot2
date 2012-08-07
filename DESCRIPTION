@@ -24,7 +24,6 @@ Imports:
     gtable (>= 0.1.1),
     reshape2,
     scales (>= 0.2.2),
-    memoise,
     proto,
     MASS
 Suggests:
