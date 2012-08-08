@@ -44,7 +44,7 @@ annotation_raster <- function (raster, xmin, xmax, ymin, ymax, interpolate = FAL
     stat = "identity", position = "identity", data = NULL, inherit.aes = TRUE)
 }
 
-GeomRasterAnn <- proto(GeomRaster, {
+GeomRasterAnn <- gg(proto(GeomRaster, {
   objname <- "raster_ann"
   reparameterise <- function(., df, params) {
     df
@@ -66,4 +66,4 @@ GeomRasterAnn <- proto(GeomRaster, {
       diff(x_rng), diff(y_rng), default.units = "native", 
       just = c("left","bottom"), interpolate = interpolate)
   }
-})
+}))

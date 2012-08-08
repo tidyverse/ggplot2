@@ -23,7 +23,7 @@ position_fill <- function (width = NULL, height = NULL) {
   PositionFill$new(width = width, height = height)
 }
   
-PositionFill <- proto(Position, {
+PositionFill <- gg(proto(Position, {
   objname <- "fill"
 
   adjust <- function(., data) {
@@ -34,4 +34,4 @@ PositionFill <- proto(Position, {
     collide(data, .$width, .$my_name(), pos_fill)
   }  
 
-})
+}))

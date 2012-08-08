@@ -25,7 +25,7 @@ geom_blank <- function (mapping = NULL, data = NULL, stat = "identity", position
   GeomBlank$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
-GeomBlank <- proto(Geom, {
+GeomBlank <- gg(proto(Geom, {
   objname <- "blank"
 
   default_stat <- function(.) StatIdentity
@@ -35,4 +35,4 @@ GeomBlank <- proto(Geom, {
     zeroGrob()
   }
   
-})
+}))

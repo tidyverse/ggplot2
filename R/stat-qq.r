@@ -44,7 +44,7 @@ distribution = qnorm, dparams = list(), na.rm = FALSE, ...) {
   distribution = distribution, dparams = dparams, na.rm = na.rm, ...)
 }
   
-StatQq <- proto(Stat, {
+StatQq <- gg(proto(Stat, {
   objname <- "qq"
 
   default_geom <- function(.) GeomPoint
@@ -70,4 +70,4 @@ StatQq <- proto(Stat, {
   }
   
   
-})
+}))

@@ -29,7 +29,7 @@ position_dodge <- function (width = NULL, height = NULL) {
   PositionDodge$new(width = width, height = height)
 }
 
-PositionDodge <- proto(Position, {
+PositionDodge <- gg(proto(Position, {
   objname <- "dodge"
 
   adjust <- function(., data) {
@@ -39,5 +39,5 @@ PositionDodge <- proto(Position, {
     collide(data, .$width, .$my_name(), pos_dodge, check.width = FALSE)
   }  
 
-})
+}))
 

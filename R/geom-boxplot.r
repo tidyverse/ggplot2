@@ -101,7 +101,7 @@ notch = FALSE, notchwidth = .5, ...) {
   outlier.size = outlier.size, notch = notch, notchwidth = notchwidth, ...)
 }
 
-GeomBoxplot <- proto(Geom, {
+GeomBoxplot <- gg(proto(Geom, {
   objname <- "boxplot"
 
   reparameterise <- function(., df, params) {
@@ -194,4 +194,4 @@ GeomBoxplot <- proto(Geom, {
   default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = NA, shape = 16, linetype = "solid")
   required_aes <- c("x", "lower", "upper", "middle", "ymin", "ymax")
 
-})
+}))

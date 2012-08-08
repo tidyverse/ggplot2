@@ -45,7 +45,7 @@ geom_vline <- function (mapping = NULL, data = NULL, stat = "vline", position = 
   GeomVline$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
 }
 
-GeomVline <- proto(Geom, {
+GeomVline <- gg(proto(Geom, {
   objname <- "vline"
 
   new <- function(., data = NULL, mapping = NULL, xintercept = NULL, ...) {
@@ -81,4 +81,4 @@ GeomVline <- proto(Geom, {
     )
   }
 
-})
+}))

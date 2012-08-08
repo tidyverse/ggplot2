@@ -31,7 +31,7 @@ direction = "hv", ...) {
   direction = direction, ...)
 }
 
-GeomStep <- proto(Geom, {
+GeomStep <- gg(proto(Geom, {
   objname <- "step"
 
   details <- "Equivalent to plot(type='s')."
@@ -45,7 +45,7 @@ GeomStep <- proto(Geom, {
   guide_geom <- function(.) "path"
 
   default_stat <- function(.) StatIdentity
-})
+}))
 
 
 # Calculate stairsteps

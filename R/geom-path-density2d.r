@@ -21,9 +21,9 @@ lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
   lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, ...)
 }
   
-GeomDensity2d <- proto(GeomPath, {
+GeomDensity2d <- gg(proto(GeomPath, {
   objname <- "density2d"
 
   default_stat <- function(.) StatDensity2d
   default_aes <- function(.) aes(weight=1, colour="#3366FF", size = 0.5, linetype = 1, alpha = NA)  
-})
+}))

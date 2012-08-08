@@ -71,7 +71,7 @@ geom_tile <- function (mapping = NULL, data = NULL, stat = "identity", position 
   GeomTile$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
-GeomTile <- proto(Geom, {
+GeomTile <- gg(proto(Geom, {
   objname <- "tile"
 
   reparameterise <- function(., df, params) {
@@ -94,4 +94,4 @@ GeomTile <- proto(Geom, {
   default_aes <- function(.) aes(fill="grey20", colour=NA, size=0.1, linetype=1, alpha = NA)
   required_aes <- c("x", "y")
   guide_geom <- function(.) "polygon"
-})
+}))

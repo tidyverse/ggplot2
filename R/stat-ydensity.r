@@ -32,7 +32,7 @@ adjust = 1, kernel = "gaussian", trim = TRUE, scale = "equal", na.rm = FALSE, ..
   na.rm = na.rm, ...)
 }
   
-StatYdensity <- proto(Stat, {
+StatYdensity <- gg(proto(Stat, {
   objname <- "ydensity"
 
   calculate_groups <- function(., data, na.rm = FALSE, width = NULL,
@@ -86,4 +86,4 @@ StatYdensity <- proto(Stat, {
   default_geom <- function(.) GeomViolin
   required_aes <- c("x", "y")
 
-})
+}))

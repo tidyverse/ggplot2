@@ -59,7 +59,7 @@ na.rm = FALSE, contour = TRUE, n = 100, ...) {
   position = position, na.rm = na.rm, contour = contour, n = n, ...)
 }
 
-StatDensity2d <- proto(Stat, {
+StatDensity2d <- gg(proto(Stat, {
   objname <- "density2d"
   
   default_geom <- function(.) GeomDensity2d
@@ -85,4 +85,4 @@ StatDensity2d <- proto(Stat, {
       df
     }
   }  
-})
+}))

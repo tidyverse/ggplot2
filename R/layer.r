@@ -11,7 +11,7 @@
 #  * flag for display guide: TRUE/FALSE/NA. in the case of NA, decision depends on a guide itself.
 # 
 # Can think about grob creation as a series of data frame transformations.
-Layer <- proto(expr = {  
+Layer <- gg(proto(expr = {
   geom <- NULL
   geom_params <- NULL
   stat <- NULL
@@ -70,14 +70,14 @@ Layer <- proto(expr = {
       geom_params <- rename_aes(geom_params)
     }
     
-    proto(., 
+    gg(proto(.,
       geom=geom, geom_params=geom_params, 
       stat=stat, stat_params=stat_params, 
       data=data, mapping=mapping, subset=subset,
       position=position,
       inherit.aes = inherit.aes,
       show_guide = show_guide,
-    )
+    ))
   }
   
   clone <- function(.) as.proto(.$as.list(all.names=TRUE))
@@ -250,7 +250,7 @@ Layer <- proto(expr = {
   }
 
   class <- function(.) "layer"
-})
+}))
 
 #' Create a new layer
 #' 

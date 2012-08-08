@@ -93,7 +93,7 @@ adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, ...) {
   adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm, ...)
 }
   
-StatDensity <- proto(Stat, {
+StatDensity <- gg(proto(Stat, {
   objname <- "density"
 
   calculate <- function(., data, scales, adjust=1, kernel="gaussian", trim=FALSE, na.rm = FALSE, ...) {
@@ -121,4 +121,4 @@ StatDensity <- proto(Stat, {
   default_aes <- function(.) aes(y = ..density.., fill=NA)
   required_aes <- c("x")
 
-})
+}))

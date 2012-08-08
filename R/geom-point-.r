@@ -108,7 +108,7 @@ na.rm = FALSE, ...) {
   na.rm = na.rm, ...)
 }
       
-GeomPoint <- proto(Geom, {
+GeomPoint <- gg(proto(Geom, {
   objname <- "point"
 
   draw_groups <- function(., ...) .$draw(...)
@@ -140,4 +140,4 @@ GeomPoint <- proto(Geom, {
   required_aes <- c("x", "y")
   default_aes <- function(.) aes(shape=16, colour="black", size=2, fill = NA, alpha = NA)
   
-})
+}))

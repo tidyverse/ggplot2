@@ -15,7 +15,7 @@ geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d", position = 
   GeomBin2d$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
-GeomBin2d <- proto(Geom, {
+GeomBin2d <- gg(proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {
     GeomRect$draw(data, scales, coordinates, ...)
   }
@@ -30,4 +30,4 @@ GeomBin2d <- proto(Geom, {
     aes(colour = NA, fill = "grey60", size = 0.5, linetype = 1, weight = 1, , alpha = NA)
   }
 
-})
+}))

@@ -41,7 +41,7 @@ geom_hline <- function (mapping = NULL, data = NULL, stat = "hline", position = 
   GeomHline$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
 }
 
-GeomHline <- proto(Geom, {
+GeomHline <- gg(proto(Geom, {
   objname <- "hline"
 
   new <- function(., data = NULL, mapping = NULL, yintercept = NULL, ...) {
@@ -66,4 +66,4 @@ GeomHline <- proto(Geom, {
   default_stat <- function(.) StatHline
   default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
   guide_geom <- function(.) "path"
-})
+}))

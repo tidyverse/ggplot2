@@ -58,7 +58,7 @@ na.rm = FALSE, ...) {
   position = position, na.rm = na.rm, ...)
 }
 
-StatContour <- proto(Stat, {
+StatContour <- gg(proto(Stat, {
   objname <- "contour"
 
   calculate <- function(., data, scales, bins=NULL, binwidth=NULL, breaks = NULL, complete = FALSE, na.rm = FALSE, ...) {
@@ -84,7 +84,7 @@ StatContour <- proto(Stat, {
   default_geom <- function(.) GeomPath
   default_aes <- function(.) aes(order = ..level..)
   required_aes <- c("x", "y", "z")
-})
+}))
 
 
 # v3d <- reshape2::melt(volcano)

@@ -48,7 +48,7 @@ geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
     position = position, arrow = arrow, lineend = lineend, na.rm = na.rm, ...)
 }
 
-GeomSegment <- proto(Geom, {
+GeomSegment <- gg(proto(Geom, {
   objname <- "segment"
 
   draw <- function(., data, scales, coordinates, arrow = NULL,
@@ -83,5 +83,5 @@ GeomSegment <- proto(Geom, {
   required_aes <- c("x", "y", "xend", "yend")
   default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
   guide_geom <- function(.) "path"
-})
+}))
 

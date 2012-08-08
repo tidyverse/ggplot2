@@ -12,11 +12,11 @@ stat_unique <- function (mapping = NULL, data = NULL, geom = "point", position =
   StatUnique$new(mapping = mapping, data = data, geom = geom, position = position, ...)
 }
   
-StatUnique <- proto(Stat, {
+StatUnique <- gg(proto(Stat, {
   objname <- "unique" 
   desc <- "Remove duplicates"
   
   default_geom <- function(.) GeomPoint
   
   calculate_groups <- function(., data, scales, ...) unique(data)
-})
+}))

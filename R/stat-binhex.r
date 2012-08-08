@@ -36,7 +36,7 @@ bins = 30, na.rm = FALSE, ...) {
   bins = bins, na.rm = na.rm, ...)
 }
 
-StatBinhex <- proto(Stat, {
+StatBinhex <- gg(proto(Stat, {
   objname <- "binhex"
 
   default_aes <- function(.) aes(fill = ..count..)
@@ -59,7 +59,7 @@ StatBinhex <- proto(Stat, {
   }
 
   
-})
+}))
 
 # Bin 2d plane into hexagons
 # Wrapper around \code{\link[hexbin]{hcell2xy}} that returns a data frame

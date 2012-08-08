@@ -36,7 +36,7 @@ bins = 30, drop = TRUE, fun = mean, ...) {
   bins = bins, drop = drop, fun = fun, ...)
 }
 
-StatSummaryhex <- proto(Stat, {
+StatSummaryhex <- gg(proto(Stat, {
   objname <- "summaryhex"
 
   default_aes <- function(.) aes(fill = ..value..)
@@ -86,4 +86,4 @@ StatSummaryhex <- proto(Stat, {
     if (drop) ret <- na.omit(ret)
     ret
   }
-})
+}))

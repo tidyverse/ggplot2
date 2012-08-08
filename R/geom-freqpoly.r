@@ -20,11 +20,11 @@ geom_freqpoly <- function (mapping = NULL, data = NULL, stat = "bin", position =
   GeomFreqpoly$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
-GeomFreqpoly <- proto(Geom, {
+GeomFreqpoly <- gg(proto(Geom, {
   objname <- "freqpoly"
   
   default_aes <- function(.) GeomPath$default_aes()
   default_stat <- function(.) StatBin
   draw <- function(., ...) GeomPath$draw(...)
   guide_geom <- function(.) "path"
-})
+}))

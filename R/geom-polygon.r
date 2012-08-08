@@ -50,7 +50,7 @@ geom_polygon <- function (mapping = NULL, data = NULL, stat = "identity", positi
   GeomPolygon$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
-GeomPolygon <- proto(Geom, {
+GeomPolygon <- gg(proto(Geom, {
   objname <- "polygon"
 
   draw <- function(., data, scales, coordinates, ...) {
@@ -81,5 +81,5 @@ GeomPolygon <- proto(Geom, {
     ))
   }
 
-})
+}))
 

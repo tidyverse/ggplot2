@@ -61,7 +61,7 @@ geom_abline <- function (mapping = NULL, data = NULL, stat = "abline", position 
   GeomAbline$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
 }
 
-GeomAbline <- proto(Geom, {
+GeomAbline <- gg(proto(Geom, {
   objname <- "abline"
 
   new <- function(., mapping = NULL, ...) {
@@ -95,4 +95,4 @@ GeomAbline <- proto(Geom, {
         lineend="butt")))
     )
   }
-})
+}))

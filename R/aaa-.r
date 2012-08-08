@@ -1,6 +1,9 @@
 # INCLUDES <- "web/graphics"
 # FILETYPE <- "html"
 
+gg <- function(x) structure(x, class = c("ggproto", class(x)))
+
+
 # Upper case first letter of string
 # This comes from the examples of some R function.
 # 
@@ -9,7 +12,7 @@ firstUpper <- function(s) {
   paste(toupper(substring(s, 1,1)), substring(s, 2), sep="")
 }
 
-TopLevel <- proto(expr = {
+TopLevel <- gg(proto(expr = {
   find_all <- function(., only.documented = FALSE) {
     names <- ls(pattern=paste("^", firstUpper(.$class()), "[A-Z].+", sep=""), parent.env(TopLevel))
     objs <- structure(lapply(names, get), names=names)
@@ -45,10 +48,10 @@ TopLevel <- proto(expr = {
     param[setdiff(names(param), aesthetics)]
   }
 
-})
+}))
 
-#' @S3method print proto
-print.proto <- function(x, ...) x$pprint(...)
+#' @S3method print ggproto
+print.ggproto <- function(x, ...) x$pprint(...)
 pprint <- function(x, ...) print(as.list(x), ...)
 # name.proto <- function (...) {
 #        proto(print.proto = print.default, f = proto::name.proto)$f(...)

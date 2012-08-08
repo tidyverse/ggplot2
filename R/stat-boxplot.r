@@ -26,7 +26,7 @@ na.rm = FALSE, coef = 1.5, ...) {
   position = position, na.rm = na.rm, coef = coef, ...)
 }
   
-StatBoxplot <- proto(Stat, {
+StatBoxplot <- gg(proto(Stat, {
   objname <- "boxplot"
   
   required_aes <- c("x", "y")
@@ -80,4 +80,4 @@ StatBoxplot <- proto(Stat, {
       )
     })
   }
-})
+}))

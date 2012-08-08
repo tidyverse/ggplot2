@@ -46,7 +46,7 @@ na.rm = FALSE, ...) {
   method = method, na.rm = na.rm, ...)
 }
 
-StatQuantile <- proto(Stat, {
+StatQuantile <- gg(proto(Stat, {
   objname <- "quantile"
 
   default_geom <- function(.) GeomQuantile
@@ -76,4 +76,4 @@ StatQuantile <- proto(Stat, {
     )
   }
   
-})
+}))

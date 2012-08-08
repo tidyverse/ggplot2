@@ -64,7 +64,7 @@ geom_line <- function (mapping = NULL, data = NULL, stat = "identity", position 
   GeomLine$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
-GeomLine <- proto(GeomPath, {
+GeomLine <- gg(proto(GeomPath, {
   objname <- "line"
   
   draw <- function(., data, scales, coordinates, arrow = NULL, ...) {
@@ -74,4 +74,4 @@ GeomLine <- proto(GeomPath, {
   
   default_stat <- function(.) StatIdentity
   
-})
+}))

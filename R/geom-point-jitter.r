@@ -38,9 +38,9 @@ na.rm = FALSE, ...) {
   na.rm = na.rm, ...)
 }
 
-GeomJitter <- proto(GeomPoint, {
+GeomJitter <- gg(proto(GeomPoint, {
   objname <- "jitter"
 
   default_stat <- function(.) StatIdentity
   default_pos <- function(.) PositionJitter
-})
+}))

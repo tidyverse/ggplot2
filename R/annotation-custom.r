@@ -43,7 +43,7 @@ annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax 
     position = "identity", data = NULL, inherit.aes = TRUE)
 }
 
-GeomCustomAnn <- proto(Geom, {
+GeomCustomAnn <- gg(proto(Geom, {
   objname <- "custom_ann"
   
   draw_groups <- function(., data, scales, coordinates, grob, xmin, xmax,
@@ -66,4 +66,4 @@ GeomCustomAnn <- proto(Geom, {
   
   default_aes <- function(.) 
     aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)  
-})
+}))

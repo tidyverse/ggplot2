@@ -22,7 +22,7 @@ stat_identity <- function (mapping = NULL, data = NULL, geom = "point", position
   position = position, ...)
 }
 
-StatIdentity <- proto(Stat, {
+StatIdentity <- gg(proto(Stat, {
   objname <- "identity"
 
   default_geom <- function(.) GeomPoint
@@ -30,4 +30,4 @@ StatIdentity <- proto(Stat, {
   
   desc_outputs <- list()
   
-})
+}))

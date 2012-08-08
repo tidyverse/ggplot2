@@ -32,7 +32,7 @@ position_stack <- function (width = NULL, height = NULL) {
   PositionStack$new(width = width, height = height)
 }
 
-PositionStack <- proto(Position, {
+PositionStack <- gg(proto(Position, {
   objname <- "stack"
 
   adjust <- function(., data) {
@@ -53,4 +53,4 @@ PositionStack <- proto(Position, {
     collide(data, .$width, .$my_name(), pos_stack)
   }  
 
-})
+}))

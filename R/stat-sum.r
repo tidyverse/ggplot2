@@ -49,7 +49,7 @@ stat_sum <- function (mapping = NULL, data = NULL, geom = "point", position = "i
   StatSum$new(mapping = mapping, data = data, geom = geom, position = position, ...)
 }
   
-StatSum <- proto(Stat, {
+StatSum <- gg(proto(Stat, {
   objname <- "sum"
 
   default_aes <- function(.) aes(size = ..prop..)
@@ -67,4 +67,4 @@ StatSum <- proto(Stat, {
     counts$prop <- ave(counts$n, counts$group, FUN = prop.table)
     counts
   }
-})
+}))
