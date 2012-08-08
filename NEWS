@@ -6,6 +6,11 @@ MINOR FEATURES
   This prevents accidentally creating extremely large bitmap images that
   hang R and eat up memory. (Winston Chang. Fixes #517)
 
+* `train_cartesian` and `train_trans` are no longer memoized. Previously
+  the results of these functions were saved and so they would not
+  respond changes in the operating environment, such as a change in
+  locale. (Winston Chang. Fixes #592)
+
 BUG FIXES
 
 * With `geom_segment`, when a variable mapped to `linetype` had an NA
