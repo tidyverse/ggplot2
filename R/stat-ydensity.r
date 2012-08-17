@@ -69,24 +69,30 @@ StatYdensity <- proto(Stat, {
     n <- nrow(data)
 
     # if less than 3 points, return a density of 1 everywhere
-    if (n < 3) { return(data.frame(data, density = 1, scaled = 1, count = 1)) }
+    if (n < 3) {
+      return(data.frame(data, density = 1, scaled = 1, count = 1))
+    }
 
     # initialize weights if they are not supplied by the user
     if (is.null(data$weight)) { data$weight <- rep(1, n) / n }
 
     # compute the density
-    dens <- density(data$y, adjust = adjust, kernel = kernel, weight = data$weight,
-                    n = 200)
-    # NB: stat_density restricts to the scale range, here we leave that free so violins
-    #     can extend the y scale
+    dens <- density(data$y, adjust = adjust, kernel = kernel,
+      weight = data$weight, n = 200)
+
+    # NB: stat_density restricts to the scale range, here we leave that
+    # free so violins can extend the y scale
     densdf <- data.frame(y = dens$x, density = dens$y)
 
     # scale density to a maximum of 1
     densdf$scaled <- densdf$density / max(densdf$density, na.rm = TRUE)
 
     # trim density outside of the data range
-    if (trim) densdf <- subset(densdf, y > min(data$y, na.rm = TRUE) & y < max(data$y, na.rm = TRUE))
-    # NB: equivalently, we could have used these bounds in the from and to arguments of density()
+    if (trim) {
+      densdf <- subset(densdf, y > min(data$y, na.rm = TRUE) & y < max(data$y, na.rm = TRUE))
+    }
+    # NB: equivalently, we could have used these bounds in the from and
+    # to arguments of density()
 
     # scale density by the number of observations
     densdf$count <- densdf$density * n
