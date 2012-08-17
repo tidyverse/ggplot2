@@ -4,9 +4,8 @@
 \usage{
   stat_ydensity(mapping = NULL, data = NULL,
     geom = "violin", position = "dodge", adjust = 1,
-    kernel = "gaussian", trim = TRUE,
-    scale = c("area", "count", "width"), na.rm = FALSE,
-    ...)
+    kernel = "gaussian", trim = TRUE, scale = "area",
+    na.rm = FALSE, ...)
 }
 \arguments{
   \item{trim}{If \code{TRUE} (default), trim the tails of

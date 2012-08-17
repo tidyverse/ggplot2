@@ -4,7 +4,7 @@
 \usage{
   geom_violin(mapping = NULL, data = NULL,
     stat = "ydensity", position = "dodge", trim = TRUE,
-    scale = c("area", "count", "width"), ...)
+    scale = "area", ...)
 }
 \arguments{
   \item{trim}{If \code{TRUE} (default), trim the tails of
