@@ -293,7 +293,18 @@ guide_gengrob.colorbar <- function(guide, theme) {
       vjust <- y <- guide$label.vjust %||% 0.5
       switch(guide$direction, horizontal = {x <- label_pos; y <- vjust}, "vertical" = {x <- hjust; y <- label_pos})
 
-      g <- element_grob(element = label.theme, label = guide$key$.label, 
+      label <- guide$key$.label
+
+      # If any of the labels are quoted language objects, convert them
+      # to expressions. Labels from formatter functions can return these
+      if (any(vapply(label, is.call, logical(1)))) {
+        label <- lapply(label, function(l) {
+          if (is.call(l)) substitute(expression(x), list(x = l))
+          else l
+        })
+        label <- do.call(c, label)
+      }
+      g <- element_grob(element = label.theme, label = label,
         x = x, y = y, hjust = hjust, vjust = vjust)
       ggname("guide.label", g)
     }
