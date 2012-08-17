@@ -135,6 +135,10 @@ StatSummary <- proto(Stat, {
         as.data.frame(res)
       }
     }
+
+    # Each x location should be in a separate group
+    data$group <- as.integer(interaction(data$group, data$x))
+
     summarise_by_x(data, fun, ...)
   }
   
