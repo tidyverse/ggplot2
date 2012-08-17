@@ -14,6 +14,11 @@ test_that("plot succeeds even if some computation fails", {
   
 })
 
+
+# For some reason, proto has to be loaded this way to access things
+# like $compute_aesthetics
+library(proto)
+
 # helper function for stat calc tests.
 test_stat <- function(stat) {
   stat$data <- transform(stat$data, PANEL = 1)
@@ -23,6 +28,7 @@ test_stat <- function(stat) {
 }
 
 context("stat-sum")
+library(plyr)
 
 test_that("stat_sum", {
   d <- diamonds[1:1000, ]

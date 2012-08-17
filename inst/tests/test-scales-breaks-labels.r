@@ -1,5 +1,7 @@
 context("Scales: breaks and labels")
 
+library(scales)
+
 test_that("labels match breaks, even when outside limits", {
   sc <- scale_y_continuous(breaks=1:4, labels=1:4, limits = c(1, 3))
   

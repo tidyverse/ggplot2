@@ -1,4 +1,5 @@
 context("Scales")
+library(scales)
 
 test_that("buidling a plot does not affect its scales", {
   dat <- data.frame(x = rnorm(20), y = rnorm(20))
