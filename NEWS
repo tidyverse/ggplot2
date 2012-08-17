@@ -11,6 +11,10 @@ MINOR FEATURES
   respond changes in the operating environment, such as a change in
   locale. (Winston Chang. Fixes #592)
 
+* In `stat_ydensity` and `geom_violin`, the `scale` argument now accepts
+  the value "width", for equal widths. Additionally `scale="equal"` has
+  been depecrated, in favor of "area". (Jean-Olivier Irisson)
+
 BUG FIXES
 
 * With `geom_segment`, when a variable mapped to `linetype` had an NA
