@@ -103,6 +103,7 @@ guide_colourbar <- function(
   label.theme = NULL,
   label.hjust = NULL,
   label.vjust = NULL,
+  parse = FALSE,                            
 
   # bar
   barwidth = NULL,
@@ -140,6 +141,7 @@ guide_colourbar <- function(
     label.theme = label.theme,
     label.hjust = label.hjust,
     label.vjust = label.vjust,
+    parse = parse,             
 
     # bar
     barwidth = barwidth,
@@ -292,8 +294,15 @@ guide_gengrob.colorbar <- function(guide, theme) {
         if (any(is.expression(guide$key$.label))) 1 else switch(guide$direction, horizontal = 0.5, vertical = 0)
       vjust <- y <- guide$label.vjust %||% 0.5
       switch(guide$direction, horizontal = {x <- label_pos; y <- vjust}, "vertical" = {x <- hjust; y <- label_pos})
-
-      g <- element_grob(element = label.theme, label = guide$key$.label, 
+      
+      label <- guide$key$.label
+      if (guide$parse) {
+        label <- parse(text = label)
+      } else if (any(laply(label, is.expression)) || any(laply(label, is.call))) {
+        label <- llply(label, function(l) if (is.call(l)) substitute(expression(x), list(x = l)))
+        label <- do.call("c", label)
+      }
+      g <- element_grob(element = label.theme, label = label, 
         x = x, y = y, hjust = hjust, vjust = vjust)
       ggname("guide.label", g)
     }

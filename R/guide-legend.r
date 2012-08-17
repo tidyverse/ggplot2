@@ -34,6 +34,8 @@
 #'   label text.
 #' @param label.vjust A numeric specifying vertical justification of the label
 #'   text.
+#' @param parse If TRUE, the labels will be parsed into expressions and
+#'   displayed as described in ?plotmath
 #' @param keywidth A numeric or a unit object specifying the width of the
 #'   legend key. Default value is \code{legend.key.width} or
 #'   \code{legend.key.size} in \code{\link{theme}} or theme.
@@ -133,6 +135,7 @@ guide_legend <- function(
   label.theme = NULL,
   label.hjust = NULL,
   label.vjust = NULL,
+  parse = FALSE,                         
                          
   # key
   keywidth = NULL,
@@ -167,6 +170,7 @@ guide_legend <- function(
     label.theme = label.theme,
     label.hjust = label.hjust,
     label.vjust = label.vjust,
+    parse = parse,
 
     # size of key
     keywidth = keywidth,
@@ -341,6 +345,7 @@ guide_gengrob.legend <- function(guide, theme) {
 
       lapply(guide$key$.label,
         function(label, ...) {
+          if (guide$parse) label <- parse(text = label)
           g <- element_grob(element = label.theme, label = label, 
             x = x, y = y, hjust = hjust, vjust = vjust)
           ggname("guide.label", g)
