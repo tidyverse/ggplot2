@@ -55,6 +55,14 @@ StatBin <- proto(Stat, {
   informed <- FALSE
   
   calculate_groups <- function(., data, ...) {
+    if (!is.null(data$y) || !is.null(match.call()$y)) {
+      stop("Can't map a variable to y and also use stat_bin. If you want y to ",
+        "represent counts of cases, use stat=\"bin\" and don't map a variable ",
+        "to y. If you want y to represent values in the data use ",
+        "stat=\"identity\". See ?geom_bar for examples of each type.",
+        call. = FALSE)
+    }
+
     .$informed <- FALSE
     .super$calculate_groups(., data, ...)
   }
