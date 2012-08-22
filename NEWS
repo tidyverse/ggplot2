@@ -1,3 +1,6 @@
+* The `plotmatrix` function has been deprecated and prints a warning
+  message.
+
 MINOR FEATURES
 
 * `geom_segment` allows setting `lineend`. (Jean-Olivier Irisson)
