@@ -56,10 +56,16 @@ StatBin <- proto(Stat, {
   
   calculate_groups <- function(., data, ...) {
     if (!is.null(data$y) || !is.null(match.call()$y)) {
-      stop("Can't map a variable to y and also use stat_bin. If you want y to ",
-        "represent counts of cases, use stat=\"bin\" and don't map a variable ",
-        "to y. If you want y to represent values in the data use ",
-        "stat=\"identity\". See ?geom_bar for examples of each type.",
+      # Deprecate this behavior
+      warning("Mapping a variable to y and also using stat=\"bin\". ",
+        "With stat=\"bin\", it will attempt to set the y value to the count ",
+        "of cases in each group. ",
+        "This can result in unexpected behavior and will not be allowed in a ",
+        "future version of ggplot2. ",
+        "If you want y to represent counts of cases, use stat=\"bin\" and ",
+        "don't map a variable to y. ",
+        "If you want y to represent values in the data, use ",
+        "stat=\"identity\". See ?geom_bar for examples.",
         call. = FALSE)
     }
 
