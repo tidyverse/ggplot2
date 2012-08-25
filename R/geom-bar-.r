@@ -8,14 +8,19 @@
 #' sum over some other variable.  See the examples for a practical
 #' example.
 #'
+#' The heights of the bars commonly represent one of two things: either a
+#' count of cases in each group, the values in a column of the data frame.
+#' By default, \code{geom_bar} uses \code{stat="bin"}. This makes the height
+#' of each bar equal to the number of cases in each group, and it is
+#' incompatible with mapping values to the \code{y} aesthetic. If you want
+#' the heights of the bars to represent values in the data, use
+#' \code{stat="identity"} and map a value to the \code{y} aesthetic.
+#'
 #' By default, multiple x's occuring in the same place will be stacked a top
 #' one another by position_stack.  If you want them to be dodged from
 #' side-to-side, see \code{\link{position_dodge}}. Finally, 
 #' \code{\link{position_fill}} shows relative propotions at each x by stacking
 #' the bars and then stretching or squashing to the same height.
-#'
-#' If you have presummarised data, use \code{stat="identity"} to turn off the
-#' default summary.
 #'
 #' Sometimes, bar charts are used not as a distributional summary, but 
 #' instead of a dotplot.  Generally, it's preferable to use a dotplot (see
@@ -42,6 +47,7 @@
 #' # Generate data
 #' c <- ggplot(mtcars, aes(factor(cyl)))
 #' 
+#' # By default, uses stat="bin", which gives the count in each category
 #' c + geom_bar()
 #' c + geom_bar(width=.5)
 #' c + geom_bar() + coord_flip()
@@ -51,6 +57,12 @@
 #' qplot(factor(cyl), data=mtcars, geom="bar")
 #' qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(cyl))
 #' 
+#' # When the data contains y values in a column, use stat="identity"
+#' library(plyr)
+#' # Calculate the mean mpg for each level of cyl
+#' mm <- ddply(mtcars, "cyl", summarise, mmpg = mean(mpg))
+#' ggplot(mm, aes(x = factor(cyl), y = mmpg)) + geom_bar(stat = "identity")
+#'
 #' # Stacked bar charts    
 #' qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(vs))
 #' qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(gear))
