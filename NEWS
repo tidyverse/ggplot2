@@ -3,6 +3,10 @@
 
 MINOR FEATURES
 
+* A new theme `theme_minimal` has been added. This theme is based on
+  `theme_bw`, but does not have outlines around many of the rectangular
+  elements. (Baptiste Auguie)
+
 * `geom_segment` allows setting `lineend`. (Jean-Olivier Irisson)
 
 * `ggsave` raises an error when making images larger than 50x50 inches.
