@@ -1,6 +1,13 @@
 * The `plotmatrix` function has been deprecated and prints a warning
   message.
 
+* `stat_bin` now produces warning messages when it is used with set or
+  mapped y values. Previously, it was possible to use `stat_bin` and
+  also set/map y values; if there was one y value per group, it would
+  display the y values from the data, instead of the counts of cases for
+  each group. This usage is deprecated and will be removed in a future
+  version of ggplot2. (Winston Chang. Fixes #632)
+
 MINOR FEATURES
 
 * A new theme `theme_minimal` has been added. This theme is based on
