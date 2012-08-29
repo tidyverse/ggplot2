@@ -88,7 +88,7 @@
 #'   facet_wrap(~ dpg_trans, ncol = 2, scales = "free", switch = "y") +
 #'   theme_minimal()
 #' }
-facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, as.table = TRUE, switch = NULL, drop = TRUE) {
+facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, switch = NULL, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
@@ -102,7 +102,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrin
     facets = as.quoted(facets), free = free, shrink = shrink,
     as.table = as.table, switch = switch,
     drop = drop, ncol = ncol, nrow = nrow,
-    subclass = "wrap"
+    labeller = labeller, subclass = "wrap"
   )
 }
 
@@ -339,10 +339,16 @@ facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
 
 #' @export
 facet_strips.wrap <- function(facet, panel, theme) {
+  labeller <- match.fun(facet$labeller)
+  
   labels_df <- panel$layout[names(facet$facets)]
-  labels_df[] <- plyr::llply(labels_df, format, justify = "none")
 
-  labels <- apply(labels_df, 1, paste, collapse = ", ")
+  # If faceting with multiple variables, paste them together
+  labels <- apply(labels_df, 1, paste, collapse=", ")
+  varnames <- paste(names(labels_df), collapse=", ")
+
+  # Run the labeller function
+  labels <- labeller(varnames, labels)
 
   vertical <- !is.null(facet$switch) && facet$switch == "y"
   if (vertical) {
