@@ -87,7 +87,7 @@ theme_bw <- function(base_size = 12, base_family = "") {
 #' @param base_size base font size
 #' @param base_family base font family
 #' @export
-theme_minimal <- function(base_size = 12, base_family = "Helvetica") {
+theme_minimal <- function(base_size = 12, base_family = "") {
   # Starts with theme_bw and then modify some parts
   theme_bw(base_size = base_size, base_family = base_family) %+replace%
     theme(
