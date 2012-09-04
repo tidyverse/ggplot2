@@ -3,7 +3,7 @@
 \alias{theme_grey}
 \title{A theme with grey background and white gridlines.}
 \usage{
-  theme_grey(base_size = 12, base_family = "Helvetica")
+  theme_grey(base_size = 12, base_family = "")
 }
 \arguments{
   \item{base_size}{base font size}

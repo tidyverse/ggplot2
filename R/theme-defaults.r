@@ -4,7 +4,7 @@
 #' @param base_family base font family
 #' @aliases theme_gray theme_grey
 #' @export theme_gray theme_grey
-theme_grey <- function(base_size = 12, base_family = "Helvetica") {
+theme_grey <- function(base_size = 12, base_family = "") {
   theme(
     # Elements in this first block aren't used directly, but are inherited
     # by others
@@ -66,14 +66,14 @@ theme_gray <- theme_grey
 #' @param base_size base font size
 #' @param base_family base font family
 #' @export
-theme_bw <- function(base_size = 12, base_family = "Helvetica") {
+theme_bw <- function(base_size = 12, base_family = "") {
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
     theme(
       axis.text         = element_text(size = rel(0.8)),
       axis.ticks        = element_line(colour = "black"),
       legend.key        = element_rect(colour = "grey80"),
-      panel.background  = element_rect(fill = "white"),
+      panel.background  = element_rect(fill = "white", colour = NA),
       panel.border      = element_rect(fill = NA, colour = "grey50"),
       panel.grid.major  = element_line(colour = "grey90", size = 0.2),
       panel.grid.minor  = element_line(colour = "grey98", size = 0.5),
