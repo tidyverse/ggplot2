@@ -4,20 +4,20 @@ dat <- data.frame(x=LETTERS[1:5], y=1:5)
 
 # geom_abline tests
 
-ggplot(dat, aes(x=x, y=y)) + geom_bar() +
+ggplot(dat, aes(x=x, y=y)) + geom_bar(stat="identity") +
   geom_abline(intercept = 2, slope = 0, colour = "red")
 save_vtest("geom_abline: intercept=2, slope=0")
 
-ggplot(dat, aes(x=x, y=y)) + geom_bar() +
+ggplot(dat, aes(x=x, y=y)) + geom_bar(stat="identity") +
   geom_abline(intercept = 0, slope = 1, colour = "red")
 save_vtest("geom_abline: intercept=0, slope=1 Should have same values as bars")
 
-ggplot(dat, aes(x=x, y=y)) + geom_bar() +
+ggplot(dat, aes(x=x, y=y)) + geom_bar(stat="identity") +
   geom_abline(intercept = 2, slope = 0, colour = "red") +
   coord_flip()
 save_vtest("geom_abline, coord_flip: intercept=2, slope=0")
 
-ggplot(dat, aes(x=x, y=y)) + geom_bar() +
+ggplot(dat, aes(x=x, y=y)) + geom_bar(stat="identity") +
   geom_abline(intercept = 0, slope = 1, colour = "red") +
   coord_flip()
 save_vtest("geom_abline, coord_flip: intercept=0, slope=1, should have same values as bars")
@@ -25,16 +25,16 @@ save_vtest("geom_abline, coord_flip: intercept=0, slope=1, should have same valu
 
 # geom_hline tests
 
-ggplot(dat, aes(x=x, y=y)) + geom_bar() +
+ggplot(dat, aes(x=x, y=y)) + geom_bar(stat="identity") +
   geom_hline(yintercept = 2, colour = "red")
 save_vtest("geom_hline: intercept=2")
 
-ggplot(dat, aes(x=x, y=y)) + geom_bar() +
+ggplot(dat, aes(x=x, y=y)) + geom_bar(stat="identity") +
   geom_hline(yintercept = 2, colour = "red") +
   coord_flip()
 save_vtest("geom_hline, coord_flip: intercept=2")
 
-ggplot(dat, aes(x=x, y=y)) + geom_bar() +
+ggplot(dat, aes(x=x, y=y)) + geom_bar(stat="identity") +
   geom_hline(yintercept = 2, colour = "red") +
   coord_polar()
 save_vtest("geom_hline, coord_polar: intercept=2, should have a circle at r=2")
@@ -42,16 +42,16 @@ save_vtest("geom_hline, coord_polar: intercept=2, should have a circle at r=2")
 
 # geom_vline tests
 
-ggplot(dat, aes(x=x, y=y)) + geom_bar() +
+ggplot(dat, aes(x=x, y=y)) + geom_bar(stat="identity") +
   geom_vline(xintercept = 2, colour = "red")
 save_vtest("geom_vline: intercept=2")
 
-ggplot(dat, aes(x=x, y=y)) + geom_bar() +
+ggplot(dat, aes(x=x, y=y)) + geom_bar(stat="identity") +
   geom_vline(xintercept = 2, colour = "red") +
   coord_flip()
 save_vtest("geom_vline, coord_flip: intercept=2")
 
-ggplot(dat, aes(x=x, y=y)) + geom_bar() +
+ggplot(dat, aes(x=x, y=y)) + geom_bar(stat="identity") +
   geom_vline(xintercept = 2, colour = "red") +
   coord_polar()
 save_vtest("geom_vline, coord_polar: intercept=2, should have a ray at 2")
