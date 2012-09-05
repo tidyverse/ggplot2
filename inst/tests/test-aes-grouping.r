@@ -5,6 +5,7 @@ df <- data.frame(
   a = c("a", "a", "b", "b"),
   b = c("a", "b", "a", "b")
 )
+library(plyr)
 
 group <- function(x) pdata(x)[[1]]$group
 groups <- function(x) length(unique(group(x)))
