@@ -28,19 +28,19 @@ context("stat-bin")
 test_that("stat_sum", {
   dat <- data.frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 
-  # Should get a warning when mapping/setting y and also using stat_bin
-  expect_warning(p <- ggplot_build(ggplot(dat, aes(x=x, y=y)) + geom_bar()),
+  # Should get a message when mapping/setting y and also using stat_bin
+  expect_message(p <- ggplot_build(ggplot(dat, aes(x=x, y=y)) + geom_bar()),
     "Mapping a variable to y and also using stat=\"bin\"")
-  expect_warning(p <- ggplot_build(ggplot(dat, aes(x=x, y=y)) + geom_bar(stat="bin")),
-    "Mapping a variable to y and also using stat=\"bin\"")
-
-  expect_warning(p <- ggplot_build(ggplot(dat, aes(x=x)) + geom_bar(y=5)),
+  expect_message(p <- ggplot_build(ggplot(dat, aes(x=x, y=y)) + geom_bar(stat="bin")),
     "Mapping a variable to y and also using stat=\"bin\"")
 
-  # This gives an error and a warning (it would probably be OK if just one
+  expect_message(p <- ggplot_build(ggplot(dat, aes(x=x)) + geom_bar(y=5)),
+    "Mapping a variable to y and also using stat=\"bin\"")
+
+  # This gives an error and a message (it would probably be OK if just one
   # of these happened, but this test looks for both)
   dat2 <- data.frame(x = c("a", "b", "c", "a", "b", "c"), y = c(1, 5, 10, 2, 3, 4))
-  expect_warning(expect_error(
+  expect_message(expect_error(
     p <- ggplot_build(ggplot(dat2, aes(x=x, y=y)) + geom_bar())))
 })
 
