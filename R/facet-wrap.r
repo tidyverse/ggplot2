@@ -344,18 +344,11 @@ facet_strips.wrap <- function(facet, panel, theme) {
   labels_df <- panel$layout[names(facet$facets)]
 
   # If faceting with multiple variables, paste them together
-  # Use "," as collapser if labeller is label_value or label_both
-  # and "*" if it's any other
-  # because plotmath fails when there's a comma inside the expression
-
-  if (identical(labeller, label_value) | identical(labeller, label_both)) {
-    collapser <- ","
-  } else {
-    collapser <- "*"
+  labels <- apply(labels_df, 1, paste, collapse = ", ")
+  if (identical(labeller, label_parsed)) {
+    labels <- paste("list(", labels, ")", sep = "")
   }
 
-  # If faceting with multiple variables, paste them together
-  labels <- apply(labels_df, 1, paste, collapse = collapser)
   varnames <- paste(names(labels_df), collapse=", ")
 
   # Run the labeller function
