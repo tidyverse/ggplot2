@@ -72,24 +72,23 @@ train_position <- function(panel, data, x_scale, y_scale) {
     panel$y_scales <- rlply(max(layout$SCALE_Y), scale_clone(y_scale))
   }
   
-  # loop over each layer, training x and y scales in turn
-  for(layer_data in data) {
+  # Combine the data frames, then train the scales
+  layer_data <- do.call(rbind.fill, data)
     
-    match_id <- match(layer_data$PANEL, layout$PANEL)
-    
-    if (!is.null(x_scale)) {
-      x_vars <- intersect(x_scale$aesthetics, names(layer_data))
-      SCALE_X <- layout$SCALE_X[match_id]
-      
-      scale_apply(layer_data, x_vars, scale_train, SCALE_X, panel$x_scales)
-    }
+  match_id <- match(layer_data$PANEL, layout$PANEL)
 
-    if (!is.null(y_scale)) {
-      y_vars <- intersect(y_scale$aesthetics, names(layer_data))
-      SCALE_Y <- layout$SCALE_Y[match_id]
-      
-      scale_apply(layer_data, y_vars, scale_train, SCALE_Y, panel$y_scales)
-    }
+  if (!is.null(x_scale)) {
+    x_vars <- intersect(x_scale$aesthetics, names(layer_data))
+    SCALE_X <- layout$SCALE_X[match_id]
+    
+    scale_apply(layer_data, x_vars, scale_train, SCALE_X, panel$x_scales)
+  }
+
+  if (!is.null(y_scale)) {
+    y_vars <- intersect(y_scale$aesthetics, names(layer_data))
+    SCALE_Y <- layout$SCALE_Y[match_id]
+
+    scale_apply(layer_data, y_vars, scale_train, SCALE_Y, panel$y_scales)
   }
 
   panel
