@@ -146,3 +146,22 @@ test_that("scales looked for in appropriate place", {
   p4 <- qplot(mpg, wt, data = mtcars)
   expect_equal(xlabel(p4), NULL)
 })
+
+test_that("find_global searches in the right places", {
+  testenv <- new.env(parent = globalenv())
+
+  # This should find the scale object in the package environment
+  expect_identical(find_global("scale_colour_hue", testenv),
+    ggplot2::scale_colour_hue)
+
+  # Set an object with the same name in the environment
+  testenv$scale_colour_hue <- "foo"
+
+  # Now it should return the new object
+  expect_identical(find_global("scale_colour_hue", testenv), "foo")
+
+  # If we search in the empty env, we should end up with the object
+  # from the ggplot2 namespace
+  expect_identical(find_global("scale_colour_hue", emptyenv()),
+    ggplot2::scale_colour_hue)
+})
