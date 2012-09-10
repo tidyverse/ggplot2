@@ -11,6 +11,10 @@
   containing any of \code{"trbl"}, for top, right, bottom,
   and left.}
 
+  \item{rugwidth}{The width the rug segments. This should
+  be a number in [0,1] in "npc" units. See the help for
+  \code{\line{unit}}.}
+
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
   needs to be set at the layer level if you are overriding

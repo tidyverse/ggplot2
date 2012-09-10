@@ -1,12 +1,15 @@
 #' Marginal rug plots.
 #'
-#' @section Aesthetics: 
+#' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "rug")}
 #'
 #' @inheritParams geom_point
 #' @param sides A string that controls which sides of the plot the rugs appear on.
 #'   It can be set to a string containing any of \code{"trbl"}, for top, right,
 #'   bottom, and left.
+#' @param rugwidth The width the rug segments. This should be a number in [0,1]
+#' in "npc" units. See the help for \code{\line{unit}}.
+#'
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(x=wt, y=mpg))
@@ -16,20 +19,20 @@
 #' p + geom_point() + geom_rug(sides="trbl") # All four sides
 #' p + geom_point() + geom_rug(position='jitter')
 geom_rug <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", sides = "bl", ...) {
-  GeomRug$new(mapping = mapping, data = data, stat = stat, position = position, sides = sides, ...)
+  GeomRug$new(mapping = mapping, data = data, stat = stat, position = position, sides = sides, rugwidth=0.03, ...)
 }
 
 GeomRug <- proto(Geom, {
   objname <- "rug"
 
-  draw <- function(., data, scales, coordinates, sides, ...) {
+  draw <- function(., data, scales, coordinates, sides, rugwidth=0.03, ...) {
     rugs <- list()
-    data <- coord_transform(coordinates, data, scales)    
+    data <- coord_transform(coordinates, data, scales)
     if (!is.null(data$x)) {
       if(grepl("b", sides)) {
         rugs$x_b <- segmentsGrob(
           x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
-          y0 = unit(0, "npc"), y1 = unit(0.03, "npc"),
+          y0 = unit(0, "npc"), y1 = unit(rugwidth, "npc"),
           gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
         )
       }
@@ -37,17 +40,17 @@ GeomRug <- proto(Geom, {
       if(grepl("t", sides)) {
         rugs$x_t <- segmentsGrob(
           x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
-          y0 = unit(1, "npc"), y1 = unit(0.97, "npc"),
+          y0 = unit(1, "npc"), y1 = unit(1 - rugwidth, "npc"),
           gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
         )
       }
-    }  
+    }
 
     if (!is.null(data$y)) {
       if(grepl("l", sides)) {
         rugs$y_l <- segmentsGrob(
           y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
-          x0 = unit(0, "npc"), x1 = unit(0.03, "npc"),
+          x0 = unit(0, "npc"), x1 = unit(rugwidth, "npc"),
           gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
         )
       }
@@ -55,15 +58,15 @@ GeomRug <- proto(Geom, {
       if(grepl("r", sides)) {
         rugs$y_r <- segmentsGrob(
           y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
-          x0 = unit(1, "npc"), x1 = unit(0.97, "npc"),
+          x0 = unit(1, "npc"), x1 = unit(1 - rugwidth, "npc"),
           gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
         )
       }
-    }  
-    
+    }
+
     gTree(children = do.call("gList", rugs))
   }
-  
+
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
   guide_geom <- function(.) "path"
