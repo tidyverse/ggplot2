@@ -45,6 +45,15 @@ BUG FIXES
   like `math_format()`, and will render them as expressions. (Kohske
   Takahashi)
 
+ggplot2 0.9.2.1
+----------------------------------------------------------------
+
+BUG FIXES
+
+* find_global now searches for objects in the namespace environment
+  instead of the package environment. This fixes problems when ggplot2
+  is imported to another package but not attached.
+
 ggplot2 0.9.2
 ----------------------------------------------------------------
 

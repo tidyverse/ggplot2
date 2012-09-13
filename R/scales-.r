@@ -100,15 +100,16 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
 }
 
 # Look for object first in parent environment and if not found, then in 
-# ggplot2 package environment.  This makes it possible to override default
+# ggplot2 namespace environment.  This makes it possible to override default
 # scales by setting them in the parent environment.
 find_global <- function(name, env) {
   if (exists(name, env)) {
     return(get(name, env))
   }
 
-  if (exists(name, "package:ggplot2")) {
-    return(get(name, pkg))
+  nsenv <- asNamespace("ggplot2")
+  if (exists(name, nsenv)) {
+    return(get(name, nsenv))
   }
   
   NULL
