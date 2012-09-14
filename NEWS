@@ -29,6 +29,8 @@ MINOR FEATURES
   the value "width", for equal widths. Additionally `scale="equal"` has
   been depecrated, in favor of "area". (Jean-Olivier Irisson)
 
+* `stat_quantile` now supports `rqss`.
+
 BUG FIXES
 
 * With `geom_segment`, when a variable mapped to `linetype` had an NA
