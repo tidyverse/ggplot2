@@ -66,6 +66,7 @@ StatQuantile <- proto(Stat, {
     
     if (is.null(formula)) {
       if (method == "rqss") {
+        try_require("MatrixModels")
         formula <- eval(substitute(y ~ qss(x, lambda = lambda)), 
           list(lambda = lambda))
       } else {
