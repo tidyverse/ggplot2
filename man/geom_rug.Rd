@@ -3,7 +3,8 @@
 \title{Marginal rug plots.}
 \usage{
   geom_rug(mapping = NULL, data = NULL, stat = "identity",
-    position = "identity", sides = "bl", ...)
+    position = "identity", sides = "bl",
+    rugwidth = unit(0.03, "npc"), ...)
 }
 \arguments{
   \item{sides}{A string that controls which sides of the
@@ -12,8 +13,7 @@
   and left.}
 
   \item{rugwidth}{The width the rug segments. This should
-  be a number in [0,1] in "npc" units. See the help for
-  \code{\line{unit}}.}
+  be a \code{\link{unit}} object.}
 
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
