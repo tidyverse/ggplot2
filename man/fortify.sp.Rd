@@ -3,10 +3,10 @@
 \alias{fortify.Lines}
 \alias{fortify.Polygon}
 \alias{fortify.Polygons}
-\alias{fortify.sp}
 \alias{fortify.SpatialLinesDataFrame}
 \alias{fortify.SpatialPolygons}
 \alias{fortify.SpatialPolygonsDataFrame}
+\alias{fortify.sp}
 \title{Fortify method for classes from the sp package.}
 \usage{
   \method{fortify}{SpatialPolygonsDataFrame} (model, data,
