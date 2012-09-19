@@ -66,7 +66,7 @@ m + stat_quantile(method = "rqss")
 m + stat_quantile(method = "rqss", lambda = 10)
 m + stat_quantile(method = "rqss", lambda = 100)
 
-# Add aesthetic mappings
+# Use 'votes' as weights for the quantile calculation
 m + stat_quantile(aes(weight=votes))
 
 # Change scale

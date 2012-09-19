@@ -92,9 +92,11 @@
   numeric vector) \cr legend.box \tab arrangement of
   multiple legends ("horizontal" or "vertical") \cr
 
-  panel.background \tab background of plotting area
-  (\code{element_rect}; inherits from \code{rect}) \cr
-  panel.border \tab border around plotting area
+  panel.background \tab background of plotting area, drawn
+  underneath plot (\code{element_rect}; inherits from
+  \code{rect}) \cr panel.border \tab border around plotting
+  area, drawn on top of plot so that it covers tick marks
+  and grid lines. This should be used with \code{fill=NA}
   (\code{element_rect}; inherits from \code{rect}) \cr
   panel.margin \tab margin around facet panels
   (\code{unit}) \cr panel.grid \tab grid lines

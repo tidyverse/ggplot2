@@ -44,3 +44,23 @@ scale_size_discrete <- function(..., range = c(1, 6)) {
   discrete_scale("size", "size_d",
     function(n) seq(range[1], range[2], length = n), ...)
 }
+
+#' Scale area instead of radius, for size.
+#'
+#' When \code{scale_size_area} is used, the default behavior is to scale the
+#' area of points to be proportional to the value.
+#'
+#' Note that this controls the size scale, so it will also control
+#' the thickness of lines. Line thickness will be proportional to the square
+#' root of the value, which is probably undesirable in most cases.
+#'
+#' @param ... Other arguments passed on to \code{\link{continuous_scale}}
+#'   to control name, limits, breaks, labels and so forth.
+#' @param range Range of output sizes.  Should be greater than 0.
+#' @param max_size Size of largest points.
+#' @export
+scale_size_area <- function(..., max_size = 6) {
+  continuous_scale("size", "area",
+    pal = abs_area(max_size),
+    rescaler = rescale_max, ...)
+}

@@ -23,7 +23,7 @@ Imports:
     grid,
     gtable (>= 0.1.1),
     reshape2,
-    scales (>= 0.2.2),
+    scales (>= 0.2.2.99.1),
     proto,
     MASS
 Suggests:

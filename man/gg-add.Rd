@@ -1,7 +1,7 @@
 \name{+.gg}
+\alias{+.gg}
 \alias{\%+\%}
 \alias{\%+replace\%}
-\alias{+.gg}
 \title{Modify a ggplot or theme object by adding on new components.}
 \usage{
   \method{+}{gg} (e1, e2)
