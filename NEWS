@@ -31,6 +31,11 @@ MINOR FEATURES
 
 * `stat_quantile` now supports `rqss`.
 
+* `scale_size_area` has been added as a replacement for `scale_area`. This
+makes the naming more consistent. The new scale also by default makes the
+area of points proportional to the value, which is different from what
+`scale_area` does. (Fixes #635)
+
 BUG FIXES
 
 * With `geom_segment`, when a variable mapped to `linetype` had an NA
