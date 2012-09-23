@@ -142,6 +142,21 @@ ggplot_gtable <- function(data) {
   plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
   plot_table <- gtable_add_grob(plot_table, title, name = "title",
     t = 1, b = 1, l = min(pans$l), r = max(pans$r), clip = "off")
+
+  # Header and Footer
+  header <- element_render(theme, "plot.header", plot$labels$header)
+  header_height <- grobHeight(header) + 
+    if (is.null(plot$labels$header)) unit(0, "lines") else unit(0.5, "lines")
+  footer <- element_render(theme, "plot.footer", plot$labels$footer)
+  footer_height <- grobHeight(footer) + 
+    if (is.null(plot$labels$footer)) unit(0, "lines") else unit(0.5, "lines")
+
+  plot_table <- gtable_add_rows(plot_table, header_height, pos = 0)
+  plot_table <- gtable_add_grob(plot_table, header, name = "header",
+    t = 1, b = 1, l = 1, r = -1, clip = "off")
+  plot_table <- gtable_add_rows(plot_table, footer_height)
+  plot_table <- gtable_add_grob(plot_table, footer, name = "footer",
+    t = -1, b = -1, l = 1, r = -1, clip = "off")
   
   # Margins
   plot_table <- gtable_add_rows(plot_table, theme$plot.margin[1], pos = 0)

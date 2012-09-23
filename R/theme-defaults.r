@@ -40,7 +40,7 @@ theme_grey <- function(base_size = 12, base_family = "") {
     legend.direction =   NULL,
     legend.justification = "center",
     legend.box =         NULL,
-
+        
     panel.background =   element_rect(fill = "grey90", colour = NA),
     panel.border =       element_blank(),
     panel.grid.major =   element_line(colour = "white"),
@@ -53,6 +53,8 @@ theme_grey <- function(base_size = 12, base_family = "") {
 
     plot.background =    element_rect(colour = "white"),
     plot.title =         element_text(size = rel(1.2)),
+    plot.header =        element_text(size = rel(0.8), hjust=0, colour="grey50"),
+    plot.footer =        element_text(size = rel(0.8), hjust=0, colour="grey50"),
     plot.margin =        unit(c(1, 1, 0.5, 0.5), "lines"),
 
     complete = TRUE

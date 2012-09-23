@@ -311,6 +311,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 
   plot.background     = el_def("element_rect", "rect"),
   plot.title          = el_def("element_text", "title"),
+  plot.header         = el_def("element_text", "text"),
+  plot.footer         = el_def("element_text", "text"),              
   plot.margin         = el_def("unit"),
 
   aspect.ratio        = el_def("character")
