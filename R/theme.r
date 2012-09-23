@@ -212,7 +212,7 @@ print.theme <- function(x, ...) str(x)
 #' # Add a header and a footer
 #' p <- p + labs(header = "Gas-Mileage project", footer="Plotted in examples of theme.r")
 #' # set header color to red footer color to brown
-#' p + theme(plot.header = element_text(colour = "red"), plot.footer = element_text(colour = "brown")
+#' p + theme(plot.header = element_text(colour = "red"), plot.footer = element_text(colour = "brown"))
 #'
 #' # Changing plot look with themes
 #' DF <- data.frame(x = rnorm(400))
