@@ -19,6 +19,7 @@
 #' p + geom_point() + geom_rug(sides="trbl") # All four sides
 #' p + geom_point() + geom_rug(position='jitter')
 geom_rug <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", sides = "bl", rugwidth=unit(0.03, "npc"), ...) {
+
   GeomRug$new(mapping = mapping, data = data, stat = stat, position = position, sides = sides, rugwidth=rugwidth, ...)
 }
 
@@ -26,6 +27,9 @@ GeomRug <- proto(Geom, {
   objname <- "rug"
 
   draw <- function(., data, scales, coordinates, sides, rugwidth=units(0.03, "npc"), ...) {
+    if (!is(rugwidth, "unit")) {
+      stop("'rugwidth' must be a 'unit' object.")
+    }
     rugs <- list()
     data <- coord_transform(coordinates, data, scales)
     if (!is.null(data$x)) {
