@@ -120,6 +120,10 @@
   (\code{element_rect}; inherits from \code{rect}) \cr
   plot.title \tab plot title (text appearance)
   (\code{element_text}; inherits from \code{title}) \cr
+  plot.header \tab plot header (text appearance)
+  (\code{element_text}; inherits from \code{text} \cr
+  plot.footer \tab plot footer (text appearance)
+  (\code{element_text}; inherits from \code{text} \cr
   plot.margin \tab margin around entire plot (\code{unit})
   \cr
 
@@ -163,6 +167,11 @@ p <- p + labs(title = "Vehicle Weight-Gas Mileage Relationship")
 # Set title to twice the base font size
 p + theme(plot.title = element_text(size = rel(2)))
 p + theme(plot.title = element_text(size = rel(2), colour = "blue"))
+
+# Add a header and a footer
+p <- p + labs(header = "Gas-Mileage project", footer="Plotted in examples of theme.r")
+# set header color to red footer color to brown
+p + theme(plot.header = element_text(colour = "red"), plot.footer = element_text(colour = "brown"))
 
 # Changing plot look with themes
 DF <- data.frame(x = rnorm(400))
