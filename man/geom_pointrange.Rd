@@ -3,9 +3,13 @@
 \title{An interval represented by a vertical line, with a point in the middle.}
 \usage{
   geom_pointrange(mapping = NULL, data = NULL,
-    stat = "identity", position = "identity", ...)
+    stat = "identity", position = "identity", fatten = 4,
+    ...)
 }
 \arguments{
+  \item{fatten}{a multiplicative factor to fatten the point
+  by}
+
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
   needs to be set at the layer level if you are overriding

@@ -1,9 +1,10 @@
 #' An interval represented by a vertical line, with a point in the middle.
-#' 
-#' @section Aesthetics: 
+#'
+#' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "pointrange")}
 #'
 #' @inheritParams geom_point
+#' @param fatten a multiplicative factor to fatten the point by
 #' @seealso
 #'  \code{\link{geom_errorbar}} for error bars,
 #'  \code{\link{geom_linerange}} for range indicated by straight line, + examples,
@@ -13,33 +14,36 @@
 #' @export
 #' @examples
 #' # See geom_linerange for examples
-geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
-  GeomPointrange$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity",
+                             position = "identity", fatten=4, ...) {
+  GeomPointrange$new(mapping = mapping, data = data, stat = stat,
+                     position = position, fatten=fatten, ...)
 }
 
 GeomPointrange <- proto(Geom, {
   objname <- "pointrange"
 
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, shape=16, fill=NA, alpha = NA)
+  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1,
+                                 shape=16, fill=NA, alpha = NA)
   guide_geom <- function(.) "pointrange"
   required_aes <- c("x", "y", "ymin", "ymax")
 
-  draw <- function(., data, scales, coordinates, ...) {
+  draw <- function(., data, scales, coordinates, ..., fatten=4) {
     if (is.null(data$y)) return(GeomLinerange$draw(data, scales, coordinates, ...))
     ggname(.$my_name(),gTree(children=gList(
       GeomLinerange$draw(data, scales, coordinates, ...),
-      GeomPoint$draw(transform(data, size = size * 4), scales, coordinates, ...)
+      GeomPoint$draw(transform(data, size = size * fatten), scales, coordinates, ...)
     )))
   }
 
   draw_legend <- function(., data, ...) {
     data <- aesdefaults(data, .$default_aes(), list(...))
-    
+
     grobTree(
       GeomPath$draw_legend(data, ...),
       GeomPoint$draw_legend(transform(data, size = size * 4), ...)
     )
   }
-  
+
 })
