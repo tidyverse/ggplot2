@@ -9,7 +9,7 @@
 #' example.
 #'
 #' The heights of the bars commonly represent one of two things: either a
-#' count of cases in each group, the values in a column of the data frame.
+#' count of cases in each group, or the values in a column of the data frame.
 #' By default, \code{geom_bar} uses \code{stat="bin"}. This makes the height
 #' of each bar equal to the number of cases in each group, and it is
 #' incompatible with mapping values to the \code{y} aesthetic. If you want
