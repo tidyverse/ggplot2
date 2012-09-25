@@ -186,6 +186,8 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
   default.units = "npc", ...) {
 
+  if (is.null(angle)) stop("Text element requires non-NULL value for 'angle'.")
+
   vj <- vjust %||% element$vjust
   hj <- hjust %||% element$hjust
   angle <- element$angle %% 360
