@@ -47,12 +47,11 @@ test_that("Polar distance calculation ignores NA's", {
   expect_equal(is.na(dists), c(FALSE, FALSE, FALSE, TRUE))
 
 
-  # NAs in each vector
+  # NAs in each vector - also have NaN
   x1 <- c(0, 0.5, 0.5,  1, NA)
-  x2 <- c(NA,   1,   2, NA,  1)
+  x2 <- c(NaN,   1,   2, NA,  1)
   dists <- dist_polar(x1, x2)
   expect_equal(is.na(dists), c(TRUE, FALSE, TRUE, TRUE))
   dists <- dist_polar(x2, x1)
   expect_equal(is.na(dists), c(TRUE, FALSE, TRUE, TRUE))
 })
-
