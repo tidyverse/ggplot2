@@ -52,6 +52,13 @@ BUG FIXES
   like `math_format()`, and will render them as expressions. (Kohske
   Takahashi)
 
+* When using `coord_polar`, NA or NaN values caused errors. They are now
+  ignored instead. (Winston Chang)
+
+* Text theme elements used in `guide_legend`, such as `label.theme`, caused
+  confusing errors when the angle wasn't set. Now it produces a more
+  informative error message.
+
 ggplot2 0.9.2.1
 ----------------------------------------------------------------
 
