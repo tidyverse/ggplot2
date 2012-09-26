@@ -119,16 +119,19 @@ dist_polar <- function(r, theta) {
   # Get spiral arc length for segments that have non-zero, non-infinite slope
   # (spiral_arc_length only works for actual spirals, not circle arcs or rays)
   # Use the _normalized_ theta values for arc length calculation
-  idx <- lf$slope != 0 & !is.infinite(lf$slope)
+  # Also make sure to ignore NA's because they cause problems when used on left
+  # side assignment.
+  idx <- !is.na(lf$slope) & lf$slope != 0 & !is.infinite(lf$slope)
+  idx[is.na(idx)] <- FALSE
   lf$dist[idx] <-
     spiral_arc_length(lf$slope[idx], lf$tn1[idx], lf$tn2[idx])
 
   # Get cicular arc length for segments that have zero slope (r1 == r2)
-  idx <- lf$slope == 0
+  idx <- !is.na(lf$slope) & lf$slope == 0
   lf$dist[idx] <- lf$r1[idx] * (lf$t2[idx] - lf$t1[idx])
 
   # Get radial length for segments that have infinite slope (t1 == t2)
-  idx <- is.infinite(lf$slope)
+  idx <- !is.na(lf$slope) & is.infinite(lf$slope)
   lf$dist[idx] <- lf$r1[idx] - lf$r2[idx]
 
   # Find the maximum possible length, a spiral line from

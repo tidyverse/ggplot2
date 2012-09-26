@@ -23,3 +23,36 @@ test_that("Polar distance calculation", {
   # ggplot(dat, aes(x=theta, y=r)) + geom_path() +
   #   geom_point(alpha=0.3) + coord_polar()
 })
+
+
+
+test_that("Polar distance calculation ignores NA's", {
+
+  # These are r and theta values; we'll swap them around for testing
+  x1 <- c(0, 0.5, 0.5, NA, 1)
+  x2 <- c(0,   1,   2, 0,  1)
+
+  dists <- dist_polar(x1, x2)
+  expect_equal(is.na(dists), c(FALSE, FALSE, TRUE, TRUE))
+  dists <- dist_polar(x2, x1)
+  expect_equal(is.na(dists), c(FALSE, FALSE, TRUE, TRUE))
+
+
+  # NA on the end
+  x1 <- c(0, 0.5, 0.5, 1, NA)
+  x2 <- c(0,   1,   2, 0,  1)
+  dists <- dist_polar(x1, x2)
+  expect_equal(is.na(dists), c(FALSE, FALSE, FALSE, TRUE))
+  dists <- dist_polar(x2, x1)
+  expect_equal(is.na(dists), c(FALSE, FALSE, FALSE, TRUE))
+
+
+  # NAs in each vector
+  x1 <- c(0, 0.5, 0.5,  1, NA)
+  x2 <- c(NA,   1,   2, NA,  1)
+  dists <- dist_polar(x1, x2)
+  expect_equal(is.na(dists), c(TRUE, FALSE, TRUE, TRUE))
+  dists <- dist_polar(x2, x1)
+  expect_equal(is.na(dists), c(TRUE, FALSE, TRUE, TRUE))
+})
+
