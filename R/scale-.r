@@ -298,7 +298,9 @@ scale_limits <- function(scale) {
 
 #' @export
 scale_limits.default <- function(scale) {
-  scale$limits %||% scale$range$range
+  if(!is.null(scale$limits)) 
+    ifelse(!is.na(scale$limits),scale$limits,scale$range$range) 
+  else scale$range$range
 }
 
 # @kohske
