@@ -292,7 +292,9 @@ scale_limits <- function(scale) {
 
 #' @S3method scale_limits default
 scale_limits.default <- function(scale) {
-  scale$limits %||% scale$range$range
+  if(!is.null(scale$limits)) 
+    ifelse(!is.na(scale$limits),scale$limits,scale$range$range) 
+  else scale$range$range
 }
 
 # @kohske
