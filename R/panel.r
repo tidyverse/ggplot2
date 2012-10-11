@@ -143,7 +143,7 @@ scale_apply <- function(data, vars, f, scale_id, scales) {
   
   n <- length(scales)
   if (any(is.na(scale_id))) stop()
-  scale_index <- plyr:::split_indices(seq_len(nrow(data)), scale_id, n)
+  scale_index <- plyr:::split_indices(scale_id, n)
 
   lapply(vars, function(var) {
     pieces <- lapply(seq_along(scales), function(i) {

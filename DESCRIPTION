@@ -18,7 +18,7 @@ Depends:
     stats,
     methods
 Imports:
-    plyr (>= 1.0),
+    plyr (>= 1.7.1.99.1),
     digest,
     grid,
     gtable (>= 0.1.1),
