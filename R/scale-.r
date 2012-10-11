@@ -291,10 +291,15 @@ scale_limits <- function(scale) {
   
 
 #' @S3method scale_limits default
+#  if scale contains a NULL, use the default scale range
+#  if scale contains a NA, use the default range for that axis, otherwise
+#  use the user defined limit for that axis
 scale_limits.default <- function(scale) {
-  if(!is.null(scale$limits)) 
-    ifelse(!is.na(scale$limits),scale$limits,scale$range$range) 
-  else scale$range$range
+  if(!is.null(scale$limits)) { 
+    ifelse(!is.na(scale$limits), scale$limits, scale$range$range) 
+  } else {
+    scale$range$range
+  }
 }
 
 # @kohske
