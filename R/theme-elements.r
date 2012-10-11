@@ -5,7 +5,7 @@
 element_blank <- function() {
   structure(
     list(),
-    class = c("element", "element_blank")
+    class = c("element_blank", "element")
   )  
 }
 
@@ -25,7 +25,7 @@ element_rect <- function(fill = NULL, colour = NULL, size = NULL,
   if (!is.null(color))  colour <- color
   structure(
     list(fill = fill, colour = colour, size = size, linetype = linetype),
-    class = c("element", "element_rect")
+    class = c("element_rect", "element")
   )
 }
 
@@ -43,7 +43,7 @@ element_line <- function(colour = NULL, size = NULL, linetype = NULL,
   if (!is.null(color))  colour <- color
   structure(
     list(colour = colour, size = size, linetype = linetype, lineend = lineend),
-    class = c("element", "element_line")
+    class = c("element_line", "element")
   )
 }
 
@@ -68,7 +68,7 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   structure(
     list(family = family, face = face, colour = colour, size = size,
       hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight),
-    class = c("element", "element_text")
+    class = c("element_text", "element")
   )
 }
 
