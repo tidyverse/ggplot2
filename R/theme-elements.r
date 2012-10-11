@@ -1,18 +1,18 @@
 #' Theme element: blank.
 #' This theme element draws nothing, and assigns no space
-#' 
+#'
 #' @export
 element_blank <- function() {
   structure(
     list(),
-    class = c("element", "element_blank")
-  )  
+    class = c("element_blank", "element")
+  )
 }
 
 #' Theme element: rectangle.
-#' 
+#'
 #' Most often used for backgrounds and borders.
-#' 
+#'
 #' @param fill fill colour
 #' @param colour border colour
 #' @param size border size
@@ -25,12 +25,12 @@ element_rect <- function(fill = NULL, colour = NULL, size = NULL,
   if (!is.null(color))  colour <- color
   structure(
     list(fill = fill, colour = colour, size = size, linetype = linetype),
-    class = c("element", "element_rect")
+    class = c("element_rect", "element")
   )
 }
 
 #' Theme element: line.
-#' 
+#'
 #' @param colour line colour
 #' @param size line size
 #' @param linetype line type
@@ -43,13 +43,13 @@ element_line <- function(colour = NULL, size = NULL, linetype = NULL,
   if (!is.null(color))  colour <- color
   structure(
     list(colour = colour, size = size, linetype = linetype, lineend = lineend),
-    class = c("element", "element_line")
+    class = c("element_line", "element")
   )
 }
 
 
 #' Theme element: text.
-#' 
+#'
 #' @param family font family
 #' @param face font face ("plain", "italic", "bold", "bold.italic")
 #' @param colour text colour
@@ -68,7 +68,7 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   structure(
     list(family = family, face = face, colour = colour, size = size,
       hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight),
-    class = c("element", "element_text")
+    class = c("element_text", "element")
   )
 }
 
