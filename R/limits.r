@@ -47,7 +47,7 @@ limits <- function(lims, var) UseMethod("limits")
 #' @export
 limits.numeric <- function(lims, var) {
   stopifnot(length(lims) == 2)
-  if (sum(is.na(lims)) == 0 &lims[1] > lims[2]) {
+  if (!any(is.na(lims)) && lims[1] > lims[2]) {
     trans <- "reverse"
   } else {
     trans <- "identity"
