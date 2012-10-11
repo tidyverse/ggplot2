@@ -120,8 +120,9 @@
   (\code{element_rect}; inherits from \code{rect}) \cr
   plot.title \tab plot title (text appearance)
   (\code{element_text}; inherits from \code{title}) \cr
-  plot.margin \tab margin around entire plot (\code{unit})
-  \cr
+  plot.margin \tab margin around entire plot (\code{unit}
+  with the sizes of the top, right, bottom, and left
+  margins) \cr
 
   strip.background \tab background of facet labels
   (\code{element_rect}; inherits from \code{rect}) \cr
