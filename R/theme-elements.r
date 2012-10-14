@@ -73,10 +73,6 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 }
 
 
-#' @S3method print element
-print.element <- function(x, ...) str(x)
-
-
 #' Relative sizing for theme elements
 #'
 #' @param x A number representing the relative size
@@ -85,6 +81,10 @@ print.element <- function(x, ...) str(x)
 #' @export
 rel <- function(x) {
   structure(x, class = "rel")
+}
+
+as.character.rel <- function(x) {
+  sprintf("rel(%s)", as.numeric(x))
 }
 
 #' @S3method print rel
@@ -353,3 +353,25 @@ validate_element <- function(el, elname) {
   }
   invisible()
 }
+
+as.character.element <- function(x) {
+  .f <- function(x) {
+    if (class(x) %in% c("rel", "unit")) {
+      as.character(x)
+    } else {
+      deparse(x)
+    }
+  }
+  element_type <- class(x)[2]
+  x <- lapply(Filter(notnull, x), .f)
+  sprintf("%s(%s)", element_type,
+          paste(names(x), x, sep=" = ", collapse=", "))
+}
+
+as.character.unit <- function(x) {
+  sprintf("unit(%s, \"%s\")", deparse(as.numeric(x)), attr(x, "unit"))
+}
+
+
+#' @S3method print element
+print.element <- function(x, ...) cat(as.character(x), "\n")
