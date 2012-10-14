@@ -62,6 +62,13 @@ BUG FIXES
   confusing errors when the angle wasn't set. Now it produces a more
   informative error message.
 
+* Theme elements now have their subclass listed first, before the `element`
+  class. (Thanks to Jeffrey Arnold)
+
+* Previously when free scales were used with non-cartesian coords, they just
+  wouldn't work. Now ggplot throws an error with an informative message.
+  (Fixes #673)
+
 ggplot2 0.9.2.1
 ----------------------------------------------------------------
 
