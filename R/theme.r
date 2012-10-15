@@ -609,14 +609,15 @@ combine_elements <- function(e1, e2) {
   e1
 }
 
-as.character.theme <- function(x) {
+#' @S3method format theme
+format.theme <- function(x) {
   .f <- function(x) {
     if (is.character(x)) {
       sprintf("\"%s\"", x)
     } else if (is.null(x)) {
       "NULL"
     } else {
-      as.character(x)
+      format(x)
     }
   }
   complete <- attr(x, "complete")
@@ -626,5 +627,5 @@ as.character.theme <- function(x) {
 }
 
 #' @S3method print theme
-print.theme <- function(x, ...) cat(as.character(x), "\n")
+print.theme <- function(x, ...) cat(format(x), "\n")
 

@@ -185,5 +185,3 @@ rescale01 <- function(x) {
   (x - rng[1]) / (rng[2] - rng[1])
 }
 
-notnull <- function(x) !is.null(x)
-
