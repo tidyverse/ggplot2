@@ -84,7 +84,7 @@ rel <- function(x) {
 }
 
 #' @S3method format rel
-as.format.rel <- function(x) {
+format.rel <- function(x) {
   sprintf("rel(%s)", as.numeric(x))
 }
 
