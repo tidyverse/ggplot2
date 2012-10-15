@@ -17,16 +17,22 @@
 #' @export
 #' @examples
 #' # Doesn't do anything, so hard to come up a useful example
-stat_identity <- function (mapping = NULL, data = NULL, geom = "point", position = "identity", ...) { 
+stat_identity <- function (mapping = NULL, data = NULL, geom = "point",
+  position = "identity", width = NULL, height = NULL, ...) {
+
   StatIdentity$new(mapping = mapping, data = data, geom = geom, 
-  position = position, ...)
+  position = position, width = width, height = height,...)
 }
 
 StatIdentity <- proto(Stat, {
   objname <- "identity"
 
   default_geom <- function(.) GeomPoint
-  calculate_groups <- function(., data, scales, ...) data
+  calculate_groups <- function(., data, scales, width = NULL, height = NULL, ...) {
+    if (!is.null(width))   data$width  <- width
+    if (!is.null(height))  data$height <- height
+    data
+  }
   
   desc_outputs <- list()
   
