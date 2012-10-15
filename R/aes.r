@@ -64,8 +64,15 @@ rename_aes <- function(x) {
   # Convert prefixes to full names
   full <- match(names(x), .all_aesthetics)
   names(x)[!is.na(full)] <- .all_aesthetics[full[!is.na(full)]]
-  
-  rename(x, .base_to_ggplot, warn_missing = FALSE)
+
+  # This is a hack for ggplot2 0.9.3 to make it compatible with both plyr 1.7.1 and
+  # plyr 1.8 (and above). This should be removed for the next release of ggplot2.
+  # Tag: deprecated
+  if (packageVersion("plyr") <= package_version("1.7.1")) {
+    rename(x, .base_to_ggplot)
+  } else {
+    rename(x, .base_to_ggplot, warn_missing = FALSE)
+  }
 }
 
 # Look up the scale that should be used for a given aesthetic

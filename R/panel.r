@@ -143,7 +143,15 @@ scale_apply <- function(data, vars, f, scale_id, scales) {
   
   n <- length(scales)
   if (any(is.na(scale_id))) stop()
-  scale_index <- plyr:::split_indices(scale_id, n)
+
+  # This is a hack for ggplot2 0.9.3 to make it compatible with both plyr 1.7.1 and
+  # plyr 1.8 (and above). This should be removed for the next release of ggplot2.
+  # Tag: deprecated
+  if (packageVersion("plyr") <= package_version("1.7.1")) {
+    scale_index <- plyr:::split_indices(seq_len(nrow(data)), scale_id, n)
+  } else {
+    scale_index <- plyr:::split_indices(scale_id, n)
+  }
 
   lapply(vars, function(var) {
     pieces <- lapply(seq_along(scales), function(i) {
