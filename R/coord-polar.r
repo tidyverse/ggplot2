@@ -125,9 +125,9 @@ coord_train.polar <- function(coord, scales) {
 
 rename_data <- function(coord, data) {
   if (coord$theta == "y") {
-    rename(data, c("y" = "theta", "x" = "r"))
+    rename(data, c("y" = "theta", "x" = "r"), warn_missing = FALSE)
   } else {
-    rename(data, c("y" = "r", "x" = "theta"))
+    rename(data, c("y" = "r", "x" = "theta"), warn_missing = FALSE)
   }
 }
 

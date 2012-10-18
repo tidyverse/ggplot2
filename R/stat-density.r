@@ -114,7 +114,7 @@ StatDensity <- proto(Stat, {
     if (trim) densdf <- subset(densdf, x > min(data$x, na.rm = TRUE) & x < max(data$x, na.rm = TRUE))
   
     densdf$count <- densdf$y * n
-    rename(densdf, c(y = "density"))
+    rename(densdf, c(y = "density"), warn_missing = FALSE)
   }
 
   default_geom <- function(.) GeomArea

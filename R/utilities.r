@@ -184,3 +184,14 @@ rescale01 <- function(x) {
   rng <- range(x, na.rm = TRUE)
   (x - rng[1]) / (rng[2] - rng[1])
 }
+
+# This is a hack for ggplot2 0.9.3 to make it compatible with both plyr 1.7.1 and
+# plyr 1.8 (and above). This should be removed for the next release of ggplot2.
+# Tag: deprecated
+if (packageVersion("plyr") <= package_version("1.7.1")) {
+  rename <- function(x, replace, warn_missing) {
+    plyr::rename(x, replace)
+  }
+} else {
+  rename <- plyr::rename
+}
