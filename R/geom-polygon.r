@@ -59,13 +59,13 @@ GeomPolygon <- proto(Geom, {
     n <- nrow(data)
     if (n == 1) return()
     
-    ggname(.$my_name(), gTree(children=gList(
+    ggname(.$my_name(), gTree(children = gList(
       with(coord_munch(coordinates,data, scales), 
         polygonGrob(x, y, default.units = "native", id = group,
-        gp=gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt,
-         lty=linetype))
+          gp = gpar(col = colour, fill = alpha(fill, alpha),
+            lwd = size * .pt, lty = linetype)
+        )
       )
-      #GeomPath$draw(data, scales, coordinates)
     )))
   }
 
