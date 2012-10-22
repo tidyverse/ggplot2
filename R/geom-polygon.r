@@ -53,13 +53,15 @@ geom_polygon <- function (mapping = NULL, data = NULL, stat = "identity", positi
 GeomPolygon <- proto(Geom, {
   objname <- "polygon"
 
+  draw_groups <- function(., ...) .$draw(...)
+
   draw <- function(., data, scales, coordinates, ...) {
     n <- nrow(data)
     if (n == 1) return()
     
     ggname(.$my_name(), gTree(children=gList(
       with(coord_munch(coordinates,data, scales), 
-        polygonGrob(x, y, default.units="native",
+        polygonGrob(x, y, default.units = "native", id = group,
         gp=gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt,
          lty=linetype))
       )
