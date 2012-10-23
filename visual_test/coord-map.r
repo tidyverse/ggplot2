@@ -4,7 +4,8 @@ library(maps)
 
 # World map
 world_map <- map_data("world")
-pworld <- ggplot(world_map, aes(x=long, y=lat, group=group)) + geom_path()
+pworld <- ggplot(world_map, aes(x=long, y=lat, group=group)) +
+  geom_polygon()
 
 
 pworld
@@ -45,7 +46,7 @@ save_vtest("aitoff projection, custom orientation (centered on date line)")
 states_map <- map_data("state")
 pstate <- ggplot(states_map, aes(x=long, y=lat, group=group))
 
-pstate + geom_path() + coord_map("mercator")
+pstate +   geom_polygon() + coord_map("mercator")
 save_vtest("USA map, mercator projection")
 
 

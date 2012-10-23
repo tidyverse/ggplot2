@@ -3,7 +3,8 @@
 \title{Identity statistic.}
 \usage{
   stat_identity(mapping = NULL, data = NULL,
-    geom = "point", position = "identity", ...)
+    geom = "point", position = "identity", width = NULL,
+    height = NULL, ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
