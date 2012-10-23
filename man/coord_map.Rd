@@ -15,7 +15,8 @@
   \item{orientation}{projection orientation, which defaults
   to \code{c(90, 0, mean(range(x)))}.  This is not optimal
   for many projections, so you will have to supply your
-  own.}
+  own. See \code{\link[mapproj]{mapproject}} for more
+  information.}
 
   \item{xlim}{manually specific x limits (in degrees of
   lontitude)}
