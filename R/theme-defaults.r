@@ -99,3 +99,18 @@ theme_minimal <- function(base_size = 12, base_family = "") {
       plot.background   = element_blank()
     )
 }
+
+#' A classic-looking theme, with x and y axis lines and no gridlines.
+#'
+#' @param base_size base font size
+#' @param base_family base font family
+#' @export
+theme_classic <- function(base_size = 12, base_family = ""){
+  theme_bw(base_size = base_size, base_family = base_family) %+replace%
+    theme(
+      panel.border     = element_blank(),
+      axis.line        = element_line(colour = "black"),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank()
+    )
+}
