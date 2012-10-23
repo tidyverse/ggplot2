@@ -320,14 +320,15 @@ theme <- function(..., complete = FALSE) {
 #'
 #' @export
 opts <- function(...) {
-  .Deprecated(new = "theme")
+  gg_dep("0.9.1", "'opts' is deprecated. Use 'theme' instead.")
 
   # Add check for deprecated elements
   extra <- NULL
   elements <- list(...)
   if (!is.null(elements[["title"]])) {
     # This is kind of a hack, but fortunately it will be removed in future versions
-    warning('Setting the plot title with opts(title="...") is deprecated.',
+    gg_dep("0.9.1",
+      'Setting the plot title with opts(title="...") is deprecated.',
       ' Use labs(title="...") or ggtitle("...") instead.')
 
     title <- elements$title
@@ -511,7 +512,7 @@ update_theme <- function(oldtheme, newtheme) {
 ##' update_element("axis.text", colour = 20)
 ##' }
 update_element <- function(name, ...) {
-  .Deprecated(new = "+.gg")
+  gg_dep("0.9.1", "update_element is deprecated. Use '+.gg' instead.")
  if (is.character(name)) {
    ele <- theme_get()[[name]]
    if (is.null(ele)) {
