@@ -50,6 +50,8 @@ makes the naming more consistent. The new scale also by default makes the
 area of points proportional to the value, which is different from what
 `scale_area` does. (Fixes #635)
 
+* Functions now have gradual deprecation behavior with the `gg_dep` function.
+
 BUG FIXES
 
 * With `geom_segment`, when a variable mapped to `linetype` had an NA
