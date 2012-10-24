@@ -45,7 +45,7 @@ StatYdensity <- proto(Stat, {
     # choose how violins are scaled relative to each other
     scale <- match.arg(scale, c("area", "equal", "count", "width"))
     if (scale == "equal") {
-      .Deprecated("scale=\"area\"", old="scale=\"equal\"")
+      gg_dep("0.9.2", "scale=\"area\" is deprecated; in the future, use scale=\"equal\" instead.")
       scale <- "area"
     }
 

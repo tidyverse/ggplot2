@@ -10,9 +10,9 @@
 #' @param range Range of output sizes.  Should be greater than 0.
 #' @export
 scale_area <- function(..., range = c(1, 6)) {
-  message("scale_area is deprecated and will be removed in a future version of ggplot2.\n",
-    "  Use scale_size_area instead. Note that the behavior of scale_size_area is\n",
-    "  slightly different: by default it makes the area proportional to the\n",
-    "  numeric value.")
+  gg_dep("0.9.2",
+    "scale_area is deprecated. Use scale_size_area instead.\n",
+    "  Note that the behavior of scale_size_area is slightly different: \n",
+    "  by default it makes the area proportional to the numeric value.\n")
   continuous_scale("size", "area", area_pal(range), ...)
 }
