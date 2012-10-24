@@ -52,6 +52,9 @@ area of points proportional to the value, which is different from what
 
 * Functions now have gradual deprecation behavior with the `gg_dep` function.
 
+* Scales for required but missing aesthetics (x and y) are now automatically
+  added. (Fixes #676)
+
 BUG FIXES
 
 * With `geom_segment`, when a variable mapped to `linetype` had an NA
