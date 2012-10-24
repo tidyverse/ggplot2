@@ -71,6 +71,8 @@ scales_transform_df <- function(scales, df) {
   quickdf(c(transformed, df[setdiff(names(df), names(transformed))]))
 }
 
+# @param aesthetics A list of aesthetic-variable mappings. The name of each
+#   item is the aesthetic, and the value of each item is the variable in data.
 scales_add_defaults <- function(scales, data, aesthetics, env) {
   if (is.null(aesthetics)) return()
   names(aesthetics) <- unlist(lapply(names(aesthetics), aes_to_scale))
@@ -83,10 +85,8 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
     aesthetics[new_aesthetics], eval, 
     envir = data, enclos = env
   )
-  new_aesthetics <- intersect(new_aesthetics, names(datacols))
-  if (length(datacols) == 0) return()
 
-  for(aes in new_aesthetics) {
+  for(aes in names(datacols)) {
     type <- scale_type(datacols[[aes]])
     scale_name <- paste("scale", aes, type, sep="_")
 
