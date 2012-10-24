@@ -99,6 +99,22 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
   
 }
 
+# Add missing but required scales.
+# @param aesthetics A character vector of aesthetics. Typically c("x", "y").
+scales_add_missing <- function(plot, aesthetics, env) {
+
+  # Keep only aesthetics that aren't already in plot$scales
+  aesthetics <- setdiff(aesthetics, plot$scales$input())
+
+  for (aes in aesthetics) {
+    scale_name <- paste("scale", aes, "continuous", sep="_")
+
+    scale_f <- find_global(scale_name, env)
+    plot$scales$add(scale_f())
+  }
+}
+
+
 # Look for object first in parent environment and if not found, then in 
 # ggplot2 namespace environment.  This makes it possible to override default
 # scales by setting them in the parent environment.
