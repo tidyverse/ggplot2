@@ -39,7 +39,7 @@
 #' d + coord_cartesian(xlim = c(0, 2))
 coord_cartesian <- function(xlim = NULL, ylim = NULL, wise = NULL) {
   if (!is.null(wise))
-    warning("Deprecated: wise argument to coord_cartesian is ignored", call. = FALSE)
+    gg_dep("0.9.0", "wise argument to coord_cartesian is ignored")
   coord(limits = list(x = xlim, y = ylim), subclass = "cartesian")
 }
 
