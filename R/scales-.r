@@ -71,6 +71,8 @@ scales_transform_df <- function(scales, df) {
   quickdf(c(transformed, df[setdiff(names(df), names(transformed))]))
 }
 
+# @param aesthetics A list of aesthetic-variable mappings. The name of each
+#   item is the aesthetic, and the value of each item is the variable in data.
 scales_add_defaults <- function(scales, data, aesthetics, env) {
   if (is.null(aesthetics)) return()
   names(aesthetics) <- unlist(lapply(names(aesthetics), aes_to_scale))
@@ -83,10 +85,8 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
     aesthetics[new_aesthetics], eval, 
     envir = data, enclos = env
   )
-  new_aesthetics <- intersect(new_aesthetics, names(datacols))
-  if (length(datacols) == 0) return()
 
-  for(aes in new_aesthetics) {
+  for(aes in names(datacols)) {
     type <- scale_type(datacols[[aes]])
     scale_name <- paste("scale", aes, type, sep="_")
 
@@ -98,6 +98,22 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
   }
   
 }
+
+# Add missing but required scales.
+# @param aesthetics A character vector of aesthetics. Typically c("x", "y").
+scales_add_missing <- function(plot, aesthetics, env) {
+
+  # Keep only aesthetics that aren't already in plot$scales
+  aesthetics <- setdiff(aesthetics, plot$scales$input())
+
+  for (aes in aesthetics) {
+    scale_name <- paste("scale", aes, "continuous", sep="_")
+
+    scale_f <- find_global(scale_name, env)
+    plot$scales$add(scale_f())
+  }
+}
+
 
 # Look for object first in parent environment and if not found, then in 
 # ggplot2 namespace environment.  This makes it possible to override default
