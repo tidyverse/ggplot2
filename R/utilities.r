@@ -126,9 +126,21 @@ remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = 
 }
 
 finite.cases <- function(x) UseMethod("finite.cases")
+# Returns a logical vector of same length as nrow(x). If all data on a row
+# is finite (not NA, NaN, Inf, or -Inf) return TRUE; otherwise FALSE.
 #' @S3method finite.cases data.frame
 finite.cases.data.frame <- function(x) {
-  rowSums(vapply(x, is.finite, logical(nrow(x)))) == ncol(x)
+  finite_cases <- vapply(x, is.finite, logical(nrow(x)))
+
+  # Need a special case test when x has exactly one row, because rowSums
+  # doesn't respect dimensions for 1x1 matrices. vapply returns a vector (not
+  # a matrix when the input has one row.
+  if (is.vector(finite_cases)) {
+    all(finite_cases)
+  } else {
+    # Find all the rows where all are TRUE
+    rowSums(as.matrix(finite_cases)) == ncol(x)
+  }
 }
 
 
