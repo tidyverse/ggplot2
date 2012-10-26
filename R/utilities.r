@@ -242,7 +242,7 @@ gg_dep <- function(version, msg) {
   #  current minor number is more than 1 greater than last-good minor number,
   #  give error.
   if (cv[[1,1]] > v[[1,1]]  ||  cv[[1,2]] > v[[1,2]] + 1) {
-    error(msg, " (Defunct; last used in version ", version, ")",
+    stop(msg, " (Defunct; last used in version ", version, ")",
       call. = FALSE)
 
   # If minor number differs by one, give warning
