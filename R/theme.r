@@ -327,9 +327,9 @@ opts <- function(...) {
   elements <- list(...)
   if (!is.null(elements[["title"]])) {
     # This is kind of a hack, but fortunately it will be removed in future versions
-    gg_dep("0.9.1",
+    gg_dep("0.9.1", paste(sep = "\n",
       'Setting the plot title with opts(title="...") is deprecated.',
-      ' Use labs(title="...") or ggtitle("...") instead.')
+      ' Use labs(title="...") or ggtitle("...") instead.'))
 
     title <- elements$title
     elements$title <- NULL

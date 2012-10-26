@@ -9,7 +9,7 @@
   function was good (in other words, the last version where
   it was not deprecated).}
 
-  \item{message}{The message to print.}
+  \item{msg}{The message to print.}
 }
 \description{
   Version numbers have the format
