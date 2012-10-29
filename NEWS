@@ -1,4 +1,4 @@
-ggplot2 0.9.2.99
+ggplot2 0.9.3
 ----------------------------------------------------------------
 
 * The `plotmatrix` function has been deprecated and prints a warning
