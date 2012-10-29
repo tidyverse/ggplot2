@@ -46,14 +46,17 @@ MINOR FEATURES
 * `stat_quantile` now supports `rqss`.
 
 * `scale_size_area` has been added as a replacement for `scale_area`. This
-makes the naming more consistent. The new scale also by default makes the
-area of points proportional to the value, which is different from what
-`scale_area` does. (Fixes #635)
+  makes the naming more consistent. The new scale also by default makes the
+  area of points proportional to the value, which is different from what
+  `scale_area` does. (Fixes #635)
 
 * Functions now have gradual deprecation behavior with the `gg_dep` function.
 
 * Scales for required but missing aesthetics (x and y) are now automatically
   added. (Fixes #676)
+
+* `geom_crossbar` previous raised a warning when notches were used and the
+  notches went outside the hinges. This has been changed to a message.
 
 BUG FIXES
 
@@ -84,6 +87,13 @@ BUG FIXES
 * Previously when free scales were used with non-cartesian coords, they just
   wouldn't work. Now ggplot throws an error with an informative message.
   (Fixes #673)
+
+* `geom_dotplot` previously worked with `position="dodge", but did not work
+  when using `position=position_dodge()`. It now works with both. (Fixes
+  #709)
+
+* For linetype scales, NA values previously caused errors. Now `na.value`
+  for linetype scales defaults to "blank". (Fixes #711)
 
 ggplot2 0.9.2.1
 ----------------------------------------------------------------
