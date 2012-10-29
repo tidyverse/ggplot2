@@ -9,9 +9,6 @@
   \code{\link{continuous_scale}} to control name, limits,
   breaks, labels and so forth.}
 
-  \item{range}{Range of output sizes.  Should be greater
-  than 0.}
-
   \item{max_size}{Size of largest points.}
 }
 \description{

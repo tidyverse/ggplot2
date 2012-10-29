@@ -20,6 +20,10 @@
   \item{position}{The position adjustment to use for
   overlappling points on this layer}
 
+  \item{width}{The width of the tiles.}
+
+  \item{height}{The height of the tiles.}
+
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose
   values you want to set, not map. See \code{\link{layer}}

@@ -11,6 +11,8 @@
 #' @param geom The geometric object to use display the data 
 #' @param position The position adjustment to use for overlappling points
 #'    on this layer
+#' @param width The width of the tiles.
+#' @param height The height of the tiles.
 #' @param ... other arguments passed on to \code{\link{layer}}. This can 
 #'   include aesthetics whose values you want to set, not map. See
 #'   \code{\link{layer}} for more details.

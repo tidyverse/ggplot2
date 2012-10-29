@@ -56,11 +56,10 @@ scale_size_discrete <- function(..., range = c(1, 6)) {
 #'
 #' @param ... Other arguments passed on to \code{\link{continuous_scale}}
 #'   to control name, limits, breaks, labels and so forth.
-#' @param range Range of output sizes.  Should be greater than 0.
 #' @param max_size Size of largest points.
 #' @export
 scale_size_area <- function(..., max_size = 6) {
   continuous_scale("size", "area",
-    pal = abs_area(max_size),
+    palette = abs_area(max_size),
     rescaler = rescale_max, ...)
 }
