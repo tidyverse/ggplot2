@@ -60,6 +60,8 @@ GeomPolygon <- proto(Geom, {
     if (n == 1) return()
     
     munched <- coord_munch(coordinates, data, scales)
+    # Sort by group to make sure that colors, fill, etc. come in same order
+    munched <- munched[order(munched$group), ]
 
     # For gpar(), there is one entry per polygon (not one entry per point).
     # We'll pull the first value from each group, and assume all these values
