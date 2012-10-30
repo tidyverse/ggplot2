@@ -59,11 +59,22 @@ GeomPolygon <- proto(Geom, {
     n <- nrow(data)
     if (n == 1) return()
     
+    munched <- coord_munch(coordinates, data, scales)
+
+    # For gpar(), there is one entry per polygon (not one entry per point).
+    # We'll pull the first value from each group, and assume all these values
+    # are the same within each group.
+    first_idx <- !duplicated(munched$group)
+    first_rows <- munched[first_idx, ]
+
     ggname(.$my_name(), gTree(children = gList(
-      with(coord_munch(coordinates,data, scales), 
-        polygonGrob(x, y, default.units = "native", id = group,
-          gp = gpar(col = colour, fill = alpha(fill, alpha),
-            lwd = size * .pt, lty = linetype)
+      polygonGrob(munched$x, munched$y, default.units = "native",
+        id = munched$group,
+        gp = gpar(
+          col = first_rows$colour,
+          fill = alpha(first_rows$fill, first_rows$alpha),
+          lwd = first_rows$size * .pt,
+          lty = first_rows$linetype
         )
       )
     )))
