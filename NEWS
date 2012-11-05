@@ -41,7 +41,7 @@ MINOR FEATURES
 
 * In `stat_ydensity` and `geom_violin`, the `scale` argument now accepts
   the value "width", for equal widths. Additionally `scale="equal"` has
-  been depecrated, in favor of "area". (Jean-Olivier Irisson)
+  been deprecated, in favor of "area". (Jean-Olivier Irisson)
 
 * `stat_quantile` now supports `rqss`.
 
