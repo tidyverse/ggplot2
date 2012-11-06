@@ -56,13 +56,20 @@
 #' p + geom_point(aes(shape = factor(cyl)))
 #'  
 #' # A look at all 26 symbols
-#' df2 <- data.frame(x = c(rep(1:5, times=5),1) , y = 0:25, z = 0:25)
-#' s <- ggplot(df2, aes(x = x, y = y))
-#' s + geom_point(aes(shape = z), size = 4) + scale_shape_identity()
+#' df2 <- data.frame(x = 1, y = 1, z = 0:25)
+#' s <- ggplot(df2, aes(x = x, y = y)) +
+#'   scale_x_continuous(breaks=c(1)) +
+#'   scale_y_continuous(breaks=c(1)) +
+#'   facet_wrap(~z) + 
+#'   theme_bw() +
+#'   theme(axis.text = element_blank(), 
+#'         axis.title = element_blank(),
+#'         axis.ticks = element_blank())
+#' s + geom_point(aes(shape = z), size = 10) + scale_shape_identity()
 #' # While all symbols have a foreground colour, symbols 21-25 also take a
 #' # background colour (fill)
-#' s + geom_point(aes(shape = z), size = 4, colour = "Red") + 
+#' s + geom_point(aes(shape = z), size = 10, colour = "Red") + 
 #'   scale_shape_identity()
-#' s + geom_point(aes(shape = z), size = 4, colour = "Red", fill = "Black") + 
+#' s + geom_point(aes(shape = z), size = 10, colour = "Red", fill = "lightblue") + 
 #'   scale_shape_identity()
 NULL
