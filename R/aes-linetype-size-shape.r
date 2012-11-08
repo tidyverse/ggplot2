@@ -60,16 +60,15 @@
 #' s <- ggplot(df2, aes(x = x, y = y)) +
 #'   scale_x_continuous(breaks=c(1)) +
 #'   scale_y_continuous(breaks=c(1)) +
+#'   scale_shape_identity() +
 #'   facet_wrap(~z) + 
 #'   theme_bw() +
 #'   theme(axis.text = element_blank(), 
 #'         axis.title = element_blank(),
 #'         axis.ticks = element_blank())
-#' s + geom_point(aes(shape = z), size = 10) + scale_shape_identity()
+#' s + geom_point(aes(shape = z), size = 10) 
 #' # While all symbols have a foreground colour, symbols 21-25 also take a
 #' # background colour (fill)
-#' s + geom_point(aes(shape = z), size = 10, colour = "Red") + 
-#'   scale_shape_identity()
-#' s + geom_point(aes(shape = z), size = 10, colour = "Red", fill = "lightblue") + 
-#'   scale_shape_identity()
+#' s + geom_point(aes(shape = z), size = 10, colour = "Red")
+#' s + geom_point(aes(shape = z), size = 10, colour = "Red", fill = "lightblue")
 NULL
