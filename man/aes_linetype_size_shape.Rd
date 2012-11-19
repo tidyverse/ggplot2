@@ -34,6 +34,22 @@ ec_scaled <- data.frame(
 ecm <- melt(ec_scaled, id = "date")
 qplot(date, value, data = ecm, geom = "line", linetype = variable)
 
+# Linetypes used in the default palette
+# Coordinate is order in the palette, annotation is the specification
+# of the linetype as per above.
+ltys <- data.frame(l = factor(1:13),
+                   linetype = linetype_pal()(13),
+                   stringsAsFactors = FALSE)
+
+ggplot(ltys) +
+    geom_segment(aes(x=0, xend=1, y=l, yend=l, linetype=linetype)) +
+    geom_text(aes(x=0, y=l, label=linetype), hjust=0, vjust=-0.3, size=4) +
+    scale_x_continuous("", breaks=NULL) +
+    scale_y_discrete("linetype") +
+    scale_linetype_identity() +
+    theme_bw() +
+    theme(panel.grid = element_blank())
+
 # Size examples
 # Should be specified with a numerical value (in millimetres),
 # or from a variable source
