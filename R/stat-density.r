@@ -7,7 +7,7 @@
 #' @param kernel kernel used for density estimation, see
 #'   \code{\link{density}} for details
 #' @param trim if \code{TRUE}, the default, densities are trimmed to the
-#'   actually range of the data.  If \code{FALSE}, they are extended by the
+#'   actual range of the data.  If \code{FALSE}, they are extended by the
 #'   default 3 bandwidths (as specified by the \code{cut} parameter to
 #'   \code{\link{density}})
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
