@@ -36,8 +36,7 @@ Suggests:
     multcomp,
     nlme,
     testthat
-Extends:
-    sp
+Enhances: sp
 License: GPL-2
 URL: http://had.co.nz/ggplot2/
 LazyData: true
