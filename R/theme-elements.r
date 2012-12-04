@@ -125,7 +125,7 @@ theme_line <- function(...) {
 #' @rdname theme_blank
 #' @export
 theme_segment <- function(...) {
-  gg_dep("0.9.1", "theme_segment is deprecated. Use 'element_segment' instead.")
+  gg_dep("0.9.1", "theme_segment is deprecated. Use 'element_line' instead.")
   element_line(...)
 }
 
