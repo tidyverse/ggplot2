@@ -1,4 +1,4 @@
-ggplot2 0.9.2.99
+ggplot2 0.9.3
 ----------------------------------------------------------------
 
 * The `plotmatrix` function has been deprecated and prints a warning
@@ -41,7 +41,7 @@ MINOR FEATURES
 
 * In `stat_ydensity` and `geom_violin`, the `scale` argument now accepts
   the value "width", for equal widths. Additionally `scale="equal"` has
-  been depecrated, in favor of "area". (Jean-Olivier Irisson)
+  been deprecated, in favor of "area". (Jean-Olivier Irisson)
 
 * `stat_quantile` now supports `rqss`.
 
