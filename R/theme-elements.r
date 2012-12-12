@@ -301,6 +301,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.direction    = el_def("character"),
   legend.justification = el_def("character"),
   legend.box          = el_def("character"),
+  legend.box.just     = el_def("character"),
 
   panel.background    = el_def("element_rect", "rect"),
   panel.border        = el_def("element_rect", "rect"),

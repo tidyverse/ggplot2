@@ -91,6 +91,9 @@
   positioning legend inside plot ("center" or two-element
   numeric vector) \cr legend.box \tab arrangement of
   multiple legends ("horizontal" or "vertical") \cr
+  legend.box.just \tab justification of each legend within
+  the overall bounding box, when there are multiple legends
+  ("top", "bottom", "left", or "right")\cr
 
   panel.background \tab background of plotting area, drawn
   underneath plot (\code{element_rect}; inherits from

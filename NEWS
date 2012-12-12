@@ -1,3 +1,11 @@
+ggplot2 0.9.3.99
+----------------------------------------------------------------
+
+BUG FIXES
+
+* The theme element `legend.box.just` now can be set. It was not properly
+  recognized before.
+
 ggplot2 0.9.3
 ----------------------------------------------------------------
 
