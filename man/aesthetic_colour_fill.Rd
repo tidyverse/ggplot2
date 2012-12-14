@@ -1,13 +1,14 @@
-\name{aes_colour_fill_alpha}
-\alias{aes_colour_fill_alpha}
-\alias{alpha}
+\name{aesthetic_colour_fill}
+\alias{aesthetic-colour}
+\alias{aesthetic-fill}
+\alias{aesthetic_colour_fill}
 \alias{color}
 \alias{colour}
 \alias{fill}
-\title{Colour related aesthetics: colour, fill and alpha}
+\title{Aesthetics related to colour: colour, fill}
 \description{
   This page demonstrates the usage of a sub-group of
-  aesthetics; colour, fill and alpha.
+  aesthetics; colour and fill.
 }
 \examples{
 \donttest{
@@ -39,28 +40,13 @@ b + geom_line()
 b + geom_line(colour = "green")
 b + geom_point()
 b + geom_point(colour = "red")
-
-# For large datasets with overplotting the alpha
-# aesthetic will make the points more transparent
-df <- data.frame(x = rnorm(5000), y = rnorm(5000))
-h  <- ggplot(df, aes(x,y))
-h + geom_point()
-h + geom_point(alpha = 0.5)
-h + geom_point(alpha = 1/10)
-
-#If a geom uses both fill and colour, alpha will only modify the fill colour
-c + geom_bar(fill = "dark grey", colour = "black")
-c + geom_bar(fill = "dark grey", colour = "black", alpha = 1/3)
-
-# Alpha can also be used to add shading
-j <- b + geom_line()
-j
-yrng <- range(economics$unemploy)
-j <- j + geom_rect(aes(NULL, NULL, xmin = start, xmax = end, fill = party),
-ymin = yrng[1], ymax = yrng[2], data = presidential)
-j
-library(scales) # to access the alpha function
-j + scale_fill_manual(values = alpha(c("blue", "red"), .3))
 }
+}
+\seealso{
+  Other aesthetics: \code{\link{aesthetic_alpha}},
+  \code{\link{aesthetic_group_order}},
+  \code{\link{aesthetic_linetype}},
+  \code{\link{aesthetic_shape}},
+  \code{\link{aesthetic_size}}
 }
 

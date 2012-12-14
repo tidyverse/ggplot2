@@ -1,11 +1,12 @@
-#' Colour related aesthetics: colour, fill and alpha
+#' Aesthetics related to colour: colour, fill
 #' 
 #' This page demonstrates the usage of a sub-group 
-#' of aesthetics; colour, fill and alpha.
+#' of aesthetics; colour and fill.
 #'
-#' @rdname aes_colour_fill_alpha
-#' @name aes_colour_fill_alpha
-#' @aliases colour color fill alpha 
+#' @rdname aesthetic_colour_fill
+#' @name aesthetic_colour_fill
+#' @aliases colour color fill aesthetic-colour aesthetic-fill
+#' @family aesthetics
 #' @examples
 #' \donttest{
 #' 
@@ -36,6 +37,19 @@
 #' b + geom_line(colour = "green")
 #' b + geom_point()
 #' b + geom_point(colour = "red")
+#' }
+NULL
+
+#' Aesthetic: alpha
+#' 
+#' This page demonstrates the usage of the aesthetic alpha.
+#'
+#' @rdname aesthetic_alpha
+#' @name aesthetic_alpha
+#' @aliases alpha aesthetic-alpha
+#' @family aesthetics
+#' @examples
+#' \donttest{
 #' 
 #' # For large datasets with overplotting the alpha
 #' # aesthetic will make the points more transparent
@@ -61,12 +75,12 @@
 #' }
 NULL
 
-#' Aesthetics: group, order
+#' Aesthetics related to grouping: group, order
 #'
-#' @rdname aes_group_order
-#' @name aes_group_order
-#' @aliases group order 
-#' 
+#' @rdname aesthetic_group_order
+#' @name aesthetic_group_order
+#' @aliases group order aesthetic-group aesthetic-order
+#' @family aesthetics
 #' @examples 
 #' \donttest{
 #'  
@@ -156,14 +170,14 @@ NULL
 #' }
 NULL
 
-#' Differentiation related aesthetics: linetype, size, shape
+#' Aesthetic: linetype
 #' 
-#' This page demonstrates the usage of a sub-group 
-#' of aesthetics; linetype, size and shape.
+#' This page demonstrates the usage of the linetype aesthetic.
 #'
-#' @rdname aes_linetype_size_shape
-#' @name aes_linetype_size_shape
-#' @aliases linetype size shape 
+#' @rdname aesthetic_linetype
+#' @name aesthetic_linetype
+#' @aliases linetype aesthetic-linetype
+#' @family aesthetics
 #' @examples
 #'
 #' # Line types should be specified with either an integer, a name, or with a string of
@@ -191,6 +205,17 @@ NULL
 #'   colwise(rescale01)(economics[, -(1:2)])) 
 #' ecm <- melt(ec_scaled, id = "date")
 #' qplot(date, value, data = ecm, geom = "line", linetype = variable)
+NULL
+
+#' Aesthetic: size
+#' 
+#' This page demonstrates the usage of the size aesthetic.
+#'
+#' @rdname aesthetic_size
+#' @name aesthetic_size
+#' @aliases size aesthetic-size
+#' @family aesthetics
+#' @examples
 #' 
 #' # Size examples
 #' # Should be specified with a numerical value (in millimetres), 
@@ -199,12 +224,24 @@ NULL
 #' p + geom_point(size = 4)
 #' p + geom_point(aes(size = qsec))
 #' p + geom_point(size = 2.5) + geom_hline(yintercept = 25, size = 3.5)
+NULL
+
+#' Aesthetic: shape
+#' 
+#' This page demonstrates the usage of the shape aesthetic.
+#'
+#' @rdname aesthetic_shape
+#' @name aesthetic_shape
+#' @aliases shape aesthetic-shape
+#' @family aesthetics
+#' @examples
 #' 
 #' # Shape examples
 #' # Shape takes four types of values: an integer in [0, 25],
 #' # a single character-- which uses that character as the plotting symbol,
 #' # a . to draw the smallest rectangle that is visible (i.e., about one pixel)
 #' # an NA to draw nothing
+#' p <- ggplot(mtcars, aes(wt, mpg))
 #' p + geom_point()
 #' p + geom_point(shape = 5)
 #' p + geom_point(shape = "k", size = 3)
@@ -226,14 +263,14 @@ NULL
 #'   scale_shape_identity()
 NULL
 
-#' Position related aesthetics: x, y, xmin, xmax, ymin, ymax, xend, yend
+#' Aesthetics related to position: x, y, xmin, xmax, ymin, ymax, xend, yend
 #' 
 #' This page demonstrates the usage of a sub-group 
 #' of aesthetics; x, y, xmin, xmax, ymin, ymax, xend, and yend.
 #'
-#' @rdname aes_position
-#' @name aes_position
-#' @aliases x y xmin xmax ymin ymax xend yend 
+#' @rdname aesthetic_position
+#' @name aesthetic_position
+#' @aliases x y xmin xmax ymin ymax xend yend aesthetic-x aesthetic-y aesthetic-xmin aesthetic-xmax aesthetic-ymin aesthetic-ymax aesthetic-xend aesthetic-yend
 #' @examples
 #' 
 #' # Generate data: means and standard errors of means for prices 

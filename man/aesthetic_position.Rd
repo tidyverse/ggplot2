@@ -1,5 +1,13 @@
-\name{aes_position}
-\alias{aes_position}
+\name{aesthetic_position}
+\alias{aesthetic-x}
+\alias{aesthetic-xend}
+\alias{aesthetic-xmax}
+\alias{aesthetic-xmin}
+\alias{aesthetic-y}
+\alias{aesthetic-yend}
+\alias{aesthetic-ymax}
+\alias{aesthetic-ymin}
+\alias{aesthetic_position}
 \alias{x}
 \alias{xend}
 \alias{xmax}
@@ -8,7 +16,7 @@
 \alias{yend}
 \alias{ymax}
 \alias{ymin}
-\title{Position related aesthetics: x, y, xmin, xmax, ymin, ymax, xend, yend}
+\title{Aesthetics related to position: x, y, xmin, xmax, ymin, ymax, xend, yend}
 \description{
   This page demonstrates the usage of a sub-group of
   aesthetics; x, y, xmin, xmax, ymin, ymax, xend, and yend.
