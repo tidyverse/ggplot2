@@ -93,7 +93,7 @@ is.ggplot <- function(x) inherits(x, "ggplot")
 #' @seealso \url{http://had.co.nz/ggplot2}
 #' @method ggplot data.frame
 #' @export
-ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv()) {
+ggplot.data.frame <- function(data, mapping=aes(), ..., environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be created with aes or aes_string")
 
   p <- structure(list(
