@@ -59,4 +59,29 @@ test_that("function aes_auto", {
                structure(list(x = bquote(xp), y = bquote(yp)), class = "uneval"))
   expect_equal(aes_auto(df), structure(setNames(list(), character(0)), class = "uneval"))
 })
-                            
+
+test_that("aes evaluation environment", {
+
+  # Accessing an undefined variable should result in error
+  p <- ggplot(mtcars, aes(x = wt + foo, y = mpg)) + geom_point()
+  expect_error(ggplot_build(p))
+
+
+  # When variable is defined, there should be no error
+  foo <- 4
+  # This is just a roundabout way of testing for no error, since there's no
+  # function like expect_no_error.
+  expect_true(is.ggplot(ggplot_build(p)$plot))
+
+
+  # Calling from a function with a variable defined in that function shouldn't
+  # result in an error because aes() should be evaluated in the scope of the
+  # function.
+  f <- function() {
+    foo2 <- 4
+    ggplot(mtcars, aes(x = wt + foo2, y = mpg)) +
+      geom_point()
+  }
+  expect_true(is.ggplot(ggplot_build(f())$plot))
+
+})
