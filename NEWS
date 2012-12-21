@@ -17,6 +17,9 @@ ggplot2 0.9.3.1.99
 ggplot2 0.9.3.1
 ----------------------------------------------------------------
 
+* New function `remove_geom` to remove specific layers from a ggplot2
+  object.
+
 BUG FIXES
 
 * The theme element `legend.box.just` now can be set. It was not properly
