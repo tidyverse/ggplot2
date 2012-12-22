@@ -35,9 +35,9 @@
 #'   value = c(80, 20)
 #' )
 #' ggplot(df, aes(x = "", y = value, fill = variable)) + 
-#'   geom_bar(width = 1) + 
+#'   geom_bar(width = 1, stat = "identity") +
 #'   scale_fill_manual(values = c("red", "yellow")) + 
-#'   coord_polar("y", start=pi / 3) + 
+#'   coord_polar("y", start = pi / 3) +
 #'   labs(title = "Pac man")
 #' 
 #' # Windrose + doughnut plot
@@ -125,9 +125,9 @@ coord_train.polar <- function(coord, scales) {
 
 rename_data <- function(coord, data) {
   if (coord$theta == "y") {
-    rename(data, c("y" = "theta", "x" = "r"))
+    rename(data, c("y" = "theta", "x" = "r"), warn_missing = FALSE)
   } else {
-    rename(data, c("y" = "r", "x" = "theta"))
+    rename(data, c("y" = "r", "x" = "theta"), warn_missing = FALSE)
   }
 }
 

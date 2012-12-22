@@ -278,8 +278,8 @@ build_strip <- function(panel, label_df, labeller, theme, side = "right") {
   }
   
   # Render as grobs
-  grobs <- aaply(labels, c(1,2), ggstrip, theme = theme, 
-    horizontal = horizontal, .drop = FALSE)
+  grobs <- apply(labels, c(1,2), ggstrip, theme = theme,
+    horizontal = horizontal)
   
   # Create layout
   name <- paste("strip", side, sep = "-")

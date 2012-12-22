@@ -91,6 +91,9 @@
   positioning legend inside plot ("center" or two-element
   numeric vector) \cr legend.box \tab arrangement of
   multiple legends ("horizontal" or "vertical") \cr
+  legend.box.just \tab justification of each legend within
+  the overall bounding box, when there are multiple legends
+  ("top", "bottom", "left", or "right")\cr
 
   panel.background \tab background of plotting area, drawn
   underneath plot (\code{element_rect}; inherits from
@@ -120,8 +123,9 @@
   (\code{element_rect}; inherits from \code{rect}) \cr
   plot.title \tab plot title (text appearance)
   (\code{element_text}; inherits from \code{title}) \cr
-  plot.margin \tab margin around entire plot (\code{unit})
-  \cr
+  plot.margin \tab margin around entire plot (\code{unit}
+  with the sizes of the top, right, bottom, and left
+  margins) \cr
 
   strip.background \tab background of facet labels
   (\code{element_rect}; inherits from \code{rect}) \cr

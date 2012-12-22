@@ -185,7 +185,8 @@ wrap_hmisc <- function(fun) {
     result <- safe.call(fun, list(x = x, ...))
     rename(
       data.frame(t(result)), 
-      c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax")
+      c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax"),
+      warn_missing = FALSE
     )    
   }
 }

@@ -132,9 +132,11 @@ GeomDotplot <- proto(Geom, {
     # Add back binaxis
     stat_params <- c(stat_params, binaxis=params$binaxis)
 
-    # If position=="stack" or position is position_stack() (the test is kind of complex),
-    #   tell them to use stackgroups=TRUE instead
-    if (!is.null(position) && (position == "stack" || (is.proto(position) && position$objname == "stack")))
+    # If identical(position, "stack") or position is position_stack() (the test
+    #  is kind of complex), tell them to use stackgroups=TRUE instead. Need to
+    #  use identical() instead of ==, because == will fail if object is
+    #  position_stack() or position_dodge()
+    if (!is.null(position) && (identical(position, "stack") || (is.proto(position) && position$objname == "stack")))
       message("position=\"stack\" doesn't work properly with geom_dotplot. Use stackgroups=TRUE instead.")
 
     if (params$stackgroups && params$method == "dotdensity" && params$binpositions == "bygroup")

@@ -5,7 +5,7 @@
 element_blank <- function() {
   structure(
     list(),
-    class = c("element", "element_blank")
+    class = c("element_blank", "element")
   )  
 }
 
@@ -25,7 +25,7 @@ element_rect <- function(fill = NULL, colour = NULL, size = NULL,
   if (!is.null(color))  colour <- color
   structure(
     list(fill = fill, colour = colour, size = size, linetype = linetype),
-    class = c("element", "element_rect")
+    class = c("element_rect", "element")
   )
 }
 
@@ -43,7 +43,7 @@ element_line <- function(colour = NULL, size = NULL, linetype = NULL,
   if (!is.null(color))  colour <- color
   structure(
     list(colour = colour, size = size, linetype = linetype, lineend = lineend),
-    class = c("element", "element_line")
+    class = c("element_line", "element")
   )
 }
 
@@ -68,7 +68,7 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   structure(
     list(family = family, face = face, colour = colour, size = size,
       hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight),
-    class = c("element", "element_text")
+    class = c("element_text", "element")
   )
 }
 
@@ -104,35 +104,35 @@ is.rel <- function(x) inherits(x, "rel")
 #'
 #' @export
 theme_blank <- function(...) {
-  .Deprecated(new = "element_blank")
+  gg_dep("0.9.1", "'theme_blank' is deprecated. Use 'element_blank' instead.")
   element_blank(...)
 }
 
 #' @rdname theme_blank
 #' @export
 theme_rect <- function(...) {
-  .Deprecated(new = "element_rect")
+  gg_dep("0.9.1", "theme_rect is deprecated. Use 'element_rect' instead.")
   element_rect(...)
 }
 
 #' @rdname theme_blank
 #' @export
 theme_line <- function(...) {
-  .Deprecated(new = "element_line")
+  gg_dep("0.9.1", "theme_line is deprecated. Use 'element_line' instead.")
   element_line(...)
 }
 
 #' @rdname theme_blank
 #' @export
 theme_segment <- function(...) {
-  .Deprecated(new = "element_line")
+  gg_dep("0.9.1", "theme_segment is deprecated. Use 'element_line' instead.")
   element_line(...)
 }
 
 #' @rdname theme_blank
 #' @export
 theme_text <- function(...) {
-  .Deprecated(new = "element_text")
+  gg_dep("0.9.1", "theme_text is deprecated. Use 'element_text' instead.")
   element_text(...)
 }
 
@@ -301,6 +301,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.direction    = el_def("character"),
   legend.justification = el_def("character"),
   legend.box          = el_def("character"),
+  legend.box.just     = el_def("character"),
 
   panel.background    = el_def("element_rect", "rect"),
   panel.border        = el_def("element_rect", "rect"),

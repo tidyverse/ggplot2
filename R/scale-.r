@@ -38,7 +38,7 @@ NULL
 continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_, trans = "identity", guide="legend") {
 
   if (!is.null(legend)) {
-    warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
+    gg_dep("0.8.9", "\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
     if (legend == FALSE) guide = "none"
     else if (legend == TRUE) guide = "legend"
   }
@@ -125,7 +125,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, expand = waiver(), na.value = NA, drop = TRUE, guide="legend") {
 
   if (!is.null(legend)) {
-    warning("\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
+    gg_dep("0.8.9", "\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
     if (legend == FALSE) guide = "none"
     else if (legend == TRUE) guide = "legend"
   }
@@ -336,7 +336,7 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   if (is.null(scale$breaks)) {
     return(NULL)
   } else if (length(scale$breaks) == 1 && !is.function(scale$breaks) && is.na(scale$breaks)) {
-    warning("breaks = NA is deprecated. Please use breaks = NULL to remove breaks in the scale.")
+    gg_dep("0.8.9", "breaks = NA is deprecated. Please use breaks = NULL to remove breaks in the scale.")
     return(NULL)
   } else if (zero_range(as.numeric(limits))) {
     breaks <- limits[1]
@@ -367,7 +367,7 @@ scale_breaks.discrete <- function(scale, limits = scale_limits(scale)) {
   if (is.null(scale$breaks)) {
     return(NULL)
   } else if (length(scale$breaks) == 1 && !is.function(scale$breaks) && is.na(scale$breaks)) {
-    warning("breaks = NA is deprecated. Please use breaks = NULL to remove breaks in the scale.")
+    gg_dep("0.8.9", "breaks = NA is deprecated. Please use breaks = NULL to remove breaks in the scale.")
     return(NULL)
   } else if (is.waive(scale$breaks)) {
     breaks <- limits
@@ -400,7 +400,7 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
   if (is.null(scale$minor_breaks)) {
     return(NULL)
   } else if (length(scale$minor_breaks) == 1 && !is.function(scale$minor_breaks) && is.na(scale$minor_breaks)) {
-    warning("minor_breaks = NA is deprecated. Please use minor_breaks = NULL to remove minor breaks in the scale.")
+    gg_dep("0.8.9", "minor_breaks = NA is deprecated. Please use minor_breaks = NULL to remove minor breaks in the scale.")
     return(NULL)
   } else if (is.waive(scale$minor_breaks)) {
     if (is.null(b)) {
@@ -449,7 +449,7 @@ scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
   if (is.null(scale$labels)) {
     return(NULL)
   } else if (length(scale$labels) == 1 && !is.function(scale$labels) && is.na(scale$labels)) {
-    warning("labels = NA is deprecated. Please use labels = NULL to remove labels in the scale.")
+    gg_dep("0.8.9", "labels = NA is deprecated. Please use labels = NULL to remove labels in the scale.")
     return(NULL)
   } else if (is.waive(scale$labels)) {
     labels <- scale$trans$format(breaks)
@@ -471,7 +471,7 @@ scale_labels.discrete <- function(scale, breaks = scale_breaks(scale)) {
   if (is.null(scale$labels)) {
     return(NULL)
   } else if (length(scale$labels) == 1 && !is.function(scale$labels) && is.na(scale$labels)) {
-    warning("labels = NA is deprecated. Please use labels = NULL to remove labels in the scale.")
+    gg_dep("0.8.9", "labels = NA is deprecated. Please use labels = NULL to remove labels in the scale.")
     return(NULL)
   }else if (is.waive(scale$labels)) {
     format(scale_breaks(scale), justify = "none", trim = TRUE)
