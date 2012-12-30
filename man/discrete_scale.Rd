@@ -8,14 +8,56 @@
     na.value = NA, drop = TRUE, guide = "legend")
 }
 \arguments{
+  \item{aesthetics}{the names of the aesthetics that this
+  scale works with}
+
+  \item{scale_name}{the name of the scale}
+
+  \item{palette}{a palette function that when called with a
+  single integer argument (the number of levels in the
+  scale) returns the values that they should take}
+
+  \item{name}{the name of the scale - used as the axis
+  label or the legend title}
+
+  \item{drop}{drop unused factor levels from the scale
+  (\code{TRUE} or \code{FALSE})}
+
+  \item{breaks}{control the breaks in the guide.  There are
+  four possible types of input: \itemize{ \item
+  \code{NULL}: don't display any breaks \item a character
+  vector giving the breaks as they should appear on the
+  axis or in the legend.  \item \code{waiver()} to use the
+  default break computation.  \item a function, that when
+  called with a single argument, a character vector giving
+  the limits of the scale, returns a character vector
+  specifying which breaks to display.  } This parameter
+  does not affect in any way how the data is scaled - it
+  only affects the appearance of the legend.}
+
+  \item{limits}{A character vector specifying the data
+  range for the scale.  and the default order of their
+  display in guides.}
+
   \item{labels}{\code{NULL} for no labels, \code{waiver()}
   for default labels (labels the same as breaks), a
   character vector the same length as breaks, or a named
   character vector whose names are used to match
   replacement the labels for matching breaks.}
+
+  \item{legend}{deprecated.  Use \code{guide} instead.}
+
+  \item{expand}{a numeric vector of length two, giving a
+  multiplicative and additive constant used to expand the
+  range of the scales so that there is a small gap between
+  the data and the axes.}
+
+  \item{na.value}{how should missing values be displayed?}
+
+  \item{guide}{the name of, or actual function, used to
+  create the guide.}
 }
 \description{
   Discrete scale constructor.
 }
-\keyword{internal}
 

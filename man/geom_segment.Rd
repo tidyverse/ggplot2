@@ -4,11 +4,13 @@
 \usage{
   geom_segment(mapping = NULL, data = NULL,
     stat = "identity", position = "identity", arrow = NULL,
-    ...)
+    lineend = "butt", na.rm = FALSE, ...)
 }
 \arguments{
   \item{arrow}{specification for arrow heads, as created by
   arrow()}
+
+  \item{lineend}{Line end style (round, butt, square)}
 
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
@@ -23,6 +25,10 @@
 
   \item{position}{The position adjustment to use for
   overlappling points on this layer}
+
+  \item{na.rm}{If \code{FALSE} (the default), removes
+  missing values with a warning.  If \code{TRUE} silently
+  removes missing values.}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose

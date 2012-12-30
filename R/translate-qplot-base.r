@@ -108,7 +108,7 @@
 #' 
 #' # In ggplot2, the appearance of legends and axes is controlled by the scales.
 #' # Axes are produced by the x and y scales, while all other scales produce legends.
-#' # See ?opts for help changing the appearance of axes and legends.
+#' # See ?theme for help changing the appearance of axes and legends.
 #' # The appearance of grid lines is controlled by the grid.major and grid.minor 
 #' # theme options, and their position by the breaks of the x and y scales.
 #' 
@@ -139,7 +139,7 @@
 #' # in the defaults of the geoms and scales. The appearance plot border drawn
 #' # by box() can be controlled in a similar way by the panel.background and
 #' # plot.background theme elements. Instead of using title(), the plot title is
-#' # set with the title option. See ?opts for more theme elements.
-#' last_plot() + opts(title = "My Plot Title")
+#' # set with the title option. See ?theme for more theme elements.
+#' last_plot() + labs(title = "My Plot Title")
 #' }
 NULL

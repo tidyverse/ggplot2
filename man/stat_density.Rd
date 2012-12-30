@@ -13,7 +13,7 @@
   \code{\link{density}} for details}
 
   \item{trim}{if \code{TRUE}, the default, densities are
-  trimmed to the actually range of the data.  If
+  trimmed to the actual range of the data.  If
   \code{FALSE}, they are extended by the default 3
   bandwidths (as specified by the \code{cut} parameter to
   \code{\link{density}})}

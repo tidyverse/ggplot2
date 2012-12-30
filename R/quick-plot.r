@@ -124,7 +124,7 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE, geom = "
     p <- p + facet_grid(facets = deparse(facets), margins = margins)
   }
   
-  if (!is.null(main)) p <- p + opts("title" = main)
+  if (!is.null(main)) p <- p + ggtitle(main)
 
   # Add geoms/statistics
   if (is.proto(position)) position <- list(position)
@@ -147,7 +147,7 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE, geom = "
   if (logv("x")) p <- p + scale_x_log10()
   if (logv("y")) p <- p + scale_y_log10()
   
-  if (!is.na(asp)) p <- p + opts(aspect.ratio = asp)
+  if (!is.na(asp)) p <- p + theme(aspect.ratio = asp)
   
   if (!missing(xlab)) p <- p + xlab(xlab)
   if (!missing(ylab)) p <- p + ylab(ylab)

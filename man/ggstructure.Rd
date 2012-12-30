@@ -12,6 +12,8 @@
   the data.
 }
 \examples{
+\dontrun{
 ggstructure(mtcars)
+}
 }
 

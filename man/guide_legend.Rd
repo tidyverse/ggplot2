@@ -10,7 +10,7 @@
     keywidth = NULL, keyheight = NULL, direction = NULL,
     default.unit = "line", override.aes = list(),
     nrow = NULL, ncol = NULL, byrow = FALSE,
-    reverse = FALSE, ...)
+    reverse = FALSE, order = 0, ...)
 }
 \arguments{
   \item{title}{A character string or expression indicating
@@ -25,9 +25,9 @@
   guide), or "right."}
 
   \item{title.theme}{A theme object for rendering the title
-  text. Usually the object of \code{\link{theme_text}} is
+  text. Usually the object of \code{\link{element_text}} is
   expected. By default, the theme is specified by
-  \code{legend.title} in \code{\link{opts}} or theme.}
+  \code{legend.title} in \code{\link{theme}} or theme.}
 
   \item{title.hjust}{A number specifying horizontal
   justification of the title text.}
@@ -44,9 +44,9 @@
   vertical gudie).}
 
   \item{label.theme}{A theme object for rendering the label
-  text. Usually the object of \code{\link{theme_text}} is
+  text. Usually the object of \code{\link{element_text}} is
   expected. By default, the theme is specified by
-  \code{legend.text} in \code{\link{opts}} or theme.}
+  \code{legend.text} in \code{\link{theme}} or theme.}
 
   \item{label.hjust}{A numeric specifying horizontal
   justification of the label text.}
@@ -57,12 +57,12 @@
   \item{keywidth}{A numeric or a unit object specifying the
   width of the legend key. Default value is
   \code{legend.key.width} or \code{legend.key.size} in
-  \code{\link{opts}} or theme.}
+  \code{\link{theme}} or theme.}
 
   \item{keyheight}{A numeric or a unit object specifying
   the height of the legend key. Default value is
   \code{legend.key.height} or \code{legend.key.size} in
-  \code{\link{opts}} or theme.}
+  \code{\link{theme}} or theme.}
 
   \item{direction}{A character string indicating the
   direction of the guide.  One of "horizontal" or
@@ -84,6 +84,11 @@
 
   \item{reverse}{logical. If \code{TRUE} the order of
   legends is reversed.}
+
+  \item{order}{positive integer less that 99 that specify
+  the order of this guide in the multiple guides. If 0
+  (default), the order is determined by a secret
+  algorithm.}
 
   \item{...}{ignored.}
 }
@@ -128,9 +133,9 @@ p1 + guides(fill = guide_legend(keywidth = 3, keyheight = 1))
 # title position
 p1 + guides(fill = guide_legend(title = "LEFT", title.position = "left"))
 
-# title text styles via theme_text
+# title text styles via element_text
 p1 + guides(fill = guide_legend(
-  title.theme = theme_text(size=15, face="italic", col="red", angle=45)))
+  title.theme = element_text(size=15, face="italic", colour = "red", angle = 45)))
 
 # label position
 p1 + guides(fill = guide_legend(label.position = "bottom"))
@@ -140,7 +145,7 @@ p1 + scale_fill_continuous(breaks = c(5, 10, 15),
   labels = paste("long", c(5, 10, 15)),
   guide = guide_legend(direction = "horizontal", title.position = "top",
     label.position="bottom", label.hjust = 0.5, label.vjust = 0.5,
-    label.theme = theme_text(angle = 90)))
+    label.theme = element_text(angle = 90)))
 
 # Set aesthetic of legend key
 

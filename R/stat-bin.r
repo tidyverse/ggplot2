@@ -55,6 +55,17 @@ StatBin <- proto(Stat, {
   informed <- FALSE
   
   calculate_groups <- function(., data, ...) {
+    if (!is.null(data$y) || !is.null(match.call()$y)) {
+      # Deprecate this behavior
+      gg_dep("0.9.2", paste(sep = "\n",
+        "Mapping a variable to y and also using stat=\"bin\".",
+        "  With stat=\"bin\", it will attempt to set the y value to the count of cases in each group.",
+        "  This can result in unexpected behavior and will not be allowed in a future version of ggplot2.",
+        "  If you want y to represent counts of cases, use stat=\"bin\" and don't map a variable to y.",
+        "  If you want y to represent values in the data, use stat=\"identity\".",
+        "  See ?geom_bar for examples."))
+    }
+
     .$informed <- FALSE
     .super$calculate_groups(., data, ...)
   }
@@ -137,30 +148,3 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
   if (drop) res <- subset(res, count > 0)
   res
 }
-
-# Generate sequence of fixed size intervals covering range
-# All locations are multiples of size
-# 
-# @param range
-# @param interval size
-# @keyword internal
-# @seealso \code{\link{reshape}{round_any}}
-fullseq <- function(range, size, pad = FALSE) {
-  if (diff(range) < 1e-6) return(c(range[1] - size / 2, range[1] + size / 2))
-  
-  x <- seq(
-    round_any(range[1], size, floor), 
-    round_any(range[2], size, ceiling), 
-    by=size
-  )
-  
-  if (pad) {
-    # Add extra bin on bottom and on top, to guarantee that we cover complete
-    # range of data, whether right = T or F
-    c(min(x) - size, x, max(x) + size)
-  } else {
-    x
-  }
-  
-}
-

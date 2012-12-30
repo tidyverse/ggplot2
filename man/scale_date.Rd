@@ -3,11 +3,11 @@
 \alias{scale_y_date}
 \title{Position scale, date}
 \usage{
-  scale_x_date(..., expand = waiver(), breaks = waiver(),
-    minor_breaks = waiver())
+  scale_x_date(..., expand = waiver(),
+    breaks = pretty_breaks(), minor_breaks = waiver())
 
-  scale_y_date(..., expand = waiver(), breaks = waiver(),
-    minor_breaks = waiver())
+  scale_y_date(..., expand = waiver(),
+    breaks = pretty_breaks(), minor_breaks = waiver())
 }
 \arguments{
   \item{breaks}{A vector of breaks, a function that given
@@ -43,7 +43,7 @@ df <- data.frame(
   price = runif(50)
 )
 df <- df[order(df$date), ]
-dt <- qplot(date, price, data=df, geom="line") + opts(aspect.ratio = 1/4)
+dt <- qplot(date, price, data=df, geom="line") + theme(aspect.ratio = 1/4)
 
 # We can control the format of the labels, and the frequency of
 # the major and minor tickmarks.  See ?format.Date and ?seq.Date

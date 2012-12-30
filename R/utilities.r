@@ -126,9 +126,21 @@ remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = 
 }
 
 finite.cases <- function(x) UseMethod("finite.cases")
+# Returns a logical vector of same length as nrow(x). If all data on a row
+# is finite (not NA, NaN, Inf, or -Inf) return TRUE; otherwise FALSE.
 #' @S3method finite.cases data.frame
 finite.cases.data.frame <- function(x) {
-  rowSums(vapply(x, is.finite, logical(nrow(x)))) == ncol(x)
+  finite_cases <- vapply(x, is.finite, logical(nrow(x)))
+
+  # Need a special case test when x has exactly one row, because rowSums
+  # doesn't respect dimensions for 1x1 matrices. vapply returns a vector (not
+  # a matrix when the input has one row.
+  if (is.vector(finite_cases)) {
+    all(finite_cases)
+  } else {
+    # Find all the rows where all are TRUE
+    rowSums(as.matrix(finite_cases)) == ncol(x)
+  }
 }
 
 
@@ -183,4 +195,65 @@ is.waive <- function(x) inherits(x, "waiver")
 rescale01 <- function(x) {
   rng <- range(x, na.rm = TRUE)
   (x - rng[1]) / (rng[2] - rng[1])
+}
+
+# This is a hack for ggplot2 0.9.3 to make it compatible with both plyr 1.7.1 and
+# plyr 1.8 (and above). This should be removed for the next release of ggplot2.
+# Tag: deprecated
+if (packageVersion("plyr") <= package_version("1.7.1")) {
+  rename <- function(x, replace, warn_missing) {
+    plyr::rename(x, replace)
+  }
+} else {
+  rename <- plyr::rename
+}
+
+
+#' Give a deprecation error, warning, or messsage, depending on version number.
+#'
+#' Version numbers have the format <major>.<minor>.<subminor>, like 0.9.2.
+#' This function compares the current version number of ggplot2 against the
+#' specified \code{version}, which is the most recent version before the
+#' function (or other object) was deprecated.
+#'
+#' \code{gg_dep} will give an error, warning, or message, depending on the
+#' difference between the current ggplot2 version and the specified
+#' \code{version}.
+#'
+#' If the current major number is greater than \code{version}'s major number,
+#' or if the current minor number is more than 1 greater than \code{version}'s
+#' minor number, give an error.
+#'
+#' If the current minor number differs from \code{version}'s minor number by
+#' one, give a warning.
+#'
+#' If the current subminor number differs from \code{version}'s subminor
+#' number, print a message.
+#'
+#' @param version The last version of ggplot2 where this function was good
+#'   (in other words, the last version where it was not deprecated).
+#' @param msg The message to print.
+#' @export
+gg_dep <- function(version, msg) {
+  v <- as.package_version(version)
+  cv <- packageVersion("ggplot2")
+
+  # If current major number is greater than last-good major number, or if
+  #  current minor number is more than 1 greater than last-good minor number,
+  #  give error.
+  if (cv[[1,1]] > v[[1,1]]  ||  cv[[1,2]] > v[[1,2]] + 1) {
+    stop(msg, " (Defunct; last used in version ", version, ")",
+      call. = FALSE)
+
+  # If minor number differs by one, give warning
+  } else if (cv[[1,2]] > v[[1,2]]) {
+    warning(msg, " (Deprecated; last used in version ", version, ")",
+      call. = FALSE)
+
+  # If only subminor number is greater, give message
+  } else if (cv[[1,3]] > v[[1,3]]) {
+    message(msg, " (Deprecated; last used in version ", version, ")")
+  }
+
+  invisible()
 }

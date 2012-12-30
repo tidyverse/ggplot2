@@ -1,0 +1,34 @@
+\name{calc_element}
+\alias{calc_element}
+\title{Calculate the element properties, by inheriting properties from its parents}
+\usage{
+  calc_element(element, theme, verbose = FALSE)
+}
+\arguments{
+  \item{element}{The name of the theme element to
+  calculate}
+
+  \item{theme}{A theme object (like theme_grey())}
+
+  \item{verbose}{If TRUE, print out which elements this one
+  inherits from}
+}
+\description{
+  Calculate the element properties, by inheriting
+  properties from its parents
+}
+\examples{
+t <- theme_grey()
+calc_element('text', t)
+
+# Compare the "raw" element definition to the element with calculated inheritance
+t$axis.text.x
+calc_element('axis.text.x', t, verbose = TRUE)
+
+# This reports that axis.text.x inherits from axis.text,
+# which inherits from text. You can view each of them with:
+t$axis.text.x
+t$axis.text
+t$text
+}
+

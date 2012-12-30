@@ -5,6 +5,7 @@
 #' values.
 #'
 #' @inheritParams scale_x_discrete
+#' @param na.value The linetype to use for \code{NA} values.
 #' @rdname scale_linetype
 #' @export
 #' @examples
@@ -19,8 +20,9 @@
 #' qplot(date, value, data=ecm, geom="line", colour=variable)
 #' 
 #' # See scale_manual for more flexibility
-scale_linetype <- function(...) {
-  discrete_scale("linetype", "linetype_d", linetype_pal(), ...)
+scale_linetype <- function(..., na.value = "blank") {
+  discrete_scale("linetype", "linetype_d", linetype_pal(),
+    na.value = na.value, ...)
 }
 
 #' @rdname scale_linetype

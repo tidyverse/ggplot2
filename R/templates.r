@@ -14,6 +14,7 @@
 #' @param ... other arguments passed on plot creation
 #' @export
 #' @examples
+#' \dontrun{
 #' ggpcp(mtcars) + geom_line()
 #' ggpcp(mtcars, vars=names(mtcars[2:6])) + geom_line()
 #' ggpcp(mtcars) + geom_boxplot(aes(group=variable))
@@ -21,8 +22,9 @@
 #' p <- ggpcp(mtcars, vars=names(mtcars[2:6]))
 #' p + geom_line()
 #' p + geom_line(aes(colour=mpg)) 
+#' }
 ggpcp <- function(data, vars=names(data), ...) {
-  .Deprecated()
+  gg_dep("0.9.1", "ggpcp is deprecated.")
   scaled <- as.data.frame(lapply(data[, vars], rescale01))
   data <- cunion(scaled, data)
   
@@ -51,12 +53,14 @@ ggpcp <- function(data, vars=names(data), ...) {
 #' @param na.rm If \code{TRUE}, silently remove missing values.
 #' @export
 #' @examples
+#' \dontrun{
 #' ggfluctuation(table(movies$Action, movies$Comedy))
 #' ggfluctuation(table(movies$Action, movies$mpaa))
 #' ggfluctuation(table(movies$Action, movies$Comedy), type="colour")
 #' ggfluctuation(table(warpbreaks$breaks, warpbreaks$tension))
+#' }
 ggfluctuation <- function(table, type="size", floor=0, ceiling=max(table$freq, na.rm=TRUE)) {
-  .Deprecated()
+  gg_dep("0.9.1", "ggfluctuation is deprecated.")
   if (is.table(table)) table <- as.data.frame(t(table))
   
   oldnames <- names(table)
@@ -85,7 +89,7 @@ ggfluctuation <- function(table, type="size", floor=0, ceiling=max(table$freq, n
       aes_string(x="x", y="y", height="freq", width="freq", fill="border")) +
       geom_tile(colour="white") + 
       scale_fill_identity() + 
-      opts(aspect.ratio = ny / nx)
+      theme(aspect.ratio = ny / nx)
 
       # geom_rect(aes(xmin = as.numeric(x), ymin = as.numeric(y), xmax = as.numeric(x) + freq, ymax = as.numeric(y) + freq), colour="white") + 
     
@@ -118,13 +122,15 @@ ggfluctuation <- function(table, type="size", floor=0, ceiling=max(table$freq, n
 #' @seealso \code{\link{ggstructure}}, \code{\link{ggorder}}
 #' @export
 #' @examples
+#' \dontrun{
 #' mmissing <- movies
 #' mmissing[sample(nrow(movies), 1000), sample(ncol(movies), 5)] <- NA
 #' ggmissing(mmissing)
 #' ggmissing(mmissing, order=FALSE, missing.only = FALSE)
 #' ggmissing(mmissing, avoid="dodge") + scale_y_sqrt()
+#' }
 ggmissing <- function(data, avoid="stack", order=TRUE, missing.only = TRUE) {
-  .Deprecated()
+  gg_dep("0.9.1", "ggmissing is deprecated.")
   missings <- mapply(function(var, name) cbind(as.data.frame(table(missing=factor(is.na(var), levels=c(TRUE, FALSE), labels=c("yes", "no")))), variable=name), 
     data, names(data), SIMPLIFY=FALSE
   )
@@ -152,9 +158,11 @@ ggmissing <- function(data, avoid="stack", order=TRUE, missing.only = TRUE) {
 #' @param data data set to plot
 #' @export
 #' @examples
+#' \dontrun{
 #' ggstructure(mtcars)
+#' }
 ggstructure <- function(data) {
-  .Deprecated()
+  gg_dep("0.9.1", "ggstructure is deprecated.")
   ggpcp(data) + 
     aes_string(y="ROWID", fill="value", x="variable") +
     geom_tile() +
@@ -167,7 +175,7 @@ ggstructure <- function(data) {
 #' @param data data set to plot
 #' @export
 ggorder <- function(data) {
-  .Deprecated()
+  gg_dep("0.9.1", "ggorder is deprecated.")
   ggpcp(data) +
     aes_string(x="ROWID", group="variable", y="value") +
     facet_grid(. ~ variable) +
@@ -177,7 +185,7 @@ ggorder <- function(data) {
 
 # Distribution plot.
 ggdist <- function(data, vars=names(data), facets = . ~ .) {
-  .Deprecated()
+  gg_dep("0.9.1", "ggdist is deprecated.")
   cat <- sapply(data[vars], is.factor)
   facets <- deparse(substitute(facets))
   

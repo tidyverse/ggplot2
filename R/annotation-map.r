@@ -41,10 +41,14 @@ GeomAnnotationMap <- proto(GeomMap, {
   objname <- "map"
 
   draw_groups <- function(., data, scales, coordinates, map, ...) {
+    # Munch, then set up id variable for polygonGrob -
+    # must be sequential integers
     coords <- coord_munch(coordinates, map, scales)
-    id <- match(map$group, unique(map$group))
-    
-    polygonGrob(coords$x, coords$y, default.units = "native", id = id,
+    coords$group <- coords$group %||% coords$id
+    grob_id <- match(coords$group, unique(coords$group))
+
+    polygonGrob(coords$x, coords$y, default.units = "native",
+      id = grob_id,
       gp = gpar(
         col = data$colour, fill = alpha(data$fill, data$alpha), 
         lwd = data$size * .pt))

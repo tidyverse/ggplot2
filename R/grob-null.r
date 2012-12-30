@@ -5,6 +5,7 @@
 #' @S3method grobWidth zeroGrob
 #' @S3method grobHeight zeroGrob
 #' @S3method drawDetails zeroGrob
+#' @keywords internal
 zeroGrob <- function() .zeroGrob
 
 .zeroGrob <- grob(cl = "zeroGrob", name = "NULL")

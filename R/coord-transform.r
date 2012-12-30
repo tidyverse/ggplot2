@@ -4,8 +4,9 @@
 #' statistical transformation and will affect the visual appearance of geoms - there is
 #' no guarantee that straight lines will continue to be straight.
 #'
-#' All current transformations only work with continuous values - see \code{scale}{trans_new}
-#' for list of transformations, and instructions on how to create your own.
+#' All current transformations only work with continuous values - see 
+#' \code{\link[scales]{trans_new}} for list of transformations, and instructions on 
+#' how to create your own.
 #'
 #' @param xtrans,ytrans transformers for x and y axes
 #' @param limx,limy limits for x and y axes. (Named so for backward
@@ -94,7 +95,7 @@ coord_train.trans <- function(coord, scales) {
     train_trans(scales$y, coord$limits$y, coord$trans$y, "y"))
 }
 
-train_trans <- memoise(function(scale, limits, trans, name) {
+train_trans <- function(scale, limits, trans, name) {
   # first, calculate the range that is the numerical limits in data space
 
   # expand defined by scale OR coord
@@ -127,4 +128,4 @@ train_trans <- memoise(function(scale, limits, trans, name) {
               major = out$major_source, minor = out$minor_source)
   names(out) <- paste(name, names(out), sep = ".")
   out
-})
+}

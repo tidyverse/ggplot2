@@ -10,8 +10,18 @@ Scales <- setRefClass("Scales", fields = "scales", methods = list(
     any(find(aesthetic))
   },
   add = function(scale) {
+    prev_aes <- find(scale$aesthetics)
+    if (any(prev_aes)) {
+      # Get only the first aesthetic name in the returned vector -- it can
+      # sometimes be c("x", "xmin", "xmax", ....)
+      scalename <- scales[prev_aes][[1]]$aesthetics[1]
+      message("Scale for '", scalename,
+        "' is already present. Adding another scale for '", scalename,
+        "', which will replace the existing scale.")
+    }
+
     # Remove old scale for this aesthetic (if it exists)
-    scales <<- c(scales[!find(scale$aesthetics)], list(scale))
+    scales <<- c(scales[!prev_aes], list(scale))
   }, 
   clone = function() {
     new_scales <- lapply(scales, scale_clone)
@@ -61,6 +71,8 @@ scales_transform_df <- function(scales, df) {
   quickdf(c(transformed, df[setdiff(names(df), names(transformed))]))
 }
 
+# @param aesthetics A list of aesthetic-variable mappings. The name of each
+#   item is the aesthetic, and the value of each item is the variable in data.
 scales_add_defaults <- function(scales, data, aesthetics, env) {
   if (is.null(aesthetics)) return()
   names(aesthetics) <- unlist(lapply(names(aesthetics), aes_to_scale))
@@ -73,52 +85,77 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
     aesthetics[new_aesthetics], eval, 
     envir = data, enclos = env
   )
-  new_aesthetics <- intersect(new_aesthetics, names(datacols))
-  if (length(datacols) == 0) return()
 
-  for(aes in new_aesthetics) {
-    disc <- is.discrete(datacols[[aes]])
-    type <- if (disc) "discrete" else "continuous"
+  for(aes in names(datacols)) {
+    type <- scale_type(datacols[[aes]])
     scale_name <- paste("scale", aes, type, sep="_")
 
     # Skip aesthetics with no scales (e.g. group, order, etc)
-    scale_f <- find_global(scale_name)
+    scale_f <- find_global(scale_name, env)
     if (is.null(scale_f)) next
-    
-    if (disc) {
-      args <- list()
-    } else {
-      args <- list(trans = trans_type(datacols[[aes]]))
-    }
-    scale <- do.call(scale_f, args)
-    scales$add(scale)
+
+    scales$add(scale_f())
   }
   
 }
 
-# Look for object first in global environment and if not found, then in 
-# ggplot2 package environment.  This makes it possible to override default
-# scales by setting them in the default environment.
-find_global <- function(name) {
-  if (exists(name, globalenv())) {
-    return(get(name, globalenv()))
+# Add missing but required scales.
+# @param aesthetics A character vector of aesthetics. Typically c("x", "y").
+scales_add_missing <- function(plot, aesthetics, env) {
+
+  # Keep only aesthetics that aren't already in plot$scales
+  aesthetics <- setdiff(aesthetics, plot$scales$input())
+
+  for (aes in aesthetics) {
+    scale_name <- paste("scale", aes, "continuous", sep="_")
+
+    scale_f <- find_global(scale_name, env)
+    plot$scales$add(scale_f())
   }
-  
-  pkg <- getNamespace("ggplot2")
-  if (exists(name, pkg)) {
-    return(get(name, pkg))
+}
+
+
+# Look for object first in parent environment and if not found, then in 
+# ggplot2 namespace environment.  This makes it possible to override default
+# scales by setting them in the parent environment.
+find_global <- function(name, env) {
+  if (exists(name, env)) {
+    return(get(name, env))
+  }
+
+  nsenv <- asNamespace("ggplot2")
+  if (exists(name, nsenv)) {
+    return(get(name, nsenv))
   }
   
   NULL
 }
 
-# Determine default transformation for continuous scales
-trans_type <- function(x) {
-  if (inherits(x, "Date")) {
-    "date"
-  } else if (inherits(x, "POSIXt")) {
-    "time"
-  } else {
-    "identity"
-  }
+
+# Determine default type of a scale
+scale_type <- function(x) UseMethod("scale_type")
+
+#' @S3method scale_type default
+scale_type.default <- function(x) {
+  message("Don't know how to automatically pick scale for object of type ",
+    paste(class(x), collapse = "/"), ". Defaulting to continuous")
+  "continuous"
 }
+
+#' @S3method scale_type logical
+scale_type.logical <- function(x) "discrete"
+
+#' @S3method scale_type character
+scale_type.character <- function(x) "discrete"
+
+#' @S3method scale_type factor
+scale_type.factor <- function(x) "discrete"
+
+#' @S3method scale_type POSIXt
+scale_type.POSIXt <- function(x) "datetime"
+
+#' @S3method scale_type Date
+scale_type.Date <- function(x) "date"
+
+#' @S3method scale_type numeric
+scale_type.numeric <- function(x) "continuous"

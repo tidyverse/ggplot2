@@ -24,9 +24,10 @@ new_panel <- function() {
 # @param the panel object to train
 # @param the facetting specification
 # @param data a list of data frames (one for each layer), and one for the plot
+# @param plot_data the default data frame
 # @return an updated panel object
 train_layout <- function(panel, facet, data, plot_data) {
-  layout <- facet_train_layout(facet, c(data, list(plot_data)))
+  layout <- facet_train_layout(facet, c(list(plot_data), data))
   panel$layout <- layout
   panel$shrink <- facet$shrink
   
@@ -142,7 +143,15 @@ scale_apply <- function(data, vars, f, scale_id, scales) {
   
   n <- length(scales)
   if (any(is.na(scale_id))) stop()
-  scale_index <- plyr:::split_indices(seq_len(nrow(data)), scale_id, n)
+
+  # This is a hack for ggplot2 0.9.3 to make it compatible with both plyr 1.7.1 and
+  # plyr 1.8 (and above). This should be removed for the next release of ggplot2.
+  # Tag: deprecated
+  if (packageVersion("plyr") <= package_version("1.7.1")) {
+    scale_index <- plyr:::split_indices(seq_len(nrow(data)), scale_id, n)
+  } else {
+    scale_index <- plyr:::split_indices(scale_id, n)
+  }
 
   lapply(vars, function(var) {
     pieces <- lapply(seq_along(scales), function(i) {
@@ -195,10 +204,10 @@ calculate_stats <- function(panel, data, layers) {
 }
 
 
-xlabel <- function(panel, theme) {
-  panel$x_scales[[1]]$name %||% theme$labels$x
+xlabel <- function(panel, labels) {
+  panel$x_scales[[1]]$name %||% labels$x
 }
   
-ylabel <- function(panel, theme) {
-  panel$y_scales[[1]]$name %||% theme$labels$y
+ylabel <- function(panel, labels) {
+  panel$y_scales[[1]]$name %||% labels$y
 }

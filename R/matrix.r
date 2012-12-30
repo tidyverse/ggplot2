@@ -9,6 +9,8 @@
 #' plotmatrix(mtcars[, 1:3])
 #' plotmatrix(mtcars[, 1:3]) + geom_smooth(method="lm")
 plotmatrix <- function(data, mapping=aes(), colour="black") {
+  gg_dep("0.9.2", "This function is deprecated. For a replacement, see the ggpairs function in the GGally package.")
+
   # data <- rescaler(data, "range")
   grid <- expand.grid(x=1:ncol(data), y=1:ncol(data))
   grid <- subset(grid, x != y)

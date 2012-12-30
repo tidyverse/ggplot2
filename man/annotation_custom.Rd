@@ -47,7 +47,7 @@ base + annotation_custom(grob = roundrectGrob(),
 }
 # Inset plot
 g <- ggplotGrob(qplot(1, 1) +
-  opts(plot.background = theme_rect(col = "black")))
+  theme(plot.background = element_rect(colour = "black")))
 base +
   annotation_custom(grob = g, xmin = 1, xmax = 10, ymin = 8, ymax = 10)
 }

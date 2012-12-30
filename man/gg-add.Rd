@@ -1,0 +1,76 @@
+\name{+.gg}
+\alias{+.gg}
+\alias{\%+\%}
+\alias{\%+replace\%}
+\title{Modify a ggplot or theme object by adding on new components.}
+\usage{
+  \method{+}{gg} (e1, e2)
+
+  %+%(e1, e2)
+
+  %+replace%(e1, e2)
+}
+\arguments{
+  \item{e1}{An object of class \code{ggplot} or
+  \code{theme}}
+
+  \item{e2}{A component to add to \code{e1}}
+}
+\description{
+  This operator allows you to add objects to a ggplot or
+  theme object.
+}
+\details{
+  If the first object is an object of class \code{ggplot},
+  you can add the following types of objects, and it will
+  return a modified ggplot object.
+
+  \itemize{ \item \code{data.frame}: replace current
+  data.frame (must use \code{\%+\%}) \item \code{uneval}:
+  replace current aesthetics \item \code{layer}: add new
+  layer \item \code{theme}: update plot theme \item
+  \code{scale}: replace current scale \item \code{coord}:
+  override current coordinate system \item \code{facet}:
+  override current coordinate faceting }
+
+  If the first object is an object of class \code{theme},
+  you can add another theme object. This will return a
+  modified theme object.
+
+  For theme objects, the \code{+} operator and the
+  \code{\%+replace\%} can be used to modify elements in
+  themes.
+
+  The \code{+} operator completely replaces elements with
+  elements from e2.
+
+  In contrast, the \code{\%+replace\%} operator does not
+  replace the entire element; it only updates element
+  properties which are present (not NULL) in the second
+  object.
+}
+\examples{
+### Adding objects to a ggplot object
+p <- qplot(wt, mpg, colour = hp, data = mtcars)
+
+p + coord_cartesian(ylim = c(0, 40))
+p + scale_colour_continuous(breaks = c(100, 300))
+p + guides(colour = "colourbar")
+
+# Use a different data frame
+m <- mtcars[1:10, ]
+p \%+\% m
+
+
+### Adding objects to a theme object
+# Compare these results of adding theme objects to other theme objects
+add_el <- theme_grey() + theme(text = element_text(family = "Times"))
+rep_el <- theme_grey() \%+replace\% theme(text = element_text(family = "Times"))
+
+add_el$text
+rep_el$text
+}
+\seealso{
+  \code{\link{theme}}
+}
+

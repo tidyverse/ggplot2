@@ -39,7 +39,7 @@
 #' d + coord_cartesian(xlim = c(0, 2))
 coord_cartesian <- function(xlim = NULL, ylim = NULL, wise = NULL) {
   if (!is.null(wise))
-    warning("Deprecated: wise argument to coord_cartesian is ignored", call. = FALSE)
+    gg_dep("0.9.0", "wise argument to coord_cartesian is ignored")
   coord(limits = list(x = xlim, y = ylim), subclass = "cartesian")
 }
 
@@ -67,7 +67,7 @@ coord_train.cartesian <- function(coord, scales) {
     train_cartesian(scales$y, coord$limits$y, "y"))
 }
 
-train_cartesian <- memoise(function(scale, limits, name) {
+train_cartesian <- function(scale, limits, name) {
 
   # first, calculate the range that is the numerical limits in data space
 
@@ -82,4 +82,4 @@ train_cartesian <- memoise(function(scale, limits, name) {
   out <- scale_break_info(scale, range)
   names(out) <- paste(name, names(out), sep = ".")
   out
-})
+}

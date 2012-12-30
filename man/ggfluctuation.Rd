@@ -31,9 +31,11 @@
   to sqrt(count)).
 }
 \examples{
+\dontrun{
 ggfluctuation(table(movies$Action, movies$Comedy))
 ggfluctuation(table(movies$Action, movies$mpaa))
 ggfluctuation(table(movies$Action, movies$Comedy), type="colour")
 ggfluctuation(table(warpbreaks$breaks, warpbreaks$tension))
+}
 }
 

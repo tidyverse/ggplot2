@@ -50,7 +50,7 @@ bolus.ggplot <- function(x, ...) {
     scales = digest(scales),
     facet = facet$hash(),
     coord = coordinates$hash(),
-    options = digest::digest(defaults(x$options, theme_get()))
+    theme = digest::digest(defaults(x$theme, theme_get()))
   ))
 }
 

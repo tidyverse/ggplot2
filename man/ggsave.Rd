@@ -6,7 +6,7 @@
     device = default_device(filename), path = NULL,
     scale = 1, width = par("din")[1],
     height = par("din")[2], units = c("in", "cm", "mm"),
-    dpi = 300, ...)
+    dpi = 300, limitsize = TRUE, ...)
 }
 \arguments{
   \item{filename}{file name/filename of plot}
@@ -32,6 +32,11 @@
   is explicitly specified (in, cm, or mm)}
 
   \item{dpi}{dpi to use for raster graphics}
+
+  \item{limitsize}{when \code{TRUE} (the default),
+  \code{ggsave} will not save images larger than 50x50
+  inches, to prevent the common error of specifying
+  dimensions in pixels.}
 
   \item{...}{other arguments passed to graphics device}
 }

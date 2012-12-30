@@ -8,6 +8,8 @@
 #'
 #' @inheritParams scale_colour_hue
 #' @inheritParams scales::seq_gradient_pal
+#' @param guide Type of legend. Use \code{"colourbar"} for continuous
+#'   colour bar, or \code{"legend"} for discrete colour legend.
 #' @seealso \code{\link[scales]{seq_gradient_pal}} for details on underlying
 #'   palette
 #' @rdname scale_gradient
@@ -55,14 +57,14 @@
 #' qplot(mpg, wt, data = mtcars, colour = miss) + 
 #'   scale_colour_gradient(na.value = "black")
 #' }
-scale_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab", na.value = "grey50") {
+scale_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab", na.value = "grey50", guide = "colourbar") {
   continuous_scale("colour", "gradient", seq_gradient_pal(low, high, space),
-    na.value = na.value, ...)
+    na.value = na.value, guide = guide, ...)
 }
 
 #' @rdname scale_gradient
 #' @export
-scale_fill_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab", na.value = "grey50") {
+scale_fill_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab", na.value = "grey50", guide = "colourbar") {
   continuous_scale("fill", "gradient", seq_gradient_pal(low, high, space),
-    na.value = na.value, ...)
+    na.value = na.value, guide = guide, ...)
 }

@@ -3,7 +3,8 @@
 \title{Identity statistic.}
 \usage{
   stat_identity(mapping = NULL, data = NULL,
-    geom = "point", position = "identity", ...)
+    geom = "point", position = "identity", width = NULL,
+    height = NULL, ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -18,6 +19,10 @@
 
   \item{position}{The position adjustment to use for
   overlappling points on this layer}
+
+  \item{width}{The width of the tiles.}
+
+  \item{height}{The height of the tiles.}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose

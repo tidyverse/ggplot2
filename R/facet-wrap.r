@@ -11,7 +11,7 @@
 #' @examples
 #' \donttest{
 #' d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) + 
-#'   xlim(0, 2) + stat_binhex(na.rm = TRUE) + opts(aspect.ratio = 1)
+#'   xlim(0, 2) + stat_binhex(na.rm = TRUE) + theme(aspect.ratio = 1)
 #' d + facet_wrap(~ color)
 #' d + facet_wrap(~ color, ncol = 1)
 #' d + facet_wrap(~ color, ncol = 4)
@@ -27,7 +27,7 @@
 #' diamonds$color <- factor(diamonds$color, levels = c("G", "J", "D", "E", "I", "F", "H"))
 #' # Repeat first example with new order
 #' d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) + 
-#' xlim(0, 2) + stat_binhex(na.rm = TRUE) + opts(aspect.ratio = 1)
+#' xlim(0, 2) + stat_binhex(na.rm = TRUE) + theme(aspect.ratio = 1)
 #' d + facet_wrap(~ color)
 #'
 #' # You can choose to keep the scales constant across all panels
@@ -101,6 +101,13 @@ facet_map_layout.wrap <- function(facet, data, layout) {
 #' @S3method facet_render wrap
 facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   
+  # If coord is (non-cartesian or flip) and (x is free or y is free)
+  # then print a warning
+  if ((!inherits(coord, "cartesian") || inherits(coord, "flip")) &&
+    (facet$free$x || facet$free$y)) {
+    stop("ggplot2 does not currently support free scales with a non-cartesian coord or coord_flip.\n")
+  }
+
   # If user hasn't set aspect ratio, and we have fixed scales, then
   # ask the coordinate system if it wants to specify one
   aspect_ratio <- theme$aspect.ratio
@@ -168,16 +175,18 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   
   col_widths <- compute_grob_widths(info, widths)
   row_heights <- compute_grob_heights(info, heights)
-  
-  lay <- gtable(
-    layout = info[info$type %in% names(grobs), 
-      c("t", "r", "b", "l", "clip", "name")],
-    grobs = unlist(grobs, recursive = FALSE),
-    heights = row_heights,
-    widths = col_widths, 
-    respect = respect
-  )
-  lay
+
+  # Create the gtable for the legend
+  gt <- gtable(widths = col_widths, heights = row_heights, respect = respect)
+
+  # Keep only the rows in info that refer to grobs
+  info  <- info[info$type %in% names(grobs), ]
+  grobs <- unlist(grobs, recursive = FALSE)
+  # Add the grobs
+  gt <- gtable_add_grob(gt, grobs, l = info$l, t = info$t, r = info$r,
+    b = info$b, name = info$name, clip = info$clip)
+
+  gt
 }
 
 #' @S3method facet_panels wrap

@@ -42,6 +42,7 @@
 # See stat_density for examples
 }
 \seealso{
-  \code{\link{geom_histogram}} for the histogram
+  \code{\link{geom_histogram}} for the histogram and
+  \code{\link{stat_density}} for examples.
 }
 

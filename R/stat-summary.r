@@ -135,6 +135,10 @@ StatSummary <- proto(Stat, {
         as.data.frame(res)
       }
     }
+
+    # Each x location should be in a separate group
+    data$group <- as.integer(interaction(data$group, data$x))
+
     summarise_by_x(data, fun, ...)
   }
   
@@ -181,7 +185,8 @@ wrap_hmisc <- function(fun) {
     result <- safe.call(fun, list(x = x, ...))
     rename(
       data.frame(t(result)), 
-      c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax")
+      c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax"),
+      warn_missing = FALSE
     )    
   }
 }

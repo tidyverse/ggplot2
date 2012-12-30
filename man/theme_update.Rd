@@ -27,14 +27,17 @@ qplot(mpg, wt, data = mtcars)
 theme_set(old)
 qplot(mpg, wt, data = mtcars)
 
-old <- theme_update(panel.background = theme_rect(colour = "pink"))
+old <- theme_update(panel.background = element_rect(colour = "pink"))
 qplot(mpg, wt, data = mtcars)
 theme_set(old)
 theme_get()
 
 qplot(mpg, wt, data=mtcars, colour=mpg) +
-  opts(legend.position=c(0.95, 0.95), legend.justification = c(1, 1))
+  theme(legend.position=c(0.95, 0.95), legend.justification = c(1, 1))
 last_plot() +
- opts(legend.background = theme_rect(fill = "white", col="white", size =3))
+ theme(legend.background = element_rect(fill = "white", colour = "white", size = 3))
+}
+\seealso{
+  \code{\link{\%+replace\%}} and \code{\link{+.gg}}
 }
 

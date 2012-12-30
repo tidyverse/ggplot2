@@ -4,7 +4,7 @@
 \usage{
   stat_ydensity(mapping = NULL, data = NULL,
     geom = "violin", position = "dodge", adjust = 1,
-    kernel = "gaussian", trim = TRUE, scale = "equal",
+    kernel = "gaussian", trim = TRUE, scale = "area",
     na.rm = FALSE, ...)
 }
 \arguments{
@@ -12,13 +12,13 @@
   the violins to the range of the data. If \code{FALSE},
   don't trim the tails.}
 
-  \item{scale}{if "equal" (default), all violins have the
-  same area (to be precise, they would have the same area
-  if tails are not trimmed). If "count", the areas are
-  scaled proportionally to the number of observations.}
+  \item{scale}{if "area" (default), all violins have the
+  same area (before trimming the tails). If "count", areas
+  are scaled proportionally to the number of observations.
+  If "width", all violins have the same maximum width.}
 
   \item{na.rm}{If \code{FALSE} (the default), removes
-  missing values with a warning.  If \code{TRUE} silently
+  missing values with a warning. If \code{TRUE} silently
   removes missing values.}
 
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -45,21 +45,29 @@
   for more details.}
 }
 \value{
-  A data frame with additional columns: \item{width}{width
-  of violin bounding box} \item{ydensity}{density estimate}
-  \item{scaled}{density estimate, scaled depending on
-  scalearea and scalecount} \item{count}{ydensity * number
-  of points} \item{counttotal}{number of points}
+  A data frame with additional columns:
+  \item{density}{density estimate} \item{scaled}{density
+  estimate, scaled to maximum of 1} \item{count}{density *
+  number of points - probably useless for violin plots}
+  \item{violinwidth}{density scaled for the violin plot,
+  according to area, counts or to a constant maximum width}
+  \item{n}{number of points} \item{width}{width of violin
+  bounding box}
 }
 \description{
   1d kernel density estimate along y axis, for violin plot.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
-  "unique")}
+  "ydensity")}
 }
 \examples{
 # See geom_violin for examples
 # Also see stat_density for similar examples with data along x axis
+}
+\seealso{
+  \code{\link{geom_violin}} for examples, and
+  \code{\link{stat_density}} for examples with data along
+  the x axis.
 }
 

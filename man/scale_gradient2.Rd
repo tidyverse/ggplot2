@@ -6,19 +6,26 @@
 \usage{
   scale_colour_gradient2(..., low = muted("red"),
     mid = "white", high = muted("blue"), midpoint = 0,
-    space = "rgb", na.value = "grey50")
+    space = "rgb", na.value = "grey50",
+    guide = "colourbar")
 
   scale_fill_gradient2(..., low = muted("red"),
     mid = "white", high = muted("blue"), midpoint = 0,
-    space = "rgb", na.value = "grey50")
+    space = "rgb", na.value = "grey50",
+    guide = "colourbar")
 
   scale_color_gradient2(..., low = muted("red"),
     mid = "white", high = muted("blue"), midpoint = 0,
-    space = "rgb", na.value = "grey50")
+    space = "rgb", na.value = "grey50",
+    guide = "colourbar")
 }
 \arguments{
   \item{midpoint}{The midpoint (in data value) of the
   diverging scale.  Defaults to 0.}
+
+  \item{guide}{Type of legend. Use \code{"colourbar"} for
+  continuous colour bar, or \code{"legend"} for discrete
+  colour legend.}
 
   \item{...}{Other arguments passed on to
   \code{\link{discrete_scale}} to control name, limits,

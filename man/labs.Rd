@@ -1,4 +1,5 @@
 \name{labs}
+\alias{ggtitle}
 \alias{labs}
 \alias{xlab}
 \alias{ylab}
@@ -9,8 +10,12 @@
   xlab(label)
 
   ylab(label)
+
+  ggtitle(label)
 }
 \arguments{
+  \item{label}{The text for the axis or plot title.}
+
   \item{...}{a list of new names in the form aesthetic =
   "new name"}
 }
@@ -19,9 +24,11 @@
 }
 \examples{
 p <- qplot(mpg, wt, data = mtcars)
+p + labs(title = "New plot title")
 p + labs(x = "New x label")
 p + xlab("New x label")
 p + ylab("New y label")
+p + ggtitle("New plot title")
 
 # This should work indepdendently of other functions that modify the
 # the scale names
@@ -33,6 +40,6 @@ p <- qplot(mpg, wt, data = mtcars, colour = cyl)
 p + labs(colour = "Cylinders")
 
 # Can also pass in a list, if that is more convenient
-p + labs(list(x = "X", y = "Y"))
+p + labs(list(title = "Title", x = "X", y = "Y"))
 }
 

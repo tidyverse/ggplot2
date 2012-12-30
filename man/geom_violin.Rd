@@ -4,17 +4,17 @@
 \usage{
   geom_violin(mapping = NULL, data = NULL,
     stat = "ydensity", position = "dodge", trim = TRUE,
-    scale = "equal", ...)
+    scale = "area", ...)
 }
 \arguments{
   \item{trim}{If \code{TRUE} (default), trim the tails of
   the violins to the range of the data. If \code{FALSE},
   don't trim the tails.}
 
-  \item{scale}{if "equal" (default), all violins have the
-  same area (to be precise, they would have the same area
-  if tails are not trimmed). If "count", the areas are
-  scaled proportionally to the number of observations.}
+  \item{scale}{if "area" (default), all violins have the
+  same area (before trimming the tails). If "count", areas
+  are scaled proportionally to the number of observations.
+  If "width", all violins have the same maximum width.}
 
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
@@ -56,6 +56,9 @@ qplot(factor(cyl), mpg, data = mtcars, geom = "violin") +
 
 # Scale maximum width proportional to sample size:
 p + geom_violin(scale = "count")
+
+# Scale maximum width to 1 for all violins:
+p + geom_violin(scale = "width")
 
 # Default is to trim violins to the range of the data. To disable:
 p + geom_violin(trim = FALSE)

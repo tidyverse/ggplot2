@@ -38,7 +38,7 @@
 \examples{
 \donttest{
 d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) +
-  xlim(0, 2) + stat_binhex(na.rm = TRUE) + opts(aspect.ratio = 1)
+  xlim(0, 2) + stat_binhex(na.rm = TRUE) + theme(aspect.ratio = 1)
 d + facet_wrap(~ color)
 d + facet_wrap(~ color, ncol = 1)
 d + facet_wrap(~ color, ncol = 4)
@@ -54,7 +54,7 @@ d + facet_wrap(~ color, nrow = 3)
 diamonds$color <- factor(diamonds$color, levels = c("G", "J", "D", "E", "I", "F", "H"))
 # Repeat first example with new order
 d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) +
-xlim(0, 2) + stat_binhex(na.rm = TRUE) + opts(aspect.ratio = 1)
+xlim(0, 2) + stat_binhex(na.rm = TRUE) + theme(aspect.ratio = 1)
 d + facet_wrap(~ color)
 
 # You can choose to keep the scales constant across all panels

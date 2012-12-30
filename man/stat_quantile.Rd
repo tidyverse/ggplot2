@@ -4,7 +4,7 @@
 \usage{
   stat_quantile(mapping = NULL, data = NULL,
     geom = "quantile", position = "identity",
-    quantiles = c(0.25, 0.5, 0.75), formula = y ~ x,
+    quantiles = c(0.25, 0.5, 0.75), formula = NULL,
     method = "rq", na.rm = FALSE, ...)
 }
 \arguments{
@@ -53,24 +53,29 @@
 \examples{
 \donttest{
 msamp <- movies[sample(nrow(movies), 1000), ]
-m <- ggplot(msamp, aes(y=rating, x=year)) + geom_point()
+m <- ggplot(msamp, aes(year, rating)) + geom_point()
 m + stat_quantile()
 m + stat_quantile(quantiles = 0.5)
-m + stat_quantile(quantiles = seq(0.1, 0.9, by=0.1))
+q10 <- seq(0.05, 0.95, by=0.05)
+m + stat_quantile(quantiles = q10)
 
-# Doesn't work.  Not sure why.
-# m + stat_quantile(method = rqss, formula = y ~ qss(x), quantiles = 0.5)
+# You can also use rqss to fit smooth quantiles
+m + stat_quantile(method = "rqss")
+# Note that rqss doesn't pick a smoothing constant automatically, so
+# you'll need to tweak lambda yourself
+m + stat_quantile(method = "rqss", lambda = 10)
+m + stat_quantile(method = "rqss", lambda = 100)
 
-# Add aesthetic mappings
+# Use 'votes' as weights for the quantile calculation
 m + stat_quantile(aes(weight=votes))
 
 # Change scale
-m + stat_quantile(aes(colour = ..quantile..), quantiles = seq(0.05, 0.95, by=0.05))
-m + stat_quantile(aes(colour = ..quantile..), quantiles = seq(0.05, 0.95, by=0.05)) +
-  scale_colour_gradient2(midpoint=0.5, low="green", mid="yellow", high="green")
+m + stat_quantile(aes(colour = ..quantile..), quantiles = q10)
+m + stat_quantile(aes(colour = ..quantile..), quantiles = q10) +
+  scale_colour_gradient2(midpoint = 0.5)
 
 # Set aesthetics to fixed value
-m + stat_quantile(colour="red", size=2, linetype=2)
+m + stat_quantile(colour = "red", size = 2, linetype = 2)
 
 # Use qplot instead
 qplot(year, rating, data=movies, geom="quantile")

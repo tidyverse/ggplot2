@@ -15,6 +15,7 @@ df <- data.frame(
   price = runif(50)
 )
 df <- df[order(df$date), ]
+library(scales)
 p <- qplot(date, price, data=df, geom="line") +
   scale_x_date(labels = date_format("%m/%d"), breaks = date_breaks("month"), minor_breaks = date_breaks("week"))
 

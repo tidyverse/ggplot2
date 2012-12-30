@@ -8,24 +8,34 @@
 \title{Smooth gradient between two colours}
 \usage{
   scale_colour_gradient(..., low = "#132B43",
-    high = "#56B1F7", space = "Lab", na.value = "grey50")
+    high = "#56B1F7", space = "Lab", na.value = "grey50",
+    guide = "colourbar")
 
   scale_fill_gradient(..., low = "#132B43",
-    high = "#56B1F7", space = "Lab", na.value = "grey50")
+    high = "#56B1F7", space = "Lab", na.value = "grey50",
+    guide = "colourbar")
 
   scale_colour_continuous(..., low = "#132B43",
-    high = "#56B1F7", space = "Lab", na.value = "grey50")
+    high = "#56B1F7", space = "Lab", na.value = "grey50",
+    guide = "colourbar")
 
   scale_fill_continuous(..., low = "#132B43",
-    high = "#56B1F7", space = "Lab", na.value = "grey50")
+    high = "#56B1F7", space = "Lab", na.value = "grey50",
+    guide = "colourbar")
 
   scale_color_continuous(..., low = "#132B43",
-    high = "#56B1F7", space = "Lab", na.value = "grey50")
+    high = "#56B1F7", space = "Lab", na.value = "grey50",
+    guide = "colourbar")
 
   scale_color_gradient(..., low = "#132B43",
-    high = "#56B1F7", space = "Lab", na.value = "grey50")
+    high = "#56B1F7", space = "Lab", na.value = "grey50",
+    guide = "colourbar")
 }
 \arguments{
+  \item{guide}{Type of legend. Use \code{"colourbar"} for
+  continuous colour bar, or \code{"legend"} for discrete
+  colour legend.}
+
   \item{...}{Other arguments passed on to
   \code{\link{discrete_scale}} to control name, limits,
   breaks, labels and so forth.}

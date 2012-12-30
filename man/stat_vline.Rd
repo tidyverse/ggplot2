@@ -3,7 +3,7 @@
 \title{Add a vertical line}
 \usage{
   stat_vline(mapping = NULL, data = NULL, geom = "vline",
-    position = "identity", intercept, ...)
+    position = "identity", xintercept, ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -29,6 +29,9 @@
 }
 \examples{
 # see geom_vline
+}
+\seealso{
+  \code{\link{geom_vline}} for code examples.
 }
 \keyword{internal}
 

@@ -14,10 +14,10 @@
 #' @inheritParams guide_legend
 #' @param barwidth A numeric or a unit object specifying the width of the
 #'   colorbar. Default value is \code{legend.key.width} or
-#'   \code{legend.key.size} in \code{\link{opts}} or theme.
+#'   \code{legend.key.size} in \code{\link{theme}} or theme.
 #' @param barheight A numeric or a unit object specifying the height of the
 #'   colorbar. Default value is \code{legend.key.height} or
-#'   \code{legend.key.size} in \code{\link{opts}} or theme.
+#'   \code{legend.key.size} in \code{\link{theme}} or theme.
 #' @param nbin A numeric specifying the number of bins for drawing colorbar. A
 #'   smoother colorbar for a larger value.
 #' @param raster A logical. If \code{TRUE} then the colorbar is rendered as a
@@ -67,7 +67,7 @@
 #' p1 + guides(fill = guide_colorbar(label.position = "left"))
 #'
 #' # label theme
-#' p1 + guides(fill = guide_colorbar(label.theme = theme_text(col="blue")))
+#' p1 + guides(fill = guide_colorbar(label.theme = element_text(colour = "blue", angle = 0)))
 #'  
 #' # small number of bins
 #' p1 + guides(fill = guide_colorbar(nbin = 3))
@@ -119,6 +119,7 @@ guide_colourbar <- function(
   direction = NULL,
   default.unit = "line",
   reverse = FALSE,
+  order = 0,
 
   ...) {
   
@@ -155,6 +156,7 @@ guide_colourbar <- function(
     direction = direction,
     default.unit = default.unit,
     reverse = reverse,
+    order = order,
 
     # parameter
     available_aes = c("colour", "color", "fill"),
@@ -262,15 +264,17 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   # title
   # hjust of title should depend on title.position
-  title.theme <- guide$title.theme %||% theme$legend.title
+  title.theme <- guide$title.theme %||% calc_element("legend.title", theme)
   title.hjust <- title.x <- guide$title.hjust %||% theme$legend.title.align %||% 0
   title.vjust <- title.y <- guide$title.vjust %||% 0.5
   grob.title <- {
     if (is.null(guide$title))
       zeroGrob()
-    else
-      title.theme(label=guide$title, name=grobName(NULL, "guide.title"),
-                  hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
+    else {
+      g <- element_grob(title.theme, label=guide$title,
+        hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
+      ggname("guide.title", g)
+    }
   }
 
   title_width <- convertWidth(grobWidth(grob.title), "mm")
@@ -279,7 +283,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
   title_height.c <- c(title_height)
 
   # label
-  label.theme <- guide$label.theme %||% theme$legend.text
+  label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
   grob.label <- {
     if (!guide$label)
       zeroGrob()
@@ -288,8 +292,21 @@ guide_gengrob.colorbar <- function(guide, theme) {
         if (any(is.expression(guide$key$.label))) 1 else switch(guide$direction, horizontal = 0.5, vertical = 0)
       vjust <- y <- guide$label.vjust %||% 0.5
       switch(guide$direction, horizontal = {x <- label_pos; y <- vjust}, "vertical" = {x <- hjust; y <- label_pos})
-      label.theme(label=guide$key$.label, name = grobName(NULL, "guide.label"),
-                  hjust = hjust, vjust = vjust, x = x, y = y)
+
+      label <- guide$key$.label
+
+      # If any of the labels are quoted language objects, convert them
+      # to expressions. Labels from formatter functions can return these
+      if (any(vapply(label, is.call, logical(1)))) {
+        label <- lapply(label, function(l) {
+          if (is.call(l)) substitute(expression(x), list(x = l))
+          else l
+        })
+        label <- do.call(c, label)
+      }
+      g <- element_grob(element = label.theme, label = label,
+        x = x, y = y, hjust = hjust, vjust = vjust)
+      ggname("guide.label", g)
     }
   }
 
@@ -388,21 +405,30 @@ guide_gengrob.colorbar <- function(guide, theme) {
     })
 
   # background
-  grob.background <- theme_render(theme, "legend.background")
+  grob.background <- element_render(theme, "legend.background")
   
   # padding
   padding <- unit(1.5, "mm")
   widths <- c(padding, widths, padding)
   heights <- c(padding, heights, padding)
 
-  lay <- data.frame(l = 1 + c(0,                   min(vps$bar.col), min(vps$label.col), min(vps$title.col), min(vps$bar.col)),
-                    t = 1 + c(0,                   min(vps$bar.row), min(vps$label.row), min(vps$title.row), min(vps$bar.row)),
-                    r = 1 + c(length(widths) - 1,  max(vps$bar.col), max(vps$label.col), max(vps$title.col), max(vps$bar.col)),
-                    b = 1 + c(length(heights) - 1, max(vps$bar.row), max(vps$label.row), max(vps$title.row), max(vps$bar.row)),
-                    name = c("background", "bar", "label", "title", "ticks"),
-                    clip = FALSE)
+  gt <- gtable(widths = unit(widths, "mm"), heights = unit(heights, "mm"))
+  gt <- gtable_add_grob(gt, grob.background, name = "background", clip = "off",
+    t = 1, r = -1, b = -1, l = 1)
+  gt <- gtable_add_grob(gt, grob.bar, name = "bar", clip = "off",
+    t = 1 + min(vps$bar.row), r = 1 + max(vps$bar.col),
+    b = 1 + max(vps$bar.row), l = 1 + min(vps$bar.col))
+  gt <- gtable_add_grob(gt, grob.label, name = "label", clip = "off",
+    t = 1 + min(vps$label.row), r = 1 + max(vps$label.col),
+    b = 1 + max(vps$label.row), l = 1 + min(vps$label.col))
+  gt <- gtable_add_grob(gt, grob.title, name = "title", clip = "off",
+    t = 1 + min(vps$title.row), r = 1 + max(vps$title.col),
+    b = 1 + max(vps$title.row), l = 1 + min(vps$title.col))
+  gt <- gtable_add_grob(gt, grob.ticks, name = "ticks", clip = "off",
+    t = 1 + min(vps$bar.row), r = 1 + max(vps$bar.col),
+    b = 1 + max(vps$bar.row), l = 1 + min(vps$bar.col))
 
-  gtable(list(grob.background, grob.bar, grob.label, grob.title, grob.ticks), lay, unit(widths, "mm"), unit(heights, "mm"))
+  gt
 }
 
 #' @export

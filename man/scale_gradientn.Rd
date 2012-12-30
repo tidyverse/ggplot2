@@ -5,19 +5,29 @@
 \title{Smooth colour gradient between n colours}
 \usage{
   scale_colour_gradientn(..., colours, values = NULL,
-    space = "Lab", na.value = "grey50")
+    space = "Lab", na.value = "grey50",
+    guide = "colourbar")
 
   scale_fill_gradientn(..., colours, values = NULL,
-    space = "Lab", na.value = "grey50")
+    space = "Lab", na.value = "grey50",
+    guide = "colourbar")
 
   scale_color_gradientn(..., colours, values = NULL,
-    space = "Lab", na.value = "grey50")
+    space = "Lab", na.value = "grey50",
+    guide = "colourbar")
 }
 \arguments{
+  \item{guide}{Type of legend. Use \code{"colourbar"} for
+  continuous colour bar, or \code{"legend"} for discrete
+  colour legend.}
+
   \item{colours}{vector of colours}
 
   \item{values}{if colours should not be evenly positioned
-  along the gradient}
+  along the gradient this vector gives the position
+  (between 0 and 1) for each colour in the \code{colours}
+  vector. See \code{\link{rescale}} for a convience
+  function to map an arbitrary range to between 0 and 1.}
 
   \item{space}{colour space in which to calculate gradient.
   "Lab" usually best unless gradient goes through white.}

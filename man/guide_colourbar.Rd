@@ -11,7 +11,7 @@
     barwidth = NULL, barheight = NULL, nbin = 20,
     raster = TRUE, ticks = TRUE, draw.ulim = TRUE,
     draw.llim = TRUE, direction = NULL,
-    default.unit = "line", reverse = FALSE, ...)
+    default.unit = "line", reverse = FALSE, order = 0, ...)
 
   guide_colorbar(title = waiver(), title.position = NULL,
     title.theme = NULL, title.hjust = NULL,
@@ -21,18 +21,18 @@
     barwidth = NULL, barheight = NULL, nbin = 20,
     raster = TRUE, ticks = TRUE, draw.ulim = TRUE,
     draw.llim = TRUE, direction = NULL,
-    default.unit = "line", reverse = FALSE, ...)
+    default.unit = "line", reverse = FALSE, order = 0, ...)
 }
 \arguments{
   \item{barwidth}{A numeric or a unit object specifying the
   width of the colorbar. Default value is
   \code{legend.key.width} or \code{legend.key.size} in
-  \code{\link{opts}} or theme.}
+  \code{\link{theme}} or theme.}
 
   \item{barheight}{A numeric or a unit object specifying
   the height of the colorbar. Default value is
   \code{legend.key.height} or \code{legend.key.size} in
-  \code{\link{opts}} or theme.}
+  \code{\link{theme}} or theme.}
 
   \item{nbin}{A numeric specifying the number of bins for
   drawing colorbar. A smoother colorbar for a larger
@@ -78,9 +78,9 @@
   guide), or "right."}
 
   \item{title.theme}{A theme object for rendering the title
-  text. Usually the object of \code{\link{theme_text}} is
+  text. Usually the object of \code{\link{element_text}} is
   expected. By default, the theme is specified by
-  \code{legend.title} in \code{\link{opts}} or theme.}
+  \code{legend.title} in \code{\link{theme}} or theme.}
 
   \item{title.hjust}{A number specifying horizontal
   justification of the title text.}
@@ -97,15 +97,20 @@
   vertical gudie).}
 
   \item{label.theme}{A theme object for rendering the label
-  text. Usually the object of \code{\link{theme_text}} is
+  text. Usually the object of \code{\link{element_text}} is
   expected. By default, the theme is specified by
-  \code{legend.text} in \code{\link{opts}} or theme.}
+  \code{legend.text} in \code{\link{theme}} or theme.}
 
   \item{label.hjust}{A numeric specifying horizontal
   justification of the label text.}
 
   \item{label.vjust}{A numeric specifying vertical
   justification of the label text.}
+
+  \item{order}{positive integer less that 99 that specify
+  the order of this guide in the multiple guides. If 0
+  (default), the order is determined by a secret
+  algorithm.}
 }
 \value{
   A guide object
@@ -153,7 +158,7 @@ p1 + guides(fill = guide_colorbar(ticks = FALSE))
 p1 + guides(fill = guide_colorbar(label.position = "left"))
 
 # label theme
-p1 + guides(fill = guide_colorbar(label.theme = theme_text(col="blue")))
+p1 + guides(fill = guide_colorbar(label.theme = element_text(colour = "blue", angle = 0)))
 
 # small number of bins
 p1 + guides(fill = guide_colorbar(nbin = 3))

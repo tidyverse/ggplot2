@@ -78,6 +78,11 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...) {
   ggplot.data.frame(fortify(data, ...), mapping)
 }
 
+#' Reports whether x is a ggplot object
+#' @param x An object to test
+#' @export
+is.ggplot <- function(x) inherits(x, "ggplot")
+
 #' Create a new ggplot plot from a data frame
 #' 
 #' @param data default data frame for plot
@@ -96,13 +101,13 @@ ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv(
     layers = list(),
     scales = Scales$new(),
     mapping = mapping,
-    options = list(),
+    theme = list(),
     coordinates = coord_cartesian(),
     facet = facet_null(),
     plot_env = environment
-  ), class="ggplot")
+  ), class = c("gg", "ggplot"))
   
-  p$options$labels <- make_labels(mapping)
+  p$labels <- make_labels(mapping)
 
   set_last_plot(p)
   p

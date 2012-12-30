@@ -4,6 +4,8 @@
 #' @inheritParams scales::div_gradient_pal
 #' @param midpoint The midpoint (in data value) of the diverging scale. 
 #'   Defaults to 0.
+#' @param guide Type of legend. Use \code{"colourbar"} for continuous
+#'   colour bar, or \code{"legend"} for discrete colour legend.
 #' @family colour scales
 #' @rdname scale_gradient2
 #' @export
@@ -48,17 +50,17 @@
 #' # Note how positive and negative values of the same magnitude
 #' # have similar intensity
 #' }
-scale_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "rgb", na.value = "grey50") {
+scale_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "rgb", na.value = "grey50", guide = "colourbar") {
   continuous_scale("colour", "gradient2",
-    div_gradient_pal(low, mid, high, space), na.value = na.value, ...,
+    div_gradient_pal(low, mid, high, space), na.value = na.value, guide = guide, ...,
     rescaler = mid_rescaler(mid = midpoint))
 }
 
 #' @rdname scale_gradient2
 #' @export
-scale_fill_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "rgb", na.value = "grey50") {
+scale_fill_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "rgb", na.value = "grey50", guide = "colourbar") {
   continuous_scale("fill", "gradient2", 
-    div_gradient_pal(low, mid, high, space), na.value = na.value, ...,
+    div_gradient_pal(low, mid, high, space), na.value = na.value, guide = guide, ...,
     rescaler = mid_rescaler(mid = midpoint))
 }
 

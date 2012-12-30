@@ -15,12 +15,12 @@
 #' # By default, all categorical variables in the plot form grouping
 #' # variables, and the default behavior in stat_sum is to show the
 #' # proportion. Specifying stat_sum with no group identifier leads to
-#' # a plot which is not meaningful:	
+#' # a plot which is not meaningful:
 #' d + stat_sum()
-#' # To correct this problem and achieve a more desirable plot, we need	
-#' # to specify which group the proportion is to be calculated over.	
-#' # There are several ways to do this:	
-#'	
+#' # To correct this problem and achieve a more desirable plot, we need
+#' # to specify which group the proportion is to be calculated over.
+#' # There are several ways to do this:
+#'
 #' # by overall proportion
 #' d + stat_sum(aes(group = 1))
 #' d + stat_sum(aes(group = 1)) + scale_size(range = c(3, 10))
@@ -63,7 +63,7 @@ StatSum <- proto(Stat, {
     group_by <- setdiff(intersect(names(data), .all_aesthetics), "weight")
 
     counts <- count(data, group_by, wt_var = "weight")
-    counts <- rename(counts, c(freq = "n"))
+    counts <- rename(counts, c(freq = "n"), warn_missing = FALSE)
     counts$prop <- ave(counts$n, counts$group, FUN = prop.table)
     counts
   }

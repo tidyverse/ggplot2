@@ -67,11 +67,11 @@ ggstrip <- function(text, horizontal=TRUE, theme) {
   text_theme <- if (horizontal) "strip.text.x" else "strip.text.y"
   if (is.list(text)) text <- text[[1]]
 
-  label <- theme_render(theme, text_theme, text)
+  label <- element_render(theme, text_theme, text)
 
   ggname("strip", absoluteGrob(
     gList(
-      theme_render(theme, "strip.background"),
+      element_render(theme, "strip.background"),
       label
     ),
     width = grobWidth(label) + unit(0.5, "lines"),

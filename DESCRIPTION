@@ -1,8 +1,8 @@
 Package: ggplot2
 Type: Package
 Title: An implementation of the Grammar of Graphics
-Version: 0.9.1
-Author: Hadley Wickham <h.wickham@gmail.com>
+Version: 0.9.3.99
+Author: Hadley Wickham <h.wickham@gmail.com>, Winston Chang <winston@stdout.org>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 Description: An implementation of the grammar of graphics
     in R. It combines the advantages of both base and
@@ -18,12 +18,12 @@ Depends:
     stats,
     methods
 Imports:
-    plyr (>= 1.0),
+    plyr (>= 1.7.1),
     digest,
     grid,
+    gtable (>= 0.1.1),
     reshape2,
-    scales (>= 0.2.1),
-    memoise,
+    scales (>= 0.2.3),
     proto,
     MASS
 Suggests:
@@ -32,13 +32,11 @@ Suggests:
     mapproj,
     maps,
     hexbin,
-    gpclib,
     maptools,
     multcomp,
     nlme,
     testthat
-Extends:
-    sp
+Enhances: sp
 License: GPL-2
 URL: http://had.co.nz/ggplot2/
 LazyData: true
@@ -177,6 +175,7 @@ Collate:
     'stat-unique.r'
     'stat-vline.r'
     'stat-ydensity.r'
+    'stat-ecdf.r'
     'summary.r'
     'templates.r'
     'theme-defaults.r'
@@ -187,7 +186,6 @@ Collate:
     'utilities-layer.r'
     'utilities-matrix.r'
     'utilities-resolution.r'
-    'utilities-table-template.r'
     'utilities-table.r'
     'utilities.r'
     'xxx-digest.r'

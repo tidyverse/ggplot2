@@ -32,7 +32,7 @@ ggplot_gtable <- function(data) {
 
   # helper function return the position of panels in plot_table
   find_panel <- function(table) {
-    summarize(subset(table$layout, grepl("^panel", name)),
+    summarise(subset(table$layout, grepl("^panel", name)),
       t = min(t), r = max(r), b = max(b), l = min(l))
   }
 
@@ -44,11 +44,11 @@ ggplot_gtable <- function(data) {
 
   # Axis labels
   labels <- coord_labels(plot$coordinates, list(
-    x = xlabel(panel, theme),
-    y = ylabel(panel, theme)
+    x = xlabel(panel, plot$labels),
+    y = ylabel(panel, plot$labels)
   ))
-  xlabel <- theme_render(theme, "axis.title.x", labels$x)
-  ylabel <- theme_render(theme, "axis.title.y", labels$y)
+  xlabel <- element_render(theme, "axis.title.x", labels$x)
+  ylabel <- element_render(theme, "axis.title.y", labels$y)
   
   panel_dim <-  find_panel(plot_table)
 
@@ -72,40 +72,42 @@ ggplot_gtable <- function(data) {
   }
 
   legend_box <- if (position != "none") {
-    build_guides(plot$scales, plot$layers, plot$mapping, position, theme)
+    build_guides(plot$scales, plot$layers, plot$mapping, position, theme, plot$guides, plot$labels)
   } else {
     zeroGrob()
   }
-  # here, use $width and $height for legend gtable.
-  # grobWidth() and grobHeight() cannot work with it.
-  legend_width <- legend_box$width
-  legend_height <- legend_box$height
+
   if (is.zero(legend_box)) {
     position <- "none"
   } else {
     # these are a bad hack, since it modifies the contents fo viewpoint directly...
-    legend_width <- legend_width + theme$legend.margin
-    legend_height <- legend_height + theme$legend.margin
-    # vp size = grob size. This enables justification in gtable.
-    legend_box$childrenvp$parent$width <- legend_width
-    legend_box$childrenvp$parent$height <- legend_height
-    legend_box$childrenvp$parent$justification <- theme$legend.justification %||% "center"
-    legend_box$childrenvp$parent$valid.just <- valid.just(theme$legend.justification)
+    legend_width  <- gtable_width(legend_box)  + theme$legend.margin
+    legend_height <- gtable_height(legend_box) + theme$legend.margin
+
+    # Set the justification of the legend box
+    # First value is xjust, second value is yjust
+    just <- valid.just(theme$legend.justification)
+    xjust <- just[1]
+    yjust <- just[2]
 
     if (position == "manual") {
+      xpos <- theme$legend.position[1]
+      ypos <- theme$legend.position[2]
+
       # x and y are specified via theme$legend.position (i.e., coords)
-      legend_box$childrenvp$parent$x <- unit(coords[1], "npc")
-      legend_box$childrenvp$parent$y <- unit(coords[2], "npc")
+      legend_box <- editGrob(legend_box,
+        vp = viewport(x = xpos, y = ypos, just = c(xjust, yjust),
+          height = legend_height, width = legend_width))
     } else {
       # x and y are adjusted using justification of legend box (i.e., theme$legend.justification)
-      legend_box$childrenvp$parent$x <- unit(legend_box$childrenvp$parent$valid.just[1], "npc")
-      legend_box$childrenvp$parent$y <- unit(legend_box$childrenvp$parent$valid.just[2], "npc")
+      legend_box <- editGrob(legend_box,
+        vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust)))
     }
   }
 
   panel_dim <-  find_panel(plot_table)
   # for align-to-device, use this:
-  # panel_dim <-  summarize(plot_table$layout, t = min(t), r = max(r), b = max(b), l = min(l))
+  # panel_dim <-  summarise(plot_table$layout, t = min(t), r = max(r), b = max(b), l = min(l))
   
   if (position == "left") {
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = 0)
@@ -131,9 +133,9 @@ ggplot_gtable <- function(data) {
   }
 
   # Title  
-  title <- theme_render(theme, "plot.title", plot$options$title)
+  title <- element_render(theme, "plot.title", plot$labels$title)
   title_height <- grobHeight(title) + 
-    if (is.null(plot$options$title)) unit(0, "lines") else unit(0.5, "lines")
+    if (is.null(plot$labels$title)) unit(0, "lines") else unit(0.5, "lines")
 
   pans <- subset(plot_table$layout, grepl("^panel", name))
   
@@ -147,10 +149,10 @@ ggplot_gtable <- function(data) {
   plot_table <- gtable_add_rows(plot_table, theme$plot.margin[3])
   plot_table <- gtable_add_cols(plot_table, theme$plot.margin[4], pos = 0)
 
-  # TODO: use z-ordering of gtable 
-  if (inherits(theme$plot.background, "theme")) {
-    plot_table <- gtable_add_grob(plot_table, theme_render(theme, "plot.background", vp = "background"),
-                                  t = 1, l = 1, b = length(plot_table$heights), r = length(plot_table$widths))
+  if (inherits(theme$plot.background, "element")) {
+    plot_table <- gtable_add_grob(plot_table,
+      element_render(theme, "plot.background"),
+      t = 1, l = 1, b = -1, r = -1, name = "background", z = -Inf)
     plot_table$layout <- plot_table$layout[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1)),]
     plot_table$grobs <- plot_table$grobs[c(nrow(plot_table$layout), 1:(nrow(plot_table$layout) - 1))]
   }
@@ -195,6 +197,6 @@ plot.ggplot <- print.ggplot
 #' @keywords internal
 #' @export
 ggplotGrob <- function(x) {
-  gtable_gTree(ggplot_gtable(ggplot_build(x)))
+  ggplot_gtable(ggplot_build(x))
 }
 

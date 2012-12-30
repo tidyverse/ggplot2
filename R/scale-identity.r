@@ -22,9 +22,10 @@
 #' 
 #' # cyl used as point size
 #' qplot(mpg, wt, data = mtcars, size = cyl) + scale_size_identity()
+NULL
 
 #' @rdname scale_identity
-#' @export scale_colour_identity
+#' @export
 scale_colour_identity <- function(..., guide = "none") {
   identity_scale(discrete_scale("colour", "identity", identity_pal(), ..., guide = guide))
 }

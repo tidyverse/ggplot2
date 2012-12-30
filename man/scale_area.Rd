@@ -13,6 +13,11 @@
   than 0.}
 }
 \description{
-  Scale area instead of radius (for size).
+  \code{\link{scale_area}} is deprecated and will be
+  removed in a future version of ggplot2. Use
+  \code{\link{scale_size_area}} instead. Note that the
+  default behavir of \code{\link{scale_size_area}} is
+  slightly different: by default, it makes the area
+  proportional to the numeric value.
 }
 

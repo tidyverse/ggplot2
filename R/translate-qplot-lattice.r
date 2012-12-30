@@ -7,6 +7,8 @@
 #' @name translate_qplot_lattice 
 #' @examples
 #' \donttest{
+#' library(lattice)
+#'
 #' xyplot(rating ~ year, data=movies)
 #' qplot(year, rating, data=movies)
 #'
@@ -44,7 +46,9 @@
 #' qplot(mpg, wt, data = mtcars, log = "xy")
 #'
 #' xyplot(wt ~ mpg | cyl, mtcars, scales = list(log = 2))
-#' qplot(mpg, wt, data = mtcars) + scale_x_log2() + scale_y_log2()
+#' library(scales)  # Load scales for log2_trans
+#' qplot(mpg, wt, data = mtcars) + scale_x_continuous(trans = log2_trans()) +
+#'   scale_y_continuous(trans = log2_trans())
 #'
 #' xyplot(wt ~ mpg, mtcars, group = cyl, auto.key = TRUE)
 #' # Map directly to an aesthetic like colour, size, or shape.
@@ -65,7 +69,7 @@
 #' xyplot(wt ~ mpg, mtcars, aspect = 1)
 #' qplot(mpg, wt, data = mtcars, asp = 1)
 #' 
-#' # par.settings() is equivalent to + opts() and trellis.options.set()
+#' # par.settings() is equivalent to + theme() and trellis.options.set()
 #' # and trellis.par.get() to theme_set() and theme_get().
 #' # More complicated lattice formulas are equivalent to rearranging the data
 #' # before using ggplot2.

@@ -37,11 +37,18 @@
 #' g <- guide_legend("title")
 #' p + guides(colour = g, size = g, shape = g)
 #' 
-#' p + opts(legend.position = "bottom")
+#' p + theme(legend.position = "bottom")
 #'
 #' # position of guides
 #' 
-#' p + opts(legend.position = "bottom", legend.box = "horizontal")
+#' p + theme(legend.position = "bottom", legend.box = "horizontal")
+#'
+#' # Set order for multiple guides
+#'
+#' qplot(data = mpg, x = displ, y = cty, size = hwy, colour = cyl, shape = drv) +
+#'   guides(colour = guide_colourbar(order = 1),
+#'          alpha = guide_legend(order = 2),
+#'          size = guide_legend(order = 3))
 #' }
 guides <- function(...) {
   args <- list(...)
@@ -52,7 +59,8 @@ guides <- function(...) {
 
 update_guides <- function(p, guides) {
   p <- plot_clone(p)
-  p + opts(guides = guides)
+  p$guides <- defaults(guides, p$guides)
+  p
 }
 
 
@@ -78,7 +86,7 @@ update_guides <- function(p, guides) {
 # 5. guides_build()
 #      arrange all ggrobs
 
-build_guides <- function(scales, layers, default_mapping, position, theme) {
+build_guides <- function(scales, layers, default_mapping, position, theme, guides, labels) {
 
   # set themes w.r.t. guides
   # should these theme$legend.XXX be renamed to theme$guide.XXX ?
@@ -107,7 +115,7 @@ build_guides <- function(scales, layers, default_mapping, position, theme) {
       c("center", "center")
 
   # scales -> data for guides
-  gdefs <- guides_train(scales = scales, theme = theme)
+  gdefs <- guides_train(scales = scales, theme = theme, guides = guides, labels = labels)
   if (length(gdefs) == 0) return(zeroGrob())
 
   # merge overlay guides
@@ -138,17 +146,17 @@ validate_guide <- function(guide) {
 }
 
 # train each scale in scales and generate the definition of guide
-guides_train <- function(scales, theme) {
+guides_train <- function(scales, theme, guides, labels) {
 
   gdefs <- list()
   for(scale in scales$scales) {
 
-    # guides(XXX) is stored in theme$guides[[XXX]],
+    # guides(XXX) is stored in guides[[XXX]],
     # which is prior to scale_ZZZ(guide=XXX)
     # guide is determined in order of:
     #   + guides(XXX) > + scale_ZZZ(guide=XXX) > default(i.e., legend)
     output <- scale$aesthetics[1]
-    guide <- theme$guides[[output]] %||% scale$guide 
+    guide <- guides[[output]] %||% scale$guide
 
     # this should be changed to testing guide == "none"
     # scale$legend is backward compatibility
@@ -165,7 +173,7 @@ guides_train <- function(scales, theme) {
       stop (paste("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.", sep=""))
 
     # title of this grob
-    if (is.waive(guide$title)) guide$title <- scale$name %||% theme$labels[[output]]
+    if (is.waive(guide$title)) guide$title <- scale$name %||% labels[[output]]
 
     # direction of this grob
     guide$direction <- guide$direction %||% theme$legend.direction
@@ -182,6 +190,15 @@ guides_train <- function(scales, theme) {
 # merge overlapped guides
 guides_merge <- function(gdefs) {
   # split gdefs based on hash, and apply Reduce (guide_merge) to each gdef groug.
+  gdefs <- lapply(gdefs, function(g) {
+    if (g$order == 0) {
+      order <- "99"
+    } else {
+      order <- sprintf("%02d", g$order)
+    }
+    g$hash <- paste(order, g$hash, sep = "_")
+    g
+  })
   tapply(gdefs, sapply(gdefs, function(g)g$hash), function(gs)Reduce(guide_merge, gs))
 }
 
@@ -215,33 +232,43 @@ guides_build <- function(ggrobs, theme) {
   widths <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$widths)))
   heights <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$heights)))
 
+  # Set the justification of each legend within the legend box
+  # First value is xjust, second value is yjust
+  just <- valid.just(theme$legend.box.just)
+  xjust <- just[1]
+  yjust <- just[2]
+
   # setting that is different for vergical and horizontal guide-boxes.
-  switch(theme$legend.box,
-    horizontal = {
-      box_nrow <- 1
-      box_ncol <- n
-      twidths <- widths
-      theights <- gheight <- max(heights)
-      spacefun <- gtable_add_col_space
-      margin <- theme$guide.hmargin
-    },
-    vertical = {
-      box_nrow <- n
-      box_ncol <- 1
-      twidths <- gwidth <- max(widths)
-      theights <- heights
-      spacefun <- gtable_add_row_space
-      margin <- theme$guide.vmargin
-    })
+  if (theme$legend.box == "horizontal") {
+    # Set justification for each legend
+    for (i in seq_along(ggrobs)) {
+      ggrobs[[i]] <- editGrob(ggrobs[[i]],
+        vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust),
+          height = heightDetails(ggrobs[[i]])))
+    }
 
-  # make gtable for the guide-boxes
-  lay <- data.frame(l = seq(box_ncol), t = seq(box_nrow), r = seq(box_ncol), b = seq(box_nrow),
-                    name = paste("guide-", seq(n), sep = ""),
-                    clip = FALSE)
-  guides <- gtable(lapply(ggrobs, gtable_gTree), lay, twidths, theights)
+    guides <- gtable_row(name = "guides",
+      grobs = ggrobs,
+      widths = widths, height = max(heights))
 
-  # add space between the guide-boxes.
-  guides <- spacefun(guides, margin)
+    # add space between the guide-boxes
+    guides <- gtable_add_col_space(guides, theme$guide.hmargin)
+
+  } else if (theme$legend.box == "vertical") {
+    # Set justification for each legend
+    for (i in seq_along(ggrobs)) {
+      ggrobs[[i]] <- editGrob(ggrobs[[i]],
+        vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust),
+          width = widthDetails(ggrobs[[i]])))
+    }
+
+    guides <- gtable_col(name = "guides",
+      grobs = ggrobs,
+      width = max(widths), heights = heights)
+
+    # add space between the guide-boxes
+    guides <- gtable_add_row_space(guides, theme$guide.vmargin)
+  }
 
   # add margins around the guide-boxes.
   guides <- gtable_add_cols(guides, theme$guide.hmargin, pos = 0)
@@ -249,18 +276,6 @@ guides_build <- function(ggrobs, theme) {
   guides <- gtable_add_rows(guides, theme$guide.vmargin, pos = 0)
   guides <- gtable_add_rows(guides, theme$guide.vmargin, pos = nrow(guides))
 
-  # dims of the guide-boxes, used in ggplotGrob()
-  gw <- sum(guides$widths)
-  gh <- sum(guides$heights)
-
-  # make gTree
-  guides <- gtable_gTree(guides)
-  guides$width <- gw
-  guides$height <- gh
-
-  # set justification of the guide-boxes
-  # should be there options for this, e.g., guide.box.just  = c("right", "bottom") ?
-  for (i in seq(n)) guides$children[[i]]$childrenvp$parent$layout$valid.just <- valid.just(theme$legend.box.just)
   guides$name <- "guide-box"
   guides
 }
