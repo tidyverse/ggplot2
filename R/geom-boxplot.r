@@ -23,7 +23,7 @@
 #'   continuous variable,  \code{\link{geom_jitter}} for another way to look 
 #'   at conditional distributions"
 #' @inheritParams geom_point
-#' @param outlier.colour colour for outlying points
+#' @param outlier.colour colour for outlying points; set to \code{NULL} to set outlier colour equal to the corresponding box colour
 #' @param outlier.shape shape of outlying points
 #' @param outlier.size size of outlying points
 #' @param notch if \code{FALSE} (default) make a standard box plot. If
