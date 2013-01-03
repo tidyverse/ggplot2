@@ -9,6 +9,9 @@ BUG FIXES
 ggplot2 0.9.3
 ----------------------------------------------------------------
 
+* `set_geom_params` changes geom parameters for an existing ggplot2
+  object.
+
 * The `plotmatrix` function has been deprecated and prints a warning
   message.
 
