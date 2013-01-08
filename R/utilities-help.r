@@ -16,7 +16,7 @@ aesthetics <- function(x) {
                               stringsAsFactors = FALSE)
     allowed_aes$required <- rep(FALSE, nrow(allowed_aes))
     allowed_aes$required[allowed_aes$aesthetic %in% req_aes] <- TRUE
-    allowed_aes$default <- def_aes[allowed_aes$aesthetic]
+    allowed_aes$default <- lapply(def_aes, eval)[allowed_aes$aesthetic]
     allowed_aes[order(!allowed_aes$required, allowed_aes$aesthetic),]
 }
 
