@@ -1,29 +1,41 @@
+## Information about aesthetics used by a geom or stat
+##
+## @param x A proto object inheriting from either Geom or Stat
+## @return a \code{data.frame} with columns
+## \describe{
+## \item{aesthetic}{The name of the aesthetic, as a charater string}
+## \item{required}{Is the aesthetic requried, as a logical}
+## \item{default}{A list of the default values}
+## }
+## The \code{data.frame} is sorted with the requried aesthetics first
+## and alphabetically by aesthetic name within that.
 aesthetics <- function(x) {
-	req_aes <- x$required_aes
-	def_aes <- names(x$default_aes())
-	def_aes <- setdiff(def_aes, req_aes)
-	if (length(req_aes) == 0){
-		return(sort(names(x$default_aes())))
-	}
-	if (length(def_aes) == 0){
-		return(paste("\\strong{", sort(x$required_aes), "}",sep = ""))
-	}
-	return(c(paste("\\strong{",sort(x$required_aes), "}", sep = ""), sort(def_aes)))
-}
-geom_aesthetics <- function(x) {
-  aesthetics(Geom$find(x))
-}
-stat_aesthetics <- function(x) {
-  aesthetics(Stat$find(x))
+    req_aes <- x$required_aes
+    def_aes <- x$default_aes()
+    allowed_aes <- data.frame(aesthetic = unique(as.character(c(req_aes, names(def_aes)))),
+                              stringsAsFactors = FALSE)
+    allowed_aes$required <- rep(FALSE, nrow(allowed_aes))
+    allowed_aes$required[allowed_aes$aesthetic %in% req_aes] <- TRUE
+    allowed_aes$default <- def_aes[allowed_aes$aesthetic]
+    allowed_aes[order(!allowed_aes$required, allowed_aes$aesthetic),]
 }
 
 rd_aesthetics <- function(type, name) {
-  obj <- get(firstUpper(type))
-  aes <- aesthetics(obj$find(name))
-  
-  paste("\\code{", type, "_", name, "} ", 
-    "understands the following aesthetics (required aesthetics are in bold):\n\n", 
-    "\\itemize{\n",
-    paste("  \\item \\code{", aes, "}", collapse = "\n", sep = ""),
-    "\n}\n", sep = "")
+    obj <- get(firstUpper(type))
+    aes <- aesthetics(obj$find(name))
+
+    paste("\\code{", type, "_", name, "} ",
+          "understands the following aesthetics (required aesthetics are in bold):\n\n",
+          "\\itemize{\n",
+          paste("  \\item \\code{",
+                ifelse(aes$required,
+                       paste("\\strong{", aes$aesthetic, "}", sep=""),
+                       aes$aesthetic),
+                "}",
+                ifelse(laply(aes$default, is.null),
+                       "",
+                       paste(" (default value: ", as.character(aes$default), ")", sep="")),
+                collapse = "\n", sep = ""),
+          "\n}\n", sep = "")
 }
+
