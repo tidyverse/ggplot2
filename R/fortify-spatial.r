@@ -80,7 +80,9 @@ fortify.Polygon <- function(model, data, ...) {
 #' @method fortify SpatialLinesDataFrame
 fortify.SpatialLinesDataFrame <- function(model, data, ...) {
   df<-ldply(model@lines, fortify)
-  df<-cbind(df, data.frame(model)[df$id,])
+  data<-data.frame(model)
+  data$id<-row.names(data)
+  df<-join(df,data, by='id')
   df
 }
 
