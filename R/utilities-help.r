@@ -5,7 +5,7 @@
 ## \describe{
 ## \item{aesthetic}{The name of the aesthetic, as a charater string}
 ## \item{required}{Is the aesthetic requried, as a logical}
-## \item{default}{A list of the default values}
+## \item{default}{A list of the default values expressed as character}
 ## }
 ## The \code{data.frame} is sorted with the requried aesthetics first
 ## and alphabetically by aesthetic name within that.
@@ -16,7 +16,9 @@ aesthetics <- function(x) {
                               stringsAsFactors = FALSE)
     allowed_aes$required <- rep(FALSE, nrow(allowed_aes))
     allowed_aes$required[allowed_aes$aesthetic %in% req_aes] <- TRUE
-    allowed_aes$default <- lapply(def_aes, eval)[allowed_aes$aesthetic]
+    calls <- vapply(def_aes, is.call, logical(1))
+    def_aes[calls] <- lapply(def_aes[calls], eval)
+    allowed_aes$default <- lapply(def_aes[allowed_aes$aesthetic], as.character)
     allowed_aes[order(!allowed_aes$required, allowed_aes$aesthetic),]
 }
 
