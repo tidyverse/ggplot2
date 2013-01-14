@@ -10,12 +10,9 @@ firstUpper <- function(s) {
 }
 
 TopLevel <- proto(expr = {
-  find_all <- function(., only.documented = FALSE) {
+  find_all <- function(.) {
     names <- ls(pattern=paste("^", firstUpper(.$class()), "[A-Z].+", sep=""), parent.env(TopLevel))
-    objs <- structure(lapply(names, get), names=names)
-    
-    if (only.documented) objs <- objs[sapply(objs, function(x) get("doc", x))]
-    objs
+    structure(lapply(names, get, pos=parent.env(TopLevel)), names=names)
   }
   find <- function(., name) {
     fullname <- paste(firstUpper(.$class()), firstUpper(name), sep="")
