@@ -34,9 +34,9 @@ rd_aesthetics <- function(type, name) {
                        paste("\\strong{", aes$aesthetic, "}", sep=""),
                        aes$aesthetic),
                 "}",
-                ifelse(laply(aes$default, is.null),
+                ifelse(sapply(aes$default, identical, character(0)),
                        "",
-                       paste(" (default value: ", as.character(aes$default), ")", sep="")),
+                       paste(" (default value: ", aes$default, ")", sep="")),
                 collapse = "\n", sep = ""),
           "\n}\n", sep = "")
 }
