@@ -6,6 +6,9 @@
 \description{
   This page demonstrates the usage of the size aesthetic.
 }
+\section{Geoms}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_geom_with_aesthetic("size")}
+}
 \examples{
 # Size examples
 # Should be specified with a numerical value (in millimetres),

@@ -41,3 +41,23 @@ rd_aesthetics <- function(type, name) {
           "\n}\n", sep = "")
 }
 
+geom_with_aesthetic <- function(a) {
+    geoms <- Geom$find_all()
+    aesthetics <- llply(geoms, aesthetics)
+    geoms[laply(aesthetics, function(aa) {any(aa$aesthetic == a)})]
+}
+
+rd_geom_with_aesthetic <- function(a) {
+    geoms <- geom_with_aesthetic(a)
+    geoms <- vapply(geoms, function(g) {g$my_name()}, character(1))
+    paste("The aesthetic \\code{",
+          a,
+          "} is understood by the following geoms:\n\n",
+          "\\itemize{\n",
+          paste("  \\item\\code{\\link{",
+                geoms,
+                "}}",
+                sep = "", collapse = "\n"),
+          "\n}\n",
+          sep = "")
+}

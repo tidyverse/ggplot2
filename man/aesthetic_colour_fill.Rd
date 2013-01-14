@@ -10,6 +10,10 @@
   This page demonstrates the usage of a sub-group of
   aesthetics; colour and fill.
 }
+\section{Geoms}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_geom_with_aesthetic("colour")}
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_geom_with_aesthetic("fill")}
+}
 \examples{
 \donttest{
 

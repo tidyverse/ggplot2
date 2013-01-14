@@ -7,6 +7,9 @@
   This page demonstrates the usage of the linetype
   aesthetic.
 }
+\section{Geoms}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_geom_with_aesthetic("linetype")}
+}
 \examples{
 # Line types should be specified with either an integer, a name, or with a string of
 # an even number (up to eight) of hexidecimal digits which give the lengths in

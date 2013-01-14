@@ -6,6 +6,9 @@
 \description{
   This page demonstrates the usage of the shape aesthetic.
 }
+\section{Geoms}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_geom_with_aesthetic("shape")}
+}
 \examples{
 # Shape examples
 # Shape takes four types of values: an integer in [0, 25],

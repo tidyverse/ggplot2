@@ -6,6 +6,9 @@
 \description{
   This page demonstrates the usage of the aesthetic alpha.
 }
+\section{Geoms}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_geom_with_aesthetic("alpha")}
+}
 \examples{
 \donttest{
 
