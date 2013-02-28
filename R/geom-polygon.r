@@ -58,6 +58,11 @@ GeomPolygon <- proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {
     n <- nrow(data)
     if (n == 1) return()
+
+    # Check if group is numeric, to make polygonGrob happy (factors are numeric,
+    # but is.numeric() will report FALSE because it actually checks something else)
+    if (mode(data$group) != "numeric")
+      data$group <- factor(data$group)
     
     munched <- coord_munch(coordinates, data, scales)
     # Sort by group to make sure that colors, fill, etc. come in same order
