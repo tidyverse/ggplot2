@@ -9,6 +9,10 @@ BUG FIXES
 * `stat_density2d` previously resulted in errors when geom="polygon". This
   is fixed. (Fixes #741 and #749)
 
+* `annotation_logticks` previously drew one set of logticks for each group,
+  and inherited aesthetic mappings like colour. It no longer does this. (Fixes
+  #767)
+
 ggplot2 0.9.3
 ----------------------------------------------------------------
 
