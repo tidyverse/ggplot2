@@ -1,10 +1,12 @@
-\name{aes_group_order}
-\alias{aes_group_order}
+\name{aesthetic_group_order}
+\alias{aesthetic-group}
+\alias{aesthetic-order}
+\alias{aesthetic_group_order}
 \alias{group}
 \alias{order}
-\title{Aesthetics: group, order}
+\title{Aesthetics related to grouping: group, order}
 \description{
-  Aesthetics: group, order
+  Aesthetics related to grouping: group, order
 }
 \examples{
 \donttest{
@@ -93,5 +95,12 @@ d <- ggplot(diamonds, aes(carat, price, colour = cut))
 d + geom_point()
 d + geom_point(aes(order = sample(seq_along(carat))))
 }
+}
+\seealso{
+  Other aesthetics: \code{\link{aesthetic_alpha}},
+  \code{\link{aesthetic_colour_fill}},
+  \code{\link{aesthetic_linetype}},
+  \code{\link{aesthetic_shape}},
+  \code{\link{aesthetic_size}}
 }
 

@@ -25,10 +25,13 @@ aes(x = mpg ^ 2, y = wt / cyl)
 }
 \seealso{
   \code{\link{aes_string}} for passing quoted variable
-  names.  \code{\link{aes_colour_fill_alpha}},
-  \code{\link{aes_group_order}},
-  \code{\link{aes_linetype_size_shape}} and
-  \code{\link{aes_position}} for more specific examples
-  with different aesthetics.
+  names.  \code{\link{aesthetic_colour_fill}},
+  \code{\link{aesthetic_alpha}},
+  \code{\link{aesthetic_group_order}},
+  \code{\link{aesthetic_linetype}},
+  \code{\link{aesthetic_size}},
+  \code{\link{aesthetic_shape}} and
+  \code{\link{aesthetic_position}} for more specific
+  examples with different aesthetics.
 }
 

@@ -1,5 +1,13 @@
-\name{aes_position}
-\alias{aes_position}
+\name{aesthetic_position}
+\alias{aesthetic-x}
+\alias{aesthetic-xend}
+\alias{aesthetic-xmax}
+\alias{aesthetic-xmin}
+\alias{aesthetic-y}
+\alias{aesthetic-yend}
+\alias{aesthetic-ymax}
+\alias{aesthetic-ymin}
+\alias{aesthetic_position}
 \alias{x}
 \alias{xend}
 \alias{xmax}
@@ -8,10 +16,20 @@
 \alias{yend}
 \alias{ymax}
 \alias{ymin}
-\title{Position related aesthetics: x, y, xmin, xmax, ymin, ymax, xend, yend}
+\title{Aesthetics related to position: x, y, xmin, xmax, ymin, ymax, xend, yend}
 \description{
   This page demonstrates the usage of a sub-group of
   aesthetics; x, y, xmin, xmax, ymin, ymax, xend, and yend.
+}
+\section{Geoms}{
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_geom_with_aesthetic("x")}
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_geom_with_aesthetic("y")}
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_geom_with_aesthetic("xmin")}
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_geom_with_aesthetic("xmax")}
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_geom_with_aesthetic("ymin")}
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_geom_with_aesthetic("ymax")}
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_geom_with_aesthetic("xend")}
+  \Sexpr[results=rd,stage=build]{ggplot2:::rd_geom_with_aesthetic("yend")}
 }
 \examples{
 # Generate data: means and standard errors of means for prices
