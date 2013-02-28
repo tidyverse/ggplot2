@@ -6,6 +6,9 @@ BUG FIXES
 * The theme element `legend.box.just` now can be set. It was not properly
   recognized before.
 
+* `stat_density2d` previously resulted in errors when geom="polygon". This
+  is fixed. (Fixes #741 and #749)
+
 ggplot2 0.9.3
 ----------------------------------------------------------------
 
