@@ -111,13 +111,15 @@ contour_lines <- function(data, breaks, complete = FALSE) {
   xs <- unlist(lapply(cl, "[[", "x"), use.names = FALSE)
   ys <- unlist(lapply(cl, "[[", "y"), use.names = FALSE)
   pieces <- rep(seq_along(cl), lengths)
-  
+  # Add leading zeros so that groups can be properly sorted later
+  groups <- paste(data$group[1], sprintf("%03d", pieces), sep = "-")
+
   data.frame(
     level = rep(levels, lengths),
     x = xs,
     y = ys,
     piece = pieces,
-    group = paste(data$group[1], pieces, sep = "-")
+    group = groups
   )
 }
 
