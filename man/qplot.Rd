@@ -30,7 +30,7 @@
 
   \item{geom}{character vector specifying geom to use.
   Defaults to "point" if x and y are specified, and
-  "histogram" is on x is specified.}
+  "histogram" if only x is specified.}
 
   \item{stat}{character vector specifying statistics to
   use}

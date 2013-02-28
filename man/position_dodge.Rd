@@ -22,8 +22,9 @@ ggplot(diamonds, aes(x=price, fill=cut)) + geom_bar(position="dodge")
 # see ?geom_boxplot and ?geom_bar for more examples
 
 # Dodging things with different widths is tricky
-df <- data.frame(x=c("a","a","b","b"), y=1:4)
-(p <- qplot(x, y, data=df, position="dodge", geom="bar", stat="identity"))
+df <- data.frame(x=c("a","a","b","b"), y=1:4, g = rep(1:2, 2))
+(p <- qplot(x, y, data=df, group=g, position="dodge", geom="bar",
+  stat="identity"))
 
 p + geom_linerange(aes(ymin = y-1, ymax = y+1), position="dodge")
 # You need to explicitly specify the width for dodging
