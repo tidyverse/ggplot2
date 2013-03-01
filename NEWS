@@ -15,6 +15,9 @@ BUG FIXES
 
 * Plots with geom_crossbar not display correct symbol in legend. (Fixes #768)
 
+* Grouping is no longer set automatically by `stat_summary()`, allowing for
+  summary paths. This reverts a change made for 0.9.3. (Fixes #732 and #739)
+
 ggplot2 0.9.3
 ----------------------------------------------------------------
 
