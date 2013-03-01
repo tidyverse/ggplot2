@@ -71,17 +71,31 @@
 #' a + annotation_logticks(short = unit(.5,"mm"), mid = unit(3,"mm"), long = unit(4,"mm"))
 #'
 annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
-      short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm"), ...) {
+      short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm"),
+      colour = "black", size = 0.5, linetype = 1, alpha = 1, color = NULL, ...) {
 
-  GeomLogticks$new(base = base, sides = sides, raw = raw, scaled = scaled,
-                   short = short, mid = mid, long = long, ...)
+  if (!is.null(color))
+    colour <- color
+
+  layer(
+    geom = "logticks",
+    geom_params = list(base = base, sides = sides, raw = raw, scaled = scaled,
+      short = short, mid = mid, long = long, colour = colour,
+      size = size, linetype = linetype, alpha = alpha, ...),
+    stat = "identity",
+    data = data.frame(x = NA),
+    mapping = NULL,
+    inherit.aes = FALSE,
+    show_guide = FALSE
+  )
 }
 
 GeomLogticks <- proto(Geom, {
   objname <- "logticks"
 
-  draw <- function(., data, scales, coordinates, base = 10, sides = "bl", scaled = TRUE,
-                   short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm"), ...) {
+  draw_groups <- function(., data, scales, coordinates, base = 10, sides = "bl",
+    scaled = TRUE, short = unit(0.1, "cm"), mid = unit(0.2, "cm"),
+    long = unit(0.3, "cm"), ...) {
 
     ticks <- list()
 
