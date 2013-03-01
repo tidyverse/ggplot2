@@ -13,6 +13,8 @@ BUG FIXES
   and inherited aesthetic mappings like colour. It no longer does this. (Fixes
   #767)
 
+* Plots with geom_crossbar not display correct symbol in legend. (Fixes #768)
+
 ggplot2 0.9.3
 ----------------------------------------------------------------
 
