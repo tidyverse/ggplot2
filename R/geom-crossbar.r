@@ -29,7 +29,15 @@ GeomCrossbar <- proto(Geom, {
   default_pos <- function(.) PositionIdentity
   default_aes = function(.) aes(colour="black", fill=NA, size=0.5, linetype=1, alpha = NA)
   required_aes <- c("x", "y", "ymin", "ymax")
-  guide_geom <- function(.) "path"
+  guide_geom <- function(.) "crossbar"
+  draw_legend <- function(., data, ...)  {
+    data <- aesdefaults(data, .$default_aes(), list(...))
+    gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt, lty = linetype))
+    gTree(gp = gp, children = gList(
+      rectGrob(height=0.5, width=0.75),
+      linesGrob(c(0.125, 0.875), 0.5)
+    ))
+  }
   
   draw <- function(., data, scales, coordinates, fatten = 2, width = NULL, ...) {
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
