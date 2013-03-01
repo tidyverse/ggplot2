@@ -4,7 +4,9 @@
 \usage{
   annotation_logticks(base = 10, sides = "bl",
     scaled = TRUE, short = unit(0.1, "cm"),
-    mid = unit(0.2, "cm"), long = unit(0.3, "cm"), ...)
+    mid = unit(0.2, "cm"), long = unit(0.3, "cm"),
+    colour = "black", size = 0.5, linetype = 1, alpha = 1,
+    color = NULL, ...)
 }
 \arguments{
   \item{base}{the base of the log (default 10)}
@@ -30,6 +32,17 @@
   transformed with \code{log10()} or when using
   \code{scale_y_log10}. It should be \code{FALSE} when
   using \code{coord_trans(y = "log10")}.}
+
+  \item{colour}{Colour of the tick marks.}
+
+  \item{size}{Thickness of tick marks, in mm.}
+
+  \item{linetype}{Linetype of tick marks (\code{solid},
+  \code{dashed}, etc.)}
+
+  \item{alpha}{The transparency of the tick marks.}
+
+  \item{color}{An alias for \code{colour}.}
 
   \item{...}{Other parameters passed on to the layer}
 }

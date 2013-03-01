@@ -16,6 +16,11 @@
 #'   (default) when the data is already transformed with \code{log10()} or when
 #'   using \code{scale_y_log10}. It should be \code{FALSE} when using
 #'   \code{coord_trans(y = "log10")}.
+#' @param colour Colour of the tick marks.
+#' @param size Thickness of tick marks, in mm.
+#' @param linetype Linetype of tick marks (\code{solid}, \code{dashed}, etc.)
+#' @param alpha The transparency of the tick marks.
+#' @param color An alias for \code{colour}.
 #' @param ... Other parameters passed on to the layer
 #'
 #' @export
