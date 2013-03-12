@@ -90,14 +90,16 @@ stat_sum_df <- function(fun, geom="crossbar", ...) {
   stat_summary(fun.data=fun, colour="red", geom=geom, width=0.2, ...)
 }
 
-d + stat_sum_df("mean_cl_boot")
-d + stat_sum_df("mean_sdl")
-d + stat_sum_df("mean_sdl", mult=1)
-d + stat_sum_df("median_hilow")
+# The crossbar geom needs grouping to be specified when used with
+# a continuous x axis.
+d + stat_sum_df("mean_cl_boot", mapping = aes(group = cyl))
+d + stat_sum_df("mean_sdl", mapping = aes(group = cyl))
+d + stat_sum_df("mean_sdl", mult = 1, mapping = aes(group = cyl))
+d + stat_sum_df("median_hilow", mapping = aes(group = cyl))
 
 # There are lots of different geoms you can use to display the summaries
 
-d + stat_sum_df("mean_cl_normal")
+d + stat_sum_df("mean_cl_normal", mapping = aes(group = cyl))
 d + stat_sum_df("mean_cl_normal", geom = "errorbar")
 d + stat_sum_df("mean_cl_normal", geom = "pointrange")
 d + stat_sum_df("mean_cl_normal", geom = "smooth")
