@@ -29,7 +29,8 @@ StatEcdf <- proto(Stat, {
     if (is.null(n)) {
       xvals <- unique(data$x)
     } else {
-      xvals <- seq(min(data$x), max(data$x), length.out = n)
+      xfinite <- data$x[!is.na(data$x) & !is.infinite(data$x)]
+      xvals <- seq(min(xfinite), max(xfinite), length.out = n)
     }
 
     y <- ecdf(data$x)(xvals)
