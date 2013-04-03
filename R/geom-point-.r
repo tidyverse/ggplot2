@@ -36,7 +36,7 @@
 #'    the plot defaults.
 #' @param stat The statistical transformation to use on the data for this
 #'    layer. 
-#' @param position The position adjustment to use for overlappling points
+#' @param position The position adjustment to use for overlapping points
 #'    on this layer
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
