@@ -35,6 +35,19 @@ ec_scaled <- data.frame(
   colwise(rescale01)(economics[, -(1:2)]))
 ecm <- melt(ec_scaled, id = "date")
 qplot(date, value, data = ecm, geom = "line", linetype = variable)
+
+# The default 6 (not showing blank) linetypes addressable by number
+ggplot(data.frame(y=factor(1:6))) +
+  geom_segment(aes(x=0, xend=1, y=y, yend=y, linetype=y)) +
+  scale_linetype_manual(values=1:6) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+
+# The default ggplot linetype palette
+ggplot(data.frame(y=factor(1:13))) +
+  geom_segment(aes(x=0, xend=1, y=y, yend=y, linetype=y)) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
 }
 \seealso{
   Other aesthetics: \code{\link{aesthetic_alpha}},
