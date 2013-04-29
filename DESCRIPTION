@@ -71,6 +71,7 @@ Collate:
     'coord-map.r'
     'coord-munch.r'
     'coord-polar.r'
+    'coord-quickmap.R'
     'coord-transform.r'
     'facet-.r'
     'facet-grid-.r'
