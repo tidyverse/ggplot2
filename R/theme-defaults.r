@@ -83,6 +83,27 @@ theme_bw <- function(base_size = 12, base_family = "") {
     )
 }
 
+#' A theme with white background.
+#'
+#' @param base_size base font size
+#' @param base_family base font family
+#' @export
+theme_white <- function(base_size = 12, base_family = "") {
+  # Starts with theme_grey and then modify some parts
+  theme_grey(base_size = base_size, base_family = base_family) %+replace%
+    theme(
+      axis.ticks        = element_line(colour = "grey50", size=0.25),
+      legend.key        = element_rect(fill="white", colour = "grey50", size=0.25),
+      panel.background  = element_rect(fill = "white", colour = NA),
+      panel.border      = element_rect(fill = NA, colour = "grey50", size=0.5),
+      panel.grid.major  = element_line(colour = "grey80", size=0.25),
+      panel.grid.minor  = element_line(colour = "grey92", size = 0.125),
+      strip.background  = element_rect(fill = "grey50", colour = NA),
+      strip.text.x      = element_text(colour = "white"),
+      strip.text.y      = element_text(colour = "white", angle = -90)
+    )
+}
+
 #' A minimalistic theme with no background annotations.
 #'
 #' @param base_size base font size
