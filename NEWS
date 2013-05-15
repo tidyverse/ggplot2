@@ -1,6 +1,9 @@
 ggplot2 0.9.3.1.99
 ----------------------------------------------------------------
 
+* Add `position_offset()`, useful for labelling categorical axis.
+  (@jpritikin, #909)
+
 * New `aes_q()` function to generate aesthetic specifications from
   quoted calls/names. `aes_string()` uses names `x` and `y` for first
   two unnamed arguments.
