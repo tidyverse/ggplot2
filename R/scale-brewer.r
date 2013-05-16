@@ -54,14 +54,14 @@
 #' v + scale_fill_distiller(palette = "Spectral", trans = "reverse")
 #' v + scale_fill_distiller(type = "qual")
 #' # Not appropriate for continuous data, issues a warning
-scale_colour_brewer <- function(..., type = "seq", palette = 1) {
-  discrete_scale("colour", "brewer", brewer_pal(type, palette), ...)
+scale_colour_brewer <- function(..., type = "seq", palette = 1, direction = 1) {
+  discrete_scale("colour", "brewer", brewer_pal(type, palette, direction), ...)
 }
 
 #' @export
 #' @rdname scale_brewer
-scale_fill_brewer <- function(..., type = "seq", palette = 1) {
-  discrete_scale("fill", "brewer", brewer_pal(type, palette), ...)
+scale_fill_brewer <- function(..., type = "seq", palette = 1, direction = 1) {
+  discrete_scale("fill", "brewer", brewer_pal(type, palette, direction), ...)
 }
 
 #' @export

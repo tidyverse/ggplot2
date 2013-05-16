@@ -8,9 +8,9 @@
 \alias{scale_fill_distiller}
 \title{Sequential, diverging and qualitative colour scales from colorbrewer.org}
 \usage{
-scale_colour_brewer(..., type = "seq", palette = 1)
+scale_colour_brewer(..., type = "seq", palette = 1, direction = 1)
 
-scale_fill_brewer(..., type = "seq", palette = 1)
+scale_fill_brewer(..., type = "seq", palette = 1, direction = 1)
 
 scale_colour_distiller(..., type = "seq", palette = 1, values = NULL,
   space = "Lab", na.value = "grey50")
