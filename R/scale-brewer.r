@@ -28,12 +28,12 @@
 #' ggplot(diamonds, aes(x=price, fill=cut)) + 
 #'   geom_histogram(position="dodge", binwidth=1000) + 
 #'   scale_fill_brewer()
-scale_colour_brewer <- function(..., type = "seq", palette = 1) {
-  discrete_scale("colour", "brewer", brewer_pal(type, palette), ...)
+scale_colour_brewer <- function(..., type = "seq", palette = 1, direction = 1) {
+  discrete_scale("colour", "brewer", brewer_pal(type, palette, direction), ...)
 }
 
 #' @export
 #' @rdname scale_brewer
-scale_fill_brewer <- function(..., type = "seq", palette = 1) {
-  discrete_scale("fill", "brewer", brewer_pal(type, palette), ...)
+scale_fill_brewer <- function(..., type = "seq", palette = 1, direction = 1) {
+  discrete_scale("fill", "brewer", brewer_pal(type, palette, direction), ...)
 }
