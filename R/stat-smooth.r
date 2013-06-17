@@ -129,7 +129,6 @@ StatSmooth <- proto(Stat, {
                 ' so using loess.',
                 ' Use \'method = x\' to change the smoothing method.')
       } else {
-        try_require("mgcv")
         method <- "gam"
         formula <- y ~ s(x, bs = "cs")
         message('geom_smooth: method="auto" and size of largest group is >=1000,',
@@ -137,6 +136,8 @@ StatSmooth <- proto(Stat, {
                 ' Use \'method = x\' to change the smoothing method.')
       }
     }
+
+    if (method == "gam") try_require("mgcv")
 
     .super$calculate_groups(., data, scales, method = method, formula = formula, ...)
   }
