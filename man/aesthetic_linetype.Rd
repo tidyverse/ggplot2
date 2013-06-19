@@ -36,18 +36,31 @@ ec_scaled <- data.frame(
 ecm <- melt(ec_scaled, id = "date")
 qplot(date, value, data = ecm, geom = "line", linetype = variable)
 
-# The default 6 (not showing blank) linetypes addressable by number
-ggplot(data.frame(y=factor(1:6))) +
-  geom_segment(aes(x=0, xend=1, y=y, yend=y, linetype=y)) +
-  scale_linetype_manual(values=1:6) +
-  theme_bw() +
-  theme(panel.grid = element_blank())
+# The default 7 (including blank) linetypes addressable by number
+ggplot(data.frame(y=factor(0:6))) +
+    geom_segment(aes(x=0, xend=1, y=y, yend=y, linetype=y)) +
+    scale_x_continuous("", breaks=NULL) +
+    scale_y_discrete("linetype, as addressed as an integer") +
+    scale_linetype_manual(values=0:6) +
+    theme_bw() +
+    theme(panel.grid = element_blank())
 
-# The default ggplot linetype palette
-ggplot(data.frame(y=factor(1:13))) +
-  geom_segment(aes(x=0, xend=1, y=y, yend=y, linetype=y)) +
-  theme_bw() +
-  theme(panel.grid = element_blank())
+# Linetypes used in the default palette
+# Coordinate is order in the palette, annotation is the specification
+# of the linetype as per above.
+library("scales")
+ltys <- data.frame(l = factor(1:13),
+                   linetype = linetype_pal()(13),
+                   stringsAsFactors = FALSE)
+
+ggplot(ltys) +
+    geom_segment(aes(x=0, xend=1, y=l, yend=l, linetype=linetype)) +
+    geom_text(aes(x=0, y=l, label=linetype), hjust=0, vjust=-0.3, size=4) +
+    scale_x_continuous("", breaks=NULL) +
+    scale_y_discrete("linetype, index in default palette") +
+    scale_linetype_identity(guide="legend") +
+    theme_bw() +
+    theme(panel.grid = element_blank())
 }
 \seealso{
   Other aesthetics: \code{\link{aesthetic_alpha}},
