@@ -34,26 +34,27 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
     dist <- dist_euclidean(data$x, data$y)
   }
   
-  # How many pieces for each old segment
-  extra <- floor(dist / segment_length) + 1
+  # How many endpoints for each old segment, not counting the last one
+  extra <- pmax(floor(dist / segment_length), 1)
   extra[is.na(extra)] <- 1
-
   # Generate extra pieces for x and y values
-  x <- unlist(mapply(interp, data$x[-n], data$x[-1], extra, SIMPLIFY = FALSE))
-  y <- unlist(mapply(interp, data$y[-n], data$y[-1], extra, SIMPLIFY = FALSE))
-
-  # Replicate other aesthetics: defined by start point
-  id <- rep(seq_len(nrow(data) - 1), extra)
-  aes_df <- data[id, setdiff(names(data), c("x", "y"))]
+  # The final point must be manually inserted at the end
+  x <- c(unlist(mapply(interp, data$x[-n], data$x[-1], extra, SIMPLIFY = FALSE)), data$x[n])
+  y <- c(unlist(mapply(interp, data$y[-n], data$y[-1], extra, SIMPLIFY = FALSE)), data$y[n])
+  # Replicate other aesthetics: defined by start point but also
+  # must include final point
+  id <- c(rep(seq_len(nrow(data) - 1), extra), nrow(data))
+  aes_df <- data[id, setdiff(names(data), c("x", "y")), drop=FALSE]
   
   unrowname(data.frame(x = x, y = y, aes_df))
 }
 
 # Interpolate.
-# Interpolate n evenly spaced steps from start to end - (end - start) / n.
+# Interpolate n-1 evenly spaced steps (n points) from start to
+# (end - (end - start) / n). end is never included in sequence.
 interp <- function(start, end, n) {
   if (n == 1) return(start)
-  start + seq(0, 1, length = n) * (end - start)
+  start + seq(0, 1, length = n+1)[-(n+1)] * (end - start)
 }
 
 # Euclidean distance between points.
