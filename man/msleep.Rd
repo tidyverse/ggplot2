@@ -3,6 +3,9 @@
 \alias{msleep}
 \title{An updated and expanded version of the mammals sleep dataset.}
 \format{A data frame with 83 rows and 11 variables}
+\usage{
+  data(msleep)
+}
 \description{
   This is an updated and expanded version of the mammals
   sleep dataset. Updated sleep times and weights were taken
