@@ -114,8 +114,8 @@ print.theme <- function(x, ...) str(x)
 #'                    (\code{element_text}; inherits from \code{title}) \cr
 #'   legend.title.align \tab alignment of legend title
 #'                    (number from 0 (left) to 1 (right)) \cr
-#'   legend.position  \tab the position of legends.
-#'                    ("left", "right", "bottom", "top", or two-element
+#'   legend.position  \tab the position of legends
+#'                    ("none", "left", "right", "bottom", "top", or two-element
 #'                      numeric vector) \cr
 #'   legend.direction \tab layout of items in legends
 #'                    ("horizontal" or "vertical") \cr
