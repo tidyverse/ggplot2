@@ -3,6 +3,9 @@
 \alias{economics}
 \title{US economic time series.}
 \format{A data frame with 478 rows and 6 variables}
+\usage{
+  data(economics)
+}
 \description{
   This dataset was produced from US economic time series
   data available from

@@ -3,6 +3,9 @@
 \alias{movies}
 \title{Movie information and user ratings from IMDB.com.}
 \format{A data frame with 28819 rows and 24 variables}
+\usage{
+  data(movies)
+}
 \description{
   The internet movie database, \url{http://imdb.com/}, is a
   website devoted to collecting movie data supplied by
