@@ -7,20 +7,26 @@
 \alias{scale_fill_distiller}
 \title{Sequential, diverging and qualitative colour scales from colorbrewer.org}
 \usage{
-  scale_colour_brewer(..., type = "seq", palette = 1)
+  scale_colour_brewer(..., type = "seq", palette = 1,
+    direction = 1)
 
-  scale_fill_brewer(..., type = "seq", palette = 1)
+  scale_fill_brewer(..., type = "seq", palette = 1,
+    direction = 1)
 
   scale_colour_distiller(..., type = "seq", palette = 1,
-    values = NULL, space = "Lab", na.value = "grey50")
+    direction = 1, values = NULL, space = "Lab",
+    na.value = "grey50")
 
   scale_fill_distiller(..., type = "seq", palette = 1,
-    values = NULL, space = "Lab", na.value = "grey50")
+    direction = 1, values = NULL, space = "Lab",
+    na.value = "grey50")
 
-  scale_color_brewer(..., type = "seq", palette = 1)
+  scale_color_brewer(..., type = "seq", palette = 1,
+    direction = 1)
 
   scale_color_distiller(..., type = "seq", palette = 1,
-    values = NULL, space = "Lab", na.value = "grey50")
+    direction = 1, values = NULL, space = "Lab",
+    na.value = "grey50")
 }
 \arguments{
   \item{type}{One of seq (sequential), div (diverging) or
@@ -29,6 +35,9 @@
   \item{palette}{If a string, will use that named palette.
   If a number, will index into the list of palettes of
   appropriate \code{type}}
+
+  \item{direction}{If less than zero, will reverse the
+  palette}
 
   \item{...}{Other arguments passed on to
   \code{\link{discrete_scale}} to control name, limits,
