@@ -1,14 +1,32 @@
 \name{scale_colour_brewer}
 \alias{scale_color_brewer}
+\alias{scale_color_distiller}
 \alias{scale_colour_brewer}
+\alias{scale_colour_distiller}
 \alias{scale_fill_brewer}
+\alias{scale_fill_distiller}
 \title{Sequential, diverging and qualitative colour scales from colorbrewer.org}
 \usage{
-  scale_colour_brewer(..., type = "seq", palette = 1)
+  scale_colour_brewer(..., type = "seq", palette = 1,
+    direction = 1)
 
-  scale_fill_brewer(..., type = "seq", palette = 1)
+  scale_fill_brewer(..., type = "seq", palette = 1,
+    direction = 1)
 
-  scale_color_brewer(..., type = "seq", palette = 1)
+  scale_colour_distiller(..., type = "seq", palette = 1,
+    direction = 1, values = NULL, space = "Lab",
+    na.value = "grey50")
+
+  scale_fill_distiller(..., type = "seq", palette = 1,
+    direction = 1, values = NULL, space = "Lab",
+    na.value = "grey50")
+
+  scale_color_brewer(..., type = "seq", palette = 1,
+    direction = 1)
+
+  scale_color_distiller(..., type = "seq", palette = 1,
+    direction = 1, values = NULL, space = "Lab",
+    na.value = "grey50")
 }
 \arguments{
   \item{type}{One of seq (sequential), div (diverging) or
@@ -18,11 +36,29 @@
   If a number, will index into the list of palettes of
   appropriate \code{type}}
 
+  \item{direction}{If less than zero, will reverse the
+  palette}
+
   \item{...}{Other arguments passed on to
   \code{\link{discrete_scale}} to control name, limits,
   breaks, labels and so forth.}
+
+  \item{na.value}{Colour to use for missing values}
 }
 \description{
+  Create colour scales based on ColorBrewer colours.
+}
+\details{
+  ColorBrewer provides sequential, diverging and
+  qualitative colour schemes which are particularly suited
+  and tested to display discrete values (levels of a
+  factor) on a map. ggplot2 can use those colours in
+  discrete scales. It also allows to smoothly interpolate
+  the colours to a continuous scale, although the original
+  colour schemes (particularly the qualitative ones) were
+  not intended for this. The perceptual result is left to
+  the appreciation of the user.
+
   See \url{http://colorbrewer2.org} for more information.
 }
 \examples{
@@ -46,6 +82,22 @@ d + scale_colour_brewer(palette="Set1")
 ggplot(diamonds, aes(x=price, fill=cut)) +
   geom_histogram(position="dodge", binwidth=1000) +
   scale_fill_brewer()
+
+# Generate map data
+library(reshape2) # for melt
+volcano3d <- melt(volcano)
+names(volcano3d) <- c("x", "y", "z")
+
+# Basic plot
+v <- ggplot() + geom_tile(aes(x=x, y=y, fill=z), data=volcano3d)
+v
+v + scale_fill_distiller()
+v + scale_fill_distiller(palette=2)
+v + scale_fill_distiller(type="div")
+v + scale_fill_distiller(palette="Spectral")
+v + scale_fill_distiller(palette="Spectral", trans="reverse")
+v + scale_fill_distiller(type="qual")
+# Not appropriate for continuous data, issues a warning
 }
 \seealso{
   Other colour scales:

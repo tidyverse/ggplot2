@@ -1,3 +1,14 @@
+ggplot2 0.9.3.2
+----------------------------------------------------------------
+
+FEATURES
+
+* Continuous variants of Brewer scales `scale_fill_distiller` and
+  `scale_colour_distiller`.
+
+* Brewer scales in reverse direction can be created using the `direction`
+  parameter for `scale_fill_brewer` or `scale_fill_distiller`
+
 ggplot2 0.9.3.1
 ----------------------------------------------------------------
 
