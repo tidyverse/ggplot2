@@ -164,7 +164,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   # If not listed, assume is unit(1, "null")
   widths <- list(
     axis_l = width_cm(grobs$axis_l),
-    vspace = ifelse(layout$COL == ncol, 0, height_cm(theme$panel.margin))
+    vspace = ifelse(layout$COL == ncol, 0, width_cm(theme$panel.margin))
   )
   heights <- list(
     panel = unit(aspect_ratio, "null"),
