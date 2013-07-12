@@ -3,6 +3,9 @@
 \alias{mpg}
 \title{Fuel economy data from 1999 and 2008 for 38 popular models of car}
 \format{A data frame with 234 rows and 11 variables}
+\usage{
+  data(mpg)
+}
 \description{
   This dataset contains a subset of the fuel economy data
   that the EPA makes available on

@@ -164,13 +164,13 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   # If not listed, assume is unit(1, "null")
   widths <- list(
     axis_l = width_cm(grobs$axis_l),
-    vspace = ifelse(layout$COL == ncol, 0, height_cm(theme$panel.margin))
+    vspace = ifelse(layout$COL == ncol, 0, width_cm(theme$panel.margin.x %||% theme$panel.margin))
   )
   heights <- list(
     panel = unit(aspect_ratio, "null"),
     strip_t = height_cm(grobs$strip_t),
     axis_b = height_cm(grobs$axis_b),
-    hspace = ifelse(layout$ROW == nrow, 0, height_cm(theme$panel.margin))
+    hspace = ifelse(layout$ROW == nrow, 0, height_cm(theme$panel.margin.y %||% theme$panel.margin))
   )
   
   col_widths <- compute_grob_widths(info, widths)

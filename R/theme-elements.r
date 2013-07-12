@@ -306,6 +306,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   panel.background    = el_def("element_rect", "rect"),
   panel.border        = el_def("element_rect", "rect"),
   panel.margin        = el_def("unit"),
+  panel.margin.x      = el_def("unit", "panel.margin"),
+  panel.margin.y      = el_def("unit", "panel.margin"),
   panel.grid.major.x  = el_def("element_line", "panel.grid.major"),
   panel.grid.major.y  = el_def("element_line", "panel.grid.major"),
   panel.grid.minor.x  = el_def("element_line", "panel.grid.minor"),
