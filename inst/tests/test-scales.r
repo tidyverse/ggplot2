@@ -168,3 +168,61 @@ test_that("find_global searches in the right places", {
   expect_identical(find_global("scale_colour_hue", emptyenv()),
     ggplot2::scale_colour_hue)
 })
+
+test_that("scales clear existing scale", {
+  p0 <- qplot(mpg, wt, data = mtcars) + ggplot2::scale_x_continuous(breaks=c(10,20))
+  p1 <- p0 + ggplot2::scale_x_continuous(expand=c(1,2),clear=T)
+  expect_equal(ggplot_build(p1)$panel$x_scales[[1]]$expand,c(1,2))
+  expect_is(ggplot_build(p1)$panel$x_scales[[1]]$breaks, "waiver")
+})
+
+test_that("scales merges existing scale", {
+  p0 <- qplot(mpg, wt, data = mtcars) + ggplot2::scale_x_continuous(breaks=c(10,20)) 
+  p1 <- p0 + ggplot2::scale_x_continuous(expand=c(1,2))
+  expect_equal(ggplot_build(p1)$panel$x_scales[[1]]$expand, c(1,2))
+  expect_equal(ggplot_build(p1)$panel$x_scales[[1]]$breaks, c(10,20))
+
+  p1 <- p0 + ggplot2::scale_x_continuous(breaks=c(1,2))
+  expect_equal(ggplot_build(p1)$panel$x_scales[[1]]$breaks, c(1,2))
+})
+
+test_that("sca$is.identical closures",{
+  tmp = function(){function(){}}
+  tmp_ = function(x){function(){x}}
+  tmp2 = function(x){function(){x}}
+  tmp3 = function(x){function(n){x+n}}
+  tmp4 = function(x,f){a=5;function(n){x+n+f}}
+  sca = Scales$new()
+
+  expect_true(sca$is.identical(tmp(),tmp()))
+  expect_false(sca$is.identical(tmp2(5),tmp()))
+
+  expect_true(sca$is.identical(tmp_(5),tmp_(5)))
+  expect_false(sca$is.identical(tmp_(8),tmp_(5)))
+  expect_true(sca$is.identical(tmp2(5),tmp2(5)))
+  expect_true(sca$is.identical(tmp3(5),tmp3(5)))
+
+  expect_true(sca$is.identical(tmp4(5),tmp4(5)))
+  expect_false(sca$is.identical(tmp4(5),tmp4(8)))
+})
+
+test_that("sca$is.identical lists",{
+  sca = Scales$new()
+  tmp = function(){function(){}}
+  tmp2 = function(x){function(){x}}
+
+  expect_true(sca$is.identical(list(a=1,b=tmp()),list(a=1,b=tmp())))
+  expect_false(sca$is.identical(list(a=1,b=tmp()),list(a=1,b=tmp2(8))))
+  expect_true(sca$is.identical(list(a=1,b=5),list(a=1,b=5)))
+
+  expect_true(sca$is.identical(list(a=1,b=list(x=8)),list(a=1,b=list(x=8))))
+  expect_false(sca$is.identical(list(a=1,b=list(x=9)),list(a=1,b=list(x=8))))
+})
+
+test_that("sca$is.identical non-closures",{
+  sca = Scales$new()
+  expect_true(sca$is.identical("ggplot","ggplot"))
+  expect_false(sca$is.identical("ggplot2","ggplot"))
+  expect_true(sca$is.identical(5,5))
+  expect_false(sca$is.identical(6,5))
+})
