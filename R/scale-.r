@@ -35,7 +35,7 @@ NULL
 #'   (i.e. \code{\link{scale_colour_gradient2}}, \code{\link{scale_colour_gradientn}}).
 #' @param oob What to do with values outside scale limits (out of bounds)?
 #' @keywords internal
-continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_, trans = "identity", guide="legend") {
+continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_, trans = "identity", guide="legend", clear=F) {
 
   if (!is.null(legend)) {
     gg_dep("0.8.9", "\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
@@ -79,6 +79,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 
     labels = labels, 
     legend = legend,
+    clear = clear,
     guide = guide
   ), class = c(scale_name, "continuous", "scale"))
 }
@@ -122,7 +123,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #' @param na.value how should missing values be displayed?
 #' @param guide the name of, or actual function, used to create the 
 #'   guide.
-discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, expand = waiver(), na.value = NA, drop = TRUE, guide="legend") {
+discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, expand = waiver(), na.value = NA, drop = TRUE, guide="legend", clear=T) {
 
   if (!is.null(legend)) {
     gg_dep("0.8.9", "\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
@@ -157,6 +158,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks 
     labels = labels, 
     legend = legend,
     drop = drop,
+    clear = clear,
     guide = guide
   ), class = c(scale_name, "discrete", "scale"))
 }

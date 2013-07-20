@@ -14,15 +14,53 @@ Scales <- setRefClass("Scales", fields = "scales", methods = list(
     if (any(prev_aes)) {
       # Get only the first aesthetic name in the returned vector -- it can
       # sometimes be c("x", "xmin", "xmax", ....)
-      scalename <- scales[prev_aes][[1]]$aesthetics[1]
-      message("Scale for '", scalename,
-        "' is already present. Adding another scale for '", scalename,
-        "', which will replace the existing scale.")
+      prevscale <- scales[prev_aes][[1]]
+      scalename <- prevscale$aesthetics[1]
+
+      if(scale$clear){
+        message("Scale for '", scalename, "' is present but will be fully overriden by the new scale.")
+      }else{
+        scale = merge.scales(scale,scalename,prevscale)
+        message("Scale for '", scalename,
+          "' is already present. Adding another scale for '", scalename,
+          "', which will be merged with the existing scale.")
+      }
     }
 
-    # Remove old scale for this aesthetic (if it exists)
     scales <<- c(scales[!prev_aes], list(scale))
   }, 
+  is.identical = function(x1,x2) {
+    # recursive function to evaluate nested lists
+    if(is.list(x1) && is.list(x2))
+      all(mapply(is.identical,x1,x2))
+    else if (identical(x1,x2)) # for regular values (i.e. non functions)
+      TRUE
+    else if (!(is.function(x1) && is.function(x2))) # all non-function values are handled at this point
+      FALSE
+    else {
+      # at this point, x1 and x2 are functions
+      # evaluate both functions in case functions are non-parametric
+      try(return(identical(x1(),x2())),silent=TRUE)
+
+      # too complicated to evaluate if a function's return value would be the same
+      # given the body and its environment 
+      # only checks if environments share names with the same values and if bodies are the same
+      # TODO:  body() retrieves attributes storing the entire reference, might be beneficial to
+      # remove those references prior to calling identical() on it 
+      if (!identical(body(x1),body(x2))) return(FALSE) 
+      all(mapply(identical, as.list(environment(x1)), as.list(environment(x2))))
+    }
+  },
+  merge.scales = function(scale,scalename,prevscale){
+    t1 <- strsplit(as.character(scale$call[[1]]),"_",fixed=TRUE)[[1]]
+    default <- get(paste(t1[2],scalename,t1[1],sep="_"))()
+    s <- mapply(function(x1,x2,x3){
+                 if(is.identical(x2,x3)) x1
+                 else x2
+                },prevscale,scale,default)
+    class(s) <- class(scale)
+    s
+  },
   clone = function() {
     new_scales <- lapply(scales, scale_clone)
     Scales$new(new_scales)
@@ -96,7 +134,6 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
 
     scales$add(scale_f())
   }
-  
 }
 
 # Add missing but required scales.
