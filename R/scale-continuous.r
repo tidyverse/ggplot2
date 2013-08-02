@@ -44,7 +44,7 @@
 #' m + scale_y_sqrt()
 #' m + scale_y_reverse()
 #' # You can also create your own and supply them to the trans argument.
-#' # See ?scale::trans_new
+#' # See ?scales::trans_new
 #' 
 #' # You can control the formatting of the labels with the formatter
 #' # argument.  Some common formats are built into the scales package:
