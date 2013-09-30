@@ -12,7 +12,7 @@
 #' @param origin Origin of first bin 
 #' @param width Width of bars when used with categorical data 
 #' @param right If \code{TRUE}, right-closed, left-open, if \code{FALSE}, 
-#"   the default, right-open, left-closed.
+#'   the default, right-open, left-closed.
 #' @param drop If TRUE, remove all bins with zero counts
 #' @return New data frame with additional columns:
 #'   \item{count}{number of points in bin}
@@ -24,10 +24,10 @@
 #' \donttest{
 #' simple <- data.frame(x = rep(1:10, each = 2))
 #' base <- ggplot(simple, aes(x))
-#' # By default, right = TRUE, and intervals are of the form (a, b]
-#' base + stat_bin(binwidth = 1, drop = FALSE, right = TRUE, col = "black")
-#' # If right = FALSE intervals are of the form [a, b)
+#' # By default, right = FALSE intervals are of the form [a, b)
 #' base + stat_bin(binwidth = 1, drop = FALSE, right = FALSE, col = "black")
+#' # If right = TRUE, and intervals are of the form (a, b]
+#' base + stat_bin(binwidth = 1, drop = FALSE, right = TRUE, col = "black")
 #' 
 #' m <- ggplot(movies, aes(x=rating))
 #' m + stat_bin()
