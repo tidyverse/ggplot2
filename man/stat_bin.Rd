@@ -20,7 +20,7 @@
   data}
 
   \item{right}{If \code{TRUE}, right-closed, left-open, if
-  \code{FALSE},}
+  \code{FALSE}, the default, right-open, left-closed.}
 
   \item{drop}{If TRUE, remove all bins with zero counts}
 
@@ -60,10 +60,10 @@
 \donttest{
 simple <- data.frame(x = rep(1:10, each = 2))
 base <- ggplot(simple, aes(x))
-# By default, right = TRUE, and intervals are of the form (a, b]
-base + stat_bin(binwidth = 1, drop = FALSE, right = TRUE, col = "black")
-# If right = FALSE intervals are of the form [a, b)
+# By default, right = FALSE intervals are of the form [a, b)
 base + stat_bin(binwidth = 1, drop = FALSE, right = FALSE, col = "black")
+# If right = TRUE, and intervals are of the form (a, b]
+base + stat_bin(binwidth = 1, drop = FALSE, right = TRUE, col = "black")
 
 m <- ggplot(movies, aes(x=rating))
 m + stat_bin()
