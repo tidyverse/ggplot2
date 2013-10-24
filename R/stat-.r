@@ -34,8 +34,9 @@ Stat <- proto(TopLevel, expr={
     # stats[stats$ORDER, ]
     
     groups <- split(data, data$group)
+    maxGroupSize <- max(sapply(groups, function(group) length(unique(group$y))))
     stats <- lapply(groups, function(group) 
-      .$calculate(data = group, scales = scales, ...))
+      .$calculate(data = group, scales = scales, maxGroupSize = maxGroupSize, ...))
     
     stats <- mapply(function(new, old) {
       if (empty(new)) return(data.frame())

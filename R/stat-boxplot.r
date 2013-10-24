@@ -60,6 +60,12 @@ StatBoxplot <- proto(Stat, {
       }
       
       if (length(unique(x)) > 1) width <- diff(range(x)) * 0.9
+      relvarwidth <- NULL
+      dots <- list(...)
+      if ('maxGroupSize' %in% names(dots)) {
+        maxGroupSize <- dots[which(names(dots) %in% 'maxGroupSize')]
+        relvarwidth <- sqrt(length(x) / as.numeric(maxGroupSize))
+      }
     
       df <- as.data.frame(as.list(stats))
       df$outliers <- I(list(y[outliers]))
@@ -76,7 +82,9 @@ StatBoxplot <- proto(Stat, {
 
       transform(df,
         x = if (is.factor(x)) x[1] else mean(range(x)),
-        width = width
+        width = width,
+        relvarwidth = relvarwidth,
+        n = length(x)
       )
     })
   }

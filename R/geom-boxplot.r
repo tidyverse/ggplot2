@@ -92,13 +92,17 @@
 #' b + geom_boxplot(stat = "identity")
 #' b + geom_boxplot(stat = "identity") + coord_flip()
 #' b + geom_boxplot(aes(fill = X1), stat = "identity")
+#'
+#' # Using varwidth
+#' p + geom_boxplot(varwidth = TRUE)
+#' qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot", varwidth = TRUE)
 #' }
 geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot", position = "dodge", 
 outlier.colour = "black", outlier.shape = 16, outlier.size = 2,
-notch = FALSE, notchwidth = .5, ...) {
+notch = FALSE, notchwidth = .5, varwidth = FALSE, ...) {
   GeomBoxplot$new(mapping = mapping, data = data, stat = stat, 
   position = position, outlier.colour = outlier.colour, outlier.shape = outlier.shape, 
-  outlier.size = outlier.size, notch = notch, notchwidth = notchwidth, ...)
+  outlier.size = outlier.size, notch = notch, notchwidth = notchwidth, varwidth = varwidth, ...)
 }
 
 GeomBoxplot <- proto(Geom, {
@@ -117,15 +121,27 @@ GeomBoxplot <- proto(Geom, {
       df$ymin_final <- pmin(out_min, df$ymin)
       df$ymax_final <- pmax(out_max, df$ymax)
     } 
-    
-    transform(df,
-      xmin = x - width / 2, xmax = x + width / 2, width = NULL
-    )
+    # if varwidth not requested or not available, don't use it
+    if(is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(df$relvarwidth)) {
+        if (is.null(df$relvarwidth)) {
+          transform(df,
+            xmin = x - width / 2, xmax = x + width / 2, width = NULL
+          )
+        } else {
+          transform(df,
+            xmin = x - width / 2, xmax = x + width / 2, width = NULL, relvarwidth = NULL
+          )
+        }
+    } else {
+      transform(df,
+        xmin = x - relvarwidth * width / 2, xmax = x + relvarwidth * width / 2, width = NULL, relvarwidth = NULL
+      )
+    }
 
   }
   
   draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2,
-                   notch = FALSE, notchwidth = .5) { 
+                   notch = FALSE, notchwidth = .5, varwidth = FALSE) {
     common <- data.frame(
       colour = data$colour, 
       size = data$size, 
