@@ -32,6 +32,9 @@
 #'    the medians differ.
 #' @param notchwidth for a notched box plot, width of the notch relative to
 #'    the body (default 0.5)
+#' @param varwidth if \code{FALSE} (default) make a standard box plot. If
+#'    \code{TRUE}, boxes are drawn with widths proportional to the
+#'    square-roots of the number of observations in the groups.
 #' @export
 #'
 #' @references McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
