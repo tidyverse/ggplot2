@@ -1,9 +1,12 @@
 #' Calculate Data Ellipses
 #' 
-#' @param level The confidence level at which to draw an ellipse (default is 0.95)
+#' @param level The confidence level at which to draw an ellipse (default is 0.95),
+#'              or, if \code{type="euclid"}, the radius of the circle to be drawn.
 #' @param type The type of ellipse. 
 #'             The default \code{"t"} assumes a multivariate t-distribution, and 
 #'             \code{"norm"} assumes a multivariate normal distribution.
+#'             \code{"euclid"} draws a circle with the radius equal to \code{level}, representing the euclidian distance from the center.
+#'             This ellipse probably won't appear circular unless \code{coord_fixed()} is applied.
 #' @param segments The number of segments to be used in drawing the ellipse.  
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
@@ -28,6 +31,12 @@
 #'  geom_point()+
 #'  stat_ellipse(type = "norm", linetype = 2)+
 #'  stat_ellipse(type = "t")
+#'  
+#' ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3))+
+#'  geom_point()+
+#'  stat_ellipse(type = "norm", linetype = 2)+
+#'  stat_ellipse(type = "euclid", level = 3)+
+#'  coord_fixed()
 #'  
 #' ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3))+
 #'  stat_ellipse(geom = "polygon")
@@ -57,7 +66,7 @@ StatEllipse <- proto(Stat,
       dfn <- 2
       dfd <- length(data$x) - 1
       
-      if(!type %in% c("t","norm")){
+      if(!type %in% c("t","norm","euclid")){
         message("Unrecognized ellipse type")
         ellipse <- rbind(as.numeric(c(NA,NA)))
       } else if (dfd < 3){
@@ -68,13 +77,21 @@ StatEllipse <- proto(Stat,
           v <- cov.trob(cbind(data$x, data$y))
         }else if(type == "norm"){
           v <- cov.wt(cbind(data$x, data$y))
+        } else if(type == "euclid"){
+          v <- cov.wt(cbind(data$x, data$y))
+          v$cov <- diag(rep(min(diag(v$cov)), 2))
         }
         shape <- v$cov
-        center <- v$center                  
-        radius <- sqrt(dfn * qf(level, dfn, dfd))
+        center <- v$center
+        chol_decomp <- chol(shape)
+        if(type == "euclid"){
+          radius <- level/max(chol_decomp)
+        }else{
+          radius <- sqrt(dfn * qf(level, dfn, dfd))          
+        }
         angles <- (0:segments) * 2 * pi/segments
         unit.circle <- cbind(cos(angles), sin(angles))
-        ellipse <- t(center + radius * t(unit.circle %*% chol(shape)))
+        ellipse <- t(center + radius * t(unit.circle %*% chol_decomp))
       }
     
       ellipse <- as.data.frame(ellipse)

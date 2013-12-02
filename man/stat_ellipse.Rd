@@ -8,11 +8,16 @@
 }
 \arguments{
   \item{level}{The confidence level at which to draw an
-  ellipse (default is 0.95)}
+  ellipse (default is 0.95), or, if \code{type="euclid"},
+  the radius of the circle to be drawn.}
 
   \item{type}{The type of ellipse.  The default \code{"t"}
   assumes a multivariate t-distribution, and \code{"norm"}
-  assumes a multivariate normal distribution.}
+  assumes a multivariate normal distribution.
+  \code{"euclid"} draws a circle with the radius equal to
+  \code{level}, representing the euclidian distance from
+  the center.  This ellipse probably won't appear circular
+  unless \code{coord_fixed()} is applied.}
 
   \item{segments}{The number of segments to be used in
   drawing the ellipse.}
@@ -60,6 +65,12 @@ ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3))+
  geom_point()+
  stat_ellipse(type = "norm", linetype = 2)+
  stat_ellipse(type = "t")
+
+ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3))+
+ geom_point()+
+ stat_ellipse(type = "norm", linetype = 2)+
+ stat_ellipse(type = "euclid", level = 3)+
+ coord_fixed()
 
 ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3))+
  stat_ellipse(geom = "polygon")
