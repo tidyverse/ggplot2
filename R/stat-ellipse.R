@@ -40,7 +40,7 @@ stat_ellipse <- function(mapping=NULL, data=NULL, geom="path", position="identit
 }
 
 
-StatEllipse <- proto(ggplot2:::Stat,
+StatEllipse <- proto(Stat,
 	{
 	  objname <- "ellipse"
     
