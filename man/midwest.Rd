@@ -3,6 +3,9 @@
 \alias{midwest}
 \title{Midwest demographics.}
 \format{A data frame with 437 rows and 28 variables}
+\usage{
+  data(midwest)
+}
 \description{
   Demographic information of midwest counties
 }
