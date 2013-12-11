@@ -2,7 +2,7 @@
 \alias{autoplot}
 \title{Create a complete ggplot appropriate to a particular data type}
 \usage{
-  autoplot(object, ...)
+autoplot(object, ...)
 }
 \arguments{
   \item{object}{an object, whose class will determine the
@@ -11,15 +11,15 @@
   \item{...}{other arguments passed to specific methods}
 }
 \value{
-  a ggplot object
+a ggplot object
 }
 \description{
-  \code{autoplot} uses ggplot2 to draw a particular plot
-  for an object of a particular class in a single command.
-  This defines the S3 generic that other classes and
-  packages can extend.
+\code{autoplot} uses ggplot2 to draw a particular plot for
+an object of a particular class in a single command. This
+defines the S3 generic that other classes and packages can
+extend.
 }
 \seealso{
-  \code{\link{ggplot}} and \code{\link{fortify}}
+\code{\link{ggplot}} and \code{\link{fortify}}
 }
 

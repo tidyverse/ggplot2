@@ -2,8 +2,8 @@
 \alias{geom_freqpoly}
 \title{Frequency polygon.}
 \usage{
-  geom_freqpoly(mapping = NULL, data = NULL, stat = "bin",
-    position = "identity", ...)
+geom_freqpoly(mapping = NULL, data = NULL, stat = "bin",
+  position = "identity", ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -18,7 +18,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose
@@ -26,7 +26,7 @@
   for more details.}
 }
 \description{
-  Frequency polygon.
+Frequency polygon.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
@@ -44,6 +44,6 @@ qplot(price, ..density.., data = diamonds, geom = "freqpoly",
   binwidth = 1000, colour = color)
 }
 \seealso{
-  \code{\link{geom_histogram}}: histograms
+\code{\link{geom_histogram}}: histograms
 }
 

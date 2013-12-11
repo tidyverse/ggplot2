@@ -2,18 +2,17 @@
 \alias{guides}
 \title{Set guides for each scale.}
 \usage{
-  guides(...)
+guides(...)
 }
 \arguments{
   \item{...}{List of scale guide pairs}
 }
 \value{
-  A list containing the mapping between scale and guide.
+A list containing the mapping between scale and guide.
 }
 \description{
-  Guides for each scale can be set in call of
-  \code{scale_*} with argument \code{guide}, or in
-  \code{guides}.
+Guides for each scale can be set in call of \code{scale_*}
+with argument \code{guide}, or in \code{guides}.
 }
 \examples{
 \donttest{
@@ -60,7 +59,7 @@ qplot(data = mpg, x = displ, y = cty, size = hwy, colour = cyl, shape = drv) +
 }
 }
 \seealso{
-  Other guides: \code{\link{guide_colorbar}},
-  \code{\link{guide_colourbar}}, \code{\link{guide_legend}}
+Other guides: \code{\link{guide_colorbar}},
+\code{\link{guide_colourbar}}; \code{\link{guide_legend}}
 }
 

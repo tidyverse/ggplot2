@@ -6,13 +6,13 @@
 \alias{fortify.summary.glht}
 \title{Fortify methods for objects produced by \pkg{multcomp}}
 \usage{
-  \method{fortify}{glht} (model, data, ...)
+\method{fortify}{glht}(model, data, ...)
 
-  \method{fortify}{confint.glht} (model, data, ...)
+\method{fortify}{confint.glht}(model, data, ...)
 
-  \method{fortify}{summary.glht} (model, data, ...)
+\method{fortify}{summary.glht}(model, data, ...)
 
-  \method{fortify}{cld} (model, data, ...)
+\method{fortify}{cld}(model, data, ...)
 }
 \arguments{
   \item{model}{an object of class \code{glht},
@@ -23,7 +23,7 @@
   this method.}
 }
 \description{
-  Fortify methods for objects produced by \pkg{multcomp}
+Fortify methods for objects produced by \pkg{multcomp}
 }
 \examples{
 if (require("multcomp")) {

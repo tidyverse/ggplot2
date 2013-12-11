@@ -2,10 +2,10 @@
 \alias{translate_qplot_lattice}
 \title{Translating between qplot and lattice}
 \description{
-  The major difference between lattice and ggplot2 is that
-  lattice uses a formula based interface. ggplot2 does not
-  because the formula does not generalise well to more
-  complicated situations.
+The major difference between lattice and ggplot2 is that
+lattice uses a formula based interface. ggplot2 does not
+because the formula does not generalise well to more
+complicated situations.
 }
 \examples{
 \donttest{

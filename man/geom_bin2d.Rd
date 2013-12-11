@@ -2,8 +2,8 @@
 \alias{geom_bin2d}
 \title{Add heatmap of 2d bin counts.}
 \usage{
-  geom_bin2d(mapping = NULL, data = NULL, stat = "bin2d",
-    position = "identity", ...)
+geom_bin2d(mapping = NULL, data = NULL, stat = "bin2d",
+  position = "identity", ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -18,7 +18,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose
@@ -26,7 +26,7 @@
   for more details.}
 }
 \description{
-  Add heatmap of 2d bin counts.
+Add heatmap of 2d bin counts.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",

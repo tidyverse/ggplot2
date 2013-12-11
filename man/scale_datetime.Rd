@@ -3,11 +3,11 @@
 \alias{scale_y_datetime}
 \title{Position scale, date}
 \usage{
-  scale_x_datetime(..., expand = waiver(),
-    breaks = pretty_breaks(), minor_breaks = waiver())
+scale_x_datetime(..., expand = waiver(), breaks = pretty_breaks(),
+  minor_breaks = waiver())
 
-  scale_y_datetime(..., expand = waiver(),
-    breaks = pretty_breaks(), minor_breaks = waiver())
+scale_y_datetime(..., expand = waiver(), breaks = pretty_breaks(),
+  minor_breaks = waiver())
 }
 \arguments{
   \item{breaks}{A vector of breaks, a function that given
@@ -34,7 +34,7 @@
   away from the axes.}
 }
 \description{
-  Position scale, date
+Position scale, date
 }
 \examples{
 start <- ISOdate(2001, 1, 1, tz = "")
@@ -75,16 +75,13 @@ last_plot() + scale_x_datetime(breaks = date_breaks("1 day"),
   minor_breaks = date_breaks("2 hour"))
 }
 \seealso{
-  Other position scales: \code{\link{scale_x_continuous}},
-  \code{\link{scale_x_date}},
-  \code{\link{scale_x_discrete}},
-  \code{\link{scale_x_log10}},
-  \code{\link{scale_x_reverse}},
-  \code{\link{scale_x_sqrt}},
-  \code{\link{scale_y_continuous}},
-  \code{\link{scale_y_date}},
-  \code{\link{scale_y_discrete}},
-  \code{\link{scale_y_log10}},
-  \code{\link{scale_y_reverse}}, \code{\link{scale_y_sqrt}}
+Other position scales: \code{\link{scale_x_continuous}},
+\code{\link{scale_x_log10}}, \code{\link{scale_x_reverse}},
+\code{\link{scale_x_sqrt}},
+\code{\link{scale_y_continuous}},
+\code{\link{scale_y_log10}}, \code{\link{scale_y_reverse}},
+\code{\link{scale_y_sqrt}}; \code{\link{scale_x_date}},
+\code{\link{scale_y_date}}; \code{\link{scale_x_discrete}},
+\code{\link{scale_y_discrete}}
 }
 

@@ -2,8 +2,8 @@
 \alias{stat_ecdf}
 \title{Empirical Cumulative Density Function}
 \usage{
-  stat_ecdf(mapping = NULL, data = NULL, geom = "step",
-    position = "identity", n = NULL, ...)
+stat_ecdf(mapping = NULL, data = NULL, geom = "step",
+  position = "identity", n = NULL, ...)
 }
 \arguments{
   \item{n}{if NULL, do not interpolate. If not NULL, this
@@ -28,11 +28,11 @@
   for more details.}
 }
 \value{
-  a data.frame with additional columns: \item{x}{x in data}
-  \item{y}{cumulative density corresponding x}
+a data.frame with additional columns: \item{x}{x in data}
+\item{y}{cumulative density corresponding x}
 }
 \description{
-  Empirical Cumulative Density Function
+Empirical Cumulative Density Function
 }
 \examples{
 \donttest{

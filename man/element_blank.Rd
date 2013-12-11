@@ -3,10 +3,10 @@
 \title{Theme element: blank.
 This theme element draws nothing, and assigns no space}
 \usage{
-  element_blank()
+element_blank()
 }
 \description{
-  Theme element: blank. This theme element draws nothing,
-  and assigns no space
+Theme element: blank. This theme element draws nothing, and
+assigns no space
 }
 

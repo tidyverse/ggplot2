@@ -2,8 +2,8 @@
 \alias{geom_hline}
 \title{Horizontal line.}
 \usage{
-  geom_hline(mapping = NULL, data = NULL, stat = "hline",
-    position = "identity", show_guide = FALSE, ...)
+geom_hline(mapping = NULL, data = NULL, stat = "hline",
+  position = "identity", show_guide = FALSE, ...)
 }
 \arguments{
   \item{show_guide}{should a legend be drawn? (defaults to
@@ -21,7 +21,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose
@@ -29,17 +29,17 @@
   for more details.}
 }
 \description{
-  This geom allows you to annotate the plot with horizontal
-  lines (see \code{\link{geom_vline}} and
-  \code{\link{geom_abline}} for other types of lines).
+This geom allows you to annotate the plot with horizontal
+lines (see \code{\link{geom_vline}} and
+\code{\link{geom_abline}} for other types of lines).
 }
 \details{
-  There are two ways to use it. You can either specify the
-  intercept of the line in the call to the geom, in which
-  case the line will be in the same position in every
-  panel. Alternatively, you can supply a different
-  intercept for each panel using a data.frame. See the
-  examples for the differences
+There are two ways to use it. You can either specify the
+intercept of the line in the call to the geom, in which
+case the line will be in the same position in every panel.
+Alternatively, you can supply a different intercept for
+each panel using a data.frame. See the examples for the
+differences
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
@@ -65,9 +65,9 @@ hline.data <- data.frame(z = 1:4, vs = c(0,0,1,1), am = c(0,1,0,1))
 p + geom_hline(aes(yintercept = z), hline.data)
 }
 \seealso{
-  \code{\link{geom_vline}} for vertical lines,
-  \code{\link{geom_abline}} for lines defined by a slope
-  and intercept, \code{\link{geom_segment}} for a more
-  general approach
+\code{\link{geom_vline}} for vertical lines,
+\code{\link{geom_abline}} for lines defined by a slope and
+intercept, \code{\link{geom_segment}} for a more general
+approach
 }
 

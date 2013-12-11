@@ -2,13 +2,13 @@
 \alias{is.facet}
 \title{Is this object a facetting specification?}
 \usage{
-  is.facet(x)
+is.facet(x)
 }
 \arguments{
   \item{x}{object to test}
 }
 \description{
-  Is this object a facetting specification?
+Is this object a facetting specification?
 }
 \keyword{internal}
 

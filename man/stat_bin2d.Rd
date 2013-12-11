@@ -2,8 +2,8 @@
 \alias{stat_bin2d}
 \title{Count number of observation in rectangular bins.}
 \usage{
-  stat_bin2d(mapping = NULL, data = NULL, geom = NULL,
-    position = "identity", bins = 30, drop = TRUE, ...)
+stat_bin2d(mapping = NULL, data = NULL, geom = NULL,
+  position = "identity", bins = 30, drop = TRUE, ...)
 }
 \arguments{
   \item{bins}{numeric vector giving number of bins in both
@@ -32,7 +32,7 @@
   for more details.}
 }
 \description{
-  Count number of observation in rectangular bins.
+Count number of observation in rectangular bins.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
@@ -66,6 +66,6 @@ qplot(x, y, data = diamonds, geom="bin2d", binwidth = c(0.1, 0.1),
 }
 }
 \seealso{
-  \code{\link{stat_binhex}} for hexagonal binning
+\code{\link{stat_binhex}} for hexagonal binning
 }
 

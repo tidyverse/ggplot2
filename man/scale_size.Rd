@@ -4,11 +4,11 @@
 \alias{scale_size_discrete}
 \title{Size scale.}
 \usage{
-  scale_size_continuous(..., range = c(1, 6))
+scale_size_continuous(..., range = c(1, 6))
 
-  scale_size(..., range = c(1, 6))
+scale_size(..., range = c(1, 6))
 
-  scale_size_discrete(..., range = c(1, 6))
+scale_size_discrete(..., range = c(1, 6))
 }
 \arguments{
   \item{range}{a numeric vector of length 2 that specifies
@@ -21,7 +21,7 @@
   \code{\link{continuous_scale}} for more details}
 }
 \description{
-  Size scale.
+Size scale.
 }
 \examples{
 \donttest{

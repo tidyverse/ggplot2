@@ -2,9 +2,8 @@
 \alias{geom_jitter}
 \title{Points, jittered to reduce overplotting.}
 \usage{
-  geom_jitter(mapping = NULL, data = NULL,
-    stat = "identity", position = "jitter", na.rm = FALSE,
-    ...)
+geom_jitter(mapping = NULL, data = NULL, stat = "identity",
+  position = "jitter", na.rm = FALSE, ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -19,7 +18,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{na.rm}{If \code{FALSE} (the default), removes
   missing values with a warning.  If \code{TRUE} silently
@@ -31,10 +30,9 @@
   for more details.}
 }
 \description{
-  The jitter geom is a convenient default for geom_point
-  with position = 'jitter'.  See
-  \code{\link{position_jitter}} to see how to adjust amount
-  of jittering.
+The jitter geom is a convenient default for geom_point with
+position = 'jitter'.  See \code{\link{position_jitter}} to
+see how to adjust amount of jittering.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
@@ -59,10 +57,10 @@ qplot(class, hwy, data = mpg, geom = c("boxplot", "jitter"))
 qplot(class, hwy, data = mpg, geom = c("jitter", "boxplot"))
 }
 \seealso{
-  \code{\link{geom_point}} for regular, unjittered points,
-  \code{\link{geom_boxplot}} for another way of looking at
-  the conditional distribution of a variable,
-  \code{\link{position_jitter}} for examples of using
-  jittering with other geoms
+\code{\link{geom_point}} for regular, unjittered points,
+\code{\link{geom_boxplot}} for another way of looking at
+the conditional distribution of a variable,
+\code{\link{position_jitter}} for examples of using
+jittering with other geoms
 }
 

@@ -2,7 +2,7 @@
 \alias{map_data}
 \title{Create a data frame of map data.}
 \usage{
-  map_data(map, region = ".", exact = FALSE, ...)
+map_data(map, region = ".", exact = FALSE, ...)
 }
 \arguments{
   \item{map}{name of map provided by the \pkg{maps}
@@ -24,7 +24,7 @@
   \code{\link[maps]{map}}}
 }
 \description{
-  Create a data frame of map data.
+Create a data frame of map data.
 }
 \examples{
 if (require("maps")) {

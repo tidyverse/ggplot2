@@ -2,17 +2,17 @@
 \alias{coord_flip}
 \title{Flipped cartesian coordinates.}
 \usage{
-  coord_flip(...)
+coord_flip(...)
 }
 \arguments{
   \item{...}{Other arguments passed onto
   \code{\link{coord_cartesian}}}
 }
 \description{
-  Flipped cartesian coordinates so that horizontal becomes
-  vertical, and vertical, horizontal. This is primarily
-  useful for converting geoms and statistics which display
-  y conditional on x, to x conditional on y.
+Flipped cartesian coordinates so that horizontal becomes
+vertical, and vertical, horizontal. This is primarily
+useful for converting geoms and statistics which display y
+conditional on x, to x conditional on y.
 }
 \examples{
 \donttest{

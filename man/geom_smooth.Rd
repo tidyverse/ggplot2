@@ -2,8 +2,8 @@
 \alias{geom_smooth}
 \title{Add a smoothed conditional mean.}
 \usage{
-  geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
-    position = "identity", ...)
+geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
+  position = "identity", ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -18,7 +18,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose
@@ -26,7 +26,7 @@
   for more details.}
 }
 \description{
-  Add a smoothed conditional mean.
+Add a smoothed conditional mean.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
@@ -58,9 +58,8 @@ qplot(wt, mpg, data=mtcars, colour=factor(cyl)) +
   geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat="identity")
 }
 \seealso{
-  The default stat for this geom is
-  \code{\link{stat_smooth}} see that documentation for more
-  options to control the underlying statistical
-  transformation.
+The default stat for this geom is \code{\link{stat_smooth}}
+see that documentation for more options to control the
+underlying statistical transformation.
 }
 

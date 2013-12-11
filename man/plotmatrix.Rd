@@ -2,7 +2,7 @@
 \alias{plotmatrix}
 \title{Code to create a scatterplot matrix (experimental)}
 \usage{
-  plotmatrix(data, mapping = aes(), colour = "black")
+plotmatrix(data, mapping = aes(), colour = "black")
 }
 \arguments{
   \item{data}{data frame}
@@ -13,7 +13,7 @@
   \item{colour}{default point colour}
 }
 \description{
-  Code to create a scatterplot matrix (experimental)
+Code to create a scatterplot matrix (experimental)
 }
 \examples{
 plotmatrix(mtcars[, 1:3])

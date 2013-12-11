@@ -2,7 +2,7 @@
 \alias{fortify.lm}
 \title{Supplement the data fitted to a linear model with model fit statistics.}
 \usage{
-  \method{fortify}{lm} (model, data = model$model, ...)
+\method{fortify}{lm}(model, data = model$model, ...)
 }
 \arguments{
   \item{model}{linear model}
@@ -12,19 +12,17 @@
   \item{...}{not used by this method}
 }
 \value{
-  The original data with extra columns:
-  \item{.hat}{Diagonal of the hat matrix}
-  \item{.sigma}{Estimate of residual standard deviation
-  when corresponding observation is dropped from model}
-  \item{.cooksd}{Cooks distance,
-  \code{\link{cooks.distance}}} \item{.fitted}{Fitted
-  values of model} \item{.resid}{Residuals}
-  \item{.stdresid}{Standardised residuals}
+The original data with extra columns: \item{.hat}{Diagonal
+of the hat matrix} \item{.sigma}{Estimate of residual
+standard deviation when corresponding observation is
+dropped from model} \item{.cooksd}{Cooks distance,
+\code{\link{cooks.distance}}} \item{.fitted}{Fitted values
+of model} \item{.resid}{Residuals}
+\item{.stdresid}{Standardised residuals}
 }
 \description{
-  If you have missing values in your model data, you may
-  need to refit the model with \code{na.action =
-  na.exclude}.
+If you have missing values in your model data, you may need
+to refit the model with \code{na.action = na.exclude}.
 }
 \examples{
 mod <- lm(mpg ~ wt, data = mtcars)

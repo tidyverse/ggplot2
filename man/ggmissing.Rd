@@ -2,8 +2,7 @@
 \alias{ggmissing}
 \title{Create a plot to illustrate patterns of missing values.}
 \usage{
-  ggmissing(data, avoid = "stack", order = TRUE,
-    missing.only = TRUE)
+ggmissing(data, avoid = "stack", order = TRUE, missing.only = TRUE)
 }
 \arguments{
   \item{data}{input data.frame}
@@ -18,12 +17,12 @@
   variables with some missing data}
 }
 \description{
-  The missing values plot is a useful tool to get a rapid
-  overview of the number and pattern of missing values in a
-  dataset. Its strength is much more apparent when used
-  with interactive graphics, as you can see in Mondrian
-  (\url{http://rosuda.org/mondrian}) where this plot was
-  copied from.
+The missing values plot is a useful tool to get a rapid
+overview of the number and pattern of missing values in a
+dataset. Its strength is much more apparent when used with
+interactive graphics, as you can see in Mondrian
+(\url{http://rosuda.org/mondrian}) where this plot was
+copied from.
 }
 \examples{
 \dontrun{
@@ -35,6 +34,6 @@ ggmissing(mmissing, avoid="dodge") + scale_y_sqrt()
 }
 }
 \seealso{
-  \code{\link{ggstructure}}, \code{\link{ggorder}}
+\code{\link{ggstructure}}, \code{\link{ggorder}}
 }
 

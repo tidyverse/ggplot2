@@ -2,10 +2,9 @@
 \alias{stat_smooth}
 \title{Add a smoother.}
 \usage{
-  stat_smooth(mapping = NULL, data = NULL, geom = "smooth",
-    position = "identity", method = "auto",
-    formula = y ~ x, se = TRUE, n = 80, fullrange = FALSE,
-    level = 0.95, na.rm = FALSE, ...)
+stat_smooth(mapping = NULL, data = NULL, geom = "smooth",
+  position = "identity", method = "auto", formula = y ~ x, se = TRUE,
+  n = 80, fullrange = FALSE, level = 0.95, na.rm = FALSE, ...)
 }
 \arguments{
   \item{method}{smoothing method (function) to use, eg. lm,
@@ -49,24 +48,24 @@
   overlappling points on this layer}
 }
 \value{
-  a data.frame with additional columns \item{y}{predicted
-  value} \item{ymin}{lower pointwise confidence interval
-  around the mean} \item{ymax}{upper pointwise confidence
-  interval around the mean} \item{se}{standard error}
+a data.frame with additional columns \item{y}{predicted
+value} \item{ymin}{lower pointwise confidence interval
+around the mean} \item{ymax}{upper pointwise confidence
+interval around the mean} \item{se}{standard error}
 }
 \description{
-  Aids the eye in seeing patterns in the presence of
-  overplotting.
+Aids the eye in seeing patterns in the presence of
+overplotting.
 }
 \details{
-  Calculation is performed by the (currently undocumented)
-  \code{predictdf} generic function and its methods.  For
-  most methods the confidence bounds are computed using the
-  \code{\link{predict}} method - the exceptions are
-  \code{loess} which uses a t-based approximation, and for
-  \code{glm} where the normal confidence interval is
-  constructed on the link scale, and then back-transformed
-  to the response scale.
+Calculation is performed by the (currently undocumented)
+\code{predictdf} generic function and its methods.  For
+most methods the confidence bounds are computed using the
+\code{\link{predict}} method - the exceptions are
+\code{loess} which uses a t-based approximation, and for
+\code{glm} where the normal confidence interval is
+constructed on the link scale, and then back-transformed to
+the response scale.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
@@ -132,8 +131,8 @@ qplot(Age, as.numeric(Kyphosis) - 1, data=kyphosis) +
 }
 }
 \seealso{
-  \code{\link{lm}} for linear smooths, \code{\link{glm}}
-  for generalised linear smooths, \code{\link{loess}} for
-  local smooths
+\code{\link{lm}} for linear smooths, \code{\link{glm}} for
+generalised linear smooths, \code{\link{loess}} for local
+smooths
 }
 

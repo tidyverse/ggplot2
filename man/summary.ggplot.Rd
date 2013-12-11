@@ -2,7 +2,7 @@
 \alias{summary.ggplot}
 \title{Displays a useful description of a ggplot object}
 \usage{
-  \method{summary}{ggplot} (object, ...)
+\method{summary}{ggplot}(object, ...)
 }
 \arguments{
   \item{object}{ggplot2 object to summarise}
@@ -11,7 +11,7 @@
   with generic)}
 }
 \description{
-  Displays a useful description of a ggplot object
+Displays a useful description of a ggplot object
 }
 \examples{
 summary(qplot(mpg, wt, data=mtcars))

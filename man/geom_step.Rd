@@ -2,8 +2,8 @@
 \alias{geom_step}
 \title{Connect observations by stairs.}
 \usage{
-  geom_step(mapping = NULL, data = NULL, stat = "identity",
-    position = "identity", direction = "hv", ...)
+geom_step(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", direction = "hv", ...)
 }
 \arguments{
   \item{direction}{direction of stairs: 'vh' for vertical
@@ -21,7 +21,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose
@@ -29,7 +29,7 @@
   for more details.}
 }
 \description{
-  Connect observations by stairs.
+Connect observations by stairs.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",

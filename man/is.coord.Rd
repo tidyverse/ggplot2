@@ -2,10 +2,10 @@
 \alias{is.coord}
 \title{Is this object a coordinate system?}
 \usage{
-  is.coord(x)
+is.coord(x)
 }
 \description{
-  Is this object a coordinate system?
+Is this object a coordinate system?
 }
 \keyword{internal}
 

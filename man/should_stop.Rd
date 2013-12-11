@@ -2,13 +2,13 @@
 \alias{should_stop}
 \title{Used in examples to illustrate when errors should occur.}
 \usage{
-  should_stop(expr)
+should_stop(expr)
 }
 \arguments{
   \item{expr}{code to evaluate.}
 }
 \description{
-  Used in examples to illustrate when errors should occur.
+Used in examples to illustrate when errors should occur.
 }
 \examples{
 should_stop(stop("Hi!"))

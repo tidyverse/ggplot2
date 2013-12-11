@@ -3,7 +3,7 @@
 \title{Stack overlapping objects on top of one another, and standardise to have
 equal height.}
 \usage{
-  position_fill(width = NULL, height = NULL)
+position_fill(width = NULL, height = NULL)
 }
 \arguments{
   \item{width}{Manually specify width (does not affect all
@@ -13,8 +13,8 @@ equal height.}
   all position adjustments)}
 }
 \description{
-  Stack overlapping objects on top of one another, and
-  standardise to have equal height.
+Stack overlapping objects on top of one another, and
+standardise to have equal height.
 }
 \examples{
 \donttest{
@@ -31,12 +31,11 @@ ggplot(diamonds, aes(x=price, fill=color)) + cde
 }
 }
 \seealso{
-  See \code{\link{geom_bar}} and \code{\link{geom_area}}
-  for more examples.
+See \code{\link{geom_bar}} and \code{\link{geom_area}} for
+more examples.
 
-  Other position adjustments: \code{\link{position_dodge}},
-  \code{\link{position_identity}},
-  \code{\link{position_jitter}},
-  \code{\link{position_stack}}
+Other position adjustments: \code{\link{position_dodge}};
+\code{\link{position_identity}};
+\code{\link{position_jitter}}; \code{\link{position_stack}}
 }
 

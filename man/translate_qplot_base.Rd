@@ -2,15 +2,15 @@
 \alias{translate_qplot_base}
 \title{Translating between qplot and base graphics}
 \description{
-  There are two types of graphics functions in base
-  graphics, those that draw complete graphics and those
-  that add to existing graphics.
+There are two types of graphics functions in base graphics,
+those that draw complete graphics and those that add to
+existing graphics.
 }
 \details{
-  qplot() has been designed to mimic plot(), and can do the
-  job of all other high-level plotting commands. There are
-  only two graph types from base graphics that cannot be
-  replicated with ggplot2: filled.contour() and persp()
+qplot() has been designed to mimic plot(), and can do the
+job of all other high-level plotting commands. There are
+only two graph types from base graphics that cannot be
+replicated with ggplot2: filled.contour() and persp()
 }
 \examples{
 \donttest{

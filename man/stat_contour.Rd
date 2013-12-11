@@ -2,8 +2,8 @@
 \alias{stat_contour}
 \title{Calculate contours of 3d data.}
 \usage{
-  stat_contour(mapping = NULL, data = NULL, geom = "path",
-    position = "identity", na.rm = FALSE, ...)
+stat_contour(mapping = NULL, data = NULL, geom = "path",
+  position = "identity", na.rm = FALSE, ...)
 }
 \arguments{
   \item{na.rm}{If \code{FALSE} (the default), removes
@@ -29,11 +29,11 @@
   for more details.}
 }
 \value{
-  A data frame with additional column: \item{level}{height
-  of contour}
+A data frame with additional column: \item{level}{height of
+contour}
 }
 \description{
-  Calculate contours of 3d data.
+Calculate contours of 3d data.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",

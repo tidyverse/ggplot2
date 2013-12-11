@@ -2,12 +2,11 @@
 \alias{continuous_scale}
 \title{Continuous scale constructor.}
 \usage{
-  continuous_scale(aesthetics, scale_name, palette,
-    name = NULL, breaks = waiver(),
-    minor_breaks = waiver(), labels = waiver(),
-    legend = NULL, limits = NULL, rescaler = rescale,
-    oob = censor, expand = waiver(), na.value = NA_real_,
-    trans = "identity", guide = "legend")
+continuous_scale(aesthetics, scale_name, palette, name = NULL,
+  breaks = waiver(), minor_breaks = waiver(), labels = waiver(),
+  legend = NULL, limits = NULL, rescaler = rescale, oob = censor,
+  expand = waiver(), na.value = NA_real_, trans = "identity",
+  guide = "legend")
 }
 \arguments{
   \item{minor_breaks}{Used with date or datetime scales.
@@ -70,7 +69,7 @@
   create the guide.}
 }
 \description{
-  Continuous scale constructor.
+Continuous scale constructor.
 }
 \keyword{internal}
 

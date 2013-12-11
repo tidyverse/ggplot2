@@ -2,7 +2,7 @@
 \alias{coord_cartesian}
 \title{Cartesian coordinates.}
 \usage{
-  coord_cartesian(xlim = NULL, ylim = NULL, wise = NULL)
+coord_cartesian(xlim = NULL, ylim = NULL, wise = NULL)
 }
 \arguments{
   \item{xlim}{limits for the x axis}
@@ -12,11 +12,11 @@
   \item{wise}{deprecated in 0.9.1}
 }
 \description{
-  The Cartesian coordinate system is the most familiar, and
-  common, type of coordinate system. Setting limits on the
-  coordinate system will zoom the plot (like you're looking
-  at it with a magnifying glass), and will not change the
-  underlying data like setting limits on a scale will.
+The Cartesian coordinate system is the most familiar, and
+common, type of coordinate system. Setting limits on the
+coordinate system will zoom the plot (like you're looking
+at it with a magnifying glass), and will not change the
+underlying data like setting limits on a scale will.
 }
 \examples{
 # There are two ways of zooming the plot display: with scales or

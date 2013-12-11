@@ -2,7 +2,7 @@
 \alias{facet}
 \title{Facet specification.}
 \usage{
-  facet(..., shrink = TRUE, subclass = c())
+facet(..., shrink = TRUE, subclass = c())
 }
 \arguments{
   \item{...}{object fields}
@@ -11,8 +11,7 @@
   not raw data}
 }
 \description{
-  Create new facetting specification.  For internal use
-  only.
+Create new facetting specification.  For internal use only.
 }
 \keyword{internal}
 

@@ -4,11 +4,11 @@
 \alias{scale_shape_discrete}
 \title{Scale for shapes, aka glyphs.}
 \usage{
-  scale_shape(..., solid = TRUE)
+scale_shape(..., solid = TRUE)
 
-  scale_shape_discrete(..., solid = TRUE)
+scale_shape_discrete(..., solid = TRUE)
 
-  scale_shape_continuous(...)
+scale_shape_continuous(...)
 }
 \arguments{
   \item{solid}{Are the shapes solid, \code{TRUE}, or hollow
@@ -20,7 +20,7 @@
   \code{\link{discrete_scale}} for more details}
 }
 \description{
-  A continuous variable can not be mapped to shape.
+A continuous variable can not be mapped to shape.
 }
 \examples{
 dsmall <- diamonds[sample(nrow(diamonds), 100), ]

@@ -2,9 +2,9 @@
 \alias{element_text}
 \title{Theme element: text.}
 \usage{
-  element_text(family = NULL, face = NULL, colour = NULL,
-    size = NULL, hjust = NULL, vjust = NULL, angle = NULL,
-    lineheight = NULL, color = NULL)
+element_text(family = NULL, face = NULL, colour = NULL, size = NULL,
+  hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
+  color = NULL)
 }
 \arguments{
   \item{family}{font family}
@@ -27,6 +27,6 @@
   \item{color}{an alias for \code{colour}}
 }
 \description{
-  Theme element: text.
+Theme element: text.
 }
 

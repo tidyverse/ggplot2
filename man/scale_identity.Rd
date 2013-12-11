@@ -9,19 +9,19 @@
 \alias{scale_size_identity}
 \title{Use values without scaling.}
 \usage{
-  scale_colour_identity(..., guide = "none")
+scale_colour_identity(..., guide = "none")
 
-  scale_fill_identity(..., guide = "none")
+scale_fill_identity(..., guide = "none")
 
-  scale_shape_identity(..., guide = "none")
+scale_shape_identity(..., guide = "none")
 
-  scale_linetype_identity(..., guide = "none")
+scale_linetype_identity(..., guide = "none")
 
-  scale_alpha_identity(..., guide = "none")
+scale_alpha_identity(..., guide = "none")
 
-  scale_size_identity(..., guide = "none")
+scale_size_identity(..., guide = "none")
 
-  scale_color_identity(..., guide = "none")
+scale_color_identity(..., guide = "none")
 }
 \arguments{
   \item{...}{Other arguments passed on to
@@ -32,7 +32,7 @@
   \code{"none"}.}
 }
 \description{
-  Use values without scaling.
+Use values without scaling.
 }
 \examples{
 colour <- c("red", "green", "blue", "yellow")

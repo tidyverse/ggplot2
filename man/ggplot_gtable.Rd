@@ -2,7 +2,7 @@
 \alias{ggplot_gtable}
 \title{Build a plot with all the usual bits and pieces.}
 \usage{
-  ggplot_gtable(data)
+ggplot_gtable(data)
 }
 \arguments{
   \item{plot}{plot object}
@@ -11,21 +11,20 @@
   \code{\link{ggplot_build}}}
 }
 \value{
-  a \code{\link{gtable}} object
+a \code{\link{gtable}} object
 }
 \description{
-  This function builds all grobs necessary for displaying
-  the plot, and stores them in a special data structure
-  called a \code{\link{gtable}}. This object is amenable to
-  programmatic manipulation, should you want to (e.g.) make
-  the legend box 2 cm wide, or combine multiple plots into
-  a single display, preserving aspect ratios across the
-  plots.
+This function builds all grobs necessary for displaying the
+plot, and stores them in a special data structure called a
+\code{\link{gtable}}. This object is amenable to
+programmatic manipulation, should you want to (e.g.) make
+the legend box 2 cm wide, or combine multiple plots into a
+single display, preserving aspect ratios across the plots.
 }
 \seealso{
-  \code{\link{print.ggplot}} and \code{link{benchplot}} for
-  for functions that contain the complete set of steps for
-  generating a ggplot2 plot.
+\code{\link{print.ggplot}} and \code{link{benchplot}} for
+for functions that contain the complete set of steps for
+generating a ggplot2 plot.
 }
 \keyword{internal}
 

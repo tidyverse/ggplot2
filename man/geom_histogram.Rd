@@ -2,8 +2,8 @@
 \alias{geom_histogram}
 \title{Histogram}
 \usage{
-  geom_histogram(mapping = NULL, data = NULL, stat = "bin",
-    position = "stack", ...)
+geom_histogram(mapping = NULL, data = NULL, stat = "bin",
+  position = "stack", ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -18,7 +18,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose
@@ -26,16 +26,16 @@
   for more details.}
 }
 \description{
-  \code{geom_histogram} is an alias for
-  \code{\link{geom_bar}} plus \code{\link{stat_bin}} so you
-  will need to look at the documentation for those objects
-  to get more information about the parameters.
+\code{geom_histogram} is an alias for
+\code{\link{geom_bar}} plus \code{\link{stat_bin}} so you
+will need to look at the documentation for those objects to
+get more information about the parameters.
 }
 \details{
-  By default, \code{stat_bin} uses 30 bins - this is not a
-  good default, but the idea is to get you experimenting
-  with different binwidths. You may need to look at a few
-  to uncover the full story behind your data.
+By default, \code{stat_bin} uses 30 bins - this is not a
+good default, but the idea is to get you experimenting with
+different binwidths. You may need to look at a few to
+uncover the full story behind your data.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",

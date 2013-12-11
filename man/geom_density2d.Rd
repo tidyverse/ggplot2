@@ -2,10 +2,9 @@
 \alias{geom_density2d}
 \title{Contours from a 2d density estimate.}
 \usage{
-  geom_density2d(mapping = NULL, data = NULL,
-    stat = "density2d", position = "identity",
-    lineend = "butt", linejoin = "round", linemitre = 1,
-    na.rm = FALSE, ...)
+geom_density2d(mapping = NULL, data = NULL, stat = "density2d",
+  position = "identity", lineend = "butt", linejoin = "round",
+  linemitre = 1, na.rm = FALSE, ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -20,7 +19,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{na.rm}{If \code{FALSE} (the default), removes
   missing values with a warning.  If \code{TRUE} silently
@@ -39,11 +38,11 @@
   1)}
 }
 \description{
-  Perform a 2D kernel density estimatation using kde2d and
-  display the results with contours.
+Perform a 2D kernel density estimatation using kde2d and
+display the results with contours.
 }
 \details{
-  This can be useful for dealing with overplotting.
+This can be useful for dealing with overplotting.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
@@ -53,8 +52,8 @@
 # See stat_density2d for examples
 }
 \seealso{
-  \code{\link{geom_contour}} for contour drawing geom,
-  \code{\link{stat_sum}} for another way of dealing with
-  overplotting
+\code{\link{geom_contour}} for contour drawing geom,
+\code{\link{stat_sum}} for another way of dealing with
+overplotting
 }
 

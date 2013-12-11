@@ -2,9 +2,9 @@
 \alias{stat_qq}
 \title{Calculation for quantile-quantile plot.}
 \usage{
-  stat_qq(mapping = NULL, data = NULL, geom = "point",
-    position = "identity", distribution = qnorm,
-    dparams = list(), na.rm = FALSE, ...)
+stat_qq(mapping = NULL, data = NULL, geom = "point",
+  position = "identity", distribution = qnorm, dparams = list(),
+  na.rm = FALSE, ...)
 }
 \arguments{
   \item{distribution}{Distribution function to use, if x
@@ -33,12 +33,11 @@
   overlappling points on this layer}
 }
 \value{
-  a data.frame with additional columns:
-  \item{sample}{sample quantiles}
-  \item{theoretical}{theoretical quantiles}
+a data.frame with additional columns: \item{sample}{sample
+quantiles} \item{theoretical}{theoretical quantiles}
 }
 \description{
-  Calculation for quantile-quantile plot.
+Calculation for quantile-quantile plot.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",

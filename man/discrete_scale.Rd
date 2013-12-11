@@ -2,10 +2,9 @@
 \alias{discrete_scale}
 \title{Discrete scale constructor.}
 \usage{
-  discrete_scale(aesthetics, scale_name, palette,
-    name = NULL, breaks = waiver(), labels = waiver(),
-    legend = NULL, limits = NULL, expand = waiver(),
-    na.value = NA, drop = TRUE, guide = "legend")
+discrete_scale(aesthetics, scale_name, palette, name = NULL,
+  breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL,
+  expand = waiver(), na.value = NA, drop = TRUE, guide = "legend")
 }
 \arguments{
   \item{aesthetics}{the names of the aesthetics that this
@@ -58,6 +57,6 @@
   create the guide.}
 }
 \description{
-  Discrete scale constructor.
+Discrete scale constructor.
 }
 

@@ -2,16 +2,16 @@
 \alias{expand_limits}
 \title{Expand the plot limits with data.}
 \usage{
-  expand_limits(...)
+expand_limits(...)
 }
 \arguments{
   \item{...}{named list of aesthetics specifying the value
   (or values) that should be included in each scale.}
 }
 \description{
-  panels or all plots.  This function is a thin wrapper
-  around \code{\link{geom_blank}} that makes it easy to add
-  such values.
+panels or all plots.  This function is a thin wrapper
+around \code{\link{geom_blank}} that makes it easy to add
+such values.
 }
 \examples{
 p <- qplot(mpg, wt, data = mtcars)

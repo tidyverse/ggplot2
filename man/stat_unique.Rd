@@ -2,8 +2,8 @@
 \alias{stat_unique}
 \title{Remove duplicates.}
 \usage{
-  stat_unique(mapping = NULL, data = NULL, geom = "point",
-    position = "identity", ...)
+stat_unique(mapping = NULL, data = NULL, geom = "point",
+  position = "identity", ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -25,7 +25,7 @@
   for more details.}
 }
 \description{
-  Remove duplicates.
+Remove duplicates.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",

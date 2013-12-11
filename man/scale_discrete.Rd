@@ -3,9 +3,9 @@
 \alias{scale_y_discrete}
 \title{Discrete position.}
 \usage{
-  scale_x_discrete(..., expand = waiver())
+scale_x_discrete(..., expand = waiver())
 
-  scale_y_discrete(..., expand = waiver())
+scale_y_discrete(..., expand = waiver())
 }
 \arguments{
   \item{...}{common discrete scale parameters: \code{name},
@@ -19,13 +19,13 @@
   away from the axes.}
 }
 \description{
-  You can use continuous positions even with a discrete
-  position scale - this allows you (e.g.) to place labels
-  between bars in a bar chart. Continuous positions are
-  numeric values starting at one for the first level, and
-  increasing by one for each level (i.e. the labels are
-  placed at integer positions).  This is what allows
-  jittering to work.
+You can use continuous positions even with a discrete
+position scale - this allows you (e.g.) to place labels
+between bars in a bar chart. Continuous positions are
+numeric values starting at one for the first level, and
+increasing by one for each level (i.e. the labels are
+placed at integer positions).  This is what allows
+jittering to work.
 }
 \examples{
 \donttest{
@@ -63,16 +63,13 @@ qplot(reorder(manufacturer, cty), cty, data=mpg) +
 }
 }
 \seealso{
-  Other position scales: \code{\link{scale_x_continuous}},
-  \code{\link{scale_x_date}},
-  \code{\link{scale_x_datetime}},
-  \code{\link{scale_x_log10}},
-  \code{\link{scale_x_reverse}},
-  \code{\link{scale_x_sqrt}},
-  \code{\link{scale_y_continuous}},
-  \code{\link{scale_y_date}},
-  \code{\link{scale_y_datetime}},
-  \code{\link{scale_y_log10}},
-  \code{\link{scale_y_reverse}}, \code{\link{scale_y_sqrt}}
+Other position scales: \code{\link{scale_x_continuous}},
+\code{\link{scale_x_log10}}, \code{\link{scale_x_reverse}},
+\code{\link{scale_x_sqrt}},
+\code{\link{scale_y_continuous}},
+\code{\link{scale_y_log10}}, \code{\link{scale_y_reverse}},
+\code{\link{scale_y_sqrt}}; \code{\link{scale_x_datetime}},
+\code{\link{scale_y_datetime}}; \code{\link{scale_x_date}},
+\code{\link{scale_y_date}}
 }
 

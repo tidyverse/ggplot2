@@ -2,8 +2,7 @@
 \alias{annotation_raster}
 \title{Annotation: High-performance rectangular tiling.}
 \usage{
-  annotation_raster(raster, xmin, xmax, ymin, ymax,
-    interpolate = FALSE)
+annotation_raster(raster, xmin, xmax, ymin, ymax, interpolate = FALSE)
 }
 \arguments{
   \item{raster}{raster object to display}
@@ -18,15 +17,14 @@
   if \code{FALSE} (the default) don't interpolate.}
 }
 \description{
-  This is a special version of \code{\link{geom_raster}}
-  optimised for static annotations that are the same in
-  every panel. These annotations will not affect scales
-  (i.e. the x and y axes will not grow to cover the range
-  of the raster, and the raster must already have its own
-  colours).
+This is a special version of \code{\link{geom_raster}}
+optimised for static annotations that are the same in every
+panel. These annotations will not affect scales (i.e. the x
+and y axes will not grow to cover the range of the raster,
+and the raster must already have its own colours).
 }
 \details{
-  Most useful for adding bitmap images.
+Most useful for adding bitmap images.
 }
 \examples{
 # Generate data

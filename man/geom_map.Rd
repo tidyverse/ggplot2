@@ -2,8 +2,7 @@
 \alias{geom_map}
 \title{Polygons from a reference map.}
 \usage{
-  geom_map(mapping = NULL, data = NULL, map,
-    stat = "identity", ...)
+geom_map(mapping = NULL, data = NULL, map, stat = "identity", ...)
 }
 \arguments{
   \item{map}{Data frame that contains the map coordinates.
@@ -29,7 +28,7 @@
   for more details.}
 }
 \description{
-  Does not affect position scales.
+Does not affect position scales.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",

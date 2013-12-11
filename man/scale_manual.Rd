@@ -9,19 +9,19 @@
 \alias{scale_size_manual}
 \title{Create your own discrete scale.}
 \usage{
-  scale_colour_manual(..., values)
+scale_colour_manual(..., values)
 
-  scale_fill_manual(..., values)
+scale_fill_manual(..., values)
 
-  scale_size_manual(..., values)
+scale_size_manual(..., values)
 
-  scale_shape_manual(..., values)
+scale_shape_manual(..., values)
 
-  scale_linetype_manual(..., values)
+scale_linetype_manual(..., values)
 
-  scale_alpha_manual(..., values)
+scale_alpha_manual(..., values)
 
-  scale_color_manual(..., values)
+scale_color_manual(..., values)
 }
 \arguments{
   \item{values}{a set of aesthetic values to map data
@@ -37,7 +37,7 @@
   \code{\link{discrete_scale}} for more details}
 }
 \description{
-  Create your own discrete scale.
+Create your own discrete scale.
 }
 \examples{
 \donttest{

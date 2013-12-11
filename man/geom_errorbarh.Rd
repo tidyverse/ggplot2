@@ -2,8 +2,8 @@
 \alias{geom_errorbarh}
 \title{Horizontal error bars}
 \usage{
-  geom_errorbarh(mapping = NULL, data = NULL,
-    stat = "identity", position = "identity", ...)
+geom_errorbarh(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -18,7 +18,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose
@@ -26,7 +26,7 @@
   for more details.}
 }
 \description{
-  Horizontal error bars
+Horizontal error bars
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
@@ -49,6 +49,6 @@ p + geom_point() +
   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))
 }
 \seealso{
-  \code{\link{geom_errorbar}}: vertical error bars
+\code{\link{geom_errorbar}}: vertical error bars
 }
 

@@ -2,8 +2,8 @@
 \alias{stat_spoke}
 \title{Convert angle and radius to xend and yend.}
 \usage{
-  stat_spoke(mapping = NULL, data = NULL, geom = "segment",
-    position = "identity", ...)
+stat_spoke(mapping = NULL, data = NULL, geom = "segment",
+  position = "identity", ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -25,12 +25,12 @@
   for more details.}
 }
 \value{
-  a data.frame with additional columns \item{xend}{x
-  position of end of line segment} \item{yend}{x position
-  of end of line segment}
+a data.frame with additional columns \item{xend}{x position
+of end of line segment} \item{yend}{x position of end of
+line segment}
 }
 \description{
-  Convert angle and radius to xend and yend.
+Convert angle and radius to xend and yend.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",

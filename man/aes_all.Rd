@@ -2,14 +2,13 @@
 \alias{aes_all}
 \title{Given a character vector, create a set of identity mappings}
 \usage{
-  aes_all(vars)
+aes_all(vars)
 }
 \arguments{
   \item{vars}{vector of variable names}
 }
 \description{
-  Given a character vector, create a set of identity
-  mappings
+Given a character vector, create a set of identity mappings
 }
 \examples{
 aes_all(names(mtcars))

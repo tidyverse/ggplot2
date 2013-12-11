@@ -2,8 +2,8 @@
 \alias{borders}
 \title{Create a layer of map borders.}
 \usage{
-  borders(database = "world", regions = ".", fill = NA,
-    colour = "grey50", ...)
+borders(database = "world", regions = ".", fill = NA, colour = "grey50",
+  ...)
 }
 \arguments{
   \item{database}{map data, see \code{\link[maps]{map}} for
@@ -19,7 +19,7 @@
   \code{\link{geom_polygon}}}
 }
 \description{
-  Create a layer of map borders.
+Create a layer of map borders.
 }
 \examples{
 if (require("maps")) {

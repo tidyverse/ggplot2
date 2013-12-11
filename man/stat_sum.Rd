@@ -2,8 +2,8 @@
 \alias{stat_sum}
 \title{Sum unique values.  Useful for overplotting on scatterplots.}
 \usage{
-  stat_sum(mapping = NULL, data = NULL, geom = "point",
-    position = "identity", ...)
+stat_sum(mapping = NULL, data = NULL, geom = "point",
+  position = "identity", ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -25,13 +25,13 @@
   for more details.}
 }
 \value{
-  a data.frame with additional columns \item{n}{number of
-  observations at position} \item{prop}{percent of points
-  in that panel at that position}
+a data.frame with additional columns \item{n}{number of
+observations at position} \item{prop}{percent of points in
+that panel at that position}
 }
 \description{
-  Sum unique values.  Useful for overplotting on
-  scatterplots.
+Sum unique values.  Useful for overplotting on
+scatterplots.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
@@ -75,6 +75,6 @@ qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)
 }
 }
 \seealso{
-  \code{\link{ggfluctuation}} for a fluctuation diagram,
+\code{\link{ggfluctuation}} for a fluctuation diagram,
 }
 

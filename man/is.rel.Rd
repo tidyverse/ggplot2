@@ -2,12 +2,12 @@
 \alias{is.rel}
 \title{Reports whether x is a rel object}
 \usage{
-  is.rel(x)
+is.rel(x)
 }
 \arguments{
   \item{x}{An object to test}
 }
 \description{
-  Reports whether x is a rel object
+Reports whether x is a rel object
 }
 

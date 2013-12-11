@@ -2,10 +2,9 @@
 \alias{stat_quantile}
 \title{Continuous quantiles.}
 \usage{
-  stat_quantile(mapping = NULL, data = NULL,
-    geom = "quantile", position = "identity",
-    quantiles = c(0.25, 0.5, 0.75), formula = NULL,
-    method = "rq", na.rm = FALSE, ...)
+stat_quantile(mapping = NULL, data = NULL, geom = "quantile",
+  position = "identity", quantiles = c(0.25, 0.5, 0.75), formula = NULL,
+  method = "rq", na.rm = FALSE, ...)
 }
 \arguments{
   \item{quantiles}{conditional quantiles of y to calculate
@@ -40,11 +39,11 @@
   for more details.}
 }
 \value{
-  a data.frame with additional columns:
-  \item{quantile}{quantile of distribution}
+a data.frame with additional columns:
+\item{quantile}{quantile of distribution}
 }
 \description{
-  Continuous quantiles.
+Continuous quantiles.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",

@@ -2,7 +2,7 @@
 \alias{ggplot}
 \title{Create a new ggplot plot}
 \usage{
-  ggplot(data = NULL, ...)
+ggplot(data = NULL, ...)
 }
 \arguments{
   \item{data}{default data set}
@@ -10,41 +10,39 @@
   \item{...}{other arguments passed to specific methods}
 }
 \description{
-  \code{ggplot()} initializes a ggplot object. It can be
-  used to declare the input data frame for a graphic and to
-  specify the set of plot aesthetics intended to be common
-  throughout all subsequent layers unless specifically
-  overridden.
+\code{ggplot()} initializes a ggplot object. It can be used
+to declare the input data frame for a graphic and to
+specify the set of plot aesthetics intended to be common
+throughout all subsequent layers unless specifically
+overridden.
 }
 \details{
-  \code{ggplot()} is typically used to construct a plot
-  incrementally, using the + operator to add layers to the
-  existing ggplot object. This is advantageous in that the
-  code is explicit about which layers are added and the
-  order in which they are added. For complex graphics with
-  multiple layers, initialization with \code{ggplot} is
-  recommended.
+\code{ggplot()} is typically used to construct a plot
+incrementally, using the + operator to add layers to the
+existing ggplot object. This is advantageous in that the
+code is explicit about which layers are added and the order
+in which they are added. For complex graphics with multiple
+layers, initialization with \code{ggplot} is recommended.
 
-  There are three common ways to invoke \code{ggplot}:
-  \itemize{ \item \code{ggplot(df, aes(x, y, <other
-  aesthetics>))} \item \code{ggplot(df)} \item
-  \code{ggplot()} } The first method is recommended if all
-  layers use the same data and the same set of aesthetics,
-  although this method can also be used to add a layer
-  using data from another data frame. See the first example
-  below. The second method specifies the default data frame
-  to use for the plot, but no aesthetics are defined up
-  front. This is useful when one data frame is used
-  predominantly as layers are added, but the aesthetics may
-  vary from one layer to another. The third method
-  initializes a skeleton \code{ggplot} object which is
-  fleshed out as layers are added. This method is useful
-  when multiple data frames are used to produce different
-  layers, as is often the case in complex graphics.
+There are three common ways to invoke \code{ggplot}:
+\itemize{ \item \code{ggplot(df, aes(x, y, <other
+aesthetics>))} \item \code{ggplot(df)} \item
+\code{ggplot()} } The first method is recommended if all
+layers use the same data and the same set of aesthetics,
+although this method can also be used to add a layer using
+data from another data frame. See the first example below.
+The second method specifies the default data frame to use
+for the plot, but no aesthetics are defined up front. This
+is useful when one data frame is used predominantly as
+layers are added, but the aesthetics may vary from one
+layer to another. The third method initializes a skeleton
+\code{ggplot} object which is fleshed out as layers are
+added. This method is useful when multiple data frames are
+used to produce different layers, as is often the case in
+complex graphics.
 
-  The examples below illustrate how these methods of
-  invoking \code{ggplot} can be used in constructing a
-  graphic.
+The examples below illustrate how these methods of invoking
+\code{ggplot} can be used in constructing a graphic.
 }
 \examples{
 df <- data.frame(gp = factor(rep(letters[1:3], each = 10)),
@@ -79,7 +77,7 @@ ggplot() +
                     colour = 'red', width = 0.4)
 }
 \seealso{
-  \url{http://had.co.nz/ggplot2}
+\url{http://had.co.nz/ggplot2}
 }
 \keyword{internal}
 

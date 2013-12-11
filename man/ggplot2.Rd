@@ -4,6 +4,6 @@
 \alias{ggplot2-package}
 \title{ggplot2.}
 \description{
-  ggplot2.
+ggplot2.
 }
 

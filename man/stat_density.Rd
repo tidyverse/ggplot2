@@ -2,9 +2,9 @@
 \alias{stat_density}
 \title{1d kernel density estimate.}
 \usage{
-  stat_density(mapping = NULL, data = NULL, geom = "area",
-    position = "stack", adjust = 1, kernel = "gaussian",
-    trim = FALSE, na.rm = FALSE, ...)
+stat_density(mapping = NULL, data = NULL, geom = "area",
+  position = "stack", adjust = 1, kernel = "gaussian", trim = FALSE,
+  na.rm = FALSE, ...)
 }
 \arguments{
   \item{adjust}{see \code{\link{density}} for details}
@@ -41,13 +41,13 @@
   for more details.}
 }
 \value{
-  data.frame with additional columns:
-  \item{density}{density estimate} \item{count}{density *
-  number of points - useful for stacked density plots}
-  \item{scaled}{density estimate, scaled to maximum of 1}
+data.frame with additional columns: \item{density}{density
+estimate} \item{count}{density * number of points - useful
+for stacked density plots} \item{scaled}{density estimate,
+scaled to maximum of 1}
 }
 \description{
-  1d kernel density estimate.
+1d kernel density estimate.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
@@ -122,6 +122,6 @@ qplot(length, data=movies, geom="density", weight=rating/sum(rating))
 }
 }
 \seealso{
-  \code{\link{stat_bin}} for the histogram
+\code{\link{stat_bin}} for the histogram
 }
 

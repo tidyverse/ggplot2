@@ -9,21 +9,21 @@
 \alias{scale_y_sqrt}
 \title{Continuous position scales (x & y).}
 \usage{
-  scale_x_continuous(..., expand = waiver())
+scale_x_continuous(..., expand = waiver())
 
-  scale_y_continuous(..., expand = waiver())
+scale_y_continuous(..., expand = waiver())
 
-  scale_x_log10(...)
+scale_x_log10(...)
 
-  scale_y_log10(...)
+scale_y_log10(...)
 
-  scale_x_reverse(...)
+scale_x_reverse(...)
 
-  scale_y_reverse(...)
+scale_y_reverse(...)
 
-  scale_x_sqrt(...)
+scale_x_sqrt(...)
 
-  scale_y_sqrt(...)
+scale_y_sqrt(...)
 }
 \arguments{
   \item{...}{common continuous scale parameters:
@@ -37,7 +37,7 @@
   away from the axes.}
 }
 \description{
-  Continuous position scales (x & y).
+Continuous position scales (x & y).
 }
 \examples{
 \donttest{
@@ -96,11 +96,9 @@ qplot(rating, votes, data=movies, log="xy")
 }
 }
 \seealso{
-  Other position scales: \code{\link{scale_x_date}},
-  \code{\link{scale_x_datetime}},
-  \code{\link{scale_x_discrete}},
-  \code{\link{scale_y_date}},
-  \code{\link{scale_y_datetime}},
-  \code{\link{scale_y_discrete}}
+Other position scales: \code{\link{scale_x_datetime}},
+\code{\link{scale_y_datetime}}; \code{\link{scale_x_date}},
+\code{\link{scale_y_date}}; \code{\link{scale_x_discrete}},
+\code{\link{scale_y_discrete}}
 }
 

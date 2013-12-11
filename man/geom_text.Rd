@@ -2,8 +2,8 @@
 \alias{geom_text}
 \title{Textual annotations.}
 \usage{
-  geom_text(mapping = NULL, data = NULL, stat = "identity",
-    position = "identity", parse = FALSE, ...)
+geom_text(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", parse = FALSE, ...)
 }
 \arguments{
   \item{parse}{If TRUE, the labels will be parsed into
@@ -21,7 +21,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose
@@ -29,7 +29,7 @@
   for more details.}
 }
 \description{
-  Textual annotations.
+Textual annotations.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",

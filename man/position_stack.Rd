@@ -2,7 +2,7 @@
 \alias{position_stack}
 \title{Stack overlapping objects on top of one another.}
 \usage{
-  position_stack(width = NULL, height = NULL)
+position_stack(width = NULL, height = NULL)
 }
 \arguments{
   \item{width}{Manually specify width (does not affect all
@@ -12,7 +12,7 @@
   all position adjustments)}
 }
 \description{
-  Stack overlapping objects on top of one another.
+Stack overlapping objects on top of one another.
 }
 \examples{
 # Stacking is the default behaviour for most area plots:
@@ -41,9 +41,9 @@ qplot(Time, Value, data = data.set, colour = Type, geom = "line",
 # trends
 }
 \seealso{
-  Other position adjustments: \code{\link{position_dodge}},
-  \code{\link{position_fill}},
-  \code{\link{position_identity}},
-  \code{\link{position_jitter}}
+Other position adjustments: \code{\link{position_dodge}};
+\code{\link{position_fill}};
+\code{\link{position_identity}};
+\code{\link{position_jitter}}
 }
 

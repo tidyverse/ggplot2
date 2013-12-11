@@ -2,8 +2,8 @@
 \alias{coord_map}
 \title{Map projections.}
 \usage{
-  coord_map(projection = "mercator", ...,
-    orientation = NULL, xlim = NULL, ylim = NULL)
+coord_map(projection = "mercator", ..., orientation = NULL, xlim = NULL,
+  ylim = NULL)
 }
 \arguments{
   \item{projection}{projection to use, see
@@ -25,13 +25,13 @@
   latitude)}
 }
 \description{
-  This coordinate system provides the full range of map
-  projections available in the mapproj package.
+This coordinate system provides the full range of map
+projections available in the mapproj package.
 }
 \details{
-  This is still experimental, and if you have any advice to
-  offer regarding a better (or more correct) way to do
-  this, please let me know
+This is still experimental, and if you have any advice to
+offer regarding a better (or more correct) way to do this,
+please let me know
 }
 \examples{
 if (require("maps")) {

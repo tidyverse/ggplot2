@@ -2,10 +2,9 @@
 \alias{stat_ydensity}
 \title{1d kernel density estimate along y axis, for violin plot.}
 \usage{
-  stat_ydensity(mapping = NULL, data = NULL,
-    geom = "violin", position = "dodge", adjust = 1,
-    kernel = "gaussian", trim = TRUE, scale = "area",
-    na.rm = FALSE, ...)
+stat_ydensity(mapping = NULL, data = NULL, geom = "violin",
+  position = "dodge", adjust = 1, kernel = "gaussian", trim = TRUE,
+  scale = "area", na.rm = FALSE, ...)
 }
 \arguments{
   \item{trim}{If \code{TRUE} (default), trim the tails of
@@ -45,17 +44,17 @@
   for more details.}
 }
 \value{
-  A data frame with additional columns:
-  \item{density}{density estimate} \item{scaled}{density
-  estimate, scaled to maximum of 1} \item{count}{density *
-  number of points - probably useless for violin plots}
-  \item{violinwidth}{density scaled for the violin plot,
-  according to area, counts or to a constant maximum width}
-  \item{n}{number of points} \item{width}{width of violin
-  bounding box}
+A data frame with additional columns:
+\item{density}{density estimate} \item{scaled}{density
+estimate, scaled to maximum of 1} \item{count}{density *
+number of points - probably useless for violin plots}
+\item{violinwidth}{density scaled for the violin plot,
+according to area, counts or to a constant maximum width}
+\item{n}{number of points} \item{width}{width of violin
+bounding box}
 }
 \description{
-  1d kernel density estimate along y axis, for violin plot.
+1d kernel density estimate along y axis, for violin plot.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
@@ -66,8 +65,8 @@
 # Also see stat_density for similar examples with data along x axis
 }
 \seealso{
-  \code{\link{geom_violin}} for examples, and
-  \code{\link{stat_density}} for examples with data along
-  the x axis.
+\code{\link{geom_violin}} for examples, and
+\code{\link{stat_density}} for examples with data along the
+x axis.
 }
 

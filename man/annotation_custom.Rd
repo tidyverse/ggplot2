@@ -2,8 +2,8 @@
 \alias{annotation_custom}
 \title{Annotation: Custom grob.}
 \usage{
-  annotation_custom(grob, xmin = -Inf, xmax = Inf,
-    ymin = -Inf, ymax = Inf)
+annotation_custom(grob, xmin = -Inf, xmax = Inf, ymin = -Inf,
+  ymax = Inf)
 }
 \arguments{
   \item{grob}{grob to display}
@@ -15,23 +15,22 @@
   vertical location of raster}
 }
 \description{
-  This is a special geom intended for use as static
-  annnotations that are the same in every panel. These
-  anotations will not affect scales (i.e. the x and y axes
-  will not grow to cover the range of the grob, and the
-  grob will not be modified by any ggplot settings or
-  mappings).
+This is a special geom intended for use as static
+annnotations that are the same in every panel. These
+anotations will not affect scales (i.e. the x and y axes
+will not grow to cover the range of the grob, and the grob
+will not be modified by any ggplot settings or mappings).
 }
 \details{
-  Most useful for adding tables, inset plots, and other
-  grid-based decorations.
+Most useful for adding tables, inset plots, and other
+grid-based decorations.
 }
 \note{
-  \code{annotation_custom} expects the grob to fill the
-  entire viewport defined by xmin, xmax, ymin, ymax. Grobs
-  with a different (absolute) size will be center-justified
-  in that region. Inf values can be used to fill the full
-  plot panel (see examples).
+\code{annotation_custom} expects the grob to fill the
+entire viewport defined by xmin, xmax, ymin, ymax. Grobs
+with a different (absolute) size will be center-justified
+in that region. Inf values can be used to fill the full
+plot panel (see examples).
 }
 \examples{
 # Dummy plot

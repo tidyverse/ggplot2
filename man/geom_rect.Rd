@@ -2,8 +2,8 @@
 \alias{geom_rect}
 \title{2d rectangles.}
 \usage{
-  geom_rect(mapping = NULL, data = NULL, stat = "identity",
-    position = "identity", ...)
+geom_rect(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -18,7 +18,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose
@@ -26,7 +26,7 @@
   for more details.}
 }
 \description{
-  2d rectangles.
+2d rectangles.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",

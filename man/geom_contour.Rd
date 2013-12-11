@@ -2,10 +2,9 @@
 \alias{geom_contour}
 \title{Display contours of a 3d surface in 2d.}
 \usage{
-  geom_contour(mapping = NULL, data = NULL,
-    stat = "contour", position = "identity",
-    lineend = "butt", linejoin = "round", linemitre = 1,
-    na.rm = FALSE, ...)
+geom_contour(mapping = NULL, data = NULL, stat = "contour",
+  position = "identity", lineend = "butt", linejoin = "round",
+  linemitre = 1, na.rm = FALSE, ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -20,7 +19,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{na.rm}{If \code{FALSE} (the default), removes
   missing values with a warning.  If \code{TRUE} silently
@@ -39,7 +38,7 @@
   1)}
 }
 \description{
-  Display contours of a 3d surface in 2d.
+Display contours of a 3d surface in 2d.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
@@ -49,6 +48,6 @@
 # See stat_contour for examples
 }
 \seealso{
-  \code{\link{geom_density2d}}: 2d density contours
+\code{\link{geom_density2d}}: 2d density contours
 }
 

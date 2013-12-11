@@ -2,9 +2,8 @@
 \alias{stat_identity}
 \title{Identity statistic.}
 \usage{
-  stat_identity(mapping = NULL, data = NULL,
-    geom = "point", position = "identity", width = NULL,
-    height = NULL, ...)
+stat_identity(mapping = NULL, data = NULL, geom = "point",
+  position = "identity", width = NULL, height = NULL, ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -30,7 +29,7 @@
   for more details.}
 }
 \description{
-  Identity statistic.
+Identity statistic.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",

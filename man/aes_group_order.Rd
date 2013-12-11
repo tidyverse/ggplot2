@@ -4,7 +4,7 @@
 \alias{order}
 \title{Aesthetics: group, order}
 \description{
-  Aesthetics: group, order
+Aesthetics: group, order
 }
 \examples{
 \donttest{

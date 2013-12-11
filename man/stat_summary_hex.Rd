@@ -2,9 +2,8 @@
 \alias{stat_summary_hex}
 \title{Apply funciton for 2D hexagonal bins.}
 \usage{
-  stat_summary_hex(mapping = NULL, data = NULL,
-    geom = "hex", position = "identity", bins = 30,
-    drop = TRUE, fun = mean, ...)
+stat_summary_hex(mapping = NULL, data = NULL, geom = "hex",
+  position = "identity", bins = 30, drop = TRUE, fun = mean, ...)
 }
 \arguments{
   \item{bins}{see \code{\link{stat_binhex}}}
@@ -30,7 +29,7 @@
   overlappling points on this layer}
 }
 \description{
-  Apply function for 2D hexagonal bins.
+Apply function for 2D hexagonal bins.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
@@ -57,8 +56,7 @@ d + stat_summary_hex(fun = function(x) sum(x^2))
 d + stat_summary_hex(fun = var, na.rm = TRUE)
 }
 \seealso{
-  \code{\link{stat_summary2d}} for rectangular
-  summarization. \code{\link{stat_bin2d}} for the
-  hexagon-ing options.
+\code{\link{stat_summary2d}} for rectangular summarization.
+\code{\link{stat_bin2d}} for the hexagon-ing options.
 }
 

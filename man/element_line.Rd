@@ -2,8 +2,8 @@
 \alias{element_line}
 \title{Theme element: line.}
 \usage{
-  element_line(colour = NULL, size = NULL, linetype = NULL,
-    lineend = NULL, color = NULL)
+element_line(colour = NULL, size = NULL, linetype = NULL,
+  lineend = NULL, color = NULL)
 }
 \arguments{
   \item{colour}{line colour}
@@ -17,6 +17,6 @@
   \item{color}{an alias for \code{colour}}
 }
 \description{
-  Theme element: line.
+Theme element: line.
 }
 

@@ -2,9 +2,9 @@
 \alias{translate_qplot_gpl}
 \title{Translating between qplot and Graphics Production Library (GPL)}
 \description{
-  The Grammar of Graphics uses two specifications. A
-  concise format is used to caption figures, and a more
-  detailed xml format stored on disk.
+The Grammar of Graphics uses two specifications. A concise
+format is used to caption figures, and a more detailed xml
+format stored on disk.
 }
 \examples{
 # The following example of the concise format is adapted from Figure 1.5,

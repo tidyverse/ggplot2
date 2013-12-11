@@ -2,9 +2,8 @@
 \alias{geom_crossbar}
 \title{Hollow bar with middle indicated by horizontal line.}
 \usage{
-  geom_crossbar(mapping = NULL, data = NULL,
-    stat = "identity", position = "identity", fatten = 2,
-    ...)
+geom_crossbar(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", fatten = 2, ...)
 }
 \arguments{
   \item{fatten}{a multiplicate factor to fatten middle bar
@@ -22,7 +21,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose
@@ -30,7 +29,7 @@
   for more details.}
 }
 \description{
-  Hollow bar with middle indicated by horizontal line.
+Hollow bar with middle indicated by horizontal line.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
@@ -40,11 +39,11 @@
 # See geom_linerange for examples
 }
 \seealso{
-  \code{\link{geom_errorbar}} for error bars,
-  \code{\link{geom_pointrange}} and
-  \code{\link{geom_linerange}} for other ways of showing
-  mean + error, \code{\link{stat_summary}} to compute
-  errors from the data, \code{\link{geom_smooth}} for the
-  continuous analog.
+\code{\link{geom_errorbar}} for error bars,
+\code{\link{geom_pointrange}} and
+\code{\link{geom_linerange}} for other ways of showing mean
++ error, \code{\link{stat_summary}} to compute errors from
+the data, \code{\link{geom_smooth}} for the continuous
+analog.
 }
 

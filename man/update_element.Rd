@@ -2,7 +2,7 @@
 \alias{update_element}
 \title{Update theme param}
 \usage{
-  update_element(name, ...)
+update_element(name, ...)
 }
 \arguments{
   \item{name}{name of a theme element}
@@ -10,14 +10,14 @@
   \item{...}{Pairs of name and value of theme parameters.}
 }
 \value{
-  Updated theme element
+Updated theme element
 }
 \description{
-  Update contents of a theme. (Deprecated)
+Update contents of a theme. (Deprecated)
 }
 \details{
-  This function is deprecated. Use
-  \code{\link{\%+replace\%}} or \code{\link{+.gg}} instead.
+This function is deprecated. Use \code{\link{\%+replace\%}}
+or \code{\link{+.gg}} instead.
 }
 \examples{
 \dontrun{
@@ -39,6 +39,6 @@ update_element("axis.text", colour = 20)
 }
 }
 \seealso{
-  \code{\link{\%+replace\%}} and \code{\link{+.gg}}
+\code{\link{\%+replace\%}} and \code{\link{+.gg}}
 }
 

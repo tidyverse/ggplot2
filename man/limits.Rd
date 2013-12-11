@@ -2,7 +2,7 @@
 \alias{limits}
 \title{Generate correct scale type for specified limits}
 \usage{
-  limits(lims, var)
+limits(lims, var)
 }
 \arguments{
   \item{limts}{vector of limits}
@@ -10,7 +10,7 @@
   \item{var}{name of variable}
 }
 \description{
-  Generate correct scale type for specified limits
+Generate correct scale type for specified limits
 }
 \examples{
 ggplot2:::limits(c(1, 5), "x")

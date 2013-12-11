@@ -7,13 +7,13 @@
 \title{Wrap up a selection of summary functions from Hmisc to make it easy to use
 with \code{\link{stat_summary}}.}
 \usage{
-  mean_cl_boot(x, ...)
+mean_cl_boot(x, ...)
 
-  mean_cl_normal(x, ...)
+mean_cl_normal(x, ...)
 
-  mean_sdl(x, ...)
+mean_sdl(x, ...)
 
-  median_hilow(x, ...)
+median_hilow(x, ...)
 }
 \arguments{
   \item{x}{a numeric vector}
@@ -22,12 +22,12 @@ with \code{\link{stat_summary}}.}
   Hmisc function.}
 }
 \description{
-  See the Hmisc documentation for details of their options.
+See the Hmisc documentation for details of their options.
 }
 \seealso{
-  \code{\link[Hmisc]{smean.cl.boot}},
-  \code{\link[Hmisc]{smean.cl.normal}},
-  \code{\link[Hmisc]{smean.sdl}},
-  \code{\link[Hmisc]{smedian.hilow}}
+\code{\link[Hmisc]{smean.cl.boot}},
+\code{\link[Hmisc]{smean.cl.normal}},
+\code{\link[Hmisc]{smean.sdl}},
+\code{\link[Hmisc]{smedian.hilow}}
 }
 

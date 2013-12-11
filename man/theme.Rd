@@ -2,7 +2,7 @@
 \alias{theme}
 \title{Set theme elements}
 \usage{
-  theme(..., complete = FALSE)
+theme(..., complete = FALSE)
 }
 \arguments{
   \item{...}{a list of element name, element pairings that
@@ -14,23 +14,22 @@
   object.}
 }
 \description{
-  Use this function to modify theme settings.
+Use this function to modify theme settings.
 }
 \details{
-  Theme elements can inherit properties from other theme
-  elements. For example, \code{axis.title.x} inherits from
-  \code{axis.title}, which in turn inherits from
-  \code{text}. All text elements inherit directly or
-  indirectly from \code{text}; all lines inherit from
-  \code{line}, and all rectangular objects inherit from
-  \code{rect}.
+Theme elements can inherit properties from other theme
+elements. For example, \code{axis.title.x} inherits from
+\code{axis.title}, which in turn inherits from \code{text}.
+All text elements inherit directly or indirectly from
+\code{text}; all lines inherit from \code{line}, and all
+rectangular objects inherit from \code{rect}.
 
-  For more examples of modifying properties using
-  inheritance, see \code{\link{+.gg}} and
-  \code{\link{\%+replace\%}}.
+For more examples of modifying properties using
+inheritance, see \code{\link{+.gg}} and
+\code{\link{\%+replace\%}}.
 
-  To see a graphical representation of the inheritance
-  tree, see the last example below.
+To see a graphical representation of the inheritance tree,
+see the last example below.
 }
 \section{Theme elements}{
   The individual theme elements are:
@@ -266,10 +265,10 @@ plot(g, layout=layout.fruchterman.reingold, vertex.size=4, vertex.label.dist=.25
 }
 }
 \seealso{
-  \code{\link{+.gg}}
+\code{\link{+.gg}}
 
-  \code{\link{\%+replace\%}}
+\code{\link{\%+replace\%}}
 
-  \code{\link{rel}}
+\code{\link{rel}}
 }
 

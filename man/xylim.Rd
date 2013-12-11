@@ -3,17 +3,17 @@
 \alias{ylim}
 \title{Convenience functions to set the limits of the x and y axis.}
 \usage{
-  xlim(...)
+xlim(...)
 
-  ylim(...)
+ylim(...)
 }
 \arguments{
   \item{...}{if numeric, will create a continuous scale, if
   factor or character, will create a discrete scale.}
 }
 \description{
-  Observations not in this range will be dropped completely
-  and not passed to any other layers.
+Observations not in this range will be dropped completely
+and not passed to any other layers.
 }
 \examples{
 # xlim
@@ -30,7 +30,7 @@ ylim("a", "b", "c")
 qplot(mpg, wt, data=mtcars) + ylim(15, 20)
 }
 \seealso{
-  For changing x or y axis limits \strong{without} dropping
-  data observations, see \code{\link{coord_cartesian}}.
+For changing x or y axis limits \strong{without} dropping
+data observations, see \code{\link{coord_cartesian}}.
 }
 

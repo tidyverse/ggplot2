@@ -2,10 +2,9 @@
 \alias{geom_quantile}
 \title{Add quantile lines from a quantile regression.}
 \usage{
-  geom_quantile(mapping = NULL, data = NULL,
-    stat = "quantile", position = "identity",
-    lineend = "butt", linejoin = "round", linemitre = 1,
-    na.rm = FALSE, ...)
+geom_quantile(mapping = NULL, data = NULL, stat = "quantile",
+  position = "identity", lineend = "butt", linejoin = "round",
+  linemitre = 1, na.rm = FALSE, ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -20,7 +19,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{na.rm}{If \code{FALSE} (the default), removes
   missing values with a warning.  If \code{TRUE} silently
@@ -39,8 +38,8 @@
   1)}
 }
 \description{
-  This can be used as a continuous analogue of a
-  geom_boxplot.
+This can be used as a continuous analogue of a
+geom_boxplot.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
@@ -50,6 +49,6 @@
 # See stat_quantile for examples
 }
 \seealso{
-  See \code{\link{stat_quantile}} for examples.
+See \code{\link{stat_quantile}} for examples.
 }
 

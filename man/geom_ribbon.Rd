@@ -2,9 +2,8 @@
 \alias{geom_ribbon}
 \title{Ribbons, y range with continuous x values.}
 \usage{
-  geom_ribbon(mapping = NULL, data = NULL,
-    stat = "identity", position = "identity",
-    na.rm = FALSE, ...)
+geom_ribbon(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", na.rm = FALSE, ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -19,7 +18,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{na.rm}{If \code{FALSE} (the default), removes
   missing values with a warning.  If \code{TRUE} silently
@@ -31,7 +30,7 @@
   for more details.}
 }
 \description{
-  Ribbons, y range with continuous x values.
+Ribbons, y range with continuous x values.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
@@ -71,8 +70,8 @@ qplot(year, level, data=huron, geom=c("area", "line"))
 }
 }
 \seealso{
-  \code{\link{geom_bar}} for discrete intervals (bars),
-  \code{\link{geom_linerange}} for discrete intervals
-  (lines), \code{\link{geom_polygon}} for general polygons"
+\code{\link{geom_bar}} for discrete intervals (bars),
+\code{\link{geom_linerange}} for discrete intervals
+(lines), \code{\link{geom_polygon}} for general polygons"
 }
 

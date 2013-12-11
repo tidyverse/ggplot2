@@ -2,11 +2,10 @@
 \alias{annotation_logticks}
 \title{Annotation: log tick marks}
 \usage{
-  annotation_logticks(base = 10, sides = "bl",
-    scaled = TRUE, short = unit(0.1, "cm"),
-    mid = unit(0.2, "cm"), long = unit(0.3, "cm"),
-    colour = "black", size = 0.5, linetype = 1, alpha = 1,
-    color = NULL, ...)
+annotation_logticks(base = 10, sides = "bl", scaled = TRUE,
+  short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm"),
+  colour = "black", size = 0.5, linetype = 1, alpha = 1, color = NULL,
+  ...)
 }
 \arguments{
   \item{base}{the base of the log (default 10)}
@@ -47,9 +46,9 @@
   \item{...}{Other parameters passed on to the layer}
 }
 \description{
-  This annotation adds log tick marks with diminishing
-  spacing. These tick marks probably make sense only for
-  base 10.
+This annotation adds log tick marks with diminishing
+spacing. These tick marks probably make sense only for base
+10.
 }
 \examples{
 # Make a log-log plot (without log ticks)
@@ -98,11 +97,10 @@ library(grid)
 a + annotation_logticks(short = unit(.5,"mm"), mid = unit(3,"mm"), long = unit(4,"mm"))
 }
 \seealso{
-  \code{\link{scale_y_continuous}},
-  \code{\link{scale_y_log10}} for log scale
-  transformations.
+\code{\link{scale_y_continuous}},
+\code{\link{scale_y_log10}} for log scale transformations.
 
-  \code{\link{coord_trans}} for log coordinate
-  transformations.
+\code{\link{coord_trans}} for log coordinate
+transformations.
 }
 

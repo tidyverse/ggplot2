@@ -2,8 +2,8 @@
 \alias{stat_hline}
 \title{Add a horizontal line}
 \usage{
-  stat_hline(mapping = NULL, data = NULL, geom = "hline",
-    position = "identity", yintercept, ...)
+stat_hline(mapping = NULL, data = NULL, geom = "hline",
+  position = "identity", yintercept, ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -25,13 +25,13 @@
   for more details.}
 }
 \description{
-  Add a horizontal line
+Add a horizontal line
 }
 \examples{
 # see geom_hline
 }
 \seealso{
-  \code{\link{geom_hline}} for code examples.
+\code{\link{geom_hline}} for code examples.
 }
 \keyword{internal}
 

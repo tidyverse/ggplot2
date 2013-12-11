@@ -2,8 +2,8 @@
 \alias{ggplot.data.frame}
 \title{Create a new ggplot plot from a data frame}
 \usage{
-  \method{ggplot}{data.frame} (data, mapping = aes(), ...,
-    environment = globalenv())
+\method{ggplot}{data.frame}(data, mapping = aes(), ...,
+  environment = globalenv())
 }
 \arguments{
   \item{data}{default data frame for plot}
@@ -18,9 +18,9 @@
   should occur}
 }
 \description{
-  Create a new ggplot plot from a data frame
+Create a new ggplot plot from a data frame
 }
 \seealso{
-  \url{http://had.co.nz/ggplot2}
+\url{http://had.co.nz/ggplot2}
 }
 

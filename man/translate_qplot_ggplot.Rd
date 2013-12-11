@@ -2,13 +2,13 @@
 \alias{translate_qplot_ggplot}
 \title{Translating between qplot and ggplot}
 \description{
-  Within ggplot2, there are two basic methods to create
-  plots, with qplot() and ggplot(). qplot() is designed
-  primarily for interactive use: it makes a number of
-  assumptions that speed most cases, but when designing
-  multilayered plots with different data sources it can get
-  in the way. This section describes what those defaults
-  are, and how they map to the fuller ggplot() syntax.
+Within ggplot2, there are two basic methods to create
+plots, with qplot() and ggplot(). qplot() is designed
+primarily for interactive use: it makes a number of
+assumptions that speed most cases, but when designing
+multilayered plots with different data sources it can get
+in the way. This section describes what those defaults are,
+and how they map to the fuller ggplot() syntax.
 }
 \examples{
 # By default, qplot() assumes that you want a scatterplot,

@@ -2,8 +2,8 @@
 \alias{ggfluctuation}
 \title{Create a fluctuation plot.}
 \usage{
-  ggfluctuation(table, type = "size", floor = 0,
-    ceiling = max(table$freq, na.rm = TRUE))
+ggfluctuation(table, type = "size", floor = 0, ceiling = max(table$freq,
+  na.rm = TRUE))
 }
 \arguments{
   \item{table}{a table of values, or a data frame with
@@ -20,15 +20,15 @@
   values.}
 }
 \description{
-  A fluctutation diagram is a graphical representation of a
-  contingency table.  This function only supports 2D
-  contingency tables at present but extension to higher
-  dimensions should be relatively straightforward.
+A fluctutation diagram is a graphical representation of a
+contingency table.  This function only supports 2D
+contingency tables at present but extension to higher
+dimensions should be relatively straightforward.
 }
 \details{
-  With the default size fluctuation diagram, area is
-  proportional to the count (length of sides proportional
-  to sqrt(count)).
+With the default size fluctuation diagram, area is
+proportional to the count (length of sides proportional to
+sqrt(count)).
 }
 \examples{
 \dontrun{

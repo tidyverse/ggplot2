@@ -2,8 +2,8 @@
 \alias{geom_bar}
 \title{Bars, rectangles with bases on x-axis}
 \usage{
-  geom_bar(mapping = NULL, data = NULL, stat = "bin",
-    position = "stack", ...)
+geom_bar(mapping = NULL, data = NULL, stat = "bin", position = "stack",
+  ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -18,7 +18,7 @@
   data for this layer.}
 
   \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+  overlapping points on this layer}
 
   \item{...}{other arguments passed on to
   \code{\link{layer}}. This can include aesthetics whose
@@ -26,48 +26,47 @@
   for more details.}
 }
 \description{
-  The bar geom is used to produce 1d area plots: bar charts
-  for categorical x, and histograms for continuous y.
-  stat_bin explains the details of these summaries in more
-  detail.  In particular, you can use the \code{weight}
-  aesthetic to create weighted histograms and barcharts
-  where the height of the bar no longer represent a count
-  of observations, but a sum over some other variable.  See
-  the examples for a practical example.
+The bar geom is used to produce 1d area plots: bar charts
+for categorical x, and histograms for continuous y.
+stat_bin explains the details of these summaries in more
+detail.  In particular, you can use the \code{weight}
+aesthetic to create weighted histograms and barcharts where
+the height of the bar no longer represent a count of
+observations, but a sum over some other variable.  See the
+examples for a practical example.
 }
 \details{
-  The heights of the bars commonly represent one of two
-  things: either a count of cases in each group, or the
-  values in a column of the data frame. By default,
-  \code{geom_bar} uses \code{stat="bin"}. This makes the
-  height of each bar equal to the number of cases in each
-  group, and it is incompatible with mapping values to the
-  \code{y} aesthetic. If you want the heights of the bars
-  to represent values in the data, use
-  \code{stat="identity"} and map a value to the \code{y}
-  aesthetic.
+The heights of the bars commonly represent one of two
+things: either a count of cases in each group, or the
+values in a column of the data frame. By default,
+\code{geom_bar} uses \code{stat="bin"}. This makes the
+height of each bar equal to the number of cases in each
+group, and it is incompatible with mapping values to the
+\code{y} aesthetic. If you want the heights of the bars to
+represent values in the data, use \code{stat="identity"}
+and map a value to the \code{y} aesthetic.
 
-  By default, multiple x's occuring in the same place will
-  be stacked a top one another by position_stack.  If you
-  want them to be dodged from side-to-side, see
-  \code{\link{position_dodge}}. Finally,
-  \code{\link{position_fill}} shows relative propotions at
-  each x by stacking the bars and then stretching or
-  squashing to the same height.
+By default, multiple x's occuring in the same place will be
+stacked a top one another by position_stack.  If you want
+them to be dodged from side-to-side, see
+\code{\link{position_dodge}}. Finally,
+\code{\link{position_fill}} shows relative propotions at
+each x by stacking the bars and then stretching or
+squashing to the same height.
 
-  Sometimes, bar charts are used not as a distributional
-  summary, but instead of a dotplot.  Generally, it's
-  preferable to use a dotplot (see \code{geom_point}) as it
-  has a better data-ink ratio.  However, if you do want to
-  create this type of plot, you can set y to the value you
-  have calculated, and use \code{stat='identity'}
+Sometimes, bar charts are used not as a distributional
+summary, but instead of a dotplot.  Generally, it's
+preferable to use a dotplot (see \code{geom_point}) as it
+has a better data-ink ratio.  However, if you do want to
+create this type of plot, you can set y to the value you
+have calculated, and use \code{stat='identity'}
 
-  A bar chart maps the height of the bar to a variable, and
-  so the base of the bar must always been shown to produce
-  a valid visual comparison. Naomi Robbins has a nice
-  \href{http://www.b-eye-network.com/view/index.php?cid=2468}{article
-  on this topic}. This is the reason it doesn't make sense
-  to use a log-scaled y axis with a bar chart
+A bar chart maps the height of the bar to a variable, and
+so the base of the bar must always been shown to produce a
+valid visual comparison. Naomi Robbins has a nice
+\href{http://www.b-eye-network.com/view/index.php?cid=2468}{article
+on this topic}. This is the reason it doesn't make sense to
+use a log-scaled y axis with a bar chart
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
@@ -153,9 +152,9 @@ m + geom_bar()
 }
 }
 \seealso{
-  \code{\link{stat_bin}} for more details of the binning
-  alogirithm, \code{\link{position_dodge}} for creating
-  side-by-side barcharts, \code{\link{position_stack}} for
-  more info on stacking,
+\code{\link{stat_bin}} for more details of the binning
+alogirithm, \code{\link{position_dodge}} for creating
+side-by-side barcharts, \code{\link{position_stack}} for
+more info on stacking,
 }
 

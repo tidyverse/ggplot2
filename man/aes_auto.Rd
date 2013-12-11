@@ -2,7 +2,7 @@
 \alias{aes_auto}
 \title{Automatic aesthetic mapping}
 \usage{
-  aes_auto(data = NULL, ...)
+aes_auto(data = NULL, ...)
 }
 \arguments{
   \item{data}{data.frame or names of variables}
@@ -10,7 +10,7 @@
   \item{...}{aesthetics that need to be explicitly mapped.}
 }
 \description{
-  Automatic aesthetic mapping
+Automatic aesthetic mapping
 }
 \examples{
 df <- data.frame(x = 1, y = 1, colour = 1, label = 1, pch = 1)

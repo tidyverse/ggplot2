@@ -2,9 +2,8 @@
 \alias{stat_function}
 \title{Superimpose a function.}
 \usage{
-  stat_function(mapping = NULL, data = NULL, geom = "path",
-    position = "identity", fun, n = 101, args = list(),
-    ...)
+stat_function(mapping = NULL, data = NULL, geom = "path",
+  position = "identity", fun, n = 101, args = list(), ...)
 }
 \arguments{
   \item{fun}{function to use}
@@ -33,12 +32,12 @@
   for more details.}
 }
 \value{
-  a data.frame with additional columns: \item{x}{x's along
-  a grid} \item{y}{value of function evaluated at
-  corresponding x}
+a data.frame with additional columns: \item{x}{x's along a
+grid} \item{y}{value of function evaluated at corresponding
+x}
 }
 \description{
-  Superimpose a function.
+Superimpose a function.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",

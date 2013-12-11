@@ -2,8 +2,8 @@
 \alias{stat_abline}
 \title{Add a line with slope and intercept.}
 \usage{
-  stat_abline(mapping = NULL, data = NULL, geom = "abline",
-    position = "identity", ...)
+stat_abline(mapping = NULL, data = NULL, geom = "abline",
+  position = "identity", ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -25,13 +25,13 @@
   for more details.}
 }
 \description{
-  Add a line with slope and intercept.
+Add a line with slope and intercept.
 }
 \examples{
 # see geom_abline
 }
 \seealso{
-  \code{\link{geom_abline}} for code examples.
+\code{\link{geom_abline}} for code examples.
 }
 \keyword{internal}
 

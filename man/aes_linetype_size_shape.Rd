@@ -5,8 +5,8 @@
 \alias{size}
 \title{Differentiation related aesthetics: linetype, size, shape}
 \description{
-  This page demonstrates the usage of a sub-group of
-  aesthetics; linetype, size and shape.
+This page demonstrates the usage of a sub-group of
+aesthetics; linetype, size and shape.
 }
 \examples{
 # Line types should be specified with either an integer, a name, or with a string of

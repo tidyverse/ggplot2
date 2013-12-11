@@ -2,9 +2,8 @@
 \alias{stat_density2d}
 \title{2d density estimation.}
 \usage{
-  stat_density2d(mapping = NULL, data = NULL,
-    geom = "density2d", position = "identity",
-    na.rm = FALSE, contour = TRUE, n = 100, ...)
+stat_density2d(mapping = NULL, data = NULL, geom = "density2d",
+  position = "identity", na.rm = FALSE, contour = TRUE, n = 100, ...)
 }
 \arguments{
   \item{contour}{If \code{TRUE}, contour the results of the
@@ -33,11 +32,11 @@
   overlappling points on this layer}
 }
 \value{
-  A data frame in the same format as
-  \code{\link{stat_contour}}
+A data frame in the same format as
+\code{\link{stat_contour}}
 }
 \description{
-  2d density estimation.
+2d density estimation.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",

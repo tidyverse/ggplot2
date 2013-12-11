@@ -2,7 +2,7 @@
 \alias{label_both}
 \title{Label facets with value and variable.}
 \usage{
-  label_both(variable, value)
+label_both(variable, value)
 }
 \arguments{
   \item{variable}{variable name passed in by facetter}
@@ -10,7 +10,7 @@
   \item{value}{variable value passed in by facetter}
 }
 \description{
-  Label facets with value and variable.
+Label facets with value and variable.
 }
 \examples{
 p <- qplot(wt, mpg, data = mtcars)
@@ -18,7 +18,7 @@ p + facet_grid(. ~ cyl)
 p + facet_grid(. ~ cyl, labeller = label_both)
 }
 \seealso{
-  Other facet labellers: \code{\link{label_bquote}},
-  \code{\link{label_parsed}}, \code{\link{label_value}}
+Other facet labellers: \code{\link{label_bquote}};
+\code{\link{label_parsed}}; \code{\link{label_value}}
 }
 

@@ -2,7 +2,7 @@
 \alias{fortify.map}
 \title{Fortify method for map objects.}
 \usage{
-  \method{fortify}{map} (model, data, ...)
+\method{fortify}{map}(model, data, ...)
 }
 \arguments{
   \item{model}{map object}
@@ -12,8 +12,8 @@
   \item{...}{not used by this method}
 }
 \description{
-  This function turns a map into a data frame that can more
-  easily be plotted with ggplot2.
+This function turns a map into a data frame that can more
+easily be plotted with ggplot2.
 }
 \examples{
 if (require("maps")) {
@@ -28,6 +28,6 @@ qplot(long, lat, data = tx, geom = "polygon", group = group,
 }
 }
 \seealso{
-  \code{\link{map_data}} and \code{\link{borders}}
+\code{\link{map_data}} and \code{\link{borders}}
 }
 

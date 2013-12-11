@@ -5,13 +5,13 @@
 \alias{ylab}
 \title{Change axis labels and legend titles}
 \usage{
-  labs(...)
+labs(...)
 
-  xlab(label)
+xlab(label)
 
-  ylab(label)
+ylab(label)
 
-  ggtitle(label)
+ggtitle(label)
 }
 \arguments{
   \item{label}{The text for the axis or plot title.}
@@ -20,7 +20,7 @@
   "new name"}
 }
 \description{
-  Change axis labels and legend titles
+Change axis labels and legend titles
 }
 \examples{
 p <- qplot(mpg, wt, data = mtcars)

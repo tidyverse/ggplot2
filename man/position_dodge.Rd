@@ -2,7 +2,7 @@
 \alias{position_dodge}
 \title{Adjust position by dodging overlaps to the side.}
 \usage{
-  position_dodge(width = NULL, height = NULL)
+position_dodge(width = NULL, height = NULL)
 }
 \arguments{
   \item{width}{Manually specify width (does not affect all
@@ -12,7 +12,7 @@
   all position adjustments)}
 }
 \description{
-  Adjust position by dodging overlaps to the side.
+Adjust position by dodging overlaps to the side.
 }
 \examples{
 \donttest{
@@ -39,9 +39,8 @@ p + geom_errorbar(aes(ymin = y-1, ymax = y+1, width = 0.2),
 }
 }
 \seealso{
-  Other position adjustments: \code{\link{position_fill}},
-  \code{\link{position_identity}},
-  \code{\link{position_jitter}},
-  \code{\link{position_stack}}
+Other position adjustments: \code{\link{position_fill}};
+\code{\link{position_identity}};
+\code{\link{position_jitter}}; \code{\link{position_stack}}
 }
 

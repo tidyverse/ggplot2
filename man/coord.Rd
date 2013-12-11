@@ -2,13 +2,13 @@
 \alias{coord}
 \title{New coordinate system.}
 \usage{
-  coord(..., subclass = c())
+coord(..., subclass = c())
 }
 \arguments{
   \item{...}{object fields}
 }
 \description{
-  Internal use only.
+Internal use only.
 }
 \keyword{internal}
 

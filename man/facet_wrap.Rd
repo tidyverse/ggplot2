@@ -2,9 +2,8 @@
 \alias{facet_wrap}
 \title{Wrap a 1d ribbon of panels into 2d.}
 \usage{
-  facet_wrap(facets, nrow = NULL, ncol = NULL,
-    scales = "fixed", shrink = TRUE, as.table = TRUE,
-    drop = TRUE)
+facet_wrap(facets, nrow = NULL, ncol = NULL, scales = "fixed",
+  shrink = TRUE, as.table = TRUE, drop = TRUE)
 }
 \arguments{
   \item{nrow}{number of rows}
@@ -33,7 +32,7 @@
   data.}
 }
 \description{
-  Wrap a 1d ribbon of panels into 2d.
+Wrap a 1d ribbon of panels into 2d.
 }
 \examples{
 \donttest{

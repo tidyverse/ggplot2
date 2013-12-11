@@ -2,8 +2,8 @@
 \alias{stat_summary}
 \title{Summarise y values at every unique x.}
 \usage{
-  stat_summary(mapping = NULL, data = NULL,
-    geom = "pointrange", position = "identity", ...)
+stat_summary(mapping = NULL, data = NULL, geom = "pointrange",
+  position = "identity", ...)
 }
 \arguments{
   \item{mapping}{The aesthetic mapping, usually constructed
@@ -25,28 +25,27 @@
   for more details.}
 }
 \value{
-  a data.frame with additional columns:
-  \item{fun.data}{Complete summary function. Should take
-  data frame as input and return data frame as output}
-  \item{fun.ymin}{ymin summary function (should take
-  numeric vector and return single number)} \item{fun.y}{y
-  summary function (should take numeric vector and return
-  single number)} \item{fun.ymax}{ymax summary function
-  (should take numeric vector and return single number)}
+a data.frame with additional columns:
+\item{fun.data}{Complete summary function. Should take data
+frame as input and return data frame as output}
+\item{fun.ymin}{ymin summary function (should take numeric
+vector and return single number)} \item{fun.y}{y summary
+function (should take numeric vector and return single
+number)} \item{fun.ymax}{ymax summary function (should take
+numeric vector and return single number)}
 }
 \description{
-  \code{stat_summary} allows for tremendous flexibilty in
-  the specification of summary functions.  The summary
-  function can either operate on a data frame (with
-  argument name \code{fun.data}) or on a vector
-  (\code{fun.y}, \code{fun.ymax}, \code{fun.ymin}).
+\code{stat_summary} allows for tremendous flexibilty in the
+specification of summary functions.  The summary function
+can either operate on a data frame (with argument name
+\code{fun.data}) or on a vector (\code{fun.y},
+\code{fun.ymax}, \code{fun.ymin}).
 }
 \details{
-  A simple vector function is easiest to work with as you
-  can return a single number, but is somewhat less
-  flexible.  If your summary function operates on a
-  data.frame it should return a data frame with variables
-  that the geom can use.
+A simple vector function is easiest to work with as you can
+return a single number, but is somewhat less flexible.  If
+your summary function operates on a data.frame it should
+return a data frame with variables that the geom can use.
 }
 \section{Aesthetics}{
   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
@@ -135,9 +134,8 @@ m2 + coord_trans(y="log10")
 }
 }
 \seealso{
-  \code{\link{geom_errorbar}},
-  \code{\link{geom_pointrange}},
-  \code{\link{geom_linerange}}, \code{\link{geom_crossbar}}
-  for geoms to display summarised data
+\code{\link{geom_errorbar}}, \code{\link{geom_pointrange}},
+\code{\link{geom_linerange}}, \code{\link{geom_crossbar}}
+for geoms to display summarised data
 }
 

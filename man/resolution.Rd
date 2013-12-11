@@ -2,7 +2,7 @@
 \alias{resolution}
 \title{Compute the "resolution" of a data vector.}
 \usage{
-  resolution(x, zero = TRUE)
+resolution(x, zero = TRUE)
 }
 \arguments{
   \item{x}{numeric vector}
@@ -11,13 +11,13 @@
   in the computation of resolution}
 }
 \description{
-  The resolution is is the smallest non-zero distance
-  between adjacent values.  If there is only one unique
-  value, then the resolution is defined to be one.
+The resolution is is the smallest non-zero distance between
+adjacent values.  If there is only one unique value, then
+the resolution is defined to be one.
 }
 \details{
-  If x is an integer vector, then it is assumed to
-  represent a discrete variable, and the resolution is 1.
+If x is an integer vector, then it is assumed to represent
+a discrete variable, and the resolution is 1.
 }
 \examples{
 resolution(1:10)

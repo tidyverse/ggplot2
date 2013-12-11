@@ -2,7 +2,7 @@
 \alias{facet_null}
 \title{Facet specification: a single panel.}
 \usage{
-  facet_null(shrink = TRUE)
+facet_null(shrink = TRUE)
 }
 \arguments{
   \item{shrink}{If \code{TRUE}, will shrink scales to fit
@@ -10,7 +10,7 @@
   be range of raw data before statistical summary.}
 }
 \description{
-  Facet specification: a single panel.
+Facet specification: a single panel.
 }
 \examples{
 # facet_null is the default facetting specification if you

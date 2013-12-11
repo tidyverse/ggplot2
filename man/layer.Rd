@@ -2,10 +2,10 @@
 \alias{layer}
 \title{Create a new layer}
 \usage{
-  layer(...)
+layer(...)
 }
 \description{
-  Create a new layer
+Create a new layer
 }
 \keyword{internal}
 

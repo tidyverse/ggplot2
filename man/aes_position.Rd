@@ -10,8 +10,8 @@
 \alias{ymin}
 \title{Position related aesthetics: x, y, xmin, xmax, ymin, ymax, xend, yend}
 \description{
-  This page demonstrates the usage of a sub-group of
-  aesthetics; x, y, xmin, xmax, ymin, ymax, xend, and yend.
+This page demonstrates the usage of a sub-group of
+aesthetics; x, y, xmin, xmax, ymin, ymax, xend, and yend.
 }
 \examples{
 # Generate data: means and standard errors of means for prices

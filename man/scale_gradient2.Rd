@@ -4,20 +4,17 @@
 \alias{scale_fill_gradient2}
 \title{Diverging colour gradient}
 \usage{
-  scale_colour_gradient2(..., low = muted("red"),
-    mid = "white", high = muted("blue"), midpoint = 0,
-    space = "rgb", na.value = "grey50",
-    guide = "colourbar")
+scale_colour_gradient2(..., low = muted("red"), mid = "white",
+  high = muted("blue"), midpoint = 0, space = "rgb",
+  na.value = "grey50", guide = "colourbar")
 
-  scale_fill_gradient2(..., low = muted("red"),
-    mid = "white", high = muted("blue"), midpoint = 0,
-    space = "rgb", na.value = "grey50",
-    guide = "colourbar")
+scale_fill_gradient2(..., low = muted("red"), mid = "white",
+  high = muted("blue"), midpoint = 0, space = "rgb",
+  na.value = "grey50", guide = "colourbar")
 
-  scale_color_gradient2(..., low = muted("red"),
-    mid = "white", high = muted("blue"), midpoint = 0,
-    space = "rgb", na.value = "grey50",
-    guide = "colourbar")
+scale_color_gradient2(..., low = muted("red"), mid = "white",
+  high = muted("blue"), midpoint = 0, space = "rgb",
+  na.value = "grey50", guide = "colourbar")
 }
 \arguments{
   \item{midpoint}{The midpoint (in data value) of the
@@ -43,7 +40,7 @@
   "Lab" usually best unless gradient goes through white.}
 }
 \description{
-  Diverging colour gradient
+Diverging colour gradient
 }
 \examples{
 \donttest{
@@ -88,26 +85,26 @@ p + scale_fill_gradient2("fill")
 }
 }
 \seealso{
-  Other colour scales: \code{\link{scale_color_brewer}},
-  \code{\link{scale_color_continuous}},
-  \code{\link{scale_color_discrete}},
-  \code{\link{scale_color_gradient}},
-  \code{\link{scale_color_gradientn}},
-  \code{\link{scale_color_grey}},
-  \code{\link{scale_color_hue}},
-  \code{\link{scale_colour_brewer}},
-  \code{\link{scale_colour_continuous}},
-  \code{\link{scale_colour_discrete}},
-  \code{\link{scale_colour_gradient}},
-  \code{\link{scale_colour_gradientn}},
-  \code{\link{scale_colour_grey}},
-  \code{\link{scale_colour_hue}},
-  \code{\link{scale_fill_brewer}},
-  \code{\link{scale_fill_continuous}},
-  \code{\link{scale_fill_discrete}},
-  \code{\link{scale_fill_gradient}},
-  \code{\link{scale_fill_gradientn}},
-  \code{\link{scale_fill_grey}},
-  \code{\link{scale_fill_hue}}
+Other colour scales: \code{\link{scale_color_brewer}},
+\code{\link{scale_colour_brewer}},
+\code{\link{scale_fill_brewer}};
+\code{\link{scale_color_continuous}},
+\code{\link{scale_color_gradient}},
+\code{\link{scale_colour_continuous}},
+\code{\link{scale_colour_gradient}},
+\code{\link{scale_fill_continuous}},
+\code{\link{scale_fill_gradient}};
+\code{\link{scale_color_discrete}},
+\code{\link{scale_color_hue}},
+\code{\link{scale_colour_discrete}},
+\code{\link{scale_colour_hue}},
+\code{\link{scale_fill_discrete}},
+\code{\link{scale_fill_hue}};
+\code{\link{scale_color_gradientn}},
+\code{\link{scale_colour_gradientn}},
+\code{\link{scale_fill_gradientn}};
+\code{\link{scale_color_grey}},
+\code{\link{scale_colour_grey}},
+\code{\link{scale_fill_grey}}
 }
 
