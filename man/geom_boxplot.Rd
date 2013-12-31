@@ -122,6 +122,10 @@ b <- ggplot(abc, aes(x = X1, ymin = `0\%`, lower = `25\%`, middle = `50\%`, uppe
 b + geom_boxplot(stat = "identity")
 b + geom_boxplot(stat = "identity") + coord_flip()
 b + geom_boxplot(aes(fill = X1), stat = "identity")
+
+# Using varwidth
+p + geom_boxplot(varwidth = TRUE)
+qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot", varwidth = TRUE)
 }
 }
 \references{
