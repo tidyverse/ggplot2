@@ -4,11 +4,13 @@
 \usage{
 stat_bin(mapping = NULL, data = NULL, geom = "bar", position = "stack",
   width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL,
-  origin = NULL, breaks = NULL, ...)
+  offset = 0, origin = NULL, breaks = NULL, ...)
 }
 \arguments{
   \item{binwidth}{Bin width to use. Defaults to 1/30 of the
   range of the data}
+
+  \item{offset}{an amount to shift bars by (default=0)}
 
   \item{breaks}{Actual breaks to use.  Overrides bin width
   and origin}
