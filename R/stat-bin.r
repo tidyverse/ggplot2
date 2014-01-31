@@ -8,6 +8,7 @@
 #' @inheritParams stat_identity
 #' @param binwidth Bin width to use. Defaults to 1/30 of the range of the
 #'   data
+#' @param offset an amount to shift bars by (default=0)
 #' @param breaks Actual breaks to use.  Overrides bin width and origin 
 #' @param origin Origin of first bin 
 #' @param width Width of bars when used with categorical data 
@@ -45,9 +46,10 @@
 #' qplot(mpaa, data=movies, stat="bin")
 #' }
 stat_bin <- function (mapping = NULL, data = NULL, geom = "bar", position = "stack", 
-width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, origin = NULL, breaks = NULL, ...) { 
+width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, offset=0, origin=NULL, breaks = NULL, ...) { 
   StatBin$new(mapping = mapping, data = data, geom = geom, position = position, 
-  width = width, drop = drop, right = right, binwidth = binwidth, origin = origin, breaks = breaks, ...)
+  width = width, drop = drop, right = right, binwidth = binwidth, offset=offset,
+  origin = origin, breaks = breaks, ...)
 }
 
 StatBin <- proto(Stat, {
@@ -70,7 +72,8 @@ StatBin <- proto(Stat, {
     .super$calculate_groups(., data, ...)
   }
   
-  calculate <- function(., data, scales, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = FALSE, ...) {
+  calculate <- function(., data, scales, binwidth=NULL, offset=0, origin=NULL, breaks=NULL, 
+                        width=0.9, drop = FALSE, right = FALSE, ...) {
     range <- scale_dimension(scales$x, c(0, 0))
 
     if (is.null(breaks) && is.null(binwidth) && !is.integer(data$x) && !.$informed) {
@@ -78,7 +81,8 @@ StatBin <- proto(Stat, {
       .$informed <- TRUE
     }
     
-    bin(data$x, data$weight, binwidth=binwidth, origin=origin, breaks=breaks, range=range, width=width, drop = drop, right = right)
+    bin(data$x, data$weight, binwidth=binwidth, offset=offset, origin=origin, breaks=breaks, range=range, 
+        width=width, drop = drop, right = right)
   }
 
   default_aes <- function(.) aes(y = ..count..)
@@ -87,7 +91,8 @@ StatBin <- proto(Stat, {
   
 })
 
-bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
+bin <- function(x, weight=NULL, binwidth=NULL, offset=0, origin=NULL, breaks=NULL, range=NULL, 
+                width=0.9, drop = FALSE, right = TRUE) {
   
   if (length(na.omit(x)) == 0) return(data.frame())
   if (is.null(weight))  weight <- rep(1, length(x))
@@ -106,7 +111,7 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
   } else { # if (is.numeric(x)) 
     if (is.null(breaks)) {
       if (is.null(origin)) {
-        breaks <- fullseq(range, binwidth, pad = TRUE)        
+        breaks <- offset + fullseq(range - offset, binwidth, pad = TRUE)        
       } else {
         breaks <- seq(origin, max(range) + binwidth, binwidth)
       }
