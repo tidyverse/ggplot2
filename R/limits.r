@@ -52,7 +52,7 @@ ylim <- function(...) {
 limits <- function(lims, var) UseMethod("limits")
 limits.numeric <- function(lims, var) {
   stopifnot(length(lims) == 2)
-  if (lims[1] > lims[2]) {
+  if (!any(is.na(lims)) && lims[1] > lims[2]) {
     trans <- "reverse"
   } else {
     trans <- "identity"
