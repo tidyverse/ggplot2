@@ -53,7 +53,7 @@ try_require <- function(package) {
   missing <- package[!available]
 
   if (length(missing) > 0) 
-    stop(paste(package, collapse=", "), " package required for this functionality.  Please install and try again.", call. = FALSE)
+    stop(paste(missing, collapse=", "), " package required for this functionality.  Please install and try again.", call. = FALSE)
 }
 
 # Return unique columns
