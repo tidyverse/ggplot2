@@ -50,6 +50,9 @@ theme_grey <- function(base_size = 12, base_family = "") {
     strip.background =   element_rect(fill = "grey80", colour = NA),
     strip.text.x =       element_text(),
     strip.text.y =       element_text(angle = -90),
+    strip.title.background = element_rect(fill = "grey80", colour = NA),
+    strip.title.x =      element_text(),
+    strip.title.y =      element_text(angle = -90),
 
     plot.background =    element_rect(colour = "white"),
     plot.title =         element_text(size = rel(1.2)),
@@ -78,7 +81,7 @@ theme_bw <- function(base_size = 12, base_family = "") {
       panel.grid.major  = element_line(colour = "grey90", size = 0.2),
       panel.grid.minor  = element_line(colour = "grey98", size = 0.5),
       strip.background  = element_rect(fill = "grey80", colour = "grey50"),
-      strip.background  = element_rect(fill = "grey80", colour = "grey50")
+      strip.title.background = element_rect(fill = "grey80", colour = "grey50")
     )
 }
 
@@ -96,6 +99,7 @@ theme_minimal <- function(base_size = 12, base_family = "") {
       panel.background  = element_blank(),
       panel.border      = element_blank(),
       strip.background  = element_blank(),
+      strip.title.background  = element_blank(),
       plot.background   = element_blank()
     )
 }

@@ -278,29 +278,34 @@ build_strip <- function(panel, label_df, labeller, theme, side = "right") {
   }
   
   # Render as grobs
-  grobs <- apply(labels, c(1,2), ggstrip, theme = theme,
+  text_grobs <- apply(labels, c(1,2), striptext_grob, theme = theme,
     horizontal = horizontal)
+  title_grob <- striptitle_grob(names(label_df), horizontal, theme)
   
   # Create layout
   name <- paste("strip", side, sep = "-")
   if (horizontal) {
-    grobs <- t(grobs)
+    text_grobs <- t(text_grobs)
     
     # Each row is as high as the highest and as a wide as the panel
     row_height <- function(row) max(laply(row, height_cm))
-    heights <- unit(apply(grobs, 1, row_height), "cm")
-    widths <- unit(rep(1, ncol(grobs)), "null")
+    heights <- unit(apply(text_grobs, 1, row_height), "cm")
+    widths <- unit(rep(1, ncol(text_grobs)), "null")
   } else {
     # Each row is wide as the widest and as high as the panel
     col_width <- function(col) max(laply(col, width_cm))
-    widths <- unit(apply(grobs, 2, col_width), "cm")
-    heights <- unit(rep(1, nrow(grobs)), "null")
+    widths <- unit(apply(text_grobs, 2, col_width), "cm")
+    heights <- unit(rep(1, nrow(text_grobs)), "null")
   }
-  strips <- gtable_matrix(name, grobs, heights = heights, widths = widths)
+  strips <- gtable_matrix(name, text_grobs, heights = heights, widths = widths)
   
   if (horizontal) {
+    strips <- gtable_add_rows(strips, unit(height_cm(title_grob), "cm"), pos = 0)
+    strips <- gtable_add_grob(strips, title_grob, t=1, b=1, l=1, r=-1)
     gtable_add_col_space(strips, theme$panel.margin)
   } else {
+    strips <- gtable_add_cols(strips, unit(width_cm(title_grob), "cm"), pos = -1)
+    strips <- gtable_add_grob(strips, title_grob, t=1, b=-1, l=-1, r=-1)
     gtable_add_row_space(strips, theme$panel.margin)
   }
 }

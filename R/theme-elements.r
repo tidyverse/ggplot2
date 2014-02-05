@@ -276,6 +276,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   panel.grid.major    = el_def("element_line", "panel.grid"),
   panel.grid.minor    = el_def("element_line", "panel.grid"),
   strip.text          = el_def("element_text", "text"),
+  strip.title         = el_def("element_text", "title"),
 
   axis.line.x         = el_def("element_line", "axis.line"),
   axis.line.y         = el_def("element_line", "axis.line"),
@@ -314,6 +315,9 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   strip.background    = el_def("element_rect", "rect"),
   strip.text.x        = el_def("element_text", "strip.text"),
   strip.text.y        = el_def("element_text", "strip.text"),
+  strip.title.background = el_def("element_rect", "rect"),
+  strip.title.x       = el_def("element_text", "strip.title"),
+  strip.title.y       = el_def("element_text", "strip.title"),
 
   plot.background     = el_def("element_rect", "rect"),
   plot.title          = el_def("element_text", "title"),
