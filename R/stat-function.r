@@ -54,10 +54,13 @@ StatFunction <- proto(Stat, {
   calculate <- function(., data, scales, fun, n=101, args = list(), ...) {
     range <- scale_dimension(scales$x, c(0, 0))
     xseq <- seq(range[1], range[2], length=n)
+    x_v = if (is.null(scales$x)) xseq else scales$x$trans$inverse(xseq)
+    y_v = do.call(fun, c(list(x_v), args))
+    y = if (is.null(scales$y)) y_v else scales$y$trans$transform(y_v)
     
     data.frame(
       x = xseq,
-      y = do.call(fun, c(list(xseq), args))
+      y = y
     )
   }  
 })
