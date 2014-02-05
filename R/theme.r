@@ -32,9 +32,6 @@ theme_update <- function(...) {
 #' @export
 is.theme <- function(x) inherits(x, "theme")
 
-#' @S3method print theme
-print.theme <- function(x, ...) str(x)
-
 #' Set theme elements
 #' 
 #' 
@@ -615,3 +612,24 @@ combine_elements <- function(e1, e2) {
 
   e1
 }
+
+#' @S3method format theme
+format.theme <- function(x) {
+  .f <- function(x) {
+    if (is.character(x)) {
+      sprintf("\"%s\"", x)
+    } else if (is.null(x)) {
+      "NULL"
+    } else {
+      format(x)
+    }
+  }
+  complete <- attr(x, "complete")
+  newx <- c(lapply(x, .f), complete = complete)
+  sprintf("theme(%s)",
+          paste(names(newx), newx, sep=" = ", collapse=",\n"))
+}
+
+#' @S3method print theme
+print.theme <- function(x, ...) cat(format(x), "\n")
+
