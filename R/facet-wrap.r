@@ -52,7 +52,9 @@
 #' p + geom_point(data = transform(cyl6, cyl = NULL), colour = "red") + 
 #'   facet_wrap(~ cyl)
 #' }
-facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, as.table = TRUE, drop = TRUE) {
+facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
+  shrink = TRUE, labeller = "label_value", as.table = TRUE, drop = TRUE) {
+
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
@@ -62,10 +64,11 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrin
   facet(
     facets = as.quoted(facets), free = free, shrink = shrink,
     as.table = as.table, drop = drop,
-    ncol = ncol, nrow = nrow, 
+    ncol = ncol, nrow = nrow, labeller = labeller,
     subclass = "wrap"
   )
 }
+
 
 #' @S3method facet_train_layout wrap
 facet_train_layout.wrap <- function(facet, data) { 
@@ -206,10 +209,20 @@ facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
 
 #' @S3method facet_strips wrap
 facet_strips.wrap <- function(facet, panel, theme) {
-  labels_df <- panel$layout[names(facet$facets)]
-  labels_df[] <- llply(labels_df, format, justify = "none")
+  labeller <- match.fun(facet$labeller)
   
-  labels <- apply(labels_df, 1, paste, collapse=", ")
+  labels_df <- panel$layout[names(facet$facets)]
+
+  # If faceting with multiple variables, paste them together
+  labels <- apply(labels_df, 1, paste, collapse = ", ")
+  if (identical(labeller, label_parsed)) {
+    labels <- paste("list(", labels, ")", sep = "")
+  }
+
+  varnames <- paste(names(labels_df), collapse=", ")
+
+  # Run the labeller function
+  labels <- labeller(varnames, labels)
 
   list(t = llply(labels, ggstrip, theme = theme))
 }
