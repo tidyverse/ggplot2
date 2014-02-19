@@ -22,6 +22,11 @@ geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   \item{notchwidth}{for a notched box plot, width of the
   notch relative to the body (default 0.5)}
 
+  \item{varwidth}{if \code{FALSE} (default) make a standard box plot.
+  If \code{TRUE}, boxes are drawn with widths proportional to the
+  square-roots of the number of observations in the groups (possibly
+  weighted).}
+
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
   needs to be set at the layer level if you are overriding
@@ -122,6 +127,10 @@ b <- ggplot(abc, aes(x = X1, ymin = `0\%`, lower = `25\%`, middle = `50\%`, uppe
 b + geom_boxplot(stat = "identity")
 b + geom_boxplot(stat = "identity") + coord_flip()
 b + geom_boxplot(aes(fill = X1), stat = "identity")
+
+# Using varwidth
+p + geom_boxplot(varwidth = TRUE)
+qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot", varwidth = TRUE)
 }
 }
 \references{
