@@ -22,6 +22,11 @@ geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   \item{notchwidth}{for a notched box plot, width of the
   notch relative to the body (default 0.5)}
 
+  \item{varwidth}{if \code{FALSE} (default) make a standard box plot.
+  If \code{TRUE}, boxes are drawn with widths proportional to the
+  square-roots of the number of observations in the groups (possibly
+  weighted).}
+
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
   needs to be set at the layer level if you are overriding
