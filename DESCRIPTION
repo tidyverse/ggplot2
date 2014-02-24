@@ -90,6 +90,7 @@ Collate:
     'geom-bin2d.r'
     'geom-blank.r'
     'geom-boxplot.r'
+    'geom-central.r'
     'geom-crossbar.r'
     'geom-defaults.r'
     'geom-dotplot.r'
