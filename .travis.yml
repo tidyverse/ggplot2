@@ -8,6 +8,7 @@ before_install:
   - ./travis-tool.sh bootstrap
 
 install:
+  - ./travis-tool.sh r_binary_install colorspace strucchange deldir abind tensor polyclip minqa Rcpp RcppEigen modeltools bdsmatrix RColorBrewer dichromat munsell labeling tripack akima rgl logspline nor1mix Formula zoo dynlm chron acepack rms mice sp rgeos spatstat PBSmapping mvtnorm TH.data sandwich lme4 robustbase mboost coin car xtable lmtest coxme
   - ./travis-tool.sh install_deps
 
 script: ./travis-tool.sh run_tests
