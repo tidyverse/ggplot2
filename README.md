@@ -14,7 +14,7 @@ To install:
 * the latest released version: `install.packages("ggplot2")`
 * the latest development version: `install_github("hadley/ggplot2")`
 
-Find out more at http://had.co.nz/ggplot2, and check out the nearly 500
+Find out more at http://ggplot2.org, and check out the nearly 500
 examples of ggplot in use.  If you're interested, you can also sign up to
 the ggplot2 mailing list at http://groups.google.com/group/ggplot2, or track
 development at http://github.com/hadley/ggplot2
