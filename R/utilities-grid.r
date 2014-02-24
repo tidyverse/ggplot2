@@ -1,6 +1,6 @@
 # Name ggplot grid object
 # Convenience function to name grid objects
-# 
+#
 # @keyword internal
 ggname <- function(prefix, grob) {
   grob$name <- grobName(grob, prefix)
@@ -16,7 +16,7 @@ width_cm <- function(x) {
     convertWidth(x, "cm", TRUE)
   } else {
     stop("Unknown input")
-  }  
+  }
 }
 height_cm <- function(x) {
   if (is.grob(x)) {
@@ -27,5 +27,5 @@ height_cm <- function(x) {
     convertHeight(x, "cm", TRUE)
   } else {
     stop("Unknown input")
-  }  
+  }
 }

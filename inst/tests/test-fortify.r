@@ -5,8 +5,8 @@ test_that("Spatial polygons have correct ordering", {
   make_square <- function(x = 0, y = 0, height = 1, width = 1){
     delx <- width/2
     dely <- height/2
-    Polygon(matrix(c(x + delx, x - delx,x - delx,x + delx,x + delx , 
-        y - dely,y - dely,y + dely,y + dely,y - dely), ncol = 2))  
+    Polygon(matrix(c(x + delx, x - delx,x - delx,x + delx,x + delx ,
+        y - dely,y - dely,y + dely,y + dely,y - dely), ncol = 2))
   }
 
   make_hole <- function(x = 0, y = 0, height = .5, width = .5){
@@ -17,7 +17,7 @@ test_that("Spatial polygons have correct ordering", {
 
   fake_data <- data.frame(ids = 1:5, region = c(1,1,2,3,4))
   rownames(fake_data) <- 1:5
-  polys <- list(Polygons(list(make_square(), make_hole()), 1), 
+  polys <- list(Polygons(list(make_square(), make_hole()), 1),
                 Polygons(list(make_square(1,0), make_square(2, 0)), 2),
                 Polygons(list(make_square(1,1)), 3),
                 Polygons(list(make_square(0,1)), 4),

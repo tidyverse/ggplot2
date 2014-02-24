@@ -1,30 +1,30 @@
 #' Continuous position scales (x & y).
-#' 
+#'
 #' @param ... common continuous scale parameters: \code{name}, \code{breaks},
 #'  \code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
 #'  \code{\link{continuous_scale}} for more details
-#' @param expand a numeric vector of length two giving multiplicative and 
-#'   additive expansion constants. These constants ensure that the data is 
+#' @param expand a numeric vector of length two giving multiplicative and
+#'   additive expansion constants. These constants ensure that the data is
 #'   placed some distance away from the axes.
 #' @family position scales
 #' @rdname scale_continuous
 #' @export
 #' @examples
 #' \donttest{
-#' (m <- qplot(rating, votes, data=subset(movies, votes > 1000), 
+#' (m <- qplot(rating, votes, data=subset(movies, votes > 1000),
 #'   na.rm = TRUE))
-#' 
+#'
 #' # Manipulating the default position scales lets you:
 #'
 #' #  * change the axis labels
 #' m + scale_y_continuous("number of votes")
 #' m + scale_y_continuous(expression(votes^alpha))
-#' 
+#'
 #' #  * modify the axis limits
 #' m + scale_y_continuous(limits=c(0, 5000))
 #' m + scale_y_continuous(limits=c(1000, 10000))
 #' m + scale_x_continuous(limits=c(7, 8))
-#' 
+#'
 #' # you can also use the short hand functions xlim and ylim
 #' m + ylim(0, 5000)
 #' m + ylim(1000, 10000)
@@ -38,14 +38,14 @@
 #' m + scale_x_continuous(breaks=c(2,5,8), labels=c("two", "five", "eight"))
 #' m + scale_x_continuous(breaks=c(2,5,8), labels=c("horrible", "ok", "awesome"))
 #' m + scale_x_continuous(breaks=c(2,5,8), labels=expression(Alpha, Beta, Omega))
-#' 
+#'
 #' # There are a few built in transformation that you can use:
 #' m + scale_y_log10()
 #' m + scale_y_sqrt()
 #' m + scale_y_reverse()
 #' # You can also create your own and supply them to the trans argument.
 #' # See ?scale::trans_new
-#' 
+#'
 #' # You can control the formatting of the labels with the formatter
 #' # argument.  Some common formats are built into the scales package:
 #' x <- rnorm(10) * 100000
@@ -55,7 +55,7 @@
 #' p + scale_y_continuous(labels = percent)
 #' p + scale_y_continuous(labels = dollar)
 #' p + scale_x_continuous(labels = comma)
-#' 
+#'
 #' # qplot allows you to do some of this with a little less typing:
 #' #   * axis limits
 #' qplot(rating, votes, data=movies, ylim=c(1e4, 5e4))

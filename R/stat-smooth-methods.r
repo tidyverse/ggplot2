@@ -1,6 +1,6 @@
 # Prediction data frame
 # Get predictions with standard errors into data frame
-# 
+#
 # @keyword internal
 # @alias predictdf.default
 # @alias predictdf.glm
@@ -19,21 +19,21 @@ predictdf.default <- function(model, xseq, se, level) {
     data.frame(x = xseq, fit, se = pred$se)
   } else {
     data.frame(x = xseq, y = as.vector(pred))
-  } 
+  }
 }
 
 #' @S3method predictdf glm
 predictdf.glm <- function(model, xseq, se, level) {
-  pred <- stats::predict(model, newdata = data.frame(x = xseq), se = se, 
+  pred <- stats::predict(model, newdata = data.frame(x = xseq), se = se,
     type = "link")
-  
+
   if (se) {
     std <- qnorm(level / 2 + 0.5)
     data.frame(
-      x = xseq, 
+      x = xseq,
       y = model$family$linkinv(as.vector(pred$fit)),
-      ymin = model$family$linkinv(as.vector(pred$fit - std * pred$se)), 
-      ymax = model$family$linkinv(as.vector(pred$fit + std * pred$se)), 
+      ymin = model$family$linkinv(as.vector(pred$fit - std * pred$se)),
+      ymax = model$family$linkinv(as.vector(pred$fit + std * pred$se)),
       se = as.vector(pred$se)
     )
   } else {
@@ -59,7 +59,7 @@ predictdf.loess <- function(model, xseq, se, level) {
 #' @S3method predictdf locfit
 predictdf.locfit <- function(model, xseq, se, level) {
   pred <- predict(model, newdata = data.frame(x = xseq), se.fit = se)
-                          
+
   if (se) {
     y = pred$fit
     ymin = y - pred$se.fit

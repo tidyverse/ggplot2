@@ -16,7 +16,7 @@
 #' hide the y axis, as in one of the examples, or manually scale it
 #' to match the number of dots.
 #'
-#' @section Aesthetics: 
+#' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "dotplot")}
 #'
 #' @inheritParams geom_point
@@ -30,7 +30,7 @@
 #'   determines positions of the bins for each group separately. "all" determines
 #'   positions of the bins with all the data taken together; this is used for
 #'   aligning dot stacks across multiple groups.
-#' @param stackdir which direction to stack the dots. "up" (default), 
+#' @param stackdir which direction to stack the dots. "up" (default),
 #'   "down", "center", "centerwhole" (centered, but with dots aligned)
 #' @param stackratio how close to stack the dots. Default is 1, where dots just
 #'   just touch. Use smaller values for closer, overlapping dots.
@@ -49,7 +49,7 @@
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5)
 #'
 #' # Use fixed-width bins
-#' ggplot(mtcars, aes(x = mpg)) + 
+#' ggplot(mtcars, aes(x = mpg)) +
 #'   geom_dotplot(method="histodot", binwidth = 1.5)
 #'
 #' # Some other stacking methods
@@ -59,7 +59,7 @@
 #'   geom_dotplot(binwidth = 1.5, stackdir = "centerwhole")
 #'
 #' # y axis isn't really meaningful, so hide it
-#' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5) + 
+#' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5) +
 #'   scale_y_continuous(name = "", breaks = NA)
 #'
 #' # Overlap dots vertically
@@ -73,17 +73,17 @@
 #' ggplot(mtcars, aes(x = 1, y = mpg)) +
 #'   geom_dotplot(binaxis = "y", stackdir = "center")
 #'
-#' ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + 
+#' ggplot(mtcars, aes(x = factor(cyl), y = mpg)) +
 #'   geom_dotplot(binaxis = "y", stackdir = "center")
 #'
-#' ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + 
+#' ggplot(mtcars, aes(x = factor(cyl), y = mpg)) +
 #'   geom_dotplot(binaxis = "y", stackdir = "centerwhole")
 #'
-#' ggplot(mtcars, aes(x = factor(vs), fill = factor(cyl), y = mpg)) + 
+#' ggplot(mtcars, aes(x = factor(vs), fill = factor(cyl), y = mpg)) +
 #'   geom_dotplot(binaxis = "y", stackdir = "center", position = "dodge")
 #'
 #' # binpositions="all" ensures that the bins are aligned between groups
-#' ggplot(mtcars, aes(x = factor(am), y = mpg)) + 
+#' ggplot(mtcars, aes(x = factor(am), y = mpg)) +
 #'   geom_dotplot(binaxis = "y", stackdir = "center", binpositions="all")
 #'
 #' # Stacking multiple groups, with different fill
@@ -148,7 +148,7 @@ GeomDotplot <- proto(Geom, {
 
 
   reparameterise <- function(., df, params) {
-    df$width <- df$width %||% 
+    df$width <- df$width %||%
       params$width %||% (resolution(df$x, FALSE) * 0.9)
 
     # Set up the stacking function and range
@@ -257,18 +257,18 @@ GeomDotplot <- proto(Geom, {
     data$shape <- 21
 
     data <- aesdefaults(data, .$default_aes(), list(...))
-    
+
     with(data,
       pointsGrob(0.5, 0.5, size = unit(.5, "npc"), pch = shape,
         gp = gpar(
-          col = alpha(colour, alpha), 
+          col = alpha(colour, alpha),
           fill = alpha(fill, alpha))
       )
     )
   }
-  
+
   default_stat <- function(.) StatBindot
   required_aes <- c("x", "y")
   default_aes <- function(.) aes(y=..count.., colour="black", fill = "black", alpha = NA)
-  
+
 })

@@ -2,7 +2,7 @@
 #'
 #' Guides for each scale can be set in call of \code{scale_*} with argument
 #' \code{guide}, or in \code{guides}.
-#' 
+#'
 #' @param ... List of scale guide pairs
 #' @return A list containing the mapping between scale and guide.
 #' @export
@@ -10,37 +10,37 @@
 #' @examples
 #' \donttest{
 #' # ggplot object
-#' 
-#' dat <- data.frame(x = 1:5, y = 1:5, p = 1:5, q = factor(1:5), 
+#'
+#' dat <- data.frame(x = 1:5, y = 1:5, p = 1:5, q = factor(1:5),
 #'  r = factor(1:5))
 #' p <- ggplot(dat, aes(x, y, colour = p, size = q, shape = r)) + geom_point()
-#' 
+#'
 #' # without guide specification
 #' p
-#' 
+#'
 #' # Show colorbar guide for colour.
 #' # All these examples below have a same effect.
-#' 
+#'
 #' p + guides(colour = "colorbar", size = "legend", shape = "legend")
-#' p + guides(colour = guide_colorbar(), size = guide_legend(), 
+#' p + guides(colour = guide_colorbar(), size = guide_legend(),
 #'   shape = guide_legend())
-#' p + 
+#' p +
 #'  scale_colour_continuous(guide = "colorbar") +
-#'  scale_size_discrete(guide = "legend") + 
+#'  scale_size_discrete(guide = "legend") +
 #'  scale_shape(guide = "legend")
-#' 
+#'
 #' # Guides are integrated where possible
-#' 
+#'
 #' p + guides(colour = guide_legend("title"), size = guide_legend("title"),
 #'   shape = guide_legend("title"))
 #' # same as
 #' g <- guide_legend("title")
 #' p + guides(colour = g, size = g, shape = g)
-#' 
+#'
 #' p + theme(legend.position = "bottom")
 #'
 #' # position of guides
-#' 
+#'
 #' p + theme(legend.position = "bottom", legend.box = "horizontal")
 #'
 #' # Set order for multiple guides
@@ -90,7 +90,7 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
 
   # set themes w.r.t. guides
   # should these theme$legend.XXX be renamed to theme$guide.XXX ?
-  
+
   # by default, guide boxes are vertically aligned
   theme$legend.box <- theme$legend.box %||% "vertical"
 
@@ -216,7 +216,7 @@ guides_gengrob <- function(gdefs, theme) {
       if (!g$title.position %in% c("top", "bottom", "left", "right")) stop("title position \"", g$title.position, "\" is invalid")
       g
     })
-  
+
   lapply(gdefs, guide_gengrob, theme)
 }
 
@@ -224,11 +224,11 @@ guides_gengrob <- function(gdefs, theme) {
 guides_build <- function(ggrobs, theme) {
 
   n <- length(ggrobs)
-  
+
   theme$guide.margin <- theme$guide.margin %||% unit(0.5, "lines")
   theme$guide.vmargin <- theme$guide.vmargin  %||% theme$guide.margin
   theme$guide.hmargin <- theme$guide.hmargin  %||% theme$guide.margin
-  
+
   widths <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$widths)))
   heights <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$heights)))
 
@@ -282,18 +282,18 @@ guides_build <- function(ggrobs, theme) {
 
 # S3 dispatches
 
-#' @S3method guide_train legend 
+#' @S3method guide_train legend
 #' @S3method guide_train colorbar
 guide_train <- function(...) UseMethod("guide_train")
 
-#' @S3method guide_merge legend 
-#' @S3method guide_merge colorbar 
+#' @S3method guide_merge legend
+#' @S3method guide_merge colorbar
 guide_merge <- function(...) UseMethod("guide_merge")
 
-#' @S3method guide_geom legend 
-#' @S3method guide_geom colorbar 
+#' @S3method guide_geom legend
+#' @S3method guide_geom colorbar
 guide_geom <- function(...) UseMethod("guide_geom")
 
-#' @S3method guide_gengrob legend 
-#' @S3method guide_gengrob colorbar 
+#' @S3method guide_gengrob legend
+#' @S3method guide_gengrob colorbar
 guide_gengrob <- function(...) UseMethod("guide_gengrob")

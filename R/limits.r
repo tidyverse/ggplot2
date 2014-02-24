@@ -2,10 +2,10 @@
 #'
 #' Observations not in this range will be dropped completely and
 #' not passed to any other layers.
-#' 
+#'
 #' @param ... if numeric, will create a continuous scale, if factor or
 #'   character, will create a discrete scale.
-#' @seealso For changing x or y axis limits \strong{without} dropping data 
+#' @seealso For changing x or y axis limits \strong{without} dropping data
 #'   observations, see \code{\link{coord_cartesian}}.
 #' @rdname xylim
 #' @export
@@ -14,13 +14,13 @@
 #' xlim(15, 20)
 #' xlim(20, 15)
 #' xlim(c(10, 20))
-#' xlim("a", "b", "c") 
+#' xlim("a", "b", "c")
 #' qplot(mpg, wt, data=mtcars) + xlim(15, 20)
-#' 
+#'
 #' # ylim
 #' ylim(15, 20)
 #' ylim(c(10, 20))
-#' ylim("a", "b", "c") 
+#' ylim("a", "b", "c")
 #' qplot(mpg, wt, data=mtcars) + ylim(15, 20)
 xlim <- function(...) {
   limits(c(...), "x")
@@ -33,13 +33,13 @@ ylim <- function(...) {
 }
 
 #' Generate correct scale type for specified limits
-#' 
+#'
 #' @param limts vector of limits
 #' @param var name of variable
 #' @keywords internal
 #' @S3method limits numeric
 #' @S3method limits character
-#' @S3method limits factor 
+#' @S3method limits factor
 #' @S3method limits Date
 #' @S3method limits POSIXct
 #' @S3method limits POSIXlt
@@ -57,13 +57,13 @@ limits.numeric <- function(lims, var) {
   } else {
     trans <- "identity"
   }
-  
+
   make_scale("continuous", var, limits = lims, trans = trans)
 }
 
 make_scale <- function(type, var, ...) {
   scale <- match.fun(paste("scale_", var, "_", type, sep = ""))
-  scale(...)  
+  scale(...)
 }
 
 limits.character <- function(lims, var) {
@@ -90,8 +90,8 @@ limits.POSIXlt <- function(lims, var) {
 #. Sometimes you may want to ensure limits include a single value, for all
 #' panels or all plots.  This function is a thin wrapper around
 #' \code{\link{geom_blank}} that makes it easy to add such values.
-#' 
-#' @param ... named list of aesthetics specifying the value (or values) that 
+#'
+#' @param ... named list of aesthetics specifying the value (or values) that
 #'   should be included in each scale.
 #' @export
 #' @examples
@@ -100,12 +100,12 @@ limits.POSIXlt <- function(lims, var) {
 #' p + expand_limits(y = c(1, 9))
 #' p + expand_limits(x = 0, y = 0)
 #'
-#' qplot(mpg, wt, data = mtcars, colour = cyl) + 
+#' qplot(mpg, wt, data = mtcars, colour = cyl) +
 #'  expand_limits(colour = seq(2, 10, by = 2))
-#' qplot(mpg, wt, data = mtcars, colour = factor(cyl)) + 
+#' qplot(mpg, wt, data = mtcars, colour = factor(cyl)) +
 #'  expand_limits(colour = factor(seq(2, 10, by = 2)))
 expand_limits <- function(...) {
   data <- data.frame(...)
-  
+
   geom_blank(aes_all(names(data)), data, inherit.aes = FALSE)
 }

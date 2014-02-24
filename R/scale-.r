@@ -1,7 +1,7 @@
 #' Components of a scale:
 #'
 #' Guide related:
-#'   * name 
+#'   * name
 #'   * breaks
 #'   * labels
 #'   * expand
@@ -15,7 +15,7 @@
 #' Scales are an S3 class with a single mutable component implemented with
 #' a reference class - the range of the data.  This mutability makes working
 #' with scales much easier, because it makes it possible to distribute the
-#' training, without having to worry about collecting all the pieces back 
+#' training, without having to worry about collecting all the pieces back
 #' together again.
 #'
 #' @name ggscale
@@ -26,12 +26,12 @@ NULL
 #'
 #' @export
 #' @inheritParams discrete_scale
-#' @param minor_breaks Used with date or datetime scales. Either \code{NULL} for 
-#'   no minor breaks, \code{waiver()} for the default breaks (one minor break 
-#'   between each major break), a numeric vector of positions, or a function 
+#' @param minor_breaks Used with date or datetime scales. Either \code{NULL} for
+#'   no minor breaks, \code{waiver()} for the default breaks (one minor break
+#'   between each major break), a numeric vector of positions, or a function
 #'   that given the limits returns a vector of minor breaks.
-#' @param limits A numeric vector of length two describing the scale limits. 
-#' @param rescaler  Used by diverging and n colour gradients 
+#' @param limits A numeric vector of length two describing the scale limits.
+#' @param rescaler  Used by diverging and n colour gradients
 #'   (i.e. \code{\link{scale_colour_gradient2}}, \code{\link{scale_colour_gradientn}}).
 #' @param oob What to do with values outside scale limits (out of bounds)?
 #' @keywords internal
@@ -42,8 +42,8 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
     if (legend == FALSE) guide = "none"
     else if (legend == TRUE) guide = "legend"
   }
-  
-  bad_labels <- is.vector(breaks) && is.vector(labels) && 
+
+  bad_labels <- is.vector(breaks) && is.vector(labels) &&
     length(breaks) != length(labels)
   if (bad_labels) {
     stop("Breaks and labels have unequal lengths", call. = FALSE)
@@ -52,32 +52,32 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
   if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
     guide <- "none"
   }
-  
+
   trans <- as.trans(trans)
   if (!is.null(limits)) {
     limits <- trans$trans(limits)
   }
-  
+
   structure(list(
-    call = match.call(), 
-    
+    call = match.call(),
+
     aesthetics = aesthetics,
     scale_name = scale_name,
     palette = palette,
-    
+
     range = ContinuousRange$new(),
     limits = limits,
-    trans = trans, 
+    trans = trans,
     na.value = na.value,
     expand = expand,
-    rescaler = rescaler,  # Used by diverging and n colour gradients 
+    rescaler = rescaler,  # Used by diverging and n colour gradients
     oob = oob,
 
-    name = name, 
+    name = name,
     breaks = breaks,
     minor_breaks = minor_breaks,
 
-    labels = labels, 
+    labels = labels,
     legend = legend,
     guide = guide
   ), class = c(scale_name, "continuous", "scale"))
@@ -100,7 +100,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #'   \itemize{
 #'     \item \code{NULL}: don't display any breaks
 #'     \item a character vector giving the breaks as they should appear on the
-#'      axis or in the legend.  
+#'      axis or in the legend.
 #'     \item \code{waiver()} to use the default break computation.
 #'     \item a function, that when called with a single argument, a character
 #'       vector giving the limits of the scale, returns a character vector
@@ -108,7 +108,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #'   }
 #'   This parameter does not affect in any way how the data is scaled - it
 #'   only affects the appearance of the legend.
-#' @param limits A character vector specifying the data range for the scale. 
+#' @param limits A character vector specifying the data range for the scale.
 #   The limits control what levels are displayed in the plot, their order,
 #'  and the default order of their display in guides.
 #' @param labels \code{NULL} for no labels, \code{waiver()} for default
@@ -120,7 +120,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #'   additive constant used to expand the range of the scales so that there
 #'   is a small gap between the data and the axes.
 #' @param na.value how should missing values be displayed?
-#' @param guide the name of, or actual function, used to create the 
+#' @param guide the name of, or actual function, used to create the
 #'   guide.
 discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, expand = waiver(), na.value = NA, drop = TRUE, guide="legend") {
 
@@ -129,8 +129,8 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks 
     if (legend == FALSE) guide = "none"
     else if (legend == TRUE) guide = "legend"
   }
-  
-  bad_labels <- is.vector(breaks) && is.vector(labels) && 
+
+  bad_labels <- is.vector(breaks) && is.vector(labels) &&
     length(breaks) != length(labels)
   if (bad_labels) {
     stop("Breaks and labels have unequal lengths", call. = FALSE)
@@ -141,20 +141,20 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks 
   }
 
   structure(list(
-    call = match.call(), 
+    call = match.call(),
 
     aesthetics = aesthetics,
     scale_name = scale_name,
     palette = palette,
-    
+
     range = DiscreteRange$new(),
     limits = limits,
     na.value = na.value,
     expand = expand,
 
-    name = name, 
+    name = name,
     breaks = breaks,
-    labels = labels, 
+    labels = labels,
     legend = legend,
     drop = drop,
     guide = guide
@@ -166,11 +166,11 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks 
 # @return updated range (invisibly)
 # @seealso \code{\link{scale_train}} for scale specific generic method
 scale_train_df <- function(scale, df) {
-  if (empty(df)) return() 
+  if (empty(df)) return()
 
   aesthetics <- intersect(scale$aesthetics, names(df))
   for(aesthetic in aesthetics) {
-    scale_train(scale, df[[aesthetic]])      
+    scale_train(scale, df[[aesthetic]])
   }
   invisible()
 }
@@ -227,15 +227,15 @@ scale_transform.discrete <- function(scale, x) {
 }
 
 # @return list of mapped variables
-scale_map_df <- function(scale, df, i = NULL) {    
+scale_map_df <- function(scale, df, i = NULL) {
   if (empty(df)) return()
 
   aesthetics <- intersect(scale$aesthetics, names(df))
   names(aesthetics) <- aesthetics
   if (length(aesthetics) == 0) return()
-  
+
   if (is.null(i)) {
-    lapply(aesthetics, function(j) scale_map(scale, df[[j]])) 
+    lapply(aesthetics, function(j) scale_map(scale, df[[j]]))
   } else {
     lapply(aesthetics, function(j) scale_map(scale, df[[j]][i]))
   }
@@ -256,7 +256,7 @@ scale_map <- function(scale, x, limits) UseMethod("scale_map")
 scale_map.continuous <- function(scale, x, limits = scale_limits(scale)) {
   x <- scale$oob(scale$rescaler(x, from = limits))
 
-  # Points are rounded to the nearest 500th, to reduce the amount of 
+  # Points are rounded to the nearest 500th, to reduce the amount of
   # work that the scale palette must do - this is particularly important
   # for colour scales which are rather slow.  This shouldn't have any
   # perceptual impacts.
@@ -276,7 +276,7 @@ scale_map.discrete <- function(scale, x, limits = scale_limits(scale)) {
   if (is.null(names(pal))) {
     pal_match <- pal[match(as.character(x), limits)]
   } else {
-    pal_match <- pal[match(as.character(x), names(pal))]    
+    pal_match <- pal[match(as.character(x), names(pal))]
     pal_match <- unname(pal_match)
   }
 
@@ -288,7 +288,7 @@ scale_limits <- function(scale) {
 
   UseMethod("scale_limits")
 }
-  
+
 
 #' @S3method scale_limits default
 scale_limits.default <- function(scale) {
@@ -297,7 +297,7 @@ scale_limits.default <- function(scale) {
 
 # @kohske
 # this (internal) function always returns a vector of length 2 of giving
-# multiplicative and additive expansion constants. 
+# multiplicative and additive expansion constants.
 # if scale' expand is specified, return it.
 # if is.waive, return c(0, 0)
 scale_expand <- function(scale) UseMethod("scale_expand")
@@ -324,7 +324,7 @@ scale_dimension.discrete <- function(scale, expand = scale_expand(scale)) {
 
 scale_breaks <- function(scale, limits = scale_limits(scale)) {
   if (scale_is_empty(scale)) return(numeric())
-  
+
   UseMethod("scale_breaks")
 }
 
@@ -376,7 +376,7 @@ scale_breaks.discrete <- function(scale, limits = scale_limits(scale)) {
   } else {
     breaks <- scale$breaks
   }
-  
+
   # Breaks can only occur only on values in domain
   in_domain <- intersect(breaks, scale_limits(scale))
   structure(in_domain, pos = match(in_domain, breaks))
@@ -422,7 +422,7 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
   } else {
     breaks <- scale$minor_breaks
   }
-  
+
   # Any minor breaks outside the dimensions need to be thrown away
   discard(breaks, limits)
 }
@@ -436,14 +436,14 @@ scale_breaks_minor_positions <- function(scale) {
 
 scale_labels <- function(scale, breaks = scale_breaks(scale)) {
   if (scale_is_empty(scale)) return(character())
-  
+
   UseMethod("scale_labels")
 }
 
 #' @S3method scale_labels continuous
 scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
   if (is.null(breaks)) return(NULL)
-                                                                          
+
   breaks <- scale$trans$inv(breaks)
 
   if (is.null(scale$labels)) {
@@ -467,7 +467,7 @@ scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
 #' @S3method scale_labels discrete
 scale_labels.discrete <- function(scale, breaks = scale_breaks(scale)) {
   if (is.null(breaks)) return(NULL)
-  
+
   if (is.null(scale$labels)) {
     return(NULL)
   } else if (length(scale$labels) == 1 && !is.function(scale$labels) && is.na(scale$labels)) {
@@ -481,21 +481,21 @@ scale_labels.discrete <- function(scale, breaks = scale_breaks(scale)) {
     if (!is.null(names(scale$labels))) {
       # If labels have names, use them to match with breaks
       labels <- breaks
-      
+
       map <- match(names(scale$labels), labels, nomatch = 0)
       labels[map] <- scale$labels[map != 0]
       labels
     } else {
       labels <- scale$labels
-      
+
       # Need to ensure that if breaks were dropped, corresponding labels are too
       pos <- attr(breaks, "pos")
       if (!is.null(pos)) {
         labels <- labels[pos]
       }
-      labels    
+      labels
     }
-    
+
   }
 }
 
@@ -513,7 +513,7 @@ scale_clone <- function(scale) UseMethod("scale_clone")
 #' @S3method scale_clone continuous
 scale_clone.continuous <- function(scale) {
   new <- scale
-  new$range <- ContinuousRange$new()  
+  new$range <- ContinuousRange$new()
   new
 }
 
@@ -531,7 +531,7 @@ scale_break_info.discrete <- function(scale, range = NULL) {
 
   # for discrete, limits != range
   limits <- scale_limits(scale)
-  
+
   major <- scale_breaks(scale, limits)
   if (is.null(major)) {
     labels <- major_n <- NULL
@@ -546,9 +546,9 @@ scale_break_info.discrete <- function(scale, range = NULL) {
     # rescale breaks [0, 1], which are used by coord/guide
     major_n <- rescale(major, from = range)
   }
-  
+
   list(range = range, labels = labels,
-       major = major_n, minor = NULL, 
+       major = major_n, minor = NULL,
        major_source = major, minor_source = NULL)
 }
 #' @S3method scale_break_info continuous
@@ -563,9 +563,9 @@ scale_break_info.continuous <- function(scale, range = NULL) {
   labels <- scale_labels(scale, major)
 
   # drop oob breaks/labels by testing major == NA
-  if (!is.null(labels)) labels <- labels[!is.na(major)]  
+  if (!is.null(labels)) labels <- labels[!is.na(major)]
   if (!is.null(major)) major <- major[!is.na(major)]
-  
+
   # minor breaks
   minor <- scale_breaks_minor(scale, b = major, limits = range)
   if (!is.null(minor)) minor <- minor[!is.na(minor)]
@@ -573,8 +573,8 @@ scale_break_info.continuous <- function(scale, range = NULL) {
   # rescale breaks [0, 1], which are used by coord/guide
   major_n <- rescale(major, from = range)
   minor_n <- rescale(minor, from = range)
-  
+
   list(range = range, labels = labels,
-       major = major_n, minor = minor_n, 
+       major = major_n, minor = minor_n,
        major_source = major, minor_source = minor)
 }

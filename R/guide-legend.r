@@ -2,12 +2,12 @@
 #'
 #' Legend type guide shows key (i.e., geoms) mapped onto values.
 #' Legend guides for various scales are integrated if possible.
-#' 
+#'
 #' Guides can be specified in each scale or in \code{\link{guides}}.
 #' \code{guide="legend"} in scale is syntactic sugar for
 #' \code{guide=guide_legend()}. As for how to specify the guide for each
 #' scales in more detail, see \code{\link{guides}}.
-#' 
+#'
 #' @param title A character string or expression indicating a title of guide.
 #'   If \code{NULL}, the title is not shown. By default
 #'   (\code{\link{waiver}}), the name of the scale object or tha name
@@ -62,7 +62,7 @@
 #' \donttest{
 #' library(reshape2) # for melt
 #' df <- melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
-#' 
+#'
 #' p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 #' p2 <- p1 + geom_point(aes(size = value))
 #'
@@ -71,55 +71,55 @@
 #' p1 + scale_fill_continuous(guide = guide_legend())
 #'
 #' # Guide title
-#' 
+#'
 #' p1 + scale_fill_continuous(guide = guide_legend(title = "V")) # title text
 #' p1 + scale_fill_continuous(name = "V") # same
 #' p1 + scale_fill_continuous(guide = guide_legend(title = NULL)) # no title
-#' 
+#'
 #' # Control styles
-#' 
+#'
 #' # key size
 #' p1 + guides(fill = guide_legend(keywidth = 3, keyheight = 1))
-#' 
+#'
 #' # title position
 #' p1 + guides(fill = guide_legend(title = "LEFT", title.position = "left"))
-#' 
+#'
 #' # title text styles via element_text
 #' p1 + guides(fill = guide_legend(
 #'   title.theme = element_text(size=15, face="italic", colour = "red", angle = 45)))
-#' 
+#'
 #' # label position
 #' p1 + guides(fill = guide_legend(label.position = "bottom"))
-#' 
+#'
 #' # label styles
-#' p1 + scale_fill_continuous(breaks = c(5, 10, 15), 
-#'   labels = paste("long", c(5, 10, 15)), 
+#' p1 + scale_fill_continuous(breaks = c(5, 10, 15),
+#'   labels = paste("long", c(5, 10, 15)),
 #'   guide = guide_legend(direction = "horizontal", title.position = "top",
 #'     label.position="bottom", label.hjust = 0.5, label.vjust = 0.5,
 #'     label.theme = element_text(angle = 90)))
-#' 
+#'
 #' # Set aesthetic of legend key
-#' 
+#'
 #' # very low alpha value make it difficult to see legend key
-#' p3 <- qplot(carat, price, data = diamonds, colour = color, 
+#' p3 <- qplot(carat, price, data = diamonds, colour = color,
 #'   alpha = I(1/100))
 #' p3
-#' 
+#'
 #' # override.aes overwrites the alpha
 #' p3 + guides(colour = guide_legend(override.aes = list(alpha = 1)))
-#' 
+#'
 #' # multiple row/col legends
 #' p <- qplot(1:20, 1:20, colour = letters[1:20])
 #' p + guides(col = guide_legend(nrow = 8))
 #' p + guides(col = guide_legend(ncol = 8))
 #' p + guides(col = guide_legend(nrow = 8, byrow = TRUE))
 #' p + guides(col = guide_legend(ncol = 8, byrow = TRUE))
-#' 
+#'
 #' # reversed order legend
 #' p + guides(col = guide_legend(reverse = TRUE))
 #' }
 guide_legend <- function(
-                         
+
   #　title
   title = waiver(),
   title.position = NULL,
@@ -133,7 +133,7 @@ guide_legend <- function(
   label.theme = NULL,
   label.hjust = NULL,
   label.vjust = NULL,
-                         
+
   # key
   keywidth = NULL,
   keyheight = NULL,
@@ -147,12 +147,12 @@ guide_legend <- function(
   byrow = FALSE,
   reverse = FALSE,
   order = 0,
-                         
+
   ...) {
-  
+
   if (!is.null(keywidth) && !is.unit(keywidth)) keywidth <- unit(keywidth, default.unit)
   if (!is.null(keyheight) && !is.unit(keyheight)) keyheight <- unit(keyheight, default.unit)
-  
+
   structure(list(
     #　title
     title = title,
@@ -160,7 +160,7 @@ guide_legend <- function(
     title.theme = title.theme,
     title.hjust = title.hjust,
     title.vjust = title.vjust,
-                 
+
     # label
     label = label,
     label.position = label.position,
@@ -181,7 +181,7 @@ guide_legend <- function(
     byrow = byrow,
     reverse = reverse,
     order = order,
-                 
+
     # parameter
     available_aes = c("any"),
 
@@ -210,12 +210,12 @@ guide_train.legend <- function(guide, scale) {
   } else {
     key <- key[!is.na(breaks), , drop = FALSE]
   }
-  
+
   if (empty(key) || all(is.na(breaks))) return(NULL)
   names(key) <- c(scale$aesthetics[1], ".label")
 
   if (guide$reverse) key <- key[nrow(key):1, ]
-  
+
   guide$key <- key
   guide$hash <- with(guide, digest(list(title, key$.label, direction, name)))
   guide
@@ -237,7 +237,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
   # but probably it is better to sensitive to that and generate only one geom like this:
   #
   # geoms <- unique(sapply(layers, function(layer) if (is.na(layer$legend) || layer$legend) layer$geom$guide_geom() else NULL))
-  # 
+  #
   # but in this case, some conflicts occurs, e.g.,
   #
   # d <- data.frame(x=1:5, y=1:5, v=factor(1:5))
@@ -245,18 +245,18 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
   #
   # geom_line generate path geom with red and geom_rug generate it with blue.
   # how to deal with them ?
-  
+
   # arrange common data for vertical and horizontal guide
   guide$geoms <- llply(layers, function(layer) {
     all <- names(c(layer$mapping, default_mapping, layer$stat$default_aes()))
     geom <- c(layer$geom$required_aes, names(layer$geom$default_aes()))
     matched <- intersect(intersect(all, geom), names(guide$key))
     matched <- setdiff(matched, names(layer$geom_params))
-    data <- 
+    data <-
       if (length(matched) > 0) {
         # This layer contributes to the legend
         if (is.na(layer$show_guide) || layer$show_guide) {
-          # Default is to include it 
+          # Default is to include it
           layer$use_defaults(guide$key[matched])
         } else {
           NULL
@@ -271,7 +271,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
         }
       }
     if (is.null(data)) return(NULL)
-    
+
     # override.aes in guide_legend manually changes the geom
     for (aes in intersect(names(guide$override.aes), names(data))) data[[aes]] <- guide$override.aes[[aes]]
 
@@ -294,7 +294,7 @@ guide_gengrob.legend <- function(guide, theme) {
   # default setting
   label.position <- guide$label.position %||% "right"
   if (!label.position %in% c("top", "bottom", "left", "right")) stop("label position \"", label.position, "\" is invalid")
-  
+
   nbreak <- nrow(guide$key)
 
   # gap between keys etc
@@ -305,7 +305,7 @@ guide_gengrob.legend <- function(guide, theme) {
   title.theme <- guide$title.theme %||% calc_element("legend.title", theme)
   title.hjust <- title.x <- guide$title.hjust %||% theme$legend.title.align %||% 0
   title.vjust <- title.y <- guide$title.vjust %||% 0.5
-  
+
   grob.title <- {
     if (is.null(guide$title))
       zeroGrob()
@@ -326,7 +326,7 @@ guide_gengrob.legend <- function(guide, theme) {
   #
   # label.theme in param of guide_legend() > theme$legend.text.align > default
   # hjust/vjust in theme$legend.text and label.theme are ignored.
-  # 
+  #
   # Default:
   #   If label includes expression, the label is right-alignd (hjust = 0). Ohterwise, left-aligned (x = 1, hjust = 1).
   #   Vertical adjustment is always mid-alined (vjust = 0.5).
@@ -341,7 +341,7 @@ guide_gengrob.legend <- function(guide, theme) {
 
       lapply(guide$key$.label,
         function(label, ...) {
-          g <- element_grob(element = label.theme, label = label, 
+          g <- element_grob(element = label.theme, label = label,
             x = x, y = y, hjust = hjust, vjust = vjust)
           ggname("guide.label", g)
         }
@@ -358,14 +358,14 @@ guide_gengrob.legend <- function(guide, theme) {
 
   key_width <- convertWidth(guide$keywidth %||% theme$legend.key.width %||% theme$legend.key.size, "mm")
   key_height <- convertHeight(guide$keyheight %||% theme$legend.key.height %||% theme$legend.key.size, "mm")
-  
+
   key_width.c <- c(key_width)
   key_height.c <- c(key_height)
 
   key_size_mat <- do.call("cbind", llply(guide$geoms, function(g) g$data$size))
   key_sizes <- if (is.null(key_size_mat)) rep(0, nbreak) else apply(key_size_mat, 1, max)
 
-  if (!is.null(guide$nrow) && !is.null(guide$ncol) && guide$nrow * guide$ncol < nbreak) 
+  if (!is.null(guide$nrow) && !is.null(guide$ncol) && guide$nrow * guide$ncol < nbreak)
     stop("nrow x ncol need to be larger than the number of breaks")
   legend.nrow <- guide$nrow %||%
     if (!is.null(guide$ncol)) ceiling(nbreak/guide$ncol)
@@ -378,7 +378,7 @@ guide_gengrob.legend <- function(guide, theme) {
 
   key_widths.c <- pmax(key_width.c, apply(key_sizes, 2, max))
   key_heights.c <-pmax(key_height.c, apply(key_sizes, 1, max))
-  
+
   label_widths.c <- apply(matrix(c(label_widths.c, rep(0, legend.nrow * legend.ncol - nbreak)),
                                  legend.nrow, legend.ncol, byrow = guide$byrow),
                           2, max)
@@ -412,7 +412,7 @@ guide_gengrob.legend <- function(guide, theme) {
         kl_widths <- head(interleave(key_widths.c, hgap/2, label_widths.c, hgap/2), -1)
         kl_heights <- head(interleave(pmax(label_heights.c, key_heights.c), vgap/2), -1)
         vps <- transform(vps, key.row = R*2-1, key.col = C*4-3, label.row = R*2-1, label.col = C*4-1)
-        })      
+        })
   } else {
     switch(label.position,
       "top" = {
@@ -466,7 +466,7 @@ guide_gengrob.legend <- function(guide, theme) {
 
   # grob for key
   grob.keys <- list()
-  
+
   for (i in 1:nbreak) {
 
     # layout position

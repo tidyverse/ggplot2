@@ -5,13 +5,13 @@ dotstackGrob <- function (
     dotdia = unit(1, "npc"),  # Dot diameter in the non-stack axis, should be in npc
     stackposition = 0,        # Position of each dot in the stack, relative to origin
     stackratio = 1,           # Stacking height of dots (.75 means 25% dot overlap)
-    default.units = "npc", name = NULL, gp = gpar(), vp = NULL) 
+    default.units = "npc", name = NULL, gp = gpar(), vp = NULL)
 {
-    if (!is.unit(x)) 
+    if (!is.unit(x))
         x <- unit(x, default.units)
-    if (!is.unit(y)) 
+    if (!is.unit(y))
         y <- unit(y, default.units)
-    if (!is.unit(dotdia)) 
+    if (!is.unit(dotdia))
         dotdia <- unit(dotdia, default.units)
     if (attr(dotdia,"unit") != "npc")
         warning("Unit type of dotdia should be 'npc'")

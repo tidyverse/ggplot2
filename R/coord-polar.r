@@ -1,26 +1,26 @@
 #' Polar coordinates.
-#' 
-#' The polar coordinate system is most commonly used for pie charts, which 
+#'
+#' The polar coordinate system is most commonly used for pie charts, which
 #' are a stacked bar chart in polar coordinates.
 #'
 #' @param theta variable to map angle to (\code{x} or \code{y})
 #' @param start offset of starting point from 12 o'clock in radians
 #' @param direction 1, clockwise; -1, anticlockwise
 #' @export
-#' @examples 
+#' @examples
 #' \donttest{
 #' # NOTE: Use these plots with caution - polar coordinates has
-#' # major perceptual problems.  The main point of these examples is 
+#' # major perceptual problems.  The main point of these examples is
 #' # to demonstrate how these common plots can be described in the
 #' # grammar.  Use with EXTREME caution.
 #'
 #' # A coxcomb plot = bar chart + polar coordinates
-#' cxc <- ggplot(mtcars, aes(x = factor(cyl))) + 
+#' cxc <- ggplot(mtcars, aes(x = factor(cyl))) +
 #'   geom_bar(width = 1, colour = "black")
 #' cxc + coord_polar()
 #' # A new type of plot?
 #' cxc + coord_polar(theta = "y")
-#' 
+#'
 #' # A pie chart = stacked bar chart + polar coordinates
 #' pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
 #'  geom_bar(width = 1)
@@ -28,24 +28,24 @@
 #'
 #' # The bullseye chart
 #' pie + coord_polar()
-#' 
+#'
 #' # Hadley's favourite pie chart
 #' df <- data.frame(
 #'   variable = c("resembles", "does not resemble"),
 #'   value = c(80, 20)
 #' )
-#' ggplot(df, aes(x = "", y = value, fill = variable)) + 
+#' ggplot(df, aes(x = "", y = value, fill = variable)) +
 #'   geom_bar(width = 1, stat = "identity") +
-#'   scale_fill_manual(values = c("red", "yellow")) + 
+#'   scale_fill_manual(values = c("red", "yellow")) +
 #'   coord_polar("y", start = pi / 3) +
 #'   labs(title = "Pac man")
-#' 
+#'
 #' # Windrose + doughnut plot
 #' movies$rrating <- cut_interval(movies$rating, length = 1)
 #' movies$budgetq <- cut_number(movies$budget, 4)
-#' 
+#'
 #' doh <- ggplot(movies, aes(x = rrating, fill = budgetq))
-#' 
+#'
 #' # Wind rose
 #' doh + geom_bar(width = 1) + coord_polar()
 #' # Race track plot
@@ -54,9 +54,9 @@
 coord_polar <- function(theta = "x", start = 0, direction = 1) {
   theta <- match.arg(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
-  
+
   coord(
-    theta = theta, r = r, 
+    theta = theta, r = r,
     start = start, direction = sign(direction),
     subclass = "polar"
   )
@@ -91,7 +91,7 @@ coord_train.polar <- function(coord, scales) {
 
     scale <- scales[[n]]
     limits <- coord$limits[[n]]
-    
+
     if (is.null(limits)) {
       expand <- coord_expand_defaults(coord, scale, n)
       range <- scale_dimension(scale, expand)
@@ -107,7 +107,7 @@ coord_train.polar <- function(coord, scales) {
   }
 
   details <- list(
-    x.range = ret$x$range, y.range = ret$y$range, 
+    x.range = ret$x$range, y.range = ret$y$range,
     x.major = ret$x$major, x.minor = ret$x$minor, x.labels = ret$x$labels,
     y.major = ret$y$major, y.minor = ret$y$minor, y.labels = ret$y$labels
   )
@@ -116,7 +116,7 @@ coord_train.polar <- function(coord, scales) {
     names(details) <- gsub("x\\.", "r.", names(details))
     names(details) <- gsub("y\\.", "theta.", names(details))
   } else {
-    names(details) <- gsub("x\\.", "theta.", names(details))      
+    names(details) <- gsub("x\\.", "theta.", names(details))
     names(details) <- gsub("y\\.", "r.", names(details))
   }
 
@@ -140,7 +140,7 @@ theta_rescale <- function(coord, x, details) {
   rotate <- function(x) (x + coord$start) %% (2 * pi) * coord$direction
   rotate(rescale(x, c(0, 2 * pi), details$theta.range))
 }
-  
+
 r_rescale <- function(coord, x, details) {
   rescale(x, c(0, 0.4), details$r.range)
 }
@@ -157,12 +157,12 @@ coord_expand_defaults.polar <- function(coord, scale, aesthetic) {
 #' @S3method coord_transform polar
 coord_transform.polar <- function(coord, data, details) {
   data <- rename_data(coord, data)
-  
+
   data$r  <- r_rescale(coord, data$r, details)
   data$theta <- theta_rescale(coord, data$theta, details)
   data$x <- data$r * sin(data$theta) + 0.5
   data$y <- data$r * cos(data$theta) + 0.5
-  
+
   data
 }
 
@@ -179,10 +179,10 @@ coord_render_axis_h.polar <- function(coord, details, theme) {
 #' @S3method coord_render_bg polar
 coord_render_bg.polar <- function(coord, details, theme) {
   details <- rename_data(coord, details)
-  
+
   theta <- if (length(details$theta.major) > 0) theta_rescale(coord, details$theta.major, details)
   thetamin <- if (length(details$theta.minor) > 0) theta_rescale(coord, details$theta.minor, details)
-  thetafine <- seq(0, 2 * pi, length=100)    
+  thetafine <- seq(0, 2 * pi, length=100)
 
   r <- 0.4
   rfine <- c(r_rescale(coord, details$r.major, details), 0.45)
@@ -197,22 +197,22 @@ coord_render_bg.polar <- function(coord, details, theme) {
     element_render(theme, "panel.background"),
     if (length(theta) > 0) element_render(
       theme, majortheta, name = "angle",
-      x = c(rbind(0, 0.45 * sin(theta))) + 0.5, 
+      x = c(rbind(0, 0.45 * sin(theta))) + 0.5,
       y = c(rbind(0, 0.45 * cos(theta))) + 0.5,
-      id.lengths = rep(2, length(theta)), 
+      id.lengths = rep(2, length(theta)),
       default.units="native"
     ),
     if (length(thetamin) > 0) element_render(
       theme, minortheta, name = "angle",
-      x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5, 
+      x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5,
       y = c(rbind(0, 0.45 * cos(thetamin))) + 0.5,
-      id.lengths = rep(2, length(thetamin)),  
+      id.lengths = rep(2, length(thetamin)),
       default.units="native"
     ),
-    
+
     element_render(
       theme, majorr, name = "radius",
-      x = rep(rfine, each=length(thetafine)) * sin(thetafine) + 0.5, 
+      x = rep(rfine, each=length(thetafine)) * sin(thetafine) + 0.5,
       y = rep(rfine, each=length(thetafine)) * cos(thetafine) + 0.5,
       id.lengths = rep(length(thetafine), length(rfine)),
       default.units="native"
@@ -225,7 +225,7 @@ coord_render_fg.polar <- function(coord, details, theme) {
   if (is.null(details$theta.major)) {
     return(element_render(theme, "panel.border"))
   }
-  
+
   theta <- theta_rescale(coord, details$theta.major, details)
   labels <- details$theta.labels
 
@@ -235,7 +235,7 @@ coord_render_fg.polar <- function(coord, details, theme) {
   if (ends_apart < 0.05) {
     n <- length(labels)
     if (is.expression(labels)) {
-      combined <- substitute(paste(a, "/", b), 
+      combined <- substitute(paste(a, "/", b),
         list(a = labels[[1]], b = labels[[n]]))
     } else {
       combined <- paste(labels[1], labels[n], sep="/")
@@ -244,17 +244,17 @@ coord_render_fg.polar <- function(coord, details, theme) {
     labels <- labels[-1]
     theta <- theta[-1]
   }
-    
+
   grobTree(
     if (length(labels) > 0) element_render(
-      theme, "axis.text.x", 
+      theme, "axis.text.x",
       labels, 0.45 * sin(theta) + 0.5, 0.45 * cos(theta) + 0.5,
       hjust = 0.5, vjust = 0.5,
       default.units="native"
-    ),      
+    ),
     element_render(theme, "panel.border")
   )
-}  
+}
 
 #' @S3method coord_labels polar
 coord_labels.polar <- function(coord, scales) {

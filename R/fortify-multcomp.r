@@ -19,8 +19,8 @@
 #'
 #' fortify(summary(wht))
 #' ggplot(mapping = aes(lhs, estimate)) +
-#'    geom_linerange(aes(ymin = lwr, ymax = upr), data = CI) + 
-#'    geom_point(aes(size = p), data = summary(wht)) + 
+#'    geom_linerange(aes(ymin = lwr, ymax = upr), data = CI) +
+#'    geom_point(aes(size = p), data = summary(wht)) +
 #'    scale_size(trans = "reverse")
 #'
 #' cld <- cld(wht)
@@ -35,8 +35,8 @@ fortify.glht <- function(model, data, ...) {
   unrowname(data.frame(
     lhs = rownames(model$linfct),
     rhs = model$rhs,
-    estimate = coef(model), 
-    check.names = FALSE, 
+    estimate = coef(model),
+    check.names = FALSE,
     stringsAsFactors = FALSE))
 }
 
@@ -46,12 +46,12 @@ fortify.glht <- function(model, data, ...) {
 fortify.confint.glht <- function(model, data, ...) {
   coef <- model$confint
   colnames(coef) <- tolower(colnames(coef))
-  
+
   unrowname(data.frame(
     lhs = rownames(coef),
     rhs = model$rhs,
     coef,
-    check.names = FALSE, 
+    check.names = FALSE,
     stringsAsFactors = FALSE))
 }
 
@@ -62,12 +62,12 @@ fortify.summary.glht <- function(model, data, ...) {
   coef <- as.data.frame(
     model$test[c("coefficients", "sigma", "tstat", "pvalues")])
   names(coef) <- c("estimate", "se", "t", "p")
-  
+
   unrowname(data.frame(
     lhs = rownames(coef),
     rhs = model$rhs,
     coef,
-    check.names = FALSE, 
+    check.names = FALSE,
     stringsAsFactors = FALSE))
 }
 
@@ -79,6 +79,6 @@ fortify.cld <- function(model, data, ...) {
   unrowname(data.frame(
     lhs = names(model$mcletters$Letters),
     letters = model$mcletters$Letters,
-    check.names = FALSE, 
+    check.names = FALSE,
     stringsAsFactors = FALSE))
 }

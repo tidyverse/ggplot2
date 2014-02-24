@@ -1,5 +1,5 @@
 #' Code to create a scatterplot matrix (experimental)
-#' 
+#'
 #' @param data data frame
 #' @param mapping any additional aesthetic mappings (do not use x and y)
 #' @param colour default point colour
@@ -20,7 +20,7 @@ plotmatrix <- function(data, mapping=aes(), colour="black") {
     ycol <- grid[i, "y"]
 
     data.frame(
-      xvar = names(data)[ycol], 
+      xvar = names(data)[ycol],
       yvar = names(data)[xcol],
       x = data[, xcol], y = data[, ycol], data
     )
@@ -30,7 +30,7 @@ plotmatrix <- function(data, mapping=aes(), colour="black") {
 
   densities <- do.call("rbind", lapply(1:ncol(data), function(i) {
     data.frame(
-      xvar = names(data)[i], 
+      xvar = names(data)[i],
       yvar = names(data)[i],
       x = data[, i]
     )

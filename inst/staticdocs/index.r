@@ -3,47 +3,47 @@ list(
   readme = "",
   index = list(
     sd_section("Geoms",
-      "Geoms, short for geometric objects, describe the type of plot you will produce.",  
+      "Geoms, short for geometric objects, describe the type of plot you will produce.",
       c(
-        "geom_abline", 
-        "geom_area", 
-        "geom_bar", 
+        "geom_abline",
+        "geom_area",
+        "geom_bar",
         "geom_bin2d",
-        "geom_blank", 
-        "geom_boxplot", 
-        "geom_contour", 
+        "geom_blank",
+        "geom_boxplot",
+        "geom_contour",
         "geom_crossbar",
-        "geom_density", 
-        "geom_density2d", 
+        "geom_density",
+        "geom_density2d",
         "geom_dotplot",
-        "geom_errorbar", 
+        "geom_errorbar",
         "geom_errorbarh",
-        "geom_freqpoly", 
-        "geom_hex", 
-        "geom_histogram", 
+        "geom_freqpoly",
+        "geom_hex",
+        "geom_histogram",
         "geom_hline",
-        "geom_jitter", 
-        "geom_line", 
-        "geom_linerange", 
+        "geom_jitter",
+        "geom_line",
+        "geom_linerange",
         "geom_map",
-        "geom_path", 
-        "geom_point", 
-        "geom_pointrange", 
-        "geom_polygon", 
-        "geom_quantile", 
+        "geom_path",
+        "geom_point",
+        "geom_pointrange",
+        "geom_polygon",
+        "geom_quantile",
         "geom_raster",
-        "geom_rect", 
-        "geom_ribbon", 
-        "geom_rug", 
-        "geom_segment", 
-        "geom_smooth", 
-        "geom_step", 
-        "geom_text", 
-        "geom_tile", 
+        "geom_rect",
+        "geom_ribbon",
+        "geom_rug",
+        "geom_segment",
+        "geom_smooth",
+        "geom_step",
+        "geom_text",
+        "geom_tile",
         "geom_violin",
         "geom_vline"
       )
-    ), 
+    ),
     sd_section("Statistics",
       "It's often useful to transform your data before plotting, and that's what statistical transformations do.",
       c(
@@ -89,7 +89,7 @@ list(
         "scale_manual",
         "scale_linetype",
         "scale_shape",
-        "scale_size",        
+        "scale_size",
         "scale_x_continuous",
         "scale_x_date",
         "scale_x_datetime",
@@ -134,9 +134,9 @@ list(
         "position_jitter"
       )
     ),
-    sd_section("Data", 
+    sd_section("Data",
       "Data sets included in ggplot2 and used in examples",
-      c( 
+      c(
         "diamonds",
         "economics",
         "midwest",
@@ -147,8 +147,8 @@ list(
         "seals"
       )
     ),
-    sd_section("Anotation", 
-      "Specialised functions for adding annotations to a plot", 
+    sd_section("Anotation",
+      "Specialised functions for adding annotations to a plot",
       c(
         "annotate",
         "annotation_custom",
@@ -158,7 +158,7 @@ list(
         "borders"
       )
     ),
-    sd_section("Fortify", 
+    sd_section("Fortify",
       "Fortify methods make it possible to use ggplot2 with objects of
        various types, not just data frames.",
       c(
@@ -168,9 +168,9 @@ list(
         "fortify.map",
         "fortify.sp",
         "map_data"
-      ) 
+      )
     ),
-    sd_section("Themes", 
+    sd_section("Themes",
       "Themes control non-data components of the plot",
       c(
         "add_theme",
@@ -196,12 +196,12 @@ list(
         "qplot",
         "+.gg",
         "autoplot",
-        "ggplot.data.frame", 
+        "ggplot.data.frame",
         "is.ggplot",
         "print.ggplot"
       )
     ),
-    sd_section("Aesthetics", 
+    sd_section("Aesthetics",
       "",
       c(
         "aes",
@@ -214,9 +214,9 @@ list(
         "aes_position"
       )
     )
-    
-  ), 
-  icons = list(  
+
+  ),
+  icons = list(
     coord_cartesian = sd_icon({
       gTree(children = gList(
         segmentsGrob(c(0, 0.25), c(0.25, 0), c(1, 0.25), c(0.25, 1),
@@ -277,7 +277,7 @@ list(
     }),
     geom_abline = sd_icon(linesGrob(c(0, 1), c(0.2, 0.8))),
     geom_bar = sd_icon({
-      rectGrob(c(0.3, 0.7), c(0.4, 0.8), height = c(0.4, 0.8), width = 0.3, 
+      rectGrob(c(0.3, 0.7), c(0.4, 0.8), height = c(0.4, 0.8), width = 0.3,
         vjust = 1, gp = gpar(fill = "grey20", col = NA))
       }),
     geom_histogram = sd_icon({
@@ -335,7 +335,7 @@ list(
     geom_contour = sd_icon({
       gTree(children = gList(
         polygonGrob(c(0.45,0.5,0.6, 0.5), c(0.5, 0.4, 0.55, 0.6)),
-        polygonGrob(c(0.25,0.6,0.8, 0.5), c(0.5, 0.2, 0.75, 0.9), 
+        polygonGrob(c(0.25,0.6,0.8, 0.5), c(0.5, 0.2, 0.75, 0.9),
           gp = gpar(fill = NA))
       ))
     }),
@@ -380,7 +380,7 @@ list(
     }),
     geom_raster = sd_icon({
       rectGrob(c(0.25, 0.25, 0.75, 0.75), c(0.25, 0.75, 0.75, 0.25),
-        width = 0.5, height = c(0.67, 0.5, 0.67, 0.5), 
+        width = 0.5, height = c(0.67, 0.5, 0.67, 0.5),
         gp = gpar(col = "grey20", fill = c('#804070', '#668040')))
     }),
     geom_rect = sd_icon({
@@ -452,7 +452,7 @@ list(
     }),
     position_identity = sd_icon({
       rectGrob(0.5, c(0.5, 0.3), width = 0.4, height = c(0.5, 0.3),
-        gp = gpar(col = "grey60", fill = c('#804070', '#668040')), vjust = 1) 
+        gp = gpar(col = "grey60", fill = c('#804070', '#668040')), vjust = 1)
     }),
     position_jitter = sd_icon(inherit = "geom_jitter" ),
     position_stack = sd_icon({
@@ -467,7 +467,7 @@ list(
       )
     }),
     scale_colour_brewer = sd_icon({
-      rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21, 
+      rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21,
         gp=gpar(fill=RColorBrewer::brewer.pal(5, "PuOr"), col=NA)
       )
     }),

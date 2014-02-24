@@ -1,6 +1,6 @@
 #' Violin plot.
 #'
-#' @section Aesthetics: 
+#' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "violin")}
 #'
 #' @inheritParams geom_point
@@ -13,40 +13,40 @@
 #' @examples
 #' \donttest{
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))
-#' 
+#'
 #' p + geom_violin()
 #' qplot(factor(cyl), mpg, data = mtcars, geom = "violin")
-#' 
+#'
 #' p + geom_violin() + geom_jitter(height = 0)
 #' p + geom_violin() + coord_flip()
 #' qplot(factor(cyl), mpg, data = mtcars, geom = "violin") +
 #'   coord_flip()
-#' 
+#'
 #' # Scale maximum width proportional to sample size:
 #' p + geom_violin(scale = "count")
 #'
 #' # Scale maximum width to 1 for all violins:
 #' p + geom_violin(scale = "width")
-#' 
+#'
 #' # Default is to trim violins to the range of the data. To disable:
 #' p + geom_violin(trim = FALSE)
-#' 
+#'
 #' # Use a smaller bandwidth for closer density fit (default is 1).
 #' p + geom_violin(adjust = .5)
-#' 
+#'
 #' # Add aesthetic mappings
-#' # Note that violins are automatically dodged when any aesthetic is 
+#' # Note that violins are automatically dodged when any aesthetic is
 #' # a factor
 #' p + geom_violin(aes(fill = cyl))
 #' p + geom_violin(aes(fill = factor(cyl)))
 #' p + geom_violin(aes(fill = factor(vs)))
 #' p + geom_violin(aes(fill = factor(am)))
-#' 
+#'
 #' # Set aesthetics to fixed value
 #' p + geom_violin(fill = "grey80", colour = "#3366FF")
-#' qplot(factor(cyl), mpg, data = mtcars, geom = "violin", 
+#' qplot(factor(cyl), mpg, data = mtcars, geom = "violin",
 #'   colour = I("#3366FF"))
-#' 
+#'
 #' # Scales vs. coordinate transforms -------
 #' # Scale transformations occur before the density statistics are computed.
 #' # Coordinate transformations occur afterwards.  Observe the effect on the
@@ -58,16 +58,16 @@
 #' m + geom_violin() + scale_y_log10()
 #' m + geom_violin() + coord_trans(y = "log10")
 #' m + geom_violin() + scale_y_log10() + coord_trans(y = "log10")
-#' 
+#'
 #' # Violin plots with continuous x:
 #' # Use the group aesthetic to group observations in violins
 #' qplot(year, budget, data = movies, geom = "violin")
-#' qplot(year, budget, data = movies, geom = "violin", 
+#' qplot(year, budget, data = movies, geom = "violin",
 #'   group = round_any(year, 10, floor))
 #' }
 geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity", position = "dodge",
 trim = TRUE, scale = "area", ...) {
-  GeomViolin$new(mapping = mapping, data = data, stat = stat, 
+  GeomViolin$new(mapping = mapping, data = data, stat = stat,
   position = position, trim = trim, scale = scale, ...)
 }
 
@@ -75,7 +75,7 @@ GeomViolin <- proto(Geom, {
   objname <- "violin"
 
   reparameterise <- function(., df, params) {
-    df$width <- df$width %||% 
+    df$width <- df$width %||%
       params$width %||% (resolution(df$x, FALSE) * 0.9)
 
     # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
@@ -86,8 +86,8 @@ GeomViolin <- proto(Geom, {
           xmax = x + width / 2)
 
   }
-  
-  draw <- function(., data, ...) { 
+
+  draw <- function(., data, ...) {
 
     # Find the points for the line to go all the way around
     data <- transform(data, xminv = x - violinwidth * (x-xmin),

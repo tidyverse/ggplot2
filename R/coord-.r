@@ -16,7 +16,7 @@ coord <- function(..., subclass = c()) {
 is.coord <- function(x) inherits(x, "coord")
 
 distance <- function(., x, y, details) {
-  max_dist <- dist_euclidean(details$x.range, details$y.range)    
+  max_dist <- dist_euclidean(details$x.range, details$y.range)
   dist_euclidean(x, y) / max_dist
 }
 
@@ -29,13 +29,13 @@ coord_labels <- function(coord, scales) UseMethod("coord_labels")
 #' @S3method coord_labels default
 coord_labels.default <- function(coord, scales) scales
 
-coord_render_fg <- function(coord, scales, theme) 
+coord_render_fg <- function(coord, scales, theme)
   UseMethod("coord_render_fg")
 #' @S3method coord_render_fg default
 coord_render_fg.default <- function(coord, scales, theme)
   element_render(theme, "panel.border")
 
-coord_render_bg <- function(coord, scales, theme) 
+coord_render_bg <- function(coord, scales, theme)
   UseMethod("coord_render_bg")
 #' @S3method coord_render_bg default
 coord_render_bg.default <- function(coord, details, theme) {
@@ -47,14 +47,14 @@ coord_render_bg.default <- function(coord, details, theme) {
   guide_grid(theme, x.minor, x.major, y.minor, y.major)
 }
 
-coord_render_axis_h <- function(coord, scales, theme) 
+coord_render_axis_h <- function(coord, scales, theme)
   UseMethod("coord_render_axis_h")
 #' @S3method coord_render_axis_h default
 coord_render_axis_h.default <- function(coord, details, theme) {
   guide_axis(details$x.major, details$x.labels, "bottom", theme)
 }
 
-coord_render_axis_v <- function(coord, scales, theme) 
+coord_render_axis_v <- function(coord, scales, theme)
   UseMethod("coord_render_axis_v")
 #' @S3method coord_render_axis_v default
 coord_render_axis_v.default <- function(coord, details, theme) {
@@ -69,10 +69,10 @@ coord_range.default <- function(coord, scales) {
   return(list(x = scales$x.range, y = scales$y.range))
 }
 
-coord_train <- function(coord, scales) 
+coord_train <- function(coord, scales)
   UseMethod("coord_train")
 
-coord_transform <- function(coord, data, range) 
+coord_transform <- function(coord, data, range)
   UseMethod("coord_transform")
 
 coord_distance <- function(coord, x, y, details)

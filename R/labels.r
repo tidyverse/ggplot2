@@ -1,5 +1,5 @@
 #' Update axis/legend labels
-#' 
+#'
 #' @param p plot to modify
 #' @param labels named list of new labels
 #' @export
@@ -16,7 +16,7 @@ update_labels <- function(p, labels) {
 }
 
 #' Change axis labels and legend titles
-#' 
+#'
 #' @param label The text for the axis or plot title.
 #' @param ... a list of new names in the form aesthetic = "new name"
 #' @export
@@ -28,7 +28,7 @@ update_labels <- function(p, labels) {
 #' p + ylab("New y label")
 #' p + ggtitle("New plot title")
 #'
-#' # This should work indepdendently of other functions that modify the 
+#' # This should work indepdendently of other functions that modify the
 #' # the scale names
 #' p + ylab("New y label") + ylim(2, 4)
 #' p + ylim(2, 4) + ylab("New y label")
@@ -38,7 +38,7 @@ update_labels <- function(p, labels) {
 #' p + labs(colour = "Cylinders")
 #'
 #' # Can also pass in a list, if that is more convenient
-#' p + labs(list(title = "Title", x = "X", y = "Y")) 
+#' p + labs(list(title = "Title", x = "X", y = "Y"))
 labs <- function(...) {
   args <- list(...)
   if (is.list(args[[1]])) args <- args[[1]]
@@ -67,6 +67,6 @@ make_labels <- function(mapping) {
   remove_dots <- function(x) {
     gsub("\\.\\.([a-zA-z._]+)\\.\\.", "\\1", x)
   }
-  
+
   lapply(mapping, function(x) remove_dots(deparse(x)))
 }

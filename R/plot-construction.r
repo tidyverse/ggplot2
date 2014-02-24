@@ -1,5 +1,5 @@
 #' Modify a ggplot or theme object by adding on new components.
-#' 
+#'
 #' This operator allows you to add objects to a ggplot or theme object.
 #'
 #' If the first object is an object of class \code{ggplot}, you can add
@@ -7,7 +7,7 @@
 #' object.
 #'
 #' \itemize{
-#'   \item \code{data.frame}: replace current data.frame 
+#'   \item \code{data.frame}: replace current data.frame
 #'      (must use \code{\%+\%})
 #'   \item \code{uneval}: replace current aesthetics
 #'   \item \code{layer}: add new layer
@@ -91,7 +91,7 @@ add_ggplot <- function(p, object, objectname) {
     p <- update_guides(p, object)
   } else if(inherits(object, "uneval")) {
       p$mapping <- defaults(object, p$mapping)
-      
+
       labels <- lapply(object, deparse)
       names(labels) <- names(object)
       p <- update_labels(p, labels)
@@ -109,11 +109,11 @@ add_ggplot <- function(p, object, objectname) {
     p <- switch(object$class(),
       layer  = {
         p$layers <- append(p$layers, object)
-        
+
         # Add any new labels
         mapping <- make_labels(object$mapping)
         default <- make_labels(object$stat$default_aes())
-        
+
         new_labels <- defaults(mapping, default)
         p$labels <- defaults(p$labels, new_labels)
         p

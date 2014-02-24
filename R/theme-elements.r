@@ -1,18 +1,18 @@
 #' Theme element: blank.
 #' This theme element draws nothing, and assigns no space
-#' 
+#'
 #' @export
 element_blank <- function() {
   structure(
     list(),
     class = c("element_blank", "element")
-  )  
+  )
 }
 
 #' Theme element: rectangle.
-#' 
+#'
 #' Most often used for backgrounds and borders.
-#' 
+#'
 #' @param fill fill colour
 #' @param colour border colour
 #' @param size border size
@@ -30,7 +30,7 @@ element_rect <- function(fill = NULL, colour = NULL, size = NULL,
 }
 
 #' Theme element: line.
-#' 
+#'
 #' @param colour line colour
 #' @param size line size
 #' @param linetype line type
@@ -49,7 +49,7 @@ element_line <- function(colour = NULL, size = NULL, linetype = NULL,
 
 
 #' Theme element: text.
-#' 
+#'
 #' @param family font family
 #' @param face font face ("plain", "italic", "bold", "bold.italic")
 #' @param colour text colour
@@ -194,7 +194,7 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
     stop("Text element requires non-NULL value for 'angle'.")
   }
   angle <- angle %% 360
-  
+
   if (angle == 90) {
     xp <- vj
     yp <- hj

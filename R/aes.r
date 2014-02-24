@@ -9,30 +9,30 @@
 
 .base_to_ggplot <- c(
   "col"   = "colour",
-  "color" = "colour", 
+  "color" = "colour",
   "pch"   = "shape",
-  "cex"   = "size", 
-  "lty"   = "linetype", 
+  "cex"   = "size",
+  "lty"   = "linetype",
   "lwd"   = "size",
   "srt"   = "angle",
   "adj"   = "hjust",
   "bg"    = "fill",
   "fg"    = "colour",
-  "min"   = "ymin", 
+  "min"   = "ymin",
   "max"   = "ymax"
 )
 
 #' Generate aesthetic mappings that describe how variables in the data are
 #' mapped to visual properties (aesthetics) of geoms.
-#' 
+#'
 #' \code{aes} creates a list of unevaluated expressions.  This function also
 #' performs partial name matching, converts color to colour, and old style R
 #' names to ggplot names (eg. pch to shape, cex to size)
-#' 
+#'
 #' @param x x value
 #' @param y y value
 #' @param ... List of name value pairs giving aesthetics to map.
-#' @seealso \code{\link{aes_string}} for passing quoted variable names. 
+#' @seealso \code{\link{aes_string}} for passing quoted variable names.
 #"    Useful when creating plots within user defined functions. Also,
 #'    \code{\link{aes_colour_fill_alpha}}, \code{\link{aes_group_order}},
 #'    \code{\link{aes_linetype_size_shape}} and \code{\link{aes_position}}
@@ -51,7 +51,7 @@ aes <- function(x, y, ...) {
 }
 print.uneval <- function(x, ...) str(unclass(x))
 str.uneval <- function(object, ...) str(unclass(object), ...)
-"[.uneval" <- function(x, i, ...) structure(unclass(x)[i], class = "uneval") 
+"[.uneval" <- function(x, i, ...) structure(unclass(x)[i], class = "uneval")
 
 as.character.uneval <- function(x, ...) {
   char <- as.character(unclass(x))
@@ -72,7 +72,7 @@ rename_aes <- function(x) {
 aes_to_scale <- function(var) {
   var[var %in% c("x", "xmin", "xmax", "xend", "xintercept")] <- "x"
   var[var %in% c("y", "ymin", "ymax", "yend", "yintercept")] <- "y"
-  
+
   var
 }
 
@@ -86,8 +86,8 @@ is_position_aes <- function(vars) {
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms.  Compared to aes this function operates
 #' on strings rather than expressions.
-#' 
-#' \code{aes_string} is particularly useful when writing functions that create 
+#'
+#' \code{aes_string} is particularly useful when writing functions that create
 #' plots because you can use strings to define the aesthetic mappings, rather
 #' than having to mess around with expressions.
 #'
@@ -100,26 +100,26 @@ is_position_aes <- function(vars) {
 aes_string <- function(...) {
   mapping <- list(...)
   mapping[sapply(mapping, is.null)] <- "NULL"
-  
+
   parsed <- lapply(mapping, function(x) parse(text = x)[[1]])
   structure(rename_aes(parsed), class = "uneval")
 }
 
 #' Given a character vector, create a set of identity mappings
-#' 
+#'
 #' @param vars vector of variable names
 #' @export
-#' @examples 
+#' @examples
 #' aes_all(names(mtcars))
 #' aes_all(c("x", "y", "col", "pch"))
 aes_all <- function(vars) {
   names(vars) <- vars
   vars <- rename_aes(vars)
-  
+
   structure(
     lapply(vars, function(x) parse(text=x)[[1]]),
     class = "uneval"
-  )  
+  )
 }
 
 #' Automatic aesthetic mapping
@@ -131,11 +131,11 @@ aes_all <- function(vars) {
 #' df <- data.frame(x = 1, y = 1, colour = 1, label = 1, pch = 1)
 #' aes_auto(df)
 #' aes_auto(names(df))
-#' 
+#'
 #' df <- data.frame(xp = 1, y = 1, colour = 1, txt = 1, foo = 1)
 #' aes_auto(df, x = xp, label = txt)
 #' aes_auto(names(df), x = xp, label = txt)
-#' 
+#'
 #' df <- data.frame(foo = 1:3)
 #' aes_auto(df, x = xp, y = yp)
 #' aes_auto(df)
@@ -165,24 +165,24 @@ aes_auto <- function(data = NULL, ...) {
 
 # Aesthetic defaults
 # Convenience method for setting aesthetic defaults
-# 
+#
 # @param data values from aesthetic mappings
 # @param y. defaults
 # @param params. user specified values
 # @value a data.frame, with all factors converted to character strings
 aesdefaults <- function(data, y., params.) {
   updated <- modifyList(y., params. %||% list())
-  
+
   cols <- tryapply(defaults(data, updated), function(x) eval(x, data, globalenv()))
-  
+
   # Need to be careful here because stat_boxplot uses a list-column to store
   # a vector of outliers
   cols <- Filter(function(x) is.atomic(x) || is.list(x), cols)
   list_vars <- sapply(cols, is.list)
   cols[list_vars] <- lapply(cols[list_vars], I)
-  
+
   df <- data.frame(cols, stringsAsFactors = FALSE)
-  
+
   factors <- sapply(df, is.factor)
   df[factors] <- lapply(df[factors], as.character)
   df

@@ -1,9 +1,9 @@
 #' Sum unique values.  Useful for overplotting on scatterplots.
-#' 
-#' @section Aesthetics: 
+#'
+#' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "sum")}
 #'
-#' @seealso \code{\link{ggfluctuation}} for a fluctuation diagram, 
+#' @seealso \code{\link{ggfluctuation}} for a fluctuation diagram,
 #' @inheritParams stat_identity
 #' @return a data.frame with additional columns
 #'  \item{n}{number of observations at position}
@@ -33,29 +33,29 @@
 #' # by clarity
 #' d + stat_sum(aes(group = clarity))
 #' d + stat_sum(aes(group = clarity, colour = cut))
-#' 
+#'
 #' # Instead of proportions, can also use sums
 #' d + stat_sum(aes(size = ..n..))
-#' 
+#'
 #' # Can also weight by another variable
 #' d + stat_sum(aes(group = 1, weight = price))
 #' d + stat_sum(aes(group = 1, weight = price, size = ..n..))
-#' 
+#'
 #' # Or using qplot
 #' qplot(cut, clarity, data = diamonds)
-#' qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)    
+#' qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)
 #' }
-stat_sum <- function (mapping = NULL, data = NULL, geom = "point", position = "identity", ...) { 
+stat_sum <- function (mapping = NULL, data = NULL, geom = "point", position = "identity", ...) {
   StatSum$new(mapping = mapping, data = data, geom = geom, position = position, ...)
 }
-  
+
 StatSum <- proto(Stat, {
   objname <- "sum"
 
   default_aes <- function(.) aes(size = ..prop..)
   required_aes <- c("x", "y")
   default_geom <- function(.) GeomPoint
-  
+
   calculate_groups <- function(., data, scales, ...) {
 
     if (is.null(data$weight)) data$weight <- 1

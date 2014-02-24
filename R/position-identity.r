@@ -6,7 +6,7 @@
 #'   adjustments)
 #' @family position adjustments
 #' @export
-position_identity <- function (width = NULL, height = NULL) { 
+position_identity <- function (width = NULL, height = NULL) {
   PositionIdentity$new(width = width, height = height)
 }
 

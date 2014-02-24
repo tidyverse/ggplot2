@@ -1,5 +1,5 @@
 # Scales object encapsultes multiple scales.
-# All input and output done with data.frames to facilitate 
+# All input and output done with data.frames to facilitate
 # multiple input and output variables
 
 Scales <- setRefClass("Scales", fields = "scales", methods = list(
@@ -22,7 +22,7 @@ Scales <- setRefClass("Scales", fields = "scales", methods = list(
 
     # Remove old scale for this aesthetic (if it exists)
     scales <<- c(scales[!prev_aes], list(scale))
-  }, 
+  },
   clone = function() {
     new_scales <- lapply(scales, scale_clone)
     Scales$new(new_scales)
@@ -32,7 +32,7 @@ Scales <- setRefClass("Scales", fields = "scales", methods = list(
   },
   input = function() {
     unlist(lapply(scales, "[[", "aesthetics"))
-  }, 
+  },
   initialize = function(scales = NULL) {
     initFields(scales = scales)
   },
@@ -43,7 +43,7 @@ Scales <- setRefClass("Scales", fields = "scales", methods = list(
     scale <- scales[find(output)]
     if (length(scale) == 0) return()
     scale[[1]]
-  }  
+  }
 ))
 
 # Train scale from a data frame
@@ -56,16 +56,16 @@ scales_train_df <- function(scales, df, drop = FALSE) {
 # Map values from a data.frame. Returns data.frame
 scales_map_df <- function(scales, df) {
   if (empty(df) || length(scales$scales) == 0) return(df)
-  
+
   mapped <- unlist(lapply(scales$scales, scale_map_df, df = df), recursive = FALSE)
-  
+
   quickdf(c(mapped, df[setdiff(names(df), names(mapped))]))
 }
 
 # Transform values to cardinal representation
 scales_transform_df <- function(scales, df) {
   if (empty(df) || length(scales$scales) == 0) return(df)
-  
+
   transformed <- unlist(lapply(scales$scales, scale_transform_df, df = df),
     recursive = FALSE)
   quickdf(c(transformed, df[setdiff(names(df), names(transformed))]))
@@ -76,13 +76,13 @@ scales_transform_df <- function(scales, df) {
 scales_add_defaults <- function(scales, data, aesthetics, env) {
   if (is.null(aesthetics)) return()
   names(aesthetics) <- unlist(lapply(names(aesthetics), aes_to_scale))
-  
+
   new_aesthetics <- setdiff(names(aesthetics), scales$input())
   # No new aesthetics, so no new scales to add
   if (is.null(new_aesthetics)) return()
-  
+
   datacols <- tryapply(
-    aesthetics[new_aesthetics], eval, 
+    aesthetics[new_aesthetics], eval,
     envir = data, enclos = env
   )
 
@@ -96,7 +96,7 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
 
     scales$add(scale_f())
   }
-  
+
 }
 
 # Add missing but required scales.
@@ -115,7 +115,7 @@ scales_add_missing <- function(plot, aesthetics, env) {
 }
 
 
-# Look for object first in parent environment and if not found, then in 
+# Look for object first in parent environment and if not found, then in
 # ggplot2 namespace environment.  This makes it possible to override default
 # scales by setting them in the parent environment.
 find_global <- function(name, env) {
@@ -127,7 +127,7 @@ find_global <- function(name, env) {
   if (exists(name, nsenv)) {
     return(get(name, nsenv))
   }
-  
+
   NULL
 }
 

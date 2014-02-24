@@ -1,12 +1,12 @@
 compute_grob_widths <- function(grob_layout, widths) {
   cols <- split(grob_layout, grob_layout$l)
   do.call("unit.c", lapply(cols, compute_grob_dimensions, dims = widths))
-}  
+}
 
 compute_grob_heights <- function(grob_layout, heights) {
   cols <- split(grob_layout, grob_layout$t)
   do.call("unit.c", lapply(cols, compute_grob_dimensions, dims = heights))
-}  
+}
 
 compute_grob_dimensions <- function(grob_layout, dims) {
   # If any don't have explicit dims, then width is NULL
