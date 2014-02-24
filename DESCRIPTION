@@ -37,6 +37,7 @@ Suggests:
     nlme,
     testthat
 Enhances: sp
+Roxygen: list(wrap = FALSE)
 License: GPL-2
 URL: http://had.co.nz/ggplot2/
 LazyData: true
