@@ -25,6 +25,7 @@ coord_flip  <- sd_icon({
   ))
 })
 
+library(maps)
 coord_map  <- sd_icon({
   nz <- data.frame(map("nz", plot=FALSE)[c("x","y")])
   nz$x <- nz$x - min(nz$x, na.rm=TRUE)
@@ -298,7 +299,7 @@ position_stack  <- sd_icon({
 scale_alpha  <- sd_icon({
   x <- c(0.1, 0.3, 0.5, 0.7, 0.9)
   rectGrob(x, width=0.25,
-    gp=gpar(fill=alpha("black", x), col=NA)
+    gp=gpar(fill=scales::alpha("black", x), col=NA)
   )
 })
 
