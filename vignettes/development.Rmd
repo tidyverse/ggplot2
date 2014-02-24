@@ -1,0 +1,211 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Contributing to ggplot2 development}
+-->
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  error = FALSE,
+  tidy = FALSE
+)
+```
+
+# Contributing to ggplot2 developing
+
+## Super-basic setup
+
+If you just want to track the development of ggplot2 and do work on your own local branch, just clone Hadley's repository:
+
+```
+git clone https://github.com/hadley/ggplot2.git
+```
+
+That's it. You don't even have to set up an account on GitHub. To get the latest updates, run:
+
+```
+git pull
+```
+
+Once you've cloned the repo, you can branch, change, and commit. You just won't be able to publish your changes to GitHub. (If you later want to publish these changes to GitHub, it is possible. Ask the mailing list if you need assistance.)
+
+## Basic setup
+
+If you want to do development on ggplot2 and share the changes with other people, you'll have to set up an account on GitHub. You'll make a fork of Hadley's repository and store it on GitHub. You'll also make a copy of your repository on your local machine.
+
+1.  [Set up an account](https://github.com/) on GitHub and set up ssh keys
+    as described in their instructions.
+
+2.  Make a fork of [Hadley's repository](https://github.com/hadley/ggplot2) by
+    clicking the Fork button in the upper right. For more info, see the
+    [GitHub page](http://help.github.com/fork-a-repo/) on forking.)
+
+3.  Clone your GitHub repository to your local computer (change `myname` to
+    your account name):
+
+    ```
+    git clone git@github.com:myname/ggplot2.git
+    cd ggplot2
+    ```
+
+4.  Once you've done that, you'll probably want to add the main repository
+    as a remote:
+
+    ```
+    git remote add hadley git://github.com/hadley/ggplot2.git
+    git fetch hadley
+    ```
+
+Now on your local machine you have the local repository and two remote repositories: `origin` (the default), which is your personal ggplot2 repo at GitHub, and `hadley` which is Hadley's. You'll be able to push changes to your own repository only.
+
+
+## Tracking a remote branch
+
+You can set up your `master` branch to track `hadley/master`. This isn't strictly necessary, but it can make things simpler. Do the following:
+
+```
+git checkout master
+git branch --set-upstream master hadley/master
+```
+
+Then, each time you want to get it up to date, run:
+
+```
+git checkout master
+git pull
+```
+
+Or, equivalently:
+
+```
+git checkout master
+git fetch hadley
+git merge hadley/master
+```
+
+## How to make changes on a new branch
+
+When you want to make changes, you should work on a new branch. Otherwise things can get a bit confusing when it comes time to merge it into the main branch. You probably want to start with the `master` branch.
+
+```
+# Fetch the latest version of hadley/ggplot2
+git fetch hadley
+
+# Check out the latest
+git checkout hadley/master
+```
+
+At this point it'll give you a warning about being in "detached HEAD" state. Don't worry about it. Just start a new branch with the current state as the starting point:
+
+```
+git checkout -b myfix
+```
+
+To check what branch you're currently on, run `git branch`.
+
+Now you can make your changes and commit them to this branch on your local repository. If you decide you want to start over, you can just check out `hadley/master` again, make a new branch, and begin anew.
+
+When you feel like sharing your changes, push them to your GitHub repo:
+
+```
+git push origin myfix
+```
+
+Then you can submit a pull request if you want it to be integrated in the main branch.
+
+## Resetting a branch
+
+If you have made some changes to your master branch and want to get it back in line with hadley/master, do the following. Before you do this, be sure that you are willing to discard all your commits that diverge from hadley/master! It is possible to recover the commits using `git reflog`, but it's easier to not discard them in the first place.
+
+```
+git checkout master
+git reset --hard hadley/master
+```
+
+## Testing merges
+
+If your branch has been running parallel to the main branch for a long time, it's possible that it won't merge properly. You can test it out by checking out the main branch and merging yourself.
+
+First, make a new branch called `testmerge`, based off the main branch:
+
+```
+git fetch hadley
+git checkout hadley/master
+
+git checkout -b testmerge
+```
+
+Then try merging your branch into testmerge:
+
+```
+git merge myfix
+```
+
+If there are no errors, great. You can switch back to your `myfix` branch and delete `testmerge`:
+
+```
+git checkout myfix
+git branch -D testmerge
+```
+
+If there are any merge conflicts, you may want to rebase your changes on top of the current master version, or just resolve the conflicts and commit it to your branch. Rebasing may make for a somewhat cleaner commit history, but there is a possibility of messing things up. If you want to be safe, you can just make a new branch and rebase that on top of the current master.
+
+## Fetching a branch from someone else's repository
+
+Sometimes you will want to fetch a branch from someone's repository, but without going to the trouble of seting it up as a remote. This is handy if you just want to quickly try out a someone's work.
+
+This will fetch a branch from someone's remote repository and check it out (replace `username` and `somebranch`):
+
+```
+git fetch https://github.com/username/ggplot2.git somebranch
+git checkout FETCH_HEAD
+```
+
+Just doing the above won't create a local branch -- you'll be in "detached HEAD" state. If you'd like to create a local branch to work on, run (you can replace `somebranch` with whatever name you like):
+
+  ```
+git checkout -b somebranch
+```
+
+## Adding other repositories as remotes
+
+If you often work off of someone else's repository, it can be useful to add their repo as a *remote*. This makes it easier to fetch changes in their repository. If the person's GitHub account is `otherdevel`, you would do the following:
+
+  ```
+git remote add otherdevel git://github.com/otherdevel/ggplot2.git
+git fetch otherdevel
+
+git checkout otherdevel/somebranch
+```
+
+If you don't want to follow them any more, run:
+
+```
+git remote rm otherdevel
+```
+
+## Delete a branch from GitHub
+
+If you pushed a branch to your GitHub repo but it's no longer needed there, you can remove it with:
+
+```
+git push origin :mybranch
+```
+
+## Visualizing the development tree
+
+GitHub has a very nice [development tree view](https://github.com/hadley/ggplot2/), but it of course only shows commits that have been pushed to GitHub. You may also want to view the tree on your local machine, to see how your local changes relate to the main tree. There are a number of programs out there that will do this.
+
+Mac:
+
+* gitk: Pretty basic, included with git. Run `gitk -a` to view all branches (by default it just shows you the current branch).
+
+* [gitx](http://gitx.laullon.com/): This is a bit nicer than gitk.
+
+* [SourceTree](http://www.sourcetreeapp.com/): This is also a nice program. Normally it costs money, but it is temporarily free from the web page or the [Mac App store](http://itunes.apple.com/us/app/sourcetree/id411678673?mt=12&ls=1).
+
+Linux:
+
+* gitk: (See gitk in Mac section)
+
+* gitg: This is nicer than gitk. By default it only shows the current branch; select "Local Branches" or "All Branches" to view others.

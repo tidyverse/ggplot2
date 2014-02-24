@@ -35,7 +35,9 @@ Suggests:
     maptools,
     multcomp,
     nlme,
-    testthat
+    testthat,
+    knitr
+VignetteBuilder: knitr
 Enhances: sp
 Roxygen: list(wrap = FALSE)
 License: GPL-2
