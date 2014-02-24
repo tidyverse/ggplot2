@@ -52,7 +52,7 @@ need to supply is the filename.
 pdf, jpeg, tiff, png, bmp, svg and wmf (windows only).
 }
 \examples{
-\donttest{
+\dontrun{
 ratings <- qplot(rating, data=movies, geom="histogram")
 qplot(length, data=movies, geom="histogram")
 ggsave(file="length-hist.pdf")
