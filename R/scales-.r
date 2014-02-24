@@ -92,7 +92,7 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
     scale_name <- paste("scale", aes, type, sep="_")
 
     # Skip aesthetics with no scales (e.g. group, order, etc)
-    scale_f <- find_global(scale_name, env)
+    scale_f <- find_global(scale_name, env, mode = "function")
     if (is.null(scale_f)) next
 
     scales$add(scale_f())
@@ -110,7 +110,7 @@ scales_add_missing <- function(plot, aesthetics, env) {
   for (aes in aesthetics) {
     scale_name <- paste("scale", aes, "continuous", sep="_")
 
-    scale_f <- find_global(scale_name, env)
+    scale_f <- find_global(scale_name, env, mode = "function")
     plot$scales$add(scale_f())
   }
 }
@@ -119,14 +119,14 @@ scales_add_missing <- function(plot, aesthetics, env) {
 # Look for object first in parent environment and if not found, then in
 # ggplot2 namespace environment.  This makes it possible to override default
 # scales by setting them in the parent environment.
-find_global <- function(name, env) {
-  if (exists(name, env)) {
-    return(get(name, env))
+find_global <- function(name, env, mode = "any") {
+  if (exists(name, envir = env, mode = mode)) {
+    return(get(name, envir = env, mode = mode))
   }
 
   nsenv <- asNamespace("ggplot2")
-  if (exists(name, nsenv)) {
-    return(get(name, nsenv))
+  if (exists(name, envir = nsenv, mode = mode)) {
+    return(get(name, envir = nsenv, mode = mode))
   }
 
   NULL
