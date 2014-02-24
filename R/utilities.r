@@ -233,6 +233,7 @@ if (packageVersion("plyr") <= package_version("1.7.1")) {
 #' @param version The last version of ggplot2 where this function was good
 #'   (in other words, the last version where it was not deprecated).
 #' @param msg The message to print.
+#' @keywords internal
 #' @export
 gg_dep <- function(version, msg) {
   v <- as.package_version(version)

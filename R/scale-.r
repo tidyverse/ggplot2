@@ -1,16 +1,21 @@
 #' Components of a scale:
 #'
 #' Guide related:
-#'   * name
-#'   * breaks
-#'   * labels
-#'   * expand
+#'
+#' \itemize{
+#'   \item name
+#'   \item breaks
+#'   \item labels
+#'   \item expand
+#' }
 #'
 #' Mapping related:
-#'   * aesthetic
-#'   * limits
-#'   * palette
-#'   * trans
+#' \itemize{
+#'   \item aesthetic
+#'   \item limits
+#'   \item palette
+#'   \item trans
+#' }
 #'
 #' Scales are an S3 class with a single mutable component implemented with
 #' a reference class - the range of the data.  This mutability makes working
@@ -19,6 +24,7 @@
 #' together again.
 #'
 #' @name ggscale
+#' @keywords internal
 NULL
 
 #' Continuous scale constructor.
@@ -121,6 +127,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #' @param na.value how should missing values be displayed?
 #' @param guide the name of, or actual function, used to create the
 #'   guide.
+#' @keywords internal
 discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, expand = waiver(), na.value = NA, drop = TRUE, guide="legend") {
 
   if (!is.null(legend)) {

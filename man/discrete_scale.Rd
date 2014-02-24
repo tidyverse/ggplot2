@@ -60,4 +60,5 @@ discrete_scale(aesthetics, scale_name, palette, name = NULL,
 \description{
 Discrete scale constructor.
 }
+\keyword{internal}
 
