@@ -11,7 +11,36 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Contributing to ggplot2 developing
+# Contributing to ggplot2 development
+
+The goal of this guide is to help you get up and contributing to ggplot2 as quickly as possible. It's still a work in progress and very rough. Your feedback is much appreciated and so are pull requests :).
+
+## What makes a good pull request?
+
+Pull requests will be evaluated against the following checklist:
+
+```
+* [ ] Motivate the change in one paragraph, and include it in NEWS.
+      Reference this issue and thank yourself.
+* [ ] Check pull request only includes relevant changes.
+* [ ] Use the [official style](http://adv-r.had.co.nz/Style.html).
+* [ ] Update documentation and re-run roxygen2
+* [ ] Add test, if bug in non-graphical function
+* [ ] Add minimal example, if new graphical feature
+* [ ] Does not change existing behaviour
+```
+
+These are explained in more detail below. This seems like a lot of work but don't worry if your pull request isn't perfect. It's a learning process and Winston and I will be on hand to help you out. A pull request is a process, and unless you've submitted a few in the past it's unlikely that your pull request will be accepted as is.
+
+The most important thing is that your pull request clearly and concisely motivates the need for the change. Unfortunately neither Winston nor I have much time to work on ggplot2 these days, so you need to describe the problem and show how your pull request solves it as concisely as possible. You should also include this motivation in the `NEWS` file so that when a new release of ggplot2 comes out it's easy for users to see what's changed.
+
+When you submit your pull request, check to make sure that you haven't accidentally included any unrelated changes. These make it harder to see exactly what's changed, and to evaluate any unexpected side effects.
+
+Please follow the [official ggplot2 style](http://adv-r.had.co.nz/Style.html). Maintaing a consistent style across the whole code base makes it much easier to jump into the code. Similarly, please make sure you update the roxygen comments, and re-run `devtools::document()` on the code. Currently, ggplot2 uses the development version of roxygen2, which you can get with `install_github("klutometis/roxygen"). This will be available on CRAN in the near future.
+
+If you're fixing a bug in a non-graphical function, please include a test. If you're adding a new graphical feature, please add a minimal example illustrating the feature.
+
+Finally, ggplot2 is a mature package used by thousands of people. This means that it's basically impossible to change any existing functionality without breaking someone's code (or another package on CRAN). Because of this please don't submit pull requests that change existing behaviour. Instead, think about how you can add a new feature in a minimally invasive way.
 
 ## Super-basic setup
 
