@@ -127,7 +127,6 @@ Collate:
     'labels.r'
     'layer.r'
     'limits.r'
-    'matrix.r'
     'panel.r'
     'plot-build.r'
     'plot-construction.r'
