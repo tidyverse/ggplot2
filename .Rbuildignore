@@ -1,3 +1,4 @@
 visual_test
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.travis\.yml$
