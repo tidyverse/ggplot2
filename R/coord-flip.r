@@ -41,26 +41,26 @@ flip_labels <- function(x) {
   setNames(x, new_names)
 }
 
-#' @S3method is.linear flip
+#' @export
 is.linear.flip <- function(coord) TRUE
 
-#' @S3method coord_transform flip
+#' @export
 coord_transform.flip <- function(coord, data, details) {
   data <- flip_labels(data)
   NextMethod()
 }
 
-#' @S3method coord_range flip
+#' @export
 coord_range.flip <- function(coord, scales) {
   return(list(x = scales$y.range, y = scales$x.range))
 }
 
-#' @S3method coord_train flip
+#' @export
 coord_train.flip <- function(coord, scales) {
   flip_labels(NextMethod())
 }
 
-#' @S3method coord_labels flip
+#' @export
 coord_labels.flip <- function(coord, scales) {
   flip_labels(NextMethod())
 }

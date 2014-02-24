@@ -71,7 +71,7 @@ scale_y_discrete <- function(..., expand = waiver()) {
 # mapping, but makes it possible to place objects at non-integer positions,
 # as is necessary for jittering etc.
 
-#' @S3method scale_train position_d
+#' @export
 scale_train.position_d <- function(scale, x) {
   if (is.discrete(x)) {
     scale$range$train(x, drop = scale$drop)
@@ -82,26 +82,26 @@ scale_train.position_d <- function(scale, x) {
 
 # If range not available from discrete range, implies discrete scale been
 # used with purely continuous data, so construct limits accordingly
-#' @S3method scale_limits position_d
+#' @export
 scale_limits.position_d <- function(scale) {
   dis_limits <- function(x) seq.int(floor(min(x)), ceiling(max(x)), by = 1L)
 
   scale$limits %||% scale$range$range %||% dis_limits(scale$range_c$range)
 }
 
-#' @S3method scale_is_empty position_d
+#' @export
 scale_is_empty.position_d <- function(scale) {
   NextMethod() && is.null(scale$range_c$range)
 }
 
-#' @S3method scale_reset position_d
+#' @export
 scale_reset.position_d <- function(scale, x) {
   # Can't reset discrete scale because no way to recover values
   scale$range_c$reset()
 }
 
 
-#' @S3method scale_map position_d
+#' @export
 scale_map.position_d <- function(scale, x, limits = scale_limits(scale)) {
   if (is.discrete(x)) {
     seq_along(limits)[match(as.character(x), limits)]
@@ -110,7 +110,7 @@ scale_map.position_d <- function(scale, x, limits = scale_limits(scale)) {
   }
 }
 
-#' @S3method scale_dimension position_d
+#' @export
 scale_dimension.position_d <- function(scale, expand = scale$expand) {
   if(is.waive(expand))
     expand <- c(0, 0)
@@ -121,7 +121,7 @@ scale_dimension.position_d <- function(scale, expand = scale$expand) {
   range(disc, cont)
 }
 
-#' @S3method scale_clone position_d
+#' @export
 scale_clone.position_d <- function(scale) {
   new <- scale
   new$range <- DiscreteRange$new()

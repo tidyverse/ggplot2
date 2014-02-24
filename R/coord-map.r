@@ -78,7 +78,7 @@ coord_map <- function(projection="mercator", ..., orientation = NULL, xlim = NUL
   )
 }
 
-#' @S3method coord_transform map
+#' @export
 coord_transform.map <- function(coord, data, details) {
   trans <- mproject(coord, data$x, data$y, details$orientation)
   out <- cunion(trans[c("x", "y")], data)
@@ -95,18 +95,18 @@ mproject <- function(coord, x, y, orientation) {
   ))
 }
 
-#' @S3method coord_distance map
+#' @export
 coord_distance.map <- function(coord, x, y, details) {
   max_dist <- dist_central_angle(details$x.range, details$y.range)
   dist_central_angle(x, y) / max_dist
 }
 
-#' @S3method coord_aspect map
+#' @export
 coord_aspect.map <- function(coord, ranges) {
   diff(ranges$y.proj) / diff(ranges$x.proj)
 }
 
-#' @S3method coord_train map
+#' @export
 coord_train.map <- function(coord, scales) {
 
   # range in scale
@@ -158,7 +158,7 @@ coord_train.map <- function(coord, scales) {
   details
 }
 
-#' @S3method coord_render_bg map
+#' @export
 coord_render_bg.map <- function(coord, details, theme) {
   xrange <- expand_range(details$x.range, 0.2)
   yrange <- expand_range(details$y.range, 0.2)
@@ -207,7 +207,7 @@ coord_render_bg.map <- function(coord, details, theme) {
   ))
 }
 
-#' @S3method coord_render_axis_h map
+#' @export
 coord_render_axis_h.map <- function(coord, details, theme) {
   if (is.null(details$x.major)) return(zeroGrob())
 
@@ -219,7 +219,7 @@ coord_render_axis_h.map <- function(coord, details, theme) {
 
   guide_axis(pos$x, details$x.labels, "bottom", theme)
 }
-#' @S3method coord_render_axis_v map
+#' @export
 coord_render_axis_v.map <- function(coord, details, theme) {
   if (is.null(details$y.major)) return(zeroGrob())
 

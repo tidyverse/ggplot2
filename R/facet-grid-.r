@@ -194,7 +194,7 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
 }
 
 
-#' @S3method facet_train_layout grid
+#' @export
 facet_train_layout.grid <- function(facet, data) {
   layout <- layout_grid(data, facet$rows, facet$cols, facet$margins,
     drop = facet$drop, as.table = facet$as.table)
@@ -207,12 +207,12 @@ facet_train_layout.grid <- function(facet, data) {
 }
 
 
-#' @S3method facet_map_layout grid
+#' @export
 facet_map_layout.grid <- function(facet, data, layout) {
   locate_grid(data, layout, facet$rows, facet$cols, facet$margins)
 }
 
-#' @S3method facet_render grid
+#' @export
 facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
   axes <- facet_axes(facet, panel, coord, theme)
   strips <- facet_strips(facet, panel, theme)
@@ -244,7 +244,7 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
   complete
 }
 
-#' @S3method facet_strips grid
+#' @export
 facet_strips.grid <- function(facet, panel, theme) {
   col_vars <- unique(panel$layout[names(facet$cols)])
   row_vars <- unique(panel$layout[names(facet$rows)])
@@ -305,7 +305,7 @@ build_strip <- function(panel, label_df, labeller, theme, side = "right") {
   }
 }
 
-#' @S3method facet_axes grid
+#' @export
 facet_axes.grid <- function(facet, panel, coord, theme) {
   axes <- list()
 
@@ -326,7 +326,7 @@ facet_axes.grid <- function(facet, panel, coord, theme) {
   axes
 }
 
-#' @S3method facet_panels grid
+#' @export
 facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
 
   # If user hasn't set aspect ratio, and we have fixed scales, then
@@ -388,7 +388,7 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   panels
 }
 
-#' @S3method facet_vars grid
+#' @export
 facet_vars.grid <- function(facet) {
   paste(lapply(list(facet$rows, facet$cols), paste, collapse = ", "),
     collapse = " ~ ")

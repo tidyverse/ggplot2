@@ -49,14 +49,14 @@ facet_vars <- function(facet)
   UseMethod("facet_vars")
 
 
-#' @S3method format facet
+#' @export
 format.facet <- function(x, ...) {
   name <- paste(rev(class(x)), collapse = "_")
 
   paste(name, "(", facet_vars(x), ")", sep = "")
 }
 
-#' @S3method print facet
+#' @export
 print.facet <- function(x, ...) {
   cat(format(x, ...), "\n")
 }

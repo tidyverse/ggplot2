@@ -47,7 +47,7 @@ TopLevel <- proto(expr = {
 
 })
 
-#' @S3method print proto
+#' @export
 print.proto <- function(x, ...) x$pprint(...)
 pprint <- function(x, ...) print(as.list(x), ...)
 # name.proto <- function (...) {

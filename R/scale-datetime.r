@@ -57,7 +57,7 @@ scale_x_datetime <- function(..., expand = waiver(), breaks = pretty_breaks(),
     breaks = breaks, minor_breaks = minor_breaks, ...)
 }
 
-#' @S3method scale_map datetime
+#' @export
 scale_map.datetime <- function(scale, x, limits = scale_limits(scale)) {
   x
 }

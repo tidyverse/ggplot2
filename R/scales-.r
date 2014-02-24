@@ -135,27 +135,27 @@ find_global <- function(name, env) {
 # Determine default type of a scale
 scale_type <- function(x) UseMethod("scale_type")
 
-#' @S3method scale_type default
+#' @export
 scale_type.default <- function(x) {
   message("Don't know how to automatically pick scale for object of type ",
     paste(class(x), collapse = "/"), ". Defaulting to continuous")
   "continuous"
 }
 
-#' @S3method scale_type logical
+#' @export
 scale_type.logical <- function(x) "discrete"
 
-#' @S3method scale_type character
+#' @export
 scale_type.character <- function(x) "discrete"
 
-#' @S3method scale_type factor
+#' @export
 scale_type.factor <- function(x) "discrete"
 
-#' @S3method scale_type POSIXt
+#' @export
 scale_type.POSIXt <- function(x) "datetime"
 
-#' @S3method scale_type Date
+#' @export
 scale_type.Date <- function(x) "date"
 
-#' @S3method scale_type numeric
+#' @export
 scale_type.numeric <- function(x) "continuous"

@@ -8,7 +8,7 @@
 # @alias predictdf.locfit
 predictdf <- function(model, xseq, se, level) UseMethod("predictdf")
 
-#' @S3method predictdf default
+#' @export
 predictdf.default <- function(model, xseq, se, level) {
   pred <- stats::predict(model, newdata = data.frame(x = xseq), se = se,
     level = level, interval = if(se) "confidence" else "none")
@@ -22,7 +22,7 @@ predictdf.default <- function(model, xseq, se, level) {
   }
 }
 
-#' @S3method predictdf glm
+#' @export
 predictdf.glm <- function(model, xseq, se, level) {
   pred <- stats::predict(model, newdata = data.frame(x = xseq), se = se,
     type = "link")
@@ -41,7 +41,7 @@ predictdf.glm <- function(model, xseq, se, level) {
   }
 }
 
-#' @S3method predictdf loess
+#' @export
 predictdf.loess <- function(model, xseq, se, level) {
   pred <- stats::predict(model, newdata = data.frame(x = xseq), se = se)
 
@@ -56,7 +56,7 @@ predictdf.loess <- function(model, xseq, se, level) {
   }
 }
 
-#' @S3method predictdf locfit
+#' @export
 predictdf.locfit <- function(model, xseq, se, level) {
   pred <- predict(model, newdata = data.frame(x = xseq), se.fit = se)
 

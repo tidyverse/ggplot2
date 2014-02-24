@@ -6,13 +6,13 @@
 #'
 #' @param ... matrices to weave together
 #' @keywords internal
-#' @S3method rweave list
-#' @S3method rweave matrix
 #X a <- matrix(1:10 * 2, ncol = 2)
 #X b <- matrix(1:10 * 3, ncol = 2)
 #X c <- matrix(1:10 * 5, ncol = 2)
 rweave <- function(...) UseMethod("rweave")
+#' @export
 rweave.list <- function(...) do.call("rweave", ...)
+#' @export
 rweave.matrix <- function(...) {
   matrices <- list(...)
   stopifnot(equal_dims(matrices))
@@ -45,10 +45,10 @@ cunion <- function(a, b) {
 #'
 #' @param ... matrices to weave together
 #' @keywords internal
-#' @S3method cweave list
-#' @S3method cweave matrix
 cweave <- function(...) UseMethod("cweave")
+#' @export
 cweave.list <- function(...) do.call("cweave", ...)
+#' @export
 cweave.matrix <- function(...) {
   matrices <- list(...)
   stopifnot(equal_dims(matrices))
@@ -64,14 +64,14 @@ cweave.matrix <- function(...) {
 #'
 #' @param ... vectors to interleave
 #' @keywords internal
-#' @S3method interleave list
-#' @S3method interleave unit
-#' @S3method interleave default
 interleave <- function(...) UseMethod("interleave")
+#' @export
 interleave.list <- function(...) do.call("interleave", ...)
+#' @export
 interleave.unit <- function(...) {
   do.call("unit.c", do.call("interleave.default", llply(list(...), as.list)))
 }
+#' @export
 interleave.default <- function(...) {
   vectors <- list(...)
 

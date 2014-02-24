@@ -19,7 +19,6 @@
 #' together again.
 #'
 #' @name ggscale
-#' @S3method print scale
 NULL
 
 #' Continuous scale constructor.
@@ -182,25 +181,25 @@ scale_train <- function(scale, x) {
   UseMethod("scale_train")
 }
 
-#' @S3method scale_train continuous
+#' @export
 scale_train.continuous <- function(scale, x) {
   scale$range$train(x)
 }
-#' @S3method scale_train discrete
+#' @export
 scale_train.discrete <- function(scale, x) {
   scale$range$train(x, drop = scale$drop)
 }
 
 # Reset scale, untraining ranges
 scale_reset <- function(scale, x) UseMethod("scale_reset")
-#' @S3method scale_reset default
+#' @export
 scale_reset.default <- function(scale, x) {
   scale$range$reset()
 }
 
 scale_is_empty <- function(scale) UseMethod("scale_is_empty")
 
-#' @S3method scale_is_empty default
+#' @export
 scale_is_empty.default <- function(scale) {
   is.null(scale$range$range) && is.null(scale$limits)
 }
@@ -217,11 +216,11 @@ scale_transform_df <- function(scale, df) {
 
 scale_transform <- function(scale, x) UseMethod("scale_transform")
 
-#' @S3method scale_transform continuous
+#' @export
 scale_transform.continuous <- function(scale, x) {
   scale$trans$trans(x)
 }
-#' @S3method scale_transform discrete
+#' @export
 scale_transform.discrete <- function(scale, x) {
   x
 }
@@ -252,7 +251,7 @@ scale_map_df <- function(scale, df, i = NULL) {
 # Now coord_train calls this function with limits determined by coord (with expansion).
 scale_map <- function(scale, x, limits) UseMethod("scale_map")
 
-#' @S3method scale_map continuous
+#' @export
 scale_map.continuous <- function(scale, x, limits = scale_limits(scale)) {
   x <- scale$oob(scale$rescaler(x, from = limits))
 
@@ -268,7 +267,7 @@ scale_map.continuous <- function(scale, x, limits = scale_limits(scale)) {
   ifelse(!is.na(scaled), scaled, scale$na.value)
 }
 
-#' @S3method scale_map discrete
+#' @export
 scale_map.discrete <- function(scale, x, limits = scale_limits(scale)) {
   n <- sum(!is.na(limits))
   pal <- scale$palette(n)
@@ -290,7 +289,7 @@ scale_limits <- function(scale) {
 }
 
 
-#' @S3method scale_limits default
+#' @export
 scale_limits.default <- function(scale) {
   scale$limits %||% scale$range$range
 }
@@ -301,7 +300,7 @@ scale_limits.default <- function(scale) {
 # if scale' expand is specified, return it.
 # if is.waive, return c(0, 0)
 scale_expand <- function(scale) UseMethod("scale_expand")
-#' @S3method scale_expand default
+#' @export
 scale_expand.default <- function(scale) {
   if (is.waive(scale$expand)) c(0, 0)
   else scale$expand
@@ -313,11 +312,11 @@ scale_expand.default <- function(scale) {
 # scale_dimension uses scale_expand(scale) for expansion by default.
 scale_dimension <- function(scale, expand = scale_expand(scale)) UseMethod("scale_dimension")
 
-#' @S3method scale_dimension continuous
+#' @export
 scale_dimension.continuous  <- function(scale, expand = scale_expand(scale)) {
   expand_range(scale_limits(scale), expand[1], expand[2])
 }
-#' @S3method scale_dimension discrete
+#' @export
 scale_dimension.discrete <- function(scale, expand = scale_expand(scale)) {
   expand_range(length(scale_limits(scale)), expand[1], expand[2])
 }
@@ -328,7 +327,7 @@ scale_breaks <- function(scale, limits = scale_limits(scale)) {
   UseMethod("scale_breaks")
 }
 
-#' @S3method scale_breaks continuous
+#' @export
 scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   # Limits in transformed space need to be converted back to data space
   limits <- scale$trans$inv(limits)
@@ -362,7 +361,7 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   breaks
 }
 
-#' @S3method scale_breaks discrete
+#' @export
 scale_breaks.discrete <- function(scale, limits = scale_limits(scale)) {
   if (is.null(scale$breaks)) {
     return(NULL)
@@ -391,7 +390,7 @@ scale_breaks_minor<- function(scale, n = 2, b = scale_break_positions(scale), li
   UseMethod("scale_breaks_minor")
 }
 
-#' @S3method scale_breaks_minor continuous
+#' @export
 scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_positions(scale), limits = scale_limits(scale)) {
   if (zero_range(as.numeric(limits))) {
     return()
@@ -427,7 +426,7 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
   discard(breaks, limits)
 }
 
-#' @S3method scale_breaks_minor discrete
+#' @export
 scale_breaks_minor.discrete <- function(...) NULL
 
 scale_breaks_minor_positions <- function(scale) {
@@ -440,7 +439,7 @@ scale_labels <- function(scale, breaks = scale_breaks(scale)) {
   UseMethod("scale_labels")
 }
 
-#' @S3method scale_labels continuous
+#' @export
 scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
   if (is.null(breaks)) return(NULL)
 
@@ -464,7 +463,7 @@ scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
   labels
 }
 
-#' @S3method scale_labels discrete
+#' @export
 scale_labels.discrete <- function(scale, breaks = scale_breaks(scale)) {
   if (is.null(breaks)) return(NULL)
 
@@ -504,20 +503,21 @@ named_labels <- function(breaks, labels) {
   breaks
 }
 
+#' @export
 print.scale <- function(x, ...) {
   print(x$call)
 }
 
 scale_clone <- function(scale) UseMethod("scale_clone")
 
-#' @S3method scale_clone continuous
+#' @export
 scale_clone.continuous <- function(scale) {
   new <- scale
   new$range <- ContinuousRange$new()
   new
 }
 
-#' @S3method scale_clone discrete
+#' @export
 scale_clone.discrete <- function(scale) {
   new <- scale
   new$range <- DiscreteRange$new()
@@ -526,7 +526,7 @@ scale_clone.discrete <- function(scale) {
 
 
 scale_break_info <- function(scale, range = NULL)  UseMethod("scale_break_info")
-#' @S3method scale_break_info discrete
+#' @export
 scale_break_info.discrete <- function(scale, range = NULL) {
 
   # for discrete, limits != range
@@ -551,7 +551,7 @@ scale_break_info.discrete <- function(scale, range = NULL) {
        major = major_n, minor = NULL,
        major_source = major, minor_source = NULL)
 }
-#' @S3method scale_break_info continuous
+#' @export
 scale_break_info.continuous <- function(scale, range = NULL) {
   # range
   if (is.null(range)) range <- scale_dimension(scale)

@@ -43,16 +43,16 @@ coord_cartesian <- function(xlim = NULL, ylim = NULL, wise = NULL) {
   coord(limits = list(x = xlim, y = ylim), subclass = "cartesian")
 }
 
-#' @S3method is.linear cartesian
+#' @export
 is.linear.cartesian <- function(coord) TRUE
 
-#' @S3method coord_distance cartesian
+#' @export
 coord_distance.cartesian <- function(coord, x, y, details) {
   max_dist <- dist_euclidean(details$x.range, details$y.range)
   dist_euclidean(x, y) / max_dist
 }
 
-#' @S3method coord_transform cartesian
+#' @export
 coord_transform.cartesian <- function(., data, details) {
   rescale_x <- function(data) rescale(data, from = details$x.range)
   rescale_y <- function(data) rescale(data, from = details$y.range)
@@ -61,7 +61,7 @@ coord_transform.cartesian <- function(., data, details) {
   transform_position(data, squish_infinite, squish_infinite)
 }
 
-#' @S3method coord_train cartesian
+#' @export
 coord_train.cartesian <- function(coord, scales) {
   c(train_cartesian(scales$x, coord$limits$x, "x"),
     train_cartesian(scales$y, coord$limits$y, "y"))

@@ -67,7 +67,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrin
   )
 }
 
-#' @S3method facet_train_layout wrap
+#' @export
 facet_train_layout.wrap <- function(facet, data) {
   panels <- layout_wrap(data, facet$facets, facet$nrow, facet$ncol,
      facet$as.table, facet$drop)
@@ -86,7 +86,7 @@ facet_train_layout.wrap <- function(facet, data) {
   panels
 }
 
-#' @S3method facet_map_layout wrap
+#' @export
 facet_map_layout.wrap <- function(facet, data, layout) {
   locate_wrap(data, layout, facet$facets)
 }
@@ -98,7 +98,7 @@ facet_map_layout.wrap <- function(facet, data, layout) {
 #  * combine panels, strips and axes, then wrap into 2d
 #  * finally: add title, labels and legend
 #
-#' @S3method facet_render wrap
+#' @export
 facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
 
   # If coord is (non-cartesian or flip) and (x is free or y is free)
@@ -189,7 +189,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   gt
 }
 
-#' @S3method facet_panels wrap
+#' @export
 facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   panels <- panel$layout$PANEL
   lapply(panels, function(i) {
@@ -204,7 +204,7 @@ facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   })
 }
 
-#' @S3method facet_strips wrap
+#' @export
 facet_strips.wrap <- function(facet, panel, theme) {
   labels_df <- panel$layout[names(facet$facets)]
   labels_df[] <- llply(labels_df, format, justify = "none")
@@ -214,7 +214,7 @@ facet_strips.wrap <- function(facet, panel, theme) {
   list(t = llply(labels, ggstrip, theme = theme))
 }
 
-#' @S3method facet_axes wrap
+#' @export
 facet_axes.wrap <- function(facet, panel, coord, theme) {
   panels <- panel$layout$PANEL
 
@@ -240,7 +240,7 @@ facet_axes.wrap <- function(facet, panel, coord, theme) {
 
 }
 
-#' @S3method facet_vars wrap
+#' @export
 facet_vars.wrap <- function(facet) {
   paste(lapply(facet$facets, paste, collapse = ", "), collapse = " ~ ")
 }

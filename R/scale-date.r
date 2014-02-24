@@ -106,7 +106,7 @@ scale_date <- function(aesthetics, expand = waiver(), breaks = pretty_breaks(),
     trans = "date", ...)
 }
 
-#' @S3method scale_map date
+#' @export
 scale_map.date <- function(scale, x, limits = scale_limits(scale)) {
   x
 }

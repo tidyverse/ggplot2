@@ -3,8 +3,7 @@
 #' This function turns a map into a data frame that can more easily be
 #' plotted with ggplot2.
 #'
-#' @method fortify map
-#' @S3method fortify map
+#' @export
 #' @seealso \code{\link{map_data}} and \code{\link{borders}}
 #' @param model map object
 #' @param data not used by this method

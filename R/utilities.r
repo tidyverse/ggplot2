@@ -128,7 +128,7 @@ remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = 
 finite.cases <- function(x) UseMethod("finite.cases")
 # Returns a logical vector of same length as nrow(x). If all data on a row
 # is finite (not NA, NaN, Inf, or -Inf) return TRUE; otherwise FALSE.
-#' @S3method finite.cases data.frame
+#' @export
 finite.cases.data.frame <- function(x) {
   finite_cases <- vapply(x, is.finite, logical(nrow(x)))
 

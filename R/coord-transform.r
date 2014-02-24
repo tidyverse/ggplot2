@@ -71,13 +71,13 @@ coord_trans <- function(xtrans = "identity", ytrans = "identity", limx = NULL, l
   coord(trans = list(x = xtrans, y = ytrans), limits = list(x = limx, y = limy), subclass = "trans")
 }
 
-#' @S3method coord_distance trans
+#' @export
 coord_distance.trans <- function(coord, x, y, details) {
   max_dist <- dist_euclidean(details$x.range, details$y.range)
   dist_euclidean(coord$trans$x$transform(x), coord$trans$y$transform(y)) / max_dist
 }
 
-#' @S3method coord_transform trans
+#' @export
 coord_transform.trans <- function(coord, data, details) {
   trans_x <- function(data) transform_value(coord$trans$x, data, details$x.range)
   trans_y <- function(data) transform_value(coord$trans$y, data, details$y.range)
@@ -89,7 +89,7 @@ transform_value <- function(trans, value, range) {
   rescale(trans$transform(value), 0:1, range)
 }
 
-#' @S3method coord_train trans
+#' @export
 coord_train.trans <- function(coord, scales) {
   c(train_trans(scales$x, coord$limits$x, coord$trans$x, "x"),
     train_trans(scales$y, coord$limits$y, coord$trans$y, "y"))

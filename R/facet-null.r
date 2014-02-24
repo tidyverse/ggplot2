@@ -11,14 +11,14 @@ facet_null <- function(shrink = TRUE) {
   facet(shrink = shrink, subclass = "null")
 }
 
-#' @S3method facet_train_layout null
+#' @export
 facet_train_layout.null <- function(facet, data) {
   data.frame(
     PANEL = 1L, ROW = 1L, COL = 1L,
     SCALE_X = 1L, SCALE_Y = 1L)
 }
 
-#' @S3method facet_map_layout null
+#' @export
 facet_map_layout.null <- function(facet, data, layout) {
   # Need the is.waive check for special case where no data, but aesthetics
   # are mapped to vectors, like qplot(1:5, 1:5)
@@ -28,7 +28,7 @@ facet_map_layout.null <- function(facet, data, layout) {
   data
 }
 
-#' @S3method facet_render null
+#' @export
 facet_render.null <- function(facet, panel, coord, theme, geom_grobs) {
   range <- panel$ranges[[1]]
 
@@ -68,5 +68,5 @@ facet_render.null <- function(facet, panel, coord, theme, geom_grobs) {
   layout
 }
 
-#' @S3method facet_vars null
+#' @export
 facet_vars.null <- function(facet) ""

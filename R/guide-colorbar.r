@@ -165,6 +165,7 @@ guide_colourbar <- function(
     class=c("guide", "colorbar"))
 }
 
+#' @export
 guide_train.colorbar <- function(guide, scale) {
 
   # do nothing if scale are inappropriate
@@ -199,15 +200,18 @@ guide_train.colorbar <- function(guide, scale) {
 }
 
 # simply discards the new guide
+#' @export
 guide_merge.colorbar <- function(guide, new_guide) {
   guide
 }
 
 # this guide is not geom-based.
+#' @export
 guide_geom.colorbar <- function(guide, ...) {
   guide
 }
 
+#' @export
 guide_gengrob.colorbar <- function(guide, theme) {
 
   # settings of location and size

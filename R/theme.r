@@ -32,7 +32,7 @@ theme_update <- function(...) {
 #' @export
 is.theme <- function(x) inherits(x, "theme")
 
-#' @S3method print theme
+#' @export
 print.theme <- function(x, ...) str(x)
 
 #' Set theme elements

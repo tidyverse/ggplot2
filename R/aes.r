@@ -37,10 +37,6 @@
 #'    \code{\link{aes_colour_fill_alpha}}, \code{\link{aes_group_order}},
 #'    \code{\link{aes_linetype_size_shape}} and \code{\link{aes_position}}
 #'    for more specific examples with different aesthetics.
-#' @S3method str uneval
-#' @S3method print uneval
-#' @S3method "[" uneval
-#' @S3method as.character uneval
 #' @export
 #' @examples
 #' aes(x = mpg, y = wt)
@@ -49,10 +45,14 @@ aes <- function(x, y, ...) {
   aes <- structure(as.list(match.call()[-1]), class="uneval")
   rename_aes(aes)
 }
+#' @export
 print.uneval <- function(x, ...) str(unclass(x))
+#' @export
 str.uneval <- function(object, ...) str(unclass(object), ...)
+#' @export
 "[.uneval" <- function(x, i, ...) structure(unclass(x)[i], class = "uneval")
 
+#' @export
 as.character.uneval <- function(x, ...) {
   char <- as.character(unclass(x))
   names(char) <- names(x)

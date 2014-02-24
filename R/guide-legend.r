@@ -189,6 +189,7 @@ guide_legend <- function(
     class=c("guide", "legend"))
 }
 
+#' @export
 guide_train.legend <- function(guide, scale) {
   breaks <- scale_breaks(scale)
   key <- data.frame(
@@ -221,6 +222,7 @@ guide_train.legend <- function(guide, scale) {
   guide
 }
 
+#' @export
 guide_merge.legend <- function(guide, new_guide) {
   guide$key <- merge(guide$key, new_guide$key, sort=FALSE)
   guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
@@ -229,6 +231,7 @@ guide_merge.legend <- function(guide, new_guide) {
   guide
 }
 
+#' @export
 guide_geom.legend <- function(guide, layers, default_mapping) {
 
   # TODO: how to deal with same geoms of multiple layers.
@@ -289,6 +292,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
   guide
 }
 
+#' @export
 guide_gengrob.legend <- function(guide, theme) {
 
   # default setting

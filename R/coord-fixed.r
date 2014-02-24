@@ -30,7 +30,7 @@ coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL, wise = NULL) {
 }
 coord_equal <- coord_fixed
 
-#' @S3method coord_aspect fixed
+#' @export
 coord_aspect.fixed <- function(coord, ranges) {
   diff(ranges$y.range) / diff(ranges$x.range) * coord$ratio
 }

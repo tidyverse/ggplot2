@@ -67,7 +67,7 @@ identity_scale <- function(x) {
   structure(x, class = c("identity", class(x)))
 }
 
-#' @S3method scale_map identity
+#' @export
 scale_map.identity <- function(scale, x) {
   if (is.factor(x)) {
     as.character(x)
@@ -75,7 +75,7 @@ scale_map.identity <- function(scale, x) {
     x
   }
 }
-#' @S3method scale_train identity
+#' @export
 scale_train.identity <- function(scale, x) {
   # do nothing if no guide, otherwise train so we know what breaks to use
   if (scale$guide == "none") return()

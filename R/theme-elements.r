@@ -73,7 +73,7 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 }
 
 
-#' @S3method print element
+#' @export
 print.element <- function(x, ...) str(x)
 
 
@@ -87,7 +87,7 @@ rel <- function(x) {
   structure(x, class = "rel")
 }
 
-#' @S3method print rel
+#' @export
 print.rel <- function(x, ...) print(noquote(paste(x, " *", sep = "")))
 
 #' Reports whether x is a rel object
@@ -163,10 +163,10 @@ element_grob <- function(element, ...)
   UseMethod("element_grob")
 
 
-#' @S3method element_grob element_blank
+#' @export
 element_grob.element_blank <- function(element, ...)  zeroGrob()
 
-#' @S3method element_grob element_rect
+#' @export
 element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
   width = 1, height = 1,
   fill = NULL, colour = NULL, size = NULL, linetype = NULL, ...) {
@@ -180,7 +180,7 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
 }
 
 
-#' @S3method element_grob element_text
+#' @export
 element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   family = NULL, face = NULL, colour = NULL, size = NULL,
   hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
@@ -229,7 +229,7 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
 }
 
 
-#' @S3method element_grob element_line
+#' @export
 element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   colour = NULL, size = NULL, linetype = NULL, lineend = NULL,
   default.units = "npc", id.lengths = NULL, ...) {

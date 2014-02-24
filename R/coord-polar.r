@@ -62,10 +62,10 @@ coord_polar <- function(theta = "x", start = 0, direction = 1) {
   )
 }
 
-#' @S3method coord_aspect polar
+#' @export
 coord_aspect.polar <- function(coord, details) 1
 
-#' @S3method coord_distance polar
+#' @export
 coord_distance.polar <- function(coord, x, y, details) {
   if (coord$theta == "x") {
     r <- rescale(y, from = details$r.range)
@@ -78,12 +78,12 @@ coord_distance.polar <- function(coord, x, y, details) {
   dist_polar(r, theta)
 }
 
-#' @S3method coord_range polar
+#' @export
 coord_range.polar <- function(coord, scales) {
   setNames(list(scales$theta.range, scales$r.range), c(coord$theta, coord$r))
 }
 
-#' @S3method coord_train polar
+#' @export
 coord_train.polar <- function(coord, scales) {
 
   ret <- list(x = list(), y = list())
@@ -145,7 +145,7 @@ r_rescale <- function(coord, x, details) {
   rescale(x, c(0, 0.4), details$r.range)
 }
 
-#' @S3method coord_expand_defaults polar
+#' @export
 coord_expand_defaults.polar <- function(coord, scale, aesthetic) {
   if (coord$theta == aesthetic) {
     expand_default(scale, c(0, 0.5), c(0, 0))
@@ -154,7 +154,7 @@ coord_expand_defaults.polar <- function(coord, scale, aesthetic) {
   }
 }
 
-#' @S3method coord_transform polar
+#' @export
 coord_transform.polar <- function(coord, data, details) {
   data <- rename_data(coord, data)
 
@@ -166,17 +166,17 @@ coord_transform.polar <- function(coord, data, details) {
   data
 }
 
-#' @S3method coord_render_axis_v polar
+#' @export
 coord_render_axis_v.polar <- function(coord, details, theme) {
   x <- r_rescale(coord,details$r.major, details) + 0.5
   guide_axis(x, details$r.labels, "left", theme)
 }
-#' @S3method coord_render_axis_h polar
+#' @export
 coord_render_axis_h.polar <- function(coord, details, theme) {
   guide_axis(NA, "", "bottom", theme)
 }
 
-#' @S3method coord_render_bg polar
+#' @export
 coord_render_bg.polar <- function(coord, details, theme) {
   details <- rename_data(coord, details)
 
@@ -220,7 +220,7 @@ coord_render_bg.polar <- function(coord, details, theme) {
   ))
 }
 
-#' @S3method coord_render_fg polar
+#' @export
 coord_render_fg.polar <- function(coord, details, theme) {
   if (is.null(details$theta.major)) {
     return(element_render(theme, "panel.border"))
@@ -256,7 +256,7 @@ coord_render_fg.polar <- function(coord, details, theme) {
   )
 }
 
-#' @S3method coord_labels polar
+#' @export
 coord_labels.polar <- function(coord, scales) {
   if (coord$theta == "y") {
     list(x = scales$y, y = scales$x)

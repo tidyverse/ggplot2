@@ -21,7 +21,8 @@ dotstackGrob <- function (
          name = name, gp = gp, vp = vp, cl = "dotstackGrob")
 }
 
-#' @S3method drawDetails dotstackGrob
+#' @export
+#' @method drawDetails dotstackGrob
 drawDetails.dotstackGrob <- function(x, recording = TRUE) {
 
   # Need absolute coordinates because when using npc coords with circleGrob,

@@ -37,12 +37,6 @@ ylim <- function(...) {
 #' @param limts vector of limits
 #' @param var name of variable
 #' @keywords internal
-#' @S3method limits numeric
-#' @S3method limits character
-#' @S3method limits factor
-#' @S3method limits Date
-#' @S3method limits POSIXct
-#' @S3method limits POSIXlt
 #' @examples
 #' ggplot2:::limits(c(1, 5), "x")
 #' ggplot2:::limits(c(5, 1), "x")
@@ -50,6 +44,7 @@ ylim <- function(...) {
 #' ggplot2:::limits(c("A", "b", "c"), "fill")
 #' ggplot2:::limits(as.Date(c("2008-01-01", "2009-01-01")), "x")
 limits <- function(lims, var) UseMethod("limits")
+#' @export
 limits.numeric <- function(lims, var) {
   stopifnot(length(lims) == 2)
   if (lims[1] > lims[2]) {
@@ -66,20 +61,25 @@ make_scale <- function(type, var, ...) {
   scale(...)
 }
 
+#' @export
 limits.character <- function(lims, var) {
   make_scale("discrete", var, limits = lims)
 }
+#' @export
 limits.factor <- function(lims, var) {
   make_scale("discrete", var, limits = as.character(lims))
 }
+#' @export
 limits.Date <- function(lims, var) {
   stopifnot(length(lims) == 2)
   make_scale("date", var, limits = lims)
 }
+#' @export
 limits.POSIXct <- function(lims, var) {
   stopifnot(length(lims) == 2)
   make_scale("datetime", var, limits = lims)
 }
+#' @export
 limits.POSIXlt <- function(lims, var) {
   stopifnot(length(lims) == 2)
   make_scale("datetime", var, limits = as.POSIXct(lims))

@@ -73,7 +73,7 @@
 #'                     colour = 'red', width = 0.4)
 ggplot <- function(data = NULL, ...) UseMethod("ggplot")
 
-#' @S3method ggplot default
+#' @export
 ggplot.default <- function(data = NULL, mapping = aes(), ...) {
   ggplot.data.frame(fortify(data, ...), mapping)
 }
