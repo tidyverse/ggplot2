@@ -70,15 +70,37 @@ theme_bw <- function(base_size = 12, base_family = "") {
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
     theme(
-      axis.text         = element_text(size = rel(0.8)),
-      axis.ticks        = element_line(colour = "black"),
-      legend.key        = element_rect(colour = "grey80"),
+      axis.text         = element_text(colour = "black", size = rel(0.8)),
+      axis.ticks        = element_line(colour = "black", size=0.25),
+      legend.key        = element_rect(colour = "black", size=0.25),
       panel.background  = element_rect(fill = "white", colour = NA),
-      panel.border      = element_rect(fill = NA, colour = "grey50"),
-      panel.grid.major  = element_line(colour = "grey90", size = 0.2),
-      panel.grid.minor  = element_line(colour = "grey98", size = 0.5),
-      strip.background  = element_rect(fill = "grey80", colour = "grey50"),
-      strip.background  = element_rect(fill = "grey80", colour = "grey50")
+      panel.border      = element_rect(fill = NA, colour = "black", size=0.5),
+      panel.grid.major  = element_line(colour = "black", size = 0.05),
+      panel.grid.minor  = element_line(colour = "black", size = 0.01),
+      strip.background  = element_rect(fill = "black", colour = NA),
+      strip.text.x      = element_text(colour = "white"),
+      strip.text.y      = element_text(colour = "white", angle = -90)
+    )
+}
+
+#' A theme with white background.
+#'
+#' @param base_size base font size
+#' @param base_family base font family
+#' @export
+theme_white <- function(base_size = 12, base_family = "") {
+  # Starts with theme_grey and then modify some parts
+  theme_grey(base_size = base_size, base_family = base_family) %+replace%
+    theme(
+      axis.ticks        = element_line(colour = "grey50", size=0.25),
+      legend.key        = element_rect(fill="white", colour = "grey50", size=0.25),
+      panel.background  = element_rect(fill = "white", colour = NA),
+      panel.border      = element_rect(fill = NA, colour = "grey50", size=0.5),
+      panel.grid.major  = element_line(colour = "grey80", size=0.25),
+      panel.grid.minor  = element_line(colour = "grey92", size = 0.125),
+      strip.background  = element_rect(fill = "grey50", colour = NA),
+      strip.text.x      = element_text(colour = "white"),
+      strip.text.y      = element_text(colour = "white", angle = -90)
     )
 }
 
