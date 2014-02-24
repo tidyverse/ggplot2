@@ -42,7 +42,7 @@
 #' b + geom_segment(aes(x = 2, y = 15, xend = 3, yend = 15))
 #' b + geom_segment(aes(x = 5, y = 30, xend = 3.5, yend = 25), arrow = arrow(length = unit(0.5, "cm")))
 geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE, ...) {
+  position = "identity", arrow = NULL, lineend = "butt", linejoin = "mitre", na.rm = FALSE, ...) {
 
   GeomSegment$new(mapping = mapping, data = data, stat = stat,
     position = position, arrow = arrow, lineend = lineend, na.rm = na.rm, ...)
@@ -63,7 +63,7 @@ GeomSegment <- proto(Geom, {
       return(with(coord_transform(coordinates, data, scales),
         segmentsGrob(x, y, xend, yend, default.units="native",
         gp = gpar(col=alpha(colour, alpha), fill = alpha(colour, alpha),
-          lwd=size * .pt, lty=linetype, lineend = lineend),
+          lwd=size * .pt, lty=linetype, lineend = lineend, linejoin = linejoin),
         arrow = arrow)
       ))
     }
