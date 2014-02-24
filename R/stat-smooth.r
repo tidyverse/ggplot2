@@ -120,7 +120,7 @@ StatSmooth <- proto(Stat, {
     # Figure out what type of smoothing to do: loess for small datasets,
     # gam with a cubic regression basis for large data
     # This is based on the size of the _largest_ group.
-    if (is.character(method) && method == "auto") {
+    if (identical(method, "auto")) {
       groups <- count(data, "group")
 
       if (max(groups$freq) < 1000) {
@@ -136,8 +136,7 @@ StatSmooth <- proto(Stat, {
                 ' Use \'method = x\' to change the smoothing method.')
       }
     }
-
-    if (method == "gam") try_require("mgcv")
+    if (identical(method, "gam")) try_require("mgcv")
 
     .super$calculate_groups(., data, scales, method = method, formula = formula, ...)
   }

@@ -1,6 +1,9 @@
 ggplot2 0.9.3.1.99
 ----------------------------------------------------------------
 
+* `stat_smooth()` checks for `method = "auto"` and `method = "glm"` in
+  a safer way.
+
 * `ggpcp()`, `ggfluctuation()`, `ggmissing()`, `ggstructure()`, and
   `ggorder()` are now defunct and have been removed.
 
