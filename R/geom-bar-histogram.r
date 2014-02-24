@@ -113,6 +113,7 @@
 #' ggplot(diamonds_small, aes(depth, fill = cut)) +
 #'   geom_density(alpha = 0.2) + xlim(55, 70)
 #' }
+#' rm(movies)
 geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", ...) {
   GeomHistogram$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
