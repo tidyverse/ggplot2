@@ -2,6 +2,7 @@
 # All input and output done with data.frames to facilitate
 # multiple input and output variables
 
+#' @importFrom methods setRefClass
 Scales <- setRefClass("Scales", fields = "scales", methods = list(
   find = function(aesthetic) {
     vapply(scales, function(x) any(aesthetic %in% x$aesthetics), logical(1))
