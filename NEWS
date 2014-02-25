@@ -2,8 +2,8 @@ ggplot2 0.9.3.1.99
 ----------------------------------------------------------------
 
 * Allow specifying only one of the limits in a scale and use the automatic
-  calculation of the other limit by passing NA to to the limit function (xlim
-  or ylim). (Fixes #557)  Thanks Jim Hester.
+  calculation of the other limit by passing NA to to the limit function,
+  `xlim()` or `ylim()` (@jimhester, #557).
 
 * `stat_smooth()` checks for `method = "auto"` and `method = "glm"` in
   a safer way.
@@ -11,17 +11,11 @@ ggplot2 0.9.3.1.99
 * `ggpcp()`, `ggfluctuation()`, `ggmissing()`, `ggstructure()`, and
   `ggorder()` are now defunct and have been removed.
 
-* `aes()` no more treats variables like `a..x..b as a calculated aesthetic.
-  (@krlmlr, #834.)
+* `aes()` no more treats variables like `a..x..b` as a calculated aesthetic
+  (@krlmlr, #834).
 
-* Add `"none"` to documentation of `theme()` for parameter `legend.position`.
-  (@krlmlr, #829)
-
-MINOR FEATURES
-
-* Allow specifying only one of the limits in a scale and use the automatic
-  calculation of the other limit by passing NA to to the limit function (xlim
-  or ylim). (Fixes #557)  Thanks Jim Hester.
+* Add `"none"` to documentation of `theme()` for parameter `legend.position`
+  (@krlmlr, #829).
 
 ggplot2 0.9.3.1
 ----------------------------------------------------------------
