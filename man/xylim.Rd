@@ -14,7 +14,8 @@ ylim(...)
 }
 \description{
 Observations not in this range will be dropped completely and
-not passed to any other layers.
+not passed to any other layers.  If a NA value is substituted for one of the
+limits that limit is automatically calculated.
 }
 \examples{
 # xlim
@@ -23,12 +24,16 @@ xlim(20, 15)
 xlim(c(10, 20))
 xlim("a", "b", "c")
 qplot(mpg, wt, data=mtcars) + xlim(15, 20)
+# with automatic lower limit
+qplot(mpg, wt, data=mtcars) + xlim(NA, 20)
 
 # ylim
 ylim(15, 20)
 ylim(c(10, 20))
 ylim("a", "b", "c")
-qplot(mpg, wt, data=mtcars) + ylim(15, 20)
+qplot(mpg, wt, data=mtcars) + ylim(0, 4)
+# with automatic upper limit
+qplot(mpg, wt, data=mtcars) + ylim(0, NA)
 }
 \seealso{
 For changing x or y axis limits \strong{without} dropping data

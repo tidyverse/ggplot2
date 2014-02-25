@@ -1,7 +1,8 @@
 #' Convenience functions to set the limits of the x and y axis.
 #'
 #' Observations not in this range will be dropped completely and
-#' not passed to any other layers.
+#' not passed to any other layers.  If a NA value is substituted for one of the
+#' limits that limit is automatically calculated.
 #'
 #' @param ... if numeric, will create a continuous scale, if factor or
 #'   character, will create a discrete scale.
@@ -16,12 +17,16 @@
 #' xlim(c(10, 20))
 #' xlim("a", "b", "c")
 #' qplot(mpg, wt, data=mtcars) + xlim(15, 20)
+#' # with automatic lower limit
+#' qplot(mpg, wt, data=mtcars) + xlim(NA, 20)
 #'
 #' # ylim
 #' ylim(15, 20)
 #' ylim(c(10, 20))
 #' ylim("a", "b", "c")
-#' qplot(mpg, wt, data=mtcars) + ylim(15, 20)
+#' qplot(mpg, wt, data=mtcars) + ylim(0, 4)
+#' # with automatic upper limit
+#' qplot(mpg, wt, data=mtcars) + ylim(0, NA)
 xlim <- function(...) {
   limits(c(...), "x")
 }
@@ -47,7 +52,7 @@ limits <- function(lims, var) UseMethod("limits")
 #' @export
 limits.numeric <- function(lims, var) {
   stopifnot(length(lims) == 2)
-  if (lims[1] > lims[2]) {
+  if (!any(is.na(lims)) && lims[1] > lims[2]) {
     trans <- "reverse"
   } else {
     trans <- "identity"

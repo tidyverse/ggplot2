@@ -296,9 +296,16 @@ scale_limits <- function(scale) {
 }
 
 
+#  if scale contains a NULL, use the default scale range
+#  if scale contains a NA, use the default range for that axis, otherwise
+#  use the user defined limit for that axis
 #' @export
 scale_limits.default <- function(scale) {
-  scale$limits %||% scale$range$range
+  if(!is.null(scale$limits)) {
+    ifelse(!is.na(scale$limits), scale$limits, scale$range$range)
+  } else {
+    scale$range$range
+  }
 }
 
 # @kohske
