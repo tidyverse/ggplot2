@@ -25,6 +25,8 @@ To contribute a change to ggplot2, you follow these steps:
 1. Iterate until either we're happy, or we've determined that your change
    is not a good fit for ggplot2.
 
+Each of these steps are described in more detail below. This might feel overwhelming the first time you get set up, but it gets easier with practice. If you get stuck at any point, please reach out for help on the [ggplot2-dev](https://groups.google.com/forum/#!forum/ggplot2-dev) mailing list
+
 ## Basic setup
 
 If you want to do development on ggplot2 and share the changes with other people, you'll have to set up an account on GitHub. You'll make a fork of Hadley's repository and store it on GitHub. You'll also make a copy of your repository on your local machine.
