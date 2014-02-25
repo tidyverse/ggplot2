@@ -24,9 +24,9 @@
 #' ylim(15, 20)
 #' ylim(c(10, 20))
 #' ylim("a", "b", "c")
-#' qplot(mpg, wt, data=mtcars) + ylim(15, 20)
+#' qplot(mpg, wt, data=mtcars) + ylim(0, 4)
 #' # with automatic upper limit
-#' qplot(mpg, wt, data=mtcars) + ylim(15, NA)
+#' qplot(mpg, wt, data=mtcars) + ylim(0, NA)
 xlim <- function(...) {
   limits(c(...), "x")
 }

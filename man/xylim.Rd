@@ -31,9 +31,9 @@ qplot(mpg, wt, data=mtcars) + xlim(NA, 20)
 ylim(15, 20)
 ylim(c(10, 20))
 ylim("a", "b", "c")
-qplot(mpg, wt, data=mtcars) + ylim(15, 20)
+qplot(mpg, wt, data=mtcars) + ylim(0, 4)
 # with automatic upper limit
-qplot(mpg, wt, data=mtcars) + ylim(15, NA)
+qplot(mpg, wt, data=mtcars) + ylim(0, NA)
 }
 \seealso{
 For changing x or y axis limits \strong{without} dropping data
