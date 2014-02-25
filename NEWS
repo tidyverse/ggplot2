@@ -10,6 +10,9 @@ ggplot2 0.9.3.1.99
 * theme: new theme settings panel.margin.x and panel.margin.y (units) allow
   specifying horizontal and vertical gap between panels in facetted plots (for
   both grid and wrap).  (Kirill Müller. Fixes #839)
+* `aes()` no more treats variables like `a..x..b as a calculated aesthetic.
+  (@krlmlr, #834.)
+
 * Add `"none"` to documentation of `theme()` for parameter `legend.position`.
   (@krlmlr, #829)
 
