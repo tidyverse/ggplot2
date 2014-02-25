@@ -13,6 +13,10 @@ install:
 
 script: ./travis-tool.sh run_tests
 
+after_success:
+  - ./travis-tool.sh install_github hadley/staticdocs
+  - R -e "staticdocs::build_site()"
+
 on_failure:
   - ./travis-tool.sh dump_logs
 
@@ -20,3 +24,15 @@ notifications:
   email:
     on_success: change
     on_failure: change
+
+deploy:
+  edge: true
+
+  provider: s3
+  access_key_id: AKIAJDM6KGIZ6LSGAK4Q
+  secret_access_key:
+    secure: "r3vSpvVNcpvIcjWFyk+GhYG55iuhfmy3mwuQHQS2EqjT3Skd3mOojnZuRIqy60XXElK5/nfa3qt7KH0GCSd4Is28cqPwh+1PtQ0ZVXfeKefAk2whTPDI4P+rgOA+srUxZraLALap9QGmvlzJyXbqBCRdDmXUjtXKi2ONE9PrUk4="
+  bucket: docs.ggplot2.org
+  skip_cleanup: true
+  local-dir: inst/web
+  upload-dir: dev
