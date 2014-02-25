@@ -36,7 +36,8 @@ Suggests:
     multcomp,
     nlme,
     testthat,
-    knitr
+    knitr,
+    mgcv
 VignetteBuilder: knitr
 Enhances: sp
 Roxygen: list(wrap = FALSE)
