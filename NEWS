@@ -9,6 +9,12 @@ ggplot2 0.9.3.1.99
 
 * Fix vertical justification for rotated text. (@krlmlr, #883)
 
+* `aes()` no more treats variables like `a..x..b as a calculated aesthetic.
+  (@krlmlr, #834.)
+
+* Add `"none"` to documentation of `theme()` for parameter `legend.position`.
+  (@krlmlr, #829)
+
 
 ggplot2 0.9.3.1
 ----------------------------------------------------------------
