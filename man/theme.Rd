@@ -81,17 +81,17 @@ last example below.
   legend.title \tab title of legend (\code{element_text};
   inherits from \code{title}) \cr legend.title.align \tab
   alignment of legend title (number from 0 (left) to 1
-  (right)) \cr legend.position \tab the position of
-  legends.  ("left", "right", "bottom", "top", or
-  two-element numeric vector) \cr legend.direction \tab
-  layout of items in legends ("horizontal" or "vertical")
-  \cr legend.justification \tab anchor point for
-  positioning legend inside plot ("center" or two-element
-  numeric vector) \cr legend.box \tab arrangement of
-  multiple legends ("horizontal" or "vertical") \cr
-  legend.box.just \tab justification of each legend within
-  the overall bounding box, when there are multiple legends
-  ("top", "bottom", "left", or "right")\cr
+  (right)) \cr legend.position \tab the position of legends
+  ("none", "left", "right", "bottom", "top", or two-element
+  numeric vector) \cr legend.direction \tab layout of items
+  in legends ("horizontal" or "vertical") \cr
+  legend.justification \tab anchor point for positioning
+  legend inside plot ("center" or two-element numeric
+  vector) \cr legend.box \tab arrangement of multiple
+  legends ("horizontal" or "vertical") \cr legend.box.just
+  \tab justification of each legend within the overall
+  bounding box, when there are multiple legends ("top",
+  "bottom", "left", or "right")\cr
 
   panel.background \tab background of plotting area, drawn
   underneath plot (\code{element_rect}; inherits from
