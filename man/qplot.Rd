@@ -107,6 +107,7 @@ qplot(y = mpg, data = mtcars)
 # Use different geoms
 qplot(mpg, wt, data = mtcars, geom="path")
 qplot(factor(cyl), wt, data = mtcars, geom=c("boxplot", "jitter"))
+qplot(mpg, data = mtcars, geom = "dotplot")
 }
 }
 

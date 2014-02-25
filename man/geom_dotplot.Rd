@@ -139,6 +139,9 @@ ggplot(mtcars, aes(x = mpg, fill = factor(cyl))) +
 
 ggplot(mtcars, aes(x = 1, y = mpg, fill = factor(cyl))) +
   geom_dotplot(binaxis = "y", stackgroups = TRUE, binwidth = 1, method = "histodot")
+
+# Use qplot instead
+qplot(mpg, data = mtcars, geom = "dotplot")
 }
 \references{
 Wilkinson, L. (1999) Dot plots. The American Statistician,

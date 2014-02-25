@@ -5,6 +5,8 @@ ggplot2 0.9.3.1.99
   calculation of the other limit by passing NA to to the limit function,
   `xlim()` or `ylim()` (@jimhester, #557).
 
+* `geom_dotplot` now works with qplot. (@rasmusab. Fixes #825)
+
 * `stat_smooth()` checks for `method = "auto"` and `method = "glm"` in
   a safer way.
 
