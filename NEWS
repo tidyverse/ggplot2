@@ -7,6 +7,9 @@ ggplot2 0.9.3.1.99
 * `ggpcp()`, `ggfluctuation()`, `ggmissing()`, `ggstructure()`, and
   `ggorder()` are now defunct and have been removed.
 
+* Add `"none"` to documentation of `theme()` for parameter `legend.position`.
+  (@krlmlr, #829)
+
 
 ggplot2 0.9.3.1
 ----------------------------------------------------------------
