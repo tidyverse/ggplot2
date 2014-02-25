@@ -165,6 +165,7 @@ Collate:
     'scale-shape.r'
     'scale-size.r'
     'scales-.r'
+    'set-geom-params.r'
     'stat-.r'
     'stat-bin.r'
     'stat-bin2d.r'
