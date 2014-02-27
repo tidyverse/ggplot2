@@ -43,7 +43,7 @@
 #' }
 
 stat_ellipse <- function(mapping=NULL, data=NULL, geom="path", position="identity", 
-                         type = "t", level = 0.95, segments = 51, na.rm = FALSE, ...) {
+                         type = "t", level = 0.95 , segments = 51, na.rm = FALSE, ...) {
   StatEllipse$new(mapping=mapping, data=data, geom=geom, position=position, 
                   type = type, level=level, segments=segments, na.rm = na.rm, ...)
 }
