@@ -1,2 +1,4 @@
 ^\.travis\.yml$
 ^/\.gitattributes$
+^.*\.Rproj$
+^\.Rproj\.user$
