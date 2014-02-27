@@ -1,6 +1,6 @@
 #' Hollow bar with middle indicated by horizontal line.
 #'
-#' @section Aesthetics: 
+#' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "crossbar")}
 #'
 #' @inheritParams geom_point
@@ -12,15 +12,15 @@
 #' @export
 #' @examples
 #' # See geom_linerange for examples
-geom_crossbar <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", 
-fatten = 2, ...) { 
-  GeomCrossbar$new(mapping = mapping, data = data, stat = stat, 
+geom_crossbar <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
+fatten = 2, ...) {
+  GeomCrossbar$new(mapping = mapping, data = data, stat = stat,
   position = position, fatten = fatten, ...)
 }
 
 GeomCrossbar <- proto(Geom, {
   objname <- "crossbar"
-  
+
   reparameterise <- function(., df, params) {
     GeomErrorbar$reparameterise(df, params)
   }
@@ -38,11 +38,11 @@ GeomCrossbar <- proto(Geom, {
       linesGrob(c(0.125, 0.875), 0.5)
     ))
   }
-  
+
   draw <- function(., data, scales, coordinates, fatten = 2, width = NULL, ...) {
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
 
-    has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) && 
+    has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
       !is.na(data$ynotchlower) && !is.na(data$ynotchupper)
 
     if (has_notch) {

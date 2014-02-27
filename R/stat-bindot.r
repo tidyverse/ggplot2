@@ -1,9 +1,9 @@
 #' Bin data for dot plot.
-#' 
+#'
 #' Missing values are currently silently dropped.
 #' If weights are used, they must be integer values.
 #'
-#' @section Aesthetics: 
+#' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bindot")}
 #'
 #' @inheritParams stat_identity
@@ -17,9 +17,9 @@
 #'   determines positions of the bins for each group separately. "all" determines
 #'   positions of the bins with all the data taken together; this is used for
 #'   aligning dot stacks across multiple groups.
-#' @param origin When \code{method} is "histodot", origin of first bin 
+#' @param origin When \code{method} is "histodot", origin of first bin
 #' @param right When \code{method} is "histodot", should intervals be closed
-#'   on the right (a, b], or not [a, b) 
+#'   on the right (a, b], or not [a, b)
 #' @param width When \code{binaxis} is "y", the spacing of the dot stacks
 #'   for dodging.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
@@ -33,7 +33,7 @@
 #'     width of each bin if method is "histodot"}
 #'   \item{count}{number of points in bin}
 #'   \item{ncount}{count, scaled to maximum of 1}
-#'   \item{density}{density of points in bin, scaled to integrate to 1, 
+#'   \item{density}{density of points in bin, scaled to integrate to 1,
 #'     if method is "histodot"}
 #'   \item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
 #' @seealso See \code{\link{geom_dotplot}} for examples.
@@ -54,10 +54,10 @@ binpositions = "bygroup", drop = FALSE, right = TRUE, na.rm = FALSE, ...) {
 StatBindot <- proto(Stat, {
   objname <- "bindot"
   informed <- FALSE
-  
+
   calculate_groups <- function(., data, na.rm = FALSE, binwidth = NULL, binaxis = "x",
                         method = "dotdensity", binpositions = "bygroup", ...) {
-    data <- remove_missing(data, na.rm, c(binaxis, "weight"), name="stat_bindot", 
+    data <- remove_missing(data, na.rm, c(binaxis, "weight"), name="stat_bindot",
       finite = TRUE)
 
     .$informed <- FALSE
@@ -166,7 +166,7 @@ StatBindot <- proto(Stat, {
   default_aes <- function(.) aes(y = ..count..)
   required_aes <- c("x")
   default_geom <- function(.) GeomDotplot
-  
+
 })
 
 # This does density binning, but does not collapse each bin with a count.

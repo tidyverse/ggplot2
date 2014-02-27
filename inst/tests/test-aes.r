@@ -3,16 +3,16 @@ context("Creating aesthetic mappings")
 test_that("function aes", {
   expect_equal(aes(x = mpg, y = wt),
                structure(list(x = bquote(mpg), y = bquote(wt)), class = "uneval"))
-  
+
   expect_equal(aes(x = mpg ^ 2, y = wt / cyl),
                structure(list(x = bquote(mpg ^ 2), y = bquote(wt / cyl)), class = "uneval"))
-  
+
 })
 
 test_that("function aes_string", {
   expect_equal(aes_string(x = "mpg", y = "wt"),
                structure(list(x = bquote(mpg), y = bquote(wt)), class = "uneval"))
-  
+
   expect_equal(aes_string(x = "mpg ^ 2", y = "wt / cyl"),
                structure(list(x = bquote(mpg ^ 2), y = bquote(wt / cyl)), class = "uneval"))
 })
@@ -33,7 +33,7 @@ test_that("function aes_all", {
                    gear = bquote(gear),
                    carb = bquote(carb)),
                  class = "uneval"))
-  
+
   expect_equal(aes_all(c("x", "y", "col", "pch")),
                structure(list(x = bquote(x), y = bquote(y), colour = bquote(col), shape = bquote(pch)), class = "uneval"))
 })
@@ -59,4 +59,4 @@ test_that("function aes_auto", {
                structure(list(x = bquote(xp), y = bquote(yp)), class = "uneval"))
   expect_equal(aes_auto(df), structure(setNames(list(), character(0)), class = "uneval"))
 })
-                            
+

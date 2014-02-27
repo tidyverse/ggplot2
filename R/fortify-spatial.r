@@ -1,8 +1,8 @@
 #' Fortify method for classes from the sp package.
-#' 
-#' To figure out the correct variable name for region, inspect 
+#'
+#' To figure out the correct variable name for region, inspect
 #' \code{as.data.frame(model)}.
-#' 
+#'
 #' @param model \code{SpatialPolygonsDataFrame} to convert into a dataframe.
 #' @param data not used by this method
 #' @param region name of variable used to split up regions
@@ -11,9 +11,9 @@
 #' @examples
 #' if (require("maptools")) {
 #'  sids <- system.file("shapes/sids.shp", package="maptools")
-#'  nc1 <- readShapePoly(sids, 
+#'  nc1 <- readShapePoly(sids,
 #'    proj4string = CRS("+proj=longlat +datum=NAD27"))
-#'  nc1_df <- fortify(nc1) 
+#'  nc1_df <- fortify(nc1)
 #' }
 NULL
 
@@ -55,7 +55,7 @@ fortify.Polygons <- function(model, data, ...) {
     df$piece <- i
     df
   })
-  
+
   within(pieces,{
     order <- 1:nrow(pieces)
     id <- model@ID
@@ -92,7 +92,7 @@ fortify.Lines <- function(model, data, ...) {
     df$piece <- i
     df
   })
-  
+
   within(pieces,{
     order <- 1:nrow(pieces)
     id <- model@ID
@@ -108,5 +108,5 @@ fortify.Line <- function(model, data, ...) {
   df <- as.data.frame(model@coords)
   names(df) <- c("long", "lat")
   df$order <- 1:nrow(df)
-  df  
+  df
 }

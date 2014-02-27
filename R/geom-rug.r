@@ -1,6 +1,6 @@
 #' Marginal rug plots.
 #'
-#' @section Aesthetics: 
+#' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "rug")}
 #'
 #' @inheritParams geom_point
@@ -24,7 +24,7 @@ GeomRug <- proto(Geom, {
 
   draw <- function(., data, scales, coordinates, sides, ...) {
     rugs <- list()
-    data <- coord_transform(coordinates, data, scales)    
+    data <- coord_transform(coordinates, data, scales)
     if (!is.null(data$x)) {
       if(grepl("b", sides)) {
         rugs$x_b <- segmentsGrob(
@@ -41,7 +41,7 @@ GeomRug <- proto(Geom, {
           gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
         )
       }
-    }  
+    }
 
     if (!is.null(data$y)) {
       if(grepl("l", sides)) {
@@ -59,11 +59,11 @@ GeomRug <- proto(Geom, {
           gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
         )
       }
-    }  
-    
+    }
+
     gTree(children = do.call("gList", rugs))
   }
-  
+
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
   guide_geom <- function(.) "path"

@@ -1,28 +1,28 @@
 #' ggplot2.
-#' 
+#'
 #' @name ggplot2
 #' @docType package
 #' @import plyr digest scales grid reshape2 proto gtable
 NULL
 
 #' Prices of 50,000 round cut diamonds
-#' 
+#'
 #' A dataset containing the prices and other attributes of almost 54,000
 #'  diamonds. The variables are as follows:
-#' 
+#'
 #' \itemize{
-#'   \item price. price in US dollars (\$326--\$18,823)  
-#'   \item carat. weight of the diamond (0.2--5.01) 
+#'   \item price. price in US dollars (\$326--\$18,823)
+#'   \item carat. weight of the diamond (0.2--5.01)
 #'   \item cut. quality of the cut (Fair, Good, Very Good, Premium, Ideal)
 #'   \item colour. diamond colour, from J (worst) to D (best)
-#'   \item clarity. a measurement of how clear the diamond is (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best))  
+#'   \item clarity. a measurement of how clear the diamond is (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best))
 #'   \item x. length in mm (0--10.74)
 #'   \item y. width in mm (0--58.9)
 #'   \item z. depth in mm (0--31.8)
-#'   \item depth. total depth percentage = z / mean(x, y) = 2 * z / (x + y) (43--79) 
+#'   \item depth. total depth percentage = z / mean(x, y) = 2 * z / (x + y) (43--79)
 #'   \item table. width of top of diamond relative to widest point (43--95)
 #' }
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name diamonds
@@ -34,16 +34,16 @@ NULL
 #' US economic time series.
 #'
 #' This dataset was produced from US economic time series data available from \url{http://research.stlouisfed.org/fred2}.
-#' 
+#'
 #' \itemize{
 #'   \item date.  Month of data collection
-#' 
+#'
 #'   \item psavert, personal savings rate, \url{http://research.stlouisfed.org/fred2/series/PSAVERT/}
 #'   \item pce, personal consumption expenditures, in billions of dollars, \url{http://research.stlouisfed.org/fred2/series/PCE}
 #'   \item unemploy, number of unemployed in thousands, \url{http://research.stlouisfed.org/fred2/series/UNEMPLOY}
 #'   \item uempmed, median duration of unemployment, in week, \url{http://research.stlouisfed.org/fred2/series/UEMPMED}
 #'   \item pop, total population, in thousands, \url{http://research.stlouisfed.org/fred2/series/POP}
-#' 
+#'
 #' }
 #'
 #' @docType data
@@ -58,7 +58,7 @@ NULL
 #' Demographic information of midwest counties
 #'
 #' The variables are as follows:
-#' 
+#'
 #' \itemize{
 #'  \item PID
 #'  \item county
@@ -77,10 +77,10 @@ NULL
 #'  \item percasian. Percent Asian.
 #'  \item percother. Percent other races.
 #'  \item popadults.  Number of adults.
-#'  \item perchsd.  
+#'  \item perchsd.
 #'  \item percollege.  Percent college educated.
 #'  \item percprof.  Percent profession.
-#'  \item poppovertyknown. 
+#'  \item poppovertyknown.
 #'  \item percpovertyknown
 #'  \item percbelowpoverty
 #'  \item percchildbelowpovert
@@ -103,13 +103,13 @@ NULL
 #' The internet movie database, \url{http://imdb.com/}, is a website devoted
 #' to collecting movie data supplied by studios and fans.  It claims to be the
 #' biggest movie database on the web and is run by amazon.  More about
-#' information imdb.com can be found online, 
-#' \url{http://imdb.com/help/show_leaf?about}, including information about 
+#' information imdb.com can be found online,
+#' \url{http://imdb.com/help/show_leaf?about}, including information about
 #' the data collection process,
 #' \url{http://imdb.com/help/show_leaf?infosource}.
-#' 
+#'
 #' Movies were selected for inclusion if they had a known length and had been rated by at least one imdb user.  The data set contains the following fields:
-#' 
+#'
 #' \itemize{
 #'   \item title.  Title of the movie.
 #'   \item year.  Year of release.
@@ -121,7 +121,7 @@ NULL
 #'   \item mpaa.  MPAA rating.
 #'   \item action, animation, comedy, drama, documentary, romance, short.  Binary variables representing if movie was classified as belonging to that genre.
 #' }
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @usage data(movies)
@@ -131,17 +131,17 @@ NULL
 NULL
 
 #' Fuel economy data from 1999 and 2008 for 38 popular models of car
-#' 
+#'
 #' This dataset contains a subset of the fuel economy data that the EPA makes
 #' available on \url{http://fueleconomy.gov}.  It contains only models which
 #' had a new release every year between 1999 and 2008 - this was used as a
 #' proxy for the popularity of the car.
-#' 
+#'
 #' \itemize{
 #'   \item manufacturer.
 #'   \item model.
 #'   \item displ. engine displacement, in litres
-#'   \item year. 
+#'   \item year.
 #'   \item cyl. number of cylinders
 #'   \item trans. type of transmission
 #'   \item drv. f = front-wheel drive, r = rear wheel drive, 4 = 4wd
@@ -150,7 +150,7 @@ NULL
 #'   \item fl.
 #'   \item class.
 #' }
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name mpg
@@ -159,21 +159,21 @@ NULL
 NULL
 
 #' An updated and expanded version of the mammals sleep dataset.
-#' 
-#' This is an updated and expanded version of the mammals sleep dataset. 
+#'
+#' This is an updated and expanded version of the mammals sleep dataset.
 #' Updated sleep times and weights were taken from V. M. Savage and G. B.
 #' West. A quantitative, theoretical framework for understanding mammalian
 #' sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056,
-#' 2007. 
-#' 
+#' 2007.
+#'
 #' Additional variables order, conservation status and vore were added from
 #' wikipedia.
-#' 
+#'
 #' \itemize{
 #'   \item name. common name
-#'   \item genus. 
+#'   \item genus.
 #'   \item vore. carnivore, omnivore or herbivore?
-#'   \item order. 
+#'   \item order.
 #'   \item conservation. the conservation status of the animal
 #'   \item sleep\_total. total amount of sleep, in hours
 #'   \item sleep\_rem. rem sleep, in hours
@@ -182,7 +182,7 @@ NULL
 #'   \item brainwt. brain weight in kilograms
 #'   \item bodywt. body weight in kilograms
 #' }
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name msleep
@@ -191,10 +191,10 @@ NULL
 NULL
 
 #' Terms of 10 presidents from Eisenhower to Bush W.
-#' 
+#'
 #' The names of each president, the start and end date of their term, and
 #' their party of 10 US presidents from Eisenhower to Bush W.
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name presidential
@@ -210,7 +210,7 @@ NULL
 #' Inference 122 (2004), 43-63, using the methods of Brillinger, D.R.,
 #' "Learning a potential function from a trajectory", Signal Processing
 #'  Letters. December (2007).
-#' 
+#'
 #' @name seals
 #' @usage data(seals)
 #' @docType data

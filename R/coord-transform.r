@@ -1,11 +1,11 @@
 #' Transformed cartesian coordinate system.
-#' 
-#' \code{coord_trans} is different to scale transformations in that it occurs after 
+#'
+#' \code{coord_trans} is different to scale transformations in that it occurs after
 #' statistical transformation and will affect the visual appearance of geoms - there is
 #' no guarantee that straight lines will continue to be straight.
 #'
-#' All current transformations only work with continuous values - see 
-#' \code{\link[scales]{trans_new}} for list of transformations, and instructions on 
+#' All current transformations only work with continuous values - see
+#' \code{\link[scales]{trans_new}} for list of transformations, and instructions on
 #' how to create your own.
 #'
 #' @param xtrans,ytrans transformers for x and y axes
@@ -15,7 +15,7 @@
 #' @examples
 #' \donttest{
 #' # See ?geom_boxplot for other examples
-#' 
+#'
 #' # Three ways of doing transformating in ggplot:
 #' #  * by transforming the data
 #' qplot(log10(carat), log10(price), data=diamonds)
@@ -28,33 +28,33 @@
 #' # The difference between transforming the scales and
 #' # transforming the coordinate system is that scale
 #' # transformation occurs BEFORE statistics, and coordinate
-#' # transformation afterwards.  Coordinate transformation also 
+#' # transformation afterwards.  Coordinate transformation also
 #' # changes the shape of geoms:
-#' 
+#'
 #' d <- subset(diamonds, carat > 0.5)
-#' qplot(carat, price, data = d, log="xy") + 
+#' qplot(carat, price, data = d, log="xy") +
 #'   geom_smooth(method="lm")
-#' qplot(carat, price, data = d) + 
+#' qplot(carat, price, data = d) +
 #'   geom_smooth(method="lm") +
 #'   coord_trans(x = "log10", y = "log10")
-#'   
+#'
 #' # Here I used a subset of diamonds so that the smoothed line didn't
 #' # drop below zero, which obviously causes problems on the log-transformed
 #' # scale
-#' 
+#'
 #' # With a combination of scale and coordinate transformation, it's
 #' # possible to do back-transformations:
 #' library(scales)
-#' qplot(carat, price, data=diamonds, log="xy") + 
-#'   geom_smooth(method="lm") + 
+#' qplot(carat, price, data=diamonds, log="xy") +
+#'   geom_smooth(method="lm") +
 #'   coord_trans(x = exp_trans(10), y = exp_trans(10))
 #' # cf.
 #' qplot(carat, price, data=diamonds) + geom_smooth(method = "lm")
 #'
 #' # Also works with discrete scales
 #' df <- data.frame(a = abs(rnorm(26)),letters)
-#' plot <- ggplot(df,aes(a,letters)) + geom_point() 
-#' 
+#' plot <- ggplot(df,aes(a,letters)) + geom_point()
+#'
 #' plot + coord_trans(x = "log10")
 #' plot + coord_trans(x = "sqrt")
 #' }
@@ -71,17 +71,17 @@ coord_trans <- function(xtrans = "identity", ytrans = "identity", limx = NULL, l
   coord(trans = list(x = xtrans, y = ytrans), limits = list(x = limx, y = limy), subclass = "trans")
 }
 
-#' @S3method coord_distance trans
+#' @export
 coord_distance.trans <- function(coord, x, y, details) {
   max_dist <- dist_euclidean(details$x.range, details$y.range)
   dist_euclidean(coord$trans$x$transform(x), coord$trans$y$transform(y)) / max_dist
-}  
+}
 
-#' @S3method coord_transform trans
+#' @export
 coord_transform.trans <- function(coord, data, details) {
   trans_x <- function(data) transform_value(coord$trans$x, data, details$x.range)
   trans_y <- function(data) transform_value(coord$trans$y, data, details$y.range)
-  
+
   data <- transform_position(data, trans_x, trans_y)
   transform_position(data, squish_infinite, squish_infinite)
 }
@@ -89,7 +89,7 @@ transform_value <- function(trans, value, range) {
   rescale(trans$transform(value), 0:1, range)
 }
 
-#' @S3method coord_train trans
+#' @export
 coord_train.trans <- function(coord, scales) {
   c(train_trans(scales$x, coord$limits$x, coord$trans$x, "x"),
     train_trans(scales$y, coord$limits$y, coord$trans$y, "y"))
@@ -109,17 +109,17 @@ train_trans <- function(scale, limits, trans, name) {
   }
 
   # breaks on data space
-  out <- scale_break_info(scale, range)    
+  out <- scale_break_info(scale, range)
 
   # trans'd range
   out$range <- trans$transform(out$range)
-  
+
   # expansion if limits are not specified
   if (is.null(limits)) {
     expand <- coord_expand_defaults(coord, scale)
     out$range <- expand_range(out$range, expand[1], expand[2])
   }
-  
+
   # major and minor values in plot space
   out$major_source <- transform_value(trans, out$major_source, out$range)
   out$minor_source <- transform_value(trans, out$minor_source, out$range)

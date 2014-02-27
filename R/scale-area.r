@@ -5,7 +5,7 @@
 #' default behavir of \code{\link{scale_size_area}} is slightly different: by
 #' default, it makes the area proportional to the numeric value.
 #'
-#' @param ... Other arguments passed on to \code{\link{continuous_scale}} 
+#' @param ... Other arguments passed on to \code{\link{continuous_scale}}
 #'   to control name, limits, breaks, labels and so forth.
 #' @param range Range of output sizes.  Should be greater than 0.
 #' @export

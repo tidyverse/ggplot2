@@ -13,7 +13,7 @@ groups <- function(x) length(unique(group(x)))
 test_that("one group per combination of discrete vars", {
   plot <- ggplot(df, aes(x, x)) + geom_point()
   expect_that(group(plot), equals(c(1, 1, 1, 1)))
-  
+
   plot <- ggplot(df, aes(x, a)) + geom_point()
   expect_that(group(plot), equals(c(1, 1, 2, 2)))
   plot <- ggplot(df, aes(x, b)) + geom_point()
@@ -34,7 +34,7 @@ test_that("label is not used as a grouping var", {
 test_that("group aesthetic overrides defaults", {
   plot <- ggplot(df, aes(x, x, group = x)) + geom_point()
   expect_that(groups(plot), equals(4))
-    
+
   plot <- ggplot(df, aes(a, b, group = 1)) + geom_point()
   expect_that(groups(plot), equals(1))
 })
@@ -46,7 +46,7 @@ test_that("group aesthetic overrides defaults", {
 
 test_that("order affects plotting order of points", {
   base <- ggplot(df, aes(a, x)) + geom_point()
-  
+
   ord1 <- ggplot_build(base)$data[[1]]
   ord2 <- ggplot_build(base + aes(order = x))$data[[1]]
   rev1 <- ggplot_build(base + aes(order = -x))$data[[1]]
@@ -60,7 +60,7 @@ test_that("order affects plotting order of points", {
 
 test_that("order affects plotting order of bars", {
   base <- ggplot(df, aes(a, fill = b)) + geom_bar()
-  
+
   ord1 <- ggplot_build(base)$data[[1]]
   ord2 <- ggplot_build(base + aes(order = a))$data[[1]]
   rev1 <- ggplot_build(base + aes(order = desc(b)))$data[[1]]

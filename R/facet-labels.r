@@ -1,6 +1,6 @@
 #' Label facets with their value.
 #' This is the default labelling scheme.
-#' 
+#'
 #' @param variable variable name passed in by facetter
 #' @param value variable value passed in by facetter
 #' @family facet labellers
@@ -12,7 +12,7 @@
 label_value <- function(variable, value) as.character(value)
 
 #' Label facets with value and variable.
-#' 
+#'
 #' @param variable variable name passed in by facetter
 #' @param value variable value passed in by facetter
 #' @family facet labellers
@@ -24,7 +24,7 @@ label_value <- function(variable, value) as.character(value)
 label_both <- function(variable, value) paste(variable, value, sep = ": ")
 
 #' Label facets with parsed label.
-#' 
+#'
 #' @seealso \code{\link{plotmath}}
 #' @param variable variable name passed in by facetter
 #' @param value variable value passed in by facetter
@@ -33,17 +33,17 @@ label_both <- function(variable, value) paste(variable, value, sep = ": ")
 #' @examples
 #' mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
 #' qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2)
-#' qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2, 
+#' qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2,
 #'   labeller = label_parsed)
 label_parsed <- function(variable, value) {
   llply(as.character(value), function(x) parse(text = x))
 }
 
 #' Label facet with 'bquoted' expressions
-#' 
+#'
 #' See \code{\link{bquote}} for details on the syntax of the argument.  The
-#' label value is x. 
-#' 
+#' label value is x.
+#'
 #' @param expr labelling expression to use
 #' @family facet labellers
 #' @seealso \code{\link{plotmath}}
@@ -54,7 +54,7 @@ label_parsed <- function(variable, value) {
 #' p + facet_grid(. ~ vs, labeller = label_bquote(.(x) ^ .(x)))
 label_bquote <- function(expr = beta ^ .(x)) {
   quoted <- substitute(expr)
-  
+
   function(variable, value) {
     value <- as.character(value)
     lapply(value, function(x)

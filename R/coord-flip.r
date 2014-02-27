@@ -1,5 +1,5 @@
 #' Flipped cartesian coordinates.
-#' 
+#'
 #' Flipped cartesian coordinates so that horizontal becomes vertical, and
 #' vertical, horizontal. This is primarily useful for converting geoms and
 #' statistics which display y conditional on x, to x conditional on y.
@@ -15,7 +15,7 @@
 #'
 #' qplot(cut, data=diamonds, geom="bar")
 #' last_plot() + coord_flip()
-#' 
+#'
 #' h <- qplot(carat, data=diamonds, geom="histogram")
 #' h
 #' h + coord_flip()
@@ -37,30 +37,30 @@ flip_labels <- function(x) {
   new_names <- gsub("^x", "z", new_names)
   new_names <- gsub("^y", "x", new_names)
   new_names <- gsub("^z", "y", new_names)
-  
+
   setNames(x, new_names)
 }
 
-#' @S3method is.linear flip
+#' @export
 is.linear.flip <- function(coord) TRUE
 
-#' @S3method coord_transform flip
+#' @export
 coord_transform.flip <- function(coord, data, details) {
-  data <- flip_labels(data)  
+  data <- flip_labels(data)
   NextMethod()
 }
 
-#' @S3method coord_range flip
+#' @export
 coord_range.flip <- function(coord, scales) {
   return(list(x = scales$y.range, y = scales$x.range))
 }
 
-#' @S3method coord_train flip
+#' @export
 coord_train.flip <- function(coord, scales) {
   flip_labels(NextMethod())
 }
 
-#' @S3method coord_labels flip
+#' @export
 coord_labels.flip <- function(coord, scales) {
   flip_labels(NextMethod())
 }

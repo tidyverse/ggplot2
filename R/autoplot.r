@@ -13,7 +13,7 @@ autoplot <- function(object, ...) {
   UseMethod("autoplot")
 }
 
-#' @S3method autoplot default
+#' @export
 autoplot.default <- function(object, ...) {
   error.msg <- paste("Objects of type",class(object),"not supported by autoplot.  Please use qplot() or ggplot() instead.\n")
   stop(error.msg, call.=FALSE)

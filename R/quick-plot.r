@@ -73,6 +73,7 @@
 #' # Use different geoms
 #' qplot(mpg, wt, data = mtcars, geom="path")
 #' qplot(factor(cyl), wt, data = mtcars, geom=c("boxplot", "jitter"))
+#' qplot(mpg, data = mtcars, geom = "dotplot")
 #' }
 qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE, geom = "auto", stat=list(NULL), position=list(NULL), xlim = c(NA, NA), ylim = c(NA, NA), log = "", main = NULL, xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA) {
 

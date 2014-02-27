@@ -1,5 +1,5 @@
 # Grob for axes
-# 
+#
 # @param position of ticks
 # @param labels at ticks
 # @param position of axis (top, bottom, left or right)
@@ -13,7 +13,7 @@ guide_axis <- function(at, labels, position="right", theme) {
   # Temporally, at is set as NA if there is no breaks.
   # see also SHA: f332070fca77399a84ea7a116e8c63f6990abaf6, SHA: 2ae13ad0a856c24cab6a69b523da0936ef7a94d8
   if (length(at) == 0) at <- NA
-  
+
   at <- unit(at, "native")
   length <- theme$axis.ticks.length
   label_pos <- length + theme$axis.ticks.margin
@@ -22,30 +22,30 @@ guide_axis <- function(at, labels, position="right", theme) {
 
   zero <- unit(0, "npc")
   one <- unit(1, "npc")
-  
+
   label_render <- switch(position,
     top = , bottom = "axis.text.x",
     left = , right = "axis.text.y"
   )
 
   label_x <- switch(position,
-    top = , 
+    top = ,
     bottom = at,
     right = label_pos,
     left = one - label_pos
   )
   label_y <- switch(position,
-    top = label_pos, 
+    top = label_pos,
     bottom = one - label_pos,
     right = ,
     left = at,
   )
-  
+
   if (is.list(labels)) {
     if (any(sapply(labels, is.language))) {
       labels <- do.call(expression, labels)
     } else {
-      labels <- unlist(labels)    
+      labels <- unlist(labels)
     }
   }
 
@@ -54,14 +54,14 @@ guide_axis <- function(at, labels, position="right", theme) {
     bottom = element_render(theme, label_render, labels, x = label_x),
     right = ,
     left =  element_render(theme, label_render, labels, y = label_y))
-  
+
   line <- switch(position,
     top =    element_render(theme, "axis.line.x", c(0, 1), c(0, 0), id.lengths = 2),
     bottom = element_render(theme, "axis.line.x", c(0, 1), c(1, 1), id.lengths = 2),
     right =  element_render(theme, "axis.line.y", c(0, 0), c(0, 1), id.lengths = 2),
     left =   element_render(theme, "axis.line.y", c(1, 1), c(0, 1), id.lengths = 2)
   )
-  
+
   ticks <- switch(position,
     top = element_render(theme, "axis.ticks.x",
       x          = rep(at, each=2),

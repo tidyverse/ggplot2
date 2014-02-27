@@ -5,7 +5,7 @@ NULL
 #' Annotation: High-performance rectangular tiling.
 #'
 #' This is a special version of \code{\link{geom_raster}} optimised for static
-#' annotations that are the same in every panel. These annotations will not 
+#' annotations that are the same in every panel. These annotations will not
 #' affect scales (i.e. the x and y axes will not grow to cover the range
 #' of the raster, and the raster must already have its own colours).
 #'
@@ -16,7 +16,7 @@ NULL
 #'   location of raster
 #' @param ymin,ymax y location (in data coordinates) giving vertical
 #'   location of raster
-#' @param interpolate If \code{TRUE} interpolate linearly, if \code{FALSE} 
+#' @param interpolate If \code{TRUE} interpolate linearly, if \code{FALSE}
 #'   (the default) don't interpolate.
 #' @export
 #' @examples
@@ -26,21 +26,21 @@ NULL
 #'   annotation_raster(rainbow, 15, 20, 3, 4)
 #' # To fill up whole plot
 #' qplot(mpg, wt, data = mtcars) +
-#'   annotation_raster(rainbow, -Inf, Inf, -Inf, Inf) + 
+#'   annotation_raster(rainbow, -Inf, Inf, -Inf, Inf) +
 #'   geom_point()
 #'
 #' rainbow2 <- matrix(hcl(seq(0, 360, length = 10), 80, 70), nrow = 1)
 #' qplot(mpg, wt, data = mtcars) +
-#'   annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf) + 
+#'   annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf) +
 #'   geom_point()
 #' rainbow2 <- matrix(hcl(seq(0, 360, length = 10), 80, 70), nrow = 1)
 #' qplot(mpg, wt, data = mtcars) +
-#'   annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf, interpolate = TRUE) + 
+#'   annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf, interpolate = TRUE) +
 #'   geom_point()
-annotation_raster <- function (raster, xmin, xmax, ymin, ymax, interpolate = FALSE) { 
+annotation_raster <- function (raster, xmin, xmax, ymin, ymax, interpolate = FALSE) {
   raster <- as.raster(raster)
-  GeomRasterAnn$new(geom_params = list(raster = raster, xmin = xmin, 
-    xmax = xmax, ymin = ymin, ymax = ymax, interpolate = interpolate), 
+  GeomRasterAnn$new(geom_params = list(raster = raster, xmin = xmin,
+    xmax = xmax, ymin = ymin, ymax = ymax, interpolate = interpolate),
     stat = "identity", position = "identity", data = NULL, inherit.aes = TRUE)
 }
 
@@ -49,11 +49,11 @@ GeomRasterAnn <- proto(GeomRaster, {
   reparameterise <- function(., df, params) {
     df
   }
-  
+
   draw_groups <- function(., data, scales, coordinates, raster, xmin, xmax,
     ymin, ymax, interpolate = FALSE, ...) {
     if (!inherits(coordinates, "cartesian")) {
-      stop("annotation_raster only works with Cartesian coordinates", 
+      stop("annotation_raster only works with Cartesian coordinates",
         call. = FALSE)
     }
     corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
@@ -61,9 +61,9 @@ GeomRasterAnn <- proto(GeomRaster, {
 
     x_rng <- range(data$x, na.rm = TRUE)
     y_rng <- range(data$y, na.rm = TRUE)
-        
-    rasterGrob(raster, x_rng[1], y_rng[1], 
-      diff(x_rng), diff(y_rng), default.units = "native", 
+
+    rasterGrob(raster, x_rng[1], y_rng[1],
+      diff(x_rng), diff(y_rng), default.units = "native",
       just = c("left","bottom"), interpolate = interpolate)
   }
 })
