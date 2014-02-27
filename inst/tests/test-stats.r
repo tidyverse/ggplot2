@@ -1,17 +1,17 @@
 context("Stats")
 
 test_that("plot succeeds even if some computation fails", {
-  p1 <- ggplot(mtcars, aes(disp, mpg)) + 
-    geom_point() + 
+  p1 <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point() +
     facet_grid(gear ~ carb)
   p2 <- p1 + geom_smooth()
-  
+
   b1 <- ggplot_build(p1)
   expect_equal(length(b1$data), 1)
-  
+
   expect_warning(b2 <- ggplot_build(p2))
   expect_equal(length(b2$data), 2)
-  
+
 })
 
 
@@ -54,12 +54,12 @@ test_that("stat_sum", {
   expect_equal(dim(ret), c(38, 5))
   expect_equal(sum(ret$n), nrow(d))
   expect_true(all(ret$prop == 1))
-  
+
   ret <- test_stat(stat_sum(aes(x = cut, y = clarity, group = 1), data =  d))
   expect_equal(dim(ret), c(38, 5))
   expect_equal(sum(ret$n), nrow(d))
   expect_equal(sum(ret$prop), 1)
-  
+
   ret <- test_stat(stat_sum(aes(x = cut, y = clarity, group = cut), data =  d))
   expect_equal(dim(ret), c(38, 5))
   expect_equal(sum(ret$n), nrow(d))
@@ -70,7 +70,7 @@ test_that("stat_sum", {
   expect_equal(ret$x, ret$colour)
   expect_equal(sum(ret$n), nrow(d))
   expect_true(all(ddply(ret, .(x), summarise, prop = sum(prop))$prop == 1))
-  
+
   ret <- test_stat(stat_sum(aes(x = cut, y = clarity, group = clarity), data =  d))
   expect_equal(dim(ret), c(38, 5))
   expect_equal(sum(ret$n), nrow(d))
@@ -81,7 +81,7 @@ test_that("stat_sum", {
   expect_equal(ret$x, ret$colour)
   expect_equal(sum(ret$n), nrow(d))
   expect_true(all(ddply(ret, .(y), summarise, prop = sum(prop))$prop == 1))
-  
+
   ret <- test_stat(stat_sum(aes(x = cut, y = clarity, group = 1, weight = price), data =  d))
   expect_equal(dim(ret), c(38, 5))
   expect_equal(sum(ret$n), sum(d$price))

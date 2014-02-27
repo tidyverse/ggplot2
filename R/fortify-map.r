@@ -1,10 +1,9 @@
 #' Fortify method for map objects.
-#' 
+#'
 #' This function turns a map into a data frame that can more easily be
 #' plotted with ggplot2.
-#' 
-#' @method fortify map
-#' @S3method fortify map
+#'
+#' @export
 #' @seealso \code{\link{map_data}} and \code{\link{borders}}
 #' @param model map object
 #' @param data not used by this method
@@ -17,7 +16,7 @@
 #'
 #' tx <- map("county", "texas", plot = FALSE, fill = TRUE)
 #' head(fortify(tx))
-#' qplot(long, lat, data = tx, geom = "polygon", group = group, 
+#' qplot(long, lat, data = tx, geom = "polygon", group = group,
 #'  colour = I("white"))
 #' }
 fortify.map <- function(model, data, ...) {
@@ -25,7 +24,7 @@ fortify.map <- function(model, data, ...) {
   names(df) <- c("long", "lat")
   df$group <- cumsum(is.na(df$long) & is.na(df$lat)) + 1
   df$order <- 1:nrow(df)
-  
+
   names <- do.call("rbind", lapply(strsplit(model$names, "[:,]"), "[", 1:2))
   df$region <- names[df$group, 1]
   df$subregion <- names[df$group, 2]
@@ -33,11 +32,11 @@ fortify.map <- function(model, data, ...) {
 }
 
 #' Create a data frame of map data.
-#' 
-#' @param map name of map provided by the \pkg{maps} package.  These 
+#'
+#' @param map name of map provided by the \pkg{maps} package.  These
 #'   include \code{\link[maps]{county}}, \code{\link[maps]{france}},
-#'   \code{\link[maps]{italy}}, \code{\link[maps]{nz}}, 
-#'   \code{\link[maps]{state}}, \code{\link[maps]{usa}}, 
+#'   \code{\link[maps]{italy}}, \code{\link[maps]{nz}},
+#'   \code{\link[maps]{state}}, \code{\link[maps]{usa}},
 #'   \code{\link[maps]{world}}, \code{\link[maps]{world2}}.
 #' @param region name of subregions to include.  Defaults to \code{.} which
 #'   includes all subregion.  See documentation for \code{\link[maps]{map}}
@@ -52,7 +51,7 @@ fortify.map <- function(model, data, ...) {
 #' arrests <- USArrests
 #' names(arrests) <- tolower(names(arrests))
 #' arrests$region <- tolower(rownames(USArrests))
-#' 
+#'
 #' choro <- merge(states, arrests, sort = FALSE, by = "region")
 #' choro <- choro[order(choro$order), ]
 #' qplot(long, lat, data = choro, group = group, fill = assault,
@@ -66,7 +65,7 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
 }
 
 #' Create a layer of map borders.
-#' 
+#'
 #' @param database map data, see \code{\link[maps]{map}} for details
 #' @param regions map region
 #' @param fill fill colour
@@ -94,6 +93,6 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
 #' }
 borders <- function(database = "world", regions = ".", fill = NA, colour = "grey50", ...) {
   df <- map_data(database, regions)
-  geom_polygon(aes(long, lat, group = group), data = df, 
+  geom_polygon(aes(long, lat, group = group), data = df,
     fill = fill, colour = colour, ...)
 }

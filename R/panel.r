@@ -2,7 +2,7 @@
 #
 # A panel figures out how data is positioned within a panel of a plot,
 # coordinates information from scales, facets and coords.  Eventually all
-# state will move out of facets and coords, and live only in panels and 
+# state will move out of facets and coords, and live only in panels and
 # stats, simplifying these data structures to become strategies.
 #
 # Information about a panel is built up progressively over time, which
@@ -30,36 +30,36 @@ train_layout <- function(panel, facet, data, plot_data) {
   layout <- facet_train_layout(facet, c(list(plot_data), data))
   panel$layout <- layout
   panel$shrink <- facet$shrink
-  
+
   panel
 }
 
 # Map data to find out where it belongs in the plot.
 #
-# Layout map ensures that all layer data has extra copies of data for margins 
+# Layout map ensures that all layer data has extra copies of data for margins
 # and missing facetting variables, and has a PANEL variable that tells that
 # so it know what panel it belongs to. This is a change from the previous
 # design which added facetting variables directly to the data frame and
 # caused problems when they had names of aesthetics (like colour or group).
-# 
+#
 # @param panel a trained panel object
 # @param the facetting specification
-# @param data list of data frames (one for each layer)  
+# @param data list of data frames (one for each layer)
 # @param plot_data default plot data frame
 map_layout <- function(panel, facet, data, plot_data) {
   lapply(data, function(data) {
     if (is.waive(data)) data <- plot_data
     facet_map_layout(facet, data, panel$layout)
-  })    
+  })
 }
 
 # Train position scales with data
-# 
+#
 # If panel-specific scales are not already present, will clone from
 # the scales provided in the parameter
 #
 # @param panel the panel object to train
-# @param data a list of data frames (one for each layer)  
+# @param data a list of data frames (one for each layer)
 # @param x_scale x scale for the plot
 # @param y_scale y scale for the plot
 train_position <- function(panel, data, x_scale, y_scale) {
@@ -71,23 +71,23 @@ train_position <- function(panel, data, x_scale, y_scale) {
   if (is.null(panel$y_scales) && !is.null(y_scale)) {
     panel$y_scales <- rlply(max(layout$SCALE_Y), scale_clone(y_scale))
   }
-  
+
   # loop over each layer, training x and y scales in turn
   for(layer_data in data) {
-    
+
     match_id <- match(layer_data$PANEL, layout$PANEL)
-    
+
     if (!is.null(x_scale)) {
       x_vars <- intersect(x_scale$aesthetics, names(layer_data))
       SCALE_X <- layout$SCALE_X[match_id]
-      
+
       scale_apply(layer_data, x_vars, scale_train, SCALE_X, panel$x_scales)
     }
 
     if (!is.null(y_scale)) {
       y_vars <- intersect(y_scale$aesthetics, names(layer_data))
       SCALE_Y <- layout$SCALE_Y[match_id]
-      
+
       scale_apply(layer_data, y_vars, scale_train, SCALE_Y, panel$y_scales)
     }
   }
@@ -100,22 +100,22 @@ reset_scales <- function(panel) {
   if (!panel$shrink) return()
   l_ply(panel$x_scales, scale_reset)
   l_ply(panel$y_scales, scale_reset)
-}  
+}
 
 # Map data with scales.
 #
 # This operation must be idempotent because it is applied twice: both before
 # and after statistical transformation.
-# 
-# @param data a list of data frames (one for each layer)  
+#
+# @param data a list of data frames (one for each layer)
 map_position <- function(panel, data, x_scale, y_scale) {
   layout <- panel$layout
-  
+
   lapply(data, function(layer_data) {
     match_id <- match(layer_data$PANEL, layout$PANEL)
 
-    # Loop through each variable, mapping across each scale, then joining 
-    # back together  
+    # Loop through each variable, mapping across each scale, then joining
+    # back together
     x_vars <- intersect(x_scale$aesthetics, names(layer_data))
     names(x_vars) <- x_vars
     SCALE_X <- layout$SCALE_X[match_id]
@@ -128,7 +128,7 @@ map_position <- function(panel, data, x_scale, y_scale) {
     SCALE_Y <- layout$SCALE_Y[match_id]
     new_y <- scale_apply(layer_data, y_vars, scale_map, SCALE_Y,
        panel$y_scales)
-        
+
     layer_data[, y_vars] <- new_y
     layer_data
   })
@@ -140,18 +140,11 @@ map_position <- function(panel, data, x_scale, y_scale) {
 scale_apply <- function(data, vars, f, scale_id, scales) {
   if (length(vars) == 0) return()
   if (nrow(data) == 0) return()
-  
+
   n <- length(scales)
   if (any(is.na(scale_id))) stop()
 
-  # This is a hack for ggplot2 0.9.3 to make it compatible with both plyr 1.7.1 and
-  # plyr 1.8 (and above). This should be removed for the next release of ggplot2.
-  # Tag: deprecated
-  if (packageVersion("plyr") <= package_version("1.7.1")) {
-    scale_index <- plyr:::split_indices(seq_len(nrow(data)), scale_id, n)
-  } else {
-    scale_index <- plyr:::split_indices(scale_id, n)
-  }
+  scale_index <- split_indices(scale_id, n)
 
   lapply(vars, function(var) {
     pieces <- lapply(seq_along(scales), function(i) {
@@ -159,7 +152,7 @@ scale_apply <- function(data, vars, f, scale_id, scales) {
     })
     # Join pieces back together, if necessary
     if (!is.null(pieces)) {
-      unlist(pieces)[order(unlist(scale_index))]    
+      unlist(pieces)[order(unlist(scale_index))]
     }
   })
 }
@@ -171,7 +164,7 @@ panel_scales <- function(panel, i) {
   list(
     x = panel$x_scales[[this_panel$SCALE_X]],
     y = panel$y_scales[[this_panel$SCALE_Y]]
-  )    
+  )
 }
 
 # Compute ranges and dimensions of each panel, using the coord.
@@ -181,33 +174,33 @@ train_ranges <- function(panel, coord) {
     coord_train(coord, list(x = panel$x_scales[[ix]], y = panel$y_scales[[iy]]))
   }
 
-  panel$ranges <- Map(compute_range, 
+  panel$ranges <- Map(compute_range,
     panel$layout$SCALE_X, panel$layout$SCALE_Y)
   panel
 }
 
 # Calculate statistics
-# 
+#
 # @param layers list of layers
-# @param data a list of data frames (one for each layer)  
+# @param data a list of data frames (one for each layer)
 calculate_stats <- function(panel, data, layers) {
-  
+
   lapply(seq_along(data), function(i) {
     d <- data[[i]]
     l <- layers[[i]]
-    
+
     ddply(d, "PANEL", function(panel_data) {
       scales <- panel_scales(panel, panel_data$PANEL[1])
       l$calc_statistic(panel_data, scales)
-    })    
-  }) 
+    })
+  })
 }
 
 
 xlabel <- function(panel, labels) {
   panel$x_scales[[1]]$name %||% labels$x
 }
-  
+
 ylabel <- function(panel, labels) {
   panel$y_scales[[1]]$name %||% labels$y
 }

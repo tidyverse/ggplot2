@@ -1,7 +1,7 @@
 
 # Null default
 # Analog of || from ruby
-# 
+#
 # @keyword internal
 # @name nulldefault-infix
 "%||%" <- function(a, b) {
@@ -25,7 +25,7 @@ check_required_aesthetics <- function(required, present, name) {
 
 # Concatenate a named list for output
 # Print a \code{list(a=1, b=2)} as \code{(a=1, b=2)}
-# 
+#
 # @param list to concatenate
 # @keyword internal
 #X clist(list(a=1, b=2))
@@ -36,7 +36,7 @@ clist <- function(l) {
 
 # Abbreviated paste
 # Alias for paste with a shorter name and convenient defaults
-# 
+#
 # @param character vectors to be concatenated
 # @param default separator
 # @param default collapser
@@ -45,20 +45,20 @@ ps <- function(..., sep="", collapse="") do.call(paste, compact(list(..., sep=se
 
 # Quietly try to require a package
 # Queitly require a package, returning an error message if that package is not installed.
-# 
+#
 # @param name of package
 # @keyword internal
 try_require <- function(package) {
   available <- suppressMessages(suppressWarnings(sapply(package, require, quietly = TRUE, character.only = TRUE, warn.conflicts=FALSE)))
   missing <- package[!available]
 
-  if (length(missing) > 0) 
+  if (length(missing) > 0)
     stop(paste(package, collapse=", "), " package required for this functionality.  Please install and try again.", call. = FALSE)
 }
 
 # Return unique columns
 # This is used for figuring out which columns are constant within a group
-# 
+#
 # @keyword internal
 uniquecols <- function(df) {
   df <- df[1, sapply(df, function(x) length(unique(x)) == 1), drop=FALSE]
@@ -68,33 +68,33 @@ uniquecols <- function(df) {
 
 # A "safe" version of do.call
 # \code{safe.call} works like \code{\link{do.call}} but it will only supply arguments that exist in the function specification.
-# 
+#
 # If ... is present in the param list, all parameters will be passed through
 # unless \code{ignore.dots = TRUE}.  Positional arguments are not currently
 # supported.
-# 
+#
 # @param function to call
 # @arugments named list of parameters to be supplied to function
 # @param parameter names of function
-# @param 
+# @param
 # @keyword internal
 safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRUE) {
   if (!ignore.dots && "..." %in% f.params) {
     safe.params <- params
   } else {
-    safe.params <- params[intersect(f.params, names(params))]    
+    safe.params <- params[intersect(f.params, names(params))]
   }
   do.call(f, safe.params)
 }
 
 # Convenience function to remove missing values from a data.frame
 # Remove all non-complete rows, with a warning if \code{na.rm = FALSE}.
-# 
+#
 # ggplot is somewhat more accomodating of missing values than R generally.
-# For those stats which require complete data, missing values will be 
+# For those stats which require complete data, missing values will be
 # automatically removed with a warning.  If \code{na.rm = TRUE} is supplied
 # to the statistic, the warning will be suppressed.
-# 
+#
 # @param data.frame
 # @param suppress warning that rows are being removed?
 # @argumnets variables to check for missings in
@@ -106,7 +106,7 @@ safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRU
 remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = FALSE) {
   vars <- intersect(vars, names(df))
   if (name != "") name <- ps(" (", name, ")")
-  
+
   if (finite) {
     missing <- !finite.cases(df[, vars, drop = FALSE])
     str <- "non-finite"
@@ -114,10 +114,10 @@ remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = 
     missing <- !complete.cases(df[, vars, drop = FALSE])
     str <- "missing"
   }
-  
+
   if (any(missing)) {
     df <- df[!missing, ]
-    if (!na.rm) warning("Removed ", sum(missing), " rows containing ", str, 
+    if (!na.rm) warning("Removed ", sum(missing), " rows containing ", str,
       " values", name, ".", call. = FALSE)
   }
 
@@ -128,7 +128,7 @@ remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = 
 finite.cases <- function(x) UseMethod("finite.cases")
 # Returns a logical vector of same length as nrow(x). If all data on a row
 # is finite (not NA, NaN, Inf, or -Inf) return TRUE; otherwise FALSE.
-#' @S3method finite.cases data.frame
+#' @export
 finite.cases.data.frame <- function(x) {
   finite_cases <- vapply(x, is.finite, logical(nrow(x)))
 
@@ -146,7 +146,7 @@ finite.cases.data.frame <- function(x) {
 
 # "Invert" a list
 # Keys become values, values become keys
-# 
+#
 # @param list to invert
 # @keyword internal
 invert <- function(L) {
@@ -157,7 +157,7 @@ invert <- function(L) {
 
 # Inside
 # Return logical vector indicating if x is inside the interval
-# 
+#
 # @keyword internal
 "%inside%" <- function(x, interval) {
   x >= interval[1] & x <= interval[2]
@@ -179,12 +179,12 @@ should_stop <- function(expr) {
 
 
 #' A waiver object.
-#' 
-#' A waiver is a "flag" object, similar to \code{NULL}, that indicates the 
+#'
+#' A waiver is a "flag" object, similar to \code{NULL}, that indicates the
 #' calling function should just use the default value.  It is used in certain
 #' functions to distinguish between displaying nothing (\code{NULL}) and
 #' displaying a default value calculated elsewhere (\code{waiver()})
-#' 
+#'
 #' @export
 #' @keywords internal
 waiver <- function() structure(NULL, class="waiver")
@@ -233,6 +233,7 @@ if (packageVersion("plyr") <= package_version("1.7.1")) {
 #' @param version The last version of ggplot2 where this function was good
 #'   (in other words, the last version where it was not deprecated).
 #' @param msg The message to print.
+#' @keywords internal
 #' @export
 gg_dep <- function(version, msg) {
   v <- as.package_version(version)

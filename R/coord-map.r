@@ -1,17 +1,17 @@
 #' Map projections.
-#' 
+#'
 #' This coordinate system provides the full range of map projections available
 #' in the mapproj package.
-#' 
-#' This is still experimental, and if you have any advice to offer regarding 
+#'
+#' This is still experimental, and if you have any advice to offer regarding
 #' a better (or more correct) way to do this, please let me know
-#' 
+#'
 #' @export
 #' @param projection projection to use, see
 #'    \code{\link[mapproj]{mapproject}} for list
 #' @param ... other arguments passed on to
 #'   \code{\link[mapproj]{mapproject}}
-#' @param orientation projection orientation, which defaults to 
+#' @param orientation projection orientation, which defaults to
 #'  \code{c(90, 0, mean(range(x)))}.  This is not optimal for many
 #'  projections, so you will have to supply your own. See
 #'  \code{\link[mapproj]{mapproject}} for more information.
@@ -32,7 +32,7 @@
 #' # Other projections
 #' nzmap + coord_map("cylindrical")
 #' nzmap + coord_map("azequalarea",orientation=c(-36.92,174.6,0))
-#' 
+#'
 #' states <- map_data("state")
 #' usamap <- ggplot(states, aes(x=long, y=lat, group=group)) +
 #'   geom_polygon(fill="white", colour="black")
@@ -67,10 +67,10 @@
 #' # Centered on New York (currently has issues with closing polygons)
 #' worldmap + coord_map("ortho", orientation=c(41, -74, 0))
 #' }
-coord_map <- function(projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL) { 
+coord_map <- function(projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL) {
   try_require("mapproj")
   coord(
-    projection = projection, 
+    projection = projection,
     orientation = orientation,
     limits = list(x = xlim, y = ylim),
     params = list(...),
@@ -78,44 +78,44 @@ coord_map <- function(projection="mercator", ..., orientation = NULL, xlim = NUL
   )
 }
 
-#' @S3method coord_transform map
+#' @export
 coord_transform.map <- function(coord, data, details) {
   trans <- mproject(coord, data$x, data$y, details$orientation)
   out <- cunion(trans[c("x", "y")], data)
-  
+
   out$x <- rescale(out$x, 0:1, details$x.proj)
   out$y <- rescale(out$y, 0:1, details$y.proj)
   out
 }
-mproject <- function(coord, x, y, orientation) {    
+mproject <- function(coord, x, y, orientation) {
   suppressWarnings(mapproject(x, y,
-    projection = coord$projection, 
-    parameters  = coord$params, 
+    projection = coord$projection,
+    parameters  = coord$params,
     orientation = orientation
   ))
 }
 
-#' @S3method coord_distance map
+#' @export
 coord_distance.map <- function(coord, x, y, details) {
   max_dist <- dist_central_angle(details$x.range, details$y.range)
   dist_central_angle(x, y) / max_dist
 }
 
-#' @S3method coord_aspect map
+#' @export
 coord_aspect.map <- function(coord, ranges) {
   diff(ranges$y.proj) / diff(ranges$x.proj)
 }
 
-#' @S3method coord_train map
+#' @export
 coord_train.map <- function(coord, scales) {
 
   # range in scale
   ranges <- list()
   for (n in c("x", "y")) {
-    
+
     scale <- scales[[n]]
     limits <- coord$limits[[n]]
-    
+
     if (is.null(limits)) {
       expand <- coord_expand_defaults(coord, scale, n)
       range <- scale_dimension(scale, expand)
@@ -124,7 +124,7 @@ coord_train.map <- function(coord, scales) {
     }
     ranges[[n]] <- range
   }
-  
+
   orientation <- coord$orientation %||% c(90, 0, mean(ranges$x))
 
   # Increase chances of creating valid boundary region
@@ -139,7 +139,7 @@ coord_train.map <- function(coord, scales) {
   proj <- mproject(coord, grid$x, grid$y, orientation)$range
   ret$x$proj <- proj[1:2]
   ret$y$proj <- proj[3:4]
-  
+
   for (n in c("x", "y")) {
     out <- scale_break_info(scales[[n]], ranges[[n]])
     ret[[n]]$range <- out$range
@@ -158,8 +158,8 @@ coord_train.map <- function(coord, scales) {
   details
 }
 
-#' @S3method coord_render_bg map
-coord_render_bg.map <- function(coord, details, theme) {    
+#' @export
+coord_render_bg.map <- function(coord, details, theme) {
   xrange <- expand_range(details$x.range, 0.2)
   yrange <- expand_range(details$y.range, 0.2)
 
@@ -176,10 +176,10 @@ coord_render_bg.map <- function(coord, details, theme) {
     x = x.major
   ))
   ygrid <- with(details, expand.grid(
-    x = c(seq(xrange[1], xrange[2], len = 50), NA), 
+    x = c(seq(xrange[1], xrange[2], len = 50), NA),
     y = y.major
   ))
-  
+
   xlines <- coord_transform(coord, xgrid, details)
   ylines <- coord_transform(coord, ygrid, details)
 
@@ -205,9 +205,9 @@ coord_render_bg.map <- function(coord, details, theme) {
     element_render(theme, "panel.background"),
     grob.xlines, grob.ylines
   ))
-}  
+}
 
-#' @S3method coord_render_axis_h map
+#' @export
 coord_render_axis_h.map <- function(coord, details, theme) {
   if (is.null(details$x.major)) return(zeroGrob())
 
@@ -219,15 +219,15 @@ coord_render_axis_h.map <- function(coord, details, theme) {
 
   guide_axis(pos$x, details$x.labels, "bottom", theme)
 }
-#' @S3method coord_render_axis_v map
+#' @export
 coord_render_axis_v.map <- function(coord, details, theme) {
   if (is.null(details$y.major)) return(zeroGrob())
-  
+
   x_intercept <- with(details, data.frame(
     x = x.range[1],
     y = y.major
   ))
   pos <- coord_transform(coord, x_intercept, details)
-  
+
   guide_axis(pos$y, details$y.labels, "left", theme)
 }

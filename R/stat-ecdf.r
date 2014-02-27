@@ -1,5 +1,5 @@
 #' Empirical Cumulative Density Function
-#' 
+#'
 #' @inheritParams stat_identity
 #' @param n if NULL, do not interpolate. If not NULL, this is the number
 #'   of points to interpolate with.
@@ -10,10 +10,10 @@
 #' @examples
 #' \donttest{
 #' qplot(rnorm(1000), stat = "ecdf", geom = "step")
-#' 
+#'
 #' df <- data.frame(x = c(rnorm(100, 0, 3), rnorm(100, 0, 10)),
 #'                  g = gl(2, 100))
-#'                  
+#'
 #' ggplot(df, aes(x, colour = g)) + stat_ecdf()
 #' }
 stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step", position = "identity", n = NULL, ...) {
@@ -22,7 +22,7 @@ stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step", position = "i
 
 StatEcdf <- proto(Stat, {
   objname <- "ecdf"
-  
+
   calculate <- function(., data, scales, n = NULL, ...) {
 
     # If n is NULL, use raw values; otherwise interpolate

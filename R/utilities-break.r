@@ -1,12 +1,12 @@
 #' Cut numeric vector into intervals of equal length.
-#' 
+#'
 #' @param x numeric vector
 #' @param n number of intervals to create, OR
 #' @param length length of each interval
 #' @param ... other arguments passed on to \code{\link{cut}}
 #' @seealso \code{\link{cut_number}}
 #' @export
-#' @examples 
+#' @examples
 #' table(cut_interval(1:100, n = 10))
 #' table(cut_interval(1:100, n = 11))
 #' table(cut_interval(1:100, length = 10))
@@ -15,7 +15,7 @@ cut_interval <- function(x, n = NULL, length = NULL, ...) {
 }
 
 #' Cut numeric vector into intervals containing equal number of points.
-#' 
+#'
 #' @param x numeric vector
 #' @param n number of intervals to create
 #' @param ... other arguments passed on to \code{\link{cut}}
@@ -32,7 +32,7 @@ breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
   if ((!is.null(nbins) && !is.null(binwidth)) || (is.null(nbins) && is.null(binwidth))) {
     stop("Specify exactly one of n and width")
   }
-  
+
   rng <- range(x, na.rm = TRUE, finite = TRUE)
   if (equal == "width") {
     if (!is.null(binwidth)) {
@@ -48,6 +48,6 @@ breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
     }
     quantile(x, probs, na.rm = TRUE)
   }
-  
+
 }
 
