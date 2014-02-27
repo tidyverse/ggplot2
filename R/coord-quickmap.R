@@ -43,7 +43,7 @@ coord_quickmap <- function(xlim = NULL, ylim = NULL) {
     subclass = c("quickmap", "cartesian"))
 }
 
-#' @export coord_aspect quickmap
+#' @export
 coord_aspect.quickmap <- function(coord, ranges) {
   # compute coordinates of center point of map
   x.center <- sum(ranges$x.range) / 2
