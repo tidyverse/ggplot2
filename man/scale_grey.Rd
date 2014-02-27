@@ -40,23 +40,16 @@ qplot(mpg, wt, data = mtcars, colour = miss) +
   scale_colour_grey(na.value = "green")
 }
 \seealso{
-  Other colour scales: \code{\link{scale_color_brewer}},
-  \code{\link{scale_color_continuous}},
-  \code{\link{scale_color_discrete}},
+Other colour scales: \code{\link{scale_color_brewer}},
   \code{\link{scale_color_distiller}},
-  \code{\link{scale_color_gradient}},
-  \code{\link{scale_color_gradient2}},
-  \code{\link{scale_color_gradientn}},
-  \code{\link{scale_color_hue}},
   \code{\link{scale_colour_brewer}},
-  \code{\link{scale_colour_continuous}},
-  \code{\link{scale_colour_discrete}},
   \code{\link{scale_colour_distiller}},
-  \code{\link{scale_colour_gradient}},
-  \code{\link{scale_colour_gradient2}},
-  \code{\link{scale_colour_gradientn}},
-  \code{\link{scale_colour_hue}},
   \code{\link{scale_fill_brewer}},
+  \code{\link{scale_fill_distiller}};
+  \code{\link{scale_color_continuous}},
+  \code{\link{scale_color_gradient}},
+  \code{\link{scale_colour_continuous}},
+  \code{\link{scale_colour_gradient}},
   \code{\link{scale_fill_continuous}},
   \code{\link{scale_fill_gradient}};
   \code{\link{scale_color_discrete}},
@@ -64,10 +57,12 @@ qplot(mpg, wt, data = mtcars, colour = miss) +
   \code{\link{scale_colour_discrete}},
   \code{\link{scale_colour_hue}},
   \code{\link{scale_fill_discrete}},
-  \code{\link{scale_fill_distiller}},
-  \code{\link{scale_fill_gradient}},
-  \code{\link{scale_fill_gradient2}},
-  \code{\link{scale_fill_gradientn}},
-  \code{\link{scale_fill_hue}}
+  \code{\link{scale_fill_hue}};
+  \code{\link{scale_color_gradient2}},
+  \code{\link{scale_colour_gradient2}},
+  \code{\link{scale_fill_gradient2}};
+  \code{\link{scale_color_gradientn}},
+  \code{\link{scale_colour_gradientn}},
+  \code{\link{scale_fill_gradientn}}
 }
 

@@ -85,16 +85,15 @@ qplot(mpg, wt, data = mtcars, colour = miss) +
 }
 }
 \seealso{
-  Other colour scales: \code{\link{scale_color_brewer}},
-  \code{\link{scale_color_continuous}},
+Other colour scales: \code{\link{scale_color_brewer}},
   \code{\link{scale_color_distiller}},
-  \code{\link{scale_color_gradient}},
-  \code{\link{scale_color_gradient2}},
-  \code{\link{scale_color_gradientn}},
-  \code{\link{scale_color_grey}},
   \code{\link{scale_colour_brewer}},
-  \code{\link{scale_colour_continuous}},
   \code{\link{scale_colour_distiller}},
+  \code{\link{scale_fill_brewer}},
+  \code{\link{scale_fill_distiller}};
+  \code{\link{scale_color_continuous}},
+  \code{\link{scale_color_gradient}},
+  \code{\link{scale_colour_continuous}},
   \code{\link{scale_colour_gradient}},
   \code{\link{scale_fill_continuous}},
   \code{\link{scale_fill_gradient}};
@@ -106,12 +105,6 @@ qplot(mpg, wt, data = mtcars, colour = miss) +
   \code{\link{scale_fill_gradientn}};
   \code{\link{scale_color_grey}},
   \code{\link{scale_colour_grey}},
-  \code{\link{scale_fill_brewer}},
-  \code{\link{scale_fill_continuous}},
-  \code{\link{scale_fill_distiller}},
-  \code{\link{scale_fill_gradient}},
-  \code{\link{scale_fill_gradient2}},
-  \code{\link{scale_fill_gradientn}},
   \code{\link{scale_fill_grey}}
 }
 
