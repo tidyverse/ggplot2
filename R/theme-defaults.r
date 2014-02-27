@@ -61,12 +61,33 @@ theme_grey <- function(base_size = 12, base_family = "") {
 theme_gray <- theme_grey
 
 
-#' A theme with white background and black gridlines.
+#' A theme with white background and dark gridlines.
 #'
 #' @param base_size base font size
 #' @param base_family base font family
 #' @export
 theme_bw <- function(base_size = 12, base_family = "") {
+  # Starts with theme_grey and then modify some parts
+  theme_grey(base_size = base_size, base_family = base_family) %+replace%
+    theme(
+      axis.text         = element_text(size = rel(0.8)),
+      axis.ticks        = element_line(colour = "black"),
+      legend.key        = element_rect(colour = "grey80"),
+      panel.background  = element_rect(fill = "white", colour = NA),
+      panel.border      = element_rect(fill = NA, colour = "grey50"),
+      panel.grid.major  = element_line(colour = "grey90", size = 0.2),
+      panel.grid.minor  = element_line(colour = "grey98", size = 0.5),
+      strip.background  = element_rect(fill = "grey80", colour = "grey50"),
+      strip.background  = element_rect(fill = "grey80", colour = "grey50")
+    )
+}
+
+#' A theme with white background and black gridlines.
+#'
+#' @param base_size base font size
+#' @param base_family base font family
+#' @export
+theme_linedraw <- function(base_size = 12, base_family = "") {
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
     theme(
@@ -83,12 +104,12 @@ theme_bw <- function(base_size = 12, base_family = "") {
     )
 }
 
-#' A theme with white background.
+#' A theme with white background and light grey lines
 #'
 #' @param base_size base font size
 #' @param base_family base font family
 #' @export
-theme_white <- function(base_size = 12, base_family = "") {
+theme_light <- function(base_size = 12, base_family = "") {
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
     theme(
@@ -102,6 +123,7 @@ theme_white <- function(base_size = 12, base_family = "") {
       strip.text.x      = element_text(colour = "white"),
       strip.text.y      = element_text(colour = "white", angle = -90)
     )
+
 }
 
 #' A minimalistic theme with no background annotations.
