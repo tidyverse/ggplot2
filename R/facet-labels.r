@@ -69,6 +69,13 @@ label_bquote <- function(expr = beta ^ .(x)) {
 #' @export
 #' @seealso , \code{\link{labeller}}
 #' @examples
+#' 
+#' data(msleep)
+#' 
+#' 
+#' 
+#' ggplot(economics, aes(x=))
+#' 
 #' set.seed(331)
 #' x=runif(60)
 #' y=rnorm(60)
@@ -81,8 +88,8 @@ label_bquote <- function(expr = beta ^ .(x)) {
 #' ggplot(df, aes(x, y)) + geom_point() + facet_grid(speed ~ group, labeller=label_wrap_gen(3))
 #' ggplot(df, aes(x, y)) + geom_point() + facet_grid(speed ~ group, labeller=labeller(speed=label_wrap_gen(3), group=group.names))
 label_wrap_gen <- function(width = 25) {
-  function(variable, value) {
-    lapply(strwrap(as.character(value), width=width, simplify=FALSE), 
+  function(variable, values) {
+    sapply(strwrap(as.character(values), width=width, simplify=FALSE), 
            paste, collapse="\n")
   }
 }
@@ -91,34 +98,95 @@ label_wrap_gen <- function(width = 25) {
 #' 
 #' One-step function for providing methods or named character vectors
 #' as labels in facets.
+#' 
+#' Provided methods are parsed two variables, 
+#' \code{variable} and \code{values} (in that order), 
+#' where \code{variable} is the name of the facetting variable and 
+#' \code{values} are the different values this variable takes.
+#' If the provided method takes no arguments, an error is raised.
+#' If the provided method requires one argument, \code{values} are mapped to this.
+#' If the provided method requires more than two, an error is raised.
+#' If the provided method has zero or one required argument, 
+#' but multiple optional argument, you are on our own.
+#' 
+#' If the result is NA, the function defaults to return the requsted value.
+#' 
+#' \code{NA}'s are replaced with strings of 'NA'.
 #'
-#' @param keep.as.numbers logical, default TRUE. When FALSE, converts numeric values supplied as margins to the facet to characters.
+#' @param keep.as.numbers logical, default TRUE. When FALSE, converts numeric 
+#'                        values supplied as margins to the facet to characters.
 #' @family facet labeller
 #' @return Function to supply to \code{\link{facet_grid}} for the argument \code{labeller}.
 #' @export 
 #' @examples
-#' numbers <- c(`4`='four', `6`='six', `8`='eight')
-#' vs <- c(`0`='No vs', `1`='vs')
-#' p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
-#' p + facet_grid(vs~cyl, labeller=labeller(cyl=numbers, vs=vs))
-labeller <- function(keep.as.numeric=FALSE, ...) {
+#' 
+#' data(mpg)
+#' ggplot(mpg, aes(cty, hwy)) + geom_point() + facet_grid(cyl ~ class, labeller=label_both)
+#' ggplot(mpg, aes(cty, hwy)) + geom_point() + facet_grid(cyl ~ class, labeller=labeller(cyl=label_both))
+#' 
+#' 
+#' library(Hmisc) ## for the capitalize function
+#' conservation_status <- c('cd'='Conservation Dependent',
+#'                          'en'='Endangered', 
+#'                          'lc'='Least concern',
+#'                          'nt'='Near Threatened', 
+#'                          'vu'='Vulnerable',
+#'                          'domesticated'='Domesticated')
+#' Source: http://en.wikipedia.org/wiki/Wikipedia:Conservation_status 
+#'
+#' ggplot(msleep, aes(x=sleep_total, y=awake)) + geom_point() + facet_grid(vore ~ conservation, labeller=labeller(vore=capitalize))
+#' ggplot(msleep, aes(x=sleep_total, y=awake)) + geom_point() + facet_grid(vore ~ conservation, labeller=labeller(vore=capitalize, conservation=conservation_status ))
+#' 
+#' # We could of course have renamed the levels; then we can apply another nifty function:
+#' library(plyr)
+#' msleep$conservation2 <- revalue(msleep$conservation, conservation_status)                         
+#' ggplot(msleep, aes(x=sleep_total, y=awake)) + geom_point() + facet_grid(vore ~ conservation2, labeller=labeller(vore=capitalize))
+#' ggplot(msleep, aes(x=sleep_total, y=awake)) + geom_point() + facet_grid(vore ~ conservation2, labeller=labeller(conservation2=label_wrap_gen(10) ))
+#' 
+#' 
+labeller <- function(..., keep.as.numeric=FALSE) {
   args <- list(...)
-  lbl <- function(variable, values) {
-    res <- args[[variable]]
-    if (is.numeric(values) & !keep.as.numeric) values <- as.character(values)
-    #print(str(variable))
-    #print(str(values))
-    
-    if (is.null(res)) {
-      if (is.factor(values)) return(levels(values[drop=TRUE]))
-      return(values)
+  
+  function(variable, values) {
+    str(values)
+    if (is.logical(values)) {
+      values <- as.integer(values)+1
+    } else if (is.factor(values)) {
+      values <- as.character(values)
+    } else if (is.numeric(values) & !keep.as.numeric) {
+      values <- as.character(values)
     }
-    if (is.function(res)) return(res(variable, values))
-    if (is.logical(values)) values <- as.integer(values)+1
-    if (is.factor(values)) values <- levels(values)[values]
-    return(res[values])
+
+    if (any(is.na(values))) {
+      values[is.na(values)] <- 'NA'
+    }
+    
+    res <- args[[variable]]
+
+    if (is.null(res)) {
+      result <- values
+    } else if (is.function(res)) {
+      arguments <- length(formals(res))
+      required_args <- sum(sapply(formals(res), is.symbol))
+      if (arguments == 0) {
+        stop('`labeller` cannot use a function that does not use arguments.')
+      } else if (required_args == 1) {
+        result <- res(values)
+      } else if (required_args > 2) {
+        stop('`labeller` misses argument for method provided for `', variable, '`.')
+      } else {
+        result <- res(variable, values)
+      }
+      
+    } else {
+      result <- res[values]
+    }
+    
+    if (any(is.na(result))) {
+      result[is.na(result)] <- 'NA'
+    }
+    return(result)
   }
-  return(lbl)
 }
 
 
