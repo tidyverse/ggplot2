@@ -94,7 +94,9 @@ label_wrap_gen <- function(width = 25) {
 #' 
 #' \code{NA}'s are replaced with strings of 'NA'.
 #'
-#' @param keep.as.numbers logical, default TRUE. When FALSE, converts numeric 
+#' @param ... Named arguments of the form \code{variable=values}, 
+#'            where \code{values} could be a vector or method.
+#' @param keep.as.numeric logical, default TRUE. When FALSE, converts numeric 
 #'                        values supplied as margins to the facet to characters.
 #' @family facet labeller
 #' @return Function to supply to \code{\link{facet_grid}} for the argument \code{labeller}.
@@ -113,7 +115,7 @@ label_wrap_gen <- function(width = 25) {
 #'                          'nt'='Near Threatened', 
 #'                          'vu'='Vulnerable',
 #'                          'domesticated'='Domesticated')
-#' Source: http://en.wikipedia.org/wiki/Wikipedia:Conservation_status 
+#' ## Source: http://en.wikipedia.org/wiki/Wikipedia:Conservation_status 
 #'
 #' ggplot(msleep, aes(x=sleep_total, y=awake)) + geom_point() + facet_grid(vore ~ conservation, labeller=labeller(vore=capitalize))
 #' ggplot(msleep, aes(x=sleep_total, y=awake)) + geom_point() + facet_grid(vore ~ conservation, labeller=labeller(vore=capitalize, conservation=conservation_status ))
