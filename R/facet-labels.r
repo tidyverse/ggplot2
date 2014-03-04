@@ -68,25 +68,6 @@ label_bquote <- function(expr = beta ^ .(x)) {
 #' @param width integer, target column width for output.
 #' @export
 #' @seealso , \code{\link{labeller}}
-#' @examples
-#' 
-#' data(msleep)
-#' 
-#' 
-#' 
-#' ggplot(economics, aes(x=))
-#' 
-#' set.seed(331)
-#' x=runif(60)
-#' y=rnorm(60)
-#' speed=sample(c('Prime group', 'Rib group', 'No group'), 60, replace=TRUE)
-#' group=sample(letters[1:3], 60, replace=TRUE)
-#' 
-#' df = data.frame(x=x, y=y, speed=as.factor(speed), group=as.factor(group))
-#' group.names <- c('a'='First','b'='Second','c'="Don\'t")
-#' 
-#' ggplot(df, aes(x, y)) + geom_point() + facet_grid(speed ~ group, labeller=label_wrap_gen(3))
-#' ggplot(df, aes(x, y)) + geom_point() + facet_grid(speed ~ group, labeller=labeller(speed=label_wrap_gen(3), group=group.names))
 label_wrap_gen <- function(width = 25) {
   function(variable, values) {
     sapply(strwrap(as.character(values), width=width, simplify=FALSE), 
