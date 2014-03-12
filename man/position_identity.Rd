@@ -17,7 +17,8 @@ Don't adjust position
 }
 \seealso{
 Other position adjustments: \code{\link{position_dodge}};
-  \code{\link{position_fill}};
+  \code{\link{position_fill}}; \code{\link{position_jd}},
+  \code{\link{position_jitterdodge}};
   \code{\link{position_jitter}};
   \code{\link{position_stack}}
 }
