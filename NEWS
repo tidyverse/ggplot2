@@ -12,8 +12,9 @@ ggplot2 0.9.3.1.99
 
 * `ggpcp()`, `ggfluctuation()`, `ggmissing()`, `ggstructure()`, and
   `ggorder()` are now defunct and have been removed.
- 
-* `fortify.SpatialPolygonsDataFrame()` now calls `polygons` without requiring the `sp` to be loaded first. Addresses issue #879 https://github.com/hadley/ggplot2/issues/879
+
+* `fortify.SpatialPolygonsDataFrame()` now calls `polygons` without
+  requiring the `sp` to be loaded first (@seancarmody, #879).
 
 * `aes()` no more treats variables like `a..x..b` as a calculated aesthetic
   (@krlmlr, #834).
