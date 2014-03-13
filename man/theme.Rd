@@ -269,5 +269,13 @@ plot(g, layout=layout.fruchterman.reingold, vertex.size=4, vertex.label.dist=.25
 \code{\link{\%+replace\%}}
 
 \code{\link{rel}}
+
+\code{\link{element_blank}}
+
+\code{\link{element_line}}
+
+\code{\link{element_rect}}
+
+\code{\link{element_text}}
 }
 
