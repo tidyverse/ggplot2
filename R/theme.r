@@ -177,6 +177,10 @@ print.theme <- function(x, ...) str(x)
 #' @seealso \code{\link{+.gg}}
 #' @seealso \code{\link{\%+replace\%}}
 #' @seealso \code{\link{rel}}
+#' @seealso \code{\link{element_blank}}
+#' @seealso \code{\link{element_line}}
+#' @seealso \code{\link{element_rect}}
+#' @seealso \code{\link{element_text}}
 #' @export
 #' @examples
 #' \donttest{
