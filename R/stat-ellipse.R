@@ -48,7 +48,6 @@ stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path", position = 
   StatEllipse$new(mapping = mapping, data = data, geom = geom, position = position, type = type, level = level, segments = segments, na.rm = na.rm, ...)
 }
 
-
 StatEllipse <- proto(Stat, {
   objname <- "ellipse"
 
@@ -60,40 +59,44 @@ StatEllipse <- proto(Stat, {
   }
   calculate <- function(., data, scales, type = "t", level = 0.95, segments = 51, na.rm = FALSE, ...){
     data <- remove_missing(data, na.rm, vars = c("x","y"), name = "stat_ellipse", finite = TRUE)
-
-    dfn <- 2
-    dfd <- length(data$x) - 1
-
-    if (!type %in% c("t", "norm", "euclid")){
-      message("Unrecognized ellipse type")
-      ellipse <- rbind(as.numeric(c(NA, NA)))
-    } else if (dfd < 3){
-      message("Too few points to calculate an ellipse")
-      ellipse <- rbind(as.numeric(c(NA, NA)))
-    } else {
-      if (type == "t"){
-        v <- cov.trob(cbind(data$x, data$y))
-      } else if (type == "norm"){
-        v <- cov.wt(cbind(data$x, data$y))
-      } else if (type == "euclid"){
-        v <- cov.wt(cbind(data$x, data$y))
-        v$cov <- diag(rep(min(diag(v$cov)), 2))
-      }
-      shape <- v$cov
-      center <- v$center
-      chol_decomp <- chol(shape)
-      if (type == "euclid"){
-        radius <- level/max(chol_decomp)
-      } else {
-        radius <- sqrt(dfn * qf(level, dfn, dfd))
-      }
-      angles <- (0:segments) * 2 * pi/segments
-      unit.circle <- cbind(cos(angles), sin(angles))
-      ellipse <- t(center + radius * t(unit.circle %*% chol_decomp))
-    }
-
-    ellipse <- as.data.frame(ellipse)
-    colnames(ellipse) <- c("x", "y")
+    ellipse <- calculate_ellipse(data=data, vars= c("x","y"), type=type, level=level, segments=segments)
     return(ellipse)
   }
 })
+
+calculate_ellipse <- function(data, vars, type, level, segments){
+  dfn <- 2
+  dfd <- nrow(data) - 1
+
+  if (!type %in% c("t", "norm", "euclid")){
+    message("Unrecognized ellipse type")
+    ellipse <- rbind(as.numeric(c(NA, NA)))
+  } else if (dfd < 3){
+    message("Too few points to calculate an ellipse")
+    ellipse <- rbind(as.numeric(c(NA, NA)))
+  } else {
+    if (type == "t"){
+      v <- cov.trob(data[,vars])
+    } else if (type == "norm"){
+      v <- cov.wt(data[,vars])
+    } else if (type == "euclid"){
+      v <- cov.wt(data[,vars])
+      v$cov <- diag(rep(min(diag(v$cov)), 2))
+    }
+    shape <- v$cov
+    center <- v$center
+    chol_decomp <- chol(shape)
+    if (type == "euclid"){
+      radius <- level/max(chol_decomp)
+    } else {
+      radius <- sqrt(dfn * qf(level, dfn, dfd))
+    }
+    angles <- (0:segments) * 2 * pi/segments
+    unit.circle <- cbind(cos(angles), sin(angles))
+    ellipse <- t(center + radius * t(unit.circle %*% chol_decomp))
+  }
+
+  ellipse <- as.data.frame(ellipse)
+  colnames(ellipse) <- vars
+  return(ellipse)
+}
