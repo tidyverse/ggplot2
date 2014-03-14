@@ -1,5 +1,7 @@
 ggplot2 0.9.3.1.99
 ----------------------------------------------------------------
+* `stat_ellipse()` adds data ellipses. It supports bivariate normal and t distributions,
+  as well as a euclidian distance circle. (@jofrhwld, #926)
 
 * Allow specifying only one of the limits in a scale and use the automatic
   calculation of the other limit by passing NA to to the limit function,
