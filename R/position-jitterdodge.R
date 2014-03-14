@@ -1,25 +1,47 @@
-#' Jitter-dodge points to align them with a boxplot including fill aesthetic
+#' Adjust position by simultaneously dodging and jittering
+#'
+#' This is primarily used for aligning points generated through
+#' \code{geom_point()} with dodged boxplots (e.g., a \code{geom_boxplot()} with
+#' a fill aesthetic supplied).
 #'
 #' @family position adjustments
-#' @param width degree of jitter in x direction. Defaults to 40\% of the
+#' @param jitter.width degree of jitter in x direction. Defaults to 40\% of the
 #'   resolution of the data.
-#' @param height degree of jitter in y direction. Defaults to 40\% of the
-#'   resolution of the data
+#' @param jitter.height degree of jitter in y direction. Defaults to 0.
+#' @param dodge.width the amount to dodge in the x direction. Defaults to 0.75,
+#'   the default \code{position_dodge()} width.
 #' @export
 #' @examples
-#' dsub <- diamonds[ sample(1:nrow(diamonds), 1000), ]
-#' ggplot(dsub, aes(x=cut, y=carat, fill=clarity)) +
-#'   geom_boxplot(outlier.size=0) +
-#'   geom_point( pch=21, position=position_jitterdodge() )
-position_jitterdodge <- function (width = NULL, height = NULL) {
-  PositionJitterDodge$new(width = width, height = height)
+#' dsub <- diamonds[ sample(nrow(diamonds), 1000), ]
+#' ggplot(dsub, aes(x = cut, y = carat, fill = clarity)) +
+#'   geom_boxplot(outlier.size = 0) +
+#'   geom_point(pch = 21, position = position_jitterdodge())
+position_jitterdodge <- function (jitter.width = NULL,
+                                  jitter.height = NULL,
+                                  dodge.width = NULL) {
+
+  PositionJitterDodge$new(jitter.width = jitter.width,
+                          jitter.height = jitter.height,
+                          dodge.width = dodge.width)
 }
 
-#' @rdname position_jitterdodge
-#' @export
-position_jd <- position_jitterdodge
-
 PositionJitterDodge <- proto(Position, {
+
+  jitter.width <- NULL
+  jitter.height <- NULL
+  dodge.width <- NULL
+
+  new <- function(.,
+                  jitter.width = NULL,
+                  jitter.height = NULL,
+                  dodge.width = NULL) {
+
+    .$proto(jitter.width=jitter.width,
+            jitter.height=jitter.height,
+            dodge.width=dodge.width)
+
+  }
+
   objname <- "jitterdodge"
 
   adjust <- function(., data) {
@@ -34,22 +56,31 @@ PositionJitterDodge <- proto(Position, {
     }
 
     ## Adjust the x transformation based on the number of 'fill' variables
-    nfill <- length( levels(data$fill) )
+    nfill <- length(levels(data$fill))
 
-    if (is.null(.$width)) .$width <- resolution(data$x, zero = FALSE) * 0.4
-    if (is.null(.$height)) .$height <- resolution(data$y, zero = FALSE) * 0.4
+    if (is.null(.$jitter.width)) {
+      .$jitter.width <- resolution(data$x, zero = FALSE) * 0.4
+    }
+
+    if (is.null(.$jitter.height)) {
+      .$jitter.height <- 0
+    }
 
     trans_x <- NULL
     trans_y <- NULL
-    if(.$width > 0) {
-      trans_x <- function(x) jitter(x, amount = .$width / (nfill + 2))
+    if (.$jitter.width > 0) {
+      trans_x <- function(x) jitter(x, amount = .$jitter.width / (nfill + 2))
     }
-    if(.$height > 0) {
-      trans_y <- function(x) jitter(x, amount = .$height)
+    if (.$jitter.height > 0) {
+      trans_y <- function(x) jitter(x, amount = .$jitter.height)
+    }
+
+    if (is.null(.$dodge.width)) {
+      .$dodge.width <- 0.75
     }
 
     ## dodge, then jitter
-    data <- collide(data, 0.75, .$my_name(), pos_dodge, check.width = FALSE)
+    data <- collide(data, .$dodge.width, .$my_name(), pos_dodge, check.width = FALSE)
     transform_position(data, trans_x, trans_y)
   }
 
