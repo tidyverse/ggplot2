@@ -175,6 +175,7 @@ Collate:
     'stat-density-2d.r'
     'stat-density.r'
     'stat-ecdf.r'
+    'stat-ellipse.R'
     'stat-function.r'
     'stat-identity.r'
     'stat-qq.r'
