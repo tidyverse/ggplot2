@@ -1,4 +1,4 @@
-#' length scale.
+#' Length scale.
 #' 
 #' @inheritParams scale_x_continuous
 #' @param range a numeric vector of length 2 that specifies the minimum and
@@ -6,14 +6,15 @@
 #' @rdname scale_length
 #' @export
 #' @examples
-#' p <- ggplot(mtcars, aes(x=wt, y=mpg))
-#' ggplot(mtcars) + geom_point(aes(x=wt, y=mpg))
-#' ggplot(mtcars) + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt))
-#' ggplot(mtcars) + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt))
+#' p <- ggplot(mtcars)
+#' p + geom_point(aes(x=wt, y=mpg))
+#' p + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt))
 #' mtQ <- data.frame(wt=quantile(x=mtcars$wt))
-#' ggplot(mtcars) + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt)) + geom_rug(aes(x=wt), colour="red", data=mtQ)
-#' ggplot(mtcars) + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt)) + geom_rug(aes(x=wt), colour="red", length=0.05, data=mtQ)
-#' ggplot(mtcars) + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt, length=mpg))
+#' p + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt)) +
+#'   geom_rug(aes(x=wt), colour="red", data=mtQ)
+#' p + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt)) +
+#'   geom_rug(aes(x=wt), colour="red", length=0.05, data=mtQ)
+#' p + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt, length=mpg))
 scale_length_continuous <- function(..., range = c(0.005, 0.1)) {
   continuous_scale("length", "length_c", rescale_pal(range), ...)
 }

@@ -3,7 +3,7 @@
 \alias{scale_length}
 \alias{scale_length_continuous}
 \alias{scale_length_discrete}
-\title{length scale.}
+\title{Length scale.}
 \usage{
 scale_length_continuous(..., range = c(0.005, 0.1))
 
@@ -22,16 +22,17 @@ scale_length_discrete(..., range = c(0.005, 0.1))
   \code{\link{continuous_scale}} for more details}
 }
 \description{
-length scale.
+Length scale.
 }
 \examples{
-p <- ggplot(mtcars, aes(x=wt, y=mpg))
-ggplot(mtcars) + geom_point(aes(x=wt, y=mpg))
-ggplot(mtcars) + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt))
-ggplot(mtcars) + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt))
+p <- ggplot(mtcars)
+p + geom_point(aes(x=wt, y=mpg))
+p + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt))
 mtQ <- data.frame(wt=quantile(x=mtcars$wt))
-ggplot(mtcars) + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt)) + geom_rug(aes(x=wt), colour="red", data=mtQ)
-ggplot(mtcars) + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt)) + geom_rug(aes(x=wt), colour="red", length=0.05, data=mtQ)
-ggplot(mtcars) + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt, length=mpg))
+p + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt)) +
+  geom_rug(aes(x=wt), colour="red", data=mtQ)
+p + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt)) +
+  geom_rug(aes(x=wt), colour="red", length=0.05, data=mtQ)
+p + geom_point(aes(x=wt, y=mpg)) + geom_rug(aes(x=wt, length=mpg))
 }
 
