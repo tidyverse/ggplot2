@@ -1,6 +1,9 @@
 ggplot2 0.9.3.1.99
 ----------------------------------------------------------------
 
+* Allow to use brewer palettes for continuous scales, through the new
+  `scale_fill/colour_distiller()` functions (@jiho, #925).
+
 * Allow specifying only one of the limits in a scale and use the automatic
   calculation of the other limit by passing NA to to the limit function,
   `xlim()` or `ylim()` (@jimhester, #557).
