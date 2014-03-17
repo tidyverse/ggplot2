@@ -1,4 +1,4 @@
-#' Cartesian coordinates with an aspect ratio approximating mercator projection.
+#' Cartesian coordinates with an aspect ratio approximating Mercator projection.
 #'
 #' The represenation of a portion of the earth, wich is approximately spherical,
 #' onto a flat 2D plane requires a projection. This is what
@@ -26,8 +26,8 @@
 #' # Create a lat-long dataframe from the maps package
 #' nz <- map_data("nz")
 #' # Prepare a plot of the map
-#' nzmap <- ggplot(nz, aes(x=long, y=lat, group=group)) +
-#'   geom_polygon(fill="white", colour="black")
+#' nzmap <- ggplot(nz, aes(x = long, y = lat, group = group)) +
+#'   geom_polygon(fill = "white", colour = "black")
 #'
 #' # Plot it in cartesian coordinates
 #' nzmap
@@ -51,8 +51,8 @@ coord_aspect.quickmap <- function(coord, ranges) {
 
   # compute distance corresponding to 1 degree in either direction
   # from the center
-  x.dist <- dist_central_angle(x.center+c(-0.5,0.5), rep(y.center,2))
-  y.dist <- dist_central_angle(rep(x.center,2), y.center+c(-0.5,0.5))
+  x.dist <- dist_central_angle(x.center + c(-0.5, 0.5), rep(y.center, 2))
+  y.dist <- dist_central_angle(rep(x.center, 2), y.center+c(-0.5, 0.5))
   # NB: this makes the projection correct in the center of the plot and
   #     increasingly less correct towards the edges. For regions of reasonnable
   #     size, this seems to give better results than computing this ratio from
