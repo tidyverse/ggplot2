@@ -1,6 +1,11 @@
 ggplot2 0.9.3.1.99
 ----------------------------------------------------------------
 
+* Add new themes: `theme_linedraw()` is similar to `theme_bw()` but with
+  truly only white and black elements and spacing between elements identical
+  to `theme_gray`. `theme_light` is similar but with light gray box and axes
+  around the plot, to emphasise content more (@jiho, #923)
+
 * Allow specifying only one of the limits in a scale and use the automatic
   calculation of the other limit by passing NA to to the limit function,
   `xlim()` or `ylim()` (@jimhester, #557).
