@@ -3,10 +3,11 @@
 #' ColorBrewer provides sequential, diverging and qualitative colour schemes
 #' which are particularly suited and tested to display discrete values (levels
 #' of a factor) on a map. ggplot2 can use those colours in discrete scales. It
-#' also allows to smoothly interpolate the colours to a continuous scale,
-#' although the original colour schemes (particularly the qualitative ones)
-#' were not intended for this. The perceptual result is left to the
-#' appreciation of the user.
+#' also allows to smoothly interpolate 6 colours from any palette to a
+#' continuous scale (6 colours per palette gives nice gradients; more results in
+#' more saturated colours which do not look as good). However, the original
+#' colour schemes (particularly the qualitative ones) were not intended for this
+#' and the perceptual result is left to the appreciation of the user.
 #'
 #' See \url{http://colorbrewer2.org} for more information.
 #'
