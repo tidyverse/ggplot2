@@ -13,4 +13,10 @@ theme_classic(base_size = 12, base_family = "")
 \description{
 A classic-looking theme, with x and y axis lines and no gridlines.
 }
+\seealso{
+Other themes: \code{\link{theme_bw}};
+  \code{\link{theme_gray}}, \code{\link{theme_grey}};
+  \code{\link{theme_light}}; \code{\link{theme_linedraw}};
+  \code{\link{theme_minimal}}
+}
 

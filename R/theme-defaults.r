@@ -4,6 +4,7 @@
 #' @param base_family base font family
 #' @aliases theme_gray theme_grey
 #' @export theme_gray theme_grey
+#' @family themes
 theme_grey <- function(base_size = 12, base_family = "") {
   theme(
     # Elements in this first block aren't used directly, but are inherited
@@ -61,11 +62,12 @@ theme_grey <- function(base_size = 12, base_family = "") {
 theme_gray <- theme_grey
 
 
-#' A theme with white background and black gridlines.
+#' A theme with white background and dark gridlines.
 #'
 #' @param base_size base font size
 #' @param base_family base font family
 #' @export
+#' @family themes
 theme_bw <- function(base_size = 12, base_family = "") {
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
@@ -82,11 +84,76 @@ theme_bw <- function(base_size = 12, base_family = "") {
     )
 }
 
+#' A theme with white background and black gridlines.
+#'
+#' @param base_size base font size
+#' @param base_family base font family
+#' @export
+#' @family themes
+#' @examples
+#' p <- ggplot(mtcars) + geom_point(aes(x = wt, y = mpg))
+#' p
+#' # 'classic' dark-on-light theme
+#' p + theme_bw()
+#' # this theme
+#' p + theme_linedraw()
+#' # variation with light box and axes legends
+#' p + theme_light()
+theme_linedraw <- function(base_size = 12, base_family = "") {
+  # Starts with theme_grey and then modify some parts
+  theme_grey(base_size = base_size, base_family = base_family) %+replace%
+    theme(
+      axis.text         = element_text(colour = "black", size = rel(0.8)),
+      axis.ticks        = element_line(colour = "black", size = 0.25),
+      legend.key        = element_rect(colour = "black", size = 0.25),
+      panel.background  = element_rect(fill = "white", colour = NA),
+      panel.border      = element_rect(fill = NA, colour = "black", size = 0.5),
+      panel.grid.major  = element_line(colour = "black", size = 0.05),
+      panel.grid.minor  = element_line(colour = "black", size = 0.01),
+      strip.background  = element_rect(fill = "black", colour = NA),
+      strip.text.x      = element_text(colour = "white"),
+      strip.text.y      = element_text(colour = "white", angle = -90)
+    )
+}
+
+#' A theme with white background and light grey lines
+#'
+#' @param base_size base font size
+#' @param base_family base font family
+#' @export
+#' @family themes
+#' @examples
+#' p <- ggplot(mtcars) + geom_point(aes(x = wt, y = mpg))
+#' p
+#' # 'classic' dark-on-light theme
+#' p + theme_bw()
+#' # this theme
+#' p + theme_light()
+#' # variation with dark box and axes legends
+#' p + theme_linedraw()
+theme_light <- function(base_size = 12, base_family = "") {
+  # Starts with theme_grey and then modify some parts
+  theme_grey(base_size = base_size, base_family = base_family) %+replace%
+    theme(
+      axis.ticks        = element_line(colour = "grey50", size = 0.25),
+      legend.key        = element_rect(fill = "white", colour = "grey50", size = 0.25),
+      panel.background  = element_rect(fill = "white", colour = NA),
+      panel.border      = element_rect(fill = NA, colour = "grey50", size = 0.5),
+      panel.grid.major  = element_line(colour = "grey80", size = 0.25),
+      panel.grid.minor  = element_line(colour = "grey92", size = 0.125),
+      strip.background  = element_rect(fill = "grey50", colour = NA),
+      strip.text.x      = element_text(colour = "white"),
+      strip.text.y      = element_text(colour = "white", angle = -90)
+    )
+
+}
+
 #' A minimalistic theme with no background annotations.
 #'
 #' @param base_size base font size
 #' @param base_family base font family
 #' @export
+#' @family themes
 theme_minimal <- function(base_size = 12, base_family = "") {
   # Starts with theme_bw and then modify some parts
   theme_bw(base_size = base_size, base_family = base_family) %+replace%
@@ -105,6 +172,7 @@ theme_minimal <- function(base_size = 12, base_family = "") {
 #' @param base_size base font size
 #' @param base_family base font family
 #' @export
+#' @family themes
 theme_classic <- function(base_size = 12, base_family = ""){
   theme_bw(base_size = base_size, base_family = base_family) %+replace%
     theme(

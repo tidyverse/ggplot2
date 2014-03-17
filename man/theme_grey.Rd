@@ -14,4 +14,9 @@ theme_grey(base_size = 12, base_family = "")
 \description{
 A theme with grey background and white gridlines.
 }
+\seealso{
+Other themes: \code{\link{theme_bw}};
+  \code{\link{theme_classic}}; \code{\link{theme_light}};
+  \code{\link{theme_linedraw}}; \code{\link{theme_minimal}}
+}
 
