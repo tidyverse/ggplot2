@@ -13,6 +13,16 @@ theme_light(base_size = 12, base_family = "")
 \description{
 A theme with white background and light grey lines
 }
+\examples{
+p <- ggplot(mtcars) + geom_point(aes(x = wt, y = mpg))
+p
+# 'classic' dark-on-light theme
+p + theme_bw()
+# this theme
+p + theme_light()
+# variation with dark box and axes legends
+p + theme_linedraw()
+}
 \seealso{
 Other themes: \code{\link{theme_bw}};
   \code{\link{theme_classic}}; \code{\link{theme_gray}},

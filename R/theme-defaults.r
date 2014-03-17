@@ -90,6 +90,15 @@ theme_bw <- function(base_size = 12, base_family = "") {
 #' @param base_family base font family
 #' @export
 #' @family themes
+#' @examples
+#' p <- ggplot(mtcars) + geom_point(aes(x = wt, y = mpg))
+#' p
+#' # 'classic' dark-on-light theme
+#' p + theme_bw()
+#' # this theme
+#' p + theme_linedraw()
+#' # variation with light box and axes legends
+#' p + theme_light()
 theme_linedraw <- function(base_size = 12, base_family = "") {
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
@@ -113,6 +122,15 @@ theme_linedraw <- function(base_size = 12, base_family = "") {
 #' @param base_family base font family
 #' @export
 #' @family themes
+#' @examples
+#' p <- ggplot(mtcars) + geom_point(aes(x = wt, y = mpg))
+#' p
+#' # 'classic' dark-on-light theme
+#' p + theme_bw()
+#' # this theme
+#' p + theme_light()
+#' # variation with dark box and axes legends
+#' p + theme_linedraw()
 theme_light <- function(base_size = 12, base_family = "") {
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
