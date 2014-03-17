@@ -53,7 +53,7 @@ See \url{http://colorbrewer2.org} for more information.
 }
 \examples{
 dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
-(d <- qplot(carat, price, data=dsamp, colour=clarity))
+(d <- qplot(carat, price, data = dsamp, colour = clarity))
 
 # Change scale label
 d + scale_colour_brewer()
@@ -61,16 +61,16 @@ d + scale_colour_brewer("clarity")
 d + scale_colour_brewer(expression(clarity[beta]))
 
 # Select brewer palette to use, see ?scales::brewer_pal for more details
-d + scale_colour_brewer(type="seq")
-d + scale_colour_brewer(type="seq", palette=3)
+d + scale_colour_brewer(type = "seq")
+d + scale_colour_brewer(type = "seq", palette = 3)
 
-d + scale_colour_brewer(palette="Blues")
-d + scale_colour_brewer(palette="Set1")
+d + scale_colour_brewer(palette = "Blues")
+d + scale_colour_brewer(palette = "Set1")
 
 # scale_fill_brewer works just the same as
 # scale_colour_brewer but for fill colours
-ggplot(diamonds, aes(x=price, fill=cut)) +
-  geom_histogram(position="dodge", binwidth=1000) +
+ggplot(diamonds, aes(x = price, fill = cut)) +
+  geom_histogram(position = "dodge", binwidth = 1000) +
   scale_fill_brewer()
 
 # Generate map data
@@ -79,14 +79,14 @@ volcano3d <- melt(volcano)
 names(volcano3d) <- c("x", "y", "z")
 
 # Basic plot
-v <- ggplot() + geom_tile(aes(x=x, y=y, fill=z), data=volcano3d)
+v <- ggplot() + geom_tile(aes(x = x, y = y, fill = z), data = volcano3d)
 v
 v + scale_fill_distiller()
-v + scale_fill_distiller(palette=2)
-v + scale_fill_distiller(type="div")
-v + scale_fill_distiller(palette="Spectral")
-v + scale_fill_distiller(palette="Spectral", trans="reverse")
-v + scale_fill_distiller(type="qual")
+v + scale_fill_distiller(palette = 2)
+v + scale_fill_distiller(type = "div")
+v + scale_fill_distiller(palette = "Spectral")
+v + scale_fill_distiller(palette = "Spectral", trans = "reverse")
+v + scale_fill_distiller(type = "qual")
 # Not appropriate for continuous data, issues a warning
 }
 \seealso{
