@@ -38,9 +38,6 @@ scale_color_distiller(..., type = "seq", palette = 1, values = NULL,
   \item{na.value}{Colour to use for missing values}
 }
 \description{
-Create colour scales based on ColorBrewer colours.
-}
-\details{
 ColorBrewer provides sequential, diverging and qualitative colour schemes
 which are particularly suited and tested to display discrete values (levels
 of a factor) on a map. ggplot2 can use those colours in discrete scales. It
@@ -48,7 +45,8 @@ also allows to smoothly interpolate the colours to a continuous scale,
 although the original colour schemes (particularly the qualitative ones)
 were not intended for this. The perceptual result is left to the
 appreciation of the user.
-
+}
+\details{
 See \url{http://colorbrewer2.org} for more information.
 }
 \examples{
