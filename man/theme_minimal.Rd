@@ -13,4 +13,10 @@ theme_minimal(base_size = 12, base_family = "")
 \description{
 A minimalistic theme with no background annotations.
 }
+\seealso{
+Other themes: \code{\link{theme_bw}};
+  \code{\link{theme_classic}}; \code{\link{theme_gray}},
+  \code{\link{theme_grey}}; \code{\link{theme_light}};
+  \code{\link{theme_linedraw}}
+}
 

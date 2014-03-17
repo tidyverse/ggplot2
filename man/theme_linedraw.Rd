@@ -13,4 +13,10 @@ theme_linedraw(base_size = 12, base_family = "")
 \description{
 A theme with white background and black gridlines.
 }
+\seealso{
+Other themes: \code{\link{theme_bw}};
+  \code{\link{theme_classic}}; \code{\link{theme_gray}},
+  \code{\link{theme_grey}}; \code{\link{theme_light}};
+  \code{\link{theme_minimal}}
+}
 

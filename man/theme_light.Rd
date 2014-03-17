@@ -13,4 +13,10 @@ theme_light(base_size = 12, base_family = "")
 \description{
 A theme with white background and light grey lines
 }
+\seealso{
+Other themes: \code{\link{theme_bw}};
+  \code{\link{theme_classic}}; \code{\link{theme_gray}},
+  \code{\link{theme_grey}}; \code{\link{theme_linedraw}};
+  \code{\link{theme_minimal}}
+}
 

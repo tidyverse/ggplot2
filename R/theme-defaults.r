@@ -4,6 +4,7 @@
 #' @param base_family base font family
 #' @aliases theme_gray theme_grey
 #' @export theme_gray theme_grey
+#' @family themes
 theme_grey <- function(base_size = 12, base_family = "") {
   theme(
     # Elements in this first block aren't used directly, but are inherited
@@ -66,6 +67,7 @@ theme_gray <- theme_grey
 #' @param base_size base font size
 #' @param base_family base font family
 #' @export
+#' @family themes
 theme_bw <- function(base_size = 12, base_family = "") {
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
@@ -87,6 +89,7 @@ theme_bw <- function(base_size = 12, base_family = "") {
 #' @param base_size base font size
 #' @param base_family base font family
 #' @export
+#' @family themes
 theme_linedraw <- function(base_size = 12, base_family = "") {
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
@@ -109,6 +112,7 @@ theme_linedraw <- function(base_size = 12, base_family = "") {
 #' @param base_size base font size
 #' @param base_family base font family
 #' @export
+#' @family themes
 theme_light <- function(base_size = 12, base_family = "") {
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
@@ -131,6 +135,7 @@ theme_light <- function(base_size = 12, base_family = "") {
 #' @param base_size base font size
 #' @param base_family base font family
 #' @export
+#' @family themes
 theme_minimal <- function(base_size = 12, base_family = "") {
   # Starts with theme_bw and then modify some parts
   theme_bw(base_size = base_size, base_family = base_family) %+replace%
@@ -149,6 +154,7 @@ theme_minimal <- function(base_size = 12, base_family = "") {
 #' @param base_size base font size
 #' @param base_family base font family
 #' @export
+#' @family themes
 theme_classic <- function(base_size = 12, base_family = ""){
   theme_bw(base_size = base_size, base_family = base_family) %+replace%
     theme(
