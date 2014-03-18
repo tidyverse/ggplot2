@@ -148,13 +148,13 @@ theme_light <- function(base_size = 12, base_family = "") {
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
     theme(
-      axis.ticks        = element_line(colour = "grey50", size = 0.25),
+      axis.ticks        = element_line(colour = "grey70", size = 0.25),
       legend.key        = element_rect(fill = "white", colour = "grey50", size = 0.25),
       panel.background  = element_rect(fill = "white", colour = NA),
-      panel.border      = element_rect(fill = NA, colour = "grey50", size = 0.5),
-      panel.grid.major  = element_line(colour = "grey80", size = 0.25),
-      panel.grid.minor  = element_line(colour = "grey92", size = 0.125),
-      strip.background  = element_rect(fill = "grey50", colour = NA),
+      panel.border      = element_rect(fill = NA, colour = "grey70", size = 0.5),
+      panel.grid.major  = element_line(colour = "grey85", size = 0.25),
+      panel.grid.minor  = element_line(colour = "grey93", size = 0.125),
+      strip.background  = element_rect(fill = "grey70", colour = NA),
       strip.text.x      = element_text(colour = "white"),
       strip.text.y      = element_text(colour = "white", angle = -90)
     )
