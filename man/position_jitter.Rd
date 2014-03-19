@@ -36,6 +36,7 @@ qplot(class, hwy, data = mpg, geom = c("boxplot", "jitter"))
 Other position adjustments: \code{\link{position_dodge}};
   \code{\link{position_fill}};
   \code{\link{position_identity}};
+  \code{\link{position_jitterdodge}};
   \code{\link{position_stack}}
 }
 
