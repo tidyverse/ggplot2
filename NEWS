@@ -8,6 +8,13 @@ ggplot2 0.9.3.1.99
   to `theme_gray`. `theme_light` is similar but with light gray box and axes
   around the plot, to emphasise content more (@jiho, #923)
 
+* First stub of a length scale, which allows to make the length of segments
+  proportional to a variable. The main goal would be to plot vector fields
+  defined by a heading and a speed. The remaining issue is the legend, which
+  currently just draws segments. The length of segment in the legend should be
+  meaningful but since the two viewports (main plot and legend) do not have
+  the same reference, it is hard. (@jiho, #921)
+
 * Allow specifying only one of the limits in a scale and use the automatic
   calculation of the other limit by passing NA to to the limit function,
   `xlim()` or `ylim()` (@jimhester, #557).

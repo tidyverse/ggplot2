@@ -160,6 +160,7 @@ Collate:
     'scale-grey.r'
     'scale-hue.r'
     'scale-identity.r'
+    'scale-length.r'
     'scale-linetype.r'
     'scale-manual.r'
     'scale-shape.r'
