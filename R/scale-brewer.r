@@ -14,6 +14,7 @@
 #' @inheritParams scales::brewer_pal
 #' @inheritParams scale_colour_hue
 #' @inheritParams scale_colour_gradient
+#' @inheritParams scales::gradient_n_pal
 #' @family colour scales
 #' @rdname scale_brewer
 #' @export
@@ -89,7 +90,7 @@ scale_fill_distiller <- function(..., type = "seq", palette = 1, values = NULL, 
 }
 
 # icon.brewer <- function() {
-#   rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width = 0.21, 
+#   rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width = 0.21,
 #     gp = gpar(fill = RColorBrewer::brewer.pal(5, "PuOr"), col = NA)
 #   )
 # }
