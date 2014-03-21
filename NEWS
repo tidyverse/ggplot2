@@ -3,7 +3,7 @@ ggplot2 0.9.3.1.99
 
 * Add a `direction` argument to brewer scales to be able to reverse the order of
   colours. In many diverging scales, the warm colours get associated with lowest
-  values in an ordered factor.
+  values in an ordered factor. (@jiho, #924)
 
 * `stat_ellipse()` adds data ellipses. It supports bivariate normal and t distributions,
   as well as a euclidian distance circle. (@jofrhwld, #926)
