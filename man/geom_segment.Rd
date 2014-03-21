@@ -8,40 +8,36 @@ geom_segment(mapping = NULL, data = NULL, stat = "identity",
   ...)
 }
 \arguments{
-  \item{arrow}{specification for arrow heads, as created by
-  arrow()}
+\item{arrow}{specification for arrow heads, as created by arrow()}
 
-  \item{lineend}{Line end style (round, butt, square)}
+\item{lineend}{Line end style (round, butt, square)}
 
-  \item{mapping}{The aesthetic mapping, usually constructed
-  with \code{\link{aes}} or \code{\link{aes_string}}. Only
-  needs to be set at the layer level if you are overriding
-  the plot defaults.}
+\item{mapping}{The aesthetic mapping, usually constructed with
+\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+at the layer level if you are overriding the plot defaults.}
 
-  \item{data}{A layer specific dataset - only needed if you
-  want to override the plot defaults.}
+\item{data}{A layer specific dataset - only needed if you want to override
+the plot defaults.}
 
-  \item{stat}{The statistical transformation to use on the
-  data for this layer.}
+\item{stat}{The statistical transformation to use on the data for this
+layer.}
 
-  \item{position}{The position adjustment to use for
-  overlapping points on this layer}
+\item{position}{The position adjustment to use for overlapping points
+on this layer}
 
-  \item{na.rm}{If \code{FALSE} (the default), removes
-  missing values with a warning.  If \code{TRUE} silently
-  removes missing values.}
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
-  \item{...}{other arguments passed on to
-  \code{\link{layer}}. This can include aesthetics whose
-  values you want to set, not map. See \code{\link{layer}}
-  for more details.}
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 }
 \description{
 Single line segments.
 }
 \section{Aesthetics}{
-  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
-  "segment")}
+
+\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "segment")}
 }
 \examples{
 library(grid) # needed for arrow function

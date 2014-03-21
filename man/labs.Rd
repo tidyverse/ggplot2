@@ -15,10 +15,9 @@ ylab(label)
 ggtitle(label)
 }
 \arguments{
-  \item{label}{The text for the axis or plot title.}
+\item{label}{The text for the axis or plot title.}
 
-  \item{...}{a list of new names in the form aesthetic =
-  "new name"}
+\item{...}{a list of new names in the form aesthetic = "new name"}
 }
 \description{
 Change axis labels and legend titles

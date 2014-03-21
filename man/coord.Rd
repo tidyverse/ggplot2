@@ -6,7 +6,7 @@
 coord(..., subclass = c())
 }
 \arguments{
-  \item{...}{object fields}
+\item{...}{object fields}
 }
 \description{
 Internal use only.

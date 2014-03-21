@@ -6,7 +6,7 @@
 should_stop(expr)
 }
 \arguments{
-  \item{expr}{code to evaluate.}
+\item{expr}{code to evaluate.}
 }
 \description{
 Used in examples to illustrate when errors should occur.

@@ -7,17 +7,15 @@ borders(database = "world", regions = ".", fill = NA, colour = "grey50",
   ...)
 }
 \arguments{
-  \item{database}{map data, see \code{\link[maps]{map}} for
-  details}
+\item{database}{map data, see \code{\link[maps]{map}} for details}
 
-  \item{regions}{map region}
+\item{regions}{map region}
 
-  \item{fill}{fill colour}
+\item{fill}{fill colour}
 
-  \item{colour}{border colour}
+\item{colour}{border colour}
 
-  \item{...}{other arguments passed onto
-  \code{\link{geom_polygon}}}
+\item{...}{other arguments passed onto \code{\link{geom_polygon}}}
 }
 \description{
 Create a layer of map borders.

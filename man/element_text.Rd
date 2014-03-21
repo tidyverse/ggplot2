@@ -8,24 +8,23 @@ element_text(family = NULL, face = NULL, colour = NULL, size = NULL,
   color = NULL)
 }
 \arguments{
-  \item{family}{font family}
+\item{family}{font family}
 
-  \item{face}{font face ("plain", "italic", "bold",
-  "bold.italic")}
+\item{face}{font face ("plain", "italic", "bold", "bold.italic")}
 
-  \item{colour}{text colour}
+\item{colour}{text colour}
 
-  \item{size}{text size (in pts)}
+\item{size}{text size (in pts)}
 
-  \item{hjust}{horizontal justification (in [0, 1])}
+\item{hjust}{horizontal justification (in [0, 1])}
 
-  \item{vjust}{vertical justification (in [0, 1])}
+\item{vjust}{vertical justification (in [0, 1])}
 
-  \item{angle}{angle (in [0, 360])}
+\item{angle}{angle (in [0, 360])}
 
-  \item{lineheight}{line height}
+\item{lineheight}{line height}
 
-  \item{color}{an alias for \code{colour}}
+\item{color}{an alias for \code{colour}}
 }
 \description{
 Theme element: text.

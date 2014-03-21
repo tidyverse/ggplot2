@@ -6,9 +6,9 @@
 ggplot(data = NULL, ...)
 }
 \arguments{
-  \item{data}{default data set}
+\item{data}{default data set}
 
-  \item{...}{other arguments passed to specific methods}
+\item{...}{other arguments passed to specific methods}
 }
 \description{
 \code{ggplot()} initializes a ggplot object. It can be used to

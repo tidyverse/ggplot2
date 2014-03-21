@@ -7,16 +7,14 @@
   environment = globalenv())
 }
 \arguments{
-  \item{data}{default data frame for plot}
+\item{data}{default data frame for plot}
 
-  \item{mapping}{default list of aesthetic mappings (these
-  can be colour, size, shape, line type -- see individual
-  geom functions for more details)}
+\item{mapping}{default list of aesthetic mappings (these can be colour,
+size, shape, line type -- see individual geom functions for more details)}
 
-  \item{...}{ignored}
+\item{...}{ignored}
 
-  \item{environment}{in which evaluation of aesthetics
-  should occur}
+\item{environment}{in which evaluation of aesthetics should occur}
 }
 \description{
 Create a new ggplot plot from a data frame

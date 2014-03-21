@@ -6,23 +6,20 @@
 map_data(map, region = ".", exact = FALSE, ...)
 }
 \arguments{
-  \item{map}{name of map provided by the \pkg{maps}
-  package.  These include \code{\link[maps]{county}},
-  \code{\link[maps]{france}}, \code{\link[maps]{italy}},
-  \code{\link[maps]{nz}}, \code{\link[maps]{state}},
-  \code{\link[maps]{usa}}, \code{\link[maps]{world}},
-  \code{\link[maps]{world2}}.}
+\item{map}{name of map provided by the \pkg{maps} package.  These
+include \code{\link[maps]{county}}, \code{\link[maps]{france}},
+\code{\link[maps]{italy}}, \code{\link[maps]{nz}},
+\code{\link[maps]{state}}, \code{\link[maps]{usa}},
+\code{\link[maps]{world}}, \code{\link[maps]{world2}}.}
 
-  \item{region}{name of subregions to include.  Defaults to
-  \code{.} which includes all subregion.  See documentation
-  for \code{\link[maps]{map}} for more details.}
+\item{region}{name of subregions to include.  Defaults to \code{.} which
+includes all subregion.  See documentation for \code{\link[maps]{map}}
+for more details.}
 
-  \item{exact}{should the \code{region} be treated as a
-  regular expression (\code{FALSE}) or as a fixed string
-  (\code{TRUE}).}
+\item{exact}{should the \code{region} be treated as a regular expression
+(\code{FALSE}) or as a fixed string (\code{TRUE}).}
 
-  \item{...}{all other arguments passed on to
-  \code{\link[maps]{map}}}
+\item{...}{all other arguments passed on to \code{\link[maps]{map}}}
 }
 \description{
 Create a data frame of map data.

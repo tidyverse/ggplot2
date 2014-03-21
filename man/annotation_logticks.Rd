@@ -9,42 +9,36 @@ annotation_logticks(base = 10, sides = "bl", scaled = TRUE,
   ...)
 }
 \arguments{
-  \item{base}{the base of the log (default 10)}
+\item{base}{the base of the log (default 10)}
 
-  \item{sides}{a string that controls which sides of the
-  plot the log ticks appear on.  It can be set to a string
-  containing any of \code{"trbl"}, for top, right, bottom,
-  and left.}
+\item{sides}{a string that controls which sides of the plot the log ticks appear on.
+It can be set to a string containing any of \code{"trbl"}, for top, right,
+bottom, and left.}
 
-  \item{short}{a \code{unit} object specifying the length
-  of the short tick marks}
+\item{short}{a \code{unit} object specifying the length of the short tick marks}
 
-  \item{mid}{a \code{unit} object specifying the length of
-  the middle tick marks.  In base 10, these are the "5"
-  ticks.}
+\item{mid}{a \code{unit} object specifying the length of the middle tick marks.
+In base 10, these are the "5" ticks.}
 
-  \item{long}{a \code{unit} object specifying the length of
-  the long tick marks.  In base 10, these are the "1" (or
-  "10") ticks.}
+\item{long}{a \code{unit} object specifying the length of the long tick marks.
+In base 10, these are the "1" (or "10") ticks.}
 
-  \item{scaled}{is the data already log-scaled? This should
-  be \code{TRUE} (default) when the data is already
-  transformed with \code{log10()} or when using
-  \code{scale_y_log10}. It should be \code{FALSE} when
-  using \code{coord_trans(y = "log10")}.}
+\item{scaled}{is the data already log-scaled? This should be \code{TRUE}
+(default) when the data is already transformed with \code{log10()} or when
+using \code{scale_y_log10}. It should be \code{FALSE} when using
+\code{coord_trans(y = "log10")}.}
 
-  \item{colour}{Colour of the tick marks.}
+\item{colour}{Colour of the tick marks.}
 
-  \item{size}{Thickness of tick marks, in mm.}
+\item{size}{Thickness of tick marks, in mm.}
 
-  \item{linetype}{Linetype of tick marks (\code{solid},
-  \code{dashed}, etc.)}
+\item{linetype}{Linetype of tick marks (\code{solid}, \code{dashed}, etc.)}
 
-  \item{alpha}{The transparency of the tick marks.}
+\item{alpha}{The transparency of the tick marks.}
 
-  \item{color}{An alias for \code{colour}.}
+\item{color}{An alias for \code{colour}.}
 
-  \item{...}{Other parameters passed on to the layer}
+\item{...}{Other parameters passed on to the layer}
 }
 \description{
 This annotation adds log tick marks with diminishing spacing.

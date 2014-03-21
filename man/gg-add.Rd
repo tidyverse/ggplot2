@@ -12,10 +12,9 @@ e1 \%+\% e2
 e1 \%+replace\% e2
 }
 \arguments{
-  \item{e1}{An object of class \code{ggplot} or
-  \code{theme}}
+\item{e1}{An object of class \code{ggplot} or \code{theme}}
 
-  \item{e2}{A component to add to \code{e1}}
+\item{e2}{A component to add to \code{e1}}
 }
 \description{
 This operator allows you to add objects to a ggplot or theme object.

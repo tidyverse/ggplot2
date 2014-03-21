@@ -7,13 +7,13 @@ annotation_custom(grob, xmin = -Inf, xmax = Inf, ymin = -Inf,
   ymax = Inf)
 }
 \arguments{
-  \item{grob}{grob to display}
+\item{grob}{grob to display}
 
-  \item{xmin,xmax}{x location (in data coordinates) giving
-  horizontal location of raster}
+\item{xmin,xmax}{x location (in data coordinates) giving horizontal
+location of raster}
 
-  \item{ymin,ymax}{y location (in data coordinates) giving
-  vertical location of raster}
+\item{ymin,ymax}{y location (in data coordinates) giving vertical
+location of raster}
 }
 \description{
 This is a special geom intended for use as static annnotations

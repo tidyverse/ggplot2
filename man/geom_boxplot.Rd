@@ -8,39 +8,36 @@ geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   outlier.size = 2, notch = FALSE, notchwidth = 0.5, ...)
 }
 \arguments{
-  \item{outlier.colour}{colour for outlying points}
+\item{outlier.colour}{colour for outlying points}
 
-  \item{outlier.shape}{shape of outlying points}
+\item{outlier.shape}{shape of outlying points}
 
-  \item{outlier.size}{size of outlying points}
+\item{outlier.size}{size of outlying points}
 
-  \item{notch}{if \code{FALSE} (default) make a standard
-  box plot. If \code{TRUE}, make a notched box plot.
-  Notches are used to compare groups; if the notches of two
-  boxes do not overlap, this is strong evidence that the
-  medians differ.}
+\item{notch}{if \code{FALSE} (default) make a standard box plot. If
+\code{TRUE}, make a notched box plot. Notches are used to compare groups;
+if the notches of two boxes do not overlap, this is strong evidence that
+the medians differ.}
 
-  \item{notchwidth}{for a notched box plot, width of the
-  notch relative to the body (default 0.5)}
+\item{notchwidth}{for a notched box plot, width of the notch relative to
+the body (default 0.5)}
 
-  \item{mapping}{The aesthetic mapping, usually constructed
-  with \code{\link{aes}} or \code{\link{aes_string}}. Only
-  needs to be set at the layer level if you are overriding
-  the plot defaults.}
+\item{mapping}{The aesthetic mapping, usually constructed with
+\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+at the layer level if you are overriding the plot defaults.}
 
-  \item{data}{A layer specific dataset - only needed if you
-  want to override the plot defaults.}
+\item{data}{A layer specific dataset - only needed if you want to override
+the plot defaults.}
 
-  \item{stat}{The statistical transformation to use on the
-  data for this layer.}
+\item{stat}{The statistical transformation to use on the data for this
+layer.}
 
-  \item{position}{The position adjustment to use for
-  overlapping points on this layer}
+\item{position}{The position adjustment to use for overlapping points
+on this layer}
 
-  \item{...}{other arguments passed on to
-  \code{\link{layer}}. This can include aesthetics whose
-  values you want to set, not map. See \code{\link{layer}}
-  for more details.}
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 }
 \description{
 The upper and lower "hinges" correspond to the first and third quartiles
@@ -61,8 +58,8 @@ This gives a roughly 95% confidence interval for comparing medians.
 See McGill et al. (1978) for more details.
 }
 \section{Aesthetics}{
-  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
-  "boxplot")}
+
+\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "boxplot")}
 }
 \examples{
 \donttest{

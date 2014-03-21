@@ -6,7 +6,7 @@
 is.facet(x)
 }
 \arguments{
-  \item{x}{object to test}
+\item{x}{object to test}
 }
 \description{
 Is this object a facetting specification?

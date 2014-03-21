@@ -25,14 +25,13 @@
 \method{fortify}{Line}(model, data, ...)
 }
 \arguments{
-  \item{model}{\code{SpatialPolygonsDataFrame} to convert
-  into a dataframe.}
+\item{model}{\code{SpatialPolygonsDataFrame} to convert into a dataframe.}
 
-  \item{data}{not used by this method}
+\item{data}{not used by this method}
 
-  \item{region}{name of variable used to split up regions}
+\item{region}{name of variable used to split up regions}
 
-  \item{...}{not used by this method}
+\item{...}{not used by this method}
 }
 \description{
 To figure out the correct variable name for region, inspect

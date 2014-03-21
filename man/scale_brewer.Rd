@@ -24,18 +24,17 @@ scale_color_distiller(..., type = "seq", palette = 1, values = NULL,
   space = "Lab", na.value = "grey50")
 }
 \arguments{
-  \item{type}{One of seq (sequential), div (diverging) or
+\item{type}{One of seq (sequential), div (diverging) or
   qual (qualitative)}
 
-  \item{palette}{If a string, will use that named palette.
+\item{palette}{If a string, will use that named palette.
   If a number, will index into the list of palettes of
   appropriate \code{type}}
 
-  \item{...}{Other arguments passed on to
-  \code{\link{discrete_scale}} to control name, limits,
-  breaks, labels and so forth.}
+\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
+to control name, limits, breaks, labels and so forth.}
 
-  \item{na.value}{Colour to use for missing values}
+\item{na.value}{Colour to use for missing values}
 }
 \description{
 ColorBrewer provides sequential, diverging and qualitative colour schemes

@@ -6,11 +6,10 @@
 gg_dep(version, msg)
 }
 \arguments{
-  \item{version}{The last version of ggplot2 where this
-  function was good (in other words, the last version where
-  it was not deprecated).}
+\item{version}{The last version of ggplot2 where this function was good
+(in other words, the last version where it was not deprecated).}
 
-  \item{msg}{The message to print.}
+\item{msg}{The message to print.}
 }
 \description{
 Version numbers have the format <major>.<minor>.<subminor>, like 0.9.2.

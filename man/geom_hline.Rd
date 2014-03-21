@@ -7,27 +7,24 @@ geom_hline(mapping = NULL, data = NULL, stat = "hline",
   position = "identity", show_guide = FALSE, ...)
 }
 \arguments{
-  \item{show_guide}{should a legend be drawn? (defaults to
-  \code{FALSE})}
+\item{show_guide}{should a legend be drawn? (defaults to \code{FALSE})}
 
-  \item{mapping}{The aesthetic mapping, usually constructed
-  with \code{\link{aes}} or \code{\link{aes_string}}. Only
-  needs to be set at the layer level if you are overriding
-  the plot defaults.}
+\item{mapping}{The aesthetic mapping, usually constructed with
+\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+at the layer level if you are overriding the plot defaults.}
 
-  \item{data}{A layer specific dataset - only needed if you
-  want to override the plot defaults.}
+\item{data}{A layer specific dataset - only needed if you want to override
+the plot defaults.}
 
-  \item{stat}{The statistical transformation to use on the
-  data for this layer.}
+\item{stat}{The statistical transformation to use on the data for this
+layer.}
 
-  \item{position}{The position adjustment to use for
-  overlapping points on this layer}
+\item{position}{The position adjustment to use for overlapping points
+on this layer}
 
-  \item{...}{other arguments passed on to
-  \code{\link{layer}}. This can include aesthetics whose
-  values you want to set, not map. See \code{\link{layer}}
-  for more details.}
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 }
 \description{
 This geom allows you to annotate the plot with horizontal lines (see
@@ -42,8 +39,8 @@ intercept for each panel using a data.frame. See the examples for the
 differences
 }
 \section{Aesthetics}{
-  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
-  "hline")}
+
+\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "hline")}
 }
 \examples{
 p <- ggplot(mtcars, aes(x = wt, y=mpg)) + geom_point()

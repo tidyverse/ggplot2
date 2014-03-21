@@ -9,62 +9,51 @@ geom_dotplot(mapping = NULL, data = NULL, stat = "bindot",
   stackratio = 1, dotsize = 1, stackgroups = FALSE, ...)
 }
 \arguments{
-  \item{binaxis}{which axis to bin along "x" (default) or
-  "y"}
+\item{binaxis}{which axis to bin along "x" (default) or "y"}
 
-  \item{method}{"dotdensity" (default) for dot-density
-  binning, or "histodot" for fixed bin widths (like
-  stat_bin)}
+\item{method}{"dotdensity" (default) for dot-density binning, or
+"histodot" for fixed bin widths (like stat_bin)}
 
-  \item{binwidth}{When \code{method} is "dotdensity", this
-  specifies maximum bin width.  When method is "histodot",
-  this specifies bin width.  Defaults to 1/30 of the range
-  of the data}
+\item{binwidth}{When \code{method} is "dotdensity", this specifies maximum bin width.
+ When method is "histodot", this specifies bin width.
+Defaults to 1/30 of the range of the data}
 
-  \item{binpositions}{When \code{method} is "dotdensity",
-  "bygroup" (default) determines positions of the bins for
-  each group separately. "all" determines positions of the
-  bins with all the data taken together; this is used for
-  aligning dot stacks across multiple groups.}
+\item{binpositions}{When \code{method} is "dotdensity", "bygroup" (default)
+determines positions of the bins for each group separately. "all" determines
+positions of the bins with all the data taken together; this is used for
+aligning dot stacks across multiple groups.}
 
-  \item{stackdir}{which direction to stack the dots. "up"
-  (default), "down", "center", "centerwhole" (centered, but
-  with dots aligned)}
+\item{stackdir}{which direction to stack the dots. "up" (default),
+"down", "center", "centerwhole" (centered, but with dots aligned)}
 
-  \item{stackratio}{how close to stack the dots. Default is
-  1, where dots just just touch. Use smaller values for
-  closer, overlapping dots.}
+\item{stackratio}{how close to stack the dots. Default is 1, where dots just
+just touch. Use smaller values for closer, overlapping dots.}
 
-  \item{dotsize}{The diameter of the dots relative to
-  \code{binwidth}, default 1.}
+\item{dotsize}{The diameter of the dots relative to \code{binwidth}, default 1.}
 
-  \item{stackgroups}{should dots be stacked across groups?
-  This has the effect that \code{position = "stack"} should
-  have, but can't (because this geom has some odd
-  properties).}
+\item{stackgroups}{should dots be stacked across groups? This has the effect
+that \code{position = "stack"} should have, but can't (because this geom has
+some odd properties).}
 
-  \item{mapping}{The aesthetic mapping, usually constructed
-  with \code{\link{aes}} or \code{\link{aes_string}}. Only
-  needs to be set at the layer level if you are overriding
-  the plot defaults.}
+\item{mapping}{The aesthetic mapping, usually constructed with
+\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+at the layer level if you are overriding the plot defaults.}
 
-  \item{data}{A layer specific dataset - only needed if you
-  want to override the plot defaults.}
+\item{data}{A layer specific dataset - only needed if you want to override
+the plot defaults.}
 
-  \item{stat}{The statistical transformation to use on the
-  data for this layer.}
+\item{stat}{The statistical transformation to use on the data for this
+layer.}
 
-  \item{position}{The position adjustment to use for
-  overlapping points on this layer}
+\item{position}{The position adjustment to use for overlapping points
+on this layer}
 
-  \item{na.rm}{If \code{FALSE} (the default), removes
-  missing values with a warning.  If \code{TRUE} silently
-  removes missing values.}
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
-  \item{...}{other arguments passed on to
-  \code{\link{layer}}. This can include aesthetics whose
-  values you want to set, not map. See \code{\link{layer}}
-  for more details.}
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 }
 \description{
 In a dot plot, the width of a dot corresponds to the bin width
@@ -85,8 +74,8 @@ hide the y axis, as in one of the examples, or manually scale it
 to match the number of dots.
 }
 \section{Aesthetics}{
-  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
-  "dotplot")}
+
+\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "dotplot")}
 }
 \examples{
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot()

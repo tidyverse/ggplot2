@@ -16,12 +16,10 @@
 \method{fortify}{cld}(model, data, ...)
 }
 \arguments{
-  \item{model}{an object of class \code{glht},
-  \code{confint.glht}, \code{summary.glht} or
-  \code{\link[multcomp]{cld}}}
+\item{model}{an object of class \code{glht}, \code{confint.glht},
+\code{summary.glht} or \code{\link[multcomp]{cld}}}
 
-  \item{data,...}{other arguments to the generic ignored in
-  this method.}
+\item{data,...}{other arguments to the generic ignored in this method.}
 }
 \description{
 Fortify methods for objects produced by \pkg{multcomp}

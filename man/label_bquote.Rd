@@ -6,7 +6,7 @@
 label_bquote(expr = beta^.(x))
 }
 \arguments{
-  \item{expr}{labelling expression to use}
+\item{expr}{labelling expression to use}
 }
 \description{
 See \code{\link{bquote}} for details on the syntax of the argument.  The

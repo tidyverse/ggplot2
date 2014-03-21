@@ -6,10 +6,9 @@
 facet(..., shrink = TRUE, subclass = c())
 }
 \arguments{
-  \item{...}{object fields}
+\item{...}{object fields}
 
-  \item{shrink}{shrink scales to fit output of statistics,
-  not raw data}
+\item{shrink}{shrink scales to fit output of statistics, not raw data}
 }
 \description{
 Create new facetting specification.  For internal use only.

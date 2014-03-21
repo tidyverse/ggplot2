@@ -6,9 +6,9 @@
 update_labels(p, labels)
 }
 \arguments{
-  \item{p}{plot to modify}
+\item{p}{plot to modify}
 
-  \item{labels}{named list of new labels}
+\item{labels}{named list of new labels}
 }
 \description{
 Update axis/legend labels

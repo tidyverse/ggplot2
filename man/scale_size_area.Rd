@@ -6,11 +6,10 @@
 scale_size_area(..., max_size = 6)
 }
 \arguments{
-  \item{...}{Other arguments passed on to
-  \code{\link{continuous_scale}} to control name, limits,
-  breaks, labels and so forth.}
+\item{...}{Other arguments passed on to \code{\link{continuous_scale}}
+to control name, limits, breaks, labels and so forth.}
 
-  \item{max_size}{Size of largest points.}
+\item{max_size}{Size of largest points.}
 }
 \description{
 When \code{scale_size_area} is used, the default behavior is to scale the

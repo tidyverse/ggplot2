@@ -12,14 +12,12 @@ scale_size(..., range = c(1, 6))
 scale_size_discrete(..., range = c(1, 6))
 }
 \arguments{
-  \item{range}{a numeric vector of length 2 that specifies
-  the minimum and maximum size of the plotting symbol after
-  transformation.}
+\item{range}{a numeric vector of length 2 that specifies the minimum and
+maximum size of the plotting symbol after transformation.}
 
-  \item{...}{common continuous scale parameters:
-  \code{name}, \code{breaks}, \code{labels},
-  \code{na.value}, \code{limits} and \code{trans}.  See
-  \code{\link{continuous_scale}} for more details}
+\item{...}{common continuous scale parameters: \code{name}, \code{breaks},
+\code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
+\code{\link{continuous_scale}} for more details}
 }
 \description{
 Size scale.

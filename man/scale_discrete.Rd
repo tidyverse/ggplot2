@@ -9,15 +9,13 @@ scale_x_discrete(..., expand = waiver())
 scale_y_discrete(..., expand = waiver())
 }
 \arguments{
-  \item{...}{common discrete scale parameters: \code{name},
-  \code{breaks}, \code{labels}, \code{na.value},
-  \code{limits} and \code{guide}.  See
-  \code{\link{discrete_scale}} for more details}
+\item{...}{common discrete scale parameters: \code{name}, \code{breaks},
+\code{labels}, \code{na.value}, \code{limits} and \code{guide}.  See
+\code{\link{discrete_scale}} for more details}
 
-  \item{expand}{a numeric vector of length two giving
-  multiplicative and additive expansion constants. These
-  constants ensure that the data is placed some distance
-  away from the axes.}
+\item{expand}{a numeric vector of length two giving multiplicative and
+additive expansion constants. These constants ensure that the data is
+placed some distance away from the axes.}
 }
 \description{
 You can use continuous positions even with a discrete position scale -

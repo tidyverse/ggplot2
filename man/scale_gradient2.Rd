@@ -18,26 +18,24 @@ scale_color_gradient2(..., low = muted("red"), mid = "white",
   na.value = "grey50", guide = "colourbar")
 }
 \arguments{
-  \item{midpoint}{The midpoint (in data value) of the
-  diverging scale.  Defaults to 0.}
+\item{midpoint}{The midpoint (in data value) of the diverging scale.
+Defaults to 0.}
 
-  \item{guide}{Type of legend. Use \code{"colourbar"} for
-  continuous colour bar, or \code{"legend"} for discrete
-  colour legend.}
+\item{guide}{Type of legend. Use \code{"colourbar"} for continuous
+colour bar, or \code{"legend"} for discrete colour legend.}
 
-  \item{...}{Other arguments passed on to
-  \code{\link{discrete_scale}} to control name, limits,
-  breaks, labels and so forth.}
+\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
+to control name, limits, breaks, labels and so forth.}
 
-  \item{na.value}{Colour to use for missing values}
+\item{na.value}{Colour to use for missing values}
 
-  \item{low}{colour for low end of gradient.}
+\item{low}{colour for low end of gradient.}
 
-  \item{mid}{colour for mid point}
+\item{mid}{colour for mid point}
 
-  \item{high}{colour for high end of gradient.}
+\item{high}{colour for high end of gradient.}
 
-  \item{space}{colour space in which to calculate gradient.
+\item{space}{colour space in which to calculate gradient.
   "Lab" usually best unless gradient goes through white.}
 }
 \description{

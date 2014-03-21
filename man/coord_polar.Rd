@@ -6,13 +6,11 @@
 coord_polar(theta = "x", start = 0, direction = 1)
 }
 \arguments{
-  \item{theta}{variable to map angle to (\code{x} or
-  \code{y})}
+\item{theta}{variable to map angle to (\code{x} or \code{y})}
 
-  \item{start}{offset of starting point from 12 o'clock in
-  radians}
+\item{start}{offset of starting point from 12 o'clock in radians}
 
-  \item{direction}{1, clockwise; -1, anticlockwise}
+\item{direction}{1, clockwise; -1, anticlockwise}
 }
 \description{
 The polar coordinate system is most commonly used for pie charts, which

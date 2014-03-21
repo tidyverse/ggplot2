@@ -6,8 +6,7 @@
 coord_flip(...)
 }
 \arguments{
-  \item{...}{Other arguments passed onto
-  \code{\link{coord_cartesian}}}
+\item{...}{Other arguments passed onto \code{\link{coord_cartesian}}}
 }
 \description{
 Flipped cartesian coordinates so that horizontal becomes vertical, and

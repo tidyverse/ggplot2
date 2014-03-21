@@ -7,13 +7,13 @@ annotate(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
   ymin = NULL, ymax = NULL, ...)
 }
 \arguments{
-  \item{geom}{name of geom to use for annotation}
+\item{geom}{name of geom to use for annotation}
 
-  \item{x,y,xmin,ymin,xmax,ymax}{positionining aesthetics -
-  you must specify at least one of these.}
+\item{x,y,xmin,ymin,xmax,ymax}{positionining aesthetics - you must
+specify at least one of these.}
 
-  \item{...}{other aesthetics. These are not scaled so you
-  can do (e.g.)  \code{colour = "red"} to get a red point.}
+\item{...}{other aesthetics. These are not scaled so you can do (e.g.)
+\code{colour = "red"} to get a red point.}
 }
 \description{
 This function adds geoms to a plot. Unlike typical a geom function,

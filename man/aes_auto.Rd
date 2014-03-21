@@ -6,9 +6,9 @@
 aes_auto(data = NULL, ...)
 }
 \arguments{
-  \item{data}{data.frame or names of variables}
+\item{data}{data.frame or names of variables}
 
-  \item{...}{aesthetics that need to be explicitly mapped.}
+\item{...}{aesthetics that need to be explicitly mapped.}
 }
 \description{
 Automatic aesthetic mapping

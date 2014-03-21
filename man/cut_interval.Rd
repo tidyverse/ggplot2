@@ -6,14 +6,13 @@
 cut_interval(x, n = NULL, length = NULL, ...)
 }
 \arguments{
-  \item{x}{numeric vector}
+\item{x}{numeric vector}
 
-  \item{n}{number of intervals to create, OR}
+\item{n}{number of intervals to create, OR}
 
-  \item{length}{length of each interval}
+\item{length}{length of each interval}
 
-  \item{...}{other arguments passed on to
-  \code{\link{cut}}}
+\item{...}{other arguments passed on to \code{\link{cut}}}
 }
 \description{
 Cut numeric vector into intervals of equal length.

@@ -6,16 +6,16 @@
 annotation_raster(raster, xmin, xmax, ymin, ymax, interpolate = FALSE)
 }
 \arguments{
-  \item{raster}{raster object to display}
+\item{raster}{raster object to display}
 
-  \item{xmin,xmax}{x location (in data coordinates) giving
-  horizontal location of raster}
+\item{xmin,xmax}{x location (in data coordinates) giving horizontal
+location of raster}
 
-  \item{ymin,ymax}{y location (in data coordinates) giving
-  vertical location of raster}
+\item{ymin,ymax}{y location (in data coordinates) giving vertical
+location of raster}
 
-  \item{interpolate}{If \code{TRUE} interpolate linearly,
-  if \code{FALSE} (the default) don't interpolate.}
+\item{interpolate}{If \code{TRUE} interpolate linearly, if \code{FALSE}
+(the default) don't interpolate.}
 }
 \description{
 This is a special version of \code{\link{geom_raster}} optimised for static

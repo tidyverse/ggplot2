@@ -9,8 +9,8 @@ xlim(...)
 ylim(...)
 }
 \arguments{
-  \item{...}{if numeric, will create a continuous scale, if
-  factor or character, will create a discrete scale.}
+\item{...}{if numeric, will create a continuous scale, if factor or
+character, will create a discrete scale.}
 }
 \description{
 Observations not in this range will be dropped completely and

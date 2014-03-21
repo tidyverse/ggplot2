@@ -7,23 +7,20 @@ coord_map(projection = "mercator", ..., orientation = NULL, xlim = NULL,
   ylim = NULL)
 }
 \arguments{
-  \item{projection}{projection to use, see
-  \code{\link[mapproj]{mapproject}} for list}
+\item{projection}{projection to use, see
+\code{\link[mapproj]{mapproject}} for list}
 
-  \item{...}{other arguments passed on to
-  \code{\link[mapproj]{mapproject}}}
+\item{...}{other arguments passed on to
+\code{\link[mapproj]{mapproject}}}
 
-  \item{orientation}{projection orientation, which defaults
-  to \code{c(90, 0, mean(range(x)))}.  This is not optimal
-  for many projections, so you will have to supply your
-  own. See \code{\link[mapproj]{mapproject}} for more
-  information.}
+\item{orientation}{projection orientation, which defaults to
+\code{c(90, 0, mean(range(x)))}.  This is not optimal for many
+projections, so you will have to supply your own. See
+\code{\link[mapproj]{mapproject}} for more information.}
 
-  \item{xlim}{manually specific x limits (in degrees of
-  lontitude)}
+\item{xlim}{manually specific x limits (in degrees of lontitude)}
 
-  \item{ylim}{manually specific y limits (in degrees of
-  latitude)}
+\item{ylim}{manually specific y limits (in degrees of latitude)}
 }
 \description{
 This coordinate system provides the full range of map projections available

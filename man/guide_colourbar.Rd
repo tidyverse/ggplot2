@@ -21,93 +21,80 @@ guide_colorbar(title = waiver(), title.position = NULL,
   default.unit = "line", reverse = FALSE, order = 0, ...)
 }
 \arguments{
-  \item{barwidth}{A numeric or a unit object specifying the
-  width of the colorbar. Default value is
-  \code{legend.key.width} or \code{legend.key.size} in
-  \code{\link{theme}} or theme.}
+\item{barwidth}{A numeric or a unit object specifying the width of the
+colorbar. Default value is \code{legend.key.width} or
+\code{legend.key.size} in \code{\link{theme}} or theme.}
 
-  \item{barheight}{A numeric or a unit object specifying
-  the height of the colorbar. Default value is
-  \code{legend.key.height} or \code{legend.key.size} in
-  \code{\link{theme}} or theme.}
+\item{barheight}{A numeric or a unit object specifying the height of the
+colorbar. Default value is \code{legend.key.height} or
+\code{legend.key.size} in \code{\link{theme}} or theme.}
 
-  \item{nbin}{A numeric specifying the number of bins for
-  drawing colorbar. A smoother colorbar for a larger
-  value.}
+\item{nbin}{A numeric specifying the number of bins for drawing colorbar. A
+smoother colorbar for a larger value.}
 
-  \item{raster}{A logical. If \code{TRUE} then the colorbar
-  is rendered as a raster object. If \code{FALSE} then the
-  colorbar is rendered as a set of rectangles. Note that
-  not all graphics devices are capable of rendering raster
-  image.}
+\item{raster}{A logical. If \code{TRUE} then the colorbar is rendered as a
+raster object. If \code{FALSE} then the colorbar is rendered as a set of
+rectangles. Note that not all graphics devices are capable of rendering
+raster image.}
 
-  \item{ticks}{A logical specifying if tick marks on
-  colorbar should be visible.}
+\item{ticks}{A logical specifying if tick marks on colorbar should be
+visible.}
 
-  \item{draw.ulim}{A logical specifying if the upper limit
-  tick marks should be visible.}
+\item{draw.ulim}{A logical specifying if the upper limit tick marks should
+be visible.}
 
-  \item{draw.llim}{A logical specifying if the lower limit
-  tick marks should be visible.}
+\item{draw.llim}{A logical specifying if the lower limit tick marks should
+be visible.}
 
-  \item{direction}{A character string indicating the
-  direction of the guide.  One of "horizontal" or
-  "vertical."}
+\item{direction}{A character string indicating the direction of the guide.
+One of "horizontal" or "vertical."}
 
-  \item{default.unit}{A character string indicating unit
-  for \code{barwidth}}
+\item{default.unit}{A character string indicating unit for \code{barwidth}}
 
-  \item{reverse}{logical. If \code{TRUE} the colorbar is
-  reversed. By default, the highest value is on the top and
-  the lowest value is on the bottom}
+\item{reverse}{logical. If \code{TRUE} the colorbar is reversed. By default,
+the highest value is on the top and the lowest value is on the bottom}
 
-  \item{...}{ignored.}
+\item{...}{ignored.}
 
-  \item{title}{A character string or expression indicating
-  a title of guide.  If \code{NULL}, the title is not
-  shown. By default (\code{\link{waiver}}), the name of the
-  scale object or tha name specified in \code{\link{labs}}
-  is used for the title.}
+\item{title}{A character string or expression indicating a title of guide.
+If \code{NULL}, the title is not shown. By default
+(\code{\link{waiver}}), the name of the scale object or tha name
+specified in \code{\link{labs}} is used for the title.}
 
-  \item{title.position}{A character string indicating the
-  position of a title. One of "top" (default for a vertical
-  guide), "bottom", "left" (default for a horizontal
-  guide), or "right."}
+\item{title.position}{A character string indicating the position of a
+ title. One of "top" (default for a vertical guide), "bottom", "left"
+(default for a horizontal guide), or "right."}
 
-  \item{title.theme}{A theme object for rendering the title
-  text. Usually the object of \code{\link{element_text}} is
-  expected. By default, the theme is specified by
-  \code{legend.title} in \code{\link{theme}} or theme.}
+\item{title.theme}{A theme object for rendering the title text. Usually the
+object of \code{\link{element_text}} is expected. By default, the theme is
+specified by \code{legend.title} in \code{\link{theme}} or theme.}
 
-  \item{title.hjust}{A number specifying horizontal
-  justification of the title text.}
+\item{title.hjust}{A number specifying horizontal justification of the
+title text.}
 
-  \item{title.vjust}{A number specifying vertical
-  justification of the title text.}
+\item{title.vjust}{A number specifying vertical justification of the title
+text.}
 
-  \item{label}{logical. If \code{TRUE} then the labels are
-  drawn. If \code{FALSE} then the labels are invisible.}
+\item{label}{logical. If \code{TRUE} then the labels are drawn. If
+\code{FALSE} then the labels are invisible.}
 
-  \item{label.position}{A character string indicating the
-  position of a label. One of "top", "bottom" (default for
-  horizontal guide), "left", or "right" (default for
-  vertical gudie).}
+\item{label.position}{A character string indicating the position of a
+label. One of "top", "bottom" (default for horizontal guide), "left", or
+"right" (default for vertical gudie).}
 
-  \item{label.theme}{A theme object for rendering the label
-  text. Usually the object of \code{\link{element_text}} is
-  expected. By default, the theme is specified by
-  \code{legend.text} in \code{\link{theme}} or theme.}
+\item{label.theme}{A theme object for rendering the label text. Usually the
+object of \code{\link{element_text}} is expected. By default, the theme is
+specified by \code{legend.text} in \code{\link{theme}} or theme.}
 
-  \item{label.hjust}{A numeric specifying horizontal
-  justification of the label text.}
+\item{label.hjust}{A numeric specifying horizontal justification of the
+label text.}
 
-  \item{label.vjust}{A numeric specifying vertical
-  justification of the label text.}
+\item{label.vjust}{A numeric specifying vertical justification of the label
+text.}
 
-  \item{order}{positive integer less that 99 that specify
-  the order of this guide in the multiple guides. If 0
-  (default), the order is determined by a secret
-  algorithm.}
+\item{order}{positive integer less that 99 that specify the order of
+this guide in the multiple guides. If 0 (default), the order is determined
+by a secret algorithm.}
 }
 \value{
 A guide object

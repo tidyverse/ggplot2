@@ -8,30 +8,26 @@ stat_qq(mapping = NULL, data = NULL, geom = "point",
   na.rm = FALSE, ...)
 }
 \arguments{
-  \item{distribution}{Distribution function to use, if x
-  not specified}
+\item{distribution}{Distribution function to use, if x not specified}
 
-  \item{dparams}{Parameters for distribution function}
+\item{dparams}{Parameters for distribution function}
 
-  \item{...}{Other arguments passed to distribution
-  function}
+\item{...}{Other arguments passed to distribution function}
 
-  \item{na.rm}{If \code{FALSE} (the default), removes
-  missing values with a warning.  If \code{TRUE} silently
-  removes missing values.}
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
-  \item{mapping}{The aesthetic mapping, usually constructed
-  with \code{\link{aes}} or \code{\link{aes_string}}. Only
-  needs to be set at the layer level if you are overriding
-  the plot defaults.}
+\item{mapping}{The aesthetic mapping, usually constructed with
+\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+at the layer level if you are overriding the plot defaults.}
 
-  \item{data}{A layer specific dataset - only needed if you
-  want to override the plot defaults.}
+\item{data}{A layer specific dataset - only needed if you want to override
+the plot defaults.}
 
-  \item{geom}{The geometric object to use display the data}
+\item{geom}{The geometric object to use display the data}
 
-  \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+\item{position}{The position adjustment to use for overlappling points
+on this layer}
 }
 \value{
 a data.frame with additional columns:
@@ -42,8 +38,8 @@ a data.frame with additional columns:
 Calculation for quantile-quantile plot.
 }
 \section{Aesthetics}{
-  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
-  "qq")}
+
+\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "qq")}
 }
 \examples{
 \donttest{

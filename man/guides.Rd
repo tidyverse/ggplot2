@@ -6,7 +6,7 @@
 guides(...)
 }
 \arguments{
-  \item{...}{List of scale guide pairs}
+\item{...}{List of scale guide pairs}
 }
 \value{
 A list containing the mapping between scale and guide.

@@ -7,10 +7,10 @@ coord_trans(xtrans = "identity", ytrans = "identity", limx = NULL,
   limy = NULL)
 }
 \arguments{
-  \item{xtrans,ytrans}{transformers for x and y axes}
+\item{xtrans,ytrans}{transformers for x and y axes}
 
-  \item{limx,limy}{limits for x and y axes. (Named so for
-  backward compatability)}
+\item{limx,limy}{limits for x and y axes. (Named so for backward
+compatability)}
 }
 \description{
 \code{coord_trans} is different to scale transformations in that it occurs after

@@ -12,13 +12,11 @@ scale_linetype_continuous(...)
 scale_linetype_discrete(..., na.value = "blank")
 }
 \arguments{
-  \item{na.value}{The linetype to use for \code{NA}
-  values.}
+\item{na.value}{The linetype to use for \code{NA} values.}
 
-  \item{...}{common discrete scale parameters: \code{name},
-  \code{breaks}, \code{labels}, \code{na.value},
-  \code{limits} and \code{guide}.  See
-  \code{\link{discrete_scale}} for more details}
+\item{...}{common discrete scale parameters: \code{name}, \code{breaks},
+\code{labels}, \code{na.value}, \code{limits} and \code{guide}.  See
+\code{\link{discrete_scale}} for more details}
 }
 \description{
 Default line types based on a set supplied by Richard Pearson,

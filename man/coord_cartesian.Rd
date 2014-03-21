@@ -6,11 +6,11 @@
 coord_cartesian(xlim = NULL, ylim = NULL, wise = NULL)
 }
 \arguments{
-  \item{xlim}{limits for the x axis}
+\item{xlim}{limits for the x axis}
 
-  \item{ylim}{limits for the y axis}
+\item{ylim}{limits for the y axis}
 
-  \item{wise}{deprecated in 0.9.1}
+\item{wise}{deprecated in 0.9.1}
 }
 \description{
 The Cartesian coordinate system is the most familiar, and common, type of

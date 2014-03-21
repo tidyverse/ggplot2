@@ -25,9 +25,9 @@ theme_minimal(base_size = 12, base_family = "")
 theme_classic(base_size = 12, base_family = "")
 }
 \arguments{
-  \item{base_size}{base font size}
+\item{base_size}{base font size}
 
-  \item{base_family}{base font family}
+\item{base_family}{base font family}
 }
 \description{
 Themes set the general aspect of the plot such as the colour of the

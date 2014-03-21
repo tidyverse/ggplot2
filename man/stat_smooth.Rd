@@ -8,45 +8,40 @@ stat_smooth(mapping = NULL, data = NULL, geom = "smooth",
   n = 80, fullrange = FALSE, level = 0.95, na.rm = FALSE, ...)
 }
 \arguments{
-  \item{method}{smoothing method (function) to use, eg. lm,
-  glm, gam, loess, rlm. For datasets with n < 1000 default
-  is \code{\link{loess}}. For datasets with 1000 or more
-  observations defaults to gam, see \code{\link[mgcv]{gam}}
-  for more details.}
+\item{method}{smoothing method (function) to use, eg. lm, glm, gam, loess,
+rlm. For datasets with n < 1000 default is \code{\link{loess}}. For datasets
+with 1000 or more observations defaults to gam, see \code{\link[mgcv]{gam}}
+for more details.}
 
-  \item{formula}{formula to use in smoothing function, eg.
-  \code{y ~ x}, \code{y ~ poly(x, 2)}, \code{y ~ log(x)}}
+\item{formula}{formula to use in smoothing function, eg. \code{y ~ x},
+\code{y ~ poly(x, 2)}, \code{y ~ log(x)}}
 
-  \item{se}{display confidence interval around smooth?
-  (TRUE by default, see level to control}
+\item{se}{display confidence interval around smooth? (TRUE by default, see
+level to control}
 
-  \item{fullrange}{should the fit span the full range of
-  the plot, or just the data}
+\item{fullrange}{should the fit span the full range of the plot, or just
+the data}
 
-  \item{level}{level of confidence interval to use (0.95 by
-  default)}
+\item{level}{level of confidence interval to use (0.95 by default)}
 
-  \item{n}{number of points to evaluate smoother at}
+\item{n}{number of points to evaluate smoother at}
 
-  \item{na.rm}{If \code{FALSE} (the default), removes
-  missing values with a warning.  If \code{TRUE} silently
-  removes missing values.}
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
-  \item{...}{other arguments are passed to smoothing
-  function}
+\item{...}{other arguments are passed to smoothing function}
 
-  \item{mapping}{The aesthetic mapping, usually constructed
-  with \code{\link{aes}} or \code{\link{aes_string}}. Only
-  needs to be set at the layer level if you are overriding
-  the plot defaults.}
+\item{mapping}{The aesthetic mapping, usually constructed with
+\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+at the layer level if you are overriding the plot defaults.}
 
-  \item{data}{A layer specific dataset - only needed if you
-  want to override the plot defaults.}
+\item{data}{A layer specific dataset - only needed if you want to override
+the plot defaults.}
 
-  \item{geom}{The geometric object to use display the data}
+\item{geom}{The geometric object to use display the data}
 
-  \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+\item{position}{The position adjustment to use for overlappling points
+on this layer}
 }
 \value{
 a data.frame with additional columns
@@ -68,8 +63,8 @@ is constructed on the link scale, and then back-transformed to the response
 scale.
 }
 \section{Aesthetics}{
-  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
-  "smooth")}
+
+\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "smooth")}
 }
 \examples{
 \donttest{

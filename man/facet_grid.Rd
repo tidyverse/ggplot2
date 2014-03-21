@@ -7,55 +7,46 @@ facet_grid(facets, margins = FALSE, scales = "fixed", space = "fixed",
   shrink = TRUE, labeller = "label_value", as.table = TRUE, drop = TRUE)
 }
 \arguments{
-  \item{facets}{a formula with the rows (of the tabular
-  display) on the LHS and the columns (of the tabular
-  display) on the RHS; the dot in the formula is used to
-  indicate there should be no faceting on this dimension
-  (either row or column). The formula can also be provided
-  as a string instead of a classical formula object}
+\item{facets}{a formula with the rows (of the tabular display) on the LHS
+and the columns (of the tabular display) on the RHS; the dot in the
+formula is used to indicate there should be no faceting on this dimension
+(either row or column). The formula can also be provided as a string
+instead of a classical formula object}
 
-  \item{margins}{either a logical value or a character
-  vector. Margins are additional facets which contain all
-  the data for each of the possible values of the faceting
-  variables. If \code{FALSE}, no additional facets are
-  included (the default). If \code{TRUE}, margins are
-  included for all faceting variables. If specified as a
-  character vector, it is the names of variables for which
-  margins are to be created.}
+\item{margins}{either a logical value or a character
+vector. Margins are additional facets which contain all the data
+for each of the possible values of the faceting variables. If
+\code{FALSE}, no additional facets are included (the
+default). If \code{TRUE}, margins are included for all faceting
+variables. If specified as a character vector, it is the names of
+variables for which margins are to be created.}
 
-  \item{scales}{Are scales shared across all facets (the
-  default, \code{"fixed"}), or do they vary across rows
-  (\code{"free_x"}), columns (\code{"free_y"}), or both
-  rows and columns (\code{"free"})}
+\item{scales}{Are scales shared across all facets (the default,
+\code{"fixed"}), or do they vary across rows (\code{"free_x"}),
+columns (\code{"free_y"}), or both rows and columns (\code{"free"})}
 
-  \item{space}{If \code{"fixed"}, the default, all panels
-  have the same size.  If \code{"free_y"} their height will
-  be proportional to the length of the y scale; if
-  \code{"free_x"} their width will be proportional to the
-  length of the x scale; or if \code{"free"} both height
-  and width will vary.  This setting has no effect unless
-  the appropriate scales also vary.}
+\item{space}{If \code{"fixed"}, the default, all panels have the same size.
+ If \code{"free_y"} their height will be proportional to the length of the
+ y scale; if \code{"free_x"} their width will be proportional to the
+length of the x scale; or if \code{"free"} both height and width will
+vary.  This setting has no effect unless the appropriate scales also vary.}
 
-  \item{labeller}{A function that takes two arguments
-  (\code{variable} and \code{value}) and returns a string
-  suitable for display in the facet strip. See
-  \code{\link{label_value}} for more details and pointers
-  to other options.}
+\item{labeller}{A function that takes two arguments (\code{variable} and
+\code{value}) and returns a string suitable for display in the facet
+strip. See \code{\link{label_value}} for more details and pointers
+to other options.}
 
-  \item{as.table}{If \code{TRUE}, the default, the facets
-  are laid out like a table with highest values at the
-  bottom-right. If \code{FALSE}, the facets are laid out
-  like a plot with the highest value at the top-right.}
+\item{as.table}{If \code{TRUE}, the default, the facets are laid out like
+a table with highest values at the bottom-right. If \code{FALSE}, the
+facets are laid out like a plot with the highest value at the top-right.}
 
-  \item{shrink}{If \code{TRUE}, will shrink scales to fit
-  output of statistics, not raw data. If \code{FALSE}, will
-  be range of raw data before statistical summary.}
+\item{shrink}{If \code{TRUE}, will shrink scales to fit output of
+statistics, not raw data. If \code{FALSE}, will be range of raw data
+before statistical summary.}
 
-  \item{drop}{If \code{TRUE}, the default, all factor
-  levels not used in the data will automatically be
-  dropped. If \code{FALSE}, all factor levels will be
-  shown, regardless of whether or not they appear in the
-  data.}
+\item{drop}{If \code{TRUE}, the default, all factor levels not used in the
+data will automatically be dropped. If \code{FALSE}, all factor levels
+will be shown, regardless of whether or not they appear in the data.}
 }
 \description{
 Lay out panels in a grid.

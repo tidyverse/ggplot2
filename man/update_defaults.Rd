@@ -9,9 +9,9 @@ update_geom_defaults(geom, new)
 update_stat_defaults(stat, new)
 }
 \arguments{
-  \item{stat,geom}{name of geom/stat to modify}
+\item{stat,geom}{name of geom/stat to modify}
 
-  \item{new}{named list of aesthetics}
+\item{new}{named list of aesthetics}
 }
 \description{
 Modify geom/stat aesthetic defaults for future plots

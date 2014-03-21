@@ -25,12 +25,10 @@ scale_size_identity(..., guide = "none")
 scale_color_identity(..., guide = "none")
 }
 \arguments{
-  \item{...}{Other arguments passed on to
-  \code{\link{discrete_scale}} or
-  \code{\link{continuous_scale}}}
+\item{...}{Other arguments passed on to \code{\link{discrete_scale}} or
+\code{\link{continuous_scale}}}
 
-  \item{guide}{Guide to use for this scale - defaults to
-  \code{"none"}.}
+\item{guide}{Guide to use for this scale - defaults to \code{"none"}.}
 }
 \description{
 Use values without scaling.

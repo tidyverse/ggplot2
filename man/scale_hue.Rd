@@ -27,22 +27,21 @@ scale_color_hue(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
   direction = 1, na.value = "grey50")
 }
 \arguments{
-  \item{na.value}{Colour to use for missing values}
+\item{na.value}{Colour to use for missing values}
 
-  \item{...}{Other arguments passed on to
-  \code{\link{discrete_scale}} to control name, limits,
-  breaks, labels and so forth.}
+\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
+to control name, limits, breaks, labels and so forth.}
 
-  \item{h}{range of hues to use, in [0, 360]}
+\item{h}{range of hues to use, in [0, 360]}
 
-  \item{c}{chroma (intensity of colour), maximum value
+\item{c}{chroma (intensity of colour), maximum value
   varies depending on}
 
-  \item{l}{luminance (lightness), in [0, 100]}
+\item{l}{luminance (lightness), in [0, 100]}
 
-  \item{h.start}{hue to start at}
+\item{h.start}{hue to start at}
 
-  \item{direction}{direction to travel around the colour
+\item{direction}{direction to travel around the colour
   wheel, 1 = clockwise, -1 = counter-clockwise}
 }
 \description{

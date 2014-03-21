@@ -8,42 +8,36 @@ stat_ellipse(mapping = NULL, data = NULL, geom = "path",
   na.rm = FALSE, ...)
 }
 \arguments{
-  \item{level}{The confidence level at which to draw an
-  ellipse (default is 0.95), or, if \code{type="euclid"},
-  the radius of the circle to be drawn.}
+\item{level}{The confidence level at which to draw an ellipse (default is 0.95),
+or, if \code{type="euclid"}, the radius of the circle to be drawn.}
 
-  \item{type}{The type of ellipse.  The default \code{"t"}
-  assumes a multivariate t-distribution, and \code{"norm"}
-  assumes a multivariate normal distribution.
-  \code{"euclid"} draws a circle with the radius equal to
-  \code{level}, representing the euclidian distance from
-  the center.  This ellipse probably won't appear circular
-  unless \code{coord_fixed()} is applied.}
+\item{type}{The type of ellipse.
+The default \code{"t"} assumes a multivariate t-distribution, and
+\code{"norm"} assumes a multivariate normal distribution.
+\code{"euclid"} draws a circle with the radius equal to \code{level},
+representing the euclidian distance from the center.
+This ellipse probably won't appear circular unless \code{coord_fixed()} is applied.}
 
-  \item{segments}{The number of segments to be used in
-  drawing the ellipse.}
+\item{segments}{The number of segments to be used in drawing the ellipse.}
 
-  \item{na.rm}{If \code{FALSE} (the default), removes
-  missing values with a warning.  If \code{TRUE} silently
-  removes missing values.}
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
-  \item{mapping}{The aesthetic mapping, usually constructed
-  with \code{\link{aes}} or \code{\link{aes_string}}. Only
-  needs to be set at the layer level if you are overriding
-  the plot defaults.}
+\item{mapping}{The aesthetic mapping, usually constructed with
+\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+at the layer level if you are overriding the plot defaults.}
 
-  \item{data}{A layer specific dataset - only needed if you
-  want to override the plot defaults.}
+\item{data}{A layer specific dataset - only needed if you want to override
+the plot defaults.}
 
-  \item{geom}{The geometric object to use display the data}
+\item{geom}{The geometric object to use display the data}
 
-  \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+\item{position}{The position adjustment to use for overlappling points
+on this layer}
 
-  \item{...}{other arguments passed on to
-  \code{\link{layer}}. This can include aesthetics whose
-  values you want to set, not map. See \code{\link{layer}}
-  for more details.}
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 }
 \description{
 Plot data ellipses.

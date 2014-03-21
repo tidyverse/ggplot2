@@ -12,9 +12,9 @@ theme_get()
 theme_set(new)
 }
 \arguments{
-  \item{...}{named list of theme settings}
+\item{...}{named list of theme settings}
 
-  \item{new}{new theme (a list of theme elements)}
+\item{new}{new theme (a list of theme elements)}
 }
 \description{
 Use \code{theme_update} to modify a small number of elements of the current

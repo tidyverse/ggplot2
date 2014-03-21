@@ -12,15 +12,14 @@ scale_fill_grey(..., start = 0.2, end = 0.8, na.value = "grey50")
 scale_color_grey(..., start = 0.2, end = 0.8, na.value = "red")
 }
 \arguments{
-  \item{start}{gray value at low end of palette}
+\item{start}{gray value at low end of palette}
 
-  \item{end}{gray value at high end of palette}
+\item{end}{gray value at high end of palette}
 
-  \item{...}{Other arguments passed on to
-  \code{\link{discrete_scale}} to control name, limits,
-  breaks, labels and so forth.}
+\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
+to control name, limits, breaks, labels and so forth.}
 
-  \item{na.value}{Colour to use for missing values}
+\item{na.value}{Colour to use for missing values}
 }
 \description{
 Based on \code{\link{gray.colors}}

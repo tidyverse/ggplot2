@@ -6,12 +6,11 @@
 cut_number(x, n = NULL, ...)
 }
 \arguments{
-  \item{x}{numeric vector}
+\item{x}{numeric vector}
 
-  \item{n}{number of intervals to create}
+\item{n}{number of intervals to create}
 
-  \item{...}{other arguments passed on to
-  \code{\link{cut}}}
+\item{...}{other arguments passed on to \code{\link{cut}}}
 }
 \description{
 Cut numeric vector into intervals containing equal number of points.

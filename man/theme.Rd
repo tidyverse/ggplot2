@@ -6,13 +6,12 @@
 theme(..., complete = FALSE)
 }
 \arguments{
-  \item{...}{a list of element name, element pairings that
-  modify the existing theme.}
+\item{...}{a list of element name, element pairings that modify the
+existing theme.}
 
-  \item{complete}{set this to TRUE if this is a complete
-  theme, such as the one returned \code{by theme_grey()}.
-  Complete themes behave differently when added to a ggplot
-  object.}
+\item{complete}{set this to TRUE if this is a complete theme, such as
+  the one returned \code{by theme_grey()}. Complete themes behave
+  differently when added to a ggplot object.}
 }
 \description{
 Use this function to modify theme settings.
@@ -31,109 +30,121 @@ To see a graphical representation of the inheritance tree, see the
 last example below.
 }
 \section{Theme elements}{
-  The individual theme elements are:
 
-  \tabular{ll}{ line \tab all line elements
-  (\code{element_line}) \cr rect \tab all rectangluar
-  elements (\code{element_rect}) \cr text \tab all text
-  elements (\code{element_text}) \cr title \tab all title
-  elements: plot, axes, legends (\code{element_text};
-  inherits from \code{text}) \cr
+The individual theme elements are:
 
-  axis.title \tab label of axes (\code{element_text};
-  inherits from \code{text}) \cr axis.title.x \tab x axis
-  label (\code{element_text}; inherits from
-  \code{axis.title}) \cr axis.title.y \tab y axis label
-  (\code{element_text}; inherits from \code{axis.title})
-  \cr axis.text \tab tick labels along axes
-  (\code{element_text}; inherits from \code{text}) \cr
-  axis.text.x \tab x axis tick labels (\code{element_text};
-  inherits from \code{axis.text}) \cr axis.text.y \tab y
-  axis tick labels (\code{element_text}; inherits from
-  \code{axis.text}) \cr axis.ticks \tab tick marks along
-  axes (\code{element_line}; inherits from \code{line}) \cr
-  axis.ticks.x \tab x axis tick marks (\code{element_line};
-  inherits from \code{axis.ticks}) \cr axis.ticks.y \tab y
-  axis tick marks (\code{element_line}; inherits from
-  \code{axis.ticks}) \cr axis.ticks.length \tab length of
-  tick marks (\code{unit}) \cr axis.ticks.margin \tab space
-  between tick mark and tick label (\code{unit}) \cr
-  axis.line \tab lines along axes (\code{element_line};
-  inherits from \code{line}) \cr axis.line.x \tab line
-  along x axis (\code{element_line}; inherits from
-  \code{axis.line}) \cr axis.line.y \tab line along y axis
-  (\code{element_line}; inherits from \code{axis.line}) \cr
+\tabular{ll}{
+  line             \tab all line elements
+                   (\code{element_line}) \cr
+  rect             \tab all rectangluar elements
+                   (\code{element_rect}) \cr
+  text             \tab all text elements
+                   (\code{element_text}) \cr
+  title            \tab all title elements: plot, axes, legends
+                   (\code{element_text}; inherits from \code{text}) \cr
 
-  legend.background \tab background of legend
-  (\code{element_rect}; inherits from \code{rect}) \cr
-  legend.margin \tab extra space added around legend
-  (\code{unit}) \cr legend.key \tab background underneath
-  legend keys (\code{element_rect}; inherits from
-  \code{rect}) \cr legend.key.size \tab size of legend keys
-  (\code{unit}; inherits from \code{legend.key.size}) \cr
-  legend.key.height \tab key background height
-  (\code{unit}; inherits from \code{legend.key.size}) \cr
-  legend.key.width \tab key background width (\code{unit};
-  inherits from \code{legend.key.size}) \cr legend.text
-  \tab legend item labels (\code{element_text}; inherits
-  from \code{text}) \cr legend.text.align \tab alignment of
-  legend labels (number from 0 (left) to 1 (right)) \cr
-  legend.title \tab title of legend (\code{element_text};
-  inherits from \code{title}) \cr legend.title.align \tab
-  alignment of legend title (number from 0 (left) to 1
-  (right)) \cr legend.position \tab the position of legends
-  ("none", "left", "right", "bottom", "top", or two-element
-  numeric vector) \cr legend.direction \tab layout of items
-  in legends ("horizontal" or "vertical") \cr
-  legend.justification \tab anchor point for positioning
-  legend inside plot ("center" or two-element numeric
-  vector) \cr legend.box \tab arrangement of multiple
-  legends ("horizontal" or "vertical") \cr legend.box.just
-  \tab justification of each legend within the overall
-  bounding box, when there are multiple legends ("top",
-  "bottom", "left", or "right")\cr
+  axis.title       \tab label of axes
+                   (\code{element_text}; inherits from \code{text}) \cr
+  axis.title.x     \tab x axis label
+                   (\code{element_text}; inherits from \code{axis.title}) \cr
+  axis.title.y     \tab y axis label
+                   (\code{element_text}; inherits from \code{axis.title}) \cr
+  axis.text        \tab tick labels along axes
+                   (\code{element_text}; inherits from \code{text}) \cr
+  axis.text.x      \tab x axis tick labels
+                   (\code{element_text}; inherits from \code{axis.text}) \cr
+  axis.text.y      \tab y axis tick labels
+                   (\code{element_text}; inherits from \code{axis.text}) \cr
+  axis.ticks       \tab tick marks along axes
+                   (\code{element_line}; inherits from \code{line}) \cr
+  axis.ticks.x     \tab x axis tick marks
+                   (\code{element_line}; inherits from \code{axis.ticks}) \cr
+  axis.ticks.y     \tab y axis tick marks
+                   (\code{element_line}; inherits from \code{axis.ticks}) \cr
+  axis.ticks.length  \tab length of tick marks
+                   (\code{unit}) \cr
+  axis.ticks.margin  \tab space between tick mark and tick label
+                   (\code{unit}) \cr
+  axis.line        \tab lines along axes
+                   (\code{element_line}; inherits from \code{line}) \cr
+  axis.line.x      \tab line along x axis
+                   (\code{element_line}; inherits from \code{axis.line}) \cr
+  axis.line.y      \tab line along y axis
+                   (\code{element_line}; inherits from \code{axis.line}) \cr
 
-  panel.background \tab background of plotting area, drawn
-  underneath plot (\code{element_rect}; inherits from
-  \code{rect}) \cr panel.border \tab border around plotting
-  area, drawn on top of plot so that it covers tick marks
-  and grid lines. This should be used with \code{fill=NA}
-  (\code{element_rect}; inherits from \code{rect}) \cr
-  panel.margin \tab margin around facet panels
-  (\code{unit}) \cr panel.grid \tab grid lines
-  (\code{element_line}; inherits from \code{line}) \cr
+  legend.background  \tab background of legend
+                   (\code{element_rect}; inherits from \code{rect}) \cr
+  legend.margin    \tab extra space added around legend
+                   (\code{unit}) \cr
+  legend.key       \tab background underneath legend keys
+                   (\code{element_rect}; inherits from \code{rect}) \cr
+  legend.key.size  \tab size of legend keys
+                   (\code{unit}; inherits from \code{legend.key.size}) \cr
+  legend.key.height  \tab key background height
+                   (\code{unit}; inherits from \code{legend.key.size}) \cr
+  legend.key.width   \tab key background width
+                   (\code{unit}; inherits from \code{legend.key.size}) \cr
+  legend.text      \tab legend item labels
+                   (\code{element_text}; inherits from \code{text}) \cr
+  legend.text.align  \tab alignment of legend labels
+                   (number from 0 (left) to 1 (right)) \cr
+  legend.title     \tab title of legend
+                   (\code{element_text}; inherits from \code{title}) \cr
+  legend.title.align \tab alignment of legend title
+                   (number from 0 (left) to 1 (right)) \cr
+  legend.position  \tab the position of legends
+                   ("none", "left", "right", "bottom", "top", or two-element
+                     numeric vector) \cr
+  legend.direction \tab layout of items in legends
+                   ("horizontal" or "vertical") \cr
+  legend.justification \tab anchor point for positioning legend inside plot
+                   ("center" or two-element numeric vector) \cr
+  legend.box       \tab arrangement of multiple legends
+                   ("horizontal" or "vertical") \cr
+  legend.box.just  \tab justification of each legend within the overall
+                   bounding box, when there are multiple legends
+                   ("top", "bottom", "left", or "right")\cr
+
+  panel.background \tab background of plotting area, drawn underneath plot
+                   (\code{element_rect}; inherits from \code{rect}) \cr
+  panel.border     \tab border around plotting area, drawn on top of plot
+                   so that it covers tick marks and grid lines. This should
+                   be used with \code{fill=NA}
+                   (\code{element_rect}; inherits from \code{rect}) \cr
+  panel.margin     \tab margin around facet panels
+                   (\code{unit}) \cr
+  panel.grid       \tab grid lines
+                   (\code{element_line}; inherits from \code{line}) \cr
   panel.grid.major \tab major grid lines
-  (\code{element_line}; inherits from \code{panel.grid})
-  \cr panel.grid.minor \tab minor grid lines
-  (\code{element_line}; inherits from \code{panel.grid})
-  \cr panel.grid.major.x \tab vertical major grid lines
-  (\code{element_line}; inherits from
-  \code{panel.grid.major}) \cr panel.grid.major.y \tab
-  horizontal major grid lines (\code{element_line};
-  inherits from \code{panel.grid.major}) \cr
+                   (\code{element_line}; inherits from \code{panel.grid}) \cr
+  panel.grid.minor \tab minor grid lines
+                   (\code{element_line}; inherits from \code{panel.grid}) \cr
+  panel.grid.major.x \tab vertical major grid lines
+                   (\code{element_line}; inherits from \code{panel.grid.major}) \cr
+  panel.grid.major.y \tab horizontal major grid lines
+                   (\code{element_line}; inherits from \code{panel.grid.major}) \cr
   panel.grid.minor.x \tab vertical minor grid lines
-  (\code{element_line}; inherits from
-  \code{panel.grid.minor}) \cr panel.grid.minor.y \tab
-  horizontal minor grid lines (\code{element_line};
-  inherits from \code{panel.grid.minor}) \cr
+                   (\code{element_line}; inherits from \code{panel.grid.minor}) \cr
+  panel.grid.minor.y \tab horizontal minor grid lines
+                   (\code{element_line}; inherits from \code{panel.grid.minor}) \cr
 
-  plot.background \tab background of the entire plot
-  (\code{element_rect}; inherits from \code{rect}) \cr
-  plot.title \tab plot title (text appearance)
-  (\code{element_text}; inherits from \code{title}) \cr
-  plot.margin \tab margin around entire plot (\code{unit}
-  with the sizes of the top, right, bottom, and left
-  margins) \cr
+  plot.background  \tab background of the entire plot
+                   (\code{element_rect}; inherits from \code{rect}) \cr
+  plot.title       \tab plot title (text appearance)
+                   (\code{element_text}; inherits from \code{title}) \cr
+  plot.margin      \tab margin around entire plot
+                   (\code{unit} with the sizes of the top, right, bottom, and
+                    left margins) \cr
 
   strip.background \tab background of facet labels
-  (\code{element_rect}; inherits from \code{rect}) \cr
-  strip.text \tab facet labels (\code{element_text};
-  inherits from \code{text}) \cr strip.text.x \tab facet
-  labels along horizontal direction (\code{element_text};
-  inherits from \code{strip.text}) \cr strip.text.y \tab
-  facet labels along vertical direction
-  (\code{element_text}; inherits from \code{strip.text})
-  \cr }
+                   (\code{element_rect}; inherits from \code{rect}) \cr
+  strip.text       \tab facet labels
+                   (\code{element_text}; inherits from \code{text}) \cr
+  strip.text.x     \tab facet labels along horizontal direction
+                   (\code{element_text}; inherits from \code{strip.text}) \cr
+  strip.text.y     \tab facet labels along vertical direction
+                   (\code{element_text}; inherits from \code{strip.text}) \cr
+}
 }
 \examples{
 \donttest{

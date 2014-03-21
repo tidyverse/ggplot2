@@ -6,7 +6,7 @@
 interleave(...)
 }
 \arguments{
-  \item{...}{vectors to interleave}
+\item{...}{vectors to interleave}
 }
 \description{
 Interleave (or zip) multiple vectors into a single vector.

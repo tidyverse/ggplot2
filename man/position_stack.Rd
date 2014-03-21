@@ -6,11 +6,11 @@
 position_stack(width = NULL, height = NULL)
 }
 \arguments{
-  \item{width}{Manually specify width (does not affect all
-  position adjustments)}
+\item{width}{Manually specify width (does not affect all position
+adjustments)}
 
-  \item{height}{Manually specify height (does not affect
-  all position adjustments)}
+\item{height}{Manually specify height (does not affect all position
+adjustments)}
 }
 \description{
 Stack overlapping objects on top of one another.

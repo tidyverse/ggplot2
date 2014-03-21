@@ -6,12 +6,11 @@
 fortify(model, data, ...)
 }
 \arguments{
-  \item{model}{model or other R object to convert to data
-  frame}
+\item{model}{model or other R object to convert to data frame}
 
-  \item{data}{original dataset, if needed}
+\item{data}{original dataset, if needed}
 
-  \item{...}{other arguments passed to methods}
+\item{...}{other arguments passed to methods}
 }
 \description{
 Method to convert a generic R object into a data frame useful for plotting.

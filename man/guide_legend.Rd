@@ -12,84 +12,73 @@ guide_legend(title = waiver(), title.position = NULL, title.theme = NULL,
   ...)
 }
 \arguments{
-  \item{title}{A character string or expression indicating
-  a title of guide.  If \code{NULL}, the title is not
-  shown. By default (\code{\link{waiver}}), the name of the
-  scale object or tha name specified in \code{\link{labs}}
-  is used for the title.}
+\item{title}{A character string or expression indicating a title of guide.
+If \code{NULL}, the title is not shown. By default
+(\code{\link{waiver}}), the name of the scale object or tha name
+specified in \code{\link{labs}} is used for the title.}
 
-  \item{title.position}{A character string indicating the
-  position of a title. One of "top" (default for a vertical
-  guide), "bottom", "left" (default for a horizontal
-  guide), or "right."}
+\item{title.position}{A character string indicating the position of a
+ title. One of "top" (default for a vertical guide), "bottom", "left"
+(default for a horizontal guide), or "right."}
 
-  \item{title.theme}{A theme object for rendering the title
-  text. Usually the object of \code{\link{element_text}} is
-  expected. By default, the theme is specified by
-  \code{legend.title} in \code{\link{theme}} or theme.}
+\item{title.theme}{A theme object for rendering the title text. Usually the
+object of \code{\link{element_text}} is expected. By default, the theme is
+specified by \code{legend.title} in \code{\link{theme}} or theme.}
 
-  \item{title.hjust}{A number specifying horizontal
-  justification of the title text.}
+\item{title.hjust}{A number specifying horizontal justification of the
+title text.}
 
-  \item{title.vjust}{A number specifying vertical
-  justification of the title text.}
+\item{title.vjust}{A number specifying vertical justification of the title
+text.}
 
-  \item{label}{logical. If \code{TRUE} then the labels are
-  drawn. If \code{FALSE} then the labels are invisible.}
+\item{label}{logical. If \code{TRUE} then the labels are drawn. If
+\code{FALSE} then the labels are invisible.}
 
-  \item{label.position}{A character string indicating the
-  position of a label. One of "top", "bottom" (default for
-  horizontal guide), "left", or "right" (default for
-  vertical gudie).}
+\item{label.position}{A character string indicating the position of a
+label. One of "top", "bottom" (default for horizontal guide), "left", or
+"right" (default for vertical gudie).}
 
-  \item{label.theme}{A theme object for rendering the label
-  text. Usually the object of \code{\link{element_text}} is
-  expected. By default, the theme is specified by
-  \code{legend.text} in \code{\link{theme}} or theme.}
+\item{label.theme}{A theme object for rendering the label text. Usually the
+object of \code{\link{element_text}} is expected. By default, the theme is
+specified by \code{legend.text} in \code{\link{theme}} or theme.}
 
-  \item{label.hjust}{A numeric specifying horizontal
-  justification of the label text.}
+\item{label.hjust}{A numeric specifying horizontal justification of the
+label text.}
 
-  \item{label.vjust}{A numeric specifying vertical
-  justification of the label text.}
+\item{label.vjust}{A numeric specifying vertical justification of the label
+text.}
 
-  \item{keywidth}{A numeric or a unit object specifying the
-  width of the legend key. Default value is
-  \code{legend.key.width} or \code{legend.key.size} in
-  \code{\link{theme}} or theme.}
+\item{keywidth}{A numeric or a unit object specifying the width of the
+legend key. Default value is \code{legend.key.width} or
+\code{legend.key.size} in \code{\link{theme}} or theme.}
 
-  \item{keyheight}{A numeric or a unit object specifying
-  the height of the legend key. Default value is
-  \code{legend.key.height} or \code{legend.key.size} in
-  \code{\link{theme}} or theme.}
+\item{keyheight}{A numeric or a unit object specifying the height of the
+legend key. Default value is \code{legend.key.height} or
+\code{legend.key.size} in \code{\link{theme}} or theme.}
 
-  \item{direction}{A character string indicating the
-  direction of the guide.  One of "horizontal" or
-  "vertical."}
+\item{direction}{A character string indicating the direction of the guide.
+One of "horizontal" or "vertical."}
 
-  \item{default.unit}{A character string indicating unit
-  for \code{keywidth} and \code{keyheight}.}
+\item{default.unit}{A character string indicating unit for \code{keywidth}
+and \code{keyheight}.}
 
-  \item{override.aes}{A list specifying aesthetic
-  parameters of legend key.  See details and examples.}
+\item{override.aes}{A list specifying aesthetic parameters of legend key.
+See details and examples.}
 
-  \item{nrow}{The desired number of rows of legends.}
+\item{nrow}{The desired number of rows of legends.}
 
-  \item{ncol}{The desired number of column of legends.}
+\item{ncol}{The desired number of column of legends.}
 
-  \item{byrow}{logical. If \code{FALSE} (the default) the
-  legend-matrix is filled by columns, otherwise the
-  legend-matrix is filled by rows.}
+\item{byrow}{logical. If \code{FALSE} (the default) the legend-matrix is
+filled by columns, otherwise the legend-matrix is filled by rows.}
 
-  \item{reverse}{logical. If \code{TRUE} the order of
-  legends is reversed.}
+\item{reverse}{logical. If \code{TRUE} the order of legends is reversed.}
 
-  \item{order}{positive integer less that 99 that specify
-  the order of this guide in the multiple guides. If 0
-  (default), the order is determined by a secret
-  algorithm.}
+\item{order}{positive integer less that 99 that specify the order of
+this guide in the multiple guides. If 0 (default), the order is determined
+by a secret algorithm.}
 
-  \item{...}{ignored.}
+\item{...}{ignored.}
 }
 \value{
 A guide object

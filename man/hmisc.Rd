@@ -17,10 +17,9 @@ mean_sdl(x, ...)
 median_hilow(x, ...)
 }
 \arguments{
-  \item{x}{a numeric vector}
+\item{x}{a numeric vector}
 
-  \item{...}{other arguments passed on to the respective
-  Hmisc function.}
+\item{...}{other arguments passed on to the respective Hmisc function.}
 }
 \description{
 See the Hmisc documentation for details of their options.

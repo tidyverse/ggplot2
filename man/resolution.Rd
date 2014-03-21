@@ -6,10 +6,10 @@
 resolution(x, zero = TRUE)
 }
 \arguments{
-  \item{x}{numeric vector}
+\item{x}{numeric vector}
 
-  \item{zero}{should a zero value be automatically included
-  in the computation of resolution}
+\item{zero}{should a zero value be automatically included in the
+computation of resolution}
 }
 \description{
 The resolution is is the smallest non-zero distance between adjacent

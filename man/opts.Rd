@@ -6,8 +6,7 @@
 opts(...)
 }
 \arguments{
-  \item{...}{Arguments to be passed on to the \code{theme}
-  function.}
+\item{...}{Arguments to be passed on to the \code{theme} function.}
 }
 \description{
 \code{opts} is deprecated. See the \code{\link{theme}} function.

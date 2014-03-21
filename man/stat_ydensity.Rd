@@ -8,41 +8,36 @@ stat_ydensity(mapping = NULL, data = NULL, geom = "violin",
   scale = "area", na.rm = FALSE, ...)
 }
 \arguments{
-  \item{trim}{If \code{TRUE} (default), trim the tails of
-  the violins to the range of the data. If \code{FALSE},
-  don't trim the tails.}
+\item{trim}{If \code{TRUE} (default), trim the tails of the violins
+to the range of the data. If \code{FALSE}, don't trim the tails.}
 
-  \item{scale}{if "area" (default), all violins have the
-  same area (before trimming the tails). If "count", areas
-  are scaled proportionally to the number of observations.
-  If "width", all violins have the same maximum width.}
+\item{scale}{if "area" (default), all violins have the same area (before trimming
+the tails). If "count", areas are scaled proportionally to the number of
+observations. If "width", all violins have the same maximum width.}
 
-  \item{na.rm}{If \code{FALSE} (the default), removes
-  missing values with a warning. If \code{TRUE} silently
-  removes missing values.}
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+   a warning. If \code{TRUE} silently removes missing values.}
 
-  \item{mapping}{The aesthetic mapping, usually constructed
-  with \code{\link{aes}} or \code{\link{aes_string}}. Only
-  needs to be set at the layer level if you are overriding
-  the plot defaults.}
+\item{mapping}{The aesthetic mapping, usually constructed with
+\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+at the layer level if you are overriding the plot defaults.}
 
-  \item{data}{A layer specific dataset - only needed if you
-  want to override the plot defaults.}
+\item{data}{A layer specific dataset - only needed if you want to override
+the plot defaults.}
 
-  \item{geom}{The geometric object to use display the data}
+\item{geom}{The geometric object to use display the data}
 
-  \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+\item{position}{The position adjustment to use for overlappling points
+on this layer}
 
-  \item{adjust}{see \code{\link{density}} for details}
+\item{adjust}{see \code{\link{density}} for details}
 
-  \item{kernel}{kernel used for density estimation, see
-  \code{\link{density}} for details}
+\item{kernel}{kernel used for density estimation, see
+\code{\link{density}} for details}
 
-  \item{...}{other arguments passed on to
-  \code{\link{layer}}. This can include aesthetics whose
-  values you want to set, not map. See \code{\link{layer}}
-  for more details.}
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 }
 \value{
 A data frame with additional columns:
@@ -58,8 +53,8 @@ A data frame with additional columns:
 1d kernel density estimate along y axis, for violin plot.
 }
 \section{Aesthetics}{
-  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
-  "ydensity")}
+
+\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "ydensity")}
 }
 \examples{
 # See geom_violin for examples

@@ -27,15 +27,13 @@ scale_x_sqrt(...)
 scale_y_sqrt(...)
 }
 \arguments{
-  \item{...}{common continuous scale parameters:
-  \code{name}, \code{breaks}, \code{labels},
-  \code{na.value}, \code{limits} and \code{trans}.  See
-  \code{\link{continuous_scale}} for more details}
+\item{...}{common continuous scale parameters: \code{name}, \code{breaks},
+\code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
+\code{\link{continuous_scale}} for more details}
 
-  \item{expand}{a numeric vector of length two giving
-  multiplicative and additive expansion constants. These
-  constants ensure that the data is placed some distance
-  away from the axes.}
+\item{expand}{a numeric vector of length two giving multiplicative and
+additive expansion constants. These constants ensure that the data is
+placed some distance away from the axes.}
 }
 \description{
 Continuous position scales (x & y).

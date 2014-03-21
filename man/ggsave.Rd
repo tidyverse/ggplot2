@@ -9,36 +9,30 @@ ggsave(filename = default_name(plot), plot = last_plot(),
   "mm"), dpi = 300, limitsize = TRUE, ...)
 }
 \arguments{
-  \item{filename}{file name/filename of plot}
+\item{filename}{file name/filename of plot}
 
-  \item{plot}{plot to save, defaults to last plot
-  displayed}
+\item{plot}{plot to save, defaults to last plot displayed}
 
-  \item{device}{device to use, automatically extract from
-  file name extension}
+\item{device}{device to use, automatically extract from file name extension}
 
-  \item{path}{path to save plot to (if you just want to set
-  path and not filename)}
+\item{path}{path to save plot to (if you just want to set path and not
+filename)}
 
-  \item{scale}{scaling factor}
+\item{scale}{scaling factor}
 
-  \item{width}{width (defaults to the width of current
-  plotting window)}
+\item{width}{width (defaults to the width of current plotting window)}
 
-  \item{height}{height (defaults to the height of current
-  plotting window)}
+\item{height}{height (defaults to the height of current plotting window)}
 
-  \item{units}{units for width and height when either one
-  is explicitly specified (in, cm, or mm)}
+\item{units}{units for width and height when either one is explicitly specified (in, cm, or mm)}
 
-  \item{dpi}{dpi to use for raster graphics}
+\item{dpi}{dpi to use for raster graphics}
 
-  \item{limitsize}{when \code{TRUE} (the default),
-  \code{ggsave} will not save images larger than 50x50
-  inches, to prevent the common error of specifying
-  dimensions in pixels.}
+\item{limitsize}{when \code{TRUE} (the default), \code{ggsave} will not
+save images larger than 50x50 inches, to prevent the common error of
+specifying dimensions in pixels.}
 
-  \item{...}{other arguments passed to graphics device}
+\item{...}{other arguments passed to graphics device}
 }
 \description{
 ggsave is a convenient function for saving a plot.  It defaults to

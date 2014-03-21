@@ -6,10 +6,9 @@
 autoplot(object, ...)
 }
 \arguments{
-  \item{object}{an object, whose class will determine the
-  behaviour of autoplot}
+\item{object}{an object, whose class will determine the behaviour of autoplot}
 
-  \item{...}{other arguments passed to specific methods}
+\item{...}{other arguments passed to specific methods}
 }
 \value{
 a ggplot object

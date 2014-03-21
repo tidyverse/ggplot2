@@ -6,11 +6,11 @@
 \method{fortify}{lm}(model, data = model$model, ...)
 }
 \arguments{
-  \item{model}{linear model}
+\item{model}{linear model}
 
-  \item{data}{data set, defaults to data used to fit model}
+\item{data}{data set, defaults to data used to fit model}
 
-  \item{...}{not used by this method}
+\item{...}{not used by this method}
 }
 \value{
 The original data with extra columns:

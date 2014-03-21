@@ -12,13 +12,11 @@ scale_alpha_continuous(..., range = c(0.1, 1))
 scale_alpha_discrete(..., range = c(0.1, 1))
 }
 \arguments{
-  \item{...}{Other arguments passed on to
-  \code{\link{continuous_scale}} or
-  \code{\link{discrete_scale}} as appropriate, to control
-  name, limits, breaks, labels and so forth.}
+\item{...}{Other arguments passed on to \code{\link{continuous_scale}}
+or \code{\link{discrete_scale}} as appropriate, to control name, limits,
+breaks, labels and so forth.}
 
-  \item{range}{range of output alpha values.  Should lie
-  between 0 and 1.}
+\item{range}{range of output alpha values.  Should lie between 0 and 1.}
 }
 \description{
 \code{scale_alpha} is an alias for \code{scale_alpha_continuous} since

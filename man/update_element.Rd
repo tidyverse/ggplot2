@@ -6,9 +6,9 @@
 update_element(name, ...)
 }
 \arguments{
-  \item{name}{name of a theme element}
+\item{name}{name of a theme element}
 
-  \item{...}{Pairs of name and value of theme parameters.}
+\item{...}{Pairs of name and value of theme parameters.}
 }
 \value{
 Updated theme element

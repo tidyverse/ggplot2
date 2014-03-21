@@ -6,9 +6,9 @@
 mean_se(x, mult = 1)
 }
 \arguments{
-  \item{x}{numeric vector}
+\item{x}{numeric vector}
 
-  \item{mult}{number of multiples of standard error}
+\item{mult}{number of multiples of standard error}
 }
 \description{
 Calculate mean and standard errors on either side.

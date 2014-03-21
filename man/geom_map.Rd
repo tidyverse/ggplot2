@@ -6,34 +6,31 @@
 geom_map(mapping = NULL, data = NULL, map, stat = "identity", ...)
 }
 \arguments{
-  \item{map}{Data frame that contains the map coordinates.
-  This will typically be created using
-  \code{\link{fortify}} on a spatial object.  It must
-  contain columns \code{x} or \code{long}, \code{y} or
-  \code{lat}, and \code{region} or \code{id}.}
+\item{map}{Data frame that contains the map coordinates.  This will
+typically be created using \code{\link{fortify}} on a spatial object.
+It must contain columns \code{x} or \code{long}, \code{y} or
+\code{lat}, and \code{region} or \code{id}.}
 
-  \item{mapping}{The aesthetic mapping, usually constructed
-  with \code{\link{aes}} or \code{\link{aes_string}}. Only
-  needs to be set at the layer level if you are overriding
-  the plot defaults.}
+\item{mapping}{The aesthetic mapping, usually constructed with
+\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+at the layer level if you are overriding the plot defaults.}
 
-  \item{data}{A layer specific dataset - only needed if you
-  want to override the plot defaults.}
+\item{data}{A layer specific dataset - only needed if you want to override
+the plot defaults.}
 
-  \item{stat}{The statistical transformation to use on the
-  data for this layer.}
+\item{stat}{The statistical transformation to use on the data for this
+layer.}
 
-  \item{...}{other arguments passed on to
-  \code{\link{layer}}. This can include aesthetics whose
-  values you want to set, not map. See \code{\link{layer}}
-  for more details.}
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 }
 \description{
 Does not affect position scales.
 }
 \section{Aesthetics}{
-  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom",
-  "map")}
+
+\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "map")}
 }
 \examples{
 # When using geom_polygon, you will typically need two data frames:

@@ -7,13 +7,13 @@
 coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, wise = NULL)
 }
 \arguments{
-  \item{ratio}{aspect ratio, expressed as \code{y / x}}
+\item{ratio}{aspect ratio, expressed as \code{y / x}}
 
-  \item{xlim}{limits for the x axis}
+\item{xlim}{limits for the x axis}
 
-  \item{ylim}{limits for the y axis}
+\item{ylim}{limits for the y axis}
 
-  \item{wise}{deprecated in 0.9.1}
+\item{wise}{deprecated in 0.9.1}
 }
 \description{
 A fixed scale coordinate system forces a specified ratio between the

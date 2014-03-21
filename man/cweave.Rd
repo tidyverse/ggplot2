@@ -6,7 +6,7 @@
 cweave(...)
 }
 \arguments{
-  \item{...}{matrices to weave together}
+\item{...}{matrices to weave together}
 }
 \description{
 Weave together two (or more) matrices by column

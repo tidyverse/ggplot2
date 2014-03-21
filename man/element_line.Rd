@@ -7,15 +7,15 @@ element_line(colour = NULL, size = NULL, linetype = NULL,
   lineend = NULL, color = NULL)
 }
 \arguments{
-  \item{colour}{line colour}
+\item{colour}{line colour}
 
-  \item{size}{line size}
+\item{size}{line size}
 
-  \item{linetype}{line type}
+\item{linetype}{line type}
 
-  \item{lineend}{line end}
+\item{lineend}{line end}
 
-  \item{color}{an alias for \code{colour}}
+\item{color}{an alias for \code{colour}}
 }
 \description{
 Theme element: line.

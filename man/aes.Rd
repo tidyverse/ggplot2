@@ -7,12 +7,11 @@ mapped to visual properties (aesthetics) of geoms.}
 aes(x, y, ...)
 }
 \arguments{
-  \item{x}{x value}
+\item{x}{x value}
 
-  \item{y}{y value}
+\item{y}{y value}
 
-  \item{...}{List of name value pairs giving aesthetics to
-  map.}
+\item{...}{List of name value pairs giving aesthetics to map.}
 }
 \description{
 \code{aes} creates a list of unevaluated expressions.  This function also

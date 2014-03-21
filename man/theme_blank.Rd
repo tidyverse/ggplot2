@@ -18,8 +18,8 @@ theme_segment(...)
 theme_text(...)
 }
 \arguments{
-  \item{...}{Arguments to be passed to the appropriate
-  \code{element_xx} function.}
+\item{...}{Arguments to be passed to the appropriate \code{element_xx}
+  function.}
 }
 \description{
 The \code{theme_xx} functions have been deprecated. They are replaced

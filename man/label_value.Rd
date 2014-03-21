@@ -7,9 +7,9 @@ This is the default labelling scheme.}
 label_value(variable, value)
 }
 \arguments{
-  \item{variable}{variable name passed in by facetter}
+\item{variable}{variable name passed in by facetter}
 
-  \item{value}{variable value passed in by facetter}
+\item{value}{variable value passed in by facetter}
 }
 \description{
 Label facets with their value.

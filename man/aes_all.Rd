@@ -6,7 +6,7 @@
 aes_all(vars)
 }
 \arguments{
-  \item{vars}{vector of variable names}
+\item{vars}{vector of variable names}
 }
 \description{
 Given a character vector, create a set of identity mappings

@@ -7,7 +7,7 @@ Broken down into construct, build, render and draw times.}
 benchplot(x)
 }
 \arguments{
-  \item{x}{code to create ggplot2 plot}
+\item{x}{code to create ggplot2 plot}
 }
 \description{
 Benchmark plot creation time.

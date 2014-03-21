@@ -12,13 +12,11 @@ scale_shape_discrete(..., solid = TRUE)
 scale_shape_continuous(...)
 }
 \arguments{
-  \item{solid}{Are the shapes solid, \code{TRUE}, or hollow
-  \code{FALSE}?}
+\item{solid}{Are the shapes solid, \code{TRUE}, or hollow \code{FALSE}?}
 
-  \item{...}{common discrete scale parameters: \code{name},
-  \code{breaks}, \code{labels}, \code{na.value},
-  \code{limits} and \code{guide}.  See
-  \code{\link{discrete_scale}} for more details}
+\item{...}{common discrete scale parameters: \code{name}, \code{breaks},
+\code{labels}, \code{na.value}, \code{limits} and \code{guide}.  See
+\code{\link{discrete_scale}} for more details}
 }
 \description{
 A continuous variable can not be mapped to shape.

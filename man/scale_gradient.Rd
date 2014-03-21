@@ -27,21 +27,19 @@ scale_color_gradient(..., low = "#132B43", high = "#56B1F7",
   space = "Lab", na.value = "grey50", guide = "colourbar")
 }
 \arguments{
-  \item{guide}{Type of legend. Use \code{"colourbar"} for
-  continuous colour bar, or \code{"legend"} for discrete
-  colour legend.}
+\item{guide}{Type of legend. Use \code{"colourbar"} for continuous
+colour bar, or \code{"legend"} for discrete colour legend.}
 
-  \item{...}{Other arguments passed on to
-  \code{\link{discrete_scale}} to control name, limits,
-  breaks, labels and so forth.}
+\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
+to control name, limits, breaks, labels and so forth.}
 
-  \item{na.value}{Colour to use for missing values}
+\item{na.value}{Colour to use for missing values}
 
-  \item{low}{colour for low end of gradient.}
+\item{low}{colour for low end of gradient.}
 
-  \item{high}{colour for high end of gradient.}
+\item{high}{colour for high end of gradient.}
 
-  \item{space}{colour space in which to calculate gradient.
+\item{space}{colour space in which to calculate gradient.
   "Lab" usually best unless gradient goes through white.}
 }
 \description{

@@ -6,7 +6,7 @@
 ggplot_build(plot)
 }
 \arguments{
-  \item{plot}{ggplot object}
+\item{plot}{ggplot object}
 }
 \description{
 This function takes the plot object, and performs all steps necessary to

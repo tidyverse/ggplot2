@@ -8,39 +8,35 @@ stat_bin(mapping = NULL, data = NULL, geom = "bar", position = "stack",
   origin = NULL, breaks = NULL, ...)
 }
 \arguments{
-  \item{binwidth}{Bin width to use. Defaults to 1/30 of the
-  range of the data}
+\item{binwidth}{Bin width to use. Defaults to 1/30 of the range of the
+data}
 
-  \item{breaks}{Actual breaks to use.  Overrides bin width
-  and origin}
+\item{breaks}{Actual breaks to use.  Overrides bin width and origin}
 
-  \item{origin}{Origin of first bin}
+\item{origin}{Origin of first bin}
 
-  \item{width}{Width of bars when used with categorical
-  data}
+\item{width}{Width of bars when used with categorical data}
 
-  \item{right}{If \code{TRUE}, right-closed, left-open, if
-  \code{FALSE}, the default, right-open, left-closed.}
+\item{right}{If \code{TRUE}, right-closed, left-open, if \code{FALSE},
+the default, right-open, left-closed.}
 
-  \item{drop}{If TRUE, remove all bins with zero counts}
+\item{drop}{If TRUE, remove all bins with zero counts}
 
-  \item{mapping}{The aesthetic mapping, usually constructed
-  with \code{\link{aes}} or \code{\link{aes_string}}. Only
-  needs to be set at the layer level if you are overriding
-  the plot defaults.}
+\item{mapping}{The aesthetic mapping, usually constructed with
+\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+at the layer level if you are overriding the plot defaults.}
 
-  \item{data}{A layer specific dataset - only needed if you
-  want to override the plot defaults.}
+\item{data}{A layer specific dataset - only needed if you want to override
+the plot defaults.}
 
-  \item{geom}{The geometric object to use display the data}
+\item{geom}{The geometric object to use display the data}
 
-  \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+\item{position}{The position adjustment to use for overlappling points
+on this layer}
 
-  \item{...}{other arguments passed on to
-  \code{\link{layer}}. This can include aesthetics whose
-  values you want to set, not map. See \code{\link{layer}}
-  for more details.}
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 }
 \value{
 New data frame with additional columns:
@@ -53,8 +49,8 @@ New data frame with additional columns:
 Missing values are currently silently dropped.
 }
 \section{Aesthetics}{
-  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
-  "bin")}
+
+\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bin")}
 }
 \examples{
 \donttest{

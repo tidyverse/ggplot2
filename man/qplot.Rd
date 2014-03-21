@@ -10,50 +10,41 @@ qplot(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
   xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA)
 }
 \arguments{
-  \item{x}{x values}
+\item{x}{x values}
 
-  \item{y}{y values}
+\item{y}{y values}
 
-  \item{...}{other aesthetics passed for each layer}
+\item{...}{other aesthetics passed for each layer}
 
-  \item{data}{data frame to use (optional).  If not
-  specified, will create one, extracting vectors from the
-  current environment.}
+\item{data}{data frame to use (optional).  If not specified, will create
+one, extracting vectors from the current environment.}
 
-  \item{facets}{faceting formula to use.  Picks
-  \code{\link{facet_wrap}} or \code{\link{facet_grid}}
-  depending on whether the formula is one sided or
-  two-sided}
+\item{facets}{faceting formula to use.  Picks \code{\link{facet_wrap}} or
+\code{\link{facet_grid}} depending on whether the formula is one sided
+or two-sided}
 
-  \item{margins}{whether or not margins will be displayed}
+\item{margins}{whether or not margins will be displayed}
 
-  \item{geom}{character vector specifying geom to use.
-  Defaults to "point" if x and y are specified, and
-  "histogram" if only x is specified.}
+\item{geom}{character vector specifying geom to use.  Defaults to
+"point" if x and y are specified, and "histogram" if only x is specified.}
 
-  \item{stat}{character vector specifying statistics to
-  use}
+\item{stat}{character vector specifying statistics to use}
 
-  \item{position}{character vector giving position
-  adjustment to use}
+\item{position}{character vector giving position adjustment to use}
 
-  \item{xlim}{limits for x axis}
+\item{xlim}{limits for x axis}
 
-  \item{ylim}{limits for y axis}
+\item{ylim}{limits for y axis}
 
-  \item{log}{which variables to log transform ("x", "y", or
-  "xy")}
+\item{log}{which variables to log transform ("x", "y", or "xy")}
 
-  \item{main}{character vector or expression for plot
-  title}
+\item{main}{character vector or expression for plot title}
 
-  \item{xlab}{character vector or expression for x axis
-  label}
+\item{xlab}{character vector or expression for x axis label}
 
-  \item{ylab}{character vector or expression for y axis
-  label}
+\item{ylab}{character vector or expression for y axis label}
 
-  \item{asp}{the y/x aspect ratio}
+\item{asp}{the y/x aspect ratio}
 }
 \description{
 \code{qplot} is the basic plotting function in the ggplot2 package,

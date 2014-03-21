@@ -9,56 +9,48 @@ stat_bindot(mapping = NULL, data = NULL, geom = "dotplot",
   drop = FALSE, right = TRUE, na.rm = FALSE, ...)
 }
 \arguments{
-  \item{binaxis}{The axis to bin along, "x" (default) or
-  "y"}
+\item{binaxis}{The axis to bin along, "x" (default) or "y"}
 
-  \item{method}{"dotdensity" (default) for dot-density
-  binning, or "histodot" for fixed bin widths (like
-  stat_bin)}
+\item{method}{"dotdensity" (default) for dot-density binning, or
+"histodot" for fixed bin widths (like stat_bin)}
 
-  \item{binwidth}{When \code{method} is "dotdensity, this
-  specifies maximum bin width.  When \code{method} is
-  "histodot", this specifies bin width.  Defaults to 1/30
-  of the range of the data}
+\item{binwidth}{When \code{method} is "dotdensity, this specifies maximum bin width.
+When \code{method} is "histodot", this specifies bin width.
+Defaults to 1/30 of the range of the data}
 
-  \item{binpositions}{When \code{method} is "dotdensity",
-  "bygroup" (default) determines positions of the bins for
-  each group separately. "all" determines positions of the
-  bins with all the data taken together; this is used for
-  aligning dot stacks across multiple groups.}
+\item{binpositions}{When \code{method} is "dotdensity", "bygroup" (default)
+determines positions of the bins for each group separately. "all" determines
+positions of the bins with all the data taken together; this is used for
+aligning dot stacks across multiple groups.}
 
-  \item{origin}{When \code{method} is "histodot", origin of
-  first bin}
+\item{origin}{When \code{method} is "histodot", origin of first bin}
 
-  \item{right}{When \code{method} is "histodot", should
-  intervals be closed on the right (a, b], or not [a, b)}
+\item{right}{When \code{method} is "histodot", should intervals be closed
+on the right (a, b], or not [a, b)}
 
-  \item{width}{When \code{binaxis} is "y", the spacing of
-  the dot stacks for dodging.}
+\item{width}{When \code{binaxis} is "y", the spacing of the dot stacks
+for dodging.}
 
-  \item{na.rm}{If \code{FALSE} (the default), removes
-  missing values with a warning.  If \code{TRUE} silently
-  removes missing values.}
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
-  \item{drop}{If TRUE, remove all bins with zero counts}
+\item{drop}{If TRUE, remove all bins with zero counts}
 
-  \item{mapping}{The aesthetic mapping, usually constructed
-  with \code{\link{aes}} or \code{\link{aes_string}}. Only
-  needs to be set at the layer level if you are overriding
-  the plot defaults.}
+\item{mapping}{The aesthetic mapping, usually constructed with
+\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+at the layer level if you are overriding the plot defaults.}
 
-  \item{data}{A layer specific dataset - only needed if you
-  want to override the plot defaults.}
+\item{data}{A layer specific dataset - only needed if you want to override
+the plot defaults.}
 
-  \item{geom}{The geometric object to use display the data}
+\item{geom}{The geometric object to use display the data}
 
-  \item{position}{The position adjustment to use for
-  overlappling points on this layer}
+\item{position}{The position adjustment to use for overlappling points
+on this layer}
 
-  \item{...}{other arguments passed on to
-  \code{\link{layer}}. This can include aesthetics whose
-  values you want to set, not map. See \code{\link{layer}}
-  for more details.}
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 }
 \value{
 New data frame with additional columns:
@@ -77,8 +69,8 @@ Missing values are currently silently dropped.
 If weights are used, they must be integer values.
 }
 \section{Aesthetics}{
-  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat",
-  "bindot")}
+
+\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bindot")}
 }
 \examples{
 # See geom_dotplot for examples

@@ -6,11 +6,11 @@
 \method{fortify}{map}(model, data, ...)
 }
 \arguments{
-  \item{model}{map object}
+\item{model}{map object}
 
-  \item{data}{not used by this method}
+\item{data}{not used by this method}
 
-  \item{...}{not used by this method}
+\item{...}{not used by this method}
 }
 \description{
 This function turns a map into a data frame that can more easily be

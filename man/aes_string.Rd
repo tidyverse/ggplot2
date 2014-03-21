@@ -6,7 +6,7 @@
 aes_string(...)
 }
 \arguments{
-  \item{...}{List of name value pairs}
+\item{...}{List of name value pairs}
 }
 \description{
 Aesthetic mappings describe how variables in the data are mapped to visual
