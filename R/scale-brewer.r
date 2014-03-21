@@ -33,6 +33,9 @@
 #' d + scale_colour_brewer(palette = "Blues")
 #' d + scale_colour_brewer(palette = "Set1")
 #'
+#' # The order of colours in the palette can be swapped
+#' d + scale_colour_brewer(palette = "Blues", direction = -1)
+#'
 #' # scale_fill_brewer works just the same as
 #' # scale_colour_brewer but for fill colours
 #' ggplot(diamonds, aes(x = price, fill = cut)) +
