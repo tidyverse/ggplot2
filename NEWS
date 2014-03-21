@@ -1,5 +1,8 @@
 ggplot2 0.9.3.1.99
 ----------------------------------------------------------------
+
+* Marginal improvements to `theme_bw` and `theme_classic` (@jiho, #934)
+
 * `stat_ellipse()` adds data ellipses. It supports bivariate normal and t distributions,
   as well as a euclidian distance circle. (@jofrhwld, #926)
 

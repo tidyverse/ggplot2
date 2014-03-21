@@ -122,8 +122,7 @@ theme_bw <- function(base_size = 12, base_family = "") {
       panel.border      = element_rect(fill = NA, colour = "grey50"),
       panel.grid.major  = element_line(colour = "grey90", size = 0.2),
       panel.grid.minor  = element_line(colour = "grey98", size = 0.5),
-      strip.background  = element_rect(fill = "grey80", colour = "grey50"),
-      strip.background  = element_rect(fill = "grey80", colour = "grey50")
+      strip.background  = element_rect(fill = "grey80", colour = "grey50", size = 0.2)
     )
 }
 
@@ -188,6 +187,8 @@ theme_classic <- function(base_size = 12, base_family = ""){
       panel.border     = element_blank(),
       axis.line        = element_line(colour = "black"),
       panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank()
+      panel.grid.minor = element_blank(),
+      strip.background = element_rect(colour = "black", size = 0.5),
+      legend.key       = element_blank()
     )
 }
