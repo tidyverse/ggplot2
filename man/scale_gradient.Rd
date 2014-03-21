@@ -99,8 +99,11 @@ qplot(mpg, wt, data = mtcars, colour = miss) +
   palette
 
 Other colour scales: \code{\link{scale_color_brewer}},
+  \code{\link{scale_color_distiller}},
   \code{\link{scale_colour_brewer}},
-  \code{\link{scale_fill_brewer}};
+  \code{\link{scale_colour_distiller}},
+  \code{\link{scale_fill_brewer}},
+  \code{\link{scale_fill_distiller}};
   \code{\link{scale_color_discrete}},
   \code{\link{scale_color_hue}},
   \code{\link{scale_colour_discrete}},
