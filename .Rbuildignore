@@ -3,3 +3,4 @@ visual_test
 ^\.Rproj\.user$
 ^\.travis\.yml$
 ^/\.gitattributes$
+^inst/web$
