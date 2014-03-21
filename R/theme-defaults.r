@@ -46,8 +46,10 @@
 #' p + theme_minimal()
 #' p + theme_classic()
 #'
-#' @aliases theme_gray theme_grey
-#' @export theme_gray theme_grey
+#' @name ggtheme
+NULL
+
+#' @export
 #' @rdname ggtheme
 theme_grey <- function(base_size = 12, base_family = "") {
   theme(
@@ -103,6 +105,8 @@ theme_grey <- function(base_size = 12, base_family = "") {
     complete = TRUE
   )
 }
+#' @export
+#' @rdname ggtheme
 theme_gray <- theme_grey
 
 #' @export
