@@ -7,11 +7,7 @@ mapped to visual properties (aesthetics) of geoms.}
 aes(x, y, ...)
 }
 \arguments{
-\item{x}{x value}
-
-\item{y}{y value}
-
-\item{...}{List of name value pairs giving aesthetics to map.}
+\item{x,y,...}{List of name value pairs giving aesthetics to map.}
 }
 \description{
 \code{aes} creates a list of unevaluated expressions.  This function also
@@ -23,9 +19,12 @@ aes(x = mpg, y = wt)
 aes(x = mpg ^ 2, y = wt / cyl)
 }
 \seealso{
-\code{\link{aes_string}} for passing quoted variable names.
+See
    \code{\link{aes_colour_fill_alpha}}, \code{\link{aes_group_order}},
    \code{\link{aes_linetype_size_shape}} and \code{\link{aes_position}}
    for more specific examples with different aesthetics.
+
+Other aesthetic generators: \code{\link{aes_q}},
+  \code{\link{aes_string}}
 }
 

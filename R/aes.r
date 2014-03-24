@@ -29,11 +29,9 @@
 #' performs partial name matching, converts color to colour, and old style R
 #' names to ggplot names (eg. pch to shape, cex to size)
 #'
-#' @param x x value
-#' @param y y value
-#' @param ... List of name value pairs giving aesthetics to map.
-#' @seealso \code{\link{aes_string}} for passing quoted variable names.
-#"    Useful when creating plots within user defined functions. Also,
+#' @param x,y,... List of name value pairs giving aesthetics to map.
+#' @family aesthetic generators
+#' @seealso See
 #'    \code{\link{aes_colour_fill_alpha}}, \code{\link{aes_group_order}},
 #'    \code{\link{aes_linetype_size_shape}} and \code{\link{aes_position}}
 #'    for more specific examples with different aesthetics.
@@ -81,28 +79,40 @@ is_position_aes <- function(vars) {
   aes_to_scale(vars) %in% c("x", "y")
 }
 
-#' Generate aesthetic mappings from a string
+#' Generate aesthetic mappings from a string/quoted objects
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
-#' properties (aesthetics) of geoms.  Compared to aes this function operates
-#' on strings rather than expressions.
+#' properties (aesthetics) of geoms. \code{\link{aes}} uses non-standard
+#' evaluation to capture the variable names. These two variants use
+#' regular evaluation, which is easier to use inside functions.
 #'
-#' \code{aes_string} is particularly useful when writing functions that create
-#' plots because you can use strings to define the aesthetic mappings, rather
-#' than having to mess around with expressions.
+#' \code{aes_string} and \code{aes_q} are particularly useful when writing
+#' functions that create plots because you can use strings or quoted
+#' names/calls to define the aesthetic mappings, rather than having to use
+#' \code{\link{substitute}} to generate a call to \code{aes()}.
 #'
-#' @param ... List of name value pairs
+#' @param x,y,... List of name value pairs
+#' @family aesthetic generators
 #' @seealso \code{\link{aes}}
 #' @export
 #' @examples
-#' aes_string(x = "mpg", y = "wt")
-#' aes(x = mpg, y = wt)
-aes_string <- function(...) {
-  mapping <- list(...)
-  mapping[sapply(mapping, is.null)] <- "NULL"
+#' # Threee ways of generating the same aesthetics
+#' aes(mpg, wt, col = cyl, fill = NULL)
+#' aes_string("mpg", "wt", col = "cyl", fill = NULL)
+#' aes_q(quote(mpg), quote(wt), col = quote(cyl), fill = NULL)
+aes_string <- function(x, y, ...) {
+  mapping <- list(x = x, y = y, ...)
+  mapping[vapply(mapping, is.null, logical(1))] <- "NULL"
 
   parsed <- lapply(mapping, function(x) parse(text = x)[[1]])
   structure(rename_aes(parsed), class = "uneval")
+}
+
+#' @rdname aes_string
+#' @export
+aes_q <- function(x, y, ...) {
+  mapping <- list(x = x, y = y, ...)
+  structure(rename_aes(mapping), class = "uneval")
 }
 
 #' Given a character vector, create a set of identity mappings
