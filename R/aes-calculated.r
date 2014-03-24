@@ -24,14 +24,6 @@ find_vars <- function(expr) {
 }
 
 # Strip dots from expressions
-strip_dots <- function(aesthetics) {
-  strings <- lapply(aesthetics, deparse)
-  strings <- lapply(strings, gsub, pattern = .calculated_aes_regex,
-    replacement = "\\1")
-  lapply(strings, function(x) parse(text = x)[[1]])
-}
-
-
 strip_dots <- function(expr) {
   if (is.atomic(expr)) {
     expr
