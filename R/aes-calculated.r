@@ -1,5 +1,5 @@
 # Regex to determine if an identifier refers to a calculated aesthetic
-match_calculated_aes <- "^\\.\\.([a-zA-z._]+)\\.\\.$"
+match_calculated_aes <- "^\\.\\.([a-zA-Z._]+)\\.\\.$"
 
 # Determine if aesthetic is calculated
 is_calculated_aes <- function(aesthetics) {
