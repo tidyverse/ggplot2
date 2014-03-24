@@ -36,7 +36,7 @@ capitals <- subset(us.cities, capital == 2)
 ggplot(capitals, aes(long, lat)) +
   borders("state") +
   geom_point(aes(size = pop)) +
-  scale_area()
+  scale_size_area()
 
 }
 }
