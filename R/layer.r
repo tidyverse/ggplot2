@@ -257,20 +257,3 @@ Layer <- proto(expr = {
 #' @keywords internal
 #' @export
 layer <- Layer$new
-
-# Regex to determine if an identifier refers to a calculated aesthetic
-.calculated_aes_regex <- "^\\.\\.([a-zA-z._]+)\\.\\.$"
-
-# Determine if aesthetic is calculated
-is_calculated_aes <- function(aesthetics) {
-  stats <- rep(FALSE, length(aesthetics))
-  grepl(.calculated_aes_regex, sapply(aesthetics, deparse))
-}
-
-# Strip dots from expressions
-strip_dots <- function(aesthetics) {
-  strings <- lapply(aesthetics, deparse)
-  strings <- lapply(strings, gsub, pattern = .calculated_aes_regex,
-                    replacement = "\\1")
-  lapply(strings, function(x) parse(text = x)[[1]])
-}
