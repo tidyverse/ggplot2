@@ -113,6 +113,10 @@ The individual theme elements are:
                    (\code{element_rect}; inherits from \code{rect}) \cr
   panel.margin     \tab margin around facet panels
                    (\code{unit}) \cr
+  panel.margin.x   \tab horizontal margin around facet panels
+                   (\code{unit}; inherits from \code{panel.margin}) \cr
+  panel.margin.y   \tab vertical margin around facet panels
+                   (\code{unit}; inherits from \code{panel.margin}) \cr
   panel.grid       \tab grid lines
                    (\code{element_line}; inherits from \code{line}) \cr
   panel.grid.major \tab major grid lines
@@ -238,7 +242,7 @@ k + theme(strip.background = element_rect(colour = "purple", fill = "pink",
 k + theme(strip.text.x = element_text(colour = "red", angle = 45, size = 10,
                                       hjust = 0.5, vjust = 0.5))
 k + theme(panel.margin = unit(5, "lines"))
-k + theme(panel.margin = unit(0, "lines"))
+k + theme(panel.margin.y = unit(0, "lines"))
 
 
 # Modify a theme and save it

@@ -93,6 +93,8 @@ theme_grey <- function(base_size = 12, base_family = "") {
     panel.grid.major =   element_line(colour = "white"),
     panel.grid.minor =   element_line(colour = "grey95", size = 0.25),
     panel.margin =       unit(0.25, "lines"),
+    panel.margin.x =     NULL,
+    panel.margin.y =     NULL,
 
     strip.background =   element_rect(fill = "grey80", colour = NA),
     strip.text.x =       element_text(),
