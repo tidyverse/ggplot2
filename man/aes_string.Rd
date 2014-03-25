@@ -4,7 +4,7 @@
 \alias{aes_string}
 \title{Generate aesthetic mappings from a string/quoted objects}
 \usage{
-aes_string(x, y, ...)
+aes_string(x = NULL, y = NULL, ...)
 
 aes_q(x, y, ...)
 }

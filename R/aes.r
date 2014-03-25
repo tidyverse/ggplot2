@@ -100,8 +100,8 @@ is_position_aes <- function(vars) {
 #' aes(mpg, wt, col = cyl, fill = NULL)
 #' aes_string("mpg", "wt", col = "cyl", fill = NULL)
 #' aes_q(quote(mpg), quote(wt), col = quote(cyl), fill = NULL)
-aes_string <- function(x, y, ...) {
-  mapping <- list(x = x, y = y, ...)
+aes_string <- function(x = NULL, y = NULL, ...) {
+  mapping <- c(compact(list(x = x, y = y)), list(...))
   mapping[vapply(mapping, is.null, logical(1))] <- "NULL"
 
   parsed <- lapply(mapping, function(x) parse(text = x)[[1]])
