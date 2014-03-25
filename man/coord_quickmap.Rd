@@ -6,9 +6,9 @@
 coord_quickmap(xlim = NULL, ylim = NULL)
 }
 \arguments{
-  \item{xlim}{limits for the x axis}
+\item{xlim}{limits for the x axis}
 
-  \item{ylim}{limits for the y axis}
+\item{ylim}{limits for the y axis}
 }
 \description{
 The represenation of a portion of the earth, wich is approximately spherical,

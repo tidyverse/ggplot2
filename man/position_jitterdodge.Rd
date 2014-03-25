@@ -7,15 +7,13 @@ position_jitterdodge(jitter.width = NULL, jitter.height = NULL,
   dodge.width = NULL)
 }
 \arguments{
-  \item{jitter.width}{degree of jitter in x direction.
-  Defaults to 40\% of the resolution of the data.}
+\item{jitter.width}{degree of jitter in x direction. Defaults to 40\% of the
+resolution of the data.}
 
-  \item{jitter.height}{degree of jitter in y direction.
-  Defaults to 0.}
+\item{jitter.height}{degree of jitter in y direction. Defaults to 0.}
 
-  \item{dodge.width}{the amount to dodge in the x
-  direction. Defaults to 0.75, the default
-  \code{position_dodge()} width.}
+\item{dodge.width}{the amount to dodge in the x direction. Defaults to 0.75,
+the default \code{position_dodge()} width.}
 }
 \description{
 This is primarily used for aligning points generated through
