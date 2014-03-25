@@ -47,7 +47,7 @@ locate_grid <- function(data, panels, rows = NULL, cols = NULL, margins = FALSE)
     data$PANEL <- panels$PANEL[match(keys$x, keys$y)]
   }
 
-  arrange(data, PANEL)
+  data[order(data$PANEL), , drop = FALSE]
 }
 
 locate_wrap <- function(data, panels, vars) {

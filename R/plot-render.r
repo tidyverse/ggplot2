@@ -32,8 +32,15 @@ ggplot_gtable <- function(data) {
 
   # helper function return the position of panels in plot_table
   find_panel <- function(table) {
-    summarise(subset(table$layout, grepl("^panel", name)),
-      t = min(t), r = max(r), b = max(b), l = min(l))
+    layout <- table$layout
+    panels <- layout[grepl("^panel", layout$name), , drop = FALSE]
+
+    data.frame(
+      t = min(panels$t),
+      r = max(panels$r),
+      b = max(panels$b),
+      l = min(panels$l)
+    )
   }
 
   # List by layer, list by panel
@@ -137,7 +144,8 @@ ggplot_gtable <- function(data) {
   title_height <- grobHeight(title) +
     if (is.null(plot$labels$title)) unit(0, "lines") else unit(0.5, "lines")
 
-  pans <- subset(plot_table$layout, grepl("^panel", name))
+  pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), ,
+    drop = FALSE]
 
   plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
   plot_table <- gtable_add_grob(plot_table, title, name = "title",

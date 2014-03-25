@@ -126,7 +126,7 @@ compute_intercept <- function(data, intercept, var = "x") {
       data[[ivar]] <- f(data[[var]])
       data
     }
-    data <- ddply(data, .(group), trans)
+    data <- ddply(data, "group", trans)
   } else {
     stop("Invalid intercept type: should be a numeric vector, a function",
          ", or a name of a function", call. = FALSE)

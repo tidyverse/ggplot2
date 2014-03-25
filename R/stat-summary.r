@@ -157,8 +157,8 @@ StatSummary <- proto(Stat, {
 # @param other arguments passed on to summary function
 # @keyword internal
 summarise_by_x <- function(data, summary, ...) {
-  summary <- ddply(data, .(group, x), summary, ...)
-  unique <- ddply(data, .(group, x), uniquecols)
+  summary <- ddply(data, c("group", "x"), summary, ...)
+  unique <- ddply(data, c("group", "x"), uniquecols)
   unique$y <- NULL
 
   merge(summary, unique, by = c("x", "group"))

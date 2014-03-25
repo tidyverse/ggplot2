@@ -297,7 +297,8 @@ guide_gengrob.legend <- function(guide, theme) {
 
   # default setting
   label.position <- guide$label.position %||% "right"
-  if (!label.position %in% c("top", "bottom", "left", "right")) stop("label position \"", label.position, "\" is invalid")
+  if (!label.position %in% c("top", "bottom", "left", "right"))
+    stop("label position \"", label.position, "\" is invalid")
 
   nbreak <- nrow(guide$key)
 
