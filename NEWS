@@ -7,7 +7,11 @@ ggplot2 0.9.3.1.99
 * `ggpcp()`, `ggfluctuation()`, `ggmissing()`, `ggstructure()`, and
   `ggorder()` are now defunct and have been removed.
 
-* Fix vertical justification for rotated text. (@krlmlr, #883)
+* Fix vertical justification for rotated text.  This will change the appearance
+  of plots that use textual elements that are rotated by 90° or 270° and have a
+  `vjust` parameter other than the default 0.5; the interpretation of `vjust`
+  and `hjust` is now the same for both rotated and non-rotated text elements
+  (0 = top/left, 1 = bottom/right, 0.5 = centered).  (@krlmlr, #883)
 
 * `aes()` no more treats variables like `a..x..b as a calculated aesthetic.
   (@krlmlr, #834.)
