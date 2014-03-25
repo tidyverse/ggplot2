@@ -32,7 +32,7 @@ layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL, drop = T
   cols <- if (is.null(names(cols))) 1L else id(base[names(cols)], drop = TRUE)
 
   panels <- data.frame(PANEL = panel, ROW = rows, COL = cols, base)
-  panels <- panels[order(panels$PANEL), ]
+  panels <- panels[order(panels$PANEL), , drop = FALSE]
   rownames(panels) <- NULL
   panels
 }
@@ -61,7 +61,7 @@ layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, as.table = 
   layout$COL <- as.integer((id - 1L) %% dims[2] + 1L)
 
   panels <- cbind(layout, unrowname(base))
-  panels <- panels[order(panels$PANEL), ]
+  panels <- panels[order(panels$PANEL), , drop = FALSE]
   rownames(panels) <- NULL
   panels
 }
