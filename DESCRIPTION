@@ -144,6 +144,7 @@ Collate:
     'position-fill.r'
     'position-identity.r'
     'position-jitter.r'
+    'position-jitterdodge.R'
     'position-stack.r'
     'quick-plot.r'
     'save.r'
