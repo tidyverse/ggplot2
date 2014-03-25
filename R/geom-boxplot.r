@@ -35,7 +35,7 @@
 #' @param varwidth if \code{FALSE} (default) make a standard box plot. If
 #'    \code{TRUE}, boxes are drawn with widths proportional to the
 #'    square-roots of the number of observations in the groups (possibly
-#'    weighted).
+#'    weighted, using the \code{weight} aesthetic).
 #' @export
 #'
 #' @references McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
@@ -126,23 +126,20 @@ GeomBoxplot <- proto(Geom, {
       df$ymax_final <- pmax(out_max, df$ymax)
     }
 
-    # if varwidth not requested or not available, don't use it
-    if(is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(df$relvarwidth)) {
-        if (is.null(df$relvarwidth)) {
-          transform(df,
-            xmin = x - width / 2, xmax = x + width / 2, width = NULL
-          )
-        } else {
-          transform(df,
-            xmin = x - width / 2, xmax = x + width / 2, width = NULL, relvarwidth = NULL
-          )
-        }
+    # if `varwidth` not requested or not available, don't use it
+    if (is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(df$relvarwidth)) {
+      df$xmin <- df$x - df$width / 2
+      df$xmax <- df$x + df$width / 2
     } else {
-      transform(df,
-        xmin = x - relvarwidth * width / 2, xmax = x + relvarwidth * width / 2, width = NULL, relvarwidth = NULL
-      )
+      # make `relvarwidth` relative to the size of the largest group
+      df$relvarwidth <- df$relvarwidth / max(df$relvarwidth)
+      df$xmin <- df$x - df$relvarwidth * df$width / 2
+      df$xmax <- df$x + df$relvarwidth * df$width / 2
     }
+    df$width <- NULL
+    if (!is.null(df$relvarwidth)) df$relvarwidth <- NULL
 
+    df
   }
 
   draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2,

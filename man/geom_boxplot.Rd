@@ -27,7 +27,8 @@ geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   \item{varwidth}{if \code{FALSE} (default) make a standard
   box plot. If \code{TRUE}, boxes are drawn with widths
   proportional to the square-roots of the number of
-  observations in the groups (possibly weighted).}
+  observations in the groups (possibly weighted, using the
+  \code{weight} aesthetic).}
 
   \item{mapping}{The aesthetic mapping, usually constructed
   with \code{\link{aes}} or \code{\link{aes_string}}. Only
