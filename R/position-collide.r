@@ -5,10 +5,8 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
   if (!is.null(width)) {
     # Width set manually
     if (!(all(c("xmin", "xmax") %in% names(data)))) {
-      data <- within(data, {
-        xmin <- x - width / 2
-        xmax <- x + width / 2
-      })
+      data$xmin <- data$x - width / 2
+      data$xmax <- data$x - width / 2
     }
   } else {
     if (!(all(c("xmin", "xmax") %in% names(data)))) {
@@ -17,7 +15,7 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
     }
 
     # Width determined from data, must be floating point constant
-    widths <- unique(with(data, xmax - xmin))
+    widths <- unique(data$xmax - data$xmin)
     widths <- widths[!is.na(widths)]
     if (!zero_range(range(widths))) {
       warning(name, " requires constant width: output may be incorrect",
@@ -41,13 +39,14 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
   }
 
   if (!is.null(data$ymax)) {
-    ddply(data, .(xmin), strategy, width = width)
+    ddply(data, "xmin", strategy, width = width)
   } else if (!is.null(data$y)) {
     message("ymax not defined: adjusting position using y instead")
-    transform(
-      ddply(transform(data, ymax = y), .(xmin), strategy, width = width),
-      y = ymax
-    )
+
+    data$ymax <- data$y
+    data <- ddply(data, "xmin", strategy, width = width)
+    data$y <- data$ymax
+    data
   } else {
     stop("Neither y nor ymax defined")
   }
