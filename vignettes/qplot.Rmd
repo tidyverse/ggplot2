@@ -7,7 +7,9 @@
 knitr::opts_chunk$set(
   comment = "#>",
   error = FALSE,
-  tidy = FALSE
+  tidy = FALSE,
+  fig.width = 4,
+  fig.height = 4
 )
 library(ggplot2)
 ```
