@@ -196,15 +196,15 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   angle <- angle %% 360
 
   if (angle == 90) {
-    xp <- vj
+    xp <- 1 - vj
     yp <- hj
   } else if (angle == 180) {
     xp <- 1 - hj
-    yp <- vj
+    yp <- 1 - vj
   } else if (angle == 270) {
     xp <- vj
     yp <- 1 - hj
-  }else {
+  } else {
     xp <- hj
     yp <- vj
   }
