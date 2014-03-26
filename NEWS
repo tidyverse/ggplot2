@@ -27,6 +27,9 @@ ggplot2 0.9.3.1.99
   fledged mapping projection as `coord_map()` does and therefore is much
   faster. Yet, it gives a correct approximation for small scale maps (a few
   degrees in either direction) at medium to low latitudes (@jiho, #922).
+* `geom_boxplot` gain new `varwidth` argument for controlling whether or not 
+  the width of boxplots should be proportional to the size of the groups 
+  (@tsieger, #927).
 
 * Allow specifying only one of the limits in a scale and use the automatic
   calculation of the other limit by passing NA to to the limit function,

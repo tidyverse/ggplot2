@@ -32,6 +32,10 @@
 #'    the medians differ.
 #' @param notchwidth for a notched box plot, width of the notch relative to
 #'    the body (default 0.5)
+#' @param varwidth if \code{FALSE} (default) make a standard box plot. If
+#'    \code{TRUE}, boxes are drawn with widths proportional to the
+#'    square-roots of the number of observations in the groups (possibly
+#'    weighted, using the \code{weight} aesthetic).
 #' @export
 #'
 #' @references McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
@@ -92,13 +96,17 @@
 #' b + geom_boxplot(stat = "identity")
 #' b + geom_boxplot(stat = "identity") + coord_flip()
 #' b + geom_boxplot(aes(fill = X1), stat = "identity")
+#'
+#' # Using varwidth
+#' p + geom_boxplot(varwidth = TRUE)
+#' qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot", varwidth = TRUE)
 #' }
 geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot", position = "dodge",
 outlier.colour = "black", outlier.shape = 16, outlier.size = 2,
-notch = FALSE, notchwidth = .5, ...) {
+notch = FALSE, notchwidth = .5, varwidth = FALSE, ...) {
   GeomBoxplot$new(mapping = mapping, data = data, stat = stat,
   position = position, outlier.colour = outlier.colour, outlier.shape = outlier.shape,
-  outlier.size = outlier.size, notch = notch, notchwidth = notchwidth, ...)
+  outlier.size = outlier.size, notch = notch, notchwidth = notchwidth, varwidth = varwidth, ...)
 }
 
 GeomBoxplot <- proto(Geom, {
@@ -118,14 +126,24 @@ GeomBoxplot <- proto(Geom, {
       df$ymax_final <- pmax(out_max, df$ymax)
     }
 
-    transform(df,
-      xmin = x - width / 2, xmax = x + width / 2, width = NULL
-    )
+    # if `varwidth` not requested or not available, don't use it
+    if (is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(df$relvarwidth)) {
+      df$xmin <- df$x - df$width / 2
+      df$xmax <- df$x + df$width / 2
+    } else {
+      # make `relvarwidth` relative to the size of the largest group
+      df$relvarwidth <- df$relvarwidth / max(df$relvarwidth)
+      df$xmin <- df$x - df$relvarwidth * df$width / 2
+      df$xmax <- df$x + df$relvarwidth * df$width / 2
+    }
+    df$width <- NULL
+    if (!is.null(df$relvarwidth)) df$relvarwidth <- NULL
 
+    df
   }
 
   draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2,
-                   notch = FALSE, notchwidth = .5) {
+                   notch = FALSE, notchwidth = .5, varwidth = FALSE) {
     common <- data.frame(
       colour = data$colour,
       size = data$size,
