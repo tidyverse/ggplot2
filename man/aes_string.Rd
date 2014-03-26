@@ -6,7 +6,7 @@
 \usage{
 aes_string(x = NULL, y = NULL, ...)
 
-aes_q(x, y, ...)
+aes_q(x = NULL, y = NULL, ...)
 }
 \arguments{
 \item{x,y,...}{List of name value pairs}
@@ -28,6 +28,10 @@ names/calls to define the aesthetic mappings, rather than having to use
 aes(mpg, wt, col = cyl, fill = NULL)
 aes_string("mpg", "wt", col = "cyl", fill = NULL)
 aes_q(quote(mpg), quote(wt), col = quote(cyl), fill = NULL)
+
+aes(col = cyl, fill = NULL)
+aes_string(col = "cyl", fill = NULL)
+aes_q(col = quote(cyl), fill = NULL)
 }
 \seealso{
 \code{\link{aes}}

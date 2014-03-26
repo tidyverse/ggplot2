@@ -100,6 +100,10 @@ is_position_aes <- function(vars) {
 #' aes(mpg, wt, col = cyl, fill = NULL)
 #' aes_string("mpg", "wt", col = "cyl", fill = NULL)
 #' aes_q(quote(mpg), quote(wt), col = quote(cyl), fill = NULL)
+#'
+#' aes(col = cyl, fill = NULL)
+#' aes_string(col = "cyl", fill = NULL)
+#' aes_q(col = quote(cyl), fill = NULL)
 aes_string <- function(x = NULL, y = NULL, ...) {
   mapping <- c(compact(list(x = x, y = y)), list(...))
   mapping[vapply(mapping, is.null, logical(1))] <- "NULL"
@@ -110,8 +114,8 @@ aes_string <- function(x = NULL, y = NULL, ...) {
 
 #' @rdname aes_string
 #' @export
-aes_q <- function(x, y, ...) {
-  mapping <- list(x = x, y = y, ...)
+aes_q <- function(x = NULL, y = NULL, ...) {
+  mapping <- c(compact(list(x = x, y = y)), list(...))
   structure(rename_aes(mapping), class = "uneval")
 }
 
