@@ -28,12 +28,12 @@
 #' \dontrun{
 #' ratings <- qplot(rating, data=movies, geom="histogram")
 #' qplot(length, data=movies, geom="histogram")
-#' ggsave(file="length-hist.pdf")
-#' ggsave(file="length-hist.png")
-#' ggsave(ratings, file="ratings.pdf")
-#' ggsave(ratings, file="ratings.pdf", width=4, height=4)
+#' ggsave("length-hist.pdf")
+#' ggsave("length-hist.png")
+#' ggsave("ratings.pdf", ratings)
+#' ggsave("ratings.pdf", ratings, width=4, height=4)
 #' # make twice as big as on screen
-#' ggsave(ratings, file="ratings.pdf", scale=2)
+#' ggsave("ratings.pdf", ratings, scale=2)
 #' }
 ggsave <- function(filename = default_name(plot), plot = last_plot(),
   device = default_device(filename), path = NULL, scale = 1,
