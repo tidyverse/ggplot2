@@ -78,21 +78,19 @@ label_wrap_gen <- function(width = 25) {
 #' Generic labeller function for facets
 #' 
 #' One-step function for providing methods or named character vectors
-#' as labels in facets.
+#' for displaying labels in facets.
 #' 
-#' Provided methods are parsed two variables, 
-#' \code{variable} and \code{values} (in that order), 
-#' where \code{variable} is the name of the facetting variable and 
-#' \code{values} are the different values this variable takes.
-#' If the provided method takes no arguments, an error is raised.
-#' If the provided method requires one argument, \code{values} are mapped to this.
-#' If the provided method requires more than two, an error is raised.
-#' If the provided method has zero or one required argument, 
-#' but multiple optional argument, you are on our own.
+#' The provided methods are checked for number of arguments.
+#' If the provided method takes less than two 
+#' (e.g. \code{\link[Hmisc]{capitalize}}), 
+#' the method is passed \code{values}.
+#' Else (e.g. \code{\link{label_both}}), 
+#' it is passed \code{variable} and \code{values} (in that order).
+#' If you want to be certain, use e.g. an anonymous function.
+#' If errors are returned such as ``argument ".." is missing, with no default'' 
+#' or ``unused argument (variable)'', matching the method's arguments does not
+#' work as expected; make a wrapper function.
 #' 
-#' If the result is NA, the function defaults to return the requsted value.
-#' 
-#' \code{NA}'s are replaced with strings of 'NA'.
 #'
 #' @param ... Named arguments of the form \code{variable=values}, 
 #'            where \code{values} could be a vector or method.
@@ -106,6 +104,7 @@ label_wrap_gen <- function(width = 25) {
 #' data(mpg)
 #' ggplot(mpg, aes(cty, hwy)) + geom_point() + facet_grid(cyl ~ class, labeller=label_both)
 #' ggplot(mpg, aes(cty, hwy)) + geom_point() + facet_grid(cyl ~ class, labeller=labeller(cyl=label_both))
+#' ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point() + facet_grid(vs + am ~ gear, margins=TRUE, labeller=labeller(vs=label_both, am=label_both))
 #' 
 #' 
 #' library(Hmisc) ## for the capitalize function
@@ -131,43 +130,34 @@ labeller <- function(..., keep.as.numeric=FALSE) {
   args <- list(...)
   
   function(variable, values) {
-    str(values)
     if (is.logical(values)) {
-      values <- as.integer(values)+1
+      values <- as.integer(values) + 1
     } else if (is.factor(values)) {
       values <- as.character(values)
     } else if (is.numeric(values) & !keep.as.numeric) {
       values <- as.character(values)
     }
-
-    if (any(is.na(values))) {
-      values[is.na(values)] <- 'NA'
-    }
-    
+      
     res <- args[[variable]]
-
+    
     if (is.null(res)) {
+      # If the facetting margin (i.e. `variable`) was not specified when calling
+      # labeller, default to use the actual values.
       result <- values
+      
     } else if (is.function(res)) {
-      arguments <- length(formals(res))
-      required_args <- sum(sapply(formals(res), is.symbol))
-      if (arguments == 0) {
-        stop('`labeller` cannot use a function that does not use arguments.')
-      } else if (required_args == 1) {
+      # How should `variable` and `values` be passed to a function? ------------
+      arguments <- length(formals(res))    
+      if (arguments < 2) {
         result <- res(values)
-      } else if (required_args > 2) {
-        stop('`labeller` misses argument for method provided for `', variable, '`.')
       } else {
         result <- res(variable, values)
-      }
+      }     
       
     } else {
       result <- res[values]
     }
     
-    if (any(is.na(result))) {
-      result[is.na(result)] <- 'NA'
-    }
     return(result)
   }
 }

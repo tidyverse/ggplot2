@@ -19,27 +19,25 @@ Function to supply to \code{\link{facet_grid}} for the argument \code{labeller}.
 }
 \description{
 One-step function for providing methods or named character vectors
-as labels in facets.
+for displaying labels in facets.
 }
 \details{
-Provided methods are parsed two variables,
-\code{variable} and \code{values} (in that order),
-where \code{variable} is the name of the facetting variable and
-\code{values} are the different values this variable takes.
-If the provided method takes no arguments, an error is raised.
-If the provided method requires one argument, \code{values} are mapped to this.
-If the provided method requires more than two, an error is raised.
-If the provided method has zero or one required argument,
-but multiple optional argument, you are on our own.
-
-If the result is NA, the function defaults to return the requsted value.
-
-\code{NA}'s are replaced with strings of 'NA'.
+The provided methods are checked for number of arguments.
+If the provided method takes less than two
+(e.g. \code{\link[Hmisc]{capitalize}}),
+the method is passed \code{values}.
+Else (e.g. \code{\link{label_both}}),
+it is passed \code{variable} and \code{values} (in that order).
+If you want to be certain, use e.g. an anonymous function.
+If errors are returned such as ``argument ".." is missing, with no default''
+or ``unused argument (variable)'', matching the method's arguments does not
+work as expected; make a wrapper function.
 }
 \examples{
 data(mpg)
 ggplot(mpg, aes(cty, hwy)) + geom_point() + facet_grid(cyl ~ class, labeller=label_both)
 ggplot(mpg, aes(cty, hwy)) + geom_point() + facet_grid(cyl ~ class, labeller=labeller(cyl=label_both))
+ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point() + facet_grid(vs + am ~ gear, margins=TRUE, labeller=labeller(vs=label_both, am=label_both))
 
 
 library(Hmisc) ## for the capitalize function
