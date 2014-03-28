@@ -70,8 +70,8 @@ label_bquote <- function(expr = beta ^ .(x)) {
 #' @seealso , \code{\link{labeller}}
 label_wrap_gen <- function(width = 25) {
   function(variable, values) {
-    sapply(strwrap(as.character(values), width=width, simplify=FALSE), 
-           paste, collapse="\n")
+    vapply(strwrap(as.character(values), width = width, simplify = FALSE), 
+           paste, vector('character', 1), collapse = "\n")
   }
 }
 
@@ -93,21 +93,35 @@ label_wrap_gen <- function(width = 25) {
 #' 
 #'
 #' @param ... Named arguments of the form \code{variable=values}, 
-#'            where \code{values} could be a vector or method.
+#'   where \code{values} could be a vector or method.         
 #' @param keep.as.numeric logical, default TRUE. When FALSE, converts numeric 
-#'                        values supplied as margins to the facet to characters.
+#'   values supplied as margins to the facet to characters.
 #' @family facet labeller
-#' @return Function to supply to \code{\link{facet_grid}} for the argument \code{labeller}.
+#' @return Function to supply to 
+#'   \code{\link{facet_grid}} for the argument \code{labeller}.
 #' @export 
 #' @examples
 #' 
 #' data(mpg)
-#' ggplot(mpg, aes(cty, hwy)) + geom_point() + facet_grid(cyl ~ class, labeller=label_both)
-#' ggplot(mpg, aes(cty, hwy)) + geom_point() + facet_grid(cyl ~ class, labeller=labeller(cyl=label_both))
-#' ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point() + facet_grid(vs + am ~ gear, margins=TRUE, labeller=labeller(vs=label_both, am=label_both))
+#' 
+#' p1 <- ggplot(mpg, aes(cty, hwy)) + geom_point()
 #' 
 #' 
-#' library(Hmisc) ## for the capitalize function
+#' p1 + facet_grid(cyl ~ class, labeller=label_both)
+#'   
+#' p1 + facet_grid(cyl ~ class, labeller=labeller(cyl=label_both))
+#'   
+#' ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point() + 
+#'   facet_grid(vs + am ~ gear, margins=TRUE, 
+#'              labeller=labeller(vs=label_both, am=label_both))
+#' 
+#' 
+#' 
+#' data(msleep)
+#' capitalize <- function(string) {
+#'   substr(string, 1, 1) <- toupper(substr(string, 1, 1))
+#'  string 
+#' }
 #' conservation_status <- c('cd'='Conservation Dependent',
 #'                          'en'='Endangered', 
 #'                          'lc'='Least concern',
@@ -116,15 +130,21 @@ label_wrap_gen <- function(width = 25) {
 #'                          'domesticated'='Domesticated')
 #' ## Source: http://en.wikipedia.org/wiki/Wikipedia:Conservation_status 
 #'
-#' ggplot(msleep, aes(x=sleep_total, y=awake)) + geom_point() + facet_grid(vore ~ conservation, labeller=labeller(vore=capitalize))
-#' ggplot(msleep, aes(x=sleep_total, y=awake)) + geom_point() + facet_grid(vore ~ conservation, labeller=labeller(vore=capitalize, conservation=conservation_status ))
+#' p2 <- ggplot(msleep, aes(x=sleep_total, y=awake)) + geom_point() + 
+#' p2 + facet_grid(vore ~ conservation, labeller=labeller(vore=capitalize))
+#'   
+#' p2 + facet_grid(vore ~ conservation, 
+#'   labeller=labeller(vore=capitalize, conservation=conservation_status ))
 #' 
-#' # We could of course have renamed the levels; then we can apply another nifty function:
+#' # We could of course have renamed the levels; 
+#' # then we can apply another nifty function:
 #' library(plyr)
 #' msleep$conservation2 <- revalue(msleep$conservation, conservation_status)                         
-#' ggplot(msleep, aes(x=sleep_total, y=awake)) + geom_point() + facet_grid(vore ~ conservation2, labeller=labeller(vore=capitalize))
-#' ggplot(msleep, aes(x=sleep_total, y=awake)) + geom_point() + facet_grid(vore ~ conservation2, labeller=labeller(conservation2=label_wrap_gen(10) ))
+#'
+#' p2 + facet_grid(vore ~ conservation2, labeller=labeller(vore=capitalize))
 #' 
+#' p2 + facet_grid(vore ~ conservation2, 
+#'   labeller=labeller(conservation2=label_wrap_gen(10) ))
 #' 
 labeller <- function(..., keep.as.numeric=FALSE) {
   args <- list(...)
