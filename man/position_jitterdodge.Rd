@@ -31,6 +31,7 @@ Other position adjustments: \code{\link{position_dodge}};
   \code{\link{position_fill}};
   \code{\link{position_identity}};
   \code{\link{position_jitter}};
+  \code{\link{position_offset}};
   \code{\link{position_stack}}
 }
 
