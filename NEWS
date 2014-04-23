@@ -70,6 +70,12 @@ ggplot2 0.9.3.1.99
   update_geom_defaults() will apply the same changes to the outliers of
   geom_boxplot(). Changing the defaults for the outliers was previously not
   possible. (@ThierryO, #757)
+* Added helper function `labeller` for formatting faceting values.
+  (@stefanedwards, #910)
+
+* Added `label_wrap_gen` based on 
+  https://github.com/hadley/ggplot2/wiki/labeller#writing-new-labellers
+  (@stefanedwards, #910)
 
 ggplot2 0.9.3.1
 ----------------------------------------------------------------
