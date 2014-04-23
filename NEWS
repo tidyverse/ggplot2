@@ -64,6 +64,11 @@ ggplot2 0.9.3.1.99
 
 * Add `"none"` to documentation of `theme()` for parameter `legend.position`
   (@krlmlr, #829).
+* The outliers of geom_boxplot() use the default colour, size and shape from
+  geom_point(). Changing the defaults of geom_point() with 
+  update_geom_defaults() will apply the same changes to the outliers of 
+  geom_boxplot(). Changing the defaults for the outliers was previously not 
+  possible. (@ThierryO, #757)
 
 ggplot2 0.9.3.1
 ----------------------------------------------------------------

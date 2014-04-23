@@ -4,16 +4,15 @@
 \title{Box and whiskers plot.}
 \usage{
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
-  position = "dodge", outlier.colour = "black", outlier.shape = 16,
-  outlier.size = 2, notch = FALSE, notchwidth = 0.5, varwidth = FALSE,
-  ...)
+  position = "dodge", outlier.colour = NULL, outlier.shape = NULL,
+  outlier.size = NULL, notch = FALSE, notchwidth = 0.5, ...)
 }
 \arguments{
-\item{outlier.colour}{colour for outlying points}
+\item{outlier.colour}{colour for outlying points. Uses the default from geom_point().}
 
-\item{outlier.shape}{shape of outlying points}
+\item{outlier.shape}{shape of outlying points. Uses the default from geom_point().}
 
-\item{outlier.size}{size of outlying points}
+\item{outlier.size}{size of outlying points. Uses the default from geom_point().}
 
 \item{notch}{if \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, make a notched box plot. Notches are used to compare groups;
@@ -126,6 +125,14 @@ b + geom_boxplot(aes(fill = X1), stat = "identity")
 # Using varwidth
 p + geom_boxplot(varwidth = TRUE)
 qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot", varwidth = TRUE)
+
+# Update the defaults for the outliers by changing the defaults for geom_point
+
+p <- ggplot(mtcars, aes(factor(cyl), mpg))
+p + geom_boxplot()
+
+update_geom_defaults("point", list(shape = 1, colour = "red", size = 5))
+p + geom_boxplot()
 }
 }
 \references{

@@ -23,9 +23,9 @@
 #'   continuous variable,  \code{\link{geom_jitter}} for another way to look
 #'   at conditional distributions"
 #' @inheritParams geom_point
-#' @param outlier.colour colour for outlying points
-#' @param outlier.shape shape of outlying points
-#' @param outlier.size size of outlying points
+#' @param outlier.colour colour for outlying points. Uses the default from geom_point().
+#' @param outlier.shape shape of outlying points. Uses the default from geom_point().
+#' @param outlier.size size of outlying points. Uses the default from geom_point().
 #' @param notch if \code{FALSE} (default) make a standard box plot. If
 #'    \code{TRUE}, make a notched box plot. Notches are used to compare groups;
 #'    if the notches of two boxes do not overlap, this is strong evidence that
@@ -100,13 +100,30 @@
 #' # Using varwidth
 #' p + geom_boxplot(varwidth = TRUE)
 #' qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot", varwidth = TRUE)
+#'
+#' # Update the defaults for the outliers by changing the defaults for geom_point
+#'
+#' p <- ggplot(mtcars, aes(factor(cyl), mpg))
+#' p + geom_boxplot()
+#'
+#' update_geom_defaults("point", list(shape = 1, colour = "red", size = 5))
+#' p + geom_boxplot()
 #' }
-geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot", position = "dodge",
-outlier.colour = "black", outlier.shape = 16, outlier.size = 2,
-notch = FALSE, notchwidth = .5, varwidth = FALSE, ...) {
+geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
+                          position = "dodge", outlier.colour = NULL,
+                          outlier.shape = NULL, outlier.size = NULL,
+                          notch = FALSE, notchwidth = .5, ...) {
+
+  outlier_defaults <- Geom$find('point')$default_aes()
+
+  outlier.colour   <- outlier.colour %||% outlier_defaults$colour
+  outlier.shape    <- outlier.shape  %||% outlier_defaults$shape
+  outlier.size     <- outlier.size   %||% outlier_defaults$size
+
   GeomBoxplot$new(mapping = mapping, data = data, stat = stat,
-  position = position, outlier.colour = outlier.colour, outlier.shape = outlier.shape,
-  outlier.size = outlier.size, notch = notch, notchwidth = notchwidth, varwidth = varwidth, ...)
+    position = position, outlier.colour = outlier.colour,
+    outlier.shape = outlier.shape, outlier.size = outlier.size, notch = notch,
+    notchwidth = notchwidth, ...)
 }
 
 GeomBoxplot <- proto(Geom, {
