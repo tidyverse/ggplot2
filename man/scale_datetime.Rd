@@ -15,7 +15,7 @@ scale_y_datetime(..., expand = waiver(), breaks = pretty_breaks(),
 returns a vector of breaks, or a character vector, specifying the width
 between breaks. For more information about the first two, see
 \code{\link{continuous_scale}}, for more information about the last,
-see \code{\link[scales]{date_breaks}}`.}
+see \code{\link[scales]{date_breaks}}.}
 
 \item{minor_breaks}{Either \code{NULL} for no minor breaks, \code{waiver()}
 for the default breaks (one minor break between each major break), a
