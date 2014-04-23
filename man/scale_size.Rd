@@ -34,7 +34,7 @@ p + scale_size(range = c(1, 2))
 # Map area, instead of width/radius
 # Perceptually, this is a little better
 p + scale_size_area()
-p + scale_size_area(range = c(1, 25))
+p + scale_size_area(max_size = 25)
 
 # Also works with factors, but not a terribly good
 # idea, unless your factor is ordered, as in this example

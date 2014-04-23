@@ -93,7 +93,7 @@ ggplot(mtcars, aes(x = mpg)) +
 
 # y axis isn't really meaningful, so hide it
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5) +
-  scale_y_continuous(name = "", breaks = NA)
+  scale_y_continuous(name = "", breaks = NULL)
 
 # Overlap dots vertically
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, stackratio = .7)

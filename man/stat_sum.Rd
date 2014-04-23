@@ -50,7 +50,7 @@ d + stat_sum()
 # by overall proportion
 d + stat_sum(aes(group = 1))
 d + stat_sum(aes(group = 1)) + scale_size(range = c(3, 10))
-d + stat_sum(aes(group = 1)) + scale_size_area(range = c(3, 10))
+d + stat_sum(aes(group = 1)) + scale_size_area(max_size = 10)
 
 # by cut
 d + stat_sum(aes(group = cut))
