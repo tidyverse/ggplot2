@@ -66,7 +66,7 @@ qplot(carat, price, data = diamonds)
 
 The plot shows a strong correlation with notable outliers and some interesting vertical striation.  The relationship looks exponential, though, so the first thing we'd like to do is to transform the variables.  Because `qplot()` accepts functions of variables as arguments, we plot `log(price)` vs. `log(carat)`:
 
-```
+```{r}
 qplot(log(carat), log(price), data = diamonds)
 ```
 
