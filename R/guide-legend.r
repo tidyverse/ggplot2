@@ -516,3 +516,5 @@ guide_gengrob.legend <- function(guide, theme) {
 
   gt
 }
+
+globalVariables(c("R", "key.row", "key.col", "label.row", "label.col"))

@@ -6,13 +6,11 @@
 labeller(..., keep.as.numeric = FALSE)
 }
 \arguments{
-  \item{...}{Named arguments of the form
-  \code{variable=values}, where \code{values} could be a
-  vector or method.}
+\item{...}{Named arguments of the form \code{variable=values},
+where \code{values} could be a vector or method.}
 
-  \item{keep.as.numeric}{logical, default TRUE. When FALSE,
-  converts numeric values supplied as margins to the facet
-  to characters.}
+\item{keep.as.numeric}{logical, default TRUE. When FALSE, converts numeric
+values supplied as margins to the facet to characters.}
 }
 \value{
 Function to supply to
