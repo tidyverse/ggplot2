@@ -131,7 +131,7 @@ label_wrap_gen <- function(width = 25) {
 #'   labeller=labeller(vore = capitalize, conservation = conservation_status ))
 #'
 #' # We could of course have renamed the levels;
-#' # then we can apply another nifty function:
+#' # then we can apply another nifty function
 #' msleep$conservation2 <- plyr::revalue(msleep$conservation, conservation_status)
 #'
 #' p2 %+% msleep +
