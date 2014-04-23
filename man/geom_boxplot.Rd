@@ -5,7 +5,8 @@
 \usage{
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", outlier.colour = NULL, outlier.shape = NULL,
-  outlier.size = NULL, notch = FALSE, notchwidth = 0.5, ...)
+  outlier.size = NULL, notch = FALSE, notchwidth = 0.5,
+  varwidth = FALSE, ...)
 }
 \arguments{
 \item{outlier.colour}{colour for outlying points. Uses the default from geom_point().}

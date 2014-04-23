@@ -113,7 +113,8 @@
 geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
                           position = "dodge", outlier.colour = NULL,
                           outlier.shape = NULL, outlier.size = NULL,
-                          notch = FALSE, notchwidth = .5, ...) {
+                          notch = FALSE, notchwidth = .5, varwidth = FALSE,
+                          ...) {
 
   outlier_defaults <- Geom$find('point')$default_aes()
 
@@ -124,7 +125,7 @@ geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
   GeomBoxplot$new(mapping = mapping, data = data, stat = stat,
     position = position, outlier.colour = outlier.colour,
     outlier.shape = outlier.shape, outlier.size = outlier.size, notch = notch,
-    notchwidth = notchwidth, ...)
+    notchwidth = notchwidth, varwidth = varwidth, ...)
 }
 
 GeomBoxplot <- proto(Geom, {
