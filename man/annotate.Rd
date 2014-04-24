@@ -4,13 +4,13 @@
 \title{Create an annotation layer.}
 \usage{
 annotate(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
-  ymin = NULL, ymax = NULL, ...)
+  ymin = NULL, ymax = NULL, xend = NULL, yend = NULL, ...)
 }
 \arguments{
 \item{geom}{name of geom to use for annotation}
 
-\item{x,y,xmin,ymin,xmax,ymax}{positionining aesthetics - you must
-specify at least one of these.}
+\item{x,y,xmin,ymin,xmax,ymax,xend,yend}{positionining aesthetics -
+you must specify at least one of these.}
 
 \item{...}{other aesthetics. These are not scaled so you can do (e.g.)
 \code{colour = "red"} to get a red point.}
