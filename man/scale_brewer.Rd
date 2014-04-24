@@ -24,26 +24,23 @@ scale_color_distiller(..., type = "seq", palette = 1, values = NULL,
   space = "Lab", na.value = "grey50")
 }
 \arguments{
-\item{type}{One of seq (sequential), div (diverging) or
-  qual (qualitative)}
+\item{type}{One of seq (sequential), div (diverging) or qual (qualitative)}
 
-\item{palette}{If a string, will use that named palette.
-  If a number, will index into the list of palettes of
-  appropriate \code{type}}
+\item{palette}{If a string, will use that named palette.  If a number, will
+index into the list of palettes of appropriate \code{type}}
 
 \item{...}{Other arguments passed on to \code{\link{discrete_scale}}
 to control name, limits, breaks, labels and so forth.}
 
 \item{na.value}{Colour to use for missing values}
 
-\item{values}{if colours should not be evenly positioned
-  along the gradient this vector gives the position
-  (between 0 and 1) for each colour in the \code{colours}
-  vector. See \code{\link{rescale}} for a convience
-  function to map an arbitrary range to between 0 and 1.}
+\item{values}{if colours should not be evenly positioned along the gradient
+this vector gives the position (between 0 and 1) for each colour in the
+\code{colours} vector. See \code{\link{rescale}} for a convience function
+to map an arbitrary range to between 0 and 1.}
 
-\item{space}{colour space in which to calculate gradient.
-  "Lab" usually best unless gradient goes through white.}
+\item{space}{colour space in which to calculate gradient.  "Lab" usually
+best unless gradient goes through white.}
 }
 \description{
 ColorBrewer provides sequential, diverging and qualitative colour schemes

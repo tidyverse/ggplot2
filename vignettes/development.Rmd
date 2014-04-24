@@ -70,7 +70,7 @@ devtools::install_github("klutometis/roxygen")
 Next, install all the suggested packages that ggplot2 needs. To do this either open the ggplot2 rstudio project, or set your working directory to the ggplot2 directory, then run:
 
 ```{r, eval = FALSE}
-install_deps(deps = T)
+install_deps(dep = T)
 ```
 
 The key functions you'll use when working on ggplot2:
