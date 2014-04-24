@@ -74,9 +74,9 @@ p2 + facet_grid(vore ~ conservation,
 library(plyr)
 msleep$conservation2 <- revalue(msleep$conservation, conservation_status)
 
-p2 + facet_grid(vore ~ conservation2, labeller=labeller(vore=capitalize))
+p2 \%+\% msleep + facet_grid(vore ~ conservation2, labeller=labeller(vore=capitalize))
 
-p2 + facet_grid(vore ~ conservation2,
+p2 \%+\% msleep + facet_grid(vore ~ conservation2,
   labeller=labeller(conservation2=label_wrap_gen(10) ))
 }
 
