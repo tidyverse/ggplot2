@@ -50,11 +50,12 @@ context("stat-sum")
 
 test_that("stat_sum", {
   d <- diamonds[1:1000, ]
+  all_ones <- function(x) all.equal(mean(x), 1)
 
   ret <- test_stat(stat_sum(aes(x = cut, y = clarity), data =  d))
   expect_equal(dim(ret), c(38, 5))
   expect_equal(sum(ret$n), nrow(d))
-  expect_true(all(ret$prop == 1))
+  expect_true(all_ones(ret$prop))
 
   ret <- test_stat(stat_sum(aes(x = cut, y = clarity, group = 1), data =  d))
   expect_equal(dim(ret), c(38, 5))
@@ -64,24 +65,24 @@ test_that("stat_sum", {
   ret <- test_stat(stat_sum(aes(x = cut, y = clarity, group = cut), data =  d))
   expect_equal(dim(ret), c(38, 5))
   expect_equal(sum(ret$n), nrow(d))
-  expect_true(all(ddply(ret, .(x), summarise, prop = sum(prop))$prop == 1))
+  expect_true(all_ones(tapply(ret$prop, ret$x, FUN = sum)))
 
   ret <- test_stat(stat_sum(aes(x = cut, y = clarity, group = cut, colour = cut), data =  d))
   expect_equal(dim(ret), c(38, 6))
   expect_equal(ret$x, ret$colour)
   expect_equal(sum(ret$n), nrow(d))
-  expect_true(all(ddply(ret, .(x), summarise, prop = sum(prop))$prop == 1))
+  expect_true(all_ones(tapply(ret$prop, ret$x, FUN = sum)))
 
   ret <- test_stat(stat_sum(aes(x = cut, y = clarity, group = clarity), data =  d))
   expect_equal(dim(ret), c(38, 5))
   expect_equal(sum(ret$n), nrow(d))
-  expect_true(all(ddply(ret, .(y), summarise, prop = sum(prop))$prop == 1))
+  expect_true(all_ones(tapply(ret$prop, ret$y, FUN = sum)))
 
   ret <- test_stat(stat_sum(aes(x = cut, y = clarity, group = clarity, colour = cut), data =  d))
   expect_equal(dim(ret), c(38, 6))
   expect_equal(ret$x, ret$colour)
   expect_equal(sum(ret$n), nrow(d))
-  expect_true(all(ddply(ret, .(y), summarise, prop = sum(prop))$prop == 1))
+  expect_true(all_ones(tapply(ret$prop, ret$y, FUN = sum)))
 
   ret <- test_stat(stat_sum(aes(x = cut, y = clarity, group = 1, weight = price), data =  d))
   expect_equal(dim(ret), c(38, 5))
