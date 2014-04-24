@@ -130,7 +130,7 @@ label_wrap_gen <- function(width = 25) {
 #'                          'domesticated'='Domesticated')
 #' ## Source: http://en.wikipedia.org/wiki/Wikipedia:Conservation_status 
 #'
-#' p2 <- ggplot(msleep, aes(x=sleep_total, y=awake)) + geom_point() + 
+#' p2 <- ggplot(msleep, aes(x=sleep_total, y=awake)) + geom_point() 
 #' p2 + facet_grid(vore ~ conservation, labeller=labeller(vore=capitalize))
 #'   
 #' p2 + facet_grid(vore ~ conservation, 
@@ -141,9 +141,9 @@ label_wrap_gen <- function(width = 25) {
 #' library(plyr)
 #' msleep$conservation2 <- revalue(msleep$conservation, conservation_status)                         
 #'
-#' p2 + facet_grid(vore ~ conservation2, labeller=labeller(vore=capitalize))
+#' p2 %+% msleep + facet_grid(vore ~ conservation2, labeller=labeller(vore=capitalize))
 #' 
-#' p2 + facet_grid(vore ~ conservation2, 
+#' p2 %+% msleep + facet_grid(vore ~ conservation2, 
 #'   labeller=labeller(conservation2=label_wrap_gen(10) ))
 #' 
 labeller <- function(..., keep.as.numeric=FALSE) {
