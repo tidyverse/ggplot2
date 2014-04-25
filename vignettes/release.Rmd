@@ -31,6 +31,9 @@ After issues resolved for a given release:
 
 1.  Commit these changes to a branch with `ggplot2-<version>-rc`, and push the
     branch.
+    
+1.  Check packages that depend on ggplot2 with `devtools::revdep_check()` and
+    run visual tests.
 
 1.  Email ggplot2, ggplot2-dev, and bcc the maintainers of packages that depend 
     on ggplot2 (`revdep_maintainers("ggplot2")`).
@@ -57,7 +60,21 @@ After issues resolved for a given release:
     Hadley & Winston
     ```
 
-1.  Check packages that depend on ggplot2 with `devtools::revdep_check()`
+1.  Notify cran:
+
+    ```
+    Dear CRAN maintainers,
+    
+    ggplot2 1.0.0 has entered the release candidate phase and will be
+    submitted to CRAN in two weeks.
+    
+    Included below is the email that I sent to the ggplot2 mailing and all
+    maintainers of packages that depend on ggplot2.
+    
+    Regards,
+    
+    Hadley
+    ```
 
 If problems arise during the RC period, make fixes on the branch. Those fixes
 later get merged back into master.
