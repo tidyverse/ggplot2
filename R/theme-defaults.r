@@ -122,7 +122,6 @@ theme_bw <- function(base_size = 12, base_family = "") {
       legend.key        = element_rect(colour = "grey80"),
       panel.background  = element_rect(fill = "white", colour = NA),
       panel.border      = element_rect(fill = NA, colour = "grey50"),
-      panel.margin      = unit(0,"cm"),
       panel.grid.major  = element_line(colour = "grey90", size = 0.2),
       panel.grid.minor  = element_line(colour = "grey98", size = 0.5),
       strip.background  = element_rect(fill = "grey80", colour = "grey50", size = 0.2)
