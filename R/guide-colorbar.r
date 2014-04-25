@@ -1,4 +1,4 @@
-#' Contiuous colour bar guide.
+#' Continuous colour bar guide.
 #'
 #' Colour bar guide shows continuous color scales mapped onto values.
 #' Colour bar is available with \code{scale_fill} and \code{scale_colour}.
@@ -7,7 +7,7 @@
 #'
 #' Guides can be specified in each scale or in \code{\link{guides}}.
 #' \code{guide="legend"} in scale is syntax sugar for
-#' \code{guide=guide_legend()} - but the second form allows you to specify 
+#' \code{guide=guide_legend()} - but the second form allows you to specify
 #' more options. As for how to specify the guide for each
 #' scales, see \code{\link{guides}}.
 #'
@@ -43,53 +43,53 @@
 #' @examples
 #' library(reshape2) # for melt
 #' df <- melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
-#' 
+#'
 #' p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 #' p2 <- p1 + geom_point(aes(size = value))
-#' 
+#'
 #' # Basic form
 #' p1 + scale_fill_continuous(guide = "colorbar")
 #' p1 + scale_fill_continuous(guide = guide_colorbar())
 #' p1 + guides(fill = guide_colorbar())
-#' 
+#'
 #' # Control styles
-#' 
+#'
 #' # bar size
 #' p1 + guides(fill = guide_colorbar(barwidth = 0.5, barheight = 10))
-#' 
+#'
 #' # no label
 #' p1 + guides(fill = guide_colorbar(label = FALSE))
-#' 
+#'
 #' # no tick marks
 #' p1 + guides(fill = guide_colorbar(ticks = FALSE))
-#' 
+#'
 #' # label position
 #' p1 + guides(fill = guide_colorbar(label.position = "left"))
 #'
 #' # label theme
 #' p1 + guides(fill = guide_colorbar(label.theme = element_text(colour = "blue", angle = 0)))
-#'  
+#'
 #' # small number of bins
 #' p1 + guides(fill = guide_colorbar(nbin = 3))
-#' 
+#'
 #' # large number of bins
 #' p1 + guides(fill = guide_colorbar(nbin = 100))
-#' 
+#'
 #' # make top- and bottom-most ticks invisible
 #' p1 + scale_fill_continuous(limits = c(0,20), breaks=c(0, 5, 10, 15, 20),
 #'  guide = guide_colorbar(nbin=100, draw.ulim = FALSE, draw.llim = FALSE))
-#' 
+#'
 #' # guides can be controlled independently
-#' p2 + 
-#'   scale_fill_continuous(guide = "colorbar") + 
+#' p2 +
+#'   scale_fill_continuous(guide = "colorbar") +
 #'   scale_size(guide = "legend")
 #' p2 + guides(fill = "colorbar", size = "legend")
 #'
-#' p2 + 
+#' p2 +
 #'   scale_fill_continuous(guide = guide_colorbar(direction = "horizontal")) +
-#'   scale_size(guide = guide_legend(direction = "vertical")) 
+#'   scale_size(guide = guide_legend(direction = "vertical"))
 guide_colourbar <- function(
-                           
+
   #　title
   title = waiver(),
   title.position = NULL,
@@ -122,7 +122,7 @@ guide_colourbar <- function(
   order = 0,
 
   ...) {
-  
+
   if (!is.null(barwidth) && !is.unit(barwidth)) barwidth <- unit(barwidth, default.unit)
   if (!is.null(barheight) && !is.unit(barheight)) barheight <- unit(barheight, default.unit)
 
@@ -160,11 +160,12 @@ guide_colourbar <- function(
 
     # parameter
     available_aes = c("colour", "color", "fill"),
-                 
+
     ..., name="colorbar"),
     class=c("guide", "colorbar"))
 }
 
+#' @export
 guide_train.colorbar <- function(guide, scale) {
 
   # do nothing if scale are inappropriate
@@ -176,14 +177,14 @@ guide_train.colorbar <- function(guide, scale) {
     warning("colorbar guide needs continuous scales.")
     return(NULL)
   }
-  
-  
+
+
   # ticks - label (i.e. breaks)
   output <- scale$aesthetics[1]
   breaks <- scale_breaks(scale)
   guide$key <- data.frame(scale_map(scale, breaks), I(scale_labels(scale, breaks)), breaks,
                           stringsAsFactors = FALSE)
-  
+
   # .value = breaks (numeric) is used for determining the position of ticks in gengrob
   names(guide$key) <- c(output, ".label", ".value")
 
@@ -199,15 +200,18 @@ guide_train.colorbar <- function(guide, scale) {
 }
 
 # simply discards the new guide
+#' @export
 guide_merge.colorbar <- function(guide, new_guide) {
   guide
 }
 
 # this guide is not geom-based.
+#' @export
 guide_geom.colorbar <- function(guide, ...) {
   guide
 }
 
+#' @export
 guide_gengrob.colorbar <- function(guide, theme) {
 
   # settings of location and size
@@ -215,28 +219,28 @@ guide_gengrob.colorbar <- function(guide, theme) {
     "horizontal" = {
       label.position <- guide$label.position %||% "bottom"
       if (!label.position %in% c("top", "bottom")) stop("label position \"", label.position, "\" is invalid")
-  
+
       barwidth <- convertWidth(guide$barwidth %||% (theme$legend.key.width * 5), "mm")
       barheight <- convertHeight(guide$barheight %||% theme$legend.key.height, "mm")
     },
     "vertical" = {
       label.position <- guide$label.position %||% "right"
       if (!label.position %in% c("left", "right")) stop("label position \"", label.position, "\" is invalid")
-      
+
       barwidth <- convertWidth(guide$barwidth %||% theme$legend.key.width, "mm")
       barheight <- convertHeight(guide$barheight %||% (theme$legend.key.height * 5), "mm")
     })
-         
+
   barwidth.c <- c(barwidth)
   barheight.c <- c(barheight)
   barlength.c <- switch(guide$direction, "horizontal" = barwidth.c, "vertical" = barheight.c)
   nbreak <- nrow(guide$key)
-  
+
   # gap between keys etc
   hgap <- c(convertWidth(unit(0.3, "lines"), "mm"))
   vgap <- hgap
 
-  grob.bar <- 
+  grob.bar <-
     if (guide$raster) {
       image <- switch(guide$direction, horizontal = t(guide$bar$colour), vertical = rev(guide$bar$colour))
       rasterGrob(image = image, width=barwidth.c, height=barheight.c, default.units = "mm", gp=gpar(col=NA), interpolate = TRUE)
@@ -382,7 +386,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
     "bottom" = {
       widths <- c(bl_widths, max(0, title_width.c-sum(bl_widths)))
       heights <- c(bl_heights, vgap, title_height.c)
-      vps <- with(vps, 
+      vps <- with(vps,
                   list(bar.row = bar.row, bar.col = bar.col,
                        label.row = label.row, label.col = label.col,
                        title.row = length(heights), title.col = 1:length(widths)))
@@ -390,7 +394,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
     "left" = {
       widths <- c(title_width.c, hgap, bl_widths)
       heights <- c(bl_heights, max(0, title_height.c-sum(bl_heights)))
-      vps <- with(vps, 
+      vps <- with(vps,
                   list(bar.row = bar.row, bar.col = bar.col+2,
                        label.row = label.row, label.col = label.col+2,
                        title.row = 1:length(heights), title.col = 1))
@@ -398,7 +402,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
     "right" = {
       widths <- c(bl_widths, hgap, title_width.c)
       heights <- c(bl_heights, max(0, title_height.c-sum(bl_heights)))
-      vps <- with(vps, 
+      vps <- with(vps,
                   list(bar.row = bar.row, bar.col = bar.col,
                        label.row = label.row, label.col = label.col,
                        title.row = 1:length(heights), title.col = length(widths)))
@@ -406,7 +410,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   # background
   grob.background <- element_render(theme, "legend.background")
-  
+
   # padding
   padding <- unit(1.5, "mm")
   widths <- c(padding, widths, padding)
@@ -433,4 +437,4 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
 #' @export
 #' @rdname guide_colourbar
-guide_colorbar <- guide_colourbar 
+guide_colorbar <- guide_colourbar

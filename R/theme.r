@@ -1,8 +1,8 @@
 #' Get, set and update themes.
-#' 
+#'
 #' Use \code{theme_update} to modify a small number of elements of the current
 #' theme or use \code{theme_set} to completely override it.
-#' 
+#'
 #' @param ... named list of theme settings
 #' @seealso \code{\link{\%+replace\%}} and \code{\link{+.gg}}
 #' @export
@@ -17,10 +17,10 @@
 #' qplot(mpg, wt, data = mtcars)
 #' theme_set(old)
 #' theme_get()
-#' 
-#' qplot(mpg, wt, data=mtcars, colour=mpg) + 
+#'
+#' qplot(mpg, wt, data=mtcars, colour=mpg) +
 #'   theme(legend.position=c(0.95, 0.95), legend.justification = c(1, 1))
-#' last_plot() + 
+#' last_plot() +
 #'  theme(legend.background = element_rect(fill = "white", colour = "white", size = 3))
 theme_update <- function(...) {
   # Make a call to theme, then add to theme
@@ -32,16 +32,16 @@ theme_update <- function(...) {
 #' @export
 is.theme <- function(x) inherits(x, "theme")
 
-#' @S3method print theme
+#' @export
 print.theme <- function(x, ...) str(x)
 
 #' Set theme elements
-#' 
-#' 
+#'
+#'
 #' Use this function to modify theme settings.
 #'
 #' Theme elements can inherit properties from other theme elements.
-#' For example, \code{axis.title.x} inherits from \code{axis.title}, 
+#' For example, \code{axis.title.x} inherits from \code{axis.title},
 #' which in turn inherits from \code{text}. All text elements inherit
 #' directly or indirectly from \code{text}; all lines inherit from
 #' \code{line}, and all rectangular objects inherit from \code{rect}.
@@ -54,7 +54,7 @@ print.theme <- function(x, ...) str(x)
 #'
 #' @section Theme elements:
 #' The individual theme elements are:
-#' 
+#'
 #' \tabular{ll}{
 #'   line             \tab all line elements
 #'                    (\code{element_line}) \cr
@@ -114,8 +114,8 @@ print.theme <- function(x, ...) str(x)
 #'                    (\code{element_text}; inherits from \code{title}) \cr
 #'   legend.title.align \tab alignment of legend title
 #'                    (number from 0 (left) to 1 (right)) \cr
-#'   legend.position  \tab the position of legends.
-#'                    ("left", "right", "bottom", "top", or two-element
+#'   legend.position  \tab the position of legends
+#'                    ("none", "left", "right", "bottom", "top", or two-element
 #'                      numeric vector) \cr
 #'   legend.direction \tab layout of items in legends
 #'                    ("horizontal" or "vertical") \cr
@@ -124,7 +124,7 @@ print.theme <- function(x, ...) str(x)
 #'   legend.box       \tab arrangement of multiple legends
 #'                    ("horizontal" or "vertical") \cr
 #'   legend.box.just  \tab justification of each legend within the overall
-#'                    bounding box, when there are multiple legends 
+#'                    bounding box, when there are multiple legends
 #'                    ("top", "bottom", "left", or "right")\cr
 #'
 #'   panel.background \tab background of plotting area, drawn underneath plot
@@ -135,6 +135,10 @@ print.theme <- function(x, ...) str(x)
 #'                    (\code{element_rect}; inherits from \code{rect}) \cr
 #'   panel.margin     \tab margin around facet panels
 #'                    (\code{unit}) \cr
+#'   panel.margin.x   \tab horizontal margin around facet panels
+#'                    (\code{unit}; inherits from \code{panel.margin}) \cr
+#'   panel.margin.y   \tab vertical margin around facet panels
+#'                    (\code{unit}; inherits from \code{panel.margin}) \cr
 #'   panel.grid       \tab grid lines
 #'                    (\code{element_line}; inherits from \code{line}) \cr
 #'   panel.grid.major \tab major grid lines
@@ -177,11 +181,15 @@ print.theme <- function(x, ...) str(x)
 #' @seealso \code{\link{+.gg}}
 #' @seealso \code{\link{\%+replace\%}}
 #' @seealso \code{\link{rel}}
+#' @seealso \code{\link{element_blank}}
+#' @seealso \code{\link{element_line}}
+#' @seealso \code{\link{element_rect}}
+#' @seealso \code{\link{element_text}}
 #' @export
 #' @examples
 #' \donttest{
 #' p <- qplot(mpg, wt, data = mtcars)
-#' p 
+#' p
 #' p + theme(panel.background = element_rect(colour = "pink"))
 #' p + theme_bw()
 #'
@@ -189,11 +197,11 @@ print.theme <- function(x, ...) str(x)
 #' p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 #' # Calculate slope and intercept of line of best fit
 #' coef(lm(mpg ~ wt, data = mtcars))
-#' p + geom_abline(intercept = 37, slope = -5) 
+#' p + geom_abline(intercept = 37, slope = -5)
 #' # Calculate correlation coefficient
 #' with(mtcars, cor(wt, mpg, use = "everything", method = "pearson"))
 #' #annotate the plot
-#' p + geom_abline(intercept = 37, slope = -5) + 
+#' p + geom_abline(intercept = 37, slope = -5) +
 #' geom_text(data = data.frame(), aes(4.5, 30, label = "Pearson-R = -.87"))
 #'
 #' # Change the axis labels
@@ -202,7 +210,7 @@ print.theme <- function(x, ...) str(x)
 #' p + xlab("Vehicle Weight") + ylab("Miles per Gallon")
 #' # Or
 #' p + labs(x = "Vehicle Weight", y = "Miles per Gallon")
-#' 
+#'
 #' # Change title appearance
 #' p <- p + labs(title = "Vehicle Weight-Gas Mileage Relationship")
 #' # Set title to twice the base font size
@@ -213,10 +221,10 @@ print.theme <- function(x, ...) str(x)
 #' DF <- data.frame(x = rnorm(400))
 #' m <- ggplot(DF, aes(x = x)) + geom_histogram()
 #' # Default is theme_grey()
-#' m 
+#' m
 #' # Compare with
 #' m + theme_bw()
-#' 
+#'
 #' # Manipulate Axis Attributes
 #' library(grid) # for unit
 #' m + theme(axis.line = element_line(size = 3, colour = "red", linetype = "dotted"))
@@ -271,7 +279,7 @@ print.theme <- function(x, ...) str(x)
 #' k + theme(strip.text.x = element_text(colour = "red", angle = 45, size = 10,
 #'                                       hjust = 0.5, vjust = 0.5))
 #' k + theme(panel.margin = unit(5, "lines"))
-#' k + theme(panel.margin = unit(0, "lines"))
+#' k + theme(panel.margin.y = unit(0, "lines"))
 #'
 #'
 #' # Modify a theme and save it
@@ -508,7 +516,7 @@ update_theme <- function(oldtheme, newtheme) {
 ##' update_element(x, noargument = 12)
 ##' # Or multiple arguments with the same name
 ##' update_element(x, size = 12, size = 15)
-##' 
+##'
 ##' # Will look up element if given name
 ##' update_element("axis.text.x", colour = 20)
 ##' # Throws error if incorrectly named
@@ -544,7 +552,7 @@ update_element <- function(name, ...) {
 #' t$axis.text.x
 #' calc_element('axis.text.x', t, verbose = TRUE)
 #'
-#' # This reports that axis.text.x inherits from axis.text, 
+#' # This reports that axis.text.x inherits from axis.text,
 #' # which inherits from text. You can view each of them with:
 #' t$axis.text.x
 #' t$axis.text

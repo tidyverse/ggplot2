@@ -1,5 +1,5 @@
 #' Modify geom/stat aesthetic defaults for future plots
-#' 
+#'
 #' @param stat,geom name of geom/stat to modify
 #' @param new named list of aesthetics
 #' @export
@@ -11,9 +11,9 @@
 update_geom_defaults <- function(geom, new) {
   g <- Geom$find(geom)
   old <- g$default_aes()
-  
+
   aes <- defaults(new, old)
-  
+
   g$default_aes <- eval(substitute(function(.) aes, list(aes = aes)))
 }
 
@@ -22,7 +22,7 @@ update_geom_defaults <- function(geom, new) {
 update_stat_defaults <- function(stat, new) {
   g <- Stat$find(stat)
   old <- g$default_aes()
-  
+
   aes <- defaults(new, old)
   g$default_aes <- eval(substitute(function(.) aes, list(aes = aes)))
 }

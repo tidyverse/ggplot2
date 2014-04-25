@@ -3,9 +3,9 @@ bolus.proto <- function(x) x$bolus()
 
 # Create a bolus object
 # A bolus is a list suitable for digesting.
-# 
+#
 # Most ggplot objects have components that should be hashed when creating
-# a digest (especially since most ggplot objects are proto objects and 
+# a digest (especially since most ggplot objects are proto objects and
 # are also self-documenting).  The bolus methods ensure that only appropriate
 # components are digested.
 #
@@ -28,10 +28,10 @@ bolus.proto <- function(x) x$bolus()
 #X     qplot(mpg, wt, data=mtcars) + xlab("blah")
 #X   )
 #X )
-#X 
+#X
 #X lapply(hash_tests, function(equal) {
 #X   hashes <- lapply(equal, digest.ggplot)
-#X   
+#X
 #X   if (length(unique(hashes)) != 1) {
 #X     lapply(equal, function(x) print(str(bolus(x))))
 #X     stop("Above plots not equal")
@@ -42,7 +42,7 @@ bolus.ggplot <- function(x, ...) {
     if (is.null(names(x))) return(x)
     x[order(names(x))]
   }
-  
+
   with(x, list(
     data = digest::digest(data),
     mapping = sort.by.name(mapping),
@@ -78,10 +78,10 @@ Layer$bolus <- function(.) {
   params <- c(.$geom_params, .$stat_params)
   params <- params[!duplicated(params)]
   if (!is.null(params) && length(params) > 1) params <- params[order(names(params))]
-  
+
   mapping <- .$mapping
   if (!is.null(mapping)) mapping <- mapping[order(names(mapping))]
-  
+
   list(
     geom = .$geom$objname,
     stat = .$stat$objname,

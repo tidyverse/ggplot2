@@ -1,18 +1,18 @@
 #' Theme element: blank.
 #' This theme element draws nothing, and assigns no space
-#' 
+#'
 #' @export
 element_blank <- function() {
   structure(
     list(),
     class = c("element_blank", "element")
-  )  
+  )
 }
 
 #' Theme element: rectangle.
-#' 
+#'
 #' Most often used for backgrounds and borders.
-#' 
+#'
 #' @param fill fill colour
 #' @param colour border colour
 #' @param size border size
@@ -30,7 +30,7 @@ element_rect <- function(fill = NULL, colour = NULL, size = NULL,
 }
 
 #' Theme element: line.
-#' 
+#'
 #' @param colour line colour
 #' @param size line size
 #' @param linetype line type
@@ -49,7 +49,7 @@ element_line <- function(colour = NULL, size = NULL, linetype = NULL,
 
 
 #' Theme element: text.
-#' 
+#'
 #' @param family font family
 #' @param face font face ("plain", "italic", "bold", "bold.italic")
 #' @param colour text colour
@@ -73,7 +73,7 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 }
 
 
-#' @S3method print element
+#' @export
 print.element <- function(x, ...) str(x)
 
 
@@ -87,7 +87,7 @@ rel <- function(x) {
   structure(x, class = "rel")
 }
 
-#' @S3method print rel
+#' @export
 print.rel <- function(x, ...) print(noquote(paste(x, " *", sep = "")))
 
 #' Reports whether x is a rel object
@@ -163,10 +163,10 @@ element_grob <- function(element, ...)
   UseMethod("element_grob")
 
 
-#' @S3method element_grob element_blank
+#' @export
 element_grob.element_blank <- function(element, ...)  zeroGrob()
 
-#' @S3method element_grob element_rect
+#' @export
 element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
   width = 1, height = 1,
   fill = NULL, colour = NULL, size = NULL, linetype = NULL, ...) {
@@ -180,7 +180,7 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
 }
 
 
-#' @S3method element_grob element_text
+#' @export
 element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   family = NULL, face = NULL, colour = NULL, size = NULL,
   hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
@@ -194,17 +194,17 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
     stop("Text element requires non-NULL value for 'angle'.")
   }
   angle <- angle %% 360
-  
+
   if (angle == 90) {
-    xp <- vj
+    xp <- 1 - vj
     yp <- hj
   } else if (angle == 180) {
     xp <- 1 - hj
-    yp <- vj
+    yp <- 1 - vj
   } else if (angle == 270) {
     xp <- vj
     yp <- 1 - hj
-  }else {
+  } else {
     xp <- hj
     yp <- vj
   }
@@ -229,7 +229,7 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
 }
 
 
-#' @S3method element_grob element_line
+#' @export
 element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   colour = NULL, size = NULL, linetype = NULL, lineend = NULL,
   default.units = "npc", id.lengths = NULL, ...) {
@@ -306,6 +306,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   panel.background    = el_def("element_rect", "rect"),
   panel.border        = el_def("element_rect", "rect"),
   panel.margin        = el_def("unit"),
+  panel.margin.x      = el_def("unit", "panel.margin"),
+  panel.margin.y      = el_def("unit", "panel.margin"),
   panel.grid.major.x  = el_def("element_line", "panel.grid.major"),
   panel.grid.major.y  = el_def("element_line", "panel.grid.major"),
   panel.grid.minor.x  = el_def("element_line", "panel.grid.minor"),

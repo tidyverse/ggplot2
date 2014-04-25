@@ -1,16 +1,16 @@
 # Layout panels in a 2d grid.
-# 
+#
 # @params data list of data frames, one for each layer
 # @params rows variables that form the rows
 # @params cols variables that form the columns
 # @return a data frame with columns \code{PANEL}, \code{ROW} and \code{COL},
-#   that match the facetting variable values up with their position in the 
+#   that match the facetting variable values up with their position in the
 #   grid
 layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL, drop = TRUE, as.table = TRUE) {
   if (length(rows) == 0 && length(cols) == 0) return(layout_null())
   rows <- as.quoted(rows)
   cols <- as.quoted(cols)
-  
+
   base_rows <- layout_base(data, rows, drop = drop)
   if (!as.table) {
     rev_order <- function(x) factor(x, levels = rev(ulevels(x)))
@@ -18,7 +18,7 @@ layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL, drop = T
   }
   base_cols <- layout_base(data, cols, drop = drop)
   base <- df.grid(base_rows, base_cols)
-  
+
   # Add margins
   base <- add_margins(base, list(names(rows), names(cols)), margins)
   # Work around bug in reshape2
@@ -27,12 +27,14 @@ layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL, drop = T
   # Create panel info dataset
   panel <- id(base, drop = TRUE)
   panel <- factor(panel, levels = seq_len(attr(panel, "n")))
-  
+
   rows <- if (is.null(names(rows))) 1L else id(base[names(rows)], drop = TRUE)
   cols <- if (is.null(names(cols))) 1L else id(base[names(cols)], drop = TRUE)
-  
+
   panels <- data.frame(PANEL = panel, ROW = rows, COL = cols, base)
-  arrange(panels, PANEL)
+  panels <- panels[order(panels$PANEL), , drop = FALSE]
+  rownames(panels) <- NULL
+  panels
 }
 
 # Layout out panels in a 1d ribbon.
@@ -47,22 +49,24 @@ layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, as.table = 
 
   id <- id(base, drop = TRUE)
   n <- attr(id, "n")
-  
+
   dims <- wrap_dims(n, nrow, ncol)
   layout <- data.frame(PANEL = factor(id, levels = seq_len(n)))
-  
+
   if (as.table) {
     layout$ROW <- as.integer((id - 1L) %/% dims[2] + 1L)
   } else {
     layout$ROW <- as.integer(dims[1] - (id - 1L) %/% dims[2])
   }
   layout$COL <- as.integer((id - 1L) %% dims[2] + 1L)
-  
+
   panels <- cbind(layout, unrowname(base))
-  panels[order(panels$PANEL), ]
+  panels <- panels[order(panels$PANEL), , drop = FALSE]
+  rownames(panels) <- NULL
+  panels
 }
 
-layout_null <- function(data) { 
+layout_null <- function(data) {
    data.frame(PANEL = 1, ROW = 1, COL = 1)
 }
 
@@ -85,22 +89,22 @@ layout_base <- function(data, vars = NULL, drop = TRUE) {
   if (!any(has_all)) {
     stop("At least one layer must contain all variables used for facetting")
   }
-  
-  base <- unique(ldply(values[has_all]))    
+
+  base <- unique(ldply(values[has_all]))
   if (!drop) {
     base <- unique_combs(base)
   }
-  
+
   # Systematically add on missing combinations
   for (value in values[!has_all]) {
     if (empty(value)) next;
-    
+
     old <- base[setdiff(names(base), names(value))]
-    new <- unique(value[intersect(names(base), names(value))])  
+    new <- unique(value[intersect(names(base), names(value))])
     if (drop) {
       new <- unique_combs(new)
     }
-    
+
     base <- rbind(base, df.grid(old, new))
   }
 
@@ -122,22 +126,22 @@ ulevels <- function(x) {
 
 unique_combs <- function(df) {
   if (length(df) == 0) return()
-  
+
   unique_values <- llply(df, ulevels)
-  rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE, 
+  rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE,
     KEEP.OUT.ATTRS = TRUE))
 }
 
 df.grid <- function(a, b) {
   if (nrow(a) == 0) return(b)
   if (nrow(b) == 0) return(a)
-  
+
   indexes <- expand.grid(
-    i_a = seq_len(nrow(a)), 
+    i_a = seq_len(nrow(a)),
     i_b = seq_len(nrow(b))
   )
   unrowname(cbind(
-    a[indexes$i_a, , drop = FALSE], 
+    a[indexes$i_a, , drop = FALSE],
     b[indexes$i_b, , drop = FALSE]
   ))
 }
@@ -159,6 +163,6 @@ wrap_dims <- function(n, nrow = NULL, ncol = NULL) {
       nrow <- ceiling(n / ncol)
     }
     stopifnot(nrow * ncol >= n)
-    
+
     c(nrow, ncol)
 }

@@ -15,11 +15,11 @@
 #' @examples
 #' # ensures that the ranges of axes are equal to the specified ratio by
 #' # adjusting the plot aspect ratio
-#' 
+#'
 #' qplot(mpg, wt, data = mtcars) + coord_fixed(ratio = 1)
 #' qplot(mpg, wt, data = mtcars) + coord_fixed(ratio = 5)
 #' qplot(mpg, wt, data = mtcars) + coord_fixed(ratio = 1/5)
-#' 
+#'
 #' # Resize the plot to see that the specified aspect ratio is maintained
 coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL, wise = NULL) {
   if (!is.null(wise))
@@ -30,7 +30,7 @@ coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL, wise = NULL) {
 }
 coord_equal <- coord_fixed
 
-#' @S3method coord_aspect fixed
+#' @export
 coord_aspect.fixed <- function(coord, ranges) {
   diff(ranges$y.range) / diff(ranges$x.range) * coord$ratio
 }

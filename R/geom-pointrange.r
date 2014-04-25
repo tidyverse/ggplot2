@@ -1,6 +1,6 @@
 #' An interval represented by a vertical line, with a point in the middle.
-#' 
-#' @section Aesthetics: 
+#'
+#' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "pointrange")}
 #'
 #' @inheritParams geom_point
@@ -13,7 +13,7 @@
 #' @export
 #' @examples
 #' # See geom_linerange for examples
-geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
+geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
   GeomPointrange$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
@@ -35,11 +35,11 @@ GeomPointrange <- proto(Geom, {
 
   draw_legend <- function(., data, ...) {
     data <- aesdefaults(data, .$default_aes(), list(...))
-    
+
     grobTree(
       GeomPath$draw_legend(data, ...),
       GeomPoint$draw_legend(transform(data, size = size * 4), ...)
     )
   }
-  
+
 })
