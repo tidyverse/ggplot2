@@ -77,6 +77,10 @@ ggplot2 0.9.3.1.99
   https://github.com/hadley/ggplot2/wiki/labeller#writing-new-labellers
   (@stefanedwards, #910)
 
+* Improved the calculation of segments needed to draw the curve representing
+  a line when plotted in polar coordinates. In some cases, the last segment
+  of a multi-segment line was not drawn (@BrianDiggs, #952)
+
 ggplot2 0.9.3.1
 ----------------------------------------------------------------
 
