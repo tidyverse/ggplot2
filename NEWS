@@ -1,6 +1,9 @@
 ggplot2 0.9.3.1.99
 ----------------------------------------------------------------
 
+* Check if lower limit is not greater than upper for continuous scales; 
+  throw an error otherwise (@tonytonov. Fixes #906)
+
 * New `aes_q()` function to generate aesthetic specifications from
   quoted calls/names. `aes_string()` uses names `x` and `y` for first
   two unnamed arguments.
