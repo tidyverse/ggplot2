@@ -37,7 +37,7 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "bar")}
 #'
-#' @seealso \code{\link{stat_bin}} for more details of the binning alogirithm,
+#' @seealso \code{\link{stat_bin}} for more details of the binning algorithm,
 #'   \code{\link{position_dodge}} for creating side-by-side barcharts,
 #'   \code{\link{position_stack}} for more info on stacking,
 #' @export
