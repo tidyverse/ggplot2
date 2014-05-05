@@ -14,7 +14,7 @@ NULL
 #'   \item price. price in US dollars (\$326--\$18,823)
 #'   \item carat. weight of the diamond (0.2--5.01)
 #'   \item cut. quality of the cut (Fair, Good, Very Good, Premium, Ideal)
-#'   \item colour. diamond colour, from J (worst) to D (best)
+#'   \item color. diamond colour, from J (worst) to D (best)
 #'   \item clarity. a measurement of how clear the diamond is (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best))
 #'   \item x. length in mm (0--10.74)
 #'   \item y. width in mm (0--58.9)
