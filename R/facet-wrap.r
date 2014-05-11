@@ -58,6 +58,9 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrin
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
   )
+  
+  nrow <- sanitise_dim(nrow)
+  ncol <- sanitise_dim(ncol)
 
   facet(
     facets = as.quoted(facets), free = free, shrink = shrink,
