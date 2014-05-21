@@ -59,7 +59,12 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
   }
 
   trans <- as.trans(trans)
-  if (!is.null(limits)) {
+  if (!is.null(limits) & length(limits) == 2) {
+    if (trans$name != "reverse" & 
+          !any(is.na(limits)) &
+          limits[1] > limits[2]) {
+      stop("Lower limit greater than upper for continuous scale")
+    }
     limits <- trans$trans(limits)
   }
 
