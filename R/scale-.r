@@ -57,7 +57,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
   if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
     guide <- "none"
   }
-  
+
   trans <- as.trans(trans)
   if (!is.null(limits) & length(limits) == 2) {
     if (trans$name != "reverse" & 
@@ -67,7 +67,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
     }
     limits <- trans$trans(limits)
   }
-  
+
   structure(list(
     call = match.call(),
 
