@@ -7,6 +7,10 @@
 #'
 #' @param xlim limits for the x axis
 #' @param ylim limits for the y axis
+#' @param xexpand a numeric vector of length two giving multiplicative
+#'   and additive expansion constants. These constants ensure that the
+#'   data is placed some distance away from the x axis.
+#' @param yexpand same as xexpand, but for the y axis
 #' @export
 #' @examples
 #' # There are two ways of zooming the plot display: with scales or
@@ -30,15 +34,19 @@
 #' (d <- ggplot(diamonds, aes(carat, price)) +
 #'   stat_bin2d(bins = 25, colour = "grey50"))
 #'
-#' # When zooming the scale, the we get 25 new bins that are the same
+#' # When zooming the scale, we get 25 new bins that are the same
 #' # size on the plot, but represent smaller regions of the data space
 #' d + scale_x_continuous(limits = c(0, 2))
 #'
 #' # When zooming the coordinate system, we see a subset of original 50 bins,
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 2))
-coord_cartesian <- function(xlim = NULL, ylim = NULL) {
-  coord(limits = list(x = xlim, y = ylim), subclass = "cartesian")
+coord_cartesian <- function(xlim = NULL, ylim = NULL, xexpand = waiver(), yexpand = waiver()) {
+  coord(
+    x = list(limits = xlim, expand = xexpand),
+    y = list(limits = ylim, expand = yexpand),
+    subclass = "cartesian"
+  )
 }
 
 #' @export
@@ -61,20 +69,20 @@ coord_transform.cartesian <- function(., data, details) {
 
 #' @export
 coord_train.cartesian <- function(coord, scales) {
-  c(train_cartesian(scales$x, coord$limits$x, "x"),
-    train_cartesian(scales$y, coord$limits$y, "y"))
+  c(train_cartesian(scales$x, coord$x, "x"),
+    train_cartesian(scales$y, coord$y, "y"))
 }
 
-train_cartesian <- function(scale, limits, name) {
-
+train_cartesian <- function(scale, .coord, name) {
   # first, calculate the range that is the numerical limits in data space
 
-  # expand defined by scale OR coord
-  if (is.null(limits)) {
-    expand <- coord_expand_defaults(coord, scale)
-    range <- scale_dimension(scale, expand)
+  # range defined by scale OR coord
+  expand <- coord_expand_defaults(.coord, scale)
+  if (is.null(.coord$limits)) {
+    range <- scale_dimension(scale, expand$scale)
   } else {
-    range <- range(scale_transform(scale, limits))
+    expanded_limits <- coord_dimension(scale, .coord, expand$coord)
+    range <- range(scale_transform(scale, expanded_limits))
   }
 
   out <- scale_break_info(scale, range)

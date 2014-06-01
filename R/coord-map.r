@@ -17,6 +17,10 @@
 #'  \code{\link[mapproj]{mapproject}} for more information.
 #' @param xlim manually specific x limits (in degrees of lontitude)
 #' @param ylim manually specific y limits (in degrees of latitude)
+#' @param xexpand a numeric vector of length two giving multiplicative and
+#'   additive expansion constants. These constants ensure that the data is
+#'   placed some distance away from the x axis.
+#' @param yexpand same as xexpand, but for the y axis
 #' @export
 #' @examples
 #' if (require("maps")) {
@@ -67,12 +71,13 @@
 #' # Centered on New York (currently has issues with closing polygons)
 #' worldmap + coord_map("ortho", orientation=c(41, -74, 0))
 #' }
-coord_map <- function(projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL) {
+coord_map <- function(projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL, xexpand = waiver(), yexpand = waiver()) {
   try_require("mapproj")
   coord(
     projection = projection,
     orientation = orientation,
-    limits = list(x = xlim, y = ylim),
+    x = list(limits = xlim, expand = xexpand),
+    y = list(limits = ylim, expand = yexpand),
     params = list(...),
     subclass = "map"
   )
@@ -114,13 +119,14 @@ coord_train.map <- function(coord, scales) {
   for (n in c("x", "y")) {
 
     scale <- scales[[n]]
-    limits <- coord$limits[[n]]
+    limits <- coord[[n]]$limits
 
+    expand <- coord_expand_defaults(coord[[n]], scale, n)
     if (is.null(limits)) {
-      expand <- coord_expand_defaults(coord, scale, n)
-      range <- scale_dimension(scale, expand)
+      range <- scale_dimension(scale, expand$scale)
     } else {
-      range <- range(scale_transform(scale, limits))
+      expanded_limits <- coord_dimension(scale, coord[[n]], expand$coord)
+      range <- range(scale_transform(scale, expanded_limits))
     }
     ranges[[n]] <- range
   }

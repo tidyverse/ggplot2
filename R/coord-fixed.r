@@ -22,9 +22,13 @@
 #' p + coord_fixed(ratio = 1/5)
 #'
 #' # Resize the plot to see that the specified aspect ratio is maintained
-coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL) {
-  coord(limits = list(x = xlim, y = ylim), ratio = ratio,
-    subclass = c("fixed", "cartesian"))
+coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL, xexpand = waiver(), yexpand = waiver()) {
+  coord(
+    x = list(limits = xlim, expand = xexpand),
+    y = list(limits = ylim, expand = yexpand),
+    ratio = ratio,
+    subclass = c("fixed", "cartesian")
+  )
 }
 coord_equal <- coord_fixed
 

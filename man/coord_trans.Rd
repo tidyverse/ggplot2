@@ -5,13 +5,24 @@
 \title{Transformed cartesian coordinate system.}
 \usage{
 coord_trans(xtrans = "identity", ytrans = "identity", limx = NULL,
-  limy = NULL)
+  limy = NULL, xexpand = waiver(), yexpand = waiver())
 }
 \arguments{
-\item{xtrans,ytrans}{transformers for x and y axes}
+\item{xtrans}{transformer for y axis}
 
-\item{limx,limy}{limits for x and y axes. (Named so for backward
+\item{ytrans}{transformer for y axis}
+
+\item{limx}{limits for the x axis (Named so for backward
 compatability)}
+
+\item{limy}{limits for the y axis (Named so for backward
+compatability)}
+
+\item{xexpand}{a numeric vector of length two giving multiplicative and
+additive expansion constants. These constants ensure that the data is
+placed some distance away from the x axis.}
+
+\item{yexpand}{same as xexpand, but for the y axis}
 }
 \description{
 \code{coord_trans} is different to scale transformations in that it occurs after

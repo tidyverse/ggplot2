@@ -84,11 +84,11 @@ is.linear.default <- function(coord) FALSE
 
 #' Set the default expand values for the scale, if NA
 #' @keywords internal
-coord_expand_defaults <- function(coord, scale, aesthetic = NULL)
+coord_expand_defaults <- function(.coord, scale, aesthetic = NULL)
   UseMethod("coord_expand_defaults")
 
 #' @export
-coord_expand_defaults.default <- function(coord, scale, aesthetic = NULL) {
+coord_expand_defaults.default <- function(.coord, scale, aesthetic = NULL) {
   # Expand the same regardless of whether it's x or y
 
   # @kohske TODO:
@@ -100,16 +100,53 @@ coord_expand_defaults.default <- function(coord, scale, aesthetic = NULL) {
   # This function only returns expanded (numeric) limits
   discrete <- c(0, 0.6)
   continuous <-  c(0.05, 0)
-  expand_default(scale, discrete, continuous)
+  expand_default(.coord, scale, discrete, continuous)
 }
 
-# This is a utility function used by coord_expand_defaults, to expand a single scale
-expand_default <- function(scale, discrete = c(0, 0), continuous = c(0, 0)) {
+# This is a utility function used by coord_expand_defaults, to expand a single scale and coord
+expand_default <- function(.coord, scale, discrete = c(0, 0), continuous = c(0, 0)) {
   # Default expand values for discrete and continuous scales
-  if (is.waive(scale$expand)) {
-    if (inherits(scale, "discrete")) discrete
-    else if (inherits(scale, "continuous")) continuous
+  if (is.waive(.coord$expand)) {
+    if (inherits(scale, "discrete")) coord_expand <- discrete
+    else if (inherits(scale, "continuous")) coord_expand <- continuous
   } else {
-    return(scale$expand)
+    coord_expand <- .coord$expand
   }
+
+  if (is.waive(scale$expand)) {
+    if (inherits(scale, "discrete")) scale_expand <- discrete
+    else if (inherits(scale, "continuous")) scale_expand <- continuous
+  } else {
+    scale_expand <- scale$expand
+  }
+
+  list(coord = coord_expand, scale = scale_expand)
+}
+
+
+# Functions modeled after scale_expand and scale_dimension.
+# They allow coord to be expanded as well.
+coord_expand <- function(.coord) 
+  UseMethod("coord_expand")
+
+
+#' @export
+coord_expand.default <- function(.coord) {
+  if (is.waive(.coord$expand)) c(0, 0)
+  else .coord$expand
+}
+
+coord_dimension <- function(scale, .coord, expand = coord_expand(.coord)) 
+  UseMethod("coord_dimension")
+
+
+#' @export
+coord_dimension.continuous  <- function(scale, .coord, expand = coord_expand(.coord)) {
+  limits <- .coord$limits %||% scale_limits(scale)
+  expand_range(limits, expand[1], expand[2])
+}
+#' @export
+coord_dimension.discrete <- function(scale, .coord, expand = coord_expand(.coord)) {
+  limits <- .coord$limits %||% scale_limits(scale)
+  expand_range(length(limits), expand[1], expand[2])
 }

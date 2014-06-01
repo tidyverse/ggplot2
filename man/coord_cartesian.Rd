@@ -4,12 +4,19 @@
 \alias{coord_cartesian}
 \title{Cartesian coordinates.}
 \usage{
-coord_cartesian(xlim = NULL, ylim = NULL)
+coord_cartesian(xlim = NULL, ylim = NULL, xexpand = waiver(),
+  yexpand = waiver())
 }
 \arguments{
 \item{xlim}{limits for the x axis}
 
 \item{ylim}{limits for the y axis}
+
+\item{xexpand}{a numeric vector of length two giving multiplicative
+and additive expansion constants. These constants ensure that the
+data is placed some distance away from the x axis.}
+
+\item{yexpand}{same as xexpand, but for the y axis}
 }
 \description{
 The Cartesian coordinate system is the most familiar, and common, type of
@@ -39,7 +46,7 @@ p + coord_cartesian(xlim = c(325, 500))
 (d <- ggplot(diamonds, aes(carat, price)) +
   stat_bin2d(bins = 25, colour = "grey50"))
 
-# When zooming the scale, the we get 25 new bins that are the same
+# When zooming the scale, we get 25 new bins that are the same
 # size on the plot, but represent smaller regions of the data space
 d + scale_x_continuous(limits = c(0, 2))
 

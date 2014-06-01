@@ -5,7 +5,7 @@
 \title{Map projections.}
 \usage{
 coord_map(projection = "mercator", ..., orientation = NULL, xlim = NULL,
-  ylim = NULL)
+  ylim = NULL, xexpand = waiver(), yexpand = waiver())
 }
 \arguments{
 \item{projection}{projection to use, see
@@ -22,6 +22,12 @@ projections, so you will have to supply your own. See
 \item{xlim}{manually specific x limits (in degrees of lontitude)}
 
 \item{ylim}{manually specific y limits (in degrees of latitude)}
+
+\item{xexpand}{a numeric vector of length two giving multiplicative and
+additive expansion constants. These constants ensure that the data is
+placed some distance away from the x axis.}
+
+\item{yexpand}{same as xexpand, but for the y axis}
 }
 \description{
 This coordinate system provides the full range of map projections available

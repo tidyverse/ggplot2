@@ -57,6 +57,8 @@ coord_polar <- function(theta = "x", start = 0, direction = 1) {
 
   coord(
     theta = theta, r = r,
+    x = structure(list(limits = NULL, expand = NULL, theta = theta), class = "polar"),
+    y = structure(list(limits = NULL, expand = NULL, theta = theta), class = "polar"),
     start = start, direction = sign(direction),
     subclass = "polar"
   )
@@ -85,18 +87,18 @@ coord_range.polar <- function(coord, scales) {
 
 #' @export
 coord_train.polar <- function(coord, scales) {
-
   ret <- list(x = list(), y = list())
   for (n in c("x", "y")) {
 
     scale <- scales[[n]]
-    limits <- coord$limits[[n]]
+    limits <- coord[[n]]$limits
 
+    expand <- coord_expand_defaults.polar(coord[[n]], scale, n)
     if (is.null(limits)) {
-      expand <- coord_expand_defaults(coord, scale, n)
-      range <- scale_dimension(scale, expand)
+      range <- scale_dimension(scale, expand$scale)
     } else {
-      range <- range(scale_transform(scale, limits))
+      expanded_limits <- coord_dimension(scale, coord[[n]], expand$coord)
+      range <- range(scale_transform(scale, expanded_limits))
     }
 
     out <- scale_break_info(scale, range)
@@ -146,11 +148,11 @@ r_rescale <- function(coord, x, details) {
 }
 
 #' @export
-coord_expand_defaults.polar <- function(coord, scale, aesthetic) {
-  if (coord$theta == aesthetic) {
-    expand_default(scale, c(0, 0.5), c(0, 0))
+coord_expand_defaults.polar <- function(.coord, scale, aesthetic) {
+  if (.coord$theta == aesthetic) {
+    expand_default(.coord, scale, c(0, 0.5), c(0, 0))
   } else {
-    expand_default(scale, c(0, 0),   c(0, 0))
+    expand_default(.coord, scale, c(0, 0),   c(0, 0))
   }
 }
 
