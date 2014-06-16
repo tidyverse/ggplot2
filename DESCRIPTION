@@ -94,6 +94,7 @@ Collate:
     'geom-blank.r'
     'geom-boxplot.r'
     'geom-crossbar.r'
+    'geom-curve.r'
     'geom-defaults.r'
     'geom-dotplot.r'
     'geom-error.r'
