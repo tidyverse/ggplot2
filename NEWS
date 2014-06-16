@@ -1,3 +1,6 @@
+* Added new function geom_curve to add curved lines to plot (similar to 
+  geom_segment to add straight lines). (@veraanadi)
+
 ggplot2 0.9.3.1.99
 ----------------------------------------------------------------
 
