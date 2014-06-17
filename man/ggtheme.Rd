@@ -10,6 +10,7 @@
 \alias{theme_light}
 \alias{theme_linedraw}
 \alias{theme_minimal}
+\alias{theme_void}
 \title{ggplot2 themes}
 \usage{
 theme_grey(base_size = 12, base_family = "")
@@ -27,6 +28,8 @@ theme_minimal(base_size = 12, base_family = "")
 theme_classic(base_size = 12, base_family = "")
 
 theme_dark(base_size = 12, base_family = "")
+
+theme_void(base_size = 12, base_family = "")
 }
 \arguments{
 \item{base_size}{base font size}
@@ -67,6 +70,9 @@ A minimalistic theme with no background annotations.}
 \item{\code{theme_classic}}{
 A classic-looking theme, with x and y axis lines and no gridlines.}
 
+\item{\code{theme_void}}{
+A completely empty theme.}
+
 }
 }
 \examples{
@@ -80,5 +86,6 @@ p + theme_linedraw()
 p + theme_light()
 p + theme_minimal()
 p + theme_classic()
+p + theme_void()
 }
 

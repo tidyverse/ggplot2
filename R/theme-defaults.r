@@ -35,6 +35,9 @@
 #' \item{\code{theme_classic}}{
 #' A classic-looking theme, with x and y axis lines and no gridlines.}
 #'
+#' \item{\code{theme_void}}{
+#' A completely empty theme.}
+#'
 #' }
 #'
 #' @examples
@@ -48,6 +51,7 @@
 #' p + theme_light()
 #' p + theme_minimal()
 #' p + theme_classic()
+#' p + theme_void()
 #'
 #' @name ggtheme
 NULL
@@ -213,4 +217,18 @@ theme_dark <- function(base_size = 12, base_family = "") {
       strip.text.x      = element_text(colour = "white"),
       strip.text.y      = element_text(colour = "white", angle = -90)
     )
+}
+
+#' @export
+#' @rdname ggtheme
+theme_void <- function(base_size = 12, base_family = "") {
+  theme(
+    # Use only inherited elements and make everything blank
+    line =               element_blank(),
+    rect =               element_blank(),
+    text =               element_blank(),
+    plot.margin =        unit(c(0, 0, 0, 0), "lines"),
+
+    complete = TRUE
+  )
 }
