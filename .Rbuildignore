@@ -4,3 +4,4 @@ visual_test
 ^\.travis\.yml$
 ^/\.gitattributes$
 ^inst/web$
+^notes$

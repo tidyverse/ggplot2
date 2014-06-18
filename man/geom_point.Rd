@@ -70,7 +70,7 @@ p + geom_point(aes(size = qsec))
 
 # Change scales
 p + geom_point(aes(colour = cyl)) + scale_colour_gradient(low = "blue")
-p + geom_point(aes(size = qsec)) + scale_area()
+p + geom_point(aes(size = qsec)) + scale_size_area()
 p + geom_point(aes(shape = factor(cyl))) + scale_shape(solid = FALSE)
 
 # Set aesthetics to fixed value

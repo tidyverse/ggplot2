@@ -6,7 +6,7 @@
 label_wrap_gen(width = 25)
 }
 \arguments{
-  \item{width}{integer, target column width for output.}
+\item{width}{integer, target column width for output.}
 }
 \description{
 Uses \code{\link[base]{strwrap}} for line wrapping.
