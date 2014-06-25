@@ -85,3 +85,73 @@ PositionJitterdodge <- proto(Position, {
   }
 
 })
+
+
+position_jitterdodgeh <- function(jitter.width = NULL,
+                          jitter.height = NULL,
+                          dodge.height = NULL) {
+
+  PositionJitterDodgeh$new(jitter.width = jitter.width,
+                           jitter.height = jitter.height,
+                           dodge.height = dodge.height)
+}
+
+PositionJitterDodgeh <- proto(Position, {
+
+  jitter.width <- NULL
+  jitter.height <- NULL
+  dodge.height <- NULL
+
+  new <- function(., jitter.width = NULL,
+             jitter.height = NULL,
+             dodge.height = NULL) {
+
+    .$proto(jitter.width = jitter.width,
+            jitter.height = jitter.height,
+            dodge.height = dodge.height)
+
+  }
+
+  objname <- "jitterdodgeh"
+
+  adjust <- function(., data) {
+
+    if (empty(data)) return(data.frame())
+    check_required_aesthetics(c("x", "y", "fill"), names(data), "position_jitterdodgeh")
+
+    ## Workaround to avoid this warning:
+    ## xmax not defined: adjusting position using x instead
+    if (!("xmax" %in% names(data))) {
+      data$xmax <- data$x
+    }
+
+    ## Adjust the y transformation based on the number of 'fill' variables
+    nfill <- length(levels(data$fill))
+
+    if (is.null(.$jitter.height)) {
+      .$jitter.height <- resolution(data$y, zero = FALSE) * 0.4
+    }
+
+    if (is.null(.$jitter.width)) {
+      .$jitter.width <- 0
+    }
+
+    trans_x <- NULL
+    trans_y <- NULL
+    if (.$jitter.height > 0) {
+      trans_y <- function(y) jitter(y, amount = .$jitter.height / (nfill + 2))
+    }
+    if (.$jitter.width > 0) {
+      trans_x <- function(y) jitter(y, amount = .$jitter.width)
+    }
+
+    if (is.null(.$dodge.height)) {
+      .$dodge.height <- 0.75
+    }
+
+    ## dodge, then jitter
+    data <- collideh(data, .$dodge.height, .$my_name(), pos_dodgev, check.height = FALSE)
+    transform_position(data, trans_x, trans_y)
+  }
+
+})

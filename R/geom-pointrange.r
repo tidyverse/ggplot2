@@ -43,3 +43,37 @@ GeomPointrange <- proto(Geom, {
   }
 
 })
+
+
+#' @rdname geom_pointrange
+#' @export
+geom_pointrangeh <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
+  GeomPointrangeh$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
+GeomPointrangeh <- proto(Geom, {
+  objname <- "pointrangeh"
+
+  default_stat <- function(.) StatIdentity
+  default_aes <- function(.) aes(colour = "black", size = 0.5, linetype = 1, shape = 16, fill = NA, alpha = NA)
+  guide_geom <- function(.) "pointrangeh"
+  required_aes <- c("x", "y", "xmin", "xmax")
+
+  draw <- function(., data, scales, coordinates, ...) {
+    if (is.null(data$x)) return(GeomLinerangeh$draw(data, scales, coordinates, ...))
+    ggname(.$my_name(), gTree(children = gList(
+      GeomLinerangeh$draw(data, scales, coordinates, ...),
+      GeomPoint$draw(transform(data, size = size * 4), scales, coordinates, ...)
+    )))
+  }
+
+  draw_legend <- function(., data, ...) {
+    data <- aesdefaults(data, .$default_aes(), list(...))
+
+    grobTree(
+      GeomPath$draw_legend(data, ...),
+      GeomPoint$draw_legend(transform(data, size = size * 4), ...)
+    )
+  }
+
+})

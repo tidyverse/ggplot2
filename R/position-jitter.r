@@ -55,3 +55,32 @@ PositionJitter <- proto(Position, {
   }
 
 })
+
+
+position_jitterh <- function(width = NULL, height = NULL) {
+  PositionJitterh$new(width = width, height = height)
+}
+
+PositionJitterh <- proto(Position, {
+  objname <- "jitterh"
+
+  adjust <- function(., data) {
+    if (empty(data)) return(data.frame())
+    check_required_aesthetics(c("x", "y"), names(data), "position_jitterh")
+
+    if (is.null(.$width)) .$width <- resolution(data$x, zero = FALSE) * 0.4
+    if (is.null(.$height)) .$height <- resolution(data$y, zero = FALSE) * 0.4
+
+    trans_x <- NULL
+    trans_y <- NULL
+    if(.$width > 0) {
+      trans_x <- function(y) jitter(y, amount = .$height)
+    }
+    if(.$height > 0) {
+      trans_y <- function(y) jitter(y, amount = .$width)
+    }
+
+    transform_position(data, trans_x, trans_y)
+  }
+
+})

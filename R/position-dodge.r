@@ -42,3 +42,20 @@ PositionDodge <- proto(Position, {
 
 })
 
+
+position_dodgeh <- function (width = NULL, height = NULL) {
+  PositionDodgeh$new(width = width, height = height)
+}
+
+PositionDodgeh <- proto(Position, {
+  objname <- "dodgeh"
+
+  adjust <- function(., data) {
+    if (empty(data)) return(data.frame())
+    check_required_aesthetics("y", names(data), "position_dodgeh")
+
+    collideh(data, .$height, .$my_name(), pos_dodgeh, check.height = FALSE)
+  }
+
+})
+

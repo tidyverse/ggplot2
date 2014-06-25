@@ -2,9 +2,13 @@
 % Please edit documentation in R/geom-pointrange.r
 \name{geom_pointrange}
 \alias{geom_pointrange}
+\alias{geom_pointrangeh}
 \title{An interval represented by a vertical line, with a point in the middle.}
 \usage{
 geom_pointrange(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", ...)
+
+geom_pointrangeh(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ...)
 }
 \arguments{

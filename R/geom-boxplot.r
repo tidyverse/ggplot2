@@ -105,6 +105,9 @@
 #'
 #' update_geom_defaults("point", list(shape = 1, colour = "red", size = 5))
 #' p + geom_boxplot()
+#'
+#' # To plot the boxes horizontally, use the `h` variant:
+#' ggplot(mtcars, aes(mpg, factor(cyl))) + geom_boxploth()
 #' }
 geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
                           position = "dodge", outlier.colour = NULL,
@@ -226,5 +229,137 @@ GeomBoxplot <- proto(Geom, {
   default_pos <- function(.) PositionDodge
   default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = NA, shape = 16, linetype = "solid")
   required_aes <- c("x", "lower", "upper", "middle", "ymin", "ymax")
+
+})
+
+
+#' @rdname geom_boxplot
+#' @export
+geom_boxploth <- function(mapping = NULL, data = NULL, stat = "boxploth",
+                          position = "dodgeh", outlier.colour = NULL,
+                          outlier.shape = NULL, outlier.size = NULL,
+                          notch = FALSE, notchwidth = .5, ...) {
+
+  outlier_defaults <- Geom$find('point')$default_aes()
+
+  outlier.colour <- outlier.colour %||% outlier_defaults$colour
+  outlier.shape  <- outlier.shape  %||% outlier_defaults$shape
+  outlier.size   <- outlier.size   %||% outlier_defaults$size
+
+  GeomBoxploth$new(mapping = mapping, data = data, stat = stat,
+    position = position, outlier.colour = outlier.colour,
+    outlier.shape = outlier.shape, outlier.size = outlier.size,
+    notch = notch, notchwidth = notchwidth, ...)
+}
+
+GeomBoxploth <- proto(Geom, {
+  objname <- "boxploth"
+
+  reparameterise <- function(., df, params) {
+    df$height <- df$height %||%
+      params$height %||% (resolution(df$y, FALSE) * 0.9)
+
+    if (!is.null(df$outliers)) {
+      suppressWarnings({
+        out_min <- vapply(df$outliers, min, numeric(1))
+        out_max <- vapply(df$outliers, max, numeric(1))
+      })
+
+      df$xmin_final <- pmin(out_min, df$xmin)
+      df$xmax_final <- pmax(out_max, df$xmax)
+    }
+
+    # if `varwidth` not requested or not available, don't use it
+    if (is.null(params) || is.null(params$varheight) || !params$varheight || is.null(df$relvarheight)) {
+      df$ymin <- df$y - df$height / 2
+      df$ymax <- df$y + df$height / 2
+    } else {
+      # make `relvarwidth` relative to the size of the largest group
+      df$relvarheight <- df$relvarheight / max(df$relvarheight)
+      df$ymin <- df$y - df$relvarheight * df$height / 2
+      df$ymax <- df$y + df$relvarheight * df$height / 2
+    }
+    df$height <- NULL
+    if (!is.null(df$relvarheight)) df$relvarheight <- NULL
+
+    df
+  }
+
+  draw <- function(., data, ..., fatten = 2, outlier.colour = NULL,
+                   outlier.shape = NULL, outlier.size = 2, notch = FALSE,
+                   notchwidth = .5, varheight = FALSE) {
+    common <- data.frame(
+      colour = data$colour,
+      size = data$size,
+      linetype = data$linetype,
+      fill = alpha(data$fill, data$alpha),
+      group = data$group,
+      stringsAsFactors = FALSE
+    )
+
+    whiskers <- data.frame(
+      y = data$y,
+      yend = data$y,
+      x = c(data$upper, data$lower),
+      xend = c(data$xmax, data$xmin),
+      alpha = NA,
+      common)
+
+    box <- data.frame(
+      ymin = data$ymin,
+      ymax = data$ymax,
+      xmin = data$lower,
+      x = data$middle,
+      xmax = data$upper,
+      xnotchlower = ifelse(notch, data$notchlower, NA),
+      xnotchupper = ifelse(notch, data$notchupper, NA),
+      notchwidth = notchwidth,
+      alpha = data$alpha,
+      common)
+
+    if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
+      outliers <- data.frame(
+        x = data$outliers[[1]],
+        y = data$y[1],
+        colour = outlier.colour %||% data$colour[1],
+        shape = outlier.shape %||% data$shape[1],
+        size = outlier.size %||% data$size[1],
+        fill = NA,
+        alpha = NA,
+        stringsAsFactors = FALSE)
+      outliers_grob <- GeomPoint$draw(outliers, ...)
+    } else {
+      outliers_grob <- NULL
+    }
+
+    ggname(.$my_name(), grobTree(
+      outliers_grob,
+      GeomSegment$draw(whiskers, ...),
+      GeomCrossbarh$draw(box, fatten = fatten, ...)
+    ))
+  }
+
+  guide_geom <- function(.) "boxploth"
+  draw_legend <- function(., data, ...)  {
+    data <- aesdefaults(data, .$default_aes(), list(...))
+    gp <- with(data,
+      gpar(col = colour, fill = alpha(fill, alpha),
+        lwd = size * .pt, lty = linetype)
+    )
+    gTree(gp = gp, children = gList(
+      linesGrob(0.5, c(0.1, 0.25)),
+      linesGrob(0.5, c(0.75, 0.9)),
+      rectGrob(height = 0.75, width = 0.5),
+      linesGrob(c(0.125, 0.875), 0.5)
+    ))
+  }
+
+  default_stat <- function(.) StatBoxploth
+  default_pos <- function(.) PositionDodgeh
+  default_aes <- function(.) {
+    aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
+      alpha = NA, shape = 16, linetype = "solid") 
+  }
+  required_aes <- c("y", "lower", "upper", "middle", "xmin", "xmax")
 
 })

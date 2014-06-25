@@ -35,3 +35,21 @@ PositionFill <- proto(Position, {
   }
 
 })
+
+
+position_fillh <- function(width = NULL, height = NULL) {
+  PositionFillh$new(width = width, height = height)
+}
+
+PositionFillh <- proto(Position, {
+  objname <- "fillh"
+
+  adjust <- function(., data) {
+    if (empty(data)) return(data.frame())
+
+    check_required_aesthetics(c("y", "xmax"), names(data), "position_fillh")
+    if (!all(data$xmin == 0)) warning("Filling not well defined when xmin != 0")
+    collideh(data, .$height, .$my_name(), pos_fillh)
+  }
+
+})

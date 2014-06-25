@@ -5,11 +5,12 @@
 #'
 #' @inheritParams stat_density
 #' @inheritParams stat_identity
-#' @param scale if "area" (default), all violins have the same area (before trimming
-#'   the tails). If "count", areas are scaled proportionally to the number of
-#'   observations. If "width", all violins have the same maximum width.
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning. If \code{TRUE} silently removes missing values.
+#' @param scale if "area" (default), all violins have the same area
+#'   (before trimming the tails). If "count", areas are scaled
+#'   proportionally to the number of observations. If "width" or
+#'   "height", all violins have the same maximum width or height.
+#' @param na.rm If \code{FALSE} (the default), removes missing values
+#'   with a warning. If \code{TRUE} silently removes missing values.
 #'
 #' @return A data frame with additional columns:
 #'   \item{density}{density estimate}

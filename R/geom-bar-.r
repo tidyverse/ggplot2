@@ -129,6 +129,9 @@
 #' "suv", "compact", "2seater", "subcompact", "pickup"))
 #' m <- ggplot(mpg, aes(x = manufacturer, fill = class))
 #' m + geom_bar()
+#'
+#' # To plot the bars horizontally, use the `h` variant:
+#' ggplot(mpg, aes(y = manufacturer, fill = class)) + geom_barh()
 #' }
 geom_bar <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", ...) {
   GeomBar$new(mapping = mapping, data = data, stat = stat, position = position, ...)
@@ -149,6 +152,36 @@ GeomBar <- proto(Geom, {
     transform(df,
       ymin = pmin(y, 0), ymax = pmax(y, 0),
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
+    )
+  }
+
+  draw_groups <- function(., data, scales, coordinates, ...) {
+    GeomRect$draw_groups(data, scales, coordinates, ...)
+  }
+  guide_geom <- function(.) "polygon"
+})
+
+#' @rdname geom_bar
+#' @export
+geom_barh <- function(mapping = NULL, data = NULL, stat = "binh", position = "stackh", ...) {
+  GeomBarh$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
+GeomBarh <- proto(Geom, {
+  objname <- "barh"
+
+  default_stat <- function(.) StatBinh
+  default_pos <- function(.) PositionStackh
+  default_aes <- function(.) aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1, weight = 1, alpha = NA)
+
+  required_aes <- c("y")
+
+  reparameterise <- function(., df, params) {
+    df$height <- df$height %||%
+      params$height %||% (resolution(df$y, FALSE) * 0.9)
+    transform(df,
+      xmin = pmin(x, 0), xmax = pmax(x, 0),
+      ymin = y - height / 2, ymax = y + height / 2, height = NULL
     )
   }
 

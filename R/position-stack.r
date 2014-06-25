@@ -54,5 +54,31 @@ PositionStack <- proto(Position, {
 
     collide(data, .$width, .$my_name(), pos_stack)
   }
+})
 
+
+position_stackh <- function(width = NULL, height = NULL) {
+  PositionStackh$new(width = width, height = height)
+}
+
+PositionStackh <- proto(Position, {
+  objname <- "stackh"
+
+  adjust <- function(., data) {
+    if (empty(data)) return(data.frame())
+
+    data <- remove_missing(data, FALSE,
+      c("x", "y", "ymin", "ymax", "xmin", "xmax"), name = "position_stack")
+
+    if (is.null(data$xmax) && is.null(data$x)) {
+      message("Missing x and xmax in position = 'stack'. ",
+        "Maybe you want position = 'identity'?")
+      return(data)
+    }
+
+    if (!is.null(data$xmin) && !all(data$xmin == 0))
+      warning("Stacking not well defined when xmin != 0", call. = FALSE)
+
+    collideh(data, .$height, .$my_name(), pos_stackh)
+  }
 })

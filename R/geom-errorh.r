@@ -31,7 +31,7 @@ GeomErrorbarh <- proto(Geom, {
   default_stat <- function(.) StatIdentity
   default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, height=0.5, alpha = NA)
   guide_geom <- function(.) "path"
-  required_aes <- c("x", "xmin", "xmax", "y")
+  required_aes <- c("y", "xmin", "xmax")
 
   reparameterise <- function(., df, params) {
     df$height <- df$height %||%
