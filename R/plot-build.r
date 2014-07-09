@@ -6,12 +6,14 @@
 #' contain all information about axis limits, breaks etc.
 #'
 #' @param plot ggplot object
+#' @param return.prestats.data set to TRUE if ggplot_build should also
+#'  return the data as it is prior to calculate_stats
 #' @seealso \code{\link{print.ggplot}} and \code{link{benchplot}} for
 #'  for functions that contain the complete set of steps for generating
 #'  a ggplot2 plot.
 #' @keywords internal
 #' @export
-ggplot_build <- function(plot) {
+ggplot_build <- function(plot, return.prestats.data=FALSE) {
   if (length(plot$layers) == 0) stop("No layers in plot", call.=FALSE)
 
   plot <- plot_clone(plot)
@@ -51,6 +53,8 @@ ggplot_build <- function(plot) {
   data <- map_position(panel, data, scale_x(), scale_y())
 
   # Apply and map statistics
+  if (return.prestats.data)
+    prestats.data <- data
   data <- calculate_stats(panel, data, layers)
   data <- dlapply(function(d, p) p$map_statistic(d, plot))
   data <- lapply(data, order_groups)
@@ -81,6 +85,9 @@ ggplot_build <- function(plot) {
   # Train coordinate system
   panel <- train_ranges(panel, plot$coordinates)
 
-  list(data = data, panel = panel, plot = plot)
+  ret <- list(data = data, panel = panel, plot = plot)
+  if (return.prestats.data)
+    ret$prestats.data <- prestats.data
+  ret
 }
 
