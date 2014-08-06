@@ -153,6 +153,9 @@ print.theme <- function(x, ...) str(x)
 #'                    (\code{element_line}; inherits from \code{panel.grid.minor}) \cr
 #'   panel.grid.minor.y \tab horizontal minor grid lines
 #'                    (\code{element_line}; inherits from \code{panel.grid.minor}) \cr
+#'   panel.ontop        \tab option to place the panel (background, gridlines)
+#'                           over the data layers.  Usually used with a transparent
+#'                           or blank \code{panel.background}. (\code{logical}) \cr
 #'
 #'   plot.background  \tab background of the entire plot
 #'                    (\code{element_rect}; inherits from \code{rect}) \cr
@@ -423,7 +426,7 @@ add_theme <- function(t1, t2, t2name) {
       # If x is NULL or element_blank, then just assign it y
       x <- y
     } else if (is.null(y) || is.character(y) || is.numeric(y) ||
-               inherits(y, "element_blank")) {
+               is.logical(y) || inherits(y, "element_blank")) {
       # If y is NULL, or a string or numeric vector, or is element_blank, just replace x
       x <- y
     } else {

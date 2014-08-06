@@ -46,7 +46,12 @@ facet_render.null <- function(facet, panel, coord, theme, geom_grobs) {
 
   # Flatten layers - we know there's only one panel
   geom_grobs <- lapply(geom_grobs, "[[", 1)
-  panel_grobs <- c(list(bg), geom_grobs, list(fg))
+
+  if(theme$panel.ontop) {
+    panel_grobs <- c(geom_grobs, list(bg), list(fg))
+  } else {
+    panel_grobs <- c(list(bg), geom_grobs, list(fg))
+  }
 
   panel_grob <- gTree(children = do.call("gList", panel_grobs))
   axis_h <- coord_render_axis_h(coord, range, theme)
