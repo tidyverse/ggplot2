@@ -60,7 +60,7 @@ na.rm = FALSE, contour = TRUE, n = 100, ...) {
 }
 
 StatDensity2d <- proto(Stat, {
-  ..Name = StatDensity2d
+  ..Name = 'StatDensity2d'
   objname <- "density2d"
 
   default_geom <- function(.) GeomDensity2d
