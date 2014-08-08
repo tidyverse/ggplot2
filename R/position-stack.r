@@ -29,7 +29,7 @@
 #' # But realise that this makes it *much* harder to compare individual
 #' # trends
 position_stack <- function (width = NULL, height = NULL) {
-  PositionStack$new(width = width, height = height)
+  PositionStack$new(..Name = 'position_stack', width = width, height = height)
 }
 
 PositionStack <- proto(Position, {

@@ -38,7 +38,7 @@
 stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL, position = "identity",
 bins = 30, drop = TRUE, ...) {
 
-  StatBin2d$new(mapping = mapping, data = data, geom = geom, position = position,
+  StatBin2d$new(..Name='stat_bin2d', mapping = mapping, data = data, geom = geom, position = position,
   bins = bins, drop = drop, ...)
 }
 

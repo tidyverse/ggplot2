@@ -46,7 +46,7 @@
 geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE, ...) {
 
-  GeomSegment$new(mapping = mapping, data = data, stat = stat,
+  GeomSegment$new(..Name = 'geom_segment', mapping = mapping, data = data, stat = stat,
     position = position, arrow = arrow, lineend = lineend, na.rm = na.rm, ...)
 }
 

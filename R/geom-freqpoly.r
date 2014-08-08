@@ -17,7 +17,7 @@
 #' qplot(price, ..density.., data = diamonds, geom = "freqpoly",
 #'   binwidth = 1000, colour = color)
 geom_freqpoly <- function (mapping = NULL, data = NULL, stat = "bin", position = "identity", ...) {
-  GeomFreqpoly$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+  GeomFreqpoly$new(..Name = 'geom_freqpoly', mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
 GeomFreqpoly <- proto(Geom, {

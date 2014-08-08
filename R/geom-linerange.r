@@ -33,7 +33,7 @@
 #' # Use coord_flip to flip the x and y axes
 #' se + geom_linerange() + coord_flip()
 geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomLinerange$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+  GeomLinerange$new(..Name = 'geom_linerange', mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
 GeomLinerange <- proto(Geom, {

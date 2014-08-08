@@ -95,7 +95,7 @@
 #' }
 geom_path <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
 lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, arrow = NULL, ...) {
-  GeomPath$new(mapping = mapping, data = data, stat = stat, position = position,
+  GeomPath$new(..Name = 'geom_path', mapping = mapping, data = data, stat = stat, position = position,
   lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, arrow = arrow, ...)
 }
 

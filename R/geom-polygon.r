@@ -47,7 +47,7 @@
 #' # And if the positions are in longitude and latitude, you can use
 #' # coord_map to produce different map projections.
 geom_polygon <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomPolygon$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+  GeomPolygon$new(..Name = 'geom_polygon', mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
 GeomPolygon <- proto(Geom, {

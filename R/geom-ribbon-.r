@@ -43,7 +43,7 @@
 #' }
 geom_ribbon <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
 na.rm = FALSE, ...) {
-  GeomRibbon$new(mapping = mapping, data = data, stat = stat, position = position,
+  GeomRibbon$new(..Name = 'geom_ribbon', mapping = mapping, data = data, stat = stat, position = position,
   na.rm = na.rm, ...)
 }
 
@@ -114,7 +114,7 @@ GeomRibbon <- proto(Geom, {
 #' # see geom_ribbon
 geom_area <- function (mapping = NULL, data = NULL, stat = "identity", position = "stack",
 na.rm = FALSE, ...) {
-  GeomArea$new(mapping = mapping, data = data, stat = stat, position = position,
+  GeomArea$new(..Name = 'geom_area', mapping = mapping, data = data, stat = stat, position = position,
   na.rm = na.rm, ...)
 }
 

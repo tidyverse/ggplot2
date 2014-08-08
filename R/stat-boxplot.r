@@ -22,7 +22,7 @@
 #' # See geom_boxplot for examples
 stat_boxplot <- function (mapping = NULL, data = NULL, geom = "boxplot", position = "dodge",
 na.rm = FALSE, coef = 1.5, ...) {
-  StatBoxplot$new(mapping = mapping, data = data, geom = geom,
+  StatBoxplot$new(..Name = 'stat_boxplot', mapping = mapping, data = data, geom = geom,
   position = position, na.rm = na.rm, coef = coef, ...)
 }
 

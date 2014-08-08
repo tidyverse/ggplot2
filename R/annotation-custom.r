@@ -37,7 +37,7 @@ NULL
 #' base +
 #'   annotation_custom(grob = g, xmin = 1, xmax = 10, ymin = 8, ymax = 10)
 annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) {
-  GeomCustomAnn$new(geom_params = list(grob = grob, xmin = xmin,
+  GeomCustomAnn$new(..Name = 'annotation_custom', geom_params = list(grob = grob, xmin = xmin,
     xmax = xmax, ymin = ymin, ymax = ymax), stat = "identity",
     position = "identity", data = NULL, inherit.aes = TRUE)
 }

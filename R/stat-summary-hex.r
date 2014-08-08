@@ -32,7 +32,7 @@
 stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex", position = "identity",
 bins = 30, drop = TRUE, fun = mean, ...) {
 
-  StatSummaryhex$new(mapping = mapping, data = data, geom = geom, position = position,
+  StatSummaryhex$new(..Name = 'stat_summary_hex', mapping = mapping, data = data, geom = geom, position = position,
   bins = bins, drop = drop, fun = fun, ...)
 }
 

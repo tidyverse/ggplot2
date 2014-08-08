@@ -17,7 +17,7 @@
 #' # See stat_density2d for examples
 geom_density2d <- function (mapping = NULL, data = NULL, stat = "density2d", position = "identity",
 lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
-  GeomDensity2d$new(mapping = mapping, data = data, stat = stat, position = position,
+  GeomDensity2d$new(..Name = 'geom_density2d', mapping = mapping, data = data, stat = stat, position = position,
   lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, ...)
 }
 

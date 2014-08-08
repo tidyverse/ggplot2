@@ -13,7 +13,7 @@
 #' # See stat_quantile for examples
 geom_quantile <- function (mapping = NULL, data = NULL, stat = "quantile", position = "identity",
 lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
-  GeomQuantile$new(mapping = mapping, data = data, stat = stat, position = position,
+  GeomQuantile$new(..Name = 'geom_quantile', mapping = mapping, data = data, stat = stat, position = position,
   lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, ...)
 }
 

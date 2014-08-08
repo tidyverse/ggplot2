@@ -32,7 +32,7 @@
 #' qplot(wt, mpg, data=mtcars, colour=factor(cyl)) +
 #'   geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat="identity")
 geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth", position = "identity", ...) {
-  GeomSmooth$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+  GeomSmooth$new(..Name = 'geom_smooth', mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
 GeomSmooth <- proto(Geom, {

@@ -44,7 +44,7 @@
 stat_bindot <- function (mapping = NULL, data = NULL, geom = "dotplot", position = "identity",
 binwidth = NULL, origin = NULL, width = 0.9, binaxis = "x", method = "dotdensity",
 binpositions = "bygroup", drop = FALSE, right = TRUE, na.rm = FALSE, ...) {
-  StatBindot$new(mapping = mapping, data = data, geom = geom, position = position,
+  StatBindot$new(..Name = 'stat_bindot', mapping = mapping, data = data, geom = geom, position = position,
   binwidth = binwidth, origin = origin, width = width, binaxis = binaxis,
   method = method, binpositions = binpositions, drop = drop, right = right,
   na.rm = na.rm, ...)

@@ -27,7 +27,7 @@
 #'   position = position_dodge(width = 0.90))
 #' }
 position_dodge <- function (width = NULL, height = NULL) {
-  PositionDodge$new(width = width, height = height)
+  PositionDodge$new(..Name = 'position_dodge', width = width, height = height)
 }
 
 PositionDodge <- proto(Position, {

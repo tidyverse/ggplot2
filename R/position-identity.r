@@ -7,7 +7,7 @@
 #' @family position adjustments
 #' @export
 position_identity <- function (width = NULL, height = NULL) {
-  PositionIdentity$new(width = width, height = height)
+  PositionIdentity$new(..Name = 'position_identity', width = width, height = height)
 }
 
 PositionIdentity <- proto(Position, {

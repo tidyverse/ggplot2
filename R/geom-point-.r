@@ -104,7 +104,7 @@
 #' }
 geom_point <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
 na.rm = FALSE, ...) {
-  GeomPoint$new(mapping = mapping, data = data, stat = stat, position = position,
+  GeomPoint$new(..Name = 'geom_point', mapping = mapping, data = data, stat = stat, position = position,
   na.rm = na.rm, ...)
 }
 

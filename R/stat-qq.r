@@ -40,7 +40,7 @@
 #' }
 stat_qq <- function (mapping = NULL, data = NULL, geom = "point", position = "identity",
 distribution = qnorm, dparams = list(), na.rm = FALSE, ...) {
-  StatQq$new(mapping = mapping, data = data, geom = geom, position = position,
+  StatQq$new(..Name = 'stat_qq', mapping = mapping, data = data, geom = geom, position = position,
   distribution = distribution, dparams = dparams, na.rm = na.rm, ...)
 }
 

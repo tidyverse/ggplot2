@@ -43,7 +43,7 @@
 #' f + stat_function(fun = test)
 stat_function <- function (mapping = NULL, data = NULL, geom = "path", position = "identity",
 fun, n = 101, args = list(), ...) {
-  StatFunction$new(mapping = mapping, data = data, geom = geom,
+  StatFunction$new(..Name = 'stat_function', mapping = mapping, data = data, geom = geom,
   position = position, fun = fun, n = n, args = args, ...)
 }
 

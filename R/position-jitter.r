@@ -23,7 +23,7 @@
 #' # take up as much space as a boxplot or a bar
 #' qplot(class, hwy, data = mpg, geom = c("boxplot", "jitter"))
 position_jitter <- function (width = NULL, height = NULL) {
-  PositionJitter$new(width = width, height = height)
+  PositionJitter$new(..Name = 'position_jitter', width = width, height = height)
 }
 
 PositionJitter <- proto(Position, {

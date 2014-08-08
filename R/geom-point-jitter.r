@@ -34,7 +34,7 @@
 #' qplot(class, hwy, data = mpg, geom = c("jitter", "boxplot"))
 geom_jitter <- function (mapping = NULL, data = NULL, stat = "identity", position = "jitter",
 na.rm = FALSE, ...) {
-  GeomJitter$new(mapping = mapping, data = data, stat = stat, position = position,
+  GeomJitter$new(..Name = 'geom_jitter', mapping = mapping, data = data, stat = stat, position = position,
   na.rm = na.rm, ...)
 }
 

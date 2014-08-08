@@ -58,7 +58,7 @@
 #' p + geom_abline(intercept = 37, slope = -5) + coord_flip()
 #' p + geom_abline(intercept = 37, slope = -5) + coord_polar()
 geom_abline <- function (mapping = NULL, data = NULL, stat = "abline", position = "identity", show_guide = FALSE, ...) {
-  GeomAbline$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
+  GeomAbline$new(..Name = 'geom_abline', mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
 }
 
 GeomAbline <- proto(Geom, {
