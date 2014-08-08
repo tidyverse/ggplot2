@@ -37,6 +37,7 @@ bins = 30, na.rm = FALSE, ...) {
 }
 
 StatBinhex <- proto(Stat, {
+  ..Name = 'StatBinhex'
   objname <- "binhex"
 
   default_aes <- function(.) aes(fill = ..count..)

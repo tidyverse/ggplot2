@@ -35,6 +35,7 @@ adjust = 1, kernel = "gaussian", trim = TRUE, scale = "area", na.rm = FALSE, ...
 }
 
 StatYdensity <- proto(Stat, {
+  ..Name = 'StatYdensity'
   objname <- "ydensity"
 
   calculate_groups <- function(., data, na.rm = FALSE, width = NULL,

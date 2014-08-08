@@ -52,6 +52,7 @@ na.rm = FALSE, ...) {
 }
 
 StatQuantile <- proto(Stat, {
+  ..Name = 'StatQuantile'
   objname <- "quantile"
 
   default_geom <- function(.) GeomQuantile

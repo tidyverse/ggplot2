@@ -19,6 +19,7 @@ fatten = 2, ...) {
 }
 
 GeomCrossbar <- proto(Geom, {
+  ..Name = 'GeomCrossbar'
   objname <- "crossbar"
 
   reparameterise <- function(., df, params) {

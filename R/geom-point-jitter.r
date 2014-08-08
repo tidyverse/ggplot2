@@ -39,6 +39,7 @@ na.rm = FALSE, ...) {
 }
 
 GeomJitter <- proto(GeomPoint, {
+  ..Name = 'GeomJitter'
   objname <- "jitter"
 
   default_stat <- function(.) StatIdentity

@@ -73,6 +73,7 @@ geom_tile <- function (mapping = NULL, data = NULL, stat = "identity", position 
 }
 
 GeomTile <- proto(Geom, {
+  ..Name = 'GeomTile'
   objname <- "tile"
 
   reparameterise <- function(., df, params) {

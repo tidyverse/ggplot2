@@ -65,6 +65,7 @@ geom_line <- function (mapping = NULL, data = NULL, stat = "identity", position 
 }
 
 GeomLine <- proto(GeomPath, {
+  ..Name = 'GeomLine'
   objname <- "line"
 
   draw <- function(., data, scales, coordinates, arrow = NULL, ...) {

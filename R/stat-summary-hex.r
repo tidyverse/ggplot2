@@ -37,6 +37,7 @@ bins = 30, drop = TRUE, fun = mean, ...) {
 }
 
 StatSummaryhex <- proto(Stat, {
+  ..Name = 'StatSummaryhex'
   objname <- "summaryhex"
 
   default_aes <- function(.) aes(fill = ..value..)

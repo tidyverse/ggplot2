@@ -1,4 +1,5 @@
 Geom <- proto(TopLevel, expr={
+  ..Name = 'Geom'
   class <- function(.) "geom"
 
   parameters <- function(.) {

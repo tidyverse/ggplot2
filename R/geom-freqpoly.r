@@ -21,6 +21,7 @@ geom_freqpoly <- function (mapping = NULL, data = NULL, stat = "bin", position =
 }
 
 GeomFreqpoly <- proto(Geom, {
+  ..Name = 'GeomFreqpoly'
   objname <- "freqpoly"
 
   default_aes <- function(.) GeomPath$default_aes()

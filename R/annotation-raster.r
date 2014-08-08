@@ -45,6 +45,7 @@ annotation_raster <- function (raster, xmin, xmax, ymin, ymax, interpolate = FAL
 }
 
 GeomRasterAnn <- proto(GeomRaster, {
+  ..Name = 'GeomRasterAnn'
   objname <- "raster_ann"
   reparameterise <- function(., df, params) {
     df

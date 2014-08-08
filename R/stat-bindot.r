@@ -52,6 +52,7 @@ binpositions = "bygroup", drop = FALSE, right = TRUE, na.rm = FALSE, ...) {
 
 
 StatBindot <- proto(Stat, {
+  ..Name = 'StatBindot'
   objname <- "bindot"
   informed <- FALSE
 

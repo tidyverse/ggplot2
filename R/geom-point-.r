@@ -109,6 +109,7 @@ na.rm = FALSE, ...) {
 }
 
 GeomPoint <- proto(Geom, {
+  ..Name = 'GeomPoint'
   objname <- "point"
 
   draw_groups <- function(., ...) .$draw(...)

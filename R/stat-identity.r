@@ -27,6 +27,7 @@ stat_identity <- function (mapping = NULL, data = NULL, geom = "point",
 }
 
 StatIdentity <- proto(Stat, {
+  ..Name = 'StatIdentity'
   objname <- "identity"
 
   default_geom <- function(.) GeomPoint

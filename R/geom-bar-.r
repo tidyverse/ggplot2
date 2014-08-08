@@ -125,6 +125,7 @@ geom_bar <- function (mapping = NULL, data = NULL, stat = "bin", position = "sta
 }
 
 GeomBar <- proto(Geom, {
+  ..Name = 'GeomBar'
   objname <- "bar"
 
   default_stat <- function(.) StatBin

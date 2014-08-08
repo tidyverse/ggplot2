@@ -31,6 +31,7 @@ position_dodge <- function (width = NULL, height = NULL) {
 }
 
 PositionDodge <- proto(Position, {
+  ..Name = 'PositionDodge'
   objname <- "dodge"
 
   adjust <- function(., data) {

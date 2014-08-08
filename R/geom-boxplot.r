@@ -129,6 +129,7 @@ geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
 }
 
 GeomBoxplot <- proto(Geom, {
+  ..Name = 'GeomBoxplot'
   objname <- "boxplot"
 
   reparameterise <- function(., df, params) {

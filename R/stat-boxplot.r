@@ -27,6 +27,7 @@ na.rm = FALSE, coef = 1.5, ...) {
 }
 
 StatBoxplot <- proto(Stat, {
+  ..Name = 'StatBoxplot'
   objname <- "boxplot"
 
   required_aes <- c("x", "y")

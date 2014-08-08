@@ -42,6 +42,7 @@ geom_hline <- function (mapping = NULL, data = NULL, stat = "hline", position = 
 }
 
 GeomHline <- proto(Geom, {
+  ..Name = 'GeomHline'
   objname <- "hline"
 
   new <- function(., data = NULL, mapping = NULL, yintercept = NULL, ...) {

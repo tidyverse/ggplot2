@@ -16,6 +16,7 @@ lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
 }
 
 GeomContour <- proto(GeomPath, {
+  ..Name = 'GeomContour'
   objname <- "contour"
 
   default_aes <- function(.) aes(weight=1, colour="#3366FF", size = 0.5, linetype = 1, alpha = NA)

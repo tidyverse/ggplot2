@@ -10,6 +10,7 @@ firstUpper <- function(s) {
 }
 
 TopLevel <- proto(expr = {
+  ..Name = 'TopLevel'
   find_all <- function(., only.documented = FALSE) {
     names <- ls(pattern=paste("^", firstUpper(.$class()), "[A-Z].+", sep=""), parent.env(TopLevel))
     objs <- structure(lapply(names, get), names=names)

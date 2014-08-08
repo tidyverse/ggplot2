@@ -46,6 +46,7 @@ geom_vline <- function (mapping = NULL, data = NULL, stat = "vline", position = 
 }
 
 GeomVline <- proto(Geom, {
+  ..Name = 'GeomVline'
   objname <- "vline"
 
   new <- function(., data = NULL, mapping = NULL, xintercept = NULL, ...) {

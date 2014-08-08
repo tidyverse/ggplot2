@@ -13,6 +13,7 @@ stat_unique <- function (mapping = NULL, data = NULL, geom = "point", position =
 }
 
 StatUnique <- proto(Stat, {
+  ..Name = 'StatUnique'
   objname <- "unique"
   desc <- "Remove duplicates"
 

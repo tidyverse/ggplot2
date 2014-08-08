@@ -32,6 +32,7 @@ direction = "hv", ...) {
 }
 
 GeomStep <- proto(Geom, {
+  ..Name = 'GeomStep'
   objname <- "step"
 
   details <- "Equivalent to plot(type='s')."

@@ -38,6 +38,7 @@ annotation_map <- function(map, ...) {
 }
 
 GeomAnnotationMap <- proto(GeomMap, {
+  ..Name = 'GeomAnnotationMap'
   objname <- "map"
 
   draw_groups <- function(., data, scales, coordinates, map, ...) {

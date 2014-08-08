@@ -48,6 +48,7 @@ na.rm = FALSE, ...) {
 }
 
 GeomRibbon <- proto(Geom, {
+  ..Name = 'GeomRibbon'
   objname <- "ribbon"
 
   default_stat <- function(.) StatIdentity
@@ -118,6 +119,7 @@ na.rm = FALSE, ...) {
 }
 
 GeomArea <- proto(GeomRibbon,{
+  ..Name = 'GeomArea'
   objname <- "area"
 
   default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = NA)

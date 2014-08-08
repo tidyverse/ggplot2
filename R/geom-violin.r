@@ -72,6 +72,7 @@ trim = TRUE, scale = "area", ...) {
 }
 
 GeomViolin <- proto(Geom, {
+  ..Name = 'GeomViolin'
   objname <- "violin"
 
   reparameterise <- function(., df, params) {

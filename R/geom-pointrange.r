@@ -18,6 +18,7 @@ geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity", pos
 }
 
 GeomPointrange <- proto(Geom, {
+  ..Name = 'GeomPointrange'
   objname <- "pointrange"
 
   default_stat <- function(.) StatIdentity

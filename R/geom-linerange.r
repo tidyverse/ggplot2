@@ -37,6 +37,7 @@ geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity", posi
 }
 
 GeomLinerange <- proto(Geom, {
+  ..Name = 'GeomLinerange'
   objname <- "linerange"
 
   default_stat <- function(.) StatIdentity

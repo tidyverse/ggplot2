@@ -18,6 +18,7 @@ na.rm = FALSE, ...) {
 }
 
 GeomDensity <- proto(GeomArea, {
+  ..Name = 'GeomDensity'
   objname <- "density"
 
   default_stat <- function(.) StatDensity

@@ -22,6 +22,7 @@ stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment", position 
 }
 
 StatSpoke <- proto(Stat, {
+  ..Name = 'StatSpoke'
   objname <- "spoke"
 
   retransform <- FALSE

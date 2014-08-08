@@ -43,6 +43,7 @@ bins = 30, drop = TRUE, ...) {
 }
 
 StatBin2d <- proto(Stat, {
+  ..Name = 'StatBin2d'
   objname <- "bin2d"
 
   default_aes <- function(.) aes(fill = ..count..)

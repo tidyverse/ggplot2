@@ -48,6 +48,7 @@ fun, n = 101, args = list(), ...) {
 }
 
 StatFunction <- proto(Stat, {
+  ..Name = 'StatFunction'
   objname <- "function"
 
   default_geom <- function(.) GeomPath

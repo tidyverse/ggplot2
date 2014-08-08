@@ -51,6 +51,7 @@ width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, origin = NULL, breaks
 }
 
 StatBin <- proto(Stat, {
+  ..Name = 'StatBin'
   objname <- "bin"
   informed <- FALSE
 

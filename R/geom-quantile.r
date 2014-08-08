@@ -18,6 +18,7 @@ lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
 }
 
 GeomQuantile <- proto(GeomPath, {
+  ..Name = 'GeomQuantile'
   objname <- "quantile"
 
   default_stat <- function(.) StatQuantile

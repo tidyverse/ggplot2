@@ -49,6 +49,7 @@ stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path", position = 
 }
 
 StatEllipse <- proto(Stat, {
+  ..Name = 'StatEllipse'
   objname <- "ellipse"
 
   required_aes <- c("x", "y")

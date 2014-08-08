@@ -108,6 +108,7 @@ stackratio = 1, dotsize = 1, stackgroups = FALSE, ...) {
 }
 
 GeomDotplot <- proto(Geom, {
+  ..Name = 'GeomDotplot'
   objname <- "dotplot"
 
   new <- function(., mapping = NULL, data = NULL, stat = NULL, position = NULL, ...){

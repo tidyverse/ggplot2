@@ -94,6 +94,7 @@ adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, ...) {
 }
 
 StatDensity <- proto(Stat, {
+  ..Name = 'StatDensity'
   objname <- "density"
 
   calculate <- function(., data, scales, adjust=1, kernel="gaussian", trim=FALSE, na.rm = FALSE, ...) {

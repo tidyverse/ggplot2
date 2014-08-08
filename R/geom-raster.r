@@ -60,6 +60,7 @@ geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", positio
 }
 
 GeomRaster <- proto(Geom, {
+  ..Name = 'GeomRaster'
   objname <- "raster"
 
   reparameterise <- function(., df, params) {

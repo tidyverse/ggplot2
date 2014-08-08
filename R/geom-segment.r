@@ -51,6 +51,7 @@ geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomSegment <- proto(Geom, {
+  ..Name = 'GeomSegment'
   objname <- "segment"
 
   draw <- function(., data, scales, coordinates, arrow = NULL,

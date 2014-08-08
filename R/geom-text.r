@@ -59,6 +59,7 @@ parse = FALSE, ...) {
 }
 
 GeomText <- proto(Geom, {
+  ..Name = 'GeomText'
   objname <- "text"
 
   draw_groups <- function(., ...) .$draw(...)

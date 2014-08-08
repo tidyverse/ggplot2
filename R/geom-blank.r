@@ -26,6 +26,7 @@ geom_blank <- function (mapping = NULL, data = NULL, stat = "identity", position
 }
 
 GeomBlank <- proto(Geom, {
+  ..Name = 'GeomBlank'
   objname <- "blank"
 
   default_stat <- function(.) StatIdentity

@@ -17,6 +17,7 @@ geom_rect <- function (mapping = NULL, data = NULL, stat = "identity", position 
 }
 
 GeomRect <- proto(Geom, {
+  ..Name = 'GeomRect'
   objname <- "rect"
 
   default_stat <- function(.) StatIdentity

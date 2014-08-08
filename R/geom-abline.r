@@ -62,6 +62,7 @@ geom_abline <- function (mapping = NULL, data = NULL, stat = "abline", position 
 }
 
 GeomAbline <- proto(Geom, {
+  ..Name = 'GeomAbline'
   objname <- "abline"
 
   new <- function(., mapping = NULL, ...) {

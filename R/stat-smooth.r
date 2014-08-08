@@ -106,6 +106,7 @@ level = 0.95, na.rm = FALSE, ...) {
 }
 
 StatSmooth <- proto(Stat, {
+  ..Name = 'StatSmooth'
   objname <- "smooth"
 
   calculate_groups <- function(., data, scales, method="auto", formula=y~x, ...) {

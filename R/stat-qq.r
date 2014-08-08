@@ -45,6 +45,7 @@ distribution = qnorm, dparams = list(), na.rm = FALSE, ...) {
 }
 
 StatQq <- proto(Stat, {
+  ..Name = 'StatQq'
   objname <- "qq"
 
   default_geom <- function(.) GeomPoint

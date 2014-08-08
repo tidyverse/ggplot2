@@ -74,6 +74,7 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity", ...) {
 }
 
 GeomMap <- proto(GeomPolygon, {
+  ..Name = 'GeomMap'
   objname <- "map"
 
   draw_groups <- function(., data, scales, coordinates, map, ...) {

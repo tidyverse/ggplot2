@@ -59,6 +59,7 @@ na.rm = FALSE, ...) {
 }
 
 StatContour <- proto(Stat, {
+  ..Name = 'StatContour'
   objname <- "contour"
 
   calculate <- function(., data, scales, bins=NULL, binwidth=NULL, breaks = NULL, complete = FALSE, na.rm = FALSE, ...) {

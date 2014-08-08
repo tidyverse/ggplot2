@@ -11,5 +11,6 @@ position_identity <- function (width = NULL, height = NULL) {
 }
 
 PositionIdentity <- proto(Position, {
+  ..Name = 'PositionIdentity'
   objname <- "identity"
 })

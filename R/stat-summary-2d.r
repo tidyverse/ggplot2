@@ -39,6 +39,7 @@ bins = 30, drop = TRUE, fun = mean, ...) {
 }
 
 StatSummary2d <- proto(Stat, {
+  ..Name = 'StatSummary2d'
   objname <- "Summary2d"
 
   default_aes <- function(.) aes(fill = ..value..)

@@ -22,6 +22,7 @@ lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
 }
 
 GeomDensity2d <- proto(GeomPath, {
+  ..Name = 'GeomDensity2d'
   objname <- "density2d"
 
   default_stat <- function(.) StatDensity2d

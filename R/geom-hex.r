@@ -12,6 +12,7 @@ geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex", position = "
 }
 
 GeomHex <- proto(Geom, {
+  ..Name = 'GeomHex'
   objname <- "hex"
 
   draw <- function(., data, scales, coordinates, ...) {

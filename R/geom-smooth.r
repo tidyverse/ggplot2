@@ -36,6 +36,7 @@ geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth", position 
 }
 
 GeomSmooth <- proto(Geom, {
+  ..Name = 'GeomSmooth'
   objname <- "smooth"
 
   draw <- function(., data, scales, coordinates, ...) {

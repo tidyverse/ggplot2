@@ -1,4 +1,5 @@
 Stat <- proto(TopLevel, expr={
+  ..Name = 'Stat'
   objname <- ""
   desc <- ""
 

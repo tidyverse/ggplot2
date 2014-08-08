@@ -26,6 +26,7 @@ geom_errorbarh <- function (mapping = NULL, data = NULL, stat = "identity", posi
 }
 
 GeomErrorbarh <- proto(Geom, {
+  ..Name = 'GeomErrorbarh'
   objname <- "errorbarh"
 
   default_stat <- function(.) StatIdentity

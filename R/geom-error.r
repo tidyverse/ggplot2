@@ -49,6 +49,7 @@ geom_errorbar <- function (mapping = NULL, data = NULL, stat = "identity", posit
 }
 
 GeomErrorbar <- proto(Geom, {
+  ..Name = 'GeomErrorbar'
   objname <- "errorbar"
 
   default_stat <- function(.) StatIdentity

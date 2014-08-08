@@ -33,6 +33,7 @@ position_stack <- function (width = NULL, height = NULL) {
 }
 
 PositionStack <- proto(Position, {
+  ..Name = 'PositionStack'
   objname <- "stack"
 
   adjust <- function(., data) {

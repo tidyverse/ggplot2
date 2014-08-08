@@ -21,6 +21,7 @@ stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step", position = "i
 }
 
 StatEcdf <- proto(Stat, {
+  ..Name = 'StatEcdf'
   objname <- "ecdf"
 
   calculate <- function(., data, scales, n = NULL, ...) {

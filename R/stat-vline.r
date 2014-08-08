@@ -11,6 +11,7 @@ stat_abline <- function (mapping = NULL, data = NULL, geom = "abline", position 
 }
 
 StatAbline <- proto(Stat, {
+  ..Name = 'StatAbline'
   objname <- "abline"
 
   calculate <- function(., data, scales, intercept = NULL, slope = NULL, ...) {
@@ -47,6 +48,7 @@ xintercept, ...) {
 }
 
 StatVline <- proto(Stat, {
+  ..Name = 'StatVline'
   objname <- "vline"
 
   calculate <- function(., data, scales, xintercept = NULL, intercept, ...) {
@@ -80,6 +82,7 @@ yintercept, ...) {
 }
 
 StatHline <- proto(Stat, {
+  ..Name = 'StatHline'
   calculate <- function(., data, scales, yintercept = NULL, intercept, ...) {
     if (!missing(intercept)) {
       stop("stat_hline now uses yintercept instead of intercept")

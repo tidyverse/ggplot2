@@ -24,6 +24,7 @@ position_fill <- function (width = NULL, height = NULL) {
 }
 
 PositionFill <- proto(Position, {
+  ..Name = 'PositionFill'
   objname <- "fill"
 
   adjust <- function(., data) {

@@ -16,6 +16,7 @@ geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d", position = 
 }
 
 GeomBin2d <- proto(Geom, {
+  ..Name = 'GeomBin2d'
   draw <- function(., data, scales, coordinates, ...) {
     GeomRect$draw(data, scales, coordinates, ...)
   }

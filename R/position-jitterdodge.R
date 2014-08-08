@@ -26,6 +26,7 @@ position_jitterdodge <- function (jitter.width = NULL,
 }
 
 PositionJitterDodge <- proto(Position, {
+  ..Name = 'PositionJitterDodge'
 
   jitter.width <- NULL
   jitter.height <- NULL

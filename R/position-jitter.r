@@ -27,6 +27,7 @@ position_jitter <- function (width = NULL, height = NULL) {
 }
 
 PositionJitter <- proto(Position, {
+  ..Name = 'PositionJitter'
   objname <- "jitter"
 
   adjust <- function(., data) {

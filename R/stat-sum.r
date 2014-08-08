@@ -50,6 +50,7 @@ stat_sum <- function (mapping = NULL, data = NULL, geom = "point", position = "i
 }
 
 StatSum <- proto(Stat, {
+  ..Name = 'StatSum'
   objname <- "sum"
 
   default_aes <- function(.) aes(size = ..prop..)

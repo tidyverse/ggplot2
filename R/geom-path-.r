@@ -100,6 +100,7 @@ lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, arrow = NULL
 }
 
 GeomPath <- proto(Geom, {
+  ..Name = 'GeomPath'
   objname <- "path"
 
   draw_groups <- function(., ...) .$draw(...)

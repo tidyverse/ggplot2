@@ -51,6 +51,7 @@ geom_polygon <- function (mapping = NULL, data = NULL, stat = "identity", positi
 }
 
 GeomPolygon <- proto(Geom, {
+  ..Name = 'GeomPolygon'
   objname <- "polygon"
 
   draw_groups <- function(., ...) .$draw(...)

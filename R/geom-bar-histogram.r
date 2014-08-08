@@ -119,5 +119,6 @@ geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin", position 
 }
 
 GeomHistogram <- proto(GeomBar, {
+  ..Name = 'GeomHistogram'
   objname <- "histogram"
 })

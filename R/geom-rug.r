@@ -20,6 +20,7 @@ geom_rug <- function (mapping = NULL, data = NULL, stat = "identity", position =
 }
 
 GeomRug <- proto(Geom, {
+  ..Name = 'GeomRug'
   objname <- "rug"
 
   draw <- function(., data, scales, coordinates, sides, ...) {

@@ -115,6 +115,7 @@ stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange", posi
 }
 
 StatSummary <- proto(Stat, {
+  ..Name = 'StatSummary'
   objname <- "summary"
 
   default_geom <- function(.) GeomPointrange
