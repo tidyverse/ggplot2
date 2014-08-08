@@ -12,7 +12,6 @@
 #
 # Can think about grob creation as a series of data frame transformations.
 Layer <- proto(expr = {
-  ..Name = 'Layer'
   geom <- NULL
   geom_params <- NULL
   stat <- NULL
@@ -72,6 +71,7 @@ Layer <- proto(expr = {
     }
 
     proto(.,
+      ..Name = 'Layer',
       geom=geom, geom_params=geom_params,
       stat=stat, stat_params=stat_params,
       data=data, mapping=mapping, subset=subset,
