@@ -5,7 +5,6 @@
 #' a data frame that can more easily be plotted with ggplot2.
 #'
 #' @export
-#' @importFrom reshape2 melt
 #' @param model list with components x, y and z
 #' @param data not used by this method
 #' @param ... not used by this method
