@@ -59,7 +59,7 @@ StatFunction <- proto(Stat, {
 
     data.frame(
       x = xseq,
-      y = do.call(fun, c(list(xseq), args))
+      y = do.call(fun, c(list(scales$x$trans$inv(xseq)), args))
     )
   }
 })
