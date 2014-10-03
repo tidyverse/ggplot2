@@ -1,6 +1,11 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* `position_jitterin` allows jittering binary data while keeping it
+  bounded inside the data range. In some situations, this results in
+  nicer plots than regular jittering (e.g. logistic regression plots)
+  (@lionel-).
+
 * `Geom` is now exported, making it easier to create new geoms in other
   packages (#989).
 

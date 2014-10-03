@@ -5,7 +5,8 @@
 \title{Points, jittered to reduce overplotting.}
 \usage{
 geom_jitter(mapping = NULL, data = NULL, width = NULL, height = NULL,
-  stat = "identity", position = "jitter", na.rm = FALSE, ...)
+  inward = FALSE, stat = "identity", position = "jitter", na.rm = FALSE,
+  ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -32,6 +33,9 @@ the plot defaults.}
   jitter values will occupy 80\% of the implied bins. Categorical data
   is aligned on the integers, so a width or height of 0.5 will spread the
   data so it's not possible to see the distinction between the categories.}
+
+\item{inward}{When \code{TRUE}, use \code{\link{position_jitterin}()}
+instead of \code{position_jitter()}.}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer.}
@@ -70,10 +74,16 @@ ggplot(mpg, aes(cyl, hwy)) + geom_jitter(width = 0.25)
 # Use larger width/height to completely smooth away discreteness
 ggplot(mpg, aes(cty, hwy)) + geom_jitter()
 ggplot(mpg, aes(cty, hwy)) + geom_jitter(width = 0.5, height = 0.5)
+
+# With binary data, use inward to bound jitter in the data range
+movies_sub <- movies[sample(nrow(movies), 1000), ]
+ggplot(movies_sub, aes(year, Comedy)) +
+  geom_jitter(inward = TRUE, alpha = 0.5) +
+  stat_smooth(method = "glm", family = "binomial", level = 0)
 }
 \seealso{
 \code{\link{geom_point}} for regular, unjittered points,
- \code{\link{geom_boxplot}} for another way of looking at the conditional
-    distribution of a variable
+  \code{\link{geom_boxplot}} for another way of looking at the
+  conditional distribution of a variable
 }
 

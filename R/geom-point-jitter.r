@@ -9,10 +9,11 @@
 #'
 #' @inheritParams geom_point
 #' @inheritParams position_jitter
-#' @seealso
-#'  \code{\link{geom_point}} for regular, unjittered points,
-#'  \code{\link{geom_boxplot}} for another way of looking at the conditional
-#'     distribution of a variable
+#' @param inward When \code{TRUE}, use \code{\link{position_jitterin}()}
+#'   instead of \code{position_jitter()}.
+#' @seealso \code{\link{geom_point}} for regular, unjittered points,
+#'   \code{\link{geom_boxplot}} for another way of looking at the
+#'   conditional distribution of a variable
 #' @export
 #' @examples
 #' p <- ggplot(mpg, aes(cyl, hwy))
@@ -29,15 +30,27 @@
 #' # Use larger width/height to completely smooth away discreteness
 #' ggplot(mpg, aes(cty, hwy)) + geom_jitter()
 #' ggplot(mpg, aes(cty, hwy)) + geom_jitter(width = 0.5, height = 0.5)
+#'
+#' # With binary data, use inward to bound jitter in the data range
+#' movies_sub <- movies[sample(nrow(movies), 1000), ]
+#' ggplot(movies_sub, aes(year, Comedy)) +
+#'   geom_jitter(inward = TRUE, alpha = 0.5) +
+#'   stat_smooth(method = "glm", family = "binomial", level = 0)
 geom_jitter <- function(mapping = NULL, data = NULL,
-                         width = NULL, height = NULL, stat = "identity",
-                         position = "jitter", na.rm = FALSE, ...) {
-  if (!missing(width) || !missing(height)) {
+                        width = NULL, height = NULL, inward = FALSE,
+                        stat = "identity", position = "jitter",
+                        na.rm = FALSE, ...) {
+  if (!missing(width) || !missing(height) || !missing(inward)) {
     if (!missing(position)) {
-      stop("Specify either `position` or `width`/`height`", call. = FALSE)
+      stop("Specify either `position` or `width`/`height`/`inward`",
+        call. = FALSE)
     }
 
-    position <- position_jitter(width = width, height = height)
+    if (!missing(inward) && inward) {
+      position <- position_jitterin(width = width, height = height)
+    } else {
+      position <- position_jitter(width = width, height = height)
+    }
   }
 
   GeomJitter$new(mapping = mapping, data = data, stat = stat,

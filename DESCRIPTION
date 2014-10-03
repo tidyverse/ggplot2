@@ -150,6 +150,7 @@ Collate:
     'position-identity.r'
     'position-jitter.r'
     'position-jitterdodge.R'
+    'position-jitterin.r'
     'position-nudge.R'
     'position-stack.r'
     'quick-plot.r'
