@@ -38,6 +38,7 @@ See \code{\link{geom_bar}} and \code{\link{geom_area}} for
 
 Other position adjustments: \code{\link{position_dodge}};
   \code{\link{position_identity}};
+  \code{\link{position_injitter}};
   \code{\link{position_jitterdodge}};
   \code{\link{position_jitter}};
   \code{\link{position_nudge}};
