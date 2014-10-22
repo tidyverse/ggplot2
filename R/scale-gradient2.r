@@ -45,7 +45,8 @@
 #' d + scale_colour_gradient2(midpoint=mean(diamonds$price / diamonds$carat))
 #'
 #' # Fill gradients work much the same way
-#' p <- qplot(letters[1:5], 1:5, fill= c(-3, 3, 5, 2, -2), geom="bar")
+#' p <- qplot(letters[1:5], 1:5, fill= c(-3, 3, 5, 2, -2), geom = "bar",
+#'   stat = "identity")
 #' p + scale_fill_gradient2("fill")
 #' # Note how positive and negative values of the same magnitude
 #' # have similar intensity

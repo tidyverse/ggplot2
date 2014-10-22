@@ -49,11 +49,14 @@ ps <- function(..., sep="", collapse="") do.call(paste, compact(list(..., sep=se
 # @param name of package
 # @keyword internal
 try_require <- function(package) {
-  available <- suppressMessages(suppressWarnings(sapply(package, require, quietly = TRUE, character.only = TRUE, warn.conflicts=FALSE)))
-  missing <- package[!available]
+  available <- suppressMessages(suppressWarnings(
+    require(package, character.only = TRUE)
+  ))
 
-  if (length(missing) > 0)
-    stop(paste(package, collapse=", "), " package required for this functionality.  Please install and try again.", call. = FALSE)
+  if (!available) {
+    stop(package, " package required for this functionality. " ,
+      "Please install and try again.", call. = FALSE)
+  }
 }
 
 # Return unique columns

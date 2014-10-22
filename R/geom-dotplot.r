@@ -60,7 +60,7 @@
 #'
 #' # y axis isn't really meaningful, so hide it
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5) +
-#'   scale_y_continuous(name = "", breaks = NA)
+#'   scale_y_continuous(name = "", breaks = NULL)
 #'
 #' # Overlap dots vertically
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, stackratio = .7)
@@ -95,7 +95,7 @@
 #'
 #' ggplot(mtcars, aes(x = 1, y = mpg, fill = factor(cyl))) +
 #'   geom_dotplot(binaxis = "y", stackgroups = TRUE, binwidth = 1, method = "histodot")
-#'   
+#'
 #' # Use qplot instead
 #' qplot(mpg, data = mtcars, geom = "dotplot")
 #'

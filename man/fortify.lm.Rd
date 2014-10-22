@@ -68,6 +68,6 @@ ggplot(mod, aes(.hat, .cooksd)) +
   geom_abline(slope = seq(0, 3, by = 0.5), colour = "white") +
   geom_smooth(se = FALSE) +
   geom_point()
-qplot(.hat, .cooksd, size = .cooksd / .hat, data = mod) + scale_area()
+qplot(.hat, .cooksd, size = .cooksd / .hat, data = mod) + scale_size_area()
 }
 
