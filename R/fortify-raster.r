@@ -18,7 +18,10 @@ NULL
 #' @export
 #' @method fortify RasterLayer
 fortify.RasterLayer <- function(x, maxpixels = 500000){
-    data.frame(sampleRegular(x, maxpixels, xy = TRUE))     
+    raster <- sampleRegular(x, maxpixels, asRaster = TRUE)
+    df <- data.frame(coordinates(raster), raster[])
+    colnames(df) <- c("x", "y", names(raster))
+    return(df)
 }
 
 
