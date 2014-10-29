@@ -85,6 +85,7 @@ Collate:
     'fortify-lm.r'
     'fortify-map.r'
     'fortify-multcomp.r'
+    'fortify-raster.r'
     'fortify-spatial.r'
     'fortify.r'
     'geom-abline.r'
