@@ -39,7 +39,8 @@ Suggests:
     knitr,
     mgcv
 VignetteBuilder: knitr
-Enhances: sp
+Enhances: sp,
+	raster
 Roxygen: list(wrap = FALSE)
 License: GPL-2
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2
