@@ -10,7 +10,7 @@
 #'
 #' @param title A character string or expression indicating a title of guide.
 #'   If \code{NULL}, the title is not shown. By default
-#'   (\code{\link{waiver}}), the name of the scale object or tha name
+#'   (\code{\link{waiver}}), the name of the scale object or the name
 #'   specified in \code{\link{labs}} is used for the title.
 #' @param title.position A character string indicating the position of a
 #'   title. One of "top" (default for a vertical guide), "bottom", "left"
