@@ -51,7 +51,7 @@ NEW FEATURES
 
 BUG FIXES AND MINOR IMPROVEMENTS
 
-* `aes()` no more treats variables like `a..x..b as a calculated aesthetic.
+* `aes()` no more treats variables like `a..x..b` as a calculated aesthetic.
   (@krlmlr, #834.)
 
 * New `aes_q()` function to generate aesthetic specifications from
