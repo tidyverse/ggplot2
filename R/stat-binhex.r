@@ -46,7 +46,7 @@ StatBinhex <- proto(Stat, {
 
   calculate <- function(., data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
     try_require("hexbin")
-    data <- remove_missing(data, na.rm, c("x", "y"), name="stat_hexbin")
+    data <- remove_missing(data, na.rm, c("x", "y", "weight"), name="stat_hexbin")
 
     if (is.null(binwidth)) {
       binwidth <- c(
@@ -55,7 +55,7 @@ StatBinhex <- proto(Stat, {
       )
     }
 
-    hexBin(data$x, data$y, binwidth)
+    hexBin(data$x, data$y, data$weight, binwidth)
   }
 
 
@@ -66,9 +66,10 @@ StatBinhex <- proto(Stat, {
 #
 # @param x positions
 # @param y positions
+# @param weight weights for points, or null if equally weighted
 # @param numeric vector of length 2 giving binwidth in x and y directions
 # @keyword internal
-hexBin <- function(x, y, binwidth) {
+hexBin <- function(x, y, weight, binwidth) {
   try_require("hexbin")
 
   # Convert binwidths into bounds + nbins
@@ -88,12 +89,30 @@ hexBin <- function(x, y, binwidth) {
   hb <- hexbin(
     x, xbnds = xbnds, xbins = xbins,
     y, ybnds = ybnds, shape = ybins / xbins,
+    IDs = !is.null(weight),
   )
+  
+  if (!is.null(weight)) {
+      ## we need to produce weights for each cell rather than counts. hb@cID contains the
+      ## ID of the cell for each input point and hb@cell contains the vector of cell IDs
+      ## which relate to values in hb@count.
+      
+      ## consequently we can put cID next to weight, and then sum them grouped by cID to get
+      ## total weight for each bin
+      sumWeights <- data.frame(cellID = hb@cID, weight=weight)
+      sumWeights <- aggregate(. ~ cellID, data=sumWeights, FUN=sum)
+      
+      ## finally we want to join the weights back onto the "compressed" list of cells
+      ## hb@cell contains the indices that have actually been used, in the order they occur.
+      count <- sumWeights[match(hb@cell, sumWeights$cellID), c('weight')]
+  } else {
+      count <- hb@count
+  }
 
   # Convert to data frame
   data.frame(
     hcell2xy(hb),
-    count = hb@count,
-    density = hb@count / sum(hb@count, na.rm=TRUE)
+    count = count,
+    density = count / sum(count, na.rm=TRUE)
   )
 }
