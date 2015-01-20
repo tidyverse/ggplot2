@@ -39,7 +39,8 @@ Suggests:
     knitr,
     mgcv
 VignetteBuilder: knitr
-Enhances: sp
+Enhances: sp,
+	raster
 Roxygen: list(wrap = FALSE)
 License: GPL-2
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2
@@ -85,6 +86,7 @@ Collate:
     'fortify-lm.r'
     'fortify-map.r'
     'fortify-multcomp.r'
+    'fortify-raster.r'
     'fortify-spatial.r'
     'fortify.r'
     'geom-abline.r'
