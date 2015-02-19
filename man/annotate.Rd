@@ -18,7 +18,7 @@ specify at least one of these.}
 \description{
 This function adds geoms to a plot. Unlike typical a geom function,
 the properties of the geoms are not mapped from variables of a data frame,
-but are instead in as vectors. This is useful for adding small annotations
+but are instead passed in as vectors. This is useful for adding small annotations
 (such as text labels) or if you have your data in vectors, and for some
 reason don't want to put them in a data frame.
 }
