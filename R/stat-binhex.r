@@ -85,14 +85,14 @@ hexBin <- function(x, y, binwidth) {
   ybins <- diff(ybnds) / binwidth[2]
 
   # Call hexbin
-  hb <- hexbin(
+  hb <- hexbin::hexbin(
     x, xbnds = xbnds, xbins = xbins,
     y, ybnds = ybnds, shape = ybins / xbins,
   )
 
   # Convert to data frame
   data.frame(
-    hcell2xy(hb),
+    hexbin::hcell2xy(hb),
     count = hb@count,
     density = hb@count / sum(hb@count, na.rm=TRUE)
   )

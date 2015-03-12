@@ -44,7 +44,7 @@ hexGrob <- function(x, y, size = rep(1, length(x)), colour = "grey50", fill = "g
   dx <- resolution(x, FALSE)
   dy <- resolution(y, FALSE) / sqrt(3) / 2 * 1.15
 
-  hexC <- hexcoords(dx, dy, n = 1)
+  hexC <- hexbin::hexcoords(dx, dy, n = 1)
 
   n <- length(x)
 

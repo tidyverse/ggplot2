@@ -31,7 +31,7 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
     try_require("maptools")
 
     # Union together all polygons that make up a region
-    unioned <- unionSpatialPolygons(cp, attr[, region])
+    unioned <- maptools::unionSpatialPolygons(cp, attr[, region])
     coords <- fortify(unioned)
     coords$order <- 1:nrow(coords)
   }
