@@ -9,7 +9,7 @@ interface. ggplot2 does not because the formula does not generalise well
 to more complicated situations.
 }
 \examples{
-\donttest{
+\dontrun{
 library(lattice)
 
 xyplot(rating ~ year, data=movies)

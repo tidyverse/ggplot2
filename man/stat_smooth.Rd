@@ -112,7 +112,9 @@ c + stat_smooth(method=lm, fullrange=TRUE, alpha = 0.1) + geom_point()
 
 # Use qplot instead
 qplot(qsec, wt, data=mtcars, geom=c("smooth", "point"))
+}
 
+\dontrun{
 # Example with logistic regression
 data("kyphosis", package="rpart")
 qplot(Age, Kyphosis, data=kyphosis)
