@@ -1,9 +1,11 @@
 Package: ggplot2
 Type: Package
-Title: An implementation of the Grammar of Graphics
+Title: An Implementation of the Grammar of Graphics
 Version: 1.0.0.99
-Author: Hadley Wickham <h.wickham@gmail.com>, Winston Chang <winston@stdout.org>
-Maintainer: Hadley Wickham <h.wickham@gmail.com>
+Authors@R: c(
+    person("Hadley", "Wickham", role = c("aut", "cre"), email = "h.wickham@gmail.com"),
+    person("Winston", "Chang", role = "aut", email = "winston@stdout.org")
+    )
 Description: An implementation of the grammar of graphics
     in R. It combines the advantages of both base and
     lattice graphics: conditioning and shared axes are
