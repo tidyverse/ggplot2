@@ -120,7 +120,7 @@
 #' }
 guide_legend <- function(
 
-  #　title
+  # title
   title = waiver(),
   title.position = NULL,
   title.theme = NULL,

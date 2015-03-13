@@ -90,7 +90,7 @@
 #'   scale_size(guide = guide_legend(direction = "vertical"))
 guide_colourbar <- function(
 
-  #　title
+  # title
   title = waiver(),
   title.position = NULL,
   title.theme = NULL,
