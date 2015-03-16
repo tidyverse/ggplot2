@@ -13,7 +13,7 @@ Description: An implementation of the grammar of graphics
     plot step by step from multiple data sources. It also
     implements a sophisticated multidimensional
     conditioning system and a consistent interface to map
-    data to aesthetic attributes. See the ggplot2 website
+    data to aesthetic attributes. See http://ggplot2.org
     for more information, documentation and examples.
 Depends:
     R (>= 2.14),
