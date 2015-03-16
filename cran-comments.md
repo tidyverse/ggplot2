@@ -8,12 +8,16 @@ This submission of ggplot2 fixes \donttest{} examples.
 
 ## R CMD check results
 
-There were no ERRORs or WARNINGs. There was 1 NOTE:
+There were no ERRORs or WARNINGs in R 3.1.3. On R-devel with --as-cran, there was also this NOTE:
 
-* Possibly mis-spelled words in DESCRIPTION:
-  ggplot (16:43)
+Found the following (possibly) invalid URLs:
+  URL: http://fueleconomy.gov
+    From: man/mpg.Rd
+    Status: 404
+    Message: Not Found
 
-  ggplot is, of course, spelled correctly.
+This URL is accessible through a web browser, though apparently not via R CMD check.
+
 
 On R-devel for Windows x64, the tests hung and did not complete. We encountered some similar strange errors in our local testing, until we rebuilt and reinstalled packages from source. After doing that, the R CMD CHECK passed as above without problems.
 
