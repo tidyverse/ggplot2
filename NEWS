@@ -1,3 +1,9 @@
+MINOR IMPROVEMENTS
+
+* `scale_colour_distiller()` and `scale_fill_distiller()` now use
+  `guide = "colourbar"` by default, as other continuous colour scales
+  (@jiho, #1017).
+
 ggplot2 1.0.0
 ----------------------------------------------------------------
 
