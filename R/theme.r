@@ -287,7 +287,9 @@ print.theme <- function(x, ...) str(x)
 #' mytheme <- theme_grey() + theme(plot.title = element_text(colour = "red"))
 #' p + mytheme
 #'
+#' }
 #'
+#' \dontrun{
 #' ## Run this to generate a graph of the element inheritance tree
 #' build_element_graph <- function(tree) {
 #'   require(igraph)

@@ -24,13 +24,15 @@ NULL
 #' # Dummy plot
 #' base <- qplot(1:10, 1:10, geom = "blank") + theme_bw()
 #' # Adding a table
-#' \donttest{if (require(gridExtra)) {
+#' \dontrun{
+#'  if (require(gridExtra)) {
 #' base + annotation_custom(grob = tableGrob(head(iris[ ,1:3])),
 #'         xmin = 3, xmax = 6, ymin = 2, ymax = 8)
 #' # full panel
 #' base + annotation_custom(grob = roundrectGrob(),
 #'           xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
-#' }}
+#' }
+#' }
 #' # Inset plot
 #' g <- ggplotGrob(qplot(1, 1) +
 #'   theme(plot.background = element_rect(colour = "black")))
