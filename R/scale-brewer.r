@@ -74,7 +74,7 @@ scale_colour_distiller <- function(..., type = "seq", palette = 1, values = NULL
     warning("Using a discrete colour palette in a continuous scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
   }
   continuous_scale("colour", "distiller",
-    gradient_n_pal(brewer_pal(type, palette)(6), values, space), na.value = na.value, ...)
+    gradient_n_pal(rev(brewer_pal(type, palette)(6)), values, space), na.value = na.value, ...)
   # NB: 6 colours per palette gives nice gradients; more results in more saturated colours which do not look as good
 }
 
@@ -86,7 +86,7 @@ scale_fill_distiller <- function(..., type = "seq", palette = 1, values = NULL, 
     warning("Using a discrete colour palette in a continuous scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
   }
   continuous_scale("fill", "distiller",
-    gradient_n_pal(brewer_pal(type, palette)(6), values, space), na.value = na.value, ...)
+    gradient_n_pal(rev(brewer_pal(type, palette)(6)), values, space), na.value = na.value, ...)
 }
 
 # icon.brewer <- function() {
