@@ -490,9 +490,11 @@ update_theme <- function(oldtheme, newtheme) {
   # Turn the 'theme' list into a proper theme object first, and preserve
   # the 'complete' attribute. It's possible that oldtheme is an empty
   # list, and in that case, set complete to FALSE.
+  old.validate <- isTRUE(attr(oldtheme, "validate"))
+  new.validate <- isTRUE(attr(newtheme, "validate"))
   oldtheme <- do.call(theme, c(oldtheme,
     complete = isTRUE(attr(oldtheme, "complete")),
-    validate = isTRUE(attr(oldtheme, "validate"))))
+    validate = old.validate & new.validate))
 
   oldtheme + newtheme
 }
