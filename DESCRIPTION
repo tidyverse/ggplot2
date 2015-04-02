@@ -103,6 +103,7 @@ Collate:
     'geom-freqpoly.r'
     'geom-hex.r'
     'geom-hline.r'
+    'geom-km.r'
     'geom-linerange.r'
     'geom-path-.r'
     'geom-path-contour.r'

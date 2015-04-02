@@ -1,3 +1,17 @@
+#' Add a Kaplan-Meier survival curve
+#'
+#' @section Aesthetics:
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "km")}
+#'
+#' @inheritParams geom_smooth
+#' @seealso The default stat for this geom is \code{\link{stat_km}} see
+#'   that documentation for more options to control the underlying statistical transformation.
+#' @export
+#' @examples
+#' df <- survival::lung
+#' ggplot(df, aes(x = time, status = status, color = factor(sex))) + stat_km()
+#' qplot(time, status = status, data = df, geom = "km")
+
 geom_km <- function (mapping = NULL, data = NULL, stat = "km", position = "identity", ...) {
   GeomKm$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
