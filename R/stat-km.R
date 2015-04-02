@@ -9,6 +9,15 @@
 #'   limit of KM curve, if \code{se = TRUE}} \item{ymax}{Upper confidence limit
 #'   of KM curve, if \code{se = FALSE}}
 #' @export
+#'
+#' @details
+#'
+#' This stat is for computing the Kaplan-Meier survival estimate for
+#' right-censored data. It requires the aesthetic mapping \code{x} for the
+#' observation times and \code{status} which indicates the event status,
+#' normally 0=alive, 1=dead. Other choices are TRUE/FALSE (TRUE = death) or 1/2
+#' (2=death).
+#'
 #' @examples
 #' \donttest{
 #' df <- survival::lung
