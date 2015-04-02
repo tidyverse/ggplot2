@@ -20,7 +20,8 @@
 #'
 #' @examples
 #' \donttest{
-#' df <- survival::lung
+#' sex <- rbinom(250, 1, .5)
+#' df <- data.frame(time = exp(rnorm(250, mean = sex)), status = rbinom(250, 1, .75), sex = sex)
 #' ggplot(df, aes(x = time, status = status, color = factor(sex))) + stat_km()
 #' qplot(time, status = status, data = df, geom = "km")
 #'

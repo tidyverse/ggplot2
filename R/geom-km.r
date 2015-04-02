@@ -3,12 +3,13 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "km")}
 #'
-#' @inheritParams geom_smooth
+#' @inheritParams geom_point
 #' @seealso The default stat for this geom is \code{\link{stat_km}} see
 #'   that documentation for more options to control the underlying statistical transformation.
 #' @export
 #' @examples
-#' df <- survival::lung
+#' sex <- rbinom(250, 1, .5)
+#' df <- data.frame(time = exp(rnorm(250, mean = sex)), status = rbinom(250, 1, .75), sex = sex)
 #' ggplot(df, aes(x = time, status = status, color = factor(sex))) + geom_km()
 #' qplot(time, status = status, data = df, geom = "km")
 
