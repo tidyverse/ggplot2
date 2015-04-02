@@ -16,7 +16,7 @@ Add a Kaplan-Meier survival curve
 }
 \examples{
 df <- survival::lung
-ggplot(df, aes(x = time, status = status, color = factor(sex))) + stat_km()
+ggplot(df, aes(x = time, status = status, color = factor(sex))) + geom_km()
 qplot(time, status = status, data = df, geom = "km")
 }
 \seealso{

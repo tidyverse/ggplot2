@@ -1,9 +1,9 @@
-#' Kaplan Meier Estimate of Survival
+#' Adds a Kaplan Meier Estimate of Survival
 #'
 #' @inheritParams stat_identity
 #' @param se display confidence interval around KM curve? (TRUE by default, use
 #'   \code{conf.int} to control significance level which is 0.95 by default)
-#' @param ... Other arguments passed to \link{survival::survfit.formula}
+#' @param ... Other arguments passed to \code{survival::survfit.formula}
 #' @return a data.frame with additional columns: \item{x}{x in data}
 #'   \item{y}{Kaplan-Meier Survival Estimate at x} \item{ymin}{Lower confidence
 #'   limit of KM curve, if \code{se = TRUE}} \item{ymax}{Upper confidence limit
@@ -14,6 +14,15 @@
 #' df <- survival::lung
 #' ggplot(df, aes(x = time, status = status, color = factor(sex))) + stat_km()
 #' qplot(time, status = status, data = df, geom = "km")
+#'
+#' ## Examples illustrating the options passed to survfit.formula
+#'
+#' p1 <- ggplot(df, aes(x = time, status = status))
+#' p1 + stat_km(conf.int = .99)
+#' p1 + stat_km(type = "fleming-harrington")
+#' p1 + stat_km(error = "tsiatis")
+#' p1 + stat_km(conf.type = "log-log")
+#' p1 + stat_km(start.time = 200)
 #' }
 
 stat_km <- function (mapping = NULL, data = NULL, se = TRUE, geom = "km", position = "identity", ...) {

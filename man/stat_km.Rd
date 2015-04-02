@@ -2,10 +2,10 @@
 % Please edit documentation in R/stat-km.R
 \name{stat_km}
 \alias{stat_km}
-\title{Kaplan Meier Estimate of Survival}
+\title{Adds a Kaplan Meier Estimate of Survival}
 \usage{
-stat_km(mapping = NULL, data = NULL, geom = "km", position = "identity",
-  ...)
+stat_km(mapping = NULL, data = NULL, se = TRUE, geom = "km",
+  position = "identity", ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -15,15 +15,15 @@ at the layer level if you are overriding the plot defaults.}
 \item{data}{A layer specific dataset - only needed if you want to override
 the plot defaults.}
 
+\item{se}{display confidence interval around KM curve? (TRUE by default, use
+\code{conf.int} to control significance level which is 0.95 by default)}
+
 \item{geom}{The geometric object to use display the data}
 
 \item{position}{The position adjustment to use for overlappling points
 on this layer}
 
-\item{...}{Other arguments passed to \link{survival::survfit.formula}}
-
-\item{se}{display confidence interval around KM curve? (TRUE by default, use
-\code{conf.int} to control significance level which is 0.95 by default)}
+\item{...}{Other arguments passed to \code{survival::survfit.formula}}
 }
 \value{
 a data.frame with additional columns: \item{x}{x in data}
@@ -32,12 +32,22 @@ a data.frame with additional columns: \item{x}{x in data}
   of KM curve, if \code{se = FALSE}}
 }
 \description{
-Kaplan Meier Estimate of Survival
+Adds a Kaplan Meier Estimate of Survival
 }
 \examples{
 \donttest{
-ggplot(survival::lung, aes(time, status, color = sex)) + stat_km()
-qplot(survival::lung, time, status = status, geom = "km")
+df <- survival::lung
+ggplot(df, aes(x = time, status = status, color = factor(sex))) + stat_km()
+qplot(time, status = status, data = df, geom = "km")
+
+## Examples illustrating the options passed to survfit.formula
+
+p1 <- ggplot(df, aes(x = time, status = status))
+p1 + stat_km(conf.int = .99)
+p1 + stat_km(type = "fleming-harrington")
+p1 + stat_km(error = "tsiatis")
+p1 + stat_km(conf.type = "log-log")
+p1 + stat_km(start.time = 200)
 }
 }
 
