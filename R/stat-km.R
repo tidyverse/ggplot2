@@ -11,8 +11,9 @@
 #' @export
 #' @examples
 #' \donttest{
-#' ggplot(survival::lung, aes(time, status, color = sex)) + stat_km()
-#' qplot(survival::lung, time, status = status, geom = "km")
+#' df <- survival::lung
+#' ggplot(df, aes(x = time, status = status, color = factor(sex))) + stat_km()
+#' qplot(time, status = status, data = df, geom = "km")
 #' }
 
 stat_km <- function (mapping = NULL, data = NULL, se = TRUE, geom = "km", position = "identity", ...) {
@@ -22,7 +23,7 @@ stat_km <- function (mapping = NULL, data = NULL, se = TRUE, geom = "km", positi
 StatKm <- proto(Stat, {
   objname <- "km"
 
-  calculate <- function(., data, scales, se, ...) {
+  calculate <- function(., data, scales, se = TRUE, ...) {
 
     try_require("survival")
     sf <- survfit(Surv(data$x, data$status) ~ 1, se.fit = se, ...)
