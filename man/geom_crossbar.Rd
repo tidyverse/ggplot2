@@ -5,7 +5,7 @@
 \title{Hollow bar with middle indicated by horizontal line.}
 \usage{
 geom_crossbar(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", fatten = 2, ...)
+  position = "identity", fatten = 2, show_guide = NA, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -23,9 +23,11 @@ on this layer}
 
 \item{fatten}{a multiplicate factor to fatten middle bar by}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
+\item{show_guide}{logical. Should a legend be drawn?}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. Typically,
+these are aesthetics whose values you want to set, not map. e.g.
+\code{color = "red"} or \code{size = 3}.}
 }
 \description{
 Hollow bar with middle indicated by horizontal line.

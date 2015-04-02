@@ -7,7 +7,8 @@
 geom_dotplot(mapping = NULL, data = NULL, stat = "bindot",
   position = "identity", na.rm = FALSE, binwidth = NULL, binaxis = "x",
   method = "dotdensity", binpositions = "bygroup", stackdir = "up",
-  stackratio = 1, dotsize = 1, stackgroups = FALSE, ...)
+  stackratio = 1, dotsize = 1, stackgroups = FALSE, show_guide = NA,
+  ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -52,9 +53,11 @@ just touch. Use smaller values for closer, overlapping dots.}
 that \code{position = "stack"} should have, but can't (because this geom has
 some odd properties).}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
+\item{show_guide}{logical. Should a legend be drawn?}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. Typically,
+these are aesthetics whose values you want to set, not map. e.g.
+\code{color = "red"} or \code{size = 3}.}
 }
 \description{
 In a dot plot, the width of a dot corresponds to the bin width

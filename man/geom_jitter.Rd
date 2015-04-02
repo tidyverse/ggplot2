@@ -4,8 +4,8 @@
 \alias{geom_jitter}
 \title{Points, jittered to reduce overplotting.}
 \usage{
-geom_jitter(mapping = NULL, data = NULL, width = NULL, height = NULL,
-  stat = "identity", position = "jitter", na.rm = FALSE, ...)
+geom_jitter(mapping = NULL, data = NULL, stat = "identity",
+  position = "jitter", na.rm = FALSE, show_guide = NA, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -14,24 +14,6 @@ at the layer level if you are overriding the plot defaults.}
 
 \item{data}{A layer specific dataset - only needed if you want to override
 the plot defaults.}
-
-\item{width}{Amount of vertical and horizontal jitter. The jitter
-  is added in both positive and negative directions, so the total spread
-  is twice the value specified here.
-
-  If omitted, defaults to 40\% of the resolution of the data: this means the
-  jitter values will occupy 80\% of the implied bins. Categorical data
-  is aligned on the integers, so a width or height of 0.5 will spread the
-  data so it's not possible to see the distinction between the categories.}
-
-\item{height}{Amount of vertical and horizontal jitter. The jitter
-  is added in both positive and negative directions, so the total spread
-  is twice the value specified here.
-
-  If omitted, defaults to 40\% of the resolution of the data: this means the
-  jitter values will occupy 80\% of the implied bins. Categorical data
-  is aligned on the integers, so a width or height of 0.5 will spread the
-  data so it's not possible to see the distinction between the categories.}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer.}
@@ -42,9 +24,11 @@ on this layer}
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
+\item{show_guide}{logical. Should a legend be drawn?}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. Typically,
+these are aesthetics whose values you want to set, not map. e.g.
+\code{color = "red"} or \code{size = 3}.}
 }
 \description{
 The jitter geom is a convenient default for geom_point with position =

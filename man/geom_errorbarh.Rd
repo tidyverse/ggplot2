@@ -5,7 +5,7 @@
 \title{Horizontal error bars}
 \usage{
 geom_errorbarh(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ...)
+  position = "identity", show_guide = NA, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -21,9 +21,11 @@ layer.}
 \item{position}{The position adjustment to use for overlapping points
 on this layer}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
+\item{show_guide}{logical. Should a legend be drawn?}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. Typically,
+these are aesthetics whose values you want to set, not map. e.g.
+\code{color = "red"} or \code{size = 3}.}
 }
 \description{
 Horizontal error bars

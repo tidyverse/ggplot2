@@ -4,8 +4,8 @@
 \alias{geom_smooth}
 \title{Add a smoothed conditional mean.}
 \usage{
-geom_smooth(mapping = NULL, data = NULL, method = "auto", formula = y ~
-  x, se = TRUE, stat = "smooth", position = "identity", ...)
+geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
+  position = "identity", show_guide = NA, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -15,22 +15,13 @@ at the layer level if you are overriding the plot defaults.}
 \item{data}{A layer specific dataset - only needed if you want to override
 the plot defaults.}
 
-\item{method}{smoothing method (function) to use, eg. lm, glm, gam, loess,
-rlm. For datasets with n < 1000 default is \code{\link{loess}}. For datasets
-with 1000 or more observations defaults to gam, see \code{\link[mgcv]{gam}}
-for more details.}
-
-\item{formula}{formula to use in smoothing function, eg. \code{y ~ x},
-\code{y ~ poly(x, 2)}, \code{y ~ log(x)}}
-
-\item{se}{display confidence interval around smooth? (TRUE by default, see
-level to control}
-
 \item{stat}{The statistical transformation to use on the data for this
 layer.}
 
 \item{position}{The position adjustment to use for overlapping points
 on this layer}
+
+\item{show_guide}{logical. Should a legend be drawn?}
 
 \item{...}{Additional arguments passed on to \code{\link{stat_smooth}} and
 the underlying statistical model.}

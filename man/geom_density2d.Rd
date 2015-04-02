@@ -6,7 +6,7 @@
 \usage{
 geom_density2d(mapping = NULL, data = NULL, stat = "density2d",
   position = "identity", lineend = "butt", linejoin = "round",
-  linemitre = 1, na.rm = FALSE, ...)
+  linemitre = 1, na.rm = FALSE, show_guide = NA, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -31,12 +31,14 @@ on this layer}
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
+\item{show_guide}{logical. Should a legend be drawn?}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. Typically,
+these are aesthetics whose values you want to set, not map. e.g.
+\code{color = "red"} or \code{size = 3}.}
 }
 \description{
-Perform a 2D kernel density estimatation using kde2d and display the
+Perform a 2D kernel density estimation using kde2d and display the
 results with contours.
 }
 \details{

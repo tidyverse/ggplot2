@@ -5,7 +5,7 @@
 \title{Connect observations by stairs.}
 \usage{
 geom_step(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", direction = "hv", ...)
+  position = "identity", direction = "hv", show_guide = NA, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -24,9 +24,11 @@ on this layer}
 \item{direction}{direction of stairs: 'vh' for vertical then horizontal, or
 'hv' for horizontal then vertical}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
+\item{show_guide}{logical. Should a legend be drawn?}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. Typically,
+these are aesthetics whose values you want to set, not map. e.g.
+\code{color = "red"} or \code{size = 3}.}
 }
 \description{
 Connect observations by stairs.
