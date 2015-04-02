@@ -158,10 +158,11 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #'   replacement the labels for matching breaks.
 #' @param expand a numeric vector of length two, giving a multiplicative and
 #'   additive constant used to expand the range of the scales so that there
-#'   is a small gap between the data and the axes.
+#'   is a small gap between the data and the axes. The defaults are (0,0.6)
+#'   for discrete scales and (0.05,0) for continuous scales.
 #' @param na.value how should missing values be displayed?
 #' @param guide the name of, or actual function, used to create the
-#'   guide.
+#'   guide. See \code{\link{guides}} for more info.
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(), na.value = NA, drop = TRUE, guide="legend") {
 
