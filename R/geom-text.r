@@ -53,9 +53,9 @@
 #' p + geom_text(aes(family=c("serif", "mono")[am+1]))
 #' }
 geom_text <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
-parse = FALSE, ...) {
+parse = FALSE, show_guide = NA,...) {
   GeomText$new(mapping = mapping, data = data, stat = stat, position = position,
-  parse = parse, ...)
+  parse = parse, show_guide = show_guide,...)
 }
 
 GeomText <- proto(Geom, {

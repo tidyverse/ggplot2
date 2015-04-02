@@ -26,9 +26,9 @@
 #' )
 #' qplot(seq_along(x), x, data = df, geom="step", colour = trt)
 geom_step <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
-direction = "hv", ...) {
+direction = "hv", show_guide = NA,...) {
   GeomStep$new(mapping = mapping, data = data, stat = stat, position = position,
-  direction = direction, ...)
+  direction = direction, show_guide = show_guide,...)
 }
 
 GeomStep <- proto(Geom, {

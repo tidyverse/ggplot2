@@ -21,8 +21,8 @@
 #' # Switching to geom_blank() gets the desired plot
 #' c <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_blank()
 #' c + geom_abline(aes(intercept = a, slope = b), data = df)
-geom_blank <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomBlank$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_blank <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
+  GeomBlank$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
 }
 
 GeomBlank <- proto(Geom, {

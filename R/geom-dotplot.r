@@ -101,10 +101,11 @@
 #'
 geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot", position = "identity",
 na.rm = FALSE, binwidth = NULL, binaxis = "x", method="dotdensity", binpositions = "bygroup", stackdir = "up",
-stackratio = 1, dotsize = 1, stackgroups = FALSE, ...) {
+stackratio = 1, dotsize = 1, stackgroups = FALSE, show_guide = NA,...) {
   GeomDotplot$new(mapping = mapping, data = data, stat = stat, position = position,
   na.rm = na.rm, binwidth = binwidth, binaxis = binaxis, method = method, binpositions = binpositions,
-  stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, stackgroups = stackgroups, ...)
+  stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, stackgroups = stackgroups,
+  show_guide = show_guide,...)
 }
 
 GeomDotplot <- proto(Geom, {

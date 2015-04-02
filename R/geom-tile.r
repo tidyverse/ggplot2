@@ -68,8 +68,9 @@
 #' qplot(x, y, fill=col[z], data=example, geom="tile", width=w, group=1) +
 #'   scale_fill_identity(labels=letters[1:5], breaks=col)
 #' }
-geom_tile <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomTile$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_tile <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
+  GeomTile$new(mapping = mapping, data = data, stat = stat, position = position,
+  show_guide = show_guide,...)
 }
 
 GeomTile <- proto(Geom, {

@@ -48,8 +48,8 @@
 #' # groups which define the lines - here the groups in the
 #' # original dataframe
 #' p + geom_line(aes(group=group)) + geom_errorbar(limits, width=0.2)
-geom_errorbar <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomErrorbar$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_errorbar <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
+  GeomErrorbar$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
 }
 
 GeomErrorbar <- proto(Geom, {

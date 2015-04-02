@@ -29,19 +29,10 @@
 #' # Use larger width/height to completely smooth away discreteness
 #' ggplot(mpg, aes(cty, hwy)) + geom_jitter()
 #' ggplot(mpg, aes(cty, hwy)) + geom_jitter(width = 0.5, height = 0.5)
-geom_jitter <- function(mapping = NULL, data = NULL,
-                         width = NULL, height = NULL, stat = "identity",
-                         position = "jitter", na.rm = FALSE, ...) {
-  if (!missing(width) || !missing(height)) {
-    if (!missing(position)) {
-      stop("Specify either `position` or `width`/`height`", call. = FALSE)
-    }
-
-    position <- position_jitter(width = width, height = height)
-  }
-
-  GeomJitter$new(mapping = mapping, data = data, stat = stat,
-    position = position, na.rm = na.rm, ...)
+geom_jitter <- function (mapping = NULL, data = NULL, stat = "identity", position = "jitter",
+na.rm = FALSE, show_guide = NA, ...) {
+  GeomJitter$new(mapping = mapping, data = data, stat = stat, position = position,
+  na.rm = na.rm, show_guide = show_guide, ...)
 }
 
 GeomJitter <- proto(GeomPoint, {

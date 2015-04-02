@@ -52,11 +52,12 @@ NULL
 #' # zero padding
 #' ggplot(df, aes(x, y, fill = z)) + geom_raster(hjust = 0, vjust = 0)
 #' }
-geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", hjust = 0.5, vjust = 0.5, interpolate = FALSE, ...) {
+geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", hjust = 0.5, vjust = 0.5, interpolate = FALSE, show_guide = NA,...) {
   stopifnot(is.numeric(hjust), length(hjust) == 1)
   stopifnot(is.numeric(vjust), length(vjust) == 1)
 
-  GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, hjust = hjust, vjust = vjust, interpolate = interpolate, ...)
+  GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, hjust = hjust, vjust = vjust, interpolate = interpolate,
+  show_guide = show_guide,...)
 }
 
 GeomRaster <- proto(Geom, {
