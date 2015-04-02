@@ -39,7 +39,8 @@ Suggests:
     nlme,
     testthat,
     knitr,
-    mgcv
+    mgcv,
+    survival
 VignetteBuilder: knitr
 Enhances: sp
 Roxygen: list(wrap = FALSE)
