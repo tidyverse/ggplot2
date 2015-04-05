@@ -14,15 +14,15 @@ scale_colour_brewer(..., type = "seq", palette = 1)
 scale_fill_brewer(..., type = "seq", palette = 1)
 
 scale_colour_distiller(..., type = "seq", palette = 1, values = NULL,
-  space = "Lab", na.value = "grey50")
+  space = "Lab", na.value = "grey50", guide = "colourbar")
 
 scale_fill_distiller(..., type = "seq", palette = 1, values = NULL,
-  space = "Lab", na.value = "grey50")
+  space = "Lab", na.value = "grey50", guide = "colourbar")
 
 scale_color_brewer(..., type = "seq", palette = 1)
 
 scale_color_distiller(..., type = "seq", palette = 1, values = NULL,
-  space = "Lab", na.value = "grey50")
+  space = "Lab", na.value = "grey50", guide = "colourbar")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link{discrete_scale}}
@@ -42,6 +42,9 @@ to map an arbitrary range to between 0 and 1.}
 best unless gradient goes through white.}
 
 \item{na.value}{Colour to use for missing values}
+
+\item{guide}{Type of legend. Use \code{"colourbar"} for continuous
+colour bar, or \code{"legend"} for discrete colour legend.}
 }
 \description{
 ColorBrewer provides sequential, diverging and qualitative colour schemes
