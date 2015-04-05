@@ -13,26 +13,24 @@ scale_colour_brewer(..., type = "seq", palette = 1)
 scale_fill_brewer(..., type = "seq", palette = 1)
 
 scale_colour_distiller(..., type = "seq", palette = 1, values = NULL,
-  space = "Lab", na.value = "grey50")
+  space = "Lab", na.value = "grey50", guide = "colourbar")
 
 scale_fill_distiller(..., type = "seq", palette = 1, values = NULL,
-  space = "Lab", na.value = "grey50")
+  space = "Lab", na.value = "grey50", guide = "colourbar")
 
 scale_color_brewer(..., type = "seq", palette = 1)
 
 scale_color_distiller(..., type = "seq", palette = 1, values = NULL,
-  space = "Lab", na.value = "grey50")
+  space = "Lab", na.value = "grey50", guide = "colourbar")
 }
 \arguments{
+\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
+to control name, limits, breaks, labels and so forth.}
+
 \item{type}{One of seq (sequential), div (diverging) or qual (qualitative)}
 
 \item{palette}{If a string, will use that named palette.  If a number, will
 index into the list of palettes of appropriate \code{type}}
-
-\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
-to control name, limits, breaks, labels and so forth.}
-
-\item{na.value}{Colour to use for missing values}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
@@ -41,6 +39,11 @@ to map an arbitrary range to between 0 and 1.}
 
 \item{space}{colour space in which to calculate gradient.  "Lab" usually
 best unless gradient goes through white.}
+
+\item{na.value}{Colour to use for missing values}
+
+\item{guide}{Type of legend. Use \code{"colourbar"} for continuous
+colour bar, or \code{"legend"} for discrete colour legend.}
 }
 \description{
 ColorBrewer provides sequential, diverging and qualitative colour schemes
