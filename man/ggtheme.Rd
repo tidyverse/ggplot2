@@ -3,6 +3,7 @@
 \alias{ggtheme}
 \alias{theme_bw}
 \alias{theme_classic}
+\alias{theme_dark}
 \alias{theme_gray}
 \alias{theme_grey}
 \alias{theme_light}
@@ -23,6 +24,8 @@ theme_light(base_size = 12, base_family = "")
 theme_minimal(base_size = 12, base_family = "")
 
 theme_classic(base_size = 12, base_family = "")
+
+theme_dark(base_size = 12, base_family = "")
 }
 \arguments{
 \item{base_size}{base font size}
@@ -53,6 +56,9 @@ may refuse.}
 \item{\code{theme_light}}{
 A theme similar to \code{theme_linedraw} but with light grey lines and axes,
 to direct more attention towards the data.}
+
+\item{\code{theme_dark}}{
+The dark cousin of \code{theme_light}, with similar line sizes but a dark background. Useful to make thin coloured lines pop out.}
 
 \item{\code{theme_minimal}}{
 A minimalistic theme with no background annotations.}
