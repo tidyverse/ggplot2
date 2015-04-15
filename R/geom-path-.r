@@ -167,7 +167,7 @@ GeomPath <- proto(Geom, {
           default.units="native", arrow = arrow,
           gp = gpar(
             col = alpha(colour, alpha)[!end], fill = alpha(colour, alpha)[!end],
-            lwd = size[!end] * .pt, lty = linetype[!end],
+            lwd = size[!end] * linewidth * .pt, lty = linetype[!end],
             lineend = lineend, linejoin = linejoin, linemitre = linemitre
           )
         )
@@ -180,7 +180,7 @@ GeomPath <- proto(Geom, {
           default.units = "native", arrow = arrow,
           gp = gpar(
             col = alpha(colour, alpha)[start], fill = alpha(colour, alpha)[start],
-            lwd = size[start] * .pt, lty = linetype[start],
+            lwd = size[start] * linewidth * .pt, lty = linetype[start],
             lineend = lineend, linejoin = linejoin, linemitre = linemitre)
         )
       )
@@ -200,7 +200,7 @@ GeomPath <- proto(Geom, {
 
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y")
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
+  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA, linewidth = 1)
   guide_geom <- function(.) "path"
 
 })
