@@ -53,6 +53,8 @@ ggplot2 1.0.1.9000
 * Improved documentation for `aes()` and many geoms and scales. I've tried
   to reduce the use of `...` so that you can see all the documentation in one
   place rather than having to navigate through multiple pages.
+* Added new function geom_curve to add curved lines to plot (similar to
+  geom_segment to add straight lines). (@veraanadi)
 
 ggplot2 1.0.1
 ----------------------------------------------------------------
