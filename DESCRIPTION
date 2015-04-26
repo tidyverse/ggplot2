@@ -117,6 +117,7 @@ Collate:
     'geom-ribbon-.r'
     'geom-ribbon-density.r'
     'geom-rug.r'
+    'geom-schematic.r'
     'geom-segment.r'
     'geom-smooth.r'
     'geom-text.r'
