@@ -113,6 +113,9 @@
 geom_schematic <- function (mapping = NULL, data = NULL, stat = "boxplot",
                           position = "dodge", outlier.colour = NULL,
                           outlier.shape = NULL, outlier.size = NULL,
+                          box.colour = NULL, box.linetype = NULL, box.fill = NULL,
+                          whiskers.colour = NULL, whiskers.linetype = NULL,
+                          fences.colour = NULL, fences.linetype = NULL,
                           notch = FALSE, notchwidth = .5, varwidth = FALSE,
                           ...) {
 
@@ -122,9 +125,28 @@ geom_schematic <- function (mapping = NULL, data = NULL, stat = "boxplot",
   outlier.shape    <- outlier.shape  %||% outlier_defaults$shape
   outlier.size     <- outlier.size   %||% outlier_defaults$size
 
+  box_defaults <- Geom$find('rect')$default_aes()
+
+  box.colour <- box.colour %||% box_defaults$colour
+  box.linetype <- box.linetype %||% box_defaults$linetype
+  box.fill <- box.fill %||% box_defaults$fill
+
+  whiskers_defaults <- Geom$find('segment')$default_aes()
+
+  whiskers.colour <- whiskers.colour %||% whiskers_defaults$colour
+  whiskers.linetype <- whiskers.linetype %||% whiskers_defaults$linetype
+
+  fences_defaults <- Geom$find('segment')$default_aes()
+
+  fences.colour <- fences.colour %||% fences_defaults$colour
+  fences.linetype <- fences.linetype %||% fences_defaults$linetype
+
   GeomSchematic$new(mapping = mapping, data = data, stat = stat,
                   position = position, outlier.colour = outlier.colour,
-                  outlier.shape = outlier.shape, outlier.size = outlier.size, notch = notch,
+                  outlier.shape = outlier.shape, outlier.size = outlier.size,
+                  box.colour = box.colour, box.linetype = box.linetype, box.fill = box.fill,
+                  whiskers.colour = whiskers.colour, whiskers.linetype = whiskers.linetype,
+                  fences.colour = fences.linetype = fences.linetype, notch = notch,
                   notchwidth = notchwidth, varwidth = varwidth, ...)
 }
 
@@ -162,12 +184,15 @@ GeomSchematic <- proto(Geom, {
   }
 
   draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2,
+                   box.colour = NULL, box.fill = NULL, box.linetype = NULL,
+                   whisker.colour = NULL, whiskers.linetype = NULL,
+                   fences.colour = NULL, fences.linetype = NULL,
                    notch = FALSE, notchwidth = .5, varwidth = FALSE) {
     common <- data.frame(
-      colour = data$colour,
+#       colour = data$colour,
       size = data$size,
-      linetype = data$linetype,
-      fill = alpha(data$fill, data$alpha),
+#       linetype = data$linetype,
+#       fill = alpha(data$fill, data$alpha),
       group = data$group,
       stringsAsFactors = FALSE
     )
@@ -178,6 +203,9 @@ GeomSchematic <- proto(Geom, {
       y = c(data$upper, data$lower),
       yend = c(data$ymax, data$ymin),
       alpha = NA,
+      colour = whiskers.colour %||% data$colour,
+      linetype = whiskers.linetype %||% data$linetype,
+      fill = alpha(data$fill, data$alpha),
       common)
 
     box <- data.frame(
@@ -190,6 +218,9 @@ GeomSchematic <- proto(Geom, {
       ynotchupper = ifelse(notch, data$notchupper, NA),
       notchwidth = notchwidth,
       alpha = data$alpha,
+      colour = box.colour %||% data$colour,
+      fill = alpha(box.fill %||% data$fill, data$alpha),
+      linetype = box.linetype %||% data$linetype,
       common)
 
     fences <- data.frame(
@@ -198,6 +229,9 @@ GeomSchematic <- proto(Geom, {
       y = c(data$ymin, data$ymax),
       yend = c(data$ymin, data$ymax),
       alpha = NA,
+      colour = fences.colour %||% data$colour,
+      linetype = fences.linetype %||% data$linetype,
+      fill = alpha(data$fill, data$alpha),
       common)
 
     if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
