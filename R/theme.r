@@ -58,7 +58,7 @@ print.theme <- function(x, ...) str(x)
 #' \tabular{ll}{
 #'   line             \tab all line elements
 #'                    (\code{element_line}) \cr
-#'   rect             \tab all rectangluar elements
+#'   rect             \tab all rectangular elements
 #'                    (\code{element_rect}) \cr
 #'   text             \tab all text elements
 #'                    (\code{element_text}) \cr
