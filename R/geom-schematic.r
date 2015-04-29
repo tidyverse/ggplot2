@@ -19,8 +19,8 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "schematic")}
 #'
-#' @seealso \code{\link{geom_boxplot}}, \code{\link{stat_quantile}} to view quantiles conditioned on a
-#'   continuous variable,  \code{\link{geom_jitter}} for another way to look
+#' @seealso \code{\link{geom_boxplot}} for comparison, \code{\link{stat_quantile}} to view quantiles
+#'   conditioned on a continuous variable,  \code{\link{geom_jitter}} for another way to look
 #'   at conditional distributions"
 #' @inheritParams geom_point
 #' @param middle.colour colour for the median point. Uses the default colour aesthetic
@@ -63,6 +63,12 @@
 #' p + geom_schematic(aes(fill = factor(am)))
 #'
 #' # Set aesthetics to fixed value
+#' # The aesthetic whiskers.linetype can be used to change the whisker lines
+#' p + geom_schematic(whiskers.linetype = "dotted")
+#' # The aesthetic middle.size can be used change the size of the middle point
+#' p + geom_schematic(middle.size = 6)
+#' # Use the aesthetic shape to change the shape of the middle point
+#' p + geom_schematic(shape = 22)
 #' p + geom_schematic(fill = "grey80", colour = "#3366FF")
 #' qplot(factor(cyl), mpg, data = mtcars, geom = "schematic",
 #'   colour = I("#3366FF"))
