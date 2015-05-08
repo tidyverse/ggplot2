@@ -10,6 +10,7 @@ before_install:
 install:
   - ./travis-tool.sh r_binary_install colorspace strucchange deldir abind tensor polyclip minqa Rcpp RcppEigen modeltools bdsmatrix RColorBrewer dichromat munsell labeling tripack akima rgl logspline nor1mix Formula zoo dynlm chron acepack rms mice sp spatstat PBSmapping mvtnorm TH.data sandwich lme4 robustbase mboost coin car xtable lmtest coxme
   - ./travis-tool.sh install_deps
+  - ./travis-tool.sh github_package Rexamine/stringi #https://github.com/Rexamine/stringi/issues/155
 
 script: ./travis-tool.sh run_tests
 
