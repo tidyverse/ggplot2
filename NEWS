@@ -8,6 +8,10 @@ ggplot2 1.0.0
 
 NEW FEATURES
 
+* `geom_schematic()` adds a variation on the boxplot as suggested by Tukey
+  to give a more balanced visualization of the median and interquartile range
+  (@ogdenkev)
+
 * New coordinate system for small scale maps. `coord_quickmap()` computes and
   sets the correct aspect ratio between one degree of latitude and one degree
   of longitude at the centre of the plotted region. It does not perform full
