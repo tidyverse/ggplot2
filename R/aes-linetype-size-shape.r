@@ -31,7 +31,7 @@
 #'   date = economics$date,
 #'   colwise(rescale01)(economics[, -(1:2)]))
 #' ecm <- melt(ec_scaled, id = "date")
-#' qplot(date, value, data = ecm, geom = "line", linetype = variable)
+#' ggplot(ecm, aes(x= date, y = value)) + geom_line(aes(linetype = variable))
 #'
 #' # Size examples
 #' # Should be specified with a numerical value (in millimetres),
