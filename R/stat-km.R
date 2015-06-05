@@ -51,10 +51,25 @@ StatKm <- proto(Stat, {
 
     se <- all(exists("upper", where = sf), exists("lower", where = sf))
 
-    df.out <- data.frame(x = x, y = y)
+
     if(se){
-      df.out <- cbind(df.out, ymin = sf$lower, ymax = sf$upper)
-    }
+      if(!is.null(scales$y)){
+
+        ymin <- scale_transform(scales$y, sf$lower)
+        ymax <- scale_transform(scales$y, sf$upper)
+
+      } else {
+
+        ymin <- sf$lower
+        ymax <- sf$upper
+
+      }
+      df.out <- data.frame(x = x, y = y,
+                           ymin = ymin,
+                           ymax = ymax,
+                           se = sf$std.err)
+    } else df.out <- data.frame(x = x, y = y)
+
     df.out
 
   }
