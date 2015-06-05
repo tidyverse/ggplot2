@@ -4,8 +4,8 @@
 \alias{stat_km}
 \title{Adds a Kaplan Meier Estimate of Survival}
 \usage{
-stat_km(mapping = NULL, data = NULL, se = TRUE, geom = "km",
-  position = "identity", ...)
+stat_km(mapping = NULL, data = NULL, se = TRUE, trans = "identity",
+  geom = "km", position = "identity", ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -17,6 +17,10 @@ the plot defaults.}
 
 \item{se}{display confidence interval around KM curve? (TRUE by default, use
 \code{conf.int} to control significance level which is 0.95 by default)}
+
+\item{trans}{Transformation to apply to the survival probabilities. Defaults
+to "identity". Other options include "event", "cumhaz", "cloglog", or
+define your own using \link{trans_new}.}
 
 \item{geom}{The geometric object to use display the data}
 
@@ -45,13 +49,16 @@ normally 0=alive, 1=dead. Other choices are TRUE/FALSE (TRUE = death) or 1/2
 \donttest{
 sex <- rbinom(250, 1, .5)
 df <- data.frame(time = exp(rnorm(250, mean = sex)), status = rbinom(250, 1, .75), sex = sex)
-ggplot(df, aes(x = time, status = status, color = factor(sex))) + stat_km()
-qplot(time, status = status, data = df, geom = "km")
+ggplot(df, aes(time, status = status, color = factor(sex))) +
+ stat_km()
 
 ## Examples illustrating the options passed to survfit.formula
 
 p1 <- ggplot(df, aes(x = time, status = status))
 p1 + stat_km(conf.int = .99)
+p1 + stat_km(trans = "cumhaz")
+# cloglog plots also log transform the time axis
+p1 + stat_km(trans = "cloglog") + scale_x_log10()
 p1 + stat_km(type = "fleming-harrington")
 p1 + stat_km(error = "tsiatis")
 p1 + stat_km(conf.type = "log-log")

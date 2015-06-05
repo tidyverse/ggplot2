@@ -11,7 +11,6 @@
 #' sex <- rbinom(250, 1, .5)
 #' df <- data.frame(time = exp(rnorm(250, mean = sex)), status = rbinom(250, 1, .75), sex = sex)
 #' ggplot(df, aes(x = time, status = status, color = factor(sex))) + geom_km()
-#' qplot(time, status = status, data = df, geom = "km")
 
 geom_km <- function (mapping = NULL, data = NULL, stat = "km", position = "identity", ...) {
   GeomKm$new(mapping = mapping, data = data, stat = stat, position = position, ...)
