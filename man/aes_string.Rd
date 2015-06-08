@@ -3,7 +3,7 @@
 \name{aes_string}
 \alias{aes_q}
 \alias{aes_string}
-\title{Generate aesthetic mappings from a string/quoted objects}
+\title{Define aesthetic mappings from a string/quoted objects}
 \usage{
 aes_string(x = NULL, y = NULL, ...)
 
@@ -26,13 +26,16 @@ names/calls to define the aesthetic mappings, rather than having to use
 }
 \examples{
 # Threee ways of generating the same aesthetics
-aes(mpg, wt, col = cyl, fill = NULL)
-aes_string("mpg", "wt", col = "cyl", fill = NULL)
-aes_q(quote(mpg), quote(wt), col = quote(cyl), fill = NULL)
+aes(mpg, wt, col = cyl)
+aes_string("mpg", "wt", col = "cyl")
+aes_q(quote(mpg), quote(wt), col = quote(cyl))
 
-aes(col = cyl, fill = NULL)
-aes_string(col = "cyl", fill = NULL)
-aes_q(col = quote(cyl), fill = NULL)
+# aes_string and aes_q are most useful when you have the name of a variable
+# stored in a variable
+var <- "cyl"
+aes(col = x)
+aes_string(col = var)
+aes_q(col = as.name(var))
 }
 \seealso{
 \code{\link{aes}}
