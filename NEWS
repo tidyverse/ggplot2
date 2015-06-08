@@ -1,6 +1,10 @@
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
+* ggplot2 now exports `alpha()` from the scales package. This means you
+  don't need to do `library(scales)` or `scales::alpha()` to access that
+  handy function (#1107).
+
 * Improved documentation for `aes()`
 
 * Fixes to pass `R CMD check --run-donttest` in R-devel.

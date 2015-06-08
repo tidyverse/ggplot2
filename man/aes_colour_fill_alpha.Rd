@@ -2,7 +2,6 @@
 % Please edit documentation in R/aes-colour-fill-alpha.r
 \name{aes_colour_fill_alpha}
 \alias{aes_colour_fill_alpha}
-\alias{alpha}
 \alias{color}
 \alias{colour}
 \alias{fill}
