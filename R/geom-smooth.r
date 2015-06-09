@@ -4,35 +4,60 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "smooth")}
 #'
 #' @inheritParams geom_point
+#' @inheritParams stat_smooth
+#' @param ... Additional arguments passed on to \code{\link{stat_smooth}} and
+#'   the underlying statistical model.
 #' @seealso The default stat for this geom is \code{\link{stat_smooth}} see
-#'   that documentation for more options to control the underlying statistical transformation.
+#'   that documentation for more options to control the underlying statistical
+#'   model.
 #' @export
 #' @examples
-#' # See stat_smooth for examples of using built in model fitting
-#' # if you need some more flexible, this example shows you how to
-#' # plot the fits from any model of your choosing
-#' qplot(wt, mpg, data=mtcars, colour=factor(cyl))
+#' ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point() +
+#'   geom_smooth()
 #'
-#' model <- lm(mpg ~ wt + factor(cyl), data=mtcars)
+#' ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point() +
+#'   geom_smooth(method = "lm", se = FALSE)
+#'
+#' # See ?stat_smooth for more examples of using built in model fitting
+#' # --------------------------------------------------------------
+#'
+#' # If you need more flexibility, this example shows you how to do
+#' # it by hand
+#' ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) +
+#'   geom_point()
+#'
+#' ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) +
+#'   geom_point() +
+#'   geom_smooth(method = "lm", se = FALSE)
+#'
+#' model <- lm(mpg ~ wt + factor(cyl), data = mtcars)
 #' grid <- with(mtcars, expand.grid(
 #'   wt = seq(min(wt), max(wt), length = 20),
 #'   cyl = levels(factor(cyl))
 #' ))
+#' grid$mpg <- stats::predict(model, newdata = grid)
 #'
-#' grid$mpg <- stats::predict(model, newdata=grid)
-#'
-#' qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + geom_line(data=grid)
+#' ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) +
+#'   geom_point() +
+#'   geom_line(data = grid, size = 1)
 #'
 #' # or with standard errors
-#'
 #' err <- stats::predict(model, newdata=grid, se = TRUE)
 #' grid$ucl <- err$fit + 1.96 * err$se.fit
 #' grid$lcl <- err$fit - 1.96 * err$se.fit
 #'
-#' qplot(wt, mpg, data=mtcars, colour=factor(cyl)) +
-#'   geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat="identity")
-geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth", position = "identity", ...) {
-  GeomSmooth$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+#' ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point(aes(colour = factor(cyl))) +
+#'   geom_ribbon(aes(ymin = lcl, ymax = ucl, group = cyl), data = grid,
+#'     fill = alpha("grey60", 0.4)) +
+#'   geom_line(aes(colour = factor(cyl)), data = grid, size = 1)
+geom_smooth <- function(mapping = NULL, data = NULL, method = "auto",
+                         formula = y ~ x, se = TRUE, stat = "smooth",
+                         position = "identity", ...) {
+  GeomSmooth$new(mapping = mapping, data = data, stat = stat, position = position, ...,
+    method = method, formula = formula, se = se)
 }
 
 GeomSmooth <- proto(Geom, {
@@ -54,7 +79,7 @@ GeomSmooth <- proto(Geom, {
 
   default_stat <- function(.) StatSmooth
   required_aes <- c("x", "y")
-  default_aes <- function(.) aes(colour="#3366FF", fill="grey60", size=0.5, linetype=1, weight=1, alpha=0.4)
+  default_aes <- function(.) aes(colour="#3366FF", fill="grey60", size=1, linetype=1, weight=1, alpha=0.4)
 
 
   draw_legend <- function(., data, params, ...) {

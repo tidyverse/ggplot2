@@ -1,6 +1,11 @@
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
+* Bumped the default `size` for `geom_smooth()` up to 1. To continue to use
+  the previous size, set `size = 0.5`. `geom_smooth()` gains explicit
+  `method`, `se` and `formula` arguments to make it easier to see what the
+  most important options are.
+
 * `geom_jitter()` gains `width` and `height` arguments to make it easier
   to control the amount of jittering without using the lengthy
   `position_jitter()` function (#1116)
@@ -9,7 +14,7 @@ ggplot2 1.0.1
   don't need to do `library(scales)` or `scales::alpha()` to access that
   handy function (#1107).
 
-* Improved documentation for `aes()`
+* Improved documentation for `aes()` and many geoms.
 
 * Fixes to pass `R CMD check --run-donttest` in R-devel.
 

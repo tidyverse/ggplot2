@@ -4,8 +4,8 @@
 \alias{geom_smooth}
 \title{Add a smoothed conditional mean.}
 \usage{
-geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
-  position = "identity", ...)
+geom_smooth(mapping = NULL, data = NULL, method = "auto", formula = y ~
+  x, se = TRUE, stat = "smooth", position = "identity", ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -15,15 +15,25 @@ at the layer level if you are overriding the plot defaults.}
 \item{data}{A layer specific dataset - only needed if you want to override
 the plot defaults.}
 
+\item{method}{smoothing method (function) to use, eg. lm, glm, gam, loess,
+rlm. For datasets with n < 1000 default is \code{\link{loess}}. For datasets
+with 1000 or more observations defaults to gam, see \code{\link[mgcv]{gam}}
+for more details.}
+
+\item{formula}{formula to use in smoothing function, eg. \code{y ~ x},
+\code{y ~ poly(x, 2)}, \code{y ~ log(x)}}
+
+\item{se}{display confidence interval around smooth? (TRUE by default, see
+level to control}
+
 \item{stat}{The statistical transformation to use on the data for this
 layer.}
 
 \item{position}{The position adjustment to use for overlapping points
 on this layer}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
+\item{...}{Additional arguments passed on to \code{\link{stat_smooth}} and
+the underlying statistical model.}
 }
 \description{
 Add a smoothed conditional mean.
@@ -33,32 +43,51 @@ Add a smoothed conditional mean.
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "smooth")}
 }
 \examples{
-# See stat_smooth for examples of using built in model fitting
-# if you need some more flexible, this example shows you how to
-# plot the fits from any model of your choosing
-qplot(wt, mpg, data=mtcars, colour=factor(cyl))
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  geom_smooth()
 
-model <- lm(mpg ~ wt + factor(cyl), data=mtcars)
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+
+# See ?stat_smooth for more examples of using built in model fitting
+# --------------------------------------------------------------
+
+# If you need more flexibility, this example shows you how to do
+# it by hand
+ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) +
+  geom_point()
+
+ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+
+model <- lm(mpg ~ wt + factor(cyl), data = mtcars)
 grid <- with(mtcars, expand.grid(
   wt = seq(min(wt), max(wt), length = 20),
   cyl = levels(factor(cyl))
 ))
+grid$mpg <- stats::predict(model, newdata = grid)
 
-grid$mpg <- stats::predict(model, newdata=grid)
-
-qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + geom_line(data=grid)
+ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) +
+  geom_point() +
+  geom_line(data = grid, size = 1)
 
 # or with standard errors
-
 err <- stats::predict(model, newdata=grid, se = TRUE)
 grid$ucl <- err$fit + 1.96 * err$se.fit
 grid$lcl <- err$fit - 1.96 * err$se.fit
 
-qplot(wt, mpg, data=mtcars, colour=factor(cyl)) +
-  geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat="identity")
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point(aes(colour = factor(cyl))) +
+  geom_ribbon(aes(ymin = lcl, ymax = ucl, group = cyl), data = grid,
+    fill = alpha("grey60", 0.4)) +
+  geom_line(aes(colour = factor(cyl)), data = grid, size = 1)
 }
 \seealso{
 The default stat for this geom is \code{\link{stat_smooth}} see
-  that documentation for more options to control the underlying statistical transformation.
+  that documentation for more options to control the underlying statistical
+  model.
 }
 
