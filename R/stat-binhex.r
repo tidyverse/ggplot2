@@ -32,11 +32,12 @@
 #' }
 stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex", position = "identity",
 bins = 30, na.rm = FALSE, ...) {
-  StatBinhex$new(mapping = mapping, data = data, geom = geom, position = position,
+  StatBinhex$new(..Name = 'stat_binhex', mapping = mapping, data = data, geom = geom, position = position,
   bins = bins, na.rm = na.rm, ...)
 }
 
 StatBinhex <- proto(Stat, {
+  ..Name = 'StatBinhex'
   objname <- "binhex"
 
   default_aes <- function(.) aes(fill = ..count..)

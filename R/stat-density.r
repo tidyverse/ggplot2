@@ -89,11 +89,12 @@
 #' }
 stat_density <- function (mapping = NULL, data = NULL, geom = "area", position = "stack",
 adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, ...) {
-  StatDensity$new(mapping = mapping, data = data, geom = geom, position = position,
+  StatDensity$new(..Name = 'stat_density', mapping = mapping, data = data, geom = geom, position = position,
   adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm, ...)
 }
 
 StatDensity <- proto(Stat, {
+  ..Name = 'StatDensity'
   objname <- "density"
 
   calculate <- function(., data, scales, adjust=1, kernel="gaussian", trim=FALSE, na.rm = FALSE, ...) {

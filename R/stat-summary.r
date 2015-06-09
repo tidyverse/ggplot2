@@ -111,10 +111,11 @@
 #' m2 + coord_trans(y="log10")
 #' }
 stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange", position = "identity", ...) {
-  StatSummary$new(mapping = mapping, data = data, geom = geom, position = position, ...)
+  StatSummary$new(..Name = 'stat_summary', mapping = mapping, data = data, geom = geom, position = position, ...)
 }
 
 StatSummary <- proto(Stat, {
+  ..Name = 'StatSummary'
   objname <- "summary"
 
   default_geom <- function(.) GeomPointrange

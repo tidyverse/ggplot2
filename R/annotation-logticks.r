@@ -96,6 +96,7 @@ annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
 }
 
 GeomLogticks <- proto(Geom, {
+  ..Name = 'GeomLogticks'
   objname <- "logticks"
 
   draw_groups <- function(., data, scales, coordinates, base = 10, sides = "bl",

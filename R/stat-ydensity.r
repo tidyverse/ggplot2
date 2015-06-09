@@ -29,12 +29,13 @@
 #' # Also see stat_density for similar examples with data along x axis
 stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin", position = "dodge",
 adjust = 1, kernel = "gaussian", trim = TRUE, scale = "area", na.rm = FALSE, ...) {
-  StatYdensity$new(mapping = mapping, data = data, geom = geom, position = position,
+  StatYdensity$new(..Name = 'stat_ydensity', mapping = mapping, data = data, geom = geom, position = position,
   adjust = adjust, kernel = kernel, trim = trim, scale = scale,
   na.rm = na.rm, ...)
 }
 
 StatYdensity <- proto(Stat, {
+  ..Name = 'StatYdensity'
   objname <- "ydensity"
 
   calculate_groups <- function(., data, na.rm = FALSE, width = NULL,

@@ -54,11 +54,12 @@
 #' }
 geom_text <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
 parse = FALSE, ...) {
-  GeomText$new(mapping = mapping, data = data, stat = stat, position = position,
+  GeomText$new(..Name = 'geom_text', mapping = mapping, data = data, stat = stat, position = position,
   parse = parse, ...)
 }
 
 GeomText <- proto(Geom, {
+  ..Name = 'GeomText'
   objname <- "text"
 
   draw_groups <- function(., ...) .$draw(...)

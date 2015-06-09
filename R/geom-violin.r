@@ -67,11 +67,12 @@
 #' }
 geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity", position = "dodge",
 trim = TRUE, scale = "area", ...) {
-  GeomViolin$new(mapping = mapping, data = data, stat = stat,
+  GeomViolin$new(..Name = 'geom_violin', mapping = mapping, data = data, stat = stat,
   position = position, trim = trim, scale = scale, ...)
 }
 
 GeomViolin <- proto(Geom, {
+  ..Name = 'GeomViolin'
   objname <- "violin"
 
   reparameterise <- function(., df, params) {

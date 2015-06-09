@@ -20,10 +20,11 @@
 #' ggplot(diamonds, aes(x=price, fill=color)) + cde
 #' }
 position_fill <- function (width = NULL, height = NULL) {
-  PositionFill$new(width = width, height = height)
+  PositionFill$new(..Name = 'position_fill', width = width, height = height)
 }
 
 PositionFill <- proto(Position, {
+  ..Name = 'PositionFill'
   objname <- "fill"
 
   adjust <- function(., data) {

@@ -46,11 +46,12 @@
 #' }
 stat_bin <- function (mapping = NULL, data = NULL, geom = "bar", position = "stack",
 width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, origin = NULL, breaks = NULL, ...) {
-  StatBin$new(mapping = mapping, data = data, geom = geom, position = position,
+  StatBin$new(..Name = 'stat_bin', mapping = mapping, data = data, geom = geom, position = position,
   width = width, drop = drop, right = right, binwidth = binwidth, origin = origin, breaks = breaks, ...)
 }
 
 StatBin <- proto(Stat, {
+  ..Name = 'StatBin'
   objname <- "bin"
   informed <- FALSE
 

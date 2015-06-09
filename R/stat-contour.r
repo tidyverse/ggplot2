@@ -54,11 +54,12 @@
 #' }
 stat_contour <- function (mapping = NULL, data = NULL, geom = "path", position = "identity",
 na.rm = FALSE, ...) {
-  StatContour$new(mapping = mapping, data = data, geom = geom,
+  StatContour$new(..Name = 'stat_contour', mapping = mapping, data = data, geom = geom,
   position = position, na.rm = na.rm, ...)
 }
 
 StatContour <- proto(Stat, {
+  ..Name = 'StatContour'
   objname <- "contour"
 
   calculate <- function(., data, scales, bins=NULL, binwidth=NULL, breaks = NULL, complete = FALSE, na.rm = FALSE, ...) {

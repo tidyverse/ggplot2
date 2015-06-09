@@ -12,6 +12,7 @@
 #
 # Can think about grob creation as a series of data frame transformations.
 Layer <- proto(expr = {
+  ..Name = 'Layer'
   geom <- NULL
   geom_params <- NULL
   stat <- NULL
@@ -22,7 +23,7 @@ Layer <- proto(expr = {
   params <- NULL
   inherit.aes <- FALSE
 
-  new <- function (., geom=NULL, geom_params=NULL, stat=NULL, stat_params=NULL, data=NULL, mapping=NULL, position=NULL, params=NULL, ..., inherit.aes = TRUE, legend = NA, subset = NULL, show_guide = NA) {
+  new <- function (., geom=NULL, geom_params=NULL, stat=NULL, stat_params=NULL, data=NULL, mapping=NULL, position=NULL, params=NULL, inherit.aes = TRUE, legend = NA, subset = NULL, show_guide = NA, ...) {
 
     # now, as for the guide, we can choose only if the layer is included or not in the guide: guide = TRUE or guide = FALSE
     # in future, it may be better if we can choose which aes of this layer is included in the guide, e.g.: guide = c(colour = TRUE, size = FALSE)
@@ -77,6 +78,7 @@ Layer <- proto(expr = {
       position=position,
       inherit.aes = inherit.aes,
       show_guide = show_guide,
+      , ...
     )
   }
 

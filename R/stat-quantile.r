@@ -46,12 +46,13 @@
 stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile", position = "identity",
 quantiles = c(0.25, 0.5, 0.75), formula = NULL, method = "rq",
 na.rm = FALSE, ...) {
-  StatQuantile$new(mapping = mapping, data = data, geom = geom,
+  StatQuantile$new(..Name = 'stat_quantile', mapping = mapping, data = data, geom = geom,
   position = position, quantiles = quantiles, formula = formula,
   method = method, na.rm = na.rm, ...)
 }
 
 StatQuantile <- proto(Stat, {
+  ..Name = 'StatQuantile'
   objname <- "quantile"
 
   default_geom <- function(.) GeomQuantile

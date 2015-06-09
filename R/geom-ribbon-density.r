@@ -13,11 +13,12 @@
 #' # See stat_density for examples
 geom_density <- function (mapping = NULL, data = NULL, stat = "density", position = "identity",
 na.rm = FALSE, ...) {
-  GeomDensity$new(mapping = mapping, data = data, stat = stat, position = position,
+  GeomDensity$new(..Name = 'geom_density', mapping = mapping, data = data, stat = stat, position = position,
   na.rm = na.rm, ...)
 }
 
 GeomDensity <- proto(GeomArea, {
+  ..Name = 'GeomDensity'
   objname <- "density"
 
   default_stat <- function(.) StatDensity

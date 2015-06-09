@@ -18,10 +18,11 @@
 #'
 #' qplot(x, y, data=df) + stat_spoke(aes(angle=angle, radius=speed))
 stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment", position = "identity", ...) {
-  StatSpoke$new(mapping = mapping, data = data, geom = geom, position = position, ...)
+  StatSpoke$new(..Name = 'stat_spoke', mapping = mapping, data = data, geom = geom, position = position, ...)
 }
 
 StatSpoke <- proto(Stat, {
+  ..Name = 'StatSpoke'
   objname <- "spoke"
 
   retransform <- FALSE

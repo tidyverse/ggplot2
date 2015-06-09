@@ -115,9 +115,10 @@
 #' }
 #' rm(movies)
 geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", ...) {
-  GeomHistogram$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+  GeomHistogram$new(..Name = 'geom_histogram', mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
 GeomHistogram <- proto(GeomBar, {
+  ..Name = 'GeomHistogram'
   objname <- "histogram"
 })

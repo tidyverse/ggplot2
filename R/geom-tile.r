@@ -69,10 +69,11 @@
 #'   scale_fill_identity(labels=letters[1:5], breaks=col)
 #' }
 geom_tile <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomTile$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+  GeomTile$new(..Name = 'geom_tile', mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
 GeomTile <- proto(Geom, {
+  ..Name = 'GeomTile'
   objname <- "tile"
 
   reparameterise <- function(., df, params) {

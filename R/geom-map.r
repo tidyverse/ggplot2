@@ -69,11 +69,12 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity", ...) {
   if (!is.null(map$region)) map$id <- map$region
   stopifnot(all(c("x", "y", "id") %in% names(map)))
 
-  GeomMap$new(geom_params = list(map = map, ...), mapping = mapping,
+  GeomMap$new(..Name = 'geom_map', geom_params = list(map = map, ...), mapping = mapping,
     data = data, stat = stat, ...)
 }
 
 GeomMap <- proto(GeomPolygon, {
+  ..Name = 'GeomMap'
   objname <- "map"
 
   draw_groups <- function(., data, scales, coordinates, map, ...) {

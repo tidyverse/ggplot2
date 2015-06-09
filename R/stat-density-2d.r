@@ -55,11 +55,12 @@
 #' }
 stat_density2d <- function (mapping = NULL, data = NULL, geom = "density2d", position = "identity",
 na.rm = FALSE, contour = TRUE, n = 100, ...) {
-  StatDensity2d$new(mapping = mapping, data = data, geom = geom,
+  StatDensity2d$new(..Name = 'stat_density2d', mapping = mapping, data = data, geom = geom,
   position = position, na.rm = na.rm, contour = contour, n = n, ...)
 }
 
 StatDensity2d <- proto(Stat, {
+  ..Name = 'StatDensity2d'
   objname <- "density2d"
 
   default_geom <- function(.) GeomDensity2d

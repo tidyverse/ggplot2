@@ -22,10 +22,11 @@
 #' c <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_blank()
 #' c + geom_abline(aes(intercept = a, slope = b), data = df)
 geom_blank <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomBlank$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+  GeomBlank$new(..Name = 'geom_blank', mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
 GeomBlank <- proto(Geom, {
+  ..Name = 'GeomBlank'
   objname <- "blank"
 
   default_stat <- function(.) StatIdentity

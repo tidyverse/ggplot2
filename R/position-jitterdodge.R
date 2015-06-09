@@ -20,12 +20,14 @@ position_jitterdodge <- function (jitter.width = NULL,
                                   jitter.height = NULL,
                                   dodge.width = NULL) {
 
-  PositionJitterDodge$new(jitter.width = jitter.width,
+  PositionJitterDodge$new(..Name = 'position_jitterdodge',
+                          jitter.width = jitter.width,
                           jitter.height = jitter.height,
                           dodge.width = dodge.width)
 }
 
 PositionJitterDodge <- proto(Position, {
+  ..Name = 'PositionJitterDodge'
 
   jitter.width <- NULL
   jitter.height <- NULL
@@ -34,11 +36,12 @@ PositionJitterDodge <- proto(Position, {
   new <- function(.,
                   jitter.width = NULL,
                   jitter.height = NULL,
-                  dodge.width = NULL) {
+                  dodge.width = NULL, ...) {
 
-    .$proto(jitter.width=jitter.width,
+    .$proto(
+            jitter.width=jitter.width,
             jitter.height=jitter.height,
-            dodge.width=dodge.width)
+            dodge.width=dodge.width, ...)
 
   }
 

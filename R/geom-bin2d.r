@@ -12,10 +12,11 @@
 #'
 #' # See ?stat_bin2d for more examples
 geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d", position = "identity", ...) {
-  GeomBin2d$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+  GeomBin2d$new(..Name = 'geom_bin2d', mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
 GeomBin2d <- proto(Geom, {
+  ..Name = 'GeomBin2d'
   draw <- function(., data, scales, coordinates, ...) {
     GeomRect$draw(data, scales, coordinates, ...)
   }

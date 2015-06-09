@@ -34,11 +34,12 @@
 stat_summary2d <- function (mapping = NULL, data = NULL, geom = NULL, position = "identity",
 bins = 30, drop = TRUE, fun = mean, ...) {
 
-  StatSummary2d$new(mapping = mapping, data = data, geom = geom, position = position,
+  StatSummary2d$new(..Name = 'stat_summary2d', mapping = mapping, data = data, geom = geom, position = position,
   bins = bins, drop = drop, fun = fun, ...)
 }
 
 StatSummary2d <- proto(Stat, {
+  ..Name = 'StatSummary2d'
   objname <- "Summary2d"
 
   default_aes <- function(.) aes(fill = ..value..)

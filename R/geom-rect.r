@@ -13,10 +13,11 @@
 #' ggplot(df, aes(xmin = x, xmax = x + 1, ymin = y, ymax = y + 2)) +
 #' geom_rect()
 geom_rect <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomRect$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+  GeomRect$new(..Name = 'geom_rect', mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
 GeomRect <- proto(Geom, {
+  ..Name = 'GeomRect'
   objname <- "rect"
 
   default_stat <- function(.) StatIdentity

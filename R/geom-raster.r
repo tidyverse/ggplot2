@@ -56,10 +56,11 @@ geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", positio
   stopifnot(is.numeric(hjust), length(hjust) == 1)
   stopifnot(is.numeric(vjust), length(vjust) == 1)
 
-  GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, hjust = hjust, vjust = vjust, interpolate = interpolate, ...)
+  GeomRaster$new(..Name = 'geom_raster', mapping = mapping, data = data, stat = stat, position = position, hjust = hjust, vjust = vjust, interpolate = interpolate, ...)
 }
 
 GeomRaster <- proto(Geom, {
+  ..Name = 'GeomRaster'
   objname <- "raster"
 
   reparameterise <- function(., df, params) {

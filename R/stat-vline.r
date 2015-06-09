@@ -7,10 +7,11 @@
 #' @examples
 #' # see geom_abline
 stat_abline <- function (mapping = NULL, data = NULL, geom = "abline", position = "identity", ...) {
-  StatAbline$new(mapping = mapping, data = data, geom = geom, position = position, ...)
+  StatAbline$new(..Name = 'stat_abline', mapping = mapping, data = data, geom = geom, position = position, ...)
 }
 
 StatAbline <- proto(Stat, {
+  ..Name = 'StatAbline'
   objname <- "abline"
 
   calculate <- function(., data, scales, intercept = NULL, slope = NULL, ...) {
@@ -42,11 +43,12 @@ StatAbline <- proto(Stat, {
 #' # see geom_vline
 stat_vline <- function (mapping = NULL, data = NULL, geom = "vline", position = "identity",
 xintercept, ...) {
-  StatVline$new(mapping = mapping, data = data, geom = geom, position = position,
+  StatVline$new(..Name = 'stat_vline', mapping = mapping, data = data, geom = geom, position = position,
   xintercept = xintercept, ...)
 }
 
 StatVline <- proto(Stat, {
+  ..Name = 'StatVline'
   objname <- "vline"
 
   calculate <- function(., data, scales, xintercept = NULL, intercept, ...) {
@@ -75,11 +77,12 @@ StatVline <- proto(Stat, {
 #' # see geom_hline
 stat_hline <- function (mapping = NULL, data = NULL, geom = "hline", position = "identity",
 yintercept, ...) {
-  StatHline$new(mapping = mapping, data = data, geom = geom, position = position,
+  StatHline$new(..Name = 'stat_hline', mapping = mapping, data = data, geom = geom, position = position,
   yintercept = yintercept, ...)
 }
 
 StatHline <- proto(Stat, {
+  ..Name = 'StatHline'
   calculate <- function(., data, scales, yintercept = NULL, intercept, ...) {
     if (!missing(intercept)) {
       stop("stat_hline now uses yintercept instead of intercept")

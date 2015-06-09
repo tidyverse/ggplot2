@@ -14,10 +14,11 @@
 #' @examples
 #' # See geom_linerange for examples
 geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomPointrange$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+  GeomPointrange$new(..Name = 'geom_pointrange', mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
 GeomPointrange <- proto(Geom, {
+  ..Name = 'GeomPointrange'
   objname <- "pointrange"
 
   default_stat <- function(.) StatIdentity

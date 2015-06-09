@@ -46,10 +46,11 @@
 #' qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)
 #' }
 stat_sum <- function (mapping = NULL, data = NULL, geom = "point", position = "identity", ...) {
-  StatSum$new(mapping = mapping, data = data, geom = geom, position = position, ...)
+  StatSum$new(..Name = 'stat_sum', mapping = mapping, data = data, geom = geom, position = position, ...)
 }
 
 StatSum <- proto(Stat, {
+  ..Name = 'StatSum'
   objname <- "sum"
 
   default_aes <- function(.) aes(size = ..prop..)

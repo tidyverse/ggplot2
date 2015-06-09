@@ -122,13 +122,14 @@ geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
   outlier.shape    <- outlier.shape  %||% outlier_defaults$shape
   outlier.size     <- outlier.size   %||% outlier_defaults$size
 
-  GeomBoxplot$new(mapping = mapping, data = data, stat = stat,
+  GeomBoxplot$new(..Name = 'geom_boxplot', mapping = mapping, data = data, stat = stat,
     position = position, outlier.colour = outlier.colour,
     outlier.shape = outlier.shape, outlier.size = outlier.size, notch = notch,
     notchwidth = notchwidth, varwidth = varwidth, ...)
 }
 
 GeomBoxplot <- proto(Geom, {
+  ..Name = 'GeomBoxplot'
   objname <- "boxplot"
 
   reparameterise <- function(., df, params) {

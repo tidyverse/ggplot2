@@ -39,12 +39,13 @@ NULL
 #'   geom_point()
 annotation_raster <- function (raster, xmin, xmax, ymin, ymax, interpolate = FALSE) {
   raster <- as.raster(raster)
-  GeomRasterAnn$new(geom_params = list(raster = raster, xmin = xmin,
+  GeomRasterAnn$new(..Name = 'annotation_raster', geom_params = list(raster = raster, xmin = xmin,
     xmax = xmax, ymin = ymin, ymax = ymax, interpolate = interpolate),
     stat = "identity", position = "identity", data = NULL, inherit.aes = TRUE)
 }
 
 GeomRasterAnn <- proto(GeomRaster, {
+  ..Name = 'GeomRasterAnn'
   objname <- "raster_ann"
   reparameterise <- function(., df, params) {
     df

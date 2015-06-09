@@ -14,11 +14,12 @@
 #' # See geom_linerange for examples
 geom_crossbar <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
 fatten = 2, ...) {
-  GeomCrossbar$new(mapping = mapping, data = data, stat = stat,
+  GeomCrossbar$new(..Name = 'geom_crossbar', mapping = mapping, data = data, stat = stat,
   position = position, fatten = fatten, ...)
 }
 
 GeomCrossbar <- proto(Geom, {
+  ..Name = 'GeomCrossbar'
   objname <- "crossbar"
 
   reparameterise <- function(., df, params) {

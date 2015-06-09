@@ -43,11 +43,12 @@
 #' }
 geom_ribbon <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
 na.rm = FALSE, ...) {
-  GeomRibbon$new(mapping = mapping, data = data, stat = stat, position = position,
+  GeomRibbon$new(..Name = 'geom_ribbon', mapping = mapping, data = data, stat = stat, position = position,
   na.rm = na.rm, ...)
 }
 
 GeomRibbon <- proto(Geom, {
+  ..Name = 'GeomRibbon'
   objname <- "ribbon"
 
   default_stat <- function(.) StatIdentity
@@ -113,11 +114,12 @@ GeomRibbon <- proto(Geom, {
 #' # see geom_ribbon
 geom_area <- function (mapping = NULL, data = NULL, stat = "identity", position = "stack",
 na.rm = FALSE, ...) {
-  GeomArea$new(mapping = mapping, data = data, stat = stat, position = position,
+  GeomArea$new(..Name = 'geom_area', mapping = mapping, data = data, stat = stat, position = position,
   na.rm = na.rm, ...)
 }
 
 GeomArea <- proto(GeomRibbon,{
+  ..Name = 'GeomArea'
   objname <- "area"
 
   default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = NA)

@@ -22,10 +22,11 @@
 #' p + geom_point() +
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))
 geom_errorbarh <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomErrorbarh$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+  GeomErrorbarh$new(..Name = 'geom_errorbarh', mapping = mapping, data = data, stat = stat, position = position, ...)
 }
 
 GeomErrorbarh <- proto(Geom, {
+  ..Name = 'GeomErrorbarh'
   objname <- "errorbarh"
 
   default_stat <- function(.) StatIdentity

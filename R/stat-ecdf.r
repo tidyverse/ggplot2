@@ -17,10 +17,11 @@
 #' ggplot(df, aes(x, colour = g)) + stat_ecdf()
 #' }
 stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step", position = "identity", n = NULL, ...) {
-  StatEcdf$new(mapping = mapping, data = data, geom = geom, position = position, n = n, ...)
+  StatEcdf$new(..Name = 'stat_ecdf', mapping = mapping, data = data, geom = geom, position = position, n = n, ...)
 }
 
 StatEcdf <- proto(Stat, {
+  ..Name = 'StatEcdf'
   objname <- "ecdf"
 
   calculate <- function(., data, scales, n = NULL, ...) {
