@@ -5,7 +5,7 @@
 \title{Create a new ggplot plot from a data frame}
 \usage{
 \method{ggplot}{data.frame}(data, mapping = aes(), ...,
-  environment = globalenv())
+  environment = parent.frame())
 }
 \arguments{
 \item{data}{default data frame for plot}

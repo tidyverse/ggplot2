@@ -1,6 +1,10 @@
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
+* `ggplot()` now captures the parent frame to use for evaluation,
+  rather than always defaulting to the global environment. This should
+  make ggplot more suitable to use in more situations (e.g. with knitr)
+
 * Tweaked default `theme_grey()` background colour from grey90 to grey92:
   this makes the background recede into the background a little more.
 
