@@ -1,6 +1,10 @@
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
+* `geom_jitter()` gains `width` and `height` arguments to make it easier
+  to control the amount of jittering without using the lengthy
+  `position_jitter()` function (#1116)
+
 * ggplot2 now exports `alpha()` from the scales package. This means you
   don't need to do `library(scales)` or `scales::alpha()` to access that
   handy function (#1107).

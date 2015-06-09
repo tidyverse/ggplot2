@@ -1,27 +1,21 @@
 #' Jitter points to avoid overplotting.
 #'
 #' @family position adjustments
-#' @param width degree of jitter in x direction. Defaults to 40\% of the
-#'   resolution of the data.
-#' @param height degree of jitter in y direction. Defaults to 40\% of the
-#'   resolution of the data
+#' @param width,height Amount of vertical and horizontal jitter. Defaults to
+#'   40\% of the resolution of the data.
 #' @export
 #' @examples
-#' qplot(am, vs, data = mtcars)
+#' ggplot(mtcars, aes(am, vs)) + geom_point()
 #'
 #' # Default amount of jittering will generally be too much for
 #' # small datasets:
-#' qplot(am, vs, data = mtcars, position = "jitter")
-#' # Control the amount as follows
-#' qplot(am, vs, data = mtcars, position = position_jitter(w = 0.1, h = 0.1))
+#' ggplot(mtcars, aes(am, vs)) + geom_jitter()
 #'
-#' # With ggplot
-#' ggplot(mtcars, aes(x = am, y = vs)) + geom_point(position = "jitter")
-#' ggplot(mtcars, aes(x = am, y = vs)) + geom_point(position = position_jitter(w = 0.1, h = 0.1))
-#'
-#' # The default works better for large datasets, where it will
-#' # take up as much space as a boxplot or a bar
-#' qplot(class, hwy, data = mpg, geom = c("boxplot", "jitter"))
+#' # Two ways to override
+#' ggplot(mtcars, aes(am, vs)) +
+#'   geom_jitter(width = 0.1, height = 0.1)
+#' ggplot(mtcars, aes(am, vs)) +
+#'   geom_jitter(position = position_jitter(width = 0.1, height = 0.1))
 position_jitter <- function (width = NULL, height = NULL) {
   PositionJitter$new(width = width, height = height)
 }

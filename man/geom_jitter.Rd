@@ -4,8 +4,8 @@
 \alias{geom_jitter}
 \title{Points, jittered to reduce overplotting.}
 \usage{
-geom_jitter(mapping = NULL, data = NULL, stat = "identity",
-  position = "jitter", na.rm = FALSE, ...)
+geom_jitter(mapping = NULL, data = NULL, width = NULL, height = NULL,
+  stat = "identity", position = "jitter", na.rm = FALSE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -14,6 +14,12 @@ at the layer level if you are overriding the plot defaults.}
 
 \item{data}{A layer specific dataset - only needed if you want to override
 the plot defaults.}
+
+\item{width}{Amount of vertical and horizontal jitter. Defaults to
+40\% of the resolution of the data.}
+
+\item{height}{Amount of vertical and horizontal jitter. Defaults to
+40\% of the resolution of the data.}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer.}
@@ -30,36 +36,32 @@ include aesthetics whose values you want to set, not map. See
 }
 \description{
 The jitter geom is a convenient default for geom_point with position =
-'jitter'.  See \code{\link{position_jitter}} to see how to adjust amount
-of jittering.
+'jitter'. It's a useful way of handling overplotting caused by discreteness
+in smaller datasets.
 }
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "jitter")}
 }
 \examples{
-p <- ggplot(mpg, aes(displ, hwy))
+p <- ggplot(mpg, aes(cyl, hwy))
 p + geom_point()
-p + geom_point(position = "jitter")
+p + geom_jitter()
 
 # Add aesthetic mappings
-p + geom_jitter(aes(colour = cyl))
+p + geom_jitter(aes(colour = class))
 
-# Vary parameters
-p + geom_jitter(position = position_jitter(width = .5))
-p + geom_jitter(position = position_jitter(height = .5))
+# Use smaller width/height to emphasise categories
+ggplot(mpg, aes(cyl, hwy)) + geom_jitter()
+ggplot(mpg, aes(cyl, hwy)) + geom_jitter(width = 0.25)
 
-# Use qplot instead
-qplot(displ, hwy, data = mpg, geom = "jitter")
-qplot(class, hwy, data = mpg, geom = "jitter")
-qplot(class, hwy, data = mpg, geom = c("boxplot", "jitter"))
-qplot(class, hwy, data = mpg, geom = c("jitter", "boxplot"))
+# Use larger width/height to completely smooth away discreteness
+ggplot(mpg, aes(cty, hwy)) + geom_jitter()
+ggplot(mpg, aes(cty, hwy)) + geom_jitter(width = 0.5, height = 0.5)
 }
 \seealso{
 \code{\link{geom_point}} for regular, unjittered points,
  \code{\link{geom_boxplot}} for another way of looking at the conditional
-    distribution of a variable,
- \code{\link{position_jitter}} for examples of using jittering with other
-   geoms
+    distribution of a variable
 }
 
