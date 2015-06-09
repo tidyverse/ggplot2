@@ -5,8 +5,8 @@
 #' all in one row (or one column). To solve this dilemman, \code{facet_wrap}
 #' wraps a 1d sequence of panels into 2d, making best use of screen real estate.
 #'
-#' @param facets Formula specifying variables to facet by. Facet
-#'   by multiple variables by "adding" them together with \code{+}.
+#' @param facets Either a formula or character vector. Use either a
+#'   one sided formula, \code{~a + b}, or a character vector, \code{c("a", "b")}.
 #' @param nrow,ncol Number of rows and columns.
 #' @param scales should Scales be fixed (\code{"fixed"}, the default),
 #'   free (\code{"free"}), or free in one dimension (\code{"free_x"},
@@ -23,10 +23,14 @@
 #'   geom_point() +
 #'   facet_wrap(~class, nrow = 4)
 #'
-#' # You can facet by multiple variables m
+#' # You can facet by multiple variables
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point() +
 #'   facet_wrap(~ cyl + drv)
+#' # Or use a character vector:
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   facet_wrap(c("cyl", "drv"))
 #'
 #' # To change the order in which the panels appear, change the levels
 #' # of the underlying factor.
@@ -49,7 +53,8 @@
 #'   geom_point(data = transform(mpg, class = NULL), colour = "grey85") +
 #'   geom_point() +
 #'   facet_wrap(~class)
-facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, as.table = TRUE, drop = TRUE) {
+facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
+                       shrink = TRUE, as.table = TRUE, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),

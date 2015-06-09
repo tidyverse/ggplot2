@@ -8,8 +8,8 @@ facet_wrap(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   shrink = TRUE, as.table = TRUE, drop = TRUE)
 }
 \arguments{
-\item{facets}{Formula specifying variables to facet by. Facet
-by multiple variables by "adding" them together with \code{+}.}
+\item{facets}{Either a formula or character vector. Use either a
+one sided formula, \code{~a + b}, or a character vector, \code{c("a", "b")}.}
 
 \item{nrow,ncol}{Number of rows and columns.}
 
@@ -45,10 +45,14 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   facet_wrap(~class, nrow = 4)
 
-# You can facet by multiple variables m
+# You can facet by multiple variables
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   facet_wrap(~ cyl + drv)
+# Or use a character vector:
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  facet_wrap(c("cyl", "drv"))
 
 # To change the order in which the panels appear, change the levels
 # of the underlying factor.
