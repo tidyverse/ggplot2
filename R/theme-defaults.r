@@ -88,7 +88,7 @@ theme_grey <- function(base_size = 12, base_family = "") {
     legend.justification = "center",
     legend.box =         NULL,
 
-    panel.background =   element_rect(fill = "grey90", colour = NA),
+    panel.background =   element_rect(fill = "grey92", colour = NA),
     panel.border =       element_blank(),
     panel.grid.major =   element_line(colour = "white"),
     panel.grid.minor =   element_line(colour = "grey95", size = 0.25),

@@ -1,6 +1,9 @@
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
+* Tweaked default `theme_grey()` background colour from grey90 to grey92:
+  this makes the background recede into the background a little more.
+
 * Bumped the default `size` for `geom_smooth()` up to 1. To continue to use
   the previous size, set `size = 0.5`. `geom_smooth()` gains explicit
   `method`, `se` and `formula` arguments to make it easier to see what the
