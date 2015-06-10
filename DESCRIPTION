@@ -39,7 +39,8 @@ Suggests:
     nlme,
     testthat,
     knitr,
-    mgcv
+    mgcv,
+    survival
 VignetteBuilder: knitr
 Enhances: sp
 Roxygen: list(wrap = FALSE)
@@ -103,6 +104,7 @@ Collate:
     'geom-freqpoly.r'
     'geom-hex.r'
     'geom-hline.r'
+    'geom-km.r'
     'geom-linerange.r'
     'geom-path-.r'
     'geom-path-contour.r'
@@ -183,6 +185,7 @@ Collate:
     'stat-ellipse.R'
     'stat-function.r'
     'stat-identity.r'
+    'stat-km.R'
     'stat-qq.r'
     'stat-quantile.r'
     'stat-smooth-methods.r'
