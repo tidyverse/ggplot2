@@ -7,7 +7,7 @@
 #' @inheritParams stat_identity
 #' @param trim If \code{TRUE} (default), trim the tails of the violins
 #'   to the range of the data. If \code{FALSE}, don't trim the tails.
-#' @param scale if "area" (default), all violins have the same area (before trimming
+#' @param scale if "equal" (default), all violins have the same area (before trimming
 #'   the tails). If "count", areas are scaled proportionally to the number of
 #'   observations. If "width", all violins have the same maximum width.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
@@ -43,11 +43,7 @@ StatYdensity <- proto(Stat, {
     data <- .super$calculate_groups(., data, na.rm = na.rm, width = width, ...)
 
     # choose how violins are scaled relative to each other
-    scale <- match.arg(scale, c("area", "equal", "count", "width"))
-    if (scale == "equal") {
-      gg_dep("0.9.2", "scale=\"area\" is deprecated; in the future, use scale=\"equal\" instead.")
-      scale <- "area"
-    }
+    scale <- match.arg(scale, c("equal", "count", "width"))
 
     data$violinwidth <- switch(scale,
       # area : keep the original densities but scale them to a max width of 1

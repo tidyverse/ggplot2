@@ -6,9 +6,8 @@
 \usage{
 continuous_scale(aesthetics, scale_name, palette, name = NULL,
   breaks = waiver(), minor_breaks = waiver(), labels = waiver(),
-  legend = NULL, limits = NULL, rescaler = rescale, oob = censor,
-  expand = waiver(), na.value = NA_real_, trans = "identity",
-  guide = "legend")
+  limits = NULL, rescaler = rescale, oob = censor, expand = waiver(),
+  na.value = NA_real_, trans = "identity", guide = "legend")
 }
 \arguments{
 \item{aesthetics}{the names of the aesthetics that this scale works with}
@@ -45,8 +44,6 @@ that given the limits returns a vector of minor breaks.}
 labels (labels the same as breaks), a character vector the same length
 as breaks, or a named character vector whose names are used to match
 replacement the labels for matching breaks.}
-
-\item{legend}{deprecated.  Use \code{guide} instead.}
 
 \item{limits}{A numeric vector of length two describing the scale limits.}
 

@@ -5,7 +5,7 @@
 \title{Discrete scale constructor.}
 \usage{
 discrete_scale(aesthetics, scale_name, palette, name = NULL,
-  breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL,
+  breaks = waiver(), labels = waiver(), limits = NULL,
   expand = waiver(), na.value = NA, drop = TRUE, guide = "legend")
 }
 \arguments{
@@ -38,8 +38,6 @@ only affects the appearance of the legend.}
 labels (labels the same as breaks), a character vector the same length
 as breaks, or a named character vector whose names are used to match
 replacement the labels for matching breaks.}
-
-\item{legend}{deprecated.  Use \code{guide} instead.}
 
 \item{limits}{A character vector specifying the data range for the scale.
 and the default order of their display in guides.}

@@ -162,7 +162,6 @@ guides_train <- function(scales, theme, guides, labels) {
     # scale$legend is backward compatibility
     # if guides(XXX=FALSE), then scale_ZZZ(guides=XXX) is discarded.
     if (guide=="none" || (is.logical(guide) && !guide)) next
-    if ((!is.null(scale$legend) && !scale$legend) || is.null(scale_limits(scale))) next # for backward compatibility
 
     # check the validity of guide.
     # if guide is character, then find the guide object

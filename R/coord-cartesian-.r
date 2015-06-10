@@ -7,7 +7,6 @@
 #'
 #' @param xlim limits for the x axis
 #' @param ylim limits for the y axis
-#' @param wise deprecated in 0.9.1
 #' @export
 #' @examples
 #' # There are two ways of zooming the plot display: with scales or
@@ -37,9 +36,7 @@
 #' # When zooming the coordinate system, we see a subset of original 50 bins,
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 2))
-coord_cartesian <- function(xlim = NULL, ylim = NULL, wise = NULL) {
-  if (!is.null(wise))
-    gg_dep("0.9.0", "wise argument to coord_cartesian is ignored")
+coord_cartesian <- function(xlim = NULL, ylim = NULL) {
   coord(limits = list(x = xlim, y = ylim), subclass = "cartesian")
 }
 

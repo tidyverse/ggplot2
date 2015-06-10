@@ -40,13 +40,7 @@ NULL
 #'   (i.e. \code{\link{scale_colour_gradient2}}, \code{\link{scale_colour_gradientn}}).
 #' @param oob What to do with values outside scale limits (out of bounds)?
 #' @keywords internal
-continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_, trans = "identity", guide="legend") {
-
-  if (!is.null(legend)) {
-    gg_dep("0.8.9", "\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
-    if (legend == FALSE) guide = "none"
-    else if (legend == TRUE) guide = "legend"
-  }
+continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_, trans = "identity", guide="legend") {
 
   bad_labels <- is.vector(breaks) && is.vector(labels) &&
     length(breaks) != length(labels)
@@ -120,7 +114,6 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #'   labels (labels the same as breaks), a character vector the same length
 #'   as breaks, or a named character vector whose names are used to match
 #'   replacement the labels for matching breaks.
-#' @param legend deprecated.  Use \code{guide} instead.
 #' @param expand a numeric vector of length two, giving a multiplicative and
 #'   additive constant used to expand the range of the scales so that there
 #'   is a small gap between the data and the axes.
@@ -128,13 +121,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #' @param guide the name of, or actual function, used to create the
 #'   guide.
 #' @keywords internal
-discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), legend = NULL, limits = NULL, expand = waiver(), na.value = NA, drop = TRUE, guide="legend") {
-
-  if (!is.null(legend)) {
-    gg_dep("0.8.9", "\"legend\" argument in scale_XXX is deprecated. Use guide=\"none\" for suppress the guide display.")
-    if (legend == FALSE) guide = "none"
-    else if (legend == TRUE) guide = "legend"
-  }
+discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(), na.value = NA, drop = TRUE, guide="legend") {
 
   bad_labels <- is.vector(breaks) && is.vector(labels) &&
     length(breaks) != length(labels)
@@ -348,9 +335,8 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
 
   if (is.null(scale$breaks)) {
     return(NULL)
-  } else if (length(scale$breaks) == 1 && !is.function(scale$breaks) && is.na(scale$breaks)) {
-    gg_dep("0.8.9", "breaks = NA is deprecated. Please use breaks = NULL to remove breaks in the scale.")
-    return(NULL)
+  } else if (identical(scale$breaks, NA)) {
+    stop("Invalid breaks specification. Use NULL, not NA")
   } else if (zero_range(as.numeric(limits))) {
     breaks <- limits[1]
   } else if (is.waive(scale$breaks)) {
@@ -379,9 +365,8 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
 scale_breaks.discrete <- function(scale, limits = scale_limits(scale)) {
   if (is.null(scale$breaks)) {
     return(NULL)
-  } else if (length(scale$breaks) == 1 && !is.function(scale$breaks) && is.na(scale$breaks)) {
-    gg_dep("0.8.9", "breaks = NA is deprecated. Please use breaks = NULL to remove breaks in the scale.")
-    return(NULL)
+  } else if (identical(scale$breaks, NA)) {
+    stop("Invalid breaks specification. Use NULL, not NA", call. = FALSE)
   } else if (is.waive(scale$breaks)) {
     breaks <- limits
   } else if (is.function(scale$breaks)) {
@@ -412,9 +397,8 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
 
   if (is.null(scale$minor_breaks)) {
     return(NULL)
-  } else if (length(scale$minor_breaks) == 1 && !is.function(scale$minor_breaks) && is.na(scale$minor_breaks)) {
-    gg_dep("0.8.9", "minor_breaks = NA is deprecated. Please use minor_breaks = NULL to remove minor breaks in the scale.")
-    return(NULL)
+  } else if (identical(scale$minor_breaks, NA)) {
+    stop("Invalid minor_breaks specification. Use NULL, not NA", call. = FALSE)
   } else if (is.waive(scale$minor_breaks)) {
     if (is.null(b)) {
       breaks <- NULL
@@ -461,9 +445,8 @@ scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
 
   if (is.null(scale$labels)) {
     return(NULL)
-  } else if (length(scale$labels) == 1 && !is.function(scale$labels) && is.na(scale$labels)) {
-    gg_dep("0.8.9", "labels = NA is deprecated. Please use labels = NULL to remove labels in the scale.")
-    return(NULL)
+  } else if (identical(scale$labels, NA)) {
+    stop("Invalid labels specification. Use NULL, not NA", call. = FALSE)
   } else if (is.waive(scale$labels)) {
     labels <- scale$trans$format(breaks)
   } else if (is.function(scale$labels)) {
@@ -483,9 +466,8 @@ scale_labels.discrete <- function(scale, breaks = scale_breaks(scale)) {
 
   if (is.null(scale$labels)) {
     return(NULL)
-  } else if (length(scale$labels) == 1 && !is.function(scale$labels) && is.na(scale$labels)) {
-    gg_dep("0.8.9", "labels = NA is deprecated. Please use labels = NULL to remove labels in the scale.")
-    return(NULL)
+  } else if (identical(scale$labels, NA)) {
+    stop("Invalid labels specification. Use NULL, not NA", call. = FALSE)
   }else if (is.waive(scale$labels)) {
     format(scale_breaks(scale), justify = "none", trim = TRUE)
   } else if (is.function(scale$labels)) {

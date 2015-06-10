@@ -1,6 +1,8 @@
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
+* All defunct functions and arguments have been removed.
+
 * `stat_bin()` now defaults to using counts instead of proportions.
   `geom_count()` provides a convenient alias.
 

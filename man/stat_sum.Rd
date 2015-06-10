@@ -64,7 +64,4 @@ d + stat_sum(aes(size = ..prop.., group = cut)) +
 d + stat_sum(aes(size = ..prop.., group = clarity)) +
   scale_size_area(max_size = 10)
 }
-\seealso{
-\code{\link{ggfluctuation}} for a fluctuation diagram,
-}
 
