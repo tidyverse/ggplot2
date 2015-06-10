@@ -15,11 +15,23 @@ at the layer level if you are overriding the plot defaults.}
 \item{data}{A layer specific dataset - only needed if you want to override
 the plot defaults.}
 
-\item{width}{Amount of vertical and horizontal jitter. Defaults to
-40\% of the resolution of the data.}
+\item{width}{Amount of vertical and horizontal jitter. The jitter
+  is added in both positive and negative directions, so the total spread
+  is twice the value specified here.
 
-\item{height}{Amount of vertical and horizontal jitter. Defaults to
-40\% of the resolution of the data.}
+  If omitted, defaults to 40\% of the resolution of the data: this means the
+  jitter values will occupy 80\% of the implied bins. Categorical data
+  is aligned on the integers, so a width or height of 0.5 will spread the
+  data so it's not possible to see the distinction between the categories.}
+
+\item{height}{Amount of vertical and horizontal jitter. The jitter
+  is added in both positive and negative directions, so the total spread
+  is twice the value specified here.
+
+  If omitted, defaults to 40\% of the resolution of the data: this means the
+  jitter values will occupy 80\% of the implied bins. Categorical data
+  is aligned on the integers, so a width or height of 0.5 will spread the
+  data so it's not possible to see the distinction between the categories.}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer.}

@@ -1,8 +1,14 @@
 #' Jitter points to avoid overplotting.
 #'
 #' @family position adjustments
-#' @param width,height Amount of vertical and horizontal jitter. Defaults to
-#'   40\% of the resolution of the data.
+#' @param width,height Amount of vertical and horizontal jitter. The jitter
+#'   is added in both positive and negative directions, so the total spread
+#'   is twice the value specified here.
+#'
+#'   If omitted, defaults to 40\% of the resolution of the data: this means the
+#'   jitter values will occupy 80\% of the implied bins. Categorical data
+#'   is aligned on the integers, so a width or height of 0.5 will spread the
+#'   data so it's not possible to see the distinction between the categories.
 #' @export
 #' @examples
 #' ggplot(mtcars, aes(am, vs)) + geom_point()
