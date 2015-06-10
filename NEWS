@@ -1,6 +1,9 @@
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
+* `scale_size()` now maps values to _area_, not radius. Use `scale_radius()`
+  if you want the old behaviour (not recommended, except perhaps for lines).
+
 * `ggplot()` now captures the parent frame to use for evaluation,
   rather than always defaulting to the global environment. This should
   make ggplot more suitable to use in more situations (e.g. with knitr)
