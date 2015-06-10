@@ -37,41 +37,32 @@ Sum unique values.  Useful for overplotting on scatterplots.
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "sum")}
 }
 \examples{
-\donttest{
 d <- ggplot(diamonds, aes(x = cut, y = clarity))
-# By default, all categorical variables in the plot form grouping
-# variables, and the default behavior in stat_sum is to show the
-# proportion. Specifying stat_sum with no group identifier leads to
-# a plot which is not meaningful:
 d + stat_sum()
+
+# Always best to use in conjunction with scale_size_area which ensures
+# 0 value is mapped to 0 size
+d + stat_sum() +
+  scale_size_area()
+
+#' # Can also weight by another variable
+d + stat_sum(aes(weight = price)) +
+  scale_size_area()
+
+# Or display proportions instead of counts. By default, all categorical
+# variables in the plot form the grouping. Specifying stat_sum with no
+# group identifier leads to a plot which is not useful:
+d + stat_sum(aes(size = ..prop..))
 # To correct this problem and achieve a more desirable plot, we need
 # to specify which group the proportion is to be calculated over.
-# There are several ways to do this:
+d + stat_sum(aes(size = ..prop.., group = 1)) +
+  scale_size_area(max_size = 10)
 
-# by overall proportion
-d + stat_sum(aes(group = 1))
-d + stat_sum(aes(group = 1)) + scale_size(range = c(3, 10))
-d + stat_sum(aes(group = 1)) + scale_size_area(max_size = 10)
-
-# by cut
-d + stat_sum(aes(group = cut))
-d + stat_sum(aes(group = cut, colour = cut))
-
-# by clarity
-d + stat_sum(aes(group = clarity))
-d + stat_sum(aes(group = clarity, colour = cut))
-
-# Instead of proportions, can also use sums
-d + stat_sum(aes(size = ..n..))
-
-# Can also weight by another variable
-d + stat_sum(aes(group = 1, weight = price))
-d + stat_sum(aes(group = 1, weight = price, size = ..n..))
-
-# Or using qplot
-qplot(cut, clarity, data = diamonds)
-qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)
-}
+# Or group by x/y variables to have rows/columns sum to 1.
+d + stat_sum(aes(size = ..prop.., group = cut)) +
+  scale_size_area(max_size = 10)
+d + stat_sum(aes(size = ..prop.., group = clarity)) +
+  scale_size_area(max_size = 10)
 }
 \seealso{
 \code{\link{ggfluctuation}} for a fluctuation diagram,

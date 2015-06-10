@@ -1,6 +1,9 @@
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
+* `stat_bin()` now defaults to using counts instead of proportions.
+  `geom_count()` provides a convenient alias.
+
 * `scale_size()` now maps values to _area_, not radius. Use `scale_radius()`
   if you want the old behaviour (not recommended, except perhaps for lines).
 

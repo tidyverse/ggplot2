@@ -110,6 +110,7 @@ Collate:
     'geom-path-line.r'
     'geom-path-step.r'
     'geom-point-.r'
+    'geom-point-count.r'
     'geom-point-jitter.r'
     'geom-pointrange.r'
     'geom-quantile.r'
