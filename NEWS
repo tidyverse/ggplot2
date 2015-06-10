@@ -1,6 +1,9 @@
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
+* Add `position_nudge()` for slightly off setting labels (or other geoms)
+  from their corresponding points (#1109).
+
 * All defunct functions and arguments have been removed.
 
 * `stat_bin()` now defaults to using counts instead of proportions.
