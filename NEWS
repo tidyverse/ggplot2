@@ -140,6 +140,9 @@ REMOVED FUNCTIONALITY
 ggplot2 0.9.3.1
 ----------------------------------------------------------------
 
+* New function `remove_geom` to remove specific layers from a ggplot2
+  object.
+
 BUG FIXES
 
 * The theme element `legend.box.just` now can be set. It was not properly
@@ -159,6 +162,9 @@ BUG FIXES
 
 ggplot2 0.9.3
 ----------------------------------------------------------------
+
+* `set_geom_params` changes geom parameters for an existing ggplot2
+  object.
 
 * The `plotmatrix` function has been deprecated and prints a warning
   message.
