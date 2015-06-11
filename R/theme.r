@@ -317,7 +317,7 @@ print.theme <- function(x, ...) str(x)
 #' plot(g, layout=layout.fruchterman.reingold, vertex.size=4, vertex.label.dist=.25)
 #'
 #' }
-theme <- function(..., complete = FALSE, validate=TRUE) {
+theme <- function(..., complete = FALSE, validate = TRUE) {
   elements <- list(...)
 
   # Check that all elements have the correct class (element_text, unit, etc)
@@ -326,7 +326,7 @@ theme <- function(..., complete = FALSE, validate=TRUE) {
   }
 
   structure(elements, class = c("theme", "gg"),
-            complete = complete, validate=validate)
+            complete = complete, validate = validate)
 }
 
 
