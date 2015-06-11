@@ -154,8 +154,8 @@ Layer <- proto(expr = {
 
     wrong <- lengths != 1 & lengths != n
     if (any(wrong)) {
-      stop("Aesthetics must either be length one, or the same length as the data",
-        "Problems:", paste(aesthetics[wrong], collapse = ", "), call. = FALSE)
+      stop("Aesthetics must either be length one, or the same length as the data.",
+        "\nProblems: ", paste(aesthetics[wrong], collapse = ", "), call. = FALSE)
     }
 
     if (empty(data) && n > 0) {
