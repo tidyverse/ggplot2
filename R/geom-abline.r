@@ -22,7 +22,7 @@
 #' @inheritParams geom_point
 #' @export
 #' @examples
-#' p <- qplot(wt, mpg, data = mtcars)
+#' p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 #'
 #' # Fixed slopes and intercepts
 #' p + geom_abline() # Can't see it - outside the range of the data
@@ -34,25 +34,25 @@
 #' p + geom_abline(intercept = 10, colour = "red", size = 2)
 #'
 #' # See ?stat_smooth for fitting smooth models to data
-#' p + stat_smooth(method="lm", se=FALSE)
+#' p + stat_smooth(method = "lm", se = FALSE)
 #'
 #' # Slopes and intercepts as data
-#' p <- ggplot(mtcars, aes(x = wt, y=mpg), . ~ cyl) + geom_point()
-#' df <- data.frame(a=rnorm(10, 25), b=rnorm(10, 0))
-#' p + geom_abline(aes(intercept=a, slope=b), data=df)
+#' p <- ggplot(mtcars, aes(x = wt, y = mpg), . ~ cyl) + geom_point()
+#' df <- data.frame(a = rnorm(10, 25), b = rnorm(10, 0))
+#' p + geom_abline(aes(intercept = a, slope = b), data = df)
 #'
 #' # Slopes and intercepts from linear model
 #' library(plyr)
 #' coefs <- ddply(mtcars, .(cyl), function(df) {
-#'   m <- lm(mpg ~ wt, data=df)
+#'   m <- lm(mpg ~ wt, data = df)
 #'   data.frame(a = coef(m)[1], b = coef(m)[2])
 #' })
 #' str(coefs)
-#' p + geom_abline(data=coefs, aes(intercept=a, slope=b))
+#' p + geom_abline(data = coefs, aes(intercept = a, slope = b))
 #'
 #' # It's actually a bit easier to do this with stat_smooth
-#' p + geom_smooth(aes(group=cyl), method="lm")
-#' p + geom_smooth(aes(group=cyl), method="lm", fullrange=TRUE)
+#' p + geom_smooth(aes(group = cyl), method = "lm")
+#' p + geom_smooth(aes(group = cyl), method = "lm", fullrange = TRUE)
 #'
 #' # With coordinate transforms
 #' p + geom_abline(intercept = 37, slope = -5) + coord_flip()
