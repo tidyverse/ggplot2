@@ -52,7 +52,7 @@ or two-sided}
 designed to be familiar if you're used to \code{\link{plot}}
 from the base package. It is a convenient wrapper for creating
 a number of different types of plots using a consistent
-calling scheme. See \url{http://had.co.nz/ggplot2/book/qplot.pdf}
+calling scheme. See \url{http://ggplot2.org/book/qplot.pdf}
 for the chapter in the \code{ggplot2} book which describes the usage
 of \code{qplot} in detail.
 }
