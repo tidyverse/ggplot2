@@ -4,9 +4,13 @@ warnings_are_errors: true
 
 r_github_packages:
   - hadley/staticdocs
+  - jimhester/covr
 
 before_script:
   - sudo Rscript -e "library(stringi); stri_install_icudt()"
+
+after_success:
+  - Rscript -e 'covr::codecov()'
 
 before_deploy:
   - R -e "staticdocs::build_site(examples = TRUE)"
