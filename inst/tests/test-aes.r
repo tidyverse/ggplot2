@@ -71,3 +71,25 @@ test_that("function aes_auto", {
   expect_equal(aes_auto(df), structure(setNames(list(), character(0)), class = "uneval"))
 })
 
+
+
+test_that("aes evaluated in environment where plot created", {
+  df <- data.frame(x = 1, y = 1)
+
+  p <- ggplot(df, aes(foo, y)) + geom_point()
+  x_data <- function(p) ggplot_build(p)$data[[1]]$x
+
+  # Accessing an undefined variable should result in error
+  expect_error(x_data(p), "'foo' not found")
+
+  # Once it's defined we should get it back
+  foo <- 0
+  expect_equal(x_data(p), 0)
+
+  # And regular variable shadowing should work
+  f <- function() {
+    foo <- 10
+    ggplot(df, aes(foo, y)) + geom_point()
+  }
+  expect_equal(x_data(f()), 10)
+})
