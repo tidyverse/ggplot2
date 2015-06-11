@@ -1,4 +1,4 @@
-ggplot2 1.0.1
+ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
 * `aes_string()` now only parses character inputs. This problems bugs when
@@ -44,6 +44,9 @@ ggplot2 1.0.1
 * Improved documentation for `aes()` and many geoms and scales. I've tried
   to reduce the use of `...` so that you can see all the documentation in one
   place rather than having to navigate through multiple pages.
+
+ggplot2 1.0.1
+----------------------------------------------------------------
 
 * Fixes to pass `R CMD check --run-donttest` in R-devel.
 
