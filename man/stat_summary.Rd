@@ -26,7 +26,7 @@ include aesthetics whose values you want to set, not map. See
 }
 \value{
 a data.frame with additional columns:
-  \item{fun.data}{Complete summary function. Should take data frame as
+  \item{fun.data}{Complete summary function. Should take numeric vector as
      input and return data frame as output}
   \item{fun.ymin}{ymin summary function (should take numeric vector and
     return single number)}
