@@ -1,6 +1,9 @@
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
+* `aes_string()` now only parses character inputs. This problems bugs when
+  using it with numbers and non default `OutDec` settings (#1045).
+
 * `cut_number()` gives error message if insufficient data values to
   produce requested bins (#1046).
 

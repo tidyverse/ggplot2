@@ -128,9 +128,11 @@ is_position_aes <- function(vars) {
 #' aes_q(col = as.name(var))
 aes_string <- function(x = NULL, y = NULL, ...) {
   mapping <- c(compact(list(x = x, y = y)), list(...))
-  mapping[vapply(mapping, is.null, logical(1))] <- "NULL"
 
-  parsed <- lapply(mapping, function(x) parse(text = x)[[1]])
+  parsed <- lapply(mapping, function(x) {
+    if (!is.character(x)) return(x)
+    parse(text = x)[[1]]
+  })
   structure(rename_aes(parsed), class = "uneval")
 }
 

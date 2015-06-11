@@ -17,6 +17,17 @@ test_that("function aes_string", {
                structure(list(x = bquote(mpg ^ 2), y = bquote(wt / cyl)), class = "uneval"))
 })
 
+test_that("aes_string: numbers are not parsed", {
+  old <- options(OutDec = ",")
+  on.exit(options(old))
+
+  expect_equal(aes_string(x = 0.4), aes(x = 0.4))
+})
+
+test_that("aes_string: non-position NULL kept as NULL", {
+  expect_equal(aes_string(colour = NULL), aes(colour = NULL))
+})
+
 test_that("function aes_all", {
   expect_equal(aes_all(names(mtcars)),
                structure(
