@@ -2,7 +2,7 @@ language: R
 sudo: required
 warnings_are_errors: true
 
-install:
+before_script:
   - sudo Rscript -e "library(stringi); stri_install_icudt()"
 
 before_deploy:
