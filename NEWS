@@ -1,3 +1,6 @@
+* Create correct legend for continuous color even if there is only one color
+  (@krlmlr, #943)
+
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
