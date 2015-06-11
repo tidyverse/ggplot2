@@ -2,7 +2,7 @@
 % Please edit documentation in R/stat-summary-hex.r
 \name{stat_summary_hex}
 \alias{stat_summary_hex}
-\title{Apply funciton for 2D hexagonal bins.}
+\title{Apply function for 2D hexagonal bins.}
 \usage{
 stat_summary_hex(mapping = NULL, data = NULL, geom = "hex",
   position = "identity", bins = 30, drop = TRUE, fun = mean, ...)

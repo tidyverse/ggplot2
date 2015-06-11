@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* New dark-backgrounded theme, `theme_dark()`, meant to make colours pop out
+  (@jiho, #1018)
+
 * `aes_string()` now only parses character inputs. This problems bugs when
   using it with numbers and non default `OutDec` settings (#1045).
 
@@ -54,9 +57,6 @@ ggplot2 1.0.0
 ----------------------------------------------------------------
 
 NEW FEATURES
-
-* New dark-backgrounded theme, `theme_dark()`, meant to make colours pop out
-  (@jiho, #1018)
 
 * New coordinate system for small scale maps. `coord_quickmap()` computes and
   sets the correct aspect ratio between one degree of latitude and one degree
