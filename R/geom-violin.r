@@ -6,17 +6,15 @@
 #' @inheritParams geom_point
 #' @param trim If \code{TRUE} (default), trim the tails of the violins
 #'   to the range of the data. If \code{FALSE}, don't trim the tails.
-#' @param scale if "equal" (default), all violins have the same area (before trimming
+#' @param scale if "area" (default), all violins have the same area (before trimming
 #'   the tails). If "count", areas are scaled proportionally to the number of
 #'   observations. If "width", all violins have the same maximum width.
 #' @export
 #' @examples
-#' \donttest{
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))
-#'
 #' p + geom_violin()
-#' qplot(factor(cyl), mpg, data = mtcars, geom = "violin")
 #'
+#' \donttest{
 #' p + geom_violin() + geom_jitter(height = 0)
 #' p + geom_violin() + coord_flip()
 #' qplot(factor(cyl), mpg, data = mtcars, geom = "violin") +
@@ -66,9 +64,9 @@
 #'   group = round_any(year, 10, floor))
 #' }
 geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity", position = "dodge",
-trim = TRUE, scale = "equal", ...) {
+trim = TRUE, scale = "area", ...) {
   GeomViolin$new(mapping = mapping, data = data, stat = stat,
-  position = position, trim = trim, scale = scale, ...)
+    position = position, trim = trim, scale = scale, ...)
 }
 
 GeomViolin <- proto(Geom, {
@@ -88,7 +86,6 @@ GeomViolin <- proto(Geom, {
   }
 
   draw <- function(., data, ...) {
-
     # Find the points for the line to go all the way around
     data <- transform(data, xminv = x - violinwidth * (x-xmin),
                             xmaxv = x + violinwidth * (xmax-x))

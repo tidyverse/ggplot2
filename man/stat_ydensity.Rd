@@ -6,7 +6,7 @@
 \usage{
 stat_ydensity(mapping = NULL, data = NULL, geom = "violin",
   position = "dodge", adjust = 1, kernel = "gaussian", trim = TRUE,
-  scale = "equal", na.rm = FALSE, ...)
+  scale = "area", na.rm = FALSE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -29,7 +29,7 @@ on this layer}
 \item{trim}{If \code{TRUE} (default), trim the tails of the violins
 to the range of the data. If \code{FALSE}, don't trim the tails.}
 
-\item{scale}{if "equal" (default), all violins have the same area (before trimming
+\item{scale}{if "area" (default), all violins have the same area (before trimming
 the tails). If "count", areas are scaled proportionally to the number of
 observations. If "width", all violins have the same maximum width.}
 
