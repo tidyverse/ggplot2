@@ -28,7 +28,7 @@ update_labels <- function(p, labels) {
 #' p + ylab("New y label")
 #' p + ggtitle("New plot title")
 #'
-#' # This should work indepdendently of other functions that modify the
+#' # This should work independently of other functions that modify the
 #' # the scale names
 #' p + ylab("New y label") + ylim(2, 4)
 #' p + ylim(2, 4) + ylab("New y label")
