@@ -7,7 +7,7 @@ install:
 
 before_deploy:
   - ./travis-tool.sh install_github hadley/staticdocs
-  - R -e "staticdocs::build_site()"
+  - R -e "staticdocs::build_site(examples = TRUE)"
 
 deploy:
   edge: true
