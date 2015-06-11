@@ -28,7 +28,7 @@
 #' # See geom_violin for examples
 #' # Also see stat_density for similar examples with data along x axis
 stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin", position = "dodge",
-adjust = 1, kernel = "gaussian", trim = TRUE, scale = "area", na.rm = FALSE, ...) {
+adjust = 1, kernel = "gaussian", trim = TRUE, scale = "equal", na.rm = FALSE, ...) {
   StatYdensity$new(mapping = mapping, data = data, geom = geom, position = position,
   adjust = adjust, kernel = kernel, trim = trim, scale = scale,
   na.rm = na.rm, ...)

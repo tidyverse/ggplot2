@@ -6,7 +6,7 @@
 \usage{
 stat_ydensity(mapping = NULL, data = NULL, geom = "violin",
   position = "dodge", adjust = 1, kernel = "gaussian", trim = TRUE,
-  scale = "area", na.rm = FALSE, ...)
+  scale = "equal", na.rm = FALSE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

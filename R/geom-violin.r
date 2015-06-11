@@ -6,7 +6,7 @@
 #' @inheritParams geom_point
 #' @param trim If \code{TRUE} (default), trim the tails of the violins
 #'   to the range of the data. If \code{FALSE}, don't trim the tails.
-#' @param scale if "area" (default), all violins have the same area (before trimming
+#' @param scale if "equal" (default), all violins have the same area (before trimming
 #'   the tails). If "count", areas are scaled proportionally to the number of
 #'   observations. If "width", all violins have the same maximum width.
 #' @export
@@ -66,7 +66,7 @@
 #'   group = round_any(year, 10, floor))
 #' }
 geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity", position = "dodge",
-trim = TRUE, scale = "area", ...) {
+trim = TRUE, scale = "equal", ...) {
   GeomViolin$new(mapping = mapping, data = data, stat = stat,
   position = position, trim = trim, scale = scale, ...)
 }

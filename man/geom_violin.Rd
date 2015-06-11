@@ -5,7 +5,7 @@
 \title{Violin plot.}
 \usage{
 geom_violin(mapping = NULL, data = NULL, stat = "ydensity",
-  position = "dodge", trim = TRUE, scale = "area", ...)
+  position = "dodge", trim = TRUE, scale = "equal", ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -24,7 +24,7 @@ on this layer}
 \item{trim}{If \code{TRUE} (default), trim the tails of the violins
 to the range of the data. If \code{FALSE}, don't trim the tails.}
 
-\item{scale}{if "area" (default), all violins have the same area (before trimming
+\item{scale}{if "equal" (default), all violins have the same area (before trimming
 the tails). If "count", areas are scaled proportionally to the number of
 observations. If "width", all violins have the same maximum width.}
 
