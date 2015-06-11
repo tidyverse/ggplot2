@@ -73,7 +73,7 @@ StatYdensity <- proto(Stat, {
     if (is.null(data$weight)) { data$weight <- rep(1, n) / n }
 
     # compute the density
-    dens <- density(data$y, adjust = adjust, kernel = kernel,
+    dens <- stats::density(data$y, adjust = adjust, kernel = kernel,
       weight = data$weight, n = 200)
 
     # NB: stat_density restricts to the scale range, here we leave that
