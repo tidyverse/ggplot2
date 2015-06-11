@@ -22,7 +22,7 @@
 #' @inheritParams geom_point
 #' @export
 #' @examples
-#' p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
+#' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 #'
 #' # Fixed slopes and intercepts
 #' p + geom_abline() # Can't see it - outside the range of the data
@@ -37,7 +37,8 @@
 #' p + stat_smooth(method = "lm", se = FALSE)
 #'
 #' # Slopes and intercepts as data
-#' p <- ggplot(mtcars, aes(x = wt, y = mpg), . ~ cyl) + geom_point()
+#' p <- ggplot(mtcars, aes(wt, mpg), . ~ cyl) +
+#'   geom_point()
 #' df <- data.frame(a = rnorm(10, 25), b = rnorm(10, 0))
 #' p + geom_abline(aes(intercept = a, slope = b), data = df)
 #'

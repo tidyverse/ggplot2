@@ -18,12 +18,17 @@
 #'
 #' # Three ways of doing transformating in ggplot:
 #' #  * by transforming the data
-#' qplot(log10(carat), log10(price), data=diamonds)
+#' ggplot(diamonds, aes(log10(carat), log10(price))) +
+#'   geom_point()
 #' #  * by transforming the scales
-#' qplot(carat, price, data=diamonds, log="xy")
-#' qplot(carat, price, data=diamonds) + scale_x_log10() + scale_y_log10()
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_point() +
+#'   scale_x_log10() +
+#'   scale_y_log10()
 #' #  * by transforming the coordinate system:
-#' qplot(carat, price, data=diamonds) + coord_trans(x = "log10", y = "log10")
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_point() +
+#'   coord_trans(x = "log10", y = "log10")
 #'
 #' # The difference between transforming the scales and
 #' # transforming the coordinate system is that scale

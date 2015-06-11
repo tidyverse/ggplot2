@@ -40,10 +40,6 @@
 #' # Can also weight by another variable
 #' d + stat_sum(aes(group = 1, weight = price))
 #' d + stat_sum(aes(group = 1, weight = price, size = ..n..))
-#'
-#' # Or using qplot
-#' qplot(cut, clarity, data = diamonds)
-#' qplot(cut, clarity, data = diamonds, stat = "sum", group = 1)
 #' }
 stat_sum <- function (mapping = NULL, data = NULL, geom = "point", position = "identity", ...) {
   StatSum$new(mapping = mapping, data = data, geom = geom, position = position, ...)

@@ -9,7 +9,7 @@
 #' @export
 #' @examples
 #' \donttest{
-#' p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))
+#' p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))
 #'
 #' p + geom_text()
 #' # Change size of the label
@@ -39,12 +39,6 @@
 #' c + geom_text(data = NULL, x = 5, y = 30, label = "plot mpg vs. wt")
 #' # Or, you can use annotate
 #' c + annotate("text", label = "plot mpg vs. wt", x = 2, y = 15, size = 8, colour = "red")
-#'
-#' # Use qplot instead
-#' qplot(wt, mpg, data = mtcars, label = rownames(mtcars),
-#'    geom=c("point", "text"))
-#' qplot(wt, mpg, data = mtcars, label = rownames(mtcars), size = wt) +
-#'   geom_text(colour = "red")
 #'
 #' # You can specify family, fontface and lineheight
 #' p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))

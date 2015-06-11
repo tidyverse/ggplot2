@@ -50,14 +50,16 @@
 #' # By default, uses stat = "bin", which gives the count in each category
 #' g + geom_bar()
 #' g + geom_bar(width = 0.5)
-#' g + geom_bar() + coord_flip()
+#' g + geom_bar() +
+#'   coord_flip()
 #' g + geom_bar(fill = "white", colour = "darkgreen")
 #'
 #' # When the data contains y values in a column, use stat = "identity"
 #' library(plyr)
 #' # Calculate the mean mpg for each level of cyl
 #' mm <- ddply(mtcars, "cyl", summarise, mmpg = mean(mpg))
-#' ggplot(mm, aes(x = factor(cyl), y = mmpg)) + geom_bar(stat = "identity")
+#' ggplot(mm, aes(factor(cyl), mmpg)) +
+#'   geom_bar(stat = "identity")
 #'
 #' # Stacked bar charts
 #' g <- ggplot(mtcars, aes(factor(cyl)))
@@ -66,11 +68,15 @@
 #'
 #' # Stacked bar charts are easy in ggplot2, but not effective visually,
 #' # particularly when there are many different things being stacked
-#' ggplot(diamonds, aes(clarity, fill = cut)) + geom_bar()
-#' ggplot(diamonds, aes(color, fill = cut)) + geom_bar() + coord_flip()
+#' ggplot(diamonds, aes(clarity, fill = cut)) +
+#'   geom_bar()
+#' ggplot(diamonds, aes(color, fill = cut)) +
+#'   geom_bar() +
+#'   coord_flip()
 #'
 #' # Faceting is a good alternative:
-#' ggplot(diamonds, aes(clarity)) + geom_bar() +
+#' ggplot(diamonds, aes(clarity)) +
+#'   geom_bar() +
 #'   facet_wrap(~ cut)
 #' # If the x axis is ordered, using a line instead of bars is another
 #' # possibility:
@@ -78,9 +84,11 @@
 #'   geom_freqpoly(aes(group = cut, colour = cut))
 #'
 #' # Dodged bar charts
-#' ggplot(diamonds, aes(clarity, fill = cut)) + geom_bar(position = "dodge")
+#' ggplot(diamonds, aes(clarity, fill = cut)) +
+#'   geom_bar(position = "dodge")
 #' # compare with
-#' ggplot(diamonds, aes(cut, fill = cut)) + geom_bar() +
+#' ggplot(diamonds, aes(cut, fill = cut)) +
+#'   geom_bar() +
 #'   facet_grid(. ~ clarity)
 #'
 #' # But again, probably better to use frequency polygons instead:
@@ -92,16 +100,19 @@
 #' # For example, the following plot shows the number of diamonds
 #' # of each colour
 #'
-#' ggplot(diamonds) + geom_bar(aes(x = color))
+#' ggplot(diamonds) +
+#'   geom_bar(aes(color))
 #' # If, however, we want to see the total number of carats in each colour
 #' # we need to weight by the carat variable
-#' ggplot(diamonds) + geom_bar(aes(x = color, weight = carat)) + ylab("carat")
+#' ggplot(diamonds) +
+#'   geom_bar(aes(color, weight = carat)) +
+#'   ylab("carat")
 #'
 #' # A bar chart used to display means
 #' meanprice <- tapply(diamonds$price, diamonds$cut, mean)
 #' cut <- factor(levels(diamonds$cut), levels = levels(diamonds$cut))
 #' df <- data.frame(meanprice, cut)
-#' g <- ggplot(df, aes(x = cut, y = meanprice))
+#' g <- ggplot(df, aes(cut, meanprice))
 #' g + geom_bar(stat = "identity")
 #' g + geom_bar(stat = "identity", fill = "grey50")
 #'

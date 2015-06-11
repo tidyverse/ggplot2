@@ -20,7 +20,8 @@
 #' @export
 #' @examples
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
-#' (d <- qplot(carat, price, data = dsamp, colour = clarity))
+#' (d <- ggplot(dsamp, aes(carat, price)) +
+#'   geom_point(aes(colour = clarity)))
 #'
 #' # Change scale label
 #' d + scale_colour_brewer()
@@ -46,7 +47,8 @@
 #' names(volcano3d) <- c("x", "y", "z")
 #'
 #' # Basic plot
-#' v <- ggplot() + geom_tile(aes(x = x, y = y, fill = z), data = volcano3d)
+#' v <- ggplot() +
+#'   geom_tile(aes(x = x, y = y, fill = z), data = volcano3d)
 #' v
 #' v + scale_fill_distiller()
 #' v + scale_fill_distiller(palette = 2)

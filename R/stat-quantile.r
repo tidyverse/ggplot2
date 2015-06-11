@@ -39,9 +39,6 @@
 #'
 #' # Set aesthetics to fixed value
 #' m + stat_quantile(colour = "red", size = 2, linetype = 2)
-#'
-#' # Use qplot instead
-#' qplot(year, rating, data=movies, geom="quantile")
 #' }
 stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile", position = "identity",
 quantiles = c(0.25, 0.5, 0.75), formula = NULL, method = "rq",

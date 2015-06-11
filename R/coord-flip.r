@@ -10,19 +10,24 @@
 #' \donttest{
 #' # Very useful for creating boxplots, and other interval
 #' # geoms in the horizontal instead of vertical position.
-#' qplot(cut, price, data=diamonds, geom="boxplot")
+#' ggplot(diamonds, aes(cut, price)) +
+#'   geom_boxplot()
 #' last_plot() + coord_flip()
 #'
-#' qplot(cut, data=diamonds, geom="bar")
+#' ggplot(diamonds, aes(cut)) +
+#'   geom_bar()
 #' last_plot() + coord_flip()
 #'
-#' h <- qplot(carat, data=diamonds, geom="histogram")
+#' h <- ggplot(diamonds, aes(carat)) +
+#'   geom_histogram()
 #' h
 #' h + coord_flip()
 #' h + coord_flip() + scale_x_reverse()
 #'
 #' # You can also use it to flip lines and area plots:
-#' qplot(1:5, (1:5)^2, geom="area")
+#' df <- data.frame(x = 1:5, y = (1:5)^2)
+#' ggplot(df, aes(x, y)) +
+#'  geom_area()
 #' last_plot() + coord_flip()
 #' }
 coord_flip <- function(...) {

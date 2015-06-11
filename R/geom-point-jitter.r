@@ -26,12 +26,10 @@
 #' # Vary parameters
 #' p + geom_jitter(position = position_jitter(width = .5))
 #' p + geom_jitter(position = position_jitter(height = .5))
-#'
-#' # Use qplot instead
-#' qplot(displ, hwy, data = mpg, geom = "jitter")
-#' qplot(class, hwy, data = mpg, geom = "jitter")
-#' qplot(class, hwy, data = mpg, geom = c("boxplot", "jitter"))
-#' qplot(class, hwy, data = mpg, geom = c("jitter", "boxplot"))
+#' p + geom_boxplot() +
+#'   geom_jitter()
+#' p + geom_jitter() +
+#'   geom_boxplot()
 geom_jitter <- function (mapping = NULL, data = NULL, stat = "identity", position = "jitter",
 na.rm = FALSE, ...) {
   GeomJitter$new(mapping = mapping, data = data, stat = stat, position = position,

@@ -7,19 +7,23 @@
 #' @seealso \code{\link{\%+replace\%}} and \code{\link{+.gg}}
 #' @export
 #' @examples
-#' qplot(mpg, wt, data = mtcars)
+#' p <- ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point()
+#' p
 #' old <- theme_set(theme_bw())
-#' qplot(mpg, wt, data = mtcars)
+#' p
 #' theme_set(old)
-#' qplot(mpg, wt, data = mtcars)
+#' p
 #'
 #' old <- theme_update(panel.background = element_rect(colour = "pink"))
-#' qplot(mpg, wt, data = mtcars)
+#' p
 #' theme_set(old)
 #' theme_get()
 #'
-#' qplot(mpg, wt, data=mtcars, colour=mpg) +
-#'   theme(legend.position=c(0.95, 0.95), legend.justification = c(1, 1))
+#' ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point(aes(color = mpg)) +
+#'   theme(legend.position = c(0.95, 0.95),
+#'         legend.justification = c(1, 1))
 #' last_plot() +
 #'  theme(legend.background = element_rect(fill = "white", colour = "white", size = 3))
 theme_update <- function(...) {
@@ -188,13 +192,15 @@ print.theme <- function(x, ...) str(x)
 #' @export
 #' @examples
 #' \donttest{
-#' p <- qplot(mpg, wt, data = mtcars)
+#' p <- ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point()
 #' p
 #' p + theme(panel.background = element_rect(colour = "pink"))
 #' p + theme_bw()
 #'
 #' # Scatter plot of gas mileage by vehicle weight
-#' p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
+#' p <- ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point()
 #' # Calculate slope and intercept of line of best fit
 #' coef(lm(mpg ~ wt, data = mtcars))
 #' p + geom_abline(intercept = 37, slope = -5)
@@ -207,7 +213,7 @@ print.theme <- function(x, ...) str(x)
 #' # Change the axis labels
 #' # Original plot
 #' p
-#' p + xlab("Vehicle Weight") + ylab("Miles per Gallon")
+#' p + labs(x = "Vehicle Weight", y = "Miles per Gallon")
 #' # Or
 #' p + labs(x = "Vehicle Weight", y = "Miles per Gallon")
 #'
@@ -219,7 +225,8 @@ print.theme <- function(x, ...) str(x)
 #'
 #' # Changing plot look with themes
 #' DF <- data.frame(x = rnorm(400))
-#' m <- ggplot(DF, aes(x = x)) + geom_histogram()
+#' m <- ggplot(DF, aes(x = x)) +
+#'   geom_histogram()
 #' # Default is theme_grey()
 #' m
 #' # Compare with
@@ -236,7 +243,8 @@ print.theme <- function(x, ...) str(x)
 #' m + theme(axis.ticks.length = unit(.85, "cm"))
 #'
 #' # Legend Attributes
-#' z <- ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) + geom_point()
+#' z <- ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point(aes(colour = factor(cyl)))
 #' z
 #' z + theme(legend.position = "none")
 #' z + theme(legend.position = "bottom")
@@ -245,8 +253,10 @@ print.theme <- function(x, ...) str(x)
 #  # Add a border to the whole legend
 #' z + theme(legend.background = element_rect(colour = "black"))
 #' # Legend margin controls extra space around outside of legend:
-#' z + theme(legend.background = element_rect(), legend.margin = unit(1, "cm"))
-#' z + theme(legend.background = element_rect(), legend.margin = unit(0, "cm"))
+#' z + theme(legend.background = element_rect(),
+#'           legend.margin = unit(1, "cm"))
+#' z + theme(legend.background = element_rect(),
+#'           legend.margin = unit(0, "cm"))
 #' # Or to just the keys
 #' z + theme(legend.key = element_rect(colour = "black"))
 #' z + theme(legend.key = element_rect(fill = "yellow"))
@@ -265,15 +275,17 @@ print.theme <- function(x, ...) str(x)
 #' z + theme(panel.grid.major = element_line(colour = "blue"))
 #' z + theme(panel.grid.minor = element_line(colour = "red", linetype = "dotted"))
 #' z + theme(panel.grid.major = element_line(size = 2))
-#' z + theme(panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank())
+#' z + theme(panel.grid.major.y = element_blank(),
+#'           panel.grid.minor.y = element_blank())
 #' z + theme(plot.background = element_rect())
 #' z + theme(plot.background = element_rect(fill = "green"))
 #'
 #' # Faceting Attributes
 #' set.seed(4940)
 #' dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
-#' k <- ggplot(dsmall, aes(carat, ..density..)) + geom_histogram(binwidth = 0.2) +
-#' facet_grid(. ~ cut)
+#' k <- ggplot(dsmall, aes(carat, ..density..)) +
+#'   geom_histogram(binwidth = 0.2) +
+#'   facet_grid(. ~ cut)
 #' k + theme(strip.background = element_rect(colour = "purple", fill = "pink",
 #'                                           size = 3, linetype = "dashed"))
 #' k + theme(strip.text.x = element_text(colour = "red", angle = 45, size = 10,

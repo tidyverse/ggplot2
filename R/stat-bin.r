@@ -42,7 +42,6 @@
 #'
 #' # Also works with categorical variables
 #' ggplot(movies, aes(x=mpaa)) + stat_bin()
-#' qplot(mpaa, data=movies, stat="bin")
 #' }
 stat_bin <- function (mapping = NULL, data = NULL, geom = "bar", position = "stack",
 width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, origin = NULL, breaks = NULL, ...) {
