@@ -2,11 +2,13 @@ language: R
 sudo: required
 warnings_are_errors: true
 
+r_github_packages:
+  - hadley/staticdocs
+
 before_script:
   - sudo Rscript -e "library(stringi); stri_install_icudt()"
 
 before_deploy:
-  - ./travis-tool.sh install_github hadley/staticdocs
   - R -e "staticdocs::build_site(examples = TRUE)"
 
 deploy:
