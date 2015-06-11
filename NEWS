@@ -1,6 +1,9 @@
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
+* `cut_number()` gives error message if insufficient data values to
+  produce requested bins (#1046).
+
 * `facet_wrap()` and `facet_grid()` now allow you to use non-standard
   variable names (provided that they surrounded by backticks) (#1067)
 
