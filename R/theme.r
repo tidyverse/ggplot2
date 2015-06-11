@@ -58,7 +58,7 @@ print.theme <- function(x, ...) str(x)
 #' \tabular{ll}{
 #'   line             \tab all line elements
 #'                    (\code{element_line}) \cr
-#'   rect             \tab all rectangluar elements
+#'   rect             \tab all rectangular elements
 #'                    (\code{element_rect}) \cr
 #'   text             \tab all text elements
 #'                    (\code{element_text}) \cr
@@ -326,33 +326,6 @@ theme <- function(..., complete = FALSE) {
 }
 
 
-#' Build a theme (or partial theme) from theme elements
-#'
-#' \code{opts} is deprecated. See the \code{\link{theme}} function.
-#' @param ... Arguments to be passed on to the \code{theme} function.
-#'
-#' @export
-opts <- function(...) {
-  gg_dep("0.9.1", "'opts' is deprecated. Use 'theme' instead.")
-
-  # Add check for deprecated elements
-  extra <- NULL
-  elements <- list(...)
-  if (!is.null(elements[["title"]])) {
-    # This is kind of a hack, but fortunately it will be removed in future versions
-    gg_dep("0.9.1", paste(sep = "\n",
-      'Setting the plot title with opts(title="...") is deprecated.',
-      ' Use labs(title="...") or ggtitle("...") instead.'))
-
-    title <- elements$title
-    elements$title <- NULL
-
-    return(list(ggtitle(title), do.call(theme, elements)))
-  }
-
-  do.call(theme, elements)
-}
-
 # Combine plot defaults with current theme to get complete theme for a plot
 plot_theme <- function(x) {
   defaults(x$theme, theme_get())
@@ -493,53 +466,6 @@ update_theme <- function(oldtheme, newtheme) {
 
   oldtheme + newtheme
 }
-
-
-##' Update contents of a theme. (Deprecated)
-##'
-##' This function is deprecated. Use \code{\link{\%+replace\%}} or
-##' \code{\link{+.gg}} instead.
-##'
-##' @title Update theme param
-##' @param name name of a theme element
-##' @param ... Pairs of name and value of theme parameters.
-##' @return Updated theme element
-##' @seealso \code{\link{\%+replace\%}} and \code{\link{+.gg}}
-##' @export
-##' @examples
-##' \dontrun{
-##' x <- element_text(size = 15)
-##' update_element(x, colour = "red")
-##' # Partial matching works
-##' update_element(x, col = "red")
-##' # So does positional
-##' update_element(x, "Times New Roman")
-##' # And it throws an error if you use an argument that doesn't exist
-##' update_element(x, noargument = 12)
-##' # Or multiple arguments with the same name
-##' update_element(x, size = 12, size = 15)
-##'
-##' # Will look up element if given name
-##' update_element("axis.text.x", colour = 20)
-##' # Throws error if incorrectly named
-##' update_element("axis.text", colour = 20)
-##' }
-update_element <- function(name, ...) {
-  gg_dep("0.9.1", "update_element is deprecated. Use '+.gg' instead.")
- if (is.character(name)) {
-   ele <- theme_get()[[name]]
-   if (is.null(ele)) {
-     stop("Could not find theme element ", name, call. = FALSE)
-   }
- } else {
-   ele <- name
- }
-
-  stopifnot(inherits(ele, "element"))
-
-  modifyList(ele, list(...))
-}
-
 
 #' Calculate the element properties, by inheriting properties from its parents
 #'

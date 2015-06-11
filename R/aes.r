@@ -22,14 +22,17 @@
   "max"   = "ymax"
 )
 
+#' Define aesthetic mappings.
+#'
 #' Generate aesthetic mappings that describe how variables in the data are
-#' mapped to visual properties (aesthetics) of geoms.
+#' mapped to visual properties (aesthetics) of geoms. This function also
+#' standardise aesthetic names by performs partial name matching, converting
+#' color to colour, and old style R names to ggplot names (eg. pch to shape,
+#' cex to size)
 #'
-#' \code{aes} creates a list of unevaluated expressions.  This function also
-#' performs partial name matching, converts color to colour, and old style R
-#' names to ggplot names (eg. pch to shape, cex to size)
-#'
-#' @param x,y,... List of name value pairs giving aesthetics to map.
+#' @param x,y,... List of name value pairs giving aesthetics to map to
+#'   variables. The names for x and y aesthetics can be omitted (because
+#'   they are so common); all other aesthetics must be named.
 #' @family aesthetic generators
 #' @seealso See
 #'    \code{\link{aes_colour_fill_alpha}}, \code{\link{aes_group_order}},
@@ -38,9 +41,25 @@
 #' @export
 #' @examples
 #' aes(x = mpg, y = wt)
+#' aes(mpg, wt)
+#'
+#' # You can also map aesthetics to functions of variables
 #' aes(x = mpg ^ 2, y = wt / cyl)
+#'
+#' # Aesthetic names are automatically standarised
+#' aes(col = x)
+#' aes(fg = x)
+#' aes(color = x)
+#' aes(colour = x)
+#'
+#' # aes is almost always used with ggplot() or a layer
+#' ggplot(mpg, aes(displ, hwy)) + geom_point()
+#' ggplot(mpg) + geom_point(aes(displ, hwy))
+#'
+#' # Aesthetics supplied to ggplot() are used as defaults for every layer
+#' # you can override them, or supply different aesthetics for each layer
 aes <- function(x, y, ...) {
-  aes <- structure(as.list(match.call()[-1]), class="uneval")
+  aes <- structure(as.list(match.call()[-1]), class = "uneval")
   rename_aes(aes)
 }
 #' @export
@@ -79,7 +98,7 @@ is_position_aes <- function(vars) {
   aes_to_scale(vars) %in% c("x", "y")
 }
 
-#' Generate aesthetic mappings from a string/quoted objects
+#' Define aesthetic mappings from a string/quoted objects
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms. \code{\link{aes}} uses non-standard
@@ -97,18 +116,23 @@ is_position_aes <- function(vars) {
 #' @export
 #' @examples
 #' # Threee ways of generating the same aesthetics
-#' aes(mpg, wt, col = cyl, fill = NULL)
-#' aes_string("mpg", "wt", col = "cyl", fill = NULL)
-#' aes_q(quote(mpg), quote(wt), col = quote(cyl), fill = NULL)
+#' aes(mpg, wt, col = cyl)
+#' aes_string("mpg", "wt", col = "cyl")
+#' aes_q(quote(mpg), quote(wt), col = quote(cyl))
 #'
-#' aes(col = cyl, fill = NULL)
-#' aes_string(col = "cyl", fill = NULL)
-#' aes_q(col = quote(cyl), fill = NULL)
+#' # aes_string and aes_q are most useful when you have the name of a variable
+#' # stored in a variable
+#' var <- "cyl"
+#' aes(col = x)
+#' aes_string(col = var)
+#' aes_q(col = as.name(var))
 aes_string <- function(x = NULL, y = NULL, ...) {
   mapping <- c(compact(list(x = x, y = y)), list(...))
-  mapping[vapply(mapping, is.null, logical(1))] <- "NULL"
 
-  parsed <- lapply(mapping, function(x) parse(text = x)[[1]])
+  parsed <- lapply(mapping, function(x) {
+    if (!is.character(x)) return(x)
+    parse(text = x)[[1]]
+  })
   structure(rename_aes(parsed), class = "uneval")
 }
 

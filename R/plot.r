@@ -40,7 +40,6 @@
 #' @param data default data set
 #' @param ... other arguments passed to specific methods
 #' @examples
-#
 #' df <- data.frame(gp = factor(rep(letters[1:3], each = 10)),
 #'                  y = rnorm(30))
 #' # Compute sample mean and standard deviation in each group
@@ -74,8 +73,8 @@
 ggplot <- function(data = NULL, ...) UseMethod("ggplot")
 
 #' @export
-ggplot.default <- function(data = NULL, mapping = aes(), ...) {
-  ggplot.data.frame(fortify(data, ...), mapping)
+ggplot.default <- function(data = NULL, mapping = aes(), ..., environment = parent.frame()) {
+  ggplot.data.frame(fortify(data, ...), mapping, environment = environment)
 }
 
 #' Reports whether x is a ggplot object
@@ -93,7 +92,7 @@ is.ggplot <- function(x) inherits(x, "ggplot")
 #' @seealso \url{http://had.co.nz/ggplot2}
 #' @method ggplot data.frame
 #' @export
-ggplot.data.frame <- function(data, mapping=aes(), ..., environment = globalenv()) {
+ggplot.data.frame <- function(data, mapping=aes(), ..., environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be created with aes or aes_string")
 
   p <- structure(list(

@@ -1,58 +1,60 @@
 #' Wrap a 1d ribbon of panels into 2d.
 #'
-#' @param nrow number of rows
-#' @param ncol number of columns
-#' @param facets formula specifying variables to facet by
-#' @param scales should scales be fixed (\code{"fixed"}, the default),
-#'   free (\code{"free"}), or free in one dimension  (\code{"free_x"},
-#'   \code{"free_y"})
+#' Most displays are roughly rectangular, so if you have a categorical
+#' variable with many levels, it doesn't make sense to try and display them
+#' all in one row (or one column). To solve this dilemman, \code{facet_wrap}
+#' wraps a 1d sequence of panels into 2d, making best use of screen real estate.
+#'
+#' @param facets Either a formula or character vector. Use either a
+#'   one sided formula, \code{~a + b}, or a character vector, \code{c("a", "b")}.
+#' @param nrow,ncol Number of rows and columns.
+#' @param scales should Scales be fixed (\code{"fixed"}, the default),
+#'   free (\code{"free"}), or free in one dimension (\code{"free_x"},
+#'   \code{"free_y"}).
 #' @inheritParams facet_grid
 #' @export
 #' @examples
-#' \donttest{
-#' d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) +
-#'   xlim(0, 2) + stat_binhex(na.rm = TRUE) + theme(aspect.ratio = 1)
-#' d + facet_wrap(~ color)
-#' d + facet_wrap(~ color, ncol = 1)
-#' d + facet_wrap(~ color, ncol = 4)
-#' d + facet_wrap(~ color, nrow = 1)
-#' d + facet_wrap(~ color, nrow = 3)
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   facet_wrap(~class)
 #'
-#' # Using multiple variables continues to wrap the long ribbon of
-#' # plots into 2d - the ribbon just gets longer
-#' # d + facet_wrap(~ color + cut)
+#' # Control the number of rows and columns with nrow and ncol
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   facet_wrap(~class, nrow = 4)
 #'
-#' # To change plot order of facet wrap,
-#' # change the order of varible levels with factor()
-#' diamonds$color <- factor(diamonds$color, levels = c("G", "J", "D", "E", "I", "F", "H"))
-#' # Repeat first example with new order
-#' d <- ggplot(diamonds, aes(carat, price, fill = ..density..)) +
-#' xlim(0, 2) + stat_binhex(na.rm = TRUE) + theme(aspect.ratio = 1)
-#' d + facet_wrap(~ color)
+#' # You can facet by multiple variables
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   facet_wrap(~ cyl + drv)
+#' # Or use a character vector:
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   facet_wrap(c("cyl", "drv"))
 #'
-#' # You can choose to keep the scales constant across all panels
-#' # or vary the x scale, the y scale or both:
-#' p <- qplot(price, data = diamonds, geom = "histogram", binwidth = 1000)
-#' p + facet_wrap(~ color)
-#' p + facet_wrap(~ color, scales = "free_y")
+#' # To change the order in which the panels appear, change the levels
+#' # of the underlying factor.
+#' mpg$class2 <- reorder(mpg$class, mpg$displ)
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   facet_wrap(~class2)
 #'
-#' p <- qplot(displ, hwy, data = mpg)
-#' p + facet_wrap(~ cyl)
-#' p + facet_wrap(~ cyl, scales = "free")
+#' # By default, the same scales are used for all panels. You can allow
+#' # scales to vary across the panels with the `scales` argument.
+#' # Free scales make it easier to see patterns within each panel, but
+#' # harder to compare across panels.
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   facet_wrap(~class, scales = "free")
 #'
-#' # Use as.table to to control direction of horizontal facets, TRUE by default
-#' p + facet_wrap(~ cyl, as.table = FALSE)
-#'
-#' # Add data that does not contain all levels of the faceting variables
-#' cyl6 <- subset(mpg, cyl == 6)
-#' p + geom_point(data = cyl6, colour = "red", size = 1) +
-#'   facet_wrap(~ cyl)
-#' p + geom_point(data = transform(cyl6, cyl = 7), colour = "red") +
-#'   facet_wrap(~ cyl)
-#' p + geom_point(data = transform(cyl6, cyl = NULL), colour = "red") +
-#'   facet_wrap(~ cyl)
-#' }
-facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, as.table = TRUE, drop = TRUE) {
+#' # To repeat the same data in every panel, simply construct a data frame
+#' # that does not contain the facetting variable.
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point(data = transform(mpg, class = NULL), colour = "grey85") +
+#'   geom_point() +
+#'   facet_wrap(~class)
+facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
+                       shrink = TRUE, as.table = TRUE, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),

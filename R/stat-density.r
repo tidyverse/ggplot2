@@ -107,7 +107,7 @@ StatDensity <- proto(Stat, {
     range <- scale_dimension(scales$x, c(0, 0))
     xgrid <- seq(range[1], range[2], length=200)
 
-    dens <- density(data$x, adjust=adjust, kernel=kernel, weight=data$weight, from=range[1], to=range[2])
+    dens <- stats::density(data$x, adjust=adjust, kernel=kernel, weight=data$weight, from=range[1], to=range[2])
     densdf <- as.data.frame(dens[c("x","y")])
 
     densdf$scaled <- densdf$y / max(densdf$y, na.rm = TRUE)

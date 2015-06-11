@@ -1,7 +1,7 @@
 Package: ggplot2
 Type: Package
 Title: An Implementation of the Grammar of Graphics
-Version: 1.0.1
+Version: 1.0.1.9000
 Authors@R: c(
     person("Hadley", "Wickham", role = c("aut", "cre"), email = "h.wickham@gmail.com"),
     person("Winston", "Chang", role = "aut", email = "winston@stdout.org")
@@ -110,6 +110,7 @@ Collate:
     'geom-path-line.r'
     'geom-path-step.r'
     'geom-point-.r'
+    'geom-point-count.r'
     'geom-point-jitter.r'
     'geom-pointrange.r'
     'geom-quantile.r'
@@ -148,12 +149,12 @@ Collate:
     'position-identity.r'
     'position-jitter.r'
     'position-jitterdodge.R'
+    'position-nudge.R'
     'position-stack.r'
     'quick-plot.r'
     'save.r'
     'scale-.r'
     'scale-alpha.r'
-    'scale-area.r'
     'scale-brewer.r'
     'scale-continuous.r'
     'scale-date.r'
@@ -196,7 +197,6 @@ Collate:
     'stat-vline.r'
     'stat-ydensity.r'
     'summary.r'
-    'templates.r'
     'theme-defaults.r'
     'theme-elements.r'
     'theme.r'

@@ -94,49 +94,6 @@ print.rel <- function(x, ...) print(noquote(paste(x, " *", sep = "")))
 #' @param x An object to test
 is.rel <- function(x) inherits(x, "rel")
 
-
-#' Deprecated theme_xx functions
-#'
-#' The \code{theme_xx} functions have been deprecated. They are replaced
-#' with the \code{element_xx} functions.
-#' @param ... Arguments to be passed to the appropriate \code{element_xx}
-#'   function.
-#'
-#' @export
-theme_blank <- function(...) {
-  gg_dep("0.9.1", "'theme_blank' is deprecated. Use 'element_blank' instead.")
-  element_blank(...)
-}
-
-#' @rdname theme_blank
-#' @export
-theme_rect <- function(...) {
-  gg_dep("0.9.1", "theme_rect is deprecated. Use 'element_rect' instead.")
-  element_rect(...)
-}
-
-#' @rdname theme_blank
-#' @export
-theme_line <- function(...) {
-  gg_dep("0.9.1", "theme_line is deprecated. Use 'element_line' instead.")
-  element_line(...)
-}
-
-#' @rdname theme_blank
-#' @export
-theme_segment <- function(...) {
-  gg_dep("0.9.1", "theme_segment is deprecated. Use 'element_line' instead.")
-  element_line(...)
-}
-
-#' @rdname theme_blank
-#' @export
-theme_text <- function(...) {
-  gg_dep("0.9.1", "theme_text is deprecated. Use 'element_text' instead.")
-  element_text(...)
-}
-
-
 # Given a theme object and element name, return a grob for the element
 element_render <- function(theme, element, ..., name = NULL) {
 
