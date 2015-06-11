@@ -1,6 +1,9 @@
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
+* `facet_wrap()` and `facet_grid()` now allow you to use non-standard
+  variable names (provided that they surrounded by backticks) (#1067)
+
 * Add `position_nudge()` for slightly off setting labels (or other geoms)
   from their corresponding points (#1109).
 
