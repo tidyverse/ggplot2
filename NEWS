@@ -55,6 +55,9 @@ ggplot2 1.0.0
 
 NEW FEATURES
 
+* New dark-backgrounded theme, `theme_dark()`, meant to make colours pop out
+  (@jiho, #1018)
+
 * New coordinate system for small scale maps. `coord_quickmap()` computes and
   sets the correct aspect ratio between one degree of latitude and one degree
   of longitude at the centre of the plotted region. It does not perform full
