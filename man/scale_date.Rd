@@ -12,13 +12,13 @@ scale_y_date(..., expand = waiver(), breaks = pretty_breaks(),
   minor_breaks = waiver())
 }
 \arguments{
-\item{...}{common continuous scale parameters: \code{name}, \code{breaks},
-\code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
-\code{\link{continuous_scale}} for more details}
+\item{...}{Additional arguments passed on to \code{\link{continuous_scale}}}
 
-\item{expand}{a numeric vector of length two giving multiplicative and
+\item{expand}{A numeric vector of length two giving multiplicative and
 additive expansion constants. These constants ensure that the data is
-placed some distance away from the axes.}
+placed some distance away from the axes. The defaults are
+\code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
+discrete variables.}
 
 \item{breaks}{A vector of breaks, a function that given the scale limits
 returns a vector of breaks, or a character vector, specifying the width

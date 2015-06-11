@@ -6,7 +6,7 @@
 #' perception.
 #'
 #' @name scale_size
-#' @inheritParams scale_x_continuous
+#' @inheritParams continuous_scale
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
 #' @seealso \code{\link{scale_size_area}} if you want 0 values to be mapped
@@ -40,15 +40,22 @@ NULL
 
 #' @rdname scale_size
 #' @export
-scale_size_continuous <- function(..., range = c(1, 6)) {
-  continuous_scale("size", "area", area_pal(range), ...)
+scale_size_continuous <- function(name = NULL, breaks = waiver(), labels = waiver(),
+                                  limits = NULL, range = c(1, 6),
+                                  trans = "identity", guide = "legend") {
+  continuous_scale("size", "area", area_pal(range), name = name,
+    breaks = breaks, labels = labels, limits = limits, trans = trans,
+    guide = guide)
 }
 
 #' @rdname scale_size
 #' @export
-scale_radius <- function(..., range = c(1, 6)) {
-  continuous_scale("size", "size_c", rescale_pal(range), ...)
-  continuous_scale("size", "area", area_pal(range), ...)
+scale_radius <- function(name = NULL, breaks = waiver(), labels = waiver(),
+                         limits = NULL, range = c(1, 6),
+                         trans = "identity", guide = "legend") {
+  continuous_scale("size", "size_c", area_pal(range), name = name,
+    breaks = breaks, labels = labels, limits = limits, trans = trans,
+    guide = guide)
 }
 
 #' @rdname scale_size
@@ -57,6 +64,7 @@ scale_size <- scale_size_continuous
 
 #' @rdname scale_size
 #' @export
+#' @param ... Additional arguments passed on to \code{\link{discrete_scale}}.
 scale_size_discrete <- function(..., range = c(2, 6)) {
   discrete_scale("size", "size_d", function(n) {
     area <- seq(range[1] ^ 2, range[2] ^ 2, length = n)

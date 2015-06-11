@@ -2,6 +2,7 @@
 #'
 #' @rdname scale_datetime
 #' @family position scales
+#' @param ... Additional arguments passed on to \code{\link{continuous_scale}}
 #' @inheritParams scale_x_continuous
 #' @param breaks  A vector of breaks, a function that given the scale limits
 #'   returns a vector of breaks, or a character vector, specifying the width

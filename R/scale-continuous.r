@@ -1,13 +1,13 @@
 #' Continuous position scales (x & y).
 #'
-#' @param ... common continuous scale parameters: \code{name}, \code{breaks},
-#'  \code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
-#'  \code{\link{continuous_scale}} for more details
-#' @param expand a numeric vector of length two giving multiplicative and
-#'   additive expansion constants. These constants ensure that the data is
-#'   placed some distance away from the axes.
+#' \code{scale_x_continous} and \code{scale_y_continous} are the key functions.
+#' The others, \code{scale_x_log10}, \code{scale_y_sqrt} etc, are aliases
+#' that set the \code{trans} argument to commonly used transformations.
+#'
+#' @inheritParams continuous_scale
 #' @family position scales
 #' @rdname scale_continuous
+#' @param ... Other arguments passed on to \code{scale_(x|y)_continuous}
 #' @export
 #' @examples
 #' \donttest{
@@ -64,16 +64,32 @@
 #' #   * log scaling
 #' qplot(rating, votes, data=movies, log="xy")
 #' }
-scale_x_continuous <- function(..., expand = waiver()) {
-  continuous_scale(c("x", "xmin", "xmax", "xend", "xintercept"), "position_c", identity,
-    ..., expand = expand, guide = "none")
+scale_x_continuous <- function(name = NULL, breaks = waiver(),
+                               minor_breaks = waiver(), labels = waiver(),
+                               limits = NULL, expand = waiver(), oob = censor,
+                               na.value = NA_real_, trans = "identity") {
+  continuous_scale(
+    c("x", "xmin", "xmax", "xend", "xintercept"),
+    "position_c", identity, name = name, breaks = breaks,
+    minor_breaks = minor_breaks, labels = labels, limits = limits,
+    expand = expand, oob = oob, na.value = na.value, trans = trans,
+    guide = "none"
+  )
 }
 
 #' @rdname scale_continuous
 #' @export
-scale_y_continuous <- function(..., expand = waiver()) {
-  continuous_scale(c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final"), "position_c", identity,
-    ..., expand = expand, guide = "none")
+scale_y_continuous <- function(name = NULL, breaks = waiver(),
+                               minor_breaks = waiver(), labels = waiver(),
+                               limits = NULL, expand = waiver(), oob = censor,
+                               na.value = NA_real_, trans = "identity") {
+  continuous_scale(
+    c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final"),
+    "position_c", identity, name = name, breaks = breaks,
+    minor_breaks = minor_breaks, labels = labels, limits = limits,
+    expand = expand, oob = oob, na.value = na.value, trans = trans,
+    guide = "none"
+  )
 }
 
 
