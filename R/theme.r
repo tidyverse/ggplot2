@@ -476,7 +476,8 @@ add_theme <- function(t1, t2, t2name) {
 # same name as those from newtheme, and puts them in oldtheme. Then
 # it adds elements from newtheme to oldtheme.
 # This makes it possible to do things like:
-#   qplot(1:3, 1:3) + theme(text = element_text(colour = 'red'))
+#   ggplot(data.frame(x = 1:3, y = 1:3)) +
+#   geom_point() + theme(text = element_text(colour = 'red'))
 # and have 'text' keep properties from the default theme. Otherwise
 # you would have to set all the element properties, like family, size,
 # etc.

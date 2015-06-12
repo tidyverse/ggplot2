@@ -11,7 +11,7 @@
 #' # See stat_smooth for examples of using built in model fitting
 #' # if you need some more flexible, this example shows you how to
 #' # plot the fits from any model of your choosing
-#' qplot(wt, mpg, data=mtcars, colour=factor(cyl))
+#' ggplot(mtcars, aes(wt, mpg)) + geom_point(aes(colour = factor(cyl)))
 #'
 #' model <- lm(mpg ~ wt + factor(cyl), data=mtcars)
 #' grid <- with(mtcars, expand.grid(
@@ -21,7 +21,9 @@
 #'
 #' grid$mpg <- stats::predict(model, newdata=grid)
 #'
-#' qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + geom_line(data=grid)
+#' ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point(aes(colour = factor(cyl))) +
+#'   geom_line(data=grid)
 #'
 #' # or with standard errors
 #'
@@ -29,8 +31,9 @@
 #' grid$ucl <- err$fit + 1.96 * err$se.fit
 #' grid$lcl <- err$fit - 1.96 * err$se.fit
 #'
-#' qplot(wt, mpg, data=mtcars, colour=factor(cyl)) +
-#'   geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat="identity")
+#' ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point(aes(colour = factor(cyl))) +
+#'   geom_smooth(aes(ymin = lcl, ymax = ucl), data=grid, stat = "identity")
 geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth", position = "identity", ...) {
   GeomSmooth$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }

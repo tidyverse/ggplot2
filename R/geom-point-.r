@@ -63,7 +63,7 @@
 #'
 #' # Set aesthetics to fixed value
 #' p + geom_point(colour = "red", size = 3)
-#' qplot(wt, mpg, data = mtcars, colour = I("red"), size = I(3))
+#' ggplot(mtcars, aes(wt, mpg)) + geom_point(colour = "red", size = 3)
 #'
 #' # Varying alpha is useful for large datasets
 #' d <- ggplot(diamonds, aes(carat, price))
@@ -89,18 +89,13 @@
 #'   geom_point(aes(shape = factor(cyl)))
 #'
 #' # Transparent points:
-#' qplot(mpg, wt, data = mtcars, size = I(5), alpha = I(0.2))
+#' ggplot(mtcars, aes(mpg, wt)) + geom_point(size = 5, alpha = 1/5)
 #'
 #' # geom_point warns when missing values have been dropped from the data set
 #' # and not plotted, you can turn this off by setting na.rm = TRUE
 #' mtcars2 <- transform(mtcars, mpg = ifelse(runif(32) < 0.2, NA, mpg))
-#' qplot(wt, mpg, data = mtcars2)
-#' qplot(wt, mpg, data = mtcars2, na.rm = TRUE)
-#'
-#' # Use qplot instead
-#' qplot(wt, mpg, data = mtcars)
-#' qplot(wt, mpg, data = mtcars, colour = factor(cyl))
-#' qplot(wt, mpg, data = mtcars, colour = I("red"))
+#' ggplot(mtcars2, aes(wt, mpg)) + geom_point()
+#' ggplot(mtcars2, aes(wt, mpg)) + geom_point(na.rm = TRUE)
 #' }
 geom_point <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
 na.rm = FALSE, ...) {

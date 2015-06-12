@@ -15,7 +15,6 @@
 #' @export
 #' @examples
 #' \donttest{
-#' # From ?qqplot
 #' df <- data.frame(y = rt(200, df = 5))
 #' p <- ggplot(df, aes(sample = y))
 #' p + stat_qq()

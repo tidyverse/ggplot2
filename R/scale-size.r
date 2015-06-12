@@ -6,7 +6,7 @@
 #'   maximum size of the plotting symbol after transformation.
 #' @examples
 #' \donttest{
-#' (p <- qplot(mpg, cyl, data=mtcars, size=cyl))
+#' (p <- ggglot(mtcars, aes(mpg, cyl)) + geom_point(aes(size = cyl)))
 #' p + scale_size("cylinders")
 #' p + scale_size("number\nof\ncylinders")
 #'
@@ -20,7 +20,7 @@
 #'
 #' # Also works with factors, but not a terribly good
 #' # idea, unless your factor is ordered, as in this example
-#' qplot(mpg, cyl, data=mtcars, size=factor(cyl))
+#' ggplot(mtcars, aes(mpg, cyl)) + geom_point(aes(size = factor(cyl)))
 #'
 #' # To control the size mapping for discrete variable, use
 #' # scale_size_manual:

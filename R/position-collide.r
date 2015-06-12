@@ -97,7 +97,7 @@ pos_dodge <- function(df, width) {
   diff <- width - d_width
 
   # df <- data.frame(n = c(2:5, 10, 26), div = c(4, 3, 2.666666,  2.5, 2.2, 2.1))
-  # qplot(n, div, data = df)
+  # ggplot(df, aes(n, div)) + geom_point()
 
   # Have a new group index from 1 to number of groups.
   # This might be needed if the group numbers in this set don't include all of 1:n

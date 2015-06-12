@@ -7,21 +7,20 @@
 #'   resolution of the data
 #' @export
 #' @examples
-#' qplot(am, vs, data = mtcars)
+#' ggplot(mtcars, aes(am, vs)) + geom_point()
 #'
 #' # Default amount of jittering will generally be too much for
 #' # small datasets:
-#' qplot(am, vs, data = mtcars, position = "jitter")
+#' ggplot(mtcars, aes(am, vs)) + geom_point(position = "jitter")
 #' # Control the amount as follows
-#' qplot(am, vs, data = mtcars, position = position_jitter(w = 0.1, h = 0.1))
-#'
-#' # With ggplot
-#' ggplot(mtcars, aes(x = am, y = vs)) + geom_point(position = "jitter")
-#' ggplot(mtcars, aes(x = am, y = vs)) + geom_point(position = position_jitter(w = 0.1, h = 0.1))
+#' ggplot(mtcars, aes(am, vs)) +
+#'   geom_point(position = position_jitter(w = 0.1, h = 0.1))
 #'
 #' # The default works better for large datasets, where it will
 #' # take up as much space as a boxplot or a bar
-#' qplot(class, hwy, data = mpg, geom = c("boxplot", "jitter"))
+#' ggplot(mpg, aes(class, hwy)) +
+#'   geom_jitter() +
+#'   geom_boxplot()
 position_jitter <- function (width = NULL, height = NULL) {
   PositionJitter$new(width = width, height = height)
 }

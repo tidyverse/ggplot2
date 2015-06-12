@@ -33,7 +33,9 @@
 #'
 #' # To display different lines in different facets, you need to
 #' # create a data frame.
-#' p <- qplot(mpg, wt, data=mtcars, facets = vs ~ am)
+#' p <- ggplot(mtcars, aes(mpg, wt)) +
+#'      geom_point() +
+#'      facet_wrap(vs ~ am)
 #'
 #' hline.data <- data.frame(z = 1:4, vs = c(0,0,1,1), am = c(0,1,0,1))
 #' p + geom_hline(aes(yintercept = z), hline.data)

@@ -32,11 +32,12 @@
 #'
 #' # You can choose to keep the scales constant across all panels
 #' # or vary the x scale, the y scale or both:
-#' p <- qplot(price, data = diamonds, geom = "histogram", binwidth = 1000)
+#' p <- ggplot(diamonds, aes(price)) +
+#'      geom_histogram(binwidth = 1000)
 #' p + facet_wrap(~ color)
 #' p + facet_wrap(~ color, scales = "free_y")
 #'
-#' p <- qplot(displ, hwy, data = mpg)
+#' p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 #' p + facet_wrap(~ cyl)
 #' p + facet_wrap(~ cyl, scales = "free")
 #'

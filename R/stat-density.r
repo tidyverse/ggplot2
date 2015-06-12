@@ -63,12 +63,15 @@
 #' # the 'count' (density * n) variable instead of the default density
 #'
 #' # Loses marginal densities
-#' qplot(rating, ..density.., data=movies, geom="density", fill=mpaa, position="stack")
+#' ggplot(movies, aes(rating, ..density..)) +
+#'   geom_density(position = "stack", aes(fill = mpaa))
 #' # Preserves marginal densities
-#' qplot(rating, ..count.., data=movies, geom="density", fill=mpaa, position="stack")
+#' ggplot(movies, aes(rating, ..count..)) +
+#'   geom_density(position = "stack", aes(fill = mpaa))
 #'
 #' # You can use position="fill" to produce a conditional density estimate
-#' qplot(rating, ..count.., data=movies, geom="density", fill=mpaa, position="fill")
+#' ggplot(movies, aes(rating, ..count..)) +
+#'   geom_density(position = "fill", aes(fill = mpaa))
 #'
 #' # Need to be careful with weighted data
 #' m <- ggplot(movies, aes(x=rating, weight=votes))
@@ -82,10 +85,6 @@
 #' m <- ggplot(movies, aes(x=rating, colour=decade, group=decade))
 #' m + geom_density(fill=NA)
 #' m + geom_density(fill=NA) + aes(y = ..count..)
-#'
-#' # Use qplot instead
-#' qplot(length, data=movies, geom="density", weight=rating)
-#' qplot(length, data=movies, geom="density", weight=rating/sum(rating))
 #' }
 stat_density <- function (mapping = NULL, data = NULL, geom = "area", position = "stack",
 adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, ...) {

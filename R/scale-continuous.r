@@ -11,8 +11,8 @@
 #' @export
 #' @examples
 #' \donttest{
-#' (m <- qplot(rating, votes, data=subset(movies, votes > 1000),
-#'   na.rm = TRUE))
+#' (m <- ggplot(subset(movies, votes > 1000), aes(rating, votes)) +
+#'       geom_point(na.rm = TRUE))
 #'
 #' # Manipulating the default position scales lets you:
 #'
@@ -48,21 +48,29 @@
 #'
 #' # You can control the formatting of the labels with the formatter
 #' # argument.  Some common formats are built into the scales package:
-#' x <- rnorm(10) * 100000
-#' y <- seq(0, 1, length = 10)
-#' p <- qplot(x, y)
+#' set.seed(1492)
+#' df <- data.frame(
+#'   x = rnorm(10) * 100000,
+#'   y = seq(0, 1, length = 10)
+#' )
+#' p <- ggplot(df, aes(x, y)) + geom_point()
 #' library(scales)
 #' p + scale_y_continuous(labels = percent)
 #' p + scale_y_continuous(labels = dollar)
 #' p + scale_x_continuous(labels = comma)
 #'
-#' # qplot allows you to do some of this with a little less typing:
-#' #   * axis limits
-#' qplot(rating, votes, data=movies, ylim=c(1e4, 5e4))
+#' ggplot(movies, aes(rating, votes)) +
+#'   geom_point() +
+#'   ylim(1e4, 5e4)
 #' #   * axis labels
-#' qplot(rating, votes, data=movies, xlab="My x axis", ylab="My y axis")
+#' ggplot(movies, aes(rating, votes)) +
+#'   geom_point() +
+#'   labs(x = "My x axis", y = "My y axis")
 #' #   * log scaling
-#' qplot(rating, votes, data=movies, log="xy")
+#' ggplot(movies, aes(rating, votes)) +
+#'   geom_point() +
+#'   scale_x_log10() +
+#'   scale_y_log10()
 #' }
 scale_x_continuous <- function(..., expand = waiver()) {
   continuous_scale(c("x", "xmin", "xmax", "xend", "xintercept"), "position_c", identity,
