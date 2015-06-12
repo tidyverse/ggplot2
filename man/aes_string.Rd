@@ -5,7 +5,7 @@
 \alias{aes_string}
 \title{Define aesthetic mappings from a string/quoted objects}
 \usage{
-aes_string(x = NULL, y = NULL, ...)
+aes_string(x, y, ...)
 
 aes_q(x = NULL, y = NULL, ...)
 }
