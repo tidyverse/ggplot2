@@ -277,6 +277,7 @@ facet_vars.wrap <- function(facet) {
 #' sanitise_dim(0)
 #' sanitise_dim("foo")
 #' }
+#' @noRd
 sanitise_dim <- function(n)
 {
   xname <- sQuote(deparse(substitute(n)))
