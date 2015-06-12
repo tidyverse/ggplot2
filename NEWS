@@ -4,6 +4,11 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* Position adjustments no longer warn about potentially varying ranges
+  because the problem rarely occurs in practice and there are currently a
+  lot of false positives since I don't understand exactly what FP criteria
+  I should be testing.
+
 * New dark-backgrounded theme, `theme_dark()`, meant to make colours pop out
   (@jiho, #1018)
 

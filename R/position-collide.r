@@ -17,10 +17,12 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
     # Width determined from data, must be floating point constant
     widths <- unique(data$xmax - data$xmin)
     widths <- widths[!is.na(widths)]
-    if (!zero_range(range(widths))) {
-      warning(name, " requires constant width: output may be incorrect",
-        call. = FALSE)
-    }
+
+#   # Suppress warning message since it's not reliable
+#     if (!zero_range(range(widths))) {
+#       warning(name, " requires constant width: output may be incorrect",
+#         call. = FALSE)
+#     }
     width <- widths[1]
   }
 
