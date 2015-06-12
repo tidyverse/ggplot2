@@ -51,9 +51,10 @@ entire element; it only updates element properties which are present
 }
 \examples{
 ### Adding objects to a ggplot object
-p <- ggplot(hp, aes(wt, mpg)) +
+p <- ggplot(mtcars, aes(wt, mpg, colour = disp)) +
   geom_point()
 
+p
 p + coord_cartesian(ylim = c(0, 40))
 p + scale_colour_continuous(breaks = c(100, 300))
 p + guides(colour = "colourbar")
@@ -61,7 +62,6 @@ p + guides(colour = "colourbar")
 # Use a different data frame
 m <- mtcars[1:10, ]
 p \%+\% m
-
 
 ### Adding objects to a theme object
 # Compare these results of adding theme objects to other theme objects

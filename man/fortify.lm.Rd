@@ -45,8 +45,7 @@ ggplot(mod, aes(.fitted, .stdresid)) +
   geom_smooth(se = FALSE)
 
 ggplot(fortify(mod, mtcars), aes(.fitted, .stdresid)) +
-  geom_point() +
-  colour = factor(cyl))
+  geom_point(aes(colour = factor(cyl)))
 
 ggplot(fortify(mod, mtcars), aes(mpg, .stdresid)) +
   geom_point(aes(colour = factor(cyl)))

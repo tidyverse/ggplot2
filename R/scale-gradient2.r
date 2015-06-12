@@ -49,10 +49,9 @@
 #' df <- data.frame(
 #'   x = letters[1:5]
 #' )
-#' p <- ggplot(df, aes(x, seq_along(x))) +
-#'      geom_bar(stat = "identity", aes(fill = c(-3, 3, 5, 2, -2)))
-#'   stat = "identity")
-#' p + scale_fill_gradient2("fill")
+#' ggplot(df, aes(x, seq_along(x))) +
+#'   geom_bar(stat = "identity", aes(fill = c(-3, 3, 5, 2, -2))) +
+#'   scale_fill_gradient2("fill")
 #' # Note how positive and negative values of the same magnitude
 #' # have similar intensity
 #' }

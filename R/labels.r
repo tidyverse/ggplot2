@@ -34,7 +34,7 @@ update_labels <- function(p, labels) {
 #' p + ylim(2, 4) + ylab("New y label")
 #'
 #' # The labs function also modifies legend labels
-#' p <- ggplot(mtcars, aes(mpg, wt)) + geom_point(colour = cyl)
+#' p <- ggplot(mtcars, aes(mpg, wt, colour = cyl)) + geom_point()
 #' p + labs(colour = "Cylinders")
 #'
 #' # Can also pass in a list, if that is more convenient

@@ -27,7 +27,7 @@ y axis longer than units on the x-axis, and vice versa. This is similar to
 # ensures that the ranges of axes are equal to the specified ratio by
 # adjusting the plot aspect ratio
 
-p <- ggplot(mtcars, aes(mpg, wt))
+p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
 p + coord_fixed(ratio = 1)
 p + coord_fixed(ratio = 5)
 p + coord_fixed(ratio = 1/5)

@@ -17,7 +17,6 @@
 #' @param ... not used by this method
 #' @export
 #' @examples
-#'
 #' mod <- lm(mpg ~ wt, data = mtcars)
 #' head(fortify(mod))
 #' head(fortify(mod, mtcars))
@@ -35,8 +34,7 @@
 #'   geom_smooth(se = FALSE)
 #'
 #' ggplot(fortify(mod, mtcars), aes(.fitted, .stdresid)) +
-#'   geom_point() +
-#'   colour = factor(cyl))
+#'   geom_point(aes(colour = factor(cyl)))
 #'
 #' ggplot(fortify(mod, mtcars), aes(mpg, .stdresid)) +
 #'   geom_point(aes(colour = factor(cyl)))

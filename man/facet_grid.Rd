@@ -94,9 +94,9 @@ p + facet_grid("cut ~ .")
 
 g + facet_grid(cyl ~ vs)
 
-If you combine a facetted dataset with a dataset that lacks those
-facetting variables, the data will be repeated across the missing
-combinations:
+# If you combine a facetted dataset with a dataset that lacks those
+# facetting variables, the data will be repeated across the missing
+# combinations:
 
 g + facet_grid(vs ~ cyl)
 

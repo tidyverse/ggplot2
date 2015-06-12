@@ -22,7 +22,7 @@
 #' # But you'll typically also need to supply breaks and labels:
 #' ggplot(df, aes(x, y)) +
 #'   geom_tile(aes(fill = colour)) +
-#'   scale_fill_identity("trt", labels = letters[1:4], breaks = colour,
+#'   scale_fill_identity("trt", labels = letters[1:4], breaks = df$colour,
 #'   guide = "legend")
 #'
 #' # cyl scaled to appropriate size
