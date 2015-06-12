@@ -72,9 +72,6 @@ m + stat_quantile(aes(colour = ..quantile..), quantiles = q10) +
 
 # Set aesthetics to fixed value
 m + stat_quantile(colour = "red", size = 2, linetype = 2)
-
-# Use qplot instead
-qplot(year, rating, data=movies, geom="quantile")
 }
 }
 

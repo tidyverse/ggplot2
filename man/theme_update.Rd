@@ -22,19 +22,23 @@ Use \code{theme_update} to modify a small number of elements of the current
 theme or use \code{theme_set} to completely override it.
 }
 \examples{
-qplot(mpg, wt, data = mtcars)
+p <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point()
+p
 old <- theme_set(theme_bw())
-qplot(mpg, wt, data = mtcars)
+p
 theme_set(old)
-qplot(mpg, wt, data = mtcars)
+p
 
 old <- theme_update(panel.background = element_rect(colour = "pink"))
-qplot(mpg, wt, data = mtcars)
+p
 theme_set(old)
 theme_get()
 
-qplot(mpg, wt, data=mtcars, colour=mpg) +
-  theme(legend.position=c(0.95, 0.95), legend.justification = c(1, 1))
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point(aes(color = mpg)) +
+  theme(legend.position = c(0.95, 0.95),
+        legend.justification = c(1, 1))
 last_plot() +
  theme(legend.background = element_rect(fill = "white", colour = "white", size = 3))
 }

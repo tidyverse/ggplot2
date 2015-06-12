@@ -73,12 +73,9 @@ See McGill et al. (1978) for more details.
 p <- ggplot(mtcars, aes(factor(cyl), mpg))
 
 p + geom_boxplot()
-qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot")
 
 p + geom_boxplot() + geom_jitter()
 p + geom_boxplot() + coord_flip()
-qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot") +
-  coord_flip()
 
 p + geom_boxplot(notch = TRUE)
 p + geom_boxplot(notch = TRUE, notchwidth = .3)
@@ -95,8 +92,6 @@ p + geom_boxplot(aes(fill = factor(am)))
 
 # Set aesthetics to fixed value
 p + geom_boxplot(fill = "grey80", colour = "#3366FF")
-qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot",
-  colour = I("#3366FF"))
 
 # Scales vs. coordinate transforms -------
 # Scale transformations occur before the boxplot statistics are computed.
@@ -112,9 +107,11 @@ m + geom_boxplot() + scale_y_log10() + coord_trans(y = "log10")
 
 # Boxplots with continuous x:
 # Use the group aesthetic to group observations in boxplots
-qplot(year, budget, data = movies, geom = "boxplot")
-qplot(year, budget, data = movies, geom = "boxplot",
-  group = round_any(year, 10, floor))
+ggplot(movies, aes(year, budget)) +
+  geom_boxplot()
+
+ggplot(movies, aes(year, budget)) +
+  geom_boxplot(aes(group=round_any(year, 10, floor)))
 
 # Using precomputed statistics
 # generate sample data
@@ -127,7 +124,6 @@ b + geom_boxplot(aes(fill = X1), stat = "identity")
 
 # Using varwidth
 p + geom_boxplot(varwidth = TRUE)
-qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot", varwidth = TRUE)
 
 # Update the defaults for the outliers by changing the defaults for geom_point
 

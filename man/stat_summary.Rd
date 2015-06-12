@@ -56,10 +56,11 @@ can use.
 \examples{
 \donttest{
 # Basic operation on a small dataset
-d <- qplot(cyl, mpg, data=mtcars)
+d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
 d + stat_summary(fun.data = "mean_cl_boot", colour = "red")
 
-p <- qplot(cyl, mpg, data = mtcars, stat="summary", fun.y = "mean")
+p <- ggplot(mtcars, aes(cyl, mpg)) +
+  stat_summary(fun.y = "mean", geom = "point")
 p
 # Don't use ylim to zoom into a summary plot - this throws the
 # data away

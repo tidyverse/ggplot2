@@ -75,7 +75,6 @@ linehist + stat_density(colour="blue", fill=NA)
 
 # Also works with categorical variables
 ggplot(movies, aes(x=mpaa)) + stat_bin()
-qplot(mpaa, data=movies, stat="bin")
 }
 }
 

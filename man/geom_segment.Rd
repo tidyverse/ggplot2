@@ -64,9 +64,8 @@ counts <- as.data.frame(table(x = rpois(100,5)))
 counts$x <- as.numeric(as.character(counts$x))
 with(counts, plot(x, Freq, type = "h", lwd = 10))
 
-qplot(x, Freq, data = counts, geom = "segment",
-  yend = 0, xend = x, size = I(10))
-
+ggplot(counts, aes(x, Freq)) +
+  geom_segment(aes(xend = x, yend = 0), size = 10)#'
 # Adding line segments
 library(grid) # needed for arrow function
 b <- ggplot(mtcars, aes(wt, mpg)) + geom_point()

@@ -14,7 +14,7 @@ See \code{\link{bquote}} for details on the syntax of the argument.  The
 label value is x.
 }
 \examples{
-p <- qplot(wt, mpg, data = mtcars)
+p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 p + facet_grid(. ~ vs, labeller = label_bquote(alpha ^ .(x)))
 p + facet_grid(. ~ vs, labeller = label_bquote(.(x) ^ .(x)))
 }

@@ -32,10 +32,10 @@ NULL
 #'  df$z <- cos(df$r^2)*exp(-df$r/6)
 #'  df
 #' }
-#' qplot(x, y, data = pp(20), fill = z, geom = "raster")
+#' ggplot(pp(20), aes(x, y)) + geom_raster(aes(fill = z))
 #' # Interpolation worsens the apperance of this plot, but can help when
 #' # rendering images.
-#' qplot(x, y, data = pp(20), fill = z, geom = "raster", interpolate = TRUE)
+#' ggplot(pp(20), aes(x, y)) + geom_raster(aes(fill = z), interpolate = TRUE)
 #'
 #' # For the special cases where it is applicable, geom_raster is much
 #' # faster than geom_tile:

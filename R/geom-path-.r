@@ -37,24 +37,23 @@
 #' base + geom_path(size = 10, lineend = "round")
 #' base + geom_path(size = 10, linejoin = "mitre", lineend = "butt")
 #'
-#' # Use qplot instead
-#' qplot(length, rating, data=myear, geom="path")
-#'
 #' # Using economic data:
 #' # How is unemployment and personal savings rate related?
-#' qplot(unemploy/pop, psavert, data=economics)
-#' qplot(unemploy/pop, psavert, data=economics, geom="path")
-#' qplot(unemploy/pop, psavert, data=economics, geom="path", size=as.numeric(date))
+#' m <- ggplot(economics, aes(unemploy/pop, psavert))
+#' m + geom_point()
+#' m + geom_path()
+#' m + geom_path(aes(size = as.numeric(date)))
 #'
 #' # How is rate of unemployment and length of unemployment?
-#' qplot(unemploy/pop, uempmed, data=economics)
-#' qplot(unemploy/pop, uempmed, data=economics, geom="path")
-#' qplot(unemploy/pop, uempmed, data=economics, geom="path") +
-#'   geom_point(data=head(economics, 1), colour="red") +
-#'   geom_point(data=tail(economics, 1), colour="blue")
-#' qplot(unemploy/pop, uempmed, data=economics, geom="path") +
-#'   geom_text(data=head(economics, 1), label="1967", colour="blue") +
-#'   geom_text(data=tail(economics, 1), label="2007", colour="blue")
+#' m <- ggplot(economics, aes(unemploy/pop, uempmed))
+#' m + geom_point()
+#' m + geom_path()
+#' m + geom_path() +
+#'     geom_point(data=head(economics, 1), colour="red") +
+#'     geom_point(data=tail(economics, 1), colour="blue")
+#' m + geom_path() +
+#'     geom_text(data=head(economics, 1), label="1967", colour="blue") +
+#'     geom_text(data=tail(economics, 1), label="2007", colour="blue")
 #'
 #' # geom_path removes missing values on the ends of a line.
 #' # use na.rm = T to suppress the warning message
@@ -64,10 +63,10 @@
 #'   y2 = c(NA, 2, 3, 4, 5),
 #'   y3 = c(1, 2, NA, 4, 5),
 #'   y4 = c(1, 2, 3, 4, 5))
-#' qplot(x, y1, data = df, geom = c("point","line"))
-#' qplot(x, y2, data = df, geom = c("point","line"))
-#' qplot(x, y3, data = df, geom = c("point","line"))
-#' qplot(x, y4, data = df, geom = c("point","line"))
+#' ggplot(df, aes(x, y1)) + geom_point() + geom_line()
+#' ggplot(df, aes(x, y2)) + geom_point() + geom_line()
+#' ggplot(df, aes(x, y3)) + geom_point() + geom_line()
+#' ggplot(df, aes(x, y4)) + geom_point() + geom_line()
 #'
 #' # Setting line type vs colour/size
 #' # Line type needs to be applied to a line as a whole, so it can

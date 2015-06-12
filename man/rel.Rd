@@ -13,6 +13,9 @@ rel(x)
 Relative sizing for theme elements
 }
 \examples{
-qplot(1:3, 1:3) + theme(axis.title.x = element_text(size = rel(2.5)))
+df <- data.frame(x = 1:3, y = 1:3)
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  theme(axis.title.x = element_text(size = rel(2.5)))
 }
 

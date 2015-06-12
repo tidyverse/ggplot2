@@ -33,15 +33,15 @@ Frequency polygon.
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "freqpoly")}
 }
 \examples{
-qplot(carat, data = diamonds, geom = "freqpoly")
-qplot(carat, data = diamonds, geom = "freqpoly", binwidth = 0.1)
-qplot(carat, data = diamonds, geom = "freqpoly", binwidth = 0.01)
+m <- ggplot(diamonds, aes(carat))
+m + geom_freqpoly(binwidth = 0.1)
+m + geom_freqpoly(binwidth = 0.01)
 
-qplot(price, data = diamonds, geom = "freqpoly", binwidth = 1000)
-qplot(price, data = diamonds, geom = "freqpoly", binwidth = 1000,
-  colour = color)
-qplot(price, ..density.., data = diamonds, geom = "freqpoly",
-  binwidth = 1000, colour = color)
+p <- ggplot(diamonds, aes(price))
+p + geom_freqpoly(binwidth = 1000)
+p + geom_freqpoly(aes(colour = color), binwidth = 1000)
+p + geom_freqpoly(aes(y = ..density.., colour = color),
+                  binwidth = 1000)
 }
 \seealso{
 \code{\link{geom_histogram}}: histograms

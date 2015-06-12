@@ -63,9 +63,6 @@ m <- ggplot(movies, aes(y=votes, x=year))
 # The default summary isn't that useful
 m + stat_summary(geom="ribbon", fun.ymin="min", fun.ymax="max")
 m + stat_summary(geom="ribbon", fun.data="median_hilow")
-
-# Use qplot instead
-qplot(year, level, data=huron, geom=c("area", "line"))
 }
 }
 \seealso{

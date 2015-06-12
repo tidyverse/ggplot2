@@ -15,7 +15,7 @@ label_both(variable, value)
 Label facets with value and variable.
 }
 \examples{
-p <- qplot(wt, mpg, data = mtcars)
+p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 p + facet_grid(. ~ cyl)
 p + facet_grid(. ~ cyl, labeller = label_both)
 }

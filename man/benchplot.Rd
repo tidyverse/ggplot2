@@ -15,8 +15,8 @@ Benchmark plot creation time.
 Broken down into construct, build, render and draw times.
 }
 \examples{
-benchplot(qplot(mpg, wt, data = mtcars))
-benchplot(qplot(mpg, wt, data = mtcars) + facet_grid(.~ cyl))
+benchplot(ggplot(mtcars, aes(mpg, wt)) + geom_point())
+benchplot(ggplot(mtcars, aes(mpg, wt)) + geom_point() + facet_grid(. ~ cyl))
 }
 \keyword{internal}
 

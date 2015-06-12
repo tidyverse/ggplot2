@@ -17,7 +17,7 @@ Label facets with their value.
 This is the default labelling scheme.
 }
 \examples{
-p <- qplot(wt, mpg, data = mtcars)
+p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 p + facet_grid(. ~ cyl)
 p + facet_grid(. ~ cyl, labeller = label_value)
 }

@@ -54,7 +54,8 @@ p + theme(legend.position = "bottom", legend.box = "horizontal")
 
 # Set order for multiple guides
 
-qplot(data = mpg, x = displ, y = cty, size = hwy, colour = cyl, shape = drv) +
+ggplot(mpg, aes(displ, cty)) +
+  geom_point(aes(size = hwy, colour = cyl, shape = drv)) +
   guides(colour = guide_colourbar(order = 1),
          alpha = guide_legend(order = 2),
          size = guide_legend(order = 3))

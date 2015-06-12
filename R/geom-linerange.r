@@ -17,10 +17,10 @@
 #' cuts <- data.frame(cut = unique(diamonds$cut),
 #'   predict(dmod, data.frame(cut = unique(diamonds$cut)), se=TRUE)[c("fit","se.fit")])
 #'
-#' qplot(cut, fit, data=cuts)
+#' ggplot(cuts, aes(cut, fit)) + geom_point()
 #' # With a bar chart, we are comparing lengths, so the y-axis is
 #' # automatically extended to include 0
-#' qplot(cut, fit, data=cuts, geom="bar")
+#' ggplot(cuts, aes(cut, fit)) + geom_bar(stat = "identity")
 #'
 #' # Display estimates and standard errors in various ways
 #' se <- ggplot(cuts, aes(cut, fit,

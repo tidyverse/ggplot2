@@ -15,7 +15,7 @@ update_labels(p, labels)
 Update axis/legend labels
 }
 \examples{
-p <- qplot(mpg, wt, data = mtcars)
+p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
 update_labels(p, list(x = "New x"))
 update_labels(p, list(x = expression(x / y ^ 2)))
 update_labels(p, list(x = "New x", y = "New Y"))

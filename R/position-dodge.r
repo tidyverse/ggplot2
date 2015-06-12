@@ -12,8 +12,8 @@
 #'
 #' # Dodging things with different widths is tricky
 #' df <- data.frame(x=c("a","a","b","b"), y=1:4, g = rep(1:2, 2))
-#' (p <- qplot(x, y, data=df, group=g, position="dodge", geom="bar",
-#'   stat="identity"))
+#' (p <- ggplot(df, aes(x, y)) +
+#'       geom_bar(stat = "identity", position = "dodge", aes(group = g)))
 #'
 #' p + geom_linerange(aes(ymin = y-1, ymax = y+1), position="dodge")
 #' # You need to explicitly specify the width for dodging

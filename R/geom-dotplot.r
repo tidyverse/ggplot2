@@ -96,9 +96,6 @@
 #' ggplot(mtcars, aes(x = 1, y = mpg, fill = factor(cyl))) +
 #'   geom_dotplot(binaxis = "y", stackgroups = TRUE, binwidth = 1, method = "histodot")
 #'
-#' # Use qplot instead
-#' qplot(mpg, data = mtcars, geom = "dotplot")
-#'
 geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot", position = "identity",
 na.rm = FALSE, binwidth = NULL, binaxis = "x", method="dotdensity", binpositions = "bygroup", stackdir = "up",
 stackratio = 1, dotsize = 1, stackgroups = FALSE, ...) {

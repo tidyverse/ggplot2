@@ -31,6 +31,12 @@ ggplot(mtcars, aes(am, vs)) +
   geom_jitter(width = 0.1, height = 0.1)
 ggplot(mtcars, aes(am, vs)) +
   geom_jitter(position = position_jitter(width = 0.1, height = 0.1))
+
+# The default works better for large datasets, where it will
+# take up as much space as a boxplot or a bar
+ggplot(mpg, aes(class, hwy)) +
+  geom_jitter() +
+  geom_boxplot()
 }
 \seealso{
 Other position adjustments: \code{\link{position_dodge}};

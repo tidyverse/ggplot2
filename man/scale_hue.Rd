@@ -50,7 +50,7 @@ Qualitative colour scale with evenly spaced hues.
 \examples{
 \donttest{
 dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
-(d <- qplot(carat, price, data=dsamp, colour=clarity))
+(d <- ggplot(dsamp, aes(carat, price)) + geom_point(aes(colour = clarity)))
 
 # Change scale label
 d + scale_colour_hue()
@@ -78,8 +78,9 @@ d + geom_point(alpha = 0.2)
 
 # Colour of missing values is controlled with na.value:
 miss <- factor(sample(c(NA, 1:5), nrow(mtcars), rep = TRUE))
-qplot(mpg, wt, data = mtcars, colour = miss)
-qplot(mpg, wt, data = mtcars, colour = miss) +
+ggplot(mtcars, aes(mpg, wt)) + geom_point(aes(colour = miss))
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point(aes(colour = miss)) +
   scale_colour_hue(na.value = "black")
 }
 }

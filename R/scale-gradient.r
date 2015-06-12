@@ -20,7 +20,7 @@
 #' # It's hard to see, but look for the bright yellow dot
 #' # in the bottom right hand corner
 #' dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
-#' (d <- qplot(x, y, data=dsub, colour=z))
+#' (d <- ggplot(dsub, aes(x, y)) + geom_point(aes(colour = z)))
 #' # That one point throws our entire scale off.  We could
 #' # remove it, or manually tweak the limits of the scale
 #'
@@ -48,14 +48,14 @@
 #' d + scale_colour_gradient(limits=c(3, 4), space="Lab")
 #'
 #' # scale_fill_continuous works similarly, but for fill colours
-#' (h <- qplot(x - y, data=dsub, geom="histogram", binwidth=0.01, fill=..count..))
+#' (h <- ggplot(dsub, aes(x - y)) +
+#'   geom_histogram(binwidth = 0.01, aes(fill = ..count..)))
 #' h + scale_fill_continuous(low="black", high="pink", limits=c(0,3100))
 #'
 #' # Colour of missing values is controlled with na.value:
 #' miss <- sample(c(NA, 1:5), nrow(mtcars), rep = TRUE)
-#' qplot(mpg, wt, data = mtcars, colour = miss)
-#' qplot(mpg, wt, data = mtcars, colour = miss) +
-#'   scale_colour_gradient(na.value = "black")
+#' (p <- ggplot(mtcars, aes(mpg, wt)) + geom_point(aes(colour = miss)))
+#' p + scale_colour_gradient(na.value = "black")
 #' }
 scale_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab", na.value = "grey50", guide = "colourbar") {
   continuous_scale("colour", "gradient", seq_gradient_pal(low, high, space),
