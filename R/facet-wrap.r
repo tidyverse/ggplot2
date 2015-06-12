@@ -280,25 +280,25 @@ facet_vars.wrap <- function(facet) {
 sanitise_dim <- function(n)
 {
   xname <- sQuote(deparse(substitute(n)))
-  if(length(n) == 0)
+  if (length(n) == 0)
   {
-    if(!is.null(n))
+    if (!is.null(n))
     {
       warning(xname, " has length zero and will be treated as NULL.")
     }
     return(NULL)
   }
-  if(length(n) > 1)
+  if (length(n) > 1)
   {
     warning("Only the first value of ", xname, " will be used.", call. = FALSE)
     n <- n[1]
   }
-  if(!is.numeric(n) || (!is.na(n) && n != round(n)))
+  if (!is.numeric(n) || (!is.na(n) && n != round(n)))
   {
     warning("Coercing ", xname, " to be an integer.", call. = FALSE)
     n <- as.integer(n)
   }
-  if(is.na(n) || n < 1)
+  if (is.na(n) || n < 1)
   {
     warning(xname, " is missing or less than 1 and will be treated as NULL.", call. = FALSE)
     return(NULL)
