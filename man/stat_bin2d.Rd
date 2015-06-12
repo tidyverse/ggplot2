@@ -56,6 +56,11 @@ x <- seq(min(diamonds$carat), max(diamonds$carat), by = 0.1)
 y <- seq(min(diamonds$price), max(diamonds$price), length = 50)
 d + stat_bin2d(breaks = list(x = x, y = y))
 
+# Or with a list of breaks, on a semi-log plot
+log_price_range <- log10(range(diamonds$price))
+ylog <- seq(log_price_range[1], log_price_range[2], length=50)
+d + scale_y_log10() + stat_bin2d(breaks = list(x = x, y = ylog))
+
 # With qplot
 qplot(x, y, data = diamonds, geom="bin2d",
   xlim = c(4, 10), ylim = c(4, 10))
