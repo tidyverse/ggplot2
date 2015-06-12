@@ -34,10 +34,13 @@ arrests$region <- tolower(rownames(USArrests))
 
 choro <- merge(states, arrests, sort = FALSE, by = "region")
 choro <- choro[order(choro$order), ]
-qplot(long, lat, data = choro, group = group, fill = assault,
-  geom = "polygon")
-qplot(long, lat, data = choro, group = group, fill = assault / murder,
-  geom = "polygon")
+ggplot(choro, aes(long, lat)) +
+  geom_polygon(aes(group = group, fill = assault)) +
+  coord_map("albers",  at0 = 45.5, lat1 = 29.5)
+
+ggplot(choro, aes(long, lat)) +
+  geom_polygon(aes(group = group, fill = assault / murder)) +
+  coord_map("albers",  at0 = 45.5, lat1 = 29.5)
 }
 }
 

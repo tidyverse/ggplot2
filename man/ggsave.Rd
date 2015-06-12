@@ -48,8 +48,10 @@ pdf, jpeg, tiff, png, bmp, svg and wmf (windows only).
 }
 \examples{
 \dontrun{
-ratings <- qplot(rating, data=movies, geom="histogram")
-qplot(length, data=movies, geom="histogram")
+ratings <- ggplot(movies, aes(rating)) +
+  geom_histogram()
+ggplot(movies, aes(length)) +
+  geom_histogram()
 ggsave("length-hist.pdf")
 ggsave("length-hist.png")
 ggsave("ratings.pdf", ratings)

@@ -15,34 +15,34 @@
 #'   a vector of minor breaks.
 #' @export
 #' @examples
+#' set.seed(1492)
 #' start <- ISOdate(2001, 1, 1, tz = "")
 #' df <- data.frame(
 #'   day30  = start + round(runif(100, max = 30 * 86400)),
-#'   day7  = start + round(runif(100, max = 7 * 86400)),
-#'   day   = start + round(runif(100, max = 86400)),
+#'   day7   = start + round(runif(100, max = 7 * 86400)),
+#'   day    = start + round(runif(100, max = 86400)),
 #'   hour10 = start + round(runif(100, max = 10 * 3600)),
-#'   hour5 = start + round(runif(100, max = 5 * 3600)),
-#'   hour  = start + round(runif(100, max = 3600)),
-#'   min10 = start + round(runif(100, max = 10 * 60)),
-#'   min5  = start + round(runif(100, max = 5 * 60)),
-#'   min   = start + round(runif(100, max = 60)),
-#'   sec10 = start + round(runif(100, max = 10)),
-#'   y = runif(100)
+#'   hour5  = start + round(runif(100, max = 5 * 3600)),
+#'   hour   = start + round(runif(100, max = 3600)),
+#'   min10  = start + round(runif(100, max = 10 * 60)),
+#'   min5   = start + round(runif(100, max = 5 * 60)),
+#'   min    = start + round(runif(100, max = 60)),
+#'   sec10  = start + round(runif(100, max = 10)),
+#'   y      = runif(100)
 #' )
 #'
 #' # Automatic scale selection
-#' qplot(sec10, y, data = df)
-#' qplot(min, y, data = df)
-#' qplot(min5, y, data = df)
-#' qplot(min10, y, data = df)
-#' qplot(hour, y, data = df)
-#' qplot(hour5, y, data = df)
-#' qplot(hour10, y, data = df)
-#' qplot(day, y, data = df)
-#' qplot(day30, y, data = df)
+#' ggplot(df, aes(sec10, y)) + geom_point()
+#' ggplot(df, aes(min, y)) + geom_point()
+#' ggplot(df, aes(min5, y)) + geom_point()
+#' ggplot(df, aes(min10, y)) + geom_point()
+#' ggplot(df, aes(hour, y)) + geom_point()
+#' ggplot(df, aes(hour5, y)) + geom_point()
+#' ggplot(df, aes(hour10, y)) + geom_point()
+#' ggplot(df, aes(day, y)) + geom_point()
+#' ggplot(df, aes(day30, y)) + geom_point()
 #'
 #' # Manual scale selection
-#' qplot(day30, y, data = df)
 #' library(scales) # to access breaks/formatting functions
 #' last_plot() + scale_x_datetime(breaks = date_breaks("2 weeks"))
 #' last_plot() + scale_x_datetime(breaks = date_breaks("10 days"))

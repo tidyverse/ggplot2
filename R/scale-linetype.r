@@ -15,9 +15,9 @@
 #' rescale01 <- function(x) (x - min(x)) / diff(range(x))
 #' ecm <- ddply(ecm, "variable", transform, value = rescale01(value))
 #'
-#' qplot(date, value, data=ecm, geom="line", group=variable)
-#' qplot(date, value, data=ecm, geom="line", linetype=variable)
-#' qplot(date, value, data=ecm, geom="line", colour=variable)
+#' ggplot(ecm, aes(date, value)) + geom_line(aes(group = variable))
+#' ggplot(ecm, aes(date, value)) + geom_line(aes(linetype = variable))
+#' ggplot(ecm, aes(date, value)) + geom_line(aes(colour = variable))
 #'
 #' # See scale_manual for more flexibility
 scale_linetype <- function(..., na.value = "blank") {

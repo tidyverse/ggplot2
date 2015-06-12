@@ -21,7 +21,9 @@
 #'   price = runif(50)
 #' )
 #' df <- df[order(df$date), ]
-#' dt <- qplot(date, price, data=df, geom="line") + theme(aspect.ratio = 1/4)
+#' dt <- ggplot(df, aes(date, price)) +
+#'       geom_line() +
+#'       theme(aspect.ratio = 1/4)
 #'
 #' # We can control the format of the labels, and the frequency of
 #' # the major and minor tickmarks.  See ?format.Date and ?seq.Date
@@ -44,18 +46,18 @@
 #'
 #' # The date scale will attempt to pick sensible defaults for
 #' # major and minor tick marks
-#' qplot(date, price, data=df[1:10,], geom="line")
-#' qplot(date, price, data=df[1:4,], geom="line")
+#' ggplot(df[1:10,], aes(date, price)) + geom_line()
+#' ggplot(df[1:4,], aes(date, price)) + geom_line()
 #'
 #' df <- data.frame(
 #'   date = seq(Sys.Date(), len=1000, by="1 day"),
 #'   price = runif(500)
 #' )
-#' qplot(date, price, data=df, geom="line")
+#' ggplot(df, aes(date, price)) + geom_line()
 #'
 #' # A real example using economic time series data
-#' qplot(date, psavert, data=economics)
-#' qplot(date, psavert, data=economics, geom="path")
+#' ggplot(economics, aes(date, psavert)) + geom_point()
+#' ggplot(economics, aes(date, psavert)) + geom_path()
 #'
 #' end <- max(economics$date)
 #' last_plot() + scale_x_date(limits = c(as.Date("2000-1-1"), end))
@@ -69,9 +71,8 @@
 #' em <- melt(economics, id = "date")
 #'
 #' # Then we can group and facet by the new "variable" variable
-#' qplot(date, value, data = em, geom = "line", group = variable)
-#' qplot(date, value, data = em, geom = "line", group = variable) +
-#'   facet_grid(variable ~ ., scale = "free_y")
+#' (p <- ggplot(em, aes(date, value)) + geom_line(aes(group = variable)))
+#' p + facet_grid(variable ~ ., scale = "free_y")
 scale_x_date <- function(..., expand = waiver(), breaks = pretty_breaks(),
   minor_breaks = waiver()) {
 

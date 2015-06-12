@@ -12,12 +12,13 @@
 #' if (require("maps")) {
 #' ca <- map("county", "ca", plot = FALSE, fill = TRUE)
 #' head(fortify(ca))
-#' qplot(long, lat, data = ca, geom = "polygon", group = group)
+#' ggplot(ca, aes(long, lat)) +
+#'   geom_polygon(aes(group = group))
 #'
 #' tx <- map("county", "texas", plot = FALSE, fill = TRUE)
 #' head(fortify(tx))
-#' qplot(long, lat, data = tx, geom = "polygon", group = group,
-#'  colour = I("white"))
+#' ggplot(tx, aes(long, lat)) +
+#'   geom_polygon(aes(group = group), colour = "white")
 #' }
 fortify.map <- function(model, data, ...) {
   df <- as.data.frame(model[c("x", "y")])
@@ -54,10 +55,13 @@ fortify.map <- function(model, data, ...) {
 #'
 #' choro <- merge(states, arrests, sort = FALSE, by = "region")
 #' choro <- choro[order(choro$order), ]
-#' qplot(long, lat, data = choro, group = group, fill = assault,
-#'   geom = "polygon")
-#' qplot(long, lat, data = choro, group = group, fill = assault / murder,
-#'   geom = "polygon")
+#' ggplot(choro, aes(long, lat)) +
+#'   geom_polygon(aes(group = group, fill = assault)) +
+#'   coord_map("albers",  at0 = 45.5, lat1 = 29.5)
+#'
+#' ggplot(choro, aes(long, lat)) +
+#'   geom_polygon(aes(group = group, fill = assault / murder)) +
+#'   coord_map("albers",  at0 = 45.5, lat1 = 29.5)
 #' }
 map_data <- function(map, region = ".", exact = FALSE, ...) {
   try_require("maps")

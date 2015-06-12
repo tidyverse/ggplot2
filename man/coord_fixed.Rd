@@ -27,9 +27,10 @@ y axis longer than units on the x-axis, and vice versa. This is similar to
 # ensures that the ranges of axes are equal to the specified ratio by
 # adjusting the plot aspect ratio
 
-qplot(mpg, wt, data = mtcars) + coord_fixed(ratio = 1)
-qplot(mpg, wt, data = mtcars) + coord_fixed(ratio = 5)
-qplot(mpg, wt, data = mtcars) + coord_fixed(ratio = 1/5)
+p <- ggplot(mtcars, aes(mpg, wt))
+p + coord_fixed(ratio = 1)
+p + coord_fixed(ratio = 5)
+p + coord_fixed(ratio = 1/5)
 
 # Resize the plot to see that the specified aspect ratio is maintained
 }

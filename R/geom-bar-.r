@@ -45,35 +45,38 @@
 #' @examples
 #' \donttest{
 #' # Generate data
-#' c <- ggplot(mtcars, aes(factor(cyl)))
+#' g <- ggplot(mtcars, aes(factor(cyl)))
 #'
-#' # By default, uses stat="bin", which gives the count in each category
-#' c + geom_bar()
-#' c + geom_bar(width=.5)
-#' c + geom_bar() + coord_flip()
-#' c + geom_bar(fill="white", colour="darkgreen")
+#' # By default, uses stat = "bin", which gives the count in each category
+#' g + geom_bar()
+#' g + geom_bar(width = 0.5)
+#' g + geom_bar() +
+#'   coord_flip()
+#' g + geom_bar(fill = "white", colour = "darkgreen")
 #'
-#' # Use qplot
-#' qplot(factor(cyl), data=mtcars, geom="bar")
-#' qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(cyl))
-#'
-#' # When the data contains y values in a column, use stat="identity"
+#' # When the data contains y values in a column, use stat = "identity"
 #' library(plyr)
 #' # Calculate the mean mpg for each level of cyl
 #' mm <- ddply(mtcars, "cyl", summarise, mmpg = mean(mpg))
-#' ggplot(mm, aes(x = factor(cyl), y = mmpg)) + geom_bar(stat = "identity")
+#' ggplot(mm, aes(factor(cyl), mmpg)) +
+#'   geom_bar(stat = "identity")
 #'
 #' # Stacked bar charts
-#' qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(vs))
-#' qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(gear))
+#' g <- ggplot(mtcars, aes(factor(cyl)))
+#' g + geom_bar(aes(fill = factor(vs)))
+#' g + geom_bar(aes(fill = factor(gear)))
 #'
 #' # Stacked bar charts are easy in ggplot2, but not effective visually,
 #' # particularly when there are many different things being stacked
-#' ggplot(diamonds, aes(clarity, fill=cut)) + geom_bar()
-#' ggplot(diamonds, aes(color, fill=cut)) + geom_bar() + coord_flip()
+#' ggplot(diamonds, aes(clarity, fill = cut)) +
+#'   geom_bar()
+#' ggplot(diamonds, aes(color, fill = cut)) +
+#'   geom_bar() +
+#'   coord_flip()
 #'
 #' # Faceting is a good alternative:
-#' ggplot(diamonds, aes(clarity)) + geom_bar() +
+#' ggplot(diamonds, aes(clarity)) +
+#'   geom_bar() +
 #'   facet_wrap(~ cut)
 #' # If the x axis is ordered, using a line instead of bars is another
 #' # possibility:
@@ -81,33 +84,40 @@
 #'   geom_freqpoly(aes(group = cut, colour = cut))
 #'
 #' # Dodged bar charts
-#' ggplot(diamonds, aes(clarity, fill=cut)) + geom_bar(position="dodge")
+#' ggplot(diamonds, aes(clarity, fill = cut)) +
+#'   geom_bar(position = "dodge")
 #' # compare with
-#' ggplot(diamonds, aes(cut, fill=cut)) + geom_bar() +
+#' ggplot(diamonds, aes(cut, fill = cut)) +
+#'   geom_bar() +
 #'   facet_grid(. ~ clarity)
 #'
 #' # But again, probably better to use frequency polygons instead:
-#' ggplot(diamonds, aes(clarity, colour=cut)) +
+#' ggplot(diamonds, aes(clarity, colour = cut)) +
 #'   geom_freqpoly(aes(group = cut))
 #'
 #' # Often we don't want the height of the bar to represent the
 #' # count of observations, but the sum of some other variable.
 #' # For example, the following plot shows the number of diamonds
 #' # of each colour
-#' qplot(color, data=diamonds, geom="bar")
+#'
+#' ggplot(diamonds) +
+#'   geom_bar(aes(color))
 #' # If, however, we want to see the total number of carats in each colour
 #' # we need to weight by the carat variable
-#' qplot(color, data=diamonds, geom="bar", weight=carat, ylab="carat")
+#' ggplot(diamonds) +
+#'   geom_bar(aes(color, weight = carat)) +
+#'   ylab("carat")
 #'
 #' # A bar chart used to display means
 #' meanprice <- tapply(diamonds$price, diamonds$cut, mean)
 #' cut <- factor(levels(diamonds$cut), levels = levels(diamonds$cut))
-#' qplot(cut, meanprice)
-#' qplot(cut, meanprice, geom="bar", stat="identity")
-#' qplot(cut, meanprice, geom="bar", stat="identity", fill = I("grey50"))
+#' df <- data.frame(meanprice, cut)
+#' g <- ggplot(df, aes(cut, meanprice))
+#' g + geom_bar(stat = "identity")
+#' g + geom_bar(stat = "identity", fill = "grey50")
 #'
 #' # Another stacked bar chart example
-#' k <- ggplot(mpg, aes(manufacturer, fill=class))
+#' k <- ggplot(mpg, aes(x = manufacturer, fill = class))
 #' k + geom_bar()
 #' # Use scales to change aesthetics defaults
 #' k + geom_bar() + scale_fill_brewer()
@@ -117,7 +127,7 @@
 #' # use factor() to change order of levels
 #' mpg$class <- factor(mpg$class, levels = c("midsize", "minivan",
 #' "suv", "compact", "2seater", "subcompact", "pickup"))
-#' m <- ggplot(mpg, aes(manufacturer, fill=class))
+#' m <- ggplot(mpg, aes(x = manufacturer, fill = class))
 #' m + geom_bar()
 #' }
 geom_bar <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", ...) {

@@ -16,17 +16,25 @@
 #' xlim(20, 15)
 #' xlim(c(10, 20))
 #' xlim("a", "b", "c")
-#' qplot(mpg, wt, data=mtcars) + xlim(15, 20)
+#' ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point() +
+#'   xlim(15, 20)
 #' # with automatic lower limit
-#' qplot(mpg, wt, data=mtcars) + xlim(NA, 20)
+#' ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point() +
+#'   xlim(NA, 20)
 #'
 #' # ylim
 #' ylim(15, 20)
 #' ylim(c(10, 20))
 #' ylim("a", "b", "c")
-#' qplot(mpg, wt, data=mtcars) + ylim(0, 4)
+#' ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point() +
+#'   ylim(0, 4)
 #' # with automatic upper limit
-#' qplot(mpg, wt, data=mtcars) + ylim(0, NA)
+#' ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point() +
+#'   ylim(0, NA)
 xlim <- function(...) {
   limits(c(...), "x")
 }
@@ -100,15 +108,17 @@ limits.POSIXlt <- function(lims, var) {
 #'   should be included in each scale.
 #' @export
 #' @examples
-#' p <- qplot(mpg, wt, data = mtcars)
+#' p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
 #' p + expand_limits(x = 0)
 #' p + expand_limits(y = c(1, 9))
 #' p + expand_limits(x = 0, y = 0)
 #'
-#' qplot(mpg, wt, data = mtcars, colour = cyl) +
-#'  expand_limits(colour = seq(2, 10, by = 2))
-#' qplot(mpg, wt, data = mtcars, colour = factor(cyl)) +
-#'  expand_limits(colour = factor(seq(2, 10, by = 2)))
+#' ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point(aes(colour = cyl)) +
+#'   expand_limits(colour = seq(2, 10, by = 2))
+#' ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point(aes(colour = factor(cyl))) +
+#'   expand_limits(colour = factor(seq(2, 10, by = 2)))
 expand_limits <- function(...) {
   data <- data.frame(...)
 

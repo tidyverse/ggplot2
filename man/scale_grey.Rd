@@ -26,7 +26,7 @@ to control name, limits, breaks, labels and so forth.}
 Based on \code{\link{gray.colors}}
 }
 \examples{
-p <- qplot(mpg, wt, data=mtcars, colour=factor(cyl))
+p <- ggplot(mtcars, aes(mpg, wt)) + geom_point(aes(colour = factor(cyl)))
 p + scale_colour_grey()
 p + scale_colour_grey(end = 0)
 
@@ -35,8 +35,11 @@ p + scale_colour_grey() + theme_bw()
 
 # Colour of missing values is controlled with na.value:
 miss <- factor(sample(c(NA, 1:5), nrow(mtcars), rep = TRUE))
-qplot(mpg, wt, data = mtcars, colour = miss) + scale_colour_grey()
-qplot(mpg, wt, data = mtcars, colour = miss) +
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point(aes(colour = miss)) +
+  scale_colour_grey()
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point(aes(colour = miss)) +
   scale_colour_grey(na.value = "green")
 }
 \seealso{

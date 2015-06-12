@@ -57,6 +57,20 @@
 #' p + scale_y_continuous(labels = scales::percent)
 #' p + scale_y_continuous(labels = scales::dollar)
 #' p + scale_x_continuous(labels = scales::comma)
+#'
+#' # Other shortcut functions
+#' ggplot(movies, aes(rating, votes)) +
+#'   geom_point() +
+#'   ylim(1e4, 5e4)
+#' #   * axis labels
+#' ggplot(movies, aes(rating, votes)) +
+#'   geom_point() +
+#'   labs(x = "My x axis", y = "My y axis")
+#' #   * log scaling
+#' ggplot(movies, aes(rating, votes)) +
+#'   geom_point() +
+#'   scale_x_log10() +
+#'   scale_y_log10()
 #' }
 scale_x_continuous <- function(name = NULL, breaks = waiver(),
                                minor_breaks = waiver(), labels = waiver(),

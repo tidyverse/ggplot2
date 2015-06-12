@@ -43,8 +43,12 @@ Superimpose a function.
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "function")}
 }
 \examples{
-x <- rnorm(100)
-base <- qplot(x, geom = "density")
+set.seed(1492)
+df <- data.frame(
+  x = rnorm(100)
+)
+x <- df$x
+base <- ggplot(df, aes(x)) + geom_density()
 base + stat_function(fun = dnorm, colour = "red")
 base + stat_function(fun = dnorm, colour = "red", arg = list(mean = 3))
 
@@ -52,14 +56,12 @@ base + stat_function(fun = dnorm, colour = "red", arg = list(mean = 3))
 # Examples adapted from Kohske Takahashi
 
 # Specify range of x-axis
-qplot(c(0, 2), stat = "function", fun = exp, geom = "line")
-ggplot(data.frame(x = c(0, 2)), aes(x)) + stat_function(fun = exp)
+ggplot(data.frame(x = c(0, 2)), aes(x)) +
+  stat_function(fun = exp, geom = "line")
+
 # Plot a normal curve
 ggplot(data.frame(x = c(-5, 5)), aes(x)) + stat_function(fun = dnorm)
-# With qplot
-qplot(c(-5, 5), stat = "function", fun = dnorm, geom = "line")
-# Or
-qplot(c(-5, 5), geom = "blank") + stat_function(fun = dnorm)
+
 # To specify a different mean or sd, use the args parameter to supply new values
 ggplot(data.frame(x = c(-5, 5)), aes(x)) +
   stat_function(fun = dnorm, args = list(mean = 2, sd = .5))

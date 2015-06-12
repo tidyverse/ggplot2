@@ -9,22 +9,25 @@
 #' @export
 #' @examples
 #' # Simple quantiles/ECDF from examples(plot)
-#' x <- sort(rnorm(47))
-#' qplot(seq_along(x), x, geom="step")
+#' set.seed(1492)
+#' df <- data.frame(
+#'   x = sort(rnorm(47))
+#' )
+#' ggplot(df, aes(seq_along(x), x)) + geom_step()
 #'
 #' # Steps go horizontally, then vertically (default)
-#' qplot(seq_along(x), x, geom="step", direction = "hv")
-#' plot(x, type = "s")
+#' ggplot(df, aes(seq_along(x), x)) + geom_step(direction = "hv")
+#' plot(df$x, type = "s")
 #' # Steps go vertically, then horizontally
-#' qplot(seq_along(x), x, geom="step", direction = "vh")
-#' plot(x, type = "S")
+#' ggplot(df, aes(seq_along(x), x)) + geom_step(direction = "vh")
+#' plot(df$x, type = "S")
 #'
 #' # Also works with other aesthetics
 #' df <- data.frame(
 #'   x = sort(rnorm(50)),
 #'   trt = sample(c("a", "b"), 50, rep = TRUE)
 #' )
-#' qplot(seq_along(x), x, data = df, geom="step", colour = trt)
+#' ggplot(df, aes(seq_along(x), x)) + geom_step(aes(colour = trt))
 geom_step <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
 direction = "hv", ...) {
   GeomStep$new(mapping = mapping, data = data, stat = stat, position = position,

@@ -116,7 +116,7 @@ safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRU
 # @keyword internal
 #X a <- remove_missing(movies)
 #X a <- remove_missing(movies, na.rm = TRUE)
-#X qplot(mpaa, budget, data=movies, geom="boxplot")
+#X ggplot(movies, aes(mpaa, budget)) + geom_boxplot()
 remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = FALSE) {
   vars <- intersect(vars, names(df))
   if (name != "") name <- ps(" (", name, ")")

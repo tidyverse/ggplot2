@@ -19,7 +19,7 @@ Modify geom/stat aesthetic defaults for future plots
 }
 \examples{
 update_geom_defaults("point", list(colour = "darkblue"))
-qplot(mpg, wt, data = mtcars)
+ggplot(mtcars, aes(mpg, wt)) + geom_point()
 update_geom_defaults("point", list(colour = "black"))
 }
 

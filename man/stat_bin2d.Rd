@@ -55,12 +55,6 @@ d + stat_bin2d(binwidth = c(.1, 500))
 x <- seq(min(diamonds$carat), max(diamonds$carat), by = 0.1)
 y <- seq(min(diamonds$price), max(diamonds$price), length = 50)
 d + stat_bin2d(breaks = list(x = x, y = y))
-
-# With qplot
-qplot(x, y, data = diamonds, geom="bin2d",
-  xlim = c(4, 10), ylim = c(4, 10))
-qplot(x, y, data = diamonds, geom="bin2d", binwidth = c(0.1, 0.1),
-  xlim = c(4, 10), ylim = c(4, 10))
 }
 }
 \seealso{

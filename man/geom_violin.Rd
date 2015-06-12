@@ -46,8 +46,6 @@ p + geom_violin()
 \donttest{
 p + geom_violin() + geom_jitter(height = 0)
 p + geom_violin() + coord_flip()
-qplot(factor(cyl), mpg, data = mtcars, geom = "violin") +
-  coord_flip()
 
 # Scale maximum width proportional to sample size:
 p + geom_violin(scale = "count")
@@ -71,8 +69,6 @@ p + geom_violin(aes(fill = factor(am)))
 
 # Set aesthetics to fixed value
 p + geom_violin(fill = "grey80", colour = "#3366FF")
-qplot(factor(cyl), mpg, data = mtcars, geom = "violin",
-  colour = I("#3366FF"))
 
 # Scales vs. coordinate transforms -------
 # Scale transformations occur before the density statistics are computed.
@@ -88,9 +84,9 @@ m + geom_violin() + scale_y_log10() + coord_trans(y = "log10")
 
 # Violin plots with continuous x:
 # Use the group aesthetic to group observations in violins
-qplot(year, budget, data = movies, geom = "violin")
-qplot(year, budget, data = movies, geom = "violin",
-  group = round_any(year, 10, floor))
+ggplot(movies, aes(year, budget)) + geom_violin()
+ggplot(movies, aes(year, budget)) +
+  geom_violin(aes(group = round_any(year, 10, floor)))
 }
 }
 

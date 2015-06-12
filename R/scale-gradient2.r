@@ -13,7 +13,7 @@
 #' \donttest{
 #' dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
 #' dsub$diff <- with(dsub, sqrt(abs(x-y))* sign(x-y))
-#' (d <- qplot(x, y, data=dsub, colour=diff))
+#' (d <- ggplot(dsub, aes(x, y)) + geom_point(aes(colour = diff)))
 #'
 #' d + scale_colour_gradient2()
 #' # Change scale name
@@ -41,11 +41,16 @@
 #' d + scale_colour_gradient2(mid=muted("green"), high="white", low="white")
 #'
 #' # or use a non zero mid point
-#' (d <- qplot(carat, price, data=diamonds, colour=price/carat))
+#' (d <- ggplot(diamonds, aes(carat, price)) +
+#'       geom_point(aes(colour = price/carat)))
 #' d + scale_colour_gradient2(midpoint=mean(diamonds$price / diamonds$carat))
 #'
 #' # Fill gradients work much the same way
-#' p <- qplot(letters[1:5], 1:5, fill= c(-3, 3, 5, 2, -2), geom = "bar",
+#' df <- data.frame(
+#'   x = letters[1:5]
+#' )
+#' p <- ggplot(df, aes(x, seq_along(x))) +
+#'      geom_bar(stat = "identity", aes(fill = c(-3, 3, 5, 2, -2)))
 #'   stat = "identity")
 #' p + scale_fill_gradient2("fill")
 #' # Note how positive and negative values of the same magnitude

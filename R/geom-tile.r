@@ -27,10 +27,6 @@
 #' # Change scale
 #' p + geom_tile(aes(fill=z)) + scale_fill_gradient(low="green", high="red")
 #'
-#' # Use qplot instead
-#' qplot(x, y, data=pp(20), geom="tile", fill=z)
-#' qplot(x, y, data=pp(100), geom="tile", fill=z)
-#'
 #' # Missing values
 #' p <- ggplot(pp(20)[sample(20*20, size=200),], aes(x=x,y=y,fill=z))
 #' p + geom_tile()
@@ -58,15 +54,16 @@
 #'   w = rep(diff(x.cell.boundary), 2)
 #' )
 #'
-#' qplot(x, y, fill=z, data=example, geom="tile")
-#' qplot(x, y, fill=z, data=example, geom="tile", width=w)
-#' qplot(x, y, fill=factor(z), data=example, geom="tile", width=w)
+#' ggplot(example, aes(x, y)) + geom_tile(aes(fill = z))
+#' ggplot(example, aes(x, y)) + geom_tile(aes(fill = z, width = w))
+#' ggplot(example, aes(x, y)) + geom_tile(aes(fill = factor(z), width = w))
 #'
 #' # You can manually set the colour of the tiles using
 #' # scale_manual
 #' col <- c("darkblue", "blue", "green", "orange", "red")
-#' qplot(x, y, fill=col[z], data=example, geom="tile", width=w, group=1) +
-#'   scale_fill_identity(labels=letters[1:5], breaks=col)
+#' ggplot(example, aes(x, y)) +
+#'   geom_tile(aes(fill = col[z], width = w, group = 1)) +
+#'   scale_fill_identity(labels = letters[1:5], breaks = col)
 #' }
 geom_tile <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
   GeomTile$new(mapping = mapping, data = data, stat = stat, position = position, ...)

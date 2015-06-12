@@ -76,10 +76,6 @@ v + stat_contour(size = 2, linetype = 4)
 # Try different geoms
 v + stat_contour(geom="polygon", aes(fill=..level..))
 v + geom_tile(aes(fill = z)) + stat_contour()
-
-# Use qplot instead
-qplot(x, y, z = z, data = volcano3d, geom = "contour")
-qplot(x, y, z = z, data = volcano3d, stat = "contour", geom = "path")
 }
 }
 

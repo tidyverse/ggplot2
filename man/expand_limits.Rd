@@ -15,14 +15,16 @@ panels or all plots.  This function is a thin wrapper around
 \code{\link{geom_blank}} that makes it easy to add such values.
 }
 \examples{
-p <- qplot(mpg, wt, data = mtcars)
+p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
 p + expand_limits(x = 0)
 p + expand_limits(y = c(1, 9))
 p + expand_limits(x = 0, y = 0)
 
-qplot(mpg, wt, data = mtcars, colour = cyl) +
- expand_limits(colour = seq(2, 10, by = 2))
-qplot(mpg, wt, data = mtcars, colour = factor(cyl)) +
- expand_limits(colour = factor(seq(2, 10, by = 2)))
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point(aes(colour = cyl)) +
+  expand_limits(colour = seq(2, 10, by = 2))
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point(aes(colour = factor(cyl))) +
+  expand_limits(colour = factor(seq(2, 10, by = 2)))
 }
 

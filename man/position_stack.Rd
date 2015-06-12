@@ -34,11 +34,13 @@ data.set <- data.frame(
   Value = rpois(16, 10)
 )
 
-qplot(Time, Value, data = data.set, fill = Type, geom = "area")
+ggplot(data.set, aes(Time, Value)) + geom_area(aes(fill = Type))
+
 # If you want to stack lines, you need to say so:
-qplot(Time, Value, data = data.set, colour = Type, geom = "line")
-qplot(Time, Value, data = data.set, colour = Type, geom = "line",
-  position = "stack")
+ggplot(data.set, aes(Time, Value)) + geom_line(aes(colour = Type))
+ggplot(data.set, aes(Time, Value)) +
+  geom_line(position = "stack", aes(colour = Type))
+
 # But realise that this makes it *much* harder to compare individual
 # trends
 }

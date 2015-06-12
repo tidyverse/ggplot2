@@ -51,7 +51,8 @@ entire element; it only updates element properties which are present
 }
 \examples{
 ### Adding objects to a ggplot object
-p <- qplot(wt, mpg, colour = hp, data = mtcars)
+p <- ggplot(hp, aes(wt, mpg)) +
+  geom_point()
 
 p + coord_cartesian(ylim = c(0, 40))
 p + scale_colour_continuous(breaks = c(100, 300))

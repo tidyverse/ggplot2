@@ -24,13 +24,15 @@ breaks, labels and so forth.}
 that is the most common use of alpha, and it saves a bit of typing.
 }
 \examples{
-(p <- qplot(mpg, cyl, data = mtcars, alpha = cyl))
+(p <- ggplot(mtcars, aes(mpg, cyl)) +
+  geom_point(aes(alpha = cyl)))
 p + scale_alpha("cylinders")
 p + scale_alpha("number\\nof\\ncylinders")
 
 p + scale_alpha(range = c(0.4, 0.8))
 
-(p <- qplot(mpg, cyl, data=mtcars, alpha = factor(cyl)))
+(p <- ggplot(mtcars, aes(mpg, cyl)) +
+  geom_point(aes(alpha = factor(cyl))))
 p + scale_alpha_discrete(range = c(0.4, 0.8))
 }
 

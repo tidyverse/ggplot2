@@ -15,28 +15,22 @@
 #' @export
 #' @examples
 #' \donttest{
-#' # From ?qqplot
-#' y <- rt(200, df = 5)
-#' qplot(sample = y, stat="qq")
-#'
-#' # qplot is smart enough to use stat_qq if you use sample
-#' qplot(sample = y)
-#' qplot(sample = precip)
-#'
-#' qplot(sample = y, dist = qt, dparams = list(df = 5))
-#'
-#' df <- data.frame(y)
-#' ggplot(df, aes(sample = y)) + stat_qq()
-#' ggplot(df, aes(sample = y)) + geom_point(stat = "qq")
+#' df <- data.frame(y = rt(200, df = 5))
+#' p <- ggplot(df, aes(sample = y))
+#' p + stat_qq()
+#' p + geom_point(stat = "qq")
 #'
 #' # Use fitdistr from MASS to estimate distribution params
 #' library(MASS)
 #' params <- as.list(fitdistr(y, "t")$estimate)
-#' ggplot(df, aes(sample = y)) + stat_qq(dist = qt, dparam = params)
+#' ggplot(df, aes(sample = y)) +
+#'   stat_qq(dist = qt, dparam = params)
 #'
 #' # Using to explore the distribution of a variable
-#' qplot(sample = mpg, data = mtcars)
-#' qplot(sample = mpg, data = mtcars, colour = factor(cyl))
+#' ggplot(mtcars) +
+#'   stat_qq(aes(sample = mpg))
+#' ggplot(mtcars) +
+#'   stat_qq(aes(sample = mpg, colour = factor(cyl)))
 #' }
 stat_qq <- function (mapping = NULL, data = NULL, geom = "point", position = "identity",
 distribution = qnorm, dparams = list(), na.rm = FALSE, ...) {

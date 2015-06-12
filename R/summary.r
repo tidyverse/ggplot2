@@ -6,7 +6,9 @@
 #' @method summary ggplot
 #' @export
 #' @examples
-#' summary(qplot(mpg, wt, data=mtcars))
+#' p <- ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point()
+#' summary(p)
 summary.ggplot <- function(object, ...) {
   wrap <- function(x) paste(
     paste(strwrap(x, exdent = 2), collapse = "\n"),

@@ -61,7 +61,9 @@ p2 + geom_vline(xintercept = 15)
 
 # To display different lines in different facets, you need to
 # create a data frame.
-p <- qplot(mpg, wt, data=mtcars, facets = vs ~ am)
+p <- ggplot(mtcars, aes(mpg, wt)) +
+     geom_point() +
+     facet_wrap(vs ~ am)
 vline.data <- data.frame(z = c(15, 20, 25, 30), vs = c(0, 0, 1, 1), am = c(0, 1, 0, 1))
 p + geom_vline(aes(xintercept = z), vline.data)
 }

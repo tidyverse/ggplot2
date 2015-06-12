@@ -41,9 +41,14 @@ df <- expand.grid(x = 1:10, y=1:10)
 df$angle <- runif(100, 0, 2*pi)
 df$speed <- runif(100, 0, 0.5)
 
-qplot(x, y, data=df) + stat_spoke(aes(angle=angle), radius = 0.5)
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  stat_spoke(aes(angle = angle), radius = 0.5)
+
 last_plot() + scale_y_reverse()
 
-qplot(x, y, data=df) + stat_spoke(aes(angle=angle, radius=speed))
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  stat_spoke(aes(angle = angle, radius = speed))
 }
 
