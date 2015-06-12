@@ -59,6 +59,9 @@ ggplot2 1.0.1
 
 * Fixes to pass `R CMD check --run-donttest` in R-devel.
 
+* Improvements in to order of colours and legend display of continuous colour
+  scales extracted from colorbrewer palettes in `scale_*_distiller()` (@jiho, 1076)
+
 ggplot2 1.0.0
 ----------------------------------------------------------------
 
