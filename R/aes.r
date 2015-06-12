@@ -126,8 +126,10 @@ is_position_aes <- function(vars) {
 #' aes(col = x)
 #' aes_string(col = var)
 #' aes_q(col = as.name(var))
-aes_string <- function(x = NULL, y = NULL, ...) {
-  mapping <- c(compact(list(x = x, y = y)), list(...))
+aes_string <- function(x, y, ...) {
+  mapping <- list(...)
+  if (!missing(x)) mapping["x"] <- list(x)
+  if (!missing(y)) mapping["y"] <- list(y)
 
   parsed <- lapply(mapping, function(x) {
     if (!is.character(x)) return(x)

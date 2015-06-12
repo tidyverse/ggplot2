@@ -28,6 +28,12 @@ test_that("aes_string: non-position NULL kept as NULL", {
   expect_equal(aes_string(colour = NULL), aes(colour = NULL))
 })
 
+test_that("aes_string: explicit NULL kept as NULL", {
+  expect_equal(aes_string(), aes())
+  expect_equal(aes_string(NULL), aes(x = NULL))
+  expect_equal(aes_string(y = NULL), aes(y = NULL))
+})
+
 test_that("function aes_all", {
   expect_equal(aes_all(names(mtcars)),
                structure(
