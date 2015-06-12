@@ -5,23 +5,33 @@
 #'   \code{\link{continuous_scale}}
 #' @param guide Guide to use for this scale - defaults to \code{"none"}.
 #' @examples
-#' colour <- c("red", "green", "blue", "yellow")
-#' qplot(1:4, 1:4, fill = colour, geom = "tile")
-#' qplot(1:4, 1:4, fill = colour, geom = "tile") + scale_fill_identity()
+#' df <- data.frame(
+#'   x = 1:4,
+#'   y = 1:4,
+#'   colour = c("red", "green", "blue", "yellow")
+#' )
+#' ggplot(df, aes(x, y)) + geom_tile(aes(fill = colour))
+#' ggplot(df, aes(x, y)) +
+#'   geom_tile(aes(fill = colour)) +
+#'   scale_fill_identity()
 #'
 #' # To get a legend guide, specify guide = "legend"
-#' qplot(1:4, 1:4, fill = colour, geom = "tile") +
+#' ggplot(df, aes(x, y)) +
+#'   geom_tile(aes(fill = colour)) +
 #'   scale_fill_identity(guide = "legend")
 #' # But you'll typically also need to supply breaks and labels:
-#' qplot(1:4, 1:4, fill = colour, geom = "tile") +
-#'   scale_fill_identity("trt", labels = letters[1:4], breaks = colour,
+#' ggplot(df, aes(x, y)) +
+#'   geom_tile(aes(fill = colour)) +
+#'   scale_fill_identity("trt", labels = letters[1:4], breaks = df$colour,
 #'   guide = "legend")
 #'
 #' # cyl scaled to appropriate size
-#' qplot(mpg, wt, data = mtcars, size = cyl)
+#' ggplot(mtcars, aes(mpg, wt)) + geom_point(aes(size = cyl))
 #'
 #' # cyl used as point size
-#' qplot(mpg, wt, data = mtcars, size = cyl) + scale_size_identity()
+#' ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point(aes(size = cyl)) +
+#'   scale_size_identity()
 NULL
 
 #' @rdname scale_identity

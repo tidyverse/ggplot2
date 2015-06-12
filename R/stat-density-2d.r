@@ -15,34 +15,37 @@
 #' @export
 #' @examples
 #' \donttest{
-#' library("MASS")
-#' data(geyser, "MASS")
+#' library(MASS)
+#' data(geyser)
 #'
 #' m <- ggplot(geyser, aes(x = duration, y = waiting)) +
-#'   geom_point() + xlim(0.5, 6) + ylim(40, 110)
+#'      geom_point() + xlim(0.5, 6) + ylim(40, 110)
 #' m + geom_density2d()
 #'
 #' dens <- kde2d(geyser$duration, geyser$waiting, n = 50,
 #'               lims = c(0.5, 6, 40, 110))
 #' densdf <- data.frame(expand.grid(duration = dens$x, waiting = dens$y),
-#'  z = as.vector(dens$z))
+#'                      z = as.vector(dens$z))
 #' m + geom_contour(aes(z=z), data=densdf)
 #'
 #' m + geom_density2d() + scale_y_log10()
-#' m + geom_density2d() + coord_trans(y="log10")
+#' m + geom_density2d() + coord_trans(y = "log10")
 #'
 #' m + stat_density2d(aes(fill = ..level..), geom="polygon")
 #'
-#' qplot(duration, waiting, data=geyser, geom=c("point","density2d")) +
-#'   xlim(0.5, 6) + ylim(40, 110)
+#' ggplot(geyser, aes(duration, waiting)) +
+#'   geom_point() +
+#'   geom_density2d() +
+#'   xlim(0.5, 6) +
+#'   ylim(40, 110)
 #'
 #' # If you map an aesthetic to a categorical variable, you will get a
 #' # set of contours for each value of that variable
 #' set.seed(4393)
 #' dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
-#' qplot(x, y, data = dsmall, geom = "density2d", colour = cut)
-#' qplot(x, y, data = dsmall, geom = "density2d", linetype = cut)
-#' qplot(carat, price, data = dsmall, geom = "density2d", colour = cut)
+#' ggplot(dsmall, aes(x, y)) + geom_density2d(aes(colour = cut))
+#' ggplot(dsmall, aes(x, y)) + geom_density2d(aes(linetype = cut))
+#' ggplot(dsmall, aes(carat, price)) + geom_density2d(aes(colour = cut))
 #' d <- ggplot(dsmall, aes(carat, price)) + xlim(1,3)
 #' d + geom_point() + geom_density2d()
 #'

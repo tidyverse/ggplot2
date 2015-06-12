@@ -6,7 +6,7 @@
 #' @export
 #' @inheritParams geom_point
 #' @examples
-#' qplot(length, rating, data = movies, geom = "blank")
+#' ggplot(movies, aes(length, rating)) + geom_blank()
 #' # Nothing to see here!
 #'
 #' # Take the following scatter plot

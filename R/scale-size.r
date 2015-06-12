@@ -1,37 +1,61 @@
-#' Size scale.
+#' Scale size (area or radius).
+#'
+#' \code{scale_size} scales area, \code{scale_radius} scales radius. The size
+#' aesthetic is most commonly used for points and text, and humans percieve
+#' the area of points (not their radius), so this provides for optimal
+#' perception.
 #'
 #' @name scale_size
-#' @inheritParams scale_x_continuous
+#' @inheritParams continuous_scale
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
+#' @seealso \code{\link{scale_size_area}} if you want 0 values to be mapped
+#'   to points with size 0.
 #' @examples
 #' \donttest{
-#' (p <- qplot(mpg, cyl, data=mtcars, size=cyl))
+#' p <- ggplot(mtcars, aes(mpg, cyl, size = cyl)) +
+#'    geom_point()
+#' p
 #' p + scale_size("cylinders")
 #' p + scale_size("number\nof\ncylinders")
 #'
 #' p + scale_size(range = c(0, 10))
 #' p + scale_size(range = c(1, 2))
 #'
-#' # Map area, instead of width/radius
-#' # Perceptually, this is a little better
+#' # If you want zero value to have zero size, use scale_size_area:
 #' p + scale_size_area()
-#' p + scale_size_area(max_size = 25)
 #'
-#' # Also works with factors, but not a terribly good
+#' # You can map size to a factor, but it's not a terribly good
 #' # idea, unless your factor is ordered, as in this example
-#' qplot(mpg, cyl, data=mtcars, size=factor(cyl))
+#' ggplot(mtcars, aes(mpg, cyl, size = factor(cyl))) +
+#'   geom_point()
 #'
 #' # To control the size mapping for discrete variable, use
 #' # scale_size_manual:
-#' last_plot() + scale_size_manual(values=c(2,4,6))
+#' ggplot(mtcars, aes(mpg, cyl, size = factor(cyl))) +
+#'   geom_point() +
+#'   scale_size_manual(values = c(2, 4, 6))
 #' }
 NULL
 
 #' @rdname scale_size
 #' @export
-scale_size_continuous <- function(..., range = c(1, 6)) {
-  continuous_scale("size", "size_c", rescale_pal(range), ...)
+scale_size_continuous <- function(name = NULL, breaks = waiver(), labels = waiver(),
+                                  limits = NULL, range = c(1, 6),
+                                  trans = "identity", guide = "legend") {
+  continuous_scale("size", "area", area_pal(range), name = name,
+    breaks = breaks, labels = labels, limits = limits, trans = trans,
+    guide = guide)
+}
+
+#' @rdname scale_size
+#' @export
+scale_radius <- function(name = NULL, breaks = waiver(), labels = waiver(),
+                         limits = NULL, range = c(1, 6),
+                         trans = "identity", guide = "legend") {
+  continuous_scale("size", "size_c", area_pal(range), name = name,
+    breaks = breaks, labels = labels, limits = limits, trans = trans,
+    guide = guide)
 }
 
 #' @rdname scale_size
@@ -40,15 +64,18 @@ scale_size <- scale_size_continuous
 
 #' @rdname scale_size
 #' @export
-scale_size_discrete <- function(..., range = c(1, 6)) {
-  discrete_scale("size", "size_d",
-    function(n) seq(range[1], range[2], length = n), ...)
+#' @param ... Additional arguments passed on to \code{\link{discrete_scale}}.
+scale_size_discrete <- function(..., range = c(2, 6)) {
+  discrete_scale("size", "size_d", function(n) {
+    area <- seq(range[1] ^ 2, range[2] ^ 2, length = n)
+    sqrt(area)
+  }, ...)
 }
 
-#' Scale area instead of radius, for size.
+#' Scale area, with fixed 0.
 #'
-#' When \code{scale_size_area} is used, the default behavior is to scale the
-#' area of points to be proportional to the value.
+#' This scale is subtly different to \code{scale_area}: it ensures that a
+#' value of zero is always mapped to size 0.
 #'
 #' Note that this controls the size scale, so it will also control
 #' the thickness of lines. Line thickness will be proportional to the square

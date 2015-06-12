@@ -9,7 +9,8 @@
 #'   given \code{na.value}.
 #' @examples
 #' \donttest{
-#' p <- qplot(mpg, wt, data = mtcars, colour = factor(cyl))
+#' p <- ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point(aes(colour = factor(cyl)))
 #'
 #' p + scale_colour_manual(values = c("red","blue", "green"))
 #' p + scale_colour_manual(

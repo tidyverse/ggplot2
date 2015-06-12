@@ -7,19 +7,23 @@
 #' @seealso \code{\link{\%+replace\%}} and \code{\link{+.gg}}
 #' @export
 #' @examples
-#' qplot(mpg, wt, data = mtcars)
+#' p <- ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point()
+#' p
 #' old <- theme_set(theme_bw())
-#' qplot(mpg, wt, data = mtcars)
+#' p
 #' theme_set(old)
-#' qplot(mpg, wt, data = mtcars)
+#' p
 #'
 #' old <- theme_update(panel.background = element_rect(colour = "pink"))
-#' qplot(mpg, wt, data = mtcars)
+#' p
 #' theme_set(old)
 #' theme_get()
 #'
-#' qplot(mpg, wt, data=mtcars, colour=mpg) +
-#'   theme(legend.position=c(0.95, 0.95), legend.justification = c(1, 1))
+#' ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point(aes(color = mpg)) +
+#'   theme(legend.position = c(0.95, 0.95),
+#'         legend.justification = c(1, 1))
 #' last_plot() +
 #'  theme(legend.background = element_rect(fill = "white", colour = "white", size = 3))
 theme_update <- function(...) {
@@ -58,7 +62,7 @@ print.theme <- function(x, ...) str(x)
 #' \tabular{ll}{
 #'   line             \tab all line elements
 #'                    (\code{element_line}) \cr
-#'   rect             \tab all rectangluar elements
+#'   rect             \tab all rectangular elements
 #'                    (\code{element_rect}) \cr
 #'   text             \tab all text elements
 #'                    (\code{element_text}) \cr
@@ -191,13 +195,15 @@ print.theme <- function(x, ...) str(x)
 #' @export
 #' @examples
 #' \donttest{
-#' p <- qplot(mpg, wt, data = mtcars)
+#' p <- ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point()
 #' p
 #' p + theme(panel.background = element_rect(colour = "pink"))
 #' p + theme_bw()
 #'
 #' # Scatter plot of gas mileage by vehicle weight
-#' p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
+#' p <- ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point()
 #' # Calculate slope and intercept of line of best fit
 #' coef(lm(mpg ~ wt, data = mtcars))
 #' p + geom_abline(intercept = 37, slope = -5)
@@ -210,7 +216,7 @@ print.theme <- function(x, ...) str(x)
 #' # Change the axis labels
 #' # Original plot
 #' p
-#' p + xlab("Vehicle Weight") + ylab("Miles per Gallon")
+#' p + labs(x = "Vehicle Weight", y = "Miles per Gallon")
 #' # Or
 #' p + labs(x = "Vehicle Weight", y = "Miles per Gallon")
 #'
@@ -222,7 +228,8 @@ print.theme <- function(x, ...) str(x)
 #'
 #' # Changing plot look with themes
 #' DF <- data.frame(x = rnorm(400))
-#' m <- ggplot(DF, aes(x = x)) + geom_histogram()
+#' m <- ggplot(DF, aes(x = x)) +
+#'   geom_histogram()
 #' # Default is theme_grey()
 #' m
 #' # Compare with
@@ -239,7 +246,8 @@ print.theme <- function(x, ...) str(x)
 #' m + theme(axis.ticks.length = unit(.85, "cm"))
 #'
 #' # Legend Attributes
-#' z <- ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) + geom_point()
+#' z <- ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point(aes(colour = factor(cyl)))
 #' z
 #' z + theme(legend.position = "none")
 #' z + theme(legend.position = "bottom")
@@ -248,8 +256,10 @@ print.theme <- function(x, ...) str(x)
 #  # Add a border to the whole legend
 #' z + theme(legend.background = element_rect(colour = "black"))
 #' # Legend margin controls extra space around outside of legend:
-#' z + theme(legend.background = element_rect(), legend.margin = unit(1, "cm"))
-#' z + theme(legend.background = element_rect(), legend.margin = unit(0, "cm"))
+#' z + theme(legend.background = element_rect(),
+#'           legend.margin = unit(1, "cm"))
+#' z + theme(legend.background = element_rect(),
+#'           legend.margin = unit(0, "cm"))
 #' # Or to just the keys
 #' z + theme(legend.key = element_rect(colour = "black"))
 #' z + theme(legend.key = element_rect(fill = "yellow"))
@@ -268,15 +278,17 @@ print.theme <- function(x, ...) str(x)
 #' z + theme(panel.grid.major = element_line(colour = "blue"))
 #' z + theme(panel.grid.minor = element_line(colour = "red", linetype = "dotted"))
 #' z + theme(panel.grid.major = element_line(size = 2))
-#' z + theme(panel.grid.major.y = element_blank(), panel.grid.minor.y = element_blank())
+#' z + theme(panel.grid.major.y = element_blank(),
+#'           panel.grid.minor.y = element_blank())
 #' z + theme(plot.background = element_rect())
 #' z + theme(plot.background = element_rect(fill = "green"))
 #'
 #' # Faceting Attributes
 #' set.seed(4940)
 #' dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
-#' k <- ggplot(dsmall, aes(carat, ..density..)) + geom_histogram(binwidth = 0.2) +
-#' facet_grid(. ~ cut)
+#' k <- ggplot(dsmall, aes(carat, ..density..)) +
+#'   geom_histogram(binwidth = 0.2) +
+#'   facet_grid(. ~ cut)
 #' k + theme(strip.background = element_rect(colour = "purple", fill = "pink",
 #'                                           size = 3, linetype = "dashed"))
 #' k + theme(strip.text.x = element_text(colour = "red", angle = 45, size = 10,
@@ -289,7 +301,9 @@ print.theme <- function(x, ...) str(x)
 #' mytheme <- theme_grey() + theme(plot.title = element_text(colour = "red"))
 #' p + mytheme
 #'
+#' }
 #'
+#' \dontrun{
 #' ## Run this to generate a graph of the element inheritance tree
 #' build_element_graph <- function(tree) {
 #'   require(igraph)
@@ -326,33 +340,6 @@ theme <- function(..., complete = FALSE) {
   structure(elements, class = c("theme", "gg"), complete = complete)
 }
 
-
-#' Build a theme (or partial theme) from theme elements
-#'
-#' \code{opts} is deprecated. See the \code{\link{theme}} function.
-#' @param ... Arguments to be passed on to the \code{theme} function.
-#'
-#' @export
-opts <- function(...) {
-  gg_dep("0.9.1", "'opts' is deprecated. Use 'theme' instead.")
-
-  # Add check for deprecated elements
-  extra <- NULL
-  elements <- list(...)
-  if (!is.null(elements[["title"]])) {
-    # This is kind of a hack, but fortunately it will be removed in future versions
-    gg_dep("0.9.1", paste(sep = "\n",
-      'Setting the plot title with opts(title="...") is deprecated.',
-      ' Use labs(title="...") or ggtitle("...") instead.'))
-
-    title <- elements$title
-    elements$title <- NULL
-
-    return(list(ggtitle(title), do.call(theme, elements)))
-  }
-
-  do.call(theme, elements)
-}
 
 # Combine plot defaults with current theme to get complete theme for a plot
 plot_theme <- function(x) {
@@ -465,7 +452,8 @@ add_theme <- function(t1, t2, t2name) {
 # same name as those from newtheme, and puts them in oldtheme. Then
 # it adds elements from newtheme to oldtheme.
 # This makes it possible to do things like:
-#   qplot(1:3, 1:3) + theme(text = element_text(colour = 'red'))
+#   ggplot(data.frame(x = 1:3, y = 1:3)) +
+#   geom_point() + theme(text = element_text(colour = 'red'))
 # and have 'text' keep properties from the default theme. Otherwise
 # you would have to set all the element properties, like family, size,
 # etc.
@@ -494,53 +482,6 @@ update_theme <- function(oldtheme, newtheme) {
 
   oldtheme + newtheme
 }
-
-
-##' Update contents of a theme. (Deprecated)
-##'
-##' This function is deprecated. Use \code{\link{\%+replace\%}} or
-##' \code{\link{+.gg}} instead.
-##'
-##' @title Update theme param
-##' @param name name of a theme element
-##' @param ... Pairs of name and value of theme parameters.
-##' @return Updated theme element
-##' @seealso \code{\link{\%+replace\%}} and \code{\link{+.gg}}
-##' @export
-##' @examples
-##' \dontrun{
-##' x <- element_text(size = 15)
-##' update_element(x, colour = "red")
-##' # Partial matching works
-##' update_element(x, col = "red")
-##' # So does positional
-##' update_element(x, "Times New Roman")
-##' # And it throws an error if you use an argument that doesn't exist
-##' update_element(x, noargument = 12)
-##' # Or multiple arguments with the same name
-##' update_element(x, size = 12, size = 15)
-##'
-##' # Will look up element if given name
-##' update_element("axis.text.x", colour = 20)
-##' # Throws error if incorrectly named
-##' update_element("axis.text", colour = 20)
-##' }
-update_element <- function(name, ...) {
-  gg_dep("0.9.1", "update_element is deprecated. Use '+.gg' instead.")
- if (is.character(name)) {
-   ele <- theme_get()[[name]]
-   if (is.null(ele)) {
-     stop("Could not find theme element ", name, call. = FALSE)
-   }
- } else {
-   ele <- name
- }
-
-  stopifnot(inherits(ele, "element"))
-
-  modifyList(ele, list(...))
-}
-
 
 #' Calculate the element properties, by inheriting properties from its parents
 #'

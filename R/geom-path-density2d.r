@@ -1,6 +1,6 @@
 #' Contours from a 2d density estimate.
 #'
-#' Perform a 2D kernel density estimatation using kde2d and display the
+#' Perform a 2D kernel density estimation using kde2d and display the
 #' results with contours.
 #'
 #' This can be useful for dealing with overplotting.

@@ -90,7 +90,7 @@
 #'   scale_size(guide = guide_legend(direction = "vertical"))
 guide_colourbar <- function(
 
-  #　title
+  # title
   title = waiver(),
   title.position = NULL,
   title.theme = NULL,
@@ -127,7 +127,7 @@ guide_colourbar <- function(
   if (!is.null(barheight) && !is.unit(barheight)) barheight <- unit(barheight, default.unit)
 
   structure(list(
-    #　title
+    # title
     title = title,
     title.position = title.position,
     title.theme = title.theme,
@@ -189,7 +189,11 @@ guide_train.colorbar <- function(guide, scale) {
   names(guide$key) <- c(output, ".label", ".value")
 
   # bar specification (number of divs etc)
-  .bar <- discard(pretty(scale_limits(scale), n = guide$nbin), scale_limits(scale))
+  .limits <- scale_limits(scale)
+  .bar <- discard(pretty(.limits, n = guide$nbin), scale_limits(scale))
+  if (length(.bar) == 0) {
+    .bar = unique(.limits)
+  }
   guide$bar <- data.frame(colour=scale_map(scale, .bar), value=.bar, stringsAsFactors = FALSE)
   if (guide$reverse) {
     guide$key <- guide$key[nrow(guide$key):1, ]

@@ -24,7 +24,10 @@ cut_interval <- function(x, n = NULL, length = NULL, ...) {
 #' @examples
 #' table(cut_number(runif(1000), n = 10))
 cut_number <- function(x, n = NULL, ...) {
-  cut(x, breaks(x, "n", n), include.lowest = TRUE, ...)
+  brk <- breaks(x, "n", n)
+  if (anyDuplicated(brk))
+    stop("Insufficient data values to produce ", n, " bins.", call. = FALSE)
+  cut(x, brk , include.lowest = TRUE, ...)
 }
 
 breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {

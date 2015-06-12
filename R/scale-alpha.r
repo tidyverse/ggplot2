@@ -9,13 +9,15 @@
 #' @param range range of output alpha values.  Should lie between 0 and 1.
 #' @export
 #' @examples
-#' (p <- qplot(mpg, cyl, data = mtcars, alpha = cyl))
+#' (p <- ggplot(mtcars, aes(mpg, cyl)) +
+#'   geom_point(aes(alpha = cyl)))
 #' p + scale_alpha("cylinders")
 #' p + scale_alpha("number\nof\ncylinders")
 #'
 #' p + scale_alpha(range = c(0.4, 0.8))
 #'
-#' (p <- qplot(mpg, cyl, data=mtcars, alpha = factor(cyl)))
+#' (p <- ggplot(mtcars, aes(mpg, cyl)) +
+#'   geom_point(aes(alpha = factor(cyl))))
 #' p + scale_alpha_discrete(range = c(0.4, 0.8))
 scale_alpha <- function(..., range = c(0.1, 1)) {
   continuous_scale("alpha", "alpha_c", rescale_pal(range), ...)

@@ -4,7 +4,7 @@
 #' @param labels named list of new labels
 #' @export
 #' @examples
-#' p <- qplot(mpg, wt, data = mtcars)
+#' p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
 #' update_labels(p, list(x = "New x"))
 #' update_labels(p, list(x = expression(x / y ^ 2)))
 #' update_labels(p, list(x = "New x", y = "New Y"))
@@ -21,20 +21,20 @@ update_labels <- function(p, labels) {
 #' @param ... a list of new names in the form aesthetic = "new name"
 #' @export
 #' @examples
-#' p <- qplot(mpg, wt, data = mtcars)
+#' p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
 #' p + labs(title = "New plot title")
 #' p + labs(x = "New x label")
 #' p + xlab("New x label")
 #' p + ylab("New y label")
 #' p + ggtitle("New plot title")
 #'
-#' # This should work indepdendently of other functions that modify the
+#' # This should work independently of other functions that modify the
 #' # the scale names
 #' p + ylab("New y label") + ylim(2, 4)
 #' p + ylim(2, 4) + ylab("New y label")
 #'
 #' # The labs function also modifies legend labels
-#' p <- qplot(mpg, wt, data = mtcars, colour = cyl)
+#' p <- ggplot(mtcars, aes(mpg, wt, colour = cyl)) + geom_point()
 #' p + labs(colour = "Cylinders")
 #'
 #' # Can also pass in a list, if that is more convenient

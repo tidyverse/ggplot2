@@ -43,6 +43,6 @@
 #' counts$x <- as.numeric(as.character(counts$x))
 #' with(counts, plot(x, Freq, type = "h", lwd = 10))
 #'
-#' qplot(x, Freq, data = counts, geom = "segment", yend = 0, xend = x,
-#'   size = I(10))
+#' ggplot(counts, aes(x, Freq)) +
+#'   geom_segment(aes(yend = 0, xend = x), size = 10)
 NULL

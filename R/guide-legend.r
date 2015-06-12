@@ -10,7 +10,7 @@
 #'
 #' @param title A character string or expression indicating a title of guide.
 #'   If \code{NULL}, the title is not shown. By default
-#'   (\code{\link{waiver}}), the name of the scale object or tha name
+#'   (\code{\link{waiver}}), the name of the scale object or the name
 #'   specified in \code{\link{labs}} is used for the title.
 #' @param title.position A character string indicating the position of a
 #'   title. One of "top" (default for a vertical guide), "bottom", "left"
@@ -101,15 +101,17 @@
 #' # Set aesthetic of legend key
 #'
 #' # very low alpha value make it difficult to see legend key
-#' p3 <- qplot(carat, price, data = diamonds, colour = color,
-#'   alpha = I(1/100))
+#' p3 <- ggplot(diamonds, aes(carat, price)) +
+#'   geom_point(aes(colour=color), alpha=1/100)
 #' p3
 #'
 #' # override.aes overwrites the alpha
 #' p3 + guides(colour = guide_legend(override.aes = list(alpha = 1)))
 #'
 #' # multiple row/col legends
-#' p <- qplot(1:20, 1:20, colour = letters[1:20])
+#' df <- data.frame(x = 1:20, y = 1:20, color = letters[1:20])
+#' p <- ggplot(df, aes(x, y)) +
+#'   geom_point(aes(colour = color))
 #' p + guides(col = guide_legend(nrow = 8))
 #' p + guides(col = guide_legend(ncol = 8))
 #' p + guides(col = guide_legend(nrow = 8, byrow = TRUE))
@@ -120,7 +122,7 @@
 #' }
 guide_legend <- function(
 
-  #　title
+  # title
   title = waiver(),
   title.position = NULL,
   title.theme = NULL,
@@ -154,7 +156,7 @@ guide_legend <- function(
   if (!is.null(keyheight) && !is.unit(keyheight)) keyheight <- unit(keyheight, default.unit)
 
   structure(list(
-    #　title
+    # title
     title = title,
     title.position = title.position,
     title.theme = title.theme,

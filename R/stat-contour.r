@@ -47,10 +47,6 @@
 #' # Try different geoms
 #' v + stat_contour(geom="polygon", aes(fill=..level..))
 #' v + geom_tile(aes(fill = z)) + stat_contour()
-#'
-#' # Use qplot instead
-#' qplot(x, y, z = z, data = volcano3d, geom = "contour")
-#' qplot(x, y, z = z, data = volcano3d, stat = "contour", geom = "path")
 #' }
 stat_contour <- function (mapping = NULL, data = NULL, geom = "path", position = "identity",
 na.rm = FALSE, ...) {
@@ -91,8 +87,10 @@ StatContour <- proto(Stat, {
 # names(v3d) <- c("x", "y", "z")
 #
 # breaks <- seq(95, 195, length = 10)
-# contours <- contour_lines(v3d, breaks)
-# qplot(x, y, data = contours, geom = "path") + facet_wrap(~ piece)
+# contours <- contourLines(v3d, breaks)
+# ggplot(contours, aes(x, y)) +
+#   geom_path() +
+#   facet_wrap(~piece)
 contour_lines <- function(data, breaks, complete = FALSE) {
   z <- tapply(data$z, data[c("x", "y")], identity)
 
@@ -136,8 +134,8 @@ poly_dir <- function(x, y) {
 
 # To fix breaks and complete the polygons, we need to add 0-4 corner points.
 #
-# contours <- ddply(contours, "piece", mutate, dir = poly_dir(x, y))
-# qplot(x, y, data = contours, geom = "path", group = piece,
-#   colour = factor(dir))
+# contours <- ddply(contours, "piece", mutate, dir = ggplot2:::poly_dir(x, y))
+# ggplot(contours, aes(x, y)) +
+#   geom_path(aes(group = piece, colour = factor(dir)))
 # last_plot() + facet_wrap(~ level)
 
