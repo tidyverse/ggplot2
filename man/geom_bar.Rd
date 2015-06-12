@@ -145,7 +145,7 @@ m + geom_bar()
 }
 }
 \seealso{
-\code{\link{stat_bin}} for more details of the binning alogirithm,
+\code{\link{stat_bin}} for more details of the binning algorithm,
   \code{\link{position_dodge}} for creating side-by-side barcharts,
   \code{\link{position_stack}} for more info on stacking,
 }
