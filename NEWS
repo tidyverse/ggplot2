@@ -1,13 +1,14 @@
+ggplot2 1.0.1.9000
+----------------------------------------------------------------
+
 * New `theme_void()`, which is completely empty. Useful for plots with non
   standard coordinates or for producing numerical drawings with R. (@jiho, #976)
+
 * Added new function geom_curve to add curved lines to plot (similar to
   geom_segment to add straight lines). (@veraanadi, #1088)
 
 * Create correct legend for continuous color even if there is only one color
   (@krlmlr, #943)
-
-ggplot2 1.0.1.9000
-----------------------------------------------------------------
 
 * Position adjustments no longer warn about potentially varying ranges
   because the problem rarely occurs in practice and there are currently a
