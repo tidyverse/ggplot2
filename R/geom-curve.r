@@ -7,20 +7,28 @@
 #' @inheritParams geom_point
 #' @inheritParams geom_segment
 #'
-#' @seealso \code{\link{geom_segment}}, \code{\link{geom_path}} and \code{\link{geom_line}} for multi-
-#' segment lines and paths.
+#' @seealso \code{\link{geom_segment}}, \code{\link{geom_path}} and
+#'   \code{\link{geom_line}} for multi-segment lines and paths.
 #' @export
 #' @examples
 #' # Adding curve segments
-#' library(grid) # needed for arrow function
-#' b <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
-#' b + geom_curve(aes(x = 2, y = 15, xend = 2, yend = 25), curvature = 0.2)
-#' b + geom_curve(aes(x = 2, y = 15, xend = 3, yend = 15), ncp = 2)
-#' b + geom_curve(aes(x = 5, y = 30, xend = 3.5, yend = 25), arrow = arrow(length = unit(0.5, "cm")))
-
-
-geom_curve <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
-                        curvature = 1, angle = 90, ncp = 1, arrow = NULL, lineend = "butt",
+#' b <- ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point()
+#'
+#' df <- data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0)
+#' b +
+#'  geom_curve(aes(x = x1, y = y1, xend = x2, yend = y2, colour = "curve"), data = df) +
+#'  geom_segment(aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), data = df)
+#'
+#' b + geom_curve(aes(x = x1, y = y1, xend = x2, yend = y2), data = df, curvature = -0.2)
+#' b + geom_curve(aes(x = x1, y = y1, xend = x2, yend = y2), data = df, curvature = 1)
+#' b + geom_curve(
+#'   aes(x = x1, y = y1, xend = x2, yend = y2),
+#'   data = df,
+#'   arrow = grid::arrow(length = grid::unit(0.03, "npc"))
+#' )
+geom_curve <- function(mapping = NULL, data = NULL, stat = "identity", position = "identity",
+                        curvature = 0.5, angle = 90, ncp = 5, arrow = NULL, lineend = "butt",
                         na.rm = FALSE, ...) {
 
   GeomCurve$new(mapping = mapping, data = data, stat = stat,
@@ -40,25 +48,29 @@ GeomCurve <- proto(Geom, {
 
     if (empty(data)) return(zeroGrob())
 
-    if (is.linear(coordinates)) {
-      return(with(coord_transform(coordinates, data, scales),
-                  curveGrob(x, y, xend, yend, default.units="native",
-                            curvature=curvature, angle=angle, ncp=ncp,
-                            square = FALSE, squareShape = 1,
-                            inflect = FALSE, open = TRUE,
-                            gp = gpar(col=alpha(colour, alpha), lwd=size * .pt,
-                                      lty=linetype, lineend = lineend),
-                            arrow = arrow)
-      ))
+    if (!is.linear(coordinates)) {
+      warning("geom_curve is not implemented for non-linear coordinates",
+        call. = FALSE)
     }
-    warning("geom_curve is not implemented for non-linear coordinates")
-    return(zeroGrob())
+    trans <- coord_transform(coordinates, data, scales)
+    curveGrob(
+      trans$x, trans$y, trans$xend, trans$yend,
+      default.units = "native",
+      curvature = curvature, angle = angle, ncp = ncp,
+      square = FALSE, squareShape = 1, inflect = FALSE, open = TRUE,
+      gp = gpar(
+        col = alpha(trans$colour, trans$alpha),
+        lwd = trans$size * .pt,
+        lty = trans$linetype,
+        lineend = trans$lineend),
+      arrow = arrow
+    )
   }
-
 
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y", "xend", "yend")
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
+  default_aes <- function(.) aes(colour = "black", size = 0.5, linetype = 1,
+    alpha = NA)
   guide_geom <- function(.) "path"
 
 })

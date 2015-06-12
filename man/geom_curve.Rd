@@ -5,7 +5,7 @@
 \title{Single curved line segments.}
 \usage{
 geom_curve(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", curvature = 1, angle = 90, ncp = 1,
+  position = "identity", curvature = 0.5, angle = 90, ncp = 5,
   arrow = NULL, lineend = "butt", na.rm = FALSE, ...)
 }
 \arguments{
@@ -54,14 +54,24 @@ Single curved line segments.
 }
 \examples{
 # Adding curve segments
-library(grid) # needed for arrow function
-b <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
-b + geom_curve(aes(x = 2, y = 15, xend = 2, yend = 25), curvature = 0.2)
-b + geom_curve(aes(x = 2, y = 15, xend = 3, yend = 15), ncp = 2)
-b + geom_curve(aes(x = 5, y = 30, xend = 3.5, yend = 25), arrow = arrow(length = unit(0.5, "cm")))
+b <- ggplot(mtcars, aes(wt, mpg)) +
+  geom_point()
+
+df <- data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0)
+b +
+ geom_curve(aes(x = x1, y = y1, xend = x2, yend = y2, colour = "curve"), data = df) +
+ geom_segment(aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), data = df)
+
+b + geom_curve(aes(x = x1, y = y1, xend = x2, yend = y2), data = df, curvature = -0.2)
+b + geom_curve(aes(x = x1, y = y1, xend = x2, yend = y2), data = df, curvature = 1)
+b + geom_curve(
+  aes(x = x1, y = y1, xend = x2, yend = y2),
+  data = df,
+  arrow = grid::arrow(length = grid::unit(0.03, "npc"))
+)
 }
 \seealso{
-\code{\link{geom_segment}}, \code{\link{geom_path}} and \code{\link{geom_line}} for multi-
-segment lines and paths.
+\code{\link{geom_segment}}, \code{\link{geom_path}} and
+  \code{\link{geom_line}} for multi-segment lines and paths.
 }
 
