@@ -1,3 +1,6 @@
+* New `theme_void()`, which is completely empty. Useful for plots with non
+  standard coordinates or for producing numerical drawings with R. (@jiho, #976)
+
 * Create correct legend for continuous color even if there is only one color
   (@krlmlr, #943)
 
