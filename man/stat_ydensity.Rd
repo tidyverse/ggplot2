@@ -26,8 +26,12 @@ on this layer}
 \item{kernel}{kernel used for density estimation, see
 \code{\link{density}} for details}
 
-\item{trim}{If \code{TRUE} (default), trim the tails of the violins
-to the range of the data. If \code{FALSE}, don't trim the tails.}
+\item{trim}{This parameter only matters if you are displaying multiple
+densities in one plot. If \code{FALSE}, the default, each density is
+computed on the full range of the data. If \code{TRUE}, each density
+is computed over the range of that group: this typically means the
+estimated x values will not line-up, and hence you won't be able to
+stack density values.}
 
 \item{scale}{if "area" (default), all violins have the same area (before trimming
 the tails). If "count", areas are scaled proportionally to the number of

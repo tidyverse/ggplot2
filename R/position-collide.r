@@ -67,11 +67,10 @@ pos_stack <- function(df, width) {
     heights <- c(0, cumsum(y))
   }
 
-  within(df, {
-    ymin <- heights[-n]
-    ymax <- heights[-1]
-    y <- ymax
-  })
+  df$ymin <- heights[-n]
+  df$ymax <- heights[-1]
+  df$y <- df$ymax
+  df
 }
 
 # Stack overlapping intervals and set height to 1.

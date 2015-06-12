@@ -26,10 +26,12 @@ on this layer}
 \item{kernel}{kernel used for density estimation, see
 \code{\link{density}} for details}
 
-\item{trim}{if \code{TRUE}, the default, densities are trimmed to the
-actual range of the data.  If \code{FALSE}, they are extended by the
-default 3 bandwidths (as specified by the \code{cut} parameter to
-\code{\link{density}})}
+\item{trim}{This parameter only matters if you are displaying multiple
+densities in one plot. If \code{FALSE}, the default, each density is
+computed on the full range of the data. If \code{TRUE}, each density
+is computed over the range of that group: this typically means the
+estimated x values will not line-up, and hence you won't be able to
+stack density values.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
