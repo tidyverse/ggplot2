@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* `Geom` is now exported, making it easier to create new geoms in other
+  packages (#989).
+
 * New `theme_void()`, which is completely empty. Useful for plots with non
   standard coordinates or for producing numerical drawings with R. (@jiho, #976)
 
