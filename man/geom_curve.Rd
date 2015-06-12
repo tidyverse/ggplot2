@@ -9,15 +9,39 @@ geom_curve(mapping = NULL, data = NULL, stat = "identity",
   arrow = NULL, lineend = "butt", na.rm = FALSE, ...)
 }
 \arguments{
-\item{curvature}{A numeric value giving the amount of curvature. Negative values produce left-hand curves, positive values produce right-hand curves, and zero produces a straight line. (see curveGrob)}
+\item{mapping}{The aesthetic mapping, usually constructed with
+\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
+at the layer level if you are overriding the plot defaults.}
 
-\item{angle}{A numeric value between 0 and 180, giving an amount to skew the control points of the curve. Values less than 90 skew the curve towards the start point and values greater than 90 skew the curve towards the end point. (see curveGrob)}
+\item{data}{A layer specific dataset - only needed if you want to override
+the plot defaults.}
 
-\item{ncp}{The number of control points used to draw the curve. More control points creates a smoother curve. (see curveGrob)}
+\item{stat}{The statistical transformation to use on the data for this
+layer.}
 
-\item{arrow}{specification for arrow heads, as created by arrow()}
+\item{position}{The position adjustment to use for overlapping points
+on this layer}
+
+\item{curvature}{A numeric value giving the amount of curvature.
+    Negative values produce left-hand curves, positive values
+    produce right-hand curves, and zero produces a straight line.}
+
+\item{angle}{A numeric value between 0 and 180,
+    giving an amount to skew the control
+    points of the curve.  Values less than 90 skew the curve towards
+    the start point and values greater than 90 skew the curve
+    towards the end point.}
+
+\item{ncp}{The number of control points used to draw the curve.
+    More control points creates a smoother curve.}
+
+\item{arrow}{A list describing arrow heads to place at either end
+    of the curve, as produced by the \code{arrow} function.}
 
 \item{lineend}{Line end style (round, butt, square)}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{...}{Arguments to be passed to \code{curveGrob}.}
 }

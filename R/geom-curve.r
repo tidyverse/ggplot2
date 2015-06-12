@@ -4,11 +4,9 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "curve")}
 #'
 #' @inheritParams grid::curveGrob
-#' @param curvature A numeric value giving the amount of curvature. Negative values produce left-hand curves, positive values produce right-hand curves, and zero produces a straight line. (see curveGrob)
-#' @param angle A numeric value between 0 and 180, giving an amount to skew the control points of the curve. Values less than 90 skew the curve towards the start point and values greater than 90 skew the curve towards the end point. (see curveGrob)
-#' @param ncp The number of control points used to draw the curve. More control points creates a smoother curve. (see curveGrob)
-#' @param arrow specification for arrow heads, as created by arrow()
-#' @param lineend Line end style (round, butt, square)
+#' @inheritParams geom_point
+#' @inheritParams geom_segment
+#'
 #' @seealso \code{\link{geom_segment}}, \code{\link{geom_path}} and \code{\link{geom_line}} for multi-
 #' segment lines and paths.
 #' @export
@@ -48,8 +46,8 @@ GeomCurve <- proto(Geom, {
                             curvature=curvature, angle=angle, ncp=ncp,
                             square = FALSE, squareShape = 1,
                             inflect = FALSE, open = TRUE,
-                            gp = gpar(col=alpha(colour, alpha), fill = alpha(colour, alpha),
-                                      lwd=size * .pt, lty=linetype, lineend = lineend),
+                            gp = gpar(col=alpha(colour, alpha), lwd=size * .pt,
+                                      lty=linetype, lineend = lineend),
                             arrow = arrow)
       ))
     }

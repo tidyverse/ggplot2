@@ -36,7 +36,7 @@ include aesthetics whose values you want to set, not map. See
 \code{\link{layer}} for more details.}
 }
 \description{
-Perform a 2D kernel density estimatation using kde2d and display the
+Perform a 2D kernel density estimation using kde2d and display the
 results with contours.
 }
 \details{
