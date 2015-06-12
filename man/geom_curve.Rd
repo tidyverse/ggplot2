@@ -5,39 +5,21 @@
 \title{Single curved line segments.}
 \usage{
 geom_curve(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
-  ...)
+  position = "identity", curvature = 1, angle = 90, ncp = 1,
+  arrow = NULL, lineend = "butt", na.rm = FALSE, ...)
 }
 \arguments{
-\item{mapping}{The aesthetic mapping, usually constructed with
-\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
-at the layer level if you are overriding the plot defaults.}
+\item{curvature}{A numeric value giving the amount of curvature. Negative values produce left-hand curves, positive values produce right-hand curves, and zero produces a straight line. (see curveGrob)}
 
-\item{data}{A layer specific dataset - only needed if you want to override
-the plot defaults.}
+\item{angle}{A numeric value between 0 and 180, giving an amount to skew the control points of the curve. Values less than 90 skew the curve towards the start point and values greater than 90 skew the curve towards the end point. (see curveGrob)}
 
-\item{stat}{The statistical transformation to use on the data for this
-layer.}
-
-\item{position}{The position adjustment to use for overlapping points
-on this layer}
+\item{ncp}{The number of control points used to draw the curve. More control points creates a smoother curve. (see curveGrob)}
 
 \item{arrow}{specification for arrow heads, as created by arrow()}
 
 \item{lineend}{Line end style (round, butt, square)}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
-
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
-
-\item{curvature}{see curveGrob}
-
-\item{angle}{see curveGrob}
-
-\item{ncp}{see curveGrob}
+\item{...}{Arguments to be passed to \code{curveGrob}.}
 }
 \description{
 Single curved line segments.
@@ -50,8 +32,8 @@ Single curved line segments.
 # Adding curve segments
 library(grid) # needed for arrow function
 b <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
-b + geom_curve(aes(x = 2, y = 15, xend = 2, yend = 25, curvature = 0.2))
-b + geom_curve(aes(x = 2, y = 15, xend = 3, yend = 15, ncp = 2))
+b + geom_curve(aes(x = 2, y = 15, xend = 2, yend = 25), curvature = 0.2)
+b + geom_curve(aes(x = 2, y = 15, xend = 3, yend = 15), ncp = 2)
 b + geom_curve(aes(x = 5, y = 30, xend = 3.5, yend = 25), arrow = arrow(length = unit(0.5, "cm")))
 }
 \seealso{
