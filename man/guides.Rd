@@ -53,12 +53,13 @@ p + theme(legend.position = "bottom")
 p + theme(legend.position = "bottom", legend.box = "horizontal")
 
 # Set order for multiple guides
-
 ggplot(mpg, aes(displ, cty)) +
   geom_point(aes(size = hwy, colour = cyl, shape = drv)) +
-  guides(colour = guide_colourbar(order = 1),
-         alpha = guide_legend(order = 2),
-         size = guide_legend(order = 3))
+  guides(
+   colour = guide_colourbar(order = 1),
+   shape = guide_legend(order = 2),
+   size = guide_legend(order = 3)
+ )
 }
 }
 \seealso{
