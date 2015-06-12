@@ -50,7 +50,7 @@
 #' # Also useful with
 #' m + stat_bin()
 #'
-#' # Make a volcano plot
+#' # Make a violin plot
 #' ggplot(diamonds, aes(x = price)) +
 #'   stat_density(aes(ymax = ..density..,  ymin = -..density..),
 #'     fill = "grey50", colour = "grey50",
