@@ -1,6 +1,11 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* `position_injitter` allows jittering the data while keeping it
+  bounded inside the data range. In some situations, this creates
+  nicer plots than regular jittering (e.g. logistic regression plots)
+  (@lionel-).
+
 * `Geom` is now exported, making it easier to create new geoms in other
   packages (#989).
 

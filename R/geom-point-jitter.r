@@ -33,11 +33,13 @@ geom_jitter <- function(mapping = NULL, data = NULL,
                          width = NULL, height = NULL, stat = "identity",
                          position = "jitter", na.rm = FALSE, ...) {
   if (!missing(width) || !missing(height)) {
-    if (!missing(position)) {
-      stop("Specify either `position` or `width`/`height`", call. = FALSE)
+    if (!position %in% c("jitter", "injitter")) {
+      stop("With `width`/`height`, position should be `jitter`/`injitter`",
+        call. = FALSE)
     }
 
-    position <- position_jitter(width = width, height = height)
+    position_fun <- match.fun(paste0("position_", position))
+    position <- position_fun(width = width, height = height)
   }
 
   GeomJitter$new(mapping = mapping, data = data, stat = stat,
@@ -50,3 +52,14 @@ GeomJitter <- proto(GeomPoint, {
   default_stat <- function(.) StatIdentity
   default_pos <- function(.) PositionJitter
 })
+
+
+#' @export
+#' @rdname geom_jitter
+geom_injitter <- function(mapping = NULL, data = NULL,
+                          width = NULL, height = NULL, stat = "identity",
+                          na.rm = FALSE, ...) {
+  geom_jitter(mapping = mapping, data = data, width = width,
+    height = height, stat = stat, position = "injitter",
+    na.rm = na.rm, ...)
+}

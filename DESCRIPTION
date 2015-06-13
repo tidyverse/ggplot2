@@ -148,6 +148,7 @@ Collate:
     'position-dodge.r'
     'position-fill.r'
     'position-identity.r'
+    'position-injitter.r'
     'position-jitter.r'
     'position-jitterdodge.R'
     'position-nudge.R'
