@@ -9,27 +9,6 @@ test_that(
 )
 
 test_that(
-  "sanitise_dim returns the input for positive integer inputs",
-  {
-    for(n in c(1, sample(.Machine$integer.max, 10)))
-    {
-      expect_identical(sanitise_dim(n), n)
-    }
-  }
-)
-
-test_that(
-  "sanitise_dim returns NULL for non-positive integer inputs, with appropriate warnings",
-  {
-    for(n in c(0, -1, -sample(.Machine$integer.max, 10)))
-    {
-      expect_identical(suppressWarnings(sanitise_dim(n)), NULL)
-      expect_warning(sanitise_dim(n), ".n. is missing or less than 1 and will be treated as NULL.")
-    }
-  }
-)
-
-test_that(
   "sanitise_dim returns the first element or NULL for non-positive integer inputs, with appropriate warnings",
   {
     n <- 1:2
@@ -63,14 +42,3 @@ test_that(
     expect_warning(sanitise_dim(n2), ".n2. is missing or less than 1 and will be treated as NULL.")
   }
 )
-
-test_that(
-  "sanitise_dim returns NULL for non-numeric inputs, with appropriate warnings",
-  {
-    n <- "foo"
-    expect_identical(suppressWarnings(sanitise_dim(n)), NULL)
-    expect_warning(sanitise_dim(n), "Coercing .n. to be an integer.")
-    expect_warning(sanitise_dim(n), ".n. is missing or less than 1 and will be treated as NULL.")
-  }
-)
-
