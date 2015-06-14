@@ -36,6 +36,11 @@
 #'   geom_point() +
 #'   facet_wrap(c("cyl", "drv"))
 #'
+#' # Use the `labeller` option to control how labels are printed:
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   facet_wrap(c("cyl", "drv"), labeller = "label_both")
+#'
 #' # To change the order in which the panels appear, change the levels
 #' # of the underlying factor.
 #' mpg$class2 <- reorder(mpg$class, mpg$displ)
@@ -337,19 +342,35 @@ facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   })
 }
 
+mentions_parse <- function(expr) {
+  if (is.call(expr)) {
+    if (as.character(expr[[1]]) == "parse") {
+      TRUE
+    } else {
+      any(vapply(expr[-1], mentions_parse, logical(1)))
+    }
+  } else {
+    FALSE
+  }
+}
+
 #' @export
 facet_strips.wrap <- function(facet, panel, theme) {
   labeller <- match.fun(facet$labeller)
-  
   labels_df <- panel$layout[names(facet$facets)]
 
   # If faceting with multiple variables, paste them together
   labels <- apply(labels_df, 1, paste, collapse = ", ")
-  if (identical(labeller, label_parsed)) {
-    labels <- paste("list(", labels, ")", sep = "")
-  }
-
   varnames <- paste(names(labels_df), collapse=", ")
+
+  # Labellers that parse expressions for plotmath need special
+  # treatment to handle comma-separated variables. We detect such
+  # functions by scanning for parse() calls. This is a bit hacky but
+  # it's difficult to solve the problem without an API breakage, and
+  # it should work in most cases.
+  if (mentions_parse(body(labeller))) {
+    labels <- paste0("list(", labels, ")")
+  }
 
   # Run the labeller function
   labels <- labeller(varnames, labels)
