@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* `geom_crossbar()` sets grouping correctly so you can display multiple
+  crossbars on one plot. It also makes the default `fatten` argument a little
+  bigger to make the middle line more obvious (#1125).
+
 * `guide_colorbar()` no longer fails when the legend is empty - previously
   this often masked misspecifications elsewhere in the plot (#967)
 

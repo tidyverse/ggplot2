@@ -5,7 +5,7 @@
 \title{Hollow bar with middle indicated by horizontal line.}
 \usage{
 geom_crossbar(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", fatten = 2, ...)
+  position = "identity", fatten = 2.5, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
