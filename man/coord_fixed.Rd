@@ -5,7 +5,8 @@
 \alias{coord_fixed}
 \title{Cartesian coordinates with fixed relationship between x and y scales.}
 \usage{
-coord_fixed(ratio = 1, xlim = NULL, ylim = NULL)
+coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, xexpand = waiver(),
+  yexpand = waiver())
 }
 \arguments{
 \item{ratio}{aspect ratio, expressed as \code{y / x}}
@@ -13,6 +14,12 @@ coord_fixed(ratio = 1, xlim = NULL, ylim = NULL)
 \item{xlim}{limits for the x axis}
 
 \item{ylim}{limits for the y axis}
+
+\item{xexpand}{a numeric vector of length two giving multiplicative
+and additive expansion constants. These constants ensure that the
+data is placed some distance away from the x axis.}
+
+\item{yexpand}{same as xexpand, but for the y axis}
 }
 \description{
 A fixed scale coordinate system forces a specified ratio between the

@@ -8,9 +8,16 @@
 #' \code{\link[scales]{trans_new}} for list of transformations, and instructions on
 #' how to create your own.
 #'
-#' @param xtrans,ytrans transformers for x and y axes
-#' @param limx,limy limits for x and y axes. (Named so for backward
-#'    compatability)
+#' @param xtrans transformer for y axis
+#' @param ytrans transformer for y axis
+#' @param limx limits for the x axis (Named so for backward
+#' compatability)
+#' @param limy limits for the y axis (Named so for backward
+#' compatability)
+#' @param xexpand a numeric vector of length two giving multiplicative and
+#'   additive expansion constants. These constants ensure that the data is
+#'   placed some distance away from the x axis.
+#' @param yexpand same as xexpand, but for the y axis
 #' @export
 #' @examples
 #' \donttest{
@@ -76,7 +83,7 @@
 #' plot + coord_trans(x = "log10")
 #' plot + coord_trans(x = "sqrt")
 #' }
-coord_trans <- function(xtrans = "identity", ytrans = "identity", limx = NULL, limy = NULL) {
+coord_trans <- function(xtrans = "identity", ytrans = "identity", limx = NULL, limy = NULL, xexpand = waiver(), yexpand = waiver()) {
   # @kohske
   # Now limits are implemented.
   # But for backward compatibility, xlim -> limx, ylim -> ylim
@@ -87,18 +94,21 @@ coord_trans <- function(xtrans = "identity", ytrans = "identity", limx = NULL, l
   if (is.character(ytrans)) ytrans <- as.trans(ytrans)
 
   coord(trans = list(x = xtrans, y = ytrans), limits = list(x = limx, y = limy), subclass = "trans")
+  coord(x = list(trans = xtrans, limits = limx, expand = xexpand),
+        y = list(trans = ytrans, limits = limy, expand = yexpand),
+        subclass = "trans")
 }
 
 #' @export
 coord_distance.trans <- function(coord, x, y, details) {
   max_dist <- dist_euclidean(details$x.range, details$y.range)
-  dist_euclidean(coord$trans$x$transform(x), coord$trans$y$transform(y)) / max_dist
+  dist_euclidean(coord$x$trans$transform(x), coord$y$trans$transform(y)) / max_dist
 }
 
 #' @export
 coord_transform.trans <- function(coord, data, details) {
-  trans_x <- function(data) transform_value(coord$trans$x, data, details$x.range)
-  trans_y <- function(data) transform_value(coord$trans$y, data, details$y.range)
+  trans_x <- function(data) transform_value(coord$x$trans, data, details$x.range)
+  trans_y <- function(data) transform_value(coord$y$trans, data, details$y.range)
 
   data <- transform_position(data, trans_x, trans_y)
   transform_position(data, squish_infinite, squish_infinite)
@@ -109,21 +119,27 @@ transform_value <- function(trans, value, range) {
 
 #' @export
 coord_train.trans <- function(coord, scales) {
-  c(train_trans(scales$x, coord$limits$x, coord$trans$x, "x"),
-    train_trans(scales$y, coord$limits$y, coord$trans$y, "y"))
+  c(train_trans(scales$x, coord$x, "x"),
+    train_trans(scales$y, coord$y, "y"))
 }
 
-train_trans <- function(scale, limits, trans, name) {
+train_trans <- function(scale, .coord, name) {
   # first, calculate the range that is the numerical limits in data space
 
   # expand defined by scale OR coord
   # @kohske
   # Expansion of data range sometimes go beyond domain,
-  # so in trasn, expansion takes place at the fnial stage.
-  if (is.null(limits)) {
+  # so in trans, expansion takes place at the final stage.
+  # However, limits are not transformed, so expansion takes
+  # place immediately.
+  trans <- .coord$trans
+  expand <- coord_expand_defaults(.coord, scale)
+
+  if (is.null(.coord$limits)) {
     range <- scale_dimension(scale, c(0, 0))
   } else {
-    range <- range(scale_transform(scale, limits))
+    expanded_limits <- coord_dimension(scale, .coord, expand$coord)
+    range <- range(scale_transform(scale, expanded_limits))
   }
 
   # breaks on data space
@@ -133,9 +149,9 @@ train_trans <- function(scale, limits, trans, name) {
   out$range <- trans$transform(out$range)
 
   # expansion if limits are not specified
-  if (is.null(limits)) {
-    expand <- coord_expand_defaults(coord, scale)
-    out$range <- expand_range(out$range, expand[1], expand[2])
+  if (is.null(.coord$limits)) {
+    expand_scale <- expand$scale
+    out$range <- expand_range(out$range, expand_scale[1], expand_scale[2])
   }
 
   # major and minor values in plot space

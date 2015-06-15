@@ -1,6 +1,12 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* Setting limits through coordinates now produces small margins
+  between the edge of the panel and the first breaks. This can be
+  controlled via new the arguments `xexpand` and `yexpand`) in
+  `coord_cartesian()`, `coord_trans()`, `coord_map()`, and
+  `coord_fixed()`. (@lionel-, #870)
+
 * `Geom` is now exported, making it easier to create new geoms in other
   packages (#989).
 
