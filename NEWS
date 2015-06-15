@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* All datasets have class `tbl_df` so if you also use dplyr, you won't
+  accidentally print all the data. `economics` has been brought up to date to
+  2015-04-01.
+
 * `geom_text()` gains `nudge_x` and `nudge_y` arguments to offset labels from
   the x & y position (#1120). `check_overlap = TRUE` provides a simple
   resolution to label overplotting (#1039).
