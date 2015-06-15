@@ -91,6 +91,12 @@
 #' m + facet_grid(Action ~ Comedy)
 #' m + facet_wrap(~ mpaa)
 #'
+#' # In some situations (e.g., a plot composition), it may be useful
+#' # to draw an histogram horizontally with the `h` variant:
+#' ggplot(movies, aes(y = rating)) +
+#'   facet_grid(Action ~ Comedy) +
+#'   geom_histogramh()
+#' 
 #' # Multiple histograms on the same graph
 #' # see ?position, ?position_fill, etc for more details.
 #' set.seed(6298)
@@ -122,4 +128,15 @@ geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin", position 
 
 GeomHistogram <- proto(GeomBar, {
   objname <- "histogram"
+})
+
+
+#' @rdname geom_histogram
+#' @export
+geom_histogramh <- function (mapping = NULL, data = NULL, stat = "binh", position = "stackh", ...) {
+  GeomHistogramh$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
+GeomHistogramh <- proto(GeomBarh, {
+  objname <- "histogramh"
 })

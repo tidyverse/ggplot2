@@ -2,9 +2,13 @@
 % Please edit documentation in R/geom-crossbar.r
 \name{geom_crossbar}
 \alias{geom_crossbar}
+\alias{geom_crossbarh}
 \title{Hollow bar with middle indicated by horizontal line.}
 \usage{
 geom_crossbar(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", fatten = 2, ...)
+
+geom_crossbarh(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", fatten = 2, ...)
 }
 \arguments{

@@ -2,12 +2,17 @@
 % Please edit documentation in R/geom-boxplot.r
 \name{geom_boxplot}
 \alias{geom_boxplot}
+\alias{geom_boxploth}
 \title{Box and whiskers plot.}
 \usage{
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", outlier.colour = NULL, outlier.shape = NULL,
   outlier.size = NULL, notch = FALSE, notchwidth = 0.5,
   varwidth = FALSE, ...)
+
+geom_boxploth(mapping = NULL, data = NULL, stat = "boxploth",
+  position = "dodgeh", outlier.colour = NULL, outlier.shape = NULL,
+  outlier.size = NULL, notch = FALSE, notchwidth = 0.5, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -132,6 +137,9 @@ p + geom_boxplot()
 
 update_geom_defaults("point", list(shape = 1, colour = "red", size = 5))
 p + geom_boxplot()
+
+# To plot the boxes horizontally, use the `h` variant:
+ggplot(mtcars, aes(mpg, factor(cyl))) + geom_boxploth()
 }
 }
 \references{

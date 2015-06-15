@@ -2,9 +2,13 @@
 % Please edit documentation in R/geom-linerange.r
 \name{geom_linerange}
 \alias{geom_linerange}
+\alias{geom_linerangeh}
 \title{An interval represented by a vertical line.}
 \usage{
 geom_linerange(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", ...)
+
+geom_linerangeh(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ...)
 }
 \arguments{
@@ -46,7 +50,7 @@ ggplot(cuts, aes(cut, fit)) + geom_bar(stat = "identity")
 
 # Display estimates and standard errors in various ways
 se <- ggplot(cuts, aes(cut, fit,
-  ymin = fit - se.fit, ymax=fit + se.fit, colour = cut))
+  ymin = fit - se.fit, ymax = fit + se.fit, colour = cut))
 se + geom_linerange()
 se + geom_pointrange()
 se + geom_errorbar(width = 0.5)
@@ -54,6 +58,17 @@ se + geom_crossbar(width = 0.5)
 
 # Use coord_flip to flip the x and y axes
 se + geom_linerange() + coord_flip()
+
+# Or the `h` variant if it is more convenient:
+se_h <- ggplot(cuts, aes(
+  fit, cut, colour = cut,
+  xmin = fit - se.fit,
+  xmax = fit + se.fit,
+))
+se_h + geom_linerangeh()
+se_h + geom_pointrangeh()
+se_h + geom_errorbarh(height = 0.5)
+se_h + geom_crossbarh(height = 0.5)
 }
 \seealso{
 \code{\link{geom_errorbar}}: error bars;

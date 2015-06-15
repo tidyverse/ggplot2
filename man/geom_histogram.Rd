@@ -2,10 +2,14 @@
 % Please edit documentation in R/geom-bar-histogram.r
 \name{geom_histogram}
 \alias{geom_histogram}
+\alias{geom_histogramh}
 \title{Histogram}
 \usage{
 geom_histogram(mapping = NULL, data = NULL, stat = "bin",
   position = "stack", ...)
+
+geom_histogramh(mapping = NULL, data = NULL, stat = "binh",
+  position = "stackh", ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -116,6 +120,12 @@ m + facet_grid(Action ~ Comedy)
 m <- m + aes(y = ..density..)
 m + facet_grid(Action ~ Comedy)
 m + facet_wrap(~ mpaa)
+
+# In some situations (e.g., a plot composition), it may be useful
+# to draw an histogram horizontally with the `h` variant:
+ggplot(movies, aes(y = rating)) +
+  facet_grid(Action ~ Comedy) +
+  geom_histogramh()
 
 # Multiple histograms on the same graph
 # see ?position, ?position_fill, etc for more details.

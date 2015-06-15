@@ -1,6 +1,7 @@
-# Detect and prevent collisions.
-# Powers dodging, stacking and filling.
+# Functions for vertical direction
+
 collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
+  
   # Determine width
   if (!is.null(width)) {
     # Width set manually
@@ -17,12 +18,10 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
     # Width determined from data, must be floating point constant
     widths <- unique(data$xmax - data$xmin)
     widths <- widths[!is.na(widths)]
-
-#   # Suppress warning message since it's not reliable
-#     if (!zero_range(range(widths))) {
-#       warning(name, " requires constant width: output may be incorrect",
-#         call. = FALSE)
-#     }
+    if (!zero_range(range(widths))) {
+      warning(name, " requires constant width: output may be incorrect",
+        call. = FALSE)
+    }
     width <- widths[1]
   }
 
@@ -67,10 +66,11 @@ pos_stack <- function(df, width) {
     heights <- c(0, cumsum(y))
   }
 
-  df$ymin <- heights[-n]
-  df$ymax <- heights[-1]
-  df$y <- df$ymax
-  df
+  within(df, {
+    ymin <- heights[-n]
+    ymax <- heights[-1]
+    y <- ymax
+  })
 }
 
 # Stack overlapping intervals and set height to 1.
@@ -84,30 +84,30 @@ pos_fill <- function(df, width) {
 }
 
 # Dodge overlapping interval.
-# Assumes that each set has the same vertical position.
-pos_dodgev <- function(df, height) {
+# Assumes that each set has the same horizontal position.
+pos_dodge <- function(df, width) {
   n <- length(unique(df$group))
   if (n == 1) return(df)
 
-  if (!all(c("ymin", "ymax") %in% names(df))) {
-    df$ymin <- df$y
-    df$ymax <- df$y
+  if (!all(c("xmin", "xmax") %in% names(df))) {
+    df$xmin <- df$x
+    df$xmax <- df$x
   }
 
-  d_height <- max(df$ymax - df$ymin)
-  diff <- height - d_height
+  d_width <- max(df$xmax - df$xmin)
+  diff <- width - d_width
 
   # df <- data.frame(n = c(2:5, 10, 26), div = c(4, 3, 2.666666,  2.5, 2.2, 2.1))
-  # ggplot(df, aes(n, div)) + geom_point()
+  # qplot(n, div, data = df)
 
   # Have a new group index from 1 to number of groups.
   # This might be needed if the group numbers in this set don't include all of 1:n
   groupidx <- match(df$group, sort(unique(df$group)))
 
   # Find the center for each group, then use that to calculate xmin and xmax
-  df$y <- df$y + height * ((groupidx - 0.5) / n - .5)
-  df$ymin <- df$y - d_height / n / 2
-  df$ymax <- df$y + d_height / n / 2
+  df$x <- df$x + width * ((groupidx - 0.5) / n - .5)
+  df$xmin <- df$x - d_width / n / 2
+  df$xmax <- df$x + d_width / n / 2
 
   df
 }

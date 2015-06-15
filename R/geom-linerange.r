@@ -24,7 +24,7 @@
 #'
 #' # Display estimates and standard errors in various ways
 #' se <- ggplot(cuts, aes(cut, fit,
-#'   ymin = fit - se.fit, ymax=fit + se.fit, colour = cut))
+#'   ymin = fit - se.fit, ymax = fit + se.fit, colour = cut))
 #' se + geom_linerange()
 #' se + geom_pointrange()
 #' se + geom_errorbar(width = 0.5)
@@ -32,6 +32,17 @@
 #'
 #' # Use coord_flip to flip the x and y axes
 #' se + geom_linerange() + coord_flip()
+#'
+#' # Or the `h` variant if it is more convenient:
+#' se_h <- ggplot(cuts, aes(
+#'   fit, cut, colour = cut,
+#'   xmin = fit - se.fit,
+#'   xmax = fit + se.fit,
+#' ))
+#' se_h + geom_linerangeh()
+#' se_h + geom_pointrangeh()
+#' se_h + geom_errorbarh(height = 0.5)
+#' se_h + geom_crossbarh(height = 0.5)
 geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
   GeomLinerange$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
@@ -47,6 +58,28 @@ GeomLinerange <- proto(Geom, {
   draw <- function(., data, scales, coordinates, ...) {
     munched <- coord_transform(coordinates, data, scales)
     ggname(.$my_name(), GeomSegment$draw(transform(data, xend=x, y=ymin, yend=ymax), scales, coordinates, ...))
+  }
+
+})
+
+
+#' @rdname geom_linerange
+#' @export
+geom_linerangeh <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
+  GeomLinerangeh$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+}
+
+GeomLinerangeh <- proto(Geom, {
+  objname <- "linerangeh"
+
+  default_stat <- function(.) StatIdentity
+  default_aes <- function(.) aes(colour = "black", size = 0.5, linetype = 1, alpha = NA)
+  guide_geom <- function(.) "path"
+  required_aes <- c("y", "xmin", "xmax")
+
+  draw <- function(., data, scales, coordinates, ...) {
+    munched <- coord_transform(coordinates, data, scales)
+    ggname(.$my_name(), GeomSegment$draw(transform(data, yend = y, x = xmin, xend = xmax), scales, coordinates, ...))
   }
 
 })

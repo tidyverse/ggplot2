@@ -2,10 +2,14 @@
 % Please edit documentation in R/stat-boxplot.r
 \name{stat_boxplot}
 \alias{stat_boxplot}
+\alias{stat_boxploth}
 \title{Calculate components of box and whisker plot.}
 \usage{
 stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
   position = "dodge", na.rm = FALSE, coef = 1.5, ...)
+
+stat_boxploth(mapping = NULL, data = NULL, geom = "boxploth",
+  position = "dodgeh", na.rm = FALSE, coef = 1.5, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

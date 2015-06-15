@@ -2,10 +2,15 @@
 % Please edit documentation in R/stat-bin.r
 \name{stat_bin}
 \alias{stat_bin}
+\alias{stat_binh}
 \title{Bin data.}
 \usage{
 stat_bin(mapping = NULL, data = NULL, geom = "bar", position = "stack",
   width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL,
+  origin = NULL, breaks = NULL, ...)
+
+stat_binh(mapping = NULL, data = NULL, geom = "bar", position = "stack",
+  height = 0.9, drop = FALSE, right = FALSE, binwidth = NULL,
   origin = NULL, breaks = NULL, ...)
 }
 \arguments{
@@ -38,6 +43,9 @@ data}
 \item{...}{other arguments passed on to \code{\link{layer}}. This can
 include aesthetics whose values you want to set, not map. See
 \code{\link{layer}} for more details.}
+
+\item{height}{Height of bars when used with categorical data in
+horizontal direction}
 }
 \value{
 New data frame with additional columns:

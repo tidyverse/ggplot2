@@ -53,6 +53,10 @@
 #' m + geom_violin() + coord_trans(y = "log10")
 #' m + geom_violin() + scale_y_log10() + coord_trans(y = "log10")
 #'
+#' # To make horizontal violin plots, use the `h` variant:
+#' m + geom_violinh(aes(x = votes, y = rating)) +
+#'   scale_x_log10() + coord_trans(x = "log10")
+#'
 #' # Violin plots with continuous x:
 #' # Use the group aesthetic to group observations in violins
 #' ggplot(movies, aes(year, budget)) + geom_violin()
@@ -102,6 +106,66 @@ GeomViolin <- proto(Geom, {
   default_stat <- function(.) StatYdensity
   default_pos <- function(.) PositionDodge
   default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = NA, linetype = "solid")
+  required_aes <- c("x", "y")
+
+})
+
+
+#' @rdname geom_violin
+#' @export
+geom_violinh <- function (mapping = NULL, data = NULL, stat = "xdensity",
+                          position = "dodgeh", trim = TRUE,
+                          scale = "area", ...) {
+  GeomViolinh$new(mapping = mapping, data = data, stat = stat,
+    position = position, trim = trim, scale = scale, ...)
+}
+
+GeomViolinh <- proto(Geom, {
+  objname <- "violinh"
+
+  reparameterise <- function(., df, params) {
+    df$height <- df$height %||%
+      params$height %||% (resolution(df$y, FALSE) * 0.9)
+
+    # xmin, xmax, ymin, and ymax define the bounding rectangle for each group
+    ddply(df, .(group), transform,
+      xmin = min(x),
+      xmax = max(x),
+      ymin = y - height / 2,
+      ymax = y + height / 2
+    )
+
+  }
+
+  draw <- function(., data, ...) {
+
+    # Find the points for the line to go all the way around
+    data <- transform(data,
+      yminv = y - violinheight * (y-ymin),
+      ymaxv = y + violinheight * (ymax-y)
+    )
+
+    # Make sure it's sorted properly to draw the outline
+    newdata <- rbind(
+      arrange(transform(data, y = yminv), x),
+      arrange(transform(data, y = ymaxv), -x)
+    )
+
+    # Close the polygon: set first and last point the same
+    # Needed for coord_polar and such
+    newdata <- rbind(newdata, newdata[1,])
+
+    ggname(.$my_name(), GeomPolygon$draw(newdata, ...))
+  }
+
+  guide_geom <- function(.) "polygon"
+
+  default_stat <- function(.) StatXdensity
+  default_pos <- function(.) PositionDodgeh
+  default_aes <- function(.) {
+    aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
+      alpha = NA, linetype = "solid")
+  }
   required_aes <- c("x", "y")
 
 })

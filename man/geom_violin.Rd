@@ -2,10 +2,14 @@
 % Please edit documentation in R/geom-violin.r
 \name{geom_violin}
 \alias{geom_violin}
+\alias{geom_violinh}
 \title{Violin plot.}
 \usage{
 geom_violin(mapping = NULL, data = NULL, stat = "ydensity",
   position = "dodge", trim = TRUE, scale = "area", ...)
+
+geom_violinh(mapping = NULL, data = NULL, stat = "xdensity",
+  position = "dodgeh", trim = TRUE, scale = "area", ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -81,6 +85,10 @@ m + geom_violin()
 m + geom_violin() + scale_y_log10()
 m + geom_violin() + coord_trans(y = "log10")
 m + geom_violin() + scale_y_log10() + coord_trans(y = "log10")
+
+# To make horizontal violin plots, use the `h` variant:
+m + geom_violinh(aes(x = votes, y = rating)) +
+  scale_x_log10() + coord_trans(x = "log10")
 
 # Violin plots with continuous x:
 # Use the group aesthetic to group observations in violins

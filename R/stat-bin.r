@@ -11,6 +11,8 @@
 #' @param breaks Actual breaks to use.  Overrides bin width and origin
 #' @param origin Origin of first bin
 #' @param width Width of bars when used with categorical data
+#' @param height Height of bars when used with categorical data in
+#'   horizontal direction
 #' @param right If \code{TRUE}, right-closed, left-open, if \code{FALSE},
 #'   the default, right-open, left-closed.
 #' @param drop If TRUE, remove all bins with zero counts
@@ -43,10 +45,10 @@
 #' # Also works with categorical variables
 #' ggplot(movies, aes(x=mpaa)) + stat_bin()
 #' }
-stat_bin <- function (mapping = NULL, data = NULL, geom = "bar", position = "stack",
-width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, origin = NULL, breaks = NULL, ...) {
+stat_bin <- function(mapping = NULL, data = NULL, geom = "bar", position = "stack",
+                     width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, origin = NULL, breaks = NULL, ...) {
   StatBin$new(mapping = mapping, data = data, geom = geom, position = position,
-  width = width, drop = drop, right = right, binwidth = binwidth, origin = origin, breaks = breaks, ...)
+    width = width, drop = drop, right = right, binwidth = binwidth, origin = origin, breaks = breaks, ...)
 }
 
 StatBin <- proto(Stat, {
@@ -79,7 +81,56 @@ StatBin <- proto(Stat, {
 
 })
 
-bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
+
+#' @rdname stat_bin
+#' @export
+stat_binh <- function(mapping = NULL, data = NULL, geom = "bar",
+                      position = "stack", height = 0.9, drop = FALSE,
+                      right = FALSE, binwidth = NULL, origin = NULL,
+                      breaks = NULL, ...) {
+  StatBinh$new(mapping = mapping, data = data, geom = geom,
+    position = position, height = height, drop = drop, right = right,
+    binwidth = binwidth, origin = origin, breaks = breaks, ...)
+}
+
+StatBinh <- proto(Stat, {
+  objname <- "binh"
+  informed <- FALSE
+
+  calculate_groups <- function(., data, ...) {
+    if (!is.null(data$x) || !is.null(match.call()$x)) {
+      stop("May not have x aesthetic when binning horizontally", call. = FALSE)
+    }
+
+    .$informed <- FALSE
+    .super$calculate_groups(., data, ...)
+  }
+
+  calculate <- function(., data, scales, binwidth = NULL, origin = NULL,
+                        breaks = NULL, height = 0.9, drop = FALSE,
+                        right = FALSE, ...) {
+    range <- scale_dimension(scales$y, c(0, 0))
+
+    if (is.null(breaks) && is.null(binwidth) && !is.integer(data$y) && !.$informed) {
+      message("stat_bin: binwidth defaulted to range/30. Use 'binwidth = y' to adjust this.")
+      .$informed <- TRUE
+    }
+
+    bin(data$y, data$weight, binwidth = binwidth, origin = origin,
+      breaks = breaks, range = range, width = height, drop = drop,
+      right = right, direction = "horizontal")
+  }
+
+  default_aes <- function(.) aes(x = ..count..)
+  required_aes <- c("y")
+  default_geom <- function(.) GeomBarh
+
+})
+
+
+bin <- function(x, weight = NULL, binwidth = NULL, origin = NULL,
+                breaks = NULL, range = NULL, width = 0.9, drop = FALSE,
+                right = TRUE, direction = "vertical") {
 
   if (length(na.omit(x)) == 0) return(data.frame())
   if (is.null(weight))  weight <- rep(1, length(x))
@@ -121,11 +172,20 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
     width <- diff(breaks)
   }
 
-  results <- data.frame(
-    count = as.numeric(tapply(weight, bins, sum, na.rm=TRUE)),
-    x = x,
-    width = width
-  )
+
+  if (direction == "vertical") {
+    results <- data.frame(
+      count = as.numeric(tapply(weight, bins, sum, na.rm = TRUE)),
+      x = x,
+      width = width
+    )
+  } else if (direction == "horizontal") {
+    results <- data.frame(
+      count = as.numeric(tapply(weight, bins, sum, na.rm = TRUE)),
+      y = x,
+      height = width
+    )
+  }
 
   if (sum(results$count, na.rm = TRUE) == 0) {
     return(results)

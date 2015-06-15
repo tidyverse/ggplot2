@@ -2,10 +2,14 @@
 % Please edit documentation in R/geom-bar-.r
 \name{geom_bar}
 \alias{geom_bar}
+\alias{geom_barh}
 \title{Bars, rectangles with bases on x-axis}
 \usage{
 geom_bar(mapping = NULL, data = NULL, stat = "bin", position = "stack",
   ...)
+
+geom_barh(mapping = NULL, data = NULL, stat = "binh",
+  position = "stackh", ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -152,6 +156,9 @@ mpg$class <- factor(mpg$class, levels = c("midsize", "minivan",
 "suv", "compact", "2seater", "subcompact", "pickup"))
 m <- ggplot(mpg, aes(x = manufacturer, fill = class))
 m + geom_bar()
+
+# To plot the bars horizontally, use the `h` variant:
+ggplot(mpg, aes(y = manufacturer, fill = class)) + geom_barh()
 }
 }
 \seealso{

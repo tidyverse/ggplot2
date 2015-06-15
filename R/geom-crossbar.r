@@ -81,3 +81,83 @@ GeomCrossbar <- proto(Geom, {
     )))
   }
 })
+
+
+#' @rdname geom_crossbar
+#' @export
+geom_crossbarh <- function(mapping = NULL, data = NULL, stat = "identity",
+                           position = "identity", fatten = 2, ...) {
+  GeomCrossbarh$new(mapping = mapping, data = data, stat = stat,
+    position = position, fatten = fatten, ...)
+}
+
+GeomCrossbarh <- proto(Geom, {
+  objname <- "crossbarh"
+
+  reparameterise <- function(., df, params) {
+    GeomErrorbarh$reparameterise(df, params)
+  }
+
+  default_stat <- function(.) StatIdentity
+  default_pos <- function(.) PositionIdentity
+  default_aes = function(.) aes(colour = "black", fill = NA, size = 0.5, linetype = 1, alpha = NA)
+  required_aes <- c("x", "y", "xmin", "xmax")
+  guide_geom <- function(.) "crossbarh"
+  draw_legend <- function(., data, ...)  {
+    data <- aesdefaults(data, .$default_aes(), list(...))
+    gp <- with(data,
+      gpar(col = colour, fill = alpha(fill, alpha),
+        lwd = size * .pt, lty = linetype)
+    )
+    gTree(gp = gp, children = gList(
+      rectGrob(height = 0.5, width = 0.75),
+      linesGrob(c(0.125, 0.875), 0.5)
+    ))
+  }
+
+  draw <- function(., data, scales, coordinates, fatten = 2,
+                   height = NULL, ...) {
+    middle <- transform(data,
+      y = ymin, yend = ymax, xend = x,
+      size = size * fatten, alpha = NA
+    )
+
+    has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
+      !is.na(data$ynotchlower) && !is.na(data$ynotchupper)
+
+    if (has_notch) {
+      if (data$xnotchlower < data$xmin  ||  data$xnotchupper > data$xmax)
+        message("notch went outside hinges. Try setting notch=FALSE.")
+
+      notchindent <- (1 - data$notchwidth) * (data$ymax - data$ymin) / 2
+
+      middle$y <- middle$y + notchindent
+      middle$yend <- middle$yend - notchindent
+
+      box <- data.frame(
+        y = c(data$ymin, data$ymin, data$ymin + notchindent, data$ymin,
+          data$ymin, data$ymax, data$ymax, data$ymax - notchindent,
+          data$ymax, data$ymax, data$ymin),
+        x = c(data$xmax, data$xnotchupper, data$x, data$xnotchlower,
+          data$xmin, data$xmin, data$xnotchlower, data$x, data$xnotchupper,
+          data$xmax, data$xmax),
+        alpha = data$alpha, colour = data$colour, size = data$size,
+        linetype = data$linetype, fill = data$fill, group = data$group,
+        stringsAsFactors = FALSE)
+
+    } else {
+      # No notch
+      box <- data.frame(stringsAsFactors = FALSE,
+        y = c(data$ymin, data$ymin, data$ymax, data$ymax, data$ymin),
+        x = c(data$xmax, data$xmin, data$xmin, data$xmax, data$xmax),
+        alpha = data$alpha, colour = data$colour, size = data$size,
+        linetype = data$linetype, fill = data$fill, group = data$group
+      )
+    }
+
+    ggname(.$my_name(), gTree(children=gList(
+      GeomPolygon$draw(box, scales, coordinates, ...),
+      GeomSegment$draw(middle, scales, coordinates, ...)
+    )))
+  }
+})
