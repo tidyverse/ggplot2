@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* `geom_text()` gains `nudge_x` and `nudge_y` arguments to offset labels from
+  the x & y position (#1120)
+
 * `geom_crossbar()` sets grouping correctly so you can display multiple
   crossbars on one plot. It also makes the default `fatten` argument a little
   bigger to make the middle line more obvious (#1125).

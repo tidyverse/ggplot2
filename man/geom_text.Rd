@@ -5,7 +5,7 @@
 \title{Textual annotations.}
 \usage{
 geom_text(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", parse = FALSE, ...)
+  position = "identity", parse = FALSE, ..., nudge_x = 0, nudge_y = 0)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -27,6 +27,9 @@ displayed as described in ?plotmath}
 \item{...}{other arguments passed on to \code{\link{layer}}. This can
 include aesthetics whose values you want to set, not map. See
 \code{\link{layer}} for more details.}
+
+\item{nudge_x,nudge_y}{Horizontal and vertical adjustment to nudge labels by.
+Useful for offseting text from points, particularly on discrete scales.}
 }
 \description{
 Textual annotations.
@@ -40,12 +43,15 @@ p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))
 
 p + geom_text()
 # Change size of the label
-p + geom_text(size=10)
+p + geom_text(size = 10)
 
 # Set aesthetics to fixed value
-p + geom_point() + geom_text(hjust = 0, vjust = 0)
+p + geom_point() + geom_text(hjust = 0, nudge_x = 0.05)
+p + geom_point() + geom_text(vjust = 0, nudge_y = 0.5)
 p + geom_point() + geom_text(angle = 45)
+\dontrun{
 p + geom_text(family = "Times New Roman")
+}
 
 # Add aesthetic mappings
 p + geom_text(aes(colour = factor(cyl)))

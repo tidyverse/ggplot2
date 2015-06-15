@@ -6,18 +6,23 @@
 #' @inheritParams geom_point
 #' @param parse If TRUE, the labels will be parsed into expressions and
 #'   displayed as described in ?plotmath
+#' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
+#'   Useful for offseting text from points, particularly on discrete scales.
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))
 #'
 #' p + geom_text()
 #' # Change size of the label
-#' p + geom_text(size=10)
+#' p + geom_text(size = 10)
 #'
 #' # Set aesthetics to fixed value
-#' p + geom_point() + geom_text(hjust = 0, vjust = 0)
+#' p + geom_point() + geom_text(hjust = 0, nudge_x = 0.05)
+#' p + geom_point() + geom_text(vjust = 0, nudge_y = 0.5)
 #' p + geom_point() + geom_text(angle = 45)
+#' \dontrun{
 #' p + geom_text(family = "Times New Roman")
+#' }
 #'
 #' # Add aesthetic mappings
 #' p + geom_text(aes(colour = factor(cyl)))
@@ -39,7 +44,17 @@
 #'   geom_text() +
 #'   annotate("text", label = "plot mpg vs. wt", x = 2, y = 15, size = 8, colour = "red")
 geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", parse = FALSE, ...) {
+                      position = "identity", parse = FALSE, ...,
+                      nudge_x = 0, nudge_y = 0) {
+
+  if (!missing(nudge_x) || !missing(nudge_y)) {
+    if (!missing(position)) {
+      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+    }
+
+    position <- position_nudge(nudge_x, nudge_y)
+  }
+
   GeomText$new(mapping = mapping, data = data, stat = stat, position = position,
     parse = parse, ...)
 }
