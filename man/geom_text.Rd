@@ -36,25 +36,25 @@ Textual annotations.
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "text")}
 }
 \examples{
-\donttest{
 p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))
 
 p + geom_text()
 # Change size of the label
 p + geom_text(size=10)
-p <- p + geom_point()
 
 # Set aesthetics to fixed value
-p + geom_text()
-p + geom_point() + geom_text(hjust=0, vjust=0)
+p + geom_point() + geom_text(hjust = 0, vjust = 0)
 p + geom_point() + geom_text(angle = 45)
+p + geom_text(family = "Times New Roman")
 
 # Add aesthetic mappings
-p + geom_text(aes(colour=factor(cyl)))
-p + geom_text(aes(colour=factor(cyl))) + scale_colour_discrete(l=40)
+p + geom_text(aes(colour = factor(cyl)))
+p + geom_text(aes(colour = factor(cyl))) +
+  scale_colour_discrete(l = 40)
 
-p + geom_text(aes(size=wt))
-p + geom_text(aes(size=wt)) + scale_size(range=c(3,6))
+p + geom_text(aes(size = wt))
+# Scale height of text, rather than sqrt(height)
+p + geom_text(aes(size = wt)) + scale_radius(range = c(3,6))
 
 # You can display expressions by setting parse = TRUE.  The
 # details of the display are described in ?plotmath, but note that
@@ -62,17 +62,9 @@ p + geom_text(aes(size=wt)) + scale_size(range=c(3,6))
 p + geom_text(aes(label = paste(wt, "^(", cyl, ")", sep = "")),
   parse = TRUE)
 
-# Add an annotation not from a variable source
-c <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
-c + geom_text(data = NULL, x = 5, y = 30, label = "plot mpg vs. wt")
-# Or, you can use annotate
-c + annotate("text", label = "plot mpg vs. wt", x = 2, y = 15, size = 8, colour = "red")
-
-# You can specify family, fontface and lineheight
-p <- ggplot(mtcars, aes(x=wt, y=mpg, label=rownames(mtcars)))
-p + geom_text(fontface=3)
-p + geom_text(aes(fontface=am+1))
-p + geom_text(aes(family=c("serif", "mono")[am+1]))
-}
+# Add a text annotation
+p +
+  geom_text() +
+  annotate("text", label = "plot mpg vs. wt", x = 2, y = 15, size = 8, colour = "red")
 }
 
