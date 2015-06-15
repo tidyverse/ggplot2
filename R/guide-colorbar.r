@@ -185,6 +185,10 @@ guide_train.colorbar <- function(guide, scale) {
   guide$key <- data.frame(scale_map(scale, breaks), I(scale_labels(scale, breaks)), breaks,
                           stringsAsFactors = FALSE)
 
+  if (nrow(guide$key) == 0) {
+    return()
+  }
+
   # .value = breaks (numeric) is used for determining the position of ticks in gengrob
   names(guide$key) <- c(output, ".label", ".value")
 
