@@ -6,3 +6,4 @@ visual_test
 ^inst/web$
 ^notes$
 ^cran-comments.md$
+^data-raw$
