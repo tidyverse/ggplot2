@@ -5,7 +5,8 @@
 \title{Textual annotations.}
 \usage{
 geom_text(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", parse = FALSE, ..., nudge_x = 0, nudge_y = 0)
+  position = "identity", parse = FALSE, ..., nudge_x = 0, nudge_y = 0,
+  check_overlap = FALSE)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -30,6 +31,9 @@ include aesthetics whose values you want to set, not map. See
 
 \item{nudge_x,nudge_y}{Horizontal and vertical adjustment to nudge labels by.
 Useful for offseting text from points, particularly on discrete scales.}
+
+\item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
+same layer will not be plotted. A quick and dirty way}
 }
 \description{
 Textual annotations.
@@ -42,6 +46,8 @@ Textual annotations.
 p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))
 
 p + geom_text()
+# Avoid overlaps
+p + geom_text(check_overlap = TRUE)
 # Change size of the label
 p + geom_text(size = 10)
 

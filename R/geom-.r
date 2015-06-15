@@ -1,11 +1,3 @@
-#' The base geom proto object
-#'
-#' If you are creating a new geom in another package, you'll need to extend
-#' from this object.
-#'
-#' @export
-#' @keywords internal
-#' @format A proto object
 Geom <- proto(TopLevel, expr={
   class <- function(.) "geom"
 

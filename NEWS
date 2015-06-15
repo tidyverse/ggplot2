@@ -12,8 +12,8 @@ ggplot2 1.0.1.9000
 * `guide_colorbar()` no longer fails when the legend is empty - previously
   this often masked misspecifications elsewhere in the plot (#967)
 
-* `Geom` is now exported, making it easier to create new geoms in other
-  packages (#989).
+* `Geom`, `Stat` and `Position` are now exported, making it easier to create
+  new geoms, stats and positions in other packages (#989).
 
 * New `theme_void()`, which is completely empty. Useful for plots with non
   standard coordinates or for producing numerical drawings with R. (@jiho, #976)
