@@ -8,11 +8,15 @@
 #'   displayed as described in ?plotmath
 #' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
 #'   Useful for offseting text from points, particularly on discrete scales.
+#' @param check_overlap If \code{TRUE}, text that overlaps previous text in the
+#'   same layer will not be plotted. A quick and dirty way
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))
 #'
 #' p + geom_text()
+#' # Avoid overlaps
+#' p + geom_text(check_overlap = TRUE)
 #' # Change size of the label
 #' p + geom_text(size = 10)
 #'
@@ -45,7 +49,7 @@
 #'   annotate("text", label = "plot mpg vs. wt", x = 2, y = 15, size = 8, colour = "red")
 geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "identity", parse = FALSE, ...,
-                      nudge_x = 0, nudge_y = 0) {
+                      nudge_x = 0, nudge_y = 0, check_overlap = FALSE) {
 
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
@@ -56,7 +60,7 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
   }
 
   GeomText$new(mapping = mapping, data = data, stat = stat, position = position,
-    parse = parse, ...)
+    parse = parse, check_overlap = check_overlap, ...)
 }
 
 GeomText <- proto(Geom, {
@@ -64,7 +68,8 @@ GeomText <- proto(Geom, {
 
   draw_groups <- function(., ...) .$draw(...)
 
-  draw <- function(., data, scales, coordinates, ..., parse = FALSE, na.rm = FALSE) {
+  draw <- function(., data, scales, coordinates, ..., parse = FALSE,
+                   na.rm = FALSE, check_overlap = FALSE) {
     data <- remove_missing(data, na.rm,
       c("x", "y", "label"), name = "geom_text")
 
@@ -85,7 +90,8 @@ GeomText <- proto(Geom, {
         fontfamily = coords$family,
         fontface = coords$fontface,
         lineheight = coords$lineheight
-      )
+      ),
+      check.overlap = check_overlap
     )
   }
 
