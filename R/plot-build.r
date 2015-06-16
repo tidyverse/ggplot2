@@ -6,7 +6,7 @@
 #' contain all information about axis limits, breaks etc.
 #'
 #' @param plot ggplot object
-#' @seealso \code{\link{print.ggplot}} and \code{link{benchplot}} for
+#' @seealso \code{\link{print.ggplot}} and \code{\link{benchplot}} for
 #'  for functions that contain the complete set of steps for generating
 #'  a ggplot2 plot.
 #' @keywords internal
