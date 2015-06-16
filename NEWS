@@ -7,7 +7,10 @@ ggplot2 1.0.1.9000
 
 * `geom_text()` gains `nudge_x` and `nudge_y` arguments to offset labels from
   the x & y position (#1120). `check_overlap = TRUE` provides a simple
-  resolution to label overplotting (#1039).
+  resolution to label overplotting (#1039). `hjust` and `vjust` can now
+  be character vectors: "left", "center", "right", "bottom", "middle", "top".
+  New options include "inward" and "outward" which align text towards and
+  away from the center of the plot respectively.
 
 * `geom_crossbar()` sets grouping correctly so you can display multiple
   crossbars on one plot. It also makes the default `fatten` argument a little

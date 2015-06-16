@@ -42,6 +42,16 @@ Textual annotations.
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "text")}
 }
+
+\section{Alignment}{
+
+You can modify text alignment with the \code{vjust} and \code{hjust}
+aesthetics. These can either be a number between 0 (right/bottom) and
+1 (top/left) or a character ("left", "middle", "right", "bottom", "center",
+"top"). There are two special alignments: "inward" and "outward".
+Inward always aligns text towards the center, and outward aligns
+it away from the center
+}
 \examples{
 p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))
 
@@ -78,5 +88,16 @@ p + geom_text(aes(label = paste(wt, "^(", cyl, ")", sep = "")),
 p +
   geom_text() +
   annotate("text", label = "plot mpg vs. wt", x = 2, y = 15, size = 8, colour = "red")
+
+# Justification -------------------------------------------------------------
+df <- data.frame(
+  x = c(1, 1, 2, 2, 1.5),
+  y = c(1, 2, 1, 2, 1.5),
+  text = c("bottom-left", "bottom-right", "top-left", "top-right", "center")
+)
+ggplot(df, aes(x, y)) +
+  geom_text(aes(label = text))
+ggplot(df, aes(x, y)) +
+  geom_text(aes(label = text), vjust = "inward", hjust = "inward")
 }
 

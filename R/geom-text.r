@@ -3,6 +3,14 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "text")}
 #'
+#' @section Alignment:
+#' You can modify text alignment with the \code{vjust} and \code{hjust}
+#' aesthetics. These can either be a number between 0 (right/bottom) and
+#' 1 (top/left) or a character ("left", "middle", "right", "bottom", "center",
+#' "top"). There are two special alignments: "inward" and "outward".
+#' Inward always aligns text towards the center, and outward aligns
+#' it away from the center
+#'
 #' @inheritParams geom_point
 #' @param parse If TRUE, the labels will be parsed into expressions and
 #'   displayed as described in ?plotmath
@@ -47,6 +55,17 @@
 #' p +
 #'   geom_text() +
 #'   annotate("text", label = "plot mpg vs. wt", x = 2, y = 15, size = 8, colour = "red")
+#'
+#' # Justification -------------------------------------------------------------
+#' df <- data.frame(
+#'   x = c(1, 1, 2, 2, 1.5),
+#'   y = c(1, 2, 1, 2, 1.5),
+#'   text = c("bottom-left", "bottom-right", "top-left", "top-right", "center")
+#' )
+#' ggplot(df, aes(x, y)) +
+#'   geom_text(aes(label = text))
+#' ggplot(df, aes(x, y)) +
+#'   geom_text(aes(label = text), vjust = "inward", hjust = "inward")
 geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "identity", parse = FALSE, ...,
                       nudge_x = 0, nudge_y = 0, check_overlap = FALSE) {
@@ -79,6 +98,13 @@ GeomText <- proto(Geom, {
     }
 
     coords <- coord_transform(coordinates, data, scales)
+    if (is.character(coords$vjust)) {
+      coords$vjust <- compute_just(coords$vjust, coords$y)
+    }
+    if (is.character(coords$hjust)) {
+      coords$hjust <- compute_just(coords$hjust, coords$x)
+    }
+
     textGrob(
       lab,
       coords$x, coords$y, default.units = "native",
@@ -116,3 +142,20 @@ GeomText <- proto(Geom, {
   guide_geom <- function(x) "text"
 
 })
+
+compute_just <- function(just, x) {
+  inward <- just == "inward"
+  just[inward] <- c("left", "middle", "right")[just_dir(x[inward])]
+  outward <- just == "outward"
+  just[outward] <- c("right", "middle", "left")[just_dir(x[outward])]
+
+  unname(c(left = 0, center = 0.5, right = 1,
+    bottom = 0, middle = 0.5, top = 1)[just])
+}
+
+just_dir <- function(x, tol = 0.001) {
+  out <- rep(2L, length(x))
+  out[x < 0.5 - tol] <- 1L
+  out[x > 0.5 + tol] <- 3L
+  out
+}
