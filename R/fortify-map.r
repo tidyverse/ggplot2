@@ -98,5 +98,5 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
 borders <- function(database = "world", regions = ".", fill = NA, colour = "grey50", ...) {
   df <- map_data(database, regions)
   geom_polygon(aes_q(quote(long), quote(lat), group = quote(group)), data = df,
-    fill = fill, colour = colour, ...)
+    fill = fill, colour = colour, ..., inherit.aes = FALSE)
 }
