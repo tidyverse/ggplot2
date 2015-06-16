@@ -195,8 +195,8 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
 facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   panels <- panel$layout$PANEL
   lapply(panels, function(i) {
-    fg <- coord_render_fg(coord, panel$range[[i]], theme)
-    bg <- coord_render_bg(coord, panel$range[[i]], theme)
+    fg <- coord_render_fg(coord, panel$ranges[[i]], theme)
+    bg <- coord_render_bg(coord, panel$ranges[[i]], theme)
 
     geom_grobs <- lapply(geom_grobs, "[[", i)
     panel_grobs <- c(list(bg), geom_grobs, list(fg))
@@ -223,7 +223,7 @@ facet_axes.wrap <- function(facet, panel, coord, theme) {
   axes <- list()
   axes$b <- lapply(panels, function(i) {
     if (panel$layout$AXIS_X[i]) {
-      grob <- coord_render_axis_h(coord, panel$range[[i]], theme)
+      grob <- coord_render_axis_h(coord, panel$ranges[[i]], theme)
     } else {
       grob <- zeroGrob()
     }
@@ -232,7 +232,7 @@ facet_axes.wrap <- function(facet, panel, coord, theme) {
 
   axes$l <- lapply(panels, function(i) {
     if (panel$layout$AXIS_Y[i]) {
-      grob <- coord_render_axis_v(coord, panel$range[[i]], theme)
+      grob <- coord_render_axis_v(coord, panel$ranges[[i]], theme)
     } else {
       grob <- zeroGrob()
     }

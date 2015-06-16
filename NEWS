@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* All instances of partial matched dollar expressions were removed (@jimhester,
+  #1134)
+
 * `geom_text()` gains `nudge_x` and `nudge_y` arguments to offset labels from
   the x & y position (#1120). `check_overlap = TRUE` provides a simple
   resolution to label overplotting (#1039).

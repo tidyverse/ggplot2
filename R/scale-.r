@@ -96,7 +96,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 
   trans <- as.trans(trans)
   if (!is.null(limits)) {
-    limits <- trans$trans(limits)
+    limits <- trans$transform(limits)
   }
 
   structure(list(
@@ -254,7 +254,7 @@ scale_transform <- function(scale, x) UseMethod("scale_transform")
 
 #' @export
 scale_transform.continuous <- function(scale, x) {
-  scale$trans$trans(x)
+  scale$trans$transform(x)
 }
 #' @export
 scale_transform.discrete <- function(scale, x) {
@@ -373,7 +373,7 @@ scale_breaks <- function(scale, limits = scale_limits(scale)) {
 #' @export
 scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   # Limits in transformed space need to be converted back to data space
-  limits <- scale$trans$inv(limits)
+  limits <- scale$trans$inverse(limits)
 
   if (is.null(scale$breaks)) {
     return(NULL)
@@ -395,7 +395,7 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   # @kohske
   # TODO: replace NA with something else for flag.
   #       guides cannot discriminate oob from missing value.
-  breaks <- censor(scale$trans$trans(breaks), scale$trans$trans(limits))
+  breaks <- censor(scale$trans$transform(breaks), scale$trans$transform(limits))
   if (length(breaks) == 0) {
     stop("Zero breaks in scale for ", paste(scale$aesthetics, collapse = "/"),
       call. = FALSE)
@@ -456,8 +456,8 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
     }
   } else if (is.function(scale$minor_breaks)) {
     # Find breaks in data space, and convert to numeric
-    breaks <- scale$minor_breaks(scale$trans$inv(limits))
-    breaks <- scale$trans$trans(breaks)
+    breaks <- scale$minor_breaks(scale$trans$inverse(limits))
+    breaks <- scale$trans$transform(breaks)
   } else {
     breaks <- scale$minor_breaks
   }
@@ -483,7 +483,7 @@ scale_labels <- function(scale, breaks = scale_breaks(scale)) {
 scale_labels.continuous <- function(scale, breaks = scale_breaks(scale)) {
   if (is.null(breaks)) return(NULL)
 
-  breaks <- scale$trans$inv(breaks)
+  breaks <- scale$trans$inverse(breaks)
 
   if (is.null(scale$labels)) {
     return(NULL)

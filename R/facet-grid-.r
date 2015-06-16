@@ -361,8 +361,8 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   nrow <- max(panel$layout$ROW)
 
   panel_grobs <- lapply(panels, function(i) {
-    fg <- coord_render_fg(coord, panel$range[[i]], theme)
-    bg <- coord_render_bg(coord, panel$range[[i]], theme)
+    fg <- coord_render_fg(coord, panel$ranges[[i]], theme)
+    bg <- coord_render_bg(coord, panel$ranges[[i]], theme)
 
     geom_grobs <- lapply(geom_grobs, "[[", i)
     panel_grobs <- c(list(bg), geom_grobs, list(fg))
@@ -380,14 +380,14 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   # In general, panel has all information for building facet.
   if (facet$space_free$x) {
     ps <- panel$layout$PANEL[panel$layout$ROW == 1]
-    widths <- vapply(ps, function(i) diff(panel$range[[i]]$x.range), numeric(1))
+    widths <- vapply(ps, function(i) diff(panel$ranges[[i]]$x.range), numeric(1))
     panel_widths <- unit(widths, "null")
   } else {
     panel_widths <- rep(unit(1, "null"), ncol)
   }
   if (facet$space_free$y) {
     ps <- panel$layout$PANEL[panel$layout$COL == 1]
-    heights <- vapply(ps, function(i) diff(panel$range[[i]]$y.range), numeric(1))
+    heights <- vapply(ps, function(i) diff(panel$ranges[[i]]$y.range), numeric(1))
     panel_heights <- unit(heights, "null")
   } else {
     panel_heights <- rep(unit(1 * aspect_ratio, "null"), nrow)
