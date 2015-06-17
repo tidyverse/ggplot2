@@ -4,17 +4,7 @@
 \name{mpg}
 \alias{mpg}
 \title{Fuel economy data from 1999 and 2008 for 38 popular models of car}
-\format{A data frame with 234 rows and 11 variables}
-\usage{
-data(mpg)
-}
-\description{
-This dataset contains a subset of the fuel economy data that the EPA makes
-available on \url{http://fueleconomy.gov}.  It contains only models which
-had a new release every year between 1999 and 2008 - this was used as a
-proxy for the popularity of the car.
-}
-\details{
+\format{A data frame with 234 rows and 11 variables
 \itemize{
   \item manufacturer.
   \item model.
@@ -27,7 +17,15 @@ proxy for the popularity of the car.
   \item hwy. highway miles per gallon
   \item fl.
   \item class.
+}}
+\usage{
+mpg
 }
+\description{
+This dataset contains a subset of the fuel economy data that the EPA makes
+available on \url{http://fueleconomy.gov}. It contains only models which
+had a new release every year between 1999 and 2008 - this was used as a
+proxy for the popularity of the car.
 }
 \keyword{datasets}
 

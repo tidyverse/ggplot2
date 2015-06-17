@@ -16,7 +16,8 @@ NULL
 #'   \item carat: weight of the diamond (0.2--5.01)
 #'   \item cut: quality of the cut (Fair, Good, Very Good, Premium, Ideal)
 #'   \item color: diamond colour, from J (worst) to D (best)
-#'   \item clarity: a measurement of how clear the diamond is (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best))
+#'   \item clarity: a measurement of how clear the diamond is
+#'      (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best))
 #'   \item x: length in mm (0--10.74)
 #'   \item y: width in mm (0--58.9)
 #'   \item z: depth in mm (0--31.8)
@@ -28,32 +29,31 @@ NULL
 
 #' US economic time series.
 #'
-#' This dataset was produced from US economic time series data available from \url{http://research.stlouisfed.org/fred2}.
+#' This dataset was produced from US economic time series data available from
+#' \url{http://research.stlouisfed.org/fred2}.
 #'
+#' @format A data frame with 478 rows and 6 variables
 #' \itemize{
 #'   \item date.  Month of data collection
-#'
-#'   \item psavert, personal savings rate, \url{http://research.stlouisfed.org/fred2/series/PSAVERT/}
-#'   \item pce, personal consumption expenditures, in billions of dollars, \url{http://research.stlouisfed.org/fred2/series/PCE}
-#'   \item unemploy, number of unemployed in thousands, \url{http://research.stlouisfed.org/fred2/series/UNEMPLOY}
-#'   \item uempmed, median duration of unemployment, in week, \url{http://research.stlouisfed.org/fred2/series/UEMPMED}
-#'   \item pop, total population, in thousands, \url{http://research.stlouisfed.org/fred2/series/POP}
-#'
+#'   \item psavert, personal savings rate,
+#'     \url{http://research.stlouisfed.org/fred2/series/PSAVERT/}
+#'   \item pce, personal consumption expenditures, in billions of dollars,
+#'     \url{http://research.stlouisfed.org/fred2/series/PCE}
+#'   \item unemploy, number of unemployed in thousands,
+#'     \url{http://research.stlouisfed.org/fred2/series/UNEMPLOY}
+#'   \item uempmed, median duration of unemployment, in week,
+#'     \url{http://research.stlouisfed.org/fred2/series/UEMPMED}
+#'   \item pop, total population, in thousands,
+#'    \url{http://research.stlouisfed.org/fred2/series/POP}
 #' }
 #'
-#' @docType data
-#' @keywords datasets
-#' @name economics
-#' @usage data(economics)
-#' @format A data frame with 478 rows and 6 variables
-NULL
+"economics"
 
 #' Midwest demographics.
 #'
 #' Demographic information of midwest counties
 #'
-#' The variables are as follows:
-#'
+#' @format A data frame with 437 rows and 28 variables
 #' \itemize{
 #'  \item PID
 #'  \item county
@@ -85,12 +85,7 @@ NULL
 #'  \item category'
 #' }
 #'
-#' @docType data
-#' @keywords datasets
-#' @name midwest
-#' @usage data(midwest)
-#' @format A data frame with 437 rows and 28 variables
-NULL
+"midwest"
 
 
 #' Movie information and user ratings from IMDB.com.
@@ -103,8 +98,10 @@ NULL
 #' the data collection process,
 #' \url{http://imdb.com/help/show_leaf?infosource}.
 #'
-#' Movies were selected for inclusion if they had a known length and had been rated by at least one imdb user.  The data set contains the following fields:
+#' Movies were selected for inclusion if they had a known length and had been
+#' rated by at least one imdb user.
 #'
+#' @format A data frame with 28819 rows and 24 variables
 #' \itemize{
 #'   \item title.  Title of the movie.
 #'   \item year.  Year of release.
@@ -112,26 +109,23 @@ NULL
 #'   \item length.  Length in minutes.
 #'   \item rating.  Average IMDB user rating.
 #'   \item votes.  Number of IMDB users who rated this movie.
-#'   \item r1-10.  Multiplying by ten gives percentile (to nearest 10\%) of users who rated this movie a 1.
+#'   \item r1-10.  Multiplying by ten gives percentile (to nearest 10\%) of
+#'      users who rated this movie a 1.
 #'   \item mpaa.  MPAA rating.
-#'   \item action, animation, comedy, drama, documentary, romance, short.  Binary variables representing if movie was classified as belonging to that genre.
+#'   \item action, animation, comedy, drama, documentary, romance, short.
+#'     Binary variables representing if movie was classified as belonging to that genre.
 #' }
-#'
-#' @docType data
-#' @keywords datasets
-#' @usage data(movies)
-#' @name movies
-#' @format A data frame with 28819 rows and 24 variables
 #' @references \url{http://had.co.nz/data/movies/}
-NULL
+"movies"
 
 #' Fuel economy data from 1999 and 2008 for 38 popular models of car
 #'
 #' This dataset contains a subset of the fuel economy data that the EPA makes
-#' available on \url{http://fueleconomy.gov}.  It contains only models which
+#' available on \url{http://fueleconomy.gov}. It contains only models which
 #' had a new release every year between 1999 and 2008 - this was used as a
 #' proxy for the popularity of the car.
 #'
+#' @format A data frame with 234 rows and 11 variables
 #' \itemize{
 #'   \item manufacturer.
 #'   \item model.
@@ -145,13 +139,7 @@ NULL
 #'   \item fl.
 #'   \item class.
 #' }
-#'
-#' @docType data
-#' @keywords datasets
-#' @name mpg
-#' @usage data(mpg)
-#' @format A data frame with 234 rows and 11 variables
-NULL
+"mpg"
 
 #' An updated and expanded version of the mammals sleep dataset.
 #'
@@ -164,6 +152,7 @@ NULL
 #' Additional variables order, conservation status and vore were added from
 #' wikipedia.
 #'
+#' @format A data frame with 83 rows and 11 variables
 #' \itemize{
 #'   \item name. common name
 #'   \item genus.
@@ -177,25 +166,15 @@ NULL
 #'   \item brainwt. brain weight in kilograms
 #'   \item bodywt. body weight in kilograms
 #' }
-#'
-#' @docType data
-#' @keywords datasets
-#' @name msleep
-#' @usage data(msleep)
-#' @format A data frame with 83 rows and 11 variables
-NULL
+"msleep"
 
 #' Terms of 10 presidents from Eisenhower to Bush W.
 #'
 #' The names of each president, the start and end date of their term, and
 #' their party of 10 US presidents from Eisenhower to Bush W.
 #'
-#' @docType data
-#' @keywords datasets
-#' @name presidential
-#' @usage data(presidential)
 #' @format A data frame with 10 rows and 4 variables
-NULL
+"presidential"
 
 #' Vector field of seal movements.
 #'
@@ -204,12 +183,8 @@ NULL
 #' (EDA) of the paths of moving animals". J. Statistical Planning and
 #' Inference 122 (2004), 43-63, using the methods of Brillinger, D.R.,
 #' "Learning a potential function from a trajectory", Signal Processing
-#'  Letters. December (2007).
+#' Letters. December (2007).
 #'
-#' @name seals
-#' @usage data(seals)
-#' @docType data
-#' @keywords datasets
 #' @format A data frame with 1155 rows and 4 variables
 #' @references \url{http://www.stat.berkeley.edu/~brill/Papers/jspifinal.pdf}
-NULL
+"seals"

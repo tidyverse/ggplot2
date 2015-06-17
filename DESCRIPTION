@@ -42,7 +42,6 @@ Suggests:
     mgcv
 VignetteBuilder: knitr
 Enhances: sp
-Roxygen: list(wrap = FALSE)
 License: GPL-2
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2
 BugReports: https://github.com/hadley/ggplot2/issues

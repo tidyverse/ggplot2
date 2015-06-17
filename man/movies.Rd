@@ -4,9 +4,22 @@
 \name{movies}
 \alias{movies}
 \title{Movie information and user ratings from IMDB.com.}
-\format{A data frame with 28819 rows and 24 variables}
+\format{A data frame with 28819 rows and 24 variables
+\itemize{
+  \item title.  Title of the movie.
+  \item year.  Year of release.
+  \item budget.  Total budget (if known) in US dollars
+  \item length.  Length in minutes.
+  \item rating.  Average IMDB user rating.
+  \item votes.  Number of IMDB users who rated this movie.
+  \item r1-10.  Multiplying by ten gives percentile (to nearest 10\%) of
+     users who rated this movie a 1.
+  \item mpaa.  MPAA rating.
+  \item action, animation, comedy, drama, documentary, romance, short.
+    Binary variables representing if movie was classified as belonging to that genre.
+}}
 \usage{
-data(movies)
+movies
 }
 \description{
 The internet movie database, \url{http://imdb.com/}, is a website devoted
@@ -18,19 +31,8 @@ the data collection process,
 \url{http://imdb.com/help/show_leaf?infosource}.
 }
 \details{
-Movies were selected for inclusion if they had a known length and had been rated by at least one imdb user.  The data set contains the following fields:
-
-\itemize{
-  \item title.  Title of the movie.
-  \item year.  Year of release.
-  \item budget.  Total budget (if known) in US dollars
-  \item length.  Length in minutes.
-  \item rating.  Average IMDB user rating.
-  \item votes.  Number of IMDB users who rated this movie.
-  \item r1-10.  Multiplying by ten gives percentile (to nearest 10\%) of users who rated this movie a 1.
-  \item mpaa.  MPAA rating.
-  \item action, animation, comedy, drama, documentary, romance, short.  Binary variables representing if movie was classified as belonging to that genre.
-}
+Movies were selected for inclusion if they had a known length and had been
+rated by at least one imdb user.
 }
 \references{
 \url{http://had.co.nz/data/movies/}

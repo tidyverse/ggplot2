@@ -4,21 +4,7 @@
 \name{msleep}
 \alias{msleep}
 \title{An updated and expanded version of the mammals sleep dataset.}
-\format{A data frame with 83 rows and 11 variables}
-\usage{
-data(msleep)
-}
-\description{
-This is an updated and expanded version of the mammals sleep dataset.
-Updated sleep times and weights were taken from V. M. Savage and G. B.
-West. A quantitative, theoretical framework for understanding mammalian
-sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056,
-2007.
-}
-\details{
-Additional variables order, conservation status and vore were added from
-wikipedia.
-
+\format{A data frame with 83 rows and 11 variables
 \itemize{
   \item name. common name
   \item genus.
@@ -31,7 +17,20 @@ wikipedia.
   \item awake. amount of time spent awake, in hours
   \item brainwt. brain weight in kilograms
   \item bodywt. body weight in kilograms
+}}
+\usage{
+msleep
 }
+\description{
+This is an updated and expanded version of the mammals sleep dataset.
+Updated sleep times and weights were taken from V. M. Savage and G. B.
+West. A quantitative, theoretical framework for understanding mammalian
+sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056,
+2007.
+}
+\details{
+Additional variables order, conservation status and vore were added from
+wikipedia.
 }
 \keyword{datasets}
 

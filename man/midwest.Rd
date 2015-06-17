@@ -4,16 +4,7 @@
 \name{midwest}
 \alias{midwest}
 \title{Midwest demographics.}
-\format{A data frame with 437 rows and 28 variables}
-\usage{
-data(midwest)
-}
-\description{
-Demographic information of midwest counties
-}
-\details{
-The variables are as follows:
-
+\format{A data frame with 437 rows and 28 variables
 \itemize{
  \item PID
  \item county
@@ -43,7 +34,12 @@ The variables are as follows:
  \item percelderlypoverty
  \item inmetro.  In a metro area.
  \item category'
+}}
+\usage{
+midwest
 }
+\description{
+Demographic information of midwest counties
 }
 \keyword{datasets}
 
