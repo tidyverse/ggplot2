@@ -60,6 +60,9 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
   )
+  
+  nrow <- sanitise_dim(nrow)
+  ncol <- sanitise_dim(ncol)
 
   facet(
     facets = as.quoted(facets), free = free, shrink = shrink,
@@ -246,3 +249,63 @@ facet_axes.wrap <- function(facet, panel, coord, theme) {
 facet_vars.wrap <- function(facet) {
   paste(lapply(facet$facets, paste, collapse = ", "), collapse = " ~ ")
 }
+
+#' Sanitise the number of rows or columns
+#' 
+#' Cleans up the input to be an integer greater than or equal to one, or
+#' \code{NULL}. Intended to be used on the \code{nrow} and \code{ncol}
+#' arguments of \code{facet_wrap}.
+#' @param n Hopefully an integer greater than or equal to one, or \code{NULL},
+#' though other inputs are handled.
+#' @return An integer greater than or equal to one, or \code{NULL}.
+#' @note If the length of the input is greater than one, only the first element 
+#' is returned, with a warning.
+#' If the input is not an integer, it will be coerced to be one.
+#' If the value is less than one, \code{NULL} is returned, effectively ignoring 
+#' the argument.
+#' Multiple warnings may be generated.
+#' @examples
+#' # Valid input just gets returns unchanged
+#' sanitise_dim(1)
+#' sanitise_dim(NULL)
+#' \dontrun{
+#' # Only the first element of vectors get returned
+#' sanitise_dim(10:1)
+#' # Non-integer values are coerced to integer
+#' sanitise_dim(pi)
+#' # Missing values, values less than one and non-numeric values are 
+#' # treated as NULL
+#' sanitise_dim(NA_integer_)
+#' sanitise_dim(0)
+#' sanitise_dim("foo")
+#' }
+#' @noRd
+sanitise_dim <- function(n)
+{
+  xname <- sQuote(deparse(substitute(n)))
+  if (length(n) == 0)
+  {
+    if (!is.null(n))
+    {
+      warning(xname, " has length zero and will be treated as NULL.")
+    }
+    return(NULL)
+  }
+  if (length(n) > 1)
+  {
+    warning("Only the first value of ", xname, " will be used.", call. = FALSE)
+    n <- n[1]
+  }
+  if (!is.numeric(n) || (!is.na(n) && n != round(n)))
+  {
+    warning("Coercing ", xname, " to be an integer.", call. = FALSE)
+    n <- as.integer(n)
+  }
+  if (is.na(n) || n < 1)
+  {
+    warning(xname, " is missing or less than 1 and will be treated as NULL.", call. = FALSE)
+    return(NULL)
+  }
+  n
+}
+
