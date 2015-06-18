@@ -61,8 +61,8 @@
 #' dfm <- melt(df, id.var = c("id", "group"))
 #' ggplot(dfm, aes(variable, value, group = id, colour = group)) +
 #'   geom_path(alpha = 0.5)
-geom_line <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomLine$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_line <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
+  GeomLine$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
 }
 
 GeomLine <- proto(GeomPath, {

@@ -7,7 +7,7 @@
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", outlier.colour = NULL, outlier.shape = NULL,
   outlier.size = NULL, notch = FALSE, notchwidth = 0.5,
-  varwidth = FALSE, ...)
+  varwidth = FALSE, show_guide = NA, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -42,9 +42,13 @@ the body (default 0.5)}
 square-roots of the number of observations in the groups (possibly
 weighted, using the \code{weight} aesthetic).}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
+\item{show_guide}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. Typically,
+these are aesthetics whose values you want to set, not map. e.g.
+\code{color = "red"} or \code{size = 3}.}
 }
 \description{
 The lower and upper "hinges" correspond to the first and third quartiles

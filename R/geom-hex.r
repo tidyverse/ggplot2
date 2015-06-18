@@ -7,8 +7,8 @@
 #' @inheritParams geom_point
 #' @examples
 #' # See ?stat_binhex for examples
-geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex", position = "identity", ...) {
-  GeomHex$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex", position = "identity", show_guide = NA,...) {
+  GeomHex$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
 }
 
 GeomHex <- proto(Geom, {

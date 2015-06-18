@@ -15,8 +15,8 @@
 #' p + geom_point() + geom_rug(sides="b")    # Rug on bottom only
 #' p + geom_point() + geom_rug(sides="trbl") # All four sides
 #' p + geom_point() + geom_rug(position='jitter')
-geom_rug <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", sides = "bl", ...) {
-  GeomRug$new(mapping = mapping, data = data, stat = stat, position = position, sides = sides, ...)
+geom_rug <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", sides = "bl", show_guide = NA,...) {
+  GeomRug$new(mapping = mapping, data = data, stat = stat, position = position, sides = sides, show_guide = show_guide,...)
 }
 
 GeomRug <- proto(Geom, {

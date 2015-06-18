@@ -116,8 +116,8 @@
 #'   geom_density(alpha = 0.2) + xlim(55, 70)
 #' }
 #' rm(movies)
-geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", ...) {
-  GeomHistogram$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", show_guide = NA,...) {
+  GeomHistogram$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
 }
 
 GeomHistogram <- proto(GeomBar, {

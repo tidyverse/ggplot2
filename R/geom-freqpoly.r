@@ -16,8 +16,9 @@
 #' p + geom_freqpoly(aes(colour = color), binwidth = 1000)
 #' p + geom_freqpoly(aes(y = ..density.., colour = color),
 #'                   binwidth = 1000)
-geom_freqpoly <- function (mapping = NULL, data = NULL, stat = "bin", position = "identity", ...) {
-  GeomFreqpoly$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_freqpoly <- function(mapping = NULL, data = NULL, stat = "bin",
+                          position = "identity", show_guide = NA, ...) {
+  GeomFreqpoly$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
 }
 
 GeomFreqpoly <- proto(Geom, {

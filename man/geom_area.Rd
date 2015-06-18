@@ -24,9 +24,9 @@ on this layer}
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
+\item{...}{other arguments passed on to \code{\link{layer}}. Typically,
+these are aesthetics whose values you want to set, not map. e.g.
+\code{color = "red"} or \code{size = 3}.}
 }
 \description{
 An area plot is the continuous analog of a stacked bar chart (see

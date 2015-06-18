@@ -13,8 +13,8 @@
 #' @export
 #' @examples
 #' # See geom_linerange for examples
-geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomPointrange$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
+  GeomPointrange$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
 }
 
 GeomPointrange <- proto(Geom, {

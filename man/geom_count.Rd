@@ -5,7 +5,7 @@
 \title{Count the number of observations at each location.}
 \usage{
 geom_count(mapping = NULL, data = NULL, stat = "sum",
-  position = "identity", na.rm = FALSE, ...)
+  position = "identity", na.rm = FALSE, show_guide = NA, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -24,9 +24,13 @@ on this layer}
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
+\item{show_guide}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. Typically,
+these are aesthetics whose values you want to set, not map. e.g.
+\code{color = "red"} or \code{size = 3}.}
 }
 \description{
 This is a variant \code{\link{geom_point}} that counts the number of

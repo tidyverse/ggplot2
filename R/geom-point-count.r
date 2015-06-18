@@ -22,10 +22,10 @@
 #'  geom_count()
 #'  scale_size_area()
 geom_count <- function(mapping = NULL, data = NULL, stat = "sum",
-                       position = "identity", na.rm = FALSE, ...) {
+                       position = "identity", na.rm = FALSE, show_guide = NA, ...) {
 
   GeomCount$new(mapping = mapping, data = data, stat = stat,
-    position = position, na.rm = na.rm, ...)
+    position = position, na.rm = na.rm, show_guide = show_guide, ...)
 }
 
 GeomCount <- proto(GeomPoint, {

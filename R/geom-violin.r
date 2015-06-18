@@ -60,9 +60,9 @@
 #'   geom_violin(aes(group = round_any(year, 10, floor)))
 #' }
 geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity", position = "dodge",
-trim = TRUE, scale = "area", ...) {
+trim = TRUE, scale = "area", show_guide = NA,...) {
   GeomViolin$new(mapping = mapping, data = data, stat = stat,
-    position = position, trim = trim, scale = scale, ...)
+    position = position, trim = trim, scale = scale, show_guide = show_guide,...)
 }
 
 GeomViolin <- proto(Geom, {

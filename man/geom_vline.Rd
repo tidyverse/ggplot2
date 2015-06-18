@@ -23,9 +23,9 @@ on this layer}
 
 \item{show_guide}{should a legend be drawn? (defaults to \code{FALSE})}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
+\item{...}{other arguments passed on to \code{\link{layer}}. Typically,
+these are aesthetics whose values you want to set, not map. e.g.
+\code{color = "red"} or \code{size = 3}.}
 }
 \description{
 This geom allows you to annotate the plot with vertical lines (see

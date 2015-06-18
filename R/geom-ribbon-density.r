@@ -12,9 +12,9 @@
 #' @examples
 #' # See stat_density for examples
 geom_density <- function (mapping = NULL, data = NULL, stat = "density", position = "identity",
-na.rm = FALSE, ...) {
+na.rm = FALSE, show_guide = NA,...) {
   GeomDensity$new(mapping = mapping, data = data, stat = stat, position = position,
-  na.rm = na.rm, ...)
+  na.rm = na.rm, show_guide = show_guide,...)
 }
 
 GeomDensity <- proto(GeomArea, {
