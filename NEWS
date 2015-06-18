@@ -38,13 +38,11 @@ ggplot2 1.0.1.9000
 
 * `Geom`, `Stat` and `Position` are now exported, making it easier to create
   new geoms, stats and positions in other packages (#989).
+
 * `facet_grid()` and `facet_wrap()` gain a `switch` argument that
   allows the facet titles to be displayed near the axes. They then act
   as axes subtitles. Can be set to "x", "y" or "both" (the latter only
   for grids) to control which label strips are switched. (@lionel-)
-
-* `Geom` is now exported, making it easier to create new geoms in other
-  packages (#989).
 
 * New `theme_void()`, which is completely empty. Useful for plots with non
   standard coordinates or for producing numerical drawings with R. (@jiho, #976)
