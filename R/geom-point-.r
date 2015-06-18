@@ -82,6 +82,10 @@
 #' d + geom_point(alpha = 1/20)
 #' d + geom_point(alpha = 1/100)
 #'
+#' # Using shapes with a border
+#' p <- ggplot(mtcars, aes(wt, mpg))
+#' p + geom_point(shape=21, size=5, colour='black', fill='white', stroke=4)
+#'
 #' # You can create interesting shapes by layering multiple points of
 #' # different sizes
 #' p <- ggplot(mtcars, aes(mpg, wt))
@@ -125,7 +129,7 @@ GeomPoint <- proto(Geom, {
 
     with(coord_transform(coordinates, data, scales),
       ggname(.$my_name(), pointsGrob(x, y, size=unit(size, "mm"), pch=shape,
-      gp=gpar(col=alpha(colour, alpha), fill = alpha(fill, alpha), fontsize = size * .pt)))
+      gp=gpar(col=alpha(colour, alpha), fill = alpha(fill, alpha), lwd = stroke, fontsize = size * .pt)))
     )
   }
 
@@ -137,13 +141,14 @@ GeomPoint <- proto(Geom, {
       gp=gpar(
         col=alpha(colour, alpha),
         fill=alpha(fill, alpha),
-        fontsize = size * .pt)
+        lwd=stroke,
+        fontsize = size * .pt),
       )
     )
   }
 
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y")
-  default_aes <- function(.) aes(shape=16, colour="black", size=2, fill = NA, alpha = NA)
+  default_aes <- function(.) aes(shape=16, colour="black", size=2, fill = NA, alpha = NA, stroke = 1)
 
 })

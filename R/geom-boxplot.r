@@ -26,6 +26,7 @@
 #' @param outlier.colour colour for outlying points. Uses the default from geom_point().
 #' @param outlier.shape shape of outlying points. Uses the default from geom_point().
 #' @param outlier.size size of outlying points. Uses the default from geom_point().
+#' @param outlier.stroke stroke width of outlying points. Uses the default from geom_point().
 #' @param notch if \code{FALSE} (default) make a standard box plot. If
 #'    \code{TRUE}, make a notched box plot. Notches are used to compare groups;
 #'    if the notches of two boxes do not overlap, this is strong evidence that
@@ -109,19 +110,21 @@
 geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
                           position = "dodge", outlier.colour = NULL,
                           outlier.shape = NULL, outlier.size = NULL,
-                          notch = FALSE, notchwidth = .5, varwidth = FALSE,
-                          show_guide = NA,...) {
+                          outlier.stroke = 1, notch = FALSE, notchwidth = .5,
+                          varwidth = FALSE, show_guide = NA,...) {
 
   outlier_defaults <- Geom$find('point')$default_aes()
 
   outlier.colour   <- outlier.colour %||% outlier_defaults$colour
   outlier.shape    <- outlier.shape  %||% outlier_defaults$shape
   outlier.size     <- outlier.size   %||% outlier_defaults$size
+  outlier.stroke   <- outlier.stroke %||% outlier_defaults$stroke
 
   GeomBoxplot$new(mapping = mapping, data = data, stat = stat,
     position = position, outlier.colour = outlier.colour,
-    outlier.shape = outlier.shape, outlier.size = outlier.size, notch = notch,
-    notchwidth = notchwidth, varwidth = varwidth, show_guide = show_guide,...)
+    outlier.shape = outlier.shape, outlier.size = outlier.size,
+    outlier.stoke = outlier.stroke, notch = notch, notchwidth = notchwidth,
+    varwidth = varwidth, show_guide = show_guide,...)
 }
 
 GeomBoxplot <- proto(Geom, {
@@ -157,7 +160,7 @@ GeomBoxplot <- proto(Geom, {
     df
   }
 
-  draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2,
+  draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2, outlier.stroke = 1,
                    notch = FALSE, notchwidth = .5, varwidth = FALSE) {
     common <- data.frame(
       colour = data$colour,
@@ -195,6 +198,7 @@ GeomBoxplot <- proto(Geom, {
         colour = outlier.colour %||% data$colour[1],
         shape = outlier.shape %||% data$shape[1],
         size = outlier.size %||% data$size[1],
+        stroke = outlier.stroke %||% data$stroke[1],
         fill = NA,
         alpha = NA,
         stringsAsFactors = FALSE)

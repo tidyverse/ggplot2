@@ -110,6 +110,9 @@ ggplot2 1.0.1.9000
   (e.g., gridlines) on top of data. Usually used with blank or transparent
   `panel.background`.  (@noamross. #551)
 
+* Add `stroke` aesthetic to `geom_point` controlling the stroke width of the
+  border for shape types 21 - 25 (#1133, @SeySayux)
+
 ggplot2 1.0.1
 ----------------------------------------------------------------
 

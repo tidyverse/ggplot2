@@ -6,8 +6,8 @@
 \usage{
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", outlier.colour = NULL, outlier.shape = NULL,
-  outlier.size = NULL, notch = FALSE, notchwidth = 0.5,
-  varwidth = FALSE, show_guide = NA, ...)
+  outlier.size = NULL, outlier.stroke = 1, notch = FALSE,
+  notchwidth = 0.5, varwidth = FALSE, show_guide = NA, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -28,6 +28,8 @@ a call to a position adjustment function.}
 \item{outlier.shape}{shape of outlying points. Uses the default from geom_point().}
 
 \item{outlier.size}{size of outlying points. Uses the default from geom_point().}
+
+\item{outlier.stroke}{stroke width of outlying points. Uses the default from geom_point().}
 
 \item{notch}{if \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, make a notched box plot. Notches are used to compare groups;
