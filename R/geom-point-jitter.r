@@ -31,7 +31,8 @@
 #' ggplot(mpg, aes(cty, hwy)) + geom_jitter(width = 0.5, height = 0.5)
 geom_jitter <- function(mapping = NULL, data = NULL,
                          width = NULL, height = NULL, stat = "identity",
-                         position = "jitter", na.rm = FALSE, ...) {
+                         position = "jitter", na.rm = FALSE,
+                         show_guide = NA, ...) {
   if (!missing(width) || !missing(height)) {
     if (!missing(position)) {
       stop("Specify either `position` or `width`/`height`", call. = FALSE)
@@ -41,7 +42,7 @@ geom_jitter <- function(mapping = NULL, data = NULL,
   }
 
   GeomJitter$new(mapping = mapping, data = data, stat = stat,
-    position = position, na.rm = na.rm, ...)
+    position = position, na.rm = na.rm, show_guide = show_guide, ...)
 }
 
 GeomJitter <- proto(GeomPoint, {

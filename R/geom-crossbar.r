@@ -13,9 +13,10 @@
 #' @examples
 #' # See geom_linerange for examples
 geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
-                          position = "identity", fatten = 2.5, ...) {
+                          position = "identity", fatten = 2.5,
+                          show_guide = NA,...) {
   GeomCrossbar$new(mapping = mapping, data = data, stat = stat,
-  position = position, fatten = fatten, ...)
+  position = position, fatten = fatten, show_guide = show_guide,...)
 }
 
 GeomCrossbar <- proto(Geom, {

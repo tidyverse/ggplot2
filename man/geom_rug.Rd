@@ -5,7 +5,7 @@
 \title{Marginal rug plots.}
 \usage{
 geom_rug(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", sides = "bl", ...)
+  position = "identity", sides = "bl", show_guide = NA, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -25,9 +25,13 @@ on this layer}
 It can be set to a string containing any of \code{"trbl"}, for top, right,
 bottom, and left.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
+\item{show_guide}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. Typically,
+these are aesthetics whose values you want to set, not map. e.g.
+\code{color = "red"} or \code{size = 3}.}
 }
 \description{
 Marginal rug plots.

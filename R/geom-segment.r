@@ -43,10 +43,11 @@
 #' b + geom_segment(aes(x = 5, y = 30, xend = 3.5, yend = 25),
 #'    arrow = arrow(length = unit(0.5, "cm")))
 geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE, ...) {
+  position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE, show_guide = NA,...) {
 
   GeomSegment$new(mapping = mapping, data = data, stat = stat,
-    position = position, arrow = arrow, lineend = lineend, na.rm = na.rm, ...)
+    position = position, arrow = arrow, lineend = lineend, na.rm = na.rm,
+    show_guide = show_guide,...)
 }
 
 GeomSegment <- proto(Geom, {

@@ -130,8 +130,8 @@
 #' m <- ggplot(mpg, aes(x = manufacturer, fill = class))
 #' m + geom_bar()
 #' }
-geom_bar <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", ...) {
-  GeomBar$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_bar <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", show_guide = NA,...) {
+  GeomBar$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
 }
 
 GeomBar <- proto(Geom, {

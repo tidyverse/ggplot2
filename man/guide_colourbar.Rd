@@ -58,12 +58,12 @@ label text.}
 \item{label.vjust}{A numeric specifying vertical justification of the label
 text.}
 
-\item{barwidth}{A numeric or a unit object specifying the width of the
-colorbar. Default value is \code{legend.key.width} or
+\item{barwidth}{A numeric or a \code{\link[pkg:grid]{unit}} object specifying
+the width of the colorbar. Default value is \code{legend.key.width} or
 \code{legend.key.size} in \code{\link{theme}} or theme.}
 
-\item{barheight}{A numeric or a unit object specifying the height of the
-colorbar. Default value is \code{legend.key.height} or
+\item{barheight}{A numeric or a \code{\link[pkg:grid]{unit}} object specifying
+the height of the colorbar. Default value is \code{legend.key.height} or
 \code{legend.key.size} in \code{\link{theme}} or theme.}
 
 \item{nbin}{A numeric specifying the number of bins for drawing colorbar. A
@@ -86,14 +86,16 @@ be visible.}
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
 
-\item{default.unit}{A character string indicating unit for \code{barwidth}}
+\item{default.unit}{A character string indicating \code{\link[pkg:grid]{unit}}
+for \code{barwidth} and \code{barheight}.}
 
 \item{reverse}{logical. If \code{TRUE} the colorbar is reversed. By default,
 the highest value is on the top and the lowest value is on the bottom}
 
-\item{order}{positive integer less that 99 that specify the order of
-this guide in the multiple guides. If 0 (default), the order is determined
-by a secret algorithm.}
+\item{order}{positive integer less that 99 that specifies the order of
+this guide among multiple guides. This controls the order in which
+multiple guides are displayed, not the contents of the guide itself.
+If 0 (default), the order is determined by a secret algorithm.}
 
 \item{...}{ignored.}
 }
@@ -107,11 +109,11 @@ For more information, see the inspiration for this function:
 \href{http://www.mathworks.com/help/techdoc/ref/colorbar.html}{Matlab's colorbar function}.
 }
 \details{
-Guides can be specified in each scale or in \code{\link{guides}}.
-\code{guide="legend"} in scale is syntax sugar for
-\code{guide=guide_legend()} - but the second form allows you to specify
-more options. As for how to specify the guide for each
-scales, see \code{\link{guides}}.
+Guides can be specified in each \code{scale_*} or in \code{\link{guides}}.
+\code{guide="legend"} in \code{scale_*} is syntactic sugar for
+\code{guide=guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}).
+As for how to specify the guide for each scale in more detail,
+see \code{\link{guides}}.
 }
 \examples{
 library(reshape2) # for melt

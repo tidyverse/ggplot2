@@ -6,7 +6,7 @@
 \usage{
 geom_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", parse = FALSE, ..., nudge_x = 0, nudge_y = 0,
-  check_overlap = FALSE)
+  check_overlap = FALSE, show_guide = NA)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -25,15 +25,19 @@ on this layer}
 \item{parse}{If TRUE, the labels will be parsed into expressions and
 displayed as described in ?plotmath}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
+\item{...}{other arguments passed on to \code{\link{layer}}. Typically,
+these are aesthetics whose values you want to set, not map. e.g.
+\code{color = "red"} or \code{size = 3}.}
 
 \item{nudge_x,nudge_y}{Horizontal and vertical adjustment to nudge labels by.
 Useful for offseting text from points, particularly on discrete scales.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted. A quick and dirty way}
+
+\item{show_guide}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
 }
 \description{
 Textual annotations.

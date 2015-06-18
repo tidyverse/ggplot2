@@ -39,9 +39,9 @@
 #' m + stat_summary(geom="ribbon", fun.data="median_hilow")
 #' }
 geom_ribbon <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
-na.rm = FALSE, ...) {
+na.rm = FALSE, show_guide = NA,...) {
   GeomRibbon$new(mapping = mapping, data = data, stat = stat, position = position,
-  na.rm = na.rm, ...)
+  na.rm = na.rm, show_guide = show_guide,...)
 }
 
 GeomRibbon <- proto(Geom, {

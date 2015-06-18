@@ -21,13 +21,14 @@ bottom, and left.}
 using \code{scale_y_log10}. It should be \code{FALSE} when using
 \code{coord_trans(y = "log10")}.}
 
-\item{short}{a \code{unit} object specifying the length of the short tick marks}
+\item{short}{a \code{\link[pkg:grid]{unit}} object specifying the length of the
+short tick marks}
 
-\item{mid}{a \code{unit} object specifying the length of the middle tick marks.
-In base 10, these are the "5" ticks.}
+\item{mid}{a \code{\link[pkg:grid]{unit}} object specifying the length of the
+middle tick marks. In base 10, these are the "5" ticks.}
 
-\item{long}{a \code{unit} object specifying the length of the long tick marks.
-In base 10, these are the "1" (or "10") ticks.}
+\item{long}{a \code{\link[pkg:grid]{unit}} object specifying the length of the
+long tick marks. In base 10, these are the "1" (or "10") ticks.}
 
 \item{colour}{Colour of the tick marks.}
 

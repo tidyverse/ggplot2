@@ -68,7 +68,8 @@
 #'   geom_text(aes(label = text), vjust = "inward", hjust = "inward")
 geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "identity", parse = FALSE, ...,
-                      nudge_x = 0, nudge_y = 0, check_overlap = FALSE) {
+                      nudge_x = 0, nudge_y = 0, check_overlap = FALSE,
+                      show_guide = NA) {
 
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
@@ -77,9 +78,8 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
 
     position <- position_nudge(nudge_x, nudge_y)
   }
-
   GeomText$new(mapping = mapping, data = data, stat = stat, position = position,
-    parse = parse, check_overlap = check_overlap, ...)
+    parse = parse, check_overlap = check_overlap, show_guide = show_guide, ...)
 }
 
 GeomText <- proto(Geom, {

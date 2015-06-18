@@ -3,10 +3,11 @@
 #' Legend type guide shows key (i.e., geoms) mapped onto values.
 #' Legend guides for various scales are integrated if possible.
 #'
-#' Guides can be specified in each scale or in \code{\link{guides}}.
-#' \code{guide="legend"} in scale is syntactic sugar for
-#' \code{guide=guide_legend()}. As for how to specify the guide for each
-#' scales in more detail, see \code{\link{guides}}.
+#' Guides can be specified in each \code{scale_*} or in \code{\link{guides}}.
+#' \code{guide="legend"} in \code{scale_*} is syntactic sugar for
+#' \code{guide=guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}). 
+#' As for how to specify the guide for each scale in more detail, 
+#' see \code{\link{guides}}.
 #'
 #' @param title A character string or expression indicating a title of guide.
 #'   If \code{NULL}, the title is not shown. By default
@@ -34,16 +35,16 @@
 #'   label text.
 #' @param label.vjust A numeric specifying vertical justification of the label
 #'   text.
-#' @param keywidth A numeric or a unit object specifying the width of the
-#'   legend key. Default value is \code{legend.key.width} or
+#' @param keywidth A numeric or a \code{\link[pkg:grid]{unit}} object specifying 
+#'   the width of the legend key. Default value is \code{legend.key.width} or
 #'   \code{legend.key.size} in \code{\link{theme}} or theme.
-#' @param keyheight A numeric or a unit object specifying the height of the
-#'   legend key. Default value is \code{legend.key.height} or
+#' @param keyheight A numeric or a \code{\link[pkg:grid]{unit}} object specifying 
+#'   the height of the legend key. Default value is \code{legend.key.height} or
 #'   \code{legend.key.size} in \code{\link{theme}} or theme.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
-#' @param default.unit A character string indicating unit for \code{keywidth}
-#'   and \code{keyheight}.
+#' @param default.unit A character string indicating \code{\link[pkg:grid]{unit}} 
+#'   for \code{keywidth} and \code{keyheight}.
 #' @param override.aes A list specifying aesthetic parameters of legend key.
 #'   See details and examples.
 #' @param nrow The desired number of rows of legends.
@@ -51,9 +52,10 @@
 #' @param byrow logical. If \code{FALSE} (the default) the legend-matrix is
 #'   filled by columns, otherwise the legend-matrix is filled by rows.
 #' @param reverse logical. If \code{TRUE} the order of legends is reversed.
-#' @param order positive integer less that 99 that specify the order of
-#'   this guide in the multiple guides. If 0 (default), the order is determined
-#'   by a secret algorithm.
+#' @param order positive integer less that 99 that specifies the order of
+#'   this guide among multiple guides. This controls the order in which 
+#'   multiple guides are displayed, not the contents of the guide itself.
+#'   If 0 (default), the order is determined by a secret algorithm.
 #' @param ... ignored.
 #' @return A guide object
 #' @export

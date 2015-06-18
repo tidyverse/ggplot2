@@ -93,9 +93,10 @@
 #' c + geom_path(arrow = arrow(angle = 15, ends = "both", length = unit(0.6, "inches")))
 #' }
 geom_path <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
-lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, arrow = NULL, ...) {
+lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, arrow = NULL, show_guide = NA,...) {
   GeomPath$new(mapping = mapping, data = data, stat = stat, position = position,
-  lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, arrow = arrow, ...)
+  lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, arrow = arrow,
+  show_guide = show_guide,...)
 }
 
 GeomPath <- proto(Geom, {

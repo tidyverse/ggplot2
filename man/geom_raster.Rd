@@ -6,7 +6,7 @@
 \usage{
 geom_raster(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", hjust = 0.5, vjust = 0.5, interpolate = FALSE,
-  ...)
+  show_guide = NA, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -29,9 +29,13 @@ for both, centering each pixel over its data location.}
 \item{interpolate}{If \code{TRUE} interpolate linearly, if \code{FALSE}
 (the default) don't interpolate.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
+\item{show_guide}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. Typically,
+these are aesthetics whose values you want to set, not map. e.g.
+\code{color = "red"} or \code{size = 3}.}
 }
 \description{
 This is a special case of \code{\link{geom_tile}} where all tiles are
