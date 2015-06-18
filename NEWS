@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* `facet_wrap()` more carefully checks its `nrow` and `ncol` arguments
+  to ensure that they're specified correctly (@richierocks, #962)
+
 * Improved the calculation of segments needed to draw the curve representing
   a line when plotted in polar coordinates. In some cases, the last segment
   of a multi-segment line was not drawn (@BrianDiggs, #952)
