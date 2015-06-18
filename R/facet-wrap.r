@@ -281,7 +281,7 @@ facet_vars.wrap <- function(facet) {
 #' }
 #' @noRd
 sanitise_dim <- function(n) {
-  xname <- sQuote(deparse(substitute(n)))
+  xname <- paste0("`", deparse(substitute(n)), "`")
   if (length(n) == 0) {
     if (!is.null(n)) {
       warning(xname, " has length zero and will be treated as NULL.",
