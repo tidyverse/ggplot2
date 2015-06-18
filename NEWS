@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* `theme_minimal()` got slightly more minimal by removing the axis ticks:
+  labels now line up beneath the grid lines (@tomschloss, #1084)
+
 * `ggsave()` has been simplified a little to make it easier to maintain.
   It no longer checks that you're printing a ggplot2 object (so now also
   works with any grid grob) (#970), and always requires a filename.
