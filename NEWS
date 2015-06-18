@@ -1,9 +1,9 @@
+ggplot2 1.0.1.9000
+----------------------------------------------------------------
+
 * Add access to the new `direction` argument of `scales::brewer_pal` and
   simplify changing the order of colours for `scale_*_brewer` and
   `scale_*_distiller` (@jiho, #1139)
-
-ggplot2 1.0.1.9000
-----------------------------------------------------------------
 
 * `facet_wrap()` more carefully checks its `nrow` and `ncol` arguments
   to ensure that they're specified correctly (@richierocks, #962)
