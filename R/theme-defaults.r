@@ -184,7 +184,9 @@ theme_minimal <- function(base_size = 12, base_family = "") {
       panel.background  = element_blank(),
       panel.border      = element_blank(),
       strip.background  = element_blank(),
-      plot.background   = element_blank()
+      plot.background   = element_blank(),
+      axis.ticks        = element_blank(),
+      axis.ticks.length = unit(0, "lines")
     )
 }
 
