@@ -5,7 +5,7 @@
 \title{Wrap a 1d ribbon of panels into 2d.}
 \usage{
 facet_wrap(facets, nrow = NULL, ncol = NULL, scales = "fixed",
-  shrink = TRUE, as.table = TRUE, drop = TRUE)
+  shrink = TRUE, as.table = TRUE, switch = NULL, drop = TRUE)
 }
 \arguments{
 \item{facets}{Either a formula or character vector. Use either a
@@ -24,6 +24,11 @@ before statistical summary.}
 \item{as.table}{If \code{TRUE}, the default, the facets are laid out like
 a table with highest values at the bottom-right. If \code{FALSE}, the
 facets are laid out like a plot with the highest value at the top-right.}
+
+\item{switch}{By default, the labels are displayed on the top of
+the plot. If \code{switch} is \code{"x"}, they will be displayed
+to the bottom. If \code{"y"}, they will be displayed to the
+left, near the y axis.}
 
 \item{drop}{If \code{TRUE}, the default, all factor levels not used in the
 data will automatically be dropped. If \code{FALSE}, all factor levels
@@ -75,5 +80,36 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point(data = transform(mpg, class = NULL), colour = "grey85") +
   geom_point() +
   facet_wrap(~class)
+
+\dontrun{
+# Use `switch` to display the facet labels near an axis, acting as
+# a subtitle for this axis. This is typically used with free scales
+# and a theme without boxes around strip labels.
+library("dplyr")
+library("tidyr")
+data <- mtcars \%>\%
+  mutate(Logarithmic = log(mpg),
+         Inverse = 1/mpg,
+         Quadratic = mpg^2,
+         Original = mpg) \%>\%
+  gather(mpg_trans, mpg2, Logarithmic:Original)
+p <- ggplot(data, aes(mpg, disp)) + geom_point()
+
+p + aes(x = mpg2) +
+  facet_wrap(~ mpg_trans, ncol = 2, scales = "free", switch = "x") +
+  theme() \%+replace\% theme(strip.background = element_blank())
+
+
+data <- data \%>\%
+  mutate(Logarithmic = log(disp),
+         Inverse = 1/disp,
+         Quadratic = disp^2,
+         Original = disp) \%>\%
+  gather(dpg_trans, disp2, Logarithmic:Original)
+
+p \%+\% data + aes(y = disp2) +
+  facet_wrap(~ dpg_trans, ncol = 2, scales = "free", switch = "y") +
+  theme_minimal()
+}
 }
 

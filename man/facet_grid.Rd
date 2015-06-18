@@ -5,7 +5,8 @@
 \title{Lay out panels in a grid.}
 \usage{
 facet_grid(facets, margins = FALSE, scales = "fixed", space = "fixed",
-  shrink = TRUE, labeller = "label_value", as.table = TRUE, drop = TRUE)
+  shrink = TRUE, labeller = "label_value", as.table = TRUE,
+  switch = NULL, drop = TRUE)
 }
 \arguments{
 \item{facets}{a formula with the rows (of the tabular display) on the LHS
@@ -44,6 +45,12 @@ to other options.}
 \item{as.table}{If \code{TRUE}, the default, the facets are laid out like
 a table with highest values at the bottom-right. If \code{FALSE}, the
 facets are laid out like a plot with the highest value at the top-right.}
+
+\item{switch}{By default, the labels are displayed on the top and
+right of the plot. If \code{"x"}, the top labels will be
+displayed to the bottom. If \code{"y"}, the right-hand side
+labels will be displayed to the left. Can also be set to
+\code{"both"}.}
 
 \item{drop}{If \code{TRUE}, the default, all factor levels not used in the
 data will automatically be dropped. If \code{FALSE}, all factor levels
@@ -180,6 +187,20 @@ mg + facet_grid(vs + am ~ gear, margins = "am")
 mg + facet_grid(vs + am ~ gear, margins = "vs")
 mg + facet_grid(vs + am ~ gear, margins = "gear")
 mg + facet_grid(vs + am ~ gear, margins = c("gear", "am"))
+
+# The facet strips can be displayed near the axes with switch
+data <- transform(mtcars,
+  am = factor(am, levels = 0:1, c("Automatic", "Manual")),
+  gear = factor(gear, levels = 3:5, labels = c("Three", "Four", "Five"))
+)
+p <- ggplot(data, aes(mpg, disp)) + geom_point()
+p + facet_grid(am ~ gear, switch = "both") + theme_light()
+
+# It may be more aesthetic to use a theme without boxes around
+# around the strips.
+p + facet_grid(am ~ gear + vs, switch = "y") + theme_minimal()
+p + facet_grid(am ~ ., switch = "y") +
+  theme_gray() \%+replace\% theme(strip.background  = element_blank())
 }
 }
 

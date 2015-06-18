@@ -177,6 +177,10 @@ print.theme <- function(x, ...) str(x)
 #'                    (\code{element_text}; inherits from \code{strip.text}) \cr
 #'   strip.text.y     \tab facet labels along vertical direction
 #'                    (\code{element_text}; inherits from \code{strip.text}) \cr
+#'   strip.switch.pad.grid \tab space between strips and axes when strips are switched
+#'                    (\code{unit}) \cr
+#'   strip.switch.pad.wrap \tab space between strips and axes when strips are switched
+#'                    (\code{unit}) \cr
 #' }
 #'
 #' @param ... a list of element name, element pairings that modify the

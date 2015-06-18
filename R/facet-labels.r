@@ -182,7 +182,7 @@ labeller <- function(..., keep.as.numeric=FALSE) {
 
 
 # Grob for strip labels
-ggstrip <- function(text, horizontal=TRUE, theme) {
+ggstrip <- function(text, horizontal = TRUE, theme) {
   text_theme <- if (horizontal) "strip.text.x" else "strip.text.y"
   if (is.list(text)) text <- text[[1]]
 
@@ -196,4 +196,16 @@ ggstrip <- function(text, horizontal=TRUE, theme) {
     width = grobWidth(label) + unit(0.5, "lines"),
     height = grobHeight(label) + unit(0.5, "lines")
   ))
+}
+
+
+# Helper to adjust angle of switched strips
+adjust_angle <- function(angle) {
+  if (is.null(angle)) {
+    -90
+  } else if ((angle + 180) > 360) {
+    angle - 180
+  } else {
+    angle + 180
+  }
 }

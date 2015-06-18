@@ -27,6 +27,11 @@
 #' @param as.table If \code{TRUE}, the default, the facets are laid out like
 #'   a table with highest values at the bottom-right. If \code{FALSE}, the
 #'   facets are laid out like a plot with the highest value at the top-right.
+#' @param switch By default, the labels are displayed on the top and
+#'   right of the plot. If \code{"x"}, the top labels will be
+#'   displayed to the bottom. If \code{"y"}, the right-hand side
+#'   labels will be displayed to the left. Can also be set to
+#'   \code{"both"}.
 #' @param shrink If \code{TRUE}, will shrink scales to fit output of
 #'   statistics, not raw data. If \code{FALSE}, will be range of raw data
 #'   before statistical summary.
@@ -162,8 +167,22 @@
 #' mg + facet_grid(vs + am ~ gear, margins = "vs")
 #' mg + facet_grid(vs + am ~ gear, margins = "gear")
 #' mg + facet_grid(vs + am ~ gear, margins = c("gear", "am"))
+#'
+#' # The facet strips can be displayed near the axes with switch
+#' data <- transform(mtcars,
+#'   am = factor(am, levels = 0:1, c("Automatic", "Manual")),
+#'   gear = factor(gear, levels = 3:5, labels = c("Three", "Four", "Five"))
+#' )
+#' p <- ggplot(data, aes(mpg, disp)) + geom_point()
+#' p + facet_grid(am ~ gear, switch = "both") + theme_light()
+#' 
+#' # It may be more aesthetic to use a theme without boxes around
+#' # around the strips.
+#' p + facet_grid(am ~ gear + vs, switch = "y") + theme_minimal()
+#' p + facet_grid(am ~ ., switch = "y") +
+#'   theme_gray() %+replace% theme(strip.background  = element_blank())
 #' }
-facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, drop = TRUE) {
+facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, switch = NULL, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
@@ -200,8 +219,8 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
 
   facet(
     rows = rows, cols = cols, margins = margins, shrink = shrink,
-    free = free, space_free = space_free,
-    labeller = labeller, as.table = as.table, drop = drop,
+    free = free, space_free = space_free, labeller = labeller,
+    as.table = as.table, switch = switch, drop = drop,
     subclass = "grid"
   )
 }
@@ -239,17 +258,85 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
   strips$r$heights <- panels$heights
   strips$t$widths <- panels$widths
 
+  # Check if switch is consistent with grid layout
+  switch_x <- !is.null(facet$switch) && facet$switch %in% c("both", "x")
+  switch_y <- !is.null(facet$switch) && facet$switch %in% c("both", "y")
+  if (switch_x && length(strips$t) == 0) {
+    facet$switch <- if (facet$switch == "both") "y" else NULL
+    switch_x <- FALSE
+    warning("Cannot switch x axis strips as they do not exist", call. = FALSE)
+  }
+  if (switch_y && length(strips$r) == 0) {
+    facet$switch <- if (facet$switch == "both") "x" else NULL
+    switch_y <- FALSE
+    warning("Cannot switch y axis strips as they do not exist", call. = FALSE)
+  }
+
+
   # Combine components into complete plot
-  top <- strips$t
-  top <- gtable_add_cols(top, strips$r$widths)
-  top <- gtable_add_cols(top, axes$l$widths, pos = 0)
+  if (is.null(facet$switch)) {
+    top <- strips$t
+    top <- gtable_add_cols(top, strips$r$widths)
+    top <- gtable_add_cols(top, axes$l$widths, pos = 0)
 
-  center <- cbind(axes$l, panels, strips$r, z = c(2, 1, 3))
-  bottom <- axes$b
-  bottom <- gtable_add_cols(bottom, strips$r$widths)
-  bottom <- gtable_add_cols(bottom, axes$l$widths, pos = 0)
+    center <- cbind(axes$l, panels, strips$r, z = c(2, 1, 3))
+    bottom <- axes$b
+    bottom <- gtable_add_cols(bottom, strips$r$widths)
+    bottom <- gtable_add_cols(bottom, axes$l$widths, pos = 0)
 
-  complete <- rbind(top, center, bottom, z = c(1, 2, 3))
+    complete <- rbind(top, center, bottom, z = c(1, 2, 3))
+
+  } else {
+    # Add padding between the switched strips and the axes
+    padding <- convertUnit(theme$strip.switch.pad.grid, "cm")
+    
+    if (switch_x) {
+      t_heights <- c(padding, strips$t$heights)
+      gt_t <- gtable(widths = strips$t$widths, heights = unit(t_heights, "cm"))
+      gt_t <- gtable_add_grob(gt_t, strips$t, name = strips$t$name, clip = "off",
+        t = 1, l = 1, b = -1, r = -1)
+    }
+    if (switch_y) {
+      r_widths <- c(strips$r$widths, padding)
+      gt_r <- gtable(widths = unit(r_widths, "cm"), heights = strips$r$heights)
+      gt_r <- gtable_add_grob(gt_r, strips$r, name = strips$r$name, clip = "off",
+        t = 1, l = 1, b = -1, r = -1)
+    }
+
+    # Combine plot elements according to strip positions
+    if (switch_x && switch_y) {
+      center <- cbind(gt_r, axes$l, panels, z = c(3, 2, 1))
+
+      bottom <- rbind(axes$b, gt_t)
+      bottom <- gtable_add_cols(bottom, axes$l$widths, pos = 0)
+      bottom <- gtable_add_cols(bottom, gt_r$widths, pos = 0)
+
+      complete <- rbind(center, bottom, z = c(1, 2))
+    } else if (switch_x) {
+      center <- cbind(axes$l, panels, strips$r, z = c(2, 1, 3))
+
+      bottom <- rbind(axes$b, gt_t)
+      bottom <- gtable_add_cols(bottom, strips$r$widths)
+      bottom <- gtable_add_cols(bottom, axes$l$widths, pos = 0)
+
+      complete <- rbind(center, bottom, z = c(1, 2))
+    } else if (switch_y) {
+      top <- strips$t
+      top <- gtable_add_cols(top, gt_r$widths, pos = 0)
+      top <- gtable_add_cols(top, axes$l$widths, pos = 0)
+
+      center <- cbind(gt_r, axes$l, panels, z = c(3, 2, 1))
+      bottom <- axes$b
+      bottom <- gtable_add_cols(bottom, axes$l$widths, pos = 0)
+      bottom <- gtable_add_cols(bottom, gt_r$widths, pos = 0)
+
+      complete <- rbind(top, center, bottom, z = c(1, 2, 3))
+    } else {
+      stop("`switch` must be either NULL, 'both', 'x', or 'y'",
+        call. = FALSE) 
+    }
+  }
+  
   complete$respect <- panels$respect
   complete$name <- "layout"
   bottom <- axes$b
@@ -262,13 +349,23 @@ facet_strips.grid <- function(facet, panel, theme) {
   col_vars <- unique(panel$layout[names(facet$cols)])
   row_vars <- unique(panel$layout[names(facet$rows)])
 
+  dir <- list(r = "r", t = "t")
+  if (!is.null(facet$switch) && facet$switch %in% c("both", "x")) {
+    dir$t <- "b"
+  }
+  if (!is.null(facet$switch) && facet$switch %in% c("both", "y")){
+    dir$r <- "l"
+  }
+
   list(
-    r = build_strip(panel, row_vars, facet$labeller, theme, "r"),
-    t = build_strip(panel, col_vars, facet$labeller, theme, "t")
+    r = build_strip(panel, row_vars, facet$labeller,
+      theme, dir$r, switch = facet$switch),
+    t = build_strip(panel, col_vars, facet$labeller,
+      theme, dir$t, switch = facet$switch)
   )
 }
 
-build_strip <- function(panel, label_df, labeller, theme, side = "right") {
+build_strip <- function(panel, label_df, labeller, theme, side = "right", switch = NULL) {
   side <- match.arg(side, c("top", "left", "bottom", "right"))
   horizontal <- side %in% c("top", "bottom")
   labeller <- match.fun(labeller)
@@ -290,6 +387,11 @@ build_strip <- function(panel, label_df, labeller, theme, side = "right") {
     labels[, i] <- labeller(names(label_df)[i], label_df[, i])
   }
 
+  # Display the mirror of the y strip labels if switched
+  if (!is.null(switch) && switch %in% c("both", "y")) {
+    theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
+  }
+
   # Render as grobs
   grobs <- apply(labels, c(1,2), ggstrip, theme = theme,
     horizontal = horizontal)
@@ -297,10 +399,9 @@ build_strip <- function(panel, label_df, labeller, theme, side = "right") {
   # Create layout
   name <- paste("strip", side, sep = "-")
   if (horizontal) {
-    grobs <- t(grobs)
-
     # Each row is as high as the highest and as a wide as the panel
     row_height <- function(row) max(laply(row, height_cm))
+    grobs <- t(grobs)
     heights <- unit(apply(grobs, 1, row_height), "cm")
     widths <- unit(rep(1, ncol(grobs)), "null")
   } else {
