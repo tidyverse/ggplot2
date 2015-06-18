@@ -7,11 +7,11 @@
 #' @param sides a string that controls which sides of the plot the log ticks appear on.
 #'   It can be set to a string containing any of \code{"trbl"}, for top, right,
 #'   bottom, and left.
-#' @param short a \code{\link[pkg:grid]{unit}} object specifying the length of the 
+#' @param short a \code{\link[grid]{unit}} object specifying the length of the
 #'   short tick marks
-#' @param mid a \code{\link[pkg:grid]{unit}} object specifying the length of the 
+#' @param mid a \code{\link[grid]{unit}} object specifying the length of the
 #'   middle tick marks. In base 10, these are the "5" ticks.
-#' @param long a \code{\link[pkg:grid]{unit}} object specifying the length of the 
+#' @param long a \code{\link[grid]{unit}} object specifying the length of the
 #'   long tick marks. In base 10, these are the "1" (or "10") ticks.
 #' @param scaled is the data already log-scaled? This should be \code{TRUE}
 #'   (default) when the data is already transformed with \code{log10()} or when

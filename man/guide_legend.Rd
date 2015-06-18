@@ -49,18 +49,18 @@ label text.}
 \item{label.vjust}{A numeric specifying vertical justification of the label
 text.}
 
-\item{keywidth}{A numeric or a \code{\link[pkg:grid]{unit}} object specifying
+\item{keywidth}{A numeric or a \code{\link[grid]{unit}} object specifying
 the width of the legend key. Default value is \code{legend.key.width} or
 \code{legend.key.size} in \code{\link{theme}} or theme.}
 
-\item{keyheight}{A numeric or a \code{\link[pkg:grid]{unit}} object specifying
+\item{keyheight}{A numeric or a \code{\link[grid]{unit}} object specifying
 the height of the legend key. Default value is \code{legend.key.height} or
 \code{legend.key.size} in \code{\link{theme}} or theme.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
 
-\item{default.unit}{A character string indicating \code{\link[pkg:grid]{unit}}
+\item{default.unit}{A character string indicating \code{\link[grid]{unit}}
 for \code{keywidth} and \code{keyheight}.}
 
 \item{override.aes}{A list specifying aesthetic parameters of legend key.

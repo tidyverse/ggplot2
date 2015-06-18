@@ -58,11 +58,11 @@ label text.}
 \item{label.vjust}{A numeric specifying vertical justification of the label
 text.}
 
-\item{barwidth}{A numeric or a \code{\link[pkg:grid]{unit}} object specifying
+\item{barwidth}{A numeric or a \code{\link[grid]{unit}} object specifying
 the width of the colorbar. Default value is \code{legend.key.width} or
 \code{legend.key.size} in \code{\link{theme}} or theme.}
 
-\item{barheight}{A numeric or a \code{\link[pkg:grid]{unit}} object specifying
+\item{barheight}{A numeric or a \code{\link[grid]{unit}} object specifying
 the height of the colorbar. Default value is \code{legend.key.height} or
 \code{legend.key.size} in \code{\link{theme}} or theme.}
 
@@ -86,7 +86,7 @@ be visible.}
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
 
-\item{default.unit}{A character string indicating \code{\link[pkg:grid]{unit}}
+\item{default.unit}{A character string indicating \code{\link[grid]{unit}}
 for \code{barwidth} and \code{barheight}.}
 
 \item{reverse}{logical. If \code{TRUE} the colorbar is reversed. By default,

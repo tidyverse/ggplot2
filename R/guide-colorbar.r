@@ -7,15 +7,15 @@
 #'
 #' Guides can be specified in each \code{scale_*} or in \code{\link{guides}}.
 #' \code{guide="legend"} in \code{scale_*} is syntactic sugar for
-#' \code{guide=guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}). 
-#' As for how to specify the guide for each scale in more detail, 
+#' \code{guide=guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}).
+#' As for how to specify the guide for each scale in more detail,
 #' see \code{\link{guides}}.
 #'
 #' @inheritParams guide_legend
-#' @param barwidth A numeric or a \code{\link[pkg:grid]{unit}} object specifying 
+#' @param barwidth A numeric or a \code{\link[grid]{unit}} object specifying
 #'   the width of the colorbar. Default value is \code{legend.key.width} or
 #'   \code{legend.key.size} in \code{\link{theme}} or theme.
-#' @param barheight A numeric or a \code{\link[pkg:grid]{unit}} object specifying 
+#' @param barheight A numeric or a \code{\link[grid]{unit}} object specifying
 #'   the height of the colorbar. Default value is \code{legend.key.height} or
 #'   \code{legend.key.size} in \code{\link{theme}} or theme.
 #' @param nbin A numeric specifying the number of bins for drawing colorbar. A
@@ -32,7 +32,7 @@
 #'   be visible.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
-#' @param default.unit A character string indicating \code{\link[pkg:grid]{unit}} 
+#' @param default.unit A character string indicating \code{\link[grid]{unit}}
 #'   for \code{barwidth} and \code{barheight}.
 #' @param reverse logical. If \code{TRUE} the colorbar is reversed. By default,
 #'   the highest value is on the top and the lowest value is on the bottom
