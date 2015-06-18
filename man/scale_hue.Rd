@@ -33,7 +33,8 @@ to control name, limits, breaks, labels and so forth.}
 
 \item{h}{range of hues to use, in [0, 360]}
 
-\item{c}{chroma (intensity of colour), maximum value varies depending on}
+\item{c}{chroma (intensity of colour), maximum value varies depending on
+combination of hue and luminance.}
 
 \item{l}{luminance (lightness), in [0, 100]}
 
