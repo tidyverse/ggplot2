@@ -22,6 +22,7 @@
 #' @param limitsize when \code{TRUE} (the default), \code{ggsave} will not
 #'   save images larger than 50x50 inches, to prevent the common error of
 #'   specifying dimensions in pixels.
+#' @param check.class logical, checking whether the plot must inherit the ggplot class
 #' @param ... other arguments passed to graphics device
 #' @export
 #' @examples
@@ -40,9 +41,9 @@
 ggsave <- function(filename = default_name(plot), plot = last_plot(),
   device = default_device(filename), path = NULL, scale = 1,
   width = par("din")[1], height = par("din")[2], units = c("in", "cm", "mm"),
-  dpi = 300, limitsize = TRUE, ...) {
+  dpi = 300, limitsize = TRUE, check.class = TRUE, ...) {
 
-  if (!inherits(plot, "ggplot")) stop("plot should be a ggplot2 plot")
+  if (check.class && !inherits(plot, "ggplot")) stop("plot should be a ggplot2 plot")
 
   eps <- ps <- function(..., width, height)
     grDevices::postscript(..., width=width, height=height, onefile=FALSE,
@@ -121,7 +122,9 @@ ggsave <- function(filename = default_name(plot), plot = last_plot(),
   }
   device(file=filename, width=width, height=height, ...)
   on.exit(capture.output(dev.off()))
-  print(plot)
+  grid.draw(plot)
 
   invisible()
 }
+
+grid.draw.ggplot <- function (x, recording = TRUE) print(x)
