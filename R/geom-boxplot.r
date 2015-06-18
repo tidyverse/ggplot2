@@ -36,6 +36,8 @@
 #'    \code{TRUE}, boxes are drawn with widths proportional to the
 #'    square-roots of the number of observations in the groups (possibly
 #'    weighted, using the \code{weight} aesthetic).
+#' @param flip.legend if \code{TRUE} boxplot symbols in legend are flipped for use with \code{coord_flip}
+#'
 #' @export
 #'
 #' @references McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
@@ -107,10 +109,10 @@
 #' p + geom_boxplot()
 #' }
 geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
-                          position = "dodge", outlier.colour = NULL,
-                          outlier.shape = NULL, outlier.size = NULL,
-                          notch = FALSE, notchwidth = .5, varwidth = FALSE,
-                          ...) {
+  position = "dodge", outlier.colour = NULL,
+  outlier.shape = NULL, outlier.size = NULL,
+  notch = FALSE, notchwidth = .5, varwidth = FALSE, flip.legend = FALSE,
+  ...) {
 
   outlier_defaults <- Geom$find('point')$default_aes()
 
@@ -121,7 +123,7 @@ geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
   GeomBoxplot$new(mapping = mapping, data = data, stat = stat,
     position = position, outlier.colour = outlier.colour,
     outlier.shape = outlier.shape, outlier.size = outlier.size, notch = notch,
-    notchwidth = notchwidth, varwidth = varwidth, ...)
+    notchwidth = notchwidth, varwidth = varwidth, flip.legend = flip.legend,...)
 }
 
 GeomBoxplot <- proto(Geom, {
@@ -158,7 +160,7 @@ GeomBoxplot <- proto(Geom, {
   }
 
   draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2,
-                   notch = FALSE, notchwidth = .5, varwidth = FALSE) {
+    notch = FALSE, notchwidth = .5, varwidth = FALSE) {
     common <- data.frame(
       colour = data$colour,
       size = data$size,
@@ -211,15 +213,21 @@ GeomBoxplot <- proto(Geom, {
   }
 
   guide_geom <- function(.) "boxplot"
-  draw_legend <- function(., data, ...)  {
+  draw_legend <- function(., data, flip.legend = flip.legend, ...)  {
     data <- aesdefaults(data, .$default_aes(), list(...))
     gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt, lty = linetype))
-    gTree(gp = gp, children = gList(
-      linesGrob(0.5, c(0.1, 0.25)),
-      linesGrob(0.5, c(0.75, 0.9)),
-      rectGrob(height=0.5, width=0.75),
-      linesGrob(c(0.125, 0.875), 0.5)
-    ))
+
+    if (flip.legend$flip.legend == TRUE) children = gList( # i don't understand why flip.legend is in a object called flip.legend, but it seems to work
+      linesGrob(c(0.1, 0.25), 0.5),
+      linesGrob(c(0.75, 0.9), 0.5),
+      rectGrob(height=0.75, width=0.5),
+      linesGrob(0.5, c(0.125, 0.875))) else children = gList(
+        linesGrob(0.5, c(0.1, 0.25)),
+        linesGrob(0.5, c(0.75, 0.9)),
+        rectGrob(height=0.5, width=0.75),
+        linesGrob(c(0.125, 0.875), 0.5))
+
+    gTree(gp = gp, children = children)
   }
 
   default_stat <- function(.) StatBoxplot
