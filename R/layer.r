@@ -250,6 +250,34 @@ Layer <- proto(expr = {
 
 #' Create a new layer
 #'
-#' @keywords internal
 #' @export
-layer <- Layer$new
+#' @inheritParams geom_point
+#' @param geom Geometric element, as a string.
+#' @param geom_params,stat_params,params,... Additional parameters to the
+#'   \code{geom} and \code{stat}. If supplied individual in \code{...} or as a
+#'   list in \code{params}, \code{layer} does it's best to figure out which
+#'   arguments belong to which. To be explicit, supply as individual lists to
+#'   \code{geom_param} and \code{stat_param}.
+#' @param mapping Set of aesthetic mappings created by \code{\link{aes}} or
+#'   \code{\link{aes_string}}. If specified and \code{inherit.aes = TRUE},
+#'   is combined with the default mapping at the top level of the plot.
+#' @param inherit.aes If \code{FALSE}, overrides the default aesthetics,
+#'   rather than combining with them. This is most useful for helper functions
+#'   that define both data and aesthetics and shouldn't inherit behaviour from
+#'   the default plot specification, e.g. \code{\link{borders}}.
+#' @param subset DEPRECATED. An older way of subsetting the dataset used in a
+#'   layer.
+#' @examples
+#' # geom calls are just a short cut for layer
+#' ggplot(mpg, aes(displ, hwy)) + geom_point()
+#' # shortcut for
+#' ggplot(mpg, aes(displ, hwy)) + layer(geom = "point", stat = "identity")
+layer <- function(geom = NULL, geom_params = NULL, stat = NULL,
+                  stat_params = NULL, data = NULL, mapping = NULL,
+                  position = NULL, params = NULL, ...,
+                  inherit.aes = TRUE, subset = NULL, show_guide = NA) {
+  Layer$new(geom = geom, geom_params = geom_params, stat = stat,
+    stat_params = stat_params, data = data, mapping = mapping,
+    position = position, params = params, ..., inherit.aes = inherit.aes,
+    subset = subset, show_guide = show_guide)
+}

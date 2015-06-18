@@ -12,14 +12,14 @@ geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
 \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
 at the layer level if you are overriding the plot defaults.}
 
-\item{data}{A layer specific dataset - only needed if you want to override
-the plot defaults.}
+\item{data}{A data frame. If specified, overrides the default data frame
+defined at the top level of the plot.}
 
 \item{stat}{The statistical transformation to use on the data for this
-layer.}
+layer, as a string.}
 
-\item{position}{The position adjustment to use for overlapping points
-on this layer}
+\item{position}{Postion adjustment, either as a string, or the result of
+a call to a position adjustment function.}
 
 \item{show_guide}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

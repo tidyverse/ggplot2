@@ -96,10 +96,10 @@ ggplot2 1.0.1.9000
   don't need to do `library(scales)` or `scales::alpha()` to access that
   handy function (#1107).
 
-* Improved documentation for `aes()` and many geoms and scales. I've tried
-  to reduce the use of `...` so that you can see all the documentation in one
-  place rather than having to navigate through multiple pages. Use of `qplot()`
-  in examples has been minimised (#1123, @hrbrmstr)
+* Improved documentation for `aes()`, `layer()` and many geoms and scales. I've
+  tried to reduce the use of `...` so that you can see all the documentation in
+  one place rather than having to navigate through multiple pages. Use
+  of `qplot()` in examples has been minimised (#1123, @hrbrmstr)
 
 ggplot2 1.0.1
 ----------------------------------------------------------------

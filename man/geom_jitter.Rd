@@ -13,8 +13,8 @@ geom_jitter(mapping = NULL, data = NULL, width = NULL, height = NULL,
 \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
 at the layer level if you are overriding the plot defaults.}
 
-\item{data}{A layer specific dataset - only needed if you want to override
-the plot defaults.}
+\item{data}{A data frame. If specified, overrides the default data frame
+defined at the top level of the plot.}
 
 \item{width}{Amount of vertical and horizontal jitter. The jitter
   is added in both positive and negative directions, so the total spread
@@ -35,10 +35,10 @@ the plot defaults.}
   data so it's not possible to see the distinction between the categories.}
 
 \item{stat}{The statistical transformation to use on the data for this
-layer.}
+layer, as a string.}
 
-\item{position}{The position adjustment to use for overlapping points
-on this layer}
+\item{position}{Postion adjustment, either as a string, or the result of
+a call to a position adjustment function.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
@@ -47,9 +47,16 @@ a warning.  If \code{TRUE} silently removes missing values.}
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. Typically,
-these are aesthetics whose values you want to set, not map. e.g.
-\code{color = "red"} or \code{size = 3}.}
+\item{...}{other arguments passed on to \code{\link{layer}}. There are
+  three types of arguments you can use here:
+
+  \itemize{
+  \item Aesthetics: to set an aesthetic to a fixed value, like
+     \code{color = "red"} or \code{size = 3}.
+  \item Other arguments to the layer, for example you override the
+    default \code{stat} associated with the layer.
+  \item Other arguments passed on to the stat.
+  }}
 }
 \description{
 The jitter geom is a convenient default for geom_point with position =
