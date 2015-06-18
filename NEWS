@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* `ggsave()` has been simplified a little to make it easier to maintain.
+  It no longer checks that you're printing a ggplot2 object (so now also
+  works with any grid grob) (#970), and always requires a filename.
+
 * `facet_wrap()` more carefully checks its `nrow` and `ncol` arguments
   to ensure that they're specified correctly (@richierocks, #962)
 
