@@ -179,6 +179,10 @@ REMOVED FUNCTIONALITY
 * `ggpcp()`, `ggfluctuation()`, `ggmissing()`, `ggstructure()`, and
   `ggorder()` are now defunct and have been removed.
 
+* Improved the calculation of segments needed to draw the curve representing
+  a line when plotted in polar coordinates. In some cases, the last segment
+  of a multi-segment line was not drawn (@BrianDiggs, #952)
+
 ggplot2 0.9.3.1
 ----------------------------------------------------------------
 
