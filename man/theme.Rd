@@ -132,6 +132,9 @@ The individual theme elements are:
                    (\code{element_line}; inherits from \code{panel.grid.minor}) \cr
   panel.grid.minor.y \tab horizontal minor grid lines
                    (\code{element_line}; inherits from \code{panel.grid.minor}) \cr
+  panel.ontop        \tab option to place the panel (background, gridlines)
+                          over the data layers.  Usually used with a transparent
+                          or blank \code{panel.background}. (\code{logical}) \cr
 
   plot.background  \tab background of the entire plot
                    (\code{element_rect}; inherits from \code{rect}) \cr
@@ -253,6 +256,17 @@ k + theme(strip.text.x = element_text(colour = "red", angle = 45, size = 10,
 k + theme(panel.margin = unit(5, "lines"))
 k + theme(panel.margin.y = unit(0, "lines"))
 
+# Put gridlines on top
+meanprice <- tapply(diamonds$price, diamonds$cut, mean)
+cut <- factor(levels(diamonds$cut), levels = levels(diamonds$cut))
+df <- data.frame(meanprice, cut)
+g <- ggplot(df, aes(cut, meanprice)) + geom_bar(stat = "identity")
+g + geom_bar(stat = "identity") +
+    theme(panel.background=element_blank(),
+          panel.grid.major.x=element_blank(),
+          panel.grid.minor.x = element_blank(),
+          panel.grid.minor.y=element_blank(),
+          panel.ontop=TRUE)
 
 # Modify a theme and save it
 mytheme <- theme_grey() + theme(plot.title = element_text(colour = "red"))

@@ -102,6 +102,7 @@ theme_grey <- function(base_size = 12, base_family = "") {
     panel.margin =       unit(0.25, "lines"),
     panel.margin.x =     NULL,
     panel.margin.y =     NULL,
+    panel.ontop    =     FALSE,
 
     strip.background =   element_rect(fill = "grey80", colour = NA),
     strip.text.x =       element_text(),

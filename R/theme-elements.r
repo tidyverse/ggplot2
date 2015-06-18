@@ -272,6 +272,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   panel.grid.major.y  = el_def("element_line", "panel.grid.major"),
   panel.grid.minor.x  = el_def("element_line", "panel.grid.minor"),
   panel.grid.minor.y  = el_def("element_line", "panel.grid.minor"),
+  panel.ontop         = el_def("logical"),
 
   strip.background    = el_def("element_rect", "rect"),
   strip.text.x        = el_def("element_text", "strip.text"),

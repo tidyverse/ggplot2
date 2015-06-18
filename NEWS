@@ -101,6 +101,10 @@ ggplot2 1.0.1.9000
   one place rather than having to navigate through multiple pages. Use
   of `qplot()` in examples has been minimised (#1123, @hrbrmstr)
 
+* new theme setting `panel.ontop` (logical) allows placing background elements
+  (e.g., gridlines) on top of data. Usually used with blank or transparent
+  `panel.background`.  (@noamross. #551)
+
 ggplot2 1.0.1
 ----------------------------------------------------------------
 

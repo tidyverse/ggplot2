@@ -202,7 +202,12 @@ facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
     bg <- coord_render_bg(coord, panel$ranges[[i]], theme)
 
     geom_grobs <- lapply(geom_grobs, "[[", i)
-    panel_grobs <- c(list(bg), geom_grobs, list(fg))
+
+    if(theme$panel.ontop) {
+      panel_grobs <- c(geom_grobs, list(bg), list(fg))
+    } else {
+      panel_grobs <- c(list(bg), geom_grobs, list(fg))
+    }
 
     ggname(paste("panel", i, sep = "-"),
       gTree(children = do.call("gList", panel_grobs)))
