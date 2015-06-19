@@ -13,7 +13,8 @@ ggsave(filename, plot = last_plot(), device = default_device(filename),
 
 \item{plot}{Plot to save, defaults to last plot displayed.}
 
-\item{device}{Device to use. By default, extracted from extension.
+\item{device}{Device to use (function or any of the recognized extensions,
+e.g. \code{"pdf"}). By default, extracted from filename extension.
 \code{ggsave} currently recognises eps/ps, tex (pictex), pdf, jpeg, tiff,
 png, bmp, svg and wmf (windows only).}
 
@@ -53,6 +54,12 @@ ggsave("ratings.pdf", width = 20, height = 20, units = "cm")
 
 unlink("ratings.pdf")
 unlink("ratings.png")
+
+# specify device when saving to a file with unknown extension
+# (for example a server supplied temporary file)
+file <- tempfile()
+ggsave(file, device = "pdf")
+unlink(file)
 }
 }
 
