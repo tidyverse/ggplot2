@@ -28,7 +28,7 @@
 #' ggplot(movies, aes(rating)) + geom_histogram(binwidth = 0.1)
 #'
 #' ggsave("ratings.pdf")
-#' ggsave("ratings.pdf")
+#' ggsave("ratings.png")
 #'
 #' ggsave("ratings.pdf", width = 4, height = 4)
 #' ggsave("ratings.pdf", width = 20, height = 20, units = "cm")
@@ -43,58 +43,18 @@
 #' unlink(file)
 #' }
 ggsave <- function(filename, plot = last_plot(),
-                   device = default_device(filename), path = NULL, scale = 1,
+                   device = NULL, path = NULL, scale = 1,
                    width = NA, height = NA, units = c("in", "cm", "mm"),
                    dpi = 300, limitsize = TRUE, ...) {
 
-  eps <- ps <- function(..., width, height)
-    grDevices::postscript(..., width = width, height = height, onefile = FALSE,
-      horizontal = FALSE, paper = "special")
-  tex <- function(..., width, height)
-    grDevices::pictex(..., width = width, height = height)
-  pdf <- function(..., version = "1.4")
-    grDevices::pdf(..., version = version)
-  svg <- function(...)
-    grDevices::svg(...)
-  wmf <- function(..., width, height)
-    grDevices::win.metafile(..., width = width, height = height)
-  emf <- function(..., width, height)
-    grDevices::win.metafile(..., width = width, height = height)
-  png <- function(..., width, height)
-    grDevices::png(...,  width = width, height = height, res = dpi, units = "in")
-  jpg <- jpeg <- function(..., width, height)
-    grDevices::jpeg(..., width = width, height = height, res = dpi, units = "in")
-  bmp <- function(..., width, height)
-    grDevices::bmp(...,  width = width, height = height, res = dpi, units = "in")
-  tiff <- function(..., width, height)
-    grDevices::tiff(..., width = width, height = height, res = dpi, units = "in")
-
-  default_device <- function(filename) {
-    pieces <- strsplit(filename, "\\.")[[1]]
-    ext <- tolower(pieces[length(pieces)])
-    match_device(ext)
-  }
-
-  match_device <- function(ext) {
-    if(!exists(ext, mode = "function")) {
-      stop("No graphics device defined for the file extension '", ext, "'. ",
-           "Make sure to specify a filename with supported extension or ",
-           "set the device parameter.", call. = FALSE)
-    }
-    match.fun(ext)
-  }
-
-  if (is.character(device)) {
-    device <- match_device(device)
-  }
-
+  dev <- plot_dev(device, filename)
   dim <- plot_dim(c(width, height), scale = scale, units = units,
     limitsize = limitsize)
 
   if (!is.null(path)) {
     filename <- file.path(path, filename)
   }
-  device(file = filename, width = dim[1], height = dim[2], ...)
+  dev(file = filename, width = dim[1], height = dim[2], ...)
   on.exit(capture.output(dev.off()))
   grid.draw(plot)
 
@@ -102,8 +62,7 @@ ggsave <- function(filename, plot = last_plot(),
 }
 
 plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
-                      limitsize = TRUE, dim_guess = FALSE) {
-
+                     limitsize = TRUE) {
 
   units <- match.arg(units)
   to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
@@ -112,6 +71,11 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
   dim <- to_inches(dim) * scale
 
   if (any(is.na(dim))) {
+    if (length(dev.list()) == 0) {
+      stop("No graphics device is open. Please supply height and width",
+        call. = FALSE)
+    }
+
     dim[is.na(dim)] <- par("din") * scale
     dim_f <- prettyNum(from_inches(dim), digits = 3)
     message("Saving ", dim_f[1], " x ", dim_f[2], " ", units, " image")
@@ -124,6 +88,44 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
   }
 
   dim
+}
+
+plot_dev <- function(device, filename) {
+  if (is.function(device))
+    return(device)
+
+  eps <- function(...) {
+    grDevices::postscript(..., onefile = FALSE, horizontal = FALSE,
+      paper = "special")
+  }
+  devices <- list(
+    eps =  eps,
+    ps =   eps,
+    tex =  function(...) grDevices::pictex(...),
+    pdf =  function(..., version = "1.4") grDevices::pdf(..., version = version),
+    svg =  function(...) grDevices::svg(...),
+    emf =  function(...) grDevices::win.metafile(...),
+    wmf =  function(...) grDevices::win.metafile(...),
+    png =  function(...) grDevices::png(..., res = dpi, units = "in"),
+    jpg =  function(...) grDevices::jpeg(..., res = dpi, units = "in"),
+    jpeg = function(...) grDevices::jpeg(..., res = dpi, units = "in"),
+    bmp =  function(...) grDevices::bmp(..., res = dpi, units = "in"),
+    tiff = function(...) grDevices::tiff(..., res = dpi, units = "in")
+  )
+
+  if (is.null(device)) {
+    device <- tolower(tools::file_ext(filename))
+  }
+
+  if (!is.character(device) || length(device) != 1) {
+    stop("`device` must be NULL, a string or a function.", call. = FALSE)
+  }
+
+  dev <- devices[[device]]
+  if (is.null(dev)) {
+    stop("Unknown graphics device '", device, "'", call. = FALSE)
+  }
+  dev
 }
 
 #' @export

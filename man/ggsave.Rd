@@ -4,9 +4,9 @@
 \alias{ggsave}
 \title{Save a ggplot (or other grid object) with sensible defaults}
 \usage{
-ggsave(filename, plot = last_plot(), device = default_device(filename),
-  path = NULL, scale = 1, width = NA, height = NA, units = c("in",
-  "cm", "mm"), dpi = 300, limitsize = TRUE, ...)
+ggsave(filename, plot = last_plot(), device = NULL, path = NULL,
+  scale = 1, width = NA, height = NA, units = c("in", "cm", "mm"),
+  dpi = 300, limitsize = TRUE, ...)
 }
 \arguments{
 \item{filename}{File name to create on disk.}
@@ -47,7 +47,7 @@ extension.
 ggplot(movies, aes(rating)) + geom_histogram(binwidth = 0.1)
 
 ggsave("ratings.pdf")
-ggsave("ratings.pdf")
+ggsave("ratings.png")
 
 ggsave("ratings.pdf", width = 4, height = 4)
 ggsave("ratings.pdf", width = 20, height = 20, units = "cm")
