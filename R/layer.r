@@ -169,21 +169,19 @@ Layer <- proto(expr = {
 
 
   calc_statistic <- function(., data, scales) {
-    if (empty(data)) return(data.frame())
+    if (empty(data))
+      return(data.frame())
 
     check_required_aesthetics(.$stat$required_aes,
       c(names(data), names(.$stat_params)),
-      paste("stat_", .$stat$objname, sep=""))
+      paste("stat_", .$stat$objname, sep = ""))
 
-    res <- NULL
-    try(res <- do.call(.$stat$calculate_groups, c(
-      list(data=as.name("data"), scales=as.name("scales")),
-      .$stat_params)
-    ))
-    if (is.null(res)) return(data.frame())
-
-    res
-
+    args <- c(list(data = quote(data), scales = quote(scales)), .$stat_params)
+    tryCatch(do.call(.$stat$calculate_groups, args), error = function(e) {
+      warning("Computation failed in `stat_", .$stat$objname, "()`:\n",
+        e$message, call. = FALSE)
+      data.frame()
+    })
   }
 
 
