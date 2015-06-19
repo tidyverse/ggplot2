@@ -7,7 +7,8 @@
 #'
 #' @param filename File name to create on disk.
 #' @param plot Plot to save, defaults to last plot displayed.
-#' @param device Device to use. By default, extracted from extension.
+#' @param device Device to use (function or any of the recognized extensions,
+#'   e.g. \code{"pdf"}). By default, extracted from filename extension.
 #'   \code{ggsave} currently recognises eps/ps, tex (pictex), pdf, jpeg, tiff,
 #'   png, bmp, svg and wmf (windows only).
 #' @param path Path to save plot to (combined with filename).
@@ -34,6 +35,12 @@
 #'
 #' unlink("ratings.pdf")
 #' unlink("ratings.png")
+#'
+#' # specify device when saving to a file with unknown extension
+#' # (for example a server supplied temporary file)
+#' file <- tempfile()
+#' ggsave(file, device = "pdf")
+#' unlink(file)
 #' }
 ggsave <- function(filename, plot = last_plot(),
                    device = default_device(filename), path = NULL, scale = 1,
@@ -65,7 +72,20 @@ ggsave <- function(filename, plot = last_plot(),
   default_device <- function(filename) {
     pieces <- strsplit(filename, "\\.")[[1]]
     ext <- tolower(pieces[length(pieces)])
+    match_device(ext)
+  }
+
+  match_device <- function(ext) {
+    if(!exists(ext, mode = "function")) {
+      stop("No graphics device defined for the file extension '", ext, "'. ",
+           "Make sure to specify a filename with supported extension or ",
+           "set the device parameter.", call. = FALSE)
+    }
     match.fun(ext)
+  }
+
+  if (is.character(device)) {
+    device <- match_device(device)
   }
 
   dim <- plot_dim(c(width, height), scale = scale, units = units,
