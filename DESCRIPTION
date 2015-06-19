@@ -28,7 +28,7 @@ Imports:
     scales (>= 0.2.3),
     proto,
     MASS,
-    R6
+    R6 (>= 2.0.1.9003)
 Suggests:
     quantreg,
     Hmisc,

@@ -25,10 +25,6 @@ Scales <- R6::R6Class("Scales",
       # Remove old scale for this aesthetic (if it exists)
       self$scales <- c(self$scales[!prev_aes], list(scale))
     },
-    clone = function() {
-      new_scales <- lapply(self$scales, scale_clone)
-      Scales$new(new_scales)
-    },
     n = function() {
       length(self$scales)
     },

@@ -143,6 +143,95 @@ GeomText <- proto(Geom, {
 
 })
 
+#' @export
+geom_text2 <- function(mapping = NULL, data = NULL, stat = "identity",
+                      position = "identity", parse = FALSE, ...,
+                      nudge_x = 0, nudge_y = 0, check_overlap = FALSE,
+                      show_guide = NA) {
+
+  if (!missing(nudge_x) || !missing(nudge_y)) {
+    if (!missing(position)) {
+      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+    }
+
+    position <- position_nudge(nudge_x, nudge_y)
+  }
+
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomTextR6,
+    position = position_nudge(nudge_x, nudge_y),
+    show_guide = show_guide,
+    # geom_params = list(parse = parse, check_overlap = check_overlap),
+    params = list(parse = parse, check_overlap = check_overlap, ...)
+  )
+}
+
+
+GeomTextR6 <- R6::R6Class("GeomTextR6", inherit = GeomR6,
+  public = list(
+    objname = "text",
+
+    draw_groups = function(...) self$draw(...),
+
+    draw = function(data, scales, coordinates, ..., parse = FALSE,
+                     na.rm = FALSE, check_overlap = FALSE) {
+      data <- remove_missing(data, na.rm,
+        c("x", "y", "label"), name = "geom_text")
+
+      lab <- data$label
+      if (parse) {
+        lab <- parse(text = lab)
+      }
+
+      coords <- coord_transform(coordinates, data, scales)
+      if (is.character(coords$vjust)) {
+        coords$vjust <- compute_just(coords$vjust, coords$y)
+      }
+      if (is.character(coords$hjust)) {
+        coords$hjust <- compute_just(coords$hjust, coords$x)
+      }
+
+      textGrob(
+        lab,
+        coords$x, coords$y, default.units = "native",
+        hjust = coords$hjust, vjust = coords$vjust,
+        rot = coords$angle,
+        gp = gpar(
+          col = alpha(coords$colour, coords$alpha),
+          fontsize = coords$size * .pt,
+          fontfamily = coords$family,
+          fontface = coords$fontface,
+          lineheight = coords$lineheight
+        ),
+        check.overlap = check_overlap
+      )
+    },
+
+    draw_legend = function(data, ...) {
+      data <- aesdefaults(data, .$default_aes(), list(...))
+      textGrob(
+        "a", 0.5, 0.5,
+        rot = data$angle,
+        gp = gpar(
+          col = alpha(data$colour, data$alpha),
+          fontsize = data$size * .pt
+        )
+      )
+    },
+
+
+    default_stat = function() StatIdentity,
+    required_aes = c("x", "y", "label"),
+    default_aes = function() aes(colour = "black", size = 5, angle = 0,
+      hjust = 0.5, vjust = 0.5, alpha = NA, family = "", fontface = 1,
+      lineheight = 1.2),
+    guide_geom = function(x) "text"
+  )
+)
+
 compute_just <- function(just, x) {
   inward <- just == "inward"
   just[inward] <- c("left", "middle", "right")[just_dir(x[inward])]
