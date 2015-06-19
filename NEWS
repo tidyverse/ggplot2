@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* `geom_point()` changes the default shape from 16 to 19 - this has a
+  better display on the default linux graphics device. (It's very slightly
+  smaller than the old point, but it should affect any graphics significantly)
+
 * `theme_minimal()` got slightly more minimal by removing the axis ticks:
   labels now line up beneath the grid lines (@tomschloss, #1084)
 
