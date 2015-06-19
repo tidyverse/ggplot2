@@ -27,7 +27,8 @@ Imports:
     reshape2,
     scales (>= 0.2.3),
     proto,
-    MASS
+    MASS,
+    R6
 Suggests:
     quantreg,
     Hmisc,
