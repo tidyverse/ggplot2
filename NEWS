@@ -1,6 +1,8 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* Fixed segment annotations not transforming with scales (@BrianDiggs, #859)
+
 * `geom_point()` changes the default shape from 16 to 19 - this has a
   better display on the default linux graphics device. (It's very slightly
   smaller than the old point, but it should affect any graphics significantly)
@@ -212,8 +214,6 @@ REMOVED FUNCTIONALITY
 
 * `ggpcp()`, `ggfluctuation()`, `ggmissing()`, `ggstructure()`, and
   `ggorder()` are now defunct and have been removed.
-
-* Fixed segment annotations not transforming with scales (@BrianDiggs, #859)
 
 ggplot2 0.9.3.1
 ----------------------------------------------------------------
