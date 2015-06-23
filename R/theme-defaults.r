@@ -26,11 +26,17 @@
 #' A theme similar to \code{theme_linedraw} but with light grey lines and axes,
 #' to direct more attention towards the data.}
 #'
+#' \item{\code{theme_dark}}{
+#' The dark cousin of \code{theme_light}, with similar line sizes but a dark background. Useful to make thin coloured lines pop out.}
+#'
 #' \item{\code{theme_minimal}}{
 #' A minimalistic theme with no background annotations.}
 #'
 #' \item{\code{theme_classic}}{
 #' A classic-looking theme, with x and y axis lines and no gridlines.}
+#'
+#' \item{\code{theme_void}}{
+#' A completely empty theme.}
 #'
 #' }
 #'
@@ -45,6 +51,7 @@
 #' p + theme_light()
 #' p + theme_minimal()
 #' p + theme_classic()
+#' p + theme_void()
 #'
 #' @name ggtheme
 NULL
@@ -88,17 +95,20 @@ theme_grey <- function(base_size = 12, base_family = "") {
     legend.justification = "center",
     legend.box =         NULL,
 
-    panel.background =   element_rect(fill = "grey90", colour = NA),
+    panel.background =   element_rect(fill = "grey92", colour = NA),
     panel.border =       element_blank(),
     panel.grid.major =   element_line(colour = "white"),
     panel.grid.minor =   element_line(colour = "grey95", size = 0.25),
     panel.margin =       unit(0.25, "lines"),
     panel.margin.x =     NULL,
     panel.margin.y =     NULL,
+    panel.ontop    =     FALSE,
 
     strip.background =   element_rect(fill = "grey80", colour = NA),
     strip.text.x =       element_text(),
     strip.text.y =       element_text(angle = -90),
+    strip.switch.pad.grid = unit(0.9, "cm"),
+    strip.switch.pad.wrap = unit(0.3, "cm"),
 
     plot.background =    element_rect(colour = "white"),
     plot.title =         element_text(size = rel(1.2)),
@@ -177,7 +187,9 @@ theme_minimal <- function(base_size = 12, base_family = "") {
       panel.background  = element_blank(),
       panel.border      = element_blank(),
       strip.background  = element_blank(),
-      plot.background   = element_blank()
+      plot.background   = element_blank(),
+      axis.ticks        = element_blank(),
+      axis.ticks.length = unit(0, "lines")
     )
 }
 
@@ -193,4 +205,35 @@ theme_classic <- function(base_size = 12, base_family = ""){
       strip.background = element_rect(colour = "black", size = 0.5),
       legend.key       = element_blank()
     )
+}
+
+#' @export
+#' @rdname ggtheme
+theme_dark <- function(base_size = 12, base_family = "") {
+  # Starts with theme_grey and then modify some parts
+  theme_grey(base_size = base_size, base_family = base_family) %+replace%
+    theme(
+      axis.ticks        = element_line(colour = "grey40", size = 0.25),
+      legend.key        = element_rect(fill = "grey50", colour = "grey40", size=0.25),
+      panel.background  = element_rect(fill = "grey50", colour = NA),
+      panel.grid.major  = element_line(colour = "grey40", size = 0.25),
+      panel.grid.minor  = element_line(colour = "grey45", size = 0.125),
+      strip.background  = element_rect(fill = "grey20", colour = NA),
+      strip.text.x      = element_text(colour = "white"),
+      strip.text.y      = element_text(colour = "white", angle = -90)
+    )
+}
+
+#' @export
+#' @rdname ggtheme
+theme_void <- function(base_size = 12, base_family = "") {
+  theme(
+    # Use only inherited elements and make everything blank
+    line =               element_blank(),
+    rect =               element_blank(),
+    text =               element_blank(),
+    plot.margin =        unit(c(0, 0, 0, 0), "lines"),
+
+    complete = TRUE
+  )
 }

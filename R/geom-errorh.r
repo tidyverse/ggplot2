@@ -21,8 +21,8 @@
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se))
 #' p + geom_point() +
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))
-geom_errorbarh <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomErrorbarh$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_errorbarh <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
+  GeomErrorbarh$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
 }
 
 GeomErrorbarh <- proto(Geom, {

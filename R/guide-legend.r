@@ -3,14 +3,15 @@
 #' Legend type guide shows key (i.e., geoms) mapped onto values.
 #' Legend guides for various scales are integrated if possible.
 #'
-#' Guides can be specified in each scale or in \code{\link{guides}}.
-#' \code{guide="legend"} in scale is syntactic sugar for
-#' \code{guide=guide_legend()}. As for how to specify the guide for each
-#' scales in more detail, see \code{\link{guides}}.
+#' Guides can be specified in each \code{scale_*} or in \code{\link{guides}}.
+#' \code{guide="legend"} in \code{scale_*} is syntactic sugar for
+#' \code{guide=guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}).
+#' As for how to specify the guide for each scale in more detail,
+#' see \code{\link{guides}}.
 #'
 #' @param title A character string or expression indicating a title of guide.
 #'   If \code{NULL}, the title is not shown. By default
-#'   (\code{\link{waiver}}), the name of the scale object or tha name
+#'   (\code{\link{waiver}}), the name of the scale object or the name
 #'   specified in \code{\link{labs}} is used for the title.
 #' @param title.position A character string indicating the position of a
 #'   title. One of "top" (default for a vertical guide), "bottom", "left"
@@ -34,16 +35,16 @@
 #'   label text.
 #' @param label.vjust A numeric specifying vertical justification of the label
 #'   text.
-#' @param keywidth A numeric or a unit object specifying the width of the
-#'   legend key. Default value is \code{legend.key.width} or
+#' @param keywidth A numeric or a \code{\link[grid]{unit}} object specifying
+#'   the width of the legend key. Default value is \code{legend.key.width} or
 #'   \code{legend.key.size} in \code{\link{theme}} or theme.
-#' @param keyheight A numeric or a unit object specifying the height of the
-#'   legend key. Default value is \code{legend.key.height} or
+#' @param keyheight A numeric or a \code{\link[grid]{unit}} object specifying
+#'   the height of the legend key. Default value is \code{legend.key.height} or
 #'   \code{legend.key.size} in \code{\link{theme}} or theme.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
-#' @param default.unit A character string indicating unit for \code{keywidth}
-#'   and \code{keyheight}.
+#' @param default.unit A character string indicating \code{\link[grid]{unit}}
+#'   for \code{keywidth} and \code{keyheight}.
 #' @param override.aes A list specifying aesthetic parameters of legend key.
 #'   See details and examples.
 #' @param nrow The desired number of rows of legends.
@@ -51,9 +52,10 @@
 #' @param byrow logical. If \code{FALSE} (the default) the legend-matrix is
 #'   filled by columns, otherwise the legend-matrix is filled by rows.
 #' @param reverse logical. If \code{TRUE} the order of legends is reversed.
-#' @param order positive integer less that 99 that specify the order of
-#'   this guide in the multiple guides. If 0 (default), the order is determined
-#'   by a secret algorithm.
+#' @param order positive integer less that 99 that specifies the order of
+#'   this guide among multiple guides. This controls the order in which
+#'   multiple guides are displayed, not the contents of the guide itself.
+#'   If 0 (default), the order is determined by a secret algorithm.
 #' @param ... ignored.
 #' @return A guide object
 #' @export
@@ -101,15 +103,17 @@
 #' # Set aesthetic of legend key
 #'
 #' # very low alpha value make it difficult to see legend key
-#' p3 <- qplot(carat, price, data = diamonds, colour = color,
-#'   alpha = I(1/100))
+#' p3 <- ggplot(diamonds, aes(carat, price)) +
+#'   geom_point(aes(colour=color), alpha=1/100)
 #' p3
 #'
 #' # override.aes overwrites the alpha
 #' p3 + guides(colour = guide_legend(override.aes = list(alpha = 1)))
 #'
 #' # multiple row/col legends
-#' p <- qplot(1:20, 1:20, colour = letters[1:20])
+#' df <- data.frame(x = 1:20, y = 1:20, color = letters[1:20])
+#' p <- ggplot(df, aes(x, y)) +
+#'   geom_point(aes(colour = color))
 #' p + guides(col = guide_legend(nrow = 8))
 #' p + guides(col = guide_legend(ncol = 8))
 #' p + guides(col = guide_legend(nrow = 8, byrow = TRUE))
@@ -120,7 +124,7 @@
 #' }
 guide_legend <- function(
 
-  #　title
+  # title
   title = waiver(),
   title.position = NULL,
   title.theme = NULL,
@@ -154,7 +158,7 @@ guide_legend <- function(
   if (!is.null(keyheight) && !is.unit(keyheight)) keyheight <- unit(keyheight, default.unit)
 
   structure(list(
-    #　title
+    # title
     title = title,
     title.position = title.position,
     title.theme = title.theme,
@@ -516,3 +520,5 @@ guide_gengrob.legend <- function(guide, theme) {
 
   gt
 }
+
+globalVariables(c("R", "key.row", "key.col", "label.row", "label.col"))

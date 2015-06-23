@@ -81,21 +81,29 @@
 #' c + stat_smooth(method=lm) + geom_point()
 #' c + stat_smooth(method=lm, aes(fill = factor(cyl))) + geom_point()
 #' c + stat_smooth(method=lm, fullrange=TRUE, alpha = 0.1) + geom_point()
+#' }
 #'
-#' # Use qplot instead
-#' qplot(qsec, wt, data=mtcars, geom=c("smooth", "point"))
-#'
+#' \dontrun{
 #' # Example with logistic regression
 #' data("kyphosis", package="rpart")
-#' qplot(Age, Kyphosis, data=kyphosis)
-#' qplot(Age, data=kyphosis, facets = . ~ Kyphosis, binwidth = 10)
-#' qplot(Age, Kyphosis, data=kyphosis, position="jitter")
-#' qplot(Age, Kyphosis, data=kyphosis, position=position_jitter(height=0.1))
+#' ggplot(kyphosis, aes(Age, Kyphosis)) + geom_point()
+#' ggplot(kyphosis, aes(Age)) +
+#'   geom_bar(binwidth = 10) +
+#'   facet_wrap(~Kyphosis)
 #'
-#' qplot(Age, as.numeric(Kyphosis) - 1, data = kyphosis) +
-#'   stat_smooth(method="glm", family="binomial")
-#' qplot(Age, as.numeric(Kyphosis) - 1, data=kyphosis) +
-#'   stat_smooth(method="glm", family="binomial", formula = y ~ ns(x, 2))
+#' set.seed(1492)
+#' ggplot(kyphosis, aes(Age, Kyphosis)) + geom_point(position = "jitter")
+#'
+#' ggplot(kyphosis, aes(Age, Kyphosis)) +
+#'   geom_point(position = position_jitter(height=0.1))
+#'
+#' ggplot(kyphosis, aes(Age, as.numeric(Kyphosis) - 1)) +
+#'   geom_point() +
+#'   stat_smooth(method = "glm", family = "binomial")
+#'
+#' ggplot(kyphosis, aes(Age, as.numeric(Kyphosis) - 1)) +
+#'   geom_point() +
+#'   stat_smooth(method = "glm", family = "binomial", formula = y ~ ns(x, 2))
 #' }
 stat_smooth <- function (mapping = NULL, data = NULL, geom = "smooth", position = "identity",
 method = "auto", formula = y ~ x, se = TRUE, n = 80, fullrange = FALSE,

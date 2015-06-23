@@ -4,7 +4,7 @@
 #' of aesthetics; colour, fill and alpha.
 #'
 #' @name aes_colour_fill_alpha
-#' @aliases colour color fill alpha
+#' @aliases colour color fill
 #' @examples
 #' \donttest{
 #'

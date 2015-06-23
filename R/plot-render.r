@@ -26,7 +26,7 @@ ggplot_gtable <- function(data) {
 
     dlply(layer_data, "PANEL", function(df) {
       panel_i <- match(df$PANEL[1], panel$layout$PANEL)
-      layer$make_grob(df, scales = panel$ranges[[panel_i]], cs = plot$coord)
+      layer$make_grob(df, scales = panel$ranges[[panel_i]], cs = plot$coordinates)
     }, .drop = FALSE)
   }
 
@@ -44,7 +44,7 @@ ggplot_gtable <- function(data) {
   }
 
   # List by layer, list by panel
-  geom_grobs <- Map(build_grob, plot$layer, data)
+  geom_grobs <- Map(build_grob, plot$layers, data)
 
   plot_table <- facet_render(plot$facet, panel, plot$coordinates,
     plot_theme(plot), geom_grobs)

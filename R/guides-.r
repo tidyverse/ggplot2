@@ -44,11 +44,13 @@
 #' p + theme(legend.position = "bottom", legend.box = "horizontal")
 #'
 #' # Set order for multiple guides
-#'
-#' qplot(data = mpg, x = displ, y = cty, size = hwy, colour = cyl, shape = drv) +
-#'   guides(colour = guide_colourbar(order = 1),
-#'          alpha = guide_legend(order = 2),
-#'          size = guide_legend(order = 3))
+#' ggplot(mpg, aes(displ, cty)) +
+#'   geom_point(aes(size = hwy, colour = cyl, shape = drv)) +
+#'   guides(
+#'    colour = guide_colourbar(order = 1),
+#'    shape = guide_legend(order = 2),
+#'    size = guide_legend(order = 3)
+#'  )
 #' }
 guides <- function(...) {
   args <- list(...)
@@ -162,7 +164,6 @@ guides_train <- function(scales, theme, guides, labels) {
     # scale$legend is backward compatibility
     # if guides(XXX=FALSE), then scale_ZZZ(guides=XXX) is discarded.
     if (guide=="none" || (is.logical(guide) && !guide)) next
-    if ((!is.null(scale$legend) && !scale$legend) || is.null(scale_limits(scale))) next # for backward compatibility
 
     # check the validity of guide.
     # if guide is character, then find the guide object

@@ -7,6 +7,7 @@
 #' @keywords internal
 absoluteGrob <- function(grob, width = NULL, height = NULL,
   xmin = NULL, ymin = NULL, vp = NULL) {
+
   gTree(
     children = grob,
     width = width, height = height,
@@ -42,5 +43,5 @@ grobY.absoluteGrob <- function(x, theta) {
 #' @export
 #' @method grid.draw absoluteGrob
 grid.draw.absoluteGrob <- function(x, recording = TRUE) {
-  grid:::drawGTree(x)
+  NextMethod()
 }

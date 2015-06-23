@@ -60,7 +60,7 @@
 #'
 #' # y axis isn't really meaningful, so hide it
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5) +
-#'   scale_y_continuous(name = "", breaks = NA)
+#'   scale_y_continuous(name = "", breaks = NULL)
 #'
 #' # Overlap dots vertically
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, stackratio = .7)
@@ -95,16 +95,14 @@
 #'
 #' ggplot(mtcars, aes(x = 1, y = mpg, fill = factor(cyl))) +
 #'   geom_dotplot(binaxis = "y", stackgroups = TRUE, binwidth = 1, method = "histodot")
-#'   
-#' # Use qplot instead
-#' qplot(mpg, data = mtcars, geom = "dotplot")
 #'
 geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot", position = "identity",
 na.rm = FALSE, binwidth = NULL, binaxis = "x", method="dotdensity", binpositions = "bygroup", stackdir = "up",
-stackratio = 1, dotsize = 1, stackgroups = FALSE, ...) {
+stackratio = 1, dotsize = 1, stackgroups = FALSE, show_guide = NA,...) {
   GeomDotplot$new(mapping = mapping, data = data, stat = stat, position = position,
   na.rm = na.rm, binwidth = binwidth, binaxis = binaxis, method = method, binpositions = binpositions,
-  stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, stackgroups = stackgroups, ...)
+  stackdir = stackdir, stackratio = stackratio, dotsize = dotsize, stackgroups = stackgroups,
+  show_guide = show_guide,...)
 }
 
 GeomDotplot <- proto(Geom, {

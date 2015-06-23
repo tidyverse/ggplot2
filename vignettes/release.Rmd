@@ -31,11 +31,50 @@ After issues resolved for a given release:
 
 1.  Commit these changes to a branch with `ggplot2-<version>-rc`, and push the
     branch.
+    
+1.  Check packages that depend on ggplot2 with `devtools::revdep_check()` and
+    run visual tests.
 
-1.  Email ggplot2, ggplot2-dev, and the maintainers of packages that depend on
-    ggplot2.
+1.  Email ggplot2, ggplot2-dev, and bcc the maintainers of packages that depend 
+    on ggplot2 (`revdep_maintainers("ggplot2")`).
+    
+    ```
+    Hi all,
+    
+    We're very please to announce a release candidate for ggplot2 1.0.0! This
+    release celebrates the ggplot2 community: all improvements have been 
+    contributed via pull requests.
+    
+    We've made every effort to make sure that your existing ggplot2 graphics
+    continue to work. ggplot2 1.0.0 has passed R CMD check, all our existing 
+    visual tests, and R CMD check on all dependencies. But it's still possible 
+    that some bugs may have crept in, so we'd really appreciate it if you'd 
+    try it out. It's easy to install the development version: first install 
+    devtools, then run `devtools::install_github("hadley/ggplot2@ggplot2-1.0.0-rc")`.
+    
+    We plan to submit ggplot2 to cran in two weeks, May 9. Please let us know if 
+    you have any problems - your feedback is much appreciated. (If you're pretty
+    sure you've discovered a new bug, please start a new thread or file
+    an issue on github, otherwise it's a bit hard to track what's going on).
+    
+    Hadley & Winston
+    ```
 
-1.  Check packages that depend on ggplot2 with `devtools::revdep_check()`
+1.  Notify cran:
+
+    ```
+    Dear CRAN maintainers,
+    
+    ggplot2 1.0.0 has entered the release candidate phase and will be
+    submitted to CRAN in two weeks.
+    
+    Included below is the email that I sent to the ggplot2 mailing and all
+    maintainers of packages that depend on ggplot2.
+    
+    Regards,
+    
+    Hadley
+    ```
 
 If problems arise during the RC period, make fixes on the branch. Those fixes
 later get merged back into master.

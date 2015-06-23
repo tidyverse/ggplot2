@@ -10,9 +10,10 @@
 #' @examples
 #' # See stat_contour for examples
 geom_contour <- function (mapping = NULL, data = NULL, stat = "contour", position = "identity",
-lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
+lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, show_guide = NA,...) {
   GeomContour$new(mapping = mapping, data = data, stat = stat, position = position,
-  lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, ...)
+  lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm,
+  show_guide = show_guide,...)
 }
 
 GeomContour <- proto(GeomPath, {

@@ -12,8 +12,12 @@
 #'   \item{y}{value of function evaluated at corresponding x}
 #' @export
 #' @examples
-#' x <- rnorm(100)
-#' base <- qplot(x, geom = "density")
+#' set.seed(1492)
+#' df <- data.frame(
+#'   x = rnorm(100)
+#' )
+#' x <- df$x
+#' base <- ggplot(df, aes(x)) + geom_density()
 #' base + stat_function(fun = dnorm, colour = "red")
 #' base + stat_function(fun = dnorm, colour = "red", arg = list(mean = 3))
 #'
@@ -21,20 +25,20 @@
 #' # Examples adapted from Kohske Takahashi
 #'
 #' # Specify range of x-axis
-#' qplot(c(0, 2), stat = "function", fun = exp, geom = "line")
-#' ggplot(data.frame(x = c(0, 2)), aes(x)) + stat_function(fun = exp)
+#' ggplot(data.frame(x = c(0, 2)), aes(x)) +
+#'   stat_function(fun = exp, geom = "line")
+#'
 #' # Plot a normal curve
 #' ggplot(data.frame(x = c(-5, 5)), aes(x)) + stat_function(fun = dnorm)
-#' # With qplot
-#' qplot(c(-5, 5), stat = "function", fun = dnorm, geom = "line")
-#' # Or
-#' qplot(c(-5, 5), geom = "blank") + stat_function(fun = dnorm)
+#'
 #' # To specify a different mean or sd, use the args parameter to supply new values
-#' ggplot(data.frame(x = c(-5, 5)), aes(x)) + stat_function(fun = dnorm, args = list(mean = 2, sd = .5))
+#' ggplot(data.frame(x = c(-5, 5)), aes(x)) +
+#'   stat_function(fun = dnorm, args = list(mean = 2, sd = .5))
 #'
 #' # Two functions on the same plot
 #' f <- ggplot(data.frame(x = c(0, 10)), aes(x))
-#' f + stat_function(fun = sin, colour = "red") + stat_function(fun = cos, colour = "blue")
+#' f + stat_function(fun = sin, colour = "red") +
+#'   stat_function(fun = cos, colour = "blue")
 #'
 #' # Using a custom function
 #' test <- function(x) {x ^ 2 + x + 20}

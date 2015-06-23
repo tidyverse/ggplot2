@@ -6,7 +6,7 @@
 #' contain all information about axis limits, breaks etc.
 #'
 #' @param plot ggplot object
-#' @seealso \code{\link{print.ggplot}} and \code{link{benchplot}} for
+#' @seealso \code{\link{print.ggplot}} and \code{\link{benchplot}} for
 #'  for functions that contain the complete set of steps for generating
 #'  a ggplot2 plot.
 #' @keywords internal
@@ -56,7 +56,7 @@ ggplot_build <- function(plot) {
   data <- lapply(data, order_groups)
 
   # Make sure missing (but required) aesthetics are added
-  scales_add_missing(plot, c("x", "y"))
+  scales_add_missing(plot, c("x", "y"), plot$plot_env)
 
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
   data <- dlapply(function(d, p) p$reparameterise(d))

@@ -17,16 +17,14 @@
 #' \donttest{
 #' set.seed(5689)
 #' movies <- movies[sample(nrow(movies), 1000), ]
-#' # Simple examples
-#' qplot(rating, data=movies, geom="histogram")
-#' qplot(rating, data=movies, weight=votes, geom="histogram")
-#' qplot(rating, data=movies, weight=votes, geom="histogram", binwidth=1)
-#' qplot(rating, data=movies, weight=votes, geom="histogram", binwidth=0.1)
+#' # Basic example
+#' m <- ggplot(movies, aes(rating))
+#' m + geom_histogram()
+#' m + geom_histogram(aes(weight = votes))
 #'
 #' # More complex
-#' m <- ggplot(movies, aes(x=rating))
-#' m + geom_histogram()
-#' m + geom_histogram(aes(y = ..density..)) + geom_density()
+#' m + geom_histogram(aes(y = ..density..)) +
+#'     geom_density()
 #'
 #' m + geom_histogram(binwidth = 1)
 #' m + geom_histogram(binwidth = 0.5)
@@ -45,13 +43,17 @@
 #' # count of observations, but the sum of some other variable.
 #' # For example, the following plot shows the number of movies
 #' # in each rating.
-#' qplot(rating, data=movies, geom="bar", binwidth = 0.1)
+#'
+#' m + geom_bar(binwidth = 0.1)
+#'
 #' # If, however, we want to see the number of votes cast in each
 #' # category, we need to weight by the votes variable
-#' qplot(rating, data=movies, geom="bar", binwidth = 0.1,
-#'   weight=votes, ylab = "votes")
+#'
+#' m + geom_bar(aes(weight = votes), binwidth = 0.1) +
+#'     ylab("votes")
 #'
 #' m <- ggplot(movies, aes(x = votes))
+#'
 #' # For transformed scales, binwidth applies to the transformed data.
 #' # The bins have constant width on the transformed scale.
 #' m + geom_histogram() + scale_x_log10()
@@ -114,8 +116,8 @@
 #'   geom_density(alpha = 0.2) + xlim(55, 70)
 #' }
 #' rm(movies)
-geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", ...) {
-  GeomHistogram$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", show_guide = NA,...) {
+  GeomHistogram$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
 }
 
 GeomHistogram <- proto(GeomBar, {

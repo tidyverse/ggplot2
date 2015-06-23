@@ -7,13 +7,13 @@
 #'
 #' @param xlim limits for the x axis
 #' @param ylim limits for the y axis
-#' @param wise deprecated in 0.9.1
 #' @export
 #' @examples
 #' # There are two ways of zooming the plot display: with scales or
 #' # with coordinate systems.  They work in two rather different ways.
 #'
-#' (p <- qplot(disp, wt, data=mtcars) + geom_smooth())
+#' (p <- ggplot(mtcars, aes(disp, wt)) +
+#'   geom_smooth())
 #'
 #' # Setting the limits on a scale will throw away all data that's not
 #' # inside these limits.  This is equivalent to plotting a subset of
@@ -28,7 +28,7 @@
 #'
 #' # You can see the same thing with this 2d histogram
 #' (d <- ggplot(diamonds, aes(carat, price)) +
-#'   stat_bin2d(bins = 25, colour="grey50"))
+#'   stat_bin2d(bins = 25, colour = "grey50"))
 #'
 #' # When zooming the scale, the we get 25 new bins that are the same
 #' # size on the plot, but represent smaller regions of the data space
@@ -37,9 +37,7 @@
 #' # When zooming the coordinate system, we see a subset of original 50 bins,
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 2))
-coord_cartesian <- function(xlim = NULL, ylim = NULL, wise = NULL) {
-  if (!is.null(wise))
-    gg_dep("0.9.0", "wise argument to coord_cartesian is ignored")
+coord_cartesian <- function(xlim = NULL, ylim = NULL) {
   coord(limits = list(x = xlim, y = ylim), subclass = "cartesian")
 }
 

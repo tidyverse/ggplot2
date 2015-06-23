@@ -12,10 +12,11 @@
 #' @export
 #' @examples
 #' # See geom_linerange for examples
-geom_crossbar <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
-fatten = 2, ...) {
+geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
+                          position = "identity", fatten = 2.5,
+                          show_guide = NA,...) {
   GeomCrossbar$new(mapping = mapping, data = data, stat = stat,
-  position = position, fatten = fatten, ...)
+  position = position, fatten = fatten, show_guide = show_guide,...)
 }
 
 GeomCrossbar <- proto(Geom, {
@@ -39,7 +40,7 @@ GeomCrossbar <- proto(Geom, {
     ))
   }
 
-  draw <- function(., data, scales, coordinates, fatten = 2, width = NULL, ...) {
+  draw <- function(., data, scales, coordinates, fatten = 2.5, width = NULL, ...) {
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
@@ -55,27 +56,39 @@ GeomCrossbar <- proto(Geom, {
       middle$xend <- middle$xend - notchindent
 
       box <- data.frame(
-              x = c(data$xmin, data$xmin, data$xmin + notchindent, data$xmin, data$xmin,
-                    data$xmax, data$xmax, data$xmax - notchindent, data$xmax, data$xmax,
-                    data$xmin),
-              y = c(data$ymax, data$ynotchupper, data$y, data$ynotchlower, data$ymin,
-                    data$ymin, data$ynotchlower, data$y, data$ynotchupper, data$ymax,
-                    data$ymax),
-              alpha = data$alpha, colour = data$colour, size = data$size,
-              linetype = data$linetype, fill = data$fill, group = data$group,
-              stringsAsFactors = FALSE)
-
+        x = c(
+          data$xmin, data$xmin, data$xmin + notchindent, data$xmin, data$xmin,
+          data$xmax, data$xmax, data$xmax - notchindent, data$xmax, data$xmax,
+          data$xmin
+        ),
+        y = c(
+          data$ymax, data$ynotchupper, data$y, data$ynotchlower, data$ymin,
+          data$ymin, data$ynotchlower, data$y, data$ynotchupper, data$ymax,
+          data$ymax
+        ),
+        alpha = data$alpha,
+        colour = data$colour,
+        size = data$size,
+        linetype = data$linetype, fill = data$fill,
+        group = seq_len(nrow(data)),
+        stringsAsFactors = FALSE
+      )
     } else {
       # No notch
       box <- data.frame(
-              x = c(data$xmin, data$xmin, data$xmax, data$xmax, data$xmin),
-              y = c(data$ymax, data$ymin, data$ymin, data$ymax, data$ymax),
-              alpha = data$alpha, colour = data$colour, size = data$size,
-              linetype = data$linetype, fill = data$fill, group = data$group,
-              stringsAsFactors = FALSE)
+        x = c(data$xmin, data$xmin, data$xmax, data$xmax, data$xmin),
+        y = c(data$ymax, data$ymin, data$ymin, data$ymax, data$ymax),
+        alpha = data$alpha,
+        colour = data$colour,
+        size = data$size,
+        linetype = data$linetype,
+        fill = data$fill,
+        group = seq_len(nrow(data)), # each bar forms it's own group
+        stringsAsFactors = FALSE
+      )
     }
 
-    ggname(.$my_name(), gTree(children=gList(
+    ggname(.$my_name(), gTree(children = gList(
       GeomPolygon$draw(box, scales, coordinates, ...),
       GeomSegment$draw(middle, scales, coordinates, ...)
     )))

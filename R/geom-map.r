@@ -50,11 +50,17 @@ NULL
 #' crimesm <- melt(crimes, id = 1)
 #' if (require(maps)) {
 #'   states_map <- map_data("state")
-#'   ggplot(crimes, aes(map_id = state)) + geom_map(aes(fill = Murder), map = states_map) + expand_limits(x = states_map$long, y = states_map$lat)
+#'   ggplot(crimes, aes(map_id = state)) +
+#'     geom_map(aes(fill = Murder), map = states_map) +
+#'     expand_limits(x = states_map$long, y = states_map$lat)
+#'
 #'   last_plot() + coord_map()
-#'   ggplot(crimesm, aes(map_id = state)) + geom_map(aes(fill = value), map = states_map) + expand_limits(x = states_map$long, y = states_map$lat) + facet_wrap( ~ variable)
+#'   ggplot(crimesm, aes(map_id = state)) +
+#'     geom_map(aes(fill = value), map = states_map) +
+#'     expand_limits(x = states_map$long, y = states_map$lat) +
+#'     facet_wrap( ~ variable)
 #' }
-geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity", ...) {
+geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity", show_guide = NA,...) {
 
   # Get map input into correct form
   stopifnot(is.data.frame(map))
@@ -64,7 +70,7 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity", ...) {
   stopifnot(all(c("x", "y", "id") %in% names(map)))
 
   GeomMap$new(geom_params = list(map = map, ...), mapping = mapping,
-    data = data, stat = stat, ...)
+    data = data, stat = stat, show_guide = show_guide,...)
 }
 
 GeomMap <- proto(GeomPolygon, {

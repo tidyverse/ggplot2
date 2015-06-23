@@ -88,7 +88,7 @@ coord_transform.map <- function(coord, data, details) {
   out
 }
 mproject <- function(coord, x, y, orientation) {
-  suppressWarnings(mapproject(x, y,
+  suppressWarnings(mapproj::mapproject(x, y,
     projection = coord$projection,
     parameters  = coord$params,
     orientation = orientation
