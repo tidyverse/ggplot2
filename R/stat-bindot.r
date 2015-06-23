@@ -97,6 +97,11 @@ StatBindot <- proto(Stat, {
                         origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
                         right = TRUE, ...) {
 
+    ## Save the original data, as we may project down to a smaller set of data here
+    ## and we need a way to add back in information that is lost during that projection
+    ## when we "project" back up to plot each point.
+    original_data <- data
+
     # This function taken from integer help page
     is.wholenumber <- function(x, tol = .Machine$double.eps^0.5) {
       abs(x - round(x)) < tol
@@ -155,12 +160,26 @@ StatBindot <- proto(Stat, {
       names(data)[names(data) == "bincenter"] <- "x"
       # For x binning, the width of the geoms is same as the width of the bin
       data$width <- data$binwidth
+      sort_order = order(original_data$x)
+      # I think this should already be sorted, but am being cautious
+      data = data[order(data$x),]
     } else if (binaxis == "y") {
       names(data)[names(data) == "bincenter"] <- "y"
       # For y binning, set the x midline. This is needed for continuous x axis
       data$x <- midline
+      sort_order = order(original_data$y)
+      # I think this should already be sorted, but am being cautious
+      data = data[order(data$y),]
     }
-    return(data)
+
+    ## Project the reduced data back up and add in any information that was lost.
+    df <- data[rep(1:nrow(data), data$count), ] ## This projects up by simply copying each row
+    # Now to add back in any missing columns that were missing by binding them
+    # in the same sorted order.
+    missing <- !(names(original_data) %in% names(df))
+    cbind(df,
+               original_data[sort_order, missing ,drop=FALSE] ### Merge them by sorted order
+    )
   }
 
   default_aes <- function(.) aes(y = ..count..)

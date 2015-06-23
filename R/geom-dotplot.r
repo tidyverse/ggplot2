@@ -171,10 +171,6 @@ GeomDotplot <- proto(Geom, {
       stackaxismax <- .5
     }
 
-
-    # Fill the bins: at a given x (or y), if count=3, make 3 entries at that x
-    df <- df[rep(1:nrow(df), df$count), ]
-
     # Next part will set the position of each dot within each stack
     # If stackgroups=TRUE, split only on x (or y) and panel; if not stacking, also split by group
     plyvars <- params$binaxis %||% "x"
