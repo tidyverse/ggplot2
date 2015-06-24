@@ -47,7 +47,7 @@ ggsave <- function(filename, plot = last_plot(),
                    width = NA, height = NA, units = c("in", "cm", "mm"),
                    dpi = 300, limitsize = TRUE, ...) {
 
-  dev <- plot_dev(device, filename)
+  dev <- plot_dev(device, filename, dpi = dpi)
   dim <- plot_dim(c(width, height), scale = scale, units = units,
     limitsize = limitsize)
 
@@ -90,7 +90,7 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
   dim
 }
 
-plot_dev <- function(device, filename) {
+plot_dev <- function(device, filename, dpi = 300) {
   if (is.function(device))
     return(device)
 
