@@ -337,15 +337,14 @@ LayerR6 <- R6::R6Class("LayerR6",
         }
       }
 
-      if (is.null(geom_params) && is.null(stat_params)) {
+      geom_params <- rename_aes(geom_params)
+
+      # Categorize items from params into geom_params and stat_params
+      if (length(params) > 0) {
         params <- rename_aes(params) # Rename American to British spellings etc
 
-        geom_params <- match.params(geom$parameters(), params)
-        stat_params <- match.params(stat$parameters(), params)
-        stat_params <- stat_params[setdiff(names(stat_params),
-          names(geom_params))]
-      } else {
-        geom_params <- rename_aes(geom_params)
+        geom_params <- c(geom_params, match.params(geom$parameters(), params))
+        stat_params <- c(stat_params, match.params(stat$parameters(), params))
       }
 
       self$geom        <- geom
