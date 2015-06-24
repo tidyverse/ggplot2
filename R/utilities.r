@@ -260,3 +260,13 @@ gg_dep <- function(version, msg) {
 
   invisible()
 }
+
+
+has_name <- function(x) {
+  nms <- names(x)
+  if (is.null(nms)) {
+    return(rep(FALSE, length(x)))
+  }
+
+  !is.na(nms) & nms != ""
+}
