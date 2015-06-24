@@ -325,8 +325,8 @@ LayerR6 <- R6::R6Class("LayerR6",
       if (!is.null(geom)) geom <- geom$new()
       if (!is.null(stat)) stat <- stat$new()
 
-      if (is.null(geom)) geom <- stat$default_geom()
-      if (is.null(stat)) stat <- geom$default_stat()
+      if (is.null(geom)) geom <- stat$default_geom()$new()
+      if (is.null(stat)) stat <- geom$default_stat()$new()
       if (is.null(position)) position <- geom$default_pos()$new()
 
       match.params <- function(possible, params) {
