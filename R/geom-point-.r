@@ -154,3 +154,55 @@ GeomPoint <- proto(Geom, {
   default_aes <- function(.) aes(shape=19, colour="black", size=2, fill = NA, alpha = NA, stroke = 1)
 
 })
+
+
+#' @export
+geom_point2 <- function (mapping = NULL, data = NULL, stat = "identity",
+                         position = "identity", na.rm = FALSE, show_guide = NA, ...) {
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomPointR6,
+    position = position,
+    show_guide = show_guide,
+    params = list(na.rm = na.rm, ...)
+  )
+}
+
+GeomPointR6 <- R6::R6Class("GeomPointR6", inherit = GeomR6,
+  public = list(
+    objname = "point",
+
+    draw_groups = function(...) self$draw(...),
+
+    draw = function(data, scales, coordinates, na.rm = FALSE, ...) {
+      data <- remove_missing(data, na.rm,
+        c("x", "y", "size", "shape"), name = "geom_point")
+      if (empty(data)) return(zeroGrob())
+
+      with(coord_transform(coordinates, data, scales),
+        ggname(self$my_name(), pointsGrob(x, y, size=unit(size, "mm"), pch=shape,
+        gp=gpar(col=alpha(colour, alpha), fill = alpha(fill, alpha), lwd = stroke, fontsize = size * .pt)))
+      )
+    },
+
+    draw_legend = function(data, ...) {
+      data <- aesdefaults(data, self$default_aes(), list(...))
+
+      with(data,
+        pointsGrob(0.5, 0.5, size=unit(size, "mm"), pch=shape,
+        gp=gpar(
+          col=alpha(colour, alpha),
+          fill=alpha(fill, alpha),
+          lwd=stroke,
+          fontsize = size * .pt)
+        )
+      )
+    },
+
+    default_stat = function() StatIdentity,
+    required_aes = c("x", "y"),
+    default_aes = function() aes(shape=19, colour="black", size=2, fill = NA, alpha = NA, stroke = 1)
+  )
+)
