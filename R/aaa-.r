@@ -80,7 +80,11 @@ TopLevelR6 <- R6::R6Class("TopLevelR6",
       objs
     },
     find = function(name) {
-      fullname <- paste(firstUpper(self$class()), firstUpper(name), "R6", sep="")
+      fullname <- paste0(firstUpper(self$class()), firstUpper(name))
+      # Temporary workaround during R6 conversion
+      if (self$class() %in% c("stat", "geom"))
+        fullname <- paste0(fullname, "R6")
+
       if (!exists(fullname)) {
         stop("No ", self$class(), " called ", name, call.=FALSE)
       }

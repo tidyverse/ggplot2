@@ -25,63 +25,61 @@ position_jitterdodge <- function (jitter.width = NULL,
                           dodge.width = dodge.width)
 }
 
-PositionJitterdodge <- proto(Position, {
+PositionJitterDodge <- R6::R6Class("PositionJitterDodge",
+  inherit = Position,
+  public = list(
+    jitter.width = NULL,
+    jitter.height = NULL,
+    dodge.width = NULL,
 
-  jitter.width <- NULL
-  jitter.height <- NULL
-  dodge.width <- NULL
+    initialize = function(jitter.width = NULL,
+                          jitter.height = NULL,
+                          dodge.width = NULL) {
+      self$jitter.width <- jitter.width
+      self$jitter.height <- jitter.height
+      self$dodge.width <- dodge.width
+    },
 
-  new <- function(.,
-                  jitter.width = NULL,
-                  jitter.height = NULL,
-                  dodge.width = NULL) {
+    objname = "jitterdodge",
 
-    .$proto(jitter.width=jitter.width,
-            jitter.height=jitter.height,
-            dodge.width=dodge.width)
+    adjust = function(data) {
 
-  }
+      if (empty(data)) return(data.frame())
+      check_required_aesthetics(c("x", "y", "fill"), names(data), "position_jitterdodge")
 
-  objname <- "jitterdodge"
+      ## Workaround to avoid this warning:
+      ## ymax not defined: adjusting position using y instead
+      if (!("ymax" %in% names(data))) {
+        data$ymax <- data$y
+      }
 
-  adjust <- function(., data) {
+      ## Adjust the x transformation based on the number of 'fill' variables
+      nfill <- length(levels(data$fill))
 
-    if (empty(data)) return(data.frame())
-    check_required_aesthetics(c("x", "y", "fill"), names(data), "position_jitterdodge")
+      if (is.null(self$jitter.width)) {
+        self$jitter.width <- resolution(data$x, zero = FALSE) * 0.4
+      }
 
-    ## Workaround to avoid this warning:
-    ## ymax not defined: adjusting position using y instead
-    if (!("ymax" %in% names(data))) {
-      data$ymax <- data$y
+      if (is.null(self$jitter.height)) {
+        self$jitter.height <- 0
+      }
+
+      trans_x <- NULL
+      trans_y <- NULL
+      if (self$jitter.width > 0) {
+        trans_x <- function(x) jitter(x, amount = self$jitter.width / (nfill + 2))
+      }
+      if (self$jitter.height > 0) {
+        trans_y <- function(x) jitter(x, amount = self$jitter.height)
+      }
+
+      if (is.null(self$dodge.width)) {
+        self$dodge.width <- 0.75
+      }
+
+      ## dodge, then jitter
+      data <- collide(data, self$dodge.width, self$my_name(), pos_dodge, check.width = FALSE)
+      transform_position(data, trans_x, trans_y)
     }
-
-    ## Adjust the x transformation based on the number of 'fill' variables
-    nfill <- length(levels(data$fill))
-
-    if (is.null(.$jitter.width)) {
-      .$jitter.width <- resolution(data$x, zero = FALSE) * 0.4
-    }
-
-    if (is.null(.$jitter.height)) {
-      .$jitter.height <- 0
-    }
-
-    trans_x <- NULL
-    trans_y <- NULL
-    if (.$jitter.width > 0) {
-      trans_x <- function(x) jitter(x, amount = .$jitter.width / (nfill + 2))
-    }
-    if (.$jitter.height > 0) {
-      trans_y <- function(x) jitter(x, amount = .$jitter.height)
-    }
-
-    if (is.null(.$dodge.width)) {
-      .$dodge.width <- 0.75
-    }
-
-    ## dodge, then jitter
-    data <- collide(data, .$dodge.width, .$my_name(), pos_dodge, check.width = FALSE)
-    transform_position(data, trans_x, trans_y)
-  }
-
-})
+  )
+)

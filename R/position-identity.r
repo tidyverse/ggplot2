@@ -10,6 +10,9 @@ position_identity <- function (width = NULL, height = NULL) {
   PositionIdentity$new(width = width, height = height)
 }
 
-PositionIdentity <- proto(Position, {
-  objname <- "identity"
-})
+PositionIdentity <-  R6::R6Class("PositionIdentity",
+  inherit = Position,
+  public = list(
+    objname = "identity"
+  )
+)

@@ -315,7 +315,7 @@ LayerR6 <- R6::R6Class("LayerR6",
 
       if (is.character(geom)) geom <- GeomR6$new()$find(geom)
       if (is.character(stat)) stat <- StatR6$new()$find(stat)
-      if (is.character(position)) position <- Position$find(position)$new()
+      if (is.character(position)) position <- Position$new()$find(position)$new()
 
       # Instantiate the geom or stat - do this at run time instead of package
       # build time, so that geoms in external packages set up inheritance with

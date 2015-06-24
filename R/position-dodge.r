@@ -26,19 +26,20 @@
 #' p + geom_errorbar(aes(ymin = y-1, ymax = y+1, width = 0.2),
 #'   position = position_dodge(width = 0.90))
 #' }
-position_dodge <- function (width = NULL, height = NULL) {
+position_dodge <- function(width = NULL, height = NULL) {
   PositionDodge$new(width = width, height = height)
 }
 
-PositionDodge <- proto(Position, {
-  objname <- "dodge"
+PositionDodge <- R6::R6Class("PositionDodge",
+  inherit = Position,
+  public = list(
+    objname = "dodge",
 
-  adjust <- function(., data) {
-    if (empty(data)) return(data.frame())
-    check_required_aesthetics("x", names(data), "position_dodge")
+    adjust = function(data) {
+      if (empty(data)) return(data.frame())
+      check_required_aesthetics("x", names(data), "position_dodge")
 
-    collide(data, .$width, .$my_name(), pos_dodge, check.width = FALSE)
-  }
-
-})
-
+      collide(data, self$width, self$my_name(), pos_dodge, check.width = FALSE)
+    }
+  )
+)
