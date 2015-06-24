@@ -162,7 +162,7 @@ geom_text2 <- function(mapping = NULL, data = NULL, stat = "identity",
     mapping = mapping,
     stat = stat,
     geom = GeomTextR6,
-    position = position_nudge(nudge_x, nudge_y),
+    position = position,
     show_guide = show_guide,
     # geom_params = list(parse = parse, check_overlap = check_overlap),
     params = list(parse = parse, check_overlap = check_overlap, ...)
