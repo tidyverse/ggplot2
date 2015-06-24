@@ -67,3 +67,48 @@ pprint <- function(x, ...) print(as.list(x), ...)
 # }
 
 
+TopLevelR6 <- R6::R6Class("TopLevelR6",
+  public = list(
+    find_all = function(only.documented = FALSE) {
+      names <- ls(
+        pattern = paste("^", firstUpper(self$class()), "[A-Z].+", sep=""),
+        parent.env(TopLevelR6)
+      )
+      objs <- structure(lapply(names, get), names=names)
+
+      if (only.documented) objs <- objs[sapply(objs, function(x) get("doc", x))]
+      objs
+    },
+    find = function(name) {
+      fullname <- paste(firstUpper(self$class()), firstUpper(name), sep="")
+      if (!exists(fullname)) {
+        stop("No ", self$class(), " called ", name, call.=FALSE)
+      }
+      get(fullname)
+    },
+
+    my_name = function(prefix=TRUE) {
+      if (!prefix) return(self$objname)
+      paste(self$class(), self$objname, sep="_")
+    },
+    my_names = function() self$my_name(),
+
+    myName = function() {
+      ps(firstUpper(self$class()), ps(firstUpper(strsplit(self$objname, "_")[[1]])))
+    },
+
+    params = function() {
+      param <- self$parameters()
+      if (length(param) == 0) return()
+
+      if(!exists("required_aes", .)) return(param)
+
+      aesthetics <- c(self$required_aes, names(self$default_aes()))
+      param[setdiff(names(param), aesthetics)]
+    },
+
+    class = function() "toplevel"
+  )
+)
+
+
