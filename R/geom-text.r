@@ -223,7 +223,7 @@ GeomTextR6 <- R6::R6Class("GeomTextR6", inherit = GeomR6,
     },
 
 
-    default_stat = function() StatIdentity,
+    default_stat = function() StatIdentityR6,
     required_aes = c("x", "y", "label"),
     default_aes = function() aes(colour = "black", size = 5, angle = 0,
       hjust = 0.5, vjust = 0.5, alpha = NA, family = "", fontface = 1,

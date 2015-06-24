@@ -39,3 +39,33 @@ StatIdentity <- proto(Stat, {
   desc_outputs <- list()
 
 })
+
+
+#' @export
+stat_identity2 <- function (mapping = NULL, data = NULL, geom = "point",
+  position = "identity", width = NULL, height = NULL, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = StatIdentityR6,
+    geom = geom,
+    position = position,
+    params = list(...)
+  )
+}
+
+StatIdentityR6 <- R6::R6Class("StatIdentityR6", inherit = StatR6,
+  public = list(
+    objname = "identity",
+
+    default_geom = function() GeomPointR6,
+    calculate_groups = function(data, scales, width = NULL, height = NULL, ...) {
+      if (!is.null(width))   data$width  <- width
+      if (!is.null(height))  data$height <- height
+      data
+    },
+
+    desc_outputs = list()
+  )
+)

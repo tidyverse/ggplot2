@@ -80,7 +80,7 @@ TopLevelR6 <- R6::R6Class("TopLevelR6",
       objs
     },
     find = function(name) {
-      fullname <- paste(firstUpper(self$class()), firstUpper(name), sep="")
+      fullname <- paste(firstUpper(self$class()), firstUpper(name), "R6", sep="")
       if (!exists(fullname)) {
         stop("No ", self$class(), " called ", name, call.=FALSE)
       }

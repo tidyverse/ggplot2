@@ -313,18 +313,20 @@ LayerR6 <- R6::R6Class("LayerR6",
       data <- fortify(data)
       if (!is.null(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be a list of unevaluated mappings created by aes or aes_string")
 
-      if (is.character(geom)) geom <- Geom$find(geom)
-      if (is.character(stat)) stat <- Stat$find(stat)
+      if (is.character(geom)) geom <- GeomR6$new()$find(geom)
+      if (is.character(stat)) stat <- StatR6$new()$find(stat)
       if (is.character(position)) position <- Position$find(position)$new()
+
+      # Instantiate the geom or stat - do this at run time instead of package
+      # build time, so that geoms in external packages set up inheritance with
+      # the current version of ggplot2, not whatever version they were built
+      # with.
+      if (!is.null(geom)) geom <- geom$new()
+      if (!is.null(stat)) stat <- stat$new()
 
       if (is.null(geom)) geom <- stat$default_geom()
       if (is.null(stat)) stat <- geom$default_stat()
       if (is.null(position)) position <- geom$default_pos()$new()
-
-      # Instantiate the geom - do this at run time instead of package build
-      # time, so that geoms in external packages set up inheritance with the
-      # current version of ggplot2, not whatever version they were built with.
-      geom <- geom$new()
 
       match.params <- function(possible, params) {
         if ("..." %in% names(possible)) {

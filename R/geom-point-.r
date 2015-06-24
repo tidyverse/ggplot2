@@ -201,7 +201,7 @@ GeomPointR6 <- R6::R6Class("GeomPointR6", inherit = GeomR6,
       )
     },
 
-    default_stat = function() StatIdentity,
+    default_stat = function() StatIdentityR6,
     required_aes = c("x", "y"),
     default_aes = function() aes(shape=19, colour="black", size=2, fill = NA, alpha = NA, stroke = 1)
   )
