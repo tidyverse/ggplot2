@@ -114,63 +114,20 @@
 #' ggplot(mtcars2, aes(wt, mpg)) + geom_point()
 #' ggplot(mtcars2, aes(wt, mpg)) + geom_point(na.rm = TRUE)
 #' }
-geom_point <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
-na.rm = FALSE, show_guide = NA, ...) {
-  GeomPoint$new(mapping = mapping, data = data, stat = stat, position = position,
-  na.rm = na.rm, show_guide = show_guide, ...)
-}
-
-GeomPoint <- proto(Geom, {
-  objname <- "point"
-
-  draw_groups <- function(., ...) .$draw(...)
-  draw <- function(., data, scales, coordinates, na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm,
-      c("x", "y", "size", "shape"), name = "geom_point")
-    if (empty(data)) return(zeroGrob())
-
-    with(coord_transform(coordinates, data, scales),
-      ggname(.$my_name(), pointsGrob(x, y, size=unit(size, "mm"), pch=shape,
-      gp=gpar(col=alpha(colour, alpha), fill = alpha(fill, alpha), lwd = stroke, fontsize = size * .pt)))
-    )
-  }
-
-  draw_legend <- function(., data, ...) {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-
-    with(data,
-      pointsGrob(0.5, 0.5, size=unit(size, "mm"), pch=shape,
-      gp=gpar(
-        col=alpha(colour, alpha),
-        fill=alpha(fill, alpha),
-        lwd=stroke,
-        fontsize = size * .pt),
-      )
-    )
-  }
-
-  default_stat <- function(.) StatIdentity
-  required_aes <- c("x", "y")
-  default_aes <- function(.) aes(shape=19, colour="black", size=2, fill = NA, alpha = NA, stroke = 1)
-
-})
-
-
-#' @export
-geom_point2 <- function (mapping = NULL, data = NULL, stat = "identity",
+geom_point <- function (mapping = NULL, data = NULL, stat = "identity",
                          position = "identity", na.rm = FALSE, show_guide = NA, ...) {
   LayerR6$new(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomPointR6,
+    geom = GeomPoint,
     position = position,
     show_guide = show_guide,
     params = list(na.rm = na.rm, ...)
   )
 }
 
-GeomPointR6 <- R6::R6Class("GeomPointR6", inherit = GeomR6,
+GeomPoint <- R6::R6Class("GeomPoint", inherit = GeomR6,
   public = list(
     objname = "point",
 
@@ -201,7 +158,7 @@ GeomPointR6 <- R6::R6Class("GeomPointR6", inherit = GeomR6,
       )
     },
 
-    default_stat = function() StatIdentityR6,
+    default_stat = function() StatIdentity,
     required_aes = c("x", "y"),
     default_aes = function() aes(shape=19, colour="black", size=2, fill = NA, alpha = NA, stroke = 1)
   )

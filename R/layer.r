@@ -313,6 +313,7 @@ LayerR6 <- R6::R6Class("LayerR6",
       data <- fortify(data)
       if (!is.null(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be a list of unevaluated mappings created by aes or aes_string")
 
+      # R6 TODO: Avoid instantiation
       if (is.character(geom)) geom <- GeomR6$new()$find(geom)
       if (is.character(stat)) stat <- StatR6$new()$find(stat)
       if (is.character(position)) position <- Position$new()$find(position)$new()

@@ -130,51 +130,21 @@
 #' m <- ggplot(mpg, aes(x = manufacturer, fill = class))
 #' m + geom_bar()
 #' }
-geom_bar <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", show_guide = NA,...) {
-  GeomBar$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
-}
-
-GeomBar <- proto(Geom, {
-  objname <- "bar"
-
-  default_stat <- function(.) StatBin
-  default_pos <- function(.) PositionStack
-  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, weight = 1, alpha = NA)
-
-  required_aes <- c("x")
-
-  reparameterise <- function(., df, params) {
-    df$width <- df$width %||%
-      params$width %||% (resolution(df$x, FALSE) * 0.9)
-    transform(df,
-      ymin = pmin(y, 0), ymax = pmax(y, 0),
-      xmin = x - width / 2, xmax = x + width / 2, width = NULL
-    )
-  }
-
-  draw_groups <- function(., data, scales, coordinates, ...) {
-    GeomRect$draw_groups(data, scales, coordinates, ...)
-  }
-  guide_geom <- function(.) "polygon"
-})
-
-
-#' @export
-geom_bar2 <- function (mapping = NULL, data = NULL, stat = "bin",
+geom_bar <- function (mapping = NULL, data = NULL, stat = "bin",
   position = "stack", show_guide = NA, ...)
 {
   LayerR6$new(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomBarR6,
+    geom = GeomBar,
     position = position,
     show_guide = show_guide,
     params = list(...)
   )
 }
 
-GeomBarR6 <- R6::R6Class("GeomBarR6", inherit = GeomR6,
+GeomBar <- R6::R6Class("GeomBar", inherit = GeomR6,
   public = list(
     objname = "bar",
 
@@ -195,7 +165,8 @@ GeomBarR6 <- R6::R6Class("GeomBarR6", inherit = GeomR6,
     },
 
     draw_groups = function(data, scales, coordinates, ...) {
-      GeomRectR6$new()$draw_groups(data, scales, coordinates, ...)
+      # R6 TODO: Avoid instantiation
+      GeomRect$new()$draw_groups(data, scales, coordinates, ...)
     },
     guide_geom = function() "polygon"
   )

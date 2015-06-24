@@ -12,70 +12,21 @@
 #' )
 #' ggplot(df, aes(xmin = x, xmax = x + 1, ymin = y, ymax = y + 2)) +
 #' geom_rect()
-geom_rect <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
-  GeomRect$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
-}
-
-GeomRect <- proto(Geom, {
-  objname <- "rect"
-
-  default_stat <- function(.) StatIdentity
-  default_pos <- function(.) PositionIdentity
-  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, alpha = NA)
-
-  required_aes <- c("xmin", "xmax", "ymin", "ymax")
-
-  draw <- draw_groups <- function(., data, scales, coordinates, ...) {
-    if (!is.linear(coordinates)) {
-      aesthetics <- setdiff(
-        names(data), c("x", "y", "xmin","xmax", "ymin", "ymax")
-      )
-
-      polys <- alply(data, 1, function(row) {
-        poly <- with(row, rect_to_poly(xmin, xmax, ymin, ymax))
-        aes <- as.data.frame(row[aesthetics],
-          stringsAsFactors = FALSE)[rep(1,5), ]
-
-        GeomPolygon$draw(cbind(poly, aes), scales, coordinates)
-      })
-
-      ggname("bar",do.call("grobTree", polys))
-    } else {
-      with(coord_transform(coordinates, data, scales),
-        ggname(.$my_name(), rectGrob(
-          xmin, ymax,
-          width = xmax - xmin, height = ymax - ymin,
-          default.units = "native", just = c("left", "top"),
-          gp=gpar(
-            col=colour, fill=alpha(fill, alpha),
-            lwd=size * .pt, lty=linetype, lineend="butt"
-          )
-        ))
-      )
-    }
-
-  }
-  guide_geom <- function(.) "polygon"
-
-})
-
-
-#' @export
-geom_rect2 <- function (mapping = NULL, data = NULL, stat = "identity",
+geom_rect <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", show_guide = NA, ...)
 {
   LayerR6$new(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomBarR6,
+    geom = GeomRect,
     position = position,
     show_guide = show_guide,
     params = list(...)
   )
 }
 
-GeomRectR6 <- R6::R6Class("GeomRectR6", inherit = GeomR6,
+GeomRect <- R6::R6Class("GeomRect", inherit = GeomR6,
   public = list(
     objname = "rect",
 
@@ -97,7 +48,8 @@ GeomRectR6 <- R6::R6Class("GeomRectR6", inherit = GeomR6,
           aes <- as.data.frame(row[aesthetics],
             stringsAsFactors = FALSE)[rep(1,5), ]
 
-          GeomPolygonR6$new()$draw(cbind(poly, aes), scales, coordinates)
+          # R6 TODO: Avoid instantiation
+          GeomPolygon$new()$draw(cbind(poly, aes), scales, coordinates)
         })
 
         ggname("bar", do.call("grobTree", polys))
