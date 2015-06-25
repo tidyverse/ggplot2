@@ -6,7 +6,7 @@
 \usage{
 geom_jitter(mapping = NULL, data = NULL, width = NULL, height = NULL,
   stat = "identity", position = "jitter", na.rm = FALSE,
-  show_guide = NA, ...)
+  show_guide = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

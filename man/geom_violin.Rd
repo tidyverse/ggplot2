@@ -5,7 +5,8 @@
 \title{Violin plot.}
 \usage{
 geom_violin(mapping = NULL, data = NULL, stat = "ydensity",
-  position = "dodge", trim = TRUE, scale = "area", show_guide = NA, ...)
+  position = "dodge", trim = TRUE, scale = "area", show_guide = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

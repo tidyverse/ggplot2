@@ -6,7 +6,7 @@
 \usage{
 geom_raster(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", hjust = 0.5, vjust = 0.5, interpolate = FALSE,
-  show_guide = NA, ...)
+  show_guide = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

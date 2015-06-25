@@ -5,7 +5,8 @@
 \title{Ribbons, y range with continuous x values.}
 \usage{
 geom_ribbon(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show_guide = NA, ...)
+  position = "identity", na.rm = FALSE, show_guide = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

@@ -5,7 +5,8 @@
 \title{Marginal rug plots.}
 \usage{
 geom_rug(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", sides = "bl", show_guide = NA, ...)
+  position = "identity", sides = "bl", show_guide = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

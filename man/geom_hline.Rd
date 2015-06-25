@@ -5,7 +5,7 @@
 \title{Horizontal line.}
 \usage{
 geom_hline(mapping = NULL, data = NULL, stat = "hline",
-  position = "identity", show_guide = FALSE, ...)
+  position = "identity", show_guide = FALSE, yintercept = NULL, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

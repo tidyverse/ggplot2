@@ -5,7 +5,7 @@
 \title{Add a smoothed conditional mean.}
 \usage{
 geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
-  position = "identity", show_guide = NA, ...)
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

@@ -5,7 +5,7 @@
 \title{Bars, rectangles with bases on x-axis}
 \usage{
 geom_bar(mapping = NULL, data = NULL, stat = "bin", position = "stack",
-  show_guide = NA, ...)
+  show_guide = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

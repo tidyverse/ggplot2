@@ -5,7 +5,7 @@
 \title{An interval represented by a vertical line, with a point in the middle.}
 \usage{
 geom_pointrange(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show_guide = NA, ...)
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

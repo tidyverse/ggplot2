@@ -5,7 +5,8 @@
 \title{Count the number of observations at each location.}
 \usage{
 geom_count(mapping = NULL, data = NULL, stat = "sum",
-  position = "identity", na.rm = FALSE, show_guide = NA, ...)
+  position = "identity", na.rm = FALSE, show_guide = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

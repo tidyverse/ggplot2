@@ -5,7 +5,8 @@
 \title{Area plot.}
 \usage{
 geom_area(mapping = NULL, data = NULL, stat = "identity",
-  position = "stack", na.rm = FALSE, ...)
+  position = "stack", na.rm = FALSE, show_guide = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -23,6 +24,10 @@ a call to a position adjustment function.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
+
+\item{show_guide}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
 
 \item{...}{other arguments passed on to \code{\link{layer}}. There are
   three types of arguments you can use here:

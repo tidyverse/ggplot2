@@ -5,7 +5,7 @@
 \title{Connect observations, ordered by x value.}
 \usage{
 geom_line(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show_guide = NA, ...)
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

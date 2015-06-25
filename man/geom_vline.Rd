@@ -5,7 +5,7 @@
 \title{Line, vertical.}
 \usage{
 geom_vline(mapping = NULL, data = NULL, stat = "vline",
-  position = "identity", show_guide = FALSE, ...)
+  position = "identity", show_guide = FALSE, inherit.aes = FALSE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

@@ -5,7 +5,7 @@
 \title{Tile plane with rectangles.}
 \usage{
 geom_tile(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show_guide = NA, ...)
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

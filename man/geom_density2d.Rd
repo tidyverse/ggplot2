@@ -6,7 +6,8 @@
 \usage{
 geom_density2d(mapping = NULL, data = NULL, stat = "density2d",
   position = "identity", lineend = "butt", linejoin = "round",
-  linemitre = 1, na.rm = FALSE, show_guide = NA, ...)
+  linemitre = 1, na.rm = FALSE, show_guide = NA, inherit.aes = TRUE,
+  ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

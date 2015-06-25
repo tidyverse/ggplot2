@@ -5,7 +5,8 @@
 \title{Display a smooth density estimate.}
 \usage{
 geom_density(mapping = NULL, data = NULL, stat = "density",
-  position = "identity", na.rm = FALSE, show_guide = NA, ...)
+  position = "identity", na.rm = FALSE, show_guide = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

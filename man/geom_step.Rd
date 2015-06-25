@@ -5,7 +5,8 @@
 \title{Connect observations by stairs.}
 \usage{
 geom_step(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", direction = "hv", show_guide = NA, ...)
+  position = "identity", direction = "hv", show_guide = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

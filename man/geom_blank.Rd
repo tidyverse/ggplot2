@@ -5,7 +5,7 @@
 \title{Blank, draws nothing.}
 \usage{
 geom_blank(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show_guide = NA, ...)
+  position = "identity", show_guide = NA, inherit.aes = FALSE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
