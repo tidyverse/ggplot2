@@ -59,7 +59,7 @@
 #' p + geom_abline(intercept = 37, slope = -5) + coord_flip()
 #' p + geom_abline(intercept = 37, slope = -5) + coord_polar()
 geom_abline <- function (mapping = NULL, data = NULL, stat = "abline",
-                         position = "identity", show_guide = FALSE, ...)
+  position = "identity", show_guide = FALSE, inherit.aes = FALSE, ...)
 {
   mapping <- compact(defaults(mapping, aes(group = 1)))
   class(mapping) <- "uneval"
@@ -71,7 +71,7 @@ geom_abline <- function (mapping = NULL, data = NULL, stat = "abline",
     geom = GeomAbline,
     position = position,
     show_guide = show_guide,
-    inherit.aes = FALSE,
+    inherit.aes = inherit.aes,
     params = list(...)
   )
 }

@@ -43,6 +43,10 @@
 #' @param show_guide logical. Should this layer be included in the legends?
 #'   \code{NA}, the default, includes if any aesthetics are mapped.
 #'   \code{FALSE} never includes, and \code{TRUE} always includes.
+#' @param inherit.aes If \code{FALSE}, overrides the default aesthetics,
+#'   rather than combining with them. This is most useful for helper functions
+#'   that define both data and aesthetics and shouldn't inherit behaviour from
+#'   the default plot specification, e.g. \code{\link{borders}}.
 #' @param ... other arguments passed on to \code{\link{layer}}. There are
 #'   three types of arguments you can use here:
 #'
@@ -115,7 +119,9 @@
 #' ggplot(mtcars2, aes(wt, mpg)) + geom_point(na.rm = TRUE)
 #' }
 geom_point <- function (mapping = NULL, data = NULL, stat = "identity",
-                         position = "identity", na.rm = FALSE, show_guide = NA, ...) {
+  position = "identity", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE,
+  ...)
+{
   Layer$new(
     data = data,
     mapping = mapping,
@@ -123,6 +129,7 @@ geom_point <- function (mapping = NULL, data = NULL, stat = "identity",
     geom = GeomPoint,
     position = position,
     show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(na.rm = na.rm, ...)
   )
 }

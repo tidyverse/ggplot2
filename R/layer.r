@@ -47,13 +47,17 @@ Layer <- R6::R6Class("Layer",
       if (is.character(stat)) stat <- Stat$new()$find(stat)
       if (is.character(position)) position <- Position$new()$find(position)
 
-      # Instantiate the geom, stat, or position - do this at run time instead of
-      # package build time, so that geoms in external packages set up
+      # Instantiate the geom, stat, or position, if we've been passed an object
+      # generator instead of the corresponding object. Do this at run time
+      # instead of package build time, so that geoms in external packages set up
       # inheritance with the current version of ggplot2, not whatever version
       # they were built with.
-      if (!is.null(geom)) geom <- geom$new()
-      if (!is.null(stat)) stat <- stat$new()
-      if (!is.null(position)) position <- position$new()
+      if (!is.null(geom) && inherits(geom, "R6ClassGenerator"))
+        geom <- geom$new()
+      if (!is.null(stat) && inherits(stat, "R6ClassGenerator"))
+        stat <- stat$new()
+      if (!is.null(position) && inherits(position, "R6ClassGenerator"))
+        position <- position$new()
 
       if (is.null(geom)) geom <- stat$default_geom()$new()
       if (is.null(stat)) stat <- geom$default_stat()$new()

@@ -33,7 +33,7 @@
 #' # Use coord_flip to flip the x and y axes
 #' se + geom_linerange() + coord_flip()
 geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show_guide = NA, ...)
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -41,6 +41,8 @@ geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomLinerange,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(...)
   )
 }

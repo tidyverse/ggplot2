@@ -11,8 +11,8 @@
 #' d + geom_bin2d(binwidth = c(0.1, 0.1))
 #'
 #' # See ?stat_bin2d for more examples
-geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d", position = "identity",
-  show_guide = NA, ...)
+geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d",
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -21,6 +21,7 @@ geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d", position = 
     geom = GeomBin2d,
     position = position,
     show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(...)
   )
 }

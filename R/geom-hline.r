@@ -40,8 +40,9 @@
 #' hline.data <- data.frame(z = 1:4, vs = c(0,0,1,1), am = c(0,1,0,1))
 #' p + geom_hline(aes(yintercept = z), hline.data)
 geom_hline <- function (mapping = NULL, data = NULL, stat = "hline",
-  position = "identity", show_guide = FALSE, yintercept = NULL, ...)
+  position = "identity", show_guide = FALSE, ...)
 {
+  yintercept <- list(...)$yintercept
   if (is.numeric(yintercept)) {
     data <- data.frame(yintercept = yintercept)
     yintercept <- NULL
@@ -54,8 +55,9 @@ geom_hline <- function (mapping = NULL, data = NULL, stat = "hline",
     stat = stat,
     geom = GeomHline,
     position = position,
+    show_guide = show_guide,
     inherit.aes = FALSE,
-    params = list(yintercept = yintercept, ...)
+    params = list(...)
   )
 }
 

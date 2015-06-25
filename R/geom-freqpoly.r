@@ -17,7 +17,7 @@
 #' p + geom_freqpoly(aes(y = ..density.., colour = color),
 #'                   binwidth = 1000)
 geom_freqpoly <- function(mapping = NULL, data = NULL, stat = "bin",
-  position = "identity", show_guide = NA, ...)
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -25,6 +25,8 @@ geom_freqpoly <- function(mapping = NULL, data = NULL, stat = "bin",
     stat = stat,
     geom = GeomFreqpoly,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(...)
   )
 }

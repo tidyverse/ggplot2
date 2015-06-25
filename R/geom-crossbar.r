@@ -13,7 +13,7 @@
 #' @examples
 #' # See geom_linerange for examples
 geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", fatten = 2.5, show_guide = NA, ...)
+  position = "identity", fatten = 2.5, show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -22,6 +22,7 @@ geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
     geom = GeomCrossbar,
     position = position,
     show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(fatten = fatten, ...)
   )
 }

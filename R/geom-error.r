@@ -49,7 +49,7 @@
 #' # original dataframe
 #' p + geom_line(aes(group=group)) + geom_errorbar(limits, width=0.2)
 geom_errorbar <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show_guide = NA, ...)
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -57,6 +57,8 @@ geom_errorbar <- function (mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomErrorbar,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(...)
   )
 }

@@ -117,7 +117,7 @@
 #' }
 #' rm(movies)
 geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin",
-  position = "stack", show_guide = NA, ...)
+  position = "stack", show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -126,6 +126,7 @@ geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin",
     geom = GeomHistogram,
     position = position,
     show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(...)
   )
 }

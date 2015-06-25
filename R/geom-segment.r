@@ -44,7 +44,7 @@
 #'    arrow = arrow(length = unit(0.5, "cm")))
 geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
-  show_guide = NA, ...)
+  show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -53,7 +53,13 @@ geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
     geom = GeomSegment,
     position = position,
     show_guide = show_guide,
-    params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, ...)
+    inherit.aes = inherit.aes,
+    params = list(
+      arrow = arrow,
+      lineend = lineend,
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

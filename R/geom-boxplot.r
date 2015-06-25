@@ -108,10 +108,9 @@
 #' p + geom_boxplot()
 #' }
 geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
-                          position = "dodge", outlier.colour = NULL,
-                          outlier.shape = NULL, outlier.size = NULL,
-                          outlier.stroke = 1, notch = FALSE, notchwidth = .5,
-                          varwidth = FALSE, show_guide = NA, ...)
+  position = "dodge", outlier.colour = NULL, outlier.shape = NULL,
+  outlier.size = NULL, outlier.stroke = 1, notch = FALSE, notchwidth = .5,
+  varwidth = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 {
   # R6 TODO: Avoid instantiation
   outlier_defaults <- Geom$new()$find('point')$new()$default_aes()
@@ -128,6 +127,7 @@ geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
     geom = GeomBoxplot,
     position = position,
     show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(
       outlier.colour = outlier.colour,
       outlier.shape = outlier.shape,

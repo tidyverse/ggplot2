@@ -67,10 +67,9 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_text(aes(label = text), vjust = "inward", hjust = "inward")
 geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", parse = FALSE, ...,
-                      nudge_x = 0, nudge_y = 0, check_overlap = FALSE,
-                      show_guide = NA) {
-
+  position = "identity", parse = FALSE, show_guide = NA, inherit.aes = TRUE,
+  ..., nudge_x = 0, nudge_y = 0, check_overlap = FALSE)
+{
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
@@ -86,6 +85,7 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
     geom = GeomText,
     position = position,
     show_guide = show_guide,
+    inherit.aes = inherit.aes,
     # geom_params = list(parse = parse, check_overlap = check_overlap),
     params = list(parse = parse, check_overlap = check_overlap, ...)
   )

@@ -99,7 +99,8 @@
 geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
   position = "identity", na.rm = FALSE, binwidth = NULL, binaxis = "x",
   method = "dotdensity", binpositions = "bygroup", stackdir = "up",
-  stackratio = 1, dotsize = 1, stackgroups = FALSE, show_guide = NA, ...)
+  stackratio = 1, dotsize = 1, stackgroups = FALSE, show_guide = NA,
+  inherit.aes = TRUE, ...)
 {
   # If identical(position, "stack") or position is position_stack(), tell them
   # to use stackgroups=TRUE instead. Need to use identical() instead of ==,
@@ -118,6 +119,7 @@ geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
     geom = GeomDotplot,
     position = position,
     show_guide = show_guide,
+    inherit.aes = inherit.aes,
     # Need to make sure that the binaxis goes to both the stat and the geom
     stat_params = list(binaxis = binaxis),
     geom_params = list(binaxis = binaxis),

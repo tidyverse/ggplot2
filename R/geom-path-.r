@@ -94,7 +94,7 @@
 #' }
 geom_path <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", lineend = "butt", linejoin = "round", linemitre = 1,
-  na.rm = FALSE, arrow = NULL, show_guide = NA, ...)
+  na.rm = FALSE, arrow = NULL, show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -102,6 +102,8 @@ geom_path <- function (mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomPath,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(
       lineend = lineend,
       linejoin = linejoin,
