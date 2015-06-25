@@ -32,7 +32,8 @@
 #' d + stat_summary2d(fun = var)
 #' }
 stat_summary2d <- function (mapping = NULL, data = NULL, geom = NULL,
-  position = "identity", bins = 30, drop = TRUE, fun = mean, ...)
+  position = "identity", bins = 30, drop = TRUE, fun = mean, show_guide = NA,
+  inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -40,6 +41,8 @@ stat_summary2d <- function (mapping = NULL, data = NULL, geom = NULL,
     stat = StatSummary2d,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(
       bins = bins,
       drop = drop,

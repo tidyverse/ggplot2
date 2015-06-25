@@ -27,7 +27,7 @@
 #' # Also see stat_density for similar examples with data along x axis
 stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
   position = "dodge", adjust = 1, kernel = "gaussian", trim = TRUE,
-  scale = "area", na.rm = FALSE, ...)
+  scale = "area", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -35,6 +35,8 @@ stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
     stat = StatYdensity,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(
       adjust = adjust,
       kernel = kernel,

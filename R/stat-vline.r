@@ -7,7 +7,7 @@
 #' @examples
 #' # see geom_abline
 stat_abline <- function (mapping = NULL, data = NULL, geom = "abline",
-  position = "identity", ...)
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -15,6 +15,8 @@ stat_abline <- function (mapping = NULL, data = NULL, geom = "abline",
     stat = StatAbline,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(...)
   )
 }

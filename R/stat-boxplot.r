@@ -21,7 +21,8 @@
 #' @examples
 #' # See geom_boxplot for examples
 stat_boxplot <- function (mapping = NULL, data = NULL, geom = "boxplot",
-  position = "dodge", na.rm = FALSE, coef = 1.5, ...)
+  position = "dodge", na.rm = FALSE, coef = 1.5, show_guide = NA,
+  inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -29,6 +30,8 @@ stat_boxplot <- function (mapping = NULL, data = NULL, geom = "boxplot",
     stat = StatBoxplot,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(na.rm = na.rm, coef = coef, ...)
   )
 }

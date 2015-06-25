@@ -49,7 +49,8 @@
 #' v + geom_tile(aes(fill = z)) + stat_contour()
 #' }
 stat_contour <- function (mapping = NULL, data = NULL, geom = "path",
-  position = "identity", na.rm = FALSE, ...)
+  position = "identity", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE,
+  ...)
 {
   Layer$new(
     data = data,
@@ -57,6 +58,8 @@ stat_contour <- function (mapping = NULL, data = NULL, geom = "path",
     stat = StatContour,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(na.rm = na.rm, ...)
   )
 }

@@ -42,7 +42,7 @@
 #' }
 stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile",
   position = "identity", quantiles = c(0.25, 0.5, 0.75), formula = NULL,
-  method = "rq", na.rm = FALSE, ...)
+  method = "rq", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -50,6 +50,8 @@ stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile",
     stat = StatQuantile,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(
       quantiles = quantiles,
       formula = formula,

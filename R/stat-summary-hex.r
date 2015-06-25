@@ -30,7 +30,8 @@
 #' d + stat_summary_hex(fun = function(x) sum(x^2))
 #' d + stat_summary_hex(fun = var, na.rm = TRUE)
 stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", bins = 30, drop = TRUE, fun = mean, ...)
+  position = "identity", bins = 30, drop = TRUE, fun = mean, show_guide = NA,
+  inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -38,6 +39,8 @@ stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex",
     stat = StatSummaryhex,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(
       bins = bins,
       drop = drop,

@@ -44,7 +44,7 @@
 stat_bindot <- function (mapping = NULL, data = NULL, geom = "dotplot",
   position = "identity", binwidth = NULL, origin = NULL, width = 0.9,
   binaxis = "x", method = "dotdensity", binpositions = "bygroup", drop = FALSE,
-  right = TRUE, na.rm = FALSE, ...)
+  right = TRUE, na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -52,6 +52,8 @@ stat_bindot <- function (mapping = NULL, data = NULL, geom = "dotplot",
     stat = StatBindot,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(
       binwidth = binwidth,
       origin = origin,

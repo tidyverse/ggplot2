@@ -57,7 +57,8 @@
 #' d + stat_density2d(geom="point", aes(size = ..density..), contour = FALSE)
 #' }
 stat_density2d <- function (mapping = NULL, data = NULL, geom = "density2d",
-  position = "identity", na.rm = FALSE, contour = TRUE, n = 100, ...)
+  position = "identity", na.rm = FALSE, contour = TRUE, n = 100,
+  show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -65,6 +66,8 @@ stat_density2d <- function (mapping = NULL, data = NULL, geom = "density2d",
     stat = StatDensity2d,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
       contour = contour,

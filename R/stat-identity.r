@@ -13,6 +13,13 @@
 #'    on this layer
 #' @param width The width of the tiles.
 #' @param height The height of the tiles.
+#' @param show_guide logical. Should this layer be included in the legends?
+#'   \code{NA}, the default, includes if any aesthetics are mapped.
+#'   \code{FALSE} never includes, and \code{TRUE} always includes.
+#' @param inherit.aes If \code{FALSE}, overrides the default aesthetics,
+#'   rather than combining with them. This is most useful for helper functions
+#'   that define both data and aesthetics and shouldn't inherit behaviour from
+#'   the default plot specification, e.g. \code{\link{borders}}.
 #' @param ... other arguments passed on to \code{\link{layer}}. This can
 #'   include aesthetics whose values you want to set, not map. See
 #'   \code{\link{layer}} for more details.
@@ -20,7 +27,8 @@
 #' @examples
 #' # Doesn't do anything, so hard to come up a useful example
 stat_identity <- function (mapping = NULL, data = NULL, geom = "point",
-  position = "identity", width = NULL, height = NULL, ...)
+  position = "identity", width = NULL, height = NULL, show_guide = NA,
+  inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -28,6 +36,8 @@ stat_identity <- function (mapping = NULL, data = NULL, geom = "point",
     stat = StatIdentity,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(...)
   )
 }

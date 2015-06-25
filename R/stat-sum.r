@@ -36,7 +36,7 @@
 #' d + stat_sum(aes(size = ..prop.., group = clarity)) +
 #'   scale_size_area(max_size = 10)
 stat_sum <- function (mapping = NULL, data = NULL, geom = "point",
-  position = "identity", ...)
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -44,6 +44,8 @@ stat_sum <- function (mapping = NULL, data = NULL, geom = "point",
     stat = StatSum,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(...)
   )
 }

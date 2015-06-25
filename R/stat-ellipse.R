@@ -45,7 +45,7 @@
 #'   stat_ellipse(geom = "polygon")
 stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
   position = "identity", type = "t", level = 0.95, segments = 51,
-  na.rm = FALSE, ...)
+  na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -53,6 +53,8 @@ stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
     stat = StatEllipse,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(
       type = type,
       level = level,

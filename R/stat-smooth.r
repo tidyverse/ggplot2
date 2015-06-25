@@ -107,7 +107,8 @@
 #' }
 stat_smooth <- function (mapping = NULL, data = NULL, geom = "smooth",
   position = "identity", method = "auto", formula = y ~ x, se = TRUE, n = 80,
-  fullrange = FALSE, level = 0.95, na.rm = FALSE, ...)
+  fullrange = FALSE, level = 0.95, na.rm = FALSE, show_guide = NA,
+  inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -115,6 +116,8 @@ stat_smooth <- function (mapping = NULL, data = NULL, geom = "smooth",
     stat = StatSmooth,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(
       method = method,
       formula = formula,

@@ -112,7 +112,7 @@
 #' m2 + coord_trans(y="log10")
 #' }
 stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
-  position = "identity", ...)
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -120,6 +120,8 @@ stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
     stat = StatSummary,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(...)
   )
 }

@@ -45,7 +45,8 @@
 #' }
 stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
   position = "stack", width = 0.9, drop = FALSE, right = FALSE,
-  binwidth = NULL, origin = NULL, breaks = NULL, ...)
+  binwidth = NULL, origin = NULL, breaks = NULL, show_guide = NA,
+  inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -53,6 +54,8 @@ stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
     stat = StatBin,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(
       width = width,
       drop = drop,

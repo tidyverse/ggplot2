@@ -30,7 +30,8 @@
 #' d + stat_bin2d(breaks = list(x = x, y = y))
 #' }
 stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL,
-  position = "identity", bins = 30, drop = TRUE, ...)
+  position = "identity", bins = 30, drop = TRUE, show_guide = NA,
+  inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -38,6 +39,8 @@ stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL,
     stat = StatBin2d,
     geom = geom,
     position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(bins = bins, drop = drop, ...)
   )
 }
