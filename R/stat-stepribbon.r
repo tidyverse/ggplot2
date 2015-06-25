@@ -5,6 +5,7 @@
 #'
 #' @seealso \code{\link{geom_ribbon}}, \code{\link{geom_step}}
 #' @inheritParams stat_identity
+#' @param direction Character. Can be "hv" or "vh" for the initial direction of steps.
 #' @return a data.frame with additional rows necessary to plot a step function
 #' @export
 #' @examples

@@ -19,6 +19,8 @@ the plot defaults.}
 
 \item{position}{The position adjustment to use for overlappling points
 on this layer}
+
+\item{direction}{Character. Can be "hv" or "vh" for the initial direction of steps.}
 }
 \value{
 a data.frame with additional rows necessary to plot a step function
