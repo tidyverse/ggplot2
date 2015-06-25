@@ -21,13 +21,6 @@ firstUpper <- function(s) {
   paste(toupper(substring(s, 1,1)), substring(s, 2), sep="")
 }
 
-#' @export
-print.proto <- function(x, ...) x$pprint(...)
-pprint <- function(x, ...) print(as.list(x), ...)
-# name.proto <- function (...) {
-#        proto(print.proto = print.default, f = proto::name.proto)$f(...)
-# }
-
 
 TopLevel <- R6::R6Class("TopLevel",
   public = list(

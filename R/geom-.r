@@ -34,7 +34,7 @@ Geom <- R6::R6Class("Geom", inherit = TopLevel,
       ))
     },
 
-    pprint = function(newline=TRUE) {
+    print = function(newline=TRUE) {
       cat("geom_", self$objname, ": ", sep="") #  , clist(self$parameters())
       if (newline) cat("\n")
     },

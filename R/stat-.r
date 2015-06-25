@@ -57,7 +57,7 @@ Stat <- R6::R6Class("Stat", inherit = TopLevel,
     },
 
 
-    pprint = function(newline=TRUE) {
+    print = function(newline=TRUE) {
       cat("stat_", self$objname ,": ", sep="") # , clist(self$parameters())
       if (newline) cat("\n")
     },

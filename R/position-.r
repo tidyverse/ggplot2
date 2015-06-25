@@ -22,7 +22,7 @@ Position <- R6::R6Class("Position", inherit = TopLevel,
       values
     },
 
-    pprint = function(newline=TRUE) {
+    print = function(newline=TRUE) {
       cat("position_", self$objname, ": (", clist(self$parameters()), ")", sep="")
       if (newline) cat("\n")
     }

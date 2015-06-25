@@ -125,7 +125,7 @@ Layer <- R6::R6Class("Layer",
       aesthetics[!set & !calculated]
     },
 
-    pprint = function() {
+    print = function() {
       if (is.null(self$geom)) {
         cat("Empty layer\n")
         return(invisible());
