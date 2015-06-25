@@ -25,62 +25,82 @@
 #' @examples
 #' # See geom_violin for examples
 #' # Also see stat_density for similar examples with data along x axis
-stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin", position = "dodge",
-adjust = 1, kernel = "gaussian", trim = TRUE, scale = "area", na.rm = FALSE, ...) {
-  StatYdensity$new(mapping = mapping, data = data, geom = geom, position = position,
-  adjust = adjust, kernel = kernel, trim = trim, scale = scale,
-  na.rm = na.rm, ...)
+stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
+  position = "dodge", adjust = 1, kernel = "gaussian", trim = TRUE,
+  scale = "area", na.rm = FALSE, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = StatYdensity,
+    geom = geom,
+    position = position,
+    params = list(
+      adjust = adjust,
+      kernel = kernel,
+      trim = trim,
+      scale = scale,
+      na.rm = na.rm,
+      ...
+    )
+  )
 }
 
-StatYdensity <- proto(Stat, {
-  objname <- "ydensity"
 
-  calculate_groups <- function(., data, na.rm = FALSE, width = NULL,
-                               scale = "area", ...) {
-    data <- remove_missing(data, na.rm, c("x", "y", "weight"), name = "stat_ydensity", finite = TRUE)
-    data <- .super$calculate_groups(., data, na.rm = na.rm, width = width, ...)
+StatYdensity <- R6::R6Class("StatYdensity", inherit = StatR6,
+  public = list(
+    objname = "ydensity",
 
-    # choose how violins are scaled relative to each other
-    scale <- match.arg(scale, c("area", "count", "width"))
+    calculate_groups = function(data, na.rm = FALSE, width = NULL,
+      scale = "area", ...)
+    {
+      data <- remove_missing(data, na.rm, c("x", "y", "weight"), name = "stat_ydensity", finite = TRUE)
+      data <- super$calculate_groups(data, na.rm = na.rm, width = width, ...)
 
-    data$violinwidth <- switch(scale,
-      # area : keep the original densities but scale them to a max width of 1
-      #        for plotting purposes only
-      area = data$density / max(data$density),
-      # count: use the original densities scaled to a maximum of 1 (as above)
-      #        and then scale them according to the number of observations
-      count = (data$density / max(data$density)) * data$n / max(data$n),
-      # width: constant width (density scaled to a maximum of 1)
-      width = data$scaled
-    )
+      # choose how violins are scaled relative to each other
+      scale <- match.arg(scale, c("area", "count", "width"))
 
-    data
-  }
+      data$violinwidth <- switch(scale,
+        # area : keep the original densities but scale them to a max width of 1
+        #        for plotting purposes only
+        area = data$density / max(data$density),
+        # count: use the original densities scaled to a maximum of 1 (as above)
+        #        and then scale them according to the number of observations
+        count = (data$density / max(data$density)) * data$n / max(data$n),
+        # width: constant width (density scaled to a maximum of 1)
+        width = data$scaled
+      )
 
-  calculate <- function(., data, scales, width=NULL, adjust=1, kernel="gaussian",
-                        trim = FALSE, na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, "x", name = "stat_density",
-      finite = TRUE)
+      data
+    },
 
-    if (trim) {
-      range <- range(data$y, na.rm = TRUE)
-    } else {
-      range <- scale_dimension(scales$y, c(0, 0))
-    }
-    dens <- compute_density(data$y, data$w, from = range[1], to = range[2],
-      adjust = adjust, kernel = kernel)
+    calculate = function(data, scales, width = NULL, adjust = 1,
+      kernel = "gaussian", trim = FALSE, na.rm = FALSE, ...)
+    {
+      data <- remove_missing(data, na.rm, "x", name = "stat_density",
+        finite = TRUE)
 
-    dens$y <- dens$x
-    dens$x <- mean(range(data$x))
+      if (trim) {
+        range <- range(data$y, na.rm = TRUE)
+      } else {
+        range <- scale_dimension(scales$y, c(0, 0))
+      }
+      dens <- compute_density(data$y, data$w, from = range[1], to = range[2],
+        adjust = adjust, kernel = kernel)
 
-    # Compute width if x has multiple values
-    if (length(unique(data$x)) > 1) {
-      width <- diff(range(data$x)) * 0.9
-    }
-    dens$width <- width
-    dens
-  }
+      dens$y <- dens$x
+      dens$x <- mean(range(data$x))
 
-  default_geom <- function(.) GeomViolin
-  required_aes <- c("x", "y")
-})
+      # Compute width if x has multiple values
+      if (length(unique(data$x)) > 1) {
+        width <- diff(range(data$x)) * 0.9
+      }
+      dens$width <- width
+      dens
+    },
+
+    default_geom = function() GeomViolin,
+
+    required_aes = c("x", "y")
+  )
+)

@@ -30,9 +30,9 @@
 #' ggplot(mpg, aes(cty, hwy)) + geom_jitter()
 #' ggplot(mpg, aes(cty, hwy)) + geom_jitter(width = 0.5, height = 0.5)
 geom_jitter <- function(mapping = NULL, data = NULL,
-                         width = NULL, height = NULL, stat = "identity",
-                         position = "jitter", na.rm = FALSE,
-                         show_guide = NA, ...) {
+  width = NULL, height = NULL, stat = "identity", position = "jitter",
+  na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+{
   if (!missing(width) || !missing(height)) {
     if (!missing(position)) {
       stop("Specify either `position` or `width`/`height`", call. = FALSE)
@@ -41,13 +41,24 @@ geom_jitter <- function(mapping = NULL, data = NULL,
     position <- position_jitter(width = width, height = height)
   }
 
-  GeomJitter$new(mapping = mapping, data = data, stat = stat,
-    position = position, na.rm = na.rm, show_guide = show_guide, ...)
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomJitter,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomJitter <- proto(GeomPoint, {
-  objname <- "jitter"
+GeomJitter <- R6::R6Class("GeomJitter", inherit = GeomPoint,
+  public = list(
+    objname = "jitter",
 
-  default_stat <- function(.) StatIdentity
-  default_pos <- function(.) PositionJitter
-})
+    default_stat = function() StatIdentity,
+
+    default_pos = function() PositionJitter
+  )
+)

@@ -35,26 +35,39 @@
 #'   scale_size_area(max_size = 10)
 #' d + stat_sum(aes(size = ..prop.., group = clarity)) +
 #'   scale_size_area(max_size = 10)
-stat_sum <- function (mapping = NULL, data = NULL, geom = "point", position = "identity", ...) {
-  StatSum$new(mapping = mapping, data = data, geom = geom, position = position, ...)
+stat_sum <- function (mapping = NULL, data = NULL, geom = "point",
+  position = "identity", ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = StatSum,
+    geom = geom,
+    position = position,
+    params = list(...)
+  )
 }
 
-StatSum <- proto(Stat, {
-  objname <- "sum"
+StatSum <- R6::R6Class("StatSum", inherit = StatR6,
+  public = list(
+    objname = "sum",
 
-  default_aes <- function(.) aes(size = ..n..)
-  required_aes <- c("x", "y")
-  default_geom <- function(.) GeomPoint
+    default_aes = function() aes(size = ..n..),
 
-  calculate_groups <- function(., data, scales, ...) {
+    required_aes = c("x", "y"),
 
-    if (is.null(data$weight)) data$weight <- 1
+    default_geom = function() GeomPoint,
 
-    group_by <- setdiff(intersect(names(data), .all_aesthetics), "weight")
+    calculate_groups = function(data, scales, ...) {
 
-    counts <- count(data, group_by, wt_var = "weight")
-    counts <- rename(counts, c(freq = "n"), warn_missing = FALSE)
-    counts$prop <- ave(counts$n, counts$group, FUN = prop.table)
-    counts
-  }
-})
+      if (is.null(data$weight)) data$weight <- 1
+
+      group_by <- setdiff(intersect(names(data), .all_aesthetics), "weight")
+
+      counts <- count(data, group_by, wt_var = "weight")
+      counts <- rename(counts, c(freq = "n"), warn_missing = FALSE)
+      counts$prop <- ave(counts$n, counts$group, FUN = prop.table)
+      counts
+    }
+  )
+)

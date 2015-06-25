@@ -29,87 +29,95 @@
 #' y <- seq(min(diamonds$price), max(diamonds$price), length = 50)
 #' d + stat_bin2d(breaks = list(x = x, y = y))
 #' }
-stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL, position = "identity",
-bins = 30, drop = TRUE, ...) {
-
-  StatBin2d$new(mapping = mapping, data = data, geom = geom, position = position,
-  bins = bins, drop = drop, ...)
+stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL,
+  position = "identity", bins = 30, drop = TRUE, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = StatBin2d,
+    geom = geom,
+    position = position,
+    params = list(bins = bins, drop = drop, ...)
+  )
 }
 
-StatBin2d <- proto(Stat, {
-  objname <- "bin2d"
+StatBin2d <- R6::R6Class("StatBin2d", inherit = StatR6,
+  public = list(
+    objname = "bin2d",
 
-  default_aes <- function(.) aes(fill = ..count..)
-  required_aes <- c("x", "y")
-  default_geom <- function(.) GeomRect
+    default_aes = function() aes(fill = ..count..),
+    required_aes = c("x", "y"),
+    default_geom = function() GeomRect,
 
-  calculate <- function(., data, scales, binwidth = NULL, bins = 30, breaks = NULL, origin = NULL, drop = TRUE, ...) {
-
-    range <- list(
-      x = scale_dimension(scales$x, c(0, 0)),
-      y = scale_dimension(scales$y, c(0, 0))
-    )
-
-    # Determine origin, if omitted
-    if (is.null(origin)) {
-      origin <- c(NA, NA)
-    } else {
-      stopifnot(is.numeric(origin))
-      stopifnot(length(origin) == 2)
-    }
-    originf <- function(x) if (is.integer(x)) -0.5 else min(x, na.rm = TRUE)
-    if (is.na(origin[1])) origin[1] <- originf(data$x)
-    if (is.na(origin[2])) origin[2] <- originf(data$y)
-
-    # Determine binwidth, if omitted
-    if (is.null(binwidth)) {
-      binwidth <- c(NA, NA)
-      if (is.integer(data$x)) {
-        binwidth[1] <- 1
-      } else {
-        binwidth[1] <- diff(range$x) / bins
-      }
-      if (is.integer(data$y)) {
-        binwidth[2] <- 1
-      } else {
-        binwidth[2] <- diff(range$y) / bins
-      }
-    }
-    stopifnot(is.numeric(binwidth))
-    stopifnot(length(binwidth) == 2)
-
-    # Determine breaks, if omitted
-    if (is.null(breaks)) {
-      breaks <- list(
-        seq(origin[1], max(range$x) + binwidth[1], binwidth[1]),
-        seq(origin[2], max(range$y) + binwidth[2], binwidth[2])
+    calculate = function(data, scales, binwidth = NULL, bins = 30,
+                          breaks = NULL, origin = NULL, drop = TRUE, ...) {
+      range <- list(
+        x = scale_dimension(scales$x, c(0, 0)),
+        y = scale_dimension(scales$y, c(0, 0))
       )
-    } else {
-      stopifnot(is.list(breaks))
-      stopifnot(length(breaks) == 2)
-      stopifnot(all(sapply(breaks, is.numeric)))
+
+      # Determine origin, if omitted
+      if (is.null(origin)) {
+        origin <- c(NA, NA)
+      } else {
+        stopifnot(is.numeric(origin))
+        stopifnot(length(origin) == 2)
+      }
+      originf <- function(x) if (is.integer(x)) -0.5 else min(x, na.rm = TRUE)
+      if (is.na(origin[1])) origin[1] <- originf(data$x)
+      if (is.na(origin[2])) origin[2] <- originf(data$y)
+
+      # Determine binwidth, if omitted
+      if (is.null(binwidth)) {
+        binwidth <- c(NA, NA)
+        if (is.integer(data$x)) {
+          binwidth[1] <- 1
+        } else {
+          binwidth[1] <- diff(range$x) / bins
+        }
+        if (is.integer(data$y)) {
+          binwidth[2] <- 1
+        } else {
+          binwidth[2] <- diff(range$y) / bins
+        }
+      }
+      stopifnot(is.numeric(binwidth))
+      stopifnot(length(binwidth) == 2)
+
+      # Determine breaks, if omitted
+      if (is.null(breaks)) {
+        breaks <- list(
+          seq(origin[1], max(range$x) + binwidth[1], binwidth[1]),
+          seq(origin[2], max(range$y) + binwidth[2], binwidth[2])
+        )
+      } else {
+        stopifnot(is.list(breaks))
+        stopifnot(length(breaks) == 2)
+        stopifnot(all(sapply(breaks, is.numeric)))
+      }
+      names(breaks) <- c("x", "y")
+
+      xbin <- cut(data$x, sort(breaks$x), include.lowest = TRUE)
+      ybin <- cut(data$y, sort(breaks$y), include.lowest = TRUE)
+
+      if (is.null(data$weight)) data$weight <- 1
+
+      counts <- as.data.frame(
+        xtabs(weight ~ xbin + ybin, data), responseName = "count")
+      if (drop) counts <- subset(counts, count > 0)
+
+      within(counts,{
+        xint <- as.numeric(xbin)
+        xmin <- breaks$x[xint]
+        xmax <- breaks$x[xint + 1]
+
+        yint <- as.numeric(ybin)
+        ymin <- breaks$y[yint]
+        ymax <- breaks$y[yint + 1]
+
+        density <- count / sum(count, na.rm = TRUE)
+      })
     }
-    names(breaks) <- c("x", "y")
-
-    xbin <- cut(data$x, sort(breaks$x), include.lowest = TRUE)
-    ybin <- cut(data$y, sort(breaks$y), include.lowest = TRUE)
-
-    if (is.null(data$weight)) data$weight <- 1
-
-    counts <- as.data.frame(
-      xtabs(weight ~ xbin + ybin, data), responseName = "count")
-    if (drop) counts <- subset(counts, count > 0)
-
-    within(counts,{
-      xint <- as.numeric(xbin)
-      xmin <- breaks$x[xint]
-      xmax <- breaks$x[xint + 1]
-
-      yint <- as.numeric(ybin)
-      ymin <- breaks$y[yint]
-      ymax <- breaks$y[yint + 1]
-
-      density <- count / sum(count, na.rm = TRUE)
-    })
-  }
-})
+  )
+)

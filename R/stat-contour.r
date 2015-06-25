@@ -48,39 +48,53 @@
 #' v + stat_contour(geom="polygon", aes(fill=..level..))
 #' v + geom_tile(aes(fill = z)) + stat_contour()
 #' }
-stat_contour <- function (mapping = NULL, data = NULL, geom = "path", position = "identity",
-na.rm = FALSE, ...) {
-  StatContour$new(mapping = mapping, data = data, geom = geom,
-  position = position, na.rm = na.rm, ...)
+stat_contour <- function (mapping = NULL, data = NULL, geom = "path",
+  position = "identity", na.rm = FALSE, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = StatContour,
+    geom = geom,
+    position = position,
+    params = list(na.rm = na.rm, ...)
+  )
 }
 
-StatContour <- proto(Stat, {
-  objname <- "contour"
 
-  calculate <- function(., data, scales, bins=NULL, binwidth=NULL, breaks = NULL, complete = FALSE, na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, name = "stat_contour", finite = TRUE)
+StatContour <- R6::R6Class("StatContour", inherit = StatR6,
+  public = list(
+    objname = "contour",
 
-    # If no parameters set, use pretty bins
-    if (is.null(bins) && is.null(binwidth) && is.null(breaks)) {
-      breaks <- pretty(range(data$z), 10)
-    }
-    # If provided, use bins to calculate binwidth
-    if (!is.null(bins)) {
-      binwidth <- diff(range(data$z)) / bins
-    }
-    # If necessary, compute breaks from binwidth
-    if (is.null(breaks)) {
-      breaks <- fullseq(range(data$z), binwidth)
-    }
+    calculate = function(data, scales, bins = NULL, binwidth = NULL,
+                         breaks = NULL, complete = FALSE, na.rm = FALSE, ...)
+    {
+      data <- remove_missing(data, na.rm, name = "stat_contour", finite = TRUE)
 
-    contour_lines(data, breaks, complete = complete)
-  }
+      # If no parameters set, use pretty bins
+      if (is.null(bins) && is.null(binwidth) && is.null(breaks)) {
+        breaks <- pretty(range(data$z), 10)
+      }
+      # If provided, use bins to calculate binwidth
+      if (!is.null(bins)) {
+        binwidth <- diff(range(data$z)) / bins
+      }
+      # If necessary, compute breaks from binwidth
+      if (is.null(breaks)) {
+        breaks <- fullseq(range(data$z), binwidth)
+      }
+
+      contour_lines(data, breaks, complete = complete)
+    },
 
 
-  default_geom <- function(.) GeomPath
-  default_aes <- function(.) aes(order = ..level..)
-  required_aes <- c("x", "y", "z")
-})
+    default_geom = function() GeomPath,
+
+    default_aes = function() aes(order = ..level..),
+
+    required_aes = c("x", "y", "z")
+  )
+)
 
 
 # v3d <- reshape2::melt(volcano)

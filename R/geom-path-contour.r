@@ -9,18 +9,36 @@
 #' @export
 #' @examples
 #' # See stat_contour for examples
-geom_contour <- function (mapping = NULL, data = NULL, stat = "contour", position = "identity",
-lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, show_guide = NA,...) {
-  GeomContour$new(mapping = mapping, data = data, stat = stat, position = position,
-  lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm,
-  show_guide = show_guide,...)
+geom_contour <- function (mapping = NULL, data = NULL, stat = "contour",
+  position = "identity", lineend = "butt", linejoin = "round", linemitre = 1,
+  na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomContour,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(
+      lineend = lineend,
+      linejoin = linejoin,
+      linemitre = linemitre,
+      na.rm = na.rm,
+      ...
+    )
+  )
 }
 
-GeomContour <- proto(GeomPath, {
-  objname <- "contour"
+GeomContour <- R6::R6Class("GeomContour", inherit = GeomPath,
+  public = list(
+    objname = "contour",
 
-  default_aes <- function(.) aes(weight=1, colour="#3366FF", size = 0.5, linetype = 1, alpha = NA)
+    default_aes = function() {
+      aes(weight = 1, colour = "#3366FF", size = 0.5, linetype = 1, alpha = NA)
+    },
 
-  default_stat <- function(.) StatContour
-})
-
+    default_stat = function() StatContour
+  )
+)

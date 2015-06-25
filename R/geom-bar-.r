@@ -131,7 +131,7 @@
 #' m + geom_bar()
 #' }
 geom_bar <- function (mapping = NULL, data = NULL, stat = "bin",
-  position = "stack", show_guide = NA, ...)
+  position = "stack", show_guide = NA, inherit.aes = TRUE, ...)
 {
   LayerR6$new(
     data = data,
@@ -140,6 +140,7 @@ geom_bar <- function (mapping = NULL, data = NULL, stat = "bin",
     geom = GeomBar,
     position = position,
     show_guide = show_guide,
+    inherit.aes = inherit.aes,
     params = list(...)
   )
 }

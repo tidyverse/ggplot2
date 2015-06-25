@@ -43,48 +43,57 @@
 #' b + geom_segment(aes(x = 5, y = 30, xend = 3.5, yend = 25),
 #'    arrow = arrow(length = unit(0.5, "cm")))
 geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE, show_guide = NA,...) {
-
-  GeomSegment$new(mapping = mapping, data = data, stat = stat,
-    position = position, arrow = arrow, lineend = lineend, na.rm = na.rm,
-    show_guide = show_guide,...)
+  position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
+  show_guide = NA, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomSegment,
+    position = position,
+    show_guide = show_guide,
+    params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, ...)
+  )
 }
 
-GeomSegment <- proto(Geom, {
-  objname <- "segment"
+GeomSegment <- R6::R6Class("GeomSegment", inherit = GeomR6,
+  public = list(
+    objname = "segment",
 
-  draw <- function(., data, scales, coordinates, arrow = NULL,
-    lineend = "butt", na.rm = FALSE, ...) {
+    draw = function(data, scales, coordinates, arrow = NULL,
+      lineend = "butt", na.rm = FALSE, ...) {
 
-    data <- remove_missing(data, na.rm = na.rm,
-      c("x", "y", "xend", "yend", "linetype", "size", "shape"),
-      name = "geom_segment")
-    if (empty(data)) return(zeroGrob())
+      data <- remove_missing(data, na.rm = na.rm,
+        c("x", "y", "xend", "yend", "linetype", "size", "shape"),
+        name = "geom_segment")
+      if (empty(data)) return(zeroGrob())
 
-    if (is.linear(coordinates)) {
-      return(with(coord_transform(coordinates, data, scales),
-        segmentsGrob(x, y, xend, yend, default.units="native",
-        gp = gpar(col=alpha(colour, alpha), fill = alpha(colour, alpha),
-          lwd=size * .pt, lty=linetype, lineend = lineend),
-        arrow = arrow)
-      ))
-    }
+      if (is.linear(coordinates)) {
+        return(with(coord_transform(coordinates, data, scales),
+          segmentsGrob(x, y, xend, yend, default.units="native",
+          gp = gpar(col=alpha(colour, alpha), fill = alpha(colour, alpha),
+            lwd=size * .pt, lty=linetype, lineend = lineend),
+          arrow = arrow)
+        ))
+      }
 
-    data$group <- 1:nrow(data)
-    starts <- subset(data, select = c(-xend, -yend))
-    ends <- rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"),
-      warn_missing = FALSE)
+      data$group <- 1:nrow(data)
+      starts <- subset(data, select = c(-xend, -yend))
+      ends <- rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"),
+        warn_missing = FALSE)
 
-    pieces <- rbind(starts, ends)
-    pieces <- pieces[order(pieces$group),]
+      pieces <- rbind(starts, ends)
+      pieces <- pieces[order(pieces$group),]
 
-    GeomPath$draw_groups(pieces, scales, coordinates, arrow = arrow, ...)
-  }
+      # R6 TODO: Avoid instantiation
+      GeomPath$new()$draw_groups(pieces, scales, coordinates, arrow = arrow, ...)
+    },
 
 
-  default_stat <- function(.) StatIdentity
-  required_aes <- c("x", "y", "xend", "yend")
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
-  guide_geom <- function(.) "path"
-})
-
+    default_stat = function() StatIdentity,
+    required_aes = c("x", "y", "xend", "yend"),
+    default_aes = function() aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+    guide_geom = function() "path"
+  )
+)

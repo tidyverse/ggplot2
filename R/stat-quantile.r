@@ -40,56 +40,73 @@
 #' # Set aesthetics to fixed value
 #' m + stat_quantile(colour = "red", size = 2, linetype = 2)
 #' }
-stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile", position = "identity",
-quantiles = c(0.25, 0.5, 0.75), formula = NULL, method = "rq",
-na.rm = FALSE, ...) {
-  StatQuantile$new(mapping = mapping, data = data, geom = geom,
-  position = position, quantiles = quantiles, formula = formula,
-  method = method, na.rm = na.rm, ...)
+stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile",
+  position = "identity", quantiles = c(0.25, 0.5, 0.75), formula = NULL,
+  method = "rq", na.rm = FALSE, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = StatQuantile,
+    geom = geom,
+    position = position,
+    params = list(
+      quantiles = quantiles,
+      formula = formula,
+      method = method,
+      na.rm = na.rm,
+      ...
+    )
+  )
 }
 
-StatQuantile <- proto(Stat, {
-  objname <- "quantile"
 
-  default_geom <- function(.) GeomQuantile
-  default_aes <- function(.) aes()
-  required_aes <- c("x", "y")
+StatQuantile <- R6::R6Class("StatQuantile", inherit = StatR6,
+  public = list(
+    objname = "quantile",
 
-  calculate <- function(., data, scales, quantiles = c(0.25, 0.5, 0.75),
-    formula = NULL, xseq = NULL, method = "rq", lambda = 1, na.rm = FALSE,
-    ...) {
+    default_geom = function() GeomQuantile,
 
-    try_require("quantreg")
+    default_aes = function() aes(),
+    
+    required_aes = c("x", "y"),
 
-    if (is.null(formula)) {
-      if (method == "rqss") {
-        try_require("MatrixModels")
-        formula <- eval(substitute(y ~ qss(x, lambda = lambda)),
-          list(lambda = lambda))
-      } else {
-        formula <- y ~ x
+    calculate = function(data, scales, quantiles = c(0.25, 0.5, 0.75),
+      formula = NULL, xseq = NULL, method = "rq", lambda = 1, na.rm = FALSE,
+      ...)
+    {
+      try_require("quantreg")
+
+      if (is.null(formula)) {
+        if (method == "rqss") {
+          try_require("MatrixModels")
+          formula <- eval(substitute(y ~ qss(x, lambda = lambda)),
+            list(lambda = lambda))
+        } else {
+          formula <- y ~ x
+        }
+        message("Smoothing formula not specified. Using: ",
+          deparse(formula))
       }
-      message("Smoothing formula not specified. Using: ",
-        deparse(formula))
+
+      if (is.null(data$weight)) data$weight <- 1
+
+      if (is.null(xseq)) {
+        xmin <- min(data$x, na.rm = TRUE)
+        xmax <- max(data$x, na.rm = TRUE)
+        xseq <- seq(xmin, xmax, length = 100)
+      }
+      grid <- data.frame(x = xseq)
+
+      data <- as.data.frame(data)
+      data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_quantile")
+      method <- match.fun(method)
+
+      ldply(quantiles, quant_pred, data = data, method = method,
+        formula = formula, weight = weight, grid = grid, ...)
     }
-
-    if (is.null(data$weight)) data$weight <- 1
-
-    if (is.null(xseq)) {
-      xmin <- min(data$x, na.rm = TRUE)
-      xmax <- max(data$x, na.rm = TRUE)
-      xseq <- seq(xmin, xmax, length = 100)
-    }
-    grid <- data.frame(x = xseq)
-
-    data <- as.data.frame(data)
-    data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_quantile")
-    method <- match.fun(method)
-
-    ldply(quantiles, quant_pred, data = data, method = method,
-      formula = formula, weight = weight, grid = grid, ...)
-  }
-})
+  )
+)
 
 quant_pred <- function(quantile, data, method, formula, weight, grid, ...) {
   model <- method(formula, data = data, tau = quantile, weight = weight, ...)

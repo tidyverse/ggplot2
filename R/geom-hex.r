@@ -7,26 +7,40 @@
 #' @inheritParams geom_point
 #' @examples
 #' # See ?stat_binhex for examples
-geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex", position = "identity", show_guide = NA,...) {
-  GeomHex$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex",
+  position = "identity", show_guide = NA, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomHex,
+    position = position,
+    params = list(...)
+  )
 }
 
-GeomHex <- proto(Geom, {
-  objname <- "hex"
 
-  draw <- function(., data, scales, coordinates, ...) {
-    with(coord_transform(coordinates, data, scales),
-      ggname(.$my_name(), hexGrob(x, y, col=colour,
-        fill = alpha(fill, alpha)))
-    )
-  }
+GeomHex <- R6::R6Class("GeomHex", inherit = GeomR6,
+  public = list(
+    objname = "hex",
 
-  required_aes <- c("x", "y")
-  default_aes <- function(.) aes(colour=NA, fill = "grey50", size=0.5, alpha = NA)
-  default_stat <- function(.) StatBinhex
-  guide_geom <- function(.) "polygon"
+    draw = function(data, scales, coordinates, ...) {
+      with(coord_transform(coordinates, data, scales),
+        ggname(self$my_name(), hexGrob(x, y, col=colour,
+          fill = alpha(fill, alpha)))
+      )
+    },
 
-})
+    required_aes = c("x", "y"),
+
+    default_aes = function() aes(colour=NA, fill = "grey50", size=0.5, alpha = NA),
+
+    default_stat = function() StatBinhex,
+
+    guide_geom = function() "polygon"
+  )
+)
 
 
 # Draw hexagon grob

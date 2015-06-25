@@ -32,36 +32,53 @@
 #' ggplot(mtcars) +
 #'   stat_qq(aes(sample = mpg, colour = factor(cyl)))
 #' }
-stat_qq <- function (mapping = NULL, data = NULL, geom = "point", position = "identity",
-distribution = qnorm, dparams = list(), na.rm = FALSE, ...) {
-  StatQq$new(mapping = mapping, data = data, geom = geom, position = position,
-  distribution = distribution, dparams = dparams, na.rm = na.rm, ...)
+stat_qq <- function (mapping = NULL, data = NULL, geom = "point",
+  position = "identity", distribution = qnorm, dparams = list(), na.rm = FALSE,
+  ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = StatQq,
+    geom = geom,
+    position = position,
+    params = list(
+      distribution = distribution,
+      dparams = dparams,
+      na.rm = na.rm,
+      ...
+    )
+  )
 }
 
-StatQq <- proto(Stat, {
-  objname <- "qq"
+StatQq <- R6::R6Class("StatQq", inherit = StatR6,
+  public = list(
+    objname = "qq",
 
-  default_geom <- function(.) GeomPoint
-  default_aes <- function(.) aes(y = ..sample.., x = ..theoretical..)
-  required_aes <- c("sample")
+    default_geom = function() GeomPoint,
 
-  calculate <- function(., data, scales, quantiles = NULL, distribution = qnorm, dparams = list(), na.rm = FALSE) {
-    data <- remove_missing(data, na.rm, "sample", name = "stat_qq")
+    default_aes = function() aes(y = ..sample.., x = ..theoretical..),
 
-    sample <- sort(data$sample)
-    n <- length(sample)
+    required_aes = c("sample"),
 
-    # Compute theoretical quantiles
-    if (is.null(quantiles)) {
-      quantiles <- ppoints(n)
-    } else {
-      stopifnot(length(quantiles) == n)
+    calculate = function(data, scales, quantiles = NULL, distribution = qnorm,
+      dparams = list(), na.rm = FALSE)
+    {
+      data <- remove_missing(data, na.rm, "sample", name = "stat_qq")
+
+      sample <- sort(data$sample)
+      n <- length(sample)
+
+      # Compute theoretical quantiles
+      if (is.null(quantiles)) {
+        quantiles <- ppoints(n)
+      } else {
+        stopifnot(length(quantiles) == n)
+      }
+
+      theoretical <- safe.call(distribution, c(list(p = quantiles), dparams))
+
+      data.frame(sample, theoretical)
     }
-
-    theoretical <- safe.call(distribution, c(list(p = quantiles), dparams))
-
-    data.frame(sample, theoretical)
-  }
-
-
-})
+  )
+)

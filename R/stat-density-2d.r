@@ -56,36 +56,53 @@
 #' # Or points:
 #' d + stat_density2d(geom="point", aes(size = ..density..), contour = FALSE)
 #' }
-stat_density2d <- function (mapping = NULL, data = NULL, geom = "density2d", position = "identity",
-na.rm = FALSE, contour = TRUE, n = 100, ...) {
-  StatDensity2d$new(mapping = mapping, data = data, geom = geom,
-  position = position, na.rm = na.rm, contour = contour, n = n, ...)
+stat_density2d <- function (mapping = NULL, data = NULL, geom = "density2d",
+  position = "identity", na.rm = FALSE, contour = TRUE, n = 100, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = StatDensity2d,
+    geom = geom,
+    position = position,
+    params = list(
+      na.rm = na.rm,
+      contour = contour,
+      n = n,
+      ...
+    )
+  )
 }
 
-StatDensity2d <- proto(Stat, {
-  objname <- "density2d"
+StatDensity2d <- R6::R6Class("StatDensity2d", inherit = StatR6,
+  public = list(
+    objname = "density2d",
 
-  default_geom <- function(.) GeomDensity2d
-  default_aes <- function(.) aes(colour = "#3366FF", size = 0.5)
-  required_aes <- c("x", "y")
+    default_geom = function() GeomDensity2d,
+
+    default_aes = function() aes(colour = "#3366FF", size = 0.5),
+
+    required_aes = c("x", "y"),
 
 
-  calculate <- function(., data, scales, na.rm = FALSE, contour = TRUE, n = 100, ...) {
-    df <- data.frame(data[, c("x", "y")])
-    df <- remove_missing(df, na.rm, name = "stat_density2d", finite = TRUE)
+    calculate = function(data, scales, na.rm = FALSE, contour = TRUE, n = 100, ...) {
+      df <- data.frame(data[, c("x", "y")])
+      df <- remove_missing(df, na.rm, name = "stat_density2d", finite = TRUE)
 
-    dens <- safe.call(kde2d, list(x = df$x, y = df$y, n = n,
-      lims = c(scale_dimension(scales$x), scale_dimension(scales$y)), ...))
-    df <- with(dens, data.frame(expand.grid(x = x, y = y), z = as.vector(z)))
-    df$group <- data$group[1]
+      dens <- safe.call(kde2d, list(x = df$x, y = df$y, n = n,
+        lims = c(scale_dimension(scales$x), scale_dimension(scales$y)), ...))
+      df <- with(dens, data.frame(expand.grid(x = x, y = y), z = as.vector(z)))
+      df$group <- data$group[1]
 
-    if (contour) {
-      StatContour$calculate(df, scales, ...)
-    } else {
-      names(df) <- c("x", "y", "density", "group")
-      df$level <- 1
-      df$piece <- 1
-      df
+      if (contour) {
+        # R6 TODO: Avoid instantiation
+        StatContour$new()$calculate(df, scales, ...)
+      } else {
+        names(df) <- c("x", "y", "density", "group")
+        df$level <- 1
+        df$piece <- 1
+        df
+      }
     }
-  }
-})
+  )
+)

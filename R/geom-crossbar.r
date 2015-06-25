@@ -13,84 +13,100 @@
 #' @examples
 #' # See geom_linerange for examples
 geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
-                          position = "identity", fatten = 2.5,
-                          show_guide = NA,...) {
-  GeomCrossbar$new(mapping = mapping, data = data, stat = stat,
-  position = position, fatten = fatten, show_guide = show_guide,...)
+  position = "identity", fatten = 2.5, show_guide = NA, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomCrossbar,
+    position = position,
+    show_guide = show_guide,
+    params = list(fatten = fatten, ...)
+  )
 }
 
-GeomCrossbar <- proto(Geom, {
-  objname <- "crossbar"
+GeomCrossbar <- R6::R6Class("GeomCrossbar", inherit = GeomR6,
+  public = list(
+    objname = "crossbar",
 
-  reparameterise <- function(., df, params) {
-    GeomErrorbar$reparameterise(df, params)
-  }
+    reparameterise = function(df, params) {
+      # R6 TODO: Avoid instantiation
+      GeomErrorbar$new()$reparameterise(df, params)
+    },
 
-  default_stat <- function(.) StatIdentity
-  default_pos <- function(.) PositionIdentity
-  default_aes = function(.) aes(colour="black", fill=NA, size=0.5, linetype=1, alpha = NA)
-  required_aes <- c("x", "y", "ymin", "ymax")
-  guide_geom <- function(.) "crossbar"
-  draw_legend <- function(., data, ...)  {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-    gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt, lty = linetype))
-    gTree(gp = gp, children = gList(
-      rectGrob(height=0.5, width=0.75),
-      linesGrob(c(0.125, 0.875), 0.5)
-    ))
-  }
+    default_stat = function() StatIdentity,
 
-  draw <- function(., data, scales, coordinates, fatten = 2.5, width = NULL, ...) {
-    middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
+    default_pos = function() PositionIdentity,
 
-    has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
-      !is.na(data$ynotchlower) && !is.na(data$ynotchupper)
+    default_aes = function() aes(colour="black", fill=NA, size=0.5, linetype=1, alpha = NA),
 
-    if (has_notch) {
-      if (data$ynotchlower < data$ymin  ||  data$ynotchupper > data$ymax)
-        message("notch went outside hinges. Try setting notch=FALSE.")
+    required_aes = c("x", "y", "ymin", "ymax"),
 
-      notchindent <- (1 - data$notchwidth) * (data$xmax - data$xmin) / 2
+    guide_geom = function() "crossbar",
 
-      middle$x <- middle$x + notchindent
-      middle$xend <- middle$xend - notchindent
+    draw_legend = function(data, ...)  {
+      data <- aesdefaults(data, self$default_aes(), list(...))
+      gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt, lty = linetype))
+      gTree(gp = gp, children = gList(
+        rectGrob(height=0.5, width=0.75),
+        linesGrob(c(0.125, 0.875), 0.5)
+      ))
+    },
 
-      box <- data.frame(
-        x = c(
-          data$xmin, data$xmin, data$xmin + notchindent, data$xmin, data$xmin,
-          data$xmax, data$xmax, data$xmax - notchindent, data$xmax, data$xmax,
-          data$xmin
-        ),
-        y = c(
-          data$ymax, data$ynotchupper, data$y, data$ynotchlower, data$ymin,
-          data$ymin, data$ynotchlower, data$y, data$ynotchupper, data$ymax,
-          data$ymax
-        ),
-        alpha = data$alpha,
-        colour = data$colour,
-        size = data$size,
-        linetype = data$linetype, fill = data$fill,
-        group = seq_len(nrow(data)),
-        stringsAsFactors = FALSE
-      )
-    } else {
-      # No notch
-      box <- data.frame(
-        x = c(data$xmin, data$xmin, data$xmax, data$xmax, data$xmin),
-        y = c(data$ymax, data$ymin, data$ymin, data$ymax, data$ymax),
-        alpha = data$alpha,
-        colour = data$colour,
-        size = data$size,
-        linetype = data$linetype,
-        fill = data$fill,
-        group = seq_len(nrow(data)), # each bar forms it's own group
-        stringsAsFactors = FALSE
-      )
+    draw = function(data, scales, coordinates, fatten = 2.5, width = NULL, ...) {
+      middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
+
+      has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
+        !is.na(data$ynotchlower) && !is.na(data$ynotchupper)
+
+      if (has_notch) {
+        if (data$ynotchlower < data$ymin  ||  data$ynotchupper > data$ymax)
+          message("notch went outside hinges. Try setting notch=FALSE.")
+
+        notchindent <- (1 - data$notchwidth) * (data$xmax - data$xmin) / 2
+
+        middle$x <- middle$x + notchindent
+        middle$xend <- middle$xend - notchindent
+
+        box <- data.frame(
+          x = c(
+            data$xmin, data$xmin, data$xmin + notchindent, data$xmin, data$xmin,
+            data$xmax, data$xmax, data$xmax - notchindent, data$xmax, data$xmax,
+            data$xmin
+          ),
+          y = c(
+            data$ymax, data$ynotchupper, data$y, data$ynotchlower, data$ymin,
+            data$ymin, data$ynotchlower, data$y, data$ynotchupper, data$ymax,
+            data$ymax
+          ),
+          alpha = data$alpha,
+          colour = data$colour,
+          size = data$size,
+          linetype = data$linetype, fill = data$fill,
+          group = seq_len(nrow(data)),
+          stringsAsFactors = FALSE
+        )
+      } else {
+        # No notch
+        box <- data.frame(
+          x = c(data$xmin, data$xmin, data$xmax, data$xmax, data$xmin),
+          y = c(data$ymax, data$ymin, data$ymin, data$ymax, data$ymax),
+          alpha = data$alpha,
+          colour = data$colour,
+          size = data$size,
+          linetype = data$linetype,
+          fill = data$fill,
+          group = seq_len(nrow(data)), # each bar forms it's own group
+          stringsAsFactors = FALSE
+        )
+      }
+
+      # R6 TODO: Avoid instantiation
+      ggname(self$my_name(), gTree(children = gList(
+        GeomPolygon$new()$draw(box, scales, coordinates, ...),
+        GeomSegment$new()$draw(middle, scales, coordinates, ...)
+      )))
     }
-
-    ggname(.$my_name(), gTree(children = gList(
-      GeomPolygon$draw(box, scales, coordinates, ...),
-      GeomSegment$draw(middle, scales, coordinates, ...)
-    )))
-  }
-})
+  )
+)

@@ -73,6 +73,7 @@ Stat <- proto(TopLevel, expr={
 StatR6 <- R6::R6Class("StatR6", inherit = TopLevelR6,
   public = list(
     objname = "",
+
     desc = "",
 
     # Should the values produced by the statistic also be transformed
@@ -81,11 +82,15 @@ StatR6 <- R6::R6Class("StatR6", inherit = TopLevelR6,
     retransform = TRUE,
 
     default_geom = function() Geom,
+
     default_aes = function() aes(),
+
     default_pos = function() self$default_geom()$default_pos(),
+
     required_aes = c(),
 
     aesthetics = list(),
+
     calculate = function(data, scales, ...) {},
 
     calculate_groups = function(data, scales, ...) {
@@ -131,7 +136,7 @@ StatR6 <- R6::R6Class("StatR6", inherit = TopLevelR6,
 
     parameters = function() {
       params <- formals(self$calculate)
-      params[setdiff(names(params), c("data","scales"))]
+      params[setdiff(names(params), c("data", "scales"))]
     },
 
     class = function() "stat"

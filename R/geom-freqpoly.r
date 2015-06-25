@@ -17,15 +17,31 @@
 #' p + geom_freqpoly(aes(y = ..density.., colour = color),
 #'                   binwidth = 1000)
 geom_freqpoly <- function(mapping = NULL, data = NULL, stat = "bin",
-                          position = "identity", show_guide = NA, ...) {
-  GeomFreqpoly$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+  position = "identity", show_guide = NA, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomFreqpoly,
+    position = position,
+    params = list(...)
+  )
 }
 
-GeomFreqpoly <- proto(Geom, {
-  objname <- "freqpoly"
 
-  default_aes <- function(.) GeomPath$default_aes()
-  default_stat <- function(.) StatBin
-  draw <- function(., ...) GeomPath$draw(...)
-  guide_geom <- function(.) "path"
-})
+GeomFreqpoly <- R6::R6Class("GeomFreqpoly", inherit = GeomR6,
+  public = list(
+    objname = "freqpoly",
+
+    # R6 TODO: Avoid instantiation
+    default_aes = function() GeomPath$new()$default_aes(),
+
+    default_stat = function() StatBin,
+
+    # R6 TODO: Avoid instantiation
+    draw = function(...) GeomPath$new()$draw(...),
+
+    guide_geom = function() "path"
+  )
+)

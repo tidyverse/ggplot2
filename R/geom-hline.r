@@ -39,33 +39,44 @@
 #'
 #' hline.data <- data.frame(z = 1:4, vs = c(0,0,1,1), am = c(0,1,0,1))
 #' p + geom_hline(aes(yintercept = z), hline.data)
-geom_hline <- function (mapping = NULL, data = NULL, stat = "hline", position = "identity", show_guide = FALSE, ...) {
-  GeomHline$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
+geom_hline <- function (mapping = NULL, data = NULL, stat = "hline",
+  position = "identity", show_guide = FALSE, yintercept = NULL, ...)
+{
+  if (is.numeric(yintercept)) {
+    data <- data.frame(yintercept = yintercept)
+    yintercept <- NULL
+    mapping <- aes_all(names(data))
+  }
+
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomHline,
+    position = position,
+    inherit.aes = FALSE,
+    params = list(yintercept = yintercept, ...)
+  )
 }
 
-GeomHline <- proto(Geom, {
-  objname <- "hline"
+GeomHline <- R6::R6Class("GeomHline", inherit = GeomR6,
+  public = list(
+    objname = "hline",
 
-  new <- function(., data = NULL, mapping = NULL, yintercept = NULL, ...) {
-    if (is.numeric(yintercept)) {
-      data <- data.frame(yintercept = yintercept)
-      yintercept <- NULL
-      mapping <- aes_all(names(data))
-    }
-    .super$new(., data = data, mapping = mapping, inherit.aes = FALSE,
-      yintercept = yintercept, ...)
-  }
+    draw = function(data, scales, coordinates, ...) {
+      ranges <- coord_range(coordinates, scales)
 
-  draw <- function(., data, scales, coordinates, ...) {
-    ranges <- coord_range(coordinates, scales)
+      data$x    <- ranges$x[1]
+      data$xend <- ranges$x[2]
 
-    data$x    <- ranges$x[1]
-    data$xend <- ranges$x[2]
+      # R6 TODO: Avoid instantiation
+      GeomSegment$new()$draw(unique(data), scales, coordinates)
+    },
 
-    GeomSegment$draw(unique(data), scales, coordinates)
-  }
+    default_stat = function() StatHline,
 
-  default_stat <- function(.) StatHline
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
-  guide_geom <- function(.) "path"
-})
+    default_aes = function() aes(colour="black", size=0.5, linetype=1, alpha = NA),
+
+    guide_geom = function() "path"
+  )
+)

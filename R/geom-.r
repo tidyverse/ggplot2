@@ -64,12 +64,15 @@ GeomR6 <- R6::R6Class("GeomR6", inherit = TopLevelR6,
     },
 
     required_aes = c(),
-    default_aes = function() {},
+
+    default_aes = function() aes(),
+
     default_pos = function() PositionIdentity,
 
     guide_geom = function() "point",
 
     draw = function(...) {},
+
     draw_groups = function(data, scales, coordinates, ...) {
       if (empty(data)) return(zeroGrob())
 

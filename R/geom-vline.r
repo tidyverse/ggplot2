@@ -43,44 +43,66 @@
 #'      facet_wrap(vs ~ am)
 #' vline.data <- data.frame(z = c(15, 20, 25, 30), vs = c(0, 0, 1, 1), am = c(0, 1, 0, 1))
 #' p + geom_vline(aes(xintercept = z), vline.data)
-geom_vline <- function (mapping = NULL, data = NULL, stat = "vline", position = "identity", show_guide = FALSE, ...) {
-  GeomVline$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
+geom_vline <- function (mapping = NULL, data = NULL, stat = "vline",
+  position = "identity", show_guide = FALSE, inherit.aes = FALSE, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomVline,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomVline <- proto(Geom, {
-  objname <- "vline"
+GeomVline <- R6::R6Class("GeomVline", inherit = GeomR6,
+  public = list(
+    objname = "vline",
 
-  new <- function(., data = NULL, mapping = NULL, xintercept = NULL, ...) {
-    if (is.numeric(xintercept)) {
-      data <- data.frame(xintercept = xintercept)
-      xintercept <- NULL
-      mapping <- aes_all(names(data))
+    new = function(data = NULL, mapping = NULL, xintercept = NULL, ...) {
+      if (is.numeric(xintercept)) {
+        data <- data.frame(xintercept = xintercept)
+        xintercept <- NULL
+        mapping <- aes_all(names(data))
+      }
+      super$new(data = data, mapping = mapping, inherit.aes = FALSE,
+                xintercept = xintercept, ...)
+    },
+
+    draw = function(data, scales, coordinates, ...) {
+      ranges <- coord_range(coordinates, scales)
+
+      data$y    <- ranges$y[1]
+      data$yend <- ranges$y[2]
+
+      # R6 TODO: Avoid instantiation
+      GeomSegment$new()$draw(unique(data), scales, coordinates)
+    },
+
+
+    default_stat = function() StatVline,
+
+    default_aes = function() {
+      aes(colour = "black", size = 0.5, linetype = 1, alpha = NA)
+    },
+
+    guide_geom = function() "vline",
+
+    draw_legend = function(data, ...) {
+      data <- aesdefaults(data, self$default_aes(), list(...))
+
+      with(data,
+        ggname(
+          self$my_name(),
+          segmentsGrob(0.5, 0, 0.5, 1, default.units="npc",
+                       gp = gpar(col = alpha(colour, alpha), lwd = size * .pt,
+                                 lty = linetype, lineend = "butt")
+          )
+        )
+      )
     }
-    .super$new(., data = data, mapping = mapping, inherit.aes = FALSE,
-      xintercept = xintercept, ...)
-  }
-
-  draw <- function(., data, scales, coordinates, ...) {
-    ranges <- coord_range(coordinates, scales)
-
-    data$y    <- ranges$y[1]
-    data$yend <- ranges$y[2]
-
-    GeomSegment$draw(unique(data), scales, coordinates)
-  }
-
-
-  default_stat <- function(.) StatVline
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
-  guide_geom <- function(.) "vline"
-
-  draw_legend <- function(., data, ...) {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-
-    with(data,
-      ggname(.$my_name(), segmentsGrob(0.5, 0, 0.5, 1, default.units="npc",
-      gp=gpar(col=alpha(colour, alpha), lwd=size * .pt, lty=linetype, lineend="butt")))
-    )
-  }
-
-})
+  )
+)

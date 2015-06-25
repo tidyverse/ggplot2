@@ -65,32 +65,50 @@
 #'   geom_tile(aes(fill = col[z], width = w, group = 1)) +
 #'   scale_fill_identity(labels = letters[1:5], breaks = col)
 #' }
-geom_tile <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
-  GeomTile$new(mapping = mapping, data = data, stat = stat, position = position,
-  show_guide = show_guide,...)
+geom_tile <- function (mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomTile,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomTile <- proto(Geom, {
-  objname <- "tile"
+GeomTile <- R6::R6Class("GeomTile", inherit = GeomR6,
+  public = list(
+    objname = "tile",
 
-  reparameterise <- function(., df, params) {
-    df$width <- df$width %||% params$width %||% resolution(df$x, FALSE)
-    df$height <- df$height %||% params$height %||% resolution(df$y, FALSE)
+    reparameterise = function(df, params) {
+      df$width <- df$width %||% params$width %||% resolution(df$x, FALSE)
+      df$height <- df$height %||% params$height %||% resolution(df$y, FALSE)
 
-    transform(df,
-      xmin = x - width / 2,  xmax = x + width / 2,  width = NULL,
-      ymin = y - height / 2, ymax = y + height / 2, height = NULL
-    )
-  }
+      transform(df,
+        xmin = x - width / 2,  xmax = x + width / 2,  width = NULL,
+        ymin = y - height / 2, ymax = y + height / 2, height = NULL
+      )
+    },
 
-  draw_groups <- function(., data,  scales, coordinates, ...) {
-    # data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
-    GeomRect$draw_groups(data, scales, coordinates, ...)
-  }
+    draw_groups = function(data,  scales, coordinates, ...) {
+      # data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
+      # R6 TODO: Avoid instantiation
+      GeomRect$new()$draw_groups(data, scales, coordinates, ...)
+    },
 
 
-  default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(fill="grey20", colour=NA, size=0.1, linetype=1, alpha = NA)
-  required_aes <- c("x", "y")
-  guide_geom <- function(.) "polygon"
-})
+    default_stat = function() StatIdentity,
+
+    default_aes = function() {
+      aes(fill = "grey20", colour = NA, size = 0.1, linetype = 1, alpha = NA)
+    },
+
+    required_aes = c("x", "y"),
+
+    guide_geom = function() "polygon"
+  )
+)

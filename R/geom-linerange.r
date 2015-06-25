@@ -32,21 +32,42 @@
 #'
 #' # Use coord_flip to flip the x and y axes
 #' se + geom_linerange() + coord_flip()
-geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
-  GeomLinerange$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", show_guide = NA, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomLinerange,
+    position = position,
+    params = list(...)
+  )
 }
 
-GeomLinerange <- proto(Geom, {
-  objname <- "linerange"
+GeomLinerange <- R6::R6Class("GeomLinerange", inherit = GeomR6,
+  public = list(
+    objname = "linerange",
 
-  default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, alpha = NA)
-  guide_geom <- function(.) "path"
-  required_aes <- c("x", "ymin", "ymax")
+    default_stat = function() StatIdentity,
 
-  draw <- function(., data, scales, coordinates, ...) {
-    munched <- coord_transform(coordinates, data, scales)
-    ggname(.$my_name(), GeomSegment$draw(transform(data, xend=x, y=ymin, yend=ymax), scales, coordinates, ...))
-  }
+    default_aes = function() {
+      aes(colour = "black", size = 0.5, linetype = 1, alpha = NA)
+    },
 
-})
+    guide_geom = function() "path",
+
+    required_aes = c("x", "ymin", "ymax"),
+
+    draw = function(data, scales, coordinates, ...) {
+      munched <- coord_transform(coordinates, data, scales)
+      ggname(
+        self$my_name(),
+        # R6 TODO: Avoid instantiation
+        GeomSegment$new()$draw(
+          transform(data, xend=x, y=ymin, yend=ymax), scales, coordinates, ...
+        )
+      )
+    }
+  )
+)

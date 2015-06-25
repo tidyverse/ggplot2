@@ -48,38 +48,55 @@
 #' # groups which define the lines - here the groups in the
 #' # original dataframe
 #' p + geom_line(aes(group=group)) + geom_errorbar(limits, width=0.2)
-geom_errorbar <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
-  GeomErrorbar$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+geom_errorbar <- function (mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", show_guide = NA, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomErrorbar,
+    position = position,
+    params = list(...)
+  )
 }
 
-GeomErrorbar <- proto(Geom, {
-  objname <- "errorbar"
+GeomErrorbar <- R6::R6Class("GeomErrorbar", inherit = GeomR6,
+  public = list(
+    objname = "errorbar",
 
-  default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, width=0.5, alpha = NA)
-  guide_geom <- function(.) "path"
-  required_aes <- c("x", "ymin", "ymax")
+    default_stat = function() StatIdentity,
 
-  reparameterise <- function(., df, params) {
-    df$width <- df$width %||%
-      params$width %||% (resolution(df$x, FALSE) * 0.9)
+    default_aes = function() {
+      aes(colour = "black", size=0.5, linetype=1, width=0.5, alpha = NA)
+    },
 
-    transform(df,
-      xmin = x - width / 2, xmax = x + width / 2, width = NULL
-    )
-  }
+    guide_geom = function() "path",
 
-  draw <- function(., data, scales, coordinates, width = NULL, ...) {
-    GeomPath$draw(with(data, data.frame(
-      x = as.vector(rbind(xmin, xmax, NA, x,    x,    NA, xmin, xmax)),
-      y = as.vector(rbind(ymax, ymax, NA, ymax, ymin, NA, ymin, ymin)),
-      colour = rep(colour, each = 8),
-      alpha = rep(alpha, each = 8),
-      size = rep(size, each = 8),
-      linetype = rep(linetype, each = 8),
-      group = rep(1:(nrow(data)), each = 8),
-      stringsAsFactors = FALSE,
-      row.names = 1:(nrow(data) * 8)
-    )), scales, coordinates, ...)
-  }
-})
+    required_aes = c("x", "ymin", "ymax"),
+
+    reparameterise = function(df, params) {
+      df$width <- df$width %||%
+        params$width %||% (resolution(df$x, FALSE) * 0.9)
+
+      transform(df,
+        xmin = x - width / 2, xmax = x + width / 2, width = NULL
+      )
+    },
+
+    draw = function(data, scales, coordinates, width = NULL, ...) {
+      # R6 TODO: Avoid instantiation
+      GeomPath$new()$draw(with(data, data.frame(
+        x = as.vector(rbind(xmin, xmax, NA, x,    x,    NA, xmin, xmax)),
+        y = as.vector(rbind(ymax, ymax, NA, ymax, ymin, NA, ymin, ymin)),
+        colour = rep(colour, each = 8),
+        alpha = rep(alpha, each = 8),
+        size = rep(size, each = 8),
+        linetype = rep(linetype, each = 8),
+        group = rep(1:(nrow(data)), each = 8),
+        stringsAsFactors = FALSE,
+        row.names = 1:(nrow(data) * 8)
+      )), scales, coordinates, ...)
+    }
+  )
+)

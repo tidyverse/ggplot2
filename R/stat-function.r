@@ -43,25 +43,39 @@
 #' # Using a custom function
 #' test <- function(x) {x ^ 2 + x + 20}
 #' f + stat_function(fun = test)
-stat_function <- function (mapping = NULL, data = NULL, geom = "path", position = "identity",
-fun, n = 101, args = list(), ...) {
-  StatFunction$new(mapping = mapping, data = data, geom = geom,
-  position = position, fun = fun, n = n, args = args, ...)
+stat_function <- function (mapping = NULL, data = NULL, geom = "path",
+  position = "identity", fun, n = 101, args = list(), ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = StatFunction,
+    geom = geom,
+    position = position,
+    params = list(
+      fun = fun,
+      n = n,
+      args = args,
+      ...
+    )
+  )
 }
 
-StatFunction <- proto(Stat, {
-  objname <- "function"
+StatFunction <- R6::R6Class("StatFunction", inherit = StatR6,
+  public = list(
+    objname = "function",
 
-  default_geom <- function(.) GeomPath
-  default_aes <- function(.) aes(y = ..y..)
+    default_geom = function() GeomPath,
+    default_aes = function() aes(y = ..y..),
 
-  calculate <- function(., data, scales, fun, n=101, args = list(), ...) {
-    range <- scale_dimension(scales$x, c(0, 0))
-    xseq <- seq(range[1], range[2], length=n)
+    calculate = function(data, scales, fun, n=101, args = list(), ...) {
+      range <- scale_dimension(scales$x, c(0, 0))
+      xseq <- seq(range[1], range[2], length=n)
 
-    data.frame(
-      x = xseq,
-      y = do.call(fun, c(list(xseq), args))
-    )
-  }
-})
+      data.frame(
+        x = xseq,
+        y = do.call(fun, c(list(xseq), args))
+      )
+    }
+  )
+)

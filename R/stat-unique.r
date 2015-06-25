@@ -8,15 +8,27 @@
 #' @examples
 #' ggplot(mtcars, aes(vs, am)) + geom_point(alpha = 0.1)
 #' ggplot(mtcars, aes(vs, am)) + geom_point(alpha = 0.1, stat="unique")
-stat_unique <- function (mapping = NULL, data = NULL, geom = "point", position = "identity", ...) {
-  StatUnique$new(mapping = mapping, data = data, geom = geom, position = position, ...)
+stat_unique <- function (mapping = NULL, data = NULL, geom = "point",
+  position = "identity", ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = StatUnique,
+    geom = geom,
+    position = position,
+    params = list(...)
+  )
 }
 
-StatUnique <- proto(Stat, {
-  objname <- "unique"
-  desc <- "Remove duplicates"
+StatUnique <- R6::R6Class("StatUnique", inherit = StatR6,
+  public = list(
+    objname = "unique",
 
-  default_geom <- function(.) GeomPoint
+    desc = "Remove duplicates",
 
-  calculate_groups <- function(., data, scales, ...) unique(data)
-})
+    default_geom = function() GeomPoint,
+
+    calculate_groups = function(data, scales, ...) unique(data)
+  )
+)

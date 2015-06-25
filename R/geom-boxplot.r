@@ -111,124 +111,151 @@ geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
                           position = "dodge", outlier.colour = NULL,
                           outlier.shape = NULL, outlier.size = NULL,
                           outlier.stroke = 1, notch = FALSE, notchwidth = .5,
-                          varwidth = FALSE, show_guide = NA,...) {
-
-  outlier_defaults <- Geom$find('point')$default_aes()
+                          varwidth = FALSE, show_guide = NA, ...)
+{
+  # R6 TODO: Avoid instantiation
+  outlier_defaults <- GeomR6$new()$find('point')$new()$default_aes()
 
   outlier.colour   <- outlier.colour %||% outlier_defaults$colour
   outlier.shape    <- outlier.shape  %||% outlier_defaults$shape
   outlier.size     <- outlier.size   %||% outlier_defaults$size
   outlier.stroke   <- outlier.stroke %||% outlier_defaults$stroke
 
-  GeomBoxplot$new(mapping = mapping, data = data, stat = stat,
-    position = position, outlier.colour = outlier.colour,
-    outlier.shape = outlier.shape, outlier.size = outlier.size,
-    outlier.stoke = outlier.stroke, notch = notch, notchwidth = notchwidth,
-    varwidth = varwidth, show_guide = show_guide,...)
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomBoxplot,
+    position = position,
+    show_guide = show_guide,
+    params = list(
+      outlier.colour = outlier.colour,
+      outlier.shape = outlier.shape,
+      outlier.size = outlier.size,
+      outlier.stoke = outlier.stroke,
+      notch = notch,
+      notchwidth = notchwidth,
+      varwidth = varwidth,
+      ...
+    )
+  )
 }
 
-GeomBoxplot <- proto(Geom, {
-  objname <- "boxplot"
+GeomBoxplot <- R6::R6Class("GeomBoxplot", inherit = GeomR6,
+  public = list(
+    objname = "boxplot",
 
-  reparameterise <- function(., df, params) {
-    df$width <- df$width %||%
-      params$width %||% (resolution(df$x, FALSE) * 0.9)
+    reparameterise = function(df, params) {
+      df$width <- df$width %||%
+        params$width %||% (resolution(df$x, FALSE) * 0.9)
 
-    if (!is.null(df$outliers)) {
-      suppressWarnings({
-        out_min <- vapply(df$outliers, min, numeric(1))
-        out_max <- vapply(df$outliers, max, numeric(1))
-      })
+      if (!is.null(df$outliers)) {
+        suppressWarnings({
+          out_min <- vapply(df$outliers, min, numeric(1))
+          out_max <- vapply(df$outliers, max, numeric(1))
+        })
 
-      df$ymin_final <- pmin(out_min, df$ymin)
-      df$ymax_final <- pmax(out_max, df$ymax)
-    }
+        df$ymin_final <- pmin(out_min, df$ymin)
+        df$ymax_final <- pmax(out_max, df$ymax)
+      }
 
-    # if `varwidth` not requested or not available, don't use it
-    if (is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(df$relvarwidth)) {
-      df$xmin <- df$x - df$width / 2
-      df$xmax <- df$x + df$width / 2
-    } else {
-      # make `relvarwidth` relative to the size of the largest group
-      df$relvarwidth <- df$relvarwidth / max(df$relvarwidth)
-      df$xmin <- df$x - df$relvarwidth * df$width / 2
-      df$xmax <- df$x + df$relvarwidth * df$width / 2
-    }
-    df$width <- NULL
-    if (!is.null(df$relvarwidth)) df$relvarwidth <- NULL
+      # if `varwidth` not requested or not available, don't use it
+      if (is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(df$relvarwidth)) {
+        df$xmin <- df$x - df$width / 2
+        df$xmax <- df$x + df$width / 2
+      } else {
+        # make `relvarwidth` relative to the size of the largest group
+        df$relvarwidth <- df$relvarwidth / max(df$relvarwidth)
+        df$xmin <- df$x - df$relvarwidth * df$width / 2
+        df$xmax <- df$x + df$relvarwidth * df$width / 2
+      }
+      df$width <- NULL
+      if (!is.null(df$relvarwidth)) df$relvarwidth <- NULL
 
-    df
-  }
+      df
+    },
 
-  draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2, outlier.stroke = 1,
-                   notch = FALSE, notchwidth = .5, varwidth = FALSE) {
-    common <- data.frame(
-      colour = data$colour,
-      size = data$size,
-      linetype = data$linetype,
-      fill = alpha(data$fill, data$alpha),
-      group = data$group,
-      stringsAsFactors = FALSE
-    )
+    draw = function(data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL,
+                    outlier.size = 2, outlier.stroke = 1,
+                    notch = FALSE, notchwidth = .5, varwidth = FALSE) {
+      common <- data.frame(
+        colour = data$colour,
+        size = data$size,
+        linetype = data$linetype,
+        fill = alpha(data$fill, data$alpha),
+        group = data$group,
+        stringsAsFactors = FALSE
+      )
 
-    whiskers <- data.frame(
-      x = data$x,
-      xend = data$x,
-      y = c(data$upper, data$lower),
-      yend = c(data$ymax, data$ymin),
-      alpha = NA,
-      common)
-
-    box <- data.frame(
-      xmin = data$xmin,
-      xmax = data$xmax,
-      ymin = data$lower,
-      y = data$middle,
-      ymax = data$upper,
-      ynotchlower = ifelse(notch, data$notchlower, NA),
-      ynotchupper = ifelse(notch, data$notchupper, NA),
-      notchwidth = notchwidth,
-      alpha = data$alpha,
-      common)
-
-    if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
-      outliers <- data.frame(
-        y = data$outliers[[1]],
-        x = data$x[1],
-        colour = outlier.colour %||% data$colour[1],
-        shape = outlier.shape %||% data$shape[1],
-        size = outlier.size %||% data$size[1],
-        stroke = outlier.stroke %||% data$stroke[1],
-        fill = NA,
+      whiskers <- data.frame(
+        x = data$x,
+        xend = data$x,
+        y = c(data$upper, data$lower),
+        yend = c(data$ymax, data$ymin),
         alpha = NA,
-        stringsAsFactors = FALSE)
-      outliers_grob <- GeomPoint$draw(outliers, ...)
-    } else {
-      outliers_grob <- NULL
-    }
+        common
+      )
 
-    ggname(.$my_name(), grobTree(
-      outliers_grob,
-      GeomSegment$draw(whiskers, ...),
-      GeomCrossbar$draw(box, fatten = fatten, ...)
-    ))
-  }
+      box <- data.frame(
+        xmin = data$xmin,
+        xmax = data$xmax,
+        ymin = data$lower,
+        y = data$middle,
+        ymax = data$upper,
+        ynotchlower = ifelse(notch, data$notchlower, NA),
+        ynotchupper = ifelse(notch, data$notchupper, NA),
+        notchwidth = notchwidth,
+        alpha = data$alpha,
+        common
+      )
 
-  guide_geom <- function(.) "boxplot"
-  draw_legend <- function(., data, ...)  {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-    gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt, lty = linetype))
-    gTree(gp = gp, children = gList(
-      linesGrob(0.5, c(0.1, 0.25)),
-      linesGrob(0.5, c(0.75, 0.9)),
-      rectGrob(height=0.5, width=0.75),
-      linesGrob(c(0.125, 0.875), 0.5)
-    ))
-  }
+      if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
+        outliers <- data.frame(
+          y = data$outliers[[1]],
+          x = data$x[1],
+          colour = outlier.colour %||% data$colour[1],
+          shape = outlier.shape %||% data$shape[1],
+          size = outlier.size %||% data$size[1],
+          stroke = outlier.stroke %||% data$stroke[1],
+          fill = NA,
+          alpha = NA,
+          stringsAsFactors = FALSE
+        )
+        # R6 TODO: Avoid instantiation
+        outliers_grob <- GeomPoint$new()$draw(outliers, ...)
+      } else {
+        outliers_grob <- NULL
+      }
 
-  default_stat <- function(.) StatBoxplot
-  default_pos <- function(.) PositionDodge
-  default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = NA, shape = 16, linetype = "solid")
-  required_aes <- c("x", "lower", "upper", "middle", "ymin", "ymax")
+      ggname(self$my_name(), grobTree(
+        outliers_grob,
+        GeomSegment$new()$draw(whiskers, ...),
+        GeomCrossbar$new()$draw(box, fatten = fatten, ...)
+      ))
+    },
 
-})
+    guide_geom = function() "boxplot",
+
+    draw_legend = function(data, ...)  {
+      data <- aesdefaults(data, self$default_aes(), list(...))
+      gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt, lty = linetype))
+      gTree(gp = gp, children = gList(
+        linesGrob(0.5, c(0.1, 0.25)),
+        linesGrob(0.5, c(0.75, 0.9)),
+        rectGrob(height=0.5, width=0.75),
+        linesGrob(c(0.125, 0.875), 0.5)
+      ))
+    },
+
+    default_stat = function() StatBoxplot,
+
+    default_pos = function() PositionDodge,
+
+    default_aes = function() {
+      aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
+          alpha = NA, shape = 16, linetype = "solid")
+    },
+
+    required_aes = c("x", "lower", "upper", "middle", "ymin", "ymax")
+  )
+)

@@ -54,8 +54,13 @@ stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
     geom = geom,
     position = position,
     params = list(
-      width = width, drop = drop, right = right, binwidth = binwidth,
-      origin = origin, breaks = breaks, ...
+      width = width,
+      drop = drop,
+      right = right,
+      binwidth = binwidth,
+      origin = origin,
+      breaks = breaks,
+      ...
     )
   )
 }

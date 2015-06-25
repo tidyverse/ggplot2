@@ -31,86 +31,102 @@
 #' d + stat_summary2d(fun = function(x) sum(x^2))
 #' d + stat_summary2d(fun = var)
 #' }
-stat_summary2d <- function (mapping = NULL, data = NULL, geom = NULL, position = "identity",
-bins = 30, drop = TRUE, fun = mean, ...) {
-
-  StatSummary2d$new(mapping = mapping, data = data, geom = geom, position = position,
-  bins = bins, drop = drop, fun = fun, ...)
+stat_summary2d <- function (mapping = NULL, data = NULL, geom = NULL,
+  position = "identity", bins = 30, drop = TRUE, fun = mean, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = StatSummary2d,
+    geom = geom,
+    position = position,
+    params = list(
+      bins = bins,
+      drop = drop,
+      fun = fun,
+      ...
+    )
+  )
 }
 
-StatSummary2d <- proto(Stat, {
-  objname <- "Summary2d"
+StatSummary2d <- R6::R6Class("StatSummary2d", inherit = StatR6,
+  public = list(
+    objname = "Summary2d",
 
-  default_aes <- function(.) aes(fill = ..value..)
-  required_aes <- c("x", "y", "z")
-  default_geom <- function(.) GeomRect
+    default_aes = function() aes(fill = ..value..),
 
-  calculate <- function(., data, scales, binwidth = NULL, bins = 30, breaks = NULL, origin = NULL, drop = TRUE, fun = mean, ...) {
+    required_aes = c("x", "y", "z"),
 
-    data <- remove_missing(data, FALSE, c("x", "y", "z"), name="stat_summary2d")
+    default_geom = function() GeomRect,
 
-    range <- list(
-      x = scale_dimension(scales$x, c(0, 0)),
-      y = scale_dimension(scales$y, c(0, 0))
-    )
+    calculate = function(data, scales, binwidth = NULL, bins = 30,
+      breaks = NULL, origin = NULL, drop = TRUE, fun = mean, ...)
+    {
+      data <- remove_missing(data, FALSE, c("x", "y", "z"), name="stat_summary2d")
 
-    # Determine origin, if omitted
-    if (is.null(origin)) {
-      origin <- c(NA, NA)
-    } else {
-      stopifnot(is.numeric(origin))
-      stopifnot(length(origin) == 2)
-    }
-    originf <- function(x) if (is.integer(x)) -0.5 else min(x)
-    if (is.na(origin[1])) origin[1] <- originf(data$x)
-    if (is.na(origin[2])) origin[2] <- originf(data$y)
-
-    # Determine binwidth, if omitted
-    if (is.null(binwidth)) {
-      binwidth <- c(NA, NA)
-      if (is.integer(data$x)) {
-        binwidth[1] <- 1
-      } else {
-        binwidth[1] <- diff(range$x) / bins
-      }
-      if (is.integer(data$y)) {
-        binwidth[2] <- 1
-      } else {
-        binwidth[2] <- diff(range$y) / bins
-      }
-    }
-    stopifnot(is.numeric(binwidth))
-    stopifnot(length(binwidth) == 2)
-
-    # Determine breaks, if omitted
-    if (is.null(breaks)) {
-      breaks <- list(
-        seq(origin[1], max(range$x) + binwidth[1], binwidth[1]),
-        seq(origin[2], max(range$y) + binwidth[2], binwidth[2])
+      range <- list(
+        x = scale_dimension(scales$x, c(0, 0)),
+        y = scale_dimension(scales$y, c(0, 0))
       )
-    } else {
-      stopifnot(is.list(breaks))
-      stopifnot(length(breaks) == 2)
-      stopifnot(all(sapply(breaks, is.numeric)))
+
+      # Determine origin, if omitted
+      if (is.null(origin)) {
+        origin <- c(NA, NA)
+      } else {
+        stopifnot(is.numeric(origin))
+        stopifnot(length(origin) == 2)
+      }
+      originf <- function(x) if (is.integer(x)) -0.5 else min(x)
+      if (is.na(origin[1])) origin[1] <- originf(data$x)
+      if (is.na(origin[2])) origin[2] <- originf(data$y)
+
+      # Determine binwidth, if omitted
+      if (is.null(binwidth)) {
+        binwidth <- c(NA, NA)
+        if (is.integer(data$x)) {
+          binwidth[1] <- 1
+        } else {
+          binwidth[1] <- diff(range$x) / bins
+        }
+        if (is.integer(data$y)) {
+          binwidth[2] <- 1
+        } else {
+          binwidth[2] <- diff(range$y) / bins
+        }
+      }
+      stopifnot(is.numeric(binwidth))
+      stopifnot(length(binwidth) == 2)
+
+      # Determine breaks, if omitted
+      if (is.null(breaks)) {
+        breaks <- list(
+          seq(origin[1], max(range$x) + binwidth[1], binwidth[1]),
+          seq(origin[2], max(range$y) + binwidth[2], binwidth[2])
+        )
+      } else {
+        stopifnot(is.list(breaks))
+        stopifnot(length(breaks) == 2)
+        stopifnot(all(sapply(breaks, is.numeric)))
+      }
+      names(breaks) <- c("x", "y")
+
+      xbin <- cut(data$x, sort(breaks$x), include.lowest=TRUE)
+      ybin <- cut(data$y, sort(breaks$y), include.lowest=TRUE)
+
+      if (is.null(data$weight)) data$weight <- 1
+
+      ans <- ddply(data.frame(data, xbin, ybin), .(xbin, ybin), function(d) data.frame(value = fun(d$z, ...)))
+      if (drop) ans <- na.omit(ans)
+
+      within(ans,{
+        xint <- as.numeric(xbin)
+        xmin <- breaks$x[xint]
+        xmax <- breaks$x[xint + 1]
+
+        yint <- as.numeric(ybin)
+        ymin <- breaks$y[yint]
+        ymax <- breaks$y[yint + 1]
+      })
     }
-    names(breaks) <- c("x", "y")
-
-    xbin <- cut(data$x, sort(breaks$x), include.lowest=TRUE)
-    ybin <- cut(data$y, sort(breaks$y), include.lowest=TRUE)
-
-    if (is.null(data$weight)) data$weight <- 1
-
-    ans <- ddply(data.frame(data, xbin, ybin), .(xbin, ybin), function(d) data.frame(value = fun(d$z, ...)))
-    if (drop) ans <- na.omit(ans)
-
-    within(ans,{
-      xint <- as.numeric(xbin)
-      xmin <- breaks$x[xint]
-      xmax <- breaks$x[xint + 1]
-
-      yint <- as.numeric(ybin)
-      ymin <- breaks$y[yint]
-      ymax <- breaks$y[yint + 1]
-    })
-  }
-})
+  )
+)

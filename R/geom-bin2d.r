@@ -11,23 +11,38 @@
 #' d + geom_bin2d(binwidth = c(0.1, 0.1))
 #'
 #' # See ?stat_bin2d for more examples
-geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d", position = "identity", show_guide = NA,...) {
-  GeomBin2d$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d", position = "identity",
+  show_guide = NA, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomBin2d,
+    position = position,
+    show_guide = show_guide,
+    params = list(...)
+  )
 }
 
-GeomBin2d <- proto(Geom, {
-  draw <- function(., data, scales, coordinates, ...) {
-    GeomRect$draw(data, scales, coordinates, ...)
-  }
+GeomBin2d <- R6::R6Class("GeomBin2d", inherit = GeomR6,
+  public = list(
+    draw = function(data, scales, coordinates, ...) {
 
-  objname <- "bin2d"
+      # R6 TODO: Avoid instantiation
+      GeomRect$new()$draw(data, scales, coordinates, ...)
+    },
 
-  guide_geom <- function(.) "polygon"
+    objname = "bin2d",
 
-  default_stat <- function(.) StatBin2d
-  required_aes <- c("xmin", "xmax", "ymin", "ymax")
-  default_aes <- function(.) {
-    aes(colour = NA, fill = "grey60", size = 0.5, linetype = 1, weight = 1, , alpha = NA)
-  }
+    guide_geom = function() "polygon",
 
-})
+    default_stat = function() StatBin2d,
+
+    required_aes = c("xmin", "xmax", "ymin", "ymax"),
+
+    default_aes = function() {
+      aes(colour = NA, fill = "grey60", size = 0.5, linetype = 1, weight = 1, , alpha = NA)
+    }
+  )
+)

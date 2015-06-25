@@ -13,33 +13,56 @@
 #' @export
 #' @examples
 #' # See geom_linerange for examples
-geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
-  GeomPointrange$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomPointrange,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomPointrange <- proto(Geom, {
-  objname <- "pointrange"
+GeomPointrange <- R6::R6Class("GeomPointrange", inherit = GeomR6,
+  public = list(
+    objname = "pointrange",
 
-  default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, shape=16, fill=NA, alpha = NA, stroke = 1)
-  guide_geom <- function(.) "pointrange"
-  required_aes <- c("x", "y", "ymin", "ymax")
+    default_stat = function() StatIdentity,
 
-  draw <- function(., data, scales, coordinates, ...) {
-    if (is.null(data$y)) return(GeomLinerange$draw(data, scales, coordinates, ...))
-    ggname(.$my_name(),gTree(children=gList(
-      GeomLinerange$draw(data, scales, coordinates, ...),
-      GeomPoint$draw(transform(data, size = size * 4), scales, coordinates, ...)
-    )))
-  }
+    default_aes = function() {
+      aes(colour = "black", size = 0.5, linetype = 1, shape = 19,
+          fill = NA, alpha = NA, stroke = 1)
+    },
 
-  draw_legend <- function(., data, ...) {
-    data <- aesdefaults(data, .$default_aes(), list(...))
+    guide_geom = function() "pointrange",
 
-    grobTree(
-      GeomPath$draw_legend(data, ...),
-      GeomPoint$draw_legend(transform(data, size = size * 4), ...)
-    )
-  }
+    required_aes = c("x", "y", "ymin", "ymax"),
 
-})
+    draw = function(data, scales, coordinates, ...) {
+      # R6 TODO: Avoid instantiation
+      if (is.null(data$y)) return(GeomLinerange$new()$draw(data, scales, coordinates, ...))
+
+      ggname(self$my_name(),
+        gTree(children=gList(
+          GeomLinerange$new()$draw(data, scales, coordinates, ...),
+          GeomPoint$new()$draw(transform(data, size = size * 4), scales, coordinates, ...)
+        ))
+      )
+    },
+
+    draw_legend = function(data, ...) {
+      data <- aesdefaults(data, self$default_aes(), list(...))
+
+      grobTree(
+        # R6 TODO: Avoid instantiation
+        GeomPath$new()$draw_legend(data, ...),
+        GeomPoint$new()$draw_legend(transform(data, size = size * 4), ...)
+      )
+    }
+  )
+)

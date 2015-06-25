@@ -53,46 +53,63 @@
 #'   geom_ribbon(aes(ymin = lcl, ymax = ucl, group = cyl), data = grid,
 #'     fill = alpha("grey60", 0.4)) +
 #'   geom_line(aes(colour = factor(cyl)), data = grid, size = 1)
-geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth", position = "identity", show_guide = NA,...) {
-  GeomSmooth$new(mapping = mapping, data = data, stat = stat, position = position,
-  show_guide = show_guide,...)
+geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth",
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomSmooth,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomSmooth <- proto(Geom, {
-  objname <- "smooth"
+GeomSmooth <- R6::R6Class("GeomSmooth", inherit = GeomR6,
+  public = list(
+    objname = "smooth",
 
-  draw <- function(., data, scales, coordinates, ...) {
-    ribbon <- transform(data, colour = NA)
-    path <- transform(data, alpha = NA)
+    draw = function(data, scales, coordinates, ...) {
+      ribbon <- transform(data, colour = NA)
+      path <- transform(data, alpha = NA)
 
-    has_ribbon <- function(x) !is.null(data$ymax) && !is.null(data$ymin)
+      has_ribbon <- function(x) !is.null(data$ymax) && !is.null(data$ymin)
 
-    gList(
-      if (has_ribbon(data)) GeomRibbon$draw(ribbon, scales, coordinates),
-      GeomLine$draw(path, scales, coordinates)
-    )
-  }
+      # R6 TODO: Avoid instantiation
+      gList(
+        if (has_ribbon(data)) GeomRibbon$new()$draw(ribbon, scales, coordinates),
+        GeomLine$new()$draw(path, scales, coordinates)
+      )
+    },
 
-  guide_geom <- function(.) "smooth"
+    guide_geom = function() "smooth",
 
-  default_stat <- function(.) StatSmooth
-  required_aes <- c("x", "y")
-  default_aes <- function(.) aes(colour="#3366FF", fill="grey60", size=1, linetype=1, weight=1, alpha=0.4)
+    default_stat = function() StatSmooth,
 
+    required_aes = c("x", "y"),
 
-  draw_legend <- function(., data, params, ...) {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-    data$fill <- alpha(data$fill, data$alpha)
-    data$alpha <- 1
+    default_aes = function() {
+      aes(colour = "#3366FF", fill = "grey60", size = 1, linetype = 1,
+          weight = 1, alpha = 0.4)
+    },
 
-    if (is.null(params$se) || params$se) {
-      gTree(children = gList(
-        rectGrob(gp = gpar(col = NA, fill = data$fill)),
-        GeomPath$draw_legend(data, ...)
-      ))
-    } else {
-      GeomPath$draw_legend(data, ...)
+    draw_legend = function(data, params, ...) {
+      data <- aesdefaults(data, self$default_aes(), list(...))
+      data$fill <- alpha(data$fill, data$alpha)
+      data$alpha <- 1
+
+      if (is.null(params$se) || params$se) {
+        gTree(children = gList(
+          rectGrob(gp = gpar(col = NA, fill = data$fill)),
+          # R6 TODO: Avoid instantiation
+          GeomPath$new()$draw_legend(data, ...)
+        ))
+      } else {
+        GeomPath$new()$draw_legend(data, ...)
+      }
     }
-  }
-
-})
+  )
+)

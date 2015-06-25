@@ -58,42 +58,53 @@
 #' # With coordinate transforms
 #' p + geom_abline(intercept = 37, slope = -5) + coord_flip()
 #' p + geom_abline(intercept = 37, slope = -5) + coord_polar()
-geom_abline <- function (mapping = NULL, data = NULL, stat = "abline", position = "identity", show_guide = FALSE, ...) {
-  GeomAbline$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
+geom_abline <- function (mapping = NULL, data = NULL, stat = "abline",
+                         position = "identity", show_guide = FALSE, ...)
+{
+  mapping <- compact(defaults(mapping, aes(group = 1)))
+  class(mapping) <- "uneval"
+
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomAbline,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = FALSE,
+    params = list(...)
+  )
 }
 
-GeomAbline <- proto(Geom, {
-  objname <- "abline"
+GeomAbline <- R6::R6Class("GeomAbline", inherit = GeomR6,
+  public = list(
+    objname = "abline",
 
-  new <- function(., mapping = NULL, ...) {
-    mapping <- compact(defaults(mapping, aes(group = 1)))
-    class(mapping) <- "uneval"
-    .super$new(., ..., mapping = mapping, inherit.aes = FALSE)
-  }
+    draw = function(data, scales, coordinates, ...) {
+      ranges <- coord_range(coordinates, scales)
 
-  draw <- function(., data, scales, coordinates, ...) {
-    ranges <- coord_range(coordinates, scales)
+      data$x    <- ranges$x[1]
+      data$xend <- ranges$x[2]
+      data$y    <- ranges$x[1] * data$slope + data$intercept
+      data$yend <- ranges$x[2] * data$slope + data$intercept
 
-    data$x    <- ranges$x[1]
-    data$xend <- ranges$x[2]
-    data$y    <- ranges$x[1] * data$slope + data$intercept
-    data$yend <- ranges$x[2] * data$slope + data$intercept
+      # R6 TODO: Avoid instantiation
+      GeomSegment$new()$draw(unique(data), scales, coordinates)
+    },
 
-    GeomSegment$draw(unique(data), scales, coordinates)
-  }
+    guide_geom = function() "abline",
 
-  guide_geom <- function(.) "abline"
+    default_stat = function() StatAbline,
+    default_aes = function() aes(colour="black", size=0.5, linetype=1, alpha = NA),
 
-  default_stat <- function(.) StatAbline
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
+    draw_legend = function(data, ...) {
+      data <- aesdefaults(data, self$default_aes(), list(...))
 
-  draw_legend <- function(., data, ...) {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-
-    with(data,
-      ggname(.$my_name(), segmentsGrob(0, 0, 1, 1, default.units="npc",
-      gp=gpar(col=alpha(colour, alpha), lwd=size * .pt, lty=linetype,
-        lineend="butt")))
-    )
-  }
-})
+      with(data,
+        ggname(self$my_name(), segmentsGrob(0, 0, 1, 1, default.units="npc",
+        gp=gpar(col=alpha(colour, alpha), lwd=size * .pt, lty=linetype,
+          lineend="butt")))
+      )
+    }
+  )
+)

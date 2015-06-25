@@ -22,15 +22,27 @@
 #'  geom_count()
 #'  scale_size_area()
 geom_count <- function(mapping = NULL, data = NULL, stat = "sum",
-                       position = "identity", na.rm = FALSE, show_guide = NA, ...) {
-
-  GeomCount$new(mapping = mapping, data = data, stat = stat,
-    position = position, na.rm = na.rm, show_guide = show_guide, ...)
+  position = "identity", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE,
+  ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomCount,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomCount <- proto(GeomPoint, {
-  objname <- "count"
+GeomCount <- R6::R6Class("GeomCount", inherit = GeomPoint,
+  public = list(
+    objname = "count",
 
-  default_stat <- function(.) StatSum
-  default_pos <- function(.) PositionIdentity
-})
+    default_stat = function() StatSum,
+
+    default_pos = function() PositionIdentity
+  )
+)

@@ -6,31 +6,42 @@
 #' @export
 #' @examples
 #' # see geom_abline
-stat_abline <- function (mapping = NULL, data = NULL, geom = "abline", position = "identity", ...) {
-  StatAbline$new(mapping = mapping, data = data, geom = geom, position = position, ...)
+stat_abline <- function (mapping = NULL, data = NULL, geom = "abline",
+  position = "identity", ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = StatAbline,
+    geom = geom,
+    position = position,
+    params = list(...)
+  )
 }
 
-StatAbline <- proto(Stat, {
-  objname <- "abline"
+StatAbline <- R6::R6Class("StatAbline", inherit = StatR6,
+  public = list(
+    objname = "abline",
 
-  calculate <- function(., data, scales, intercept = NULL, slope = NULL, ...) {
-    if (is.null(intercept)) {
-      if (is.null(data$intercept)) data$intercept <- 0
-    } else {
-      data <- data[rep(1, length(intercept)), , drop = FALSE]
-      data$intercept <- intercept
-    }
-    if (is.null(slope)) {
-      if (is.null(data$slope)) data$slope <- 1
-    } else {
-      data <- data[rep(1, length(slope)), , drop = FALSE]
-      data$slope <- slope
-    }
-    unique(data)
-  }
+    calculate = function(data, scales, intercept = NULL, slope = NULL, ...) {
+      if (is.null(intercept)) {
+        if (is.null(data$intercept)) data$intercept <- 0
+      } else {
+        data <- data[rep(1, length(intercept)), , drop = FALSE]
+        data$intercept <- intercept
+      }
+      if (is.null(slope)) {
+        if (is.null(data$slope)) data$slope <- 1
+      } else {
+        data <- data[rep(1, length(slope)), , drop = FALSE]
+        data$slope <- slope
+      }
+      unique(data)
+    },
 
-  default_geom <- function(.) GeomAbline
-})
+    default_geom = function() GeomAbline
+  )
+)
 
 #' Add a vertical line
 #'
@@ -40,30 +51,40 @@ StatAbline <- proto(Stat, {
 #' @export
 #' @examples
 #' # see geom_vline
-stat_vline <- function (mapping = NULL, data = NULL, geom = "vline", position = "identity",
-xintercept, ...) {
-  StatVline$new(mapping = mapping, data = data, geom = geom, position = position,
-  xintercept = xintercept, ...)
+stat_vline <- function (mapping = NULL, data = NULL, geom = "vline",
+  position = "identity", xintercept, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = StatVline,
+    geom = geom,
+    position = position,
+    params = list(xintercept = xintercept, ...)
+  )
 }
 
-StatVline <- proto(Stat, {
-  objname <- "vline"
+StatVline <- R6::R6Class("StatVline", inherit = StatR6,
+  public = list(
+    objname = "vline",
 
-  calculate <- function(., data, scales, xintercept = NULL, intercept, ...) {
-    if (!missing(intercept)) {
-      stop("stat_vline now uses xintercept instead of intercept")
-    }
-    data <- compute_intercept(data, xintercept, "x")
+    calculate = function(data, scales, xintercept = NULL, intercept, ...) {
+      if (!missing(intercept)) {
+        stop("stat_vline now uses xintercept instead of intercept")
+      }
+      data <- compute_intercept(data, xintercept, "x")
 
-    unique(within(data, {
-      x    <- xintercept
-      xend <- xintercept
-    }))
-  }
+      unique(within(data, {
+        x    <- xintercept
+        xend <- xintercept
+      }))
+    },
 
-  required_aes <- c()
-  default_geom <- function(.) GeomVline
-})
+    required_aes = c(),
+
+    default_geom = function() GeomVline
+  )
+)
 
 #' Add a horizontal line
 #'
@@ -73,36 +94,47 @@ StatVline <- proto(Stat, {
 #' @export
 #' @examples
 #' # see geom_hline
-stat_hline <- function (mapping = NULL, data = NULL, geom = "hline", position = "identity",
-yintercept, ...) {
-  StatHline$new(mapping = mapping, data = data, geom = geom, position = position,
-  yintercept = yintercept, ...)
+stat_hline <- function (mapping = NULL, data = NULL, geom = "hline",
+  position = "identity", yintercept, ...)
+{
+  LayerR6$new(
+    data = data,
+    mapping = mapping,
+    stat = StatHline,
+    geom = geom,
+    position = position,
+    params = list(yintercept = yintercept, ...)
+  )
 }
 
-StatHline <- proto(Stat, {
-  calculate <- function(., data, scales, yintercept = NULL, intercept, ...) {
-    if (!missing(intercept)) {
-      stop("stat_hline now uses yintercept instead of intercept")
+StatHline <- R6::R6Class("StatHline", inherit = StatR6,
+  public = list(
+    calculate = function(data, scales, yintercept = NULL, intercept, ...) {
+      if (!missing(intercept)) {
+        stop("stat_hline now uses yintercept instead of intercept")
+      }
+
+      data <- compute_intercept(data, yintercept, "y")
+
+      unique(within(data, {
+        y    <- yintercept
+        yend <- yintercept
+      }))
+    },
+
+    objname = "hline",
+
+    desc = "Add a horizontal line",
+
+    required_aes = c(),
+
+    default_geom = function() GeomHline,
+
+    examples = function() {
+      # See geom_hline for examples
     }
-
-    data <- compute_intercept(data, yintercept, "y")
-
-    unique(within(data, {
-      y    <- yintercept
-      yend <- yintercept
-    }))
-  }
-
-  objname <- "hline"
-  desc <- "Add a horizontal line"
-
-  required_aes <- c()
-  default_geom <- function(.) GeomHline
-
-  examples <- function(.) {
-    # See geom_hline for examples
-  }
-})
+  )
+)
 
 
 # Compute intercept for vline and hline from data and parameters
