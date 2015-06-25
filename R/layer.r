@@ -45,14 +45,15 @@ Layer <- R6::R6Class("Layer",
       # R6 TODO: Avoid instantiation
       if (is.character(geom)) geom <- Geom$new()$find(geom)
       if (is.character(stat)) stat <- Stat$new()$find(stat)
-      if (is.character(position)) position <- Position$new()$find(position)$new()
+      if (is.character(position)) position <- Position$new()$find(position)
 
-      # Instantiate the geom or stat - do this at run time instead of package
-      # build time, so that geoms in external packages set up inheritance with
-      # the current version of ggplot2, not whatever version they were built
-      # with.
+      # Instantiate the geom, stat, or position - do this at run time instead of
+      # package build time, so that geoms in external packages set up
+      # inheritance with the current version of ggplot2, not whatever version
+      # they were built with.
       if (!is.null(geom)) geom <- geom$new()
       if (!is.null(stat)) stat <- stat$new()
+      if (!is.null(position)) position <- position$new()
 
       if (is.null(geom)) geom <- stat$default_geom()$new()
       if (is.null(stat)) stat <- geom$default_stat()$new()
