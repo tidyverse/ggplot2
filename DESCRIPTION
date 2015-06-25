@@ -17,8 +17,7 @@ Description: An implementation of the grammar of graphics
     for more information, documentation and examples.
 Depends:
     R (>= 2.14),
-    stats,
-    methods
+    stats
 Imports:
     plyr (>= 1.7.1),
     digest,
