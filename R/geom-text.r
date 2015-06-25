@@ -133,7 +133,7 @@ GeomText <- R6::R6Class("GeomText", inherit = Geom,
     },
 
     draw_legend = function(data, ...) {
-      data <- aesdefaults(data, .$default_aes(), list(...))
+      data <- aesdefaults(data, self$default_aes(), list(...))
       textGrob(
         "a", 0.5, 0.5,
         rot = data$angle,
