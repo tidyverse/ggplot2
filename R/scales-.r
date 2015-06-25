@@ -5,12 +5,15 @@
 Scales <- R6::R6Class("Scales",
   public = list(
     scales = NULL,
+
     find = function(aesthetic) {
       vapply(self$scales, function(x) any(aesthetic %in% x$aesthetics), logical(1))
     },
+
     has_scale = function(aesthetic) {
       any(self$find(aesthetic))
     },
+
     add = function(scale) {
       prev_aes <- self$find(scale$aesthetics)
       if (any(prev_aes)) {
@@ -25,18 +28,23 @@ Scales <- R6::R6Class("Scales",
       # Remove old scale for this aesthetic (if it exists)
       self$scales <- c(self$scales[!prev_aes], list(scale))
     },
+
     n = function() {
       length(self$scales)
     },
+
     input = function() {
       unlist(lapply(self$scales, "[[", "aesthetics"))
     },
+
     initialize = function(scales = NULL) {
       self$scales <- scales
     },
-    non_position_scales = function(.) {
+
+    non_position_scales = function() {
       Scales$new(self$scales[!self$find("x") & !self$find("y")])
     },
+
     get_scales = function(output) {
       scale <- self$scales[self$find(output)]
       if (length(scale) == 0) return()
