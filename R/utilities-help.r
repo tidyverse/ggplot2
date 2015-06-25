@@ -20,7 +20,8 @@ stat_aesthetics <- function(x) {
 
 rd_aesthetics <- function(type, name) {
   obj <- get(firstUpper(type))
-  aes <- aesthetics(obj$find(name))
+  # R6 TODO: Avoid instantiation
+  aes <- aesthetics(obj$new()$find(name)$new())
 
   paste("\\code{", type, "_", name, "} ",
     "understands the following aesthetics (required aesthetics are in bold):\n\n",
