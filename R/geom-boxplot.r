@@ -1,6 +1,6 @@
 #' Box and whiskers plot.
 #'
-#' The upper and lower "hinges" correspond to the first and third quartiles
+#' The lower and upper "hinges" correspond to the first and third quartiles
 #' (the 25th and 75th percentiles). This differs slightly from the method used
 #' by the \code{boxplot} function, and may be apparent with small samples.
 #' See \code{\link{boxplot.stats}} for for more information on how hinge
@@ -26,6 +26,7 @@
 #' @param outlier.colour colour for outlying points. Uses the default from geom_point().
 #' @param outlier.shape shape of outlying points. Uses the default from geom_point().
 #' @param outlier.size size of outlying points. Uses the default from geom_point().
+#' @param outlier.stroke stroke width of outlying points. Uses the default from geom_point().
 #' @param notch if \code{FALSE} (default) make a standard box plot. If
 #'    \code{TRUE}, make a notched box plot. Notches are used to compare groups;
 #'    if the notches of two boxes do not overlap, this is strong evidence that
@@ -46,12 +47,9 @@
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))
 #'
 #' p + geom_boxplot()
-#' qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot")
 #'
 #' p + geom_boxplot() + geom_jitter()
 #' p + geom_boxplot() + coord_flip()
-#' qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot") +
-#'   coord_flip()
 #'
 #' p + geom_boxplot(notch = TRUE)
 #' p + geom_boxplot(notch = TRUE, notchwidth = .3)
@@ -68,8 +66,6 @@
 #'
 #' # Set aesthetics to fixed value
 #' p + geom_boxplot(fill = "grey80", colour = "#3366FF")
-#' qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot",
-#'   colour = I("#3366FF"))
 #'
 #' # Scales vs. coordinate transforms -------
 #' # Scale transformations occur before the boxplot statistics are computed.
@@ -85,9 +81,11 @@
 #'
 #' # Boxplots with continuous x:
 #' # Use the group aesthetic to group observations in boxplots
-#' qplot(year, budget, data = movies, geom = "boxplot")
-#' qplot(year, budget, data = movies, geom = "boxplot",
-#'   group = round_any(year, 10, floor))
+#' ggplot(movies, aes(year, budget)) +
+#'   geom_boxplot()
+#'
+#' ggplot(movies, aes(year, budget)) +
+#'   geom_boxplot(aes(group=round_any(year, 10, floor)))
 #'
 #' # Using precomputed statistics
 #' # generate sample data
@@ -100,7 +98,6 @@
 #'
 #' # Using varwidth
 #' p + geom_boxplot(varwidth = TRUE)
-#' qplot(factor(cyl), mpg, data = mtcars, geom = "boxplot", varwidth = TRUE)
 #'
 #' # Update the defaults for the outliers by changing the defaults for geom_point
 #'
@@ -113,19 +110,21 @@
 geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
                           position = "dodge", outlier.colour = NULL,
                           outlier.shape = NULL, outlier.size = NULL,
-                          notch = FALSE, notchwidth = .5, varwidth = FALSE,
-                          ...) {
+                          outlier.stroke = 1, notch = FALSE, notchwidth = .5,
+                          varwidth = FALSE, show_guide = NA,...) {
 
   outlier_defaults <- Geom$find('point')$default_aes()
 
   outlier.colour   <- outlier.colour %||% outlier_defaults$colour
   outlier.shape    <- outlier.shape  %||% outlier_defaults$shape
   outlier.size     <- outlier.size   %||% outlier_defaults$size
+  outlier.stroke   <- outlier.stroke %||% outlier_defaults$stroke
 
   GeomBoxplot$new(mapping = mapping, data = data, stat = stat,
     position = position, outlier.colour = outlier.colour,
-    outlier.shape = outlier.shape, outlier.size = outlier.size, notch = notch,
-    notchwidth = notchwidth, varwidth = varwidth, ...)
+    outlier.shape = outlier.shape, outlier.size = outlier.size,
+    outlier.stoke = outlier.stroke, notch = notch, notchwidth = notchwidth,
+    varwidth = varwidth, show_guide = show_guide,...)
 }
 
 GeomBoxplot <- proto(Geom, {
@@ -161,7 +160,7 @@ GeomBoxplot <- proto(Geom, {
     df
   }
 
-  draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2,
+  draw <- function(., data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL, outlier.size = 2, outlier.stroke = 1,
                    notch = FALSE, notchwidth = .5, varwidth = FALSE) {
     common <- data.frame(
       colour = data$colour,
@@ -199,6 +198,7 @@ GeomBoxplot <- proto(Geom, {
         colour = outlier.colour %||% data$colour[1],
         shape = outlier.shape %||% data$shape[1],
         size = outlier.size %||% data$size[1],
+        stroke = outlier.stroke %||% data$stroke[1],
         fill = NA,
         alpha = NA,
         stringsAsFactors = FALSE)

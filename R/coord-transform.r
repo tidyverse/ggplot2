@@ -18,12 +18,17 @@
 #'
 #' # Three ways of doing transformating in ggplot:
 #' #  * by transforming the data
-#' qplot(log10(carat), log10(price), data=diamonds)
+#' ggplot(diamonds, aes(log10(carat), log10(price))) +
+#'   geom_point()
 #' #  * by transforming the scales
-#' qplot(carat, price, data=diamonds, log="xy")
-#' qplot(carat, price, data=diamonds) + scale_x_log10() + scale_y_log10()
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_point() +
+#'   scale_x_log10() +
+#'   scale_y_log10()
 #' #  * by transforming the coordinate system:
-#' qplot(carat, price, data=diamonds) + coord_trans(x = "log10", y = "log10")
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_point() +
+#'   coord_trans(x = "log10", y = "log10")
 #'
 #' # The difference between transforming the scales and
 #' # transforming the coordinate system is that scale
@@ -32,10 +37,16 @@
 #' # changes the shape of geoms:
 #'
 #' d <- subset(diamonds, carat > 0.5)
-#' qplot(carat, price, data = d, log="xy") +
-#'   geom_smooth(method="lm")
-#' qplot(carat, price, data = d) +
-#'   geom_smooth(method="lm") +
+#'
+#' ggplot(d, aes(carat, price)) +
+#'   geom_point() +
+#'   geom_smooth(method = "lm") +
+#'   scale_x_log10() +
+#'   scale_y_log10()
+#'
+#' ggplot(d, aes(carat, price)) +
+#'   geom_point() +
+#'   geom_smooth(method = "lm") +
 #'   coord_trans(x = "log10", y = "log10")
 #'
 #' # Here I used a subset of diamonds so that the smoothed line didn't
@@ -45,11 +56,18 @@
 #' # With a combination of scale and coordinate transformation, it's
 #' # possible to do back-transformations:
 #' library(scales)
-#' qplot(carat, price, data=diamonds, log="xy") +
-#'   geom_smooth(method="lm") +
-#'   coord_trans(x = exp_trans(10), y = exp_trans(10))
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_point() +
+#'   geom_smooth(method = "lm") +
+#'   scale_x_log10() +
+#'   scale_y_log10() +
+#'   coord_trans(x = exp_trans(10),
+#'               y = exp_trans(10))
+#'
 #' # cf.
-#' qplot(carat, price, data=diamonds) + geom_smooth(method = "lm")
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_point() +
+#'   geom_smooth(method = "lm")
 #'
 #' # Also works with discrete scales
 #' df <- data.frame(a = abs(rnorm(26)),letters)

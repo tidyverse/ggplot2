@@ -5,8 +5,6 @@
 #'
 #' @inheritParams stat_density
 #' @inheritParams stat_identity
-#' @param trim If \code{TRUE} (default), trim the tails of the violins
-#'   to the range of the data. If \code{FALSE}, don't trim the tails.
 #' @param scale if "area" (default), all violins have the same area (before trimming
 #'   the tails). If "count", areas are scaled proportionally to the number of
 #'   observations. If "width", all violins have the same maximum width.
@@ -39,15 +37,11 @@ StatYdensity <- proto(Stat, {
 
   calculate_groups <- function(., data, na.rm = FALSE, width = NULL,
                                scale = "area", ...) {
-    data <- remove_missing(data, na.rm, "y", name = "stat_ydensity", finite = TRUE)
+    data <- remove_missing(data, na.rm, c("x", "y", "weight"), name = "stat_ydensity", finite = TRUE)
     data <- .super$calculate_groups(., data, na.rm = na.rm, width = width, ...)
 
     # choose how violins are scaled relative to each other
-    scale <- match.arg(scale, c("area", "equal", "count", "width"))
-    if (scale == "equal") {
-      gg_dep("0.9.2", "scale=\"area\" is deprecated; in the future, use scale=\"equal\" instead.")
-      scale <- "area"
-    }
+    scale <- match.arg(scale, c("area", "count", "width"))
 
     data$violinwidth <- switch(scale,
       # area : keep the original densities but scale them to a max width of 1
@@ -64,52 +58,29 @@ StatYdensity <- proto(Stat, {
   }
 
   calculate <- function(., data, scales, width=NULL, adjust=1, kernel="gaussian",
-                        trim=TRUE, na.rm = FALSE, ...) {
+                        trim = FALSE, na.rm = FALSE, ...) {
+    data <- remove_missing(data, na.rm, "x", name = "stat_density",
+      finite = TRUE)
 
-    n <- nrow(data)
-
-    # if less than 3 points, return a density of 1 everywhere
-    if (n < 3) {
-      return(data.frame(data, density = 1, scaled = 1, count = 1))
-    }
-
-    # initialize weights if they are not supplied by the user
-    if (is.null(data$weight)) { data$weight <- rep(1, n) / n }
-
-    # compute the density
-    dens <- density(data$y, adjust = adjust, kernel = kernel,
-      weight = data$weight, n = 200)
-
-    # NB: stat_density restricts to the scale range, here we leave that
-    # free so violins can extend the y scale
-    densdf <- data.frame(y = dens$x, density = dens$y)
-
-    # scale density to a maximum of 1
-    densdf$scaled <- densdf$density / max(densdf$density, na.rm = TRUE)
-
-    # trim density outside of the data range
     if (trim) {
-      densdf <- subset(densdf, y > min(data$y, na.rm = TRUE) & y < max(data$y, na.rm = TRUE))
+      range <- range(data$y, na.rm = TRUE)
+    } else {
+      range <- scale_dimension(scales$y, c(0, 0))
     }
-    # NB: equivalently, we could have used these bounds in the from and
-    # to arguments of density()
+    dens <- compute_density(data$y, data$w, from = range[1], to = range[2],
+      adjust = adjust, kernel = kernel)
 
-    # scale density by the number of observations
-    densdf$count <- densdf$density * n
-    # record the number of observations to be able to scale the density later
-    densdf$n <- n
+    dens$y <- dens$x
+    dens$x <- mean(range(data$x))
 
-    # coordinate on the x axis
-    densdf$x <- if (is.factor(data$x)) data$x[1] else mean(range(data$x))
-
-    # width of the bounding box of the violin plot on the x axis for continuous x
-    if (length(unique(data$x)) > 1) { width <- diff(range(data$x)) * 0.9 }
-    densdf$width <- width
-
-    densdf
+    # Compute width if x has multiple values
+    if (length(unique(data$x)) > 1) {
+      width <- diff(range(data$x)) * 0.9
+    }
+    dens$width <- width
+    dens
   }
 
   default_geom <- function(.) GeomViolin
   required_aes <- c("x", "y")
-
 })

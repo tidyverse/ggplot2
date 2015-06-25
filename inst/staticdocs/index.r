@@ -8,6 +8,7 @@ sd_section("Geoms",
     "geom_blank",
     "geom_boxplot",
     "geom_contour",
+    "geom_count",
     "geom_crossbar",
     "geom_density",
     "geom_density2d",
@@ -53,6 +54,7 @@ sd_section("Statistics",
     "stat_density",
     "stat_density2d",
     "stat_ecdf",
+    "stat_ellipse",
     "stat_function",
     "stat_identity",
     "stat_qq",
@@ -107,6 +109,7 @@ sd_section("Coordinate systems",
     "coord_flip",
     "coord_map",
     "coord_polar",
+    "coord_quickmap",
     "coord_trans"
   )
 )
@@ -117,10 +120,12 @@ sd_section("Faceting",
     "facet_grid",
     "facet_null",
     "facet_wrap",
+    "labeller",
     "label_both",
     "label_bquote",
     "label_parsed",
-    "label_value"
+    "label_value",
+    "label_wrap_gen"
   )
 )
 
@@ -130,8 +135,10 @@ sd_section("Position adjustments",
     "position_dodge",
     "position_fill",
     "position_identity",
+    "position_nudge",
     "position_stack",
-    "position_jitter"
+    "position_jitter",
+    "position_jitterdodge"
   )
 )
 
@@ -183,6 +190,7 @@ sd_section("Themes",
     "element_line",
     "element_rect",
     "element_text",
+    "ggtheme",
     "is.rel",
     "is.theme",
     "opts",

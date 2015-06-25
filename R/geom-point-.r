@@ -32,17 +32,28 @@
 #' @param mapping The aesthetic mapping, usually constructed with
 #'    \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
 #'    at the layer level if you are overriding the plot defaults.
-#' @param data A layer specific dataset - only needed if you want to override
-#'    the plot defaults.
+#' @param data A data frame. If specified, overrides the default data frame
+#'   defined at the top level of the plot.
+#' @param position Postion adjustment, either as a string, or the result of
+#'  a call to a position adjustment function.
 #' @param stat The statistical transformation to use on the data for this
-#'    layer.
-#' @param position The position adjustment to use for overlapping points
-#'    on this layer
+#'    layer, as a string.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
-#' @param ... other arguments passed on to \code{\link{layer}}. This can
-#'   include aesthetics whose values you want to set, not map. See
-#'   \code{\link{layer}} for more details.
+#' @param show_guide logical. Should this layer be included in the legends?
+#'   \code{NA}, the default, includes if any aesthetics are mapped.
+#'   \code{FALSE} never includes, and \code{TRUE} always includes.
+#' @param ... other arguments passed on to \code{\link{layer}}. There are
+#'   three types of arguments you can use here:
+#'
+#'   \itemize{
+#'   \item Aesthetics: to set an aesthetic to a fixed value, like
+#'      \code{color = "red"} or \code{size = 3}.
+#'   \item Other arguments to the layer, for example you override the
+#'     default \code{stat} associated with the layer.
+#'   \item Other arguments passed on to the stat.
+#'   }
+#' @inheritParams layer
 #' @export
 #' @examples
 #' \donttest{
@@ -63,13 +74,19 @@
 #'
 #' # Set aesthetics to fixed value
 #' p + geom_point(colour = "red", size = 3)
-#' qplot(wt, mpg, data = mtcars, colour = I("red"), size = I(3))
+#' ggplot(mtcars, aes(wt, mpg)) + geom_point(colour = "red", size = 3)
 #'
 #' # Varying alpha is useful for large datasets
 #' d <- ggplot(diamonds, aes(carat, price))
 #' d + geom_point(alpha = 1/10)
 #' d + geom_point(alpha = 1/20)
 #' d + geom_point(alpha = 1/100)
+#'
+#' # For shapes that have a border (like 21), you can colour the inside and
+#' # outside separately. Use the stroke aesthetic to modify the width of the
+#' # border
+#' ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point(shape = 21, size = 5, colour = "black", fill = "white", stroke = 5)
 #'
 #' # You can create interesting shapes by layering multiple points of
 #' # different sizes
@@ -89,23 +106,18 @@
 #'   geom_point(aes(shape = factor(cyl)))
 #'
 #' # Transparent points:
-#' qplot(mpg, wt, data = mtcars, size = I(5), alpha = I(0.2))
+#' ggplot(mtcars, aes(mpg, wt)) + geom_point(size = 5, alpha = 1/5)
 #'
 #' # geom_point warns when missing values have been dropped from the data set
 #' # and not plotted, you can turn this off by setting na.rm = TRUE
 #' mtcars2 <- transform(mtcars, mpg = ifelse(runif(32) < 0.2, NA, mpg))
-#' qplot(wt, mpg, data = mtcars2)
-#' qplot(wt, mpg, data = mtcars2, na.rm = TRUE)
-#'
-#' # Use qplot instead
-#' qplot(wt, mpg, data = mtcars)
-#' qplot(wt, mpg, data = mtcars, colour = factor(cyl))
-#' qplot(wt, mpg, data = mtcars, colour = I("red"))
+#' ggplot(mtcars2, aes(wt, mpg)) + geom_point()
+#' ggplot(mtcars2, aes(wt, mpg)) + geom_point(na.rm = TRUE)
 #' }
 geom_point <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
-na.rm = FALSE, ...) {
+na.rm = FALSE, show_guide = NA, ...) {
   GeomPoint$new(mapping = mapping, data = data, stat = stat, position = position,
-  na.rm = na.rm, ...)
+  na.rm = na.rm, show_guide = show_guide, ...)
 }
 
 GeomPoint <- proto(Geom, {
@@ -119,7 +131,7 @@ GeomPoint <- proto(Geom, {
 
     with(coord_transform(coordinates, data, scales),
       ggname(.$my_name(), pointsGrob(x, y, size=unit(size, "mm"), pch=shape,
-      gp=gpar(col=alpha(colour, alpha), fill = alpha(fill, alpha), fontsize = size * .pt)))
+      gp=gpar(col=alpha(colour, alpha), fill = alpha(fill, alpha), lwd = stroke, fontsize = size * .pt)))
     )
   }
 
@@ -131,13 +143,14 @@ GeomPoint <- proto(Geom, {
       gp=gpar(
         col=alpha(colour, alpha),
         fill=alpha(fill, alpha),
-        fontsize = size * .pt)
+        lwd=stroke,
+        fontsize = size * .pt),
       )
     )
   }
 
   default_stat <- function(.) StatIdentity
   required_aes <- c("x", "y")
-  default_aes <- function(.) aes(shape=16, colour="black", size=2, fill = NA, alpha = NA)
+  default_aes <- function(.) aes(shape=19, colour="black", size=2, fill = NA, alpha = NA, stroke = 1)
 
 })

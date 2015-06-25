@@ -42,7 +42,6 @@
 #'
 #' # Also works with categorical variables
 #' ggplot(movies, aes(x=mpaa)) + stat_bin()
-#' qplot(mpaa, data=movies, stat="bin")
 #' }
 stat_bin <- function (mapping = NULL, data = NULL, geom = "bar", position = "stack",
 width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, origin = NULL, breaks = NULL, ...) {
@@ -56,14 +55,7 @@ StatBin <- proto(Stat, {
 
   calculate_groups <- function(., data, ...) {
     if (!is.null(data$y) || !is.null(match.call()$y)) {
-      # Deprecate this behavior
-      gg_dep("0.9.2", paste(sep = "\n",
-        "Mapping a variable to y and also using stat=\"bin\".",
-        "  With stat=\"bin\", it will attempt to set the y value to the count of cases in each group.",
-        "  This can result in unexpected behavior and will not be allowed in a future version of ggplot2.",
-        "  If you want y to represent counts of cases, use stat=\"bin\" and don't map a variable to y.",
-        "  If you want y to represent values in the data, use stat=\"identity\".",
-        "  See ?geom_bar for examples."))
+      stop("May not have y aesthetic when binning", call. = FALSE)
     }
 
     .$informed <- FALSE

@@ -32,10 +32,10 @@ NULL
 #'  df$z <- cos(df$r^2)*exp(-df$r/6)
 #'  df
 #' }
-#' qplot(x, y, data = pp(20), fill = z, geom = "raster")
+#' ggplot(pp(20), aes(x, y)) + geom_raster(aes(fill = z))
 #' # Interpolation worsens the apperance of this plot, but can help when
 #' # rendering images.
-#' qplot(x, y, data = pp(20), fill = z, geom = "raster", interpolate = TRUE)
+#' ggplot(pp(20), aes(x, y)) + geom_raster(aes(fill = z), interpolate = TRUE)
 #'
 #' # For the special cases where it is applicable, geom_raster is much
 #' # faster than geom_tile:
@@ -52,11 +52,12 @@ NULL
 #' # zero padding
 #' ggplot(df, aes(x, y, fill = z)) + geom_raster(hjust = 0, vjust = 0)
 #' }
-geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", hjust = 0.5, vjust = 0.5, interpolate = FALSE, ...) {
+geom_raster <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", hjust = 0.5, vjust = 0.5, interpolate = FALSE, show_guide = NA,...) {
   stopifnot(is.numeric(hjust), length(hjust) == 1)
   stopifnot(is.numeric(vjust), length(vjust) == 1)
 
-  GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, hjust = hjust, vjust = vjust, interpolate = interpolate, ...)
+  GeomRaster$new(mapping = mapping, data = data, stat = stat, position = position, hjust = hjust, vjust = vjust, interpolate = interpolate,
+  show_guide = show_guide,...)
 }
 
 GeomRaster <- proto(Geom, {

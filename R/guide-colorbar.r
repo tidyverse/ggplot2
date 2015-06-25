@@ -5,18 +5,18 @@
 #' For more information, see the inspiration for this function:
 #' \href{http://www.mathworks.com/help/techdoc/ref/colorbar.html}{Matlab's colorbar function}.
 #'
-#' Guides can be specified in each scale or in \code{\link{guides}}.
-#' \code{guide="legend"} in scale is syntax sugar for
-#' \code{guide=guide_legend()} - but the second form allows you to specify
-#' more options. As for how to specify the guide for each
-#' scales, see \code{\link{guides}}.
+#' Guides can be specified in each \code{scale_*} or in \code{\link{guides}}.
+#' \code{guide="legend"} in \code{scale_*} is syntactic sugar for
+#' \code{guide=guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}).
+#' As for how to specify the guide for each scale in more detail,
+#' see \code{\link{guides}}.
 #'
 #' @inheritParams guide_legend
-#' @param barwidth A numeric or a unit object specifying the width of the
-#'   colorbar. Default value is \code{legend.key.width} or
+#' @param barwidth A numeric or a \code{\link[grid]{unit}} object specifying
+#'   the width of the colorbar. Default value is \code{legend.key.width} or
 #'   \code{legend.key.size} in \code{\link{theme}} or theme.
-#' @param barheight A numeric or a unit object specifying the height of the
-#'   colorbar. Default value is \code{legend.key.height} or
+#' @param barheight A numeric or a \code{\link[grid]{unit}} object specifying
+#'   the height of the colorbar. Default value is \code{legend.key.height} or
 #'   \code{legend.key.size} in \code{\link{theme}} or theme.
 #' @param nbin A numeric specifying the number of bins for drawing colorbar. A
 #'   smoother colorbar for a larger value.
@@ -32,8 +32,8 @@
 #'   be visible.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
-#' @param default.unit A character string indicating unit for \code{barwidth}
-#    and \code{barheight}.
+#' @param default.unit A character string indicating \code{\link[grid]{unit}}
+#'   for \code{barwidth} and \code{barheight}.
 #' @param reverse logical. If \code{TRUE} the colorbar is reversed. By default,
 #'   the highest value is on the top and the lowest value is on the bottom
 #' @param ... ignored.
@@ -90,7 +90,7 @@
 #'   scale_size(guide = guide_legend(direction = "vertical"))
 guide_colourbar <- function(
 
-  #　title
+  # title
   title = waiver(),
   title.position = NULL,
   title.theme = NULL,
@@ -127,7 +127,7 @@ guide_colourbar <- function(
   if (!is.null(barheight) && !is.unit(barheight)) barheight <- unit(barheight, default.unit)
 
   structure(list(
-    #　title
+    # title
     title = title,
     title.position = title.position,
     title.theme = title.theme,
@@ -185,11 +185,19 @@ guide_train.colorbar <- function(guide, scale) {
   guide$key <- data.frame(scale_map(scale, breaks), I(scale_labels(scale, breaks)), breaks,
                           stringsAsFactors = FALSE)
 
+  if (nrow(guide$key) == 0) {
+    return()
+  }
+
   # .value = breaks (numeric) is used for determining the position of ticks in gengrob
   names(guide$key) <- c(output, ".label", ".value")
 
   # bar specification (number of divs etc)
-  .bar <- discard(pretty(scale_limits(scale), n = guide$nbin), scale_limits(scale))
+  .limits <- scale_limits(scale)
+  .bar <- discard(pretty(.limits, n = guide$nbin), scale_limits(scale))
+  if (length(.bar) == 0) {
+    .bar = unique(.limits)
+  }
   guide$bar <- data.frame(colour=scale_map(scale, .bar), value=.bar, stringsAsFactors = FALSE)
   if (guide$reverse) {
     guide$key <- guide$key[nrow(guide$key):1, ]

@@ -1,3 +1,14 @@
+#' Create a transparent colour.
+#'
+#' @name alpha
+#' @export
+#' @examples
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point(alpha = 0.5, colour = "blue")
+#'
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point(colour = alpha("blue", 0.5))
+NULL
 
 # Null default
 # Analog of || from ruby
@@ -105,7 +116,7 @@ safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRU
 # @keyword internal
 #X a <- remove_missing(movies)
 #X a <- remove_missing(movies, na.rm = TRUE)
-#X qplot(mpaa, budget, data=movies, geom="boxplot")
+#X ggplot(movies, aes(mpaa, budget)) + geom_boxplot()
 remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = FALSE) {
   vars <- intersect(vars, names(df))
   if (name != "") name <- ps(" (", name, ")")
@@ -199,18 +210,6 @@ rescale01 <- function(x) {
   rng <- range(x, na.rm = TRUE)
   (x - rng[1]) / (rng[2] - rng[1])
 }
-
-# This is a hack for ggplot2 0.9.3 to make it compatible with both plyr 1.7.1 and
-# plyr 1.8 (and above). This should be removed for the next release of ggplot2.
-# Tag: deprecated
-if (packageVersion("plyr") <= package_version("1.7.1")) {
-  rename <- function(x, replace, warn_missing) {
-    plyr::rename(x, replace)
-  }
-} else {
-  rename <- plyr::rename
-}
-
 
 #' Give a deprecation error, warning, or messsage, depending on version number.
 #'

@@ -81,7 +81,10 @@ print.element <- function(x, ...) str(x)
 #'
 #' @param x A number representing the relative size
 #' @examples
-#' qplot(1:3, 1:3) + theme(axis.title.x = element_text(size = rel(2.5)))
+#' df <- data.frame(x = 1:3, y = 1:3)
+#' ggplot(df, aes(x, y)) +
+#'   geom_point() +
+#'   theme(axis.title.x = element_text(size = rel(2.5)))
 #' @export
 rel <- function(x) {
   structure(x, class = "rel")
@@ -93,49 +96,6 @@ print.rel <- function(x, ...) print(noquote(paste(x, " *", sep = "")))
 #' Reports whether x is a rel object
 #' @param x An object to test
 is.rel <- function(x) inherits(x, "rel")
-
-
-#' Deprecated theme_xx functions
-#'
-#' The \code{theme_xx} functions have been deprecated. They are replaced
-#' with the \code{element_xx} functions.
-#' @param ... Arguments to be passed to the appropriate \code{element_xx}
-#'   function.
-#'
-#' @export
-theme_blank <- function(...) {
-  gg_dep("0.9.1", "'theme_blank' is deprecated. Use 'element_blank' instead.")
-  element_blank(...)
-}
-
-#' @rdname theme_blank
-#' @export
-theme_rect <- function(...) {
-  gg_dep("0.9.1", "theme_rect is deprecated. Use 'element_rect' instead.")
-  element_rect(...)
-}
-
-#' @rdname theme_blank
-#' @export
-theme_line <- function(...) {
-  gg_dep("0.9.1", "theme_line is deprecated. Use 'element_line' instead.")
-  element_line(...)
-}
-
-#' @rdname theme_blank
-#' @export
-theme_segment <- function(...) {
-  gg_dep("0.9.1", "theme_segment is deprecated. Use 'element_line' instead.")
-  element_line(...)
-}
-
-#' @rdname theme_blank
-#' @export
-theme_text <- function(...) {
-  gg_dep("0.9.1", "theme_text is deprecated. Use 'element_text' instead.")
-  element_text(...)
-}
-
 
 # Given a theme object and element name, return a grob for the element
 element_render <- function(theme, element, ..., name = NULL) {
@@ -312,10 +272,13 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   panel.grid.major.y  = el_def("element_line", "panel.grid.major"),
   panel.grid.minor.x  = el_def("element_line", "panel.grid.minor"),
   panel.grid.minor.y  = el_def("element_line", "panel.grid.minor"),
+  panel.ontop         = el_def("logical"),
 
   strip.background    = el_def("element_rect", "rect"),
   strip.text.x        = el_def("element_text", "strip.text"),
   strip.text.y        = el_def("element_text", "strip.text"),
+  strip.switch.pad.grid = el_def("unit"),
+  strip.switch.pad.wrap = el_def("unit"),
 
   plot.background     = el_def("element_rect", "rect"),
   plot.title          = el_def("element_text", "title"),

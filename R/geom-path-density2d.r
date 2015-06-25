@@ -1,6 +1,6 @@
 #' Contours from a 2d density estimate.
 #'
-#' Perform a 2D kernel density estimatation using kde2d and display the
+#' Perform a 2D kernel density estimation using kde2d and display the
 #' results with contours.
 #'
 #' This can be useful for dealing with overplotting.
@@ -16,9 +16,10 @@
 #' @examples
 #' # See stat_density2d for examples
 geom_density2d <- function (mapping = NULL, data = NULL, stat = "density2d", position = "identity",
-lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, ...) {
+lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, show_guide = NA, ...) {
   GeomDensity2d$new(mapping = mapping, data = data, stat = stat, position = position,
-  lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, ...)
+  lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm,
+  show_guide = show_guide,...)
 }
 
 GeomDensity2d <- proto(GeomPath, {

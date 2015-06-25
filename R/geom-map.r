@@ -60,7 +60,7 @@ NULL
 #'     expand_limits(x = states_map$long, y = states_map$lat) +
 #'     facet_wrap( ~ variable)
 #' }
-geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity", ...) {
+geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity", show_guide = NA,...) {
 
   # Get map input into correct form
   stopifnot(is.data.frame(map))
@@ -70,7 +70,7 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity", ...) {
   stopifnot(all(c("x", "y", "id") %in% names(map)))
 
   GeomMap$new(geom_params = list(map = map, ...), mapping = mapping,
-    data = data, stat = stat, ...)
+    data = data, stat = stat, show_guide = show_guide,...)
 }
 
 GeomMap <- proto(GeomPolygon, {

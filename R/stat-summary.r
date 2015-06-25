@@ -20,7 +20,7 @@
 #'  display summarised data
 #' @inheritParams stat_identity
 #' @return a data.frame with additional columns:
-#'   \item{fun.data}{Complete summary function. Should take data frame as
+#'   \item{fun.data}{Complete summary function. Should take numeric vector as
 #'      input and return data frame as output}
 #'   \item{fun.ymin}{ymin summary function (should take numeric vector and
 #'     return single number)}
@@ -32,10 +32,11 @@
 #' @examples
 #' \donttest{
 #' # Basic operation on a small dataset
-#' d <- qplot(cyl, mpg, data=mtcars)
+#' d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
 #' d + stat_summary(fun.data = "mean_cl_boot", colour = "red")
 #'
-#' p <- qplot(cyl, mpg, data = mtcars, stat="summary", fun.y = "mean")
+#' p <- ggplot(mtcars, aes(cyl, mpg)) +
+#'   stat_summary(fun.y = "mean", geom = "point")
 #' p
 #' # Don't use ylim to zoom into a summary plot - this throws the
 #' # data away

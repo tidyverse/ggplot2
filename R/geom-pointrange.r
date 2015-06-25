@@ -13,15 +13,15 @@
 #' @export
 #' @examples
 #' # See geom_linerange for examples
-geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomPointrange$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
+  GeomPointrange$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
 }
 
 GeomPointrange <- proto(Geom, {
   objname <- "pointrange"
 
   default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, shape=16, fill=NA, alpha = NA)
+  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, shape=16, fill=NA, alpha = NA, stroke = 1)
   guide_geom <- function(.) "pointrange"
   required_aes <- c("x", "y", "ymin", "ymax")
 

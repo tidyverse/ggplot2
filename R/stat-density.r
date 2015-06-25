@@ -6,10 +6,12 @@
 #' @param adjust see \code{\link{density}} for details
 #' @param kernel kernel used for density estimation, see
 #'   \code{\link{density}} for details
-#' @param trim if \code{TRUE}, the default, densities are trimmed to the
-#'   actual range of the data.  If \code{FALSE}, they are extended by the
-#'   default 3 bandwidths (as specified by the \code{cut} parameter to
-#'   \code{\link{density}})
+#' @param trim This parameter only matters if you are displaying multiple
+#'   densities in one plot. If \code{FALSE}, the default, each density is
+#'   computed on the full range of the data. If \code{TRUE}, each density
+#'   is computed over the range of that group: this typically means the
+#'   estimated x values will not line-up, and hence you won't be able to
+#'   stack density values.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
@@ -50,7 +52,7 @@
 #' # Also useful with
 #' m + stat_bin()
 #'
-#' # Make a volcano plot
+#' # Make a violin plot
 #' ggplot(diamonds, aes(x = price)) +
 #'   stat_density(aes(ymax = ..density..,  ymin = -..density..),
 #'     fill = "grey50", colour = "grey50",
@@ -63,12 +65,15 @@
 #' # the 'count' (density * n) variable instead of the default density
 #'
 #' # Loses marginal densities
-#' qplot(rating, ..density.., data=movies, geom="density", fill=mpaa, position="stack")
+#' ggplot(movies, aes(rating, ..density..)) +
+#'   geom_density(position = "stack", aes(fill = mpaa))
 #' # Preserves marginal densities
-#' qplot(rating, ..count.., data=movies, geom="density", fill=mpaa, position="stack")
+#' ggplot(movies, aes(rating, ..count..)) +
+#'   geom_density(position = "stack", aes(fill = mpaa))
 #'
 #' # You can use position="fill" to produce a conditional density estimate
-#' qplot(rating, ..count.., data=movies, geom="density", fill=mpaa, position="fill")
+#' ggplot(movies, aes(rating, ..count..)) +
+#'   geom_density(position = "fill", aes(fill = mpaa))
 #'
 #' # Need to be careful with weighted data
 #' m <- ggplot(movies, aes(x=rating, weight=votes))
@@ -82,10 +87,6 @@
 #' m <- ggplot(movies, aes(x=rating, colour=decade, group=decade))
 #' m + geom_density(fill=NA)
 #' m + geom_density(fill=NA) + aes(y = ..count..)
-#'
-#' # Use qplot instead
-#' qplot(length, data=movies, geom="density", weight=rating)
-#' qplot(length, data=movies, geom="density", weight=rating/sum(rating))
 #' }
 stat_density <- function (mapping = NULL, data = NULL, geom = "area", position = "stack",
 adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, ...) {
@@ -100,21 +101,14 @@ StatDensity <- proto(Stat, {
     data <- remove_missing(data, na.rm, "x", name = "stat_density",
       finite = TRUE)
 
-    n <- nrow(data)
-    if (n < 3) return(data.frame())
-    if (is.null(data$weight)) data$weight <- rep(1, n) / n
+    if (trim) {
+      range <- range(data$x, na.rm = TRUE)
+    } else {
+      range <- scale_dimension(scales$x, c(0, 0))
+    }
 
-    range <- scale_dimension(scales$x, c(0, 0))
-    xgrid <- seq(range[1], range[2], length=200)
-
-    dens <- density(data$x, adjust=adjust, kernel=kernel, weight=data$weight, from=range[1], to=range[2])
-    densdf <- as.data.frame(dens[c("x","y")])
-
-    densdf$scaled <- densdf$y / max(densdf$y, na.rm = TRUE)
-    if (trim) densdf <- subset(densdf, x > min(data$x, na.rm = TRUE) & x < max(data$x, na.rm = TRUE))
-
-    densdf$count <- densdf$y * n
-    rename(densdf, c(y = "density"), warn_missing = FALSE)
+    compute_density(data$x, data$w, from = range[1], to = range[2],
+      adjust = adjust, kernel = kernel)
   }
 
   default_geom <- function(.) GeomArea
@@ -122,3 +116,33 @@ StatDensity <- proto(Stat, {
   required_aes <- c("x")
 
 })
+
+compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
+                            kernel = "gaussian") {
+  n <- length(x)
+  if (is.null(w)) {
+    w <- rep(1 / n, n)
+  }
+
+  # if less than 3 points, spread density evenly over points
+  if (n < 3) {
+    return(data.frame(
+      x = x,
+      density = w / sum(w),
+      scaled = w / max(w),
+      count = 1,
+      n = n
+    ))
+  }
+
+  dens <- stats::density(x, weight = w, bw = bw, adjust = adjust,
+    kernel = kernel, from = from, to = to)
+
+  data.frame(
+    x = dens$x,
+    density = dens$y,
+    scaled =  dens$y / max(dens$y, na.rm = TRUE),
+    count =   dens$y * n,
+    n = n
+  )
+}

@@ -14,7 +14,7 @@
 #'
 #' # Data
 #' df <- data.frame(x = 1:10 , y = 1:10)
-#' f <- ggplot(df, aes(x = x, y = y))
+#' f <- ggplot(df, aes(x, y))
 #' f + geom_line(linetype = 2)
 #' f + geom_line(linetype = "dotdash")
 #
@@ -31,7 +31,8 @@
 #'   date = economics$date,
 #'   colwise(rescale01)(economics[, -(1:2)]))
 #' ecm <- melt(ec_scaled, id = "date")
-#' qplot(date, value, data = ecm, geom = "line", linetype = variable)
+#' ggplot(ecm, aes(date, value)) +
+#'   geom_line(aes(linetype = variable))
 #'
 #' # Size examples
 #' # Should be specified with a numerical value (in millimetres),
@@ -39,7 +40,8 @@
 #' p <- ggplot(mtcars, aes(wt, mpg))
 #' p + geom_point(size = 4)
 #' p + geom_point(aes(size = qsec))
-#' p + geom_point(size = 2.5) + geom_hline(yintercept = 25, size = 3.5)
+#' p + geom_point(size = 2.5) +
+#'   geom_hline(yintercept = 25, size = 3.5)
 #'
 #' # Shape examples
 #' # Shape takes four types of values: an integer in [0, 25],
@@ -57,8 +59,9 @@
 #'
 #' # A look at all 25 symbols
 #' df2 <- data.frame(x = 1:5 , y = 1:25, z = 1:25)
-#' s <- ggplot(df2, aes(x = x, y = y))
-#' s + geom_point(aes(shape = z), size = 4) + scale_shape_identity()
+#' s <- ggplot(df2, aes(x, y))
+#' s + geom_point(aes(shape = z), size = 4) +
+#'   scale_shape_identity()
 #' # While all symbols have a foreground colour, symbols 19-25 also take a
 #' # background colour (fill)
 #' s + geom_point(aes(shape = z), size = 4, colour = "Red") +

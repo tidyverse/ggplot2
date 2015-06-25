@@ -29,14 +29,15 @@
 #' # Set aesthetics to fixed value
 #' p + geom_line(colour = "red", size = 1)
 #'
-#' # Use qplot instead
-#' qplot(year, number, data=mry, group=rating, geom="line")
-#'
 #' # Using a time series
-#' qplot(date, pop, data=economics, geom="line")
-#' qplot(date, pop, data=economics, geom="line", log="y")
-#' qplot(date, pop, data=subset(economics, date > as.Date("2006-1-1")), geom="line")
-#' qplot(date, pop, data=economics, size=unemploy/pop, geom="line")
+#' ggplot(economics, aes(date, pop)) + geom_line()
+#' ggplot(economics, aes(date, pop)) +
+#'   geom_line() +
+#'   scale_y_log10()
+#' ggplot(subset(economics, date > as.Date("2006-1-1")), aes(date, pop)) +
+#'   geom_line()
+#' ggplot(economics, aes(date, pop)) +
+#'   geom_line(aes(size = unemploy/pop))
 #'
 #' # Use the arrow parameter to add an arrow to the line
 #' # See ?grid::arrow for more details
@@ -60,8 +61,8 @@
 #' dfm <- melt(df, id.var = c("id", "group"))
 #' ggplot(dfm, aes(variable, value, group = id, colour = group)) +
 #'   geom_path(alpha = 0.5)
-geom_line <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomLine$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_line <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
+  GeomLine$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
 }
 
 GeomLine <- proto(GeomPath, {

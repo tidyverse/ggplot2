@@ -22,14 +22,10 @@ Layer <- proto(expr = {
   params <- NULL
   inherit.aes <- FALSE
 
-  new <- function (., geom=NULL, geom_params=NULL, stat=NULL, stat_params=NULL, data=NULL, mapping=NULL, position=NULL, params=NULL, ..., inherit.aes = TRUE, legend = NA, subset = NULL, show_guide = NA) {
+  new <- function (., geom=NULL, geom_params=NULL, stat=NULL, stat_params=NULL, data=NULL, mapping=NULL, position=NULL, params=NULL, ..., inherit.aes = TRUE, subset = NULL, show_guide = NA) {
 
     # now, as for the guide, we can choose only if the layer is included or not in the guide: guide = TRUE or guide = FALSE
     # in future, it may be better if we can choose which aes of this layer is included in the guide, e.g.: guide = c(colour = TRUE, size = FALSE)
-    if (!is.na(legend)) {
-      gg_dep("0.8.9", "\"legend\" argument in geom_XXX and stat_XXX is deprecated. Use show_guide = TRUE or show_guide = FALSE for display or suppress the guide display.")
-      show_guide = legend
-    }
 
     if (!is.na(show_guide) && !is.logical(show_guide)) {
       warning("`show_guide` in geom_XXX and stat_XXX must be logical.")
@@ -158,8 +154,8 @@ Layer <- proto(expr = {
 
     wrong <- lengths != 1 & lengths != n
     if (any(wrong)) {
-      stop("Aesthetics must either be length one, or the same length as the data",
-        "Problems:", paste(aesthetics[wrong], collapse = ", "), call. = FALSE)
+      stop("Aesthetics must either be length one, or the same length as the data.",
+        "\nProblems: ", paste(aesthetics[wrong], collapse = ", "), call. = FALSE)
     }
 
     if (empty(data) && n > 0) {
@@ -173,21 +169,19 @@ Layer <- proto(expr = {
 
 
   calc_statistic <- function(., data, scales) {
-    if (empty(data)) return(data.frame())
+    if (empty(data))
+      return(data.frame())
 
     check_required_aesthetics(.$stat$required_aes,
       c(names(data), names(.$stat_params)),
-      paste("stat_", .$stat$objname, sep=""))
+      paste("stat_", .$stat$objname, sep = ""))
 
-    res <- NULL
-    try(res <- do.call(.$stat$calculate_groups, c(
-      list(data=as.name("data"), scales=as.name("scales")),
-      .$stat_params)
-    ))
-    if (is.null(res)) return(data.frame())
-
-    res
-
+    args <- c(list(data = quote(data), scales = quote(scales)), .$stat_params)
+    tryCatch(do.call(.$stat$calculate_groups, args), error = function(e) {
+      warning("Computation failed in `stat_", .$stat$objname, "()`:\n",
+        e$message, call. = FALSE)
+      data.frame()
+    })
   }
 
 
@@ -254,6 +248,34 @@ Layer <- proto(expr = {
 
 #' Create a new layer
 #'
-#' @keywords internal
 #' @export
-layer <- Layer$new
+#' @inheritParams geom_point
+#' @param geom Geometric element, as a string.
+#' @param geom_params,stat_params,params,... Additional parameters to the
+#'   \code{geom} and \code{stat}. If supplied individual in \code{...} or as a
+#'   list in \code{params}, \code{layer} does it's best to figure out which
+#'   arguments belong to which. To be explicit, supply as individual lists to
+#'   \code{geom_param} and \code{stat_param}.
+#' @param mapping Set of aesthetic mappings created by \code{\link{aes}} or
+#'   \code{\link{aes_string}}. If specified and \code{inherit.aes = TRUE},
+#'   is combined with the default mapping at the top level of the plot.
+#' @param inherit.aes If \code{FALSE}, overrides the default aesthetics,
+#'   rather than combining with them. This is most useful for helper functions
+#'   that define both data and aesthetics and shouldn't inherit behaviour from
+#'   the default plot specification, e.g. \code{\link{borders}}.
+#' @param subset DEPRECATED. An older way of subsetting the dataset used in a
+#'   layer.
+#' @examples
+#' # geom calls are just a short cut for layer
+#' ggplot(mpg, aes(displ, hwy)) + geom_point()
+#' # shortcut for
+#' ggplot(mpg, aes(displ, hwy)) + layer(geom = "point", stat = "identity")
+layer <- function(geom = NULL, geom_params = NULL, stat = NULL,
+                  stat_params = NULL, data = NULL, mapping = NULL,
+                  position = NULL, params = NULL, ...,
+                  inherit.aes = TRUE, subset = NULL, show_guide = NA) {
+  Layer$new(geom = geom, geom_params = geom_params, stat = stat,
+    stat_params = stat_params, data = data, mapping = mapping,
+    position = position, params = params, ..., inherit.aes = inherit.aes,
+    subset = subset, show_guide = show_guide)
+}

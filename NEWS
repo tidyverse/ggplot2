@@ -1,3 +1,136 @@
+ggplot2 1.0.1.9000
+----------------------------------------------------------------
+
+* Fixed segment annotations not transforming with scales (@BrianDiggs, #859)
+
+* `geom_point()` changes the default shape from 16 to 19 - this has a
+  better display on the default linux graphics device. (It's very slightly
+  smaller than the old point, but it should affect any graphics significantly)
+
+* `theme_minimal()` got slightly more minimal by removing the axis ticks:
+  labels now line up beneath the grid lines (@tomschloss, #1084)
+
+* `ggsave()` has been simplified a little to make it easier to maintain.
+  It no longer checks that you're printing a ggplot2 object (so now also
+  works with any grid grob) (#970), and always requires a filename.
+  Parameter `device` now supports character argument to specify which supported
+  device to use ('pdf', 'png', 'jpeg', etc.), for when it cannot be correctly
+  inferred from the file extension (for example when a temporary filename is
+  supplied server side in shiny apps) (@sebkopf, #939)
+
+* `facet_wrap()` more carefully checks its `nrow` and `ncol` arguments
+  to ensure that they're specified correctly (@richierocks, #962)
+
+* Improved the calculation of segments needed to draw the curve representing
+  a line when plotted in polar coordinates. In some cases, the last segment
+  of a multi-segment line was not drawn (@BrianDiggs, #952)
+
+* All datasets have class `tbl_df` so if you also use dplyr, you won't
+  accidentally print all the data. `economics` has been brought up to date to
+  2015-04-01.
+
+* All instances of partial matched dollar expressions were removed (@jimhester,
+  #1134)
+
+* `geom_text()` gains `nudge_x` and `nudge_y` arguments to offset labels from
+  the x & y position (#1120). `check_overlap = TRUE` provides a simple
+  resolution to label overplotting (#1039). `hjust` and `vjust` can now
+  be character vectors: "left", "center", "right", "bottom", "middle", "top".
+  New options include "inward" and "outward" which align text towards and
+  away from the center of the plot respectively.
+
+* `geom_crossbar()` sets grouping correctly so you can display multiple
+  crossbars on one plot. It also makes the default `fatten` argument a little
+  bigger to make the middle line more obvious (#1125).
+
+* `guide_colorbar()` no longer fails when the legend is empty - previously
+  this often masked misspecifications elsewhere in the plot (#967)
+
+* `Geom`, `Stat` and `Position` are now exported, making it easier to create
+  new geoms, stats and positions in other packages (#989).
+
+* `facet_grid()` and `facet_wrap()` gain a `switch` argument that
+  allows the facet titles to be displayed near the axes. They then act
+  as axes subtitles. Can be set to "x", "y" or "both" (the latter only
+  for grids) to control which label strips are switched. (@lionel-)
+
+* New `theme_void()`, which is completely empty. Useful for plots with non
+  standard coordinates or for producing numerical drawings with R. (@jiho, #976)
+
+* New `geom_curve()` that adds curved lines, similar to `geom_segment()`.
+  (@veraanadi, #1088)
+
+* Create correct legend for continuous color even if there is only one color
+  (@krlmlr, #943)
+
+* Position adjustments no longer warn about potentially varying ranges
+  because the problem rarely occurs in practice and there are currently a
+  lot of false positives since I don't understand exactly what FP criteria
+  I should be testing.
+
+* New dark-backgrounded theme, `theme_dark()`, meant to make colours pop out
+  (@jiho, #1018)
+
+* `aes_string()` now only parses character inputs. This problems bugs when
+  using it with numbers and non default `OutDec` settings (#1045).
+
+* `cut_number()` gives error message if insufficient data values to
+  produce requested bins (#1046).
+
+* `facet_wrap()` and `facet_grid()` now allow you to use non-standard
+  variable names (provided that they surrounded by backticks) (#1067)
+
+* Add `position_nudge()` for slightly off setting labels (or other geoms)
+  from their corresponding points (#1109).
+
+* All defunct functions and arguments have been removed.
+
+* `stat_bin()` now defaults to using counts instead of proportions.
+  `geom_count()` provides a convenient alias.
+
+* `scale_size()` now maps values to _area_, not radius. Use `scale_radius()`
+  if you want the old behaviour (not recommended, except perhaps for lines).
+
+* `ggplot()` now captures the parent frame to use for evaluation,
+  rather than always defaulting to the global environment. This should
+  make ggplot more suitable to use in more situations (e.g. with knitr)
+
+* Tweaked default `theme_grey()` background colour from grey90 to grey92:
+  this makes the background recede into the background a little more.
+
+* Bumped the default `size` for `geom_smooth()` up to 1. To continue to use
+  the previous size, set `size = 0.5`. `geom_smooth()` gains explicit
+  `method`, `se` and `formula` arguments to make it easier to see what the
+  most important options are.
+
+* `geom_jitter()` gains `width` and `height` arguments to make it easier
+  to control the amount of jittering without using the lengthy
+  `position_jitter()` function (#1116)
+
+* ggplot2 now exports `alpha()` from the scales package. This means you
+  don't need to do `library(scales)` or `scales::alpha()` to access that
+  handy function (#1107).
+
+* Improved documentation for `aes()`, `layer()` and many geoms and scales. I've
+  tried to reduce the use of `...` so that you can see all the documentation in
+  one place rather than having to navigate through multiple pages. Use
+  of `qplot()` in examples has been minimised (#1123, @hrbrmstr)
+
+* new theme setting `panel.ontop` (logical) allows placing background elements
+  (e.g., gridlines) on top of data. Usually used with blank or transparent
+  `panel.background`.  (@noamross. #551)
+
+* Add `stroke` aesthetic to `geom_point` controlling the stroke width of the
+  border for shape types 21 - 25 (#1133, @SeySayux)
+
+ggplot2 1.0.1
+----------------------------------------------------------------
+
+* Fixes to pass `R CMD check --run-donttest` in R-devel.
+
+* Improvements in to order of colours and legend display of continuous colour
+  scales extracted from colorbrewer palettes in `scale_*_distiller()` (@jiho, 1076)
+
 ggplot2 1.0.0
 ----------------------------------------------------------------
 
@@ -51,7 +184,7 @@ NEW FEATURES
 
 BUG FIXES AND MINOR IMPROVEMENTS
 
-* `aes()` no more treats variables like `a..x..b as a calculated aesthetic.
+* `aes()` no more treats variables like `a..x..b` as a calculated aesthetic.
   (@krlmlr, #834.)
 
 * New `aes_q()` function to generate aesthetic specifications from

@@ -12,8 +12,8 @@
 #' )
 #' ggplot(df, aes(xmin = x, xmax = x + 1, ymin = y, ymax = y + 2)) +
 #' geom_rect()
-geom_rect <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomRect$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_rect <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
+  GeomRect$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
 }
 
 GeomRect <- proto(Geom, {

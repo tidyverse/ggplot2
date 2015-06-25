@@ -5,3 +5,5 @@ visual_test
 ^/\.gitattributes$
 ^inst/web$
 ^notes$
+^cran-comments.md$
+^data-raw$

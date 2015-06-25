@@ -6,7 +6,7 @@
 #'
 #' @name translate_qplot_lattice
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(lattice)
 #'
 #' xyplot(rating ~ year, data=movies)

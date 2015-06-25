@@ -17,10 +17,12 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
     # Width determined from data, must be floating point constant
     widths <- unique(data$xmax - data$xmin)
     widths <- widths[!is.na(widths)]
-    if (!zero_range(range(widths))) {
-      warning(name, " requires constant width: output may be incorrect",
-        call. = FALSE)
-    }
+
+#   # Suppress warning message since it's not reliable
+#     if (!zero_range(range(widths))) {
+#       warning(name, " requires constant width: output may be incorrect",
+#         call. = FALSE)
+#     }
     width <- widths[1]
   }
 
@@ -65,11 +67,10 @@ pos_stack <- function(df, width) {
     heights <- c(0, cumsum(y))
   }
 
-  within(df, {
-    ymin <- heights[-n]
-    ymax <- heights[-1]
-    y <- ymax
-  })
+  df$ymin <- heights[-n]
+  df$ymax <- heights[-1]
+  df$y <- df$ymax
+  df
 }
 
 # Stack overlapping intervals and set height to 1.
@@ -97,7 +98,7 @@ pos_dodge <- function(df, width) {
   diff <- width - d_width
 
   # df <- data.frame(n = c(2:5, 10, 26), div = c(4, 3, 2.666666,  2.5, 2.2, 2.1))
-  # qplot(n, div, data = df)
+  # ggplot(df, aes(n, div)) + geom_point()
 
   # Have a new group index from 1 to number of groups.
   # This might be needed if the group numbers in this set don't include all of 1:n

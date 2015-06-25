@@ -6,7 +6,7 @@
 #' @family facet labellers
 #' @export
 #' @examples
-#' p <- qplot(wt, mpg, data = mtcars)
+#' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 #' p + facet_grid(. ~ cyl)
 #' p + facet_grid(. ~ cyl, labeller = label_value)
 label_value <- function(variable, value) as.character(value)
@@ -18,7 +18,7 @@ label_value <- function(variable, value) as.character(value)
 #' @family facet labellers
 #' @export
 #' @examples
-#' p <- qplot(wt, mpg, data = mtcars)
+#' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 #' p + facet_grid(. ~ cyl)
 #' p + facet_grid(. ~ cyl, labeller = label_both)
 label_both <- function(variable, value) paste(variable, value, sep = ": ")
@@ -32,9 +32,12 @@ label_both <- function(variable, value) paste(variable, value, sep = ": ")
 #' @export
 #' @examples
 #' mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
-#' qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2)
-#' qplot(wt, mpg, data = mtcars) + facet_grid(. ~ cyl2,
-#'   labeller = label_parsed)
+#' ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point() +
+#'   facet_grid(. ~ cyl2)
+#' ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point() +
+#'   facet_grid(. ~ cyl2, labeller = label_parsed)
 label_parsed <- function(variable, value) {
   llply(as.character(value), function(x) parse(text = x))
 }
@@ -49,7 +52,7 @@ label_parsed <- function(variable, value) {
 #' @seealso \code{\link{plotmath}}
 #' @export
 #' @examples
-#' p <- qplot(wt, mpg, data = mtcars)
+#' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 #' p + facet_grid(. ~ vs, labeller = label_bquote(alpha ^ .(x)))
 #' p + facet_grid(. ~ vs, labeller = label_bquote(.(x) ^ .(x)))
 label_bquote <- function(expr = beta ^ .(x)) {
@@ -179,7 +182,7 @@ labeller <- function(..., keep.as.numeric=FALSE) {
 
 
 # Grob for strip labels
-ggstrip <- function(text, horizontal=TRUE, theme) {
+ggstrip <- function(text, horizontal = TRUE, theme) {
   text_theme <- if (horizontal) "strip.text.x" else "strip.text.y"
   if (is.list(text)) text <- text[[1]]
 
@@ -193,4 +196,16 @@ ggstrip <- function(text, horizontal=TRUE, theme) {
     width = grobWidth(label) + unit(0.5, "lines"),
     height = grobHeight(label) + unit(0.5, "lines")
   ))
+}
+
+
+# Helper to adjust angle of switched strips
+adjust_angle <- function(angle) {
+  if (is.null(angle)) {
+    -90
+  } else if ((angle + 180) > 360) {
+    angle - 180
+  } else {
+    angle + 180
+  }
 }

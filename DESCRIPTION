@@ -1,9 +1,11 @@
 Package: ggplot2
 Type: Package
-Title: An implementation of the Grammar of Graphics
-Version: 1.0.0.99
-Author: Hadley Wickham <h.wickham@gmail.com>, Winston Chang <winston@stdout.org>
-Maintainer: Hadley Wickham <h.wickham@gmail.com>
+Title: An Implementation of the Grammar of Graphics
+Version: 1.0.1.9000
+Authors@R: c(
+    person("Hadley", "Wickham", role = c("aut", "cre"), email = "h.wickham@gmail.com"),
+    person("Winston", "Chang", role = "aut", email = "winston@stdout.org")
+    )
 Description: An implementation of the grammar of graphics
     in R. It combines the advantages of both base and
     lattice graphics: conditioning and shared axes are
@@ -11,7 +13,7 @@ Description: An implementation of the grammar of graphics
     plot step by step from multiple data sources. It also
     implements a sophisticated multidimensional
     conditioning system and a consistent interface to map
-    data to aesthetic attributes. See the ggplot2 website
+    data to aesthetic attributes. See http://ggplot2.org
     for more information, documentation and examples.
 Depends:
     R (>= 2.14),
@@ -40,7 +42,6 @@ Suggests:
     mgcv
 VignetteBuilder: knitr
 Enhances: sp
-Roxygen: list(wrap = FALSE)
 License: GPL-2
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2
 BugReports: https://github.com/hadley/ggplot2/issues
@@ -94,6 +95,7 @@ Collate:
     'geom-blank.r'
     'geom-boxplot.r'
     'geom-crossbar.r'
+    'geom-curve.r'
     'geom-defaults.r'
     'geom-dotplot.r'
     'geom-error.r'
@@ -108,6 +110,7 @@ Collate:
     'geom-path-line.r'
     'geom-path-step.r'
     'geom-point-.r'
+    'geom-point-count.r'
     'geom-point-jitter.r'
     'geom-pointrange.r'
     'geom-quantile.r'
@@ -146,12 +149,12 @@ Collate:
     'position-identity.r'
     'position-jitter.r'
     'position-jitterdodge.R'
+    'position-nudge.R'
     'position-stack.r'
     'quick-plot.r'
     'save.r'
     'scale-.r'
     'scale-alpha.r'
-    'scale-area.r'
     'scale-brewer.r'
     'scale-continuous.r'
     'scale-date.r'
@@ -194,7 +197,6 @@ Collate:
     'stat-vline.r'
     'stat-ydensity.r'
     'summary.r'
-    'templates.r'
     'theme-defaults.r'
     'theme-elements.r'
     'theme.r'

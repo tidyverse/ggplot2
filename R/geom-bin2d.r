@@ -11,8 +11,8 @@
 #' d + geom_bin2d(binwidth = c(0.1, 0.1))
 #'
 #' # See ?stat_bin2d for more examples
-geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d", position = "identity", ...) {
-  GeomBin2d$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d", position = "identity", show_guide = NA,...) {
+  GeomBin2d$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
 }
 
 GeomBin2d <- proto(Geom, {
