@@ -119,7 +119,7 @@
 geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin",
   position = "stack", show_guide = NA, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,

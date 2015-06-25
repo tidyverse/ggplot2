@@ -25,7 +25,7 @@
 stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment",
   position = "identity", ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatSpoke,
@@ -35,7 +35,7 @@ stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment",
   )
 }
 
-StatSpoke <- R6::R6Class("StatSpoke", inherit = StatR6,
+StatSpoke <- R6::R6Class("StatSpoke", inherit = Stat,
   public = list(
     objname = "spoke",
 

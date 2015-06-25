@@ -111,7 +111,7 @@ geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
   if (stackgroups && method == "dotdensity" && binpositions == "bygroup")
     message('geom_dotplot called with stackgroups=TRUE and method="dotdensity". You probably want to set binpositions="all"')
 
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -135,7 +135,7 @@ geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
   )
 }
 
-GeomDotplot <- R6::R6Class("GeomDotplot", inherit = GeomR6,
+GeomDotplot <- R6::R6Class("GeomDotplot", inherit = Geom,
   public = list(
     objname = "dotplot",
 

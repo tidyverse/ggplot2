@@ -70,7 +70,7 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
   if (!is.null(map$region)) map$id <- map$region
   stopifnot(all(c("x", "y", "id") %in% names(map)))
 
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,

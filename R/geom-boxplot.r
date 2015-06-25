@@ -114,14 +114,14 @@ geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
                           varwidth = FALSE, show_guide = NA, ...)
 {
   # R6 TODO: Avoid instantiation
-  outlier_defaults <- GeomR6$new()$find('point')$new()$default_aes()
+  outlier_defaults <- Geom$new()$find('point')$new()$default_aes()
 
   outlier.colour   <- outlier.colour %||% outlier_defaults$colour
   outlier.shape    <- outlier.shape  %||% outlier_defaults$shape
   outlier.size     <- outlier.size   %||% outlier_defaults$size
   outlier.stroke   <- outlier.stroke %||% outlier_defaults$stroke
 
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -141,7 +141,7 @@ geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
   )
 }
 
-GeomBoxplot <- R6::R6Class("GeomBoxplot", inherit = GeomR6,
+GeomBoxplot <- R6::R6Class("GeomBoxplot", inherit = Geom,
   public = list(
     objname = "boxplot",
 

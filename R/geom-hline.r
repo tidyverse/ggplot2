@@ -48,7 +48,7 @@ geom_hline <- function (mapping = NULL, data = NULL, stat = "hline",
     mapping <- aes_all(names(data))
   }
 
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -59,7 +59,7 @@ geom_hline <- function (mapping = NULL, data = NULL, stat = "hline",
   )
 }
 
-GeomHline <- R6::R6Class("GeomHline", inherit = GeomR6,
+GeomHline <- R6::R6Class("GeomHline", inherit = Geom,
   public = list(
     objname = "hline",
 

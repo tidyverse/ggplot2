@@ -9,7 +9,7 @@
 #' update_geom_defaults("point", list(colour = "black"))
 #' @rdname update_defaults
 update_geom_defaults <- function(geom, new) {
-  g <- GeomR6$find(geom)
+  g <- Geom$find(geom)
   old <- g$default_aes()
 
   aes <- defaults(new, old)
@@ -20,7 +20,7 @@ update_geom_defaults <- function(geom, new) {
 #' @rdname update_defaults
 #' @export
 update_stat_defaults <- function(stat, new) {
-  g <- StatR6$find(stat)
+  g <- Stat$find(stat)
   old <- g$default_aes()
 
   aes <- defaults(new, old)

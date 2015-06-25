@@ -47,7 +47,7 @@ stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
   position = "identity", type = "t", level = 0.95, segments = 51,
   na.rm = FALSE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatEllipse,
@@ -63,7 +63,7 @@ stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
   )
 }
 
-StatEllipse <- R6::R6Class("StatEllipse", inherit = StatR6,
+StatEllipse <- R6::R6Class("StatEllipse", inherit = Stat,
   public = list(
     objname = "ellipse",
 

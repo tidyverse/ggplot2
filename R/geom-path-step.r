@@ -32,7 +32,7 @@ geom_step <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", direction = "hv", show_guide = NA, inherit.aes = TRUE,
   ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -44,7 +44,7 @@ geom_step <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomStep <- R6::R6Class("GeomStep", inherit = GeomR6,
+GeomStep <- R6::R6Class("GeomStep", inherit = Geom,
   public = list(
     objname = "step",
 

@@ -29,7 +29,7 @@ stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
   position = "dodge", adjust = 1, kernel = "gaussian", trim = TRUE,
   scale = "area", na.rm = FALSE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatYdensity,
@@ -47,7 +47,7 @@ stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
 }
 
 
-StatYdensity <- R6::R6Class("StatYdensity", inherit = StatR6,
+StatYdensity <- R6::R6Class("StatYdensity", inherit = Stat,
   public = list(
     objname = "ydensity",
 

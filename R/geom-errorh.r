@@ -24,7 +24,7 @@
 geom_errorbarh <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", show_guide = NA,...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -35,7 +35,7 @@ geom_errorbarh <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 
-GeomErrorbarh <- R6::R6Class("GeomErrorbarh", inherit = GeomR6,
+GeomErrorbarh <- R6::R6Class("GeomErrorbarh", inherit = Geom,
   public = list(
     objname = "errorbarh",
 

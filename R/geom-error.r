@@ -51,7 +51,7 @@
 geom_errorbar <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", show_guide = NA, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -61,7 +61,7 @@ geom_errorbar <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomErrorbar <- R6::R6Class("GeomErrorbar", inherit = GeomR6,
+GeomErrorbar <- R6::R6Class("GeomErrorbar", inherit = Geom,
   public = list(
     objname = "errorbar",
 

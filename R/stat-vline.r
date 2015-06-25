@@ -9,7 +9,7 @@
 stat_abline <- function (mapping = NULL, data = NULL, geom = "abline",
   position = "identity", ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatAbline,
@@ -19,7 +19,7 @@ stat_abline <- function (mapping = NULL, data = NULL, geom = "abline",
   )
 }
 
-StatAbline <- R6::R6Class("StatAbline", inherit = StatR6,
+StatAbline <- R6::R6Class("StatAbline", inherit = Stat,
   public = list(
     objname = "abline",
 
@@ -54,7 +54,7 @@ StatAbline <- R6::R6Class("StatAbline", inherit = StatR6,
 stat_vline <- function (mapping = NULL, data = NULL, geom = "vline",
   position = "identity", xintercept, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatVline,
@@ -64,7 +64,7 @@ stat_vline <- function (mapping = NULL, data = NULL, geom = "vline",
   )
 }
 
-StatVline <- R6::R6Class("StatVline", inherit = StatR6,
+StatVline <- R6::R6Class("StatVline", inherit = Stat,
   public = list(
     objname = "vline",
 
@@ -97,7 +97,7 @@ StatVline <- R6::R6Class("StatVline", inherit = StatR6,
 stat_hline <- function (mapping = NULL, data = NULL, geom = "hline",
   position = "identity", yintercept, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatHline,
@@ -107,7 +107,7 @@ stat_hline <- function (mapping = NULL, data = NULL, geom = "hline",
   )
 }
 
-StatHline <- R6::R6Class("StatHline", inherit = StatR6,
+StatHline <- R6::R6Class("StatHline", inherit = Stat,
   public = list(
     calculate = function(data, scales, yintercept = NULL, intercept, ...) {
       if (!missing(intercept)) {

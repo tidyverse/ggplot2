@@ -133,7 +133,7 @@
 geom_bar <- function (mapping = NULL, data = NULL, stat = "bin",
   position = "stack", show_guide = NA, inherit.aes = TRUE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -145,7 +145,7 @@ geom_bar <- function (mapping = NULL, data = NULL, stat = "bin",
   )
 }
 
-GeomBar <- R6::R6Class("GeomBar", inherit = GeomR6,
+GeomBar <- R6::R6Class("GeomBar", inherit = Geom,
   public = list(
     objname = "bar",
 

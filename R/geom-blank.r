@@ -24,7 +24,7 @@
 geom_blank <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", show_guide = NA, inherit.aes = FALSE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -37,7 +37,7 @@ geom_blank <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 
-GeomBlank <- R6::R6Class("GeomBlank", inherit = GeomR6,
+GeomBlank <- R6::R6Class("GeomBlank", inherit = Geom,
   public = list(
     objname = "blank",
 

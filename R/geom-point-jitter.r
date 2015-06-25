@@ -41,7 +41,7 @@ geom_jitter <- function(mapping = NULL, data = NULL,
     position <- position_jitter(width = width, height = height)
   }
 
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,

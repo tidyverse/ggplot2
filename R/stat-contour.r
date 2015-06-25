@@ -51,7 +51,7 @@
 stat_contour <- function (mapping = NULL, data = NULL, geom = "path",
   position = "identity", na.rm = FALSE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatContour,
@@ -62,7 +62,7 @@ stat_contour <- function (mapping = NULL, data = NULL, geom = "path",
 }
 
 
-StatContour <- R6::R6Class("StatContour", inherit = StatR6,
+StatContour <- R6::R6Class("StatContour", inherit = Stat,
   public = list(
     objname = "contour",
 

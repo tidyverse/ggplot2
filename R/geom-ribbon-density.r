@@ -15,7 +15,7 @@ geom_density <- function (mapping = NULL, data = NULL, stat = "density",
   position = "identity", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE,
   ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,

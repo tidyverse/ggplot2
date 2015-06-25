@@ -31,7 +31,7 @@ geom_curve <- function(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", curvature = 0.5, angle = 90, ncp = 5, arrow = NULL,
   lineend = "butt", na.rm = FALSE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -49,7 +49,7 @@ geom_curve <- function(mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomCurve <- R6::R6Class("GeomCurve", inherit = GeomR6,
+GeomCurve <- R6::R6Class("GeomCurve", inherit = Geom,
   public = list(
     objname = "curve",
 

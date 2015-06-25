@@ -19,7 +19,7 @@
 geom_freqpoly <- function(mapping = NULL, data = NULL, stat = "bin",
   position = "identity", show_guide = NA, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -30,7 +30,7 @@ geom_freqpoly <- function(mapping = NULL, data = NULL, stat = "bin",
 }
 
 
-GeomFreqpoly <- R6::R6Class("GeomFreqpoly", inherit = GeomR6,
+GeomFreqpoly <- R6::R6Class("GeomFreqpoly", inherit = Geom,
   public = list(
     objname = "freqpoly",
 

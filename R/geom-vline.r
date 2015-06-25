@@ -46,7 +46,7 @@
 geom_vline <- function (mapping = NULL, data = NULL, stat = "vline",
   position = "identity", show_guide = FALSE, inherit.aes = FALSE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -58,7 +58,7 @@ geom_vline <- function (mapping = NULL, data = NULL, stat = "vline",
   )
 }
 
-GeomVline <- R6::R6Class("GeomVline", inherit = GeomR6,
+GeomVline <- R6::R6Class("GeomVline", inherit = Geom,
   public = list(
     objname = "vline",
 

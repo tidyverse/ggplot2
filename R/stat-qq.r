@@ -36,7 +36,7 @@ stat_qq <- function (mapping = NULL, data = NULL, geom = "point",
   position = "identity", distribution = qnorm, dparams = list(), na.rm = FALSE,
   ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatQq,
@@ -51,7 +51,7 @@ stat_qq <- function (mapping = NULL, data = NULL, geom = "point",
   )
 }
 
-StatQq <- R6::R6Class("StatQq", inherit = StatR6,
+StatQq <- R6::R6Class("StatQq", inherit = Stat,
   public = list(
     objname = "qq",
 

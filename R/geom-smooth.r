@@ -56,7 +56,7 @@
 geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth",
   position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -68,7 +68,7 @@ geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth",
   )
 }
 
-GeomSmooth <- R6::R6Class("GeomSmooth", inherit = GeomR6,
+GeomSmooth <- R6::R6Class("GeomSmooth", inherit = Geom,
   public = list(
     objname = "smooth",
 

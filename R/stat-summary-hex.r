@@ -32,7 +32,7 @@
 stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex",
   position = "identity", bins = 30, drop = TRUE, fun = mean, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatSummaryhex,
@@ -47,7 +47,7 @@ stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex",
   )
 }
 
-StatSummaryhex <- R6::R6Class("StatSummaryhex", inherit = StatR6,
+StatSummaryhex <- R6::R6Class("StatSummaryhex", inherit = Stat,
   public = list(
     objname = "summaryhex",
 

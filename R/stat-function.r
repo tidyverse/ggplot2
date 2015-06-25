@@ -46,7 +46,7 @@
 stat_function <- function (mapping = NULL, data = NULL, geom = "path",
   position = "identity", fun, n = 101, args = list(), ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatFunction,
@@ -61,7 +61,7 @@ stat_function <- function (mapping = NULL, data = NULL, geom = "path",
   )
 }
 
-StatFunction <- R6::R6Class("StatFunction", inherit = StatR6,
+StatFunction <- R6::R6Class("StatFunction", inherit = Stat,
   public = list(
     objname = "function",
 

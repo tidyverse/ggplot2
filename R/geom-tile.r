@@ -68,7 +68,7 @@
 geom_tile <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -80,7 +80,7 @@ geom_tile <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomTile <- R6::R6Class("GeomTile", inherit = GeomR6,
+GeomTile <- R6::R6Class("GeomTile", inherit = Geom,
   public = list(
     objname = "tile",
 

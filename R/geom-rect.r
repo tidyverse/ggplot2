@@ -15,7 +15,7 @@
 geom_rect <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", show_guide = NA, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -26,7 +26,7 @@ geom_rect <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomRect <- R6::R6Class("GeomRect", inherit = GeomR6,
+GeomRect <- R6::R6Class("GeomRect", inherit = Geom,
   public = list(
     objname = "rect",
 

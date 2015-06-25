@@ -49,7 +49,7 @@
 geom_polygon <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", show_guide = NA, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -60,7 +60,7 @@ geom_polygon <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomPolygon <- R6::R6Class("GeomPolygon", inherit = GeomR6,
+GeomPolygon <- R6::R6Class("GeomPolygon", inherit = Geom,
   public = list(
     objname = "polygon",
 

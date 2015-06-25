@@ -46,7 +46,7 @@ stat_bindot <- function (mapping = NULL, data = NULL, geom = "dotplot",
   binaxis = "x", method = "dotdensity", binpositions = "bygroup", drop = FALSE,
   right = TRUE, na.rm = FALSE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatBindot,
@@ -68,7 +68,7 @@ stat_bindot <- function (mapping = NULL, data = NULL, geom = "dotplot",
 }
 
 
-StatBindot <- R6::R6Class("StatBindot", inherit = StatR6,
+StatBindot <- R6::R6Class("StatBindot", inherit = Stat,
   public = list(
     objname = "bindot",
 

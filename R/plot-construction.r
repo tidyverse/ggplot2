@@ -105,7 +105,7 @@ add_ggplot <- function(p, object, objectname) {
     for (o in object) {
       p <- p + o
     }
-  } else if(is.proto(object) || inherits(object, "LayerR6")) {
+  } else if (inherits(object, "Layer")) {
     p <- switch(object$class(),
       layer = {
         p$layers <- append(p$layers, object)

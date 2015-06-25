@@ -10,7 +10,7 @@
 geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex",
   position = "identity", show_guide = NA, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -21,7 +21,7 @@ geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex",
 }
 
 
-GeomHex <- R6::R6Class("GeomHex", inherit = GeomR6,
+GeomHex <- R6::R6Class("GeomHex", inherit = Geom,
   public = list(
     objname = "hex",
 

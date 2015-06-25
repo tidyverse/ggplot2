@@ -44,7 +44,7 @@ NULL
 #' base +
 #'   annotation_custom(grob = g, xmin = 1, xmax = 10, ymin = 8, ymax = 10)
 annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) {
-  LayerR6$new(
+  Layer$new(
     data = NULL,
     stat = "identity",
     position = "identity",
@@ -55,7 +55,7 @@ annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax 
   )
 }
 
-GeomCustomAnn <- R6::R6Class("GeomCustomAnn", inherit = GeomR6,
+GeomCustomAnn <- R6::R6Class("GeomCustomAnn", inherit = Geom,
   public = list(
     objname = "custom_ann",
 

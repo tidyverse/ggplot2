@@ -63,7 +63,7 @@ geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity",
   position = "dodge", trim = TRUE, scale = "area", show_guide = NA,
   inherit.aes = TRUE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -75,7 +75,7 @@ geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity",
   )
 }
 
-GeomViolin <- R6::R6Class("GeomViolin", inherit = GeomR6,
+GeomViolin <- R6::R6Class("GeomViolin", inherit = Geom,
   public = list(
     objname = "violin",
 

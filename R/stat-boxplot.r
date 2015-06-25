@@ -23,7 +23,7 @@
 stat_boxplot <- function (mapping = NULL, data = NULL, geom = "boxplot",
   position = "dodge", na.rm = FALSE, coef = 1.5, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatBoxplot,
@@ -34,7 +34,7 @@ stat_boxplot <- function (mapping = NULL, data = NULL, geom = "boxplot",
 }
 
 
-StatBoxplot <- R6::R6Class("StatBoxplot", inherit = StatR6,
+StatBoxplot <- R6::R6Class("StatBoxplot", inherit = Stat,
   public = list(
     objname = "boxplot",
 

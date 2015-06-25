@@ -1,7 +1,7 @@
 # Position adjustment occurs over all groups within a geom
 # They work only with discrete x scales and may affect x and y position.
 # Should occur after statistics and scales have been applied.
-Position <- R6::R6Class("Position", inherit = TopLevelR6,
+Position <- R6::R6Class("Position", inherit = TopLevel,
   public = list(
     adjust = function(data, scales, ...) data,
 

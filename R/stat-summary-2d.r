@@ -34,7 +34,7 @@
 stat_summary2d <- function (mapping = NULL, data = NULL, geom = NULL,
   position = "identity", bins = 30, drop = TRUE, fun = mean, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatSummary2d,
@@ -49,7 +49,7 @@ stat_summary2d <- function (mapping = NULL, data = NULL, geom = NULL,
   )
 }
 
-StatSummary2d <- R6::R6Class("StatSummary2d", inherit = StatR6,
+StatSummary2d <- R6::R6Class("StatSummary2d", inherit = Stat,
   public = list(
     objname = "Summary2d",
 

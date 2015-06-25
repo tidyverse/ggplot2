@@ -116,7 +116,7 @@
 #' }
 geom_point <- function (mapping = NULL, data = NULL, stat = "identity",
                          position = "identity", na.rm = FALSE, show_guide = NA, ...) {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -127,7 +127,7 @@ geom_point <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomPoint <- R6::R6Class("GeomPoint", inherit = GeomR6,
+GeomPoint <- R6::R6Class("GeomPoint", inherit = Geom,
   public = list(
     objname = "point",
 

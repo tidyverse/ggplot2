@@ -44,7 +44,7 @@ stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile",
   position = "identity", quantiles = c(0.25, 0.5, 0.75), formula = NULL,
   method = "rq", na.rm = FALSE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatQuantile,
@@ -61,7 +61,7 @@ stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile",
 }
 
 
-StatQuantile <- R6::R6Class("StatQuantile", inherit = StatR6,
+StatQuantile <- R6::R6Class("StatQuantile", inherit = Stat,
   public = list(
     objname = "quantile",
 

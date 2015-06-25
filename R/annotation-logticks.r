@@ -83,7 +83,7 @@ annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
   if (!is.null(color))
     colour <- color
 
-  LayerR6$new(
+  Layer$new(
     data = data.frame(x = NA),
     mapping = NULL,
     stat = "identity",
@@ -107,7 +107,7 @@ annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
   )
 }
 
-GeomLogticks <- R6::R6Class("GeomLogticks", inherit = GeomR6,
+GeomLogticks <- R6::R6Class("GeomLogticks", inherit = Geom,
   public = list(
     objname = "logticks",
 

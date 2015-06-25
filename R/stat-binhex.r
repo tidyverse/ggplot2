@@ -28,7 +28,7 @@
 stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex",
   position = "identity", bins = 30, na.rm = FALSE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatBinhex,
@@ -42,7 +42,7 @@ stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex",
 }
 
 
-StatBinhex <- R6::R6Class("StatBinhex", inherit = StatR6,
+StatBinhex <- R6::R6Class("StatBinhex", inherit = Stat,
   public = list(
     objname = "binhex",
 

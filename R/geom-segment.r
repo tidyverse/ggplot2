@@ -46,7 +46,7 @@ geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
   show_guide = NA, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -57,7 +57,7 @@ geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomSegment <- R6::R6Class("GeomSegment", inherit = GeomR6,
+GeomSegment <- R6::R6Class("GeomSegment", inherit = Geom,
   public = list(
     objname = "segment",
 

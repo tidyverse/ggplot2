@@ -114,7 +114,7 @@
 stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
   position = "identity", ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatSummary,
@@ -124,7 +124,7 @@ stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
   )
 }
 
-StatSummary <- R6::R6Class("StatSummary", inherit = StatR6,
+StatSummary <- R6::R6Class("StatSummary", inherit = Stat,
   public = list(
     objname = "summary",
 

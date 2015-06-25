@@ -59,7 +59,7 @@ geom_raster <- function (mapping = NULL, data = NULL, stat = "identity",
   stopifnot(is.numeric(hjust), length(hjust) == 1)
   stopifnot(is.numeric(vjust), length(vjust) == 1)
 
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -76,7 +76,7 @@ geom_raster <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomRaster <- R6::R6Class("GeomRaster", inherit = GeomR6,
+GeomRaster <- R6::R6Class("GeomRaster", inherit = Geom,
   public = list(
     objname = "raster",
 

@@ -79,7 +79,7 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
     position <- position_nudge(nudge_x, nudge_y)
   }
 
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -92,7 +92,7 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
 }
 
 
-GeomText <- R6::R6Class("GeomText", inherit = GeomR6,
+GeomText <- R6::R6Class("GeomText", inherit = Geom,
   public = list(
     objname = "text",
 

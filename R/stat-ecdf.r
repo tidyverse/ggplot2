@@ -20,7 +20,7 @@
 stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step",
   position = "identity", n = NULL, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatEcdf,
@@ -31,7 +31,7 @@ stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step",
 }
 
 
-StatEcdf <- R6::R6Class("StatEcdf", inherit = StatR6,
+StatEcdf <- R6::R6Class("StatEcdf", inherit = Stat,
   public = list(
     objname = "ecdf",
 

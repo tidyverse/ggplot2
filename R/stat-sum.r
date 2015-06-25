@@ -38,7 +38,7 @@
 stat_sum <- function (mapping = NULL, data = NULL, geom = "point",
   position = "identity", ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatSum,
@@ -48,7 +48,7 @@ stat_sum <- function (mapping = NULL, data = NULL, geom = "point",
   )
 }
 
-StatSum <- R6::R6Class("StatSum", inherit = StatR6,
+StatSum <- R6::R6Class("StatSum", inherit = Stat,
   public = list(
     objname = "sum",
 

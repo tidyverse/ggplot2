@@ -109,7 +109,7 @@ stat_smooth <- function (mapping = NULL, data = NULL, geom = "smooth",
   position = "identity", method = "auto", formula = y ~ x, se = TRUE, n = 80,
   fullrange = FALSE, level = 0.95, na.rm = FALSE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatSmooth,
@@ -128,7 +128,7 @@ stat_smooth <- function (mapping = NULL, data = NULL, geom = "smooth",
   )
 }
 
-StatSmooth <- R6::R6Class("StatSmooth", inherit = StatR6,
+StatSmooth <- R6::R6Class("StatSmooth", inherit = Stat,
   public = list(
     objname = "smooth",
 

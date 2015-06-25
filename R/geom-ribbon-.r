@@ -41,7 +41,7 @@
 geom_ribbon <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -53,7 +53,7 @@ geom_ribbon <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomRibbon <- R6::R6Class("GeomRibbon", inherit = GeomR6,
+GeomRibbon <- R6::R6Class("GeomRibbon", inherit = Geom,
   public = list(
     objname = "ribbon",
 
@@ -126,7 +126,7 @@ GeomRibbon <- R6::R6Class("GeomRibbon", inherit = GeomR6,
 geom_area <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "stack", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,

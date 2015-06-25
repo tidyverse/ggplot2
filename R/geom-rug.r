@@ -19,7 +19,7 @@ geom_rug <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", sides = "bl", show_guide = NA, inherit.aes = TRUE,
   ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -36,7 +36,7 @@ geom_rug <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 
-GeomRug <- R6::R6Class("GeomRug", inherit = GeomR6,
+GeomRug <- R6::R6Class("GeomRug", inherit = Geom,
   public = list(
     objname = "rug",
 

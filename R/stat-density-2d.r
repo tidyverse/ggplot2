@@ -59,7 +59,7 @@
 stat_density2d <- function (mapping = NULL, data = NULL, geom = "density2d",
   position = "identity", na.rm = FALSE, contour = TRUE, n = 100, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatDensity2d,
@@ -74,7 +74,7 @@ stat_density2d <- function (mapping = NULL, data = NULL, geom = "density2d",
   )
 }
 
-StatDensity2d <- R6::R6Class("StatDensity2d", inherit = StatR6,
+StatDensity2d <- R6::R6Class("StatDensity2d", inherit = Stat,
   public = list(
     objname = "density2d",
 

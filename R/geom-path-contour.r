@@ -13,7 +13,7 @@ geom_contour <- function (mapping = NULL, data = NULL, stat = "contour",
   position = "identity", lineend = "butt", linejoin = "round", linemitre = 1,
   na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,

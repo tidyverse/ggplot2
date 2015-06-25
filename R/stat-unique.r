@@ -11,7 +11,7 @@
 stat_unique <- function (mapping = NULL, data = NULL, geom = "point",
   position = "identity", ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatUnique,
@@ -21,7 +21,7 @@ stat_unique <- function (mapping = NULL, data = NULL, geom = "point",
   )
 }
 
-StatUnique <- R6::R6Class("StatUnique", inherit = StatR6,
+StatUnique <- R6::R6Class("StatUnique", inherit = Stat,
   public = list(
     objname = "unique",
 

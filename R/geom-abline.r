@@ -64,7 +64,7 @@ geom_abline <- function (mapping = NULL, data = NULL, stat = "abline",
   mapping <- compact(defaults(mapping, aes(group = 1)))
   class(mapping) <- "uneval"
 
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -76,7 +76,7 @@ geom_abline <- function (mapping = NULL, data = NULL, stat = "abline",
   )
 }
 
-GeomAbline <- R6::R6Class("GeomAbline", inherit = GeomR6,
+GeomAbline <- R6::R6Class("GeomAbline", inherit = Geom,
   public = list(
     objname = "abline",
 

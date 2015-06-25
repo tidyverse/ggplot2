@@ -16,7 +16,7 @@
 geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -28,7 +28,7 @@ geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomPointrange <- R6::R6Class("GeomPointrange", inherit = GeomR6,
+GeomPointrange <- R6::R6Class("GeomPointrange", inherit = Geom,
   public = list(
     objname = "pointrange",
 

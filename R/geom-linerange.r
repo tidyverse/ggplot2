@@ -35,7 +35,7 @@
 geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", show_guide = NA, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -45,7 +45,7 @@ geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomLinerange <- R6::R6Class("GeomLinerange", inherit = GeomR6,
+GeomLinerange <- R6::R6Class("GeomLinerange", inherit = Geom,
   public = list(
     objname = "linerange",
 

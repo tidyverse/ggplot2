@@ -32,7 +32,7 @@
 stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL,
   position = "identity", bins = 30, drop = TRUE, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatBin2d,
@@ -42,7 +42,7 @@ stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL,
   )
 }
 
-StatBin2d <- R6::R6Class("StatBin2d", inherit = StatR6,
+StatBin2d <- R6::R6Class("StatBin2d", inherit = Stat,
   public = list(
     objname = "bin2d",
 

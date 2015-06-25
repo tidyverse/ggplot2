@@ -47,7 +47,7 @@ stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
   position = "stack", width = 0.9, drop = FALSE, right = FALSE,
   binwidth = NULL, origin = NULL, breaks = NULL, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatBin,
@@ -65,7 +65,7 @@ stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
   )
 }
 
-StatBin <- R6::R6Class("StatBin", inherit = StatR6,
+StatBin <- R6::R6Class("StatBin", inherit = Stat,
   public = list(
     objname = "bin",
     informed = FALSE,

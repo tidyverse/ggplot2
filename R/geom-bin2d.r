@@ -14,7 +14,7 @@
 geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d", position = "identity",
   show_guide = NA, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -25,7 +25,7 @@ geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d", position = 
   )
 }
 
-GeomBin2d <- R6::R6Class("GeomBin2d", inherit = GeomR6,
+GeomBin2d <- R6::R6Class("GeomBin2d", inherit = Geom,
   public = list(
     draw = function(data, scales, coordinates, ...) {
 

@@ -22,7 +22,7 @@
 stat_identity <- function (mapping = NULL, data = NULL, geom = "point",
   position = "identity", width = NULL, height = NULL, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = StatIdentity,
@@ -32,7 +32,7 @@ stat_identity <- function (mapping = NULL, data = NULL, geom = "point",
   )
 }
 
-StatIdentity <- R6::R6Class("StatIdentity", inherit = StatR6,
+StatIdentity <- R6::R6Class("StatIdentity", inherit = Stat,
   public = list(
     objname = "identity",
 

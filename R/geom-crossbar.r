@@ -15,7 +15,7 @@
 geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", fatten = 2.5, show_guide = NA, ...)
 {
-  LayerR6$new(
+  Layer$new(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -26,7 +26,7 @@ geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomCrossbar <- R6::R6Class("GeomCrossbar", inherit = GeomR6,
+GeomCrossbar <- R6::R6Class("GeomCrossbar", inherit = Geom,
   public = list(
     objname = "crossbar",
 
