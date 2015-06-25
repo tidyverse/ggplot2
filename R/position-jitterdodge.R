@@ -20,7 +20,7 @@ position_jitterdodge <- function (jitter.width = NULL,
                                   jitter.height = NULL,
                                   dodge.width = NULL) {
 
-  PositionJitterdodge$new(jitter.width = jitter.width,
+  PositionJitterDodge$new(jitter.width = jitter.width,
                           jitter.height = jitter.height,
                           dodge.width = dodge.width)
 }
