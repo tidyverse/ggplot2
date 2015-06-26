@@ -2,31 +2,29 @@
 % Please edit documentation in R/stat-stepribbon.r
 \name{stat_stepribbon}
 \alias{stat_stepribbon}
-\title{Plot stepped ribbons}
+\title{Step ribbon statistic}
 \usage{
 stat_stepribbon(mapping = NULL, data = NULL, geom = "ribbon",
-  position = "identity")
+  position = "identity", direction = c("hv", "vh"), ...)
 }
 \arguments{
-\item{mapping}{The aesthetic mapping, usually constructed with
-\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
-at the layer level if you are overriding the plot defaults.}
+\item{mapping}{The aesthetic mapping, usually constructed with aes or aes_string. Only needs to be set at the layer level if you are overriding the plot defaults.}
 
-\item{data}{A layer specific dataset - only needed if you want to override
-the plot defaults.}
+\item{data}{A layer specific dataset - only needed if you want to override the plot defaults.}
 
-\item{geom}{The geometric object to use display the data}
+\item{geom}{The geometric object to use display the data, defaults to ribbon.}
 
-\item{position}{The position adjustment to use for overlappling points
-on this layer}
+\item{position}{The position adjustment to use for overlappling points on this layer}
+
+\item{direction}{Character. Can be "hv" or "vh" for the initial direction of steps.}
 
 \item{direction}{Character. Can be "hv" or "vh" for the initial direction of steps.}
 }
 \value{
-a data.frame with additional rows necessary to plot a step function
+A data.frame with additional rows necessary to plot a step function
 }
 \description{
-Plot stepped ribbons
+Allows for plotting stepped ribbons. Returns a modified data frame with intermediary points that allows lines to be drawn in a step manner.
 }
 \section{Aesthetics}{
 
@@ -36,11 +34,14 @@ Plot stepped ribbons
 \donttest{
  time <- 1:50
  prob <- sort(runif(50), decreasing=TRUE)
- df <- data.frame(time, prob, lci = prob - 0.5, uci = prob + 0.7)
+ data <- data.frame(time, prob, lci = prob - 0.5, uci = prob + 0.7)
 
- ggplot(df, aes(x = time, y = prob, ymin = lci, ymax = uci)) +
+ ggplot(data, aes(x = time, y = prob, ymin = lci, ymax = uci)) +
  geom_step() +
- geom_ribbon(stat="stepribbon", alpha=0.3)
+ geom_ribbon(stat="stepribbon", alpha=0.3, direction="hv")
+
+ ggplot(data, aes(x = time, y = prob, ymin = lci, ymax = uci)) +
+ stat_stepribbon(geom="ribbon", alpha=0.3, fill="red", direction="vh")
 }
 }
 \seealso{
