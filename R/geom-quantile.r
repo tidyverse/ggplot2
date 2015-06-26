@@ -23,12 +23,12 @@ geom_quantile <- function (mapping = NULL, data = NULL, stat = "quantile",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(
+    geom_params = list(
       lineend = lineend,
       linejoin = linejoin,
-      linemitre = linemitre,
-      ...
-    )
+      linemitre = linemitre
+    ),
+    params = list(...)
   )
 }
 

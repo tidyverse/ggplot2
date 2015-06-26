@@ -86,8 +86,11 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    # geom_params = list(parse = parse, check_overlap = check_overlap),
-    params = list(parse = parse, check_overlap = check_overlap, ...)
+    geom_params = list(
+      parse = parse,
+      check_overlap = check_overlap
+    ),
+    params = list(...)
   )
 }
 

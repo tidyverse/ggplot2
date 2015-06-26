@@ -41,12 +41,12 @@ stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(
+    stat_params = list(
       bins = bins,
       drop = drop,
-      fun = fun,
-      ...
-    )
+      fun = fun
+    ),
+    params = list(...)
   )
 }
 

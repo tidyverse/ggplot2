@@ -32,7 +32,11 @@ stat_boxplot <- function (mapping = NULL, data = NULL, geom = "boxplot",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, coef = coef, ...)
+    stat_params = list(
+      na.rm = na.rm,
+      coef = coef
+    ),
+    params = list(...)
   )
 }
 

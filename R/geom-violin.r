@@ -71,7 +71,8 @@ geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(trim = trim, ...)
+    stat_params = list(trim = trim),
+    params = list(...)
   )
 }
 

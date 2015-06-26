@@ -54,18 +54,22 @@ stat_bindot <- function (mapping = NULL, data = NULL, geom = "dotplot",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(
-      binwidth = binwidth,
-      origin = origin,
-      width = width,
+    stat_params = list(
       binaxis = binaxis,
-      method = method,
-      binpositions = binpositions,
-      drop = drop,
-      right = right,
       na.rm = na.rm,
-      ...
-    )
+      binwidth = binwidth,
+      binpositions = binpositions,
+      method = method
+    ),
+    geom_params = list(
+      binaxis = binaxis,
+      na.rm = na.rm,
+      stackdir = stackdir,
+      stackratio = stackratio,
+      dotsize = dotsize,
+      stackgroups = stackgroups
+    ),
+    params = list(...)
   )
 }
 

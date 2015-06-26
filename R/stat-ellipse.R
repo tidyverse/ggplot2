@@ -55,13 +55,13 @@ stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(
+    stat_params = list(
       type = type,
       level = level,
       segments = segments,
-      na.rm = na.rm,
-      ...
-    )
+      na.rm = na.rm
+    ),
+    params = list(...)
   )
 }
 

@@ -130,7 +130,8 @@ geom_point <- function (mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
+    geom_params = list(na.rm = na.rm),
+    params = list(...)
   )
 }
 

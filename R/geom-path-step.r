@@ -40,7 +40,8 @@ geom_step <- function (mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(direction = direction, ...)
+    geom_params = list(direction = direction),
+    params = list(...)
   )
 }
 

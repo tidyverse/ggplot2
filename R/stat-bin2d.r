@@ -41,7 +41,11 @@ stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL,
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(bins = bins, drop = drop, ...)
+    stat_params = list(
+      bins = bins,
+      drop = drop
+    ),
+    params = list(...)
   )
 }
 

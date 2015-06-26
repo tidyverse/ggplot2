@@ -52,13 +52,13 @@ stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(
+    stat_params = list(
       quantiles = quantiles,
       formula = formula,
       method = method,
-      na.rm = na.rm,
-      ...
-    )
+      na.rm = na.rm
+    ),
+    params = list(...)
   )
 }
 

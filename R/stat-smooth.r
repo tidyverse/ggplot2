@@ -118,16 +118,16 @@ stat_smooth <- function (mapping = NULL, data = NULL, geom = "smooth",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(
+    stat_params = list(
       method = method,
       formula = formula,
       se = se,
       n = n,
       fullrange = fullrange,
       level = level,
-      na.rm = na.rm,
-      ...
-    )
+      na.rm = na.rm
+    ),
+    params = list(...)
   )
 }
 

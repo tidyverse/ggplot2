@@ -121,19 +121,22 @@ geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
     show_guide = show_guide,
     inherit.aes = inherit.aes,
     # Need to make sure that the binaxis goes to both the stat and the geom
-    stat_params = list(binaxis = binaxis),
-    geom_params = list(binaxis = binaxis),
-    params = list(
+    stat_params = list(
+      binaxis = binaxis,
       na.rm = na.rm,
       binwidth = binwidth,
-      method = method,
       binpositions = binpositions,
+      method = method
+    ),
+    geom_params = list(
+      binaxis = binaxis,
+      na.rm = na.rm,
       stackdir = stackdir,
       stackratio = stackratio,
       dotsize = dotsize,
-      stackgroups = stackgroups,
-      ...
-    )
+      stackgroups = stackgroups
+    ),
+    params = list(...)
   )
 }
 

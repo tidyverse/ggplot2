@@ -37,10 +37,10 @@ stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(
-      bins = bins,
-      ...
-    )
+    stat_params = list(
+      bins = bins
+    ),
+    params = list(...)
   )
 }
 

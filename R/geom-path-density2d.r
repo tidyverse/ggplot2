@@ -27,13 +27,13 @@ geom_density2d <- function (mapping = NULL, data = NULL, stat = "density2d",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(
+    geom_params = list(
       lineend = lineend,
       linejoin = linejoin,
       linemitre = linemitre,
-      na.rm = na.rm,
-      ...
-    )
+      na.rm = na.rm
+    ),
+    params = list(...)
   )
 }
 

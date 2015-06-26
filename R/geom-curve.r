@@ -38,15 +38,15 @@ geom_curve <- function(mapping = NULL, data = NULL, stat = "identity",
     geom = GeomCurve,
     position = position,
     inherit.aes = inherit.aes,
-    params = list(
+    geom_params = list(
       arrow = arrow,
       curvature = curvature,
       angle = angle,
       ncp = ncp,
       lineend = lineend,
-      na.rm = na.rm,
-      ...
-    )
+      na.rm = na.rm
+    ),
+    params = list(...)
   )
 }
 

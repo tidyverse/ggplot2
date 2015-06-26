@@ -67,12 +67,12 @@ geom_raster <- function (mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(
+    geom_params = list(
       hjust = hjust,
       vjust = vjust,
-      interpolate = interpolate,
-      ...
-    )
+      interpolate = interpolate
+    ),
+    params = list(...)
   )
 }
 

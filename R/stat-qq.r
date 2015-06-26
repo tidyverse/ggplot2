@@ -44,12 +44,12 @@ stat_qq <- function (mapping = NULL, data = NULL, geom = "point",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(
+    stat_params = list(
       distribution = distribution,
       dparams = dparams,
-      na.rm = na.rm,
-      ...
-    )
+      na.rm = na.rm
+    ),
+    params = list(...)
   )
 }
 

@@ -28,7 +28,8 @@ stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(n = n, ...)
+    stat_params = list(n = n),
+    params = list(...)
   )
 }
 

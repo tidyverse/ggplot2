@@ -56,15 +56,15 @@ stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(
+    stat_params = list(
       width = width,
       drop = drop,
       right = right,
       binwidth = binwidth,
       origin = origin,
-      breaks = breaks,
-      ...
-    )
+      breaks = breaks
+    ),
+    params = list(...)
   )
 }
 

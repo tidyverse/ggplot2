@@ -68,12 +68,12 @@ stat_density2d <- function (mapping = NULL, data = NULL, geom = "density2d",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(
+    stat_params = list(
       na.rm = na.rm,
       contour = contour,
-      n = n,
-      ...
-    )
+      n = n
+    ),
+    params = list(...)
   )
 }
 

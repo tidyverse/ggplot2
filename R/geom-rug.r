@@ -27,11 +27,11 @@ geom_rug <- function (mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(
+    geom_params = list(
       sides = sides,
-      show_guide = show_guide,
-      ...
-    )
+      show_guide = show_guide
+    ),
+    params = list(...)
   )
 }
 

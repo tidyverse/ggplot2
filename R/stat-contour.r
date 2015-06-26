@@ -60,7 +60,8 @@ stat_contour <- function (mapping = NULL, data = NULL, geom = "path",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
+    stat_params = list(na.rm = na.rm),
+    params = list(...)
   )
 }
 

@@ -55,12 +55,12 @@ stat_function <- function (mapping = NULL, data = NULL, geom = "path",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(
+    stat_params = list(
       fun = fun,
       n = n,
-      args = args,
-      ...
-    )
+      args = args
+    ),
+    params = list(...)
   )
 }
 
