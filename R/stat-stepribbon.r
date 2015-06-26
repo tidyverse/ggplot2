@@ -12,7 +12,9 @@
 #' @param geom The geometric object to use display the data, defaults to ribbon.
 #' @param position The position adjustment to use for overlappling points on this layer
 #' @param direction Character. Can be "hv" or "vh" for the initial direction of steps.
-#' @param additional arguments to be passed.
+#' @param ... other arguments passed on to \code{\link{layer}}. This can
+#'   include aesthetics whose values you want to set, not map. See
+#'   \code{\link{layer}} for more details.
 #' @return A data.frame with additional rows necessary to plot a step function
 #' @export
 #' @examples

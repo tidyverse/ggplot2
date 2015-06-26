@@ -18,7 +18,9 @@ stat_stepribbon(mapping = NULL, data = NULL, geom = "ribbon",
 
 \item{direction}{Character. Can be "hv" or "vh" for the initial direction of steps.}
 
-\item{direction}{Character. Can be "hv" or "vh" for the initial direction of steps.}
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 }
 \value{
 A data.frame with additional rows necessary to plot a step function
