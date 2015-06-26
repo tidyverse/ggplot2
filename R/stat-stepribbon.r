@@ -12,7 +12,7 @@
 #' @param geom The geometric object to use display the data, defaults to ribbon.
 #' @param position The position adjustment to use for overlappling points on this layer
 #' @param direction Character. Can be "hv" or "vh" for the initial direction of steps.
-#' @param direction Character. Can be "hv" or "vh" for the initial direction of steps.
+#' @param additional arguments to be passed.
 #' @return A data.frame with additional rows necessary to plot a step function
 #' @export
 #' @examples
@@ -29,7 +29,7 @@
 #'  stat_stepribbon(geom="ribbon", alpha=0.3, fill="red", direction="vh")
 #' }
 stat_stepribbon <- function( mapping = NULL, data = NULL, geom = "ribbon", position = "identity",  direction = c("hv", "vh"), ... ) {
-  StatStepribbon$new(mapping = mapping, data = data, geom = geom, position = position,  direction = direction, ...)
+  StatStepribbon$new(mapping = mapping, data = data, geom = geom, position = position, ...)
 }
 
 StatStepribbon <- proto(Stat, {
