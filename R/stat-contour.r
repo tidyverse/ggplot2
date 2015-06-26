@@ -103,7 +103,7 @@ StatContour <- R6::R6Class("StatContour", inherit = Stat,
 # v3d <- reshape2::melt(volcano)
 # names(v3d) <- c("x", "y", "z")
 #
-# breaks <- seq(95, 195, length = 10)
+# breaks <- seq(95, 195, length.out = 10)
 # contours <- contourLines(v3d, breaks)
 # ggplot(contours, aes(x, y)) +
 #   geom_path() +

@@ -73,7 +73,7 @@ StatFunction <- R6::R6Class("StatFunction", inherit = Stat,
 
     calculate = function(data, scales, fun, n=101, args = list(), ...) {
       range <- scale_dimension(scales$x, c(0, 0))
-      xseq <- seq(range[1], range[2], length=n)
+      xseq <- seq(range[1], range[2], length.out = n)
 
       data.frame(
         x = xseq,

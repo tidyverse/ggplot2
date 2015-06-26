@@ -63,7 +63,7 @@ ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) +
 
 model <- lm(mpg ~ wt + factor(cyl), data = mtcars)
 grid <- with(mtcars, expand.grid(
-  wt = seq(min(wt), max(wt), length = 20),
+  wt = seq(min(wt), max(wt), length.out = 20),
   cyl = levels(factor(cyl))
 ))
 grid$mpg <- stats::predict(model, newdata = grid)

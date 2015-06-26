@@ -41,13 +41,13 @@ breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
     if (!is.null(binwidth)) {
       fullseq(rng, binwidth)
     } else {
-      seq(rng[1], rng[2], length = nbins + 1)
+      seq(rng[1], rng[2], length.out = nbins + 1)
     }
   } else {
     if (!is.null(binwidth)) {
       probs <- seq(0, 1, by = binwidth)
     } else {
-      probs <- seq(0, 1, length = nbins + 1)
+      probs <- seq(0, 1, length.out = nbins + 1)
     }
     quantile(x, probs, na.rm = TRUE)
   }

@@ -193,7 +193,7 @@ StatSmooth <- R6::R6Class("StatSmooth", inherit = Stat,
           } else {
             range <- range(data$x, na.rm=TRUE)
           }
-          xseq <- seq(range[1], range[2], length=n)
+          xseq <- seq(range[1], range[2], length.out = n)
         }
       }
       if (is.character(method)) method <- match.fun(method)

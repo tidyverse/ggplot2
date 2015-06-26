@@ -67,7 +67,7 @@ scale_size <- scale_size_continuous
 #' @param ... Additional arguments passed on to \code{\link{discrete_scale}}.
 scale_size_discrete <- function(..., range = c(2, 6)) {
   discrete_scale("size", "size_d", function(n) {
-    area <- seq(range[1] ^ 2, range[2] ^ 2, length = n)
+    area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
     sqrt(area)
   }, ...)
 }

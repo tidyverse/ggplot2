@@ -72,7 +72,7 @@
 #' # Line type needs to be applied to a line as a whole, so it can
 #' # not be used with colour or size that vary across a line
 #'
-#' x <- seq(0.01, .99, length=100)
+#' x <- seq(0.01, .99, length.out = 100)
 #' df <- data.frame(x = rep(x, 2), y = c(qlogis(x), 2 * qlogis(x)), group = rep(c("a","b"), each=100))
 #' p <- ggplot(df, aes(x=x, y=y, group=group))
 #'

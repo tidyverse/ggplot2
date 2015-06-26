@@ -26,7 +26,7 @@
 #'
 #' # Or with a list of breaks
 #' x <- seq(min(diamonds$carat), max(diamonds$carat), by = 0.1)
-#' y <- seq(min(diamonds$price), max(diamonds$price), length = 50)
+#' y <- seq(min(diamonds$price), max(diamonds$price), length.out = 50)
 #' d + stat_bin2d(breaks = list(x = x, y = y))
 #' }
 stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL,

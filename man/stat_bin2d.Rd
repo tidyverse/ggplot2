@@ -63,7 +63,7 @@ d + stat_bin2d(binwidth = c(.1, 500))
 
 # Or with a list of breaks
 x <- seq(min(diamonds$carat), max(diamonds$carat), by = 0.1)
-y <- seq(min(diamonds$price), max(diamonds$price), length = 50)
+y <- seq(min(diamonds$price), max(diamonds$price), length.out = 50)
 d + stat_bin2d(breaks = list(x = x, y = y))
 }
 }

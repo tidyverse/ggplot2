@@ -96,7 +96,7 @@ StatQuantile <- R6::R6Class("StatQuantile", inherit = Stat,
       if (is.null(xseq)) {
         xmin <- min(data$x, na.rm = TRUE)
         xmax <- max(data$x, na.rm = TRUE)
-        xseq <- seq(xmin, xmax, length = 100)
+        xseq <- seq(xmin, xmax, length.out = 100)
       }
       grid <- data.frame(x = xseq)
 
