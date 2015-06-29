@@ -80,8 +80,9 @@ geom_tile <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomTile <- R6::R6Class("GeomTile", inherit = Geom,
-  public = list(
+GeomTile <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "tile",
 
     reparameterise = function(df, params) {
@@ -96,8 +97,7 @@ GeomTile <- R6::R6Class("GeomTile", inherit = Geom,
 
     draw_groups = function(data,  scales, coordinates, ...) {
       # data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
-      # R6 TODO: Avoid instantiation
-      GeomRect$new()$draw_groups(data, scales, coordinates, ...)
+      GeomRect$draw_groups(data, scales, coordinates, ...)
     },
 
 

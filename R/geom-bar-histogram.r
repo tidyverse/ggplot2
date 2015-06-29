@@ -131,8 +131,9 @@ geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin",
   )
 }
 
-GeomHistogram <- R6::R6Class("GeomHistogram", inherit = GeomBar,
-  public = list(
+GeomHistogram <- proto2(
+  inherit = GeomBar,
+  members = list(
     objname = "histogram"
   )
 )

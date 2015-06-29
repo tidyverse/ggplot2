@@ -112,8 +112,7 @@ geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
   outlier.size = NULL, outlier.stroke = 1, notch = FALSE, notchwidth = .5,
   varwidth = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 {
-  # R6 TODO: Avoid instantiation
-  outlier_defaults <- Geom$new()$find('point')$new()$default_aes()
+  outlier_defaults <- Geom$find('point')$default_aes()
 
   outlier.colour   <- outlier.colour %||% outlier_defaults$colour
   outlier.shape    <- outlier.shape  %||% outlier_defaults$shape
@@ -141,8 +140,9 @@ geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
   )
 }
 
-GeomBoxplot <- R6::R6Class("GeomBoxplot", inherit = Geom,
-  public = list(
+GeomBoxplot <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "boxplot",
 
     reparameterise = function(df, params) {
@@ -221,16 +221,15 @@ GeomBoxplot <- R6::R6Class("GeomBoxplot", inherit = Geom,
           alpha = NA,
           stringsAsFactors = FALSE
         )
-        # R6 TODO: Avoid instantiation
-        outliers_grob <- GeomPoint$new()$draw(outliers, ...)
+        outliers_grob <- GeomPoint$draw(outliers, ...)
       } else {
         outliers_grob <- NULL
       }
 
       ggname(self$my_name(), grobTree(
         outliers_grob,
-        GeomSegment$new()$draw(whiskers, ...),
-        GeomCrossbar$new()$draw(box, fatten = fatten, ...)
+        GeomSegment$draw(whiskers, ...),
+        GeomCrossbar$draw(box, fatten = fatten, ...)
       ))
     },
 

@@ -32,17 +32,16 @@ geom_freqpoly <- function(mapping = NULL, data = NULL, stat = "bin",
 }
 
 
-GeomFreqpoly <- R6::R6Class("GeomFreqpoly", inherit = Geom,
-  public = list(
+GeomFreqpoly <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "freqpoly",
 
-    # R6 TODO: Avoid instantiation
-    default_aes = function() GeomPath$new()$default_aes(),
+    default_aes = function() GeomPath$default_aes(),
 
     default_stat = function() StatBin,
 
-    # R6 TODO: Avoid instantiation
-    draw = function(...) GeomPath$new()$draw(...),
+    draw = function(...) GeomPath$draw(...),
 
     guide_geom = function() "path"
   )

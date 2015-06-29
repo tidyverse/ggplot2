@@ -32,9 +32,9 @@ position_jitter <- function (width = NULL, height = NULL) {
   PositionJitter$new(width = width, height = height)
 }
 
-PositionJitter <- R6::R6Class("PositionJitter",
+PositionJitter <- proto2(  
   inherit = Position,
-  public = list(
+  members = list(
     objname = "jitter",
 
     adjust = function(data) {

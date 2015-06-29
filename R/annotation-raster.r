@@ -62,8 +62,9 @@ annotation_raster <- function (raster, xmin, xmax, ymin, ymax,
 
 }
 
-GeomRasterAnn <- R6::R6Class("GeomRasterAnn", inherit = GeomRaster,
-  public = list(
+GeomRasterAnn <- proto2(
+  inherit = GeomRaster,
+  members = list(
     objname = "raster_ann",
 
     reparameterise = function(df, params) df,

@@ -74,8 +74,9 @@ stat_bindot <- function (mapping = NULL, data = NULL, geom = "dotplot",
 }
 
 
-StatBindot <- R6::R6Class("StatBindot", inherit = Stat,
-  public = list(
+StatBindot <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "bindot",
 
     informed = FALSE,

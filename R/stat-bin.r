@@ -68,8 +68,9 @@ stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
   )
 }
 
-StatBin <- R6::R6Class("StatBin", inherit = Stat,
-  public = list(
+StatBin <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "bin",
     informed = FALSE,
 

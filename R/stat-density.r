@@ -110,8 +110,9 @@ stat_density <- function (mapping = NULL, data = NULL, geom = "area",
   )
 }
 
-StatDensity <- R6::R6Class("StatDensity", inherit = Stat,
-  public = list(
+StatDensity <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "density",
 
     calculate = function(data, scales, adjust = 1, kernel = "gaussian",

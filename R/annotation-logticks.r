@@ -107,8 +107,9 @@ annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
   )
 }
 
-GeomLogticks <- R6::R6Class("GeomLogticks", inherit = Geom,
-  public = list(
+GeomLogticks <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "logticks",
 
     draw_groups = function(data, scales, coordinates, base = 10, sides = "bl",

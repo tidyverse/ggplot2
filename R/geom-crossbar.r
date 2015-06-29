@@ -28,13 +28,13 @@ geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomCrossbar <- R6::R6Class("GeomCrossbar", inherit = Geom,
-  public = list(
+GeomCrossbar <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "crossbar",
 
     reparameterise = function(df, params) {
-      # R6 TODO: Avoid instantiation
-      GeomErrorbar$new()$reparameterise(df, params)
+      GeomErrorbar$reparameterise(df, params)
     },
 
     default_stat = function() StatIdentity,
@@ -104,10 +104,9 @@ GeomCrossbar <- R6::R6Class("GeomCrossbar", inherit = Geom,
         )
       }
 
-      # R6 TODO: Avoid instantiation
       ggname(self$my_name(), gTree(children = gList(
-        GeomPolygon$new()$draw(box, scales, coordinates, ...),
-        GeomSegment$new()$draw(middle, scales, coordinates, ...)
+        GeomPolygon$draw(box, scales, coordinates, ...),
+        GeomSegment$draw(middle, scales, coordinates, ...)
       )))
     }
   )

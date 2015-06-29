@@ -34,9 +34,9 @@ position_stack <- function (width = NULL, height = NULL) {
   PositionStack$new(width = width, height = height)
 }
 
-PositionStack <- R6::R6Class("PositionStack",
+PositionStack <- proto2(  
   inherit = Position,
-  public = list(
+  members = list(
     objname = "stack",
 
     adjust = function(data) {

@@ -23,9 +23,9 @@ position_fill <- function (width = NULL, height = NULL) {
   PositionFill$new(width = width, height = height)
 }
 
-PositionFill <- R6::R6Class("PositionFill",
+PositionFill <- proto2(  
   inherit = Position,
-  public = list(
+  members = list(
     objname = "fill",
 
     adjust = function(data) {

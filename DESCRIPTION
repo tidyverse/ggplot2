@@ -46,6 +46,7 @@ URL: http://ggplot2.org, https://github.com/hadley/ggplot2
 BugReports: https://github.com/hadley/ggplot2/issues
 LazyData: true
 Collate:
+    'proto2.r'
     'aaa-.r'
     'aaa-constants.r'
     'aes-calculated.r'

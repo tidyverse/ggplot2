@@ -115,8 +115,9 @@ geom_path <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomPath <- R6::R6Class("GeomPath", inherit = Geom,
-  public = list(
+GeomPath <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "path",
 
     draw_groups = function(...) self$draw(...),

@@ -34,8 +34,9 @@ stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step",
 }
 
 
-StatEcdf <- R6::R6Class("StatEcdf", inherit = Stat,
-  public = list(
+StatEcdf <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "ecdf",
 
     calculate = function(data, scales, n = NULL, ...) {

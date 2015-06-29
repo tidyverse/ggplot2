@@ -50,8 +50,9 @@ stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex",
   )
 }
 
-StatSummaryhex <- R6::R6Class("StatSummaryhex", inherit = Stat,
-  public = list(
+StatSummaryhex <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "summaryhex",
 
     default_aes = function() aes(fill = ..value..),

@@ -23,8 +23,9 @@ geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex",
 }
 
 
-GeomHex <- R6::R6Class("GeomHex", inherit = Geom,
-  public = list(
+GeomHex <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "hex",
 
     draw = function(data, scales, coordinates, ...) {

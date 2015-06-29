@@ -38,8 +38,9 @@ geom_density2d <- function (mapping = NULL, data = NULL, stat = "density2d",
 }
 
 
-GeomDensity2d <- R6::R6Class("GeomDensity2d", inherit = GeomPath,
-  public = list(
+GeomDensity2d <- proto2(
+  inherit = GeomPath,
+  members = list(
     objname = "density2d",
 
     default_stat = function() StatDensity2d,

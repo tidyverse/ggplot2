@@ -50,8 +50,9 @@ stat_sum <- function (mapping = NULL, data = NULL, geom = "point",
   )
 }
 
-StatSum <- R6::R6Class("StatSum", inherit = Stat,
-  public = list(
+StatSum <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "sum",
 
     default_aes = function() aes(size = ..n..),

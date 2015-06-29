@@ -41,8 +41,9 @@ annotation_map <- function(map, ...) {
   )
 }
 
-GeomAnnotationMap <- R6::R6Class("GeomAnnotationMap", inherit = GeomMap,
-  public = list(
+GeomAnnotationMap <- proto2(
+  inherit = GeomMap,
+  members = list(
     objname = "map",
 
     draw_groups = function(data, scales, coordinates, map, ...) {

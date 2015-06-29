@@ -61,8 +61,9 @@ geom_polygon <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomPolygon <- R6::R6Class("GeomPolygon", inherit = Geom,
-  public = list(
+GeomPolygon <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "polygon",
 
     draw_groups = function(...) self$draw(...),

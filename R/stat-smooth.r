@@ -131,8 +131,9 @@ stat_smooth <- function (mapping = NULL, data = NULL, geom = "smooth",
   )
 }
 
-StatSmooth <- R6::R6Class("StatSmooth", inherit = Stat,
-  public = list(
+StatSmooth <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "smooth",
 
     calculate_groups = function(data, scales, method = "auto", formula = y~x, ...) {

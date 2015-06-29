@@ -37,8 +37,9 @@ geom_count <- function(mapping = NULL, data = NULL, stat = "sum",
   )
 }
 
-GeomCount <- R6::R6Class("GeomCount", inherit = GeomPoint,
-  public = list(
+GeomCount <- proto2(
+  inherit = GeomPoint,
+  members = list(
     objname = "count",
 
     default_stat = function() StatSum,

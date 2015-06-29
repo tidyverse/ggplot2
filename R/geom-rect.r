@@ -27,8 +27,9 @@ geom_rect <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomRect <- R6::R6Class("GeomRect", inherit = Geom,
-  public = list(
+GeomRect <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "rect",
 
     default_stat = function() StatIdentity,
@@ -49,8 +50,7 @@ GeomRect <- R6::R6Class("GeomRect", inherit = Geom,
           aes <- as.data.frame(row[aesthetics],
             stringsAsFactors = FALSE)[rep(1,5), ]
 
-          # R6 TODO: Avoid instantiation
-          GeomPolygon$new()$draw(cbind(poly, aes), scales, coordinates)
+          GeomPolygon$draw(cbind(poly, aes), scales, coordinates)
         })
 
         ggname("bar", do.call("grobTree", polys))

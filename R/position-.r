@@ -1,17 +1,25 @@
 # Position adjustment occurs over all groups within a geom
 # They work only with discrete x scales and may affect x and y position.
 # Should occur after statistics and scales have been applied.
-Position <- R6::R6Class("Position", inherit = TopLevel,
-  public = list(
+Position <- proto2(
+  inherit = TopLevel,
+  members = list(
     adjust = function(data, scales, ...) data,
 
     class = function() "position",
 
     width = NULL,
+    
     height = NULL,
-    initialize = function(width = NULL, height = NULL) {
-      self$width <- width
-      self$height <- height
+
+    new = function(width = NULL, height = NULL) {
+      proto(
+        inherit = self,
+        members = list(
+          width = width,
+          height = height
+        )
+      )
     },
 
     parameters = function() {

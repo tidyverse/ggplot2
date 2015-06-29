@@ -63,8 +63,9 @@ stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile",
 }
 
 
-StatQuantile <- R6::R6Class("StatQuantile", inherit = Stat,
-  public = list(
+StatQuantile <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "quantile",
 
     default_geom = function() GeomQuantile,

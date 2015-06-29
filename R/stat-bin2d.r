@@ -49,8 +49,9 @@ stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL,
   )
 }
 
-StatBin2d <- R6::R6Class("StatBin2d", inherit = Stat,
-  public = list(
+StatBin2d <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "bin2d",
 
     default_aes = function() aes(fill = ..count..),

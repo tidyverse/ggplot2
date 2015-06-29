@@ -134,9 +134,9 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE,
   if (inherits(position, "Position")) position <- list(position)
 
   mapply(function(g, s, ps) {
-    if(is.character(g)) g <- Geom$new()$find(g)
-    if(is.character(s)) s <- Stat$new()$find(s)
-    if(is.character(ps)) ps <- Position$new()$find(ps)
+    if(is.character(g)) g <- Geom$find(g)
+    if(is.character(s)) s <- Stat$find(s)
+    if(is.character(ps)) ps <- Position$find(ps)
 
     # Have to use non-standard evaluation because we can't evaluate ...
     params <- arguments[setdiff(names(arguments), c(aes_names, argnames))]

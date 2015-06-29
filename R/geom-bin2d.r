@@ -26,12 +26,11 @@ geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d",
   )
 }
 
-GeomBin2d <- R6::R6Class("GeomBin2d", inherit = Geom,
-  public = list(
+GeomBin2d <- proto2(
+  inherit = Geom,
+  members = list(
     draw = function(data, scales, coordinates, ...) {
-
-      # R6 TODO: Avoid instantiation
-      GeomRect$new()$draw(data, scales, coordinates, ...)
+      GeomRect$draw(data, scales, coordinates, ...)
     },
 
     objname = "bin2d",

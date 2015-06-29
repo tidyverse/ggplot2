@@ -52,8 +52,9 @@ stat_summary2d <- function (mapping = NULL, data = NULL, geom = NULL,
   )
 }
 
-StatSummary2d <- R6::R6Class("StatSummary2d", inherit = Stat,
-  public = list(
+StatSummary2d <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "Summary2d",
 
     default_aes = function() aes(fill = ..value..),

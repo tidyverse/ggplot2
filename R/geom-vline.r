@@ -58,8 +58,9 @@ geom_vline <- function (mapping = NULL, data = NULL, stat = "vline",
   )
 }
 
-GeomVline <- R6::R6Class("GeomVline", inherit = Geom,
-  public = list(
+GeomVline <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "vline",
 
     new = function(data = NULL, mapping = NULL, xintercept = NULL, ...) {
@@ -78,8 +79,7 @@ GeomVline <- R6::R6Class("GeomVline", inherit = Geom,
       data$y    <- ranges$y[1]
       data$yend <- ranges$y[2]
 
-      # R6 TODO: Avoid instantiation
-      GeomSegment$new()$draw(unique(data), scales, coordinates)
+      GeomSegment$draw(unique(data), scales, coordinates)
     },
 
 

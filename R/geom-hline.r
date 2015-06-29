@@ -61,8 +61,9 @@ geom_hline <- function (mapping = NULL, data = NULL, stat = "hline",
   )
 }
 
-GeomHline <- R6::R6Class("GeomHline", inherit = Geom,
-  public = list(
+GeomHline <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "hline",
 
     draw = function(data, scales, coordinates, ...) {
@@ -71,8 +72,7 @@ GeomHline <- R6::R6Class("GeomHline", inherit = Geom,
       data$x    <- ranges$x[1]
       data$xend <- ranges$x[2]
 
-      # R6 TODO: Avoid instantiation
-      GeomSegment$new()$draw(unique(data), scales, coordinates)
+      GeomSegment$draw(unique(data), scales, coordinates)
     },
 
     default_stat = function() StatHline,

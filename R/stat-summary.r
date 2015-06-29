@@ -126,8 +126,9 @@ stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
   )
 }
 
-StatSummary <- R6::R6Class("StatSummary", inherit = Stat,
-  public = list(
+StatSummary <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "summary",
 
     default_geom = function() GeomPointrange,

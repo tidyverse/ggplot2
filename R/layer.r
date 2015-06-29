@@ -11,9 +11,8 @@
 #  * flag for display guide: TRUE/FALSE/NA. in the case of NA, decision depends on a guide itself.
 #
 # Can think about grob creation as a series of data frame transformations.
-Layer <- R6::R6Class("Layer",
-  lock_objects = FALSE,
-  public = list(
+Layer <- proto2(
+  members = list(
     geom = NULL,
     geom_params = NULL,
     stat = NULL,
@@ -24,7 +23,7 @@ Layer <- R6::R6Class("Layer",
     params = NULL,
     inherit.aes = FALSE,
 
-    initialize = function(geom = NULL, geom_params = NULL, stat = NULL,
+    new = function(geom = NULL, geom_params = NULL, stat = NULL,
       stat_params = NULL, data = NULL, mapping = NULL, position = NULL,
       params = NULL, inherit.aes = TRUE, subset = NULL, show_guide = NA)
     {
@@ -42,26 +41,13 @@ Layer <- R6::R6Class("Layer",
       data <- fortify(data)
       if (!is.null(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be a list of unevaluated mappings created by aes or aes_string")
 
-      # R6 TODO: Avoid instantiation
-      if (is.character(geom)) geom <- Geom$new()$find(geom)
-      if (is.character(stat)) stat <- Stat$new()$find(stat)
-      if (is.character(position)) position <- Position$new()$find(position)
+      if (is.character(geom)) geom <- Geom$find(geom)
+      if (is.character(stat)) stat <- Stat$find(stat)
+      if (is.character(position)) position <- Position$find(position)
 
-      # Instantiate the geom, stat, or position, if we've been passed an object
-      # generator instead of the corresponding object. Do this at run time
-      # instead of package build time, so that geoms in external packages set up
-      # inheritance with the current version of ggplot2, not whatever version
-      # they were built with.
-      if (!is.null(geom) && inherits(geom, "R6ClassGenerator"))
-        geom <- geom$new()
-      if (!is.null(stat) && inherits(stat, "R6ClassGenerator"))
-        stat <- stat$new()
-      if (!is.null(position) && inherits(position, "R6ClassGenerator"))
-        position <- position$new()
-
-      if (is.null(geom)) geom <- stat$default_geom()$new()
-      if (is.null(stat)) stat <- geom$default_stat()$new()
-      if (is.null(position)) position <- geom$default_pos()$new()
+      if (is.null(geom)) geom <- stat$default_geom()
+      if (is.null(stat)) stat <- geom$default_stat()
+      if (is.null(position)) position <- geom$default_pos()
 
       match.params <- function(possible, params) {
         if ("..." %in% names(possible)) {
@@ -81,16 +67,20 @@ Layer <- R6::R6Class("Layer",
         stat_params <- c(stat_params, match.params(stat$parameters(), params))
       }
 
-      self$geom        <- geom
-      self$geom_params <- geom_params
-      self$stat        <- stat
-      self$stat_params <- stat_params
-      self$data        <- data
-      self$mapping     <- mapping
-      self$subset      <- subset
-      self$position    <- position
-      self$inherit.aes <- inherit.aes
-      self$show_guide  <- show_guide
+      proto2(inherit = Layer,
+        members = list(
+          geom = geom,
+          geom_params = geom_params,
+          stat = stat,
+          stat_params = stat_params,
+          data = data,
+          mapping = mapping,
+          subset = subset,
+          position = position,
+          inherit.aes = inherit.aes,
+          show_guide = show_guide
+        )
+      )
     },
 
     use_defaults = function(data) {

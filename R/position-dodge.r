@@ -30,9 +30,9 @@ position_dodge <- function(width = NULL, height = NULL) {
   PositionDodge$new(width = width, height = height)
 }
 
-PositionDodge <- R6::R6Class("PositionDodge",
+PositionDodge <- proto2(  
   inherit = Position,
-  public = list(
+  members = list(
     objname = "dodge",
 
     adjust = function(data) {

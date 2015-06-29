@@ -65,8 +65,9 @@ stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
   )
 }
 
-StatEllipse <- R6::R6Class("StatEllipse", inherit = Stat,
-  public = list(
+StatEllipse <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "ellipse",
 
     required_aes = c("x", "y"),

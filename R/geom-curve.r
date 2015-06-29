@@ -50,8 +50,9 @@ geom_curve <- function(mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomCurve <- R6::R6Class("GeomCurve", inherit = Geom,
-  public = list(
+GeomCurve <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "curve",
 
     draw = function(data, scales, coordinates, curvature, angle, ncp,

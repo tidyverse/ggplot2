@@ -41,8 +41,9 @@ stat_boxplot <- function (mapping = NULL, data = NULL, geom = "boxplot",
 }
 
 
-StatBoxplot <- R6::R6Class("StatBoxplot", inherit = Stat,
-  public = list(
+StatBoxplot <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "boxplot",
 
     required_aes = c("x", "y"),

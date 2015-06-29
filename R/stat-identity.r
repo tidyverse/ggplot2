@@ -42,8 +42,9 @@ stat_identity <- function (mapping = NULL, data = NULL, geom = "point",
   )
 }
 
-StatIdentity <- R6::R6Class("StatIdentity", inherit = Stat,
-  public = list(
+StatIdentity <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "identity",
 
     default_geom = function() GeomPoint,

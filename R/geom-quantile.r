@@ -32,8 +32,9 @@ geom_quantile <- function (mapping = NULL, data = NULL, stat = "quantile",
   )
 }
 
-GeomQuantile <- R6::R6Class("GeomQuantile", inherit = GeomPath,
-  public = list(
+GeomQuantile <- proto2(
+  inherit = GeomPath,
+  members = list(
     objname = "quantile",
 
     default_stat = function() StatQuantile,
@@ -41,8 +42,7 @@ GeomQuantile <- R6::R6Class("GeomQuantile", inherit = GeomPath,
     default_aes = function() {
       defaults(
         aes(weight = 1, colour = "#3366FF", size = 0.5),
-        # R6 TODO: Avoid instantiation
-        GeomPath$new()$default_aes()
+        GeomPath$default_aes()
       )
     },
 

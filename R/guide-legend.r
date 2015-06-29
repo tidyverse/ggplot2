@@ -282,8 +282,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     # override.aes in guide_legend manually changes the geom
     for (aes in intersect(names(guide$override.aes), names(data))) data[[aes]] <- guide$override.aes[[aes]]
 
-    # R6 TODO: Avoid instantiation
-    geom <- Geom$new()$find(layer$geom$guide_geom())$new()
+    geom <- Geom$find(layer$geom$guide_geom())
     params <- c(layer$geom_params, layer$stat_params)
     list(geom = geom, data = data, params = params)
   })

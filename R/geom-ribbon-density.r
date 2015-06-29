@@ -27,8 +27,9 @@ geom_density <- function (mapping = NULL, data = NULL, stat = "density",
   )
 }
 
-GeomDensity <- R6::R6Class("GeomDensity", inherit = GeomArea,
-  public = list(
+GeomDensity <- proto2(
+  inherit = GeomArea,
+  members = list(
     objname = "density",
 
     default_stat = function() StatDensity,
@@ -38,8 +39,7 @@ GeomDensity <- R6::R6Class("GeomDensity", inherit = GeomArea,
     default_aes = function() {
       defaults(
         aes(fill = NA, weight = 1, colour = "black", alpha = NA),
-        # R6 TODO: Avoid instantiation
-        GeomArea$new()$default_aes()
+        GeomArea$default_aes()
       )
     }
   )

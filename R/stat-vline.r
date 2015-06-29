@@ -21,8 +21,9 @@ stat_abline <- function (mapping = NULL, data = NULL, geom = "abline",
   )
 }
 
-StatAbline <- R6::R6Class("StatAbline", inherit = Stat,
-  public = list(
+StatAbline <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "abline",
 
     calculate = function(data, scales, intercept = NULL, slope = NULL, ...) {
@@ -66,8 +67,9 @@ stat_vline <- function (mapping = NULL, data = NULL, geom = "vline",
   )
 }
 
-StatVline <- R6::R6Class("StatVline", inherit = Stat,
-  public = list(
+StatVline <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "vline",
 
     calculate = function(data, scales, xintercept = NULL, intercept, ...) {
@@ -109,8 +111,9 @@ stat_hline <- function (mapping = NULL, data = NULL, geom = "hline",
   )
 }
 
-StatHline <- R6::R6Class("StatHline", inherit = Stat,
-  public = list(
+StatHline <- proto2(
+  inherit = Stat,
+  members = list(
     calculate = function(data, scales, yintercept = NULL, intercept, ...) {
       if (!missing(intercept)) {
         stop("stat_hline now uses yintercept instead of intercept")

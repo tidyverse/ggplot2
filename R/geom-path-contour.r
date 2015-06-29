@@ -31,8 +31,9 @@ geom_contour <- function (mapping = NULL, data = NULL, stat = "contour",
   )
 }
 
-GeomContour <- R6::R6Class("GeomContour", inherit = GeomPath,
-  public = list(
+GeomContour <- proto2(
+  inherit = GeomPath,
+  members = list(
     objname = "contour",
 
     default_aes = function() {

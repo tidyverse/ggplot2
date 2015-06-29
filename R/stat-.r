@@ -1,5 +1,6 @@
-Stat <- R6::R6Class("Stat", inherit = TopLevel,
-  public = list(
+Stat <- proto2(
+  inherit = TopLevel,
+  members = list(
     objname = "",
 
     desc = "",

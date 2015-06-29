@@ -23,8 +23,9 @@ stat_unique <- function (mapping = NULL, data = NULL, geom = "point",
   )
 }
 
-StatUnique <- R6::R6Class("StatUnique", inherit = Stat,
-  public = list(
+StatUnique <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "unique",
 
     desc = "Remove duplicates",

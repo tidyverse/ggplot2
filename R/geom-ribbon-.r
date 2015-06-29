@@ -53,8 +53,9 @@ geom_ribbon <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomRibbon <- R6::R6Class("GeomRibbon", inherit = Geom,
-  public = list(
+GeomRibbon <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "ribbon",
 
     default_stat = function() StatIdentity,
@@ -138,8 +139,9 @@ geom_area <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomArea <- R6::R6Class("GeomArea", inherit = GeomRibbon,
-  public = list(
+GeomArea <- proto2(
+  inherit = GeomRibbon,
+  members = list(
     objname = "area",
 
     default_aes = function() {

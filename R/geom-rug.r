@@ -36,8 +36,9 @@ geom_rug <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 
-GeomRug <- R6::R6Class("GeomRug", inherit = Geom,
-  public = list(
+GeomRug <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "rug",
 
     draw = function(data, scales, coordinates, sides, ...) {

@@ -64,8 +64,9 @@ stat_function <- function (mapping = NULL, data = NULL, geom = "path",
   )
 }
 
-StatFunction <- R6::R6Class("StatFunction", inherit = Stat,
-  public = list(
+StatFunction <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "function",
 
     default_geom = function() GeomPath,

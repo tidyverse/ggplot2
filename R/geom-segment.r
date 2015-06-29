@@ -63,8 +63,9 @@ geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomSegment <- R6::R6Class("GeomSegment", inherit = Geom,
-  public = list(
+GeomSegment <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "segment",
 
     draw = function(data, scales, coordinates, arrow = NULL,
@@ -92,8 +93,7 @@ GeomSegment <- R6::R6Class("GeomSegment", inherit = Geom,
       pieces <- rbind(starts, ends)
       pieces <- pieces[order(pieces$group),]
 
-      # R6 TODO: Avoid instantiation
-      GeomPath$new()$draw_groups(pieces, scales, coordinates, arrow = arrow, ...)
+      GeomPath$draw_groups(pieces, scales, coordinates, arrow = arrow, ...)
     },
 
 

@@ -1,5 +1,6 @@
-Geom <- R6::R6Class("Geom", inherit = TopLevel,
-  public = list(
+Geom <- proto2(
+  inherit = TopLevel,
+  members = list(
     class = function() "geom",
 
     parameters = function() {

@@ -95,8 +95,9 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
 }
 
 
-GeomText <- R6::R6Class("GeomText", inherit = Geom,
-  public = list(
+GeomText <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "text",
 
     draw_groups = function(...) self$draw(...),

@@ -140,8 +140,9 @@ geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
   )
 }
 
-GeomDotplot <- R6::R6Class("GeomDotplot", inherit = Geom,
-  public = list(
+GeomDotplot <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "dotplot",
 
     reparameterise = function(df, params) {

@@ -23,16 +23,23 @@ position_nudge <- function(x = 0, y = 0) {
   PositionNudge$new(x = x, y = y)
 }
 
-PositionNudge <- R6::R6Class("PositionNudge",
+PositionNudge <- proto2(  
   inherit = Position,
-  public = list(
+  members = list(
     objname = "nudge",
+
     x = NULL,
+
     y = NULL,
 
-    initialize = function(x = 0, y = 0) {
-      self$x <- x
-      self$y <- y
+    new = function(x = NULL, y = NULL) {
+      proto(
+        inherit = self,
+        members = list(
+          x = x,
+          y = y
+        )
+      )
     },
 
     adjust = function(data) {

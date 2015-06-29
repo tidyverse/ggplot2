@@ -53,8 +53,9 @@ stat_qq <- function (mapping = NULL, data = NULL, geom = "point",
   )
 }
 
-StatQq <- R6::R6Class("StatQq", inherit = Stat,
-  public = list(
+StatQq <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "qq",
 
     default_geom = function() GeomPoint,

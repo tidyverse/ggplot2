@@ -28,8 +28,9 @@ geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomPointrange <- R6::R6Class("GeomPointrange", inherit = Geom,
-  public = list(
+GeomPointrange <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "pointrange",
 
     default_stat = function() StatIdentity,
@@ -44,13 +45,12 @@ GeomPointrange <- R6::R6Class("GeomPointrange", inherit = Geom,
     required_aes = c("x", "y", "ymin", "ymax"),
 
     draw = function(data, scales, coordinates, ...) {
-      # R6 TODO: Avoid instantiation
-      if (is.null(data$y)) return(GeomLinerange$new()$draw(data, scales, coordinates, ...))
+      if (is.null(data$y)) return(GeomLinerange$draw(data, scales, coordinates, ...))
 
       ggname(self$my_name(),
         gTree(children=gList(
-          GeomLinerange$new()$draw(data, scales, coordinates, ...),
-          GeomPoint$new()$draw(transform(data, size = size * 4), scales, coordinates, ...)
+          GeomLinerange$draw(data, scales, coordinates, ...),
+          GeomPoint$draw(transform(data, size = size * 4), scales, coordinates, ...)
         ))
       )
     },
@@ -59,9 +59,8 @@ GeomPointrange <- R6::R6Class("GeomPointrange", inherit = Geom,
       data <- aesdefaults(data, self$default_aes(), list(...))
 
       grobTree(
-        # R6 TODO: Avoid instantiation
-        GeomPath$new()$draw_legend(data, ...),
-        GeomPoint$new()$draw_legend(transform(data, size = size * 4), ...)
+        GeomPath$draw_legend(data, ...),
+        GeomPoint$draw_legend(transform(data, size = size * 4), ...)
       )
     }
   )

@@ -135,8 +135,9 @@ geom_point <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomPoint <- R6::R6Class("GeomPoint", inherit = Geom,
-  public = list(
+GeomPoint <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "point",
 
     draw_groups = function(...) self$draw(...),

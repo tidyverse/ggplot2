@@ -76,8 +76,9 @@ geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity",
   )
 }
 
-GeomViolin <- R6::R6Class("GeomViolin", inherit = Geom,
-  public = list(
+GeomViolin <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "violin",
 
     reparameterise = function(df, params) {
@@ -105,8 +106,7 @@ GeomViolin <- R6::R6Class("GeomViolin", inherit = Geom,
       # Needed for coord_polar and such
       newdata <- rbind(newdata, newdata[1,])
 
-      # R6 TODO: Avoid instantiation
-      ggname(self$my_name(), GeomPolygon$new()$draw(newdata, ...))
+      ggname(self$my_name(), GeomPolygon$draw(newdata, ...))
     },
 
     guide_geom = function() "polygon",

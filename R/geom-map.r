@@ -82,8 +82,9 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
   )
 }
 
-GeomMap <- R6::R6Class("GeomMap", inherit = GeomPolygon,
-  public = list(
+GeomMap <- proto2(
+  inherit = GeomPolygon,
+  members = list(
     objname = "map",
 
     draw_groups = function(data, scales, coordinates, map, ...) {

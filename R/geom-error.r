@@ -63,8 +63,9 @@ geom_errorbar <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomErrorbar <- R6::R6Class("GeomErrorbar", inherit = Geom,
-  public = list(
+GeomErrorbar <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "errorbar",
 
     default_stat = function() StatIdentity,
@@ -87,8 +88,7 @@ GeomErrorbar <- R6::R6Class("GeomErrorbar", inherit = Geom,
     },
 
     draw = function(data, scales, coordinates, width = NULL, ...) {
-      # R6 TODO: Avoid instantiation
-      GeomPath$new()$draw(with(data, data.frame(
+      GeomPath$draw(with(data, data.frame(
         x = as.vector(rbind(xmin, xmax, NA, x,    x,    NA, xmin, xmax)),
         y = as.vector(rbind(ymax, ymax, NA, ymax, ymin, NA, ymin, ymin)),
         colour = rep(colour, each = 8),

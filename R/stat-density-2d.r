@@ -77,8 +77,9 @@ stat_density2d <- function (mapping = NULL, data = NULL, geom = "density2d",
   )
 }
 
-StatDensity2d <- R6::R6Class("StatDensity2d", inherit = Stat,
-  public = list(
+StatDensity2d <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "density2d",
 
     default_geom = function() GeomDensity2d,
@@ -98,8 +99,7 @@ StatDensity2d <- R6::R6Class("StatDensity2d", inherit = Stat,
       df$group <- data$group[1]
 
       if (contour) {
-        # R6 TODO: Avoid instantiation
-        StatContour$new()$calculate(df, scales, ...)
+        StatContour$calculate(df, scales, ...)
       } else {
         names(df) <- c("x", "y", "density", "group")
         df$level <- 1

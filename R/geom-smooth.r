@@ -68,8 +68,9 @@ geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth",
   )
 }
 
-GeomSmooth <- R6::R6Class("GeomSmooth", inherit = Geom,
-  public = list(
+GeomSmooth <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "smooth",
 
     draw = function(data, scales, coordinates, ...) {
@@ -78,10 +79,9 @@ GeomSmooth <- R6::R6Class("GeomSmooth", inherit = Geom,
 
       has_ribbon <- function(x) !is.null(data$ymax) && !is.null(data$ymin)
 
-      # R6 TODO: Avoid instantiation
       gList(
-        if (has_ribbon(data)) GeomRibbon$new()$draw(ribbon, scales, coordinates),
-        GeomLine$new()$draw(path, scales, coordinates)
+        if (has_ribbon(data)) GeomRibbon$draw(ribbon, scales, coordinates),
+        GeomLine$draw(path, scales, coordinates)
       )
     },
 
@@ -104,11 +104,10 @@ GeomSmooth <- R6::R6Class("GeomSmooth", inherit = Geom,
       if (is.null(params$se) || params$se) {
         gTree(children = gList(
           rectGrob(gp = gpar(col = NA, fill = data$fill)),
-          # R6 TODO: Avoid instantiation
-          GeomPath$new()$draw_legend(data, ...)
+          GeomPath$draw_legend(data, ...)
         ))
       } else {
-        GeomPath$new()$draw_legend(data, ...)
+        GeomPath$draw_legend(data, ...)
       }
     }
   )

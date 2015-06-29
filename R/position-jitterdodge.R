@@ -25,19 +25,24 @@ position_jitterdodge <- function (jitter.width = NULL,
                           dodge.width = dodge.width)
 }
 
-PositionJitterDodge <- R6::R6Class("PositionJitterDodge",
+PositionJitterDodge <- proto2(  
   inherit = Position,
-  public = list(
+  members = list(
     jitter.width = NULL,
     jitter.height = NULL,
     dodge.width = NULL,
 
-    initialize = function(jitter.width = NULL,
-                          jitter.height = NULL,
-                          dodge.width = NULL) {
-      self$jitter.width <- jitter.width
-      self$jitter.height <- jitter.height
-      self$dodge.width <- dodge.width
+    new = function(jitter.width = NULL,
+      jitter.height = NULL, dodge.width = NULL)
+    {
+      proto(
+        inherit = self,
+        members = list(
+          jitter.width = jitter.width,
+          jitter.height = jitter.height,
+          dodge.width = dodge.width
+        )
+      )
     },
 
     objname = "jitterdodge",

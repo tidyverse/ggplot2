@@ -55,8 +55,9 @@ annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax 
   )
 }
 
-GeomCustomAnn <- R6::R6Class("GeomCustomAnn", inherit = Geom,
-  public = list(
+GeomCustomAnn <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "custom_ann",
 
     draw_groups = function(data, scales, coordinates, grob, xmin, xmax,

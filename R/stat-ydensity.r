@@ -49,8 +49,9 @@ stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
 }
 
 
-StatYdensity <- R6::R6Class("StatYdensity", inherit = Stat,
-  public = list(
+StatYdensity <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "ydensity",
 
     calculate_groups = function(data, na.rm = FALSE, width = NULL,

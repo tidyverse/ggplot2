@@ -76,8 +76,9 @@ geom_abline <- function (mapping = NULL, data = NULL, stat = "abline",
   )
 }
 
-GeomAbline <- R6::R6Class("GeomAbline", inherit = Geom,
-  public = list(
+GeomAbline <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "abline",
 
     draw = function(data, scales, coordinates, ...) {
@@ -88,8 +89,7 @@ GeomAbline <- R6::R6Class("GeomAbline", inherit = Geom,
       data$y    <- ranges$x[1] * data$slope + data$intercept
       data$yend <- ranges$x[2] * data$slope + data$intercept
 
-      # R6 TODO: Avoid instantiation
-      GeomSegment$new()$draw(unique(data), scales, coordinates)
+      GeomSegment$draw(unique(data), scales, coordinates)
     },
 
     guide_geom = function() "abline",

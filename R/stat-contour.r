@@ -66,8 +66,9 @@ stat_contour <- function (mapping = NULL, data = NULL, geom = "path",
 }
 
 
-StatContour <- R6::R6Class("StatContour", inherit = Stat,
-  public = list(
+StatContour <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "contour",
 
     calculate = function(data, scales, bins = NULL, binwidth = NULL,

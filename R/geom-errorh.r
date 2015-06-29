@@ -37,8 +37,9 @@ geom_errorbarh <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 
-GeomErrorbarh <- R6::R6Class("GeomErrorbarh", inherit = Geom,
-  public = list(
+GeomErrorbarh <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "errorbarh",
 
     default_stat = function() StatIdentity,
@@ -61,8 +62,7 @@ GeomErrorbarh <- R6::R6Class("GeomErrorbarh", inherit = Geom,
     },
 
     draw = function(data, scales, coordinates, height = NULL, ...) {
-      # R6 TODO: Avoid instantiation
-      GeomPath$new()$draw(with(data, data.frame(
+      GeomPath$draw(with(data, data.frame(
         x = as.vector(rbind(xmax, xmax, NA, xmax, xmin, NA, xmin, xmin)),
         y = as.vector(rbind(ymin, ymax, NA, y,    y,    NA, ymin, ymax)),
         colour = rep(colour, each = 8),

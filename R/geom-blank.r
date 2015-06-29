@@ -37,8 +37,9 @@ geom_blank <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 
-GeomBlank <- R6::R6Class("GeomBlank", inherit = Geom,
-  public = list(
+GeomBlank <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "blank",
 
     default_stat = function() StatIdentity,

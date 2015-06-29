@@ -47,8 +47,9 @@ geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomLinerange <- R6::R6Class("GeomLinerange", inherit = Geom,
-  public = list(
+GeomLinerange <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "linerange",
 
     default_stat = function() StatIdentity,
@@ -65,8 +66,7 @@ GeomLinerange <- R6::R6Class("GeomLinerange", inherit = Geom,
       munched <- coord_transform(coordinates, data, scales)
       ggname(
         self$my_name(),
-        # R6 TODO: Avoid instantiation
-        GeomSegment$new()$draw(
+        GeomSegment$draw(
           transform(data, xend=x, y=ymin, yend=ymax), scales, coordinates, ...
         )
       )

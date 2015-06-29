@@ -145,8 +145,9 @@ geom_bar <- function (mapping = NULL, data = NULL, stat = "bin",
   )
 }
 
-GeomBar <- R6::R6Class("GeomBar", inherit = Geom,
-  public = list(
+GeomBar <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "bar",
 
     default_stat = function() StatBin,
@@ -166,8 +167,7 @@ GeomBar <- R6::R6Class("GeomBar", inherit = Geom,
     },
 
     draw_groups = function(data, scales, coordinates, ...) {
-      # R6 TODO: Avoid instantiation
-      GeomRect$new()$draw_groups(data, scales, coordinates, ...)
+      GeomRect$draw_groups(data, scales, coordinates, ...)
     },
     guide_geom = function() "polygon"
   )

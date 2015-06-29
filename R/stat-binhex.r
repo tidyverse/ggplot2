@@ -45,8 +45,9 @@ stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex",
 }
 
 
-StatBinhex <- R6::R6Class("StatBinhex", inherit = Stat,
-  public = list(
+StatBinhex <- proto2(
+  inherit = Stat,
+  members = list(
     objname = "binhex",
 
     default_aes = function() aes(fill = ..count..),

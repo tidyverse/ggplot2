@@ -76,8 +76,9 @@ geom_raster <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomRaster <- R6::R6Class("GeomRaster", inherit = Geom,
-  public = list(
+GeomRaster <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "raster",
 
     reparameterise = function(df, params) {

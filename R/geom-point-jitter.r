@@ -53,8 +53,9 @@ geom_jitter <- function(mapping = NULL, data = NULL,
   )
 }
 
-GeomJitter <- R6::R6Class("GeomJitter", inherit = GeomPoint,
-  public = list(
+GeomJitter <- proto2(
+  inherit = GeomPoint,
+  members = list(
     objname = "jitter",
 
     default_stat = function() StatIdentity,

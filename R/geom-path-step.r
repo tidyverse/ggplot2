@@ -45,8 +45,9 @@ geom_step <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomStep <- R6::R6Class("GeomStep", inherit = Geom,
-  public = list(
+GeomStep <- proto2(
+  inherit = Geom,
+  members = list(
     objname = "step",
 
     details = "Equivalent to plot(type='s').",
@@ -55,8 +56,7 @@ GeomStep <- R6::R6Class("GeomStep", inherit = Geom,
 
     draw = function(data, scales, coordinates, direction = "hv", ...) {
       data <- stairstep(data, direction)
-      # R6 TODO: Avoid instantiation
-      GeomPath$new()$draw(data, scales, coordinates, ...)
+      GeomPath$draw(data, scales, coordinates, ...)
     },
 
     guide_geom = function() "path",

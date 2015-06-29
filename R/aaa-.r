@@ -1,4 +1,7 @@
-#' Base R6 classes for ggplot2
+#' @include proto2.r
+NULL
+
+#' Base proto2 classes for ggplot2
 #'
 #' If you are creating a new geom, stat or positions in another package, you'll
 #' need to extend from \code{ggplot2::Geom}, \code{ggplot2::Stat} or
@@ -7,7 +10,7 @@
 #' @export Geom Stat Position
 #' @aliases Geom Stat Position
 #' @keywords internal
-#' @name ggplot2-r6
+#' @name ggplot2-proto2
 NULL
 
 # INCLUDES <- "web/graphics"
@@ -22,8 +25,8 @@ firstUpper <- function(s) {
 }
 
 
-TopLevel <- R6::R6Class("TopLevel",
-  public = list(
+TopLevel <- proto2(
+  members = list(
     find_all = function(only.documented = FALSE) {
       names <- ls(
         pattern = paste("^", firstUpper(self$class()), "[A-Z].+", sep=""),
