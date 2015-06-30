@@ -4,62 +4,73 @@
 \alias{labeller}
 \title{Generic labeller function for facets}
 \usage{
-labeller(..., keep.as.numeric = FALSE)
+labeller(..., keep.as.numeric = NULL, .as_character = FALSE,
+  .multi_line = TRUE, .default = label_value)
 }
 \arguments{
-\item{...}{Named arguments of the form \code{variable=values},
+\item{...}{Named arguments of the form \code{variable = labeller},
 where \code{values} could be a vector or method.}
 
-\item{keep.as.numeric}{logical, default TRUE. When FALSE, converts numeric
-values supplied as margins to the facet to characters.}
+\item{keep.as.numeric}{Deprecated, use \code{.as_character} instead.}
+
+\item{.as_character}{Logical, default FALSE. When TRUE, converts
+numeric labels to characters.}
+
+\item{.multi_line}{Whether to display the labels of multiple
+factors on separate lines. This is passed to the labeller function.}
+
+\item{.default}{Default labeller function with which to process the
+labels not mentioned in \code{...} or those produced with a
+lookup table or a non-labeller function.}
 }
 \value{
-Function to supply to
-  \code{\link{facet_grid}} for the argument \code{labeller}.
+A labeller function to supply to \code{\link{facet_grid}}
+  for the argument \code{labeller}.
 }
 \description{
-One-step function for providing methods or named character vectors
-for displaying labels in facets.
+This function makes it easy to assign different labellers to
+different factors. The labeller can be a function or it can be a
+named character vectors that will serve as a lookup table.
 }
 \details{
-The provided methods are checked for number of arguments.
-If the provided method takes less than two
-(e.g. \code{\link[Hmisc]{capitalize}}),
-the method is passed \code{values}.
-Else (e.g. \code{\link{label_both}}),
-it is passed \code{variable} and \code{values} (in that order).
-If you want to be certain, use e.g. an anonymous function.
-If errors are returned such as ``argument ".." is missing, with no default''
-or ``unused argument (variable)'', matching the method's arguments does not
-work as expected; make a wrapper function.
+In case of functions, if the labeller has class \code{labeller}, it
+is directly applied on the data frame of labels. Otherwise, it is
+applied to the columns of the data frame of labels. The data frame
+is then processed with the function specified in the
+\code{.default} argument. This is intended to be used with
+functions taking a character vector such as
+\code{\link[Hmisc]{capitalize}}.
 }
 \examples{
 \donttest{
 p1 <- ggplot(mpg, aes(cty, hwy)) + geom_point()
-p1 + facet_grid(cyl ~ class, labeller=label_both)
-p1 + facet_grid(cyl ~ class, labeller=labeller(cyl=label_both))
+p1 + facet_grid(cyl ~ class, labeller = label_both)
+p1 + facet_grid(cyl ~ class, labeller = labeller(cyl = label_both))
 
 ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point() +
   facet_grid(vs + am ~ gear, margins=TRUE,
-             labeller=labeller(vs=label_both, am=label_both))
+    labeller = labeller(vs = label_both, am = label_both))
+
 
 capitalize <- function(string) {
   substr(string, 1, 1) <- toupper(substr(string, 1, 1))
   string
 }
-conservation_status <- c('cd'='Conservation Dependent',
-                         'en'='Endangered',
-                         'lc'='Least concern',
-                         'nt'='Near Threatened',
-                         'vu'='Vulnerable',
-                         'domesticated'='Domesticated')
+conservation_status <- c('cd' = 'Conservation Dependent',
+                         'en' = 'Endangered',
+                         'lc' = 'Least concern',
+                         'nt' = 'Near Threatened',
+                         'vu' = 'Vulnerable',
+                         'domesticated' = 'Domesticated')
 ## Source: http://en.wikipedia.org/wiki/Wikipedia:Conservation_status
 
-p2 <- ggplot(msleep, aes(x=sleep_total, y=awake)) + geom_point()
+p2 <- ggplot(msleep, aes(x = sleep_total, y = awake)) + geom_point()
 p2 + facet_grid(vore ~ conservation, labeller = labeller(vore = capitalize))
 
-p2 + facet_grid(vore ~ conservation,
-  labeller=labeller(vore = capitalize, conservation = conservation_status ))
+p2 + facet_grid(vore ~ conservation, labeller = labeller(
+  vore = capitalize,
+  conservation = conservation_status
+))
 
 # We could of course have renamed the levels;
 # then we can apply another nifty function
@@ -68,8 +79,20 @@ msleep$conservation2 <- plyr::revalue(msleep$conservation, conservation_status)
 p2 \%+\% msleep +
   facet_grid(vore ~ conservation2, labeller = labeller(vore = capitalize))
 p2 \%+\% msleep +
- facet_grid(vore ~ conservation2, labeller = labeller(conservation2 =
- label_wrap_gen(10)))
+  facet_grid(vore ~ conservation2,
+    labeller = labeller(conservation2 = label_wrap_gen(10))
+  )
 }
+
+# When multiple factors index the facetting, simply refer to one of
+# them to assign a labeller:
+p3 <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
+p3 + facet_grid(gear + am ~ vs + cyl, labeller = labeller(
+  vs = label_bquote(.(cyl) ^ .(vs)),
+  .default = label_value
+))
+}
+\seealso{
+\link{labellers}
 }
 

@@ -342,46 +342,28 @@ facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   })
 }
 
-mentions_parse <- function(expr) {
-  if (is.call(expr)) {
-    if (as.character(expr[[1]]) == "parse") {
-      TRUE
-    } else {
-      any(vapply(expr[-1], mentions_parse, logical(1)))
-    }
-  } else {
-    FALSE
-  }
-}
-
 #' @export
 facet_strips.wrap <- function(facet, panel, theme) {
-  labeller <- match.fun(facet$labeller)
   labels_df <- panel$layout[names(facet$facets)]
 
-  # If faceting with multiple variables, paste them together
-  labels <- apply(labels_df, 1, paste, collapse = ", ")
-  varnames <- paste(names(labels_df), collapse=", ")
-
-  # Labellers that parse expressions for plotmath need special
-  # treatment to handle comma-separated variables. We detect such
-  # functions by scanning for parse() calls. This is a bit hacky but
-  # it's difficult to solve the problem without an API breakage, and
-  # it should work in most cases.
-  if (mentions_parse(body(labeller))) {
-    labels <- paste0("list(", labels, ")")
+  if (!is.null(facet$switch) && facet$switch == "x") {
+    dir <- "b"
+  } else {
+    dir <- "t"
   }
 
-  # Run the labeller function
-  labels <- labeller(varnames, labels)
+  strips_table <- build_strip(panel, labels_df, facet$labeller,
+    theme, dir, switch = facet$switch)
 
-  vertical <- !is.null(facet$switch) && facet$switch == "y"
-  if (vertical) {
-    theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
+  # While grid facetting works with a whole gtable, wrap processes the
+  # columns separately. So we turn the gtable into a list of columns
+  strips <- list(t = vector("list", ncol(strips_table)))
+  for (i in seq_along(strips$t)) {
+    strips$t[[i]] <- strips_table[, i]
   }
-
-  list(t = plyr::llply(labels, ggstrip, theme = theme, horizontal = !vertical))
+  strips
 }
+
 
 #' @export
 facet_axes.wrap <- function(facet, panel, coord, theme) {
