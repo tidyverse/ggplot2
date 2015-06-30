@@ -252,7 +252,7 @@ GeomBoxplot <- proto2(
 
     default_aes = function(self) {
       aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
-          alpha = NA, shape = 16, linetype = "solid")
+          alpha = NA, shape = 19, linetype = "solid")
     },
 
     required_aes = c("x", "lower", "upper", "middle", "ymin", "ymax")
