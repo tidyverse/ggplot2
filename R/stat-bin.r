@@ -74,13 +74,13 @@ StatBin <- proto2(
     objname = "bin",
     informed = FALSE,
 
-    calculate_groups = function(self, data, ...) {
+    calculate_groups = function(self, super, data, ...) {
       if (!is.null(data$y) || !is.null(match.call()$y)) {
         stop("May not have y aesthetic when binning", call. = FALSE)
       }
 
       self$informed <- FALSE
-      self$super$calculate_groups(self, data, ...)
+      super$calculate_groups(self, data, ...)
     },
 
     calculate = function(self, data, scales, binwidth = NULL, origin = NULL,

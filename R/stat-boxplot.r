@@ -50,13 +50,15 @@ StatBoxplot <- proto2(
     
     default_geom = function(self) GeomBoxplot,
 
-    calculate_groups = function(self, data, na.rm = FALSE, width = NULL, ...) {
+    calculate_groups = function(self, super, data, na.rm = FALSE, width = NULL,
+      ...)
+    {
       data <- remove_missing(data, na.rm, c("x", "y", "weight"), name="stat_boxplot",
         finite = TRUE)
       data$weight <- data$weight %||% 1
       width <- width %||%  resolution(data$x) * 0.75
 
-      self$super$calculate_groups(self, data, na.rm = na.rm, width = width, ...)
+      super$calculate_groups(self, data, na.rm = na.rm, width = width, ...)
     },
 
     calculate = function(self, data, scales, width=NULL, na.rm = FALSE, coef = 1.5, ...) {

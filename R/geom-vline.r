@@ -63,13 +63,15 @@ GeomVline <- proto2(
   members = list(
     objname = "vline",
 
-    new = function(self, data = NULL, mapping = NULL, xintercept = NULL, ...) {
+    new = function(self, super, data = NULL, mapping = NULL, xintercept = NULL,
+      ...)
+    {
       if (is.numeric(xintercept)) {
         data <- data.frame(xintercept = xintercept)
         xintercept <- NULL
         mapping <- aes_all(names(data))
       }
-      self$super$new(self, data = data, mapping = mapping, inherit.aes = FALSE,
+      super$new(self, data = data, mapping = mapping, inherit.aes = FALSE,
         xintercept = xintercept, ...)
     },
 

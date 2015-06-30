@@ -25,7 +25,8 @@ fetch_proto2 <- function(x, name) {
   res <- NULL
 
   val <- .subset2(x, name)
-  # The is.null check is an optimization for a common case
+  # The is.null check is an optimization for a common case; exists() also
+  # catches the case where the value exists but has a NULL value.
   if (!is.null(val) || exists(name, envir = x, inherits = FALSE)) {
     res <- val
   } else {
@@ -42,18 +43,37 @@ fetch_proto2 <- function(x, name) {
 `$.proto2` <- function(x, name) {
   res <- fetch_proto2(x, name)
 
-  # If it's a function, wrap it to pass the object as the first argument,
-  # unless it was called from `super$`, in which case pass the function
-  # unchanged; the user must explicitly pass self.
-  if (is.function(res)) {
-    if (substitute(x) == quote(self$super))
-      return(res)
-    else
-      return(function(...) res(x, ...))
+  if (!is.function(res)) {
+    return(res)
   }
 
-  res
+  # Use `self` to make debugging easier
+  self <- x
+
+  # If it's a function, there are two things we need to check for, each with two
+  # possible conditions:
+  #  * If there's a `super` argument, wrap the function in another function that
+  #    passes in the correct super object.
+  #  * If it's called from `super$`, _don't_ pass in the first arg, `x`. The
+  #    user must pass the `self` object manually, as in `super$foo(self)`.
+  args <- formals(res)
+  # is.null is a fast path for a common case; the %in% check is slower but also
+  # catches the case where theres a `super=NULL` argument.
+  if (!is.null(args[["super"]]) || "super" %in% names(args)) {
+    if (substitute(x) == quote(super)) {
+      function(...) res(..., super = self[["super"]])
+    } else {
+      function(...) res(self, ..., super = self[["super"]])
+    }
+  } else {
+    if (substitute(x) == quote(super)) {
+      res
+    } else {
+      function(...) res(self, ...)
+    }
+  }
 }
+
 
 #' @export
 `[[.proto2` <- `$.proto2`

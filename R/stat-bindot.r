@@ -81,7 +81,7 @@ StatBindot <- proto2(
 
     informed = FALSE,
 
-    calculate_groups = function(self, data, na.rm = FALSE, binwidth = NULL,
+    calculate_groups = function(self, super, data, na.rm = FALSE, binwidth = NULL,
                                 binaxis = "x", method = "dotdensity",
                                 binpositions = "bygroup", ...) {
       data <- remove_missing(data, na.rm, c(binaxis, "weight"), name = "stat_bindot",
@@ -114,7 +114,7 @@ StatBindot <- proto2(
 
       }
 
-      self$super$calculate_groups(self, data, binwidth = binwidth,
+      super$calculate_groups(self, data, binwidth = binwidth,
         binaxis = binaxis, method = method, binpositions = binpositions, ...)
     },
 
