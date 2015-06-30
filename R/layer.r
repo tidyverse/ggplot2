@@ -23,7 +23,7 @@ Layer <- proto2(
     params = NULL,
     inherit.aes = FALSE,
 
-    new = function(geom = NULL, geom_params = NULL, stat = NULL,
+    new = function(self, geom = NULL, geom_params = NULL, stat = NULL,
       stat_params = NULL, data = NULL, mapping = NULL, position = NULL,
       params = NULL, inherit.aes = TRUE, subset = NULL, show_guide = NA)
     {
@@ -67,7 +67,7 @@ Layer <- proto2(
         stat_params <- c(stat_params, match.params(stat$parameters(), params))
       }
 
-      proto2(inherit = Layer,
+      proto2(inherit = self,
         members = list(
           geom = geom,
           geom_params = geom_params,
@@ -83,7 +83,11 @@ Layer <- proto2(
       )
     },
 
-    use_defaults = function(data) {
+    # This actually makes a descendent of self, which is functionally the same
+    # as a actually clone for most purposes.
+    clone = function(self) proto2(inherit = self),
+
+    use_defaults = function(self, data) {
       df <- aesdefaults(data, self$geom$default_aes(), NULL)
 
       # Override mappings with atomic parameters
@@ -103,7 +107,7 @@ Layer <- proto2(
       df
     },
 
-    layer_mapping = function(mapping = NULL) {
+    layer_mapping = function(self, mapping = NULL) {
       # For certain geoms, it is useful to be able to ignore the default
       # aesthetics and only use those set in the layer
       if (self$inherit.aes) {
@@ -119,7 +123,7 @@ Layer <- proto2(
       aesthetics[!set & !calculated]
     },
 
-    print = function() {
+    print = function(self) {
       if (is.null(self$geom)) {
         cat("Empty layer\n")
         return(invisible());
@@ -135,7 +139,7 @@ Layer <- proto2(
     },
 
 
-    compute_aesthetics = function(data, plot) {
+    compute_aesthetics = function(self, data, plot) {
       aesthetics <- self$layer_mapping(plot$mapping)
 
       if (!is.null(self$subset)) {
@@ -173,7 +177,7 @@ Layer <- proto2(
     },
 
 
-    calc_statistic = function(data, scales) {
+    calc_statistic = function(self, data, scales) {
       if (empty(data))
         return(data.frame())
 
@@ -190,7 +194,7 @@ Layer <- proto2(
     },
 
 
-    map_statistic = function(data, plot) {
+    map_statistic = function(self, data, plot) {
       if (empty(data)) return(data.frame())
 
       # Assemble aesthetics from layer, plot and stat mappings
@@ -219,19 +223,19 @@ Layer <- proto2(
       cunion(stat_data, data)
     },
 
-    reparameterise = function(data) {
+    reparameterise = function(self, data) {
       if (empty(data)) return(data.frame())
       self$geom$reparameterise(data, self$geom_params)
     },
 
 
-    adjust_position = function(data) {
+    adjust_position = function(self, data) {
       ddply(data, "PANEL", function(data) {
         self$position$adjust(data)
       })
     },
 
-    make_grob = function(data, scales, cs) {
+    make_grob = function(self, data, scales, cs) {
       if (empty(data)) return(zeroGrob())
 
       data <- self$use_defaults(data)
@@ -248,7 +252,7 @@ Layer <- proto2(
       ))
     },
 
-    class = function() "layer"
+    class = function(self) "layer"
   )
 )
 

@@ -81,11 +81,11 @@ GeomLine <- proto2(
   members = list(
     objname = "line",
 
-    draw = function(data, scales, coordinates, arrow = NULL, ...) {
+    draw = function(self, data, scales, coordinates, arrow = NULL, ...) {
       data <- data[order(data$group, data$x), ]
       GeomPath$draw(data, scales, coordinates, arrow, ...)
     },
 
-    default_stat = function() StatIdentity
+    default_stat = function(self) StatIdentity
   )
 )

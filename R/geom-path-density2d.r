@@ -43,9 +43,9 @@ GeomDensity2d <- proto2(
   members = list(
     objname = "density2d",
 
-    default_stat = function() StatDensity2d,
+    default_stat = function(self) StatDensity2d,
 
-    default_aes = function() {
+    default_aes = function(self) {
       aes(colour="#3366FF", size = 0.5, linetype = 1, alpha = NA)
     }
   )

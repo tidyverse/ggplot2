@@ -35,7 +35,7 @@ PositionDodge <- proto2(
   members = list(
     objname = "dodge",
 
-    adjust = function(data) {
+    adjust = function(self, data) {
       if (empty(data)) return(data.frame())
       check_required_aesthetics("x", names(data), "position_dodge")
 

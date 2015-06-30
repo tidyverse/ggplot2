@@ -41,7 +41,7 @@ GeomRug <- proto2(
   members = list(
     objname = "rug",
 
-    draw = function(data, scales, coordinates, sides, ...) {
+    draw = function(self, data, scales, coordinates, sides, ...) {
       rugs <- list()
       data <- coord_transform(coordinates, data, scales)
       if (!is.null(data$x)) {
@@ -83,12 +83,12 @@ GeomRug <- proto2(
       gTree(children = do.call("gList", rugs))
     },
 
-    default_stat = function() StatIdentity,
+    default_stat = function(self) StatIdentity,
 
-    default_aes = function() {
+    default_aes = function(self) {
       aes(colour = "black", size = 0.5, linetype = 1, alpha = NA)
     },
 
-    guide_geom = function() "path"
+    guide_geom = function(self) "path"
   )
 )

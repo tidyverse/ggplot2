@@ -85,7 +85,7 @@ GeomTile <- proto2(
   members = list(
     objname = "tile",
 
-    reparameterise = function(df, params) {
+    reparameterise = function(self, df, params) {
       df$width <- df$width %||% params$width %||% resolution(df$x, FALSE)
       df$height <- df$height %||% params$height %||% resolution(df$y, FALSE)
 
@@ -95,20 +95,20 @@ GeomTile <- proto2(
       )
     },
 
-    draw_groups = function(data,  scales, coordinates, ...) {
+    draw_groups = function(self, data,  scales, coordinates, ...) {
       # data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
       GeomRect$draw_groups(data, scales, coordinates, ...)
     },
 
 
-    default_stat = function() StatIdentity,
+    default_stat = function(self) StatIdentity,
 
-    default_aes = function() {
+    default_aes = function(self) {
       aes(fill = "grey20", colour = NA, size = 0.1, linetype = 1, alpha = NA)
     },
 
     required_aes = c("x", "y"),
 
-    guide_geom = function() "polygon"
+    guide_geom = function(self) "polygon"
   )
 )

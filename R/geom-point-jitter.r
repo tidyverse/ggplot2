@@ -58,8 +58,8 @@ GeomJitter <- proto2(
   members = list(
     objname = "jitter",
 
-    default_stat = function() StatIdentity,
+    default_stat = function(self) StatIdentity,
 
-    default_pos = function() PositionJitter
+    default_pos = function(self) PositionJitter
   )
 )

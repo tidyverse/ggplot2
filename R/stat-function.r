@@ -69,10 +69,10 @@ StatFunction <- proto2(
   members = list(
     objname = "function",
 
-    default_geom = function() GeomPath,
-    default_aes = function() aes(y = ..y..),
+    default_geom = function(self) GeomPath,
+    default_aes = function(self) aes(y = ..y..),
 
-    calculate = function(data, scales, fun, n=101, args = list(), ...) {
+    calculate = function(self, data, scales, fun, n=101, args = list(), ...) {
       range <- scale_dimension(scales$x, c(0, 0))
       xseq <- seq(range[1], range[2], length.out = n)
 

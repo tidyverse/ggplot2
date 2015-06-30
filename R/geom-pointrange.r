@@ -33,18 +33,18 @@ GeomPointrange <- proto2(
   members = list(
     objname = "pointrange",
 
-    default_stat = function() StatIdentity,
+    default_stat = function(self) StatIdentity,
 
-    default_aes = function() {
+    default_aes = function(self) {
       aes(colour = "black", size = 0.5, linetype = 1, shape = 19,
           fill = NA, alpha = NA, stroke = 1)
     },
 
-    guide_geom = function() "pointrange",
+    guide_geom = function(self) "pointrange",
 
     required_aes = c("x", "y", "ymin", "ymax"),
 
-    draw = function(data, scales, coordinates, ...) {
+    draw = function(self, data, scales, coordinates, ...) {
       if (is.null(data$y)) return(GeomLinerange$draw(data, scales, coordinates, ...))
 
       ggname(self$my_name(),
@@ -55,7 +55,7 @@ GeomPointrange <- proto2(
       )
     },
 
-    draw_legend = function(data, ...) {
+    draw_legend = function(self, data, ...) {
       data <- aesdefaults(data, self$default_aes(), list(...))
 
       grobTree(

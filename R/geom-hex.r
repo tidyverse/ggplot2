@@ -28,7 +28,7 @@ GeomHex <- proto2(
   members = list(
     objname = "hex",
 
-    draw = function(data, scales, coordinates, ...) {
+    draw = function(self, data, scales, coordinates, ...) {
       with(coord_transform(coordinates, data, scales),
         ggname(self$my_name(), hexGrob(x, y, col=colour,
           fill = alpha(fill, alpha)))
@@ -37,11 +37,11 @@ GeomHex <- proto2(
 
     required_aes = c("x", "y"),
 
-    default_aes = function() aes(colour=NA, fill = "grey50", size=0.5, alpha = NA),
+    default_aes = function(self) aes(colour=NA, fill = "grey50", size=0.5, alpha = NA),
 
-    default_stat = function() StatBinhex,
+    default_stat = function(self) StatBinhex,
 
-    guide_geom = function() "polygon"
+    guide_geom = function(self) "polygon"
   )
 )
 

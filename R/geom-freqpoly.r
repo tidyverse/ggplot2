@@ -37,12 +37,12 @@ GeomFreqpoly <- proto2(
   members = list(
     objname = "freqpoly",
 
-    default_aes = function() GeomPath$default_aes(),
+    default_aes = function(self) GeomPath$default_aes(),
 
-    default_stat = function() StatBin,
+    default_stat = function(self) StatBin,
 
-    draw = function(...) GeomPath$draw(...),
+    draw = function(self, ...) GeomPath$draw(...),
 
-    guide_geom = function() "path"
+    guide_geom = function(self) "path"
   )
 )

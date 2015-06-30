@@ -27,7 +27,7 @@ firstUpper <- function(s) {
 
 TopLevel <- proto2(
   members = list(
-    find_all = function(only.documented = FALSE) {
+    find_all = function(self, only.documented = FALSE) {
       names <- ls(
         pattern = paste("^", firstUpper(self$class()), "[A-Z].+", sep=""),
         parent.env(TopLevel)
@@ -37,7 +37,8 @@ TopLevel <- proto2(
       if (only.documented) objs <- objs[sapply(objs, function(x) get("doc", x))]
       objs
     },
-    find = function(name) {
+
+    find = function(self, name) {
       fullname <- paste0(firstUpper(self$class()), firstUpper(name))
 
       if (!exists(fullname)) {
@@ -46,17 +47,17 @@ TopLevel <- proto2(
       get(fullname)
     },
 
-    my_name = function(prefix=TRUE) {
+    my_name = function(self, prefix=TRUE) {
       if (!prefix) return(self$objname)
       paste(self$class(), self$objname, sep="_")
     },
-    my_names = function() self$my_name(),
+    my_names = function(self) self$my_name(),
 
-    myName = function() {
+    myName = function(self) {
       ps(firstUpper(self$class()), ps(firstUpper(strsplit(self$objname, "_")[[1]])))
     },
 
-    params = function() {
+    params = function(self) {
       param <- self$parameters()
       if (length(param) == 0) return()
 
@@ -66,7 +67,7 @@ TopLevel <- proto2(
       param[setdiff(names(param), aesthetics)]
     },
 
-    class = function() "toplevel"
+    class = function(self) "toplevel"
   )
 )
 

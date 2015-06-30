@@ -73,7 +73,7 @@ GeomSmooth <- proto2(
   members = list(
     objname = "smooth",
 
-    draw = function(data, scales, coordinates, ...) {
+    draw = function(self, data, scales, coordinates, ...) {
       ribbon <- transform(data, colour = NA)
       path <- transform(data, alpha = NA)
 
@@ -85,18 +85,18 @@ GeomSmooth <- proto2(
       )
     },
 
-    guide_geom = function() "smooth",
+    guide_geom = function(self) "smooth",
 
-    default_stat = function() StatSmooth,
+    default_stat = function(self) StatSmooth,
 
     required_aes = c("x", "y"),
 
-    default_aes = function() {
+    default_aes = function(self) {
       aes(colour = "#3366FF", fill = "grey60", size = 1, linetype = 1,
           weight = 1, alpha = 0.4)
     },
 
-    draw_legend = function(data, params, ...) {
+    draw_legend = function(self, data, params, ...) {
       data <- aesdefaults(data, self$default_aes(), list(...))
       data$fill <- alpha(data$fill, data$alpha)
       data$alpha <- 1

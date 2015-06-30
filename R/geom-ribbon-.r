@@ -58,18 +58,18 @@ GeomRibbon <- proto2(
   members = list(
     objname = "ribbon",
 
-    default_stat = function() StatIdentity,
+    default_stat = function(self) StatIdentity,
 
-    default_aes = function() {
+    default_aes = function(self) {
       aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1, alpha = NA)
     },
 
     required_aes = c("x", "ymin", "ymax"),
 
-    guide_geom = function() "polygon",
+    guide_geom = function(self) "polygon",
 
 
-    draw = function(data, scales, coordinates, na.rm = FALSE, ...) {
+    draw = function(self, data, scales, coordinates, na.rm = FALSE, ...) {
       if (na.rm) data <- data[complete.cases(data[self$required_aes]), ]
       data <- data[order(data$group, data$x), ]
 
@@ -144,15 +144,15 @@ GeomArea <- proto2(
   members = list(
     objname = "area",
 
-    default_aes = function() {
+    default_aes = function(self) {
       aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1, alpha = NA)
     },
 
-    default_pos = function() PositionStack,
+    default_pos = function(self) PositionStack,
 
     required_aes = c("x", "y"),
 
-    reparameterise = function(df, params) {
+    reparameterise = function(self, df, params) {
       transform(df, ymin = 0, ymax = y)
     }
   )

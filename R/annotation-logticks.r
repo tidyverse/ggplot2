@@ -112,7 +112,7 @@ GeomLogticks <- proto2(
   members = list(
     objname = "logticks",
 
-    draw_groups = function(data, scales, coordinates, base = 10, sides = "bl",
+    draw_groups = function(self, data, scales, coordinates, base = 10, sides = "bl",
       scaled = TRUE, short = unit(0.1, "cm"), mid = unit(0.2, "cm"),
       long = unit(0.3, "cm"), ...)
     {
@@ -186,9 +186,9 @@ GeomLogticks <- proto2(
       gTree(children = do.call("gList", ticks))
     },
 
-    default_stat = function() StatIdentity,
+    default_stat = function(self) StatIdentity,
 
-    default_aes = function() aes(colour = "black", size = 0.5, linetype = 1, alpha = 1)
+    default_aes = function(self) aes(colour = "black", size = 0.5, linetype = 1, alpha = 1)
   )
 )
 

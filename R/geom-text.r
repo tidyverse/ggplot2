@@ -100,9 +100,9 @@ GeomText <- proto2(
   members = list(
     objname = "text",
 
-    draw_groups = function(...) self$draw(...),
+    draw_groups = function(self, ...) self$draw(...),
 
-    draw = function(data, scales, coordinates, ..., parse = FALSE,
+    draw = function(self, data, scales, coordinates, ..., parse = FALSE,
                      na.rm = FALSE, check_overlap = FALSE) {
       data <- remove_missing(data, na.rm,
         c("x", "y", "label"), name = "geom_text")
@@ -136,7 +136,7 @@ GeomText <- proto2(
       )
     },
 
-    draw_legend = function(data, ...) {
+    draw_legend = function(self, data, ...) {
       data <- aesdefaults(data, self$default_aes(), list(...))
       textGrob(
         "a", 0.5, 0.5,
@@ -149,12 +149,12 @@ GeomText <- proto2(
     },
 
 
-    default_stat = function() StatIdentity,
+    default_stat = function(self) StatIdentity,
     required_aes = c("x", "y", "label"),
-    default_aes = function() aes(colour = "black", size = 5, angle = 0,
+    default_aes = function(self) aes(colour = "black", size = 5, angle = 0,
       hjust = 0.5, vjust = 0.5, alpha = NA, family = "", fontface = 1,
       lineheight = 1.2),
-    guide_geom = function(x) "text"
+    guide_geom = function(self, x) "text"
   )
 )
 

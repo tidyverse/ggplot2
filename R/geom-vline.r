@@ -63,17 +63,17 @@ GeomVline <- proto2(
   members = list(
     objname = "vline",
 
-    new = function(data = NULL, mapping = NULL, xintercept = NULL, ...) {
+    new = function(self, data = NULL, mapping = NULL, xintercept = NULL, ...) {
       if (is.numeric(xintercept)) {
         data <- data.frame(xintercept = xintercept)
         xintercept <- NULL
         mapping <- aes_all(names(data))
       }
-      super$new(data = data, mapping = mapping, inherit.aes = FALSE,
-                xintercept = xintercept, ...)
+      self$super$new(self, data = data, mapping = mapping, inherit.aes = FALSE,
+        xintercept = xintercept, ...)
     },
 
-    draw = function(data, scales, coordinates, ...) {
+    draw = function(self, data, scales, coordinates, ...) {
       ranges <- coord_range(coordinates, scales)
 
       data$y    <- ranges$y[1]
@@ -83,15 +83,15 @@ GeomVline <- proto2(
     },
 
 
-    default_stat = function() StatVline,
+    default_stat = function(self) StatVline,
 
-    default_aes = function() {
+    default_aes = function(self) {
       aes(colour = "black", size = 0.5, linetype = 1, alpha = NA)
     },
 
-    guide_geom = function() "vline",
+    guide_geom = function(self) "vline",
 
-    draw_legend = function(data, ...) {
+    draw_legend = function(self, data, ...) {
       data <- aesdefaults(data, self$default_aes(), list(...))
 
       with(data,

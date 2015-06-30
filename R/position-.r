@@ -4,15 +4,15 @@
 Position <- proto2(
   inherit = TopLevel,
   members = list(
-    adjust = function(data, scales, ...) data,
+    adjust = function(self, data, scales, ...) data,
 
-    class = function() "position",
+    class = function(self) "position",
 
     width = NULL,
     
     height = NULL,
 
-    new = function(width = NULL, height = NULL) {
+    new = function(self, width = NULL, height = NULL) {
       proto(
         inherit = self,
         members = list(
@@ -22,7 +22,7 @@ Position <- proto2(
       )
     },
 
-    parameters = function() {
+    parameters = function(self) {
       pnames <- names(formals(self$initialize))
       values <- mget(pnames, envir = self)
       names(values) <- pnames
@@ -30,7 +30,7 @@ Position <- proto2(
       values
     },
 
-    print = function(newline=TRUE) {
+    print = function(self, newline=TRUE) {
       cat("position_", self$objname, ": (", clist(self$parameters()), ")", sep="")
       if (newline) cat("\n")
     }

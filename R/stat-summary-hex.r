@@ -55,13 +55,13 @@ StatSummaryhex <- proto2(
   members = list(
     objname = "summaryhex",
 
-    default_aes = function() aes(fill = ..value..),
+    default_aes = function(self) aes(fill = ..value..),
 
     required_aes = c("x", "y", "z"),
 
-    default_geom = function() GeomHex,
+    default_geom = function(self) GeomHex,
 
-    calculate = function(data, scales, binwidth = NULL, bins = 30, drop = TRUE,
+    calculate = function(self, data, scales, binwidth = NULL, bins = 30, drop = TRUE,
       fun = mean, ...)
     {
       try_require("hexbin")

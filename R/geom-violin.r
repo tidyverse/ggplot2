@@ -81,7 +81,7 @@ GeomViolin <- proto2(
   members = list(
     objname = "violin",
 
-    reparameterise = function(df, params) {
+    reparameterise = function(self, df, params) {
       df$width <- df$width %||%
         params$width %||% (resolution(df$x, FALSE) * 0.9)
 
@@ -93,7 +93,7 @@ GeomViolin <- proto2(
             xmax = x + width / 2)
     },
 
-    draw = function(data, ...) {
+    draw = function(self, data, ...) {
       # Find the points for the line to go all the way around
       data <- transform(data, xminv = x - violinwidth * (x-xmin),
                               xmaxv = x + violinwidth * (xmax-x))
@@ -109,13 +109,13 @@ GeomViolin <- proto2(
       ggname(self$my_name(), GeomPolygon$draw(newdata, ...))
     },
 
-    guide_geom = function() "polygon",
+    guide_geom = function(self) "polygon",
 
-    default_stat = function() StatYdensity,
+    default_stat = function(self) StatYdensity,
 
-    default_pos = function() PositionDodge,
+    default_pos = function(self) PositionDodge,
 
-    default_aes = function() {
+    default_aes = function(self) {
       aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = NA,
           linetype = "solid")
     },

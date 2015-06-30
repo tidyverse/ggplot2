@@ -33,21 +33,21 @@ GeomCrossbar <- proto2(
   members = list(
     objname = "crossbar",
 
-    reparameterise = function(df, params) {
+    reparameterise = function(self, df, params) {
       GeomErrorbar$reparameterise(df, params)
     },
 
-    default_stat = function() StatIdentity,
+    default_stat = function(self) StatIdentity,
 
-    default_pos = function() PositionIdentity,
+    default_pos = function(self) PositionIdentity,
 
-    default_aes = function() aes(colour="black", fill=NA, size=0.5, linetype=1, alpha = NA),
+    default_aes = function(self) aes(colour="black", fill=NA, size=0.5, linetype=1, alpha = NA),
 
     required_aes = c("x", "y", "ymin", "ymax"),
 
-    guide_geom = function() "crossbar",
+    guide_geom = function(self) "crossbar",
 
-    draw_legend = function(data, ...)  {
+    draw_legend = function(self, data, ...)  {
       data <- aesdefaults(data, self$default_aes(), list(...))
       gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt, lty = linetype))
       gTree(gp = gp, children = gList(
@@ -56,7 +56,7 @@ GeomCrossbar <- proto2(
       ))
     },
 
-    draw = function(data, scales, coordinates, fatten = 2.5, width = NULL, ...) {
+    draw = function(self, data, scales, coordinates, fatten = 2.5, width = NULL, ...) {
       middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
 
       has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&

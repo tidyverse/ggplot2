@@ -54,11 +54,11 @@ StatYdensity <- proto2(
   members = list(
     objname = "ydensity",
 
-    calculate_groups = function(data, na.rm = FALSE, width = NULL,
+    calculate_groups = function(self, data, na.rm = FALSE, width = NULL,
       scale = "area", ...)
     {
       data <- remove_missing(data, na.rm, c("x", "y", "weight"), name = "stat_ydensity", finite = TRUE)
-      data <- super$calculate_groups(data, na.rm = na.rm, width = width, ...)
+      data <- self$super$calculate_groups(self, data, na.rm = na.rm, width = width, ...)
 
       # choose how violins are scaled relative to each other
       scale <- match.arg(scale, c("area", "count", "width"))
@@ -77,7 +77,7 @@ StatYdensity <- proto2(
       data
     },
 
-    calculate = function(data, scales, width = NULL, adjust = 1,
+    calculate = function(self, data, scales, width = NULL, adjust = 1,
       kernel = "gaussian", trim = FALSE, na.rm = FALSE, ...)
     {
       data <- remove_missing(data, na.rm, "x", name = "stat_density",
@@ -102,7 +102,7 @@ StatYdensity <- proto2(
       dens
     },
 
-    default_geom = function() GeomViolin,
+    default_geom = function(self) GeomViolin,
 
     required_aes = c("x", "y")
   )

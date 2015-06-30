@@ -42,8 +42,8 @@ GeomCount <- proto2(
   members = list(
     objname = "count",
 
-    default_stat = function() StatSum,
+    default_stat = function(self) StatSum,
 
-    default_pos = function() PositionIdentity
+    default_pos = function(self) PositionIdentity
   )
 )

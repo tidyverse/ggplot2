@@ -54,11 +54,11 @@ StatBin2d <- proto2(
   members = list(
     objname = "bin2d",
 
-    default_aes = function() aes(fill = ..count..),
+    default_aes = function(self) aes(fill = ..count..),
     required_aes = c("x", "y"),
-    default_geom = function() GeomRect,
+    default_geom = function(self) GeomRect,
 
-    calculate = function(data, scales, binwidth = NULL, bins = 30,
+    calculate = function(self, data, scales, binwidth = NULL, bins = 30,
                           breaks = NULL, origin = NULL, drop = TRUE, ...) {
       range <- list(
         x = scale_dimension(scales$x, c(0, 0)),

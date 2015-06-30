@@ -55,7 +55,7 @@ GeomCurve <- proto2(
   members = list(
     objname = "curve",
 
-    draw = function(data, scales, coordinates, curvature, angle, ncp,
+    draw = function(self, data, scales, coordinates, curvature, angle, ncp,
                     arrow, lineend, na.rm, ...) {
 
       data <- remove_missing(data, na.rm = na.rm,
@@ -83,14 +83,14 @@ GeomCurve <- proto2(
       )
     },
 
-    default_stat = function() StatIdentity,
+    default_stat = function(self) StatIdentity,
 
     required_aes = c("x", "y", "xend", "yend"),
 
-    default_aes = function() {
+    default_aes = function(self) {
       aes(colour = "black", size = 0.5, linetype = 1, alpha = NA)
     },
 
-    guide_geom = function() "path"
+    guide_geom = function(self) "path"
   )
 )

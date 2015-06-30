@@ -131,11 +131,11 @@ StatSummary <- proto2(
   members = list(
     objname = "summary",
 
-    default_geom = function() GeomPointrange,
+    default_geom = function(self) GeomPointrange,
 
     required_aes = c("x", "y"),
 
-    calculate_groups = function(data, scales, fun.data = NULL, fun.y = NULL,
+    calculate_groups = function(self, data, scales, fun.data = NULL, fun.y = NULL,
       fun.ymax = NULL, fun.ymin = NULL, na.rm = FALSE, ...)
     {
       data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_summary")

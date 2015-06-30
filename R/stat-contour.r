@@ -71,7 +71,7 @@ StatContour <- proto2(
   members = list(
     objname = "contour",
 
-    calculate = function(data, scales, bins = NULL, binwidth = NULL,
+    calculate = function(self, data, scales, bins = NULL, binwidth = NULL,
                          breaks = NULL, complete = FALSE, na.rm = FALSE, ...)
     {
       data <- remove_missing(data, na.rm, name = "stat_contour", finite = TRUE)
@@ -93,9 +93,9 @@ StatContour <- proto2(
     },
 
 
-    default_geom = function() GeomPath,
+    default_geom = function(self) GeomPath,
 
-    default_aes = function() aes(order = ..level..),
+    default_aes = function(self) aes(order = ..level..),
 
     required_aes = c("x", "y", "z")
   )

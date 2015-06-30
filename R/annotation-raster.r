@@ -67,9 +67,9 @@ GeomRasterAnn <- proto2(
   members = list(
     objname = "raster_ann",
 
-    reparameterise = function(df, params) df,
+    reparameterise = function(self, df, params) df,
 
-    draw_groups = function(data, scales, coordinates, raster, xmin, xmax,
+    draw_groups = function(self, data, scales, coordinates, raster, xmin, xmax,
       ymin, ymax, interpolate = FALSE, ...)
     {
       if (!inherits(coordinates, "cartesian")) {

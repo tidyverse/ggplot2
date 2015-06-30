@@ -44,17 +44,17 @@ StatSpoke <- proto2(
 
     retransform = FALSE,
 
-    calculate = function(data, scales, radius = 1, ...) {
+    calculate = function(self, data, scales, radius = 1, ...) {
       transform(data,
         xend = x + cos(angle) * radius,
         yend = y + sin(angle) * radius
       )
     },
 
-    default_aes = function() aes(xend = ..xend.., yend = ..yend..),
+    default_aes = function(self) aes(xend = ..xend.., yend = ..yend..),
 
     required_aes = c("x", "y", "angle", "radius"),
 
-    default_geom = function() GeomSegment
+    default_geom = function(self) GeomSegment
   )
 )

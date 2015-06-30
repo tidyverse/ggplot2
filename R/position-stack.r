@@ -39,7 +39,7 @@ PositionStack <- proto2(
   members = list(
     objname = "stack",
 
-    adjust = function(data) {
+    adjust = function(self, data) {
       if (empty(data)) return(data.frame())
 
       data <- remove_missing(data, FALSE,

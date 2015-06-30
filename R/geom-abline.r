@@ -81,7 +81,7 @@ GeomAbline <- proto2(
   members = list(
     objname = "abline",
 
-    draw = function(data, scales, coordinates, ...) {
+    draw = function(self, data, scales, coordinates, ...) {
       ranges <- coord_range(coordinates, scales)
 
       data$x    <- ranges$x[1]
@@ -92,12 +92,12 @@ GeomAbline <- proto2(
       GeomSegment$draw(unique(data), scales, coordinates)
     },
 
-    guide_geom = function() "abline",
+    guide_geom = function(self) "abline",
 
-    default_stat = function() StatAbline,
-    default_aes = function() aes(colour="black", size=0.5, linetype=1, alpha = NA),
+    default_stat = function(self) StatAbline,
+    default_aes = function(self) aes(colour="black", size=0.5, linetype=1, alpha = NA),
 
-    draw_legend = function(data, ...) {
+    draw_legend = function(self, data, ...) {
       data <- aesdefaults(data, self$default_aes(), list(...))
 
       with(data,

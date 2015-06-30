@@ -55,13 +55,13 @@ StatSum <- proto2(
   members = list(
     objname = "sum",
 
-    default_aes = function() aes(size = ..n..),
+    default_aes = function(self) aes(size = ..n..),
 
     required_aes = c("x", "y"),
 
-    default_geom = function() GeomPoint,
+    default_geom = function(self) GeomPoint,
 
-    calculate_groups = function(data, scales, ...) {
+    calculate_groups = function(self, data, scales, ...) {
 
       if (is.null(data$weight)) data$weight <- 1
 

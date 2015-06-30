@@ -66,9 +66,9 @@ GeomPolygon <- proto2(
   members = list(
     objname = "polygon",
 
-    draw_groups = function(...) self$draw(...),
+    draw_groups = function(self, ...) self$draw(...),
 
-    draw = function(data, scales, coordinates, ...) {
+    draw = function(self, data, scales, coordinates, ...) {
       n <- nrow(data)
       if (n == 1) return()
 
@@ -100,13 +100,13 @@ GeomPolygon <- proto2(
       )))
     },
 
-    default_stat = function() StatIdentity,
-    default_aes = function() aes(colour = "NA", fill = "grey20", size = 0.5,
+    default_stat = function(self) StatIdentity,
+    default_aes = function(self) aes(colour = "NA", fill = "grey20", size = 0.5,
                                  linetype = 1, alpha = NA),
     required_aes = c("x", "y"),
-    guide_geom = function() "polygon",
+    guide_geom = function(self) "polygon",
 
-    draw_legend = function(data, ...)  {
+    draw_legend = function(self, data, ...)  {
       data <- aesdefaults(data, self$default_aes(), list(...))
 
       with(data, grobTree(

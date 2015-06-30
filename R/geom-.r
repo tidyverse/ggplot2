@@ -1,9 +1,9 @@
 Geom <- proto2(
   inherit = TopLevel,
   members = list(
-    class = function() "geom",
+    class = function(self) "geom",
 
-    parameters = function() {
+    parameters = function(self) {
       params <- formals(self$draw)
       params <- params[setdiff(names(params), c("data","scales", "coordinates", "..."))]
 
@@ -16,15 +16,15 @@ Geom <- proto2(
 
     required_aes = c(),
 
-    default_aes = function() aes(),
+    default_aes = function(self) aes(),
 
-    default_pos = function() PositionIdentity,
+    default_pos = function(self) PositionIdentity,
 
-    guide_geom = function() "point",
+    guide_geom = function(self) "point",
 
-    draw = function(...) {},
+    draw = function(self, ...) {},
 
-    draw_groups = function(data, scales, coordinates, ...) {
+    draw_groups = function(self, data, scales, coordinates, ...) {
       if (empty(data)) return(zeroGrob())
 
       groups <- split(data, factor(data$group))
@@ -35,12 +35,12 @@ Geom <- proto2(
       ))
     },
 
-    print = function(newline=TRUE) {
+    print = function(self, newline=TRUE) {
       cat("geom_", self$objname, ": ", sep="") #  , clist(self$parameters())
       if (newline) cat("\n")
     },
 
-    reparameterise = function(data, params) data
+    reparameterise = function(self, data, params) data
 
     # Html documentation ----------------------------------
   )

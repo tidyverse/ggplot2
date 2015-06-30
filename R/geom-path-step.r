@@ -52,16 +52,16 @@ GeomStep <- proto2(
 
     details = "Equivalent to plot(type='s').",
 
-    default_aes = function() aes(colour="black", size=0.5, linetype=1, alpha = NA),
+    default_aes = function(self) aes(colour="black", size=0.5, linetype=1, alpha = NA),
 
-    draw = function(data, scales, coordinates, direction = "hv", ...) {
+    draw = function(self, data, scales, coordinates, direction = "hv", ...) {
       data <- stairstep(data, direction)
       GeomPath$draw(data, scales, coordinates, ...)
     },
 
-    guide_geom = function() "path",
+    guide_geom = function(self) "path",
 
-    default_stat = function() StatIdentity
+    default_stat = function(self) StatIdentity
   )
 )
 

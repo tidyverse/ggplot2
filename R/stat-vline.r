@@ -26,7 +26,7 @@ StatAbline <- proto2(
   members = list(
     objname = "abline",
 
-    calculate = function(data, scales, intercept = NULL, slope = NULL, ...) {
+    calculate = function(self, data, scales, intercept = NULL, slope = NULL, ...) {
       if (is.null(intercept)) {
         if (is.null(data$intercept)) data$intercept <- 0
       } else {
@@ -42,7 +42,7 @@ StatAbline <- proto2(
       unique(data)
     },
 
-    default_geom = function() GeomAbline
+    default_geom = function(self) GeomAbline
   )
 )
 
@@ -72,7 +72,7 @@ StatVline <- proto2(
   members = list(
     objname = "vline",
 
-    calculate = function(data, scales, xintercept = NULL, intercept, ...) {
+    calculate = function(self, data, scales, xintercept = NULL, intercept, ...) {
       if (!missing(intercept)) {
         stop("stat_vline now uses xintercept instead of intercept")
       }
@@ -86,7 +86,7 @@ StatVline <- proto2(
 
     required_aes = c(),
 
-    default_geom = function() GeomVline
+    default_geom = function(self) GeomVline
   )
 )
 
@@ -114,7 +114,7 @@ stat_hline <- function (mapping = NULL, data = NULL, geom = "hline",
 StatHline <- proto2(
   inherit = Stat,
   members = list(
-    calculate = function(data, scales, yintercept = NULL, intercept, ...) {
+    calculate = function(self, data, scales, yintercept = NULL, intercept, ...) {
       if (!missing(intercept)) {
         stop("stat_hline now uses yintercept instead of intercept")
       }
@@ -133,9 +133,9 @@ StatHline <- proto2(
 
     required_aes = c(),
 
-    default_geom = function() GeomHline,
+    default_geom = function(self) GeomHline,
 
-    examples = function() {
+    examples = function(self) {
       # See geom_hline for examples
     }
   )

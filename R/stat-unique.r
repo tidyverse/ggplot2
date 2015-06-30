@@ -30,8 +30,8 @@ StatUnique <- proto2(
 
     desc = "Remove duplicates",
 
-    default_geom = function() GeomPoint,
+    default_geom = function(self) GeomPoint,
 
-    calculate_groups = function(data, scales, ...) unique(data)
+    calculate_groups = function(self, data, scales, ...) unique(data)
   )
 )

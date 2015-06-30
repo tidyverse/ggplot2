@@ -150,14 +150,14 @@ GeomBar <- proto2(
   members = list(
     objname = "bar",
 
-    default_stat = function() StatBin,
-    default_pos = function() PositionStack,
-    default_aes = function() aes(colour=NA, fill="grey20", size=0.5,
+    default_stat = function(self) StatBin,
+    default_pos = function(self) PositionStack,
+    default_aes = function(self) aes(colour=NA, fill="grey20", size=0.5,
                                  linetype=1, weight = 1, alpha = NA),
 
     required_aes = c("x"),
 
-    reparameterise = function(df, params) {
+    reparameterise = function(self, df, params) {
       df$width <- df$width %||%
         params$width %||% (resolution(df$x, FALSE) * 0.9)
       transform(df,
@@ -166,9 +166,9 @@ GeomBar <- proto2(
       )
     },
 
-    draw_groups = function(data, scales, coordinates, ...) {
+    draw_groups = function(self, data, scales, coordinates, ...) {
       GeomRect$draw_groups(data, scales, coordinates, ...)
     },
-    guide_geom = function() "polygon"
+    guide_geom = function(self) "polygon"
   )
 )

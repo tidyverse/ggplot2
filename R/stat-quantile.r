@@ -68,13 +68,13 @@ StatQuantile <- proto2(
   members = list(
     objname = "quantile",
 
-    default_geom = function() GeomQuantile,
+    default_geom = function(self) GeomQuantile,
 
-    default_aes = function() aes(),
+    default_aes = function(self) aes(),
     
     required_aes = c("x", "y"),
 
-    calculate = function(data, scales, quantiles = c(0.25, 0.5, 0.75),
+    calculate = function(self, data, scales, quantiles = c(0.25, 0.5, 0.75),
       formula = NULL, xseq = NULL, method = "rq", lambda = 1, na.rm = FALSE,
       ...)
     {

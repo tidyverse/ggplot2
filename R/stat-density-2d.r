@@ -82,14 +82,14 @@ StatDensity2d <- proto2(
   members = list(
     objname = "density2d",
 
-    default_geom = function() GeomDensity2d,
+    default_geom = function(self) GeomDensity2d,
 
-    default_aes = function() aes(colour = "#3366FF", size = 0.5),
+    default_aes = function(self) aes(colour = "#3366FF", size = 0.5),
 
     required_aes = c("x", "y"),
 
 
-    calculate = function(data, scales, na.rm = FALSE, contour = TRUE, n = 100, ...) {
+    calculate = function(self, data, scales, na.rm = FALSE, contour = TRUE, n = 100, ...) {
       df <- data.frame(data[, c("x", "y")])
       df <- remove_missing(df, na.rm, name = "stat_density2d", finite = TRUE)
 

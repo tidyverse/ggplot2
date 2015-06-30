@@ -81,7 +81,7 @@ GeomRaster <- proto2(
   members = list(
     objname = "raster",
 
-    reparameterise = function(df, params) {
+    reparameterise = function(self, df, params) {
       hjust <- params$hjust %||% 0.5
       vjust <- params$vjust %||% 0.5
 
@@ -97,9 +97,9 @@ GeomRaster <- proto2(
 
     # This is a dummy function to make sure that vjust and hjust are recongised
     # as parameters and are accessible to reparameterise.
-    draw = function(vjust = 0.5, hjust = 0.5) {},
+    draw = function(self, vjust = 0.5, hjust = 0.5) {},
 
-    draw_groups = function(data, scales, coordinates, interpolate = FALSE, ...) {
+    draw_groups = function(self, data, scales, coordinates, interpolate = FALSE, ...) {
       if (!inherits(coordinates, "cartesian")) {
         stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
       }
@@ -126,12 +126,12 @@ GeomRaster <- proto2(
         default.units = "native", interpolate = interpolate)
     },
 
-    default_stat = function() StatIdentity,
+    default_stat = function(self) StatIdentity,
 
-    default_aes = function() aes(fill = "grey20", alpha = NA),
+    default_aes = function(self) aes(fill = "grey20", alpha = NA),
 
     required_aes = c("x", "y"),
 
-    guide_geom = function() "polygon"
+    guide_geom = function(self) "polygon"
   )
 )

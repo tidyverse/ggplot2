@@ -66,7 +66,7 @@ GeomHline <- proto2(
   members = list(
     objname = "hline",
 
-    draw = function(data, scales, coordinates, ...) {
+    draw = function(self, data, scales, coordinates, ...) {
       ranges <- coord_range(coordinates, scales)
 
       data$x    <- ranges$x[1]
@@ -75,10 +75,10 @@ GeomHline <- proto2(
       GeomSegment$draw(unique(data), scales, coordinates)
     },
 
-    default_stat = function() StatHline,
+    default_stat = function(self) StatHline,
 
-    default_aes = function() aes(colour="black", size=0.5, linetype=1, alpha = NA),
+    default_aes = function(self) aes(colour="black", size=0.5, linetype=1, alpha = NA),
 
-    guide_geom = function() "path"
+    guide_geom = function(self) "path"
   )
 )

@@ -136,7 +136,7 @@ StatSmooth <- proto2(
   members = list(
     objname = "smooth",
 
-    calculate_groups = function(data, scales, method = "auto", formula = y~x, ...) {
+    calculate_groups = function(self, data, scales, method = "auto", formula = y~x, ...) {
       rows <- daply(data, .(group), function(df) length(unique(df$x)))
 
       if (all(rows == 1) && length(rows) > 1) {
@@ -166,10 +166,10 @@ StatSmooth <- proto2(
       }
       if (identical(method, "gam")) try_require("mgcv")
 
-      super$calculate_groups(data, scales, method = method, formula = formula, ...)
+      self$super$calculate_groups(self, data, scales, method = method, formula = formula, ...)
     },
 
-    calculate = function(data, scales, method = "auto", formula = y~x,
+    calculate = function(self, data, scales, method = "auto", formula = y~x,
       se = TRUE, n = 80, fullrange = FALSE, xseq = NULL, level = 0.95,
       na.rm = FALSE, ...)
     {
@@ -208,6 +208,6 @@ StatSmooth <- proto2(
 
     required_aes = c("x", "y"),
 
-    default_geom = function() GeomSmooth
+    default_geom = function(self) GeomSmooth
   )
 )

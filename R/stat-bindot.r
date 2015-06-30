@@ -81,7 +81,7 @@ StatBindot <- proto2(
 
     informed = FALSE,
 
-    calculate_groups = function(data, na.rm = FALSE, binwidth = NULL,
+    calculate_groups = function(self, data, na.rm = FALSE, binwidth = NULL,
                                 binaxis = "x", method = "dotdensity",
                                 binpositions = "bygroup", ...) {
       data <- remove_missing(data, na.rm, c(binaxis, "weight"), name = "stat_bindot",
@@ -114,12 +114,12 @@ StatBindot <- proto2(
 
       }
 
-      super$calculate_groups(data, binwidth = binwidth, binaxis = binaxis,
-        method = method, binpositions = binpositions, ...)
+      self$super$calculate_groups(self, data, binwidth = binwidth,
+        binaxis = binaxis, method = method, binpositions = binpositions, ...)
     },
 
 
-    calculate = function(data, scales, binwidth = NULL, binaxis = "x",
+    calculate = function(self, data, scales, binwidth = NULL, binaxis = "x",
                          method = "dotdensity", binpositions = "bygroup",
                          origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
                          right = TRUE, ...) {
@@ -190,11 +190,11 @@ StatBindot <- proto2(
       return(data)
     },
 
-    default_aes = function() aes(y = ..count..),
+    default_aes = function(self) aes(y = ..count..),
 
     required_aes = c("x"),
 
-    default_geom = function() GeomDotplot
+    default_geom = function(self) GeomDotplot
   )
 )
 

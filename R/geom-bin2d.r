@@ -29,19 +29,19 @@ geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d",
 GeomBin2d <- proto2(
   inherit = Geom,
   members = list(
-    draw = function(data, scales, coordinates, ...) {
+    draw = function(self, data, scales, coordinates, ...) {
       GeomRect$draw(data, scales, coordinates, ...)
     },
 
     objname = "bin2d",
 
-    guide_geom = function() "polygon",
+    guide_geom = function(self) "polygon",
 
-    default_stat = function() StatBin2d,
+    default_stat = function(self) StatBin2d,
 
     required_aes = c("xmin", "xmax", "ymin", "ymax"),
 
-    default_aes = function() {
+    default_aes = function(self) {
       aes(colour = NA, fill = "grey60", size = 0.5, linetype = 1, weight = 1, , alpha = NA)
     }
   )

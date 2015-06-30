@@ -120,9 +120,9 @@ GeomPath <- proto2(
   members = list(
     objname = "path",
 
-    draw_groups = function(...) self$draw(...),
+    draw_groups = function(self, ...) self$draw(...),
 
-    draw = function(data, scales, coordinates, arrow = NULL, lineend = "butt",
+    draw = function(self, data, scales, coordinates, arrow = NULL, lineend = "butt",
                     linejoin = "round", linemitre = 1, ..., na.rm = FALSE)
     {
       if (!anyDuplicated(data$group)) {
@@ -207,7 +207,7 @@ GeomPath <- proto2(
       }
     },
 
-    draw_legend = function(data, ...) {
+    draw_legend = function(self, data, ...) {
       data$arrow <- NULL
       data <- aesdefaults(data, self$default_aes(), list(...))
 
@@ -218,13 +218,13 @@ GeomPath <- proto2(
       )
     },
 
-    default_stat = function() StatIdentity,
+    default_stat = function(self) StatIdentity,
 
     required_aes = c("x", "y"),
 
-    default_aes = function() aes(colour="black", size=0.5, linetype=1, alpha = NA),
+    default_aes = function(self) aes(colour="black", size=0.5, linetype=1, alpha = NA),
 
-    guide_geom = function() "path"
+    guide_geom = function(self) "path"
   )
 )
 

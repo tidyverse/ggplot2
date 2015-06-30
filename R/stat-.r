@@ -10,19 +10,19 @@ Stat <- proto2(
     # the scales
     retransform = TRUE,
 
-    default_geom = function() Geom,
+    default_geom = function(self) Geom,
 
-    default_aes = function() aes(),
+    default_aes = function(self) aes(),
 
-    default_pos = function() self$default_geom()$default_pos(),
+    default_pos = function(self) self$default_geom()$default_pos(),
 
     required_aes = c(),
 
     aesthetics = list(),
 
-    calculate = function(data, scales, ...) {},
+    calculate = function(self, data, scales, ...) {},
 
-    calculate_groups = function(data, scales, ...) {
+    calculate_groups = function(self, data, scales, ...) {
       if (empty(data)) return(data.frame())
 
       force(data)
@@ -58,16 +58,16 @@ Stat <- proto2(
     },
 
 
-    print = function(newline=TRUE) {
+    print = function(self, newline=TRUE) {
       cat("stat_", self$objname ,": ", sep="") # , clist(self$parameters())
       if (newline) cat("\n")
     },
 
-    parameters = function() {
+    parameters = function(self) {
       params <- formals(self$calculate)
       params[setdiff(names(params), c("data", "scales"))]
     },
 
-    class = function() "stat"
+    class = function(self) "stat"
   )
 )

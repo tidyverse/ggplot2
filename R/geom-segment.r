@@ -68,7 +68,7 @@ GeomSegment <- proto2(
   members = list(
     objname = "segment",
 
-    draw = function(data, scales, coordinates, arrow = NULL,
+    draw = function(self, data, scales, coordinates, arrow = NULL,
       lineend = "butt", na.rm = FALSE, ...) {
 
       data <- remove_missing(data, na.rm = na.rm,
@@ -97,9 +97,9 @@ GeomSegment <- proto2(
     },
 
 
-    default_stat = function() StatIdentity,
+    default_stat = function(self) StatIdentity,
     required_aes = c("x", "y", "xend", "yend"),
-    default_aes = function() aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
-    guide_geom = function() "path"
+    default_aes = function(self) aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+    guide_geom = function(self) "path"
   )
 )

@@ -28,7 +28,7 @@ PositionFill <- proto2(
   members = list(
     objname = "fill",
 
-    adjust = function(data) {
+    adjust = function(self, data) {
       if (empty(data)) return(data.frame())
 
       check_required_aesthetics(c("x", "ymax"), names(data), "position_fill")

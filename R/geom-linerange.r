@@ -52,17 +52,17 @@ GeomLinerange <- proto2(
   members = list(
     objname = "linerange",
 
-    default_stat = function() StatIdentity,
+    default_stat = function(self) StatIdentity,
 
-    default_aes = function() {
+    default_aes = function(self) {
       aes(colour = "black", size = 0.5, linetype = 1, alpha = NA)
     },
 
-    guide_geom = function() "path",
+    guide_geom = function(self) "path",
 
     required_aes = c("x", "ymin", "ymax"),
 
-    draw = function(data, scales, coordinates, ...) {
+    draw = function(self, data, scales, coordinates, ...) {
       munched <- coord_transform(coordinates, data, scales)
       ggname(
         self$my_name(),

@@ -39,7 +39,7 @@ StatEcdf <- proto2(
   members = list(
     objname = "ecdf",
 
-    calculate = function(data, scales, n = NULL, ...) {
+    calculate = function(self, data, scales, n = NULL, ...) {
 
       # If n is NULL, use raw values; otherwise interpolate
       if (is.null(n)) {
@@ -66,11 +66,11 @@ StatEcdf <- proto2(
       data.frame(x = c(x0, xvals, x1), y = c(y0, y, y1))
     },
 
-    default_aes = function() aes(y = ..y..),
+    default_aes = function(self) aes(y = ..y..),
 
     required_aes = c("x"),
 
-    default_geom = function() GeomStep
+    default_geom = function(self) GeomStep
   )
 )
 

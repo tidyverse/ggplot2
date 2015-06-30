@@ -145,7 +145,7 @@ GeomDotplot <- proto2(
   members = list(
     objname = "dotplot",
 
-    reparameterise = function(df, params) {
+    reparameterise = function(self, df, params) {
       df$width <- df$width %||%
         params$width %||% (resolution(df$x, FALSE) * 0.9)
 
@@ -217,7 +217,7 @@ GeomDotplot <- proto2(
     },
 
 
-    draw = function(data, scales, coordinates, na.rm = FALSE, binaxis = "x",
+    draw = function(self, data, scales, coordinates, na.rm = FALSE, binaxis = "x",
                     stackdir = "up", stackratio = 1, dotsize = 1, stackgroups = FALSE, ...) {
 
       data <- remove_missing(data, na.rm, c("x", "y", "size", "shape"), name = "geom_dotplot")
@@ -251,9 +251,9 @@ GeomDotplot <- proto2(
       )
     },
 
-    guide_geom = function() "dotplot",
+    guide_geom = function(self) "dotplot",
 
-    draw_legend = function(data, ...) {
+    draw_legend = function(self, data, ...) {
       data$shape <- 21
 
       data <- aesdefaults(data, self$default_aes(), list(...))
@@ -267,11 +267,11 @@ GeomDotplot <- proto2(
       )
     },
 
-    default_stat = function() StatBindot,
+    default_stat = function(self) StatBindot,
 
     required_aes = c("x", "y"),
 
-    default_aes = function() aes(y=..count.., colour="black", fill = "black", alpha = NA)
+    default_aes = function(self) aes(y=..count.., colour="black", fill = "black", alpha = NA)
 
   )
 )

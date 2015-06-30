@@ -57,13 +57,13 @@ StatSummary2d <- proto2(
   members = list(
     objname = "Summary2d",
 
-    default_aes = function() aes(fill = ..value..),
+    default_aes = function(self) aes(fill = ..value..),
 
     required_aes = c("x", "y", "z"),
 
-    default_geom = function() GeomRect,
+    default_geom = function(self) GeomRect,
 
-    calculate = function(data, scales, binwidth = NULL, bins = 30,
+    calculate = function(self, data, scales, binwidth = NULL, bins = 30,
       breaks = NULL, origin = NULL, drop = TRUE, fun = mean, ...)
     {
       data <- remove_missing(data, FALSE, c("x", "y", "z"), name="stat_summary2d")

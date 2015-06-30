@@ -140,9 +140,9 @@ GeomPoint <- proto2(
   members = list(
     objname = "point",
 
-    draw_groups = function(...) self$draw(...),
+    draw_groups = function(self, ...) self$draw(...),
 
-    draw = function(data, scales, coordinates, na.rm = FALSE, ...) {
+    draw = function(self, data, scales, coordinates, na.rm = FALSE, ...) {
       data <- remove_missing(data, na.rm,
         c("x", "y", "size", "shape"), name = "geom_point")
       if (empty(data)) return(zeroGrob())
@@ -153,7 +153,7 @@ GeomPoint <- proto2(
       )
     },
 
-    draw_legend = function(data, ...) {
+    draw_legend = function(self, data, ...) {
       data <- aesdefaults(data, self$default_aes(), list(...))
 
       with(data,
@@ -167,8 +167,8 @@ GeomPoint <- proto2(
       )
     },
 
-    default_stat = function() StatIdentity,
+    default_stat = function(self) StatIdentity,
     required_aes = c("x", "y"),
-    default_aes = function() aes(shape=19, colour="black", size=2, fill = NA, alpha = NA, stroke = 1)
+    default_aes = function(self) aes(shape=19, colour="black", size=2, fill = NA, alpha = NA, stroke = 1)
   )
 )

@@ -145,7 +145,7 @@ GeomBoxplot <- proto2(
   members = list(
     objname = "boxplot",
 
-    reparameterise = function(df, params) {
+    reparameterise = function(self, df, params) {
       df$width <- df$width %||%
         params$width %||% (resolution(df$x, FALSE) * 0.9)
 
@@ -175,7 +175,7 @@ GeomBoxplot <- proto2(
       df
     },
 
-    draw = function(data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL,
+    draw = function(self, data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL,
                     outlier.size = 2, outlier.stroke = 1,
                     notch = FALSE, notchwidth = .5, varwidth = FALSE) {
       common <- data.frame(
@@ -233,9 +233,9 @@ GeomBoxplot <- proto2(
       ))
     },
 
-    guide_geom = function() "boxplot",
+    guide_geom = function(self) "boxplot",
 
-    draw_legend = function(data, ...)  {
+    draw_legend = function(self, data, ...)  {
       data <- aesdefaults(data, self$default_aes(), list(...))
       gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt, lty = linetype))
       gTree(gp = gp, children = gList(
@@ -246,11 +246,11 @@ GeomBoxplot <- proto2(
       ))
     },
 
-    default_stat = function() StatBoxplot,
+    default_stat = function(self) StatBoxplot,
 
-    default_pos = function() PositionDodge,
+    default_pos = function(self) PositionDodge,
 
-    default_aes = function() {
+    default_aes = function(self) {
       aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
           alpha = NA, shape = 16, linetype = "solid")
     },

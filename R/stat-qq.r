@@ -58,13 +58,13 @@ StatQq <- proto2(
   members = list(
     objname = "qq",
 
-    default_geom = function() GeomPoint,
+    default_geom = function(self) GeomPoint,
 
-    default_aes = function() aes(y = ..sample.., x = ..theoretical..),
+    default_aes = function(self) aes(y = ..sample.., x = ..theoretical..),
 
     required_aes = c("sample"),
 
-    calculate = function(data, scales, quantiles = NULL, distribution = qnorm,
+    calculate = function(self, data, scales, quantiles = NULL, distribution = qnorm,
       dparams = list(), na.rm = FALSE)
     {
       data <- remove_missing(data, na.rm, "sample", name = "stat_qq")

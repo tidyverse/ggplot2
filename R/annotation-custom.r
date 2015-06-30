@@ -60,7 +60,7 @@ GeomCustomAnn <- proto2(
   members = list(
     objname = "custom_ann",
 
-    draw_groups = function(data, scales, coordinates, grob, xmin, xmax,
+    draw_groups = function(self, data, scales, coordinates, grob, xmin, xmax,
                             ymin, ymax, ...) {
       if (!inherits(coordinates, "cartesian")) {
         stop("annotation_custom only works with Cartesian coordinates",
@@ -78,7 +78,7 @@ GeomCustomAnn <- proto2(
       editGrob(grob, vp = vp)
     },
 
-    default_aes = function() {
+    default_aes = function(self) {
       aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
     }
   )

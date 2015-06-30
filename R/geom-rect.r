@@ -32,14 +32,14 @@ GeomRect <- proto2(
   members = list(
     objname = "rect",
 
-    default_stat = function() StatIdentity,
-    default_pos = function() PositionIdentity,
-    default_aes = function() aes(colour = NA, fill = "grey20", size = 0.5,
+    default_stat = function(self) StatIdentity,
+    default_pos = function(self) PositionIdentity,
+    default_aes = function(self) aes(colour = NA, fill = "grey20", size = 0.5,
                                  linetype = 1, alpha = NA),
 
     required_aes = c("xmin", "xmax", "ymin", "ymax"),
 
-    draw = draw_groups <- function(data, scales, coordinates, ...) {
+    draw = function(self, data, scales, coordinates, ...) {
       if (!is.linear(coordinates)) {
         aesthetics <- setdiff(
           names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")
@@ -69,7 +69,9 @@ GeomRect <- proto2(
       }
     },
 
-    guide_geom = function() "polygon"
+    draw_groups = function(self, ...) self$draw(...),
+
+    guide_geom = function(self) "polygon"
   )
 )
 

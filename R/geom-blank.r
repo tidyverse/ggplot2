@@ -42,10 +42,10 @@ GeomBlank <- proto2(
   members = list(
     objname = "blank",
 
-    default_stat = function() StatIdentity,
-    default_aes = function() aes(),
+    default_stat = function(self) StatIdentity,
+    default_aes = function(self) aes(),
 
-    draw_legend = function(data, ...) {
+    draw_legend = function(self, data, ...) {
       zeroGrob()
     }
   )

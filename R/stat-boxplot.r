@@ -48,18 +48,18 @@ StatBoxplot <- proto2(
 
     required_aes = c("x", "y"),
     
-    default_geom = function() GeomBoxplot,
+    default_geom = function(self) GeomBoxplot,
 
-    calculate_groups = function(data, na.rm = FALSE, width = NULL, ...) {
+    calculate_groups = function(self, data, na.rm = FALSE, width = NULL, ...) {
       data <- remove_missing(data, na.rm, c("x", "y", "weight"), name="stat_boxplot",
         finite = TRUE)
       data$weight <- data$weight %||% 1
       width <- width %||%  resolution(data$x) * 0.75
 
-      super$calculate_groups(data, na.rm = na.rm, width = width, ...)
+      self$super$calculate_groups(self, data, na.rm = na.rm, width = width, ...)
     },
 
-    calculate = function(data, scales, width=NULL, na.rm = FALSE, coef = 1.5, ...) {
+    calculate = function(self, data, scales, width=NULL, na.rm = FALSE, coef = 1.5, ...) {
       with(data, {
         qs <- c(0, 0.25, 0.5, 0.75, 1)
         if (length(unique(weight)) != 1) {

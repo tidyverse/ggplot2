@@ -87,7 +87,7 @@ GeomMap <- proto2(
   members = list(
     objname = "map",
 
-    draw_groups = function(data, scales, coordinates, map, ...) {
+    draw_groups = function(self, data, scales, coordinates, map, ...) {
       # Only use matching data and map ids
       common <- intersect(data$map_id, map$id)
       data <- data[data$map_id %in% common, , drop = FALSE]

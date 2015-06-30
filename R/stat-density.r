@@ -115,7 +115,7 @@ StatDensity <- proto2(
   members = list(
     objname = "density",
 
-    calculate = function(data, scales, adjust = 1, kernel = "gaussian",
+    calculate = function(self, data, scales, adjust = 1, kernel = "gaussian",
       trim = FALSE, na.rm = FALSE, ...)
     {
       data <- remove_missing(data, na.rm, "x", name = "stat_density",
@@ -131,9 +131,9 @@ StatDensity <- proto2(
         adjust = adjust, kernel = kernel)
     },
 
-    default_geom = function() GeomArea,
+    default_geom = function(self) GeomArea,
 
-    default_aes = function() aes(y = ..density.., fill = NA),
+    default_aes = function(self) aes(y = ..density.., fill = NA),
 
     required_aes = c("x")
   )

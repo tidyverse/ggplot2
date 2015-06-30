@@ -74,16 +74,16 @@ StatBin <- proto2(
     objname = "bin",
     informed = FALSE,
 
-    calculate_groups = function(data, ...) {
+    calculate_groups = function(self, data, ...) {
       if (!is.null(data$y) || !is.null(match.call()$y)) {
         stop("May not have y aesthetic when binning", call. = FALSE)
       }
 
       self$informed <- FALSE
-      super$calculate_groups(data, ...)
+      self$super$calculate_groups(self, data, ...)
     },
 
-    calculate = function(data, scales, binwidth = NULL, origin = NULL,
+    calculate = function(self, data, scales, binwidth = NULL, origin = NULL,
                          breaks = NULL, width = 0.9, drop = FALSE,
                          right = FALSE, ...)
     {
@@ -99,9 +99,9 @@ StatBin <- proto2(
           right = right)
     },
 
-    default_aes = function() aes(y = ..count..),
+    default_aes = function(self) aes(y = ..count..),
     required_aes = c("x"),
-    default_geom = function() GeomBar
+    default_geom = function(self) GeomBar
   )
 )
 
