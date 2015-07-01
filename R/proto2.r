@@ -2,8 +2,9 @@
 #'
 #' @param members A list of members in the proto2 object.
 #' @param inherit An optional proto2 object to inherit from.
+#' @param class An optional class name.
 #' @export
-proto2 <- function(inherit = NULL, members = list()) {
+proto2 <- function(inherit = NULL, members = list(), class = NULL) {
   e <- new.env(parent = emptyenv())
 
   list2env(members, envir = e)
@@ -11,7 +12,7 @@ proto2 <- function(inherit = NULL, members = list()) {
   if (is.proto2(inherit))
     e$super <- inherit
 
-  class(e) <- "proto2"
+  class(e) <- c(class, "proto2")
   e
 }
 
@@ -131,6 +132,8 @@ print.proto2 <- function(x, ..., flat = TRUE) {
 #' @inheritParams print.proto2
 #' @export
 format.proto2 <-  function(x, ..., flat = TRUE) {
+  classname <- setdiff(class(x), "proto2")
+
   # Get a flat list if requested
   if (flat) {
     objs <- as.list(x, inherit = TRUE)
@@ -139,12 +142,18 @@ format.proto2 <-  function(x, ..., flat = TRUE) {
   }
 
   str <- paste0(
-    "<proto2 object>\n",
+    classname, " <proto2 object>\n",
     indent(object_summaries(objs, flat = flat), 4)
   )
 
   if (flat && !is.null(x$super)) {
-    str <- paste0(str, "\n", indent("super: <proto2 object>", 4))
+    str <- paste0(
+      str, "\n",
+      indent(
+        paste0("super: ", setdiff(class(x$super), "proto2"), " <proto2 object>"),
+        4
+      )
+    )
   }
 
   str
