@@ -9,10 +9,13 @@ proto2 <- function(inherit = NULL, members = list(), class = NULL) {
 
   list2env(members, envir = e)
 
-  if (is.proto2(inherit))
+  if (is.proto2(inherit)) {
     e$super <- inherit
+    class(e) <- c(class, class(inherit))
+  } else {
+    class(e) <- c(class, "proto2")
+  }
 
-  class(e) <- c(class, "proto2")
   e
 }
 
@@ -132,7 +135,12 @@ print.proto2 <- function(x, ..., flat = TRUE) {
 #' @inheritParams print.proto2
 #' @export
 format.proto2 <-  function(x, ..., flat = TRUE) {
-  classname <- setdiff(class(x), "proto2")
+  classes_str <- function(obj) {
+    classes <- setdiff(class(obj), "proto2")
+    if (length(classes) == 0)
+      return("")
+    paste0(": Class ", paste(classes, collapse = ', '))
+  }
 
   # Get a flat list if requested
   if (flat) {
@@ -142,7 +150,7 @@ format.proto2 <-  function(x, ..., flat = TRUE) {
   }
 
   str <- paste0(
-    classname, " <proto2 object>\n",
+    "<proto2 object", classes_str(x), ">\n",
     indent(object_summaries(objs, flat = flat), 4)
   )
 
@@ -150,7 +158,7 @@ format.proto2 <-  function(x, ..., flat = TRUE) {
     str <- paste0(
       str, "\n",
       indent(
-        paste0("super: ", setdiff(class(x$super), "proto2"), " <proto2 object>"),
+        paste0("super: ", " <proto2 object", classes_str(x$super), ">"),
         4
       )
     )
@@ -166,7 +174,7 @@ object_summaries <- function(x, exclude = NULL, flat = TRUE) {
     return(NULL)
 
   if (is.list(x))
-    obj_names <- names(x)
+    obj_names <- sort(names(x))
   else if (is.environment(x))
     obj_names <- ls(x, all.names = TRUE)
 
