@@ -28,13 +28,19 @@ strip_dots <- function(expr) {
   if (is.atomic(expr)) {
     expr
   } else if (is.name(expr)) {
-    as.name(gsub(match_calculated_aes, "\\1", as.character(expr)))
+    expr_ch <- as.character(expr)
+    if (nchar(expr_ch) > 0) {
+      as.name(gsub(match_calculated_aes, "\\1", as.character(expr)))
+    }
+    else {
+      expr
+    }
   } else if (is.call(expr)) {
     expr[-1] <- lapply(expr[-1], strip_dots)
     expr
   } else if (is.pairlist(expr)) {
     # In the unlikely event of an anonymous function
-    as.pairlist(lapply(expr, expr))
+    as.pairlist(lapply(expr, strip_dots))
   } else if (is.list(expr)) {
     # For list of aesthetics
     lapply(expr, strip_dots)
