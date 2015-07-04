@@ -123,6 +123,10 @@ ggplot2 1.0.1.9000
 * Add `stroke` aesthetic to `geom_point` controlling the stroke width of the
   border for shape types 21 - 25 (#1133, @SeySayux)
 
+* Fixed `strip_dots` to work with anonymous functions within calculated
+  aesthetics (e.g. aes(sapply(..density.., function(x) mean(x))))
+  (#1154, @NikNakk)
+
 ggplot2 1.0.1
 ----------------------------------------------------------------
 

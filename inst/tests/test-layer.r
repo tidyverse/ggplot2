@@ -15,4 +15,6 @@ test_that("Calling using variable surround by .. is calculated", {
 test_that("strip_dots remove dots around calculated aesthetics", {
   expect_equal(strip_dots(aes(x=..density..))$x, quote(density))
   expect_equal(strip_dots(aes(mean(..density..)))$x, quote(mean(density)))
+  expect_equal(strip_dots(aes(sapply(..density.., function(x) mean(x)))$x),
+               quote(sapply(density, function(x) mean(x))))
 })
