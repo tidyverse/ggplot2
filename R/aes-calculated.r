@@ -31,8 +31,7 @@ strip_dots <- function(expr) {
     expr_ch <- as.character(expr)
     if (nchar(expr_ch) > 0) {
       as.name(gsub(match_calculated_aes, "\\1", expr_ch))
-    }
-    else {
+    } else {
       expr
     }
   } else if (is.call(expr)) {
