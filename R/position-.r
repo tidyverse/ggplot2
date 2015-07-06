@@ -14,7 +14,7 @@ Position <- proto2(
     height = NULL,
 
     new = function(self, width = NULL, height = NULL) {
-      proto(
+      proto2(
         inherit = self,
         members = list(
           width = width,
