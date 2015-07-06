@@ -5,7 +5,7 @@
 \title{Add a smoothed conditional mean.}
 \usage{
 geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
-  position = "identity", show_guide = NA, ...)
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -24,6 +24,11 @@ a call to a position adjustment function.}
 \item{show_guide}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{...}{Additional arguments passed on to \code{\link{stat_smooth}} and
 the underlying statistical model.}
@@ -58,7 +63,7 @@ ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) +
 
 model <- lm(mpg ~ wt + factor(cyl), data = mtcars)
 grid <- with(mtcars, expand.grid(
-  wt = seq(min(wt), max(wt), length = 20),
+  wt = seq(min(wt), max(wt), length.out = 20),
   cyl = levels(factor(cyl))
 ))
 grid$mpg <- stats::predict(model, newdata = grid)

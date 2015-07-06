@@ -111,41 +111,57 @@
 #' # standard errors.
 #' m2 + coord_trans(y="log10")
 #' }
-stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange", position = "identity", ...) {
-  StatSummary$new(mapping = mapping, data = data, geom = geom, position = position, ...)
+stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = StatSummary,
+    geom = geom,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-StatSummary <- proto(Stat, {
-  objname <- "summary"
+StatSummary <- proto2(
+  class = "StatSummary",
+  inherit = Stat,
+  members = list(
+    objname = "summary",
 
-  default_geom <- function(.) GeomPointrange
-  required_aes <- c("x", "y")
+    default_geom = function(self) GeomPointrange,
 
-  calculate_groups <- function(., data, scales, fun.data = NULL, fun.y = NULL, fun.ymax = NULL, fun.ymin = NULL, na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_summary")
+    required_aes = c("x", "y"),
 
-    if (!missing(fun.data)) {
-      # User supplied function that takes complete data frame as input
-      fun.data <- match.fun(fun.data)
-      fun <- function(df, ...) {
-        fun.data(df$y, ...)
+    calculate_groups = function(self, data, scales, fun.data = NULL, fun.y = NULL,
+      fun.ymax = NULL, fun.ymin = NULL, na.rm = FALSE, ...)
+    {
+      data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_summary")
+
+      if (!missing(fun.data)) {
+        # User supplied function that takes complete data frame as input
+        fun.data <- match.fun(fun.data)
+        fun <- function(df, ...) {
+          fun.data(df$y, ...)
+        }
+      } else {
+        # User supplied individual vector functions
+        fs <- compact(list(ymin = fun.ymin, y = fun.y, ymax = fun.ymax))
+
+        fun <- function(df, ...) {
+          res <- llply(fs, function(f) do.call(f, list(df$y, ...)))
+          names(res) <- names(fs)
+          as.data.frame(res)
+        }
       }
-    } else {
-      # User supplied individual vector functions
-      fs <- compact(list(ymin = fun.ymin, y = fun.y, ymax = fun.ymax))
 
-      fun <- function(df, ...) {
-        res <- llply(fs, function(f) do.call(f, list(df$y, ...)))
-        names(res) <- names(fs)
-        as.data.frame(res)
-      }
+      summarise_by_x(data, fun, ...)
     }
-
-    summarise_by_x(data, fun, ...)
-  }
-
-
-})
+  )
+)
 
 # Summarise a data.frame by parts
 # Summarise a data frame by unique value of x

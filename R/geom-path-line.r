@@ -61,18 +61,32 @@
 #' dfm <- melt(df, id.var = c("id", "group"))
 #' ggplot(dfm, aes(variable, value, group = id, colour = group)) +
 #'   geom_path(alpha = 0.5)
-geom_line <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
-  GeomLine$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+geom_line <- function (mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomLine,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomLine <- proto(GeomPath, {
-  objname <- "line"
+GeomLine <- proto2(
+  class = "GeomLine",
+  inherit = GeomPath,
+  members = list(
+    objname = "line",
 
-  draw <- function(., data, scales, coordinates, arrow = NULL, ...) {
-    data <- data[order(data$group, data$x), ]
-    GeomPath$draw(data, scales, coordinates, arrow, ...)
-  }
+    draw = function(self, data, scales, coordinates, arrow = NULL, ...) {
+      data <- data[order(data$group, data$x), ]
+      GeomPath$draw(data, scales, coordinates, arrow, ...)
+    },
 
-  default_stat <- function(.) StatIdentity
-
-})
+    default_stat = function(self) StatIdentity
+  )
+)

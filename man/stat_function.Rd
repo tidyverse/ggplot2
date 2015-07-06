@@ -5,7 +5,8 @@
 \title{Superimpose a function.}
 \usage{
 stat_function(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", fun, n = 101, args = list(), ...)
+  position = "identity", fun, n = 101, args = list(), show_guide = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -25,6 +26,15 @@ on this layer}
 \item{n}{number of points to interpolate along}
 
 \item{args}{list of additional arguments to pass to \code{fun}}
+
+\item{show_guide}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{...}{other arguments passed on to \code{\link{layer}}. This can
 include aesthetics whose values you want to set, not map. See

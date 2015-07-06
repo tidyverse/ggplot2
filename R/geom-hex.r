@@ -7,26 +7,44 @@
 #' @inheritParams geom_point
 #' @examples
 #' # See ?stat_binhex for examples
-geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex", position = "identity", show_guide = NA,...) {
-  GeomHex$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex",
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomHex,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomHex <- proto(Geom, {
-  objname <- "hex"
 
-  draw <- function(., data, scales, coordinates, ...) {
-    with(coord_transform(coordinates, data, scales),
-      ggname(.$my_name(), hexGrob(x, y, col=colour,
-        fill = alpha(fill, alpha)))
-    )
-  }
+GeomHex <- proto2(
+  class = "GeomHex",
+  inherit = Geom,
+  members = list(
+    objname = "hex",
 
-  required_aes <- c("x", "y")
-  default_aes <- function(.) aes(colour=NA, fill = "grey50", size=0.5, alpha = NA)
-  default_stat <- function(.) StatBinhex
-  guide_geom <- function(.) "polygon"
+    draw = function(self, data, scales, coordinates, ...) {
+      with(coord_transform(coordinates, data, scales),
+        ggname(self$my_name(), hexGrob(x, y, colour = colour,
+          fill = alpha(fill, alpha)))
+      )
+    },
 
-})
+    required_aes = c("x", "y"),
+
+    default_aes = function(self) aes(colour=NA, fill = "grey50", size=0.5, alpha = NA),
+
+    default_stat = function(self) StatBinhex,
+
+    guide_geom = function(self) "polygon"
+  )
+)
 
 
 # Draw hexagon grob

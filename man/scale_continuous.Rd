@@ -138,7 +138,7 @@ m + scale_y_reverse()
 # argument.  Some common formats are built into the scales package:
 df <- data.frame(
   x = rnorm(10) * 100000,
-  y = seq(0, 1, length = 10)
+  y = seq(0, 1, length.out = 10)
 )
 p <- ggplot(df, aes(x, y)) + geom_point()
 p + scale_y_continuous(labels = scales::percent)

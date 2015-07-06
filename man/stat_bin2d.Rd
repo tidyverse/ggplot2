@@ -5,7 +5,8 @@
 \title{Count number of observation in rectangular bins.}
 \usage{
 stat_bin2d(mapping = NULL, data = NULL, geom = NULL,
-  position = "identity", bins = 30, drop = TRUE, ...)
+  position = "identity", bins = 30, drop = TRUE, show_guide = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -24,6 +25,15 @@ on this layer}
 horizontal directions. Set to 30 by default.}
 
 \item{drop}{if \code{TRUE} removes all cells with 0 counts.}
+
+\item{show_guide}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{...}{other arguments passed on to \code{\link{layer}}. This can
 include aesthetics whose values you want to set, not map. See
@@ -53,7 +63,7 @@ d + stat_bin2d(binwidth = c(.1, 500))
 
 # Or with a list of breaks
 x <- seq(min(diamonds$carat), max(diamonds$carat), by = 0.1)
-y <- seq(min(diamonds$price), max(diamonds$price), length = 50)
+y <- seq(min(diamonds$price), max(diamonds$price), length.out = 50)
 d + stat_bin2d(breaks = list(x = x, y = y))
 }
 }

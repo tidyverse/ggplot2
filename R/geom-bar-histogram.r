@@ -116,10 +116,25 @@
 #'   geom_density(alpha = 0.2) + xlim(55, 70)
 #' }
 #' rm(movies)
-geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", show_guide = NA,...) {
-  GeomHistogram$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin",
+  position = "stack", show_guide = NA, inherit.aes = TRUE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomHistogram,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomHistogram <- proto(GeomBar, {
-  objname <- "histogram"
-})
+GeomHistogram <- proto2(
+  class = "GeomHistogram",
+  inherit = GeomBar,
+  members = list(
+    objname = "histogram"
+  )
+)

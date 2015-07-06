@@ -15,16 +15,39 @@
 #' @export
 #' @examples
 #' # See stat_density2d for examples
-geom_density2d <- function (mapping = NULL, data = NULL, stat = "density2d", position = "identity",
-lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, show_guide = NA, ...) {
-  GeomDensity2d$new(mapping = mapping, data = data, stat = stat, position = position,
-  lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm,
-  show_guide = show_guide,...)
+geom_density2d <- function (mapping = NULL, data = NULL, stat = "density2d",
+  position = "identity", lineend = "butt", linejoin = "round", linemitre = 1,
+  na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomDensity2d,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    geom_params = list(
+      lineend = lineend,
+      linejoin = linejoin,
+      linemitre = linemitre,
+      na.rm = na.rm
+    ),
+    params = list(...)
+  )
 }
 
-GeomDensity2d <- proto(GeomPath, {
-  objname <- "density2d"
 
-  default_stat <- function(.) StatDensity2d
-  default_aes <- function(.) aes(colour="#3366FF", size = 0.5, linetype = 1, alpha = NA)
-})
+GeomDensity2d <- proto2(
+  class = "GeomDensity2d",
+  inherit = GeomPath,
+  members = list(
+    objname = "density2d",
+
+    default_stat = function(self) StatDensity2d,
+
+    default_aes = function(self) {
+      aes(colour="#3366FF", size = 0.5, linetype = 1, alpha = NA)
+    }
+  )
+)

@@ -130,30 +130,46 @@
 #' m <- ggplot(mpg, aes(x = manufacturer, fill = class))
 #' m + geom_bar()
 #' }
-geom_bar <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", show_guide = NA,...) {
-  GeomBar$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+geom_bar <- function (mapping = NULL, data = NULL, stat = "bin",
+  position = "stack", show_guide = NA, inherit.aes = TRUE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomBar,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomBar <- proto(Geom, {
-  objname <- "bar"
+GeomBar <- proto2(
+  class = "GeomBar",
+  inherit = Geom,
+  members = list(
+    objname = "bar",
 
-  default_stat <- function(.) StatBin
-  default_pos <- function(.) PositionStack
-  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, weight = 1, alpha = NA)
+    default_stat = function(self) StatBin,
+    default_pos = function(self) PositionStack,
+    default_aes = function(self) aes(colour=NA, fill="grey20", size=0.5,
+                                 linetype=1, weight = 1, alpha = NA),
 
-  required_aes <- c("x")
+    required_aes = c("x"),
 
-  reparameterise <- function(., df, params) {
-    df$width <- df$width %||%
-      params$width %||% (resolution(df$x, FALSE) * 0.9)
-    transform(df,
-      ymin = pmin(y, 0), ymax = pmax(y, 0),
-      xmin = x - width / 2, xmax = x + width / 2, width = NULL
-    )
-  }
+    reparameterise = function(self, df, params) {
+      df$width <- df$width %||%
+        params$width %||% (resolution(df$x, FALSE) * 0.9)
+      transform(df,
+        ymin = pmin(y, 0), ymax = pmax(y, 0),
+        xmin = x - width / 2, xmax = x + width / 2, width = NULL
+      )
+    },
 
-  draw_groups <- function(., data, scales, coordinates, ...) {
-    GeomRect$draw_groups(data, scales, coordinates, ...)
-  }
-  guide_geom <- function(.) "polygon"
-})
+    draw_groups = function(self, data, scales, coordinates, ...) {
+      GeomRect$draw_groups(data, scales, coordinates, ...)
+    },
+    guide_geom = function(self) "polygon"
+  )
+)

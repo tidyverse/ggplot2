@@ -20,65 +20,87 @@
 #' @export
 #' @examples
 #' # See geom_boxplot for examples
-stat_boxplot <- function (mapping = NULL, data = NULL, geom = "boxplot", position = "dodge",
-na.rm = FALSE, coef = 1.5, ...) {
-  StatBoxplot$new(mapping = mapping, data = data, geom = geom,
-  position = position, na.rm = na.rm, coef = coef, ...)
+stat_boxplot <- function (mapping = NULL, data = NULL, geom = "boxplot",
+  position = "dodge", na.rm = FALSE, coef = 1.5, show_guide = NA,
+  inherit.aes = TRUE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = StatBoxplot,
+    geom = geom,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    stat_params = list(
+      na.rm = na.rm,
+      coef = coef
+    ),
+    params = list(...)
+  )
 }
 
-StatBoxplot <- proto(Stat, {
-  objname <- "boxplot"
 
-  required_aes <- c("x", "y")
-  default_geom <- function(.) GeomBoxplot
+StatBoxplot <- proto2(
+  class = "StatBoxplot",
+  inherit = Stat,
+  members = list(
+    objname = "boxplot",
 
-  calculate_groups <- function(., data, na.rm = FALSE, width = NULL, ...) {
-    data <- remove_missing(data, na.rm, c("x", "y", "weight"), name="stat_boxplot",
-      finite = TRUE)
-    data$weight <- data$weight %||% 1
-    width <- width %||%  resolution(data$x) * 0.75
+    required_aes = c("x", "y"),
+    
+    default_geom = function(self) GeomBoxplot,
 
-    .super$calculate_groups(., data, na.rm = na.rm, width = width, ...)
-  }
+    calculate_groups = function(self, super, data, na.rm = FALSE, width = NULL,
+      ...)
+    {
+      data <- remove_missing(data, na.rm, c("x", "y", "weight"), name="stat_boxplot",
+        finite = TRUE)
+      data$weight <- data$weight %||% 1
+      width <- width %||%  resolution(data$x) * 0.75
 
-  calculate <- function(., data, scales, width=NULL, na.rm = FALSE, coef = 1.5, ...) {
-    with(data, {
-      qs <- c(0, 0.25, 0.5, 0.75, 1)
-      if (length(unique(weight)) != 1) {
-        try_require("quantreg")
-        stats <- as.numeric(coef(rq(y ~ 1, weights = weight, tau=qs)))
-      } else {
-        stats <- as.numeric(quantile(y, qs))
-      }
-      names(stats) <- c("ymin", "lower", "middle", "upper", "ymax")
+      super$calculate_groups(self, data, na.rm = na.rm, width = width, ...)
+    },
 
-      iqr <- diff(stats[c(2, 4)])
+    calculate = function(self, data, scales, width=NULL, na.rm = FALSE, coef = 1.5, ...) {
+      with(data, {
+        qs <- c(0, 0.25, 0.5, 0.75, 1)
+        if (length(unique(weight)) != 1) {
+          try_require("quantreg")
+          stats <- as.numeric(coef(rq(y ~ 1, weights = weight, tau=qs)))
+        } else {
+          stats <- as.numeric(quantile(y, qs))
+        }
+        names(stats) <- c("ymin", "lower", "middle", "upper", "ymax")
 
-      outliers <- y < (stats[2] - coef * iqr) | y > (stats[4] + coef * iqr)
-      if (any(outliers)) {
-        stats[c(1, 5)] <- range(c(stats[2:4], y[!outliers]), na.rm=TRUE)
-      }
+        iqr <- diff(stats[c(2, 4)])
 
-      if (length(unique(x)) > 1) width <- diff(range(x)) * 0.9
+        outliers <- y < (stats[2] - coef * iqr) | y > (stats[4] + coef * iqr)
+        if (any(outliers)) {
+          stats[c(1, 5)] <- range(c(stats[2:4], y[!outliers]), na.rm=TRUE)
+        }
 
-      df <- as.data.frame(as.list(stats))
-      df$outliers <- I(list(y[outliers]))
+        if (length(unique(x)) > 1) width <- diff(range(x)) * 0.9
 
-      if (is.null(weight)) {
-        n <- sum(!is.na(y))
-      } else {
-        # Sum up weights for non-NA positions of y and weight
-        n <- sum(weight[!is.na(y) & !is.na(weight)])
-      }
+        df <- as.data.frame(as.list(stats))
+        df$outliers <- I(list(y[outliers]))
 
-      df$notchupper <- df$middle + 1.58 * iqr / sqrt(n)
-      df$notchlower <- df$middle - 1.58 * iqr / sqrt(n)
+        if (is.null(weight)) {
+          n <- sum(!is.na(y))
+        } else {
+          # Sum up weights for non-NA positions of y and weight
+          n <- sum(weight[!is.na(y) & !is.na(weight)])
+        }
 
-      transform(df,
-        x = if (is.factor(x)) x[1] else mean(range(x)),
-        width = width,
-        relvarwidth = sqrt(n)
-      )
-    })
-  }
-})
+        df$notchupper <- df$middle + 1.58 * iqr / sqrt(n)
+        df$notchlower <- df$middle - 1.58 * iqr / sqrt(n)
+
+        transform(df,
+          x = if (is.factor(x)) x[1] else mean(range(x)),
+          width = width,
+          relvarwidth = sqrt(n)
+        )
+      })
+    }
+  )
+)

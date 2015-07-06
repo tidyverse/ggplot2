@@ -17,43 +17,61 @@
 #'
 #' ggplot(df, aes(x, colour = g)) + stat_ecdf()
 #' }
-stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step", position = "identity", n = NULL, ...) {
-  StatEcdf$new(mapping = mapping, data = data, geom = geom, position = position, n = n, ...)
+stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step",
+  position = "identity", n = NULL, show_guide = NA, inherit.aes = TRUE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = StatEcdf,
+    geom = geom,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    stat_params = list(n = n),
+    params = list(...)
+  )
 }
 
-StatEcdf <- proto(Stat, {
-  objname <- "ecdf"
 
-  calculate <- function(., data, scales, n = NULL, ...) {
+StatEcdf <- proto2(
+  class = "StatEcdf",
+  inherit = Stat,
+  members = list(
+    objname = "ecdf",
 
-    # If n is NULL, use raw values; otherwise interpolate
-    if (is.null(n)) {
-      xvals <- unique(data$x)
-    } else {
-      xvals <- seq(min(data$x), max(data$x), length.out = n)
-    }
+    calculate = function(self, data, scales, n = NULL, ...) {
 
-    y <- ecdf(data$x)(xvals)
+      # If n is NULL, use raw values; otherwise interpolate
+      if (is.null(n)) {
+        xvals <- unique(data$x)
+      } else {
+        xvals <- seq(min(data$x), max(data$x), length.out = n)
+      }
 
-    # make point with y = 0, from plot.stepfun
-    rx <- range(xvals)
-    if (length(xvals) > 1L) {
-      dr <- max(0.08 * diff(rx), median(diff(xvals)))
-    } else {
-      dr <- abs(xvals)/16
-    }
+      y <- ecdf(data$x)(xvals)
 
-    x0 <- rx[1] - dr
-    x1 <- rx[2] + dr
-    y0 <- 0
-    y1 <- 1
+      # make point with y = 0, from plot.stepfun
+      rx <- range(xvals)
+      if (length(xvals) > 1L) {
+        dr <- max(0.08 * diff(rx), median(diff(xvals)))
+      } else {
+        dr <- abs(xvals)/16
+      }
 
-    data.frame(x = c(x0, xvals, x1), y = c(y0, y, y1))
-  }
+      x0 <- rx[1] - dr
+      x1 <- rx[2] + dr
+      y0 <- 0
+      y1 <- 1
 
-  default_aes <- function(.) aes(y = ..y..)
-  required_aes <- c("x")
-  default_geom <- function(.) GeomStep
+      data.frame(x = c(x0, xvals, x1), y = c(y0, y, y1))
+    },
 
-})
+    default_aes = function(self) aes(y = ..y..),
+
+    required_aes = c("x"),
+
+    default_geom = function(self) GeomStep
+  )
+)
 

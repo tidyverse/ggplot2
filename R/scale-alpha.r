@@ -31,5 +31,5 @@ scale_alpha_continuous <- scale_alpha
 #' @export
 scale_alpha_discrete <- function(..., range = c(0.1, 1)) {
   discrete_scale("alpha", "alpha_d",
-    function(n) seq(range[1], range[2], length = n), ...)
+    function(n) seq(range[1], range[2], length.out = n), ...)
 }

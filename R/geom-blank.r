@@ -21,18 +21,33 @@
 #' # Switching to geom_blank() gets the desired plot
 #' c <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_blank()
 #' c + geom_abline(aes(intercept = a, slope = b), data = df)
-geom_blank <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
-  GeomBlank$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+geom_blank <- function (mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", show_guide = NA, inherit.aes = FALSE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomBlank,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomBlank <- proto(Geom, {
-  objname <- "blank"
 
-  default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes()
+GeomBlank <- proto2(
+  class = "GeomBlank",
+  inherit = Geom,
+  members = list(
+    objname = "blank",
 
-  draw_legend <- function(., data, ...) {
-    zeroGrob()
-  }
+    default_stat = function(self) StatIdentity,
+    default_aes = function(self) aes(),
 
-})
+    draw_legend = function(self, data, ...) {
+      zeroGrob()
+    }
+  )
+)
