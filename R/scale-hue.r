@@ -37,7 +37,7 @@
 #' d + geom_point(alpha = 0.2)
 #'
 #' # Colour of missing values is controlled with na.value:
-#' miss <- factor(sample(c(NA, 1:5), nrow(mtcars), rep = TRUE))
+#' miss <- factor(sample(c(NA, 1:5), nrow(mtcars), replace = TRUE))
 #' ggplot(mtcars, aes(mpg, wt)) + geom_point(aes(colour = miss))
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point(aes(colour = miss)) +

@@ -72,7 +72,7 @@ StatQuantile <- proto2(
     default_geom = function(self) GeomQuantile,
 
     default_aes = function(self) aes(),
-    
+
     required_aes = c("x", "y"),
 
     calculate = function(self, data, scales, quantiles = c(0.25, 0.5, 0.75),
@@ -113,7 +113,7 @@ StatQuantile <- proto2(
 )
 
 quant_pred <- function(quantile, data, method, formula, weight, grid, ...) {
-  model <- method(formula, data = data, tau = quantile, weight = weight, ...)
+  model <- method(formula, data = data, tau = quantile, weights = weight, ...)
 
   grid$y <- predict(model, newdata = grid)
   grid$quantile <- quantile

@@ -31,7 +31,7 @@ GeomHex <- proto2(
 
     draw = function(self, data, scales, coordinates, ...) {
       with(coord_transform(coordinates, data, scales),
-        ggname(self$my_name(), hexGrob(x, y, col=colour,
+        ggname(self$my_name(), hexGrob(x, y, colour = colour,
           fill = alpha(fill, alpha)))
       )
     },

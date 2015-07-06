@@ -22,9 +22,9 @@
 #'
 #' # Use fitdistr from MASS to estimate distribution params
 #' library(MASS)
-#' params <- as.list(fitdistr(y, "t")$estimate)
+#' params <- as.list(fitdistr(df$y, "t")$estimate)
 #' ggplot(df, aes(sample = y)) +
-#'   stat_qq(dist = qt, dparam = params)
+#'   stat_qq(distribution = qt, dparams = params)
 #'
 #' # Using to explore the distribution of a variable
 #' ggplot(mtcars) +

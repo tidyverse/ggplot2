@@ -128,7 +128,7 @@ StatDensity <- proto2(
         range <- scale_dimension(scales$x, c(0, 0))
       }
 
-      compute_density(data$x, data$w, from = range[1], to = range[2],
+      compute_density(data$x, data$weight, from = range[1], to = range[2],
         adjust = adjust, kernel = kernel)
     },
 
@@ -158,7 +158,7 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
     ))
   }
 
-  dens <- stats::density(x, weight = w, bw = bw, adjust = adjust,
+  dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
     kernel = kernel, from = from, to = to)
 
   data.frame(
