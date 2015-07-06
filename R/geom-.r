@@ -5,8 +5,9 @@ Geom <- proto2(
     class = function(self) "geom",
 
     parameters = function(self) {
-      params <- formals(self$draw)
-      params <- params[setdiff(names(params), c("data","scales", "coordinates", "..."))]
+      # proto2 TODO: better way of getting formals for self$draw
+      params <- formals(environment(self$draw)$res)
+      params <- params[setdiff(names(params), c("self", "super", "data", "scales", "coordinates", "..."))]
 
       required <- rep(NA, length(self$required_aes))
       names(required) <- self$required_aes

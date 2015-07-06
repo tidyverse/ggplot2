@@ -65,8 +65,9 @@ Stat <- proto2(
     # },
 
     parameters = function(self) {
-      params <- formals(self$calculate)
-      params[setdiff(names(params), c("data", "scales"))]
+      # proto2 TODO: better way of getting formals for self$calculate
+      params <- formals(environment(self$calculate)$res)
+      params[setdiff(names(params), c("self", "super", "data", "scales"))]
     },
 
     class = function(self) "stat"
