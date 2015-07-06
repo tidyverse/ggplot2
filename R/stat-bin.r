@@ -6,9 +6,12 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bin")}
 #'
 #' @inheritParams stat_identity
-#' @param binwidth Bin width to use. Defaults to 1/30 of the range of the
-#'   data
-#' @param breaks Actual breaks to use.  Overrides bin width and origin
+#' @param binwidth Bin width to use. Defaults to 1/\code{bins} of the range of
+#'   the data
+#' @param bins Number of bins. Overridden by \code{binwidth} or \code{breaks}.
+#'   Defaults to 30
+#' @param breaks Actual breaks to use. Overrides bin width, bin number and
+#'   origin
 #' @param origin Origin of first bin
 #' @param width Width of bars when used with categorical data
 #' @param right If \code{TRUE}, right-closed, left-open, if \code{FALSE},
@@ -32,6 +35,7 @@
 #' m <- ggplot(movies, aes(x=rating))
 #' m + stat_bin()
 #' m + stat_bin(binwidth=0.1)
+#' m + stat_bin(bins=10)
 #' m + stat_bin(breaks=seq(4,6, by=0.1))
 #' # See geom_histogram for more histogram examples
 #'
@@ -44,9 +48,9 @@
 #' ggplot(movies, aes(x=mpaa)) + stat_bin()
 #' }
 stat_bin <- function (mapping = NULL, data = NULL, geom = "bar", position = "stack",
-width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, origin = NULL, breaks = NULL, ...) {
+width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, bins = NULL, origin = NULL, breaks = NULL, ...) {
   StatBin$new(mapping = mapping, data = data, geom = geom, position = position,
-  width = width, drop = drop, right = right, binwidth = binwidth, origin = origin, breaks = breaks, ...)
+  width = width, drop = drop, right = right, binwidth = binwidth, bins = bins, origin = origin, breaks = breaks, ...)
 }
 
 StatBin <- proto(Stat, {
@@ -62,15 +66,15 @@ StatBin <- proto(Stat, {
     .super$calculate_groups(., data, ...)
   }
 
-  calculate <- function(., data, scales, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = FALSE, ...) {
+  calculate <- function(., data, scales, binwidth=NULL, bins=NULL, origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = FALSE, ...) {
     range <- scale_dimension(scales$x, c(0, 0))
 
-    if (is.null(breaks) && is.null(binwidth) && !is.integer(data$x) && !.$informed) {
-      message("stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.")
+    if (is.null(breaks) && is.null(binwidth) && is.null(bins) && !is.integer(data$x) && !.$informed) {
+      message("stat_bin: bins defaulted to 30. Use 'bins = n' or 'binwidth = x' to adjust this.")
       .$informed <- TRUE
     }
 
-    bin(data$x, data$weight, binwidth=binwidth, origin=origin, breaks=breaks, range=range, width=width, drop = drop, right = right)
+    bin(data$x, data$weight, binwidth=binwidth, bins=bins, origin=origin, breaks=breaks, range=range, width=width, drop = drop, right = right)
   }
 
   default_aes <- function(.) aes(y = ..count..)
@@ -79,14 +83,15 @@ StatBin <- proto(Stat, {
 
 })
 
-bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
+bin <- function(x, weight=NULL, binwidth=NULL, bins=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
 
   if (length(na.omit(x)) == 0) return(data.frame())
   if (is.null(weight))  weight <- rep(1, length(x))
   weight[is.na(weight)] <- 0
 
-  if (is.null(range))    range <- range(x, na.rm = TRUE, finite=TRUE)
-  if (is.null(binwidth)) binwidth <- diff(range) / 30
+  if (is.null(range))    range    <- range(x, na.rm = TRUE, finite=TRUE)
+  if (is.null(bins))     bins     <- 30
+  if (is.null(binwidth)) binwidth <- diff(range) / bins
 
   if (is.integer(x)) {
     bins <- x

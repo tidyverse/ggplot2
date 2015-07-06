@@ -30,6 +30,9 @@
 #' m + geom_histogram(binwidth = 0.5)
 #' m + geom_histogram(binwidth = 0.1)
 #'
+#' m + geom_histogram(bins = 10)
+#' m + geom_histogram(bins = 50)
+#'
 #' # Add aesthetic mappings
 #' m + geom_histogram(aes(weight = votes))
 #' m + geom_histogram(aes(y = ..count..))

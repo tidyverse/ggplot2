@@ -6,7 +6,7 @@
 \usage{
 stat_bin(mapping = NULL, data = NULL, geom = "bar", position = "stack",
   width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL,
-  origin = NULL, breaks = NULL, ...)
+  bins = NULL, origin = NULL, breaks = NULL, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -28,12 +28,16 @@ on this layer}
 \item{right}{If \code{TRUE}, right-closed, left-open, if \code{FALSE},
 the default, right-open, left-closed.}
 
-\item{binwidth}{Bin width to use. Defaults to 1/30 of the range of the
-data}
+\item{binwidth}{Bin width to use. Defaults to 1/\code{bins} of the range of
+the data}
+
+\item{bins}{Number of bins. Overridden by \code{binwidth} or \code{breaks}.
+Defaults to 30}
 
 \item{origin}{Origin of first bin}
 
-\item{breaks}{Actual breaks to use.  Overrides bin width and origin}
+\item{breaks}{Actual breaks to use. Overrides bin width, bin number and
+origin}
 
 \item{...}{other arguments passed on to \code{\link{layer}}. This can
 include aesthetics whose values you want to set, not map. See
@@ -65,6 +69,7 @@ base + stat_bin(binwidth = 1, drop = FALSE, right = TRUE, col = "black")
 m <- ggplot(movies, aes(x=rating))
 m + stat_bin()
 m + stat_bin(binwidth=0.1)
+m + stat_bin(bins=10)
 m + stat_bin(breaks=seq(4,6, by=0.1))
 # See geom_histogram for more histogram examples
 
