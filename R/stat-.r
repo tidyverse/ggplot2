@@ -59,10 +59,10 @@ Stat <- proto2(
     },
 
 
-    print = function(self, newline=TRUE) {
-      cat("stat_", self$objname ,": ", sep="") # , clist(self$parameters())
-      if (newline) cat("\n")
-    },
+    # print = function(self, newline=TRUE) {
+    #   cat("stat_", self$objname ,": ", sep="") # , clist(self$parameters())
+    #   if (newline) cat("\n")
+    # },
 
     parameters = function(self) {
       params <- formals(self$calculate)

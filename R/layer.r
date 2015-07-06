@@ -125,20 +125,20 @@ Layer <- proto2(
       aesthetics[!set & !calculated]
     },
 
-    print = function(self) {
-      if (is.null(self$geom)) {
-        cat("Empty layer\n")
-        return(invisible());
-      }
-      if (!is.null(self$mapping)) {
-        cat("mapping:", clist(self$mapping), "\n")
-      }
-      self$geom$print(newline=FALSE)
-      cat(clist(self$geom_params), "\n")
-      self$stat$print(newline=FALSE)
-      cat(clist(self$stat_params), "\n")
-      self$position$print()
-    },
+#     print = function(self) {
+#       if (is.null(self$geom)) {
+#         cat("Empty layer\n")
+#         return(invisible());
+#       }
+#       if (!is.null(self$mapping)) {
+#         cat("mapping:", clist(self$mapping), "\n")
+#       }
+#       self$geom$print(newline=FALSE)
+#       cat(clist(self$geom_params), "\n")
+#       self$stat$print(newline=FALSE)
+#       cat(clist(self$stat_params), "\n")
+#       self$position$print()
+#     },
 
 
     compute_aesthetics = function(self, data, plot) {

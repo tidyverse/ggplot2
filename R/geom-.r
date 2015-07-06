@@ -36,10 +36,10 @@ Geom <- proto2(
       ))
     },
 
-    print = function(self, newline=TRUE) {
-      cat("geom_", self$objname, ": ", sep="") #  , clist(self$parameters())
-      if (newline) cat("\n")
-    },
+#     print = function(self, newline=TRUE) {
+#       cat("geom_", self$objname, ": ", sep="") #  , clist(self$parameters())
+#       if (newline) cat("\n")
+#     },
 
     reparameterise = function(self, data, params) data
 

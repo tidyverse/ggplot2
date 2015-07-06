@@ -29,12 +29,12 @@ Position <- proto2(
       names(values) <- pnames
 
       values
-    },
-
-    print = function(self, newline=TRUE) {
-      cat("position_", self$objname, ": (", clist(self$parameters()), ")", sep="")
-      if (newline) cat("\n")
     }
+
+    # print = function(self, newline=TRUE) {
+    #   cat("position_", self$objname, ": (", clist(self$parameters()), ")", sep="")
+    #   if (newline) cat("\n")
+    # }
   )
 )
 
