@@ -64,8 +64,14 @@ Layer <- proto2(
       if (length(params) > 0) {
         params <- rename_aes(params) # Rename American to British spellings etc
 
-        geom_params <- c(geom_params, match.params(geom$parameters(), params))
-        stat_params <- c(stat_params, match.params(stat$parameters(), params))
+        # Split params to geom and stat; any unknown params go to the geom by default
+        new_geom_params <- match.params(geom$parameters(), params)
+        new_stat_params <- match.params(stat$parameters(), params)
+        new_stat_params <- new_stat_params[setdiff(names(new_stat_params),
+                                               names(new_geom_params))]
+
+        geom_params <- c(geom_params, new_geom_params)
+        stat_params <- c(stat_params, new_stat_params)
       }
 
       proto2(inherit = self,
