@@ -62,6 +62,7 @@ geom_hline <- function (mapping = NULL, data = NULL, stat = "hline",
 }
 
 GeomHline <- proto2(
+  class = "GeomHline",
   inherit = Geom,
   members = list(
     objname = "hline",

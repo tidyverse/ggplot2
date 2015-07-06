@@ -141,6 +141,7 @@ geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
 }
 
 GeomDotplot <- proto2(
+  class = "GeomDotplot",
   inherit = Geom,
   members = list(
     objname = "dotplot",

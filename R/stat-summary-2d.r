@@ -53,6 +53,7 @@ stat_summary2d <- function (mapping = NULL, data = NULL, geom = NULL,
 }
 
 StatSummary2d <- proto2(
+  class = "StatSummary2d",
   inherit = Stat,
   members = list(
     objname = "Summary2d",

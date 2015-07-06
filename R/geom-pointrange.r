@@ -29,6 +29,7 @@ geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomPointrange <- proto2(
+  class = "GeomPointrange",
   inherit = Geom,
   members = list(
     objname = "pointrange",

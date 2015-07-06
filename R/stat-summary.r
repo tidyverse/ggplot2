@@ -127,6 +127,7 @@ stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
 }
 
 StatSummary <- proto2(
+  class = "StatSummary",
   inherit = Stat,
   members = list(
     objname = "summary",

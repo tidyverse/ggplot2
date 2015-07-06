@@ -2,6 +2,7 @@
 # They work only with discrete x scales and may affect x and y position.
 # Should occur after statistics and scales have been applied.
 Position <- proto2(
+  class = "Position",
   inherit = TopLevel,
   members = list(
     adjust = function(self, data, scales, ...) data,

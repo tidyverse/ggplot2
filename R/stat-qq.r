@@ -54,6 +54,7 @@ stat_qq <- function (mapping = NULL, data = NULL, geom = "point",
 }
 
 StatQq <- proto2(
+  class = "StatQq",
   inherit = Stat,
   members = list(
     objname = "qq",

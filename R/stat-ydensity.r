@@ -50,6 +50,7 @@ stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
 
 
 StatYdensity <- proto2(
+  class = "StatYdensity",
   inherit = Stat,
   members = list(
     objname = "ydensity",

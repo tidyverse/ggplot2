@@ -33,6 +33,7 @@ geom_quantile <- function (mapping = NULL, data = NULL, stat = "quantile",
 }
 
 GeomQuantile <- proto2(
+  class = "GeomQuantile",
   inherit = GeomPath,
   members = list(
     objname = "quantile",

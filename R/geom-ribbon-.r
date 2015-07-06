@@ -54,6 +54,7 @@ geom_ribbon <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomRibbon <- proto2(
+  class = "GeomRibbon",
   inherit = Geom,
   members = list(
     objname = "ribbon",

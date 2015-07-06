@@ -23,7 +23,8 @@ position_fill <- function (width = NULL, height = NULL) {
   PositionFill$new(width = width, height = height)
 }
 
-PositionFill <- proto2(  
+PositionFill <- proto2(
+  class = "PositionFill",
   inherit = Position,
   members = list(
     objname = "fill",

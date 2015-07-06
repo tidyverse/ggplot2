@@ -56,6 +56,7 @@ annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax 
 }
 
 GeomCustomAnn <- proto2(
+  class = "GeomCustomAnn",
   inherit = Geom,
   members = list(
     objname = "custom_ann",

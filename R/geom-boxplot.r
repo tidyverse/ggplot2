@@ -141,6 +141,7 @@ geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
 }
 
 GeomBoxplot <- proto2(
+  class = "GeomBoxplot",
   inherit = Geom,
   members = list(
     objname = "boxplot",

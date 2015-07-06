@@ -77,6 +77,7 @@ geom_line <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomLine <- proto2(
+  class = "GeomLine",
   inherit = GeomPath,
   members = list(
     objname = "line",

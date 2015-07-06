@@ -12,6 +12,7 @@
 #
 # Can think about grob creation as a series of data frame transformations.
 Layer <- proto2(
+  class = "Layer",
   members = list(
     geom = NULL,
     geom_params = NULL,
@@ -68,6 +69,7 @@ Layer <- proto2(
       }
 
       proto2(inherit = self,
+        class = "LayerInstance",
         members = list(
           geom = geom,
           geom_params = geom_params,

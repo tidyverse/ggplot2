@@ -132,6 +132,7 @@ stat_smooth <- function (mapping = NULL, data = NULL, geom = "smooth",
 }
 
 StatSmooth <- proto2(
+  class = "StatSmooth",
   inherit = Stat,
   members = list(
     objname = "smooth",

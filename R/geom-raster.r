@@ -77,6 +77,7 @@ geom_raster <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomRaster <- proto2(
+  class = "GeomRaster",
   inherit = Geom,
   members = list(
     objname = "raster",

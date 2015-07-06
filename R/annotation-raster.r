@@ -63,6 +63,7 @@ annotation_raster <- function (raster, xmin, xmax, ymin, ymax,
 }
 
 GeomRasterAnn <- proto2(
+  class = "GeomRasterAnn",
   inherit = GeomRaster,
   members = list(
     objname = "raster_ann",

@@ -48,6 +48,7 @@ geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomLinerange <- proto2(
+  class = "GeomLinerange",
   inherit = Geom,
   members = list(
     objname = "linerange",

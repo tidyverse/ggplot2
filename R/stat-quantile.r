@@ -64,6 +64,7 @@ stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile",
 
 
 StatQuantile <- proto2(
+  class = "StatQuantile",
   inherit = Stat,
   members = list(
     objname = "quantile",

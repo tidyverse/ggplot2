@@ -51,6 +51,7 @@ geom_curve <- function(mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomCurve <- proto2(
+  class = "GeomCurve",
   inherit = Geom,
   members = list(
     objname = "curve",

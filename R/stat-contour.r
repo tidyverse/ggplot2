@@ -67,6 +67,7 @@ stat_contour <- function (mapping = NULL, data = NULL, geom = "path",
 
 
 StatContour <- proto2(
+  class = "StatContour",
   inherit = Stat,
   members = list(
     objname = "contour",

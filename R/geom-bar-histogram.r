@@ -132,6 +132,7 @@ geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin",
 }
 
 GeomHistogram <- proto2(
+  class = "GeomHistogram",
   inherit = GeomBar,
   members = list(
     objname = "histogram"

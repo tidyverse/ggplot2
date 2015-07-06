@@ -111,6 +111,7 @@ stat_density <- function (mapping = NULL, data = NULL, geom = "area",
 }
 
 StatDensity <- proto2(
+  class = "StatDensity",
   inherit = Stat,
   members = list(
     objname = "density",

@@ -136,6 +136,7 @@ geom_point <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomPoint <- proto2(
+  class = "GeomPoint",
   inherit = Geom,
   members = list(
     objname = "point",

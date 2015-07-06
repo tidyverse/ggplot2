@@ -37,6 +37,7 @@ geom_rug <- function (mapping = NULL, data = NULL, stat = "identity",
 
 
 GeomRug <- proto2(
+  class = "GeomRug",
   inherit = Geom,
   members = list(
     objname = "rug",

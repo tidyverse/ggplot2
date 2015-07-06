@@ -1,4 +1,5 @@
 Stat <- proto2(
+  class = "Stat",
   inherit = TopLevel,
   members = list(
     objname = "",

@@ -66,6 +66,7 @@ stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
 }
 
 StatEllipse <- proto2(
+  class = "StatEllipse",
   inherit = Stat,
   members = list(
     objname = "ellipse",

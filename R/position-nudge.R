@@ -23,7 +23,8 @@ position_nudge <- function(x = 0, y = 0) {
   PositionNudge$new(x = x, y = y)
 }
 
-PositionNudge <- proto2(  
+PositionNudge <- proto2(
+  class = "PositionNudge",
   inherit = Position,
   members = list(
     objname = "nudge",

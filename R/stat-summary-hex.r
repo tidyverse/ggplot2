@@ -51,6 +51,7 @@ stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex",
 }
 
 StatSummaryhex <- proto2(
+  class = "StatSummaryhex",
   inherit = Stat,
   members = list(
     objname = "summaryhex",

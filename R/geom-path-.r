@@ -116,6 +116,7 @@ geom_path <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomPath <- proto2(
+  class = "GeomPath",
   inherit = Geom,
   members = list(
     objname = "path",

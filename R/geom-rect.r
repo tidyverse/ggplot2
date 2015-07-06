@@ -28,6 +28,7 @@ geom_rect <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomRect <- proto2(
+  class = "GeomRect",
   inherit = Geom,
   members = list(
     objname = "rect",

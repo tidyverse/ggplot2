@@ -50,6 +50,7 @@ stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL,
 }
 
 StatBin2d <- proto2(
+  class = "StatBin2d",
   inherit = Stat,
   members = list(
     objname = "bin2d",

@@ -1,4 +1,5 @@
 Geom <- proto2(
+  class = "Geom",
   inherit = TopLevel,
   members = list(
     class = function(self) "geom",

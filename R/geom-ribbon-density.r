@@ -28,6 +28,7 @@ geom_density <- function (mapping = NULL, data = NULL, stat = "density",
 }
 
 GeomDensity <- proto2(
+  class = "GeomDensity",
   inherit = GeomArea,
   members = list(
     objname = "density",

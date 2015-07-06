@@ -38,6 +38,7 @@ geom_blank <- function (mapping = NULL, data = NULL, stat = "identity",
 
 
 GeomBlank <- proto2(
+  class = "GeomBlank",
   inherit = Geom,
   members = list(
     objname = "blank",

@@ -96,6 +96,7 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
 
 
 GeomText <- proto2(
+  class = "GeomText",
   inherit = Geom,
   members = list(
     objname = "text",

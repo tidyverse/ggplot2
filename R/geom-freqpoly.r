@@ -33,6 +33,7 @@ geom_freqpoly <- function(mapping = NULL, data = NULL, stat = "bin",
 
 
 GeomFreqpoly <- proto2(
+  class = "GeomFreqpoly",
   inherit = Geom,
   members = list(
     objname = "freqpoly",

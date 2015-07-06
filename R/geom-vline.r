@@ -59,6 +59,7 @@ geom_vline <- function (mapping = NULL, data = NULL, stat = "vline",
 }
 
 GeomVline <- proto2(
+  class = "GeomVline",
   inherit = Geom,
   members = list(
     objname = "vline",

@@ -35,6 +35,7 @@ stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step",
 
 
 StatEcdf <- proto2(
+  class = "StatEcdf",
   inherit = Stat,
   members = list(
     objname = "ecdf",

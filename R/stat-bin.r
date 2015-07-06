@@ -69,6 +69,7 @@ stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
 }
 
 StatBin <- proto2(
+  class = "StatBin",
   inherit = Stat,
   members = list(
     objname = "bin",

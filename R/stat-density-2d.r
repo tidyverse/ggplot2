@@ -78,6 +78,7 @@ stat_density2d <- function (mapping = NULL, data = NULL, geom = "density2d",
 }
 
 StatDensity2d <- proto2(
+  class = "StatDensity2d",
   inherit = Stat,
   members = list(
     objname = "density2d",

@@ -42,6 +42,7 @@ stat_boxplot <- function (mapping = NULL, data = NULL, geom = "boxplot",
 
 
 StatBoxplot <- proto2(
+  class = "StatBoxplot",
   inherit = Stat,
   members = list(
     objname = "boxplot",

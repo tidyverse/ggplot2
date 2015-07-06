@@ -81,6 +81,7 @@ geom_tile <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomTile <- proto2(
+  class = "GeomTile",
   inherit = Geom,
   members = list(
     objname = "tile",

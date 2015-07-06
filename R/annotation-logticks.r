@@ -108,6 +108,7 @@ annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
 }
 
 GeomLogticks <- proto2(
+  class = "GeomLogticks",
   inherit = Geom,
   members = list(
     objname = "logticks",

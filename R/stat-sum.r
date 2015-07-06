@@ -51,6 +51,7 @@ stat_sum <- function (mapping = NULL, data = NULL, geom = "point",
 }
 
 StatSum <- proto2(
+  class = "StatSum",
   inherit = Stat,
   members = list(
     objname = "sum",

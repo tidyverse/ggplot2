@@ -24,6 +24,7 @@ stat_unique <- function (mapping = NULL, data = NULL, geom = "point",
 }
 
 StatUnique <- proto2(
+  class = "StatUnique",
   inherit = Stat,
   members = list(
     objname = "unique",

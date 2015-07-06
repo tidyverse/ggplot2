@@ -43,6 +43,7 @@ stat_identity <- function (mapping = NULL, data = NULL, geom = "point",
 }
 
 StatIdentity <- proto2(
+  class = "StatIdentity",
   inherit = Stat,
   members = list(
     objname = "identity",

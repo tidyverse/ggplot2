@@ -64,6 +64,7 @@ geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomSegment <- proto2(
+  class = "GeomSegment",
   inherit = Geom,
   members = list(
     objname = "segment",

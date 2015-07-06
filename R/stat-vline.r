@@ -22,6 +22,7 @@ stat_abline <- function (mapping = NULL, data = NULL, geom = "abline",
 }
 
 StatAbline <- proto2(
+  class = "StatAbline",
   inherit = Stat,
   members = list(
     objname = "abline",
@@ -68,6 +69,7 @@ stat_vline <- function (mapping = NULL, data = NULL, geom = "vline",
 }
 
 StatVline <- proto2(
+  class = "StatVline",
   inherit = Stat,
   members = list(
     objname = "vline",
@@ -112,6 +114,7 @@ stat_hline <- function (mapping = NULL, data = NULL, geom = "hline",
 }
 
 StatHline <- proto2(
+  class = "StatHline",
   inherit = Stat,
   members = list(
     calculate = function(self, data, scales, yintercept = NULL, intercept, ...) {

@@ -62,6 +62,7 @@ geom_polygon <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomPolygon <- proto2(
+  class = "GeomPolygon",
   inherit = Geom,
   members = list(
     objname = "polygon",

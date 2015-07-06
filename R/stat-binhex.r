@@ -46,6 +46,7 @@ stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex",
 
 
 StatBinhex <- proto2(
+  class = "StatBinhex",
   inherit = Stat,
   members = list(
     objname = "binhex",

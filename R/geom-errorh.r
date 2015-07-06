@@ -38,6 +38,7 @@ geom_errorbarh <- function (mapping = NULL, data = NULL, stat = "identity",
 
 
 GeomErrorbarh <- proto2(
+  class = "GeomErrorbarh",
   inherit = Geom,
   members = list(
     objname = "errorbarh",

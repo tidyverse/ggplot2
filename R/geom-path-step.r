@@ -46,6 +46,7 @@ geom_step <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomStep <- proto2(
+  class = "GeomStep",
   inherit = Geom,
   members = list(
     objname = "step",

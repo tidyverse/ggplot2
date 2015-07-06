@@ -38,6 +38,7 @@ stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment",
 }
 
 StatSpoke <- proto2(
+  class = "StatSpoke",
   inherit = Stat,
   members = list(
     objname = "spoke",

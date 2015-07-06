@@ -30,7 +30,8 @@ position_dodge <- function(width = NULL, height = NULL) {
   PositionDodge$new(width = width, height = height)
 }
 
-PositionDodge <- proto2(  
+PositionDodge <- proto2(
+  class = "PositionDodge",
   inherit = Position,
   members = list(
     objname = "dodge",

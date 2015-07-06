@@ -64,6 +64,7 @@ geom_errorbar <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomErrorbar <- proto2(
+  class = "GeomErrorbar",
   inherit = Geom,
   members = list(
     objname = "errorbar",

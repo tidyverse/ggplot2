@@ -42,6 +42,7 @@ annotation_map <- function(map, ...) {
 }
 
 GeomAnnotationMap <- proto2(
+  class = "GeomAnnotationMap",
   inherit = GeomMap,
   members = list(
     objname = "map",

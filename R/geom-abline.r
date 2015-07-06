@@ -77,6 +77,7 @@ geom_abline <- function (mapping = NULL, data = NULL, stat = "abline",
 }
 
 GeomAbline <- proto2(
+  class = "GeomAbline",
   inherit = Geom,
   members = list(
     objname = "abline",

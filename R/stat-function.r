@@ -65,6 +65,7 @@ stat_function <- function (mapping = NULL, data = NULL, geom = "path",
 }
 
 StatFunction <- proto2(
+  class = "StatFunction",
   inherit = Stat,
   members = list(
     objname = "function",

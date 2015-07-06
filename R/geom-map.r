@@ -83,6 +83,7 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
 }
 
 GeomMap <- proto2(
+  class = "GeomMap",
   inherit = GeomPolygon,
   members = list(
     objname = "map",

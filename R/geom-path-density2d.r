@@ -39,6 +39,7 @@ geom_density2d <- function (mapping = NULL, data = NULL, stat = "density2d",
 
 
 GeomDensity2d <- proto2(
+  class = "GeomDensity2d",
   inherit = GeomPath,
   members = list(
     objname = "density2d",

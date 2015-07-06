@@ -77,6 +77,7 @@ geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity",
 }
 
 GeomViolin <- proto2(
+  class = "GeomViolin",
   inherit = Geom,
   members = list(
     objname = "violin",

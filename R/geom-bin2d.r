@@ -27,6 +27,7 @@ geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d",
 }
 
 GeomBin2d <- proto2(
+  class = "GeomBin2d",
   inherit = Geom,
   members = list(
     draw = function(self, data, scales, coordinates, ...) {

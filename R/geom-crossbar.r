@@ -29,6 +29,7 @@ geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomCrossbar <- proto2(
+  class = "GeomCrossbar",
   inherit = Geom,
   members = list(
     objname = "crossbar",

@@ -69,6 +69,7 @@ geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth",
 }
 
 GeomSmooth <- proto2(
+  class = "GeomSmooth",
   inherit = Geom,
   members = list(
     objname = "smooth",

@@ -24,6 +24,7 @@ geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex",
 
 
 GeomHex <- proto2(
+  class = "GeomHex",
   inherit = Geom,
   members = list(
     objname = "hex",

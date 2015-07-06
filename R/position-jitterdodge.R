@@ -25,7 +25,8 @@ position_jitterdodge <- function (jitter.width = NULL,
                           dodge.width = dodge.width)
 }
 
-PositionJitterDodge <- proto2(  
+PositionJitterDodge <- proto2(
+  class = "PositionJitterDodge",
   inherit = Position,
   members = list(
     jitter.width = NULL,

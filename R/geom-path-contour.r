@@ -32,6 +32,7 @@ geom_contour <- function (mapping = NULL, data = NULL, stat = "contour",
 }
 
 GeomContour <- proto2(
+  class = "GeomContour",
   inherit = GeomPath,
   members = list(
     objname = "contour",

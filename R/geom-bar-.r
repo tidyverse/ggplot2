@@ -146,6 +146,7 @@ geom_bar <- function (mapping = NULL, data = NULL, stat = "bin",
 }
 
 GeomBar <- proto2(
+  class = "GeomBar",
   inherit = Geom,
   members = list(
     objname = "bar",

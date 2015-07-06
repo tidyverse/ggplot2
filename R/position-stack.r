@@ -34,7 +34,8 @@ position_stack <- function (width = NULL, height = NULL) {
   PositionStack$new(width = width, height = height)
 }
 
-PositionStack <- proto2(  
+PositionStack <- proto2(
+  class = "PositionStack",
   inherit = Position,
   members = list(
     objname = "stack",
