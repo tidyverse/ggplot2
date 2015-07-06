@@ -73,13 +73,13 @@ StatEllipse <- proto2(
 
     required_aes = c("x", "y"),
 
-    default_geom = function() GeomPath,
+    default_geom = function(self) GeomPath,
 
-    calculate_groups = function(data, scales, ...){
-      super$calculate_groups(data, scales,...)
+    calculate_groups = function(self, super, data, scales, ...){
+      super$calculate_groups(self, data, scales,...)
     },
 
-    calculate = function(data, scales, type = "t", level = 0.95, segments = 51,
+    calculate = function(self, data, scales, type = "t", level = 0.95, segments = 51,
       na.rm = FALSE, ...)
     {
       data <- remove_missing(data, na.rm, vars = c("x","y"),

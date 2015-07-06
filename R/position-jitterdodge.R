@@ -33,10 +33,10 @@ PositionJitterDodge <- proto2(
     jitter.height = NULL,
     dodge.width = NULL,
 
-    new = function(jitter.width = NULL,
+    new = function(self, jitter.width = NULL,
       jitter.height = NULL, dodge.width = NULL)
     {
-      proto(
+      proto2(
         inherit = self,
         members = list(
           jitter.width = jitter.width,
@@ -48,7 +48,7 @@ PositionJitterDodge <- proto2(
 
     objname = "jitterdodge",
 
-    adjust = function(data) {
+    adjust = function(self, data) {
 
       if (empty(data)) return(data.frame())
       check_required_aesthetics(c("x", "y", "fill"), names(data), "position_jitterdodge")
