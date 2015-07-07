@@ -1,7 +1,7 @@
 Package: ggplot2
 Type: Package
 Title: An Implementation of the Grammar of Graphics
-Version: 1.0.1.9001
+Version: 1.0.1.9002
 Authors@R: c(
     person("Hadley", "Wickham", role = c("aut", "cre"), email = "h.wickham@gmail.com"),
     person("Winston", "Chang", role = "aut", email = "winston@stdout.org")
