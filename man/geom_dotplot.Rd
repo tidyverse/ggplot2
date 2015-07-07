@@ -117,7 +117,7 @@ ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5) +
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, stackratio = .7)
 
 # Expand dot diameter
-ggplot(mtcars, aes(x  =mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
+ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
 
 
 # Examples with stacking along y axis instead of x
