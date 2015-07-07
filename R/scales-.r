@@ -2,19 +2,19 @@
 # All input and output done with data.frames to facilitate
 # multiple input and output variables
 
-Scales <- R6::R6Class("Scales",
-  public = list(
+Scales <- proto2("Scales",
+  members = list(
     scales = NULL,
 
-    find = function(aesthetic) {
+    find = function(self, aesthetic) {
       vapply(self$scales, function(x) any(aesthetic %in% x$aesthetics), logical(1))
     },
 
-    has_scale = function(aesthetic) {
+    has_scale = function(self, aesthetic) {
       any(self$find(aesthetic))
     },
 
-    add = function(scale) {
+    add = function(self, scale) {
       prev_aes <- self$find(scale$aesthetics)
       if (any(prev_aes)) {
         # Get only the first aesthetic name in the returned vector -- it can
@@ -29,23 +29,30 @@ Scales <- R6::R6Class("Scales",
       self$scales <- c(self$scales[!prev_aes], list(scale))
     },
 
-    n = function() {
+    n = function(self) {
       length(self$scales)
     },
 
-    input = function() {
+    input = function(self) {
       unlist(lapply(self$scales, "[[", "aesthetics"))
     },
 
-    initialize = function(scales = NULL) {
-      self$scales <- scales
+    new = function(self, scales = NULL) {
+      proto2(inherit = self,
+        class = "ScalesInstance",
+        members = list(scales = scales)
+      )
     },
 
-    non_position_scales = function() {
+    # This actually makes a descendent of self, which is functionally the same
+    # as a actually clone for most purposes.
+    clone = function(self) proto2(inherit = self),
+
+    non_position_scales = function(self) {
       Scales$new(self$scales[!self$find("x") & !self$find("y")])
     },
 
-    get_scales = function(output) {
+    get_scales = function(self, output) {
       scale <- self$scales[self$find(output)]
       if (length(scale) == 0) return()
       scale[[1]]
