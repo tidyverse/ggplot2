@@ -7,8 +7,13 @@
 \method{format}{proto2}(x, ..., flat = TRUE)
 }
 \arguments{
+\item{x}{A proto2 object to print.}
+
+\item{...}{If the proto2 object has a \code{print} method, further arguments
+  will be passed to it. Otherwise, these arguments are unused.}
+
 \item{flat}{If \code{TRUE} (the default), show a flattened list of all local
-  and inherited members. If \code{FALSE}, show the inheritance hierarchy.}
+and inherited members. If \code{FALSE}, show the inheritance hierarchy.}
 }
 \description{
 Format a proto2 object

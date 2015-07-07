@@ -90,8 +90,10 @@ fetch_proto2 <- function(x, name) {
 #'
 #' This will not include the object's \code{super} member.
 #'
+#' @param x A proto2 object to convert to a list.
 #' @param inherit If \code{TRUE} (the default), flatten all inherited items into
 #'   the returned list. If \code{FALSE}, do not include any inherited items.
+#' @param ... Further arguments to pass to \code{as.list.environment}.
 #' @export
 as.list.proto2 <- function(x, inherit = TRUE, ...) {
   res <- list()
@@ -115,8 +117,11 @@ as.list.proto2 <- function(x, inherit = TRUE, ...) {
 #' Otherwise, it will print out the members of the object, and optionally, the
 #' members of the inherited objects.
 #'
+#' @param x A proto2 object to print.
 #' @param flat If \code{TRUE} (the default), show a flattened list of all local
 #'   and inherited members. If \code{FALSE}, show the inheritance hierarchy.
+#' @param ... If the proto2 object has a \code{print} method, further arguments
+#'   will be passed to it. Otherwise, these arguments are unused.
 #'
 #' @export
 print.proto2 <- function(x, ..., flat = TRUE) {

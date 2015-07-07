@@ -7,8 +7,12 @@
 \method{as.list}{proto2}(x, inherit = TRUE, ...)
 }
 \arguments{
+\item{x}{A proto2 object to convert to a list.}
+
 \item{inherit}{If \code{TRUE} (the default), flatten all inherited items into
 the returned list. If \code{FALSE}, do not include any inherited items.}
+
+\item{...}{Further arguments to pass to \code{as.list.environment}.}
 }
 \description{
 This will not include the object's \code{super} member.
