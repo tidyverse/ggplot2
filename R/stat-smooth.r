@@ -169,7 +169,7 @@ StatSmooth <- proto2(
       }
       if (identical(method, "gam")) try_require("mgcv")
 
-      super$calculate_groups(self, data, scales, method = method, formula = formula, ...)
+      super$calculate_groups(self = self, data, scales, method = method, formula = formula, ...)
     },
 
     calculate = function(self, data, scales, method = "auto", formula = y~x,

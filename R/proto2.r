@@ -67,13 +67,13 @@ fetch_proto2 <- function(x, name) {
     if (substitute(x) == quote(super)) {
       fun <- function(...) res(..., super = self[["super"]])
     } else {
-      fun <- function(...) res(self, ..., super = self[["super"]])
+      fun <- function(...) res(self = self, ..., super = self[["super"]])
     }
   } else {
     if (substitute(x) == quote(super)) {
       fun <- res
     } else {
-      fun <- function(...) res(self, ...)
+      fun <- function(...) res(self = self, ...)
     }
   }
 
