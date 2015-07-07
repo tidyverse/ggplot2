@@ -5,7 +5,6 @@ warnings_are_errors: true
 r_github_packages:
   - hadley/staticdocs
   - jimhester/covr
-  - wch/R6
 
 before_script:
   - sudo Rscript -e "library(stringi); stri_install_icudt()"
