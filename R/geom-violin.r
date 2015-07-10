@@ -41,6 +41,9 @@
 #' # Set aesthetics to fixed value
 #' p + geom_violin(fill = "grey80", colour = "#3366FF")
 #'
+#' # Show quartiles
+#' p + geom_violin(quantiles = c(0.25,0.5,0.75))
+#'
 #' # Scales vs. coordinate transforms -------
 #' # Scale transformations occur before the density statistics are computed.
 #' # Coordinate transformations occur afterwards.  Observe the effect on the
@@ -107,7 +110,19 @@ GeomViolin <- proto2(
       # Needed for coord_polar and such
       newdata <- rbind(newdata, newdata[1,])
 
-      ggname(self$my_name(), GeomPolygon$draw(newdata, ...))
+      if (any(data$is.quantile)) {
+          quantile.list <- alply (subset(data,is.quantile), 1, function(f) {
+              poly.data <- rbind (f, f)
+              poly.data$x <- c (f$xminv, f$xmaxv)
+              GeomPolygon$draw(poly.data,...)
+          })
+
+        ggname(self$my_name(),
+               do.call ( 'grobTree', list(GeomPolygon$draw(newdata, ...), do.call('grobTree',quantile.list)) ) )
+
+      } else {
+          ggname(self$my_name(), GeomPolygon$draw(newdata, ...))
+      }
     },
 
     guide_geom = function(self) "polygon",

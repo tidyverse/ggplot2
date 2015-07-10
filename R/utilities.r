@@ -111,7 +111,7 @@ safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRU
 #
 # @param data.frame
 # @param suppress warning that rows are being removed?
-# @argumnets variables to check for missings in
+# @param variables to check for missings in
 # @param optional function name to make warning message more informative
 # @keyword internal
 #X a <- remove_missing(movies)

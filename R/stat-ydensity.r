@@ -8,6 +8,7 @@
 #' @param scale if "area" (default), all violins have the same area (before trimming
 #'   the tails). If "count", areas are scaled proportionally to the number of
 #'   observations. If "width", all violins have the same maximum width.
+#' @param quantiles vector of data quantiles to annotate
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning. If \code{TRUE} silently removes missing values.
 #'
@@ -19,6 +20,7 @@
 #'                      or to a constant maximum width}
 #'   \item{n}{number of points}
 #'   \item{width}{width of violin bounding box}
+#'   \item{is.quantile}{TRUE if the y value matches a requested quantile}
 #' @seealso \code{\link{geom_violin}} for examples, and \code{\link{stat_density}}
 #'   for examples with data along the x axis.
 #' @export
@@ -27,7 +29,8 @@
 #' # Also see stat_density for similar examples with data along x axis
 stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
   position = "dodge", adjust = 1, kernel = "gaussian", trim = TRUE,
-  scale = "area", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+  scale = "area", quantiles = NULL, na.rm = FALSE, show_guide = NA,
+  inherit.aes = TRUE, ...)
 {
   Layer$new(
     data = data,
@@ -42,6 +45,7 @@ stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
       kernel = kernel,
       trim = trim,
       scale = scale,
+      quantiles = quantiles,
       na.rm = na.rm
     ),
     params = list(...)
@@ -79,7 +83,7 @@ StatYdensity <- proto2(
     },
 
     calculate = function(self, data, scales, width = NULL, adjust = 1,
-      kernel = "gaussian", trim = FALSE, na.rm = FALSE, ...)
+      kernel = "gaussian", trim = FALSE, quantiles = NULL, na.rm = FALSE, ...)
     {
       data <- remove_missing(data, na.rm, "x", name = "stat_density",
         finite = TRUE)
@@ -94,6 +98,14 @@ StatYdensity <- proto2(
 
       dens$y <- dens$x
       dens$x <- mean(range(data$x))
+
+      dens$is.quantile <- FALSE
+      if (!is.null(quantiles)) {
+          quantile.values <- quantile(data$y, quantiles)
+          for ( val in quantile.values ) {
+              dens$is.quantile[which(abs(dens$y-val)==min(abs(dens$y-val)))] <- TRUE
+          }
+      }
 
       # Compute width if x has multiple values
       if (length(unique(data$x)) > 1) {
