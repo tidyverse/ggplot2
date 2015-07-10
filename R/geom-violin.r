@@ -112,9 +112,9 @@ GeomViolin <- proto2(
 
       if (any(data$is.quantile)) {
           quantile.list <- alply (subset(data,is.quantile), 1, function(f) {
-              poly.data <- rbind (f, f)
-              poly.data$x <- c (f$xminv, f$xmaxv)
-              GeomPolygon$draw(poly.data,...)
+              path.data <- rbind (f, f)
+              path.data$x <- c (f$xminv, f$xmaxv)
+              GeomPath$draw(path.data,...)
           })
 
         ggname(self$my_name(),
