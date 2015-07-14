@@ -6,7 +6,8 @@
 \usage{
 geom_path(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", lineend = "butt", linejoin = "round",
-  linemitre = 1, na.rm = FALSE, arrow = NULL, show_guide = NA, ...)
+  linemitre = 1, na.rm = FALSE, arrow = NULL, show_guide = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -36,6 +37,11 @@ a warning.  If \code{TRUE} silently removes missing values.}
 \item{show_guide}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{...}{other arguments passed on to \code{\link{layer}}. There are
   three types of arguments you can use here:
@@ -115,7 +121,7 @@ ggplot(df, aes(x, y4)) + geom_point() + geom_line()
 # Line type needs to be applied to a line as a whole, so it can
 # not be used with colour or size that vary across a line
 
-x <- seq(0.01, .99, length=100)
+x <- seq(0.01, .99, length.out = 100)
 df <- data.frame(x = rep(x, 2), y = c(qlogis(x), 2 * qlogis(x)), group = rep(c("a","b"), each=100))
 p <- ggplot(df, aes(x=x, y=y, group=group))
 

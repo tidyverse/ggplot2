@@ -1,7 +1,7 @@
 Package: ggplot2
 Type: Package
 Title: An Implementation of the Grammar of Graphics
-Version: 1.0.1.9000
+Version: 1.0.1.9002
 Authors@R: c(
     person("Hadley", "Wickham", role = c("aut", "cre"), email = "h.wickham@gmail.com"),
     person("Winston", "Chang", role = "aut", email = "winston@stdout.org")
@@ -17,8 +17,7 @@ Description: An implementation of the grammar of graphics
     for more information, documentation and examples.
 Depends:
     R (>= 2.14),
-    stats,
-    methods
+    stats
 Imports:
     plyr (>= 1.7.1),
     digest,
@@ -26,7 +25,6 @@ Imports:
     gtable (>= 0.1.1),
     reshape2,
     scales (>= 0.2.3),
-    proto,
     MASS
 Suggests:
     quantreg,
@@ -47,6 +45,7 @@ URL: http://ggplot2.org, https://github.com/hadley/ggplot2
 BugReports: https://github.com/hadley/ggplot2/issues
 LazyData: true
 Collate:
+    'proto2.r'
     'aaa-.r'
     'aaa-constants.r'
     'aes-calculated.r'

@@ -452,7 +452,7 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
       bd <- diff(b)[1]
       if (min(limits) < min(b)) b <- c(b[1] - bd, b)
       if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
-      breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length=n+1,
+      breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length.out = n+1,
         SIMPLIFY = FALSE)))
     }
   } else if (is.function(scale$minor_breaks)) {

@@ -21,7 +21,7 @@ NULL
 #' @export
 #' @examples
 #' # Generate data
-#' rainbow <- matrix(hcl(seq(0, 360, length = 50 * 50), 80, 70), nrow = 50)
+#' rainbow <- matrix(hcl(seq(0, 360, length.out = 50 * 50), 80, 70), nrow = 50)
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point() +
 #'   annotation_raster(rainbow, 15, 20, 3, 4)
@@ -30,41 +30,62 @@ NULL
 #'   annotation_raster(rainbow, -Inf, Inf, -Inf, Inf) +
 #'   geom_point()
 #'
-#' rainbow2 <- matrix(hcl(seq(0, 360, length = 10), 80, 70), nrow = 1)
+#' rainbow2 <- matrix(hcl(seq(0, 360, length.out = 10), 80, 70), nrow = 1)
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf) +
 #'   geom_point()
-#' rainbow2 <- matrix(hcl(seq(0, 360, length = 10), 80, 70), nrow = 1)
+#' rainbow2 <- matrix(hcl(seq(0, 360, length.out = 10), 80, 70), nrow = 1)
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf, interpolate = TRUE) +
 #'   geom_point()
-annotation_raster <- function (raster, xmin, xmax, ymin, ymax, interpolate = FALSE) {
+annotation_raster <- function (raster, xmin, xmax, ymin, ymax,
+  interpolate = FALSE)
+{
   raster <- as.raster(raster)
-  GeomRasterAnn$new(geom_params = list(raster = raster, xmin = xmin,
-    xmax = xmax, ymin = ymin, ymax = ymax, interpolate = interpolate),
-    stat = "identity", position = "identity", data = NULL, inherit.aes = TRUE)
+
+  Layer$new(
+    data = NULL,
+    mapping = NULL,
+    stat = "identity",
+    position = "identity",
+    geom = GeomRasterAnn,
+    inherit.aes = TRUE,
+    geom_params = list(
+      raster = raster,
+      xmin = xmin,
+      xmax = xmax,
+      ymin = ymin,
+      ymax = ymax,
+      interpolate = interpolate
+    )
+  )
+
 }
 
-GeomRasterAnn <- proto(GeomRaster, {
-  objname <- "raster_ann"
-  reparameterise <- function(., df, params) {
-    df
-  }
+GeomRasterAnn <- proto2(
+  class = "GeomRasterAnn",
+  inherit = GeomRaster,
+  members = list(
+    objname = "raster_ann",
 
-  draw_groups <- function(., data, scales, coordinates, raster, xmin, xmax,
-    ymin, ymax, interpolate = FALSE, ...) {
-    if (!inherits(coordinates, "cartesian")) {
-      stop("annotation_raster only works with Cartesian coordinates",
-        call. = FALSE)
+    reparameterise = function(self, df, params) df,
+
+    draw_groups = function(self, data, scales, coordinates, raster, xmin, xmax,
+      ymin, ymax, interpolate = FALSE, ...)
+    {
+      if (!inherits(coordinates, "cartesian")) {
+        stop("annotation_raster only works with Cartesian coordinates",
+          call. = FALSE)
+      }
+      corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
+      data <- coord_transform(coordinates, corners, scales)
+
+      x_rng <- range(data$x, na.rm = TRUE)
+      y_rng <- range(data$y, na.rm = TRUE)
+
+      rasterGrob(raster, x_rng[1], y_rng[1],
+        diff(x_rng), diff(y_rng), default.units = "native",
+        just = c("left","bottom"), interpolate = interpolate)
     }
-    corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
-    data <- coord_transform(coordinates, corners, scales)
-
-    x_rng <- range(data$x, na.rm = TRUE)
-    y_rng <- range(data$y, na.rm = TRUE)
-
-    rasterGrob(raster, x_rng[1], y_rng[1],
-      diff(x_rng), diff(y_rng), default.units = "native",
-      just = c("left","bottom"), interpolate = interpolate)
-  }
-})
+  )
+)

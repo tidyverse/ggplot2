@@ -5,7 +5,8 @@
 \title{Apply function for 2D hexagonal bins.}
 \usage{
 stat_summary_hex(mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", bins = 30, drop = TRUE, fun = mean, ...)
+  position = "identity", bins = 30, drop = TRUE, fun = mean,
+  show_guide = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -25,6 +26,15 @@ on this layer}
 \item{drop}{drop if the output of \code{fun} is \code{NA}.}
 
 \item{fun}{function for summary.}
+
+\item{show_guide}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{...}{parameters passed to \code{fun}}
 }

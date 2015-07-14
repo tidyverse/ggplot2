@@ -43,26 +43,52 @@
 #'
 #' ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3))+
 #'   stat_ellipse(geom = "polygon")
-
-stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path", position = "identity", type = "t", level = 0.95, segments = 51, na.rm = FALSE, ...) {
-  StatEllipse$new(mapping = mapping, data = data, geom = geom, position = position, type = type, level = level, segments = segments, na.rm = na.rm, ...)
+stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
+  position = "identity", type = "t", level = 0.95, segments = 51,
+  na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = StatEllipse,
+    geom = geom,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    stat_params = list(
+      type = type,
+      level = level,
+      segments = segments,
+      na.rm = na.rm
+    ),
+    params = list(...)
+  )
 }
 
-StatEllipse <- proto(Stat, {
-  objname <- "ellipse"
+StatEllipse <- proto2(
+  class = "StatEllipse",
+  inherit = Stat,
+  members = list(
+    objname = "ellipse",
 
-  required_aes <- c("x", "y")
-  default_geom <- function(.) GeomPath
+    required_aes = c("x", "y"),
 
-  calculate_groups <- function(., data, scales, ...){
-    .super$calculate_groups(., data, scales,...)
-  }
-  calculate <- function(., data, scales, type = "t", level = 0.95, segments = 51, na.rm = FALSE, ...){
-    data <- remove_missing(data, na.rm, vars = c("x","y"), name = "stat_ellipse", finite = TRUE)
-    ellipse <- calculate_ellipse(data=data, vars= c("x","y"), type=type, level=level, segments=segments)
-    return(ellipse)
-  }
-})
+    default_geom = function(self) GeomPath,
+
+    calculate_groups = function(self, super, data, scales, ...){
+      super$calculate_groups(self, data, scales,...)
+    },
+
+    calculate = function(self, data, scales, type = "t", level = 0.95, segments = 51,
+      na.rm = FALSE, ...)
+    {
+      data <- remove_missing(data, na.rm, vars = c("x","y"),
+                             name = "stat_ellipse", finite = TRUE)
+      calculate_ellipse(data = data, vars = c("x","y"), type = type,
+                        level = level, segments = segments)
+    }
+  )
+)
 
 calculate_ellipse <- function(data, vars, type, level, segments){
   dfn <- 2

@@ -43,41 +43,68 @@
 #' # Also works with categorical variables
 #' ggplot(movies, aes(x=mpaa)) + stat_bin()
 #' }
-stat_bin <- function (mapping = NULL, data = NULL, geom = "bar", position = "stack",
-width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, origin = NULL, breaks = NULL, ...) {
-  StatBin$new(mapping = mapping, data = data, geom = geom, position = position,
-  width = width, drop = drop, right = right, binwidth = binwidth, origin = origin, breaks = breaks, ...)
+stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
+  position = "stack", width = 0.9, drop = FALSE, right = FALSE,
+  binwidth = NULL, origin = NULL, breaks = NULL, show_guide = NA,
+  inherit.aes = TRUE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = StatBin,
+    geom = geom,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    stat_params = list(
+      width = width,
+      drop = drop,
+      right = right,
+      binwidth = binwidth,
+      origin = origin,
+      breaks = breaks
+    ),
+    params = list(...)
+  )
 }
 
-StatBin <- proto(Stat, {
-  objname <- "bin"
-  informed <- FALSE
+StatBin <- proto2(
+  class = "StatBin",
+  inherit = Stat,
+  members = list(
+    objname = "bin",
+    informed = FALSE,
 
-  calculate_groups <- function(., data, ...) {
-    if (!is.null(data$y) || !is.null(match.call()$y)) {
-      stop("May not have y aesthetic when binning", call. = FALSE)
-    }
+    calculate_groups = function(self, super, data, ...) {
+      if (!is.null(data$y) || !is.null(match.call()$y)) {
+        stop("May not have y aesthetic when binning", call. = FALSE)
+      }
 
-    .$informed <- FALSE
-    .super$calculate_groups(., data, ...)
-  }
+      self$informed <- FALSE
+      super$calculate_groups(self, data, ...)
+    },
 
-  calculate <- function(., data, scales, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = FALSE, ...) {
-    range <- scale_dimension(scales$x, c(0, 0))
+    calculate = function(self, data, scales, binwidth = NULL, origin = NULL,
+                         breaks = NULL, width = 0.9, drop = FALSE,
+                         right = FALSE, ...)
+    {
+      range <- scale_dimension(scales$x, c(0, 0))
 
-    if (is.null(breaks) && is.null(binwidth) && !is.integer(data$x) && !.$informed) {
-      message("stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.")
-      .$informed <- TRUE
-    }
+      if (is.null(breaks) && is.null(binwidth) && !is.integer(data$x) && !self$informed) {
+        message("stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.")
+        self$informed <- TRUE
+      }
 
-    bin(data$x, data$weight, binwidth=binwidth, origin=origin, breaks=breaks, range=range, width=width, drop = drop, right = right)
-  }
+      bin(data$x, data$weight, binwidth = binwidth, origin = origin,
+          breaks = breaks, range = range, width = width, drop = drop,
+          right = right)
+    },
 
-  default_aes <- function(.) aes(y = ..count..)
-  required_aes <- c("x")
-  default_geom <- function(.) GeomBar
-
-})
+    default_aes = function(self) aes(y = ..count..),
+    required_aes = c("x"),
+    default_geom = function(self) GeomBar
+  )
+)
 
 bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
 

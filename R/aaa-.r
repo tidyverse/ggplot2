@@ -1,4 +1,7 @@
-#' Base proto classes for ggplot2
+#' @include proto2.r
+NULL
+
+#' Base proto2 classes for ggplot2
 #'
 #' If you are creating a new geom, stat or positions in another package, you'll
 #' need to extend from \code{ggplot2::Geom}, \code{ggplot2::Stat} or
@@ -7,7 +10,7 @@
 #' @export Geom Stat Position
 #' @aliases Geom Stat Position
 #' @keywords internal
-#' @name ggplot2-proto
+#' @name ggplot2-proto2
 NULL
 
 # INCLUDES <- "web/graphics"
@@ -21,49 +24,51 @@ firstUpper <- function(s) {
   paste(toupper(substring(s, 1,1)), substring(s, 2), sep="")
 }
 
-TopLevel <- proto(expr = {
-  find_all <- function(., only.documented = FALSE) {
-    names <- ls(pattern=paste("^", firstUpper(.$class()), "[A-Z].+", sep=""), parent.env(TopLevel))
-    objs <- structure(lapply(names, get), names=names)
 
-    if (only.documented) objs <- objs[sapply(objs, function(x) get("doc", x))]
-    objs
-  }
-  find <- function(., name) {
-    fullname <- paste(firstUpper(.$class()), firstUpper(name), sep="")
-    if (!exists(fullname)) {
-      stop("No ", .$class(), " called ", name, call.=FALSE)
-    }
-    get(fullname)
-  }
+TopLevel <- proto2(
+  members = list(
+    find_all = function(self, only.documented = FALSE) {
+      names <- ls(
+        pattern = paste("^", firstUpper(self$class()), "[A-Z].+", sep=""),
+        parent.env(TopLevel)
+      )
+      objs <- structure(lapply(names, get), names=names)
 
-  my_name <- function(., prefix=TRUE) {
-    if (!prefix) return(.$objname)
-    paste(.$class(), .$objname, sep="_")
-  }
-  my_names <- function(.) .$my_name()
+      if (only.documented) objs <- objs[sapply(objs, function(x) get("doc", x))]
+      objs
+    },
 
-  myName <- function(.) {
-    ps(firstUpper(.$class()), ps(firstUpper(strsplit(.$objname, "_")[[1]])))
-  }
+    find = function(self, name) {
+      fullname <- paste0(firstUpper(self$class()), firstUpper(name))
 
-  params <- function(.) {
-    param <- .$parameters()
-    if (length(param) == 0) return()
+      if (!exists(fullname)) {
+        stop("No ", self$class(), " called ", name, call.=FALSE)
+      }
+      get(fullname)
+    },
 
-    if(!exists("required_aes", .)) return(param)
+    my_name = function(self, prefix=TRUE) {
+      if (!prefix) return(self$objname)
+      paste(self$class(), self$objname, sep="_")
+    },
+    my_names = function(self) self$my_name(),
 
-    aesthetics <- c(.$required_aes, names(.$default_aes()))
-    param[setdiff(names(param), aesthetics)]
-  }
+    myName = function(self) {
+      ps(firstUpper(self$class()), ps(firstUpper(strsplit(self$objname, "_")[[1]])))
+    },
 
-})
+    params = function(self) {
+      param <- self$parameters()
+      if (length(param) == 0) return()
 
-#' @export
-print.proto <- function(x, ...) x$pprint(...)
-pprint <- function(x, ...) print(as.list(x), ...)
-# name.proto <- function (...) {
-#        proto(print.proto = print.default, f = proto::name.proto)$f(...)
-# }
+      if(!exists("required_aes", .)) return(param)
+
+      aesthetics <- c(self$required_aes, names(self$default_aes()))
+      param[setdiff(names(param), aesthetics)]
+    },
+
+    class = function(self) "toplevel"
+  )
+)
 
 

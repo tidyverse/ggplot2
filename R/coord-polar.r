@@ -182,7 +182,7 @@ coord_render_bg.polar <- function(coord, details, theme) {
 
   theta <- if (length(details$theta.major) > 0) theta_rescale(coord, details$theta.major, details)
   thetamin <- if (length(details$theta.minor) > 0) theta_rescale(coord, details$theta.minor, details)
-  thetafine <- seq(0, 2 * pi, length=100)
+  thetafine <- seq(0, 2 * pi, length.out = 100)
 
   r <- 0.4
   rfine <- c(r_rescale(coord, details$r.major, details), 0.45)

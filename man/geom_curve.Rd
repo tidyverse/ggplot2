@@ -6,7 +6,8 @@
 \usage{
 geom_curve(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", curvature = 0.5, angle = 90, ncp = 5,
-  arrow = NULL, lineend = "butt", na.rm = FALSE, ...)
+  arrow = NULL, lineend = "butt", na.rm = FALSE, inherit.aes = TRUE,
+  ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -42,6 +43,11 @@ a call to a position adjustment function.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{...}{Arguments to be passed to \code{curveGrob}.}
 }

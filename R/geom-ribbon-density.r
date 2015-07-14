@@ -11,17 +11,37 @@
 #' @export
 #' @examples
 #' # See stat_density for examples
-geom_density <- function (mapping = NULL, data = NULL, stat = "density", position = "identity",
-na.rm = FALSE, show_guide = NA,...) {
-  GeomDensity$new(mapping = mapping, data = data, stat = stat, position = position,
-  na.rm = na.rm, show_guide = show_guide,...)
+geom_density <- function (mapping = NULL, data = NULL, stat = "density",
+  position = "identity", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE,
+  ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomDensity,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomDensity <- proto(GeomArea, {
-  objname <- "density"
+GeomDensity <- proto2(
+  class = "GeomDensity",
+  inherit = GeomArea,
+  members = list(
+    objname = "density",
 
-  default_stat <- function(.) StatDensity
-  default_pos <- function(.) PositionIdentity
+    default_stat = function(self) StatDensity,
 
-  default_aes <- function(.) defaults(aes(fill=NA, weight=1, colour="black", alpha = NA), GeomArea$default_aes())
-})
+    default_pos = function(self) PositionIdentity,
+
+    default_aes = function(self) {
+      defaults(
+        aes(fill = NA, weight = 1, colour = "black", alpha = NA),
+        GeomArea$default_aes()
+      )
+    }
+  )
+)

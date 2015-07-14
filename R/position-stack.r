@@ -34,25 +34,28 @@ position_stack <- function (width = NULL, height = NULL) {
   PositionStack$new(width = width, height = height)
 }
 
-PositionStack <- proto(Position, {
-  objname <- "stack"
+PositionStack <- proto2(
+  class = "PositionStack",
+  inherit = Position,
+  members = list(
+    objname = "stack",
 
-  adjust <- function(., data) {
-    if (empty(data)) return(data.frame())
+    adjust = function(self, data) {
+      if (empty(data)) return(data.frame())
 
-    data <- remove_missing(data, FALSE,
-      c("x", "y", "ymin", "ymax", "xmin", "xmax"), name = "position_stack")
+      data <- remove_missing(data, FALSE,
+        c("x", "y", "ymin", "ymax", "xmin", "xmax"), name = "position_stack")
 
-    if (is.null(data$ymax) && is.null(data$y)) {
-      message("Missing y and ymax in position = 'stack'. ",
-        "Maybe you want position = 'identity'?")
-      return(data)
+      if (is.null(data$ymax) && is.null(data$y)) {
+        message("Missing y and ymax in position = 'stack'. ",
+          "Maybe you want position = 'identity'?")
+        return(data)
+      }
+
+      if (!is.null(data$ymin) && !all(data$ymin == 0))
+        warning("Stacking not well defined when ymin != 0", call. = FALSE)
+
+      collide(data, self$width, self$my_name(), pos_stack)
     }
-
-    if (!is.null(data$ymin) && !all(data$ymin == 0))
-      warning("Stacking not well defined when ymin != 0", call. = FALSE)
-
-    collide(data, .$width, .$my_name(), pos_stack)
-  }
-
-})
+  )
+)

@@ -44,32 +44,43 @@ NULL
 #' base +
 #'   annotation_custom(grob = g, xmin = 1, xmax = 10, ymin = 8, ymax = 10)
 annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) {
-  GeomCustomAnn$new(geom_params = list(grob = grob, xmin = xmin,
-    xmax = xmax, ymin = ymin, ymax = ymax), stat = "identity",
-    position = "identity", data = NULL, inherit.aes = TRUE)
+  Layer$new(
+    data = NULL,
+    stat = "identity",
+    position = "identity",
+    geom = GeomCustomAnn,
+    inherit.aes = TRUE,
+    geom_params = list(grob = grob, xmin = xmin, xmax = xmax,
+                       ymin = ymin, ymax = ymax)
+  )
 }
 
-GeomCustomAnn <- proto(Geom, {
-  objname <- "custom_ann"
+GeomCustomAnn <- proto2(
+  class = "GeomCustomAnn",
+  inherit = Geom,
+  members = list(
+    objname = "custom_ann",
 
-  draw_groups <- function(., data, scales, coordinates, grob, xmin, xmax,
-                          ymin, ymax, ...) {
-    if (!inherits(coordinates, "cartesian")) {
-      stop("annotation_custom only works with Cartesian coordinates",
-        call. = FALSE)
+    draw_groups = function(self, data, scales, coordinates, grob, xmin, xmax,
+                            ymin, ymax, ...) {
+      if (!inherits(coordinates, "cartesian")) {
+        stop("annotation_custom only works with Cartesian coordinates",
+          call. = FALSE)
+      }
+      corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
+      data <- coord_transform(coordinates, corners, scales)
+
+      x_rng <- range(data$x, na.rm = TRUE)
+      y_rng <- range(data$y, na.rm = TRUE)
+
+      vp <- viewport(x = mean(x_rng), y = mean(y_rng),
+                     width = diff(x_rng), height = diff(y_rng),
+                     just = c("center","center"))
+      editGrob(grob, vp = vp)
+    },
+
+    default_aes = function(self) {
+      aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
     }
-    corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
-    data <- coord_transform(coordinates, corners, scales)
-
-    x_rng <- range(data$x, na.rm = TRUE)
-    y_rng <- range(data$y, na.rm = TRUE)
-
-    vp <- viewport(x = mean(x_rng), y = mean(y_rng),
-                   width = diff(x_rng), height = diff(y_rng),
-                   just = c("center","center"))
-    editGrob(grob, vp = vp)
-  }
-
-  default_aes <- function(.)
-    aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
-})
+  )
+)

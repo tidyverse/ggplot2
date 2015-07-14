@@ -8,7 +8,7 @@ geom_dotplot(mapping = NULL, data = NULL, stat = "bindot",
   position = "identity", na.rm = FALSE, binwidth = NULL, binaxis = "x",
   method = "dotdensity", binpositions = "bygroup", stackdir = "up",
   stackratio = 1, dotsize = 1, stackgroups = FALSE, show_guide = NA,
-  ...)
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -56,6 +56,11 @@ some odd properties).}
 \item{show_guide}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{...}{other arguments passed on to \code{\link{layer}}. There are
   three types of arguments you can use here:
@@ -112,7 +117,7 @@ ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5) +
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, stackratio = .7)
 
 # Expand dot diameter
-ggplot(mtcars, aes(x  =mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
+ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
 
 
 # Examples with stacking along y axis instead of x

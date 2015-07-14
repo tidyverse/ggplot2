@@ -14,7 +14,7 @@ coord_fixed  <- sd_icon({
 })
 
 coord_flip  <- sd_icon({
-  angles <- seq(0, pi/2, length=20)[-c(1, 20)]
+  angles <- seq(0, pi/2, length.out = 20)[-c(1, 20)]
   gTree(children=gList(
     segmentsGrob(0, 0, 0, 1),
     segmentsGrob(0, 0, 1, 0),
@@ -150,7 +150,7 @@ geom_contour  <- sd_icon({
 geom_density2d  <- sd_icon(inherit = "geom_contour")
 
 geom_line  <- sd_icon({
-  pos <- seq(0, 1, length = 5)
+  pos <- seq(0, 1, length.out = 5)
   linesGrob(pos, c(0.2, 0.7, 0.4, 0.8, 0.3))
 })
 
@@ -162,13 +162,13 @@ geom_step  <- sd_icon({
 })
 
 geom_point  <- sd_icon({
-  pos <- seq(0.1, 0.9, length = 6)
+  pos <- seq(0.1, 0.9, length.out = 6)
   pointsGrob(x = pos, y = pos, pch = 19,
     gp = gpar(col = "black", cex = 0.5), default.units = "npc")
 })
 
 geom_jitter  <- sd_icon({
-  pos <- seq(0.1, 0.9, length = 6)
+  pos <- seq(0.1, 0.9, length.out = 6)
   pointsGrob(x = pos, y = jitter(pos, 3), pch = 19,
     gp = gpar(col = "black", cex = 0.5), default.units = "npc")
 })
@@ -218,7 +218,7 @@ geom_area  <- sd_icon({
 })
 
 geom_density  <- sd_icon({
-  x <- seq(0, 1, length = 80)
+  x <- seq(0, 1, length.out = 80)
   y <- dnorm(x, mean = 0.5, sd = 0.15)
   linesGrob(x, 0.05 + y / max(y) * 0.9, default = "npc")
 })
@@ -248,7 +248,7 @@ geom_tile  <- sd_icon({
 })
 
 geom_violin  <- sd_icon({
-  y <- seq(-.3, .3, length = 40)
+  y <- seq(-.3, .3, length.out = 40)
   x1 <- dnorm(y, mean = -.15, sd = 0.05) +
     1.5 * dnorm(y, mean = 0.1, sd = 0.1)
   x2 <- dnorm(y, mean = -.1, sd = 0.1) + dnorm(y, mean = 0.1, sd = 0.1)
@@ -335,13 +335,13 @@ scale_colour_gradientn  <- sd_icon({
 
 scale_colour_grey  <- sd_icon({
   rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21,
-    gp=gpar(fill=gray(seq(0, 1, length=5)), col=NA)
+    gp=gpar(fill=gray(seq(0, 1, length.out = 5)), col=NA)
   )
 })
 
 scale_colour_hue  <- sd_icon({
   rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width=0.21,
-    gp=gpar(fill=hcl(seq(0, 360, length=6)[-6], c=100, l=65), col=NA)
+    gp=gpar(fill=hcl(seq(0, 360, length.out = 6)[-6], c=100, l=65), col=NA)
   )
 })
 
