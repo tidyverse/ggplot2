@@ -127,6 +127,8 @@ ggplot2 1.0.1.9xxx
 * Add `stroke` aesthetic to `geom_point` controlling the stroke width of the
   border for shape types 21 - 25 (#1133, @SeySayux)
 
+* `override.aes` now works with American aesthetic spelling, e.g. color
+
 ggplot2 1.0.1
 ----------------------------------------------------------------
 

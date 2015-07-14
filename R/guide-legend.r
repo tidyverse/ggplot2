@@ -280,6 +280,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     if (is.null(data)) return(NULL)
 
     # override.aes in guide_legend manually changes the geom
+    guide$override.aes <- rename_aes(guide$override.aes)
     for (aes in intersect(names(guide$override.aes), names(data))) data[[aes]] <- guide$override.aes[[aes]]
 
     geom <- Geom$find(layer$geom$guide_geom())
