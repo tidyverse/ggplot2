@@ -35,17 +35,23 @@ geom_linerangeh <- function (mapping = NULL, data = NULL, stat = "identity", pos
   GeomLinerangeh$new(mapping = mapping, data = data, stat = stat, position = position, ...)
 }
  
-GeomLinerangeh <- proto(ggplot2:::Geom, {
-  objname <- "linerangeh"
+GeomLinerangeh <- proto2(
+  class = "GeomLinerangeh",
+  inherit = Geom,
+  members = list(
+     objname="linerangeh",
+    default_stat = function(.) StatIdentity,
+    default_aes = function(.) aes(colour = "black", size=0.5, linetype=1, alpha = NA),
+  guide_geom = function(self) "path",
+  required_aes = c("y", "xmin", "xmax"),
 
-  default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, alpha = NA)
-  guide_geom <- function(.) "path"
-  required_aes <- c("y", "xmin", "xmax")
-
-  draw <- function(., data, scales, coordinates, ...) {
+  draw = function(self, data, scales, coordinates, ...) {
     munched <- coord_transform(coordinates, data, scales)
-    ggname(.$my_name(), GeomSegment$draw(transform(data, yend=y, x=xmin, xend=xmax), scales, coordinates, ...))
-  }
+    ggname(self$my_name(),
+      GeomSegment$draw(transform(data, yend=y, x=xmin, xend=xmax), scales, coordinates, ...)
+    )
+   }
+  )
+)
   
-})
+
