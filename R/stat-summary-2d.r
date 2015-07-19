@@ -3,7 +3,7 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "summary2d")}
 #'
-#' \code{stat_summary2d} is 2D version of \code{\link{stat_summary}}. The data are devided by \code{x} and \code{y}.
+#' \code{stat_summary2d} is 2D version of \code{\link{stat_summary}}. The data are divided by \code{x} and \code{y}.
 #' \code{z} in each cell is passed to arbitral summary function.
 #'
 #' \code{stat_summary2d} requires the following aesthetics:
@@ -15,7 +15,7 @@
 #' }
 #'
 #' @seealso \code{\link{stat_summary_hex}} for hexagonal summarization. \code{\link{stat_bin2d}} for the binning options.
-#' @title Apply funciton for 2D rectangular bins.
+#' @title Apply function for 2D rectangular bins.
 #' @inheritParams stat_identity
 #' @param bins see \code{\link{stat_bin2d}}
 #' @param drop drop if the output of \code{fun} is \code{NA}.

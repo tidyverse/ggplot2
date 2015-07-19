@@ -23,9 +23,9 @@
 #'   continuous variable,  \code{\link{geom_jitter}} for another way to look
 #'   at conditional distributions"
 #' @inheritParams geom_point
-#' @param outlier.colour colour for outlying points; set to \code{NULL} to set outlier colour equal to the corresponding box colour
-#' @param outlier.shape shape of outlying points
-#' @param outlier.size size of outlying points
+#' @param outlier.colour colour for outlying points. Uses the default from \code{\link{geom_point}}; set to \code{NULL} to set outlier colour equal to the corresponding box colour.
+#' @param outlier.shape shape of outlying points. Uses the default from \code{\link{geom_point}}.
+#' @param outlier.size size of outlying points. Uses the default from \code{\link{geom_point}}.
 #' @param notch if \code{FALSE} (default) make a standard box plot. If
 #'    \code{TRUE}, make a notched box plot. Notches are used to compare groups;
 #'    if the notches of two boxes do not overlap, this is strong evidence that

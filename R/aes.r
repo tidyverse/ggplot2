@@ -46,7 +46,7 @@
 #' # You can also map aesthetics to functions of variables
 #' aes(x = mpg ^ 2, y = wt / cyl)
 #'
-#' # Aesthetic names are automatically standarised
+#' # Aesthetic names are automatically standardised
 #' aes(col = x)
 #' aes(fg = x)
 #' aes(color = x)

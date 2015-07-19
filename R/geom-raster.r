@@ -33,7 +33,7 @@ NULL
 #'  df
 #' }
 #' ggplot(pp(20), aes(x, y)) + geom_raster(aes(fill = z))
-#' # Interpolation worsens the apperance of this plot, but can help when
+#' # Interpolation worsens the appearance of this plot, but can help when
 #' # rendering images.
 #' ggplot(pp(20), aes(x, y)) + geom_raster(aes(fill = z), interpolate = TRUE)
 #'

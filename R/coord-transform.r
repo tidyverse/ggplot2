@@ -10,13 +10,13 @@
 #'
 #' @param xtrans,ytrans transformers for x and y axes
 #' @param limx,limy limits for x and y axes. (Named so for backward
-#'    compatability)
+#'    compatibility)
 #' @export
 #' @examples
 #' \donttest{
 #' # See ?geom_boxplot for other examples
 #'
-#' # Three ways of doing transformating in ggplot:
+#' # Three ways of doing transformation in ggplot:
 #' #  * by transforming the data
 #' ggplot(diamonds, aes(log10(carat), log10(price))) +
 #'   geom_point()
@@ -119,7 +119,7 @@ train_trans <- function(scale, limits, trans, name) {
   # expand defined by scale OR coord
   # @kohske
   # Expansion of data range sometimes go beyond domain,
-  # so in trasn, expansion takes place at the fnial stage.
+  # so in trans, expansion takes place at the final stage.
   if (is.null(limits)) {
     range <- scale_dimension(scale, c(0, 0))
   } else {

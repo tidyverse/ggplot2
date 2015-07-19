@@ -27,7 +27,7 @@
 #'   \code{FALSE} then the labels are invisible.
 #' @param label.position A character string indicating the position of a
 #'   label. One of "top", "bottom" (default for horizontal guide), "left", or
-#'   "right" (default for vertical gudie).
+#'   "right" (default for vertical guide).
 #' @param label.theme A theme object for rendering the label text. Usually the
 #'   object of \code{\link{element_text}} is expected. By default, the theme is
 #'   specified by \code{legend.text} in \code{\link{theme}} or theme.
@@ -240,7 +240,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
 
   # TODO: how to deal with same geoms of multiple layers.
   #
-  # currently all geoms are overlayed irrespective to that they are duplicated or not.
+  # currently all geoms are overlaid irrespective to that they are duplicated or not.
   # but probably it is better to sensitive to that and generate only one geom like this:
   #
   # geoms <- unique(sapply(layers, function(layer) if (is.na(layer$legend) || layer$legend) layer$geom$guide_geom() else NULL))
@@ -330,14 +330,14 @@ guide_gengrob.legend <- function(guide, theme) {
   title_height.c <- c(title_height)
 
   # Label
-  # Rules of lable adjustment
+  # Rules of label adjustment
   #
   # label.theme in param of guide_legend() > theme$legend.text.align > default
   # hjust/vjust in theme$legend.text and label.theme are ignored.
   #
   # Default:
-  #   If label includes expression, the label is right-alignd (hjust = 0). Ohterwise, left-aligned (x = 1, hjust = 1).
-  #   Vertical adjustment is always mid-alined (vjust = 0.5).
+  #   If label includes expression, the label is right-aligned (hjust = 0). Otherwise, left-aligned (x = 1, hjust = 1).
+  #   Vertical adjustment is always mid-aligned (vjust = 0.5).
   label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
   grob.labels <- {
     if (!guide$label)
