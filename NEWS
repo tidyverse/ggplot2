@@ -10,7 +10,7 @@ ggplot2 1.0.1.9xxx
     p <- ggplot(mpg, aes(displ,hwy, colour = model)) + geom_point()
     p
     p + theme(legend.position = "bottom")
-    p + guides(colour = guide_legend(nrow = 5))
+    p + guides(colour = guide_legend(ncol = 1))
     ```
 
 * `lims()` makes it easy to set the limits of any axis (#1138).
