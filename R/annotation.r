@@ -12,8 +12,8 @@
 #' affect the legend.
 #'
 #' @param geom name of geom to use for annotation
-#' @param x,y,xmin,ymin,xmax,ymax positionining aesthetics - you must
-#'   specify at least one of these.
+#' @param x,y,xmin,ymin,xmax,ymax,xend,yend positionining aesthetics -
+#'   you must specify at least one of these.
 #' @param ... other aesthetics. These are not scaled so you can do (e.g.)
 #'   \code{colour = "red"} to get a red point.
 #' @export
@@ -29,11 +29,12 @@
 #'   colour = "red", size = 1.5)
 #'
 #' p + annotate("text", x = 2:3, y = 20:21, label = c("my label", "label 2"))
-annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL, ymin = NULL, ymax = NULL, ...) {
+annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
+                     ymin = NULL, ymax = NULL, xend = NULL, yend = NULL, ...) {
 
   position <- compact(list(
-    x = x, xmin = xmin, xmax = xmax,
-    y = y, ymin = ymin, ymax = ymax
+    x = x, xmin = xmin, xmax = xmax, xend = xend,
+    y = y, ymin = ymin, ymax = ymax, yend = yend
   ))
   aesthetics <- c(position, list(...))
 

@@ -1,4 +1,4 @@
-ggplot2 1.0.1.9000
+ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
 * The default legend will now allocate multiple rows (if vertical) or
@@ -14,6 +14,12 @@ ggplot2 1.0.1.9000
     ```
 
 * `lims()` makes it easy to set the limits of any axis (#1138).
+
+* Switched away from proto and reference class objects to proto2. This makes it
+  easier to extend ggplot2, because proto2 supports clean cross-package
+  inheritance.
+
+* Fixed segment annotations not transforming with scales (@BrianDiggs, #859)
 
 * `geom_point()` changes the default shape from 16 to 19 - this has a
   better display on the default linux graphics device. (It's very slightly

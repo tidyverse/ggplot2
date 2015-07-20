@@ -11,7 +11,7 @@
 #' @examples
 #' library(reshape2) # for melt
 #' library(plyr) # for ddply
-#' ecm <- melt(economics, id = "date")
+#' ecm <- melt(economics, id.vars = "date")
 #' rescale01 <- function(x) (x - min(x)) / diff(range(x))
 #' ecm <- ddply(ecm, "variable", transform, value = rescale01(value))
 #'

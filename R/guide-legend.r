@@ -285,8 +285,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     geom <- Geom$find(layer$geom$guide_geom())
     params <- c(layer$geom_params, layer$stat_params)
     list(geom = geom, data = data, params = params)
-  }
-  )
+  })
 
   # remove null geom
   guide$geoms <- compact(guide$geoms)

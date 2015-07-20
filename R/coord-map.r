@@ -129,8 +129,8 @@ coord_train.map <- function(coord, scales) {
 
   # Increase chances of creating valid boundary region
   grid <- expand.grid(
-    x = seq(ranges$x[1], ranges$x[2], length = 50),
-    y = seq(ranges$y[1], ranges$y[2], length = 50)
+    x = seq(ranges$x[1], ranges$x[2], length.out = 50),
+    y = seq(ranges$y[1], ranges$y[2], length.out = 50)
   )
 
   ret <- list(x = list(), y = list())
@@ -172,11 +172,11 @@ coord_render_bg.map <- function(coord, details, theme) {
   yrange[yrange > ymid + 90] <- ymid + 90
 
   xgrid <- with(details, expand.grid(
-    y = c(seq(yrange[1], yrange[2], len = 50), NA),
+    y = c(seq(yrange[1], yrange[2], length.out = 50), NA),
     x = x.major
   ))
   ygrid <- with(details, expand.grid(
-    x = c(seq(xrange[1], xrange[2], len = 50), NA),
+    x = c(seq(xrange[1], xrange[2], length.out = 50), NA),
     y = y.major
   ))
 

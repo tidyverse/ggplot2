@@ -10,13 +10,13 @@ predictdf <- function(model, xseq, se, level) UseMethod("predictdf")
 
 #' @export
 predictdf.default <- function(model, xseq, se, level) {
-  pred <- stats::predict(model, newdata = data.frame(x = xseq), se = se,
+  pred <- stats::predict(model, newdata = data.frame(x = xseq), se.fit = se,
     level = level, interval = if(se) "confidence" else "none")
 
   if (se) {
     fit <- as.data.frame(pred$fit)
     names(fit) <- c("y", "ymin", "ymax")
-    data.frame(x = xseq, fit, se = pred$se)
+    data.frame(x = xseq, fit, se = pred$se.fit)
   } else {
     data.frame(x = xseq, y = as.vector(pred))
   }
@@ -24,7 +24,7 @@ predictdf.default <- function(model, xseq, se, level) {
 
 #' @export
 predictdf.glm <- function(model, xseq, se, level) {
-  pred <- stats::predict(model, newdata = data.frame(x = xseq), se = se,
+  pred <- stats::predict(model, newdata = data.frame(x = xseq), se.fit = se,
     type = "link")
 
   if (se) {

@@ -5,8 +5,9 @@
 \title{Textual annotations.}
 \usage{
 geom_text(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", parse = FALSE, ..., nudge_x = 0, nudge_y = 0,
-  check_overlap = FALSE, show_guide = NA)
+  position = "identity", parse = FALSE, show_guide = NA,
+  inherit.aes = TRUE, ..., nudge_x = 0, nudge_y = 0,
+  check_overlap = FALSE)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -25,6 +26,15 @@ a call to a position adjustment function.}
 \item{parse}{If TRUE, the labels will be parsed into expressions and
 displayed as described in ?plotmath}
 
+\item{show_guide}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
+
 \item{...}{other arguments passed on to \code{\link{layer}}. There are
   three types of arguments you can use here:
 
@@ -41,10 +51,6 @@ Useful for offseting text from points, particularly on discrete scales.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted. A quick and dirty way}
-
-\item{show_guide}{logical. Should this layer be included in the legends?
-\code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
 }
 \description{
 Textual annotations.

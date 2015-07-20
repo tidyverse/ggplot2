@@ -5,7 +5,7 @@
 \title{Line specified by slope and intercept.}
 \usage{
 geom_abline(mapping = NULL, data = NULL, stat = "abline",
-  position = "identity", show_guide = FALSE, ...)
+  position = "identity", show_guide = FALSE, inherit.aes = FALSE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -22,6 +22,11 @@ layer, as a string.}
 a call to a position adjustment function.}
 
 \item{show_guide}{should a legend be drawn? (defaults to \code{FALSE})}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{...}{other arguments passed on to \code{\link{layer}}. There are
   three types of arguments you can use here:

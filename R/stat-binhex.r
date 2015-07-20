@@ -25,36 +25,54 @@
 #' d + stat_binhex(binwidth = c(1, 1000))
 #' d + stat_binhex(binwidth = c(.1, 500))
 #' }
-stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex", position = "identity",
-bins = 30, na.rm = FALSE, ...) {
-  StatBinhex$new(mapping = mapping, data = data, geom = geom, position = position,
-  bins = bins, na.rm = na.rm, ...)
+stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex",
+  position = "identity", bins = 30, na.rm = FALSE, show_guide = NA,
+  inherit.aes = TRUE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = StatBinhex,
+    geom = geom,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    stat_params = list(
+      bins = bins
+    ),
+    params = list(...)
+  )
 }
 
-StatBinhex <- proto(Stat, {
-  objname <- "binhex"
 
-  default_aes <- function(.) aes(fill = ..count..)
-  required_aes <- c("x", "y")
-  default_geom <- function(.) GeomHex
+StatBinhex <- proto2(
+  class = "StatBinhex",
+  inherit = Stat,
+  members = list(
+    objname = "binhex",
+
+    default_aes = function(self) aes(fill = ..count..),
+
+    required_aes = c("x", "y"),
+
+    default_geom = function(self) GeomHex,
 
 
-  calculate <- function(., data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
-    try_require("hexbin")
-    data <- remove_missing(data, na.rm, c("x", "y"), name="stat_hexbin")
+    calculate = function(self, data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
+      try_require("hexbin")
+      data <- remove_missing(data, na.rm, c("x", "y"), name="stat_hexbin")
 
-    if (is.null(binwidth)) {
-      binwidth <- c(
-        diff(scale_dimension(scales$x, c(0, 0))) / bins,
-        diff(scale_dimension(scales$y, c(0, 0))) / bins
-      )
+      if (is.null(binwidth)) {
+        binwidth <- c(
+          diff(scale_dimension(scales$x, c(0, 0))) / bins,
+          diff(scale_dimension(scales$y, c(0, 0))) / bins
+        )
+      }
+
+      hexBin(data$x, data$y, binwidth)
     }
-
-    hexBin(data$x, data$y, binwidth)
-  }
-
-
-})
+  )
+)
 
 # Bin 2d plane into hexagons
 # Wrapper around \code{\link[hexbin]{hcell2xy}} that returns a data frame

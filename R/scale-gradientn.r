@@ -26,7 +26,7 @@
 #' # You can force them to be symmetric by supplying a vector of
 #' # values, and turning rescaling off
 #' max_val <- max(abs(dsub$diff))
-#' values <- seq(-max_val, max_val, length = 11)
+#' values <- seq(-max_val, max_val, length.out = 11)
 #'
 #' d + scale_colour_gradientn(colours = topo.colors(10),
 #'   values = values, rescaler = function(x, ...) x, oob = identity)

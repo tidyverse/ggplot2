@@ -43,25 +43,44 @@
 #' # Using a custom function
 #' test <- function(x) {x ^ 2 + x + 20}
 #' f + stat_function(fun = test)
-stat_function <- function (mapping = NULL, data = NULL, geom = "path", position = "identity",
-fun, n = 101, args = list(), ...) {
-  StatFunction$new(mapping = mapping, data = data, geom = geom,
-  position = position, fun = fun, n = n, args = args, ...)
+stat_function <- function (mapping = NULL, data = NULL, geom = "path",
+  position = "identity", fun, n = 101, args = list(), show_guide = NA,
+  inherit.aes = TRUE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = StatFunction,
+    geom = geom,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    stat_params = list(
+      fun = fun,
+      n = n,
+      args = args
+    ),
+    params = list(...)
+  )
 }
 
-StatFunction <- proto(Stat, {
-  objname <- "function"
+StatFunction <- proto2(
+  class = "StatFunction",
+  inherit = Stat,
+  members = list(
+    objname = "function",
 
-  default_geom <- function(.) GeomPath
-  default_aes <- function(.) aes(y = ..y..)
+    default_geom = function(self) GeomPath,
+    default_aes = function(self) aes(y = ..y..),
 
-  calculate <- function(., data, scales, fun, n=101, args = list(), ...) {
-    range <- scale_dimension(scales$x, c(0, 0))
-    xseq <- seq(range[1], range[2], length=n)
+    calculate = function(self, data, scales, fun, n=101, args = list(), ...) {
+      range <- scale_dimension(scales$x, c(0, 0))
+      xseq <- seq(range[1], range[2], length.out = n)
 
-    data.frame(
-      x = xseq,
-      y = do.call(fun, c(list(xseq), args))
-    )
-  }
-})
+      data.frame(
+        x = xseq,
+        y = do.call(fun, c(list(xseq), args))
+      )
+    }
+  )
+)

@@ -59,49 +59,68 @@
 #' ggplot(movies, aes(year, budget)) +
 #'   geom_violin(aes(group = round_any(year, 10, floor)))
 #' }
-geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity", position = "dodge",
-trim = TRUE, scale = "area", show_guide = NA,...) {
-  GeomViolin$new(mapping = mapping, data = data, stat = stat,
-    position = position, trim = trim, scale = scale, show_guide = show_guide,...)
+geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity",
+  position = "dodge", trim = TRUE, scale = "area", show_guide = NA,
+  inherit.aes = TRUE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomViolin,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    stat_params = list(trim = trim),
+    params = list(...)
+  )
 }
 
-GeomViolin <- proto(Geom, {
-  objname <- "violin"
+GeomViolin <- proto2(
+  class = "GeomViolin",
+  inherit = Geom,
+  members = list(
+    objname = "violin",
 
-  reparameterise <- function(., df, params) {
-    df$width <- df$width %||%
-      params$width %||% (resolution(df$x, FALSE) * 0.9)
+    reparameterise = function(self, df, params) {
+      df$width <- df$width %||%
+        params$width %||% (resolution(df$x, FALSE) * 0.9)
 
-    # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
-    ddply(df, .(group), transform,
-          ymin = min(y),
-          ymax = max(y),
-          xmin = x - width / 2,
-          xmax = x + width / 2)
+      # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
+      ddply(df, .(group), transform,
+            ymin = min(y),
+            ymax = max(y),
+            xmin = x - width / 2,
+            xmax = x + width / 2)
+    },
 
-  }
+    draw = function(self, data, ...) {
+      # Find the points for the line to go all the way around
+      data <- transform(data, xminv = x - violinwidth * (x-xmin),
+                              xmaxv = x + violinwidth * (xmax-x))
 
-  draw <- function(., data, ...) {
-    # Find the points for the line to go all the way around
-    data <- transform(data, xminv = x - violinwidth * (x-xmin),
-                            xmaxv = x + violinwidth * (xmax-x))
+      # Make sure it's sorted properly to draw the outline
+      newdata <- rbind(arrange(transform(data, x = xminv), y),
+                       arrange(transform(data, x = xmaxv), -y))
 
-    # Make sure it's sorted properly to draw the outline
-    newdata <- rbind(arrange(transform(data, x = xminv), y),
-                     arrange(transform(data, x = xmaxv), -y))
+      # Close the polygon: set first and last point the same
+      # Needed for coord_polar and such
+      newdata <- rbind(newdata, newdata[1,])
 
-    # Close the polygon: set first and last point the same
-    # Needed for coord_polar and such
-    newdata <- rbind(newdata, newdata[1,])
+      ggname(self$my_name(), GeomPolygon$draw(newdata, ...))
+    },
 
-    ggname(.$my_name(), GeomPolygon$draw(newdata, ...))
-  }
+    guide_geom = function(self) "polygon",
 
-  guide_geom <- function(.) "polygon"
+    default_stat = function(self) StatYdensity,
 
-  default_stat <- function(.) StatYdensity
-  default_pos <- function(.) PositionDodge
-  default_aes <- function(.) aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = NA, linetype = "solid")
-  required_aes <- c("x", "y")
+    default_pos = function(self) PositionDodge,
 
-})
+    default_aes = function(self) {
+      aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = NA,
+          linetype = "solid")
+    },
+
+    required_aes = c("x", "y")
+  )
+)

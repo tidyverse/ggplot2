@@ -1,31 +1,43 @@
 # Position adjustment occurs over all groups within a geom
 # They work only with discrete x scales and may affect x and y position.
 # Should occur after statistics and scales have been applied.
-Position <- proto(TopLevel, expr = {
-  adjust <- function(., data, scales, ...) data
+Position <- proto2(
+  class = "Position",
+  inherit = TopLevel,
+  members = list(
+    adjust = function(self, data, scales, ...) data,
 
-  class <- function(.) "position"
+    class = function(self) "position",
 
-  width <- NULL
-  height <- NULL
-  new <- function(., width = NULL, height = NULL) {
-    .$proto(width = width, height = height)
-  }
+    width = NULL,
+    
+    height = NULL,
 
-  parameters <- function(.) {
-    pnames <- setdiff(names(formals(get("new", .))), ".")
-    values <- lapply(pnames, get, envir = .)
-    names(values) <- pnames
+    new = function(self, width = NULL, height = NULL) {
+      proto2(
+        inherit = self,
+        members = list(
+          width = width,
+          height = height
+        )
+      )
+    },
 
-    values
-  }
+    parameters = function(self) {
+      pnames <- names(formals(self$initialize))
+      values <- mget(pnames, envir = self)
+      names(values) <- pnames
 
-  pprint <- function(., newline=TRUE) {
-    cat("position_", .$objname, ": (", clist(.$parameters()), ")", sep="")
-    if (newline) cat("\n")
-  }
+      values
+    }
 
-})
+    # print = function(self, newline=TRUE) {
+    #   cat("position_", self$objname, ": (", clist(self$parameters()), ")", sep="")
+    #   if (newline) cat("\n")
+    # }
+  )
+)
+
 
 
 # Convenience function to ensure that all position variables

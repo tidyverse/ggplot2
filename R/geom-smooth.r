@@ -34,7 +34,7 @@
 #'
 #' model <- lm(mpg ~ wt + factor(cyl), data = mtcars)
 #' grid <- with(mtcars, expand.grid(
-#'   wt = seq(min(wt), max(wt), length = 20),
+#'   wt = seq(min(wt), max(wt), length.out = 20),
 #'   cyl = levels(factor(cyl))
 #' ))
 #' grid$mpg <- stats::predict(model, newdata = grid)
@@ -53,46 +53,63 @@
 #'   geom_ribbon(aes(ymin = lcl, ymax = ucl, group = cyl), data = grid,
 #'     fill = alpha("grey60", 0.4)) +
 #'   geom_line(aes(colour = factor(cyl)), data = grid, size = 1)
-geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth", position = "identity", show_guide = NA,...) {
-  GeomSmooth$new(mapping = mapping, data = data, stat = stat, position = position,
-  show_guide = show_guide,...)
+geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth",
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomSmooth,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomSmooth <- proto(Geom, {
-  objname <- "smooth"
+GeomSmooth <- proto2(
+  class = "GeomSmooth",
+  inherit = Geom,
+  members = list(
+    objname = "smooth",
 
-  draw <- function(., data, scales, coordinates, ...) {
-    ribbon <- transform(data, colour = NA)
-    path <- transform(data, alpha = NA)
+    draw = function(self, data, scales, coordinates, ...) {
+      ribbon <- transform(data, colour = NA)
+      path <- transform(data, alpha = NA)
 
-    has_ribbon <- function(x) !is.null(data$ymax) && !is.null(data$ymin)
+      has_ribbon <- function(x) !is.null(data$ymax) && !is.null(data$ymin)
 
-    gList(
-      if (has_ribbon(data)) GeomRibbon$draw(ribbon, scales, coordinates),
-      GeomLine$draw(path, scales, coordinates)
-    )
-  }
+      gList(
+        if (has_ribbon(data)) GeomRibbon$draw(ribbon, scales, coordinates),
+        GeomLine$draw(path, scales, coordinates)
+      )
+    },
 
-  guide_geom <- function(.) "smooth"
+    guide_geom = function(self) "smooth",
 
-  default_stat <- function(.) StatSmooth
-  required_aes <- c("x", "y")
-  default_aes <- function(.) aes(colour="#3366FF", fill="grey60", size=1, linetype=1, weight=1, alpha=0.4)
+    default_stat = function(self) StatSmooth,
 
+    required_aes = c("x", "y"),
 
-  draw_legend <- function(., data, params, ...) {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-    data$fill <- alpha(data$fill, data$alpha)
-    data$alpha <- 1
+    default_aes = function(self) {
+      aes(colour = "#3366FF", fill = "grey60", size = 1, linetype = 1,
+          weight = 1, alpha = 0.4)
+    },
 
-    if (is.null(params$se) || params$se) {
-      gTree(children = gList(
-        rectGrob(gp = gpar(col = NA, fill = data$fill)),
+    draw_legend = function(self, data, params, ...) {
+      data <- aesdefaults(data, self$default_aes(), list(...))
+      data$fill <- alpha(data$fill, data$alpha)
+      data$alpha <- 1
+
+      if (is.null(params$se) || params$se) {
+        gTree(children = gList(
+          rectGrob(gp = gpar(col = NA, fill = data$fill)),
+          GeomPath$draw_legend(data, ...)
+        ))
+      } else {
         GeomPath$draw_legend(data, ...)
-      ))
-    } else {
-      GeomPath$draw_legend(data, ...)
+      }
     }
-  }
-
-})
+  )
+)

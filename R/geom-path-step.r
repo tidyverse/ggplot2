@@ -28,27 +28,43 @@
 #'   trt = sample(c("a", "b"), 50, rep = TRUE)
 #' )
 #' ggplot(df, aes(seq_along(x), x)) + geom_step(aes(colour = trt))
-geom_step <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
-direction = "hv", show_guide = NA,...) {
-  GeomStep$new(mapping = mapping, data = data, stat = stat, position = position,
-  direction = direction, show_guide = show_guide,...)
+geom_step <- function (mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", direction = "hv", show_guide = NA, inherit.aes = TRUE,
+  ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomStep,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    geom_params = list(direction = direction),
+    params = list(...)
+  )
 }
 
-GeomStep <- proto(Geom, {
-  objname <- "step"
+GeomStep <- proto2(
+  class = "GeomStep",
+  inherit = Geom,
+  members = list(
+    objname = "step",
 
-  details <- "Equivalent to plot(type='s')."
+    details = "Equivalent to plot(type='s').",
 
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
+    default_aes = function(self) aes(colour="black", size=0.5, linetype=1, alpha = NA),
 
-  draw <- function(., data, scales, coordinates, direction = "hv", ...) {
-    data <- stairstep(data, direction)
-    GeomPath$draw(data, scales, coordinates, ...)
-  }
-  guide_geom <- function(.) "path"
+    draw = function(self, data, scales, coordinates, direction = "hv", ...) {
+      data <- stairstep(data, direction)
+      GeomPath$draw(data, scales, coordinates, ...)
+    },
 
-  default_stat <- function(.) StatIdentity
-})
+    guide_geom = function(self) "path",
+
+    default_stat = function(self) StatIdentity
+  )
+)
 
 
 # Calculate stairsteps

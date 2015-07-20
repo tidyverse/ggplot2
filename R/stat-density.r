@@ -88,34 +88,57 @@
 #' m + geom_density(fill=NA)
 #' m + geom_density(fill=NA) + aes(y = ..count..)
 #' }
-stat_density <- function (mapping = NULL, data = NULL, geom = "area", position = "stack",
-adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, ...) {
-  StatDensity$new(mapping = mapping, data = data, geom = geom, position = position,
-  adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm, ...)
+stat_density <- function (mapping = NULL, data = NULL, geom = "area",
+  position = "stack", adjust = 1, kernel = "gaussian", trim = FALSE,
+  na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+{
+  Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = StatDensity,
+    geom = geom,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    stat_params = list(
+      adjust = adjust,
+      kernel = kernel,
+      trim = trim,
+      na.rm = na.rm
+    ),
+    params = list(...)
+  )
 }
 
-StatDensity <- proto(Stat, {
-  objname <- "density"
+StatDensity <- proto2(
+  class = "StatDensity",
+  inherit = Stat,
+  members = list(
+    objname = "density",
 
-  calculate <- function(., data, scales, adjust=1, kernel="gaussian", trim=FALSE, na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, "x", name = "stat_density",
-      finite = TRUE)
+    calculate = function(self, data, scales, adjust = 1, kernel = "gaussian",
+      trim = FALSE, na.rm = FALSE, ...)
+    {
+      data <- remove_missing(data, na.rm, "x", name = "stat_density",
+        finite = TRUE)
 
-    if (trim) {
-      range <- range(data$x, na.rm = TRUE)
-    } else {
-      range <- scale_dimension(scales$x, c(0, 0))
-    }
+      if (trim) {
+        range <- range(data$x, na.rm = TRUE)
+      } else {
+        range <- scale_dimension(scales$x, c(0, 0))
+      }
 
-    compute_density(data$x, data$w, from = range[1], to = range[2],
-      adjust = adjust, kernel = kernel)
-  }
+      compute_density(data$x, data$weight, from = range[1], to = range[2],
+        adjust = adjust, kernel = kernel)
+    },
 
-  default_geom <- function(.) GeomArea
-  default_aes <- function(.) aes(y = ..density.., fill=NA)
-  required_aes <- c("x")
+    default_geom = function(self) GeomArea,
 
-})
+    default_aes = function(self) aes(y = ..density.., fill = NA),
+
+    required_aes = c("x")
+  )
+)
 
 compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
                             kernel = "gaussian") {
@@ -135,7 +158,7 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
     ))
   }
 
-  dens <- stats::density(x, weight = w, bw = bw, adjust = adjust,
+  dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
     kernel = kernel, from = from, to = to)
 
   data.frame(

@@ -23,18 +23,31 @@ position_nudge <- function(x = 0, y = 0) {
   PositionNudge$new(x = x, y = y)
 }
 
-PositionNudge <- proto(Position, {
-  objname <- "nudge"
+PositionNudge <- proto2(
+  class = "PositionNudge",
+  inherit = Position,
+  members = list(
+    objname = "nudge",
 
-  new <- function(., x = 0, y = 0) {
-    .$proto(x = x, y = y)
-  }
+    x = NULL,
 
-  adjust <- function(., data) {
-    if (empty(data)) return(data.frame())
-    check_required_aesthetics(c("x", "y"), names(data), "position_nudge")
+    y = NULL,
 
-    transform_position(data, function(x) x + .$x, function(y) y + .$y)
-  }
+    new = function(self, x = NULL, y = NULL) {
+      proto2(
+        inherit = self,
+        members = list(
+          x = x,
+          y = y
+        )
+      )
+    },
 
-})
+    adjust = function(self, data) {
+      if (empty(data)) return(data.frame())
+      check_required_aesthetics(c("x", "y"), names(data), "position_nudge")
+
+      transform_position(data, function(x) x + self$x, function(y) y + self$y)
+    }
+  )
+)
