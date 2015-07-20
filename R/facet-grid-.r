@@ -38,6 +38,7 @@
 #' @param drop If \code{TRUE}, the default, all factor levels not used in the
 #'   data will automatically be dropped. If \code{FALSE}, all factor levels
 #'   will be shown, regardless of whether or not they appear in the data.
+#' @importFrom stats as.formula
 #' @export
 #' @examples
 #' \donttest{

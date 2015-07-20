@@ -24,13 +24,13 @@ layer, as a string.}
 \item{position}{Postion adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{outlier.colour}{colour for outlying points. Uses the default from geom_point().}
+\item{outlier.colour}{colour for outlying points. Uses the default from \code{\link{geom_point}}; set to \code{NULL} to set outlier colour equal to the corresponding box colour.}
 
-\item{outlier.shape}{shape of outlying points. Uses the default from geom_point().}
+\item{outlier.shape}{shape of outlying points. Uses the default from \code{\link{geom_point}}.}
 
-\item{outlier.size}{size of outlying points. Uses the default from geom_point().}
+\item{outlier.size}{size of outlying points. Uses the default from \code{\link{geom_point}}.}
 
-\item{outlier.stroke}{stroke width of outlying points. Uses the default from geom_point().}
+\item{outlier.stroke}{stroke width of outlying points. Uses the default from \code{\link{geom_point}}.}
 
 \item{notch}{if \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, make a notched box plot. Notches are used to compare groups;

@@ -2,7 +2,7 @@
 % Please edit documentation in R/stat-summary-2d.r
 \name{stat_summary2d}
 \alias{stat_summary2d}
-\title{Apply funciton for 2D rectangular bins.}
+\title{Apply function for 2D rectangular bins.}
 \usage{
 stat_summary2d(mapping = NULL, data = NULL, geom = NULL,
   position = "identity", bins = 30, drop = TRUE, fun = mean,
@@ -45,7 +45,7 @@ Apply function for 2D rectangular bins.
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "summary2d")}
 
-\code{stat_summary2d} is 2D version of \code{\link{stat_summary}}. The data are devided by \code{x} and \code{y}.
+\code{stat_summary2d} is 2D version of \code{\link{stat_summary}}. The data are divided by \code{x} and \code{y}.
 \code{z} in each cell is passed to arbitral summary function.
 
 \code{stat_summary2d} requires the following aesthetics:

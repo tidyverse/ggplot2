@@ -32,7 +32,16 @@
 #' # Use coord_flip to flip the x and y axes
 #' se + geom_linerange() + coord_flip()
 geom_linerangeh <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) {
-  GeomLinerangeh$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+      Layer$new(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomLinerangeh,
+    position = position,
+    show_guide = show_guide,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
  
 GeomLinerangeh <- proto2(

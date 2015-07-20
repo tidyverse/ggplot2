@@ -29,6 +29,7 @@
 #' @param ylab character vector or expression for y axis label
 #' @param asp the y/x aspect ratio
 #' @aliases qplot quickplot
+#' @importFrom stats asOneSidedFormula
 #' @export qplot quickplot
 #' @examples
 #' \donttest{

@@ -46,7 +46,7 @@ text.}
 
 \item{label.position}{A character string indicating the position of a
 label. One of "top", "bottom" (default for horizontal guide), "left", or
-"right" (default for vertical gudie).}
+"right" (default for vertical guide).}
 
 \item{label.theme}{A theme object for rendering the label text. Usually the
 object of \code{\link{element_text}} is expected. By default, the theme is
