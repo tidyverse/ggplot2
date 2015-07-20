@@ -376,12 +376,19 @@ guide_gengrob.legend <- function(guide, theme) {
 
   if (!is.null(guide$nrow) && !is.null(guide$ncol) && guide$nrow * guide$ncol < nbreak)
     stop("nrow x ncol need to be larger than the number of breaks")
-  legend.nrow <- guide$nrow %||%
-    if (!is.null(guide$ncol)) ceiling(nbreak/guide$ncol)
-    else switch(guide$direction, horizontal = 1, vertical = nbreak)
-  legend.ncol <- guide$ncol %||%
-    if (!is.null(guide$nrow)) ceiling(nbreak/guide$nrow)
-    else switch(guide$direction, horizontal = nbreak, vertical = 1)
+
+
+  # If neither nrow/ncol specified, guess with "reasonable" values
+  if (is.null(guide$nrow) && is.null(guide$ncol)) {
+    if (guide$direction == "horizontal") {
+      guide$nrow <- ceiling(nbreak / 5)
+    } else {
+      guide$ncol <- ceiling(nbreak / 20)
+    }
+  }
+  legend.nrow <- guide$nrow %||% ceiling(nbreak / guide$ncol)
+  legend.ncol <- guide$ncol %||% ceiling(nbreak / guide$nrow)
+
   key_sizes <- matrix(c(key_sizes, rep(0, legend.nrow * legend.ncol - nbreak)),
                       legend.nrow, legend.ncol, byrow = guide$byrow)
 

@@ -1,6 +1,18 @@
 ggplot2 1.0.1.9000
 ----------------------------------------------------------------
 
+* The default legend will now allocate multiple rows (if vertical) or
+  columns (if horizontal) in order to make a legend that is more likely to
+  fit on the screen. You can override with the `nrow`/`ncol` arguments
+  to `guide_legend()`
+
+    ```R
+    p <- ggplot(mpg, aes(displ,hwy, colour = model)) + geom_point()
+    p
+    p + theme(legend.position = "bottom")
+    p + guides(colour = guide_legend(nrow = 5))
+    ```
+
 * `lims()` makes it easy to set the limits of any axis (#1138).
 
 * `geom_point()` changes the default shape from 16 to 19 - this has a
