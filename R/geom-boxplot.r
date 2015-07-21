@@ -113,7 +113,7 @@ geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
   outlier.size = NULL, outlier.stroke = 1, notch = FALSE, notchwidth = .5,
   varwidth = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 {
-  outlier_defaults <- Geom$find('point')$default_aes()
+  outlier_defaults <- GeomPoint$default_aes()
 
   outlier.colour   <- outlier.colour %||% outlier_defaults$colour
   outlier.shape    <- outlier.shape  %||% outlier_defaults$shape
