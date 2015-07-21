@@ -209,8 +209,6 @@ StatSmooth <- proto2(
       predictdf(model, xseq, se, level)
     },
 
-    required_aes = c("x", "y"),
-
-    default_geom = function(self) GeomSmooth
+    required_aes = c("x", "y")
   )
 )

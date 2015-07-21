@@ -46,9 +46,12 @@ Layer <- proto2(
       if (is.character(stat)) stat <- Stat$find(stat)
       if (is.character(position)) position <- Position$find(position)
 
-      if (is.null(geom)) geom <- stat$default_geom()
-      if (is.null(stat)) stat <- geom$default_stat()
-      if (is.null(position)) position <- geom$default_pos()
+      if (is.null(geom))
+        stop("Attempted to create layer with no geom.")
+      if (is.null(stat))
+        stop("Attempted to create layer with no stat.")
+      if (is.null(position))
+        stop("Attempted to create layer with no position.")
 
       match.params <- function(possible, params) {
         if ("..." %in% names(possible)) {

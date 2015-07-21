@@ -60,8 +60,6 @@ StatSum <- proto2(
 
     required_aes = c("x", "y"),
 
-    default_geom = function(self) GeomPoint,
-
     calculate_groups = function(self, data, scales, ...) {
 
       if (is.null(data$weight)) data$weight <- 1

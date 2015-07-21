@@ -221,8 +221,6 @@ GeomPath <- proto2(
       )
     },
 
-    default_stat = function(self) StatIdentity,
-
     required_aes = c("x", "y"),
 
     default_aes = function(self) aes(colour="black", size=0.5, linetype=1, alpha = NA),

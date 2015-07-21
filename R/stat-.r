@@ -11,11 +11,7 @@ Stat <- proto2(
     # the scales
     retransform = TRUE,
 
-    default_geom = function(self) Geom,
-
     default_aes = function(self) aes(),
-
-    default_pos = function(self) self$default_geom()$default_pos(),
 
     required_aes = c(),
 

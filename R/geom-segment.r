@@ -97,8 +97,6 @@ GeomSegment <- proto2(
       GeomPath$draw_groups(pieces, scales, coordinates, arrow = arrow, ...)
     },
 
-
-    default_stat = function(self) StatIdentity,
     required_aes = c("x", "y", "xend", "yend"),
     default_aes = function(self) aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
     guide_geom = function(self) "path"

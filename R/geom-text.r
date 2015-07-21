@@ -150,7 +150,6 @@ GeomText <- proto2(
     },
 
 
-    default_stat = function(self) StatIdentity,
     required_aes = c("x", "y", "label"),
     default_aes = function(self) aes(colour = "black", size = 5, angle = 0,
       hjust = 0.5, vjust = 0.5, alpha = NA, family = "", fontface = 1,

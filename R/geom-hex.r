@@ -40,8 +40,6 @@ GeomHex <- proto2(
 
     default_aes = function(self) aes(colour=NA, fill = "grey50", size=0.5, alpha = NA),
 
-    default_stat = function(self) StatBinhex,
-
     guide_geom = function(self) "polygon"
   )
 )

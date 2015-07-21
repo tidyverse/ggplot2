@@ -59,8 +59,6 @@ StatQq <- proto2(
   members = list(
     objname = "qq",
 
-    default_geom = function(self) GeomPoint,
-
     default_aes = function(self) aes(y = ..sample.., x = ..theoretical..),
 
     required_aes = c("sample"),

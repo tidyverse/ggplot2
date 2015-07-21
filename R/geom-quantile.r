@@ -38,8 +38,6 @@ GeomQuantile <- proto2(
   members = list(
     objname = "quantile",
 
-    default_stat = function(self) StatQuantile,
-
     default_aes = function(self) {
       defaults(
         aes(weight = 1, colour = "#3366FF", size = 0.5),

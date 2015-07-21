@@ -57,7 +57,6 @@ StatBin2d <- proto2(
 
     default_aes = function(self) aes(fill = ..count..),
     required_aes = c("x", "y"),
-    default_geom = function(self) GeomRect,
 
     calculate = function(self, data, scales, binwidth = NULL, bins = 30,
                           breaks = NULL, origin = NULL, drop = TRUE, ...) {

@@ -38,8 +38,6 @@ GeomBin2d <- proto2(
 
     guide_geom = function(self) "polygon",
 
-    default_stat = function(self) StatBin2d,
-
     required_aes = c("xmin", "xmax", "ymin", "ymax"),
 
     default_aes = function(self) {
