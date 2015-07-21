@@ -292,11 +292,6 @@ scale_map <- function(scale, x, limits) UseMethod("scale_map")
 scale_map.continuous <- function(scale, x, limits = scale_limits(scale)) {
   x <- scale$oob(scale$rescaler(x, from = limits))
 
-  # Points are rounded to the nearest 500th, to reduce the amount of
-  # work that the scale palette must do - this is particularly important
-  # for colour scales which are rather slow.  This shouldn't have any
-  # perceptual impacts.
-  x <- round_any(x, 1 / 500)
   uniq <- unique(x)
   pal <- scale$palette(uniq)
   scaled <- pal[match(x, uniq)]

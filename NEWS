@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* Scales no longer round data points to improve performance of colour
+  palettes. Instead the scales package now uses a much faster colour
+  interpolation algorithm (#1022).
+
 * `scale_x_date()` now clips dates outside the limits in the same way as
   `scale_x_continuous()` (#1090)
 
