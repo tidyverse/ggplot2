@@ -1,43 +1,40 @@
 Package: ggplot2
-Type: Package
-Title: An Implementation of the Grammar of Graphics
 Version: 1.0.1.9002
 Authors@R: c(
-    person("Hadley", "Wickham", role = c("aut", "cre"), email = "h.wickham@gmail.com"),
-    person("Winston", "Chang", role = "aut", email = "winston@stdout.org")
+    person("Hadley", "Wickham", , "h.wickham@gmail.com", c("aut", "cre")),
+    person("Winston", "Chang", , "winston@stdout.org", "aut")
     )
-Description: An implementation of the grammar of graphics
-    in R. It combines the advantages of both base and
-    lattice graphics: conditioning and shared axes are
-    handled automatically, and you can still build up a
-    plot step by step from multiple data sources. It also
-    implements a sophisticated multidimensional
-    conditioning system and a consistent interface to map
-    data to aesthetic attributes. See http://ggplot2.org
-    for more information, documentation and examples.
+Title: An Implementation of the Grammar of Graphics
+Description: An implementation of the grammar of graphics in R. It combines the
+    advantages of both base and lattice graphics: conditioning and shared axes
+    are handled automatically, and you can still build up a plot step by step
+    from multiple data sources. It also implements a sophisticated
+    multidimensional conditioning system and a consistent interface to map
+    data to aesthetic attributes. See http://ggplot2.org for more information,
+    documentation and examples.
 Depends:
-    R (>= 2.14),
-    stats
+    R (>= 2.14)
 Imports:
-    plyr (>= 1.7.1),
     digest,
     grid,
     gtable (>= 0.1.1),
+    MASS,
+    plyr (>= 1.7.1),
     reshape2,
     scales (>= 0.2.3),
-    MASS
+    stats
 Suggests:
-    quantreg,
+    hexbin,
     Hmisc,
+    knitr,
     mapproj,
     maps,
-    hexbin,
     maptools,
+    mgcv,
     multcomp,
     nlme,
     testthat,
-    knitr,
-    mgcv
+    quantreg
 VignetteBuilder: knitr
 Enhances: sp
 License: GPL-2
