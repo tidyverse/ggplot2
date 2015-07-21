@@ -28,10 +28,12 @@ firstUpper <- function(s) {
 TopLevel <- proto2(
   members = list(
     find = function(self, name) {
+      # Convert name to camel case
+      name <- gsub("_(.)", "\\U\\1", name, perl = TRUE)
       fullname <- paste0(firstUpper(self$class()), firstUpper(name))
 
       if (!exists(fullname)) {
-        stop("No ", self$class(), " called ", name, call.=FALSE)
+        stop("No ", self$class(), " called ", fullname, call.=FALSE)
       }
       get(fullname)
     },
