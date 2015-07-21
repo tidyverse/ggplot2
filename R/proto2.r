@@ -219,3 +219,29 @@ trim <- function(str, n = 60) {
   if (nchar(str) > n) paste(substr(str, 1, 56), "...")
   else str
 }
+
+#' @export
+print.proto2_method <- function(x, ...) {
+  cat(format(x), sep = "")
+}
+
+#' @export
+format.proto2_method <- function(x, ...) {
+
+  # Given a function, return a string from srcref if present. If not present,
+  # paste the deparsed lines of code together.
+  format_fun <- function(fn) {
+    srcref <- attr(fn, "srcref", exact = TRUE)
+    if (is.null(srcref))
+      return(paste(format(fn), collapse = "\n"))
+
+    paste(as.character(srcref), collapse = "\n")
+  }
+
+  x <- unclass(x)
+  paste0(
+    "<proto2 method>",
+    "\n  <Wrapper function>\n    ", format_fun(x),
+    "\n\n  <Inner function (res)>\n    ", format_fun(environment(x)$res)
+  )
+}
