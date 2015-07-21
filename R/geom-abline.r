@@ -80,8 +80,6 @@ GeomAbline <- proto2(
   class = "GeomAbline",
   inherit = Geom,
   members = list(
-    objname = "abline",
-
     draw = function(self, data, scales, coordinates, ...) {
       ranges <- coord_range(coordinates, scales)
 

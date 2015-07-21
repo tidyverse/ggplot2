@@ -57,6 +57,5 @@ GeomJitter <- proto2(
   class = "GeomJitter",
   inherit = GeomPoint,
   members = list(
-    objname = "jitter"
   )
 )

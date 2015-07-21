@@ -46,8 +46,6 @@ GeomAnnotationMap <- proto2(
   class = "GeomAnnotationMap",
   inherit = GeomMap,
   members = list(
-    objname = "map",
-
     draw_groups = function(self, data, scales, coordinates, map, ...) {
       # Munch, then set up id variable for polygonGrob -
       # must be sequential integers

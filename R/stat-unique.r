@@ -27,8 +27,6 @@ StatUnique <- proto2(
   class = "StatUnique",
   inherit = Stat,
   members = list(
-    objname = "unique",
-
     calculate_groups = function(self, data, scales, ...) unique(data)
   )
 )

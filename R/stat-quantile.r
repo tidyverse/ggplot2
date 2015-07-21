@@ -69,8 +69,6 @@ StatQuantile <- proto2(
   class = "StatQuantile",
   inherit = Stat,
   members = list(
-    objname = "quantile",
-
     default_aes = function(self) aes(),
 
     required_aes = c("x", "y"),

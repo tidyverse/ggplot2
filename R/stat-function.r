@@ -68,8 +68,6 @@ StatFunction <- proto2(
   class = "StatFunction",
   inherit = Stat,
   members = list(
-    objname = "function",
-
     default_aes = function(self) aes(y = ..y..),
 
     calculate = function(self, data, scales, fun, n=101, args = list(), ...) {

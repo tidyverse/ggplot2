@@ -49,8 +49,6 @@ GeomRibbon <- proto2(
   class = "GeomRibbon",
   inherit = Geom,
   members = list(
-    objname = "ribbon",
-
     default_aes = function(self) {
       aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1, alpha = NA)
     },
@@ -133,8 +131,6 @@ geom_area <- function (mapping = NULL, data = NULL, stat = "identity",
 GeomArea <- proto2(
   inherit = GeomRibbon,
   members = list(
-    objname = "area",
-
     default_aes = function(self) {
       aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1, alpha = NA)
     },

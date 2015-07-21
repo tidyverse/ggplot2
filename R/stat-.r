@@ -2,8 +2,6 @@ Stat <- proto2(
   class = "Stat",
   inherit = TopLevel,
   members = list(
-    objname = "",
-
     # Should the values produced by the statistic also be transformed
     # in the second pass when recently added statistics are trained to
     # the scales

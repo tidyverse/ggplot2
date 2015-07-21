@@ -36,8 +36,6 @@ PositionJitter <- proto2(
   class = "PositionJitter",
   inherit = Position,
   members = list(
-    objname = "jitter",
-
     adjust = function(self, data) {
       if (empty(data)) return(data.frame())
       check_required_aesthetics(c("x", "y"), names(data), "position_jitter")

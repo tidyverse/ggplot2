@@ -53,8 +53,6 @@ StatBin2d <- proto2(
   class = "StatBin2d",
   inherit = Stat,
   members = list(
-    objname = "bin2d",
-
     default_aes = function(self) aes(fill = ..count..),
     required_aes = c("x", "y"),
 

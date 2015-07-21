@@ -31,8 +31,6 @@ GeomDensity <- proto2(
   class = "GeomDensity",
   inherit = GeomArea,
   members = list(
-    objname = "density",
-
     default_aes = function(self) {
       defaults(
         aes(fill = NA, weight = 1, colour = "black", alpha = NA),

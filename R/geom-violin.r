@@ -82,8 +82,6 @@ GeomViolin <- proto2(
   class = "GeomViolin",
   inherit = Geom,
   members = list(
-    objname = "violin",
-
     reparameterise = function(self, df, params) {
       df$width <- df$width %||%
         params$width %||% (resolution(df$x, FALSE) * 0.9)

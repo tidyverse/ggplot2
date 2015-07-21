@@ -41,8 +41,6 @@ StatSpoke <- proto2(
   class = "StatSpoke",
   inherit = Stat,
   members = list(
-    objname = "spoke",
-
     retransform = FALSE,
 
     calculate = function(self, data, scales, radius = 1, ...) {

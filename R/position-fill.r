@@ -27,8 +27,6 @@ PositionFill <- proto2(
   class = "PositionFill",
   inherit = Position,
   members = list(
-    objname = "fill",
-
     adjust = function(self, data) {
       if (empty(data)) return(data.frame())
 

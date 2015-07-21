@@ -27,8 +27,6 @@ PositionNudge <- proto2(
   class = "PositionNudge",
   inherit = Position,
   members = list(
-    objname = "nudge",
-
     x = NULL,
 
     y = NULL,

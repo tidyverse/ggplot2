@@ -32,8 +32,6 @@ GeomCrossbar <- proto2(
   class = "GeomCrossbar",
   inherit = Geom,
   members = list(
-    objname = "crossbar",
-
     reparameterise = function(self, df, params) {
       GeomErrorbar$reparameterise(df, params)
     },

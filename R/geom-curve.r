@@ -54,8 +54,6 @@ GeomCurve <- proto2(
   class = "GeomCurve",
   inherit = Geom,
   members = list(
-    objname = "curve",
-
     draw = function(self, data, scales, coordinates, curvature, angle, ncp,
                     arrow, lineend, na.rm, ...) {
 

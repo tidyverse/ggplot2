@@ -45,8 +45,6 @@ StatBoxplot <- proto2(
   class = "StatBoxplot",
   inherit = Stat,
   members = list(
-    objname = "boxplot",
-
     required_aes = c("x", "y"),
     
     calculate_groups = function(self, super, data, na.rm = FALSE, width = NULL,

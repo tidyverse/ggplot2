@@ -116,8 +116,6 @@ StatDensity <- proto2(
   class = "StatDensity",
   inherit = Stat,
   members = list(
-    objname = "density",
-
     calculate = function(self, data, scales, adjust = 1, kernel = "gaussian",
       trim = FALSE, na.rm = FALSE, ...)
     {

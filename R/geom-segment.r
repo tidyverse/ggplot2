@@ -67,8 +67,6 @@ GeomSegment <- proto2(
   class = "GeomSegment",
   inherit = Geom,
   members = list(
-    objname = "segment",
-
     draw = function(self, data, scales, coordinates, arrow = NULL,
       lineend = "butt", na.rm = FALSE, ...) {
 

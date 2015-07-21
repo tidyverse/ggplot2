@@ -69,7 +69,6 @@ StatBin <- proto2(
   class = "StatBin",
   inherit = Stat,
   members = list(
-    objname = "bin",
     informed = FALSE,
 
     calculate_groups = function(self, super, data, ...) {

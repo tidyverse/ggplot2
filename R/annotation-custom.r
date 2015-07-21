@@ -59,8 +59,6 @@ GeomCustomAnn <- proto2(
   class = "GeomCustomAnn",
   inherit = Geom,
   members = list(
-    objname = "custom_ann",
-
     draw_groups = function(self, data, scales, coordinates, grob, xmin, xmax,
                             ymin, ymax, ...) {
       if (!inherits(coordinates, "cartesian")) {

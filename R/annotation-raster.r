@@ -66,8 +66,6 @@ GeomRasterAnn <- proto2(
   class = "GeomRasterAnn",
   inherit = GeomRaster,
   members = list(
-    objname = "raster_ann",
-
     reparameterise = function(self, df, params) df,
 
     draw_groups = function(self, data, scales, coordinates, raster, xmin, xmax,

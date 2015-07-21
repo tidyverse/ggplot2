@@ -65,8 +65,6 @@ GeomPolygon <- proto2(
   class = "GeomPolygon",
   inherit = Geom,
   members = list(
-    objname = "polygon",
-
     draw_groups = function(self, ...) self$draw(...),
 
     draw = function(self, data, scales, coordinates, ...) {

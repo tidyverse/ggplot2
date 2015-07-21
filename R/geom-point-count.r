@@ -41,6 +41,5 @@ GeomCount <- proto2(
   class = "GeomCount",
   inherit = GeomPoint,
   members = list(
-    objname = "count"
   )
 )

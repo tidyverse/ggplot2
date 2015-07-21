@@ -70,8 +70,6 @@ StatContour <- proto2(
   class = "StatContour",
   inherit = Stat,
   members = list(
-    objname = "contour",
-
     calculate = function(self, data, scales, bins = NULL, binwidth = NULL,
                          breaks = NULL, complete = FALSE, na.rm = FALSE, ...)
     {

@@ -46,8 +46,6 @@ StatIdentity <- proto2(
   class = "StatIdentity",
   inherit = Stat,
   members = list(
-    objname = "identity",
-
     calculate_groups = function(self, data, scales, width = NULL, height = NULL, ...) {
       if (!is.null(width))   data$width  <- width
       if (!is.null(height))  data$height <- height

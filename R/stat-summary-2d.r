@@ -56,8 +56,6 @@ StatSummary2d <- proto2(
   class = "StatSummary2d",
   inherit = Stat,
   members = list(
-    objname = "Summary2d",
-
     default_aes = function(self) aes(fill = ..value..),
 
     required_aes = c("x", "y", "z"),

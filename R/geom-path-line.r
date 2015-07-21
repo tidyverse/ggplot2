@@ -82,8 +82,6 @@ GeomLine <- proto2(
   class = "GeomLine",
   inherit = GeomPath,
   members = list(
-    objname = "line",
-
     draw = function(self, data, scales, coordinates, arrow = NULL, ...) {
       data <- data[order(data$group, data$x), ]
       GeomPath$draw(data, scales, coordinates, arrow, ...)

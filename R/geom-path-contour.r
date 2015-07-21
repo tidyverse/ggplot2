@@ -35,8 +35,6 @@ GeomContour <- proto2(
   class = "GeomContour",
   inherit = GeomPath,
   members = list(
-    objname = "contour",
-
     default_aes = function(self) {
       aes(weight = 1, colour = "#3366FF", size = 0.5, linetype = 1, alpha = NA)
     }

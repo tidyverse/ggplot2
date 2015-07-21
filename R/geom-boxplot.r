@@ -145,8 +145,6 @@ GeomBoxplot <- proto2(
   class = "GeomBoxplot",
   inherit = Geom,
   members = list(
-    objname = "boxplot",
-
     reparameterise = function(self, df, params) {
       df$width <- df$width %||%
         params$width %||% (resolution(df$x, FALSE) * 0.9)

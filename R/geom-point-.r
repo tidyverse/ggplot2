@@ -139,8 +139,6 @@ GeomPoint <- proto2(
   class = "GeomPoint",
   inherit = Geom,
   members = list(
-    objname = "point",
-
     draw_groups = function(self, ...) self$draw(...),
 
     draw = function(self, data, scales, coordinates, na.rm = FALSE, ...) {

@@ -41,8 +41,6 @@ GeomBlank <- proto2(
   class = "GeomBlank",
   inherit = Geom,
   members = list(
-    objname = "blank",
-
     default_aes = function(self) aes(),
 
     draw_legend = function(self, data, ...) {

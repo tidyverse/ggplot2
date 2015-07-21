@@ -54,8 +54,6 @@ StatSummaryHex <- proto2(
   class = "StatSummaryHex",
   inherit = Stat,
   members = list(
-    objname = "summaryhex",
-
     default_aes = function(self) aes(fill = ..value..),
 
     required_aes = c("x", "y", "z"),

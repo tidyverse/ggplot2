@@ -46,8 +46,6 @@ PositionJitterdodge <- proto2(
       )
     },
 
-    objname = "jitterdodge",
-
     adjust = function(self, data) {
 
       if (empty(data)) return(data.frame())

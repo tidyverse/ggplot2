@@ -67,8 +67,6 @@ GeomErrorbar <- proto2(
   class = "GeomErrorbar",
   inherit = Geom,
   members = list(
-    objname = "errorbar",
-
     default_aes = function(self) {
       aes(colour = "black", size=0.5, linetype=1, width=0.5, alpha = NA)
     },

@@ -144,8 +144,6 @@ GeomDotplot <- proto2(
   class = "GeomDotplot",
   inherit = Geom,
   members = list(
-    objname = "dotplot",
-
     reparameterise = function(self, df, params) {
       df$width <- df$width %||%
         params$width %||% (resolution(df$x, FALSE) * 0.9)

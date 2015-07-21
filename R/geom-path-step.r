@@ -49,8 +49,6 @@ GeomStep <- proto2(
   class = "GeomStep",
   inherit = Geom,
   members = list(
-    objname = "step",
-
     details = "Equivalent to plot(type='s').",
 
     default_aes = function(self) aes(colour="black", size=0.5, linetype=1, alpha = NA),

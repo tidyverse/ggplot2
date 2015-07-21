@@ -121,8 +121,6 @@ GeomPath <- proto2(
   class = "GeomPath",
   inherit = Geom,
   members = list(
-    objname = "path",
-
     draw_groups = function(self, ...) self$draw(...),
 
     draw = function(self, data, scales, coordinates, arrow = NULL, lineend = "butt",

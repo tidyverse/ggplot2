@@ -84,8 +84,6 @@ GeomTile <- proto2(
   class = "GeomTile",
   inherit = Geom,
   members = list(
-    objname = "tile",
-
     reparameterise = function(self, df, params) {
       df$width <- df$width %||% params$width %||% resolution(df$x, FALSE)
       df$height <- df$height %||% params$height %||% resolution(df$y, FALSE)
