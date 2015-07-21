@@ -12,6 +12,7 @@
 #' @return a data.frame with additional columns:
 #'   \item{sample}{sample quantiles}
 #'   \item{theoretical}{theoretical quantiles}
+#' @importFrom stats qnorm qt
 #' @export
 #' @examples
 #' \donttest{

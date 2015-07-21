@@ -8,7 +8,7 @@ absoluteGrob(grob, width = NULL, height = NULL, xmin = NULL,
   ymin = NULL, vp = NULL)
 }
 \description{
-This grob has fixed dimesions and position.
+This grob has fixed dimensions and position.
 }
 \details{
 It's still experimental

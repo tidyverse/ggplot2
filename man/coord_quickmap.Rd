@@ -12,7 +12,7 @@ coord_quickmap(xlim = NULL, ylim = NULL)
 \item{ylim}{limits for the y axis}
 }
 \description{
-The represenation of a portion of the earth, wich is approximately spherical,
+The representation of a portion of the earth, which is approximately spherical,
 onto a flat 2D plane requires a projection. This is what
 \code{\link{coord_map}} does. These projections account for the fact that the
 actual length (in km) of one degree of longitude varies between the equator

@@ -1,6 +1,6 @@
 #' Continuous position scales (x & y).
 #'
-#' \code{scale_x_continous} and \code{scale_y_continous} are the key functions.
+#' \code{scale_x_continuous} and \code{scale_y_continuous} are the key functions.
 #' The others, \code{scale_x_log10}, \code{scale_y_sqrt} etc, are aliases
 #' that set the \code{trans} argument to commonly used transformations.
 #'

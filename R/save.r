@@ -22,6 +22,7 @@
 #'   save images larger than 50x50 inches, to prevent the common error of
 #'   specifying dimensions in pixels.
 #' @param ... Other arguments passed on to graphics device
+#' @importFrom utils capture.output
 #' @export
 #' @examples
 #' \dontrun{

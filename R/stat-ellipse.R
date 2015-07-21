@@ -20,6 +20,7 @@
 #'
 #' @export
 #' @importFrom MASS cov.trob
+#' @importFrom stats qf
 #'
 #' @examples
 #' ggplot(faithful, aes(waiting, eruptions))+

@@ -101,6 +101,7 @@ Collate:
     'geom-hex.r'
     'geom-hline.r'
     'geom-linerange.r'
+    'geom-linerangeh.r'
     'geom-path-.r'
     'geom-path-contour.r'
     'geom-path-density2d.r'

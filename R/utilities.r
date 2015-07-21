@@ -104,7 +104,7 @@ safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRU
 # Convenience function to remove missing values from a data.frame
 # Remove all non-complete rows, with a warning if \code{na.rm = FALSE}.
 #
-# ggplot is somewhat more accomodating of missing values than R generally.
+# ggplot is somewhat more accommodating of missing values than R generally.
 # For those stats which require complete data, missing values will be
 # automatically removed with a warning.  If \code{na.rm = TRUE} is supplied
 # to the statistic, the warning will be suppressed.

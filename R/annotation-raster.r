@@ -18,6 +18,7 @@ NULL
 #'   location of raster
 #' @param interpolate If \code{TRUE} interpolate linearly, if \code{FALSE}
 #'   (the default) don't interpolate.
+#' @importFrom grDevices as.raster
 #' @export
 #' @examples
 #' # Generate data
