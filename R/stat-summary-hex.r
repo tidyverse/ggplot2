@@ -36,7 +36,7 @@ stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex",
   Layer$new(
     data = data,
     mapping = mapping,
-    stat = StatSummaryhex,
+    stat = StatSummaryHex,
     geom = geom,
     position = position,
     show_guide = show_guide,
@@ -50,8 +50,8 @@ stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex",
   )
 }
 
-StatSummaryhex <- proto2(
-  class = "StatSummaryhex",
+StatSummaryHex <- proto2(
+  class = "StatSummaryHex",
   inherit = Stat,
   members = list(
     objname = "summaryhex",
