@@ -101,7 +101,6 @@ GeomPolygon <- proto2(
       )))
     },
 
-    default_stat = function(self) StatIdentity,
     default_aes = function(self) aes(colour = "NA", fill = "grey20", size = 0.5,
                                  linetype = 1, alpha = NA),
     required_aes = c("x", "y"),

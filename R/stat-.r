@@ -4,22 +4,14 @@ Stat <- proto2(
   members = list(
     objname = "",
 
-    desc = "",
-
     # Should the values produced by the statistic also be transformed
     # in the second pass when recently added statistics are trained to
     # the scales
     retransform = TRUE,
 
-    default_geom = function(self) Geom,
-
     default_aes = function(self) aes(),
 
-    default_pos = function(self) self$default_geom()$default_pos(),
-
     required_aes = c(),
-
-    aesthetics = list(),
 
     calculate = function(self, data, scales, ...) {},
 

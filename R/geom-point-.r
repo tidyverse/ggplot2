@@ -168,7 +168,6 @@ GeomPoint <- proto2(
       )
     },
 
-    default_stat = function(self) StatIdentity,
     required_aes = c("x", "y"),
     default_aes = function(self) aes(shape=19, colour="black", size=2, fill = NA, alpha = NA, stroke = 1)
   )

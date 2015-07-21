@@ -191,9 +191,7 @@ StatBindot <- proto2(
 
     default_aes = function(self) aes(y = ..count..),
 
-    required_aes = c("x"),
-
-    default_geom = function(self) GeomDotplot
+    required_aes = c("x")
   )
 )
 

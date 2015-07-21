@@ -51,8 +51,6 @@ GeomRibbon <- proto2(
   members = list(
     objname = "ribbon",
 
-    default_stat = function(self) StatIdentity,
-
     default_aes = function(self) {
       aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1, alpha = NA)
     },
@@ -140,8 +138,6 @@ GeomArea <- proto2(
     default_aes = function(self) {
       aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1, alpha = NA)
     },
-
-    default_pos = function(self) PositionStack,
 
     required_aes = c("x", "y"),
 

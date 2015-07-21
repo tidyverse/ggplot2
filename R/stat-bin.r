@@ -98,12 +98,11 @@ StatBin <- proto2(
     },
 
     default_aes = function(self) aes(y = ..count..),
-    required_aes = c("x"),
-    default_geom = function(self) GeomBar
+    required_aes = c("x")
   )
 )
 
-bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
+bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = FALSE) {
 
   if (length(na.omit(x)) == 0) return(data.frame())
   if (is.null(weight))  weight <- rep(1, length(x))

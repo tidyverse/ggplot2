@@ -127,8 +127,6 @@ GeomRaster <- proto2(
         default.units = "native", interpolate = interpolate)
     },
 
-    default_stat = function(self) StatIdentity,
-
     default_aes = function(self) aes(fill = "grey20", alpha = NA),
 
     required_aes = c("x", "y"),

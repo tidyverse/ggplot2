@@ -93,9 +93,6 @@ StatContour <- proto2(
       contour_lines(data, breaks, complete = complete)
     },
 
-
-    default_geom = function(self) GeomPath,
-
     default_aes = function(self) aes(order = ..level..),
 
     required_aes = c("x", "y", "z")

@@ -60,8 +60,6 @@ StatSummaryhex <- proto2(
 
     required_aes = c("x", "y", "z"),
 
-    default_geom = function(self) GeomHex,
-
     calculate = function(self, data, scales, binwidth = NULL, bins = 30, drop = TRUE,
       fun = mean, ...)
     {

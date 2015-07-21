@@ -91,8 +91,6 @@ GeomSmooth <- proto2(
 
     guide_geom = function(self) "smooth",
 
-    default_stat = function(self) StatSmooth,
-
     required_aes = c("x", "y"),
 
     default_aes = function(self) {

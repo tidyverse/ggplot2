@@ -70,7 +70,6 @@ StatFunction <- proto2(
   members = list(
     objname = "function",
 
-    default_geom = function(self) GeomPath,
     default_aes = function(self) aes(y = ..y..),
 
     calculate = function(self, data, scales, fun, n=101, args = list(), ...) {

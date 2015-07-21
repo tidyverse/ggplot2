@@ -83,8 +83,6 @@ StatDensity2d <- proto2(
   members = list(
     objname = "density2d",
 
-    default_geom = function(self) GeomDensity2d,
-
     default_aes = function(self) aes(colour = "#3366FF", size = 0.5),
 
     required_aes = c("x", "y"),

@@ -5,7 +5,7 @@
 \title{Histogram}
 \usage{
 geom_histogram(mapping = NULL, data = NULL, stat = "bin",
-  binwidth = NULL, origin = NULL, right = NULL, position = "stack",
+  binwidth = NULL, origin = NULL, right = FALSE, position = "stack",
   show_guide = NA, inherit.aes = TRUE, ...)
 }
 \arguments{

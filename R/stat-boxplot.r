@@ -49,8 +49,6 @@ StatBoxplot <- proto2(
 
     required_aes = c("x", "y"),
     
-    default_geom = function(self) GeomBoxplot,
-
     calculate_groups = function(self, super, data, na.rm = FALSE, width = NULL,
       ...)
     {

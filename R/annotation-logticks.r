@@ -88,6 +88,7 @@ annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
     mapping = NULL,
     stat = "identity",
     geom = GeomLogticks,
+    position = PositionIdentity,
     show_guide = FALSE,
     inherit.aes = FALSE,
     geom_params = list(
@@ -186,8 +187,6 @@ GeomLogticks <- proto2(
 
       gTree(children = do.call("gList", ticks))
     },
-
-    default_stat = function(self) StatIdentity,
 
     default_aes = function(self) aes(colour = "black", size = 0.5, linetype = 1, alpha = 1)
   )

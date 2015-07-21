@@ -55,9 +55,6 @@ StatBinhex <- proto2(
 
     required_aes = c("x", "y"),
 
-    default_geom = function(self) GeomHex,
-
-
     calculate = function(self, data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
       try_require("hexbin")
       data <- remove_missing(data, na.rm, c("x", "y"), name="stat_hexbin")

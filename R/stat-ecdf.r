@@ -69,9 +69,7 @@ StatEcdf <- proto2(
 
     default_aes = function(self) aes(y = ..y..),
 
-    required_aes = c("x"),
-
-    default_geom = function(self) GeomStep
+    required_aes = c("x")
   )
 )
 

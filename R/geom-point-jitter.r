@@ -57,10 +57,6 @@ GeomJitter <- proto2(
   class = "GeomJitter",
   inherit = GeomPoint,
   members = list(
-    objname = "jitter",
-
-    default_stat = function(self) StatIdentity,
-
-    default_pos = function(self) PositionJitter
+    objname = "jitter"
   )
 )

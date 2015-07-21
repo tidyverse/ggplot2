@@ -114,10 +114,6 @@ GeomViolin <- proto2(
 
     guide_geom = function(self) "polygon",
 
-    default_stat = function(self) StatYdensity,
-
-    default_pos = function(self) PositionDodge,
-
     default_aes = function(self) {
       aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = NA,
           linetype = "solid")

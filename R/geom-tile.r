@@ -101,9 +101,6 @@ GeomTile <- proto2(
       GeomRect$draw_groups(data, scales, coordinates, ...)
     },
 
-
-    default_stat = function(self) StatIdentity,
-
     default_aes = function(self) {
       aes(fill = "grey20", colour = NA, size = 0.1, linetype = 1, alpha = NA)
     },

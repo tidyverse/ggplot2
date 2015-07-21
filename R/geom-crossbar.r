@@ -38,10 +38,6 @@ GeomCrossbar <- proto2(
       GeomErrorbar$reparameterise(df, params)
     },
 
-    default_stat = function(self) StatIdentity,
-
-    default_pos = function(self) PositionIdentity,
-
     default_aes = function(self) aes(colour="black", fill=NA, size=0.5, linetype=1, alpha = NA),
 
     required_aes = c("x", "y", "ymin", "ymax"),

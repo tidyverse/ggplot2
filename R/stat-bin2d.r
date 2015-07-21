@@ -29,7 +29,7 @@
 #' y <- seq(min(diamonds$price), max(diamonds$price), length.out = 50)
 #' d + stat_bin2d(breaks = list(x = x, y = y))
 #' }
-stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL,
+stat_bin2d <- function (mapping = NULL, data = NULL, geom = "rect",
   position = "identity", bins = 30, drop = TRUE, show_guide = NA,
   inherit.aes = TRUE, ...)
 {
@@ -57,7 +57,6 @@ StatBin2d <- proto2(
 
     default_aes = function(self) aes(fill = ..count..),
     required_aes = c("x", "y"),
-    default_geom = function(self) GeomRect,
 
     calculate = function(self, data, scales, binwidth = NULL, bins = 30,
                           breaks = NULL, origin = NULL, drop = TRUE, ...) {

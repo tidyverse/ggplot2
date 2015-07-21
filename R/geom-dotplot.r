@@ -268,8 +268,6 @@ GeomDotplot <- proto2(
       )
     },
 
-    default_stat = function(self) StatBindot,
-
     required_aes = c("x", "y"),
 
     default_aes = function(self) aes(y=..count.., colour="black", fill = "black", alpha = NA)

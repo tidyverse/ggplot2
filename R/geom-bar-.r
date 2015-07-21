@@ -151,8 +151,6 @@ GeomBar <- proto2(
   members = list(
     objname = "bar",
 
-    default_stat = function(self) StatBin,
-    default_pos = function(self) PositionStack,
     default_aes = function(self) aes(colour=NA, fill="grey20", size=0.5,
                                  linetype=1, weight = 1, alpha = NA),
 

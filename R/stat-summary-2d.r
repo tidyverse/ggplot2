@@ -31,7 +31,7 @@
 #' d + stat_summary2d(fun = function(x) sum(x^2))
 #' d + stat_summary2d(fun = var)
 #' }
-stat_summary2d <- function (mapping = NULL, data = NULL, geom = NULL,
+stat_summary2d <- function (mapping = NULL, data = NULL, geom = "rect",
   position = "identity", bins = 30, drop = TRUE, fun = mean, show_guide = NA,
   inherit.aes = TRUE, ...)
 {
@@ -61,8 +61,6 @@ StatSummary2d <- proto2(
     default_aes = function(self) aes(fill = ..value..),
 
     required_aes = c("x", "y", "z"),
-
-    default_geom = function(self) GeomRect,
 
     calculate = function(self, data, scales, binwidth = NULL, bins = 30,
       breaks = NULL, origin = NULL, drop = TRUE, fun = mean, ...)

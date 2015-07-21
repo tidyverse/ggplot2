@@ -84,8 +84,6 @@ GeomRug <- proto2(
       gTree(children = do.call("gList", rugs))
     },
 
-    default_stat = function(self) StatIdentity,
-
     default_aes = function(self) {
       aes(colour = "black", size = 0.5, linetype = 1, alpha = NA)
     },
