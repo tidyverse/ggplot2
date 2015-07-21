@@ -24,6 +24,7 @@
 #' @export
 #' @examples
 #' \donttest{
+#' if (require("ggplot2movies")) {
 #' m <- ggplot(movies, aes(x = rating))
 #' m + geom_density()
 #'
@@ -87,6 +88,7 @@
 #' m <- ggplot(movies, aes(x=rating, colour=decade, group=decade))
 #' m + geom_density(fill=NA)
 #' m + geom_density(fill=NA) + aes(y = ..count..)
+#' }
 #' }
 stat_density <- function (mapping = NULL, data = NULL, geom = "area",
   position = "stack", adjust = 1, kernel = "gaussian", trim = FALSE,

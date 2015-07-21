@@ -14,7 +14,7 @@
 #' @export
 #' @inheritParams geom_point
 #' @examples
-#' \donttest{
+#' if (require("ggplot2movies")) {
 #' set.seed(5689)
 #' movies <- movies[sample(nrow(movies), 1000), ]
 #' # Basic example

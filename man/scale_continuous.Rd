@@ -98,6 +98,7 @@ that set the \code{trans} argument to commonly used transformations.
 }
 \examples{
 \donttest{
+if (require(ggplot2movies)) {
 m <- ggplot(subset(movies, votes > 1000), aes(rating, votes)) +
   geom_point(na.rm = TRUE)
 m
@@ -158,6 +159,7 @@ ggplot(movies, aes(rating, votes)) +
   geom_point() +
   scale_x_log10() +
   scale_y_log10()
+}
 }
 }
 \seealso{

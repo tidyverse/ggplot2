@@ -24,6 +24,7 @@ Imports:
     scales (>= 0.2.3),
     stats
 Suggests:
+    ggplot2movies,
     hexbin,
     Hmisc,
     knitr,

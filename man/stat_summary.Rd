@@ -124,6 +124,7 @@ m <- ggplot(mpg2, aes(x=cyl, y=hwy)) +
        xlab("cyl")
 m
 # An example with highly skewed distributions:
+if (require("ggplot2movies")) {
 set.seed(596)
 mov <- movies[sample(nrow(movies), 1000), ]
  m2 <- ggplot(mov, aes(x= factor(round(rating)), y=votes)) + geom_point()
@@ -143,6 +144,7 @@ m2 + scale_y_log10()
 # and stretching the geoms onto the log scale.  Compare the widths of the
 # standard errors.
 m2 + coord_trans(y="log10")
+}
 }
 }
 \seealso{

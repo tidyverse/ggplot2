@@ -9,6 +9,7 @@
 #' \dontrun{
 #' library(lattice)
 #'
+#' if (require("ggplot2movies")) {
 #' xyplot(rating ~ year, data=movies)
 #' qplot(year, rating, data=movies)
 #'
@@ -35,6 +36,7 @@
 #'
 #' xyplot(wt ~ mpg, mtcars, type = c("p","r"))
 #' qplot(mpg, wt, data = mtcars, geom = c("point","smooth"), method = "lm")
+#' }
 #'
 #' # The capabilities for scale manipulations are similar in both ggplot2 and
 #' # lattice, although the syntax is a little different.

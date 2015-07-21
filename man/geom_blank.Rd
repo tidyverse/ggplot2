@@ -46,7 +46,7 @@ The blank geom draws nothing, but can be a useful way of ensuring common
 scales between different plots.
 }
 \examples{
-ggplot(movies, aes(length, rating)) + geom_blank()
+ggplot(mtcars, aes(wt, mpg)) + geom_blank()
 # Nothing to see here!
 
 # Take the following scatter plot

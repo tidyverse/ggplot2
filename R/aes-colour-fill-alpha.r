@@ -25,9 +25,9 @@
 #' k + geom_bar()
 #'
 #' # Fill aesthetic can also be used with a continuous variable
-#' m <- ggplot(movies, aes(x = rating))
-#' m + geom_histogram()
-#' m + geom_histogram(aes(fill = ..count..))
+#' m <- ggplot(faithfuld, aes(waiting, eruptions))
+#' m + geom_raster()
+#' m + geom_raster(aes(fill = density))
 #'
 #' # Some geoms don't use both aesthetics (i.e. geom_point or geom_line)
 #' b <- ggplot(economics, aes(x = date, y = unemploy))

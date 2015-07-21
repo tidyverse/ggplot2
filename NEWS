@@ -1,6 +1,11 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* The movies dataset has been moved into its own package, ggplot2movies,
+  because it was large and not terribly useful. If you've used the movies
+  dataset, you'll now need to explicitly load the package with
+  `library(ggplot2movies)`.
+
 * The default legend will now allocate multiple rows (if vertical) or
   columns (if horizontal) in order to make a legend that is more likely to
   fit on the screen. You can override with the `nrow`/`ncol` arguments

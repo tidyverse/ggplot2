@@ -6,7 +6,7 @@
 #' @export
 #' @inheritParams geom_point
 #' @examples
-#' ggplot(movies, aes(length, rating)) + geom_blank()
+#' ggplot(mtcars, aes(wt, mpg)) + geom_blank()
 #' # Nothing to see here!
 #'
 #' # Take the following scatter plot

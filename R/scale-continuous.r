@@ -11,6 +11,7 @@
 #' @export
 #' @examples
 #' \donttest{
+#' if (require(ggplot2movies)) {
 #' m <- ggplot(subset(movies, votes > 1000), aes(rating, votes)) +
 #'   geom_point(na.rm = TRUE)
 #' m
@@ -71,6 +72,7 @@
 #'   geom_point() +
 #'   scale_x_log10() +
 #'   scale_y_log10()
+#' }
 #' }
 scale_x_continuous <- function(name = NULL, breaks = waiver(),
                                minor_breaks = waiver(), labels = waiver(),

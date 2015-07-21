@@ -65,6 +65,7 @@ data.frame with additional columns:
 }
 \examples{
 \donttest{
+if (require("ggplot2movies")) {
 m <- ggplot(movies, aes(x = rating))
 m + geom_density()
 
@@ -128,6 +129,7 @@ movies$decade <- round_any(movies$year, 10)
 m <- ggplot(movies, aes(x=rating, colour=decade, group=decade))
 m + geom_density(fill=NA)
 m + geom_density(fill=NA) + aes(y = ..count..)
+}
 }
 }
 \seealso{

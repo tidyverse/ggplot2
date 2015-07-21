@@ -72,14 +72,6 @@ h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
 huron[huron$year > 1900 & huron$year < 1910, "level"] <- NA
 h <- ggplot(huron, aes(x=year))
 h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
-
-# Another data set, with multiple y's for each x
-m <- ggplot(movies, aes(y=votes, x=year))
-(m <- m + geom_point())
-
-# The default summary isn't that useful
-m + stat_summary(geom="ribbon", fun.ymin="min", fun.ymax="max")
-m + stat_summary(geom="ribbon", fun.data="median_hilow")
 }
 }
 \seealso{

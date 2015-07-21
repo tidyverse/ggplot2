@@ -91,6 +91,7 @@
 #'        xlab("cyl")
 #' m
 #' # An example with highly skewed distributions:
+#' if (require("ggplot2movies")) {
 #' set.seed(596)
 #' mov <- movies[sample(nrow(movies), 1000), ]
 #'  m2 <- ggplot(mov, aes(x= factor(round(rating)), y=votes)) + geom_point()
@@ -110,6 +111,7 @@
 #' # and stretching the geoms onto the log scale.  Compare the widths of the
 #' # standard errors.
 #' m2 + coord_trans(y="log10")
+#' }
 #' }
 stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
   position = "identity", show_guide = NA, inherit.aes = TRUE, ...)

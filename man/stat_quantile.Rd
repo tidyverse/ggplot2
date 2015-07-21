@@ -58,6 +58,7 @@ Continuous quantiles.
 }
 \examples{
 \donttest{
+if (require("ggplot2movies")) {
 msamp <- movies[sample(nrow(movies), 1000), ]
 m <- ggplot(msamp, aes(year, rating)) + geom_point()
 m + stat_quantile()
@@ -82,6 +83,7 @@ m + stat_quantile(aes(colour = ..quantile..), quantiles = q10) +
 
 # Set aesthetics to fixed value
 m + stat_quantile(colour = "red", size = 2, linetype = 2)
+}
 }
 }
 

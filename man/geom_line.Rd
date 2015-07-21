@@ -50,6 +50,7 @@ Connect observations, ordered by x value.
 }
 \examples{
 # Summarise number of movie ratings by year of movie
+if (require("ggplot2movies")) {
 mry <- do.call(rbind, by(movies, round(movies$rating), function(df) {
   nums <- tapply(df$length, df$year, length)
   data.frame(rating=round(df$rating[1]), year = as.numeric(names(nums)), number=as.vector(nums))
@@ -68,6 +69,7 @@ p + geom_line(aes(size = rating)) + scale_size(range = c(0.1, 3))
 
 # Set aesthetics to fixed value
 p + geom_line(colour = "red", size = 1)
+}
 
 # Using a time series
 ggplot(economics, aes(date, pop)) + geom_line()

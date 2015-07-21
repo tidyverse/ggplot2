@@ -15,6 +15,7 @@
 #' @examples
 #' \donttest{
 #' # Generate data
+#' if (require("ggplot2movies")) {
 #' library(plyr)
 #' myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
 #' p <- ggplot(myear, aes(length, rating))
@@ -29,6 +30,7 @@
 #'
 #' # Set aesthetics to fixed value
 #' p + geom_path(colour = "green")
+#' }
 #'
 #' # Control line join parameters
 #' df <- data.frame(x = 1:3, y = c(4, 1, 9))

@@ -42,6 +42,7 @@
 #' p + geom_violin(fill = "grey80", colour = "#3366FF")
 #'
 #' # Scales vs. coordinate transforms -------
+#' if (require("ggplot2movies")) {
 #' # Scale transformations occur before the density statistics are computed.
 #' # Coordinate transformations occur afterwards.  Observe the effect on the
 #' # number of outliers.
@@ -58,6 +59,7 @@
 #' ggplot(movies, aes(year, budget)) + geom_violin()
 #' ggplot(movies, aes(year, budget)) +
 #'   geom_violin(aes(group = round_any(year, 10, floor)))
+#' }
 #' }
 geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity",
   position = "dodge", trim = TRUE, scale = "area", show_guide = NA,

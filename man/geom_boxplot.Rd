@@ -116,6 +116,7 @@ p + geom_boxplot(fill = "grey80", colour = "#3366FF")
 # Scale transformations occur before the boxplot statistics are computed.
 # Coordinate transformations occur afterwards.  Observe the effect on the
 # number of outliers.
+if (require("ggplot2movies")) {
 library(plyr) # to access round_any
 m <- ggplot(movies, aes(y = votes, x = rating,
    group = round_any(rating, 0.5)))
@@ -131,6 +132,7 @@ ggplot(movies, aes(year, budget)) +
 
 ggplot(movies, aes(year, budget)) +
   geom_boxplot(aes(group=round_any(year, 10, floor)))
+}
 
 # Using precomputed statistics
 # generate sample data
@@ -145,7 +147,6 @@ b + geom_boxplot(aes(fill = X1), stat = "identity")
 p + geom_boxplot(varwidth = TRUE)
 
 # Update the defaults for the outliers by changing the defaults for geom_point
-
 p <- ggplot(mtcars, aes(factor(cyl), mpg))
 p + geom_boxplot()
 

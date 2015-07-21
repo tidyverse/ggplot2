@@ -88,6 +88,7 @@ p + geom_violin(aes(fill = factor(am)))
 p + geom_violin(fill = "grey80", colour = "#3366FF")
 
 # Scales vs. coordinate transforms -------
+if (require("ggplot2movies")) {
 # Scale transformations occur before the density statistics are computed.
 # Coordinate transformations occur afterwards.  Observe the effect on the
 # number of outliers.
@@ -104,6 +105,7 @@ m + geom_violin() + scale_y_log10() + coord_trans(y = "log10")
 ggplot(movies, aes(year, budget)) + geom_violin()
 ggplot(movies, aes(year, budget)) +
   geom_violin(aes(group = round_any(year, 10, floor)))
+}
 }
 }
 

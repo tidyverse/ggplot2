@@ -41,6 +41,7 @@
 #'   labs(title = "Pac man")
 #'
 #' # Windrose + doughnut plot
+#' if (require("ggplot2movies")) {
 #' movies$rrating <- cut_interval(movies$rating, length = 1)
 #' movies$budgetq <- cut_number(movies$budget, 4)
 #'
@@ -50,6 +51,7 @@
 #' doh + geom_bar(width = 1) + coord_polar()
 #' # Race track plot
 #' doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
+#' }
 #' }
 coord_polar <- function(theta = "x", start = 0, direction = 1) {
   theta <- match.arg(theta, c("x", "y"))

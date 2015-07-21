@@ -29,19 +29,16 @@
 #' # If right = TRUE, and intervals are of the form (a, b]
 #' base + stat_bin(binwidth = 1, drop = FALSE, right = TRUE, col = "black")
 #'
-#' m <- ggplot(movies, aes(x=rating))
-#' m + stat_bin()
-#' m + stat_bin(binwidth=0.1)
-#' m + stat_bin(breaks=seq(4,6, by=0.1))
+#' d <- ggplot(diamonds, aes(carat))
+#' d + stat_bin()
+#' d + stat_bin(binwidth = 0.1)
+#' d + stat_bin(breaks=seq(0, 2, by = 0.01))
 #' # See geom_histogram for more histogram examples
 #'
 #' # To create a unit area histogram, use aes(y = ..density..)
-#' (linehist <- m + stat_bin(aes(y = ..density..), binwidth=0.1,
-#'   geom="line", position="identity"))
-#' linehist + stat_density(colour="blue", fill=NA)
-#'
-#' # Also works with categorical variables
-#' ggplot(movies, aes(x=mpaa)) + stat_bin()
+#' linehist <- d + geom_freqpoly(aes(y = ..density..), binwidth = 0.1)
+#' linehist
+#' linehist + stat_density(colour = "blue", fill = NA)
 #' }
 stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
   position = "stack", width = 0.9, drop = FALSE, right = FALSE,
