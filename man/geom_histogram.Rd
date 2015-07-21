@@ -62,7 +62,7 @@ may need to look at a few to uncover the full story behind your data.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "histogram")}
+\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "bar")}
 }
 \examples{
 ggplot(diamonds, aes(carat)) +
