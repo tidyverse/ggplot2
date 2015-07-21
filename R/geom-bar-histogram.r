@@ -130,7 +130,7 @@ geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin",
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomHistogram,
+    geom = GeomBar,
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
@@ -138,10 +138,3 @@ geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin",
     stat_params = list(binwidth = binwidth, origin = origin, right = right)
   )
 }
-
-GeomHistogram <- proto2(
-  class = "GeomHistogram",
-  inherit = GeomBar,
-  members = list(
-  )
-)

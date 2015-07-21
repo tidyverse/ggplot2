@@ -29,17 +29,10 @@ geom_count <- function(mapping = NULL, data = NULL, stat = "sum",
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomCount,
+    geom = GeomPoint,
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
     params = list(...)
   )
 }
-
-GeomCount <- proto2(
-  class = "GeomCount",
-  inherit = GeomPoint,
-  members = list(
-  )
-)

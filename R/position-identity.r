@@ -13,6 +13,5 @@ position_identity <- function (width = NULL, height = NULL) {
 PositionIdentity <- proto2(
   class = "PositionIdentity",
   inherit = Position,
-  members = list(
-  )
+  members = list()
 )
