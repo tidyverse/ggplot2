@@ -46,8 +46,8 @@ NULL
 annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) {
   Layer$new(
     data = NULL,
-    stat = "identity",
-    position = "identity",
+    stat = StatIdentity,
+    position = PositionIdentity,
     geom = GeomCustomAnn,
     inherit.aes = TRUE,
     geom_params = list(grob = grob, xmin = xmin, xmax = xmax,

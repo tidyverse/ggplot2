@@ -46,8 +46,8 @@ annotation_raster <- function (raster, xmin, xmax, ymin, ymax,
   Layer$new(
     data = NULL,
     mapping = NULL,
-    stat = "identity",
-    position = "identity",
+    stat = StatIdentity,
+    position = PositionIdentity,
     geom = GeomRasterAnn,
     inherit.aes = TRUE,
     geom_params = list(

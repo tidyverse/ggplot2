@@ -34,7 +34,7 @@ annotation_map <- function(map, ...) {
 
   Layer$new(
     data = NULL,
-    stat = "identity",
+    stat = StatIdentity,
     geom = GeomAnnotationMap,
     position = PositionIdentity,
     inherit.aes = FALSE,
