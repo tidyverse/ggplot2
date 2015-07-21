@@ -4,8 +4,8 @@
 \alias{geom_smooth}
 \title{Add a smoothed conditional mean.}
 \usage{
-geom_smooth(mapping = NULL, data = NULL, stat = "smooth", method = "lm",
-  formula = y ~ x, se = TRUE, position = "identity", show_guide = NA,
+geom_smooth(mapping = NULL, data = NULL, stat = "smooth", method = NULL,
+  formula = NULL, se = TRUE, position = "identity", show_guide = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
