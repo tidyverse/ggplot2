@@ -54,7 +54,7 @@ StatSum <- proto2(
   class = "StatSum",
   inherit = Stat,
   members = list(
-    default_aes = function(self) aes(size = ..n..),
+    default_aes = aes(size = ..n..),
 
     required_aes = c("x", "y"),
 

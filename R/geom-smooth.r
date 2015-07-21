@@ -91,13 +91,11 @@ GeomSmooth <- proto2(
 
     required_aes = c("x", "y"),
 
-    default_aes = function(self) {
-      aes(colour = "#3366FF", fill = "grey60", size = 1, linetype = 1,
-          weight = 1, alpha = 0.4)
-    },
+    default_aes = aes(colour = "#3366FF", fill = "grey60", size = 1,
+      linetype = 1, weight = 1, alpha = 0.4),
 
     draw_legend = function(self, data, params, ...) {
-      data <- aesdefaults(data, self$default_aes(), list(...))
+      data <- aesdefaults(data, self$default_aes, list(...))
       data$fill <- alpha(data$fill, data$alpha)
       data$alpha <- 1
 

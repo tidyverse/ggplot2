@@ -50,7 +50,7 @@ StatSpoke <- proto2(
       )
     },
 
-    default_aes = function(self) aes(xend = ..xend.., yend = ..yend..),
+    default_aes = aes(xend = ..xend.., yend = ..yend..),
 
     required_aes = c("x", "y", "angle", "radius")
   )

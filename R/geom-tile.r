@@ -99,9 +99,8 @@ GeomTile <- proto2(
       GeomRect$draw_groups(data, scales, coordinates, ...)
     },
 
-    default_aes = function(self) {
-      aes(fill = "grey20", colour = NA, size = 0.1, linetype = 1, alpha = NA)
-    },
+    default_aes = aes(fill = "grey20", colour = NA, size = 0.1, linetype = 1,
+      alpha = NA),
 
     required_aes = c("x", "y"),
 

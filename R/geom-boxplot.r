@@ -113,7 +113,7 @@ geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
   outlier.size = NULL, outlier.stroke = 1, notch = FALSE, notchwidth = .5,
   varwidth = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 {
-  outlier_defaults <- GeomPoint$default_aes()
+  outlier_defaults <- GeomPoint$default_aes
 
   outlier.colour   <- outlier.colour %||% outlier_defaults$colour
   outlier.shape    <- outlier.shape  %||% outlier_defaults$shape
@@ -236,7 +236,7 @@ GeomBoxplot <- proto2(
     guide_geom = function(self) "boxplot",
 
     draw_legend = function(self, data, ...)  {
-      data <- aesdefaults(data, self$default_aes(), list(...))
+      data <- aesdefaults(data, self$default_aes, list(...))
       gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt, lty = linetype))
       gTree(gp = gp, children = gList(
         linesGrob(0.5, c(0.1, 0.25)),
@@ -246,10 +246,8 @@ GeomBoxplot <- proto2(
       ))
     },
 
-    default_aes = function(self) {
-      aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
-          alpha = NA, shape = 19, linetype = "solid")
-    },
+    default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
+      alpha = NA, shape = 19, linetype = "solid"),
 
     required_aes = c("x", "lower", "upper", "middle", "ymin", "ymax")
   )

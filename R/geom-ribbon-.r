@@ -49,9 +49,8 @@ GeomRibbon <- proto2(
   class = "GeomRibbon",
   inherit = Geom,
   members = list(
-    default_aes = function(self) {
-      aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1, alpha = NA)
-    },
+    default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+      alpha = NA),
 
     required_aes = c("x", "ymin", "ymax"),
 
@@ -131,9 +130,8 @@ geom_area <- function (mapping = NULL, data = NULL, stat = "identity",
 GeomArea <- proto2(
   inherit = GeomRibbon,
   members = list(
-    default_aes = function(self) {
-      aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1, alpha = NA)
-    },
+    default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+      alpha = NA),
 
     required_aes = c("x", "y"),
 

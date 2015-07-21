@@ -132,7 +132,7 @@ StatDensity <- proto2(
         adjust = adjust, kernel = kernel)
     },
 
-    default_aes = function(self) aes(y = ..density.., fill = NA),
+    default_aes = aes(y = ..density.., fill = NA),
 
     required_aes = c("x")
   )

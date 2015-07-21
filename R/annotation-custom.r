@@ -77,8 +77,6 @@ GeomCustomAnn <- proto2(
       editGrob(grob, vp = vp)
     },
 
-    default_aes = function(self) {
-      aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
-    }
+    default_aes = aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
   )
 )

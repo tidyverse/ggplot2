@@ -31,8 +31,8 @@ GeomRect <- proto2(
   class = "GeomRect",
   inherit = Geom,
   members = list(
-    default_aes = function(self) aes(colour = NA, fill = "grey20", size = 0.5,
-                                 linetype = 1, alpha = NA),
+    default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+      alpha = NA),
 
     required_aes = c("xmin", "xmax", "ymin", "ymax"),
 

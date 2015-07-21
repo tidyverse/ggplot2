@@ -38,8 +38,7 @@ GeomBin2d <- proto2(
 
     required_aes = c("xmin", "xmax", "ymin", "ymax"),
 
-    default_aes = function(self) {
-      aes(colour = NA, fill = "grey60", size = 0.5, linetype = 1, weight = 1, , alpha = NA)
-    }
+    default_aes = aes(colour = NA, fill = "grey60", size = 0.5, linetype = 1,
+      weight = 1, alpha = NA)
   )
 )

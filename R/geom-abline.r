@@ -93,10 +93,10 @@ GeomAbline <- proto2(
 
     guide_geom = function(self) "abline",
 
-    default_aes = function(self) aes(colour="black", size=0.5, linetype=1, alpha = NA),
+    default_aes = aes(colour="black", size=0.5, linetype=1, alpha = NA),
 
     draw_legend = function(self, data, ...) {
-      data <- aesdefaults(data, self$default_aes(), list(...))
+      data <- aesdefaults(data, self$default_aes, list(...))
 
       with(data,
         ggname(self$my_name(), segmentsGrob(0, 0, 1, 1, default.units="npc",

@@ -153,7 +153,7 @@ GeomPoint <- proto2(
     },
 
     draw_legend = function(self, data, ...) {
-      data <- aesdefaults(data, self$default_aes(), list(...))
+      data <- aesdefaults(data, self$default_aes, list(...))
 
       with(data,
         pointsGrob(0.5, 0.5, size=unit(size, "mm"), pch=shape,
@@ -167,6 +167,7 @@ GeomPoint <- proto2(
     },
 
     required_aes = c("x", "y"),
-    default_aes = function(self) aes(shape=19, colour="black", size=2, fill = NA, alpha = NA, stroke = 1)
+    default_aes = aes(shape = 19, colour = "black", size = 2, fill = NA,
+      alpha = NA, stroke = 1)
   )
 )

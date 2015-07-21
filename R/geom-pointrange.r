@@ -32,10 +32,8 @@ GeomPointrange <- proto2(
   class = "GeomPointrange",
   inherit = Geom,
   members = list(
-    default_aes = function(self) {
-      aes(colour = "black", size = 0.5, linetype = 1, shape = 19,
-          fill = NA, alpha = NA, stroke = 1)
-    },
+    default_aes = aes(colour = "black", size = 0.5, linetype = 1, shape = 19,
+      fill = NA, alpha = NA, stroke = 1),
 
     guide_geom = function(self) "pointrange",
 
@@ -53,7 +51,7 @@ GeomPointrange <- proto2(
     },
 
     draw_legend = function(self, data, ...) {
-      data <- aesdefaults(data, self$default_aes(), list(...))
+      data <- aesdefaults(data, self$default_aes, list(...))
 
       grobTree(
         GeomPath$draw_legend(data, ...),

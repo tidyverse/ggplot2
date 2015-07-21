@@ -83,14 +83,12 @@ GeomVline <- proto2(
       GeomSegment$draw(unique(data), scales, coordinates)
     },
 
-    default_aes = function(self) {
-      aes(colour = "black", size = 0.5, linetype = 1, alpha = NA)
-    },
+    default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
     guide_geom = function(self) "vline",
 
     draw_legend = function(self, data, ...) {
-      data <- aesdefaults(data, self$default_aes(), list(...))
+      data <- aesdefaults(data, self$default_aes, list(...))
 
       with(data,
         ggname(

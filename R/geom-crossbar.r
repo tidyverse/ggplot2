@@ -36,14 +36,15 @@ GeomCrossbar <- proto2(
       GeomErrorbar$reparameterise(df, params)
     },
 
-    default_aes = function(self) aes(colour="black", fill=NA, size=0.5, linetype=1, alpha = NA),
+    default_aes = aes(colour = "black", fill = NA, size = 0.5, linetype = 1,
+      alpha = NA),
 
     required_aes = c("x", "y", "ymin", "ymax"),
 
     guide_geom = function(self) "crossbar",
 
     draw_legend = function(self, data, ...)  {
-      data <- aesdefaults(data, self$default_aes(), list(...))
+      data <- aesdefaults(data, self$default_aes, list(...))
       gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt, lty = linetype))
       gTree(gp = gp, children = gList(
         rectGrob(height=0.5, width=0.75),

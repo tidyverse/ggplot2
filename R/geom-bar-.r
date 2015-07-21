@@ -149,8 +149,8 @@ GeomBar <- proto2(
   class = "GeomBar",
   inherit = Geom,
   members = list(
-    default_aes = function(self) aes(colour=NA, fill="grey20", size=0.5,
-                                 linetype=1, weight = 1, alpha = NA),
+    default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+                      weight = 1, alpha = NA),
 
     required_aes = c("x"),
 

@@ -1,10 +1,10 @@
 aesthetics <- function(x) {
   req_aes <- x$required_aes
-  def_aes <- names(x$default_aes())
+  def_aes <- names(x$default_aes)
   def_aes <- setdiff(def_aes, req_aes)
   if (length(req_aes) == 0){
     # Suppress warnings which occur when sorting NULL
-    return(suppressWarnings(sort(names(x$default_aes()))))
+    return(suppressWarnings(sort(names(x$default_aes))))
   }
   if (length(def_aes) == 0){
     return(paste("\\strong{", sort(x$required_aes), "}",sep = ""))

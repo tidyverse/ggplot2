@@ -112,10 +112,8 @@ GeomViolin <- proto2(
 
     guide_geom = function(self) "polygon",
 
-    default_aes = function(self) {
-      aes(weight=1, colour="grey20", fill="white", size=0.5, alpha = NA,
-          linetype = "solid")
-    },
+    default_aes = aes(weight=1, colour="grey20", fill="white", size=0.5,
+      alpha = NA, linetype = "solid"),
 
     required_aes = c("x", "y")
   )

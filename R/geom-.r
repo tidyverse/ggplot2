@@ -11,14 +11,14 @@ Geom <- proto2(
 
       required <- rep(NA, length(self$required_aes))
       names(required) <- self$required_aes
-      aesthetics <- c(self$default_aes(), required)
+      aesthetics <- c(self$default_aes, required)
 
       c(params, aesthetics[setdiff(names(aesthetics), names(params))])
     },
 
     required_aes = c(),
 
-    default_aes = function(self) aes(),
+    default_aes = aes(),
 
     guide_geom = function(self) "point",
 

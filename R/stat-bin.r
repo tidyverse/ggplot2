@@ -96,7 +96,7 @@ StatBin <- proto2(
           right = right)
     },
 
-    default_aes = function(self) aes(y = ..count..),
+    default_aes = aes(y = ..count..),
     required_aes = c("x")
   )
 )

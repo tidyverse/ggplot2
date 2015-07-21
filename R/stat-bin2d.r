@@ -53,7 +53,7 @@ StatBin2d <- proto2(
   class = "StatBin2d",
   inherit = Stat,
   members = list(
-    default_aes = function(self) aes(fill = ..count..),
+    default_aes = aes(fill = ..count..),
     required_aes = c("x", "y"),
 
     calculate = function(self, data, scales, binwidth = NULL, bins = 30,

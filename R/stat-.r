@@ -7,7 +7,7 @@ Stat <- proto2(
     # the scales
     retransform = TRUE,
 
-    default_aes = function(self) aes(),
+    default_aes = aes(),
 
     required_aes = c(),
 

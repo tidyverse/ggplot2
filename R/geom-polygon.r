@@ -99,13 +99,15 @@ GeomPolygon <- proto2(
       )))
     },
 
-    default_aes = function(self) aes(colour = "NA", fill = "grey20", size = 0.5,
-                                 linetype = 1, alpha = NA),
+    default_aes = aes(colour = "NA", fill = "grey20", size = 0.5, linetype = 1,
+      alpha = NA),
+
     required_aes = c("x", "y"),
+
     guide_geom = function(self) "polygon",
 
     draw_legend = function(self, data, ...)  {
-      data <- aesdefaults(data, self$default_aes(), list(...))
+      data <- aesdefaults(data, self$default_aes, list(...))
 
       with(data, grobTree(
         rectGrob(gp = gpar(col = colour, fill = alpha(fill, alpha), lty = linetype)),

@@ -54,7 +54,7 @@ TopLevel <- proto2(
 
       if(!exists("required_aes", .)) return(param)
 
-      aesthetics <- c(self$required_aes, names(self$default_aes()))
+      aesthetics <- c(self$required_aes, names(self$default_aes))
       param[setdiff(names(param), aesthetics)]
     },
 

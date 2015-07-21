@@ -49,7 +49,7 @@ StatBinhex <- proto2(
   class = "StatBinhex",
   inherit = Stat,
   members = list(
-    default_aes = function(self) aes(fill = ..count..),
+    default_aes = aes(fill = ..count..),
 
     required_aes = c("x", "y"),
 

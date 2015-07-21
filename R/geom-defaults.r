@@ -10,19 +10,14 @@
 #' @rdname update_defaults
 update_geom_defaults <- function(geom, new) {
   g <- make_geom(geom)
-  old <- g$default_aes()
-
-  aes <- defaults(new, old)
-
-  g$default_aes <- eval(substitute(function(self) aes, list(aes = aes)))
+  old <- g$default_aes
+  g$default_aes <- defaults(new, old)
 }
 
 #' @rdname update_defaults
 #' @export
 update_stat_defaults <- function(stat, new) {
   g <- make_stat(stat)
-  old <- g$default_aes()
-
-  aes <- defaults(new, old)
-  g$default_aes <- eval(substitute(function(self) aes, list(aes = aes)))
+  old <- g$default_aes
+  g$default_aes <- defaults(new, old)
 }

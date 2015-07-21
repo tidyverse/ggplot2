@@ -74,7 +74,7 @@ GeomHline <- proto2(
       GeomSegment$draw(unique(data), scales, coordinates)
     },
 
-    default_aes = function(self) aes(colour="black", size=0.5, linetype=1, alpha = NA),
+    default_aes = aes(colour="black", size=0.5, linetype=1, alpha = NA),
 
     guide_geom = function(self) "path"
   )

@@ -1,3 +1,6 @@
+#' @include geom-path-.r
+NULL
+
 #' Frequency polygon.
 #'
 #' @section Aesthetics:
@@ -36,7 +39,7 @@ GeomFreqpoly <- proto2(
   class = "GeomFreqpoly",
   inherit = Geom,
   members = list(
-    default_aes = function(self) GeomPath$default_aes(),
+    default_aes = GeomPath$default_aes,
 
     draw = function(self, ...) GeomPath$draw(...),
 

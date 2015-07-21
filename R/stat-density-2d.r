@@ -81,7 +81,7 @@ StatDensity2d <- proto2(
   class = "StatDensity2d",
   inherit = Stat,
   members = list(
-    default_aes = function(self) aes(colour = "#3366FF", size = 0.5),
+    default_aes = aes(colour = "#3366FF", size = 0.5),
 
     required_aes = c("x", "y"),
 

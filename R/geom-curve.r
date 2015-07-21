@@ -84,9 +84,7 @@ GeomCurve <- proto2(
 
     required_aes = c("x", "y", "xend", "yend"),
 
-    default_aes = function(self) {
-      aes(colour = "black", size = 0.5, linetype = 1, alpha = NA)
-    },
+    default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
     guide_geom = function(self) "path"
   )

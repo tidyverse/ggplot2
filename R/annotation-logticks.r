@@ -186,7 +186,7 @@ GeomLogticks <- proto2(
       gTree(children = do.call("gList", ticks))
     },
 
-    default_aes = function(self) aes(colour = "black", size = 0.5, linetype = 1, alpha = 1)
+    default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = 1)
   )
 )
 

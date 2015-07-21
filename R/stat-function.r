@@ -68,7 +68,7 @@ StatFunction <- proto2(
   class = "StatFunction",
   inherit = Stat,
   members = list(
-    default_aes = function(self) aes(y = ..y..),
+    default_aes = aes(y = ..y..),
 
     calculate = function(self, data, scales, fun, n=101, args = list(), ...) {
       range <- scale_dimension(scales$x, c(0, 0))

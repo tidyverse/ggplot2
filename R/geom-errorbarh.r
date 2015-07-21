@@ -41,9 +41,8 @@ GeomErrorbarh <- proto2(
   class = "GeomErrorbarh",
   inherit = Geom,
   members = list(
-    default_aes = function(self) {
-      aes(colour = "black", size=0.5, linetype=1, height=0.5, alpha = NA)
-    },
+    default_aes = aes(colour = "black", size = 0.5, linetype = 1, height = 0.5,
+      alpha = NA),
 
     guide_geom = function(self) "path",
 

@@ -51,7 +51,7 @@ GeomStep <- proto2(
   members = list(
     details = "Equivalent to plot(type='s').",
 
-    default_aes = function(self) aes(colour="black", size=0.5, linetype=1, alpha = NA),
+    default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
     draw = function(self, data, scales, coordinates, direction = "hv", ...) {
       data <- stairstep(data, direction)

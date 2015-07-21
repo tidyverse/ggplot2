@@ -36,7 +36,7 @@ GeomHex <- proto2(
 
     required_aes = c("x", "y"),
 
-    default_aes = function(self) aes(colour=NA, fill = "grey50", size=0.5, alpha = NA),
+    default_aes = aes(colour=NA, fill = "grey50", size=0.5, alpha = NA),
 
     guide_geom = function(self) "polygon"
   )

@@ -61,7 +61,7 @@ StatQq <- proto2(
   class = "StatQq",
   inherit = Stat,
   members = list(
-    default_aes = function(self) aes(y = ..sample.., x = ..theoretical..),
+    default_aes = aes(y = ..sample.., x = ..theoretical..),
 
     required_aes = c("sample"),
 

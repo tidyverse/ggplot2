@@ -255,7 +255,7 @@ GeomDotplot <- proto2(
     draw_legend = function(self, data, ...) {
       data$shape <- 21
 
-      data <- aesdefaults(data, self$default_aes(), list(...))
+      data <- aesdefaults(data, self$default_aes, list(...))
 
       with(data,
         pointsGrob(0.5, 0.5, size = unit(.5, "npc"), pch = shape,
@@ -268,7 +268,7 @@ GeomDotplot <- proto2(
 
     required_aes = c("x", "y"),
 
-    default_aes = function(self) aes(y=..count.., colour="black", fill = "black", alpha = NA)
+    default_aes = aes(y = ..count.., colour = "black", fill = "black", alpha = NA)
 
   )
 )

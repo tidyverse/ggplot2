@@ -36,12 +36,10 @@ GeomQuantile <- proto2(
   class = "GeomQuantile",
   inherit = GeomPath,
   members = list(
-    default_aes = function(self) {
-      defaults(
-        aes(weight = 1, colour = "#3366FF", size = 0.5),
-        GeomPath$default_aes()
-      )
-    },
+    default_aes = defaults(
+      aes(weight = 1, colour = "#3366FF", size = 0.5),
+      GeomPath$default_aes
+    ),
 
     guide_geom = function(self) "path"
   )

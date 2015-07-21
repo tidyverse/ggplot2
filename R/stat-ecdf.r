@@ -65,7 +65,7 @@ StatEcdf <- proto2(
       data.frame(x = c(x0, xvals, x1), y = c(y0, y, y1))
     },
 
-    default_aes = function(self) aes(y = ..y..),
+    default_aes = aes(y = ..y..),
 
     required_aes = c("x")
   )
