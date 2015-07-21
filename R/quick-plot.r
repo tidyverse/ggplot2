@@ -123,7 +123,9 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE,
 
   # Add geoms/statistics
   for (g in geom) {
-    # Have to use non-standard evaluation because we can't evaluate ...
+    # Arguments are unevaluated because some are aesthetics. Need to evaluate
+    # params - can't do in correct env because that's lost (no lazyeval)
+    # so do the best we can by evaluating in parent frame.
     params <- arguments[setdiff(names(arguments), c(aes_names, argnames))]
     params <- lapply(params, eval, parent.frame(1))
 
