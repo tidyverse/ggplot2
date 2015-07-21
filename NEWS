@@ -126,6 +126,10 @@ ggplot2 1.0.1.9xxx
   `method`, `se` and `formula` arguments to make it easier to see what the
   most important options are.
 
+* `geom_histogram()` gains `binwidth`, `origin` and `right` arguments so you
+  can see the most important arguments to the underlying `stat_bin()`
+  computation.
+
 * `geom_jitter()` gains `width` and `height` arguments to make it easier
   to control the amount of jittering without using the lengthy
   `position_jitter()` function (#1116)

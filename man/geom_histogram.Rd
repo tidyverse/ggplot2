@@ -5,7 +5,8 @@
 \title{Histogram}
 \usage{
 geom_histogram(mapping = NULL, data = NULL, stat = "bin",
-  position = "stack", show_guide = NA, inherit.aes = TRUE, ...)
+  binwidth = NULL, origin = NULL, right = NULL, position = "stack",
+  show_guide = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -17,6 +18,14 @@ defined at the top level of the plot.}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
+
+\item{binwidth}{Bin width to use. Defaults to 1/30 of the range of the
+data}
+
+\item{origin}{Origin of first bin}
+
+\item{right}{If \code{TRUE}, right-closed, left-open, if \code{FALSE},
+the default, right-open, left-closed.}
 
 \item{position}{Postion adjustment, either as a string, or the result of
 a call to a position adjustment function.}

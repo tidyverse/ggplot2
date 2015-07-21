@@ -13,6 +13,7 @@
 #'
 #' @export
 #' @inheritParams geom_point
+#' @inheritParams stat_bin
 #' @examples
 #' if (require("ggplot2movies")) {
 #' set.seed(5689)
@@ -117,6 +118,7 @@
 #' }
 #' rm(movies)
 geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin",
+  binwidth = NULL, origin = NULL, right = NULL,
   position = "stack", show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(
@@ -127,7 +129,8 @@ geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(...),
+    stat_params = list(binwidth = binwidth, origin = origin, right = right)
   )
 }
 
