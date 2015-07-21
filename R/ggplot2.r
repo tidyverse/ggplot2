@@ -188,3 +188,11 @@ NULL
 #' @format A data frame with 1155 rows and 4 variables
 #' @references \url{http://www.stat.berkeley.edu/~brill/Papers/jspifinal.pdf}
 "seals"
+
+#' 2d density estimate of Old Faithful data
+#'
+#' A 2d density estimate of the waiting and eruptions variables data
+#' \link{faithful}.
+#'
+#' @format A data frame with 5,625 observations and 3 variables.
+"faithfuld"
