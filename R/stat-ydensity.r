@@ -53,8 +53,6 @@ StatYdensity <- proto2(
   class = "StatYdensity",
   inherit = Stat,
   members = list(
-    objname = "ydensity",
-
     calculate_groups = function(self, super, data, na.rm = FALSE, width = NULL,
       scale = "area", ...)
     {

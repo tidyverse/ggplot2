@@ -267,3 +267,11 @@ has_name <- function(x) {
 
   !is.na(nms) & nms != ""
 }
+
+
+# Convert a snake_case string to camelCase
+camelize <- function(x, first = FALSE) {
+  x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
+  if (first) x <- firstUpper(x)
+  x
+}

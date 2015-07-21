@@ -80,8 +80,6 @@ GeomRaster <- proto2(
   class = "GeomRaster",
   inherit = Geom,
   members = list(
-    objname = "raster",
-
     reparameterise = function(self, df, params) {
       hjust <- params$hjust %||% 0.5
       vjust <- params$vjust %||% 0.5

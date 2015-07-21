@@ -52,7 +52,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
   layer(
     geom = geom,
     geom_params = list(...),
-    stat = "identity",
+    stat = StatIdentity,
     position = PositionIdentity,
     data = data,
     mapping = aes_all(names(data)),

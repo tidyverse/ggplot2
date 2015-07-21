@@ -38,8 +38,6 @@ StatEcdf <- proto2(
   class = "StatEcdf",
   inherit = Stat,
   members = list(
-    objname = "ecdf",
-
     calculate = function(self, data, scales, n = NULL, ...) {
 
       # If n is NULL, use raw values; otherwise interpolate

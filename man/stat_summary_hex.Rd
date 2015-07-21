@@ -43,12 +43,12 @@ Apply function for 2D hexagonal bins.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "summaryhex")}
+\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "summary_hex")}
 
 \code{stat_summary2d} is hexagonal version of \code{\link{stat_summary}}. The data are devided by \code{x} and \code{y}.
 \code{z} in each cell is passed to arbitral summary function.
 
-\code{stat_summary-hex} requires the following aesthetics:
+\code{stat_summary_hex} requires the following aesthetics:
 
 \itemize{
  \item \code{x}: horizontal position

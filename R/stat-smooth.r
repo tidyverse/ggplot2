@@ -135,8 +135,6 @@ StatSmooth <- proto2(
   class = "StatSmooth",
   inherit = Stat,
   members = list(
-    objname = "smooth",
-
     calculate_groups = function(self, super, data, scales, method = "auto",
       formula = y~x, ...)
     {

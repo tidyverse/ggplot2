@@ -30,7 +30,10 @@ Geom <- proto2(
       groups <- split(data, factor(data$group))
       grobs <- lapply(groups, function(group) self$draw(group, scales, coordinates, ...))
 
-      ggname(paste(self$objname, "s", sep=""), gTree(
+      # String like "bar" or "line"
+      objname <- sub("^geom_", "", self$my_name())
+
+      ggname(paste0(objname, "s"), gTree(
         children = do.call("gList", grobs)
       ))
     },
@@ -45,3 +48,18 @@ Geom <- proto2(
     # Html documentation ----------------------------------
   )
 )
+
+# make_geom("point") returns GeomPoint
+make_geom <- function(class) {
+  name <- paste0("Geom", camelize(class, first = TRUE))
+  if (!exists(name)) {
+    stop("No geom called ", name, ".", call. = FALSE)
+  }
+
+  obj <- get(name)
+  if (!inherits(obj, "Geom")) {
+    stop("Found object is not a geom.", call. = FALSE)
+  }
+
+  obj
+}

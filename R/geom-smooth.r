@@ -75,8 +75,6 @@ GeomSmooth <- proto2(
   class = "GeomSmooth",
   inherit = Geom,
   members = list(
-    objname = "smooth",
-
     draw = function(self, data, scales, coordinates, ...) {
       ribbon <- transform(data, colour = NA)
       path <- transform(data, alpha = NA)

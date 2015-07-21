@@ -42,9 +42,9 @@ Layer <- proto2(
       data <- fortify(data)
       if (!is.null(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be a list of unevaluated mappings created by aes or aes_string")
 
-      if (is.character(geom)) geom <- Geom$find(geom)
-      if (is.character(stat)) stat <- Stat$find(stat)
-      if (is.character(position)) position <- Position$find(position)
+      if (is.character(geom)) geom <- make_geom(geom)
+      if (is.character(stat)) stat <- make_stat(stat)
+      if (is.character(position)) position <- make_position(position)
 
       if (is.null(geom))
         stop("Attempted to create layer with no geom.")
@@ -192,13 +192,15 @@ Layer <- proto2(
       if (empty(data))
         return(data.frame())
 
-      check_required_aesthetics(self$stat$required_aes,
+      check_required_aesthetics(
+        self$stat$required_aes,
         c(names(data), names(self$stat_params)),
-        paste("stat_", self$stat$objname, sep = ""))
+        self$stat$my_name()
+      )
 
       args <- c(list(data = quote(data), scales = quote(scales)), self$stat_params)
       tryCatch(do.call(self$stat$calculate_groups, args), error = function(e) {
-        warning("Computation failed in `stat_", self$stat$objname, "()`:\n",
+        warning("Computation failed in `", self$stat$my_name(), "()`:\n",
           e$message, call. = FALSE)
         data.frame()
       })
@@ -251,9 +253,11 @@ Layer <- proto2(
 
       data <- self$use_defaults(data)
 
-      check_required_aesthetics(self$geom$required_aes,
+      check_required_aesthetics(
+        self$geom$required_aes,
         c(names(data), names(self$geom_params)),
-        paste("geom_", self$geom$objname, sep=""))
+        self$geom_my_name()
+      )
 
       do.call(self$geom$draw_groups, c(
         data = list(as.name("data")),

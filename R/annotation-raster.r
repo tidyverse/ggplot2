@@ -46,8 +46,8 @@ annotation_raster <- function (raster, xmin, xmax, ymin, ymax,
   Layer$new(
     data = NULL,
     mapping = NULL,
-    stat = "identity",
-    position = "identity",
+    stat = StatIdentity,
+    position = PositionIdentity,
     geom = GeomRasterAnn,
     inherit.aes = TRUE,
     geom_params = list(
@@ -66,8 +66,6 @@ GeomRasterAnn <- proto2(
   class = "GeomRasterAnn",
   inherit = GeomRaster,
   members = list(
-    objname = "raster_ann",
-
     reparameterise = function(self, df, params) df,
 
     draw_groups = function(self, data, scales, coordinates, raster, xmin, xmax,

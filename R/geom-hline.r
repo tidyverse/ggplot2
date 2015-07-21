@@ -65,8 +65,6 @@ GeomHline <- proto2(
   class = "GeomHline",
   inherit = Geom,
   members = list(
-    objname = "hline",
-
     draw = function(self, data, scales, coordinates, ...) {
       ranges <- coord_range(coordinates, scales)
 

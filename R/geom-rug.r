@@ -40,8 +40,6 @@ GeomRug <- proto2(
   class = "GeomRug",
   inherit = Geom,
   members = list(
-    objname = "rug",
-
     draw = function(self, data, scales, coordinates, sides, ...) {
       rugs <- list()
       data <- coord_transform(coordinates, data, scales)

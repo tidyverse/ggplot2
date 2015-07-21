@@ -34,7 +34,7 @@ annotation_map <- function(map, ...) {
 
   Layer$new(
     data = NULL,
-    stat = "identity",
+    stat = StatIdentity,
     geom = GeomAnnotationMap,
     position = PositionIdentity,
     inherit.aes = FALSE,
@@ -46,8 +46,6 @@ GeomAnnotationMap <- proto2(
   class = "GeomAnnotationMap",
   inherit = GeomMap,
   members = list(
-    objname = "map",
-
     draw_groups = function(self, data, scales, coordinates, map, ...) {
       # Munch, then set up id variable for polygonGrob -
       # must be sequential integers

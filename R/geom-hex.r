@@ -27,8 +27,6 @@ GeomHex <- proto2(
   class = "GeomHex",
   inherit = Geom,
   members = list(
-    objname = "hex",
-
     draw = function(self, data, scales, coordinates, ...) {
       with(coord_transform(coordinates, data, scales),
         ggname(self$my_name(), hexGrob(x, y, colour = colour,

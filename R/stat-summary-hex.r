@@ -1,12 +1,12 @@
 #' Apply function for 2D hexagonal bins.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "summaryhex")}
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "summary_hex")}
 #'
 #' \code{stat_summary2d} is hexagonal version of \code{\link{stat_summary}}. The data are devided by \code{x} and \code{y}.
 #' \code{z} in each cell is passed to arbitral summary function.
 #'
-#' \code{stat_summary-hex} requires the following aesthetics:
+#' \code{stat_summary_hex} requires the following aesthetics:
 #'
 #' \itemize{
 #'  \item \code{x}: horizontal position
@@ -36,7 +36,7 @@ stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex",
   Layer$new(
     data = data,
     mapping = mapping,
-    stat = StatSummaryhex,
+    stat = StatSummaryHex,
     geom = geom,
     position = position,
     show_guide = show_guide,
@@ -50,12 +50,10 @@ stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex",
   )
 }
 
-StatSummaryhex <- proto2(
-  class = "StatSummaryhex",
+StatSummaryHex <- proto2(
+  class = "StatSummaryHex",
   inherit = Stat,
   members = list(
-    objname = "summaryhex",
-
     default_aes = function(self) aes(fill = ..value..),
 
     required_aes = c("x", "y", "z"),

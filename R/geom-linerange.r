@@ -51,8 +51,6 @@ GeomLinerange <- proto2(
   class = "GeomLinerange",
   inherit = Geom,
   members = list(
-    objname = "linerange",
-
     default_aes = function(self) {
       aes(colour = "black", size = 0.5, linetype = 1, alpha = NA)
     },

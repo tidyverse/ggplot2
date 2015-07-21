@@ -99,8 +99,6 @@ GeomText <- proto2(
   class = "GeomText",
   inherit = Geom,
   members = list(
-    objname = "text",
-
     draw_groups = function(self, ...) self$draw(...),
 
     draw = function(self, data, scales, coordinates, ..., parse = FALSE,

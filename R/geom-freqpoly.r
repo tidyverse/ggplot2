@@ -36,8 +36,6 @@ GeomFreqpoly <- proto2(
   class = "GeomFreqpoly",
   inherit = Geom,
   members = list(
-    objname = "freqpoly",
-
     default_aes = function(self) GeomPath$default_aes(),
 
     draw = function(self, ...) GeomPath$draw(...),

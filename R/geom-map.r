@@ -87,8 +87,6 @@ GeomMap <- proto2(
   class = "GeomMap",
   inherit = GeomPolygon,
   members = list(
-    objname = "map",
-
     draw_groups = function(self, data, scales, coordinates, map, ...) {
       # Only use matching data and map ids
       common <- intersect(data$map_id, map$id)

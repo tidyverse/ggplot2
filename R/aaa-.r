@@ -27,34 +27,25 @@ firstUpper <- function(s) {
 
 TopLevel <- proto2(
   members = list(
-    find_all = function(self, only.documented = FALSE) {
-      names <- ls(
-        pattern = paste("^", firstUpper(self$class()), "[A-Z].+", sep=""),
-        parent.env(TopLevel)
-      )
-      objs <- structure(lapply(names, get), names=names)
-
-      if (only.documented) objs <- objs[sapply(objs, function(x) get("doc", x))]
-      objs
-    },
-
     find = function(self, name) {
-      fullname <- paste0(firstUpper(self$class()), firstUpper(name))
+      # Convert name to camel case
+      name <- camelize(name, first = TRUE)
+      fullname <- paste0(firstUpper(self$class()), name)
 
       if (!exists(fullname)) {
-        stop("No ", self$class(), " called ", name, call.=FALSE)
+        stop("No ", self$class(), " called ", fullname, call.=FALSE)
       }
       get(fullname)
     },
 
-    my_name = function(self, prefix=TRUE) {
-      if (!prefix) return(self$objname)
-      paste(self$class(), self$objname, sep="_")
-    },
-    my_names = function(self) self$my_name(),
-
-    myName = function(self) {
-      ps(firstUpper(self$class()), ps(firstUpper(strsplit(self$objname, "_")[[1]])))
+    # Convert class name from camel case (GeomBar) to snake case (geom_bar).
+    my_name = function(self) {
+      name <- class(self)[1]
+      name <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", name)
+      name <- gsub(".", "_", name, fixed = TRUE)
+      name <- gsub("([a-z])([A-Z])", "\\1_\\2", name)
+      name <- tolower(name)
+      name
     },
 
     params = function(self) {

@@ -69,8 +69,6 @@ StatEllipse <- proto2(
   class = "StatEllipse",
   inherit = Stat,
   members = list(
-    objname = "ellipse",
-
     required_aes = c("x", "y"),
 
     calculate_groups = function(self, super, data, scales, ...){

@@ -143,6 +143,5 @@ GeomHistogram <- proto2(
   class = "GeomHistogram",
   inherit = GeomBar,
   members = list(
-    objname = "histogram"
   )
 )

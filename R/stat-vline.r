@@ -25,8 +25,6 @@ StatAbline <- proto2(
   class = "StatAbline",
   inherit = Stat,
   members = list(
-    objname = "abline",
-
     calculate = function(self, data, scales, intercept = NULL, slope = NULL, ...) {
       if (is.null(intercept)) {
         if (is.null(data$intercept)) data$intercept <- 0
@@ -70,8 +68,6 @@ StatVline <- proto2(
   class = "StatVline",
   inherit = Stat,
   members = list(
-    objname = "vline",
-
     calculate = function(self, data, scales, xintercept = NULL, intercept, ...) {
       if (!missing(intercept)) {
         stop("stat_vline now uses xintercept instead of intercept")
@@ -125,8 +121,6 @@ StatHline <- proto2(
         yend <- yintercept
       }))
     },
-
-    objname = "hline",
 
     required_aes = c()
   )

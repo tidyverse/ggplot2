@@ -34,8 +34,6 @@ GeomBin2d <- proto2(
       GeomRect$draw(data, scales, coordinates, ...)
     },
 
-    objname = "bin2d",
-
     guide_geom = function(self) "polygon",
 
     required_aes = c("xmin", "xmax", "ymin", "ymax"),

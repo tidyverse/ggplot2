@@ -76,8 +76,6 @@ StatBindot <- proto2(
   class = "StatBindot",
   inherit = Stat,
   members = list(
-    objname = "bindot",
-
     informed = FALSE,
 
     calculate_groups = function(self, super, data, na.rm = FALSE, binwidth = NULL,

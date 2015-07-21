@@ -86,7 +86,7 @@ annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
   Layer$new(
     data = data.frame(x = NA),
     mapping = NULL,
-    stat = "identity",
+    stat = StatIdentity,
     geom = GeomLogticks,
     position = PositionIdentity,
     show_guide = FALSE,
@@ -112,8 +112,6 @@ GeomLogticks <- proto2(
   class = "GeomLogticks",
   inherit = Geom,
   members = list(
-    objname = "logticks",
-
     draw_groups = function(self, data, scales, coordinates, base = 10, sides = "bl",
       scaled = TRUE, short = unit(0.1, "cm"), mid = unit(0.2, "cm"),
       long = unit(0.3, "cm"), ...)

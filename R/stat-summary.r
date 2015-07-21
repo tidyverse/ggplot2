@@ -132,8 +132,6 @@ StatSummary <- proto2(
   class = "StatSummary",
   inherit = Stat,
   members = list(
-    objname = "summary",
-
     required_aes = c("x", "y"),
 
     calculate_groups = function(self, data, scales, fun.data = NULL, fun.y = NULL,

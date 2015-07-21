@@ -31,8 +31,6 @@ GeomRect <- proto2(
   class = "GeomRect",
   inherit = Geom,
   members = list(
-    objname = "rect",
-
     default_aes = function(self) aes(colour = NA, fill = "grey20", size = 0.5,
                                  linetype = 1, alpha = NA),
 

@@ -20,13 +20,13 @@ position_jitterdodge <- function (jitter.width = NULL,
                                   jitter.height = NULL,
                                   dodge.width = NULL) {
 
-  PositionJitterDodge$new(jitter.width = jitter.width,
+  PositionJitterdodge$new(jitter.width = jitter.width,
                           jitter.height = jitter.height,
                           dodge.width = dodge.width)
 }
 
-PositionJitterDodge <- proto2(
-  class = "PositionJitterDodge",
+PositionJitterdodge <- proto2(
+  class = "PositionJitterdodge",
   inherit = Position,
   members = list(
     jitter.width = NULL,
@@ -45,8 +45,6 @@ PositionJitterDodge <- proto2(
         )
       )
     },
-
-    objname = "jitterdodge",
 
     adjust = function(self, data) {
 

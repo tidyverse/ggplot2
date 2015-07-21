@@ -38,8 +38,6 @@ PositionStack <- proto2(
   class = "PositionStack",
   inherit = Position,
   members = list(
-    objname = "stack",
-
     adjust = function(self, data) {
       if (empty(data)) return(data.frame())
 

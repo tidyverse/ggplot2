@@ -46,8 +46,8 @@ NULL
 annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) {
   Layer$new(
     data = NULL,
-    stat = "identity",
-    position = "identity",
+    stat = StatIdentity,
+    position = PositionIdentity,
     geom = GeomCustomAnn,
     inherit.aes = TRUE,
     geom_params = list(grob = grob, xmin = xmin, xmax = xmax,
@@ -59,8 +59,6 @@ GeomCustomAnn <- proto2(
   class = "GeomCustomAnn",
   inherit = Geom,
   members = list(
-    objname = "custom_ann",
-
     draw_groups = function(self, data, scales, coordinates, grob, xmin, xmax,
                             ymin, ymax, ...) {
       if (!inherits(coordinates, "cartesian")) {

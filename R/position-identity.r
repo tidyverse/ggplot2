@@ -14,6 +14,5 @@ PositionIdentity <- proto2(
   class = "PositionIdentity",
   inherit = Position,
   members = list(
-    objname = "identity"
   )
 )
