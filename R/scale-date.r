@@ -91,7 +91,7 @@ scale_y_date <- function(..., expand = waiver(), breaks = pretty_breaks(),
 
 # base class for scale_{xy}_date
 scale_date <- function(aesthetics, expand = waiver(), breaks = pretty_breaks(),
-  minor_breaks = waiver(), ...) {
+                       minor_breaks = waiver(), ...) {
 
   if (is.character(breaks)) {
     breaks_str <- breaks
@@ -110,5 +110,5 @@ scale_date <- function(aesthetics, expand = waiver(), breaks = pretty_breaks(),
 
 #' @export
 scale_map.date <- function(scale, x, limits = scale_limits(scale)) {
-  x
+  scale$oob(x, limits)
 }

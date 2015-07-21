@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `scale_x_date()` now clips dates outside the limits in the same way as
+  `scale_x_continuous()` (#1090)
+
 * The `stat` and `position` arguments to `qplot()` have been deprecated.
 
 * The movies dataset has been moved into its own package, ggplot2movies,
