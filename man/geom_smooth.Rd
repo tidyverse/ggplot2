@@ -4,8 +4,9 @@
 \alias{geom_smooth}
 \title{Add a smoothed conditional mean.}
 \usage{
-geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+geom_smooth(mapping = NULL, data = NULL, stat = "smooth", method = "lm",
+  formula = y ~ x, se = TRUE, position = "identity", show_guide = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -17,6 +18,17 @@ defined at the top level of the plot.}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
+
+\item{method}{smoothing method (function) to use, eg. lm, glm, gam, loess,
+rlm. For datasets with n < 1000 default is \code{\link{loess}}. For datasets
+with 1000 or more observations defaults to gam, see \code{\link[mgcv]{gam}}
+for more details.}
+
+\item{formula}{formula to use in smoothing function, eg. \code{y ~ x},
+\code{y ~ poly(x, 2)}, \code{y ~ log(x)}}
+
+\item{se}{display confidence interval around smooth? (TRUE by default, see
+level to control}
 
 \item{position}{Postion adjustment, either as a string, or the result of
 a call to a position adjustment function.}

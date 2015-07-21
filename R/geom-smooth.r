@@ -53,9 +53,11 @@
 #'   geom_ribbon(aes(ymin = lcl, ymax = ucl, group = cyl), data = grid,
 #'     fill = alpha("grey60", 0.4)) +
 #'   geom_line(aes(colour = factor(cyl)), data = grid, size = 1)
-geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+geom_smooth <- function(mapping = NULL, data = NULL, stat = "smooth",
+  method = "lm", formula = y ~ x, se = TRUE, position = "identity", show_guide = NA,
+  inherit.aes = TRUE, ...)
 {
+
   Layer$new(
     data = data,
     mapping = mapping,
@@ -64,7 +66,8 @@ geom_smooth <- function (mapping = NULL, data = NULL, stat = "smooth",
     position = position,
     show_guide = show_guide,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(...),
+    stat_params = list(method = method, formula = formula, se = se)
   )
 }
 
