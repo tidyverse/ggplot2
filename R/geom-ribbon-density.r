@@ -33,10 +33,6 @@ GeomDensity <- proto2(
   members = list(
     objname = "density",
 
-    default_stat = function(self) StatDensity,
-
-    default_pos = function(self) PositionIdentity,
-
     default_aes = function(self) {
       defaults(
         aes(fill = NA, weight = 1, colour = "black", alpha = NA),

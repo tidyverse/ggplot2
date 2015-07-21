@@ -46,9 +46,12 @@ Layer <- proto2(
       if (is.character(stat)) stat <- Stat$find(stat)
       if (is.character(position)) position <- Position$find(position)
 
-      if (is.null(geom)) geom <- stat$default_geom()
-      if (is.null(stat)) stat <- geom$default_stat()
-      if (is.null(position)) position <- geom$default_pos()
+      if (is.null(geom))
+        stop("Attempted to create layer with no geom.")
+      if (is.null(stat))
+        stop("Attempted to create layer with no stat.")
+      if (is.null(position))
+        stop("Attempted to create layer with no position.")
 
       match.params <- function(possible, params) {
         if ("..." %in% names(possible)) {
@@ -287,7 +290,8 @@ Layer <- proto2(
 #' # geom calls are just a short cut for layer
 #' ggplot(mpg, aes(displ, hwy)) + geom_point()
 #' # shortcut for
-#' ggplot(mpg, aes(displ, hwy)) + layer(geom = "point", stat = "identity")
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   layer(geom = "point", stat = "identity", position = "identity")
 layer <- function(geom = NULL, geom_params = NULL, stat = NULL,
   stat_params = NULL, data = NULL, mapping = NULL, position = NULL,
   params = NULL, ..., inherit.aes = TRUE, subset = NULL, show_guide = NA)

@@ -123,7 +123,7 @@
 #' }
 #' rm(movies)
 geom_histogram <- function (mapping = NULL, data = NULL, stat = "bin",
-  binwidth = NULL, origin = NULL, right = NULL,
+  binwidth = NULL, origin = NULL, right = FALSE,
   position = "stack", show_guide = NA, inherit.aes = TRUE, ...)
 {
   Layer$new(

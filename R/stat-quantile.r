@@ -71,8 +71,6 @@ StatQuantile <- proto2(
   members = list(
     objname = "quantile",
 
-    default_geom = function(self) GeomQuantile,
-
     default_aes = function(self) aes(),
 
     required_aes = c("x", "y"),

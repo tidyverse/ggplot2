@@ -73,8 +73,6 @@ StatEllipse <- proto2(
 
     required_aes = c("x", "y"),
 
-    default_geom = function(self) GeomPath,
-
     calculate_groups = function(self, super, data, scales, ...){
       super$calculate_groups(self, data, scales,...)
     },

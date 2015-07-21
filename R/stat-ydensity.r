@@ -103,8 +103,6 @@ StatYdensity <- proto2(
       dens
     },
 
-    default_geom = function(self) GeomViolin,
-
     required_aes = c("x", "y")
   )
 )

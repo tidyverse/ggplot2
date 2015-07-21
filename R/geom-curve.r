@@ -84,8 +84,6 @@ GeomCurve <- proto2(
       )
     },
 
-    default_stat = function(self) StatIdentity,
-
     required_aes = c("x", "y", "xend", "yend"),
 
     default_aes = function(self) {

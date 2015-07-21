@@ -60,9 +60,7 @@ GeomStep <- proto2(
       GeomPath$draw(data, scales, coordinates, ...)
     },
 
-    guide_geom = function(self) "path",
-
-    default_stat = function(self) StatIdentity
+    guide_geom = function(self) "path"
   )
 )
 

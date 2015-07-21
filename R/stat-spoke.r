@@ -54,8 +54,6 @@ StatSpoke <- proto2(
 
     default_aes = function(self) aes(xend = ..xend.., yend = ..yend..),
 
-    required_aes = c("x", "y", "angle", "radius"),
-
-    default_geom = function(self) GeomSegment
+    required_aes = c("x", "y", "angle", "radius")
   )
 )

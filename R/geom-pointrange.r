@@ -34,8 +34,6 @@ GeomPointrange <- proto2(
   members = list(
     objname = "pointrange",
 
-    default_stat = function(self) StatIdentity,
-
     default_aes = function(self) {
       aes(colour = "black", size = 0.5, linetype = 1, shape = 19,
           fill = NA, alpha = NA, stroke = 1)

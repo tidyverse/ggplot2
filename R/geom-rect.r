@@ -33,8 +33,6 @@ GeomRect <- proto2(
   members = list(
     objname = "rect",
 
-    default_stat = function(self) StatIdentity,
-    default_pos = function(self) PositionIdentity,
     default_aes = function(self) aes(colour = NA, fill = "grey20", size = 0.5,
                                  linetype = 1, alpha = NA),
 

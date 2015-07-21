@@ -40,8 +40,6 @@ GeomFreqpoly <- proto2(
 
     default_aes = function(self) GeomPath$default_aes(),
 
-    default_stat = function(self) StatBin,
-
     draw = function(self, ...) GeomPath$draw(...),
 
     guide_geom = function(self) "path"

@@ -134,8 +134,6 @@ StatDensity <- proto2(
         adjust = adjust, kernel = kernel)
     },
 
-    default_geom = function(self) GeomArea,
-
     default_aes = function(self) aes(y = ..density.., fill = NA),
 
     required_aes = c("x")

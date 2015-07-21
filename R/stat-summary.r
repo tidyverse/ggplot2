@@ -134,8 +134,6 @@ StatSummary <- proto2(
   members = list(
     objname = "summary",
 
-    default_geom = function(self) GeomPointrange,
-
     required_aes = c("x", "y"),
 
     calculate_groups = function(self, data, scales, fun.data = NULL, fun.y = NULL,

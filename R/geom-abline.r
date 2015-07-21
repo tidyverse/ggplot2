@@ -95,7 +95,6 @@ GeomAbline <- proto2(
 
     guide_geom = function(self) "abline",
 
-    default_stat = function(self) StatAbline,
     default_aes = function(self) aes(colour="black", size=0.5, linetype=1, alpha = NA),
 
     draw_legend = function(self, data, ...) {

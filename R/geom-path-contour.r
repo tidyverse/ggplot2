@@ -39,8 +39,6 @@ GeomContour <- proto2(
 
     default_aes = function(self) {
       aes(weight = 1, colour = "#3366FF", size = 0.5, linetype = 1, alpha = NA)
-    },
-
-    default_stat = function(self) StatContour
+    }
   )
 )

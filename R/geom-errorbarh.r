@@ -43,8 +43,6 @@ GeomErrorbarh <- proto2(
   members = list(
     objname = "errorbarh",
 
-    default_stat = function(self) StatIdentity,
-
     default_aes = function(self) {
       aes(colour = "black", size=0.5, linetype=1, height=0.5, alpha = NA)
     },

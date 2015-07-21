@@ -41,9 +41,7 @@ StatAbline <- proto2(
         data$slope <- slope
       }
       unique(data)
-    },
-
-    default_geom = function(self) GeomAbline
+    }
   )
 )
 
@@ -86,9 +84,7 @@ StatVline <- proto2(
       }))
     },
 
-    required_aes = c(),
-
-    default_geom = function(self) GeomVline
+    required_aes = c()
   )
 )
 
@@ -132,15 +128,7 @@ StatHline <- proto2(
 
     objname = "hline",
 
-    desc = "Add a horizontal line",
-
-    required_aes = c(),
-
-    default_geom = function(self) GeomHline,
-
-    examples = function(self) {
-      # See geom_hline for examples
-    }
+    required_aes = c()
   )
 )
 

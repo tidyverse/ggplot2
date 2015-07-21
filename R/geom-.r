@@ -20,8 +20,6 @@ Geom <- proto2(
 
     default_aes = function(self) aes(),
 
-    default_pos = function(self) PositionIdentity,
-
     guide_geom = function(self) "point",
 
     draw = function(self, ...) {},
