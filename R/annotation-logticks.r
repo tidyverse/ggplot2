@@ -88,6 +88,7 @@ annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
     mapping = NULL,
     stat = "identity",
     geom = GeomLogticks,
+    position = PositionIdentity,
     show_guide = FALSE,
     inherit.aes = FALSE,
     geom_params = list(

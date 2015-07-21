@@ -290,7 +290,8 @@ Layer <- proto2(
 #' # geom calls are just a short cut for layer
 #' ggplot(mpg, aes(displ, hwy)) + geom_point()
 #' # shortcut for
-#' ggplot(mpg, aes(displ, hwy)) + layer(geom = "point", stat = "identity")
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   layer(geom = "point", stat = "identity", position = "identity")
 layer <- function(geom = NULL, geom_params = NULL, stat = NULL,
   stat_params = NULL, data = NULL, mapping = NULL, position = NULL,
   params = NULL, ..., inherit.aes = TRUE, subset = NULL, show_guide = NA)

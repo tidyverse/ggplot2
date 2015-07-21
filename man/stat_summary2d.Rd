@@ -4,7 +4,7 @@
 \alias{stat_summary2d}
 \title{Apply funciton for 2D rectangular bins.}
 \usage{
-stat_summary2d(mapping = NULL, data = NULL, geom = NULL,
+stat_summary2d(mapping = NULL, data = NULL, geom = "rect",
   position = "identity", bins = 30, drop = TRUE, fun = mean,
   show_guide = NA, inherit.aes = TRUE, ...)
 }

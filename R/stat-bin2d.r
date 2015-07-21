@@ -29,7 +29,7 @@
 #' y <- seq(min(diamonds$price), max(diamonds$price), length.out = 50)
 #' d + stat_bin2d(breaks = list(x = x, y = y))
 #' }
-stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL,
+stat_bin2d <- function (mapping = NULL, data = NULL, geom = "rect",
   position = "identity", bins = 30, drop = TRUE, show_guide = NA,
   inherit.aes = TRUE, ...)
 {

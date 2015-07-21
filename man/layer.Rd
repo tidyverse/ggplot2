@@ -49,6 +49,7 @@ Create a new layer
 # geom calls are just a short cut for layer
 ggplot(mpg, aes(displ, hwy)) + geom_point()
 # shortcut for
-ggplot(mpg, aes(displ, hwy)) + layer(geom = "point", stat = "identity")
+ggplot(mpg, aes(displ, hwy)) +
+  layer(geom = "point", stat = "identity", position = "identity")
 }
 
