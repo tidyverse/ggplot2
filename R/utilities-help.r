@@ -12,10 +12,10 @@ aesthetics <- function(x) {
   return(c(paste("\\strong{", sort(x$required_aes), "}", sep = ""), sort(def_aes)))
 }
 geom_aesthetics <- function(x) {
-  aesthetics(Geom$find(x))
+  aesthetics(make_geom(x))
 }
 stat_aesthetics <- function(x) {
-  aesthetics(Stat$find(x))
+  aesthetics(make_stat(x))
 }
 
 rd_aesthetics <- function(type, name) {

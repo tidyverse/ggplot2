@@ -42,9 +42,9 @@ Layer <- proto2(
       data <- fortify(data)
       if (!is.null(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be a list of unevaluated mappings created by aes or aes_string")
 
-      if (is.character(geom)) geom <- Geom$find(geom)
-      if (is.character(stat)) stat <- Stat$find(stat)
-      if (is.character(position)) position <- Position$find(position)
+      if (is.character(geom)) geom <- make_geom(geom)
+      if (is.character(stat)) stat <- make_stat(stat)
+      if (is.character(position)) position <- make_position(position)
 
       if (is.null(geom))
         stop("Attempted to create layer with no geom.")

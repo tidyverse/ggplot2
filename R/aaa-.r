@@ -29,8 +29,8 @@ TopLevel <- proto2(
   members = list(
     find = function(self, name) {
       # Convert name to camel case
-      name <- gsub("_(.)", "\\U\\1", name, perl = TRUE)
-      fullname <- paste0(firstUpper(self$class()), firstUpper(name))
+      name <- camelize(name, first = TRUE)
+      fullname <- paste0(firstUpper(self$class()), name)
 
       if (!exists(fullname)) {
         stop("No ", self$class(), " called ", fullname, call.=FALSE)

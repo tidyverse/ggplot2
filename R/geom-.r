@@ -48,3 +48,18 @@ Geom <- proto2(
     # Html documentation ----------------------------------
   )
 )
+
+# make_geom("point") returns GeomPoint
+make_geom <- function(class) {
+  name <- paste0("Geom", camelize(class, first = TRUE))
+  if (!exists(name)) {
+    stop("No geom called ", name, ".", call. = FALSE)
+  }
+
+  obj <- get(name)
+  if (!inherits(obj, "Geom")) {
+    stop("Found object is not a geom.", call. = FALSE)
+  }
+
+  obj
+}
