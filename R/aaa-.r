@@ -36,9 +36,14 @@ TopLevel <- proto2(
       get(fullname)
     },
 
-    my_name = function(self, prefix=TRUE) {
-      if (!prefix) return(self$objname)
-      paste(self$class(), self$objname, sep="_")
+    # Convert class name from camel case (GeomBar) to snake case (geom_bar).
+    my_name = function(self) {
+      name <- class(self)[1]
+      name <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", name)
+      name <- gsub(".", "_", name, fixed = TRUE)
+      name <- gsub("([a-z])([A-Z])", "\\1_\\2", name)
+      name <- tolower(name)
+      name
     },
 
     params = function(self) {

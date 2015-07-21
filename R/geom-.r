@@ -30,7 +30,10 @@ Geom <- proto2(
       groups <- split(data, factor(data$group))
       grobs <- lapply(groups, function(group) self$draw(group, scales, coordinates, ...))
 
-      ggname(paste(self$objname, "s", sep=""), gTree(
+      # String like "bar" or "line"
+      objname <- sub("^geom_", "", self$my_name())
+
+      ggname(paste0(objname, "s"), gTree(
         children = do.call("gList", grobs)
       ))
     },
