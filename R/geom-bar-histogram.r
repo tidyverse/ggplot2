@@ -15,6 +15,11 @@
 #' @inheritParams geom_point
 #' @inheritParams stat_bin
 #' @examples
+#' ggplot(diamonds, aes(carat)) +
+#'   geom_histogram()
+#' ggplot(diamonds, aes(carat)) +
+#'   geom_histogram(binwidth = 0.01)
+#'
 #' if (require("ggplot2movies")) {
 #' set.seed(5689)
 #' movies <- movies[sample(nrow(movies), 1000), ]

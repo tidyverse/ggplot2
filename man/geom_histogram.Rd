@@ -65,6 +65,11 @@ may need to look at a few to uncover the full story behind your data.
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "histogram")}
 }
 \examples{
+ggplot(diamonds, aes(carat)) +
+  geom_histogram()
+ggplot(diamonds, aes(carat)) +
+  geom_histogram(binwidth = 0.01)
+
 if (require("ggplot2movies")) {
 set.seed(5689)
 movies <- movies[sample(nrow(movies), 1000), ]
