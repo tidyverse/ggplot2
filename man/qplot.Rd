@@ -6,9 +6,9 @@
 \title{Quick plot}
 \usage{
 qplot(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
-  geom = "auto", stat = list(NULL), position = list(NULL), xlim = c(NA,
-  NA), ylim = c(NA, NA), log = "", main = NULL,
-  xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA)
+  geom = "auto", xlim = c(NA, NA), ylim = c(NA, NA), log = "",
+  main = NULL, xlab = deparse(substitute(x)),
+  ylab = deparse(substitute(y)), asp = NA, stat = NULL, position = NULL)
 }
 \arguments{
 \item{x}{x values}
@@ -29,10 +29,6 @@ or two-sided}
 \item{geom}{character vector specifying geom to use.  Defaults to
 "point" if x and y are specified, and "histogram" if only x is specified.}
 
-\item{stat}{character vector specifying statistics to use}
-
-\item{position}{character vector giving position adjustment to use}
-
 \item{xlim}{limits for x axis}
 
 \item{ylim}{limits for y axis}
@@ -46,6 +42,8 @@ or two-sided}
 \item{ylab}{character vector or expression for y axis label}
 
 \item{asp}{the y/x aspect ratio}
+
+\item{stat,position}{DEPRECATED.}
 }
 \description{
 \code{qplot} is the basic plotting function in the ggplot2 package,
@@ -59,21 +57,10 @@ of \code{qplot} in detail.
 \examples{
 \donttest{
 # Use data from data.frame
-qplot(mpg, wt, data=mtcars)
-qplot(mpg, wt, data=mtcars, colour=cyl)
-qplot(mpg, wt, data=mtcars, size=cyl)
-qplot(mpg, wt, data=mtcars, facets=vs ~ am)
-
-# It will use data from local environment
-hp <- mtcars$hp
-wt <- mtcars$wt
-cyl <- mtcars$cyl
-vs <- mtcars$vs
-am <- mtcars$am
-qplot(hp, wt)
-qplot(hp, wt, colour=cyl)
-qplot(hp, wt, size=cyl)
-qplot(hp, wt, facets=vs ~ am)
+qplot(mpg, wt, data = mtcars)
+qplot(mpg, wt, data = mtcars, colour = cyl)
+qplot(mpg, wt, data = mtcars, size = cyl)
+qplot(mpg, wt, data = mtcars, facets = vs ~ am)
 
 qplot(1:10, rnorm(10), colour = runif(10))
 qplot(1:10, letters[1:10])
@@ -97,8 +84,8 @@ qplot(mpg, data = mtcars)
 qplot(y = mpg, data = mtcars)
 
 # Use different geoms
-qplot(mpg, wt, data = mtcars, geom="path")
-qplot(factor(cyl), wt, data = mtcars, geom=c("boxplot", "jitter"))
+qplot(mpg, wt, data = mtcars, geom = "path")
+qplot(factor(cyl), wt, data = mtcars, geom = c("boxplot", "jitter"))
 qplot(mpg, data = mtcars, geom = "dotplot")
 }
 }

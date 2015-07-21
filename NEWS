@@ -1,6 +1,8 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* The `stat` and `position` arguments to `qplot()` have been deprecated.
+
 * The movies dataset has been moved into its own package, ggplot2movies,
   because it was large and not terribly useful. If you've used the movies
   dataset, you'll now need to explicitly load the package with

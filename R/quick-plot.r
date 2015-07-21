@@ -19,8 +19,7 @@
 #' @param margins whether or not margins will be displayed
 #' @param geom character vector specifying geom to use.  Defaults to
 #'  "point" if x and y are specified, and "histogram" if only x is specified.
-#' @param stat character vector specifying statistics to use
-#' @param position character vector giving position adjustment to use
+#' @param stat,position DEPRECATED.
 #' @param xlim limits for x axis
 #' @param ylim limits for y axis
 #' @param log which variables to log transform ("x", "y", or "xy")
@@ -33,21 +32,10 @@
 #' @examples
 #' \donttest{
 #' # Use data from data.frame
-#' qplot(mpg, wt, data=mtcars)
-#' qplot(mpg, wt, data=mtcars, colour=cyl)
-#' qplot(mpg, wt, data=mtcars, size=cyl)
-#' qplot(mpg, wt, data=mtcars, facets=vs ~ am)
-#'
-#' # It will use data from local environment
-#' hp <- mtcars$hp
-#' wt <- mtcars$wt
-#' cyl <- mtcars$cyl
-#' vs <- mtcars$vs
-#' am <- mtcars$am
-#' qplot(hp, wt)
-#' qplot(hp, wt, colour=cyl)
-#' qplot(hp, wt, size=cyl)
-#' qplot(hp, wt, facets=vs ~ am)
+#' qplot(mpg, wt, data = mtcars)
+#' qplot(mpg, wt, data = mtcars, colour = cyl)
+#' qplot(mpg, wt, data = mtcars, size = cyl)
+#' qplot(mpg, wt, data = mtcars, facets = vs ~ am)
 #'
 #' qplot(1:10, rnorm(10), colour = runif(10))
 #' qplot(1:10, letters[1:10])
@@ -71,15 +59,19 @@
 #' qplot(y = mpg, data = mtcars)
 #'
 #' # Use different geoms
-#' qplot(mpg, wt, data = mtcars, geom="path")
-#' qplot(factor(cyl), wt, data = mtcars, geom=c("boxplot", "jitter"))
+#' qplot(mpg, wt, data = mtcars, geom = "path")
+#' qplot(factor(cyl), wt, data = mtcars, geom = c("boxplot", "jitter"))
 #' qplot(mpg, data = mtcars, geom = "dotplot")
 #' }
 qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE,
-  geom = "auto", stat = list(NULL), position = list(NULL), xlim = c(NA, NA),
+  geom = "auto", xlim = c(NA, NA),
   ylim = c(NA, NA), log = "", main = NULL, xlab = deparse(substitute(x)),
-  ylab = deparse(substitute(y)), asp = NA)
-{
+  ylab = deparse(substitute(y)), asp = NA, stat = NULL, position = NULL) {
+
+  if (!missing(stat)) warning("`stat` is deprecated", call. = FALSE)
+  if (!missing(position)) warning("`position` is deprecated", call. = FALSE)
+  if (!is.character(geom)) stop("`geom` must be a character vector", call. = FALSE)
+
   argnames <- names(as.list(match.call(expand.dots=FALSE)[-1]))
   arguments <- as.list(match.call()[-1])
 
@@ -103,12 +95,11 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE,
 
   # Work out plot data, and modify aesthetics, if necessary
   if ("auto" %in% geom) {
-    if (stat == "qq" || "sample" %in% aes_names) {
-      geom[geom == "auto"] <- "point"
-      stat <- "qq"
+    if ("sample" %in% aes_names) {
+      geom[geom == "auto"] <- "qq"
     } else if (missing(y)) {
       geom[geom == "auto"] <- "histogram"
-      if (is.null(ylab)) ylab <- "count"
+      if (missing(ylab)) ylab <- "count"
     } else {
       if (missing(x)) {
         aesthetics$x <- bquote(seq_along(.(y)), aesthetics)
@@ -131,20 +122,13 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE,
   if (!is.null(main)) p <- p + ggtitle(main)
 
   # Add geoms/statistics
-  if (inherits(position, "Position")) position <- list(position)
-
-  mapply(function(g, s, ps) {
-    if(is.character(g)) g <- Geom$find(g)
-    if(is.character(s)) s <- Stat$find(s)
-    if(is.character(ps)) ps <- Position$find(ps)
-
+  for (g in geom) {
     # Have to use non-standard evaluation because we can't evaluate ...
     params <- arguments[setdiff(names(arguments), c(aes_names, argnames))]
-    # 1: mapply, 2: qplot, 3: caller of qplot
-    params <- lapply(params, eval, parent.frame(3))
+    params <- lapply(params, eval, parent.frame(1))
 
-    p <<- p + layer(geom=g, stat=s, geom_params=params, stat_params=params, position=ps)
-  }, geom, stat, position)
+    p <- p + do.call(paste0("geom_", g), params)
+  }
 
   logv <- function(var) var %in% strsplit(log, "")[[1]]
 

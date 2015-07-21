@@ -53,6 +53,10 @@ stat_qq <- function (mapping = NULL, data = NULL, geom = "point",
   )
 }
 
+#' @export
+#' @rdname stat_qq
+geom_qq <- stat_qq
+
 StatQq <- proto2(
   class = "StatQq",
   inherit = Stat,
