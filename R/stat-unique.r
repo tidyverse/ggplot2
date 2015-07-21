@@ -29,8 +29,6 @@ StatUnique <- proto2(
   members = list(
     objname = "unique",
 
-    desc = "Remove duplicates",
-
     calculate_groups = function(self, data, scales, ...) unique(data)
   )
 )

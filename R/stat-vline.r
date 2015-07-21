@@ -128,13 +128,7 @@ StatHline <- proto2(
 
     objname = "hline",
 
-    desc = "Add a horizontal line",
-
-    required_aes = c(),
-
-    examples = function(self) {
-      # See geom_hline for examples
-    }
+    required_aes = c()
   )
 )
 

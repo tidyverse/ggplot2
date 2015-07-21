@@ -4,8 +4,6 @@ Stat <- proto2(
   members = list(
     objname = "",
 
-    desc = "",
-
     # Should the values produced by the statistic also be transformed
     # in the second pass when recently added statistics are trained to
     # the scales
@@ -14,8 +12,6 @@ Stat <- proto2(
     default_aes = function(self) aes(),
 
     required_aes = c(),
-
-    aesthetics = list(),
 
     calculate = function(self, data, scales, ...) {},
 
