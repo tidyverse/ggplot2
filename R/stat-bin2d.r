@@ -33,6 +33,10 @@ StatBin2d <- proto2("StatBin2d", Stat,
       y = scale_dimension(scales$y, c(0, 0))
     )
 
+    # is.integer(...) below actually deals with factor input data, which is
+    # integer by now.  Bins for factor data should take the width of one level,
+    # and should show up centered over their tick marks.
+
     # Determine origin, if omitted
     if (is.null(origin)) {
       origin <- c(NA, NA)
@@ -63,16 +67,21 @@ StatBin2d <- proto2("StatBin2d", Stat,
 
     # Determine breaks, if omitted
     if (is.null(breaks)) {
-      breaks <- list(
-        seq(origin[1], max(range$x) + binwidth[1], binwidth[1]),
-        seq(origin[2], max(range$y) + binwidth[2], binwidth[2])
-      )
-    } else {
-      stopifnot(is.list(breaks))
-      stopifnot(length(breaks) == 2)
-      stopifnot(all(sapply(breaks, is.numeric)))
+      breaks <- list(x = NULL, y = NULL)
     }
+
+    stopifnot(length(breaks) == 2)
     names(breaks) <- c("x", "y")
+
+    if (is.null(breaks$x)) {
+      breaks$x <- seq(origin[1], max(range$x) + binwidth[1], binwidth[1])
+    }
+    if (is.null(breaks$y)) {
+      breaks$y <- seq(origin[2], max(range$y) + binwidth[2], binwidth[2])
+    }
+
+    stopifnot(is.list(breaks))
+    stopifnot(all(sapply(breaks, is.numeric)))
 
     xbin <- cut(data$x, sort(breaks$x), include.lowest = TRUE)
     ybin <- cut(data$y, sort(breaks$y), include.lowest = TRUE)
