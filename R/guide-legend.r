@@ -355,8 +355,11 @@ guide_gengrob.legend <- function(guide, theme) {
   key_width <- width_cm(guide$keywidth %||% theme$legend.key.width %||% theme$legend.key.size)
   key_height <- height_cm(guide$keyheight %||% theme$legend.key.height %||% theme$legend.key.size)
 
-  key_size_mat <- do.call("cbind", llply(guide$geoms, function(g) g$data$size / 10))
-  key_sizes <- if (is.null(key_size_mat)) rep(0, nbreak) else apply(key_size_mat, 1, max)
+  key_size_mat <- do.call("cbind", lapply(guide$geoms, function(g) g$data$size / 10))
+  if (nrow(key_size_mat) == 0 || ncol(key_size_mat) == 0) {
+    key_size_mat <- matrix(0, ncol = 1, nrow = nbreak)
+  }
+  key_sizes <- apply(key_size_mat, 1, max)
 
   if (!is.null(guide$nrow) && !is.null(guide$ncol) && guide$nrow * guide$ncol < nbreak)
     stop("`nrow` * `ncol` needs to be larger than the number of breaks", call. = FALSE)
