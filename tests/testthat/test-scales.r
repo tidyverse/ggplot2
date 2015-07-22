@@ -33,7 +33,8 @@ test_that("mapping works", {
 
   expect_equal(
     scale_map_df(sc, data.frame(alpha = 1:10))[[1]],
-    round_any(seq(0, 1, length.out = 10), 1 / 500))
+    seq(0, 1, length.out = 10)
+  )
 
   expect_equal(scale_map_df(sc, data.frame(alpha = NA))[[1]], 0)
 
