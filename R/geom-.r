@@ -1,3 +1,5 @@
+#' @include legend-draw.r
+
 Geom <- proto2("Geom", TopLevel,
   class = function(self) "geom",
 
@@ -17,7 +19,7 @@ Geom <- proto2("Geom", TopLevel,
 
   default_aes = aes(),
 
-  guide_geom = function(self) "point",
+  guide_geom = legend_point,
 
   draw = function(self, ...) {},
 

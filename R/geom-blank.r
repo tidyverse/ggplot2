@@ -38,9 +38,5 @@ geom_blank <- function (mapping = NULL, data = NULL, stat = "identity",
 
 
 GeomBlank <- proto2("GeomBlank", Geom,
-  default_aes = aes(),
-
-  draw_legend = function(self, data, ...) {
-    zeroGrob()
-  }
+  default_aes = aes()
 )

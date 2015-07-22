@@ -236,21 +236,7 @@ GeomDotplot <- proto2("GeomDotplot", Geom,
     )
   },
 
-  guide_geom = function(self) "dotplot",
-
-  draw_legend = function(self, data, ...) {
-    data$shape <- 21
-
-    data <- aesdefaults(data, self$default_aes, list(...))
-
-    with(data,
-      pointsGrob(0.5, 0.5, size = unit(.5, "npc"), pch = shape,
-        gp = gpar(
-          col = alpha(colour, alpha),
-          fill = alpha(fill, alpha))
-      )
-    )
-  },
+  guide_geom = legend_dotplot,
 
   required_aes = c("x", "y"),
 

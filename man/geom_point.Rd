@@ -105,7 +105,7 @@ d + geom_point(alpha = 1/100)
 # outside separately. Use the stroke aesthetic to modify the width of the
 # border
 ggplot(mtcars, aes(wt, mpg)) +
-  geom_point(shape = 21, size = 5, colour = "black", fill = "white", stroke = 5)
+  geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 12)
 
 # You can create interesting shapes by layering multiple points of
 # different sizes

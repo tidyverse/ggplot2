@@ -50,7 +50,7 @@ geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity",
 GeomLinerange <- proto2("GeomLinerange", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  guide_geom = function(self) "path",
+  guide_geom = legend_path,
 
   required_aes = c("x", "ymin", "ymax"),
 

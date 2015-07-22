@@ -105,25 +105,10 @@ GeomSmooth <- proto2("GeomSmooth", Geom,
     )
   },
 
-  guide_geom = function(self) "smooth",
+  guide_geom = legend_smooth,
 
   required_aes = c("x", "y"),
 
   default_aes = aes(colour = "#3366FF", fill = "grey60", size = 1,
-    linetype = 1, weight = 1, alpha = 0.4),
-
-  draw_legend = function(self, data, params, ...) {
-    data <- aesdefaults(data, self$default_aes, list(...))
-    data$fill <- alpha(data$fill, data$alpha)
-    data$alpha <- 1
-
-    if (is.null(params$se) || params$se) {
-      gTree(children = gList(
-        rectGrob(gp = gpar(col = NA, fill = data$fill)),
-        GeomPath$draw_legend(data, ...)
-      ))
-    } else {
-      GeomPath$draw_legend(data, ...)
-    }
-  }
+    linetype = 1, weight = 1, alpha = 0.4)
 )

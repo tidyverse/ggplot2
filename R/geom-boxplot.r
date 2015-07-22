@@ -192,18 +192,7 @@ GeomBoxplot <- proto2("GeomBoxplot", Geom,
     ))
   },
 
-  guide_geom = function(self) "boxplot",
-
-  draw_legend = function(self, data, ...)  {
-    data <- aesdefaults(data, self$default_aes, list(...))
-    gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt, lty = linetype))
-    gTree(gp = gp, children = gList(
-      linesGrob(0.5, c(0.1, 0.25)),
-      linesGrob(0.5, c(0.75, 0.9)),
-      rectGrob(height=0.5, width=0.75),
-      linesGrob(c(0.125, 0.875), 0.5)
-    ))
-  },
+  guide_geom = legend_boxplot,
 
   default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
     alpha = NA, shape = 19, linetype = "solid", outlier.colour = "black",

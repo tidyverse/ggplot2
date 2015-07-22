@@ -132,25 +132,12 @@ GeomText <- proto2("GeomText", Geom,
     )
   },
 
-  draw_legend = function(self, data, ...) {
-    data <- aesdefaults(data, self$default_aes, list(...))
-    textGrob(
-      "a", 0.5, 0.5,
-      rot = data$angle,
-      gp = gpar(
-        col = alpha(data$colour, data$alpha),
-        fontsize = data$size * .pt
-      )
-    )
-  },
-
-
   required_aes = c("x", "y", "label"),
 
   default_aes = aes(colour = "black", size = 5, angle = 0, hjust = 0.5,
     vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2),
 
-  guide_geom = function(self, x) "text"
+  guide_geom = legend_text
 )
 
 compute_just <- function(just, x) {

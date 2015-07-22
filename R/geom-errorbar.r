@@ -67,7 +67,7 @@ GeomErrorbar <- proto2("GeomErrorbar", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, width = 0.5,
     alpha = NA),
 
-  guide_geom = function(self) "path",
+  guide_geom = legend_path,
 
   required_aes = c("x", "ymin", "ymax"),
 

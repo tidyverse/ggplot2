@@ -163,5 +163,6 @@ GeomBar <- proto2("GeomBar", Geom,
   draw_groups = function(self, data, scales, coordinates, ...) {
     GeomRect$draw_groups(data, scales, coordinates, ...)
   },
-  guide_geom = function(self) "polygon"
+
+  guide_geom = legend_polygon
 )

@@ -51,7 +51,7 @@ GeomRibbon <- proto2("GeomRibbon", Geom,
 
   required_aes = c("x", "ymin", "ymax"),
 
-  guide_geom = function(self) "polygon",
+  guide_geom = legend_polygon,
 
   draw = function(self, data, scales, coordinates, na.rm = FALSE, ...) {
     if (na.rm) data <- data[complete.cases(data[self$required_aes]), ]

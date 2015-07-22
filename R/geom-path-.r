@@ -205,20 +205,9 @@ GeomPath <- proto2("GeomPath", Geom,
     }
   },
 
-  draw_legend = function(self, data, ...) {
-    data$arrow <- NULL
-    data <- aesdefaults(data, self$default_aes, list(...))
-
-    with(data,
-      ggname(self$my_name(), segmentsGrob(0.1, 0.5, 0.9, 0.5, default.units="npc",
-      gp=gpar(col=alpha(colour, alpha), lwd=size * .pt,
-        lty=linetype, lineend="butt")))
-    )
-  },
-
   required_aes = c("x", "y"),
 
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  guide_geom = function(self) "path"
+  guide_geom = legend_path
 )
