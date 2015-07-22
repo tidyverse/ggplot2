@@ -1,7 +1,8 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
-* `labels = NULL` now works with a continuous colour bars (#1175).
+* `labels = NULL` now works with `guide_legend()` and `guide_colorbar()`.
+  (#1175, #1183).
 
 * Improved documentation for `aes()`, `layer()` and many geoms and scales. I've
   tried to reduce the use of `...` so that you can see all the documentation in
