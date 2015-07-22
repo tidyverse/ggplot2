@@ -341,7 +341,7 @@ guide_gengrob.legend <- function(guide, theme) {
   label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
   grob.labels <- {
     if (!guide$label)
-      zeroGrob()
+      list(zeroGrob())
     else {
       hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||%
         if (any(is.expression(guide$key$.label))) 1 else 0
