@@ -6,6 +6,8 @@
 #'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
+#' @param geom,stat Use to override the default connection between
+#'   \code{geom_count} and \code{stat_sum}.
 #' @inheritParams geom_point
 #' @export
 #' @examples
@@ -21,6 +23,23 @@
 #' ggplot(mpg, aes(cty, hwy)) +
 #'  geom_count()
 #'  scale_size_area()
+#'
+#' # Display proportions instead of counts -------------------------------------
+#' # By default, all categorical variables in the plot form the groups.
+#' # Specifying geom_count without a group identifier leads to a plot which is
+#' # not useful:
+#' d <- ggplot(diamonds, aes(x = cut, y = clarity))
+#' d + geom_count(aes(size = ..prop..))
+#' # To correct this problem and achieve a more desirable plot, we need
+#' # to specify which group the proportion is to be calculated over.
+#' d + geom_count(aes(size = ..prop.., group = 1)) +
+#'   scale_size_area(max_size = 10)
+#'
+#' # Or group by x/y variables to have rows/columns sum to 1.
+#' d + geom_count(aes(size = ..prop.., group = cut)) +
+#'   scale_size_area(max_size = 10)
+#' d + geom_count(aes(size = ..prop.., group = clarity)) +
+#'   scale_size_area(max_size = 10)
 geom_count <- function(mapping = NULL, data = NULL, stat = "sum",
   position = "identity", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE,
   ...)
