@@ -1,18 +1,3 @@
-#' Add a smoother.
-#'
-#' Aids the eye in seeing patterns in the presence of overplotting.
-#'
-#' Calculation is performed by the (currently undocumented)
-#' \code{predictdf} generic function and its methods.  For most methods
-#' the confidence bounds are computed using the \code{\link{predict}}
-#' method - the exceptions are \code{loess} which uses a t-based
-#' approximation, and for \code{glm} where the normal confidence interval
-#' is constructed on the link scale, and then back-transformed to the response
-#' scale.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "smooth")}
-#'
 #' @param method smoothing method (function) to use, eg. lm, glm, gam, loess,
 #'   rlm. For datasets with n < 1000 default is \code{\link{loess}}. For datasets
 #'   with 1000 or more observations defaults to gam, see \code{\link[mgcv]{gam}}
@@ -27,85 +12,14 @@
 #' @param n number of points to evaluate smoother at
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
-#' @param ... other arguments are passed to smoothing function
-#' @inheritParams stat_identity
-#' @return a data.frame with additional columns
+#' @return \code{stat_smooth} generates a data frame with columns:
 #'   \item{y}{predicted value}
 #'   \item{ymin}{lower pointwise confidence interval around the mean}
 #'   \item{ymax}{upper pointwise confidence interval around the mean}
 #'   \item{se}{standard error}
-#' @seealso
-#'   \code{\link{lm}} for linear smooths,
-#'   \code{\link{glm}} for generalised linear smooths,
-#'   \code{\link{loess}} for local smooths
 #' @export
-#' @examples
-#' \donttest{
-#' c <- ggplot(mtcars, aes(qsec, wt))
-#' c + stat_smooth()
-#' c + stat_smooth() + geom_point()
-#'
-#' # Adjust parameters
-#' c + stat_smooth(se = FALSE) + geom_point()
-#'
-#' c + stat_smooth(span = 0.9) + geom_point()
-#' c + stat_smooth(level = 0.99) + geom_point()
-#' c + stat_smooth(method = "lm") + geom_point()
-#'
-#' library(splines)
-#' library(MASS)
-#' c + stat_smooth(method = "lm", formula = y ~ ns(x,3)) +
-#'   geom_point()
-#' c + stat_smooth(method = rlm, formula= y ~ ns(x,3)) + geom_point()
-#'
-#' # The default confidence band uses a transparent colour.
-#' # This currently only works on a limited number of graphics devices
-#' # (including Quartz, PDF, and Cairo) so you may need to set the
-#' # fill colour to a opaque colour, as shown below
-#' c + stat_smooth(fill = "grey50", size = 2, alpha = 1)
-#' c + stat_smooth(fill = "blue", size = 2, alpha = 1)
-#'
-#' # The colour of the line can be controlled with the colour aesthetic
-#' c + stat_smooth(fill="blue", colour="darkblue", size=2)
-#' c + stat_smooth(fill="blue", colour="darkblue", size=2, alpha = 0.2)
-#' c + geom_point() +
-#'   stat_smooth(fill="blue", colour="darkblue", size=2, alpha = 0.2)
-#'
-#' # Smoothers for subsets
-#' c <- ggplot(mtcars, aes(y=wt, x=mpg)) + facet_grid(. ~ cyl)
-#' c + stat_smooth(method=lm) + geom_point()
-#' c + stat_smooth(method=lm, fullrange = TRUE) + geom_point()
-#'
-#' # Geoms and stats are automatically split by aesthetics that are factors
-#' c <- ggplot(mtcars, aes(y=wt, x=mpg, colour=factor(cyl)))
-#' c + stat_smooth(method=lm) + geom_point()
-#' c + stat_smooth(method=lm, aes(fill = factor(cyl))) + geom_point()
-#' c + stat_smooth(method=lm, fullrange=TRUE, alpha = 0.1) + geom_point()
-#' }
-#'
-#' \dontrun{
-#' # Example with logistic regression
-#' data("kyphosis", package="rpart")
-#' ggplot(kyphosis, aes(Age, Kyphosis)) + geom_point()
-#' ggplot(kyphosis, aes(Age)) +
-#'   geom_bar(binwidth = 10) +
-#'   facet_wrap(~Kyphosis)
-#'
-#' set.seed(1492)
-#' ggplot(kyphosis, aes(Age, Kyphosis)) + geom_point(position = "jitter")
-#'
-#' ggplot(kyphosis, aes(Age, Kyphosis)) +
-#'   geom_point(position = position_jitter(height=0.1))
-#'
-#' ggplot(kyphosis, aes(Age, as.numeric(Kyphosis) - 1)) +
-#'   geom_point() +
-#'   stat_smooth(method = "glm", family = "binomial")
-#'
-#' ggplot(kyphosis, aes(Age, as.numeric(Kyphosis) - 1)) +
-#'   geom_point() +
-#'   stat_smooth(method = "glm", family = "binomial", formula = y ~ ns(x, 2))
-#' }
-stat_smooth <- function (mapping = NULL, data = NULL, geom = "smooth",
+#' @rdname geom_smooth
+stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
   position = "identity", method = "auto", formula = y ~ x, se = TRUE, n = 80,
   fullrange = FALSE, level = 0.95, na.rm = FALSE, show_guide = NA,
   inherit.aes = TRUE, ...)
