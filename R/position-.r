@@ -12,11 +12,10 @@ Position <- proto2("Position", TopLevel,
 
   new = function(self, width = NULL, height = NULL) {
     proto2(
-      inherit = self,
-      members = list(
-        width = width,
-        height = height
-      )
+      NULL,
+      self,
+      width = width,
+      height = height
     )
   },
 
