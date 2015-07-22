@@ -1,11 +1,3 @@
-#' Bin data.
-#'
-#' Missing values are currently silently dropped.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bin")}
-#'
-#' @inheritParams stat_identity
 #' @param binwidth Bin width to use. Defaults to 1/30 of the range of the
 #'   data
 #' @param breaks Actual breaks to use.  Overrides bin width and origin
@@ -20,26 +12,7 @@
 #'   \item{ncount}{count, scaled to maximum of 1}
 #'   \item{ndensity}{density, scaled to maximum of 1}
 #' @export
-#' @examples
-#' \donttest{
-#' simple <- data.frame(x = rep(1:10, each = 2))
-#' base <- ggplot(simple, aes(x))
-#' # By default, right = FALSE intervals are of the form [a, b)
-#' base + stat_bin(binwidth = 1, drop = FALSE, right = FALSE, col = "black")
-#' # If right = TRUE, and intervals are of the form (a, b]
-#' base + stat_bin(binwidth = 1, drop = FALSE, right = TRUE, col = "black")
-#'
-#' d <- ggplot(diamonds, aes(carat))
-#' d + stat_bin()
-#' d + stat_bin(binwidth = 0.1)
-#' d + stat_bin(breaks=seq(0, 2, by = 0.01))
-#' # See geom_histogram for more histogram examples
-#'
-#' # To create a unit area histogram, use aes(y = ..density..)
-#' linehist <- d + geom_freqpoly(aes(y = ..density..), binwidth = 0.1)
-#' linehist
-#' linehist + stat_density(colour = "blue", fill = NA)
-#' }
+#' @rdname geom_histogram
 stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
   position = "stack", width = 0.9, drop = FALSE, right = FALSE,
   binwidth = NULL, origin = NULL, breaks = NULL, show_guide = NA,

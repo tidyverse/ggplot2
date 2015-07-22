@@ -86,10 +86,12 @@ ggplot(diamonds, aes(carat)) +
 ggplot(diamonds, aes(carat)) +
   geom_density(adjust = 5)
 
-ggplot(diamonds, aes(carat, colour = cut)) +
-  geom_density()
-ggplot(diamonds, aes(carat, fill = cut)) +
-  geom_density(alpha = 0.1)
+ggplot(diamonds, aes(depth, colour = cut)) +
+  geom_density() +
+  xlim(55, 70)
+ggplot(diamonds, aes(depth, fill = cut, colour = cut)) +
+  geom_density(alpha = 0.1) +
+  xlim(55, 70)
 
 # Stacked density plots: if you want to create a stacked density plot, you
 # probably want to 'count' (density * n) variable instead of the default
