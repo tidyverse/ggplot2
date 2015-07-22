@@ -89,7 +89,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
   outlier.size     <- outlier.size   %||% outlier_defaults$size
   outlier.stroke   <- outlier.stroke %||% outlier_defaults$stroke
 
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,

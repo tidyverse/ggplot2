@@ -32,7 +32,7 @@ annotation_map <- function(map, ...) {
   if (!is.null(map$region)) map$id <- map$region
   stopifnot(all(c("x", "y", "id") %in% names(map)))
 
-  Layer$new(
+  layer(
     data = NULL,
     stat = StatIdentity,
     geom = GeomAnnotationMap,

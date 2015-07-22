@@ -24,7 +24,7 @@ stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
   fullrange = FALSE, level = 0.95, na.rm = FALSE, show_guide = NA,
   inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatSmooth,

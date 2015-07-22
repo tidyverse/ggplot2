@@ -6,7 +6,7 @@
 stat_bin2d <- function (mapping = NULL, data = NULL, geom = "rect",
   position = "identity", bins = 30, drop = TRUE, show_guide = NA,
   inherit.aes = TRUE, ...) {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatBin2d,

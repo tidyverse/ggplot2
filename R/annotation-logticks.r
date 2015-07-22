@@ -83,7 +83,7 @@ annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
   if (!is.null(color))
     colour <- color
 
-  Layer$new(
+  layer(
     data = data.frame(x = NA),
     mapping = NULL,
     stat = StatIdentity,

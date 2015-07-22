@@ -22,7 +22,7 @@
 geom_bin2d <- function(mapping = NULL, data = NULL, stat = "bin2d",
   position = "identity", show_guide = NA, inherit.aes = TRUE, ...) {
 
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,

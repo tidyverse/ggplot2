@@ -32,7 +32,7 @@ geom_step <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", direction = "hv", show_guide = NA, inherit.aes = TRUE,
   ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,

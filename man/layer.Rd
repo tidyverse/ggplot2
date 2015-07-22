@@ -5,7 +5,7 @@
 \title{Create a new layer}
 \usage{
 layer(geom = NULL, geom_params = NULL, stat = NULL, stat_params = NULL,
-  data = NULL, mapping = NULL, position = NULL, params = NULL, ...,
+  data = NULL, mapping = NULL, position = NULL, params = NULL,
   inherit.aes = TRUE, subset = NULL, show_guide = NA)
 }
 \arguments{

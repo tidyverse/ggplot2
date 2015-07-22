@@ -44,7 +44,7 @@ NULL
 #' base +
 #'   annotation_custom(grob = g, xmin = 1, xmax = 10, ymin = 8, ymax = 10)
 annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) {
-  Layer$new(
+  layer(
     data = NULL,
     stat = StatIdentity,
     position = PositionIdentity,

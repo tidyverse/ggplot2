@@ -22,73 +22,6 @@ Layer <- proto2("Layer", NULL,
   params = NULL,
   inherit.aes = FALSE,
 
-  new = function(self, geom = NULL, geom_params = NULL, stat = NULL,
-    stat_params = NULL, data = NULL, mapping = NULL, position = NULL,
-    params = NULL, inherit.aes = TRUE, subset = NULL, show_guide = NA)
-  {
-    # now, as for the guide, we can choose only if the layer is included or not in the guide: guide = TRUE or guide = FALSE
-    # in future, it may be better if we can choose which aes of this layer is included in the guide, e.g.: guide = c(colour = TRUE, size = FALSE)
-
-    if (!is.na(show_guide) && !is.logical(show_guide)) {
-      warning("`show_guide` in geom_XXX and stat_XXX must be logical.")
-      show_guide = FALSE
-    }
-
-
-    if (is.null(geom) && is.null(stat)) stop("Need at least one of stat and geom")
-
-    data <- fortify(data)
-    if (!is.null(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be a list of unevaluated mappings created by aes or aes_string")
-
-    if (is.character(geom)) geom <- make_geom(geom)
-    if (is.character(stat)) stat <- make_stat(stat)
-    if (is.character(position)) position <- make_position(position)
-
-    if (is.null(geom))
-      stop("Attempted to create layer with no geom.")
-    if (is.null(stat))
-      stop("Attempted to create layer with no stat.")
-    if (is.null(position))
-      stop("Attempted to create layer with no position.")
-
-    match.params <- function(possible, params) {
-      if ("..." %in% names(possible)) {
-        params
-      } else {
-        params[match(names(possible), names(params), nomatch=0)]
-      }
-    }
-
-    geom_params <- rename_aes(geom_params)
-
-    # Categorize items from params into geom_params and stat_params
-    if (length(params) > 0) {
-      params <- rename_aes(params) # Rename American to British spellings etc
-
-      # Split params to geom and stat; any unknown params go to the geom by default
-      new_geom_params <- match.params(geom$parameters(), params)
-      new_stat_params <- match.params(stat$parameters(), params)
-      new_stat_params <- new_stat_params[setdiff(names(new_stat_params),
-                                             names(new_geom_params))]
-
-      geom_params <- c(geom_params, new_geom_params)
-      stat_params <- c(stat_params, new_stat_params)
-    }
-
-    proto2("LayerInstance", self,
-      geom = geom,
-      geom_params = geom_params,
-      stat = stat,
-      stat_params = stat_params,
-      data = data,
-      mapping = mapping,
-      subset = subset,
-      position = position,
-      inherit.aes = inherit.aes,
-      show_guide = show_guide
-    )
-  },
-
   # This actually makes a descendent of self, which is functionally the same
   # as a actually clone for most purposes.
   clone = function(self) proto2(NULL, self),
@@ -293,20 +226,64 @@ Layer <- proto2("Layer", NULL,
 #'   layer(geom = "point", stat = "identity", position = "identity")
 layer <- function(geom = NULL, geom_params = NULL, stat = NULL,
   stat_params = NULL, data = NULL, mapping = NULL, position = NULL,
-  params = NULL, ..., inherit.aes = TRUE, subset = NULL, show_guide = NA)
+  params = NULL, inherit.aes = TRUE, subset = NULL, show_guide = NA)
 {
-  Layer$new(
+  if (!is.na(show_guide) && !is.logical(show_guide)) {
+    warning("`show_guide` in geom_XXX and stat_XXX must be logical.")
+    show_guide = FALSE
+  }
+
+
+  if (is.null(geom) && is.null(stat)) stop("Need at least one of stat and geom")
+
+  data <- fortify(data)
+  if (!is.null(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be a list of unevaluated mappings created by aes or aes_string")
+
+  if (is.character(geom)) geom <- make_geom(geom)
+  if (is.character(stat)) stat <- make_stat(stat)
+  if (is.character(position)) position <- make_position(position)
+
+  if (is.null(geom))
+    stop("Attempted to create layer with no geom.")
+  if (is.null(stat))
+    stop("Attempted to create layer with no stat.")
+  if (is.null(position))
+    stop("Attempted to create layer with no position.")
+
+  match.params <- function(possible, params) {
+    if ("..." %in% names(possible)) {
+      params
+    } else {
+      params[match(names(possible), names(params), nomatch=0)]
+    }
+  }
+
+  geom_params <- rename_aes(geom_params)
+
+  # Categorize items from params into geom_params and stat_params
+  if (length(params) > 0) {
+    params <- rename_aes(params) # Rename American to British spellings etc
+
+    # Split params to geom and stat; any unknown params go to the geom by default
+    new_geom_params <- match.params(geom$parameters(), params)
+    new_stat_params <- match.params(stat$parameters(), params)
+    new_stat_params <- new_stat_params[setdiff(names(new_stat_params),
+                                           names(new_geom_params))]
+
+    geom_params <- c(geom_params, new_geom_params)
+    stat_params <- c(stat_params, new_stat_params)
+  }
+
+  proto2("LayerInstance", Layer,
     geom = geom,
     geom_params = geom_params,
     stat = stat,
     stat_params = stat_params,
     data = data,
     mapping = mapping,
-    position = position,
-    params = params,
-    ...,
-    inherit.aes = inherit.aes,
     subset = subset,
+    position = position,
+    inherit.aes = inherit.aes,
     show_guide = show_guide
   )
 }

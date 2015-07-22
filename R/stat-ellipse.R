@@ -47,7 +47,7 @@ stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
   position = "identity", type = "t", level = 0.95, segments = 51,
   na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatEllipse,

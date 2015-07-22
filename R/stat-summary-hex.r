@@ -33,7 +33,7 @@ stat_summary_hex <- function (mapping = NULL, data = NULL, geom = "hex",
   position = "identity", bins = 30, drop = TRUE, fun = mean, show_guide = NA,
   inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatSummaryHex,

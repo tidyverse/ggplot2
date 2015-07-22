@@ -101,7 +101,7 @@ geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
   if (stackgroups && method == "dotdensity" && binpositions == "bygroup")
     message('geom_dotplot called with stackgroups=TRUE and method="dotdensity". You probably want to set binpositions="all"')
 
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,

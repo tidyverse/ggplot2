@@ -52,7 +52,7 @@ stat_contour <- function (mapping = NULL, data = NULL, geom = "path",
   position = "identity", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE,
   ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatContour,

@@ -64,7 +64,7 @@ geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity",
   position = "dodge", trim = TRUE, scale = "area", show_guide = NA,
   inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,

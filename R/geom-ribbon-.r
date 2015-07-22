@@ -33,7 +33,7 @@
 geom_ribbon <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -110,7 +110,7 @@ GeomRibbon <- proto2("GeomRibbon", Geom,
 geom_area <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "stack", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,

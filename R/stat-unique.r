@@ -11,7 +11,7 @@
 stat_unique <- function (mapping = NULL, data = NULL, geom = "point",
   position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatUnique,

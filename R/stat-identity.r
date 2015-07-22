@@ -30,7 +30,7 @@ stat_identity <- function (mapping = NULL, data = NULL, geom = "point",
   position = "identity", width = NULL, height = NULL, show_guide = NA,
   inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatIdentity,

@@ -43,7 +43,7 @@ annotation_raster <- function (raster, xmin, xmax, ymin, ymax,
 {
   raster <- as.raster(raster)
 
-  Layer$new(
+  layer(
     data = NULL,
     mapping = NULL,
     stat = StatIdentity,

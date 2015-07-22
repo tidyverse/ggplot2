@@ -72,7 +72,7 @@ geom_histogram <- function(mapping = NULL, data = NULL, stat = "bin",
   binwidth = NULL, origin = NULL, right = FALSE,
   position = "stack", show_guide = NA, inherit.aes = TRUE, ...) {
 
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,

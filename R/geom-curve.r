@@ -5,7 +5,7 @@ geom_curve <- function(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", curvature = 0.5, angle = 90, ncp = 5, arrow = NULL,
   lineend = "butt", na.rm = FALSE, inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,

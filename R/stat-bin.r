@@ -18,7 +18,7 @@ stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
   binwidth = NULL, origin = NULL, breaks = NULL, show_guide = NA,
   inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatBin,
