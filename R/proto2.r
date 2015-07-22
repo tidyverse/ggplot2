@@ -1,7 +1,7 @@
 #' Create a new proto2 object
 #'
-#' @param `_class` Name of new class
-#' @param `_inherit` proto2 object to inherit from. Use \code{NULL} to inherit
+#' @param _class Name of new class
+#' @param _inherit proto2 object to inherit from. Use \code{NULL} to inherit
 #'   from the "base" class.
 #' @param ... A list of members in the proto2 object.
 #' @export

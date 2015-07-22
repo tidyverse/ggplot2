@@ -7,12 +7,12 @@
 proto2(`_class`, `_inherit`, ...)
 }
 \arguments{
-\item{...}{A list of members in the proto2 object.}
+\item{_class}{Name of new class}
 
-\item{`_class`}{Name of new class}
-
-\item{`_inherit`}{proto2 object to inherit from. Use \code{NULL} to inherit
+\item{_inherit}{proto2 object to inherit from. Use \code{NULL} to inherit
 from the "base" class.}
+
+\item{...}{A list of members in the proto2 object.}
 }
 \description{
 Create a new proto2 object
