@@ -100,10 +100,10 @@ GeomSmooth <- proto2(
       ribbon <- transform(data, colour = NA)
       path <- transform(data, alpha = NA)
 
-      has_ribbon <- function(x) !is.null(data$ymax) && !is.null(data$ymin)
+      has_ribbon <- !is.null(data$ymax) && !is.null(data$ymin)
 
       gList(
-        if (has_ribbon(data)) GeomRibbon$draw(ribbon, scales, coordinates),
+        if (has_ribbon) GeomRibbon$draw(ribbon, scales, coordinates),
         GeomLine$draw(path, scales, coordinates)
       )
     },
