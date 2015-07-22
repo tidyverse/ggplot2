@@ -35,8 +35,8 @@ to control name, limits, breaks, labels and so forth.}
 
 \item{high}{colour for high end of gradient.}
 
-\item{space}{colour space in which to calculate gradient.  "Lab" usually
-best unless gradient goes through white.}
+\item{space}{colour space in which to calculate gradient. Must be "Lab" -
+other values are deprecated.}
 
 \item{na.value}{Colour to use for missing values}
 

@@ -31,8 +31,8 @@ to control name, limits, breaks, labels and so forth.}
 \item{midpoint}{The midpoint (in data value) of the diverging scale.
 Defaults to 0.}
 
-\item{space}{colour space in which to calculate gradient.  "Lab" usually
-best unless gradient goes through white.}
+\item{space}{colour space in which to calculate gradient. Must be "Lab" -
+other values are deprecated.}
 
 \item{na.value}{Colour to use for missing values}
 

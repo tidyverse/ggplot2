@@ -38,8 +38,8 @@ this vector gives the position (between 0 and 1) for each colour in the
 \code{colours} vector. See \code{\link{rescale}} for a convience function
 to map an arbitrary range to between 0 and 1.}
 
-\item{space}{colour space in which to calculate gradient.  "Lab" usually
-best unless gradient goes through white.}
+\item{space}{colour space in which to calculate gradient. Must be "Lab" -
+other values are deprecated.}
 
 \item{na.value}{Colour to use for missing values}
 
