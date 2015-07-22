@@ -78,13 +78,13 @@ library(reshape2) # for melt
 ggplot(melt(volcano), aes(x=Var1, y=Var2, fill=value)) + geom_tile()
 
 # inspired by the image-density plots of Ken Knoblauch
-cars <- ggplot(mtcars, aes(y=factor(cyl), x=mpg))
+cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
 cars + geom_point()
-cars + stat_bin(aes(fill=..count..), geom="tile", binwidth=3, position="identity")
-cars + stat_bin(aes(fill=..density..), geom="tile", binwidth=3, position="identity")
+cars + stat_bin2d(aes(fill = ..count..), binwidth = c(3,1))
+cars + stat_bin2d(aes(fill = ..density..), binwidth = c(3,1))
 
-cars + stat_density(aes(fill=..density..), geom="tile", position="identity")
-cars + stat_density(aes(fill=..count..), geom="tile", position="identity")
+cars + stat_density(aes(fill = ..density..), geom = "tile", position = "identity")
+cars + stat_density(aes(fill = ..count..), geom = "tile", position = "identity")
 
 # Another example with with unequal tile sizes
 x.cell.boundary <- c(0, 4, 6, 8, 10, 14)
