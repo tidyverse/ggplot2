@@ -203,7 +203,9 @@ Layer <- proto2("Layer", NULL,
 #'
 #' @export
 #' @inheritParams geom_point
-#' @param geom Geometric element, as a string.
+#' @param geom,stat,position Geom, stat and position adjustment to use in
+#'   this layer. Can either be the name of a proto2 object, or the object
+#'   itself.
 #' @param geom_params,stat_params,params,... Additional parameters to the
 #'   \code{geom} and \code{stat}. If supplied individual in \code{...} or as a
 #'   list in \code{params}, \code{layer} does it's best to figure out which
@@ -228,40 +230,39 @@ layer <- function(geom = NULL, geom_params = NULL, stat = NULL,
   stat_params = NULL, data = NULL, mapping = NULL, position = NULL,
   params = NULL, inherit.aes = TRUE, subset = NULL, show_guide = NA)
 {
-  if (!is.na(show_guide) && !is.logical(show_guide)) {
-    warning("`show_guide` in geom_XXX and stat_XXX must be logical.")
-    show_guide = FALSE
+  if (is.null(geom))
+    stop("Attempted to create layer with no geom.", call. = FALSE)
+  if (is.null(stat))
+    stop("Attempted to create layer with no stat.", call. = FALSE)
+  if (is.null(position))
+    stop("Attempted to create layer with no position.", call. = FALSE)
+
+  if (!is.logical(show_guide) || length(show_guide) != 1) {
+    warning("`show_guide` must be a logical vector of length 1.", call. = FALSE)
+    show_guide <- FALSE
   }
 
-
-  if (is.null(geom) && is.null(stat)) stop("Need at least one of stat and geom")
-
   data <- fortify(data)
-  if (!is.null(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be a list of unevaluated mappings created by aes or aes_string")
+  if (!is.null(mapping) && !inherits(mapping, "uneval")) {
+    stop("Mapping should be a list of unevaluated mappings created by aes or aes_string", call. = FALSE)
+  }
 
   if (is.character(geom)) geom <- make_geom(geom)
   if (is.character(stat)) stat <- make_stat(stat)
   if (is.character(position)) position <- make_position(position)
 
-  if (is.null(geom))
-    stop("Attempted to create layer with no geom.")
-  if (is.null(stat))
-    stop("Attempted to create layer with no stat.")
-  if (is.null(position))
-    stop("Attempted to create layer with no position.")
-
-  match.params <- function(possible, params) {
-    if ("..." %in% names(possible)) {
-      params
-    } else {
-      params[match(names(possible), names(params), nomatch=0)]
-    }
-  }
-
   geom_params <- rename_aes(geom_params)
 
   # Categorize items from params into geom_params and stat_params
   if (length(params) > 0) {
+    match.params <- function(possible, params) {
+      if ("..." %in% names(possible)) {
+        params
+      } else {
+        params[match(names(possible), names(params), nomatch = 0)]
+      }
+    }
+
     params <- rename_aes(params) # Rename American to British spellings etc
 
     # Split params to geom and stat; any unknown params go to the geom by default
@@ -287,5 +288,3 @@ layer <- function(geom = NULL, geom_params = NULL, stat = NULL,
     show_guide = show_guide
   )
 }
-
-
