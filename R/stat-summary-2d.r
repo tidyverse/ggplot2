@@ -35,7 +35,7 @@ stat_summary2d <- function (mapping = NULL, data = NULL, geom = "rect",
   position = "identity", bins = 30, drop = TRUE, fun = mean, show_guide = NA,
   inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatSummary2d,

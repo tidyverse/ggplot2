@@ -17,7 +17,7 @@ stat_boxplot <- function(mapping = NULL, data = NULL, geom = "boxplot",
   position = "dodge", na.rm = FALSE, coef = 1.5, show_guide = NA,
   inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatBoxplot,

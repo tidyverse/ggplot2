@@ -47,7 +47,7 @@ stat_function <- function (mapping = NULL, data = NULL, geom = "path",
   position = "identity", fun, n = 101, args = list(), show_guide = NA,
   inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatFunction,

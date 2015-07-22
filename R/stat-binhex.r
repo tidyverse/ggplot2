@@ -29,7 +29,7 @@ stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex",
   position = "identity", bins = 30, na.rm = FALSE, show_guide = NA,
   inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatBinhex,

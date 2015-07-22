@@ -78,7 +78,7 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
     position <- position_nudge(nudge_x, nudge_y)
   }
 
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,

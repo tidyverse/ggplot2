@@ -45,7 +45,7 @@ geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
   show_guide = NA, inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,

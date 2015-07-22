@@ -133,7 +133,7 @@
 geom_bar <- function (mapping = NULL, data = NULL, stat = "bin",
   position = "stack", show_guide = NA, inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,

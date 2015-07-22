@@ -6,7 +6,7 @@ NULL
 geom_freqpoly <- function(mapping = NULL, data = NULL, stat = "bin",
   position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,

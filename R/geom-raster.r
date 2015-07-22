@@ -59,7 +59,7 @@ geom_raster <- function (mapping = NULL, data = NULL, stat = "identity",
   stopifnot(is.numeric(hjust), length(hjust) == 1)
   stopifnot(is.numeric(vjust), length(vjust) == 1)
 
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,

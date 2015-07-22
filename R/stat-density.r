@@ -20,7 +20,7 @@ stat_density <- function(mapping = NULL, data = NULL, geom = "area",
   position = "stack", adjust = 1, kernel = "gaussian", trim = FALSE,
   na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...) {
 
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatDensity,

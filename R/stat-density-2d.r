@@ -60,7 +60,7 @@ stat_density2d <- function (mapping = NULL, data = NULL, geom = "density2d",
   position = "identity", na.rm = FALSE, contour = TRUE, n = 100,
   show_guide = NA, inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatDensity2d,

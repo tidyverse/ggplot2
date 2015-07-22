@@ -98,7 +98,7 @@ geom_path <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", lineend = "butt", linejoin = "round", linemitre = 1,
   na.rm = FALSE, arrow = NULL, show_guide = NA, inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,

@@ -13,7 +13,7 @@ geom_vline <- function(mapping = NULL, data = NULL, show_guide = FALSE,
     show_guide <- FALSE
   }
 
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatIdentity,

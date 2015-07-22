@@ -20,7 +20,7 @@
 stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step",
   position = "identity", n = NULL, show_guide = NA, inherit.aes = TRUE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = StatEcdf,

@@ -24,7 +24,7 @@
 geom_blank <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", show_guide = NA, inherit.aes = FALSE, ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,

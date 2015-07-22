@@ -44,7 +44,7 @@ geom_count <- function(mapping = NULL, data = NULL, stat = "sum",
   position = "identity", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE,
   ...)
 {
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,
