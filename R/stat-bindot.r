@@ -1,17 +1,9 @@
-#' Bin data for dot plot.
-#'
-#' Missing values are currently silently dropped.
-#' If weights are used, they must be integer values.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bindot")}
-#'
 #' @inheritParams stat_identity
 #' @param binaxis The axis to bin along, "x" (default) or "y"
 #' @param method "dotdensity" (default) for dot-density binning, or
 #'   "histodot" for fixed bin widths (like stat_bin)
-#' @param binwidth When \code{method} is "dotdensity, this specifies maximum bin width.
-#'   When \code{method} is "histodot", this specifies bin width.
+#' @param binwidth When \code{method} is "dotdensity", this specifies maximum bin
+#'   width. When \code{method} is "histodot", this specifies bin width.
 #'   Defaults to 1/30 of the range of the data
 #' @param binpositions When \code{method} is "dotdensity", "bygroup" (default)
 #'   determines positions of the bins for each group separately. "all" determines
@@ -36,11 +28,8 @@
 #'   \item{density}{density of points in bin, scaled to integrate to 1,
 #'     if method is "histodot"}
 #'   \item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
-#' @seealso See \code{\link{geom_dotplot}} for examples.
 #' @export
-#' @examples
-#' # See geom_dotplot for examples
-#'
+#' @rdname geom_dotplot
 stat_bindot <- function (mapping = NULL, data = NULL, geom = "dotplot",
   position = "identity", binwidth = NULL, origin = NULL, width = 0.9,
   binaxis = "x", method = "dotdensity", binpositions = "bygroup", drop = FALSE,

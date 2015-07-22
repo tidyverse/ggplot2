@@ -20,16 +20,8 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "dotplot")}
 #'
 #' @inheritParams geom_point
-#' @param binaxis which axis to bin along "x" (default) or "y"
-#' @param method "dotdensity" (default) for dot-density binning, or
-#'   "histodot" for fixed bin widths (like stat_bin)
-#' @param binwidth When \code{method} is "dotdensity", this specifies maximum bin width.
-#'    When method is "histodot", this specifies bin width.
-#'   Defaults to 1/30 of the range of the data
-#' @param binpositions When \code{method} is "dotdensity", "bygroup" (default)
-#'   determines positions of the bins for each group separately. "all" determines
-#'   positions of the bins with all the data taken together; this is used for
-#'   aligning dot stacks across multiple groups.
+#' @param geom,stat Use to override the default connection between
+#'   \code{geom_dotplot} and \code{stat_bindot}.
 #' @param stackdir which direction to stack the dots. "up" (default),
 #'   "down", "center", "centerwhole" (centered, but with dots aligned)
 #' @param stackratio how close to stack the dots. Default is 1, where dots just
@@ -39,12 +31,9 @@
 #'   that \code{position = "stack"} should have, but can't (because this geom has
 #'   some odd properties).
 #' @export
-#'
 #' @references Wilkinson, L. (1999) Dot plots. The American Statistician,
 #'    53(3), 276-281.
-#'
 #' @examples
-#'
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot()
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5)
 #'
