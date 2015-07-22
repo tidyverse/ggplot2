@@ -92,42 +92,38 @@ geom_smooth <- function(mapping = NULL, data = NULL, stat = "smooth",
   )
 }
 
-GeomSmooth <- proto2(
-  class = "GeomSmooth",
-  inherit = Geom,
-  members = list(
-    draw = function(self, data, scales, coordinates, ...) {
-      ribbon <- transform(data, colour = NA)
-      path <- transform(data, alpha = NA)
+GeomSmooth <- proto2("GeomSmooth", Geom,
+  draw = function(self, data, scales, coordinates, ...) {
+    ribbon <- transform(data, colour = NA)
+    path <- transform(data, alpha = NA)
 
-      has_ribbon <- !is.null(data$ymax) && !is.null(data$ymin)
+    has_ribbon <- !is.null(data$ymax) && !is.null(data$ymin)
 
-      gList(
-        if (has_ribbon) GeomRibbon$draw(ribbon, scales, coordinates),
-        GeomLine$draw(path, scales, coordinates)
-      )
-    },
+    gList(
+      if (has_ribbon) GeomRibbon$draw(ribbon, scales, coordinates),
+      GeomLine$draw(path, scales, coordinates)
+    )
+  },
 
-    guide_geom = function(self) "smooth",
+  guide_geom = function(self) "smooth",
 
-    required_aes = c("x", "y"),
+  required_aes = c("x", "y"),
 
-    default_aes = aes(colour = "#3366FF", fill = "grey60", size = 1,
-      linetype = 1, weight = 1, alpha = 0.4),
+  default_aes = aes(colour = "#3366FF", fill = "grey60", size = 1,
+    linetype = 1, weight = 1, alpha = 0.4),
 
-    draw_legend = function(self, data, params, ...) {
-      data <- aesdefaults(data, self$default_aes, list(...))
-      data$fill <- alpha(data$fill, data$alpha)
-      data$alpha <- 1
+  draw_legend = function(self, data, params, ...) {
+    data <- aesdefaults(data, self$default_aes, list(...))
+    data$fill <- alpha(data$fill, data$alpha)
+    data$alpha <- 1
 
-      if (is.null(params$se) || params$se) {
-        gTree(children = gList(
-          rectGrob(gp = gpar(col = NA, fill = data$fill)),
-          GeomPath$draw_legend(data, ...)
-        ))
-      } else {
+    if (is.null(params$se) || params$se) {
+      gTree(children = gList(
+        rectGrob(gp = gpar(col = NA, fill = data$fill)),
         GeomPath$draw_legend(data, ...)
-      }
+      ))
+    } else {
+      GeomPath$draw_legend(data, ...)
     }
-  )
+  }
 )

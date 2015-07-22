@@ -45,55 +45,50 @@ geom_ribbon <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomRibbon <- proto2(
-  class = "GeomRibbon",
-  inherit = Geom,
-  members = list(
-    default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
-      alpha = NA),
+GeomRibbon <- proto2("GeomRibbon", Geom,
+  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+    alpha = NA),
 
-    required_aes = c("x", "ymin", "ymax"),
+  required_aes = c("x", "ymin", "ymax"),
 
-    guide_geom = function(self) "polygon",
+  guide_geom = function(self) "polygon",
 
+  draw = function(self, data, scales, coordinates, na.rm = FALSE, ...) {
+    if (na.rm) data <- data[complete.cases(data[self$required_aes]), ]
+    data <- data[order(data$group, data$x), ]
 
-    draw = function(self, data, scales, coordinates, na.rm = FALSE, ...) {
-      if (na.rm) data <- data[complete.cases(data[self$required_aes]), ]
-      data <- data[order(data$group, data$x), ]
-
-      # Check that aesthetics are constant
-      aes <- unique(data[c("colour", "fill", "size", "linetype", "alpha")])
-      if (nrow(aes) > 1) {
-        stop("Aesthetics can not vary with a ribbon")
-      }
-      aes <- as.list(aes)
-
-      # Instead of removing NA values from the data and plotting a single
-      # polygon, we want to "stop" plotting the polygon whenever we're
-      # missing values and "start" a new polygon as soon as we have new
-      # values.  We do this by creating an id vector for polygonGrob that
-      # has distinct polygon numbers for sequences of non-NA values and NA
-      # for NA values in the original data.  Example: c(NA, 2, 2, 2, NA, NA,
-      # 4, 4, 4, NA)
-      missing_pos <- !complete.cases(data[self$required_aes])
-      ids <- cumsum(missing_pos) + 1
-      ids[missing_pos] <- NA
-
-      positions <- summarise(data,
-        x = c(x, rev(x)), y = c(ymax, rev(ymin)), id = c(ids, rev(ids)))
-      munched <- coord_munch(coordinates,positions, scales)
-
-      ggname(self$my_name(), polygonGrob(
-        munched$x, munched$y, id = munched$id,
-        default.units = "native",
-        gp = gpar(
-          fill = alpha(aes$fill, aes$alpha),
-          col = aes$colour,
-          lwd = aes$size * .pt,
-          lty = aes$linetype)
-      ))
+    # Check that aesthetics are constant
+    aes <- unique(data[c("colour", "fill", "size", "linetype", "alpha")])
+    if (nrow(aes) > 1) {
+      stop("Aesthetics can not vary with a ribbon")
     }
-  )
+    aes <- as.list(aes)
+
+    # Instead of removing NA values from the data and plotting a single
+    # polygon, we want to "stop" plotting the polygon whenever we're
+    # missing values and "start" a new polygon as soon as we have new
+    # values.  We do this by creating an id vector for polygonGrob that
+    # has distinct polygon numbers for sequences of non-NA values and NA
+    # for NA values in the original data.  Example: c(NA, 2, 2, 2, NA, NA,
+    # 4, 4, 4, NA)
+    missing_pos <- !complete.cases(data[self$required_aes])
+    ids <- cumsum(missing_pos) + 1
+    ids[missing_pos] <- NA
+
+    positions <- summarise(data,
+      x = c(x, rev(x)), y = c(ymax, rev(ymin)), id = c(ids, rev(ids)))
+    munched <- coord_munch(coordinates,positions, scales)
+
+    ggname(self$my_name(), polygonGrob(
+      munched$x, munched$y, id = munched$id,
+      default.units = "native",
+      gp = gpar(
+        fill = alpha(aes$fill, aes$alpha),
+        col = aes$colour,
+        lwd = aes$size * .pt,
+        lty = aes$linetype)
+    ))
+  }
 )
 
 #' Area plot.
@@ -127,16 +122,13 @@ geom_area <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomArea <- proto2(
-  inherit = GeomRibbon,
-  members = list(
-    default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
-      alpha = NA),
+GeomArea <- proto2("GeomArea", GeomRibbon,
+  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+    alpha = NA),
 
-    required_aes = c("x", "y"),
+  required_aes = c("x", "y"),
 
-    reparameterise = function(self, df, params) {
-      transform(df, ymin = 0, ymax = y)
-    }
-  )
+  reparameterise = function(self, df, params) {
+    transform(df, ymin = 0, ymax = y)
+  }
 )

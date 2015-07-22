@@ -77,43 +77,39 @@ geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity",
   )
 }
 
-GeomViolin <- proto2(
-  class = "GeomViolin",
-  inherit = Geom,
-  members = list(
-    reparameterise = function(self, df, params) {
-      df$width <- df$width %||%
-        params$width %||% (resolution(df$x, FALSE) * 0.9)
+GeomViolin <- proto2("GeomViolin", Geom,
+  reparameterise = function(self, df, params) {
+    df$width <- df$width %||%
+      params$width %||% (resolution(df$x, FALSE) * 0.9)
 
-      # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
-      ddply(df, .(group), transform,
-            ymin = min(y),
-            ymax = max(y),
-            xmin = x - width / 2,
-            xmax = x + width / 2)
-    },
+    # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
+    ddply(df, .(group), transform,
+          ymin = min(y),
+          ymax = max(y),
+          xmin = x - width / 2,
+          xmax = x + width / 2)
+  },
 
-    draw = function(self, data, ...) {
-      # Find the points for the line to go all the way around
-      data <- transform(data, xminv = x - violinwidth * (x-xmin),
-                              xmaxv = x + violinwidth * (xmax-x))
+  draw = function(self, data, ...) {
+    # Find the points for the line to go all the way around
+    data <- transform(data, xminv = x - violinwidth * (x-xmin),
+                            xmaxv = x + violinwidth * (xmax-x))
 
-      # Make sure it's sorted properly to draw the outline
-      newdata <- rbind(arrange(transform(data, x = xminv), y),
-                       arrange(transform(data, x = xmaxv), -y))
+    # Make sure it's sorted properly to draw the outline
+    newdata <- rbind(arrange(transform(data, x = xminv), y),
+                     arrange(transform(data, x = xmaxv), -y))
 
-      # Close the polygon: set first and last point the same
-      # Needed for coord_polar and such
-      newdata <- rbind(newdata, newdata[1,])
+    # Close the polygon: set first and last point the same
+    # Needed for coord_polar and such
+    newdata <- rbind(newdata, newdata[1,])
 
-      ggname(self$my_name(), GeomPolygon$draw(newdata, ...))
-    },
+    ggname(self$my_name(), GeomPolygon$draw(newdata, ...))
+  },
 
-    guide_geom = function(self) "polygon",
+  guide_geom = function(self) "polygon",
 
-    default_aes = aes(weight=1, colour="grey20", fill="white", size=0.5,
-      alpha = NA, linetype = "solid"),
+  default_aes = aes(weight=1, colour="grey20", fill="white", size=0.5,
+    alpha = NA, linetype = "solid"),
 
-    required_aes = c("x", "y")
-  )
+  required_aes = c("x", "y")
 )

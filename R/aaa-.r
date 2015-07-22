@@ -25,41 +25,39 @@ firstUpper <- function(s) {
 }
 
 
-TopLevel <- proto2(
-  members = list(
-    find = function(self, name) {
-      # Convert name to camel case
-      name <- camelize(name, first = TRUE)
-      fullname <- paste0(firstUpper(self$class()), name)
+TopLevel <- proto2("TopLevel", NULL,
+  find = function(self, name) {
+    # Convert name to camel case
+    name <- camelize(name, first = TRUE)
+    fullname <- paste0(firstUpper(self$class()), name)
 
-      if (!exists(fullname)) {
-        stop("No ", self$class(), " called ", fullname, call.=FALSE)
-      }
-      get(fullname)
-    },
+    if (!exists(fullname)) {
+      stop("No ", self$class(), " called ", fullname, call.=FALSE)
+    }
+    get(fullname)
+  },
 
-    # Convert class name from camel case (GeomBar) to snake case (geom_bar).
-    my_name = function(self) {
-      name <- class(self)[1]
-      name <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", name)
-      name <- gsub(".", "_", name, fixed = TRUE)
-      name <- gsub("([a-z])([A-Z])", "\\1_\\2", name)
-      name <- tolower(name)
-      name
-    },
+  # Convert class name from camel case (GeomBar) to snake case (geom_bar).
+  my_name = function(self) {
+    name <- class(self)[1]
+    name <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", name)
+    name <- gsub(".", "_", name, fixed = TRUE)
+    name <- gsub("([a-z])([A-Z])", "\\1_\\2", name)
+    name <- tolower(name)
+    name
+  },
 
-    params = function(self) {
-      param <- self$parameters()
-      if (length(param) == 0) return()
+  params = function(self) {
+    param <- self$parameters()
+    if (length(param) == 0) return()
 
-      if(!exists("required_aes", .)) return(param)
+    if(!exists("required_aes", .)) return(param)
 
-      aesthetics <- c(self$required_aes, names(self$default_aes))
-      param[setdiff(names(param), aesthetics)]
-    },
+    aesthetics <- c(self$required_aes, names(self$default_aes))
+    param[setdiff(names(param), aesthetics)]
+  },
 
-    class = function(self) "toplevel"
-  )
+  class = function(self) "toplevel"
 )
 
 

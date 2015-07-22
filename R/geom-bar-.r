@@ -145,27 +145,23 @@ geom_bar <- function (mapping = NULL, data = NULL, stat = "bin",
   )
 }
 
-GeomBar <- proto2(
-  class = "GeomBar",
-  inherit = Geom,
-  members = list(
-    default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
-                      weight = 1, alpha = NA),
+GeomBar <- proto2("GeomBar", Geom,
+  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+                    weight = 1, alpha = NA),
 
-    required_aes = c("x"),
+  required_aes = c("x"),
 
-    reparameterise = function(self, df, params) {
-      df$width <- df$width %||%
-        params$width %||% (resolution(df$x, FALSE) * 0.9)
-      transform(df,
-        ymin = pmin(y, 0), ymax = pmax(y, 0),
-        xmin = x - width / 2, xmax = x + width / 2, width = NULL
-      )
-    },
+  reparameterise = function(self, df, params) {
+    df$width <- df$width %||%
+      params$width %||% (resolution(df$x, FALSE) * 0.9)
+    transform(df,
+      ymin = pmin(y, 0), ymax = pmax(y, 0),
+      xmin = x - width / 2, xmax = x + width / 2, width = NULL
+    )
+  },
 
-    draw_groups = function(self, data, scales, coordinates, ...) {
-      GeomRect$draw_groups(data, scales, coordinates, ...)
-    },
-    guide_geom = function(self) "polygon"
-  )
+  draw_groups = function(self, data, scales, coordinates, ...) {
+    GeomRect$draw_groups(data, scales, coordinates, ...)
+  },
+  guide_geom = function(self) "polygon"
 )

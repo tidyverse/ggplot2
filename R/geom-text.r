@@ -95,66 +95,62 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
 }
 
 
-GeomText <- proto2(
-  class = "GeomText",
-  inherit = Geom,
-  members = list(
-    draw_groups = function(self, ...) self$draw(...),
+GeomText <- proto2("GeomText", Geom,
+  draw_groups = function(self, ...) self$draw(...),
 
-    draw = function(self, data, scales, coordinates, ..., parse = FALSE,
-                     na.rm = FALSE, check_overlap = FALSE) {
-      data <- remove_missing(data, na.rm,
-        c("x", "y", "label"), name = "geom_text")
+  draw = function(self, data, scales, coordinates, ..., parse = FALSE,
+                   na.rm = FALSE, check_overlap = FALSE) {
+    data <- remove_missing(data, na.rm,
+      c("x", "y", "label"), name = "geom_text")
 
-      lab <- data$label
-      if (parse) {
-        lab <- parse(text = lab)
-      }
+    lab <- data$label
+    if (parse) {
+      lab <- parse(text = lab)
+    }
 
-      coords <- coord_transform(coordinates, data, scales)
-      if (is.character(coords$vjust)) {
-        coords$vjust <- compute_just(coords$vjust, coords$y)
-      }
-      if (is.character(coords$hjust)) {
-        coords$hjust <- compute_just(coords$hjust, coords$x)
-      }
+    coords <- coord_transform(coordinates, data, scales)
+    if (is.character(coords$vjust)) {
+      coords$vjust <- compute_just(coords$vjust, coords$y)
+    }
+    if (is.character(coords$hjust)) {
+      coords$hjust <- compute_just(coords$hjust, coords$x)
+    }
 
-      textGrob(
-        lab,
-        coords$x, coords$y, default.units = "native",
-        hjust = coords$hjust, vjust = coords$vjust,
-        rot = coords$angle,
-        gp = gpar(
-          col = alpha(coords$colour, coords$alpha),
-          fontsize = coords$size * .pt,
-          fontfamily = coords$family,
-          fontface = coords$fontface,
-          lineheight = coords$lineheight
-        ),
-        check.overlap = check_overlap
+    textGrob(
+      lab,
+      coords$x, coords$y, default.units = "native",
+      hjust = coords$hjust, vjust = coords$vjust,
+      rot = coords$angle,
+      gp = gpar(
+        col = alpha(coords$colour, coords$alpha),
+        fontsize = coords$size * .pt,
+        fontfamily = coords$family,
+        fontface = coords$fontface,
+        lineheight = coords$lineheight
+      ),
+      check.overlap = check_overlap
+    )
+  },
+
+  draw_legend = function(self, data, ...) {
+    data <- aesdefaults(data, self$default_aes, list(...))
+    textGrob(
+      "a", 0.5, 0.5,
+      rot = data$angle,
+      gp = gpar(
+        col = alpha(data$colour, data$alpha),
+        fontsize = data$size * .pt
       )
-    },
-
-    draw_legend = function(self, data, ...) {
-      data <- aesdefaults(data, self$default_aes, list(...))
-      textGrob(
-        "a", 0.5, 0.5,
-        rot = data$angle,
-        gp = gpar(
-          col = alpha(data$colour, data$alpha),
-          fontsize = data$size * .pt
-        )
-      )
-    },
+    )
+  },
 
 
-    required_aes = c("x", "y", "label"),
+  required_aes = c("x", "y", "label"),
 
-    default_aes = aes(colour = "black", size = 5, angle = 0, hjust = 0.5,
-      vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2),
+  default_aes = aes(colour = "black", size = 5, angle = 0, hjust = 0.5,
+    vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2),
 
-    guide_geom = function(self, x) "text"
-  )
+  guide_geom = function(self, x) "text"
 )
 
 compute_just <- function(just, x) {

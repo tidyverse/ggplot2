@@ -27,49 +27,45 @@ geom_rect <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomRect <- proto2(
-  class = "GeomRect",
-  inherit = Geom,
-  members = list(
-    default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
-      alpha = NA),
+GeomRect <- proto2("GeomRect", Geom,
+  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+    alpha = NA),
 
-    required_aes = c("xmin", "xmax", "ymin", "ymax"),
+  required_aes = c("xmin", "xmax", "ymin", "ymax"),
 
-    draw = function(self, data, scales, coordinates, ...) {
-      if (!is.linear(coordinates)) {
-        aesthetics <- setdiff(
-          names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")
-        )
+  draw = function(self, data, scales, coordinates, ...) {
+    if (!is.linear(coordinates)) {
+      aesthetics <- setdiff(
+        names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")
+      )
 
-        polys <- alply(data, 1, function(row) {
-          poly <- with(row, rect_to_poly(xmin, xmax, ymin, ymax))
-          aes <- as.data.frame(row[aesthetics],
-            stringsAsFactors = FALSE)[rep(1,5), ]
+      polys <- alply(data, 1, function(row) {
+        poly <- with(row, rect_to_poly(xmin, xmax, ymin, ymax))
+        aes <- as.data.frame(row[aesthetics],
+          stringsAsFactors = FALSE)[rep(1,5), ]
 
-          GeomPolygon$draw(cbind(poly, aes), scales, coordinates)
-        })
+        GeomPolygon$draw(cbind(poly, aes), scales, coordinates)
+      })
 
-        ggname("bar", do.call("grobTree", polys))
-      } else {
-        with(coord_transform(coordinates, data, scales),
-          ggname(self$my_name(), rectGrob(
-            xmin, ymax,
-            width = xmax - xmin, height = ymax - ymin,
-            default.units = "native", just = c("left", "top"),
-            gp=gpar(
-              col=colour, fill=alpha(fill, alpha),
-              lwd=size * .pt, lty=linetype, lineend="butt"
-            )
-          ))
-        )
-      }
-    },
+      ggname("bar", do.call("grobTree", polys))
+    } else {
+      with(coord_transform(coordinates, data, scales),
+        ggname(self$my_name(), rectGrob(
+          xmin, ymax,
+          width = xmax - xmin, height = ymax - ymin,
+          default.units = "native", just = c("left", "top"),
+          gp=gpar(
+            col=colour, fill=alpha(fill, alpha),
+            lwd=size * .pt, lty=linetype, lineend="butt"
+          )
+        ))
+      )
+    }
+  },
 
-    draw_groups = function(self, ...) self$draw(...),
+  draw_groups = function(self, ...) self$draw(...),
 
-    guide_geom = function(self) "polygon"
-  )
+  guide_geom = function(self) "polygon"
 )
 
 

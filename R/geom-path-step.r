@@ -45,21 +45,15 @@ geom_step <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomStep <- proto2(
-  class = "GeomStep",
-  inherit = Geom,
-  members = list(
-    details = "Equivalent to plot(type='s').",
+GeomStep <- proto2("GeomStep", Geom,
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-    default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  draw = function(self, data, scales, coordinates, direction = "hv", ...) {
+    data <- stairstep(data, direction)
+    GeomPath$draw(data, scales, coordinates, ...)
+  },
 
-    draw = function(self, data, scales, coordinates, direction = "hv", ...) {
-      data <- stairstep(data, direction)
-      GeomPath$draw(data, scales, coordinates, ...)
-    },
-
-    guide_geom = function(self) "path"
-  )
+  guide_geom = function(self) "path"
 )
 
 

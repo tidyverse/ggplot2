@@ -59,13 +59,9 @@ geom_density <- function(mapping = NULL, data = NULL, stat = "density",
   )
 }
 
-GeomDensity <- proto2(
-  class = "GeomDensity",
-  inherit = GeomArea,
-  members = list(
-    default_aes = defaults(
-      aes(fill = NA, weight = 1, colour = "black", alpha = NA),
-      GeomArea$default_aes
-    )
+GeomDensity <- proto2("GeomDensity", GeomArea,
+  default_aes = defaults(
+    aes(fill = NA, weight = 1, colour = "black", alpha = NA),
+    GeomArea$default_aes
   )
 )

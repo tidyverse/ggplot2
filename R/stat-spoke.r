@@ -37,21 +37,17 @@ stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment",
   )
 }
 
-StatSpoke <- proto2(
-  class = "StatSpoke",
-  inherit = Stat,
-  members = list(
-    retransform = FALSE,
+StatSpoke <- proto2("StatSpoke", Stat,
+  retransform = FALSE,
 
-    calculate = function(self, data, scales, radius = 1, ...) {
-      transform(data,
-        xend = x + cos(angle) * radius,
-        yend = y + sin(angle) * radius
-      )
-    },
+  calculate = function(self, data, scales, radius = 1, ...) {
+    transform(data,
+      xend = x + cos(angle) * radius,
+      yend = y + sin(angle) * radius
+    )
+  },
 
-    default_aes = aes(xend = ..xend.., yend = ..yend..),
+  default_aes = aes(xend = ..xend.., yend = ..yend..),
 
-    required_aes = c("x", "y", "angle", "radius")
-  )
+  required_aes = c("x", "y", "angle", "radius")
 )

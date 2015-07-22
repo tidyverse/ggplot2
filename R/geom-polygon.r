@@ -61,59 +61,55 @@ geom_polygon <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomPolygon <- proto2(
-  class = "GeomPolygon",
-  inherit = Geom,
-  members = list(
-    draw_groups = function(self, ...) self$draw(...),
+GeomPolygon <- proto2("GeomPolygon", Geom,
+  draw_groups = function(self, ...) self$draw(...),
 
-    draw = function(self, data, scales, coordinates, ...) {
-      n <- nrow(data)
-      if (n == 1) return()
+  draw = function(self, data, scales, coordinates, ...) {
+    n <- nrow(data)
+    if (n == 1) return()
 
-      # Check if group is numeric, to make polygonGrob happy (factors are numeric,
-      # but is.numeric() will report FALSE because it actually checks something else)
-      if (mode(data$group) != "numeric")
-        data$group <- factor(data$group)
+    # Check if group is numeric, to make polygonGrob happy (factors are numeric,
+    # but is.numeric() will report FALSE because it actually checks something else)
+    if (mode(data$group) != "numeric")
+      data$group <- factor(data$group)
 
-      munched <- coord_munch(coordinates, data, scales)
-      # Sort by group to make sure that colors, fill, etc. come in same order
-      munched <- munched[order(munched$group), ]
+    munched <- coord_munch(coordinates, data, scales)
+    # Sort by group to make sure that colors, fill, etc. come in same order
+    munched <- munched[order(munched$group), ]
 
-      # For gpar(), there is one entry per polygon (not one entry per point).
-      # We'll pull the first value from each group, and assume all these values
-      # are the same within each group.
-      first_idx <- !duplicated(munched$group)
-      first_rows <- munched[first_idx, ]
+    # For gpar(), there is one entry per polygon (not one entry per point).
+    # We'll pull the first value from each group, and assume all these values
+    # are the same within each group.
+    first_idx <- !duplicated(munched$group)
+    first_rows <- munched[first_idx, ]
 
-      ggname(self$my_name(), gTree(children = gList(
-        polygonGrob(munched$x, munched$y, default.units = "native",
-          id = munched$group,
-          gp = gpar(
-            col = first_rows$colour,
-            fill = alpha(first_rows$fill, first_rows$alpha),
-            lwd = first_rows$size * .pt,
-            lty = first_rows$linetype
-          )
+    ggname(self$my_name(), gTree(children = gList(
+      polygonGrob(munched$x, munched$y, default.units = "native",
+        id = munched$group,
+        gp = gpar(
+          col = first_rows$colour,
+          fill = alpha(first_rows$fill, first_rows$alpha),
+          lwd = first_rows$size * .pt,
+          lty = first_rows$linetype
         )
-      )))
-    },
+      )
+    )))
+  },
 
-    default_aes = aes(colour = "NA", fill = "grey20", size = 0.5, linetype = 1,
-      alpha = NA),
+  default_aes = aes(colour = "NA", fill = "grey20", size = 0.5, linetype = 1,
+    alpha = NA),
 
-    required_aes = c("x", "y"),
+  required_aes = c("x", "y"),
 
-    guide_geom = function(self) "polygon",
+  guide_geom = function(self) "polygon",
 
-    draw_legend = function(self, data, ...)  {
-      data <- aesdefaults(data, self$default_aes, list(...))
+  draw_legend = function(self, data, ...)  {
+    data <- aesdefaults(data, self$default_aes, list(...))
 
-      with(data, grobTree(
-        rectGrob(gp = gpar(col = colour, fill = alpha(fill, alpha), lty = linetype)),
-        linesGrob(gp = gpar(col = colour, lwd = size * .pt, lineend="butt", lty = linetype))
-      ))
-    }
-  )
+    with(data, grobTree(
+      rectGrob(gp = gpar(col = colour, fill = alpha(fill, alpha), lty = linetype)),
+      linesGrob(gp = gpar(col = colour, lwd = size * .pt, lineend="butt", lty = linetype))
+    ))
+  }
 )
 

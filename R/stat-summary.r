@@ -128,37 +128,33 @@ stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
   )
 }
 
-StatSummary <- proto2(
-  class = "StatSummary",
-  inherit = Stat,
-  members = list(
-    required_aes = c("x", "y"),
+StatSummary <- proto2("StatSummary", Stat,
+  required_aes = c("x", "y"),
 
-    calculate_groups = function(self, data, scales, fun.data = NULL, fun.y = NULL,
-      fun.ymax = NULL, fun.ymin = NULL, na.rm = FALSE, ...)
-    {
-      data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_summary")
+  calculate_groups = function(self, data, scales, fun.data = NULL, fun.y = NULL,
+    fun.ymax = NULL, fun.ymin = NULL, na.rm = FALSE, ...)
+  {
+    data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_summary")
 
-      if (!missing(fun.data)) {
-        # User supplied function that takes complete data frame as input
-        fun.data <- match.fun(fun.data)
-        fun <- function(df, ...) {
-          fun.data(df$y, ...)
-        }
-      } else {
-        # User supplied individual vector functions
-        fs <- compact(list(ymin = fun.ymin, y = fun.y, ymax = fun.ymax))
-
-        fun <- function(df, ...) {
-          res <- llply(fs, function(f) do.call(f, list(df$y, ...)))
-          names(res) <- names(fs)
-          as.data.frame(res)
-        }
+    if (!missing(fun.data)) {
+      # User supplied function that takes complete data frame as input
+      fun.data <- match.fun(fun.data)
+      fun <- function(df, ...) {
+        fun.data(df$y, ...)
       }
+    } else {
+      # User supplied individual vector functions
+      fs <- compact(list(ymin = fun.ymin, y = fun.y, ymax = fun.ymax))
 
-      summarise_by_x(data, fun, ...)
+      fun <- function(df, ...) {
+        res <- llply(fs, function(f) do.call(f, list(df$y, ...)))
+        names(res) <- names(fs)
+        as.data.frame(res)
+      }
     }
-  )
+
+    summarise_by_x(data, fun, ...)
+  }
 )
 
 # Summarise a data.frame by parts

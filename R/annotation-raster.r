@@ -62,28 +62,24 @@ annotation_raster <- function (raster, xmin, xmax, ymin, ymax,
 
 }
 
-GeomRasterAnn <- proto2(
-  class = "GeomRasterAnn",
-  inherit = GeomRaster,
-  members = list(
-    reparameterise = function(self, df, params) df,
+GeomRasterAnn <- proto2("GeomRasterAnn", GeomRaster,
+  reparameterise = function(self, df, params) df,
 
-    draw_groups = function(self, data, scales, coordinates, raster, xmin, xmax,
-      ymin, ymax, interpolate = FALSE, ...)
-    {
-      if (!inherits(coordinates, "cartesian")) {
-        stop("annotation_raster only works with Cartesian coordinates",
-          call. = FALSE)
-      }
-      corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
-      data <- coord_transform(coordinates, corners, scales)
-
-      x_rng <- range(data$x, na.rm = TRUE)
-      y_rng <- range(data$y, na.rm = TRUE)
-
-      rasterGrob(raster, x_rng[1], y_rng[1],
-        diff(x_rng), diff(y_rng), default.units = "native",
-        just = c("left","bottom"), interpolate = interpolate)
+  draw_groups = function(self, data, scales, coordinates, raster, xmin, xmax,
+    ymin, ymax, interpolate = FALSE, ...)
+  {
+    if (!inherits(coordinates, "cartesian")) {
+      stop("annotation_raster only works with Cartesian coordinates",
+        call. = FALSE)
     }
-  )
+    corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
+    data <- coord_transform(coordinates, corners, scales)
+
+    x_rng <- range(data$x, na.rm = TRUE)
+    y_rng <- range(data$y, na.rm = TRUE)
+
+    rasterGrob(raster, x_rng[1], y_rng[1],
+      diff(x_rng), diff(y_rng), default.units = "native",
+      just = c("left","bottom"), interpolate = interpolate)
+  }
 )

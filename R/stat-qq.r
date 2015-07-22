@@ -57,32 +57,28 @@ stat_qq <- function (mapping = NULL, data = NULL, geom = "point",
 #' @rdname stat_qq
 geom_qq <- stat_qq
 
-StatQq <- proto2(
-  class = "StatQq",
-  inherit = Stat,
-  members = list(
-    default_aes = aes(y = ..sample.., x = ..theoretical..),
+StatQq <- proto2("StatQq", Stat,
+  default_aes = aes(y = ..sample.., x = ..theoretical..),
 
-    required_aes = c("sample"),
+  required_aes = c("sample"),
 
-    calculate = function(self, data, scales, quantiles = NULL, distribution = qnorm,
-      dparams = list(), na.rm = FALSE)
-    {
-      data <- remove_missing(data, na.rm, "sample", name = "stat_qq")
+  calculate = function(self, data, scales, quantiles = NULL, distribution = qnorm,
+    dparams = list(), na.rm = FALSE)
+  {
+    data <- remove_missing(data, na.rm, "sample", name = "stat_qq")
 
-      sample <- sort(data$sample)
-      n <- length(sample)
+    sample <- sort(data$sample)
+    n <- length(sample)
 
-      # Compute theoretical quantiles
-      if (is.null(quantiles)) {
-        quantiles <- ppoints(n)
-      } else {
-        stopifnot(length(quantiles) == n)
-      }
-
-      theoretical <- safe.call(distribution, c(list(p = quantiles), dparams))
-
-      data.frame(sample, theoretical)
+    # Compute theoretical quantiles
+    if (is.null(quantiles)) {
+      quantiles <- ppoints(n)
+    } else {
+      stopifnot(length(quantiles) == n)
     }
-  )
+
+    theoretical <- safe.call(distribution, c(list(p = quantiles), dparams))
+
+    data.frame(sample, theoretical)
+  }
 )

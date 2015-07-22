@@ -23,16 +23,12 @@ position_fill <- function (width = NULL, height = NULL) {
   PositionFill$new(width = width, height = height)
 }
 
-PositionFill <- proto2(
-  class = "PositionFill",
-  inherit = Position,
-  members = list(
-    adjust = function(self, data) {
-      if (empty(data)) return(data.frame())
+PositionFill <- proto2("PositionFill", Position,
+  adjust = function(self, data) {
+    if (empty(data)) return(data.frame())
 
-      check_required_aesthetics(c("x", "ymax"), names(data), "position_fill")
-      if (!all(data$ymin == 0)) warning("Filling not well defined when ymin != 0")
-      collide(data, self$width, self$my_name(), pos_fill)
-    }
-  )
+    check_required_aesthetics(c("x", "ymax"), names(data), "position_fill")
+    if (!all(data$ymin == 0)) warning("Filling not well defined when ymin != 0")
+    collide(data, self$width, self$my_name(), pos_fill)
+  }
 )

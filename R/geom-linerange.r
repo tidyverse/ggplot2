@@ -47,24 +47,20 @@ geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomLinerange <- proto2(
-  class = "GeomLinerange",
-  inherit = Geom,
-  members = list(
-    default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+GeomLinerange <- proto2("GeomLinerange", Geom,
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-    guide_geom = function(self) "path",
+  guide_geom = function(self) "path",
 
-    required_aes = c("x", "ymin", "ymax"),
+  required_aes = c("x", "ymin", "ymax"),
 
-    draw = function(self, data, scales, coordinates, ...) {
-      munched <- coord_transform(coordinates, data, scales)
-      ggname(
-        self$my_name(),
-        GeomSegment$draw(
-          transform(data, xend=x, y=ymin, yend=ymax), scales, coordinates, ...
-        )
+  draw = function(self, data, scales, coordinates, ...) {
+    munched <- coord_transform(coordinates, data, scales)
+    ggname(
+      self$my_name(),
+      GeomSegment$draw(
+        transform(data, xend=x, y=ymin, yend=ymax), scales, coordinates, ...
       )
-    }
-  )
+    )
+  }
 )

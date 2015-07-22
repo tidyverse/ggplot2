@@ -100,37 +100,33 @@ geom_abline <- function(mapping = NULL, data = NULL, show_guide = FALSE, ...,
   )
 }
 
-GeomAbline <- proto2(
-  class = "GeomAbline",
-  inherit = Geom,
-  members = list(
-    draw = function(self, data, scales, coordinates, ...) {
-      ranges <- coord_range(coordinates, scales)
+GeomAbline <- proto2("GeomAbline", Geom,
+  draw = function(self, data, scales, coordinates, ...) {
+    ranges <- coord_range(coordinates, scales)
 
-      data$x    <- ranges$x[1]
-      data$xend <- ranges$x[2]
-      data$y    <- ranges$x[1] * data$slope + data$intercept
-      data$yend <- ranges$x[2] * data$slope + data$intercept
+    data$x    <- ranges$x[1]
+    data$xend <- ranges$x[2]
+    data$y    <- ranges$x[1] * data$slope + data$intercept
+    data$yend <- ranges$x[2] * data$slope + data$intercept
 
-      GeomSegment$draw(unique(data), scales, coordinates)
-    },
+    GeomSegment$draw(unique(data), scales, coordinates)
+  },
 
-    default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
-    required_aes = c("slope", "intercept"),
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  required_aes = c("slope", "intercept"),
 
-    guide_geom = function(self) "abline",
-    draw_legend = function(self, data, ...) {
-      data <- aesdefaults(data, self$default_aes, list(...))
-      ggname(self$my_name(),
-        segmentsGrob(0, 0, 1, 1, default.units = "npc",
-          gp = gpar(
-            col = alpha(data$colour, data$alpha),
-            lwd = data$size * .pt,
-            lty = data$linetype,
-            lineend = "butt"
-          )
+  guide_geom = function(self) "abline",
+  draw_legend = function(self, data, ...) {
+    data <- aesdefaults(data, self$default_aes, list(...))
+    ggname(self$my_name(),
+      segmentsGrob(0, 0, 1, 1, default.units = "npc",
+        gp = gpar(
+          col = alpha(data$colour, data$alpha),
+          lwd = data$size * .pt,
+          lty = data$linetype,
+          lineend = "butt"
         )
       )
-    }
-  )
+    )
+  }
 )

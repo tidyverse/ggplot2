@@ -25,65 +25,61 @@ position_jitterdodge <- function (jitter.width = NULL,
                           dodge.width = dodge.width)
 }
 
-PositionJitterdodge <- proto2(
-  class = "PositionJitterdodge",
-  inherit = Position,
-  members = list(
-    jitter.width = NULL,
-    jitter.height = NULL,
-    dodge.width = NULL,
+PositionJitterdodge <- proto2("PositionJitterdodge", Position,
+  jitter.width = NULL,
+  jitter.height = NULL,
+  dodge.width = NULL,
 
-    new = function(self, jitter.width = NULL,
-      jitter.height = NULL, dodge.width = NULL)
-    {
-      proto2(
-        inherit = self,
-        members = list(
-          jitter.width = jitter.width,
-          jitter.height = jitter.height,
-          dodge.width = dodge.width
-        )
+  new = function(self, jitter.width = NULL,
+    jitter.height = NULL, dodge.width = NULL)
+  {
+    proto2(
+      inherit = self,
+      members = list(
+        jitter.width = jitter.width,
+        jitter.height = jitter.height,
+        dodge.width = dodge.width
       )
-    },
+    )
+  },
 
-    adjust = function(self, data) {
+  adjust = function(self, data) {
 
-      if (empty(data)) return(data.frame())
-      check_required_aesthetics(c("x", "y", "fill"), names(data), "position_jitterdodge")
+    if (empty(data)) return(data.frame())
+    check_required_aesthetics(c("x", "y", "fill"), names(data), "position_jitterdodge")
 
-      ## Workaround to avoid this warning:
-      ## ymax not defined: adjusting position using y instead
-      if (!("ymax" %in% names(data))) {
-        data$ymax <- data$y
-      }
-
-      ## Adjust the x transformation based on the number of 'fill' variables
-      nfill <- length(levels(data$fill))
-
-      if (is.null(self$jitter.width)) {
-        self$jitter.width <- resolution(data$x, zero = FALSE) * 0.4
-      }
-
-      if (is.null(self$jitter.height)) {
-        self$jitter.height <- 0
-      }
-
-      trans_x <- NULL
-      trans_y <- NULL
-      if (self$jitter.width > 0) {
-        trans_x <- function(x) jitter(x, amount = self$jitter.width / (nfill + 2))
-      }
-      if (self$jitter.height > 0) {
-        trans_y <- function(x) jitter(x, amount = self$jitter.height)
-      }
-
-      if (is.null(self$dodge.width)) {
-        self$dodge.width <- 0.75
-      }
-
-      ## dodge, then jitter
-      data <- collide(data, self$dodge.width, self$my_name(), pos_dodge, check.width = FALSE)
-      transform_position(data, trans_x, trans_y)
+    ## Workaround to avoid this warning:
+    ## ymax not defined: adjusting position using y instead
+    if (!("ymax" %in% names(data))) {
+      data$ymax <- data$y
     }
-  )
+
+    ## Adjust the x transformation based on the number of 'fill' variables
+    nfill <- length(levels(data$fill))
+
+    if (is.null(self$jitter.width)) {
+      self$jitter.width <- resolution(data$x, zero = FALSE) * 0.4
+    }
+
+    if (is.null(self$jitter.height)) {
+      self$jitter.height <- 0
+    }
+
+    trans_x <- NULL
+    trans_y <- NULL
+    if (self$jitter.width > 0) {
+      trans_x <- function(x) jitter(x, amount = self$jitter.width / (nfill + 2))
+    }
+    if (self$jitter.height > 0) {
+      trans_y <- function(x) jitter(x, amount = self$jitter.height)
+    }
+
+    if (is.null(self$dodge.width)) {
+      self$dodge.width <- 0.75
+    }
+
+    ## dodge, then jitter
+    data <- collide(data, self$dodge.width, self$my_name(), pos_dodge, check.width = FALSE)
+    transform_position(data, trans_x, trans_y)
+  }
 )

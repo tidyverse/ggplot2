@@ -34,62 +34,58 @@ stat_boxplot <- function(mapping = NULL, data = NULL, geom = "boxplot",
 }
 
 
-StatBoxplot <- proto2(
-  class = "StatBoxplot",
-  inherit = Stat,
-  members = list(
-    required_aes = c("x", "y"),
+StatBoxplot <- proto2("StatBoxplot", Stat,
+  required_aes = c("x", "y"),
 
-    calculate_groups = function(self, super, data, na.rm = FALSE, width = NULL,
-      ...)
-    {
-      data <- remove_missing(data, na.rm, c("x", "y", "weight"), name="stat_boxplot",
-        finite = TRUE)
-      data$weight <- data$weight %||% 1
-      width <- width %||%  resolution(data$x) * 0.75
+  calculate_groups = function(self, super, data, na.rm = FALSE, width = NULL,
+    ...)
+  {
+    data <- remove_missing(data, na.rm, c("x", "y", "weight"), name="stat_boxplot",
+      finite = TRUE)
+    data$weight <- data$weight %||% 1
+    width <- width %||%  resolution(data$x) * 0.75
 
-      super$calculate_groups(self, data, na.rm = na.rm, width = width, ...)
-    },
+    super$calculate_groups(self, data, na.rm = na.rm, width = width, ...)
+  },
 
-    calculate = function(self, data, scales, width=NULL, na.rm = FALSE, coef = 1.5, ...) {
-      with(data, {
-        qs <- c(0, 0.25, 0.5, 0.75, 1)
-        if (length(unique(weight)) != 1) {
-          try_require("quantreg")
-          stats <- as.numeric(coef(rq(y ~ 1, weights = weight, tau=qs)))
-        } else {
-          stats <- as.numeric(quantile(y, qs))
-        }
-        names(stats) <- c("ymin", "lower", "middle", "upper", "ymax")
+  calculate = function(self, data, scales, width=NULL, na.rm = FALSE, coef = 1.5, ...) {
+    with(data, {
+      qs <- c(0, 0.25, 0.5, 0.75, 1)
+      if (length(unique(weight)) != 1) {
+        try_require("quantreg")
+        stats <- as.numeric(coef(rq(y ~ 1, weights = weight, tau=qs)))
+      } else {
+        stats <- as.numeric(quantile(y, qs))
+      }
+      names(stats) <- c("ymin", "lower", "middle", "upper", "ymax")
 
-        iqr <- diff(stats[c(2, 4)])
+      iqr <- diff(stats[c(2, 4)])
 
-        outliers <- y < (stats[2] - coef * iqr) | y > (stats[4] + coef * iqr)
-        if (any(outliers)) {
-          stats[c(1, 5)] <- range(c(stats[2:4], y[!outliers]), na.rm=TRUE)
-        }
+      outliers <- y < (stats[2] - coef * iqr) | y > (stats[4] + coef * iqr)
+      if (any(outliers)) {
+        stats[c(1, 5)] <- range(c(stats[2:4], y[!outliers]), na.rm=TRUE)
+      }
 
-        if (length(unique(x)) > 1) width <- diff(range(x)) * 0.9
+      if (length(unique(x)) > 1) width <- diff(range(x)) * 0.9
 
-        df <- as.data.frame(as.list(stats))
-        df$outliers <- I(list(y[outliers]))
+      df <- as.data.frame(as.list(stats))
+      df$outliers <- I(list(y[outliers]))
 
-        if (is.null(weight)) {
-          n <- sum(!is.na(y))
-        } else {
-          # Sum up weights for non-NA positions of y and weight
-          n <- sum(weight[!is.na(y) & !is.na(weight)])
-        }
+      if (is.null(weight)) {
+        n <- sum(!is.na(y))
+      } else {
+        # Sum up weights for non-NA positions of y and weight
+        n <- sum(weight[!is.na(y) & !is.na(weight)])
+      }
 
-        df$notchupper <- df$middle + 1.58 * iqr / sqrt(n)
-        df$notchlower <- df$middle - 1.58 * iqr / sqrt(n)
+      df$notchupper <- df$middle + 1.58 * iqr / sqrt(n)
+      df$notchlower <- df$middle - 1.58 * iqr / sqrt(n)
 
-        transform(df,
-          x = if (is.factor(x)) x[1] else mean(range(x)),
-          width = width,
-          relvarwidth = sqrt(n)
-        )
-      })
-    }
-  )
+      transform(df,
+        x = if (is.factor(x)) x[1] else mean(range(x)),
+        width = width,
+        relvarwidth = sqrt(n)
+      )
+    })
+  }
 )

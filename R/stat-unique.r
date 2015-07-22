@@ -23,10 +23,6 @@ stat_unique <- function (mapping = NULL, data = NULL, geom = "point",
   )
 }
 
-StatUnique <- proto2(
-  class = "StatUnique",
-  inherit = Stat,
-  members = list(
-    calculate_groups = function(self, data, scales, ...) unique(data)
-  )
+StatUnique <- proto2("StatUnique", Stat,
+  calculate_groups = function(self, data, scales, ...) unique(data)
 )

@@ -30,15 +30,11 @@ position_dodge <- function(width = NULL, height = NULL) {
   PositionDodge$new(width = width, height = height)
 }
 
-PositionDodge <- proto2(
-  class = "PositionDodge",
-  inherit = Position,
-  members = list(
-    adjust = function(self, data) {
-      if (empty(data)) return(data.frame())
-      check_required_aesthetics("x", names(data), "position_dodge")
+PositionDodge <- proto2("PositionDodge", Position,
+  adjust = function(self, data) {
+    if (empty(data)) return(data.frame())
+    check_required_aesthetics("x", names(data), "position_dodge")
 
-      collide(data, self$width, self$my_name(), pos_dodge, check.width = FALSE)
-    }
-  )
+    collide(data, self$width, self$my_name(), pos_dodge, check.width = FALSE)
+  }
 )

@@ -1,19 +1,21 @@
 #' Create a new proto2 object
 #'
-#' @param members A list of members in the proto2 object.
-#' @param inherit An optional proto2 object to inherit from.
-#' @param class An optional class name.
+#' @param `_class` Name of new class
+#' @param `_inherit` proto2 object to inherit from. Use \code{NULL} to inherit
+#'   from the "base" class.
+#' @param ... A list of members in the proto2 object.
 #' @export
-proto2 <- function(inherit = NULL, members = list(), class = NULL) {
+proto2 <- function(`_class`, `_inherit`, ...) {
   e <- new.env(parent = emptyenv())
 
+  members <- list(...)
   list2env(members, envir = e)
 
-  if (is.proto2(inherit)) {
-    e$super <- inherit
-    class(e) <- c(class, class(inherit))
+  if (is.proto2(`_inherit`)) {
+    e$super <- `_inherit`
+    class(e) <- c(`_class`, class(`_inherit`))
   } else {
-    class(e) <- c(class, "proto2")
+    class(e) <- c(`_class`, "proto2")
   }
 
   e

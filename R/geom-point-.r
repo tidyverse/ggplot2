@@ -135,39 +135,35 @@ geom_point <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomPoint <- proto2(
-  class = "GeomPoint",
-  inherit = Geom,
-  members = list(
-    draw_groups = function(self, ...) self$draw(...),
+GeomPoint <- proto2("GeomPoint", Geom,
+  draw_groups = function(self, ...) self$draw(...),
 
-    draw = function(self, data, scales, coordinates, na.rm = FALSE, ...) {
-      data <- remove_missing(data, na.rm,
-        c("x", "y", "size", "shape"), name = "geom_point")
-      if (empty(data)) return(zeroGrob())
+  draw = function(self, data, scales, coordinates, na.rm = FALSE, ...) {
+    data <- remove_missing(data, na.rm,
+      c("x", "y", "size", "shape"), name = "geom_point")
+    if (empty(data)) return(zeroGrob())
 
-      with(coord_transform(coordinates, data, scales),
-        ggname(self$my_name(), pointsGrob(x, y, size=unit(size, "mm"), pch=shape,
-        gp=gpar(col=alpha(colour, alpha), fill = alpha(fill, alpha), lwd = stroke, fontsize = size * .pt)))
+    with(coord_transform(coordinates, data, scales),
+      ggname(self$my_name(), pointsGrob(x, y, size=unit(size, "mm"), pch=shape,
+      gp=gpar(col=alpha(colour, alpha), fill = alpha(fill, alpha), lwd = stroke, fontsize = size * .pt)))
+    )
+  },
+
+  draw_legend = function(self, data, ...) {
+    data <- aesdefaults(data, self$default_aes, list(...))
+
+    with(data,
+      pointsGrob(0.5, 0.5, size=unit(size, "mm"), pch=shape,
+      gp=gpar(
+        col=alpha(colour, alpha),
+        fill=alpha(fill, alpha),
+        lwd=stroke,
+        fontsize = size * .pt)
       )
-    },
+    )
+  },
 
-    draw_legend = function(self, data, ...) {
-      data <- aesdefaults(data, self$default_aes, list(...))
-
-      with(data,
-        pointsGrob(0.5, 0.5, size=unit(size, "mm"), pch=shape,
-        gp=gpar(
-          col=alpha(colour, alpha),
-          fill=alpha(fill, alpha),
-          lwd=stroke,
-          fontsize = size * .pt)
-        )
-      )
-    },
-
-    required_aes = c("x", "y"),
-    default_aes = aes(shape = 19, colour = "black", size = 2, fill = NA,
-      alpha = NA, stroke = 1)
-  )
+  required_aes = c("x", "y"),
+  default_aes = aes(shape = 19, colour = "black", size = 2, fill = NA,
+    alpha = NA, stroke = 1)
 )

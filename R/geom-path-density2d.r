@@ -38,10 +38,6 @@ geom_density2d <- function (mapping = NULL, data = NULL, stat = "density2d",
 }
 
 
-GeomDensity2d <- proto2(
-  class = "GeomDensity2d",
-  inherit = GeomPath,
-  members = list(
-    default_aes = aes(colour="#3366FF", size = 0.5, linetype = 1, alpha = NA)
-  )
+GeomDensity2d <- proto2("GeomDensity2d", GeomPath,
+  default_aes = aes(colour="#3366FF", size = 0.5, linetype = 1, alpha = NA)
 )

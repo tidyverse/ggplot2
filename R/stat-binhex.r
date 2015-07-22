@@ -45,28 +45,24 @@ stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex",
 }
 
 
-StatBinhex <- proto2(
-  class = "StatBinhex",
-  inherit = Stat,
-  members = list(
-    default_aes = aes(fill = ..count..),
+StatBinhex <- proto2("StatBinhex", Stat,
+  default_aes = aes(fill = ..count..),
 
-    required_aes = c("x", "y"),
+  required_aes = c("x", "y"),
 
-    calculate = function(self, data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
-      try_require("hexbin")
-      data <- remove_missing(data, na.rm, c("x", "y"), name="stat_hexbin")
+  calculate = function(self, data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
+    try_require("hexbin")
+    data <- remove_missing(data, na.rm, c("x", "y"), name="stat_hexbin")
 
-      if (is.null(binwidth)) {
-        binwidth <- c(
-          diff(scale_dimension(scales$x, c(0, 0))) / bins,
-          diff(scale_dimension(scales$y, c(0, 0))) / bins
-        )
-      }
-
-      hexBin(data$x, data$y, binwidth)
+    if (is.null(binwidth)) {
+      binwidth <- c(
+        diff(scale_dimension(scales$x, c(0, 0))) / bins,
+        diff(scale_dimension(scales$y, c(0, 0))) / bins
+      )
     }
-  )
+
+    hexBin(data$x, data$y, binwidth)
+  }
 )
 
 # Bin 2d plane into hexagons

@@ -23,23 +23,19 @@ geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex",
 }
 
 
-GeomHex <- proto2(
-  class = "GeomHex",
-  inherit = Geom,
-  members = list(
-    draw = function(self, data, scales, coordinates, ...) {
-      with(coord_transform(coordinates, data, scales),
-        ggname(self$my_name(), hexGrob(x, y, colour = colour,
-          fill = alpha(fill, alpha)))
-      )
-    },
+GeomHex <- proto2("GeomHex", Geom,
+  draw = function(self, data, scales, coordinates, ...) {
+    with(coord_transform(coordinates, data, scales),
+      ggname(self$my_name(), hexGrob(x, y, colour = colour,
+        fill = alpha(fill, alpha)))
+    )
+  },
 
-    required_aes = c("x", "y"),
+  required_aes = c("x", "y"),
 
-    default_aes = aes(colour=NA, fill = "grey50", size=0.5, alpha = NA),
+  default_aes = aes(colour=NA, fill = "grey50", size=0.5, alpha = NA),
 
-    guide_geom = function(self) "polygon"
-  )
+  guide_geom = function(self) "polygon"
 )
 
 

@@ -108,86 +108,82 @@ annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
   )
 }
 
-GeomLogticks <- proto2(
-  class = "GeomLogticks",
-  inherit = Geom,
-  members = list(
-    draw_groups = function(self, data, scales, coordinates, base = 10, sides = "bl",
-      scaled = TRUE, short = unit(0.1, "cm"), mid = unit(0.2, "cm"),
-      long = unit(0.3, "cm"), ...)
-    {
-      ticks <- list()
+GeomLogticks <- proto2("GeomLogticks", Geom,
+  draw_groups = function(self, data, scales, coordinates, base = 10, sides = "bl",
+    scaled = TRUE, short = unit(0.1, "cm"), mid = unit(0.2, "cm"),
+    long = unit(0.3, "cm"), ...)
+  {
+    ticks <- list()
 
-      # Convert these units to numbers so that they can be put in data frames
-      short <- convertUnit(short, "cm", valueOnly = TRUE)
-      mid   <- convertUnit(mid,   "cm", valueOnly = TRUE)
-      long  <- convertUnit(long,  "cm", valueOnly = TRUE)
+    # Convert these units to numbers so that they can be put in data frames
+    short <- convertUnit(short, "cm", valueOnly = TRUE)
+    mid   <- convertUnit(mid,   "cm", valueOnly = TRUE)
+    long  <- convertUnit(long,  "cm", valueOnly = TRUE)
 
 
-      if (grepl("[b|t]", sides)) {
+    if (grepl("[b|t]", sides)) {
 
-        # Get positions of x tick marks
-        xticks <- calc_logticks(base = base,
-                    minpow = floor(scales$x.range[1]), maxpow = ceiling(scales$x.range[2]),
-                    start = 0, shortend = short, midend = mid, longend = long)
+      # Get positions of x tick marks
+      xticks <- calc_logticks(base = base,
+                  minpow = floor(scales$x.range[1]), maxpow = ceiling(scales$x.range[2]),
+                  start = 0, shortend = short, midend = mid, longend = long)
 
-        if (scaled)
-          xticks$value <- log(xticks$value, base)
+      if (scaled)
+        xticks$value <- log(xticks$value, base)
 
-        names(xticks)[names(xticks)=="value"] <- "x"           # Rename to 'x' for coord_transform
-        xticks <- coord_transform(coordinates, xticks, scales)
+      names(xticks)[names(xticks)=="value"] <- "x"           # Rename to 'x' for coord_transform
+      xticks <- coord_transform(coordinates, xticks, scales)
 
-        # Make the grobs
-        if(grepl("b", sides)) {
-          ticks$x_b <- with(data, segmentsGrob(
-            x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
-            y0 = unit(xticks$start, "cm"), y1 = unit(xticks$end, "cm"),
-            gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
-          ))
-        }
-        if(grepl("t", sides)) {
-          ticks$x_t <- with(data, segmentsGrob(
-            x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
-            y0 = unit(1, "npc") - unit(xticks$start, "cm"), y1 = unit(1, "npc") - unit(xticks$end, "cm"),
-            gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
-          ))
-        }
+      # Make the grobs
+      if(grepl("b", sides)) {
+        ticks$x_b <- with(data, segmentsGrob(
+          x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
+          y0 = unit(xticks$start, "cm"), y1 = unit(xticks$end, "cm"),
+          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
+        ))
       }
-
-
-      if (grepl("[l|r]", sides)) {
-        yticks <- calc_logticks(base = base,
-                    minpow = floor(scales$y.range[1]), maxpow = ceiling(scales$y.range[2]),
-                    start = 0, shortend = short, midend = mid, longend = long)
-
-        if (scaled)
-          yticks$value <- log(yticks$value, base)
-
-        names(yticks)[names(yticks)=="value"] <- "y"           # Rename to 'y' for coord_transform
-        yticks <- coord_transform(coordinates, yticks, scales)
-
-        # Make the grobs
-        if(grepl("l", sides)) {
-          ticks$y_l <- with(data, segmentsGrob(
-            y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
-            x0 = unit(yticks$start, "cm"), x1 = unit(yticks$end, "cm"),
-            gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
-          ))
-        }
-        if(grepl("r", sides)) {
-          ticks$y_r <- with(data, segmentsGrob(
-            y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
-            x0 = unit(1, "npc") - unit(yticks$start, "cm"), x1 = unit(1, "npc") - unit(yticks$end, "cm"),
-            gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
-          ))
-        }
+      if(grepl("t", sides)) {
+        ticks$x_t <- with(data, segmentsGrob(
+          x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
+          y0 = unit(1, "npc") - unit(xticks$start, "cm"), y1 = unit(1, "npc") - unit(xticks$end, "cm"),
+          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
+        ))
       }
+    }
 
-      gTree(children = do.call("gList", ticks))
-    },
 
-    default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = 1)
-  )
+    if (grepl("[l|r]", sides)) {
+      yticks <- calc_logticks(base = base,
+                  minpow = floor(scales$y.range[1]), maxpow = ceiling(scales$y.range[2]),
+                  start = 0, shortend = short, midend = mid, longend = long)
+
+      if (scaled)
+        yticks$value <- log(yticks$value, base)
+
+      names(yticks)[names(yticks)=="value"] <- "y"           # Rename to 'y' for coord_transform
+      yticks <- coord_transform(coordinates, yticks, scales)
+
+      # Make the grobs
+      if(grepl("l", sides)) {
+        ticks$y_l <- with(data, segmentsGrob(
+          y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
+          x0 = unit(yticks$start, "cm"), x1 = unit(yticks$end, "cm"),
+          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
+        ))
+      }
+      if(grepl("r", sides)) {
+        ticks$y_r <- with(data, segmentsGrob(
+          y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
+          x0 = unit(1, "npc") - unit(yticks$start, "cm"), x1 = unit(1, "npc") - unit(yticks$end, "cm"),
+          gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
+        ))
+      }
+    }
+
+    gTree(children = do.call("gList", ticks))
+  },
+
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = 1)
 )
 
 

@@ -77,32 +77,28 @@ stat_density2d <- function (mapping = NULL, data = NULL, geom = "density2d",
   )
 }
 
-StatDensity2d <- proto2(
-  class = "StatDensity2d",
-  inherit = Stat,
-  members = list(
-    default_aes = aes(colour = "#3366FF", size = 0.5),
+StatDensity2d <- proto2("StatDensity2d", Stat,
+  default_aes = aes(colour = "#3366FF", size = 0.5),
 
-    required_aes = c("x", "y"),
+  required_aes = c("x", "y"),
 
 
-    calculate = function(self, data, scales, na.rm = FALSE, contour = TRUE, n = 100, ...) {
-      df <- data.frame(data[, c("x", "y")])
-      df <- remove_missing(df, na.rm, name = "stat_density2d", finite = TRUE)
+  calculate = function(self, data, scales, na.rm = FALSE, contour = TRUE, n = 100, ...) {
+    df <- data.frame(data[, c("x", "y")])
+    df <- remove_missing(df, na.rm, name = "stat_density2d", finite = TRUE)
 
-      dens <- safe.call(kde2d, list(x = df$x, y = df$y, n = n,
-        lims = c(scale_dimension(scales$x), scale_dimension(scales$y)), ...))
-      df <- with(dens, data.frame(expand.grid(x = x, y = y), z = as.vector(z)))
-      df$group <- data$group[1]
+    dens <- safe.call(kde2d, list(x = df$x, y = df$y, n = n,
+      lims = c(scale_dimension(scales$x), scale_dimension(scales$y)), ...))
+    df <- with(dens, data.frame(expand.grid(x = x, y = y), z = as.vector(z)))
+    df$group <- data$group[1]
 
-      if (contour) {
-        StatContour$calculate(df, scales, ...)
-      } else {
-        names(df) <- c("x", "y", "density", "group")
-        df$level <- 1
-        df$piece <- 1
-        df
-      }
+    if (contour) {
+      StatContour$calculate(df, scales, ...)
+    } else {
+      names(df) <- c("x", "y", "density", "group")
+      df$level <- 1
+      df$piece <- 1
+      df
     }
-  )
+  }
 )

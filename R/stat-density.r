@@ -38,30 +38,26 @@ stat_density <- function(mapping = NULL, data = NULL, geom = "area",
   )
 }
 
-StatDensity <- proto2(
-  class = "StatDensity",
-  inherit = Stat,
-  members = list(
-    calculate = function(self, data, scales, adjust = 1, kernel = "gaussian",
-      trim = FALSE, na.rm = FALSE, ...)
-    {
-      data <- remove_missing(data, na.rm, "x", name = "stat_density",
-        finite = TRUE)
+StatDensity <- proto2("StatDensity", Stat,
+  calculate = function(self, data, scales, adjust = 1, kernel = "gaussian",
+    trim = FALSE, na.rm = FALSE, ...)
+  {
+    data <- remove_missing(data, na.rm, "x", name = "stat_density",
+      finite = TRUE)
 
-      if (trim) {
-        range <- range(data$x, na.rm = TRUE)
-      } else {
-        range <- scale_dimension(scales$x, c(0, 0))
-      }
+    if (trim) {
+      range <- range(data$x, na.rm = TRUE)
+    } else {
+      range <- scale_dimension(scales$x, c(0, 0))
+    }
 
-      compute_density(data$x, data$weight, from = range[1], to = range[2],
-        adjust = adjust, kernel = kernel)
-    },
+    compute_density(data$x, data$weight, from = range[1], to = range[2],
+      adjust = adjust, kernel = kernel)
+  },
 
-    default_aes = aes(y = ..density.., fill = NA),
+  default_aes = aes(y = ..density.., fill = NA),
 
-    required_aes = c("x")
-  )
+  required_aes = "x"
 )
 
 compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,

@@ -36,54 +36,50 @@ geom_rug <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 
-GeomRug <- proto2(
-  class = "GeomRug",
-  inherit = Geom,
-  members = list(
-    draw = function(self, data, scales, coordinates, sides, ...) {
-      rugs <- list()
-      data <- coord_transform(coordinates, data, scales)
-      if (!is.null(data$x)) {
-        if(grepl("b", sides)) {
-          rugs$x_b <- segmentsGrob(
-            x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
-            y0 = unit(0, "npc"), y1 = unit(0.03, "npc"),
-            gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
-          )
-        }
-
-        if(grepl("t", sides)) {
-          rugs$x_t <- segmentsGrob(
-            x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
-            y0 = unit(1, "npc"), y1 = unit(0.97, "npc"),
-            gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
-          )
-        }
+GeomRug <- proto2("GeomRug", Geom,
+  draw = function(self, data, scales, coordinates, sides, ...) {
+    rugs <- list()
+    data <- coord_transform(coordinates, data, scales)
+    if (!is.null(data$x)) {
+      if(grepl("b", sides)) {
+        rugs$x_b <- segmentsGrob(
+          x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
+          y0 = unit(0, "npc"), y1 = unit(0.03, "npc"),
+          gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
+        )
       }
 
-      if (!is.null(data$y)) {
-        if(grepl("l", sides)) {
-          rugs$y_l <- segmentsGrob(
-            y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
-            x0 = unit(0, "npc"), x1 = unit(0.03, "npc"),
-            gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
-          )
-        }
+      if(grepl("t", sides)) {
+        rugs$x_t <- segmentsGrob(
+          x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
+          y0 = unit(1, "npc"), y1 = unit(0.97, "npc"),
+          gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
+        )
+      }
+    }
 
-        if(grepl("r", sides)) {
-          rugs$y_r <- segmentsGrob(
-            y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
-            x0 = unit(1, "npc"), x1 = unit(0.97, "npc"),
-            gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
-          )
-        }
+    if (!is.null(data$y)) {
+      if(grepl("l", sides)) {
+        rugs$y_l <- segmentsGrob(
+          y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
+          x0 = unit(0, "npc"), x1 = unit(0.03, "npc"),
+          gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
+        )
       }
 
-      gTree(children = do.call("gList", rugs))
-    },
+      if(grepl("r", sides)) {
+        rugs$y_r <- segmentsGrob(
+          y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
+          x0 = unit(1, "npc"), x1 = unit(0.97, "npc"),
+          gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
+        )
+      }
+    }
 
-    default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+    gTree(children = do.call("gList", rugs))
+  },
 
-    guide_geom = function(self) "path"
-  )
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+
+  guide_geom = function(self) "path"
 )

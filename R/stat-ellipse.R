@@ -65,25 +65,21 @@ stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
   )
 }
 
-StatEllipse <- proto2(
-  class = "StatEllipse",
-  inherit = Stat,
-  members = list(
-    required_aes = c("x", "y"),
+StatEllipse <- proto2("StatEllipse", Stat,
+  required_aes = c("x", "y"),
 
-    calculate_groups = function(self, super, data, scales, ...){
-      super$calculate_groups(self, data, scales,...)
-    },
+  calculate_groups = function(self, super, data, scales, ...){
+    super$calculate_groups(self, data, scales,...)
+  },
 
-    calculate = function(self, data, scales, type = "t", level = 0.95, segments = 51,
-      na.rm = FALSE, ...)
-    {
-      data <- remove_missing(data, na.rm, vars = c("x","y"),
-                             name = "stat_ellipse", finite = TRUE)
-      calculate_ellipse(data = data, vars = c("x","y"), type = type,
-                        level = level, segments = segments)
-    }
-  )
+  calculate = function(self, data, scales, type = "t", level = 0.95, segments = 51,
+    na.rm = FALSE, ...)
+  {
+    data <- remove_missing(data, na.rm, vars = c("x","y"),
+                           name = "stat_ellipse", finite = TRUE)
+    calculate_ellipse(data = data, vars = c("x","y"), type = type,
+                      level = level, segments = segments)
+  }
 )
 
 calculate_ellipse <- function(data, vars, type, level, segments){

@@ -25,24 +25,20 @@ geom_hline <- function(mapping = NULL, data = NULL, show_guide = NA,
   )
 }
 
-GeomHline <- proto2(
-  class = "GeomHline",
-  inherit = Geom,
-  members = list(
-    draw = function(self, data, scales, coordinates, ...) {
-      ranges <- coord_range(coordinates, scales)
+GeomHline <- proto2("GeomHline", Geom,
+  draw = function(self, data, scales, coordinates, ...) {
+    ranges <- coord_range(coordinates, scales)
 
-      data$x    <- ranges$x[1]
-      data$xend <- ranges$x[2]
-      data$y    <- data$yintercept
-      data$yend <- data$yintercept
+    data$x    <- ranges$x[1]
+    data$xend <- ranges$x[2]
+    data$y    <- data$yintercept
+    data$yend <- data$yintercept
 
-      GeomSegment$draw(unique(data), scales, coordinates)
-    },
+    GeomSegment$draw(unique(data), scales, coordinates)
+  },
 
-    default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
-    required_aes = "yintercept",
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  required_aes = "yintercept",
 
-    guide_geom = function(self) "path"
-  )
+  guide_geom = function(self) "path"
 )

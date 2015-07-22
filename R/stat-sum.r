@@ -19,24 +19,20 @@ stat_sum <- function (mapping = NULL, data = NULL, geom = "point",
   )
 }
 
-StatSum <- proto2(
-  class = "StatSum",
-  inherit = Stat,
-  members = list(
-    default_aes = aes(size = ..n..),
+StatSum <- proto2("StatSum", Stat,
+  default_aes = aes(size = ..n..),
 
-    required_aes = c("x", "y"),
+  required_aes = c("x", "y"),
 
-    calculate_groups = function(self, data, scales, ...) {
+  calculate_groups = function(self, data, scales, ...) {
 
-      if (is.null(data$weight)) data$weight <- 1
+    if (is.null(data$weight)) data$weight <- 1
 
-      group_by <- setdiff(intersect(names(data), .all_aesthetics), "weight")
+    group_by <- setdiff(intersect(names(data), .all_aesthetics), "weight")
 
-      counts <- count(data, group_by, wt_var = "weight")
-      counts <- rename(counts, c(freq = "n"), warn_missing = FALSE)
-      counts$prop <- ave(counts$n, counts$group, FUN = prop.table)
-      counts
-    }
-  )
+    counts <- count(data, group_by, wt_var = "weight")
+    counts <- rename(counts, c(freq = "n"), warn_missing = FALSE)
+    counts$prop <- ave(counts$n, counts$group, FUN = prop.table)
+    counts
+  }
 )

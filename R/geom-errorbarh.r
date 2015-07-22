@@ -37,38 +37,34 @@ geom_errorbarh <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 
-GeomErrorbarh <- proto2(
-  class = "GeomErrorbarh",
-  inherit = Geom,
-  members = list(
-    default_aes = aes(colour = "black", size = 0.5, linetype = 1, height = 0.5,
-      alpha = NA),
+GeomErrorbarh <- proto2("GeomErrorbarh", Geom,
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, height = 0.5,
+    alpha = NA),
 
-    guide_geom = function(self) "path",
+  guide_geom = function(self) "path",
 
-    required_aes = c("x", "xmin", "xmax", "y"),
+  required_aes = c("x", "xmin", "xmax", "y"),
 
-    reparameterise = function(self, df, params) {
-      df$height <- df$height %||%
-        params$height %||% (resolution(df$y, FALSE) * 0.9)
+  reparameterise = function(self, df, params) {
+    df$height <- df$height %||%
+      params$height %||% (resolution(df$y, FALSE) * 0.9)
 
-      transform(df,
-        ymin = y - height / 2, ymax = y + height / 2, height = NULL
-      )
-    },
+    transform(df,
+      ymin = y - height / 2, ymax = y + height / 2, height = NULL
+    )
+  },
 
-    draw = function(self, data, scales, coordinates, height = NULL, ...) {
-      GeomPath$draw(with(data, data.frame(
-        x = as.vector(rbind(xmax, xmax, NA, xmax, xmin, NA, xmin, xmin)),
-        y = as.vector(rbind(ymin, ymax, NA, y,    y,    NA, ymin, ymax)),
-        colour = rep(colour, each = 8),
-        alpha = rep(alpha, each = 8),
-        size = rep(size, each = 8),
-        linetype = rep(linetype, each = 8),
-        group = rep(1:(nrow(data)), each = 8),
-        stringsAsFactors = FALSE,
-        row.names = 1:(nrow(data) * 8)
-      )), scales, coordinates, ...)
-    }
-  )
+  draw = function(self, data, scales, coordinates, height = NULL, ...) {
+    GeomPath$draw(with(data, data.frame(
+      x = as.vector(rbind(xmax, xmax, NA, xmax, xmin, NA, xmin, xmin)),
+      y = as.vector(rbind(ymin, ymax, NA, y,    y,    NA, ymin, ymax)),
+      colour = rep(colour, each = 8),
+      alpha = rep(alpha, each = 8),
+      size = rep(size, each = 8),
+      linetype = rep(linetype, each = 8),
+      group = rep(1:(nrow(data)), each = 8),
+      stringsAsFactors = FALSE,
+      row.names = 1:(nrow(data) * 8)
+    )), scales, coordinates, ...)
+  }
 )

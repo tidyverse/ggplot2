@@ -66,35 +66,31 @@ stat_contour <- function (mapping = NULL, data = NULL, geom = "path",
 }
 
 
-StatContour <- proto2(
-  class = "StatContour",
-  inherit = Stat,
-  members = list(
-    calculate = function(self, data, scales, bins = NULL, binwidth = NULL,
-                         breaks = NULL, complete = FALSE, na.rm = FALSE, ...)
-    {
-      data <- remove_missing(data, na.rm, name = "stat_contour", finite = TRUE)
+StatContour <- proto2("StatContour", Stat,
+  calculate = function(self, data, scales, bins = NULL, binwidth = NULL,
+                       breaks = NULL, complete = FALSE, na.rm = FALSE, ...)
+  {
+    data <- remove_missing(data, na.rm, name = "stat_contour", finite = TRUE)
 
-      # If no parameters set, use pretty bins
-      if (is.null(bins) && is.null(binwidth) && is.null(breaks)) {
-        breaks <- pretty(range(data$z), 10)
-      }
-      # If provided, use bins to calculate binwidth
-      if (!is.null(bins)) {
-        binwidth <- diff(range(data$z)) / bins
-      }
-      # If necessary, compute breaks from binwidth
-      if (is.null(breaks)) {
-        breaks <- fullseq(range(data$z), binwidth)
-      }
+    # If no parameters set, use pretty bins
+    if (is.null(bins) && is.null(binwidth) && is.null(breaks)) {
+      breaks <- pretty(range(data$z), 10)
+    }
+    # If provided, use bins to calculate binwidth
+    if (!is.null(bins)) {
+      binwidth <- diff(range(data$z)) / bins
+    }
+    # If necessary, compute breaks from binwidth
+    if (is.null(breaks)) {
+      breaks <- fullseq(range(data$z), binwidth)
+    }
 
-      contour_lines(data, breaks, complete = complete)
-    },
+    contour_lines(data, breaks, complete = complete)
+  },
 
-    default_aes = aes(order = ..level..),
+  default_aes = aes(order = ..level..),
 
-    required_aes = c("x", "y", "z")
-  )
+  required_aes = c("x", "y", "z")
 )
 
 

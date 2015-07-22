@@ -1,52 +1,48 @@
-Geom <- proto2(
-  class = "Geom",
-  inherit = TopLevel,
-  members = list(
-    class = function(self) "geom",
+Geom <- proto2("Geom", TopLevel,
+  class = function(self) "geom",
 
-    parameters = function(self) {
-      # proto2 TODO: better way of getting formals for self$draw
-      params <- formals(environment(self$draw)$res)
-      params <- params[setdiff(names(params), c("self", "super", "data", "scales", "coordinates", "..."))]
+  parameters = function(self) {
+    # proto2 TODO: better way of getting formals for self$draw
+    params <- formals(environment(self$draw)$res)
+    params <- params[setdiff(names(params), c("self", "super", "data", "scales", "coordinates", "..."))]
 
-      required <- rep(NA, length(self$required_aes))
-      names(required) <- self$required_aes
-      aesthetics <- c(self$default_aes, required)
+    required <- rep(NA, length(self$required_aes))
+    names(required) <- self$required_aes
+    aesthetics <- c(self$default_aes, required)
 
-      c(params, aesthetics[setdiff(names(aesthetics), names(params))])
-    },
+    c(params, aesthetics[setdiff(names(aesthetics), names(params))])
+  },
 
-    required_aes = c(),
+  required_aes = c(),
 
-    default_aes = aes(),
+  default_aes = aes(),
 
-    guide_geom = function(self) "point",
+  guide_geom = function(self) "point",
 
-    draw = function(self, ...) {},
+  draw = function(self, ...) {},
 
-    draw_groups = function(self, data, scales, coordinates, ...) {
-      if (empty(data)) return(zeroGrob())
+  draw_groups = function(self, data, scales, coordinates, ...) {
+    if (empty(data)) return(zeroGrob())
 
-      groups <- split(data, factor(data$group))
-      grobs <- lapply(groups, function(group) self$draw(group, scales, coordinates, ...))
+    groups <- split(data, factor(data$group))
+    grobs <- lapply(groups, function(group) self$draw(group, scales, coordinates, ...))
 
-      # String like "bar" or "line"
-      objname <- sub("^geom_", "", self$my_name())
+    # String like "bar" or "line"
+    objname <- sub("^geom_", "", self$my_name())
 
-      ggname(paste0(objname, "s"), gTree(
-        children = do.call("gList", grobs)
-      ))
-    },
+    ggname(paste0(objname, "s"), gTree(
+      children = do.call("gList", grobs)
+    ))
+  },
 
 #     print = function(self, newline=TRUE) {
 #       cat("geom_", self$objname, ": ", sep="") #  , clist(self$parameters())
 #       if (newline) cat("\n")
 #     },
 
-    reparameterise = function(self, data, params) data
+  reparameterise = function(self, data, params) data
 
-    # Html documentation ----------------------------------
-  )
+  # Html documentation ----------------------------------
 )
 
 # make_geom("point") returns GeomPoint

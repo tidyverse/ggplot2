@@ -32,47 +32,43 @@ stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile",
 }
 
 
-StatQuantile <- proto2(
-  class = "StatQuantile",
-  inherit = Stat,
-  members = list(
-    required_aes = c("x", "y"),
+StatQuantile <- proto2("StatQuantile", Stat,
+  required_aes = c("x", "y"),
 
-    calculate = function(self, data, scales, quantiles = c(0.25, 0.5, 0.75),
-      formula = NULL, xseq = NULL, method = "rq", lambda = 1, na.rm = FALSE,
-      ...)
-    {
-      try_require("quantreg")
+  calculate = function(self, data, scales, quantiles = c(0.25, 0.5, 0.75),
+    formula = NULL, xseq = NULL, method = "rq", lambda = 1, na.rm = FALSE,
+    ...)
+  {
+    try_require("quantreg")
 
-      if (is.null(formula)) {
-        if (method == "rqss") {
-          try_require("MatrixModels")
-          formula <- eval(substitute(y ~ qss(x, lambda = lambda)),
-            list(lambda = lambda))
-        } else {
-          formula <- y ~ x
-        }
-        message("Smoothing formula not specified. Using: ",
-          deparse(formula))
+    if (is.null(formula)) {
+      if (method == "rqss") {
+        try_require("MatrixModels")
+        formula <- eval(substitute(y ~ qss(x, lambda = lambda)),
+          list(lambda = lambda))
+      } else {
+        formula <- y ~ x
       }
-
-      if (is.null(data$weight)) data$weight <- 1
-
-      if (is.null(xseq)) {
-        xmin <- min(data$x, na.rm = TRUE)
-        xmax <- max(data$x, na.rm = TRUE)
-        xseq <- seq(xmin, xmax, length.out = 100)
-      }
-      grid <- data.frame(x = xseq)
-
-      data <- as.data.frame(data)
-      data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_quantile")
-      method <- match.fun(method)
-
-      ldply(quantiles, quant_pred, data = data, method = method,
-        formula = formula, weight = weight, grid = grid, ...)
+      message("Smoothing formula not specified. Using: ",
+        deparse(formula))
     }
-  )
+
+    if (is.null(data$weight)) data$weight <- 1
+
+    if (is.null(xseq)) {
+      xmin <- min(data$x, na.rm = TRUE)
+      xmax <- max(data$x, na.rm = TRUE)
+      xseq <- seq(xmin, xmax, length.out = 100)
+    }
+    grid <- data.frame(x = xseq)
+
+    data <- as.data.frame(data)
+    data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_quantile")
+    method <- match.fun(method)
+
+    ldply(quantiles, quant_pred, data = data, method = method,
+      formula = formula, weight = weight, grid = grid, ...)
+  }
 )
 
 quant_pred <- function(quantile, data, method, formula, weight, grid, ...) {

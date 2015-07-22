@@ -28,35 +28,31 @@ geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomPointrange <- proto2(
-  class = "GeomPointrange",
-  inherit = Geom,
-  members = list(
-    default_aes = aes(colour = "black", size = 0.5, linetype = 1, shape = 19,
-      fill = NA, alpha = NA, stroke = 1),
+GeomPointrange <- proto2("GeomPointrange", Geom,
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, shape = 19,
+    fill = NA, alpha = NA, stroke = 1),
 
-    guide_geom = function(self) "pointrange",
+  guide_geom = function(self) "pointrange",
 
-    required_aes = c("x", "y", "ymin", "ymax"),
+  required_aes = c("x", "y", "ymin", "ymax"),
 
-    draw = function(self, data, scales, coordinates, ...) {
-      if (is.null(data$y)) return(GeomLinerange$draw(data, scales, coordinates, ...))
+  draw = function(self, data, scales, coordinates, ...) {
+    if (is.null(data$y)) return(GeomLinerange$draw(data, scales, coordinates, ...))
 
-      ggname(self$my_name(),
-        gTree(children=gList(
-          GeomLinerange$draw(data, scales, coordinates, ...),
-          GeomPoint$draw(transform(data, size = size * 4), scales, coordinates, ...)
-        ))
-      )
-    },
+    ggname(self$my_name(),
+      gTree(children=gList(
+        GeomLinerange$draw(data, scales, coordinates, ...),
+        GeomPoint$draw(transform(data, size = size * 4), scales, coordinates, ...)
+      ))
+    )
+  },
 
-    draw_legend = function(self, data, ...) {
-      data <- aesdefaults(data, self$default_aes, list(...))
+  draw_legend = function(self, data, ...) {
+    data <- aesdefaults(data, self$default_aes, list(...))
 
-      grobTree(
-        GeomPath$draw_legend(data, ...),
-        GeomPoint$draw_legend(transform(data, size = size * 4), ...)
-      )
-    }
-  )
+    grobTree(
+      GeomPath$draw_legend(data, ...),
+      GeomPoint$draw_legend(transform(data, size = size * 4), ...)
+    )
+  }
 )

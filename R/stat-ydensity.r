@@ -41,58 +41,54 @@ stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
 }
 
 
-StatYdensity <- proto2(
-  class = "StatYdensity",
-  inherit = Stat,
-  members = list(
-    calculate_groups = function(self, super, data, na.rm = FALSE, width = NULL,
-      scale = "area", ...)
-    {
-      data <- remove_missing(data, na.rm, c("x", "y", "weight"), name = "stat_ydensity", finite = TRUE)
-      data <- super$calculate_groups(self, data, na.rm = na.rm, width = width, ...)
+StatYdensity <- proto2("StatYdensity", Stat,
+  calculate_groups = function(self, super, data, na.rm = FALSE, width = NULL,
+    scale = "area", ...)
+  {
+    data <- remove_missing(data, na.rm, c("x", "y", "weight"), name = "stat_ydensity", finite = TRUE)
+    data <- super$calculate_groups(self, data, na.rm = na.rm, width = width, ...)
 
-      # choose how violins are scaled relative to each other
-      scale <- match.arg(scale, c("area", "count", "width"))
+    # choose how violins are scaled relative to each other
+    scale <- match.arg(scale, c("area", "count", "width"))
 
-      data$violinwidth <- switch(scale,
-        # area : keep the original densities but scale them to a max width of 1
-        #        for plotting purposes only
-        area = data$density / max(data$density),
-        # count: use the original densities scaled to a maximum of 1 (as above)
-        #        and then scale them according to the number of observations
-        count = (data$density / max(data$density)) * data$n / max(data$n),
-        # width: constant width (density scaled to a maximum of 1)
-        width = data$scaled
-      )
+    data$violinwidth <- switch(scale,
+      # area : keep the original densities but scale them to a max width of 1
+      #        for plotting purposes only
+      area = data$density / max(data$density),
+      # count: use the original densities scaled to a maximum of 1 (as above)
+      #        and then scale them according to the number of observations
+      count = (data$density / max(data$density)) * data$n / max(data$n),
+      # width: constant width (density scaled to a maximum of 1)
+      width = data$scaled
+    )
 
-      data
-    },
+    data
+  },
 
-    calculate = function(self, data, scales, width = NULL, adjust = 1,
-      kernel = "gaussian", trim = FALSE, na.rm = FALSE, ...)
-    {
-      data <- remove_missing(data, na.rm, "x", name = "stat_density",
-        finite = TRUE)
+  calculate = function(self, data, scales, width = NULL, adjust = 1,
+    kernel = "gaussian", trim = FALSE, na.rm = FALSE, ...)
+  {
+    data <- remove_missing(data, na.rm, "x", name = "stat_density",
+      finite = TRUE)
 
-      if (trim) {
-        range <- range(data$y, na.rm = TRUE)
-      } else {
-        range <- scale_dimension(scales$y, c(0, 0))
-      }
-      dens <- compute_density(data$y, data$w, from = range[1], to = range[2],
-        adjust = adjust, kernel = kernel)
+    if (trim) {
+      range <- range(data$y, na.rm = TRUE)
+    } else {
+      range <- scale_dimension(scales$y, c(0, 0))
+    }
+    dens <- compute_density(data$y, data$w, from = range[1], to = range[2],
+      adjust = adjust, kernel = kernel)
 
-      dens$y <- dens$x
-      dens$x <- mean(range(data$x))
+    dens$y <- dens$x
+    dens$x <- mean(range(data$x))
 
-      # Compute width if x has multiple values
-      if (length(unique(data$x)) > 1) {
-        width <- diff(range(data$x)) * 0.9
-      }
-      dens$width <- width
-      dens
-    },
+    # Compute width if x has multiple values
+    if (length(unique(data$x)) > 1) {
+      width <- diff(range(data$x)) * 0.9
+    }
+    dens$width <- width
+    dens
+  },
 
-    required_aes = c("x", "y")
-  )
+  required_aes = c("x", "y")
 )

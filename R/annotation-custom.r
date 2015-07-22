@@ -55,28 +55,24 @@ annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax 
   )
 }
 
-GeomCustomAnn <- proto2(
-  class = "GeomCustomAnn",
-  inherit = Geom,
-  members = list(
-    draw_groups = function(self, data, scales, coordinates, grob, xmin, xmax,
-                            ymin, ymax, ...) {
-      if (!inherits(coordinates, "cartesian")) {
-        stop("annotation_custom only works with Cartesian coordinates",
-          call. = FALSE)
-      }
-      corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
-      data <- coord_transform(coordinates, corners, scales)
+GeomCustomAnn <- proto2("GeomCustomAnn", Geom,
+  draw_groups = function(self, data, scales, coordinates, grob, xmin, xmax,
+                          ymin, ymax, ...) {
+    if (!inherits(coordinates, "cartesian")) {
+      stop("annotation_custom only works with Cartesian coordinates",
+        call. = FALSE)
+    }
+    corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
+    data <- coord_transform(coordinates, corners, scales)
 
-      x_rng <- range(data$x, na.rm = TRUE)
-      y_rng <- range(data$y, na.rm = TRUE)
+    x_rng <- range(data$x, na.rm = TRUE)
+    y_rng <- range(data$y, na.rm = TRUE)
 
-      vp <- viewport(x = mean(x_rng), y = mean(y_rng),
-                     width = diff(x_rng), height = diff(y_rng),
-                     just = c("center","center"))
-      editGrob(grob, vp = vp)
-    },
+    vp <- viewport(x = mean(x_rng), y = mean(y_rng),
+                   width = diff(x_rng), height = diff(y_rng),
+                   just = c("center","center"))
+    editGrob(grob, vp = vp)
+  },
 
-    default_aes = aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
-  )
+  default_aes = aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
 )
