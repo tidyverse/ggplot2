@@ -84,10 +84,10 @@ NULL
 #' @keywords internal
 continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_, trans = "identity", guide="legend") {
 
-  bad_labels <- is.vector(breaks) && is.vector(labels) &&
+  bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
     length(breaks) != length(labels)
   if (bad_labels) {
-    stop("Breaks and labels have unequal lengths", call. = FALSE)
+    stop("`breaks` and `labels` must have the same length", call. = FALSE)
   }
 
   if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
@@ -169,7 +169,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks 
   bad_labels <- is.vector(breaks) && is.vector(labels) &&
     length(breaks) != length(labels)
   if (bad_labels) {
-    stop("Breaks and labels have unequal lengths", call. = FALSE)
+    stop("`breaks` and `labels` must have the same length", call. = FALSE)
   }
 
   if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
