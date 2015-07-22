@@ -25,8 +25,8 @@ geom_curve <- function(mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomCurve <- proto2("GeomCurve", Geom,
-  draw = function(self, data, scales, coordinates, curvature, angle, ncp,
-                  arrow, lineend, na.rm, ...) {
+  draw = function(self, data, scales, coordinates, curvature = 0.5, angle = 90,
+                  ncp = 5, arrow = NULL, lineend = "butt", na.rm = FALSE, ...) {
 
     data <- remove_missing(data, na.rm = na.rm,
                            c("x", "y", "xend", "yend", "linetype", "size", "shape"),

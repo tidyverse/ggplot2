@@ -78,17 +78,10 @@
 #'    stat = "identity"
 #'  )
 geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
-  position = "dodge", outlier.colour = NULL, outlier.shape = NULL,
-  outlier.size = NULL, outlier.stroke = 1, notch = FALSE, notchwidth = .5,
+  position = "dodge", outlier.colour = "black", outlier.shape = 19,
+  outlier.size = 2, outlier.stroke = 1, notch = FALSE, notchwidth = .5,
   varwidth = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 {
-  outlier_defaults <- GeomPoint$default_aes
-
-  outlier.colour   <- outlier.colour %||% outlier_defaults$colour
-  outlier.shape    <- outlier.shape  %||% outlier_defaults$shape
-  outlier.size     <- outlier.size   %||% outlier_defaults$size
-  outlier.stroke   <- outlier.stroke %||% outlier_defaults$stroke
-
   layer(
     data = data,
     mapping = mapping,
@@ -141,7 +134,7 @@ GeomBoxplot <- proto2("GeomBoxplot", Geom,
     df
   },
 
-  draw = function(self, data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL,
+  draw = function(self, data, ..., fatten = 2, outlier.colour = "black", outlier.shape = 19,
                   outlier.size = 2, outlier.stroke = 1,
                   notch = FALSE, notchwidth = .5, varwidth = FALSE) {
     common <- data.frame(
@@ -213,7 +206,8 @@ GeomBoxplot <- proto2("GeomBoxplot", Geom,
   },
 
   default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
-    alpha = NA, shape = 19, linetype = "solid"),
+    alpha = NA, shape = 19, linetype = "solid", outlier.colour = "black",
+    outlier.shape = 19, outlier.size = 2, outlier.stroke = 1),
 
   required_aes = c("x", "lower", "upper", "middle", "ymin", "ymax")
 )

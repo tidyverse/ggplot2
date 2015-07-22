@@ -6,10 +6,9 @@
 \title{Box and whiskers plot.}
 \usage{
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
-  position = "dodge", outlier.colour = NULL, outlier.shape = NULL,
-  outlier.size = NULL, outlier.stroke = 1, notch = FALSE,
-  notchwidth = 0.5, varwidth = FALSE, show_guide = NA,
-  inherit.aes = TRUE, ...)
+  position = "dodge", outlier.colour = "black", outlier.shape = 19,
+  outlier.size = 2, outlier.stroke = 1, notch = FALSE, notchwidth = 0.5,
+  varwidth = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 
 stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
   position = "dodge", na.rm = FALSE, coef = 1.5, show_guide = NA,
