@@ -177,7 +177,9 @@ ggplot2 1.0.1.9xxx
   `panel.background`.  (@noamross. #551)
 
 * Add `stroke` aesthetic to `geom_point` controlling the stroke width of the
-  border for shape types 21 - 25 (#1133, @SeySayux)
+  border for shape types 21 - 25 (#1133, @SeySayux). Like `size`, the unit
+  of stroke is `mm`. A point with `size = 5, stroke = 5` will be 10 mm wide.
+  (#1142)
 
 ggplot2 1.0.1
 ----------------------------------------------------------------

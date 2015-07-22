@@ -90,7 +90,7 @@
 #' # outside separately. Use the stroke aesthetic to modify the width of the
 #' # border
 #' ggplot(mtcars, aes(wt, mpg)) +
-#'   geom_point(shape = 21, size = 5, colour = "black", fill = "white", stroke = 5)
+#'   geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 12)
 #'
 #' # You can create interesting shapes by layering multiple points of
 #' # different sizes
@@ -147,13 +147,13 @@ GeomPoint <- proto2("GeomPoint", Geom,
     ggname(self$my_name(),
       pointsGrob(
         coords$x, coords$y,
-        size = unit(coords$size, "mm"),
         pch = coords$shape,
         gp = gpar(
           col = alpha(coords$colour, coords$alpha),
           fill = alpha(coords$fill, coords$alpha),
-          lwd = coords$stroke,
-          fontsize = coords$size * .pt
+          # Stroke is added around the outside of the point
+          fontsize = coords$size * .pt + coords$stroke * .stroke / 2,
+          lwd = coords$stroke * .stroke / 2
         )
       )
     )
@@ -164,13 +164,12 @@ GeomPoint <- proto2("GeomPoint", Geom,
 
     pointsGrob(
       0.5, 0.5,
-      size = unit(data$size, "mm"),
       pch = data$shape,
       gp = gpar(
         col = alpha(data$colour, data$alpha),
         fill = alpha(data$fill, data$alpha),
-        lwd = data$stroke,
-        fontsize = data$size * .pt
+        fontsize = data$size * .pt + data$stroke * .stroke / 2,
+        lwd = data$stroke * .stroke / 2
       )
     )
   },
