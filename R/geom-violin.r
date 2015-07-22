@@ -6,9 +6,8 @@
 #' @inheritParams geom_point
 #' @param trim If \code{TRUE} (default), trim the tails of the violins
 #'   to the range of the data. If \code{FALSE}, don't trim the tails.
-#' @param scale if "area" (default), all violins have the same area (before trimming
-#'   the tails). If "count", areas are scaled proportionally to the number of
-#'   observations. If "width", all violins have the same maximum width.
+#' @param geom,stat Use to override the default connection between
+#'   \code{geom_violin} and \code{stat_ydensity}.
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))

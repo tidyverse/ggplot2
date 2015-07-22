@@ -1,8 +1,3 @@
-#' 1d kernel density estimate along y axis, for violin plot.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "ydensity")}
-#'
 #' @inheritParams stat_density
 #' @inheritParams stat_identity
 #' @param scale if "area" (default), all violins have the same area (before trimming
@@ -10,7 +5,6 @@
 #'   observations. If "width", all violins have the same maximum width.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning. If \code{TRUE} silently removes missing values.
-#'
 #' @return A data frame with additional columns:
 #'   \item{density}{density estimate}
 #'   \item{scaled}{density estimate, scaled to maximum of 1}
@@ -22,9 +16,7 @@
 #' @seealso \code{\link{geom_violin}} for examples, and \code{\link{stat_density}}
 #'   for examples with data along the x axis.
 #' @export
-#' @examples
-#' # See geom_violin for examples
-#' # Also see stat_density for similar examples with data along x axis
+#' @rdname geom_violin
 stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
   position = "dodge", adjust = 1, kernel = "gaussian", trim = TRUE,
   scale = "area", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
