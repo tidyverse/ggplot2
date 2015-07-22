@@ -29,12 +29,9 @@ PositionNudge <- proto2("PositionNudge", Position,
   y = NULL,
 
   new = function(self, x = NULL, y = NULL) {
-    proto2(
-      inherit = self,
-      members = list(
-        x = x,
-        y = y
-      )
+    proto2("PositionNudge", self,
+      x = x,
+      y = y
     )
   },
 
