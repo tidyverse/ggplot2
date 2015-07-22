@@ -14,13 +14,14 @@ stat_ydensity(mapping = NULL, data = NULL, geom = "violin",
 \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
 at the layer level if you are overriding the plot defaults.}
 
-\item{data}{A layer specific dataset - only needed if you want to override
-the plot defaults.}
+\item{data}{A data frame. If specified, overrides the default data frame
+defined at the top level of the plot.}
 
-\item{geom}{The geometric object to use display the data}
+\item{geom}{Use to override the default connection between
+\code{geom_density} and \code{stat_density}.}
 
-\item{position}{The position adjustment to use for overlappling points
-on this layer}
+\item{position}{Postion adjustment, either as a string, or the result of
+a call to a position adjustment function.}
 
 \item{adjust}{see \code{\link{density}} for details}
 
@@ -50,9 +51,16 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
+\item{...}{other arguments passed on to \code{\link{layer}}. There are
+  three types of arguments you can use here:
+
+  \itemize{
+  \item Aesthetics: to set an aesthetic to a fixed value, like
+     \code{color = "red"} or \code{size = 3}.
+  \item Other arguments to the layer, for example you override the
+    default \code{stat} associated with the layer.
+  \item Other arguments passed on to the stat.
+  }}
 }
 \value{
 A data frame with additional columns:

@@ -23,9 +23,6 @@ at the layer level if you are overriding the plot defaults.}
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
 
-\item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
-
 \item{position}{Postion adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
@@ -65,7 +62,8 @@ the default plot specification, e.g. \code{\link{borders}}.}
   \item Other arguments passed on to the stat.
   }}
 
-\item{geom}{The geometric object to use display the data}
+\item{geom,stat}{Use to override the default connection between
+\code{geom_boxplot} and \code{stat_boxplot}.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
