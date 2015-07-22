@@ -223,12 +223,11 @@ guides_gengrob <- function(gdefs, theme) {
 
 # build up all guide boxes into one guide-boxes.
 guides_build <- function(ggrobs, theme) {
-
   n <- length(ggrobs)
 
-  theme$guide.margin <- theme$guide.margin %||% unit(0.5, "lines")
-  theme$guide.vmargin <- theme$guide.vmargin  %||% theme$guide.margin
-  theme$guide.hmargin <- theme$guide.hmargin  %||% theme$guide.margin
+  theme$legend.margin <- theme$legend.margin %||% unit(0.5, "lines")
+  theme$legend.vmargin <- theme$legend.vmargin  %||% theme$legend.margin
+  theme$legend.hmargin <- theme$legend.hmargin  %||% theme$legend.margin
 
   widths <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$widths)))
   heights <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$heights)))
@@ -268,14 +267,14 @@ guides_build <- function(ggrobs, theme) {
       width = max(widths), heights = heights)
 
     # add space between the guide-boxes
-    guides <- gtable_add_row_space(guides, theme$guide.vmargin)
+    guides <- gtable_add_row_space(guides, theme$legend.vmargin)
   }
 
   # add margins around the guide-boxes.
-  guides <- gtable_add_cols(guides, theme$guide.hmargin, pos = 0)
-  guides <- gtable_add_cols(guides, theme$guide.hmargin, pos = ncol(guides))
-  guides <- gtable_add_rows(guides, theme$guide.vmargin, pos = 0)
-  guides <- gtable_add_rows(guides, theme$guide.vmargin, pos = nrow(guides))
+  guides <- gtable_add_cols(guides, theme$legend.hmargin, pos = 0)
+  guides <- gtable_add_cols(guides, theme$legend.hmargin, pos = ncol(guides))
+  guides <- gtable_add_rows(guides, theme$legend.vmargin, pos = 0)
+  guides <- gtable_add_rows(guides, theme$legend.vmargin, pos = nrow(guides))
 
   guides$name <- "guide-box"
   guides
