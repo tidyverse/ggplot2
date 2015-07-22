@@ -45,11 +45,7 @@ sd_section("Geoms",
 sd_section("Statistics",
   "It's often useful to transform your data before plotting, and that's what statistical transformations do.",
   c(
-    "stat_bin",
-    "stat_bin2d",
-    "stat_bindot",
     "stat_binhex",
-    "stat_boxplot",
     "stat_contour",
     "stat_density",
     "stat_density2d",
@@ -58,15 +54,12 @@ sd_section("Statistics",
     "stat_function",
     "stat_identity",
     "stat_qq",
-    "stat_quantile",
-    "stat_smooth",
     "stat_spoke",
     "stat_sum",
     "stat_summary",
     "stat_summary_hex",
     "stat_summary2d",
-    "stat_unique",
-    "stat_ydensity"
+    "stat_unique"
   )
 )
 
