@@ -1,32 +1,6 @@
-#' Single curved line segments.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "curve")}
-#'
 #' @inheritParams grid::curveGrob
-#' @inheritParams geom_point
-#' @inheritParams geom_segment
-#'
-#' @seealso \code{\link{geom_segment}}, \code{\link{geom_path}} and
-#'   \code{\link{geom_line}} for multi-segment lines and paths.
 #' @export
-#' @examples
-#' # Adding curve segments
-#' b <- ggplot(mtcars, aes(wt, mpg)) +
-#'   geom_point()
-#'
-#' df <- data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0)
-#' b +
-#'  geom_curve(aes(x = x1, y = y1, xend = x2, yend = y2, colour = "curve"), data = df) +
-#'  geom_segment(aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), data = df)
-#'
-#' b + geom_curve(aes(x = x1, y = y1, xend = x2, yend = y2), data = df, curvature = -0.2)
-#' b + geom_curve(aes(x = x1, y = y1, xend = x2, yend = y2), data = df, curvature = 1)
-#' b + geom_curve(
-#'   aes(x = x1, y = y1, xend = x2, yend = y2),
-#'   data = df,
-#'   arrow = grid::arrow(length = grid::unit(0.03, "npc"))
-#' )
+#' @rdname geom_segment
 geom_curve <- function(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", curvature = 0.5, angle = 90, ncp = 5, arrow = NULL,
   lineend = "butt", na.rm = FALSE, inherit.aes = TRUE, ...)

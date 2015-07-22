@@ -1,4 +1,7 @@
-#' Single line segments.
+#' Line segments and curves.
+#'
+#' \code{geom_segment} draws a straight line between points (x1, y1) and
+#' (x2, y2). \code{geom_curve} draws a curved line.
 #'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "segment")}
@@ -10,23 +13,26 @@
 #'   segment lines and paths.
 #' @export
 #' @examples
-#' library(grid) # needed for arrow function
-#' p <- ggplot(seals, aes(x = long, y = lat))
-#' (p <- p + geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat),
-#'   arrow = arrow(length = unit(0.1,"cm"))))
+#' b <- ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point()
 #'
-#' if (require("maps")) {
+#' df <- data.frame(x1 = 2.62, x2 = 3.57, y1 = 21.0, y2 = 15.0)
+#' b +
+#'  geom_curve(aes(x = x1, y = y1, xend = x2, yend = y2, colour = "curve"), data = df) +
+#'  geom_segment(aes(x = x1, y = y1, xend = x2, yend = y2, colour = "segment"), data = df)
 #'
-#' xlim <- range(seals$long)
-#' ylim <- range(seals$lat)
-#' usamap <- data.frame(map("world", xlim = xlim, ylim = ylim, plot =
-#' FALSE)[c("x","y")])
-#' usamap <- rbind(usamap, NA, data.frame(map('state', xlim = xlim, ylim
-#' = ylim, plot = FALSE)[c("x","y")]))
-#' names(usamap) <- c("long", "lat")
+#' b + geom_curve(aes(x = x1, y = y1, xend = x2, yend = y2), data = df, curvature = -0.2)
+#' b + geom_curve(aes(x = x1, y = y1, xend = x2, yend = y2), data = df, curvature = 1)
+#' b + geom_curve(
+#'   aes(x = x1, y = y1, xend = x2, yend = y2),
+#'   data = df,
+#'   arrow = grid::arrow(length = grid::unit(0.03, "npc"))
+#' )
 #'
-#' p + geom_path(data = usamap) + scale_x_continuous(limits = xlim)
-#' }
+#' ggplot(seals, aes(long, lat)) +
+#'   geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat),
+#'     arrow = grid::arrow(length = grid::unit(0.1,"cm"))) +
+#'   borders("state")
 #'
 #' # You can also use geom_segment to recreate plot(type = "h") :
 #' counts <- as.data.frame(table(x = rpois(100,5)))
@@ -34,14 +40,7 @@
 #' with(counts, plot(x, Freq, type = "h", lwd = 10))
 #'
 #' ggplot(counts, aes(x, Freq)) +
-#'   geom_segment(aes(xend = x, yend = 0), size = 10)#'
-#' # Adding line segments
-#' library(grid) # needed for arrow function
-#' b <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
-#' b + geom_segment(aes(x = 2, y = 15, xend = 2, yend = 25))
-#' b + geom_segment(aes(x = 2, y = 15, xend = 3, yend = 15))
-#' b + geom_segment(aes(x = 5, y = 30, xend = 3.5, yend = 25),
-#'    arrow = arrow(length = unit(0.5, "cm")))
+#'   geom_segment(aes(xend = x, yend = 0), size = 10)
 geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
   show_guide = NA, inherit.aes = TRUE, ...)
