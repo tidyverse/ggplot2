@@ -1,38 +1,11 @@
-#' Count number of observation in rectangular bins.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bin2d")}
-#'
-#' @inheritParams stat_identity
 #' @param bins numeric vector giving number of bins in both vertical and
 #'   horizontal directions. Set to 30 by default.
 #' @param drop if \code{TRUE} removes all cells with 0 counts.
-#' @seealso \code{\link{stat_binhex}} for hexagonal binning
 #' @export
-#' @examples
-#' \donttest{
-#' d <- ggplot(diamonds, aes(carat, price))
-#' d + stat_bin2d()
-#' d + geom_bin2d()
-#'
-#' # You can control the size of the bins by specifying the number of
-#' # bins in each direction:
-#' d + stat_bin2d(bins = 10)
-#' d + stat_bin2d(bins = 30)
-#'
-#' # Or by specifying the width of the bins
-#' d + stat_bin2d(binwidth = c(1, 1000))
-#' d + stat_bin2d(binwidth = c(.1, 500))
-#'
-#' # Or with a list of breaks
-#' x <- seq(min(diamonds$carat), max(diamonds$carat), by = 0.1)
-#' y <- seq(min(diamonds$price), max(diamonds$price), length.out = 50)
-#' d + stat_bin2d(breaks = list(x = x, y = y))
-#' }
+#' @rdname geom_bin2d
 stat_bin2d <- function (mapping = NULL, data = NULL, geom = "rect",
   position = "identity", bins = 30, drop = TRUE, show_guide = NA,
-  inherit.aes = TRUE, ...)
-{
+  inherit.aes = TRUE, ...) {
   Layer$new(
     data = data,
     mapping = mapping,
