@@ -20,95 +20,64 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "boxplot")}
 #'
 #' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
-#'   continuous variable,  \code{\link{geom_jitter}} for another way to look
-#'   at conditional distributions"
+#'   continuous variable, \code{\link{geom_jitter}} for another way to look
+#'   at conditional distributions.
 #' @inheritParams geom_point
-#' @param outlier.colour colour for outlying points. Uses the default from geom_point().
-#' @param outlier.shape shape of outlying points. Uses the default from geom_point().
-#' @param outlier.size size of outlying points. Uses the default from geom_point().
-#' @param outlier.stroke stroke width of outlying points. Uses the default from geom_point().
+#' @param geom,stat Use to override the default connection between
+#'   \code{geom_boxplot} and \code{stat_boxplot}.
+#' @param outlier.colour,outlier.shape,outlier.size,outlier.stroke Override
+#'   aesthetics used for the outliers. Defaults come from \code{geom_point()}.
 #' @param notch if \code{FALSE} (default) make a standard box plot. If
-#'    \code{TRUE}, make a notched box plot. Notches are used to compare groups;
-#'    if the notches of two boxes do not overlap, this is strong evidence that
-#'    the medians differ.
+#'   \code{TRUE}, make a notched box plot. Notches are used to compare groups;
+#'   if the notches of two boxes do not overlap, this suggests that the medians
+#'   are significantly different.
 #' @param notchwidth for a notched box plot, width of the notch relative to
-#'    the body (default 0.5)
+#'   the body (default 0.5)
 #' @param varwidth if \code{FALSE} (default) make a standard box plot. If
-#'    \code{TRUE}, boxes are drawn with widths proportional to the
-#'    square-roots of the number of observations in the groups (possibly
-#'    weighted, using the \code{weight} aesthetic).
+#'   \code{TRUE}, boxes are drawn with widths proportional to the
+#'   square-roots of the number of observations in the groups (possibly
+#'   weighted, using the \code{weight} aesthetic).
 #' @export
-#'
 #' @references McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
 #'     box plots. The American Statistician 32, 12-16.
-#'
 #' @examples
-#' \donttest{
-#' p <- ggplot(mtcars, aes(factor(cyl), mpg))
-#'
+#' p <- ggplot(mpg, aes(class, hwy))
 #' p + geom_boxplot()
-#'
-#' p + geom_boxplot() + geom_jitter()
+#' p + geom_boxplot() + geom_jitter(width = 0.2)
 #' p + geom_boxplot() + coord_flip()
 #'
 #' p + geom_boxplot(notch = TRUE)
-#' p + geom_boxplot(notch = TRUE, notchwidth = .3)
-#'
-#' p + geom_boxplot(outlier.colour = "green", outlier.size = 3)
-#'
-#' # Add aesthetic mappings
-#' # Note that boxplots are automatically dodged when any aesthetic is
-#' # a factor
-#' p + geom_boxplot(aes(fill = cyl))
-#' p + geom_boxplot(aes(fill = factor(cyl)))
-#' p + geom_boxplot(aes(fill = factor(vs)))
-#' p + geom_boxplot(aes(fill = factor(am)))
-#'
-#' # Set aesthetics to fixed value
-#' p + geom_boxplot(fill = "grey80", colour = "#3366FF")
-#'
-#' # Scales vs. coordinate transforms -------
-#' # Scale transformations occur before the boxplot statistics are computed.
-#' # Coordinate transformations occur afterwards.  Observe the effect on the
-#' # number of outliers.
-#' if (require("ggplot2movies")) {
-#' library(plyr) # to access round_any
-#' m <- ggplot(movies, aes(y = votes, x = rating,
-#'    group = round_any(rating, 0.5)))
-#' m + geom_boxplot()
-#' m + geom_boxplot() + scale_y_log10()
-#' m + geom_boxplot() + coord_trans(y = "log10")
-#' m + geom_boxplot() + scale_y_log10() + coord_trans(y = "log10")
-#'
-#' # Boxplots with continuous x:
-#' # Use the group aesthetic to group observations in boxplots
-#' ggplot(movies, aes(year, budget)) +
-#'   geom_boxplot()
-#'
-#' ggplot(movies, aes(year, budget)) +
-#'   geom_boxplot(aes(group=round_any(year, 10, floor)))
-#' }
-#'
-#' # Using precomputed statistics
-#' # generate sample data
-#' abc <- adply(matrix(rnorm(100), ncol = 5), 2, quantile, c(0, .25, .5, .75, 1))
-#' b <- ggplot(abc, aes(x = X1, ymin = `0%`, lower = `25%`,
-#'    middle = `50%`, upper = `75%`, ymax = `100%`))
-#' b + geom_boxplot(stat = "identity")
-#' b + geom_boxplot(stat = "identity") + coord_flip()
-#' b + geom_boxplot(aes(fill = X1), stat = "identity")
-#'
-#' # Using varwidth
 #' p + geom_boxplot(varwidth = TRUE)
+#' p + geom_boxplot(fill = "white", colour = "#3366FF")
+#' p + geom_boxplot(outlier.colour = "red", outlier.shape = 1)
 #'
-#' # Update the defaults for the outliers by changing the defaults for geom_point
-#' p <- ggplot(mtcars, aes(factor(cyl), mpg))
-#' p + geom_boxplot()
+#' # Boxplots are automatically dodged when any aesthetic is a factor
+#' p + geom_boxplot(aes(fill = drv))
 #'
-#' update_geom_defaults("point", list(shape = 1, colour = "red", size = 5))
-#' p + geom_boxplot()
-#' }
-geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
+#' # You can also use boxplots with continuous x, as long as you supply
+#' # a grouping variable. plyr::round_any is particularly useful
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_boxplot()
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_boxplot(aes(group = plyr::round_any(carat, 0.1)))
+#'
+#' # It's possible to draw a boxplot with your own computations if you
+#' # use stat = "identity":
+#' y <- rnorm(100)
+#' df <- data.frame(
+#'   x = 1,
+#'   y0 = min(y),
+#'   y25 = quantile(y, 0.25),
+#'   y50 = median(y),
+#'   y75 = quantile(y, 0.75),
+#'   y100 = max(y)
+#' )
+#' ggplot(df, aes(x)) +
+#'   geom_boxplot(
+#'    aes(ymin = y0, lower = y25, middle = y50, upper = y75, ymax = y100),
+#'    stat = "identity"
+#'  )
+geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", outlier.colour = NULL, outlier.shape = NULL,
   outlier.size = NULL, outlier.stroke = 1, notch = FALSE, notchwidth = .5,
   varwidth = FALSE, show_guide = NA, inherit.aes = TRUE, ...)

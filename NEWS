@@ -1,6 +1,14 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* Improved documentation for `aes()`, `layer()` and many geoms and scales. I've
+  tried to reduce the use of `...` so that you can see all the documentation in
+  one place rather than having to navigate through multiple pages. Use
+  of `qplot()` in examples has been minimised (#1123, @hrbrmstr). Tighly
+  linked geoms and stats (e.g. `geom_boxplot()` and `stat_boxplot()`) are
+  now documented in the same file so you can see all the arguments in one
+  place.
+
 * `geom_abline()`, `geom_hline()` and `geom_vline()` have been rewritten to
   have simpler behaviour and be more consistent:
 
@@ -160,11 +168,6 @@ ggplot2 1.0.1.9xxx
 * ggplot2 now exports `alpha()` from the scales package. This means you
   don't need to do `library(scales)` or `scales::alpha()` to access that
   handy function (#1107).
-
-* Improved documentation for `aes()`, `layer()` and many geoms and scales. I've
-  tried to reduce the use of `...` so that you can see all the documentation in
-  one place rather than having to navigate through multiple pages. Use
-  of `qplot()` in examples has been minimised (#1123, @hrbrmstr)
 
 * new theme setting `panel.ontop` (logical) allows placing background elements
   (e.g., gridlines) on top of data. Usually used with blank or transparent
