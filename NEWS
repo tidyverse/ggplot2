@@ -181,6 +181,8 @@ ggplot2 1.0.1.9xxx
   of stroke is `mm`. A point with `size = 5, stroke = 5` will be 10 mm wide.
   (#1142)
 
+* `override.aes` now works with American aesthetic spelling, e.g. color
+
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
