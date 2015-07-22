@@ -54,7 +54,7 @@
 #'     fill = alpha("grey60", 0.4)) +
 #'   geom_line(aes(colour = factor(cyl)), data = grid, size = 1)
 geom_smooth <- function(mapping = NULL, data = NULL, stat = "smooth",
-  method = NULL, formula = NULL, se = TRUE, position = "identity", show_guide = NA,
+  method = "auto", formula = y ~ x, se = TRUE, position = "identity", show_guide = NA,
   inherit.aes = TRUE, ...)
 {
 
