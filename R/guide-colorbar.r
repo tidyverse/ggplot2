@@ -179,18 +179,14 @@ guide_train.colorbar <- function(guide, scale) {
   }
 
 
-  # ticks - label (i.e. breaks)
-  output <- scale$aesthetics[1]
+  # create data frame for tick display
   breaks <- scale_breaks(scale)
-  guide$key <- data.frame(scale_map(scale, breaks), I(scale_labels(scale, breaks)), breaks,
-                          stringsAsFactors = FALSE)
 
-  if (nrow(guide$key) == 0) {
-    return()
-  }
+  ticks <- as.data.frame(setNames(list(scale_map(scale, breaks)), scale$aesthetics[1]))
+  ticks$.value <- breaks
+  ticks$.label <- scale_labels(scale, breaks)
 
-  # .value = breaks (numeric) is used for determining the position of ticks in gengrob
-  names(guide$key) <- c(output, ".label", ".value")
+  guide$key <- ticks
 
   # bar specification (number of divs etc)
   .limits <- scale_limits(scale)
