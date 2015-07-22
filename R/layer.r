@@ -256,7 +256,7 @@ Layer <- proto2(
       check_required_aesthetics(
         self$geom$required_aes,
         c(names(data), names(self$geom_params)),
-        self$geom_my_name()
+        self$geom$my_name()
       )
 
       do.call(self$geom$draw_groups, c(
