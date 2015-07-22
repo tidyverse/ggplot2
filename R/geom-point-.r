@@ -139,26 +139,38 @@ GeomPoint <- proto2("GeomPoint", Geom,
   draw_groups = function(self, ...) self$draw(...),
 
   draw = function(self, data, scales, coordinates, na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm,
-      c("x", "y", "size", "shape"), name = "geom_point")
+    data <- remove_missing(data, na.rm, c("x", "y", "size", "shape"),
+      name = "geom_point")
     if (empty(data)) return(zeroGrob())
 
-    with(coord_transform(coordinates, data, scales),
-      ggname(self$my_name(), pointsGrob(x, y, size=unit(size, "mm"), pch=shape,
-      gp=gpar(col=alpha(colour, alpha), fill = alpha(fill, alpha), lwd = stroke, fontsize = size * .pt)))
+    coords <- coord_transform(coordinates, data, scales)
+    ggname(self$my_name(),
+      pointsGrob(
+        coords$x, coords$y,
+        size = unit(coords$size, "mm"),
+        pch = coords$shape,
+        gp = gpar(
+          col = alpha(coords$colour, coords$alpha),
+          fill = alpha(coords$fill, coords$alpha),
+          lwd = coords$stroke,
+          fontsize = coords$size * .pt
+        )
+      )
     )
   },
 
   draw_legend = function(self, data, ...) {
     data <- aesdefaults(data, self$default_aes, list(...))
 
-    with(data,
-      pointsGrob(0.5, 0.5, size=unit(size, "mm"), pch=shape,
-      gp=gpar(
-        col=alpha(colour, alpha),
-        fill=alpha(fill, alpha),
-        lwd=stroke,
-        fontsize = size * .pt)
+    pointsGrob(
+      0.5, 0.5,
+      size = unit(data$size, "mm"),
+      pch = data$shape,
+      gp = gpar(
+        col = alpha(data$colour, data$alpha),
+        fill = alpha(data$fill, data$alpha),
+        lwd = data$stroke,
+        fontsize = data$size * .pt
       )
     )
   },
