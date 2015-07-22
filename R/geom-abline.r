@@ -115,18 +115,5 @@ GeomAbline <- proto2("GeomAbline", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
   required_aes = c("slope", "intercept"),
 
-  guide_geom = function(self) "abline",
-  draw_legend = function(self, data, ...) {
-    data <- aesdefaults(data, self$default_aes, list(...))
-    ggname(self$my_name(),
-      segmentsGrob(0, 0, 1, 1, default.units = "npc",
-        gp = gpar(
-          col = alpha(data$colour, data$alpha),
-          lwd = data$size * .pt,
-          lty = data$linetype,
-          lineend = "butt"
-        )
-      )
-    )
-  }
+  guide_geom = legend_abline
 )

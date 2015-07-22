@@ -101,15 +101,6 @@ GeomPolygon <- proto2("GeomPolygon", Geom,
 
   required_aes = c("x", "y"),
 
-  guide_geom = function(self) "polygon",
-
-  draw_legend = function(self, data, ...)  {
-    data <- aesdefaults(data, self$default_aes, list(...))
-
-    with(data, grobTree(
-      rectGrob(gp = gpar(col = colour, fill = alpha(fill, alpha), lty = linetype)),
-      linesGrob(gp = gpar(col = colour, lwd = size * .pt, lineend="butt", lty = linetype))
-    ))
-  }
+  guide_geom = legend_polygon
 )
 

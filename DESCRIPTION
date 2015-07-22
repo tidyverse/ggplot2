@@ -52,6 +52,7 @@ Collate:
     'aes-linetype-size-shape.r'
     'aes-position.r'
     'aes.r'
+    'legend-draw.r'
     'geom-.r'
     'annotation-custom.r'
     'annotation-logticks.r'

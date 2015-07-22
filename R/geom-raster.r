@@ -126,5 +126,5 @@ GeomRaster <- proto2("GeomRaster", Geom,
 
   required_aes = c("x", "y"),
 
-  guide_geom = function(self) "polygon"
+  guide_geom = legend_polygon
 )

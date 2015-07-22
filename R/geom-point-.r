@@ -159,20 +159,7 @@ GeomPoint <- proto2("GeomPoint", Geom,
     )
   },
 
-  draw_legend = function(self, data, ...) {
-    data <- aesdefaults(data, self$default_aes, list(...))
-
-    pointsGrob(
-      0.5, 0.5,
-      pch = data$shape,
-      gp = gpar(
-        col = alpha(data$colour, data$alpha),
-        fill = alpha(data$fill, data$alpha),
-        fontsize = data$size * .pt + data$stroke * .stroke / 2,
-        lwd = data$stroke * .stroke / 2
-      )
-    )
-  },
+  guide_geom = legend_point,
 
   required_aes = c("x", "y"),
   default_aes = aes(shape = 19, colour = "black", size = 2, fill = NA,
