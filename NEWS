@@ -1,6 +1,20 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `geom_abline()`, `geom_hline()` and `geom_vline()` have been rewritten to
+  have simpler behaviour and be more consistent:
+
+    * `stat_abline()`, `stat_hline()` and `stat_vline()` have been removed:
+      these were never suitable for use other than with `geom_abline()` etc
+      and were not documented.
+
+    * `geom_abline()`, `geom_vline()` and `geom_hline()` are bound to
+      `stat_identity()` and `position_identity()`
+
+    * Intercept parameters can no longer be set to a function.
+
+    * They are all documented in one file, since they are so closely related.
+
 * Scales no longer round data points to improve performance of colour
   palettes. Instead the scales package now uses a much faster colour
   interpolation algorithm (#1022).

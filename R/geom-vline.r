@@ -1,59 +1,26 @@
-#' Line, vertical.
-#'
-#' This geom allows you to annotate the plot with vertical lines (see
-#' \code{\link{geom_hline}} and \code{\link{geom_abline}} for other types of
-#' lines.
-#'
-#' There are two ways to use it.  You can either specify the intercept of the
-#' line in the call to the geom, in which case the line will be in the same
-#' position in every panel.  Alternatively, you can supply a different
-#' intercept for each panel using a data.frame.  See the examples for the
-#' differences.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "vline")}
-#'
-#' @param show_guide should a legend be drawn? (defaults to \code{FALSE})
-#' @inheritParams geom_point
-#' @seealso
-#'  \code{\link{geom_hline}} for horizontal lines,
-#'  \code{\link{geom_abline}} for lines defined by a slope and intercept,
-#'  \code{\link{geom_segment}} for a more general approach"
+#' @include stat-.r
+NULL
+
 #' @export
-#' @examples
-#' # Fixed lines
-#' p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
-#' p + geom_vline(xintercept = 5)
-#' p + geom_vline(xintercept = 1:5)
-#' p + geom_vline(xintercept = 1:5, colour="green", linetype = "longdash")
-#' p + geom_vline(aes(xintercept = wt))
-#'
-#' # With coordinate transforms
-#' p + geom_vline(aes(xintercept = wt)) + coord_equal()
-#' p + geom_vline(aes(xintercept = wt)) + coord_flip()
-#' p + geom_vline(aes(xintercept = wt)) + coord_polar()
-#'
-#' p2 <- p + aes(colour = factor(cyl))
-#' p2 + geom_vline(xintercept = 15)
-#'
-#' # To display different lines in different facets, you need to
-#' # create a data frame.
-#' p <- ggplot(mtcars, aes(mpg, wt)) +
-#'      geom_point() +
-#'      facet_wrap(vs ~ am)
-#' vline.data <- data.frame(z = c(15, 20, 25, 30), vs = c(0, 0, 1, 1), am = c(0, 1, 0, 1))
-#' p + geom_vline(aes(xintercept = z), vline.data)
-geom_vline <- function (mapping = NULL, data = NULL, stat = "vline",
-  position = "identity", show_guide = FALSE, inherit.aes = FALSE, ...)
-{
+#' @rdname geom_abline
+geom_vline <- function(mapping = NULL, data = NULL, show_guide = FALSE,
+                       xintercept, ...) {
+
+  # Act like an annotation
+  if (!missing(xintercept)) {
+    data <- data.frame(xintercept = xintercept)
+    mapping <- aes(xintercept = xintercept)
+    show_guide <- FALSE
+  }
+
   Layer$new(
     data = data,
     mapping = mapping,
-    stat = stat,
+    stat = StatIdentity,
     geom = GeomVline,
-    position = position,
+    position = PositionIdentity,
     show_guide = show_guide,
-    inherit.aes = inherit.aes,
+    inherit.aes = FALSE,
     params = list(...)
   )
 }
@@ -62,21 +29,11 @@ GeomVline <- proto2(
   class = "GeomVline",
   inherit = Geom,
   members = list(
-    new = function(self, super, data = NULL, mapping = NULL, xintercept = NULL,
-      ...)
-    {
-      if (is.numeric(xintercept)) {
-        data <- data.frame(xintercept = xintercept)
-        xintercept <- NULL
-        mapping <- aes_all(names(data))
-      }
-      super$new(self, data = data, mapping = mapping, inherit.aes = FALSE,
-        xintercept = xintercept, ...)
-    },
-
     draw = function(self, data, scales, coordinates, ...) {
       ranges <- coord_range(coordinates, scales)
 
+      data$x    <- data$xintercept
+      data$xend <- data$xintercept
       data$y    <- ranges$y[1]
       data$yend <- ranges$y[2]
 
@@ -84,18 +41,21 @@ GeomVline <- proto2(
     },
 
     default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+    required_aes = "xintercept",
 
     guide_geom = function(self) "vline",
 
     draw_legend = function(self, data, ...) {
       data <- aesdefaults(data, self$default_aes, list(...))
 
-      with(data,
-        ggname(
-          self$my_name(),
-          segmentsGrob(0.5, 0, 0.5, 1, default.units="npc",
-                       gp = gpar(col = alpha(colour, alpha), lwd = size * .pt,
-                                 lty = linetype, lineend = "butt")
+      ggname(
+        self$my_name(),
+        segmentsGrob(0.5, 0, 0.5, 1, default.units = "npc",
+          gp = gpar(
+            col = alpha(data$colour, data$alpha),
+            lwd = data$size * .pt,
+            lty = data$linetype,
+            lineend = "butt"
           )
         )
       )
