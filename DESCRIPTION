@@ -27,7 +27,6 @@ Suggests:
     ggplot2movies,
     hexbin,
     Hmisc,
-    knitr,
     mapproj,
     maps,
     maptools,
@@ -36,7 +35,6 @@ Suggests:
     nlme,
     testthat,
     quantreg
-VignetteBuilder: knitr
 Enhances: sp
 License: GPL-2
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2
