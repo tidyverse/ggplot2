@@ -236,7 +236,7 @@ GeomDotplot <- proto2("GeomDotplot", Geom,
     )
   },
 
-  guide_geom = legend_dotplot,
+  guide_geom = draw_key_dotplot,
 
   required_aes = c("x", "y"),
 

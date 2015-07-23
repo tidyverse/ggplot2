@@ -115,5 +115,5 @@ GeomAbline <- proto2("GeomAbline", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
   required_aes = c("slope", "intercept"),
 
-  guide_geom = legend_abline
+  guide_geom = draw_key_abline
 )

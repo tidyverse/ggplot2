@@ -35,7 +35,7 @@ GeomHex <- proto2("GeomHex", Geom,
 
   default_aes = aes(colour=NA, fill = "grey50", size=0.5, alpha = NA),
 
-  guide_geom = legend_polygon
+  guide_geom = draw_key_polygon
 )
 
 

@@ -209,5 +209,5 @@ GeomPath <- proto2("GeomPath", Geom,
 
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  guide_geom = legend_path
+  guide_geom = draw_key_path
 )

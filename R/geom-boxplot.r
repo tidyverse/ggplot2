@@ -192,7 +192,7 @@ GeomBoxplot <- proto2("GeomBoxplot", Geom,
     ))
   },
 
-  guide_geom = legend_boxplot,
+  guide_geom = draw_key_boxplot,
 
   default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
     alpha = NA, shape = 19, linetype = "solid", outlier.colour = "black",

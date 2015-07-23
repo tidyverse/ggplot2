@@ -65,7 +65,7 @@ GeomRect <- proto2("GeomRect", Geom,
 
   draw_groups = function(self, ...) self$draw(...),
 
-  guide_geom = legend_polygon
+  guide_geom = draw_key_polygon
 )
 
 

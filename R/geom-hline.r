@@ -40,5 +40,5 @@ GeomHline <- proto2("GeomHline", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
   required_aes = "yintercept",
 
-  guide_geom = legend_path
+  guide_geom = draw_key_path
 )

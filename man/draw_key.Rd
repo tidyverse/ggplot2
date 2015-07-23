@@ -2,43 +2,43 @@
 % Please edit documentation in R/legend-draw.r
 \name{draw_key}
 \alias{draw_key}
-\alias{legend_abline}
-\alias{legend_blank}
-\alias{legend_boxplot}
-\alias{legend_crossbar}
-\alias{legend_dotplot}
-\alias{legend_path}
-\alias{legend_point}
-\alias{legend_pointrange}
-\alias{legend_polygon}
-\alias{legend_smooth}
-\alias{legend_text}
-\alias{legend_vline}
+\alias{draw_key_abline}
+\alias{draw_key_blank}
+\alias{draw_key_boxplot}
+\alias{draw_key_crossbar}
+\alias{draw_key_dotplot}
+\alias{draw_key_path}
+\alias{draw_key_point}
+\alias{draw_key_pointrange}
+\alias{draw_key_polygon}
+\alias{draw_key_smooth}
+\alias{draw_key_text}
+\alias{draw_key_vline}
 \title{Key drawing functions}
 \usage{
-legend_point(self, data, params)
+draw_key_point(self, data, params)
 
-legend_abline(self, data, params)
+draw_key_abline(self, data, params)
 
-legend_polygon(self, data, params)
+draw_key_polygon(self, data, params)
 
-legend_blank(self, data, params)
+draw_key_blank(self, data, params)
 
-legend_boxplot(self, data, params)
+draw_key_boxplot(self, data, params)
 
-legend_crossbar(self, data, params)
+draw_key_crossbar(self, data, params)
 
-legend_path(self, data, params)
+draw_key_path(self, data, params)
 
-legend_dotplot(self, data, params)
+draw_key_dotplot(self, data, params)
 
-legend_pointrange(self, data, params)
+draw_key_pointrange(self, data, params)
 
-legend_smooth(self, data, params)
+draw_key_smooth(self, data, params)
 
-legend_text(self, data, params)
+draw_key_text(self, data, params)
 
-legend_vline(self, data, params)
+draw_key_vline(self, data, params)
 }
 \arguments{
 \item{self}{The Geom object}

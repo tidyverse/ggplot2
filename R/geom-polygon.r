@@ -101,6 +101,6 @@ GeomPolygon <- proto2("GeomPolygon", Geom,
 
   required_aes = c("x", "y"),
 
-  guide_geom = legend_polygon
+  guide_geom = draw_key_polygon
 )
 

@@ -14,7 +14,7 @@ NULL
 
 #' @export
 #' @rdname draw_key
-legend_point <- function(self, data, params) {
+draw_key_point <- function(self, data, params) {
   pointsGrob(0.5, 0.5,
     pch = data$shape,
     gp = gpar(
@@ -28,7 +28,7 @@ legend_point <- function(self, data, params) {
 
 #' @export
 #' @rdname draw_key
-legend_abline <- function(self, data, params) {
+draw_key_abline <- function(self, data, params) {
   segmentsGrob(0, 0, 1, 1,
     gp = gpar(
       col = alpha(data$colour, data$alpha),
@@ -41,7 +41,7 @@ legend_abline <- function(self, data, params) {
 
 #' @export
 #' @rdname draw_key
-legend_polygon <- function(self, data, params) {
+draw_key_polygon <- function(self, data, params) {
   grobTree(
     rectGrob(gp = gpar(
       col = data$colour,
@@ -59,13 +59,13 @@ legend_polygon <- function(self, data, params) {
 
 #' @export
 #' @rdname draw_key
-legend_blank <- function(self, data, params) {
+draw_key_blank <- function(self, data, params) {
   zeroGrob()
 }
 
 #' @export
 #' @rdname draw_key
-legend_boxplot <- function(self, data, params) {
+draw_key_boxplot <- function(self, data, params) {
   grobTree(
     linesGrob(0.5, c(0.1, 0.25)),
     linesGrob(0.5, c(0.75, 0.9)),
@@ -82,7 +82,7 @@ legend_boxplot <- function(self, data, params) {
 
 #' @export
 #' @rdname draw_key
-legend_crossbar <- function(self, data, params) {
+draw_key_crossbar <- function(self, data, params) {
   grobTree(
     rectGrob(height = 0.5, width = 0.75),
     linesGrob(c(0.125, 0.875), 0.5),
@@ -97,7 +97,7 @@ legend_crossbar <- function(self, data, params) {
 
 #' @export
 #' @rdname draw_key
-legend_path <- function(self, data, params) {
+draw_key_path <- function(self, data, params) {
   segmentsGrob(0.1, 0.5, 0.9, 0.5,
     gp = gpar(
       col = alpha(data$colour, data$alpha),
@@ -111,7 +111,7 @@ legend_path <- function(self, data, params) {
 
 #' @export
 #' @rdname draw_key
-legend_dotplot <- function(self, data, params) {
+draw_key_dotplot <- function(self, data, params) {
   pointsGrob(0.5, 0.5, size = unit(.5, "npc"),
     pch = 21,
     gp = gpar(
@@ -123,28 +123,28 @@ legend_dotplot <- function(self, data, params) {
 
 #' @export
 #' @rdname draw_key
-legend_pointrange <- function(self, data, params) {
+draw_key_pointrange <- function(self, data, params) {
   grobTree(
-    legend_path(self, data, params),
-    legend_point(self, transform(data, size = data$size * 4), params)
+    draw_key_path(self, data, params),
+    draw_key_point(self, transform(data, size = data$size * 4), params)
   )
 }
 
 #' @export
 #' @rdname draw_key
-legend_smooth <- function(self, data, params) {
+draw_key_smooth <- function(self, data, params) {
   data$fill <- alpha(data$fill, data$alpha)
   data$alpha <- 1
 
   grobTree(
     if (isTRUE(params$se)) rectGrob(gp = gpar(col = NA, fill = data$fill)),
-    legend_path(self, data, params)
+    draw_key_path(self, data, params)
   )
 }
 
 #' @export
 #' @rdname draw_key
-legend_text <- function(self, data, params) {
+draw_key_text <- function(self, data, params) {
   textGrob("a", 0.5, 0.5,
     rot = data$angle,
     gp = gpar(
@@ -158,7 +158,7 @@ legend_text <- function(self, data, params) {
 
 #' @export
 #' @rdname draw_key
-legend_vline <- function(self, data, params) {
+draw_key_vline <- function(self, data, params) {
   segmentsGrob(0.5, 0, 0.5, 1,
     gp = gpar(
       col = alpha(data$colour, data$alpha),

@@ -53,7 +53,7 @@ GeomStep <- proto2("GeomStep", Geom,
     GeomPath$draw(data, scales, coordinates, ...)
   },
 
-  guide_geom = legend_path
+  guide_geom = draw_key_path
 )
 
 

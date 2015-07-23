@@ -105,7 +105,7 @@ GeomSmooth <- proto2("GeomSmooth", Geom,
     )
   },
 
-  guide_geom = legend_smooth,
+  guide_geom = draw_key_smooth,
 
   required_aes = c("x", "y"),
 

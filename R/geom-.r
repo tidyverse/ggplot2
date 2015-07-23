@@ -19,7 +19,7 @@ Geom <- proto2("Geom", TopLevel,
 
   default_aes = aes(),
 
-  guide_geom = legend_point,
+  guide_geom = draw_key_point,
 
   draw = function(self, ...) {},
 

@@ -106,7 +106,7 @@ GeomViolin <- proto2("GeomViolin", Geom,
     ggname(self$my_name(), GeomPolygon$draw(newdata, ...))
   },
 
-  guide_geom = legend_polygon,
+  guide_geom = draw_key_polygon,
 
   default_aes = aes(weight=1, colour="grey20", fill="white", size=0.5,
     alpha = NA, linetype = "solid"),
