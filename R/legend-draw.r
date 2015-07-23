@@ -1,6 +1,5 @@
 legend_point <- function(self, data, params) {
-  pointsGrob(
-    0.5, 0.5,
+  pointsGrob(0.5, 0.5,
     pch = data$shape,
     gp = gpar(
       col = alpha(data$colour, data$alpha),
@@ -12,7 +11,7 @@ legend_point <- function(self, data, params) {
 }
 
 legend_abline <- function(self, data, params) {
-  segmentsGrob(0, 0, 1, 1, default.units = "npc",
+  segmentsGrob(0, 0, 1, 1,
     gp = gpar(
       col = alpha(data$colour, data$alpha),
       lwd = data$size * .pt,
@@ -30,10 +29,10 @@ legend_polygon <- function(self, data, params) {
       lty = data$linetype
     )),
     linesGrob(gp = gpar(
-        col = data$colour,
-        lwd = data$size * .pt,
-        lineend = "butt",
-        lty = data$linetype
+      col = data$colour,
+      lwd = data$size * .pt,
+      lineend = "butt",
+      lty = data$linetype
     ))
   )
 }
@@ -71,7 +70,7 @@ legend_crossbar <- function(self, data, params) {
 }
 
 legend_path <- function(self, data, params) {
-  segmentsGrob(0.1, 0.5, 0.9, 0.5, default.units = "npc",
+  segmentsGrob(0.1, 0.5, 0.9, 0.5,
     gp = gpar(
       col = alpha(data$colour, data$alpha),
       lwd = data$size * .pt,
@@ -83,9 +82,8 @@ legend_path <- function(self, data, params) {
 }
 
 legend_dotplot <- function(self, data, params) {
-  data$shape <- 21
-
-  pointsGrob(0.5, 0.5, size = unit(.5, "npc"), pch = data$shape,
+  pointsGrob(0.5, 0.5, size = unit(.5, "npc"),
+    pch = 21,
     gp = gpar(
       col = alpha(data$colour, data$alpha),
       fill = alpha(data$fill, data$alpha)
@@ -104,29 +102,26 @@ legend_smooth <- function(self, data, params) {
   data$fill <- alpha(data$fill, data$alpha)
   data$alpha <- 1
 
-  if (is.null(params$se) || params$se) {
-    grobTree(
-      rectGrob(gp = gpar(col = NA, fill = data$fill)),
-      legend_path(self, data, params)
-    )
-  } else {
+  grobTree(
+    if (isTRUE(params$se)) rectGrob(gp = gpar(col = NA, fill = data$fill)),
     legend_path(self, data, params)
-  }
+  )
 }
 
 legend_text <- function(self, data, params) {
-  textGrob(
-    "a", 0.5, 0.5,
+  textGrob("a", 0.5, 0.5,
     rot = data$angle,
     gp = gpar(
       col = alpha(data$colour, data$alpha),
+      fontfamily = data$family,
+      fontface = data$fontface,
       fontsize = data$size * .pt
     )
   )
 }
 
 legend_vline <- function(self, data, params) {
-  segmentsGrob(0.5, 0, 0.5, 1, default.units = "npc",
+  segmentsGrob(0.5, 0, 0.5, 1,
     gp = gpar(
       col = alpha(data$colour, data$alpha),
       lwd = data$size * .pt,
