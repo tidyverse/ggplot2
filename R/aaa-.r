@@ -17,10 +17,10 @@ TopLevel <- proto2("TopLevel", NULL,
   find = function(self, name) {
     # Convert name to camel case
     name <- camelize(name, first = TRUE)
-    fullname <- paste0(firstUpper(self$class()), name)
+    fullname <- paste0(firstUpper(self$type), name)
 
     if (!exists(fullname)) {
-      stop("No ", self$class(), " called ", fullname, call. = FALSE)
+      stop("No ", self$type, " called ", fullname, call. = FALSE)
     }
     get(fullname)
   },
@@ -30,5 +30,5 @@ TopLevel <- proto2("TopLevel", NULL,
     snakeize(class(self)[1])
   },
 
-  class = function(self) "toplevel"
+  type = "toplevel"
 )

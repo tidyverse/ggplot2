@@ -195,7 +195,7 @@ Layer <- proto2("Layer", NULL,
     ))
   },
 
-  class = function(self) "layer"
+  type = "layer"
 )
 
 

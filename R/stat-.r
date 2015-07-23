@@ -1,4 +1,6 @@
 Stat <- proto2("Stat", TopLevel,
+  type = "stat",
+
   # Should the values produced by the statistic also be transformed
   # in the second pass when recently added statistics are trained to
   # the scales
@@ -43,9 +45,7 @@ Stat <- proto2("Stat", TopLevel,
     }, stats, groups, SIMPLIFY=FALSE)
 
     do.call(rbind.fill, stats)
-  },
-
-  class = function(self) "stat"
+  }
 )
 
 # make_stat("bin") returns StatBin
