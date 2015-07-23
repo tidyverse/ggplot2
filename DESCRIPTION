@@ -43,7 +43,6 @@ LazyData: true
 Collate:
     'ggproto.r'
     'aaa-.r'
-    'aaa-constants.r'
     'aes-calculated.r'
     'aes-colour-fill-alpha.r'
     'aes-group-order.r'

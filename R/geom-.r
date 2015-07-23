@@ -1,6 +1,10 @@
 #' @include legend-draw.r
 NULL
 
+.pt <- 1 / 0.352777778
+.stroke <- 96 / 25.4
+
+
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
