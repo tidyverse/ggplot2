@@ -85,11 +85,11 @@ add_ggplot <- function(p, object, objectname) {
     p$theme <- update_theme(p$theme, object)
   } else if (inherits(object, "scale")) {
     p$scales$add(object)
-  } else if(inherits(object, "labels")) {
+  } else if (inherits(object, "labels")) {
     p <- update_labels(p, object)
-  } else if(inherits(object, "guides")) {
+  } else if (inherits(object, "guides")) {
     p <- update_guides(p, object)
-  } else if(inherits(object, "uneval")) {
+  } else if (inherits(object, "uneval")) {
       p$mapping <- defaults(object, p$mapping)
 
       labels <- lapply(object, deparse)
@@ -101,28 +101,18 @@ add_ggplot <- function(p, object, objectname) {
   } else if (is.facet(object)) {
       p$facet <- object
       p
-  } else if(is.list(object)) {
+  } else if (is.list(object)) {
     for (o in object) {
       p <- p + o
     }
-  } else if (is.ggproto(object)) {
-    p <- switch(object$type,
-      layer = {
-        p$layers <- append(p$layers, object)
+  } else if (is.layer(object)) {
+    p$layers <- append(p$layers, object)
 
-        # Add any new labels
-        mapping <- make_labels(object$mapping)
-        default <- make_labels(object$stat$default_aes)
-
-        new_labels <- defaults(mapping, default)
-        p$labels <- defaults(p$labels, new_labels)
-        p
-      },
-      coord = {
-        p$coordinates <- object
-        p
-      }
-    )
+    # Add any new labels
+    mapping <- make_labels(object$mapping)
+    default <- make_labels(object$stat$default_aes)
+    new_labels <- defaults(mapping, default)
+    p$labels <- defaults(p$labels, new_labels)
   } else {
     stop("Don't know how to add ", objectname, " to a plot",
       call. = FALSE)

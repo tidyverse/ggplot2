@@ -84,7 +84,5 @@ TopLevel <- ggproto("TopLevel", NULL,
   # Convert class name from camel case (GeomBar) to snake case (geom_bar).
   my_name = function(self) {
     snakeize(class(self)[1])
-  },
-
-  type = "toplevel"
+  }
 )

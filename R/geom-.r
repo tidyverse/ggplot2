@@ -6,8 +6,6 @@ NULL
 #' @usage NULL
 #' @export
 Geom <- ggproto("Geom", TopLevel,
-  type = "geom",
-
   required_aes = c(),
 
   default_aes = aes(),

@@ -184,9 +184,7 @@ Layer <- ggproto("Layer", NULL,
       list(quote(data), quote(scales), quote(cs)),
       self$geom_params
     ))
-  },
-
-  type = "layer"
+  }
 )
 
 
@@ -262,3 +260,5 @@ layer <- function(geom = NULL, geom_params = list(), stat = NULL,
     show_guide = show_guide
   )
 }
+
+is.layer <- function(x) inherits(x, "Layer")

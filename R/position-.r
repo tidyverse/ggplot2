@@ -6,7 +6,6 @@
 #' @usage NULL
 #' @export
 Position <- ggproto("Position", TopLevel,
-  type = "position",
   adjust = function(data, scales, ...) data
 )
 
