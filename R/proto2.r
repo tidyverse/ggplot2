@@ -1,11 +1,13 @@
 #' Create a new proto2 object
 #'
-#' @param _class Name of new class
-#' @param _inherit proto2 object to inherit from. Use \code{NULL} to inherit
-#'   from the "base" class.
+#' @param _class Class name to assign to the object. This is stored as the class
+#'   attribute of the object. If \code{NULL} (the default), no class name will
+#'   be added to the object.
+#' @param _inherit proto2 object to inherit from. If \code{NULL}, don't inherit
+#'   from any object.
 #' @param ... A list of members in the proto2 object.
 #' @export
-proto2 <- function(`_class`, `_inherit`, ...) {
+proto2 <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   e <- new.env(parent = emptyenv())
 
   members <- list(...)
