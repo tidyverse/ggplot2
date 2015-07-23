@@ -93,7 +93,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
 
     dens <- safe.call(kde2d, list(x = df$x, y = df$y, n = n,
       lims = c(scale_dimension(scales$x), scale_dimension(scales$y)), ...))
-    df <- with(dens, data.frame(expand.grid(x = x, y = y), z = as.vector(z)))
+    df <- data.frame(expand.grid(x = dens$x, y = dens$y), z = as.vector(dens$z))
     df$group <- data$group[1]
 
     if (contour) {

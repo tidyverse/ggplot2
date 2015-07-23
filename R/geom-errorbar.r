@@ -21,11 +21,11 @@
 #' df2 <- df[c(1,4),]
 #'
 #' # Define the top and bottom of the errorbars
-#' limits <- aes(ymax = resp + se, ymin=resp - se)
+#' limits <- aes(ymax = resp + se, ymin = resp - se)
 #'
-#' p <- ggplot(df, aes(fill=group, y=resp, x=trt))
+#' p <- ggplot(df, aes(trt, resp, fill = group))
 #' p +
-#'  geom_bar(position="dodge", stat="identity") +
+#'  geom_bar(position = "dodge", stat = "identity") +
 #'  geom_errorbar(limits, position = "dodge", width=0.25)
 #'
 #' # Because the bars and errorbars have different widths
@@ -39,7 +39,7 @@
 #'   geom_bar(position = dodge, stat = "identity") +
 #'   geom_errorbar(limits, position = dodge, width = 0.25)
 #'
-#' p <- ggplot(df, aes(colour=group, y=resp, x=trt))
+#' p <- ggplot(df, aes(trt, resp, colour = group))
 #' p + geom_point() + geom_errorbar(limits, width=0.2)
 #' p + geom_pointrange(limits)
 #' p + geom_crossbar(limits, width=0.2)
@@ -47,7 +47,7 @@
 #' # If we want to draw lines, we need to manually set the
 #' # groups which define the lines - here the groups in the
 #' # original dataframe
-#' p + geom_line(aes(group=group)) + geom_errorbar(limits, width=0.2)
+#' p + geom_line(aes(group = group)) + geom_errorbar(limits, width = 0.2)
 geom_errorbar <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 {
@@ -85,16 +85,16 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
   },
 
   draw = function(data, scales, coordinates, width = NULL, ...) {
-    GeomPath$draw(with(data, data.frame(
-      x = as.vector(rbind(xmin, xmax, NA, x,    x,    NA, xmin, xmax)),
-      y = as.vector(rbind(ymax, ymax, NA, ymax, ymin, NA, ymin, ymin)),
-      colour = rep(colour, each = 8),
-      alpha = rep(alpha, each = 8),
-      size = rep(size, each = 8),
-      linetype = rep(linetype, each = 8),
+    GeomPath$draw(data.frame(
+      x = as.vector(rbind(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax)),
+      y = as.vector(rbind(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin)),
+      colour = rep(data$colour, each = 8),
+      alpha = rep(data$alpha, each = 8),
+      size = rep(data$size, each = 8),
+      linetype = rep(data$linetype, each = 8),
       group = rep(1:(nrow(data)), each = 8),
       stringsAsFactors = FALSE,
       row.names = 1:(nrow(data) * 8)
-    )), scales, coordinates, ...)
+    ), scales, coordinates, ...)
   }
 )

@@ -183,27 +183,32 @@ GeomPath <- ggproto("GeomPath", Geom,
     end <-   c(group_diff, TRUE)
 
     if (!constant) {
-      with(munched,
-        segmentsGrob(
-          x[!end], y[!end], x[!start], y[!start],
-          default.units="native", arrow = arrow,
-          gp = gpar(
-            col = alpha(colour, alpha)[!end], fill = alpha(colour, alpha)[!end],
-            lwd = size[!end] * .pt, lty = linetype[!end],
-            lineend = lineend, linejoin = linejoin, linemitre = linemitre
-          )
+      segmentsGrob(
+        munched$x[!end], munched$y[!end], munched$x[!start], munched$y[!start],
+        default.units = "native", arrow = arrow,
+        gp = gpar(
+          col = alpha(munched$colour, munched$alpha)[!end],
+          fill = alpha(munched$colour, munched$alpha)[!end],
+          lwd = munched$size[!end] * .pt,
+          lty = munched$linetype[!end],
+          lineend = lineend,
+          linejoin = linejoin,
+          linemitre = linemitre
         )
       )
     } else {
       id <- match(munched$group, unique(munched$group))
-      with(munched,
-        polylineGrob(
-          x, y, id = id,
-          default.units = "native", arrow = arrow,
-          gp = gpar(
-            col = alpha(colour, alpha)[start], fill = alpha(colour, alpha)[start],
-            lwd = size[start] * .pt, lty = linetype[start],
-            lineend = lineend, linejoin = linejoin, linemitre = linemitre)
+      polylineGrob(
+        munched$x, munched$y, id = id,
+        default.units = "native", arrow = arrow,
+        gp = gpar(
+          col = alpha(munched$colour, munched$alpha)[start],
+          fill = alpha(munched$colour, munched$alpha)[start],
+          lwd = munched$size[start] * .pt,
+          lty = munched$linetype[start],
+          lineend = lineend,
+          linejoin = linejoin,
+          linemitre = linemitre
         )
       )
     }

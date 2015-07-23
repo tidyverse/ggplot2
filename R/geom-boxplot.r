@@ -156,7 +156,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       y = c(data$upper, data$lower),
       yend = c(data$ymax, data$ymin),
       alpha = NA,
-      common
+      common,
+      stringsAsFactors = FALSE
     )
 
     box <- data.frame(
@@ -169,7 +170,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       ynotchupper = ifelse(notch, data$notchupper, NA),
       notchwidth = notchwidth,
       alpha = data$alpha,
-      common
+      common,
+      stringsAsFactors = FALSE
     )
 
     if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {

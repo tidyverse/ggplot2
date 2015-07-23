@@ -44,7 +44,7 @@ GeomRect <- ggproto("GeomRect", Geom,
       )
 
       polys <- alply(data, 1, function(row) {
-        poly <- with(row, rect_to_poly(xmin, xmax, ymin, ymax))
+        poly <- rect_to_poly(row$xmin, row$xmax, row$ymin, row$ymax)
         aes <- as.data.frame(row[aesthetics],
           stringsAsFactors = FALSE)[rep(1,5), ]
 
@@ -53,17 +53,21 @@ GeomRect <- ggproto("GeomRect", Geom,
 
       ggname("bar", do.call("grobTree", polys))
     } else {
-      with(coord_transform(coordinates, data, scales),
-        ggname("geom_rect", rectGrob(
-          xmin, ymax,
-          width = xmax - xmin, height = ymax - ymin,
-          default.units = "native", just = c("left", "top"),
-          gp=gpar(
-            col=colour, fill=alpha(fill, alpha),
-            lwd=size * .pt, lty=linetype, lineend="butt"
-          )
-        ))
-      )
+      coords <- coord_transform(coordinates, data, scales)
+      ggname("geom_rect", rectGrob(
+        coords$xmin, coords$ymax,
+        width = coords$xmax - coords$xmin,
+        height = coords$ymax - coords$ymin,
+        default.units = "native",
+        just = c("left", "top"),
+        gp = gpar(
+          col = coords$colour,
+          fill = alpha(coords$fill, coords$alpha),
+          lwd = coords$size * .pt,
+          lty = coords$linetype,
+          lineend = "butt"
+        )
+      ))
     }
   },
 

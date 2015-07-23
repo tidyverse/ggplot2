@@ -29,15 +29,16 @@ geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex",
 #' @export
 GeomHex <- ggproto("GeomHex", Geom,
   draw = function(self, data, scales, coordinates, ...) {
-    with(coord_transform(coordinates, data, scales),
-      ggname("geom_hex", hexGrob(x, y, colour = colour,
-        fill = alpha(fill, alpha)))
-    )
+    coord <- coord_transform(coordinates, data, scales)
+    ggname("geom_hex", hexGrob(
+      coord$x, coord$y, colour = coord$colour,
+      fill = alpha(coord$fill, coord$alpha)
+    ))
   },
 
   required_aes = c("x", "y"),
 
-  default_aes = aes(colour=NA, fill = "grey50", size=0.5, alpha = NA),
+  default_aes = aes(colour = NA, fill = "grey50", size = 0.5, alpha = NA),
 
   draw_key = draw_key_polygon
 )

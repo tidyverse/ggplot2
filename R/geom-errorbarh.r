@@ -59,16 +59,16 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
   },
 
   draw = function(data, scales, coordinates, height = NULL, ...) {
-    GeomPath$draw(with(data, data.frame(
-      x = as.vector(rbind(xmax, xmax, NA, xmax, xmin, NA, xmin, xmin)),
-      y = as.vector(rbind(ymin, ymax, NA, y,    y,    NA, ymin, ymax)),
-      colour = rep(colour, each = 8),
-      alpha = rep(alpha, each = 8),
-      size = rep(size, each = 8),
-      linetype = rep(linetype, each = 8),
+    GeomPath$draw(data.frame(
+      x = as.vector(rbind(data$xmax, data$xmax, NA, data$xmax, data$xmin, NA, data$xmin, data$xmin)),
+      y = as.vector(rbind(data$ymin, data$ymax, NA, data$y,    data$y,    NA, data$ymin, data$ymax)),
+      colour = rep(data$colour, each = 8),
+      alpha = rep(data$alpha, each = 8),
+      size = rep(data$size, each = 8),
+      linetype = rep(data$linetype, each = 8),
       group = rep(1:(nrow(data)), each = 8),
       stringsAsFactors = FALSE,
       row.names = 1:(nrow(data) * 8)
-    )), scales, coordinates, ...)
+    ), scales, coordinates, ...)
   }
 )

@@ -60,7 +60,7 @@ pos_stack <- function(df, width) {
   if (nrow(df) == 1) return(df)
 
   n <- nrow(df) + 1
-  y <- with(df, ifelse(is.na(y), 0, y))
+  y <- ifelse(is.na(df$y), 0, df$y)
   if (all(is.na(df$x))) {
     heights <- rep(NA, n)
   } else {

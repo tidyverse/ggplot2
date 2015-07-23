@@ -59,11 +59,11 @@ df <- data.frame(
 df2 <- df[c(1,4),]
 
 # Define the top and bottom of the errorbars
-limits <- aes(ymax = resp + se, ymin=resp - se)
+limits <- aes(ymax = resp + se, ymin = resp - se)
 
-p <- ggplot(df, aes(fill=group, y=resp, x=trt))
+p <- ggplot(df, aes(trt, resp, fill = group))
 p +
- geom_bar(position="dodge", stat="identity") +
+ geom_bar(position = "dodge", stat = "identity") +
  geom_errorbar(limits, position = "dodge", width=0.25)
 
 # Because the bars and errorbars have different widths
@@ -77,7 +77,7 @@ ggplot(df2, aes(trt, resp, fill = group)) +
   geom_bar(position = dodge, stat = "identity") +
   geom_errorbar(limits, position = dodge, width = 0.25)
 
-p <- ggplot(df, aes(colour=group, y=resp, x=trt))
+p <- ggplot(df, aes(trt, resp, colour = group))
 p + geom_point() + geom_errorbar(limits, width=0.2)
 p + geom_pointrange(limits)
 p + geom_crossbar(limits, width=0.2)
@@ -85,7 +85,7 @@ p + geom_crossbar(limits, width=0.2)
 # If we want to draw lines, we need to manually set the
 # groups which define the lines - here the groups in the
 # original dataframe
-p + geom_line(aes(group=group)) + geom_errorbar(limits, width=0.2)
+p + geom_line(aes(group = group)) + geom_errorbar(limits, width = 0.2)
 }
 \seealso{
 \code{\link{geom_pointrange}}: range indicated by straight line,
