@@ -43,7 +43,7 @@ annotation_map <- function(map, ...) {
 }
 
 GeomAnnotationMap <- proto2("GeomAnnotationMap", GeomMap,
-  draw_groups = function(self, data, scales, coordinates, map, ...) {
+  draw_groups = function(data, scales, coordinates, map, ...) {
     # Munch, then set up id variable for polygonGrob -
     # must be sequential integers
     coords <- coord_munch(coordinates, map, scales)

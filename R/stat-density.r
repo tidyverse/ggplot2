@@ -39,7 +39,7 @@ stat_density <- function(mapping = NULL, data = NULL, geom = "area",
 }
 
 StatDensity <- proto2("StatDensity", Stat,
-  calculate = function(self, data, scales, adjust = 1, kernel = "gaussian",
+  calculate = function(data, scales, adjust = 1, kernel = "gaussian",
     trim = FALSE, na.rm = FALSE, ...)
   {
     data <- remove_missing(data, na.rm, "x", name = "stat_density",

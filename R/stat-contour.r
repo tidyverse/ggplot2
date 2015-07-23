@@ -67,7 +67,7 @@ stat_contour <- function (mapping = NULL, data = NULL, geom = "path",
 
 
 StatContour <- proto2("StatContour", Stat,
-  calculate = function(self, data, scales, bins = NULL, binwidth = NULL,
+  calculate = function(data, scales, bins = NULL, binwidth = NULL,
                        breaks = NULL, complete = FALSE, na.rm = FALSE, ...)
   {
     data <- remove_missing(data, na.rm, name = "stat_contour", finite = TRUE)

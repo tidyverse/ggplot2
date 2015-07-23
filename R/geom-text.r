@@ -98,7 +98,7 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
 GeomText <- proto2("GeomText", Geom,
   draw_groups = function(self, ...) self$draw(...),
 
-  draw = function(self, data, scales, coordinates, ..., parse = FALSE,
+  draw = function(data, scales, coordinates, ..., parse = FALSE,
                    na.rm = FALSE, check_overlap = FALSE) {
     data <- remove_missing(data, na.rm,
       c("x", "y", "label"), name = "geom_text")

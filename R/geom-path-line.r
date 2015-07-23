@@ -79,7 +79,7 @@ geom_line <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomLine <- proto2("GeomLine", GeomPath,
-  draw = function(self, data, scales, coordinates, arrow = NULL, ...) {
+  draw = function(data, scales, coordinates, arrow = NULL, ...) {
     data <- data[order(data$group, data$x), ]
     GeomPath$draw(data, scales, coordinates, arrow, ...)
   }

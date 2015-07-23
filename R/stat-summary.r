@@ -131,7 +131,7 @@ stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
 StatSummary <- proto2("StatSummary", Stat,
   required_aes = c("x", "y"),
 
-  calculate_groups = function(self, data, scales, fun.data = NULL, fun.y = NULL,
+  calculate_groups = function(data, scales, fun.data = NULL, fun.y = NULL,
     fun.ymax = NULL, fun.ymin = NULL, na.rm = FALSE, ...)
   {
     data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_summary")

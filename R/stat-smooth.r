@@ -81,7 +81,7 @@ StatSmooth <- proto2("StatSmooth", Stat,
     super$calculate_groups(self = self, data, scales, method = method, formula = formula, ...)
   },
 
-  calculate = function(self, data, scales, method = "auto", formula = y~x,
+  calculate = function(data, scales, method = "auto", formula = y~x,
     se = TRUE, n = 80, fullrange = FALSE, xseq = NULL, level = 0.95,
     na.rm = FALSE, ...)
   {

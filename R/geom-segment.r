@@ -63,7 +63,7 @@ geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomSegment <- proto2("GeomSegment", Geom,
-  draw = function(self, data, scales, coordinates, arrow = NULL,
+  draw = function(data, scales, coordinates, arrow = NULL,
     lineend = "butt", na.rm = FALSE, ...) {
 
     data <- remove_missing(data, na.rm = na.rm,

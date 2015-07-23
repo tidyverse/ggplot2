@@ -9,7 +9,7 @@ Geom <- proto2("Geom", TopLevel,
 
   draw_key = draw_key_point,
 
-  draw = function(self, ...) {},
+  draw = function(...) {},
 
   draw_groups = function(self, data, scales, coordinates, ...) {
     if (empty(data)) return(zeroGrob())
@@ -25,7 +25,7 @@ Geom <- proto2("Geom", TopLevel,
     ))
   },
 
-  reparameterise = function(self, data, params) data
+  reparameterise = function(data, params) data
 )
 
 # make_geom("point") returns GeomPoint

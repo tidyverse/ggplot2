@@ -48,7 +48,7 @@ geom_step <- function (mapping = NULL, data = NULL, stat = "identity",
 GeomStep <- proto2("GeomStep", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  draw = function(self, data, scales, coordinates, direction = "hv", ...) {
+  draw = function(data, scales, coordinates, direction = "hv", ...) {
     data <- stairstep(data, direction)
     GeomPath$draw(data, scales, coordinates, ...)
   },

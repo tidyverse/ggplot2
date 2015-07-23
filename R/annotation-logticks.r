@@ -109,7 +109,7 @@ annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
 }
 
 GeomLogticks <- proto2("GeomLogticks", Geom,
-  draw_groups = function(self, data, scales, coordinates, base = 10, sides = "bl",
+  draw_groups = function(data, scales, coordinates, base = 10, sides = "bl",
     scaled = TRUE, short = unit(0.1, "cm"), mid = unit(0.2, "cm"),
     long = unit(0.3, "cm"), ...)
   {

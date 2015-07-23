@@ -48,7 +48,7 @@ StatBoxplot <- proto2("StatBoxplot", Stat,
     super$calculate_groups(self, data, na.rm = na.rm, width = width, ...)
   },
 
-  calculate = function(self, data, scales, width=NULL, na.rm = FALSE, coef = 1.5, ...) {
+  calculate = function(data, scales, width=NULL, na.rm = FALSE, coef = 1.5, ...) {
     with(data, {
       qs <- c(0, 0.25, 0.5, 0.75, 1)
       if (length(unique(weight)) != 1) {

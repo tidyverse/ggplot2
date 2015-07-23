@@ -35,7 +35,7 @@ stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step",
 
 
 StatEcdf <- proto2("StatEcdf", Stat,
-  calculate = function(self, data, scales, n = NULL, ...) {
+  calculate = function(data, scales, n = NULL, ...) {
 
     # If n is NULL, use raw values; otherwise interpolate
     if (is.null(n)) {

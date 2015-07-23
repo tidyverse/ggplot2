@@ -71,7 +71,7 @@ GeomErrorbar <- proto2("GeomErrorbar", Geom,
 
   required_aes = c("x", "ymin", "ymax"),
 
-  reparameterise = function(self, df, params) {
+  reparameterise = function(df, params) {
     df$width <- df$width %||%
       params$width %||% (resolution(df$x, FALSE) * 0.9)
 
@@ -80,7 +80,7 @@ GeomErrorbar <- proto2("GeomErrorbar", Geom,
     )
   },
 
-  draw = function(self, data, scales, coordinates, width = NULL, ...) {
+  draw = function(data, scales, coordinates, width = NULL, ...) {
     GeomPath$draw(with(data, data.frame(
       x = as.vector(rbind(xmin, xmax, NA, x,    x,    NA, xmin, xmax)),
       y = as.vector(rbind(ymax, ymax, NA, ymax, ymin, NA, ymin, ymin)),

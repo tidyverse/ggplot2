@@ -128,7 +128,7 @@ GeomArea <- proto2("GeomArea", GeomRibbon,
 
   required_aes = c("x", "y"),
 
-  reparameterise = function(self, df, params) {
+  reparameterise = function(df, params) {
     transform(df, ymin = 0, ymax = y)
   }
 )
