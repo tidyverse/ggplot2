@@ -235,22 +235,6 @@ guide_merge.legend <- function(guide, new_guide) {
 
 #' @export
 guide_geom.legend <- function(guide, layers, default_mapping) {
-
-  # TODO: how to deal with same geoms of multiple layers.
-  #
-  # currently all geoms are overlayed irrespective to that they are duplicated or not.
-  # but probably it is better to sensitive to that and generate only one geom like this:
-  #
-  # geoms <- unique(sapply(layers, function(layer) if (is.na(layer$legend) || layer$legend) layer$geom$guide_geom() else NULL))
-  #
-  # but in this case, some conflicts occurs, e.g.,
-  #
-  # d <- data.frame(x=1:5, y=1:5, v=factor(1:5))
-  # ggplot(d, aes(x, y, colour=v, group=1)) + geom_point() + geom_line(colour="red", legend=T) + geom_rug(colour="blue", legend=T)
-  #
-  # geom_line generate path geom with red and geom_rug generate it with blue.
-  # how to deal with them ?
-
   # arrange common data for vertical and horizontal guide
   guide$geoms <- llply(layers, function(layer) {
     all <- names(c(layer$mapping, default_mapping, layer$stat$default_aes))
