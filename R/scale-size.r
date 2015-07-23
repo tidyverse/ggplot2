@@ -40,7 +40,7 @@ NULL
 
 #' @rdname scale_size
 #' @export
-scale_size_continuous <- function(name = NULL, breaks = waiver(), labels = waiver(),
+scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                                   limits = NULL, range = c(1, 6),
                                   trans = "identity", guide = "legend") {
   continuous_scale("size", "area", area_pal(range), name = name,
@@ -50,7 +50,7 @@ scale_size_continuous <- function(name = NULL, breaks = waiver(), labels = waive
 
 #' @rdname scale_size
 #' @export
-scale_radius <- function(name = NULL, breaks = waiver(), labels = waiver(),
+scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                          limits = NULL, range = c(1, 6),
                          trans = "identity", guide = "legend") {
   continuous_scale("size", "size_c", area_pal(range), name = name,

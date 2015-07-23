@@ -148,7 +148,7 @@ test_that("scales looked for in appropriate place", {
 
   rm(scale_x_continuous)
   p4 <- qplot(mpg, wt, data = mtcars)
-  expect_equal(xlabel(p4), NULL)
+  expect_equal(xlabel(p4), waiver())
 })
 
 test_that("find_global searches in the right places", {

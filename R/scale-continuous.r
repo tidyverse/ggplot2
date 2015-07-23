@@ -74,7 +74,7 @@
 #'   scale_y_log10()
 #' }
 #' }
-scale_x_continuous <- function(name = NULL, breaks = waiver(),
+scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                minor_breaks = waiver(), labels = waiver(),
                                limits = NULL, expand = waiver(), oob = censor,
                                na.value = NA_real_, trans = "identity") {
@@ -89,7 +89,7 @@ scale_x_continuous <- function(name = NULL, breaks = waiver(),
 
 #' @rdname scale_continuous
 #' @export
-scale_y_continuous <- function(name = NULL, breaks = waiver(),
+scale_y_continuous <- function(name = waiver(), breaks = waiver(),
                                minor_breaks = waiver(), labels = waiver(),
                                limits = NULL, expand = waiver(), oob = censor,
                                na.value = NA_real_, trans = "identity") {

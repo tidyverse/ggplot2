@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* You can now suppress the appearance of an axis/legend title (and the space
+  that would allocated for it) with `NULL` in the `scale_` function. To
+  use the default lable, use `waiver()` (#1145).
+
 * `labels = NULL` now works with `guide_legend()` and `guide_colorbar()`.
   (#1175, #1183).
 

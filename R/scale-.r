@@ -82,7 +82,7 @@ NULL
 #'   discrete variables.
 #' @param guide Name of guide object, or object itself.
 #' @keywords internal
-continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_, trans = "identity", guide="legend") {
+continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(), breaks = waiver(), minor_breaks = waiver(), labels = waiver(), limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_, trans = "identity", guide="legend") {
 
   bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
     length(breaks) != length(labels)
@@ -164,7 +164,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #' @param guide the name of, or actual function, used to create the
 #'   guide. See \code{\link{guides}} for more info.
 #' @keywords internal
-discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(), na.value = NA, drop = TRUE, guide="legend") {
+discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(), na.value = NA, drop = TRUE, guide="legend") {
 
   bad_labels <- is.vector(breaks) && is.vector(labels) &&
     length(breaks) != length(labels)
@@ -333,16 +333,10 @@ scale_limits.default <- function(scale) {
   }
 }
 
-# @kohske
-# this (internal) function always returns a vector of length 2 of giving
-# multiplicative and additive expansion constants.
-# if scale' expand is specified, return it.
-# if is.waive, return c(0, 0)
 scale_expand <- function(scale) UseMethod("scale_expand")
 #' @export
 scale_expand.default <- function(scale) {
-  if (is.waive(scale$expand)) c(0, 0)
-  else scale$expand
+  scale$expand %|W|% c(0, 0)
 }
 
 # The phyical size of the scale, if a position scale

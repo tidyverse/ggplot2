@@ -173,8 +173,7 @@ guides_train <- function(scales, theme, guides, labels) {
     if (guide$available_aes != "any" && ! scale$aesthetics %in% guide$available_aes)
       stop (paste("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.", sep=""))
 
-    # title of this grob
-    if (is.waive(guide$title)) guide$title <- scale$name %||% labels[[output]]
+    guide$title <- guide$title %|W|% scale$name %|W|% labels[[output]]
 
     # direction of this grob
     guide$direction <- guide$direction %||% theme$legend.direction
