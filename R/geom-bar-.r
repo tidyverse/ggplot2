@@ -164,5 +164,5 @@ GeomBar <- proto2("GeomBar", Geom,
     GeomRect$draw_groups(data, scales, coordinates, ...)
   },
 
-  guide_geom = draw_key_polygon
+  draw_key = draw_key_polygon
 )

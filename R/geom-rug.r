@@ -81,5 +81,5 @@ GeomRug <- proto2("GeomRug", Geom,
 
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  guide_geom = draw_key_path
+  draw_key = draw_key_path
 )

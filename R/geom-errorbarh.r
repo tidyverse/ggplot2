@@ -41,7 +41,7 @@ GeomErrorbarh <- proto2("GeomErrorbarh", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, height = 0.5,
     alpha = NA),
 
-  guide_geom = draw_key_path,
+  draw_key = draw_key_path,
 
   required_aes = c("x", "xmin", "xmax", "y"),
 

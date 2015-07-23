@@ -32,7 +32,7 @@ GeomPointrange <- proto2("GeomPointrange", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, shape = 19,
     fill = NA, alpha = NA, stroke = 1),
 
-  guide_geom = draw_key_pointrange,
+  draw_key = draw_key_pointrange,
 
   required_aes = c("x", "y", "ymin", "ymax"),
 

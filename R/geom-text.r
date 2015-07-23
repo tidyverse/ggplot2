@@ -137,7 +137,7 @@ GeomText <- proto2("GeomText", Geom,
   default_aes = aes(colour = "black", size = 5, angle = 0, hjust = 0.5,
     vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2),
 
-  guide_geom = draw_key_text
+  draw_key = draw_key_text
 )
 
 compute_just <- function(just, x) {

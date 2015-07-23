@@ -94,5 +94,5 @@ GeomSegment <- proto2("GeomSegment", Geom,
   required_aes = c("x", "y", "xend", "yend"),
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  guide_geom = draw_key_path
+  draw_key = draw_key_path
 )

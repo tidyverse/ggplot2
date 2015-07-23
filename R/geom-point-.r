@@ -159,7 +159,7 @@ GeomPoint <- proto2("GeomPoint", Geom,
     )
   },
 
-  guide_geom = draw_key_point,
+  draw_key = draw_key_point,
 
   required_aes = c("x", "y"),
   default_aes = aes(shape = 19, colour = "black", size = 2, fill = NA,

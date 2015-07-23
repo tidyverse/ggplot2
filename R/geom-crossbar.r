@@ -38,7 +38,7 @@ GeomCrossbar <- proto2("GeomCrossbar", Geom,
 
   required_aes = c("x", "y", "ymin", "ymax"),
 
-  guide_geom = draw_key_crossbar,
+  draw_key = draw_key_crossbar,
 
   draw = function(self, data, scales, coordinates, fatten = 2.5, width = NULL, ...) {
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)

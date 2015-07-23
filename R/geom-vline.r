@@ -40,5 +40,5 @@ GeomVline <- proto2("GeomVline", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
   required_aes = "xintercept",
 
-  guide_geom = draw_key_vline
+  draw_key = draw_key_vline
 )

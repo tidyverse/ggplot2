@@ -282,7 +282,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     for (aes in intersect(names(guide$override.aes), names(data))) data[[aes]] <- guide$override.aes[[aes]]
 
     list(
-      draw_key = layer$geom$guide_geom,
+      draw_key = layer$geom$draw_key,
       data = aesdefaults(data, layer$geom$default_aes, NULL),
       params = c(layer$geom_params, layer$stat_params)
     )

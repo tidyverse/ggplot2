@@ -101,5 +101,5 @@ GeomTile <- proto2("GeomTile", Geom,
 
   required_aes = c("x", "y"),
 
-  guide_geom = draw_key_polygon
+  draw_key = draw_key_polygon
 )
