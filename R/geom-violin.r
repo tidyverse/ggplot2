@@ -78,7 +78,7 @@ geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity",
 }
 
 GeomViolin <- proto2("GeomViolin", Geom,
-  reparameterise = function(self, df, params) {
+  reparameterise = function(df, params) {
     df$width <- df$width %||%
       params$width %||% (resolution(df$x, FALSE) * 0.9)
 

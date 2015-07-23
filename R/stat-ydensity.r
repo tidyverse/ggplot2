@@ -65,7 +65,7 @@ StatYdensity <- proto2("StatYdensity", Stat,
     data
   },
 
-  calculate = function(self, data, scales, width = NULL, adjust = 1,
+  calculate = function(data, scales, width = NULL, adjust = 1,
     kernel = "gaussian", trim = TRUE, na.rm = FALSE, ...)
   {
     data <- remove_missing(data, na.rm, "x", name = "stat_density",

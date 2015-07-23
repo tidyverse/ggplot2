@@ -63,9 +63,9 @@ annotation_raster <- function (raster, xmin, xmax, ymin, ymax,
 }
 
 GeomRasterAnn <- proto2("GeomRasterAnn", GeomRaster,
-  reparameterise = function(self, df, params) df,
+  reparameterise = function(df, params) df,
 
-  draw_groups = function(self, data, scales, coordinates, raster, xmin, xmax,
+  draw_groups = function(data, scales, coordinates, raster, xmin, xmax,
     ymin, ymax, interpolate = FALSE, ...)
   {
     if (!inherits(coordinates, "cartesian")) {

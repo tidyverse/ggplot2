@@ -130,7 +130,7 @@ geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
 }
 
 GeomDotplot <- proto2("GeomDotplot", Geom,
-  reparameterise = function(self, df, params) {
+  reparameterise = function(df, params) {
     df$width <- df$width %||%
       params$width %||% (resolution(df$x, FALSE) * 0.9)
 

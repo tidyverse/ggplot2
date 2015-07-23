@@ -37,7 +37,7 @@ geom_rug <- function (mapping = NULL, data = NULL, stat = "identity",
 
 
 GeomRug <- proto2("GeomRug", Geom,
-  draw = function(self, data, scales, coordinates, sides = "bl", ...) {
+  draw = function(data, scales, coordinates, sides = "bl", ...) {
     rugs <- list()
     data <- coord_transform(coordinates, data, scales)
     if (!is.null(data$x)) {

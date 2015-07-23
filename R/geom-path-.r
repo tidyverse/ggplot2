@@ -120,7 +120,7 @@ geom_path <- function (mapping = NULL, data = NULL, stat = "identity",
 GeomPath <- proto2("GeomPath", Geom,
   draw_groups = function(self, ...) self$draw(...),
 
-  draw = function(self, data, scales, coordinates, arrow = NULL, lineend = "butt",
+  draw = function(data, scales, coordinates, arrow = NULL, lineend = "butt",
                   linejoin = "round", linemitre = 1, ..., na.rm = FALSE)
   {
     if (!anyDuplicated(data$group)) {

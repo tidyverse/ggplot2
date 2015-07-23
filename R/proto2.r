@@ -1,19 +1,28 @@
 #' Create a new proto2 object
 #'
-#' @param _class Name of new class
-#' @param _inherit proto2 object to inherit from. Use \code{NULL} to inherit
-#'   from the "base" class.
+#' @param _class Class name to assign to the object. This is stored as the class
+#'   attribute of the object. If \code{NULL} (the default), no class name will
+#'   be added to the object.
+#' @param _inherit proto2 object to inherit from. If \code{NULL}, don't inherit
+#'   from any object.
 #' @param ... A list of members in the proto2 object.
 #' @export
-proto2 <- function(`_class`, `_inherit`, ...) {
+proto2 <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   e <- new.env(parent = emptyenv())
 
   members <- list(...)
+  if (length(members) != sum(nzchar(names(members)))) {
+    stop("All members of a proto2 object must be named.")
+  }
   list2env(members, envir = e)
 
-  if (is.proto2(`_inherit`)) {
+  if (!is.null(`_inherit`)) {
+    if (!is.proto2(`_inherit`)) {
+      stop("`_inherit` must be a proto2 object.")
+    }
     e$super <- `_inherit`
     class(e) <- c(`_class`, class(`_inherit`))
+
   } else {
     class(e) <- c(`_class`, "proto2")
   }
@@ -56,26 +65,42 @@ fetch_proto2 <- function(x, name) {
   # Use `self` to make debugging easier
   self <- x
 
-  # If it's a function, there are two things we need to check for, each with two
-  # possible conditions:
-  #  * If there's a `super` argument, wrap the function in another function that
-  #    passes in the correct super object.
-  #  * If it's called from `super$`, _don't_ pass in the first arg, `x`. The
-  #    user must pass the `self` object manually, as in `super$foo(self)`.
+  # If it's a function, there are three orthogonal things we need to check for
+  # before wrapping it up in another function:
+  #  * If there's a `self` argument, the wrapper function embeds `self` in the
+  #    inner function call.
+  #  * If there's a `super` argument, the wrapper function embeds `super` in the
+  #    inner function call.
+  #  * If it's called from `super$`, the wrapper function never embeds `self`
+  #    in the inner function call. The user must pass the `self` object
+  #    manually, as in `super$foo(self)`. The wrapper _will_ embed `super` if
+  #    the inner function needs it.
   args <- formals(res)
   # is.null is a fast path for a common case; the %in% check is slower but also
   # catches the case where theres a `super=NULL` argument.
-  if (!is.null(args[["super"]]) || "super" %in% names(args)) {
-    if (substitute(x) == quote(super)) {
-      fun <- function(...) res(..., super = self[["super"]])
+  has_self  <- !is.null(args[["self"]])  || "self"  %in% names(args)
+  has_super <- !is.null(args[["super"]]) || "super" %in% names(args)
+  called_from_super <- substitute(x) == quote(super)
+
+  if (!called_from_super) {
+    if (has_self) {
+      if (has_super) {
+        fun <- function(...) res(..., self = self, super = self[["super"]])
+      } else {
+        fun <- function(...) res(..., self = self)
+      }
     } else {
-      fun <- function(...) res(self = self, ..., super = self[["super"]])
+      if (has_super) {
+        fun <- function(...) res(..., super = self[["super"]])
+      } else {
+        fun <- function(...) res(...)
+      }
     }
   } else {
-    if (substitute(x) == quote(super)) {
-      fun <- res
+    if (has_super) {
+      fun <- function(...) res(..., super = self[["super"]])
     } else {
-      fun <- function(...) res(self = self, ...)
+      fun <- function(...) res(...)
     }
   }
 

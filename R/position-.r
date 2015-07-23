@@ -3,7 +3,7 @@
 # Should occur after statistics and scales have been applied.
 Position <- proto2("Position", TopLevel,
   type = "position",
-  adjust = function(self, data, scales, ...) data
+  adjust = function(data, scales, ...) data
 )
 
 # Convenience function to ensure that all position variables

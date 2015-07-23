@@ -29,7 +29,7 @@ geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomCrossbar <- proto2("GeomCrossbar", Geom,
-  reparameterise = function(self, df, params) {
+  reparameterise = function(df, params) {
     GeomErrorbar$reparameterise(df, params)
   },
 

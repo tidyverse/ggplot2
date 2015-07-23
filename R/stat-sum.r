@@ -24,7 +24,7 @@ StatSum <- proto2("StatSum", Stat,
 
   required_aes = c("x", "y"),
 
-  calculate_groups = function(self, data, scales, ...) {
+  calculate_groups = function(data, scales, ...) {
 
     if (is.null(data$weight)) data$weight <- 1
 

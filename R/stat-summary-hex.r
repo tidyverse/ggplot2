@@ -55,7 +55,7 @@ StatSummaryHex <- proto2("StatSummaryHex", Stat,
 
   required_aes = c("x", "y", "z"),
 
-  calculate = function(self, data, scales, binwidth = NULL, bins = 30, drop = TRUE,
+  calculate = function(data, scales, binwidth = NULL, bins = 30, drop = TRUE,
     fun = mean, ...)
   {
     try_require("hexbin")

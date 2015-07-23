@@ -24,5 +24,5 @@ stat_unique <- function (mapping = NULL, data = NULL, geom = "point",
 }
 
 StatUnique <- proto2("StatUnique", Stat,
-  calculate_groups = function(self, data, scales, ...) unique(data)
+  calculate_groups = function(data, scales, ...) unique(data)
 )

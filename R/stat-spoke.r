@@ -40,7 +40,7 @@ stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment",
 StatSpoke <- proto2("StatSpoke", Stat,
   retransform = FALSE,
 
-  calculate = function(self, data, scales, radius = 1, ...) {
+  calculate = function(data, scales, radius = 1, ...) {
     transform(data,
       xend = x + cos(angle) * radius,
       yend = y + sin(angle) * radius

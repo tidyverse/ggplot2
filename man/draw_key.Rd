@@ -16,33 +16,31 @@
 \alias{draw_key_vline}
 \title{Key drawing functions}
 \usage{
-draw_key_point(self, data, params)
+draw_key_point(data, params)
 
-draw_key_abline(self, data, params)
+draw_key_abline(data, params)
 
-draw_key_polygon(self, data, params)
+draw_key_polygon(data, params)
 
-draw_key_blank(self, data, params)
+draw_key_blank(data, params)
 
-draw_key_boxplot(self, data, params)
+draw_key_boxplot(data, params)
 
-draw_key_crossbar(self, data, params)
+draw_key_crossbar(data, params)
 
-draw_key_path(self, data, params)
+draw_key_path(data, params)
 
-draw_key_dotplot(self, data, params)
+draw_key_dotplot(data, params)
 
-draw_key_pointrange(self, data, params)
+draw_key_pointrange(data, params)
 
-draw_key_smooth(self, data, params)
+draw_key_smooth(data, params)
 
-draw_key_text(self, data, params)
+draw_key_text(data, params)
 
-draw_key_vline(self, data, params)
+draw_key_vline(data, params)
 }
 \arguments{
-\item{self}{The Geom object}
-
 \item{data}{A single row data frame containing the scaled aesthetics to
 display in this key}
 

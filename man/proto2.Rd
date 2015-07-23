@@ -4,13 +4,15 @@
 \alias{proto2}
 \title{Create a new proto2 object}
 \usage{
-proto2(`_class`, `_inherit`, ...)
+proto2(`_class` = NULL, `_inherit` = NULL, ...)
 }
 \arguments{
-\item{_class}{Name of new class}
+\item{_class}{Class name to assign to the object. This is stored as the class
+attribute of the object. If \code{NULL} (the default), no class name will
+be added to the object.}
 
-\item{_inherit}{proto2 object to inherit from. Use \code{NULL} to inherit
-from the "base" class.}
+\item{_inherit}{proto2 object to inherit from. If \code{NULL}, don't inherit
+from any object.}
 
 \item{...}{A list of members in the proto2 object.}
 }

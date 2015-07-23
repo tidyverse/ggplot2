@@ -93,7 +93,7 @@ geom_smooth <- function(mapping = NULL, data = NULL, stat = "smooth",
 }
 
 GeomSmooth <- proto2("GeomSmooth", Geom,
-  draw = function(self, data, scales, coordinates, ...) {
+  draw = function(data, scales, coordinates, ...) {
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = NA)
 

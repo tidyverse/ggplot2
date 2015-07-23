@@ -62,7 +62,7 @@ StatQq <- proto2("StatQq", Stat,
 
   required_aes = c("sample"),
 
-  calculate = function(self, data, scales, quantiles = NULL, distribution = qnorm,
+  calculate = function(data, scales, quantiles = NULL, distribution = qnorm,
     dparams = list(), na.rm = FALSE)
   {
     data <- remove_missing(data, na.rm, "sample", name = "stat_qq")

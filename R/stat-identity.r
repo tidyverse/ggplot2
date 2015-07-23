@@ -43,7 +43,7 @@ stat_identity <- function (mapping = NULL, data = NULL, geom = "point",
 }
 
 StatIdentity <- proto2("StatIdentity", Stat,
-  calculate_groups = function(self, data, scales, width = NULL, height = NULL, ...) {
+  calculate_groups = function(data, scales, width = NULL, height = NULL, ...) {
     if (!is.null(width))   data$width  <- width
     if (!is.null(height))  data$height <- height
     data

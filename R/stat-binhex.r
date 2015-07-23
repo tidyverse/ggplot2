@@ -50,7 +50,7 @@ StatBinhex <- proto2("StatBinhex", Stat,
 
   required_aes = c("x", "y"),
 
-  calculate = function(self, data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
+  calculate = function(data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
     try_require("hexbin")
     data <- remove_missing(data, na.rm, c("x", "y"), name="stat_hexbin")
 

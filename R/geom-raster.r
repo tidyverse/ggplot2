@@ -77,7 +77,7 @@ geom_raster <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomRaster <- proto2("GeomRaster", Geom,
-  reparameterise = function(self, df, params) {
+  reparameterise = function(df, params) {
     hjust <- params$hjust %||% 0.5
     vjust <- params$vjust %||% 0.5
 
@@ -93,9 +93,9 @@ GeomRaster <- proto2("GeomRaster", Geom,
 
   # This is a dummy function to make sure that vjust and hjust are recongised
   # as parameters and are accessible to reparameterise.
-  draw = function(self, vjust = 0.5, hjust = 0.5) {},
+  draw = function(vjust = 0.5, hjust = 0.5) {},
 
-  draw_groups = function(self, data, scales, coordinates, interpolate = FALSE, ...) {
+  draw_groups = function(data, scales, coordinates, interpolate = FALSE, ...) {
     if (!inherits(coordinates, "cartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }

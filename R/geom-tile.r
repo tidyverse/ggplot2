@@ -81,7 +81,7 @@ geom_tile <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 GeomTile <- proto2("GeomTile", Geom,
-  reparameterise = function(self, df, params) {
+  reparameterise = function(df, params) {
     df$width <- df$width %||% params$width %||% resolution(df$x, FALSE)
     df$height <- df$height %||% params$height %||% resolution(df$y, FALSE)
 
@@ -91,7 +91,7 @@ GeomTile <- proto2("GeomTile", Geom,
     )
   },
 
-  draw_groups = function(self, data,  scales, coordinates, ...) {
+  draw_groups = function(data,  scales, coordinates, ...) {
     # data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
     GeomRect$draw_groups(data, scales, coordinates, ...)
   },

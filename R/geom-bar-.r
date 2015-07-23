@@ -151,7 +151,7 @@ GeomBar <- proto2("GeomBar", Geom,
 
   required_aes = c("x"),
 
-  reparameterise = function(self, df, params) {
+  reparameterise = function(df, params) {
     df$width <- df$width %||%
       params$width %||% (resolution(df$x, FALSE) * 0.9)
     transform(df,
@@ -160,7 +160,7 @@ GeomBar <- proto2("GeomBar", Geom,
     )
   },
 
-  draw_groups = function(self, data, scales, coordinates, ...) {
+  draw_groups = function(data, scales, coordinates, ...) {
     GeomRect$draw_groups(data, scales, coordinates, ...)
   },
 

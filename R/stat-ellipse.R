@@ -72,7 +72,7 @@ StatEllipse <- proto2("StatEllipse", Stat,
     super$calculate_groups(self, data, scales,...)
   },
 
-  calculate = function(self, data, scales, type = "t", level = 0.95, segments = 51,
+  calculate = function(data, scales, type = "t", level = 0.95, segments = 51,
     na.rm = FALSE, ...)
   {
     data <- remove_missing(data, na.rm, vars = c("x","y"),

@@ -83,7 +83,7 @@ StatDensity2d <- proto2("StatDensity2d", Stat,
   required_aes = c("x", "y"),
 
 
-  calculate = function(self, data, scales, na.rm = FALSE, contour = TRUE, n = 100, ...) {
+  calculate = function(data, scales, na.rm = FALSE, contour = TRUE, n = 100, ...) {
     df <- data.frame(data[, c("x", "y")])
     df <- remove_missing(df, na.rm, name = "stat_density2d", finite = TRUE)
 

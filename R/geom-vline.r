@@ -26,7 +26,7 @@ geom_vline <- function(mapping = NULL, data = NULL, show_guide = FALSE,
 }
 
 GeomVline <- proto2("GeomVline", Geom,
-  draw = function(self, data, scales, coordinates, ...) {
+  draw = function(data, scales, coordinates, ...) {
     ranges <- coord_range(coordinates, scales)
 
     data$x    <- data$xintercept
