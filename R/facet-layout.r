@@ -32,7 +32,7 @@ layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL, drop = T
   cols <- if (is.null(names(cols))) 1L else id(base[names(cols)], drop = TRUE)
 
   panels <- data.frame(PANEL = panel, ROW = rows, COL = cols, base,
-    check.names = FALSE)
+    check.names = FALSE, stringsAsFactors = FALSE)
   panels <- panels[order(panels$PANEL), , drop = FALSE]
   rownames(panels) <- NULL
   panels
@@ -149,7 +149,7 @@ df.grid <- function(a, b) {
 
 quoted_df <- function(data, vars) {
   values <- eval.quoted(vars, data, emptyenv(), try = TRUE)
-  as.data.frame(compact(values), optional = TRUE)
+  as.data.frame(compact(values), optional = TRUE, stringsAsFactors = FALSE)
 }
 
 # Arrange 1d structure into a grid

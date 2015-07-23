@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* Character labels in `facet_grid()` are no longer (incorrectly) coerced into
+  factors. This caused problems with custom label functions (#1070).
+
 * `scale_y_continuous()` now also transforms the `lower`, `middle` and `upper`
   aesthetics used by `geom_boxplot()`: this only affects
   `geom_boxplot(stat = "identity")` (#1020).
