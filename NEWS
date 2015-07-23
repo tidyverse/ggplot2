@@ -73,6 +73,12 @@ ggplot2 1.0.1.9xxx
   easier to extend ggplot2, because ggproto supports clean cross-package
   inheritance.
 
+* `stat_function` computed the function with the transformed (not
+  original data) values. This caused the computed values to be wrong
+  if a different scale, other than untransformed continuous, was
+  used. Function is now evaluted in original data scale
+  values. (@BrianDiggs, #1011)
+
 * Fixed segment annotations not transforming with scales (@BrianDiggs, #859)
 
 * `geom_point()` changes the default shape from 16 to 19 - this has a
