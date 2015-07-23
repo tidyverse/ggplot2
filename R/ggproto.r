@@ -1,5 +1,14 @@
 #' Create a new ggproto object
 #'
+#' ggproto is inspired by the proto package, but it has some important
+#' differences. Notably, it cleanly supports cross-package inheritance, and has
+#' faster performance.
+#'
+#' Methods in ggproto objects can take optional \code{self} and \code{super}
+#' arguments. If the arguments are present, then, when the method is called, it
+#' will be passed the current object (as \code{self}) and the object that it
+#' inherits from (as \code{super}).
+#'
 #' @param _class Class name to assign to the object. This is stored as the class
 #'   attribute of the object. If \code{NULL} (the default), no class name will
 #'   be added to the object.

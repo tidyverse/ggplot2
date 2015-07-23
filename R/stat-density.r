@@ -38,6 +38,10 @@ stat_density <- function(mapping = NULL, data = NULL, geom = "area",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatDensity <- ggproto("StatDensity", Stat,
   calculate = function(data, scales, adjust = 1, kernel = "gaussian",
     trim = FALSE, na.rm = FALSE, ...)

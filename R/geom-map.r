@@ -83,6 +83,10 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomMap <- ggproto("GeomMap", GeomPolygon,
   draw_groups = function(data, scales, coordinates, map, ...) {
     # Only use matching data and map ids

@@ -65,6 +65,10 @@ stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatEllipse <- ggproto("StatEllipse", Stat,
   required_aes = c("x", "y"),
 

@@ -77,6 +77,10 @@ geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomViolin <- ggproto("GeomViolin", Geom,
   reparameterise = function(df, params) {
     df$width <- df$width %||%

@@ -117,6 +117,10 @@ geom_path <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomPath <- ggproto("GeomPath", Geom,
   draw_groups = function(self, ...) self$draw(...),
 

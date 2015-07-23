@@ -42,6 +42,10 @@ annotation_map <- function(map, ...) {
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomAnnotationMap <- ggproto("GeomAnnotationMap", GeomMap,
   draw_groups = function(data, scales, coordinates, map, ...) {
     # Munch, then set up id variable for polygonGrob -

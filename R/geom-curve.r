@@ -24,6 +24,10 @@ geom_curve <- function(mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomCurve <- ggproto("GeomCurve", Geom,
   draw = function(data, scales, coordinates, curvature = 0.5, angle = 90,
                   ncp = 5, arrow = NULL, lineend = "butt", na.rm = FALSE, ...) {

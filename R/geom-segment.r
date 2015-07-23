@@ -62,6 +62,10 @@ geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomSegment <- ggproto("GeomSegment", Geom,
   draw = function(data, scales, coordinates, arrow = NULL,
     lineend = "butt", na.rm = FALSE, ...) {

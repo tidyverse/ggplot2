@@ -61,6 +61,10 @@ geom_polygon <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomPolygon <- ggproto("GeomPolygon", Geom,
   draw_groups = function(self, ...) self$draw(...),
 

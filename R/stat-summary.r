@@ -128,6 +128,10 @@ stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatSummary <- ggproto("StatSummary", Stat,
   required_aes = c("x", "y"),
 

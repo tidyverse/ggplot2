@@ -129,6 +129,10 @@ geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomDotplot <- ggproto("GeomDotplot", Geom,
   reparameterise = function(df, params) {
     df$width <- df$width %||%

@@ -78,6 +78,10 @@ geom_line <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomLine <- ggproto("GeomLine", GeomPath,
   draw = function(data, scales, coordinates, arrow = NULL, ...) {
     data <- data[order(data$group, data$x), ]

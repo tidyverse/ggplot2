@@ -23,6 +23,10 @@ geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex",
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomHex <- ggproto("GeomHex", Geom,
   draw = function(self, data, scales, coordinates, ...) {
     with(coord_transform(coordinates, data, scales),

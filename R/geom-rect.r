@@ -27,6 +27,10 @@ geom_rect <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomRect <- ggproto("GeomRect", Geom,
   default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
     alpha = NA),

@@ -45,6 +45,10 @@ stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatSmooth <- ggproto("StatSmooth", Stat,
   calculate_groups = function(self, super, data, scales, method = "auto",
     formula = y~x, ...)

@@ -8,7 +8,8 @@
 #' \code{\link[scales]{trans_new}} for list of transformations, and instructions on
 #' how to create your own.
 #'
-#' @param xtrans,ytrans transformers for x and y axes
+#' @param x,y transformers for x and y axes
+#' @param xtrans,ytrans Deprecated; use \code{x} and \code{y} instead.
 #' @param limx,limy limits for x and y axes. (Named so for backward
 #'    compatability)
 #' @export
@@ -76,17 +77,32 @@
 #' plot + coord_trans(x = "log10")
 #' plot + coord_trans(x = "sqrt")
 #' }
-coord_trans <- function(xtrans = "identity", ytrans = "identity", limx = NULL, limy = NULL) {
+coord_trans <- function(x = "identity", y = "identity", limx = NULL, limy = NULL,
+  xtrans, ytrans)
+{
+  if (!missing(xtrans)) {
+    gg_dep("1.0.1", "`xtrans` arguments is deprecated; please use `x` instead.")
+    x <- xtrans
+  }
+  if (!missing(ytrans)) {
+    gg_dep("1.0.1", "`ytrans` arguments is deprecated; please use `y` instead.")
+    y <- ytrans
+  }
+
   # @kohske
   # Now limits are implemented.
   # But for backward compatibility, xlim -> limx, ylim -> ylim
   # Because there are many examples such as
   # > coord_trans(x = "log10", y = "log10")
   # Maybe this is changed.
-  if (is.character(xtrans)) xtrans <- as.trans(xtrans)
-  if (is.character(ytrans)) ytrans <- as.trans(ytrans)
+  if (is.character(x)) x <- as.trans(x)
+  if (is.character(y)) y <- as.trans(y)
 
-  coord(trans = list(x = xtrans, y = ytrans), limits = list(x = limx, y = limy), subclass = "trans")
+  coord(
+    trans = list(x = x, y = y),
+    limits = list(x = limx, y = limy),
+    subclass = "trans"
+  )
 }
 
 #' @export

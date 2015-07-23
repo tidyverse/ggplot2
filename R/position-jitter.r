@@ -35,6 +35,10 @@ position_jitter <- function(width = NULL, height = NULL) {
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 PositionJitter <- ggproto("PositionJitter", Position,
   adjust = function(self, data) {
     if (empty(data)) return(data.frame())

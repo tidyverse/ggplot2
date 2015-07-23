@@ -38,6 +38,10 @@ stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatBin <- ggproto("StatBin", Stat,
   informed = FALSE,
 

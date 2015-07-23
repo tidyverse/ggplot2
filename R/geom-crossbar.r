@@ -28,6 +28,10 @@ geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomCrossbar <- ggproto("GeomCrossbar", Geom,
   reparameterise = function(df, params) {
     GeomErrorbar$reparameterise(df, params)

@@ -45,6 +45,10 @@ geom_step <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomStep <- ggproto("GeomStep", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 

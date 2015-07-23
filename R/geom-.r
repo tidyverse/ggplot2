@@ -1,5 +1,10 @@
 #' @include legend-draw.r
+NULL
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 Geom <- ggproto("Geom", TopLevel,
   type = "geom",
 

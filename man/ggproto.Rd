@@ -17,6 +17,14 @@ from any object.}
 \item{...}{A list of members in the ggproto object.}
 }
 \description{
-Create a new ggproto object
+ggproto is inspired by the proto package, but it has some important
+differences. Notably, it cleanly supports cross-package inheritance, and has
+faster performance.
+}
+\details{
+Methods in ggproto objects can take optional \code{self} and \code{super}
+arguments. If the arguments are present, then, when the method is called, it
+will be passed the current object (as \code{self}) and the object that it
+inherits from (as \code{super}).
 }
 

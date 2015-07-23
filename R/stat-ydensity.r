@@ -41,6 +41,10 @@ stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatYdensity <- ggproto("StatYdensity", Stat,
   calculate_groups = function(self, super, data, na.rm = FALSE, width = NULL,
     scale = "area", ...)

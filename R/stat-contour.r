@@ -66,6 +66,10 @@ stat_contour <- function (mapping = NULL, data = NULL, geom = "path",
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatContour <- ggproto("StatContour", Stat,
   calculate = function(data, scales, bins = NULL, binwidth = NULL,
                        breaks = NULL, complete = FALSE, na.rm = FALSE, ...)

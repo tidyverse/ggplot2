@@ -134,6 +134,10 @@ geom_point <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomPoint <- ggproto("GeomPoint", Geom,
   draw_groups = function(self, ...) self$draw(...),
 

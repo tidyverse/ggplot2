@@ -59,6 +59,10 @@ geom_density <- function(mapping = NULL, data = NULL, stat = "density",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomDensity <- ggproto("GeomDensity", GeomArea,
   default_aes = defaults(
     aes(fill = NA, weight = 1, colour = "black", alpha = NA),

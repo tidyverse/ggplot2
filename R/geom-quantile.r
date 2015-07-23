@@ -46,6 +46,10 @@ geom_quantile <- function(mapping = NULL, data = NULL, stat = "quantile",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomQuantile <- ggproto("GeomQuantile", GeomPath,
   default_aes = defaults(
     aes(weight = 1, colour = "#3366FF", size = 0.5),

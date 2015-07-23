@@ -47,6 +47,10 @@ geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomLinerange <- ggproto("GeomLinerange", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 

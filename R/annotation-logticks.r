@@ -67,7 +67,7 @@
 #'
 #' # Using a coordinate transform requires scaled = FALSE
 #' t <- ggplot(Animals, aes(x = body, y = brain)) + geom_point() +
-#'      coord_trans(xtrans = "log10", ytrans = "log10") + theme_bw()
+#'      coord_trans(x = "log10", y = "log10") + theme_bw()
 #'
 #' t + annotation_logticks(scaled = FALSE)
 #'
@@ -108,6 +108,10 @@ annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomLogticks <- ggproto("GeomLogticks", Geom,
   draw_groups = function(data, scales, coordinates, base = 10, sides = "bl",
     scaled = TRUE, short = unit(0.1, "cm"), mid = unit(0.2, "cm"),

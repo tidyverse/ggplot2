@@ -80,6 +80,10 @@ geom_tile <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomTile <- ggproto("GeomTile", Geom,
   reparameterise = function(df, params) {
     df$width <- df$width %||% params$width %||% resolution(df$x, FALSE)

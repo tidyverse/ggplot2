@@ -25,6 +25,10 @@ geom_hline <- function(mapping = NULL, data = NULL, show_guide = NA,
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomHline <- ggproto("GeomHline", Geom,
   draw = function(data, scales, coordinates, ...) {
     ranges <- coord_range(coordinates, scales)

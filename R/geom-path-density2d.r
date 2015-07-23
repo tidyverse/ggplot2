@@ -38,6 +38,10 @@ geom_density2d <- function (mapping = NULL, data = NULL, stat = "density2d",
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomDensity2d <- ggproto("GeomDensity2d", GeomPath,
   default_aes = aes(colour="#3366FF", size = 0.5, linetype = 1, alpha = NA)
 )

@@ -64,6 +64,10 @@ stat_function <- function (mapping = NULL, data = NULL, geom = "path",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatFunction <- ggproto("StatFunction", Stat,
   default_aes = aes(y = ..y..),
 

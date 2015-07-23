@@ -62,6 +62,10 @@ annotation_raster <- function (raster, xmin, xmax, ymin, ymax,
 
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomRasterAnn <- ggproto("GeomRasterAnn", GeomRaster,
   reparameterise = function(df, params) df,
 

@@ -19,6 +19,10 @@ stat_sum <- function (mapping = NULL, data = NULL, geom = "point",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatSum <- ggproto("StatSum", Stat,
   default_aes = aes(size = ..n..),
 
