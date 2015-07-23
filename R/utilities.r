@@ -280,3 +280,16 @@ camelize <- function(x, first = FALSE) {
   if (first) x <- firstUpper(x)
   x
 }
+
+snakeize <- function(x) {
+  x <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", x)
+  x <- gsub(".", "_", x, fixed = TRUE)
+  x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
+  tolower(x)
+}
+
+
+firstUpper <- function(s) {
+  paste(toupper(substring(s, 1,1)), substring(s, 2), sep = "")
+}
+

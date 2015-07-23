@@ -37,14 +37,7 @@ Geom <- proto2("Geom", TopLevel,
     ))
   },
 
-#     print = function(self, newline=TRUE) {
-#       cat("geom_", self$objname, ": ", sep="") #  , clist(self$parameters())
-#       if (newline) cat("\n")
-#     },
-
   reparameterise = function(self, data, params) data
-
-  # Html documentation ----------------------------------
 )
 
 # make_geom("point") returns GeomPoint
