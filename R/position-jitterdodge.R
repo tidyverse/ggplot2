@@ -16,29 +16,20 @@
 #' ggplot(dsub, aes(x = cut, y = carat, fill = clarity)) +
 #'   geom_boxplot(outlier.size = 0) +
 #'   geom_point(pch = 21, position = position_jitterdodge())
-position_jitterdodge <- function (jitter.width = NULL,
-                                  jitter.height = NULL,
-                                  dodge.width = NULL) {
+position_jitterdodge <- function(jitter.width = NULL, jitter.height = NULL,
+                                 dodge.width = NULL) {
 
-  PositionJitterdodge$new(jitter.width = jitter.width,
-                          jitter.height = jitter.height,
-                          dodge.width = dodge.width)
+  proto2(NULL, PositionJitterdodge,
+    jitter.width = jitter.width,
+    jitter.height = jitter.height,
+    dodge.width = dodge.width
+  )
 }
 
 PositionJitterdodge <- proto2("PositionJitterdodge", Position,
   jitter.width = NULL,
   jitter.height = NULL,
   dodge.width = NULL,
-
-  new = function(self, jitter.width = NULL,
-    jitter.height = NULL, dodge.width = NULL)
-  {
-    proto2(NULL, self,
-      jitter.width = jitter.width,
-      jitter.height = jitter.height,
-      dodge.width = dodge.width
-    )
-  },
 
   adjust = function(self, data) {
 

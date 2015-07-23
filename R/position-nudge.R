@@ -20,20 +20,15 @@
 #'   geom_point() +
 #'   geom_text(aes(label = y), position = position_nudge(y = -0.1))
 position_nudge <- function(x = 0, y = 0) {
-  PositionNudge$new(x = x, y = y)
+  proto2(NULL, PositionNudge,
+    x = x,
+    y = y
+  )
 }
 
 PositionNudge <- proto2("PositionNudge", Position,
   x = NULL,
-
   y = NULL,
-
-  new = function(self, x = NULL, y = NULL) {
-    proto2("PositionNudge", self,
-      x = x,
-      y = y
-    )
-  },
 
   adjust = function(self, data) {
     if (empty(data)) return(data.frame())

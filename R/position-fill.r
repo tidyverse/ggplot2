@@ -9,18 +9,21 @@
 #' @examples
 #' \donttest{
 #' # See ?geom_bar and ?geom_area for more examples
-#' ggplot(mtcars, aes(x=factor(cyl), fill=factor(vs))) +
-#'   geom_bar(position="fill")
+#' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
+#'   geom_bar(position = "fill")
 #'
-#' cde <- geom_histogram(position="fill", binwidth = 500)
+#' cde <- geom_histogram(position = "fill", binwidth = 500)
 #'
-#' ggplot(diamonds, aes(x=price)) + cde
-#' ggplot(diamonds, aes(x=price, fill=cut)) + cde
-#' ggplot(diamonds, aes(x=price, fill=clarity)) + cde
-#' ggplot(diamonds, aes(x=price, fill=color)) + cde
+#' ggplot(diamonds, aes(price)) + cde
+#' ggplot(diamonds, aes(price, fill = cut)) + cde
+#' ggplot(diamonds, aes(price, fill = clarity)) + cde
+#' ggplot(diamonds, aes(price, fill = color)) + cde
 #' }
-position_fill <- function (width = NULL, height = NULL) {
-  PositionFill$new(width = width, height = height)
+position_fill <- function(width = NULL, height = NULL) {
+  proto2(NULL, PositionFill,
+    width = width,
+    height = height
+  )
 }
 
 PositionFill <- proto2("PositionFill", Position,

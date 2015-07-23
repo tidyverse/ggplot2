@@ -28,8 +28,11 @@
 #' ggplot(mpg, aes(class, hwy)) +
 #'   geom_jitter() +
 #'   geom_boxplot()
-position_jitter <- function (width = NULL, height = NULL) {
-  PositionJitter$new(width = width, height = height)
+position_jitter <- function(width = NULL, height = NULL) {
+  proto2(NULL, PositionJitter,
+    width = width,
+    height = height
+  )
 }
 
 PositionJitter <- proto2("PositionJitter", Position,
