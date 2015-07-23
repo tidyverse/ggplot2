@@ -1,9 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
-* `stat_summary_hex()` no longer passes `...` on to the summary function -
-  instead it has a new argument `fun.args` which takes a list of function
-  arguments.
+* `stat_summary_hex()` and `stat_summary2d()` no longer passes `...` on to their
+  summary functions - instead they have a new argument `fun.args`, a list
+  of arguments to pass on.
 
 * The internals of positions have been cleaned up considerably. You're unlikely
   to notice any external changes, although the documentation should be a little

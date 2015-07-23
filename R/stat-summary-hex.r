@@ -5,7 +5,6 @@
 #' The values of \code{z} in each cell is are summarised with \code{fun}.
 #'
 #' @section Aesthetics:
-#' \code{stat_summary_hex} requires the following aesthetics:
 #' \itemize{
 #'  \item \code{x}: horizontal position
 #'  \item \code{y}: vertical position
@@ -16,17 +15,15 @@
 #'   \code{\link{stat_bin2d}} for the hexagon-ing options.
 #' @inheritParams stat_identity
 #' @inheritParams stat_binhex
-#' @param drop drop if the output of \code{fun} is \code{NA}.
-#' @param fun function for summary.
-#' @param fun.args A list of extra arguments to pass to \code{fun}
+#' @inheritParams stat_summary2d
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, depth, z = price))
 #' d + stat_summary_hex()
 #'
 #' # Specifying function
-#' d + stat_summary_hex(fun = function(x) sum(x^2))
 #' d + stat_summary_hex(fun = var)
+#' d + stat_summary_hex(fun = function(x) sum(x^2))
 #' d + stat_summary_hex(fun = "quantile", fun.args = list(probs = 0.5))
 stat_summary_hex <- function(mapping = NULL, data = NULL, geom = "hex",
                              position = "identity", bins = 30, drop = TRUE,

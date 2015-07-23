@@ -50,7 +50,6 @@ The values of \code{z} in each cell is are summarised with \code{fun}.
 }
 \section{Aesthetics}{
 
-\code{stat_summary_hex} requires the following aesthetics:
 \itemize{
  \item \code{x}: horizontal position
  \item \code{y}: vertical position
@@ -62,8 +61,8 @@ d <- ggplot(diamonds, aes(carat, depth, z = price))
 d + stat_summary_hex()
 
 # Specifying function
-d + stat_summary_hex(fun = function(x) sum(x^2))
 d + stat_summary_hex(fun = var)
+d + stat_summary_hex(fun = function(x) sum(x^2))
 d + stat_summary_hex(fun = "quantile", fun.args = list(probs = 0.5))
 }
 \seealso{
