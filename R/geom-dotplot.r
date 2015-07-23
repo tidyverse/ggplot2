@@ -20,8 +20,6 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "dotplot")}
 #'
 #' @inheritParams geom_point
-#' @param geom,stat Use to override the default connection between
-#'   \code{geom_dotplot} and \code{stat_bindot}.
 #' @param stackdir which direction to stack the dots. "up" (default),
 #'   "down", "center", "centerwhole" (centered, but with dots aligned)
 #' @param stackratio how close to stack the dots. Default is 1, where dots just
@@ -30,6 +28,34 @@
 #' @param stackgroups should dots be stacked across groups? This has the effect
 #'   that \code{position = "stack"} should have, but can't (because this geom has
 #'   some odd properties).
+#' @param binaxis The axis to bin along, "x" (default) or "y"
+#' @param method "dotdensity" (default) for dot-density binning, or
+#'   "histodot" for fixed bin widths (like stat_bin)
+#' @param binwidth When \code{method} is "dotdensity", this specifies maximum bin
+#'   width. When \code{method} is "histodot", this specifies bin width.
+#'   Defaults to 1/30 of the range of the data
+#' @param binpositions When \code{method} is "dotdensity", "bygroup" (default)
+#'   determines positions of the bins for each group separately. "all" determines
+#'   positions of the bins with all the data taken together; this is used for
+#'   aligning dot stacks across multiple groups.
+#' @param origin When \code{method} is "histodot", origin of first bin
+#' @param right When \code{method} is "histodot", should intervals be closed
+#'   on the right (a, b], or not [a, b)
+#' @param width When \code{binaxis} is "y", the spacing of the dot stacks
+#'   for dodging.
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
+#' @param drop If TRUE, remove all bins with zero counts
+#' @return New data frame with additional columns:
+#'   \item{x}{center of each bin, if binaxis is "x"}
+#'   \item{y}{center of each bin, if binaxis is "x"}
+#'   \item{binwidth}{max width of each bin if method is "dotdensity";
+#'     width of each bin if method is "histodot"}
+#'   \item{count}{number of points in bin}
+#'   \item{ncount}{count, scaled to maximum of 1}
+#'   \item{density}{density of points in bin, scaled to integrate to 1,
+#'     if method is "histodot"}
+#'   \item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
 #' @export
 #' @references Wilkinson, L. (1999) Dot plots. The American Statistician,
 #'    53(3), 276-281.
@@ -57,7 +83,6 @@
 #' # Expand dot diameter
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
 #'
-#'
 #' # Examples with stacking along y axis instead of x
 #' ggplot(mtcars, aes(x = 1, y = mpg)) +
 #'   geom_dotplot(binaxis = "y", stackdir = "center")
@@ -84,11 +109,11 @@
 #'
 #' ggplot(mtcars, aes(x = 1, y = mpg, fill = factor(cyl))) +
 #'   geom_dotplot(binaxis = "y", stackgroups = TRUE, binwidth = 1, method = "histodot")
-#'
-geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
+geom_dotplot <- function(mapping = NULL, data = NULL,
   position = "identity", na.rm = FALSE, binwidth = NULL, binaxis = "x",
   method = "dotdensity", binpositions = "bygroup", stackdir = "up",
-  stackratio = 1, dotsize = 1, stackgroups = FALSE, show_guide = NA,
+  stackratio = 1, dotsize = 1, stackgroups = FALSE,
+  origin = NULL, right = TRUE, width = 0.9, drop = FALSE, show_guide = NA,
   inherit.aes = TRUE, ...)
 {
   # If identical(position, "stack") or position is position_stack(), tell them
@@ -104,7 +129,7 @@ geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
   layer(
     data = data,
     mapping = mapping,
-    stat = stat,
+    stat = StatBindot,
     geom = GeomDotplot,
     position = position,
     show_guide = show_guide,
@@ -115,7 +140,11 @@ geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
       na.rm = na.rm,
       binwidth = binwidth,
       binpositions = binpositions,
-      method = method
+      method = method,
+      origin = origin,
+      right = right,
+      width = width,
+      drop = drop
     ),
     geom_params = list(
       binaxis = binaxis,
