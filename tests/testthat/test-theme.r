@@ -169,3 +169,20 @@ test_that("Complete and non-complete themes interact correctly with ggplot objec
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "plain")
 })
+
+test_that("theme(validate=FALSE) means do not validate_element", {
+  p <- qplot(1:3, 1:3)
+  bw <- p + theme_bw()
+  red.text <- theme(text = element_text(colour="red"))
+  bw.before <- bw + theme(animint.width = 500, validate = FALSE)
+  expect_equal(bw.before$theme$animint.width, 500)
+  
+  bw.after <- p + theme(animint.width = 500, validate = FALSE) + theme_bw()
+  expect_null(bw.after$theme$animint.width)
+  
+  red.after <- p + theme(animint.width = 500, validate = FALSE) + red.text
+  expect_equal(red.after$theme$animint.width, 500)
+  
+  red.before <- p + red.text + theme(animint.width = 500, validate = FALSE)
+  expect_equal(red.before$theme$animint.width, 500)
+})

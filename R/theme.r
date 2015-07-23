@@ -188,6 +188,7 @@ print.theme <- function(x, ...) str(x)
 #' @param complete set this to TRUE if this is a complete theme, such as
 #'   the one returned \code{by theme_grey()}. Complete themes behave
 #'   differently when added to a ggplot object.
+#' @param validate TRUE to run validate_element, FALSE to bypass checks.
 #'
 #' @seealso \code{\link{+.gg}}
 #' @seealso \code{\link{\%+replace\%}}
@@ -346,13 +347,16 @@ print.theme <- function(x, ...) str(x)
 #' plot(g, layout=layout.fruchterman.reingold, vertex.size=4, vertex.label.dist=.25)
 #'
 #' }
-theme <- function(..., complete = FALSE) {
+theme <- function(..., complete = FALSE, validate = TRUE) {
   elements <- list(...)
 
   # Check that all elements have the correct class (element_text, unit, etc)
-  mapply(validate_element, elements, names(elements))
+  if(validate){
+    mapply(validate_element, elements, names(elements))
+  }
 
-  structure(elements, class = c("theme", "gg"), complete = complete)
+  structure(elements, class = c("theme", "gg"),
+            complete = complete, validate = validate)
 }
 
 
@@ -492,8 +496,11 @@ update_theme <- function(oldtheme, newtheme) {
   # Turn the 'theme' list into a proper theme object first, and preserve
   # the 'complete' attribute. It's possible that oldtheme is an empty
   # list, and in that case, set complete to FALSE.
+  old.validate <- isTRUE(attr(oldtheme, "validate"))
+  new.validate <- isTRUE(attr(newtheme, "validate"))
   oldtheme <- do.call(theme, c(oldtheme,
-    complete = isTRUE(attr(oldtheme, "complete"))))
+    complete = isTRUE(attr(oldtheme, "complete")),
+    validate = old.validate & new.validate))
 
   oldtheme + newtheme
 }

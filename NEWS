@@ -138,6 +138,10 @@ ggplot2 1.0.1.9xxx
 * New `geom_curve()` that adds curved lines, similar to `geom_segment()`.
   (@veraanadi, #1088)
 
+* New `validate = FALSE` parameter to `theme()` makes it possible to turn off
+  validation, and hence store arbitrary additional data in the themes.
+  (@tdhock, #1121)
+
 * Create correct legend for continuous color even if there is only one color
   (@krlmlr, #943)
 
