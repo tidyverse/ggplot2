@@ -281,9 +281,11 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     guide$override.aes <- rename_aes(guide$override.aes)
     for (aes in intersect(names(guide$override.aes), names(data))) data[[aes]] <- guide$override.aes[[aes]]
 
-    geom <- layer$geom$guide_geom
-    params <- c(layer$geom_params, layer$stat_params)
-    list(geom = geom, data = data, params = params)
+    list(
+      draw_key = layer$geom$guide_geom,
+      data = aesdefaults(data, layer$geom$default_aes, NULL),
+      params = c(layer$geom_params, layer$stat_params)
+    )
   })
 
   # remove null geom
@@ -486,8 +488,10 @@ guide_gengrob.legend <- function(guide, theme) {
     grob.keys[[length(grob.keys)+1]] <- element_render(theme, "legend.key")
 
     # overlay geoms
-    for(geom in guide$geoms)
-      grob.keys[[length(grob.keys)+1]] <- geom$geom(geom$data[i, ], geom$params)
+    for(geom in guide$geoms) {
+      grob.keys[[length(grob.keys)+1]] <- geom$draw_key(geom$data[i, ], geom$params)
+    }
+
   }
 
   # background
