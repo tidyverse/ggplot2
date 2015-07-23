@@ -62,8 +62,8 @@ ggplot2 1.0.1.9xxx
 
 * `lims()` makes it easy to set the limits of any axis (#1138).
 
-* Switched away from proto and reference class objects to proto2. This makes it
-  easier to extend ggplot2, because proto2 supports clean cross-package
+* Switched away from proto and reference class objects to ggproto. This makes it
+  easier to extend ggplot2, because ggproto supports clean cross-package
   inheritance.
 
 * Fixed segment annotations not transforming with scales (@BrianDiggs, #859)

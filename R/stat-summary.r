@@ -128,7 +128,7 @@ stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
   )
 }
 
-StatSummary <- proto2("StatSummary", Stat,
+StatSummary <- ggproto("StatSummary", Stat,
   required_aes = c("x", "y"),
 
   calculate_groups = function(data, scales, fun.data = NULL, fun.y = NULL,

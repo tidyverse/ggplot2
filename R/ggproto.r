@@ -1,42 +1,42 @@
-#' Create a new proto2 object
+#' Create a new ggproto object
 #'
 #' @param _class Class name to assign to the object. This is stored as the class
 #'   attribute of the object. If \code{NULL} (the default), no class name will
 #'   be added to the object.
-#' @param _inherit proto2 object to inherit from. If \code{NULL}, don't inherit
+#' @param _inherit ggproto object to inherit from. If \code{NULL}, don't inherit
 #'   from any object.
-#' @param ... A list of members in the proto2 object.
+#' @param ... A list of members in the ggproto object.
 #' @export
-proto2 <- function(`_class` = NULL, `_inherit` = NULL, ...) {
+ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   e <- new.env(parent = emptyenv())
 
   members <- list(...)
   if (length(members) != sum(nzchar(names(members)))) {
-    stop("All members of a proto2 object must be named.")
+    stop("All members of a ggproto object must be named.")
   }
   list2env(members, envir = e)
 
   if (!is.null(`_inherit`)) {
-    if (!is.proto2(`_inherit`)) {
-      stop("`_inherit` must be a proto2 object.")
+    if (!is.ggproto(`_inherit`)) {
+      stop("`_inherit` must be a ggproto object.")
     }
     e$super <- `_inherit`
     class(e) <- c(`_class`, class(`_inherit`))
 
   } else {
-    class(e) <- c(`_class`, "proto2")
+    class(e) <- c(`_class`, "ggproto")
   }
 
   e
 }
 
-#' Is an object a proto2 object?
+#' Is an object a ggproto object?
 #'
 #' @param x An object to test.
 #' @export
-is.proto2 <- function(x) inherits(x, "proto2")
+is.ggproto <- function(x) inherits(x, "ggproto")
 
-fetch_proto2 <- function(x, name) {
+fetch_ggproto <- function(x, name) {
   res <- NULL
 
   val <- .subset2(x, name)
@@ -47,16 +47,16 @@ fetch_proto2 <- function(x, name) {
   } else {
     # If not found here, recurse into super environments
     super <- .subset2(x, "super")
-    if (is.proto2(super))
-      res <- fetch_proto2(super, name)
+    if (is.ggproto(super))
+      res <- fetch_ggproto(super, name)
   }
 
   res
 }
 
 #' @export
-`$.proto2` <- function(x, name) {
-  res <- fetch_proto2(x, name)
+`$.ggproto` <- function(x, name) {
+  res <- fetch_ggproto(x, name)
 
   if (!is.function(res)) {
     return(res)
@@ -104,25 +104,25 @@ fetch_proto2 <- function(x, name) {
     }
   }
 
-  class(fun) <- "proto2_method"
+  class(fun) <- "ggproto_method"
   fun
 }
 
 
 #' @export
-`[[.proto2` <- `$.proto2`
+`[[.ggproto` <- `$.ggproto`
 
 
-#' Convert a proto2 object to a list
+#' Convert a ggproto object to a list
 #'
 #' This will not include the object's \code{super} member.
 #'
-#' @param x A proto2 object to convert to a list.
+#' @param x A ggproto object to convert to a list.
 #' @param inherit If \code{TRUE} (the default), flatten all inherited items into
 #'   the returned list. If \code{FALSE}, do not include any inherited items.
 #' @param ... Further arguments to pass to \code{as.list.environment}.
 #' @export
-as.list.proto2 <- function(x, inherit = TRUE, ...) {
+as.list.ggproto <- function(x, inherit = TRUE, ...) {
   res <- list()
 
   if (inherit) {
@@ -138,20 +138,20 @@ as.list.proto2 <- function(x, inherit = TRUE, ...) {
 }
 
 
-#' Print a proto2 object
+#' Print a ggproto object
 #'
-#' If a proto2 object has a \code{$print} method, this will call that method.
+#' If a ggproto object has a \code{$print} method, this will call that method.
 #' Otherwise, it will print out the members of the object, and optionally, the
 #' members of the inherited objects.
 #'
-#' @param x A proto2 object to print.
+#' @param x A ggproto object to print.
 #' @param flat If \code{TRUE} (the default), show a flattened list of all local
 #'   and inherited members. If \code{FALSE}, show the inheritance hierarchy.
-#' @param ... If the proto2 object has a \code{print} method, further arguments
+#' @param ... If the ggproto object has a \code{print} method, further arguments
 #'   will be passed to it. Otherwise, these arguments are unused.
 #'
 #' @export
-print.proto2 <- function(x, ..., flat = TRUE) {
+print.ggproto <- function(x, ..., flat = TRUE) {
   if (is.function(x$print)) {
     x$print(...)
 
@@ -162,13 +162,13 @@ print.proto2 <- function(x, ..., flat = TRUE) {
 }
 
 
-#' Format a proto2 object
+#' Format a ggproto object
 #'
-#' @inheritParams print.proto2
+#' @inheritParams print.ggproto
 #' @export
-format.proto2 <-  function(x, ..., flat = TRUE) {
+format.ggproto <-  function(x, ..., flat = TRUE) {
   classes_str <- function(obj) {
-    classes <- setdiff(class(obj), "proto2")
+    classes <- setdiff(class(obj), "ggproto")
     if (length(classes) == 0)
       return("")
     paste0(": Class ", paste(classes, collapse = ', '))
@@ -182,7 +182,7 @@ format.proto2 <-  function(x, ..., flat = TRUE) {
   }
 
   str <- paste0(
-    "<proto2 object", classes_str(x), ">\n",
+    "<ggproto object", classes_str(x), ">\n",
     indent(object_summaries(objs, flat = flat), 4)
   )
 
@@ -190,7 +190,7 @@ format.proto2 <-  function(x, ..., flat = TRUE) {
     str <- paste0(
       str, "\n",
       indent(
-        paste0("super: ", " <proto2 object", classes_str(x$super), ">"),
+        paste0("super: ", " <ggproto object", classes_str(x$super), ">"),
         4
       )
     )
@@ -221,7 +221,7 @@ object_summaries <- function(x, exclude = NULL, flat = TRUE) {
   values <- vapply(obj_names, function(name) {
     obj <- x[[name]]
     if (is.function(obj)) "function"
-    else if (is.proto2(obj)) format(obj, flat = flat)
+    else if (is.ggproto(obj)) format(obj, flat = flat)
     else if (is.environment(obj)) "environment"
     else if (is.null(obj)) "NULL"
     else if (is.atomic(obj)) trim(paste(as.character(obj), collapse = " "))
@@ -248,12 +248,12 @@ trim <- function(str, n = 60) {
 }
 
 #' @export
-print.proto2_method <- function(x, ...) {
+print.ggproto_method <- function(x, ...) {
   cat(format(x), sep = "")
 }
 
 #' @export
-format.proto2_method <- function(x, ...) {
+format.ggproto_method <- function(x, ...) {
 
   # Given a function, return a string from srcref if present. If not present,
   # paste the deparsed lines of code together.
@@ -267,7 +267,7 @@ format.proto2_method <- function(x, ...) {
 
   x <- unclass(x)
   paste0(
-    "<proto2 method>",
+    "<ggproto method>",
     "\n  <Wrapper function>\n    ", format_fun(x),
     "\n\n  <Inner function (res)>\n    ", format_fun(environment(x)$res)
   )

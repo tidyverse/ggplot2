@@ -32,7 +32,7 @@ stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile",
 }
 
 
-StatQuantile <- proto2("StatQuantile", Stat,
+StatQuantile <- ggproto("StatQuantile", Stat,
   required_aes = c("x", "y"),
 
   calculate = function(data, scales, quantiles = c(0.25, 0.5, 0.75),

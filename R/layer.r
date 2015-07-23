@@ -11,7 +11,7 @@
 #  * flag for display guide: TRUE/FALSE/NA. in the case of NA, decision depends on a guide itself.
 #
 # Can think about grob creation as a series of data frame transformations.
-Layer <- proto2("Layer", NULL,
+Layer <- ggproto("Layer", NULL,
   geom = NULL,
   geom_params = NULL,
   stat = NULL,
@@ -24,7 +24,7 @@ Layer <- proto2("Layer", NULL,
 
   # This actually makes a descendent of self, which is functionally the same
   # as a actually clone for most purposes.
-  clone = function(self) proto2(NULL, self),
+  clone = function(self) ggproto(NULL, self),
 
   use_defaults = function(self, data) {
     df <- aesdefaults(data, self$geom$default_aes, NULL)
@@ -198,7 +198,7 @@ Layer <- proto2("Layer", NULL,
 #' @export
 #' @inheritParams geom_point
 #' @param geom,stat,position Geom, stat and position adjustment to use in
-#'   this layer. Can either be the name of a proto2 object, or the object
+#'   this layer. Can either be the name of a ggproto object, or the object
 #'   itself.
 #' @param geom_params,stat_params,params,... Additional parameters to the
 #'   \code{geom} and \code{stat}. If supplied individual in \code{...} or as a
@@ -252,7 +252,7 @@ layer <- function(geom = NULL, geom_params = list(), stat = NULL,
   }
   geom_params <- rename_aes(geom_params)
 
-  proto2("LayerInstance", Layer,
+  ggproto("LayerInstance", Layer,
     geom = geom,
     geom_params = geom_params,
     stat = stat,

@@ -19,14 +19,14 @@
 position_jitterdodge <- function(jitter.width = NULL, jitter.height = NULL,
                                  dodge.width = NULL) {
 
-  proto2(NULL, PositionJitterdodge,
+  ggproto(NULL, PositionJitterdodge,
     jitter.width = jitter.width,
     jitter.height = jitter.height,
     dodge.width = dodge.width
   )
 }
 
-PositionJitterdodge <- proto2("PositionJitterdodge", Position,
+PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
   jitter.width = NULL,
   jitter.height = NULL,
   dodge.width = NULL,

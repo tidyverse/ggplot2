@@ -95,7 +95,7 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
 }
 
 
-GeomText <- proto2("GeomText", Geom,
+GeomText <- ggproto("GeomText", Geom,
   draw_groups = function(self, ...) self$draw(...),
 
   draw = function(data, scales, coordinates, ..., parse = FALSE,

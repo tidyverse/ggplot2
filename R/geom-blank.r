@@ -37,6 +37,6 @@ geom_blank <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 
-GeomBlank <- proto2("GeomBlank", Geom,
+GeomBlank <- ggproto("GeomBlank", Geom,
   default_aes = aes()
 )

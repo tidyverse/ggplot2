@@ -25,7 +25,7 @@ geom_hline <- function(mapping = NULL, data = NULL, show_guide = NA,
   )
 }
 
-GeomHline <- proto2("GeomHline", Geom,
+GeomHline <- ggproto("GeomHline", Geom,
   draw = function(data, scales, coordinates, ...) {
     ranges <- coord_range(coordinates, scales)
 

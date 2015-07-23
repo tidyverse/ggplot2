@@ -80,7 +80,7 @@ geom_tile <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomTile <- proto2("GeomTile", Geom,
+GeomTile <- ggproto("GeomTile", Geom,
   reparameterise = function(df, params) {
     df$width <- df$width %||% params$width %||% resolution(df$x, FALSE)
     df$height <- df$height %||% params$height %||% resolution(df$y, FALSE)

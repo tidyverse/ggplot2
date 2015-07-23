@@ -27,7 +27,7 @@ geom_rect <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomRect <- proto2("GeomRect", Geom,
+GeomRect <- ggproto("GeomRect", Geom,
   default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
     alpha = NA),
 

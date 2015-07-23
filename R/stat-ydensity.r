@@ -41,7 +41,7 @@ stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
 }
 
 
-StatYdensity <- proto2("StatYdensity", Stat,
+StatYdensity <- ggproto("StatYdensity", Stat,
   calculate_groups = function(self, super, data, na.rm = FALSE, width = NULL,
     scale = "area", ...)
   {

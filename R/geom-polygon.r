@@ -61,7 +61,7 @@ geom_polygon <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomPolygon <- proto2("GeomPolygon", Geom,
+GeomPolygon <- ggproto("GeomPolygon", Geom,
   draw_groups = function(self, ...) self$draw(...),
 
   draw = function(self, data, scales, coordinates, ...) {

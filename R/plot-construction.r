@@ -105,7 +105,7 @@ add_ggplot <- function(p, object, objectname) {
     for (o in object) {
       p <- p + o
     }
-  } else if (is.proto2(object)) {
+  } else if (is.ggproto(object)) {
     p <- switch(object$type,
       layer = {
         p$layers <- append(p$layers, object)

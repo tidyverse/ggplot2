@@ -76,7 +76,7 @@ geom_raster <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomRaster <- proto2("GeomRaster", Geom,
+GeomRaster <- ggproto("GeomRaster", Geom,
   reparameterise = function(df, params) {
     hjust <- params$hjust %||% 0.5
     vjust <- params$vjust %||% 0.5

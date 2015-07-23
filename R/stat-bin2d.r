@@ -22,7 +22,7 @@ stat_bin2d <- function (mapping = NULL, data = NULL, geom = "rect",
   )
 }
 
-StatBin2d <- proto2("StatBin2d", Stat,
+StatBin2d <- ggproto("StatBin2d", Stat,
   default_aes = aes(fill = ..count..),
   required_aes = c("x", "y"),
 

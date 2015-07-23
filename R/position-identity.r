@@ -6,4 +6,4 @@ position_identity <- function() {
   PositionIdentity
 }
 
-PositionIdentity <- proto2("PositionIdentity", Position)
+PositionIdentity <- ggproto("PositionIdentity", Position)

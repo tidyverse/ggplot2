@@ -38,7 +38,7 @@ stat_density <- function(mapping = NULL, data = NULL, geom = "area",
   )
 }
 
-StatDensity <- proto2("StatDensity", Stat,
+StatDensity <- ggproto("StatDensity", Stat,
   calculate = function(data, scales, adjust = 1, kernel = "gaussian",
     trim = FALSE, na.rm = FALSE, ...)
   {

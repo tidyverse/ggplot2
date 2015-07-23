@@ -45,7 +45,7 @@ geom_ribbon <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomRibbon <- proto2("GeomRibbon", Geom,
+GeomRibbon <- ggproto("GeomRibbon", Geom,
   default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
     alpha = NA),
 
@@ -122,7 +122,7 @@ geom_area <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomArea <- proto2("GeomArea", GeomRibbon,
+GeomArea <- ggproto("GeomArea", GeomRibbon,
   default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
     alpha = NA),
 

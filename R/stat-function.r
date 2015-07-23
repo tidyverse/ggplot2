@@ -64,7 +64,7 @@ stat_function <- function (mapping = NULL, data = NULL, geom = "path",
   )
 }
 
-StatFunction <- proto2("StatFunction", Stat,
+StatFunction <- ggproto("StatFunction", Stat,
   default_aes = aes(y = ..y..),
 
   calculate = function(data, scales, fun, n=101, args = list(), ...) {

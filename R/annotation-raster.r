@@ -62,7 +62,7 @@ annotation_raster <- function (raster, xmin, xmax, ymin, ymax,
 
 }
 
-GeomRasterAnn <- proto2("GeomRasterAnn", GeomRaster,
+GeomRasterAnn <- ggproto("GeomRasterAnn", GeomRaster,
   reparameterise = function(df, params) df,
 
   draw_groups = function(data, scales, coordinates, raster, xmin, xmax,

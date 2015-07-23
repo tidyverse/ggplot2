@@ -29,13 +29,13 @@
 #'   geom_jitter() +
 #'   geom_boxplot()
 position_jitter <- function(width = NULL, height = NULL) {
-  proto2(NULL, PositionJitter,
+  ggproto(NULL, PositionJitter,
     width = width,
     height = height
   )
 }
 
-PositionJitter <- proto2("PositionJitter", Position,
+PositionJitter <- ggproto("PositionJitter", Position,
   adjust = function(self, data) {
     if (empty(data)) return(data.frame())
     check_required_aesthetics(c("x", "y"), names(data), "position_jitter")

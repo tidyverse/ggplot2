@@ -45,7 +45,7 @@ stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex",
 }
 
 
-StatBinhex <- proto2("StatBinhex", Stat,
+StatBinhex <- ggproto("StatBinhex", Stat,
   default_aes = aes(fill = ..count..),
 
   required_aes = c("x", "y"),

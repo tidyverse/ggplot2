@@ -37,7 +37,7 @@ geom_errorbarh <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 
-GeomErrorbarh <- proto2("GeomErrorbarh", Geom,
+GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, height = 0.5,
     alpha = NA),
 

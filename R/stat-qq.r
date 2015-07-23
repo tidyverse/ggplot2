@@ -57,7 +57,7 @@ stat_qq <- function (mapping = NULL, data = NULL, geom = "point",
 #' @rdname stat_qq
 geom_qq <- stat_qq
 
-StatQq <- proto2("StatQq", Stat,
+StatQq <- ggproto("StatQq", Stat,
   default_aes = aes(y = ..sample.., x = ..theoretical..),
 
   required_aes = c("sample"),

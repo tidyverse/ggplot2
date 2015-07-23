@@ -61,7 +61,7 @@ stat_bindot <- function (mapping = NULL, data = NULL, geom = "dotplot",
 }
 
 
-StatBindot <- proto2("StatBindot", Stat,
+StatBindot <- ggproto("StatBindot", Stat,
   informed = FALSE,
 
   calculate_groups = function(self, super, data, na.rm = FALSE, binwidth = NULL,

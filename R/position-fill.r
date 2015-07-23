@@ -4,7 +4,7 @@ position_fill <- function() {
   PositionFill
 }
 
-PositionFill <- proto2("PositionFill", Position,
+PositionFill <- ggproto("PositionFill", Position,
   adjust = function(self, data) {
     if (empty(data)) return(data.frame())
 

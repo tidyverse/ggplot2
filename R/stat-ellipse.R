@@ -65,7 +65,7 @@ stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
   )
 }
 
-StatEllipse <- proto2("StatEllipse", Stat,
+StatEllipse <- ggproto("StatEllipse", Stat,
   required_aes = c("x", "y"),
 
   calculate_groups = function(self, super, data, scales, ...){

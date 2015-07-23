@@ -55,7 +55,7 @@ annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax 
   )
 }
 
-GeomCustomAnn <- proto2("GeomCustomAnn", Geom,
+GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
   draw_groups = function(data, scales, coordinates, grob, xmin, xmax,
                           ymin, ymax, ...) {
     if (!inherits(coordinates, "cartesian")) {

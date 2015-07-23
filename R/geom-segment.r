@@ -62,7 +62,7 @@ geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomSegment <- proto2("GeomSegment", Geom,
+GeomSegment <- ggproto("GeomSegment", Geom,
   draw = function(data, scales, coordinates, arrow = NULL,
     lineend = "butt", na.rm = FALSE, ...) {
 

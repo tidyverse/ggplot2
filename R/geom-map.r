@@ -83,7 +83,7 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
   )
 }
 
-GeomMap <- proto2("GeomMap", GeomPolygon,
+GeomMap <- ggproto("GeomMap", GeomPolygon,
   draw_groups = function(data, scales, coordinates, map, ...) {
     # Only use matching data and map ids
     common <- intersect(data$map_id, map$id)

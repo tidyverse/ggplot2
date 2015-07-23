@@ -1,7 +1,7 @@
-#' @include proto2.r
+#' @include ggproto.r
 NULL
 
-#' Base proto2 classes for ggplot2
+#' Base ggproto classes for ggplot2
 #'
 #' If you are creating a new geom, stat or positions in another package, you'll
 #' need to extend from \code{ggplot2::Geom}, \code{ggplot2::Stat} or
@@ -10,10 +10,10 @@ NULL
 #' @export Geom Stat Position
 #' @aliases Geom Stat Position
 #' @keywords internal
-#' @name ggplot2-proto2
+#' @name ggplot2-ggproto
 NULL
 
-TopLevel <- proto2("TopLevel", NULL,
+TopLevel <- ggproto("TopLevel", NULL,
   find = function(self, name) {
     # Convert name to camel case
     name <- camelize(name, first = TRUE)

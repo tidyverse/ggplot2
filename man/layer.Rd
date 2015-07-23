@@ -10,7 +10,7 @@ layer(geom = NULL, geom_params = list(), stat = NULL,
 }
 \arguments{
 \item{geom,stat,position}{Geom, stat and position adjustment to use in
-this layer. Can either be the name of a proto2 object, or the object
+this layer. Can either be the name of a ggproto object, or the object
 itself.}
 
 \item{geom_params,stat_params,params,...}{Additional parameters to the

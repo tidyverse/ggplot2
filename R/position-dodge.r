@@ -30,10 +30,10 @@
 #'   position = position_dodge(width = 0.90))
 #' }
 position_dodge <- function(width = NULL) {
-  proto2(NULL, PositionDodge, width = width)
+  ggproto(NULL, PositionDodge, width = width)
 }
 
-PositionDodge <- proto2("PositionDodge", Position,
+PositionDodge <- ggproto("PositionDodge", Position,
   width = NULL,
   adjust = function(self, data) {
     if (empty(data)) return(data.frame())

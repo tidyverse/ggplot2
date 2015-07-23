@@ -1,4 +1,4 @@
-Stat <- proto2("Stat", TopLevel,
+Stat <- ggproto("Stat", TopLevel,
   type = "stat",
 
   # Should the values produced by the statistic also be transformed

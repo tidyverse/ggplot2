@@ -77,7 +77,7 @@ stat_density2d <- function (mapping = NULL, data = NULL, geom = "density2d",
   )
 }
 
-StatDensity2d <- proto2("StatDensity2d", Stat,
+StatDensity2d <- ggproto("StatDensity2d", Stat,
   default_aes = aes(colour = "#3366FF", size = 0.5),
 
   required_aes = c("x", "y"),

@@ -46,7 +46,7 @@ position_stack <- function() {
   PositionStack
 }
 
-PositionStack <- proto2("PositionStack", Position,
+PositionStack <- ggproto("PositionStack", Position,
   adjust = function(self, data) {
     if (empty(data)) return(data.frame())
 
