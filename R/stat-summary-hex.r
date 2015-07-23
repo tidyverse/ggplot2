@@ -47,6 +47,10 @@ stat_summary_hex <- function(mapping = NULL, data = NULL, geom = "hex",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatSummaryHex <- ggproto("StatSummaryHex", Stat,
   default_aes = aes(fill = ..value..),
 

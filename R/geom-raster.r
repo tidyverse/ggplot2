@@ -76,6 +76,10 @@ geom_raster <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomRaster <- ggproto("GeomRaster", Geom,
   reparameterise = function(df, params) {
     hjust <- params$hjust %||% 0.5

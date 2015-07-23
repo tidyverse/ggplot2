@@ -33,6 +33,10 @@ position_dodge <- function(width = NULL) {
   ggproto(NULL, PositionDodge, width = width)
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 PositionDodge <- ggproto("PositionDodge", Position,
   width = NULL,
   adjust = function(self, data) {

@@ -36,6 +36,10 @@ geom_rug <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomRug <- ggproto("GeomRug", Geom,
   draw = function(data, scales, coordinates, sides = "bl", ...) {
     rugs <- list()

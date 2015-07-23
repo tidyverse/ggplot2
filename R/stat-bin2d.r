@@ -22,6 +22,10 @@ stat_bin2d <- function (mapping = NULL, data = NULL, geom = "rect",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatBin2d <- ggproto("StatBin2d", Stat,
   default_aes = aes(fill = ..count..),
   required_aes = c("x", "y"),

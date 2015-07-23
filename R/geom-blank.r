@@ -37,6 +37,10 @@ geom_blank <- function (mapping = NULL, data = NULL, stat = "identity",
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomBlank <- ggproto("GeomBlank", Geom,
   default_aes = aes()
 )

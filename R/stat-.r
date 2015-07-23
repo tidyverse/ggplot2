@@ -1,3 +1,7 @@
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 Stat <- ggproto("Stat", TopLevel,
   type = "stat",
 

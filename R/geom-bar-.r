@@ -145,6 +145,10 @@ geom_bar <- function (mapping = NULL, data = NULL, stat = "bin",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomBar <- ggproto("GeomBar", Geom,
   default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
                     weight = 1, alpha = NA),

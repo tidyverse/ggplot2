@@ -32,6 +32,10 @@ stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile",
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatQuantile <- ggproto("StatQuantile", Stat,
   required_aes = c("x", "y"),
 

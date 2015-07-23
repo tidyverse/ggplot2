@@ -103,6 +103,10 @@ geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   reparameterise = function(df, params) {
     df$width <- df$width %||%

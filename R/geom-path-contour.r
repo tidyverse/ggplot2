@@ -31,6 +31,10 @@ geom_contour <- function (mapping = NULL, data = NULL, stat = "contour",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomContour <- ggproto("GeomContour", GeomPath,
   default_aes = aes(weight = 1, colour = "#3366FF", size = 0.5, linetype = 1,
     alpha = NA)

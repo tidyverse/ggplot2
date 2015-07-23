@@ -61,6 +61,10 @@ stat_bindot <- function (mapping = NULL, data = NULL, geom = "dotplot",
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatBindot <- ggproto("StatBindot", Stat,
   informed = FALSE,
 

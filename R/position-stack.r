@@ -46,6 +46,10 @@ position_stack <- function() {
   PositionStack
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 PositionStack <- ggproto("PositionStack", Position,
   adjust = function(self, data) {
     if (empty(data)) return(data.frame())

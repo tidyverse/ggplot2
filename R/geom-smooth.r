@@ -92,6 +92,10 @@ geom_smooth <- function(mapping = NULL, data = NULL, stat = "smooth",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomSmooth <- ggproto("GeomSmooth", Geom,
   draw = function(data, scales, coordinates, ...) {
     ribbon <- transform(data, colour = NA)

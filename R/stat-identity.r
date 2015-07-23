@@ -42,6 +42,10 @@ stat_identity <- function (mapping = NULL, data = NULL, geom = "point",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatIdentity <- ggproto("StatIdentity", Stat,
   calculate_groups = function(data, scales, width = NULL, height = NULL, ...) {
     if (!is.null(width))   data$width  <- width

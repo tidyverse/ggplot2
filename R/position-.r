@@ -1,6 +1,10 @@
 # Position adjustment occurs over all groups within a geom
 # They work only with discrete x scales and may affect x and y position.
 # Should occur after statistics and scales have been applied.
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 Position <- ggproto("Position", TopLevel,
   type = "position",
   adjust = function(data, scales, ...) data

@@ -57,6 +57,10 @@ stat_qq <- function(mapping = NULL, data = NULL, geom = "point",
 #' @rdname stat_qq
 geom_qq <- stat_qq
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatQq <- ggproto("StatQq", Stat,
   default_aes = aes(y = ..sample.., x = ..theoretical..),
 

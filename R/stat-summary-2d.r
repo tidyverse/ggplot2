@@ -51,6 +51,10 @@ stat_summary2d <- function(mapping = NULL, data = NULL, geom = "rect",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatSummary2d <- ggproto("StatSummary2d", Stat,
   default_aes = aes(fill = ..value..),
 

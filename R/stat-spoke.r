@@ -37,6 +37,10 @@ stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatSpoke <- ggproto("StatSpoke", Stat,
   retransform = FALSE,
 

@@ -25,6 +25,10 @@ geom_vline <- function(mapping = NULL, data = NULL, show_guide = FALSE,
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomVline <- ggproto("GeomVline", Geom,
   draw = function(data, scales, coordinates, ...) {
     ranges <- coord_range(coordinates, scales)

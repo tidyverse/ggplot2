@@ -34,6 +34,10 @@ stat_boxplot <- function(mapping = NULL, data = NULL, geom = "boxplot",
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("x", "y"),
 

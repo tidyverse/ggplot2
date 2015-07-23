@@ -95,6 +95,10 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomText <- ggproto("GeomText", Geom,
   draw_groups = function(self, ...) self$draw(...),
 

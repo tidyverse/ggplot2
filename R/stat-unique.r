@@ -23,6 +23,10 @@ stat_unique <- function (mapping = NULL, data = NULL, geom = "point",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatUnique <- ggproto("StatUnique", Stat,
   calculate_groups = function(data, scales, ...) unique(data)
 )

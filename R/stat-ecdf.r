@@ -34,6 +34,10 @@ stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step",
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 StatEcdf <- ggproto("StatEcdf", Stat,
   calculate = function(data, scales, n = NULL, ...) {
 
