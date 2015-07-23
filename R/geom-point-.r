@@ -80,17 +80,19 @@
 #' p + geom_point(colour = "red", size = 3)
 #' ggplot(mtcars, aes(wt, mpg)) + geom_point(colour = "red", size = 3)
 #'
+#' \donttest{
 #' # Varying alpha is useful for large datasets
 #' d <- ggplot(diamonds, aes(carat, price))
 #' d + geom_point(alpha = 1/10)
 #' d + geom_point(alpha = 1/20)
 #' d + geom_point(alpha = 1/100)
+#' }
 #'
 #' # For shapes that have a border (like 21), you can colour the inside and
 #' # outside separately. Use the stroke aesthetic to modify the width of the
 #' # border
 #' ggplot(mtcars, aes(wt, mpg)) +
-#'   geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 12)
+#'   geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 5)
 #'
 #' # You can create interesting shapes by layering multiple points of
 #' # different sizes
@@ -98,9 +100,9 @@
 #' p + geom_point(colour="grey50", size = 4) + geom_point(aes(colour = cyl))
 #' p + aes(shape = factor(cyl)) +
 #'   geom_point(aes(colour = factor(cyl)), size = 4) +
-#'   geom_point(colour="grey90", size = 1.5)
-#' p + geom_point(colour="black", size = 4.5) +
-#'   geom_point(colour="pink", size = 4) +
+#'   geom_point(colour = "grey90", size = 1.5)
+#' p + geom_point(colour = "black", size = 4.5) +
+#'   geom_point(colour = "pink", size = 4) +
 #'   geom_point(aes(shape = factor(cyl)))
 #'
 #' # These extra layers don't usually appear in the legend, but we can
@@ -108,9 +110,6 @@
 #' p + geom_point(colour="black", size = 4.5, show_guide = TRUE) +
 #'   geom_point(colour="pink", size = 4, show_guide = TRUE) +
 #'   geom_point(aes(shape = factor(cyl)))
-#'
-#' # Transparent points:
-#' ggplot(mtcars, aes(mpg, wt)) + geom_point(size = 5, alpha = 1/5)
 #'
 #' # geom_point warns when missing values have been dropped from the data set
 #' # and not plotted, you can turn this off by setting na.rm = TRUE
