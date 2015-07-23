@@ -1,7 +1,6 @@
 #' Stack overlapping objects on top of one another, and standardise to have
 #' equal height.
 #'
-#' @inheritParams position_identity
 #' @family position adjustments
 #' @seealso See \code{\link{geom_bar}} and \code{\link{geom_area}} for
 #'   more examples.
@@ -19,11 +18,8 @@
 #' ggplot(diamonds, aes(price, fill = clarity)) + cde
 #' ggplot(diamonds, aes(price, fill = color)) + cde
 #' }
-position_fill <- function(width = NULL, height = NULL) {
-  proto2(NULL, PositionFill,
-    width = width,
-    height = height
-  )
+position_fill <- function() {
+  PositionFill
 }
 
 PositionFill <- proto2("PositionFill", Position,
@@ -32,6 +28,6 @@ PositionFill <- proto2("PositionFill", Position,
 
     check_required_aesthetics(c("x", "ymax"), names(data), "position_fill")
     if (!all(data$ymin == 0)) warning("Filling not well defined when ymin != 0")
-    collide(data, self$width, self$my_name(), pos_fill)
+    collide(data, NULL, self$my_name(), pos_fill)
   }
 )

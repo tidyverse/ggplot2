@@ -1,6 +1,5 @@
 #' Stack overlapping objects on top of one another.
 #'
-#' @inheritParams position_identity
 #' @family position adjustments
 #' @export
 #' @examples
@@ -30,11 +29,8 @@
 #'
 #' # But realise that this makes it *much* harder to compare individual
 #' # trends
-position_stack <- function(width = NULL, height = NULL) {
-  proto2(NULL, PositionStack,
-    width = width,
-    height = height
-  )
+position_stack <- function() {
+  PositionStack
 }
 
 PositionStack <- proto2("PositionStack", Position,
@@ -53,6 +49,6 @@ PositionStack <- proto2("PositionStack", Position,
     if (!is.null(data$ymin) && !all(data$ymin == 0))
       warning("Stacking not well defined when ymin != 0", call. = FALSE)
 
-    collide(data, self$width, self$my_name(), pos_stack)
+    collide(data, NULL, self$my_name(), pos_stack)
   }
 )

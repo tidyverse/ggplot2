@@ -4,14 +4,7 @@
 \alias{position_stack}
 \title{Stack overlapping objects on top of one another.}
 \usage{
-position_stack(width = NULL, height = NULL)
-}
-\arguments{
-\item{width}{Manually specify width (does not affect all position
-adjustments)}
-
-\item{height}{Manually specify height (does not affect all position
-adjustments)}
+position_stack()
 }
 \description{
 Stack overlapping objects on top of one another.

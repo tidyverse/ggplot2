@@ -5,14 +5,7 @@
 \title{Stack overlapping objects on top of one another, and standardise to have
 equal height.}
 \usage{
-position_fill(width = NULL, height = NULL)
-}
-\arguments{
-\item{width}{Manually specify width (does not affect all position
-adjustments)}
-
-\item{height}{Manually specify height (does not affect all position
-adjustments)}
+position_fill()
 }
 \description{
 Stack overlapping objects on top of one another, and standardise to have

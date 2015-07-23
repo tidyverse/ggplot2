@@ -3,21 +3,7 @@
 # Should occur after statistics and scales have been applied.
 Position <- proto2("Position", TopLevel,
   adjust = function(self, data, scales, ...) data,
-
   class = function(self) "position",
-
-  width = NULL,
-
-  height = NULL,
-
-  new = function(self, width = NULL, height = NULL) {
-    proto2(
-      NULL,
-      self,
-      width = width,
-      height = height
-    )
-  },
 
   parameters = function(self) {
     pnames <- names(formals(self$initialize))
@@ -26,14 +12,7 @@ Position <- proto2("Position", TopLevel,
 
     values
   }
-
-  # print = function(self, newline=TRUE) {
-  #   cat("position_", self$objname, ": (", clist(self$parameters()), ")", sep="")
-  #   if (newline) cat("\n")
-  # }
 )
-
-
 
 # Convenience function to ensure that all position variables
 # (x, xmin, xmax, xend) are transformed in the same way
@@ -49,7 +28,6 @@ transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
 
   df
 }
-
 
 # make_position("dodge") returns PositionDodge
 make_position <- function(class) {
