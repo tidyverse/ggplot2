@@ -52,7 +52,7 @@ stat_summary2d <- function (mapping = NULL, data = NULL, geom = "rect",
   )
 }
 
-StatSummary2d <- proto2("StatSummary2d", Stat,
+StatSummary2d <- ggproto("StatSummary2d", Stat,
   default_aes = aes(fill = ..value..),
 
   required_aes = c("x", "y", "z"),

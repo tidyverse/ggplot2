@@ -37,7 +37,7 @@ stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment",
   )
 }
 
-StatSpoke <- proto2("StatSpoke", Stat,
+StatSpoke <- ggproto("StatSpoke", Stat,
   retransform = FALSE,
 
   calculate = function(data, scales, radius = 1, ...) {

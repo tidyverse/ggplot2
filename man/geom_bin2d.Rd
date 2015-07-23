@@ -69,6 +69,13 @@ d + geom_bin2d(bins = 30)
 
 # Or by specifying the width of the bins
 d + geom_bin2d(binwidth = c(0.1, 0.1))
+
+# Or with a list of breaks (NULL to generate one dimension the default
+# way)
+x <- seq(min(diamonds$carat), max(diamonds$carat), by = 0.1)
+y <- seq(min(diamonds$price), max(diamonds$price), length = 50)
+d + geom_bin2d(breaks = list(x = x, y = y))
+d + geom_bin2d(breaks = list(x = x, y = NULL))
 }
 \seealso{
 \code{\link{stat_binhex}} for hexagonal binning

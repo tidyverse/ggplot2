@@ -13,6 +13,9 @@ ggplot2 1.0.1.9xxx
   that would allocated for it) with `NULL` in the `scale_` function. To
   use the default lable, use `waiver()` (#1145).
 
+* `geom_bin2d()` will now let you specify one dimension's breaks exactly,
+  without touching the other dimension's default breaks at all (#1126).
+
 * `labels = NULL` now works with `guide_legend()` and `guide_colorbar()`.
   (#1175, #1183).
 
@@ -66,8 +69,8 @@ ggplot2 1.0.1.9xxx
 
 * `lims()` makes it easy to set the limits of any axis (#1138).
 
-* Switched away from proto and reference class objects to proto2. This makes it
-  easier to extend ggplot2, because proto2 supports clean cross-package
+* Switched away from proto and reference class objects to ggproto. This makes it
+  easier to extend ggplot2, because ggproto supports clean cross-package
   inheritance.
 
 * Fixed segment annotations not transforming with scales (@BrianDiggs, #859)

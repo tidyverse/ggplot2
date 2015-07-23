@@ -45,7 +45,7 @@ stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
   )
 }
 
-StatSmooth <- proto2("StatSmooth", Stat,
+StatSmooth <- ggproto("StatSmooth", Stat,
   calculate_groups = function(self, super, data, scales, method = "auto",
     formula = y~x, ...)
   {

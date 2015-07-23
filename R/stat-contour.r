@@ -66,7 +66,7 @@ stat_contour <- function (mapping = NULL, data = NULL, geom = "path",
 }
 
 
-StatContour <- proto2("StatContour", Stat,
+StatContour <- ggproto("StatContour", Stat,
   calculate = function(data, scales, bins = NULL, binwidth = NULL,
                        breaks = NULL, complete = FALSE, na.rm = FALSE, ...)
   {

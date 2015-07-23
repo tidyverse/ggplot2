@@ -47,7 +47,7 @@ geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomLinerange <- proto2("GeomLinerange", Geom,
+GeomLinerange <- ggproto("GeomLinerange", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
   draw_key = draw_key_path,

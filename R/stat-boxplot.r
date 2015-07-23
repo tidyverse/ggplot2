@@ -34,7 +34,7 @@ stat_boxplot <- function(mapping = NULL, data = NULL, geom = "boxplot",
 }
 
 
-StatBoxplot <- proto2("StatBoxplot", Stat,
+StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("x", "y"),
 
   calculate_groups = function(self, super, data, na.rm = FALSE, width = NULL,

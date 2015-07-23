@@ -20,13 +20,13 @@
 #'   geom_point() +
 #'   geom_text(aes(label = y), position = position_nudge(y = -0.1))
 position_nudge <- function(x = 0, y = 0) {
-  proto2(NULL, PositionNudge,
+  ggproto(NULL, PositionNudge,
     x = x,
     y = y
   )
 }
 
-PositionNudge <- proto2("PositionNudge", Position,
+PositionNudge <- ggproto("PositionNudge", Position,
   x = NULL,
   y = NULL,
 

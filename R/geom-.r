@@ -1,6 +1,6 @@
 #' @include legend-draw.r
 
-Geom <- proto2("Geom", TopLevel,
+Geom <- ggproto("Geom", TopLevel,
   type = "geom",
 
   required_aes = c(),

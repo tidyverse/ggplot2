@@ -45,7 +45,7 @@ geom_step <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomStep <- proto2("GeomStep", Geom,
+GeomStep <- ggproto("GeomStep", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
   draw = function(data, scales, coordinates, direction = "hv", ...) {

@@ -2,7 +2,7 @@
 # All input and output done with data.frames to facilitate
 # multiple input and output variables
 
-Scales <- proto2("Scales", NULL,
+Scales <- ggproto("Scales", NULL,
   scales = NULL,
 
   find = function(self, aesthetic) {
@@ -37,14 +37,14 @@ Scales <- proto2("Scales", NULL,
   },
 
   new = function(self, scales = NULL) {
-    proto2("ScalesInstance", self,
+    ggproto("ScalesInstance", self,
       scales = scales
     )
   },
 
   # This actually makes a descendent of self, which is functionally the same
   # as a actually clone for most purposes.
-  clone = function(self) proto2(NULL, self),
+  clone = function(self) ggproto(NULL, self),
 
   non_position_scales = function(self) {
     Scales$new(self$scales[!self$find("x") & !self$find("y")])

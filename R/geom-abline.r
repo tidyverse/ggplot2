@@ -100,7 +100,7 @@ geom_abline <- function(mapping = NULL, data = NULL, show_guide = FALSE, ...,
   )
 }
 
-GeomAbline <- proto2("GeomAbline", Geom,
+GeomAbline <- ggproto("GeomAbline", Geom,
   draw = function(data, scales, coordinates, ...) {
     ranges <- coord_range(coordinates, scales)
 

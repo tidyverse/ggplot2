@@ -145,7 +145,7 @@ geom_bar <- function (mapping = NULL, data = NULL, stat = "bin",
   )
 }
 
-GeomBar <- proto2("GeomBar", Geom,
+GeomBar <- ggproto("GeomBar", Geom,
   default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
                     weight = 1, alpha = NA),
 

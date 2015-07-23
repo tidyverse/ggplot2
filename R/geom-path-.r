@@ -117,7 +117,7 @@ geom_path <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomPath <- proto2("GeomPath", Geom,
+GeomPath <- ggproto("GeomPath", Geom,
   draw_groups = function(self, ...) self$draw(...),
 
   draw = function(data, scales, coordinates, arrow = NULL, lineend = "butt",

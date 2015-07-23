@@ -25,7 +25,7 @@ geom_vline <- function(mapping = NULL, data = NULL, show_guide = FALSE,
   )
 }
 
-GeomVline <- proto2("GeomVline", Geom,
+GeomVline <- ggproto("GeomVline", Geom,
   draw = function(data, scales, coordinates, ...) {
     ranges <- coord_range(coordinates, scales)
 

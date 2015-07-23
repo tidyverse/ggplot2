@@ -28,7 +28,7 @@ geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-GeomPointrange <- proto2("GeomPointrange", Geom,
+GeomPointrange <- ggproto("GeomPointrange", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, shape = 19,
     fill = NA, alpha = NA, stroke = 1),
 

@@ -38,7 +38,7 @@ stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
   )
 }
 
-StatBin <- proto2("StatBin", Stat,
+StatBin <- ggproto("StatBin", Stat,
   informed = FALSE,
 
   calculate_groups = function(self, super, data, ...) {

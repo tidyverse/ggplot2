@@ -46,7 +46,7 @@ geom_quantile <- function(mapping = NULL, data = NULL, stat = "quantile",
   )
 }
 
-GeomQuantile <- proto2("GeomQuantile", GeomPath,
+GeomQuantile <- ggproto("GeomQuantile", GeomPath,
   default_aes = defaults(
     aes(weight = 1, colour = "#3366FF", size = 0.5),
     GeomPath$default_aes

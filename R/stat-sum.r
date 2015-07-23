@@ -19,7 +19,7 @@ stat_sum <- function (mapping = NULL, data = NULL, geom = "point",
   )
 }
 
-StatSum <- proto2("StatSum", Stat,
+StatSum <- ggproto("StatSum", Stat,
   default_aes = aes(size = ..n..),
 
   required_aes = c("x", "y"),

@@ -103,7 +103,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
   )
 }
 
-GeomBoxplot <- proto2("GeomBoxplot", Geom,
+GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   reparameterise = function(df, params) {
     df$width <- df$width %||%
       params$width %||% (resolution(df$x, FALSE) * 0.9)
