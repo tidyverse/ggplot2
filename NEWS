@@ -191,6 +191,10 @@ ggplot2 1.0.1.9xxx
 
 * `override.aes` now works with American aesthetic spelling, e.g. color
 
+* Fixed `strip_dots` to work with anonymous functions within calculated
+  aesthetics (e.g. aes(sapply(..density.., function(x) mean(x))))
+  (#1154, @NikNakk)
+
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
