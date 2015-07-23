@@ -11,11 +11,18 @@ proto2 <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   e <- new.env(parent = emptyenv())
 
   members <- list(...)
+  if (length(members) != sum(nzchar(names(members)))) {
+    stop("All members of a proto2 object must be named.")
+  }
   list2env(members, envir = e)
 
-  if (is.proto2(`_inherit`)) {
+  if (!is.null(`_inherit`)) {
+    if (!is.proto2(`_inherit`)) {
+      stop("`_inherit` must be a proto2 object.")
+    }
     e$super <- `_inherit`
     class(e) <- c(`_class`, class(`_inherit`))
+
   } else {
     class(e) <- c(`_class`, "proto2")
   }
