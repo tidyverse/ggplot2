@@ -54,7 +54,7 @@ GeomRect <- ggproto("GeomRect", Geom,
       ggname("bar", do.call("grobTree", polys))
     } else {
       with(coord_transform(coordinates, data, scales),
-        ggname(self$my_name(), rectGrob(
+        ggname("geom_rect", rectGrob(
           xmin, ymax,
           width = xmax - xmin, height = ymax - ymin,
           default.units = "native", just = c("left", "top"),

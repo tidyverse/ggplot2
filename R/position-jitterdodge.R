@@ -71,7 +71,8 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
     }
 
     ## dodge, then jitter
-    data <- collide(data, self$dodge.width, self$my_name(), pos_dodge, check.width = FALSE)
+    data <- collide(data, self$dodge.width, "position_jitterdodge", pos_dodge,
+      check.width = FALSE)
     transform_position(data, trans_x, trans_y)
   }
 )

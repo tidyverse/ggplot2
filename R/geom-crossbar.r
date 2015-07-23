@@ -92,7 +92,7 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
       )
     }
 
-    ggname(self$my_name(), gTree(children = gList(
+    ggname("geom_crossbar", gTree(children = gList(
       GeomPolygon$draw(box, scales, coordinates, ...),
       GeomSegment$draw(middle, scales, coordinates, ...)
     )))

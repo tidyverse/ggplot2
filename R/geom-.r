@@ -21,7 +21,7 @@ Geom <- ggproto("Geom", TopLevel,
     grobs <- lapply(groups, function(group) self$draw(group, scales, coordinates, ...))
 
     # String like "bar" or "line"
-    objname <- sub("^geom_", "", self$my_name())
+    objname <- sub("^geom_", "", snake_class(self))
 
     ggname(paste0(objname, "s"), gTree(
       children = do.call("gList", grobs)

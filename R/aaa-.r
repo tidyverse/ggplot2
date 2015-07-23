@@ -80,9 +80,4 @@ NULL
 #' @name ggplot2-ggproto
 NULL
 
-TopLevel <- ggproto("TopLevel", NULL,
-  # Convert class name from camel case (GeomBar) to snake case (geom_bar).
-  my_name = function(self) {
-    snakeize(class(self)[1])
-  }
-)
+TopLevel <- ggproto("TopLevel", NULL)

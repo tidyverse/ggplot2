@@ -14,6 +14,6 @@ PositionFill <- ggproto("PositionFill", Position,
 
     check_required_aesthetics(c("x", "ymax"), names(data), "position_fill")
     if (!all(data$ymin == 0)) warning("Filling not well defined when ymin != 0")
-    collide(data, NULL, self$my_name(), pos_fill)
+    collide(data, NULL, "position_fill", pos_fill)
   }
 )

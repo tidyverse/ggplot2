@@ -189,7 +189,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       outliers_grob <- NULL
     }
 
-    ggname(self$my_name(), grobTree(
+    ggname("geom_boxplot", grobTree(
       outliers_grob,
       GeomSegment$draw(whiskers, ...),
       GeomCrossbar$draw(box, fatten = fatten, ...)

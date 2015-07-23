@@ -116,12 +116,12 @@ Layer <- ggproto("Layer", NULL,
     check_required_aesthetics(
       self$stat$required_aes,
       c(names(data), names(self$stat_params)),
-      self$stat$my_name()
+      snake_class(self$stat)
     )
 
     args <- c(list(data = quote(data), scales = quote(scales)), self$stat_params)
     tryCatch(do.call(self$stat$calculate_groups, args), error = function(e) {
-      warning("Computation failed in `", self$stat$my_name(), "()`:\n",
+      warning("Computation failed in `", snake_class(self$stat), "()`:\n",
         e$message, call. = FALSE)
       data.frame()
     })
@@ -177,7 +177,7 @@ Layer <- ggproto("Layer", NULL,
     check_required_aesthetics(
       self$geom$required_aes,
       c(names(data), names(self$geom_params)),
-      self$geom$my_name()
+      snake_class(self$geom)
     )
 
     do.call(self$geom$draw_groups, c(

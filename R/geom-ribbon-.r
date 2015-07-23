@@ -83,7 +83,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       x = c(x, rev(x)), y = c(ymax, rev(ymin)), id = c(ids, rev(ids)))
     munched <- coord_munch(coordinates,positions, scales)
 
-    ggname(self$my_name(), polygonGrob(
+    ggname("geom_ribbon", polygonGrob(
       munched$x, munched$y, id = munched$id,
       default.units = "native",
       gp = gpar(

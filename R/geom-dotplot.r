@@ -231,7 +231,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       dotdianpc <- dotsize * tdata$binwidth[1] / (max(scales$y.range) - min(scales$y.range))
     }
 
-    ggname(self$my_name(),
+    ggname("geom_dotplot",
       dotstackGrob(stackaxis = stackaxis, x = tdata$x, y = tdata$y, dotdia = dotdianpc,
                   stackposition = tdata$stackpos, stackratio = stackratio,
                   default.units = "npc",

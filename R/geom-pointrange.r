@@ -43,7 +43,7 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
   draw = function(self, data, scales, coordinates, ...) {
     if (is.null(data$y)) return(GeomLinerange$draw(data, scales, coordinates, ...))
 
-    ggname(self$my_name(),
+    ggname("geom_pointrange",
       gTree(children=gList(
         GeomLinerange$draw(data, scales, coordinates, ...),
         GeomPoint$draw(transform(data, size = size * 4), scales, coordinates, ...)

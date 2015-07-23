@@ -87,7 +87,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
     first_idx <- !duplicated(munched$group)
     first_rows <- munched[first_idx, ]
 
-    ggname(self$my_name(), gTree(children = gList(
+    ggname("geom_polygon", gTree(children = gList(
       polygonGrob(munched$x, munched$y, default.units = "native",
         id = munched$group,
         gp = gpar(

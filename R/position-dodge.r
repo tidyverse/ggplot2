@@ -43,6 +43,6 @@ PositionDodge <- ggproto("PositionDodge", Position,
     if (empty(data)) return(data.frame())
     check_required_aesthetics("x", names(data), "position_dodge")
 
-    collide(data, self$width, self$my_name(), pos_dodge, check.width = FALSE)
+    collide(data, self$width, "position_dodge", pos_dodge, check.width = FALSE)
   }
 )

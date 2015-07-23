@@ -107,7 +107,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     # Needed for coord_polar and such
     newdata <- rbind(newdata, newdata[1,])
 
-    ggname(self$my_name(), GeomPolygon$draw(newdata, ...))
+    ggname("geom_violin", GeomPolygon$draw(newdata, ...))
   },
 
   draw_key = draw_key_polygon,

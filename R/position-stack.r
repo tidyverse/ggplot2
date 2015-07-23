@@ -66,6 +66,6 @@ PositionStack <- ggproto("PositionStack", Position,
     if (!is.null(data$ymin) && !all(data$ymin == 0))
       warning("Stacking not well defined when ymin != 0", call. = FALSE)
 
-    collide(data, NULL, self$my_name(), pos_stack)
+    collide(data, NULL, "position_stack", pos_stack)
   }
 )
