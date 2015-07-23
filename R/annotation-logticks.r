@@ -67,7 +67,7 @@
 #'
 #' # Using a coordinate transform requires scaled = FALSE
 #' t <- ggplot(Animals, aes(x = body, y = brain)) + geom_point() +
-#'      coord_trans(xtrans = "log10", ytrans = "log10") + theme_bw()
+#'      coord_trans(x = "log10", y = "log10") + theme_bw()
 #'
 #' t + annotation_logticks(scaled = FALSE)
 #'
