@@ -181,9 +181,7 @@ Layer <- ggproto("Layer", NULL,
     )
 
     do.call(self$geom$draw_groups, c(
-      data = list(as.name("data")),
-      scales = list(as.name("scales")),
-      coordinates = list(as.name("cs")),
+      list(quote(data), quote(scales), quote(cs)),
       self$geom_params
     ))
   },
