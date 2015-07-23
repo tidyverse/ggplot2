@@ -79,5 +79,3 @@ NULL
 #' @keywords internal
 #' @name ggplot2-ggproto
 NULL
-
-TopLevel <- ggproto("TopLevel", NULL)
