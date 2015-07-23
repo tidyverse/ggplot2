@@ -95,7 +95,7 @@ counts$x <- as.numeric(as.character(counts$x))
 with(counts, plot(x, Freq, type = "h", lwd = 10))
 
 ggplot(counts, aes(x, Freq)) +
-  geom_segment(aes(xend = x, yend = 0), size = 10)
+  geom_segment(aes(xend = x, yend = 0), size = 10, lineend = "butt")
 }
 \seealso{
 \code{\link{geom_path}} and \code{\link{geom_line}} for multi-

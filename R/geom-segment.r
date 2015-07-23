@@ -40,7 +40,7 @@
 #' with(counts, plot(x, Freq, type = "h", lwd = 10))
 #'
 #' ggplot(counts, aes(x, Freq)) +
-#'   geom_segment(aes(xend = x, yend = 0), size = 10)
+#'   geom_segment(aes(xend = x, yend = 0), size = 10, lineend = "butt")
 geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
   show_guide = NA, inherit.aes = TRUE, ...)
@@ -72,11 +72,17 @@ GeomSegment <- proto2("GeomSegment", Geom,
     if (empty(data)) return(zeroGrob())
 
     if (is.linear(coordinates)) {
-      return(with(coord_transform(coordinates, data, scales),
-        segmentsGrob(x, y, xend, yend, default.units="native",
-        gp = gpar(col=alpha(colour, alpha), fill = alpha(colour, alpha),
-          lwd=size * .pt, lty=linetype, lineend = lineend),
-        arrow = arrow)
+      coord <- coord_transform(coordinates, data, scales)
+      return(segmentsGrob(coord$x, coord$y, coord$xend, coord$yend,
+        default.units = "native",
+        gp = gpar(
+          col = alpha(coord$colour, coord$alpha),
+          fill = alpha(coord$colour, coord$alpha),
+          lwd = coord$size * .pt,
+          lty = coord$linetype,
+          lineend = lineend
+        ),
+        arrow = arrow
       ))
     }
 
