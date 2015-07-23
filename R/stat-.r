@@ -45,18 +45,6 @@ Stat <- proto2("Stat", TopLevel,
     do.call(rbind.fill, stats)
   },
 
-
-  # print = function(self, newline=TRUE) {
-  #   cat("stat_", self$objname ,": ", sep="") # , clist(self$parameters())
-  #   if (newline) cat("\n")
-  # },
-
-  parameters = function(self) {
-    # proto2 TODO: better way of getting formals for self$calculate
-    params <- formals(environment(self$calculate)$res)
-    params[setdiff(names(params), c("self", "super", "data", "scales"))]
-  },
-
   class = function(self) "stat"
 )
 

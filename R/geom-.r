@@ -3,18 +3,6 @@
 Geom <- proto2("Geom", TopLevel,
   class = function(self) "geom",
 
-  parameters = function(self) {
-    # proto2 TODO: better way of getting formals for self$draw
-    params <- formals(environment(self$draw)$res)
-    params <- params[setdiff(names(params), c("self", "super", "data", "scales", "coordinates", "..."))]
-
-    required <- rep(NA, length(self$required_aes))
-    names(required) <- self$required_aes
-    aesthetics <- c(self$default_aes, required)
-
-    c(params, aesthetics[setdiff(names(aesthetics), names(params))])
-  },
-
   required_aes = c(),
 
   default_aes = aes(),

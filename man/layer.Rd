@@ -4,9 +4,9 @@
 \alias{layer}
 \title{Create a new layer}
 \usage{
-layer(geom = NULL, geom_params = NULL, stat = NULL, stat_params = NULL,
-  data = NULL, mapping = NULL, position = NULL, params = NULL,
-  inherit.aes = TRUE, subset = NULL, show_guide = NA)
+layer(geom = NULL, geom_params = list(), stat = NULL,
+  stat_params = list(), data = NULL, mapping = NULL, position = NULL,
+  params = list(), inherit.aes = TRUE, subset = NULL, show_guide = NA)
 }
 \arguments{
 \item{geom,stat,position}{Geom, stat and position adjustment to use in

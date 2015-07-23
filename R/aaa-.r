@@ -30,15 +30,5 @@ TopLevel <- proto2("TopLevel", NULL,
     snakeize(class(self)[1])
   },
 
-  params = function(self) {
-    param <- self$parameters()
-    if (length(param) == 0) return()
-
-    if (!exists("required_aes", .)) return(param)
-
-    aesthetics <- c(self$required_aes, names(self$default_aes))
-    param[setdiff(names(param), aesthetics)]
-  },
-
   class = function(self) "toplevel"
 )

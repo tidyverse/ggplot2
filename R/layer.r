@@ -226,9 +226,9 @@ Layer <- proto2("Layer", NULL,
 #' # shortcut for
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   layer(geom = "point", stat = "identity", position = "identity")
-layer <- function(geom = NULL, geom_params = NULL, stat = NULL,
-  stat_params = NULL, data = NULL, mapping = NULL, position = NULL,
-  params = NULL, inherit.aes = TRUE, subset = NULL, show_guide = NA)
+layer <- function(geom = NULL, geom_params = list(), stat = NULL,
+  stat_params = list(), data = NULL, mapping = NULL, position = NULL,
+  params = list(), inherit.aes = TRUE, subset = NULL, show_guide = NA)
 {
   if (is.null(geom))
     stop("Attempted to create layer with no geom.", call. = FALSE)
@@ -251,29 +251,12 @@ layer <- function(geom = NULL, geom_params = NULL, stat = NULL,
   if (is.character(stat)) stat <- make_stat(stat)
   if (is.character(position)) position <- make_position(position)
 
-  geom_params <- rename_aes(geom_params)
-
   # Categorize items from params into geom_params and stat_params
   if (length(params) > 0) {
-    match.params <- function(possible, params) {
-      if ("..." %in% names(possible)) {
-        params
-      } else {
-        params[match(names(possible), names(params), nomatch = 0)]
-      }
-    }
-
-    params <- rename_aes(params) # Rename American to British spellings etc
-
-    # Split params to geom and stat; any unknown params go to the geom by default
-    new_geom_params <- match.params(geom$parameters(), params)
-    new_stat_params <- match.params(stat$parameters(), params)
-    new_stat_params <- new_stat_params[setdiff(names(new_stat_params),
-                                           names(new_geom_params))]
-
-    geom_params <- c(geom_params, new_geom_params)
-    stat_params <- c(stat_params, new_stat_params)
+    geom_params <- modifyList(params, geom_params)
+    stat_params <- modifyList(params, stat_params)
   }
+  geom_params <- rename_aes(geom_params)
 
   proto2("LayerInstance", Layer,
     geom = geom,
