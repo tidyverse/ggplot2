@@ -94,7 +94,7 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
                                limits = NULL, expand = waiver(), oob = censor,
                                na.value = NA_real_, trans = "identity") {
   continuous_scale(
-    c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final"),
+    c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper"),
     "position_c", identity, name = name, breaks = breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
     expand = expand, oob = oob, na.value = na.value, trans = trans,
