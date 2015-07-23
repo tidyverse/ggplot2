@@ -50,15 +50,6 @@ clist <- function(l) {
   paste(paste(names(l), l, sep=" = ", collapse=", "), sep="")
 }
 
-# Abbreviated paste
-# Alias for paste with a shorter name and convenient defaults
-#
-# @param character vectors to be concatenated
-# @param default separator
-# @param default collapser
-# @keyword internal
-ps <- function(..., sep="", collapse="") do.call(paste, compact(list(..., sep=sep, collapse=collapse)))
-
 # Quietly try to require a package
 # Queitly require a package, returning an error message if that package is not installed.
 #
@@ -121,7 +112,7 @@ safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRU
 # @keyword internal
 remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = FALSE) {
   vars <- intersect(vars, names(df))
-  if (name != "") name <- ps(" (", name, ")")
+  if (name != "") name <- paste(" (", name, ")", sep = "")
 
   if (finite) {
     missing <- !finite.cases(df[, vars, drop = FALSE])
