@@ -81,17 +81,6 @@ NULL
 NULL
 
 TopLevel <- ggproto("TopLevel", NULL,
-  find = function(self, name) {
-    # Convert name to camel case
-    name <- camelize(name, first = TRUE)
-    fullname <- paste0(firstUpper(self$type), name)
-
-    if (!exists(fullname)) {
-      stop("No ", self$type, " called ", fullname, call. = FALSE)
-    }
-    get(fullname)
-  },
-
   # Convert class name from camel case (GeomBar) to snake case (geom_bar).
   my_name = function(self) {
     snakeize(class(self)[1])

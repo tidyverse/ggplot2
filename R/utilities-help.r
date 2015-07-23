@@ -19,8 +19,11 @@ stat_aesthetics <- function(x) {
 }
 
 rd_aesthetics <- function(type, name) {
-  obj <- get(firstUpper(type))
-  aes <- aesthetics(obj$find(name))
+  obj <- switch(type,
+    geom = make_geom(name),
+    stat = make_stat(name)
+  )
+  aes <- aesthetics(obj)
 
   paste("\\code{", type, "_", name, "} ",
     "understands the following aesthetics (required aesthetics are in bold):\n\n",
