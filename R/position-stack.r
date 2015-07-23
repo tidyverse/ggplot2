@@ -1,17 +1,30 @@
 #' Stack overlapping objects on top of one another.
 #'
+#' \code{position_fill} additionally standardises each stack to have unit
+#' height.
+#'
 #' @family position adjustments
+#' @seealso See \code{\link{geom_bar}} and \code{\link{geom_area}} for
+#'   more examples.
 #' @export
 #' @examples
 #' # Stacking is the default behaviour for most area plots:
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) + geom_bar()
+#' # Fill makes it easier to compare proportions
+#' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
+#'   geom_bar(position = "fill")
+#'
 #'
 #' # To change stacking order, use factor() to change order of levels
 #' mtcars$vs <- factor(mtcars$vs, levels = c(1,0))
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) + geom_bar()
 #'
-#' ggplot(diamonds, aes(price)) + geom_histogram(binwidth=500)
-#' ggplot(diamonds, aes(price, fill = cut)) + geom_histogram(binwidth=500)
+#' ggplot(diamonds, aes(price, fill = cut)) +
+#'   geom_histogram(binwidth = 500)
+#' # When used with a histogram, position_fill creates a conditional density
+#' # estimate
+#' ggplot(diamonds, aes(price, fill = cut)) +
+#'   geom_histogram(binwidth = 500, position = "fill")
 #'
 #' # Stacking is also useful for time series
 #' data.set <- data.frame(

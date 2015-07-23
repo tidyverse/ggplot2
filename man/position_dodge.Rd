@@ -39,11 +39,11 @@ p + geom_errorbar(aes(ymin = y-1, ymax = y+1, width = 0.2),
 }
 }
 \seealso{
-Other position adjustments: \code{\link{position_fill}};
+Other position adjustments: \code{\link{position_fill}},
+  \code{\link{position_stack}};
   \code{\link{position_identity}};
   \code{\link{position_jitterdodge}};
   \code{\link{position_jitter}};
-  \code{\link{position_nudge}};
-  \code{\link{position_stack}}
+  \code{\link{position_nudge}}
 }
 
