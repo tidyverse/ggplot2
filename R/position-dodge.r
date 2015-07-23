@@ -30,7 +30,7 @@
 #'   position = position_dodge(width = 0.90))
 #' }
 position_dodge <- function(width = NULL) {
-  PositionDodge$new(width = width)
+  proto2(NULL, PositionDodge, width = width)
 }
 
 PositionDodge <- proto2("PositionDodge", Position,

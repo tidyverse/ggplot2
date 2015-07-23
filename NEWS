@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* The internals of positions have been cleaned up considerably. You're unlikely
+  to notice any external changes, although the documentation should be a little
+  less confusing since positions now don't list parameters they never use.
+
 * You can now suppress the appearance of an axis/legend title (and the space
   that would allocated for it) with `NULL` in the `scale_` function. To
   use the default lable, use `waiver()` (#1145).

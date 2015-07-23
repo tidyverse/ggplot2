@@ -3,15 +3,7 @@
 # Should occur after statistics and scales have been applied.
 Position <- proto2("Position", TopLevel,
   adjust = function(self, data, scales, ...) data,
-  class = function(self) "position",
-
-  parameters = function(self) {
-    pnames <- names(formals(self$initialize))
-    values <- mget(pnames, envir = self)
-    names(values) <- pnames
-
-    values
-  }
+  class = function(self) "position"
 )
 
 # Convenience function to ensure that all position variables
