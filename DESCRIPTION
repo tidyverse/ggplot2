@@ -21,7 +21,7 @@ Imports:
     MASS,
     plyr (>= 1.7.1),
     reshape2,
-    scales (>= 0.2.5.9001),
+    scales (>= 0.2.5.9002),
     stats
 Suggests:
     ggplot2movies,
