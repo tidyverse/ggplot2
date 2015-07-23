@@ -126,7 +126,7 @@ limits.POSIXlt <- function(lims, var) {
 #'   geom_point(aes(colour = factor(cyl))) +
 #'   expand_limits(colour = factor(seq(2, 10, by = 2)))
 expand_limits <- function(...) {
-  data <- data.frame(...)
+  data <- data.frame(..., stringsAsFactors = FALSE)
 
   geom_blank(aes_all(names(data)), data)
 }
