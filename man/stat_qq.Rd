@@ -28,10 +28,11 @@ on this layer}
 
 \item{distribution}{Distribution function to use, if x not specified}
 
-\item{dparams}{Parameters for distribution function}
+\item{dparams}{Additional parameters passed on to \code{distribution}
+function.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+a warning. If \code{TRUE} silently removes missing values.}
 
 \item{show_guide}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -42,7 +43,9 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 
-\item{...}{Other arguments passed to distribution function}
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 }
 \value{
 a data.frame with additional columns:

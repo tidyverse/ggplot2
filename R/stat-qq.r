@@ -4,10 +4,10 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "qq")}
 #'
 #' @param distribution Distribution function to use, if x not specified
-#' @param dparams Parameters for distribution function
-#' @param ... Other arguments passed to distribution function
+#' @param dparams Additional parameters passed on to \code{distribution}
+#'   function.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
+#'    a warning. If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
 #' @return a data.frame with additional columns:
 #'   \item{sample}{sample quantiles}
@@ -32,7 +32,7 @@
 #' ggplot(mtcars) +
 #'   stat_qq(aes(sample = mpg, colour = factor(cyl)))
 #' }
-stat_qq <- function (mapping = NULL, data = NULL, geom = "point",
+stat_qq <- function(mapping = NULL, data = NULL, geom = "point",
   position = "identity", distribution = qnorm, dparams = list(), na.rm = FALSE,
   show_guide = NA, inherit.aes = TRUE, ...)
 {
