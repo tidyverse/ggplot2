@@ -28,7 +28,7 @@
 #'  theme(legend.background = element_rect(fill = "white", colour = "white", size = 3))
 theme_update <- function(...) {
   # Make a call to theme, then add to theme
-  theme_set(theme_get() %+replace% do.call(theme, list(...)))
+  theme_set(theme_get() %+replace% theme(...))
 }
 
 #' Reports whether x is a theme object
