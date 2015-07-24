@@ -65,7 +65,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     # gam with a cubic regression basis for large data
     # This is based on the size of the _largest_ group.
     if (identical(method, "auto")) {
-      groups <- count(data, "group")
+      groups <- plyr::count(data, "group")
 
       if (max(groups$freq) < 1000) {
         method <- "loess"

@@ -144,7 +144,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     # middle since you expect those to be shown by a break in the line
     missing <- !stats::complete.cases(data[c("x", "y", "size", "colour",
       "linetype")])
-    kept <- ave(missing, data$group, FUN=keep)
+    kept <- stats::ave(missing, data$group, FUN=keep)
     data <- data[kept, ]
     # must be sorted on group
     data <- plyr::arrange(data, group)
@@ -157,7 +157,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     munched <- coord_munch(coordinates, data, scales)
 
     # Silently drop lines with less than two points, preserving order
-    rows <- ave(seq_len(nrow(munched)), munched$group, FUN = length)
+    rows <- stats::ave(seq_len(nrow(munched)), munched$group, FUN = length)
     munched <- munched[rows >= 2, ]
     if (nrow(munched) < 2) return(zeroGrob())
 

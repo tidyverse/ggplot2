@@ -4,10 +4,36 @@
 #' differences. Notably, it cleanly supports cross-package inheritance, and has
 #' faster performance.
 #'
-#' Methods in ggproto objects can take optional \code{self} and \code{super}
-#' arguments. If the arguments are present, then, when the method is called, it
-#' will be passed the current object (as \code{self}) and the object that it
-#' inherits from (as \code{super}).
+#' @section Calling ggproto methods:
+#'
+#'   Methods in ggproto objects can take optional \code{self} and \code{super}
+#'   arguments. If the arguments are present, then, when the method is called,
+#'   it will automatically be passed the current object (as \code{self}) and the
+#'   object that it inherits from (as \code{super}). Note that the wrapper
+#'   function will automatically pass these arguments; when calling the wrapper,
+#'   you should not pass in \code{self} or \code{super}.
+#'
+#'   For example, suppose you have a ggproto object \code{Adder}, which has a
+#'   method \code{addx = function(self, n) n + self$x}. Then, to call this
+#'   function, you would use \code{Adder$addx(10)} -- the \code{self} is passed
+#'   in automatically by the wrapper function. The same is true of \code{super}.
+#'   These arguments can come in any place in the function signature, although
+#'   customarily they come before any other arguments.
+#'
+#'   The exception to this is when you call a method from an inherited object.
+#'   In this case, if the method takes \code{self} as an argument, you must pass
+#'   in \code{self} explicitly, so instead of \code{super$addx(10)}, you would
+#'   call \code{super$addx(self, 10)}. However, you do not pass \code{super}
+#'   explicitly in these cases because it is passed automatically by the wrapper
+#'   function. This pattern is necessary for the inherited method to receive the
+#'   correct \code{self} object.
+#'
+#'   Note that this unusal behavior, passing \code{self} explicitly, is required
+#'   whenever a ggproto object is named \code{super}, even if it is outside of a
+#'   ggproto method. If you name a ggproto object \code{super} in the global
+#'   environment, and then call \code{super$addx(10)}, it won't work correctly.
+#'   It's best to avoid using the name \code{super}.
+#'
 #'
 #' @param _class Class name to assign to the object. This is stored as the class
 #'   attribute of the object. If \code{NULL} (the default), no class name will
