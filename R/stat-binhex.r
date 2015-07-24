@@ -55,7 +55,6 @@ StatBinhex <- ggproto("StatBinhex", Stat,
   required_aes = c("x", "y"),
 
   calculate = function(data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
-    try_require("hexbin")
     data <- remove_missing(data, na.rm, c("x", "y"), name="stat_hexbin")
 
     if (is.null(binwidth)) {
@@ -65,7 +64,7 @@ StatBinhex <- ggproto("StatBinhex", Stat,
       )
     }
 
-    hexBin(data$x, data$y, binwidth)
+    hexbin::hexBin(data$x, data$y, binwidth)
   }
 )
 
@@ -77,8 +76,6 @@ StatBinhex <- ggproto("StatBinhex", Stat,
 # @param numeric vector of length 2 giving binwidth in x and y directions
 # @keyword internal
 hexBin <- function(x, y, binwidth) {
-  try_require("hexbin")
-
   # Convert binwidths into bounds + nbins
   xbnds <- c(
     round_any(min(x), binwidth[1], floor) - 1e-6,

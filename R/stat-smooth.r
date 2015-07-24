@@ -80,7 +80,9 @@ StatSmooth <- ggproto("StatSmooth", Stat,
                 ' Use \'method = x\' to change the smoothing method.')
       }
     }
-    if (identical(method, "gam")) try_require("mgcv")
+    if (identical(method, "gam")) {
+      method <- mgcv::gam
+    }
 
     super$calculate_groups(self = self, data, scales, method = method, formula = formula, ...)
   },

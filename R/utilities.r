@@ -55,15 +55,14 @@ clist <- function(l) {
 #
 # @param name of package
 # @keyword internal
-try_require <- function(package) {
-  available <- suppressMessages(suppressWarnings(
-    require(package, character.only = TRUE)
-  ))
-
-  if (!available) {
-    stop(package, " package required for this functionality. " ,
-      "Please install and try again.", call. = FALSE)
+try_require <- function(package, fun) {
+  if (requireNamespace(package, quietly = TRUE)) {
+    library(package, character.only = TRUE)
+    return(invisible())
   }
+
+  stop("Package `", package, "` required for `", fun , "`.\n",
+    "Please install and try again.", call. = FALSE)
 }
 
 # Return unique columns

@@ -196,7 +196,7 @@ NULL
 
 wrap_hmisc <- function(fun) {
   function(x, ...) {
-    try_require("Hmisc")
+    try_require("Hmisc", "fun")
 
     result <- safe.call(fun, list(x = x, ...))
     rename(

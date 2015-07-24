@@ -43,11 +43,11 @@ StatQuantile <- ggproto("StatQuantile", Stat,
     formula = NULL, xseq = NULL, method = "rq", lambda = 1, na.rm = FALSE,
     ...)
   {
-    try_require("quantreg")
+    try_require("quantreg", "stat_quantile")
 
     if (is.null(formula)) {
       if (method == "rqss") {
-        try_require("MatrixModels")
+        try_require("MatrixModels", "stat_quantile")
         formula <- eval(substitute(y ~ qss(x, lambda = lambda)),
           list(lambda = lambda))
       } else {

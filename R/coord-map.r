@@ -68,7 +68,6 @@
 #' worldmap + coord_map("ortho", orientation=c(41, -74, 0))
 #' }
 coord_map <- function(projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL) {
-  try_require("mapproj")
   coord(
     projection = projection,
     orientation = orientation,
