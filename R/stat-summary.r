@@ -1,10 +1,10 @@
 #' Summarise y values at every unique x.
 #'
-#' \code{stat_summary} allows for tremendous flexibilty in the specification
+#' \code{stat_summary} allows for tremendous flexibility in the specification
 #' of summary functions. The summary function can either supply individual
 #' summary functions for each of y, ymin and ymax (with \code{fun.y},
 #' \code{fun.ymax}, \code{fun.ymin}), or return a data frame containing any
-#' number of aesthetiics with with \code{fun.data}. All summary functions
+#' number of aesthetics with with \code{fun.data}. All summary functions
 #' are called with a single vector of values, \code{x}.
 #'
 #' A simple vector function is easiest to work with as you can return a single

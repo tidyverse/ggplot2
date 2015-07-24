@@ -22,7 +22,7 @@ coord_munch <- function(coord, data, range, segment_length = 0.01) {
 }
 
 # For munching, only grobs are lines and polygons: everything else is
-# transfomed into those special cases by the geom.
+# transformed into those special cases by the geom.
 #
 # @param dist distance, scaled from 0 to 1 (maximum distance on plot)
 # @keyword internal
@@ -128,7 +128,7 @@ dist_polar <- function(r, theta) {
   lf$dist[idx] <-
     spiral_arc_length(lf$slope[idx], lf$tn1[idx], lf$tn2[idx])
 
-  # Get cicular arc length for segments that have zero slope (r1 == r2)
+  # Get circular arc length for segments that have zero slope (r1 == r2)
   idx <- !is.na(lf$slope) & lf$slope == 0
   lf$dist[idx] <- lf$r1[idx] * (lf$t2[idx] - lf$t1[idx])
 

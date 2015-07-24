@@ -12,7 +12,7 @@
 #' affect the legend.
 #'
 #' @param geom name of geom to use for annotation
-#' @param x,y,xmin,ymin,xmax,ymax,xend,yend positionining aesthetics -
+#' @param x,y,xmin,ymin,xmax,ymax,xend,yend positioning aesthetics -
 #'   you must specify at least one of these.
 #' @param ... other aesthetics. These are not scaled so you can do (e.g.)
 #'   \code{colour = "red"} to get a red point.

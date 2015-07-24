@@ -138,7 +138,7 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
 
 # validate guide object
 validate_guide <- function(guide) {
-  # if guide is specified by character, then find the corrsponding guide
+  # if guide is specified by character, then find the corresponding guide
   if (is.character(guide))
     match.fun(paste("guide_", guide, sep=""))()
   else if (inherits(guide, "guide"))
@@ -189,7 +189,7 @@ guides_train <- function(scales, theme, guides, labels) {
 
 # merge overlapped guides
 guides_merge <- function(gdefs) {
-  # split gdefs based on hash, and apply Reduce (guide_merge) to each gdef groug.
+  # split gdefs based on hash, and apply Reduce (guide_merge) to each gdef group.
   gdefs <- lapply(gdefs, function(g) {
     if (g$order == 0) {
       order <- "99"
@@ -237,7 +237,7 @@ guides_build <- function(ggrobs, theme) {
   xjust <- just[1]
   yjust <- just[2]
 
-  # setting that is different for vergical and horizontal guide-boxes.
+  # setting that is different for vertical and horizontal guide-boxes.
   if (theme$legend.box == "horizontal") {
     # Set justification for each legend
     for (i in seq_along(ggrobs)) {

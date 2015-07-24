@@ -1,7 +1,7 @@
 #' Apply function for 2D hexagonal bins.
 #'
 #' \code{stat_summary2d} is a hexagonal variation of \code{\link{stat_summary}}.
-#' The data are divided into hexagonl bins defined by \code{x} and \code{y}.
+#' The data are divided into hexagonal bins defined by \code{x} and \code{y}.
 #' The values of \code{z} in each cell is are summarised with \code{fun}.
 #'
 #' @section Aesthetics:

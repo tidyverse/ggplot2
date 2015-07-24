@@ -22,7 +22,7 @@ Layer <- ggproto("Layer", NULL,
   params = NULL,
   inherit.aes = FALSE,
 
-  # This actually makes a descendent of self, which is functionally the same
+  # This actually makes a descendant of self, which is functionally the same
   # as a actually clone for most purposes.
   clone = function(self) ggproto(NULL, self),
 
@@ -33,7 +33,7 @@ Layer <- ggproto("Layer", NULL,
     gp <- intersect(c(names(df), self$geom$required_aes), names(self$geom_params))
     gp <- gp[unlist(lapply(self$geom_params[gp], is.atomic))]
 
-    # Check that mappings are compatable length: either 1 or the same length
+    # Check that mappings are compatible length: either 1 or the same length
     # as the data
     param_lengths <- vapply(self$geom_params[gp], length, numeric(1))
     bad <- param_lengths != 1L & param_lengths != nrow(df)
@@ -100,7 +100,7 @@ Layer <- ggproto("Layer", NULL,
     }
 
     if (empty(data) && n > 0) {
-      # No data, and vectors suppled to aesthetics
+      # No data, and vectors supplied to aesthetics
       evaled$PANEL <- 1
     } else {
       evaled$PANEL <- data$PANEL

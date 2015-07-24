@@ -135,7 +135,7 @@ map_position <- function(panel, data, x_scale, y_scale) {
 }
 
 # Function for applying scale function to multiple variables in a given
-# data set.  Implement in such a way to minimise copying and hence maximise
+# data set.  Implement in such a way to minimize copying and hence maximise
 # speed
 scale_apply <- function(data, vars, f, scale_id, scales) {
   if (length(vars) == 0) return()

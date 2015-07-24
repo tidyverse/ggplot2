@@ -1,6 +1,6 @@
 #' Cartesian coordinates with an aspect ratio approximating Mercator projection.
 #'
-#' The represenation of a portion of the earth, wich is approximately spherical,
+#' The representation of a portion of the earth, which is approximately spherical,
 #' onto a flat 2D plane requires a projection. This is what
 #' \code{\link{coord_map}} does. These projections account for the fact that the
 #' actual length (in km) of one degree of longitude varies between the equator
@@ -14,7 +14,7 @@
 #' graphic have to be projected which is not the case here. So
 #' \code{\link{coord_quickmap}} has the advantage of being much faster, in
 #' particular for complex plots such as those using with
-#' \code{\link{geom_tile}}, at the expense of correctedness in the projection.
+#' \code{\link{geom_tile}}, at the expense of correctness in the projection.
 #'
 #' @export
 #' @inheritParams coord_cartesian
@@ -54,7 +54,7 @@ coord_aspect.quickmap <- function(coord, ranges) {
   x.dist <- dist_central_angle(x.center + c(-0.5, 0.5), rep(y.center, 2))
   y.dist <- dist_central_angle(rep(x.center, 2), y.center+c(-0.5, 0.5))
   # NB: this makes the projection correct in the center of the plot and
-  #     increasingly less correct towards the edges. For regions of reasonnable
+  #     increasingly less correct towards the edges. For regions of reasonable
   #     size, this seems to give better results than computing this ratio from
   #     the total lat and lon span.
 

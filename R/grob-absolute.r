@@ -1,6 +1,6 @@
 #' Absolute grob
 #'
-#' This grob has fixed dimesions and position.
+#' This grob has fixed dimensions and position.
 #'
 #' It's still experimental
 #'

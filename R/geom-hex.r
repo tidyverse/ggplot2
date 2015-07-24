@@ -1,4 +1,4 @@
-#' Hexagon bining.
+#' Hexagon binning.
 #'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "hex")}

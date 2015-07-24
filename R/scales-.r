@@ -1,4 +1,4 @@
-# Scales object encapsultes multiple scales.
+# Scales object encapsulates multiple scales.
 # All input and output done with data.frames to facilitate
 # multiple input and output variables
 
@@ -42,7 +42,7 @@ Scales <- ggproto("Scales", NULL,
     )
   },
 
-  # This actually makes a descendent of self, which is functionally the same
+  # This actually makes a descendant of self, which is functionally the same
   # as a actually clone for most purposes.
   clone = function(self) ggproto(NULL, self),
 
