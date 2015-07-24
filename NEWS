@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `geom_label()` works like `geom_text()` but draws a solid background
+  behind each label (#1039).
+
 * `stat_bindot()` has been removed because it's so tightly coupled to
   `geom_dotplot()`. If you happened to use `stat_bindot()`, just change to
   `geom_dotplot()` (#1194).

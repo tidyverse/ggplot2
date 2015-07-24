@@ -1,7 +1,15 @@
 #' Textual annotations.
 #'
+#' \code{geom_text} adds text directly to the plot. \code{geom_label} draws
+#' a rectangle underneath the text, making it easier to read.
+#'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "text")}
+#'
+#' @section \code{geom_label}:
+#' Currently \code{geom_label} does not support the \code{rot} parameter and
+#' is considerably slower than \code{geom_text}. The \code{fill} aesthetic
+#' controls the background colour of the label.
 #'
 #' @section Alignment:
 #' You can modify text alignment with the \code{vjust} and \code{hjust}
@@ -25,6 +33,8 @@
 #' p + geom_text()
 #' # Avoid overlaps
 #' p + geom_text(check_overlap = TRUE)
+#' # Labels with background
+#' p + geom_label()
 #' # Change size of the label
 #' p + geom_text(size = 10)
 #'
@@ -40,6 +50,7 @@
 #' p + geom_text(aes(colour = factor(cyl)))
 #' p + geom_text(aes(colour = factor(cyl))) +
 #'   scale_colour_discrete(l = 40)
+#' p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 #'
 #' p + geom_text(aes(size = wt))
 #' # Scale height of text, rather than sqrt(height)

@@ -40,13 +40,18 @@ draw_key_abline <- function(data, params) {
 
 #' @export
 #' @rdname draw_key
+draw_key_rect <- function(data, params) {
+  rectGrob(gp = gpar(
+    col = NA,
+    fill = alpha(data$fill, data$alpha),
+    lty = data$linetype
+  ))
+}
+#' @export
+#' @rdname draw_key
 draw_key_polygon <- function(data, params) {
   grobTree(
-    rectGrob(gp = gpar(
-      col = data$colour,
-      fill = alpha(data$fill, data$alpha),
-      lty = data$linetype
-    )),
+    draw_key_rect(data, list()),
     linesGrob(gp = gpar(
       col = data$colour,
       lwd = data$size * .pt,
@@ -152,6 +157,15 @@ draw_key_text <- function(data, params) {
       fontface = data$fontface,
       fontsize = data$size * .pt
     )
+  )
+}
+
+#' @export
+#' @rdname draw_key
+draw_key_label <- function(data, params) {
+  grobTree(
+    draw_key_rect(data, list()),
+    draw_key_text(data, list())
   )
 }
 

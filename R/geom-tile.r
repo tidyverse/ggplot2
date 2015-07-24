@@ -105,5 +105,5 @@ GeomTile <- ggproto("GeomTile", Geom,
 
   required_aes = c("x", "y"),
 
-  draw_key = draw_key_polygon
+  draw_key = draw_key_rect
 )

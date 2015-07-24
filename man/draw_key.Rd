@@ -7,10 +7,12 @@
 \alias{draw_key_boxplot}
 \alias{draw_key_crossbar}
 \alias{draw_key_dotplot}
+\alias{draw_key_label}
 \alias{draw_key_path}
 \alias{draw_key_point}
 \alias{draw_key_pointrange}
 \alias{draw_key_polygon}
+\alias{draw_key_rect}
 \alias{draw_key_smooth}
 \alias{draw_key_text}
 \alias{draw_key_vline}
@@ -19,6 +21,8 @@
 draw_key_point(data, params)
 
 draw_key_abline(data, params)
+
+draw_key_rect(data, params)
 
 draw_key_polygon(data, params)
 
@@ -37,6 +41,8 @@ draw_key_pointrange(data, params)
 draw_key_smooth(data, params)
 
 draw_key_text(data, params)
+
+draw_key_label(data, params)
 
 draw_key_vline(data, params)
 }

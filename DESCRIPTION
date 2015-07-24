@@ -100,6 +100,7 @@ Collate:
     'geom-freqpoly.r'
     'geom-hex.r'
     'geom-hline.r'
+    'geom-label.R'
     'geom-linerange.r'
     'geom-path-contour.r'
     'geom-path-density2d.r'
