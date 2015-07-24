@@ -56,9 +56,9 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     qs <- c(0, 0.25, 0.5, 0.75, 1)
     if (length(unique(data$weight)) != 1) {
       mod <- quantreg::rq(y ~ 1, weights = weight, data = data, tau = qs)
-      stats <- as.numeric(coef(mod))
+      stats <- as.numeric(stats::coef(mod))
     } else {
-      stats <- as.numeric(quantile(data$y, qs))
+      stats <- as.numeric(stats::quantile(data$y, qs))
     }
     names(stats) <- c("ymin", "lower", "middle", "upper", "ymax")
     iqr <- diff(stats[c(2, 4)])

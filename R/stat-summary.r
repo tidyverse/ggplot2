@@ -226,8 +226,8 @@ median_hilow <- wrap_hmisc("smedian.hilow")
 #' @seealso for use with \code{\link{stat_summary}}
 #' @export
 mean_se <- function(x, mult = 1) {
-  x <- na.omit(x)
-  se <- mult * sqrt(var(x) / length(x))
+  x <- stats::na.omit(x)
+  se <- mult * sqrt(stats::var(x) / length(x))
   mean <- mean(x)
   data.frame(y = mean, ymin = mean - se, ymax = mean + se)
 }

@@ -76,7 +76,7 @@ StatBin <- ggproto("StatBin", Stat,
 
 bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = FALSE) {
 
-  if (length(na.omit(x)) == 0) return(data.frame())
+  if (length(stats::na.omit(x)) == 0) return(data.frame())
   if (is.null(weight))  weight <- rep(1, length(x))
   weight[is.na(weight)] <- 0
 

@@ -199,7 +199,7 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
   # Facets can either be a formula, a string, or a list of things to be
   # convert to quoted
   if (is.character(facets)) {
-    facets <- as.formula(facets)
+    facets <- stats::as.formula(facets)
   }
   if (is.formula(facets)) {
     lhs <- function(x) if(length(x) == 2) NULL else x[-3]

@@ -121,7 +121,7 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
       val <- do.call(fun, c(list(quote(d$z)), fun.args))
       data.frame(value = val)
     })
-    if (drop) ans <- na.omit(ans)
+    if (drop) ans <- stats::na.omit(ans)
 
     within(ans,{
       xint <- as.numeric(xbin)

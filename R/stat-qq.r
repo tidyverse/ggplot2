@@ -33,7 +33,7 @@
 #'   stat_qq(aes(sample = mpg, colour = factor(cyl)))
 #' }
 stat_qq <- function(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", distribution = qnorm, dparams = list(), na.rm = FALSE,
+  position = "identity", distribution = stats::qnorm, dparams = list(), na.rm = FALSE,
   show_guide = NA, inherit.aes = TRUE, ...)
 {
   layer(
@@ -66,7 +66,7 @@ StatQq <- ggproto("StatQq", Stat,
 
   required_aes = c("sample"),
 
-  calculate = function(data, scales, quantiles = NULL, distribution = qnorm,
+  calculate = function(data, scales, quantiles = NULL, distribution = stats::qnorm,
     dparams = list(), na.rm = FALSE)
   {
     data <- remove_missing(data, na.rm, "sample", name = "stat_qq")
@@ -76,7 +76,7 @@ StatQq <- ggproto("StatQq", Stat,
 
     # Compute theoretical quantiles
     if (is.null(quantiles)) {
-      quantiles <- ppoints(n)
+      quantiles <- stats::ppoints(n)
     } else {
       stopifnot(length(quantiles) == n)
     }

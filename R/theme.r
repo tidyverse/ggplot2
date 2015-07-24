@@ -37,7 +37,7 @@ theme_update <- function(...) {
 is.theme <- function(x) inherits(x, "theme")
 
 #' @export
-print.theme <- function(x, ...) str(x)
+print.theme <- function(x, ...) utils::str(x)
 
 #' Set theme elements
 #'

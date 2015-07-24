@@ -151,5 +151,6 @@ quickplot <- qplot
 
 # is.constant
 is.constant <- function(x) {
-  sapply(x, function(x) "I" %in% all.names(asOneSidedFormula(x)))
+  is_I_call <- function(x) is.call(x) && identical(x[[1]], quote(I))
+  vapply(x, is_I_call, logical(1))
 }

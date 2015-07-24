@@ -124,7 +124,7 @@ StatBindot <- ggproto("StatBindot", Stat,
 # It returns a data frame with the original data (x), weights, bin #, and the bin centers.
 densitybin <- function(x, weight = NULL, binwidth = NULL, method = method, range = NULL) {
 
-    if (length(na.omit(x)) == 0) return(data.frame())
+    if (length(stats::na.omit(x)) == 0) return(data.frame())
     if (is.null(weight))  weight <- rep(1, length(x))
     weight[is.na(weight)] <- 0
 

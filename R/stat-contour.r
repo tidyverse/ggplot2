@@ -109,7 +109,7 @@ StatContour <- ggproto("StatContour", Stat,
 contour_lines <- function(data, breaks, complete = FALSE) {
   z <- tapply(data$z, data[c("x", "y")], identity)
 
-  cl <- contourLines(
+  cl <- grDevices::contourLines(
     x = sort(unique(data$x)), y = sort(unique(data$y)), z = z,
     levels = breaks)
 

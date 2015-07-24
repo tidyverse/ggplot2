@@ -95,7 +95,7 @@ StatSummaryHex <- ggproto("StatSummaryHex", Stat,
 
     # Convert to data frame
     ret <- data.frame(hexbin::hcell2xy(hb), value)
-    if (drop) ret <- na.omit(ret)
+    if (drop) ret <- stats::na.omit(ret)
     ret
   }
 )

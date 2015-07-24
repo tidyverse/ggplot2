@@ -6,11 +6,11 @@
 \title{Calculation for quantile-quantile plot.}
 \usage{
 stat_qq(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", distribution = qnorm, dparams = list(),
+  position = "identity", distribution = stats::qnorm, dparams = list(),
   na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 
 geom_qq(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", distribution = qnorm, dparams = list(),
+  position = "identity", distribution = stats::qnorm, dparams = list(),
   na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
 }
 \arguments{

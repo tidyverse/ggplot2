@@ -142,7 +142,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     }
     # Drop missing values at the start or end of a line - can't drop in the
     # middle since you expect those to be shown by a break in the line
-    missing <- !complete.cases(data[c("x", "y", "size", "colour",
+    missing <- !stats::complete.cases(data[c("x", "y", "size", "colour",
       "linetype")])
     kept <- ave(missing, data$group, FUN=keep)
     data <- data[kept, ]

@@ -74,14 +74,14 @@
 #'   geom_point(aes(size = .cooksd / .hat)) +
 #'   scale_size_area()
 fortify.lm <- function(model, data = model$model, ...) {
-  infl <- influence(model, do.coef = FALSE)
+  infl <- stats::influence(model, do.coef = FALSE)
   data$.hat <- infl$hat
   data$.sigma <- infl$sigma
-  data$.cooksd <- cooks.distance(model, infl)
+  data$.cooksd <- stats::cooks.distance(model, infl)
 
-  data$.fitted <- predict(model)
-  data$.resid <- resid(model)
-  data$.stdresid <- rstandard(model, infl)
+  data$.fitted <- stats::predict(model)
+  data$.resid <- stats::resid(model)
+  data$.stdresid <- stats::rstandard(model, infl)
 
   data
 }

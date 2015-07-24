@@ -243,8 +243,8 @@ layer <- function(geom = NULL, geom_params = list(), stat = NULL,
 
   # Categorize items from params into geom_params and stat_params
   if (length(params) > 0) {
-    geom_params <- modifyList(params, geom_params)
-    stat_params <- modifyList(params, stat_params)
+    geom_params <- utils::modifyList(params, geom_params)
+    stat_params <- utils::modifyList(params, stat_params)
   }
   geom_params <- rename_aes(geom_params)
 

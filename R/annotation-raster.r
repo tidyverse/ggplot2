@@ -41,7 +41,7 @@ NULL
 annotation_raster <- function (raster, xmin, xmax, ymin, ymax,
   interpolate = FALSE)
 {
-  raster <- as.raster(raster)
+  raster <- grDevices::as.raster(raster)
 
   layer(
     data = NULL,

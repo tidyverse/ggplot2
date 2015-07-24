@@ -58,7 +58,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
   draw_key = draw_key_polygon,
 
   draw = function(self, data, scales, coordinates, na.rm = FALSE, ...) {
-    if (na.rm) data <- data[complete.cases(data[self$required_aes]), ]
+    if (na.rm) data <- data[stats::complete.cases(data[self$required_aes]), ]
     data <- data[order(data$group, data$x), ]
 
     # Check that aesthetics are constant
@@ -75,7 +75,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     # has distinct polygon numbers for sequences of non-NA values and NA
     # for NA values in the original data.  Example: c(NA, 2, 2, 2, NA, NA,
     # 4, 4, 4, NA)
-    missing_pos <- !complete.cases(data[self$required_aes])
+    missing_pos <- !stats::complete.cases(data[self$required_aes])
     ids <- cumsum(missing_pos) + 1
     ids[missing_pos] <- NA
 

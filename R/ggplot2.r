@@ -4,6 +4,7 @@
 #' @docType package
 #' @import scales grid gtable
 #' @importFrom plyr defaults
+#' @importFrom stats setNames
 NULL
 
 #' Prices of 50,000 round cut diamonds

@@ -63,9 +63,9 @@ aes <- function(x, y, ...) {
   rename_aes(aes)
 }
 #' @export
-print.uneval <- function(x, ...) str(unclass(x))
+print.uneval <- function(x, ...) utils::str(unclass(x))
 #' @export
-str.uneval <- function(object, ...) str(unclass(object), ...)
+str.uneval <- function(object, ...) utils::str(unclass(object), ...)
 #' @export
 "[.uneval" <- function(x, i, ...) structure(unclass(x)[i], class = "uneval")
 
@@ -211,7 +211,7 @@ aes_auto <- function(data = NULL, ...) {
 # @param params. user specified values
 # @value a data.frame, with all factors converted to character strings
 aesdefaults <- function(data, y., params.) {
-  updated <- modifyList(y., params. %||% list())
+  updated <- utils::modifyList(y., params. %||% list())
 
   cols <- plyr::tryapply(defaults(data, updated), function(x) eval(x, data, globalenv()))
 

@@ -35,7 +35,7 @@ fortify.glht <- function(model, data, ...) {
   plyr::unrowname(data.frame(
     lhs = rownames(model$linfct),
     rhs = model$rhs,
-    estimate = coef(model),
+    estimate = stats::coef(model),
     check.names = FALSE,
     stringsAsFactors = FALSE))
 }
