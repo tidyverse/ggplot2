@@ -1,8 +1,8 @@
 coord_munch <- function(coord, data, range, segment_length = 0.01) {
-  if (is.linear(coord)) return(coord_transform(coord, data, range))
+  if (coord$is_linear()) return(coord$transform(data, range))
 
   # range has theta and r values; get corresponding x and y values
-  ranges <- coord_range(coord, range)
+  ranges <- coord$range(range)
 
   # Convert any infinite locations into max/min
   # Only need to work with x and y because for munching, those are the
@@ -13,12 +13,12 @@ coord_munch <- function(coord, data, range, segment_length = 0.01) {
   data$y[data$y == Inf]  <- ranges$y[2]
 
   # Calculate distances using coord distance metric
-  dist <- coord_distance(coord, data$x, data$y, range)
+  dist <- coord$distance(data$x, data$y, range)
   dist[data$group[-1] != data$group[-nrow(data)]] <- NA
 
   # Munch and then transform result
   munched <- munch_data(data, dist, segment_length)
-  coord_transform(coord, munched, range)
+  coord$transform(munched, range)
 }
 
 # For munching, only grobs are lines and polygons: everything else is

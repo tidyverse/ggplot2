@@ -43,7 +43,7 @@ geom_rug <- function (mapping = NULL, data = NULL, stat = "identity",
 GeomRug <- ggproto("GeomRug", Geom,
   draw = function(data, scales, coordinates, sides = "bl", ...) {
     rugs <- list()
-    data <- coord_transform(coordinates, data, scales)
+    data <- coordinates$transform(data, scales)
     if (!is.null(data$x)) {
       if(grepl("b", sides)) {
         rugs$x_b <- segmentsGrob(

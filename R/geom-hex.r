@@ -29,7 +29,7 @@ geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex",
 #' @export
 GeomHex <- ggproto("GeomHex", Geom,
   draw = function(self, data, scales, coordinates, ...) {
-    coord <- coord_transform(coordinates, data, scales)
+    coord <- coordinates$transform(data, scales)
     ggname("geom_hex", hexGrob(
       coord$x, coord$y, colour = coord$colour,
       fill = alpha(coord$fill, coord$alpha)

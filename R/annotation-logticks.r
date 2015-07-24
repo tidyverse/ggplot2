@@ -135,8 +135,8 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
       if (scaled)
         xticks$value <- log(xticks$value, base)
 
-      names(xticks)[names(xticks)=="value"] <- "x"           # Rename to 'x' for coord_transform
-      xticks <- coord_transform(coordinates, xticks, scales)
+      names(xticks)[names(xticks)=="value"] <- "x"   # Rename to 'x' for coordinates$transform
+      xticks <- coordinates$transform(xticks, scales)
 
       # Make the grobs
       if(grepl("b", sides)) {
@@ -164,8 +164,8 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
       if (scaled)
         yticks$value <- log(yticks$value, base)
 
-      names(yticks)[names(yticks)=="value"] <- "y"           # Rename to 'y' for coord_transform
-      yticks <- coord_transform(coordinates, yticks, scales)
+      names(yticks)[names(yticks)=="value"] <- "y"   # Rename to 'y' for coordinates$transform
+      yticks <- coordinates$transform(yticks, scales)
 
       # Make the grobs
       if(grepl("l", sides)) {

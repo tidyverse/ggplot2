@@ -241,11 +241,11 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
     data <- remove_missing(data, na.rm, c("x", "y", "size", "shape"), name = "geom_dotplot")
     if (empty(data)) return(zeroGrob())
 
-    if (!is.linear(coordinates)) {
+    if (!coordinates$is_linear()) {
       warning("geom_dotplot does not work properly with non-linear coordinates.")
     }
 
-    tdata <- coord_transform(coordinates, data, scales)
+    tdata <- coordinates$transform(data, scales)
 
     # Swap axes if using coord_flip
     if ("flip" %in% attr(coordinates, "class"))

@@ -50,7 +50,7 @@ ggplot_gtable <- function(data) {
     plot_theme(plot), geom_grobs)
 
   # Axis labels
-  labels <- coord_labels(plot$coordinates, list(
+  labels <- plot$coordinates$labels(list(
     x = xlabel(panel, plot$labels),
     y = ylabel(panel, plot$labels)
   ))

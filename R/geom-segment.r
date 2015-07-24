@@ -75,8 +75,8 @@ GeomSegment <- ggproto("GeomSegment", Geom,
       name = "geom_segment")
     if (empty(data)) return(zeroGrob())
 
-    if (is.linear(coordinates)) {
-      coord <- coord_transform(coordinates, data, scales)
+    if (coordinates$is_linear()) {
+      coord <- coordinates$transform(data, scales)
       return(segmentsGrob(coord$x, coord$y, coord$xend, coord$yend,
         default.units = "native",
         gp = gpar(

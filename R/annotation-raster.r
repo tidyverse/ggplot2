@@ -77,7 +77,7 @@ GeomRasterAnn <- ggproto("GeomRasterAnn", GeomRaster,
         call. = FALSE)
     }
     corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
-    data <- coord_transform(coordinates, corners, scales)
+    data <- coordinates$transform(corners, scales)
 
     x_rng <- range(data$x, na.rm = TRUE)
     y_rng <- range(data$y, na.rm = TRUE)
