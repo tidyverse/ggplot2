@@ -58,7 +58,7 @@ predictdf.loess <- function(model, xseq, se, level) {
 
 #' @export
 predictdf.locfit <- function(model, xseq, se, level) {
-  pred <- predict(model, newdata = data.frame(x = xseq), se.fit = se)
+  pred <- stats::predict(model, newdata = data.frame(x = xseq), se.fit = se)
 
   if (se) {
     y = pred$fit
