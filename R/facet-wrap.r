@@ -151,7 +151,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   # ask the coordinate system if it wants to specify one
   aspect_ratio <- theme$aspect.ratio
   if (is.null(aspect_ratio) && !facet$free$x && !facet$free$y) {
-    aspect_ratio <- coord_aspect(coord, panel$ranges[[1]])
+    aspect_ratio <- coord$aspect(panel$ranges[[1]])
   }
 
   if (is.null(aspect_ratio)) {
@@ -321,8 +321,8 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
 facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   panels <- panel$layout$PANEL
   lapply(panels, function(i) {
-    fg <- coord_render_fg(coord, panel$ranges[[i]], theme)
-    bg <- coord_render_bg(coord, panel$ranges[[i]], theme)
+    fg <- coord$render_fg(panel$ranges[[i]], theme)
+    bg <- coord$render_bg(panel$ranges[[i]], theme)
 
     geom_grobs <- lapply(geom_grobs, "[[", i)
 
@@ -359,7 +359,7 @@ facet_axes.wrap <- function(facet, panel, coord, theme) {
   axes <- list()
   axes$b <- lapply(panels, function(i) {
     if (panel$layout$AXIS_X[i]) {
-      grob <- coord_render_axis_h(coord, panel$ranges[[i]], theme)
+      grob <- coord$render_axis_h(panel$ranges[[i]], theme)
     } else {
       grob <- zeroGrob()
     }
@@ -368,7 +368,7 @@ facet_axes.wrap <- function(facet, panel, coord, theme) {
 
   axes$l <- lapply(panels, function(i) {
     if (panel$layout$AXIS_Y[i]) {
-      grob <- coord_render_axis_v(coord, panel$ranges[[i]], theme)
+      grob <- coord$render_axis_v(panel$ranges[[i]], theme)
     } else {
       grob <- zeroGrob()
     }

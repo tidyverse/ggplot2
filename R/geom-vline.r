@@ -31,7 +31,7 @@ geom_vline <- function(mapping = NULL, data = NULL, show_guide = FALSE,
 #' @export
 GeomVline <- ggproto("GeomVline", Geom,
   draw = function(data, scales, coordinates, ...) {
-    ranges <- coord_range(coordinates, scales)
+    ranges <- coordinates$range(scales)
 
     data$x    <- data$xintercept
     data$xend <- data$xintercept

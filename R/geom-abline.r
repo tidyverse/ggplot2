@@ -106,7 +106,7 @@ geom_abline <- function(mapping = NULL, data = NULL, show_guide = FALSE, ...,
 #' @export
 GeomAbline <- ggproto("GeomAbline", Geom,
   draw = function(data, scales, coordinates, ...) {
-    ranges <- coord_range(coordinates, scales)
+    ranges <- coordinates$range(scales)
 
     data$x    <- ranges$x[1]
     data$xend <- ranges$x[2]
