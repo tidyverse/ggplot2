@@ -79,7 +79,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     ids <- cumsum(missing_pos) + 1
     ids[missing_pos] <- NA
 
-    positions <- summarise(data,
+    positions <- plyr::summarise(data,
       x = c(x, rev(x)), y = c(ymax, rev(ymin)), id = c(ids, rev(ids)))
     munched <- coord_munch(coordinates,positions, scales)
 

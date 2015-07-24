@@ -53,7 +53,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
   calculate_groups = function(self, super, data, scales, method = "auto",
     formula = y~x, ...)
   {
-    rows <- daply(data, .(group), function(df) length(unique(df$x)))
+    rows <- daply(data, "group", function(df) length(unique(df$x)))
 
     if (all(rows == 1) && length(rows) > 1) {
       message("geom_smooth: Only one unique x value each group.",

@@ -2,7 +2,8 @@
 #'
 #' @name ggplot2
 #' @docType package
-#' @import plyr scales grid gtable
+#' @import scales grid gtable
+#' @importFrom plyr defaults
 NULL
 
 #' Prices of 50,000 round cut diamonds

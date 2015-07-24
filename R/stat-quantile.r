@@ -70,7 +70,7 @@ StatQuantile <- ggproto("StatQuantile", Stat,
     data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_quantile")
     method <- match.fun(method)
 
-    ldply(quantiles, quant_pred, data = data, method = method,
+    plyr::ldply(quantiles, quant_pred, data = data, method = method,
       formula = formula, weight = weight, grid = grid, ...)
   }
 )

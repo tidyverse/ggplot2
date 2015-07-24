@@ -75,7 +75,7 @@ Layer <- ggproto("Layer", NULL,
     aesthetics <- self$layer_mapping(plot$mapping)
 
     if (!is.null(self$subset)) {
-      include <- data.frame(eval.quoted(self$subset, data, plot$env))
+      include <- data.frame(plyr::eval.quoted(self$subset, data, plot$env))
       data <- data[rowSums(include, na.rm = TRUE) == ncol(include), ]
     }
 
@@ -88,7 +88,8 @@ Layer <- ggproto("Layer", NULL,
 
     # Evaluate aesthetics in the context of their data frame
     evaled <- compact(
-      eval.quoted(aesthetics, data, plot$plot_env))
+      plyr::eval.quoted(aesthetics, data, plot$plot_env)
+    )
 
     lengths <- vapply(evaled, length, integer(1))
     n <- if (length(lengths) > 0) max(lengths) else 0
@@ -164,7 +165,7 @@ Layer <- ggproto("Layer", NULL,
 
 
   adjust_position = function(self, data) {
-    ddply(data, "PANEL", function(data) {
+    plyr::ddply(data, "PANEL", function(data) {
       self$position$adjust(data)
     })
   },

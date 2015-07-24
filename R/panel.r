@@ -66,10 +66,10 @@ train_position <- function(panel, data, x_scale, y_scale) {
   # Initialise scales if needed, and possible.
   layout <- panel$layout
   if (is.null(panel$x_scales) && !is.null(x_scale)) {
-    panel$x_scales <- rlply(max(layout$SCALE_X), scale_clone(x_scale))
+    panel$x_scales <- plyr::rlply(max(layout$SCALE_X), scale_clone(x_scale))
   }
   if (is.null(panel$y_scales) && !is.null(y_scale)) {
-    panel$y_scales <- rlply(max(layout$SCALE_Y), scale_clone(y_scale))
+    panel$y_scales <- plyr::rlply(max(layout$SCALE_Y), scale_clone(y_scale))
   }
 
   # loop over each layer, training x and y scales in turn
@@ -98,8 +98,8 @@ train_position <- function(panel, data, x_scale, y_scale) {
 
 reset_scales <- function(panel) {
   if (!panel$shrink) return()
-  l_ply(panel$x_scales, scale_reset)
-  l_ply(panel$y_scales, scale_reset)
+  plyr::l_ply(panel$x_scales, scale_reset)
+  plyr::l_ply(panel$y_scales, scale_reset)
 }
 
 # Map data with scales.
@@ -144,7 +144,7 @@ scale_apply <- function(data, vars, f, scale_id, scales) {
   n <- length(scales)
   if (any(is.na(scale_id))) stop()
 
-  scale_index <- split_indices(scale_id, n)
+  scale_index <- plyr::split_indices(scale_id, n)
 
   lapply(vars, function(var) {
     pieces <- lapply(seq_along(scales), function(i) {
@@ -189,7 +189,7 @@ calculate_stats <- function(panel, data, layers) {
     d <- data[[i]]
     l <- layers[[i]]
 
-    ddply(d, "PANEL", function(panel_data) {
+    plyr::ddply(d, "PANEL", function(panel_data) {
       scales <- panel_scales(panel, panel_data$PANEL[1])
       l$calc_statistic(panel_data, scales)
     })

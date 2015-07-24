@@ -117,7 +117,7 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
 
     if (is.null(data$weight)) data$weight <- 1
 
-    ans <- ddply(data.frame(data, xbin, ybin), .(xbin, ybin), function(d) {
+    ans <- plyr::ddply(data.frame(data, xbin, ybin), c("xbin", "ybin"), function(d) {
       val <- do.call(fun, c(list(quote(d$z)), fun.args))
       data.frame(value = val)
     })

@@ -71,19 +71,19 @@
 #'          Original = mpg) %>%
 #'   gather(mpg_trans, mpg2, Logarithmic:Original)
 #' p <- ggplot(data, aes(mpg, disp)) + geom_point()
-#' 
+#'
 #' p + aes(x = mpg2) +
 #'   facet_wrap(~ mpg_trans, ncol = 2, scales = "free", switch = "x") +
 #'   theme() %+replace% theme(strip.background = element_blank())
-#' 
-#' 
+#'
+#'
 #' data <- data %>%
 #'   mutate(Logarithmic = log(disp),
 #'          Inverse = 1/disp,
 #'          Quadratic = disp^2,
 #'          Original = disp) %>%
 #'   gather(dpg_trans, disp2, Logarithmic:Original)
-#' 
+#'
 #' p %+% data + aes(y = disp2) +
 #'   facet_wrap(~ dpg_trans, ncol = 2, scales = "free", switch = "y") +
 #'   theme_minimal()
@@ -182,7 +182,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   axes <- facet_axes(facet, panel, coord, theme)
   strips <- facet_strips(facet, panel, theme)
 
-  
+
   # Should become facet_arrange_grobs
 
   # Locate each element in panel
@@ -245,7 +245,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
       gt_t
     }
     grobs$strip_t <- lapply(strips$t, add_padding)
-    
+
     strip_height <- lapply(strips$t, function(x) {
        3 * as.numeric(padding) + height_cm(x)
     })
@@ -264,7 +264,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
       gt_t
     }
     grobs$strip_t <- lapply(strips$t, add_padding)
-    
+
     strip_height <- NULL
     strip_width <- lapply(strips$t, function(x) {
       3 * as.numeric(padding) + width_cm(x)
@@ -277,7 +277,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
     size <- c(3, 4)
   }
 
-  info <- ldply(locs, find_pos, layout = layout, size = size)
+  info <- plyr::ldply(locs, find_pos, layout = layout, size = size)
   names(info)[1] <- "type"
   info$clip <- ifelse(info$type == "panel", "on", "off")
   info$name <- paste(info$type, info$id, sep = "-")
@@ -340,7 +340,7 @@ facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
 #' @export
 facet_strips.wrap <- function(facet, panel, theme) {
   labels_df <- panel$layout[names(facet$facets)]
-  labels_df[] <- llply(labels_df, format, justify = "none")
+  labels_df[] <- plyr::llply(labels_df, format, justify = "none")
 
   labels <- apply(labels_df, 1, paste, collapse = ", ")
 
@@ -349,7 +349,7 @@ facet_strips.wrap <- function(facet, panel, theme) {
     theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
   }
 
-  list(t = llply(labels, ggstrip, theme = theme, horizontal = !vertical))
+  list(t = plyr::llply(labels, ggstrip, theme = theme, horizontal = !vertical))
 }
 
 #' @export

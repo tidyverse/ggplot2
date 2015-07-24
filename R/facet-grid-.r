@@ -175,13 +175,14 @@
 #' )
 #' p <- ggplot(data, aes(mpg, disp)) + geom_point()
 #' p + facet_grid(am ~ gear, switch = "both") + theme_light()
-#' 
+#'
 #' # It may be more aesthetic to use a theme without boxes around
 #' # around the strips.
 #' p + facet_grid(am ~ gear + vs, switch = "y") + theme_minimal()
 #' p + facet_grid(am ~ ., switch = "y") +
 #'   theme_gray() %+replace% theme(strip.background  = element_blank())
 #' }
+#' @importFrom plyr as.quoted
 facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, switch = NULL, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
@@ -289,7 +290,7 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
   } else {
     # Add padding between the switched strips and the axes
     padding <- convertUnit(theme$strip.switch.pad.grid, "cm")
-    
+
     if (switch_x) {
       t_heights <- c(padding, strips$t$heights)
       gt_t <- gtable(widths = strips$t$widths, heights = unit(t_heights, "cm"))
@@ -333,10 +334,10 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
       complete <- rbind(top, center, bottom, z = c(1, 2, 3))
     } else {
       stop("`switch` must be either NULL, 'both', 'x', or 'y'",
-        call. = FALSE) 
+        call. = FALSE)
     }
   }
-  
+
   complete$respect <- panels$respect
   complete$name <- "layout"
   bottom <- axes$b
@@ -400,13 +401,13 @@ build_strip <- function(panel, label_df, labeller, theme, side = "right", switch
   name <- paste("strip", side, sep = "-")
   if (horizontal) {
     # Each row is as high as the highest and as a wide as the panel
-    row_height <- function(row) max(laply(row, height_cm))
+    row_height <- function(row) max(plyr::laply(row, height_cm))
     grobs <- t(grobs)
     heights <- unit(apply(grobs, 1, row_height), "cm")
     widths <- unit(rep(1, ncol(grobs)), "null")
   } else {
     # Each row is wide as the widest and as high as the panel
-    col_width <- function(col) max(laply(col, width_cm))
+    col_width <- function(col) max(plyr::laply(col, width_cm))
     widths <- unit(apply(grobs, 2, col_width), "cm")
     heights <- unit(rep(1, nrow(grobs)), "null")
   }

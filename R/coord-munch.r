@@ -33,7 +33,7 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
     data <- add_group(data)
     dist <- dist_euclidean(data$x, data$y)
   }
-  
+
   # How many endpoints for each old segment, not counting the last one
   extra <- pmax(floor(dist / segment_length), 1)
   extra[is.na(extra)] <- 1
@@ -46,8 +46,8 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   # must include final point
   id <- c(rep(seq_len(nrow(data) - 1), extra), nrow(data))
   aes_df <- data[id, setdiff(names(data), c("x", "y")), drop=FALSE]
-  
-  unrowname(data.frame(x = x, y = y, aes_df))
+
+  plyr::unrowname(data.frame(x = x, y = y, aes_df))
 }
 
 # Interpolate.
@@ -99,7 +99,7 @@ dist_polar <- function(r, theta) {
   # Rename x and y columns to r and t, since we're working in polar
   # Note that 'slope' actually means the spiral slope, 'a' in the spiral
   #   formula r = a * theta
-  lf <- rename(lf, c(x1 = "t1", x2 = "t2", y1 = "r1", y2 = "r2",
+  lf <- plyr::rename(lf, c(x1 = "t1", x2 = "t2", y1 = "r1", y2 = "r2",
     yintercept = "r_int",  xintercept = "t_int"), warn_missing = FALSE)
 
   # Re-normalize the theta values so that intercept for each is 0

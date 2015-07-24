@@ -41,12 +41,12 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
   }
 
   if (!is.null(data$ymax)) {
-    ddply(data, "xmin", strategy, width = width)
+    plyr::ddply(data, "xmin", strategy, width = width)
   } else if (!is.null(data$y)) {
     message("ymax not defined: adjusting position using y instead")
 
     data$ymax <- data$y
-    data <- ddply(data, "xmin", strategy, width = width)
+    data <- plyr::ddply(data, "xmin", strategy, width = width)
     data$y <- data$ymax
     data
   } else {

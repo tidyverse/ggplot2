@@ -15,8 +15,8 @@ assign_viewports <- function(grobs) {
     ggname(type, editGrob(grobs[[type]][[x, y]], vp = vp_path(x, y, type)))
   }
 
-  grid <- ldply(names(grobs), make_grid)
-  mlply(grid, assign_vp)
+  grid <- plyr::ldply(names(grobs), make_grid)
+  plyr::mlply(grid, assign_vp)
 }
 
 # Setup matrix of viewports for a layout with given parameters
@@ -33,8 +33,8 @@ setup_viewports <- function(type, data, offset = c(0,0), clip = "on") {
       clip=clip
     )
   }
-  pos <- expand.grid(x = seq_len(rows), y= seq_len(cols))
-  do.call("vpList", mlply(pos, vp))
+  pos <- expand.grid(x = seq_len(rows), y = seq_len(cols))
+  do.call("vpList", plyr::mlply(pos, vp))
 }
 
 # Calculate viewport path.

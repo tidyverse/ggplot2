@@ -20,15 +20,15 @@ StatBindot <- ggproto("StatBindot", Stat,
         newdata <- densitybin(x = data$x, weight = data$weight, binwidth = binwidth,
                       method = method)
 
-        data    <- arrange(data, x)
-        newdata <- arrange(newdata, x)
+        data    <- plyr::arrange(data, x)
+        newdata <- plyr::arrange(newdata, x)
 
       } else if (binaxis == "y") {
         newdata <- densitybin(x = data$y, weight = data$weight, binwidth = binwidth,
                     method = method)
 
-        data    <- arrange(data, y)
-        newdata <- arrange(newdata, x)
+        data    <- plyr::arrange(data, y)
+        newdata <- plyr::arrange(newdata, x)
       }
 
       data$bin       <- newdata$bin
@@ -93,7 +93,7 @@ StatBindot <- ggproto("StatBindot", Stat,
                   method = method, range = range)
 
       # Collapse each bin and get a count
-      data <- ddply(data, .(bincenter), summarise, binwidth = binwidth[1], count = sum(weight))
+      data <- plyr::ddply(data, "bincenter", plyr::summarise, binwidth = binwidth[1], count = sum(weight))
 
       if (sum(data$count, na.rm = TRUE) != 0) {
         data$count[is.na(data$count)] <- 0
@@ -151,7 +151,7 @@ densitybin <- function(x, weight = NULL, binwidth = NULL, method = method, range
     }
 
     results <- data.frame(x, bin, binwidth, weight)
-    results <- ddply(results, .(bin), function(df) {
+    results <- plyr::ddply(results, "bin", function(df) {
                     df$bincenter = (min(df$x) + max(df$x)) / 2
                     return(df)
                   })

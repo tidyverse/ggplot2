@@ -82,7 +82,7 @@ rename_aes <- function(x) {
   full <- match(names(x), .all_aesthetics)
   names(x)[!is.na(full)] <- .all_aesthetics[full[!is.na(full)]]
 
-  rename(x, .base_to_ggplot, warn_missing = FALSE)
+  plyr::rename(x, .base_to_ggplot, warn_missing = FALSE)
 }
 
 # Look up the scale that should be used for a given aesthetic
@@ -213,7 +213,7 @@ aes_auto <- function(data = NULL, ...) {
 aesdefaults <- function(data, y., params.) {
   updated <- modifyList(y., params. %||% list())
 
-  cols <- tryapply(defaults(data, updated), function(x) eval(x, data, globalenv()))
+  cols <- plyr::tryapply(defaults(data, updated), function(x) eval(x, data, globalenv()))
 
   # Need to be careful here because stat_boxplot uses a list-column to store
   # a vector of outliers

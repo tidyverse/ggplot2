@@ -92,7 +92,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
 
     data$group <- 1:nrow(data)
     starts <- subset(data, select = c(-xend, -yend))
-    ends <- rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"),
+    ends <- plyr::rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"),
       warn_missing = FALSE)
 
     pieces <- rbind(starts, ends)

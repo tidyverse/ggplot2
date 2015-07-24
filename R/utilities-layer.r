@@ -15,12 +15,12 @@ add_group <- function(data) {
     disc[names(disc) == "label"] <- FALSE
 
     if (any(disc)) {
-      data$group <- id(data[disc], drop = TRUE)
+      data$group <- plyr::id(data[disc], drop = TRUE)
     } else {
       data$group <- 1L
     }
   } else {
-    data$group <- id(data["group"], drop = TRUE)
+    data$group <- plyr::id(data["group"], drop = TRUE)
   }
 
   data

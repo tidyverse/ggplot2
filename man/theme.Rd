@@ -293,7 +293,7 @@ build_element_graph <- function(tree) {
       data.frame(child = name, parent = item$inherit)
   }
 
-  edges <- rbind.fill(mapply(inheritdf, names(tree), tree))
+  edges <- plyr::rbind.fill(mapply(inheritdf, names(tree), tree))
 
   # Explicitly add vertices (since not all are in edge list)
   vertices <- data.frame(name = names(tree))

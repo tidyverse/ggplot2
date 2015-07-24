@@ -286,3 +286,18 @@ firstUpper <- function(s) {
 snake_class <- function(x) {
   snakeize(class(x)[1])
 }
+
+empty <- function(df) {
+  is.null(df) || nrow(df) == 0 || ncol(df) == 0
+}
+
+is.discrete <- function (x) {
+  is.factor(x) || is.character(x) || is.logical(x)
+}
+
+compact <- function(x) {
+  null <- vapply(x, is.null, logical(1))
+  x[!null]
+}
+
+is.formula <- function(x) inherits(x, "formula")

@@ -17,7 +17,7 @@
 #' # Generate data
 #' if (require("ggplot2movies")) {
 #' library(plyr)
-#' myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
+#' myear <- ddply(movies, "year", colwise(mean, .(length, rating)))
 #' p <- ggplot(myear, aes(length, rating))
 #' p + geom_path()
 #'
@@ -147,7 +147,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     kept <- ave(missing, data$group, FUN=keep)
     data <- data[kept, ]
     # must be sorted on group
-    data <- arrange(data, group)
+    data <- plyr::arrange(data, group)
 
     if (!all(kept) && !na.rm) {
       warning("Removed ", sum(!kept), " rows containing missing values",
@@ -162,7 +162,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     if (nrow(munched) < 2) return(zeroGrob())
 
     # Work out whether we should use lines or segments
-    attr <- ddply(munched, .(group), function(df) {
+    attr <- plyr::ddply(munched, "group", function(df) {
       data.frame(
         solid = identical(unique(df$linetype), 1),
         constant = nrow(unique(df[, c("alpha", "colour","size", "linetype")])) == 1
