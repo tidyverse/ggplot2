@@ -199,7 +199,7 @@ guide_train.colorbar <- function(guide, scale) {
     guide$key <- guide$key[nrow(guide$key):1, ]
     guide$bar <- guide$bar[nrow(guide$bar):1, ]
   }
-  guide$hash <- with(guide, digest(list(title, key$.label, bar, name)))
+  guide$hash <- with(guide, digest::digest(list(title, key$.label, bar, name)))
   guide
 }
 

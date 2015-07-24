@@ -15,7 +15,7 @@ locate_grid <- function(data, panels, rows = NULL, cols = NULL, margins = FALSE)
   # Compute facetting values and add margins
   margin_vars <- list(intersect(names(rows), names(data)),
     intersect(names(cols), names(data)))
-  data <- add_margins(data, margin_vars, margins)
+  data <- reshape2::add_margins(data, margin_vars, margins)
 
   facet_vals <- quoted_df(data, c(rows, cols))
 

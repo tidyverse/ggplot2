@@ -19,7 +19,6 @@
 #' John Fox and Sanford Weisberg (2011). An {R} Companion to Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL: http://socserv.socsci.mcmaster.ca/jfox/Books/Companion
 #'
 #' @export
-#' @importFrom MASS cov.trob
 #'
 #' @examples
 #' ggplot(faithful, aes(waiting, eruptions))+
@@ -98,7 +97,7 @@ calculate_ellipse <- function(data, vars, type, level, segments){
     ellipse <- rbind(as.numeric(c(NA, NA)))
   } else {
     if (type == "t"){
-      v <- cov.trob(data[,vars])
+      v <- MASS::cov.trob(data[,vars])
     } else if (type == "norm"){
       v <- cov.wt(data[,vars])
     } else if (type == "euclid"){

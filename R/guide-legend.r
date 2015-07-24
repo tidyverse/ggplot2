@@ -220,7 +220,7 @@ guide_train.legend <- function(guide, scale) {
   if (guide$reverse) key <- key[nrow(key):1, ]
 
   guide$key <- key
-  guide$hash <- with(guide, digest(list(title, key$.label, direction, name)))
+  guide$hash <- with(guide, digest::digest(list(title, key$.label, direction, name)))
   guide
 }
 
