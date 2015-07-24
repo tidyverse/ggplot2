@@ -72,7 +72,7 @@ GeomRasterAnn <- ggproto("GeomRasterAnn", GeomRaster,
   draw_groups = function(data, scales, coordinates, raster, xmin, xmax,
     ymin, ymax, interpolate = FALSE, ...)
   {
-    if (!inherits(coordinates, "cartesian")) {
+    if (!inherits(coordinates, "CoordCartesian")) {
       stop("annotation_raster only works with Cartesian coordinates",
         call. = FALSE)
     }
