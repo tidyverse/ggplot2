@@ -117,7 +117,7 @@ remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = 
     missing <- !finite.cases(df[, vars, drop = FALSE])
     str <- "non-finite"
   } else {
-    missing <- !complete.cases(df[, vars, drop = FALSE])
+    missing <- !stats::complete.cases(df[, vars, drop = FALSE])
     str <- "missing"
   }
 
@@ -231,7 +231,7 @@ rescale01 <- function(x) {
 #' @export
 gg_dep <- function(version, msg) {
   v <- as.package_version(version)
-  cv <- packageVersion("ggplot2")
+  cv <- utils::packageVersion("ggplot2")
 
   # If current major number is greater than last-good major number, or if
   #  current minor number is more than 1 greater than last-good minor number,
@@ -286,3 +286,18 @@ firstUpper <- function(s) {
 snake_class <- function(x) {
   snakeize(class(x)[1])
 }
+
+empty <- function(df) {
+  is.null(df) || nrow(df) == 0 || ncol(df) == 0
+}
+
+is.discrete <- function (x) {
+  is.factor(x) || is.character(x) || is.logical(x)
+}
+
+compact <- function(x) {
+  null <- vapply(x, is.null, logical(1))
+  x[!null]
+}
+
+is.formula <- function(x) inherits(x, "formula")

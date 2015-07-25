@@ -78,14 +78,14 @@ StatBinhex <- ggproto("StatBinhex", Stat,
 hexBin <- function(x, y, binwidth) {
   # Convert binwidths into bounds + nbins
   xbnds <- c(
-    round_any(min(x), binwidth[1], floor) - 1e-6,
-    round_any(max(x), binwidth[1], ceiling) + 1e-6
+    plyr::round_any(min(x), binwidth[1], floor) - 1e-6,
+    plyr::round_any(max(x), binwidth[1], ceiling) + 1e-6
   )
   xbins <- diff(xbnds) / binwidth[1]
 
   ybnds <- c(
-    round_any(min(y), binwidth[2], floor) - 1e-6,
-    round_any(max(y), binwidth[2], ceiling) + 1e-6
+    plyr::round_any(min(y), binwidth[2], floor) - 1e-6,
+    plyr::round_any(max(y), binwidth[2], ceiling) + 1e-6
   )
   ybins <- diff(ybnds) / binwidth[2]
 

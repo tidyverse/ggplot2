@@ -66,7 +66,7 @@ Connect observations in original order
 # Generate data
 if (require("ggplot2movies")) {
 library(plyr)
-myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
+myear <- ddply(movies, "year", colwise(mean, .(length, rating)))
 p <- ggplot(myear, aes(length, rating))
 p + geom_path()
 

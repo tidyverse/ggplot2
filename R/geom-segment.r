@@ -75,8 +75,8 @@ GeomSegment <- ggproto("GeomSegment", Geom,
       name = "geom_segment")
     if (empty(data)) return(zeroGrob())
 
-    if (is.linear(coordinates)) {
-      coord <- coord_transform(coordinates, data, scales)
+    if (coordinates$is_linear()) {
+      coord <- coordinates$transform(data, scales)
       return(segmentsGrob(coord$x, coord$y, coord$xend, coord$yend,
         default.units = "native",
         gp = gpar(
@@ -92,7 +92,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
 
     data$group <- 1:nrow(data)
     starts <- subset(data, select = c(-xend, -yend))
-    ends <- rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"),
+    ends <- plyr::rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"),
       warn_missing = FALSE)
 
     pieces <- rbind(starts, ends)

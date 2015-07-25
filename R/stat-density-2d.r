@@ -11,7 +11,6 @@
 #'    a warning.  If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
 #' @return A data frame in the same format as \code{\link{stat_contour}}
-#' @importFrom MASS kde2d
 #' @export
 #' @examples
 #' \donttest{
@@ -91,7 +90,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     df <- data.frame(data[, c("x", "y")])
     df <- remove_missing(df, na.rm, name = "stat_density2d", finite = TRUE)
 
-    dens <- safe.call(kde2d, list(x = df$x, y = df$y, n = n,
+    dens <- safe.call(MASS::kde2d, list(x = df$x, y = df$y, n = n,
       lims = c(scale_dimension(scales$x), scale_dimension(scales$y)), ...))
     df <- data.frame(expand.grid(x = dens$x, y = dens$y), z = as.vector(dens$z))
     df$group <- data$group[1]

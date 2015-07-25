@@ -1,8 +1,8 @@
 coord_munch <- function(coord, data, range, segment_length = 0.01) {
-  if (is.linear(coord)) return(coord_transform(coord, data, range))
+  if (coord$is_linear()) return(coord$transform(data, range))
 
   # range has theta and r values; get corresponding x and y values
-  ranges <- coord_range(coord, range)
+  ranges <- coord$range(range)
 
   # Convert any infinite locations into max/min
   # Only need to work with x and y because for munching, those are the
@@ -13,12 +13,12 @@ coord_munch <- function(coord, data, range, segment_length = 0.01) {
   data$y[data$y == Inf]  <- ranges$y[2]
 
   # Calculate distances using coord distance metric
-  dist <- coord_distance(coord, data$x, data$y, range)
+  dist <- coord$distance(data$x, data$y, range)
   dist[data$group[-1] != data$group[-nrow(data)]] <- NA
 
   # Munch and then transform result
   munched <- munch_data(data, dist, segment_length)
-  coord_transform(coord, munched, range)
+  coord$transform(munched, range)
 }
 
 # For munching, only grobs are lines and polygons: everything else is
@@ -33,7 +33,7 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
     data <- add_group(data)
     dist <- dist_euclidean(data$x, data$y)
   }
-  
+
   # How many endpoints for each old segment, not counting the last one
   extra <- pmax(floor(dist / segment_length), 1)
   extra[is.na(extra)] <- 1
@@ -46,8 +46,8 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   # must include final point
   id <- c(rep(seq_len(nrow(data) - 1), extra), nrow(data))
   aes_df <- data[id, setdiff(names(data), c("x", "y")), drop=FALSE]
-  
-  unrowname(data.frame(x = x, y = y, aes_df))
+
+  plyr::unrowname(data.frame(x = x, y = y, aes_df))
 }
 
 # Interpolate.
@@ -99,7 +99,7 @@ dist_polar <- function(r, theta) {
   # Rename x and y columns to r and t, since we're working in polar
   # Note that 'slope' actually means the spiral slope, 'a' in the spiral
   #   formula r = a * theta
-  lf <- rename(lf, c(x1 = "t1", x2 = "t2", y1 = "r1", y2 = "r2",
+  lf <- plyr::rename(lf, c(x1 = "t1", x2 = "t2", y1 = "r1", y2 = "r2",
     yintercept = "r_int",  xintercept = "t_int"), warn_missing = FALSE)
 
   # Re-normalize the theta values so that intercept for each is 0

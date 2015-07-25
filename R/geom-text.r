@@ -123,7 +123,7 @@ GeomText <- ggproto("GeomText", Geom,
       lab <- parse(text = lab)
     }
 
-    coords <- coord_transform(coordinates, data, scales)
+    coords <- coordinates$transform(data, scales)
     if (is.character(coords$vjust)) {
       coords$vjust <- compute_just(coords$vjust, coords$y)
     }

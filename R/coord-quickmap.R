@@ -21,7 +21,7 @@
 #' @examples
 #' # ensures that the ranges of axes are equal to the specified ratio by
 #' # adjusting the plot aspect ratio
-#' 
+#'
 #' if (require("maps")) {
 #' # Create a lat-long dataframe from the maps package
 #' nz <- map_data("nz")
@@ -36,30 +36,33 @@
 #' # With the aspect ratio approximation
 #' nzmap + coord_quickmap()
 #' }
-#' 
+#'
 #' # Resize the plot to see that the specified aspect ratio is maintained
 coord_quickmap <- function(xlim = NULL, ylim = NULL) {
-  coord(limits = list(x = xlim, y = ylim),
-    subclass = c("quickmap", "cartesian"))
+  ggproto(NULL, CoordQuickmap,
+    limits = list(x = xlim, y = ylim)
+  )
 }
 
-#' @export
-coord_aspect.quickmap <- function(coord, ranges) {
-  # compute coordinates of center point of map
-  x.center <- sum(ranges$x.range) / 2
-  y.center <- sum(ranges$y.range) / 2
+CoordQuickmap <- ggproto("CoordQuickmap", CoordCartesian,
 
-  # compute distance corresponding to 1 degree in either direction
-  # from the center
-  x.dist <- dist_central_angle(x.center + c(-0.5, 0.5), rep(y.center, 2))
-  y.dist <- dist_central_angle(rep(x.center, 2), y.center+c(-0.5, 0.5))
-  # NB: this makes the projection correct in the center of the plot and
-  #     increasingly less correct towards the edges. For regions of reasonable
-  #     size, this seems to give better results than computing this ratio from
-  #     the total lat and lon span.
+  aspect = function(ranges) {
+    # compute coordinates of center point of map
+    x.center <- sum(ranges$x.range) / 2
+    y.center <- sum(ranges$y.range) / 2
 
-  # scale the plot with this aspect ratio
-  ratio <- y.dist / x.dist
+    # compute distance corresponding to 1 degree in either direction
+    # from the center
+    x.dist <- dist_central_angle(x.center + c(-0.5, 0.5), rep(y.center, 2))
+    y.dist <- dist_central_angle(rep(x.center, 2), y.center+c(-0.5, 0.5))
+    # NB: this makes the projection correct in the center of the plot and
+    #     increasingly less correct towards the edges. For regions of reasonnable
+    #     size, this seems to give better results than computing this ratio from
+    #     the total lat and lon span.
 
-  diff(ranges$y.range) / diff(ranges$x.range) * ratio
-}
+    # scale the plot with this aspect ratio
+    ratio <- y.dist / x.dist
+
+    diff(ranges$y.range) / diff(ranges$x.range) * ratio
+  }
+)

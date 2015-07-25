@@ -98,38 +98,41 @@ coord_trans <- function(x = "identity", y = "identity", limx = NULL, limy = NULL
   if (is.character(x)) x <- as.trans(x)
   if (is.character(y)) y <- as.trans(y)
 
-  coord(
+
+  ggproto(NULL, CoordTrans,
     trans = list(x = x, y = y),
-    limits = list(x = limx, y = limy),
-    subclass = "trans"
+    limits = list(x = limx, y = limy)
   )
 }
 
-#' @export
-coord_distance.trans <- function(coord, x, y, details) {
-  max_dist <- dist_euclidean(details$x.range, details$y.range)
-  dist_euclidean(coord$trans$x$transform(x), coord$trans$y$transform(y)) / max_dist
-}
 
-#' @export
-coord_transform.trans <- function(coord, data, details) {
-  trans_x <- function(data) transform_value(coord$trans$x, data, details$x.range)
-  trans_y <- function(data) transform_value(coord$trans$y, data, details$y.range)
+CoordTrans <- ggproto("CoordTrans", Coord,
 
-  data <- transform_position(data, trans_x, trans_y)
-  transform_position(data, squish_infinite, squish_infinite)
-}
+  distance = function(self, x, y, scale_details) {
+    max_dist <- dist_euclidean(scale_details$x.range, scale_details$y.range)
+    dist_euclidean(self$trans$x$transform(x), self$trans$y$transform(y)) / max_dist
+  },
+
+  transform = function(self, data, scale_details) {
+    trans_x <- function(data) transform_value(self$trans$x, data, scale_details$x.range)
+    trans_y <- function(data) transform_value(self$trans$y, data, scale_details$y.range)
+
+    data <- transform_position(data, trans_x, trans_y)
+    transform_position(data, squish_infinite, squish_infinite)
+  },
+
+  train = function(self, scale_details) {
+    c(train_trans(scale_details$x, self$limits$x, self$trans$x, "x"),
+      train_trans(scale_details$y, self$limits$y, self$trans$y, "y"))
+  }
+)
+
 transform_value <- function(trans, value, range) {
   rescale(trans$transform(value), 0:1, range)
 }
 
-#' @export
-coord_train.trans <- function(coord, scales) {
-  c(train_trans(scales$x, coord$limits$x, coord$trans$x, "x"),
-    train_trans(scales$y, coord$limits$y, coord$trans$y, "y"))
-}
 
-train_trans <- function(scale, limits, trans, name) {
+train_trans <- function(scale_details, limits, trans, name) {
   # first, calculate the range that is the numerical limits in data space
 
   # expand defined by scale OR coord
@@ -137,20 +140,21 @@ train_trans <- function(scale, limits, trans, name) {
   # Expansion of data range sometimes go beyond domain,
   # so in trans, expansion takes place at the final stage.
   if (is.null(limits)) {
-    range <- scale_dimension(scale, c(0, 0))
+    range <- scale_dimension(scale_details, c(0, 0))
   } else {
-    range <- range(scale_transform(scale, limits))
+    range <- range(scale_transform(scale_details, limits))
   }
 
   # breaks on data space
-  out <- scale_break_info(scale, range)
+  out <- scale_break_info(scale_details, range)
 
   # trans'd range
   out$range <- trans$transform(out$range)
 
   # expansion if limits are not specified
   if (is.null(limits)) {
-    expand <- coord_expand_defaults(coord, scale)
+    # TODO: This is weird, accessing Coord directly for this method.
+    expand <- Coord$expand_defaults(scale_details)
     out$range <- expand_range(out$range, expand[1], expand[2])
   }
 

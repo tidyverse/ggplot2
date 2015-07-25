@@ -151,7 +151,7 @@ StatSummary <- ggproto("StatSummary", Stat,
       fs <- compact(list(ymin = fun.ymin, y = fun.y, ymax = fun.ymax))
 
       fun <- function(df, ...) {
-        res <- llply(fs, function(f) do.call(f, list(quote(df$y), ...)))
+        res <- plyr::llply(fs, function(f) do.call(f, list(quote(df$y), ...)))
         names(res) <- names(fs)
         as.data.frame(res)
       }
@@ -174,8 +174,8 @@ StatSummary <- ggproto("StatSummary", Stat,
 # @param other arguments passed on to summary function
 # @keyword internal
 summarise_by_x <- function(data, summary, ...) {
-  summary <- ddply(data, c("group", "x"), summary, ...)
-  unique <- ddply(data, c("group", "x"), uniquecols)
+  summary <- plyr::ddply(data, c("group", "x"), summary, ...)
+  unique <- plyr::ddply(data, c("group", "x"), uniquecols)
   unique$y <- NULL
 
   merge(summary, unique, by = c("x", "group"))
@@ -199,7 +199,7 @@ wrap_hmisc <- function(fun) {
     try_require("Hmisc", "fun")
 
     result <- safe.call(fun, list(x = x, ...))
-    rename(
+    plyr::rename(
       data.frame(t(result)),
       c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax"),
       warn_missing = FALSE
@@ -226,8 +226,8 @@ median_hilow <- wrap_hmisc("smedian.hilow")
 #' @seealso for use with \code{\link{stat_summary}}
 #' @export
 mean_se <- function(x, mult = 1) {
-  x <- na.omit(x)
-  se <- mult * sqrt(var(x) / length(x))
+  x <- stats::na.omit(x)
+  se <- mult * sqrt(stats::var(x) / length(x))
   mean <- mean(x)
   data.frame(y = mean, ymin = mean - se, ymax = mean + se)
 }

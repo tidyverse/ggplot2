@@ -44,7 +44,7 @@
 #'                  y = rnorm(30))
 #' # Compute sample mean and standard deviation in each group
 #' library(plyr)
-#' ds <- ddply(df, .(gp), summarise, mean = mean(y), sd = sd(y))
+#' ds <- ddply(df, "gp", summarise, mean = mean(y), sd = sd(y))
 #'
 #' # Declare the data frame and common aesthetics.
 #' # The summary data frame ds is used to plot

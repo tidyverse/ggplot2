@@ -20,16 +20,16 @@ layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL, drop = T
   base <- df.grid(base_rows, base_cols)
 
   # Add margins
-  base <- add_margins(base, list(names(rows), names(cols)), margins)
+  base <- reshape2::add_margins(base, list(names(rows), names(cols)), margins)
   # Work around bug in reshape2
   base <- unique(base)
 
   # Create panel info dataset
-  panel <- id(base, drop = TRUE)
+  panel <- plyr::id(base, drop = TRUE)
   panel <- factor(panel, levels = seq_len(attr(panel, "n")))
 
-  rows <- if (is.null(names(rows))) 1L else id(base[names(rows)], drop = TRUE)
-  cols <- if (is.null(names(cols))) 1L else id(base[names(cols)], drop = TRUE)
+  rows <- if (is.null(names(rows))) 1L else plyr::id(base[names(rows)], drop = TRUE)
+  cols <- if (is.null(names(cols))) 1L else plyr::id(base[names(cols)], drop = TRUE)
 
   panels <- data.frame(PANEL = panel, ROW = rows, COL = cols, base,
     check.names = FALSE, stringsAsFactors = FALSE)
@@ -46,9 +46,9 @@ layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, as.table = 
   vars <- as.quoted(vars)
   if (length(vars) == 0) return(layout_null())
 
-  base <- unrowname(layout_base(data, vars, drop = drop))
+  base <- plyr::unrowname(layout_base(data, vars, drop = drop))
 
-  id <- id(base, drop = TRUE)
+  id <- plyr::id(base, drop = TRUE)
   n <- attr(id, "n")
 
   dims <- wrap_dims(n, nrow, ncol)
@@ -61,7 +61,7 @@ layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, as.table = 
   }
   layout$COL <- as.integer((id - 1L) %% dims[2] + 1L)
 
-  panels <- cbind(layout, unrowname(base))
+  panels <- cbind(layout, plyr::unrowname(base))
   panels <- panels[order(panels$PANEL), , drop = FALSE]
   rownames(panels) <- NULL
   panels
@@ -82,16 +82,16 @@ layout_base <- function(data, vars = NULL, drop = TRUE) {
   if (length(vars) == 0) return(data.frame())
 
   # For each layer, compute the facet values
-  values <- compact(llply(data, quoted_df, vars = vars))
+  values <- compact(plyr::llply(data, quoted_df, vars = vars))
 
   # Form the base data frame which contains all combinations of facetting
   # variables that appear in the data
-  has_all <- unlist(llply(values, length)) == length(vars)
+  has_all <- unlist(plyr::llply(values, length)) == length(vars)
   if (!any(has_all)) {
     stop("At least one layer must contain all variables used for facetting")
   }
 
-  base <- unique(ldply(values[has_all]))
+  base <- unique(plyr::ldply(values[has_all]))
   if (!drop) {
     base <- unique_combs(base)
   }
@@ -105,7 +105,6 @@ layout_base <- function(data, vars = NULL, drop = TRUE) {
     if (drop) {
       new <- unique_combs(new)
     }
-
     base <- rbind(base, df.grid(old, new))
   }
 
@@ -128,7 +127,7 @@ ulevels <- function(x) {
 unique_combs <- function(df) {
   if (length(df) == 0) return()
 
-  unique_values <- llply(df, ulevels)
+  unique_values <- plyr::llply(df, ulevels)
   rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE,
     KEEP.OUT.ATTRS = TRUE))
 }
@@ -141,14 +140,14 @@ df.grid <- function(a, b) {
     i_a = seq_len(nrow(a)),
     i_b = seq_len(nrow(b))
   )
-  unrowname(cbind(
+  plyr::unrowname(cbind(
     a[indexes$i_a, , drop = FALSE],
     b[indexes$i_b, , drop = FALSE]
   ))
 }
 
 quoted_df <- function(data, vars) {
-  values <- eval.quoted(vars, data, emptyenv(), try = TRUE)
+  values <- plyr::eval.quoted(vars, data, emptyenv(), try = TRUE)
   as.data.frame(compact(values), optional = TRUE, stringsAsFactors = FALSE)
 }
 

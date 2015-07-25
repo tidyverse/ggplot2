@@ -119,7 +119,6 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(), b
     minor_breaks = minor_breaks,
 
     labels = labels,
-    legend = legend,
     guide = guide
   ), class = c(scale_name, "continuous", "scale"))
 }
@@ -191,7 +190,6 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), bre
     name = name,
     breaks = breaks,
     labels = labels,
-    legend = legend,
     drop = drop,
     guide = guide
   ), class = c(scale_name, "discrete", "scale"))

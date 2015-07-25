@@ -198,7 +198,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       plyvars <- c(plyvars, "group")
 
     # Within each x, or x+group, set countidx=1,2,3, and set stackpos according to stack function
-    df <- ddply(df, plyvars, function(xx) {
+    df <- plyr::ddply(df, plyvars, function(xx) {
             xx$countidx <- 1:nrow(xx)
             xx$stackpos <- stackdots(xx$countidx)
             xx
@@ -223,7 +223,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       # works. They're just set to the standard x +- width/2 so that dot clusters
       # can be dodged like other geoms.
       # After position code is rewritten, each dot should have its own bounding box.
-      df <- ddply(df, .(group), transform,
+      df <- plyr::ddply(df, "group", transform,
             ymin = min(y) - binwidth[1] / 2,
             ymax = max(y) + binwidth[1] / 2)
 
@@ -241,11 +241,11 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
     data <- remove_missing(data, na.rm, c("x", "y", "size", "shape"), name = "geom_dotplot")
     if (empty(data)) return(zeroGrob())
 
-    if (!is.linear(coordinates)) {
+    if (!coordinates$is_linear()) {
       warning("geom_dotplot does not work properly with non-linear coordinates.")
     }
 
-    tdata <- coord_transform(coordinates, data, scales)
+    tdata <- coordinates$transform(data, scales)
 
     # Swap axes if using coord_flip
     if ("flip" %in% attr(coordinates, "class"))

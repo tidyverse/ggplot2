@@ -55,7 +55,7 @@ ggsave <- function(filename, plot = last_plot(),
     filename <- file.path(path, filename)
   }
   dev(file = filename, width = dim[1], height = dim[2], ...)
-  on.exit(capture.output(dev.off()))
+  on.exit(utils::capture.output(grDevices::dev.off()))
   grid.draw(plot)
 
   invisible()
@@ -71,12 +71,12 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
   dim <- to_inches(dim) * scale
 
   if (any(is.na(dim))) {
-    if (length(dev.list()) == 0) {
+    if (length(grDevices::dev.list()) == 0) {
       stop("No graphics device is open. Please supply height and width",
         call. = FALSE)
     }
 
-    dim[is.na(dim)] <- par("din") * scale
+    dim[is.na(dim)] <- graphics::par("din") * scale
     dim_f <- prettyNum(from_inches(dim), digits = 3)
     message("Saving ", dim_f[1], " x ", dim_f[2], " ", units, " image")
   }

@@ -38,11 +38,11 @@ GeomCurve <- ggproto("GeomCurve", Geom,
 
     if (empty(data)) return(zeroGrob())
 
-    if (!is.linear(coordinates)) {
+    if (!coordinates$is_linear()) {
       warning("geom_curve is not implemented for non-linear coordinates",
         call. = FALSE)
     }
-    trans <- coord_transform(coordinates, data, scales)
+    trans <- coordinates$transform(data, scales)
     curveGrob(
       trans$x, trans$y, trans$xend, trans$yend,
       default.units = "native",

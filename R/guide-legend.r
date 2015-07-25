@@ -220,7 +220,7 @@ guide_train.legend <- function(guide, scale) {
   if (guide$reverse) key <- key[nrow(key):1, ]
 
   guide$key <- key
-  guide$hash <- with(guide, digest(list(title, key$.label, direction, name)))
+  guide$hash <- with(guide, digest::digest(list(title, key$.label, direction, name)))
   guide
 }
 
@@ -236,7 +236,7 @@ guide_merge.legend <- function(guide, new_guide) {
 #' @export
 guide_geom.legend <- function(guide, layers, default_mapping) {
   # arrange common data for vertical and horizontal guide
-  guide$geoms <- llply(layers, function(layer) {
+  guide$geoms <- plyr::llply(layers, function(layer) {
     all <- names(c(layer$mapping, default_mapping, layer$stat$default_aes))
     geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))
     matched <- intersect(intersect(all, geom), names(guide$key))
@@ -390,43 +390,43 @@ guide_gengrob.legend <- function(guide, theme) {
     switch(label.position,
       "top" = {
         kl_widths <- pmax(label_widths, key_widths)
-        kl_heights <- head(interleave(label_heights, vgap/2, key_heights, vgap/2), -1)
+        kl_heights <- utils::head(interleave(label_heights, vgap/2, key_heights, vgap/2), -1)
         vps <- transform(vps, key.row = R*4-1, key.col = C, label.row = R*4-3, label.col = C)
       },
       "bottom" = {
         kl_widths <- pmax(label_widths, key_widths)
-        kl_heights <- head(interleave(key_heights, vgap/2, label_heights, vgap/2), -1)
+        kl_heights <- utils::head(interleave(key_heights, vgap/2, label_heights, vgap/2), -1)
         vps <- transform(vps, key.row = R*4-3, key.col = C, label.row = R*4-1, label.col = C)
       },
       "left" = {
-        kl_widths <- head(interleave(label_widths, hgap/2, key_widths, hgap/2), -1)
-        kl_heights <- head(interleave(pmax(label_heights, key_heights), vgap/2), -1)
+        kl_widths <- utils::head(interleave(label_widths, hgap/2, key_widths, hgap/2), -1)
+        kl_heights <- utils::head(interleave(pmax(label_heights, key_heights), vgap/2), -1)
         vps <- transform(vps, key.row = R*2-1, key.col = C*4-1, label.row = R*2-1, label.col = C*4-3)
       },
       "right" = {
-        kl_widths <- head(interleave(key_widths, hgap/2, label_widths, hgap/2), -1)
-        kl_heights <- head(interleave(pmax(label_heights, key_heights), vgap/2), -1)
+        kl_widths <- utils::head(interleave(key_widths, hgap/2, label_widths, hgap/2), -1)
+        kl_heights <- utils::head(interleave(pmax(label_heights, key_heights), vgap/2), -1)
         vps <- transform(vps, key.row = R*2-1, key.col = C*4-3, label.row = R*2-1, label.col = C*4-1)
         })
   } else {
     switch(label.position,
       "top" = {
-        kl_widths <- head(interleave(pmax(label_widths, key_widths), hgap/2), -1)
-        kl_heights <- head(interleave(label_heights, vgap/2, key_heights, vgap/2), -1)
+        kl_widths <- utils::head(interleave(pmax(label_widths, key_widths), hgap/2), -1)
+        kl_heights <- utils::head(interleave(label_heights, vgap/2, key_heights, vgap/2), -1)
         vps <- transform(vps, key.row = R*4-1, key.col = C*2-1, label.row = R*4-3, label.col = C*2-1)
       },
       "bottom" = {
-        kl_widths <- head(interleave(pmax(label_widths, key_widths), hgap/2), -1)
-        kl_heights <- head(interleave(key_heights, vgap/2, label_heights, vgap/2), -1)
+        kl_widths <- utils::head(interleave(pmax(label_widths, key_widths), hgap/2), -1)
+        kl_heights <- utils::head(interleave(key_heights, vgap/2, label_heights, vgap/2), -1)
         vps <- transform(vps, key.row = R*4-3, key.col = C*2-1, label.row = R*4-1, label.col = C*2-1)
       },
       "left" = {
-        kl_widths <- head(interleave(label_widths, hgap/2, key_widths, hgap/2), -1)
+        kl_widths <- utils::head(interleave(label_widths, hgap/2, key_widths, hgap/2), -1)
         kl_heights <- pmax(key_heights, label_heights)
         vps <- transform(vps, key.row = R, key.col = C*4-1, label.row = R, label.col = C*4-3)
       },
       "right" = {
-        kl_widths <- head(interleave(key_widths, hgap/2, label_widths, hgap/2), -1)
+        kl_widths <- utils::head(interleave(key_widths, hgap/2, label_widths, hgap/2), -1)
         kl_heights <- pmax(key_heights, label_heights)
         vps <- transform(vps, key.row = R, key.col = C*4-3, label.row = R, label.col = C*4-1)
       })
@@ -509,4 +509,4 @@ guide_gengrob.legend <- function(guide, theme) {
   gt
 }
 
-globalVariables(c("R", "key.row", "key.col", "label.row", "label.col"))
+globalVariables(c("C", "R", "key.row", "key.col", "label.row", "label.col"))

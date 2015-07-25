@@ -37,7 +37,7 @@ theme_update <- function(...) {
 is.theme <- function(x) inherits(x, "theme")
 
 #' @export
-print.theme <- function(x, ...) str(x)
+print.theme <- function(x, ...) utils::str(x)
 
 #' Set theme elements
 #'
@@ -332,7 +332,7 @@ print.theme <- function(x, ...) str(x)
 #'       data.frame(child = name, parent = item$inherit)
 #'   }
 #'
-#'   edges <- rbind.fill(mapply(inheritdf, names(tree), tree))
+#'   edges <- plyr::rbind.fill(mapply(inheritdf, names(tree), tree))
 #'
 #'   # Explicitly add vertices (since not all are in edge list)
 #'   vertices <- data.frame(name = names(tree))

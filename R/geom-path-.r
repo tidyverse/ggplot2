@@ -17,7 +17,7 @@
 #' # Generate data
 #' if (require("ggplot2movies")) {
 #' library(plyr)
-#' myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
+#' myear <- ddply(movies, "year", colwise(mean, .(length, rating)))
 #' p <- ggplot(myear, aes(length, rating))
 #' p + geom_path()
 #'
@@ -142,12 +142,12 @@ GeomPath <- ggproto("GeomPath", Geom,
     }
     # Drop missing values at the start or end of a line - can't drop in the
     # middle since you expect those to be shown by a break in the line
-    missing <- !complete.cases(data[c("x", "y", "size", "colour",
+    missing <- !stats::complete.cases(data[c("x", "y", "size", "colour",
       "linetype")])
-    kept <- ave(missing, data$group, FUN=keep)
+    kept <- stats::ave(missing, data$group, FUN=keep)
     data <- data[kept, ]
     # must be sorted on group
-    data <- arrange(data, group)
+    data <- plyr::arrange(data, group)
 
     if (!all(kept) && !na.rm) {
       warning("Removed ", sum(!kept), " rows containing missing values",
@@ -157,12 +157,12 @@ GeomPath <- ggproto("GeomPath", Geom,
     munched <- coord_munch(coordinates, data, scales)
 
     # Silently drop lines with less than two points, preserving order
-    rows <- ave(seq_len(nrow(munched)), munched$group, FUN = length)
+    rows <- stats::ave(seq_len(nrow(munched)), munched$group, FUN = length)
     munched <- munched[rows >= 2, ]
     if (nrow(munched) < 2) return(zeroGrob())
 
     # Work out whether we should use lines or segments
-    attr <- ddply(munched, .(group), function(df) {
+    attr <- plyr::ddply(munched, "group", function(df) {
       data.frame(
         solid = identical(unique(df$linetype), 1),
         constant = nrow(unique(df[, c("alpha", "colour","size", "linetype")])) == 1

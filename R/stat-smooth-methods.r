@@ -28,7 +28,7 @@ predictdf.glm <- function(model, xseq, se, level) {
     type = "link")
 
   if (se) {
-    std <- qnorm(level / 2 + 0.5)
+    std <- stats::qnorm(level / 2 + 0.5)
     data.frame(
       x = xseq,
       y = model$family$linkinv(as.vector(pred$fit)),
@@ -47,7 +47,7 @@ predictdf.loess <- function(model, xseq, se, level) {
 
   if (se) {
     y = pred$fit
-    ci <- pred$se.fit * qt(level / 2 + .5, pred$df)
+    ci <- pred$se.fit * stats::qt(level / 2 + .5, pred$df)
     ymin = y - ci
     ymax = y + ci
     data.frame(x = xseq, y, ymin, ymax, se = pred$se.fit)
@@ -58,7 +58,7 @@ predictdf.loess <- function(model, xseq, se, level) {
 
 #' @export
 predictdf.locfit <- function(model, xseq, se, level) {
-  pred <- predict(model, newdata = data.frame(x = xseq), se.fit = se)
+  pred <- stats::predict(model, newdata = data.frame(x = xseq), se.fit = se)
 
   if (se) {
     y = pred$fit

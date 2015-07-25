@@ -46,7 +46,7 @@ Stat <- ggproto("Stat",
       )
     }, stats, groups, SIMPLIFY=FALSE)
 
-    do.call(rbind.fill, stats)
+    do.call(plyr::rbind.fill, stats)
   }
 )
 

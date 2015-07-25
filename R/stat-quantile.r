@@ -70,7 +70,7 @@ StatQuantile <- ggproto("StatQuantile", Stat,
     data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_quantile")
     method <- match.fun(method)
 
-    ldply(quantiles, quant_pred, data = data, method = method,
+    plyr::ldply(quantiles, quant_pred, data = data, method = method,
       formula = formula, weight = weight, grid = grid, ...)
   }
 )
@@ -78,7 +78,7 @@ StatQuantile <- ggproto("StatQuantile", Stat,
 quant_pred <- function(quantile, data, method, formula, weight, grid, ...) {
   model <- method(formula, data = data, tau = quantile, weights = weight, ...)
 
-  grid$y <- predict(model, newdata = grid)
+  grid$y <- stats::predict(model, newdata = grid)
   grid$quantile <- quantile
   grid$group <- paste(data$group[1], quantile, sep = "-")
 

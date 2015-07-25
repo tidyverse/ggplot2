@@ -49,7 +49,7 @@ breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
     } else {
       probs <- seq(0, 1, length.out = nbins + 1)
     }
-    quantile(x, probs, na.rm = TRUE)
+    stats::quantile(x, probs, na.rm = TRUE)
   }
 
 }

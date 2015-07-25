@@ -100,12 +100,12 @@ GeomRaster <- ggproto("GeomRaster", Geom,
   draw = function(vjust = 0.5, hjust = 0.5) {},
 
   draw_groups = function(data, scales, coordinates, interpolate = FALSE, ...) {
-    if (!inherits(coordinates, "cartesian")) {
+    if (!inherits(coordinates, "CoordCartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }
     data <- remove_missing(data, TRUE, c("x", "y", "fill"),
       name = "geom_raster")
-    data <- coord_transform(coordinates, data, scales)
+    data <- coordinates$transform(data, scales)
 
     # Convert vector of data to raster
     x_pos <- as.integer((data$x - min(data$x)) / resolution(data$x, FALSE))

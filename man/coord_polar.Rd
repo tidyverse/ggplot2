@@ -41,8 +41,8 @@ pie + coord_polar()
 
 # Hadley's favourite pie chart
 df <- data.frame(
-  variable = c("resembles", "does not resemble"),
-  value = c(80, 20)
+  variable = c("does not resemble", "resembles"),
+  value = c(20, 80)
 )
 ggplot(df, aes(x = "", y = value, fill = variable)) +
   geom_bar(width = 1, stat = "identity") +

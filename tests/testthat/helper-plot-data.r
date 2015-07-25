@@ -5,10 +5,10 @@ cdata <- function(plot) {
   pieces <- ggplot_build(plot)
 
   lapply(pieces$data, function(d) {
-    ddply(d, "PANEL", function(panel_data) {
+    plyr::ddply(d, "PANEL", function(panel_data) {
       scales <- panel_scales(pieces$panel, panel_data$PANEL[1])
       details <- coord_train(plot$coordinates, scales)
-      coord_transform(plot$coordinates, panel_data, details)
+      plot$coordinates$transform(panel_data, details)
     })
   })
 }

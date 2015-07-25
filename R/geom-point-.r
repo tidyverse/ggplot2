@@ -146,7 +146,7 @@ GeomPoint <- ggproto("GeomPoint", Geom,
       name = "geom_point")
     if (empty(data)) return(zeroGrob())
 
-    coords <- coord_transform(coordinates, data, scales)
+    coords <- coordinates$transform(data, scales)
     ggname("geom_point",
       pointsGrob(
         coords$x, coords$y,

@@ -38,12 +38,12 @@ GeomRect <- ggproto("GeomRect", Geom,
   required_aes = c("xmin", "xmax", "ymin", "ymax"),
 
   draw = function(self, data, scales, coordinates, ...) {
-    if (!is.linear(coordinates)) {
+    if (!coordinates$is_linear()) {
       aesthetics <- setdiff(
         names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")
       )
 
-      polys <- alply(data, 1, function(row) {
+      polys <- plyr::alply(data, 1, function(row) {
         poly <- rect_to_poly(row$xmin, row$xmax, row$ymin, row$ymax)
         aes <- as.data.frame(row[aesthetics],
           stringsAsFactors = FALSE)[rep(1,5), ]
@@ -53,7 +53,7 @@ GeomRect <- ggproto("GeomRect", Geom,
 
       ggname("bar", do.call("grobTree", polys))
     } else {
-      coords <- coord_transform(coordinates, data, scales)
+      coords <- coordinates$transform(data, scales)
       ggname("geom_rect", rectGrob(
         coords$xmin, coords$ymax,
         width = coords$xmax - coords$xmin,

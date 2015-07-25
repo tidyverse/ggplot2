@@ -39,7 +39,7 @@ label_both <- function(variable, value) paste(variable, value, sep = ": ")
 #'   geom_point() +
 #'   facet_grid(. ~ cyl2, labeller = label_parsed)
 label_parsed <- function(variable, value) {
-  llply(as.character(value), function(x) parse(text = x))
+  plyr::llply(as.character(value), function(x) parse(text = x))
 }
 
 #' Label facet with 'bquoted' expressions
@@ -64,7 +64,7 @@ label_bquote <- function(expr = beta ^ .(x)) {
       eval(substitute(bquote(expr, list(x = x)), list(expr = quoted))))
   }
 }
-globalVariables("x")
+globalVariables(c("x", "."))
 
 
 #' Label facets with a word wrapped label.

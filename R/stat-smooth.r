@@ -53,7 +53,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
   calculate_groups = function(self, super, data, scales, method = "auto",
     formula = y~x, ...)
   {
-    rows <- daply(data, .(group), function(df) length(unique(df$x)))
+    rows <- plyr::daply(data, "group", function(df) length(unique(df$x)))
 
     if (all(rows == 1) && length(rows) > 1) {
       message("geom_smooth: Only one unique x value each group.",
@@ -65,7 +65,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     # gam with a cubic regression basis for large data
     # This is based on the size of the _largest_ group.
     if (identical(method, "auto")) {
-      groups <- count(data, "group")
+      groups <- plyr::count(data, "group")
 
       if (max(groups$freq) < 1000) {
         method <- "loess"
