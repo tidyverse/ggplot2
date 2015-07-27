@@ -1,3 +1,6 @@
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
 #' @export
 Coord <- ggproto("Coord",
 
