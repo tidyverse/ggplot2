@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* New `luv_colours` dataset which contains the locations of all
+  built-in `colors()` in Luv space.
+
 * `scale_*_gradient2()` defaults to using Lab colour space.
 
 * `scale_fill_grey()` now uses red for missing values. This matches

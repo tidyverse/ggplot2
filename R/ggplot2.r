@@ -168,3 +168,14 @@ NULL
 #'
 #' @format A data frame with 5,625 observations and 3 variables.
 "faithfuld"
+
+#' \code{colors()} in Luv space.
+#'
+#' All built-in \code{\link{colors}()} translated into Luv colour space.
+#'
+#' @format A data frame with 657 observations and 4 variables:
+#' \itemize{
+#' \item{L,u,v}{Position in Luv colour space}
+#' \item{col}{Colour name}
+#' }
+"luv_colours"

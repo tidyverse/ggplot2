@@ -35,6 +35,11 @@ scale_color_identity(..., guide = "none")
 Use values without scaling.
 }
 \examples{
+ggplot(luv_colours, aes(u, v)) +
+  geom_point(aes(colour = col), size = 3) +
+  scale_color_identity() +
+  coord_equal()
+
 df <- data.frame(
   x = 1:4,
   y = 1:4,
