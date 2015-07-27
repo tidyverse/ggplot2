@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* New `cut_width()` is a convenient replacement for the verbose
+  `plyr::round_any()`, with the additional benefit of offering more
+  control.
+
 * New `luv_colours` dataset which contains the locations of all
   built-in `colors()` in Luv space.
 

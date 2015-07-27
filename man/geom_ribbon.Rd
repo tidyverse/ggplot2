@@ -53,26 +53,17 @@ Ribbons, y range with continuous x values.
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "ribbon")}
 }
 \examples{
-\donttest{
 # Generate data
 huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
-library(plyr) # to access round_any
-huron$decade <- round_any(huron$year, 10, floor)
-
-h <- ggplot(huron, aes(x=year))
+h <- ggplot(huron, aes(year))
 
 h + geom_ribbon(aes(ymin=0, ymax=level))
 h + geom_area(aes(y = level))
 
 # Add aesthetic mappings
-h + geom_ribbon(aes(ymin=level-1, ymax=level+1))
-h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
-
-# Take out some values in the middle for an example of NA handling
-huron[huron$year > 1900 & huron$year < 1910, "level"] <- NA
-h <- ggplot(huron, aes(x=year))
-h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
-}
+h +
+  geom_ribbon(aes(ymin = level - 1, ymax = level + 1), fill = "grey70") +
+  geom_line(aes(y = level))
 }
 \seealso{
 \code{\link{geom_bar}} for discrete intervals (bars),

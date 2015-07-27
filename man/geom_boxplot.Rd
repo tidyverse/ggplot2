@@ -117,11 +117,11 @@ p + geom_boxplot(outlier.colour = "red", outlier.shape = 1)
 p + geom_boxplot(aes(fill = drv))
 
 # You can also use boxplots with continuous x, as long as you supply
-# a grouping variable. plyr::round_any is particularly useful
+# a grouping variable. cut_width is particularly useful
 ggplot(diamonds, aes(carat, price)) +
   geom_boxplot()
 ggplot(diamonds, aes(carat, price)) +
-  geom_boxplot(aes(group = plyr::round_any(carat, 0.1)))
+  geom_boxplot(aes(group = cut_width(carat, 0.25)))
 
 # It's possible to draw a boxplot with your own computations if you
 # use stat = "identity":
