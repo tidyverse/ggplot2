@@ -19,7 +19,7 @@ coord_map(projection = "mercator", ..., orientation = NULL, xlim = NULL,
 projections, so you will have to supply your own. See
 \code{\link[mapproj]{mapproject}} for more information.}
 
-\item{xlim}{manually specific x limits (in degrees of lontitude)}
+\item{xlim}{manually specific x limits (in degrees of longitude)}
 
 \item{ylim}{manually specific y limits (in degrees of latitude)}
 }

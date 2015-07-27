@@ -18,7 +18,7 @@ defined at the top level of the plot.}
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
 
-\item{position}{Postion adjustment, either as a string, or the result of
+\item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
 \item{show_guide}{logical. Should this layer be included in the legends?
@@ -43,7 +43,7 @@ the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
 The bar geom is used to produce 1d area plots: bar charts for categorical
-x, and histograms for continuous y.  stat_bin explains the details of
+x, and histograms for continuous x.  stat_bin explains the details of
 these summaries in more detail.  In particular, you can use the
 \code{weight} aesthetic to create weighted histograms and barcharts where
 the height of the bar no longer represent a count of observations, but a
@@ -59,23 +59,23 @@ incompatible with mapping values to the \code{y} aesthetic. If you want
 the heights of the bars to represent values in the data, use
 \code{stat="identity"} and map a value to the \code{y} aesthetic.
 
-By default, multiple x's occuring in the same place will be stacked a top
+By default, multiple x's occurring in the same place will be stacked atop
 one another by position_stack.  If you want them to be dodged from
 side-to-side, see \code{\link{position_dodge}}. Finally,
-\code{\link{position_fill}} shows relative propotions at each x by stacking
+\code{\link{position_fill}} shows relative proportions at each x by stacking
 the bars and then stretching or squashing to the same height.
 
 Sometimes, bar charts are used not as a distributional summary, but
 instead of a dotplot.  Generally, it's preferable to use a dotplot (see
 \code{geom_point}) as it has a better data-ink ratio.  However, if you do
 want to create this type of plot, you can set y to the value you have
-calculated, and use \code{stat='identity'}
+calculated, and use \code{stat='identity'}.
 
 A bar chart maps the height of the bar to a variable, and so the base of
 the bar must always been shown to produce a valid visual comparison.
 Naomi Robbins has a nice
 \href{http://www.b-eye-network.com/view/index.php?cid=2468}{article on this topic}.
-This is the reason it doesn't make sense to use a log-scaled y axis with a bar chart
+This is why it doesn't make sense to use a log-scaled y axis with a bar chart.
 }
 \section{Aesthetics}{
 
@@ -162,7 +162,7 @@ k + geom_bar()
 k + geom_bar() + scale_fill_brewer()
 k + geom_bar() + scale_fill_grey()
 
-# To change plot order of class varible
+# To change plot order of class variable
 # use factor() to change order of levels
 mpg$class <- factor(mpg$class, levels = c("midsize", "minivan",
 "suv", "compact", "2seater", "subcompact", "pickup"))

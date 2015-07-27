@@ -17,7 +17,7 @@ the plot defaults.}
 
 \item{geom}{The geometric object to use display the data}
 
-\item{position}{The position adjustment to use for overlappling points
+\item{position}{The position adjustment to use for overlapping points
 on this layer}
 
 \item{show_guide}{logical. Should this layer be included in the legends?
@@ -45,11 +45,11 @@ a data.frame with additional columns:
     return single number)}
 }
 \description{
-\code{stat_summary} allows for tremendous flexibilty in the specification
+\code{stat_summary} allows for tremendous flexibility in the specification
 of summary functions. The summary function can either supply individual
 summary functions for each of y, ymin and ymax (with \code{fun.y},
 \code{fun.ymax}, \code{fun.ymin}), or return a data frame containing any
-number of aesthetiics with with \code{fun.data}. All summary functions
+number of aesthetics with with \code{fun.data}. All summary functions
 are called with a single vector of values, \code{x}.
 }
 \details{

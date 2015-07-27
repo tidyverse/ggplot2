@@ -34,7 +34,7 @@ data}
 \item{right}{If \code{TRUE}, right-closed, left-open, if \code{FALSE},
 the default, right-open, left-closed.}
 
-\item{position}{Postion adjustment, either as a string, or the result of
+\item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
 \item{show_guide}{logical. Should this layer be included in the legends?

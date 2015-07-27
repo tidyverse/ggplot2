@@ -18,7 +18,7 @@ the plot defaults.}
 
 \item{geom}{The geometric object to use display the data}
 
-\item{position}{The position adjustment to use for overlappling points
+\item{position}{The position adjustment to use for overlapping points
 on this layer}
 
 \item{bins}{numeric vector giving number of bins in both vertical and
@@ -45,7 +45,7 @@ include aesthetics whose values you want to set, not map. See
 }
 \description{
 \code{stat_summary2d} is a 2d variation of \code{\link{stat_summary}}.
-The data are divided into hexagonl bins defined by \code{x} and \code{y}.
+The data are divided into hexagonal bins defined by \code{x} and \code{y}.
 The values of \code{z} in each cell is are summarised with \code{fun}.
 }
 \section{Aesthetics}{

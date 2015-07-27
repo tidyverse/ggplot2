@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom-hex.r
 \name{geom_hex}
 \alias{geom_hex}
-\title{Hexagon bining.}
+\title{Hexagon binning.}
 \usage{
 geom_hex(mapping = NULL, data = NULL, stat = "binhex",
   position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
@@ -18,7 +18,7 @@ defined at the top level of the plot.}
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
 
-\item{position}{Postion adjustment, either as a string, or the result of
+\item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
 \item{show_guide}{logical. Should this layer be included in the legends?
@@ -42,7 +42,7 @@ the default plot specification, e.g. \code{\link{borders}}.}
   }}
 }
 \description{
-Hexagon bining.
+Hexagon binning.
 }
 \section{Aesthetics}{
 

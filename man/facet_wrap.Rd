@@ -37,7 +37,7 @@ will be shown, regardless of whether or not they appear in the data.}
 \description{
 Most displays are roughly rectangular, so if you have a categorical
 variable with many levels, it doesn't make sense to try and display them
-all in one row (or one column). To solve this dilemman, \code{facet_wrap}
+all in one row (or one column). To solve this dilemma, \code{facet_wrap}
 wraps a 1d sequence of panels into 2d, making best use of screen real estate.
 }
 \examples{

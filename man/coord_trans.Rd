@@ -11,7 +11,7 @@ coord_trans(x = "identity", y = "identity", limx = NULL, limy = NULL,
 \item{x,y}{transformers for x and y axes}
 
 \item{limx,limy}{limits for x and y axes. (Named so for backward
-compatability)}
+compatibility)}
 
 \item{xtrans,ytrans}{Deprecated; use \code{x} and \code{y} instead.}
 }
@@ -29,7 +29,7 @@ how to create your own.
 \donttest{
 # See ?geom_boxplot for other examples
 
-# Three ways of doing transformating in ggplot:
+# Three ways of doing transformation in ggplot:
 #  * by transforming the data
 ggplot(diamonds, aes(log10(carat), log10(price))) +
   geom_point()

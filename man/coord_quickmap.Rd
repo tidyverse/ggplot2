@@ -12,7 +12,7 @@ coord_quickmap(xlim = NULL, ylim = NULL)
 \item{ylim}{limits for the y axis}
 }
 \description{
-The represenation of a portion of the earth, wich is approximately spherical,
+The representation of a portion of the earth, which is approximately spherical,
 onto a flat 2D plane requires a projection. This is what
 \code{\link{coord_map}} does. These projections account for the fact that the
 actual length (in km) of one degree of longitude varies between the equator
@@ -26,7 +26,7 @@ ratio approximates the usual mercator projection. This is what
 graphic have to be projected which is not the case here. So
 \code{\link{coord_quickmap}} has the advantage of being much faster, in
 particular for complex plots such as those using with
-\code{\link{geom_tile}}, at the expense of correctedness in the projection.
+\code{\link{geom_tile}}, at the expense of correctness in the projection.
 }
 \examples{
 # ensures that the ranges of axes are equal to the specified ratio by

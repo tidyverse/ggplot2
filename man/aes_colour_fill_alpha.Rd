@@ -25,7 +25,7 @@ c + geom_bar(colour = "red")
 c + geom_bar(fill = "white", colour = "red")
 
 # The aesthetic fill also takes different colouring scales
-# setting fill equal to a factor varible uses a discrete colour scale
+# setting fill equal to a factor variable uses a discrete colour scale
 k <- ggplot(mtcars, aes(factor(cyl), fill = factor(vs)))
 k + geom_bar()
 

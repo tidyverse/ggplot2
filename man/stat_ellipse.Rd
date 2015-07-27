@@ -18,14 +18,14 @@ the plot defaults.}
 
 \item{geom}{The geometric object to use display the data}
 
-\item{position}{The position adjustment to use for overlappling points
+\item{position}{The position adjustment to use for overlapping points
 on this layer}
 
 \item{type}{The type of ellipse.
 The default \code{"t"} assumes a multivariate t-distribution, and
 \code{"norm"} assumes a multivariate normal distribution.
 \code{"euclid"} draws a circle with the radius equal to \code{level},
-representing the euclidian distance from the center.
+representing the euclidean distance from the center.
 This ellipse probably won't appear circular unless \code{coord_fixed()} is applied.}
 
 \item{level}{The confidence level at which to draw an ellipse (default is 0.95),

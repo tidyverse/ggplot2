@@ -33,7 +33,7 @@ for more details.}
 \item{se}{display confidence interval around smooth? (TRUE by default, see
 level to control}
 
-\item{position}{Postion adjustment, either as a string, or the result of
+\item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
 \item{show_guide}{logical. Should this layer be included in the legends?

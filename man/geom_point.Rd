@@ -19,7 +19,7 @@ defined at the top level of the plot.}
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
 
-\item{position}{Postion adjustment, either as a string, or the result of
+\item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
@@ -68,7 +68,7 @@ that can help.  You can add additional information with
 \code{\link{geom_boxplot}} may also be useful.  Alternatively, you can
 summarise the number of points at each location and display that in some
 way, using \code{\link{stat_sum}}. Another technique is to use transparent
-points, \code{geom_point(alpha = 0.05)}.
+points, e.g. \code{geom_point(alpha = 0.05)}.
 }
 \section{Aesthetics}{
 

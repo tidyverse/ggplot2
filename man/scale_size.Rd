@@ -65,7 +65,7 @@ maximum size of the plotting symbol after transformation.}
 }
 \description{
 \code{scale_size} scales area, \code{scale_radius} scales radius. The size
-aesthetic is most commonly used for points and text, and humans percieve
+aesthetic is most commonly used for points and text, and humans perceive
 the area of points (not their radius), so this provides for optimal
 perception.
 }
