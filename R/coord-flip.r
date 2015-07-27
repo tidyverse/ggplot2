@@ -34,7 +34,10 @@ coord_flip <- function(...) {
   ggproto(NULL, CoordFlip, ...)
 }
 
-
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 CoordFlip <- ggproto("CoordFlip", CoordCartesian,
 
   transform = function(super, data, scale_details) {

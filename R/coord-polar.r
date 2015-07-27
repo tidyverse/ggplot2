@@ -65,7 +65,10 @@ coord_polar <- function(theta = "x", start = 0, direction = 1) {
   )
 }
 
-
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 CoordPolar <- ggproto("CoordPolar", Coord,
 
   aspect = function(details) 1,

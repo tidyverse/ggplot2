@@ -44,6 +44,10 @@ coord_quickmap <- function(xlim = NULL, ylim = NULL) {
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 CoordQuickmap <- ggproto("CoordQuickmap", CoordCartesian,
 
   aspect = function(ranges) {

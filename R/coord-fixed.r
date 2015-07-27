@@ -31,6 +31,10 @@ coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL) {
 coord_equal <- coord_fixed
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 CoordFixed <- ggproto("CoordFixed", CoordCartesian,
 
   aspect = function(self, ranges) {

@@ -106,6 +106,10 @@ coord_trans <- function(x = "identity", y = "identity", limx = NULL, limy = NULL
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 CoordTrans <- ggproto("CoordTrans", Coord,
 
   distance = function(self, x, y, scale_details) {

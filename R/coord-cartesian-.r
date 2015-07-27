@@ -43,7 +43,10 @@ coord_cartesian <- function(xlim = NULL, ylim = NULL) {
   )
 }
 
-
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   is_linear = function() TRUE,

@@ -76,7 +76,10 @@ coord_map <- function(projection="mercator", ..., orientation = NULL, xlim = NUL
   )
 }
 
-
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 CoordMap <- ggproto("CoordMap", Coord,
 
   transform = function(self, data, scale_details) {
