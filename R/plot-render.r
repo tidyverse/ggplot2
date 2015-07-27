@@ -50,7 +50,7 @@ ggplot_gtable <- function(data) {
     plot_theme(plot), geom_grobs)
 
   # Axis labels
-  labels <- coord_labels(plot$coordinates, list(
+  labels <- plot$coordinates$labels(list(
     x = xlabel(panel, plot$labels),
     y = ylabel(panel, plot$labels)
   ))
@@ -87,7 +87,7 @@ ggplot_gtable <- function(data) {
   if (is.zero(legend_box)) {
     position <- "none"
   } else {
-    # these are a bad hack, since it modifies the contents fo viewpoint directly...
+    # these are a bad hack, since it modifies the contents of viewpoint directly...
     legend_width  <- gtable_width(legend_box)  + theme$legend.margin
     legend_height <- gtable_height(legend_box) + theme$legend.margin
 
@@ -133,7 +133,7 @@ ggplot_gtable <- function(data) {
     plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = 1, b = 1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
   } else if (position == "manual") {
-    # should guide box expand whole region or region withoug margin?
+    # should guide box expand whole region or region without margin?
     plot_table <- gtable_add_grob(plot_table, legend_box,
         t = panel_dim$t, b = panel_dim$b, l = panel_dim$l, r = panel_dim$r,
         clip = "off", name = "guide-box")

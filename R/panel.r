@@ -135,7 +135,7 @@ map_position <- function(panel, data, x_scale, y_scale) {
 }
 
 # Function for applying scale function to multiple variables in a given
-# data set.  Implement in such a way to minimise copying and hence maximise
+# data set.  Implement in such a way to minimize copying and hence maximise
 # speed
 scale_apply <- function(data, vars, f, scale_id, scales) {
   if (length(vars) == 0) return()
@@ -171,7 +171,7 @@ panel_scales <- function(panel, i) {
 train_ranges <- function(panel, coord) {
   compute_range <- function(ix, iy) {
     # TODO: change coord_train method to take individual x and y scales
-    coord_train(coord, list(x = panel$x_scales[[ix]], y = panel$y_scales[[iy]]))
+    coord$train(list(x = panel$x_scales[[ix]], y = panel$y_scales[[iy]]))
   }
 
   panel$ranges <- Map(compute_range,

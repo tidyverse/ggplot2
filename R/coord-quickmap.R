@@ -1,6 +1,6 @@
 #' Cartesian coordinates with an aspect ratio approximating Mercator projection.
 #'
-#' The represenation of a portion of the earth, wich is approximately spherical,
+#' The representation of a portion of the earth, which is approximately spherical,
 #' onto a flat 2D plane requires a projection. This is what
 #' \code{\link{coord_map}} does. These projections account for the fact that the
 #' actual length (in km) of one degree of longitude varies between the equator
@@ -14,14 +14,14 @@
 #' graphic have to be projected which is not the case here. So
 #' \code{\link{coord_quickmap}} has the advantage of being much faster, in
 #' particular for complex plots such as those using with
-#' \code{\link{geom_tile}}, at the expense of correctedness in the projection.
+#' \code{\link{geom_tile}}, at the expense of correctness in the projection.
 #'
 #' @export
 #' @inheritParams coord_cartesian
 #' @examples
 #' # ensures that the ranges of axes are equal to the specified ratio by
 #' # adjusting the plot aspect ratio
-#' 
+#'
 #' if (require("maps")) {
 #' # Create a lat-long dataframe from the maps package
 #' nz <- map_data("nz")
@@ -36,30 +36,33 @@
 #' # With the aspect ratio approximation
 #' nzmap + coord_quickmap()
 #' }
-#' 
+#'
 #' # Resize the plot to see that the specified aspect ratio is maintained
 coord_quickmap <- function(xlim = NULL, ylim = NULL) {
-  coord(limits = list(x = xlim, y = ylim),
-    subclass = c("quickmap", "cartesian"))
+  ggproto(NULL, CoordQuickmap,
+    limits = list(x = xlim, y = ylim)
+  )
 }
 
-#' @export
-coord_aspect.quickmap <- function(coord, ranges) {
-  # compute coordinates of center point of map
-  x.center <- sum(ranges$x.range) / 2
-  y.center <- sum(ranges$y.range) / 2
+CoordQuickmap <- ggproto("CoordQuickmap", CoordCartesian,
 
-  # compute distance corresponding to 1 degree in either direction
-  # from the center
-  x.dist <- dist_central_angle(x.center + c(-0.5, 0.5), rep(y.center, 2))
-  y.dist <- dist_central_angle(rep(x.center, 2), y.center+c(-0.5, 0.5))
-  # NB: this makes the projection correct in the center of the plot and
-  #     increasingly less correct towards the edges. For regions of reasonnable
-  #     size, this seems to give better results than computing this ratio from
-  #     the total lat and lon span.
+  aspect = function(ranges) {
+    # compute coordinates of center point of map
+    x.center <- sum(ranges$x.range) / 2
+    y.center <- sum(ranges$y.range) / 2
 
-  # scale the plot with this aspect ratio
-  ratio <- y.dist / x.dist
+    # compute distance corresponding to 1 degree in either direction
+    # from the center
+    x.dist <- dist_central_angle(x.center + c(-0.5, 0.5), rep(y.center, 2))
+    y.dist <- dist_central_angle(rep(x.center, 2), y.center+c(-0.5, 0.5))
+    # NB: this makes the projection correct in the center of the plot and
+    #     increasingly less correct towards the edges. For regions of reasonnable
+    #     size, this seems to give better results than computing this ratio from
+    #     the total lat and lon span.
 
-  diff(ranges$y.range) / diff(ranges$x.range) * ratio
-}
+    # scale the plot with this aspect ratio
+    ratio <- y.dist / x.dist
+
+    diff(ranges$y.range) / diff(ranges$x.range) * ratio
+  }
+)

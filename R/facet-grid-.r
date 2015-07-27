@@ -426,15 +426,13 @@ facet_axes.grid <- function(facet, panel, coord, theme) {
 
   # Horizontal axes
   cols <- which(panel$layout$ROW == 1)
-  grobs <- lapply(panel$ranges[cols], coord_render_axis_h,
-    coord = coord, theme = theme)
+  grobs <- lapply(panel$ranges[cols], coord$render_axis_h, theme = theme)
   axes$b <- gtable_add_col_space(gtable_row("axis-b", grobs),
     theme$panel.margin.x %||% theme$panel.margin)
 
   # Vertical axes
   rows <- which(panel$layout$COL == 1)
-  grobs <- lapply(panel$ranges[rows], coord_render_axis_v,
-    coord = coord, theme = theme)
+  grobs <- lapply(panel$ranges[rows], coord$render_axis_v, theme = theme)
   axes$l <- gtable_add_row_space(gtable_col("axis-l", grobs),
     theme$panel.margin.y %||% theme$panel.margin)
 
@@ -448,7 +446,7 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   # ask the coordinate system if it wants to specify one
   aspect_ratio <- theme$aspect.ratio
   if (is.null(aspect_ratio) && !facet$free$x && !facet$free$y) {
-    aspect_ratio <- coord_aspect(coord, panel$ranges[[1]])
+    aspect_ratio <- coord$aspect(panel$ranges[[1]])
   }
   if (is.null(aspect_ratio)) {
     aspect_ratio <- 1
@@ -463,8 +461,8 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   nrow <- max(panel$layout$ROW)
 
   panel_grobs <- lapply(panels, function(i) {
-    fg <- coord_render_fg(coord, panel$ranges[[i]], theme)
-    bg <- coord_render_bg(coord, panel$ranges[[i]], theme)
+    fg <- coord$render_fg(panel$ranges[[i]], theme)
+    bg <- coord$render_bg(panel$ranges[[i]], theme)
 
     geom_grobs <- lapply(geom_grobs, "[[", i)
 

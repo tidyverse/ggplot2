@@ -3,8 +3,8 @@ NULL
 
 #' Annotation: Custom grob.
 #'
-#' This is a special geom intended for use as static annnotations
-#' that are the same in every panel. These anotations will not
+#' This is a special geom intended for use as static annotations
+#' that are the same in every panel. These annotations will not
 #' affect scales (i.e. the x and y axes will not grow to cover the range
 #' of the grob, and the grob will not be modified by any ggplot settings or mappings).
 #'
@@ -62,12 +62,12 @@ annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax 
 GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
   draw_groups = function(data, scales, coordinates, grob, xmin, xmax,
                           ymin, ymax, ...) {
-    if (!inherits(coordinates, "cartesian")) {
+    if (!inherits(coordinates, "CoordCartesian")) {
       stop("annotation_custom only works with Cartesian coordinates",
         call. = FALSE)
     }
     corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
-    data <- coord_transform(coordinates, corners, scales)
+    data <- coordinates$transform(corners, scales)
 
     x_rng <- range(data$x, na.rm = TRUE)
     y_rng <- range(data$y, na.rm = TRUE)

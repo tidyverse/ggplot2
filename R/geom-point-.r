@@ -21,7 +21,7 @@
 #' \code{\link{geom_boxplot}} may also be useful.  Alternatively, you can
 #' summarise the number of points at each location and display that in some
 #' way, using \code{\link{stat_sum}}. Another technique is to use transparent
-#' points, \code{geom_point(alpha = 0.05)}.
+#' points, e.g. \code{geom_point(alpha = 0.05)}.
 #'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
@@ -34,7 +34,7 @@
 #'    at the layer level if you are overriding the plot defaults.
 #' @param data A data frame. If specified, overrides the default data frame
 #'   defined at the top level of the plot.
-#' @param position Postion adjustment, either as a string, or the result of
+#' @param position Position adjustment, either as a string, or the result of
 #'  a call to a position adjustment function.
 #' @param stat The statistical transformation to use on the data for this
 #'    layer, as a string.
@@ -146,7 +146,7 @@ GeomPoint <- ggproto("GeomPoint", Geom,
       name = "geom_point")
     if (empty(data)) return(zeroGrob())
 
-    coords <- coord_transform(coordinates, data, scales)
+    coords <- coordinates$transform(data, scales)
     ggname("geom_point",
       pointsGrob(
         coords$x, coords$y,

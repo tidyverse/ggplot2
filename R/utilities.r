@@ -51,7 +51,7 @@ clist <- function(l) {
 }
 
 # Quietly try to require a package
-# Queitly require a package, returning an error message if that package is not installed.
+# Quietly require a package, returning an error message if that package is not installed.
 #
 # @param name of package
 # @keyword internal
@@ -99,7 +99,7 @@ safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRU
 # Convenience function to remove missing values from a data.frame
 # Remove all non-complete rows, with a warning if \code{na.rm = FALSE}.
 #
-# ggplot is somewhat more accomodating of missing values than R generally.
+# ggplot is somewhat more accommodating of missing values than R generally.
 # For those stats which require complete data, missing values will be
 # automatically removed with a warning.  If \code{na.rm = TRUE} is supplied
 # to the statistic, the warning will be suppressed.
@@ -203,7 +203,7 @@ rescale01 <- function(x) {
   (x - rng[1]) / (rng[2] - rng[1])
 }
 
-#' Give a deprecation error, warning, or messsage, depending on version number.
+#' Give a deprecation error, warning, or message, depending on version number.
 #'
 #' Version numbers have the format <major>.<minor>.<subminor>, like 0.9.2.
 #' This function compares the current version number of ggplot2 against the

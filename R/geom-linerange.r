@@ -59,7 +59,7 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
   required_aes = c("x", "ymin", "ymax"),
 
   draw = function(self, data, scales, coordinates, ...) {
-    munched <- coord_transform(coordinates, data, scales)
+    munched <- coordinates$transform(data, scales)
     ggname(
       "geom_linerange",
       GeomSegment$draw(

@@ -72,12 +72,12 @@ GeomRasterAnn <- ggproto("GeomRasterAnn", GeomRaster,
   draw_groups = function(data, scales, coordinates, raster, xmin, xmax,
     ymin, ymax, interpolate = FALSE, ...)
   {
-    if (!inherits(coordinates, "cartesian")) {
+    if (!inherits(coordinates, "CoordCartesian")) {
       stop("annotation_raster only works with Cartesian coordinates",
         call. = FALSE)
     }
     corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
-    data <- coord_transform(coordinates, corners, scales)
+    data <- coordinates$transform(corners, scales)
 
     x_rng <- range(data$x, na.rm = TRUE)
     y_rng <- range(data$y, na.rm = TRUE)

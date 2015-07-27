@@ -1,8 +1,8 @@
 coord_munch <- function(coord, data, range, segment_length = 0.01) {
-  if (is.linear(coord)) return(coord_transform(coord, data, range))
+  if (coord$is_linear()) return(coord$transform(data, range))
 
   # range has theta and r values; get corresponding x and y values
-  ranges <- coord_range(coord, range)
+  ranges <- coord$range(range)
 
   # Convert any infinite locations into max/min
   # Only need to work with x and y because for munching, those are the
@@ -13,16 +13,16 @@ coord_munch <- function(coord, data, range, segment_length = 0.01) {
   data$y[data$y == Inf]  <- ranges$y[2]
 
   # Calculate distances using coord distance metric
-  dist <- coord_distance(coord, data$x, data$y, range)
+  dist <- coord$distance(data$x, data$y, range)
   dist[data$group[-1] != data$group[-nrow(data)]] <- NA
 
   # Munch and then transform result
   munched <- munch_data(data, dist, segment_length)
-  coord_transform(coord, munched, range)
+  coord$transform(munched, range)
 }
 
 # For munching, only grobs are lines and polygons: everything else is
-# transfomed into those special cases by the geom.
+# transformed into those special cases by the geom.
 #
 # @param dist distance, scaled from 0 to 1 (maximum distance on plot)
 # @keyword internal
@@ -128,7 +128,7 @@ dist_polar <- function(r, theta) {
   lf$dist[idx] <-
     spiral_arc_length(lf$slope[idx], lf$tn1[idx], lf$tn2[idx])
 
-  # Get cicular arc length for segments that have zero slope (r1 == r2)
+  # Get circular arc length for segments that have zero slope (r1 == r2)
   idx <- !is.na(lf$slope) & lf$slope == 0
   lf$dist[idx] <- lf$r1[idx] * (lf$t2[idx] - lf$t1[idx])
 

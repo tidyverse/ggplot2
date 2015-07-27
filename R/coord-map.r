@@ -15,7 +15,7 @@
 #'  \code{c(90, 0, mean(range(x)))}.  This is not optimal for many
 #'  projections, so you will have to supply your own. See
 #'  \code{\link[mapproj]{mapproject}} for more information.
-#' @param xlim manually specific x limits (in degrees of lontitude)
+#' @param xlim manually specific x limits (in degrees of longitude)
 #' @param ylim manually specific y limits (in degrees of latitude)
 #' @export
 #' @examples
@@ -68,165 +68,164 @@
 #' worldmap + coord_map("ortho", orientation=c(41, -74, 0))
 #' }
 coord_map <- function(projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL) {
-  coord(
+  ggproto(NULL, CoordMap,
     projection = projection,
     orientation = orientation,
     limits = list(x = xlim, y = ylim),
-    params = list(...),
-    subclass = "map"
+    params = list(...)
   )
 }
 
-#' @export
-coord_transform.map <- function(coord, data, details) {
-  trans <- mproject(coord, data$x, data$y, details$orientation)
-  out <- cunion(trans[c("x", "y")], data)
 
-  out$x <- rescale(out$x, 0:1, details$x.proj)
-  out$y <- rescale(out$y, 0:1, details$y.proj)
-  out
-}
+CoordMap <- ggproto("CoordMap", Coord,
+
+  transform = function(self, data, scale_details) {
+    trans <- mproject(self, data$x, data$y, scale_details$orientation)
+    out <- cunion(trans[c("x", "y")], data)
+
+    out$x <- rescale(out$x, 0:1, scale_details$x.proj)
+    out$y <- rescale(out$y, 0:1, scale_details$y.proj)
+    out
+  },
+
+  distance = function(x, y, scale_details) {
+    max_dist <- dist_central_angle(scale_details$x.range, scale_details$y.range)
+    dist_central_angle(x, y) / max_dist
+  },
+
+  aspect = function(ranges) {
+    diff(ranges$y.proj) / diff(ranges$x.proj)
+  },
+
+  train = function(self, scale_details) {
+
+    # range in scale
+    ranges <- list()
+    for (n in c("x", "y")) {
+
+      scale <- scale_details[[n]]
+      limits <- self$limits[[n]]
+
+      if (is.null(limits)) {
+        expand <- self$expand_defaults(scale, n)
+        range <- scale_dimension(scale, expand)
+      } else {
+        range <- range(scale_transform(scale, limits))
+      }
+      ranges[[n]] <- range
+    }
+
+    orientation <- self$orientation %||% c(90, 0, mean(ranges$x))
+
+    # Increase chances of creating valid boundary region
+    grid <- expand.grid(
+      x = seq(ranges$x[1], ranges$x[2], length.out = 50),
+      y = seq(ranges$y[1], ranges$y[2], length.out = 50)
+    )
+
+    ret <- list(x = list(), y = list())
+
+    # range in map
+    proj <- mproject(self, grid$x, grid$y, orientation)$range
+    ret$x$proj <- proj[1:2]
+    ret$y$proj <- proj[3:4]
+
+    for (n in c("x", "y")) {
+      out <- scale_break_info(scale_details[[n]], ranges[[n]])
+      ret[[n]]$range <- out$range
+      ret[[n]]$major <- out$major_source
+      ret[[n]]$minor <- out$minor_source
+      ret[[n]]$labels <- out$labels
+    }
+
+    details <- list(
+      orientation = orientation,
+      x.range = ret$x$range, y.range = ret$y$range,
+      x.proj = ret$x$proj, y.proj = ret$y$proj,
+      x.major = ret$x$major, x.minor = ret$x$minor, x.labels = ret$x$labels,
+      y.major = ret$y$major, y.minor = ret$y$minor, y.labels = ret$y$labels
+    )
+    details
+  },
+
+  render_bg = function(self, scale_details, theme) {
+    xrange <- expand_range(scale_details$x.range, 0.2)
+    yrange <- expand_range(scale_details$y.range, 0.2)
+
+    # Limit ranges so that lines don't wrap around globe
+    xmid <- mean(xrange)
+    ymid <- mean(yrange)
+    xrange[xrange < xmid - 180] <- xmid - 180
+    xrange[xrange > xmid + 180] <- xmid + 180
+    yrange[yrange < ymid - 90] <- ymid - 90
+    yrange[yrange > ymid + 90] <- ymid + 90
+
+    xgrid <- with(scale_details, expand.grid(
+      y = c(seq(yrange[1], yrange[2], length.out = 50), NA),
+      x = x.major
+    ))
+    ygrid <- with(scale_details, expand.grid(
+      x = c(seq(xrange[1], xrange[2], length.out = 50), NA),
+      y = y.major
+    ))
+
+    xlines <- self$transform(xgrid, scale_details)
+    ylines <- self$transform(ygrid, scale_details)
+
+    if (nrow(xlines) > 0) {
+      grob.xlines <- element_render(
+        theme, "panel.grid.major.x",
+        xlines$x, xlines$y, default.units = "native"
+      )
+    } else {
+      grob.xlines <- zeroGrob()
+    }
+
+    if (nrow(ylines) > 0) {
+      grob.ylines <- element_render(
+        theme, "panel.grid.major.y",
+        ylines$x, ylines$y, default.units = "native"
+      )
+    } else {
+      grob.ylines <- zeroGrob()
+    }
+
+    ggname("grill", grobTree(
+      element_render(theme, "panel.background"),
+      grob.xlines, grob.ylines
+    ))
+  },
+
+  render_axis_h = function(self, scale_details, theme) {
+    if (is.null(scale_details$x.major)) return(zeroGrob())
+
+    x_intercept <- with(scale_details, data.frame(
+      x = x.major,
+      y = y.range[1]
+    ))
+    pos <- self$transform(x_intercept, scale_details)
+
+    guide_axis(pos$x, scale_details$x.labels, "bottom", theme)
+  },
+
+  render_axis_v = function(self, scale_details, theme) {
+    if (is.null(scale_details$y.major)) return(zeroGrob())
+
+    x_intercept <- with(scale_details, data.frame(
+      x = x.range[1],
+      y = y.major
+    ))
+    pos <- self$transform(x_intercept, scale_details)
+
+    guide_axis(pos$y, scale_details$y.labels, "left", theme)
+  }
+)
+
+
 mproject <- function(coord, x, y, orientation) {
   suppressWarnings(mapproj::mapproject(x, y,
     projection = coord$projection,
     parameters  = coord$params,
     orientation = orientation
   ))
-}
-
-#' @export
-coord_distance.map <- function(coord, x, y, details) {
-  max_dist <- dist_central_angle(details$x.range, details$y.range)
-  dist_central_angle(x, y) / max_dist
-}
-
-#' @export
-coord_aspect.map <- function(coord, ranges) {
-  diff(ranges$y.proj) / diff(ranges$x.proj)
-}
-
-#' @export
-coord_train.map <- function(coord, scales) {
-
-  # range in scale
-  ranges <- list()
-  for (n in c("x", "y")) {
-
-    scale <- scales[[n]]
-    limits <- coord$limits[[n]]
-
-    if (is.null(limits)) {
-      expand <- coord_expand_defaults(coord, scale, n)
-      range <- scale_dimension(scale, expand)
-    } else {
-      range <- range(scale_transform(scale, limits))
-    }
-    ranges[[n]] <- range
-  }
-
-  orientation <- coord$orientation %||% c(90, 0, mean(ranges$x))
-
-  # Increase chances of creating valid boundary region
-  grid <- expand.grid(
-    x = seq(ranges$x[1], ranges$x[2], length.out = 50),
-    y = seq(ranges$y[1], ranges$y[2], length.out = 50)
-  )
-
-  ret <- list(x = list(), y = list())
-
-  # range in map
-  proj <- mproject(coord, grid$x, grid$y, orientation)$range
-  ret$x$proj <- proj[1:2]
-  ret$y$proj <- proj[3:4]
-
-  for (n in c("x", "y")) {
-    out <- scale_break_info(scales[[n]], ranges[[n]])
-    ret[[n]]$range <- out$range
-    ret[[n]]$major <- out$major_source
-    ret[[n]]$minor <- out$minor_source
-    ret[[n]]$labels <- out$labels
-  }
-
-  details <- list(
-    orientation = orientation,
-    x.range = ret$x$range, y.range = ret$y$range,
-    x.proj = ret$x$proj, y.proj = ret$y$proj,
-    x.major = ret$x$major, x.minor = ret$x$minor, x.labels = ret$x$labels,
-    y.major = ret$y$major, y.minor = ret$y$minor, y.labels = ret$y$labels
-  )
-  details
-}
-
-#' @export
-coord_render_bg.map <- function(coord, details, theme) {
-  xrange <- expand_range(details$x.range, 0.2)
-  yrange <- expand_range(details$y.range, 0.2)
-
-  # Limit ranges so that lines don't wrap around globe
-  xmid <- mean(xrange)
-  ymid <- mean(yrange)
-  xrange[xrange < xmid - 180] <- xmid - 180
-  xrange[xrange > xmid + 180] <- xmid + 180
-  yrange[yrange < ymid - 90] <- ymid - 90
-  yrange[yrange > ymid + 90] <- ymid + 90
-
-  xgrid <- with(details, expand.grid(
-    y = c(seq(yrange[1], yrange[2], length.out = 50), NA),
-    x = x.major
-  ))
-  ygrid <- with(details, expand.grid(
-    x = c(seq(xrange[1], xrange[2], length.out = 50), NA),
-    y = y.major
-  ))
-
-  xlines <- coord_transform(coord, xgrid, details)
-  ylines <- coord_transform(coord, ygrid, details)
-
-  if (nrow(xlines) > 0) {
-    grob.xlines <- element_render(
-      theme, "panel.grid.major.x",
-      xlines$x, xlines$y, default.units = "native"
-    )
-  } else {
-    grob.xlines <- zeroGrob()
-  }
-
-  if (nrow(ylines) > 0) {
-    grob.ylines <- element_render(
-      theme, "panel.grid.major.y",
-      ylines$x, ylines$y, default.units = "native"
-    )
-  } else {
-    grob.ylines <- zeroGrob()
-  }
-
-  ggname("grill", grobTree(
-    element_render(theme, "panel.background"),
-    grob.xlines, grob.ylines
-  ))
-}
-
-#' @export
-coord_render_axis_h.map <- function(coord, details, theme) {
-  if (is.null(details$x.major)) return(zeroGrob())
-
-  x_intercept <- with(details, data.frame(
-    x = x.major,
-    y = y.range[1]
-  ))
-  pos <- coord_transform(coord, x_intercept, details)
-
-  guide_axis(pos$x, details$x.labels, "bottom", theme)
-}
-#' @export
-coord_render_axis_v.map <- function(coord, details, theme) {
-  if (is.null(details$y.major)) return(zeroGrob())
-
-  x_intercept <- with(details, data.frame(
-    x = x.range[1],
-    y = y.major
-  ))
-  pos <- coord_transform(coord, x_intercept, details)
-
-  guide_axis(pos$y, details$y.labels, "left", theme)
 }
