@@ -50,7 +50,7 @@ stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
 #' @usage NULL
 #' @export
 StatSmooth <- ggproto("StatSmooth", Stat,
-  calculate_groups = function(self, super, data, scales, method = "auto",
+  calculate_groups = function(self, data, scales, method = "auto",
     formula = y~x, ...)
   {
     rows <- plyr::daply(data, "group", function(df) length(unique(df$x)))
@@ -84,7 +84,8 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       method <- mgcv::gam
     }
 
-    super$calculate_groups(self = self, data, scales, method = method, formula = formula, ...)
+    ggproto_parent(Stat, self)$calculate_groups(data, scales, method = method,
+      formula = formula, ...)
   },
 
   calculate = function(data, scales, method = "auto", formula = y~x,

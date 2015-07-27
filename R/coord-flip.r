@@ -40,10 +40,8 @@ coord_flip <- function(...) {
 #' @export
 CoordFlip <- ggproto("CoordFlip", CoordCartesian,
 
-  transform = function(super, data, scale_details) {
+  transform = function(data, scale_details) {
     data <- flip_labels(data)
-    # proto2 TODO: Fix this workaround for #1200. It flips twice if super$ is used.
-    # super$transform(data, scale_details)
     CoordCartesian$transform(data, scale_details)
   },
 
@@ -52,15 +50,12 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
   },
 
   train = function(self, scale_details) {
-    # proto2 TODO: Fix this workaround for #1200. It flips twice if super$ is used.
-    # flip_labels(super$train(self, scale_details))
-
-    train <- environment(CoordCartesian$train)$res
-    flip_labels(train(self, scale_details))
+    trained <- ggproto_parent(CoordCartesian, self)$train(scale_details)
+    flip_labels(trained)
   },
 
-  labels = function(super, scale_details) {
-    flip_labels(super$labels(scale_details))
+  labels = function(scale_details) {
+    flip_labels(CoordCartesian$labels(scale_details))
   }
 )
 

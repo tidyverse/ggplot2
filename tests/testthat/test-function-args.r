@@ -1,10 +1,10 @@
 context("function-args")
 
 # proto2 TODO: better way of getting formals for self$draw
-formals_proto2 <- function(x) formals(environment(x)$res)
+formals_proto2 <- function(x) formals(environment(x)$f)
 filter_args <- function(x) {
   all_names <- names(x)
-  all_names <- setdiff(all_names, c("self", "super", "data", "scales", "coordinates", "..."))
+  all_names <- setdiff(all_names, c("self", "data", "scales", "coordinates", "..."))
   x[all_names]
 }
 

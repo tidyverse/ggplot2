@@ -41,15 +41,15 @@ stat_boxplot <- function(mapping = NULL, data = NULL, geom = "boxplot",
 StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("x", "y"),
 
-  calculate_groups = function(self, super, data, na.rm = FALSE, width = NULL,
-    ...)
+  calculate_groups = function(self, data, na.rm = FALSE, width = NULL, ...)
   {
     data <- remove_missing(data, na.rm, c("x", "y", "weight"), name="stat_boxplot",
       finite = TRUE)
     data$weight <- data$weight %||% 1
     width <- width %||%  resolution(data$x) * 0.75
 
-    super$calculate_groups(self, data, na.rm = na.rm, width = width, ...)
+    ggproto_parent(Stat, self)$calculate_groups(data, na.rm = na.rm,
+      width = width, ...)
   },
 
   calculate = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, ...) {

@@ -45,13 +45,13 @@ stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
 StatBin <- ggproto("StatBin", Stat,
   informed = FALSE,
 
-  calculate_groups = function(self, super, data, ...) {
+  calculate_groups = function(self, data, ...) {
     if (!is.null(data$y) || !is.null(match.call()$y)) {
       stop("May not have y aesthetic when binning", call. = FALSE)
     }
 
     self$informed <- FALSE
-    super$calculate_groups(self, data, ...)
+    ggproto_parent(Stat, self)$calculate_groups(data, ...)
   },
 
   calculate = function(self, data, scales, binwidth = NULL, origin = NULL,

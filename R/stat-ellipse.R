@@ -71,10 +71,6 @@ stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
 StatEllipse <- ggproto("StatEllipse", Stat,
   required_aes = c("x", "y"),
 
-  calculate_groups = function(self, super, data, scales, ...){
-    super$calculate_groups(self, data, scales,...)
-  },
-
   calculate = function(data, scales, type = "t", level = 0.95, segments = 51,
     na.rm = FALSE, ...)
   {

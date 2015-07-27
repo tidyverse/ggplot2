@@ -46,11 +46,12 @@ stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
 #' @usage NULL
 #' @export
 StatYdensity <- ggproto("StatYdensity", Stat,
-  calculate_groups = function(self, super, data, na.rm = FALSE, width = NULL,
+  calculate_groups = function(self, data, na.rm = FALSE, width = NULL,
     scale = "area", ...)
   {
     data <- remove_missing(data, na.rm, c("x", "y", "weight"), name = "stat_ydensity", finite = TRUE)
-    data <- super$calculate_groups(self, data, na.rm = na.rm, width = width, ...)
+    data <- ggproto_parent(Stat, self)$calculate_groups(data, na.rm = na.rm,
+      width = width, ...)
 
     # choose how violins are scaled relative to each other
     scale <- match.arg(scale, c("area", "count", "width"))

@@ -6,40 +6,27 @@
 #'
 #' @section Calling ggproto methods:
 #'
-#'   Methods in ggproto objects can take optional \code{self} and \code{super}
-#'   arguments. If the arguments are present, then, when the method is called,
-#'   it will automatically be passed the current object (as \code{self}) and the
-#'   object that it inherits from (as \code{super}). Note that the wrapper
-#'   function will automatically pass these arguments; when calling the wrapper,
-#'   you should not pass in \code{self} or \code{super}.
+#' ggproto methods can take an optional \code{self} argument: if it is present,
+#' it is a regular method; if it's absent, it's a "static" method (i.e. it
+#' doesn't use any fields).
 #'
-#'   For example, suppose you have a ggproto object \code{Adder}, which has a
-#'   method \code{addx = function(self, n) n + self$x}. Then, to call this
-#'   function, you would use \code{Adder$addx(10)} -- the \code{self} is passed
-#'   in automatically by the wrapper function. The same is true of \code{super}.
-#'   These arguments can come in any place in the function signature, although
-#'   customarily they come before any other arguments.
+#' Imagine you have a ggproto object \code{Adder}, which has a
+#' method \code{addx = function(self, n) n + self$x}. Then, to call this
+#' function, you would use \code{Adder$addx(10)} -- the \code{self} is passed
+#' in automatically by the wrapper function. \code{self} be located anywhere
+#' in the function signature, although customarily it comes first.
 #'
-#'   The exception to this is when you call a method from an inherited object.
-#'   In this case, if the method takes \code{self} as an argument, you must pass
-#'   in \code{self} explicitly, so instead of \code{super$addx(10)}, you would
-#'   call \code{super$addx(self, 10)}. However, you do not pass \code{super}
-#'   explicitly in these cases because it is passed automatically by the wrapper
-#'   function. This pattern is necessary for the inherited method to receive the
-#'   correct \code{self} object.
+#' @section Calling methods in a parent:
 #'
-#'   Note that this unusal behavior, passing \code{self} explicitly, is required
-#'   whenever a ggproto object is named \code{super}, even if it is outside of a
-#'   ggproto method. If you name a ggproto object \code{super} in the global
-#'   environment, and then call \code{super$addx(10)}, it won't work correctly.
-#'   It's best to avoid using the name \code{super}.
-#'
+#' To explicitly call a methods in a parent, use
+#' \code{ggproto_parent(Parent, self)}.
 #'
 #' @param _class Class name to assign to the object. This is stored as the class
 #'   attribute of the object. If \code{NULL} (the default), no class name will
 #'   be added to the object.
 #' @param _inherit ggproto object to inherit from. If \code{NULL}, don't inherit
 #'   from any object.
+#' @param parent,self Access parent class \code{parent} of object \code{self}.
 #' @param ... A list of members in the ggproto object.
 #' @export
 ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
@@ -90,53 +77,41 @@ fetch_ggproto <- function(x, name) {
 }
 
 #' @export
+#' @rdname ggproto
+ggproto_parent <- function(parent, self) {
+  structure(list(parent = parent, self = self), class = "ggproto_parent")
+}
+
+#' @export
 `$.ggproto` <- function(x, name) {
   res <- fetch_ggproto(x, name)
-
   if (!is.function(res)) {
     return(res)
   }
 
-  # Use `self` to make debugging easier
-  self <- x
+  make_proto_method(x, res)
+}
 
-  # If it's a function, there are three orthogonal things we need to check for
-  # before wrapping it up in another function:
-  #  * If there's a `self` argument, the wrapper function embeds `self` in the
-  #    inner function call.
-  #  * If there's a `super` argument, the wrapper function embeds `super` in the
-  #    inner function call.
-  #  * If it's called from `super$`, the wrapper function never embeds `self`
-  #    in the inner function call. The user must pass the `self` object
-  #    manually, as in `super$foo(self)`. The wrapper _will_ embed `super` if
-  #    the inner function needs it.
-  args <- formals(res)
+#' @export
+`$.ggproto_parent` <- function(x, name) {
+  res <- fetch_ggproto(.subset2(x, "parent"), name)
+  if (!is.function(res)) {
+    return(res)
+  }
+
+  make_proto_method(.subset2(x, "self"), res)
+}
+
+make_proto_method <- function(self, f) {
+  args <- formals(f)
   # is.null is a fast path for a common case; the %in% check is slower but also
-  # catches the case where there's a `super=NULL` argument.
-  has_self  <- !is.null(args[["self"]])  || "self"  %in% names(args)
-  has_super <- !is.null(args[["super"]]) || "super" %in% names(args)
-  called_from_super <- substitute(x) == quote(super)
+  # catches the case where there's a `self = NULL` argument.
+  has_self  <- !is.null(args[["self"]]) || "self"  %in% names(args)
 
-  if (!called_from_super) {
-    if (has_self) {
-      if (has_super) {
-        fun <- function(...) res(..., self = self, super = self[["super"]])
-      } else {
-        fun <- function(...) res(..., self = self)
-      }
-    } else {
-      if (has_super) {
-        fun <- function(...) res(..., super = self[["super"]])
-      } else {
-        fun <- function(...) res(...)
-      }
-    }
+  if (has_self) {
+    fun <- function(...) f(..., self = self)
   } else {
-    if (has_super) {
-      fun <- function(...) res(..., super = self[["super"]])
-    } else {
-      fun <- function(...) res(...)
-    }
+    fun <- function(...) f(...)
   }
 
   class(fun) <- "ggproto_method"
@@ -146,7 +121,6 @@ fetch_ggproto <- function(x, name) {
 
 #' @export
 `[[.ggproto` <- `$.ggproto`
-
 
 #' Convert a ggproto object to a list
 #'
@@ -247,12 +221,6 @@ object_summaries <- function(x, exclude = NULL, flat = TRUE) {
 
   obj_names <- setdiff(obj_names, exclude)
 
-  # Put 'super' last
-  if ("super" %in% obj_names) {
-    obj_names <- obj_names[obj_names != "super"]
-    obj_names[length(obj_names) + 1] <- "super"
-  }
-
   values <- vapply(obj_names, function(name) {
     obj <- x[[name]]
     if (is.function(obj)) "function"
@@ -304,6 +272,6 @@ format.ggproto_method <- function(x, ...) {
   paste0(
     "<ggproto method>",
     "\n  <Wrapper function>\n    ", format_fun(x),
-    "\n\n  <Inner function (res)>\n    ", format_fun(environment(x)$res)
+    "\n\n  <Inner function (res)>\n    ", format_fun(environment(x)$f)
   )
 }

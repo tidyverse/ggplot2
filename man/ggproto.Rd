@@ -2,9 +2,12 @@
 % Please edit documentation in R/ggproto.r
 \name{ggproto}
 \alias{ggproto}
+\alias{ggproto_parent}
 \title{Create a new ggproto object}
 \usage{
 ggproto(`_class` = NULL, `_inherit` = NULL, ...)
+
+ggproto_parent(parent, self)
 }
 \arguments{
 \item{_class}{Class name to assign to the object. This is stored as the class
@@ -15,6 +18,8 @@ be added to the object.}
 from any object.}
 
 \item{...}{A list of members in the ggproto object.}
+
+\item{parent,self}{Access parent class \code{parent} of object \code{self}.}
 }
 \description{
 ggproto is inspired by the proto package, but it has some important
@@ -24,32 +29,21 @@ faster performance.
 \section{Calling ggproto methods}{
 
 
-  Methods in ggproto objects can take optional \code{self} and \code{super}
-  arguments. If the arguments are present, then, when the method is called,
-  it will automatically be passed the current object (as \code{self}) and the
-  object that it inherits from (as \code{super}). Note that the wrapper
-  function will automatically pass these arguments; when calling the wrapper,
-  you should not pass in \code{self} or \code{super}.
+ggproto methods can take an optional \code{self} argument: if it is present,
+it is a regular method; if it's absent, it's a "static" method (i.e. it
+doesn't use any fields).
 
-  For example, suppose you have a ggproto object \code{Adder}, which has a
-  method \code{addx = function(self, n) n + self$x}. Then, to call this
-  function, you would use \code{Adder$addx(10)} -- the \code{self} is passed
-  in automatically by the wrapper function. The same is true of \code{super}.
-  These arguments can come in any place in the function signature, although
-  customarily they come before any other arguments.
+Imagine you have a ggproto object \code{Adder}, which has a
+method \code{addx = function(self, n) n + self$x}. Then, to call this
+function, you would use \code{Adder$addx(10)} -- the \code{self} is passed
+in automatically by the wrapper function. \code{self} be located anywhere
+in the function signature, although customarily it comes first.
+}
 
-  The exception to this is when you call a method from an inherited object.
-  In this case, if the method takes \code{self} as an argument, you must pass
-  in \code{self} explicitly, so instead of \code{super$addx(10)}, you would
-  call \code{super$addx(self, 10)}. However, you do not pass \code{super}
-  explicitly in these cases because it is passed automatically by the wrapper
-  function. This pattern is necessary for the inherited method to receive the
-  correct \code{self} object.
+\section{Calling methods in a parent}{
 
-  Note that this unusal behavior, passing \code{self} explicitly, is required
-  whenever a ggproto object is named \code{super}, even if it is outside of a
-  ggproto method. If you name a ggproto object \code{super} in the global
-  environment, and then call \code{super$addx(10)}, it won't work correctly.
-  It's best to avoid using the name \code{super}.
+
+To explicitly call a methods in a parent, use
+\code{ggproto_parent(Parent, self)}.
 }
 
