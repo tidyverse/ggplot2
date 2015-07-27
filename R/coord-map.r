@@ -15,7 +15,7 @@
 #'  \code{c(90, 0, mean(range(x)))}.  This is not optimal for many
 #'  projections, so you will have to supply your own. See
 #'  \code{\link[mapproj]{mapproject}} for more information.
-#' @param xlim manually specific x limits (in degrees of lontitude)
+#' @param xlim manually specific x limits (in degrees of longitude)
 #' @param ylim manually specific y limits (in degrees of latitude)
 #' @export
 #' @examples

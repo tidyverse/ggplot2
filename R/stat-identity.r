@@ -9,7 +9,7 @@
 #' @param data A layer specific dataset - only needed if you want to override
 #'    the plot defaults.
 #' @param geom The geometric object to use display the data
-#' @param position The position adjustment to use for overlappling points
+#' @param position The position adjustment to use for overlapping points
 #'    on this layer
 #' @param width The width of the tiles.
 #' @param height The height of the tiles.

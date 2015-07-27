@@ -112,7 +112,7 @@ fetch_ggproto <- function(x, name) {
   #    the inner function needs it.
   args <- formals(res)
   # is.null is a fast path for a common case; the %in% check is slower but also
-  # catches the case where theres a `super=NULL` argument.
+  # catches the case where there's a `super=NULL` argument.
   has_self  <- !is.null(args[["self"]])  || "self"  %in% names(args)
   has_super <- !is.null(args[["super"]]) || "super" %in% names(args)
   called_from_super <- substitute(x) == quote(super)

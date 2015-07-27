@@ -8,7 +8,7 @@
 #' @examples
 #'
 #' # Line types should be specified with either an integer, a name, or with a string of
-#' # an even number (up to eight) of hexidecimal digits which give the lengths in
+#' # an even number (up to eight) of hexadecimal digits which give the lengths in
 #' # consecutive positions in the string.
 #' # 0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash
 #'

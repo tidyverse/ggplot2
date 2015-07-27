@@ -46,7 +46,7 @@
 #' # You can also map aesthetics to functions of variables
 #' aes(x = mpg ^ 2, y = wt / cyl)
 #'
-#' # Aesthetic names are automatically standarised
+#' # Aesthetic names are automatically standardised
 #' aes(col = x)
 #' aes(fg = x)
 #' aes(color = x)
@@ -115,7 +115,7 @@ is_position_aes <- function(vars) {
 #' @seealso \code{\link{aes}}
 #' @export
 #' @examples
-#' # Threee ways of generating the same aesthetics
+#' # Three ways of generating the same aesthetics
 #' aes(mpg, wt, col = cyl)
 #' aes_string("mpg", "wt", col = "cyl")
 #' aes_q(quote(mpg), quote(wt), col = quote(cyl))

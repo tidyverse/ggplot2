@@ -337,7 +337,7 @@ scale_expand.default <- function(scale) {
   scale$expand %|W|% c(0, 0)
 }
 
-# The phyical size of the scale, if a position scale
+# The physical size of the scale, if a position scale
 # Unlike limits, this always returns a numeric vector of length 2
 # @kohske
 # scale_dimension uses scale_expand(scale) for expansion by default.

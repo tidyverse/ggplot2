@@ -6,7 +6,7 @@
 #'   The default \code{"t"} assumes a multivariate t-distribution, and
 #'   \code{"norm"} assumes a multivariate normal distribution.
 #'   \code{"euclid"} draws a circle with the radius equal to \code{level},
-#'   representing the euclidian distance from the center.
+#'   representing the euclidean distance from the center.
 #'   This ellipse probably won't appear circular unless \code{coord_fixed()} is applied.
 #' @param segments The number of segments to be used in drawing the ellipse.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
