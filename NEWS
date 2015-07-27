@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `scale_fill_grey()` now uses red for missing values. This matches
+  `scale_colour_grey()` and makes it obvious where missing values lie.
+  Control with `na.value`.
+
 * `geom_label()` works like `geom_text()` but draws a solid background
   behind each label (#1039).
 
