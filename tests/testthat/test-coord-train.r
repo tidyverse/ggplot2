@@ -14,8 +14,10 @@ test_that("NA's don't appear in breaks", {
     return(FALSE)
   }
 
-  scales <- list(x = scale_x_continuous(limits=c(1, 12)),
-                 y = scale_y_continuous(limits=c(1, 12)))
+  scales <- list(
+    x = scale_x_continuous(limits = c(1, 12)),
+    y = scale_y_continuous(limits = c(1, 12))
+  )
 
   # First have to test that scale_breaks_positions will return a vector with NA
   # This is a test to make sure the later tests will be useful!
@@ -25,9 +27,9 @@ test_that("NA's don't appear in breaks", {
   expect_true(any(is.na(scale_break_positions(scales$y))))
 
   # Check the various types of coords to make sure they don't have NA breaks
-  expect_false(any_NA_major_minor(coord_train(coord_polar(), scales)))
-  expect_false(any_NA_major_minor(coord_train(coord_cartesian(), scales)))
-  expect_false(any_NA_major_minor(coord_train(coord_trans(), scales)))
-  expect_false(any_NA_major_minor(coord_train(coord_fixed(), scales)))
-  expect_false(any_NA_major_minor(coord_train(coord_map(), scales)))
+  expect_false(any_NA_major_minor(coord_polar()$train(scales)))
+  expect_false(any_NA_major_minor(coord_cartesian()$train(scales)))
+  expect_false(any_NA_major_minor(coord_trans()$train(scales)))
+  expect_false(any_NA_major_minor(coord_fixed()$train(scales)))
+  expect_false(any_NA_major_minor(coord_map()$train(scales)))
 })

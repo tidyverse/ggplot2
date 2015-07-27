@@ -5,11 +5,12 @@ test_that("Polar distance calculation", {
     theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
     r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, .5))
 
-  scales <- list(x = scale_x_continuous(limits=c(0, 2*pi)),
-                 y = scale_y_continuous(limits=c(0, 1)))
-  coord <- coord_train(coord_polar(), scales)
-
-  dists <- coord_distance(coord_polar(), dat$theta, dat$r, coord)
+  scales <- list(
+    x = scale_x_continuous(limits = c(0, 2*pi)),
+    y = scale_y_continuous(limits = c(0, 1))
+  )
+  coord <- coord_polar()
+  dists <- coord$distance(dat$theta, dat$r, coord$train(scales))
 
   # dists is normalized by dividing by this value, so we'll add it back
   # The maximum length of a spiral arc, from (t,r) = (0,0) to (2*pi,1)

@@ -19,7 +19,7 @@ test_that("interp works", {
     single_interp_test(31.276, 34.443, 100)
 })
 
-test_that("much_data works", {
+test_that("munch_data works", {
     single_munch_test <- function(data, dist=NULL, segment_length = 0.01) {
         md <- munch_data(data, dist, segment_length)
         # all rows of dat are in md
@@ -34,14 +34,14 @@ test_that("much_data works", {
     single_munch_test(dat, dist)
     single_munch_test(dat, dist, segment_length = 10)
     single_munch_test(dat, dist, segment_length = 100)
-    dist <- coord_distance(coord_polar(theta="x"), dat$x, dat$y,
+    dist <- coord_polar(theta="x")$distance(dat$x, dat$y,
                            list(r.range = range(c(0,dat$y)),
                                 theta.range = range(dat$x)))
     dist[dat$group[-1] != dat$group[-nrow(dat)]] <- NA
     single_munch_test(dat, dist)
     single_munch_test(dat, dist, segment_length = 10)
     single_munch_test(dat, dist, segment_length = 100)
-    dist <- coord_distance(coord_polar(theta="y"), dat$x, dat$y,
+    dist <- coord_polar(theta="y")$distance(dat$x, dat$y,
                            list(r.range = range(c(0,dat$x)),
                                 theta.range = range(dat$y)))
     dist[dat$group[-1] != dat$group[-nrow(dat)]] <- NA
