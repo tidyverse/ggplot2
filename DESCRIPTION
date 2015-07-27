@@ -185,6 +185,7 @@ Collate:
     'stat-smooth-methods.r'
     'stat-smooth.r'
     'stat-spoke.r'
+    'stat-stepribbon.r'
     'stat-sum.r'
     'stat-summary-2d.r'
     'stat-summary-hex.r'
