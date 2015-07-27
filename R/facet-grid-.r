@@ -323,8 +323,8 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
       complete <- rbind(center, bottom, z = c(1, 2))
     } else if (switch_y) {
       top <- strips$t
-      top <- gtable_add_cols(top, gt_r$widths, pos = 0)
       top <- gtable_add_cols(top, axes$l$widths, pos = 0)
+      top <- gtable_add_cols(top, gt_r$widths, pos = 0)
 
       center <- cbind(gt_r, axes$l, panels, z = c(3, 2, 1))
       bottom <- axes$b

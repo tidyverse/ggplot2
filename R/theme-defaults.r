@@ -107,8 +107,8 @@ theme_grey <- function(base_size = 12, base_family = "") {
     strip.background =   element_rect(fill = "grey80", colour = NA),
     strip.text.x =       element_text(),
     strip.text.y =       element_text(angle = -90),
-    strip.switch.pad.grid = unit(0.9, "cm"),
-    strip.switch.pad.wrap = unit(0.3, "cm"),
+    strip.switch.pad.grid = unit(0.1, "cm"),
+    strip.switch.pad.wrap = unit(0.1, "cm"),
 
     plot.background =    element_rect(colour = "white"),
     plot.title =         element_text(size = rel(1.2)),
