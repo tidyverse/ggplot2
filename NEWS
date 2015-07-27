@@ -110,6 +110,10 @@ ggplot2 1.0.1.9xxx
   inferred from the file extension (for example when a temporary filename is
   supplied server side in shiny apps) (@sebkopf, #939)
 
+* Add access to the new `direction` argument of `scales::brewer_pal` and
+  simplify changing the order of colours for `scale_*_brewer` and
+  `scale_*_distiller` (@jiho, #1139)
+
 * `facet_wrap()` more carefully checks its `nrow` and `ncol` arguments
   to ensure that they're specified correctly (@richierocks, #962)
 
@@ -231,8 +235,8 @@ ggplot2 1.0.1
 
 * Fixes to pass `R CMD check --run-donttest` in R-devel.
 
-* Improvements in to order of colours and legend display of continuous colour
-  scales extracted from colorbrewer palettes in `scale_*_distiller()` (@jiho, 1076)
+* Improvements to order of colours and legend display for continuous colour
+  scales extracted from colorbrewer palettes by `scale_*_distiller()` (@jiho, 1076)
 
 ggplot2 1.0.0
 ----------------------------------------------------------------
