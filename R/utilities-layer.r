@@ -1,3 +1,5 @@
+NO_GROUP <- -1L
+
 # Ensure that the data frame contains a grouping variable.
 #
 # If the \code{group} variable is not present, then a new group
@@ -17,7 +19,7 @@ add_group <- function(data) {
     if (any(disc)) {
       data$group <- plyr::id(data[disc], drop = TRUE)
     } else {
-      data$group <- 0L
+      data$group <- NO_GROUP
     }
   } else {
     data$group <- plyr::id(data["group"], drop = TRUE)
