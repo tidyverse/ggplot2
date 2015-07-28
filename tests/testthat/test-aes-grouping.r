@@ -5,7 +5,6 @@ df <- data.frame(
   a = c("a", "a", "b", "b"),
   b = c("a", "b", "a", "b")
 )
-library(plyr)
 
 group <- function(x) pdata(x)[[1]]$group
 groups <- function(x) length(unique(group(x)))
@@ -50,7 +49,7 @@ test_that("order affects plotting order of points", {
   ord1 <- ggplot_build(base)$data[[1]]
   ord2 <- ggplot_build(base + aes(order = x))$data[[1]]
   rev1 <- ggplot_build(base + aes(order = -x))$data[[1]]
-  rev2 <- ggplot_build(base + aes(order = desc(x)))$data[[1]]
+  rev2 <- ggplot_build(base + aes(order = plyr::desc(x)))$data[[1]]
 
   expect_equal(ord1$y, 1:4)
   expect_equal(ord2$y, 1:4)
@@ -63,7 +62,7 @@ test_that("order affects plotting order of bars", {
 
   ord1 <- ggplot_build(base)$data[[1]]
   ord2 <- ggplot_build(base + aes(order = a))$data[[1]]
-  rev1 <- ggplot_build(base + aes(order = desc(b)))$data[[1]]
+  rev1 <- ggplot_build(base + aes(order = plyr::desc(b)))$data[[1]]
 
   expect_equal(ord1$group, 1:4)
   expect_equal(ord2$group, 1:4)
