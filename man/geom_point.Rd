@@ -75,24 +75,19 @@ points, e.g. \code{geom_point(alpha = 0.05)}.
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
 }
 \examples{
-\donttest{
 p <- ggplot(mtcars, aes(wt, mpg))
 p + geom_point()
 
 # Add aesthetic mappings
-p + geom_point(aes(colour = qsec))
-p + geom_point(aes(alpha = qsec))
 p + geom_point(aes(colour = factor(cyl)))
 p + geom_point(aes(shape = factor(cyl)))
 p + geom_point(aes(size = qsec))
 
 # Change scales
 p + geom_point(aes(colour = cyl)) + scale_colour_gradient(low = "blue")
-p + geom_point(aes(size = qsec)) + scale_size_area()
 p + geom_point(aes(shape = factor(cyl))) + scale_shape(solid = FALSE)
 
 # Set aesthetics to fixed value
-p + geom_point(colour = "red", size = 3)
 ggplot(mtcars, aes(wt, mpg)) + geom_point(colour = "red", size = 3)
 
 \donttest{
@@ -109,6 +104,7 @@ d + geom_point(alpha = 1/100)
 ggplot(mtcars, aes(wt, mpg)) +
   geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 5)
 
+\donttest{
 # You can create interesting shapes by layering multiple points of
 # different sizes
 p <- ggplot(mtcars, aes(mpg, wt))
@@ -122,8 +118,8 @@ p + geom_point(colour = "black", size = 4.5) +
 
 # These extra layers don't usually appear in the legend, but we can
 # force their inclusion
-p + geom_point(colour="black", size = 4.5, show_guide = TRUE) +
-  geom_point(colour="pink", size = 4, show_guide = TRUE) +
+p + geom_point(colour = "black", size = 4.5, show_guide = TRUE) +
+  geom_point(colour = "pink", size = 4, show_guide = TRUE) +
   geom_point(aes(shape = factor(cyl)))
 
 # geom_point warns when missing values have been dropped from the data set
