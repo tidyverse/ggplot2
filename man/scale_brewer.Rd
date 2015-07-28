@@ -20,12 +20,6 @@ scale_colour_distiller(..., type = "seq", palette = 1, direction = -1,
 scale_fill_distiller(..., type = "seq", palette = 1, direction = -1,
   values = NULL, space = "Lab", na.value = "grey50",
   guide = "colourbar")
-
-scale_color_brewer(..., type = "seq", palette = 1, direction = 1)
-
-scale_color_distiller(..., type = "seq", palette = 1, direction = -1,
-  values = NULL, space = "Lab", na.value = "grey50",
-  guide = "colourbar")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link{discrete_scale}}

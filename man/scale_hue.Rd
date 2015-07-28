@@ -14,18 +14,6 @@ scale_colour_hue(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
 
 scale_fill_hue(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
   direction = 1, na.value = "grey50")
-
-scale_colour_discrete(..., h = c(0, 360) + 15, c = 100, l = 65,
-  h.start = 0, direction = 1, na.value = "grey50")
-
-scale_fill_discrete(..., h = c(0, 360) + 15, c = 100, l = 65,
-  h.start = 0, direction = 1, na.value = "grey50")
-
-scale_color_discrete(..., h = c(0, 360) + 15, c = 100, l = 65,
-  h.start = 0, direction = 1, na.value = "grey50")
-
-scale_color_hue(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-  direction = 1, na.value = "grey50")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link{discrete_scale}}

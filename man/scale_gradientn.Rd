@@ -11,9 +11,6 @@ scale_colour_gradientn(..., colours, values = NULL, space = "Lab",
 
 scale_fill_gradientn(..., colours, values = NULL, space = "Lab",
   na.value = "grey50", guide = "colourbar")
-
-scale_color_gradientn(..., colours, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link{discrete_scale}}

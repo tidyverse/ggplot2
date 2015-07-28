@@ -13,10 +13,6 @@ scale_colour_gradient2(..., low = muted("red"), mid = "white",
 scale_fill_gradient2(..., low = muted("red"), mid = "white",
   high = muted("blue"), midpoint = 0, space = "Lab",
   na.value = "grey50", guide = "colourbar")
-
-scale_color_gradient2(..., low = muted("red"), mid = "white",
-  high = muted("blue"), midpoint = 0, space = "Lab",
-  na.value = "grey50", guide = "colourbar")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link{discrete_scale}}

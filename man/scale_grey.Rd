@@ -9,8 +9,6 @@
 scale_colour_grey(..., start = 0.2, end = 0.8, na.value = "red")
 
 scale_fill_grey(..., start = 0.2, end = 0.8, na.value = "red")
-
-scale_color_grey(..., start = 0.2, end = 0.8, na.value = "red")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link{discrete_scale}}
