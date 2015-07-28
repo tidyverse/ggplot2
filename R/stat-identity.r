@@ -41,4 +41,8 @@ stat_identity <- function(mapping = NULL, data = NULL, geom = "point",
 #' @format NULL
 #' @usage NULL
 #' @export
-StatIdentity <- ggproto("StatIdentity", Stat)
+StatIdentity <- ggproto("StatIdentity", Stat,
+  calculate_groups = function(data, scales, ...) {
+    data
+  }
+)
