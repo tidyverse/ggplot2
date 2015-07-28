@@ -9,64 +9,56 @@ qplot(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
   geom = "auto", xlim = c(NA, NA), ylim = c(NA, NA), log = "",
   main = NULL, xlab = deparse(substitute(x)),
   ylab = deparse(substitute(y)), asp = NA, stat = NULL, position = NULL)
+
+quickplot(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
+  geom = "auto", xlim = c(NA, NA), ylim = c(NA, NA), log = "",
+  main = NULL, xlab = deparse(substitute(x)),
+  ylab = deparse(substitute(y)), asp = NA, stat = NULL, position = NULL)
 }
 \arguments{
-\item{x}{x values}
+\item{x,y,...}{Aesthetics passed into each layer}
 
-\item{y}{y values}
-
-\item{...}{other aesthetics passed for each layer}
-
-\item{data}{data frame to use (optional).  If not specified, will create
+\item{data}{Data frame to use (optional).  If not specified, will create
 one, extracting vectors from the current environment.}
 
-\item{facets}{faceting formula to use.  Picks \code{\link{facet_wrap}} or
-\code{\link{facet_grid}} depending on whether the formula is one sided
+\item{facets}{faceting formula to use. Picks \code{\link{facet_wrap}} or
+\code{\link{facet_grid}} depending on whether the formula is one-
 or two-sided}
 
-\item{margins}{whether or not margins will be displayed}
+\item{margins}{See \code{facet_grid}: display marginal facets?}
 
-\item{geom}{character vector specifying geom to use.  Defaults to
+\item{geom}{Character vector specifying geom(s) to draw. Defaults to
 "point" if x and y are specified, and "histogram" if only x is specified.}
 
-\item{xlim}{limits for x axis}
+\item{xlim,ylim}{X and y axis limits}
 
-\item{ylim}{limits for y axis}
+\item{log}{Which variables to log transform ("x", "y", or "xy")}
 
-\item{log}{which variables to log transform ("x", "y", or "xy")}
+\item{main,xlab,ylab}{Character vector (or expression) giving plot title,
+x axis label, and y axis label respectively.}
 
-\item{main}{character vector or expression for plot title}
-
-\item{xlab}{character vector or expression for x axis label}
-
-\item{ylab}{character vector or expression for y axis label}
-
-\item{asp}{the y/x aspect ratio}
+\item{asp}{The y/x aspect ratio}
 
 \item{stat,position}{DEPRECATED.}
 }
 \description{
 \code{qplot} is the basic plotting function in the ggplot2 package,
-designed to be familiar if you're used to \code{\link{plot}}
-from the base package. It is a convenient wrapper for creating
-a number of different types of plots using a consistent
-calling scheme. See \url{http://ggplot2.org/book/qplot.pdf}
-for the chapter in the \code{ggplot2} book which describes the usage
-of \code{qplot} in detail.
+designed to be familiar if you're used to base \code{\link{plot}()}.
+It's a convenient wrapper for creating a number of different types of plots
+using a consistent calling scheme.
 }
 \examples{
-\donttest{
 # Use data from data.frame
 qplot(mpg, wt, data = mtcars)
 qplot(mpg, wt, data = mtcars, colour = cyl)
 qplot(mpg, wt, data = mtcars, size = cyl)
 qplot(mpg, wt, data = mtcars, facets = vs ~ am)
 
+\donttest{
 qplot(1:10, rnorm(10), colour = runif(10))
 qplot(1:10, letters[1:10])
 mod <- lm(mpg ~ wt, data=mtcars)
 qplot(resid(mod), fitted(mod))
-qplot(resid(mod), fitted(mod), facets = . ~ vs)
 
 f <- function() {
    a <- 1:10
@@ -74,6 +66,9 @@ f <- function() {
    qplot(a, b)
 }
 f()
+
+# To set aesthetics, wrap in I()
+qplot(mpg, wt, data = mtcars, colour = I("red"))
 
 # qplot will attempt to guess what geom you want depending on the input
 # both x and y supplied = scatterplot
