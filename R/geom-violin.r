@@ -58,10 +58,9 @@
 #'   geom_violin(aes(group = cut_width(year, 10)), scale = "width")
 #' }
 #' }
-geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity",
-  position = "dodge", trim = TRUE, scale = "area", show.legend = NA,
-  inherit.aes = TRUE, ...)
-{
+geom_violin <- function(mapping = NULL, data = NULL, stat = "ydensity",
+                        position = "dodge", trim = TRUE, scale = "area",
+                        show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -70,7 +69,10 @@ geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(trim = trim),
+    stat_params = list(
+      trim = trim,
+      scale = scale
+    ),
     params = list(...)
   )
 }
@@ -94,8 +96,8 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
   draw = function(self, data, ...) {
     # Find the points for the line to go all the way around
-    data <- transform(data, xminv = x - violinwidth * (x-xmin),
-                            xmaxv = x + violinwidth * (xmax-x))
+    data <- transform(data, xminv = x - violinwidth * (x - xmin),
+                            xmaxv = x + violinwidth * (xmax - x))
 
     # Make sure it's sorted properly to draw the outline
     newdata <- rbind(plyr::arrange(transform(data, x = xminv), y),
@@ -110,7 +112,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
   draw_key = draw_key_polygon,
 
-  default_aes = aes(weight=1, colour="grey20", fill="white", size=0.5,
+  default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
     alpha = NA, linetype = "solid"),
 
   required_aes = c("x", "y")
