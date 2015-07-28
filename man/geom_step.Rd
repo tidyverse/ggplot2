@@ -5,7 +5,7 @@
 \title{Connect observations by stairs.}
 \usage{
 geom_step(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", direction = "hv", show_guide = NA,
+  position = "identity", direction = "hv", show.legend = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -25,7 +25,7 @@ a call to a position adjustment function.}
 \item{direction}{direction of stairs: 'vh' for vertical then horizontal, or
 'hv' for horizontal then vertical}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

@@ -6,12 +6,12 @@
 \title{Display a smooth density estimate.}
 \usage{
 geom_density(mapping = NULL, data = NULL, stat = "density",
-  position = "identity", na.rm = FALSE, show_guide = NA,
+  position = "identity", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 
 stat_density(mapping = NULL, data = NULL, geom = "area",
   position = "stack", adjust = 1, kernel = "gaussian", trim = FALSE,
-  na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -27,7 +27,7 @@ a call to a position adjustment function.}
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

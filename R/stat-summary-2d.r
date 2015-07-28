@@ -31,7 +31,7 @@
 #' }
 stat_summary2d <- function(mapping = NULL, data = NULL, geom = "rect",
                            position = "identity", bins = 30, drop = TRUE,
-                           fun = "mean", fun.args = list(), show_guide = NA,
+                           fun = "mean", fun.args = list(), show.legend = NA,
                            inherit.aes = TRUE, ...) {
   layer(
     data = data,
@@ -39,7 +39,7 @@ stat_summary2d <- function(mapping = NULL, data = NULL, geom = "rect",
     stat = StatSummary2d,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(
       bins = bins,

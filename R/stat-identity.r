@@ -10,7 +10,7 @@
 #' @param geom The geometric object to use display the data
 #' @param position The position adjustment to use for overlapping points
 #'    on this layer
-#' @param show_guide logical. Should this layer be included in the legends?
+#' @param show.legend logical. Should this layer be included in the legends?
 #'   \code{NA}, the default, includes if any aesthetics are mapped.
 #'   \code{FALSE} never includes, and \code{TRUE} always includes.
 #' @param inherit.aes If \code{FALSE}, overrides the default aesthetics,
@@ -23,7 +23,7 @@
 #' @keywords internal
 #' @export
 stat_identity <- function(mapping = NULL, data = NULL, geom = "point",
-                          position = "identity", show_guide = NA,
+                          position = "identity", show.legend = NA,
                           inherit.aes = TRUE, ...) {
   layer(
     data = data,
@@ -31,7 +31,7 @@ stat_identity <- function(mapping = NULL, data = NULL, geom = "point",
     stat = StatIdentity,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )

@@ -15,7 +15,7 @@
 #' @rdname geom_histogram
 stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
   position = "stack", width = 0.9, drop = FALSE, right = FALSE,
-  binwidth = NULL, origin = NULL, breaks = NULL, show_guide = NA,
+  binwidth = NULL, origin = NULL, breaks = NULL, show.legend = NA,
   inherit.aes = TRUE, ...)
 {
   layer(
@@ -24,7 +24,7 @@ stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
     stat = StatBin,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(
       width = width,

@@ -18,7 +18,7 @@
 #' @rdname geom_density
 stat_density <- function(mapping = NULL, data = NULL, geom = "area",
   position = "stack", adjust = 1, kernel = "gaussian", trim = FALSE,
-  na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...) {
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
 
   layer(
     data = data,
@@ -26,7 +26,7 @@ stat_density <- function(mapping = NULL, data = NULL, geom = "area",
     stat = StatDensity,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(
       adjust = adjust,

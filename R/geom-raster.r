@@ -10,7 +10,7 @@ NULL
 #'   (the default) don't interpolate.
 geom_raster <- function(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", hjust = 0.5, vjust = 0.5, interpolate = FALSE,
-  show_guide = NA, inherit.aes = TRUE, ...)
+  show.legend = NA, inherit.aes = TRUE, ...)
 {
   stopifnot(is.numeric(hjust), length(hjust) == 1)
   stopifnot(is.numeric(vjust), length(vjust) == 1)
@@ -21,7 +21,7 @@ geom_raster <- function(mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomRaster,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     geom_params = list(
       hjust = hjust,

@@ -64,7 +64,7 @@
 #' ggplot(dfm, aes(variable, value, group = id, colour = group)) +
 #'   geom_path(alpha = 0.5)
 geom_line <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
     data = data,
@@ -72,7 +72,7 @@ geom_line <- function (mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomLine,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )

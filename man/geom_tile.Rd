@@ -7,10 +7,10 @@
 \usage{
 geom_raster(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", hjust = 0.5, vjust = 0.5, interpolate = FALSE,
-  show_guide = NA, inherit.aes = TRUE, ...)
+  show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_tile(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -33,7 +33,7 @@ for both, centering each pixel over its data location.}
 \item{interpolate}{If \code{TRUE} interpolate linearly, if \code{FALSE}
 (the default) don't interpolate.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

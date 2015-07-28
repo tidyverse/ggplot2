@@ -5,7 +5,7 @@
 \title{Convert angle and radius to xend and yend.}
 \usage{
 stat_spoke(mapping = NULL, data = NULL, geom = "segment",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -20,7 +20,7 @@ the plot defaults.}
 \item{position}{The position adjustment to use for overlapping points
 on this layer}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

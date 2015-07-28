@@ -43,7 +43,7 @@
 #'   geom_segment(aes(xend = x, yend = 0), size = 10, lineend = "butt")
 geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
   position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
-  show_guide = NA, inherit.aes = TRUE, ...)
+  show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
     data = data,
@@ -51,7 +51,7 @@ geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomSegment,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     geom_params = list(
       arrow = arrow,

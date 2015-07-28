@@ -26,7 +26,7 @@
 #' d + stat_binhex(binwidth = c(.1, 500))
 #' }
 stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", bins = 30, na.rm = FALSE, show_guide = NA,
+  position = "identity", bins = 30, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 {
   layer(
@@ -35,7 +35,7 @@ stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex",
     stat = StatBinhex,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(
       bins = bins

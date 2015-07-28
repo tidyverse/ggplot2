@@ -19,7 +19,7 @@
 #' @rdname geom_violin
 stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
   position = "dodge", adjust = 1, kernel = "gaussian", trim = TRUE,
-  scale = "area", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+  scale = "area", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
     data = data,
@@ -27,7 +27,7 @@ stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin",
     stat = StatYdensity,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(
       adjust = adjust,

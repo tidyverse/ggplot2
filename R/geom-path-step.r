@@ -29,7 +29,7 @@
 #' )
 #' ggplot(df, aes(seq_along(x), x)) + geom_step(aes(colour = trt))
 geom_step <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", direction = "hv", show_guide = NA, inherit.aes = TRUE,
+  position = "identity", direction = "hv", show.legend = NA, inherit.aes = TRUE,
   ...)
 {
   layer(
@@ -38,7 +38,7 @@ geom_step <- function (mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomStep,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     geom_params = list(direction = direction),
     params = list(...)

@@ -22,7 +22,7 @@
 #' c <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_blank()
 #' c + geom_abline(aes(intercept = a, slope = b), data = df)
 geom_blank <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show_guide = NA, inherit.aes = FALSE, ...)
+  position = "identity", show.legend = NA, inherit.aes = FALSE, ...)
 {
   layer(
     data = data,
@@ -30,7 +30,7 @@ geom_blank <- function (mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomBlank,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )

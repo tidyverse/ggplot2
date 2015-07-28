@@ -5,7 +5,7 @@
 \title{Empirical Cumulative Density Function}
 \usage{
 stat_ecdf(mapping = NULL, data = NULL, geom = "step",
-  position = "identity", n = NULL, show_guide = NA, inherit.aes = TRUE,
+  position = "identity", n = NULL, show.legend = NA, inherit.aes = TRUE,
   ...)
 }
 \arguments{
@@ -24,7 +24,7 @@ on this layer}
 \item{n}{if NULL, do not interpolate. If not NULL, this is the number
 of points to interpolate with.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

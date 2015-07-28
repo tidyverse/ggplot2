@@ -5,7 +5,7 @@
 \title{Superimpose a function.}
 \usage{
 stat_function(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", fun, n = 101, args = list(), show_guide = NA,
+  position = "identity", fun, n = 101, args = list(), show.legend = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -27,7 +27,7 @@ on this layer}
 
 \item{args}{list of additional arguments to pass to \code{fun}}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

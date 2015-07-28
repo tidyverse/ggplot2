@@ -57,7 +57,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
     data = data,
     mapping = aes_all(names(data)),
     inherit.aes = FALSE,
-    show_guide = FALSE
+    show.legend = FALSE
   )
 }
 

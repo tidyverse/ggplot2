@@ -8,7 +8,7 @@ geom_dotplot(mapping = NULL, data = NULL, position = "identity",
   na.rm = FALSE, binwidth = NULL, binaxis = "x", method = "dotdensity",
   binpositions = "bygroup", stackdir = "up", stackratio = 1,
   dotsize = 1, stackgroups = FALSE, origin = NULL, right = TRUE,
-  width = 0.9, drop = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+  width = 0.9, drop = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -60,7 +60,7 @@ for dodging.}
 
 \item{drop}{If TRUE, remove all bins with zero counts}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

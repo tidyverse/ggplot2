@@ -3,7 +3,7 @@
 #' @param label.padding Amount of padding around label. Defaults to 0.25 lines.
 #' @param label.r Radius of rounded corners. Defaults to 0.15 lines.
 geom_label <- function(mapping = NULL, data = NULL, stat = "identity",
-                       position = "identity", parse = FALSE, show_guide = NA,
+                       position = "identity", parse = FALSE, show.legend = NA,
                        inherit.aes = TRUE, ..., nudge_x = 0, nudge_y = 0,
                        label.padding = grid::unit(0.25, "lines"),
                        label.r = grid::unit(0.15, "lines")) {
@@ -21,7 +21,7 @@ geom_label <- function(mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomLabel,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     geom_params = list(
       parse = parse,

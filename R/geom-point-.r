@@ -40,7 +40,7 @@
 #'    layer, as a string.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
-#' @param show_guide logical. Should this layer be included in the legends?
+#' @param show.legend logical. Should this layer be included in the legends?
 #'   \code{NA}, the default, includes if any aesthetics are mapped.
 #'   \code{FALSE} never includes, and \code{TRUE} always includes.
 #' @param inherit.aes If \code{FALSE}, overrides the default aesthetics,
@@ -103,8 +103,8 @@
 #'
 #' # These extra layers don't usually appear in the legend, but we can
 #' # force their inclusion
-#' p + geom_point(colour = "black", size = 4.5, show_guide = TRUE) +
-#'   geom_point(colour = "pink", size = 4, show_guide = TRUE) +
+#' p + geom_point(colour = "black", size = 4.5, show.legend = TRUE) +
+#'   geom_point(colour = "pink", size = 4, show.legend = TRUE) +
 #'   geom_point(aes(shape = factor(cyl)))
 #'
 #' # geom_point warns when missing values have been dropped from the data set
@@ -114,7 +114,7 @@
 #' ggplot(mtcars2, aes(wt, mpg)) + geom_point(na.rm = TRUE)
 #' }
 geom_point <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE,
+  position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
   ...)
 {
   layer(
@@ -123,7 +123,7 @@ geom_point <- function (mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomPoint,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     geom_params = list(na.rm = na.rm),
     params = list(...)

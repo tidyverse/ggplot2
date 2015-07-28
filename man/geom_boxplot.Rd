@@ -8,10 +8,10 @@
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", outlier.colour = "black", outlier.shape = 19,
   outlier.size = 2, outlier.stroke = 1, notch = FALSE, notchwidth = 0.5,
-  varwidth = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+  varwidth = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 
 stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
-  position = "dodge", na.rm = FALSE, coef = 1.5, show_guide = NA,
+  position = "dodge", na.rm = FALSE, coef = 1.5, show.legend = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -41,7 +41,7 @@ the body (default 0.5)}
 square-roots of the number of observations in the groups (possibly
 weighted, using the \code{weight} aesthetic).}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

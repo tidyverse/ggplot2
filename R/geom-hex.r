@@ -8,7 +8,7 @@
 #' @examples
 #' # See ?stat_binhex for examples
 geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
     data = data,
@@ -16,7 +16,7 @@ geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex",
     stat = stat,
     geom = GeomHex,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )

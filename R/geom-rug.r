@@ -16,7 +16,7 @@
 #' p + geom_point() + geom_rug(sides="trbl") # All four sides
 #' p + geom_point() + geom_rug(position='jitter')
 geom_rug <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", sides = "bl", show_guide = NA, inherit.aes = TRUE,
+  position = "identity", sides = "bl", show.legend = NA, inherit.aes = TRUE,
   ...)
 {
   layer(
@@ -25,11 +25,11 @@ geom_rug <- function (mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomRug,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     geom_params = list(
       sides = sides,
-      show_guide = show_guide
+      show.legend = show.legend
     ),
     params = list(...)
   )

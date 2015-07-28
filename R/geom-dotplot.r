@@ -113,7 +113,7 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
   position = "identity", na.rm = FALSE, binwidth = NULL, binaxis = "x",
   method = "dotdensity", binpositions = "bygroup", stackdir = "up",
   stackratio = 1, dotsize = 1, stackgroups = FALSE,
-  origin = NULL, right = TRUE, width = 0.9, drop = FALSE, show_guide = NA,
+  origin = NULL, right = TRUE, width = 0.9, drop = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 {
   # If identical(position, "stack") or position is position_stack(), tell them
@@ -132,7 +132,7 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
     stat = StatBindot,
     geom = GeomDotplot,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     # Need to make sure that the binaxis goes to both the stat and the geom
     stat_params = list(

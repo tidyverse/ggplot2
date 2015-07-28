@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `show_guide` has been renamed to `show.legend`: this more accurately
+  reflects what it does (control appearance in legend), and uses the same
+  convention as other ggplot2 arguments (i.e. a `.` between names).
+
 * New `cut_width()` is a convenient replacement for the verbose
   `plyr::round_any()`, with the additional benefit of offering more
   control.

@@ -10,7 +10,7 @@
 #' @return A data frame in the same format as \code{\link{stat_contour}}
 stat_density2d <- function(mapping = NULL, data = NULL, geom = "density2d",
                            position = "identity", na.rm = FALSE, contour = TRUE,
-                           n = 100, h = NULL, show_guide = NA,
+                           n = 100, h = NULL, show.legend = NA,
                            inherit.aes = TRUE, ...) {
   layer(
     data = data,
@@ -18,7 +18,7 @@ stat_density2d <- function(mapping = NULL, data = NULL, geom = "density2d",
     stat = StatDensity2d,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(
       na.rm = na.rm,

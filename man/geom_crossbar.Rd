@@ -5,7 +5,7 @@
 \title{Hollow bar with middle indicated by horizontal line.}
 \usage{
 geom_crossbar(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", fatten = 2.5, show_guide = NA,
+  position = "identity", fatten = 2.5, show.legend = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -24,7 +24,7 @@ a call to a position adjustment function.}
 
 \item{fatten}{a multiplicative factor to fatten middle bar by}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

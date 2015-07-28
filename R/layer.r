@@ -218,7 +218,7 @@ Layer <- ggproto("Layer", NULL,
 #'   layer(geom = "point", stat = "identity", position = "identity")
 layer <- function(geom = NULL, geom_params = list(), stat = NULL,
   stat_params = list(), data = NULL, mapping = NULL, position = NULL,
-  params = list(), inherit.aes = TRUE, subset = NULL, show_guide = NA)
+  params = list(), inherit.aes = TRUE, subset = NULL, show.legend = NA)
 {
   if (is.null(geom))
     stop("Attempted to create layer with no geom.", call. = FALSE)
@@ -227,10 +227,18 @@ layer <- function(geom = NULL, geom_params = list(), stat = NULL,
   if (is.null(position))
     stop("Attempted to create layer with no position.", call. = FALSE)
 
-  if (!is.logical(show_guide) || length(show_guide) != 1) {
-    warning("`show_guide` must be a logical vector of length 1.", call. = FALSE)
-    show_guide <- FALSE
+  # Handle show_guide/show.legend
+  if (!is.null(params$show_guide)) {
+    warning("`show_guide` has been deprecated. Please use `show.legend` instead.",
+      call. = FALSE)
+    show.legend <- params$show_guide
+    params$show_guide <- NULL
   }
+  if (!is.logical(show.legend) || length(show.legend) != 1) {
+    warning("`show.legend` must be a logical vector of length 1.", call. = FALSE)
+    show.legend <- FALSE
+  }
+
 
   data <- fortify(data)
   if (!is.null(mapping) && !inherits(mapping, "uneval")) {
@@ -258,7 +266,7 @@ layer <- function(geom = NULL, geom_params = list(), stat = NULL,
     subset = subset,
     position = position,
     inherit.aes = inherit.aes,
-    show_guide = show_guide
+    show.legend = show.legend
   )
 }
 

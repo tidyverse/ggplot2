@@ -34,9 +34,7 @@ NULL
 #'   adding straight line segments to a plot.
 #' @param xintercept,yintercept,slope,intercept Parameters that control the
 #'   position of the line. If these are set, \code{data}, \code{mapping} and
-#'   \code{show_guide} are overridden
-#' @param show_guide Should this layer be included in the legend?
-#'   (defaults to \code{FALSE})
+#'   \code{show.legend} are overridden
 #' @inheritParams geom_point
 #' @export
 #' @examples
@@ -69,7 +67,7 @@ NULL
 #'   geom_point() +
 #'   geom_hline(aes(yintercept = wt, colour = wt), mean_wt) +
 #'   facet_wrap(~ cyl)
-geom_abline <- function(mapping = NULL, data = NULL, show_guide = FALSE, ...,
+geom_abline <- function(mapping = NULL, data = NULL, show.legend = FALSE, ...,
                         slope, intercept) {
 
   # If nothing set, default to y = x
@@ -85,7 +83,7 @@ geom_abline <- function(mapping = NULL, data = NULL, show_guide = FALSE, ...,
 
     data <- data.frame(intercept = intercept, slope = slope)
     mapping <- aes(intercept = intercept, slope = slope)
-    show_guide <- FALSE
+    show.legend <- FALSE
   }
 
   layer(
@@ -94,7 +92,7 @@ geom_abline <- function(mapping = NULL, data = NULL, show_guide = FALSE, ...,
     stat = StatIdentity,
     geom = GeomAbline,
     position = PositionIdentity,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = list(...)
   )

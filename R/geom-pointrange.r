@@ -14,7 +14,7 @@
 #' @examples
 #' # See geom_linerange for examples
 geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
     data = data,
@@ -22,7 +22,7 @@ geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomPointrange,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )

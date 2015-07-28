@@ -6,7 +6,7 @@
 \usage{
 layer(geom = NULL, geom_params = list(), stat = NULL,
   stat_params = list(), data = NULL, mapping = NULL, position = NULL,
-  params = list(), inherit.aes = TRUE, subset = NULL, show_guide = NA)
+  params = list(), inherit.aes = TRUE, subset = NULL, show.legend = NA)
 }
 \arguments{
 \item{geom,stat,position}{Geom, stat and position adjustment to use in
@@ -34,7 +34,7 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{subset}{DEPRECATED. An older way of subsetting the dataset used in a
 layer.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 }

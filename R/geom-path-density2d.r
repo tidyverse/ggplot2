@@ -36,7 +36,7 @@
 geom_density2d <- function(mapping = NULL, data = NULL, stat = "density2d",
                            position = "identity", lineend = "butt",
                            linejoin = "round", linemitre = 1,
-                           na.rm = FALSE, show_guide = NA,
+                           na.rm = FALSE, show.legend = NA,
                            inherit.aes = TRUE, ...) {
   layer(
     data = data,
@@ -44,7 +44,7 @@ geom_density2d <- function(mapping = NULL, data = NULL, stat = "density2d",
     stat = stat,
     geom = GeomDensity2d,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     geom_params = list(
       lineend = lineend,

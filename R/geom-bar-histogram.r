@@ -70,7 +70,7 @@
 #' rm(movies)
 geom_histogram <- function(mapping = NULL, data = NULL, stat = "bin",
   binwidth = NULL, origin = NULL, right = FALSE,
-  position = "stack", show_guide = NA, inherit.aes = TRUE, ...) {
+  position = "stack", show.legend = NA, inherit.aes = TRUE, ...) {
 
   layer(
     data = data,
@@ -78,7 +78,7 @@ geom_histogram <- function(mapping = NULL, data = NULL, stat = "bin",
     stat = stat,
     geom = GeomBar,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...),
     stat_params = list(binwidth = binwidth, origin = origin, right = right)

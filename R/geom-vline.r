@@ -3,14 +3,14 @@ NULL
 
 #' @export
 #' @rdname geom_abline
-geom_vline <- function(mapping = NULL, data = NULL, show_guide = FALSE,
+geom_vline <- function(mapping = NULL, data = NULL, show.legend = FALSE,
                        xintercept, ...) {
 
   # Act like an annotation
   if (!missing(xintercept)) {
     data <- data.frame(xintercept = xintercept)
     mapping <- aes(xintercept = xintercept)
-    show_guide <- FALSE
+    show.legend <- FALSE
   }
 
   layer(
@@ -19,7 +19,7 @@ geom_vline <- function(mapping = NULL, data = NULL, show_guide = FALSE,
     stat = StatIdentity,
     geom = GeomVline,
     position = PositionIdentity,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = list(...)
   )

@@ -6,12 +6,12 @@
 \alias{geom_vline}
 \title{Lines: horizontal, vertical, and specified by slope and intercept.}
 \usage{
-geom_abline(mapping = NULL, data = NULL, show_guide = FALSE, ..., slope,
+geom_abline(mapping = NULL, data = NULL, show.legend = FALSE, ..., slope,
   intercept)
 
-geom_hline(mapping = NULL, data = NULL, show_guide = NA, yintercept, ...)
+geom_hline(mapping = NULL, data = NULL, show.legend = NA, yintercept, ...)
 
-geom_vline(mapping = NULL, data = NULL, show_guide = FALSE, xintercept,
+geom_vline(mapping = NULL, data = NULL, show.legend = FALSE, xintercept,
   ...)
 }
 \arguments{
@@ -22,8 +22,9 @@ at the layer level if you are overriding the plot defaults.}
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
 
-\item{show_guide}{Should this layer be included in the legend?
-(defaults to \code{FALSE})}
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
 
 \item{...}{other arguments passed on to \code{\link{layer}}. There are
   three types of arguments you can use here:
@@ -38,7 +39,7 @@ defined at the top level of the plot.}
 
 \item{xintercept,yintercept,slope,intercept}{Parameters that control the
 position of the line. If these are set, \code{data}, \code{mapping} and
-\code{show_guide} are overridden}
+\code{show.legend} are overridden}
 }
 \description{
 These paired geoms and stats add straight lines to a plot, either

@@ -12,7 +12,7 @@ geom_curve(mapping = NULL, data = NULL, stat = "identity",
 
 geom_segment(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
-  show_guide = NA, inherit.aes = TRUE, ...)
+  show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -55,7 +55,7 @@ the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{...}{Arguments to be passed to \code{curveGrob}.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 }

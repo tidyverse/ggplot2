@@ -59,7 +59,7 @@
 #' }
 #' }
 geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity",
-  position = "dodge", trim = TRUE, scale = "area", show_guide = NA,
+  position = "dodge", trim = TRUE, scale = "area", show.legend = NA,
   inherit.aes = TRUE, ...)
 {
   layer(
@@ -68,7 +68,7 @@ geom_violin <- function (mapping = NULL, data = NULL, stat = "ydensity",
     stat = stat,
     geom = GeomViolin,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(trim = trim),
     params = list(...)

@@ -61,7 +61,7 @@ NULL
 #'     facet_wrap( ~ variable)
 #' }
 geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
-  show_guide = NA, inherit.aes = TRUE, ...)
+  show.legend = NA, inherit.aes = TRUE, ...)
 {
   # Get map input into correct form
   stopifnot(is.data.frame(map))
@@ -76,7 +76,7 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
     stat = stat,
     geom = GeomMap,
     position = PositionIdentity,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     geom_params = list(map = map),
     params = list(...)

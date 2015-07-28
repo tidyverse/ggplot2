@@ -6,7 +6,7 @@
 \usage{
 stat_ellipse(mapping = NULL, data = NULL, geom = "path",
   position = "identity", type = "t", level = 0.95, segments = 51,
-  na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -36,7 +36,7 @@ or, if \code{type="euclid"}, the radius of the circle to be drawn.}
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

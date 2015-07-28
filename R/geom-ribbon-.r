@@ -22,7 +22,7 @@
 #'   geom_ribbon(aes(ymin = level - 1, ymax = level + 1), fill = "grey70") +
 #'   geom_line(aes(y = level))
 geom_ribbon <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+  position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
     data = data,
@@ -30,7 +30,7 @@ geom_ribbon <- function (mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomRibbon,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )
@@ -103,7 +103,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 #' @examples
 #' # see geom_ribbon
 geom_area <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "stack", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+  position = "stack", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
     data = data,
@@ -111,7 +111,7 @@ geom_area <- function (mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomArea,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(na.rm = na.rm, ...)
   )

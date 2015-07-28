@@ -23,7 +23,7 @@
 #'   geom_point() +
 #'   stat_spoke(aes(angle = angle, radius = speed))
 stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
     data = data,
@@ -31,7 +31,7 @@ stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment",
     stat = StatSpoke,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )

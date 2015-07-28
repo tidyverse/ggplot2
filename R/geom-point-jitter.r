@@ -31,7 +31,7 @@
 #' ggplot(mpg, aes(cty, hwy)) + geom_jitter(width = 0.5, height = 0.5)
 geom_jitter <- function(mapping = NULL, data = NULL,
   width = NULL, height = NULL, stat = "identity", position = "jitter",
-  na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 {
   if (!missing(width) || !missing(height)) {
     if (!missing(position)) {
@@ -47,7 +47,7 @@ geom_jitter <- function(mapping = NULL, data = NULL,
     stat = stat,
     geom = GeomPoint,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )

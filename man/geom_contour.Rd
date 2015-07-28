@@ -7,11 +7,11 @@
 \usage{
 geom_contour(mapping = NULL, data = NULL, stat = "contour",
   position = "identity", lineend = "butt", linejoin = "round",
-  linemitre = 1, na.rm = FALSE, show_guide = NA, inherit.aes = TRUE,
+  linemitre = 1, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
   ...)
 
 stat_contour(mapping = NULL, data = NULL, geom = "contour",
-  position = "identity", na.rm = FALSE, show_guide = NA,
+  position = "identity", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -37,7 +37,7 @@ a call to a position adjustment function.}
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

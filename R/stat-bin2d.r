@@ -4,7 +4,7 @@
 #' @export
 #' @rdname geom_bin2d
 stat_bin2d <- function (mapping = NULL, data = NULL, geom = "rect",
-  position = "identity", bins = 30, drop = TRUE, show_guide = NA,
+  position = "identity", bins = 30, drop = TRUE, show.legend = NA,
   inherit.aes = TRUE, ...) {
   layer(
     data = data,
@@ -12,7 +12,7 @@ stat_bin2d <- function (mapping = NULL, data = NULL, geom = "rect",
     stat = StatBin2d,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(
       bins = bins,

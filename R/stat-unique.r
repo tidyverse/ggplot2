@@ -9,7 +9,7 @@
 #' ggplot(mtcars, aes(vs, am)) + geom_point(alpha = 0.1)
 #' ggplot(mtcars, aes(vs, am)) + geom_point(alpha = 0.1, stat="unique")
 stat_unique <- function (mapping = NULL, data = NULL, geom = "point",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
     data = data,
@@ -17,7 +17,7 @@ stat_unique <- function (mapping = NULL, data = NULL, geom = "point",
     stat = StatUnique,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )

@@ -5,7 +5,7 @@
 \title{Marginal rug plots.}
 \usage{
 geom_rug(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", sides = "bl", show_guide = NA,
+  position = "identity", sides = "bl", show.legend = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -26,7 +26,7 @@ a call to a position adjustment function.}
 It can be set to a string containing any of \code{"trbl"}, for top, right,
 bottom, and left.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

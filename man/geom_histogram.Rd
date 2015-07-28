@@ -8,14 +8,14 @@
 \usage{
 geom_histogram(mapping = NULL, data = NULL, stat = "bin",
   binwidth = NULL, origin = NULL, right = FALSE, position = "stack",
-  show_guide = NA, inherit.aes = TRUE, ...)
+  show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_freqpoly(mapping = NULL, data = NULL, stat = "bin",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 
 stat_bin(mapping = NULL, data = NULL, geom = "bar", position = "stack",
   width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL,
-  origin = NULL, breaks = NULL, show_guide = NA, inherit.aes = TRUE,
+  origin = NULL, breaks = NULL, show.legend = NA, inherit.aes = TRUE,
   ...)
 }
 \arguments{
@@ -37,7 +37,7 @@ the default, right-open, left-closed.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

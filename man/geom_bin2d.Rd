@@ -6,10 +6,10 @@
 \title{Add heatmap of 2d bin counts.}
 \usage{
 geom_bin2d(mapping = NULL, data = NULL, stat = "bin2d",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 
 stat_bin2d(mapping = NULL, data = NULL, geom = "rect",
-  position = "identity", bins = 30, drop = TRUE, show_guide = NA,
+  position = "identity", bins = 30, drop = TRUE, show.legend = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -23,7 +23,7 @@ defined at the top level of the plot.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

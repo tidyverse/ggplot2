@@ -34,7 +34,7 @@
 #' }
 stat_qq <- function(mapping = NULL, data = NULL, geom = "point",
   position = "identity", distribution = stats::qnorm, dparams = list(), na.rm = FALSE,
-  show_guide = NA, inherit.aes = TRUE, ...)
+  show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
     data = data,
@@ -42,7 +42,7 @@ stat_qq <- function(mapping = NULL, data = NULL, geom = "point",
     stat = StatQq,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(
       distribution = distribution,

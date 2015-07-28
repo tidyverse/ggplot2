@@ -131,7 +131,7 @@
 #' m + geom_bar()
 #' }
 geom_bar <- function (mapping = NULL, data = NULL, stat = "bin",
-  position = "stack", show_guide = NA, inherit.aes = TRUE, ...)
+  position = "stack", show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
     data = data,
@@ -139,7 +139,7 @@ geom_bar <- function (mapping = NULL, data = NULL, stat = "bin",
     stat = stat,
     geom = GeomBar,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )

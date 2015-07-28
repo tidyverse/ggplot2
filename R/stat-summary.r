@@ -114,7 +114,7 @@
 #' }
 #' }
 stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
     data = data,
@@ -122,7 +122,7 @@ stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
     stat = StatSummary,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )

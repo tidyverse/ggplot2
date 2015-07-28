@@ -5,7 +5,7 @@
 \title{Points, as for a scatterplot}
 \usage{
 geom_point(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show_guide = NA,
+  position = "identity", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -25,7 +25,7 @@ a call to a position adjustment function.}
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 
@@ -118,8 +118,8 @@ p + geom_point(colour = "black", size = 4.5) +
 
 # These extra layers don't usually appear in the legend, but we can
 # force their inclusion
-p + geom_point(colour = "black", size = 4.5, show_guide = TRUE) +
-  geom_point(colour = "pink", size = 4, show_guide = TRUE) +
+p + geom_point(colour = "black", size = 4.5, show.legend = TRUE) +
+  geom_point(colour = "pink", size = 4, show.legend = TRUE) +
   geom_point(aes(shape = factor(cyl)))
 
 # geom_point warns when missing values have been dropped from the data set
