@@ -48,12 +48,12 @@ scale_color_discrete <- scale_colour_hue
 scale_color_gradient <- scale_colour_gradient
 
 #' @export
-#' @rdname scale_gradient2
+#' @rdname scale_gradient
 #' @usage NULL
 scale_color_gradient2 <- scale_colour_gradient2
 
 #' @export
-#' @rdname scale_gradientn
+#' @rdname scale_gradient
 #' @usage NULL
 scale_color_gradientn <- scale_colour_gradientn
 

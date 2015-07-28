@@ -4,7 +4,10 @@
 #'
 #' @inheritParams scales::grey_pal
 #' @inheritParams scale_colour_hue
-#' @family colour scales
+#' @seealso Other colour scales:
+#'   \code{\link{scale_colour_brewer}},
+#'   \code{\link{scale_colour_gradient}},
+#'   \code{\link{scale_colour_hue}}
 #' @rdname scale_grey
 #' @export
 #' @examples

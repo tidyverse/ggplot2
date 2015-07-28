@@ -15,7 +15,10 @@
 #' @inheritParams scale_colour_hue
 #' @inheritParams scale_colour_gradient
 #' @inheritParams scales::gradient_n_pal
-#' @family colour scales
+#' @seealso Other colour scales:
+#'   \code{\link{scale_colour_gradient}},
+#'   \code{\link{scale_colour_grey}},
+#'   \code{\link{scale_colour_hue}}
 #' @rdname scale_brewer
 #' @export
 #' @examples

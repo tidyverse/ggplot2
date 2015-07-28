@@ -6,7 +6,10 @@
 #' @inheritParams scales::hue_pal
 #' @rdname scale_hue
 #' @export
-#' @family colour scales
+#' @seealso Other colour scales:
+#'   \code{\link{scale_colour_brewer}},
+#'   \code{\link{scale_colour_gradient}},
+#'   \code{\link{scale_colour_grey}}
 #' @examples
 #' \donttest{
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]

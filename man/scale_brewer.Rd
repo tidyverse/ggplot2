@@ -104,26 +104,9 @@ v + scale_fill_distiller(type = "qual")
 # Not appropriate for continuous data, issues a warning
 }
 \seealso{
-Other colour scales: \code{\link{scale_color_continuous}},
-  \code{\link{scale_color_gradient}},
-  \code{\link{scale_colour_continuous}},
+Other colour scales:
   \code{\link{scale_colour_gradient}},
-  \code{\link{scale_fill_continuous}},
-  \code{\link{scale_fill_gradient}};
-  \code{\link{scale_color_discrete}},
-  \code{\link{scale_color_hue}},
-  \code{\link{scale_colour_discrete}},
-  \code{\link{scale_colour_hue}},
-  \code{\link{scale_fill_discrete}},
-  \code{\link{scale_fill_hue}};
-  \code{\link{scale_color_gradient2}},
-  \code{\link{scale_colour_gradient2}},
-  \code{\link{scale_fill_gradient2}};
-  \code{\link{scale_color_gradientn}},
-  \code{\link{scale_colour_gradientn}},
-  \code{\link{scale_fill_gradientn}};
-  \code{\link{scale_color_grey}},
   \code{\link{scale_colour_grey}},
-  \code{\link{scale_fill_grey}}
+  \code{\link{scale_colour_hue}}
 }
 
