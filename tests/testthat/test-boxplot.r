@@ -17,10 +17,21 @@ test_that("geom_boxplot for continuous x gives warning if more than one x (#992)
   expect_that(ggplot_build(ggplot(dat, aes(x,y)) + geom_boxplot()),
               gives_warning("Continuous x aesthetic"))
 
+  expect_that(ggplot_build(ggplot(dat, aes(x=as.Date(x,origin=Sys.Date()),y)) + geom_boxplot()),
+              gives_warning("Continuous x aesthetic"))
+
   expect_that(ggplot_build(ggplot(dat, aes(x,y,group=x)) + geom_boxplot()),
               not(gives_warning("Continuous x aesthetic")))
 
-  dat$x <- 1
-  expect_that(ggplot_build(ggplot(dat, aes(x,y)) + geom_boxplot()),
+  expect_that(ggplot_build(ggplot(dat, aes(x=1,y)) + geom_boxplot()),
+              not(gives_warning("Continuous x aesthetic")))
+
+  expect_that(ggplot_build(ggplot(dat, aes(x=factor(x),y)) + geom_boxplot()),
+              not(gives_warning("Continuous x aesthetic")))
+
+  expect_that(ggplot_build(ggplot(dat, aes(x=(x == 1),y)) + geom_boxplot()),
+              not(gives_warning("Continuous x aesthetic")))
+
+  expect_that(ggplot_build(ggplot(dat, aes(x=as.character(x),y)) + geom_boxplot()),
               not(gives_warning("Continuous x aesthetic")))
 })
