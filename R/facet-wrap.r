@@ -36,6 +36,11 @@
 #'   geom_point() +
 #'   facet_wrap(c("cyl", "drv"))
 #'
+#' # Use the `labeller` option to control how labels are printed:
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   facet_wrap(c("cyl", "drv"), labeller = "label_both")
+#'
 #' # To change the order in which the panels appear, change the levels
 #' # of the underlying factor.
 #' mpg$class2 <- reorder(mpg$class, mpg$displ)
@@ -88,7 +93,7 @@
 #'   facet_wrap(~ dpg_trans, ncol = 2, scales = "free", switch = "y") +
 #'   theme_minimal()
 #' }
-facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, as.table = TRUE, switch = NULL, drop = TRUE) {
+facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, switch = NULL, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
@@ -102,7 +107,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrin
     facets = as.quoted(facets), free = free, shrink = shrink,
     as.table = as.table, switch = switch,
     drop = drop, ncol = ncol, nrow = nrow,
-    subclass = "wrap"
+    labeller = labeller, subclass = "wrap"
   )
 }
 
@@ -340,17 +345,25 @@ facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
 #' @export
 facet_strips.wrap <- function(facet, panel, theme) {
   labels_df <- panel$layout[names(facet$facets)]
-  labels_df[] <- plyr::llply(labels_df, format, justify = "none")
 
-  labels <- apply(labels_df, 1, paste, collapse = ", ")
-
-  vertical <- !is.null(facet$switch) && facet$switch == "y"
-  if (vertical) {
-    theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
+  if (!is.null(facet$switch) && facet$switch == "x") {
+    dir <- "b"
+  } else {
+    dir <- "t"
   }
 
-  list(t = plyr::llply(labels, ggstrip, theme = theme, horizontal = !vertical))
+  strips_table <- build_strip(panel, labels_df, facet$labeller,
+    theme, dir, switch = facet$switch)
+
+  # While grid facetting works with a whole gtable, wrap processes the
+  # columns separately. So we turn the gtable into a list of columns
+  strips <- list(t = vector("list", ncol(strips_table)))
+  for (i in seq_along(strips$t)) {
+    strips$t[[i]] <- strips_table[, i]
+  }
+  strips
 }
+
 
 #' @export
 facet_axes.wrap <- function(facet, panel, coord, theme) {

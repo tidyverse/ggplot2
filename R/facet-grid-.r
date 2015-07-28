@@ -20,10 +20,15 @@
 #'   y scale; if \code{"free_x"} their width will be proportional to the
 #'  length of the x scale; or if \code{"free"} both height and width will
 #'  vary.  This setting has no effect unless the appropriate scales also vary.
-#' @param labeller A function that takes two arguments (\code{variable} and
-#'   \code{value}) and returns a string suitable for display in the facet
-#'   strip. See \code{\link{label_value}} for more details and pointers
-#'   to other options.
+#' @param labeller A function that takes one data frame of labels and
+#'   returns a list or data frame of character vectors. Each input
+#'   column corresponds to one factor. Thus there will be more than
+#'   one with formulae of the type \code{~cyl + am}. Each output
+#'   column gets displayed as one separate line in the strip
+#'   label. This function should inherit from the "labeller" S3 class
+#'   for compatibility with \code{\link{labeller}()}. See
+#'   \code{\link{label_value}} for more details and pointers to other
+#'   options.
 #' @param as.table If \code{TRUE}, the default, the facets are laid out like
 #'   a table with highest values at the bottom-right. If \code{FALSE}, the
 #'   facets are laid out like a plot with the highest value at the top-right.
@@ -358,66 +363,20 @@ facet_strips.grid <- function(facet, panel, theme) {
     dir$r <- "l"
   }
 
-  list(
+  strips <- list(
     r = build_strip(panel, row_vars, facet$labeller,
       theme, dir$r, switch = facet$switch),
     t = build_strip(panel, col_vars, facet$labeller,
       theme, dir$t, switch = facet$switch)
   )
-}
 
-build_strip <- function(panel, label_df, labeller, theme, side = "right", switch = NULL) {
-  side <- match.arg(side, c("top", "left", "bottom", "right"))
-  horizontal <- side %in% c("top", "bottom")
-  labeller <- match.fun(labeller)
-
-  # No labelling data, so return empty row/col
-  if (empty(label_df)) {
-    if (horizontal) {
-      widths <- unit(rep(0, max(panel$layout$COL)), "null")
-      return(gtable_row_spacer(widths))
+  Map(function(strip, side) {
+    if (side %in% c("t", "b")) {
+      gtable_add_col_space(strip, theme$panel.margin.x %||% theme$panel.margin)
     } else {
-      heights <- unit(rep(0, max(panel$layout$ROW)), "null")
-      return(gtable_col_spacer(heights))
+      gtable_add_row_space(strip, theme$panel.margin.y %||% theme$panel.margin)
     }
-  }
-
-  # Create matrix of labels
-  labels <- matrix(list(), nrow = nrow(label_df), ncol = ncol(label_df))
-  for (i in seq_len(ncol(label_df))) {
-    labels[, i] <- labeller(names(label_df)[i], label_df[, i])
-  }
-
-  # Display the mirror of the y strip labels if switched
-  if (!is.null(switch) && switch %in% c("both", "y")) {
-    theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
-  }
-
-  # Render as grobs
-  grobs <- apply(labels, c(1,2), ggstrip, theme = theme,
-    horizontal = horizontal)
-
-  # Create layout
-  name <- paste("strip", side, sep = "-")
-  if (horizontal) {
-    # Each row is as high as the highest and as a wide as the panel
-    row_height <- function(row) max(plyr::laply(row, height_cm))
-    grobs <- t(grobs)
-    heights <- unit(apply(grobs, 1, row_height), "cm")
-    widths <- unit(rep(1, ncol(grobs)), "null")
-  } else {
-    # Each row is wide as the widest and as high as the panel
-    col_width <- function(col) max(plyr::laply(col, width_cm))
-    widths <- unit(apply(grobs, 2, col_width), "cm")
-    heights <- unit(rep(1, nrow(grobs)), "null")
-  }
-  strips <- gtable_matrix(name, grobs, heights = heights, widths = widths)
-
-  if (horizontal) {
-    gtable_add_col_space(strips, theme$panel.margin.x %||% theme$panel.margin)
-  } else {
-    gtable_add_row_space(strips, theme$panel.margin.y %||% theme$panel.margin)
-  }
+  }, strips, dir)
 }
 
 #' @export
