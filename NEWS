@@ -243,6 +243,9 @@ ggplot2 1.0.1.9xxx
   aesthetics (e.g. `aes(sapply(..density.., function(x) mean(x))))`
   (#1154, @NikNakk)
 
+* Automatically computed breaks do not lead to an error for transformations like
+  "probit" where the inverse can map to infinity (#871, @krlmlr)
+
 ggplot2 1.0.1
 ----------------------------------------------------------------
 

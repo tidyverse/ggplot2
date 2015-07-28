@@ -383,7 +383,8 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   # @kohske
   # TODO: replace NA with something else for flag.
   #       guides cannot discriminate oob from missing value.
-  breaks <- censor(scale$trans$transform(breaks), scale$trans$transform(limits))
+  breaks <- censor(scale$trans$transform(breaks), scale$trans$transform(limits),
+                   only.finite = FALSE)
   if (length(breaks) == 0) {
     stop("Zero breaks in scale for ", paste(scale$aesthetics, collapse = "/"),
       call. = FALSE)
