@@ -39,6 +39,8 @@ order_groups <- function(data) {
 }
 
 # Is a grouping available?
+# (Will return TRUE if an explicit group or a discrete variable with only one
+# level existed when add_group() was called.)
 has_groups <- function(data) {
   # If no group aesthetic is specified, all values of the group column equal to
   # NO_GROUP. On the other hand, if a group aesthetic is specified, all values
