@@ -1,3 +1,5 @@
+# This needs to be less than 1, to distinguish it from "regular" return values
+# of plyr::id() used by add_group()
 NO_GROUP <- -1L
 
 # Ensure that the data frame contains a grouping variable.
@@ -10,6 +12,7 @@ NO_GROUP <- -1L
 # @param data.frame
 # @value data.frame with group variable
 # @keyword internal
+# @seealso has_groups
 add_group <- function(data) {
   if (empty(data)) return(data)
 
@@ -33,4 +36,13 @@ order_groups <- function(data) {
   if (is.null(data$order)) return(data)
 
   data[order(data$order), ]
+}
+
+# Is a grouping available?
+has_groups <- function(data) {
+  # If no group aesthetic is specified, all values of the group column equal to
+  # NO_GROUP. On the other hand, if a group aesthetic is specified, all values
+  # are different from NO_GROUP (since they are a result of plyr::id()). NA is
+  # returned for 0-row data frames.
+  data$group[1L] != NO_GROUP
 }
