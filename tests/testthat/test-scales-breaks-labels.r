@@ -7,7 +7,6 @@ test_that("labels match breaks, even when outside limits", {
   expect_equal(scale_labels(sc), 1:4)
   expect_equal(scale_breaks_minor(sc), c(1, 1.5, 2, 2.5, 3))
 })
-.
 
 test_that("labels must match breaks", {
   expect_that(scale_x_discrete(breaks = 1:3, labels = 1:2),
@@ -235,4 +234,11 @@ test_that("breaks can be specified by names of labels", {
   expect_equal(as.vector(scale_breaks(s)), letters[1:3])
   expect_equal(as.vector(scale_labels(s)), LETTERS[1:3])
 
+})
+
+test_that("only finite or NA values for breaks for transformed scales (#871)", {
+  sc <- scale_y_continuous(limits = c(0.01, 0.99), trans = "probit",
+                           breaks = seq(0, 1, 0.2))
+  breaks <- scale_breaks(sc)
+  expect_true(all(is.finite(breaks) | is.na(breaks)))
 })
