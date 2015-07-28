@@ -84,11 +84,7 @@ NULL
 #' @keywords internal
 continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(), breaks = waiver(), minor_breaks = waiver(), labels = waiver(), limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_, trans = "identity", guide="legend") {
 
-  bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
-    length(breaks) != length(labels)
-  if (bad_labels) {
-    stop("`breaks` and `labels` must have the same length", call. = FALSE)
-  }
+  check_breaks_labels(breaks, labels)
 
   if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
     guide <- "none"
@@ -165,11 +161,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(), b
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(), na.value = NA, drop = TRUE, guide="legend") {
 
-  bad_labels <- is.vector(breaks) && is.vector(labels) &&
-    length(breaks) != length(labels)
-  if (bad_labels) {
-    stop("`breaks` and `labels` must have the same length", call. = FALSE)
-  }
+  check_breaks_labels(breaks, labels)
 
   if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
     guide <- "none"
@@ -604,4 +596,17 @@ scale_break_info.continuous <- function(scale, range = NULL) {
   list(range = range, labels = labels,
        major = major_n, minor = minor_n,
        major_source = major, minor_source = minor)
+}
+
+check_breaks_labels <- function(breaks, labels) {
+  if (is.null(breaks)) return(TRUE)
+  if (is.null(labels)) return(TRUE)
+
+  bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
+    length(breaks) != length(labels)
+  if (bad_labels) {
+    stop("`breaks` and `labels` must have the same length", call. = FALSE)
+  }
+
+  TRUE
 }
