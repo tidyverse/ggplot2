@@ -5,8 +5,7 @@
 \title{Identity statistic.}
 \usage{
 stat_identity(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", width = NULL, height = NULL, show_guide = NA,
-  inherit.aes = TRUE, ...)
+  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -20,10 +19,6 @@ the plot defaults.}
 
 \item{position}{The position adjustment to use for overlapping points
 on this layer}
-
-\item{width}{The width of the tiles.}
-
-\item{height}{The height of the tiles.}
 
 \item{show_guide}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -39,13 +34,7 @@ include aesthetics whose values you want to set, not map. See
 \code{\link{layer}} for more details.}
 }
 \description{
-Identity statistic.
+The identity statistic leaves the data unchanged.
 }
-\section{Aesthetics}{
-
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "identity")}
-}
-\examples{
-# Doesn't do anything, so hard to come up a useful example
-}
+\keyword{internal}
 

@@ -12,7 +12,9 @@ Stat <- ggproto("Stat",
 
   required_aes = c(),
 
-  calculate = function(self, data, scales, ...) {},
+  calculate = function(self, data, scales, ...) {
+    data
+  },
 
   calculate_groups = function(self, data, scales, ...) {
     if (empty(data)) return(data.frame())
