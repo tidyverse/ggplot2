@@ -13,9 +13,9 @@
 #' @export
 #' @examples
 #' # See geom_linerange for examples
-geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
-{
+geom_pointrange <- function(mapping = NULL, data = NULL, stat = "identity",
+                            position = "identity", show.legend = NA,
+                            inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -44,7 +44,7 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
     if (is.null(data$y)) return(GeomLinerange$draw(data, scales, coordinates, ...))
 
     ggname("geom_pointrange",
-      gTree(children=gList(
+      gTree(children = gList(
         GeomLinerange$draw(data, scales, coordinates, ...),
         GeomPoint$draw(transform(data, size = size * 4), scales, coordinates, ...)
       ))

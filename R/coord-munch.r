@@ -45,7 +45,7 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   # Replicate other aesthetics: defined by start point but also
   # must include final point
   id <- c(rep(seq_len(nrow(data) - 1), extra), nrow(data))
-  aes_df <- data[id, setdiff(names(data), c("x", "y")), drop=FALSE]
+  aes_df <- data[id, setdiff(names(data), c("x", "y")), drop = FALSE]
 
   plyr::unrowname(data.frame(x = x, y = y, aes_df))
 }
@@ -55,7 +55,7 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
 # (end - (end - start) / n). end is never included in sequence.
 interp <- function(start, end, n) {
   if (n == 1) return(start)
-  start + seq(0, 1, length.out = n+1)[-(n+1)] * (end - start)
+  start + seq(0, 1, length.out = n + 1)[-(n + 1)] * (end - start)
 }
 
 # Euclidean distance between points.

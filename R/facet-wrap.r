@@ -331,7 +331,7 @@ facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
 
     geom_grobs <- lapply(geom_grobs, "[[", i)
 
-    if(theme$panel.ontop) {
+    if (theme$panel.ontop) {
       panel_grobs <- c(geom_grobs, list(bg), list(fg))
     } else {
       panel_grobs <- c(list(bg), geom_grobs, list(fg))

@@ -28,10 +28,9 @@
 #'   trt = sample(c("a", "b"), 50, rep = TRUE)
 #' )
 #' ggplot(df, aes(seq_along(x), x)) + geom_step(aes(colour = trt))
-geom_step <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", direction = "hv", show.legend = NA, inherit.aes = TRUE,
-  ...)
-{
+geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
+                      position = "identity", direction = "hv",
+                      show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -72,10 +71,10 @@ stairstep <- function(data, direction="hv") {
 
   if (direction == "vh") {
     xs <- rep(1:n, each = 2)[-2*n]
-    ys <- c(1, rep(2:n, each=2))
+    ys <- c(1, rep(2:n, each = 2))
   } else {
     ys <- rep(1:n, each = 2)[-2*n]
-    xs <- c(1, rep(2:n, each=2))
+    xs <- c(1, rep(2:n, each = 2))
   }
 
   data.frame(

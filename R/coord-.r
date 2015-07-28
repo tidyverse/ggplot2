@@ -11,10 +11,10 @@ Coord <- ggproto("Coord",
   render_fg = function(scale_details, theme) element_render(theme, "panel.border"),
 
   render_bg = function(scale_details, theme) {
-    x.major <- if(length(scale_details$x.major) > 0) unit(scale_details$x.major, "native")
-    x.minor <- if(length(scale_details$x.minor) > 0) unit(scale_details$x.minor, "native")
-    y.major <- if(length(scale_details$y.major) > 0) unit(scale_details$y.major, "native")
-    y.minor <- if(length(scale_details$y.minor) > 0) unit(scale_details$y.minor, "native")
+    x.major <- if (length(scale_details$x.major) > 0) unit(scale_details$x.major, "native")
+    x.minor <- if (length(scale_details$x.minor) > 0) unit(scale_details$x.minor, "native")
+    y.major <- if (length(scale_details$y.major) > 0) unit(scale_details$y.major, "native")
+    y.minor <- if (length(scale_details$y.minor) > 0) unit(scale_details$y.minor, "native")
 
     guide_grid(theme, x.minor, x.major, y.minor, y.major)
   },

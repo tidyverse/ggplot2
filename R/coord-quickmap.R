@@ -20,7 +20,7 @@ CoordQuickmap <- ggproto("CoordQuickmap", CoordCartesian,
     # compute distance corresponding to 1 degree in either direction
     # from the center
     x.dist <- dist_central_angle(x.center + c(-0.5, 0.5), rep(y.center, 2))
-    y.dist <- dist_central_angle(rep(x.center, 2), y.center+c(-0.5, 0.5))
+    y.dist <- dist_central_angle(rep(x.center, 2), y.center + c(-0.5, 0.5))
     # NB: this makes the projection correct in the center of the plot and
     #     increasingly less correct towards the edges. For regions of reasonnable
     #     size, this seems to give better results than computing this ratio from

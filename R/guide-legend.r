@@ -157,39 +157,42 @@ guide_legend <- function(
   if (!is.null(keywidth) && !is.unit(keywidth)) keywidth <- unit(keywidth, default.unit)
   if (!is.null(keyheight) && !is.unit(keyheight)) keyheight <- unit(keyheight, default.unit)
 
-  structure(list(
-    # title
-    title = title,
-    title.position = title.position,
-    title.theme = title.theme,
-    title.hjust = title.hjust,
-    title.vjust = title.vjust,
+  structure(
+    list(
+      # title
+      title = title,
+      title.position = title.position,
+      title.theme = title.theme,
+      title.hjust = title.hjust,
+      title.vjust = title.vjust,
 
-    # label
-    label = label,
-    label.position = label.position,
-    label.theme = label.theme,
-    label.hjust = label.hjust,
-    label.vjust = label.vjust,
+      # label
+      label = label,
+      label.position = label.position,
+      label.theme = label.theme,
+      label.hjust = label.hjust,
+      label.vjust = label.vjust,
 
-    # size of key
-    keywidth = keywidth,
-    keyheight = keyheight,
+      # size of key
+      keywidth = keywidth,
+      keyheight = keyheight,
 
-    # general
-    direction = direction,
-    override.aes = override.aes,
-    nrow = nrow,
-    ncol = ncol,
-    byrow = byrow,
-    reverse = reverse,
-    order = order,
+      # general
+      direction = direction,
+      override.aes = override.aes,
+      nrow = nrow,
+      ncol = ncol,
+      byrow = byrow,
+      reverse = reverse,
+      order = order,
 
-    # parameter
-    available_aes = c("any"),
-
-    ..., name="legend"),
-    class=c("guide", "legend"))
+      # parameter
+      available_aes = c("any"),
+      ...,
+      name = "legend"
+    ),
+    class = c("guide", "legend")
+  )
 }
 
 #' @export
@@ -226,7 +229,7 @@ guide_train.legend <- function(guide, scale) {
 
 #' @export
 guide_merge.legend <- function(guide, new_guide) {
-  guide$key <- merge(guide$key, new_guide$key, sort=FALSE)
+  guide$key <- merge(guide$key, new_guide$key, sort = FALSE)
   guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
   if (any(duplicated(names(guide$override.aes)))) warning("Duplicated override.aes is ignored.")
   guide$override.aes <- guide$override.aes[!duplicated(names(guide$override.aes))]
@@ -391,44 +394,44 @@ guide_gengrob.legend <- function(guide, theme) {
       "top" = {
         kl_widths <- pmax(label_widths, key_widths)
         kl_heights <- utils::head(interleave(label_heights, vgap/2, key_heights, vgap/2), -1)
-        vps <- transform(vps, key.row = R*4-1, key.col = C, label.row = R*4-3, label.col = C)
+        vps <- transform(vps, key.row = R * 4 - 1, key.col = C, label.row = R * 4 - 3, label.col = C)
       },
       "bottom" = {
         kl_widths <- pmax(label_widths, key_widths)
         kl_heights <- utils::head(interleave(key_heights, vgap/2, label_heights, vgap/2), -1)
-        vps <- transform(vps, key.row = R*4-3, key.col = C, label.row = R*4-1, label.col = C)
+        vps <- transform(vps, key.row = R * 4 - 3, key.col = C, label.row = R * 4 - 1, label.col = C)
       },
       "left" = {
         kl_widths <- utils::head(interleave(label_widths, hgap/2, key_widths, hgap/2), -1)
         kl_heights <- utils::head(interleave(pmax(label_heights, key_heights), vgap/2), -1)
-        vps <- transform(vps, key.row = R*2-1, key.col = C*4-1, label.row = R*2-1, label.col = C*4-3)
+        vps <- transform(vps, key.row = R * 2 - 1, key.col = C * 4 - 1, label.row = R * 2 - 1, label.col = C * 4 - 3)
       },
       "right" = {
         kl_widths <- utils::head(interleave(key_widths, hgap/2, label_widths, hgap/2), -1)
         kl_heights <- utils::head(interleave(pmax(label_heights, key_heights), vgap/2), -1)
-        vps <- transform(vps, key.row = R*2-1, key.col = C*4-3, label.row = R*2-1, label.col = C*4-1)
+        vps <- transform(vps, key.row = R * 2 - 1, key.col = C * 4 - 3, label.row = R * 2 - 1, label.col = C * 4 - 1)
         })
   } else {
     switch(label.position,
       "top" = {
         kl_widths <- utils::head(interleave(pmax(label_widths, key_widths), hgap/2), -1)
         kl_heights <- utils::head(interleave(label_heights, vgap/2, key_heights, vgap/2), -1)
-        vps <- transform(vps, key.row = R*4-1, key.col = C*2-1, label.row = R*4-3, label.col = C*2-1)
+        vps <- transform(vps, key.row = R * 4 - 1, key.col = C * 2 - 1, label.row = R * 4 - 3, label.col = C * 2 - 1)
       },
       "bottom" = {
         kl_widths <- utils::head(interleave(pmax(label_widths, key_widths), hgap/2), -1)
         kl_heights <- utils::head(interleave(key_heights, vgap/2, label_heights, vgap/2), -1)
-        vps <- transform(vps, key.row = R*4-3, key.col = C*2-1, label.row = R*4-1, label.col = C*2-1)
+        vps <- transform(vps, key.row = R * 4 - 3, key.col = C * 2 - 1, label.row = R * 4 - 1, label.col = C * 2 - 1)
       },
       "left" = {
         kl_widths <- utils::head(interleave(label_widths, hgap/2, key_widths, hgap/2), -1)
         kl_heights <- pmax(key_heights, label_heights)
-        vps <- transform(vps, key.row = R, key.col = C*4-1, label.row = R, label.col = C*4-3)
+        vps <- transform(vps, key.row = R, key.col = C * 4 - 1, label.row = R, label.col = C * 4 - 3)
       },
       "right" = {
         kl_widths <- utils::head(interleave(key_widths, hgap/2, label_widths, hgap/2), -1)
         kl_heights <- pmax(key_heights, label_heights)
-        vps <- transform(vps, key.row = R, key.col = C*4-3, label.row = R, label.col = C*4-1)
+        vps <- transform(vps, key.row = R, key.col = C * 4 - 3, label.row = R, label.col = C * 4 - 1)
       })
   }
 
@@ -464,16 +467,12 @@ guide_gengrob.legend <- function(guide, theme) {
 
   for (i in 1:nbreak) {
 
-    # layout position
-    pos.row <- vps$key.row[i]
-    pos.col <- vps$key.col[i]
-
     # bg. of key
-    grob.keys[[length(grob.keys)+1]] <- element_render(theme, "legend.key")
+    grob.keys[[length(grob.keys) + 1]] <- element_render(theme, "legend.key")
 
     # overlay geoms
-    for(geom in guide$geoms) {
-      grob.keys[[length(grob.keys)+1]] <- geom$draw_key(geom$data[i, ], geom$params)
+    for (geom in guide$geoms) {
+      grob.keys[[length(grob.keys) + 1]] <- geom$draw_key(geom$data[i, ], geom$params)
     }
 
   }

@@ -168,7 +168,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       params$width %||% (resolution(df$x, FALSE) * 0.9)
 
     # Set up the stacking function and range
-    if(is.null(params$stackdir) || params$stackdir == "up") {
+    if (is.null(params$stackdir) || params$stackdir == "up") {
       stackdots <- function(a)  a - .5
       stackaxismin <- 0
       stackaxismax <- 1
@@ -249,7 +249,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
 
     # Swap axes if using coord_flip
     if ("flip" %in% attr(coordinates, "class"))
-      binaxis <- ifelse (binaxis == "x", "y", "x")
+      binaxis <- ifelse(binaxis == "x", "y", "x")
 
     if (binaxis == "x") {
       stackaxis = "y"

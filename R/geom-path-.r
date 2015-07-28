@@ -94,10 +94,10 @@
 #' c + geom_path(arrow = arrow())
 #' c + geom_path(arrow = arrow(angle = 15, ends = "both", length = unit(0.6, "inches")))
 #' }
-geom_path <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", lineend = "butt", linejoin = "round", linemitre = 1,
-  na.rm = FALSE, arrow = NULL, show.legend = NA, inherit.aes = TRUE, ...)
-{
+geom_path <- function(mapping = NULL, data = NULL, stat = "identity",
+                      position = "identity", lineend = "butt",
+                      linejoin = "round", linemitre = 1, na.rm = FALSE,
+                      arrow = NULL, show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -144,7 +144,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     # middle since you expect those to be shown by a break in the line
     missing <- !stats::complete.cases(data[c("x", "y", "size", "colour",
       "linetype")])
-    kept <- stats::ave(missing, data$group, FUN=keep)
+    kept <- stats::ave(missing, data$group, FUN = keep)
     data <- data[kept, ]
     # must be sorted on group
     data <- plyr::arrange(data, group)
@@ -173,7 +173,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     if (!solid_lines && !constant) {
       stop("geom_path: If you are using dotted or dashed lines",
         ", colour, size and linetype must be constant over the line",
-        call.=FALSE)
+        call. = FALSE)
     }
 
     # Work out grouping variables for grobs

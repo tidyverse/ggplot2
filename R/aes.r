@@ -157,7 +157,7 @@ aes_all <- function(vars) {
   vars <- rename_aes(vars)
 
   structure(
-    lapply(vars, function(x) parse(text=x)[[1]]),
+    lapply(vars, function(x) parse(text = x)[[1]]),
     class = "uneval"
   )
 }
@@ -192,7 +192,7 @@ aes_auto <- function(data = NULL, ...) {
   # automatically detected aes
   vars <- intersect(.all_aesthetics, vars)
   names(vars) <- vars
-  aes <- lapply(vars, function(x) parse(text=x)[[1]])
+  aes <- lapply(vars, function(x) parse(text = x)[[1]])
 
   # explicitly defined aes
   if (length(match.call()) > 2) {

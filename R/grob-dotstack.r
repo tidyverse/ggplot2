@@ -1,4 +1,4 @@
-dotstackGrob <- function (
+dotstackGrob <- function(
     x = unit(0.5, "npc"),     # x pos of the dotstack's origin
     y = unit(0.5, "npc"),     # y pos of the dotstack's origin
     stackaxis = "y",
@@ -31,11 +31,11 @@ drawDetails.dotstackGrob <- function(x, recording = TRUE) {
   xmm   <- convertX(x$x, "mm", valueOnly = TRUE)
   ymm   <- convertY(x$y, "mm", valueOnly = TRUE)
 
-  if(x$stackaxis == "x") {
+  if (x$stackaxis == "x") {
     dotdiamm <- convertY(x$dotdia, "mm", valueOnly = TRUE)
     xpos <- xmm + dotdiamm * (x$stackposition * x$stackratio + (1 - x$stackratio) / 2)
     ypos <- ymm
-  } else if(x$stackaxis == "y") {
+  } else if (x$stackaxis == "y") {
     dotdiamm <- convertX(x$dotdia, "mm", valueOnly = TRUE)
     xpos <- xmm
     ypos <- ymm + dotdiamm * (x$stackposition * x$stackratio + (1 - x$stackratio) / 2)
@@ -43,6 +43,6 @@ drawDetails.dotstackGrob <- function(x, recording = TRUE) {
 
   grid.draw(
     circleGrob(x = xpos, y = ypos, r = dotdiamm / 2, default.units = "mm",
-               name = x$name, gp = x$gp, vp = x$vp),
+               name = x$name, gp = x$gp, vp = x$vp)
   )
 }

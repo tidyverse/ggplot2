@@ -32,9 +32,9 @@
 #'
 #' # Use coord_flip to flip the x and y axes
 #' se + geom_linerange() + coord_flip()
-geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
-{
+geom_linerange <- function(mapping = NULL, data = NULL, stat = "identity",
+                           position = "identity", show.legend = NA,
+                           inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -59,11 +59,10 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
   required_aes = c("x", "ymin", "ymax"),
 
   draw = function(self, data, scales, coordinates, ...) {
-    munched <- coordinates$transform(data, scales)
     ggname(
       "geom_linerange",
       GeomSegment$draw(
-        transform(data, xend=x, y=ymin, yend=ymax), scales, coordinates, ...
+        transform(data, xend = x, y = ymin, yend = ymax), scales, coordinates, ...
       )
     )
   }

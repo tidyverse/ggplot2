@@ -7,9 +7,9 @@
 #' @inheritParams geom_point
 #' @examples
 #' # See ?stat_binhex for examples
-geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
-{
+geom_hex <- function(mapping = NULL, data = NULL, stat = "binhex",
+                     position = "identity", show.legend = NA,
+                     inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

@@ -130,9 +130,9 @@
 #' m <- ggplot(mpg, aes(x = manufacturer, fill = class))
 #' m + geom_bar()
 #' }
-geom_bar <- function (mapping = NULL, data = NULL, stat = "bin",
-  position = "stack", show.legend = NA, inherit.aes = TRUE, ...)
-{
+geom_bar <- function(mapping = NULL, data = NULL, stat = "bin",
+                     position = "stack", show.legend = NA, inherit.aes = TRUE,
+                     ...) {
   layer(
     data = data,
     mapping = mapping,

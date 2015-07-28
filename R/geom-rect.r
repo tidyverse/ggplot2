@@ -12,9 +12,9 @@
 #' )
 #' ggplot(df, aes(xmin = x, xmax = x + 1, ymin = y, ymax = y + 2)) +
 #' geom_rect()
-geom_rect <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
-{
+geom_rect <- function(mapping = NULL, data = NULL, stat = "identity",
+                      position = "identity", show.legend = NA,
+                      inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

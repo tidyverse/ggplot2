@@ -41,10 +41,10 @@
 #'
 #' ggplot(counts, aes(x, Freq)) +
 #'   geom_segment(aes(xend = x, yend = 0), size = 10, lineend = "butt")
-geom_segment <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, ...)
-{
+geom_segment <- function(mapping = NULL, data = NULL, stat = "identity",
+                         position = "identity", arrow = NULL, lineend = "butt",
+                         na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+                         ...) {
   layer(
     data = data,
     mapping = mapping,

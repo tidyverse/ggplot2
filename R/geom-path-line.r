@@ -63,9 +63,9 @@
 #' dfm <- melt(df, id.var = c("id", "group"))
 #' ggplot(dfm, aes(variable, value, group = id, colour = group)) +
 #'   geom_path(alpha = 0.5)
-geom_line <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
-{
+geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
+                      position = "identity", show.legend = NA,
+                      inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

@@ -67,7 +67,7 @@ layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, as.table = 
   panels
 }
 
-layout_null <- function(data) {
+layout_null <- function() {
    data.frame(PANEL = 1, ROW = 1, COL = 1)
 }
 

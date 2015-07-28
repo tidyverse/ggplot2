@@ -38,7 +38,7 @@ NULL
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf, interpolate = TRUE) +
 #'   geom_point()
-annotation_raster <- function (raster, xmin, xmax, ymin, ymax,
+annotation_raster <- function(raster, xmin, xmax, ymin, ymax,
   interpolate = FALSE)
 {
   raster <- grDevices::as.raster(raster)

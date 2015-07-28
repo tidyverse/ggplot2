@@ -76,7 +76,7 @@
 #' library(grid)
 #' a + annotation_logticks(short = unit(.5,"mm"), mid = unit(3,"mm"), long = unit(4,"mm"))
 #'
-annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
+annotation_logticks <- function(base = 10, sides = "bl", scaled = TRUE,
       short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm"),
       colour = "black", size = 0.5, linetype = 1, alpha = 1, color = NULL, ...)
 {
@@ -135,18 +135,18 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
       if (scaled)
         xticks$value <- log(xticks$value, base)
 
-      names(xticks)[names(xticks)=="value"] <- "x"   # Rename to 'x' for coordinates$transform
+      names(xticks)[names(xticks) == "value"] <- "x"   # Rename to 'x' for coordinates$transform
       xticks <- coordinates$transform(xticks, scales)
 
       # Make the grobs
-      if(grepl("b", sides)) {
+      if (grepl("b", sides)) {
         ticks$x_b <- with(data, segmentsGrob(
           x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
           y0 = unit(xticks$start, "cm"), y1 = unit(xticks$end, "cm"),
           gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
         ))
       }
-      if(grepl("t", sides)) {
+      if (grepl("t", sides)) {
         ticks$x_t <- with(data, segmentsGrob(
           x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
           y0 = unit(1, "npc") - unit(xticks$start, "cm"), y1 = unit(1, "npc") - unit(xticks$end, "cm"),
@@ -164,18 +164,18 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
       if (scaled)
         yticks$value <- log(yticks$value, base)
 
-      names(yticks)[names(yticks)=="value"] <- "y"   # Rename to 'y' for coordinates$transform
+      names(yticks)[names(yticks) == "value"] <- "y"   # Rename to 'y' for coordinates$transform
       yticks <- coordinates$transform(yticks, scales)
 
       # Make the grobs
-      if(grepl("l", sides)) {
+      if (grepl("l", sides)) {
         ticks$y_l <- with(data, segmentsGrob(
           y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
           x0 = unit(yticks$start, "cm"), x1 = unit(yticks$end, "cm"),
           gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
         ))
       }
-      if(grepl("r", sides)) {
+      if (grepl("r", sides)) {
         ticks$y_r <- with(data, segmentsGrob(
           y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
           x0 = unit(1, "npc") - unit(yticks$start, "cm"), x1 = unit(1, "npc") - unit(yticks$end, "cm"),
@@ -203,13 +203,13 @@ calc_logticks <- function(base = 10, ticks_per_base = base - 1,
   reps <- maxpow - minpow
 
   # For base 10: 1, 2, 3, ..., 7, 8, 9, 1, 2, ...
-  ticknums  <- rep(seq(1, base-1, length.out = ticks_per_base), reps)
+  ticknums  <- rep(seq(1, base - 1, length.out = ticks_per_base), reps)
 
   # For base 10: 1, 1, 1, ..., 1, 1, 1, 2, 2, ... (for example)
-  powers <- rep(seq(minpow, maxpow-1), each = ticks_per_base)
+  powers <- rep(seq(minpow, maxpow - 1), each = ticks_per_base)
 
-  ticks  <- ticknums * base^powers
-  ticks  <- c(ticks, base^maxpow)  # Add the last tick mark
+  ticks  <- ticknums * base ^ powers
+  ticks  <- c(ticks, base ^ maxpow)  # Add the last tick mark
 
   # Set all of the ticks short
   tickend <- rep(shortend, length(ticks))

@@ -48,9 +48,9 @@
 #' # groups which define the lines - here the groups in the
 #' # original dataframe
 #' p + geom_line(aes(group = group)) + geom_errorbar(limits, width = 0.2)
-geom_errorbar <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
-{
+geom_errorbar <- function(mapping = NULL, data = NULL, stat = "identity",
+                          position = "identity", show.legend = NA,
+                          inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

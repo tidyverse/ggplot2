@@ -207,8 +207,8 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
     facets <- stats::as.formula(facets)
   }
   if (is.formula(facets)) {
-    lhs <- function(x) if(length(x) == 2) NULL else x[-3]
-    rhs <- function(x) if(length(x) == 2) x else x[-2]
+    lhs <- function(x) if (length(x) == 2) NULL else x[-3]
+    rhs <- function(x) if (length(x) == 2) x else x[-2]
 
     rows <- as.quoted(lhs(facets))
     rows <- rows[!sapply(rows, identical, as.name("."))]
@@ -359,7 +359,7 @@ facet_strips.grid <- function(facet, panel, theme) {
   if (!is.null(facet$switch) && facet$switch %in% c("both", "x")) {
     dir$t <- "b"
   }
-  if (!is.null(facet$switch) && facet$switch %in% c("both", "y")){
+  if (!is.null(facet$switch) && facet$switch %in% c("both", "y")) {
     dir$r <- "l"
   }
 
@@ -425,7 +425,7 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
 
     geom_grobs <- lapply(geom_grobs, "[[", i)
 
-    if(theme$panel.ontop) {
+    if (theme$panel.ontop) {
       panel_grobs <- c(geom_grobs, list(bg), list(fg))
     } else {
       panel_grobs <- c(list(bg), geom_grobs, list(fg))
