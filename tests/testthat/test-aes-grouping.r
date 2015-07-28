@@ -12,7 +12,7 @@ groups <- function(x) length(unique(group(x)))
 
 test_that("one group per combination of discrete vars", {
   plot <- ggplot(df, aes(x, x)) + geom_point()
-  expect_that(group(plot), equals(c(0, 0, 0, 0)))
+  expect_that(group(plot), equals(rep(NO_GROUP, 4)))
 
   plot <- ggplot(df, aes(x, a)) + geom_point()
   expect_that(group(plot), equals(c(1, 1, 2, 2)))
@@ -25,7 +25,7 @@ test_that("one group per combination of discrete vars", {
 
 test_that("label is not used as a grouping var", {
   plot <- ggplot(df, aes(x, x, label = a)) + geom_point()
-  expect_that(group(plot), equals(c(0, 0, 0, 0)))
+  expect_that(group(plot), equals(rep(NO_GROUP, 4)))
 
   plot <- ggplot(df, aes(x, x, colour = a, label = b)) + geom_point()
   expect_that(group(plot), equals(c(1, 1, 2, 2)))
