@@ -17,7 +17,7 @@ add_group <- function(data) {
     if (any(disc)) {
       data$group <- plyr::id(data[disc], drop = TRUE)
     } else {
-      data$group <- 1L
+      data$group <- 0L
     }
   } else {
     data$group <- plyr::id(data["group"], drop = TRUE)
