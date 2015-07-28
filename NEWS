@@ -300,6 +300,9 @@ ggplot2 1.0.1.9xxx
 * Automatically computed breaks do not lead to an error for transformations like
   "probit" where the inverse can map to infinity (#871, @krlmlr)
 
+* `stat_boxplot` warns if a continuous variable is used for the `x` aesthetic
+  without also supplying a `group` aesthetic (#992, @krlmlr)
+
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
