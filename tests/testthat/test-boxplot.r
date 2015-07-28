@@ -11,3 +11,9 @@ test_that("geom_boxplot range includes all outliers", {
   expect_true(miny <= min(dat$y))
   expect_true(maxy >= max(dat$y))
 })
+
+test_that("geom_boxplot for continuous x gives warning if more than one x (#992)", {
+  dat <- data.frame(x=1:2, y=c(-(1:20)^3, (1:20)^3) )
+  expect_warning(ggplot_build(ggplot(dat, aes(x,y)) + geom_boxplot()),
+                 "Continuous x aesthetic")
+})
