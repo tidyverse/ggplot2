@@ -7,7 +7,6 @@ test_that("labels match breaks, even when outside limits", {
   expect_equal(scale_labels(sc), 1:4)
   expect_equal(scale_breaks_minor(sc), c(1, 1.5, 2, 2.5, 3))
 })
-.
 
 test_that("labels must match breaks", {
   expect_that(scale_x_discrete(breaks = 1:3, labels = 1:2),
