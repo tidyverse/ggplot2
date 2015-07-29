@@ -155,7 +155,6 @@ Collate:
     'scale-brewer.r'
     'scale-continuous.r'
     'scale-date.r'
-    'scale-datetime.r'
     'scale-discrete-.r'
     'scale-gradient.r'
     'scale-gradient2.r'

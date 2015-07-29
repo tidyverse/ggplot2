@@ -1,116 +1,145 @@
-#' Position scale, date
+#' Position scale, date & date times
 #'
-#' @rdname scale_date
-#' @inheritParams scale_x_continuous
-#' @param ... Additional arguments passed on to \code{\link{continuous_scale}}
-#' @param breaks  A vector of breaks, a function that given the scale limits
-#'   returns a vector of breaks, or a character vector, specifying the width
-#'   between breaks. For more information about the first two, see
-#'   \code{\link{continuous_scale}}, for more information about the last,
-#'   see \code{\link[scales]{date_breaks}}`.
-#' @param minor_breaks Either \code{NULL} for no minor breaks, \code{waiver()}
-#'   for the default breaks (one minor break between each major break), a
-#'   numeric vector of positions, or a function that given the limits returns
-#'   a vector of minor breaks.
-#' @family position scales
-#' @export
+#' Use \code{scale_*_date} with \code{Date} variables, and
+#' \code{scale_*_datetime} with \code{POSIXct} variables.
+#'
+#' @name scale_date
+#' @inheritParams continuous_scale
+#' @param date_breaks A string giving the distance between breaks like "2
+#'   weeks", or "10 years". If both \code{breaks} and \code{date_breaks} are
+#'   specified, \code{date_breaks} wins.
+#' @param date_minor_breaks A string giving the distance between minor breaks
+#'   like "2 weeks", or "10 years". If both \code{minor_breaks} and
+#'   \code{date_minor_breaks} are specified, \code{date_minor_breaks} wins.
+#' @param date_labels A string giving the formatting specification for the
+#'   labels. Codes are defined in \code{\link{strftime}}. If both \code{labels}
+#'   and \code{date_labels} are specified, \code{date_labels} wins.
+#' @seealso \code{\link{scale_continuous}} for continuous position scales.
 #' @examples
-#' # We'll start by creating some nonsense data with dates
+#' last_month <- Sys.Date() - 0:29
 #' df <- data.frame(
-#'   date = seq(Sys.Date(), length.out=100, by="1 day")[sample(100, 50)],
-#'   price = runif(50)
+#'   date = last_month,
+#'   price = runif(30)
 #' )
-#' df <- df[order(df$date), ]
-#' dt <- ggplot(df, aes(date, price)) +
-#'       geom_line() +
-#'       theme(aspect.ratio = 1/4)
-#'
-#' # We can control the format of the labels, and the frequency of
-#' # the major and minor tickmarks.  See ?format.Date and ?seq.Date
-#' # for more details.
-#' dt + scale_x_date()
-#' dt + scale_x_date(labels = scales::date_format("%m/%d"))
-#' dt + scale_x_date(labels = scales::date_format("%W"))
-#' dt + scale_x_date(labels = scales::date_format("%W"), breaks = scales::date_breaks("week"))
-#'
-#' dt + scale_x_date(
-#'   breaks = scales::date_breaks("months"),
-#'   labels = scales::date_format("%b")
-#' )
-#' dt + scale_x_date(
-#'   breaks = scales::date_breaks("4 weeks"),
-#'   labels = scales::date_format("%d-%b")
-#' )
-#'
-#' # We can use character string for breaks.
-#' # See \code{\link{by}} argument in \code{\link{seq.Date}}.
-#' dt + scale_x_date(breaks = "2 weeks")
-#' dt + scale_x_date(breaks = "1 month", minor_breaks = "1 week")
+#' base <- ggplot(df, aes(date, price)) +
+#'   geom_line()
 #'
 #' # The date scale will attempt to pick sensible defaults for
-#' # major and minor tick marks
-#' ggplot(df[1:10,], aes(date, price)) + geom_line()
-#' ggplot(df[1:4,], aes(date, price)) + geom_line()
+#' # major and minor tick marks. Override with date_breaks, date_labels
+#' # date_minor_breaks arguments.
+#' base + scale_x_date(date_labels = "%b %d")
+#' base + scale_x_date(date_breaks = "1 week", date_labels = "%W")
+#' base + scale_x_date(date_minor_breaks = "1 day")
 #'
-#' df <- data.frame(
-#'   date = seq(Sys.Date(), length.out=1000, by="1 day"),
-#'   price = runif(500)
-#' )
-#' ggplot(df, aes(date, price)) + geom_line()
-#'
-#' # A real example using economic time series data
-#' ggplot(economics, aes(date, psavert)) + geom_point()
-#' ggplot(economics, aes(date, psavert)) + geom_path()
-#'
-#' end <- max(economics$date)
-#' last_plot() + scale_x_date(limits = c(as.Date("2000-1-1"), end))
-#' last_plot() + scale_x_date(limits = c(as.Date("2005-1-1"), end))
-#' last_plot() + scale_x_date(limits = c(as.Date("2006-1-1"), end))
-#'
-#' # If we want to display multiple series, one for each variable
-#' # it's easiest to first change the data from a "wide" to a "long"
-#' # format:
-#' em <- reshape2::melt(economics, id.vars = "date")
-#'
-#' # Then we can group and facet by the new "variable" variable
-#' (p <- ggplot(em, aes(date, value)) + geom_line(aes(group = variable)))
-#' p + facet_grid(variable ~ ., scales = "free_y")
-scale_x_date <- function(..., expand = waiver(), breaks = pretty_breaks(),
-  minor_breaks = waiver()) {
+#' # Set limits
+#' base + scale_x_date(limits = c(Sys.Date() - 7, NA))
+NULL
 
-  scale_date(c("x", "xmin", "xmax", "xend"), expand = expand, breaks = breaks,
-    minor_breaks = minor_breaks, ...)
+#' @rdname scale_date
+#' @export
+scale_x_date <- function(name = waiver(),
+                         breaks = waiver(), date_breaks = waiver(),
+                         labels = waiver(), date_labels = waiver(),
+                         minor_breaks = waiver(), date_minor_breaks = waiver(),
+                         limits = NULL, expand = waiver()) {
+
+  scale_datetime(c("x", "xmin", "xmax", "xend"), "date",
+    name = name,
+    breaks = breaks, date_breaks = date_breaks,
+    labels = labels, date_labels = date_labels,
+    minor_breaks = minor_breaks, date_minor_breaks = date_minor_breaks,
+    limits = limits, expand = expand
+  )
 }
 
 #' @rdname scale_date
 #' @export
-scale_y_date <- function(..., expand = waiver(), breaks = pretty_breaks(),
-  minor_breaks = waiver()) {
+scale_y_date <- function(name = waiver(),
+                         breaks = waiver(), date_breaks = waiver(),
+                         labels = waiver(), date_labels = waiver(),
+                         minor_breaks = waiver(), date_minor_breaks = waiver(),
+                         limits = NULL, expand = waiver()) {
 
-  scale_date(c("y", "ymin", "ymax", "yend"), expand = expand, breaks = breaks,
-    minor_breaks = minor_breaks, ...)
+  scale_datetime(c("y", "ymin", "ymax", "yend"), "date",
+    name = name,
+    breaks = breaks, date_breaks = date_breaks,
+    labels = labels, date_labels = date_labels,
+    minor_breaks = minor_breaks, date_minor_breaks = date_minor_breaks,
+    limits = limits, expand = expand
+  )
 }
 
-# base class for scale_{xy}_date
-scale_date <- function(aesthetics, expand = waiver(), breaks = pretty_breaks(),
-                       minor_breaks = waiver(), ...) {
 
-  if (is.character(breaks)) {
-    breaks_str <- breaks
-    breaks <- date_breaks(breaks_str)
+#' @export
+#' @rdname scale_date
+scale_x_datetime <- function(name = waiver(),
+                             breaks = waiver(), date_breaks = waiver(),
+                             labels = waiver(), date_labels = waiver(),
+                             minor_breaks = waiver(), date_minor_breaks = waiver(),
+                             limits = NULL, expand = waiver()) {
+
+  scale_datetime(c("x", "xmin", "xmax", "xend"), "time",
+    name = name,
+    breaks = breaks, date_breaks = date_breaks,
+    labels = labels, date_labels = date_labels,
+    minor_breaks = minor_breaks, date_minor_breaks = date_minor_breaks,
+    limits = limits, expand = expand
+  )
+}
+
+
+#' @rdname scale_date
+#' @export
+scale_y_datetime <- function(name = waiver(),
+                             breaks = waiver(), date_breaks = waiver(),
+                             labels = waiver(), date_labels = waiver(),
+                             minor_breaks = waiver(), date_minor_breaks = waiver(),
+                             limits = NULL, expand = waiver()) {
+
+  scale_datetime(c("y", "ymin", "ymax", "yend"), "time",
+    name = name,
+    breaks = breaks, date_breaks = date_breaks,
+    labels = labels, date_labels = date_labels,
+    minor_breaks = minor_breaks, date_minor_breaks = date_minor_breaks,
+    limits = limits, expand = expand
+  )
+}
+
+scale_datetime <- function(aesthetics, trans,
+                           breaks = pretty_breaks(), minor_breaks = waiver(),
+                           labels = waiver(), date_breaks = waiver(),
+                           date_labels = waiver(),
+                           date_minor_breaks = waiver(),
+                           ...) {
+
+  name <- switch(trans, date = "date", time = "datetime")
+
+  # Backward compatibility
+  if (is.character(breaks)) breaks <- date_breaks(breaks)
+  if (is.character(minor_breaks)) minor_breaks <- date_breaks(minor_breaks)
+
+  if (!is.waive(date_breaks)) {
+    breaks <- date_breaks(date_breaks)
+  }
+  if (!is.waive(date_minor_breaks)) {
+    minor_breaks <- date_breaks(date_minor_breaks)
+  }
+  if (!is.waive(date_labels)) {
+    labels <- date_format(date_labels)
   }
 
-  if (is.character(minor_breaks)) {
-    mbreaks_str <- minor_breaks
-    minor_breaks <- date_breaks(mbreaks_str)
-  }
+  continuous_scale(aesthetics, name, identity,
+    breaks = breaks, minor_breaks = minor_breaks, labels = labels,
+    guide = "none", trans = trans, ...)
+}
 
-  continuous_scale(aesthetics, "date", identity, breaks = breaks,
-    minor_breaks = minor_breaks, guide = "none", expand = expand,
-    trans = "date", ...)
+#' @export
+scale_map.datetime <- function(scale, x, limits = scale_limits(scale)) {
+  scale$oob(x, limits)
 }
 
 #' @export
 scale_map.date <- function(scale, x, limits = scale_limits(scale)) {
   scale$oob(x, limits)
 }
+

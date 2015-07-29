@@ -14,7 +14,6 @@
 #'   additive expansion constants. These constants ensure that the data is
 #'   placed some distance away from the axes.
 #' @rdname scale_discrete
-#' @family position scales
 #' @export
 #' @examples
 #' \donttest{

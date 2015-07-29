@@ -5,10 +5,8 @@
 #' that set the \code{trans} argument to commonly used transformations.
 #'
 #' @inheritParams continuous_scale
-#' @family position scales
-#' @rdname scale_continuous
+#' @seealso \code{\link{scale_date}} for date/time position scales.
 #' @param ... Other arguments passed on to \code{scale_(x|y)_continuous}
-#' @export
 #' @examples
 #' \donttest{
 #' if (require(ggplot2movies)) {
@@ -74,6 +72,11 @@
 #'   scale_y_log10()
 #' }
 #' }
+#' @name scale_continuous
+NULL
+
+#' @rdname scale_continuous
+#' @export
 scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                minor_breaks = waiver(), labels = waiver(),
                                limits = NULL, expand = waiver(), oob = censor,
