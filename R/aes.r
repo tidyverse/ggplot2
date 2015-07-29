@@ -46,7 +46,7 @@
 #' # You can also map aesthetics to functions of variables
 #' aes(x = mpg ^ 2, y = wt / cyl)
 #'
-#' # Aesthetic names are automatically standarised
+#' # Aesthetic names are automatically standardised
 #' aes(col = x)
 #' aes(fg = x)
 #' aes(color = x)
@@ -63,9 +63,9 @@ aes <- function(x, y, ...) {
   rename_aes(aes)
 }
 #' @export
-print.uneval <- function(x, ...) str(unclass(x))
+print.uneval <- function(x, ...) utils::str(unclass(x))
 #' @export
-str.uneval <- function(object, ...) str(unclass(object), ...)
+str.uneval <- function(object, ...) utils::str(unclass(object), ...)
 #' @export
 "[.uneval" <- function(x, i, ...) structure(unclass(x)[i], class = "uneval")
 
@@ -82,7 +82,7 @@ rename_aes <- function(x) {
   full <- match(names(x), .all_aesthetics)
   names(x)[!is.na(full)] <- .all_aesthetics[full[!is.na(full)]]
 
-  rename(x, .base_to_ggplot, warn_missing = FALSE)
+  plyr::rename(x, .base_to_ggplot, warn_missing = FALSE)
 }
 
 # Look up the scale that should be used for a given aesthetic
@@ -115,7 +115,7 @@ is_position_aes <- function(vars) {
 #' @seealso \code{\link{aes}}
 #' @export
 #' @examples
-#' # Threee ways of generating the same aesthetics
+#' # Three ways of generating the same aesthetics
 #' aes(mpg, wt, col = cyl)
 #' aes_string("mpg", "wt", col = "cyl")
 #' aes_q(quote(mpg), quote(wt), col = quote(cyl))
@@ -157,7 +157,7 @@ aes_all <- function(vars) {
   vars <- rename_aes(vars)
 
   structure(
-    lapply(vars, function(x) parse(text=x)[[1]]),
+    lapply(vars, function(x) parse(text = x)[[1]]),
     class = "uneval"
   )
 }
@@ -192,7 +192,7 @@ aes_auto <- function(data = NULL, ...) {
   # automatically detected aes
   vars <- intersect(.all_aesthetics, vars)
   names(vars) <- vars
-  aes <- lapply(vars, function(x) parse(text=x)[[1]])
+  aes <- lapply(vars, function(x) parse(text = x)[[1]])
 
   # explicitly defined aes
   if (length(match.call()) > 2) {
@@ -211,9 +211,9 @@ aes_auto <- function(data = NULL, ...) {
 # @param params. user specified values
 # @value a data.frame, with all factors converted to character strings
 aesdefaults <- function(data, y., params.) {
-  updated <- modifyList(y., params. %||% list())
+  updated <- utils::modifyList(y., params. %||% list())
 
-  cols <- tryapply(defaults(data, updated), function(x) eval(x, data, globalenv()))
+  cols <- plyr::tryapply(defaults(data, updated), function(x) eval(x, data, globalenv()))
 
   # Need to be careful here because stat_boxplot uses a list-column to store
   # a vector of outliers

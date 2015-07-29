@@ -1,6 +1,9 @@
 #' Adjust position by dodging overlaps to the side.
 #'
 #' @inheritParams position_identity
+#' @param width Dodging width, when different to the width of the individual
+#'   elements. This is useful when you want to align narrow geoms with wider
+#'   geoms. See the examples for a use case.
 #' @family position adjustments
 #' @export
 #' @examples
@@ -26,19 +29,20 @@
 #' p + geom_errorbar(aes(ymin = y-1, ymax = y+1, width = 0.2),
 #'   position = position_dodge(width = 0.90))
 #' }
-position_dodge <- function (width = NULL, height = NULL) {
-  PositionDodge$new(width = width, height = height)
+position_dodge <- function(width = NULL) {
+  ggproto(NULL, PositionDodge, width = width)
 }
 
-PositionDodge <- proto(Position, {
-  objname <- "dodge"
-
-  adjust <- function(., data) {
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+PositionDodge <- ggproto("PositionDodge", Position,
+  width = NULL,
+  adjust = function(self, data) {
     if (empty(data)) return(data.frame())
     check_required_aesthetics("x", names(data), "position_dodge")
 
-    collide(data, .$width, .$my_name(), pos_dodge, check.width = FALSE)
+    collide(data, self$width, "position_dodge", pos_dodge, check.width = FALSE)
   }
-
-})
-
+)

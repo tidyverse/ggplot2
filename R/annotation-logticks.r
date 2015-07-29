@@ -67,7 +67,7 @@
 #'
 #' # Using a coordinate transform requires scaled = FALSE
 #' t <- ggplot(Animals, aes(x = body, y = brain)) + geom_point() +
-#'      coord_trans(xtrans = "log10", ytrans = "log10") + theme_bw()
+#'      coord_trans(x = "log10", y = "log10") + theme_bw()
 #'
 #' t + annotation_logticks(scaled = FALSE)
 #'
@@ -76,33 +76,47 @@
 #' library(grid)
 #' a + annotation_logticks(short = unit(.5,"mm"), mid = unit(3,"mm"), long = unit(4,"mm"))
 #'
-annotation_logticks <- function (base = 10, sides = "bl", scaled = TRUE,
+annotation_logticks <- function(base = 10, sides = "bl", scaled = TRUE,
       short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm"),
-      colour = "black", size = 0.5, linetype = 1, alpha = 1, color = NULL, ...) {
-
+      colour = "black", size = 0.5, linetype = 1, alpha = 1, color = NULL, ...)
+{
   if (!is.null(color))
     colour <- color
 
   layer(
-    geom = "logticks",
-    geom_params = list(base = base, sides = sides, raw = raw, scaled = scaled,
-      short = short, mid = mid, long = long, colour = colour,
-      size = size, linetype = linetype, alpha = alpha, ...),
-    stat = "identity",
     data = data.frame(x = NA),
     mapping = NULL,
+    stat = StatIdentity,
+    geom = GeomLogticks,
+    position = PositionIdentity,
+    show.legend = FALSE,
     inherit.aes = FALSE,
-    show_guide = FALSE
+    geom_params = list(
+      base = base,
+      sides = sides,
+      raw = raw,
+      scaled = scaled,
+      short = short,
+      mid = mid,
+      long = long,
+      colour = colour,
+      size = size,
+      linetype = linetype,
+      alpha = alpha,
+      ...
+    )
   )
 }
 
-GeomLogticks <- proto(Geom, {
-  objname <- "logticks"
-
-  draw_groups <- function(., data, scales, coordinates, base = 10, sides = "bl",
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomLogticks <- ggproto("GeomLogticks", Geom,
+  draw_groups = function(data, scales, coordinates, base = 10, sides = "bl",
     scaled = TRUE, short = unit(0.1, "cm"), mid = unit(0.2, "cm"),
-    long = unit(0.3, "cm"), ...) {
-
+    long = unit(0.3, "cm"), ...)
+  {
     ticks <- list()
 
     # Convert these units to numbers so that they can be put in data frames
@@ -121,18 +135,18 @@ GeomLogticks <- proto(Geom, {
       if (scaled)
         xticks$value <- log(xticks$value, base)
 
-      names(xticks)[names(xticks)=="value"] <- "x"           # Rename to 'x' for coord_transform
-      xticks <- coord_transform(coordinates, xticks, scales)
+      names(xticks)[names(xticks) == "value"] <- "x"   # Rename to 'x' for coordinates$transform
+      xticks <- coordinates$transform(xticks, scales)
 
       # Make the grobs
-      if(grepl("b", sides)) {
+      if (grepl("b", sides)) {
         ticks$x_b <- with(data, segmentsGrob(
           x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
           y0 = unit(xticks$start, "cm"), y1 = unit(xticks$end, "cm"),
           gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
         ))
       }
-      if(grepl("t", sides)) {
+      if (grepl("t", sides)) {
         ticks$x_t <- with(data, segmentsGrob(
           x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
           y0 = unit(1, "npc") - unit(xticks$start, "cm"), y1 = unit(1, "npc") - unit(xticks$end, "cm"),
@@ -150,18 +164,18 @@ GeomLogticks <- proto(Geom, {
       if (scaled)
         yticks$value <- log(yticks$value, base)
 
-      names(yticks)[names(yticks)=="value"] <- "y"           # Rename to 'y' for coord_transform
-      yticks <- coord_transform(coordinates, yticks, scales)
+      names(yticks)[names(yticks) == "value"] <- "y"   # Rename to 'y' for coordinates$transform
+      yticks <- coordinates$transform(yticks, scales)
 
       # Make the grobs
-      if(grepl("l", sides)) {
+      if (grepl("l", sides)) {
         ticks$y_l <- with(data, segmentsGrob(
           y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
           x0 = unit(yticks$start, "cm"), x1 = unit(yticks$end, "cm"),
           gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
         ))
       }
-      if(grepl("r", sides)) {
+      if (grepl("r", sides)) {
         ticks$y_r <- with(data, segmentsGrob(
           y0 = unit(yticks$y, "native"), y1 = unit(yticks$y, "native"),
           x0 = unit(1, "npc") - unit(yticks$start, "cm"), x1 = unit(1, "npc") - unit(yticks$end, "cm"),
@@ -171,11 +185,10 @@ GeomLogticks <- proto(Geom, {
     }
 
     gTree(children = do.call("gList", ticks))
-  }
+  },
 
-  default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size = 0.5, linetype = 1, alpha = 1)
-})
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = 1)
+)
 
 
 # Calculate the position of log tick marks
@@ -190,13 +203,13 @@ calc_logticks <- function(base = 10, ticks_per_base = base - 1,
   reps <- maxpow - minpow
 
   # For base 10: 1, 2, 3, ..., 7, 8, 9, 1, 2, ...
-  ticknums  <- rep(seq(1, base-1, length.out = ticks_per_base), reps)
+  ticknums  <- rep(seq(1, base - 1, length.out = ticks_per_base), reps)
 
   # For base 10: 1, 1, 1, ..., 1, 1, 1, 2, 2, ... (for example)
-  powers <- rep(seq(minpow, maxpow-1), each = ticks_per_base)
+  powers <- rep(seq(minpow, maxpow - 1), each = ticks_per_base)
 
-  ticks  <- ticknums * base^powers
-  ticks  <- c(ticks, base^maxpow)  # Add the last tick mark
+  ticks  <- ticknums * base ^ powers
+  ticks  <- c(ticks, base ^ maxpow)  # Add the last tick mark
 
   # Set all of the ticks short
   tickend <- rep(shortend, length(ticks))

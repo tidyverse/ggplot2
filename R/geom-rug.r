@@ -15,18 +15,37 @@
 #' p + geom_point() + geom_rug(sides="b")    # Rug on bottom only
 #' p + geom_point() + geom_rug(sides="trbl") # All four sides
 #' p + geom_point() + geom_rug(position='jitter')
-geom_rug <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", sides = "bl", show_guide = NA,...) {
-  GeomRug$new(mapping = mapping, data = data, stat = stat, position = position, sides = sides, show_guide = show_guide,...)
+geom_rug <- function(mapping = NULL, data = NULL, stat = "identity",
+                     position = "identity", sides = "bl", show.legend = NA,
+                     inherit.aes = TRUE, ...)
+{
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomRug,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    geom_params = list(
+      sides = sides,
+      show.legend = show.legend
+    ),
+    params = list(...)
+  )
 }
 
-GeomRug <- proto(Geom, {
-  objname <- "rug"
 
-  draw <- function(., data, scales, coordinates, sides, ...) {
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomRug <- ggproto("GeomRug", Geom,
+  draw = function(data, scales, coordinates, sides = "bl", ...) {
     rugs <- list()
-    data <- coord_transform(coordinates, data, scales)
+    data <- coordinates$transform(data, scales)
     if (!is.null(data$x)) {
-      if(grepl("b", sides)) {
+      if (grepl("b", sides)) {
         rugs$x_b <- segmentsGrob(
           x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
           y0 = unit(0, "npc"), y1 = unit(0.03, "npc"),
@@ -34,7 +53,7 @@ GeomRug <- proto(Geom, {
         )
       }
 
-      if(grepl("t", sides)) {
+      if (grepl("t", sides)) {
         rugs$x_t <- segmentsGrob(
           x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
           y0 = unit(1, "npc"), y1 = unit(0.97, "npc"),
@@ -44,7 +63,7 @@ GeomRug <- proto(Geom, {
     }
 
     if (!is.null(data$y)) {
-      if(grepl("l", sides)) {
+      if (grepl("l", sides)) {
         rugs$y_l <- segmentsGrob(
           y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
           x0 = unit(0, "npc"), x1 = unit(0.03, "npc"),
@@ -52,7 +71,7 @@ GeomRug <- proto(Geom, {
         )
       }
 
-      if(grepl("r", sides)) {
+      if (grepl("r", sides)) {
         rugs$y_r <- segmentsGrob(
           y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
           x0 = unit(1, "npc"), x1 = unit(0.97, "npc"),
@@ -62,9 +81,9 @@ GeomRug <- proto(Geom, {
     }
 
     gTree(children = do.call("gList", rugs))
-  }
+  },
 
-  default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
-  guide_geom <- function(.) "path"
-})
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+
+  draw_key = draw_key_path
+)

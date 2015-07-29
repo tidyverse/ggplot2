@@ -5,7 +5,8 @@
 \title{Apply function for 2D hexagonal bins.}
 \usage{
 stat_summary_hex(mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", bins = 30, drop = TRUE, fun = mean, ...)
+  position = "identity", bins = 30, drop = TRUE, fun = "mean",
+  fun.args = list(), show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -17,28 +18,37 @@ the plot defaults.}
 
 \item{geom}{The geometric object to use display the data}
 
-\item{position}{The position adjustment to use for overlappling points
+\item{position}{The position adjustment to use for overlapping points
 on this layer}
 
-\item{bins}{see \code{\link{stat_binhex}}}
+\item{bins}{numeric vector specifying number of bins in both x and y
+directions. Set to 30 by default.}
 
 \item{drop}{drop if the output of \code{fun} is \code{NA}.}
 
 \item{fun}{function for summary.}
 
-\item{...}{parameters passed to \code{fun}}
+\item{fun.args}{A list of extra arguments to pass to \code{fun}}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 }
 \description{
-Apply function for 2D hexagonal bins.
+\code{stat_summary2d} is a hexagonal variation of \code{\link{stat_summary}}.
+The data are divided into hexagonal bins defined by \code{x} and \code{y}.
+The values of \code{z} in each cell is are summarised with \code{fun}.
 }
 \section{Aesthetics}{
-
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "summaryhex")}
-
-\code{stat_summary2d} is hexagonal version of \code{\link{stat_summary}}. The data are devided by \code{x} and \code{y}.
-\code{z} in each cell is passed to arbitral summary function.
-
-\code{stat_summary-hex} requires the following aesthetics:
 
 \itemize{
  \item \code{x}: horizontal position
@@ -51,10 +61,12 @@ d <- ggplot(diamonds, aes(carat, depth, z = price))
 d + stat_summary_hex()
 
 # Specifying function
+d + stat_summary_hex(fun = var)
 d + stat_summary_hex(fun = function(x) sum(x^2))
-d + stat_summary_hex(fun = var, na.rm = TRUE)
+d + stat_summary_hex(fun = "quantile", fun.args = list(probs = 0.5))
 }
 \seealso{
-\code{\link{stat_summary2d}} for rectangular summarization. \code{\link{stat_bin2d}} for the hexagon-ing options.
+\code{\link{stat_summary2d}} for rectangular summarization.
+  \code{\link{stat_bin2d}} for the hexagon-ing options.
 }
 

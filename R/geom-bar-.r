@@ -1,7 +1,7 @@
 #' Bars, rectangles with bases on x-axis
 #'
 #' The bar geom is used to produce 1d area plots: bar charts for categorical
-#' x, and histograms for continuous y.  stat_bin explains the details of
+#' x, and histograms for continuous x.  stat_bin explains the details of
 #' these summaries in more detail.  In particular, you can use the
 #' \code{weight} aesthetic to create weighted histograms and barcharts where
 #' the height of the bar no longer represent a count of observations, but a
@@ -16,23 +16,23 @@
 #' the heights of the bars to represent values in the data, use
 #' \code{stat="identity"} and map a value to the \code{y} aesthetic.
 #'
-#' By default, multiple x's occuring in the same place will be stacked a top
+#' By default, multiple x's occurring in the same place will be stacked atop
 #' one another by position_stack.  If you want them to be dodged from
 #' side-to-side, see \code{\link{position_dodge}}. Finally,
-#' \code{\link{position_fill}} shows relative propotions at each x by stacking
+#' \code{\link{position_fill}} shows relative proportions at each x by stacking
 #' the bars and then stretching or squashing to the same height.
 #'
 #' Sometimes, bar charts are used not as a distributional summary, but
 #' instead of a dotplot.  Generally, it's preferable to use a dotplot (see
 #' \code{geom_point}) as it has a better data-ink ratio.  However, if you do
 #' want to create this type of plot, you can set y to the value you have
-#' calculated, and use \code{stat='identity'}
+#' calculated, and use \code{stat='identity'}.
 #'
 #' A bar chart maps the height of the bar to a variable, and so the base of
 #' the bar must always been shown to produce a valid visual comparison.
 #' Naomi Robbins has a nice
 #' \href{http://www.b-eye-network.com/view/index.php?cid=2468}{article on this topic}.
-#' This is the reason it doesn't make sense to use a log-scaled y axis with a bar chart
+#' This is why it doesn't make sense to use a log-scaled y axis with a bar chart.
 #'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "bar")}
@@ -123,37 +123,50 @@
 #' k + geom_bar() + scale_fill_brewer()
 #' k + geom_bar() + scale_fill_grey()
 #'
-#' # To change plot order of class varible
+#' # To change plot order of class variable
 #' # use factor() to change order of levels
 #' mpg$class <- factor(mpg$class, levels = c("midsize", "minivan",
 #' "suv", "compact", "2seater", "subcompact", "pickup"))
 #' m <- ggplot(mpg, aes(x = manufacturer, fill = class))
 #' m + geom_bar()
 #' }
-geom_bar <- function (mapping = NULL, data = NULL, stat = "bin", position = "stack", show_guide = NA,...) {
-  GeomBar$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+geom_bar <- function(mapping = NULL, data = NULL, stat = "bin",
+                     position = "stack", show.legend = NA, inherit.aes = TRUE,
+                     ...) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomBar,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomBar <- proto(Geom, {
-  objname <- "bar"
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomBar <- ggproto("GeomBar", Geom,
+  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+                    weight = 1, alpha = NA),
 
-  default_stat <- function(.) StatBin
-  default_pos <- function(.) PositionStack
-  default_aes <- function(.) aes(colour=NA, fill="grey20", size=0.5, linetype=1, weight = 1, alpha = NA)
+  required_aes = c("x"),
 
-  required_aes <- c("x")
-
-  reparameterise <- function(., df, params) {
+  reparameterise = function(df, params) {
     df$width <- df$width %||%
       params$width %||% (resolution(df$x, FALSE) * 0.9)
     transform(df,
       ymin = pmin(y, 0), ymax = pmax(y, 0),
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )
-  }
+  },
 
-  draw_groups <- function(., data, scales, coordinates, ...) {
+  draw_groups = function(data, scales, coordinates, ...) {
     GeomRect$draw_groups(data, scales, coordinates, ...)
-  }
-  guide_geom <- function(.) "polygon"
-})
+  },
+
+  draw_key = draw_key_polygon
+)

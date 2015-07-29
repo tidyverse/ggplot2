@@ -4,7 +4,7 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "crossbar")}
 #'
 #' @inheritParams geom_point
-#' @param fatten a multiplicate factor to fatten middle bar by
+#' @param fatten a multiplicative factor to fatten middle bar by
 #' @seealso \code{\link{geom_errorbar}} for error bars,
 #' \code{\link{geom_pointrange}} and \code{\link{geom_linerange}} for other
 #' ways of showing mean + error, \code{\link{stat_summary}} to compute
@@ -13,34 +13,38 @@
 #' @examples
 #' # See geom_linerange for examples
 geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
-                          position = "identity", fatten = 2.5,
-                          show_guide = NA,...) {
-  GeomCrossbar$new(mapping = mapping, data = data, stat = stat,
-  position = position, fatten = fatten, show_guide = show_guide,...)
+  position = "identity", fatten = 2.5, show.legend = NA, inherit.aes = TRUE, ...)
+{
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomCrossbar,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    geom_params = list(fatten = fatten),
+    params = list(...)
+  )
 }
 
-GeomCrossbar <- proto(Geom, {
-  objname <- "crossbar"
-
-  reparameterise <- function(., df, params) {
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomCrossbar <- ggproto("GeomCrossbar", Geom,
+  reparameterise = function(df, params) {
     GeomErrorbar$reparameterise(df, params)
-  }
+  },
 
-  default_stat <- function(.) StatIdentity
-  default_pos <- function(.) PositionIdentity
-  default_aes = function(.) aes(colour="black", fill=NA, size=0.5, linetype=1, alpha = NA)
-  required_aes <- c("x", "y", "ymin", "ymax")
-  guide_geom <- function(.) "crossbar"
-  draw_legend <- function(., data, ...)  {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-    gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt, lty = linetype))
-    gTree(gp = gp, children = gList(
-      rectGrob(height=0.5, width=0.75),
-      linesGrob(c(0.125, 0.875), 0.5)
-    ))
-  }
+  default_aes = aes(colour = "black", fill = NA, size = 0.5, linetype = 1,
+    alpha = NA),
 
-  draw <- function(., data, scales, coordinates, fatten = 2.5, width = NULL, ...) {
+  required_aes = c("x", "y", "ymin", "ymax"),
+
+  draw_key = draw_key_crossbar,
+
+  draw = function(self, data, scales, coordinates, fatten = 2.5, width = NULL, ...) {
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
@@ -88,9 +92,9 @@ GeomCrossbar <- proto(Geom, {
       )
     }
 
-    ggname(.$my_name(), gTree(children = gList(
+    ggname("geom_crossbar", gTree(children = gList(
       GeomPolygon$draw(box, scales, coordinates, ...),
       GeomSegment$draw(middle, scales, coordinates, ...)
     )))
   }
-})
+)

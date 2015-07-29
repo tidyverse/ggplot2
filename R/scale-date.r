@@ -17,7 +17,7 @@
 #' @examples
 #' # We'll start by creating some nonsense data with dates
 #' df <- data.frame(
-#'   date = seq(Sys.Date(), len=100, by="1 day")[sample(100, 50)],
+#'   date = seq(Sys.Date(), length.out=100, by="1 day")[sample(100, 50)],
 #'   price = runif(50)
 #' )
 #' df <- df[order(df$date), ]
@@ -50,7 +50,7 @@
 #' ggplot(df[1:4,], aes(date, price)) + geom_line()
 #'
 #' df <- data.frame(
-#'   date = seq(Sys.Date(), len=1000, by="1 day"),
+#'   date = seq(Sys.Date(), length.out=1000, by="1 day"),
 #'   price = runif(500)
 #' )
 #' ggplot(df, aes(date, price)) + geom_line()
@@ -68,11 +68,11 @@
 #' # it's easiest to first change the data from a "wide" to a "long"
 #' # format:
 #' library(reshape2) # for melt
-#' em <- melt(economics, id = "date")
+#' em <- melt(economics, id.vars = "date")
 #'
 #' # Then we can group and facet by the new "variable" variable
 #' (p <- ggplot(em, aes(date, value)) + geom_line(aes(group = variable)))
-#' p + facet_grid(variable ~ ., scale = "free_y")
+#' p + facet_grid(variable ~ ., scales = "free_y")
 scale_x_date <- function(..., expand = waiver(), breaks = pretty_breaks(),
   minor_breaks = waiver()) {
 
@@ -91,7 +91,7 @@ scale_y_date <- function(..., expand = waiver(), breaks = pretty_breaks(),
 
 # base class for scale_{xy}_date
 scale_date <- function(aesthetics, expand = waiver(), breaks = pretty_breaks(),
-  minor_breaks = waiver(), ...) {
+                       minor_breaks = waiver(), ...) {
 
   if (is.character(breaks)) {
     breaks_str <- breaks
@@ -110,5 +110,5 @@ scale_date <- function(aesthetics, expand = waiver(), breaks = pretty_breaks(),
 
 #' @export
 scale_map.date <- function(scale, x, limits = scale_limits(scale)) {
-  x
+  scale$oob(x, limits)
 }

@@ -37,7 +37,7 @@ Position scale, date
 \examples{
 # We'll start by creating some nonsense data with dates
 df <- data.frame(
-  date = seq(Sys.Date(), len=100, by="1 day")[sample(100, 50)],
+  date = seq(Sys.Date(), length.out=100, by="1 day")[sample(100, 50)],
   price = runif(50)
 )
 df <- df[order(df$date), ]
@@ -70,7 +70,7 @@ ggplot(df[1:10,], aes(date, price)) + geom_line()
 ggplot(df[1:4,], aes(date, price)) + geom_line()
 
 df <- data.frame(
-  date = seq(Sys.Date(), len=1000, by="1 day"),
+  date = seq(Sys.Date(), length.out=1000, by="1 day"),
   price = runif(500)
 )
 ggplot(df, aes(date, price)) + geom_line()
@@ -88,11 +88,11 @@ last_plot() + scale_x_date(limits = c(as.Date("2006-1-1"), end))
 # it's easiest to first change the data from a "wide" to a "long"
 # format:
 library(reshape2) # for melt
-em <- melt(economics, id = "date")
+em <- melt(economics, id.vars = "date")
 
 # Then we can group and facet by the new "variable" variable
 (p <- ggplot(em, aes(date, value)) + geom_line(aes(group = variable)))
-p + facet_grid(variable ~ ., scale = "free_y")
+p + facet_grid(variable ~ ., scales = "free_y")
 }
 \seealso{
 Other position scales: \code{\link{scale_x_continuous}},

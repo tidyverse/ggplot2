@@ -1,63 +1,34 @@
-#' Calculate contours of 3d data.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "contour")}
-#'
 #' @inheritParams stat_identity
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
+#' @export
 #' @return A data frame with additional column:
 #'  \item{level}{height of contour}
-#' @export
-#' @examples
-#' \donttest{
-#' # Generate data
-#' library(reshape2) # for melt
-#' volcano3d <- melt(volcano)
-#' names(volcano3d) <- c("x", "y", "z")
-#'
-#' # Basic plot
-#' v <- ggplot(volcano3d, aes(x, y, z = z))
-#' v + stat_contour()
-#'
-#' # Setting bins creates evenly spaced contours in the range of the data
-#' v + stat_contour(bins = 2)
-#' v + stat_contour(bins = 10)
-#'
-#' # Setting binwidth does the same thing, parameterised by the distance
-#' # between contours
-#' v + stat_contour(binwidth = 2)
-#' v + stat_contour(binwidth = 5)
-#' v + stat_contour(binwidth = 10)
-#' v + stat_contour(binwidth = 2, size = 0.5, colour = "grey50") +
-#'   stat_contour(binwidth = 10, size = 1)
-#'
-#' # Add aesthetic mappings
-#' v + stat_contour(aes(size = ..level..))
-#' v + stat_contour(aes(colour = ..level..))
-#'
-#' # Change scale
-#' v + stat_contour(aes(colour = ..level..), size = 2) +
-#'   scale_colour_gradient(low = "brown", high = "white")
-#'
-#' # Set aesthetics to fixed value
-#' v + stat_contour(colour = "red")
-#' v + stat_contour(size = 2, linetype = 4)
-#'
-#' # Try different geoms
-#' v + stat_contour(geom="polygon", aes(fill=..level..))
-#' v + geom_tile(aes(fill = z)) + stat_contour()
-#' }
-stat_contour <- function (mapping = NULL, data = NULL, geom = "path", position = "identity",
-na.rm = FALSE, ...) {
-  StatContour$new(mapping = mapping, data = data, geom = geom,
-  position = position, na.rm = na.rm, ...)
+#' @rdname geom_contour
+stat_contour <- function(mapping = NULL, data = NULL, geom = "contour",
+                         position = "identity", na.rm = FALSE, show.legend = NA,
+                         inherit.aes = TRUE, ...) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = StatContour,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    stat_params = list(na.rm = na.rm),
+    params = list(...)
+  )
 }
 
-StatContour <- proto(Stat, {
-  objname <- "contour"
-
-  calculate <- function(., data, scales, bins=NULL, binwidth=NULL, breaks = NULL, complete = FALSE, na.rm = FALSE, ...) {
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatContour <- ggproto("StatContour", Stat,
+  calculate = function(data, scales, bins = NULL, binwidth = NULL,
+                       breaks = NULL, complete = FALSE, na.rm = FALSE, ...)
+  {
     data <- remove_missing(data, na.rm, name = "stat_contour", finite = TRUE)
 
     # If no parameters set, use pretty bins
@@ -74,19 +45,18 @@ StatContour <- proto(Stat, {
     }
 
     contour_lines(data, breaks, complete = complete)
-  }
+  },
 
+  default_aes = aes(order = ..level..),
 
-  default_geom <- function(.) GeomPath
-  default_aes <- function(.) aes(order = ..level..)
-  required_aes <- c("x", "y", "z")
-})
+  required_aes = c("x", "y", "z")
+)
 
 
 # v3d <- reshape2::melt(volcano)
 # names(v3d) <- c("x", "y", "z")
 #
-# breaks <- seq(95, 195, length = 10)
+# breaks <- seq(95, 195, length.out = 10)
 # contours <- contourLines(v3d, breaks)
 # ggplot(contours, aes(x, y)) +
 #   geom_path() +
@@ -94,7 +64,7 @@ StatContour <- proto(Stat, {
 contour_lines <- function(data, breaks, complete = FALSE) {
   z <- tapply(data$z, data[c("x", "y")], identity)
 
-  cl <- contourLines(
+  cl <- grDevices::contourLines(
     x = sort(unique(data$x)), y = sort(unique(data$y)), z = z,
     levels = breaks)
 

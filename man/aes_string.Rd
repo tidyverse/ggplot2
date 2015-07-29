@@ -25,7 +25,7 @@ names/calls to define the aesthetic mappings, rather than having to use
 \code{\link{substitute}} to generate a call to \code{aes()}.
 }
 \examples{
-# Threee ways of generating the same aesthetics
+# Three ways of generating the same aesthetics
 aes(mpg, wt, col = cyl)
 aes_string("mpg", "wt", col = "cyl")
 aes_q(quote(mpg), quote(wt), col = quote(cyl))

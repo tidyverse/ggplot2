@@ -24,11 +24,10 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
   attr <- as.data.frame(model)
   # If not specified, split into regions based on polygons
   if (is.null(region)) {
-    coords <- ldply(model@polygons,fortify)
+    coords <- plyr::ldply(model@polygons,fortify)
     message("Regions defined for each Polygons")
   } else {
     cp <- sp::polygons(model)
-    try_require("maptools")
 
     # Union together all polygons that make up a region
     unioned <- maptools::unionSpatialPolygons(cp, attr[, region])
@@ -42,7 +41,7 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
 #' @export
 #' @method fortify SpatialPolygons
 fortify.SpatialPolygons <- function(model, data, ...) {
-  ldply(model@polygons, fortify)
+  plyr::ldply(model@polygons, fortify)
 }
 
 #' @rdname fortify.sp
@@ -50,7 +49,7 @@ fortify.SpatialPolygons <- function(model, data, ...) {
 #' @method fortify Polygons
 fortify.Polygons <- function(model, data, ...) {
   subpolys <- model@Polygons
-  pieces <- ldply(seq_along(subpolys), function(i) {
+  pieces <- plyr::ldply(seq_along(subpolys), function(i) {
     df <- fortify(subpolys[[model@plotOrder[i]]])
     df$piece <- i
     df
@@ -79,7 +78,7 @@ fortify.Polygon <- function(model, data, ...) {
 #' @export
 #' @method fortify SpatialLinesDataFrame
 fortify.SpatialLinesDataFrame <- function(model, data, ...) {
-  ldply(model@lines, fortify)
+  plyr::ldply(model@lines, fortify)
 }
 
 #' @rdname fortify.sp
@@ -87,7 +86,7 @@ fortify.SpatialLinesDataFrame <- function(model, data, ...) {
 #' @method fortify Lines
 fortify.Lines <- function(model, data, ...) {
   lines <- model@Lines
-  pieces <- ldply(seq_along(lines), function(i) {
+  pieces <- plyr::ldply(seq_along(lines), function(i) {
     df <- fortify(lines[[i]])
     df$piece <- i
     df

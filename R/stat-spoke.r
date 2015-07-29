@@ -22,23 +22,36 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_point() +
 #'   stat_spoke(aes(angle = angle, radius = speed))
-stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment", position = "identity", ...) {
-  StatSpoke$new(mapping = mapping, data = data, geom = geom, position = position, ...)
+stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment",
+  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
+{
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = StatSpoke,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-StatSpoke <- proto(Stat, {
-  objname <- "spoke"
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatSpoke <- ggproto("StatSpoke", Stat,
+  retransform = FALSE,
 
-  retransform <- FALSE
-  calculate <- function(., data, scales, radius = 1, ...) {
+  calculate = function(data, scales, radius = 1, ...) {
     transform(data,
       xend = x + cos(angle) * radius,
       yend = y + sin(angle) * radius
     )
-  }
+  },
 
-  default_aes <- function(.) aes(xend = ..xend.., yend = ..yend..)
-  required_aes <- c("x", "y", "angle", "radius")
-  default_geom <- function(.) GeomSegment
+  default_aes = aes(xend = ..xend.., yend = ..yend..),
 
-})
+  required_aes = c("x", "y", "angle", "radius")
+)

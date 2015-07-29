@@ -1,48 +1,51 @@
-Geom <- proto(TopLevel, expr={
-  class <- function(.) "geom"
+#' @include legend-draw.r
+NULL
 
-  parameters <- function(.) {
-    params <- formals(get("draw", .))
-    params <- params[setdiff(names(params), c(".","data","scales", "coordinates", "..."))]
+.pt <- 1 / 0.352777778
+.stroke <- 96 / 25.4
 
-    required <- rep(NA, length(.$required_aes))
-    names(required) <- .$required_aes
-    aesthetics <- c(.$default_aes(), required)
 
-    c(params, aesthetics[setdiff(names(aesthetics), names(params))])
-  }
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+Geom <- ggproto("Geom",
+  required_aes = c(),
 
-  required_aes <- c()
-  default_aes <- function(.) {}
-  default_pos <- function(.) PositionIdentity
+  default_aes = aes(),
 
-  guide_geom <- function(.) "point"
+  draw_key = draw_key_point,
 
-  draw <- function(...) {}
-  draw_groups <- function(., data, scales, coordinates, ...) {
+  draw = function(...) {},
+
+  draw_groups = function(self, data, scales, coordinates, ...) {
     if (empty(data)) return(zeroGrob())
 
     groups <- split(data, factor(data$group))
-    grobs <- lapply(groups, function(group) .$draw(group, scales, coordinates, ...))
+    grobs <- lapply(groups, function(group) self$draw(group, scales, coordinates, ...))
 
-    ggname(paste(.$objname, "s", sep=""), gTree(
+    # String like "bar" or "line"
+    objname <- sub("^geom_", "", snake_class(self))
+
+    ggname(paste0(objname, "s"), gTree(
       children = do.call("gList", grobs)
     ))
+  },
+
+  reparameterise = function(data, params) data
+)
+
+# make_geom("point") returns GeomPoint
+make_geom <- function(class) {
+  name <- paste0("Geom", camelize(class, first = TRUE))
+  if (!exists(name)) {
+    stop("No geom called ", name, ".", call. = FALSE)
   }
 
-  new <- function(., mapping=NULL, data=NULL, stat=NULL, position=NULL, ...){
-    do.call("layer", list(mapping=mapping, data=data, stat=stat, geom=., position=position, ...))
+  obj <- get(name)
+  if (!inherits(obj, "Geom")) {
+    stop("Found object is not a geom.", call. = FALSE)
   }
 
-  pprint <- function(., newline=TRUE) {
-    cat("geom_", .$objname, ": ", sep="") #  , clist(.$parameters())
-    if (newline) cat("\n")
-  }
-
-  reparameterise <- function(., data, params) data
-
-  # Html documentation ----------------------------------
-
-
-
-})
+  obj
+}

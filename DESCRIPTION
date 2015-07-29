@@ -1,60 +1,55 @@
 Package: ggplot2
-Type: Package
-Title: An Implementation of the Grammar of Graphics
-Version: 1.0.1.9000
+Version: 1.0.1.9002
 Authors@R: c(
-    person("Hadley", "Wickham", role = c("aut", "cre"), email = "h.wickham@gmail.com"),
-    person("Winston", "Chang", role = "aut", email = "winston@stdout.org")
+    person("Hadley", "Wickham", , "h.wickham@gmail.com", c("aut", "cre")),
+    person("Winston", "Chang", , "winston@stdout.org", "aut")
     )
-Description: An implementation of the grammar of graphics
-    in R. It combines the advantages of both base and
-    lattice graphics: conditioning and shared axes are
-    handled automatically, and you can still build up a
-    plot step by step from multiple data sources. It also
-    implements a sophisticated multidimensional
-    conditioning system and a consistent interface to map
-    data to aesthetic attributes. See http://ggplot2.org
-    for more information, documentation and examples.
+Title: An Implementation of the Grammar of Graphics
+Description: An implementation of the grammar of graphics in R. It combines the
+    advantages of both base and lattice graphics: conditioning and shared axes
+    are handled automatically, and you can still build up a plot step by step
+    from multiple data sources. It also implements a sophisticated
+    multidimensional conditioning system and a consistent interface to map
+    data to aesthetic attributes. See http://ggplot2.org for more information,
+    documentation and examples.
 Depends:
-    R (>= 2.14),
-    stats,
-    methods
+    R (>= 2.14)
 Imports:
-    plyr (>= 1.7.1),
     digest,
     grid,
     gtable (>= 0.1.1),
+    MASS,
+    plyr (>= 1.7.1),
     reshape2,
-    scales (>= 0.2.3),
-    proto,
-    MASS
+    scales (>= 0.2.5.9002),
+    stats
 Suggests:
-    quantreg,
+    ggplot2movies,
+    hexbin,
     Hmisc,
     mapproj,
     maps,
-    hexbin,
     maptools,
+    mgcv,
     multcomp,
     nlme,
     testthat,
-    knitr,
-    mgcv
-VignetteBuilder: knitr
+    quantreg
 Enhances: sp
 License: GPL-2
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2
 BugReports: https://github.com/hadley/ggplot2/issues
 LazyData: true
 Collate:
+    'ggproto.r'
     'aaa-.r'
-    'aaa-constants.r'
     'aes-calculated.r'
     'aes-colour-fill-alpha.r'
     'aes-group-order.r'
     'aes-linetype-size-shape.r'
     'aes-position.r'
     'aes.r'
+    'legend-draw.r'
     'geom-.r'
     'annotation-custom.r'
     'annotation-logticks.r'
@@ -88,6 +83,7 @@ Collate:
     'fortify-multcomp.r'
     'fortify-spatial.r'
     'fortify.r'
+    'stat-.r'
     'geom-abline.r'
     'geom-bar-.r'
     'geom-bar-histogram.r'
@@ -98,13 +94,14 @@ Collate:
     'geom-curve.r'
     'geom-defaults.r'
     'geom-dotplot.r'
-    'geom-error.r'
-    'geom-errorh.r'
+    'geom-errorbar.r'
+    'geom-errorbarh.r'
+    'geom-path-.r'
     'geom-freqpoly.r'
     'geom-hex.r'
     'geom-hline.r'
+    'geom-label.R'
     'geom-linerange.r'
-    'geom-path-.r'
     'geom-path-contour.r'
     'geom-path-density2d.r'
     'geom-path-line.r'
@@ -171,7 +168,6 @@ Collate:
     'scale-shape.r'
     'scale-size.r'
     'scales-.r'
-    'stat-.r'
     'stat-bin.r'
     'stat-bin2d.r'
     'stat-bindot.r'
@@ -194,7 +190,6 @@ Collate:
     'stat-summary-hex.r'
     'stat-summary.r'
     'stat-unique.r'
-    'stat-vline.r'
     'stat-ydensity.r'
     'summary.r'
     'theme-defaults.r'
@@ -212,6 +207,5 @@ Collate:
     'utilities-resolution.r'
     'utilities-table.r'
     'utilities.r'
-    'xxx-digest.r'
     'zxx.r'
     'zzz.r'

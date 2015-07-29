@@ -1,8 +1,8 @@
 coord_munch <- function(coord, data, range, segment_length = 0.01) {
-  if (is.linear(coord)) return(coord_transform(coord, data, range))
+  if (coord$is_linear()) return(coord$transform(data, range))
 
   # range has theta and r values; get corresponding x and y values
-  ranges <- coord_range(coord, range)
+  ranges <- coord$range(range)
 
   # Convert any infinite locations into max/min
   # Only need to work with x and y because for munching, those are the
@@ -13,16 +13,16 @@ coord_munch <- function(coord, data, range, segment_length = 0.01) {
   data$y[data$y == Inf]  <- ranges$y[2]
 
   # Calculate distances using coord distance metric
-  dist <- coord_distance(coord, data$x, data$y, range)
+  dist <- coord$distance(data$x, data$y, range)
   dist[data$group[-1] != data$group[-nrow(data)]] <- NA
 
   # Munch and then transform result
   munched <- munch_data(data, dist, segment_length)
-  coord_transform(coord, munched, range)
+  coord$transform(munched, range)
 }
 
 # For munching, only grobs are lines and polygons: everything else is
-# transfomed into those special cases by the geom.
+# transformed into those special cases by the geom.
 #
 # @param dist distance, scaled from 0 to 1 (maximum distance on plot)
 # @keyword internal
@@ -33,7 +33,7 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
     data <- add_group(data)
     dist <- dist_euclidean(data$x, data$y)
   }
-  
+
   # How many endpoints for each old segment, not counting the last one
   extra <- pmax(floor(dist / segment_length), 1)
   extra[is.na(extra)] <- 1
@@ -45,9 +45,9 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   # Replicate other aesthetics: defined by start point but also
   # must include final point
   id <- c(rep(seq_len(nrow(data) - 1), extra), nrow(data))
-  aes_df <- data[id, setdiff(names(data), c("x", "y")), drop=FALSE]
-  
-  unrowname(data.frame(x = x, y = y, aes_df))
+  aes_df <- data[id, setdiff(names(data), c("x", "y")), drop = FALSE]
+
+  plyr::unrowname(data.frame(x = x, y = y, aes_df))
 }
 
 # Interpolate.
@@ -55,7 +55,7 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
 # (end - (end - start) / n). end is never included in sequence.
 interp <- function(start, end, n) {
   if (n == 1) return(start)
-  start + seq(0, 1, length = n+1)[-(n+1)] * (end - start)
+  start + seq(0, 1, length.out = n + 1)[-(n + 1)] * (end - start)
 }
 
 # Euclidean distance between points.
@@ -99,7 +99,7 @@ dist_polar <- function(r, theta) {
   # Rename x and y columns to r and t, since we're working in polar
   # Note that 'slope' actually means the spiral slope, 'a' in the spiral
   #   formula r = a * theta
-  lf <- rename(lf, c(x1 = "t1", x2 = "t2", y1 = "r1", y2 = "r2",
+  lf <- plyr::rename(lf, c(x1 = "t1", x2 = "t2", y1 = "r1", y2 = "r2",
     yintercept = "r_int",  xintercept = "t_int"), warn_missing = FALSE)
 
   # Re-normalize the theta values so that intercept for each is 0
@@ -128,7 +128,7 @@ dist_polar <- function(r, theta) {
   lf$dist[idx] <-
     spiral_arc_length(lf$slope[idx], lf$tn1[idx], lf$tn2[idx])
 
-  # Get cicular arc length for segments that have zero slope (r1 == r2)
+  # Get circular arc length for segments that have zero slope (r1 == r2)
   idx <- !is.na(lf$slope) & lf$slope == 0
   lf$dist[idx] <- lf$r1[idx] * (lf$t2[idx] - lf$t1[idx])
 

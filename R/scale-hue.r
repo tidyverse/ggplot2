@@ -6,7 +6,10 @@
 #' @inheritParams scales::hue_pal
 #' @rdname scale_hue
 #' @export
-#' @family colour scales
+#' @seealso Other colour scales:
+#'   \code{\link{scale_colour_brewer}},
+#'   \code{\link{scale_colour_gradient}},
+#'   \code{\link{scale_colour_grey}}
 #' @examples
 #' \donttest{
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
@@ -37,7 +40,7 @@
 #' d + geom_point(alpha = 0.2)
 #'
 #' # Colour of missing values is controlled with na.value:
-#' miss <- factor(sample(c(NA, 1:5), nrow(mtcars), rep = TRUE))
+#' miss <- factor(sample(c(NA, 1:5), nrow(mtcars), replace = TRUE))
 #' ggplot(mtcars, aes(mpg, wt)) + geom_point(aes(colour = miss))
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point(aes(colour = miss)) +

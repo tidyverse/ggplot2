@@ -1,147 +1,88 @@
-#' Bin data.
+#' Histograms and frequency polygons.
 #'
-#' Missing values are currently silently dropped.
+#' Display a 1d distribution by dividing into bins and counting the number
+#' of observations in each bin. Histograms use bars; frequency polygons use
+#' lines.
+#'
+#' By default, \code{stat_bin} uses 30 bins - this is not a good default,
+#' but the idea is to get you experimenting with different binwidths. You
+#' may need to look at a few to uncover the full story behind your data.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bin")}
+#' \code{geom_histogram} uses the same aesthetics as \code{geom_bar};
+#' \code{geom_freqpoly} uses the same aesthetics as \code{geom_line}.
 #'
-#' @inheritParams stat_identity
-#' @param binwidth Bin width to use. Defaults to 1/\code{bins} of the range of
-#'   the data
-#' @param bins Number of bins. Overridden by \code{binwidth} or \code{breaks}.
-#'   Defaults to 30
-#' @param breaks Actual breaks to use. Overrides bin width, bin number and
-#'   origin
-#' @param origin Origin of first bin
-#' @param width Width of bars when used with categorical data
-#' @param right If \code{TRUE}, right-closed, left-open, if \code{FALSE},
-#'   the default, right-open, left-closed.
-#' @param drop If TRUE, remove all bins with zero counts
-#' @return New data frame with additional columns:
-#'   \item{count}{number of points in bin}
-#'   \item{density}{density of points in bin, scaled to integrate to 1}
-#'   \item{ncount}{count, scaled to maximum of 1}
-#'   \item{ndensity}{density, scaled to maximum of 1}
 #' @export
+#' @inheritParams geom_point
+#' @param geom,stat Use to override the default connection between
+#'   \code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.
 #' @examples
-#' \donttest{
-#' simple <- data.frame(x = rep(1:10, each = 2))
-#' base <- ggplot(simple, aes(x))
-#' # By default, right = FALSE intervals are of the form [a, b)
-#' base + stat_bin(binwidth = 1, drop = FALSE, right = FALSE, col = "black")
-#' # If right = TRUE, and intervals are of the form (a, b]
-#' base + stat_bin(binwidth = 1, drop = FALSE, right = TRUE, col = "black")
+#' ggplot(diamonds, aes(carat)) +
+#'   geom_histogram()
+#' ggplot(diamonds, aes(carat)) +
+#'   geom_histogram(binwidth = 0.01)
+#' ggplot(diamonds, aes(carat)) +
+#'   geom_histogram(bins = 200)
 #'
-#' m <- ggplot(movies, aes(x=rating))
-#' m + stat_bin()
-#' m + stat_bin(binwidth=0.1)
-#' m + stat_bin(bins=10)
-#' m + stat_bin(breaks=seq(4,6, by=0.1))
-#' # See geom_histogram for more histogram examples
+#' # Rather than stacking histograms, it's easier to compare frequency
+#' # polygons
+#' ggplot(diamonds, aes(price, fill = cut)) +
+#'   geom_histogram(binwidth = 500)
+#' ggplot(diamonds, aes(price, colour = cut)) +
+#'   geom_freqpoly(binwidth = 500)
 #'
-#' # To create a unit area histogram, use aes(y = ..density..)
-#' (linehist <- m + stat_bin(aes(y = ..density..), binwidth=0.1,
-#'   geom="line", position="identity"))
-#' linehist + stat_density(colour="blue", fill=NA)
+#' # To make it easier to compare distributions with very different counts,
+#' # put density on the y axis instead of the default count
+#' ggplot(diamonds, aes(price, ..density.., colour = cut)) +
+#'   geom_freqpoly(binwidth = 500)
 #'
-#' # Also works with categorical variables
-#' ggplot(movies, aes(x=mpaa)) + stat_bin()
+#' if (require("ggplot2movies")) {
+#' # Often we don't want the height of the bar to represent the
+#' # count of observations, but the sum of some other variable.
+#' # For example, the following plot shows the number of movies
+#' # in each rating.
+#' m <- ggplot(movies, aes(rating))
+#' m + geom_bar(binwidth = 0.1)
+#'
+#' # If, however, we want to see the number of votes cast in each
+#' # category, we need to weight by the votes variable
+#' m + geom_bar(aes(weight = votes), binwidth = 0.1) + ylab("votes")
+#'
+#' # For transformed scales, binwidth applies to the transformed data.
+#' # The bins have constant width on the transformed scale.
+#' m + geom_histogram() + scale_x_log10()
+#' m + geom_histogram(binwidth = 0.05) + scale_x_log10()
+#'
+#' # For transformed coordinate systems, the binwidth applies to the
+#' # raw data. The bins have constant width on the original scale.
+#'
+#' # Using log scales does not work here, because the first
+#' # bar is anchored at zero, and so when transformed becomes negative
+#' # infinity. This is not a problem when transforming the scales, because
+#' # no observations have 0 ratings.
+#' m + geom_histogram(origin = 0) + coord_trans(x = "log10")
+#' # Use origin = 0, to make sure we don't take sqrt of negative values
+#' m + geom_histogram(origin = 0) + coord_trans(x = "sqrt")
+#'
+#' # You can also transform the y axis.  Remember that the base of the bars
+#' # has value 0, so log transformations are not appropriate
+#' m <- ggplot(movies, aes(x = rating))
+#' m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 #' }
-stat_bin <- function (mapping = NULL, data = NULL, geom = "bar", position = "stack",
-width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, bins = NULL, origin = NULL, breaks = NULL, ...) {
-  StatBin$new(mapping = mapping, data = data, geom = geom, position = position,
-  width = width, drop = drop, right = right, binwidth = binwidth, bins = bins, origin = origin, breaks = breaks, ...)
-}
+#' rm(movies)
+geom_histogram <- function(mapping = NULL, data = NULL, stat = "bin",
+  binwidth = NULL, bins = NULL, origin = NULL, right = FALSE,
+  position = "stack", show.legend = NA, inherit.aes = TRUE, ...) {
 
-StatBin <- proto(Stat, {
-  objname <- "bin"
-  informed <- FALSE
-
-  calculate_groups <- function(., data, ...) {
-    if (!is.null(data$y) || !is.null(match.call()$y)) {
-      stop("May not have y aesthetic when binning", call. = FALSE)
-    }
-
-    .$informed <- FALSE
-    .super$calculate_groups(., data, ...)
-  }
-
-  calculate <- function(., data, scales, binwidth=NULL, bins=NULL, origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = FALSE, ...) {
-    range <- scale_dimension(scales$x, c(0, 0))
-
-    if (is.null(breaks) && is.null(binwidth) && is.null(bins) && !is.integer(data$x) && !.$informed) {
-      message("stat_bin: bins defaulted to 30. Use 'bins = n' or 'binwidth = x' to adjust this.")
-      .$informed <- TRUE
-    }
-
-    bin(data$x, data$weight, binwidth=binwidth, bins=bins, origin=origin, breaks=breaks, range=range, width=width, drop = drop, right = right)
-  }
-
-  default_aes <- function(.) aes(y = ..count..)
-  required_aes <- c("x")
-  default_geom <- function(.) GeomBar
-
-})
-
-bin <- function(x, weight=NULL, binwidth=NULL, bins=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
-
-  if (length(na.omit(x)) == 0) return(data.frame())
-  if (is.null(weight))  weight <- rep(1, length(x))
-  weight[is.na(weight)] <- 0
-
-  if (is.null(range))    range    <- range(x, na.rm = TRUE, finite=TRUE)
-  if (is.null(bins))     bins     <- 30
-  if (is.null(binwidth)) binwidth <- diff(range) / bins
-
-  if (is.integer(x)) {
-    bins <- x
-    x <- sort(unique(bins))
-    width <- width
-  } else if (diff(range) == 0) {
-    width <- width
-    bins <- x
-  } else { # if (is.numeric(x))
-    if (is.null(breaks)) {
-      if (is.null(origin)) {
-        breaks <- fullseq(range, binwidth, pad = TRUE)
-      } else {
-        breaks <- seq(origin, max(range) + binwidth, binwidth)
-      }
-    }
-
-    # Adapt break fuzziness from base::hist - this protects from floating
-    # point rounding errors
-    diddle <- 1e-07 * stats::median(diff(breaks))
-    if (right) {
-      fuzz <- c(-diddle, rep.int(diddle, length(breaks) - 1))
-    } else {
-      fuzz <- c(rep.int(-diddle, length(breaks) - 1), diddle)
-    }
-    fuzzybreaks <- sort(breaks) + fuzz
-
-    bins <- cut(x, fuzzybreaks, include.lowest=TRUE, right = right)
-    left <- breaks[-length(breaks)]
-    right <- breaks[-1]
-    x <- (left + right)/2
-    width <- diff(breaks)
-  }
-
-  results <- data.frame(
-    count = as.numeric(tapply(weight, bins, sum, na.rm=TRUE)),
-    x = x,
-    width = width
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomBar,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(...),
+    stat_params = list(binwidth = binwidth, bins = bins, origin = origin, right = right)
   )
-
-  if (sum(results$count, na.rm = TRUE) == 0) {
-    return(results)
-  }
-
-  res <- within(results, {
-    count[is.na(count)] <- 0
-    density <- count / width / sum(abs(count), na.rm=TRUE)
-    ncount <- count / max(abs(count), na.rm=TRUE)
-    ndensity <- density / max(abs(density), na.rm=TRUE)
-  })
-  if (drop) res <- subset(res, count > 0)
-  res
 }

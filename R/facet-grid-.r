@@ -20,10 +20,15 @@
 #'   y scale; if \code{"free_x"} their width will be proportional to the
 #'  length of the x scale; or if \code{"free"} both height and width will
 #'  vary.  This setting has no effect unless the appropriate scales also vary.
-#' @param labeller A function that takes two arguments (\code{variable} and
-#'   \code{value}) and returns a string suitable for display in the facet
-#'   strip. See \code{\link{label_value}} for more details and pointers
-#'   to other options.
+#' @param labeller A function that takes one data frame of labels and
+#'   returns a list or data frame of character vectors. Each input
+#'   column corresponds to one factor. Thus there will be more than
+#'   one with formulae of the type \code{~cyl + am}. Each output
+#'   column gets displayed as one separate line in the strip
+#'   label. This function should inherit from the "labeller" S3 class
+#'   for compatibility with \code{\link{labeller}()}. See
+#'   \code{\link{label_value}} for more details and pointers to other
+#'   options.
 #' @param as.table If \code{TRUE}, the default, the facets are laid out like
 #'   a table with highest values at the bottom-right. If \code{FALSE}, the
 #'   facets are laid out like a plot with the highest value at the top-right.
@@ -175,13 +180,14 @@
 #' )
 #' p <- ggplot(data, aes(mpg, disp)) + geom_point()
 #' p + facet_grid(am ~ gear, switch = "both") + theme_light()
-#' 
+#'
 #' # It may be more aesthetic to use a theme without boxes around
 #' # around the strips.
 #' p + facet_grid(am ~ gear + vs, switch = "y") + theme_minimal()
 #' p + facet_grid(am ~ ., switch = "y") +
 #'   theme_gray() %+replace% theme(strip.background  = element_blank())
 #' }
+#' @importFrom plyr as.quoted
 facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, switch = NULL, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
@@ -198,11 +204,11 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
   # Facets can either be a formula, a string, or a list of things to be
   # convert to quoted
   if (is.character(facets)) {
-    facets <- as.formula(facets)
+    facets <- stats::as.formula(facets)
   }
   if (is.formula(facets)) {
-    lhs <- function(x) if(length(x) == 2) NULL else x[-3]
-    rhs <- function(x) if(length(x) == 2) x else x[-2]
+    lhs <- function(x) if (length(x) == 2) NULL else x[-3]
+    rhs <- function(x) if (length(x) == 2) x else x[-2]
 
     rows <- as.quoted(lhs(facets))
     rows <- rows[!sapply(rows, identical, as.name("."))]
@@ -289,7 +295,7 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
   } else {
     # Add padding between the switched strips and the axes
     padding <- convertUnit(theme$strip.switch.pad.grid, "cm")
-    
+
     if (switch_x) {
       t_heights <- c(padding, strips$t$heights)
       gt_t <- gtable(widths = strips$t$widths, heights = unit(t_heights, "cm"))
@@ -322,8 +328,8 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
       complete <- rbind(center, bottom, z = c(1, 2))
     } else if (switch_y) {
       top <- strips$t
-      top <- gtable_add_cols(top, gt_r$widths, pos = 0)
       top <- gtable_add_cols(top, axes$l$widths, pos = 0)
+      top <- gtable_add_cols(top, gt_r$widths, pos = 0)
 
       center <- cbind(gt_r, axes$l, panels, z = c(3, 2, 1))
       bottom <- axes$b
@@ -333,10 +339,10 @@ facet_render.grid <- function(facet, panel, coord, theme, geom_grobs) {
       complete <- rbind(top, center, bottom, z = c(1, 2, 3))
     } else {
       stop("`switch` must be either NULL, 'both', 'x', or 'y'",
-        call. = FALSE) 
+        call. = FALSE)
     }
   }
-  
+
   complete$respect <- panels$respect
   complete$name <- "layout"
   bottom <- axes$b
@@ -353,70 +359,24 @@ facet_strips.grid <- function(facet, panel, theme) {
   if (!is.null(facet$switch) && facet$switch %in% c("both", "x")) {
     dir$t <- "b"
   }
-  if (!is.null(facet$switch) && facet$switch %in% c("both", "y")){
+  if (!is.null(facet$switch) && facet$switch %in% c("both", "y")) {
     dir$r <- "l"
   }
 
-  list(
+  strips <- list(
     r = build_strip(panel, row_vars, facet$labeller,
       theme, dir$r, switch = facet$switch),
     t = build_strip(panel, col_vars, facet$labeller,
       theme, dir$t, switch = facet$switch)
   )
-}
 
-build_strip <- function(panel, label_df, labeller, theme, side = "right", switch = NULL) {
-  side <- match.arg(side, c("top", "left", "bottom", "right"))
-  horizontal <- side %in% c("top", "bottom")
-  labeller <- match.fun(labeller)
-
-  # No labelling data, so return empty row/col
-  if (empty(label_df)) {
-    if (horizontal) {
-      widths <- unit(rep(0, max(panel$layout$COL)), "null")
-      return(gtable_row_spacer(widths))
+  Map(function(strip, side) {
+    if (side %in% c("t", "b")) {
+      gtable_add_col_space(strip, theme$panel.margin.x %||% theme$panel.margin)
     } else {
-      heights <- unit(rep(0, max(panel$layout$ROW)), "null")
-      return(gtable_col_spacer(heights))
+      gtable_add_row_space(strip, theme$panel.margin.y %||% theme$panel.margin)
     }
-  }
-
-  # Create matrix of labels
-  labels <- matrix(list(), nrow = nrow(label_df), ncol = ncol(label_df))
-  for (i in seq_len(ncol(label_df))) {
-    labels[, i] <- labeller(names(label_df)[i], label_df[, i])
-  }
-
-  # Display the mirror of the y strip labels if switched
-  if (!is.null(switch) && switch %in% c("both", "y")) {
-    theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
-  }
-
-  # Render as grobs
-  grobs <- apply(labels, c(1,2), ggstrip, theme = theme,
-    horizontal = horizontal)
-
-  # Create layout
-  name <- paste("strip", side, sep = "-")
-  if (horizontal) {
-    # Each row is as high as the highest and as a wide as the panel
-    row_height <- function(row) max(laply(row, height_cm))
-    grobs <- t(grobs)
-    heights <- unit(apply(grobs, 1, row_height), "cm")
-    widths <- unit(rep(1, ncol(grobs)), "null")
-  } else {
-    # Each row is wide as the widest and as high as the panel
-    col_width <- function(col) max(laply(col, width_cm))
-    widths <- unit(apply(grobs, 2, col_width), "cm")
-    heights <- unit(rep(1, nrow(grobs)), "null")
-  }
-  strips <- gtable_matrix(name, grobs, heights = heights, widths = widths)
-
-  if (horizontal) {
-    gtable_add_col_space(strips, theme$panel.margin.x %||% theme$panel.margin)
-  } else {
-    gtable_add_row_space(strips, theme$panel.margin.y %||% theme$panel.margin)
-  }
+  }, strips, dir)
 }
 
 #' @export
@@ -425,15 +385,13 @@ facet_axes.grid <- function(facet, panel, coord, theme) {
 
   # Horizontal axes
   cols <- which(panel$layout$ROW == 1)
-  grobs <- lapply(panel$ranges[cols], coord_render_axis_h,
-    coord = coord, theme = theme)
+  grobs <- lapply(panel$ranges[cols], coord$render_axis_h, theme = theme)
   axes$b <- gtable_add_col_space(gtable_row("axis-b", grobs),
     theme$panel.margin.x %||% theme$panel.margin)
 
   # Vertical axes
   rows <- which(panel$layout$COL == 1)
-  grobs <- lapply(panel$ranges[rows], coord_render_axis_v,
-    coord = coord, theme = theme)
+  grobs <- lapply(panel$ranges[rows], coord$render_axis_v, theme = theme)
   axes$l <- gtable_add_row_space(gtable_col("axis-l", grobs),
     theme$panel.margin.y %||% theme$panel.margin)
 
@@ -447,7 +405,7 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   # ask the coordinate system if it wants to specify one
   aspect_ratio <- theme$aspect.ratio
   if (is.null(aspect_ratio) && !facet$free$x && !facet$free$y) {
-    aspect_ratio <- coord_aspect(coord, panel$ranges[[1]])
+    aspect_ratio <- coord$aspect(panel$ranges[[1]])
   }
   if (is.null(aspect_ratio)) {
     aspect_ratio <- 1
@@ -462,12 +420,12 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
   nrow <- max(panel$layout$ROW)
 
   panel_grobs <- lapply(panels, function(i) {
-    fg <- coord_render_fg(coord, panel$ranges[[i]], theme)
-    bg <- coord_render_bg(coord, panel$ranges[[i]], theme)
+    fg <- coord$render_fg(panel$ranges[[i]], theme)
+    bg <- coord$render_bg(panel$ranges[[i]], theme)
 
     geom_grobs <- lapply(geom_grobs, "[[", i)
 
-    if(theme$panel.ontop) {
+    if (theme$panel.ontop) {
       panel_grobs <- c(geom_grobs, list(bg), list(fg))
     } else {
       panel_grobs <- c(list(bg), geom_grobs, list(fg))

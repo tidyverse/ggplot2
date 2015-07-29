@@ -41,7 +41,7 @@ rescale01 <- function(x) (x - min(x)) / diff(range(x))
 ec_scaled <- data.frame(
   date = economics$date,
   colwise(rescale01)(economics[, -(1:2)]))
-ecm <- melt(ec_scaled, id = "date")
+ecm <- melt(ec_scaled, id.vars = "date")
 f <- ggplot(ecm, aes(date, value))
 f + geom_line(aes(linetype = variable))
 

@@ -19,6 +19,11 @@ NULL
   if (!is.null(a)) a else b
 }
 
+"%|W|%" <- function(a, b) {
+  if (!is.waive(a)) a else b
+}
+
+
 # Check required aesthetics are present
 # This is used by geoms and stats to give a more helpful error message
 # when required aesthetics are missing.
@@ -45,29 +50,19 @@ clist <- function(l) {
   paste(paste(names(l), l, sep=" = ", collapse=", "), sep="")
 }
 
-# Abbreviated paste
-# Alias for paste with a shorter name and convenient defaults
-#
-# @param character vectors to be concatenated
-# @param default separator
-# @param default collapser
-# @keyword internal
-ps <- function(..., sep="", collapse="") do.call(paste, compact(list(..., sep=sep, collapse=collapse)))
-
 # Quietly try to require a package
-# Queitly require a package, returning an error message if that package is not installed.
+# Quietly require a package, returning an error message if that package is not installed.
 #
 # @param name of package
 # @keyword internal
-try_require <- function(package) {
-  available <- suppressMessages(suppressWarnings(
-    require(package, character.only = TRUE)
-  ))
-
-  if (!available) {
-    stop(package, " package required for this functionality. " ,
-      "Please install and try again.", call. = FALSE)
+try_require <- function(package, fun) {
+  if (requireNamespace(package, quietly = TRUE)) {
+    library(package, character.only = TRUE)
+    return(invisible())
   }
+
+  stop("Package `", package, "` required for `", fun , "`.\n",
+    "Please install and try again.", call. = FALSE)
 }
 
 # Return unique columns
@@ -104,7 +99,7 @@ safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRU
 # Convenience function to remove missing values from a data.frame
 # Remove all non-complete rows, with a warning if \code{na.rm = FALSE}.
 #
-# ggplot is somewhat more accomodating of missing values than R generally.
+# ggplot is somewhat more accommodating of missing values than R generally.
 # For those stats which require complete data, missing values will be
 # automatically removed with a warning.  If \code{na.rm = TRUE} is supplied
 # to the statistic, the warning will be suppressed.
@@ -114,18 +109,15 @@ safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRU
 # @argumnets variables to check for missings in
 # @param optional function name to make warning message more informative
 # @keyword internal
-#X a <- remove_missing(movies)
-#X a <- remove_missing(movies, na.rm = TRUE)
-#X ggplot(movies, aes(mpaa, budget)) + geom_boxplot()
 remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = FALSE) {
   vars <- intersect(vars, names(df))
-  if (name != "") name <- ps(" (", name, ")")
+  if (name != "") name <- paste(" (", name, ")", sep = "")
 
   if (finite) {
     missing <- !finite.cases(df[, vars, drop = FALSE])
     str <- "non-finite"
   } else {
-    missing <- !complete.cases(df[, vars, drop = FALSE])
+    missing <- !stats::complete.cases(df[, vars, drop = FALSE])
     str <- "missing"
   }
 
@@ -211,7 +203,7 @@ rescale01 <- function(x) {
   (x - rng[1]) / (rng[2] - rng[1])
 }
 
-#' Give a deprecation error, warning, or messsage, depending on version number.
+#' Give a deprecation error, warning, or message, depending on version number.
 #'
 #' Version numbers have the format <major>.<minor>.<subminor>, like 0.9.2.
 #' This function compares the current version number of ggplot2 against the
@@ -239,7 +231,7 @@ rescale01 <- function(x) {
 #' @export
 gg_dep <- function(version, msg) {
   v <- as.package_version(version)
-  cv <- packageVersion("ggplot2")
+  cv <- utils::packageVersion("ggplot2")
 
   # If current major number is greater than last-good major number, or if
   #  current minor number is more than 1 greater than last-good minor number,
@@ -260,3 +252,52 @@ gg_dep <- function(version, msg) {
 
   invisible()
 }
+
+
+has_name <- function(x) {
+  nms <- names(x)
+  if (is.null(nms)) {
+    return(rep(FALSE, length(x)))
+  }
+
+  !is.na(nms) & nms != ""
+}
+
+
+# Convert a snake_case string to camelCase
+camelize <- function(x, first = FALSE) {
+  x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
+  if (first) x <- firstUpper(x)
+  x
+}
+
+snakeize <- function(x) {
+  x <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", x)
+  x <- gsub(".", "_", x, fixed = TRUE)
+  x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
+  tolower(x)
+}
+
+
+firstUpper <- function(s) {
+  paste(toupper(substring(s, 1,1)), substring(s, 2), sep = "")
+}
+
+snake_class <- function(x) {
+  snakeize(class(x)[1])
+}
+
+empty <- function(df) {
+  is.null(df) || nrow(df) == 0 || ncol(df) == 0
+}
+
+is.discrete <- function (x) {
+  is.factor(x) || is.character(x) || is.logical(x)
+}
+
+compact <- function(x) {
+  null <- vapply(x, is.null, logical(1))
+  x[!null]
+}
+
+is.formula <- function(x) inherits(x, "formula")

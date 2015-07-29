@@ -1,33 +1,35 @@
 #' Add heatmap of 2d bin counts.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "bin2d")}
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bin2d")}
 #'
 #' @export
 #' @inheritParams geom_point
+#' @param geom,stat Use to override the default connection between
+#'   \code{geom_bin2d} and \code{stat_bin2d}.
+#' @seealso \code{\link{stat_binhex}} for hexagonal binning
 #' @examples
-#' d <- ggplot(diamonds, aes(x = x, y = y)) + xlim(4,10) + ylim(4,10)
+#' d <- ggplot(diamonds, aes(x, y)) + xlim(4, 10) + ylim(4, 10)
 #' d + geom_bin2d()
-#' d + geom_bin2d(binwidth = c(0.1, 0.1))
 #'
-#' # See ?stat_bin2d for more examples
-geom_bin2d <- function (mapping = NULL, data = NULL, stat = "bin2d", position = "identity", show_guide = NA,...) {
-  GeomBin2d$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+#' # You can control the size of the bins by specifying the number of
+#' # bins in each direction:
+#' d + geom_bin2d(bins = 10)
+#' d + geom_bin2d(bins = 30)
+#'
+#' # Or by specifying the width of the bins
+#' d + geom_bin2d(binwidth = c(0.1, 0.1))
+geom_bin2d <- function(mapping = NULL, data = NULL, stat = "bin2d",
+  position = "identity", show.legend = NA, inherit.aes = TRUE, ...) {
+
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomRect,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
-
-GeomBin2d <- proto(Geom, {
-  draw <- function(., data, scales, coordinates, ...) {
-    GeomRect$draw(data, scales, coordinates, ...)
-  }
-
-  objname <- "bin2d"
-
-  guide_geom <- function(.) "polygon"
-
-  default_stat <- function(.) StatBin2d
-  required_aes <- c("xmin", "xmax", "ymin", "ymax")
-  default_aes <- function(.) {
-    aes(colour = NA, fill = "grey60", size = 0.5, linetype = 1, weight = 1, , alpha = NA)
-  }
-
-})

@@ -5,7 +5,7 @@
 \title{Summarise y values at every unique x.}
 \usage{
 stat_summary(mapping = NULL, data = NULL, geom = "pointrange",
-  position = "identity", ...)
+  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -17,8 +17,17 @@ the plot defaults.}
 
 \item{geom}{The geometric object to use display the data}
 
-\item{position}{The position adjustment to use for overlappling points
+\item{position}{The position adjustment to use for overlapping points
 on this layer}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{...}{other arguments passed on to \code{\link{layer}}. This can
 include aesthetics whose values you want to set, not map. See
@@ -36,11 +45,11 @@ a data.frame with additional columns:
     return single number)}
 }
 \description{
-\code{stat_summary} allows for tremendous flexibilty in the specification
+\code{stat_summary} allows for tremendous flexibility in the specification
 of summary functions. The summary function can either supply individual
 summary functions for each of y, ymin and ymax (with \code{fun.y},
 \code{fun.ymax}, \code{fun.ymin}), or return a data frame containing any
-number of aesthetiics with with \code{fun.data}. All summary functions
+number of aesthetics with with \code{fun.data}. All summary functions
 are called with a single vector of values, \code{x}.
 }
 \details{
@@ -115,6 +124,7 @@ m <- ggplot(mpg2, aes(x=cyl, y=hwy)) +
        xlab("cyl")
 m
 # An example with highly skewed distributions:
+if (require("ggplot2movies")) {
 set.seed(596)
 mov <- movies[sample(nrow(movies), 1000), ]
  m2 <- ggplot(mov, aes(x= factor(round(rating)), y=votes)) + geom_point()
@@ -134,6 +144,7 @@ m2 + scale_y_log10()
 # and stretching the geoms onto the log scale.  Compare the widths of the
 # standard errors.
 m2 + coord_trans(y="log10")
+}
 }
 }
 \seealso{

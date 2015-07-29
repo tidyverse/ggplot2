@@ -20,21 +20,24 @@
 #'   geom_point() +
 #'   geom_text(aes(label = y), position = position_nudge(y = -0.1))
 position_nudge <- function(x = 0, y = 0) {
-  PositionNudge$new(x = x, y = y)
+  ggproto(NULL, PositionNudge,
+    x = x,
+    y = y
+  )
 }
 
-PositionNudge <- proto(Position, {
-  objname <- "nudge"
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+PositionNudge <- ggproto("PositionNudge", Position,
+  x = NULL,
+  y = NULL,
 
-  new <- function(., x = 0, y = 0) {
-    .$proto(x = x, y = y)
-  }
-
-  adjust <- function(., data) {
+  adjust = function(self, data) {
     if (empty(data)) return(data.frame())
     check_required_aesthetics(c("x", "y"), names(data), "position_nudge")
 
-    transform_position(data, function(x) x + .$x, function(y) y + .$y)
+    transform_position(data, function(x) x + self$x, function(y) y + self$y)
   }
-
-})
+)

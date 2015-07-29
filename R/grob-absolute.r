@@ -1,6 +1,6 @@
 #' Absolute grob
 #'
-#' This grob has fixed dimesions and position.
+#' This grob has fixed dimensions and position.
 #'
 #' It's still experimental
 #'
@@ -12,7 +12,7 @@ absoluteGrob <- function(grob, width = NULL, height = NULL,
     children = grob,
     width = width, height = height,
     xmin = xmin, ymin = ymin,
-    vp = vp, cl="absoluteGrob"
+    vp = vp, cl = "absoluteGrob"
   )
 }
 

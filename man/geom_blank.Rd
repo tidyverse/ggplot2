@@ -5,7 +5,7 @@
 \title{Blank, draws nothing.}
 \usage{
 geom_blank(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show_guide = NA, ...)
+  position = "identity", show.legend = NA, inherit.aes = FALSE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -18,12 +18,17 @@ defined at the top level of the plot.}
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
 
-\item{position}{Postion adjustment, either as a string, or the result of
+\item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{...}{other arguments passed on to \code{\link{layer}}. There are
   three types of arguments you can use here:
@@ -41,7 +46,7 @@ The blank geom draws nothing, but can be a useful way of ensuring common
 scales between different plots.
 }
 \examples{
-ggplot(movies, aes(length, rating)) + geom_blank()
+ggplot(mtcars, aes(wt, mpg)) + geom_blank()
 # Nothing to see here!
 
 # Take the following scatter plot

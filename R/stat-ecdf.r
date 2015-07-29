@@ -17,14 +17,29 @@
 #'
 #' ggplot(df, aes(x, colour = g)) + stat_ecdf()
 #' }
-stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step", position = "identity", n = NULL, ...) {
-  StatEcdf$new(mapping = mapping, data = data, geom = geom, position = position, n = n, ...)
+stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step",
+  position = "identity", n = NULL, show.legend = NA, inherit.aes = TRUE, ...)
+{
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = StatEcdf,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    stat_params = list(n = n),
+    params = list(...)
+  )
 }
 
-StatEcdf <- proto(Stat, {
-  objname <- "ecdf"
 
-  calculate <- function(., data, scales, n = NULL, ...) {
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatEcdf <- ggproto("StatEcdf", Stat,
+  calculate = function(data, scales, n = NULL, ...) {
 
     # If n is NULL, use raw values; otherwise interpolate
     if (is.null(n)) {
@@ -49,11 +64,10 @@ StatEcdf <- proto(Stat, {
     y1 <- 1
 
     data.frame(x = c(x0, xvals, x1), y = c(y0, y, y1))
-  }
+  },
 
-  default_aes <- function(.) aes(y = ..y..)
-  required_aes <- c("x")
-  default_geom <- function(.) GeomStep
+  default_aes = aes(y = ..y..),
 
-})
+  required_aes = c("x")
+)
 

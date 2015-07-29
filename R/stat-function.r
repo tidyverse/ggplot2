@@ -43,25 +43,41 @@
 #' # Using a custom function
 #' test <- function(x) {x ^ 2 + x + 20}
 #' f + stat_function(fun = test)
-stat_function <- function (mapping = NULL, data = NULL, geom = "path", position = "identity",
-fun, n = 101, args = list(), ...) {
-  StatFunction$new(mapping = mapping, data = data, geom = geom,
-  position = position, fun = fun, n = n, args = args, ...)
+stat_function <- function (mapping = NULL, data = NULL, geom = "path",
+  position = "identity", fun, n = 101, args = list(), show.legend = NA,
+  inherit.aes = TRUE, ...)
+{
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = StatFunction,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    stat_params = list(
+      fun = fun,
+      n = n,
+      args = args
+    ),
+    params = list(...)
+  )
 }
 
-StatFunction <- proto(Stat, {
-  objname <- "function"
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatFunction <- ggproto("StatFunction", Stat,
+  default_aes = aes(y = ..y..),
 
-  default_geom <- function(.) GeomPath
-  default_aes <- function(.) aes(y = ..y..)
-
-  calculate <- function(., data, scales, fun, n=101, args = list(), ...) {
+  calculate = function(data, scales, fun, n=101, args = list(), ...) {
     range <- scale_dimension(scales$x, c(0, 0))
-    xseq <- seq(range[1], range[2], length=n)
+    xseq <- seq(range[1], range[2], length.out = n)
 
     data.frame(
       x = xseq,
-      y = do.call(fun, c(list(xseq), args))
+      y = do.call(fun, c(quote(list(scales$x$trans$inv(xseq))), args))
     )
   }
-})
+)

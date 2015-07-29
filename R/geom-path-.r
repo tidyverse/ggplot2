@@ -15,8 +15,9 @@
 #' @examples
 #' \donttest{
 #' # Generate data
+#' if (require("ggplot2movies")) {
 #' library(plyr)
-#' myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
+#' myear <- ddply(movies, "year", colwise(mean, .(length, rating)))
 #' p <- ggplot(myear, aes(length, rating))
 #' p + geom_path()
 #'
@@ -29,6 +30,7 @@
 #'
 #' # Set aesthetics to fixed value
 #' p + geom_path(colour = "green")
+#' }
 #'
 #' # Control line join parameters
 #' df <- data.frame(x = 1:3, y = c(4, 1, 9))
@@ -72,7 +74,7 @@
 #' # Line type needs to be applied to a line as a whole, so it can
 #' # not be used with colour or size that vary across a line
 #'
-#' x <- seq(0.01, .99, length=100)
+#' x <- seq(0.01, .99, length.out = 100)
 #' df <- data.frame(x = rep(x, 2), y = c(qlogis(x), 2 * qlogis(x)), group = rep(c("a","b"), each=100))
 #' p <- ggplot(df, aes(x=x, y=y, group=group))
 #'
@@ -92,19 +94,39 @@
 #' c + geom_path(arrow = arrow())
 #' c + geom_path(arrow = arrow(angle = 15, ends = "both", length = unit(0.6, "inches")))
 #' }
-geom_path <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity",
-lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, arrow = NULL, show_guide = NA,...) {
-  GeomPath$new(mapping = mapping, data = data, stat = stat, position = position,
-  lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm, arrow = arrow,
-  show_guide = show_guide,...)
+geom_path <- function(mapping = NULL, data = NULL, stat = "identity",
+                      position = "identity", lineend = "butt",
+                      linejoin = "round", linemitre = 1, na.rm = FALSE,
+                      arrow = NULL, show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomPath,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    geom_params = list(
+      lineend = lineend,
+      linejoin = linejoin,
+      linemitre = linemitre,
+      arrow = arrow,
+      na.rm = na.rm
+    ),
+    params = list(...)
+  )
 }
 
-GeomPath <- proto(Geom, {
-  objname <- "path"
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomPath <- ggproto("GeomPath", Geom,
+  draw_groups = function(self, ...) self$draw(...),
 
-  draw_groups <- function(., ...) .$draw(...)
-
-  draw <- function(., data, scales, coordinates, arrow = NULL, lineend = "butt", linejoin = "round", linemitre = 1, ..., na.rm = FALSE) {
+  draw = function(data, scales, coordinates, arrow = NULL, lineend = "butt",
+                  linejoin = "round", linemitre = 1, ..., na.rm = FALSE)
+  {
     if (!anyDuplicated(data$group)) {
       message("geom_path: Each group consist of only one observation. Do you need to adjust the group aesthetic?")
     }
@@ -120,12 +142,12 @@ GeomPath <- proto(Geom, {
     }
     # Drop missing values at the start or end of a line - can't drop in the
     # middle since you expect those to be shown by a break in the line
-    missing <- !complete.cases(data[c("x", "y", "size", "colour",
+    missing <- !stats::complete.cases(data[c("x", "y", "size", "colour",
       "linetype")])
-    kept <- ave(missing, data$group, FUN=keep)
+    kept <- stats::ave(missing, data$group, FUN = keep)
     data <- data[kept, ]
     # must be sorted on group
-    data <- arrange(data, group)
+    data <- plyr::arrange(data, group)
 
     if (!all(kept) && !na.rm) {
       warning("Removed ", sum(!kept), " rows containing missing values",
@@ -135,12 +157,12 @@ GeomPath <- proto(Geom, {
     munched <- coord_munch(coordinates, data, scales)
 
     # Silently drop lines with less than two points, preserving order
-    rows <- ave(seq_len(nrow(munched)), munched$group, FUN = length)
+    rows <- stats::ave(seq_len(nrow(munched)), munched$group, FUN = length)
     munched <- munched[rows >= 2, ]
     if (nrow(munched) < 2) return(zeroGrob())
 
     # Work out whether we should use lines or segments
-    attr <- ddply(munched, .(group), function(df) {
+    attr <- plyr::ddply(munched, "group", function(df) {
       data.frame(
         solid = identical(unique(df$linetype), 1),
         constant = nrow(unique(df[, c("alpha", "colour","size", "linetype")])) == 1
@@ -151,7 +173,7 @@ GeomPath <- proto(Geom, {
     if (!solid_lines && !constant) {
       stop("geom_path: If you are using dotted or dashed lines",
         ", colour, size and linetype must be constant over the line",
-        call.=FALSE)
+        call. = FALSE)
     }
 
     # Work out grouping variables for grobs
@@ -161,47 +183,40 @@ GeomPath <- proto(Geom, {
     end <-   c(group_diff, TRUE)
 
     if (!constant) {
-      with(munched,
-        segmentsGrob(
-          x[!end], y[!end], x[!start], y[!start],
-          default.units="native", arrow = arrow,
-          gp = gpar(
-            col = alpha(colour, alpha)[!end], fill = alpha(colour, alpha)[!end],
-            lwd = size[!end] * .pt, lty = linetype[!end],
-            lineend = lineend, linejoin = linejoin, linemitre = linemitre
-          )
+      segmentsGrob(
+        munched$x[!end], munched$y[!end], munched$x[!start], munched$y[!start],
+        default.units = "native", arrow = arrow,
+        gp = gpar(
+          col = alpha(munched$colour, munched$alpha)[!end],
+          fill = alpha(munched$colour, munched$alpha)[!end],
+          lwd = munched$size[!end] * .pt,
+          lty = munched$linetype[!end],
+          lineend = lineend,
+          linejoin = linejoin,
+          linemitre = linemitre
         )
       )
     } else {
       id <- match(munched$group, unique(munched$group))
-      with(munched,
-        polylineGrob(
-          x, y, id = id,
-          default.units = "native", arrow = arrow,
-          gp = gpar(
-            col = alpha(colour, alpha)[start], fill = alpha(colour, alpha)[start],
-            lwd = size[start] * .pt, lty = linetype[start],
-            lineend = lineend, linejoin = linejoin, linemitre = linemitre)
+      polylineGrob(
+        munched$x, munched$y, id = id,
+        default.units = "native", arrow = arrow,
+        gp = gpar(
+          col = alpha(munched$colour, munched$alpha)[start],
+          fill = alpha(munched$colour, munched$alpha)[start],
+          lwd = munched$size[start] * .pt,
+          lty = munched$linetype[start],
+          lineend = lineend,
+          linejoin = linejoin,
+          linemitre = linemitre
         )
       )
     }
-  }
+  },
 
-  draw_legend <- function(., data, ...) {
-    data$arrow <- NULL
-    data <- aesdefaults(data, .$default_aes(), list(...))
+  required_aes = c("x", "y"),
 
-    with(data,
-      ggname(.$my_name(), segmentsGrob(0.1, 0.5, 0.9, 0.5, default.units="npc",
-      gp=gpar(col=alpha(colour, alpha), lwd=size * .pt,
-        lty=linetype, lineend="butt")))
-    )
-  }
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  default_stat <- function(.) StatIdentity
-  required_aes <- c("x", "y")
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
-  guide_geom <- function(.) "path"
-
-})
-
+  draw_key = draw_key_path
+)

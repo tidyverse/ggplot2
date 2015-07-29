@@ -7,13 +7,14 @@
 \alias{scale_size_discrete}
 \title{Scale size (area or radius).}
 \usage{
-scale_size_continuous(name = NULL, breaks = waiver(), labels = waiver(),
+scale_size_continuous(name = waiver(), breaks = waiver(),
+  labels = waiver(), limits = NULL, range = c(1, 6), trans = "identity",
+  guide = "legend")
+
+scale_radius(name = waiver(), breaks = waiver(), labels = waiver(),
   limits = NULL, range = c(1, 6), trans = "identity", guide = "legend")
 
-scale_radius(name = NULL, breaks = waiver(), labels = waiver(),
-  limits = NULL, range = c(1, 6), trans = "identity", guide = "legend")
-
-scale_size(name = NULL, breaks = waiver(), labels = waiver(),
+scale_size(name = waiver(), breaks = waiver(), labels = waiver(),
   limits = NULL, range = c(1, 6), trans = "identity", guide = "legend")
 
 scale_size_discrete(..., range = c(2, 6))
@@ -64,7 +65,7 @@ maximum size of the plotting symbol after transformation.}
 }
 \description{
 \code{scale_size} scales area, \code{scale_radius} scales radius. The size
-aesthetic is most commonly used for points and text, and humans percieve
+aesthetic is most commonly used for points and text, and humans perceive
 the area of points (not their radius), so this provides for optimal
 perception.
 }

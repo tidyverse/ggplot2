@@ -4,12 +4,14 @@
 \alias{layer}
 \title{Create a new layer}
 \usage{
-layer(geom = NULL, geom_params = NULL, stat = NULL, stat_params = NULL,
-  data = NULL, mapping = NULL, position = NULL, params = NULL, ...,
-  inherit.aes = TRUE, subset = NULL, show_guide = NA)
+layer(geom = NULL, geom_params = list(), stat = NULL,
+  stat_params = list(), data = NULL, mapping = NULL, position = NULL,
+  params = list(), inherit.aes = TRUE, subset = NULL, show.legend = NA)
 }
 \arguments{
-\item{geom}{Geometric element, as a string.}
+\item{geom,stat,position}{Geom, stat and position adjustment to use in
+this layer. Can either be the name of a ggproto object, or the object
+itself.}
 
 \item{geom_params,stat_params,params,...}{Additional parameters to the
 \code{geom} and \code{stat}. If supplied individual in \code{...} or as a
@@ -17,18 +19,12 @@ list in \code{params}, \code{layer} does it's best to figure out which
 arguments belong to which. To be explicit, supply as individual lists to
 \code{geom_param} and \code{stat_param}.}
 
-\item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
-
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
 
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
 \code{\link{aes_string}}. If specified and \code{inherit.aes = TRUE},
 is combined with the default mapping at the top level of the plot.}
-
-\item{position}{Postion adjustment, either as a string, or the result of
-a call to a position adjustment function.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
@@ -38,7 +34,7 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{subset}{DEPRECATED. An older way of subsetting the dataset used in a
 layer.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 }
@@ -49,6 +45,7 @@ Create a new layer
 # geom calls are just a short cut for layer
 ggplot(mpg, aes(displ, hwy)) + geom_point()
 # shortcut for
-ggplot(mpg, aes(displ, hwy)) + layer(geom = "point", stat = "identity")
+ggplot(mpg, aes(displ, hwy)) +
+  layer(geom = "point", stat = "identity", position = "identity")
 }
 

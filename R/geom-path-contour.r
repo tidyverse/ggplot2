@@ -7,20 +7,56 @@
 #' @inheritParams geom_path
 #' @seealso \code{\link{geom_density2d}}: 2d density contours
 #' @export
+#' @export
 #' @examples
-#' # See stat_contour for examples
-geom_contour <- function (mapping = NULL, data = NULL, stat = "contour", position = "identity",
-lineend = "butt", linejoin = "round", linemitre = 1, na.rm = FALSE, show_guide = NA,...) {
-  GeomContour$new(mapping = mapping, data = data, stat = stat, position = position,
-  lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm,
-  show_guide = show_guide,...)
+#' #' # Basic plot
+#' v <- ggplot(faithfuld, aes(waiting, eruptions, z = density))
+#' v + geom_contour()
+#'
+#' \donttest{
+#' # Setting bins creates evenly spaced contours in the range of the data
+#' v + geom_contour(bins = 2)
+#' v + geom_contour(bins = 10)
+#'
+#' # Setting binwidth does the same thing, parameterised by the distance
+#' # between contours
+#' v + geom_contour(binwidth = 0.01)
+#' v + geom_contour(binwidth = 0.001)
+#'
+#' # Other parameters
+#' v + geom_contour(aes(colour = ..level..))
+#' v + geom_contour(colour = "red")
+#' v + geom_raster(aes(fill = density)) +
+#'   geom_contour(colour = "white")
+#' }
+geom_contour <- function(mapping = NULL, data = NULL, stat = "contour",
+                         position = "identity", lineend = "butt",
+                         linejoin = "round", linemitre = 1,
+                         na.rm = FALSE, show.legend = NA,
+                         inherit.aes = TRUE, ...) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomContour,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    geom_params = list(
+      lineend = lineend,
+      linejoin = linejoin,
+      linemitre = linemitre,
+      na.rm = na.rm
+    ),
+    params = list(...)
+  )
 }
 
-GeomContour <- proto(GeomPath, {
-  objname <- "contour"
-
-  default_aes <- function(.) aes(weight=1, colour="#3366FF", size = 0.5, linetype = 1, alpha = NA)
-
-  default_stat <- function(.) StatContour
-})
-
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomContour <- ggproto("GeomContour", GeomPath,
+  default_aes = aes(weight = 1, colour = "#3366FF", size = 0.5, linetype = 1,
+    alpha = NA)
+)

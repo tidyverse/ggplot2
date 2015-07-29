@@ -32,7 +32,7 @@ facet_render.null <- function(facet, panel, coord, theme, geom_grobs) {
   range <- panel$ranges[[1]]
 
   # Figure out aspect ratio
-  aspect_ratio <- theme$aspect.ratio %||% coord_aspect(coord, range)
+  aspect_ratio <- theme$aspect.ratio %||% coord$aspect(range)
   if (is.null(aspect_ratio)) {
     aspect_ratio <- 1
     respect <- FALSE
@@ -40,21 +40,21 @@ facet_render.null <- function(facet, panel, coord, theme, geom_grobs) {
     respect <- TRUE
   }
 
-  fg <- coord_render_fg(coord, range, theme)
-  bg <- coord_render_bg(coord, range, theme)
+  fg <- coord$render_fg(range, theme)
+  bg <- coord$render_bg(range, theme)
 
   # Flatten layers - we know there's only one panel
   geom_grobs <- lapply(geom_grobs, "[[", 1)
 
-  if(theme$panel.ontop) {
+  if (theme$panel.ontop) {
     panel_grobs <- c(geom_grobs, list(bg), list(fg))
   } else {
     panel_grobs <- c(list(bg), geom_grobs, list(fg))
   }
 
   panel_grob <- gTree(children = do.call("gList", panel_grobs))
-  axis_h <- coord_render_axis_h(coord, range, theme)
-  axis_v <- coord_render_axis_v(coord, range, theme)
+  axis_h <- coord$render_axis_h(range, theme)
+  axis_v <- coord$render_axis_v(range, theme)
 
   all <- matrix(list(
     axis_v,     panel_grob,

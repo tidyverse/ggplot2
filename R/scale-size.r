@@ -1,7 +1,7 @@
 #' Scale size (area or radius).
 #'
 #' \code{scale_size} scales area, \code{scale_radius} scales radius. The size
-#' aesthetic is most commonly used for points and text, and humans percieve
+#' aesthetic is most commonly used for points and text, and humans perceive
 #' the area of points (not their radius), so this provides for optimal
 #' perception.
 #'
@@ -40,7 +40,7 @@ NULL
 
 #' @rdname scale_size
 #' @export
-scale_size_continuous <- function(name = NULL, breaks = waiver(), labels = waiver(),
+scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                                   limits = NULL, range = c(1, 6),
                                   trans = "identity", guide = "legend") {
   continuous_scale("size", "area", area_pal(range), name = name,
@@ -50,7 +50,7 @@ scale_size_continuous <- function(name = NULL, breaks = waiver(), labels = waive
 
 #' @rdname scale_size
 #' @export
-scale_radius <- function(name = NULL, breaks = waiver(), labels = waiver(),
+scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                          limits = NULL, range = c(1, 6),
                          trans = "identity", guide = "legend") {
   continuous_scale("size", "size_c", area_pal(range), name = name,
@@ -67,7 +67,7 @@ scale_size <- scale_size_continuous
 #' @param ... Additional arguments passed on to \code{\link{discrete_scale}}.
 scale_size_discrete <- function(..., range = c(2, 6)) {
   discrete_scale("size", "size_d", function(n) {
-    area <- seq(range[1] ^ 2, range[2] ^ 2, length = n)
+    area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
     sqrt(area)
   }, ...)
 }

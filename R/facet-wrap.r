@@ -2,7 +2,7 @@
 #'
 #' Most displays are roughly rectangular, so if you have a categorical
 #' variable with many levels, it doesn't make sense to try and display them
-#' all in one row (or one column). To solve this dilemman, \code{facet_wrap}
+#' all in one row (or one column). To solve this dilemma, \code{facet_wrap}
 #' wraps a 1d sequence of panels into 2d, making best use of screen real estate.
 #'
 #' @param facets Either a formula or character vector. Use either a
@@ -35,6 +35,11 @@
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point() +
 #'   facet_wrap(c("cyl", "drv"))
+#'
+#' # Use the `labeller` option to control how labels are printed:
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   facet_wrap(c("cyl", "drv"), labeller = "label_both")
 #'
 #' # To change the order in which the panels appear, change the levels
 #' # of the underlying factor.
@@ -71,24 +76,24 @@
 #'          Original = mpg) %>%
 #'   gather(mpg_trans, mpg2, Logarithmic:Original)
 #' p <- ggplot(data, aes(mpg, disp)) + geom_point()
-#' 
+#'
 #' p + aes(x = mpg2) +
 #'   facet_wrap(~ mpg_trans, ncol = 2, scales = "free", switch = "x") +
 #'   theme() %+replace% theme(strip.background = element_blank())
-#' 
-#' 
+#'
+#'
 #' data <- data %>%
 #'   mutate(Logarithmic = log(disp),
 #'          Inverse = 1/disp,
 #'          Quadratic = disp^2,
 #'          Original = disp) %>%
 #'   gather(dpg_trans, disp2, Logarithmic:Original)
-#' 
+#'
 #' p %+% data + aes(y = disp2) +
 #'   facet_wrap(~ dpg_trans, ncol = 2, scales = "free", switch = "y") +
 #'   theme_minimal()
 #' }
-facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, as.table = TRUE, switch = NULL, drop = TRUE) {
+facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, switch = NULL, drop = TRUE) {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
@@ -102,7 +107,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrin
     facets = as.quoted(facets), free = free, shrink = shrink,
     as.table = as.table, switch = switch,
     drop = drop, ncol = ncol, nrow = nrow,
-    subclass = "wrap"
+    labeller = labeller, subclass = "wrap"
   )
 }
 
@@ -142,7 +147,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
 
   # If coord is (non-cartesian or flip) and (x is free or y is free)
   # then print a warning
-  if ((!inherits(coord, "cartesian") || inherits(coord, "flip")) &&
+  if ((!inherits(coord, "CoordCartesian") || inherits(coord, "CoordFlip")) &&
     (facet$free$x || facet$free$y)) {
     stop("ggplot2 does not currently support free scales with a non-cartesian coord or coord_flip.\n")
   }
@@ -151,7 +156,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   # ask the coordinate system if it wants to specify one
   aspect_ratio <- theme$aspect.ratio
   if (is.null(aspect_ratio) && !facet$free$x && !facet$free$y) {
-    aspect_ratio <- coord_aspect(coord, panel$ranges[[1]])
+    aspect_ratio <- coord$aspect(panel$ranges[[1]])
   }
 
   if (is.null(aspect_ratio)) {
@@ -182,7 +187,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   axes <- facet_axes(facet, panel, coord, theme)
   strips <- facet_strips(facet, panel, theme)
 
-  
+
   # Should become facet_arrange_grobs
 
   # Locate each element in panel
@@ -245,7 +250,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
       gt_t
     }
     grobs$strip_t <- lapply(strips$t, add_padding)
-    
+
     strip_height <- lapply(strips$t, function(x) {
        3 * as.numeric(padding) + height_cm(x)
     })
@@ -264,7 +269,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
       gt_t
     }
     grobs$strip_t <- lapply(strips$t, add_padding)
-    
+
     strip_height <- NULL
     strip_width <- lapply(strips$t, function(x) {
       3 * as.numeric(padding) + width_cm(x)
@@ -277,7 +282,7 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
     size <- c(3, 4)
   }
 
-  info <- ldply(locs, find_pos, layout = layout, size = size)
+  info <- plyr::ldply(locs, find_pos, layout = layout, size = size)
   names(info)[1] <- "type"
   info$clip <- ifelse(info$type == "panel", "on", "off")
   info$name <- paste(info$type, info$id, sep = "-")
@@ -321,12 +326,12 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
 facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   panels <- panel$layout$PANEL
   lapply(panels, function(i) {
-    fg <- coord_render_fg(coord, panel$ranges[[i]], theme)
-    bg <- coord_render_bg(coord, panel$ranges[[i]], theme)
+    fg <- coord$render_fg(panel$ranges[[i]], theme)
+    bg <- coord$render_bg(panel$ranges[[i]], theme)
 
     geom_grobs <- lapply(geom_grobs, "[[", i)
 
-    if(theme$panel.ontop) {
+    if (theme$panel.ontop) {
       panel_grobs <- c(geom_grobs, list(bg), list(fg))
     } else {
       panel_grobs <- c(list(bg), geom_grobs, list(fg))
@@ -340,17 +345,25 @@ facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
 #' @export
 facet_strips.wrap <- function(facet, panel, theme) {
   labels_df <- panel$layout[names(facet$facets)]
-  labels_df[] <- llply(labels_df, format, justify = "none")
 
-  labels <- apply(labels_df, 1, paste, collapse = ", ")
-
-  vertical <- !is.null(facet$switch) && facet$switch == "y"
-  if (vertical) {
-    theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
+  if (!is.null(facet$switch) && facet$switch == "x") {
+    dir <- "b"
+  } else {
+    dir <- "t"
   }
 
-  list(t = llply(labels, ggstrip, theme = theme, horizontal = !vertical))
+  strips_table <- build_strip(panel, labels_df, facet$labeller,
+    theme, dir, switch = facet$switch)
+
+  # While grid facetting works with a whole gtable, wrap processes the
+  # columns separately. So we turn the gtable into a list of columns
+  strips <- list(t = vector("list", ncol(strips_table)))
+  for (i in seq_along(strips$t)) {
+    strips$t[[i]] <- strips_table[, i]
+  }
+  strips
 }
+
 
 #' @export
 facet_axes.wrap <- function(facet, panel, coord, theme) {
@@ -359,7 +372,7 @@ facet_axes.wrap <- function(facet, panel, coord, theme) {
   axes <- list()
   axes$b <- lapply(panels, function(i) {
     if (panel$layout$AXIS_X[i]) {
-      grob <- coord_render_axis_h(coord, panel$ranges[[i]], theme)
+      grob <- coord$render_axis_h(panel$ranges[[i]], theme)
     } else {
       grob <- zeroGrob()
     }
@@ -368,7 +381,7 @@ facet_axes.wrap <- function(facet, panel, coord, theme) {
 
   axes$l <- lapply(panels, function(i) {
     if (panel$layout$AXIS_Y[i]) {
-      grob <- coord_render_axis_v(coord, panel$ranges[[i]], theme)
+      grob <- coord$render_axis_v(panel$ranges[[i]], theme)
     } else {
       grob <- zeroGrob()
     }

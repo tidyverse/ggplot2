@@ -1,21 +1,22 @@
-Stat <- proto(TopLevel, expr={
-  objname <- ""
-  desc <- ""
-
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+Stat <- ggproto("Stat",
   # Should the values produced by the statistic also be transformed
   # in the second pass when recently added statistics are trained to
   # the scales
-  retransform <- TRUE
+  retransform = TRUE,
 
-  default_geom <- function(.) Geom
-  default_aes <- function(.) aes()
-  default_pos <- function(.) .$default_geom()$default_pos()
-  required_aes <- c()
+  default_aes = aes(),
 
-  aesthetics <- list()
-  calculate <- function(., data, scales, ...) {}
+  required_aes = c(),
 
-  calculate_groups <- function(., data, scales, ...) {
+  calculate = function(self, data, scales, ...) {
+    data
+  },
+
+  calculate_groups = function(self, data, scales, ...) {
     if (empty(data)) return(data.frame())
 
     force(data)
@@ -24,7 +25,7 @@ Stat <- proto(TopLevel, expr={
     # # Alternative approach: cleaner, but much slower
     # # Compute statistic for each group
     # stats <- ddply(data, "group", function(group) {
-    #   .$calculate(group, scales, ...)
+    #   self$calculate(group, scales, ...)
     # })
     # stats$ORDER <- seq_len(nrow(stats))
     #
@@ -35,7 +36,7 @@ Stat <- proto(TopLevel, expr={
 
     groups <- split(data, data$group)
     stats <- lapply(groups, function(group)
-      .$calculate(data = group, scales = scales, ...))
+      self$calculate(data = group, scales = scales, ...))
 
     stats <- mapply(function(new, old) {
       if (empty(new)) return(data.frame())
@@ -47,24 +48,21 @@ Stat <- proto(TopLevel, expr={
       )
     }, stats, groups, SIMPLIFY=FALSE)
 
-    do.call(rbind.fill, stats)
+    do.call(plyr::rbind.fill, stats)
+  }
+)
+
+# make_stat("bin") returns StatBin
+make_stat <- function(class) {
+  name <- paste0("Stat", camelize(class, first = TRUE))
+  if (!exists(name)) {
+    stop("No stat called ", name, ".", call. = FALSE)
   }
 
-
-  pprint <- function(., newline=TRUE) {
-    cat("stat_", .$objname ,": ", sep="") # , clist(.$parameters())
-    if (newline) cat("\n")
+  obj <- get(name)
+  if (!inherits(obj, "Stat")) {
+    stop("Found object is not a stat", call. = FALSE)
   }
 
-  parameters <- function(.) {
-    params <- formals(get("calculate", .))
-    params[setdiff(names(params), c(".","data","scales"))]
-  }
-
-  class <- function(.) "stat"
-
-  new <- function(., mapping=aes(), data=NULL, geom=NULL, position=NULL, ...){
-    do.call("layer", list(mapping=mapping, data=data, geom=geom, stat=., position=position, ...))
-  }
-
-})
+  obj
+}

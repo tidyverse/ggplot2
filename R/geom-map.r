@@ -60,8 +60,9 @@ NULL
 #'     expand_limits(x = states_map$long, y = states_map$lat) +
 #'     facet_wrap( ~ variable)
 #' }
-geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity", show_guide = NA,...) {
-
+geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
+  show.legend = NA, inherit.aes = TRUE, ...)
+{
   # Get map input into correct form
   stopifnot(is.data.frame(map))
   if (!is.null(map$lat)) map$y <- map$lat
@@ -69,14 +70,25 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity", show_g
   if (!is.null(map$region)) map$id <- map$region
   stopifnot(all(c("x", "y", "id") %in% names(map)))
 
-  GeomMap$new(geom_params = list(map = map, ...), mapping = mapping,
-    data = data, stat = stat, show_guide = show_guide,...)
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomMap,
+    position = PositionIdentity,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    geom_params = list(map = map),
+    params = list(...)
+  )
 }
 
-GeomMap <- proto(GeomPolygon, {
-  objname <- "map"
-
-  draw_groups <- function(., data, scales, coordinates, map, ...) {
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomMap <- ggproto("GeomMap", GeomPolygon,
+  draw_groups = function(data, scales, coordinates, map, ...) {
     # Only use matching data and map ids
     common <- intersect(data$map_id, map$id)
     data <- data[data$map_id %in% common, , drop = FALSE]
@@ -96,8 +108,7 @@ GeomMap <- proto(GeomPolygon, {
       gp = gpar(
         col = data$colour, fill = alpha(data$fill, data$alpha),
         lwd = data$size * .pt))
-  }
+  },
 
-  required_aes <- c("map_id")
-
-})
+  required_aes = c("map_id")
+)

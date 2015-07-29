@@ -6,7 +6,8 @@
 \usage{
 geom_path(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", lineend = "butt", linejoin = "round",
-  linemitre = 1, na.rm = FALSE, arrow = NULL, show_guide = NA, ...)
+  linemitre = 1, na.rm = FALSE, arrow = NULL, show.legend = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -19,7 +20,7 @@ defined at the top level of the plot.}
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
 
-\item{position}{Postion adjustment, either as a string, or the result of
+\item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
 \item{lineend}{Line end style (round, butt, square)}
@@ -33,9 +34,14 @@ a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{arrow}{Arrow specification, as created by ?grid::arrow}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{...}{other arguments passed on to \code{\link{layer}}. There are
   three types of arguments you can use here:
@@ -58,8 +64,9 @@ Connect observations in original order
 \examples{
 \donttest{
 # Generate data
+if (require("ggplot2movies")) {
 library(plyr)
-myear <- ddply(movies, .(year), colwise(mean, .(length, rating)))
+myear <- ddply(movies, "year", colwise(mean, .(length, rating)))
 p <- ggplot(myear, aes(length, rating))
 p + geom_path()
 
@@ -72,6 +79,7 @@ p + geom_path(aes(size = year)) + scale_size(range = c(1, 3))
 
 # Set aesthetics to fixed value
 p + geom_path(colour = "green")
+}
 
 # Control line join parameters
 df <- data.frame(x = 1:3, y = c(4, 1, 9))
@@ -115,7 +123,7 @@ ggplot(df, aes(x, y4)) + geom_point() + geom_line()
 # Line type needs to be applied to a line as a whole, so it can
 # not be used with colour or size that vary across a line
 
-x <- seq(0.01, .99, length=100)
+x <- seq(0.01, .99, length.out = 100)
 df <- data.frame(x = rep(x, 2), y = c(qlogis(x), 2 * qlogis(x)), group = rep(c("a","b"), each=100))
 p <- ggplot(df, aes(x=x, y=y, group=group))
 

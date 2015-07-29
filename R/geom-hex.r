@@ -1,4 +1,4 @@
-#' Hexagon bining.
+#' Hexagon binning.
 #'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "hex")}
@@ -7,26 +7,41 @@
 #' @inheritParams geom_point
 #' @examples
 #' # See ?stat_binhex for examples
-geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex", position = "identity", show_guide = NA,...) {
-  GeomHex$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+geom_hex <- function(mapping = NULL, data = NULL, stat = "binhex",
+                     position = "identity", show.legend = NA,
+                     inherit.aes = TRUE, ...) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomHex,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomHex <- proto(Geom, {
-  objname <- "hex"
 
-  draw <- function(., data, scales, coordinates, ...) {
-    with(coord_transform(coordinates, data, scales),
-      ggname(.$my_name(), hexGrob(x, y, col=colour,
-        fill = alpha(fill, alpha)))
-    )
-  }
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomHex <- ggproto("GeomHex", Geom,
+  draw = function(self, data, scales, coordinates, ...) {
+    coord <- coordinates$transform(data, scales)
+    ggname("geom_hex", hexGrob(
+      coord$x, coord$y, colour = coord$colour,
+      fill = alpha(coord$fill, coord$alpha)
+    ))
+  },
 
-  required_aes <- c("x", "y")
-  default_aes <- function(.) aes(colour=NA, fill = "grey50", size=0.5, alpha = NA)
-  default_stat <- function(.) StatBinhex
-  guide_geom <- function(.) "polygon"
+  required_aes = c("x", "y"),
 
-})
+  default_aes = aes(colour = NA, fill = "grey50", size = 0.5, alpha = NA),
+
+  draw_key = draw_key_polygon
+)
 
 
 # Draw hexagon grob

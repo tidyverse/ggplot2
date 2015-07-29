@@ -5,7 +5,7 @@
 #' in smaller datasets.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "jitter")}
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
 #'
 #' @inheritParams geom_point
 #' @inheritParams position_jitter
@@ -30,9 +30,9 @@
 #' ggplot(mpg, aes(cty, hwy)) + geom_jitter()
 #' ggplot(mpg, aes(cty, hwy)) + geom_jitter(width = 0.5, height = 0.5)
 geom_jitter <- function(mapping = NULL, data = NULL,
-                         width = NULL, height = NULL, stat = "identity",
-                         position = "jitter", na.rm = FALSE,
-                         show_guide = NA, ...) {
+  width = NULL, height = NULL, stat = "identity", position = "jitter",
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+{
   if (!missing(width) || !missing(height)) {
     if (!missing(position)) {
       stop("Specify either `position` or `width`/`height`", call. = FALSE)
@@ -41,13 +41,14 @@ geom_jitter <- function(mapping = NULL, data = NULL,
     position <- position_jitter(width = width, height = height)
   }
 
-  GeomJitter$new(mapping = mapping, data = data, stat = stat,
-    position = position, na.rm = na.rm, show_guide = show_guide, ...)
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomPoint,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
-
-GeomJitter <- proto(GeomPoint, {
-  objname <- "jitter"
-
-  default_stat <- function(.) StatIdentity
-  default_pos <- function(.) PositionJitter
-})

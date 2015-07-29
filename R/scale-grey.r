@@ -4,7 +4,10 @@
 #'
 #' @inheritParams scales::grey_pal
 #' @inheritParams scale_colour_hue
-#' @family colour scales
+#' @seealso Other colour scales:
+#'   \code{\link{scale_colour_brewer}},
+#'   \code{\link{scale_colour_gradient}},
+#'   \code{\link{scale_colour_hue}}
 #' @rdname scale_grey
 #' @export
 #' @examples
@@ -16,7 +19,7 @@
 #' p + scale_colour_grey() + theme_bw()
 #'
 #' # Colour of missing values is controlled with na.value:
-#' miss <- factor(sample(c(NA, 1:5), nrow(mtcars), rep = TRUE))
+#' miss <- factor(sample(c(NA, 1:5), nrow(mtcars), replace = TRUE))
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point(aes(colour = miss)) +
 #'   scale_colour_grey()
@@ -30,7 +33,7 @@ scale_colour_grey <- function(..., start = 0.2, end = 0.8, na.value = "red") {
 
 #' @rdname scale_grey
 #' @export
-scale_fill_grey <- function(..., start = 0.2, end = 0.8, na.value = "grey50") {
+scale_fill_grey <- function(..., start = 0.2, end = 0.8, na.value = "red") {
   discrete_scale("fill", "grey", grey_pal(start, end),
     na.value = na.value, ...)
 }

@@ -1,26 +1,23 @@
 #' Apply function for 2D rectangular bins.
 #'
+#' \code{stat_summary2d} is a 2d variation of \code{\link{stat_summary}}.
+#' The data are divided into hexagonal bins defined by \code{x} and \code{y}.
+#' The values of \code{z} in each cell is are summarised with \code{fun}.
+#'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "summary2d")}
-#'
-#' \code{stat_summary2d} is 2D version of \code{\link{stat_summary}}. The data are devided by \code{x} and \code{y}.
-#' \code{z} in each cell is passed to arbitral summary function.
-#'
-#' \code{stat_summary2d} requires the following aesthetics:
-#'
 #' \itemize{
 #'  \item \code{x}: horizontal position
 #'  \item \code{y}: vertical position
 #'  \item \code{z}: value passed to the summary function
 #' }
 #'
-#' @seealso \code{\link{stat_summary_hex}} for hexagonal summarization. \code{\link{stat_bin2d}} for the binning options.
-#' @title Apply funciton for 2D rectangular bins.
+#' @seealso \code{\link{stat_summary_hex}} for hexagonal summarization.
+#'   \code{\link{stat_bin2d}} for the binning options.
 #' @inheritParams stat_identity
-#' @param bins see \code{\link{stat_bin2d}}
+#' @inheritParams stat_bin2d
 #' @param drop drop if the output of \code{fun} is \code{NA}.
 #' @param fun function for summary.
-#' @param ... parameters passed to \code{fun}
+#' @param fun.args A list of extra arguments to pass to \code{fun}
 #' @export
 #' @examples
 #' \donttest{
@@ -30,24 +27,44 @@
 #' # Specifying function
 #' d + stat_summary2d(fun = function(x) sum(x^2))
 #' d + stat_summary2d(fun = var)
+#' d + stat_summary_hex(fun = "quantile", fun.args = list(probs = 0.1))
 #' }
-stat_summary2d <- function (mapping = NULL, data = NULL, geom = NULL, position = "identity",
-bins = 30, drop = TRUE, fun = mean, ...) {
-
-  StatSummary2d$new(mapping = mapping, data = data, geom = geom, position = position,
-  bins = bins, drop = drop, fun = fun, ...)
+stat_summary2d <- function(mapping = NULL, data = NULL, geom = "rect",
+                           position = "identity", bins = 30, drop = TRUE,
+                           fun = "mean", fun.args = list(), show.legend = NA,
+                           inherit.aes = TRUE, ...) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = StatSummary2d,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    stat_params = list(
+      bins = bins,
+      drop = drop,
+      fun = fun,
+      fun.args = fun.args
+    ),
+    params = list(...)
+  )
 }
 
-StatSummary2d <- proto(Stat, {
-  objname <- "Summary2d"
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatSummary2d <- ggproto("StatSummary2d", Stat,
+  default_aes = aes(fill = ..value..),
 
-  default_aes <- function(.) aes(fill = ..value..)
-  required_aes <- c("x", "y", "z")
-  default_geom <- function(.) GeomRect
+  required_aes = c("x", "y", "z"),
 
-  calculate <- function(., data, scales, binwidth = NULL, bins = 30, breaks = NULL, origin = NULL, drop = TRUE, fun = mean, ...) {
-
-    data <- remove_missing(data, FALSE, c("x", "y", "z"), name="stat_summary2d")
+  calculate = function(data, scales, binwidth = NULL, bins = 30, breaks = NULL,
+                       origin = NULL, drop = TRUE, fun = "mean",
+                       fun.args = list(), ...) {
+    data <- remove_missing(data, FALSE, c("x", "y", "z"),
+      name = "stat_summary2d")
 
     range <- list(
       x = scale_dimension(scales$x, c(0, 0)),
@@ -100,8 +117,11 @@ StatSummary2d <- proto(Stat, {
 
     if (is.null(data$weight)) data$weight <- 1
 
-    ans <- ddply(data.frame(data, xbin, ybin), .(xbin, ybin), function(d) data.frame(value = fun(d$z, ...)))
-    if (drop) ans <- na.omit(ans)
+    ans <- plyr::ddply(data.frame(data, xbin, ybin), c("xbin", "ybin"), function(d) {
+      val <- do.call(fun, c(list(quote(d$z)), fun.args))
+      data.frame(value = val)
+    })
+    if (drop) ans <- stats::na.omit(ans)
 
     within(ans,{
       xint <- as.numeric(xbin)
@@ -113,4 +133,4 @@ StatSummary2d <- proto(Stat, {
       ymax <- breaks$y[yint + 1]
     })
   }
-})
+)

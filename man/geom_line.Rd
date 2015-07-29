@@ -5,7 +5,7 @@
 \title{Connect observations, ordered by x value.}
 \usage{
 geom_line(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show_guide = NA, ...)
+  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -18,12 +18,17 @@ defined at the top level of the plot.}
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
 
-\item{position}{Postion adjustment, either as a string, or the result of
+\item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{...}{other arguments passed on to \code{\link{layer}}. There are
   three types of arguments you can use here:
@@ -45,6 +50,7 @@ Connect observations, ordered by x value.
 }
 \examples{
 # Summarise number of movie ratings by year of movie
+if (require("ggplot2movies")) {
 mry <- do.call(rbind, by(movies, round(movies$rating), function(df) {
   nums <- tapply(df$length, df$year, length)
   data.frame(rating=round(df$rating[1]), year = as.numeric(names(nums)), number=as.vector(nums))
@@ -63,6 +69,7 @@ p + geom_line(aes(size = rating)) + scale_size(range = c(0.1, 3))
 
 # Set aesthetics to fixed value
 p + geom_line(colour = "red", size = 1)
+}
 
 # Using a time series
 ggplot(economics, aes(date, pop)) + geom_line()

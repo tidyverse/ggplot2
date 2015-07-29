@@ -1,8 +1,3 @@
-#' 1d kernel density estimate along y axis, for violin plot.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "ydensity")}
-#'
 #' @inheritParams stat_density
 #' @inheritParams stat_identity
 #' @param scale if "area" (default), all violins have the same area (before trimming
@@ -10,7 +5,6 @@
 #'   observations. If "width", all violins have the same maximum width.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning. If \code{TRUE} silently removes missing values.
-#'
 #' @return A data frame with additional columns:
 #'   \item{density}{density estimate}
 #'   \item{scaled}{density estimate, scaled to maximum of 1}
@@ -22,45 +16,45 @@
 #' @seealso \code{\link{geom_violin}} for examples, and \code{\link{stat_density}}
 #'   for examples with data along the x axis.
 #' @export
-#' @examples
-#' # See geom_violin for examples
-#' # Also see stat_density for similar examples with data along x axis
-stat_ydensity <- function (mapping = NULL, data = NULL, geom = "violin", position = "dodge",
-adjust = 1, kernel = "gaussian", trim = TRUE, scale = "area", na.rm = FALSE, ...) {
-  StatYdensity$new(mapping = mapping, data = data, geom = geom, position = position,
-  adjust = adjust, kernel = kernel, trim = trim, scale = scale,
-  na.rm = na.rm, ...)
+#' @rdname geom_violin
+stat_ydensity <- function(mapping = NULL, data = NULL, geom = "violin",
+                          position = "dodge", adjust = 1, kernel = "gaussian",
+                          trim = TRUE, scale = "area", na.rm = FALSE,
+                          show.legend = NA, inherit.aes = TRUE, ...) {
+  scale <- match.arg(scale, c("area", "count", "width"))
+
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = StatYdensity,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    stat_params = list(
+      adjust = adjust,
+      kernel = kernel,
+      trim = trim,
+      scale = scale,
+      na.rm = na.rm
+    ),
+    params = list(...)
+  )
 }
 
-StatYdensity <- proto(Stat, {
-  objname <- "ydensity"
 
-  calculate_groups <- function(., data, na.rm = FALSE, width = NULL,
-                               scale = "area", ...) {
-    data <- remove_missing(data, na.rm, c("x", "y", "weight"), name = "stat_ydensity", finite = TRUE)
-    data <- .super$calculate_groups(., data, na.rm = na.rm, width = width, ...)
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatYdensity <- ggproto("StatYdensity", Stat,
+  required_aes = c("x", "y"),
 
-    # choose how violins are scaled relative to each other
-    scale <- match.arg(scale, c("area", "count", "width"))
-
-    data$violinwidth <- switch(scale,
-      # area : keep the original densities but scale them to a max width of 1
-      #        for plotting purposes only
-      area = data$density / max(data$density),
-      # count: use the original densities scaled to a maximum of 1 (as above)
-      #        and then scale them according to the number of observations
-      count = (data$density / max(data$density)) * data$n / max(data$n),
-      # width: constant width (density scaled to a maximum of 1)
-      width = data$scaled
-    )
-
-    data
-  }
-
-  calculate <- function(., data, scales, width=NULL, adjust=1, kernel="gaussian",
-                        trim = FALSE, na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, "x", name = "stat_density",
-      finite = TRUE)
+  calculate = function(data, scales, width = NULL, adjust = 1,
+                       kernel = "gaussian", trim = TRUE, na.rm = FALSE, ...) {
+    data <- remove_missing(data, na.rm, c("x", "y", "weight"),
+      name = "stat_ydensity", finite = TRUE)
+    if (nrow(data) < 3) return(data.frame())
 
     if (trim) {
       range <- range(data$y, na.rm = TRUE)
@@ -78,9 +72,25 @@ StatYdensity <- proto(Stat, {
       width <- diff(range(data$x)) * 0.9
     }
     dens$width <- width
+
     dens
+  },
+
+  calculate_groups = function(self, data, scales, ..., scale = "area") {
+    data <- ggproto_parent(Stat, self)$calculate_groups(data, scales, ...)
+
+    # choose how violins are scaled relative to each other
+    data$violinwidth <- switch(scale,
+      # area : keep the original densities but scale them to a max width of 1
+      #        for plotting purposes only
+      area = data$density / max(data$density),
+      # count: use the original densities scaled to a maximum of 1 (as above)
+      #        and then scale them according to the number of observations
+      count = data$density / max(data$density) * data$n / max(data$n),
+      # width: constant width (density scaled to a maximum of 1)
+      width = data$scaled
+    )
+    data
   }
 
-  default_geom <- function(.) GeomViolin
-  required_aes <- c("x", "y")
-})
+)

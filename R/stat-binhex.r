@@ -25,22 +25,36 @@
 #' d + stat_binhex(binwidth = c(1, 1000))
 #' d + stat_binhex(binwidth = c(.1, 500))
 #' }
-stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex", position = "identity",
-bins = 30, na.rm = FALSE, ...) {
-  StatBinhex$new(mapping = mapping, data = data, geom = geom, position = position,
-  bins = bins, na.rm = na.rm, ...)
+stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex",
+  position = "identity", bins = 30, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
+{
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = StatBinhex,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    stat_params = list(
+      bins = bins
+    ),
+    params = list(...)
+  )
 }
 
-StatBinhex <- proto(Stat, {
-  objname <- "binhex"
 
-  default_aes <- function(.) aes(fill = ..count..)
-  required_aes <- c("x", "y")
-  default_geom <- function(.) GeomHex
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatBinhex <- ggproto("StatBinhex", Stat,
+  default_aes = aes(fill = ..count..),
 
+  required_aes = c("x", "y"),
 
-  calculate <- function(., data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
-    try_require("hexbin")
+  calculate = function(data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
     data <- remove_missing(data, na.rm, c("x", "y"), name="stat_hexbin")
 
     if (is.null(binwidth)) {
@@ -50,11 +64,9 @@ StatBinhex <- proto(Stat, {
       )
     }
 
-    hexBin(data$x, data$y, binwidth)
+    hexbin::hexBin(data$x, data$y, binwidth)
   }
-
-
-})
+)
 
 # Bin 2d plane into hexagons
 # Wrapper around \code{\link[hexbin]{hcell2xy}} that returns a data frame
@@ -64,18 +76,16 @@ StatBinhex <- proto(Stat, {
 # @param numeric vector of length 2 giving binwidth in x and y directions
 # @keyword internal
 hexBin <- function(x, y, binwidth) {
-  try_require("hexbin")
-
   # Convert binwidths into bounds + nbins
   xbnds <- c(
-    round_any(min(x), binwidth[1], floor) - 1e-6,
-    round_any(max(x), binwidth[1], ceiling) + 1e-6
+    plyr::round_any(min(x), binwidth[1], floor) - 1e-6,
+    plyr::round_any(max(x), binwidth[1], ceiling) + 1e-6
   )
   xbins <- diff(xbnds) / binwidth[1]
 
   ybnds <- c(
-    round_any(min(y), binwidth[2], floor) - 1e-6,
-    round_any(max(y), binwidth[2], ceiling) + 1e-6
+    plyr::round_any(min(y), binwidth[2], floor) - 1e-6,
+    plyr::round_any(max(y), binwidth[2], ceiling) + 1e-6
   )
   ybins <- diff(ybnds) / binwidth[2]
 

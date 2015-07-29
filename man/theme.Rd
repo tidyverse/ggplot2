@@ -4,15 +4,17 @@
 \alias{theme}
 \title{Set theme elements}
 \usage{
-theme(..., complete = FALSE)
+theme(..., complete = FALSE, validate = TRUE)
 }
 \arguments{
 \item{...}{a list of element name, element pairings that modify the
 existing theme.}
 
 \item{complete}{set this to TRUE if this is a complete theme, such as
-  the one returned \code{by theme_grey()}. Complete themes behave
-  differently when added to a ggplot object.}
+the one returned \code{by theme_grey()}. Complete themes behave
+differently when added to a ggplot object.}
+
+\item{validate}{TRUE to run validate_element, FALSE to bypass checks.}
 }
 \description{
 Use this function to modify theme settings.
@@ -291,7 +293,7 @@ build_element_graph <- function(tree) {
       data.frame(child = name, parent = item$inherit)
   }
 
-  edges <- rbind.fill(mapply(inheritdf, names(tree), tree))
+  edges <- plyr::rbind.fill(mapply(inheritdf, names(tree), tree))
 
   # Explicitly add vertices (since not all are in edge list)
   vertices <- data.frame(name = names(tree))

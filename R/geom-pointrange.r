@@ -13,33 +13,41 @@
 #' @export
 #' @examples
 #' # See geom_linerange for examples
-geom_pointrange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
-  GeomPointrange$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+geom_pointrange <- function(mapping = NULL, data = NULL, stat = "identity",
+                            position = "identity", show.legend = NA,
+                            inherit.aes = TRUE, ...) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomPointrange,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomPointrange <- proto(Geom, {
-  objname <- "pointrange"
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomPointrange <- ggproto("GeomPointrange", Geom,
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, shape = 19,
+    fill = NA, alpha = NA, stroke = 1),
 
-  default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, shape=16, fill=NA, alpha = NA, stroke = 1)
-  guide_geom <- function(.) "pointrange"
-  required_aes <- c("x", "y", "ymin", "ymax")
+  draw_key = draw_key_pointrange,
 
-  draw <- function(., data, scales, coordinates, ...) {
+  required_aes = c("x", "y", "ymin", "ymax"),
+
+  draw = function(self, data, scales, coordinates, ...) {
     if (is.null(data$y)) return(GeomLinerange$draw(data, scales, coordinates, ...))
-    ggname(.$my_name(),gTree(children=gList(
-      GeomLinerange$draw(data, scales, coordinates, ...),
-      GeomPoint$draw(transform(data, size = size * 4), scales, coordinates, ...)
-    )))
-  }
 
-  draw_legend <- function(., data, ...) {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-
-    grobTree(
-      GeomPath$draw_legend(data, ...),
-      GeomPoint$draw_legend(transform(data, size = size * 4), ...)
+    ggname("geom_pointrange",
+      gTree(children = gList(
+        GeomLinerange$draw(data, scales, coordinates, ...),
+        GeomPoint$draw(transform(data, size = size * 4), scales, coordinates, ...)
+      ))
     )
   }
-
-})
+)

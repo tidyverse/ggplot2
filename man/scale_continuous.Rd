@@ -11,12 +11,12 @@
 \alias{scale_y_sqrt}
 \title{Continuous position scales (x & y).}
 \usage{
-scale_x_continuous(name = NULL, breaks = waiver(),
+scale_x_continuous(name = waiver(), breaks = waiver(),
   minor_breaks = waiver(), labels = waiver(), limits = NULL,
   expand = waiver(), oob = censor, na.value = NA_real_,
   trans = "identity")
 
-scale_y_continuous(name = NULL, breaks = waiver(),
+scale_y_continuous(name = waiver(), breaks = waiver(),
   minor_breaks = waiver(), labels = waiver(), limits = NULL,
   expand = waiver(), oob = censor, na.value = NA_real_,
   trans = "identity")
@@ -92,12 +92,13 @@ discrete variables.}
 \item{...}{Other arguments passed on to \code{scale_(x|y)_continuous}}
 }
 \description{
-\code{scale_x_continous} and \code{scale_y_continous} are the key functions.
+\code{scale_x_continuous} and \code{scale_y_continuous} are the key functions.
 The others, \code{scale_x_log10}, \code{scale_y_sqrt} etc, are aliases
 that set the \code{trans} argument to commonly used transformations.
 }
 \examples{
 \donttest{
+if (require(ggplot2movies)) {
 m <- ggplot(subset(movies, votes > 1000), aes(rating, votes)) +
   geom_point(na.rm = TRUE)
 m
@@ -138,7 +139,7 @@ m + scale_y_reverse()
 # argument.  Some common formats are built into the scales package:
 df <- data.frame(
   x = rnorm(10) * 100000,
-  y = seq(0, 1, length = 10)
+  y = seq(0, 1, length.out = 10)
 )
 p <- ggplot(df, aes(x, y)) + geom_point()
 p + scale_y_continuous(labels = scales::percent)
@@ -158,6 +159,7 @@ ggplot(movies, aes(rating, votes)) +
   geom_point() +
   scale_x_log10() +
   scale_y_log10()
+}
 }
 }
 \seealso{

@@ -1,6 +1,6 @@
 #' Continuous position scales (x & y).
 #'
-#' \code{scale_x_continous} and \code{scale_y_continous} are the key functions.
+#' \code{scale_x_continuous} and \code{scale_y_continuous} are the key functions.
 #' The others, \code{scale_x_log10}, \code{scale_y_sqrt} etc, are aliases
 #' that set the \code{trans} argument to commonly used transformations.
 #'
@@ -11,6 +11,7 @@
 #' @export
 #' @examples
 #' \donttest{
+#' if (require(ggplot2movies)) {
 #' m <- ggplot(subset(movies, votes > 1000), aes(rating, votes)) +
 #'   geom_point(na.rm = TRUE)
 #' m
@@ -51,7 +52,7 @@
 #' # argument.  Some common formats are built into the scales package:
 #' df <- data.frame(
 #'   x = rnorm(10) * 100000,
-#'   y = seq(0, 1, length = 10)
+#'   y = seq(0, 1, length.out = 10)
 #' )
 #' p <- ggplot(df, aes(x, y)) + geom_point()
 #' p + scale_y_continuous(labels = scales::percent)
@@ -72,7 +73,8 @@
 #'   scale_x_log10() +
 #'   scale_y_log10()
 #' }
-scale_x_continuous <- function(name = NULL, breaks = waiver(),
+#' }
+scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                minor_breaks = waiver(), labels = waiver(),
                                limits = NULL, expand = waiver(), oob = censor,
                                na.value = NA_real_, trans = "identity") {
@@ -87,12 +89,12 @@ scale_x_continuous <- function(name = NULL, breaks = waiver(),
 
 #' @rdname scale_continuous
 #' @export
-scale_y_continuous <- function(name = NULL, breaks = waiver(),
+scale_y_continuous <- function(name = waiver(), breaks = waiver(),
                                minor_breaks = waiver(), labels = waiver(),
                                limits = NULL, expand = waiver(), oob = censor,
                                na.value = NA_real_, trans = "identity") {
   continuous_scale(
-    c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final"),
+    c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper"),
     "position_c", identity, name = name, breaks = breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
     expand = expand, oob = oob, na.value = na.value, trans = trans,

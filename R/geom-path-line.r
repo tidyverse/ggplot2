@@ -10,6 +10,7 @@
 #' @export
 #' @examples
 #' # Summarise number of movie ratings by year of movie
+#' if (require("ggplot2movies")) {
 #' mry <- do.call(rbind, by(movies, round(movies$rating), function(df) {
 #'   nums <- tapply(df$length, df$year, length)
 #'   data.frame(rating=round(df$rating[1]), year = as.numeric(names(nums)), number=as.vector(nums))
@@ -28,6 +29,7 @@
 #'
 #' # Set aesthetics to fixed value
 #' p + geom_line(colour = "red", size = 1)
+#' }
 #'
 #' # Using a time series
 #' ggplot(economics, aes(date, pop)) + geom_line()
@@ -61,18 +63,28 @@
 #' dfm <- melt(df, id.var = c("id", "group"))
 #' ggplot(dfm, aes(variable, value, group = id, colour = group)) +
 #'   geom_path(alpha = 0.5)
-geom_line <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
-  GeomLine$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
+                      position = "identity", show.legend = NA,
+                      inherit.aes = TRUE, ...) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomLine,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomLine <- proto(GeomPath, {
-  objname <- "line"
-
-  draw <- function(., data, scales, coordinates, arrow = NULL, ...) {
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomLine <- ggproto("GeomLine", GeomPath,
+  draw = function(data, scales, coordinates, arrow = NULL, ...) {
     data <- data[order(data$group, data$x), ]
     GeomPath$draw(data, scales, coordinates, arrow, ...)
   }
-
-  default_stat <- function(.) StatIdentity
-
-})
+)

@@ -9,20 +9,17 @@
 \alias{scale_fill_distiller}
 \title{Sequential, diverging and qualitative colour scales from colorbrewer.org}
 \usage{
-scale_colour_brewer(..., type = "seq", palette = 1)
+scale_colour_brewer(..., type = "seq", palette = 1, direction = 1)
 
-scale_fill_brewer(..., type = "seq", palette = 1)
+scale_fill_brewer(..., type = "seq", palette = 1, direction = 1)
 
-scale_colour_distiller(..., type = "seq", palette = 1, values = NULL,
-  space = "Lab", na.value = "grey50", guide = "colourbar")
+scale_colour_distiller(..., type = "seq", palette = 1, direction = -1,
+  values = NULL, space = "Lab", na.value = "grey50",
+  guide = "colourbar")
 
-scale_fill_distiller(..., type = "seq", palette = 1, values = NULL,
-  space = "Lab", na.value = "grey50", guide = "colourbar")
-
-scale_color_brewer(..., type = "seq", palette = 1)
-
-scale_color_distiller(..., type = "seq", palette = 1, values = NULL,
-  space = "Lab", na.value = "grey50", guide = "colourbar")
+scale_fill_distiller(..., type = "seq", palette = 1, direction = -1,
+  values = NULL, space = "Lab", na.value = "grey50",
+  guide = "colourbar")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link{discrete_scale}}
@@ -33,13 +30,17 @@ to control name, limits, breaks, labels and so forth.}
 \item{palette}{If a string, will use that named palette.  If a number, will
 index into the list of palettes of appropriate \code{type}}
 
+\item{direction}{Sets the order of colors in the scale. If 1, the default,
+colors are as output by \code{\link[RColorBrewer]{brewer.pal}}. If -1, the
+order of colors is reversed.}
+
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
 \code{colours} vector. See \code{\link{rescale}} for a convience function
 to map an arbitrary range to between 0 and 1.}
 
-\item{space}{colour space in which to calculate gradient.  "Lab" usually
-best unless gradient goes through white.}
+\item{space}{colour space in which to calculate gradient. Must be "Lab" -
+other values are deprecated.}
 
 \item{na.value}{Colour to use for missing values}
 
@@ -73,14 +74,18 @@ d + scale_colour_brewer(expression(clarity[beta]))
 d + scale_colour_brewer(type = "seq")
 d + scale_colour_brewer(type = "seq", palette = 3)
 
-d + scale_colour_brewer(palette = "Blues")
+d + scale_colour_brewer(palette = "Greens")
 d + scale_colour_brewer(palette = "Set1")
 
 # scale_fill_brewer works just the same as
 # scale_colour_brewer but for fill colours
-ggplot(diamonds, aes(x = price, fill = cut)) +
-  geom_histogram(position = "dodge", binwidth = 1000) +
-  scale_fill_brewer()
+p <- ggplot(diamonds, aes(x = price, fill = cut)) +
+  geom_histogram(position = "dodge", binwidth = 1000)
+p + scale_fill_brewer()
+# the order of colour can be reversed
+p + scale_fill_brewer(direction = -1)
+# the brewer scales look better on a darker background
+p + scale_fill_brewer(direction = -1) + theme_dark()
 
 # Generate map data
 library(reshape2) # for melt
@@ -95,31 +100,13 @@ v + scale_fill_distiller()
 v + scale_fill_distiller(palette = 2)
 v + scale_fill_distiller(type = "div")
 v + scale_fill_distiller(palette = "Spectral")
-v + scale_fill_distiller(palette = "Spectral", trans = "reverse")
 v + scale_fill_distiller(type = "qual")
 # Not appropriate for continuous data, issues a warning
 }
 \seealso{
-Other colour scales: \code{\link{scale_color_continuous}},
-  \code{\link{scale_color_gradient}},
-  \code{\link{scale_colour_continuous}},
+Other colour scales:
   \code{\link{scale_colour_gradient}},
-  \code{\link{scale_fill_continuous}},
-  \code{\link{scale_fill_gradient}};
-  \code{\link{scale_color_discrete}},
-  \code{\link{scale_color_hue}},
-  \code{\link{scale_colour_discrete}},
-  \code{\link{scale_colour_hue}},
-  \code{\link{scale_fill_discrete}},
-  \code{\link{scale_fill_hue}};
-  \code{\link{scale_color_gradient2}},
-  \code{\link{scale_colour_gradient2}},
-  \code{\link{scale_fill_gradient2}};
-  \code{\link{scale_color_gradientn}},
-  \code{\link{scale_colour_gradientn}},
-  \code{\link{scale_fill_gradientn}};
-  \code{\link{scale_color_grey}},
   \code{\link{scale_colour_grey}},
-  \code{\link{scale_fill_grey}}
+  \code{\link{scale_colour_hue}}
 }
 

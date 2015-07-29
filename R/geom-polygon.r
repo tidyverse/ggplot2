@@ -46,16 +46,29 @@
 #'
 #' # And if the positions are in longitude and latitude, you can use
 #' # coord_map to produce different map projections.
-geom_polygon <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", show_guide = NA,...) {
-  GeomPolygon$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide,...)
+geom_polygon <- function(mapping = NULL, data = NULL, stat = "identity",
+                         position = "identity", show.legend = NA,
+                         inherit.aes = TRUE, ...) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomPolygon,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(...)
+  )
 }
 
-GeomPolygon <- proto(Geom, {
-  objname <- "polygon"
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomPolygon <- ggproto("GeomPolygon", Geom,
+  draw_groups = function(self, ...) self$draw(...),
 
-  draw_groups <- function(., ...) .$draw(...)
-
-  draw <- function(., data, scales, coordinates, ...) {
+  draw = function(self, data, scales, coordinates, ...) {
     n <- nrow(data)
     if (n == 1) return()
 
@@ -74,7 +87,7 @@ GeomPolygon <- proto(Geom, {
     first_idx <- !duplicated(munched$group)
     first_rows <- munched[first_idx, ]
 
-    ggname(.$my_name(), gTree(children = gList(
+    ggname("geom_polygon", gTree(children = gList(
       polygonGrob(munched$x, munched$y, default.units = "native",
         id = munched$group,
         gp = gpar(
@@ -85,21 +98,13 @@ GeomPolygon <- proto(Geom, {
         )
       )
     )))
-  }
+  },
 
-  default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour="NA", fill="grey20", size=0.5, linetype=1, alpha = NA)
-  required_aes <- c("x", "y")
-  guide_geom <- function(.) "polygon"
+  default_aes = aes(colour = "NA", fill = "grey20", size = 0.5, linetype = 1,
+    alpha = NA),
 
-  draw_legend <- function(., data, ...)  {
-    data <- aesdefaults(data, .$default_aes(), list(...))
+  required_aes = c("x", "y"),
 
-    with(data, grobTree(
-      rectGrob(gp = gpar(col = colour, fill = alpha(fill, alpha), lty = linetype)),
-      linesGrob(gp = gpar(col = colour, lwd = size * .pt, lineend="butt", lty = linetype))
-    ))
-  }
-
-})
+  draw_key = draw_key_polygon
+)
 

@@ -1,7 +1,15 @@
 #' Textual annotations.
 #'
+#' \code{geom_text} adds text directly to the plot. \code{geom_label} draws
+#' a rectangle underneath the text, making it easier to read.
+#'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "text")}
+#'
+#' @section \code{geom_label}:
+#' Currently \code{geom_label} does not support the \code{rot} parameter and
+#' is considerably slower than \code{geom_text}. The \code{fill} aesthetic
+#' controls the background colour of the label.
 #'
 #' @section Alignment:
 #' You can modify text alignment with the \code{vjust} and \code{hjust}
@@ -15,7 +23,7 @@
 #' @param parse If TRUE, the labels will be parsed into expressions and
 #'   displayed as described in ?plotmath
 #' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
-#'   Useful for offseting text from points, particularly on discrete scales.
+#'   Useful for offsetting text from points, particularly on discrete scales.
 #' @param check_overlap If \code{TRUE}, text that overlaps previous text in the
 #'   same layer will not be plotted. A quick and dirty way
 #' @export
@@ -25,6 +33,8 @@
 #' p + geom_text()
 #' # Avoid overlaps
 #' p + geom_text(check_overlap = TRUE)
+#' # Labels with background
+#' p + geom_label()
 #' # Change size of the label
 #' p + geom_text(size = 10)
 #'
@@ -40,6 +50,7 @@
 #' p + geom_text(aes(colour = factor(cyl)))
 #' p + geom_text(aes(colour = factor(cyl))) +
 #'   scale_colour_discrete(l = 40)
+#' p + geom_label(aes(fill = factor(cyl)), colour = "white", fontface = "bold")
 #'
 #' p + geom_text(aes(size = wt))
 #' # Scale height of text, rather than sqrt(height)
@@ -67,10 +78,9 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_text(aes(label = text), vjust = "inward", hjust = "inward")
 geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", parse = FALSE, ...,
-                      nudge_x = 0, nudge_y = 0, check_overlap = FALSE,
-                      show_guide = NA) {
-
+  position = "identity", parse = FALSE, show.legend = NA, inherit.aes = TRUE,
+  ..., nudge_x = 0, nudge_y = 0, check_overlap = FALSE)
+{
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
@@ -78,16 +88,32 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
 
     position <- position_nudge(nudge_x, nudge_y)
   }
-  GeomText$new(mapping = mapping, data = data, stat = stat, position = position,
-    parse = parse, check_overlap = check_overlap, show_guide = show_guide, ...)
+
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomText,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    geom_params = list(
+      parse = parse,
+      check_overlap = check_overlap
+    ),
+    params = list(...)
+  )
 }
 
-GeomText <- proto(Geom, {
-  objname <- "text"
 
-  draw_groups <- function(., ...) .$draw(...)
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomText <- ggproto("GeomText", Geom,
+  draw_groups = function(self, ...) self$draw(...),
 
-  draw <- function(., data, scales, coordinates, ..., parse = FALSE,
+  draw = function(data, scales, coordinates, ..., parse = FALSE,
                    na.rm = FALSE, check_overlap = FALSE) {
     data <- remove_missing(data, na.rm,
       c("x", "y", "label"), name = "geom_text")
@@ -97,7 +123,7 @@ GeomText <- proto(Geom, {
       lab <- parse(text = lab)
     }
 
-    coords <- coord_transform(coordinates, data, scales)
+    coords <- coordinates$transform(data, scales)
     if (is.character(coords$vjust)) {
       coords$vjust <- compute_just(coords$vjust, coords$y)
     }
@@ -119,29 +145,15 @@ GeomText <- proto(Geom, {
       ),
       check.overlap = check_overlap
     )
-  }
+  },
 
-  draw_legend <- function(., data, ...) {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-    textGrob(
-      "a", 0.5, 0.5,
-      rot = data$angle,
-      gp = gpar(
-        col = alpha(data$colour, data$alpha),
-        fontsize = data$size * .pt
-      )
-    )
-  }
+  required_aes = c("x", "y", "label"),
 
+  default_aes = aes(colour = "black", size = 5, angle = 0, hjust = 0.5,
+    vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2),
 
-  default_stat <- function(.) StatIdentity
-  required_aes <- c("x", "y", "label")
-  default_aes <- function(.) aes(colour = "black", size = 5, angle = 0,
-    hjust = 0.5, vjust = 0.5, alpha = NA, family = "", fontface = 1,
-    lineheight = 1.2)
-  guide_geom <- function(x) "text"
-
-})
+  draw_key = draw_key_text
+)
 
 compute_just <- function(just, x) {
   inward <- just == "inward"

@@ -5,7 +5,8 @@
 \title{Wrap a 1d ribbon of panels into 2d.}
 \usage{
 facet_wrap(facets, nrow = NULL, ncol = NULL, scales = "fixed",
-  shrink = TRUE, as.table = TRUE, switch = NULL, drop = TRUE)
+  shrink = TRUE, labeller = "label_value", as.table = TRUE,
+  switch = NULL, drop = TRUE)
 }
 \arguments{
 \item{facets}{Either a formula or character vector. Use either a
@@ -20,6 +21,16 @@ free (\code{"free"}), or free in one dimension (\code{"free_x"},
 \item{shrink}{If \code{TRUE}, will shrink scales to fit output of
 statistics, not raw data. If \code{FALSE}, will be range of raw data
 before statistical summary.}
+
+\item{labeller}{A function that takes one data frame of labels and
+returns a list or data frame of character vectors. Each input
+column corresponds to one factor. Thus there will be more than
+one with formulae of the type \code{~cyl + am}. Each output
+column gets displayed as one separate line in the strip
+label. This function should inherit from the "labeller" S3 class
+for compatibility with \code{\link{labeller}()}. See
+\code{\link{label_value}} for more details and pointers to other
+options.}
 
 \item{as.table}{If \code{TRUE}, the default, the facets are laid out like
 a table with highest values at the bottom-right. If \code{FALSE}, the
@@ -37,7 +48,7 @@ will be shown, regardless of whether or not they appear in the data.}
 \description{
 Most displays are roughly rectangular, so if you have a categorical
 variable with many levels, it doesn't make sense to try and display them
-all in one row (or one column). To solve this dilemman, \code{facet_wrap}
+all in one row (or one column). To solve this dilemma, \code{facet_wrap}
 wraps a 1d sequence of panels into 2d, making best use of screen real estate.
 }
 \examples{
@@ -58,6 +69,11 @@ ggplot(mpg, aes(displ, hwy)) +
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   facet_wrap(c("cyl", "drv"))
+
+# Use the `labeller` option to control how labels are printed:
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  facet_wrap(c("cyl", "drv"), labeller = "label_both")
 
 # To change the order in which the panels appear, change the levels
 # of the underlying factor.

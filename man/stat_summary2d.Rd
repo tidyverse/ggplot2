@@ -2,10 +2,11 @@
 % Please edit documentation in R/stat-summary-2d.r
 \name{stat_summary2d}
 \alias{stat_summary2d}
-\title{Apply funciton for 2D rectangular bins.}
+\title{Apply function for 2D rectangular bins.}
 \usage{
-stat_summary2d(mapping = NULL, data = NULL, geom = NULL,
-  position = "identity", bins = 30, drop = TRUE, fun = mean, ...)
+stat_summary2d(mapping = NULL, data = NULL, geom = "rect",
+  position = "identity", bins = 30, drop = TRUE, fun = "mean",
+  fun.args = list(), show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -17,28 +18,37 @@ the plot defaults.}
 
 \item{geom}{The geometric object to use display the data}
 
-\item{position}{The position adjustment to use for overlappling points
+\item{position}{The position adjustment to use for overlapping points
 on this layer}
 
-\item{bins}{see \code{\link{stat_bin2d}}}
+\item{bins}{numeric vector giving number of bins in both vertical and
+horizontal directions. Set to 30 by default.}
 
 \item{drop}{drop if the output of \code{fun} is \code{NA}.}
 
 \item{fun}{function for summary.}
 
-\item{...}{parameters passed to \code{fun}}
+\item{fun.args}{A list of extra arguments to pass to \code{fun}}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 }
 \description{
-Apply function for 2D rectangular bins.
+\code{stat_summary2d} is a 2d variation of \code{\link{stat_summary}}.
+The data are divided into hexagonal bins defined by \code{x} and \code{y}.
+The values of \code{z} in each cell is are summarised with \code{fun}.
 }
 \section{Aesthetics}{
-
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "summary2d")}
-
-\code{stat_summary2d} is 2D version of \code{\link{stat_summary}}. The data are devided by \code{x} and \code{y}.
-\code{z} in each cell is passed to arbitral summary function.
-
-\code{stat_summary2d} requires the following aesthetics:
 
 \itemize{
  \item \code{x}: horizontal position
@@ -54,9 +64,11 @@ d + stat_summary2d()
 # Specifying function
 d + stat_summary2d(fun = function(x) sum(x^2))
 d + stat_summary2d(fun = var)
+d + stat_summary_hex(fun = "quantile", fun.args = list(probs = 0.1))
 }
 }
 \seealso{
-\code{\link{stat_summary_hex}} for hexagonal summarization. \code{\link{stat_bin2d}} for the binning options.
+\code{\link{stat_summary_hex}} for hexagonal summarization.
+  \code{\link{stat_bin2d}} for the binning options.
 }
 
