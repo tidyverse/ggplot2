@@ -440,7 +440,7 @@ guide_gengrob.legend <- function(guide, theme) {
     "top" = {
       widths <- c(kl_widths, max(0, title_width - sum(kl_widths)))
       heights <- c(title_height, vgap, kl_heights)
-      vps <- transform(vps, key.row = key.row+2, key.col = key.col, label.row = label.row+2, label.col = label.col)
+      vps <- transform(vps, key.row = key.row + 2, key.col = key.col, label.row = label.row + 2, label.col = label.col)
       vps.title.row = 1; vps.title.col = 1:length(widths)
     },
     "bottom" = {
@@ -452,7 +452,7 @@ guide_gengrob.legend <- function(guide, theme) {
     "left" = {
       widths <- c(title_width, hgap, kl_widths)
       heights <- c(kl_heights, max(0, title_height - sum(kl_heights)))
-      vps <- transform(vps, key.row = key.row, key.col = key.col+2, label.row = label.row, label.col = label.col+2)
+      vps <- transform(vps, key.row = key.row, key.col = key.col + 2, label.row = label.row, label.col = label.col + 2)
       vps.title.row = 1:length(heights); vps.title.col = 1
     },
     "right" = {
@@ -497,7 +497,7 @@ guide_gengrob.legend <- function(guide, theme) {
     t = 1 + min(vps.title.row), r = 1 + max(vps.title.col),
     b = 1 + max(vps.title.row), l = 1 + min(vps.title.col))
   gt <- gtable_add_grob(gt, grob.keys,
-    name = paste("key", krows, kcols, c("bg", seq(ngeom-1)), sep = "-"), clip = "off",
+    name = paste("key", krows, kcols, c("bg", seq(ngeom - 1)), sep = "-"), clip = "off",
     t = 1 + krows, r = 1 + kcols,
     b = 1 + krows, l = 1 + kcols)
   gt <- gtable_add_grob(gt, grob.labels,

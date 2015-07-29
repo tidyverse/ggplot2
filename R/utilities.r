@@ -48,7 +48,7 @@ check_required_aesthetics <- function(required, present, name) {
 #X clist(list(a=1, b=2))
 #X clist(par()[1:5])
 clist <- function(l) {
-  paste(paste(names(l), l, sep=" = ", collapse = ", "), sep = "")
+  paste(paste(names(l), l, sep = " = ", collapse = ", "), sep = "")
 }
 
 # Quietly try to require a package

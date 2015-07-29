@@ -1,7 +1,7 @@
 vcontext("minor-breaks")
 p <- ggplot(NULL, aes(1:3, 1:3)) + geom_point() +
-  scale_x_continuous(breaks = 1:3, minor_breaks=c(1.25, 2.75)) +
-  scale_y_continuous(breaks = 1:3, minor_breaks=c(1.25, 2.75))
+  scale_x_continuous(breaks = 1:3, minor_breaks = c(1.25, 2.75)) +
+  scale_y_continuous(breaks = 1:3, minor_breaks = c(1.25, 2.75))
 
 p
 save_vtest("manual minor breaks")
@@ -11,13 +11,17 @@ save_vtest("manual minor breaks with coord_polar")
 
 set.seed(342)
 df <- data.frame(
-  date = seq(as.Date("2012-2-29"), len=100, by="1 day")[sample(100, 50)],
+  date = seq(as.Date("2012-2-29"), len = 100, by = "1 day")[sample(100, 50)],
   price = runif(50)
 )
 df <- df[order(df$date), ]
 library(scales)
-p <- qplot(date, price, data=df, geom="line") +
-  scale_x_date(labels = date_format("%m/%d"), breaks = date_breaks("month"), minor_breaks = date_breaks("week"))
+p <- qplot(date, price, data = df, geom = "line") +
+  scale_x_date(
+    labels = date_format("%m/%d"),
+    breaks = date_breaks("month"),
+    minor_breaks = date_breaks("week")
+  )
 
 p
 save_vtest("major breaks: months, minor breaks: weeks")

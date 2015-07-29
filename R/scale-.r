@@ -276,7 +276,7 @@ scale_map_df <- function(scale, df, i = NULL) {
 # and breaks spans oob, the oob breaks is replaces by NA.
 # This makes impossible to display oob breaks.
 # Now coord_train calls this function with limits determined by coord (with expansion).
-scale_map <- function(scale, x, limits) UseMethod("scale_map")
+scale_map <- function(scale, x, limits = scale_limits(scale)) UseMethod("scale_map")
 
 #' @export
 scale_map.continuous <- function(scale, x, limits = scale_limits(scale)) {

@@ -63,19 +63,35 @@ test_that("data is not inherited when when data=data.frame()", {
 
   # No extra points when x and y vars exist, but are empty
   d <- pdata(ggplot(mtcars, aes(mpg, wt)) + geom_point() +
-    geom_point(data = data.frame(mpg=numeric(0), wt=numeric(0))))
+    geom_point(data = data.frame(mpg = numeric(0), wt = numeric(0))))
   expect_equal(nrow(d[[1]]), nrow(mtcars))
   expect_equal(nrow(d[[2]]), 0)
 
   # No extra points when x and y vars don't exist but are set
-  d <- pdata(ggplot(mtcars, aes(mpg, wt)) + geom_point() +
-    geom_point(data=data.frame(mpg=numeric(0), wt=numeric(0)), x = 20, y = 3, colour = "red", size = 5))
+  d <- pdata(
+    ggplot(mtcars, aes(mpg, wt)) + geom_point() +
+      geom_point(
+        data = data.frame(mpg = numeric(0), wt = numeric(0)),
+        x = 20,
+        y = 3,
+        colour = "red",
+        size = 5
+      )
+  )
   expect_equal(nrow(d[[1]]), nrow(mtcars))
   expect_equal(nrow(d[[2]]), 0)
 
   # No extra points when x and y vars exist, but are empty, even when aesthetics are set
-  d <- pdata(ggplot(mtcars, aes(mpg, wt)) + geom_point() +
-    geom_point(data=data.frame(mpg=numeric(0), wt=numeric(0)), x = 20, y = 3, colour = "red", size = 5))
+  d <- pdata(
+    ggplot(mtcars, aes(mpg, wt)) + geom_point() +
+      geom_point(
+        data = data.frame(mpg = numeric(0), wt = numeric(0)),
+        x = 20,
+        y = 3,
+        colour = "red",
+        size = 5
+      )
+  )
   expect_equal(nrow(d[[1]]), nrow(mtcars))
   expect_equal(nrow(d[[2]]), 0)
 })
@@ -84,21 +100,21 @@ test_that("data is not inherited when when data=data.frame()", {
 test_that("data is inherited when data=NULL", {
   # NULL should inherit data
   d <- pdata(ggplot(mtcars, aes(mpg, wt)) + geom_point() +
-    geom_point(data=NULL))
+    geom_point(data = NULL))
   expect_equal(nrow(d[[1]]), nrow(mtcars))
   expect_equal(nrow(d[[2]]), nrow(mtcars))
 
   # NULL should inherit data when all aesthetics are set
   d <- pdata(ggplot(mtcars, aes(mpg, wt)) + geom_point() +
-    geom_point(data=NULL, x = 20, y = 3, colour = "red", size = 5))
+    geom_point(data = NULL, x = 20, y = 3, colour = "red", size = 5))
   expect_equal(nrow(d[[1]]), nrow(mtcars))
   expect_equal(nrow(d[[2]]), nrow(mtcars))
 
 
   # NULL should inherit data when facet_wrap is used
   d <- pdata(ggplot(mtcars, aes(mpg, wt)) + geom_point() +
-    geom_point(data=NULL) +
-    facet_wrap(~ cyl))
+    geom_point(data = NULL) +
+    facet_wrap(~cyl))
   expect_equal(nrow(d[[1]]), nrow(mtcars))
   expect_equal(nrow(d[[2]]), nrow(mtcars))
 

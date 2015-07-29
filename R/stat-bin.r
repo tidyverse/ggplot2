@@ -79,7 +79,7 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
   if (is.null(weight))  weight <- rep(1, length(x))
   weight[is.na(weight)] <- 0
 
-  if (is.null(range))    range <- range(x, na.rm = TRUE, finite=TRUE)
+  if (is.null(range))    range <- range(x, na.rm = TRUE, finite = TRUE)
   if (is.null(binwidth)) binwidth <- diff(range) / 30
 
   if (is.integer(x)) {
@@ -89,7 +89,7 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
   } else if (diff(range) == 0) {
     width <- width
     bins <- x
-  } else { # if (is.numeric(x))
+  } else {# if (is.numeric(x))
     if (is.null(breaks)) {
       if (is.null(origin)) {
         breaks <- fullseq(range, binwidth, pad = TRUE)

@@ -92,7 +92,7 @@ calculate_ellipse <- function(data, vars, type, level, segments){
     message("Too few points to calculate an ellipse")
     ellipse <- rbind(as.numeric(c(NA, NA)))
   } else {
-    if (type == "t"){
+    if (type == "t") {
       v <- MASS::cov.trob(data[,vars])
     } else if (type == "norm") {
       v <- stats::cov.wt(data[,vars])

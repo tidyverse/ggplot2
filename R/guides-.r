@@ -104,7 +104,7 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
   theme$legend.direction <-
     theme$legend.direction %||%
     if (length(position) == 1 && position %in% c("top", "bottom", "left", "right"))
-      switch(position[1], top =, bottom = "horizontal", left =, right = "vertical")
+      switch(position[1], top = , bottom = "horizontal", left = , right = "vertical")
     else
       "vertical"
 
@@ -112,7 +112,7 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
   theme$legend.box.just <-
     theme$legend.box.just %||%
     if (length(position) == 1 && position %in% c("top", "bottom", "left", "right"))
-      switch(position, bottom =, top = c("center", "top"), left =, right = c("left", "top"))
+      switch(position, bottom = , top = c("center", "top"), left = , right = c("left", "top"))
     else
       c("center", "center")
 
@@ -140,7 +140,7 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
 validate_guide <- function(guide) {
   # if guide is specified by character, then find the corresponding guide
   if (is.character(guide))
-    match.fun(paste("guide_", guide, sep=""))()
+    match.fun(paste("guide_", guide, sep = ""))()
   else if (inherits(guide, "guide"))
     guide
   else
@@ -151,7 +151,7 @@ validate_guide <- function(guide) {
 guides_train <- function(scales, theme, guides, labels) {
 
   gdefs <- list()
-  for(scale in scales$scales) {
+  for (scale in scales$scales) {
 
     # guides(XXX) is stored in guides[[XXX]],
     # which is prior to scale_ZZZ(guide=XXX)
@@ -163,15 +163,15 @@ guides_train <- function(scales, theme, guides, labels) {
     # this should be changed to testing guide == "none"
     # scale$legend is backward compatibility
     # if guides(XXX=FALSE), then scale_ZZZ(guides=XXX) is discarded.
-    if (guide=="none" || (is.logical(guide) && !guide)) next
+    if (guide == "none" || (is.logical(guide) && !guide)) next
 
     # check the validity of guide.
     # if guide is character, then find the guide object
     guide <- validate_guide(guide)
 
     # check the consistency of the guide and scale.
-    if (guide$available_aes != "any" && ! scale$aesthetics %in% guide$available_aes)
-      stop (paste("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.", sep=""))
+    if (guide$available_aes != "any" && !scale$aesthetics %in% guide$available_aes)
+      stop("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.")
 
     guide$title <- guide$title %|W|% scale$name %|W|% labels[[output]]
 
@@ -182,7 +182,7 @@ guides_train <- function(scales, theme, guides, labels) {
     # so Guides (i.e., the container of guides) need not to know about them
     guide <- guide_train(guide, scale)
 
-    if (!is.null(guide)) gdefs[[length(gdefs)+1]] <- guide
+    if (!is.null(guide)) gdefs[[length(gdefs) + 1]] <- guide
   }
   gdefs
 }
@@ -212,8 +212,9 @@ guides_gengrob <- function(gdefs, theme) {
   # common drawing process for all guides
   gdefs <- lapply(gdefs,
     function(g) {
-      g$title.position <- g$title.position %||% switch(g$direction, vertical="top", horizontal="left")
-      if (!g$title.position %in% c("top", "bottom", "left", "right")) stop("title position \"", g$title.position, "\" is invalid")
+      g$title.position <- g$title.position %||% switch(g$direction, vertical = "top", horizontal = "left")
+      if (!g$title.position %in% c("top", "bottom", "left", "right"))
+        stop("title position \"", g$title.position, "\" is invalid")
       g
     })
 
@@ -222,8 +223,6 @@ guides_gengrob <- function(gdefs, theme) {
 
 # build up all guide boxes into one guide-boxes.
 guides_build <- function(ggrobs, theme) {
-  n <- length(ggrobs)
-
   theme$legend.margin <- theme$legend.margin %||% unit(0.5, "lines")
   theme$legend.vmargin <- theme$legend.vmargin  %||% theme$legend.margin
   theme$legend.hmargin <- theme$legend.hmargin  %||% theme$legend.margin
