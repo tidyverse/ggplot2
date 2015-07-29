@@ -1,20 +1,9 @@
-#' Hollow bar with middle indicated by horizontal line.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "crossbar")}
-#'
-#' @inheritParams geom_point
 #' @param fatten a multiplicative factor to fatten middle bar by
-#' @seealso \code{\link{geom_errorbar}} for error bars,
-#' \code{\link{geom_pointrange}} and \code{\link{geom_linerange}} for other
-#' ways of showing mean + error, \code{\link{stat_summary}} to compute
-#' errors from the data, \code{\link{geom_smooth}} for the continuous analog.
 #' @export
-#' @examples
-#' # See geom_linerange for examples
+#' @rdname geom_linerange
 geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", fatten = 2.5, show.legend = NA, inherit.aes = TRUE, ...)
-{
+                          position = "identity", fatten = 2.5, show.legend = NA,
+                          inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

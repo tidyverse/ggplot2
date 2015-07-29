@@ -1,18 +1,5 @@
-#' An interval represented by a vertical line, with a point in the middle.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "pointrange")}
-#'
-#' @inheritParams geom_point
-#' @seealso
-#'  \code{\link{geom_errorbar}} for error bars,
-#'  \code{\link{geom_linerange}} for range indicated by straight line, + examples,
-#'  \code{\link{geom_crossbar}} for hollow bar with middle indicated by horizontal line,
-#'  \code{\link{stat_summary}} for examples of these guys in use,
-#'  \code{\link{geom_smooth}} for continuous analog"
 #' @export
-#' @examples
-#' # See geom_linerange for examples
+#' @rdname geom_linerange
 geom_pointrange <- function(mapping = NULL, data = NULL, stat = "identity",
                             position = "identity", show.legend = NA,
                             inherit.aes = TRUE, ...) {
