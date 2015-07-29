@@ -1,7 +1,11 @@
-#' Tile plane with rectangles.
+#' Draw rectangles.
 #'
-#' \code{geom_tile} and \code{geom_raster} draw rectangles. \code{geom_raster}
-#' is an efficient special case of where all tiles are the same size.
+#' \code{geom_rect} and \code{geom_tile} do the same thing, but are
+#' paramterised differently. \code{geom_rect} uses the locations of the four
+#' corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}).
+#' \code{geom_tile} uses the center of the tile and it's size (\code{x},
+#' \code{y}, \code{width}, \code{height}). \code{geom_raster} is a high
+#' performance special case for when all the tiles are the same size.
 #'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "tile")}
@@ -9,8 +13,9 @@
 #' @inheritParams geom_point
 #' @export
 #' @examples
-#' # You almost always want to use geom_raster because it's so much
-#' # faster, and produces much smaller output when saving to PDF
+#' # The most common use for rectangles is to draw a surface. You always want
+#' # to use geom_raster here because it's so much faster, and produces
+#' # smaller output when saving to PDF
 #' ggplot(faithfuld, aes(waiting, eruptions)) +
 #'  geom_raster(aes(fill = density))
 #'
@@ -18,18 +23,19 @@
 #' ggplot(faithfuld, aes(waiting, eruptions)) +
 #'  geom_raster(aes(fill = density), interpolate = TRUE)
 #'
-#' # Use geom_tile when you have uneven tile sizes
-#' boundary <- c(0, 4, 6, 8, 10, 14)
-#' example <- data.frame(
+#' # If you want to draw arbitrary rectangles, use geom_tile() or geom_rect()
+#' df <- data.frame(
 #'   x = rep(c(2, 5, 7, 9, 12), 2),
-#'   y = factor(rep(c(1,2), each = 5)),
+#'   y = rep(c(1, 2), each = 5),
 #'   z = factor(rep(1:5, each = 2)),
-#'   w = rep(diff(boundary), 2)
+#'   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
 #' )
-#' ggplot(example, aes(x, y)) +
+#' ggplot(df, aes(x, y)) +
 #'   geom_tile(aes(fill = z))
-#' ggplot(example, aes(x, y)) +
+#' ggplot(df, aes(x, y)) +
 #'   geom_tile(aes(fill = z, width = w), colour = "grey50")
+#' ggplot(df, aes(xmin = x - w / 2, xmax = x + w / 2, ymin = y, ymax = y + 1)) +
+#'   geom_rect(aes(fill = z, width = w), colour = "grey50")
 #'
 #' \donttest{
 #' # Justification controls where the cells are anchored

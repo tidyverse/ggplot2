@@ -1,17 +1,5 @@
-#' 2d rectangles.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "rect")}
-#'
-#' @inheritParams geom_point
 #' @export
-#' @examples
-#' df <- data.frame(
-#'   x = sample(10, 20, replace = TRUE),
-#'   y = sample(10, 20, replace = TRUE)
-#' )
-#' ggplot(df, aes(xmin = x, xmax = x + 1, ymin = y, ymax = y + 2)) +
-#' geom_rect()
+#' @rdname geom_tile
 geom_rect <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "identity", show.legend = NA,
                       inherit.aes = TRUE, ...) {
