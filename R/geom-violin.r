@@ -9,6 +9,8 @@
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_violin} and \code{stat_ydensity}.
 #' @export
+#' @references Hintze, J. L., Nelson, R. D. (1998) Violin Plots: A Box
+#' Plot-Density Trace Synergism. The American Statistician 52, 181-184.
 #' @examples
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))
 #' p + geom_violin()

@@ -130,6 +130,10 @@ ggplot(movies, aes(year, budget)) +
 }
 }
 }
+\references{
+Hintze, J. L., Nelson, R. D. (1998) Violin Plots: A Box
+Plot-Density Trace Synergism. The American Statistician 52, 181-184.
+}
 \seealso{
 \code{\link{geom_violin}} for examples, and \code{\link{stat_density}}
   for examples with data along the x axis.
