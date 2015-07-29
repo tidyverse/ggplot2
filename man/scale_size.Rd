@@ -3,21 +3,18 @@
 \name{scale_size}
 \alias{scale_radius}
 \alias{scale_size}
+\alias{scale_size_area}
 \alias{scale_size_continuous}
 \alias{scale_size_discrete}
 \title{Scale size (area or radius).}
 \usage{
-scale_size_continuous(name = waiver(), breaks = waiver(),
-  labels = waiver(), limits = NULL, range = c(1, 6), trans = "identity",
-  guide = "legend")
-
 scale_radius(name = waiver(), breaks = waiver(), labels = waiver(),
   limits = NULL, range = c(1, 6), trans = "identity", guide = "legend")
 
 scale_size(name = waiver(), breaks = waiver(), labels = waiver(),
   limits = NULL, range = c(1, 6), trans = "identity", guide = "legend")
 
-scale_size_discrete(..., range = c(2, 6))
+scale_size_area(..., max_size = 6)
 }
 \arguments{
 \item{name}{The name of the scale. Used as axis or legend title. If
@@ -61,39 +58,35 @@ maximum size of the plotting symbol after transformation.}
 
 \item{guide}{Name of guide object, or object itself.}
 
-\item{...}{Additional arguments passed on to \code{\link{discrete_scale}}.}
+\item{...}{Other arguments passed on to \code{\link{continuous_scale}}
+to control name, limits, breaks, labels and so forth.}
+
+\item{max_size}{Size of largest points.}
 }
 \description{
 \code{scale_size} scales area, \code{scale_radius} scales radius. The size
 aesthetic is most commonly used for points and text, and humans perceive
 the area of points (not their radius), so this provides for optimal
-perception.
+perception. \code{scale_size_area} ensures that a value of 0 is mapped
+to a size of 0.
 }
 \examples{
-\donttest{
-p <- ggplot(mtcars, aes(mpg, cyl, size = cyl)) +
+p <- ggplot(mpg, aes(displ, hwy, size = hwy)) +
    geom_point()
 p
-p + scale_size("cylinders")
-p + scale_size("number\\nof\\ncylinders")
-
+p + scale_size("Highway mpg")
 p + scale_size(range = c(0, 10))
-p + scale_size(range = c(1, 2))
 
 # If you want zero value to have zero size, use scale_size_area:
 p + scale_size_area()
 
-# You can map size to a factor, but it's not a terribly good
-# idea, unless your factor is ordered, as in this example
-ggplot(mtcars, aes(mpg, cyl, size = factor(cyl))) +
-  geom_point()
+# This is most useful when size is a count
+ggplot(mpg, aes(class, cyl)) +
+  geom_count() +
+  scale_size_area()
 
-# To control the size mapping for discrete variable, use
-# scale_size_manual:
-ggplot(mtcars, aes(mpg, cyl, size = factor(cyl))) +
-  geom_point() +
-  scale_size_manual(values = c(2, 4, 6))
-}
+# If you want to map size to radius (usually bad idea), use scale_radius
+p + scale_radius()
 }
 \seealso{
 \code{\link{scale_size_area}} if you want 0 values to be mapped
