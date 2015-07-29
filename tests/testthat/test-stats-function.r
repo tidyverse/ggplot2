@@ -1,3 +1,5 @@
+context("stat-function")
+
 # helper function for stat calc tests.
 test_stat_scale <- function(stat, scale) {
   stat$data <- transform(stat$data, PANEL = 1)
@@ -5,8 +7,6 @@ test_stat_scale <- function(stat, scale) {
   dat <- add_group(dat)
   stat$calc_statistic(dat, scale)
 }
-
-context("stat-function")
 
 test_that("stat-function", {
 

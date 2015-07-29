@@ -70,13 +70,13 @@ stat_function <- function(mapping = NULL, data = NULL, geom = "path",
 StatFunction <- ggproto("StatFunction", Stat,
   default_aes = aes(y = ..y..),
 
-  calculate = function(data, scales, fun, n=101, args = list(), ...) {
+  calculate = function(data, scales, fun, n = 101, args = list(), ...) {
     range <- scale_dimension(scales$x, c(0, 0))
     xseq <- seq(range[1], range[2], length.out = n)
 
     data.frame(
       x = xseq,
-      y = do.call(fun, c(quote(list(scales$x$trans$inv(xseq))), args))
+      y = do.call(fun, c(list(quote(scales$x$trans$inv(xseq))), args))
     )
   }
 )
