@@ -25,8 +25,14 @@
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_boxplot} and \code{stat_boxplot}.
-#' @param outlier.colour,outlier.shape,outlier.size,outlier.stroke Override
-#'   aesthetics used for the outliers. Defaults come from \code{geom_point()}.
+#' @param outlier.colour Override aesthetics used for the outliers. Defaults
+#'   come from \code{geom_point()}.
+#' @param outlier.shape Override aesthetics used for the outliers. Defaults
+#'   come from \code{geom_point()}.
+#' @param outlier.size Override aesthetics used for the outliers. Defaults
+#'   come from \code{geom_point()}.
+#' @param outlier.stroke Override aesthetics used for the outliers. Defaults
+#'   come from \code{geom_point()}.
 #' @param notch if \code{FALSE} (default) make a standard box plot. If
 #'   \code{TRUE}, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians

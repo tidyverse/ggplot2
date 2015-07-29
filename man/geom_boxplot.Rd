@@ -25,8 +25,17 @@ defined at the top level of the plot.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{outlier.colour,outlier.shape,outlier.size,outlier.stroke}{Override
-aesthetics used for the outliers. Defaults come from \code{geom_point()}.}
+\item{outlier.colour}{Override aesthetics used for the outliers. Defaults
+come from \code{geom_point()}.}
+
+\item{outlier.shape}{Override aesthetics used for the outliers. Defaults
+come from \code{geom_point()}.}
+
+\item{outlier.size}{Override aesthetics used for the outliers. Defaults
+come from \code{geom_point()}.}
+
+\item{outlier.stroke}{Override aesthetics used for the outliers. Defaults
+come from \code{geom_point()}.}
 
 \item{notch}{if \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, make a notched box plot. Notches are used to compare groups;
