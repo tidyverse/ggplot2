@@ -1,4 +1,4 @@
-#' Create a new ggplot plot
+#' Create a new ggplot plot.
 #'
 #' \code{ggplot()} initializes a ggplot object. It can be used to
 #' declare the input data frame for a graphic and to specify the
@@ -31,14 +31,16 @@
 #' multiple data frames are used to produce different layers, as
 #' is often the case in complex graphics.
 #'
-#' The examples below illustrate how these methods of
-#' invoking \code{ggplot} can be used in constructing a
-#' graphic.
-#' @seealso \url{http://had.co.nz/ggplot2}
+#' @param data Default dataset to use for plot. If not already a data.frame,
+#'   will be converted to one by \code{\link{fortify}}. If not specified,
+#'   must be suppled in each layer added to the plot.
+#' @param mapping Default list of aesthetic mappings to use for plot.
+#'   If not specified, must be suppled in each layer added to the plot.
+#' @param ... Other arguments passed on to methods. Not currently used.
+#' @param environment If an variable defined in the aesthetic mapping is not
+#'   found in the data, ggplot will look for it in this environment. It defaults
+#'   to using the environment in which \code{ggplot()} is called.
 #' @export
-#' @keywords internal
-#' @param data default data set
-#' @param ... other arguments passed to specific methods
 #' @examples
 #' df <- data.frame(gp = factor(rep(letters[1:3], each = 10)),
 #'                  y = rnorm(30))
@@ -69,30 +71,27 @@
 #'   geom_errorbar(data = ds, aes(x = gp, y = mean,
 #'                     ymin = mean - sd, ymax = mean + sd),
 #'                     colour = 'red', width = 0.4)
-ggplot <- function(data = NULL, ...) UseMethod("ggplot")
+ggplot <- function(data = NULL, mapping = aes(), ...,
+                   environment = parent.frame()) {
+  UseMethod("ggplot")
+}
 
 #' @export
-ggplot.default <- function(data = NULL, mapping = aes(), ..., environment = parent.frame()) {
+#' @rdname ggplot
+#' @usage NULL
+ggplot.default <- function(data = NULL, mapping = aes(), ...,
+                           environment = parent.frame()) {
   ggplot.data.frame(fortify(data, ...), mapping, environment = environment)
 }
 
-#' Reports whether x is a ggplot object
-#' @param x An object to test
 #' @export
-is.ggplot <- function(x) inherits(x, "ggplot")
-
-#' Create a new ggplot plot from a data frame
-#'
-#' @param data default data frame for plot
-#' @param mapping default list of aesthetic mappings (these can be colour,
-#'   size, shape, line type -- see individual geom functions for more details)
-#' @param ... ignored
-#' @param environment in which evaluation of aesthetics should occur
-#' @seealso \url{http://had.co.nz/ggplot2}
-#' @method ggplot data.frame
-#' @export
-ggplot.data.frame <- function(data, mapping=aes(), ..., environment = parent.frame()) {
-  if (!missing(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be created with aes or aes_string")
+#' @rdname ggplot
+#' @usage NULL
+ggplot.data.frame <- function(data, mapping = aes(), ...,
+                              environment = parent.frame()) {
+  if (!missing(mapping) && !inherits(mapping, "uneval")) {
+    stop("Mapping should be created with aes or aes_string")
+  }
 
   p <- structure(list(
     data = data,
@@ -118,3 +117,9 @@ plot_clone <- function(plot) {
 
   p
 }
+
+#' Reports whether x is a ggplot object
+#' @param x An object to test
+#' @keywords internal
+#' @export
+is.ggplot <- function(x) inherits(x, "ggplot")
