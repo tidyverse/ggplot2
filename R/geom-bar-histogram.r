@@ -21,6 +21,8 @@
 #'   geom_histogram()
 #' ggplot(diamonds, aes(carat)) +
 #'   geom_histogram(binwidth = 0.01)
+#' ggplot(diamonds, aes(carat)) +
+#'   geom_histogram(bins = 200)
 #'
 #' # Rather than stacking histograms, it's easier to compare frequency
 #' # polygons
@@ -69,7 +71,7 @@
 #' }
 #' rm(movies)
 geom_histogram <- function(mapping = NULL, data = NULL, stat = "bin",
-  binwidth = NULL, origin = NULL, right = FALSE,
+  binwidth = NULL, bins = NULL, origin = NULL, right = FALSE,
   position = "stack", show.legend = NA, inherit.aes = TRUE, ...) {
 
   layer(
@@ -81,6 +83,6 @@ geom_histogram <- function(mapping = NULL, data = NULL, stat = "bin",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...),
-    stat_params = list(binwidth = binwidth, origin = origin, right = right)
+    stat_params = list(binwidth = binwidth, bins = bins, origin = origin, right = right)
   )
 }

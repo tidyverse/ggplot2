@@ -7,16 +7,16 @@
 \title{Histograms and frequency polygons.}
 \usage{
 geom_histogram(mapping = NULL, data = NULL, stat = "bin",
-  binwidth = NULL, origin = NULL, right = FALSE, position = "stack",
-  show.legend = NA, inherit.aes = TRUE, ...)
+  binwidth = NULL, bins = NULL, origin = NULL, right = FALSE,
+  position = "stack", show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_freqpoly(mapping = NULL, data = NULL, stat = "bin",
   position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 
 stat_bin(mapping = NULL, data = NULL, geom = "bar", position = "stack",
   width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL,
-  origin = NULL, breaks = NULL, show.legend = NA, inherit.aes = TRUE,
-  ...)
+  bins = NULL, origin = NULL, breaks = NULL, show.legend = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -26,8 +26,11 @@ at the layer level if you are overriding the plot defaults.}
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
 
-\item{binwidth}{Bin width to use. Defaults to 1/30 of the range of the
-data}
+\item{binwidth}{Bin width to use. Defaults to 1/\code{bins} of the range of
+the data}
+
+\item{bins}{Number of bins. Overridden by \code{binwidth} or \code{breaks}.
+Defaults to 30}
 
 \item{origin}{Origin of first bin}
 
@@ -64,7 +67,8 @@ the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{drop}{If TRUE, remove all bins with zero counts}
 
-\item{breaks}{Actual breaks to use.  Overrides bin width and origin}
+\item{breaks}{Actual breaks to use. Overrides bin width, bin number and
+origin}
 }
 \value{
 New data frame with additional columns:
@@ -93,6 +97,8 @@ ggplot(diamonds, aes(carat)) +
   geom_histogram()
 ggplot(diamonds, aes(carat)) +
   geom_histogram(binwidth = 0.01)
+ggplot(diamonds, aes(carat)) +
+  geom_histogram(bins = 200)
 
 # Rather than stacking histograms, it's easier to compare frequency
 # polygons
