@@ -1,32 +1,6 @@
-#' Apply function for 2D hexagonal bins.
-#'
-#' \code{stat_summary2d} is a hexagonal variation of \code{\link{stat_summary}}.
-#' The data are divided into hexagonal bins defined by \code{x} and \code{y}.
-#' The values of \code{z} in each cell is are summarised with \code{fun}.
-#'
-#' @section Aesthetics:
-#' \itemize{
-#'  \item \code{x}: horizontal position
-#'  \item \code{y}: vertical position
-#'  \item \code{z}: value passed to the summary function
-#' }
-#'
-#' @seealso \code{\link{stat_summary2d}} for rectangular summarization.
-#'   \code{\link{stat_bin2d}} for the hexagon-ing options.
-#' @inheritParams stat_identity
-#' @inheritParams stat_binhex
-#' @inheritParams stat_summary2d
 #' @export
-#' @examples
-#' if (requireNamespace("hexbin")) {
-#' d <- ggplot(diamonds, aes(carat, depth, z = price))
-#' d + stat_summary_hex()
-#'
-#' # Specifying function
-#' d + stat_summary_hex(fun = var)
-#' d + stat_summary_hex(fun = function(x) sum(x^2))
-#' d + stat_summary_hex(fun = "quantile", fun.args = list(probs = 0.5))
-#' }
+#' @rdname stat_summary2d
+#' @inheritParams stat_binhex
 stat_summary_hex <- function(mapping = NULL, data = NULL, geom = "hex",
                              position = "identity", bins = 30, drop = TRUE,
                              fun = "mean", fun.args = list(), show.legend = NA,
