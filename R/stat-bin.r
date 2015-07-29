@@ -13,11 +13,10 @@
 #'   \item{ndensity}{density, scaled to maximum of 1}
 #' @export
 #' @rdname geom_histogram
-stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
-  position = "stack", width = 0.9, drop = FALSE, right = FALSE,
-  binwidth = NULL, origin = NULL, breaks = NULL, show.legend = NA,
-  inherit.aes = TRUE, ...)
-{
+stat_bin <- function(mapping = NULL, data = NULL, geom = "bar",
+                     position = "stack", width = 0.9, drop = FALSE,
+                     right = FALSE, binwidth = NULL, origin = NULL,
+                     breaks = NULL, show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -109,7 +108,7 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
     }
     fuzzybreaks <- sort(breaks) + fuzz
 
-    bins <- cut(x, fuzzybreaks, include.lowest=TRUE, right = right)
+    bins <- cut(x, fuzzybreaks, include.lowest = TRUE, right = right)
     left <- breaks[-length(breaks)]
     right <- breaks[-1]
     x <- (left + right)/2
@@ -117,7 +116,7 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
   }
 
   results <- data.frame(
-    count = as.numeric(tapply(weight, bins, sum, na.rm=TRUE)),
+    count = as.numeric(tapply(weight, bins, sum, na.rm = TRUE)),
     x = x,
     width = width
   )
@@ -128,9 +127,9 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
 
   res <- within(results, {
     count[is.na(count)] <- 0
-    density <- count / width / sum(abs(count), na.rm=TRUE)
-    ncount <- count / max(abs(count), na.rm=TRUE)
-    ndensity <- density / max(abs(density), na.rm=TRUE)
+    density <- count / width / sum(abs(count), na.rm = TRUE)
+    ncount <- count / max(abs(count), na.rm = TRUE)
+    ndensity <- density / max(abs(density), na.rm = TRUE)
   })
   if (drop) res <- subset(res, count > 0)
   res

@@ -44,9 +44,9 @@ Stat <- ggproto("Stat",
       missing <- !(names(unique) %in% names(new))
       cbind(
         new,
-        unique[rep(1, nrow(new)), missing,drop=FALSE]
+        unique[rep(1, nrow(new)), missing,drop = FALSE]
       )
-    }, stats, groups, SIMPLIFY=FALSE)
+    }, stats, groups, SIMPLIFY = FALSE)
 
     do.call(plyr::rbind.fill, stats)
   }

@@ -36,7 +36,8 @@ check_required_aesthetics <- function(required, present, name) {
   missing_aes <- setdiff(required, present)
   if (length(missing_aes) == 0) return()
 
-  stop(name, " requires the following missing aesthetics: ", paste(missing_aes, collapse=", "), call. = FALSE)
+  stop(name, " requires the following missing aesthetics: ",
+    paste(missing_aes, collapse = ", "), call. = FALSE)
 }
 
 # Concatenate a named list for output
@@ -47,7 +48,7 @@ check_required_aesthetics <- function(required, present, name) {
 #X clist(list(a=1, b=2))
 #X clist(par()[1:5])
 clist <- function(l) {
-  paste(paste(names(l), l, sep=" = ", collapse=", "), sep="")
+  paste(paste(names(l), l, sep=" = ", collapse = ", "), sep = "")
 }
 
 # Quietly try to require a package
@@ -70,7 +71,7 @@ try_require <- function(package, fun) {
 #
 # @keyword internal
 uniquecols <- function(df) {
-  df <- df[1, sapply(df, function(x) length(unique(x)) == 1), drop=FALSE]
+  df <- df[1, sapply(df, function(x) length(unique(x)) == 1), drop = FALSE]
   rownames(df) <- 1:nrow(df)
   df
 }
@@ -193,7 +194,7 @@ should_stop <- function(expr) {
 #'
 #' @export
 #' @keywords internal
-waiver <- function() structure(NULL, class="waiver")
+waiver <- function() structure(NULL, class = "waiver")
 
 is.waive <- function(x) inherits(x, "waiver")
 
@@ -291,7 +292,7 @@ empty <- function(df) {
   is.null(df) || nrow(df) == 0 || ncol(df) == 0
 }
 
-is.discrete <- function (x) {
+is.discrete <- function(x) {
   is.factor(x) || is.character(x) || is.logical(x)
 }
 

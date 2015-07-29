@@ -11,15 +11,15 @@ test_that("all: no rows and cols gives null layout", {
 })
 
 test_that("grid: single row and single col equivalent", {
-  row <- layout_grid(list(a), row = "a")
-  col <- layout_grid(list(a), col = "a")
+  row <- layout_grid(list(a), rows = "a")
+  col <- layout_grid(list(a), cols = "a")
 
   expect_that(row$ROW, equals(1:2))
   expect_that(row$ROW, equals(col$COL))
   expect_that(row[c("PANEL", "a")], equals(col[c("PANEL", "a")]))
 
-  row <- layout_grid(list(a, b), row = "a")
-  col <- layout_grid(list(a, b), col = "a")
+  row <- layout_grid(list(a, b), rows = "a")
+  col <- layout_grid(list(a, b), cols = "a")
 
   expect_that(row$ROW, equals(1:3))
   expect_that(row$ROW, equals(col$COL))
@@ -28,17 +28,17 @@ test_that("grid: single row and single col equivalent", {
 
 test_that("grid: includes all combinations", {
   d <- data.frame(a = c(1, 2), b = c(2, 1))
-  all <- layout_grid(list(d), row = "a", col = "b")
+  all <- layout_grid(list(d), rows = "a", cols = "b")
 
   expect_that(nrow(all), equals(4))
 })
 
 test_that("wrap and grid equivalent for 1d data", {
-  rowg <- layout_grid(list(a), row = "a")
+  rowg <- layout_grid(list(a), rows = "a")
   roww <- layout_wrap(list(a), "a", ncol = 1)
   expect_that(roww, equals(rowg))
 
-  colg <- layout_grid(list(a), col = "a")
+  colg <- layout_grid(list(a), cols = "a")
   colw <- layout_wrap(list(a), "a", nrow = 1)
   expect_that(colw, equals(colg))
 })

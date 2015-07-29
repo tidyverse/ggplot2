@@ -73,7 +73,7 @@ train_position <- function(panel, data, x_scale, y_scale) {
   }
 
   # loop over each layer, training x and y scales in turn
-  for(layer_data in data) {
+  for (layer_data in data) {
 
     match_id <- match(layer_data$PANEL, layout$PANEL)
 

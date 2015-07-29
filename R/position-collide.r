@@ -95,7 +95,6 @@ pos_dodge <- function(df, width) {
   }
 
   d_width <- max(df$xmax - df$xmin)
-  diff <- width - d_width
 
   # df <- data.frame(n = c(2:5, 10, 26), div = c(4, 3, 2.666666,  2.5, 2.2, 2.1))
   # ggplot(df, aes(n, div)) + geom_point()

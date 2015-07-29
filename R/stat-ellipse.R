@@ -85,25 +85,25 @@ calculate_ellipse <- function(data, vars, type, level, segments){
   dfn <- 2
   dfd <- nrow(data) - 1
 
-  if (!type %in% c("t", "norm", "euclid")){
+  if (!type %in% c("t", "norm", "euclid")) {
     message("Unrecognized ellipse type")
     ellipse <- rbind(as.numeric(c(NA, NA)))
-  } else if (dfd < 3){
+  } else if (dfd < 3) {
     message("Too few points to calculate an ellipse")
     ellipse <- rbind(as.numeric(c(NA, NA)))
   } else {
     if (type == "t"){
       v <- MASS::cov.trob(data[,vars])
-    } else if (type == "norm"){
+    } else if (type == "norm") {
       v <- stats::cov.wt(data[,vars])
-    } else if (type == "euclid"){
+    } else if (type == "euclid") {
       v <- stats::cov.wt(data[,vars])
       v$cov <- diag(rep(min(diag(v$cov)), 2))
     }
     shape <- v$cov
     center <- v$center
     chol_decomp <- chol(shape)
-    if (type == "euclid"){
+    if (type == "euclid") {
       radius <- level/max(chol_decomp)
     } else {
       radius <- sqrt(dfn * stats::qf(level, dfn, dfd))

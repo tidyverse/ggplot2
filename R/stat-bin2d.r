@@ -3,9 +3,9 @@
 #' @param drop if \code{TRUE} removes all cells with 0 counts.
 #' @export
 #' @rdname geom_bin2d
-stat_bin2d <- function (mapping = NULL, data = NULL, geom = "rect",
-  position = "identity", bins = 30, drop = TRUE, show.legend = NA,
-  inherit.aes = TRUE, ...) {
+stat_bin2d <- function(mapping = NULL, data = NULL, geom = "rect",
+                       position = "identity", bins = 30, drop = TRUE,
+                       show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

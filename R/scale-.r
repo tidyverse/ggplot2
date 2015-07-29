@@ -195,7 +195,7 @@ scale_train_df <- function(scale, df) {
   if (empty(df)) return()
 
   aesthetics <- intersect(scale$aesthetics, names(df))
-  for(aesthetic in aesthetics) {
+  for (aesthetic in aesthetics) {
     scale_train(scale, df[[aesthetic]])
   }
   invisible()
@@ -316,7 +316,7 @@ scale_limits <- function(scale) {
 #  use the user defined limit for that axis
 #' @export
 scale_limits.default <- function(scale) {
-  if(!is.null(scale$limits)) {
+  if (!is.null(scale$limits)) {
     ifelse(!is.na(scale$limits), scale$limits, scale$range$range)
   } else {
     scale$range$range
@@ -408,7 +408,7 @@ scale_break_positions <- function(scale, range = scale_limits(scale)) {
   scale_map(scale, scale_breaks(scale, range))
 }
 
-scale_breaks_minor<- function(scale, n = 2, b = scale_break_positions(scale), limits = scale_limits(scale)) {
+scale_breaks_minor <- function(scale, n = 2, b = scale_break_positions(scale), limits = scale_limits(scale)) {
   UseMethod("scale_breaks_minor")
 }
 
@@ -432,7 +432,7 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
       bd <- diff(b)[1]
       if (min(limits) < min(b)) b <- c(b[1] - bd, b)
       if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
-      breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length.out = n+1,
+      breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length.out = n + 1,
         SIMPLIFY = FALSE)))
     }
   } else if (is.function(scale$minor_breaks)) {

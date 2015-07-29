@@ -74,7 +74,6 @@ ggplot_gtable <- function(data) {
   # Legends
   position <- theme$legend.position
   if (length(position) == 2) {
-    coords <- position
     position <- "manual"
   }
 

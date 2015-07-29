@@ -3,10 +3,10 @@ context("Data")
 test_that("stringsAsFactors doesn't affect results", {
 
     sAF <- getOption("stringsAsFactors")
-    dat.character <- data.frame(x=letters[5:1], y=1:5, stringsAsFactors=FALSE)
-    dat.factor <- data.frame(x=letters[5:1], y=1:5, stringsAsFactors=TRUE)
+    dat.character <- data.frame(x = letters[5:1], y = 1:5, stringsAsFactors = FALSE)
+    dat.factor <- data.frame(x = letters[5:1], y = 1:5, stringsAsFactors = TRUE)
 
-    base <- ggplot(, aes(x, y)) + geom_point()
+    base <- ggplot(mapping = aes(x, y)) + geom_point()
     xlabels <- function(x) x$panel$ranges[[1]]$x.labels
 
     options(stringsAsFactors = TRUE)

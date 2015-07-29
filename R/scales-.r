@@ -97,9 +97,9 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
     envir = data, enclos = env
   )
 
-  for(aes in names(datacols)) {
+  for (aes in names(datacols)) {
     type <- scale_type(datacols[[aes]])
-    scale_name <- paste("scale", aes, type, sep="_")
+    scale_name <- paste("scale", aes, type, sep = "_")
 
     # Skip aesthetics with no scales (e.g. group, order, etc)
     scale_f <- find_global(scale_name, env, mode = "function")
@@ -118,7 +118,7 @@ scales_add_missing <- function(plot, aesthetics, env) {
   aesthetics <- setdiff(aesthetics, plot$scales$input())
 
   for (aes in aesthetics) {
-    scale_name <- paste("scale", aes, "continuous", sep="_")
+    scale_name <- paste("scale", aes, "continuous", sep = "_")
 
     scale_f <- find_global(scale_name, env, mode = "function")
     plot$scales$add(scale_f())

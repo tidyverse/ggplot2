@@ -101,24 +101,24 @@ context("stat-bin2d")
 test_that("stat-bin2d", {
   d <- diamonds[1:1000,]
 
-  full_scales <- list(x = scale_x_continuous(limits = range(d$carat, na.rm=TRUE)),
-                      y = scale_y_continuous(limits = range(d$depth, na.rm=TRUE)))
-  ret <- test_stat_scale(stat_bin2d(aes(x = carat, y = depth), data=d), full_scales)
+  full_scales <- list(x = scale_x_continuous(limits = range(d$carat, na.rm = TRUE)),
+                      y = scale_y_continuous(limits = range(d$depth, na.rm = TRUE)))
+  ret <- test_stat_scale(stat_bin2d(aes(x = carat, y = depth), data = d), full_scales)
   expect_equal(dim(ret), c(191,12))
 
   d$carat[1] <- NA
   d$depth[2] <- NA
 
-  full_scales <- list(x = scale_x_continuous(limits = range(d$carat, na.rm=TRUE)),
-                      y = scale_y_continuous(limits = range(d$depth, na.rm=TRUE)))
-  ret <- test_stat_scale(stat_bin2d(aes(x = carat, y = depth), data=d), full_scales)
+  full_scales <- list(x = scale_x_continuous(limits = range(d$carat, na.rm = TRUE)),
+                      y = scale_y_continuous(limits = range(d$depth, na.rm = TRUE)))
+  ret <- test_stat_scale(stat_bin2d(aes(x = carat, y = depth), data = d), full_scales)
   expect_equal(dim(ret), c(191,12))
 
-  breaks <- list(x = seq(min(d$carat, na.rm=TRUE),
-                         max(d$carat, na.rm=TRUE), length.out=41),
+  breaks <- list(x = seq(min(d$carat, na.rm = TRUE),
+                         max(d$carat, na.rm = TRUE), length.out = 41),
                  y = NULL)
   ret <- test_stat_scale(stat_bin2d(aes(x = carat, y = depth),
-                                    data=d, breaks=breaks), full_scales)
+                                    data = d, breaks = breaks), full_scales)
   expect_equal(length(levels(ret$xbin)), 40)
   expect_equal(length(levels(ret$ybin)), 31)
   expect_equal(dim(ret), c(230,12))
@@ -138,7 +138,7 @@ test_that(
 
   got <- ggplot_build(
     g + stat_bin2d(breaks = list(x = integer_breaks, y = NULL),
-                   binwidth=c(0.5, 0.5)))
+                   binwidth = c(0.5, 0.5)))
 
   expect_equal(got$data[[1]]$xmin, (0:3) - 0.5)
   expect_equal(got$data[[1]]$xmax, (0:3) + 0.5)
@@ -150,7 +150,7 @@ test_that(
 
   # Test that we can get the same results with binwidth= and
   # with breaks=.
-  expected <- ggplot_build(g + stat_bin2d(binwidth=c(0.5, 0.5)))
+  expected <- ggplot_build(g + stat_bin2d(binwidth = c(0.5, 0.5)))
 
   breaks_to_try <- list(
     list(x = half_breaks, y = half_breaks),
@@ -159,7 +159,7 @@ test_that(
     list(x = NULL, y = NULL))
 
   for (breaks in breaks_to_try) {
-    got <- ggplot_build(g + stat_bin2d(breaks = breaks, binwidth=c(0.5, 0.5)))
+    got <- ggplot_build(g + stat_bin2d(breaks = breaks, binwidth = c(0.5, 0.5)))
 
     expect_equal(got$data[[1]], expected$data[[1]])
   }
@@ -170,8 +170,8 @@ context("stat-density2d")
 
 test_that("stat-density2d", {
 
-  full_scales <- list(x = scale_x_continuous(limits=c(1,6)),
-                      y = scale_y_continuous(limits=c(5,40)))
+  full_scales <- list(x = scale_x_continuous(limits = c(1,6)),
+                      y = scale_y_continuous(limits = c(5,40)))
   ret <- test_stat_scale(stat_density2d(aes(x = wt, y = mpg), data = mtcars), full_scales)
   # Check that the contour data goes beyond data range.
   # The specific values below are sort of arbitrary; but they go beyond the range

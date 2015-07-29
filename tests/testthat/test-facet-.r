@@ -3,7 +3,7 @@ context("Facetting")
 df <- data.frame(x = 1:3, y = 3:1, z = letters[1:3])
 
 test_that("facets split up the data", {
-  l1 <- ggplot(df, aes(x, y)) + geom_point() + facet_wrap(~ z)
+  l1 <- ggplot(df, aes(x, y)) + geom_point() + facet_wrap(~z)
   d1 <- pdata(l1)[[1]]
 
   expect_that(d1$PANEL, equals(factor(1:3)))
@@ -22,7 +22,7 @@ test_that("facets split up the data", {
 
 test_that("facets with free scales scale independently", {
   l1 <- ggplot(df, aes(x, y)) + geom_point() +
-    facet_wrap(~ z, scales = "free")
+    facet_wrap(~z, scales = "free")
   d1 <- cdata(l1)[[1]]
   expect_that(length(unique(d1$x)), equals(1))
   expect_that(length(unique(d1$y)), equals(1))

@@ -112,8 +112,8 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
     }
     names(breaks) <- c("x", "y")
 
-    xbin <- cut(data$x, sort(breaks$x), include.lowest=TRUE)
-    ybin <- cut(data$y, sort(breaks$y), include.lowest=TRUE)
+    xbin <- cut(data$x, sort(breaks$x), include.lowest = TRUE)
+    ybin <- cut(data$y, sort(breaks$y), include.lowest = TRUE)
 
     if (is.null(data$weight)) data$weight <- 1
 

@@ -43,10 +43,9 @@
 #' # Using a custom function
 #' test <- function(x) {x ^ 2 + x + 20}
 #' f + stat_function(fun = test)
-stat_function <- function (mapping = NULL, data = NULL, geom = "path",
-  position = "identity", fun, n = 101, args = list(), show.legend = NA,
-  inherit.aes = TRUE, ...)
-{
+stat_function <- function(mapping = NULL, data = NULL, geom = "path",
+                          position = "identity", fun, n = 101, args = list(),
+                          show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

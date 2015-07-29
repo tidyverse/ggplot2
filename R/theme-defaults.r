@@ -214,7 +214,7 @@ theme_dark <- function(base_size = 12, base_family = "") {
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
     theme(
       axis.ticks        = element_line(colour = "grey40", size = 0.25),
-      legend.key        = element_rect(fill = "grey50", colour = "grey40", size=0.25),
+      legend.key        = element_rect(fill = "grey50", colour = "grey40", size = 0.25),
       panel.background  = element_rect(fill = "grey50", colour = NA),
       panel.grid.major  = element_line(colour = "grey40", size = 0.25),
       panel.grid.minor  = element_line(colour = "grey45", size = 0.125),

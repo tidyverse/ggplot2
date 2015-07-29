@@ -22,9 +22,9 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_point() +
 #'   stat_spoke(aes(angle = angle, radius = speed))
-stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
-{
+stat_spoke <- function(mapping = NULL, data = NULL, geom = "segment",
+                       position = "identity", show.legend = NA,
+                       inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

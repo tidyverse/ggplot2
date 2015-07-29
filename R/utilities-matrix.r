@@ -34,5 +34,5 @@ interleave.default <- function(...) {
   n <- lengths
   p <- length(vectors)
   interleave <- rep(1:n, each = p) + seq(0, p - 1) * n
-  unlist(vectors, recursive=FALSE)[interleave]
+  unlist(vectors, recursive = FALSE)[interleave]
 }

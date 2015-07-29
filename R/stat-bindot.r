@@ -49,7 +49,7 @@ StatBindot <- ggproto("StatBindot", Stat,
                        right = TRUE, ...) {
 
     # This function taken from integer help page
-    is.wholenumber <- function(x, tol = .Machine$double.eps^0.5) {
+    is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5) {
       abs(x - round(x)) < tol
     }
 
@@ -75,10 +75,10 @@ StatBindot <- ggproto("StatBindot", Stat,
     }
 
 
-    if(method == "histodot") {
+    if (method == "histodot") {
       # Use the function from stat_bin
       data <- bin(x = values, weight = data$weight, binwidth = binwidth, origin = origin,
-                  breaks=breaks, range = range, width = width, drop = drop, right = right)
+                  breaks = breaks, range = range, width = width, drop = drop, right = right)
 
       # Change "width" column to "binwidth" for consistency
       names(data)[names(data) == "width"] <- "binwidth"

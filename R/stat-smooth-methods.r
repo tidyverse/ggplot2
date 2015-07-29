@@ -11,7 +11,7 @@ predictdf <- function(model, xseq, se, level) UseMethod("predictdf")
 #' @export
 predictdf.default <- function(model, xseq, se, level) {
   pred <- stats::predict(model, newdata = data.frame(x = xseq), se.fit = se,
-    level = level, interval = if(se) "confidence" else "none")
+    level = level, interval = if (se) "confidence" else "none")
 
   if (se) {
     fit <- as.data.frame(pred$fit)

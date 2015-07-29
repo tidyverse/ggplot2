@@ -1,7 +1,7 @@
 context("Scales: breaks and labels")
 
 test_that("labels match breaks, even when outside limits", {
-  sc <- scale_y_continuous(breaks=1:4, labels=1:4, limits = c(1, 3))
+  sc <- scale_y_continuous(breaks = 1:4, labels = 1:4, limits = c(1, 3))
 
   expect_equal(scale_breaks(sc), c(1:3, NA))
   expect_equal(scale_labels(sc), 1:4)
@@ -35,7 +35,7 @@ test_that("labels don't have extra spaces", {
 
 test_that("out-of-range breaks are dropped", {
   # Limits are explicitly specified, automatic labels
-  sc <- scale_x_continuous(breaks=1:5, limits = c(2, 4))
+  sc <- scale_x_continuous(breaks = 1:5, limits = c(2, 4))
   bi <- scale_break_info(sc)
   expect_equal(bi$labels, as.character(2:4))
   expect_equal(bi$major, c(0, 0.5, 1))
@@ -43,7 +43,7 @@ test_that("out-of-range breaks are dropped", {
 
 
   # Limits and labels are explicitly specified
-  sc <- scale_x_continuous(breaks=1:5, labels=letters[1:5], limits = c(2, 4))
+  sc <- scale_x_continuous(breaks = 1:5, labels = letters[1:5], limits = c(2, 4))
   bi <- scale_break_info(sc)
   expect_equal(bi$labels, letters[2:4])
   expect_equal(bi$major, c(0, 0.5, 1))
@@ -51,7 +51,7 @@ test_that("out-of-range breaks are dropped", {
 
 
   # Limits are specified, and all breaks are out of range
-  sc <- scale_x_continuous(breaks=c(1,5), labels=letters[c(1,5)], limits = c(2, 4))
+  sc <- scale_x_continuous(breaks = c(1,5), labels = letters[c(1,5)], limits = c(2, 4))
   bi <- scale_break_info(sc)
   expect_equal(length(bi$labels), 0)
   expect_equal(length(bi$major), 0)
@@ -60,8 +60,8 @@ test_that("out-of-range breaks are dropped", {
 
   # limits aren't specified, automatic labels
   # limits are set by the data
-  sc <- scale_x_continuous(breaks=1:5)
-  scale_train_df(sc, data.frame(x=2:4))
+  sc <- scale_x_continuous(breaks = 1:5)
+  scale_train_df(sc, data.frame(x = 2:4))
   bi <- scale_break_info(sc)
   expect_equal(bi$labels, as.character(2:4))
   expect_equal(bi$major_source, 2:4)
@@ -69,8 +69,8 @@ test_that("out-of-range breaks are dropped", {
 
 
   # Limits and labels are specified
-  sc <- scale_x_continuous(breaks=1:5, labels=letters[1:5])
-  scale_train_df(sc, data.frame(x=2:4))
+  sc <- scale_x_continuous(breaks = 1:5, labels = letters[1:5])
+  scale_train_df(sc, data.frame(x = 2:4))
   bi <- scale_break_info(sc)
   expect_equal(bi$labels, letters[2:4])
   expect_equal(bi$major_source, 2:4)
@@ -78,8 +78,8 @@ test_that("out-of-range breaks are dropped", {
 
 
   # Limits aren't specified, and all breaks are out of range of data
-  sc <- scale_x_continuous(breaks=c(1,5), labels=letters[c(1,5)])
-  scale_train_df(sc, data.frame(x=2:4))
+  sc <- scale_x_continuous(breaks = c(1,5), labels = letters[c(1,5)])
+  scale_train_df(sc, data.frame(x = 2:4))
   bi <- scale_break_info(sc)
   expect_equal(length(bi$labels), 0)
   expect_equal(length(bi$major), 0)
@@ -165,7 +165,7 @@ test_that("suppressing breaks, minor_breask, and labels", {
   expect_error(scale_breaks(scale_x_date(breaks = NA, limits = lims)))
   expect_equal(scale_labels(scale_x_date(labels = NULL, limits = lims)), NULL)
   expect_error(scale_labels(scale_x_date(labels = NA, limits = lims)))
-  expect_equal(scale_breaks_minor(scale_x_date(minor_breaks= NULL, limits = lims)), NULL)
+  expect_equal(scale_breaks_minor(scale_x_date(minor_breaks = NULL, limits = lims)), NULL)
   expect_error(scale_breaks_minor(scale_x_date(minor_breaks = NA, limits = lims)))
 
   # date, datetime
@@ -174,8 +174,8 @@ test_that("suppressing breaks, minor_breask, and labels", {
   expect_error(scale_breaks(scale_x_datetime(breaks = NA, limits = lims)))
   expect_equal(scale_labels(scale_x_datetime(labels = NULL, limits = lims)), NULL)
   expect_error(scale_labels(scale_x_datetime(labels = NA, limits = lims)))
-  expect_equal(scale_breaks_minor(scale_x_datetime(minor_breaks= NULL, limits = lims)), NULL)
-  expect_error(scale_breaks_minor(scale_x_datetime(minor_breaks= NA, limits = lims)))
+  expect_equal(scale_breaks_minor(scale_x_datetime(minor_breaks = NULL, limits = lims)), NULL)
+  expect_error(scale_breaks_minor(scale_x_datetime(minor_breaks = NA, limits = lims)))
 
 })
 
@@ -183,35 +183,35 @@ test_that("scale_breaks with explicit NA options (deprecated)", {
   # NA is defunct, should throw error
 
   # X
-  sxc <- scale_x_continuous(breaks=NA)
+  sxc <- scale_x_continuous(breaks = NA)
   scale_train(sxc, 1:3)
   expect_error(scale_breaks(sxc))
   expect_error(scale_breaks_minor(sxc))
 
   # Y
-  syc <- scale_y_continuous(breaks=NA)
+  syc <- scale_y_continuous(breaks = NA)
   scale_train(syc, 1:3)
   expect_error(scale_breaks(syc))
   expect_error(scale_breaks_minor(syc))
 
   # Alpha
-  sac <- scale_alpha_continuous(breaks=NA)
-  scale_train(sac,1:3)
+  sac <- scale_alpha_continuous(breaks = NA)
+  scale_train(sac, 1:3)
   expect_error(scale_breaks(sac))
 
   # Size
-  ssc <- scale_size_continuous(breaks=NA)
-  scale_train(ssc,1:3)
+  ssc <- scale_size_continuous(breaks = NA)
+  scale_train(ssc, 1:3)
   expect_error(scale_breaks(ssc))
 
   # Fill
-  sfc <- scale_fill_continuous(breaks=NA)
-  scale_train(sfc,1:3)
+  sfc <- scale_fill_continuous(breaks = NA)
+  scale_train(sfc, 1:3)
   expect_error(scale_breaks(sfc))
 
   # Colour
-  scc <- scale_colour_continuous(breaks=NA)
-  scale_train(scc,1:3)
+  scc <- scale_colour_continuous(breaks = NA)
+  scale_train(scc, 1:3)
   expect_error(scale_breaks(scc))
 
 })

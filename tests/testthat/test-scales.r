@@ -97,15 +97,15 @@ test_that("position scales generate after stats", {
 })
 
 test_that("oob affects position values", {
-  dat <- data.frame(x=c("a", "b", "c"), y=c(1, 5, 10))
-  base <- ggplot(dat, aes(x=x, y=y)) +
-    geom_bar(stat="identity") +
+  dat <- data.frame(x = c("a", "b", "c"), y = c(1, 5, 10))
+  base <- ggplot(dat, aes(x, y)) +
+    geom_bar(stat = "identity") +
     annotate("point", x = "a", y = c(-Inf, Inf))
 
   y_scale <- function(limits, oob = censor) {
     scale_y_continuous(limits = limits, oob = oob, expand = c(0, 0))
   }
-  base + scale_y_continuous(limits=c(-0,5))
+  base + scale_y_continuous(limits = c(-0,5))
 
   expect_warning(low_censor <- cdata(base + y_scale(c(0, 5), censor)),
     "Removed 1 rows containing missing values")

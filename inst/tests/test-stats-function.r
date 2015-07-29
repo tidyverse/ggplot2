@@ -10,10 +10,14 @@ context("stat-function")
 
 test_that("stat-function", {
 
-  full_scales <- list(x = scale_x_continuous(limits=c(0.1,100)),
-                      y = scale_y_continuous())
-  full_scales_log <- list(x = scale_x_log10(limits=c(0.1,100)),
-                          y = scale_y_continuous())
+  full_scales <- list(
+    x = scale_x_continuous(limits = c(0.1, 100)),
+    y = scale_y_continuous()
+  )
+  full_scales_log <- list(
+    x = scale_x_log10(limits = c(0.1, 100)),
+    y = scale_y_continuous()
+  )
 
   dat <- data.frame(x = c(0.1,1:100))
   dat$y <- dexp(dat$x)

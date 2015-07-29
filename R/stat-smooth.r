@@ -92,7 +92,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     se = TRUE, n = 80, fullrange = FALSE, xseq = NULL, level = 0.95,
     na.rm = FALSE, ...)
   {
-    data <- remove_missing(data, na.rm, c("x", "y"), name="stat_smooth")
+    data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_smooth")
     if (length(unique(data$x)) < 2) {
       # Not enough data to perform fit
       return(data.frame())
@@ -111,7 +111,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         if (fullrange) {
           range <- scale_dimension(scales$x, c(0, 0))
         } else {
-          range <- range(data$x, na.rm=TRUE)
+          range <- range(data$x, na.rm = TRUE)
         }
         xseq <- seq(range[1], range[2], length.out = n)
       }
@@ -119,7 +119,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     if (is.character(method)) method <- match.fun(method)
 
     method.special <- function(...)
-      method(formula, data=data, weights=weight, ...)
+      method(formula, data = data, weights = weight, ...)
     model <- safe.call(method.special, list(...), names(formals(method)))
 
     predictdf(model, xseq, se, level)

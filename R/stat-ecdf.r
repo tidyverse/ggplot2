@@ -17,9 +17,9 @@
 #'
 #' ggplot(df, aes(x, colour = g)) + stat_ecdf()
 #' }
-stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step",
-  position = "identity", n = NULL, show.legend = NA, inherit.aes = TRUE, ...)
-{
+stat_ecdf <- function(mapping = NULL, data = NULL, geom = "step",
+                      position = "identity", n = NULL, show.legend = NA,
+                      inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

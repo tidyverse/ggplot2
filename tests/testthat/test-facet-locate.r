@@ -122,7 +122,7 @@ test_that("grid: facet order follows default data frame order", {
   # BCA for rows 1:3
   # acb for cols 1:3
   lay <- get_layout(ggplot(mapping = aes(x, y)) + facet_grid(fy ~ fx) +
-    geom_blank(data = d2) + geom_point(data=d))
+    geom_blank(data = d2) + geom_point(data = d))
   expect_equal(as.character(lay$fy), c("B","C","A")[lay$ROW])
   expect_equal(as.character(lay$fx), c("a","c","b")[lay$COL])
 
@@ -138,24 +138,24 @@ test_that("grid: facet order follows default data frame order", {
 test_that("wrap: facet order follows default data frame order", {
   # Facets should be in order:
   # cba for panels 1:3
-  lay <- get_layout(ggplot(d, aes(x, y)) + facet_wrap(~ fx) + geom_point())
+  lay <- get_layout(ggplot(d, aes(x, y)) + facet_wrap(~fx) + geom_point())
   expect_equal(as.character(lay$fx), c("c","b","a")[lay$PANEL])
 
   # When adding d2, facets should still be in order:
   # cba for panels 1:3
-  lay <- get_layout(ggplot(d, aes(x, y)) + facet_wrap(~ fx) +
+  lay <- get_layout(ggplot(d, aes(x, y)) + facet_wrap(~fx) +
     geom_blank(data = d2) + geom_point())
   expect_equal(as.character(lay$fx), c("c","b","a")[lay$PANEL])
 
   # With no default data: should search each layer in order
   # acb for panels 1:3
-  lay <- get_layout(ggplot(mapping = aes(x, y)) + facet_wrap(~ fx) +
-    geom_blank(data = d2) + geom_point(data=d))
+  lay <- get_layout(ggplot(mapping = aes(x, y)) + facet_wrap(~fx) +
+    geom_blank(data = d2) + geom_point(data = d))
   expect_equal(as.character(lay$fx), c("a","c","b")[lay$PANEL])
 
   # Same as previous, but different layer order.
   # cba for panels 1:3
-  lay <- get_layout(ggplot(mapping = aes(x, y)) + facet_wrap(~ fx) +
+  lay <- get_layout(ggplot(mapping = aes(x, y)) + facet_wrap(~fx) +
     geom_point(data = d) + geom_blank(data = d2))
   expect_equal(as.character(lay$fx), c("c","b","a")[lay$PANEL])
 

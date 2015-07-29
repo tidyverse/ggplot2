@@ -351,7 +351,7 @@ theme <- function(..., complete = FALSE, validate = TRUE) {
   elements <- list(...)
 
   # Check that all elements have the correct class (element_text, unit, etc)
-  if(validate){
+  if (validate) {
     mapply(validate_element, elements, names(elements))
   }
 
@@ -488,7 +488,7 @@ update_theme <- function(oldtheme, newtheme) {
 
   # These are elements in newtheme that aren't already set in oldtheme.
   # They will be pulled from the default theme.
-  newitems <- ! names(newtheme) %in% names(oldtheme)
+  newitems <- !names(newtheme) %in% names(oldtheme)
   newitem_names <- names(newtheme)[newitems]
   oldtheme[newitem_names] <- theme_get()[newitem_names]
 

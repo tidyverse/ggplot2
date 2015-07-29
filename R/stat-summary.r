@@ -113,9 +113,9 @@
 #' m2 + coord_trans(y="log10")
 #' }
 #' }
-stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
-{
+stat_summary <- function(mapping = NULL, data = NULL, geom = "pointrange",
+                         position = "identity", show.legend = NA,
+                         inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

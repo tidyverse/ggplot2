@@ -4,9 +4,9 @@
 #'  \item{prop}{percent of points in that panel at that position}
 #' @export
 #' @rdname geom_count
-stat_sum <- function (mapping = NULL, data = NULL, geom = "point",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
-{
+stat_sum <- function(mapping = NULL, data = NULL, geom = "point",
+                     position = "identity", show.legend = NA,
+                     inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

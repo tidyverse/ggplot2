@@ -51,10 +51,10 @@ PositionJitter <- ggproto("PositionJitter", Position,
 
     trans_x <- NULL
     trans_y <- NULL
-    if(self$width > 0) {
+    if (self$width > 0) {
       trans_x <- function(x) jitter(x, amount = self$width)
     }
-    if(self$height > 0) {
+    if (self$height > 0) {
       trans_y <- function(x) jitter(x, amount = self$height)
     }
 

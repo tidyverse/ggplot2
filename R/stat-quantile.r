@@ -9,10 +9,10 @@
 #'   \item{quantile}{quantile of distribution}
 #' @export
 #' @rdname geom_quantile
-stat_quantile <- function (mapping = NULL, data = NULL, geom = "quantile",
-  position = "identity", quantiles = c(0.25, 0.5, 0.75), formula = NULL,
-  method = "rq", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
-{
+stat_quantile <- function(mapping = NULL, data = NULL, geom = "quantile",
+                          position = "identity", quantiles = c(0.25, 0.5, 0.75),
+                          formula = NULL, method = "rq", na.rm = FALSE,
+                          show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

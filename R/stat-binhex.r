@@ -25,10 +25,9 @@
 #' d + stat_binhex(binwidth = c(1, 1000))
 #' d + stat_binhex(binwidth = c(.1, 500))
 #' }
-stat_binhex <- function (mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", bins = 30, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
-{
+stat_binhex <- function(mapping = NULL, data = NULL, geom = "hex",
+                        position = "identity", bins = 30, na.rm = FALSE,
+                        show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -55,7 +54,7 @@ StatBinhex <- ggproto("StatBinhex", Stat,
   required_aes = c("x", "y"),
 
   calculate = function(data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, c("x", "y"), name="stat_hexbin")
+    data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_hexbin")
 
     if (is.null(binwidth)) {
       binwidth <- c(
@@ -92,13 +91,13 @@ hexBin <- function(x, y, binwidth) {
   # Call hexbin
   hb <- hexbin::hexbin(
     x, xbnds = xbnds, xbins = xbins,
-    y, ybnds = ybnds, shape = ybins / xbins,
+    y, ybnds = ybnds, shape = ybins / xbins
   )
 
   # Convert to data frame
   data.frame(
     hexbin::hcell2xy(hb),
     count = hb@count,
-    density = hb@count / sum(hb@count, na.rm=TRUE)
+    density = hb@count / sum(hb@count, na.rm = TRUE)
   )
 }

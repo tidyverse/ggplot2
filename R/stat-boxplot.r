@@ -43,7 +43,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
 
   calculate_groups = function(self, data, na.rm = FALSE, width = NULL, ...)
   {
-    data <- remove_missing(data, na.rm, c("x", "y", "weight"), name="stat_boxplot",
+    data <- remove_missing(data, na.rm, c("x", "y", "weight"), name = "stat_boxplot",
       finite = TRUE)
     data$weight <- data$weight %||% 1
     width <- width %||%  resolution(data$x) * 0.75
