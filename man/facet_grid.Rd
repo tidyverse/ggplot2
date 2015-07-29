@@ -154,10 +154,8 @@ ggplot(mpg, aes(cty, model)) +
   geom_point() +
   facet_grid(manufacturer ~ ., scales = "free", space = "free")
 # particularly when you reorder factor levels
-mpg <- within(mpg, {
-  model <- reorder(model, cty)
-  manufacturer <- reorder(manufacturer, cty)
-})
+mpg$model <- reorder(mpg$model, mpg$cty)
+manufacturer <- reorder(mpg$manufacturer, mpg$cty)
 last_plot() \%+\% mpg + theme(strip.text.y = element_text())
 
 # Use as.table to to control direction of horizontal facets, TRUE by default

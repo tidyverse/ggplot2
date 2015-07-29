@@ -64,7 +64,7 @@ d + stat_summary2d()
 # Specifying function
 d + stat_summary2d(fun = function(x) sum(x^2))
 d + stat_summary2d(fun = var)
-d + stat_summary_hex(fun = "quantile", fun.args = list(probs = 0.1))
+d + stat_summary2d(fun = "quantile", fun.args = list(probs = 0.1))
 }
 }
 \seealso{

@@ -125,12 +125,12 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
     return(results)
   }
 
-  res <- within(results, {
-    count[is.na(count)] <- 0
-    density <- count / width / sum(abs(count), na.rm = TRUE)
-    ncount <- count / max(abs(count), na.rm = TRUE)
-    ndensity <- density / max(abs(density), na.rm = TRUE)
-  })
-  if (drop) res <- subset(res, count > 0)
-  res
+  results$count[is.na(results$count)] <- 0
+  results$density <- results$count / results$width / sum(abs(results$count), na.rm = TRUE)
+  results$ncount <- results$count / max(abs(results$count), na.rm = TRUE)
+  results$ndensity <- results$density / max(abs(results$density), na.rm = TRUE)
+  if (drop) {
+    results <- results[results$count > 0, , drop = FALSE]
+  }
+  results
 }

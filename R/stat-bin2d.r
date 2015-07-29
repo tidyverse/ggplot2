@@ -96,16 +96,15 @@ StatBin2d <- ggproto("StatBin2d", Stat,
       xtabs(weight ~ xbin + ybin, data), responseName = "count")
     if (drop) counts <- subset(counts, count > 0)
 
-    within(counts,{
-      xint <- as.numeric(xbin)
-      xmin <- breaks$x[xint]
-      xmax <- breaks$x[xint + 1]
+    counts$xint <- as.numeric(counts$xbin)
+    counts$xmin <- breaks$x[counts$xint]
+    counts$xmax <- breaks$x[counts$xint + 1]
 
-      yint <- as.numeric(ybin)
-      ymin <- breaks$y[yint]
-      ymax <- breaks$y[yint + 1]
+    counts$yint <- as.numeric(counts$ybin)
+    counts$ymin <- breaks$y[counts$yint]
+    counts$ymax <- breaks$y[counts$yint + 1]
 
-      density <- count / sum(count, na.rm = TRUE)
-    })
+    counts$density <- counts$count / sum(counts$count, na.rm = TRUE)
+    counts
   }
 )

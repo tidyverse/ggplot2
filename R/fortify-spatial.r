@@ -55,12 +55,11 @@ fortify.Polygons <- function(model, data, ...) {
     df
   })
 
-  within(pieces,{
-    order <- 1:nrow(pieces)
-    id <- model@ID
-    piece <- factor(piece)
-    group <- interaction(id, piece)
-  })
+  pieces$order <- 1:nrow(pieces)
+  pieces$id <- model@ID
+  pieces$piece <- factor(pieces$piece)
+  pieces$group <- interaction(pieces$id, pieces$piece)
+  pieces
 }
 
 #' @rdname fortify.sp
@@ -92,12 +91,11 @@ fortify.Lines <- function(model, data, ...) {
     df
   })
 
-  within(pieces,{
-    order <- 1:nrow(pieces)
-    id <- model@ID
-    piece <- factor(piece)
-    group <- interaction(id, piece)
-  })
+  pieces$order <- 1:nrow(pieces)
+  pieces$id <- model@ID
+  pieces$piece <- factor(pieces$piece)
+  pieces$group <- interaction(pieces$id, pieces$piece)
+  pieces
 }
 
 #' @rdname fortify.sp

@@ -76,11 +76,11 @@ pos_stack <- function(df, width) {
 # Stack overlapping intervals and set height to 1.
 # Assumes that each set has the same horizontal position.
 pos_fill <- function(df, width) {
-  within(pos_stack(df, width), {
-    ymin <- ymin / max(ymax)
-    ymax <- ymax / max(ymax)
-    y <- ymax
-  })
+  stacked <- pos_stack(df, width)
+  stacked$ymin <- stacked$ymin / max(stacked$ymax)
+  stacked$ymax <- stacked$ymax / max(stacked$ymax)
+  stacked$y <- stacked$ymax
+  stacked
 }
 
 # Dodge overlapping interval.

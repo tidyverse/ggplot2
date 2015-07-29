@@ -27,7 +27,7 @@
 #' # Specifying function
 #' d + stat_summary2d(fun = function(x) sum(x^2))
 #' d + stat_summary2d(fun = var)
-#' d + stat_summary_hex(fun = "quantile", fun.args = list(probs = 0.1))
+#' d + stat_summary2d(fun = "quantile", fun.args = list(probs = 0.1))
 #' }
 stat_summary2d <- function(mapping = NULL, data = NULL, geom = "rect",
                            position = "identity", bins = 30, drop = TRUE,
@@ -123,14 +123,13 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
     })
     if (drop) ans <- stats::na.omit(ans)
 
-    within(ans,{
-      xint <- as.numeric(xbin)
-      xmin <- breaks$x[xint]
-      xmax <- breaks$x[xint + 1]
+    ans$xint <- as.numeric(ans$xbin)
+    ans$xmin <- breaks$x[ans$xint]
+    ans$xmax <- breaks$x[ans$xint + 1]
 
-      yint <- as.numeric(ybin)
-      ymin <- breaks$y[yint]
-      ymax <- breaks$y[yint + 1]
-    })
+    ans$yint <- as.numeric(ans$ybin)
+    ans$ymin <- breaks$y[ans$yint]
+    ans$ymax <- breaks$y[ans$yint + 1]
+    ans
   }
 )
