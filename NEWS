@@ -1,6 +1,28 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `facet_wrap()` gains a `labeller` option. (@lionel-, #25)
+
+* The labeller API has been updated to offer more control when
+  facetting over multiple factors (e.g. with formulae such as `~cyl +
+  am`). Before, a labeller function would take `variable` and `value`
+  arguments and return a character vector. Now, they take a data frame
+  of character vectors and return a list. The input data frame has one
+  column per factor facetted over. Each column in the returned list
+  becomes one line in the strip label. See documentation for more
+  details. Labellers offer the `multi_line` argument to control
+  whether to display one or multiple lines. Furthermore, referring to
+  `x` in backquoted expressions with `label_bquote()` is
+  deprecated. You can now refer to the variable names
+  instead. (@lionel-)
+
+* There is a new labeller `label_context()`. Its behaviour depends on
+  the number of factors facetted over. With a single factor, it
+  displays only the values, just as before. But with multiple factors
+  (e.g. with formulae such as `~cyl + am`), the labels are dispatched
+  to `label_both()` to display both the variables and the values and
+  make the plot clearer. (@lionel-)
+
 * `show_guide` has been renamed to `show.legend`: this more accurately
   reflects what it does (control appearance in legend), and uses the same
   convention as other ggplot2 arguments (i.e. a `.` between names).
@@ -2309,4 +2331,3 @@ ggplot2 0.5
   the aesthetics is a categorical variable.This behaviour is defined in the
   Grammar of Graphics, and makes things like qplot(wt, data=mtcars,
   geom="density", colour=factor(cyl)) work nicely
-  

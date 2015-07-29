@@ -3,6 +3,7 @@
 \name{geom_histogram}
 \alias{geom_freqpoly}
 \alias{geom_histogram}
+\alias{stat_bin}
 \title{Histograms and frequency polygons.}
 \usage{
 geom_histogram(mapping = NULL, data = NULL, stat = "bin",
@@ -12,9 +13,10 @@ geom_histogram(mapping = NULL, data = NULL, stat = "bin",
 geom_freqpoly(mapping = NULL, data = NULL, stat = "bin",
   position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 
-geom_histogram(mapping = NULL, data = NULL, stat = "bin",
-  binwidth = NULL, bins = NULL, origin = NULL, right = FALSE,
-  position = "stack", show.legend = NA, inherit.aes = TRUE, ...)
+stat_bin(mapping = NULL, data = NULL, geom = "bar", position = "stack",
+  width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL,
+  bins = NULL, origin = NULL, breaks = NULL, show.legend = NA,
+  inherit.aes = TRUE, ......)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -23,6 +25,17 @@ at the layer level if you are overriding the plot defaults.}
 
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
+
+\item{binwidth}{Bin width to use. Defaults to 1/\code{bins} of the range of
+the data}
+
+\item{bins}{Number of bins. Overridden by \code{binwidth} or \code{breaks}.
+Defaults to 30}
+
+\item{origin}{Origin of first bin}
+
+\item{right}{If \code{TRUE}, right-closed, left-open, if \code{FALSE},
+the default, right-open, left-closed.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -50,14 +63,21 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{geom,stat}{Use to override the default connection between
 \code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.}
 
-\item{geom,stat}{Use to override the default connection between
-\code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.}
+\item{width}{Width of bars when used with categorical data}
+
+\item{drop}{If TRUE, remove all bins with zero counts}
+
+\item{breaks}{Actual breaks to use. Overrides bin width, bin number and
+origin}
+}
+\value{
+New data frame with additional columns:
+  \item{count}{number of points in bin}
+  \item{density}{density of points in bin, scaled to integrate to 1}
+  \item{ncount}{count, scaled to maximum of 1}
+  \item{ndensity}{density, scaled to maximum of 1}
 }
 \description{
-Display a 1d distribution by dividing into bins and counting the number
-of observations in each bin. Histograms use bars; frequency polygons use
-lines.
-
 Display a 1d distribution by dividing into bins and counting the number
 of observations in each bin. Histograms use bars; frequency polygons use
 lines.
@@ -66,76 +86,13 @@ lines.
 By default, \code{stat_bin} uses 30 bins - this is not a good default,
 but the idea is to get you experimenting with different binwidths. You
 may need to look at a few to uncover the full story behind your data.
-
-By default, \code{stat_bin} uses 30 bins - this is not a good default,
-but the idea is to get you experimenting with different binwidths. You
-may need to look at a few to uncover the full story behind your data.
 }
-\section{Aesthetics}{
-
-\code{geom_histogram} uses the same aesthetics as \code{geom_bar};
-\code{geom_freqpoly} uses the same aesthetics as \code{geom_line}.
-}
-
 \section{Aesthetics}{
 
 \code{geom_histogram} uses the same aesthetics as \code{geom_bar};
 \code{geom_freqpoly} uses the same aesthetics as \code{geom_line}.
 }
 \examples{
-ggplot(diamonds, aes(carat)) +
-  geom_histogram()
-ggplot(diamonds, aes(carat)) +
-  geom_histogram(binwidth = 0.01)
-ggplot(diamonds, aes(carat)) +
-  geom_histogram(bins = 200)
-
-# Rather than stacking histograms, it's easier to compare frequency
-# polygons
-ggplot(diamonds, aes(price, fill = cut)) +
-  geom_histogram(binwidth = 500)
-ggplot(diamonds, aes(price, colour = cut)) +
-  geom_freqpoly(binwidth = 500)
-
-# To make it easier to compare distributions with very different counts,
-# put density on the y axis instead of the default count
-ggplot(diamonds, aes(price, ..density.., colour = cut)) +
-  geom_freqpoly(binwidth = 500)
-
-if (require("ggplot2movies")) {
-# Often we don't want the height of the bar to represent the
-# count of observations, but the sum of some other variable.
-# For example, the following plot shows the number of movies
-# in each rating.
-m <- ggplot(movies, aes(rating))
-m + geom_bar(binwidth = 0.1)
-
-# If, however, we want to see the number of votes cast in each
-# category, we need to weight by the votes variable
-m + geom_bar(aes(weight = votes), binwidth = 0.1) + ylab("votes")
-
-# For transformed scales, binwidth applies to the transformed data.
-# The bins have constant width on the transformed scale.
-m + geom_histogram() + scale_x_log10()
-m + geom_histogram(binwidth = 0.05) + scale_x_log10()
-
-# For transformed coordinate systems, the binwidth applies to the
-# raw data. The bins have constant width on the original scale.
-
-# Using log scales does not work here, because the first
-# bar is anchored at zero, and so when transformed becomes negative
-# infinity. This is not a problem when transforming the scales, because
-# no observations have 0 ratings.
-m + geom_histogram(origin = 0) + coord_trans(x = "log10")
-# Use origin = 0, to make sure we don't take sqrt of negative values
-m + geom_histogram(origin = 0) + coord_trans(x = "sqrt")
-
-# You can also transform the y axis.  Remember that the base of the bars
-# has value 0, so log transformations are not appropriate
-m <- ggplot(movies, aes(x = rating))
-m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
-}
-rm(movies)
 ggplot(diamonds, aes(carat)) +
   geom_histogram()
 ggplot(diamonds, aes(carat)) +
