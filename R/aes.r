@@ -102,15 +102,16 @@ is_position_aes <- function(vars) {
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms. \code{\link{aes}} uses non-standard
-#' evaluation to capture the variable names. \code{aes_q} and \code{aes_string}
+#' evaluation to capture the variable names. \code{aes_} and \code{aes_string}
 #' require you to explicitly quote the inputs either with \code{""} for
-#' \code{aes_string()}, or with \code{quote} or \code{~} for \code{aes_q()}.
+#' \code{aes_string()}, or with \code{quote} or \code{~} for \code{aes_()}.
+#' (\code{aes_q} is an alias to \code{aeq_})
 #'
 #' It's better to use \code{aes_q()}, because there's no easy way to create the
 #' equivalent to \code{aes(colour = "my colour")} or \code{aes{x = `X$1`}}
 #' with \code{aes_string()}.
 #'
-#' \code{aes_string} and \code{aes_q} are particularly useful when writing
+#' \code{aes_string} and \code{aes_} are particularly useful when writing
 #' functions that create plots because you can use strings or quoted
 #' names/calls to define the aesthetic mappings, rather than having to use
 #' \code{\link{substitute}} to generate a call to \code{aes()}.
@@ -122,21 +123,21 @@ is_position_aes <- function(vars) {
 #' @examples
 #' # Three ways of generating the same aesthetics
 #' aes(mpg, wt, col = cyl)
-#' aes_q(quote(mpg), quote(wt), col = quote(cyl))
-#' aes_q(~mpg, ~wt, col = ~cyl)
+#' aes_(quote(mpg), quote(wt), col = quote(cyl))
+#' aes_(~mpg, ~wt, col = ~cyl)
 #' aes_string("mpg", "wt", col = "cyl")
 #'
 #' # You can't easily mimic these calls with aes_string
 #' aes(`$100`, colour = "smooth")
-#' aes_q(~ `$100`, colour = "smooth")
+#' aes_(~ `$100`, colour = "smooth")
 #' # Ok, you can, but it requires a _lot_ of quotes
 #' aes_string("`$100`", colour = '"smooth"')
 #'
 #' # Convert strings to names with as.name
 #' var <- "cyl"
 #' aes(col = x)
-#' aes_q(col = as.name(var))
-aes_q <- function(x, y, ...) {
+#' aes_(col = as.name(var))
+aes_ <- function(x, y, ...) {
   mapping <- list(...)
   if (!missing(x)) mapping["x"] <- list(x)
   if (!missing(y)) mapping["y"] <- list(y)
@@ -155,7 +156,7 @@ aes_q <- function(x, y, ...) {
   structure(rename_aes(mapping), class = "uneval")
 }
 
-#' @rdname aes_q
+#' @rdname aes_
 #' @export
 aes_string <- function(x, y, ...) {
   mapping <- list(...)
@@ -171,6 +172,10 @@ aes_string <- function(x, y, ...) {
   })
   structure(rename_aes(mapping), class = "uneval")
 }
+
+#' @export
+#' @rdname aes_
+aes_q <- aes_
 
 #' Given a character vector, create a set of identity mappings
 #'

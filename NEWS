@@ -5,9 +5,9 @@ ggplot2 1.0.1.9xxx
   `date_labels` arguments so that you never need to use the long form
   `scales::date_breaks()` or `scales::date_format()`.
 
-* `aes_auto()` has been deprecated. `aes_q()` can now use formulas, so
-  the most concise SE version of `aes(carat, price)` is now
-  `aes_q(~carat, ~price)`.
+* `aes_auto()` has been deprecated. `aes_()` added as alias to old `aes_q()`.
+  `aes_()` can now use formulas, so the most concise SE version of
+  `aes(carat, price)` is now `aes_(~carat, ~price)`.
 
 * New dataset `economics_long` is the economics data in long form.
 
