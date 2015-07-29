@@ -84,6 +84,7 @@ NULL
 #' @rdname labellers
 #' @export
 label_value <- function(labels, multi_line = TRUE) {
+  labels <- lapply(labels, as.character)
   if (multi_line) {
     labels
   } else {
