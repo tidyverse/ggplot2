@@ -195,10 +195,14 @@ summarise_by_x <- function(data, summary, ...) {
 NULL
 
 wrap_hmisc <- function(fun) {
-  function(x, ...) {
-    try_require("Hmisc", "fun")
 
+  function(x, ...) {
+    if (!requireNamespace("Hmisc", quietly = TRUE))
+      stop("Hmisc package required for this function", call. = FALSE)
+
+    fun <- getExportedValue("Hmisc", fun)
     result <- safe.call(fun, list(x = x, ...))
+
     plyr::rename(
       data.frame(t(result)),
       c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax"),
