@@ -88,8 +88,7 @@ p + scale_fill_brewer(direction = -1)
 p + scale_fill_brewer(direction = -1) + theme_dark()
 
 # Generate map data
-library(reshape2) # for melt
-volcano3d <- melt(volcano)
+volcano3d <- reshape2::melt(volcano)
 names(volcano3d) <- c("x", "y", "z")
 
 # Basic plot

@@ -35,13 +35,11 @@ a + geom_bar(aes(fill = factor(cyl)))
 a + geom_bar(aes(fill = factor(vs)))
 
 # Using linetypes
-library(reshape2) # for melt
-library(plyr) # for colwise
 rescale01 <- function(x) (x - min(x)) / diff(range(x))
 ec_scaled <- data.frame(
   date = economics$date,
-  colwise(rescale01)(economics[, -(1:2)]))
-ecm <- melt(ec_scaled, id.vars = "date")
+  plyr::colwise(rescale01)(economics[, -(1:2)]))
+ecm <- reshape2::melt(ec_scaled, id.vars = "date")
 f <- ggplot(ecm, aes(date, value))
 f + geom_line(aes(linetype = variable))
 
@@ -56,8 +54,7 @@ k + facet_grid(. ~ cut)
 # occasions (Occasion).
 
 # Multiple groups with one aesthetic
-library(nlme)
-h <- ggplot(Oxboys, aes(age, height))
+h <- ggplot(nlme::Oxboys, aes(age, height))
 # A single line tries to connect all the observations
 h + geom_line()
 # The group aesthetic maps a different line for each subject

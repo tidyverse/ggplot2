@@ -97,35 +97,12 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   facet_wrap(~class)
 
-\dontrun{
 # Use `switch` to display the facet labels near an axis, acting as
 # a subtitle for this axis. This is typically used with free scales
 # and a theme without boxes around strip labels.
-library("dplyr")
-library("tidyr")
-data <- mtcars \%>\%
-  mutate(Logarithmic = log(mpg),
-         Inverse = 1/mpg,
-         Quadratic = mpg^2,
-         Original = mpg) \%>\%
-  gather(mpg_trans, mpg2, Logarithmic:Original)
-p <- ggplot(data, aes(mpg, disp)) + geom_point()
-
-p + aes(x = mpg2) +
-  facet_wrap(~ mpg_trans, ncol = 2, scales = "free", switch = "x") +
-  theme() \%+replace\% theme(strip.background = element_blank())
-
-
-data <- data \%>\%
-  mutate(Logarithmic = log(disp),
-         Inverse = 1/disp,
-         Quadratic = disp^2,
-         Original = disp) \%>\%
-  gather(dpg_trans, disp2, Logarithmic:Original)
-
-p \%+\% data + aes(y = disp2) +
-  facet_wrap(~ dpg_trans, ncol = 2, scales = "free", switch = "y") +
-  theme_minimal()
-}
+ggplot(economics_long, aes(date, value)) +
+  geom_line() +
+  facet_wrap(~variable, scales = "free_y", nrow = 2, switch = "x") +
+  theme(strip.background = element_blank())
 }
 

@@ -48,14 +48,17 @@ These tick marks probably make sense only for base 10.
 }
 \examples{
 # Make a log-log plot (without log ticks)
-library(MASS)
-library(scales)
-a <- ggplot(Animals, aes(x = body, y = brain)) + geom_point() +
-     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
-                   labels = trans_format("log10", math_format(10^.x))) +
-     scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
-                   labels = trans_format("log10", math_format(10^.x))) +
-     theme_bw()
+a <- ggplot(msleep, aes(bodywt, brainwt)) +
+ geom_point(na.rm = TRUE) +
+ scale_x_log10(
+   breaks = scales::trans_breaks("log10", function(x) 10^x),
+   labels = scales::trans_format("log10", scales::math_format(10^.x))
+ ) +
+ scale_y_log10(
+   breaks = scales::trans_breaks("log10", function(x) 10^x),
+   labels = scales::trans_format("log10", scales::math_format(10^.x))
+ ) +
+ theme_bw()
 
 a + annotation_logticks()                # Default: log ticks on bottom and left
 a + annotation_logticks(sides = "lr")    # Log ticks for y, on left and right
@@ -64,33 +67,29 @@ a + annotation_logticks(sides = "trbl")  # All four sides
 # Hide the minor grid lines because they don't align with the ticks
 a + annotation_logticks(sides = "trbl") + theme(panel.grid.minor = element_blank())
 
-
 # Another way to get the same results as 'a' above: log-transform the data before
-b <- ggplot(Animals, aes(x = log10(body), y = log10(brain))) + geom_point() +
-     scale_x_continuous(name = "body", labels = math_format(10^.x)) +
-     scale_y_continuous(name = "brain", labels = math_format(10^.x)) +
-     theme_bw()+ theme(panel.grid.minor = element_blank())
+# plotting it. Also hide the minor grid lines.
+b <- ggplot(msleep, aes(log10(bodywt), log10(brainwt))) +
+ geom_point(na.rm = TRUE) +
+ scale_x_continuous(name = "body", labels = scales::math_format(10^.x)) +
+ scale_y_continuous(name = "brain", labels = scales::math_format(10^.x)) +
+ theme_bw() + theme(panel.grid.minor = element_blank())
 
 b + annotation_logticks()
 
-
-# This shows log(x) on the axes
-d <- ggplot(Animals, aes(x = log10(body), y = log10(brain))) + geom_point() +
-     theme_bw()
-
-d + annotation_logticks()
-
-
 # Using a coordinate transform requires scaled = FALSE
-t <- ggplot(Animals, aes(x = body, y = brain)) + geom_point() +
-     coord_trans(x = "log10", y = "log10") + theme_bw()
-
+t <- ggplot(msleep, aes(bodywt, brainwt)) +
+  geom_point() +
+  coord_trans(x = "log10", y = "log10") +
+  theme_bw()
 t + annotation_logticks(scaled = FALSE)
 
-
 # Change the length of the ticks
-library(grid)
-a + annotation_logticks(short = unit(.5,"mm"), mid = unit(3,"mm"), long = unit(4,"mm"))
+a + annotation_logticks(
+  short = grid::unit(.5,"mm"),
+  mid = grid::unit(3,"mm"),
+  long = grid::unit(4,"mm")
+)
 }
 \seealso{
 \code{\link{scale_y_continuous}}, \code{\link{scale_y_log10}} for log scale

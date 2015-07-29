@@ -8,7 +8,7 @@ NULL
 #' @param ... other arguments used to modify aesthetics
 #' @export
 #' @examples
-#' library(maps)
+#' if (require("maps")) {
 #' usamap <- map_data("state")
 #'
 #' seal.sub <- subset(seals, long > -130 & lat < 45 & lat > 40)
@@ -24,6 +24,7 @@ NULL
 #'   annotation_map(usamap, fill = "NA", colour = "grey50") +
 #'   geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat)) +
 #'   facet_grid(latr ~ longr, scales = "free", space = "free")
+#' }
 annotation_map <- function(map, ...) {
   # Get map input into correct form
   stopifnot(is.data.frame(map))

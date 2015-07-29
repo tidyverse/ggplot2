@@ -48,9 +48,9 @@
 #' qplot(mpg, wt, data = mtcars, log = "xy")
 #'
 #' xyplot(wt ~ mpg | cyl, mtcars, scales = list(log = 2))
-#' library(scales)  # Load scales for log2_trans
-#' qplot(mpg, wt, data = mtcars) + scale_x_continuous(trans = log2_trans()) +
-#'   scale_y_continuous(trans = log2_trans())
+#' qplot(mpg, wt, data = mtcars) +
+#'   scale_x_continuous(trans = scales::log2_trans()) +
+#'   scale_y_continuous(trans = scales::log2_trans())
 #'
 #' xyplot(wt ~ mpg, mtcars, group = cyl, auto.key = TRUE)
 #' # Map directly to an aesthetic like colour, size, or shape.

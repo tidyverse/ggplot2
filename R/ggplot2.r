@@ -32,7 +32,8 @@ NULL
 #' US economic time series.
 #'
 #' This dataset was produced from US economic time series data available from
-#' \url{http://research.stlouisfed.org/fred2}.
+#' \url{http://research.stlouisfed.org/fred2}. \code{economics} is in "wide"
+#' format, \code{economics_long} is in "long" format.
 #'
 #' @format A data frame with 478 rows and 6 variables
 #' \itemize{
@@ -50,6 +51,9 @@ NULL
 #' }
 #'
 "economics"
+
+#' @rdname economics
+"economics_long"
 
 #' Midwest demographics.
 #'

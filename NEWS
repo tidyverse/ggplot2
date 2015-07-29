@@ -1,6 +1,8 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* New dataset `economics_long` is the economics data in long form.
+
 * `facet_wrap()` gains a `labeller` option. (@lionel-, #25)
 
 * The labeller API has been updated to offer more control when

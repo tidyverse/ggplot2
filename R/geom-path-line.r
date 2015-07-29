@@ -45,9 +45,8 @@
 #' # See ?grid::arrow for more details
 #' c <- ggplot(economics, aes(x = date, y = pop))
 #' # Arrow defaults to "last"
-#' library(grid)
-#' c + geom_line(arrow = arrow())
-#' c + geom_line(arrow = arrow(angle = 15, ends = "both", type = "closed"))
+#' c + geom_line(arrow = grid::arrow())
+#' c + geom_line(arrow = grid::arrow(angle = 15, ends = "both", type = "closed"))
 #'
 #' # See scale_date for examples of plotting multiple times series on
 #' # a single graph
@@ -59,8 +58,7 @@
 #' group <- rep(LETTERS[1:3], each = 100)
 #'
 #' df <- data.frame(id = seq_along(group), group, y2005, y2010)
-#' library(reshape2) # for melt
-#' dfm <- melt(df, id.var = c("id", "group"))
+#' dfm <- reshape2::melt(df, id.var = c("id", "group"))
 #' ggplot(dfm, aes(variable, value, group = id, colour = group)) +
 #'   geom_path(alpha = 0.5)
 geom_line <- function(mapping = NULL, data = NULL, stat = "identity",

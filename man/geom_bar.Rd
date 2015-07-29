@@ -94,9 +94,8 @@ g + geom_bar() +
 g + geom_bar(fill = "white", colour = "darkgreen")
 
 # When the data contains y values in a column, use stat = "identity"
-library(plyr)
 # Calculate the mean mpg for each level of cyl
-mm <- ddply(mtcars, "cyl", summarise, mmpg = mean(mpg))
+mm <- plyr::ddply(mtcars, "cyl", plyr::summarise, mmpg = mean(mpg))
 ggplot(mm, aes(factor(cyl), mmpg)) +
   geom_bar(stat = "identity")
 

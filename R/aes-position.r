@@ -22,13 +22,12 @@
 #'   fill = "dark grey", alpha = .5)
 #'
 #' # Geom_segment examples
-#' library(grid)
 #' p + geom_segment(aes(x = 2, y = 15, xend = 2, yend = 25),
-#'   arrow = arrow(length = unit(0.5, "cm")))
+#'   arrow = grid::arrow(length = grid::unit(0.5, "cm")))
 #' p + geom_segment(aes(x = 2, y = 15, xend = 3, yend = 15),
-#'   arrow = arrow(length = unit(0.5, "cm")))
+#'   arrow = grid::arrow(length = grid::unit(0.5, "cm")))
 #' p + geom_segment(aes(x = 5, y = 30, xend = 3.5, yend = 25),
-#'   arrow = arrow(length = unit(0.5, "cm")))
+#'   arrow = grid::arrow(length = grid::unit(0.5, "cm")))
 #'
 #' # You can also use geom_segment to recreate plot(type = "h") :
 #' counts <- as.data.frame(table(x = rpois(100, 5)))

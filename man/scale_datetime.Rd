@@ -63,14 +63,13 @@ ggplot(df, aes(day, y)) + geom_point()
 ggplot(df, aes(day30, y)) + geom_point()
 
 # Manual scale selection
+last_plot() + scale_x_datetime(breaks = scales::date_breaks("2 weeks"))
+last_plot() + scale_x_datetime(breaks = scales::date_breaks("10 days"))
 library(scales) # to access breaks/formatting functions
-last_plot() + scale_x_datetime(breaks = date_breaks("2 weeks"))
-last_plot() + scale_x_datetime(breaks = date_breaks("10 days"))
-library(scales) # to access breaks/formatting functions
-last_plot() + scale_x_datetime(breaks = date_breaks("10 days"),
-  labels = date_format("\%d/\%m"))
-last_plot() + scale_x_datetime(breaks = date_breaks("1 day"),
-  minor_breaks = date_breaks("2 hour"))
+last_plot() + scale_x_datetime(breaks = scales::date_breaks("10 days"),
+  labels = scales::date_format("\%d/\%m"))
+last_plot() + scale_x_datetime(breaks = scales::date_breaks("1 day"),
+  minor_breaks = scales::date_breaks("2 hour"))
 }
 \seealso{
 Other position scales: \code{\link{scale_x_continuous}},

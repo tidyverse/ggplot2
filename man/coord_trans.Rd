@@ -68,14 +68,12 @@ ggplot(d, aes(carat, price)) +
 
 # With a combination of scale and coordinate transformation, it's
 # possible to do back-transformations:
-library(scales)
 ggplot(diamonds, aes(carat, price)) +
   geom_point() +
   geom_smooth(method = "lm") +
   scale_x_log10() +
   scale_y_log10() +
-  coord_trans(x = exp_trans(10),
-              y = exp_trans(10))
+  coord_trans(x = scales::exp_trans(10), y = scales::exp_trans(10))
 
 # cf.
 ggplot(diamonds, aes(carat, price)) +

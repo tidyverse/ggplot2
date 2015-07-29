@@ -48,16 +48,19 @@ dt <- ggplot(df, aes(date, price)) +
 # We can control the format of the labels, and the frequency of
 # the major and minor tickmarks.  See ?format.Date and ?seq.Date
 # for more details.
-library(scales) # to access breaks/formatting functions
 dt + scale_x_date()
-dt + scale_x_date(labels = date_format("\%m/\%d"))
-dt + scale_x_date(labels = date_format("\%W"))
-dt + scale_x_date(labels = date_format("\%W"), breaks = date_breaks("week"))
+dt + scale_x_date(labels = scales::date_format("\%m/\%d"))
+dt + scale_x_date(labels = scales::date_format("\%W"))
+dt + scale_x_date(labels = scales::date_format("\%W"), breaks = scales::date_breaks("week"))
 
-dt + scale_x_date(breaks = date_breaks("months"),
-  labels = date_format("\%b"))
-dt + scale_x_date(breaks = date_breaks("4 weeks"),
-  labels = date_format("\%d-\%b"))
+dt + scale_x_date(
+  breaks = scales::date_breaks("months"),
+  labels = scales::date_format("\%b")
+)
+dt + scale_x_date(
+  breaks = scales::date_breaks("4 weeks"),
+  labels = scales::date_format("\%d-\%b")
+)
 
 # We can use character string for breaks.
 # See \\code{\\link{by}} argument in \\code{\\link{seq.Date}}.
@@ -87,8 +90,7 @@ last_plot() + scale_x_date(limits = c(as.Date("2006-1-1"), end))
 # If we want to display multiple series, one for each variable
 # it's easiest to first change the data from a "wide" to a "long"
 # format:
-library(reshape2) # for melt
-em <- melt(economics, id.vars = "date")
+em <- reshape2::melt(economics, id.vars = "date")
 
 # Then we can group and facet by the new "variable" variable
 (p <- ggplot(em, aes(date, value)) + geom_line(aes(group = variable)))
