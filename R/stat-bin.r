@@ -19,7 +19,7 @@
 stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
   position = "stack", width = 0.9, drop = FALSE, right = FALSE,
   binwidth = NULL, bins = NULL, origin = NULL, breaks = NULL,
-  show.legend = NA, inherit.aes = TRUE, ......)
+  show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
     data = data,
