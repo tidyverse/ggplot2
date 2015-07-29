@@ -1,33 +1,7 @@
-#' Connect observations by stairs.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "step")}
-#'
-#' @inheritParams geom_point
 #' @param direction direction of stairs: 'vh' for vertical then horizontal, or
 #'   'hv' for horizontal then vertical
 #' @export
-#' @examples
-#' # Simple quantiles/ECDF from examples(plot)
-#' set.seed(1492)
-#' df <- data.frame(
-#'   x = sort(rnorm(47))
-#' )
-#' ggplot(df, aes(seq_along(x), x)) + geom_step()
-#'
-#' # Steps go horizontally, then vertically (default)
-#' ggplot(df, aes(seq_along(x), x)) + geom_step(direction = "hv")
-#' plot(df$x, type = "s")
-#' # Steps go vertically, then horizontally
-#' ggplot(df, aes(seq_along(x), x)) + geom_step(direction = "vh")
-#' plot(df$x, type = "S")
-#'
-#' # Also works with other aesthetics
-#' df <- data.frame(
-#'   x = sort(rnorm(50)),
-#'   trt = sample(c("a", "b"), 50, rep = TRUE)
-#' )
-#' ggplot(df, aes(seq_along(x), x)) + geom_step(aes(colour = trt))
+#' @rdname geom_path
 geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "identity", direction = "hv",
                       show.legend = NA, inherit.aes = TRUE, ...) {

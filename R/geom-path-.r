@@ -1,4 +1,9 @@
-#' Connect observations in original order
+#' Connect observations.
+#'
+#' \code{geom_path()} connects the observations in the order in which they appear
+#' in the data. \code{geom_line()} connects them in order of the variable on the
+#' x axis. \code{geom_step()} creates a stairstep plot, highlighting exactly
+#' when changes occur.
 #'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "path")}
@@ -8,28 +13,39 @@
 #' @param linejoin Line join style (round, mitre, bevel)
 #' @param linemitre Line mitre limit (number greater than 1)
 #' @param arrow Arrow specification, as created by ?grid::arrow
-#' @seealso \code{\link{geom_line}}: Functional (ordered) lines;
+#' @seealso
 #'  \code{\link{geom_polygon}}: Filled paths (polygons);
 #'  \code{\link{geom_segment}}: Line segments
 #' @export
 #' @examples
-#' \donttest{
-#' # Generate data
-#' if (require("ggplot2movies")) {
-#' myear <- plyr::ddply(movies, "year", plyr::colwise(mean, c("length", "rating")))
-#' p <- ggplot(myear, aes(length, rating))
-#' p + geom_path()
+#' # geom_line() is suitable for time series
+#' ggplot(economics, aes(date, unemploy)) + geom_line()
+#' ggplot(economics_long, aes(date, value01, colour = variable)) +
+#'   geom_line()
 #'
-#' # Add aesthetic mappings
-#' p + geom_path(aes(size = year))
-#' p + geom_path(aes(colour = year))
+#' # geom_step() is useful when you want to highlight exactly when
+#' # the y value chanes
+#' recent <- economics[economics$date > as.Date("2013-01-01"), ]
+#' ggplot(recent, aes(date, unemploy)) + geom_line()
+#' ggplot(recent, aes(date, unemploy)) + geom_step()
 #'
-#' # Change scale
-#' p + geom_path(aes(size = year)) + scale_size(range = c(1, 3))
+#' # geom_path lets you explore how two variables are related over time,
+#' # e.g. unemployment and personal savings rate
+#' m <- ggplot(economics, aes(unemploy/pop, psavert))
+#' m + geom_path()
+#' m + geom_path(aes(colour = as.numeric(date)))
 #'
-#' # Set aesthetics to fixed value
-#' p + geom_path(colour = "green")
-#' }
+#' # Changing parameters ----------------------------------------------
+#' ggplot(economics, aes(date, unemploy)) +
+#'   geom_line(colour = "red")
+#'
+#' # Use the arrow parameter to add an arrow to the line
+#' # See ?grid::arrow for more details
+#' c <- ggplot(economics, aes(x = date, y = pop))
+#' c + geom_line(arrow = grid::arrow())
+#' c + geom_line(
+#'   arrow = grid::arrow(angle = 15, ends = "both", type = "closed")
+#' )
 #'
 #' # Control line join parameters
 #' df <- data.frame(x = 1:3, y = c(4, 1, 9))
@@ -38,60 +54,34 @@
 #' base + geom_path(size = 10, lineend = "round")
 #' base + geom_path(size = 10, linejoin = "mitre", lineend = "butt")
 #'
-#' # Using economic data:
-#' # How is unemployment and personal savings rate related?
-#' m <- ggplot(economics, aes(unemploy/pop, psavert))
-#' m + geom_point()
-#' m + geom_path()
-#' m + geom_path(aes(size = as.numeric(date)))
-#'
-#' # How is rate of unemployment and length of unemployment?
-#' m <- ggplot(economics, aes(unemploy/pop, uempmed))
-#' m + geom_point()
-#' m + geom_path()
-#' m + geom_path() +
-#'     geom_point(data=head(economics, 1), colour="red") +
-#'     geom_point(data=tail(economics, 1), colour="blue")
-#' m + geom_path() +
-#'     geom_text(data=head(economics, 1), label="1967", colour="blue") +
-#'     geom_text(data=tail(economics, 1), label="2007", colour="blue")
-#'
-#' # geom_path removes missing values on the ends of a line.
-#' # use na.rm = T to suppress the warning message
+#' # NAs break the line. Use na.rm = T to suppress the warning message
 #' df <- data.frame(
 #'   x = 1:5,
 #'   y1 = c(1, 2, 3, 4, NA),
 #'   y2 = c(NA, 2, 3, 4, 5),
-#'   y3 = c(1, 2, NA, 4, 5),
-#'   y4 = c(1, 2, 3, 4, 5))
+#'   y3 = c(1, 2, NA, 4, 5)
+#' )
 #' ggplot(df, aes(x, y1)) + geom_point() + geom_line()
 #' ggplot(df, aes(x, y2)) + geom_point() + geom_line()
 #' ggplot(df, aes(x, y3)) + geom_point() + geom_line()
-#' ggplot(df, aes(x, y4)) + geom_point() + geom_line()
 #'
 #' # Setting line type vs colour/size
 #' # Line type needs to be applied to a line as a whole, so it can
 #' # not be used with colour or size that vary across a line
-#'
 #' x <- seq(0.01, .99, length.out = 100)
-#' df <- data.frame(x = rep(x, 2), y = c(qlogis(x), 2 * qlogis(x)), group = rep(c("a","b"), each=100))
+#' df <- data.frame(
+#'   x = rep(x, 2),
+#'   y = c(qlogis(x), 2 * qlogis(x)),
+#'   group = rep(c("a","b"),
+#'   each = 100)
+#' )
 #' p <- ggplot(df, aes(x=x, y=y, group=group))
-#'
-#' # Should work
+#' # These work
 #' p + geom_line(linetype = 2)
 #' p + geom_line(aes(colour = group), linetype = 2)
 #' p + geom_line(aes(colour = x))
-#'
-#' # Should fail
+#' # But this doesn't
 #' should_stop(p + geom_line(aes(colour = x), linetype=2))
-#'
-#' # Use the arrow parameter to add an arrow to the line
-#' # See ?grid::arrow for more details
-#' c <- ggplot(economics, aes(x = date, y = pop))
-#' # Arrow defaults to "last"
-#' c + geom_path(arrow = grid::arrow())
-#' c + geom_path(arrow = grid::arrow(angle = 15, ends = "both", length = unit(0.6, "inches")))
-#' }
 geom_path <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "identity", lineend = "butt",
                       linejoin = "round", linemitre = 1, na.rm = FALSE,
