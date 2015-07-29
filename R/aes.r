@@ -63,7 +63,13 @@ aes <- function(x, y, ...) {
   rename_aes(aes)
 }
 #' @export
-print.uneval <- function(x, ...) utils::str(unclass(x))
+print.uneval <- function(x, ...) {
+  values <- vapply(x, deparse2, character(1))
+  bullets <- paste0("* ", format(names(x)), " -> ", values, "\n")
+
+  cat(bullets, sep = "")
+}
+
 #' @export
 str.uneval <- function(object, ...) utils::str(unclass(object), ...)
 #' @export

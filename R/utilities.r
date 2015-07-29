@@ -302,3 +302,12 @@ compact <- function(x) {
 }
 
 is.formula <- function(x) inherits(x, "formula")
+
+deparse2 <- function(x) {
+  y <- deparse(x, backtick = TRUE)
+  if (length(y) == 1) {
+    y
+  } else {
+    paste0(y[[1]], "...")
+  }
+}
