@@ -25,3 +25,10 @@ test_that("labellers handle plotmath expressions", {
   ))
   expect_identical(label_parsed(labels, FALSE), expected_parsed_multi)
 })
+
+test_that("label_value() handles factors", {
+  labels_chr <- list(var1 = letters[1:2], var2 = letters[3:4])
+  labels <- lapply(labels_chr, factor)
+
+  expect_identical(label_value(labels), labels_chr)
+})
