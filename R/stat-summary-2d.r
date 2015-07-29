@@ -1,8 +1,8 @@
 #' Bin and summarise in 2d (rectangle & hexagons)
 #'
-#' \code{stat_summary2d} is a 2d variation of \code{\link{stat_summary}}.
+#' \code{stat_summary_2d} is a 2d variation of \code{\link{stat_summary}}.
 #' \code{stat_summary_hex} is a hexagonal variation of
-#' \code{\link{stat_summary2d}}. The data are divided into bins defined
+#' \code{\link{stat_summary_2d}}. The data are divided into bins defined
 #' by \code{x} and \code{y}, and then the values of \code{z} in each cell is
 #' are summarised with \code{fun}.
 #'
@@ -23,17 +23,17 @@
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, depth, z = price))
-#' d + stat_summary2d()
+#' d + stat_summary_2d()
 #'
 #' # Specifying function
-#' d + stat_summary2d(fun = function(x) sum(x^2))
-#' d + stat_summary2d(fun = var)
-#' d + stat_summary2d(fun = "quantile", fun.args = list(probs = 0.1))
+#' d + stat_summary_2d(fun = function(x) sum(x^2))
+#' d + stat_summary_2d(fun = var)
+#' d + stat_summary_2d(fun = "quantile", fun.args = list(probs = 0.1))
 #'
 #' if (requireNamespace("hexbin")) {
 #' d + stat_summary_hex()
 #' }
-stat_summary2d <- function(mapping = NULL, data = NULL, geom = "rect",
+stat_summary_2d <- function(mapping = NULL, data = NULL, geom = "rect",
                            position = "identity", bins = 30, drop = TRUE,
                            fun = "mean", fun.args = list(), show.legend = NA,
                            inherit.aes = TRUE, ...) {
@@ -53,6 +53,14 @@ stat_summary2d <- function(mapping = NULL, data = NULL, geom = "rect",
     ),
     params = list(...)
   )
+}
+
+#' @export
+#' @rdname stat_summary_2d
+#' @usage NULL
+stat_summary2d <- function(...) {
+  message("Please use stat_summary_2d() instead")
+  stat_summary_2d(...)
 }
 
 #' @rdname ggplot2-ggproto

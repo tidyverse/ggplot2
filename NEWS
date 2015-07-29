@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `stat_summary2d()` has been renamed to `stat_summary_2d()` (with
+  an alias so you can keep using the old method).
+
 * Date and datetime scales now have `date_breaks`, `date_minor_breaks` and
   `date_labels` arguments so that you never need to use the long form
   `scales::date_breaks()` or `scales::date_format()`.
