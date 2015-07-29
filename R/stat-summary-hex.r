@@ -18,6 +18,7 @@
 #' @inheritParams stat_summary2d
 #' @export
 #' @examples
+#' if (requireNamespace("hexbin")) {
 #' d <- ggplot(diamonds, aes(carat, depth, z = price))
 #' d + stat_summary_hex()
 #'
@@ -25,6 +26,7 @@
 #' d + stat_summary_hex(fun = var)
 #' d + stat_summary_hex(fun = function(x) sum(x^2))
 #' d + stat_summary_hex(fun = "quantile", fun.args = list(probs = 0.5))
+#' }
 stat_summary_hex <- function(mapping = NULL, data = NULL, geom = "hex",
                              position = "identity", bins = 30, drop = TRUE,
                              fun = "mean", fun.args = list(), show.legend = NA,
@@ -73,14 +75,14 @@ StatSummaryHex <- ggproto("StatSummaryHex", Stat,
     y <- data$y
 
     xbnds <- c(
-      round_any(min(x), binwidth[1], floor) - 1e-6,
-      round_any(max(x), binwidth[1], ceiling) + 1e-6
+      plyr::round_any(min(x), binwidth[1], floor) - 1e-6,
+      plyr::round_any(max(x), binwidth[1], ceiling) + 1e-6
     )
     xbins <- diff(xbnds) / binwidth[1]
 
     ybnds <- c(
-      round_any(min(y), binwidth[1], floor) - 1e-6,
-      round_any(max(y), binwidth[2], ceiling) + 1e-6
+      plyr::round_any(min(y), binwidth[1], floor) - 1e-6,
+      plyr::round_any(max(y), binwidth[2], ceiling) + 1e-6
     )
     ybins <- diff(ybnds) / binwidth[2]
 
