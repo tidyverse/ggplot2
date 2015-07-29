@@ -39,12 +39,12 @@ ggplot(mpg) + geom_point(aes(displ, hwy))
 # you can override them, or supply different aesthetics for each layer
 }
 \seealso{
+See \code{\link{aes_q}}/\code{\link{aes_string}} for standard
+  evaluation versions of \code{aes}.
+
 See
    \code{\link{aes_colour_fill_alpha}}, \code{\link{aes_group_order}},
    \code{\link{aes_linetype_size_shape}} and \code{\link{aes_position}}
    for more specific examples with different aesthetics.
-
-Other aesthetic generators: \code{\link{aes_q}},
-  \code{\link{aes_string}}
 }
 

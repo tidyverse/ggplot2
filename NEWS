@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `aes_auto()` has been deprecated. `aes_q()` can now use formulas, so
+  the most concise SE version of `aes(carat, price)` is now
+  `aes_q(~carat, ~price)`.
+
 * New dataset `economics_long` is the economics data in long form.
 
 * `facet_wrap()` gains a `labeller` option. (@lionel-, #25)
