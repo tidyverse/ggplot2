@@ -255,8 +255,12 @@ ggplot2 1.0.1.9xxx
   `method`, `se` and `formula` arguments to make it easier to see what the
   most important options are.
 
-* `geom_histogram()` gains `binwidth`, `origin` and `right` arguments so you
-  can see the most important arguments to the underlying `stat_bin()`
+* `stat_bin()` gains `bins` arguments, which denotes the number of bins. Now
+  you can set `bins=100` instead of `binwidth=0.5`. Note that `breaks` or
+  `binwidth` will override it. (@tmshn, #1158, #102)
+
+* `geom_histogram()` gains `binwidth`, `bins`, origin` and `right` arguments so
+  you can see the most important arguments to the underlying `stat_bin()`
   computation.
 
 * `geom_jitter()` gains `width` and `height` arguments to make it easier
