@@ -48,11 +48,6 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{geom,stat}{Override the default connection between \code{geom_bar} and
 \code{stat_bar}.}
 }
-\value{
-New data frame with additional columns:
-  \item{count}{number of points in bin}
-  \item{prop}{groupwise proportion}
-}
 \description{
 There are two types of bar charts, determined by what is mapped to bar
 height. By default, \code{geom_bar} uses \code{stat = "bar"} which makes the
@@ -76,6 +71,14 @@ the bars and then stretching or squashing to the same height.
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "bar")}
+}
+
+\section{Computed variables}{
+
+\describe{
+  \item{count}{number of points in bin}
+  \item{prop}{groupwise proportion}
+}
 }
 \examples{
 # geom_bar is designed to make it easy to create bar charts that show

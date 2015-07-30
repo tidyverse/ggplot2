@@ -9,11 +9,13 @@
 #' @param right If \code{TRUE}, right-closed, left-open, if \code{FALSE},
 #'   the default, right-open, left-closed.
 #' @param drop If TRUE, remove all bins with zero counts
-#' @return New data frame with additional columns:
+#' @section Computed variables:
+#' \describe{
 #'   \item{count}{number of points in bin}
 #'   \item{density}{density of points in bin, scaled to integrate to 1}
 #'   \item{ncount}{count, scaled to maximum of 1}
 #'   \item{ndensity}{density, scaled to maximum of 1}
+#' }
 #' @export
 #' @rdname geom_histogram
 stat_bin <- function(mapping = NULL, data = NULL, geom = "bar",

@@ -62,13 +62,6 @@ is computed over the range of that group: this typically means the
 estimated x values will not line-up, and hence you won't be able to
 stack density values.}
 }
-\value{
-data.frame with additional columns:
-  \item{density}{density estimate}
-  \item{count}{density * number of points - useful for stacked density
-     plots}
-  \item{scaled}{density estimate, scaled to maximum of 1}
-}
 \description{
 A kernel density estimate, useful for display the distribution of variables
 with underlying smoothness.
@@ -76,6 +69,16 @@ with underlying smoothness.
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "density")}
+}
+
+\section{Computed variables}{
+
+\describe{
+  \item{density}{density estimate}
+  \item{count}{density * number of points - useful for stacked density
+     plots}
+  \item{scaled}{density estimate, scaled to maximum of 1}
+}
 }
 \examples{
 ggplot(diamonds, aes(carat)) +

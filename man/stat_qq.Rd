@@ -47,17 +47,20 @@ the default plot specification, e.g. \code{\link{borders}}.}
 include aesthetics whose values you want to set, not map. See
 \code{\link{layer}} for more details.}
 }
-\value{
-a data.frame with additional columns:
-  \item{sample}{sample quantiles}
-  \item{theoretical}{theoretical quantiles}
-}
 \description{
 Calculation for quantile-quantile plot.
 }
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "qq")}
+}
+
+\section{Computed variables}{
+
+\describe{
+  \item{sample}{sample quantiles}
+  \item{theoretical}{theoretical quantiles}
+}
 }
 \examples{
 \donttest{

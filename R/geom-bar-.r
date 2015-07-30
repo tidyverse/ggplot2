@@ -22,9 +22,6 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "bar")}
 #'
-#' @return New data frame with additional columns:
-#'   \item{count}{number of points in bin}
-#'   \item{prop}{groupwise proportion}
 #' @seealso \code{\link{geom_histogram}} for continuous data,
 #'   \code{\link{position_dodge}} for creating side-by-side barcharts.
 #' @export
@@ -116,6 +113,11 @@ GeomBar <- ggproto("GeomBar", Geom,
 
 #' @export
 #' @rdname geom_bar
+#' @section Computed variables:
+#' \describe{
+#'   \item{count}{number of points in bin}
+#'   \item{prop}{groupwise proportion}
+#' }
 stat_bar <- function(mapping = NULL, data = NULL, geom = "bar",
                      position = "stack", width = NULL, ...,
                      show.legend = NA, inherit.aes = TRUE) {

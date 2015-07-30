@@ -49,11 +49,6 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{geom,stat}{Use to override the default connection between
 \code{geom_count} and \code{stat_sum}.}
 }
-\value{
-a data.frame with additional columns
- \item{n}{number of observations at position}
- \item{prop}{percent of points in that panel at that position}
-}
 \description{
 This is a variant \code{\link{geom_point}} that counts the number of
 observations at each location, then maps the count to point size. It
@@ -62,6 +57,14 @@ useful when you have discrete data.
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
+}
+
+\section{Computed variables}{
+
+\describe{
+ \item{n}{number of observations at position}
+ \item{prop}{percent of points in that panel at that position}
+}
 }
 \examples{
 ggplot(mpg, aes(cty, hwy)) +

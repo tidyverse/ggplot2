@@ -2,8 +2,10 @@
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
 #' @export
-#' @return A data frame with additional column:
+#' @section Computed variables:
+#' \describe{
 #'  \item{level}{height of contour}
+#' }
 #' @rdname geom_contour
 stat_contour <- function(mapping = NULL, data = NULL, geom = "contour",
                          position = "identity", na.rm = FALSE, show.legend = NA,

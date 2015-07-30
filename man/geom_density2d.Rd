@@ -65,9 +65,6 @@ estimation}
 \item{h}{Bandwidth (vector of length two). If \code{NULL}, estimated
 using \code{\link[MASS]{bandwidth.nrd}}.}
 }
-\value{
-A data frame in the same format as \code{\link{stat_contour}}
-}
 \description{
 Perform a 2D kernel density estimation using kde2d and display the
 results with contours. This can be useful for dealing with overplotting.
@@ -75,6 +72,11 @@ results with contours. This can be useful for dealing with overplotting.
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "density2d")}
+}
+
+\section{Computed variables}{
+
+Same as \code{\link{stat_contour}}
 }
 \examples{
 m <- ggplot(faithful, aes(x = eruptions, y = waiting)) +

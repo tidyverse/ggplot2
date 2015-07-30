@@ -9,11 +9,13 @@
 #'   stack density values.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
-#' @return data.frame with additional columns:
+#' @section Computed variables:
+#' \describe{
 #'   \item{density}{density estimate}
 #'   \item{count}{density * number of points - useful for stacked density
 #'      plots}
 #'   \item{scaled}{density estimate, scaled to maximum of 1}
+#' }
 #' @export
 #' @rdname geom_density
 stat_density <- function(mapping = NULL, data = NULL, geom = "area",

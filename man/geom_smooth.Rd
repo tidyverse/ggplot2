@@ -61,13 +61,6 @@ the data}
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 }
-\value{
-\code{stat_smooth} generates a data frame with columns:
-  \item{y}{predicted value}
-  \item{ymin}{lower pointwise confidence interval around the mean}
-  \item{ymax}{upper pointwise confidence interval around the mean}
-  \item{se}{standard error}
-}
 \description{
 Aids the eye in seeing patterns in the presence of overplotting.
 \code{geom_smooth} and \code{stat_smooth} are effectively aliases: they
@@ -85,6 +78,16 @@ scale, and then back-transformed to the response scale.
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "smooth")}
+}
+
+\section{Computed variables}{
+
+\describe{
+  \item{y}{predicted value}
+  \item{ymin}{lower pointwise confidence interval around the mean}
+  \item{ymax}{upper pointwise confidence interval around the mean}
+  \item{se}{standard error}
+}
 }
 \examples{
 ggplot(mpg, aes(displ, hwy)) +

@@ -78,17 +78,6 @@ a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{coef}{length of the whiskers as multiple of IQR.  Defaults to 1.5}
 }
-\value{
-A data frame with additional columns:
-  \item{width}{width of boxplot}
-  \item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR}
-  \item{lower}{lower hinge, 25\% quantile}
-  \item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
-  \item{middle}{median, 50\% quantile}
-  \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
-  \item{upper}{upper hinge, 75\% quantile}
-  \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
-}
 \description{
 The lower and upper "hinges" correspond to the first and third quartiles
 (the 25th and 75th percentiles). This differs slightly from the method used
@@ -110,6 +99,20 @@ See McGill et al. (1978) for more details.
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "boxplot")}
+}
+
+\section{Computed variables}{
+
+\describe{
+  \item{width}{width of boxplot}
+  \item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR}
+  \item{lower}{lower hinge, 25\% quantile}
+  \item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
+  \item{middle}{median, 50\% quantile}
+  \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
+  \item{upper}{upper hinge, 75\% quantile}
+  \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
+}
 }
 \examples{
 p <- ggplot(mpg, aes(class, hwy))

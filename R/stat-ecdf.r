@@ -3,9 +3,11 @@
 #' @inheritParams stat_identity
 #' @param n if NULL, do not interpolate. If not NULL, this is the number
 #'   of points to interpolate with.
-#' @return a data.frame with additional columns:
+#' @section Computed variables:
+#' \describe{
 #'   \item{x}{x in data}
 #'   \item{y}{cumulative density corresponding x}
+#' }
 #' @export
 #' @examples
 #' \donttest{

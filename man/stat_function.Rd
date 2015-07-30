@@ -40,17 +40,20 @@ the default plot specification, e.g. \code{\link{borders}}.}
 include aesthetics whose values you want to set, not map. See
 \code{\link{layer}} for more details.}
 }
-\value{
-a data.frame with additional columns:
-  \item{x}{x's along a grid}
-  \item{y}{value of function evaluated at corresponding x}
-}
 \description{
 Superimpose a function.
 }
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "function")}
+}
+
+\section{Computed variables}{
+
+\describe{
+  \item{x}{x's along a grid}
+  \item{y}{value of function evaluated at corresponding x}
+}
 }
 \examples{
 set.seed(1492)

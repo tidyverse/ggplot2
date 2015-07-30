@@ -70,13 +70,6 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{breaks}{Actual breaks to use. Overrides bin width, bin number and
 origin}
 }
-\value{
-New data frame with additional columns:
-  \item{count}{number of points in bin}
-  \item{density}{density of points in bin, scaled to integrate to 1}
-  \item{ncount}{count, scaled to maximum of 1}
-  \item{ndensity}{density, scaled to maximum of 1}
-}
 \description{
 Display a 1d distribution by dividing into bins and counting the number
 of observations in each bin. Histograms use bars; frequency polygons use
@@ -91,6 +84,16 @@ may need to look at a few to uncover the full story behind your data.
 
 \code{geom_histogram} uses the same aesthetics as \code{geom_bar};
 \code{geom_freqpoly} uses the same aesthetics as \code{geom_line}.
+}
+
+\section{Computed variables}{
+
+\describe{
+  \item{count}{number of points in bin}
+  \item{density}{density of points in bin, scaled to integrate to 1}
+  \item{ncount}{count, scaled to maximum of 1}
+  \item{ndensity}{density, scaled to maximum of 1}
+}
 }
 \examples{
 ggplot(diamonds, aes(carat)) +

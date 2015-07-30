@@ -37,13 +37,15 @@ the default plot specification, e.g. \code{\link{borders}}.}
 include aesthetics whose values you want to set, not map. See
 \code{\link{layer}} for more details.}
 }
-\value{
-a data.frame with additional columns:
+\description{
+Empirical Cumulative Density Function
+}
+\section{Computed variables}{
+
+\describe{
   \item{x}{x in data}
   \item{y}{cumulative density corresponding x}
 }
-\description{
-Empirical Cumulative Density Function
 }
 \examples{
 \donttest{

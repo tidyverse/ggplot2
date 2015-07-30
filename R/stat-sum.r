@@ -1,7 +1,9 @@
 #' @inheritParams stat_identity
-#' @return a data.frame with additional columns
+#' @section Computed variables:
+#' \describe{
 #'  \item{n}{number of observations at position}
 #'  \item{prop}{percent of points in that panel at that position}
+#' }
 #' @export
 #' @rdname geom_count
 stat_sum <- function(mapping = NULL, data = NULL, geom = "point",

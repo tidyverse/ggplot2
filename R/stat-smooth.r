@@ -12,11 +12,13 @@
 #' @param n number of points to evaluate smoother at
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
-#' @return \code{stat_smooth} generates a data frame with columns:
+#' @section Computed variables:
+#' \describe{
 #'   \item{y}{predicted value}
 #'   \item{ymin}{lower pointwise confidence interval around the mean}
 #'   \item{ymax}{upper pointwise confidence interval around the mean}
 #'   \item{se}{standard error}
+#' }
 #' @export
 #' @rdname geom_smooth
 stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",

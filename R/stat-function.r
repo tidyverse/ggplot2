@@ -7,9 +7,11 @@
 #' @param n number of points to interpolate along
 #' @param args list of additional arguments to pass to \code{fun}
 #' @inheritParams stat_identity
-#' @return a data.frame with additional columns:
+#' @section Computed variables:
+#' \describe{
 #'   \item{x}{x's along a grid}
 #'   \item{y}{value of function evaluated at corresponding x}
+#' }
 #' @export
 #' @examples
 #' set.seed(1492)

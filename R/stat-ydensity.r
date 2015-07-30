@@ -5,7 +5,8 @@
 #'   observations. If "width", all violins have the same maximum width.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning. If \code{TRUE} silently removes missing values.
-#' @return A data frame with additional columns:
+#' @section Computed variables:
+#' \describe{
 #'   \item{density}{density estimate}
 #'   \item{scaled}{density estimate, scaled to maximum of 1}
 #'   \item{count}{density * number of points - probably useless for violin plots}
@@ -13,6 +14,7 @@
 #'                      or to a constant maximum width}
 #'   \item{n}{number of points}
 #'   \item{width}{width of violin bounding box}
+#' }
 #' @seealso \code{\link{geom_violin}} for examples, and \code{\link{stat_density}}
 #'   for examples with data along the x axis.
 #' @export

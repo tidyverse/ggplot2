@@ -63,8 +63,17 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning. If \code{TRUE} silently removes missing values.}
 }
-\value{
-A data frame with additional columns:
+\description{
+Violin plot.
+}
+\section{Aesthetics}{
+
+\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "violin")}
+}
+
+\section{Computed variables}{
+
+\describe{
   \item{density}{density estimate}
   \item{scaled}{density estimate, scaled to maximum of 1}
   \item{count}{density * number of points - probably useless for violin plots}
@@ -73,12 +82,6 @@ A data frame with additional columns:
   \item{n}{number of points}
   \item{width}{width of violin bounding box}
 }
-\description{
-Violin plot.
-}
-\section{Aesthetics}{
-
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "violin")}
 }
 \examples{
 p <- ggplot(mtcars, aes(factor(cyl), mpg))

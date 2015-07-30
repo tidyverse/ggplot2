@@ -19,7 +19,8 @@
 #'  \code{\link{geom_linerange}}, \code{\link{geom_crossbar}} for geoms to
 #'  display summarised data
 #' @inheritParams stat_identity
-#' @return a data.frame with additional columns:
+#' @section Computed variables:
+#' \describe{
 #'   \item{fun.data}{Complete summary function. Should take numeric vector as
 #'      input and return data frame as output}
 #'   \item{fun.ymin}{ymin summary function (should take numeric vector and
@@ -28,6 +29,7 @@
 #'     single number)}
 #'   \item{fun.ymax}{ymax summary function (should take numeric vector and
 #'     return single number)}
+#' }
 #' @export
 #' @examples
 #' \donttest{

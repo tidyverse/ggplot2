@@ -33,17 +33,20 @@ the default plot specification, e.g. \code{\link{borders}}.}
 include aesthetics whose values you want to set, not map. See
 \code{\link{layer}} for more details.}
 }
-\value{
-a data.frame with additional columns
-  \item{xend}{x position of end of line segment}
-  \item{yend}{x position of end of line segment}
-}
 \description{
 Convert angle and radius to xend and yend.
 }
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "spoke")}
+}
+
+\section{Computed variables}{
+
+\describe{
+  \item{xend}{x position of end of line segment}
+  \item{yend}{x position of end of line segment}
+}
 }
 \examples{
 df <- expand.grid(x = 1:10, y=1:10)

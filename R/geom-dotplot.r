@@ -46,7 +46,8 @@
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
 #' @param drop If TRUE, remove all bins with zero counts
-#' @return New data frame with additional columns:
+#' @section Computed variables:
+#' \describe{
 #'   \item{x}{center of each bin, if binaxis is "x"}
 #'   \item{y}{center of each bin, if binaxis is "x"}
 #'   \item{binwidth}{max width of each bin if method is "dotdensity";
@@ -56,6 +57,7 @@
 #'   \item{density}{density of points in bin, scaled to integrate to 1,
 #'     if method is "histodot"}
 #'   \item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
+#' }
 #' @export
 #' @references Wilkinson, L. (1999) Dot plots. The American Statistician,
 #'    53(3), 276-281.

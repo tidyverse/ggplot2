@@ -80,18 +80,6 @@ the default plot specification, e.g. \code{\link{borders}}.}
   \item Other arguments passed on to the stat.
   }}
 }
-\value{
-New data frame with additional columns:
-  \item{x}{center of each bin, if binaxis is "x"}
-  \item{y}{center of each bin, if binaxis is "x"}
-  \item{binwidth}{max width of each bin if method is "dotdensity";
-    width of each bin if method is "histodot"}
-  \item{count}{number of points in bin}
-  \item{ncount}{count, scaled to maximum of 1}
-  \item{density}{density of points in bin, scaled to integrate to 1,
-    if method is "histodot"}
-  \item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
-}
 \description{
 In a dot plot, the width of a dot corresponds to the bin width
 (or maximum width, depending on the binning algorithm), and dots are
@@ -113,6 +101,21 @@ to match the number of dots.
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "dotplot")}
+}
+
+\section{Computed variables}{
+
+\describe{
+  \item{x}{center of each bin, if binaxis is "x"}
+  \item{y}{center of each bin, if binaxis is "x"}
+  \item{binwidth}{max width of each bin if method is "dotdensity";
+    width of each bin if method is "histodot"}
+  \item{count}{number of points in bin}
+  \item{ncount}{count, scaled to maximum of 1}
+  \item{density}{density of points in bin, scaled to integrate to 1,
+    if method is "histodot"}
+  \item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
+}
 }
 \examples{
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot()

@@ -5,8 +5,10 @@
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
-#' @return a data.frame with additional columns:
+#' @section Computed variables:
+#' \describe{
 #'   \item{quantile}{quantile of distribution}
+#' }
 #' @export
 #' @rdname geom_quantile
 stat_quantile <- function(mapping = NULL, data = NULL, geom = "quantile",

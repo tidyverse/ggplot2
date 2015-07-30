@@ -33,17 +33,6 @@ the default plot specification, e.g. \code{\link{borders}}.}
 include aesthetics whose values you want to set, not map. See
 \code{\link{layer}} for more details.}
 }
-\value{
-a data.frame with additional columns:
-  \item{fun.data}{Complete summary function. Should take numeric vector as
-     input and return data frame as output}
-  \item{fun.ymin}{ymin summary function (should take numeric vector and
-    return single number)}
-  \item{fun.y}{y summary function (should take numeric vector and return
-    single number)}
-  \item{fun.ymax}{ymax summary function (should take numeric vector and
-    return single number)}
-}
 \description{
 \code{stat_summary} allows for tremendous flexibility in the specification
 of summary functions. The summary function can either supply individual
@@ -61,6 +50,20 @@ can use.
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "summary")}
+}
+
+\section{Computed variables}{
+
+\describe{
+  \item{fun.data}{Complete summary function. Should take numeric vector as
+     input and return data frame as output}
+  \item{fun.ymin}{ymin summary function (should take numeric vector and
+    return single number)}
+  \item{fun.y}{y summary function (should take numeric vector and return
+    single number)}
+  \item{fun.ymax}{ymax summary function (should take numeric vector and
+    return single number)}
+}
 }
 \examples{
 \donttest{

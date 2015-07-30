@@ -3,7 +3,8 @@
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
-#' @return A data frame with additional columns:
+#' @section Computed variables:
+#' \describe{
 #'   \item{width}{width of boxplot}
 #'   \item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR}
 #'   \item{lower}{lower hinge, 25\% quantile}
@@ -12,6 +13,7 @@
 #'   \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
 #'   \item{upper}{upper hinge, 75\% quantile}
 #'   \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
+#' }
 #' @export
 stat_boxplot <- function(mapping = NULL, data = NULL, geom = "boxplot",
   position = "dodge", na.rm = FALSE, coef = 1.5, show.legend = NA,

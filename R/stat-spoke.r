@@ -4,9 +4,11 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "spoke")}
 #'
 #' @inheritParams stat_identity
-#' @return a data.frame with additional columns
+#' @section Computed variables:
+#' \describe{
 #'   \item{xend}{x position of end of line segment}
 #'   \item{yend}{x position of end of line segment}
+#' }
 #' @export
 #' @examples
 #' df <- expand.grid(x = 1:10, y=1:10)

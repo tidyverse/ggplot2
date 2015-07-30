@@ -65,16 +65,19 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{method}{Quantile regression method to use.  Currently only supports
 \code{\link[quantreg]{rq}}.}
 }
-\value{
-a data.frame with additional columns:
-  \item{quantile}{quantile of distribution}
-}
 \description{
 This can be used as a continuous analogue of a geom_boxplot.
 }
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "quantile")}
+}
+
+\section{Computed variables}{
+
+\describe{
+  \item{quantile}{quantile of distribution}
+}
 }
 \examples{
 m <- ggplot(mpg, aes(displ, 1 / hwy)) + geom_point()
