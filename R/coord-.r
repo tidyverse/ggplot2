@@ -1,3 +1,34 @@
+#' @section Coordinate systems:
+#'
+#' All \code{coord_*} functions (like \code{coord_trans}) return a \code{Coord*}
+#' object (like \code{CoordTrans}). The \code{Coord*} object is responsible for
+#' adjusting the position of overlapping geoms.
+#'
+#' The way that the \code{coord_*} functions work is slightly different from the
+#' \code{geom_*} and \code{stat_*} functions, because a \code{coord_*} function
+#' actually "instantiates" the \code{Coord*} object by creating a descendant,
+#' and returns that.
+#'
+#' Each of the \code{Coord*} objects is a \code{\link{ggproto}} object,
+#' descended from the top-level \code{Coord}.  To create a new type of Coord
+#' object, you typically will want to implement one or more of the following:
+#'
+#' \itemize{
+#'   \item \code{aspect}: Returns the desired aspect ratio for the plot.
+#'   \item \code{labels}: Returns a list containing labels for x and y.
+#'   \item \code{render_fg}: Renders foreground elements.
+#'   \item \code{render_bg}: Renders background elements.
+#'   \item \code{render_axis_h}: Renders the horizontal axis.
+#'   \item \code{render_axis_v}: Renders the vertical axis.
+#'   \item \code{range}: Returns the x and y ranges
+#'   \item \code{train}: Return the trained scale ranges.
+#'   \item \code{transform}: Transforms x and y coordinates.
+#'   \item \code{distance}: Calculates distance.
+#'   \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is
+#'     linear; \code{FALSE} otherwise.
+#'   \item \code{expand_defaults}: Expands the default ranges.
+#' }
+#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL

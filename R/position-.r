@@ -1,6 +1,21 @@
-# Position adjustment occurs over all groups within a geom
-# They work only with discrete x scales and may affect x and y position.
-# Should occur after statistics and scales have been applied.
+#' @section Positions:
+#'
+#' All \code{position_*} functions (like \code{position_dodge}) return a
+#' \code{Position*} object (like \code{PositionDodge}). The \code{Position*}
+#' object is responsible for adjusting the position of overlapping geoms.
+#'
+#' The way that the \code{position_*} functions work is slightly different from
+#' the \code{geom_*} and \code{stat_*} functions, because a \code{position_*}
+#' function actually "instantiates" the \code{Position*} object by creating a
+#' descendant, and returns that.
+#'
+#' Each of the \code{Position*} objects is a \code{\link{ggproto}} object,
+#' descended from the top-level \code{Position}, and each implements the
+#' following method:
+#'
+#' \itemize{
+#'   \item \code{adjust}: Adjusts the position of overlapping geoms.
+#' }
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
