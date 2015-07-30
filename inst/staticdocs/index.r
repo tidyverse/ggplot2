@@ -148,7 +148,7 @@ sd_section("Data",
   )
 )
 
-sd_section("Anotation",
+sd_section("Annotation",
   "Specialised functions for adding annotations to a plot",
   c(
     "annotate",
