@@ -21,7 +21,7 @@ Imports:
     MASS,
     plyr (>= 1.7.1),
     reshape2,
-    scales (>= 0.2.5.9002),
+    scales (>= 0.2.5.9003),
     stats
 Suggests:
     ggplot2movies,
@@ -149,6 +149,7 @@ Collate:
     'position-nudge.R'
     'position-stack.r'
     'quick-plot.r'
+    'range.r'
     'save.r'
     'scale-.r'
     'scale-alpha.r'
