@@ -102,7 +102,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(), b
     scale_name = scale_name,
     palette = palette,
 
-    range = ContinuousRange$new(),
+    range = continuous_range(),
     limits = limits,
     trans = trans,
     na.value = na.value,
@@ -174,7 +174,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), bre
     scale_name = scale_name,
     palette = palette,
 
-    range = DiscreteRange$new(),
+    range = discrete_range(),
     limits = limits,
     na.value = na.value,
     expand = expand,
@@ -532,14 +532,14 @@ scale_clone <- function(scale) UseMethod("scale_clone")
 #' @export
 scale_clone.continuous <- function(scale) {
   new <- scale
-  new$range <- ContinuousRange$new()
+  new$range <- continuous_range()
   new
 }
 
 #' @export
 scale_clone.discrete <- function(scale) {
   new <- scale
-  new$range <- DiscreteRange$new()
+  new$range <- discrete_range()
   new
 }
 

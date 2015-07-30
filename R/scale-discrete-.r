@@ -55,7 +55,7 @@ scale_x_discrete <- function(..., expand = waiver()) {
   sc <- discrete_scale(c("x", "xmin", "xmax", "xend"), "position_d", identity, ...,
     expand = expand, guide = "none")
 
-  sc$range_c <- ContinuousRange$new()
+  sc$range_c <- continuous_range()
   sc
 }
 #' @rdname scale_discrete
@@ -63,7 +63,7 @@ scale_x_discrete <- function(..., expand = waiver()) {
 scale_y_discrete <- function(..., expand = waiver()) {
   sc <- discrete_scale(c("y", "ymin", "ymax", "yend"), "position_d", identity, ...,
     expand = expand, guide = "none")
-  sc$range_c <- ContinuousRange$new()
+  sc$range_c <- continuous_range()
   sc
 }
 
@@ -124,8 +124,8 @@ scale_dimension.position_d <- function(scale, expand = scale$expand) {
 #' @export
 scale_clone.position_d <- function(scale) {
   new <- scale
-  new$range <- DiscreteRange$new()
-  new$range_c <- ContinuousRange$new()
+  new$range <- discrete_range()
+  new$range_c <- continuous_range()
 
   new
 }
