@@ -8,8 +8,16 @@
 #' more saturated colours which do not look as good). However, the original
 #' colour schemes (particularly the qualitative ones) were not intended for this
 #' and the perceptual result is left to the appreciation of the user.
-#'
 #' See \url{http://colorbrewer2.org} for more information.
+#'
+#' @section Palettes:
+#' The following palettes are available for use with these scales:
+#' \describe{
+#'   \item{Diverging}{BrBG, PiYG, PRGn, PuOr, RdBu, RdGy, RdYlBu, RdYlGn, Spectral}
+#'   \item{Qualitative}{Accent, Dark2, Paired, Pastel1, Pastel2, Set1, Set2, Set3}
+#'   \item{Sequential}{Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges,
+#'      OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd}
+#' }
 #'
 #' @inheritParams scales::brewer_pal
 #' @inheritParams scale_colour_hue
