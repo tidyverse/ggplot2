@@ -13,7 +13,7 @@ layer(geom = NULL, geom_params = list(), stat = NULL,
 this layer. Can either be the name of a ggproto object, or the object
 itself.}
 
-\item{geom_params,stat_params,params,...}{Additional parameters to the
+\item{geom_params,stat_params,params}{Additional parameters to the
 \code{geom} and \code{stat}. If supplied individual in \code{...} or as a
 list in \code{params}, \code{layer} does it's best to figure out which
 arguments belong to which. To be explicit, supply as individual lists to

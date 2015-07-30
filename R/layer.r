@@ -19,7 +19,6 @@ Layer <- ggproto("Layer", NULL,
   data = NULL,
   mapping = NULL,
   position = NULL,
-  params = NULL,
   inherit.aes = FALSE,
 
   # This actually makes a descendant of self, which is functionally the same
@@ -196,7 +195,7 @@ Layer <- ggproto("Layer", NULL,
 #' @param geom,stat,position Geom, stat and position adjustment to use in
 #'   this layer. Can either be the name of a ggproto object, or the object
 #'   itself.
-#' @param geom_params,stat_params,params,... Additional parameters to the
+#' @param geom_params,stat_params,params Additional parameters to the
 #'   \code{geom} and \code{stat}. If supplied individual in \code{...} or as a
 #'   list in \code{params}, \code{layer} does it's best to figure out which
 #'   arguments belong to which. To be explicit, supply as individual lists to
