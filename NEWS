@@ -1,6 +1,11 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `geom_bar()` and `geom_histogram()` no longer share `stat_bin()`. Now
+  `geom_bar()` has its own stat, `stat_bar()`. This is useful if you want to
+  display a bar chart of continuous data, drawing a bar at each unique
+  location.
+
 * `stat_summary2d()` has been renamed to `stat_summary_2d()` (with
   an alias so you can keep using the old method).
 

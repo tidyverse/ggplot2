@@ -94,7 +94,12 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE,
     if ("sample" %in% aes_names) {
       geom[geom == "auto"] <- "qq"
     } else if (missing(y)) {
-      geom[geom == "auto"] <- "histogram"
+      x <- eval(aesthetics$x, data, env)
+      if (is.discrete(x)) {
+        geom[geom == "auto"] <- "bar"
+      } else {
+        geom[geom == "auto"] <- "histogram"
+      }
       if (missing(ylab)) ylab <- "count"
     } else {
       if (missing(x)) {

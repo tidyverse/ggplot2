@@ -59,6 +59,7 @@
 \alias{PositionNudge}
 \alias{PositionStack}
 \alias{Stat}
+\alias{StatBar}
 \alias{StatBin}
 \alias{StatBin2d}
 \alias{StatBindot}
