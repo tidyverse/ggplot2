@@ -50,9 +50,19 @@ stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
 #' @usage NULL
 #' @export
 StatSmooth <- ggproto("StatSmooth", Stat,
+
+  inform_defaults = function(data, params) {
+    if (identical(params$method, "auto")) {
+      message(
+        '`geom_smooth()`: For groups with <1000 observations, using ',
+        '`method = "loess"` with `span = 0.75`,\n otherwise ',
+        '`method = "gam"` with `formula = y ~ s(x, bs = "cs")`.'
+      )
+    }
+  },
+
   calculate_groups = function(self, data, scales, method = "auto",
-    formula = y~x, ...)
-  {
+    formula = y ~ x, ...) {
     rows <- plyr::daply(data, "group", function(df) length(unique(df$x)))
 
     if (all(rows == 1) && length(rows) > 1) {
@@ -69,15 +79,9 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 
       if (max(groups$freq) < 1000) {
         method <- "loess"
-        message('geom_smooth: method="auto" and size of largest group is <1000,',
-                ' so using loess.',
-                ' Use \'method = x\' to change the smoothing method.')
       } else {
         method <- "gam"
         formula <- y ~ s(x, bs = "cs")
-        message('geom_smooth: method="auto" and size of largest group is >=1000,',
-                ' so using gam with formula: y ~ s(x, bs = "cs").',
-                ' Use \'method = x\' to change the smoothing method.')
       }
     }
     if (identical(method, "gam")) {

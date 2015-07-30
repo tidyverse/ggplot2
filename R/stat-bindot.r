@@ -3,15 +3,17 @@
 #' @usage NULL
 #' @export
 StatBindot <- ggproto("StatBindot", Stat,
-  informed = FALSE,
+  inform_defaults = function(data, params) {
+    if (is.null(params$breaks) && is.null(params$binwidth)) {
+      message("`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.")
+    }
+  },
 
   calculate_groups = function(self, data, na.rm = FALSE, binwidth = NULL,
                               binaxis = "x", method = "dotdensity",
                               binpositions = "bygroup", ...) {
     data <- remove_missing(data, na.rm, c(binaxis, "weight"), name = "stat_bindot",
       finite = TRUE)
-
-    self$informed <- FALSE
 
     # If using dotdensity and binning over all, we need to find the bin centers
     # for all data before it's split into groups.
@@ -42,7 +44,6 @@ StatBindot <- ggproto("StatBindot", Stat,
       binaxis = binaxis, method = method, binpositions = binpositions, ...)
   },
 
-
   calculate = function(self, data, scales, binwidth = NULL, binaxis = "x",
                        method = "dotdensity", binpositions = "bygroup",
                        origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
@@ -68,12 +69,6 @@ StatBindot <- ggproto("StatBindot", Stat,
       # The middle of each group, on the stack axis
       midline <- mean(range(data$x))
     }
-
-    if (is.null(breaks) && is.null(binwidth) && !is.integer(values) && !self$informed) {
-      message("stat_bindot: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.")
-      self$informed <- TRUE
-    }
-
 
     if (method == "histodot") {
       # Use the function from stat_bin

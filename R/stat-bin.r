@@ -46,28 +46,20 @@ stat_bin <- function(mapping = NULL, data = NULL, geom = "bar",
 #' @usage NULL
 #' @export
 StatBin <- ggproto("StatBin", Stat,
-  informed = FALSE,
-
-  calculate_groups = function(self, data, ...) {
-    if (!is.null(data$y) || !is.null(match.call()$y)) {
-      stop("May not have y aesthetic when binning", call. = FALSE)
+  inform_defaults = function(data, params) {
+    if (!is.null(data$y) || !is.null(params$y)) {
+      warning("stat_bin() ignores y aesthetic.", call. = FALSE)
     }
 
-    self$informed <- FALSE
-    ggproto_parent(Stat, self)$calculate_groups(data, ...)
+    if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {
+      message("`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.")
+    }
   },
 
   calculate = function(self, data, scales, binwidth = NULL, bins = NULL,
                        origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
-                       right = FALSE, ...)
-  {
+                       right = FALSE, ...) {
     range <- scale_dimension(scales$x, c(0, 0))
-
-
-    if (is.null(breaks) && is.null(binwidth) && is.null(bins) && !is.integer(data$x) && !self$informed) {
-      message("stat_bin: bins defaulted to 30. Use 'bins = n' or 'binwidth = x' to adjust this.")
-      self$informed <- TRUE
-    }
 
     bin(data$x, data$weight, binwidth = binwidth, bins = bins,
         origin = origin, breaks = breaks, range = range, width = width,

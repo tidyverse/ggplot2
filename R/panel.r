@@ -184,10 +184,11 @@ train_ranges <- function(panel, coord) {
 # @param layers list of layers
 # @param data a list of data frames (one for each layer)
 calculate_stats <- function(panel, data, layers) {
-
   lapply(seq_along(data), function(i) {
     d <- data[[i]]
     l <- layers[[i]]
+
+    l$stat$inform_defaults(d, l$stat_params)
 
     plyr::ddply(d, "PANEL", function(panel_data) {
       scales <- panel_scales(panel, panel_data$PANEL[1])
