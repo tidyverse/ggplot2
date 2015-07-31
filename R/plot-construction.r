@@ -23,12 +23,15 @@
 #' For theme objects, the \code{+} operator and the \code{\%+replace\%}
 #' can be used to modify elements in themes.
 #'
-#' The \code{+} operator completely replaces elements
-#' with elements from e2.
+#' The \code{+} operator updates the elements of e1 that differ from
+#' elements specified (not NULL) in e2.
+#' Thus this operator can be used to incrementally add or modify attributes
+#' of a ggplot theme.
 #'
-#' In contrast, the \code{\%+replace\%} operator does not replace the
-#' entire element; it only updates element properties which are present
-#' (not NULL) in the second object.
+#' In contrast, the \code{\%+replace\%} operator replaces the
+#' entire element; any element of a theme not specified in e2 will not be
+#' present in the resulting theme (i.e. NULL).
+#' Thus this operator can be used to overwrite an entire theme.
 #'
 #' @examples
 #' ### Adding objects to a ggplot object
