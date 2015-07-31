@@ -142,7 +142,7 @@ StatSummary <- ggproto("StatSummary", Stat,
   {
     data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_summary")
 
-    if (!missing(fun.data)) {
+    if (!is.null(fun.data)) {
       # User supplied function that takes complete data frame as input
       fun.data <- match.fun(fun.data)
       fun <- function(df, ...) {
