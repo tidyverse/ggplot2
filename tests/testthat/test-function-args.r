@@ -23,7 +23,7 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   # GeomXxx$draw_groups functions, make sure that if they have same args, that
   # the args have the same default values.
   lapply(geom_fun_names, function(geom_fun_name) {
-    geom_fun    <- ggplot2_ns[[geom_fun_name]]
+    geom_fun    <- match.fun(geom_fun_name)
     draw        <- geom_fun()$geom$draw
     draw_groups <- geom_fun()$geom$draw_groups
 
@@ -55,7 +55,7 @@ test_that("stat_xxx and StatXxx$draw arg defaults match", {
   # GeomXxx$draw_groups functions, make sure that if they have same args, that
   # the args have the same default values.
   lapply(stat_fun_names, function(stat_fun_name) {
-    stat_fun         <- ggplot2_ns[[stat_fun_name]]
+    stat_fun         <- match.fun(stat_fun_name)
     calculate        <- stat_fun()$stat$calculate
     calculate_groups <- stat_fun()$stat$calculate_groups
 
