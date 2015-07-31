@@ -3,7 +3,9 @@
   # Add snake_case aliases for dot.case formals
   # doing this on attach seems to avoid generating any NOTEs due to missing
   # arguments.
-  alias_to_snake_case("ggplot2")
+  if (isTRUE(getOption("ggplot.snake_case", FALSE))) {
+    alias_to_snake_case("ggplot2")
+  }
 
   if (!interactive() || stats::runif(1) > 0.1) return()
 
