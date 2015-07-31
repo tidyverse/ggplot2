@@ -311,3 +311,132 @@ deparse2 <- function(x) {
     paste0(y[[1]], "...")
   }
 }
+
+# convert any formals using dotted argument names to snake case
+snake_case_formals <- function(fmls) {
+
+  dotted_fmls <- grepl("[[:alpha:]]\\.[[:alpha:]]", names(fmls))
+
+  if (any(dotted_fmls)) {
+    dotted_fmls_nms <- names(fmls)[dotted_fmls]
+    underscore_fmls <- rep(list(NULL), length(dotted_fmls_nms))
+    names(underscore_fmls) <- gsub("\\.", "_", dotted_fmls_nms)
+
+    # only add new formals if they don't already exist
+    underscore_fmls <- underscore_fmls[setdiff(names(underscore_fmls), names(fmls))]
+
+    if (length(underscore_fmls) > 0) {
+      # modify the dotted formals to use underscore fmls if they are defined
+      fmls[dotted_fmls] <- Map(function(old, new) {
+                               substitute(x %||% y, list(x = as.symbol(new), y = old))
+      },
+      old = fmls[dotted_fmls],
+      new = names(underscore_fmls))
+      fmls <- append(fmls, underscore_fmls)
+    }
+  }
+  fmls
+}
+
+# return all the exported functions from a namespace
+package_obj <- function(ns, mode) {
+  ns <- asNamespace(ns)
+  nms <- names(ns)
+  funs <- mget(nms, ns, mode = mode, ifnotfound = NA)
+  funs[!is.na(funs)]
+}
+
+# modify all of the exported functions with the given function
+alias_to_snake_case <- function(ns, f = snake_case_formals) {
+
+  # regular functions
+  funs <- package_obj(ns, "function")
+  Map (function(nme, fun) {
+
+    prev_formals <- formals(fun)
+    new_formals <- f(prev_formals)
+    new_body <- modify_formals(body(fun))
+    formals(fun) <- new_formals
+    body(fun) <- new_body
+    assign(nme, fun, paste0("package:", ns))
+  }, names(funs), funs)
+
+  # Below only applicable to ggplot2
+  # ggproto objects
+  envs <- package_obj(ns, "environment")
+  for (obj in envs) {
+    modify_ggproto(obj)
+  }
+
+  # Substitute the snake_case arguments in the theme body
+  body(theme) <- append_call(body(theme),
+    expression(names(elements) <- gsub("_", ".", names(elements))), 1)
+  assign("theme", theme, paste0("package:", ns))
+}
+
+modify_ggproto <- function(obj) {
+  for (nme in ls(obj)) {
+    if (inherits(obj[[nme]], "ggproto")) {
+      modify_ggproto(obj[[nme]])
+    }
+    if (inherits(obj[[nme]], "ggproto_method")) {
+      obj[[nme]] <- modify_ggproto_method(obj[[nme]])
+    }
+  }
+}
+
+modify_ggproto_method <- function(obj) {
+  environment(obj)$f <- modify_formals(environment(obj)$f)
+}
+
+# this is essentially pryr::modify_lang, but modifies formals rather than
+# atomics / names
+modify_formals <- function(x, f = snake_case_formals, ...) {
+  recurse <- function(y) {
+    lapply(y, modify_formals, f = f, ...)
+  }
+
+  if (is.atomic(x) || is.name(x)) {
+    x
+  } else if (is.call(x)) {
+    as.call(recurse(x))
+  } else if (is.function(x)) {
+
+    # workaround for formals(x) <- NULL # bug
+    fmls <- formals(x)
+    if (!is.null(fmls)) {
+      formals(x) <- f(fmls, ...)
+    }
+    body(x) <- modify_formals(body(x), f = f, ...)
+    x
+  } else if (is.pairlist(x)) {
+    as.pairlist(recurse(x))
+  } else if (is.expression(x)) {
+    as.expression(recurse(x))
+  } else if (is.list(x)) {
+    recurse(x)
+  } else {
+    stop("Unknown language class: ", paste(class(x), collapse = "/"),
+      call. = FALSE)
+  }
+}
+
+# function to append a new expression to a call object
+# base::append can't be used directly as it converts the object to a list
+append_call <- function(call, value, after = length(call)) {
+  len <- length(call)
+
+  if (after <= 0L) {
+    res <- call[c(1L, 2L, 2L:len)]
+    after <- 1L
+  } else if (after >= (len - 1L)) {
+    res <- call[c(1L, 2L:len, len)]
+    after <- len
+  } else {
+    after <- after + 1L
+    res <- call[c(1L, 2L:after, after, (after + 1L):len)]
+  }
+  res[after + 1L] <- value
+  res
+}
+
