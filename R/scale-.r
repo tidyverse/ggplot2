@@ -82,13 +82,9 @@ NULL
 #'   discrete variables.
 #' @param guide Name of guide object, or object itself.
 #' @keywords internal
-continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), minor_breaks = waiver(), labels = waiver(), limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_, trans = "identity", guide="legend") {
+continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(), breaks = waiver(), minor_breaks = waiver(), labels = waiver(), limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_, trans = "identity", guide="legend") {
 
-  bad_labels <- is.vector(breaks) && is.vector(labels) &&
-    length(breaks) != length(labels)
-  if (bad_labels) {
-    stop("Breaks and labels have unequal lengths", call. = FALSE)
-  }
+  check_breaks_labels(breaks, labels)
 
   if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
     guide <- "none"
@@ -106,7 +102,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
     scale_name = scale_name,
     palette = palette,
 
-    range = ContinuousRange$new(),
+    range = continuous_range(),
     limits = limits,
     trans = trans,
     na.value = na.value,
@@ -119,7 +115,6 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
     minor_breaks = minor_breaks,
 
     labels = labels,
-    legend = legend,
     guide = guide
   ), class = c(scale_name, "continuous", "scale"))
 }
@@ -164,13 +159,9 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = NULL, break
 #' @param guide the name of, or actual function, used to create the
 #'   guide. See \code{\link{guides}} for more info.
 #' @keywords internal
-discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(), na.value = NA, drop = TRUE, guide="legend") {
+discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(), na.value = NA, drop = TRUE, guide="legend") {
 
-  bad_labels <- is.vector(breaks) && is.vector(labels) &&
-    length(breaks) != length(labels)
-  if (bad_labels) {
-    stop("Breaks and labels have unequal lengths", call. = FALSE)
-  }
+  check_breaks_labels(breaks, labels)
 
   if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
     guide <- "none"
@@ -183,7 +174,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks 
     scale_name = scale_name,
     palette = palette,
 
-    range = DiscreteRange$new(),
+    range = discrete_range(),
     limits = limits,
     na.value = na.value,
     expand = expand,
@@ -191,7 +182,6 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = NULL, breaks 
     name = name,
     breaks = breaks,
     labels = labels,
-    legend = legend,
     drop = drop,
     guide = guide
   ), class = c(scale_name, "discrete", "scale"))
@@ -205,7 +195,7 @@ scale_train_df <- function(scale, df) {
   if (empty(df)) return()
 
   aesthetics <- intersect(scale$aesthetics, names(df))
-  for(aesthetic in aesthetics) {
+  for (aesthetic in aesthetics) {
     scale_train(scale, df[[aesthetic]])
   }
   invisible()
@@ -286,17 +276,12 @@ scale_map_df <- function(scale, df, i = NULL) {
 # and breaks spans oob, the oob breaks is replaces by NA.
 # This makes impossible to display oob breaks.
 # Now coord_train calls this function with limits determined by coord (with expansion).
-scale_map <- function(scale, x, limits) UseMethod("scale_map")
+scale_map <- function(scale, x, limits = scale_limits(scale)) UseMethod("scale_map")
 
 #' @export
 scale_map.continuous <- function(scale, x, limits = scale_limits(scale)) {
   x <- scale$oob(scale$rescaler(x, from = limits))
 
-  # Points are rounded to the nearest 500th, to reduce the amount of
-  # work that the scale palette must do - this is particularly important
-  # for colour scales which are rather slow.  This shouldn't have any
-  # perceptual impacts.
-  x <- round_any(x, 1 / 500)
   uniq <- unique(x)
   pal <- scale$palette(uniq)
   scaled <- pal[match(x, uniq)]
@@ -331,26 +316,20 @@ scale_limits <- function(scale) {
 #  use the user defined limit for that axis
 #' @export
 scale_limits.default <- function(scale) {
-  if(!is.null(scale$limits)) {
+  if (!is.null(scale$limits)) {
     ifelse(!is.na(scale$limits), scale$limits, scale$range$range)
   } else {
     scale$range$range
   }
 }
 
-# @kohske
-# this (internal) function always returns a vector of length 2 of giving
-# multiplicative and additive expansion constants.
-# if scale' expand is specified, return it.
-# if is.waive, return c(0, 0)
 scale_expand <- function(scale) UseMethod("scale_expand")
 #' @export
 scale_expand.default <- function(scale) {
-  if (is.waive(scale$expand)) c(0, 0)
-  else scale$expand
+  scale$expand %|W|% c(0, 0)
 }
 
-# The phyical size of the scale, if a position scale
+# The physical size of the scale, if a position scale
 # Unlike limits, this always returns a numeric vector of length 2
 # @kohske
 # scale_dimension uses scale_expand(scale) for expansion by default.
@@ -396,7 +375,8 @@ scale_breaks.continuous <- function(scale, limits = scale_limits(scale)) {
   # @kohske
   # TODO: replace NA with something else for flag.
   #       guides cannot discriminate oob from missing value.
-  breaks <- censor(scale$trans$transform(breaks), scale$trans$transform(limits))
+  breaks <- censor(scale$trans$transform(breaks), scale$trans$transform(limits),
+                   only.finite = FALSE)
   if (length(breaks) == 0) {
     stop("Zero breaks in scale for ", paste(scale$aesthetics, collapse = "/"),
       call. = FALSE)
@@ -428,7 +408,7 @@ scale_break_positions <- function(scale, range = scale_limits(scale)) {
   scale_map(scale, scale_breaks(scale, range))
 }
 
-scale_breaks_minor<- function(scale, n = 2, b = scale_break_positions(scale), limits = scale_limits(scale)) {
+scale_breaks_minor <- function(scale, n = 2, b = scale_break_positions(scale), limits = scale_limits(scale)) {
   UseMethod("scale_breaks_minor")
 }
 
@@ -452,7 +432,7 @@ scale_breaks_minor.continuous <- function(scale, n = 2, b = scale_break_position
       bd <- diff(b)[1]
       if (min(limits) < min(b)) b <- c(b[1] - bd, b)
       if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
-      breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length.out = n+1,
+      breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length.out = n + 1,
         SIMPLIFY = FALSE)))
     }
   } else if (is.function(scale$minor_breaks)) {
@@ -552,14 +532,14 @@ scale_clone <- function(scale) UseMethod("scale_clone")
 #' @export
 scale_clone.continuous <- function(scale) {
   new <- scale
-  new$range <- ContinuousRange$new()
+  new$range <- continuous_range()
   new
 }
 
 #' @export
 scale_clone.discrete <- function(scale) {
   new <- scale
-  new$range <- DiscreteRange$new()
+  new$range <- discrete_range()
   new
 }
 
@@ -616,4 +596,17 @@ scale_break_info.continuous <- function(scale, range = NULL) {
   list(range = range, labels = labels,
        major = major_n, minor = minor_n,
        major_source = major, minor_source = minor)
+}
+
+check_breaks_labels <- function(breaks, labels) {
+  if (is.null(breaks)) return(TRUE)
+  if (is.null(labels)) return(TRUE)
+
+  bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
+    length(breaks) != length(labels)
+  if (bad_labels) {
+    stop("`breaks` and `labels` must have the same length", call. = FALSE)
+  }
+
+  TRUE
 }

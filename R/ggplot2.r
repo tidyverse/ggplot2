@@ -2,7 +2,9 @@
 #'
 #' @name ggplot2
 #' @docType package
-#' @import plyr digest scales grid reshape2 gtable
+#' @import scales grid gtable
+#' @importFrom plyr defaults
+#' @importFrom stats setNames
 NULL
 
 #' Prices of 50,000 round cut diamonds
@@ -30,7 +32,8 @@ NULL
 #' US economic time series.
 #'
 #' This dataset was produced from US economic time series data available from
-#' \url{http://research.stlouisfed.org/fred2}.
+#' \url{http://research.stlouisfed.org/fred2}. \code{economics} is in "wide"
+#' format, \code{economics_long} is in "long" format.
 #'
 #' @format A data frame with 478 rows and 6 variables
 #' \itemize{
@@ -48,6 +51,9 @@ NULL
 #' }
 #'
 "economics"
+
+#' @rdname economics
+"economics_long"
 
 #' Midwest demographics.
 #'
@@ -87,36 +93,6 @@ NULL
 #'
 "midwest"
 
-
-#' Movie information and user ratings from IMDB.com.
-#'
-#' The internet movie database, \url{http://imdb.com/}, is a website devoted
-#' to collecting movie data supplied by studios and fans.  It claims to be the
-#' biggest movie database on the web and is run by amazon.  More about
-#' information imdb.com can be found online,
-#' \url{http://imdb.com/help/show_leaf?about}, including information about
-#' the data collection process,
-#' \url{http://imdb.com/help/show_leaf?infosource}.
-#'
-#' Movies were selected for inclusion if they had a known length and had been
-#' rated by at least one imdb user.
-#'
-#' @format A data frame with 28819 rows and 24 variables
-#' \itemize{
-#'   \item title.  Title of the movie.
-#'   \item year.  Year of release.
-#'   \item budget.  Total budget (if known) in US dollars
-#'   \item length.  Length in minutes.
-#'   \item rating.  Average IMDB user rating.
-#'   \item votes.  Number of IMDB users who rated this movie.
-#'   \item r1-10.  Multiplying by ten gives percentile (to nearest 10\%) of
-#'      users who rated this movie a 1.
-#'   \item mpaa.  MPAA rating.
-#'   \item action, animation, comedy, drama, documentary, romance, short.
-#'     Binary variables representing if movie was classified as belonging to that genre.
-#' }
-#' @references \url{http://had.co.nz/data/movies/}
-"movies"
 
 #' Fuel economy data from 1999 and 2008 for 38 popular models of car
 #'
@@ -188,3 +164,22 @@ NULL
 #' @format A data frame with 1155 rows and 4 variables
 #' @references \url{http://www.stat.berkeley.edu/~brill/Papers/jspifinal.pdf}
 "seals"
+
+#' 2d density estimate of Old Faithful data
+#'
+#' A 2d density estimate of the waiting and eruptions variables data
+#' \link{faithful}.
+#'
+#' @format A data frame with 5,625 observations and 3 variables.
+"faithfuld"
+
+#' \code{colors()} in Luv space.
+#'
+#' All built-in \code{\link{colors}()} translated into Luv colour space.
+#'
+#' @format A data frame with 657 observations and 4 variables:
+#' \itemize{
+#' \item{L,u,v}{Position in Luv colour space}
+#' \item{col}{Colour name}
+#' }
+"luv_colours"

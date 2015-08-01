@@ -5,7 +5,7 @@
 \title{Violin plot.}
 \usage{
 geom_violin(mapping = NULL, data = NULL, stat = "ydensity",
-  position = "dodge", trim = TRUE, scale = "area", show_guide = NA,
+  position = "dodge", trim = TRUE, scale = "area", show.legend = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -16,20 +16,13 @@ at the layer level if you are overriding the plot defaults.}
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
 
-\item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
-
-\item{position}{Postion adjustment, either as a string, or the result of
+\item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
 \item{trim}{If \code{TRUE} (default), trim the tails of the violins
 to the range of the data. If \code{FALSE}, don't trim the tails.}
 
-\item{scale}{if "area" (default), all violins have the same area (before trimming
-the tails). If "count", areas are scaled proportionally to the number of
-observations. If "width", all violins have the same maximum width.}
-
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 
@@ -48,6 +41,9 @@ the default plot specification, e.g. \code{\link{borders}}.}
     default \code{stat} associated with the layer.
   \item Other arguments passed on to the stat.
   }}
+
+\item{geom,stat}{Use to override the default connection between
+\code{geom_violin} and \code{stat_ydensity}.}
 }
 \description{
 Violin plot.
@@ -91,12 +87,11 @@ p + geom_violin(fill = "grey80", colour = "#3366FF")
 p + geom_violin(quantiles = c(0.25,0.5,0.75))
 
 # Scales vs. coordinate transforms -------
+if (require("ggplot2movies")) {
 # Scale transformations occur before the density statistics are computed.
 # Coordinate transformations occur afterwards.  Observe the effect on the
 # number of outliers.
-library(plyr) # to access round_any
-m <- ggplot(movies, aes(y = votes, x = rating,
-   group = round_any(rating, 0.5)))
+m <- ggplot(movies, aes(y = votes, x = rating, group = cut_width(rating, 0.5)))
 m + geom_violin()
 m + geom_violin() + scale_y_log10()
 m + geom_violin() + coord_trans(y = "log10")
@@ -106,7 +101,12 @@ m + geom_violin() + scale_y_log10() + coord_trans(y = "log10")
 # Use the group aesthetic to group observations in violins
 ggplot(movies, aes(year, budget)) + geom_violin()
 ggplot(movies, aes(year, budget)) +
-  geom_violin(aes(group = round_any(year, 10, floor)))
+  geom_violin(aes(group = cut_width(year, 10)), scale = "width")
 }
+}
+}
+\references{
+Hintze, J. L., Nelson, R. D. (1998) Violin Plots: A Box
+Plot-Density Trace Synergism. The American Statistician 52, 181-184.
 }
 

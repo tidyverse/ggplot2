@@ -1,109 +1,100 @@
-#' New coordinate system.
+#' @section Coordinate systems:
 #'
-#' Internal use only.
+#' All \code{coord_*} functions (like \code{coord_trans}) return a \code{Coord*}
+#' object (like \code{CoordTrans}). The \code{Coord*} object is responsible for
+#' adjusting the position of overlapping geoms.
 #'
-#' @param ... object fields
-#' @keywords internal
+#' The way that the \code{coord_*} functions work is slightly different from the
+#' \code{geom_*} and \code{stat_*} functions, because a \code{coord_*} function
+#' actually "instantiates" the \code{Coord*} object by creating a descendant,
+#' and returns that.
+#'
+#' Each of the \code{Coord*} objects is a \code{\link{ggproto}} object,
+#' descended from the top-level \code{Coord}.  To create a new type of Coord
+#' object, you typically will want to implement one or more of the following:
+#'
+#' \itemize{
+#'   \item \code{aspect}: Returns the desired aspect ratio for the plot.
+#'   \item \code{labels}: Returns a list containing labels for x and y.
+#'   \item \code{render_fg}: Renders foreground elements.
+#'   \item \code{render_bg}: Renders background elements.
+#'   \item \code{render_axis_h}: Renders the horizontal axis.
+#'   \item \code{render_axis_v}: Renders the vertical axis.
+#'   \item \code{range}: Returns the x and y ranges
+#'   \item \code{train}: Return the trained scale ranges.
+#'   \item \code{transform}: Transforms x and y coordinates.
+#'   \item \code{distance}: Calculates distance.
+#'   \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is
+#'     linear; \code{FALSE} otherwise.
+#'   \item \code{expand_defaults}: Expands the default ranges.
+#' }
+#'
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
 #' @export
-coord <- function(..., subclass = c()) {
-  structure(list(...), class = c(subclass, "coord"))
-}
+Coord <- ggproto("Coord",
+
+  aspect = function(ranges) NULL,
+
+  labels = function(scale_details) scale_details,
+
+  render_fg = function(scale_details, theme) element_render(theme, "panel.border"),
+
+  render_bg = function(scale_details, theme) {
+    x.major <- if (length(scale_details$x.major) > 0) unit(scale_details$x.major, "native")
+    x.minor <- if (length(scale_details$x.minor) > 0) unit(scale_details$x.minor, "native")
+    y.major <- if (length(scale_details$y.major) > 0) unit(scale_details$y.major, "native")
+    y.minor <- if (length(scale_details$y.minor) > 0) unit(scale_details$y.minor, "native")
+
+    guide_grid(theme, x.minor, x.major, y.minor, y.major)
+  },
+
+  render_axis_h = function(scale_details, theme) {
+    guide_axis(scale_details$x.major, scale_details$x.labels, "bottom", theme)
+  },
+
+  render_axis_v = function(scale_details, theme) {
+    guide_axis(scale_details$y.major, scale_details$y.labels, "left", theme)
+  },
+
+  range = function(scale_details) {
+    return(list(x = scale_details$x.range, y = scale_details$y.range))
+  },
+
+  train = function(scale_details) NULL,
+
+  transform = function(data, range) NULL,
+
+  distance = function(x, y, scale_details) NULL,
+
+  is_linear = function() FALSE,
+
+  # Set the default expand values for the scale, if NA
+  expand_defaults = function(scale_details, aesthetic = NULL) {
+    # Expand the same regardless of whether it's x or y
+
+    # @kohske TODO:
+    # Here intentionally verbose. These constants may be held by coord as, say,
+    # coord$default.expand <- list(discrete = ..., continuous = ...)
+    #
+    # @kohske
+    # Now scale itself is not changed.
+    # This function only returns expanded (numeric) limits
+    discrete <- c(0, 0.6)
+    continuous <-  c(0.05, 0)
+    expand_default(scale_details, discrete, continuous)
+  }
+)
 
 #' Is this object a coordinate system?
 #'
-#' @export is.coord
+#' @export is.Coord
 #' @keywords internal
-is.coord <- function(x) inherits(x, "coord")
+is.Coord <- function(x) inherits(x, "Coord")
 
-distance <- function(., x, y, details) {
-  max_dist <- dist_euclidean(details$x.range, details$y.range)
-  dist_euclidean(x, y) / max_dist
-}
 
-coord_aspect <- function(coord, ranges)
-  UseMethod("coord_aspect")
-#' @export
-coord_aspect.default <- function(coord, ranges) NULL
-
-coord_labels <- function(coord, scales) UseMethod("coord_labels")
-#' @export
-coord_labels.default <- function(coord, scales) scales
-
-coord_render_fg <- function(coord, scales, theme)
-  UseMethod("coord_render_fg")
-#' @export
-coord_render_fg.default <- function(coord, scales, theme)
-  element_render(theme, "panel.border")
-
-coord_render_bg <- function(coord, scales, theme)
-  UseMethod("coord_render_bg")
-#' @export
-coord_render_bg.default <- function(coord, details, theme) {
-  x.major <- if(length(details$x.major) > 0) unit(details$x.major, "native")
-  x.minor <- if(length(details$x.minor) > 0) unit(details$x.minor, "native")
-  y.major <- if(length(details$y.major) > 0) unit(details$y.major, "native")
-  y.minor <- if(length(details$y.minor) > 0) unit(details$y.minor, "native")
-
-  guide_grid(theme, x.minor, x.major, y.minor, y.major)
-}
-
-coord_render_axis_h <- function(coord, scales, theme)
-  UseMethod("coord_render_axis_h")
-#' @export
-coord_render_axis_h.default <- function(coord, details, theme) {
-  guide_axis(details$x.major, details$x.labels, "bottom", theme)
-}
-
-coord_render_axis_v <- function(coord, scales, theme)
-  UseMethod("coord_render_axis_v")
-#' @export
-coord_render_axis_v.default <- function(coord, details, theme) {
-  guide_axis(details$y.major, details$y.labels, "left", theme)
-}
-
-coord_range <- function(coord, scales)
-  UseMethod("coord_range")
-
-#' @export
-coord_range.default <- function(coord, scales) {
-  return(list(x = scales$x.range, y = scales$y.range))
-}
-
-coord_train <- function(coord, scales)
-  UseMethod("coord_train")
-
-coord_transform <- function(coord, data, range)
-  UseMethod("coord_transform")
-
-coord_distance <- function(coord, x, y, details)
-  UseMethod("coord_distance")
-
-is.linear <- function(coord) UseMethod("is.linear")
-#' @export
-is.linear.default <- function(coord) FALSE
-
-#' Set the default expand values for the scale, if NA
-#' @keywords internal
-coord_expand_defaults <- function(coord, scale, aesthetic = NULL)
-  UseMethod("coord_expand_defaults")
-
-#' @export
-coord_expand_defaults.default <- function(coord, scale, aesthetic = NULL) {
-  # Expand the same regardless of whether it's x or y
-
-  # @kohske TODO:
-  # Here intentionally verbose. These constants may be held by coord as, say,
-  # coord$default.expand <- list(discrete = ..., continuous = ...)
-  #
-  # @kohske
-  # Now scale itself is not changed.
-  # This function only returns expanded (numeric) limits
-  discrete <- c(0, 0.6)
-  continuous <-  c(0.05, 0)
-  expand_default(scale, discrete, continuous)
-}
-
-# This is a utility function used by coord_expand_defaults, to expand a single scale
+# This is a utility function used by Coord$expand_defaults, to expand a single scale
 expand_default <- function(scale, discrete = c(0, 0), continuous = c(0, 0)) {
   # Default expand values for discrete and continuous scales
   if (is.waive(scale$expand)) {

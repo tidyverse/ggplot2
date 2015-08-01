@@ -26,8 +26,7 @@ if (require("maps")) {
 
 ia <- map_data("county", "iowa")
 mid_range <- function(x) mean(range(x))
-library(plyr)
-seats <- ddply(ia, .(subregion), colwise(mid_range, .(lat, long)))
+seats <- plyr::ddply(ia, "subregion", plyr::colwise(mid_range, c("lat", "long")))
 ggplot(ia, aes(long, lat)) +
   geom_polygon(aes(group = group), fill = NA, colour = "grey60") +
   geom_text(aes(label = subregion), data = seats, size = 2, angle = 45)

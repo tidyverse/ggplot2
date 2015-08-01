@@ -24,7 +24,7 @@ ggplot_gtable <- function(data) {
   build_grob <- function(layer, layer_data) {
     if (nrow(layer_data) == 0) return()
 
-    dlply(layer_data, "PANEL", function(df) {
+    plyr::dlply(layer_data, "PANEL", function(df) {
       panel_i <- match(df$PANEL[1], panel$layout$PANEL)
       layer$make_grob(df, scales = panel$ranges[[panel_i]], cs = plot$coordinates)
     }, .drop = FALSE)
@@ -50,7 +50,7 @@ ggplot_gtable <- function(data) {
     plot_theme(plot), geom_grobs)
 
   # Axis labels
-  labels <- coord_labels(plot$coordinates, list(
+  labels <- plot$coordinates$labels(list(
     x = xlabel(panel, plot$labels),
     y = ylabel(panel, plot$labels)
   ))
@@ -74,7 +74,6 @@ ggplot_gtable <- function(data) {
   # Legends
   position <- theme$legend.position
   if (length(position) == 2) {
-    coords <- position
     position <- "manual"
   }
 
@@ -87,7 +86,7 @@ ggplot_gtable <- function(data) {
   if (is.zero(legend_box)) {
     position <- "none"
   } else {
-    # these are a bad hack, since it modifies the contents fo viewpoint directly...
+    # these are a bad hack, since it modifies the contents of viewpoint directly...
     legend_width  <- gtable_width(legend_box)  + theme$legend.margin
     legend_height <- gtable_height(legend_box) + theme$legend.margin
 
@@ -133,7 +132,7 @@ ggplot_gtable <- function(data) {
     plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = 1, b = 1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
   } else if (position == "manual") {
-    # should guide box expand whole region or region withoug margin?
+    # should guide box expand whole region or region without margin?
     plot_table <- gtable_add_grob(plot_table, legend_box,
         t = panel_dim$t, b = panel_dim$b, l = panel_dim$l, r = panel_dim$r,
         clip = "off", name = "guide-box")
@@ -174,6 +173,9 @@ ggplot_gtable <- function(data) {
 #' @param vp viewport to draw plot in
 #' @param ... other arguments not used by this method
 #' @keywords hplot
+#' @return Invisibly returns the result of \code{\link{ggplot_build}}, which
+#'   is a list with components that contain the plot itself, the data,
+#'   information about the scales, panels etc.
 #' @export
 #' @method print ggplot
 print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {

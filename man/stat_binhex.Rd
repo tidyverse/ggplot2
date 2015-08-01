@@ -5,7 +5,7 @@
 \title{Bin 2d plane into hexagons.}
 \usage{
 stat_binhex(mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", bins = 30, na.rm = FALSE, show_guide = NA,
+  position = "identity", bins = 30, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -18,7 +18,7 @@ the plot defaults.}
 
 \item{geom}{The geometric object to use display the data}
 
-\item{position}{The position adjustment to use for overlappling points
+\item{position}{The position adjustment to use for overlapping points
 on this layer}
 
 \item{bins}{numeric vector specifying number of bins in both x and y
@@ -27,7 +27,7 @@ directions. Set to 30 by default.}
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

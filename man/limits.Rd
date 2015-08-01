@@ -9,7 +9,7 @@ limits(lims, var)
 \arguments{
 \item{var}{name of variable}
 
-\item{limts}{vector of limits}
+\item{limits}{vector of limits}
 }
 \description{
 Generate correct scale type for specified limits

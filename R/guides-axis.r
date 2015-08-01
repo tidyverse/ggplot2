@@ -38,7 +38,7 @@ guide_axis <- function(at, labels, position="right", theme) {
     top = label_pos,
     bottom = one - label_pos,
     right = ,
-    left = at,
+    left = at
   )
 
   if (is.list(labels)) {
@@ -64,20 +64,20 @@ guide_axis <- function(at, labels, position="right", theme) {
 
   ticks <- switch(position,
     top = element_render(theme, "axis.ticks.x",
-      x          = rep(at, each=2),
+      x          = rep(at, each = 2),
       y          = rep(unit.c(zero, length), nticks),
       id.lengths = rep(2, nticks)),
     bottom = element_render(theme, "axis.ticks.x",
-      x          = rep(at, each=2),
-      y          = rep(unit.c(one-length, one), nticks),
+      x          = rep(at, each = 2),
+      y          = rep(unit.c(one - length, one), nticks),
       id.lengths = rep(2, nticks)),
     right = element_render(theme, "axis.ticks.y",
       x          = rep(unit.c(zero, length), nticks),
-      y          = rep(at, each=2),
+      y          = rep(at, each = 2),
       id.lengths = rep(2, nticks)),
     left = element_render(theme, "axis.ticks.y",
-      x          = rep(unit.c(one-length, one), nticks),
-      y          = rep(at, each=2),
+      x          = rep(unit.c(one - length, one), nticks),
+      y          = rep(at, each = 2),
       id.lengths = rep(2, nticks))
   )
 

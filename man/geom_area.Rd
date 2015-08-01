@@ -5,7 +5,7 @@
 \title{Area plot.}
 \usage{
 geom_area(mapping = NULL, data = NULL, stat = "identity",
-  position = "stack", na.rm = FALSE, show_guide = NA,
+  position = "stack", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -19,13 +19,13 @@ defined at the top level of the plot.}
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
 
-\item{position}{Postion adjustment, either as a string, or the result of
+\item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 

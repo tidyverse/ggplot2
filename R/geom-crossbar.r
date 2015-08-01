@@ -1,114 +1,89 @@
-#' Hollow bar with middle indicated by horizontal line.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "crossbar")}
-#'
-#' @inheritParams geom_point
-#' @param fatten a multiplicate factor to fatten middle bar by
-#' @seealso \code{\link{geom_errorbar}} for error bars,
-#' \code{\link{geom_pointrange}} and \code{\link{geom_linerange}} for other
-#' ways of showing mean + error, \code{\link{stat_summary}} to compute
-#' errors from the data, \code{\link{geom_smooth}} for the continuous analog.
+#' @param fatten a multiplicative factor to fatten middle bar by
 #' @export
-#' @examples
-#' # See geom_linerange for examples
+#' @rdname geom_linerange
 geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", fatten = 2.5, show_guide = NA, inherit.aes = TRUE, ...)
-{
-  Layer$new(
+                          position = "identity", fatten = 2.5, show.legend = NA,
+                          inherit.aes = TRUE, ...) {
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomCrossbar,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     geom_params = list(fatten = fatten),
     params = list(...)
   )
 }
 
-GeomCrossbar <- proto2(
-  class = "GeomCrossbar",
-  inherit = Geom,
-  members = list(
-    objname = "crossbar",
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomCrossbar <- ggproto("GeomCrossbar", Geom,
+  reparameterise = function(df, params) {
+    GeomErrorbar$reparameterise(df, params)
+  },
 
-    reparameterise = function(self, df, params) {
-      GeomErrorbar$reparameterise(df, params)
-    },
+  default_aes = aes(colour = "black", fill = NA, size = 0.5, linetype = 1,
+    alpha = NA),
 
-    default_stat = function(self) StatIdentity,
+  required_aes = c("x", "y", "ymin", "ymax"),
 
-    default_pos = function(self) PositionIdentity,
+  draw_key = draw_key_crossbar,
 
-    default_aes = function(self) aes(colour="black", fill=NA, size=0.5, linetype=1, alpha = NA),
+  draw = function(self, data, scales, coordinates, fatten = 2.5, width = NULL, ...) {
+    middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
 
-    required_aes = c("x", "y", "ymin", "ymax"),
+    has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
+      !is.na(data$ynotchlower) && !is.na(data$ynotchupper)
 
-    guide_geom = function(self) "crossbar",
+    if (has_notch) {
+      if (data$ynotchlower < data$ymin  ||  data$ynotchupper > data$ymax)
+        message("notch went outside hinges. Try setting notch=FALSE.")
 
-    draw_legend = function(self, data, ...)  {
-      data <- aesdefaults(data, self$default_aes(), list(...))
-      gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt, lty = linetype))
-      gTree(gp = gp, children = gList(
-        rectGrob(height=0.5, width=0.75),
-        linesGrob(c(0.125, 0.875), 0.5)
-      ))
-    },
+      notchindent <- (1 - data$notchwidth) * (data$xmax - data$xmin) / 2
 
-    draw = function(self, data, scales, coordinates, fatten = 2.5, width = NULL, ...) {
-      middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
+      middle$x <- middle$x + notchindent
+      middle$xend <- middle$xend - notchindent
 
-      has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
-        !is.na(data$ynotchlower) && !is.na(data$ynotchupper)
-
-      if (has_notch) {
-        if (data$ynotchlower < data$ymin  ||  data$ynotchupper > data$ymax)
-          message("notch went outside hinges. Try setting notch=FALSE.")
-
-        notchindent <- (1 - data$notchwidth) * (data$xmax - data$xmin) / 2
-
-        middle$x <- middle$x + notchindent
-        middle$xend <- middle$xend - notchindent
-
-        box <- data.frame(
-          x = c(
-            data$xmin, data$xmin, data$xmin + notchindent, data$xmin, data$xmin,
-            data$xmax, data$xmax, data$xmax - notchindent, data$xmax, data$xmax,
-            data$xmin
-          ),
-          y = c(
-            data$ymax, data$ynotchupper, data$y, data$ynotchlower, data$ymin,
-            data$ymin, data$ynotchlower, data$y, data$ynotchupper, data$ymax,
-            data$ymax
-          ),
-          alpha = data$alpha,
-          colour = data$colour,
-          size = data$size,
-          linetype = data$linetype, fill = data$fill,
-          group = seq_len(nrow(data)),
-          stringsAsFactors = FALSE
-        )
-      } else {
-        # No notch
-        box <- data.frame(
-          x = c(data$xmin, data$xmin, data$xmax, data$xmax, data$xmin),
-          y = c(data$ymax, data$ymin, data$ymin, data$ymax, data$ymax),
-          alpha = data$alpha,
-          colour = data$colour,
-          size = data$size,
-          linetype = data$linetype,
-          fill = data$fill,
-          group = seq_len(nrow(data)), # each bar forms it's own group
-          stringsAsFactors = FALSE
-        )
-      }
-
-      ggname(self$my_name(), gTree(children = gList(
-        GeomPolygon$draw(box, scales, coordinates, ...),
-        GeomSegment$draw(middle, scales, coordinates, ...)
-      )))
+      box <- data.frame(
+        x = c(
+          data$xmin, data$xmin, data$xmin + notchindent, data$xmin, data$xmin,
+          data$xmax, data$xmax, data$xmax - notchindent, data$xmax, data$xmax,
+          data$xmin
+        ),
+        y = c(
+          data$ymax, data$ynotchupper, data$y, data$ynotchlower, data$ymin,
+          data$ymin, data$ynotchlower, data$y, data$ynotchupper, data$ymax,
+          data$ymax
+        ),
+        alpha = data$alpha,
+        colour = data$colour,
+        size = data$size,
+        linetype = data$linetype, fill = data$fill,
+        group = seq_len(nrow(data)),
+        stringsAsFactors = FALSE
+      )
+    } else {
+      # No notch
+      box <- data.frame(
+        x = c(data$xmin, data$xmin, data$xmax, data$xmax, data$xmin),
+        y = c(data$ymax, data$ymin, data$ymin, data$ymax, data$ymax),
+        alpha = data$alpha,
+        colour = data$colour,
+        size = data$size,
+        linetype = data$linetype,
+        fill = data$fill,
+        group = seq_len(nrow(data)), # each bar forms it's own group
+        stringsAsFactors = FALSE
+      )
     }
-  )
+
+    ggname("geom_crossbar", gTree(children = gList(
+      GeomPolygon$draw(box, scales, coordinates, ...),
+      GeomSegment$draw(middle, scales, coordinates, ...)
+    )))
+  }
 )

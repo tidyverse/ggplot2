@@ -22,8 +22,6 @@ scale_shape_manual(..., values)
 scale_linetype_manual(..., values)
 
 scale_alpha_manual(..., values)
-
-scale_color_manual(..., values)
 }
 \arguments{
 \item{...}{common discrete scale parameters: \code{name}, \code{breaks},

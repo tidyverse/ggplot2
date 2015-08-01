@@ -14,17 +14,5 @@ aes_auto(data = NULL, ...)
 \description{
 Automatic aesthetic mapping
 }
-\examples{
-df <- data.frame(x = 1, y = 1, colour = 1, label = 1, pch = 1)
-aes_auto(df)
-aes_auto(names(df))
-
-df <- data.frame(xp = 1, y = 1, colour = 1, txt = 1, foo = 1)
-aes_auto(df, x = xp, label = txt)
-aes_auto(names(df), x = xp, label = txt)
-
-df <- data.frame(foo = 1:3)
-aes_auto(df, x = xp, y = yp)
-aes_auto(df)
-}
+\keyword{internal}
 

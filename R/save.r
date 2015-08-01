@@ -25,16 +25,16 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' ggplot(movies, aes(rating)) + geom_histogram(binwidth = 0.1)
+#' ggplot(mtcars, aes(mpg, wt)) + geom_point()
 #'
-#' ggsave("ratings.pdf")
-#' ggsave("ratings.png")
+#' ggsave("mtcars.pdf")
+#' ggsave("mtcars.png")
 #'
-#' ggsave("ratings.pdf", width = 4, height = 4)
-#' ggsave("ratings.pdf", width = 20, height = 20, units = "cm")
+#' ggsave("mtcars.pdf", width = 4, height = 4)
+#' ggsave("mtcars.pdf", width = 20, height = 20, units = "cm")
 #'
-#' unlink("ratings.pdf")
-#' unlink("ratings.png")
+#' unlink("mtcars.pdf")
+#' unlink("mtcars.png")
 #'
 #' # specify device when saving to a file with unknown extension
 #' # (for example a server supplied temporary file)
@@ -47,7 +47,7 @@ ggsave <- function(filename, plot = last_plot(),
                    width = NA, height = NA, units = c("in", "cm", "mm"),
                    dpi = 300, limitsize = TRUE, ...) {
 
-  dev <- plot_dev(device, filename)
+  dev <- plot_dev(device, filename, dpi = dpi)
   dim <- plot_dim(c(width, height), scale = scale, units = units,
     limitsize = limitsize)
 
@@ -55,7 +55,7 @@ ggsave <- function(filename, plot = last_plot(),
     filename <- file.path(path, filename)
   }
   dev(file = filename, width = dim[1], height = dim[2], ...)
-  on.exit(capture.output(dev.off()))
+  on.exit(utils::capture.output(grDevices::dev.off()))
   grid.draw(plot)
 
   invisible()
@@ -71,12 +71,12 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
   dim <- to_inches(dim) * scale
 
   if (any(is.na(dim))) {
-    if (length(dev.list()) == 0) {
+    if (length(grDevices::dev.list()) == 0) {
       stop("No graphics device is open. Please supply height and width",
         call. = FALSE)
     }
 
-    dim[is.na(dim)] <- par("din") * scale
+    dim[is.na(dim)] <- graphics::par("din") * scale
     dim_f <- prettyNum(from_inches(dim), digits = 3)
     message("Saving ", dim_f[1], " x ", dim_f[2], " ", units, " image")
   }
@@ -90,7 +90,7 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
   dim
 }
 
-plot_dev <- function(device, filename) {
+plot_dev <- function(device, filename, dpi = 300) {
   if (is.function(device))
     return(device)
 

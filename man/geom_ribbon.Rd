@@ -5,7 +5,7 @@
 \title{Ribbons, y range with continuous x values.}
 \usage{
 geom_ribbon(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show_guide = NA,
+  position = "identity", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -19,13 +19,13 @@ defined at the top level of the plot.}
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
 
-\item{position}{Postion adjustment, either as a string, or the result of
+\item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 
@@ -53,34 +53,17 @@ Ribbons, y range with continuous x values.
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "ribbon")}
 }
 \examples{
-\donttest{
 # Generate data
 huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
-library(plyr) # to access round_any
-huron$decade <- round_any(huron$year, 10, floor)
-
-h <- ggplot(huron, aes(x=year))
+h <- ggplot(huron, aes(year))
 
 h + geom_ribbon(aes(ymin=0, ymax=level))
 h + geom_area(aes(y = level))
 
 # Add aesthetic mappings
-h + geom_ribbon(aes(ymin=level-1, ymax=level+1))
-h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
-
-# Take out some values in the middle for an example of NA handling
-huron[huron$year > 1900 & huron$year < 1910, "level"] <- NA
-h <- ggplot(huron, aes(x=year))
-h + geom_ribbon(aes(ymin=level-1, ymax=level+1)) + geom_line(aes(y=level))
-
-# Another data set, with multiple y's for each x
-m <- ggplot(movies, aes(y=votes, x=year))
-(m <- m + geom_point())
-
-# The default summary isn't that useful
-m + stat_summary(geom="ribbon", fun.ymin="min", fun.ymax="max")
-m + stat_summary(geom="ribbon", fun.data="median_hilow")
-}
+h +
+  geom_ribbon(aes(ymin = level - 1, ymax = level + 1), fill = "grey70") +
+  geom_line(aes(y = level))
 }
 \seealso{
 \code{\link{geom_bar}} for discrete intervals (bars),

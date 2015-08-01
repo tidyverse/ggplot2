@@ -1,63 +1,60 @@
-# Scales object encapsultes multiple scales.
+# Scales object encapsulates multiple scales.
 # All input and output done with data.frames to facilitate
 # multiple input and output variables
 
-Scales <- proto2("Scales",
-  members = list(
-    scales = NULL,
+Scales <- ggproto("Scales", NULL,
+  scales = NULL,
 
-    find = function(self, aesthetic) {
-      vapply(self$scales, function(x) any(aesthetic %in% x$aesthetics), logical(1))
-    },
+  find = function(self, aesthetic) {
+    vapply(self$scales, function(x) any(aesthetic %in% x$aesthetics), logical(1))
+  },
 
-    has_scale = function(self, aesthetic) {
-      any(self$find(aesthetic))
-    },
+  has_scale = function(self, aesthetic) {
+    any(self$find(aesthetic))
+  },
 
-    add = function(self, scale) {
-      prev_aes <- self$find(scale$aesthetics)
-      if (any(prev_aes)) {
-        # Get only the first aesthetic name in the returned vector -- it can
-        # sometimes be c("x", "xmin", "xmax", ....)
-        scalename <- self$scales[prev_aes][[1]]$aesthetics[1]
-        message("Scale for '", scalename,
-          "' is already present. Adding another scale for '", scalename,
-          "', which will replace the existing scale.")
-      }
-
-      # Remove old scale for this aesthetic (if it exists)
-      self$scales <- c(self$scales[!prev_aes], list(scale))
-    },
-
-    n = function(self) {
-      length(self$scales)
-    },
-
-    input = function(self) {
-      unlist(lapply(self$scales, "[[", "aesthetics"))
-    },
-
-    new = function(self, scales = NULL) {
-      proto2(inherit = self,
-        class = "ScalesInstance",
-        members = list(scales = scales)
-      )
-    },
-
-    # This actually makes a descendent of self, which is functionally the same
-    # as a actually clone for most purposes.
-    clone = function(self) proto2(inherit = self),
-
-    non_position_scales = function(self) {
-      Scales$new(self$scales[!self$find("x") & !self$find("y")])
-    },
-
-    get_scales = function(self, output) {
-      scale <- self$scales[self$find(output)]
-      if (length(scale) == 0) return()
-      scale[[1]]
+  add = function(self, scale) {
+    prev_aes <- self$find(scale$aesthetics)
+    if (any(prev_aes)) {
+      # Get only the first aesthetic name in the returned vector -- it can
+      # sometimes be c("x", "xmin", "xmax", ....)
+      scalename <- self$scales[prev_aes][[1]]$aesthetics[1]
+      message("Scale for '", scalename,
+        "' is already present. Adding another scale for '", scalename,
+        "', which will replace the existing scale.")
     }
-  )
+
+    # Remove old scale for this aesthetic (if it exists)
+    self$scales <- c(self$scales[!prev_aes], list(scale))
+  },
+
+  n = function(self) {
+    length(self$scales)
+  },
+
+  input = function(self) {
+    unlist(lapply(self$scales, "[[", "aesthetics"))
+  },
+
+  new = function(self, scales = NULL) {
+    ggproto("ScalesInstance", self,
+      scales = scales
+    )
+  },
+
+  # This actually makes a descendant of self, which is functionally the same
+  # as a actually clone for most purposes.
+  clone = function(self) ggproto(NULL, self),
+
+  non_position_scales = function(self) {
+    Scales$new(self$scales[!self$find("x") & !self$find("y")])
+  },
+
+  get_scales = function(self, output) {
+    scale <- self$scales[self$find(output)]
+    if (length(scale) == 0) return()
+    scale[[1]]
+  }
 )
 
 # Train scale from a data frame
@@ -73,7 +70,7 @@ scales_map_df <- function(scales, df) {
 
   mapped <- unlist(lapply(scales$scales, scale_map_df, df = df), recursive = FALSE)
 
-  quickdf(c(mapped, df[setdiff(names(df), names(mapped))]))
+  plyr::quickdf(c(mapped, df[setdiff(names(df), names(mapped))]))
 }
 
 # Transform values to cardinal representation
@@ -82,7 +79,7 @@ scales_transform_df <- function(scales, df) {
 
   transformed <- unlist(lapply(scales$scales, scale_transform_df, df = df),
     recursive = FALSE)
-  quickdf(c(transformed, df[setdiff(names(df), names(transformed))]))
+  plyr::quickdf(c(transformed, df[setdiff(names(df), names(transformed))]))
 }
 
 # @param aesthetics A list of aesthetic-variable mappings. The name of each
@@ -95,14 +92,14 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
   # No new aesthetics, so no new scales to add
   if (is.null(new_aesthetics)) return()
 
-  datacols <- tryapply(
+  datacols <- plyr::tryapply(
     aesthetics[new_aesthetics], eval,
     envir = data, enclos = env
   )
 
-  for(aes in names(datacols)) {
+  for (aes in names(datacols)) {
     type <- scale_type(datacols[[aes]])
-    scale_name <- paste("scale", aes, type, sep="_")
+    scale_name <- paste("scale", aes, type, sep = "_")
 
     # Skip aesthetics with no scales (e.g. group, order, etc)
     scale_f <- find_global(scale_name, env, mode = "function")
@@ -121,7 +118,7 @@ scales_add_missing <- function(plot, aesthetics, env) {
   aesthetics <- setdiff(aesthetics, plot$scales$input())
 
   for (aes in aesthetics) {
-    scale_name <- paste("scale", aes, "continuous", sep="_")
+    scale_name <- paste("scale", aes, "continuous", sep = "_")
 
     scale_f <- find_global(scale_name, env, mode = "function")
     plot$scales$add(scale_f())

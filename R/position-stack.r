@@ -1,18 +1,30 @@
 #' Stack overlapping objects on top of one another.
 #'
-#' @inheritParams position_identity
+#' \code{position_fill} additionally standardises each stack to have unit
+#' height.
+#'
 #' @family position adjustments
+#' @seealso See \code{\link{geom_bar}} and \code{\link{geom_area}} for
+#'   more examples.
 #' @export
 #' @examples
 #' # Stacking is the default behaviour for most area plots:
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) + geom_bar()
+#' # Fill makes it easier to compare proportions
+#' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
+#'   geom_bar(position = "fill")
+#'
 #'
 #' # To change stacking order, use factor() to change order of levels
 #' mtcars$vs <- factor(mtcars$vs, levels = c(1,0))
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) + geom_bar()
 #'
-#' ggplot(diamonds, aes(price)) + geom_histogram(binwidth=500)
-#' ggplot(diamonds, aes(price, fill = cut)) + geom_histogram(binwidth=500)
+#' ggplot(diamonds, aes(price, fill = cut)) +
+#'   geom_histogram(binwidth = 500)
+#' # When used with a histogram, position_fill creates a conditional density
+#' # estimate
+#' ggplot(diamonds, aes(price, fill = cut)) +
+#'   geom_histogram(binwidth = 500, position = "fill")
 #'
 #' # Stacking is also useful for time series
 #' data.set <- data.frame(
@@ -30,32 +42,30 @@
 #'
 #' # But realise that this makes it *much* harder to compare individual
 #' # trends
-position_stack <- function (width = NULL, height = NULL) {
-  PositionStack$new(width = width, height = height)
+position_stack <- function() {
+  PositionStack
 }
 
-PositionStack <- proto2(
-  class = "PositionStack",
-  inherit = Position,
-  members = list(
-    objname = "stack",
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+PositionStack <- ggproto("PositionStack", Position,
+  adjust = function(self, data) {
+    if (empty(data)) return(data.frame())
 
-    adjust = function(self, data) {
-      if (empty(data)) return(data.frame())
+    data <- remove_missing(data, FALSE,
+      c("x", "y", "ymin", "ymax", "xmin", "xmax"), name = "position_stack")
 
-      data <- remove_missing(data, FALSE,
-        c("x", "y", "ymin", "ymax", "xmin", "xmax"), name = "position_stack")
-
-      if (is.null(data$ymax) && is.null(data$y)) {
-        message("Missing y and ymax in position = 'stack'. ",
-          "Maybe you want position = 'identity'?")
-        return(data)
-      }
-
-      if (!is.null(data$ymin) && !all(data$ymin == 0))
-        warning("Stacking not well defined when ymin != 0", call. = FALSE)
-
-      collide(data, self$width, self$my_name(), pos_stack)
+    if (is.null(data$ymax) && is.null(data$y)) {
+      message("Missing y and ymax in position = 'stack'. ",
+        "Maybe you want position = 'identity'?")
+      return(data)
     }
-  )
+
+    if (!is.null(data$ymin) && !all(data$ymin == 0))
+      warning("Stacking not well defined when ymin != 0", call. = FALSE)
+
+    collide(data, NULL, "position_stack", pos_stack)
+  }
 )

@@ -4,15 +4,17 @@
 \alias{theme}
 \title{Set theme elements}
 \usage{
-theme(..., complete = FALSE)
+theme(..., complete = FALSE, validate = TRUE)
 }
 \arguments{
 \item{...}{a list of element name, element pairings that modify the
 existing theme.}
 
 \item{complete}{set this to TRUE if this is a complete theme, such as
-  the one returned \code{by theme_grey()}. Complete themes behave
-  differently when added to a ggplot object.}
+the one returned \code{by theme_grey()}. Complete themes behave
+differently when added to a ggplot object.}
+
+\item{validate}{TRUE to run validate_element, FALSE to bypass checks.}
 }
 \description{
 Use this function to modify theme settings.
@@ -201,14 +203,13 @@ m
 m + theme_bw()
 
 # Manipulate Axis Attributes
-library(grid) # for unit
 m + theme(axis.line = element_line(size = 3, colour = "red", linetype = "dotted"))
 m + theme(axis.text = element_text(colour = "blue"))
 m + theme(axis.text.y = element_blank())
 m + theme(axis.ticks = element_line(size = 2))
 m + theme(axis.title.y = element_text(size = rel(1.5), angle = 90))
 m + theme(axis.title.x = element_blank())
-m + theme(axis.ticks.length = unit(.85, "cm"))
+m + theme(axis.ticks.length = grid::unit(.85, "cm"))
 
 # Legend Attributes
 z <- ggplot(mtcars, aes(wt, mpg)) +
@@ -218,16 +219,17 @@ z + theme(legend.position = "none")
 z + theme(legend.position = "bottom")
 # Or use relative coordinates between 0 and 1
 z + theme(legend.position = c(.5, .5))
+# Add a border to the whole legend
 z + theme(legend.background = element_rect(colour = "black"))
 # Legend margin controls extra space around outside of legend:
 z + theme(legend.background = element_rect(),
-          legend.margin = unit(1, "cm"))
+          legend.margin = grid::unit(1, "cm"))
 z + theme(legend.background = element_rect(),
-          legend.margin = unit(0, "cm"))
+          legend.margin = grid::unit(0, "cm"))
 # Or to just the keys
 z + theme(legend.key = element_rect(colour = "black"))
 z + theme(legend.key = element_rect(fill = "yellow"))
-z + theme(legend.key.size = unit(2.5, "cm"))
+z + theme(legend.key.size = grid::unit(2.5, "cm"))
 z + theme(legend.text = element_text(size = 20, colour = "red", angle = 45))
 z + theme(legend.title = element_text(face = "italic"))
 
@@ -257,8 +259,8 @@ k + theme(strip.background = element_rect(colour = "purple", fill = "pink",
                                           size = 3, linetype = "dashed"))
 k + theme(strip.text.x = element_text(colour = "red", angle = 45, size = 10,
                                       hjust = 0.5, vjust = 0.5))
-k + theme(panel.margin = unit(5, "lines"))
-k + theme(panel.margin.y = unit(0, "lines"))
+k + theme(panel.margin = grid::unit(5, "lines"))
+k + theme(panel.margin.y = grid::unit(0, "lines"))
 
 # Put gridlines on top
 meanprice <- tapply(diamonds$price, diamonds$cut, mean)
@@ -266,11 +268,11 @@ cut <- factor(levels(diamonds$cut), levels = levels(diamonds$cut))
 df <- data.frame(meanprice, cut)
 g <- ggplot(df, aes(cut, meanprice)) + geom_bar(stat = "identity")
 g + geom_bar(stat = "identity") +
-    theme(panel.background=element_blank(),
-          panel.grid.major.x=element_blank(),
+    theme(panel.background = element_blank(),
+          panel.grid.major.x = element_blank(),
           panel.grid.minor.x = element_blank(),
-          panel.grid.minor.y=element_blank(),
-          panel.ontop=TRUE)
+          panel.grid.minor.y = element_blank(),
+          panel.ontop = TRUE)
 
 # Modify a theme and save it
 mytheme <- theme_grey() + theme(plot.title = element_text(colour = "red"))
@@ -291,7 +293,7 @@ build_element_graph <- function(tree) {
       data.frame(child = name, parent = item$inherit)
   }
 
-  edges <- rbind.fill(mapply(inheritdf, names(tree), tree))
+  edges <- plyr::rbind.fill(mapply(inheritdf, names(tree), tree))
 
   # Explicitly add vertices (since not all are in edge list)
   vertices <- data.frame(name = names(tree))

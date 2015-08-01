@@ -6,7 +6,7 @@
 #' @export
 #' @inheritParams geom_point
 #' @examples
-#' ggplot(movies, aes(length, rating)) + geom_blank()
+#' ggplot(mtcars, aes(wt, mpg)) + geom_blank()
 #' # Nothing to see here!
 #'
 #' # Take the following scatter plot
@@ -21,33 +21,26 @@
 #' # Switching to geom_blank() gets the desired plot
 #' c <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_blank()
 #' c + geom_abline(aes(intercept = a, slope = b), data = df)
-geom_blank <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show_guide = NA, inherit.aes = FALSE, ...)
-{
-  Layer$new(
+geom_blank <- function(mapping = NULL, data = NULL, stat = "identity",
+                       position = "identity", show.legend = NA,
+                       inherit.aes = FALSE, ...) {
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomBlank,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )
 }
 
 
-GeomBlank <- proto2(
-  class = "GeomBlank",
-  inherit = Geom,
-  members = list(
-    objname = "blank",
-
-    default_stat = function(self) StatIdentity,
-    default_aes = function(self) aes(),
-
-    draw_legend = function(self, data, ...) {
-      zeroGrob()
-    }
-  )
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomBlank <- ggproto("GeomBlank", Geom,
+  default_aes = aes()
 )

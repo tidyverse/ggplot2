@@ -2,14 +2,25 @@
 % Please edit documentation in R/plot.r
 \name{ggplot}
 \alias{ggplot}
-\title{Create a new ggplot plot}
+\alias{ggplot.data.frame}
+\alias{ggplot.default}
+\title{Create a new ggplot plot.}
 \usage{
-ggplot(data = NULL, ...)
+ggplot(data = NULL, mapping = aes(), ..., environment = parent.frame())
 }
 \arguments{
-\item{data}{default data set}
+\item{data}{Default dataset to use for plot. If not already a data.frame,
+will be converted to one by \code{\link{fortify}}. If not specified,
+must be suppled in each layer added to the plot.}
 
-\item{...}{other arguments passed to specific methods}
+\item{mapping}{Default list of aesthetic mappings to use for plot.
+If not specified, must be suppled in each layer added to the plot.}
+
+\item{...}{Other arguments passed on to methods. Not currently used.}
+
+\item{environment}{If an variable defined in the aesthetic mapping is not
+found in the data, ggplot will look for it in this environment. It defaults
+to using the environment in which \code{ggplot()} is called.}
 }
 \description{
 \code{ggplot()} initializes a ggplot object. It can be used to
@@ -43,17 +54,12 @@ third method initializes a skeleton \code{ggplot} object which
 is fleshed out as layers are added. This method is useful when
 multiple data frames are used to produce different layers, as
 is often the case in complex graphics.
-
-The examples below illustrate how these methods of
-invoking \code{ggplot} can be used in constructing a
-graphic.
 }
 \examples{
 df <- data.frame(gp = factor(rep(letters[1:3], each = 10)),
                  y = rnorm(30))
 # Compute sample mean and standard deviation in each group
-library(plyr)
-ds <- ddply(df, .(gp), summarise, mean = mean(y), sd = sd(y))
+ds <- plyr::ddply(df, "gp", plyr::summarise, mean = mean(y), sd = sd(y))
 
 # Declare the data frame and common aesthetics.
 # The summary data frame ds is used to plot
@@ -80,8 +86,4 @@ ggplot() +
                     ymin = mean - sd, ymax = mean + sd),
                     colour = 'red', width = 0.4)
 }
-\seealso{
-\url{http://had.co.nz/ggplot2}
-}
-\keyword{internal}
 

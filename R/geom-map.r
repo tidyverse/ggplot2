@@ -46,8 +46,7 @@ NULL
 #'
 #' # Better example
 #' crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
-#' library(reshape2) # for melt
-#' crimesm <- melt(crimes, id = 1)
+#' crimesm <- reshape2::melt(crimes, id = 1)
 #' if (require(maps)) {
 #'   states_map <- map_data("state")
 #'   ggplot(crimes, aes(map_id = state)) +
@@ -61,7 +60,7 @@ NULL
 #'     facet_wrap( ~ variable)
 #' }
 geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
-  show_guide = NA, inherit.aes = TRUE, ...)
+  show.legend = NA, inherit.aes = TRUE, ...)
 {
   # Get map input into correct form
   stopifnot(is.data.frame(map))
@@ -70,46 +69,45 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
   if (!is.null(map$region)) map$id <- map$region
   stopifnot(all(c("x", "y", "id") %in% names(map)))
 
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomMap,
-    show_guide = show_guide,
+    position = PositionIdentity,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     geom_params = list(map = map),
     params = list(...)
   )
 }
 
-GeomMap <- proto2(
-  class = "GeomMap",
-  inherit = GeomPolygon,
-  members = list(
-    objname = "map",
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomMap <- ggproto("GeomMap", GeomPolygon,
+  draw_groups = function(data, scales, coordinates, map, ...) {
+    # Only use matching data and map ids
+    common <- intersect(data$map_id, map$id)
+    data <- data[data$map_id %in% common, , drop = FALSE]
+    map <- map[map$id %in% common, , drop = FALSE]
 
-    draw_groups = function(self, data, scales, coordinates, map, ...) {
-      # Only use matching data and map ids
-      common <- intersect(data$map_id, map$id)
-      data <- data[data$map_id %in% common, , drop = FALSE]
-      map <- map[map$id %in% common, , drop = FALSE]
+    # Munch, then set up id variable for polygonGrob -
+    # must be sequential integers
+    coords <- coord_munch(coordinates, map, scales)
+    coords$group <- coords$group %||% coords$id
+    grob_id <- match(coords$group, unique(coords$group))
 
-      # Munch, then set up id variable for polygonGrob -
-      # must be sequential integers
-      coords <- coord_munch(coordinates, map, scales)
-      coords$group <- coords$group %||% coords$id
-      grob_id <- match(coords$group, unique(coords$group))
+    # Align data with map
+    data_rows <- match(coords$id[!duplicated(grob_id)], data$map_id)
+    data <- data[data_rows, , drop = FALSE]
 
-      # Align data with map
-      data_rows <- match(coords$id[!duplicated(grob_id)], data$map_id)
-      data <- data[data_rows, , drop = FALSE]
+    polygonGrob(coords$x, coords$y, default.units = "native", id = grob_id,
+      gp = gpar(
+        col = data$colour, fill = alpha(data$fill, data$alpha),
+        lwd = data$size * .pt))
+  },
 
-      polygonGrob(coords$x, coords$y, default.units = "native", id = grob_id,
-        gp = gpar(
-          col = data$colour, fill = alpha(data$fill, data$alpha),
-          lwd = data$size * .pt))
-    },
-
-    required_aes = c("map_id")
-  )
+  required_aes = c("map_id")
 )

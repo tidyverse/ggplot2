@@ -4,11 +4,11 @@
 \alias{geom_dotplot}
 \title{Dot plot}
 \usage{
-geom_dotplot(mapping = NULL, data = NULL, stat = "bindot",
-  position = "identity", na.rm = FALSE, binwidth = NULL, binaxis = "x",
-  method = "dotdensity", binpositions = "bygroup", stackdir = "up",
-  stackratio = 1, dotsize = 1, stackgroups = FALSE, show_guide = NA,
-  inherit.aes = TRUE, ...)
+geom_dotplot(mapping = NULL, data = NULL, position = "identity",
+  na.rm = FALSE, binwidth = NULL, binaxis = "x", method = "dotdensity",
+  binpositions = "bygroup", stackdir = "up", stackratio = 1,
+  dotsize = 1, stackgroups = FALSE, origin = NULL, right = TRUE,
+  width = 0.9, drop = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -18,20 +18,17 @@ at the layer level if you are overriding the plot defaults.}
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
 
-\item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
-
-\item{position}{Postion adjustment, either as a string, or the result of
+\item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
-\item{binwidth}{When \code{method} is "dotdensity", this specifies maximum bin width.
- When method is "histodot", this specifies bin width.
+\item{binwidth}{When \code{method} is "dotdensity", this specifies maximum bin
+width. When \code{method} is "histodot", this specifies bin width.
 Defaults to 1/30 of the range of the data}
 
-\item{binaxis}{which axis to bin along "x" (default) or "y"}
+\item{binaxis}{The axis to bin along, "x" (default) or "y"}
 
 \item{method}{"dotdensity" (default) for dot-density binning, or
 "histodot" for fixed bin widths (like stat_bin)}
@@ -53,7 +50,17 @@ just touch. Use smaller values for closer, overlapping dots.}
 that \code{position = "stack"} should have, but can't (because this geom has
 some odd properties).}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{origin}{When \code{method} is "histodot", origin of first bin}
+
+\item{right}{When \code{method} is "histodot", should intervals be closed
+on the right (a, b], or not [a, b)}
+
+\item{width}{When \code{binaxis} is "y", the spacing of the dot stacks
+for dodging.}
+
+\item{drop}{If TRUE, remove all bins with zero counts}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 
@@ -95,6 +102,21 @@ to match the number of dots.
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "dotplot")}
 }
+
+\section{Computed variables}{
+
+\describe{
+  \item{x}{center of each bin, if binaxis is "x"}
+  \item{y}{center of each bin, if binaxis is "x"}
+  \item{binwidth}{max width of each bin if method is "dotdensity";
+    width of each bin if method is "histodot"}
+  \item{count}{number of points in bin}
+  \item{ncount}{count, scaled to maximum of 1}
+  \item{density}{density of points in bin, scaled to integrate to 1,
+    if method is "histodot"}
+  \item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
+}
+}
 \examples{
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot()
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5)
@@ -118,7 +140,6 @@ ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, stackratio = .7)
 
 # Expand dot diameter
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
-
 
 # Examples with stacking along y axis instead of x
 ggplot(mtcars, aes(x = 1, y = mpg)) +

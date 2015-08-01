@@ -1,44 +1,28 @@
-# Position adjustment occurs over all groups within a geom
-# They work only with discrete x scales and may affect x and y position.
-# Should occur after statistics and scales have been applied.
-Position <- proto2(
-  class = "Position",
-  inherit = TopLevel,
-  members = list(
-    adjust = function(self, data, scales, ...) data,
-
-    class = function(self) "position",
-
-    width = NULL,
-    
-    height = NULL,
-
-    new = function(self, width = NULL, height = NULL) {
-      proto2(
-        inherit = self,
-        members = list(
-          width = width,
-          height = height
-        )
-      )
-    },
-
-    parameters = function(self) {
-      pnames <- names(formals(self$initialize))
-      values <- mget(pnames, envir = self)
-      names(values) <- pnames
-
-      values
-    }
-
-    # print = function(self, newline=TRUE) {
-    #   cat("position_", self$objname, ": (", clist(self$parameters()), ")", sep="")
-    #   if (newline) cat("\n")
-    # }
-  )
+#' @section Positions:
+#'
+#' All \code{position_*} functions (like \code{position_dodge}) return a
+#' \code{Position*} object (like \code{PositionDodge}). The \code{Position*}
+#' object is responsible for adjusting the position of overlapping geoms.
+#'
+#' The way that the \code{position_*} functions work is slightly different from
+#' the \code{geom_*} and \code{stat_*} functions, because a \code{position_*}
+#' function actually "instantiates" the \code{Position*} object by creating a
+#' descendant, and returns that.
+#'
+#' Each of the \code{Position*} objects is a \code{\link{ggproto}} object,
+#' descended from the top-level \code{Position}, and each implements the
+#' following method:
+#'
+#' \itemize{
+#'   \item \code{adjust}: Adjusts the position of overlapping geoms.
+#' }
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+Position <- ggproto("Position",
+  adjust = function(data, scales, ...) data
 )
-
-
 
 # Convenience function to ensure that all position variables
 # (x, xmin, xmax, xend) are transformed in the same way
@@ -53,4 +37,19 @@ transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
   }
 
   df
+}
+
+# make_position("dodge") returns PositionDodge
+make_position <- function(class) {
+  name <- paste0("Position", camelize(class, first = TRUE))
+  if (!exists(name)) {
+    stop("No position called ", name, ".", call. = FALSE)
+  }
+
+  obj <- get(name)
+  if (!inherits(obj, "Position")) {
+    stop("Found object is not a position", call. = FALSE)
+  }
+
+  obj
 }

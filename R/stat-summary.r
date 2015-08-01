@@ -1,10 +1,10 @@
 #' Summarise y values at every unique x.
 #'
-#' \code{stat_summary} allows for tremendous flexibilty in the specification
+#' \code{stat_summary} allows for tremendous flexibility in the specification
 #' of summary functions. The summary function can either supply individual
 #' summary functions for each of y, ymin and ymax (with \code{fun.y},
 #' \code{fun.ymax}, \code{fun.ymin}), or return a data frame containing any
-#' number of aesthetiics with with \code{fun.data}. All summary functions
+#' number of aesthetics with with \code{fun.data}. All summary functions
 #' are called with a single vector of values, \code{x}.
 #'
 #' A simple vector function is easiest to work with as you can return a single
@@ -19,7 +19,8 @@
 #'  \code{\link{geom_linerange}}, \code{\link{geom_crossbar}} for geoms to
 #'  display summarised data
 #' @inheritParams stat_identity
-#' @return a data.frame with additional columns:
+#' @section Computed variables:
+#' \describe{
 #'   \item{fun.data}{Complete summary function. Should take numeric vector as
 #'      input and return data frame as output}
 #'   \item{fun.ymin}{ymin summary function (should take numeric vector and
@@ -28,6 +29,7 @@
 #'     single number)}
 #'   \item{fun.ymax}{ymax summary function (should take numeric vector and
 #'     return single number)}
+#' }
 #' @export
 #' @examples
 #' \donttest{
@@ -91,6 +93,7 @@
 #'        xlab("cyl")
 #' m
 #' # An example with highly skewed distributions:
+#' if (require("ggplot2movies")) {
 #' set.seed(596)
 #' mov <- movies[sample(nrow(movies), 1000), ]
 #'  m2 <- ggplot(mov, aes(x= factor(round(rating)), y=votes)) + geom_point()
@@ -111,56 +114,53 @@
 #' # standard errors.
 #' m2 + coord_trans(y="log10")
 #' }
-stat_summary <- function (mapping = NULL, data = NULL, geom = "pointrange",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
-{
-  Layer$new(
+#' }
+stat_summary <- function(mapping = NULL, data = NULL, geom = "pointrange",
+                         position = "identity", show.legend = NA,
+                         inherit.aes = TRUE, ...) {
+  layer(
     data = data,
     mapping = mapping,
     stat = StatSummary,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )
 }
 
-StatSummary <- proto2(
-  class = "StatSummary",
-  inherit = Stat,
-  members = list(
-    objname = "summary",
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatSummary <- ggproto("StatSummary", Stat,
+  required_aes = c("x", "y"),
 
-    default_geom = function(self) GeomPointrange,
+  calculate_groups = function(data, scales, fun.data = NULL, fun.y = NULL,
+    fun.ymax = NULL, fun.ymin = NULL, na.rm = FALSE, ...)
+  {
+    data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_summary")
 
-    required_aes = c("x", "y"),
-
-    calculate_groups = function(self, data, scales, fun.data = NULL, fun.y = NULL,
-      fun.ymax = NULL, fun.ymin = NULL, na.rm = FALSE, ...)
-    {
-      data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_summary")
-
-      if (!missing(fun.data)) {
-        # User supplied function that takes complete data frame as input
-        fun.data <- match.fun(fun.data)
-        fun <- function(df, ...) {
-          fun.data(df$y, ...)
-        }
-      } else {
-        # User supplied individual vector functions
-        fs <- compact(list(ymin = fun.ymin, y = fun.y, ymax = fun.ymax))
-
-        fun <- function(df, ...) {
-          res <- llply(fs, function(f) do.call(f, list(df$y, ...)))
-          names(res) <- names(fs)
-          as.data.frame(res)
-        }
+    if (!missing(fun.data)) {
+      # User supplied function that takes complete data frame as input
+      fun.data <- match.fun(fun.data)
+      fun <- function(df, ...) {
+        fun.data(df$y, ...)
       }
+    } else {
+      # User supplied individual vector functions
+      fs <- compact(list(ymin = fun.ymin, y = fun.y, ymax = fun.ymax))
 
-      summarise_by_x(data, fun, ...)
+      fun <- function(df, ...) {
+        res <- plyr::llply(fs, function(f) do.call(f, list(quote(df$y), ...)))
+        names(res) <- names(fs)
+        as.data.frame(res)
+      }
     }
-  )
+
+    summarise_by_x(data, fun, ...)
+  }
 )
 
 # Summarise a data.frame by parts
@@ -176,8 +176,8 @@ StatSummary <- proto2(
 # @param other arguments passed on to summary function
 # @keyword internal
 summarise_by_x <- function(data, summary, ...) {
-  summary <- ddply(data, c("group", "x"), summary, ...)
-  unique <- ddply(data, c("group", "x"), uniquecols)
+  summary <- plyr::ddply(data, c("group", "x"), summary, ...)
+  unique <- plyr::ddply(data, c("group", "x"), uniquecols)
   unique$y <- NULL
 
   merge(summary, unique, by = c("x", "group"))
@@ -197,11 +197,15 @@ summarise_by_x <- function(data, summary, ...) {
 NULL
 
 wrap_hmisc <- function(fun) {
-  function(x, ...) {
-    try_require("Hmisc")
 
+  function(x, ...) {
+    if (!requireNamespace("Hmisc", quietly = TRUE))
+      stop("Hmisc package required for this function", call. = FALSE)
+
+    fun <- getExportedValue("Hmisc", fun)
     result <- safe.call(fun, list(x = x, ...))
-    rename(
+
+    plyr::rename(
       data.frame(t(result)),
       c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax"),
       warn_missing = FALSE
@@ -228,8 +232,8 @@ median_hilow <- wrap_hmisc("smedian.hilow")
 #' @seealso for use with \code{\link{stat_summary}}
 #' @export
 mean_se <- function(x, mult = 1) {
-  x <- na.omit(x)
-  se <- mult * sqrt(var(x) / length(x))
+  x <- stats::na.omit(x)
+  se <- mult * sqrt(stats::var(x) / length(x))
   mean <- mean(x)
   data.frame(y = mean, ymin = mean - se, ymax = mean + se)
 }

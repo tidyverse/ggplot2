@@ -12,7 +12,7 @@
 #' @keywords internal
 #' @export
 ggplot_build <- function(plot) {
-  if (length(plot$layers) == 0) stop("No layers in plot", call.=FALSE)
+  if (length(plot$layers) == 0) stop("No layers in plot", call. = FALSE)
 
   plot <- plot_clone(plot)
   layers <- plot$layers
@@ -22,7 +22,7 @@ ggplot_build <- function(plot) {
   # Apply function to layer and matching data
   dlapply <- function(f) {
     out <- vector("list", length(data))
-    for(i in seq_along(data)) {
+    for (i in seq_along(data)) {
       out[[i]] <- f(d = data[[i]], p = layers[[i]])
     }
     out

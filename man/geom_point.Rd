@@ -5,7 +5,7 @@
 \title{Points, as for a scatterplot}
 \usage{
 geom_point(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show_guide = NA,
+  position = "identity", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -19,13 +19,13 @@ defined at the top level of the plot.}
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
 
-\item{position}{Postion adjustment, either as a string, or the result of
+\item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 
@@ -68,64 +68,59 @@ that can help.  You can add additional information with
 \code{\link{geom_boxplot}} may also be useful.  Alternatively, you can
 summarise the number of points at each location and display that in some
 way, using \code{\link{stat_sum}}. Another technique is to use transparent
-points, \code{geom_point(alpha = 0.05)}.
+points, e.g. \code{geom_point(alpha = 0.05)}.
 }
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
 }
 \examples{
-\donttest{
 p <- ggplot(mtcars, aes(wt, mpg))
 p + geom_point()
 
 # Add aesthetic mappings
-p + geom_point(aes(colour = qsec))
-p + geom_point(aes(alpha = qsec))
 p + geom_point(aes(colour = factor(cyl)))
 p + geom_point(aes(shape = factor(cyl)))
 p + geom_point(aes(size = qsec))
 
 # Change scales
 p + geom_point(aes(colour = cyl)) + scale_colour_gradient(low = "blue")
-p + geom_point(aes(size = qsec)) + scale_size_area()
 p + geom_point(aes(shape = factor(cyl))) + scale_shape(solid = FALSE)
 
 # Set aesthetics to fixed value
-p + geom_point(colour = "red", size = 3)
 ggplot(mtcars, aes(wt, mpg)) + geom_point(colour = "red", size = 3)
 
+\donttest{
 # Varying alpha is useful for large datasets
 d <- ggplot(diamonds, aes(carat, price))
 d + geom_point(alpha = 1/10)
 d + geom_point(alpha = 1/20)
 d + geom_point(alpha = 1/100)
+}
 
 # For shapes that have a border (like 21), you can colour the inside and
 # outside separately. Use the stroke aesthetic to modify the width of the
 # border
 ggplot(mtcars, aes(wt, mpg)) +
-  geom_point(shape = 21, size = 5, colour = "black", fill = "white", stroke = 5)
+  geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 5)
 
+\donttest{
 # You can create interesting shapes by layering multiple points of
 # different sizes
 p <- ggplot(mtcars, aes(mpg, wt))
 p + geom_point(colour="grey50", size = 4) + geom_point(aes(colour = cyl))
 p + aes(shape = factor(cyl)) +
   geom_point(aes(colour = factor(cyl)), size = 4) +
-  geom_point(colour="grey90", size = 1.5)
-p + geom_point(colour="black", size = 4.5) +
-  geom_point(colour="pink", size = 4) +
+  geom_point(colour = "grey90", size = 1.5)
+p + geom_point(colour = "black", size = 4.5) +
+  geom_point(colour = "pink", size = 4) +
   geom_point(aes(shape = factor(cyl)))
 
 # These extra layers don't usually appear in the legend, but we can
 # force their inclusion
-p + geom_point(colour="black", size = 4.5, show_guide = TRUE) +
-  geom_point(colour="pink", size = 4, show_guide = TRUE) +
+p + geom_point(colour = "black", size = 4.5, show.legend = TRUE) +
+  geom_point(colour = "pink", size = 4, show.legend = TRUE) +
   geom_point(aes(shape = factor(cyl)))
-
-# Transparent points:
-ggplot(mtcars, aes(mpg, wt)) + geom_point(size = 5, alpha = 1/5)
 
 # geom_point warns when missing values have been dropped from the data set
 # and not plotted, you can turn this off by setting na.rm = TRUE

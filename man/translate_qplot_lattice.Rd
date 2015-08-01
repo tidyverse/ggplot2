@@ -12,6 +12,7 @@ to more complicated situations.
 \dontrun{
 library(lattice)
 
+if (require("ggplot2movies")) {
 xyplot(rating ~ year, data=movies)
 qplot(year, rating, data=movies)
 
@@ -38,6 +39,7 @@ qplot(mpg, wt, data = mtcars, geom = c("point","smooth"))
 
 xyplot(wt ~ mpg, mtcars, type = c("p","r"))
 qplot(mpg, wt, data = mtcars, geom = c("point","smooth"), method = "lm")
+}
 
 # The capabilities for scale manipulations are similar in both ggplot2 and
 # lattice, although the syntax is a little different.
@@ -49,9 +51,9 @@ xyplot(wt ~ mpg | cyl, mtcars, scales = list(log = 10))
 qplot(mpg, wt, data = mtcars, log = "xy")
 
 xyplot(wt ~ mpg | cyl, mtcars, scales = list(log = 2))
-library(scales)  # Load scales for log2_trans
-qplot(mpg, wt, data = mtcars) + scale_x_continuous(trans = log2_trans()) +
-  scale_y_continuous(trans = log2_trans())
+qplot(mpg, wt, data = mtcars) +
+  scale_x_continuous(trans = scales::log2_trans()) +
+  scale_y_continuous(trans = scales::log2_trans())
 
 xyplot(wt ~ mpg, mtcars, group = cyl, auto.key = TRUE)
 # Map directly to an aesthetic like colour, size, or shape.

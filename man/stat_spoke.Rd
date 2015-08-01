@@ -5,7 +5,7 @@
 \title{Convert angle and radius to xend and yend.}
 \usage{
 stat_spoke(mapping = NULL, data = NULL, geom = "segment",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
+  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -17,10 +17,10 @@ the plot defaults.}
 
 \item{geom}{The geometric object to use display the data}
 
-\item{position}{The position adjustment to use for overlappling points
+\item{position}{The position adjustment to use for overlapping points
 on this layer}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 
@@ -33,17 +33,20 @@ the default plot specification, e.g. \code{\link{borders}}.}
 include aesthetics whose values you want to set, not map. See
 \code{\link{layer}} for more details.}
 }
-\value{
-a data.frame with additional columns
-  \item{xend}{x position of end of line segment}
-  \item{yend}{x position of end of line segment}
-}
 \description{
 Convert angle and radius to xend and yend.
 }
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "spoke")}
+}
+
+\section{Computed variables}{
+
+\describe{
+  \item{xend}{x position of end of line segment}
+  \item{yend}{x position of end of line segment}
+}
 }
 \examples{
 df <- expand.grid(x = 1:10, y=1:10)

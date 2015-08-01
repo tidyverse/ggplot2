@@ -7,9 +7,11 @@
 #' @param n number of points to interpolate along
 #' @param args list of additional arguments to pass to \code{fun}
 #' @inheritParams stat_identity
-#' @return a data.frame with additional columns:
+#' @section Computed variables:
+#' \describe{
 #'   \item{x}{x's along a grid}
 #'   \item{y}{value of function evaluated at corresponding x}
+#' }
 #' @export
 #' @examples
 #' set.seed(1492)
@@ -43,17 +45,16 @@
 #' # Using a custom function
 #' test <- function(x) {x ^ 2 + x + 20}
 #' f + stat_function(fun = test)
-stat_function <- function (mapping = NULL, data = NULL, geom = "path",
-  position = "identity", fun, n = 101, args = list(), show_guide = NA,
-  inherit.aes = TRUE, ...)
-{
-  Layer$new(
+stat_function <- function(mapping = NULL, data = NULL, geom = "path",
+                          position = "identity", fun, n = 101, args = list(),
+                          show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
     data = data,
     mapping = mapping,
     stat = StatFunction,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(
       fun = fun,
@@ -64,23 +65,20 @@ stat_function <- function (mapping = NULL, data = NULL, geom = "path",
   )
 }
 
-StatFunction <- proto2(
-  class = "StatFunction",
-  inherit = Stat,
-  members = list(
-    objname = "function",
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatFunction <- ggproto("StatFunction", Stat,
+  default_aes = aes(y = ..y..),
 
-    default_geom = function(self) GeomPath,
-    default_aes = function(self) aes(y = ..y..),
+  calculate = function(data, scales, fun, n = 101, args = list(), ...) {
+    range <- scale_dimension(scales$x, c(0, 0))
+    xseq <- seq(range[1], range[2], length.out = n)
 
-    calculate = function(self, data, scales, fun, n=101, args = list(), ...) {
-      range <- scale_dimension(scales$x, c(0, 0))
-      xseq <- seq(range[1], range[2], length.out = n)
-
-      data.frame(
-        x = xseq,
-        y = do.call(fun, c(list(xseq), args))
-      )
-    }
-  )
+    data.frame(
+      x = xseq,
+      y = do.call(fun, c(list(quote(scales$x$trans$inv(xseq))), args))
+    )
+  }
 )

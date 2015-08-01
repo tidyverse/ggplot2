@@ -1,9 +1,157 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
-* Switched away from proto and reference class objects to proto2. This makes it
-  easier to extend ggplot2, because proto2 supports clean cross-package
+* `geom_histogram()` and `geom_smooth()` now only inform you about the
+  default values once per layer, rather than once per panel (#1220).
+
+* `geom_bar()` and `geom_histogram()` no longer share `stat_bin()`. Now
+  `geom_bar()` has its own stat, `stat_bar()`. This is useful if you want to
+  display a bar chart of continuous data, drawing a bar at each unique
+  location.
+
+* `stat_summary2d()` has been renamed to `stat_summary_2d()` (with
+  an alias so you can keep using the old method).
+
+* Date and datetime scales now have `date_breaks`, `date_minor_breaks` and
+  `date_labels` arguments so that you never need to use the long form
+  `scales::date_breaks()` or `scales::date_format()`.
+
+* `aes_auto()` has been deprecated. `aes_()` added as alias to old `aes_q()`.
+  `aes_()` can now use formulas, so the most concise SE version of
+  `aes(carat, price)` is now `aes_(~carat, ~price)`.
+
+* New dataset `economics_long` is the economics data in long form.
+
+* `facet_wrap()` gains a `labeller` option. (@lionel-, #25)
+
+* The labeller API has been updated to offer more control when
+  facetting over multiple factors (e.g. with formulae such as `~cyl +
+  am`). Before, a labeller function would take `variable` and `value`
+  arguments and return a character vector. Now, they take a data frame
+  of character vectors and return a list. The input data frame has one
+  column per factor facetted over. Each column in the returned list
+  becomes one line in the strip label. See documentation for more
+  details. Labellers offer the `multi_line` argument to control
+  whether to display one or multiple lines. Furthermore, referring to
+  `x` in backquoted expressions with `label_bquote()` is
+  deprecated. You can now refer to the variable names
+  instead. (@lionel-)
+
+* There is a new labeller `label_context()`. Its behaviour depends on
+  the number of factors facetted over. With a single factor, it
+  displays only the values, just as before. But with multiple factors
+  (e.g. with formulae such as `~cyl + am`), the labels are dispatched
+  to `label_both()` to display both the variables and the values and
+  make the plot clearer. (@lionel-)
+
+* `show_guide` has been renamed to `show.legend`: this more accurately
+  reflects what it does (control appearance in legend), and uses the same
+  convention as other ggplot2 arguments (i.e. a `.` between names).
+
+* New `cut_width()` is a convenient replacement for the verbose
+  `plyr::round_any()`, with the additional benefit of offering more
+  control.
+
+* New `luv_colours` dataset which contains the locations of all
+  built-in `colors()` in Luv space.
+
+* `scale_*_gradient2()` defaults to using Lab colour space.
+
+* `scale_fill_grey()` now uses red for missing values. This matches
+  `scale_colour_grey()` and makes it obvious where missing values lie.
+  Control with `na.value`.
+
+* `geom_label()` works like `geom_text()` but draws a solid background
+  behind each label (#1039).
+
+* `stat_bindot()` has been removed because it's so tightly coupled to
+  `geom_dotplot()`. If you happened to use `stat_bindot()`, just change to
+  `geom_dotplot()` (#1194).
+
+* Character labels in `facet_grid()` are no longer (incorrectly) coerced into
+  factors. This caused problems with custom label functions (#1070).
+
+* `scale_y_continuous()` now also transforms the `lower`, `middle` and `upper`
+  aesthetics used by `geom_boxplot()`: this only affects
+  `geom_boxplot(stat = "identity")` (#1020).
+
+* `stat_summary_hex()` and `stat_summary2d()` no longer passes `...` on to their
+  summary functions - instead they have a new argument `fun.args`, a list
+  of arguments to pass on.
+
+* The internals of positions have been cleaned up considerably. You're unlikely
+  to notice any external changes, although the documentation should be a little
+  less confusing since positions now don't list parameters they never use.
+
+* You can now suppress the appearance of an axis/legend title (and the space
+  that would allocated for it) with `NULL` in the `scale_` function. To
+  use the default lable, use `waiver()` (#1145).
+
+* `geom_bin2d()` will now let you specify one dimension's breaks exactly,
+  without touching the other dimension's default breaks at all (#1126).
+
+* `labels = NULL` now works with `guide_legend()` and `guide_colorbar()`.
+  (#1175, #1183).
+
+* Improved documentation for `aes()`, `layer()` and many geoms and scales. I've
+  tried to reduce the use of `...` so that you can see all the documentation in
+  one place rather than having to navigate through multiple pages. Use
+  of `qplot()` in examples has been minimised (#1123, @hrbrmstr). Tighly
+  linked geoms and stats (e.g. `geom_boxplot()` and `stat_boxplot()`) are
+  now documented in the same file so you can see all the arguments in one
+  place.
+
+* `geom_abline()`, `geom_hline()` and `geom_vline()` have been rewritten to
+  have simpler behaviour and be more consistent:
+
+    * `stat_abline()`, `stat_hline()` and `stat_vline()` have been removed:
+      these were never suitable for use other than with `geom_abline()` etc
+      and were not documented.
+
+    * `geom_abline()`, `geom_vline()` and `geom_hline()` are bound to
+      `stat_identity()` and `position_identity()`
+
+    * Intercept parameters can no longer be set to a function.
+
+    * They are all documented in one file, since they are so closely related.
+
+* Scales no longer round data points to improve performance of colour
+  palettes. Instead the scales package now uses a much faster colour
+  interpolation algorithm (#1022).
+
+* `scale_x_date()` now clips dates outside the limits in the same way as
+  `scale_x_continuous()` (#1090)
+
+* The `stat` and `position` arguments to `qplot()` have been deprecated.
+
+* The movies dataset has been moved into its own package, ggplot2movies,
+  because it was large and not terribly useful. If you've used the movies
+  dataset, you'll now need to explicitly load the package with
+  `library(ggplot2movies)`.
+
+* The default legend will now allocate multiple rows (if vertical) or
+  columns (if horizontal) in order to make a legend that is more likely to
+  fit on the screen. You can override with the `nrow`/`ncol` arguments
+  to `guide_legend()`
+
+    ```R
+    p <- ggplot(mpg, aes(displ,hwy, colour = model)) + geom_point()
+    p
+    p + theme(legend.position = "bottom")
+    p + guides(colour = guide_legend(ncol = 1))
+    ```
+
+* `lims()` makes it easy to set the limits of any axis (#1138).
+
+* Switched away from proto and reference class objects to ggproto. This makes it
+  easier to extend ggplot2, because ggproto supports clean cross-package
   inheritance.
+
+* `stat_function` computed the function with the transformed (not
+  original data) values. This caused the computed values to be wrong
+  if a different scale, other than untransformed continuous, was
+  used. Function is now evaluted in original data scale
+  values. (@BrianDiggs, #1011)
 
 * Fixed segment annotations not transforming with scales (@BrianDiggs, #859)
 
@@ -21,6 +169,10 @@ ggplot2 1.0.1.9xxx
   device to use ('pdf', 'png', 'jpeg', etc.), for when it cannot be correctly
   inferred from the file extension (for example when a temporary filename is
   supplied server side in shiny apps) (@sebkopf, #939)
+
+* Add access to the new `direction` argument of `scales::brewer_pal` and
+  simplify changing the order of colours for `scale_*_brewer` and
+  `scale_*_distiller` (@jiho, #1139)
 
 * `facet_wrap()` more carefully checks its `nrow` and `ncol` arguments
   to ensure that they're specified correctly (@richierocks, #962)
@@ -63,6 +215,10 @@ ggplot2 1.0.1.9xxx
 
 * New `geom_curve()` that adds curved lines, similar to `geom_segment()`.
   (@veraanadi, #1088)
+
+* New `validate = FALSE` parameter to `theme()` makes it possible to turn off
+  validation, and hence store arbitrary additional data in the themes.
+  (@tdhock, #1121)
 
 * Create correct legend for continuous color even if there is only one color
   (@krlmlr, #943)
@@ -107,6 +263,14 @@ ggplot2 1.0.1.9xxx
   `method`, `se` and `formula` arguments to make it easier to see what the
   most important options are.
 
+* `stat_bin()` gains `bins` arguments, which denotes the number of bins. Now
+  you can set `bins=100` instead of `binwidth=0.5`. Note that `breaks` or
+  `binwidth` will override it. (@tmshn, #1158, #102)
+
+* `geom_histogram()` gains `binwidth`, `bins`, origin` and `right` arguments so
+  you can see the most important arguments to the underlying `stat_bin()`
+  computation.
+
 * `geom_jitter()` gains `width` and `height` arguments to make it easier
   to control the amount of jittering without using the lengthy
   `position_jitter()` function (#1116)
@@ -115,25 +279,31 @@ ggplot2 1.0.1.9xxx
   don't need to do `library(scales)` or `scales::alpha()` to access that
   handy function (#1107).
 
-* Improved documentation for `aes()`, `layer()` and many geoms and scales. I've
-  tried to reduce the use of `...` so that you can see all the documentation in
-  one place rather than having to navigate through multiple pages. Use
-  of `qplot()` in examples has been minimised (#1123, @hrbrmstr)
-
 * new theme setting `panel.ontop` (logical) allows placing background elements
   (e.g., gridlines) on top of data. Usually used with blank or transparent
   `panel.background`.  (@noamross. #551)
 
 * Add `stroke` aesthetic to `geom_point` controlling the stroke width of the
-  border for shape types 21 - 25 (#1133, @SeySayux)
+  border for shape types 21 - 25 (#1133, @SeySayux). Like `size`, the unit
+  of stroke is `mm`. A point with `size = 5, stroke = 5` will be 10 mm wide.
+  (#1142)
+
+* `override.aes` now works with American aesthetic spelling, e.g. color
+
+* Fixed `strip_dots` to work with anonymous functions within calculated
+  aesthetics (e.g. `aes(sapply(..density.., function(x) mean(x))))`
+  (#1154, @NikNakk)
+
+* Automatically computed breaks do not lead to an error for transformations like
+  "probit" where the inverse can map to infinity (#871, @krlmlr)
 
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
 * Fixes to pass `R CMD check --run-donttest` in R-devel.
 
-* Improvements in to order of colours and legend display of continuous colour
-  scales extracted from colorbrewer palettes in `scale_*_distiller()` (@jiho, 1076)
+* Improvements to order of colours and legend display for continuous colour
+  scales extracted from colorbrewer palettes by `scale_*_distiller()` (@jiho, 1076)
 
 ggplot2 1.0.0
 ----------------------------------------------------------------

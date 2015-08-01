@@ -1,65 +1,40 @@
-#' Bin data.
-#'
-#' Missing values are currently silently dropped.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bin")}
-#'
-#' @inheritParams stat_identity
-#' @param binwidth Bin width to use. Defaults to 1/30 of the range of the
-#'   data
-#' @param breaks Actual breaks to use.  Overrides bin width and origin
+#' @param binwidth Bin width to use. Defaults to 1/\code{bins} of the range of
+#'   the data
+#' @param bins Number of bins. Overridden by \code{binwidth} or \code{breaks}.
+#'   Defaults to 30
+#' @param breaks Actual breaks to use. Overrides bin width, bin number and
+#'   origin
 #' @param origin Origin of first bin
 #' @param width Width of bars when used with categorical data
 #' @param right If \code{TRUE}, right-closed, left-open, if \code{FALSE},
 #'   the default, right-open, left-closed.
 #' @param drop If TRUE, remove all bins with zero counts
-#' @return New data frame with additional columns:
+#' @section Computed variables:
+#' \describe{
 #'   \item{count}{number of points in bin}
 #'   \item{density}{density of points in bin, scaled to integrate to 1}
 #'   \item{ncount}{count, scaled to maximum of 1}
 #'   \item{ndensity}{density, scaled to maximum of 1}
-#' @export
-#' @examples
-#' \donttest{
-#' simple <- data.frame(x = rep(1:10, each = 2))
-#' base <- ggplot(simple, aes(x))
-#' # By default, right = FALSE intervals are of the form [a, b)
-#' base + stat_bin(binwidth = 1, drop = FALSE, right = FALSE, col = "black")
-#' # If right = TRUE, and intervals are of the form (a, b]
-#' base + stat_bin(binwidth = 1, drop = FALSE, right = TRUE, col = "black")
-#'
-#' m <- ggplot(movies, aes(x=rating))
-#' m + stat_bin()
-#' m + stat_bin(binwidth=0.1)
-#' m + stat_bin(breaks=seq(4,6, by=0.1))
-#' # See geom_histogram for more histogram examples
-#'
-#' # To create a unit area histogram, use aes(y = ..density..)
-#' (linehist <- m + stat_bin(aes(y = ..density..), binwidth=0.1,
-#'   geom="line", position="identity"))
-#' linehist + stat_density(colour="blue", fill=NA)
-#'
-#' # Also works with categorical variables
-#' ggplot(movies, aes(x=mpaa)) + stat_bin()
 #' }
-stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
-  position = "stack", width = 0.9, drop = FALSE, right = FALSE,
-  binwidth = NULL, origin = NULL, breaks = NULL, show_guide = NA,
-  inherit.aes = TRUE, ...)
-{
-  Layer$new(
+#' @export
+#' @rdname geom_histogram
+stat_bin <- function(mapping = NULL, data = NULL, geom = "bar",
+                     position = "stack", width = 0.9, drop = FALSE,
+                     right = FALSE, binwidth = NULL, bins = NULL, origin = NULL,
+                     breaks = NULL, show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
     data = data,
     mapping = mapping,
     stat = StatBin,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(
       width = width,
       drop = drop,
       right = right,
+      bins = bins,
       binwidth = binwidth,
       origin = origin,
       breaks = breaks
@@ -68,52 +43,44 @@ stat_bin <- function (mapping = NULL, data = NULL, geom = "bar",
   )
 }
 
-StatBin <- proto2(
-  class = "StatBin",
-  inherit = Stat,
-  members = list(
-    objname = "bin",
-    informed = FALSE,
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatBin <- ggproto("StatBin", Stat,
+  inform_defaults = function(data, params) {
+    if (!is.null(data$y) || !is.null(params$y)) {
+      warning("stat_bin() ignores y aesthetic.", call. = FALSE)
+    }
 
-    calculate_groups = function(self, super, data, ...) {
-      if (!is.null(data$y) || !is.null(match.call()$y)) {
-        stop("May not have y aesthetic when binning", call. = FALSE)
-      }
+    if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {
+      message("`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.")
+    }
+  },
 
-      self$informed <- FALSE
-      super$calculate_groups(self, data, ...)
-    },
+  calculate = function(self, data, scales, binwidth = NULL, bins = NULL,
+                       origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
+                       right = FALSE, ...) {
+    range <- scale_dimension(scales$x, c(0, 0))
 
-    calculate = function(self, data, scales, binwidth = NULL, origin = NULL,
-                         breaks = NULL, width = 0.9, drop = FALSE,
-                         right = FALSE, ...)
-    {
-      range <- scale_dimension(scales$x, c(0, 0))
+    bin(data$x, data$weight, binwidth = binwidth, bins = bins,
+        origin = origin, breaks = breaks, range = range, width = width,
+        drop = drop, right = right)
+  },
 
-      if (is.null(breaks) && is.null(binwidth) && !is.integer(data$x) && !self$informed) {
-        message("stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.")
-        self$informed <- TRUE
-      }
-
-      bin(data$x, data$weight, binwidth = binwidth, origin = origin,
-          breaks = breaks, range = range, width = width, drop = drop,
-          right = right)
-    },
-
-    default_aes = function(self) aes(y = ..count..),
-    required_aes = c("x"),
-    default_geom = function(self) GeomBar
-  )
+  default_aes = aes(y = ..count..),
+  required_aes = c("x")
 )
 
-bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
+bin <- function(x, weight=NULL, binwidth=NULL, bins=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = FALSE) {
 
-  if (length(na.omit(x)) == 0) return(data.frame())
+  if (length(stats::na.omit(x)) == 0) return(data.frame())
   if (is.null(weight))  weight <- rep(1, length(x))
   weight[is.na(weight)] <- 0
 
-  if (is.null(range))    range <- range(x, na.rm = TRUE, finite=TRUE)
-  if (is.null(binwidth)) binwidth <- diff(range) / 30
+  if (is.null(range))    range    <- range(x, na.rm = TRUE, finite = TRUE)
+  if (is.null(bins))     bins     <- 30
+  if (is.null(binwidth)) binwidth <- diff(range) / bins
 
   if (is.integer(x)) {
     bins <- x
@@ -122,7 +89,7 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
   } else if (diff(range) == 0) {
     width <- width
     bins <- x
-  } else { # if (is.numeric(x))
+  } else {# if (is.numeric(x))
     if (is.null(breaks)) {
       if (is.null(origin)) {
         breaks <- fullseq(range, binwidth, pad = TRUE)
@@ -141,7 +108,7 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
     }
     fuzzybreaks <- sort(breaks) + fuzz
 
-    bins <- cut(x, fuzzybreaks, include.lowest=TRUE, right = right)
+    bins <- cut(x, fuzzybreaks, include.lowest = TRUE, right = right)
     left <- breaks[-length(breaks)]
     right <- breaks[-1]
     x <- (left + right)/2
@@ -149,7 +116,7 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
   }
 
   results <- data.frame(
-    count = as.numeric(tapply(weight, bins, sum, na.rm=TRUE)),
+    count = as.numeric(tapply(weight, bins, sum, na.rm = TRUE)),
     x = x,
     width = width
   )
@@ -158,12 +125,12 @@ bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=N
     return(results)
   }
 
-  res <- within(results, {
-    count[is.na(count)] <- 0
-    density <- count / width / sum(abs(count), na.rm=TRUE)
-    ncount <- count / max(abs(count), na.rm=TRUE)
-    ndensity <- density / max(abs(density), na.rm=TRUE)
-  })
-  if (drop) res <- subset(res, count > 0)
-  res
+  results$count[is.na(results$count)] <- 0
+  results$density <- results$count / results$width / sum(abs(results$count), na.rm = TRUE)
+  results$ncount <- results$count / max(abs(results$count), na.rm = TRUE)
+  results$ndensity <- results$density / max(abs(results$density), na.rm = TRUE)
+  if (drop) {
+    results <- results[results$count > 0, , drop = FALSE]
+  }
+  results
 }

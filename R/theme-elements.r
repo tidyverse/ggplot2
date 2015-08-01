@@ -74,7 +74,7 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 
 
 #' @export
-print.element <- function(x, ...) str(x)
+print.element <- function(x, ...) utils::str(x)
 
 
 #' Relative sizing for theme elements
@@ -107,7 +107,7 @@ element_render <- function(theme, element, ..., name = NULL) {
     return(zeroGrob())
   }
 
-  ggname(ps(element, name, sep = "."), element_grob(el, ...))
+  ggname(paste(element, name, sep = "."), element_grob(el, ...))
 }
 
 
@@ -136,7 +136,7 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
   element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
     fill = element$fill, lty = element$linetype)
 
-  rectGrob(x, y, width, height, gp = modifyList(element_gp, gp), ...)
+  rectGrob(x, y, width, height, gp = utils::modifyList(element_gp, gp), ...)
 }
 
 
@@ -183,7 +183,7 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   textGrob(
     label, x, y, hjust = hj, vjust = vj,
     default.units = default.units,
-    gp = modifyList(element_gp, gp),
+    gp = utils::modifyList(element_gp, gp),
     rot = angle, ...
   )
 }
@@ -195,13 +195,13 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   default.units = "npc", id.lengths = NULL, ...) {
 
   # The gp settings can override element_gp
-  gp <- gpar(lwd=len0_null(size * .pt), col=colour, lty=linetype, lineend = lineend)
+  gp <- gpar(lwd = len0_null(size * .pt), col = colour, lty = linetype, lineend = lineend)
   element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
     lty = element$linetype, lineend = element$lineend)
 
   polylineGrob(
     x, y, default.units = default.units,
-    gp = modifyList(element_gp, gp),
+    gp = utils::modifyList(element_gp, gp),
     id.lengths = id.lengths, ...
   )
 }

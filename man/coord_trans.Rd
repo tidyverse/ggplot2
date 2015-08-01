@@ -4,14 +4,16 @@
 \alias{coord_trans}
 \title{Transformed cartesian coordinate system.}
 \usage{
-coord_trans(xtrans = "identity", ytrans = "identity", limx = NULL,
-  limy = NULL)
+coord_trans(x = "identity", y = "identity", limx = NULL, limy = NULL,
+  xtrans, ytrans)
 }
 \arguments{
-\item{xtrans,ytrans}{transformers for x and y axes}
+\item{x,y}{transformers for x and y axes}
 
 \item{limx,limy}{limits for x and y axes. (Named so for backward
-compatability)}
+compatibility)}
+
+\item{xtrans,ytrans}{Deprecated; use \code{x} and \code{y} instead.}
 }
 \description{
 \code{coord_trans} is different to scale transformations in that it occurs after
@@ -27,7 +29,7 @@ how to create your own.
 \donttest{
 # See ?geom_boxplot for other examples
 
-# Three ways of doing transformating in ggplot:
+# Three ways of doing transformation in ggplot:
 #  * by transforming the data
 ggplot(diamonds, aes(log10(carat), log10(price))) +
   geom_point()
@@ -66,14 +68,12 @@ ggplot(d, aes(carat, price)) +
 
 # With a combination of scale and coordinate transformation, it's
 # possible to do back-transformations:
-library(scales)
 ggplot(diamonds, aes(carat, price)) +
   geom_point() +
   geom_smooth(method = "lm") +
   scale_x_log10() +
   scale_y_log10() +
-  coord_trans(x = exp_trans(10),
-              y = exp_trans(10))
+  coord_trans(x = scales::exp_trans(10), y = scales::exp_trans(10))
 
 # cf.
 ggplot(diamonds, aes(carat, price)) +

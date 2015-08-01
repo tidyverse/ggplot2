@@ -38,46 +38,53 @@
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 2))
 coord_cartesian <- function(xlim = NULL, ylim = NULL) {
-  coord(limits = list(x = xlim, y = ylim), subclass = "cartesian")
+  ggproto(NULL, CoordCartesian,
+    limits = list(x = xlim, y = ylim)
+  )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
 #' @export
-is.linear.cartesian <- function(coord) TRUE
+CoordCartesian <- ggproto("CoordCartesian", Coord,
 
-#' @export
-coord_distance.cartesian <- function(coord, x, y, details) {
-  max_dist <- dist_euclidean(details$x.range, details$y.range)
-  dist_euclidean(x, y) / max_dist
-}
+  is_linear = function() TRUE,
 
-#' @export
-coord_transform.cartesian <- function(., data, details) {
-  rescale_x <- function(data) rescale(data, from = details$x.range)
-  rescale_y <- function(data) rescale(data, from = details$y.range)
+  distance = function(x, y, scale_details) {
+    max_dist <- dist_euclidean(scale_details$x.range, scale_details$y.range)
+    dist_euclidean(x, y) / max_dist
+  },
 
-  data <- transform_position(data, rescale_x, rescale_y)
-  transform_position(data, squish_infinite, squish_infinite)
-}
+  transform = function(data, scale_details) {
+    rescale_x <- function(data) rescale(data, from = scale_details$x.range)
+    rescale_y <- function(data) rescale(data, from = scale_details$y.range)
 
-#' @export
-coord_train.cartesian <- function(coord, scales) {
-  c(train_cartesian(scales$x, coord$limits$x, "x"),
-    train_cartesian(scales$y, coord$limits$y, "y"))
-}
+    data <- transform_position(data, rescale_x, rescale_y)
+    transform_position(data, squish_infinite, squish_infinite)
+  },
 
-train_cartesian <- function(scale, limits, name) {
+  train = function(self, scale_details) {
+    c(train_cartesian(scale_details$x, self$limits$x, "x"),
+      train_cartesian(scale_details$y, self$limits$y, "y"))
+  }
+)
+
+
+train_cartesian <- function(scale_details, limits, name) {
 
   # first, calculate the range that is the numerical limits in data space
 
   # expand defined by scale OR coord
   if (is.null(limits)) {
-    expand <- coord_expand_defaults(coord, scale)
-    range <- scale_dimension(scale, expand)
+    # TODO: This is weird, accessing Coord directly for this method.
+    expand <- Coord$expand_defaults(scale_details)
+    range <- scale_dimension(scale_details, expand)
   } else {
-    range <- range(scale_transform(scale, limits))
+    range <- range(scale_transform(scale_details, limits))
   }
 
-  out <- scale_break_info(scale, range)
+  out <- scale_break_info(scale_details, range)
   names(out) <- paste(name, names(out), sep = ".")
   out
 }

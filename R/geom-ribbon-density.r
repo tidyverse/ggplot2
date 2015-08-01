@@ -1,47 +1,71 @@
 #' Display a smooth density estimate.
 #'
-#' A smooth density estimate calculated by \code{\link{stat_density}}.
+#' A kernel density estimate, useful for display the distribution of variables
+#' with underlying smoothness.
 #'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "density")}
 #'
-#' @seealso \code{\link{geom_histogram}} for the histogram and
-#'   \code{\link{stat_density}} for examples.
+#' @seealso See \code{\link{geom_histogram}}, \code{\link{geom_freqpoly}} for
+#'   other methods of displaying continuous distribution.
+#'   See \code{\link{geom_violin}} for a compact density display.
 #' @inheritParams geom_point
+#' @param geom,stat Use to override the default connection between
+#'   \code{geom_density} and \code{stat_density}.
 #' @export
 #' @examples
-#' # See stat_density for examples
-geom_density <- function (mapping = NULL, data = NULL, stat = "density",
-  position = "identity", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE,
-  ...)
-{
-  Layer$new(
+#' ggplot(diamonds, aes(carat)) +
+#'   geom_density()
+#'
+#' ggplot(diamonds, aes(carat)) +
+#'   geom_density(adjust = 1/5)
+#' ggplot(diamonds, aes(carat)) +
+#'   geom_density(adjust = 5)
+#'
+#' ggplot(diamonds, aes(depth, colour = cut)) +
+#'   geom_density() +
+#'   xlim(55, 70)
+#' ggplot(diamonds, aes(depth, fill = cut, colour = cut)) +
+#'   geom_density(alpha = 0.1) +
+#'   xlim(55, 70)
+#'
+#' # Stacked density plots: if you want to create a stacked density plot, you
+#' # probably want to 'count' (density * n) variable instead of the default
+#' # density
+#'
+#' # Loses marginal densities
+#' ggplot(diamonds, aes(carat, fill = cut)) +
+#'   geom_density(position = "stack")
+#' # Preserves marginal densities
+#' ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
+#'   geom_density(position = "stack")
+#'
+#' # You can use position="fill" to produce a conditional density estimate
+#' ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
+#'   geom_density(position = "fill")
+geom_density <- function(mapping = NULL, data = NULL, stat = "density",
+  position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+  ...) {
+
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomDensity,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )
 }
 
-GeomDensity <- proto2(
-  class = "GeomDensity",
-  inherit = GeomArea,
-  members = list(
-    objname = "density",
-
-    default_stat = function(self) StatDensity,
-
-    default_pos = function(self) PositionIdentity,
-
-    default_aes = function(self) {
-      defaults(
-        aes(fill = NA, weight = 1, colour = "black", alpha = NA),
-        GeomArea$default_aes()
-      )
-    }
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomDensity <- ggproto("GeomDensity", GeomArea,
+  default_aes = defaults(
+    aes(fill = NA, weight = 1, colour = "black", alpha = NA),
+    GeomArea$default_aes
   )
 )
