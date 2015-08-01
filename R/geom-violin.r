@@ -4,6 +4,8 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "violin")}
 #'
 #' @inheritParams geom_point
+#' @param draw_quantiles If \code{not(NULL)} (default), draw horizontal lines
+#'   at the given quantiles of the density estimate.
 #' @param trim If \code{TRUE} (default), trim the tails of the violins
 #'   to the range of the data. If \code{FALSE}, don't trim the tails.
 #' @param geom,stat Use to override the default connection between
@@ -43,7 +45,7 @@
 #' p + geom_violin(fill = "grey80", colour = "#3366FF")
 #'
 #' # Show quartiles
-#' p + geom_violin(quantiles = c(0.25,0.5,0.75))
+#' p + geom_violin(draw_quantiles = c(0.25,0.5,0.75))
 #'
 #' # Scales vs. coordinate transforms -------
 #' if (require("ggplot2movies")) {
@@ -64,8 +66,9 @@
 #' }
 #' }
 geom_violin <- function(mapping = NULL, data = NULL, stat = "ydensity",
-                        position = "dodge", trim = TRUE, scale = "area",
-                        show.legend = NA, inherit.aes = TRUE, ...) {
+                        draw_quantiles = NULL, position = "dodge",
+                        trim = TRUE, scale = "area", show.legend = NA,
+                        inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -78,7 +81,7 @@ geom_violin <- function(mapping = NULL, data = NULL, stat = "ydensity",
       trim = trim,
       scale = scale
     ),
-    params = list(...)
+    params = list(draw_quantiles = draw_quantiles, ...)
   )
 }
 
@@ -99,25 +102,10 @@ GeomViolin <- ggproto("GeomViolin", Geom,
           xmax = x + width / 2)
   },
 
-  draw = function(self, data, ...) {
+  draw = function(self, data, ..., draw_quantiles = NULL) {
     # Find the points for the line to go all the way around
     data <- transform(data, xminv = x - violinwidth * (x - xmin),
                             xmaxv = x + violinwidth * (xmax - x))
-
-
-      if (any(data$is.quantile)) {
-          quantile.list <- alply (subset(data,is.quantile), 1, function(f) {
-              path.data <- rbind (f, f)
-              path.data$x <- c (f$xminv, f$xmaxv)
-              GeomPath$draw(path.data,...)
-          })
-
-        ggname(self$my_name(),
-               do.call ( 'grobTree', list(GeomPolygon$draw(newdata, ...), do.call('grobTree',quantile.list)) ) )
-
-      } else {
-          ggname(self$my_name(), GeomPolygon$draw(newdata, ...))
-      }
 
     # Make sure it's sorted properly to draw the outline
     newdata <- rbind(plyr::arrange(transform(data, x = xminv), y),
@@ -128,7 +116,27 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     # Needed for coord_polar and such
     newdata <- rbind(newdata, newdata[1,])
 
-    ggname("geom_violin", GeomPolygon$draw(newdata, ...))
+    # Draw quantiles if requested
+    if (length(draw_quantiles) > 0) {
+      dens <- cumsum(data$density) / sum(data$density)
+      ecdf <- approxfun(dens, data$y)
+      ys <- ecdf(draw_quantiles)
+
+      # Create list of path grobs for the quantile segments
+      quantile_grob_list <- lapply (ys, function(y_to_match) {
+        y_mismatches <- abs(y_to_match-data$y)
+        match_index <- which(y_mismatches==min(y_mismatches))[1]
+
+        path_data <- data[rep(match_index,2),]
+        path_data$x <- c(path_data$xminv[1], path_data$xmaxv[1])
+        GeomPath$draw(path_data, ...)
+      })
+
+      ggname("geom_violin",
+             do.call('grobTree', list(GeomPolygon$draw(newdata, ...), do.call('grobTree',quantile_grob_list))))
+    } else {
+      ggname("geom_violin", GeomPolygon$draw(newdata, ...))
+    }
   },
 
   draw_key = draw_key_polygon,
