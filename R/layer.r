@@ -26,7 +26,7 @@ Layer <- ggproto("Layer", NULL,
   clone = function(self) ggproto(NULL, self),
 
   use_defaults = function(self, data) {
-    df <- aesdefaults(data, self$geom$default_aes, NULL)
+    df <- aesdefaults(data, self$geom$default_aes)
 
     # Override mappings with atomic parameters
     gp <- intersect(c(names(df), self$geom$required_aes), names(self$geom_params))

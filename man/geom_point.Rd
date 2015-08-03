@@ -107,10 +107,8 @@ ggplot(mtcars, aes(wt, mpg)) +
 \donttest{
 # You can create interesting shapes by layering multiple points of
 # different sizes
-p <- ggplot(mtcars, aes(mpg, wt))
-p + geom_point(colour="grey50", size = 4) + geom_point(aes(colour = cyl))
-p + aes(shape = factor(cyl)) +
-  geom_point(aes(colour = factor(cyl)), size = 4) +
+p <- ggplot(mtcars, aes(mpg, wt, shape = factor(cyl)))
+p + geom_point(aes(colour = factor(cyl)), size = 4) +
   geom_point(colour = "grey90", size = 1.5)
 p + geom_point(colour = "black", size = 4.5) +
   geom_point(colour = "pink", size = 4) +
