@@ -41,7 +41,7 @@ a call to a position adjustment function.}
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
-\item{arrow}{Arrow specification, as created by ?grid::arrow}
+\item{arrow}{Arrow specification, as created by \code{\link[grid]{arrow}}}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -99,11 +99,11 @@ ggplot(economics, aes(date, unemploy)) +
   geom_line(colour = "red")
 
 # Use the arrow parameter to add an arrow to the line
-# See ?grid::arrow for more details
+# See ?arrow for more details
 c <- ggplot(economics, aes(x = date, y = pop))
-c + geom_line(arrow = grid::arrow())
+c + geom_line(arrow = arrow())
 c + geom_line(
-  arrow = grid::arrow(angle = 15, ends = "both", type = "closed")
+  arrow = arrow(angle = 15, ends = "both", type = "closed")
 )
 
 # Control line join parameters

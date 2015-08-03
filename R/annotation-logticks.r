@@ -69,9 +69,9 @@
 #'
 #' # Change the length of the ticks
 #' a + annotation_logticks(
-#'   short = grid::unit(.5,"mm"),
-#'   mid = grid::unit(3,"mm"),
-#'   long = grid::unit(4,"mm")
+#'   short = unit(.5,"mm"),
+#'   mid = unit(3,"mm"),
+#'   long = unit(4,"mm")
 #' )
 annotation_logticks <- function(base = 10, sides = "bl", scaled = TRUE,
       short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm"),

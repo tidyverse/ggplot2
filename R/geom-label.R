@@ -5,8 +5,8 @@
 geom_label <- function(mapping = NULL, data = NULL, stat = "identity",
                        position = "identity", parse = FALSE, show.legend = NA,
                        inherit.aes = TRUE, ..., nudge_x = 0, nudge_y = 0,
-                       label.padding = grid::unit(0.25, "lines"),
-                       label.r = grid::unit(0.15, "lines")) {
+                       label.padding = unit(0.25, "lines"),
+                       label.r = unit(0.15, "lines")) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
@@ -50,8 +50,8 @@ GeomLabel <- ggproto("GeomLabel", Geom,
   },
 
   draw_one = function(data, scales, coordinates, ..., parse = FALSE, na.rm = FALSE,
-                  label.padding = grid::unit(0.25, "lines"),
-                  label.r = grid::unit(0.15, "lines")) {
+                  label.padding = unit(0.25, "lines"),
+                  label.r = unit(0.15, "lines")) {
     data <- remove_missing(data, na.rm, c("x", "y", "label"), name = "geom_label")
     lab <- data$label
     if (parse) {

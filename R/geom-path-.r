@@ -12,7 +12,7 @@
 #' @param lineend Line end style (round, butt, square)
 #' @param linejoin Line join style (round, mitre, bevel)
 #' @param linemitre Line mitre limit (number greater than 1)
-#' @param arrow Arrow specification, as created by ?grid::arrow
+#' @param arrow Arrow specification, as created by \code{\link[grid]{arrow}}
 #' @seealso
 #'  \code{\link{geom_polygon}}: Filled paths (polygons);
 #'  \code{\link{geom_segment}}: Line segments
@@ -40,11 +40,11 @@
 #'   geom_line(colour = "red")
 #'
 #' # Use the arrow parameter to add an arrow to the line
-#' # See ?grid::arrow for more details
+#' # See ?arrow for more details
 #' c <- ggplot(economics, aes(x = date, y = pop))
-#' c + geom_line(arrow = grid::arrow())
+#' c + geom_line(arrow = arrow())
 #' c + geom_line(
-#'   arrow = grid::arrow(angle = 15, ends = "both", type = "closed")
+#'   arrow = arrow(angle = 15, ends = "both", type = "closed")
 #' )
 #'
 #' # Control line join parameters
