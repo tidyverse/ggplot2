@@ -3,10 +3,26 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "hex")}
 #'
+#' @seealso \code{\link{stat_bin2d}} for rectangular binning
+#' @param geom,stat Override the default connection between \code{geom_hex} and
+#'   \code{stat_binhex.}
 #' @export
 #' @inheritParams geom_point
+#' @export
 #' @examples
-#' # See ?stat_binhex for examples
+#' d <- ggplot(diamonds, aes(carat, price))
+#' d + geom_hex()
+#'
+#' \donttest{
+#' # You can control the size of the bins by specifying the number of
+#' # bins in each direction:
+#' d + geom_hex(bins = 10)
+#' d + geom_hex(bins = 30)
+#'
+#' # Or by specifying the width of the bins
+#' d + geom_hex(binwidth = c(1, 1000))
+#' d + geom_hex(binwidth = c(.1, 500))
+#' }
 geom_hex <- function(mapping = NULL, data = NULL, stat = "binhex",
                      position = "identity", show.legend = NA,
                      inherit.aes = TRUE, ...) {
