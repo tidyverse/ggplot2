@@ -45,7 +45,7 @@
 #' p + geom_violin(fill = "grey80", colour = "#3366FF")
 #'
 #' # Show quartiles
-#' p + geom_violin(draw_quantiles = c(0.25,0.5,0.75))
+#' p + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
 #'
 #' # Scales vs. coordinate transforms -------
 #' if (require("ggplot2movies")) {
@@ -118,22 +118,10 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
     # Draw quantiles if requested
     if (length(draw_quantiles) > 0) {
-      dens <- cumsum(data$density) / sum(data$density)
-      ecdf <- approxfun(dens, data$y)
-      ys <- ecdf(draw_quantiles)
-
-      # Create list of path grobs for the quantile segments
-      quantile_grob_list <- lapply (ys, function(y_to_match) {
-        y_mismatches <- abs(y_to_match-data$y)
-        match_index <- which(y_mismatches==min(y_mismatches))[1]
-
-        path_data <- data[rep(match_index,2),]
-        path_data$x <- c(path_data$xminv[1], path_data$xmaxv[1])
-        GeomPath$draw(path_data, ...)
-      })
+      quantile_grob <- GeomPath$draw(create_quantile_segment_frame(data, draw_quantiles), ...)
 
       ggname("geom_violin",
-             do.call('grobTree', list(GeomPolygon$draw(newdata, ...), do.call('grobTree',quantile_grob_list))))
+             do.call('grobTree', list(GeomPolygon$draw(newdata, ...), quantile_grob)))
     } else {
       ggname("geom_violin", GeomPolygon$draw(newdata, ...))
     }
@@ -146,3 +134,22 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
   required_aes = c("x", "y")
 )
+
+# Returns a data.frame with info needed to draw quantile segments.
+create_quantile_segment_frame <- function(data, draw_quantiles) {
+  dens <- cumsum(data$density) / sum(data$density)
+  ecdf <- approxfun(dens, data$y)
+  ys <- ecdf(draw_quantiles) # these are all the y-values for quantiles
+
+  # Create data frame containing quantile segment data, one group per quantile
+  do.call ( rbind, lapply (ys, function(y_to_match) {
+    y_mismatches <- abs(y_to_match-data$y)
+    match_index <- which(y_mismatches==min(y_mismatches))[1]
+
+    path_data <- data[rep(match_index,2),]
+    path_data$x <- c(path_data$xminv[1], path_data$xmaxv[1])
+    path_data$group <- y_to_match
+    path_data
+  }))
+}
+
