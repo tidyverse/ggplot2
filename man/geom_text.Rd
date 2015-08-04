@@ -8,8 +8,7 @@
 geom_label(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", parse = FALSE, show.legend = NA,
   inherit.aes = TRUE, ..., nudge_x = 0, nudge_y = 0,
-  label.padding = grid::unit(0.25, "lines"), label.r = grid::unit(0.15,
-  "lines"))
+  label.padding = unit(0.25, "lines"), label.r = unit(0.15, "lines"))
 
 geom_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", parse = FALSE, show.legend = NA,

@@ -240,13 +240,12 @@ aes_auto <- function(data = NULL, ...) {
 # @param y. defaults
 # @param params. user specified values
 # @value a data.frame, with all factors converted to character strings
-aesdefaults <- function(data, y., params.) {
-  updated <- utils::modifyList(y., params. %||% list())
-
-  cols <- plyr::tryapply(defaults(data, updated), function(x) eval(x, data, globalenv()))
+aesdefaults <- function(data, y.) {
+  cols <- plyr::tryapply(defaults(data, y.), function(x) eval(x, data, globalenv()))
 
   # Need to be careful here because stat_boxplot uses a list-column to store
   # a vector of outliers
+
   cols <- Filter(function(x) is.atomic(x) || is.list(x), cols)
   list_vars <- sapply(cols, is.list)
   cols[list_vars] <- lapply(cols[list_vars], I)

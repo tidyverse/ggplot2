@@ -86,9 +86,9 @@ t + annotation_logticks(scaled = FALSE)
 
 # Change the length of the ticks
 a + annotation_logticks(
-  short = grid::unit(.5,"mm"),
-  mid = grid::unit(3,"mm"),
-  long = grid::unit(4,"mm")
+  short = unit(.5,"mm"),
+  mid = unit(3,"mm"),
+  long = unit(4,"mm")
 )
 }
 \seealso{

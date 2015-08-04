@@ -26,12 +26,12 @@
 #' b + geom_curve(
 #'   aes(x = x1, y = y1, xend = x2, yend = y2),
 #'   data = df,
-#'   arrow = grid::arrow(length = grid::unit(0.03, "npc"))
+#'   arrow = arrow(length = unit(0.03, "npc"))
 #' )
 #'
 #' ggplot(seals, aes(long, lat)) +
 #'   geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat),
-#'     arrow = grid::arrow(length = grid::unit(0.1,"cm"))) +
+#'     arrow = arrow(length = unit(0.1,"cm"))) +
 #'   borders("state")
 #'
 #' # You can also use geom_segment to recreate plot(type = "h") :

@@ -178,7 +178,7 @@ guide_legend <- function(
 
       # general
       direction = direction,
-      override.aes = override.aes,
+      override.aes = rename_aes(override.aes),
       nrow = nrow,
       ncol = ncol,
       byrow = byrow,
@@ -243,33 +243,31 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))
     matched <- intersect(intersect(all, geom), names(guide$key))
     matched <- setdiff(matched, names(layer$geom_params))
-    data <-
-      if (length(matched) > 0) {
-        # This layer contributes to the legend
-        if (is.na(layer$show.legend) || layer$show.legend) {
-          # Default is to include it
-          layer$use_defaults(guide$key[matched])
-        } else {
-          NULL
-        }
+
+    if (length(matched) > 0) {
+      # This layer contributes to the legend
+      if (is.na(layer$show.legend) || layer$show.legend) {
+        # Default is to include it
+        data <- layer$use_defaults(guide$key[matched])
       } else {
-        # This layer does not contribute to the legend
-        if (is.na(layer$show.legend) || !layer$show.legend) {
-          # Default is to exclude it
-          NULL
-        } else {
-          layer$use_defaults(NULL)[rep(1, nrow(guide$key)), ]
-        }
+        return(NULL)
       }
-    if (is.null(data)) return(NULL)
+    } else {
+      # This layer does not contribute to the legend
+      if (is.na(layer$show.legend) || !layer$show.legend) {
+        # Default is to exclude it
+        return(NULL)
+      } else {
+        data <- layer$use_defaults(NULL)[rep(1, nrow(guide$key)), ]
+      }
+    }
 
     # override.aes in guide_legend manually changes the geom
-    guide$override.aes <- rename_aes(guide$override.aes)
-    for (aes in intersect(names(guide$override.aes), names(data))) data[[aes]] <- guide$override.aes[[aes]]
+    data <- modifyList(data, guide$override.aes)
 
     list(
       draw_key = layer$geom$draw_key,
-      data = aesdefaults(data, layer$geom$default_aes, NULL),
+      data = data,
       params = c(layer$geom_params, layer$stat_params)
     )
   })

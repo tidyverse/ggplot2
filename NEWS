@@ -2,6 +2,8 @@ ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
 * `geom_violin()` now has the ability to draw quantile lines (@DanRuderman).
+* ggplot2 re-exports grid `arrow()` and `unit()` so you don't need to attach
+  grid or use `grid::` for these commonly used functions (#1225)
 
 * `geom_histogram()` and `geom_smooth()` now only inform you about the
   default values once per layer, rather than once per panel (#1220).
