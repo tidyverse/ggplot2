@@ -13,7 +13,7 @@ test_that("geom_boxplot range includes all outliers", {
 })
 
 test_that("geom_boxplot for continuous x gives warning if more than one x (#992)", {
-  dat <- data.frame(x=1:2, y=c(-(1:20)^3, (1:20)^3) )
+  dat <- expand.grid(x=1:2, y=c(-(1:20)^3, (1:20)^3) )
   expect_that(ggplot_build(ggplot(dat, aes(x,y)) + geom_boxplot()),
               gives_warning("Continuous x aesthetic"))
 
@@ -34,4 +34,7 @@ test_that("geom_boxplot for continuous x gives warning if more than one x (#992)
 
   expect_that(ggplot_build(ggplot(dat, aes(x=as.character(x),y)) + geom_boxplot()),
               not(gives_warning("Continuous x aesthetic")))
+
+  expect_that(ggplot_build(ggplot(dat, aes(x,y)) + geom_boxplot() + facet_wrap(~y)),
+              gives_warning("Continuous x aesthetic"))
 })
