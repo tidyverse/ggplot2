@@ -265,9 +265,10 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     grobTree(
       if (length(labels) > 0) element_render(
         theme, "axis.text.x",
-        labels, 0.45 * sin(theta) + 0.5, 0.45 * cos(theta) + 0.5,
-        hjust = 0.5, vjust = 0.5,
-        default.units = "native"
+        labels,
+        unit(0.45 * sin(theta) + 0.5, "native"),
+        unit(0.45 * cos(theta) + 0.5, "native"),
+        hjust = 0.5, vjust = 0.5
       ),
       element_render(theme, "panel.border")
     )
