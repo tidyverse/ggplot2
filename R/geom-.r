@@ -1,9 +1,20 @@
 #' @include legend-draw.r
 NULL
 
-.pt <- 1 / 0.352777778
-.stroke <- 96 / 25.4
+#' Graphical units
+#'
+#' Multiply size in mm by these constants in order to convert to the units
+#' that grid uses internally for \code{lwd} and \code{fontsize}.
+#'
+#' @name graphical-units
+NULL
 
+#' @export
+#' @rdname graphical-units
+.pt <- 1 / 0.352777778
+#' @export
+#' @rdname graphical-units
+.stroke <- 96 / 25.4
 
 #' @section Geoms:
 #'

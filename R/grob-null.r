@@ -1,6 +1,7 @@
 #' The zero grob draws nothing and has zero size.
 #'
 #' @keywords internal
+#' @export
 zeroGrob <- function() .zeroGrob
 
 .zeroGrob <- grob(cl = "zeroGrob", name = "NULL")

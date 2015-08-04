@@ -97,19 +97,21 @@ safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRU
   do.call(f, safe.params)
 }
 
-# Convenience function to remove missing values from a data.frame
-# Remove all non-complete rows, with a warning if \code{na.rm = FALSE}.
-#
-# ggplot is somewhat more accommodating of missing values than R generally.
-# For those stats which require complete data, missing values will be
-# automatically removed with a warning.  If \code{na.rm = TRUE} is supplied
-# to the statistic, the warning will be suppressed.
-#
-# @param data.frame
-# @param suppress warning that rows are being removed?
-# @argumnets variables to check for missings in
-# @param optional function name to make warning message more informative
-# @keyword internal
+#' Convenience function to remove missing values from a data.frame
+#'
+#' Remove all non-complete rows, with a warning if \code{na.rm = FALSE}.
+#' ggplot is somewhat more accommodating of missing values than R generally.
+#' For those stats which require complete data, missing values will be
+#' automatically removed with a warning. If \code{na.rm = TRUE} is supplied
+#' to the statistic, the warning will be suppressed.
+#'
+#' @param df data.frame
+#' @param na.rm If true, will suppress warning message.
+#' @param vars Character vector of variables to check for missings in
+#' @param name Optional function name to improve error message.
+#' @param finite If \code{TRUE}, will also remove non-finite values.
+#' @keywords internal
+#' @export
 remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = FALSE) {
   vars <- intersect(vars, names(df))
   if (name != "") name <- paste(" (", name, ")", sep = "")
@@ -127,7 +129,6 @@ remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = 
     if (!na.rm) warning("Removed ", sum(missing), " rows containing ", str,
       " values", name, ".", call. = FALSE)
   }
-
 
   df
 }
@@ -149,7 +150,6 @@ finite.cases.data.frame <- function(x) {
     rowSums(as.matrix(finite_cases)) == ncol(x)
   }
 }
-
 
 # "Invert" a list
 # Keys become values, values become keys
