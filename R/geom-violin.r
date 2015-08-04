@@ -118,6 +118,8 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
     # Draw quantiles if requested
     if (length(draw_quantiles) > 0) {
+      stopifnot(all(draw_quantiles >= 0) & all(draw_quantiles <= 1))
+
       quantile_grob <- GeomPath$draw(create_quantile_segment_frame(data, draw_quantiles), ...)
 
       ggname("geom_violin",
