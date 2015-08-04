@@ -18,7 +18,7 @@ add_group <- function(data) {
 
   if (is.null(data$group)) {
     disc <- vapply(data, is.discrete, logical(1))
-    disc[names(disc) == "label"] <- FALSE
+    disc[names(disc) %in% c("label", "PANEL")] <- FALSE
 
     if (any(disc)) {
       data$group <- plyr::id(data[disc], drop = TRUE)
