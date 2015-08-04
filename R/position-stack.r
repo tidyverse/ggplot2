@@ -51,9 +51,7 @@ position_stack <- function() {
 #' @usage NULL
 #' @export
 PositionStack <- ggproto("PositionStack", Position,
-  adjust = function(self, data) {
-    if (empty(data)) return(data.frame())
-
+  adjust = function(self, data, params) {
     data <- remove_missing(data, FALSE,
       c("x", "y", "ymin", "ymax", "xmin", "xmax"), name = "position_stack")
 

@@ -4,8 +4,8 @@
 \alias{position_jitterdodge}
 \title{Adjust position by simultaneously dodging and jittering}
 \usage{
-position_jitterdodge(jitter.width = NULL, jitter.height = NULL,
-  dodge.width = NULL)
+position_jitterdodge(jitter.width = NULL, jitter.height = 0,
+  dodge.width = 0.75)
 }
 \arguments{
 \item{jitter.width}{degree of jitter in x direction. Defaults to 40\% of the

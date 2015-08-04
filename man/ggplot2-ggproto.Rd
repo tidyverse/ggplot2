@@ -166,7 +166,10 @@ descended from the top-level \code{Position}, and each implements the
 following method:
 
 \itemize{
-  \item \code{adjust}: Adjusts the position of overlapping geoms.
+  \item \code{adjust(data, params)}: Adjusts the position of overlapping
+    geoms. Called once per panel.
+  \item \code{compute_defaults(data)}: Returns a list of parameters passed
+    on to \code{adjust()}. Called once for the whole dataset.
 }
 }
 

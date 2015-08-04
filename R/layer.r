@@ -164,8 +164,11 @@ Layer <- ggproto("Layer", NULL,
 
 
   adjust_position = function(self, data) {
+    params <- self$position$compute_defaults(data)
     plyr::ddply(data, "PANEL", function(data) {
-      self$position$adjust(data)
+      if (empty(data)) return(data.frame())
+
+      self$position$adjust(data, params)
     })
   },
 
