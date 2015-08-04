@@ -1,3 +1,7 @@
+# A "special" value, currently not used but could be used to determine
+# if faceting is active
+NO_PANEL <- -1L
+
 # Take single layer of data and combine it with panel information to split
 # data into different panels. Adds in extra data for missing facetting
 # levels and for margins.
@@ -37,7 +41,7 @@ locate_grid <- function(data, panels, rows = NULL, cols = NULL, margins = FALSE)
   # Add PANEL variable
   if (nrow(facet_vals) == 0) {
     # Special case of no facetting
-    data$PANEL <- 1
+    data$PANEL <- NO_PANEL
   } else {
     facet_vals[] <- lapply(facet_vals[], as.factor)
     facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
