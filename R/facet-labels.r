@@ -31,17 +31,17 @@
 #'   character vectors or lists of plotmath expressions. When multiple
 #'   elements are returned, they get displayed on their own new lines
 #'   (i.e., each facet gets a multi-line strip of labels).
-#'  
+#'
 #'   To illustrate, let's say your labeller returns a list of two
 #'   character vectors of length 3. This is a rectangular list because
 #'   all elements have the same length. The first facet will get the
 #'   first elements of each vector and display each of them on their
 #'   own line. Then the second facet gets the second elements of each
 #'   vector, and so on.
-#'   
+#'
 #'   For compatibility with \code{\link{labeller}()}, each labeller
 #'   function must have the \code{labeller} S3 class.
-#' 
+#'
 #' @param labels Data frame of labels. Usually contains only one
 #'   element, but facetting over multiple factors entails multiple
 #'   label variables.
@@ -56,7 +56,7 @@
 #' @examples
 #' mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
 #' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
-#' 
+#'
 #' # Displaying only the values
 #' p + facet_grid(. ~ cyl)
 #' p + facet_grid(. ~ cyl, labeller = label_value)
@@ -218,7 +218,7 @@ is_labeller <- function(x) inherits(x, "labeller")
 #' \code{.default} argument. This is intended to be used with
 #' functions taking a character vector such as
 #' \code{\link[Hmisc]{capitalize}}.
-#' 
+#'
 #' @param ... Named arguments of the form \code{variable = labeller},
 #'   where \code{values} could be a vector or method.
 #' @param keep.as.numeric Deprecated, use \code{.as_character} instead.
@@ -245,7 +245,7 @@ is_labeller <- function(x) inherits(x, "labeller")
 #'   facet_grid(vs + am ~ gear, margins=TRUE,
 #'     labeller = labeller(vs = label_both, am = label_both))
 #'
-#' 
+#'
 #' capitalize <- function(string) {
 #'   substr(string, 1, 1) <- toupper(substr(string, 1, 1))
 #'   string
@@ -320,7 +320,7 @@ labeller <- function(..., keep.as.numeric = NULL, .as_character = FALSE,
       } else {
         labeller(labels = labels)
       }
-      
+
     } else if (is.function(labeller)) {
       .default(lapply(labels, labeller), multi_line = .multi_line)
 
@@ -382,15 +382,16 @@ ggstrip <- function(text, horizontal = TRUE, theme) {
   text_theme <- if (horizontal) "strip.text.x" else "strip.text.y"
   if (is.list(text)) text <- text[[1]]
 
-  label <- element_render(theme, text_theme, text)
+  label <- element_render(theme, text_theme, text, expand_x = !horizontal,
+    expand_y = horizontal)
 
   ggname("strip", absoluteGrob(
     gList(
       element_render(theme, "strip.background"),
       label
     ),
-    width = grobWidth(label) + unit(0.5, "lines"),
-    height = grobHeight(label) + unit(0.5, "lines")
+    width = grobWidth(label),
+    height = grobHeight(label)
   ))
 }
 

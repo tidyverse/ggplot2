@@ -269,19 +269,15 @@ guide_gengrob.colorbar <- function(guide, theme) {
   if (!guide$draw.llim) tic_pos.c <- tic_pos.c[-length(tic_pos.c)]
 
   # title
-  # hjust of title should depend on title.position
-  title.theme <- guide$title.theme %||% calc_element("legend.title", theme)
-  title.hjust <- title.x <- guide$title.hjust %||% theme$legend.title.align %||% 0
-  title.vjust <- title.y <- guide$title.vjust %||% 0.5
-  grob.title <- {
-    if (is.null(guide$title))
-      zeroGrob()
-    else {
-      g <- element_grob(title.theme, label = guide$title,
-        hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
-      ggname("guide.title", g)
-    }
-  }
+  grob.title <- ggname("guide.title",
+    element_grob(
+      guide$title.theme %||% calc_element("legend.title", theme),
+      label = guide$title,
+      hjust = guide$title.hjust %||% theme$legend.title.align %||% 0,
+      vjust = guide$title.vjust %||% 0.5
+    )
+  )
+
 
   title_width <- convertWidth(grobWidth(grob.title), "mm")
   title_width.c <- c(title_width)

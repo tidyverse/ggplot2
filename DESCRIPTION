@@ -133,6 +133,7 @@ Collate:
     'labels.r'
     'layer.r'
     'limits.r'
+    'margins.R'
     'panel.r'
     'plot-build.r'
     'plot-construction.r'

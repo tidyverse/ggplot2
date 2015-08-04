@@ -64,21 +64,29 @@ theme_grey <- function(base_size = 12, base_family = "") {
     # by others
     line =               element_line(colour = "black", size = 0.5, linetype = 1,
                             lineend = "butt"),
-    rect =               element_rect(fill = "white", colour = "black", size = 0.5, linetype = 1),
-    text =               element_text(family = base_family, face = "plain",
+    rect =               element_rect(fill = "white", colour = "black",
+                            size = 0.5, linetype = 1),
+    text =               element_text(
+                            family = base_family, face = "plain",
                             colour = "black", size = base_size,
-                            hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 0.9),
+                            lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
+                            margin = margin()
+                         ),
     axis.text =          element_text(size = rel(0.8), colour = "grey50"),
     strip.text =         element_text(size = rel(0.8)),
 
     axis.line =          element_blank(),
-    axis.text.x =        element_text(vjust = 1),
-    axis.text.y =        element_text(hjust = 1),
+    axis.text.x =        element_text(margin = margin(t = base_size / 6), vjust = 1),
+    axis.text.y =        element_text(margin = margin(r = base_size / 6), hjust = 1),
     axis.ticks =         element_line(colour = "grey50"),
-    axis.title.x =       element_text(),
-    axis.title.y =       element_text(angle = 90),
-    axis.ticks.length =  unit(0.15, "cm"),
-    axis.ticks.margin =  unit(0.1, "cm"),
+    axis.title.x =       element_text(
+                           margin = margin(t = 0.8 * base_size / 2)
+                         ),
+    axis.title.y =       element_text(
+                           angle = 90,
+                           margin = margin(r = 0.8 * base_size / 2)
+                         ),
+    axis.ticks.length =  unit(base_size / 4, "pt"),
 
     legend.background =  element_rect(colour = NA),
     legend.margin =      unit(0.2, "cm"),
@@ -105,14 +113,17 @@ theme_grey <- function(base_size = 12, base_family = "") {
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(fill = "grey80", colour = NA),
-    strip.text.x =       element_text(),
-    strip.text.y =       element_text(angle = -90),
+    strip.text.x =       element_text(margin = margin(t = base_size / 2, b = base_size / 2)),
+    strip.text.y =       element_text(angle = 90, margin = margin(l = base_size / 2, r = base_size / 2)),
     strip.switch.pad.grid = unit(0.1, "cm"),
     strip.switch.pad.wrap = unit(0.1, "cm"),
 
     plot.background =    element_rect(colour = "white"),
-    plot.title =         element_text(size = rel(1.2)),
-    plot.margin =        unit(c(1, 1, 0.5, 0.5), "lines"),
+    plot.title =         element_text(
+                           size = rel(1.2),
+                           margin = margin(b = base_size * 1.2 / 2)
+                         ),
+    plot.margin =        margin(base_size / 2, base_size / 2, base_size / 2, base_size / 2),
 
     complete = TRUE
   )
@@ -237,3 +248,4 @@ theme_void <- function(base_size = 12, base_family = "") {
     complete = TRUE
   )
 }
+

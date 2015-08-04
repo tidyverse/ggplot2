@@ -1,6 +1,14 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `element_text()` gains a margins argument which allows you to add additional
+  margins around text elements in the plot. The default themes have been
+  adjusted to add a little extra spacing between titles and text so the plots
+  don't feel so cramped. The default margins scale with the theme font size,
+  so the appearance at larger font sizes should be considerably improved
+  (#1228). As part of these changes `axis.ticks.margin` has been deprecated:
+  now use the margin property of `axis.ticks`.
+
 * ggplot2 re-exports grid `arrow()` and `unit()` so you don't need to attach
   grid or use `grid::` for these commonly used functions (#1225)
 
