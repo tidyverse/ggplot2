@@ -22,14 +22,12 @@ dotstackGrob <- function(
 }
 
 #' @export
-#' @method drawDetails dotstackGrob
-drawDetails.dotstackGrob <- function(x, recording = TRUE) {
-
+makeContext.dotstackGrob <- function(x, recording = TRUE) {
   # Need absolute coordinates because when using npc coords with circleGrob,
   # the radius is in the _smaller_ of the two axes. We need the radius
   # to instead be defined in terms of the non-stack axis.
-  xmm   <- convertX(x$x, "mm", valueOnly = TRUE)
-  ymm   <- convertY(x$y, "mm", valueOnly = TRUE)
+  xmm <- convertX(x$x, "mm", valueOnly = TRUE)
+  ymm <- convertY(x$y, "mm", valueOnly = TRUE)
 
   if (x$stackaxis == "x") {
     dotdiamm <- convertY(x$dotdia, "mm", valueOnly = TRUE)
@@ -41,8 +39,8 @@ drawDetails.dotstackGrob <- function(x, recording = TRUE) {
     ypos <- ymm + dotdiamm * (x$stackposition * x$stackratio + (1 - x$stackratio) / 2)
   }
 
-  grid.draw(
-    circleGrob(x = xpos, y = ypos, r = dotdiamm / 2, default.units = "mm",
-               name = x$name, gp = x$gp, vp = x$vp)
+  circleGrob(
+    x = xpos, y = ypos, r = dotdiamm / 2, default.units = "mm",
+    name = x$name, gp = x$gp, vp = x$vp
   )
 }
