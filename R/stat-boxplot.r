@@ -47,7 +47,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
   {
     data <- remove_missing(data, na.rm, c("x", "y", "weight"), name = "stat_boxplot",
       finite = TRUE)
-    if (!is.discrete(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
+    if (is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
       warning(
         "Continuous x aesthetic -- did you forget aes(group=...)?",
         call. = FALSE)
