@@ -96,7 +96,7 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
   p <- structure(list(
     data = data,
     layers = list(),
-    scales = Scales$new(),
+    scales = scales_list(),
     mapping = mapping,
     theme = list(),
     coordinates = coord_cartesian(),
