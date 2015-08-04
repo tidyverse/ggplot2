@@ -21,10 +21,6 @@ Layer <- ggproto("Layer", NULL,
   position = NULL,
   inherit.aes = FALSE,
 
-  # This actually makes a descendant of self, which is functionally the same
-  # as a actually clone for most purposes.
-  clone = function(self) ggproto(NULL, self),
-
   use_defaults = function(self, data) {
     df <- aesdefaults(data, self$geom$default_aes)
 

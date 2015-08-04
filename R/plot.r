@@ -113,7 +113,6 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
 plot_clone <- function(plot) {
   p <- plot
   p$scales <- plot$scales$clone()
-  p$layers <- lapply(plot$layers, function(x) x$clone())
 
   p
 }
