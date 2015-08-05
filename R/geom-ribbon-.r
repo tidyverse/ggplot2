@@ -1,4 +1,14 @@
-#' Ribbons, y range with continuous x values.
+#' Ribbons and area plots.
+#'
+#' For each continuous x value, \code{geom_interval} displays a y interval.
+#' \code{geom_area} is a special case of \code{geom_ribbon}, where the
+#' minimum of the range is fixed to 0.
+#'
+#' An area plot is the continuous analog of a stacked bar chart (see
+#' \code{\link{geom_bar}}), and can be used to show how composition of the
+#' whole varies over the range of x.  Choosing the order in which different
+#' components is stacked is very important, as it becomes increasing hard to
+#' see the individual pattern as you move up the stack.
 #'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "ribbon")}
@@ -6,7 +16,7 @@
 #' @seealso
 #'   \code{\link{geom_bar}} for discrete intervals (bars),
 #'   \code{\link{geom_linerange}} for discrete intervals (lines),
-#'   \code{\link{geom_polygon}} for general polygons"
+#'   \code{\link{geom_polygon}} for general polygons
 #' @inheritParams geom_point
 #' @export
 #' @examples
@@ -86,22 +96,8 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
   }
 )
 
-#' Area plot.
-#'
-#' An area plot is the continuous analog of a stacked bar chart (see
-#' \code{\link{geom_bar}}), and can be used to show how composition of the
-#' whole varies over the range of x.  Choosing the order in which different
-#' components is stacked is very important, as it becomes increasing hard to
-#' see the individual pattern as you move up the stack.
-#'
-#' An area plot is a special case of \code{\link{geom_ribbon}}, where the
-#' minimum of the range is fixed to 0, and the position adjustment defaults
-#' to position_stacked.
-#'
-#' @inheritParams geom_point
+#' @rdname geom_ribbon
 #' @export
-#' @examples
-#' # see geom_ribbon
 geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "stack", na.rm = FALSE, show.legend = NA,
                       inherit.aes = TRUE, ...) {
