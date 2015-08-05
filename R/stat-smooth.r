@@ -61,12 +61,6 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     # gam with a cubic regression basis for large data
     # This is based on the size of the _largest_ group.
     if (identical(params$method, "auto")) {
-      message(
-        '`geom_smooth()`: For groups with <1000 observations, using ',
-        '`method = "loess"` with `span = 0.75`,\n otherwise ',
-        '`method = "gam"` with `formula = y ~ s(x, bs = "cs")`.'
-      )
-
       max_group <- max(table(data$group))
 
       if (max_group < 1000) {

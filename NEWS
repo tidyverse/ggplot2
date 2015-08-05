@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `geom_smooth()` is no longer so chatty. If you want to know what the deafult
+  smoothing method is, look it up in the documentation! (#1247)
+
 * `geom_smooth()`/`stat_smooth()` no longer pass ... on to the
   underlying model. Instead, put additional arguments in `method.args` (#1245).
 
