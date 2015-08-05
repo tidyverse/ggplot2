@@ -28,14 +28,23 @@ NULL
 #' implement one or more of the following:
 #'
 #' \itemize{
-#'   \item Override either \code{draw(self, data, scales, coordinates)} or
-#'     \code{draw_group(self, data, scales, coordinates)}. \code{draw} is
+#'   \item Override either \code{draw(self, data, panel_scales, coord)} or
+#'     \code{draw_group(self, data, panel_scales, coord)}. \code{draw} is
 #'     called with the complete dataset, \code{draw_group} is called a group
 #'     at-a-time.
 #'
 #'     Use \code{draw} if each row in the data represents a
 #'     single element. Use \code{draw_group} if each group represents
 #'     an element (e.g. a smooth, a violin).
+#'
+#'     \code{data} is a data frame of scaled aesthetics. \code{panel_scales}
+#'     is a list containing information about the scales in the current
+#'     panel. \code{coord} is a coordinate specification. You'll
+#'     need to call \code{coord$transform(data, panel_scales)} to work
+#'     with non-Cartesian coords. To work with non-linear coordinate systems,
+#'     you typically need to convert into a primitive geom (e.g. point, path
+#'     or polygon), and then pass on to the corresponding draw method
+#'     for munching.
 #'
 #'     Must return a grob. Use \code{\link{zeroGrob}} if there's nothing to
 #'     draw.
@@ -58,12 +67,12 @@ Geom <- ggproto("Geom",
 
   draw_key = draw_key_point,
 
-  draw = function(self, data, scales, coordinates, ...) {
+  draw = function(self, data, panel_scales, coord, ...) {
     if (empty(data)) return(zeroGrob())
 
     groups <- split(data, factor(data$group))
     grobs <- lapply(groups, function(group) {
-      self$draw_group(group, scales, coordinates, ...)
+      self$draw_group(group, panel_scales, coord, ...)
     })
 
     ggname(snake_class(self), gTree(
@@ -71,7 +80,7 @@ Geom <- ggproto("Geom",
     ))
   },
 
-  draw_group = function(self, data, scales, coordinates, ...) {
+  draw_group = function(self, data, panel_scales, coord, ...) {
     stop("Not implemented")
   },
 
