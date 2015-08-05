@@ -82,11 +82,11 @@ theme_grey <- function(base_size = 11, base_family = "") {
     axis.ticks =         element_line(colour = "grey20"),
     axis.ticks.length =  unit(half_line / 2, "pt"),
     axis.title.x =       element_text(
-                           margin = margin(t = 0.8 * half_line)
+                           margin = margin(t = 0.8 * half_line, b = 0.8 * half_line / 2)
                          ),
     axis.title.y =       element_text(
                            angle = 90,
-                           margin = margin(r = 0.8 * half_line)
+                           margin = margin(r = 0.8 * half_line, t = 0.8 * half_line / 2),
                          ),
 
     legend.background =  element_rect(colour = NA),
