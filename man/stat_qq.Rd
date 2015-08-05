@@ -72,7 +72,7 @@ p + geom_point(stat = "qq")
 # Use fitdistr from MASS to estimate distribution params
 params <- as.list(MASS::fitdistr(df$y, "t")$estimate)
 ggplot(df, aes(sample = y)) +
-  stat_qq(distribution = qt, dparams = params)
+  stat_qq(distribution = qt, dparams = params["df"])
 
 # Using to explore the distribution of a variable
 ggplot(mtcars) +

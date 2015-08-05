@@ -76,27 +76,6 @@ uniquecols <- function(df) {
   df
 }
 
-# A "safe" version of do.call
-# \code{safe.call} works like \code{\link{do.call}} but it will only supply arguments that exist in the function specification.
-#
-# If ... is present in the param list, all parameters will be passed through
-# unless \code{ignore.dots = TRUE}.  Positional arguments are not currently
-# supported.
-#
-# @param function to call
-# @arugments named list of parameters to be supplied to function
-# @param parameter names of function
-# @param
-# @keyword internal
-safe.call <- function(f, params, f.params = names(formals(f)), ignore.dots = TRUE) {
-  if (!ignore.dots && "..." %in% f.params) {
-    safe.params <- params
-  } else {
-    safe.params <- params[intersect(f.params, names(params))]
-  }
-  do.call(f, safe.params)
-}
-
 #' Convenience function to remove missing values from a data.frame
 #'
 #' Remove all non-complete rows, with a warning if \code{na.rm = FALSE}.

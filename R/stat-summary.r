@@ -213,7 +213,7 @@ wrap_hmisc <- function(fun) {
       stop("Hmisc package required for this function", call. = FALSE)
 
     fun <- getExportedValue("Hmisc", fun)
-    result <- safe.call(fun, list(x = x, ...))
+    result <- do.call(fun, list(x = quote(x), ...))
 
     plyr::rename(
       data.frame(t(result)),

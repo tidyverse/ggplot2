@@ -10,6 +10,8 @@
 #'   the data
 #' @param level level of confidence interval to use (0.95 by default)
 #' @param n number of points to evaluate smoother at
+#' @param method.args List of additional arguments passed on to the modelling
+#'   function defined by \code{method}.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
 #' @section Computed variables:
@@ -23,8 +25,8 @@
 #' @rdname geom_smooth
 stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
   position = "identity", method = "auto", formula = y ~ x, se = TRUE, n = 80,
-  fullrange = FALSE, level = 0.95, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  fullrange = FALSE, level = 0.95, method.args = list(),
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
     data = data,
@@ -41,7 +43,8 @@ stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
       n = n,
       fullrange = fullrange,
       level = level,
-      na.rm = na.rm
+      na.rm = na.rm,
+      method.args = method.args
     ),
     params = list(...)
   )
@@ -96,7 +99,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 
   calculate = function(data, scales, method = "auto", formula = y~x,
     se = TRUE, n = 80, fullrange = FALSE, xseq = NULL, level = 0.95,
-    na.rm = FALSE, ...)
+    method.args = list(), na.rm = FALSE, ...)
   {
     data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_smooth")
     if (length(unique(data$x)) < 2) {
@@ -124,9 +127,8 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     }
     if (is.character(method)) method <- match.fun(method)
 
-    method.special <- function(...)
-      method(formula, data = data, weights = weight, ...)
-    model <- safe.call(method.special, list(...), names(formals(method)))
+    base.args <- list(quote(formula), data = quote(data), weights = quote(weight))
+    model <- do.call(method, c(base.args, method.args))
 
     predictdf(model, xseq, se, level)
   },

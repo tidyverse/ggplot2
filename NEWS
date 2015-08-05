@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `geom_smooth()`/`stat_smooth()` no longer pass ... on to the
+  underlying model. Instead, put additional arguments in `method.args` (#1245).
+
 * `element_text()` gains a margins argument which allows you to add additional
   margins around text elements in the plot. The default themes have been
   adjusted to add a little extra spacing between titles and text so the plots
