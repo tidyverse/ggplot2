@@ -86,9 +86,9 @@ ggplot2 1.0.1.9xxx
   aesthetics used by `geom_boxplot()`: this only affects
   `geom_boxplot(stat = "identity")` (#1020).
 
-* `stat_summary_hex()` and `stat_summary2d()` no longer passes `...` on to their
-  summary functions - instead they have a new argument `fun.args`, a list
-  of arguments to pass on.
+* `stat_summary()` (#1242), `stat_summary_hex()` and `stat_summary2d()` no
+   longer pass `...` on to their summary functions - instead they have a new
+   argument `fun.args`, a list of arguments to pass on.
 
 * The internals of positions have been cleaned up considerably. You're unlikely
   to notice any external changes, although the documentation should be a little
