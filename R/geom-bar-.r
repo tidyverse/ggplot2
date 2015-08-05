@@ -104,8 +104,8 @@ GeomBar <- ggproto("GeomBar", Geom,
     )
   },
 
-  draw_groups = function(data, scales, coordinates, ...) {
-    GeomRect$draw_groups(data, scales, coordinates, ...)
+  draw = function(data, scales, coordinates, ...) {
+    GeomRect$draw(data, scales, coordinates, ...)
   },
 
   draw_key = draw_key_polygon

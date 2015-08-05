@@ -25,7 +25,7 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   lapply(geom_fun_names, function(geom_fun_name) {
     geom_fun    <- ggplot2_ns[[geom_fun_name]]
     draw        <- geom_fun()$geom$draw
-    draw_groups <- geom_fun()$geom$draw_groups
+    draw_groups <- geom_fun()$geom$draw_group
 
     fun_args <- formals(geom_fun)
     draw_args <- c(formals_proto2(draw), formals_proto2(draw_groups))
@@ -35,7 +35,7 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
 
     expect_identical(fun_args[common_names], draw_args[common_names],
       info = paste0("Mismatch between arg defaults for ", geom_fun_name,
-        " and ", class(geom_fun()$geom)[1], "'s $draw and/or $draw_groups functions.")
+        " and ", class(geom_fun()$geom)[1], "'s $draw and/or $draw_group functions.")
     )
   })
 })

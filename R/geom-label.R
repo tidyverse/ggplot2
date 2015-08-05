@@ -38,7 +38,7 @@ geom_label <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomLabel <- ggproto("GeomLabel", Geom,
-  draw_groups = function(self, data, ...) {
+  draw = function(self, data, ...) {
     if (empty(data)) return(zeroGrob())
 
     grobs <- lapply(1:nrow(data), function(i) {

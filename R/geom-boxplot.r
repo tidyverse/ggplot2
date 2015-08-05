@@ -144,9 +144,9 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     df
   },
 
-  draw = function(self, data, ..., fatten = 2, outlier.colour = "black", outlier.shape = 19,
-                  outlier.size = 2, outlier.stroke = 1,
-                  notch = FALSE, notchwidth = .5, varwidth = FALSE) {
+  draw_group = function(self, data, ..., fatten = 2, outlier.colour = "black",
+                        outlier.shape = 19, outlier.size = 2, outlier.stroke = 1,
+                        notch = FALSE, notchwidth = .5, varwidth = FALSE) {
     common <- data.frame(
       colour = data$colour,
       size = data$size,

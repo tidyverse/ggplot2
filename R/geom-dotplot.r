@@ -237,8 +237,9 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   },
 
 
-  draw = function(self, data, scales, coordinates, na.rm = FALSE, binaxis = "x",
-                  stackdir = "up", stackratio = 1, dotsize = 1, stackgroups = FALSE, ...) {
+  draw_group = function(self, data, scales, coordinates, na.rm = FALSE,
+                        binaxis = "x", stackdir = "up", stackratio = 1,
+                        dotsize = 1, stackgroups = FALSE, ...) {
 
     data <- remove_missing(data, na.rm, c("x", "y", "size", "shape"), name = "geom_dotplot")
     if (empty(data)) return(zeroGrob())

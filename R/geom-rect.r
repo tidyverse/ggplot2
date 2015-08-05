@@ -59,8 +59,6 @@ GeomRect <- ggproto("GeomRect", Geom,
     }
   },
 
-  draw_groups = function(self, ...) self$draw(...),
-
   draw_key = draw_key_polygon
 )
 

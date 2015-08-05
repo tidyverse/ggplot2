@@ -135,10 +135,17 @@ fields. To create a new type of Geom object, you typically will want to
 implement one or more of the following:
 
 \itemize{
-  \item \code{draw}: Renders a single group from the data. Should return
-    a grid grob.
-  \item \code{draw_groups}: Renders all groups. The method typically calls
-    \code{draw} for each group.
+  \item Override either \code{draw(self, data, scales, coordinates)} or
+    \code{draw_group(self, data, scales, coordinates)}. \code{draw} is
+    called with the complete dataset, \code{draw_group} is called a group
+    at-a-time.
+
+    Use \code{draw} if each row in the data represents a
+    single element. Use \code{draw_group} if each group represents
+    an element (e.g. a smooth, a violin).
+
+    Must return a grob. Use \code{\link{zeroGrob}} if there's nothing to
+    draw.
   \item \code{draw_key}: Renders a single legend key.
   \item \code{required_aes}: A character vector of aesthetics needed to
     render the geom.

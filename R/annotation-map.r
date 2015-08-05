@@ -48,7 +48,7 @@ annotation_map <- function(map, ...) {
 #' @usage NULL
 #' @export
 GeomAnnotationMap <- ggproto("GeomAnnotationMap", GeomMap,
-  draw_groups = function(data, scales, coordinates, map, ...) {
+  draw = function(data, scales, coordinates, map, ...) {
     # Munch, then set up id variable for polygonGrob -
     # must be sequential integers
     coords <- coord_munch(coordinates, map, scales)

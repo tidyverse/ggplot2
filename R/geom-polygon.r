@@ -66,8 +66,6 @@ geom_polygon <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomPolygon <- ggproto("GeomPolygon", Geom,
-  draw_groups = function(self, ...) self$draw(...),
-
   draw = function(self, data, scales, coordinates, ...) {
     n <- nrow(data)
     if (n == 1) return()

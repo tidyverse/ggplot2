@@ -58,7 +58,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
   draw_key = draw_key_polygon,
 
-  draw = function(self, data, scales, coordinates, na.rm = FALSE, ...) {
+  draw_group = function(self, data, scales, coordinates, na.rm = FALSE, ...) {
     if (na.rm) data <- data[stats::complete.cases(data[self$required_aes]), ]
     data <- data[order(data$group, data$x), ]
 

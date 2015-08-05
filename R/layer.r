@@ -179,7 +179,7 @@ Layer <- ggproto("Layer", NULL,
       snake_class(self$geom)
     )
 
-    do.call(self$geom$draw_groups, c(
+    do.call(self$geom$draw, c(
       list(quote(data), quote(scales), quote(cs)),
       self$geom_params
     ))

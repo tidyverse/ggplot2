@@ -33,7 +33,8 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
 
   draw_key = draw_key_crossbar,
 
-  draw = function(self, data, scales, coordinates, fatten = 2.5, width = NULL, ...) {
+  draw = function(self, data, scales, coordinates, fatten = 2.5, width = NULL,
+                  ...) {
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&

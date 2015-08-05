@@ -51,11 +51,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     df
   },
 
-  # This is a dummy function to make sure that vjust and hjust are recognized
-  # as parameters and are accessible to reparameterise.
-  draw = function(vjust = 0.5, hjust = 0.5) {},
-
-  draw_groups = function(data, scales, coordinates, interpolate = FALSE, ...) {
+  draw = function(data, scales, coordinates, interpolate = FALSE, ...) {
     if (!inherits(coordinates, "CoordCartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }
