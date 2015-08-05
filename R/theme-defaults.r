@@ -97,7 +97,7 @@ theme_grey <- function(base_size = 11, base_family = "") {
     legend.key.width =   NULL,
     legend.text =        element_text(size = rel(0.8)),
     legend.text.align =  NULL,
-    legend.title =       element_text(size = rel(0.8), face = "bold", hjust = 0),
+    legend.title =       element_text(hjust = 0),
     legend.title.align = NULL,
     legend.position =    "right",
     legend.direction =   NULL,
