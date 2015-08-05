@@ -105,17 +105,17 @@ Layer <- ggproto("Layer", NULL,
   },
 
 
-  calc_statistic = function(self, data, scales) {
+  calc_statistic = function(self, data, scales, params) {
     if (empty(data))
       return(data.frame())
 
     check_required_aesthetics(
       self$stat$required_aes,
-      c(names(data), names(self$stat_params)),
+      c(names(data), names(params)),
       snake_class(self$stat)
     )
 
-    args <- c(list(data = quote(data), scales = quote(scales)), self$stat_params)
+    args <- c(list(data = quote(data), scales = quote(scales)), params)
     tryCatch(do.call(self$stat$calculate_groups, args), error = function(e) {
       warning("Computation failed in `", snake_class(self$stat), "()`:\n",
         e$message, call. = FALSE)
@@ -160,7 +160,9 @@ Layer <- ggproto("Layer", NULL,
 
 
   adjust_position = function(self, data) {
+    if (empty(data)) return(data.frame())
     params <- self$position$compute_defaults(data)
+
     plyr::ddply(data, "PANEL", function(data) {
       if (empty(data)) return(data.frame())
 

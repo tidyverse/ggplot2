@@ -43,20 +43,18 @@ stat_boxplot <- function(mapping = NULL, data = NULL, geom = "boxplot",
 StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("x", "y"),
 
-  calculate_groups = function(self, data, na.rm = FALSE, width = NULL, ...)
-  {
-    data <- remove_missing(data, na.rm, c("x", "y", "weight"), name = "stat_boxplot",
-      finite = TRUE)
-    data$weight <- data$weight %||% 1
-    width <- width %||%  resolution(data$x) * 0.75
-
-    ggproto_parent(Stat, self)$calculate_groups(data, na.rm = na.rm,
-      width = width, ...)
+  compute_defaults = function(data, params) {
+    params$width <- params$width %||% resolution(data$x) * 0.75
+    params
   },
 
   calculate = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, ...) {
     qs <- c(0, 0.25, 0.5, 0.75, 1)
-    if (length(unique(data$weight)) != 1) {
+
+    data <- remove_missing(data, na.rm, c("x", "y", "weight"), name = "stat_boxplot",
+      finite = TRUE)
+
+    if (!is.null(data$weight)) {
       mod <- quantreg::rq(y ~ 1, weights = weight, data = data, tau = qs)
       stats <- as.numeric(stats::coef(mod))
     } else {

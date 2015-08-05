@@ -56,45 +56,31 @@ stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
 #' @export
 StatSmooth <- ggproto("StatSmooth", Stat,
 
-  inform_defaults = function(data, params) {
+  compute_defaults = function(data, params) {
+    # Figure out what type of smoothing to do: loess for small datasets,
+    # gam with a cubic regression basis for large data
+    # This is based on the size of the _largest_ group.
     if (identical(params$method, "auto")) {
       message(
         '`geom_smooth()`: For groups with <1000 observations, using ',
         '`method = "loess"` with `span = 0.75`,\n otherwise ',
         '`method = "gam"` with `formula = y ~ s(x, bs = "cs")`.'
       )
-    }
-  },
 
-  calculate_groups = function(self, data, scales, method = "auto",
-    formula = y ~ x, ...) {
-    rows <- plyr::daply(data, "group", function(df) length(unique(df$x)))
+      max_group <- max(table(data$group))
 
-    if (all(rows == 1) && length(rows) > 1) {
-      message("geom_smooth: Only one unique x value each group.",
-        "Maybe you want aes(group = 1)?")
-      return(data.frame())
-    }
-
-    # Figure out what type of smoothing to do: loess for small datasets,
-    # gam with a cubic regression basis for large data
-    # This is based on the size of the _largest_ group.
-    if (identical(method, "auto")) {
-      groups <- plyr::count(data, "group")
-
-      if (max(groups$freq) < 1000) {
-        method <- "loess"
+      if (max_group < 1000) {
+        params$method <- "loess"
       } else {
-        method <- "gam"
-        formula <- y ~ s(x, bs = "cs")
+        params$method <- "gam"
+        params$formula <- y ~ s(x, bs = "cs")
       }
     }
-    if (identical(method, "gam")) {
-      method <- mgcv::gam
+    if (identical(params$method, "gam")) {
+      params$method <- mgcv::gam
     }
 
-    ggproto_parent(Stat, self)$calculate_groups(data, scales, method = method,
-      formula = formula, ...)
+    params
   },
 
   calculate = function(data, scales, method = "auto", formula = y~x,

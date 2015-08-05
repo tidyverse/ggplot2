@@ -3,10 +3,11 @@
 #' @usage NULL
 #' @export
 StatBindot <- ggproto("StatBindot", Stat,
-  inform_defaults = function(data, params) {
+  compute_defaults = function(data, params) {
     if (is.null(params$breaks) && is.null(params$binwidth)) {
       message("`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.")
     }
+    params
   },
 
   calculate_groups = function(self, data, na.rm = FALSE, binwidth = NULL,

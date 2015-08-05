@@ -18,7 +18,7 @@ test_stat <- function(stat) {
   stat$data <- transform(stat$data, PANEL = 1)
   dat <- stat$compute_aesthetics(stat$data, ggplot())
   dat <- add_group(dat)
-  stat$calc_statistic(dat, NULL)
+  stat$calc_statistic(dat, NULL, stat$stat_params)
 }
 
 context("stat-bin")
@@ -93,7 +93,7 @@ test_stat_scale <- function(stat, scale) {
   stat$data <- transform(stat$data, PANEL = 1)
   dat <- stat$compute_aesthetics(stat$data, ggplot())
   dat <- add_group(dat)
-  stat$calc_statistic(dat, scale)
+  stat$calc_statistic(dat, scale, stat$stat_params)
 }
 
 context("stat-bin2d")
