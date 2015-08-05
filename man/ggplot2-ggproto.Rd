@@ -193,9 +193,19 @@ fields. To create a new type of Stat object, you typically will want to
 implement one or more of the following:
 
 \itemize{
-  \item \code{calculate}: Calculates a stat for a single group of data.
-  \item \code{calculate_groups}: Calculates stat for all groups. The method
-    typically calls \code{calculate} for each group.
+  \item Override either \code{compute(self, data, scales, ...)} or
+    \code{compute(self, data, scales, ...)}. \code{compute} is
+    called with the complete dataset, \code{compute_group} is called a group
+    at-a-time. If you override \code{compute}, you're responsibly for
+    matching up non-transformed columns.
+
+    \code{data} is a data frame containing the variables named according
+    to the aesthetics that they're mapped to. \code{scales} contains a list
+    of scales associated with the plot. This is present mostly for historical
+    reasons, and I would discourage you from relying on it. \code{...}
+    contains the parameters returned by \code{compute_defaults()}.
+
+    Must return a data frame.
   \item \code{compute_defaults(data, params)}: called once for each layer.
      Used to compute defaults that need to complete dataset, and to inform
      the user of important choices.

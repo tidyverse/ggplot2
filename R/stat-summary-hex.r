@@ -32,8 +32,8 @@ StatSummaryHex <- ggproto("StatSummaryHex", Stat,
 
   required_aes = c("x", "y", "z"),
 
-  calculate = function(data, scales, binwidth = NULL, bins = 30, drop = TRUE,
-                       fun = "mean", fun.args = list(), ...) {
+  compute_group = function(data, scales, binwidth = NULL, bins = 30, drop = TRUE,
+                           fun = "mean", fun.args = list(), ...) {
     data <- remove_missing(data, FALSE, c("x", "y", "z"),
       name = "stat_summary_hex")
 

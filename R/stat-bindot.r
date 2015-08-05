@@ -10,9 +10,9 @@ StatBindot <- ggproto("StatBindot", Stat,
     params
   },
 
-  calculate_groups = function(self, data, na.rm = FALSE, binwidth = NULL,
-                              binaxis = "x", method = "dotdensity",
-                              binpositions = "bygroup", ...) {
+  compute = function(self, data, na.rm = FALSE, binwidth = NULL,
+                           binaxis = "x", method = "dotdensity",
+                           binpositions = "bygroup", ...) {
     data <- remove_missing(data, na.rm, c(binaxis, "weight"), name = "stat_bindot",
       finite = TRUE)
 
@@ -41,14 +41,14 @@ StatBindot <- ggproto("StatBindot", Stat,
 
     }
 
-    ggproto_parent(Stat, self)$calculate_groups(data, binwidth = binwidth,
+    ggproto_parent(Stat, self)$compute(data, binwidth = binwidth,
       binaxis = binaxis, method = method, binpositions = binpositions, ...)
   },
 
-  calculate = function(self, data, scales, binwidth = NULL, binaxis = "x",
-                       method = "dotdensity", binpositions = "bygroup",
-                       origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
-                       right = TRUE, ...) {
+  compute_group = function(self, data, scales, binwidth = NULL, binaxis = "x",
+                           method = "dotdensity", binpositions = "bygroup",
+                           origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
+                           right = TRUE, ...) {
 
     # This function taken from integer help page
     is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5) {

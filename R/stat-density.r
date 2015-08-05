@@ -45,9 +45,8 @@ stat_density <- function(mapping = NULL, data = NULL, geom = "area",
 #' @usage NULL
 #' @export
 StatDensity <- ggproto("StatDensity", Stat,
-  calculate = function(data, scales, adjust = 1, kernel = "gaussian",
-    trim = FALSE, na.rm = FALSE, ...)
-  {
+  compute_group = function(data, scales, adjust = 1, kernel = "gaussian",
+                           trim = FALSE, na.rm = FALSE, ...) {
     data <- remove_missing(data, na.rm, "x", name = "stat_density",
       finite = TRUE)
 

@@ -48,7 +48,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     params
   },
 
-  calculate = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, ...) {
+  compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, ...) {
     qs <- c(0, 0.25, 0.5, 0.75, 1)
 
     data <- remove_missing(data, na.rm, c("x", "y", "weight"), name = "stat_boxplot",

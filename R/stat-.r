@@ -10,9 +10,19 @@
 #' implement one or more of the following:
 #'
 #' \itemize{
-#'   \item \code{calculate}: Calculates a stat for a single group of data.
-#'   \item \code{calculate_groups}: Calculates stat for all groups. The method
-#'     typically calls \code{calculate} for each group.
+#'   \item Override either \code{compute(self, data, scales, ...)} or
+#'     \code{compute(self, data, scales, ...)}. \code{compute} is
+#'     called with the complete dataset, \code{compute_group} is called a group
+#'     at-a-time. If you override \code{compute}, you're responsibly for
+#'     matching up non-transformed columns.
+#'
+#'     \code{data} is a data frame containing the variables named according
+#'     to the aesthetics that they're mapped to. \code{scales} contains a list
+#'     of scales associated with the plot. This is present mostly for historical
+#'     reasons, and I would discourage you from relying on it. \code{...}
+#'     contains the parameters returned by \code{compute_defaults()}.
+#'
+#'     Must return a data frame.
 #'   \item \code{compute_defaults(data, params)}: called once for each layer.
 #'      Used to compute defaults that need to complete dataset, and to inform
 #'      the user of important choices.
@@ -35,35 +45,19 @@ Stat <- ggproto("Stat",
 
   required_aes = c(),
 
-  calculate = function(data, scales, ...) {
-    data
-  },
-
   compute_defaults = function(data, params) {
     params
   },
 
-  calculate_groups = function(self, data, scales, ...) {
+  compute = function(self, data, scales, ...) {
     if (empty(data)) return(data.frame())
 
     force(data)
     force(scales)
 
-    # # Alternative approach: cleaner, but much slower
-    # # Compute statistic for each group
-    # stats <- ddply(data, "group", function(group) {
-    #   self$calculate(group, scales, ...)
-    # })
-    # stats$ORDER <- seq_len(nrow(stats))
-    #
-    # # Combine statistics with original columns
-    # unique <- ddply(data, .(group), uniquecols)
-    # stats <- merge(stats, unique, by = "group")
-    # stats[stats$ORDER, ]
-
     groups <- split(data, data$group)
     stats <- lapply(groups, function(group)
-      self$calculate(data = group, scales = scales, ...))
+      self$compute_group(data = group, scales = scales, ...))
 
     stats <- mapply(function(new, old) {
       if (empty(new)) return(data.frame())
@@ -76,6 +70,10 @@ Stat <- ggproto("Stat",
     }, stats, groups, SIMPLIFY = FALSE)
 
     do.call(plyr::rbind.fill, stats)
+  },
+
+  compute_group = function(self, data, scales, ...) {
+    stop("Not implemented", call. = FALSE)
   }
 )
 

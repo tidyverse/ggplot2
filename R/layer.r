@@ -116,7 +116,7 @@ Layer <- ggproto("Layer", NULL,
     )
 
     args <- c(list(data = quote(data), scales = quote(scales)), params)
-    tryCatch(do.call(self$stat$calculate_groups, args), error = function(e) {
+    tryCatch(do.call(self$stat$compute, args), error = function(e) {
       warning("Computation failed in `", snake_class(self$stat), "()`:\n",
         e$message, call. = FALSE)
       data.frame()

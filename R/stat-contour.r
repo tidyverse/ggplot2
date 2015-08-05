@@ -28,8 +28,8 @@ stat_contour <- function(mapping = NULL, data = NULL, geom = "contour",
 #' @usage NULL
 #' @export
 StatContour <- ggproto("StatContour", Stat,
-  calculate = function(data, scales, bins = NULL, binwidth = NULL,
-                       breaks = NULL, complete = FALSE, na.rm = FALSE, ...)
+  compute_group = function(data, scales, bins = NULL, binwidth = NULL,
+                           breaks = NULL, complete = FALSE, na.rm = FALSE, ...)
   {
     data <- remove_missing(data, na.rm, name = "stat_contour", finite = TRUE)
 

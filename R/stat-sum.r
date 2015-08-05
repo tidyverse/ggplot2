@@ -30,7 +30,7 @@ StatSum <- ggproto("StatSum", Stat,
 
   required_aes = c("x", "y"),
 
-  calculate_groups = function(data, scales, ...) {
+  compute = function(data, scales, ...) {
 
     if (is.null(data$weight)) data$weight <- 1
 

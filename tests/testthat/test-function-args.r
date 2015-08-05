@@ -56,8 +56,8 @@ test_that("stat_xxx and StatXxx$draw arg defaults match", {
   # the args have the same default values.
   lapply(stat_fun_names, function(stat_fun_name) {
     stat_fun         <- ggplot2_ns[[stat_fun_name]]
-    calculate        <- stat_fun()$stat$calculate
-    calculate_groups <- stat_fun()$stat$calculate_groups
+    calculate        <- stat_fun()$stat$compute
+    calculate_groups <- stat_fun()$stat$compute_group
 
     fun_args <- formals(stat_fun)
     calc_args <- c(formals_proto2(calculate), formals_proto2(calculate_groups))
@@ -67,7 +67,7 @@ test_that("stat_xxx and StatXxx$draw arg defaults match", {
 
     expect_identical(fun_args[common_names], calc_args[common_names],
       info = paste0("Mismatch between arg defaults for ", stat_fun_name,
-        " and ", class(stat_fun()$stat)[1], "'s $calculate and/or $calculate_groups functions.")
+        " and ", class(stat_fun()$stat)[1], "'s $compute and/or $compute_groups functions.")
     )
   })
 })
