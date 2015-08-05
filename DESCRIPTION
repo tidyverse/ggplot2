@@ -34,7 +34,8 @@ Suggests:
     multcomp,
     nlme,
     testthat,
-    quantreg
+    quantreg,
+    knitr
 Enhances: sp
 License: GPL-2
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2
@@ -209,3 +210,4 @@ Collate:
     'utilities.r'
     'zxx.r'
     'zzz.r'
+VignetteBuilder: knitr
