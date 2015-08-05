@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* ggplot no longer throws an error if you your plot doesn't have any
+  layers.  Instead it automatically adds `geom_blank()` (#1246)
+
 * `geom_smooth()` is no longer so chatty. If you want to know what the deafult
   smoothing method is, look it up in the documentation! (#1247)
 

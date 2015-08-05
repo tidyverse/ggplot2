@@ -23,7 +23,7 @@
 #' c + geom_abline(aes(intercept = a, slope = b), data = df)
 geom_blank <- function(mapping = NULL, data = NULL, stat = "identity",
                        position = "identity", show.legend = NA,
-                       inherit.aes = FALSE, ...) {
+                       inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
