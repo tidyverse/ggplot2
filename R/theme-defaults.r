@@ -58,7 +58,7 @@ NULL
 
 #' @export
 #' @rdname ggtheme
-theme_grey <- function(base_size = 12, base_family = "") {
+theme_grey <- function(base_size = 11, base_family = "") {
   half_line <- base_size / 2
 
   theme(
@@ -76,7 +76,7 @@ theme_grey <- function(base_size = 12, base_family = "") {
                          ),
 
     axis.line =          element_blank(),
-    axis.text =          element_text(size = rel(0.8), colour = "grey20"),
+    axis.text =          element_text(size = rel(0.8), colour = "grey30"),
     axis.text.x =        element_text(margin = margin(t = 0.8 * half_line / 2), vjust = 1),
     axis.text.y =        element_text(margin = margin(r = 0.8 * half_line / 2), hjust = 1),
     axis.ticks =         element_line(colour = "grey20"),
