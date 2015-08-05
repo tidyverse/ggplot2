@@ -179,6 +179,8 @@ guide_train.colorbar <- function(guide, scale) {
 
   # create data frame for tick display
   breaks <- scale_breaks(scale)
+  if (length(breaks) == 0 || all(is.na(breaks)))
+    return()
 
   ticks <- as.data.frame(setNames(list(scale_map(scale, breaks)), scale$aesthetics[1]))
   ticks$.value <- breaks
