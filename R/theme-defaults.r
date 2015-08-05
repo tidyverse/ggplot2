@@ -154,6 +154,7 @@ theme_bw <- function(base_size = 12, base_family = "") {
 #' @export
 #' @rdname ggtheme
 theme_linedraw <- function(base_size = 12, base_family = "") {
+  half_line <- base_size / 2
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
     theme(
@@ -165,14 +166,22 @@ theme_linedraw <- function(base_size = 12, base_family = "") {
       panel.grid.major  = element_line(colour = "black", size = 0.05),
       panel.grid.minor  = element_line(colour = "black", size = 0.01),
       strip.background  = element_rect(fill = "black", colour = NA),
-      strip.text.x      = element_text(colour = "white"),
-      strip.text.y      = element_text(colour = "white", angle = -90)
+      strip.text.x      = element_text(
+                            colour = "white",
+                            margin = margin(t = half_line, b = half_line)
+                          ),
+      strip.text.y      = element_text(
+                            colour = "white",
+                            angle = 90,
+                            margin = margin(l = half_line, r = half_line)
+                          )
     )
 }
 
 #' @export
 #' @rdname ggtheme
 theme_light <- function(base_size = 12, base_family = "") {
+  half_line <- base_size / 2
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
     theme(
@@ -183,8 +192,15 @@ theme_light <- function(base_size = 12, base_family = "") {
       panel.grid.major  = element_line(colour = "grey85", size = 0.25),
       panel.grid.minor  = element_line(colour = "grey93", size = 0.125),
       strip.background  = element_rect(fill = "grey70", colour = NA),
-      strip.text.x      = element_text(colour = "white"),
-      strip.text.y      = element_text(colour = "white", angle = -90)
+      strip.text.x      = element_text(
+        colour = "white",
+        margin = margin(t = half_line, b = half_line)
+      ),
+      strip.text.y      = element_text(
+        colour = "white",
+        angle = 90,
+        margin = margin(l = half_line, r = half_line)
+      )
     )
 
 }
@@ -223,6 +239,7 @@ theme_classic <- function(base_size = 12, base_family = ""){
 #' @export
 #' @rdname ggtheme
 theme_dark <- function(base_size = 12, base_family = "") {
+  half_line <- base_size / 2
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
     theme(
@@ -232,8 +249,15 @@ theme_dark <- function(base_size = 12, base_family = "") {
       panel.grid.major  = element_line(colour = "grey40", size = 0.25),
       panel.grid.minor  = element_line(colour = "grey45", size = 0.125),
       strip.background  = element_rect(fill = "grey20", colour = NA),
-      strip.text.x      = element_text(colour = "white"),
-      strip.text.y      = element_text(colour = "white", angle = -90)
+      strip.text.x      = element_text(
+        colour = "white",
+        margin = margin(t = half_line, b = half_line)
+      ),
+      strip.text.y      = element_text(
+        colour = "white",
+        angle = 90,
+        margin = margin(l = half_line, r = half_line)
+      )
     )
 }
 
