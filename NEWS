@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* In legend for bars and rectangles, display border colour as border,
+  rather than strikethrough.
+
 * ggplot no longer throws an error if you your plot doesn't have any
   layers.  Instead it automatically adds `geom_blank()` (#1246)
 

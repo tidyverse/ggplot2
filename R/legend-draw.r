@@ -50,15 +50,15 @@ draw_key_rect <- function(data, params) {
 #' @export
 #' @rdname draw_key
 draw_key_polygon <- function(data, params) {
-  grobTree(
-    draw_key_rect(data, list()),
-    linesGrob(gp = gpar(
-      col = data$colour,
-      lwd = data$size * .pt,
-      lineend = "butt",
-      lty = data$linetype
-    ))
-  )
+  rectGrob(
+    width = unit(1, "npc") - unit(data$size, "mm"),
+    height = unit(1, "npc") - unit(data$size, "mm"),
+    gp = gpar(
+      col = data$col,
+      fill = alpha(data$fill, data$alpha),
+      lty = data$linetype,
+      lwd = data$size * .pt
+  ))
 }
 
 #' @export
