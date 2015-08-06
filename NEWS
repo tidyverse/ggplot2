@@ -1,6 +1,11 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* Sizes in ggplot2 are measured in mm. Previously they were converted to
+  pts (for use in grid) by multiplying by 72 / 25.4. However, grid uses
+  printer's points, not Adobe (big pts), so sizes are now multiplied by
+  72.27 / 25.4.
+
 * In legend for bars and rectangles, display border colour as border,
   rather than strikethrough.
 
