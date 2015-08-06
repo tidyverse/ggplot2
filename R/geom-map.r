@@ -87,7 +87,7 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
 #' @usage NULL
 #' @export
 GeomMap <- ggproto("GeomMap", GeomPolygon,
-  draw_groups = function(data, scales, coordinates, map, ...) {
+  draw = function(data, scales, coordinates, map, ...) {
     # Only use matching data and map ids
     common <- intersect(data$map_id, map$id)
     data <- data[data$map_id %in% common, , drop = FALSE]

@@ -128,5 +128,5 @@ limits.POSIXlt <- function(lims, var) {
 expand_limits <- function(...) {
   data <- data.frame(..., stringsAsFactors = FALSE)
 
-  geom_blank(aes_all(names(data)), data)
+  geom_blank(aes_all(names(data)), data, inherit.aes = FALSE)
 }

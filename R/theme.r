@@ -89,8 +89,6 @@ print.theme <- function(x, ...) utils::str(x)
 #'                    (\code{element_line}; inherits from \code{axis.ticks}) \cr
 #'   axis.ticks.length  \tab length of tick marks
 #'                    (\code{unit}) \cr
-#'   axis.ticks.margin  \tab space between tick mark and tick label
-#'                    (\code{unit}) \cr
 #'   axis.line        \tab lines along axes
 #'                    (\code{element_line}; inherits from \code{line}) \cr
 #'   axis.line.x      \tab line along x axis
@@ -348,6 +346,12 @@ print.theme <- function(x, ...) utils::str(x)
 #' }
 theme <- function(..., complete = FALSE, validate = TRUE) {
   elements <- list(...)
+
+  if (!is.null(elements$axis.ticks.margin)) {
+    warning("`axis.ticks.margin` is deprecated. Please set `margin` property ",
+      " of `axis.ticks` instead", call. = FALSE)
+    elements$axis.ticks.margin <- NULL
+  }
 
   # Check that all elements have the correct class (element_text, unit, etc)
   if (validate) {

@@ -96,7 +96,7 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
   p <- structure(list(
     data = data,
     layers = list(),
-    scales = Scales$new(),
+    scales = scales_list(),
     mapping = mapping,
     theme = list(),
     coordinates = coord_cartesian(),
@@ -113,7 +113,6 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
 plot_clone <- function(plot) {
   p <- plot
   p$scales <- plot$scales$clone()
-  p$layers <- lapply(plot$layers, function(x) x$clone())
 
   p
 }

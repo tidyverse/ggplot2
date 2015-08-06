@@ -1,9 +1,20 @@
 #' @include legend-draw.r
 NULL
 
-.pt <- 1 / 0.352777778
-.stroke <- 96 / 25.4
+#' Graphical units
+#'
+#' Multiply size in mm by these constants in order to convert to the units
+#' that grid uses internally for \code{lwd} and \code{fontsize}.
+#'
+#' @name graphical-units
+NULL
 
+#' @export
+#' @rdname graphical-units
+.pt <- 1 / 0.352777778
+#' @export
+#' @rdname graphical-units
+.stroke <- 96 / 25.4
 
 #' @section Geoms:
 #'
@@ -17,10 +28,26 @@ NULL
 #' implement one or more of the following:
 #'
 #' \itemize{
-#'   \item \code{draw}: Renders a single group from the data. Should return
-#'     a grid grob.
-#'   \item \code{draw_groups}: Renders all groups. The method typically calls
-#'     \code{draw} for each group.
+#'   \item Override either \code{draw(self, data, panel_scales, coord)} or
+#'     \code{draw_group(self, data, panel_scales, coord)}. \code{draw} is
+#'     called with the complete dataset, \code{draw_group} is called a group
+#'     at-a-time.
+#'
+#'     Use \code{draw} if each row in the data represents a
+#'     single element. Use \code{draw_group} if each group represents
+#'     an element (e.g. a smooth, a violin).
+#'
+#'     \code{data} is a data frame of scaled aesthetics. \code{panel_scales}
+#'     is a list containing information about the scales in the current
+#'     panel. \code{coord} is a coordinate specification. You'll
+#'     need to call \code{coord$transform(data, panel_scales)} to work
+#'     with non-Cartesian coords. To work with non-linear coordinate systems,
+#'     you typically need to convert into a primitive geom (e.g. point, path
+#'     or polygon), and then pass on to the corresponding draw method
+#'     for munching.
+#'
+#'     Must return a grob. Use \code{\link{zeroGrob}} if there's nothing to
+#'     draw.
 #'   \item \code{draw_key}: Renders a single legend key.
 #'   \item \code{required_aes}: A character vector of aesthetics needed to
 #'     render the geom.
@@ -40,20 +67,21 @@ Geom <- ggproto("Geom",
 
   draw_key = draw_key_point,
 
-  draw = function(...) {},
-
-  draw_groups = function(self, data, scales, coordinates, ...) {
+  draw = function(self, data, panel_scales, coord, ...) {
     if (empty(data)) return(zeroGrob())
 
     groups <- split(data, factor(data$group))
-    grobs <- lapply(groups, function(group) self$draw(group, scales, coordinates, ...))
+    grobs <- lapply(groups, function(group) {
+      self$draw_group(group, panel_scales, coord, ...)
+    })
 
-    # String like "bar" or "line"
-    objname <- sub("^geom_", "", snake_class(self))
-
-    ggname(paste0(objname, "s"), gTree(
+    ggname(snake_class(self), gTree(
       children = do.call("gList", grobs)
     ))
+  },
+
+  draw_group = function(self, data, panel_scales, coord, ...) {
+    stop("Not implemented")
   },
 
   reparameterise = function(data, params) data

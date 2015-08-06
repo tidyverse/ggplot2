@@ -1,3 +1,16 @@
+#' Munch coordinates data
+#'
+#' This function "munches" lines, dividing each line into many small pieces
+#' so they can be transformed independently. Used inside geom functions.
+#'
+#' @param coord Coordinate system definition.
+#' @param data Data set to transform - should have variables \code{x} and
+#'   \code{y} are chopped up into small pieces (as defined by \code{group}).
+#'   All other variables are duplicated as needed.
+#' @param range Panel range specification.
+#' @param segment_length Target segment length
+#' @keywords internal
+#' @export
 coord_munch <- function(coord, data, range, segment_length = 0.01) {
   if (coord$is_linear()) return(coord$transform(data, range))
 

@@ -72,9 +72,9 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
 
   required_aes = c("x", "y", "z"),
 
-  calculate = function(data, scales, binwidth = NULL, bins = 30, breaks = NULL,
-                       origin = NULL, drop = TRUE, fun = "mean",
-                       fun.args = list(), ...) {
+  compute_group = function(data, scales, binwidth = NULL, bins = 30,
+                           breaks = NULL, origin = NULL, drop = TRUE,
+                           fun = "mean", fun.args = list(), ...) {
     data <- remove_missing(data, FALSE, c("x", "y", "z"),
       name = "stat_summary2d")
 

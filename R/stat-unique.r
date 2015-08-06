@@ -28,5 +28,5 @@ stat_unique <- function(mapping = NULL, data = NULL, geom = "point",
 #' @usage NULL
 #' @export
 StatUnique <- ggproto("StatUnique", Stat,
-  calculate_groups = function(data, scales, ...) unique(data)
+  compute = function(data, scales, ...) unique(data)
 )

@@ -18,8 +18,6 @@
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_smooth} and \code{stat_smooth}.
-#' @param ... Additional arguments passed on to the underlying statistical
-#'  model.
 #' @seealso See individual modelling functions for more details:
 #'   \code{\link{lm}} for linear smooths,
 #'   \code{\link{glm}} for generalised linear smooths,
@@ -60,17 +58,21 @@
 #' \dontrun{
 #' # To fit a logistic regression, you need to coerce the values to
 #' # a numeric vector lying between 0 and 1.
+#' binomial_smooth <- function(...) {
+#'   geom_smooth(method = "glm", method.args = list(family = "binomial"), ...)
+#' }
+#'
 #' ggplot(rpart::kyphosis, aes(Age, Kyphosis)) +
 #'   geom_jitter(height = 0.05) +
-#'   stat_smooth(method = "glm", family = "binomial")
+#'   binomial_smooth()
 #'
 #' ggplot(rpart::kyphosis, aes(Age, as.numeric(Kyphosis) - 1)) +
 #'   geom_jitter(height = 0.05) +
-#'   stat_smooth(method = "glm", family = "binomial")
+#'   binomial_smooth()
 #'
 #' ggplot(rpart::kyphosis, aes(Age, as.numeric(Kyphosis) - 1)) +
 #'   geom_jitter(height = 0.05) +
-#'   stat_smooth(method = "glm", family = "binomial", formula = y ~ splines::ns(x, 2))
+#'   binomial_smooth(formula = y ~ splines::ns(x, 2))
 #'
 #' # But in this case, it's probably better to fit the model yourself
 #' # so you can exercise more control and see whether or not it's a good model
@@ -97,14 +99,14 @@ geom_smooth <- function(mapping = NULL, data = NULL, stat = "smooth",
 #' @usage NULL
 #' @export
 GeomSmooth <- ggproto("GeomSmooth", Geom,
-  draw = function(data, scales, coordinates, ...) {
+  draw_group = function(data, scales, coordinates, ...) {
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = NA)
 
     has_ribbon <- !is.null(data$ymax) && !is.null(data$ymin)
 
     gList(
-      if (has_ribbon) GeomRibbon$draw(ribbon, scales, coordinates),
+      if (has_ribbon) GeomRibbon$draw_group(ribbon, scales, coordinates),
       GeomLine$draw(path, scales, coordinates)
     )
   },

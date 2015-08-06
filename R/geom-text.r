@@ -111,8 +111,6 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomText <- ggproto("GeomText", Geom,
-  draw_groups = function(self, ...) self$draw(...),
-
   draw = function(data, scales, coordinates, ..., parse = FALSE,
                    na.rm = FALSE, check_overlap = FALSE) {
     data <- remove_missing(data, na.rm,

@@ -36,13 +36,9 @@
 #'
 #' # Change scale label
 #' d + scale_colour_brewer()
-#' d + scale_colour_brewer("clarity")
-#' d + scale_colour_brewer(expression(clarity[beta]))
+#' d + scale_colour_brewer("Diamond\nclarity")
 #'
 #' # Select brewer palette to use, see ?scales::brewer_pal for more details
-#' d + scale_colour_brewer(type = "seq")
-#' d + scale_colour_brewer(type = "seq", palette = 3)
-#'
 #' d + scale_colour_brewer(palette = "Greens")
 #' d + scale_colour_brewer(palette = "Set1")
 #'
@@ -56,20 +52,12 @@
 #' # the brewer scales look better on a darker background
 #' p + scale_fill_brewer(direction = -1) + theme_dark()
 #'
-#' # Generate map data
-#' volcano3d <- reshape2::melt(volcano)
-#' names(volcano3d) <- c("x", "y", "z")
-#'
-#' # Basic plot
-#' v <- ggplot() +
-#'   geom_tile(aes(x = x, y = y, fill = z), data = volcano3d)
+#' # Use distiller variant with continous data
+#' v <- ggplot(faithfuld) +
+#'   geom_tile(aes(waiting, eruptions, fill = density))
 #' v
 #' v + scale_fill_distiller()
-#' v + scale_fill_distiller(palette = 2)
-#' v + scale_fill_distiller(type = "div")
 #' v + scale_fill_distiller(palette = "Spectral")
-#' v + scale_fill_distiller(type = "qual")
-#' # Not appropriate for continuous data, issues a warning
 scale_colour_brewer <- function(..., type = "seq", palette = 1, direction = 1) {
   discrete_scale("colour", "brewer", brewer_pal(type, palette, direction), ...)
 }

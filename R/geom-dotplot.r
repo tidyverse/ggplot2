@@ -77,7 +77,7 @@
 #'
 #' # y axis isn't really meaningful, so hide it
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5) +
-#'   scale_y_continuous(name = "", breaks = NULL)
+#'   scale_y_continuous(NULL, breaks = NULL)
 #'
 #' # Overlap dots vertically
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, stackratio = .7)
@@ -237,8 +237,9 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   },
 
 
-  draw = function(self, data, scales, coordinates, na.rm = FALSE, binaxis = "x",
-                  stackdir = "up", stackratio = 1, dotsize = 1, stackgroups = FALSE, ...) {
+  draw_group = function(self, data, scales, coordinates, na.rm = FALSE,
+                        binaxis = "x", stackdir = "up", stackratio = 1,
+                        dotsize = 1, stackgroups = FALSE, ...) {
 
     data <- remove_missing(data, na.rm, c("x", "y", "size", "shape"), name = "geom_dotplot")
     if (empty(data)) return(zeroGrob())

@@ -214,7 +214,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     # Combine the two ends of the scale if they are close
     theta <- theta[!is.na(theta)]
     ends_apart <- (theta[length(theta)] - theta[1]) %% (2 * pi)
-    if (ends_apart < 0.05) {
+    if (length(theta) > 0 && ends_apart < 0.05) {
       n <- length(labels)
       if (is.expression(labels)) {
         combined <- substitute(paste(a, "/", b),
@@ -249,7 +249,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     # Combine the two ends of the scale if they are close
     theta <- theta[!is.na(theta)]
     ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
-    if (ends_apart < 0.05) {
+    if (length(theta) > 0 && ends_apart < 0.05) {
       n <- length(labels)
       if (is.expression(labels)) {
         combined <- substitute(paste(a, "/", b),
@@ -265,9 +265,10 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     grobTree(
       if (length(labels) > 0) element_render(
         theme, "axis.text.x",
-        labels, 0.45 * sin(theta) + 0.5, 0.45 * cos(theta) + 0.5,
-        hjust = 0.5, vjust = 0.5,
-        default.units = "native"
+        labels,
+        unit(0.45 * sin(theta) + 0.5, "native"),
+        unit(0.45 * cos(theta) + 0.5, "native"),
+        hjust = 0.5, vjust = 0.5
       ),
       element_render(theme, "panel.border")
     )

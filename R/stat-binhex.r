@@ -33,7 +33,8 @@ StatBinhex <- ggproto("StatBinhex", Stat,
 
   required_aes = c("x", "y"),
 
-  calculate = function(data, scales, binwidth = NULL, bins = 30, na.rm = FALSE, ...) {
+  compute_group = function(data, scales, binwidth = NULL, bins = 30,
+                           na.rm = FALSE, ...) {
     data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_hexbin")
 
     if (is.null(binwidth)) {

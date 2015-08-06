@@ -23,7 +23,7 @@
 #' c + geom_abline(aes(intercept = a, slope = b), data = df)
 geom_blank <- function(mapping = NULL, data = NULL, stat = "identity",
                        position = "identity", show.legend = NA,
-                       inherit.aes = FALSE, ...) {
+                       inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -42,5 +42,6 @@ geom_blank <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomBlank <- ggproto("GeomBlank", Geom,
-  default_aes = aes()
+  default_aes = aes(),
+  draw = function(...) nullGrob()
 )

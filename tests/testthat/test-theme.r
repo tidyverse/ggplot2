@@ -1,9 +1,10 @@
 context("Themes")
 
 test_that("Modifying theme element properties with + operator", {
+
   # Changing a "leaf node" works
-  t <- theme_grey() + theme(axis.title.x = element_text(colour = 'red'))
-  expect_identical(t$axis.title.x, element_text(colour = 'red'))
+  t <- theme_grey() + theme(axis.title.x = element_text(colour = 'red', margin = margin()))
+  expect_identical(t$axis.title.x, element_text(colour = 'red', margin = margin()))
   # Make sure the theme class didn't change or get dropped
   expect_true(is.theme(t))
   # Make sure the element class didn't change or get dropped

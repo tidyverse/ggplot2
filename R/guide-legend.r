@@ -74,7 +74,6 @@
 #' # Guide title
 #'
 #' p1 + scale_fill_continuous(guide = guide_legend(title = "V")) # title text
-#' p1 + scale_fill_continuous(name = "V") # same
 #' p1 + scale_fill_continuous(guide = guide_legend(title = NULL)) # no title
 #'
 #' # Control styles
@@ -294,24 +293,14 @@ guide_gengrob.legend <- function(guide, theme) {
   hgap <- width_cm(unit(0.3, "lines"))
   vgap <- hgap
 
-  if (is.null(guide$title)) {
-    grob.title <- zeroGrob()
-  } else {
-    title.theme <- guide$title.theme %||% calc_element("legend.title", theme)
-    title.hjust <- title.x <- guide$title.hjust %||% theme$legend.title.align %||% 0
-    title.vjust <- title.y <- guide$title.vjust %||% 0.5
-
-    grob.title <- ggname("guide.title",
-      element_grob(
-        title.theme,
-        label = guide$title,
-        hjust = title.hjust,
-        vjust = title.vjust,
-        x = title.x,
-        y = title.y
-      )
+  grob.title <- ggname("guide.title",
+    element_grob(
+      guide$title.theme %||% calc_element("legend.title", theme),
+      label = guide$title,
+      hjust = guide$title.hjust %||% theme$legend.title.align %||% 0,
+      vjust = guide$title.vjust %||% 0.5
     )
-  }
+  )
 
   title_width <- width_cm(grob.title)
   title_height <- height_cm(grob.title)

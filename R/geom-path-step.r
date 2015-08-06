@@ -26,7 +26,7 @@ GeomStep <- ggproto("GeomStep", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
   draw = function(data, scales, coordinates, direction = "hv", ...) {
-    data <- stairstep(data, direction)
+    data <- plyr::ddply(data, "group", stairstep, direction = direction)
     GeomPath$draw(data, scales, coordinates, ...)
   },
 

@@ -103,7 +103,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
           xmax = x + width / 2)
   },
 
-  draw = function(self, data, ..., draw_quantiles = NULL) {
+  draw_group = function(self, data, ..., draw_quantiles = NULL) {
     # Find the points for the line to go all the way around
     data <- transform(data, xminv = x - violinwidth * (x - xmin),
                             xmaxv = x + violinwidth * (xmax - x))

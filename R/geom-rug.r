@@ -17,8 +17,7 @@
 #' p + geom_point() + geom_rug(position='jitter')
 geom_rug <- function(mapping = NULL, data = NULL, stat = "identity",
                      position = "identity", sides = "bl", show.legend = NA,
-                     inherit.aes = TRUE, ...)
-{
+                     inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

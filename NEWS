@@ -2,6 +2,23 @@ ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
 * `geom_violin()` now has the ability to draw quantile lines (@DanRuderman).
+* ggplot no longer throws an error if you your plot doesn't have any
+  layers.  Instead it automatically adds `geom_blank()` (#1246)
+
+* `geom_smooth()` is no longer so chatty. If you want to know what the deafult
+  smoothing method is, look it up in the documentation! (#1247)
+
+* `geom_smooth()`/`stat_smooth()` no longer pass ... on to the
+  underlying model. Instead, put additional arguments in `method.args` (#1245).
+
+* `element_text()` gains a margins argument which allows you to add additional
+  margins around text elements in the plot. The default themes have been
+  adjusted to add a little extra spacing between titles and text so the plots
+  don't feel so cramped. The default margins scale with the theme font size,
+  so the appearance at larger font sizes should be considerably improved
+  (#1228). As part of these changes `axis.ticks.margin` has been deprecated:
+  now use the margin property of `axis.ticks`.
+
 * ggplot2 re-exports grid `arrow()` and `unit()` so you don't need to attach
   grid or use `grid::` for these commonly used functions (#1225)
 
@@ -79,9 +96,9 @@ ggplot2 1.0.1.9xxx
   aesthetics used by `geom_boxplot()`: this only affects
   `geom_boxplot(stat = "identity")` (#1020).
 
-* `stat_summary_hex()` and `stat_summary2d()` no longer passes `...` on to their
-  summary functions - instead they have a new argument `fun.args`, a list
-  of arguments to pass on.
+* `stat_summary()` (#1242), `stat_summary_hex()` and `stat_summary2d()` no
+   longer pass `...` on to their summary functions - instead they have a new
+   argument `fun.args`, a list of arguments to pass on.
 
 * The internals of positions have been cleaned up considerably. You're unlikely
   to notice any external changes, although the documentation should be a little

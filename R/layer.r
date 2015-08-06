@@ -21,10 +21,6 @@ Layer <- ggproto("Layer", NULL,
   position = NULL,
   inherit.aes = FALSE,
 
-  # This actually makes a descendant of self, which is functionally the same
-  # as a actually clone for most purposes.
-  clone = function(self) ggproto(NULL, self),
-
   use_defaults = function(self, data) {
     df <- aesdefaults(data, self$geom$default_aes)
 
@@ -109,18 +105,18 @@ Layer <- ggproto("Layer", NULL,
   },
 
 
-  calc_statistic = function(self, data, scales) {
+  calc_statistic = function(self, data, scales, params) {
     if (empty(data))
       return(data.frame())
 
     check_required_aesthetics(
       self$stat$required_aes,
-      c(names(data), names(self$stat_params)),
+      c(names(data), names(params)),
       snake_class(self$stat)
     )
 
-    args <- c(list(data = quote(data), scales = quote(scales)), self$stat_params)
-    tryCatch(do.call(self$stat$calculate_groups, args), error = function(e) {
+    args <- c(list(data = quote(data), scales = quote(scales)), params)
+    tryCatch(do.call(self$stat$compute, args), error = function(e) {
       warning("Computation failed in `", snake_class(self$stat), "()`:\n",
         e$message, call. = FALSE)
       data.frame()
@@ -164,8 +160,13 @@ Layer <- ggproto("Layer", NULL,
 
 
   adjust_position = function(self, data) {
+    if (empty(data)) return(data.frame())
+    params <- self$position$compute_defaults(data)
+
     plyr::ddply(data, "PANEL", function(data) {
-      self$position$adjust(data)
+      if (empty(data)) return(data.frame())
+
+      self$position$adjust(data, params)
     })
   },
 
@@ -180,7 +181,7 @@ Layer <- ggproto("Layer", NULL,
       snake_class(self$geom)
     )
 
-    do.call(self$geom$draw_groups, c(
+    do.call(self$geom$draw, c(
       list(quote(data), quote(scales), quote(cs)),
       self$geom_params
     ))

@@ -110,8 +110,6 @@ geom_path <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomPath <- ggproto("GeomPath", Geom,
-  draw_groups = function(self, ...) self$draw(...),
-
   draw = function(data, scales, coordinates, arrow = NULL, lineend = "butt",
                   linejoin = "round", linemitre = 1, ..., na.rm = FALSE)
   {

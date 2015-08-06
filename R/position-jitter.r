@@ -40,23 +40,18 @@ position_jitter <- function(width = NULL, height = NULL) {
 #' @usage NULL
 #' @export
 PositionJitter <- ggproto("PositionJitter", Position,
-  adjust = function(self, data) {
-    if (empty(data)) return(data.frame())
+  compute_defaults = function(self, data) {
     check_required_aesthetics(c("x", "y"), names(data), "position_jitter")
 
-    if (is.null(self$width))
-      self$width <- resolution(data$x, zero = FALSE) * 0.4
-    if (is.null(self$height))
-      self$height <- resolution(data$y, zero = FALSE) * 0.4
+    list(
+      width = self$width %||% resolution(data$x, zero = FALSE) * 0.4,
+      height = self$height %||% resolution(data$y, zero = FALSE) * 0.4
+    )
+  },
 
-    trans_x <- NULL
-    trans_y <- NULL
-    if (self$width > 0) {
-      trans_x <- function(x) jitter(x, amount = self$width)
-    }
-    if (self$height > 0) {
-      trans_y <- function(x) jitter(x, amount = self$height)
-    }
+  adjust = function(data, params) {
+    trans_x <- if (params$width > 0) function(x) jitter(x, amount = params$width)
+    trans_y <- if (params$height > 0) function(x) jitter(x, amount = params$height)
 
     transform_position(data, trans_x, trans_y)
   }

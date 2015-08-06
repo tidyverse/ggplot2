@@ -6,7 +6,7 @@
 \usage{
 element_text(family = NULL, face = NULL, colour = NULL, size = NULL,
   hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  color = NULL)
+  color = NULL, margin = NULL)
 }
 \arguments{
 \item{family}{font family}
@@ -26,6 +26,10 @@ element_text(family = NULL, face = NULL, colour = NULL, size = NULL,
 \item{lineheight}{line height}
 
 \item{color}{an alias for \code{colour}}
+
+\item{margin}{margins around the text. See \code{\link{margin}} for more
+details. When creating a theme, the margins should be placed on the
+side of the text facing towards the center of the plot.}
 }
 \description{
 Theme element: text.

@@ -104,8 +104,8 @@ GeomBar <- ggproto("GeomBar", Geom,
     )
   },
 
-  draw_groups = function(data, scales, coordinates, ...) {
-    GeomRect$draw_groups(data, scales, coordinates, ...)
+  draw = function(data, scales, coordinates, ...) {
+    GeomRect$draw(data, scales, coordinates, ...)
   },
 
   draw_key = draw_key_polygon
@@ -143,7 +143,7 @@ StatBar <- ggproto("StatBar", Stat,
   required_aes = "x",
   default_aes = aes(y = ..count..),
 
-  calculate = function(self, data, ..., width = NULL) {
+  compute_group = function(self, data, ..., width = NULL) {
     x <- data$x
     weight <- data$weight %||% rep(1, length(x))
     width <- width %||% resolution(x) * 0.9

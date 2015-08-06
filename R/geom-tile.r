@@ -85,9 +85,9 @@ GeomTile <- ggproto("GeomTile", Geom,
     )
   },
 
-  draw_groups = function(data,  scales, coordinates, ...) {
+  draw = function(data,  scales, coordinates, ...) {
     # data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
-    GeomRect$draw_groups(data, scales, coordinates, ...)
+    GeomRect$draw(data, scales, coordinates, ...)
   },
 
   default_aes = aes(fill = "grey20", colour = NA, size = 0.1, linetype = 1,

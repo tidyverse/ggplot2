@@ -34,10 +34,12 @@ PositionNudge <- ggproto("PositionNudge", Position,
   x = NULL,
   y = NULL,
 
-  adjust = function(self, data) {
-    if (empty(data)) return(data.frame())
+  compute_defaults = function(self, data) {
     check_required_aesthetics(c("x", "y"), names(data), "position_nudge")
+    list()
+  },
 
+  adjust = function(self, data, params) {
     transform_position(data, function(x) x + self$x, function(y) y + self$y)
   }
 )

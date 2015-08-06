@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 1.0.1.9002
+Version: 1.0.1.9003
 Authors@R: c(
     person("Hadley", "Wickham", , "h.wickham@gmail.com", c("aut", "cre")),
     person("Winston", "Chang", , "winston@stdout.org", "aut")
@@ -34,7 +34,8 @@ Suggests:
     multcomp,
     nlme,
     testthat,
-    quantreg
+    quantreg,
+    knitr
 Enhances: sp
 License: GPL-2
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2
@@ -133,6 +134,7 @@ Collate:
     'labels.r'
     'layer.r'
     'limits.r'
+    'margins.R'
     'panel.r'
     'plot-build.r'
     'plot-construction.r'
@@ -208,3 +210,4 @@ Collate:
     'utilities.r'
     'zxx.r'
     'zzz.r'
+VignetteBuilder: knitr

@@ -54,19 +54,17 @@ ggplot_gtable <- function(data) {
     x = xlabel(panel, plot$labels),
     y = ylabel(panel, plot$labels)
   ))
-  xlabel <- element_render(theme, "axis.title.x", labels$x)
-  ylabel <- element_render(theme, "axis.title.y", labels$y)
+  xlabel <- element_render(theme, "axis.title.x", labels$x, expand_y = TRUE)
+  ylabel <- element_render(theme, "axis.title.y", labels$y, expand_x = TRUE)
 
   panel_dim <-  find_panel(plot_table)
 
-  xlab_height <- grobHeight(xlabel) +
-    if (is.null(labels$x)) unit(0, "lines") else unit(0.5, "lines")
+  xlab_height <- grobHeight(xlabel)
   plot_table <- gtable_add_rows(plot_table, xlab_height)
   plot_table <- gtable_add_grob(plot_table, xlabel, name = "xlab",
     l = panel_dim$l, r = panel_dim$r, t = -1, clip = "off")
 
-  ylab_width <- grobWidth(ylabel) +
-    if (is.null(labels$y)) unit(0, "lines") else unit(0.5, "lines")
+  ylab_width <- grobWidth(ylabel)
   plot_table <- gtable_add_cols(plot_table, ylab_width, pos = 0)
   plot_table <- gtable_add_grob(plot_table, ylabel, name = "ylab",
     l = 1, b = panel_dim$b, t = panel_dim$t, clip = "off")
@@ -139,9 +137,8 @@ ggplot_gtable <- function(data) {
   }
 
   # Title
-  title <- element_render(theme, "plot.title", plot$labels$title)
-  title_height <- grobHeight(title) +
-    if (is.null(plot$labels$title)) unit(0, "lines") else unit(0.5, "lines")
+  title <- element_render(theme, "plot.title", plot$labels$title, expand_y = TRUE)
+  title_height <- grobHeight(title)
 
   pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), ,
     drop = FALSE]

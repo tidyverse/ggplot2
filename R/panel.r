@@ -188,11 +188,11 @@ calculate_stats <- function(panel, data, layers) {
     d <- data[[i]]
     l <- layers[[i]]
 
-    l$stat$inform_defaults(d, l$stat_params)
+    params <- l$stat$compute_defaults(d, l$stat_params)
 
     plyr::ddply(d, "PANEL", function(panel_data) {
       scales <- panel_scales(panel, panel_data$PANEL[1])
-      l$calc_statistic(panel_data, scales)
+      l$calc_statistic(panel_data, scales, params)
     })
   })
 }

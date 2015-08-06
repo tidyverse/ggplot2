@@ -58,27 +58,36 @@ NULL
 
 #' @export
 #' @rdname ggtheme
-theme_grey <- function(base_size = 12, base_family = "") {
+theme_grey <- function(base_size = 11, base_family = "") {
+  half_line <- base_size / 2
+
   theme(
     # Elements in this first block aren't used directly, but are inherited
     # by others
     line =               element_line(colour = "black", size = 0.5, linetype = 1,
                             lineend = "butt"),
-    rect =               element_rect(fill = "white", colour = "black", size = 0.5, linetype = 1),
-    text =               element_text(family = base_family, face = "plain",
+    rect =               element_rect(fill = "white", colour = "black",
+                            size = 0.5, linetype = 1),
+    text =               element_text(
+                            family = base_family, face = "plain",
                             colour = "black", size = base_size,
-                            hjust = 0.5, vjust = 0.5, angle = 0, lineheight = 0.9),
-    axis.text =          element_text(size = rel(0.8), colour = "grey50"),
-    strip.text =         element_text(size = rel(0.8)),
+                            lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
+                            margin = margin()
+                         ),
 
     axis.line =          element_blank(),
-    axis.text.x =        element_text(vjust = 1),
-    axis.text.y =        element_text(hjust = 1),
-    axis.ticks =         element_line(colour = "grey50"),
-    axis.title.x =       element_text(),
-    axis.title.y =       element_text(angle = 90),
-    axis.ticks.length =  unit(0.15, "cm"),
-    axis.ticks.margin =  unit(0.1, "cm"),
+    axis.text =          element_text(size = rel(0.8), colour = "grey30"),
+    axis.text.x =        element_text(margin = margin(t = 0.8 * half_line / 2), vjust = 1),
+    axis.text.y =        element_text(margin = margin(r = 0.8 * half_line / 2), hjust = 1),
+    axis.ticks =         element_line(colour = "grey20"),
+    axis.ticks.length =  unit(half_line / 2, "pt"),
+    axis.title.x =       element_text(
+                           margin = margin(t = 0.8 * half_line, b = 0.8 * half_line / 2)
+                         ),
+    axis.title.y =       element_text(
+                           angle = 90,
+                           margin = margin(r = 0.8 * half_line, t = 0.8 * half_line / 2),
+                         ),
 
     legend.background =  element_rect(colour = NA),
     legend.margin =      unit(0.2, "cm"),
@@ -88,7 +97,7 @@ theme_grey <- function(base_size = 12, base_family = "") {
     legend.key.width =   NULL,
     legend.text =        element_text(size = rel(0.8)),
     legend.text.align =  NULL,
-    legend.title =       element_text(size = rel(0.8), face = "bold", hjust = 0),
+    legend.title =       element_text(hjust = 0),
     legend.title.align = NULL,
     legend.position =    "right",
     legend.direction =   NULL,
@@ -98,21 +107,25 @@ theme_grey <- function(base_size = 12, base_family = "") {
     panel.background =   element_rect(fill = "grey92", colour = NA),
     panel.border =       element_blank(),
     panel.grid.major =   element_line(colour = "white"),
-    panel.grid.minor =   element_line(colour = "grey95", size = 0.25),
-    panel.margin =       unit(0.25, "lines"),
+    panel.grid.minor =   element_line(colour = "white", size = 0.25),
+    panel.margin =       unit(half_line, "pt"),
     panel.margin.x =     NULL,
     panel.margin.y =     NULL,
     panel.ontop    =     FALSE,
 
-    strip.background =   element_rect(fill = "grey80", colour = NA),
-    strip.text.x =       element_text(),
-    strip.text.y =       element_text(angle = -90),
+    strip.background =   element_rect(fill = "grey85", colour = NA),
+    strip.text =         element_text(colour = "grey10", size = rel(0.8)),
+    strip.text.x =       element_text(margin = margin(t = half_line, b = half_line)),
+    strip.text.y =       element_text(angle = 90, margin = margin(l = half_line, r = half_line)),
     strip.switch.pad.grid = unit(0.1, "cm"),
     strip.switch.pad.wrap = unit(0.1, "cm"),
 
     plot.background =    element_rect(colour = "white"),
-    plot.title =         element_text(size = rel(1.2)),
-    plot.margin =        unit(c(1, 1, 0.5, 0.5), "lines"),
+    plot.title =         element_text(
+                           size = rel(1.2),
+                           margin = margin(b = half_line * 1.2)
+                         ),
+    plot.margin =        margin(half_line, half_line, half_line, half_line),
 
     complete = TRUE
   )
@@ -141,6 +154,7 @@ theme_bw <- function(base_size = 12, base_family = "") {
 #' @export
 #' @rdname ggtheme
 theme_linedraw <- function(base_size = 12, base_family = "") {
+  half_line <- base_size / 2
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
     theme(
@@ -152,14 +166,22 @@ theme_linedraw <- function(base_size = 12, base_family = "") {
       panel.grid.major  = element_line(colour = "black", size = 0.05),
       panel.grid.minor  = element_line(colour = "black", size = 0.01),
       strip.background  = element_rect(fill = "black", colour = NA),
-      strip.text.x      = element_text(colour = "white"),
-      strip.text.y      = element_text(colour = "white", angle = -90)
+      strip.text.x      = element_text(
+                            colour = "white",
+                            margin = margin(t = half_line, b = half_line)
+                          ),
+      strip.text.y      = element_text(
+                            colour = "white",
+                            angle = 90,
+                            margin = margin(l = half_line, r = half_line)
+                          )
     )
 }
 
 #' @export
 #' @rdname ggtheme
 theme_light <- function(base_size = 12, base_family = "") {
+  half_line <- base_size / 2
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
     theme(
@@ -170,8 +192,15 @@ theme_light <- function(base_size = 12, base_family = "") {
       panel.grid.major  = element_line(colour = "grey85", size = 0.25),
       panel.grid.minor  = element_line(colour = "grey93", size = 0.125),
       strip.background  = element_rect(fill = "grey70", colour = NA),
-      strip.text.x      = element_text(colour = "white"),
-      strip.text.y      = element_text(colour = "white", angle = -90)
+      strip.text.x      = element_text(
+        colour = "white",
+        margin = margin(t = half_line, b = half_line)
+      ),
+      strip.text.y      = element_text(
+        colour = "white",
+        angle = 90,
+        margin = margin(l = half_line, r = half_line)
+      )
     )
 
 }
@@ -210,6 +239,7 @@ theme_classic <- function(base_size = 12, base_family = ""){
 #' @export
 #' @rdname ggtheme
 theme_dark <- function(base_size = 12, base_family = "") {
+  half_line <- base_size / 2
   # Starts with theme_grey and then modify some parts
   theme_grey(base_size = base_size, base_family = base_family) %+replace%
     theme(
@@ -219,8 +249,15 @@ theme_dark <- function(base_size = 12, base_family = "") {
       panel.grid.major  = element_line(colour = "grey40", size = 0.25),
       panel.grid.minor  = element_line(colour = "grey45", size = 0.125),
       strip.background  = element_rect(fill = "grey20", colour = NA),
-      strip.text.x      = element_text(colour = "white"),
-      strip.text.y      = element_text(colour = "white", angle = -90)
+      strip.text.x      = element_text(
+        colour = "white",
+        margin = margin(t = half_line, b = half_line)
+      ),
+      strip.text.y      = element_text(
+        colour = "white",
+        angle = 90,
+        margin = margin(l = half_line, r = half_line)
+      )
     )
 }
 
@@ -237,3 +274,4 @@ theme_void <- function(base_size = 12, base_family = "") {
     complete = TRUE
   )
 }
+

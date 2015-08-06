@@ -39,10 +39,11 @@ position_dodge <- function(width = NULL) {
 #' @export
 PositionDodge <- ggproto("PositionDodge", Position,
   width = NULL,
-  adjust = function(self, data) {
-    if (empty(data)) return(data.frame())
+  compute_defaults = function(self, data) {
     check_required_aesthetics("x", names(data), "position_dodge")
+  },
 
+  adjust = function(self, data, params) {
     collide(data, self$width, "position_dodge", pos_dodge, check.width = FALSE)
   }
 )

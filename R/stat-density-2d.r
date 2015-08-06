@@ -39,7 +39,8 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
 
   required_aes = c("x", "y"),
 
-  calculate = function(data, scales, na.rm = FALSE, h = NULL, contour = TRUE, n = 100, ...) {
+  compute_group = function(data, scales, na.rm = FALSE, h = NULL,
+                           contour = TRUE, n = 100, ...) {
     df <- data.frame(data[, c("x", "y")])
     df <- remove_missing(df, na.rm, name = "stat_density2d", finite = TRUE)
 
@@ -53,7 +54,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     df$group <- data$group[1]
 
     if (contour) {
-      StatContour$calculate(df, scales, ...)
+      StatContour$compute(df, scales, ...)
     } else {
       names(df) <- c("x", "y", "density", "group")
       df$level <- 1

@@ -25,7 +25,7 @@
 #' # Use fitdistr from MASS to estimate distribution params
 #' params <- as.list(MASS::fitdistr(df$y, "t")$estimate)
 #' ggplot(df, aes(sample = y)) +
-#'   stat_qq(distribution = qt, dparams = params)
+#'   stat_qq(distribution = qt, dparams = params["df"])
 #'
 #' # Using to explore the distribution of a variable
 #' ggplot(mtcars) +
@@ -67,9 +67,9 @@ StatQq <- ggproto("StatQq", Stat,
 
   required_aes = c("sample"),
 
-  calculate = function(data, scales, quantiles = NULL, distribution = stats::qnorm,
-    dparams = list(), na.rm = FALSE)
-  {
+  compute_group = function(data, scales, quantiles = NULL,
+                           distribution = stats::qnorm, dparams = list(),
+                           na.rm = FALSE) {
     data <- remove_missing(data, na.rm, "sample", name = "stat_qq")
 
     sample <- sort(data$sample)
@@ -82,7 +82,7 @@ StatQq <- ggproto("StatQq", Stat,
       stopifnot(length(quantiles) == n)
     }
 
-    theoretical <- safe.call(distribution, c(list(p = quantiles), dparams))
+    theoretical <- do.call(distribution, c(list(p = quote(quantiles)), dparams))
 
     data.frame(sample, theoretical)
   }

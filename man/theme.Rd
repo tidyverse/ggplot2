@@ -66,8 +66,6 @@ The individual theme elements are:
                    (\code{element_line}; inherits from \code{axis.ticks}) \cr
   axis.ticks.length  \tab length of tick marks
                    (\code{unit}) \cr
-  axis.ticks.margin  \tab space between tick mark and tick label
-                   (\code{unit}) \cr
   axis.line        \tab lines along axes
                    (\code{element_line}; inherits from \code{line}) \cr
   axis.line.x      \tab line along x axis

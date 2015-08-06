@@ -14,14 +14,20 @@
 #' following method:
 #'
 #' \itemize{
-#'   \item \code{adjust}: Adjusts the position of overlapping geoms.
+#'   \item \code{adjust(data, params)}: Adjusts the position of overlapping
+#'     geoms. Called once per panel.
+#'   \item \code{compute_defaults(data)}: Returns a list of parameters passed
+#'     on to \code{adjust()}. Called once for the whole dataset.
 #' }
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
 Position <- ggproto("Position",
-  adjust = function(data, scales, ...) data
+  adjust = function(self, data, params) data,
+  compute_defaults = function(self, data) {
+    list()
+  }
 )
 
 # Convenience function to ensure that all position variables

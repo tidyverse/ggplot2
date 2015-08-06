@@ -110,7 +110,6 @@ p1 + scale_fill_continuous(guide = guide_legend())
 # Guide title
 
 p1 + scale_fill_continuous(guide = guide_legend(title = "V")) # title text
-p1 + scale_fill_continuous(name = "V") # same
 p1 + scale_fill_continuous(guide = guide_legend(title = NULL)) # no title
 
 # Control styles

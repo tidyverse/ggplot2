@@ -30,45 +30,41 @@
 #'   \item{fun.ymax}{ymax summary function (should take numeric vector and
 #'     return single number)}
 #' }
+#' @param fun.data A function that is given the complete data and should
+#'   return a data frame with variables \code{ymin}, \code{y}, and \code{ymax}.
+#' @param fun.ymin,fun.y,fun.ymax Alternatively, supply three individual
+#'   functions that are each passed a vector of x's and should return a
+#'   single number.
+#' @param fun.args Optional additional arguments passed on to the functions.
+#' @param na.rm If \code{TRUE}, silently remove missing values.
 #' @export
 #' @examples
-#' \donttest{
-#' # Basic operation on a small dataset
 #' d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
-#' d + stat_summary(fun.data = "mean_cl_boot", colour = "red")
-#'
-#' p <- ggplot(mtcars, aes(cyl, mpg)) +
-#'   stat_summary(fun.y = "mean", geom = "point")
-#' p
-#' # Don't use ylim to zoom into a summary plot - this throws the
-#' # data away
-#' p + ylim(15, 30)
-#' # Instead use coord_cartesian
-#' p + coord_cartesian(ylim = c(15, 30))
+#' d + stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 #'
 #' # You can supply individual functions to summarise the value at
 #' # each x:
-#'
-#' stat_sum_single <- function(fun, geom="point", ...) {
-#'   stat_summary(fun.y=fun, colour="red", geom=geom, size = 3, ...)
-#' }
-#'
-#' d + stat_sum_single(mean)
-#' d + stat_sum_single(mean, geom="line")
-#' d + stat_sum_single(median)
-#' d + stat_sum_single(sd)
-#'
-#' d + stat_summary(fun.y = mean, fun.ymin = min, fun.ymax = max,
-#'   colour = "red")
-#'
+#' d + stat_summary(fun.y = "median", colour = "red", size = 2)
+#' d + stat_summary(fun.y = "mean", colour = "red", size = 2)
 #' d + aes(colour = factor(vs)) + stat_summary(fun.y = mean, geom="line")
 #'
 #' # Alternatively, you can supply a function that operates on a data.frame.
+#' d + stat_summary(fun.y = mean, fun.ymin = min, fun.ymax = max,
+#'   colour = "red")
+#' \donttest{
 #' # A set of useful summary functions is provided from the Hmisc package:
-#'
 #' stat_sum_df <- function(fun, geom="crossbar", ...) {
 #'   stat_summary(fun.data=fun, colour="red", geom=geom, width=0.2, ...)
 #' }
+#'
+#' # Don't use ylim to zoom into a summary plot - this throws the
+#' # data away
+#' p <- ggplot(mtcars, aes(cyl, mpg)) +
+#'   stat_summary(fun.y = "mean", geom = "point")
+#' p
+#' p + ylim(15, 30)
+#' # Instead use coord_cartesian
+#' p + coord_cartesian(ylim = c(15, 30))
 #'
 #' # The crossbar geom needs grouping to be specified when used with
 #' # a continuous x axis.
@@ -116,6 +112,8 @@
 #' }
 #' }
 stat_summary <- function(mapping = NULL, data = NULL, geom = "pointrange",
+                         fun.data = NULL, fun.y = NULL, fun.ymax = NULL,
+                         fun.ymin = NULL, fun.args = list(), na.rm = FALSE,
                          position = "identity", show.legend = NA,
                          inherit.aes = TRUE, ...) {
   layer(
@@ -126,6 +124,13 @@ stat_summary <- function(mapping = NULL, data = NULL, geom = "pointrange",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
+    stat_params = list(
+      fun.data = fun.data,
+      fun.y = fun.y,
+      fun.ymax = fun.ymax,
+      fun.ymin = fun.ymin,
+      fun.args = fun.args
+    ),
     params = list(...)
   )
 }
@@ -137,29 +142,34 @@ stat_summary <- function(mapping = NULL, data = NULL, geom = "pointrange",
 StatSummary <- ggproto("StatSummary", Stat,
   required_aes = c("x", "y"),
 
-  calculate_groups = function(data, scales, fun.data = NULL, fun.y = NULL,
-    fun.ymax = NULL, fun.ymin = NULL, na.rm = FALSE, ...)
-  {
+  compute = function(data, scales, fun.data = NULL, fun.y = NULL,
+    fun.ymax = NULL, fun.ymin = NULL, fun.args = list(), na.rm = FALSE, ...) {
     data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_summary")
 
-    if (!missing(fun.data)) {
-      # User supplied function that takes complete data frame as input
+    if (!is.null(fun.data)) {
+      # Function that takes complete data frame as input
       fun.data <- match.fun(fun.data)
-      fun <- function(df, ...) {
-        fun.data(df$y, ...)
+      fun <- function(df) {
+        do.call(fun.data, c(list(quote(df$y)), fun.args))
       }
     } else {
-      # User supplied individual vector functions
-      fs <- compact(list(ymin = fun.ymin, y = fun.y, ymax = fun.ymax))
+      # Three functions that take vectors as inputs
+
+      call_f <- function(fun, x) {
+        if (is.null(fun)) return(NA_real_)
+        do.call(fun, c(list(quote(x)), fun.args))
+      }
 
       fun <- function(df, ...) {
-        res <- plyr::llply(fs, function(f) do.call(f, list(quote(df$y), ...)))
-        names(res) <- names(fs)
-        as.data.frame(res)
+        data.frame(
+          ymin = call_f(fun.ymin, df$y),
+          y = call_f(fun.y, df$y),
+          ymax = call_f(fun.ymax, df$y)
+        )
       }
     }
 
-    summarise_by_x(data, fun, ...)
+    summarise_by_x(data, fun)
   }
 )
 
@@ -203,7 +213,7 @@ wrap_hmisc <- function(fun) {
       stop("Hmisc package required for this function", call. = FALSE)
 
     fun <- getExportedValue("Hmisc", fun)
-    result <- safe.call(fun, list(x = x, ...))
+    result <- do.call(fun, list(x = quote(x), ...))
 
     plyr::rename(
       data.frame(t(result)),

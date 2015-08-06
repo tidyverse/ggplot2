@@ -30,8 +30,8 @@ StatBin2d <- ggproto("StatBin2d", Stat,
   default_aes = aes(fill = ..count..),
   required_aes = c("x", "y"),
 
-  calculate = function(data, scales, binwidth = NULL, bins = 30,
-                        breaks = NULL, origin = NULL, drop = TRUE, ...) {
+  compute_group = function(data, scales, binwidth = NULL, bins = 30,
+                           breaks = NULL, origin = NULL, drop = TRUE, ...) {
     range <- list(
       x = scale_dimension(scales$x, c(0, 0)),
       y = scale_dimension(scales$y, c(0, 0))
