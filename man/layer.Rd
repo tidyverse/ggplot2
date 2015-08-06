@@ -17,7 +17,7 @@ itself.}
 \code{geom} and \code{stat}. If supplied individual in \code{...} or as a
 list in \code{params}, \code{layer} does it's best to figure out which
 arguments belong to which. To be explicit, supply as individual lists to
-\code{geom_param} and \code{stat_param}.}
+\code{geom_params} and \code{stat_params}.}
 
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}

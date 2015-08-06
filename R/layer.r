@@ -199,7 +199,7 @@ Layer <- ggproto("Layer", NULL,
 #'   \code{geom} and \code{stat}. If supplied individual in \code{...} or as a
 #'   list in \code{params}, \code{layer} does it's best to figure out which
 #'   arguments belong to which. To be explicit, supply as individual lists to
-#'   \code{geom_param} and \code{stat_param}.
+#'   \code{geom_params} and \code{stat_params}.
 #' @param mapping Set of aesthetic mappings created by \code{\link{aes}} or
 #'   \code{\link{aes_string}}. If specified and \code{inherit.aes = TRUE},
 #'   is combined with the default mapping at the top level of the plot.

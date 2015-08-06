@@ -81,7 +81,8 @@ geom_violin <- function(mapping = NULL, data = NULL, stat = "ydensity",
       trim = trim,
       scale = scale
     ),
-    params = list(draw_quantiles = draw_quantiles, ...)
+    geom_params = list(draw_quantiles = draw_quantiles),
+    params = list(...)
   )
 }
 
@@ -120,10 +121,12 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     if (length(draw_quantiles) > 0) {
       stopifnot(all(draw_quantiles >= 0) & all(draw_quantiles <= 1))
 
-      quantile_grob <- GeomPath$draw(create_quantile_segment_frame(data, draw_quantiles), ...)
+      # Compute the quantile segments and add in the aesthetics
+      quantile_segments_with_aes <- cbind(create_quantile_segment_frame(data, draw_quantiles),
+                                          subset(data, select=c(-x,-y))[1,], row.names=NULL)
+      quantile_grob <- GeomPath$draw(quantile_segments_with_aes, ...)
 
-      ggname("geom_violin",
-             do.call('grobTree', list(GeomPolygon$draw(newdata, ...), quantile_grob)))
+      ggname("geom_violin", grobTree(GeomPolygon$draw(newdata, ...), quantile_grob))
     } else {
       ggname("geom_violin", GeomPolygon$draw(newdata, ...))
     }
@@ -143,15 +146,13 @@ create_quantile_segment_frame <- function(data, draw_quantiles) {
   ecdf <- approxfun(dens, data$y)
   ys <- ecdf(draw_quantiles) # these are all the y-values for quantiles
 
-  # Create data frame containing quantile segment data, one group per quantile
-  do.call ( rbind, lapply (ys, function(y_to_match) {
-    y_mismatches <- abs(y_to_match-data$y)
-    match_index <- which(y_mismatches==min(y_mismatches))[1]
+  # Get the violin bounds for the requested quantiles
+  violin.xminvs <- (approxfun(data$y, data$xminv))(ys)
+  violin.xmaxvs <- (approxfun(data$y, data$xmaxv))(ys)
 
-    path_data <- data[rep(match_index,2),]
-    path_data$x <- c(path_data$xminv[1], path_data$xmaxv[1])
-    path_data$group <- y_to_match
-    path_data
-  }))
+  # We have two rows per segment drawn. Each segments gets its own group.
+  data.frame(x=interleave(violin.xminvs, violin.xmaxvs),
+             y=rep(ys, each=2),
+             group=rep(ys, each=2))
 }
 
