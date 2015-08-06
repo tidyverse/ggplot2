@@ -349,7 +349,7 @@ theme <- function(..., complete = FALSE, validate = TRUE) {
 
   if (!is.null(elements$axis.ticks.margin)) {
     warning("`axis.ticks.margin` is deprecated. Please set `margin` property ",
-      " of `axis.ticks` instead", call. = FALSE)
+      " of `axis.text` instead", call. = FALSE)
     elements$axis.ticks.margin <- NULL
   }
 
