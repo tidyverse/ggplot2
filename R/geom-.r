@@ -11,7 +11,7 @@ NULL
 
 #' @export
 #' @rdname graphical-units
-.pt <- 1 / 0.352777778
+.pt <- 72 / 25.4
 #' @export
 #' @rdname graphical-units
 .stroke <- 96 / 25.4
