@@ -1,0 +1,142 @@
+---
+title: "Extending ggplot2"
+author: "Hadley Wickham"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Extending ggplot2}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(ggplot2)
+```
+
+This page aims at presenting the major steps involved in extending ggplot2 by:
+
+* Creating a new geom
+* Creating a new stat
+* Creating a new theme
+
+This vignette documents the official extension mechanism provided in ggplot2 1.1.0. This vignette is a high-level adjunct to the low-level details found in `?Stat`, `?Geom` and `?theme`.
+
+As you read this document, you'll see many things that will scratch your head and make you wonder, why on earth is it designed that way? Mostly it's historical accident - I wasn't a terribly good R programmer when I started writing ggplot2 and I made a lot of questionable decisions. We cleaned up as many as possible in the 1.1.0 release, but some simply weren't worth the effort.
+
+## ggproto
+
+All ggplot2 objects are built using the ggproto system of object oriented programming. This OO system is used only in one place: ggplot2. This is mostly historical accident: ggplot2 started off using [proto](https://cran.r-project.org/web/packages/proto) because I needed mutable objects. This was well before the creation of (the briefly lived) [mutatr](http://vita.had.co.nz/papers/mutatr.html), reference classes and R6: proto was the only game in town.
+
+But why ggproto? Well when we turned to add an official extension mechanism to ggplot2, we found a major problem that caused problems when proto objects were extended in a different package (methods were evaluated in ggplot2, not the package where the extension was added). We tried converting to R6, but it was a poor fit for the needs of ggplot2. We could've modified proto, but that would've first involved understand exactly how proto worked, and secondly making sure that the changes didn't affect other users of proto.
+
+It's strange to say, but this is a case where inventing a new OO system was actually the right answer to the problem! Fortunately Winston is now very good at creating OO systems, so it only took him a day to come up with ggproto: it maintains all the features of proto that ggplot2 needs, while allowing cross package inheritance to work.
+
+Here's a quick demo of ggproto in action:
+
+```{r}
+A <- ggproto("A", NULL,
+  x = 1,
+  inc = function(self) {
+    self$x <- self$x + 1
+  }
+)
+A$x
+A$inc()
+A$x
+A$inc()
+A$inc()
+A$x
+```
+
+The majority of ggplot2 classes are immutable and static: the methods neither use nor modify state in the class. They're mostly used as a convenient way of bundling related methods together.
+
+To create a new geom or stat, you will just create a new ggproto that inherits from `Stat`, `Geom` and override the methods described below.
+
+## Creating a new geom
+
+To illustrate creating a new geom, we're going to use a [fun example](http://stackoverflow.com/questions/22159087) provided by Brodie Gaslam: a replacement for `geom_point()` that draws little cars instead of points. Adding a new geom takes place in three steps:
+
+* Creating a function that generates grid grobs, e.g. `carGrob`.
+* Creating a new ggproto object that extends `Geom`, e.g. `GeomCar`.
+* Creating a layer function, `geom_car`.
+
+### Grid grob
+
+Now, ggplot2 is built on top of grid, so you'll need to know the basics of drawing grid grobs. If you're serious about adding a new geom, I'd recommend buying [R graphics](http://amzn.com/B00I60M26G) by Paul Murrell. It tells you everything you need to know about drawing with grid.
+
+```R
+car.raster <- readPNG("data/car.png")
+
+carGrob <- function(x, y, length, width) {  
+  rasterGrob(
+    car.raster, x = x, y = y, 
+    hjust = 1, height = width, width = length
+  )
+}
+```
+
+
+## Creating your own theme
+
+Instead of modifying an existing theme piecemeal, you might want to start from scratch and create your own unique theme.
+If you want to create your complete theme, you'll need to understand a bit more about the structure of themes.
+
+
+### Global settings
+
+There are four elements that affect the global appearance of the plot.
+
+Element      | Theme function    | Description
+-------------|--------------------------------------------
+line         | `element_line()`  | all line elements
+rect         | `element_rect()`  | all rectangular elements
+text         | `element_text()`  | all text
+title        | `element_text()`  | all text in title elements (plot, axes & legend)
+
+These set default properties that are inherited by more specific settings. These are most useful for setting an overall "background" colour and overall font settings (e.g. family and size).
+
+```{r axis-line-ex}
+df <- data.frame(x = 1:3, y = 1:3)
+base <- ggplot(df, aes(x, y)) + geom_point()
+
+base + theme(text = element_text(colour = "pink"))
+```
+
+It's also possible to use `rel()` to specify a relative size.
+
+Inheritance
+
+Complete vs. incomplete.
+
+`%+replace%`
+
+### Complete vs incomplete
+
+It is useful to understand the difference between complete and incomplete theme objects. A *complete* theme object is one produced by calling a theme function with the attribute `complete = TRUE`. 
+
+Theme functions `theme_grey()` and `theme_bw()` are examples of complete theme functions. Calls to `theme()` produce *incomplete* theme objects, since they represent (local) modifications to a theme object rather than returning a complete theme object per se. When adding an incomplete theme to a complete one, the result is a complete theme. 
+
+Complete and incomplete themes behave somewhat differently when added to a ggplot object:
+
+* Adding an incomplete theme augments the current theme object, replacing only 
+  those properties of elements defined in the call to `theme()`. In particular, 
+  any NULL element properties specified in `theme()`.
+  
+* Adding a complete theme wipes away the existing theme and applies. 
+
+To deal with this problem, the concept of a complete theme (object) was introduced in the new theming system. In particular, `theme_grey` and `theme_bw` are both complete theme functions and return complete theme objects when called. When added to a plot, a complete theme object overrides the current default theme and in fact *replaces* it. This idea is implemented by endowing a theme function with the attribute `"complete"`: its value is `TRUE` for complete themes and `FALSE` for incomplete themes. Examples are shown in the next section.
+
+### Modifying a theme function
+
+There is a second type of inheritance in themes
+
+```{r}
+theme_grey()$legend.key
+
+new_theme <- theme_grey() + theme(legend.key = element_rect(colour = "red"))
+new_theme$legend.key
+
+new_theme <- theme_grey() %+replace% theme(legend.key = element_rect(colour = "red"))
+new_theme$legend.key
+```

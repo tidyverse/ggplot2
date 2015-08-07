@@ -1,8 +1,3 @@
-#' 1d kernel density estimate.
-#'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "density")}
-#'
 #' @param adjust see \code{\link{density}} for details
 #' @param kernel kernel used for density estimation, see
 #'   \code{\link{density}} for details
@@ -14,91 +9,26 @@
 #'   stack density values.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
-#' @inheritParams stat_identity
-#' @return data.frame with additional columns:
+#' @section Computed variables:
+#' \describe{
 #'   \item{density}{density estimate}
 #'   \item{count}{density * number of points - useful for stacked density
 #'      plots}
 #'   \item{scaled}{density estimate, scaled to maximum of 1}
-#' @seealso \code{\link{stat_bin}} for the histogram
-#' @export
-#' @examples
-#' \donttest{
-#' m <- ggplot(movies, aes(x = rating))
-#' m + geom_density()
-#'
-#' # Adjust parameters
-#' m + geom_density(kernel = "rectangular")
-#' m + geom_density(kernel = "biweight")
-#' m + geom_density(kernel = "epanechnikov")
-#' m + geom_density(adjust=1/5) # Very rough
-#' m + geom_density(adjust=5) # Very smooth
-#'
-#' # Adjust aesthetics
-#' m + geom_density(aes(fill=factor(Drama)), size=2)
-#' # Scale so peaks have same height:
-#' m + geom_density(aes(fill=factor(Drama), y = ..scaled..), size=2)
-#'
-#' m + geom_density(colour="darkgreen", size=2)
-#' m + geom_density(colour="darkgreen", size=2, fill=NA)
-#' m + geom_density(colour="darkgreen", size=2, fill="green")
-#'
-#' # Change scales
-#' (m <- ggplot(movies, aes(x=votes)) + geom_density(trim = TRUE))
-#' m + scale_x_log10()
-#' m + coord_trans(x="log10")
-#' m + scale_x_log10() + coord_trans(x="log10")
-#'
-#' # Also useful with
-#' m + stat_bin()
-#'
-#' # Make a violin plot
-#' ggplot(diamonds, aes(x = price)) +
-#'   stat_density(aes(ymax = ..density..,  ymin = -..density..),
-#'     fill = "grey50", colour = "grey50",
-#'     geom = "ribbon", position = "identity") +
-#'   facet_grid(. ~ cut) +
-#'   coord_flip()
-#'
-#' # Stacked density plots
-#' # If you want to create a stacked density plot, you need to use
-#' # the 'count' (density * n) variable instead of the default density
-#'
-#' # Loses marginal densities
-#' ggplot(movies, aes(rating, ..density..)) +
-#'   geom_density(position = "stack", aes(fill = mpaa))
-#' # Preserves marginal densities
-#' ggplot(movies, aes(rating, ..count..)) +
-#'   geom_density(position = "stack", aes(fill = mpaa))
-#'
-#' # You can use position="fill" to produce a conditional density estimate
-#' ggplot(movies, aes(rating, ..count..)) +
-#'   geom_density(position = "fill", aes(fill = mpaa))
-#'
-#' # Need to be careful with weighted data
-#' m <- ggplot(movies, aes(x=rating, weight=votes))
-#' m + geom_histogram(aes(y = ..count..)) + geom_density(fill=NA)
-#'
-#' m <- ggplot(movies, aes(x=rating, weight=votes/sum(votes)))
-#' m + geom_histogram(aes(y=..density..)) + geom_density(fill=NA, colour="black")
-#'
-#' library(plyr) # to access round_any
-#' movies$decade <- round_any(movies$year, 10)
-#' m <- ggplot(movies, aes(x=rating, colour=decade, group=decade))
-#' m + geom_density(fill=NA)
-#' m + geom_density(fill=NA) + aes(y = ..count..)
 #' }
-stat_density <- function (mapping = NULL, data = NULL, geom = "area",
+#' @export
+#' @rdname geom_density
+stat_density <- function(mapping = NULL, data = NULL, geom = "area",
   position = "stack", adjust = 1, kernel = "gaussian", trim = FALSE,
-  na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
-{
-  Layer$new(
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
+
+  layer(
     data = data,
     mapping = mapping,
     stat = StatDensity,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(
       adjust = adjust,
@@ -110,34 +40,29 @@ stat_density <- function (mapping = NULL, data = NULL, geom = "area",
   )
 }
 
-StatDensity <- proto2(
-  class = "StatDensity",
-  inherit = Stat,
-  members = list(
-    objname = "density",
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatDensity <- ggproto("StatDensity", Stat,
+  compute_group = function(data, scales, adjust = 1, kernel = "gaussian",
+                           trim = FALSE, na.rm = FALSE, ...) {
+    data <- remove_missing(data, na.rm, "x", name = "stat_density",
+      finite = TRUE)
 
-    calculate = function(self, data, scales, adjust = 1, kernel = "gaussian",
-      trim = FALSE, na.rm = FALSE, ...)
-    {
-      data <- remove_missing(data, na.rm, "x", name = "stat_density",
-        finite = TRUE)
+    if (trim) {
+      range <- range(data$x, na.rm = TRUE)
+    } else {
+      range <- scale_dimension(scales$x, c(0, 0))
+    }
 
-      if (trim) {
-        range <- range(data$x, na.rm = TRUE)
-      } else {
-        range <- scale_dimension(scales$x, c(0, 0))
-      }
+    compute_density(data$x, data$weight, from = range[1], to = range[2],
+      adjust = adjust, kernel = kernel)
+  },
 
-      compute_density(data$x, data$weight, from = range[1], to = range[2],
-        adjust = adjust, kernel = kernel)
-    },
+  default_aes = aes(y = ..density.., fill = NA),
 
-    default_geom = function(self) GeomArea,
-
-    default_aes = function(self) aes(y = ..density.., fill = NA),
-
-    required_aes = c("x")
-  )
+  required_aes = "x"
 )
 
 compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,

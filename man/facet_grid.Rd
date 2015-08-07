@@ -37,10 +37,15 @@ vary.  This setting has no effect unless the appropriate scales also vary.}
 statistics, not raw data. If \code{FALSE}, will be range of raw data
 before statistical summary.}
 
-\item{labeller}{A function that takes two arguments (\code{variable} and
-\code{value}) and returns a string suitable for display in the facet
-strip. See \code{\link{label_value}} for more details and pointers
-to other options.}
+\item{labeller}{A function that takes one data frame of labels and
+returns a list or data frame of character vectors. Each input
+column corresponds to one factor. Thus there will be more than
+one with formulae of the type \code{~cyl + am}. Each output
+column gets displayed as one separate line in the strip
+label. This function should inherit from the "labeller" S3 class
+for compatibility with \code{\link{labeller}()}. See
+\code{\link{label_value}} for more details and pointers to other
+options.}
 
 \item{as.table}{If \code{TRUE}, the default, the facets are laid out like
 a table with highest values at the bottom-right. If \code{FALSE}, the
@@ -149,10 +154,8 @@ ggplot(mpg, aes(cty, model)) +
   geom_point() +
   facet_grid(manufacturer ~ ., scales = "free", space = "free")
 # particularly when you reorder factor levels
-mpg <- within(mpg, {
-  model <- reorder(model, cty)
-  manufacturer <- reorder(manufacturer, cty)
-})
+mpg$model <- reorder(mpg$model, mpg$cty)
+manufacturer <- reorder(mpg$manufacturer, mpg$cty)
 last_plot() \%+\% mpg + theme(strip.text.y = element_text())
 
 # Use as.table to to control direction of horizontal facets, TRUE by default

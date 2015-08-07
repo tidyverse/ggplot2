@@ -1,49 +1,62 @@
-#' Hexagon bining.
+#' Hexagon binning.
 #'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "hex")}
 #'
+#' @seealso \code{\link{stat_bin2d}} for rectangular binning
+#' @param geom,stat Override the default connection between \code{geom_hex} and
+#'   \code{stat_binhex.}
 #' @export
 #' @inheritParams geom_point
+#' @export
 #' @examples
-#' # See ?stat_binhex for examples
-geom_hex <- function (mapping = NULL, data = NULL, stat = "binhex",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
-{
-  Layer$new(
+#' d <- ggplot(diamonds, aes(carat, price))
+#' d + geom_hex()
+#'
+#' \donttest{
+#' # You can control the size of the bins by specifying the number of
+#' # bins in each direction:
+#' d + geom_hex(bins = 10)
+#' d + geom_hex(bins = 30)
+#'
+#' # Or by specifying the width of the bins
+#' d + geom_hex(binwidth = c(1, 1000))
+#' d + geom_hex(binwidth = c(.1, 500))
+#' }
+geom_hex <- function(mapping = NULL, data = NULL, stat = "binhex",
+                     position = "identity", show.legend = NA,
+                     inherit.aes = TRUE, ...) {
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomHex,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )
 }
 
 
-GeomHex <- proto2(
-  class = "GeomHex",
-  inherit = Geom,
-  members = list(
-    objname = "hex",
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomHex <- ggproto("GeomHex", Geom,
+  draw_group = function(self, data, scales, coordinates, ...) {
+    coord <- coordinates$transform(data, scales)
+    ggname("geom_hex", hexGrob(
+      coord$x, coord$y, colour = coord$colour,
+      fill = alpha(coord$fill, coord$alpha)
+    ))
+  },
 
-    draw = function(self, data, scales, coordinates, ...) {
-      with(coord_transform(coordinates, data, scales),
-        ggname(self$my_name(), hexGrob(x, y, colour = colour,
-          fill = alpha(fill, alpha)))
-      )
-    },
+  required_aes = c("x", "y"),
 
-    required_aes = c("x", "y"),
+  default_aes = aes(colour = NA, fill = "grey50", size = 0.5, alpha = NA),
 
-    default_aes = function(self) aes(colour=NA, fill = "grey50", size=0.5, alpha = NA),
-
-    default_stat = function(self) StatBinhex,
-
-    guide_geom = function(self) "polygon"
-  )
+  draw_key = draw_key_polygon
 )
 
 

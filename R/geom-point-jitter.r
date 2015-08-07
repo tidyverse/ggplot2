@@ -5,7 +5,7 @@
 #' in smaller datasets.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "jitter")}
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
 #'
 #' @inheritParams geom_point
 #' @inheritParams position_jitter
@@ -31,7 +31,7 @@
 #' ggplot(mpg, aes(cty, hwy)) + geom_jitter(width = 0.5, height = 0.5)
 geom_jitter <- function(mapping = NULL, data = NULL,
   width = NULL, height = NULL, stat = "identity", position = "jitter",
-  na.rm = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 {
   if (!missing(width) || !missing(height)) {
     if (!missing(position)) {
@@ -41,26 +41,14 @@ geom_jitter <- function(mapping = NULL, data = NULL,
     position <- position_jitter(width = width, height = height)
   }
 
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomJitter,
+    geom = GeomPoint,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )
 }
-
-GeomJitter <- proto2(
-  class = "GeomJitter",
-  inherit = GeomPoint,
-  members = list(
-    objname = "jitter",
-
-    default_stat = function(self) StatIdentity,
-
-    default_pos = function(self) PositionJitter
-  )
-)

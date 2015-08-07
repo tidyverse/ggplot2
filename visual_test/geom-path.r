@@ -15,10 +15,10 @@ save_vtest("lines")
 ggplot(df2) + geom_path(aes(x = value, y = category, group = item))
 save_vtest("lines with changed data order, should have same appearance")
 
-ggplot(df) + geom_path(aes(x = value, y = category, group = item, colour=item))
+ggplot(df) + geom_path(aes(x = value, y = category, group = item, colour = item))
 save_vtest("lines, colour")
 
-ggplot(df2) + geom_path(aes(x = value, y = category, group = item, colour=item))
+ggplot(df2) + geom_path(aes(x = value, y = category, group = item, colour = item))
 save_vtest("lines, colour, with changed data order, should have same appearance")
 
 end_vcontext()

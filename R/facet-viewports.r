@@ -15,8 +15,8 @@ assign_viewports <- function(grobs) {
     ggname(type, editGrob(grobs[[type]][[x, y]], vp = vp_path(x, y, type)))
   }
 
-  grid <- ldply(names(grobs), make_grid)
-  mlply(grid, assign_vp)
+  grid <- plyr::ldply(names(grobs), make_grid)
+  plyr::mlply(grid, assign_vp)
 }
 
 # Setup matrix of viewports for a layout with given parameters
@@ -30,11 +30,11 @@ setup_viewports <- function(type, data, offset = c(0,0), clip = "on") {
       name = vp_name(x, y, type),
       layout.pos.row = x + offset[1],
       layout.pos.col = y + offset[2],
-      clip=clip
+      clip = clip
     )
   }
-  pos <- expand.grid(x = seq_len(rows), y= seq_len(cols))
-  do.call("vpList", mlply(pos, vp))
+  pos <- expand.grid(x = seq_len(rows), y = seq_len(cols))
+  do.call("vpList", plyr::mlply(pos, vp))
 }
 
 # Calculate viewport path.
@@ -46,5 +46,5 @@ vp_path <- function(row, col, type) {
 # Compute viewport name.
 # Helps ensure a common naming scheme throughout ggplot.
 vp_name <- function(row, col, type) {
-  paste(type, row, col, sep="_")
+  paste(type, row, col, sep = "_")
 }

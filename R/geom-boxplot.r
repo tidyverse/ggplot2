@@ -20,112 +20,81 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "boxplot")}
 #'
 #' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
-#'   continuous variable,  \code{\link{geom_jitter}} for another way to look
-#'   at conditional distributions"
+#'   continuous variable, \code{\link{geom_jitter}} for another way to look
+#'   at conditional distributions.
 #' @inheritParams geom_point
-#' @param outlier.colour colour for outlying points. Uses the default from geom_point().
-#' @param outlier.shape shape of outlying points. Uses the default from geom_point().
-#' @param outlier.size size of outlying points. Uses the default from geom_point().
-#' @param outlier.stroke stroke width of outlying points. Uses the default from geom_point().
+#' @param geom,stat Use to override the default connection between
+#'   \code{geom_boxplot} and \code{stat_boxplot}.
+#' @param outlier.colour Override aesthetics used for the outliers. Defaults
+#'   come from \code{geom_point()}.
+#' @param outlier.shape Override aesthetics used for the outliers. Defaults
+#'   come from \code{geom_point()}.
+#' @param outlier.size Override aesthetics used for the outliers. Defaults
+#'   come from \code{geom_point()}.
+#' @param outlier.stroke Override aesthetics used for the outliers. Defaults
+#'   come from \code{geom_point()}.
 #' @param notch if \code{FALSE} (default) make a standard box plot. If
-#'    \code{TRUE}, make a notched box plot. Notches are used to compare groups;
-#'    if the notches of two boxes do not overlap, this is strong evidence that
-#'    the medians differ.
+#'   \code{TRUE}, make a notched box plot. Notches are used to compare groups;
+#'   if the notches of two boxes do not overlap, this suggests that the medians
+#'   are significantly different.
 #' @param notchwidth for a notched box plot, width of the notch relative to
-#'    the body (default 0.5)
+#'   the body (default 0.5)
 #' @param varwidth if \code{FALSE} (default) make a standard box plot. If
-#'    \code{TRUE}, boxes are drawn with widths proportional to the
-#'    square-roots of the number of observations in the groups (possibly
-#'    weighted, using the \code{weight} aesthetic).
+#'   \code{TRUE}, boxes are drawn with widths proportional to the
+#'   square-roots of the number of observations in the groups (possibly
+#'   weighted, using the \code{weight} aesthetic).
 #' @export
-#'
 #' @references McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
 #'     box plots. The American Statistician 32, 12-16.
-#'
 #' @examples
-#' \donttest{
-#' p <- ggplot(mtcars, aes(factor(cyl), mpg))
-#'
+#' p <- ggplot(mpg, aes(class, hwy))
 #' p + geom_boxplot()
-#'
-#' p + geom_boxplot() + geom_jitter()
+#' p + geom_boxplot() + geom_jitter(width = 0.2)
 #' p + geom_boxplot() + coord_flip()
 #'
 #' p + geom_boxplot(notch = TRUE)
-#' p + geom_boxplot(notch = TRUE, notchwidth = .3)
-#'
-#' p + geom_boxplot(outlier.colour = "green", outlier.size = 3)
-#'
-#' # Add aesthetic mappings
-#' # Note that boxplots are automatically dodged when any aesthetic is
-#' # a factor
-#' p + geom_boxplot(aes(fill = cyl))
-#' p + geom_boxplot(aes(fill = factor(cyl)))
-#' p + geom_boxplot(aes(fill = factor(vs)))
-#' p + geom_boxplot(aes(fill = factor(am)))
-#'
-#' # Set aesthetics to fixed value
-#' p + geom_boxplot(fill = "grey80", colour = "#3366FF")
-#'
-#' # Scales vs. coordinate transforms -------
-#' # Scale transformations occur before the boxplot statistics are computed.
-#' # Coordinate transformations occur afterwards.  Observe the effect on the
-#' # number of outliers.
-#' library(plyr) # to access round_any
-#' m <- ggplot(movies, aes(y = votes, x = rating,
-#'    group = round_any(rating, 0.5)))
-#' m + geom_boxplot()
-#' m + geom_boxplot() + scale_y_log10()
-#' m + geom_boxplot() + coord_trans(y = "log10")
-#' m + geom_boxplot() + scale_y_log10() + coord_trans(y = "log10")
-#'
-#' # Boxplots with continuous x:
-#' # Use the group aesthetic to group observations in boxplots
-#' ggplot(movies, aes(year, budget)) +
-#'   geom_boxplot()
-#'
-#' ggplot(movies, aes(year, budget)) +
-#'   geom_boxplot(aes(group=round_any(year, 10, floor)))
-#'
-#' # Using precomputed statistics
-#' # generate sample data
-#' abc <- adply(matrix(rnorm(100), ncol = 5), 2, quantile, c(0, .25, .5, .75, 1))
-#' b <- ggplot(abc, aes(x = X1, ymin = `0%`, lower = `25%`,
-#'    middle = `50%`, upper = `75%`, ymax = `100%`))
-#' b + geom_boxplot(stat = "identity")
-#' b + geom_boxplot(stat = "identity") + coord_flip()
-#' b + geom_boxplot(aes(fill = X1), stat = "identity")
-#'
-#' # Using varwidth
 #' p + geom_boxplot(varwidth = TRUE)
+#' p + geom_boxplot(fill = "white", colour = "#3366FF")
+#' p + geom_boxplot(outlier.colour = "red", outlier.shape = 1)
 #'
-#' # Update the defaults for the outliers by changing the defaults for geom_point
+#' # Boxplots are automatically dodged when any aesthetic is a factor
+#' p + geom_boxplot(aes(fill = drv))
 #'
-#' p <- ggplot(mtcars, aes(factor(cyl), mpg))
-#' p + geom_boxplot()
+#' # You can also use boxplots with continuous x, as long as you supply
+#' # a grouping variable. cut_width is particularly useful
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_boxplot()
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_boxplot(aes(group = cut_width(carat, 0.25)))
 #'
-#' update_geom_defaults("point", list(shape = 1, colour = "red", size = 5))
-#' p + geom_boxplot()
-#' }
-geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
-  position = "dodge", outlier.colour = NULL, outlier.shape = NULL,
-  outlier.size = NULL, outlier.stroke = 1, notch = FALSE, notchwidth = .5,
-  varwidth = FALSE, show_guide = NA, inherit.aes = TRUE, ...)
+#' # It's possible to draw a boxplot with your own computations if you
+#' # use stat = "identity":
+#' y <- rnorm(100)
+#' df <- data.frame(
+#'   x = 1,
+#'   y0 = min(y),
+#'   y25 = quantile(y, 0.25),
+#'   y50 = median(y),
+#'   y75 = quantile(y, 0.75),
+#'   y100 = max(y)
+#' )
+#' ggplot(df, aes(x)) +
+#'   geom_boxplot(
+#'    aes(ymin = y0, lower = y25, middle = y50, upper = y75, ymax = y100),
+#'    stat = "identity"
+#'  )
+geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
+  position = "dodge", outlier.colour = "black", outlier.shape = 19,
+  outlier.size = 2, outlier.stroke = 1, notch = FALSE, notchwidth = .5,
+  varwidth = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 {
-  outlier_defaults <- Geom$find('point')$default_aes()
-
-  outlier.colour   <- outlier.colour %||% outlier_defaults$colour
-  outlier.shape    <- outlier.shape  %||% outlier_defaults$shape
-  outlier.size     <- outlier.size   %||% outlier_defaults$size
-  outlier.stroke   <- outlier.stroke %||% outlier_defaults$stroke
-
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomBoxplot,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     geom_params = list(
       outlier.colour = outlier.colour,
@@ -140,122 +109,106 @@ geom_boxplot <- function (mapping = NULL, data = NULL, stat = "boxplot",
   )
 }
 
-GeomBoxplot <- proto2(
-  class = "GeomBoxplot",
-  inherit = Geom,
-  members = list(
-    objname = "boxplot",
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomBoxplot <- ggproto("GeomBoxplot", Geom,
+  reparameterise = function(df, params) {
+    df$width <- df$width %||%
+      params$width %||% (resolution(df$x, FALSE) * 0.9)
 
-    reparameterise = function(self, df, params) {
-      df$width <- df$width %||%
-        params$width %||% (resolution(df$x, FALSE) * 0.9)
+    if (!is.null(df$outliers)) {
+      suppressWarnings({
+        out_min <- vapply(df$outliers, min, numeric(1))
+        out_max <- vapply(df$outliers, max, numeric(1))
+      })
 
-      if (!is.null(df$outliers)) {
-        suppressWarnings({
-          out_min <- vapply(df$outliers, min, numeric(1))
-          out_max <- vapply(df$outliers, max, numeric(1))
-        })
+      df$ymin_final <- pmin(out_min, df$ymin)
+      df$ymax_final <- pmax(out_max, df$ymax)
+    }
 
-        df$ymin_final <- pmin(out_min, df$ymin)
-        df$ymax_final <- pmax(out_max, df$ymax)
-      }
+    # if `varwidth` not requested or not available, don't use it
+    if (is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(df$relvarwidth)) {
+      df$xmin <- df$x - df$width / 2
+      df$xmax <- df$x + df$width / 2
+    } else {
+      # make `relvarwidth` relative to the size of the largest group
+      df$relvarwidth <- df$relvarwidth / max(df$relvarwidth)
+      df$xmin <- df$x - df$relvarwidth * df$width / 2
+      df$xmax <- df$x + df$relvarwidth * df$width / 2
+    }
+    df$width <- NULL
+    if (!is.null(df$relvarwidth)) df$relvarwidth <- NULL
 
-      # if `varwidth` not requested or not available, don't use it
-      if (is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(df$relvarwidth)) {
-        df$xmin <- df$x - df$width / 2
-        df$xmax <- df$x + df$width / 2
-      } else {
-        # make `relvarwidth` relative to the size of the largest group
-        df$relvarwidth <- df$relvarwidth / max(df$relvarwidth)
-        df$xmin <- df$x - df$relvarwidth * df$width / 2
-        df$xmax <- df$x + df$relvarwidth * df$width / 2
-      }
-      df$width <- NULL
-      if (!is.null(df$relvarwidth)) df$relvarwidth <- NULL
+    df
+  },
 
-      df
-    },
+  draw_group = function(self, data, ..., fatten = 2, outlier.colour = "black",
+                        outlier.shape = 19, outlier.size = 2, outlier.stroke = 1,
+                        notch = FALSE, notchwidth = .5, varwidth = FALSE) {
+    common <- data.frame(
+      colour = data$colour,
+      size = data$size,
+      linetype = data$linetype,
+      fill = alpha(data$fill, data$alpha),
+      group = data$group,
+      stringsAsFactors = FALSE
+    )
 
-    draw = function(self, data, ..., fatten = 2, outlier.colour = NULL, outlier.shape = NULL,
-                    outlier.size = 2, outlier.stroke = 1,
-                    notch = FALSE, notchwidth = .5, varwidth = FALSE) {
-      common <- data.frame(
-        colour = data$colour,
-        size = data$size,
-        linetype = data$linetype,
-        fill = alpha(data$fill, data$alpha),
-        group = data$group,
+    whiskers <- data.frame(
+      x = data$x,
+      xend = data$x,
+      y = c(data$upper, data$lower),
+      yend = c(data$ymax, data$ymin),
+      alpha = NA,
+      common,
+      stringsAsFactors = FALSE
+    )
+
+    box <- data.frame(
+      xmin = data$xmin,
+      xmax = data$xmax,
+      ymin = data$lower,
+      y = data$middle,
+      ymax = data$upper,
+      ynotchlower = ifelse(notch, data$notchlower, NA),
+      ynotchupper = ifelse(notch, data$notchupper, NA),
+      notchwidth = notchwidth,
+      alpha = data$alpha,
+      common,
+      stringsAsFactors = FALSE
+    )
+
+    if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
+      outliers <- data.frame(
+        y = data$outliers[[1]],
+        x = data$x[1],
+        colour = outlier.colour %||% data$colour[1],
+        shape = outlier.shape %||% data$shape[1],
+        size = outlier.size %||% data$size[1],
+        stroke = outlier.stroke %||% data$stroke[1],
+        fill = NA,
+        alpha = NA,
         stringsAsFactors = FALSE
       )
+      outliers_grob <- GeomPoint$draw(outliers, ...)
+    } else {
+      outliers_grob <- NULL
+    }
 
-      whiskers <- data.frame(
-        x = data$x,
-        xend = data$x,
-        y = c(data$upper, data$lower),
-        yend = c(data$ymax, data$ymin),
-        alpha = NA,
-        common
-      )
+    ggname("geom_boxplot", grobTree(
+      outliers_grob,
+      GeomSegment$draw(whiskers, ...),
+      GeomCrossbar$draw(box, fatten = fatten, ...)
+    ))
+  },
 
-      box <- data.frame(
-        xmin = data$xmin,
-        xmax = data$xmax,
-        ymin = data$lower,
-        y = data$middle,
-        ymax = data$upper,
-        ynotchlower = ifelse(notch, data$notchlower, NA),
-        ynotchupper = ifelse(notch, data$notchupper, NA),
-        notchwidth = notchwidth,
-        alpha = data$alpha,
-        common
-      )
+  draw_key = draw_key_boxplot,
 
-      if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
-        outliers <- data.frame(
-          y = data$outliers[[1]],
-          x = data$x[1],
-          colour = outlier.colour %||% data$colour[1],
-          shape = outlier.shape %||% data$shape[1],
-          size = outlier.size %||% data$size[1],
-          stroke = outlier.stroke %||% data$stroke[1],
-          fill = NA,
-          alpha = NA,
-          stringsAsFactors = FALSE
-        )
-        outliers_grob <- GeomPoint$draw(outliers, ...)
-      } else {
-        outliers_grob <- NULL
-      }
+  default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
+    alpha = NA, shape = 19, linetype = "solid", outlier.colour = "black",
+    outlier.shape = 19, outlier.size = 2, outlier.stroke = 1),
 
-      ggname(self$my_name(), grobTree(
-        outliers_grob,
-        GeomSegment$draw(whiskers, ...),
-        GeomCrossbar$draw(box, fatten = fatten, ...)
-      ))
-    },
-
-    guide_geom = function(self) "boxplot",
-
-    draw_legend = function(self, data, ...)  {
-      data <- aesdefaults(data, self$default_aes(), list(...))
-      gp <- with(data, gpar(col=colour, fill=alpha(fill, alpha), lwd=size * .pt, lty = linetype))
-      gTree(gp = gp, children = gList(
-        linesGrob(0.5, c(0.1, 0.25)),
-        linesGrob(0.5, c(0.75, 0.9)),
-        rectGrob(height=0.5, width=0.75),
-        linesGrob(c(0.125, 0.875), 0.5)
-      ))
-    },
-
-    default_stat = function(self) StatBoxplot,
-
-    default_pos = function(self) PositionDodge,
-
-    default_aes = function(self) {
-      aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
-          alpha = NA, shape = 19, linetype = "solid")
-    },
-
-    required_aes = c("x", "lower", "upper", "middle", "ymin", "ymax")
-  )
+  required_aes = c("x", "lower", "upper", "middle", "ymin", "ymax")
 )

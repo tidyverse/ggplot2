@@ -10,7 +10,7 @@ annotate(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
 \arguments{
 \item{geom}{name of geom to use for annotation}
 
-\item{x,y,xmin,ymin,xmax,ymax,xend,yend}{positionining aesthetics -
+\item{x,y,xmin,ymin,xmax,ymax,xend,yend}{positioning aesthetics -
 you must specify at least one of these.}
 
 \item{...}{other aesthetics. These are not scaled so you can do (e.g.)

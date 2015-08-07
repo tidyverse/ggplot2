@@ -104,7 +104,7 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
   theme$legend.direction <-
     theme$legend.direction %||%
     if (length(position) == 1 && position %in% c("top", "bottom", "left", "right"))
-      switch(position[1], top =, bottom = "horizontal", left =, right = "vertical")
+      switch(position[1], top = , bottom = "horizontal", left = , right = "vertical")
     else
       "vertical"
 
@@ -112,7 +112,7 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
   theme$legend.box.just <-
     theme$legend.box.just %||%
     if (length(position) == 1 && position %in% c("top", "bottom", "left", "right"))
-      switch(position, bottom =, top = c("center", "top"), left =, right = c("left", "top"))
+      switch(position, bottom = , top = c("center", "top"), left = , right = c("left", "top"))
     else
       c("center", "center")
 
@@ -138,9 +138,9 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
 
 # validate guide object
 validate_guide <- function(guide) {
-  # if guide is specified by character, then find the corrsponding guide
+  # if guide is specified by character, then find the corresponding guide
   if (is.character(guide))
-    match.fun(paste("guide_", guide, sep=""))()
+    match.fun(paste("guide_", guide, sep = ""))()
   else if (inherits(guide, "guide"))
     guide
   else
@@ -151,7 +151,7 @@ validate_guide <- function(guide) {
 guides_train <- function(scales, theme, guides, labels) {
 
   gdefs <- list()
-  for(scale in scales$scales) {
+  for (scale in scales$scales) {
 
     # guides(XXX) is stored in guides[[XXX]],
     # which is prior to scale_ZZZ(guide=XXX)
@@ -163,18 +163,17 @@ guides_train <- function(scales, theme, guides, labels) {
     # this should be changed to testing guide == "none"
     # scale$legend is backward compatibility
     # if guides(XXX=FALSE), then scale_ZZZ(guides=XXX) is discarded.
-    if (guide=="none" || (is.logical(guide) && !guide)) next
+    if (guide == "none" || (is.logical(guide) && !guide)) next
 
     # check the validity of guide.
     # if guide is character, then find the guide object
     guide <- validate_guide(guide)
 
     # check the consistency of the guide and scale.
-    if (guide$available_aes != "any" && ! scale$aesthetics %in% guide$available_aes)
-      stop (paste("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.", sep=""))
+    if (guide$available_aes != "any" && !scale$aesthetics %in% guide$available_aes)
+      stop("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.")
 
-    # title of this grob
-    if (is.waive(guide$title)) guide$title <- scale$name %||% labels[[output]]
+    guide$title <- guide$title %|W|% scale$name %|W|% labels[[output]]
 
     # direction of this grob
     guide$direction <- guide$direction %||% theme$legend.direction
@@ -183,14 +182,14 @@ guides_train <- function(scales, theme, guides, labels) {
     # so Guides (i.e., the container of guides) need not to know about them
     guide <- guide_train(guide, scale)
 
-    if (!is.null(guide)) gdefs[[length(gdefs)+1]] <- guide
+    if (!is.null(guide)) gdefs[[length(gdefs) + 1]] <- guide
   }
   gdefs
 }
 
 # merge overlapped guides
 guides_merge <- function(gdefs) {
-  # split gdefs based on hash, and apply Reduce (guide_merge) to each gdef groug.
+  # split gdefs based on hash, and apply Reduce (guide_merge) to each gdef group.
   gdefs <- lapply(gdefs, function(g) {
     if (g$order == 0) {
       order <- "99"
@@ -213,8 +212,9 @@ guides_gengrob <- function(gdefs, theme) {
   # common drawing process for all guides
   gdefs <- lapply(gdefs,
     function(g) {
-      g$title.position <- g$title.position %||% switch(g$direction, vertical="top", horizontal="left")
-      if (!g$title.position %in% c("top", "bottom", "left", "right")) stop("title position \"", g$title.position, "\" is invalid")
+      g$title.position <- g$title.position %||% switch(g$direction, vertical = "top", horizontal = "left")
+      if (!g$title.position %in% c("top", "bottom", "left", "right"))
+        stop("title position \"", g$title.position, "\" is invalid")
       g
     })
 
@@ -223,12 +223,9 @@ guides_gengrob <- function(gdefs, theme) {
 
 # build up all guide boxes into one guide-boxes.
 guides_build <- function(ggrobs, theme) {
-
-  n <- length(ggrobs)
-
-  theme$guide.margin <- theme$guide.margin %||% unit(0.5, "lines")
-  theme$guide.vmargin <- theme$guide.vmargin  %||% theme$guide.margin
-  theme$guide.hmargin <- theme$guide.hmargin  %||% theme$guide.margin
+  theme$legend.margin <- theme$legend.margin %||% unit(0.5, "lines")
+  theme$legend.vmargin <- theme$legend.vmargin  %||% theme$legend.margin
+  theme$legend.hmargin <- theme$legend.hmargin  %||% theme$legend.margin
 
   widths <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$widths)))
   heights <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$heights)))
@@ -239,7 +236,7 @@ guides_build <- function(ggrobs, theme) {
   xjust <- just[1]
   yjust <- just[2]
 
-  # setting that is different for vergical and horizontal guide-boxes.
+  # setting that is different for vertical and horizontal guide-boxes.
   if (theme$legend.box == "horizontal") {
     # Set justification for each legend
     for (i in seq_along(ggrobs)) {
@@ -268,14 +265,14 @@ guides_build <- function(ggrobs, theme) {
       width = max(widths), heights = heights)
 
     # add space between the guide-boxes
-    guides <- gtable_add_row_space(guides, theme$guide.vmargin)
+    guides <- gtable_add_row_space(guides, theme$legend.vmargin)
   }
 
   # add margins around the guide-boxes.
-  guides <- gtable_add_cols(guides, theme$guide.hmargin, pos = 0)
-  guides <- gtable_add_cols(guides, theme$guide.hmargin, pos = ncol(guides))
-  guides <- gtable_add_rows(guides, theme$guide.vmargin, pos = 0)
-  guides <- gtable_add_rows(guides, theme$guide.vmargin, pos = nrow(guides))
+  guides <- gtable_add_cols(guides, theme$legend.hmargin, pos = 0)
+  guides <- gtable_add_cols(guides, theme$legend.hmargin, pos = ncol(guides))
+  guides <- gtable_add_rows(guides, theme$legend.vmargin, pos = 0)
+  guides <- gtable_add_rows(guides, theme$legend.vmargin, pos = nrow(guides))
 
   guides$name <- "guide-box"
   guides

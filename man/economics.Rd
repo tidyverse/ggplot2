@@ -3,6 +3,7 @@
 \docType{data}
 \name{economics}
 \alias{economics}
+\alias{economics_long}
 \title{US economic time series.}
 \format{A data frame with 478 rows and 6 variables
 \itemize{
@@ -20,10 +21,13 @@
 }}
 \usage{
 economics
+
+economics_long
 }
 \description{
 This dataset was produced from US economic time series data available from
-\url{http://research.stlouisfed.org/fred2}.
+\url{http://research.stlouisfed.org/fred2}. \code{economics} is in "wide"
+format, \code{economics_long} is in "long" format.
 }
 \keyword{datasets}
 

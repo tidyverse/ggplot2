@@ -23,12 +23,21 @@
 #'
 #' # Resize the plot to see that the specified aspect ratio is maintained
 coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL) {
-  coord(limits = list(x = xlim, y = ylim), ratio = ratio,
-    subclass = c("fixed", "cartesian"))
+  ggproto(NULL, CoordFixed,
+    limits = list(x = xlim, y = ylim),
+    ratio = ratio
+  )
 }
 coord_equal <- coord_fixed
 
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
 #' @export
-coord_aspect.fixed <- function(coord, ranges) {
-  diff(ranges$y.range) / diff(ranges$x.range) * coord$ratio
-}
+CoordFixed <- ggproto("CoordFixed", CoordCartesian,
+
+  aspect = function(self, ranges) {
+    diff(ranges$y.range) / diff(ranges$x.range) * self$ratio
+  }
+)

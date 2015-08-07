@@ -14,9 +14,9 @@ fortify(model, data, ...)
 \item{...}{other arguments passed to methods}
 }
 \description{
-Method to convert a generic R object into a data frame useful for plotting.
-Takes its name from the idea of fortifying the original data with model fit
-statistics, and vice versa.
+Rather than using this function, I now recomend using the \pkg{broom}
+package, which implements a much wider range of methods. \code{fortify}
+may be deprecated in the future.
 }
 \seealso{
 \code{\link{fortify.lm}}

@@ -1,14 +1,14 @@
-#' Convenience functions to set the limits of the x and y axis.
+#' Convenience functions to set the axis limits.
 #'
 #' Observations not in this range will be dropped completely and
 #' not passed to any other layers.  If a NA value is substituted for one of the
 #' limits that limit is automatically calculated.
 #'
-#' @param ... if numeric, will create a continuous scale, if factor or
-#'   character, will create a discrete scale.
+#' @param ... If numeric, will create a continuous scale, if factor or
+#'   character, will create a discrete scale.  For \code{lims}, every
+#'   argument must be named.
 #' @seealso For changing x or y axis limits \strong{without} dropping data
 #'   observations, see \code{\link{coord_cartesian}}.
-#' @rdname xylim
 #' @export
 #' @examples
 #' # xlim
@@ -16,6 +16,7 @@
 #' xlim(20, 15)
 #' xlim(c(10, 20))
 #' xlim("a", "b", "c")
+#'
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point() +
 #'   xlim(15, 20)
@@ -24,30 +25,35 @@
 #'   geom_point() +
 #'   xlim(NA, 20)
 #'
-#' # ylim
-#' ylim(15, 20)
-#' ylim(c(10, 20))
-#' ylim("a", "b", "c")
+#' # Change both xlim and ylim
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point() +
-#'   ylim(0, 4)
-#' # with automatic upper limit
-#' ggplot(mtcars, aes(mpg, wt)) +
-#'   geom_point() +
-#'   ylim(0, NA)
+#'   lims(x = c(10, 20), y = c(3, 5))
+lims <- function(...) {
+  args <- list(...)
+
+  if (any(!has_name(args))) {
+    stop("All arguments must be named", call. = FALSE)
+  }
+
+  Map(limits, args, names(args))
+}
+
+#' @export
+#' @rdname lims
 xlim <- function(...) {
   limits(c(...), "x")
 }
 
-#' @rdname xylim
 #' @export
+#' @rdname lims
 ylim <- function(...) {
   limits(c(...), "y")
 }
 
 #' Generate correct scale type for specified limits
 #'
-#' @param limts vector of limits
+#' @param limits vector of limits
 #' @param var name of variable
 #' @keywords internal
 #' @examples
@@ -120,7 +126,7 @@ limits.POSIXlt <- function(lims, var) {
 #'   geom_point(aes(colour = factor(cyl))) +
 #'   expand_limits(colour = factor(seq(2, 10, by = 2)))
 expand_limits <- function(...) {
-  data <- data.frame(...)
+  data <- data.frame(..., stringsAsFactors = FALSE)
 
   geom_blank(aes_all(names(data)), data, inherit.aes = FALSE)
 }

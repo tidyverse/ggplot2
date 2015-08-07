@@ -22,8 +22,6 @@ scale_linetype_identity(..., guide = "none")
 scale_alpha_identity(..., guide = "none")
 
 scale_size_identity(..., guide = "none")
-
-scale_color_identity(..., guide = "none")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link{discrete_scale}} or
@@ -35,6 +33,11 @@ scale_color_identity(..., guide = "none")
 Use values without scaling.
 }
 \examples{
+ggplot(luv_colours, aes(u, v)) +
+  geom_point(aes(colour = col), size = 3) +
+  scale_color_identity() +
+  coord_equal()
+
 df <- data.frame(
   x = 1:4,
   y = 1:4,

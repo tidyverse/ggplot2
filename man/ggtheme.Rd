@@ -13,9 +13,9 @@
 \alias{theme_void}
 \title{ggplot2 themes}
 \usage{
-theme_grey(base_size = 12, base_family = "")
+theme_grey(base_size = 11, base_family = "")
 
-theme_gray(base_size = 12, base_family = "")
+theme_gray(base_size = 11, base_family = "")
 
 theme_bw(base_size = 12, base_family = "")
 

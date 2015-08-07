@@ -66,14 +66,14 @@ train_position <- function(panel, data, x_scale, y_scale) {
   # Initialise scales if needed, and possible.
   layout <- panel$layout
   if (is.null(panel$x_scales) && !is.null(x_scale)) {
-    panel$x_scales <- rlply(max(layout$SCALE_X), scale_clone(x_scale))
+    panel$x_scales <- plyr::rlply(max(layout$SCALE_X), scale_clone(x_scale))
   }
   if (is.null(panel$y_scales) && !is.null(y_scale)) {
-    panel$y_scales <- rlply(max(layout$SCALE_Y), scale_clone(y_scale))
+    panel$y_scales <- plyr::rlply(max(layout$SCALE_Y), scale_clone(y_scale))
   }
 
   # loop over each layer, training x and y scales in turn
-  for(layer_data in data) {
+  for (layer_data in data) {
 
     match_id <- match(layer_data$PANEL, layout$PANEL)
 
@@ -98,8 +98,8 @@ train_position <- function(panel, data, x_scale, y_scale) {
 
 reset_scales <- function(panel) {
   if (!panel$shrink) return()
-  l_ply(panel$x_scales, scale_reset)
-  l_ply(panel$y_scales, scale_reset)
+  plyr::l_ply(panel$x_scales, scale_reset)
+  plyr::l_ply(panel$y_scales, scale_reset)
 }
 
 # Map data with scales.
@@ -135,7 +135,7 @@ map_position <- function(panel, data, x_scale, y_scale) {
 }
 
 # Function for applying scale function to multiple variables in a given
-# data set.  Implement in such a way to minimise copying and hence maximise
+# data set.  Implement in such a way to minimize copying and hence maximise
 # speed
 scale_apply <- function(data, vars, f, scale_id, scales) {
   if (length(vars) == 0) return()
@@ -144,7 +144,7 @@ scale_apply <- function(data, vars, f, scale_id, scales) {
   n <- length(scales)
   if (any(is.na(scale_id))) stop()
 
-  scale_index <- split_indices(scale_id, n)
+  scale_index <- plyr::split_indices(scale_id, n)
 
   lapply(vars, function(var) {
     pieces <- lapply(seq_along(scales), function(i) {
@@ -171,7 +171,7 @@ panel_scales <- function(panel, i) {
 train_ranges <- function(panel, coord) {
   compute_range <- function(ix, iy) {
     # TODO: change coord_train method to take individual x and y scales
-    coord_train(coord, list(x = panel$x_scales[[ix]], y = panel$y_scales[[iy]]))
+    coord$train(list(x = panel$x_scales[[ix]], y = panel$y_scales[[iy]]))
   }
 
   panel$ranges <- Map(compute_range,
@@ -184,23 +184,24 @@ train_ranges <- function(panel, coord) {
 # @param layers list of layers
 # @param data a list of data frames (one for each layer)
 calculate_stats <- function(panel, data, layers) {
-
   lapply(seq_along(data), function(i) {
     d <- data[[i]]
     l <- layers[[i]]
 
-    ddply(d, "PANEL", function(panel_data) {
+    params <- l$stat$compute_defaults(d, l$stat_params)
+
+    plyr::ddply(d, "PANEL", function(panel_data) {
       scales <- panel_scales(panel, panel_data$PANEL[1])
-      l$calc_statistic(panel_data, scales)
+      l$calc_statistic(panel_data, scales, params)
     })
   })
 }
 
 
 xlabel <- function(panel, labels) {
-  panel$x_scales[[1]]$name %||% labels$x
+  panel$x_scales[[1]]$name %|W|% labels$x
 }
 
 ylabel <- function(panel, labels) {
-  panel$y_scales[[1]]$name %||% labels$y
+  panel$y_scales[[1]]$name %|W|% labels$y
 }

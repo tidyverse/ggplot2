@@ -14,18 +14,6 @@ scale_colour_hue(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
 
 scale_fill_hue(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
   direction = 1, na.value = "grey50")
-
-scale_colour_discrete(..., h = c(0, 360) + 15, c = 100, l = 65,
-  h.start = 0, direction = 1, na.value = "grey50")
-
-scale_fill_discrete(..., h = c(0, 360) + 15, c = 100, l = 65,
-  h.start = 0, direction = 1, na.value = "grey50")
-
-scale_color_discrete(..., h = c(0, 360) + 15, c = 100, l = 65,
-  h.start = 0, direction = 1, na.value = "grey50")
-
-scale_color_hue(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-  direction = 1, na.value = "grey50")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link{discrete_scale}}
@@ -86,26 +74,9 @@ ggplot(mtcars, aes(mpg, wt)) +
 }
 }
 \seealso{
-Other colour scales: \code{\link{scale_color_brewer}},
-  \code{\link{scale_color_distiller}},
+Other colour scales:
   \code{\link{scale_colour_brewer}},
-  \code{\link{scale_colour_distiller}},
-  \code{\link{scale_fill_brewer}},
-  \code{\link{scale_fill_distiller}};
-  \code{\link{scale_color_continuous}},
-  \code{\link{scale_color_gradient}},
-  \code{\link{scale_colour_continuous}},
   \code{\link{scale_colour_gradient}},
-  \code{\link{scale_fill_continuous}},
-  \code{\link{scale_fill_gradient}};
-  \code{\link{scale_color_gradient2}},
-  \code{\link{scale_colour_gradient2}},
-  \code{\link{scale_fill_gradient2}};
-  \code{\link{scale_color_gradientn}},
-  \code{\link{scale_colour_gradientn}},
-  \code{\link{scale_fill_gradientn}};
-  \code{\link{scale_color_grey}},
-  \code{\link{scale_colour_grey}},
-  \code{\link{scale_fill_grey}}
+  \code{\link{scale_colour_grey}}
 }
 

@@ -14,7 +14,6 @@
 #'   additive expansion constants. These constants ensure that the data is
 #'   placed some distance away from the axes.
 #' @rdname scale_discrete
-#' @family position scales
 #' @export
 #' @examples
 #' \donttest{
@@ -56,7 +55,7 @@ scale_x_discrete <- function(..., expand = waiver()) {
   sc <- discrete_scale(c("x", "xmin", "xmax", "xend"), "position_d", identity, ...,
     expand = expand, guide = "none")
 
-  sc$range_c <- ContinuousRange$new()
+  sc$range_c <- continuous_range()
   sc
 }
 #' @rdname scale_discrete
@@ -64,7 +63,7 @@ scale_x_discrete <- function(..., expand = waiver()) {
 scale_y_discrete <- function(..., expand = waiver()) {
   sc <- discrete_scale(c("y", "ymin", "ymax", "yend"), "position_d", identity, ...,
     expand = expand, guide = "none")
-  sc$range_c <- ContinuousRange$new()
+  sc$range_c <- continuous_range()
   sc
 }
 
@@ -114,8 +113,7 @@ scale_map.position_d <- function(scale, x, limits = scale_limits(scale)) {
 
 #' @export
 scale_dimension.position_d <- function(scale, expand = scale$expand) {
-  if(is.waive(expand))
-    expand <- c(0, 0)
+  expand <- expand %|W|% c(0, 0)
   disc_range <- c(1, length(scale_limits(scale)))
   disc <- expand_range(disc_range, 0, expand[2], 1)
   cont <- expand_range(scale$range_c$range, expand[1], 0, expand[2])
@@ -126,8 +124,8 @@ scale_dimension.position_d <- function(scale, expand = scale$expand) {
 #' @export
 scale_clone.position_d <- function(scale) {
   new <- scale
-  new$range <- DiscreteRange$new()
-  new$range_c <- ContinuousRange$new()
+  new$range <- discrete_range()
+  new$range_c <- continuous_range()
 
   new
 }

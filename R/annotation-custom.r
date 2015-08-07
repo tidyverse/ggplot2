@@ -3,8 +3,8 @@ NULL
 
 #' Annotation: Custom grob.
 #'
-#' This is a special geom intended for use as static annnotations
-#' that are the same in every panel. These anotations will not
+#' This is a special geom intended for use as static annotations
+#' that are the same in every panel. These annotations will not
 #' affect scales (i.e. the x and y axes will not grow to cover the range
 #' of the grob, and the grob will not be modified by any ggplot settings or mappings).
 #'
@@ -43,11 +43,11 @@ NULL
 #'   theme(plot.background = element_rect(colour = "black")))
 #' base +
 #'   annotation_custom(grob = g, xmin = 1, xmax = 10, ymin = 8, ymax = 10)
-annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) {
-  Layer$new(
+annotation_custom <- function(grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) {
+  layer(
     data = NULL,
-    stat = "identity",
-    position = "identity",
+    stat = StatIdentity,
+    position = PositionIdentity,
     geom = GeomCustomAnn,
     inherit.aes = TRUE,
     geom_params = list(grob = grob, xmin = xmin, xmax = xmax,
@@ -55,32 +55,28 @@ annotation_custom <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax 
   )
 }
 
-GeomCustomAnn <- proto2(
-  class = "GeomCustomAnn",
-  inherit = Geom,
-  members = list(
-    objname = "custom_ann",
-
-    draw_groups = function(self, data, scales, coordinates, grob, xmin, xmax,
-                            ymin, ymax, ...) {
-      if (!inherits(coordinates, "cartesian")) {
-        stop("annotation_custom only works with Cartesian coordinates",
-          call. = FALSE)
-      }
-      corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
-      data <- coord_transform(coordinates, corners, scales)
-
-      x_rng <- range(data$x, na.rm = TRUE)
-      y_rng <- range(data$y, na.rm = TRUE)
-
-      vp <- viewport(x = mean(x_rng), y = mean(y_rng),
-                     width = diff(x_rng), height = diff(y_rng),
-                     just = c("center","center"))
-      editGrob(grob, vp = vp)
-    },
-
-    default_aes = function(self) {
-      aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
+  draw = function(data, scales, coordinates, grob, xmin, xmax,
+                          ymin, ymax, ...) {
+    if (!inherits(coordinates, "CoordCartesian")) {
+      stop("annotation_custom only works with Cartesian coordinates",
+        call. = FALSE)
     }
-  )
+    corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
+    data <- coordinates$transform(corners, scales)
+
+    x_rng <- range(data$x, na.rm = TRUE)
+    y_rng <- range(data$y, na.rm = TRUE)
+
+    vp <- viewport(x = mean(x_rng), y = mean(y_rng),
+                   width = diff(x_rng), height = diff(y_rng),
+                   just = c("center","center"))
+    editGrob(grob, vp = vp)
+  },
+
+  default_aes = aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
 )

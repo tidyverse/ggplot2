@@ -2,7 +2,7 @@
 % Please edit documentation in R/utilities.r
 \name{gg_dep}
 \alias{gg_dep}
-\title{Give a deprecation error, warning, or messsage, depending on version number.}
+\title{Give a deprecation error, warning, or message, depending on version number.}
 \usage{
 gg_dep(version, msg)
 }

@@ -28,7 +28,7 @@
 #'  theme(legend.background = element_rect(fill = "white", colour = "white", size = 3))
 theme_update <- function(...) {
   # Make a call to theme, then add to theme
-  theme_set(theme_get() %+replace% do.call(theme, list(...)))
+  theme_set(theme_get() %+replace% theme(...))
 }
 
 #' Reports whether x is a theme object
@@ -37,7 +37,7 @@ theme_update <- function(...) {
 is.theme <- function(x) inherits(x, "theme")
 
 #' @export
-print.theme <- function(x, ...) str(x)
+print.theme <- function(x, ...) utils::str(x)
 
 #' Set theme elements
 #'
@@ -88,8 +88,6 @@ print.theme <- function(x, ...) str(x)
 #'   axis.ticks.y     \tab y axis tick marks
 #'                    (\code{element_line}; inherits from \code{axis.ticks}) \cr
 #'   axis.ticks.length  \tab length of tick marks
-#'                    (\code{unit}) \cr
-#'   axis.ticks.margin  \tab space between tick mark and tick label
 #'                    (\code{unit}) \cr
 #'   axis.line        \tab lines along axes
 #'                    (\code{element_line}; inherits from \code{line}) \cr
@@ -188,6 +186,7 @@ print.theme <- function(x, ...) str(x)
 #' @param complete set this to TRUE if this is a complete theme, such as
 #'   the one returned \code{by theme_grey()}. Complete themes behave
 #'   differently when added to a ggplot object.
+#' @param validate TRUE to run validate_element, FALSE to bypass checks.
 #'
 #' @seealso \code{\link{+.gg}}
 #' @seealso \code{\link{\%+replace\%}}
@@ -240,7 +239,6 @@ print.theme <- function(x, ...) str(x)
 #' m + theme_bw()
 #'
 #' # Manipulate Axis Attributes
-#' library(grid) # for unit
 #' m + theme(axis.line = element_line(size = 3, colour = "red", linetype = "dotted"))
 #' m + theme(axis.text = element_text(colour = "blue"))
 #' m + theme(axis.text.y = element_blank())
@@ -257,7 +255,7 @@ print.theme <- function(x, ...) str(x)
 #' z + theme(legend.position = "bottom")
 #' # Or use relative coordinates between 0 and 1
 #' z + theme(legend.position = c(.5, .5))
-#  # Add a border to the whole legend
+#' # Add a border to the whole legend
 #' z + theme(legend.background = element_rect(colour = "black"))
 #' # Legend margin controls extra space around outside of legend:
 #' z + theme(legend.background = element_rect(),
@@ -306,11 +304,11 @@ print.theme <- function(x, ...) str(x)
 #' df <- data.frame(meanprice, cut)
 #' g <- ggplot(df, aes(cut, meanprice)) + geom_bar(stat = "identity")
 #' g + geom_bar(stat = "identity") +
-#'     theme(panel.background=element_blank(),
-#'           panel.grid.major.x=element_blank(),
+#'     theme(panel.background = element_blank(),
+#'           panel.grid.major.x = element_blank(),
 #'           panel.grid.minor.x = element_blank(),
-#'           panel.grid.minor.y=element_blank(),
-#'           panel.ontop=TRUE)
+#'           panel.grid.minor.y = element_blank(),
+#'           panel.ontop = TRUE)
 #'
 #' # Modify a theme and save it
 #' mytheme <- theme_grey() + theme(plot.title = element_text(colour = "red"))
@@ -331,7 +329,7 @@ print.theme <- function(x, ...) str(x)
 #'       data.frame(child = name, parent = item$inherit)
 #'   }
 #'
-#'   edges <- rbind.fill(mapply(inheritdf, names(tree), tree))
+#'   edges <- plyr::rbind.fill(mapply(inheritdf, names(tree), tree))
 #'
 #'   # Explicitly add vertices (since not all are in edge list)
 #'   vertices <- data.frame(name = names(tree))
@@ -346,13 +344,22 @@ print.theme <- function(x, ...) str(x)
 #' plot(g, layout=layout.fruchterman.reingold, vertex.size=4, vertex.label.dist=.25)
 #'
 #' }
-theme <- function(..., complete = FALSE) {
+theme <- function(..., complete = FALSE, validate = TRUE) {
   elements <- list(...)
 
-  # Check that all elements have the correct class (element_text, unit, etc)
-  mapply(validate_element, elements, names(elements))
+  if (!is.null(elements$axis.ticks.margin)) {
+    warning("`axis.ticks.margin` is deprecated. Please set `margin` property ",
+      " of `axis.text` instead", call. = FALSE)
+    elements$axis.ticks.margin <- NULL
+  }
 
-  structure(elements, class = c("theme", "gg"), complete = complete)
+  # Check that all elements have the correct class (element_text, unit, etc)
+  if (validate) {
+    mapply(validate_element, elements, names(elements))
+  }
+
+  structure(elements, class = c("theme", "gg"),
+            complete = complete, validate = validate)
 }
 
 
@@ -484,7 +491,7 @@ update_theme <- function(oldtheme, newtheme) {
 
   # These are elements in newtheme that aren't already set in oldtheme.
   # They will be pulled from the default theme.
-  newitems <- ! names(newtheme) %in% names(oldtheme)
+  newitems <- !names(newtheme) %in% names(oldtheme)
   newitem_names <- names(newtheme)[newitems]
   oldtheme[newitem_names] <- theme_get()[newitem_names]
 
@@ -492,8 +499,11 @@ update_theme <- function(oldtheme, newtheme) {
   # Turn the 'theme' list into a proper theme object first, and preserve
   # the 'complete' attribute. It's possible that oldtheme is an empty
   # list, and in that case, set complete to FALSE.
+  old.validate <- isTRUE(attr(oldtheme, "validate"))
+  new.validate <- isTRUE(attr(newtheme, "validate"))
   oldtheme <- do.call(theme, c(oldtheme,
-    complete = isTRUE(attr(oldtheme, "complete"))))
+    complete = isTRUE(attr(oldtheme, "complete")),
+    validate = old.validate & new.validate))
 
   oldtheme + newtheme
 }

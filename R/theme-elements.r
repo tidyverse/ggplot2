@@ -59,22 +59,26 @@ element_line <- function(colour = NULL, size = NULL, linetype = NULL,
 #' @param angle angle (in [0, 360])
 #' @param lineheight line height
 #' @param color an alias for \code{colour}
+#' @param margin margins around the text. See \code{\link{margin}} for more
+#'   details. When creating a theme, the margins should be placed on the
+#'   side of the text facing towards the center of the plot.
 #' @export
 element_text <- function(family = NULL, face = NULL, colour = NULL,
   size = NULL, hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  color = NULL) {
+  color = NULL, margin = NULL) {
 
   if (!is.null(color))  colour <- color
   structure(
     list(family = family, face = face, colour = colour, size = size,
-      hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight),
+      hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight,
+      margin = margin),
     class = c("element_text", "element")
   )
 }
 
 
 #' @export
-print.element <- function(x, ...) str(x)
+print.element <- function(x, ...) utils::str(x)
 
 
 #' Relative sizing for theme elements
@@ -107,7 +111,7 @@ element_render <- function(theme, element, ..., name = NULL) {
     return(zeroGrob())
   }
 
-  ggname(ps(element, name, sep = "."), element_grob(el, ...))
+  ggname(paste(element, name, sep = "."), element_grob(el, ...))
 }
 
 
@@ -136,7 +140,7 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
   element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
     fill = element$fill, lty = element$linetype)
 
-  rectGrob(x, y, width, height, gp = modifyList(element_gp, gp), ...)
+  rectGrob(x, y, width, height, gp = utils::modifyList(element_gp, gp), ...)
 }
 
 
@@ -144,33 +148,19 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
 element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   family = NULL, face = NULL, colour = NULL, size = NULL,
   hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  default.units = "npc", ...) {
+  margin = NULL, expand_x = FALSE, expand_y = FALSE) {
+
+  if (is.null(label))
+    return(zeroGrob())
 
   vj <- vjust %||% element$vjust
   hj <- hjust %||% element$hjust
+  margin <- margin %||% element$margin
 
   angle <- angle %||% element$angle
   if (is.null(angle)) {
     stop("Text element requires non-NULL value for 'angle'.")
   }
-  angle <- angle %% 360
-
-  if (angle == 90) {
-    xp <- 1 - vj
-    yp <- hj
-  } else if (angle == 180) {
-    xp <- 1 - hj
-    yp <- 1 - vj
-  } else if (angle == 270) {
-    xp <- vj
-    yp <- 1 - hj
-  } else {
-    xp <- hj
-    yp <- vj
-  }
-
-  x <- x %||% xp
-  y <- y %||% yp
 
   # The gp settings can override element_gp
   gp <- gpar(fontsize = size, col = colour,
@@ -180,13 +170,11 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
     fontfamily = element$family, fontface = element$face,
     lineheight = element$lineheight)
 
-  textGrob(
-    label, x, y, hjust = hj, vjust = vj,
-    default.units = default.units,
-    gp = modifyList(element_gp, gp),
-    rot = angle, ...
-  )
+  titleGrob(label, x, y, hjust = hj, vjust = vj, angle = angle,
+    gp = utils::modifyList(element_gp, gp), margin = margin,
+    expand_x = expand_x, expand_y = expand_y)
 }
+
 
 
 #' @export
@@ -195,13 +183,13 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   default.units = "npc", id.lengths = NULL, ...) {
 
   # The gp settings can override element_gp
-  gp <- gpar(lwd=len0_null(size * .pt), col=colour, lty=linetype, lineend = lineend)
+  gp <- gpar(lwd = len0_null(size * .pt), col = colour, lty = linetype, lineend = lineend)
   element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
     lty = element$linetype, lineend = element$lineend)
 
   polylineGrob(
     x, y, default.units = default.units,
-    gp = modifyList(element_gp, gp),
+    gp = utils::modifyList(element_gp, gp),
     id.lengths = id.lengths, ...
   )
 }
@@ -246,7 +234,6 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.ticks.y        = el_def("element_line", "axis.ticks"),
   axis.title.x        = el_def("element_text", "axis.title"),
   axis.title.y        = el_def("element_text", "axis.title"),
-  axis.ticks.margin   = el_def("unit"),
 
   legend.background   = el_def("element_rect", "rect"),
   legend.margin       = el_def("unit"),
@@ -282,7 +269,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 
   plot.background     = el_def("element_rect", "rect"),
   plot.title          = el_def("element_text", "title"),
-  plot.margin         = el_def("unit"),
+  plot.margin         = el_def("margin"),
 
   aspect.ratio        = el_def("character")
 )
@@ -313,7 +300,9 @@ validate_element <- function(el, elname) {
     # but sometimes its a vector like c(0,0)
     if (!is.character(el) && !is.numeric(el))
       stop("Element ", elname, " must be a string or numeric vector.")
-
+  } else if (eldef$class == "margin") {
+    if (!is.unit(el) && length(el) == 4)
+      stop("Element ", elname, " must be a unit vector of length 4.")
   } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
       stop("Element ", elname, " must be a ", eldef$class, " object.")
   }

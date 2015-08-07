@@ -7,3 +7,4 @@ visual_test
 ^notes$
 ^cran-comments.md$
 ^data-raw$
+^CONTRIBUTING\.md$

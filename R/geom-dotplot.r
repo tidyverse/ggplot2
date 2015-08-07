@@ -20,16 +20,6 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "dotplot")}
 #'
 #' @inheritParams geom_point
-#' @param binaxis which axis to bin along "x" (default) or "y"
-#' @param method "dotdensity" (default) for dot-density binning, or
-#'   "histodot" for fixed bin widths (like stat_bin)
-#' @param binwidth When \code{method} is "dotdensity", this specifies maximum bin width.
-#'    When method is "histodot", this specifies bin width.
-#'   Defaults to 1/30 of the range of the data
-#' @param binpositions When \code{method} is "dotdensity", "bygroup" (default)
-#'   determines positions of the bins for each group separately. "all" determines
-#'   positions of the bins with all the data taken together; this is used for
-#'   aligning dot stacks across multiple groups.
 #' @param stackdir which direction to stack the dots. "up" (default),
 #'   "down", "center", "centerwhole" (centered, but with dots aligned)
 #' @param stackratio how close to stack the dots. Default is 1, where dots just
@@ -38,13 +28,40 @@
 #' @param stackgroups should dots be stacked across groups? This has the effect
 #'   that \code{position = "stack"} should have, but can't (because this geom has
 #'   some odd properties).
+#' @param binaxis The axis to bin along, "x" (default) or "y"
+#' @param method "dotdensity" (default) for dot-density binning, or
+#'   "histodot" for fixed bin widths (like stat_bin)
+#' @param binwidth When \code{method} is "dotdensity", this specifies maximum bin
+#'   width. When \code{method} is "histodot", this specifies bin width.
+#'   Defaults to 1/30 of the range of the data
+#' @param binpositions When \code{method} is "dotdensity", "bygroup" (default)
+#'   determines positions of the bins for each group separately. "all" determines
+#'   positions of the bins with all the data taken together; this is used for
+#'   aligning dot stacks across multiple groups.
+#' @param origin When \code{method} is "histodot", origin of first bin
+#' @param right When \code{method} is "histodot", should intervals be closed
+#'   on the right (a, b], or not [a, b)
+#' @param width When \code{binaxis} is "y", the spacing of the dot stacks
+#'   for dodging.
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
+#' @param drop If TRUE, remove all bins with zero counts
+#' @section Computed variables:
+#' \describe{
+#'   \item{x}{center of each bin, if binaxis is "x"}
+#'   \item{y}{center of each bin, if binaxis is "x"}
+#'   \item{binwidth}{max width of each bin if method is "dotdensity";
+#'     width of each bin if method is "histodot"}
+#'   \item{count}{number of points in bin}
+#'   \item{ncount}{count, scaled to maximum of 1}
+#'   \item{density}{density of points in bin, scaled to integrate to 1,
+#'     if method is "histodot"}
+#'   \item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
+#' }
 #' @export
-#'
 #' @references Wilkinson, L. (1999) Dot plots. The American Statistician,
 #'    53(3), 276-281.
-#'
 #' @examples
-#'
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot()
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5)
 #'
@@ -60,14 +77,13 @@
 #'
 #' # y axis isn't really meaningful, so hide it
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5) +
-#'   scale_y_continuous(name = "", breaks = NULL)
+#'   scale_y_continuous(NULL, breaks = NULL)
 #'
 #' # Overlap dots vertically
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, stackratio = .7)
 #'
 #' # Expand dot diameter
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
-#'
 #'
 #' # Examples with stacking along y axis instead of x
 #' ggplot(mtcars, aes(x = 1, y = mpg)) +
@@ -95,11 +111,11 @@
 #'
 #' ggplot(mtcars, aes(x = 1, y = mpg, fill = factor(cyl))) +
 #'   geom_dotplot(binaxis = "y", stackgroups = TRUE, binwidth = 1, method = "histodot")
-#'
-geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
+geom_dotplot <- function(mapping = NULL, data = NULL,
   position = "identity", na.rm = FALSE, binwidth = NULL, binaxis = "x",
   method = "dotdensity", binpositions = "bygroup", stackdir = "up",
-  stackratio = 1, dotsize = 1, stackgroups = FALSE, show_guide = NA,
+  stackratio = 1, dotsize = 1, stackgroups = FALSE,
+  origin = NULL, right = TRUE, width = 0.9, drop = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 {
   # If identical(position, "stack") or position is position_stack(), tell them
@@ -112,13 +128,13 @@ geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
   if (stackgroups && method == "dotdensity" && binpositions == "bygroup")
     message('geom_dotplot called with stackgroups=TRUE and method="dotdensity". You probably want to set binpositions="all"')
 
-  Layer$new(
+  layer(
     data = data,
     mapping = mapping,
-    stat = stat,
+    stat = StatBindot,
     geom = GeomDotplot,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     # Need to make sure that the binaxis goes to both the stat and the geom
     stat_params = list(
@@ -126,7 +142,11 @@ geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
       na.rm = na.rm,
       binwidth = binwidth,
       binpositions = binpositions,
-      method = method
+      method = method,
+      origin = origin,
+      right = right,
+      width = width,
+      drop = drop
     ),
     geom_params = list(
       binaxis = binaxis,
@@ -140,139 +160,122 @@ geom_dotplot <- function (mapping = NULL, data = NULL, stat = "bindot",
   )
 }
 
-GeomDotplot <- proto2(
-  class = "GeomDotplot",
-  inherit = Geom,
-  members = list(
-    objname = "dotplot",
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomDotplot <- ggproto("GeomDotplot", Geom,
+  reparameterise = function(df, params) {
+    df$width <- df$width %||%
+      params$width %||% (resolution(df$x, FALSE) * 0.9)
 
-    reparameterise = function(self, df, params) {
-      df$width <- df$width %||%
-        params$width %||% (resolution(df$x, FALSE) * 0.9)
-
-      # Set up the stacking function and range
-      if(is.null(params$stackdir) || params$stackdir == "up") {
-        stackdots <- function(a)  a - .5
-        stackaxismin <- 0
-        stackaxismax <- 1
-      } else if (params$stackdir == "down") {
-        stackdots <- function(a) -a + .5
-        stackaxismin <- -1
-        stackaxismax <- 0
-      } else if (params$stackdir == "center") {
-        stackdots <- function(a)  a - 1 - max(a - 1) / 2
-        stackaxismin <- -.5
-        stackaxismax <- .5
-      } else if (params$stackdir == "centerwhole") {
-        stackdots <- function(a)  a - 1 - floor(max(a - 1) / 2)
-        stackaxismin <- -.5
-        stackaxismax <- .5
-      }
-
-
-      # Fill the bins: at a given x (or y), if count=3, make 3 entries at that x
-      df <- df[rep(1:nrow(df), df$count), ]
-
-      # Next part will set the position of each dot within each stack
-      # If stackgroups=TRUE, split only on x (or y) and panel; if not stacking, also split by group
-      plyvars <- params$binaxis %||% "x"
-      plyvars <- c(plyvars, "PANEL")
-      if (is.null(params$stackgroups) || !params$stackgroups)
-        plyvars <- c(plyvars, "group")
-
-      # Within each x, or x+group, set countidx=1,2,3, and set stackpos according to stack function
-      df <- ddply(df, plyvars, function(xx) {
-              xx$countidx <- 1:nrow(xx)
-              xx$stackpos <- stackdots(xx$countidx)
-              xx
-            })
+    # Set up the stacking function and range
+    if (is.null(params$stackdir) || params$stackdir == "up") {
+      stackdots <- function(a)  a - .5
+      stackaxismin <- 0
+      stackaxismax <- 1
+    } else if (params$stackdir == "down") {
+      stackdots <- function(a) -a + .5
+      stackaxismin <- -1
+      stackaxismax <- 0
+    } else if (params$stackdir == "center") {
+      stackdots <- function(a)  a - 1 - max(a - 1) / 2
+      stackaxismin <- -.5
+      stackaxismax <- .5
+    } else if (params$stackdir == "centerwhole") {
+      stackdots <- function(a)  a - 1 - floor(max(a - 1) / 2)
+      stackaxismin <- -.5
+      stackaxismax <- .5
+    }
 
 
-      # Set the bounding boxes for the dots
-      if (is.null(params$binaxis) || params$binaxis == "x") {
-        # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
-        # Can't do bounding box per dot, because y position isn't real.
-        # After position code is rewritten, each dot should have its own bounding box.
-        df$xmin <- df$x - df$binwidth / 2
-        df$xmax <- df$x + df$binwidth / 2
-        df$ymin <- stackaxismin
-        df$ymax <- stackaxismax
-        df$y    <- 0
+    # Fill the bins: at a given x (or y), if count=3, make 3 entries at that x
+    df <- df[rep(1:nrow(df), df$count), ]
 
-      } else if (params$binaxis == "y") {
-        # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
-        # Can't do bounding box per dot, because x position isn't real.
-        # xmin and xmax aren't really the x bounds, because of the odd way the grob
-        # works. They're just set to the standard x +- width/2 so that dot clusters
-        # can be dodged like other geoms.
-        # After position code is rewritten, each dot should have its own bounding box.
-        df <- ddply(df, .(group), transform,
-              ymin = min(y) - binwidth[1] / 2,
-              ymax = max(y) + binwidth[1] / 2)
+    # Next part will set the position of each dot within each stack
+    # If stackgroups=TRUE, split only on x (or y) and panel; if not stacking, also split by group
+    plyvars <- params$binaxis %||% "x"
+    plyvars <- c(plyvars, "PANEL")
+    if (is.null(params$stackgroups) || !params$stackgroups)
+      plyvars <- c(plyvars, "group")
 
-        df$xmin <- df$x + df$width * stackaxismin
-        df$xmax <- df$x + df$width * stackaxismax
-        # Unlike with y above, don't change x because it will cause problems with dodging
-      }
-      df
-    },
+    # Within each x, or x+group, set countidx=1,2,3, and set stackpos according to stack function
+    df <- plyr::ddply(df, plyvars, function(xx) {
+            xx$countidx <- 1:nrow(xx)
+            xx$stackpos <- stackdots(xx$countidx)
+            xx
+          })
 
 
-    draw = function(self, data, scales, coordinates, na.rm = FALSE, binaxis = "x",
-                    stackdir = "up", stackratio = 1, dotsize = 1, stackgroups = FALSE, ...) {
+    # Set the bounding boxes for the dots
+    if (is.null(params$binaxis) || params$binaxis == "x") {
+      # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
+      # Can't do bounding box per dot, because y position isn't real.
+      # After position code is rewritten, each dot should have its own bounding box.
+      df$xmin <- df$x - df$binwidth / 2
+      df$xmax <- df$x + df$binwidth / 2
+      df$ymin <- stackaxismin
+      df$ymax <- stackaxismax
+      df$y    <- 0
 
-      data <- remove_missing(data, na.rm, c("x", "y", "size", "shape"), name = "geom_dotplot")
-      if (empty(data)) return(zeroGrob())
+    } else if (params$binaxis == "y") {
+      # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
+      # Can't do bounding box per dot, because x position isn't real.
+      # xmin and xmax aren't really the x bounds, because of the odd way the grob
+      # works. They're just set to the standard x +- width/2 so that dot clusters
+      # can be dodged like other geoms.
+      # After position code is rewritten, each dot should have its own bounding box.
+      df <- plyr::ddply(df, "group", transform,
+            ymin = min(y) - binwidth[1] / 2,
+            ymax = max(y) + binwidth[1] / 2)
 
-      if (!is.linear(coordinates)) {
-        warning("geom_dotplot does not work properly with non-linear coordinates.")
-      }
+      df$xmin <- df$x + df$width * stackaxismin
+      df$xmax <- df$x + df$width * stackaxismax
+      # Unlike with y above, don't change x because it will cause problems with dodging
+    }
+    df
+  },
 
-      tdata <- coord_transform(coordinates, data, scales)
 
-      # Swap axes if using coord_flip
-      if ("flip" %in% attr(coordinates, "class"))
-        binaxis <- ifelse (binaxis == "x", "y", "x")
+  draw_group = function(self, data, scales, coordinates, na.rm = FALSE,
+                        binaxis = "x", stackdir = "up", stackratio = 1,
+                        dotsize = 1, stackgroups = FALSE, ...) {
 
-      if (binaxis == "x") {
-        stackaxis = "y"
-        dotdianpc <- dotsize * tdata$binwidth[1] / (max(scales$x.range) - min(scales$x.range))
+    data <- remove_missing(data, na.rm, c("x", "y", "size", "shape"), name = "geom_dotplot")
+    if (empty(data)) return(zeroGrob())
 
-      } else if (binaxis == "y") {
-        stackaxis = "x"
-        dotdianpc <- dotsize * tdata$binwidth[1] / (max(scales$y.range) - min(scales$y.range))
-      }
+    if (!coordinates$is_linear()) {
+      warning("geom_dotplot does not work properly with non-linear coordinates.")
+    }
 
-      ggname(self$my_name(),
-        dotstackGrob(stackaxis = stackaxis, x = tdata$x, y = tdata$y, dotdia = dotdianpc,
-                    stackposition = tdata$stackpos, stackratio = stackratio,
-                    default.units = "npc",
-                    gp = gpar(col = alpha(tdata$colour, tdata$alpha),
-                              fill = alpha(tdata$fill, tdata$alpha)))
-      )
-    },
+    tdata <- coordinates$transform(data, scales)
 
-    guide_geom = function(self) "dotplot",
+    # Swap axes if using coord_flip
+    if ("flip" %in% attr(coordinates, "class"))
+      binaxis <- ifelse(binaxis == "x", "y", "x")
 
-    draw_legend = function(self, data, ...) {
-      data$shape <- 21
+    if (binaxis == "x") {
+      stackaxis = "y"
+      dotdianpc <- dotsize * tdata$binwidth[1] / (max(scales$x.range) - min(scales$x.range))
 
-      data <- aesdefaults(data, self$default_aes(), list(...))
+    } else if (binaxis == "y") {
+      stackaxis = "x"
+      dotdianpc <- dotsize * tdata$binwidth[1] / (max(scales$y.range) - min(scales$y.range))
+    }
 
-      with(data,
-        pointsGrob(0.5, 0.5, size = unit(.5, "npc"), pch = shape,
-          gp = gpar(
-            col = alpha(colour, alpha),
-            fill = alpha(fill, alpha))
-        )
-      )
-    },
+    ggname("geom_dotplot",
+      dotstackGrob(stackaxis = stackaxis, x = tdata$x, y = tdata$y, dotdia = dotdianpc,
+                  stackposition = tdata$stackpos, stackratio = stackratio,
+                  default.units = "npc",
+                  gp = gpar(col = alpha(tdata$colour, tdata$alpha),
+                            fill = alpha(tdata$fill, tdata$alpha)))
+    )
+  },
 
-    default_stat = function(self) StatBindot,
+  draw_key = draw_key_dotplot,
 
-    required_aes = c("x", "y"),
+  required_aes = c("x", "y"),
 
-    default_aes = function(self) aes(y=..count.., colour="black", fill = "black", alpha = NA)
+  default_aes = aes(y = ..count.., colour = "black", fill = "black", alpha = NA)
 
-  )
 )

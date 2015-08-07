@@ -5,7 +5,7 @@
 \title{Empirical Cumulative Density Function}
 \usage{
 stat_ecdf(mapping = NULL, data = NULL, geom = "step",
-  position = "identity", n = NULL, show_guide = NA, inherit.aes = TRUE,
+  position = "identity", n = NULL, show.legend = NA, inherit.aes = TRUE,
   ...)
 }
 \arguments{
@@ -18,13 +18,13 @@ the plot defaults.}
 
 \item{geom}{The geometric object to use display the data}
 
-\item{position}{The position adjustment to use for overlappling points
+\item{position}{The position adjustment to use for overlapping points
 on this layer}
 
 \item{n}{if NULL, do not interpolate. If not NULL, this is the number
 of points to interpolate with.}
 
-\item{show_guide}{logical. Should this layer be included in the legends?
+\item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 
@@ -37,13 +37,15 @@ the default plot specification, e.g. \code{\link{borders}}.}
 include aesthetics whose values you want to set, not map. See
 \code{\link{layer}} for more details.}
 }
-\value{
-a data.frame with additional columns:
+\description{
+Empirical Cumulative Density Function
+}
+\section{Computed variables}{
+
+\describe{
   \item{x}{x in data}
   \item{y}{cumulative density corresponding x}
 }
-\description{
-Empirical Cumulative Density Function
 }
 \examples{
 \donttest{

@@ -4,9 +4,11 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "spoke")}
 #'
 #' @inheritParams stat_identity
-#' @return a data.frame with additional columns
+#' @section Computed variables:
+#' \describe{
 #'   \item{xend}{x position of end of line segment}
 #'   \item{yend}{x position of end of line segment}
+#' }
 #' @export
 #' @examples
 #' df <- expand.grid(x = 1:10, y=1:10)
@@ -22,40 +24,36 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_point() +
 #'   stat_spoke(aes(angle = angle, radius = speed))
-stat_spoke <- function (mapping = NULL, data = NULL, geom = "segment",
-  position = "identity", show_guide = NA, inherit.aes = TRUE, ...)
-{
-  Layer$new(
+stat_spoke <- function(mapping = NULL, data = NULL, geom = "segment",
+                       position = "identity", show.legend = NA,
+                       inherit.aes = TRUE, ...) {
+  layer(
     data = data,
     mapping = mapping,
     stat = StatSpoke,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...)
   )
 }
 
-StatSpoke <- proto2(
-  class = "StatSpoke",
-  inherit = Stat,
-  members = list(
-    objname = "spoke",
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatSpoke <- ggproto("StatSpoke", Stat,
+  retransform = FALSE,
 
-    retransform = FALSE,
+  compute = function(data, scales, radius = 1, ...) {
+    transform(data,
+      xend = x + cos(angle) * radius,
+      yend = y + sin(angle) * radius
+    )
+  },
 
-    calculate = function(self, data, scales, radius = 1, ...) {
-      transform(data,
-        xend = x + cos(angle) * radius,
-        yend = y + sin(angle) * radius
-      )
-    },
+  default_aes = aes(xend = ..xend.., yend = ..yend..),
 
-    default_aes = function(self) aes(xend = ..xend.., yend = ..yend..),
-
-    required_aes = c("x", "y", "angle", "radius"),
-
-    default_geom = function(self) GeomSegment
-  )
+  required_aes = c("x", "y", "angle", "radius")
 )

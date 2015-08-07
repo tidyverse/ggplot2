@@ -46,7 +46,7 @@ text.}
 
 \item{label.position}{A character string indicating the position of a
 label. One of "top", "bottom" (default for horizontal guide), "left", or
-"right" (default for vertical gudie).}
+"right" (default for vertical guide).}
 
 \item{label.theme}{A theme object for rendering the label text. Usually the
 object of \code{\link{element_text}} is expected. By default, the theme is
@@ -116,8 +116,7 @@ As for how to specify the guide for each scale in more detail,
 see \code{\link{guides}}.
 }
 \examples{
-library(reshape2) # for melt
-df <- melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
+df <- reshape2::melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
 
 p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 p2 <- p1 + geom_point(aes(size = value))

@@ -38,16 +38,16 @@ NULL
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf, interpolate = TRUE) +
 #'   geom_point()
-annotation_raster <- function (raster, xmin, xmax, ymin, ymax,
+annotation_raster <- function(raster, xmin, xmax, ymin, ymax,
   interpolate = FALSE)
 {
-  raster <- as.raster(raster)
+  raster <- grDevices::as.raster(raster)
 
-  Layer$new(
+  layer(
     data = NULL,
     mapping = NULL,
-    stat = "identity",
-    position = "identity",
+    stat = StatIdentity,
+    position = PositionIdentity,
     geom = GeomRasterAnn,
     inherit.aes = TRUE,
     geom_params = list(
@@ -62,30 +62,27 @@ annotation_raster <- function (raster, xmin, xmax, ymin, ymax,
 
 }
 
-GeomRasterAnn <- proto2(
-  class = "GeomRasterAnn",
-  inherit = GeomRaster,
-  members = list(
-    objname = "raster_ann",
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomRasterAnn <- ggproto("GeomRasterAnn", GeomRaster,
+  reparameterise = function(df, params) df,
 
-    reparameterise = function(self, df, params) df,
-
-    draw_groups = function(self, data, scales, coordinates, raster, xmin, xmax,
-      ymin, ymax, interpolate = FALSE, ...)
-    {
-      if (!inherits(coordinates, "cartesian")) {
-        stop("annotation_raster only works with Cartesian coordinates",
-          call. = FALSE)
-      }
-      corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
-      data <- coord_transform(coordinates, corners, scales)
-
-      x_rng <- range(data$x, na.rm = TRUE)
-      y_rng <- range(data$y, na.rm = TRUE)
-
-      rasterGrob(raster, x_rng[1], y_rng[1],
-        diff(x_rng), diff(y_rng), default.units = "native",
-        just = c("left","bottom"), interpolate = interpolate)
+  draw = function(data, scales, coordinates, raster, xmin, xmax,
+                  ymin, ymax, interpolate = FALSE, ...) {
+    if (!inherits(coordinates, "CoordCartesian")) {
+      stop("annotation_raster only works with Cartesian coordinates",
+        call. = FALSE)
     }
-  )
+    corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
+    data <- coordinates$transform(corners, scales)
+
+    x_rng <- range(data$x, na.rm = TRUE)
+    y_rng <- range(data$y, na.rm = TRUE)
+
+    rasterGrob(raster, x_rng[1], y_rng[1],
+      diff(x_rng), diff(y_rng), default.units = "native",
+      just = c("left","bottom"), interpolate = interpolate)
+  }
 )

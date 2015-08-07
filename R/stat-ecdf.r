@@ -3,9 +3,11 @@
 #' @inheritParams stat_identity
 #' @param n if NULL, do not interpolate. If not NULL, this is the number
 #'   of points to interpolate with.
-#' @return a data.frame with additional columns:
+#' @section Computed variables:
+#' \describe{
 #'   \item{x}{x in data}
 #'   \item{y}{cumulative density corresponding x}
+#' }
 #' @export
 #' @examples
 #' \donttest{
@@ -17,16 +19,16 @@
 #'
 #' ggplot(df, aes(x, colour = g)) + stat_ecdf()
 #' }
-stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step",
-  position = "identity", n = NULL, show_guide = NA, inherit.aes = TRUE, ...)
-{
-  Layer$new(
+stat_ecdf <- function(mapping = NULL, data = NULL, geom = "step",
+                      position = "identity", n = NULL, show.legend = NA,
+                      inherit.aes = TRUE, ...) {
+  layer(
     data = data,
     mapping = mapping,
     stat = StatEcdf,
     geom = geom,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(n = n),
     params = list(...)
@@ -34,44 +36,40 @@ stat_ecdf <- function (mapping = NULL, data = NULL, geom = "step",
 }
 
 
-StatEcdf <- proto2(
-  class = "StatEcdf",
-  inherit = Stat,
-  members = list(
-    objname = "ecdf",
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatEcdf <- ggproto("StatEcdf", Stat,
+  compute_group = function(data, scales, n = NULL, ...) {
 
-    calculate = function(self, data, scales, n = NULL, ...) {
+    # If n is NULL, use raw values; otherwise interpolate
+    if (is.null(n)) {
+      xvals <- unique(data$x)
+    } else {
+      xvals <- seq(min(data$x), max(data$x), length.out = n)
+    }
 
-      # If n is NULL, use raw values; otherwise interpolate
-      if (is.null(n)) {
-        xvals <- unique(data$x)
-      } else {
-        xvals <- seq(min(data$x), max(data$x), length.out = n)
-      }
+    y <- ecdf(data$x)(xvals)
 
-      y <- ecdf(data$x)(xvals)
+    # make point with y = 0, from plot.stepfun
+    rx <- range(xvals)
+    if (length(xvals) > 1L) {
+      dr <- max(0.08 * diff(rx), median(diff(xvals)))
+    } else {
+      dr <- abs(xvals)/16
+    }
 
-      # make point with y = 0, from plot.stepfun
-      rx <- range(xvals)
-      if (length(xvals) > 1L) {
-        dr <- max(0.08 * diff(rx), median(diff(xvals)))
-      } else {
-        dr <- abs(xvals)/16
-      }
+    x0 <- rx[1] - dr
+    x1 <- rx[2] + dr
+    y0 <- 0
+    y1 <- 1
 
-      x0 <- rx[1] - dr
-      x1 <- rx[2] + dr
-      y0 <- 0
-      y1 <- 1
+    data.frame(x = c(x0, xvals, x1), y = c(y0, y, y1))
+  },
 
-      data.frame(x = c(x0, xvals, x1), y = c(y0, y, y1))
-    },
+  default_aes = aes(y = ..y..),
 
-    default_aes = function(self) aes(y = ..y..),
-
-    required_aes = c("x"),
-
-    default_geom = function(self) GeomStep
-  )
+  required_aes = c("x")
 )
 

@@ -1,62 +1,61 @@
 #' Smooth gradient between two colours
 #'
+#' \code{scale_*_gradient} creates a two colour gradient (low-high),
+#' \code{scale_*_gradient2} creates a diverging colour gradient (low-mid-high),
+#' \code{scale_*_gradientn} creats a n-colour gradient.
+#'
 #' Default colours are generated with \pkg{munsell} and
 #' \code{mnsl(c("2.5PB 2/4", "2.5PB 7/10")}. Generally, for continuous
 #' colour scales you want to keep hue constant, but vary chroma and
 #' luminance. The \pkg{munsell} package makes this easy to do using the
 #' Munsell colour system.
 #'
-#' @inheritParams scale_colour_hue
 #' @inheritParams scales::seq_gradient_pal
+#' @inheritParams scale_colour_hue
+#' @param low,high Colours for low and high ends of the gradient.
 #' @param guide Type of legend. Use \code{"colourbar"} for continuous
 #'   colour bar, or \code{"legend"} for discrete colour legend.
 #' @seealso \code{\link[scales]{seq_gradient_pal}} for details on underlying
 #'   palette
+#' @seealso Other colour scales:
+#'   \code{\link{scale_colour_brewer}},
+#'   \code{\link{scale_colour_grey}},
+#'   \code{\link{scale_colour_hue}}
 #' @rdname scale_gradient
-#' @family colour scales
 #' @export
 #' @examples
-#' \donttest{
-#' # It's hard to see, but look for the bright yellow dot
-#' # in the bottom right hand corner
-#' dsub <- subset(diamonds, x > 5 & x < 6 & y > 5 & y < 6)
-#' (d <- ggplot(dsub, aes(x, y)) + geom_point(aes(colour = z)))
-#' # That one point throws our entire scale off.  We could
-#' # remove it, or manually tweak the limits of the scale
+#' df <- data.frame(
+#'   x = runif(100),
+#'   y = runif(100),
+#'   z1 = rnorm(100),
+#'   z2 = abs(rnorm(100))
+#' )
 #'
-#' # Tweak scale limits.  Any points outside these limits will not be
-#' # plotted, and will not affect the calculation of statistics, etc
-#' d + scale_colour_gradient(limits=c(3, 10))
-#' d + scale_colour_gradient(limits=c(3, 4))
-#' # Setting the limits manually is also useful when producing
-#' # multiple plots that need to be comparable
+#' # Default colour scale colours from light blue to dark blue
+#' ggplot(df, aes(x, y)) +
+#'   geom_point(aes(colour = z2))
 #'
-#' # Alternatively we could try transforming the scale:
-#' d + scale_colour_gradient(trans = "log")
-#' d + scale_colour_gradient(trans = "sqrt")
+#' # For diverging colour scales use gradient2
+#' ggplot(df, aes(x, y)) +
+#'   geom_point(aes(colour = z1)) +
+#'   scale_colour_gradient2()
 #'
-#' # Other more trivial manipulations, including changing the name
-#' # of the scale and the colours.
+#' # Use your own colour scale with gradientn
+#' ggplot(df, aes(x, y)) +
+#'   geom_point(aes(colour = z1)) +
+#'   scale_colour_gradientn(colours = terrain.colors(10))
 #'
-#' d + scale_colour_gradient("Depth")
-#' d + scale_colour_gradient(expression(Depth[mm]))
+#' # Equivalent fill scales do the same job for the fill aesthetic
+#' ggplot(faithfuld, aes(waiting, eruptions)) +
+#'   geom_raster(aes(fill = density)) +
+#'   scale_fill_gradientn(colours = terrain.colors(10))
 #'
-#' d + scale_colour_gradient(limits=c(3, 4), low="red")
-#' d + scale_colour_gradient(limits=c(3, 4), low="red", high="white")
-#' # Much slower
-#' d + scale_colour_gradient(limits=c(3, 4), low="red", high="white", space="Lab")
-#' d + scale_colour_gradient(limits=c(3, 4), space="Lab")
-#'
-#' # scale_fill_continuous works similarly, but for fill colours
-#' (h <- ggplot(dsub, aes(x - y)) +
-#'   geom_histogram(binwidth = 0.01, aes(fill = ..count..)))
-#' h + scale_fill_continuous(low="black", high="pink", limits=c(0,3100))
-#'
-#' # Colour of missing values is controlled with na.value:
-#' miss <- sample(c(NA, 1:5), nrow(mtcars), replace = TRUE)
-#' (p <- ggplot(mtcars, aes(mpg, wt)) + geom_point(aes(colour = miss)))
-#' p + scale_colour_gradient(na.value = "black")
-#' }
+#' # Adjust colour choices with low and high
+#' ggplot(df, aes(x, y)) +
+#'   geom_point(aes(colour = z2)) +
+#'   scale_colour_gradient(low = "white", high = "black")
+#' # Avoid red-green colour contrasts because ~10% of men have difficulty
+#' # seeing them
 scale_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab", na.value = "grey50", guide = "colourbar") {
   continuous_scale("colour", "gradient", seq_gradient_pal(low, high, space),
     na.value = na.value, guide = guide, ...)

@@ -4,15 +4,17 @@
 \alias{theme}
 \title{Set theme elements}
 \usage{
-theme(..., complete = FALSE)
+theme(..., complete = FALSE, validate = TRUE)
 }
 \arguments{
 \item{...}{a list of element name, element pairings that modify the
 existing theme.}
 
 \item{complete}{set this to TRUE if this is a complete theme, such as
-  the one returned \code{by theme_grey()}. Complete themes behave
-  differently when added to a ggplot object.}
+the one returned \code{by theme_grey()}. Complete themes behave
+differently when added to a ggplot object.}
+
+\item{validate}{TRUE to run validate_element, FALSE to bypass checks.}
 }
 \description{
 Use this function to modify theme settings.
@@ -63,8 +65,6 @@ The individual theme elements are:
   axis.ticks.y     \tab y axis tick marks
                    (\code{element_line}; inherits from \code{axis.ticks}) \cr
   axis.ticks.length  \tab length of tick marks
-                   (\code{unit}) \cr
-  axis.ticks.margin  \tab space between tick mark and tick label
                    (\code{unit}) \cr
   axis.line        \tab lines along axes
                    (\code{element_line}; inherits from \code{line}) \cr
@@ -201,7 +201,6 @@ m
 m + theme_bw()
 
 # Manipulate Axis Attributes
-library(grid) # for unit
 m + theme(axis.line = element_line(size = 3, colour = "red", linetype = "dotted"))
 m + theme(axis.text = element_text(colour = "blue"))
 m + theme(axis.text.y = element_blank())
@@ -218,6 +217,7 @@ z + theme(legend.position = "none")
 z + theme(legend.position = "bottom")
 # Or use relative coordinates between 0 and 1
 z + theme(legend.position = c(.5, .5))
+# Add a border to the whole legend
 z + theme(legend.background = element_rect(colour = "black"))
 # Legend margin controls extra space around outside of legend:
 z + theme(legend.background = element_rect(),
@@ -266,11 +266,11 @@ cut <- factor(levels(diamonds$cut), levels = levels(diamonds$cut))
 df <- data.frame(meanprice, cut)
 g <- ggplot(df, aes(cut, meanprice)) + geom_bar(stat = "identity")
 g + geom_bar(stat = "identity") +
-    theme(panel.background=element_blank(),
-          panel.grid.major.x=element_blank(),
+    theme(panel.background = element_blank(),
+          panel.grid.major.x = element_blank(),
           panel.grid.minor.x = element_blank(),
-          panel.grid.minor.y=element_blank(),
-          panel.ontop=TRUE)
+          panel.grid.minor.y = element_blank(),
+          panel.ontop = TRUE)
 
 # Modify a theme and save it
 mytheme <- theme_grey() + theme(plot.title = element_text(colour = "red"))
@@ -291,7 +291,7 @@ build_element_graph <- function(tree) {
       data.frame(child = name, parent = item$inherit)
   }
 
-  edges <- rbind.fill(mapply(inheritdf, names(tree), tree))
+  edges <- plyr::rbind.fill(mapply(inheritdf, names(tree), tree))
 
   # Explicitly add vertices (since not all are in edge list)
   vertices <- data.frame(name = names(tree))

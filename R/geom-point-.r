@@ -21,7 +21,7 @@
 #' \code{\link{geom_boxplot}} may also be useful.  Alternatively, you can
 #' summarise the number of points at each location and display that in some
 #' way, using \code{\link{stat_sum}}. Another technique is to use transparent
-#' points, \code{geom_point(alpha = 0.05)}.
+#' points, e.g. \code{geom_point(alpha = 0.05)}.
 #'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
@@ -34,13 +34,13 @@
 #'    at the layer level if you are overriding the plot defaults.
 #' @param data A data frame. If specified, overrides the default data frame
 #'   defined at the top level of the plot.
-#' @param position Postion adjustment, either as a string, or the result of
+#' @param position Position adjustment, either as a string, or the result of
 #'  a call to a position adjustment function.
 #' @param stat The statistical transformation to use on the data for this
 #'    layer, as a string.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
-#' @param show_guide logical. Should this layer be included in the legends?
+#' @param show.legend logical. Should this layer be included in the legends?
 #'   \code{NA}, the default, includes if any aesthetics are mapped.
 #'   \code{FALSE} never includes, and \code{TRUE} always includes.
 #' @param inherit.aes If \code{FALSE}, overrides the default aesthetics,
@@ -60,57 +60,50 @@
 #' @inheritParams layer
 #' @export
 #' @examples
-#' \donttest{
 #' p <- ggplot(mtcars, aes(wt, mpg))
 #' p + geom_point()
 #'
 #' # Add aesthetic mappings
-#' p + geom_point(aes(colour = qsec))
-#' p + geom_point(aes(alpha = qsec))
 #' p + geom_point(aes(colour = factor(cyl)))
 #' p + geom_point(aes(shape = factor(cyl)))
 #' p + geom_point(aes(size = qsec))
 #'
 #' # Change scales
 #' p + geom_point(aes(colour = cyl)) + scale_colour_gradient(low = "blue")
-#' p + geom_point(aes(size = qsec)) + scale_size_area()
 #' p + geom_point(aes(shape = factor(cyl))) + scale_shape(solid = FALSE)
 #'
 #' # Set aesthetics to fixed value
-#' p + geom_point(colour = "red", size = 3)
 #' ggplot(mtcars, aes(wt, mpg)) + geom_point(colour = "red", size = 3)
 #'
+#' \donttest{
 #' # Varying alpha is useful for large datasets
 #' d <- ggplot(diamonds, aes(carat, price))
 #' d + geom_point(alpha = 1/10)
 #' d + geom_point(alpha = 1/20)
 #' d + geom_point(alpha = 1/100)
+#' }
 #'
 #' # For shapes that have a border (like 21), you can colour the inside and
 #' # outside separately. Use the stroke aesthetic to modify the width of the
 #' # border
 #' ggplot(mtcars, aes(wt, mpg)) +
-#'   geom_point(shape = 21, size = 5, colour = "black", fill = "white", stroke = 5)
+#'   geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 5)
 #'
+#' \donttest{
 #' # You can create interesting shapes by layering multiple points of
 #' # different sizes
-#' p <- ggplot(mtcars, aes(mpg, wt))
-#' p + geom_point(colour="grey50", size = 4) + geom_point(aes(colour = cyl))
-#' p + aes(shape = factor(cyl)) +
-#'   geom_point(aes(colour = factor(cyl)), size = 4) +
-#'   geom_point(colour="grey90", size = 1.5)
-#' p + geom_point(colour="black", size = 4.5) +
-#'   geom_point(colour="pink", size = 4) +
+#' p <- ggplot(mtcars, aes(mpg, wt, shape = factor(cyl)))
+#' p + geom_point(aes(colour = factor(cyl)), size = 4) +
+#'   geom_point(colour = "grey90", size = 1.5)
+#' p + geom_point(colour = "black", size = 4.5) +
+#'   geom_point(colour = "pink", size = 4) +
 #'   geom_point(aes(shape = factor(cyl)))
 #'
 #' # These extra layers don't usually appear in the legend, but we can
 #' # force their inclusion
-#' p + geom_point(colour="black", size = 4.5, show_guide = TRUE) +
-#'   geom_point(colour="pink", size = 4, show_guide = TRUE) +
+#' p + geom_point(colour = "black", size = 4.5, show.legend = TRUE) +
+#'   geom_point(colour = "pink", size = 4, show.legend = TRUE) +
 #'   geom_point(aes(shape = factor(cyl)))
-#'
-#' # Transparent points:
-#' ggplot(mtcars, aes(mpg, wt)) + geom_point(size = 5, alpha = 1/5)
 #'
 #' # geom_point warns when missing values have been dropped from the data set
 #' # and not plotted, you can turn this off by setting na.rm = TRUE
@@ -118,58 +111,51 @@
 #' ggplot(mtcars2, aes(wt, mpg)) + geom_point()
 #' ggplot(mtcars2, aes(wt, mpg)) + geom_point(na.rm = TRUE)
 #' }
-geom_point <- function (mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show_guide = NA, inherit.aes = TRUE,
-  ...)
-{
-  Layer$new(
+geom_point <- function(mapping = NULL, data = NULL, stat = "identity",
+                       position = "identity", na.rm = FALSE,
+                       show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomPoint,
     position = position,
-    show_guide = show_guide,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     geom_params = list(na.rm = na.rm),
     params = list(...)
   )
 }
 
-GeomPoint <- proto2(
-  class = "GeomPoint",
-  inherit = Geom,
-  members = list(
-    objname = "point",
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomPoint <- ggproto("GeomPoint", Geom,
+  draw = function(self, data, scales, coordinates, na.rm = FALSE, ...) {
+    data <- remove_missing(data, na.rm, c("x", "y", "size", "shape"),
+      name = "geom_point")
+    if (empty(data)) return(zeroGrob())
 
-    draw_groups = function(self, ...) self$draw(...),
-
-    draw = function(self, data, scales, coordinates, na.rm = FALSE, ...) {
-      data <- remove_missing(data, na.rm,
-        c("x", "y", "size", "shape"), name = "geom_point")
-      if (empty(data)) return(zeroGrob())
-
-      with(coord_transform(coordinates, data, scales),
-        ggname(self$my_name(), pointsGrob(x, y, size=unit(size, "mm"), pch=shape,
-        gp=gpar(col=alpha(colour, alpha), fill = alpha(fill, alpha), lwd = stroke, fontsize = size * .pt)))
-      )
-    },
-
-    draw_legend = function(self, data, ...) {
-      data <- aesdefaults(data, self$default_aes(), list(...))
-
-      with(data,
-        pointsGrob(0.5, 0.5, size=unit(size, "mm"), pch=shape,
-        gp=gpar(
-          col=alpha(colour, alpha),
-          fill=alpha(fill, alpha),
-          lwd=stroke,
-          fontsize = size * .pt)
+    coords <- coordinates$transform(data, scales)
+    ggname("geom_point",
+      pointsGrob(
+        coords$x, coords$y,
+        pch = coords$shape,
+        gp = gpar(
+          col = alpha(coords$colour, coords$alpha),
+          fill = alpha(coords$fill, coords$alpha),
+          # Stroke is added around the outside of the point
+          fontsize = coords$size * .pt + coords$stroke * .stroke / 2,
+          lwd = coords$stroke * .stroke / 2
         )
       )
-    },
+    )
+  },
 
-    default_stat = function(self) StatIdentity,
-    required_aes = c("x", "y"),
-    default_aes = function(self) aes(shape=19, colour="black", size=2, fill = NA, alpha = NA, stroke = 1)
-  )
+  draw_key = draw_key_point,
+
+  required_aes = c("x", "y"),
+  default_aes = aes(shape = 19, colour = "black", size = 2, fill = NA,
+    alpha = NA, stroke = 1)
 )

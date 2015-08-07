@@ -27,7 +27,7 @@
 #'   \code{FALSE} then the labels are invisible.
 #' @param label.position A character string indicating the position of a
 #'   label. One of "top", "bottom" (default for horizontal guide), "left", or
-#'   "right" (default for vertical gudie).
+#'   "right" (default for vertical guide).
 #' @param label.theme A theme object for rendering the label text. Usually the
 #'   object of \code{\link{element_text}} is expected. By default, the theme is
 #'   specified by \code{legend.text} in \code{\link{theme}} or theme.
@@ -62,8 +62,7 @@
 #' @family guides
 #' @examples
 #' \donttest{
-#' library(reshape2) # for melt
-#' df <- melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
+#' df <- reshape2::melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
 #'
 #' p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 #' p2 <- p1 + geom_point(aes(size = value))
@@ -75,7 +74,6 @@
 #' # Guide title
 #'
 #' p1 + scale_fill_continuous(guide = guide_legend(title = "V")) # title text
-#' p1 + scale_fill_continuous(name = "V") # same
 #' p1 + scale_fill_continuous(guide = guide_legend(title = NULL)) # no title
 #'
 #' # Control styles
@@ -157,49 +155,52 @@ guide_legend <- function(
   if (!is.null(keywidth) && !is.unit(keywidth)) keywidth <- unit(keywidth, default.unit)
   if (!is.null(keyheight) && !is.unit(keyheight)) keyheight <- unit(keyheight, default.unit)
 
-  structure(list(
-    # title
-    title = title,
-    title.position = title.position,
-    title.theme = title.theme,
-    title.hjust = title.hjust,
-    title.vjust = title.vjust,
+  structure(
+    list(
+      # title
+      title = title,
+      title.position = title.position,
+      title.theme = title.theme,
+      title.hjust = title.hjust,
+      title.vjust = title.vjust,
 
-    # label
-    label = label,
-    label.position = label.position,
-    label.theme = label.theme,
-    label.hjust = label.hjust,
-    label.vjust = label.vjust,
+      # label
+      label = label,
+      label.position = label.position,
+      label.theme = label.theme,
+      label.hjust = label.hjust,
+      label.vjust = label.vjust,
 
-    # size of key
-    keywidth = keywidth,
-    keyheight = keyheight,
+      # size of key
+      keywidth = keywidth,
+      keyheight = keyheight,
 
-    # general
-    direction = direction,
-    default.unit = default.unit,
-    override.aes = override.aes,
-    nrow = nrow,
-    ncol = ncol,
-    byrow = byrow,
-    reverse = reverse,
-    order = order,
+      # general
+      direction = direction,
+      override.aes = rename_aes(override.aes),
+      nrow = nrow,
+      ncol = ncol,
+      byrow = byrow,
+      reverse = reverse,
+      order = order,
 
-    # parameter
-    available_aes = c("any"),
-
-    ..., name="legend"),
-    class=c("guide", "legend"))
+      # parameter
+      available_aes = c("any"),
+      ...,
+      name = "legend"
+    ),
+    class = c("guide", "legend")
+  )
 }
 
 #' @export
 guide_train.legend <- function(guide, scale) {
   breaks <- scale_breaks(scale)
-  key <- data.frame(
-    values = scale_map(scale, breaks),
-    labels = I(scale_labels(scale)),
-    stringsAsFactors = FALSE)
+  if (length(breaks) == 0 || all(is.na(breaks)))
+    return()
+
+  key <- as.data.frame(setNames(list(scale_map(scale, breaks)), scale$aesthetics[1]))
+  key$.label <- scale_labels(scale, breaks)
 
   # this is a quick fix for #118
   # some scales have NA as na.value (e.g., size)
@@ -216,19 +217,17 @@ guide_train.legend <- function(guide, scale) {
     key <- key[!is.na(breaks), , drop = FALSE]
   }
 
-  if (empty(key) || all(is.na(breaks))) return(NULL)
-  names(key) <- c(scale$aesthetics[1], ".label")
 
   if (guide$reverse) key <- key[nrow(key):1, ]
 
   guide$key <- key
-  guide$hash <- with(guide, digest(list(title, key$.label, direction, name)))
+  guide$hash <- with(guide, digest::digest(list(title, key$.label, direction, name)))
   guide
 }
 
 #' @export
 guide_merge.legend <- function(guide, new_guide) {
-  guide$key <- merge(guide$key, new_guide$key, sort=FALSE)
+  guide$key <- merge(guide$key, new_guide$key, sort = FALSE)
   guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
   if (any(duplicated(names(guide$override.aes)))) warning("Duplicated override.aes is ignored.")
   guide$override.aes <- guide$override.aes[!duplicated(names(guide$override.aes))]
@@ -237,54 +236,39 @@ guide_merge.legend <- function(guide, new_guide) {
 
 #' @export
 guide_geom.legend <- function(guide, layers, default_mapping) {
-
-  # TODO: how to deal with same geoms of multiple layers.
-  #
-  # currently all geoms are overlayed irrespective to that they are duplicated or not.
-  # but probably it is better to sensitive to that and generate only one geom like this:
-  #
-  # geoms <- unique(sapply(layers, function(layer) if (is.na(layer$legend) || layer$legend) layer$geom$guide_geom() else NULL))
-  #
-  # but in this case, some conflicts occurs, e.g.,
-  #
-  # d <- data.frame(x=1:5, y=1:5, v=factor(1:5))
-  # ggplot(d, aes(x, y, colour=v, group=1)) + geom_point() + geom_line(colour="red", legend=T) + geom_rug(colour="blue", legend=T)
-  #
-  # geom_line generate path geom with red and geom_rug generate it with blue.
-  # how to deal with them ?
-
   # arrange common data for vertical and horizontal guide
-  guide$geoms <- llply(layers, function(layer) {
-    all <- names(c(layer$mapping, default_mapping, layer$stat$default_aes()))
-    geom <- c(layer$geom$required_aes, names(layer$geom$default_aes()))
+  guide$geoms <- plyr::llply(layers, function(layer) {
+    all <- names(c(layer$mapping, default_mapping, layer$stat$default_aes))
+    geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))
     matched <- intersect(intersect(all, geom), names(guide$key))
     matched <- setdiff(matched, names(layer$geom_params))
-    data <-
-      if (length(matched) > 0) {
-        # This layer contributes to the legend
-        if (is.na(layer$show_guide) || layer$show_guide) {
-          # Default is to include it
-          layer$use_defaults(guide$key[matched])
-        } else {
-          NULL
-        }
+
+    if (length(matched) > 0) {
+      # This layer contributes to the legend
+      if (is.na(layer$show.legend) || layer$show.legend) {
+        # Default is to include it
+        data <- layer$use_defaults(guide$key[matched])
       } else {
-        # This layer does not contribute to the legend
-        if (is.na(layer$show_guide) || !layer$show_guide) {
-          # Default is to exclude it
-          NULL
-        } else {
-          layer$use_defaults(NULL)[rep(1, nrow(guide$key)), ]
-        }
+        return(NULL)
       }
-    if (is.null(data)) return(NULL)
+    } else {
+      # This layer does not contribute to the legend
+      if (is.na(layer$show.legend) || !layer$show.legend) {
+        # Default is to exclude it
+        return(NULL)
+      } else {
+        data <- layer$use_defaults(NULL)[rep(1, nrow(guide$key)), ]
+      }
+    }
 
     # override.aes in guide_legend manually changes the geom
-    for (aes in intersect(names(guide$override.aes), names(data))) data[[aes]] <- guide$override.aes[[aes]]
+    data <- modifyList(data, guide$override.aes)
 
-    geom <- Geom$find(layer$geom$guide_geom())
-    params <- c(layer$geom_params, layer$stat_params)
-    list(geom = geom, data = data, params = params)
+    list(
+      draw_key = layer$geom$draw_key,
+      data = data,
+      params = c(layer$geom_params, layer$stat_params)
+    )
   })
 
   # remove null geom
@@ -306,168 +290,160 @@ guide_gengrob.legend <- function(guide, theme) {
   nbreak <- nrow(guide$key)
 
   # gap between keys etc
-  hgap <- c(convertWidth(unit(0.3, "lines"), "mm"))
+  hgap <- width_cm(unit(0.3, "lines"))
   vgap <- hgap
 
-  # title
-  title.theme <- guide$title.theme %||% calc_element("legend.title", theme)
-  title.hjust <- title.x <- guide$title.hjust %||% theme$legend.title.align %||% 0
-  title.vjust <- title.y <- guide$title.vjust %||% 0.5
+  grob.title <- ggname("guide.title",
+    element_grob(
+      guide$title.theme %||% calc_element("legend.title", theme),
+      label = guide$title,
+      hjust = guide$title.hjust %||% theme$legend.title.align %||% 0,
+      vjust = guide$title.vjust %||% 0.5
+    )
+  )
 
-  grob.title <- {
-    if (is.null(guide$title))
-      zeroGrob()
-    else {
-      g <- element_grob(title.theme, label=guide$title,
-        hjust = title.hjust, vjust = title.vjust, x = title.x, y = title.y)
-      ggname("guide.title", g)
-    }
+  title_width <- width_cm(grob.title)
+  title_height <- height_cm(grob.title)
+
+  # Labels
+  if (!guide$label || is.null(guide$key$.label)) {
+    grob.labels <- rep(list(zeroGrob()), nrow(guide$key))
+  } else {
+    label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
+
+    # label.theme in param of guide_legend() > theme$legend.text.align > default
+    # hjust/vjust in theme$legend.text and label.theme are ignored.
+    hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||%
+      if (any(is.expression(guide$key$.label))) 1 else 0
+    vjust <- y <- guide$label.vjust %||% 0.5
+
+    grob.labels <- lapply(guide$key$.label, function(label, ...) {
+      g <- element_grob(element = label.theme, label = label,
+        x = x, y = y, hjust = hjust, vjust = vjust)
+      ggname("guide.label", g)
+    })
   }
 
-  title_width <- convertWidth(grobWidth(grob.title), "mm")
-  title_width.c <- c(title_width)
-  title_height <- convertHeight(grobHeight(grob.title), "mm")
-  title_height.c <- c(title_height)
+  label_widths <- width_cm(grob.labels)
+  label_heights <- height_cm(grob.labels)
 
-  # Label
-  # Rules of lable adjustment
-  #
-  # label.theme in param of guide_legend() > theme$legend.text.align > default
-  # hjust/vjust in theme$legend.text and label.theme are ignored.
-  #
-  # Default:
-  #   If label includes expression, the label is right-alignd (hjust = 0). Ohterwise, left-aligned (x = 1, hjust = 1).
-  #   Vertical adjustment is always mid-alined (vjust = 0.5).
-  label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
-  grob.labels <- {
-    if (!guide$label)
-      zeroGrob()
-    else {
-      hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||%
-        if (any(is.expression(guide$key$.label))) 1 else 0
-      vjust <- y <- guide$label.vjust %||% 0.5
+  # Keys
+  key_width <- width_cm(guide$keywidth %||% theme$legend.key.width %||% theme$legend.key.size)
+  key_height <- height_cm(guide$keyheight %||% theme$legend.key.height %||% theme$legend.key.size)
 
-      lapply(guide$key$.label,
-        function(label, ...) {
-          g <- element_grob(element = label.theme, label = label,
-            x = x, y = y, hjust = hjust, vjust = vjust)
-          ggname("guide.label", g)
-        }
-      )
-    }
+  key_size_mat <- do.call("cbind", lapply(guide$geoms, function(g) g$data$size / 10))
+  if (nrow(key_size_mat) == 0 || ncol(key_size_mat) == 0) {
+    key_size_mat <- matrix(0, ncol = 1, nrow = nbreak)
   }
-
-  label_widths <- lapply(grob.labels, function(g)convertWidth(grobWidth(g), "mm"))
-  label_heights <- lapply(grob.labels, function(g)convertHeight(grobHeight(g), "mm"))
-  label_widths.c <- unlist(label_widths)
-  label_heights.c <- unlist(label_heights)
-
-  # key size
-
-  key_width <- convertWidth(guide$keywidth %||% theme$legend.key.width %||% theme$legend.key.size, "mm")
-  key_height <- convertHeight(guide$keyheight %||% theme$legend.key.height %||% theme$legend.key.size, "mm")
-
-  key_width.c <- c(key_width)
-  key_height.c <- c(key_height)
-
-  key_size_mat <- do.call("cbind", llply(guide$geoms, function(g) g$data$size))
-  key_sizes <- if (is.null(key_size_mat)) rep(0, nbreak) else apply(key_size_mat, 1, max)
+  key_sizes <- apply(key_size_mat, 1, max)
 
   if (!is.null(guide$nrow) && !is.null(guide$ncol) && guide$nrow * guide$ncol < nbreak)
-    stop("nrow x ncol need to be larger than the number of breaks")
-  legend.nrow <- guide$nrow %||%
-    if (!is.null(guide$ncol)) ceiling(nbreak/guide$ncol)
-    else switch(guide$direction, horizontal = 1, vertical = nbreak)
-  legend.ncol <- guide$ncol %||%
-    if (!is.null(guide$nrow)) ceiling(nbreak/guide$nrow)
-    else switch(guide$direction, horizontal = nbreak, vertical = 1)
+    stop("`nrow` * `ncol` needs to be larger than the number of breaks", call. = FALSE)
+
+  # If neither nrow/ncol specified, guess with "reasonable" values
+  if (is.null(guide$nrow) && is.null(guide$ncol)) {
+    if (guide$direction == "horizontal") {
+      guide$nrow <- ceiling(nbreak / 5)
+    } else {
+      guide$ncol <- ceiling(nbreak / 20)
+    }
+  }
+  legend.nrow <- guide$nrow %||% ceiling(nbreak / guide$ncol)
+  legend.ncol <- guide$ncol %||% ceiling(nbreak / guide$nrow)
+
   key_sizes <- matrix(c(key_sizes, rep(0, legend.nrow * legend.ncol - nbreak)),
                       legend.nrow, legend.ncol, byrow = guide$byrow)
 
-  key_widths.c <- pmax(key_width.c, apply(key_sizes, 2, max))
-  key_heights.c <-pmax(key_height.c, apply(key_sizes, 1, max))
+  key_widths <- pmax(key_width, apply(key_sizes, 2, max))
+  key_heights <- pmax(key_height, apply(key_sizes, 1, max))
 
-  label_widths.c <- apply(matrix(c(label_widths.c, rep(0, legend.nrow * legend.ncol - nbreak)),
+  label_widths <- apply(matrix(c(label_widths, rep(0, legend.nrow * legend.ncol - nbreak)),
                                  legend.nrow, legend.ncol, byrow = guide$byrow),
                           2, max)
-  label_heights.c <- apply(matrix(c(label_heights.c, rep(0, legend.nrow * legend.ncol - nbreak)),
+  label_heights <- apply(matrix(c(label_heights, rep(0, legend.nrow * legend.ncol - nbreak)),
                                   legend.nrow, legend.ncol, byrow = guide$byrow),
                            1, max)
 
-  if (guide$byrow) vps <- data.frame(ceiling(seq(nbreak)/legend.ncol), (seq(nbreak)-1)%%legend.ncol+1)
-  else vps <- data.frame(arrayInd(seq(nbreak), dim(key_sizes)))
-  names(vps) <- c("R", "C")
+  if (guide$byrow) {
+    vps <- data.frame(
+      R = ceiling(seq(nbreak) / legend.ncol),
+      C = (seq(nbreak) - 1) %% legend.ncol + 1
+    )
+  } else {
+    vps <- as.data.frame(arrayInd(seq(nbreak), dim(key_sizes)))
+    names(vps) <- c("R", "C")
+  }
 
   # layout of key-label depends on the direction of the guide
   if (guide$byrow == TRUE) {
     switch(label.position,
       "top" = {
-        kl_widths <- pmax(label_widths.c, key_widths.c)
-        kl_heights <- head(interleave(label_heights.c, vgap/2, key_heights.c, vgap/2), -1)
-        vps <- transform(vps, key.row = R*4-1, key.col = C, label.row = R*4-3, label.col = C)
+        kl_widths <- pmax(label_widths, key_widths)
+        kl_heights <- utils::head(interleave(label_heights, vgap/2, key_heights, vgap/2), -1)
+        vps <- transform(vps, key.row = R * 4 - 1, key.col = C, label.row = R * 4 - 3, label.col = C)
       },
       "bottom" = {
-        kl_widths <- pmax(label_widths.c, key_widths.c)
-        kl_heights <- head(interleave(key_heights.c, vgap/2, label_heights.c, vgap/2), -1)
-        vps <- transform(vps, key.row = R*4-3, key.col = C, label.row = R*4-1, label.col = C)
+        kl_widths <- pmax(label_widths, key_widths)
+        kl_heights <- utils::head(interleave(key_heights, vgap/2, label_heights, vgap/2), -1)
+        vps <- transform(vps, key.row = R * 4 - 3, key.col = C, label.row = R * 4 - 1, label.col = C)
       },
       "left" = {
-        kl_widths <- head(interleave(label_widths.c, hgap/2, key_widths.c, hgap/2), -1)
-        kl_heights <- head(interleave(pmax(label_heights.c, key_heights.c), vgap/2), -1)
-        vps <- transform(vps, key.row = R*2-1, key.col = C*4-1, label.row = R*2-1, label.col = C*4-3)
+        kl_widths <- utils::head(interleave(label_widths, hgap/2, key_widths, hgap/2), -1)
+        kl_heights <- utils::head(interleave(pmax(label_heights, key_heights), vgap/2), -1)
+        vps <- transform(vps, key.row = R * 2 - 1, key.col = C * 4 - 1, label.row = R * 2 - 1, label.col = C * 4 - 3)
       },
       "right" = {
-        kl_widths <- head(interleave(key_widths.c, hgap/2, label_widths.c, hgap/2), -1)
-        kl_heights <- head(interleave(pmax(label_heights.c, key_heights.c), vgap/2), -1)
-        vps <- transform(vps, key.row = R*2-1, key.col = C*4-3, label.row = R*2-1, label.col = C*4-1)
+        kl_widths <- utils::head(interleave(key_widths, hgap/2, label_widths, hgap/2), -1)
+        kl_heights <- utils::head(interleave(pmax(label_heights, key_heights), vgap/2), -1)
+        vps <- transform(vps, key.row = R * 2 - 1, key.col = C * 4 - 3, label.row = R * 2 - 1, label.col = C * 4 - 1)
         })
   } else {
     switch(label.position,
       "top" = {
-        kl_widths <- head(interleave(pmax(label_widths.c, key_widths.c), hgap/2), -1)
-        kl_heights <- head(interleave(label_heights.c, vgap/2, key_heights.c, vgap/2), -1)
-        vps <- transform(vps, key.row = R*4-1, key.col = C*2-1, label.row = R*4-3, label.col = C*2-1)
+        kl_widths <- utils::head(interleave(pmax(label_widths, key_widths), hgap/2), -1)
+        kl_heights <- utils::head(interleave(label_heights, vgap/2, key_heights, vgap/2), -1)
+        vps <- transform(vps, key.row = R * 4 - 1, key.col = C * 2 - 1, label.row = R * 4 - 3, label.col = C * 2 - 1)
       },
       "bottom" = {
-        kl_widths <- head(interleave(pmax(label_widths.c, key_widths.c), hgap/2), -1)
-        kl_heights <- head(interleave(key_heights.c, vgap/2, label_heights.c, vgap/2), -1)
-        vps <- transform(vps, key.row = R*4-3, key.col = C*2-1, label.row = R*4-1, label.col = C*2-1)
+        kl_widths <- utils::head(interleave(pmax(label_widths, key_widths), hgap/2), -1)
+        kl_heights <- utils::head(interleave(key_heights, vgap/2, label_heights, vgap/2), -1)
+        vps <- transform(vps, key.row = R * 4 - 3, key.col = C * 2 - 1, label.row = R * 4 - 1, label.col = C * 2 - 1)
       },
       "left" = {
-        kl_widths <- head(interleave(label_widths.c, hgap/2, key_widths.c, hgap/2), -1)
-        kl_heights <- pmax(key_heights.c, label_heights.c)
-        vps <- transform(vps, key.row = R, key.col = C*4-1, label.row = R, label.col = C*4-3)
+        kl_widths <- utils::head(interleave(label_widths, hgap/2, key_widths, hgap/2), -1)
+        kl_heights <- pmax(key_heights, label_heights)
+        vps <- transform(vps, key.row = R, key.col = C * 4 - 1, label.row = R, label.col = C * 4 - 3)
       },
       "right" = {
-        kl_widths <- head(interleave(key_widths.c, hgap/2, label_widths.c, hgap/2), -1)
-        kl_heights <- pmax(key_heights.c, label_heights.c)
-        vps <- transform(vps, key.row = R, key.col = C*4-3, label.row = R, label.col = C*4-1)
+        kl_widths <- utils::head(interleave(key_widths, hgap/2, label_widths, hgap/2), -1)
+        kl_heights <- pmax(key_heights, label_heights)
+        vps <- transform(vps, key.row = R, key.col = C * 4 - 3, label.row = R, label.col = C * 4 - 1)
       })
   }
 
   # layout the title over key-label
   switch(guide$title.position,
     "top" = {
-      widths <- c(kl_widths, max(0, title_width.c-sum(kl_widths)))
-      heights <- c(title_height.c, vgap, kl_heights)
-      vps <- transform(vps, key.row = key.row+2, key.col = key.col, label.row = label.row+2, label.col = label.col)
+      widths <- c(kl_widths, max(0, title_width - sum(kl_widths)))
+      heights <- c(title_height, vgap, kl_heights)
+      vps <- transform(vps, key.row = key.row + 2, key.col = key.col, label.row = label.row + 2, label.col = label.col)
       vps.title.row = 1; vps.title.col = 1:length(widths)
     },
     "bottom" = {
-      widths <- c(kl_widths, max(0, title_width.c-sum(kl_widths)))
-      heights <- c(kl_heights, vgap, title_height.c)
+      widths <- c(kl_widths, max(0, title_width - sum(kl_widths)))
+      heights <- c(kl_heights, vgap, title_height)
       vps <- transform(vps, key.row = key.row, key.col = key.col, label.row = label.row, label.col = label.col)
       vps.title.row = length(heights); vps.title.col = 1:length(widths)
     },
     "left" = {
-      widths <- c(title_width.c, hgap, kl_widths)
-      heights <- c(kl_heights, max(0, title_height.c-sum(kl_heights)))
-      vps <- transform(vps, key.row = key.row, key.col = key.col+2, label.row = label.row, label.col = label.col+2)
+      widths <- c(title_width, hgap, kl_widths)
+      heights <- c(kl_heights, max(0, title_height - sum(kl_heights)))
+      vps <- transform(vps, key.row = key.row, key.col = key.col + 2, label.row = label.row, label.col = label.col + 2)
       vps.title.row = 1:length(heights); vps.title.col = 1
     },
     "right" = {
-      widths <- c(kl_widths, hgap, title_width.c)
-      heights <- c(kl_heights, max(0, title_height.c-sum(kl_heights)))
+      widths <- c(kl_widths, hgap, title_width)
+      heights <- c(kl_heights, max(0, title_height - sum(kl_heights)))
       vps <- transform(vps, key.row = key.row, key.col = key.col, label.row = label.row, label.col = label.col)
       vps.title.row = 1:length(heights); vps.title.col = length(widths)
     })
@@ -477,39 +453,37 @@ guide_gengrob.legend <- function(guide, theme) {
 
   for (i in 1:nbreak) {
 
-    # layout position
-    pos.row <- vps$key.row[i]
-    pos.col <- vps$key.col[i]
-
     # bg. of key
-    grob.keys[[length(grob.keys)+1]] <- element_render(theme, "legend.key")
+    grob.keys[[length(grob.keys) + 1]] <- element_render(theme, "legend.key")
 
     # overlay geoms
-    for(geom in guide$geoms)
-      grob.keys[[length(grob.keys)+1]] <- geom$geom$draw_legend(geom$data[i, ], geom$params)
+    for (geom in guide$geoms) {
+      grob.keys[[length(grob.keys) + 1]] <- geom$draw_key(geom$data[i, ], geom$params)
+    }
+
   }
 
   # background
   grob.background <- element_render(theme, "legend.background")
 
   ngeom <- length(guide$geoms) + 1
-  kcols <- rep(vps$key.col, each =  ngeom)
-  krows <- rep(vps$key.row, each =  ngeom)
+  kcols <- rep(vps$key.col, each = ngeom)
+  krows <- rep(vps$key.row, each = ngeom)
 
   # padding
-  padding <- unit(1.5, "mm")
+  padding <- 0.15
   widths <- c(padding, widths, padding)
   heights <- c(padding, heights, padding)
 
   # Create the gtable for the legend
-  gt <- gtable(widths = unit(widths, "mm"), heights = unit(heights, "mm"))
+  gt <- gtable(widths = unit(widths, "cm"), heights = unit(heights, "cm"))
   gt <- gtable_add_grob(gt, grob.background, name = "background", clip = "off",
     t = 1, r = -1, b = -1, l = 1)
   gt <- gtable_add_grob(gt, grob.title, name = "title", clip = "off",
     t = 1 + min(vps.title.row), r = 1 + max(vps.title.col),
     b = 1 + max(vps.title.row), l = 1 + min(vps.title.col))
   gt <- gtable_add_grob(gt, grob.keys,
-    name = paste("key", krows, kcols, c("bg", seq(ngeom-1)), sep = "-"), clip = "off",
+    name = paste("key", krows, kcols, c("bg", seq(ngeom - 1)), sep = "-"), clip = "off",
     t = 1 + krows, r = 1 + kcols,
     b = 1 + krows, l = 1 + kcols)
   gt <- gtable_add_grob(gt, grob.labels,
@@ -520,4 +494,4 @@ guide_gengrob.legend <- function(guide, theme) {
   gt
 }
 
-globalVariables(c("R", "key.row", "key.col", "label.row", "label.col"))
+globalVariables(c("C", "R", "key.row", "key.col", "label.row", "label.col"))

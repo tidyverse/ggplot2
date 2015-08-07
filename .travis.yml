@@ -2,8 +2,13 @@ language: R
 sudo: required
 warnings_are_errors: true
 
+r_packages:
+  - rmarkdown
+
 r_github_packages:
   - hadley/staticdocs
+  - hadley/scales
+  - hadley/ggplot2movies
   - jimhester/covr
 
 before_script:

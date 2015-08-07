@@ -25,15 +25,9 @@ University of Manchester.  Line types can not be mapped to continuous
 values.
 }
 \examples{
-library(reshape2) # for melt
-library(plyr) # for ddply
-ecm <- melt(economics, id.vars = "date")
-rescale01 <- function(x) (x - min(x)) / diff(range(x))
-ecm <- ddply(ecm, "variable", transform, value = rescale01(value))
-
-ggplot(ecm, aes(date, value)) + geom_line(aes(group = variable))
-ggplot(ecm, aes(date, value)) + geom_line(aes(linetype = variable))
-ggplot(ecm, aes(date, value)) + geom_line(aes(colour = variable))
+base <- ggplot(economics_long, aes(date, value01))
+base + geom_line(aes(group = variable))
+base + geom_line(aes(linetype = variable))
 
 # See scale_manual for more flexibility
 }

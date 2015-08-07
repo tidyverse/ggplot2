@@ -3,6 +3,8 @@
 library(readr)
 library(dplyr)
 library(purrr)
+library(tidyr)
+library(dplyr)
 
 series <- c("PCE", "POP", "PSAVERT", "UEMPMED", "UNEMPLOY")
 url <- paste0("http://research.stlouisfed.org/fred2/series/", series, "/downloaddata/", series, ".csv")
@@ -16,3 +18,12 @@ economics <- fields %>%
 
 write.csv(economics, "data-raw/economics.csv", row.names = FALSE, quote = FALSE)
 devtools::use_data(economics, overwrite = TRUE)
+
+rescale01 <- function(x) (x - min(x)) / diff(range(x))
+economics_long <- economics %>%
+  gather(variable, value, -date) %>%
+  group_by(variable) %>%
+  mutate(value01 = rescale01(value)) %>%
+  ungroup()
+
+devtools::use_data(economics_long, overwrite = TRUE)

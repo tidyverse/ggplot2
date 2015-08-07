@@ -31,9 +31,34 @@
 #' last_plot() + coord_flip()
 #' }
 coord_flip <- function(...) {
-  coord <- coord_cartesian(...)
-  structure(coord, class = c("flip", class(coord)))
+  ggproto(NULL, CoordFlip, ...)
 }
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+CoordFlip <- ggproto("CoordFlip", CoordCartesian,
+
+  transform = function(data, scale_details) {
+    data <- flip_labels(data)
+    CoordCartesian$transform(data, scale_details)
+  },
+
+  range = function(scale_details) {
+    list(x = scale_details$y.range, y = scale_details$x.range)
+  },
+
+  train = function(self, scale_details) {
+    trained <- ggproto_parent(CoordCartesian, self)$train(scale_details)
+    flip_labels(trained)
+  },
+
+  labels = function(scale_details) {
+    flip_labels(CoordCartesian$labels(scale_details))
+  }
+)
+
 
 flip_labels <- function(x) {
   old_names <- names(x)
@@ -44,28 +69,4 @@ flip_labels <- function(x) {
   new_names <- gsub("^z", "y", new_names)
 
   setNames(x, new_names)
-}
-
-#' @export
-is.linear.flip <- function(coord) TRUE
-
-#' @export
-coord_transform.flip <- function(coord, data, details) {
-  data <- flip_labels(data)
-  NextMethod()
-}
-
-#' @export
-coord_range.flip <- function(coord, scales) {
-  return(list(x = scales$y.range, y = scales$x.range))
-}
-
-#' @export
-coord_train.flip <- function(coord, scales) {
-  flip_labels(NextMethod())
-}
-
-#' @export
-coord_labels.flip <- function(coord, scales) {
-  flip_labels(NextMethod())
 }
