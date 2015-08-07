@@ -2,6 +2,14 @@ ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
 * `geom_violin()` now has the ability to draw quantile lines (@DanRuderman).
+* Sizes in ggplot2 are measured in mm. Previously they were converted to
+  pts (for use in grid) by multiplying by 72 / 25.4. However, grid uses
+  printer's points, not Adobe (big pts), so sizes are now multiplied by
+  72.27 / 25.4.
+
+* In legend for bars and rectangles, display border colour as border,
+  rather than strikethrough.
+
 * ggplot no longer throws an error if you your plot doesn't have any
   layers.  Instead it automatically adds `geom_blank()` (#1246)
 
