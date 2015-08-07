@@ -17,5 +17,5 @@ StripTrailingWhitespace: Yes
 
 BuildType: Package
 PackageUseDevtools: Yes
-PackageInstallArgs: --no-multiarch --with-keep.source
+PackageInstallArgs: --no-multiarch --with-keep.source --library=/Users/joranelias/R-dev
 PackageRoxygenize: rd,collate,namespace
