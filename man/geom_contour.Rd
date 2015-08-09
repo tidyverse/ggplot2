@@ -78,6 +78,10 @@ Display contours of a 3d surface in 2d.
 v <- ggplot(faithfuld, aes(waiting, eruptions, z = density))
 v + geom_contour()
 
+# Or compute from raw data
+ggplot(faithful, aes(waiting, eruptions)) +
+  geom_density2d()
+
 \donttest{
 # Setting bins creates evenly spaced contours in the range of the data
 v + geom_contour(bins = 2)

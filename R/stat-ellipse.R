@@ -73,8 +73,6 @@ StatEllipse <- ggproto("StatEllipse", Stat,
 
   compute_group = function(data, scales, type = "t", level = 0.95, segments = 51,
                            na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, vars = c("x","y"),
-                           name = "stat_ellipse", finite = TRUE)
     calculate_ellipse(data = data, vars = c("x","y"), type = type,
                       level = level, segments = segments)
   }

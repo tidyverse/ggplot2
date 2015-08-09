@@ -70,7 +70,6 @@ StatQq <- ggproto("StatQq", Stat,
   compute_group = function(data, scales, quantiles = NULL,
                            distribution = stats::qnorm, dparams = list(),
                            na.rm = FALSE) {
-    data <- remove_missing(data, na.rm, "sample", name = "stat_qq")
 
     sample <- sort(data$sample)
     n <- length(sample)

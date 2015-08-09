@@ -45,11 +45,11 @@ stat_density <- function(mapping = NULL, data = NULL, geom = "area",
 #' @usage NULL
 #' @export
 StatDensity <- ggproto("StatDensity", Stat,
+  required_aes = "x",
+  default_aes = aes(y = ..density.., fill = NA),
+
   compute_group = function(data, scales, adjust = 1, kernel = "gaussian",
                            trim = FALSE, na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, "x", name = "stat_density",
-      finite = TRUE)
-
     if (trim) {
       range <- range(data$x, na.rm = TRUE)
     } else {
@@ -58,11 +58,8 @@ StatDensity <- ggproto("StatDensity", Stat,
 
     compute_density(data$x, data$weight, from = range[1], to = range[2],
       adjust = adjust, kernel = kernel)
-  },
+  }
 
-  default_aes = aes(y = ..density.., fill = NA),
-
-  required_aes = "x"
 )
 
 compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,

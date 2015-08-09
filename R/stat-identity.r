@@ -42,6 +42,10 @@ stat_identity <- function(mapping = NULL, data = NULL, geom = "point",
 #' @usage NULL
 #' @export
 StatIdentity <- ggproto("StatIdentity", Stat,
+  compute_data = function(data, scales, ...) {
+    data
+  },
+
   compute = function(data, scales, ...) {
     data
   }

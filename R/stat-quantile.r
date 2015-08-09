@@ -67,8 +67,6 @@ StatQuantile <- ggproto("StatQuantile", Stat,
     }
     grid <- data.frame(x = xseq)
 
-    data <- as.data.frame(data)
-    data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_quantile")
     method <- match.fun(method)
 
     plyr::ldply(quantiles, quant_pred, data = data, method = method,

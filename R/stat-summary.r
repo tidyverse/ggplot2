@@ -143,8 +143,8 @@ StatSummary <- ggproto("StatSummary", Stat,
   required_aes = c("x", "y"),
 
   compute = function(data, scales, fun.data = NULL, fun.y = NULL,
-    fun.ymax = NULL, fun.ymin = NULL, fun.args = list(), na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_summary")
+                     fun.ymax = NULL, fun.ymin = NULL, fun.args = list(),
+                     na.rm = FALSE, ...) {
 
     if (!is.null(fun.data)) {
       # Function that takes complete data frame as input

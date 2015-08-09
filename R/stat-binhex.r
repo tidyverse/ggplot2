@@ -35,8 +35,6 @@ StatBinhex <- ggproto("StatBinhex", Stat,
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
                            na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_hexbin")
-
     if (is.null(binwidth)) {
       binwidth <- c(
         diff(scale_dimension(scales$x, c(0, 0))) / bins,

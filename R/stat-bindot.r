@@ -10,11 +10,14 @@ StatBindot <- ggproto("StatBindot", Stat,
     params
   },
 
+  compute_data = function(data, params) {
+    remove_missing(data, isTRUE(params$na.rm), c(params$binaxis, "weight"),
+      name = "stat_bindot", finite = TRUE)
+  },
+
   compute = function(self, data, na.rm = FALSE, binwidth = NULL,
                            binaxis = "x", method = "dotdensity",
                            binpositions = "bygroup", ...) {
-    data <- remove_missing(data, na.rm, c(binaxis, "weight"), name = "stat_bindot",
-      finite = TRUE)
 
     # If using dotdensity and binning over all, we need to find the bin centers
     # for all data before it's split into groups.
