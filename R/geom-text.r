@@ -3,6 +3,13 @@
 #' \code{geom_text} adds text directly to the plot. \code{geom_label} draws
 #' a rectangle underneath the text, making it easier to read.
 #'
+#' Note the the "width" and "height" of a text element are 0, so stacking
+#' and dodging text will not work by default, and axis limits are not
+#' automatically expanded to include all text. Obviously, labels do have
+#' height and width, but they are physical units, not data units. The amount of
+#' space they occupy on that plot is not constant in data units: when you
+#' resize a plot, labels stay the same size, but the size of the axes changes.
+#'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "text")}
 #'
@@ -67,6 +74,36 @@
 #'   geom_text() +
 #'   annotate("text", label = "plot mpg vs. wt", x = 2, y = 15, size = 8, colour = "red")
 #'
+#' \donttest{
+#' # Aligning labels and bars --------------------------------------------------
+#' df <- data.frame(
+#'   x = factor(c(1, 1, 2, 2)),
+#'   y = c(1, 3, 2, 1),
+#'   grp = c("a", "b", "a", "b")
+#' )
+#'
+#' # ggplot2 doesn't know you want to give the labels the same virtual width
+#' # as the bars:
+#' ggplot(data = df, aes(x, y, fill = grp, label = y)) +
+#'   geom_bar(stat = "identity", position = "dodge") +
+#'   geom_text(position = "dodge")
+#' # So tell it:
+#' ggplot(data = df, aes(x, y, fill = grp, label = y)) +
+#'   geom_bar(stat = "identity", position = "dodge") +
+#'   geom_text(position = position_dodge(0.9))
+#' # Use you can't nudge and dodge text, so instead adjust the y postion
+#' ggplot(data = df, aes(x, y, fill = grp, label = y)) +
+#'   geom_bar(stat = "identity", position = "dodge") +
+#'   geom_text(aes(y = y + 0.05), position = position_dodge(0.9), vjust = 0)
+#'
+#' # To place text in the middle of each bar in a stacked barplot, you
+#' # need to do the computation yourself
+#' df <- transform(df, mid_y = ave(df$y, df$x, FUN = function(val) cumsum(val) - (0.5 * val)))
+#'
+#' ggplot(data = df, aes(x, y, fill = grp, label = y)) +
+#'  geom_bar(stat = "identity") +
+#'  geom_text(aes(y = mid_y))
+#' }
 #' # Justification -------------------------------------------------------------
 #' df <- data.frame(
 #'   x = c(1, 1, 2, 2, 1.5),
