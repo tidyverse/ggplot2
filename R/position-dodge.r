@@ -40,7 +40,13 @@ position_dodge <- function(width = NULL) {
 PositionDodge <- ggproto("PositionDodge", Position,
   width = NULL,
   compute_defaults = function(self, data) {
+    if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
+      warning("Width not defined. Set with `position_dodge(width = ?)`",
+        call. = FALSE)
+    }
+
     check_required_aesthetics("x", names(data), "position_dodge")
+    list()
   },
 
   adjust = function(self, data, params) {
