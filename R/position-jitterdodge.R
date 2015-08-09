@@ -52,12 +52,6 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
 
 
   adjust = function(self, data, params) {
-    # Workaround to avoid warning: ymax not defined...
-    if (!("ymax" %in% names(data))) {
-      data$ymax <- data$y
-    }
-
-    # dodge
     data <- collide(data, params$dodge.width, "position_jitterdodge", pos_dodge,
       check.width = FALSE)
 
