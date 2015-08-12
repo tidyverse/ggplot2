@@ -17,12 +17,10 @@
 #' @examples
 #' # Generate data: means and standard errors of means for prices
 #' # for each type of cut
-#' require("nlme")
-#' require("reshape2")
-#' dmod <- lmList(price ~ cut|clarity, data=diamonds)
-#' mm <- setNames(melt(unclass(intervals(dmod))),
+#' dmod <- nlme::lmList(price ~ cut|clarity, data=diamonds)
+#' mm <- setNames(reshape2::melt(unclass(intervals(dmod))),
 #'            c("clarity","est","param","value"))
-#' dd <- dcast(mm,clarity+param~est)
+#' dd <- reshape2::dcast(mm,clarity+param~est)
 #'
 #' ggplot(dd, aes(est.,param)) + geom_point() +
 #'   facet_wrap(~clarity,labeller=label_both)+
