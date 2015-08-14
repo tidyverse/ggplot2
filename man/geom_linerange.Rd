@@ -8,18 +8,20 @@
 \title{Vertical intervals: lines, crossbars & errorbars.}
 \usage{
 geom_crossbar(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", fatten = 2.5, show.legend = NA,
+  position = "identity", orient = "v", fatten = 2.5, show.legend = NA,
   inherit.aes = TRUE, ...)
 
 geom_errorbar(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", orient = "v", show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 geom_linerange(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", orient = "v", show.legend = NA,
   inherit.aes = TRUE, ...)
 
 geom_pointrange(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", orient = "v", show.legend = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -34,6 +36,9 @@ layer, as a string.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
+
+\item{orient}{Can be \code{"h"} or \code{"v"}. Indicates whether
+the Geom should display horizontally or vertically.}
 
 \item{fatten}{a multiplicative factor to fatten middle bar by}
 
@@ -56,9 +61,6 @@ the default plot specification, e.g. \code{\link{borders}}.}
     default \code{stat} associated with the layer.
   \item Other arguments passed on to the stat.
   }}
-
-\item{orient}{Can be \code{"h"} or \code{"v"}. Indicates whether
-the Geom should display horizontally or vertically.}
 }
 \description{
 Various ways of representing a vertical interval defined by \code{x},

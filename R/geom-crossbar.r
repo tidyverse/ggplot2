@@ -2,18 +2,23 @@
 #' @export
 #' @rdname geom_linerange
 geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
-                          position = "identity", fatten = 2.5, show.legend = NA,
-                          inherit.aes = TRUE, ...) {
+                          position = "identity", orient = "v", fatten = 2.5,
+                          show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomCrossbar,
     position = position,
+    flip = orient == "h",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    geom_params = list(fatten = fatten),
-    params = list(...)
+    params = list(...),
+    stat_params = list(orient = orient),
+    geom_params = list(
+      fatten = fatten,
+      orient = orient
+    )
   )
 }
 
@@ -34,7 +39,8 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
   draw_key = draw_key_crossbar,
 
   draw = function(self, data, scales, coordinates, fatten = 2.5, width = NULL,
-                  ...) {
+                  orient = "v", ...) {
+    data <- flip_aes_if(orient == "h", data)
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
@@ -42,7 +48,7 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
 
     if (has_notch) {
       if (data$ynotchlower < data$ymin  ||  data$ynotchupper > data$ymax)
-        message("notch went outside hinges. Try setting notch=FALSE.")
+        message("notch went outside hinges. Try setting notch = FALSE.")
 
       notchindent <- (1 - data$notchwidth) * (data$xmax - data$xmin) / 2
 
@@ -81,6 +87,9 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
         stringsAsFactors = FALSE
       )
     }
+
+    box <- flip_aes_if(orient == "h", box)
+    middle <- flip_aes_if(orient == "h", middle)
 
     ggname("geom_crossbar", gTree(children = gList(
       GeomPolygon$draw(box, scales, coordinates, ...),

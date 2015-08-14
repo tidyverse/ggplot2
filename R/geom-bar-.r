@@ -79,14 +79,17 @@ geom_bar <- function(mapping = NULL, data = NULL, stat = "bar",
     data = data,
     mapping = mapping,
     stat = stat,
-    stat_params = list(width = width),
     geom = GeomBar,
     position = position,
     flip = orient == "h",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...),
-    geom_params = list(orient = orient)
+    geom_params = list(orient = orient),
+    stat_params = list(
+      width = width,
+      orient = orient
+    )
   )
 }
 

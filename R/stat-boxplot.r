@@ -16,20 +16,22 @@
 #' }
 #' @export
 stat_boxplot <- function(mapping = NULL, data = NULL, geom = "boxplot",
-  position = "dodge", na.rm = FALSE, coef = 1.5, show.legend = NA,
-  inherit.aes = TRUE, ...)
-{
+                         position = "dodge", orient = "v", na.rm = FALSE,
+                         coef = 1.5, show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
     stat = StatBoxplot,
     geom = geom,
     position = position,
+    flip = orient == "h",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
+    geom_params = list(orient = orient),
     stat_params = list(
       na.rm = na.rm,
-      coef = coef
+      coef = coef,
+      orient = orient
     ),
     params = list(...)
   )
@@ -70,8 +72,9 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
       stats[c(1, 5)] <- range(c(stats[2:4], data$y[!outliers]), na.rm = TRUE)
     }
 
-    if (length(unique(data$x)) > 1)
+    if (length(unique(data$x)) > 1) {
       width <- diff(range(data$x)) * 0.9
+    }
 
     df <- as.data.frame(as.list(stats))
     df$outliers <- list(data$y[outliers])
@@ -83,8 +86,8 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
       n <- sum(data$weight[!is.na(data$y) & !is.na(data$weight)])
     }
 
-    df$notchupper <- df$middle + 1.58 * iqr / sqrt(n)
-    df$notchlower <- df$middle - 1.58 * iqr / sqrt(n)
+    df$ynotchupper <- df$middle + 1.58 * iqr / sqrt(n)
+    df$ynotchlower <- df$middle - 1.58 * iqr / sqrt(n)
 
     df$x <- if (is.factor(data$x)) data$x[1] else mean(range(data$x))
     df$width <- width

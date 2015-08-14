@@ -23,6 +23,7 @@
 #'   continuous variable, \code{\link{geom_jitter}} for another way to look
 #'   at conditional distributions.
 #' @inheritParams geom_point
+#' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_boxplot} and \code{stat_boxplot}.
 #' @param outlier.colour Override aesthetics used for the outliers. Defaults
@@ -84,18 +85,21 @@
 #'    stat = "identity"
 #'  )
 geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
-  position = "dodge", outlier.colour = "black", outlier.shape = 19,
-  outlier.size = 2, outlier.stroke = 1, notch = FALSE, notchwidth = .5,
-  varwidth = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
-{
+                         position = "dodge", orient = "v",
+                         outlier.colour = "black", outlier.shape = 19,
+                         outlier.size = 2, outlier.stroke = 1, notch = FALSE,
+                         notchwidth = .5, varwidth = FALSE, show.legend = NA,
+                         inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomBoxplot,
     position = position,
+    flip = orient == "h",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
+    params = list(...),
     geom_params = list(
       outlier.colour = outlier.colour,
       outlier.shape = outlier.shape,
@@ -103,9 +107,10 @@ geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
       outlier.stoke = outlier.stroke,
       notch = notch,
       notchwidth = notchwidth,
-      varwidth = varwidth
+      varwidth = varwidth,
+      orient = orient
     ),
-    params = list(...)
+    stat_params = list(orient = orient)
   )
 }
 
@@ -146,7 +151,9 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
   draw_group = function(self, data, ..., fatten = 2, outlier.colour = "black",
                         outlier.shape = 19, outlier.size = 2, outlier.stroke = 1,
-                        notch = FALSE, notchwidth = .5, varwidth = FALSE) {
+                        notch = FALSE, notchwidth = .5, varwidth = FALSE,
+                        orient = "v") {
+    data <- flip_aes_if(orient == "h", data)
     common <- data.frame(
       colour = data$colour,
       size = data$size,
@@ -165,6 +172,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       common,
       stringsAsFactors = FALSE
     )
+    whiskers <- flip_aes_if(orient == "h", whiskers)
 
     box <- data.frame(
       xmin = data$xmin,
@@ -172,13 +180,14 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       ymin = data$lower,
       y = data$middle,
       ymax = data$upper,
-      ynotchlower = ifelse(notch, data$notchlower, NA),
-      ynotchupper = ifelse(notch, data$notchupper, NA),
+      ynotchlower = ifelse(notch, data$ynotchlower, NA),
+      ynotchupper = ifelse(notch, data$ynotchupper, NA),
       notchwidth = notchwidth,
       alpha = data$alpha,
       common,
       stringsAsFactors = FALSE
     )
+    box <- flip_aes_if(orient == "h", box)
 
     if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
       outliers <- data.frame(
@@ -192,6 +201,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         alpha = NA,
         stringsAsFactors = FALSE
       )
+      outliers <- flip_aes_if(orient == "h", outliers)
       outliers_grob <- GeomPoint$draw(outliers, ...)
     } else {
       outliers_grob <- NULL
@@ -200,7 +210,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     ggname("geom_boxplot", grobTree(
       outliers_grob,
       GeomSegment$draw(whiskers, ...),
-      GeomCrossbar$draw(box, fatten = fatten, ...)
+      GeomCrossbar$draw(box, fatten = fatten, orient = orient, ...)
     ))
   },
 

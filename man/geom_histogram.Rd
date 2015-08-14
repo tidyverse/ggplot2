@@ -8,15 +8,16 @@
 \usage{
 geom_histogram(mapping = NULL, data = NULL, stat = "bin",
   binwidth = NULL, bins = NULL, origin = NULL, right = FALSE,
-  position = "stack", show.legend = NA, inherit.aes = TRUE, ...)
+  position = "stack", orient = "v", show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 geom_freqpoly(mapping = NULL, data = NULL, stat = "bin",
   position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 
 stat_bin(mapping = NULL, data = NULL, geom = "bar", position = "stack",
-  width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL,
-  bins = NULL, origin = NULL, breaks = NULL, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  orient = "v", width = 0.9, drop = FALSE, right = FALSE,
+  binwidth = NULL, bins = NULL, origin = NULL, breaks = NULL,
+  show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -39,6 +40,9 @@ the default, right-open, left-closed.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
+
+\item{orient}{Can be \code{"h"} or \code{"v"}. Indicates whether
+the Geom should display horizontally or vertically.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

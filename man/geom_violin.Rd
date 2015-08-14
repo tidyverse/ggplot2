@@ -6,8 +6,8 @@
 \title{Violin plot.}
 \usage{
 geom_violin(mapping = NULL, data = NULL, stat = "ydensity",
-  position = "dodge", trim = TRUE, scale = "area", show.legend = NA,
-  inherit.aes = TRUE, ...)
+  position = "dodge", orient = "v", trim = TRUE, scale = "area",
+  show.legend = NA, inherit.aes = TRUE, ...)
 
 stat_ydensity(mapping = NULL, data = NULL, geom = "violin",
   position = "dodge", adjust = 1, kernel = "gaussian", trim = TRUE,
@@ -24,6 +24,9 @@ defined at the top level of the plot.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
+
+\item{orient}{Can be \code{"h"} or \code{"v"}. Indicates whether
+the Geom should display horizontally or vertically.}
 
 \item{trim}{If \code{TRUE} (default), trim the tails of the violins
 to the range of the data. If \code{FALSE}, don't trim the tails.}

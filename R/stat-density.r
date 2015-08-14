@@ -1,3 +1,4 @@
+#' @inheritParams geom_bar
 #' @param adjust see \code{\link{density}} for details
 #' @param kernel kernel used for density estimation, see
 #'   \code{\link{density}} for details
@@ -19,23 +20,26 @@
 #' @export
 #' @rdname geom_density
 stat_density <- function(mapping = NULL, data = NULL, geom = "area",
-  position = "stack", adjust = 1, kernel = "gaussian", trim = FALSE,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
-
+                         position = "stack", orient = "v", adjust = 1,
+                         kernel = "gaussian", trim = FALSE, na.rm = FALSE,
+                         show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
     stat = StatDensity,
     geom = geom,
     position = position,
+    flip = orient == "h",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(
       adjust = adjust,
       kernel = kernel,
       trim = trim,
-      na.rm = na.rm
+      na.rm = na.rm,
+      orient = orient
     ),
+    geom_params = list(orient = orient),
     params = list(...)
   )
 }

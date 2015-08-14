@@ -1,45 +1,5 @@
-# Utilities to flip aesthetics when a Layer's orientation does not
-# correspond to the Geom's natural orientation. Needs to be evaluated
-# before `Layer()` because of the method factory `flippable()`.
-
-flip_aesthetics <- function(x) {
-  UseMethod("flip_aesthetics")
-}
-
-flip_aesthetics.character <- function(x) {
-  lookup <- c(
-    x = "y", xmin = "ymin", xmax = "ymax",
-    y = "x", ymin = "xmin", ymax = "xmax"
-  )
-  flipped <- lookup[x]
-  x[!is.na(flipped)] <- flipped[!is.na(flipped)]
-  x
-}
-
-flip_aesthetics.data.frame <- function(x) {
-  names(x) <- flip_aesthetics(names(x))
-  x
-}
-
-flip_aesthetics.list <- flip_aesthetics.data.frame
-flip_aesthetics.default <- identity
-
-with_flipped_aes <- function(.x, .f, ...) {
-  res <- .f(flip_aesthetics(.x), ...)
-  flip_aesthetics(res)
-}
-
-flippable <- function(method) {
-  function(self, data, ...) {
-    if (self$flip) {
-      with_flipped_aes(data, function(data, self, ...) {
-        method(self, data, ...)
-      }, self, ...)
-    } else {
-      method(self, data, ...)
-    }
-  }
-}
+#' @include utilities-horizon.r
+NULL
 
 # Create a new layer
 # Layer objects store the layer of an object.
@@ -156,28 +116,33 @@ Layer <- ggproto("Layer", NULL,
     check_required_aesthetics(
       required = self$stat$required_aes,
       present = c(names(data), names(params)),
-      name = snake_class(self$stat),
-      flip = self$flip
+      name = snake_class(self$stat)
     )
 
     args <- c(list(data = quote(data), scales = quote(scales)), params)
-    tryCatch(do.call(self$stat$compute, args), error = function(e) {
+    out <- tryCatch(do.call(self$stat$compute, args), error = function(e) {
       warning("Computation failed in `", snake_class(self$stat), "()`:\n",
         e$message, call. = FALSE)
       data.frame()
     })
+
+    out
   },
 
 
-  map_statistic = function(self, data, plot) {
+  map_statistic = flippable(function(self, data, plot) {
     if (empty(data)) return(data.frame())
 
     # Assemble aesthetics from layer, plot and stat mappings
-    aesthetics <- self$mapping
+    # Todo: Transform self$mapping into a self-flipping method?
+    aesthetics <- flip_aes_if(self$flip, self$mapping)
     if (self$inherit.aes) {
-      aesthetics <- defaults(aesthetics, plot$mapping)
+      mapping <- flip_aes_if(self$flip, plot$mapping)
+      aesthetics <- defaults(aesthetics, mapping)
     }
-    aesthetics <- defaults(aesthetics, self$stat$default_aes)
+
+    default_aes <- self$stat$default_aes
+    aesthetics <- defaults(aesthetics, default_aes)
     aesthetics <- compact(aesthetics)
 
     new <- strip_dots(aesthetics[is_calculated_aes(aesthetics)])
@@ -196,7 +161,7 @@ Layer <- ggproto("Layer", NULL,
     }
 
     cunion(stat_data, data)
-  },
+  }),
 
   reparameterise = flippable(function(self, data) {
     if (empty(data)) return(data.frame())

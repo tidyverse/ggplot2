@@ -84,6 +84,7 @@ Collate:
     'fortify-multcomp.r'
     'fortify-spatial.r'
     'fortify.r'
+    'utilities-horizon.r'
     'stat-.r'
     'geom-abline.r'
     'geom-bar-.r'

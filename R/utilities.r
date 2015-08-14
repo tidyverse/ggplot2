@@ -33,9 +33,7 @@ NULL
 # @param name of object for error message
 # @keyword internal
 check_required_aesthetics <- function(required, present, name, flip = FALSE) {
-  if (flip) {
-    required <- flip_aesthetics(required)
-  }
+  required <- flip_aes_if(flip, required)
   missing_aes <- setdiff(required, present)
   if (length(missing_aes) == 0) return()
 

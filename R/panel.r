@@ -186,15 +186,17 @@ train_ranges <- function(panel, coord) {
 calculate_stats <- function(panel, data, layers) {
   lapply(seq_along(data), function(i) {
     l <- layers[[i]]
+    d <- flip_aes_if(l$flip, data[[i]])
 
-    d <- data[[i]]
-    params <- l$stat$compute_defaults(data[[i]], l$stat_params)
+    params <- l$stat$compute_defaults(d, l$stat_params)
     d <- l$stat$compute_data(d, l$stat_params)
 
-    plyr::ddply(d, "PANEL", function(panel_data) {
+    d <- plyr::ddply(d, "PANEL", function(panel_data) {
       scales <- panel_scales(panel, panel_data$PANEL[1])
       l$calc_statistic(panel_data, scales, params)
     })
+    d <- flip_aes_if(l$flip, d)
+    d
   })
 }
 
