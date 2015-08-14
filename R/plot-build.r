@@ -22,10 +22,10 @@ ggplot_build <- function(plot) {
 
   scales <- plot$scales
   # Apply function to layer and matching data
-  dlapply <- function(f) {
+  by_layer <- function(f) {
     out <- vector("list", length(data))
     for (i in seq_along(data)) {
-      out[[i]] <- f(d = data[[i]], p = layers[[i]])
+      out[[i]] <- f(l = layers[[i]], d = data[[i]])
     }
     out
   }
@@ -38,7 +38,7 @@ ggplot_build <- function(plot) {
   data <- map_layout(panel, plot$facet, layer_data, plot$data)
 
   # Compute aesthetics to produce data with generalised variable names
-  data <- dlapply(function(d, p) p$compute_aesthetics(d, plot))
+  data <- by_layer(function(l, d) l$compute_aesthetics(d, plot))
   data <- lapply(data, add_group)
 
   # Transform all scales
@@ -54,17 +54,17 @@ ggplot_build <- function(plot) {
 
   # Apply and map statistics
   data <- calculate_stats(panel, data, layers)
-  data <- dlapply(function(d, p) p$map_statistic(d, plot))
+  data <- by_layer(function(l, d) l$map_statistic(d, plot))
   data <- lapply(data, order_groups)
 
   # Make sure missing (but required) aesthetics are added
   scales_add_missing(plot, c("x", "y"), plot$plot_env)
 
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
-  data <- dlapply(function(d, p) p$reparameterise(d))
+  data <- by_layer(function(l, d) l$reparameterise(d))
 
   # Apply position adjustments
-  data <- dlapply(function(d, p) p$adjust_position(d))
+  data <- by_layer(function(l, d) l$adjust_position(d))
 
   # Reset position scales, then re-train and map.  This ensures that facets
   # have control over the range of a plot: is it generated from what's
