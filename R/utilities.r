@@ -32,7 +32,10 @@ NULL
 # @param character vector of present aesthetics
 # @param name of object for error message
 # @keyword internal
-check_required_aesthetics <- function(required, present, name) {
+check_required_aesthetics <- function(required, present, name, flip = FALSE) {
+  if (flip) {
+    required <- flip_aesthetics(required)
+  }
   missing_aes <- setdiff(required, present)
   if (length(missing_aes) == 0) return()
 

@@ -6,7 +6,8 @@
 \usage{
 layer(geom = NULL, geom_params = list(), stat = NULL,
   stat_params = list(), data = NULL, mapping = NULL, position = NULL,
-  params = list(), inherit.aes = TRUE, subset = NULL, show.legend = NA)
+  flip = FALSE, params = list(), inherit.aes = TRUE, subset = NULL,
+  show.legend = NA)
 }
 \arguments{
 \item{geom,stat,position}{Geom, stat and position adjustment to use in
@@ -25,6 +26,9 @@ defined at the top level of the plot.}
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
 \code{\link{aes_string}}. If specified and \code{inherit.aes = TRUE},
 is combined with the default mapping at the top level of the plot.}
+
+\item{flip}{Indicate whether the layer contains a Geom whose
+natural orientation has been flipped.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions

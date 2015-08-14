@@ -1,3 +1,46 @@
+# Utilities to flip aesthetics when a Layer's orientation does not
+# correspond to the Geom's natural orientation. Needs to be evaluated
+# before `Layer()` because of the method factory `flippable()`.
+
+flip_aesthetics <- function(x) {
+  UseMethod("flip_aesthetics")
+}
+
+flip_aesthetics.character <- function(x) {
+  lookup <- c(
+    x = "y", xmin = "ymin", xmax = "ymax",
+    y = "x", ymin = "xmin", ymax = "xmax"
+  )
+  flipped <- lookup[x]
+  x[!is.na(flipped)] <- flipped[!is.na(flipped)]
+  x
+}
+
+flip_aesthetics.data.frame <- function(x) {
+  names(x) <- flip_aesthetics(names(x))
+  x
+}
+
+flip_aesthetics.list <- flip_aesthetics.data.frame
+flip_aesthetics.default <- identity
+
+with_flipped_aes <- function(.x, .f, ...) {
+  res <- .f(flip_aesthetics(.x), ...)
+  flip_aesthetics(res)
+}
+
+flippable <- function(method) {
+  function(self, data, ...) {
+    if (self$flip) {
+      with_flipped_aes(data, function(data, self, ...) {
+        method(self, data, ...)
+      }, self, ...)
+    } else {
+      method(self, data, ...)
+    }
+  }
+}
+
 # Create a new layer
 # Layer objects store the layer of an object.
 #
@@ -19,6 +62,7 @@ Layer <- ggproto("Layer", NULL,
   data = NULL,
   mapping = NULL,
   position = NULL,
+  flip = FALSE,
   inherit.aes = FALSE,
 
   use_defaults = function(self, data) {
@@ -110,9 +154,10 @@ Layer <- ggproto("Layer", NULL,
       return(data.frame())
 
     check_required_aesthetics(
-      self$stat$required_aes,
-      c(names(data), names(params)),
-      snake_class(self$stat)
+      required = self$stat$required_aes,
+      present = c(names(data), names(params)),
+      name = snake_class(self$stat),
+      flip = self$flip
     )
 
     args <- c(list(data = quote(data), scales = quote(scales)), params)
@@ -153,13 +198,12 @@ Layer <- ggproto("Layer", NULL,
     cunion(stat_data, data)
   },
 
-  reparameterise = function(self, data) {
+  reparameterise = flippable(function(self, data) {
     if (empty(data)) return(data.frame())
     self$geom$reparameterise(data, self$geom_params)
-  },
+  }),
 
-
-  adjust_position = function(self, data) {
+  adjust_position = flippable(function(self, data) {
     if (empty(data)) return(data.frame())
     params <- self$position$compute_defaults(data)
 
@@ -168,17 +212,17 @@ Layer <- ggproto("Layer", NULL,
 
       self$position$adjust(data, params)
     })
-  },
+  }),
 
   make_grob = function(self, data, scales, cs) {
     if (empty(data)) return(zeroGrob())
-
     data <- self$use_defaults(data)
 
     check_required_aesthetics(
-      self$geom$required_aes,
-      c(names(data), names(self$geom_params)),
-      snake_class(self$geom)
+      required = self$geom$required_aes,
+      present = c(names(data), names(self$geom_params)),
+      name = snake_class(self$geom),
+      flip = self$flip
     )
 
     do.call(self$geom$draw, c(
@@ -201,6 +245,8 @@ Layer <- ggproto("Layer", NULL,
 #'   list in \code{params}, \code{layer} does it's best to figure out which
 #'   arguments belong to which. To be explicit, supply as individual lists to
 #'   \code{geom_param} and \code{stat_param}.
+#' @param flip Indicate whether the layer contains a Geom whose
+#'   natural orientation has been flipped.
 #' @param mapping Set of aesthetic mappings created by \code{\link{aes}} or
 #'   \code{\link{aes_string}}. If specified and \code{inherit.aes = TRUE},
 #'   is combined with the default mapping at the top level of the plot.
@@ -218,7 +264,8 @@ Layer <- ggproto("Layer", NULL,
 #'   layer(geom = "point", stat = "identity", position = "identity")
 layer <- function(geom = NULL, geom_params = list(), stat = NULL,
   stat_params = list(), data = NULL, mapping = NULL, position = NULL,
-  params = list(), inherit.aes = TRUE, subset = NULL, show.legend = NA)
+  flip = FALSE, params = list(), inherit.aes = TRUE, subset = NULL,
+  show.legend = NA)
 {
   if (is.null(geom))
     stop("Attempted to create layer with no geom.", call. = FALSE)
@@ -265,6 +312,7 @@ layer <- function(geom = NULL, geom_params = list(), stat = NULL,
     mapping = mapping,
     subset = subset,
     position = position,
+    flip = flip,
     inherit.aes = inherit.aes,
     show.legend = show.legend
   )

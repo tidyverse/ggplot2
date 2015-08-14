@@ -11,6 +11,7 @@
 #'  \code{\link{geom_smooth}} for continuous analog
 #' @export
 #' @inheritParams geom_point
+#' @inheritParams geom_bar
 #' @examples
 #' #' # Create a simple example dataset
 #' df <- data.frame(
@@ -46,7 +47,7 @@
 #'   geom_bar(position = dodge, stat = "identity") +
 #'   geom_errorbar(aes(ymin = lower, ymax = upper), position = dodge, width = 0.25)
 geom_linerange <- function(mapping = NULL, data = NULL, stat = "identity",
-                           position = "identity", show.legend = NA,
+                           position = "identity", orient = "v", show.legend = NA,
                            inherit.aes = TRUE, ...) {
   layer(
     data = data,
@@ -54,9 +55,11 @@ geom_linerange <- function(mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomLinerange,
     position = position,
+    flip = orient == "h",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(...),
+    geom_params = list(orient = orient)
   )
 }
 
@@ -71,11 +74,16 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
 
   required_aes = c("x", "ymin", "ymax"),
 
-  draw = function(self, data, scales, coordinates, ...) {
+  draw = function(self, data, scales, coordinates, orient = "v", ...) {
+    if (orient == "v") {
+      data <- transform(data, xend = x, y = ymin, yend = ymax)
+    } else {
+      data <- transform(data, yend = y, x = xmin, xend = xmax)
+    }
     ggname(
       "geom_linerange",
       GeomSegment$draw(
-        transform(data, xend = x, y = ymin, yend = ymax), scales, coordinates, ...
+        data, scales, coordinates, ...
       )
     )
   }

@@ -15,7 +15,8 @@ geom_errorbar(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_linerange(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", orient = "v", show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 geom_pointrange(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
@@ -55,6 +56,9 @@ the default plot specification, e.g. \code{\link{borders}}.}
     default \code{stat} associated with the layer.
   \item Other arguments passed on to the stat.
   }}
+
+\item{orient}{Can be \code{"h"} or \code{"v"}. Indicates whether
+the Geom should display horizontally or vertically.}
 }
 \description{
 Various ways of representing a vertical interval defined by \code{x},
