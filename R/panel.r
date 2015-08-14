@@ -179,6 +179,25 @@ train_ranges <- function(panel, coord) {
   panel
 }
 
+# Calculate statistics
+#
+# @param layers list of layers
+# @param data a list of data frames (one for each layer)
+calculate_stats <- function(panel, data, layers) {
+  lapply(seq_along(data), function(i) {
+    l <- layers[[i]]
+
+    d <- data[[i]]
+    params <- l$stat$compute_defaults(data[[i]], l$stat_params)
+    d <- l$stat$compute_data(d, l$stat_params)
+
+    plyr::ddply(d, "PANEL", function(panel_data) {
+      scales <- panel_scales(panel, panel_data$PANEL[1])
+      l$calc_statistic(panel_data, scales, params)
+    })
+  })
+}
+
 
 xlabel <- function(panel, labels) {
   panel$x_scales[[1]]$name %|W|% labels$x
