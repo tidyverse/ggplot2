@@ -105,24 +105,32 @@ Layer <- ggproto("Layer", NULL,
   },
 
 
-  calc_statistic = function(self, data, scales, params) {
+  compute_statistic = function(self, data, panel) {
     if (empty(data))
       return(data.frame())
 
     check_required_aesthetics(
       self$stat$required_aes,
-      c(names(data), names(params)),
+      c(names(data), names(self$params)),
       snake_class(self$stat)
     )
 
+    params <- self$stat$compute_defaults(data, self$stat_params)
+    data <- self$stat$compute_data(data, self$stat_params)
     args <- c(list(data = quote(data), scales = quote(scales)), params)
-    tryCatch(do.call(self$stat$compute, args), error = function(e) {
-      warning("Computation failed in `", snake_class(self$stat), "()`:\n",
-        e$message, call. = FALSE)
-      data.frame()
+
+    plyr::ddply(data, "PANEL", function(panel_data) {
+      if (empty(data))
+        return(data.frame())
+
+      scales <- panel_scales(panel, panel_data$PANEL[1])
+      tryCatch(do.call(self$stat$compute, args), error = function(e) {
+        warning("Computation failed in `", snake_class(self$stat), "()`:\n",
+          e$message, call. = FALSE)
+        data.frame()
+      })
     })
   },
-
 
   map_statistic = function(self, data, plot) {
     if (empty(data)) return(data.frame())
