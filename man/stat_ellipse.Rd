@@ -50,35 +50,35 @@ include aesthetics whose values you want to set, not map. See
 \code{\link{layer}} for more details.}
 }
 \description{
-Plot data ellipses.
-}
-\details{
-The method for calculating the ellipses has been modified from car::ellipse (Fox and Weisberg, 2011)
+The method for calculating the ellipses has been modified from
+\code{car::ellipse} (Fox and Weisberg, 2011)
 }
 \examples{
-ggplot(faithful, aes(waiting, eruptions))+
-  geom_point()+
+ggplot(faithful, aes(waiting, eruptions)) +
+  geom_point() +
   stat_ellipse()
 
-ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3))+
-  geom_point()+
+ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3)) +
+  geom_point() +
   stat_ellipse()
 
-ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3))+
-  geom_point()+
-  stat_ellipse(type = "norm", linetype = 2)+
+ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3)) +
+  geom_point() +
+  stat_ellipse(type = "norm", linetype = 2) +
   stat_ellipse(type = "t")
 
-ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3))+
-  geom_point()+
-  stat_ellipse(type = "norm", linetype = 2)+
-  stat_ellipse(type = "euclid", level = 3)+
+ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3)) +
+  geom_point() +
+  stat_ellipse(type = "norm", linetype = 2) +
+  stat_ellipse(type = "euclid", level = 3) +
   coord_fixed()
 
-ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3))+
+ggplot(faithful, aes(waiting, eruptions, fill = eruptions > 3)) +
   stat_ellipse(geom = "polygon")
 }
 \references{
-John Fox and Sanford Weisberg (2011). An {R} Companion to Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL: http://socserv.socsci.mcmaster.ca/jfox/Books/Companion
+John Fox and Sanford Weisberg (2011). An {R} Companion to
+  Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL:
+  \url{http://socserv.socsci.mcmaster.ca/jfox/Books/Companion}
 }
 

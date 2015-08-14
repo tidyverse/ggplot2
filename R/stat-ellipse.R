@@ -1,5 +1,11 @@
 #' Plot data ellipses.
 #'
+#' The method for calculating the ellipses has been modified from
+#' \code{car::ellipse} (Fox and Weisberg, 2011)
+#'
+#' @references John Fox and Sanford Weisberg (2011). An {R} Companion to
+#'   Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL:
+#'   \url{http://socserv.socsci.mcmaster.ca/jfox/Books/Companion}
 #' @param level The confidence level at which to draw an ellipse (default is 0.95),
 #'   or, if \code{type="euclid"}, the radius of the circle to be drawn.
 #' @param type The type of ellipse.
@@ -12,40 +18,33 @@
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'   a warning.  If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
-#'
-#' @details The method for calculating the ellipses has been modified from car::ellipse (Fox and Weisberg, 2011)
-#'
-#' @references
-#' John Fox and Sanford Weisberg (2011). An {R} Companion to Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL: http://socserv.socsci.mcmaster.ca/jfox/Books/Companion
-#'
 #' @export
-#'
 #' @examples
-#' ggplot(faithful, aes(waiting, eruptions))+
-#'   geom_point()+
+#' ggplot(faithful, aes(waiting, eruptions)) +
+#'   geom_point() +
 #'   stat_ellipse()
 #'
-#' ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3))+
-#'   geom_point()+
+#' ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3)) +
+#'   geom_point() +
 #'   stat_ellipse()
 #'
-#' ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3))+
-#'   geom_point()+
-#'   stat_ellipse(type = "norm", linetype = 2)+
+#' ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3)) +
+#'   geom_point() +
+#'   stat_ellipse(type = "norm", linetype = 2) +
 #'   stat_ellipse(type = "t")
 #'
-#' ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3))+
-#'   geom_point()+
-#'   stat_ellipse(type = "norm", linetype = 2)+
-#'   stat_ellipse(type = "euclid", level = 3)+
+#' ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3)) +
+#'   geom_point() +
+#'   stat_ellipse(type = "norm", linetype = 2) +
+#'   stat_ellipse(type = "euclid", level = 3) +
 #'   coord_fixed()
 #'
-#' ggplot(faithful, aes(waiting, eruptions, color = eruptions > 3))+
+#' ggplot(faithful, aes(waiting, eruptions, fill = eruptions > 3)) +
 #'   stat_ellipse(geom = "polygon")
 stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", type = "t", level = 0.95, segments = 51,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
-{
+                         position = "identity", type = "t", level = 0.95,
+                         segments = 51, na.rm = FALSE, show.legend = NA,
+                         inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -71,9 +70,9 @@ stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
 StatEllipse <- ggproto("StatEllipse", Stat,
   required_aes = c("x", "y"),
 
-  compute_group = function(data, scales, type = "t", level = 0.95, segments = 51,
-                           na.rm = FALSE, ...) {
-    calculate_ellipse(data = data, vars = c("x","y"), type = type,
+  compute_group = function(data, scales, type = "t", level = 0.95,
+                           segments = 51, na.rm = FALSE, ...) {
+    calculate_ellipse(data = data, vars = c("x", "y"), type = type,
                       level = level, segments = segments)
   }
 )
@@ -112,5 +111,5 @@ calculate_ellipse <- function(data, vars, type, level, segments){
 
   ellipse <- as.data.frame(ellipse)
   colnames(ellipse) <- vars
-  return(ellipse)
+  ellipse
 }
