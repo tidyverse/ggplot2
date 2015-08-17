@@ -71,7 +71,6 @@ layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL,
   panels <- cbind(layout, plyr::unrowname(base))
   panels <- panels[order(panels$PANEL), , drop = FALSE]
   rownames(panels) <- NULL
-  print(panels)
   panels
 }
 
