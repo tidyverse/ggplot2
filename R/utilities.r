@@ -290,3 +290,9 @@ deparse2 <- function(x) {
     paste0(y[[1]], "...")
   }
 }
+
+message_wrap <- function(...) {
+  msg <- paste(..., collapse = "", sep = "")
+  wrapped <- strwrap(msg, width = getOption("width") - 2)
+  message(paste0(wrapped, collapse = "\n"))
+}
