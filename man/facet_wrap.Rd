@@ -6,7 +6,7 @@
 \usage{
 facet_wrap(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   shrink = TRUE, labeller = "label_value", as.table = TRUE,
-  switch = NULL, drop = TRUE)
+  switch = NULL, drop = TRUE, dir = "h")
 }
 \arguments{
 \item{facets}{Either a formula or character vector. Use either a
@@ -44,6 +44,9 @@ left, near the y axis.}
 \item{drop}{If \code{TRUE}, the default, all factor levels not used in the
 data will automatically be dropped. If \code{FALSE}, all factor levels
 will be shown, regardless of whether or not they appear in the data.}
+
+\item{dir}{Direction: either "h" for horizontal, the default, or "v", for
+vertical.}
 }
 \description{
 Most displays are roughly rectangular, so if you have a categorical

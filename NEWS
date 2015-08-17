@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `facet_wrap()` gains a `dir` argument to control the direction the
+  panels are wrapped in. The default is "h" for horizontal. Use "v" for
+  vertical layout (#1260).
+
 * Legends no longer inherit aesthetics if `inherit.aes` is FALSE (#1267).
 
 * The default themes has been tweaked in various minor ways. The legend
