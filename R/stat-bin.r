@@ -54,7 +54,7 @@ StatBin <- ggproto("StatBin", Stat,
     }
 
     if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {
-      message("`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.")
+      message_wrap("`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.")
     }
 
     params
