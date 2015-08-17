@@ -88,7 +88,7 @@ If you want to create your complete theme, you'll need to understand a bit more 
 There are four elements that affect the global appearance of the plot.
 
 Element      | Theme function    | Description
--------------|--------------------------------------------
+-------------|-------------------|------------------------
 line         | `element_line()`  | all line elements
 rect         | `element_rect()`  | all rectangular elements
 text         | `element_text()`  | all text
