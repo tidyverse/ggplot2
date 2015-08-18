@@ -6,7 +6,7 @@
 \title{Bars, rectangles with bases on x-axis}
 \usage{
 geom_bar(mapping = NULL, data = NULL, stat = "bar", position = "stack",
-  width = NULL, ..., show.legend = NA, inherit.aes = TRUE)
+  orient = "v", width = NULL, ..., show.legend = NA, inherit.aes = TRUE)
 
 stat_bar(mapping = NULL, data = NULL, geom = "bar", position = "stack",
   width = NULL, ..., show.legend = NA, inherit.aes = TRUE)
@@ -21,6 +21,9 @@ defined at the top level of the plot.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
+
+\item{orient}{Can be \code{"h"} or \code{"v"}. Indicates whether
+the Geom should display horizontally or vertically.}
 
 \item{width}{Bar width. By default, set of 90% of the resolution of the
 data.}

@@ -30,6 +30,8 @@
 #'   data.
 #' @param geom,stat Override the default connection between \code{geom_bar} and
 #'   \code{stat_bar}.
+#' @param orient Can be \code{"h"} or \code{"v"}. Indicates whether
+#'   the Geom should display horizontally or vertically.
 #' @examples
 #' # geom_bar is designed to make it easy to create bar charts that show
 #' # counts (or sums of weights)
@@ -71,18 +73,23 @@
 #' ggplot(mpg, aes(reorder_size(class))) + geom_bar()
 #' }
 geom_bar <- function(mapping = NULL, data = NULL, stat = "bar",
-                     position = "stack", width = NULL, ...,
+                     position = "stack", orient = "v", width = NULL, ...,
                      show.legend = NA, inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
     stat = stat,
-    stat_params = list(width = width),
     geom = GeomBar,
     position = position,
+    flip = orient == "h",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(...),
+    geom_params = list(orient = orient),
+    stat_params = list(
+      width = width,
+      orient = orient
+    )
   )
 }
 

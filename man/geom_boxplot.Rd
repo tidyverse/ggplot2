@@ -6,13 +6,14 @@
 \title{Box and whiskers plot.}
 \usage{
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
-  position = "dodge", outlier.colour = "black", outlier.shape = 19,
-  outlier.size = 2, outlier.stroke = 1, notch = FALSE, notchwidth = 0.5,
-  varwidth = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+  position = "dodge", orient = "v", outlier.colour = "black",
+  outlier.shape = 19, outlier.size = 2, outlier.stroke = 1,
+  notch = FALSE, notchwidth = 0.5, varwidth = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
-  position = "dodge", na.rm = FALSE, coef = 1.5, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  position = "dodge", orient = "v", na.rm = FALSE, coef = 1.5,
+  show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -24,6 +25,9 @@ defined at the top level of the plot.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
+
+\item{orient}{Can be \code{"h"} or \code{"v"}. Indicates whether
+the Geom should display horizontally or vertically.}
 
 \item{outlier.colour}{Override aesthetics used for the outliers. Defaults
 come from \code{geom_point()}.}

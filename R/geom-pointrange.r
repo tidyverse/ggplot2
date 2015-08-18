@@ -1,7 +1,7 @@
 #' @export
 #' @rdname geom_linerange
 geom_pointrange <- function(mapping = NULL, data = NULL, stat = "identity",
-                            position = "identity", show.legend = NA,
+                            position = "identity", orient = "v", show.legend = NA,
                             inherit.aes = TRUE, ...) {
   layer(
     data = data,
@@ -9,9 +9,12 @@ geom_pointrange <- function(mapping = NULL, data = NULL, stat = "identity",
     stat = stat,
     geom = GeomPointrange,
     position = position,
+    flip = orient == "h",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(...),
+    stat_params = list(orient = orient),
+    geom_params = list(orient = orient)
   )
 }
 
@@ -27,15 +30,15 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
 
   required_aes = c("x", "y", "ymin", "ymax"),
 
-  draw = function(self, data, scales, coordinates, ...) {
-    if (is.null(data$y))
-      return(GeomLinerange$draw(data, scales, coordinates, ...))
-
-    ggname("geom_pointrange",
-      gTree(children = gList(
-        GeomLinerange$draw(data, scales, coordinates, ...),
+  draw = function(self, data, scales, coordinates, orient = "v", ...) {
+    if (is.null(data$y)) {
+      GeomLinerange$draw(data, scales, coordinates, orient, ...)
+    } else {
+      tree <- gTree(children = gList(
+        GeomLinerange$draw(data, scales, coordinates, orient, ...),
         GeomPoint$draw(transform(data, size = size * 4), scales, coordinates, ...)
       ))
-    )
+      ggname("geom_pointrange", tree)
+    }
   }
 )

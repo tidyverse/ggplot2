@@ -1,3 +1,6 @@
+#' @include utilities-horizon.r
+NULL
+
 #' @section Stats:
 #'
 #' All \code{stat_*} functions (like \code{stat_bin}) return a layer that
@@ -64,8 +67,9 @@ Stat <- ggproto("Stat",
     force(scales)
 
     groups <- split(data, data$group)
-    stats <- lapply(groups, function(group)
-      self$compute_group(data = group, scales = scales, ...))
+    stats <- lapply(groups, function(group) {
+      self$compute_group(data = group, scales = scales, ...)
+    })
 
     stats <- mapply(function(new, old) {
       if (empty(new)) return(data.frame())

@@ -4,6 +4,7 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "violin")}
 #'
 #' @inheritParams geom_point
+#' @inheritParams geom_bar
 #' @param trim If \code{TRUE} (default), trim the tails of the violins
 #'   to the range of the data. If \code{FALSE}, don't trim the tails.
 #' @param geom,stat Use to override the default connection between
@@ -61,21 +62,25 @@
 #' }
 #' }
 geom_violin <- function(mapping = NULL, data = NULL, stat = "ydensity",
-                        position = "dodge", trim = TRUE, scale = "area",
-                        show.legend = NA, inherit.aes = TRUE, ...) {
+                        position = "dodge", orient = "v", trim = TRUE,
+                        scale = "area", show.legend = NA,
+                        inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomViolin,
     position = position,
+    flip = orient == "h",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
+    params = list(...),
     stat_params = list(
       trim = trim,
-      scale = scale
+      scale = scale,
+      orient = orient
     ),
-    params = list(...)
+    geom_params = list(orient = orient)
   )
 }
 
@@ -90,14 +95,16 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
     # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
     plyr::ddply(df, "group", transform,
-          ymin = min(y),
-          ymax = max(y),
-          xmin = x - width / 2,
-          xmax = x + width / 2)
+      ymin = min(y),
+      ymax = max(y),
+      xmin = x - width / 2,
+      xmax = x + width / 2
+    )
   },
 
-  draw_group = function(self, data, ...) {
+  draw_group = function(self, data, orient = "v", ...) {
     # Find the points for the line to go all the way around
+    data <- flip_aes_if(orient == "h", data)
     data <- transform(data, xminv = x - violinwidth * (x - xmin),
                             xmaxv = x + violinwidth * (xmax - x))
 
@@ -107,7 +114,8 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
     # Close the polygon: set first and last point the same
     # Needed for coord_polar and such
-    newdata <- rbind(newdata, newdata[1,])
+    newdata <- rbind(newdata, newdata[1, ])
+    newdata <- flip_aes_if(orient == "h", newdata)
 
     ggname("geom_violin", GeomPolygon$draw(newdata, ...))
   },

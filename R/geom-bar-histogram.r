@@ -14,6 +14,7 @@
 #'
 #' @export
 #' @inheritParams geom_point
+#' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.
 #' @examples
@@ -71,18 +72,26 @@
 #' }
 #' rm(movies)
 geom_histogram <- function(mapping = NULL, data = NULL, stat = "bin",
-  binwidth = NULL, bins = NULL, origin = NULL, right = FALSE,
-  position = "stack", show.legend = NA, inherit.aes = TRUE, ...) {
-
+                           binwidth = NULL, bins = NULL, origin = NULL,
+                           right = FALSE, position = "stack", orient = "v",
+                           show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomBar,
     position = position,
+    flip = orient == "h",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(...),
-    stat_params = list(binwidth = binwidth, bins = bins, origin = origin, right = right)
+    geom_params = list(orient = orient),
+    stat_params = list(
+      binwidth = binwidth,
+      bins = bins,
+      origin = origin,
+      right = right,
+      orient = orient
+    )
   )
 }

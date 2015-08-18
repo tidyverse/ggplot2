@@ -19,7 +19,7 @@
 #' @export
 #' @rdname geom_histogram
 stat_bin <- function(mapping = NULL, data = NULL, geom = "bar",
-                     position = "stack", width = 0.9, drop = FALSE,
+                     position = "stack", orient = "v", width = 0.9, drop = FALSE,
                      right = FALSE, binwidth = NULL, bins = NULL, origin = NULL,
                      breaks = NULL, show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
@@ -28,8 +28,10 @@ stat_bin <- function(mapping = NULL, data = NULL, geom = "bar",
     stat = StatBin,
     geom = geom,
     position = position,
+    flip = orient == "h",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
+    geom_params = list(orient = orient),
     stat_params = list(
       width = width,
       drop = drop,
@@ -37,7 +39,8 @@ stat_bin <- function(mapping = NULL, data = NULL, geom = "bar",
       bins = bins,
       binwidth = binwidth,
       origin = origin,
-      breaks = breaks
+      breaks = breaks,
+      orient = orient
     ),
     params = list(...)
   )
@@ -61,20 +64,26 @@ StatBin <- ggproto("StatBin", Stat,
   },
 
   compute_group = function(self, data, scales, binwidth = NULL, bins = NULL,
-                       origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
-                       right = FALSE, ...) {
-    range <- scale_dimension(scales$x, c(0, 0))
+                           origin = NULL, breaks = NULL, width = 0.9,
+                           drop = FALSE, right = FALSE, orient = "v", ...) {
+    if (orient == "v") {
+      range <- scale_dimension(scales$x, c(0, 0))
+    } else {
+      range <- scale_dimension(scales$y, c(0, 0))
+    }
 
     bin(data$x, data$weight, binwidth = binwidth, bins = bins,
-        origin = origin, breaks = breaks, range = range, width = width,
-        drop = drop, right = right)
+      origin = origin, breaks = breaks, range = range, width = width,
+      drop = drop, right = right)
   },
 
   default_aes = aes(y = ..count..),
   required_aes = c("x")
 )
 
-bin <- function(x, weight=NULL, binwidth=NULL, bins=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = FALSE) {
+bin <- function(x, weight = NULL, binwidth = NULL, bins = NULL,
+                origin = NULL, breaks = NULL, range = NULL, width=0.9,
+                drop = FALSE, right = FALSE) {
 
   if (length(stats::na.omit(x)) == 0) return(data.frame())
   if (is.null(weight))  weight <- rep(1, length(x))

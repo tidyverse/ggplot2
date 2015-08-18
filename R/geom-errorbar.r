@@ -1,17 +1,20 @@
 #' @export
 #' @rdname geom_linerange
 geom_errorbar <- function(mapping = NULL, data = NULL, stat = "identity",
-                          position = "identity", show.legend = NA,
-                          inherit.aes = TRUE, ...) {
+                          position = "identity", orient = "v",
+                          show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomErrorbar,
     position = position,
+    flip = orient == "h",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(...),
+    stat_params = list(orient = orient),
+    geom_params = list(orient = orient)
   )
 }
 
@@ -36,8 +39,9 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
     )
   },
 
-  draw = function(data, scales, coordinates, width = NULL, ...) {
-    GeomPath$draw(data.frame(
+  draw = function(data, scales, coordinates, width = NULL, orient = "v", ...) {
+    data <- flip_aes_if(orient == "h", data)
+    data <- data.frame(
       x = as.vector(rbind(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax)),
       y = as.vector(rbind(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin)),
       colour = rep(data$colour, each = 8),
@@ -47,6 +51,9 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
       group = rep(1:(nrow(data)), each = 8),
       stringsAsFactors = FALSE,
       row.names = 1:(nrow(data) * 8)
-    ), scales, coordinates, ...)
+    )
+    data <- flip_aes_if(orient == "h", data)
+
+    GeomPath$draw(data, scales, coordinates, ...)
   }
 )
