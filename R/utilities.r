@@ -105,8 +105,11 @@ remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = 
 
   if (any(missing)) {
     df <- df[!missing, ]
-    if (!na.rm) warning("Removed ", sum(missing), " rows containing ", str,
-      " values", name, ".", call. = FALSE)
+    if (!na.rm) {
+      warning_wrap(
+        "Removed ", sum(missing), " rows containing ", str, " values", name, "."
+      )
+    }
   }
 
   df
@@ -295,4 +298,10 @@ message_wrap <- function(...) {
   msg <- paste(..., collapse = "", sep = "")
   wrapped <- strwrap(msg, width = getOption("width") - 2)
   message(paste0(wrapped, collapse = "\n"))
+}
+
+warning_wrap <- function(...) {
+  msg <- paste(..., collapse = "", sep = "")
+  wrapped <- strwrap(msg, width = getOption("width") - 2)
+  warning(paste0(wrapped, collapse = "\n"), call. = FALSE)
 }
