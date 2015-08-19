@@ -1,14 +1,13 @@
 #' @export
 #' @rdname geom_hex
-#' @param bins numeric vector specifying number of bins in both x and y
-#'   directions. Set to 30 by default.
-#' @inheritParams stat_identity
+#' @inheritParams stat_bin_2d
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
 #' @aliases stat_binhex
 stat_bin_hex <- function(mapping = NULL, data = NULL, geom = "hex",
-                        position = "identity", bins = 30, na.rm = FALSE,
-                        show.legend = NA, inherit.aes = TRUE, ...) {
+                        position = "identity", bins = 30, binwidth = NULL,
+                        na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+                        ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -18,7 +17,8 @@ stat_bin_hex <- function(mapping = NULL, data = NULL, geom = "hex",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(
-      bins = bins
+      bins = bins,
+      binwidth = binwidth
     ),
     params = list(...)
   )

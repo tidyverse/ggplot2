@@ -1,66 +1,31 @@
 context("stat_bin2d")
 
-test_that("computes breaks from scale limits", {
-  d <- diamonds[1:1000,]
-  base <- ggplot(d, aes(carat, depth))
+test_that("binwidth is respected", {
+  df <- data.frame(x = c(1, 1, 1, 2), y = c(1, 1, 1, 2))
+  base <- ggplot(df, aes(x, y)) +
+    stat_bin2d(geom = "tile", binwidth = 0.25)
 
-  full_scales <- base +
-    stat_bin2d() +
-    scale_x_continuous(limits = range(d$carat, na.rm = TRUE)) +
-    scale_y_continuous(limits = range(d$depth, na.rm = TRUE))
-  ret <- layer_data(full_scales)
-  expect_equal(nrow(ret), 191)
-
-  d$carat[1] <- NA
-  d$depth[2] <- NA
-  ret <- layer_data(full_scales %+% d)
-  expect_equal(nrow(ret), 191)
-
-  breaks <- list(
-    x = seq(min(d$carat, na.rm = TRUE), max(d$carat, na.rm = TRUE), length.out = 41),
-    y = NULL
-  )
-  ret <- layer_data(base + stat_bin2d(breaks = breaks))
-  expect_equal(length(levels(ret$xbin)), 40)
-  expect_equal(length(levels(ret$ybin)), 31)
+  out <- layer_data(base)
+  expect_equal(nrow(out), 2)
+  # Adjust tolerance to account for fuzzy breaks adjustment
+  expect_equal(out$xmin, c(1, 1.75), tol = 1e-7)
+  expect_equal(out$xmax, c(1.25, 2), tol = 1e-7)
 })
 
-test_that("breaks arguments override correctly", {
-  df <- data.frame(x = 0:3, y = 0:3)
-
-  g <- ggplot(df, aes(x, y))
-
+test_that("breaks override binwidth", {
   # Test explicitly setting the breaks for x, overriding
   # the binwidth.
   integer_breaks <- (0:4) - 0.5  # Will use for x
   half_breaks <- seq(0, 3.5, 0.5)  # Will test against this for y
 
-  got <- ggplot_build(
-    g + stat_bin2d(breaks = list(x = integer_breaks, y = NULL),
-      binwidth = c(0.5, 0.5)))
+  df <- data.frame(x = 0:3, y = 0:3)
+  base <- ggplot(df, aes(x, y)) +
+    stat_bin2d(
+      breaks = list(x = integer_breaks, y = NULL),
+      binwidth = c(0.5, 0.5)
+    )
 
-  expect_equal(got$data[[1]]$xmin, (0:3) - 0.5)
-  expect_equal(got$data[[1]]$xmax, (0:3) + 0.5)
-  expect_equal(got$data[[1]]$xbin,
-    cut(df$x, integer_breaks, include.lowest = TRUE))
-
-  expect_equal(got$data[[1]]$ybin,
-    cut(df$y, half_breaks, include.lowest = TRUE))
-
-  # Test that we can get the same results with binwidth= and
-  # with breaks=.
-  expected <- ggplot_build(g + stat_bin2d(binwidth = c(0.5, 0.5)))
-
-  breaks_to_try <- list(
-    list(x = half_breaks, y = half_breaks),
-    list(x = half_breaks, y = NULL),
-    list(x = NULL, y = half_breaks),
-    list(x = NULL, y = NULL))
-
-  for (breaks in breaks_to_try) {
-    got <- ggplot_build(g + stat_bin2d(breaks = breaks, binwidth = c(0.5, 0.5)))
-
-    expect_equal(got$data[[1]], expected$data[[1]])
-  }
+  out <- layer_data(base)
+  expect_equal(out$xbin, cut(df$x, adjust_breaks(integer_breaks), include.lowest = TRUE, labels = FALSE))
+  expect_equal(out$ybin, cut(df$y, adjust_breaks(half_breaks), include.lowest = TRUE, labels = FALSE))
 })
-

@@ -1,6 +1,13 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* It's now obvious that you can set the `binwidth` parameter for
+  `stat_bin_hex()`, `stat_summary_hex()`, `stat_bin_2d()`, and
+  `stat_summary_2d()`. `stat_summary_2d()` and `stat_bin_2d()` now share
+  exactly the same code for determining breaks from `bins`, `binwidth`, and
+  `origin`. `stat_summary_2d()` and `stat_bin_2d()` now output in tile/raster
+  compatible form instead of rect form.
+
 * For consistency with the summary functions, `stat_binhex()` and `stat_bin2d()`
   have been renamed to `stat_bin_hex()` and `stat_bin_2d()` (the existing
   functions will continue to work but will be deprecated in the future)
