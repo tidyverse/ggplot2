@@ -116,6 +116,22 @@ ggplot(sizes, aes(size, stroke, size = size, stroke = stroke)) +
 
 ### Font face
 
+There are only three fonts that are guaranteed to work everywhere: "sans" (the default), "serif", or "mono":
+
+```{r}
+df <- data.frame(x = 1, y = 3:1, family = c("sans", "serif", "mono"))
+ggplot(df, aes(x, y)) + 
+  geom_text(aes(label = family, family = family))
+```
+
+It's trickier to include a system font on a plot because text drawing is done differently by each graphics device (GD). There are five GDs in common use (`png()`, `pdf()`, on screen devices for Windows, Mac and Linux), so to have a font work everywhere you need to configure five devices in five different ways. Two packages simplify the quandary a bit: 
+
+* `showtext` makes GD-independent plots by rendering all text as polygons. 
+
+* `extrafont` converts fonts to a standard format that all devices can use. 
+
+Both approaches have pros and cons, so you will to need to try both of them and see which works best for your needs.
+
 ### Family
 
 <!--
