@@ -16,7 +16,7 @@
 #' @seealso \code{\link{stat_summary_hex}} for hexagonal summarization.
 #'   \code{\link{stat_bin2d}} for the binning options.
 #' @inheritParams stat_identity
-#' @inheritParams stat_bin2d
+#' @inheritParams stat_bin_2d
 #' @param drop drop if the output of \code{fun} is \code{NA}.
 #' @param fun function for summary.
 #' @param fun.args A list of extra arguments to pass to \code{fun}

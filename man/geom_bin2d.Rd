@@ -3,12 +3,13 @@
 \name{geom_bin2d}
 \alias{geom_bin2d}
 \alias{stat_bin2d}
+\alias{stat_bin_2d}
 \title{Add heatmap of 2d bin counts.}
 \usage{
 geom_bin2d(mapping = NULL, data = NULL, stat = "bin2d",
   position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 
-stat_bin2d(mapping = NULL, data = NULL, geom = "rect",
+stat_bin_2d(mapping = NULL, data = NULL, geom = "rect",
   position = "identity", bins = 30, drop = TRUE, show.legend = NA,
   inherit.aes = TRUE, ...)
 }

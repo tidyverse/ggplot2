@@ -1,6 +1,11 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* For consistency with the summary functions, `stat_binhex()` and `stat_bin2d()`
+  have been renamed to `stat_bin_hex()` and `stat_bin_2d()` (the existing
+  functions will continue to work but will be deprecated in the future)
+  (#1274).
+
 * New `layer_data()` function extracts the data used for plotting for a given
   layer. It's mostly useful for testing.
 

@@ -5,7 +5,8 @@
 #' @inheritParams stat_identity
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
-stat_binhex <- function(mapping = NULL, data = NULL, geom = "hex",
+#' @aliases stat_binhex
+stat_bin_hex <- function(mapping = NULL, data = NULL, geom = "hex",
                         position = "identity", bins = 30, na.rm = FALSE,
                         show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
@@ -23,6 +24,8 @@ stat_binhex <- function(mapping = NULL, data = NULL, geom = "hex",
   )
 }
 
+#' @export
+stat_binhex <- stat_bin_hex
 
 #' @rdname ggplot2-ggproto
 #' @format NULL

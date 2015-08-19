@@ -2,8 +2,9 @@
 #'   horizontal directions. Set to 30 by default.
 #' @param drop if \code{TRUE} removes all cells with 0 counts.
 #' @export
+#' @aliases stat_bin2d
 #' @rdname geom_bin2d
-stat_bin2d <- function(mapping = NULL, data = NULL, geom = "rect",
+stat_bin_2d <- function(mapping = NULL, data = NULL, geom = "rect",
                        position = "identity", bins = 30, drop = TRUE,
                        show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
@@ -21,6 +22,9 @@ stat_bin2d <- function(mapping = NULL, data = NULL, geom = "rect",
     params = list(...)
   )
 }
+
+#' @export
+stat_bin2d <- stat_bin_2d
 
 #' @rdname ggplot2-ggproto
 #' @format NULL

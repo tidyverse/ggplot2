@@ -2,13 +2,14 @@
 % Please edit documentation in R/geom-hex.r, R/stat-binhex.r
 \name{geom_hex}
 \alias{geom_hex}
+\alias{stat_bin_hex}
 \alias{stat_binhex}
 \title{Hexagon binning.}
 \usage{
 geom_hex(mapping = NULL, data = NULL, stat = "binhex",
   position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 
-stat_binhex(mapping = NULL, data = NULL, geom = "hex",
+stat_bin_hex(mapping = NULL, data = NULL, geom = "hex",
   position = "identity", bins = 30, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 }
