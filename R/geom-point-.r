@@ -70,7 +70,7 @@
 #'
 #' # Change scales
 #' p + geom_point(aes(colour = cyl)) + scale_colour_gradient(low = "blue")
-#' p + geom_point(aes(shape = factor(cyl))) + scale_shape(solid = FALSE)
+#' p + geom_point(aes(shape = factor(cyl)), stroke = 1) + scale_shape(solid = FALSE)
 #'
 #' # Set aesthetics to fixed value
 #' ggplot(mtcars, aes(wt, mpg)) + geom_point(colour = "red", size = 3)
@@ -157,5 +157,5 @@ GeomPoint <- ggproto("GeomPoint", Geom,
 
   required_aes = c("x", "y"),
   default_aes = aes(shape = 19, colour = "black", size = 2, fill = NA,
-    alpha = NA, stroke = 1)
+    alpha = NA, stroke = 0)
 )
