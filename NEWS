@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* New `stat_summary_bin()` that works like `stat_summary()` but on binned
+  data. It's a generalisation of `stat_bin()` that can compute any aggregate.
+  (#1274)
+
 * It's now obvious that you can set the `binwidth` parameter for
   `stat_bin_hex()`, `stat_summary_hex()`, `stat_bin_2d()`, and
   `stat_summary_2d()`. `stat_summary_2d()` and `stat_bin_2d()` now share

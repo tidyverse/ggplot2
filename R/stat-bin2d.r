@@ -85,7 +85,7 @@ dual_param <- function(x, default = list(x = NULL, y = NULL)) {
 }
 
 bin_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
-                      bins = 30, right = 30) {
+                      bins = 30, right = TRUE) {
   # Bins for categorical data should take the width of one level,
   # and should show up centered over their tick marks. All other parameters
   # are ignored.
