@@ -4,15 +4,15 @@ df <- data.frame(x = 1:3, y = 3:1, z = letters[1:3])
 
 test_that("facets split up the data", {
   l1 <- ggplot(df, aes(x, y)) + geom_point() + facet_wrap(~z)
-  d1 <- pdata(l1)[[1]]
+  d1 <- layer_data(l1)
 
   expect_that(d1$PANEL, equals(factor(1:3)))
 
   l2 <- ggplot(df, aes(x, y)) + geom_point() + facet_grid(. ~ z)
   l3 <- ggplot(df, aes(x, y)) + geom_point() + facet_grid(z ~ .)
 
-  d2 <- pdata(l2)[[1]]
-  d3 <- pdata(l3)[[1]]
+  d2 <- layer_data(l2)
+  d3 <- layer_data(l3)
 
   expect_that(d2, equals(d3))
   expect_that(sort(names(d2)), equals(sort(c("x", "y", "group", "PANEL"))))

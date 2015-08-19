@@ -6,37 +6,37 @@ test_that("handles grouping correctly", {
 
   base <- ggplot(d, aes(cut, clarity))
 
-  ret <- pdata(base + stat_sum())[[1]]
+  ret <- layer_data(base + stat_sum())
   expect_equal(nrow(ret), 38)
   expect_equal(sum(ret$n), nrow(d))
   expect_true(all_ones(ret$prop))
 
-  ret <- pdata(base + stat_sum(aes(group = 1)))[[1]]
+  ret <- layer_data(base + stat_sum(aes(group = 1)))
   expect_equal(nrow(ret), 38)
   expect_equal(sum(ret$n), nrow(d))
   expect_equal(sum(ret$prop), 1)
 
-  ret <- pdata(base + stat_sum(aes(group = cut)))[[1]]
+  ret <- layer_data(base + stat_sum(aes(group = cut)))
   expect_equal(nrow(ret), 38)
   expect_equal(sum(ret$n), nrow(d))
   expect_true(all_ones(tapply(ret$prop, ret$x, FUN = sum)))
 
-  ret <- pdata(base + stat_sum(aes(group = cut, colour = cut)))[[1]]
+  ret <- layer_data(base + stat_sum(aes(group = cut, colour = cut)))
   expect_equal(nrow(ret), 38)
   expect_equal(sum(ret$n), nrow(d))
   expect_true(all_ones(tapply(ret$prop, ret$x, FUN = sum)))
 
-  ret <- pdata(base + stat_sum(aes(group = clarity)))[[1]]
+  ret <- layer_data(base + stat_sum(aes(group = clarity)))
   expect_equal(nrow(ret), 38)
   expect_equal(sum(ret$n), nrow(d))
   expect_true(all_ones(tapply(ret$prop, ret$y, FUN = sum)))
 
-  ret <- pdata(base + stat_sum(aes(group = clarity, colour = cut)))[[1]]
+  ret <- layer_data(base + stat_sum(aes(group = clarity, colour = cut)))
   expect_equal(nrow(ret), 38)
   expect_equal(sum(ret$n), nrow(d))
   expect_true(all_ones(tapply(ret$prop, ret$y, FUN = sum)))
 
-  ret <- pdata(base + stat_sum(aes(group = 1, weight = price)))[[1]]
+  ret <- layer_data(base + stat_sum(aes(group = 1, weight = price)))
   expect_equal(nrow(ret), 38)
   expect_equal(sum(ret$n), sum(d$price))
   expect_equal(sum(ret$prop), 1)

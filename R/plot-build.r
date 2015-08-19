@@ -1,9 +1,10 @@
 #' Build ggplot for rendering.
 #'
-#' This function takes the plot object, and performs all steps necessary to
-#' produce an object that can be rendered.  This function outputs two pieces:
+#' \code{ggplot_build} takes the plot object, and performs all steps necessary
+#' to produce an object that can be rendered.  This function outputs two pieces:
 #' a list of data frames (one for each layer), and a panel object, which
-#' contain all information about axis limits, breaks etc.
+#' contain all information about axis limits, breaks etc. \code{layer_data}
+#' is a helper function which returns the data for a given layer.
 #'
 #' @param plot ggplot object
 #' @seealso \code{\link{print.ggplot}} and \code{\link{benchplot}} for
@@ -86,3 +87,8 @@ ggplot_build <- function(plot) {
   list(data = data, panel = panel, plot = plot)
 }
 
+#' @export
+#' @rdname ggplot_build
+layer_data <- function(plot, i = 1L) {
+  ggplot_build(plot)$data[[i]]
+}

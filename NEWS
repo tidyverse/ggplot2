@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* New `layer_data()` function extracts the data used for plotting for a given
+  layer. It's mostly useful for testing.
+
 * `facet_wrap()` gains a `dir` argument to control the direction the
   panels are wrapped in. The default is "h" for horizontal. Use "v" for
   vertical layout (#1260).

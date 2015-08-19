@@ -8,19 +8,19 @@ test_that("computes breaks from scale limits", {
     stat_bin2d() +
     scale_x_continuous(limits = range(d$carat, na.rm = TRUE)) +
     scale_y_continuous(limits = range(d$depth, na.rm = TRUE))
-  ret <- pdata(full_scales)[[1]]
+  ret <- layer_data(full_scales)
   expect_equal(nrow(ret), 191)
 
   d$carat[1] <- NA
   d$depth[2] <- NA
-  ret <- pdata(full_scales %+% d)[[1]]
+  ret <- layer_data(full_scales %+% d)
   expect_equal(nrow(ret), 191)
 
   breaks <- list(
     x = seq(min(d$carat, na.rm = TRUE), max(d$carat, na.rm = TRUE), length.out = 41),
     y = NULL
   )
-  ret <- pdata(base + stat_bin2d(breaks = breaks))[[1]]
+  ret <- layer_data(base + stat_bin2d(breaks = breaks))
   expect_equal(length(levels(ret$xbin)), 40)
   expect_equal(length(levels(ret$ybin)), 31)
 })
