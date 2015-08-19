@@ -41,7 +41,7 @@ stat_quantile <- function(mapping = NULL, data = NULL, geom = "quantile",
 StatQuantile <- ggproto("StatQuantile", Stat,
   required_aes = c("x", "y"),
 
-  compute_group = function(data, scales, quantiles = c(0.25, 0.5, 0.75),
+  compute_group = function(data, panel_info, quantiles = c(0.25, 0.5, 0.75),
                            formula = NULL, xseq = NULL, method = "rq",
                            lambda = 1, na.rm = FALSE, ...) {
     try_require("quantreg", "stat_quantile")

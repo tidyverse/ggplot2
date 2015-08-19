@@ -67,7 +67,7 @@ StatQq <- ggproto("StatQq", Stat,
 
   required_aes = c("sample"),
 
-  compute_group = function(data, scales, quantiles = NULL,
+  compute_group = function(data, panel_info, quantiles = NULL,
                            distribution = stats::qnorm, dparams = list(),
                            na.rm = FALSE) {
 

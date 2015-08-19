@@ -10,15 +10,15 @@
 #' implement one or more of the following:
 #'
 #' \itemize{
-#'   \item Override either \code{compute(self, data, scales, ...)} or
-#'     \code{compute(self, data, scales, ...)}. \code{compute} is called
-#'     once per panel, \code{compute_group} is called once per group.
+#'   \item Override either \code{compute_panel(self, data, panel_info, ...)} or
+#'     \code{compute_group(self, data, panel_info, ...)}. \code{compute_panel} is
+#'     called once per panel, \code{compute_group} is called once per group.
 #'     If you override \code{compute}, you're responsible for preserving
 #'     non-transformed columns.
 #'
 #'     \code{data} is a data frame containing the variables named according
-#'     to the aesthetics that they're mapped to. \code{scales} contains a list
-#'     of scales associated with the plot. This is present mostly for historical
+#'     to the aesthetics that they're mapped to. \code{panel_info} is a list
+#'     of scale information for the panel. This is present mostly for historical
 #'     reasons, and I would discourage you from relying on it. \code{...}
 #'     contains the parameters returned by \code{compute_defaults()}.
 #'
@@ -57,15 +57,13 @@ Stat <- ggproto("Stat",
     remove_missing(data, isTRUE(params$na.rm), self$required_aes, name = snake_class(self))
   },
 
-  compute = function(self, data, scales, ...) {
+  compute_panel = function(self, data, panel_info, ...) {
     if (empty(data)) return(data.frame())
 
-    force(data)
-    force(scales)
-
     groups <- split(data, data$group)
-    stats <- lapply(groups, function(group)
-      self$compute_group(data = group, scales = scales, ...))
+    stats <- lapply(groups, function(group) {
+      self$compute_group(data = group, panel_info = panel_info, ...)
+    })
 
     stats <- mapply(function(new, old) {
       if (empty(new)) return(data.frame())
@@ -80,7 +78,7 @@ Stat <- ggproto("Stat",
     do.call(plyr::rbind.fill, stats)
   },
 
-  compute_group = function(self, data, scales, ...) {
+  compute_group = function(self, data, panel_info, ...) {
     stop("Not implemented", call. = FALSE)
   }
 )

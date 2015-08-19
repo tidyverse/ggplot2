@@ -46,7 +46,7 @@ StatIdentity <- ggproto("StatIdentity", Stat,
     data
   },
 
-  compute = function(data, scales, ...) {
+  compute_panel = function(data, panel_info, ...) {
     data
   }
 )

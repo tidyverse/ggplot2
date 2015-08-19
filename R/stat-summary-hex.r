@@ -32,12 +32,12 @@ StatSummaryHex <- ggproto("StatSummaryHex", Stat,
 
   required_aes = c("x", "y", "z"),
 
-  compute_group = function(data, scales, binwidth = NULL, bins = 30, drop = TRUE,
+  compute_group = function(data, panel_info, binwidth = NULL, bins = 30, drop = TRUE,
                            fun = "mean", fun.args = list(), ...) {
     if (is.null(binwidth)) {
       binwidth <- c(
-        diff(scale_dimension(scales$x, c(0, 0))) / bins,
-        diff(scale_dimension(scales$y, c(0, 0))) / bins
+        diff(scale_dimension(panel_info$x, c(0, 0))) / bins,
+        diff(scale_dimension(panel_info$y, c(0, 0))) / bins
       )
     }
 

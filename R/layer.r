@@ -118,10 +118,10 @@ Layer <- ggproto("Layer", NULL,
       snake_class(self$stat)
     )
 
-    args <- c(list(data = quote(panel_data), scales = quote(scales)), params)
+    args <- c(list(data = quote(panel_data), panel_info = quote(panel_info)), params)
     plyr::ddply(data, "PANEL", function(panel_data) {
-      scales <- panel_scales(panel, panel_data$PANEL[1])
-      tryCatch(do.call(self$stat$compute, args), error = function(e) {
+      panel_info <- panel_scales(panel, panel_data$PANEL[1])
+      tryCatch(do.call(self$stat$compute_panel, args), error = function(e) {
         warning("Computation failed in `", snake_class(self$stat), "()`:\n",
           e$message, call. = FALSE)
         data.frame()

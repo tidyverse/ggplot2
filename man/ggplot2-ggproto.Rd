@@ -202,15 +202,15 @@ fields. To create a new type of Stat object, you typically will want to
 implement one or more of the following:
 
 \itemize{
-  \item Override either \code{compute(self, data, scales, ...)} or
-    \code{compute(self, data, scales, ...)}. \code{compute} is called
-    once per panel, \code{compute_group} is called once per group.
+  \item Override either \code{compute_panel(self, data, panel_info, ...)} or
+    \code{compute_group(self, data, panel_info, ...)}. \code{compute_panel} is
+    called once per panel, \code{compute_group} is called once per group.
     If you override \code{compute}, you're responsible for preserving
     non-transformed columns.
 
     \code{data} is a data frame containing the variables named according
-    to the aesthetics that they're mapped to. \code{scales} contains a list
-    of scales associated with the plot. This is present mostly for historical
+    to the aesthetics that they're mapped to. \code{panel_info} is a list
+    of scale information for the panel. This is present mostly for historical
     reasons, and I would discourage you from relying on it. \code{...}
     contains the parameters returned by \code{compute_defaults()}.
 

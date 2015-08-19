@@ -77,7 +77,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     params
   },
 
-  compute_group = function(data, scales, method = "auto", formula = y~x,
+  compute_group = function(data, panel_info, method = "auto", formula = y~x,
                            se = TRUE, n = 80, fullrange = FALSE, xseq = NULL,
                            level = 0.95, method.args = list(), na.rm = FALSE,
                            ...) {
@@ -91,13 +91,13 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     if (is.null(xseq)) {
       if (is.integer(data$x)) {
         if (fullrange) {
-          xseq <- scale_dimension(scales$x, c(0, 0))
+          xseq <- scale_dimension(panel_info$x, c(0, 0))
         } else {
           xseq <- sort(unique(data$x))
         }
       } else {
         if (fullrange) {
-          range <- scale_dimension(scales$x, c(0, 0))
+          range <- scale_dimension(panel_info$x, c(0, 0))
         } else {
           range <- range(data$x, na.rm = TRUE)
         }

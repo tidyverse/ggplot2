@@ -72,12 +72,12 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
 
   required_aes = c("x", "y", "z"),
 
-  compute_group = function(data, scales, binwidth = NULL, bins = 30,
+  compute_group = function(data, panel_info, binwidth = NULL, bins = 30,
                            breaks = NULL, origin = NULL, drop = TRUE,
                            fun = "mean", fun.args = list(), ...) {
     range <- list(
-      x = scale_dimension(scales$x, c(0, 0)),
-      y = scale_dimension(scales$y, c(0, 0))
+      x = scale_dimension(panel_info$x, c(0, 0)),
+      y = scale_dimension(panel_info$y, c(0, 0))
     )
 
     # Determine origin, if omitted

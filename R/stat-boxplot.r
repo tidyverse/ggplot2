@@ -53,7 +53,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
       finite = TRUE)
   },
 
-  compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, ...) {
+  compute_group = function(data, panel_info, width = NULL, na.rm = FALSE, coef = 1.5, ...) {
     qs <- c(0, 0.25, 0.5, 0.75, 1)
 
     if (!is.null(data$weight)) {
