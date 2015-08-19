@@ -50,7 +50,7 @@ stat_bin <- function(mapping = NULL, data = NULL, geom = "bar",
 StatBin <- ggproto("StatBin", Stat,
   compute_defaults = function(data, params) {
     if (!is.null(data$y) || !is.null(params$y)) {
-      warning("stat_bin() ignores y aesthetic.", call. = FALSE)
+      stop("stat_bin() must not be used with a y aesthetic.", call. = FALSE)
     }
 
     if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {
