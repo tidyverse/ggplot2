@@ -38,7 +38,7 @@ test_that("layers with empty data are silently omitted with facet_wrap", {
   d <- ggplot(df0, aes(mpg, wt)) +
     geom_point() +
     facet_wrap(~cyl)
-  expect_error(layer_data(d))
+  expect_error(layer_data(d), "must have at least one value")
 
   d <- d + geom_point(data = mtcars)
   expect_equal(nrow(layer_data(d, 1)), 0)
@@ -49,7 +49,7 @@ test_that("layers with empty data are silently omitted with facet_grid", {
   d <- ggplot(df0, aes(mpg, wt)) +
     geom_point() +
     facet_grid(am ~ cyl)
-  expect_error(layer_data(d))
+  expect_error(layer_data(d), "must have at least one value")
 
   d <- d + geom_point(data = mtcars)
   expect_equal(nrow(layer_data(d, 1)), 0)
