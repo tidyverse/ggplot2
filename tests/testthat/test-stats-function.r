@@ -1,6 +1,6 @@
-context("stat-function")
+context("stat_function")
 
-test_that("stat-function", {
+test_that("uses scale limits, not data limits", {
   dat <- data.frame(x = c(0.1, 1:100))
   dat$y <- dexp(dat$x)
 
