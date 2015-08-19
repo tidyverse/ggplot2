@@ -10,7 +10,6 @@ test_that("stat_bin throws error when y aesthetic present", {
     "must not be used with a y aesthetic.")
 })
 
-
 test_that("stat_bar throws error when y aesthetic present", {
   dat <- data.frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 
