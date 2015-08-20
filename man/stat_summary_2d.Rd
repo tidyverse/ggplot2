@@ -6,7 +6,7 @@
 \alias{stat_summary_hex}
 \title{Bin and summarise in 2d (rectangle & hexagons)}
 \usage{
-stat_summary_2d(mapping = NULL, data = NULL, geom = "raster",
+stat_summary_2d(mapping = NULL, data = NULL, geom = "tile",
   position = "identity", bins = 30, binwidth = NULL, drop = TRUE,
   fun = "mean", fun.args = list(), show.legend = NA, inherit.aes = TRUE,
   ...)

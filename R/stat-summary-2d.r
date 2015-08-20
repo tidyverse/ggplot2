@@ -33,7 +33,7 @@
 #' if (requireNamespace("hexbin")) {
 #' d + stat_summary_hex()
 #' }
-stat_summary_2d <- function(mapping = NULL, data = NULL, geom = "raster",
+stat_summary_2d <- function(mapping = NULL, data = NULL, geom = "tile",
                             position = "identity", bins = 30, binwidth = NULL,
                             drop = TRUE, fun = "mean", fun.args = list(),
                             show.legend = NA, inherit.aes = TRUE, ...) {

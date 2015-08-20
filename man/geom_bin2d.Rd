@@ -9,7 +9,7 @@
 geom_bin2d(mapping = NULL, data = NULL, stat = "bin2d",
   position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 
-stat_bin_2d(mapping = NULL, data = NULL, geom = "raster",
+stat_bin_2d(mapping = NULL, data = NULL, geom = "tile",
   position = "identity", bins = 30, binwidth = NULL, drop = TRUE,
   show.legend = NA, inherit.aes = TRUE, ...)
 }
