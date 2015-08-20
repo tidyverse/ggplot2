@@ -104,7 +104,8 @@ A guide object
 }
 \description{
 Colour bar guide shows continuous color scales mapped onto values.
-Colour bar is available with \code{scale_fill} and \code{scale_colour}.
+Colour bar is available with \code{scale_fill}, \code{scale_colour} or
+\code{scale_alpha}.
 For more information, see the inspiration for this function:
 \href{http://www.mathworks.com/help/techdoc/ref/colorbar.html}{Matlab's colorbar function}.
 }
