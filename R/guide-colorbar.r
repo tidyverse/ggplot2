@@ -186,6 +186,10 @@ guide_train.colorbar <- function(guide, scale) {
   ticks$.value <- breaks
   ticks$.label <- scale_labels(scale, breaks)
 
+  if ("alpha" %in% scale$aesthetics){
+    ticks$.label <- rev(ticks$.label)
+  }
+
   guide$key <- ticks
 
   # bar specification (number of divs etc)
