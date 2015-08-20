@@ -145,7 +145,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   },
 
   draw_group = function(self, data, ..., fatten = 2, outlier.colour = "black",
-                        outlier.shape = 19, outlier.size = 2, outlier.stroke = 1,
+                        outlier.shape = 19, outlier.size = 1.5, outlier.stroke = 0.5,
                         notch = FALSE, notchwidth = .5, varwidth = FALSE) {
     common <- data.frame(
       colour = data$colour,
@@ -208,7 +208,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
   default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
     alpha = NA, shape = 19, linetype = "solid", outlier.colour = "black",
-    outlier.shape = 19, outlier.size = 2, outlier.stroke = 1),
+    outlier.shape = 19, outlier.size = 1.5, outlier.stroke = 0.5),
 
   required_aes = c("x", "lower", "upper", "middle", "ymin", "ymax")
 )
