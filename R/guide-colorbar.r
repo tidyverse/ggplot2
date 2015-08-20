@@ -158,7 +158,7 @@ guide_colourbar <- function(
     order = order,
 
     # parameter
-    available_aes = c("colour", "color", "fill"), ..., name = "colorbar"),
+    available_aes = c("colour", "color", "fill", "alpha"), ..., name = "colorbar"),
     class = c("guide", "colorbar")
   )
 }
@@ -167,7 +167,7 @@ guide_colourbar <- function(
 guide_train.colorbar <- function(guide, scale) {
 
   # do nothing if scale are inappropriate
-  if (length(intersect(scale$aesthetics, c("color", "colour", "fill"))) == 0) {
+  if (length(intersect(scale$aesthetics, c("color", "colour", "fill", "alpha"))) == 0) {
     warning("colorbar guide needs colour or fill scales.")
     return(NULL)
   }
