@@ -55,7 +55,7 @@ geom_density <- function(mapping = NULL, data = NULL, stat = "density",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(..., na.rm = na.rm)
   )
 }
 
