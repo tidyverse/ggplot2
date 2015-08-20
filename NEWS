@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* New `txhousing` dataset containing information about the Texas housing
+  market. Useful for examples that need multiple time series, and for
+  demonstrating model+vis methods.
+
 * The default font size in `geom_text()` has been decreased from 5mm (14 pts)
   to 3.8 mm (11 pts) to match the new default theme sizes.
 

@@ -183,3 +183,21 @@ NULL
 #' \item{col}{Colour name}
 #' }
 "luv_colours"
+
+#' Housing sales in TX.
+#'
+#' Information about the housing market in Texas provided by the TAMU
+#' real estate center, \url{http://recenter.tamu.edu/}.
+#'
+#' @format A data frame with 8602 observations and 9 variables:
+#' \itemize{
+#' \item{city}{Name of MLS area}
+#' \item{year,month,date}{Date}
+#' \item{sales}{Number of sales}
+#' \item{volume}{Total value of sales}
+#' \item{median}{Median sale price}
+#' \item{listings}{Total active listings}
+#' \item{inventory}{"Months inventory": amount of time it would take to sell
+#'   all current listings at current pace of sales.}
+#' }
+"txhousing"
