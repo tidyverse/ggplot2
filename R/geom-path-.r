@@ -114,7 +114,7 @@ GeomPath <- ggproto("GeomPath", Geom,
                   linejoin = "round", linemitre = 1, ..., na.rm = FALSE)
   {
     if (!anyDuplicated(data$group)) {
-      message("geom_path: Each group consist of only one observation. Do you need to adjust the group aesthetic?")
+      message("geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?")
     }
 
     keep <- function(x) {

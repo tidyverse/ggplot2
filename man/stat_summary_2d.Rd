@@ -6,13 +6,15 @@
 \alias{stat_summary_hex}
 \title{Bin and summarise in 2d (rectangle & hexagons)}
 \usage{
-stat_summary_2d(mapping = NULL, data = NULL, geom = "rect",
-  position = "identity", bins = 30, drop = TRUE, fun = "mean",
-  fun.args = list(), show.legend = NA, inherit.aes = TRUE, ...)
+stat_summary_2d(mapping = NULL, data = NULL, geom = "tile",
+  position = "identity", bins = 30, binwidth = NULL, drop = TRUE,
+  fun = "mean", fun.args = list(), show.legend = NA, inherit.aes = TRUE,
+  ...)
 
 stat_summary_hex(mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", bins = 30, drop = TRUE, fun = "mean",
-  fun.args = list(), show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", bins = 30, binwidth = NULL, drop = TRUE,
+  fun = "mean", fun.args = list(), show.legend = NA, inherit.aes = TRUE,
+  ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -29,6 +31,9 @@ on this layer}
 
 \item{bins}{numeric vector giving number of bins in both vertical and
 horizontal directions. Set to 30 by default.}
+
+\item{binwidth}{Numeric vector giving bin width in both vertical and
+horizontal directions. Overrides \code{bins} if both set.}
 
 \item{drop}{drop if the output of \code{fun} is \code{NA}.}
 

@@ -1,16 +1,9 @@
-#' Summarise y values at every unique x.
+#' Summarise y values at unique/binned x x.
 #'
-#' \code{stat_summary} allows for tremendous flexibility in the specification
-#' of summary functions. The summary function can either supply individual
-#' summary functions for each of y, ymin and ymax (with \code{fun.y},
-#' \code{fun.ymax}, \code{fun.ymin}), or return a data frame containing any
-#' number of aesthetics with with \code{fun.data}. All summary functions
-#' are called with a single vector of values, \code{x}.
-#'
-#' A simple vector function is easiest to work with as you can return a single
-#' number, but is somewhat less flexible.  If your summary function operates
-#' on a data.frame it should return a data frame with variables that the geom
-#' can use.
+#' \code{stat_summary} operates on unique \code{x}; \code{stat_summary_bin}
+#' operators on binned \code{x}. They are more flexible versions of
+#' \code{\link{stat_bin}}: instead of just counting, the can compute any
+#' aggregate.
 #'
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "summary")}
@@ -19,7 +12,10 @@
 #'  \code{\link{geom_linerange}}, \code{\link{geom_crossbar}} for geoms to
 #'  display summarised data
 #' @inheritParams stat_identity
-#' @section Computed variables:
+#' @section Summary functions:
+#' You can either supply summary functions individually (\code{fun.y},
+#' \code{fun.ymax}, \code{fun.ymin}), or as a single function (\code{fun.data}):
+#'
 #' \describe{
 #'   \item{fun.data}{Complete summary function. Should take numeric vector as
 #'      input and return data frame as output}
@@ -30,6 +26,11 @@
 #'   \item{fun.ymax}{ymax summary function (should take numeric vector and
 #'     return single number)}
 #' }
+#'
+#' A simple vector function is easiest to work with as you can return a single
+#' number, but is somewhat less flexible. If your summary function computes
+#' multiple values at once (e.g. ymin and ymax), use \code{fun.data}.
+#'
 #' @param fun.data A function that is given the complete data and should
 #'   return a data frame with variables \code{ymin}, \code{y}, and \code{ymax}.
 #' @param fun.ymin,fun.y,fun.ymax Alternatively, supply three individual
@@ -48,9 +49,17 @@
 #' d + stat_summary(fun.y = "mean", colour = "red", size = 2)
 #' d + aes(colour = factor(vs)) + stat_summary(fun.y = mean, geom="line")
 #'
-#' # Alternatively, you can supply a function that operates on a data.frame.
 #' d + stat_summary(fun.y = mean, fun.ymin = min, fun.ymax = max,
 #'   colour = "red")
+#'
+#' #' d <- ggplot(diamonds, aes(carat, price))
+#' d + geom_smooth()
+#' d + geom_line(stat = "summary_bin", binwidth = 0.1, fun.y = "mean")
+#'
+#' d <- ggplot(diamonds, aes(cut))
+#' d + geom_bar()
+#' d + stat_summary_bin(aes(y = price), fun.y = "mean", geom = "bar")
+
 #' \donttest{
 #' # A set of useful summary functions is provided from the Hmisc package:
 #' stat_sum_df <- function(fun, geom="crossbar", ...) {
@@ -142,33 +151,11 @@ stat_summary <- function(mapping = NULL, data = NULL, geom = "pointrange",
 StatSummary <- ggproto("StatSummary", Stat,
   required_aes = c("x", "y"),
 
-  compute = function(data, scales, fun.data = NULL, fun.y = NULL,
-    fun.ymax = NULL, fun.ymin = NULL, fun.args = list(), na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_summary")
+  compute_panel = function(data, panel_info, fun.data = NULL, fun.y = NULL,
+                     fun.ymax = NULL, fun.ymin = NULL, fun.args = list(),
+                     na.rm = FALSE, ...) {
 
-    if (!is.null(fun.data)) {
-      # Function that takes complete data frame as input
-      fun.data <- match.fun(fun.data)
-      fun <- function(df) {
-        do.call(fun.data, c(list(quote(df$y)), fun.args))
-      }
-    } else {
-      # Three functions that take vectors as inputs
-
-      call_f <- function(fun, x) {
-        if (is.null(fun)) return(NA_real_)
-        do.call(fun, c(list(quote(x)), fun.args))
-      }
-
-      fun <- function(df, ...) {
-        data.frame(
-          ymin = call_f(fun.ymin, df$y),
-          y = call_f(fun.y, df$y),
-          ymax = call_f(fun.ymax, df$y)
-        )
-      }
-    }
-
+    fun <- make_summary_fun(fun.data, fun.y, fun.ymax, fun.ymin, fun.args)
     summarise_by_x(data, fun)
   }
 )

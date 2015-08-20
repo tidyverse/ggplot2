@@ -39,22 +39,21 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
 
   required_aes = c("x", "y"),
 
-  compute_group = function(data, scales, na.rm = FALSE, h = NULL,
+  compute_group = function(data, panel_info, na.rm = FALSE, h = NULL,
                            contour = TRUE, n = 100, ...) {
-    df <- data.frame(data[, c("x", "y")])
-    df <- remove_missing(df, na.rm, name = "stat_density2d", finite = TRUE)
-
     if (is.null(h)) {
-      h <- c(MASS::bandwidth.nrd(df$x), MASS::bandwidth.nrd(df$y))
+      h <- c(MASS::bandwidth.nrd(data$x), MASS::bandwidth.nrd(data$y))
     }
 
-    dens <- MASS::kde2d(df$x, df$y, h = h, n = n,
-      lims = c(scale_dimension(scales$x), scale_dimension(scales$y)))
+    dens <- MASS::kde2d(
+      data$x, data$y, h = h, n = n,
+      lims = c(scale_dimension(panel_info$x), scale_dimension(panel_info$y))
+    )
     df <- data.frame(expand.grid(x = dens$x, y = dens$y), z = as.vector(dens$z))
     df$group <- data$group[1]
 
     if (contour) {
-      StatContour$compute(df, scales, ...)
+      StatContour$compute_panel(df, panel_info, ...)
     } else {
       names(df) <- c("x", "y", "density", "group")
       df$level <- 1

@@ -4,7 +4,6 @@ set.seed(111)
 dat <- data.frame(x = LETTERS[1:2], y = rnorm(30), g = LETTERS[3:5])
 
 test_that("Dodging works", {
-
   p <- ggplot(dat, aes(x = x, y = y, fill = g)) +
     geom_dotplot(
       binwidth = 0.2,
@@ -12,10 +11,7 @@ test_that("Dodging works", {
       position = "dodge",
       stackdir = "center"
     )
-
-  bp <- ggplot_build(p)
-
-  df <- bp$data[[1]]
+  df <- layer_data(p)
 
   # Number of levels in the dodged variable
   ndodge <- 3
@@ -40,23 +36,17 @@ test_that("Dodging works", {
 
 
 test_that("Binning works", {
-
-  bp <- ggplot_build(
-    ggplot(dat, aes(x = y)) +
-      geom_dotplot(binwidth = .4, method = "histodot")
-  )
-  x <- bp$data[[1]]$x
+  bp <- ggplot(dat, aes(y)) +
+    geom_dotplot(binwidth = .4, method = "histodot")
+  x <- layer_data(bp)$x
 
   # Need ugly hack to make sure mod function doesn't give values like -3.99999
   # due to floating point error
   expect_true(all(abs((x - min(x) + 1e-7) %% .4) < 1e-6))
 
-
-  bp <- ggplot_build(
-    ggplot(dat, aes(x = y)) +
-      geom_dotplot(binwidth = .4, method = "dotdensity")
-  )
-  x <- bp$data[[1]]$x
+  bp <- ggplot(dat, aes(x = y)) +
+    geom_dotplot(binwidth = .4, method = "dotdensity")
+  x <- layer_data(bp)$x
 
   # This one doesn't ensure that dotdensity works, but it does check that it's not
   # doing fixed bin sizes

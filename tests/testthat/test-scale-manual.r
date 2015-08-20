@@ -29,10 +29,11 @@ test_that("named values work regardless of order", {
 
 test_that("missing values replaced with na.value", {
   df <- data.frame(x = 1, y = 1:3, z = factor(c(1:2, NA), exclude = NULL))
-  pdata <- ggplot_build(qplot(x, y, data = df, colour = z) +
-    scale_colour_manual(values = c("black", "black"), na.value = "red"))
+  p <- ggplot(df, aes(x, y, colour = z)) +
+    geom_point() +
+    scale_colour_manual(values = c("black", "black"), na.value = "red")
 
-  expect_equal(pdata$data[[1]]$colour, c("black", "black", "red"))
+  expect_equal(layer_data(p)$colour, c("black", "black", "red"))
 })
 
 test_that("insufficient values raise an error", {

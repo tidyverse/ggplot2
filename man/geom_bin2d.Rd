@@ -3,14 +3,15 @@
 \name{geom_bin2d}
 \alias{geom_bin2d}
 \alias{stat_bin2d}
+\alias{stat_bin_2d}
 \title{Add heatmap of 2d bin counts.}
 \usage{
 geom_bin2d(mapping = NULL, data = NULL, stat = "bin2d",
   position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 
-stat_bin2d(mapping = NULL, data = NULL, geom = "rect",
-  position = "identity", bins = 30, drop = TRUE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+stat_bin_2d(mapping = NULL, data = NULL, geom = "tile",
+  position = "identity", bins = 30, binwidth = NULL, drop = TRUE,
+  show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -48,6 +49,9 @@ the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{bins}{numeric vector giving number of bins in both vertical and
 horizontal directions. Set to 30 by default.}
+
+\item{binwidth}{Numeric vector giving bin width in both vertical and
+horizontal directions. Overrides \code{bins} if both set.}
 
 \item{drop}{if \code{TRUE} removes all cells with 0 counts.}
 }

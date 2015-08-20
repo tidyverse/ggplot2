@@ -6,7 +6,7 @@
 \alias{.stroke}
 \alias{graphical-units}
 \title{Graphical units}
-\format{\preformatted{ num 2.83
+\format{\preformatted{ num 2.85
 }}
 \usage{
 .pt

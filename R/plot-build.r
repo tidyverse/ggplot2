@@ -1,9 +1,10 @@
 #' Build ggplot for rendering.
 #'
-#' This function takes the plot object, and performs all steps necessary to
-#' produce an object that can be rendered.  This function outputs two pieces:
+#' \code{ggplot_build} takes the plot object, and performs all steps necessary
+#' to produce an object that can be rendered.  This function outputs two pieces:
 #' a list of data frames (one for each layer), and a panel object, which
-#' contain all information about axis limits, breaks etc.
+#' contain all information about axis limits, breaks etc. \code{layer_data}
+#' is a helper function which returns the data for a given layer.
 #'
 #' @param plot ggplot object
 #' @seealso \code{\link{print.ggplot}} and \code{\link{benchplot}} for
@@ -22,10 +23,10 @@ ggplot_build <- function(plot) {
 
   scales <- plot$scales
   # Apply function to layer and matching data
-  dlapply <- function(f) {
+  by_layer <- function(f) {
     out <- vector("list", length(data))
     for (i in seq_along(data)) {
-      out[[i]] <- f(d = data[[i]], p = layers[[i]])
+      out[[i]] <- f(l = layers[[i]], d = data[[i]])
     }
     out
   }
@@ -38,7 +39,7 @@ ggplot_build <- function(plot) {
   data <- map_layout(panel, plot$facet, layer_data, plot$data)
 
   # Compute aesthetics to produce data with generalised variable names
-  data <- dlapply(function(d, p) p$compute_aesthetics(d, plot))
+  data <- by_layer(function(l, d) l$compute_aesthetics(d, plot))
   data <- lapply(data, add_group)
 
   # Transform all scales
@@ -53,18 +54,18 @@ ggplot_build <- function(plot) {
   data <- map_position(panel, data, scale_x(), scale_y())
 
   # Apply and map statistics
-  data <- calculate_stats(panel, data, layers)
-  data <- dlapply(function(d, p) p$map_statistic(d, plot))
+  data <- by_layer(function(l, d) l$calc_statistic(d, panel))
+  data <- by_layer(function(l, d) l$map_statistic(d, plot))
   data <- lapply(data, order_groups)
 
   # Make sure missing (but required) aesthetics are added
   scales_add_missing(plot, c("x", "y"), plot$plot_env)
 
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
-  data <- dlapply(function(d, p) p$reparameterise(d))
+  data <- by_layer(function(l, d) l$reparameterise(d))
 
   # Apply position adjustments
-  data <- dlapply(function(d, p) p$adjust_position(d))
+  data <- by_layer(function(l, d) l$adjust_position(d))
 
   # Reset position scales, then re-train and map.  This ensures that facets
   # have control over the range of a plot: is it generated from what's
@@ -86,3 +87,8 @@ ggplot_build <- function(plot) {
   list(data = data, panel = panel, plot = plot)
 }
 
+#' @export
+#' @rdname ggplot_build
+layer_data <- function(plot, i = 1L) {
+  ggplot_build(plot)$data[[i]]
+}

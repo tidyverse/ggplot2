@@ -189,6 +189,7 @@ Collate:
     'stat-spoke.r'
     'stat-sum.r'
     'stat-summary-2d.r'
+    'stat-summary-bin.R'
     'stat-summary-hex.r'
     'stat-summary.r'
     'stat-unique.r'

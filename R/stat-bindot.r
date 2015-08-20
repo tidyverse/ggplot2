@@ -10,11 +10,14 @@ StatBindot <- ggproto("StatBindot", Stat,
     params
   },
 
-  compute = function(self, data, na.rm = FALSE, binwidth = NULL,
+  compute_data = function(data, params) {
+    remove_missing(data, isTRUE(params$na.rm), c(params$binaxis, "weight"),
+      name = "stat_bindot", finite = TRUE)
+  },
+
+  compute_panel = function(self, data, na.rm = FALSE, binwidth = NULL,
                            binaxis = "x", method = "dotdensity",
                            binpositions = "bygroup", ...) {
-    data <- remove_missing(data, na.rm, c(binaxis, "weight"), name = "stat_bindot",
-      finite = TRUE)
 
     # If using dotdensity and binning over all, we need to find the bin centers
     # for all data before it's split into groups.
@@ -41,11 +44,11 @@ StatBindot <- ggproto("StatBindot", Stat,
 
     }
 
-    ggproto_parent(Stat, self)$compute(data, binwidth = binwidth,
+    ggproto_parent(Stat, self)$compute_panel(data, binwidth = binwidth,
       binaxis = binaxis, method = method, binpositions = binpositions, ...)
   },
 
-  compute_group = function(self, data, scales, binwidth = NULL, binaxis = "x",
+  compute_group = function(self, data, panel_info, binwidth = NULL, binaxis = "x",
                            method = "dotdensity", binpositions = "bygroup",
                            origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
                            right = TRUE, ...) {
@@ -62,10 +65,10 @@ StatBindot <- ggproto("StatBindot", Stat,
     }
 
     if (binaxis == "x") {
-      range   <- scale_dimension(scales$x, c(0, 0))
+      range   <- scale_dimension(panel_info$x, c(0, 0))
       values  <- data$x
     } else if (binaxis == "y") {
-      range  <- scale_dimension(scales$y, c(0, 0))
+      range  <- scale_dimension(panel_info$y, c(0, 0))
       values <- data$y
       # The middle of each group, on the stack axis
       midline <- mean(range(data$x))

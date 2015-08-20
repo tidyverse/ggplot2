@@ -15,6 +15,8 @@
 #'   the plot. If \code{switch} is \code{"x"}, they will be displayed
 #'   to the bottom. If \code{"y"}, they will be displayed to the
 #'   left, near the y axis.
+#' @param dir Direction: either "h" for horizontal, the default, or "v", for
+#'   vertical.
 #' @inheritParams facet_grid
 #' @export
 #' @examples
@@ -70,8 +72,11 @@
 #'   geom_line() +
 #'   facet_wrap(~variable, scales = "free_y", nrow = 2, switch = "x") +
 #'   theme(strip.background = element_blank())
-facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, switch = NULL, drop = TRUE) {
+facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
+                       shrink = TRUE, labeller = "label_value", as.table = TRUE,
+                       switch = NULL, drop = TRUE, dir = "h") {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
+  dir <- match.arg(dir, c("h", "v"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
@@ -84,14 +89,16 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed", shrin
     facets = as.quoted(facets), free = free, shrink = shrink,
     as.table = as.table, switch = switch,
     drop = drop, ncol = ncol, nrow = nrow,
-    labeller = labeller, subclass = "wrap"
+    labeller = labeller,
+    dir = dir,
+    subclass = "wrap"
   )
 }
 
 #' @export
 facet_train_layout.wrap <- function(facet, data) {
   panels <- layout_wrap(data, facet$facets, facet$nrow, facet$ncol,
-     facet$as.table, facet$drop)
+     facet$as.table, facet$drop, facet$dir)
 
   n <- nrow(panels)
   nrow <- max(panels$ROW)

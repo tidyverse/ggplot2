@@ -6,7 +6,8 @@
 # @return a data frame with columns \code{PANEL}, \code{ROW} and \code{COL},
 #   that match the facetting variable values up with their position in the
 #   grid
-layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL, drop = TRUE, as.table = TRUE) {
+layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL,
+                       drop = TRUE, as.table = TRUE) {
   if (length(rows) == 0 && length(cols) == 0) return(layout_null())
   rows <- as.quoted(rows)
   cols <- as.quoted(cols)
@@ -42,7 +43,8 @@ layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL, drop = T
 #
 # @params drop should missing combinations be excluded from the plot?
 # @keywords internal
-layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, as.table = TRUE, drop = TRUE) {
+layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL,
+                        as.table = TRUE, drop = TRUE, dir = "h") {
   vars <- as.quoted(vars)
   if (length(vars) == 0) return(layout_null())
 
@@ -60,6 +62,11 @@ layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, as.table = 
     layout$ROW <- as.integer(dims[1] - (id - 1L) %/% dims[2])
   }
   layout$COL <- as.integer((id - 1L) %% dims[2] + 1L)
+
+  # For vertical direction, flip row and col
+  if (identical(dir, "v")) {
+    layout[c("ROW", "COL")] <- layout[c("COL", "ROW")]
+  }
 
   panels <- cbind(layout, plyr::unrowname(base))
   panels <- panels[order(panels$PANEL), , drop = FALSE]
@@ -108,8 +115,8 @@ layout_base <- function(data, vars = NULL, drop = TRUE) {
     base <- rbind(base, df.grid(old, new))
   }
 
-  if (is.null(base)) {
-    stop("Faceting variables must have at least one value")
+  if (empty(base)) {
+    stop("Faceting variables must have at least one value", call. = FALSE)
   }
 
   base

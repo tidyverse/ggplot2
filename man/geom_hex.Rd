@@ -2,15 +2,16 @@
 % Please edit documentation in R/geom-hex.r, R/stat-binhex.r
 \name{geom_hex}
 \alias{geom_hex}
+\alias{stat_bin_hex}
 \alias{stat_binhex}
 \title{Hexagon binning.}
 \usage{
 geom_hex(mapping = NULL, data = NULL, stat = "binhex",
   position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 
-stat_binhex(mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", bins = 30, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+stat_bin_hex(mapping = NULL, data = NULL, geom = "hex",
+  position = "identity", bins = 30, binwidth = NULL, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -46,8 +47,11 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{geom,stat}{Override the default connection between \code{geom_hex} and
 \code{stat_binhex.}}
 
-\item{bins}{numeric vector specifying number of bins in both x and y
-directions. Set to 30 by default.}
+\item{bins}{numeric vector giving number of bins in both vertical and
+horizontal directions. Set to 30 by default.}
+
+\item{binwidth}{Numeric vector giving bin width in both vertical and
+horizontal directions. Overrides \code{bins} if both set.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}

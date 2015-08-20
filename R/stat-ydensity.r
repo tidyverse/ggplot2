@@ -52,10 +52,13 @@ stat_ydensity <- function(mapping = NULL, data = NULL, geom = "violin",
 StatYdensity <- ggproto("StatYdensity", Stat,
   required_aes = c("x", "y"),
 
-  compute_group = function(data, scales, width = NULL, adjust = 1,
-                       kernel = "gaussian", trim = TRUE, na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, c("x", "y", "weight"),
+  compute_data = function(data, params) {
+    data <- remove_missing(data, isTRUE(params$na.rm), c("x", "y", "weight"),
       name = "stat_ydensity", finite = TRUE)
+  },
+
+  compute_group = function(data, panel_info, width = NULL, adjust = 1,
+                       kernel = "gaussian", trim = TRUE, na.rm = FALSE, ...) {
     if (nrow(data) < 3) return(data.frame())
 
     if (trim) {
@@ -78,8 +81,8 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     dens
   },
 
-  compute = function(self, data, scales, ..., scale = "area") {
-    data <- ggproto_parent(Stat, self)$compute(data, scales, ...)
+  compute_panel = function(self, data, panel_info, ..., scale = "area") {
+    data <- ggproto_parent(Stat, self)$compute_panel(data, panel_info, ...)
 
     # choose how violins are scaled relative to each other
     data$violinwidth <- switch(scale,

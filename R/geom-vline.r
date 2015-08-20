@@ -3,7 +3,7 @@ NULL
 
 #' @export
 #' @rdname geom_abline
-geom_vline <- function(mapping = NULL, data = NULL, show.legend = FALSE,
+geom_vline <- function(mapping = NULL, data = NULL, show.legend = NA,
                        xintercept, ...) {
 
   # Act like an annotation

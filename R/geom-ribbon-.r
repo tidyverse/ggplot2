@@ -42,7 +42,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(..., na.rm = na.rm)
   )
 }
 

@@ -23,7 +23,7 @@ ScalesList <- ggproto("ScalesList", NULL,
       # Get only the first aesthetic name in the returned vector -- it can
       # sometimes be c("x", "xmin", "xmax", ....)
       scalename <- self$scales[prev_aes][[1]]$aesthetics[1]
-      message("Scale for '", scalename,
+      message_wrap("Scale for '", scalename,
         "' is already present. Adding another scale for '", scalename,
         "', which will replace the existing scale.")
     }

@@ -1,6 +1,39 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* The default font size in `geom_text()` has been decreased from 5mm (14 pts)
+  to 3.8 mm (11 pts) to match the new default theme sizes.
+
+* New `stat_summary_bin()` that works like `stat_summary()` but on binned
+  data. It's a generalisation of `stat_bin()` that can compute any aggregate.
+  (#1274)
+
+* It's now obvious that you can set the `binwidth` parameter for
+  `stat_bin_hex()`, `stat_summary_hex()`, `stat_bin_2d()`, and
+  `stat_summary_2d()`. `stat_summary_2d()` and `stat_bin_2d()` now share
+  exactly the same code for determining breaks from `bins`, `binwidth`, and
+  `origin`. `stat_summary_2d()` and `stat_bin_2d()` now output in tile/raster
+  compatible form instead of rect form.
+
+* For consistency with the summary functions, `stat_binhex()` and `stat_bin2d()`
+  have been renamed to `stat_bin_hex()` and `stat_bin_2d()` (the existing
+  functions will continue to work but will be deprecated in the future)
+  (#1274).
+
+* New `layer_data()` function extracts the data used for plotting for a given
+  layer. It's mostly useful for testing.
+
+* `facet_wrap()` gains a `dir` argument to control the direction the
+  panels are wrapped in. The default is "h" for horizontal. Use "v" for
+  vertical layout (#1260).
+
+* Legends no longer inherit aesthetics if `inherit.aes` is FALSE (#1267).
+
+* The default themes has been tweaked in various minor ways. The legend
+  title and axis titles are now given the same treatment. The default
+  font size has been dropped from 12 to 11. The axes labels are now
+  darker.
+
 * Sizes in ggplot2 are measured in mm. Previously they were converted to
   pts (for use in grid) by multiplying by 72 / 25.4. However, grid uses
   printer's points, not Adobe (big pts), so sizes are now multiplied by

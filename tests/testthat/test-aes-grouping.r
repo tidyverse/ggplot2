@@ -6,7 +6,7 @@ df <- data.frame(
   b = c("a", "b", "a", "b")
 )
 
-group <- function(x) pdata(x)[[1]]$group
+group <- function(x) layer_data(x, 1)$group
 groups <- function(x) length(unique(group(x)))
 
 test_that("one group per combination of discrete vars", {
@@ -46,10 +46,10 @@ test_that("group aesthetic overrides defaults", {
 test_that("order affects plotting order of points", {
   base <- ggplot(df, aes(a, x)) + geom_point()
 
-  ord1 <- ggplot_build(base)$data[[1]]
-  ord2 <- ggplot_build(base + aes(order = x))$data[[1]]
-  rev1 <- ggplot_build(base + aes(order = -x))$data[[1]]
-  rev2 <- ggplot_build(base + aes(order = plyr::desc(x)))$data[[1]]
+  ord1 <- layer_data(base)
+  ord2 <- layer_data(base + aes(order = x))
+  rev1 <- layer_data(base + aes(order = -x))
+  rev2 <- layer_data(base + aes(order = plyr::desc(x)))
 
   expect_equal(ord1$y, 1:4)
   expect_equal(ord2$y, 1:4)
@@ -60,9 +60,9 @@ test_that("order affects plotting order of points", {
 test_that("order affects plotting order of bars", {
   base <- ggplot(df, aes(a, fill = b)) + geom_bar()
 
-  ord1 <- ggplot_build(base)$data[[1]]
-  ord2 <- ggplot_build(base + aes(order = a))$data[[1]]
-  rev1 <- ggplot_build(base + aes(order = plyr::desc(b)))$data[[1]]
+  ord1 <- layer_data(base)
+  ord2 <- layer_data(base + aes(order = a))
+  rev1 <- layer_data(base + aes(order = plyr::desc(b)))
 
   expect_equal(ord1$group, 1:4)
   expect_equal(ord2$group, 1:4)

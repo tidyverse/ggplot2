@@ -1,5 +1,3 @@
-pdata <- function(x) ggplot_build(x)$data
-
 # Transform the data as the coordinate system does
 cdata <- function(plot) {
   pieces <- ggplot_build(plot)

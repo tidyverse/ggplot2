@@ -1,10 +1,10 @@
 #' @export
 #' @rdname stat_summary_2d
-#' @inheritParams stat_binhex
+#' @inheritParams stat_bin_hex
 stat_summary_hex <- function(mapping = NULL, data = NULL, geom = "hex",
-                             position = "identity", bins = 30, drop = TRUE,
-                             fun = "mean", fun.args = list(), show.legend = NA,
-                             inherit.aes = TRUE, ...) {
+                             position = "identity", bins = 30, binwidth = NULL,
+                             drop = TRUE, fun = "mean", fun.args = list(),
+                             show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -15,6 +15,7 @@ stat_summary_hex <- function(mapping = NULL, data = NULL, geom = "hex",
     inherit.aes = inherit.aes,
     stat_params = list(
       bins = bins,
+      binwidth = binwidth,
       drop = drop,
       fun = fun,
       fun.args = fun.args
@@ -32,15 +33,12 @@ StatSummaryHex <- ggproto("StatSummaryHex", Stat,
 
   required_aes = c("x", "y", "z"),
 
-  compute_group = function(data, scales, binwidth = NULL, bins = 30, drop = TRUE,
+  compute_group = function(data, panel_info, binwidth = NULL, bins = 30, drop = TRUE,
                            fun = "mean", fun.args = list(), ...) {
-    data <- remove_missing(data, FALSE, c("x", "y", "z"),
-      name = "stat_summary_hex")
-
     if (is.null(binwidth)) {
       binwidth <- c(
-        diff(scale_dimension(scales$x, c(0, 0))) / bins,
-        diff(scale_dimension(scales$y, c(0, 0))) / bins
+        diff(scale_dimension(panel_info$x, c(0, 0))) / bins,
+        diff(scale_dimension(panel_info$y, c(0, 0))) / bins
       )
     }
 

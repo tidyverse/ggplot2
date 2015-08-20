@@ -1,13 +1,13 @@
 #' @export
 #' @rdname geom_hex
-#' @param bins numeric vector specifying number of bins in both x and y
-#'   directions. Set to 30 by default.
-#' @inheritParams stat_identity
+#' @inheritParams stat_bin_2d
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
-stat_binhex <- function(mapping = NULL, data = NULL, geom = "hex",
-                        position = "identity", bins = 30, na.rm = FALSE,
-                        show.legend = NA, inherit.aes = TRUE, ...) {
+#' @aliases stat_binhex
+stat_bin_hex <- function(mapping = NULL, data = NULL, geom = "hex",
+                        position = "identity", bins = 30, binwidth = NULL,
+                        na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+                        ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -17,12 +17,15 @@ stat_binhex <- function(mapping = NULL, data = NULL, geom = "hex",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     stat_params = list(
-      bins = bins
+      bins = bins,
+      binwidth = binwidth
     ),
     params = list(...)
   )
 }
 
+#' @export
+stat_binhex <- stat_bin_hex
 
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -33,14 +36,12 @@ StatBinhex <- ggproto("StatBinhex", Stat,
 
   required_aes = c("x", "y"),
 
-  compute_group = function(data, scales, binwidth = NULL, bins = 30,
+  compute_group = function(data, panel_info, binwidth = NULL, bins = 30,
                            na.rm = FALSE, ...) {
-    data <- remove_missing(data, na.rm, c("x", "y"), name = "stat_hexbin")
-
     if (is.null(binwidth)) {
       binwidth <- c(
-        diff(scale_dimension(scales$x, c(0, 0))) / bins,
-        diff(scale_dimension(scales$y, c(0, 0))) / bins
+        diff(scale_dimension(panel_info$x, c(0, 0))) / bins,
+        diff(scale_dimension(panel_info$y, c(0, 0))) / bins
       )
     }
 

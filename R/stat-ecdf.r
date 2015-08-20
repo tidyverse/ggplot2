@@ -41,7 +41,7 @@ stat_ecdf <- function(mapping = NULL, data = NULL, geom = "step",
 #' @usage NULL
 #' @export
 StatEcdf <- ggproto("StatEcdf", Stat,
-  compute_group = function(data, scales, n = NULL, ...) {
+  compute_group = function(data, panel_info, n = NULL, ...) {
 
     # If n is NULL, use raw values; otherwise interpolate
     if (is.null(n)) {

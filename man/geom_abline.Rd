@@ -6,13 +6,12 @@
 \alias{geom_vline}
 \title{Lines: horizontal, vertical, and specified by slope and intercept.}
 \usage{
-geom_abline(mapping = NULL, data = NULL, show.legend = FALSE, ..., slope,
+geom_abline(mapping = NULL, data = NULL, show.legend = NA, ..., slope,
   intercept)
 
 geom_hline(mapping = NULL, data = NULL, show.legend = NA, yintercept, ...)
 
-geom_vline(mapping = NULL, data = NULL, show.legend = FALSE, xintercept,
-  ...)
+geom_vline(mapping = NULL, data = NULL, show.legend = NA, xintercept, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with

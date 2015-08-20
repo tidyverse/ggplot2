@@ -16,7 +16,7 @@
 #' @seealso \code{\link{stat_summary_hex}} for hexagonal summarization.
 #'   \code{\link{stat_bin2d}} for the binning options.
 #' @inheritParams stat_identity
-#' @inheritParams stat_bin2d
+#' @inheritParams stat_bin_2d
 #' @param drop drop if the output of \code{fun} is \code{NA}.
 #' @param fun function for summary.
 #' @param fun.args A list of extra arguments to pass to \code{fun}
@@ -33,10 +33,10 @@
 #' if (requireNamespace("hexbin")) {
 #' d + stat_summary_hex()
 #' }
-stat_summary_2d <- function(mapping = NULL, data = NULL, geom = "rect",
-                           position = "identity", bins = 30, drop = TRUE,
-                           fun = "mean", fun.args = list(), show.legend = NA,
-                           inherit.aes = TRUE, ...) {
+stat_summary_2d <- function(mapping = NULL, data = NULL, geom = "tile",
+                            position = "identity", bins = 30, binwidth = NULL,
+                            drop = TRUE, fun = "mean", fun.args = list(),
+                            show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -47,6 +47,7 @@ stat_summary_2d <- function(mapping = NULL, data = NULL, geom = "rect",
     inherit.aes = inherit.aes,
     stat_params = list(
       bins = bins,
+      binwidth = binwidth,
       drop = drop,
       fun = fun,
       fun.args = fun.args
@@ -72,76 +73,50 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
 
   required_aes = c("x", "y", "z"),
 
-  compute_group = function(data, scales, binwidth = NULL, bins = 30,
+  compute_group = function(data, panel_info, binwidth = NULL, bins = 30,
                            breaks = NULL, origin = NULL, drop = TRUE,
                            fun = "mean", fun.args = list(), ...) {
-    data <- remove_missing(data, FALSE, c("x", "y", "z"),
-      name = "stat_summary2d")
+    origin <- dual_param(origin, list(NULL, NULL))
+    binwidth <- dual_param(binwidth, list(NULL, NULL))
+    breaks <- dual_param(breaks, list(NULL, NULL))
+    bins <- dual_param(bins, list(x = 30, y = 30))
 
-    range <- list(
-      x = scale_dimension(scales$x, c(0, 0)),
-      y = scale_dimension(scales$y, c(0, 0))
-    )
+    xbreaks <- bin_breaks(panel_info$x, breaks$x, origin$x, binwidth$x, bins$x)
+    ybreaks <- bin_breaks(panel_info$y, breaks$y, origin$y, binwidth$y, bins$y)
 
-    # Determine origin, if omitted
-    if (is.null(origin)) {
-      origin <- c(NA, NA)
-    } else {
-      stopifnot(is.numeric(origin))
-      stopifnot(length(origin) == 2)
+    xbin <- cut(data$x, xbreaks, include.lowest = TRUE, label = FALSE)
+    ybin <- cut(data$y, ybreaks, include.lowest = TRUE, label = FALSE)
+
+    f <- function(x) {
+      do.call(fun, c(list(quote(x)), fun.args))
     }
-    originf <- function(x) if (is.integer(x)) -0.5 else min(x)
-    if (is.na(origin[1])) origin[1] <- originf(data$x)
-    if (is.na(origin[2])) origin[2] <- originf(data$y)
+    out <- tapply_df(data$z, list(xbin = xbin, ybin = ybin), f, drop = drop)
 
-    # Determine binwidth, if omitted
-    if (is.null(binwidth)) {
-      binwidth <- c(NA, NA)
-      if (is.integer(data$x)) {
-        binwidth[1] <- 1
-      } else {
-        binwidth[1] <- diff(range$x) / bins
-      }
-      if (is.integer(data$y)) {
-        binwidth[2] <- 1
-      } else {
-        binwidth[2] <- diff(range$y) / bins
-      }
-    }
-    stopifnot(is.numeric(binwidth))
-    stopifnot(length(binwidth) == 2)
+    xdim <- bin_loc(xbreaks, out$xbin)
+    out$x <- xdim$mid
+    out$width <- xdim$length
 
-    # Determine breaks, if omitted
-    if (is.null(breaks)) {
-      breaks <- list(
-        seq(origin[1], max(range$x) + binwidth[1], binwidth[1]),
-        seq(origin[2], max(range$y) + binwidth[2], binwidth[2])
-      )
-    } else {
-      stopifnot(is.list(breaks))
-      stopifnot(length(breaks) == 2)
-      stopifnot(all(sapply(breaks, is.numeric)))
-    }
-    names(breaks) <- c("x", "y")
+    ydim <- bin_loc(ybreaks, out$ybin)
+    out$y <- ydim$mid
+    out$height <- ydim$length
 
-    xbin <- cut(data$x, sort(breaks$x), include.lowest = TRUE)
-    ybin <- cut(data$y, sort(breaks$y), include.lowest = TRUE)
-
-    if (is.null(data$weight)) data$weight <- 1
-
-    ans <- plyr::ddply(data.frame(data, xbin, ybin), c("xbin", "ybin"), function(d) {
-      val <- do.call(fun, c(list(quote(d$z)), fun.args))
-      data.frame(value = val)
-    })
-    if (drop) ans <- stats::na.omit(ans)
-
-    ans$xint <- as.numeric(ans$xbin)
-    ans$xmin <- breaks$x[ans$xint]
-    ans$xmax <- breaks$x[ans$xint + 1]
-
-    ans$yint <- as.numeric(ans$ybin)
-    ans$ymin <- breaks$y[ans$yint]
-    ans$ymax <- breaks$y[ans$yint + 1]
-    ans
+    out
   }
 )
+
+# Adaptation of tapply that returns a data frame instead of a matrix
+tapply_df <- function(x, index, fun, ..., drop = TRUE) {
+  labels <- lapply(index, ulevels)
+  out <- expand.grid(labels, KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE)
+
+  grps <- split(x, index)
+  names(grps) <- NULL
+  out$value <- unlist(lapply(grps, fun, ...))
+
+  if (drop) {
+    n <- vapply(grps, length, integer(1))
+    out <- out[n > 0, , drop = FALSE]
+  }
+
+  out
+}

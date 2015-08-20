@@ -156,6 +156,6 @@ GeomPoint <- ggproto("GeomPoint", Geom,
   draw_key = draw_key_point,
 
   required_aes = c("x", "y"),
-  default_aes = aes(shape = 19, colour = "black", size = 2, fill = NA,
-    alpha = NA, stroke = 1)
+  default_aes = aes(shape = 19, colour = "black", size = 1.5, fill = NA,
+    alpha = NA, stroke = 0.5)
 )

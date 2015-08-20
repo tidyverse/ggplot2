@@ -1,11 +1,14 @@
 #' @param bins numeric vector giving number of bins in both vertical and
 #'   horizontal directions. Set to 30 by default.
+#' @param binwidth Numeric vector giving bin width in both vertical and
+#'   horizontal directions. Overrides \code{bins} if both set.
 #' @param drop if \code{TRUE} removes all cells with 0 counts.
 #' @export
+#' @aliases stat_bin2d
 #' @rdname geom_bin2d
-stat_bin2d <- function(mapping = NULL, data = NULL, geom = "rect",
-                       position = "identity", bins = 30, drop = TRUE,
-                       show.legend = NA, inherit.aes = TRUE, ...) {
+stat_bin_2d <- function(mapping = NULL, data = NULL, geom = "tile",
+                        position = "identity", bins = 30, binwidth = NULL,
+                        drop = TRUE, show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -16,11 +19,15 @@ stat_bin2d <- function(mapping = NULL, data = NULL, geom = "rect",
     inherit.aes = inherit.aes,
     stat_params = list(
       bins = bins,
+      binwidth = binwidth,
       drop = drop
     ),
     params = list(...)
   )
 }
+
+#' @export
+stat_bin2d <- stat_bin_2d
 
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -30,81 +37,100 @@ StatBin2d <- ggproto("StatBin2d", Stat,
   default_aes = aes(fill = ..count..),
   required_aes = c("x", "y"),
 
-  compute_group = function(data, scales, binwidth = NULL, bins = 30,
+  compute_group = function(data, panel_info, binwidth = NULL, bins = 30,
                            breaks = NULL, origin = NULL, drop = TRUE, ...) {
-    range <- list(
-      x = scale_dimension(scales$x, c(0, 0)),
-      y = scale_dimension(scales$y, c(0, 0))
-    )
 
-    # is.integer(...) below actually deals with factor input data, which is
-    # integer by now.  Bins for factor data should take the width of one level,
-    # and should show up centered over their tick marks.
+    origin <- dual_param(origin, list(NULL, NULL))
+    binwidth <- dual_param(binwidth, list(NULL, NULL))
+    breaks <- dual_param(breaks, list(NULL, NULL))
+    bins <- dual_param(bins, list(x = 30, y = 30))
 
-    # Determine origin, if omitted
-    if (is.null(origin)) {
-      origin <- c(NA, NA)
-    } else {
-      stopifnot(is.numeric(origin))
-      stopifnot(length(origin) == 2)
-    }
-    originf <- function(x) if (is.integer(x)) -0.5 else min(x, na.rm = TRUE)
-    if (is.na(origin[1])) origin[1] <- originf(data$x)
-    if (is.na(origin[2])) origin[2] <- originf(data$y)
+    xbreaks <- bin_breaks(panel_info$x, breaks$x, origin$x, binwidth$x, bins$x)
+    ybreaks <- bin_breaks(panel_info$y, breaks$y, origin$y, binwidth$y, bins$y)
 
-    # Determine binwidth, if omitted
-    if (is.null(binwidth)) {
-      binwidth <- c(NA, NA)
-      if (is.integer(data$x)) {
-        binwidth[1] <- 1
-      } else {
-        binwidth[1] <- diff(range$x) / bins
-      }
-      if (is.integer(data$y)) {
-        binwidth[2] <- 1
-      } else {
-        binwidth[2] <- diff(range$y) / bins
-      }
-    }
-    stopifnot(is.numeric(binwidth))
-    stopifnot(length(binwidth) == 2)
+    xbin <- cut(data$x, xbreaks, include.lowest = TRUE, label = FALSE)
+    ybin <- cut(data$y, ybreaks, include.lowest = TRUE, label = FALSE)
 
-    # Determine breaks, if omitted
-    if (is.null(breaks)) {
-      breaks <- list(x = NULL, y = NULL)
-    }
+    if (is.null(data$weight))
+      data$weight <- 1
 
-    stopifnot(length(breaks) == 2)
-    names(breaks) <- c("x", "y")
+    out <- tapply_df(data$weight, list(xbin = xbin, ybin = ybin), sum, drop = drop)
 
-    if (is.null(breaks$x)) {
-      breaks$x <- seq(origin[1], max(range$x) + binwidth[1], binwidth[1])
-    }
-    if (is.null(breaks$y)) {
-      breaks$y <- seq(origin[2], max(range$y) + binwidth[2], binwidth[2])
-    }
+    xdim <- bin_loc(xbreaks, out$xbin)
+    out$x <- xdim$mid
+    out$width <- xdim$length
 
-    stopifnot(is.list(breaks))
-    stopifnot(all(sapply(breaks, is.numeric)))
+    ydim <- bin_loc(ybreaks, out$ybin)
+    out$y <- ydim$mid
+    out$height <- ydim$length
 
-    xbin <- cut(data$x, sort(breaks$x), include.lowest = TRUE)
-    ybin <- cut(data$y, sort(breaks$y), include.lowest = TRUE)
-
-    if (is.null(data$weight)) data$weight <- 1
-
-    counts <- as.data.frame(
-      xtabs(weight ~ xbin + ybin, data), responseName = "count")
-    if (drop) counts <- subset(counts, count > 0)
-
-    counts$xint <- as.numeric(counts$xbin)
-    counts$xmin <- breaks$x[counts$xint]
-    counts$xmax <- breaks$x[counts$xint + 1]
-
-    counts$yint <- as.numeric(counts$ybin)
-    counts$ymin <- breaks$y[counts$yint]
-    counts$ymax <- breaks$y[counts$yint + 1]
-
-    counts$density <- counts$count / sum(counts$count, na.rm = TRUE)
-    counts
+    out$count <- out$value
+    out$density <- out$count / sum(out$count, na.rm = TRUE)
+    out
   }
 )
+
+dual_param <- function(x, default = list(x = NULL, y = NULL)) {
+  if (is.null(x)) {
+    default
+  } else if (length(x) == 2) {
+    if (is.list(x) && !is.null(names(x))) {
+      x
+    } else {
+      list(x = x[[1]], y = x[[2]])
+    }
+  } else {
+    list(x = x, y = x)
+  }
+}
+
+bin_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
+                      bins = 30, right = TRUE) {
+  # Bins for categorical data should take the width of one level,
+  # and should show up centered over their tick marks. All other parameters
+  # are ignored.
+  if (inherits(scale, "discrete")) {
+    breaks <- scale_breaks(scale)
+    return(-0.5 + seq_len(length(breaks) + 1))
+  }
+
+  if (!is.null(breaks))
+    return(breaks)
+
+  range <- scale_limits(scale)
+
+  if (is.null(binwidth) || identical(binwidth, NA)) {
+    binwidth <- diff(range) / bins
+  }
+  stopifnot(is.numeric(binwidth), length(binwidth) == 1)
+
+  if (is.null(origin) || identical(origin, NA)) {
+    origin <- plyr::round_any(range[1], binwidth, floor)
+  }
+  stopifnot(is.numeric(origin), length(origin) == 1)
+
+  breaks <- seq(origin, range[2] + binwidth, binwidth)
+  adjust_breaks(breaks, right)
+}
+
+adjust_breaks <- function(x, right = TRUE) {
+  diddle <- 1e-07 * stats::median(diff(x))
+  if (right) {
+    fuzz <- c(-diddle, rep.int(diddle, length(x) - 1))
+  } else {
+    fuzz <- c(rep.int(-diddle, length(x) - 1), diddle)
+  }
+  sort(x) + fuzz
+}
+
+bin_loc <- function(x, id) {
+  left <- x[-length(x)]
+  right <- x[-1]
+
+  list(
+    left = left[id],
+    right = right[id],
+    mid = ((left + right) / 2)[id],
+    length = diff(x)[id]
+  )
+}

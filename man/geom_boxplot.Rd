@@ -7,8 +7,9 @@
 \usage{
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", outlier.colour = "black", outlier.shape = 19,
-  outlier.size = 2, outlier.stroke = 1, notch = FALSE, notchwidth = 0.5,
-  varwidth = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+  outlier.size = 1.5, outlier.stroke = 0.5, notch = FALSE,
+  notchwidth = 0.5, varwidth = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
   position = "dodge", na.rm = FALSE, coef = 1.5, show.legend = NA,

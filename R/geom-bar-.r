@@ -143,6 +143,13 @@ StatBar <- ggproto("StatBar", Stat,
   required_aes = "x",
   default_aes = aes(y = ..count..),
 
+  compute_defaults = function(data, params) {
+    if (!is.null(data$y) || !is.null(params$y)) {
+      stop("stat_bar() must not be used with a y aesthetic.", call. = FALSE)
+    }
+    params
+  },
+
   compute_group = function(self, data, ..., width = NULL) {
     x <- data$x
     weight <- data$weight %||% rep(1, length(x))
