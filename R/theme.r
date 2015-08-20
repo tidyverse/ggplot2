@@ -68,6 +68,7 @@ print.theme <- function(x, ...) utils::str(x)
 #'                    (\code{element_text}) \cr
 #'   title            \tab all title elements: plot, axes, legends
 #'                    (\code{element_text}; inherits from \code{text}) \cr
+#'   aspect.ratio     \tab aspect ratio of the panel
 #'
 #'   axis.title       \tab label of axes
 #'                    (\code{element_text}; inherits from \code{text}) \cr
