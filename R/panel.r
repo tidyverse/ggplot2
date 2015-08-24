@@ -66,10 +66,10 @@ train_position <- function(panel, data, x_scale, y_scale) {
   # Initialise scales if needed, and possible.
   layout <- panel$layout
   if (is.null(panel$x_scales) && !is.null(x_scale)) {
-    panel$x_scales <- plyr::rlply(max(layout$SCALE_X), scale_clone(x_scale))
+    panel$x_scales <- plyr::rlply(max(layout$SCALE_X), x_scale$clone())
   }
   if (is.null(panel$y_scales) && !is.null(y_scale)) {
-    panel$y_scales <- plyr::rlply(max(layout$SCALE_Y), scale_clone(y_scale))
+    panel$y_scales <- plyr::rlply(max(layout$SCALE_Y), y_scale$clone())
   }
 
   # loop over each layer, training x and y scales in turn
