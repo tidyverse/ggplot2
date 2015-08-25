@@ -67,10 +67,8 @@ annotation_raster <- function(raster, xmin, xmax, ymin, ymax,
 #' @usage NULL
 #' @export
 GeomRasterAnn <- ggproto("GeomRasterAnn", GeomRaster,
-  reparameterise = function(df, params) df,
-
-  draw = function(data, scales, coordinates, raster, xmin, xmax,
-                  ymin, ymax, interpolate = FALSE, ...) {
+  draw_panel = function(data, scales, coordinates, raster, xmin, xmax,
+                        ymin, ymax, interpolate = FALSE, ...) {
     if (!inherits(coordinates, "CoordCartesian")) {
       stop("annotation_raster only works with Cartesian coordinates",
         call. = FALSE)

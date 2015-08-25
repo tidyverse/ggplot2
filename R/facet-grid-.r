@@ -421,7 +421,7 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
     fg <- coord$render_fg(panel$ranges[[i]], theme)
     bg <- coord$render_bg(panel$ranges[[i]], theme)
 
-    geom_grobs <- lapply(geom_grobs, "[[", i)
+    geom_grobs <- lapply(geom_grobs, `[[`, i)
 
     if (theme$panel.ontop) {
       panel_grobs <- c(geom_grobs, list(bg), list(fg))

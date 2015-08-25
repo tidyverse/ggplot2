@@ -75,7 +75,7 @@ Stat <- ggproto("Stat",
     plyr::ddply(data, "PANEL", function(data) {
       scales <- panel_scales(panels, data$PANEL[1])
       tryCatch(do.call(self$compute_panel, args), error = function(e) {
-        warning("Computation failed in `", snake_class(self$stat), "()`:\n",
+        warning("Computation failed in `", snake_class(self), "()`:\n",
           e$message, call. = FALSE)
         data.frame()
       })

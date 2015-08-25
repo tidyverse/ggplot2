@@ -165,9 +165,9 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomDotplot <- ggproto("GeomDotplot", Geom,
-  reparameterise = function(df, params) {
-    df$width <- df$width %||%
-      params$width %||% (resolution(df$x, FALSE) * 0.9)
+  setup_data = function(data, params) {
+    data$width <- data$width %||%
+      params$width %||% (resolution(data$x, FALSE) * 0.9)
 
     # Set up the stacking function and range
     if (is.null(params$stackdir) || params$stackdir == "up") {
@@ -190,7 +190,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
 
 
     # Fill the bins: at a given x (or y), if count=3, make 3 entries at that x
-    df <- df[rep(1:nrow(df), df$count), ]
+    data <- data[rep(1:nrow(data), data$count), ]
 
     # Next part will set the position of each dot within each stack
     # If stackgroups=TRUE, split only on x (or y) and panel; if not stacking, also split by group
@@ -200,7 +200,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       plyvars <- c(plyvars, "group")
 
     # Within each x, or x+group, set countidx=1,2,3, and set stackpos according to stack function
-    df <- plyr::ddply(df, plyvars, function(xx) {
+    data <- plyr::ddply(data, plyvars, function(xx) {
             xx$countidx <- 1:nrow(xx)
             xx$stackpos <- stackdots(xx$countidx)
             xx
@@ -212,11 +212,11 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
       # Can't do bounding box per dot, because y position isn't real.
       # After position code is rewritten, each dot should have its own bounding box.
-      df$xmin <- df$x - df$binwidth / 2
-      df$xmax <- df$x + df$binwidth / 2
-      df$ymin <- stackaxismin
-      df$ymax <- stackaxismax
-      df$y    <- 0
+      data$xmin <- data$x - data$binwidth / 2
+      data$xmax <- data$x + data$binwidth / 2
+      data$ymin <- stackaxismin
+      data$ymax <- stackaxismax
+      data$y    <- 0
 
     } else if (params$binaxis == "y") {
       # ymin, ymax, xmin, and xmax define the bounding rectangle for each stack
@@ -225,15 +225,15 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       # works. They're just set to the standard x +- width/2 so that dot clusters
       # can be dodged like other geoms.
       # After position code is rewritten, each dot should have its own bounding box.
-      df <- plyr::ddply(df, "group", transform,
+      data <- plyr::ddply(data, "group", transform,
             ymin = min(y) - binwidth[1] / 2,
             ymax = max(y) + binwidth[1] / 2)
 
-      df$xmin <- df$x + df$width * stackaxismin
-      df$xmax <- df$x + df$width * stackaxismax
+      data$xmin <- data$x + data$width * stackaxismin
+      data$xmax <- data$x + data$width * stackaxismax
       # Unlike with y above, don't change x because it will cause problems with dodging
     }
-    df
+    data
   },
 
 

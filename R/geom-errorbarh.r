@@ -49,17 +49,17 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
 
   required_aes = c("x", "xmin", "xmax", "y"),
 
-  reparameterise = function(df, params) {
-    df$height <- df$height %||%
-      params$height %||% (resolution(df$y, FALSE) * 0.9)
+  setup_data = function(data, params) {
+    data$height <- data$height %||%
+      params$height %||% (resolution(data$y, FALSE) * 0.9)
 
-    transform(df,
+    transform(data,
       ymin = y - height / 2, ymax = y + height / 2, height = NULL
     )
   },
 
-  draw = function(data, scales, coordinates, height = NULL, ...) {
-    GeomPath$draw(data.frame(
+  draw_panel = function(data, scales, coordinates, height = NULL, ...) {
+    GeomPath$draw_panel(data.frame(
       x = as.vector(rbind(data$xmax, data$xmax, NA, data$xmax, data$xmin, NA, data$xmin, data$xmin)),
       y = as.vector(rbind(data$ymin, data$ymax, NA, data$y,    data$y,    NA, data$ymin, data$ymax)),
       colour = rep(data$colour, each = 8),

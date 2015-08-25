@@ -25,7 +25,7 @@ GeomRect <- ggproto("GeomRect", Geom,
 
   required_aes = c("xmin", "xmax", "ymin", "ymax"),
 
-  draw = function(self, data, scales, coordinates, ...) {
+  draw_panel = function(self, data, scales, coordinates, ...) {
     if (!coordinates$is_linear()) {
       aesthetics <- setdiff(
         names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")
@@ -36,7 +36,7 @@ GeomRect <- ggproto("GeomRect", Geom,
         aes <- as.data.frame(row[aesthetics],
           stringsAsFactors = FALSE)[rep(1,5), ]
 
-        GeomPolygon$draw(cbind(poly, aes), scales, coordinates)
+        GeomPolygon$draw_panel(cbind(poly, aes), scales, coordinates)
       })
 
       ggname("bar", do.call("grobTree", polys))

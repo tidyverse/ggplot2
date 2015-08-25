@@ -71,10 +71,10 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
 
   required_aes = c("x", "ymin", "ymax"),
 
-  draw = function(self, data, scales, coordinates, ...) {
+  draw_panel = function(self, data, scales, coordinates, ...) {
     ggname(
       "geom_linerange",
-      GeomSegment$draw(
+      GeomSegment$draw_panel(
         transform(data, xend = x, y = ymin, yend = ymax), scales, coordinates, ...
       )
     )

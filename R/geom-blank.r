@@ -43,5 +43,5 @@ geom_blank <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @export
 GeomBlank <- ggproto("GeomBlank", Geom,
   default_aes = aes(),
-  draw = function(...) nullGrob()
+  draw_panel = function(...) nullGrob()
 )

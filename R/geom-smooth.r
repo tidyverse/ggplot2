@@ -107,7 +107,7 @@ GeomSmooth <- ggproto("GeomSmooth", Geom,
 
     gList(
       if (has_ribbon) GeomRibbon$draw_group(ribbon, scales, coordinates),
-      GeomLine$draw(path, scales, coordinates)
+      GeomLine$draw_panel(path, scales, coordinates)
     )
   },
 

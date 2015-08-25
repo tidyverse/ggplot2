@@ -37,21 +37,21 @@ geom_raster <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomRaster <- ggproto("GeomRaster", Geom,
-  reparameterise = function(df, params) {
+  setup_data = function(data, params) {
     hjust <- params$hjust %||% 0.5
     vjust <- params$vjust %||% 0.5
 
-    w <- resolution(df$x, FALSE)
-    h <- resolution(df$y, FALSE)
+    w <- resolution(data$x, FALSE)
+    h <- resolution(data$y, FALSE)
 
-    df$xmin <- df$x - w * (1 - hjust)
-    df$xmax <- df$x + w * hjust
-    df$ymin <- df$y - h * (1 - vjust)
-    df$ymax <- df$y + h * vjust
-    df
+    data$xmin <- data$x - w * (1 - hjust)
+    data$xmax <- data$x + w * hjust
+    data$ymin <- data$y - h * (1 - vjust)
+    data$ymax <- data$y + h * vjust
+    data
   },
 
-  draw = function(data, scales, coordinates, interpolate = FALSE, ...) {
+  draw_panel = function(data, scales, coordinates, interpolate = FALSE, ...) {
     if (!inherits(coordinates, "CoordCartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }

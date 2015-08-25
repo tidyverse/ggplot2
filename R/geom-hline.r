@@ -30,7 +30,7 @@ geom_hline <- function(mapping = NULL, data = NULL, show.legend = NA,
 #' @usage NULL
 #' @export
 GeomHline <- ggproto("GeomHline", Geom,
-  draw = function(data, scales, coordinates, ...) {
+  draw_panel = function(data, scales, coordinates, ...) {
     ranges <- coordinates$range(scales)
 
     data$x    <- ranges$x[1]
@@ -38,7 +38,7 @@ GeomHline <- ggproto("GeomHline", Geom,
     data$y    <- data$yintercept
     data$yend <- data$yintercept
 
-    GeomSegment$draw(unique(data), scales, coordinates)
+    GeomSegment$draw_panel(unique(data), scales, coordinates)
   },
 
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),

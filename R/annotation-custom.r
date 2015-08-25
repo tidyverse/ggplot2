@@ -60,7 +60,7 @@ annotation_custom <- function(grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax =
 #' @usage NULL
 #' @export
 GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
-  draw = function(data, scales, coordinates, grob, xmin, xmax,
+  draw_panel = function(data, scales, coordinates, grob, xmin, xmax,
                           ymin, ymax, ...) {
     if (!inherits(coordinates, "CoordCartesian")) {
       stop("annotation_custom only works with Cartesian coordinates",

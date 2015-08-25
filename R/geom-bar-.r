@@ -95,17 +95,17 @@ GeomBar <- ggproto("GeomBar", Geom,
   default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
                     weight = 1, alpha = NA),
 
-  reparameterise = function(df, params) {
-    df$width <- df$width %||%
-      params$width %||% (resolution(df$x, FALSE) * 0.9)
-    transform(df,
+  setup_data = function(data, params) {
+    data$width <- data$width %||%
+      params$width %||% (resolution(data$x, FALSE) * 0.9)
+    transform(data,
       ymin = pmin(y, 0), ymax = pmax(y, 0),
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )
   },
 
-  draw = function(data, scales, coordinates, ...) {
-    GeomRect$draw(data, scales, coordinates, ...)
+  draw_panel = function(data, scales, coordinates, ...) {
+    GeomRect$draw_panel(data, scales, coordinates, ...)
   },
 
   draw_key = draw_key_polygon

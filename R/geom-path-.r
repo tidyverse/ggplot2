@@ -110,8 +110,9 @@ geom_path <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomPath <- ggproto("GeomPath", Geom,
-  draw = function(data, scales, coordinates, arrow = NULL, lineend = "butt",
-                  linejoin = "round", linemitre = 1, ..., na.rm = FALSE)
+  draw_panel = function(data, scales, coordinates, arrow = NULL,
+                        lineend = "butt", linejoin = "round", linemitre = 1,
+                        ..., na.rm = FALSE)
   {
     if (!anyDuplicated(data$group)) {
       message("geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?")

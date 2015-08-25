@@ -25,9 +25,9 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
 GeomStep <- ggproto("GeomStep", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  draw = function(data, scales, coordinates, direction = "hv", ...) {
+  draw_panel = function(data, scales, coordinates, direction = "hv", ...) {
     data <- plyr::ddply(data, "group", stairstep, direction = direction)
-    GeomPath$draw(data, scales, coordinates, ...)
+    GeomPath$draw_panel(data, scales, coordinates, ...)
   },
 
   draw_key = draw_key_path

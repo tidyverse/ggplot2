@@ -233,6 +233,28 @@ aes_auto <- function(data = NULL, ...) {
   structure(rename_aes(aes), class = "uneval")
 }
 
+
+use_defaults <- function(geom, data, params) {
+  df <- aesdefaults(data, geom$default_aes)
+
+  # Override mappings with atomic parameters
+  gp <- intersect(c(names(df), geom$required_aes), names(params))
+  gp <- gp[unlist(lapply(params[gp], is.atomic))]
+
+  # Check that mappings are compatible length: either 1 or the same length
+  # as the data
+  param_lengths <- vapply(params[gp], length, numeric(1))
+  bad <- param_lengths != 1L & param_lengths != nrow(df)
+  if (any(bad)) {
+    stop("Incompatible lengths for set aesthetics: ",
+      paste(names(bad), collapse = ", "), call. = FALSE)
+  }
+
+  df[gp] <- params[gp]
+  df
+}
+
+
 # Aesthetic defaults
 # Convenience method for setting aesthetic defaults
 #

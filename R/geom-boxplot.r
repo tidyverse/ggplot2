@@ -114,34 +114,34 @@ geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
 #' @usage NULL
 #' @export
 GeomBoxplot <- ggproto("GeomBoxplot", Geom,
-  reparameterise = function(df, params) {
-    df$width <- df$width %||%
-      params$width %||% (resolution(df$x, FALSE) * 0.9)
+  setup_data = function(data, params) {
+    data$width <- data$width %||%
+      params$width %||% (resolution(data$x, FALSE) * 0.9)
 
-    if (!is.null(df$outliers)) {
+    if (!is.null(data$outliers)) {
       suppressWarnings({
-        out_min <- vapply(df$outliers, min, numeric(1))
-        out_max <- vapply(df$outliers, max, numeric(1))
+        out_min <- vapply(data$outliers, min, numeric(1))
+        out_max <- vapply(data$outliers, max, numeric(1))
       })
 
-      df$ymin_final <- pmin(out_min, df$ymin)
-      df$ymax_final <- pmax(out_max, df$ymax)
+      data$ymin_final <- pmin(out_min, data$ymin)
+      data$ymax_final <- pmax(out_max, data$ymax)
     }
 
     # if `varwidth` not requested or not available, don't use it
-    if (is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(df$relvarwidth)) {
-      df$xmin <- df$x - df$width / 2
-      df$xmax <- df$x + df$width / 2
+    if (is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(data$relvarwidth)) {
+      data$xmin <- data$x - data$width / 2
+      data$xmax <- data$x + data$width / 2
     } else {
       # make `relvarwidth` relative to the size of the largest group
-      df$relvarwidth <- df$relvarwidth / max(df$relvarwidth)
-      df$xmin <- df$x - df$relvarwidth * df$width / 2
-      df$xmax <- df$x + df$relvarwidth * df$width / 2
+      data$relvarwidth <- data$relvarwidth / max(data$relvarwidth)
+      data$xmin <- data$x - data$relvarwidth * data$width / 2
+      data$xmax <- data$x + data$relvarwidth * data$width / 2
     }
-    df$width <- NULL
-    if (!is.null(df$relvarwidth)) df$relvarwidth <- NULL
+    data$width <- NULL
+    if (!is.null(data$relvarwidth)) data$relvarwidth <- NULL
 
-    df
+    data
   },
 
   draw_group = function(self, data, ..., fatten = 2, outlier.colour = "black",
@@ -192,15 +192,15 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         alpha = NA,
         stringsAsFactors = FALSE
       )
-      outliers_grob <- GeomPoint$draw(outliers, ...)
+      outliers_grob <- GeomPoint$draw_panel(outliers, ...)
     } else {
       outliers_grob <- NULL
     }
 
     ggname("geom_boxplot", grobTree(
       outliers_grob,
-      GeomSegment$draw(whiskers, ...),
-      GeomCrossbar$draw(box, fatten = fatten, ...)
+      GeomSegment$draw_panel(whiskers, ...),
+      GeomCrossbar$draw_panel(box, fatten = fatten, ...)
     ))
   },
 

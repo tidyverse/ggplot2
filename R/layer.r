@@ -21,26 +21,6 @@ Layer <- ggproto("Layer", NULL,
   position = NULL,
   inherit.aes = FALSE,
 
-  use_defaults = function(self, data) {
-    df <- aesdefaults(data, self$geom$default_aes)
-
-    # Override mappings with atomic parameters
-    gp <- intersect(c(names(df), self$geom$required_aes), names(self$geom_params))
-    gp <- gp[unlist(lapply(self$geom_params[gp], is.atomic))]
-
-    # Check that mappings are compatible length: either 1 or the same length
-    # as the data
-    param_lengths <- vapply(self$geom_params[gp], length, numeric(1))
-    bad <- param_lengths != 1L & param_lengths != nrow(df)
-    if (any(bad)) {
-      stop("Incompatible lengths for set aesthetics: ",
-        paste(names(bad), collapse = ", "), call. = FALSE)
-    }
-
-    df[gp] <- self$geom_params[gp]
-    df
-  },
-
   layer_mapping = function(self, mapping = NULL) {
     # For certain geoms, it is useful to be able to ignore the default
     # aesthetics and only use those set in the layer
@@ -144,11 +124,6 @@ Layer <- ggproto("Layer", NULL,
     cunion(stat_data, data)
   },
 
-  reparameterise = function(self, data) {
-    if (empty(data)) return(data.frame())
-    self$geom$reparameterise(data, self$geom_params)
-  },
-
   compute_position = function(self, data, panel) {
     if (empty(data)) return(data.frame())
 
@@ -158,21 +133,26 @@ Layer <- ggproto("Layer", NULL,
     self$position$compute_layer(data, params, panel)
   },
 
-  make_grob = function(self, data, scales, cs) {
-    if (empty(data)) return(zeroGrob())
-
-    data <- self$use_defaults(data)
+  compute_geom = function(self, data) {
+    if (empty(data)) return(data.frame())
+    params <- self$geom$setup_params(data, self$geom_params)
+    data <- self$geom$setup_data(data, params)
 
     check_required_aesthetics(
       self$geom$required_aes,
-      c(names(data), names(self$geom_params)),
+      c(names(data), names(params)),
       snake_class(self$geom)
     )
 
-    do.call(self$geom$draw, c(
-      list(quote(data), quote(scales), quote(cs)),
-      self$geom_params
-    ))
+    # Update layer params so can access later
+    self$geom_params <- params
+    data
+  },
+
+  draw_geom = function(self, data, panel, coord) {
+    if (empty(data)) return(list(zeroGrob()))
+
+    self$geom$draw_layer(data, self$geom_params, panel, coord)
   }
 )
 

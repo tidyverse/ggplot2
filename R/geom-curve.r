@@ -29,8 +29,9 @@ geom_curve <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomCurve <- ggproto("GeomCurve", Geom,
-  draw = function(data, scales, coordinates, curvature = 0.5, angle = 90,
-                  ncp = 5, arrow = NULL, lineend = "butt", na.rm = FALSE, ...) {
+  draw_panel = function(data, scales, coordinates, curvature = 0.5, angle = 90,
+                        ncp = 5, arrow = NULL, lineend = "butt", na.rm = FALSE,
+                        ...) {
 
     data <- remove_missing(data, na.rm = na.rm,
                            c("x", "y", "xend", "yend", "linetype", "size", "shape"),

@@ -40,7 +40,7 @@ geom_rug <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomRug <- ggproto("GeomRug", Geom,
-  draw = function(data, scales, coordinates, sides = "bl", ...) {
+  draw_panel = function(data, scales, coordinates, sides = "bl", ...) {
     rugs <- list()
     data <- coordinates$transform(data, scales)
     if (!is.null(data$x)) {

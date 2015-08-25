@@ -84,16 +84,17 @@ geom_violin <- function(mapping = NULL, data = NULL, stat = "ydensity",
 #' @usage NULL
 #' @export
 GeomViolin <- ggproto("GeomViolin", Geom,
-  reparameterise = function(df, params) {
-    df$width <- df$width %||%
-      params$width %||% (resolution(df$x, FALSE) * 0.9)
+  setup_data = function(data, params) {
+    data$width <- data$width %||%
+      params$width %||% (resolution(data$x, FALSE) * 0.9)
 
     # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
-    plyr::ddply(df, "group", transform,
-          ymin = min(y),
-          ymax = max(y),
-          xmin = x - width / 2,
-          xmax = x + width / 2)
+    plyr::ddply(data, "group", transform,
+      ymin = min(y),
+      ymax = max(y),
+      xmin = x - width / 2,
+      xmax = x + width / 2
+    )
   },
 
   draw_group = function(self, data, ...) {
@@ -109,7 +110,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     # Needed for coord_polar and such
     newdata <- rbind(newdata, newdata[1,])
 
-    ggname("geom_violin", GeomPolygon$draw(newdata, ...))
+    ggname("geom_violin", GeomPolygon$draw_panel(newdata, ...))
   },
 
   draw_key = draw_key_polygon,

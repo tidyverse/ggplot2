@@ -52,7 +52,20 @@ Geom <- ggproto("Geom",
 
   draw_key = draw_key_point,
 
-  draw = function(self, data, panel_scales, coord, ...) {
+  draw_layer = function(self, data, params, panel, coord) {
+    args <- c(list(quote(data), quote(panel_scales), quote(coord)), params)
+
+    plyr::dlply(data, "PANEL", function(data) {
+      if (empty(data)) return(zeroGrob())
+
+      panel_scales <- panel$ranges[[data$PANEL[1]]]
+
+      data <- use_defaults(self, data, params)
+      do.call(self$draw_panel, args)
+    }, .drop = FALSE)
+  },
+
+  draw_panel = function(self, data, panel_scales, coord, ...) {
     if (empty(data)) return(zeroGrob())
 
     groups <- split(data, factor(data$group))
@@ -69,7 +82,8 @@ Geom <- ggproto("Geom",
     stop("Not implemented")
   },
 
-  reparameterise = function(data, params) data
+  setup_data = function(data, params) data,
+  setup_params = function(data, params) params
 )
 
 # make_geom("point") returns GeomPoint

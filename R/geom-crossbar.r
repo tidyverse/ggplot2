@@ -22,8 +22,8 @@ geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomCrossbar <- ggproto("GeomCrossbar", Geom,
-  reparameterise = function(df, params) {
-    GeomErrorbar$reparameterise(df, params)
+  setup_data = function(data, params) {
+    GeomErrorbar$setup_data(data, params)
   },
 
   default_aes = aes(colour = "black", fill = NA, size = 0.5, linetype = 1,
@@ -33,8 +33,8 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
 
   draw_key = draw_key_crossbar,
 
-  draw = function(self, data, scales, coordinates, fatten = 2.5, width = NULL,
-                  ...) {
+  draw_panel = function(self, data, scales, coordinates, fatten = 2.5,
+                        width = NULL, ...) {
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
@@ -83,8 +83,8 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
     }
 
     ggname("geom_crossbar", gTree(children = gList(
-      GeomPolygon$draw(box, scales, coordinates, ...),
-      GeomSegment$draw(middle, scales, coordinates, ...)
+      GeomPolygon$draw_panel(box, scales, coordinates, ...),
+      GeomSegment$draw_panel(middle, scales, coordinates, ...)
     )))
   }
 )

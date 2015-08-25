@@ -67,8 +67,8 @@ geom_segment <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomSegment <- ggproto("GeomSegment", Geom,
-  draw = function(data, scales, coordinates, arrow = NULL,
-                  lineend = "butt", na.rm = FALSE, ...) {
+  draw_panel = function(data, scales, coordinates, arrow = NULL,
+                        lineend = "butt", na.rm = FALSE, ...) {
 
     data <- remove_missing(data, na.rm = na.rm,
       c("x", "y", "xend", "yend", "linetype", "size", "shape"),
@@ -98,7 +98,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
     pieces <- rbind(starts, ends)
     pieces <- pieces[order(pieces$group),]
 
-    GeomPath$draw(pieces, scales, coordinates, arrow = arrow, ...)
+    GeomPath$draw_panel(pieces, scales, coordinates, arrow = arrow, ...)
   },
 
   required_aes = c("x", "y", "xend", "yend"),

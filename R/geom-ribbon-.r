@@ -123,7 +123,7 @@ GeomArea <- ggproto("GeomArea", GeomRibbon,
 
   required_aes = c("x", "y"),
 
-  reparameterise = function(df, params) {
-    transform(df, ymin = 0, ymax = y)
+  setup_data = function(data, params) {
+    transform(data, ymin = 0, ymax = y)
   }
 )

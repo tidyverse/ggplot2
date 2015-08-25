@@ -27,17 +27,17 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
 
   required_aes = c("x", "ymin", "ymax"),
 
-  reparameterise = function(df, params) {
-    df$width <- df$width %||%
-      params$width %||% (resolution(df$x, FALSE) * 0.9)
+  setup_data = function(data, params) {
+    data$width <- data$width %||%
+      params$width %||% (resolution(data$x, FALSE) * 0.9)
 
-    transform(df,
+    transform(data,
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )
   },
 
-  draw = function(data, scales, coordinates, width = NULL, ...) {
-    GeomPath$draw(data.frame(
+  draw_panel = function(data, scales, coordinates, width = NULL, ...) {
+    GeomPath$draw_panel(data.frame(
       x = as.vector(rbind(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax)),
       y = as.vector(rbind(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin)),
       colour = rep(data$colour, each = 8),

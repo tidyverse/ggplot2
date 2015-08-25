@@ -203,6 +203,12 @@ following methods:
      after \code{setp_params()}. Should return modified \code{data}.
      Default checks that required aesthetics are present.
 }
+
+And the following fields
+\itemize{
+  \item \code{required_aes}: a character vector giving the aesthetics
+     that must be present for this position adjustment to work.
+}
 }
 
 \section{Stats}{
