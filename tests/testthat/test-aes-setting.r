@@ -5,19 +5,14 @@ test_that("Aesthetic parameters must match length of data", {
   p <- ggplot(df, aes(x, y))
 
   set_colours <- function(colours) {
-    pdf(file = NULL)
-    print(p + geom_point(colour = colours))
-    dev.off()
+    b <- ggplot_build(p + geom_point(colour = colours))
+    ggplot_gtable(b)
   }
 
   set_colours("red")
-  expect_error(set_colours(rep("red", 2)), "Incompatible lengths")
-  dev.off()  # Need to manually close device because of error
-  expect_error(set_colours(rep("red", 3)), "Incompatible lengths")
-  dev.off()
-  expect_error(set_colours(rep("red", 4)), "Incompatible lengths")
-  dev.off()
+  expect_error(set_colours(rep("red", 2)), "must be either length 1")
+  expect_error(set_colours(rep("red", 3)), "must be either length 1")
+  expect_error(set_colours(rep("red", 4)), "must be either length 1")
   set_colours(rep("red", 5))
-
 
 })

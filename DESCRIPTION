@@ -49,6 +49,7 @@ Collate:
     'aes-group-order.r'
     'aes-linetype-size-shape.r'
     'aes-position.r'
+    'utilities.r'
     'aes.r'
     'legend-draw.r'
     'geom-.r'
@@ -208,7 +209,6 @@ Collate:
     'utilities-matrix.r'
     'utilities-resolution.r'
     'utilities-table.r'
-    'utilities.r'
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr

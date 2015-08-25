@@ -199,7 +199,8 @@ guide_train.legend <- function(guide, scale) {
   if (length(breaks) == 0 || all(is.na(breaks)))
     return()
 
-  key <- as.data.frame(setNames(list(scale_map(scale, breaks)), scale$aesthetics[1]))
+  key <- as.data.frame(setNames(list(scale_map(scale, breaks)), scale$aesthetics[1]),
+    stringsAsFactors = FALSE)
   key$.label <- scale_labels(scale, breaks)
 
   # this is a quick fix for #118
@@ -247,7 +248,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       # This layer contributes to the legend
       if (is.na(layer$show.legend) || layer$show.legend) {
         # Default is to include it
-        data <- use_defaults(layer$geom, guide$key[matched], layer$geom_params)
+        data <- layer$geom$use_defaults(guide$key[matched], layer$geom_params)
       } else {
         return(NULL)
       }
@@ -257,7 +258,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
         # Default is to exclude it
         return(NULL)
       } else {
-        data <- use_defaults(layer$geom, NULL, layer$geom_params)[rep(1, nrow(guide$key)), ]
+        data <- layer$geom$use_defaults(NULL, layer$geom_params)[rep(1, nrow(guide$key)), ]
       }
     }
 

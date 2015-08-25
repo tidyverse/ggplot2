@@ -78,5 +78,5 @@ GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
     editGrob(grob, vp = vp)
   },
 
-  default_aes = aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
+  default_aes = aes_(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
 )

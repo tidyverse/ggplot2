@@ -276,6 +276,6 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
 
   required_aes = c("x", "y"),
 
-  default_aes = aes(y = ..count.., colour = "black", fill = "black", alpha = NA)
+  default_aes = aes(colour = "black", fill = "black", alpha = NA)
 
 )

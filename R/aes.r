@@ -1,3 +1,6 @@
+#' @include utilities.r
+NULL
+
 # all_aes <- function(y) c(names(y$default_aes()), y$required_aes)
 # geom_aes <- unlist(lapply(Geom$find_all(), all_aes))
 # stat_aes <- unlist(lapply(Stat$find_all(), all_aes))
@@ -231,50 +234,4 @@ aes_auto <- function(data = NULL, ...) {
   }
 
   structure(rename_aes(aes), class = "uneval")
-}
-
-
-use_defaults <- function(geom, data, params) {
-  df <- aesdefaults(data, geom$default_aes)
-
-  # Override mappings with atomic parameters
-  gp <- intersect(c(names(df), geom$required_aes), names(params))
-  gp <- gp[unlist(lapply(params[gp], is.atomic))]
-
-  # Check that mappings are compatible length: either 1 or the same length
-  # as the data
-  param_lengths <- vapply(params[gp], length, numeric(1))
-  bad <- param_lengths != 1L & param_lengths != nrow(df)
-  if (any(bad)) {
-    stop("Incompatible lengths for set aesthetics: ",
-      paste(names(bad), collapse = ", "), call. = FALSE)
-  }
-
-  df[gp] <- params[gp]
-  df
-}
-
-
-# Aesthetic defaults
-# Convenience method for setting aesthetic defaults
-#
-# @param data values from aesthetic mappings
-# @param y. defaults
-# @param params. user specified values
-# @value a data.frame, with all factors converted to character strings
-aesdefaults <- function(data, y.) {
-  cols <- plyr::tryapply(defaults(data, y.), function(x) eval(x, data, globalenv()))
-
-  # Need to be careful here because stat_boxplot uses a list-column to store
-  # a vector of outliers
-
-  cols <- Filter(function(x) is.atomic(x) || is.list(x), cols)
-  list_vars <- sapply(cols, is.list)
-  cols[list_vars] <- lapply(cols[list_vars], I)
-
-  df <- data.frame(cols, stringsAsFactors = FALSE)
-
-  factors <- sapply(df, is.factor)
-  df[factors] <- lapply(df[factors], as.character)
-  df
 }

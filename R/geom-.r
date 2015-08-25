@@ -53,14 +53,14 @@ Geom <- ggproto("Geom",
   draw_key = draw_key_point,
 
   draw_layer = function(self, data, params, panel, coord) {
-    args <- c(list(quote(data), quote(panel_scales), quote(coord)), params)
+    data <- self$use_defaults(data, params)
 
+    args <- c(list(quote(data), quote(panel_scales), quote(coord)), params)
     plyr::dlply(data, "PANEL", function(data) {
       if (empty(data)) return(zeroGrob())
 
       panel_scales <- panel$ranges[[data$PANEL[1]]]
 
-      data <- use_defaults(self, data, params)
       do.call(self$draw_panel, args)
     }, .drop = FALSE)
   },
@@ -83,7 +83,34 @@ Geom <- ggproto("Geom",
   },
 
   setup_data = function(data, params) data,
-  setup_params = function(data, params) params
+  setup_params = function(data, params) params,
+
+  # Combine data with defaults and set aesthetics from parameters
+  use_defaults = function(self, data, params = list()) {
+    # Fill in missing aesthetics with their defaults
+    missing_aes <- setdiff(names(self$default_aes), names(data))
+    data[missing_aes] <- self$default_aes[missing_aes]
+
+    # Override mappings with atomic parameters
+    aes_params <- intersect(c(names(self$default_aes), self$required_aes), names(params))
+
+    # Check that mappings are compatible length: either 1 or the same length
+    # as the data
+    param_lengths <- vapply(params[aes_params], length, numeric(1))
+    n <- nrow(data)
+    bad <- param_lengths != 1L & param_lengths != n
+    if (any(bad)) {
+      stop(
+        "Aesthetics suppled as parameters, ", paste(names(bad), collapse = ", "),
+        ", must be either length 1 or the same as the data (", n, ")",
+        call. = FALSE
+      )
+    }
+
+    data[aes_params] <- params[aes_params]
+    data
+  }
+
 )
 
 # make_geom("point") returns GeomPoint
