@@ -1,21 +1,6 @@
 #' @include legend-draw.r
 NULL
 
-#' Graphical units
-#'
-#' Multiply size in mm by these constants in order to convert to the units
-#' that grid uses internally for \code{lwd} and \code{fontsize}.
-#'
-#' @name graphical-units
-NULL
-
-#' @export
-#' @rdname graphical-units
-.pt <- 72.27 / 25.4
-#' @export
-#' @rdname graphical-units
-.stroke <- 96 / 25.4
-
 #' @section Geoms:
 #'
 #' All \code{geom_*} functions (like \code{geom_point}) return a layer that
@@ -101,3 +86,18 @@ make_geom <- function(class) {
 
   obj
 }
+
+#' Graphical units
+#'
+#' Multiply size in mm by these constants in order to convert to the units
+#' that grid uses internally for \code{lwd} and \code{fontsize}.
+#'
+#' @name graphical-units
+NULL
+
+#' @export
+#' @rdname graphical-units
+.pt <- 72.27 / 25.4
+#' @export
+#' @rdname graphical-units
+.stroke <- 96 / 25.4
