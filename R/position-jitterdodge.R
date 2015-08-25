@@ -35,7 +35,7 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
   jitter.height = NULL,
   dodge.width = NULL,
 
-  compute_defaults = function(self, data) {
+  setup_params = function(self, data) {
     check_required_aesthetics(c("x", "y", "fill"), names(data),
       "position_jitterdodge")
 
@@ -51,7 +51,7 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
   },
 
 
-  adjust = function(self, data, params) {
+  compute_panel = function(data, params, scales) {
     data <- collide(data, params$dodge.width, "position_jitterdodge", pos_dodge,
       check.width = FALSE)
 

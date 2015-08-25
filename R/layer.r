@@ -149,16 +149,13 @@ Layer <- ggproto("Layer", NULL,
     self$geom$reparameterise(data, self$geom_params)
   },
 
-
-  adjust_position = function(self, data) {
+  compute_position = function(self, data, panel) {
     if (empty(data)) return(data.frame())
-    params <- self$position$compute_defaults(data)
 
-    plyr::ddply(data, "PANEL", function(data) {
-      if (empty(data)) return(data.frame())
+    params <- self$position$setup_params(data)
+    data <- self$position$setup_data(data, params)
 
-      self$position$adjust(data, params)
-    })
+    self$position$compute_layer(data, params, panel)
   },
 
   make_grob = function(self, data, scales, cs) {

@@ -180,13 +180,33 @@ descendant, and returns that.
 
 Each of the \code{Position*} objects is a \code{\link{ggproto}} object,
 descended from the top-level \code{Position}, and each implements the
-following method:
+following methods:
 
 \itemize{
-  \item \code{adjust(data, params)}: Adjusts the position of overlapping
-    geoms. Called once per panel.
-  \item \code{compute_defaults(data)}: Returns a list of parameters passed
-    on to \code{adjust()}. Called once for the whole dataset.
+  \item Override one of :
+    \code{compute_layer(self, data, params, panel)},
+    \code{compute_panel(self, data, params, scales)}
+
+    \code{compute_layer()} is called once per layer, and
+    \code{compute_panel()} is called once per panel. Both must return
+    data frames. Override \code{compute_layer()} for position adjustments
+    that apply arbitrary adjustments to all data (e.g. jittering);
+    override \code{compute_panel()} for methods that actually consider
+    the placement of all values.
+
+    \code{data} is a data frame containing the variables named according
+    to the aesthetics that they're mapped to. \code{scales} is a list
+    containing the \code{x} and \code{y} scales. There functions are called
+    before the facets are trained, so they are global scales, not local
+    to the individual panels. \code{params} contains the parameters returned by
+    \code{setup_params()}.
+  \item \code{setup_params(data, params)}: called once for each layer.
+     Used to setup defaults that need to complete dataset, and to inform
+     the user of important choices. Should return list of parameters.
+  \item \code{setup_data(data, params)}: called once for each layer,
+     after \code{setp_params()}. Should return modified \code{data}.
+     Default methods removes all rows containing a missing value in
+     required aesthetics (with a warning if \code{!na.rm}).
 }
 }
 

@@ -45,17 +45,17 @@ position_dodge <- function(width = NULL) {
 #' @export
 PositionDodge <- ggproto("PositionDodge", Position,
   width = NULL,
-  compute_defaults = function(self, data) {
+  setup_params = function(self, data) {
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       warning("Width not defined. Set with `position_dodge(width = ?)`",
         call. = FALSE)
     }
 
     check_required_aesthetics("x", names(data), "position_dodge")
-    list()
+    list(width = self$width)
   },
 
-  adjust = function(self, data, params) {
-    collide(data, self$width, "position_dodge", pos_dodge, check.width = FALSE)
+  compute_panel = function(data, params, scales) {
+    collide(data, params$width, "position_dodge", pos_dodge, check.width = FALSE)
   }
 )

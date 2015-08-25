@@ -9,13 +9,13 @@ position_fill <- function() {
 #' @usage NULL
 #' @export
 PositionFill <- ggproto("PositionFill", Position,
-  compute_defaults = function(self, data) {
+  setup_defaults = function(self, data) {
     check_required_aesthetics(c("x", "ymax"), names(data), "position_fill")
     if (!all(data$ymin == 0))
       warning("Filling not well defined when ymin != 0", call. = FALSE)
   },
 
-  adjust = function(self, data, params) {
+  compute_layer = function(data, params, scales) {
     collide(data, NULL, "position_fill", pos_fill)
   }
 )

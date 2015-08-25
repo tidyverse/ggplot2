@@ -20,7 +20,6 @@ ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) + geom_bar()
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
   geom_bar(position = "fill")
 
-
 # To change stacking order, use factor() to change order of levels
 mtcars$vs <- factor(mtcars$vs, levels = c(1,0))
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) + geom_bar()

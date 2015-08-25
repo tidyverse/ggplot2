@@ -14,7 +14,6 @@
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = "fill")
 #'
-#'
 #' # To change stacking order, use factor() to change order of levels
 #' mtcars$vs <- factor(mtcars$vs, levels = c(1,0))
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) + geom_bar()
@@ -51,7 +50,7 @@ position_stack <- function() {
 #' @usage NULL
 #' @export
 PositionStack <- ggproto("PositionStack", Position,
-  adjust = function(self, data, params) {
+  compute_panel = function(data, params, scales) {
     data <- remove_missing(data, FALSE,
       c("x", "y", "ymin", "ymax", "xmin", "xmax"), name = "position_stack")
 

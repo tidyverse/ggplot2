@@ -11,13 +11,29 @@
 #'
 #' Each of the \code{Position*} objects is a \code{\link{ggproto}} object,
 #' descended from the top-level \code{Position}, and each implements the
-#' following method:
+#' following methods:
 #'
 #' \itemize{
-#'   \item \code{adjust(data, params)}: Adjusts the position of overlapping
-#'     geoms. Called once per panel.
-#'   \item \code{compute_defaults(data)}: Returns a list of parameters passed
-#'     on to \code{adjust()}. Called once for the whole dataset.
+#'   \item \code{compute_layer(self, data, params, panel)} is called once
+#'     per layer. \code{panel} is currently an internal data structure, so
+#'     this method should not be overriden.
+#'
+#'   \item \code{compute_panel(self, data, params, panel)} is called once per
+#'     panel and should return a modified data frame.
+#'
+#'     \code{data} is a data frame containing the variables named according
+#'     to the aesthetics that they're mapped to. \code{scales} is a list
+#'     containing the \code{x} and \code{y} scales. There functions are called
+#'     before the facets are trained, so they are global scales, not local
+#'     to the individual panels. \code{params} contains the parameters returned by
+#'     \code{setup_params()}.
+#'   \item \code{setup_params(data, params)}: called once for each layer.
+#'      Used to setup defaults that need to complete dataset, and to inform
+#'      the user of important choices. Should return list of parameters.
+#'   \item \code{setup_data(data, params)}: called once for each layer,
+#'      after \code{setp_params()}. Should return modified \code{data}.
+#'      Default methods removes all rows containing a missing value in
+#'      required aesthetics (with a warning if \code{!na.rm}).
 #' }
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -25,8 +41,22 @@
 #' @export
 Position <- ggproto("Position",
   adjust = function(self, data, params) data,
-  compute_defaults = function(self, data) {
+  setup_params = function(self, data) {
     list()
+  },
+  setup_data = function(self, data, params) {
+    data
+  },
+  compute_layer = function(self, data, params, panel) {
+    plyr::ddply(data, "PANEL", function(data) {
+      if (empty(data)) return(data.frame())
+
+      scales <- panel_scales(panel, data$PANEL[1])
+      self$compute_panel(data = data, params = params, scales = scales)
+    })
+  },
+  compute_panel = function(self, data, scales) {
+    stop("Not implemented", call. = FALSE)
   }
 )
 

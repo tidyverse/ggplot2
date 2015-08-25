@@ -65,7 +65,7 @@ ggplot_build <- function(plot) {
   data <- by_layer(function(l, d) l$reparameterise(d))
 
   # Apply position adjustments
-  data <- by_layer(function(l, d) l$adjust_position(d))
+  data <- by_layer(function(l, d) l$compute_position(d, panel))
 
   # Reset position scales, then re-train and map.  This ensures that facets
   # have control over the range of a plot: is it generated from what's
