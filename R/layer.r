@@ -21,11 +21,21 @@ Layer <- ggproto("Layer", NULL,
   position = NULL,
   inherit.aes = FALSE,
 
-  layer_mapping = function(self, mapping = NULL) {
-    # For certain geoms, it is useful to be able to ignore the default
-    # aesthetics and only use those set in the layer
+  print = function(self) {
+    if (!is.null(self$mapping)) {
+      cat("mapping:", clist(self$mapping), "\n")
+    }
+    cat(snakeize(class(self$geom)[[1]]), ": ", clist(self$geom_params), "\n",
+      sep = "")
+    cat(snakeize(class(self$stat)[[1]]), ": ", clist(self$stat_params), "\n",
+      sep = "")
+    cat(snakeize(class(self$position)[[1]]), "\n")
+  },
+
+  compute_aesthetics = function(self, data, plot) {
+    # For annotation geoms, it is useful to be able to ignore the default aes
     if (self$inherit.aes) {
-      aesthetics <- compact(defaults(self$mapping, mapping))
+      aesthetics <- defaults(self$mapping, plot$mapping)
     } else {
       aesthetics <- self$mapping
     }
@@ -33,57 +43,39 @@ Layer <- ggproto("Layer", NULL,
     # Drop aesthetics that are set or calculated
     set <- names(aesthetics) %in% names(self$geom_params)
     calculated <- is_calculated_aes(aesthetics)
+    aesthetics <- aesthetics[!set & !calculated]
 
-    aesthetics[!set & !calculated]
-  },
-
-  print = function(self) {
-    if (!is.null(self$mapping)) {
-      cat("mapping:", clist(self$mapping), "\n")
+    # Override grouping if set in layer
+    if (!is.null(self$geom_params$group)) {
+      aesthetics[["group"]] <- self$geom_params$group
     }
-    cat(snakeize(class(self$geom)[[1]]), ": ", clist(self$geom_params), "\n", sep = "")
-    cat(snakeize(class(self$stat)[[1]]), ": ", clist(self$stat_params), "\n", sep = "")
-    cat(snakeize(class(self$position)[[1]]), "\n")
-  },
 
-  compute_aesthetics = function(self, data, plot) {
-    aesthetics <- self$layer_mapping(plot$mapping)
-
+    # Old subsetting method
     if (!is.null(self$subset)) {
       include <- data.frame(plyr::eval.quoted(self$subset, data, plot$env))
       data <- data[rowSums(include, na.rm = TRUE) == ncol(include), ]
     }
 
-    # Override grouping if set in layer.
-    if (!is.null(self$geom_params$group)) {
-      aesthetics["group"] <- self$geom_params$group
-    }
-
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
 
-    # Evaluate aesthetics in the context of their data frame
-    evaled <- compact(
-      plyr::eval.quoted(aesthetics, data, plot$plot_env)
-    )
+    # Evaluate and check aesthetics
+    aesthetics <- compact(aesthetics)
+    evaled <- lapply(aesthetics, eval, envir = data, enclos = plot$plot_env)
 
-    lengths <- vapply(evaled, length, integer(1))
-    n <- if (length(lengths) > 0) max(lengths) else 0
-
-    wrong <- lengths != 1 & lengths != n
-    if (any(wrong)) {
-      stop("Aesthetics must either be length one, or the same length as the data.",
-        "\nProblems: ", paste(aesthetics[wrong], collapse = ", "), call. = FALSE)
+    n <- nrow(data)
+    if (n == 0) {
+      # No data, so look at longest evaluated aesthetic
+      n <- max(vapply(evaled, length, integer(1)))
     }
+    check_aesthetics(evaled, n)
 
     if (empty(data) && n > 0) {
-      # No data, and vectors supplied to aesthetics
       evaled$PANEL <- 1
     } else {
       evaled$PANEL <- data$PANEL
     }
     data.frame(evaled)
   },
-
 
   compute_statistic = function(self, data, panel) {
     if (empty(data))

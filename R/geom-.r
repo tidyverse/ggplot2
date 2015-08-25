@@ -93,20 +93,7 @@ Geom <- ggproto("Geom",
 
     # Override mappings with atomic parameters
     aes_params <- intersect(c(names(self$default_aes), self$required_aes), names(params))
-
-    # Check that mappings are compatible length: either 1 or the same length
-    # as the data
-    param_lengths <- vapply(params[aes_params], length, numeric(1))
-    n <- nrow(data)
-    bad <- param_lengths != 1L & param_lengths != n
-    if (any(bad)) {
-      stop(
-        "Aesthetics suppled as parameters, ", paste(names(bad), collapse = ", "),
-        ", must be either length 1 or the same as the data (", n, ")",
-        call. = FALSE
-      )
-    }
-
+    check_aesthetics(params[aes_params], nrow(data))
     data[aes_params] <- params[aes_params]
     data
   }
@@ -142,3 +129,19 @@ NULL
 #' @export
 #' @rdname graphical-units
 .stroke <- 96 / 25.4
+
+check_aesthetics <- function(x, n) {
+  ns <- vapply(x, length, numeric(1))
+  good <- ns == 1L | ns == n
+
+  if (all(good)) {
+    return()
+  }
+
+  stop(
+    "Aesthetics must be either length 1 or the same as the data (", n, "): ",
+    paste(names(!good), collapse = ", "),
+    call. = FALSE
+  )
+
+}
