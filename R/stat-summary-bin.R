@@ -32,21 +32,21 @@ stat_summary_bin <- function(mapping = NULL, data = NULL, geom = "pointrange",
 StatSummaryBin <- ggproto("StatSummaryBin", Stat,
   required_aes = c("x", "y"),
 
-  compute_group = function(data, panel_info, fun.data = NULL, fun.y = NULL,
+  compute_group = function(data, scales, fun.data = NULL, fun.y = NULL,
                            fun.ymax = NULL, fun.ymin = NULL, fun.args = list(),
                            bins = 30, binwidth = NULL, origin = NULL, right = FALSE,
                            na.rm = FALSE, ...) {
 
     fun <- make_summary_fun(fun.data, fun.y, fun.ymax, fun.ymin, fun.args)
 
-    breaks <- bin_breaks(panel_info$x, NULL, origin, binwidth, bins, right = right)
+    breaks <- bin_breaks(scales$x, NULL, origin, binwidth, bins, right = right)
 
     data$bin <- cut(data$x, breaks, include.lowest = TRUE, labels = FALSE)
     out <- plyr::ddply(data, "bin", fun)
 
     locs <- bin_loc(breaks, out$bin)
     out$x <- locs$mid
-    out$width <- if (inherits(panel_info$x, "discrete")) 0.9 else locs$length
+    out$width <- if (inherits(scales$x, "discrete")) 0.9 else locs$length
     out
   }
 )

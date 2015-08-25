@@ -36,12 +36,12 @@ StatBinhex <- ggproto("StatBinhex", Stat,
 
   required_aes = c("x", "y"),
 
-  compute_group = function(data, panel_info, binwidth = NULL, bins = 30,
+  compute_group = function(data, scales, binwidth = NULL, bins = 30,
                            na.rm = FALSE, ...) {
     if (is.null(binwidth)) {
       binwidth <- c(
-        diff(scale_dimension(panel_info$x, c(0, 0))) / bins,
-        diff(scale_dimension(panel_info$y, c(0, 0))) / bins
+        diff(scale_dimension(scales$x, c(0, 0))) / bins,
+        diff(scale_dimension(scales$y, c(0, 0))) / bins
       )
     }
 

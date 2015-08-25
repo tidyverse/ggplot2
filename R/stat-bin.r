@@ -48,7 +48,7 @@ stat_bin <- function(mapping = NULL, data = NULL, geom = "bar",
 #' @usage NULL
 #' @export
 StatBin <- ggproto("StatBin", Stat,
-  compute_defaults = function(data, params) {
+  setup_params = function(data, params) {
     if (!is.null(data$y) || !is.null(params$y)) {
       stop("stat_bin() must not be used with a y aesthetic.", call. = FALSE)
     }
@@ -60,10 +60,10 @@ StatBin <- ggproto("StatBin", Stat,
     params
   },
 
-  compute_group = function(self, data, panel_info, binwidth = NULL, bins = NULL,
+  compute_group = function(self, data, scales, binwidth = NULL, bins = NULL,
                        origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
                        right = FALSE, ...) {
-    range <- scale_dimension(panel_info$x, c(0, 0))
+    range <- scale_dimension(scales$x, c(0, 0))
 
     bin(data$x, data$weight, binwidth = binwidth, bins = bins,
         origin = origin, breaks = breaks, range = range, width = width,

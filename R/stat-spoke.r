@@ -46,7 +46,7 @@ stat_spoke <- function(mapping = NULL, data = NULL, geom = "segment",
 StatSpoke <- ggproto("StatSpoke", Stat,
   retransform = FALSE,
 
-  compute_panel = function(data, panel_info, radius = 1, ...) {
+  compute_panel = function(data, scales, radius = 1, ...) {
     transform(data,
       xend = x + cos(angle) * radius,
       yend = y + sin(angle) * radius

@@ -54,7 +54,7 @@ ggplot_build <- function(plot) {
   data <- map_position(panel, data, scale_x(), scale_y())
 
   # Apply and map statistics
-  data <- by_layer(function(l, d) l$calc_statistic(d, panel))
+  data <- by_layer(function(l, d) l$compute_statistic(d, panel))
   data <- by_layer(function(l, d) l$map_statistic(d, plot))
   data <- lapply(data, order_groups)
 

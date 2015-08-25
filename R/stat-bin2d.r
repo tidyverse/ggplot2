@@ -37,7 +37,7 @@ StatBin2d <- ggproto("StatBin2d", Stat,
   default_aes = aes(fill = ..count..),
   required_aes = c("x", "y"),
 
-  compute_group = function(data, panel_info, binwidth = NULL, bins = 30,
+  compute_group = function(data, scales, binwidth = NULL, bins = 30,
                            breaks = NULL, origin = NULL, drop = TRUE, ...) {
 
     origin <- dual_param(origin, list(NULL, NULL))
@@ -45,8 +45,8 @@ StatBin2d <- ggproto("StatBin2d", Stat,
     breaks <- dual_param(breaks, list(NULL, NULL))
     bins <- dual_param(bins, list(x = 30, y = 30))
 
-    xbreaks <- bin_breaks(panel_info$x, breaks$x, origin$x, binwidth$x, bins$x)
-    ybreaks <- bin_breaks(panel_info$y, breaks$y, origin$y, binwidth$y, bins$y)
+    xbreaks <- bin_breaks(scales$x, breaks$x, origin$x, binwidth$x, bins$x)
+    ybreaks <- bin_breaks(scales$y, breaks$y, origin$y, binwidth$y, bins$y)
 
     xbin <- cut(data$x, xbreaks, include.lowest = TRUE, label = FALSE)
     ybin <- cut(data$y, ybreaks, include.lowest = TRUE, label = FALSE)

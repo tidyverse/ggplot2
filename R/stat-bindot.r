@@ -3,14 +3,14 @@
 #' @usage NULL
 #' @export
 StatBindot <- ggproto("StatBindot", Stat,
-  compute_defaults = function(data, params) {
+  setup_params = function(data, params) {
     if (is.null(params$breaks) && is.null(params$binwidth)) {
       message("`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.")
     }
     params
   },
 
-  compute_data = function(data, params) {
+  setup_data = function(data, params) {
     remove_missing(data, isTRUE(params$na.rm), c(params$binaxis, "weight"),
       name = "stat_bindot", finite = TRUE)
   },
@@ -48,7 +48,7 @@ StatBindot <- ggproto("StatBindot", Stat,
       binaxis = binaxis, method = method, binpositions = binpositions, ...)
   },
 
-  compute_group = function(self, data, panel_info, binwidth = NULL, binaxis = "x",
+  compute_group = function(self, data, scales, binwidth = NULL, binaxis = "x",
                            method = "dotdensity", binpositions = "bygroup",
                            origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
                            right = TRUE, ...) {
@@ -65,10 +65,10 @@ StatBindot <- ggproto("StatBindot", Stat,
     }
 
     if (binaxis == "x") {
-      range   <- scale_dimension(panel_info$x, c(0, 0))
+      range   <- scale_dimension(scales$x, c(0, 0))
       values  <- data$x
     } else if (binaxis == "y") {
-      range  <- scale_dimension(panel_info$y, c(0, 0))
+      range  <- scale_dimension(scales$y, c(0, 0))
       values <- data$y
       # The middle of each group, on the stack axis
       midline <- mean(range(data$x))

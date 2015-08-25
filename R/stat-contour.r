@@ -31,7 +31,7 @@ StatContour <- ggproto("StatContour", Stat,
   required_aes = c("x", "y", "z"),
   default_aes = aes(order = ..level..),
 
-  compute_group = function(data, panel_info, bins = NULL, binwidth = NULL,
+  compute_group = function(data, scales, bins = NULL, binwidth = NULL,
                            breaks = NULL, complete = FALSE, na.rm = FALSE, ...) {
     # If no parameters set, use pretty bins
     if (is.null(bins) && is.null(binwidth) && is.null(breaks)) {

@@ -43,17 +43,17 @@ stat_boxplot <- function(mapping = NULL, data = NULL, geom = "boxplot",
 StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("x", "y"),
 
-  compute_defaults = function(data, params) {
+  setup_params = function(data, params) {
     params$width <- params$width %||% resolution(data$x) * 0.75
     params
   },
 
-  compute_data = function(data, params) {
+  setup_data = function(data, params) {
     remove_missing(data, isTRUE(params$na.rm), c("x", "y", "weight"), name = "stat_boxplot",
       finite = TRUE)
   },
 
-  compute_group = function(data, panel_info, width = NULL, na.rm = FALSE, coef = 1.5, ...) {
+  compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, ...) {
     qs <- c(0, 0.25, 0.5, 0.75, 1)
 
     if (!is.null(data$weight)) {

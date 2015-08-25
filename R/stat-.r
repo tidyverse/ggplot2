@@ -10,24 +10,31 @@
 #' implement one or more of the following:
 #'
 #' \itemize{
-#'   \item Override either \code{compute_panel(self, data, panel_info, ...)} or
-#'     \code{compute_group(self, data, panel_info, ...)}. \code{compute_panel} is
-#'     called once per panel, \code{compute_group} is called once per group.
-#'     If you override \code{compute}, you're responsible for preserving
-#'     non-transformed columns.
+#'   \item Override one of :
+#'     \code{compute_layer(self, data, scales, ...)},
+#'     \code{compute_panel(self, data, scales, ...)}, or
+#'     \code{compute_group(self, data, scales, ...)}.
+#'
+#'     \code{compute_layer()} is called once per layer, \code{compute_panel_()}
+#'     is called once per panel, and \code{compute_group()} is called once per
+#'     group. All must return a data frame.
+#'
+#'     It's usually best to start by overriding \code{compute_group}: if
+#'     you find substantial performance optimisations, override higher up.
+#'     You'll need to read the source code of the default methods to see
+#'     what else you should be doing.
 #'
 #'     \code{data} is a data frame containing the variables named according
-#'     to the aesthetics that they're mapped to. \code{panel_info} is a list
-#'     of scale information for the panel. This is present mostly for historical
-#'     reasons, and I would discourage you from relying on it. \code{...}
-#'     contains the parameters returned by \code{compute_defaults()}.
-#'
-#'     Must return a data frame.
-#'   \item \code{compute_defaults(data, params)}: called once for each layer.
-#'      Used to compute defaults that need to complete dataset, and to inform
-#'      the user of important choices. Returns a list of updated parameters.
-#'   \item \code{compute_data(data, params)}: called once for each layer,
-#'      after \code{compute_defaults()}. Returns modified \code{data}.
+#'     to the aesthetics that they're mapped to. \code{scales} is a list
+#'     containing the \code{x} and \code{y} scales. There functions are called
+#'     before the facets are trained, so they are global scales, not local
+#'     to the individual panels.\code{...} contains the parameters returned by
+#'     \code{setup_params()}.
+#'   \item \code{setup_params(data, params)}: called once for each layer.
+#'      Used to setup defaults that need to complete dataset, and to inform
+#'      the user of important choices. Should return list of parameters.
+#'   \item \code{setup_data(data, params)}: called once for each layer,
+#'      after \code{setp_params()}. Should return modified \code{data}.
 #'      Default methods removes all rows containing a missing value in
 #'      required aesthetics (with a warning if \code{!na.rm}).
 #'   \item \code{required_aes}: A character vector of aesthetics needed to
@@ -49,20 +56,38 @@ Stat <- ggproto("Stat",
 
   required_aes = c(),
 
-  compute_defaults = function(data, params) {
+  setup_params = function(data, params) {
     params
   },
 
-  compute_data = function(self, data, params) {
+  setup_data = function(self, data, params) {
     remove_missing(data, isTRUE(params$na.rm), self$required_aes, name = snake_class(self))
   },
 
-  compute_panel = function(self, data, panel_info, ...) {
+  compute_layer = function(self, data, params, panels) {
+    check_required_aesthetics(
+      self$stat$required_aes,
+      c(names(data), names(params)),
+      snake_class(self$stat)
+    )
+
+    args <- c(list(data = quote(data), scales = quote(scales)), params)
+    plyr::ddply(data, "PANEL", function(data) {
+      scales <- panel_scales(panels, data$PANEL[1])
+      tryCatch(do.call(self$compute_panel, args), error = function(e) {
+        warning("Computation failed in `", snake_class(self$stat), "()`:\n",
+          e$message, call. = FALSE)
+        data.frame()
+      })
+    })
+  },
+
+  compute_panel = function(self, data, scales, ...) {
     if (empty(data)) return(data.frame())
 
     groups <- split(data, data$group)
     stats <- lapply(groups, function(group) {
-      self$compute_group(data = group, panel_info = panel_info, ...)
+      self$compute_group(data = group, scales = scales, ...)
     })
 
     stats <- mapply(function(new, old) {
@@ -78,7 +103,7 @@ Stat <- ggproto("Stat",
     do.call(plyr::rbind.fill, stats)
   },
 
-  compute_group = function(self, data, panel_info, ...) {
+  compute_group = function(self, data, scales, ...) {
     stop("Not implemented", call. = FALSE)
   }
 )
