@@ -35,10 +35,9 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
   jitter.height = NULL,
   dodge.width = NULL,
 
-  setup_params = function(self, data) {
-    check_required_aesthetics(c("x", "y", "fill"), names(data),
-      "position_jitterdodge")
+  required_aes = c("x", "y", "fill"),
 
+  setup_params = function(self, data) {
     width <- self$jitter.width %||% resolution(data$x, zero = FALSE) * 0.4
     # Adjust the x transformation based on the number of 'fill' variables
     nfill <- length(levels(data$fill))

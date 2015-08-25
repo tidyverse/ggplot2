@@ -32,21 +32,31 @@
 #'      the user of important choices. Should return list of parameters.
 #'   \item \code{setup_data(data, params)}: called once for each layer,
 #'      after \code{setp_params()}. Should return modified \code{data}.
-#'      Default methods removes all rows containing a missing value in
-#'      required aesthetics (with a warning if \code{!na.rm}).
+#'      Default checks that required aesthetics are present.
 #' }
+#'
+#' And the following fields
+#' \itemize{
+#'   \item \code{required_aes}: a character vector giving the aesthetics
+#'      that must be present for this position adjustment to work.
+#' }
+#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @export
 Position <- ggproto("Position",
-  adjust = function(self, data, params) data,
+  required_aes = character(),
+
   setup_params = function(self, data) {
     list()
   },
+
   setup_data = function(self, data, params) {
+    check_required_aesthetics(self$required_aes, names(data), snake_class(self))
     data
   },
+
   compute_layer = function(self, data, params, panel) {
     plyr::ddply(data, "PANEL", function(data) {
       if (empty(data)) return(data.frame())
@@ -55,6 +65,7 @@ Position <- ggproto("Position",
       self$compute_panel(data = data, params = params, scales = scales)
     })
   },
+
   compute_panel = function(self, data, scales) {
     stop("Not implemented", call. = FALSE)
   }

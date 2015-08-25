@@ -40,9 +40,9 @@ position_jitter <- function(width = NULL, height = NULL) {
 #' @usage NULL
 #' @export
 PositionJitter <- ggproto("PositionJitter", Position,
-  setup_params = function(self, data) {
-    check_required_aesthetics(c("x", "y"), names(data), "position_jitter")
+  required_aes = c("x", "y"),
 
+  setup_params = function(self, data) {
     list(
       width = self$width %||% resolution(data$x, zero = FALSE) * 0.4,
       height = self$height %||% resolution(data$y, zero = FALSE) * 0.4

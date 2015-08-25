@@ -34,8 +34,9 @@ PositionNudge <- ggproto("PositionNudge", Position,
   x = NULL,
   y = NULL,
 
+  required_aes = c("x", "y"),
+
   setup_params = function(self, data) {
-    check_required_aesthetics(c("x", "y"), names(data), "position_nudge")
     list(x = self$x, y = self$y)
   },
 

@@ -183,16 +183,12 @@ descended from the top-level \code{Position}, and each implements the
 following methods:
 
 \itemize{
-  \item Override one of :
-    \code{compute_layer(self, data, params, panel)},
-    \code{compute_panel(self, data, params, scales)}
+  \item \code{compute_layer(self, data, params, panel)} is called once
+    per layer. \code{panel} is currently an internal data structure, so
+    this method should not be overriden.
 
-    \code{compute_layer()} is called once per layer, and
-    \code{compute_panel()} is called once per panel. Both must return
-    data frames. Override \code{compute_layer()} for position adjustments
-    that apply arbitrary adjustments to all data (e.g. jittering);
-    override \code{compute_panel()} for methods that actually consider
-    the placement of all values.
+  \item \code{compute_panel(self, data, params, panel)} is called once per
+    panel and should return a modified data frame.
 
     \code{data} is a data frame containing the variables named according
     to the aesthetics that they're mapped to. \code{scales} is a list
@@ -205,8 +201,7 @@ following methods:
      the user of important choices. Should return list of parameters.
   \item \code{setup_data(data, params)}: called once for each layer,
      after \code{setp_params()}. Should return modified \code{data}.
-     Default methods removes all rows containing a missing value in
-     required aesthetics (with a warning if \code{!na.rm}).
+     Default checks that required aesthetics are present.
 }
 }
 
