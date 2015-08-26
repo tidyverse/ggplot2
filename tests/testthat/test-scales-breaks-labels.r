@@ -9,10 +9,10 @@ test_that("labels match breaks, even when outside limits", {
 })
 
 test_that("labels must match breaks", {
-  expect_that(scale_x_discrete(breaks = 1:3, labels = 1:2),
-    throws_error("must have the same length"))
-  expect_that(scale_x_continuous(breaks = 1:3, labels = 1:2),
-    throws_error("must have the same length"))
+  expect_error(scale_x_discrete(breaks = 1:3, labels = 1:2),
+    "must have the same length")
+  expect_error(scale_x_continuous(breaks = 1:3, labels = 1:2),
+    "must have the same length")
 })
 
 test_that("labels don't have to match null breaks", {
@@ -99,7 +99,7 @@ test_that("no minor breaks when only one break", {
 init_scale <- function(...) {
   sc <- scale_x_discrete(...)
   scale_train(sc, factor(1:100))
-  expect_that(length(scale_limits(sc)), equals(100))
+  expect_equal(length(scale_limits(sc)), 100)
   sc
 }
 

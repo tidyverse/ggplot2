@@ -10,23 +10,23 @@ test_that("there is one data frame for each layer", {
   l2 <- ggplot(df, aes(x, y)) + geom_point() + geom_line()
   l3 <- ggplot(df, aes(x, y)) + geom_point() + geom_line() + geom_point()
 
-  expect_that(nlayers(l1), equals(1))
-  expect_that(nlayers(l2), equals(2))
-  expect_that(nlayers(l3), equals(3))
+  expect_equal(nlayers(l1), 1)
+  expect_equal(nlayers(l2), 2)
+  expect_equal(nlayers(l3), 3)
 })
 
 test_that("position aesthetics coerced to correct type", {
   l1 <- ggplot(df, aes(x, y)) + geom_point()
   d1 <- layer_data(l1, 1)
 
-  expect_that(d1$x, is_a("numeric"))
-  expect_that(d1$y, is_a("numeric"))
+  expect_is(d1$x, "numeric")
+  expect_is(d1$y, "numeric")
 
   l2 <- ggplot(df, aes(x, z)) + geom_point() + scale_x_discrete()
   d2 <- layer_data(l2, 1)
 
-  expect_that(d2$x, is_a("integer"))
-  expect_that(d2$y, is_a("integer"))
+  expect_is(d2$x, "integer")
+  expect_is(d2$y, "integer")
 })
 
 test_that("non-position aesthetics are mapped", {
