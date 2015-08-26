@@ -16,6 +16,6 @@ autoplot <- function(object, ...) {
 #' @export
 autoplot.default <- function(object, ...) {
   stop("Objects of type ", paste(class(object), collapse = "/"),
-    " not supported by autoplot.  Please use ggplot() instead.\n", call. = FALSE)
+    " not supported by autoplot.", call. = FALSE)
 }
 
