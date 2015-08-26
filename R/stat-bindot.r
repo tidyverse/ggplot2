@@ -65,10 +65,10 @@ StatBindot <- ggproto("StatBindot", Stat,
     }
 
     if (binaxis == "x") {
-      range   <- scale_dimension(scales$x, c(0, 0))
+      range   <- scale_dimension(scales$x)
       values  <- data$x
     } else if (binaxis == "y") {
-      range  <- scale_dimension(scales$y, c(0, 0))
+      range  <- scale_dimension(scales$y)
       values <- data$y
       # The middle of each group, on the stack axis
       midline <- mean(range(data$x))

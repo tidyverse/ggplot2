@@ -119,7 +119,6 @@ object, you typically will want to implement one or more of the following:
   \item \code{distance}: Calculates distance.
   \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is
     linear; \code{FALSE} otherwise.
-  \item \code{expand_defaults}: Expands the default ranges.
 }
 }
 

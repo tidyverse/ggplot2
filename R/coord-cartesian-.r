@@ -65,26 +65,21 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
   },
 
   train = function(self, scale_details) {
-    c(train_cartesian(scale_details$x, self$limits$x, "x"),
-      train_cartesian(scale_details$y, self$limits$y, "y"))
+    train_cartesian <- function(scale_details, limits, name) {
+      if (is.null(limits)) {
+        range <- scale_dimension(scale_details, expand_default(scale_details))
+      } else {
+        range <- range(scale_transform(scale_details, limits))
+      }
+
+      out <- scale_break_info(scale_details, range)
+      names(out) <- paste(name, names(out), sep = ".")
+      out
+    }
+
+    c(
+      train_cartesian(scale_details$x, self$limits$x, "x"),
+      train_cartesian(scale_details$y, self$limits$y, "y")
+    )
   }
 )
-
-
-train_cartesian <- function(scale_details, limits, name) {
-
-  # first, calculate the range that is the numerical limits in data space
-
-  # expand defined by scale OR coord
-  if (is.null(limits)) {
-    # TODO: This is weird, accessing Coord directly for this method.
-    expand <- Coord$expand_defaults(scale_details)
-    range <- scale_dimension(scale_details, expand)
-  } else {
-    range <- range(scale_transform(scale_details, limits))
-  }
-
-  out <- scale_break_info(scale_details, range)
-  names(out) <- paste(name, names(out), sep = ".")
-  out
-}

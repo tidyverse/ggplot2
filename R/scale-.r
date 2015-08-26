@@ -328,24 +328,27 @@ scale_limits.default <- function(scale) {
   }
 }
 
-scale_expand <- function(scale) UseMethod("scale_expand")
+#' The physical size of the scale.
+#'
+#' This always returns a numeric vector of length 2, giving the physical
+#' dimensions of a scale.
+#'
 #' @export
-scale_expand.default <- function(scale) {
-  scale$expand %|W|% c(0, 0)
+#' @keywords internal
+#' @examples
+#' scale_dimension(xlim(0, 10))
+#' scale_dimension(xlim("a", "b", "c"))
+scale_dimension <- function(scale, expand = c(0, 0)) {
+  UseMethod("scale_dimension")
 }
 
-# The physical size of the scale, if a position scale
-# Unlike limits, this always returns a numeric vector of length 2
-# @kohske
-# scale_dimension uses scale_expand(scale) for expansion by default.
-scale_dimension <- function(scale, expand = scale_expand(scale)) UseMethod("scale_dimension")
-
 #' @export
-scale_dimension.continuous  <- function(scale, expand = scale_expand(scale)) {
+scale_dimension.continuous  <- function(scale, expand = c(0, 0)) {
   expand_range(scale_limits(scale), expand[1], expand[2])
 }
+
 #' @export
-scale_dimension.discrete <- function(scale, expand = scale_expand(scale)) {
+scale_dimension.discrete <- function(scale, expand = c(0, 0)) {
   expand_range(length(scale_limits(scale)), expand[1], expand[2])
 }
 

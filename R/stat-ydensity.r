@@ -64,7 +64,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     if (trim) {
       range <- range(data$y, na.rm = TRUE)
     } else {
-      range <- scale_dimension(scales$y, c(0, 0))
+      range <- scale_dimension(scales$y)
     }
     dens <- compute_density(data$y, data$w, from = range[1], to = range[2],
       adjust = adjust, kernel = kernel)

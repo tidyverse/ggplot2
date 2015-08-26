@@ -126,8 +126,7 @@ CoordMap <- ggproto("CoordMap", Coord,
       limits <- self$limits[[n]]
 
       if (is.null(limits)) {
-        expand <- self$expand_defaults(scale, n)
-        range <- scale_dimension(scale, expand)
+        range <- scale_dimension(scale, expand_default(scale))
       } else {
         range <- range(scale_transform(scale, limits))
       }

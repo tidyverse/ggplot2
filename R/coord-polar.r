@@ -101,7 +101,11 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       limits <- self$limits[[n]]
 
       if (is.null(limits)) {
-        expand <- self$expand_defaults(scale, n)
+        if (self$theta == n) {
+          expand <- expand_default(scale, c(0, 0.5), c(0, 0))
+        } else {
+          expand <- expand_default(scale, c(0, 0),   c(0, 0))
+        }
         range <- scale_dimension(scale, expand)
       } else {
         range <- range(scale_transform(scale, limits))
@@ -129,14 +133,6 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     }
 
     details
-  },
-
-  expand_defaults = function(self, scale_details, aesthetic) {
-    if (self$theta == aesthetic) {
-      expand_default(scale_details, c(0, 0.5), c(0, 0))
-    } else {
-      expand_default(scale_details, c(0, 0),   c(0, 0))
-    }
   },
 
   transform = function(self, data, scale_details) {

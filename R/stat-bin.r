@@ -63,7 +63,7 @@ StatBin <- ggproto("StatBin", Stat,
   compute_group = function(self, data, scales, binwidth = NULL, bins = NULL,
                        origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
                        right = FALSE, ...) {
-    range <- scale_dimension(scales$x, c(0, 0))
+    range <- scale_dimension(scales$x)
 
     bin(data$x, data$weight, binwidth = binwidth, bins = bins,
         origin = origin, breaks = breaks, range = range, width = width,

@@ -37,8 +37,8 @@ StatSummaryHex <- ggproto("StatSummaryHex", Stat,
                            fun = "mean", fun.args = list(), ...) {
     if (is.null(binwidth)) {
       binwidth <- c(
-        diff(scale_dimension(scales$x, c(0, 0))) / bins,
-        diff(scale_dimension(scales$y, c(0, 0))) / bins
+        diff(scale_dimension(scales$x)) / bins,
+        diff(scale_dimension(scales$y)) / bins
       )
     }
 

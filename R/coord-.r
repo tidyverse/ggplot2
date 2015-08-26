@@ -26,7 +26,6 @@
 #'   \item \code{distance}: Calculates distance.
 #'   \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is
 #'     linear; \code{FALSE} otherwise.
-#'   \item \code{expand_defaults}: Expands the default ranges.
 #' }
 #'
 #' @rdname ggplot2-ggproto
@@ -68,23 +67,7 @@ Coord <- ggproto("Coord",
 
   distance = function(x, y, scale_details) NULL,
 
-  is_linear = function() FALSE,
-
-  # Set the default expand values for the scale, if NA
-  expand_defaults = function(scale_details, aesthetic = NULL) {
-    # Expand the same regardless of whether it's x or y
-
-    # @kohske TODO:
-    # Here intentionally verbose. These constants may be held by coord as, say,
-    # coord$default.expand <- list(discrete = ..., continuous = ...)
-    #
-    # @kohske
-    # Now scale itself is not changed.
-    # This function only returns expanded (numeric) limits
-    discrete <- c(0, 0.6)
-    continuous <-  c(0.05, 0)
-    expand_default(scale_details, discrete, continuous)
-  }
+  is_linear = function() FALSE
 )
 
 #' Is this object a coordinate system?
@@ -93,14 +76,6 @@ Coord <- ggproto("Coord",
 #' @keywords internal
 is.Coord <- function(x) inherits(x, "Coord")
 
-
-# This is a utility function used by Coord$expand_defaults, to expand a single scale
-expand_default <- function(scale, discrete = c(0, 0), continuous = c(0, 0)) {
-  # Default expand values for discrete and continuous scales
-  if (is.waive(scale$expand)) {
-    if (inherits(scale, "discrete")) discrete
-    else if (inherits(scale, "continuous")) continuous
-  } else {
-    return(scale$expand)
-  }
+expand_default <- function(scale, discrete = c(0, 0.6), continuous = c(0.05, 0)) {
+  scale$expand %|W|% if (inherits(scale, "discrete")) discrete else continuous
 }

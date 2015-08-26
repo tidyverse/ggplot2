@@ -53,7 +53,7 @@ StatDensity <- ggproto("StatDensity", Stat,
     if (trim) {
       range <- range(data$x, na.rm = TRUE)
     } else {
-      range <- scale_dimension(scales$x, c(0, 0))
+      range <- scale_dimension(scales$x)
     }
 
     compute_density(data$x, data$weight, from = range[1], to = range[2],
