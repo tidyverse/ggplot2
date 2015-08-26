@@ -1,16 +1,3 @@
-# Create a new layer
-# Layer objects store the layer of an object.
-#
-# They have the following attributes:
-#
-#  * data
-#  * geom + parameters
-#  * statistic + parameters
-#  * position + parameters
-#  * aesthetic mapping
-#  * flag for display guide: TRUE/FALSE/NA. in the case of NA, decision depends on a guide itself.
-#
-# Can think about grob creation as a series of data frame transformations.
 Layer <- ggproto("Layer", NULL,
   geom = NULL,
   geom_params = NULL,
