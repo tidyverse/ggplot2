@@ -13,8 +13,9 @@
 #' @rdname geom_quantile
 stat_quantile <- function(mapping = NULL, data = NULL, geom = "quantile",
                           position = "identity", quantiles = c(0.25, 0.5, 0.75),
-                          formula = NULL, method = "rq", na.rm = FALSE,
-                          show.legend = NA, inherit.aes = TRUE, ...) {
+                          formula = NULL, method = "rq", method.args = list(),
+                          na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+                          ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -27,6 +28,7 @@ stat_quantile <- function(mapping = NULL, data = NULL, geom = "quantile",
       quantiles = quantiles,
       formula = formula,
       method = method,
+      method.args = method.args,
       na.rm = na.rm
     ),
     params = list(...)
@@ -43,7 +45,8 @@ StatQuantile <- ggproto("StatQuantile", Stat,
 
   compute_group = function(data, scales, quantiles = c(0.25, 0.5, 0.75),
                            formula = NULL, xseq = NULL, method = "rq",
-                           lambda = 1, na.rm = FALSE, ...) {
+                           method.args = list(), lambda = 1, na.rm = FALSE,
+                           ...) {
     try_require("quantreg", "stat_quantile")
 
     if (is.null(formula)) {
@@ -70,12 +73,15 @@ StatQuantile <- ggproto("StatQuantile", Stat,
     method <- match.fun(method)
 
     plyr::ldply(quantiles, quant_pred, data = data, method = method,
-      formula = formula, weight = weight, grid = grid, ...)
+      formula = formula, weight = weight, grid = grid, method.args = method.args)
   }
 )
 
-quant_pred <- function(quantile, data, method, formula, weight, grid, ...) {
-  model <- method(formula, data = data, tau = quantile, weights = weight, ...)
+quant_pred <- function(quantile, data, method, formula, weight, grid,
+                       method.args = method.args) {
+  args <- c(list(quote(formula), data = quote(data), tau = quote(quantile),
+    weights = quote(weight)), method.args)
+  model <- do.call(method, args)
 
   grid$y <- stats::predict(model, newdata = grid)
   grid$quantile <- quantile

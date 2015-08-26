@@ -12,8 +12,8 @@ geom_quantile(mapping = NULL, data = NULL, stat = "quantile",
 
 stat_quantile(mapping = NULL, data = NULL, geom = "quantile",
   position = "identity", quantiles = c(0.25, 0.5, 0.75), formula = NULL,
-  method = "rq", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-  ...)
+  method = "rq", method.args = list(), na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -66,6 +66,9 @@ the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{method}{Quantile regression method to use.  Currently only supports
 \code{\link[quantreg]{rq}}.}
+
+\item{method.args}{List of additional arguments passed on to the modelling
+function defined by \code{method}.}
 }
 \description{
 This can be used as a continuous analogue of a geom_boxplot.
@@ -92,7 +95,7 @@ m + geom_quantile(quantiles = q10)
 m + geom_quantile(method = "rqss")
 # Note that rqss doesn't pick a smoothing constant automatically, so
 # you'll need to tweak lambda yourself
-m + geom_quantile(method = "rqss", lambda = 1)
+m + geom_quantile(method = "rqss", lambda = 0.1)
 
 # Set aesthetics to fixed value
 m + geom_quantile(colour = "red", size = 2, alpha = 0.5)
