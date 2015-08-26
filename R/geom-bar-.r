@@ -153,7 +153,7 @@ StatBar <- ggproto("StatBar", Stat,
   compute_group = function(self, data, ..., width = NULL) {
     x <- data$x
     weight <- data$weight %||% rep(1, length(x))
-    width <- width %||% resolution(x) * 0.9
+    width <- width %||% (resolution(x) * 0.9)
 
     count <- as.numeric(tapply(weight, x, sum, na.rm = TRUE))
     count[is.na(count)] <- 0
