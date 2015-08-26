@@ -23,8 +23,10 @@ arguments belong to which. To be explicit, supply as individual lists to
 defined at the top level of the plot.}
 
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
-\code{\link{aes_string}}. If specified and \code{inherit.aes = TRUE},
-is combined with the default mapping at the top level of the plot.}
+\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+default), is combined with the default mapping at the top level of the
+plot. You only need to supply \code{mapping} if there isn't a mapping
+defined for the plot.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions

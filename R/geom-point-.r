@@ -29,9 +29,11 @@
 #' @seealso \code{\link{scale_size}} to see scale area of points, instead of
 #'   radius, \code{\link{geom_jitter}} to jitter points to reduce (mild)
 #'   overplotting
-#' @param mapping The aesthetic mapping, usually constructed with
-#'    \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
-#'    at the layer level if you are overriding the plot defaults.
+#' @param mapping Set of aesthetic mappings created by \code{\link{aes}} or
+#'   \code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+#'   default), is combined with the default mapping at the top level of the
+#'   plot. You only need to supply \code{mapping} if there isn't a mapping
+#'   defined for the plot.
 #' @param data A data frame. If specified, overrides the default data frame
 #'   defined at the top level of the plot.
 #' @param position Position adjustment, either as a string, or the result of

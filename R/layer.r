@@ -1,3 +1,76 @@
+#' Create a new layer
+#'
+#' @export
+#' @inheritParams geom_point
+#' @param geom,stat,position Geom, stat and position adjustment to use in
+#'   this layer. Can either be the name of a ggproto object, or the object
+#'   itself.
+#' @param geom_params,stat_params,params Additional parameters to the
+#'   \code{geom} and \code{stat}. If supplied individual in \code{...} or as a
+#'   list in \code{params}, \code{layer} does it's best to figure out which
+#'   arguments belong to which. To be explicit, supply as individual lists to
+#'   \code{geom_param} and \code{stat_param}.
+#' @param subset DEPRECATED. An older way of subsetting the dataset used in a
+#'   layer.
+#' @examples
+#' # geom calls are just a short cut for layer
+#' ggplot(mpg, aes(displ, hwy)) + geom_point()
+#' # shortcut for
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   layer(geom = "point", stat = "identity", position = "identity")
+layer <- function(geom = NULL, geom_params = list(), stat = NULL,
+  stat_params = list(), data = NULL, mapping = NULL,
+  position = NULL, params = list(), inherit.aes = TRUE,
+  subset = NULL, show.legend = NA) {
+  if (is.null(geom))
+    stop("Attempted to create layer with no geom.", call. = FALSE)
+  if (is.null(stat))
+    stop("Attempted to create layer with no stat.", call. = FALSE)
+  if (is.null(position))
+    stop("Attempted to create layer with no position.", call. = FALSE)
+
+  # Handle show_guide/show.legend
+  if (!is.null(params$show_guide)) {
+    warning("`show_guide` has been deprecated. Please use `show.legend` instead.",
+      call. = FALSE)
+    show.legend <- params$show_guide
+    params$show_guide <- NULL
+  }
+  if (!is.logical(show.legend) || length(show.legend) != 1) {
+    warning("`show.legend` must be a logical vector of length 1.", call. = FALSE)
+    show.legend <- FALSE
+  }
+
+  data <- fortify(data)
+  if (!is.null(mapping) && !inherits(mapping, "uneval")) {
+    stop("Mapping must be created by `aes()` or `aes_()`", call. = FALSE)
+  }
+
+  if (is.character(geom)) geom <- make_geom(geom)
+  if (is.character(stat)) stat <- make_stat(stat)
+  if (is.character(position)) position <- make_position(position)
+
+  # Categorize items from params into geom_params and stat_params
+  if (length(params) > 0) {
+    geom_params <- utils::modifyList(params, geom_params)
+    stat_params <- utils::modifyList(params, stat_params)
+  }
+  geom_params <- rename_aes(geom_params)
+
+  ggproto("LayerInstance", Layer,
+    geom = geom,
+    geom_params = geom_params,
+    stat = stat,
+    stat_params = stat_params,
+    data = data,
+    mapping = mapping,
+    subset = subset,
+    position = position,
+    inherit.aes = inherit.aes,
+    show.legend = show.legend
+  )
+}
+
 Layer <- ggproto("Layer", NULL,
   geom = NULL,
   geom_params = NULL,
@@ -136,87 +209,5 @@ Layer <- ggproto("Layer", NULL,
     self$geom$draw_layer(data, self$geom_params, panel, coord)
   }
 )
-
-
-#' Create a new layer
-#'
-#' @export
-#' @inheritParams geom_point
-#' @param geom,stat,position Geom, stat and position adjustment to use in
-#'   this layer. Can either be the name of a ggproto object, or the object
-#'   itself.
-#' @param geom_params,stat_params,params Additional parameters to the
-#'   \code{geom} and \code{stat}. If supplied individual in \code{...} or as a
-#'   list in \code{params}, \code{layer} does it's best to figure out which
-#'   arguments belong to which. To be explicit, supply as individual lists to
-#'   \code{geom_param} and \code{stat_param}.
-#' @param mapping Set of aesthetic mappings created by \code{\link{aes}} or
-#'   \code{\link{aes_string}}. If specified and \code{inherit.aes = TRUE},
-#'   is combined with the default mapping at the top level of the plot.
-#' @param inherit.aes If \code{FALSE}, overrides the default aesthetics,
-#'   rather than combining with them. This is most useful for helper functions
-#'   that define both data and aesthetics and shouldn't inherit behaviour from
-#'   the default plot specification, e.g. \code{\link{borders}}.
-#' @param subset DEPRECATED. An older way of subsetting the dataset used in a
-#'   layer.
-#' @examples
-#' # geom calls are just a short cut for layer
-#' ggplot(mpg, aes(displ, hwy)) + geom_point()
-#' # shortcut for
-#' ggplot(mpg, aes(displ, hwy)) +
-#'   layer(geom = "point", stat = "identity", position = "identity")
-layer <- function(geom = NULL, geom_params = list(), stat = NULL,
-  stat_params = list(), data = NULL, mapping = NULL, position = NULL,
-  params = list(), inherit.aes = TRUE, subset = NULL, show.legend = NA)
-{
-  if (is.null(geom))
-    stop("Attempted to create layer with no geom.", call. = FALSE)
-  if (is.null(stat))
-    stop("Attempted to create layer with no stat.", call. = FALSE)
-  if (is.null(position))
-    stop("Attempted to create layer with no position.", call. = FALSE)
-
-  # Handle show_guide/show.legend
-  if (!is.null(params$show_guide)) {
-    warning("`show_guide` has been deprecated. Please use `show.legend` instead.",
-      call. = FALSE)
-    show.legend <- params$show_guide
-    params$show_guide <- NULL
-  }
-  if (!is.logical(show.legend) || length(show.legend) != 1) {
-    warning("`show.legend` must be a logical vector of length 1.", call. = FALSE)
-    show.legend <- FALSE
-  }
-
-
-  data <- fortify(data)
-  if (!is.null(mapping) && !inherits(mapping, "uneval")) {
-    stop("Mapping should be a list of unevaluated mappings created by aes or aes_string", call. = FALSE)
-  }
-
-  if (is.character(geom)) geom <- make_geom(geom)
-  if (is.character(stat)) stat <- make_stat(stat)
-  if (is.character(position)) position <- make_position(position)
-
-  # Categorize items from params into geom_params and stat_params
-  if (length(params) > 0) {
-    geom_params <- utils::modifyList(params, geom_params)
-    stat_params <- utils::modifyList(params, stat_params)
-  }
-  geom_params <- rename_aes(geom_params)
-
-  ggproto("LayerInstance", Layer,
-    geom = geom,
-    geom_params = geom_params,
-    stat = stat,
-    stat_params = stat_params,
-    data = data,
-    mapping = mapping,
-    subset = subset,
-    position = position,
-    inherit.aes = inherit.aes,
-    show.legend = show.legend
-  )
-}
 
 is.layer <- function(x) inherits(x, "Layer")
