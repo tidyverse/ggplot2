@@ -141,7 +141,6 @@ Collate:
     'plot-build.r'
     'plot-construction.r'
     'plot-last.r'
-    'plot-render.r'
     'plot.r'
     'position-.r'
     'position-collide.r'
