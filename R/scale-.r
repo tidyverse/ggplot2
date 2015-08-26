@@ -567,7 +567,6 @@ scale_break_info.discrete <- function(scale, range = NULL) {
   } else {
 
     labels <- scale_labels(scale, major)
-    labels <- labels[!is.na(labels)]
 
     major <- scale_map(scale, major)
     major <- major[!is.na(major)]
