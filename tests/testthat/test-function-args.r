@@ -16,7 +16,7 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   geom_fun_names <- setdiff(
     geom_fun_names,
     c("geom_aesthetics", "geom_map", "annotation_custom", "annotation_map",
-      "annotation_raster")
+      "annotation_raster", "annotation_id")
   )
 
   # For each geom_xxx function and the corresponding GeomXxx$draw and
@@ -24,7 +24,7 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   # the args have the same default values.
   lapply(geom_fun_names, function(geom_fun_name) {
     geom_fun    <- ggplot2_ns[[geom_fun_name]]
-    draw        <- geom_fun()$geom$draw
+    draw        <- geom_fun()$geom$draw_layer
     draw_groups <- geom_fun()$geom$draw_group
 
     fun_args <- formals(geom_fun)
