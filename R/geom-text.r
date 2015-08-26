@@ -148,7 +148,7 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomText <- ggproto("GeomText", Geom,
-  draw_panel = function(data, scales, coordinates, ..., parse = FALSE,
+  draw_panel = function(data, panel_scales, coord, parse = FALSE,
                         na.rm = FALSE, check_overlap = FALSE) {
     data <- remove_missing(data, na.rm,
       c("x", "y", "label"), name = "geom_text")
@@ -158,25 +158,25 @@ GeomText <- ggproto("GeomText", Geom,
       lab <- parse(text = lab)
     }
 
-    coords <- coordinates$transform(data, scales)
-    if (is.character(coords$vjust)) {
-      coords$vjust <- compute_just(coords$vjust, coords$y)
+    data <- coord$transform(data, panel_scales)
+    if (is.character(data$vjust)) {
+      data$vjust <- compute_just(data$vjust, data$y)
     }
-    if (is.character(coords$hjust)) {
-      coords$hjust <- compute_just(coords$hjust, coords$x)
+    if (is.character(data$hjust)) {
+      data$hjust <- compute_just(data$hjust, data$x)
     }
 
     textGrob(
       lab,
-      coords$x, coords$y, default.units = "native",
-      hjust = coords$hjust, vjust = coords$vjust,
-      rot = coords$angle,
+      data$x, data$y, default.units = "native",
+      hjust = data$hjust, vjust = data$vjust,
+      rot = data$angle,
       gp = gpar(
-        col = alpha(coords$colour, coords$alpha),
-        fontsize = coords$size * .pt,
-        fontfamily = coords$family,
-        fontface = coords$fontface,
-        lineheight = coords$lineheight
+        col = alpha(data$colour, data$alpha),
+        fontsize = data$size * .pt,
+        fontfamily = data$family,
+        fontface = data$fontface,
+        lineheight = data$lineheight
       ),
       check.overlap = check_overlap
     )

@@ -56,7 +56,7 @@ Marginal rug plots.
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "rug")}
 }
 \examples{
-p <- ggplot(mtcars, aes(x=wt, y=mpg))
+p <- ggplot(mtcars, aes(wt, mpg))
 p + geom_point()
 p + geom_point() + geom_rug()
 p + geom_point() + geom_rug(sides="b")    # Rug on bottom only

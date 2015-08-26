@@ -52,19 +52,20 @@ NULL
 #' @usage NULL
 #' @export
 Geom <- ggproto("Geom",
-  required_aes = c(),
+  required_aes = character(),
 
   default_aes = aes(),
 
   draw_key = draw_key_point,
 
   draw_layer = function(self, data, params, panel, coord) {
+    params <- params[intersect(names(params), self$parameters())]
     args <- c(list(quote(data), quote(panel_scales), quote(coord)), params)
+
     plyr::dlply(data, "PANEL", function(data) {
       if (empty(data)) return(zeroGrob())
 
       panel_scales <- panel$ranges[[data$PANEL[1]]]
-
       do.call(self$draw_panel, args)
     }, .drop = FALSE)
   },
@@ -82,7 +83,7 @@ Geom <- ggproto("Geom",
     ))
   },
 
-  draw_group = function(self, data, panel_scales, coord, ...) {
+  draw_group = function(self, data, panel_scales, coord) {
     stop("Not implemented")
   },
 
@@ -99,9 +100,26 @@ Geom <- ggproto("Geom",
     check_aesthetics(params[aes_params], nrow(data))
     data[aes_params] <- params[aes_params]
     data
+  },
+
+  parameters = function(self) {
+    # Look first in draw_panel. If it contains ... then look in draw groups
+    panel_args <- names(ggproto_formals(self$draw_panel))
+    group_args <- names(ggproto_formals(self$draw_group))
+    args <- if ("..." %in% panel_args) group_args else panel_args
+
+    # Remove arguments of defaults
+    args <- setdiff(args, names(ggproto_formals(Geom$draw_panel)))
+
+    args
+  },
+
+  aesthetics = function(self) {
+    union(self$required_aes, names(self$default_aes))
   }
 
 )
+
 
 #' Graphical units
 #'

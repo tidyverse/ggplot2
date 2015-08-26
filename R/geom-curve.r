@@ -29,9 +29,8 @@ geom_curve <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomCurve <- ggproto("GeomCurve", Geom,
-  draw_panel = function(data, scales, coordinates, curvature = 0.5, angle = 90,
-                        ncp = 5, arrow = NULL, lineend = "butt", na.rm = FALSE,
-                        ...) {
+  draw_panel = function(data, panel_scales, coord, curvature = 0.5, angle = 90,
+                        ncp = 5, arrow = NULL, lineend = "butt", na.rm = FALSE) {
 
     data <- remove_missing(data, na.rm = na.rm,
                            c("x", "y", "xend", "yend", "linetype", "size", "shape"),
@@ -39,11 +38,11 @@ GeomCurve <- ggproto("GeomCurve", Geom,
 
     if (empty(data)) return(zeroGrob())
 
-    if (!coordinates$is_linear()) {
+    if (!coord$is_linear()) {
       warning("geom_curve is not implemented for non-linear coordinates",
         call. = FALSE)
     }
-    trans <- coordinates$transform(data, scales)
+    trans <- coord$transform(data, panel_scales)
     curveGrob(
       trans$x, trans$y, trans$xend, trans$yend,
       default.units = "native",

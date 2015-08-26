@@ -90,10 +90,9 @@ geom_bar <- function(mapping = NULL, data = NULL, stat = "bar",
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomBar <- ggproto("GeomBar", Geom,
+#' @include geom-rect.r
+GeomBar <- ggproto("GeomBar", GeomRect,
   required_aes = "x",
-  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
-                    weight = 1, alpha = NA),
 
   setup_data = function(data, params) {
     data$width <- data$width %||%
@@ -102,13 +101,7 @@ GeomBar <- ggproto("GeomBar", Geom,
       ymin = pmin(y, 0), ymax = pmax(y, 0),
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )
-  },
-
-  draw_panel = function(data, scales, coordinates, ...) {
-    GeomRect$draw_panel(data, scales, coordinates, ...)
-  },
-
-  draw_key = draw_key_polygon
+  }
 )
 
 #' @export

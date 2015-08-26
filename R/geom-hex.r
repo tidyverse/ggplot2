@@ -44,8 +44,8 @@ geom_hex <- function(mapping = NULL, data = NULL, stat = "binhex",
 #' @usage NULL
 #' @export
 GeomHex <- ggproto("GeomHex", Geom,
-  draw_group = function(self, data, scales, coordinates, ...) {
-    coord <- coordinates$transform(data, scales)
+  draw_group = function(data, panel_scales, coord) {
+    coord <- coord$transform(data, panel_scales)
     ggname("geom_hex", hexGrob(
       coord$x, coord$y, colour = coord$colour,
       fill = alpha(coord$fill, coord$alpha)

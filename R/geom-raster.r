@@ -51,13 +51,13 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     data
   },
 
-  draw_panel = function(data, scales, coordinates, interpolate = FALSE, ...) {
-    if (!inherits(coordinates, "CoordCartesian")) {
+  draw_panel = function(data, panel_scales, coord, interpolate = FALSE) {
+    if (!inherits(coord, "CoordCartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }
     data <- remove_missing(data, TRUE, c("x", "y", "fill"),
       name = "geom_raster")
-    data <- coordinates$transform(data, scales)
+    data <- coord$transform(data, panel_scales)
 
     # Convert vector of data to raster
     x_pos <- as.integer((data$x - min(data$x)) / resolution(data$x, FALSE))
@@ -73,9 +73,11 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     x_rng <- c(min(data$xmin, na.rm = TRUE), max(data$xmax, na.rm = TRUE))
     y_rng <- c(min(data$ymin, na.rm = TRUE), max(data$ymax, na.rm = TRUE))
 
-    rasterGrob(raster, x = mean(x_rng), y = mean(y_rng),
+    rasterGrob(raster,
+      x = mean(x_rng), y = mean(y_rng),
       width = diff(x_rng), height = diff(y_rng),
-      default.units = "native", interpolate = interpolate)
+      default.units = "native", interpolate = interpolate
+    )
   },
 
   default_aes = aes(fill = "grey20", alpha = NA),

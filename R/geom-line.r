@@ -20,9 +20,9 @@ geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @format NULL
 #' @usage NULL
 #' @export
+#' @include geom-path.r
 GeomLine <- ggproto("GeomLine", GeomPath,
-  draw_panel = function(data, scales, coordinates, arrow = NULL, ...) {
-    data <- data[order(data$group, data$x), ]
-    GeomPath$draw_panel(data, scales, coordinates, arrow, ...)
+  setup_data = function(data, params) {
+    data[order(data$PANEL, data$group, data$x), ]
   }
 )

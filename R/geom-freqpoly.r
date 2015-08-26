@@ -1,6 +1,3 @@
-#' @include geom-path-.r
-NULL
-
 #' @export
 #' @rdname geom_histogram
 geom_freqpoly <- function(mapping = NULL, data = NULL, stat = "bin",

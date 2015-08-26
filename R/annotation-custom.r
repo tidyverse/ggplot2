@@ -60,14 +60,14 @@ annotation_custom <- function(grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax =
 #' @usage NULL
 #' @export
 GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
-  draw_panel = function(data, scales, coordinates, grob, xmin, xmax,
-                          ymin, ymax, ...) {
-    if (!inherits(coordinates, "CoordCartesian")) {
+  draw_panel = function(data, panel_scales, coord, grob, xmin, xmax,
+                        ymin, ymax) {
+    if (!inherits(coord, "CoordCartesian")) {
       stop("annotation_custom only works with Cartesian coordinates",
         call. = FALSE)
     }
     corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
-    data <- coordinates$transform(corners, scales)
+    data <- coord$transform(corners, panel_scales)
 
     x_rng <- range(data$x, na.rm = TRUE)
     y_rng <- range(data$y, na.rm = TRUE)

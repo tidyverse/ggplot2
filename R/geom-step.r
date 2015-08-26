@@ -22,17 +22,13 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomStep <- ggproto("GeomStep", Geom,
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
-
-  draw_panel = function(data, scales, coordinates, direction = "hv", ...) {
+#' @include geom-path.r
+GeomStep <- ggproto("GeomStep", GeomPath,
+  draw_panel = function(data, panel_scales, coord, direction = "hv") {
     data <- plyr::ddply(data, "group", stairstep, direction = direction)
-    GeomPath$draw_panel(data, scales, coordinates, ...)
-  },
-
-  draw_key = draw_key_path
+    GeomPath$draw_panel(data, panel_scales, coord)
+  }
 )
-
 
 # Calculate stairsteps
 # Used by \code{\link{geom_step}}

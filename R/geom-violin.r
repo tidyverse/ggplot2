@@ -97,7 +97,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     )
   },
 
-  draw_group = function(self, data, ...) {
+  draw_group = function(data, panel_scales, coord) {
     # Find the points for the line to go all the way around
     data <- transform(data, xminv = x - violinwidth * (x - xmin),
                             xmaxv = x + violinwidth * (xmax - x))
@@ -110,7 +110,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     # Needed for coord_polar and such
     newdata <- rbind(newdata, newdata[1,])
 
-    ggname("geom_violin", GeomPolygon$draw_panel(newdata, ...))
+    ggname("geom_violin", GeomPolygon$draw_panel(newdata, panel_scales, coord))
   },
 
   draw_key = draw_key_polygon,

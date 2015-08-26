@@ -275,3 +275,6 @@ format.ggproto_method <- function(x, ...) {
     "\n\n  <Inner function (res)>\n    ", format_fun(environment(x)$f)
   )
 }
+
+# proto2 TODO: better way of getting formals for self$draw
+ggproto_formals <- function(x) formals(environment(x)$f)

@@ -110,12 +110,12 @@ geom_path <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomPath <- ggproto("GeomPath", Geom,
-  draw_panel = function(data, scales, coordinates, arrow = NULL,
+  draw_panel = function(data, panel_scales, coord, arrow = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 1,
-                        ..., na.rm = FALSE)
-  {
+                        na.rm = FALSE) {
     if (!anyDuplicated(data$group)) {
-      message("geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?")
+      message_wrap("geom_path: Each group consists of only one observation. ",
+        "Do you need to adjust the group aesthetic?")
     }
 
     keep <- function(x) {
@@ -141,7 +141,7 @@ GeomPath <- ggproto("GeomPath", Geom,
         " (geom_path).", call. = FALSE)
     }
 
-    munched <- coord_munch(coordinates, data, scales)
+    munched <- coord_munch(coord, data, panel_scales)
 
     # Silently drop lines with less than two points, preserving order
     rows <- stats::ave(seq_len(nrow(munched)), munched$group, FUN = length)

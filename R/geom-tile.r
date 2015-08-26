@@ -74,7 +74,8 @@ geom_tile <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomTile <- ggproto("GeomTile", Geom,
+#' @include geom-rect.r
+GeomTile <- ggproto("GeomTile", GeomRect,
   setup_data = function(data, params) {
     data$width <- data$width %||% params$width %||% resolution(data$x, FALSE)
     data$height <- data$height %||% params$height %||% resolution(data$y, FALSE)
@@ -83,11 +84,6 @@ GeomTile <- ggproto("GeomTile", Geom,
       xmin = x - width / 2,  xmax = x + width / 2,  width = NULL,
       ymin = y - height / 2, ymax = y + height / 2, height = NULL
     )
-  },
-
-  draw_panel = function(data,  scales, coordinates, ...) {
-    # data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
-    GeomRect$draw_panel(data, scales, coordinates, ...)
   },
 
   default_aes = aes(fill = "grey20", colour = NA, size = 0.1, linetype = 1,

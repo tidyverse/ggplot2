@@ -66,7 +66,7 @@ geom_polygon <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomPolygon <- ggproto("GeomPolygon", Geom,
-  draw_panel = function(self, data, scales, coordinates, ...) {
+  draw_panel = function(data, panel_scales, coord) {
     n <- nrow(data)
     if (n == 1) return()
 
@@ -75,7 +75,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
     if (mode(data$group) != "numeric")
       data$group <- factor(data$group)
 
-    munched <- coord_munch(coordinates, data, scales)
+    munched <- coord_munch(coord, data, panel_scales)
     # Sort by group to make sure that colors, fill, etc. come in same order
     munched <- munched[order(munched$group), ]
 

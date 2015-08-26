@@ -38,50 +38,48 @@ geom_label <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomLabel <- ggproto("GeomLabel", Geom,
-  draw_panel = function(self, data, ...) {
-    grobs <- lapply(1:nrow(data), function(i) {
-      self$draw_one(data[i, , drop = FALSE], ...)
-    })
-    class(grobs) <- "gList"
-
-    ggname("geom_label", grobTree(children = grobs))
-  },
-
-  draw_one = function(data, scales, coordinates, ..., parse = FALSE, na.rm = FALSE,
-                  label.padding = unit(0.25, "lines"),
-                  label.r = unit(0.15, "lines")) {
+  draw_panel = function(self, data, panel_scales, coord, parse = FALSE,
+                        na.rm = FALSE,
+                        label.padding = unit(0.25, "lines"),
+                        label.r = unit(0.15, "lines")) {
     data <- remove_missing(data, na.rm, c("x", "y", "label"), name = "geom_label")
     lab <- data$label
     if (parse) {
       lab <- parse(text = lab)
     }
 
-    coords <- coordinates$transform(data, scales)
-    if (is.character(coords$vjust)) {
-      coords$vjust <- compute_just(coords$vjust, coords$y)
+    data <- coord$transform(data, panel_scales)
+    if (is.character(data$vjust)) {
+      data$vjust <- compute_just(data$vjust, data$y)
     }
-    if (is.character(coords$hjust)) {
-      coords$hjust <- compute_just(coords$hjust, coords$x)
+    if (is.character(data$hjust)) {
+      data$hjust <- compute_just(data$hjust, data$x)
     }
 
-    labelGrob(lab,
-      x = unit(coords$x, "native"),
-      y = unit(coords$y, "native"),
-      just = c(coords$hjust, coords$vjust),
-      padding = label.padding,
-      r = label.r,
-      text.gp = gpar(
-        col = coords$colour,
-        fontsize = coords$size * .pt,
-        fontfamily = coords$family,
-        fontface = coords$fontface,
-        lineheight = coords$lineheight
-      ),
-      rect.gp = gpar(
-        col = coords$colour,
-        fill = alpha(coords$fill, coords$alpha)
+    grobs <- lapply(1:nrow(data), function(i) {
+      row <- data[i, , drop = FALSE]
+      labelGrob(lab[i],
+        x = unit(row$x, "native"),
+        y = unit(row$y, "native"),
+        just = c(row$hjust, row$vjust),
+        padding = label.padding,
+        r = label.r,
+        text.gp = gpar(
+          col = row$colour,
+          fontsize = row$size * .pt,
+          fontfamily = row$family,
+          fontface = row$fontface,
+          lineheight = row$lineheight
+        ),
+        rect.gp = gpar(
+          col = row$colour,
+          fill = alpha(row$fill, row$alpha)
+        )
       )
-    )
+    })
+    class(grobs) <- "gList"
+
+    ggname("geom_label", grobTree(children = grobs))
   },
 
   required_aes = c("x", "y", "label"),

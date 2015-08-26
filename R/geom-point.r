@@ -134,13 +134,12 @@ geom_point <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomPoint <- ggproto("GeomPoint", Geom,
-  draw_panel = function(self, data, scales, coordinates, na.rm = FALSE, ...) {
-
+  draw_panel = function(data, panel_scales, coord, na.rm = FALSE) {
     data <- remove_missing(data, na.rm, c("x", "y", "size", "shape"),
       name = "geom_point")
     if (empty(data)) return(zeroGrob())
 
-    coords <- coordinates$transform(data, scales)
+    coords <- coord$transform(data, panel_scales)
     ggname("geom_point",
       pointsGrob(
         coords$x, coords$y,
