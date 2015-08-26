@@ -62,7 +62,7 @@ ggplot_build <- function(plot) {
   scales_add_missing(plot, c("x", "y"), plot$plot_env)
 
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
-  data <- by_layer(function(l, d) l$compute_geom(d))
+  data <- by_layer(function(l, d) l$compute_geom_1(d))
 
   # Apply position adjustments
   data <- by_layer(function(l, d) l$compute_position(d, panel))
@@ -83,6 +83,9 @@ ggplot_build <- function(plot) {
 
   # Train coordinate system
   panel <- train_ranges(panel, plot$coordinates)
+
+  # Fill in defaults etc.
+  data <- by_layer(function(l, d) l$compute_geom_2(d))
 
   list(data = data, panel = panel, plot = plot)
 }

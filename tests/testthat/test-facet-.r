@@ -4,21 +4,17 @@ df <- data.frame(x = 1:3, y = 3:1, z = letters[1:3])
 
 test_that("facets split up the data", {
   l1 <- ggplot(df, aes(x, y)) + geom_point() + facet_wrap(~z)
-  d1 <- layer_data(l1)
-
-  expect_that(d1$PANEL, equals(factor(1:3)))
-
   l2 <- ggplot(df, aes(x, y)) + geom_point() + facet_grid(. ~ z)
   l3 <- ggplot(df, aes(x, y)) + geom_point() + facet_grid(z ~ .)
 
+  d1 <- layer_data(l1)
   d2 <- layer_data(l2)
   d3 <- layer_data(l3)
 
-  expect_that(d2, equals(d3))
-  expect_that(sort(names(d2)), equals(sort(c("x", "y", "group", "PANEL"))))
-  expect_that(d2$PANEL, equals(factor(1:3)))
+  expect_equal(d1, d2)
+  expect_equal(d1, d3)
+  expect_equal(d1$PANEL, factor(1:3))
 })
-
 
 test_that("facets with free scales scale independently", {
   l1 <- ggplot(df, aes(x, y)) + geom_point() +

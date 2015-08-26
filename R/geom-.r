@@ -12,13 +12,19 @@ NULL
 #' fields. To create a new type of Geom object, you typically will want to
 #' implement one or more of the following:
 #'
-#' \itemize{
-#'   \item Override either \code{draw(self, data, panel_scales, coord)} or
-#'     \code{draw_group(self, data, panel_scales, coord)}. \code{draw} is
-#'     called with the complete dataset, \code{draw_group} is called a group
-#'     at-a-time.
+#' Compared to \code{Stat} and \code{Position}, \code{Geom} is a little
+#' different because the execution of the setup and compute functions is
+#' split up. \code{setup_data} runs before position adjustments, and
+#' \code{draw_layer} is not run until render time,  much later. This
+#' means there is no \code{setup_params} because it's hard to communicate
+#' the changes.
 #'
-#'     Use \code{draw} if each row in the data represents a
+#' \itemize{
+#'   \item Override either \code{draw_panel(self, data, panel_scales, coord)} or
+#'     \code{draw_group(self, data, panel_scales, coord)}. \code{draw_panel} is
+#'     called once per panel, \code{draw_group} is called once per group.
+#'
+#'     Use \code{draw_panel} if each row in the data represents a
 #'     single element. Use \code{draw_group} if each group represents
 #'     an element (e.g. a smooth, a violin).
 #'
@@ -53,8 +59,6 @@ Geom <- ggproto("Geom",
   draw_key = draw_key_point,
 
   draw_layer = function(self, data, params, panel, coord) {
-    data <- self$use_defaults(data, params)
-
     args <- c(list(quote(data), quote(panel_scales), quote(coord)), params)
     plyr::dlply(data, "PANEL", function(data) {
       if (empty(data)) return(zeroGrob())
@@ -83,7 +87,6 @@ Geom <- ggproto("Geom",
   },
 
   setup_data = function(data, params) data,
-  setup_params = function(data, params) params,
 
   # Combine data with defaults and set aesthetics from parameters
   use_defaults = function(self, data, params = list()) {

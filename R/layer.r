@@ -116,6 +116,19 @@ Layer <- ggproto("Layer", NULL,
     cunion(stat_data, data)
   },
 
+  compute_geom_1 = function(self, data) {
+    if (empty(data)) return(data.frame())
+    data <- self$geom$setup_data(data, self$geom_params)
+
+    check_required_aesthetics(
+      self$geom$required_aes,
+      c(names(data), names(self$geom_params)),
+      snake_class(self$geom)
+    )
+
+    data
+  },
+
   compute_position = function(self, data, panel) {
     if (empty(data)) return(data.frame())
 
@@ -125,20 +138,9 @@ Layer <- ggproto("Layer", NULL,
     self$position$compute_layer(data, params, panel)
   },
 
-  compute_geom = function(self, data) {
-    if (empty(data)) return(data.frame())
-    params <- self$geom$setup_params(data, self$geom_params)
-    data <- self$geom$setup_data(data, params)
-
-    check_required_aesthetics(
-      self$geom$required_aes,
-      c(names(data), names(params)),
-      snake_class(self$geom)
-    )
-
-    # Update layer params so can access later
-    self$geom_params <- params
-    data
+  compute_geom_2 = function(self, data) {
+    # Combine aesthetics, defaults, & params
+    self$geom$use_defaults(data, self$geom_params)
   },
 
   draw_geom = function(self, data, panel, coord) {

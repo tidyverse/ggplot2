@@ -5,8 +5,7 @@ test_that("Aesthetic parameters must match length of data", {
   p <- ggplot(df, aes(x, y))
 
   set_colours <- function(colours) {
-    b <- ggplot_build(p + geom_point(colour = colours))
-    ggplot_gtable(b)
+    layer_data(p + geom_point(colour = colours))
   }
 
   set_colours("red")
