@@ -40,7 +40,6 @@ ggplot_build <- function(plot) {
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot))
-  data <- lapply(data, add_group)
 
   # Transform all scales
   data <- lapply(data, scales_transform_df, scales = scales)
@@ -56,7 +55,6 @@ ggplot_build <- function(plot) {
   # Apply and map statistics
   data <- by_layer(function(l, d) l$compute_statistic(d, panel))
   data <- by_layer(function(l, d) l$map_statistic(d, plot))
-  data <- lapply(data, order_groups)
 
   # Make sure missing (but required) aesthetics are added
   scales_add_missing(plot, c("x", "y"), plot$plot_env)

@@ -132,12 +132,15 @@ Layer <- ggproto("Layer", NULL,
     }
     check_aesthetics(evaled, n)
 
+    # Set special group and panel vars
     if (empty(data) && n > 0) {
       evaled$PANEL <- 1
     } else {
       evaled$PANEL <- data$PANEL
     }
-    data.frame(evaled)
+    evaled <- data.frame(evaled)
+    evaled <- add_group(evaled)
+    evaled
   },
 
   compute_statistic = function(self, data, panel) {

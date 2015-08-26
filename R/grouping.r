@@ -8,11 +8,6 @@ NO_GROUP <- -1L
 # variable is generated from the interaction of all discrete (factor or
 # character) vectors, excluding \code{label}. The special value \code{NO_GROUP}
 # is used for all observations if no discrete variables exist.
-#
-# @param data.frame
-# @value data.frame with group variable
-# @keyword internal
-# @seealso has_groups
 add_group <- function(data) {
   if (empty(data)) return(data)
 
@@ -30,12 +25,6 @@ add_group <- function(data) {
   }
 
   data
-}
-
-order_groups <- function(data) {
-  if (is.null(data$order)) return(data)
-
-  data[order(data$order), ]
 }
 
 # Is a grouping available?

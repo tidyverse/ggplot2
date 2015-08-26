@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `order` aesthetic is officially no longer supported. It never really worked,
+  and was poorly documented.
+
 * When setting limits with `coord_cartesian()`, it now applies the same
   expansion factor as setting limits with scales. You can suppress with
   `expand = FALSE` (#1207).

@@ -42,29 +42,3 @@ test_that("group param overrides defaults", {
   plot <- ggplot(df, aes(a, b)) + geom_point(group = 1)
   expect_equal(groups(plot), 1)
 })
-
-test_that("order affects plotting order of points", {
-  base <- ggplot(df, aes(a, x)) + geom_point()
-
-  ord1 <- layer_data(base)
-  ord2 <- layer_data(base + aes(order = x))
-  rev1 <- layer_data(base + aes(order = -x))
-  rev2 <- layer_data(base + aes(order = plyr::desc(x)))
-
-  expect_equal(ord1$y, 1:4)
-  expect_equal(ord2$y, 1:4)
-  expect_equal(rev1$y, 4:1)
-  expect_equal(rev2$y, 4:1)
-})
-
-test_that("order affects plotting order of bars", {
-  base <- ggplot(df, aes(a, fill = b)) + geom_bar()
-
-  ord1 <- layer_data(base)
-  ord2 <- layer_data(base + aes(order = a))
-  rev1 <- layer_data(base + aes(order = plyr::desc(b)))
-
-  expect_equal(ord1$group, 1:4)
-  expect_equal(ord2$group, 1:4)
-  expect_equal(rev1$group, c(2, 1, 4, 3))
-})

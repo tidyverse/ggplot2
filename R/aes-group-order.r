@@ -1,7 +1,7 @@
-#' Aesthetics: group, order
+#' Aesthetics: group
 #'
 #' @name aes_group_order
-#' @aliases group order
+#' @aliases group
 #'
 #' @examples
 #' \donttest{
@@ -76,15 +76,5 @@
 #' # we again need to override the default grouping for that layer with aes(group = Subject)
 #' boysbox <- boysbox + geom_boxplot()
 #' boysbox + geom_line(aes(group = Subject), colour = "blue")
-#'
-#' # Use the order aesthetic to change stacking order of bar charts
-#' w <- ggplot(diamonds, aes(clarity, fill = cut))
-#' w + geom_bar()
-#' w + geom_bar(aes(order = desc(cut)))
-#'
-#' # Can also be used to change plot order of scatter plots
-#' d <- ggplot(diamonds, aes(carat, price, colour = cut))
-#' d + geom_point()
-#' d + geom_point(aes(order = sample(seq_along(carat))))
 #' }
 NULL
