@@ -82,7 +82,12 @@ NULL
 #'   discrete variables.
 #' @param guide Name of guide object, or object itself.
 #' @keywords internal
-continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(), breaks = waiver(), minor_breaks = waiver(), labels = waiver(), limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_, trans = "identity", guide="legend") {
+continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
+                             breaks = waiver(), minor_breaks = waiver(),
+                             labels = waiver(), limits = NULL,
+                             rescaler = rescale, oob = censor,
+                             expand = waiver(), na.value = NA_real_,
+                             trans = "identity", guide = "legend") {
 
   check_breaks_labels(breaks, labels)
 
