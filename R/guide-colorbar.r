@@ -171,7 +171,7 @@ guide_train.colorbar <- function(guide, scale) {
     warning("colorbar guide needs colour or fill scales.")
     return(NULL)
   }
-  if (!inherits(scale, "continuous")) {
+  if (is_discrete_scale(scale)) {
     warning("colorbar guide needs continuous scales.")
     return(NULL)
   }

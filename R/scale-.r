@@ -192,6 +192,8 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), bre
   ), class = c(scale_name, "discrete", "scale"))
 }
 
+is_discrete_scale <- function(x) inherits(x, "discrete")
+
 # Train scale from a data frame.
 #
 # @return updated range (invisibly)

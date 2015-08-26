@@ -210,12 +210,12 @@ guide_train.legend <- function(guide, scale) {
   #
   # Also, drop out-of-range values for continuous scale
   # (should use scale$oob?)
-  if (inherits(scale, "continuous")) {
+  if (is_discrete_scale(scale)) {
+    key <- key[!is.na(breaks), , drop = FALSE]
+  } else {
     limits <- scale_limits(scale)
     noob <- !is.na(breaks) & limits[1] <= breaks & breaks <= limits[2]
     key <- key[noob, , drop = FALSE]
-  } else {
-    key <- key[!is.na(breaks), , drop = FALSE]
   }
 
 

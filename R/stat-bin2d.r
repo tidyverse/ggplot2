@@ -89,7 +89,7 @@ bin_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
   # Bins for categorical data should take the width of one level,
   # and should show up centered over their tick marks. All other parameters
   # are ignored.
-  if (inherits(scale, "discrete")) {
+  if (is_discrete_scale(scale)) {
     breaks <- scale_breaks(scale)
     return(-0.5 + seq_len(length(breaks) + 1))
   }
