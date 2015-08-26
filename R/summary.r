@@ -15,8 +15,6 @@ summary.ggplot <- function(object, ...) {
     "\n", sep = ""
     )
 
-  # cat("Title:    ", object$title, "\n", sep="")
-  # cat("-----------------------------------\n")
   if (!is.null(object$data)) {
     output <- paste(
       "data:     ", paste(names(object$data), collapse = ", "),
@@ -36,6 +34,9 @@ summary.ggplot <- function(object, ...) {
 
   if (length(object$layers) > 0)
     cat("-----------------------------------\n")
-  invisible(lapply(object$layers, function(x) {print(x); cat("\n")}))
+  invisible(lapply(object$layers, function(x) {
+    print(x)
+    cat("\n")
+  }))
 
 }
