@@ -75,8 +75,16 @@ GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
     vp <- viewport(x = mean(x_rng), y = mean(y_rng),
                    width = diff(x_rng), height = diff(y_rng),
                    just = c("center","center"))
-    editGrob(grob, vp = vp)
+    editGrob(grob, vp = vp, name = paste(grob$name, annotation_id()))
   },
 
   default_aes = aes_(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
 )
+
+annotation_id <- local({
+  i <- 1
+  function() {
+    i <<- i + 1
+    i
+  }
+})

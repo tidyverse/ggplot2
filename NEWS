@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `annotation_custom()` now automatically adds a unique id to each grob name,
+  making it easier to plot multiple grobs with the same name (e.g. grobs of
+  ggplot2 graphics) in the same plot (#1256).
+
 * New `txhousing` dataset containing information about the Texas housing
   market. Useful for examples that need multiple time series, and for
   demonstrating model+vis methods.
