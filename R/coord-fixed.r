@@ -8,8 +8,8 @@
 #' y axis longer than units on the x-axis, and vice versa. This is similar to
 #' \code{\link[MASS]{eqscplot}}, but it works for all types of graphics.
 #'
-#' @aliases coord_fixed coord_equal
-#' @export coord_fixed coord_equal
+#' @aliases coord_equal
+#' @export
 #' @inheritParams coord_cartesian
 #' @param ratio aspect ratio, expressed as \code{y / x}
 #' @examples
@@ -22,12 +22,15 @@
 #' p + coord_fixed(ratio = 1/5)
 #'
 #' # Resize the plot to see that the specified aspect ratio is maintained
-coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL) {
+coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE) {
   ggproto(NULL, CoordFixed,
     limits = list(x = xlim, y = ylim),
-    ratio = ratio
+    ratio = ratio,
+    expand = expand
   )
 }
+
+#' @export
 coord_equal <- coord_fixed
 
 

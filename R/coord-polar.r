@@ -8,11 +8,17 @@
 #' @param direction 1, clockwise; -1, anticlockwise
 #' @export
 #' @examples
-#' \donttest{
 #' # NOTE: Use these plots with caution - polar coordinates has
 #' # major perceptual problems.  The main point of these examples is
 #' # to demonstrate how these common plots can be described in the
 #' # grammar.  Use with EXTREME caution.
+#'
+#' #' # A pie chart = stacked bar chart + polar coordinates
+#' pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
+#'  geom_bar(width = 1)
+#' pie + coord_polar(theta = "y")
+#'
+#' \donttest{
 #'
 #' # A coxcomb plot = bar chart + polar coordinates
 #' cxc <- ggplot(mtcars, aes(x = factor(cyl))) +
@@ -20,11 +26,6 @@
 #' cxc + coord_polar()
 #' # A new type of plot?
 #' cxc + coord_polar(theta = "y")
-#'
-#' # A pie chart = stacked bar chart + polar coordinates
-#' pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
-#'  geom_bar(width = 1)
-#' pie + coord_polar(theta = "y")
 #'
 #' # The bullseye chart
 #' pie + coord_polar()

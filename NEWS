@@ -1,6 +1,10 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* When setting limits with `coord_cartesian()`, it now applies the same
+  expansion factor as setting limits with scales. You can suppress with
+  `expand = FALSE` (#1207).
+
 * `annotation_custom()` now automatically adds a unique id to each grob name,
   making it easier to plot multiple grobs with the same name (e.g. grobs of
   ggplot2 graphics) in the same plot (#1256).
