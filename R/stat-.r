@@ -107,18 +107,3 @@ Stat <- ggproto("Stat",
     stop("Not implemented", call. = FALSE)
   }
 )
-
-# make_stat("bin") returns StatBin
-make_stat <- function(class) {
-  name <- paste0("Stat", camelize(class, first = TRUE))
-  if (!exists(name)) {
-    stop("No stat called ", name, ".", call. = FALSE)
-  }
-
-  obj <- get(name)
-  if (!inherits(obj, "Stat")) {
-    stop("Found object is not a stat", call. = FALSE)
-  }
-
-  obj
-}

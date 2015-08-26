@@ -46,9 +46,12 @@ layer <- function(geom = NULL, geom_params = list(), stat = NULL,
     stop("Mapping must be created by `aes()` or `aes_()`", call. = FALSE)
   }
 
-  if (is.character(geom)) geom <- make_geom(geom)
-  if (is.character(stat)) stat <- make_stat(stat)
-  if (is.character(position)) position <- make_position(position)
+  if (is.character(geom))
+    geom <- find_subclass("Geom", geom)
+  if (is.character(stat))
+    stat <- find_subclass("Stat", stat)
+  if (is.character(position))
+    position <- find_subclass("Position", position)
 
   # Categorize items from params into geom_params and stat_params
   if (length(params) > 0) {
@@ -211,3 +214,18 @@ Layer <- ggproto("Layer", NULL,
 )
 
 is.layer <- function(x) inherits(x, "Layer")
+
+
+find_subclass <- function(super, class) {
+  name <- paste0(super, camelize(class, first = TRUE))
+  if (!exists(name)) {
+    stop("No ", tolower(super), " called ", name, ".", call. = FALSE)
+  }
+
+  obj <- get(name)
+  if (!inherits(obj, super)) {
+    stop("Found object is not a ", tolower(super), ".", call. = FALSE)
+  }
+
+  obj
+}

@@ -94,7 +94,7 @@ Geom <- ggproto("Geom",
     missing_aes <- setdiff(names(self$default_aes), names(data))
     data[missing_aes] <- self$default_aes[missing_aes]
 
-    # Override mappings with atomic parameters
+    # Override mappings with params
     aes_params <- intersect(c(names(self$default_aes), self$required_aes), names(params))
     check_aesthetics(params[aes_params], nrow(data))
     data[aes_params] <- params[aes_params]
@@ -102,21 +102,6 @@ Geom <- ggproto("Geom",
   }
 
 )
-
-# make_geom("point") returns GeomPoint
-make_geom <- function(class) {
-  name <- paste0("Geom", camelize(class, first = TRUE))
-  if (!exists(name)) {
-    stop("No geom called ", name, ".", call. = FALSE)
-  }
-
-  obj <- get(name)
-  if (!inherits(obj, "Geom")) {
-    stop("Found object is not a geom.", call. = FALSE)
-  }
-
-  obj
-}
 
 #' Graphical units
 #'
@@ -146,5 +131,4 @@ check_aesthetics <- function(x, n) {
     paste(names(!good), collapse = ", "),
     call. = FALSE
   )
-
 }
