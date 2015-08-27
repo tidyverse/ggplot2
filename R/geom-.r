@@ -70,8 +70,6 @@ Geom <- ggproto("Geom",
   },
 
   draw_panel = function(self, data, panel_scales, coord, ...) {
-    if (empty(data)) return(zeroGrob())
-
     groups <- split(data, factor(data$group))
     grobs <- lapply(groups, function(group) {
       self$draw_group(group, panel_scales, coord, ...)
