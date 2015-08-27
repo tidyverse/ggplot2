@@ -71,7 +71,6 @@ Stat <- ggproto("Stat",
       snake_class(self$stat)
     )
 
-    params <- params[intersect(names(params), self$parameters())]
     args <- c(list(data = quote(data), scales = quote(scales)), params)
     plyr::ddply(data, "PANEL", function(data) {
       scales <- panel_scales(panels, data$PANEL[1])

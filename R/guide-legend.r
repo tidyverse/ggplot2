@@ -248,7 +248,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       # This layer contributes to the legend
       if (is.na(layer$show.legend) || layer$show.legend) {
         # Default is to include it
-        data <- layer$geom$use_defaults(guide$key[matched], layer$geom_params)
+        data <- layer$geom$use_defaults(guide$key[matched], layer$aes_params)
       } else {
         return(NULL)
       }
@@ -258,7 +258,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
         # Default is to exclude it
         return(NULL)
       } else {
-        data <- layer$geom$use_defaults(NULL, layer$geom_params)[rep(1, nrow(guide$key)), ]
+        data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
       }
     }
 

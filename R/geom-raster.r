@@ -9,8 +9,9 @@ NULL
 #' @param interpolate If \code{TRUE} interpolate linearly, if \code{FALSE}
 #'   (the default) don't interpolate.
 geom_raster <- function(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", hjust = 0.5, vjust = 0.5, interpolate = FALSE,
-  show.legend = NA, inherit.aes = TRUE, ...)
+                        position = "identity", hjust = 0.5, vjust = 0.5,
+                        interpolate = FALSE,
+                        show.legend = NA, inherit.aes = TRUE, ...)
 {
   stopifnot(is.numeric(hjust), length(hjust) == 1)
   stopifnot(is.numeric(vjust), length(vjust) == 1)
@@ -51,7 +52,8 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     data
   },
 
-  draw_panel = function(data, panel_scales, coord, interpolate = FALSE) {
+  draw_panel = function(data, panel_scales, coord, interpolate = FALSE,
+                        hjust = 0.5, vjust = 0.5) {
     if (!inherits(coord, "CoordCartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }

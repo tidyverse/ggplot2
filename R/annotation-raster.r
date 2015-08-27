@@ -39,8 +39,7 @@ NULL
 #'   annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf, interpolate = TRUE) +
 #'   geom_point()
 annotation_raster <- function(raster, xmin, xmax, ymin, ymax,
-  interpolate = FALSE)
-{
+                              interpolate = FALSE) {
   raster <- grDevices::as.raster(raster)
 
   layer(
@@ -50,7 +49,7 @@ annotation_raster <- function(raster, xmin, xmax, ymin, ymax,
     position = PositionIdentity,
     geom = GeomRasterAnn,
     inherit.aes = TRUE,
-    geom_params = list(
+    params = list(
       raster = raster,
       xmin = xmin,
       xmax = xmax,

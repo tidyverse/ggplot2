@@ -51,7 +51,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
   data <- data.frame(position)
   layer(
     geom = geom,
-    geom_params = list(...),
+    params = list(...),
     stat = StatIdentity,
     position = PositionIdentity,
     data = data,

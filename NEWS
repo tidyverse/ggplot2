@@ -1,6 +1,11 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* Layers are now much stricter about their arguments - you will get an error
+  if you've supplied an argument that isn't an aesthetic, or a parameter
+  of the scale or geom. This should make it much more obvious when you have
+  a spelling mistake! (#1293)
+
 * `order` aesthetic is officially no longer supported. It never really worked,
   and was poorly documented.
 

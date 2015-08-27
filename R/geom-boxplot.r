@@ -100,7 +100,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
       outlier.colour = outlier.colour,
       outlier.shape = outlier.shape,
       outlier.size = outlier.size,
-      outlier.stoke = outlier.stroke,
+      outlier.stroke = outlier.stroke,
       notch = notch,
       notchwidth = notchwidth,
       varwidth = varwidth

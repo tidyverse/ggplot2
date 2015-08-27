@@ -59,7 +59,6 @@ Geom <- ggproto("Geom",
   draw_key = draw_key_point,
 
   draw_layer = function(self, data, params, panel, coord) {
-    params <- params[intersect(names(params), self$parameters())]
     args <- c(list(quote(data), quote(panel_scales), quote(coord)), params)
 
     plyr::dlply(data, "PANEL", function(data) {
@@ -96,7 +95,7 @@ Geom <- ggproto("Geom",
     data[missing_aes] <- self$default_aes[missing_aes]
 
     # Override mappings with params
-    aes_params <- intersect(c(names(self$default_aes), self$required_aes), names(params))
+    aes_params <- intersect(self$aesthetics(), names(params))
     check_aesthetics(params[aes_params], nrow(data))
     data[aes_params] <- params[aes_params]
     data
@@ -115,7 +114,7 @@ Geom <- ggproto("Geom",
   },
 
   aesthetics = function(self) {
-    union(self$required_aes, names(self$default_aes))
+    c(union(self$required_aes, names(self$default_aes)), "group")
   }
 
 )

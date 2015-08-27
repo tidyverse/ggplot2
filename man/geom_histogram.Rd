@@ -123,11 +123,11 @@ if (require("ggplot2movies")) {
 # For example, the following plot shows the number of movies
 # in each rating.
 m <- ggplot(movies, aes(rating))
-m + geom_bar(binwidth = 0.1)
+m + geom_histogram(binwidth = 0.1)
 
 # If, however, we want to see the number of votes cast in each
 # category, we need to weight by the votes variable
-m + geom_bar(aes(weight = votes), binwidth = 0.1) + ylab("votes")
+m + geom_histogram(aes(weight = votes), binwidth = 0.1) + ylab("votes")
 
 # For transformed scales, binwidth applies to the transformed data.
 # The bins have constant width on the transformed scale.

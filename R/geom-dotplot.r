@@ -137,7 +137,7 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     # Need to make sure that the binaxis goes to both the stat and the geom
-    stat_params = list(
+    params = list(
       binaxis = binaxis,
       na.rm = na.rm,
       binwidth = binwidth,
@@ -146,17 +146,13 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
       origin = origin,
       right = right,
       width = width,
-      drop = drop
-    ),
-    geom_params = list(
-      binaxis = binaxis,
-      na.rm = na.rm,
+      drop = drop,
       stackdir = stackdir,
       stackratio = stackratio,
       dotsize = dotsize,
-      stackgroups = stackgroups
-    ),
-    params = list(...)
+      stackgroups = stackgroups,
+      ...
+    )
   )
 }
 

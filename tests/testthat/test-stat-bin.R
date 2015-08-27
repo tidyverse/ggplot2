@@ -7,7 +7,7 @@ test_that("stat_bin throws error when y aesthetic present", {
     "must not be used with a y aesthetic.")
 
   expect_error(p <- ggplot_build(ggplot(dat, aes(x)) + stat_bin(y = 5)),
-    "must not be used with a y aesthetic.")
+    "Unknown parameters: y")
 })
 
 test_that("stat_bar throws error when y aesthetic present", {
@@ -17,5 +17,5 @@ test_that("stat_bar throws error when y aesthetic present", {
     "must not be used with a y aesthetic.")
 
   expect_error(p <- ggplot_build(ggplot(dat, aes(x)) + stat_bar(y = 5)),
-    "must not be used with a y aesthetic.")
+    "Unknown parameters: y")
 })

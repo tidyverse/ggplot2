@@ -18,10 +18,11 @@
 #' # shortcut for
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   layer(geom = "point", stat = "identity", position = "identity")
-layer <- function(geom = NULL, geom_params = list(), stat = NULL,
-  stat_params = list(), data = NULL, mapping = NULL,
-  position = NULL, params = list(), inherit.aes = TRUE,
-  subset = NULL, show.legend = NA) {
+layer <- function(geom = NULL, geom_params = list(),
+                  stat = NULL, stat_params = list(),
+                  data = NULL, mapping = NULL,
+                  position = NULL, params = list(),
+                  inherit.aes = TRUE, subset = NULL, show.legend = NA) {
   if (is.null(geom))
     stop("Attempted to create layer with no geom.", call. = FALSE)
   if (is.null(stat))
@@ -55,8 +56,24 @@ layer <- function(geom = NULL, geom_params = list(), stat = NULL,
 
   # Categorize items from params into geom_params and stat_params
   if (length(params) > 0) {
-    geom_params <- utils::modifyList(params, geom_params)
-    stat_params <- utils::modifyList(params, stat_params)
+    params <- rename_aes(params)
+
+    new_geom_params <- params[intersect(names(params), geom$parameters())]
+    geom_params <- c(geom_params, new_geom_params)
+
+    new_stat_params <- params[intersect(names(params), stat$parameters())]
+    stat_params <- c(stat_params, new_stat_params)
+
+    aes_params <- params[intersect(names(params), geom$aesthetics())]
+
+    all <- c(geom$parameters(), stat$parameters(), geom$aesthetics())
+    extra <- setdiff(names(params), all)
+    if (length(extra) > 0) {
+      stop("Unknown parameters: ", paste(extra, collapse = ", "), call. = FALSE)
+    }
+
+  } else {
+    aes_params <- list()
   }
   geom_params <- rename_aes(geom_params)
 
@@ -67,6 +84,7 @@ layer <- function(geom = NULL, geom_params = list(), stat = NULL,
     stat_params = stat_params,
     data = data,
     mapping = mapping,
+    aes_params = aes_params,
     subset = subset,
     position = position,
     inherit.aes = inherit.aes,
@@ -80,6 +98,7 @@ Layer <- ggproto("Layer", NULL,
   stat = NULL,
   stat_params = NULL,
   data = NULL,
+  aes_params = NULL,
   mapping = NULL,
   position = NULL,
   inherit.aes = FALSE,
@@ -104,13 +123,13 @@ Layer <- ggproto("Layer", NULL,
     }
 
     # Drop aesthetics that are set or calculated
-    set <- names(aesthetics) %in% names(self$geom_params)
+    set <- names(aesthetics) %in% names(self$aes_params)
     calculated <- is_calculated_aes(aesthetics)
     aesthetics <- aesthetics[!set & !calculated]
 
     # Override grouping if set in layer
     if (!is.null(self$geom_params$group)) {
-      aesthetics[["group"]] <- self$geom_params$group
+      aesthetics[["group"]] <- self$aes_params$group
     }
 
     # Old subsetting method
@@ -187,7 +206,7 @@ Layer <- ggproto("Layer", NULL,
 
     check_required_aesthetics(
       self$geom$required_aes,
-      c(names(data), names(self$geom_params)),
+      c(names(data), names(self$aes_params)),
       snake_class(self$geom)
     )
 
@@ -205,7 +224,7 @@ Layer <- ggproto("Layer", NULL,
 
   compute_geom_2 = function(self, data) {
     # Combine aesthetics, defaults, & params
-    self$geom$use_defaults(data, self$geom_params)
+    self$geom$use_defaults(data, self$aes_params)
   },
 
   draw_geom = function(self, data, panel, coord) {

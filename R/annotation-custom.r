@@ -50,8 +50,13 @@ annotation_custom <- function(grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax =
     position = PositionIdentity,
     geom = GeomCustomAnn,
     inherit.aes = TRUE,
-    geom_params = list(grob = grob, xmin = xmin, xmax = xmax,
-                       ymin = ymin, ymax = ymax)
+    params = list(
+      grob = grob,
+      xmin = xmin,
+      xmax = xmax,
+      ymin = ymin,
+      ymax = ymax
+    )
   )
 }
 

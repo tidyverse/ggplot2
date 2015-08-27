@@ -39,7 +39,7 @@ annotation_map <- function(map, ...) {
     geom = GeomAnnotationMap,
     position = PositionIdentity,
     inherit.aes = FALSE,
-    geom_params = list(map = map, ...)
+    params = list(map = map, ...)
   )
 }
 
