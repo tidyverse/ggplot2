@@ -112,6 +112,10 @@ scale_size_identity <- function(..., guide = "none") {
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 ScaleDiscreteIdentity <- ggproto("ScaleDiscreteIdentity", ScaleDiscrete,
   map = function(x) {
     if (is.factor(x)) {
@@ -129,6 +133,10 @@ ScaleDiscreteIdentity <- ggproto("ScaleDiscreteIdentity", ScaleDiscrete,
 )
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 ScaleContinuousIdentity <- ggproto("ScaleContinuousIdentity", ScaleContinuous,
   map = function(x) {
     if (is.factor(x)) {
