@@ -178,7 +178,7 @@ check_breaks_labels <- function(breaks, labels) {
 
   bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
     length(breaks) != length(labels)
-  if (bad_labels) {f
+  if (bad_labels) {
     stop("`breaks` and `labels` must have the same length", call. = FALSE)
   }
 

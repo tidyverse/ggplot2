@@ -32,14 +32,14 @@ test_that("mapping works", {
   sc$train_df(data.frame(alpha = 1:10))
 
   expect_equal(
-    scale_map_df(sc, data.frame(alpha = 1:10))[[1]],
+    sc$map_df(data.frame(alpha = 1:10))[[1]],
     seq(0, 1, length.out = 10)
   )
 
-  expect_equal(scale_map_df(sc, data.frame(alpha = NA))[[1]], 0)
+  expect_equal(sc$map_df(data.frame(alpha = NA))[[1]], 0)
 
   expect_equal(
-    scale_map_df(sc, data.frame(alpha = c(-10, 11)))[[1]],
+    sc$map_df(data.frame(alpha = c(-10, 11)))[[1]],
     c(0, 0))
 })
 

@@ -96,6 +96,8 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   # If range not available from discrete range, implies discrete scale been
   # used with purely continuous data, so construct limits accordingly
   get_limits = function(self) {
+    if (self$is_empty()) return(c(0, 1))
+
     dis_limits <- function(x) seq.int(floor(min(x)), ceiling(max(x)), by = 1L)
 
     self$limits %||% self$range$range %||% dis_limits(self$range_c$range)
