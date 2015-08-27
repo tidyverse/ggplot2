@@ -157,7 +157,7 @@ Layer <- ggproto("Layer", NULL,
     } else {
       evaled$PANEL <- data$PANEL
     }
-    evaled <- data.frame(evaled)
+    evaled <- data.frame(evaled, stringsAsFactors = FALSE)
     evaled <- add_group(evaled)
     evaled
   },
