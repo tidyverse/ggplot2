@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `stat_spoke()` is now `geom_spoke()` since I realised it's a
+  reparameterisation of `geom_segment().
+
 * Layers are now much stricter about their arguments - you will get an error
   if you've supplied an argument that isn't an aesthetic, or a parameter
   of the scale or geom. This should make it much more obvious when you have

@@ -11,6 +11,8 @@
 #' @param lineend Line end style (round, butt, square)
 #' @seealso \code{\link{geom_path}} and \code{\link{geom_line}} for multi-
 #'   segment lines and paths.
+#' @seealso \code{\link{geom_spoke}} for a segment parameterised by a location
+#'   (x, y), and an angle and radius.
 #' @export
 #' @examples
 #' b <- ggplot(mtcars, aes(wt, mpg)) +

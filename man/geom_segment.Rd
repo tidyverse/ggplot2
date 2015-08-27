@@ -102,5 +102,8 @@ ggplot(counts, aes(x, Freq)) +
 \seealso{
 \code{\link{geom_path}} and \code{\link{geom_line}} for multi-
   segment lines and paths.
+
+\code{\link{geom_spoke}} for a segment parameterised by a location
+  (x, y), and an angle and radius.
 }
 
