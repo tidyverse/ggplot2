@@ -35,7 +35,9 @@ Scale <- ggproto("Scale", NULL,
 
   aesthetics = aes(),
   scale_name = NULL,
-  palette = NULL,
+  palette = function() {
+    stop("Not implemented", call. = FALSE)
+  },
 
   range = ggproto(NULL, Range),
   limits = NULL,
@@ -48,14 +50,14 @@ Scale <- ggproto("Scale", NULL,
   guide = "legend",
 
 
-  is_discrete = function(self) {
+  is_discrete = function() {
     stop("Not implemented", call. = FALSE)
   },
 
   # Train scale from a data frame.
   #
   # @return updated range (invisibly)
-  # @seealso \code{\link{scale_train}} for scale specific generic method  
+  # @seealso \code{\link{scale_train}} for scale specific generic method
   train_df = function(self, df) {
     if (empty(df)) return()
 
@@ -72,7 +74,7 @@ Scale <- ggproto("Scale", NULL,
   },
 
   # Reset scale, untraining ranges
-  reset = function(self, x) {
+  reset = function(self) {
     self$range$reset()
   },
 
@@ -118,14 +120,14 @@ Scale <- ggproto("Scale", NULL,
   # and breaks spans oob, the oob breaks is replaces by NA.
   # This makes impossible to display oob breaks.
   # Now coord_train calls this function with limits determined by coord (with expansion).
-  map = function(self, x, limits = self$limits()) {
+  map = function(self, x, limits = self$get_limits()) {
     stop("Not implemented", call. = FALSE)
   },
 
   #  if scale contains a NULL, use the default scale range
   #  if scale contains a NA, use the default range for that axis, otherwise
   #  use the user defined limit for that axis
-  limits = function(self) {
+  get_limits = function(self) {
     if (self$is_empty()) return(c(0, 1))
 
     if (!is.null(self$limits)) {
@@ -142,20 +144,20 @@ Scale <- ggproto("Scale", NULL,
     stop("Not implemented", call. = FALSE)
   },
 
-  breaks = function(self, limits = self$limits()) {
+  get_breaks = function(self, limits = self$get_limits()) {
     stop("Not implemented", call. = FALSE)
   },
 
   # The numeric position of scale breaks, used by coord/guide
-  break_positions = function(self, range = self$limits()) {
-    self$map(self$breaks(range))
+  break_positions = function(self, range = self$get_limits()) {
+    self$map(self$get_breaks(range))
   },
 
-  breaks_minor = function(self, n = 2, b = self$break_positions(), limits = self$limits()) {
+  get_breaks_minor = function(self, n = 2, b = self$break_positions(), limits = self$get_limits()) {
     stop("Not implemented", call. = FALSE)
   },
 
-  labels = function(self, breaks = self$breaks()) {
+  get_labels = function(self, breaks = self$get_breaks()) {
     stop("Not implemented", call. = FALSE)
   },
 
@@ -176,7 +178,7 @@ check_breaks_labels <- function(breaks, labels) {
 
   bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
     length(breaks) != length(labels)
-  if (bad_labels) {
+  if (bad_labels) {f
     stop("`breaks` and `labels` must have the same length", call. = FALSE)
   }
 
@@ -185,20 +187,14 @@ check_breaks_labels <- function(breaks, labels) {
 
 
 #' @export
-print.Scale <- function(x, ...) {
-  print(x$call)
-}
-
-
-#' @export
-ContinuousScale <- ggproto("ContinuousScale", Scale,
+ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   range = continuous_range(),
   na.value = NA_real_,
   rescaler = rescale, # Used by diverging and n colour gradients x
   oob = censor,
   minor_breaks = waiver(),
 
-  is_discrete = function(self) FALSE,
+  is_discrete = function() FALSE,
 
   train = function(self, x) {
     if (length(x) == 0) return()
@@ -209,7 +205,7 @@ ContinuousScale <- ggproto("ContinuousScale", Scale,
      self$trans$transform(x)
   },
 
-  map = function(self, x, limits = self$limits()) {
+  map = function(self, x, limits = self$get_limits()) {
     x <- self$oob(self$rescaler(x, from = limits))
 
     uniq <- unique(x)
@@ -220,10 +216,10 @@ ContinuousScale <- ggproto("ContinuousScale", Scale,
   },
 
   dimension = function(self, expand = c(0, 0)) {
-    expand_range(self$limits(), expand[1], expand[2])
+    expand_range(self$get_limits(), expand[1], expand[2])
   },
 
-  breaks = function(self, limits = self$limits()) {
+  get_breaks = function(self, limits = self$get_limits()) {
     if (self$is_empty()) return(numeric())
 
     # Limits in transformed space need to be converted back to data space
@@ -258,7 +254,7 @@ ContinuousScale <- ggproto("ContinuousScale", Scale,
     breaks
   },
 
-  breaks_minor = function(self, n = 2, b = self$break_positions(), limits = self$limits()) {
+  get_breaks_minor = function(self, n = 2, b = self$break_positions(), limits = self$get_limits()) {
     if (zero_range(as.numeric(limits))) {
       return()
     }
@@ -292,7 +288,7 @@ ContinuousScale <- ggproto("ContinuousScale", Scale,
     discard(breaks, limits)
   },
 
-  labels = function(self, breaks = self$breaks()) {
+  get_labels = function(self, breaks = self$get_breaks()) {
     if (is.null(breaks)) return(NULL)
 
     breaks <- self$trans$inverse(breaks)
@@ -325,17 +321,17 @@ ContinuousScale <- ggproto("ContinuousScale", Scale,
     if (is.null(range)) range <- self$dimension()
 
     # major breaks
-    major <- self$breaks(range)
+    major <- self$get_breaks(range)
 
     # labels
-    labels <- self$labels(major)
+    labels <- self$get_labels(major)
 
     # drop oob breaks/labels by testing major == NA
     if (!is.null(labels)) labels <- labels[!is.na(major)]
     if (!is.null(major)) major <- major[!is.na(major)]
 
     # minor breaks
-    minor <- scale_breaks_minor(self, b = major, limits = range)
+    minor <- self$get_breaks_minor(b = major, limits = range)
     if (!is.null(minor)) minor <- minor[!is.na(minor)]
 
     # rescale breaks [0, 1], which are used by coord/guide
@@ -350,11 +346,11 @@ ContinuousScale <- ggproto("ContinuousScale", Scale,
 
 
 #' @export
-DiscreteScale <- ggproto("DiscreteScale", Scale,
+ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
   drop = TRUE,
   na.value = NA,
 
-  is_discrete = function(self) TRUE,
+  is_discrete = function() TRUE,
 
   train = function(self, x) {
     if (length(x) == 0) return()
@@ -365,7 +361,7 @@ DiscreteScale <- ggproto("DiscreteScale", Scale,
     x
   },
 
-  map = function(self, x, limits = self$limits()) {
+  map = function(self, x, limits = self$get_limits()) {
     n <- sum(!is.na(limits))
     pal <- self$palette(n)
 
@@ -380,10 +376,10 @@ DiscreteScale <- ggproto("DiscreteScale", Scale,
   },
 
   dimension = function(self, expand = c(0, 0)) {
-    expand_range(length(self$limits()), expand[1], expand[2])
+    expand_range(length(self$get_limits()), expand[1], expand[2])
   },
 
-  breaks = function(self, limits = self$limits()) {
+  get_breaks = function(self, limits = self$get_limits()) {
     if (self$is_empty()) return(numeric())
 
     if (is.null(self$breaks)) {
@@ -399,13 +395,13 @@ DiscreteScale <- ggproto("DiscreteScale", Scale,
     }
 
     # Breaks can only occur only on values in domain
-    in_domain <- intersect(breaks, self$limits())
+    in_domain <- intersect(breaks, self$get_limits())
     structure(in_domain, pos = match(in_domain, breaks))
   },
 
-  breaks_minor = function(...) NULL,
+  get_breaks_minor = function(...) NULL,
 
-  labels = function(self, breaks = self$breaks()) {
+  get_labels = function(self, breaks = self$get_breaks()) {
     if (self$is_empty()) return(character())
 
     if (is.null(breaks)) return(NULL)
@@ -415,7 +411,7 @@ DiscreteScale <- ggproto("DiscreteScale", Scale,
     } else if (identical(self$labels, NA)) {
       stop("Invalid labels specification. Use NULL, not NA", call. = FALSE)
     }else if (is.waive(self$labels)) {
-      format(self$breaks(), justify = "none", trim = TRUE)
+      format(self$get_breaks(), justify = "none", trim = TRUE)
     } else if (is.function(self$labels)) {
       self$labels(breaks)
     } else {
@@ -447,14 +443,14 @@ DiscreteScale <- ggproto("DiscreteScale", Scale,
 
   break_info = function(self, range = NULL) {
     # for discrete, limits != range
-    limits <- self$limits()
+    limits <- self$get_limits()
 
-    major <- self$breaks(limits)
+    major <- self$get_breaks(limits)
     if (is.null(major)) {
       labels <- major_n <- NULL
     } else {
 
-      labels <- self$labels(major)
+      labels <- self$get_labels(major)
 
       major <- self$map(major)
       major <- major[!is.na(major)]
@@ -543,7 +539,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     limits <- trans$transform(limits)
   }
 
-  ggproto(NULL, ContinuousScale,
+  ggproto(NULL, ScaleContinuous,
     call = match.call(),
 
     aesthetics = aesthetics,
@@ -609,7 +605,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), breaks = waiver(),
   labels = waiver(), limits = NULL, expand = waiver(), na.value = NA, drop = TRUE,
-  guide="legend") {
+  guide = "legend") {
 
   check_breaks_labels(breaks, labels)
 
@@ -617,7 +613,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), bre
     guide <- "none"
   }
 
-  ggproto(NULL, DiscreteScale,
+  ggproto(NULL, ScaleDiscrete,
     call = match.call(),
 
     aesthetics = aesthetics,

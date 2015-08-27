@@ -78,9 +78,9 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
   train = function(self, scale_details) {
     train_cartesian <- function(scale_details, limits, name) {
       if (is.null(limits)) {
-        range <- scale_dimension(scale_details)
+        range <- scale_details$dimension()
       } else {
-        range <- range(scale_transform(scale_details, limits))
+        range <- range(scale_details$transform(limits))
       }
 
       if (self$expand) {
@@ -88,7 +88,7 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
         range <- expand_range(range, expand[1], expand[2])
       }
 
-      out <- scale_break_info(scale_details, range)
+      out <- scale_details$break_info(range)
       names(out) <- paste(name, names(out), sep = ".")
       out
     }

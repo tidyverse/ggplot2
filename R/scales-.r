@@ -61,14 +61,14 @@ ScalesList <- ggproto("ScalesList", NULL,
 scales_train_df <- function(scales, df, drop = FALSE) {
   if (empty(df) || length(scales$scales) == 0) return()
 
-  lapply(scales$scales, scale_train_df, df = df)
+  lapply(scales$scales, function(scale) scale$train_df(df = df))
 }
 
 # Map values from a data.frame. Returns data.frame
 scales_map_df <- function(scales, df) {
   if (empty(df) || length(scales$scales) == 0) return(df)
 
-  mapped <- unlist(lapply(scales$scales, scale_map_df, df = df), recursive = FALSE)
+  mapped <- unlist(lapply(scales$scales, function(scale) scale$map_df(df = df)), recursive = FALSE)
 
   plyr::quickdf(c(mapped, df[setdiff(names(df), names(mapped))]))
 }

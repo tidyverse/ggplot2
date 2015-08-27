@@ -171,30 +171,30 @@ guide_train.colorbar <- function(guide, scale) {
     warning("colorbar guide needs colour or fill scales.")
     return(NULL)
   }
-  if (is_discrete_scale(scale)) {
+  if (scale$is_discrete()) {
     warning("colorbar guide needs continuous scales.")
     return(NULL)
   }
 
 
   # create data frame for tick display
-  breaks <- scale_breaks(scale)
+  breaks <- scale$get_breaks()
   if (length(breaks) == 0 || all(is.na(breaks)))
     return()
 
-  ticks <- as.data.frame(setNames(list(scale_map(scale, breaks)), scale$aesthetics[1]))
+  ticks <- as.data.frame(setNames(list(scale$map(breaks)), scale$aesthetics[1]))
   ticks$.value <- breaks
-  ticks$.label <- scale_labels(scale, breaks)
+  ticks$.label <- scale$get_labels(breaks)
 
   guide$key <- ticks
 
   # bar specification (number of divs etc)
-  .limits <- scale_limits(scale)
-  .bar <- discard(pretty(.limits, n = guide$nbin), scale_limits(scale))
+  .limits <- scale$get_limits()
+  .bar <- discard(pretty(.limits, n = guide$nbin), scale$get_limits())
   if (length(.bar) == 0) {
     .bar = unique(.limits)
   }
-  guide$bar <- data.frame(colour = scale_map(scale, .bar), value = .bar, stringsAsFactors = FALSE)
+  guide$bar <- data.frame(colour = scale$map(.bar), value = .bar, stringsAsFactors = FALSE)
   if (guide$reverse) {
     guide$key <- guide$key[nrow(guide$key):1, ]
     guide$bar <- guide$bar[nrow(guide$bar):1, ]

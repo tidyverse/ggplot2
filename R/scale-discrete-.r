@@ -55,6 +55,11 @@ scale_x_discrete <- function(..., expand = waiver()) {
   sc <- discrete_scale(c("x", "xmin", "xmax", "xend"), "position_d", identity, ...,
     expand = expand, guide = "none")
 
+  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
+  # object should in the first place be created with the correct parent.
+  sc$super <- ScaleDiscretePosition
+  class(sc) <- class(ScaleDiscretePosition)
+
   sc$range_c <- continuous_range()
   sc
 }
@@ -63,6 +68,12 @@ scale_x_discrete <- function(..., expand = waiver()) {
 scale_y_discrete <- function(..., expand = waiver()) {
   sc <- discrete_scale(c("y", "ymin", "ymax", "yend"), "position_d", identity, ...,
     expand = expand, guide = "none")
+
+  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
+  # object should in the first place be created with the correct parent.
+  sc$super <- ScaleDiscretePosition
+  class(sc) <- class(ScaleDiscretePosition)
+
   sc$range_c <- continuous_range()
   sc
 }
@@ -72,60 +83,53 @@ scale_y_discrete <- function(..., expand = waiver()) {
 # mapping, but makes it possible to place objects at non-integer positions,
 # as is necessary for jittering etc.
 
-#' @export
-scale_train.position_d <- function(scale, x) {
-  if (is.discrete(x)) {
-    scale$range$train(x, drop = scale$drop)
-  } else {
-    scale$range_c$train(x)
+ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
+
+  train = function(self, x) {
+    if (is.discrete(x)) {
+      self$range$train(x, drop = self$drop)
+    } else {
+      self$range_c$train(x)
+    }
+  },
+
+  # If range not available from discrete range, implies discrete scale been
+  # used with purely continuous data, so construct limits accordingly
+  get_limits = function(self) {
+    dis_limits <- function(x) seq.int(floor(min(x)), ceiling(max(x)), by = 1L)
+
+    self$limits %||% self$range$range %||% dis_limits(self$range_c$range)
+  },
+
+  is_empty = function(self) {
+    is.null(self$range$range) && is.null(self$limits) && is.null(self$range_c$range)
+  },
+
+  reset = function(self) {
+    # Can't reset discrete scale because no way to recover values
+    self$range_c$reset()
+  },
+
+  map = function(self, x, limits = self$get_limits()) {
+    if (is.discrete(x)) {
+      seq_along(limits)[match(as.character(x), limits)]
+    } else {
+      x
+    }
+  },
+
+  dimension = function(self, expand = c(0, 0)) {
+    disc_range <- c(1, length(self$get_limits()))
+    disc <- expand_range(disc_range, 0, expand[2], 1)
+    cont <- expand_range(self$range_c$range, expand[1], 0, expand[2])
+
+    range(disc, cont)
+  },
+
+  clone = function(self) {
+    new <- ggproto(NULL, self)
+    new$range <- discrete_range()
+    new$range_c <- continuous_range()
+    new
   }
-}
-
-# If range not available from discrete range, implies discrete scale been
-# used with purely continuous data, so construct limits accordingly
-#' @export
-scale_limits.position_d <- function(scale) {
-  dis_limits <- function(x) seq.int(floor(min(x)), ceiling(max(x)), by = 1L)
-
-  scale$limits %||% scale$range$range %||% dis_limits(scale$range_c$range)
-}
-
-#' @export
-scale_is_empty.position_d <- function(scale) {
-  NextMethod() && is.null(scale$range_c$range)
-}
-
-#' @export
-scale_reset.position_d <- function(scale, x) {
-  # Can't reset discrete scale because no way to recover values
-  scale$range_c$reset()
-}
-
-
-#' @export
-scale_map.position_d <- function(scale, x, limits = scale_limits(scale)) {
-  if (is.discrete(x)) {
-    seq_along(limits)[match(as.character(x), limits)]
-  } else {
-    x
-  }
-}
-
-#' @export
-scale_dimension.position_d <- function(scale, expand = scale$expand) {
-  expand <- expand %|W|% c(0, 0)
-  disc_range <- c(1, length(scale_limits(scale)))
-  disc <- expand_range(disc_range, 0, expand[2], 1)
-  cont <- expand_range(scale$range_c$range, expand[1], 0, expand[2])
-
-  range(disc, cont)
-}
-
-#' @export
-scale_clone.position_d <- function(scale) {
-  new <- scale
-  new$range <- discrete_range()
-  new$range_c <- continuous_range()
-
-  new
-}
+)

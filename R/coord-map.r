@@ -126,7 +126,7 @@ CoordMap <- ggproto("CoordMap", Coord,
       limits <- self$limits[[n]]
 
       if (is.null(limits)) {
-        range <- scale_dimension(scale, expand_default(scale))
+        range <- scale$dimension(expand_default(scale))
       } else {
         range <- range(scale_transform(scale, limits))
       }
@@ -149,7 +149,7 @@ CoordMap <- ggproto("CoordMap", Coord,
     ret$y$proj <- proj[3:4]
 
     for (n in c("x", "y")) {
-      out <- scale_break_info(scale_details[[n]], ranges[[n]])
+      out <- scale_details[[n]]$break_info(ranges[[n]])
       ret[[n]]$range <- out$range
       ret[[n]]$major <- out$major_source
       ret[[n]]$minor <- out$minor_source

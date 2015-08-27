@@ -95,13 +95,13 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     if (is.null(xseq)) {
       if (is.integer(data$x)) {
         if (fullrange) {
-          xseq <- scale_dimension(scales$x)
+          xseq <- scales$x$dimension()
         } else {
           xseq <- sort(unique(data$x))
         }
       } else {
         if (fullrange) {
-          range <- scale_dimension(scales$x)
+          range <- scales$x$dimension()
         } else {
           range <- range(data$x, na.rm = TRUE)
         }
