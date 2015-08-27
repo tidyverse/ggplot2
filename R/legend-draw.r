@@ -54,7 +54,7 @@ draw_key_polygon <- function(data, params) {
     width = unit(1, "npc") - unit(data$size, "mm"),
     height = unit(1, "npc") - unit(data$size, "mm"),
     gp = gpar(
-      col = data$col,
+      col = data$colour,
       fill = alpha(data$fill, data$alpha),
       lty = data$linetype,
       lwd = data$size * .pt
