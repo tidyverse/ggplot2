@@ -149,7 +149,6 @@ Layer <- ggproto("Layer", NULL,
 
     params <- self$stat$setup_params(data, self$stat_params)
     data <- self$stat$setup_data(data, params)
-
     self$stat$compute_layer(data, params, panel)
   },
 

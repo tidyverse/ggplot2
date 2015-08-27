@@ -84,7 +84,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
   compute_group = function(data, scales, method = "auto", formula = y~x,
                            se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
                            xseq = NULL, level = 0.95, method.args = list(),
-                           na.rm = FALSE, ...) {
+                           na.rm = FALSE) {
     if (length(unique(data$x)) < 2) {
       # Not enough data to perform fit
       return(data.frame())

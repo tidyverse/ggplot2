@@ -45,8 +45,7 @@ StatQuantile <- ggproto("StatQuantile", Stat,
 
   compute_group = function(data, scales, quantiles = c(0.25, 0.5, 0.75),
                            formula = NULL, xseq = NULL, method = "rq",
-                           method.args = list(), lambda = 1, na.rm = FALSE,
-                           ...) {
+                           method.args = list(), lambda = 1, na.rm = FALSE) {
     try_require("quantreg", "stat_quantile")
 
     if (is.null(formula)) {

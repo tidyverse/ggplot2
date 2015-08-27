@@ -35,7 +35,7 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
   compute_group = function(data, scales, fun.data = NULL, fun.y = NULL,
                            fun.ymax = NULL, fun.ymin = NULL, fun.args = list(),
                            bins = 30, binwidth = NULL, origin = NULL, right = FALSE,
-                           na.rm = FALSE, ...) {
+                           na.rm = FALSE) {
 
     fun <- make_summary_fun(fun.data, fun.y, fun.ymax, fun.ymin, fun.args)
 

@@ -71,6 +71,7 @@ Stat <- ggproto("Stat",
       snake_class(self$stat)
     )
 
+    params <- params[intersect(names(params), self$parameters())]
     args <- c(list(data = quote(data), scales = quote(scales)), params)
     plyr::ddply(data, "PANEL", function(data) {
       scales <- panel_scales(panels, data$PANEL[1])
@@ -103,7 +104,19 @@ Stat <- ggproto("Stat",
     do.call(plyr::rbind.fill, stats)
   },
 
-  compute_group = function(self, data, scales, ...) {
+  compute_group = function(self, data, scales) {
     stop("Not implemented", call. = FALSE)
+  },
+
+  parameters = function(self) {
+    # Look first in compute_panel. If it contains ... then look in compute_group
+    panel_args <- names(ggproto_formals(self$compute_panel))
+    group_args <- names(ggproto_formals(self$compute_group))
+    args <- if ("..." %in% panel_args) group_args else panel_args
+
+    # Remove arguments of defaults
+    args <- setdiff(args, names(ggproto_formals(Stat$compute_group)))
+
+    args
   }
 )

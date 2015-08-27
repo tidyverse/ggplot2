@@ -38,7 +38,7 @@ StatBin2d <- ggproto("StatBin2d", Stat,
   required_aes = c("x", "y"),
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
-                           breaks = NULL, origin = NULL, drop = TRUE, ...) {
+                           breaks = NULL, origin = NULL, drop = TRUE) {
 
     origin <- dual_param(origin, list(NULL, NULL))
     binwidth <- dual_param(binwidth, list(NULL, NULL))

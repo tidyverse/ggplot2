@@ -37,7 +37,7 @@ StatBinhex <- ggproto("StatBinhex", Stat,
   required_aes = c("x", "y"),
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
-                           na.rm = FALSE, ...) {
+                           na.rm = FALSE) {
     if (is.null(binwidth)) {
       binwidth <- c(
         diff(scale_dimension(scales$x)) / bins,

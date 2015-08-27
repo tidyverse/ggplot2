@@ -153,7 +153,7 @@ StatSummary <- ggproto("StatSummary", Stat,
 
   compute_panel = function(data, scales, fun.data = NULL, fun.y = NULL,
                      fun.ymax = NULL, fun.ymin = NULL, fun.args = list(),
-                     na.rm = FALSE, ...) {
+                     na.rm = FALSE) {
 
     fun <- make_summary_fun(fun.data, fun.y, fun.ymax, fun.ymin, fun.args)
     summarise_by_x(data, fun)

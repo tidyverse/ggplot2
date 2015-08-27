@@ -49,7 +49,7 @@ StatDensity <- ggproto("StatDensity", Stat,
   default_aes = aes(y = ..density.., fill = NA),
 
   compute_group = function(data, scales, adjust = 1, kernel = "gaussian",
-                           trim = FALSE, na.rm = FALSE, ...) {
+                           trim = FALSE, na.rm = FALSE) {
     if (trim) {
       range <- range(data$x, na.rm = TRUE)
     } else {

@@ -15,9 +15,11 @@ StatBindot <- ggproto("StatBindot", Stat,
       name = "stat_bindot", finite = TRUE)
   },
 
-  compute_panel = function(self, data, na.rm = FALSE, binwidth = NULL,
+  compute_panel = function(self, data, scales, na.rm = FALSE, binwidth = NULL,
                            binaxis = "x", method = "dotdensity",
-                           binpositions = "bygroup", ...) {
+                           binpositions = "bygroup", origin = NULL,
+                           breaks = NULL, width = 0.9, drop = FALSE,
+                           right = TRUE) {
 
     # If using dotdensity and binning over all, we need to find the bin centers
     # for all data before it's split into groups.
@@ -44,14 +46,16 @@ StatBindot <- ggproto("StatBindot", Stat,
 
     }
 
-    ggproto_parent(Stat, self)$compute_panel(data, binwidth = binwidth,
-      binaxis = binaxis, method = method, binpositions = binpositions, ...)
+    ggproto_parent(Stat, self)$compute_panel(data, scales, binwidth = binwidth,
+      binaxis = binaxis, method = method, binpositions = binpositions,
+      origin = origin, breaks = breaks, width = width, drop = drop,
+      right = right)
   },
 
   compute_group = function(self, data, scales, binwidth = NULL, binaxis = "x",
                            method = "dotdensity", binpositions = "bygroup",
                            origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
-                           right = TRUE, ...) {
+                           right = TRUE) {
 
     # This function taken from integer help page
     is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5) {

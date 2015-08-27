@@ -58,7 +58,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   },
 
   compute_group = function(data, scales, width = NULL, adjust = 1,
-                       kernel = "gaussian", trim = TRUE, na.rm = FALSE, ...) {
+                       kernel = "gaussian", trim = TRUE, na.rm = FALSE) {
     if (nrow(data) < 3) return(data.frame())
 
     if (trim) {
@@ -81,8 +81,13 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     dens
   },
 
-  compute_panel = function(self, data, scales, ..., scale = "area") {
-    data <- ggproto_parent(Stat, self)$compute_panel(data, scales, ...)
+  compute_panel = function(self, data, scales, width = NULL, adjust = 1,
+                           kernel = "gaussian", trim = TRUE, na.rm = FALSE,
+                           scale = "area") {
+    data <- ggproto_parent(Stat, self)$compute_panel(
+      data, scales, width = width, adjust = adjust, kernel = kernel,
+      trim = trim, na.rm = na.rm
+    )
 
     # choose how violins are scaled relative to each other
     data$violinwidth <- switch(scale,

@@ -109,7 +109,7 @@ Geom <- ggproto("Geom",
     args <- if ("..." %in% panel_args) group_args else panel_args
 
     # Remove arguments of defaults
-    args <- setdiff(args, names(ggproto_formals(Geom$draw_panel)))
+    args <- setdiff(args, names(ggproto_formals(Geom$draw_group)))
 
     args
   },

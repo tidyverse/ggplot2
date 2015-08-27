@@ -71,7 +71,7 @@ StatEllipse <- ggproto("StatEllipse", Stat,
   required_aes = c("x", "y"),
 
   compute_group = function(data, scales, type = "t", level = 0.95,
-                           segments = 51, na.rm = FALSE, ...) {
+                           segments = 51, na.rm = FALSE) {
     calculate_ellipse(data = data, vars = c("x", "y"), type = type,
                       level = level, segments = segments)
   }

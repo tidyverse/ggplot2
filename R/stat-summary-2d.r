@@ -75,7 +75,7 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
                            breaks = NULL, origin = NULL, drop = TRUE,
-                           fun = "mean", fun.args = list(), ...) {
+                           fun = "mean", fun.args = list()) {
     origin <- dual_param(origin, list(NULL, NULL))
     binwidth <- dual_param(binwidth, list(NULL, NULL))
     breaks <- dual_param(breaks, list(NULL, NULL))
