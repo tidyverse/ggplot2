@@ -1,33 +1,15 @@
-#' Components of a scale:
+#' @section Scales:
 #'
-#' Guide related:
+#' All \code{scale_*} functions (like \code{scale_x_continuous}) return a
+#' \code{Scale*} object (like \code{ScaleContinuous}). The \code{Scale*}
+#' object represents a single scale.
 #'
-#' \itemize{
-#'   \item name
-#'   \item breaks
-#'   \item labels
-#'   \item expand
-#' }
+#' Each of the \code{Scale*} objects is a \code{\link{ggproto}} object,
+#' descended from the top-level \code{Scale}.
 #'
-#' Mapping related:
-#' \itemize{
-#'   \item aesthetic
-#'   \item limits
-#'   \item palette
-#'   \item trans
-#' }
-#'
-#' Scales are an S3 class with a single mutable component implemented with
-#' a reference class - the range of the data.  This mutability makes working
-#' with scales much easier, because it makes it possible to distribute the
-#' training, without having to worry about collecting all the pieces back
-#' together again.
-#'
-#' @name ggscale
-#' @keywords internal
-NULL
-
-
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
 #' @export
 Scale <- ggproto("Scale", NULL,
 
@@ -186,6 +168,9 @@ check_breaks_labels <- function(breaks, labels) {
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
 #' @export
 ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   range = continuous_range(),
@@ -345,6 +330,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 )
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
 #' @export
 ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
   drop = TRUE,

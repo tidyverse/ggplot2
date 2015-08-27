@@ -120,6 +120,10 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
 }
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 ScaleContinuousPosition <- ggproto("ScaleContinuousPosition", ScaleContinuous,
   # Position aesthetics don't map, because the coordinate system takes
   # care of it. But they do need to be made in to doubles, so stat methods
