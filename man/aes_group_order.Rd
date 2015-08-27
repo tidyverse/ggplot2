@@ -73,7 +73,7 @@ h + geom_smooth(aes(group = 1), size = 2, method = "lm", se = FALSE)
 # groups. This is the strategy used in interaction plots, profile plots, and parallel
 # coordinate plots, among others. For example, we draw boxplots of height at
 # each measurement occasion
-boysbox <- ggplot(Oxboys, aes(Occasion, height))
+boysbox <- ggplot(nlme::Oxboys, aes(Occasion, height))
 boysbox + geom_boxplot()
 # There is no need to specify the group aesthetic here; the default grouping
 # works because occasion is a discrete variable. To overlay individual trajectories

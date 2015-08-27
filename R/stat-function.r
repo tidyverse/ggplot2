@@ -73,7 +73,7 @@ StatFunction <- ggproto("StatFunction", Stat,
   default_aes = aes(y = ..y..),
 
   compute_group = function(data, scales, fun, n = 101, args = list()) {
-    range <- scale_dimension(scales$x)
+    range <- scales$x$dimension()
     xseq <- seq(range[1], range[2], length.out = n)
 
     data.frame(

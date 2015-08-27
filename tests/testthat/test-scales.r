@@ -13,23 +13,23 @@ test_that("buidling a plot does not affect its scales", {
 test_that("ranges update only for variables listed in aesthetics", {
   sc <- scale_alpha()
 
-  scale_train_df(sc, data.frame(alpha = 1:10))
+  sc$train_df(data.frame(alpha = 1:10))
   expect_equal(sc$range$range, c(1, 10))
 
-  scale_train_df(sc, data.frame(alpha = 50))
+  sc$train_df(data.frame(alpha = 50))
   expect_equal(sc$range$range, c(1, 50))
 
-  scale_train_df(sc, data.frame(beta = 100))
+  sc$train_df(data.frame(beta = 100))
   expect_equal(sc$range$range, c(1, 50))
 
-  scale_train_df(sc, data.frame())
+  sc$train_df(data.frame())
   expect_equal(sc$range$range, c(1, 50))
 
 })
 
 test_that("mapping works", {
   sc <- scale_alpha(range = c(0, 1), na.value = 0)
-  scale_train_df(sc, data.frame(alpha = 1:10))
+  sc$train_df(data.frame(alpha = 1:10))
 
   expect_equal(
     scale_map_df(sc, data.frame(alpha = 1:10))[[1]],

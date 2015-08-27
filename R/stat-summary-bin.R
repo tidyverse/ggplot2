@@ -46,7 +46,7 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
 
     locs <- bin_loc(breaks, out$bin)
     out$x <- locs$mid
-    out$width <- if (is_discrete_scale(scales$x)) 0.9 else locs$length
+    out$width <- if (scales$x$is_discrete()) 0.9 else locs$length
     out
   }
 )

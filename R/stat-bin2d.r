@@ -48,8 +48,8 @@ StatBin2d <- ggproto("StatBin2d", Stat,
     xbreaks <- bin_breaks(scales$x, breaks$x, origin$x, binwidth$x, bins$x)
     ybreaks <- bin_breaks(scales$y, breaks$y, origin$y, binwidth$y, bins$y)
 
-    xbin <- cut(data$x, xbreaks, include.lowest = TRUE, label = FALSE)
-    ybin <- cut(data$y, ybreaks, include.lowest = TRUE, label = FALSE)
+    xbin <- cut(data$x, xbreaks, include.lowest = TRUE, labels = FALSE)
+    ybin <- cut(data$y, ybreaks, include.lowest = TRUE, labels = FALSE)
 
     if (is.null(data$weight))
       data$weight <- 1
@@ -89,15 +89,15 @@ bin_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
   # Bins for categorical data should take the width of one level,
   # and should show up centered over their tick marks. All other parameters
   # are ignored.
-  if (is_discrete_scale(scale)) {
-    breaks <- scale_breaks(scale)
+  if (scale$is_discrete()) {
+    breaks <- scale$get_breaks()
     return(-0.5 + seq_len(length(breaks) + 1))
   }
 
   if (!is.null(breaks))
     return(breaks)
 
-  range <- scale_limits(scale)
+  range <- scale$get_limits()
 
   if (is.null(binwidth) || identical(binwidth, NA)) {
     binwidth <- diff(range) / bins

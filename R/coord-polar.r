@@ -107,12 +107,12 @@ CoordPolar <- ggproto("CoordPolar", Coord,
         } else {
           expand <- expand_default(scale, c(0, 0),   c(0, 0))
         }
-        range <- scale_dimension(scale, expand)
+        range <- scale$dimension(expand)
       } else {
         range <- range(scale_transform(scale, limits))
       }
 
-      out <- scale_break_info(scale, range)
+      out <- scale$break_info(range)
       ret[[n]]$range <- out$range
       ret[[n]]$major <- out$major_source
       ret[[n]]$minor <- out$minor_source

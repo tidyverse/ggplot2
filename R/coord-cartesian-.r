@@ -84,13 +84,13 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
       }
 
       if (is.null(limits)) {
-        range <- scale_dimension(scale_details, expand)
+        range <- scale_details$dimension()
       } else {
-        range <- range(scale_transform(scale_details, limits))
+        range <- range(scale_details$transform(limits))
         range <- expand_range(range, expand[1], expand[2])
       }
 
-      out <- scale_break_info(scale_details, range)
+      out <- scale_details$break_info(range)
       names(out) <- paste(name, names(out), sep = ".")
       out
     }

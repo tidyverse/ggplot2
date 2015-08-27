@@ -66,10 +66,10 @@ train_position <- function(panel, data, x_scale, y_scale) {
   # Initialise scales if needed, and possible.
   layout <- panel$layout
   if (is.null(panel$x_scales) && !is.null(x_scale)) {
-    panel$x_scales <- plyr::rlply(max(layout$SCALE_X), scale_clone(x_scale))
+    panel$x_scales <- plyr::rlply(max(layout$SCALE_X), x_scale$clone())
   }
   if (is.null(panel$y_scales) && !is.null(y_scale)) {
-    panel$y_scales <- plyr::rlply(max(layout$SCALE_Y), scale_clone(y_scale))
+    panel$y_scales <- plyr::rlply(max(layout$SCALE_Y), y_scale$clone())
   }
 
   # loop over each layer, training x and y scales in turn
@@ -81,14 +81,14 @@ train_position <- function(panel, data, x_scale, y_scale) {
       x_vars <- intersect(x_scale$aesthetics, names(layer_data))
       SCALE_X <- layout$SCALE_X[match_id]
 
-      scale_apply(layer_data, x_vars, scale_train, SCALE_X, panel$x_scales)
+      scale_apply(layer_data, x_vars, "train", SCALE_X, panel$x_scales)
     }
 
     if (!is.null(y_scale)) {
       y_vars <- intersect(y_scale$aesthetics, names(layer_data))
       SCALE_Y <- layout$SCALE_Y[match_id]
 
-      scale_apply(layer_data, y_vars, scale_train, SCALE_Y, panel$y_scales)
+      scale_apply(layer_data, y_vars, "train", SCALE_Y, panel$y_scales)
     }
   }
 
@@ -98,8 +98,9 @@ train_position <- function(panel, data, x_scale, y_scale) {
 
 reset_scales <- function(panel) {
   if (!panel$shrink) return()
-  plyr::l_ply(panel$x_scales, scale_reset)
-  plyr::l_ply(panel$y_scales, scale_reset)
+  lapply(panel$x_scales, function(s) s$reset())
+  lapply(panel$y_scales, function(s) s$reset())
+  invisible()
 }
 
 # Map data with scales.
@@ -119,25 +120,23 @@ map_position <- function(panel, data, x_scale, y_scale) {
     x_vars <- intersect(x_scale$aesthetics, names(layer_data))
     names(x_vars) <- x_vars
     SCALE_X <- layout$SCALE_X[match_id]
-    new_x <- scale_apply(layer_data, x_vars, scale_map, SCALE_X,
-       panel$x_scales)
+    new_x <- scale_apply(layer_data, x_vars, "map", SCALE_X, panel$x_scales)
     layer_data[, x_vars] <- new_x
 
     y_vars <- intersect(y_scale$aesthetics, names(layer_data))
     names(y_vars) <- y_vars
     SCALE_Y <- layout$SCALE_Y[match_id]
-    new_y <- scale_apply(layer_data, y_vars, scale_map, SCALE_Y,
-       panel$y_scales)
+    new_y <- scale_apply(layer_data, y_vars, "map", SCALE_Y, panel$y_scales)
 
     layer_data[, y_vars] <- new_y
     layer_data
   })
 }
 
-# Function for applying scale function to multiple variables in a given
+# Function for applying scale method to multiple variables in a given
 # data set.  Implement in such a way to minimize copying and hence maximise
 # speed
-scale_apply <- function(data, vars, f, scale_id, scales) {
+scale_apply <- function(data, vars, method, scale_id, scales) {
   if (length(vars) == 0) return()
   if (nrow(data) == 0) return()
 
@@ -148,7 +147,7 @@ scale_apply <- function(data, vars, f, scale_id, scales) {
 
   lapply(vars, function(var) {
     pieces <- lapply(seq_along(scales), function(i) {
-      f(scales[[i]], data[[var]][scale_index[[i]]])
+      scales[[i]][[method]](data[[var]][scale_index[[i]]])
     })
     # Join pieces back together, if necessary
     if (!is.null(pieces)) {

@@ -93,7 +93,8 @@ m + stat_density2d(aes(fill = ..level..), geom = "polygon")
 # set of contours for each value of that variable
 set.seed(4393)
 dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
-ggplot(dsmall, aes(x, y)) + geom_density2d(aes(colour = cut))
+d <- ggplot(dsmall, aes(x, y)) + geom_density2d(aes(colour = cut))
+d
 
 # If we turn contouring off, we can use use geoms like tiles:
 d + stat_density2d(geom = "raster", aes(fill = ..density..), contour = FALSE)

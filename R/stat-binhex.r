@@ -40,8 +40,8 @@ StatBinhex <- ggproto("StatBinhex", Stat,
                            na.rm = FALSE) {
     if (is.null(binwidth)) {
       binwidth <- c(
-        diff(scale_dimension(scales$x)) / bins,
-        diff(scale_dimension(scales$y)) / bins
+        diff(scales$x$dimension()) / bins,
+        diff(scales$y$dimension()) / bins
       )
     }
 

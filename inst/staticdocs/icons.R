@@ -454,31 +454,31 @@ scale_colour_brewer  <- sd_icon({
 
 scale_colour_gradient  <- sd_icon({
   g <- scale_fill_gradient()
-  scale_train(g, 1:5)
+  g$train(1:5)
   rectGrob(
     c(0.1, 0.3, 0.5, 0.7, 0.9),
     width = 0.21,
-    gp = gpar(fill = scale_map(g, 1:5), col = NA)
+    gp = gpar(fill = g$map(1:5), col = NA)
   )
 })
 
 scale_colour_gradient2  <- sd_icon({
   g <- scale_fill_gradient2()
-  scale_train(g, 1:5 - 3)
+  g$train(1:5 - 3)
   rectGrob(
     c(0.1, 0.3, 0.5, 0.7, 0.9),
     width = 0.21,
-    gp = gpar(fill = scale_map(g, 1:5 - 3), col = NA)
+    gp = gpar(fill = g$map(1:5 - 3), col = NA)
   )
 })
 
 scale_colour_gradientn  <- sd_icon({
   g <- scale_fill_gradientn(colours = rainbow(7))
-  scale_train(g, 1:5)
+  g$train(1:5)
   rectGrob(
     c(0.1, 0.3, 0.5, 0.7, 0.9),
     width = 0.21,
-    gp = gpar(fill = scale_map(g, 1:5), col = NA)
+    gp = gpar(fill = g$map(1:5), col = NA)
   )
 })
 

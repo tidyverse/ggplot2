@@ -47,7 +47,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
 
     dens <- MASS::kde2d(
       data$x, data$y, h = h, n = n,
-      lims = c(scale_dimension(scales$x), scale_dimension(scales$y))
+      lims = c(scales$x$dimension(), scales$y$dimension())
     )
     df <- data.frame(expand.grid(x = dens$x, y = dens$y), z = as.vector(dens$z))
     df$group <- data$group[1]
