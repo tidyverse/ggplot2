@@ -158,6 +158,14 @@ label_parsed <- function(labels, multi_line = TRUE) {
 }
 class(label_parsed) <- c("function", "labeller")
 
+find_names <- function(expr) {
+  if (is.call(expr)) {
+    unlist(lapply(expr[-1], find_names))
+  } else if (is.name(expr)) {
+    as.character(expr)
+  }
+}
+
 #' @rdname labellers
 #' @export
 label_bquote <- function(expr) {
@@ -170,7 +178,7 @@ label_bquote <- function(expr) {
 
       # Mapping `x` to the first variable for backward-compatibility,
       # but only if there is no facetted variable also named `x`
-      if (!"x" %in% names(params)) {
+      if ("x" %in% find_names(quoted) && !"x" %in% names(params)) {
         if (!has_warned) {
           warning("Referring to `x` is deprecated, use variable name instead",
             call. = FALSE)
