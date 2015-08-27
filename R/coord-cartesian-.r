@@ -77,14 +77,16 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   train = function(self, scale_details) {
     train_cartesian <- function(scale_details, limits, name) {
-      if (is.null(limits)) {
-        range <- scale_dimension(scale_details)
-      } else {
-        range <- range(scale_transform(scale_details, limits))
-      }
-
       if (self$expand) {
         expand <- expand_default(scale_details)
+      } else {
+        expand <- c(0, 0)
+      }
+
+      if (is.null(limits)) {
+        range <- scale_dimension(scale_details, expand)
+      } else {
+        range <- range(scale_transform(scale_details, limits))
         range <- expand_range(range, expand[1], expand[2])
       }
 

@@ -112,8 +112,7 @@ scale_map.position_d <- function(scale, x, limits = scale_limits(scale)) {
 }
 
 #' @export
-scale_dimension.position_d <- function(scale, expand = scale$expand) {
-  expand <- expand %|W|% c(0, 0)
+scale_dimension.position_d <- function(scale, expand = c(0, 0)) {
   disc_range <- c(1, length(scale_limits(scale)))
   disc <- expand_range(disc_range, 0, expand[2], 1)
   cont <- expand_range(scale$range_c$range, expand[1], 0, expand[2])
