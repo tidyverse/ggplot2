@@ -18,7 +18,8 @@ geom_linerange(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_pointrange(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", show.legend = NA, inherit.aes = TRUE,
+  fatten = 4, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -36,7 +37,9 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{fatten}{a multiplicative factor to fatten middle bar by}
+\item{fatten}{A multiplicative factor used to increased the size of the
+middle bar in \code{geom_crossbar()} and the middle point in
+\code{geom_pointrange()}.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

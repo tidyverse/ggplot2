@@ -2,7 +2,7 @@
 #' @rdname geom_linerange
 geom_pointrange <- function(mapping = NULL, data = NULL, stat = "identity",
                             position = "identity", show.legend = NA,
-                            inherit.aes = TRUE, ...) {
+                            inherit.aes = TRUE, fatten = 4, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -11,7 +11,7 @@ geom_pointrange <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(..., fatten = fatten)
   )
 }
 
@@ -27,14 +27,14 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
 
   required_aes = c("x", "y", "ymin", "ymax"),
 
-  draw_panel = function(data, panel_scales, coord) {
+  draw_panel = function(data, panel_scales, coord, fatten = 4) {
     if (is.null(data$y))
       return(GeomLinerange$draw_panel(data, panel_scales, coord))
 
     ggname("geom_pointrange",
       gTree(children = gList(
         GeomLinerange$draw_panel(data, panel_scales, coord),
-        GeomPoint$draw_panel(transform(data, size = size * 4), panel_scales, coord)
+        GeomPoint$draw_panel(transform(data, size = size * fatten), panel_scales, coord)
       ))
     )
   }

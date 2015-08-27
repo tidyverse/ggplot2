@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `geom_pointrange()` gains `fatten` argument so you can control the
+  size of the point relative to the size of the line.
+
 * `stat_spoke()` is now `geom_spoke()` since I realised it's a
   reparameterisation of `geom_segment().
 

@@ -1,4 +1,3 @@
-#' @param fatten a multiplicative factor to fatten middle bar by
 #' @export
 #' @rdname geom_linerange
 geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
