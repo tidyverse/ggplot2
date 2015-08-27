@@ -2,9 +2,9 @@
 % Please edit documentation in R/range.r
 \docType{data}
 \name{Range}
-\alias{ContinuousRange}
-\alias{DiscreteRange}
 \alias{Range}
+\alias{RangeContinuous}
+\alias{RangeDiscrete}
 \alias{continuous_range}
 \alias{discrete_range}
 \title{Mutable range objects}
