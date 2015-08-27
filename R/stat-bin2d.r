@@ -48,8 +48,8 @@ StatBin2d <- ggproto("StatBin2d", Stat,
     xbreaks <- bin_breaks(scales$x, breaks$x, origin$x, binwidth$x, bins$x)
     ybreaks <- bin_breaks(scales$y, breaks$y, origin$y, binwidth$y, bins$y)
 
-    xbin <- cut(data$x, xbreaks, include.lowest = TRUE, label = FALSE)
-    ybin <- cut(data$y, ybreaks, include.lowest = TRUE, label = FALSE)
+    xbin <- cut(data$x, xbreaks, include.lowest = TRUE, labels = FALSE)
+    ybin <- cut(data$y, ybreaks, include.lowest = TRUE, labels = FALSE)
 
     if (is.null(data$weight))
       data$weight <- 1
