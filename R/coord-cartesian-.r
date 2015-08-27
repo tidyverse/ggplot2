@@ -84,7 +84,7 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
       }
 
       if (is.null(limits)) {
-        range <- scale_details$dimension()
+        range <- scale_details$dimension(expand)
       } else {
         range <- range(scale_details$transform(limits))
         range <- expand_range(range, expand[1], expand[2])
