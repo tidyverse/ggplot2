@@ -16,13 +16,12 @@ library(ggplot2)
 
 This page aims at presenting the major steps involved in extending ggplot2 by:
 
-* Creating a new geom
-* Creating a new stat
+* Creating a new geom, stat, or position adjustment
 * Creating a new theme
 
 This vignette documents the official extension mechanism provided in ggplot2 1.1.0. This vignette is a high-level adjunct to the low-level details found in `?Stat`, `?Geom` and `?theme`.
 
-As you read this document, you'll see many things that will scratch your head and make you wonder, why on earth is it designed that way? Mostly it's historical accident - I wasn't a terribly good R programmer when I started writing ggplot2 and I made a lot of questionable decisions. We cleaned up as many as possible in the 1.1.0 release, but some simply weren't worth the effort.
+As you read this document, you'll see many things that will scratch your head and make you wonder, why on earth is it designed that way? Mostly it's historical accident - I wasn't a terribly good R programmer when I started writing ggplot2 and I made a lot of questionable decisions. We cleaned up as many as possible in the 1.1.0 release, but some fixes simply weren't worth the effort.
 
 ## ggproto
 
@@ -53,29 +52,256 @@ The majority of ggplot2 classes are immutable and static: the methods neither us
 
 To create a new geom or stat, you will just create a new ggproto that inherits from `Stat`, `Geom` and override the methods described below.
 
-## Creating a new geom
+## Creating a new stat
 
-To illustrate creating a new geom, we're going to use a [fun example](http://stackoverflow.com/questions/22159087) provided by Brodie Gaslam: a replacement for `geom_point()` that draws little cars instead of points. Adding a new geom takes place in three steps:
+Start with the simplest stat. It just picks some of the rows:
 
-* Creating a function that generates grid grobs, e.g. `carGrob`.
-* Creating a new ggproto object that extends `Geom`, e.g. `GeomCar`.
-* Creating a layer function, `geom_car`.
+```{r}
+StatChull <- ggproto("StatChull", Stat,
+  compute_group = function(data, scales) {
+    
+    data[chull(data$x, data$y), , drop = FALSE]
+  },
+  
+  required_aes = c("x", "y")
+)
 
-### Grid grob
+stat_chull <- function(mapping = NULL, data = NULL, geom = "polygon",
+                       position = "identity", show.legend = NA, 
+                       inherit.aes = TRUE, ...) {
+  layer(
+    stat = StatChull, data = data, mapping = mapping, geom = geom, 
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(...)
+  )
+}
 
-Now, ggplot2 is built on top of grid, so you'll need to know the basics of drawing grid grobs. If you're serious about adding a new geom, I'd recommend buying [R graphics](http://amzn.com/B00I60M26G) by Paul Murrell. It tells you everything you need to know about drawing with grid.
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point() + 
+  stat_chull(fill = NA, colour = "black")
+```
 
-```R
-car.raster <- readPNG("data/car.png")
+All wrapper functions follow the same form - you specify defaults in the function arguments and then call the `layer()` function, sending `...` into the `params` argument. The arguments in `...` will either be arguments for the geom (if you're making a stat function), or aesthetics that we're setting. `layer()` takes care of teasing them apart and making sure they're stored in the right place.
 
-carGrob <- function(x, y, length, width) {  
-  rasterGrob(
-    car.raster, x = x, y = y, 
-    hjust = 1, height = width, width = length
+Note that ggplot takes care of adding constant aesthetic variables within the group. So this works without you having to do anything:
+
+```{r}
+ggplot(mpg, aes(displ, hwy, colour = drv)) + 
+  geom_point() + 
+  stat_chull(fill = NA)
+```
+
+In an ideal world, I would have originally called these things layers, so you'd use `layer_chull()` instead of `
+
+You might also consider createing a `geom_chull()`:
+
+```{r}
+geom_chull <- function(mapping = NULL, data = NULL, 
+                       position = "identity", show.legend = NA, 
+                       inherit.aes = TRUE, ...) {
+  layer(
+    stat = StatChull, data = data, mapping = mapping,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(...)
   )
 }
 ```
 
+This doesn't allow you to use different geoms with the stat, but that seems appropriate here since the convex hull is primarily a polygonal feature.
+
+A more realistic stat will actually do some computation. Let's implement a simple version of `geom_smooth()` that adds a line of best fit to a plot.
+
+```{r}
+StatLm <- ggproto("StatLm", Stat, 
+  required_aes = c("x", "y"),
+  
+  compute_group = function(data, scales, params) {
+    rng <- range(data$x, na.rm = TRUE)
+    grid <- data.frame(x = rng)
+    
+    mod <- lm(y ~ x, data = data)
+    grid$y <- predict(mod, newdata = grid)
+    
+    grid
+  }
+)
+
+stat_lm <- function(mapping = NULL, data = NULL, geom = "line",
+                    position = "identity", show.legend = NA, 
+                    inherit.aes = TRUE, ...) {
+  layer(
+    stat = StatLm, data = data, mapping = mapping, geom = geom, 
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(...)
+  )
+}
+
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point() + 
+  stat_lm()
+```
+
+Let's extend this to allow the user to supply a formula and the number of points used to generate the grid.
+
+```{r}
+StatLm <- ggproto("StatLm", Stat, 
+  required_aes = c("x", "y"),
+  
+  compute_group = function(data, scales, params, n = 100, formula = y ~ x) {
+    rng <- range(data$x, na.rm = TRUE)
+    grid <- data.frame(x = seq(rng[1], rng[2], length = n))
+    
+    mod <- lm(formula, data = data)
+    grid$y <- predict(mod, newdata = grid)
+    
+    grid
+  }
+)
+
+stat_lm <- function(mapping = NULL, data = NULL, geom = "line",
+                    position = "identity", show.legend = NA, 
+                    inherit.aes = TRUE, n = 50, formula = y ~ x, 
+                    ...) {
+  layer(
+    stat = StatLm, data = data, mapping = mapping, geom = geom, 
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(n = n, formula = formula, ...)
+  )
+}
+
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point() + 
+  stat_lm(formula = y ~ poly(x, 3), n = 5)
+```
+
+## Creating a new geom
+
+It's easiest to start with a simple example. The code below creates a simplified version of `geom_point()`:
+
+```{r}
+GeomSimplePoint <- ggproto("GeomSimplePoint", Geom,
+  required_aes = c("x", "y"),
+  default_aes = aes(shape = 19, colour = "black"),
+  draw_key = draw_key_point,
+
+  draw_panel = function(data, panel_scales, coord) {
+    coords <- coord$transform(data, panel_scales)
+    grid::pointsGrob(
+      coords$x, coords$y,
+      pch = coords$shape,
+      gp = grid::gpar(col = coords$colour)
+    )
+  }
+)
+
+geom_simple_point <- function(mapping = NULL, data = NULL, stat = "identity",
+                              position = "identity", show.legend = NA, 
+                              inherit.aes = TRUE, ...) {
+  layer(
+    geom = GeomSimplePoint, mapping = mapping,  data = data, stat = stat, 
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(...)
+  )
+}
+
+ggplot(mpg, aes(displ, hwy)) + geom_simple_point()
+```
+
+Much should look familiar from creating new scales. There are two key pieces:
+
+* A `GeomPoint2` object that defines the behaviour of the plot.
+* A `geom_point2()` wrapper function that creates a layer.
+
+The object is more complicated. You always need to provide fields/methods for the four pieces shown above:
+
+* `required_aes` is a character vector which lists all the aesthetics that
+  the user must provide.
+  
+* `default_aes` lists the aesthetics that have default values.
+
+* `draw_key` provides the function used to draw the key in the legend. 
+  You can see a list of all the build in key functions in `?draw_key`
+  
+* `draw_group()` is where the magic happens. This function takes three
+  arguments and returns a grid grob. It is called once for each panel.
+  It's the most complicated part and is described in more detail below.
+  
+`draw_group()` has three arguments:
+
+* `data`: a data frame with one column for each aesthetic.
+
+* `panel_scales`: a list containing information about the x and y scales
+  for the current panel.
+
+* `coord`: an object describing the coordinate system.
+
+Generally you won't use `panel_scales` and `coord` directly, but you will always use them to transform the data: `coords <- coord$transform(data, panel_scales)`. This creates a data frame where position variables are scaled to the range 0--1. You then take this data and call a grid grob function.
+
+ggplot2 is built on top of grid, so you'll need to know the basics of drawing with grid. If you're serious about adding a new geom, I'd recommend buying [R graphics](http://amzn.com/B00I60M26G) by Paul Murrell. It tells you everything you need to know about drawing with grid.
+
+Overriding `draw_panel()` is most appropriate if there is one graphic element per row. In other cases, you'll get one row per group. For example, take polygons. The following code is a somewhat simplified version of `GeomPolygon`:
+
+```{r}
+GeomSimplePolygon <- ggproto("GeomPolygon", Geom,
+  required_aes = c("x", "y"),
+  
+  default_aes = aes(colour = "NA", fill = "grey20", size = 0.5, linetype = 1, alpha = 1),
+
+  draw_key = draw_key_polygon,
+
+  draw_group = function(data, panel_scales, coord) {
+    n <- nrow(data)
+    if (n <= 2) return(grid::nullGrob())
+
+    coords <- coord$transform(data, panel_scales)
+    # A polygon can only have a single colour, fill, etc, so take from first row
+    first_row <- coords[1, , drop = FALSE]
+
+    grid::polygonGrob(
+      coords$x, coords$y, 
+      default.units = "native",
+      gp = grid::gpar(
+        col = first_row$colour,
+        fill = scales::alpha(first_row$fill, first_row$alpha),
+        lwd = first_row$size * .pt,
+        lty = first_row$linetype
+      )
+    )
+  }
+)
+geom_simple_polygon <- function(mapping = NULL, data = NULL, stat = "chull",
+                                position = "identity", show.legend = NA, 
+                                inherit.aes = TRUE, ...) {
+  layer(
+    geom = GeomSimplePolygon, mapping = mapping, data = data, stat = stat, 
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(...)
+  )
+}
+
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point() + 
+  geom_simple_polygon(aes(colour = class), fill = NA)
+```
+
+There are a few things to note here:
+
+* We override `draw_group()` instead of `draw_layer()` because we want
+  one polygon per group, not one polygon per row. If you look at the source
+  code for the original `GeomPolygon` you'll see it actually overrides
+  `geom_layer()` because it uses some tricks to make `polygonGrob()` produce
+  multiple polygons in one call. This is considerably more complicated, but 
+  gives better performance.
+  
+* If the data contains two or fewer points, there's no point trying to draw
+  a polygon, so we return a `nullGrob()`. This is the graphical equivalent
+  of `NULL`: it's a grob that doesn't draw anything and doesn't take up
+  any space.
+  
+* Note the units: `x` and `y` should always be drawn in "native" units. 
+  (The default units for `pointGrob()` is a native, so we didn't need to 
+  change it there). `lwd` is measured in points, but ggplot2 uses mm, 
+  so we need to multiply it by the adjustment factor `.pt`.
 
 ## Creating your own theme
 
