@@ -18,8 +18,10 @@ stat_contour <- function(mapping = NULL, data = NULL, geom = "contour",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(na.rm = na.rm),
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

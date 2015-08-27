@@ -30,13 +30,13 @@ stat_density <- function(mapping = NULL, data = NULL, geom = "area",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       adjust = adjust,
       kernel = kernel,
       trim = trim,
-      na.rm = na.rm
-    ),
-    params = list(...)
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

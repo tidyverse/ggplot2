@@ -5,11 +5,7 @@
 #' @param geom,stat,position Geom, stat and position adjustment to use in
 #'   this layer. Can either be the name of a ggproto object, or the object
 #'   itself.
-#' @param geom_params,stat_params,params Additional parameters to the
-#'   \code{geom} and \code{stat}. If supplied individual in \code{...} or as a
-#'   list in \code{params}, \code{layer} does it's best to figure out which
-#'   arguments belong to which. To be explicit, supply as individual lists to
-#'   \code{geom_param} and \code{stat_param}.
+#' @param params Additional parameters to the \code{geom} and \code{stat}.
 #' @param subset DEPRECATED. An older way of subsetting the dataset used in a
 #'   layer.
 #' @examples
@@ -18,8 +14,7 @@
 #' # shortcut for
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   layer(geom = "point", stat = "identity", position = "identity")
-layer <- function(geom = NULL, geom_params = list(),
-                  stat = NULL, stat_params = list(),
+layer <- function(geom = NULL, stat = NULL,
                   data = NULL, mapping = NULL,
                   position = NULL, params = list(),
                   inherit.aes = TRUE, subset = NULL, show.legend = NA) {
@@ -54,28 +49,17 @@ layer <- function(geom = NULL, geom_params = list(),
   if (is.character(position))
     position <- find_subclass("Position", position)
 
-  # Categorize items from params into geom_params and stat_params
-  if (length(params) > 0) {
-    params <- rename_aes(params)
+  # Split up params between aesthetics, geom, and stat
+  params <- rename_aes(params)
+  aes_params  <- params[intersect(names(params), geom$aesthetics())]
+  geom_params <- params[intersect(names(params), geom$parameters())]
+  stat_params <- params[intersect(names(params), stat$parameters())]
 
-    new_geom_params <- params[intersect(names(params), geom$parameters())]
-    geom_params <- c(geom_params, new_geom_params)
-
-    new_stat_params <- params[intersect(names(params), stat$parameters())]
-    stat_params <- c(stat_params, new_stat_params)
-
-    aes_params <- params[intersect(names(params), geom$aesthetics())]
-
-    all <- c(geom$parameters(), stat$parameters(), geom$aesthetics())
-    extra <- setdiff(names(params), all)
-    if (length(extra) > 0) {
-      stop("Unknown parameters: ", paste(extra, collapse = ", "), call. = FALSE)
-    }
-
-  } else {
-    aes_params <- list()
+  all <- c(geom$parameters(), stat$parameters(), geom$aesthetics())
+  extra <- setdiff(names(params), all)
+  if (length(extra) > 0) {
+    stop("Unknown parameters: ", paste(extra, collapse = ", "), call. = FALSE)
   }
-  geom_params <- rename_aes(geom_params)
 
   ggproto("LayerInstance", Layer,
     geom = geom,

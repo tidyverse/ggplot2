@@ -39,7 +39,7 @@ stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       method = method,
       formula = formula,
       se = se,
@@ -48,9 +48,9 @@ stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
       level = level,
       na.rm = na.rm,
       method.args = method.args,
-      span = span
-    ),
-    params = list(...)
+      span = span,
+      ...
+    )
   )
 }
 

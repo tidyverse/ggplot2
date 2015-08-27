@@ -77,12 +77,14 @@ geom_bar <- function(mapping = NULL, data = NULL, stat = "bar",
     data = data,
     mapping = mapping,
     stat = stat,
-    stat_params = list(width = width),
     geom = GeomBar,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(
+      width = width,
+      ...
+    )
   )
 }
 
@@ -101,6 +103,11 @@ GeomBar <- ggproto("GeomBar", GeomRect,
       ymin = pmin(y, 0), ymax = pmax(y, 0),
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )
+  },
+
+  draw_panel = function(self, data, panel_scales, coord, width = NULL) {
+    # Hack to ensure that width is detected as a parameter
+    ggproto_parent(GeomRect, self)$draw_panel(data, panel_scales, coord)
   }
 )
 
@@ -118,12 +125,14 @@ stat_bar <- function(mapping = NULL, data = NULL, geom = "bar",
     data = data,
     mapping = mapping,
     stat = StatBar,
-    stat_params = list(width = width),
     geom = geom,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(
+      width = width,
+      ...
+    )
   )
 }
 
@@ -143,7 +152,7 @@ StatBar <- ggproto("StatBar", Stat,
     params
   },
 
-  compute_group = function(self, data, ..., width = NULL) {
+  compute_group = function(self, data, scales, width = NULL) {
     x <- data$x
     weight <- data$weight %||% rep(1, length(x))
     width <- width %||% (resolution(x) * 0.9)

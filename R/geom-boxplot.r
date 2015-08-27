@@ -96,16 +96,16 @@ geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    geom_params = list(
+    params = list(
       outlier.colour = outlier.colour,
       outlier.shape = outlier.shape,
       outlier.size = outlier.size,
       outlier.stroke = outlier.stroke,
       notch = notch,
       notchwidth = notchwidth,
-      varwidth = varwidth
-    ),
-    params = list(...)
+      varwidth = varwidth,
+      ...
+    )
   )
 }
 

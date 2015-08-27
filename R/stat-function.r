@@ -56,12 +56,12 @@ stat_function <- function(mapping = NULL, data = NULL, geom = "path",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       fun = fun,
       n = n,
-      args = args
-    ),
-    params = list(...)
+      args = args,
+      ...
+    )
   )
 }
 

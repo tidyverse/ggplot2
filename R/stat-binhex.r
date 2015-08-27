@@ -16,11 +16,11 @@ stat_bin_hex <- function(mapping = NULL, data = NULL, geom = "hex",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       bins = bins,
-      binwidth = binwidth
-    ),
-    params = list(...)
+      binwidth = binwidth,
+      ...
+    )
   )
 }
 

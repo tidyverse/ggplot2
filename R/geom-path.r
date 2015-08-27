@@ -94,14 +94,14 @@ geom_path <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    geom_params = list(
+    params = list(
       lineend = lineend,
       linejoin = linejoin,
       linemitre = linemitre,
       arrow = arrow,
-      na.rm = na.rm
-    ),
-    params = list(...)
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

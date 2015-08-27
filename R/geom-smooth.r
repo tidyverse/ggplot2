@@ -89,8 +89,12 @@ geom_smooth <- function(mapping = NULL, data = NULL, stat = "smooth",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...),
-    stat_params = list(method = method, formula = formula, se = se)
+    params = list(
+      method = method,
+      formula = formula,
+      se = se,
+      ...
+    )
   )
 }
 

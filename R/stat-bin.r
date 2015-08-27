@@ -30,16 +30,16 @@ stat_bin <- function(mapping = NULL, data = NULL, geom = "bar",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       width = width,
       drop = drop,
       right = right,
       bins = bins,
       binwidth = binwidth,
       origin = origin,
-      breaks = breaks
-    ),
-    params = list(...)
+      breaks = breaks,
+      ...
+    )
   )
 }
 

@@ -71,11 +71,11 @@ geom_violin <- function(mapping = NULL, data = NULL, stat = "ydensity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       trim = trim,
-      scale = scale
-    ),
-    params = list(...)
+      scale = scale,
+      ...
+    )
   )
 }
 

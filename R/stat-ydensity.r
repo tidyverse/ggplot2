@@ -33,14 +33,14 @@ stat_ydensity <- function(mapping = NULL, data = NULL, geom = "violin",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       adjust = adjust,
       kernel = kernel,
       trim = trim,
       scale = scale,
-      na.rm = na.rm
-    ),
-    params = list(...)
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

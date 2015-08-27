@@ -30,8 +30,10 @@ stat_ecdf <- function(mapping = NULL, data = NULL, geom = "step",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(n = n),
-    params = list(...)
+    params = list(
+      n = n,
+      ...
+    )
   )
 }
 

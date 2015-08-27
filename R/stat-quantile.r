@@ -24,14 +24,14 @@ stat_quantile <- function(mapping = NULL, data = NULL, geom = "quantile",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       quantiles = quantiles,
       formula = formula,
       method = method,
       method.args = method.args,
-      na.rm = na.rm
-    ),
-    params = list(...)
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

@@ -124,8 +124,10 @@ geom_point <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    geom_params = list(na.rm = na.rm),
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

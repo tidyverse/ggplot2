@@ -23,12 +23,12 @@ geom_label <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    geom_params = list(
+    params = list(
       parse = parse,
       label.padding = label.padding,
-      label.r = label.r
-    ),
-    params = list(...)
+      label.r = label.r,
+      ...
+    )
   )
 }
 

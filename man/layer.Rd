@@ -4,20 +4,14 @@
 \alias{layer}
 \title{Create a new layer}
 \usage{
-layer(geom = NULL, geom_params = list(), stat = NULL,
-  stat_params = list(), data = NULL, mapping = NULL, position = NULL,
-  params = list(), inherit.aes = TRUE, subset = NULL, show.legend = NA)
+layer(geom = NULL, stat = NULL, data = NULL, mapping = NULL,
+  position = NULL, params = list(), inherit.aes = TRUE, subset = NULL,
+  show.legend = NA)
 }
 \arguments{
 \item{geom,stat,position}{Geom, stat and position adjustment to use in
 this layer. Can either be the name of a ggproto object, or the object
 itself.}
-
-\item{geom_params,stat_params,params}{Additional parameters to the
-\code{geom} and \code{stat}. If supplied individual in \code{...} or as a
-list in \code{params}, \code{layer} does it's best to figure out which
-arguments belong to which. To be explicit, supply as individual lists to
-\code{geom_param} and \code{stat_param}.}
 
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
@@ -27,6 +21,8 @@ defined at the top level of the plot.}
 default), is combined with the default mapping at the top level of the
 plot. You only need to supply \code{mapping} if there isn't a mapping
 defined for the plot.}
+
+\item{params}{Additional parameters to the \code{geom} and \code{stat}.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions

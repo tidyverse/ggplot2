@@ -77,8 +77,10 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
     position = PositionIdentity,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    geom_params = list(map = map),
-    params = list(...)
+    params = list(
+      map = map,
+      ...
+    )
   )
 }
 
