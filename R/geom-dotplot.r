@@ -163,6 +163,11 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomDotplot <- ggproto("GeomDotplot", Geom,
+  required_aes = c("x", "y"),
+  non_missing_aes = c("size", "shape"),
+
+  default_aes = aes(colour = "black", fill = "black", alpha = NA),
+
   setup_data = function(data, params) {
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)
@@ -238,10 +243,6 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   draw_group = function(data, panel_scales, coord, na.rm = FALSE,
                         binaxis = "x", stackdir = "up", stackratio = 1,
                         dotsize = 1, stackgroups = FALSE) {
-
-    data <- remove_missing(data, na.rm, c("x", "y", "size", "shape"), name = "geom_dotplot")
-    if (empty(data)) return(zeroGrob())
-
     if (!coord$is_linear()) {
       warning("geom_dotplot does not work properly with non-linear coordinates.")
     }
@@ -270,10 +271,5 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
     )
   },
 
-  draw_key = draw_key_dotplot,
-
-  required_aes = c("x", "y"),
-
-  default_aes = aes(colour = "black", fill = "black", alpha = NA)
-
+  draw_key = draw_key_dotplot
 )

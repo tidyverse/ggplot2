@@ -53,14 +53,20 @@ NULL
 #' @export
 Geom <- ggproto("Geom",
   required_aes = character(),
+  non_missing_aes = character(),
 
   default_aes = aes(),
 
   draw_key = draw_key_point,
 
   draw_layer = function(self, data, params, panel, coord) {
-    args <- c(list(quote(data), quote(panel_scales), quote(coord)), params)
+    data <- remove_missing(data, isTRUE(params$na.rm),
+      c(self$required_aes, self$non_missing_aes),
+      snake_class(self)
+    )
+    if (empty(data)) return(list(zeroGrob()))
 
+    args <- c(list(quote(data), quote(panel_scales), quote(coord)), params)
     plyr::dlply(data, "PANEL", function(data) {
       if (empty(data)) return(zeroGrob())
 

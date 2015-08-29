@@ -149,11 +149,15 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomText <- ggproto("GeomText", Geom,
+  required_aes = c("x", "y", "label"),
+
+  default_aes = aes(
+    colour = "black", size = 3.88, angle = 0, hjust = 0.5,
+    vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2
+  ),
+
   draw_panel = function(data, panel_scales, coord, parse = FALSE,
                         na.rm = FALSE, check_overlap = FALSE) {
-    data <- remove_missing(data, na.rm,
-      c("x", "y", "label"), name = "geom_text")
-
     lab <- data$label
     if (parse) {
       lab <- parse(text = lab)
@@ -182,11 +186,6 @@ GeomText <- ggproto("GeomText", Geom,
       check.overlap = check_overlap
     )
   },
-
-  required_aes = c("x", "y", "label"),
-
-  default_aes = aes(colour = "black", size = 3.88, angle = 0, hjust = 0.5,
-    vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2),
 
   draw_key = draw_key_text
 )

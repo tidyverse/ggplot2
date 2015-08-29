@@ -69,6 +69,10 @@ geom_segment <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomSegment <- ggproto("GeomSegment", Geom,
+  required_aes = c("x", "y", "xend", "yend"),
+  non_missing_aes = c("linetype", "size", "shape"),
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+
   draw_panel = function(data, panel_scales, coord, arrow = NULL,
                         lineend = "butt", na.rm = FALSE) {
 
@@ -103,9 +107,6 @@ GeomSegment <- ggproto("GeomSegment", Geom,
     GeomPath$draw_panel(pieces, panel_scales, coord, arrow = arrow,
       lineend = lineend)
   },
-
-  required_aes = c("x", "y", "xend", "yend"),
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
   draw_key = draw_key_path
 )

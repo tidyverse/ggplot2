@@ -38,6 +38,10 @@ geom_raster <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomRaster <- ggproto("GeomRaster", Geom,
+  default_aes = aes(fill = "grey20", alpha = NA),
+  non_missing_aes = "fill",
+  required_aes = c("x", "y"),
+
   setup_data = function(data, params) {
     hjust <- params$hjust %||% 0.5
     vjust <- params$vjust %||% 0.5
@@ -57,8 +61,6 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     if (!inherits(coord, "CoordCartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }
-    data <- remove_missing(data, TRUE, c("x", "y", "fill"),
-      name = "geom_raster")
     data <- coord$transform(data, panel_scales)
 
     # Convert vector of data to raster
@@ -81,10 +83,5 @@ GeomRaster <- ggproto("GeomRaster", Geom,
       default.units = "native", interpolate = interpolate
     )
   },
-
-  default_aes = aes(fill = "grey20", alpha = NA),
-
-  required_aes = c("x", "y"),
-
   draw_key = draw_key_rect
 )

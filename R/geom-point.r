@@ -136,11 +136,14 @@ geom_point <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomPoint <- ggproto("GeomPoint", Geom,
-  draw_panel = function(data, panel_scales, coord, na.rm = FALSE) {
-    data <- remove_missing(data, na.rm, c("x", "y", "size", "shape"),
-      name = "geom_point")
-    if (empty(data)) return(zeroGrob())
+  required_aes = c("x", "y"),
+  non_missing_aes = c("size", "shape"),
+  default_aes = aes(
+    shape = 19, colour = "black", size = 1.5, fill = NA,
+    alpha = NA, stroke = 0.5
+  ),
 
+  draw_panel = function(data, panel_scales, coord, na.rm = FALSE) {
     coords <- coord$transform(data, panel_scales)
     ggname("geom_point",
       pointsGrob(
@@ -157,9 +160,5 @@ GeomPoint <- ggproto("GeomPoint", Geom,
     )
   },
 
-  draw_key = draw_key_point,
-
-  required_aes = c("x", "y"),
-  default_aes = aes(shape = 19, colour = "black", size = 1.5, fill = NA,
-    alpha = NA, stroke = 0.5)
+  draw_key = draw_key_point
 )
