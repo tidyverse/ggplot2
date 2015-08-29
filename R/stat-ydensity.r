@@ -51,11 +51,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL, geom = "violin",
 #' @export
 StatYdensity <- ggproto("StatYdensity", Stat,
   required_aes = c("x", "y"),
-
-  setup_data = function(data, params) {
-    data <- remove_missing(data, isTRUE(params$na.rm), c("x", "y", "weight"),
-      name = "stat_ydensity", finite = TRUE)
-  },
+  non_missing_aes = "weight",
 
   compute_group = function(data, scales, width = NULL, adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE) {

@@ -54,14 +54,16 @@ Stat <- ggproto("Stat",
 
   default_aes = aes(),
 
-  required_aes = c(),
+  required_aes = character(),
+
+  non_missing_aes = character(),
 
   setup_params = function(data, params) {
     params
   },
 
-  setup_data = function(self, data, params) {
-    remove_missing(data, isTRUE(params$na.rm), self$required_aes, name = snake_class(self))
+  setup_data = function(data, params) {
+    data
   },
 
   compute_layer = function(self, data, params, panels) {
@@ -69,6 +71,11 @@ Stat <- ggproto("Stat",
       self$stat$required_aes,
       c(names(data), names(params)),
       snake_class(self$stat)
+    )
+    data <- remove_missing(data, isTRUE(params$na.rm),
+      c(self$required_aes, self$non_missing_aes),
+      snake_class(self),
+      finite = TRUE
     )
 
     args <- c(list(data = quote(data), scales = quote(scales)), params)

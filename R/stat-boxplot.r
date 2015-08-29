@@ -42,15 +42,11 @@ stat_boxplot <- function(mapping = NULL, data = NULL, geom = "boxplot",
 #' @export
 StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("x", "y"),
+  non_missing_aes = "weight",
 
   setup_params = function(data, params) {
     params$width <- params$width %||% resolution(data$x) * 0.75
     params
-  },
-
-  setup_data = function(data, params) {
-    remove_missing(data, isTRUE(params$na.rm), c("x", "y", "weight"), name = "stat_boxplot",
-      finite = TRUE)
   },
 
   compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5) {

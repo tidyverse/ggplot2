@@ -3,16 +3,15 @@
 #' @usage NULL
 #' @export
 StatBindot <- ggproto("StatBindot", Stat,
+  required_aes = "x",
+  non_missing_aes = "weight",
+  default_aes = aes(y = ..count..),
+
   setup_params = function(data, params) {
     if (is.null(params$breaks) && is.null(params$binwidth)) {
       message("`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.")
     }
     params
-  },
-
-  setup_data = function(data, params) {
-    remove_missing(data, isTRUE(params$na.rm), c(params$binaxis, "weight"),
-      name = "stat_bindot", finite = TRUE)
   },
 
   compute_panel = function(self, data, scales, na.rm = FALSE, binwidth = NULL,
@@ -115,11 +114,7 @@ StatBindot <- ggproto("StatBindot", Stat,
       data$x <- midline
     }
     return(data)
-  },
-
-  default_aes = aes(y = ..count..),
-
-  required_aes = "x"
+  }
 )
 
 
