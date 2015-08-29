@@ -6,7 +6,7 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
     # Width set manually
     if (!(all(c("xmin", "xmax") %in% names(data)))) {
       data$xmin <- data$x - width / 2
-      data$xmax <- data$x - width / 2
+      data$xmax <- data$x + width / 2
     }
   } else {
     if (!(all(c("xmin", "xmax") %in% names(data)))) {
