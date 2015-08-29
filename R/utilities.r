@@ -10,11 +10,6 @@
 #'   geom_point(colour = alpha("blue", 0.5))
 NULL
 
-# Null default
-# Analog of || from ruby
-#
-# @keyword internal
-# @name nulldefault-infix
 "%||%" <- function(a, b) {
   if (!is.null(a)) a else b
 }
@@ -22,7 +17,6 @@ NULL
 "%|W|%" <- function(a, b) {
   if (!is.waive(a)) a else b
 }
-
 
 # Check required aesthetics are present
 # This is used by geoms and stats to give a more helpful error message
@@ -51,11 +45,6 @@ clist <- function(l) {
   paste(paste(names(l), l, sep = " = ", collapse = ", "), sep = "")
 }
 
-# Quietly try to require a package
-# Quietly require a package, returning an error message if that package is not installed.
-#
-# @param name of package
-# @keyword internal
 try_require <- function(package, fun) {
   if (requireNamespace(package, quietly = TRUE)) {
     library(package, character.only = TRUE)
@@ -131,25 +120,6 @@ finite.cases.data.frame <- function(x) {
     # Find all the rows where all are TRUE
     rowSums(as.matrix(finite_cases)) == ncol(x)
   }
-}
-
-# "Invert" a list
-# Keys become values, values become keys
-#
-# @param list to invert
-# @keyword internal
-invert <- function(L) {
-  t1 <- unlist(L)
-  names(t1) <- rep(names(L), lapply(L, length))
-  tapply(names(t1), t1, c)
-}
-
-# Inside
-# Return logical vector indicating if x is inside the interval
-#
-# @keyword internal
-"%inside%" <- function(x, interval) {
-  x >= interval[1] & x <= interval[2]
 }
 
 #' Used in examples to illustrate when errors should occur.
@@ -236,7 +206,6 @@ gg_dep <- function(version, msg) {
   invisible()
 }
 
-
 has_name <- function(x) {
   nms <- names(x)
   if (is.null(nms)) {
@@ -245,7 +214,6 @@ has_name <- function(x) {
 
   !is.na(nms) & nms != ""
 }
-
 
 # Convert a snake_case string to camelCase
 camelize <- function(x, first = FALSE) {
@@ -260,7 +228,6 @@ snakeize <- function(x) {
   x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
   tolower(x)
 }
-
 
 firstUpper <- function(s) {
   paste(toupper(substring(s, 1,1)), substring(s, 2), sep = "")
