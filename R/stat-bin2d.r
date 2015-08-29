@@ -4,7 +4,6 @@
 #'   horizontal directions. Overrides \code{bins} if both set.
 #' @param drop if \code{TRUE} removes all cells with 0 counts.
 #' @export
-#' @aliases stat_bin2d
 #' @rdname geom_bin2d
 stat_bin_2d <- function(mapping = NULL, data = NULL, geom = "tile",
                         position = "identity", bins = 30, binwidth = NULL,
@@ -26,7 +25,10 @@ stat_bin_2d <- function(mapping = NULL, data = NULL, geom = "tile",
   )
 }
 
+
 #' @export
+#' @rdname geom_bin2d
+#' @usage NULL
 stat_bin2d <- stat_bin_2d
 
 #' @rdname ggplot2-ggproto

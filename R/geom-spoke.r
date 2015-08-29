@@ -4,7 +4,6 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "spoke")}
 #'
 #' @inheritParams geom_segment
-#' @aliases stat_spoke
 #' @export
 #' @examples
 #' df <- expand.grid(x = 1:10, y=1:10)
@@ -34,6 +33,8 @@ geom_spoke <- function(mapping = NULL, data = NULL, stat = "identity",
 }
 
 #' @export
+#' @rdname geom_spoke
+#' @usage NULL
 stat_spoke <- function(...) {
   message("stat_spoke is deprecated, please use geom_spoke")
   geom_spoke(...)
