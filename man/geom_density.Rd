@@ -98,6 +98,7 @@ ggplot(diamonds, aes(depth, fill = cut, colour = cut)) +
   geom_density(alpha = 0.1) +
   xlim(55, 70)
 
+\donttest{
 # Stacked density plots: if you want to create a stacked density plot, you
 # probably want to 'count' (density * n) variable instead of the default
 # density
@@ -112,6 +113,7 @@ ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
 # You can use position="fill" to produce a conditional density estimate
 ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
   geom_density(position = "fill")
+}
 }
 \seealso{
 See \code{\link{geom_histogram}}, \code{\link{geom_freqpoly}} for

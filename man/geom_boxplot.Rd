@@ -138,6 +138,7 @@ ggplot(diamonds, aes(carat, price)) +
 ggplot(diamonds, aes(carat, price)) +
   geom_boxplot(aes(group = cut_width(carat, 0.25)))
 
+\donttest{
 # It's possible to draw a boxplot with your own computations if you
 # use stat = "identity":
 y <- rnorm(100)
@@ -154,6 +155,7 @@ ggplot(df, aes(x)) +
    aes(ymin = y0, lower = y25, middle = y50, upper = y75, ymax = y100),
    stat = "identity"
  )
+}
 }
 \references{
 McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of

@@ -85,6 +85,7 @@
 #' # Expand dot diameter
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
 #'
+#' \donttest{
 #' # Examples with stacking along y axis instead of x
 #' ggplot(mtcars, aes(x = 1, y = mpg)) +
 #'   geom_dotplot(binaxis = "y", stackdir = "center")
@@ -111,6 +112,7 @@
 #'
 #' ggplot(mtcars, aes(x = 1, y = mpg, fill = factor(cyl))) +
 #'   geom_dotplot(binaxis = "y", stackgroups = TRUE, binwidth = 1, method = "histodot")
+#' }
 geom_dotplot <- function(mapping = NULL, data = NULL,
   position = "identity", na.rm = FALSE, binwidth = NULL, binaxis = "x",
   method = "dotdensity", binpositions = "bygroup", stackdir = "up",

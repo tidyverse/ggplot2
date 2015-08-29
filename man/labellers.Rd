@@ -89,6 +89,7 @@ p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 p + facet_grid(. ~ cyl)
 p + facet_grid(. ~ cyl, labeller = label_value)
 
+\donttest{
 # Displaying both the values and the variables
 p + facet_grid(. ~ cyl, labeller = label_both)
 
@@ -107,6 +108,7 @@ p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 p + facet_grid(. ~ vs, labeller = label_bquote(alpha ^ .(vs)))
 p + facet_grid(. ~ vs, labeller = label_bquote(.(vs) ^ .(vs)))
 p + facet_grid(. ~ vs + am, labeller = label_bquote(.(am) ^ .(vs)))
+}
 }
 \seealso{
 \code{\link{labeller}()}

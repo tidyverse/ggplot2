@@ -29,6 +29,7 @@
 #'   geom_density(alpha = 0.1) +
 #'   xlim(55, 70)
 #'
+#' \donttest{
 #' # Stacked density plots: if you want to create a stacked density plot, you
 #' # probably want to 'count' (density * n) variable instead of the default
 #' # density
@@ -43,6 +44,7 @@
 #' # You can use position="fill" to produce a conditional density estimate
 #' ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
 #'   geom_density(position = "fill")
+#' }
 geom_density <- function(mapping = NULL, data = NULL, stat = "density",
   position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
   ...) {

@@ -65,6 +65,7 @@
 #' ggplot(df, aes(x, y2)) + geom_point() + geom_line()
 #' ggplot(df, aes(x, y3)) + geom_point() + geom_line()
 #'
+#' \donttest{
 #' # Setting line type vs colour/size
 #' # Line type needs to be applied to a line as a whole, so it can
 #' # not be used with colour or size that vary across a line
@@ -82,6 +83,7 @@
 #' p + geom_line(aes(colour = x))
 #' # But this doesn't
 #' should_stop(p + geom_line(aes(colour = x), linetype=2))
+#' }
 geom_path <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "identity", lineend = "butt",
                       linejoin = "round", linemitre = 1, na.rm = FALSE,

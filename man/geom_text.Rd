@@ -166,7 +166,7 @@ df <- transform(df, mid_y = ave(df$y, df$x, FUN = function(val) cumsum(val) - (0
 ggplot(data = df, aes(x, y, fill = grp, label = y)) +
  geom_bar(stat = "identity") +
  geom_text(aes(y = mid_y))
-}
+
 # Justification -------------------------------------------------------------
 df <- data.frame(
   x = c(1, 1, 2, 2, 1.5),
@@ -177,5 +177,6 @@ ggplot(df, aes(x, y)) +
   geom_text(aes(label = text))
 ggplot(df, aes(x, y)) +
   geom_text(aes(label = text), vjust = "inward", hjust = "inward")
+}
 }
 

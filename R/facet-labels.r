@@ -61,6 +61,7 @@
 #' p + facet_grid(. ~ cyl)
 #' p + facet_grid(. ~ cyl, labeller = label_value)
 #'
+#' \donttest{
 #' # Displaying both the values and the variables
 #' p + facet_grid(. ~ cyl, labeller = label_both)
 #'
@@ -79,6 +80,7 @@
 #' p + facet_grid(. ~ vs, labeller = label_bquote(alpha ^ .(vs)))
 #' p + facet_grid(. ~ vs, labeller = label_bquote(.(vs) ^ .(vs)))
 #' p + facet_grid(. ~ vs + am, labeller = label_bquote(.(am) ^ .(vs)))
+#' }
 NULL
 
 #' @rdname labellers
