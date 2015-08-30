@@ -1,16 +1,10 @@
-#' Mutable range objects
-#'
 #' Mutable ranges have a two methods (\code{train} and \code{reset}), and make
 #' it possible to build up complete ranges with multiple passes.
 #'
 #' These range objects should be instantiated with
 #' \code{\link{continuous_range}} and \code{\link{discrete_range}}.
 #'
-#' @aliases RangeDiscrete RangeContinuous
-#' @keywords internal
-#' @format NULL
-#' @usage NULL
-#' @export RangeDiscrete RangeContinuous
+#' @noRd
 Range <- ggproto("Range", NULL,
   range = NULL,
   reset = function(self) {
@@ -30,16 +24,10 @@ RangeContinuous <- ggproto("RangeContinuous", Range,
   }
 )
 
-#' @rdname Range
-#' @format NULL
-#' @export
 continuous_range <- function() {
   ggproto(NULL, RangeContinuous)
 }
 
-#' @rdname Range
-#' @format NULL
-#' @export
 discrete_range <- function() {
   ggproto(NULL, RangeDiscrete)
 }
