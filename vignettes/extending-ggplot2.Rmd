@@ -14,12 +14,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 library(ggplot2)
 ```
 
-This page aims at presenting the major steps involved in extending ggplot2 by:
-
-* Creating a new geom, stat, or position adjustment
-* Creating a new theme
-
-This vignette documents the official extension mechanism provided in ggplot2 1.1.0. This vignette is a high-level adjunct to the low-level details found in `?Stat`, `?Geom` and `?theme`.
+This vignette documents the official extension mechanism provided in ggplot2 1.1.0. This vignette is a high-level adjunct to the low-level details found in `?Stat`, `?Geom` and `?theme`. You'll learn how to extending ggplot2 by creating a new stat, geom, or theme.
 
 As you read this document, you'll see many things that will scratch your head and make you wonder, why on earth is it designed that way? Mostly it's historical accident - I wasn't a terribly good R programmer when I started writing ggplot2 and I made a lot of questionable decisions. We cleaned up as many as possible in the 1.1.0 release, but some fixes simply weren't worth the effort.
 
@@ -54,6 +49,8 @@ To create a new geom or stat, you will just create a new ggproto that inherits f
 
 ## Creating a new stat
 
+### The simplest stat
+
 We'll start by creating a very simple stat: one that gives the complex hull (the _c_ hull) of a set of points. First we create a new ggproto object that inherits from `Stat`:
 
 ```{r chull}
@@ -68,7 +65,9 @@ StatChull <- ggproto("StatChull", Stat,
 
 The two most important components are the `compute_group()` method (which does the computation), and the `required_aes` field, which lists which aesthetics must be present in order to for the stat to work.
 
-Next we write a layer function. In an ideal world, I would have originally called these things layers, so you'd use `layer_chull()` instead of `stat_chull()`, but unfortunately changing things now would require a huge amount of effort.
+Next we write a layer function. Unfortunately, due to any early design mistake I called these either `stat_()` or `geom_()`. A better decision would have been to call them `layer_()` functions: that's a more accurate description because every layer involves a a stat _and_ a geom. 
+
+All layer functions follow the same form - you specify defaults in the function arguments and then call the `layer()` function, sending `...` into the `params` argument. The arguments in `...` will either be arguments for the geom (if you're making a stat wrapper), arguments for the stat (if you're making a geom wrapper), or aesthetics to be set. `layer()` takes care of teasing the different parameters apart and making sure they're stored in the right place:
 
 ```{r}
 stat_chull <- function(mapping = NULL, data = NULL, geom = "polygon",
@@ -82,9 +81,9 @@ stat_chull <- function(mapping = NULL, data = NULL, geom = "polygon",
 }
 ```
 
-All wrapper functions follow the same form - you specify defaults in the function arguments and then call the `layer()` function, sending `...` into the `params` argument. The arguments in `...` will either be arguments for the geom (if you're making a stat wrapper), arguments for the stat (if you're making a geom wrapper), or aesthetics to be set. `layer()` takes care of teasing the different parameters apart and making sure they're stored in the right place.
+(Note that if you're writing this in your own package, you'll either need to call `ggplot2::layer()` explicitly, or import the `layer()` function into your package namespace.)
 
-Now we can try out our new Stat:
+Once we have a layer function we can try our new stat:
 
 ```{r}
 ggplot(mpg, aes(displ, hwy)) + 
@@ -102,9 +101,17 @@ ggplot(mpg, aes(displ, hwy, colour = drv)) +
   stat_chull(fill = NA)
 ```
 
+We can also override the default geom to display the convex hull in a different way:
+
+```{r}
+ggplot(mpg, aes(displ, hwy)) + 
+  stat_chull(geom = "point", size = 4, colour = "red") +
+  geom_point()
+```
+
 ### Stat parameters
 
-A more realistic stat will actually do some computation. Let's implement a simple version of `geom_smooth()` that adds a line of best fit to a plot.
+A more complex stat will do some computation. Let's implement a simple version of `geom_smooth()` that adds a line of best fit to a plot. We create a `StatLm` that inherits from `Stat` and a layer function, `stat_lm()`:
 
 ```{r}
 StatLm <- ggproto("StatLm", Stat, 
@@ -136,7 +143,7 @@ ggplot(mpg, aes(displ, hwy)) +
   stat_lm()
 ```
 
-This Stat is very inflexible because it has no parameters. We might want to allow the user to control the model formula and the number of points used to generate the grid. To do so, we add arguments to the `compute_group()` method and our wrapper function:
+`StatLm` is inflexible because it has no parameters. We might want to allow the user to control the model formula and the number of points used to generate the grid. To do so, we add arguments to the `compute_group()` method and our wrapper function:
 
 ```{r}
 StatLm <- ggproto("StatLm", Stat, 
@@ -166,17 +173,38 @@ stat_lm <- function(mapping = NULL, data = NULL, geom = "line",
 
 ggplot(mpg, aes(displ, hwy)) + 
   geom_point() + 
-  stat_lm(formula = y ~ poly(x, 10), n = 20)
+  stat_lm(formula = y ~ poly(x, 10)) + 
+  stat_lm(formula = y ~ poly(x, 10), geom = "point", colour = "red", n = 20)
+```
+
+Note that don't _have_ to explicitly include the new parameters in the arguments for the layer, `...` will get passed to the right place anyway. But you'll need to document them somewhere so the user knows about them. Here's a brief example. Note `@inheritParams ggplot2:stat_identity`: that will automatically inherit documentation for all the parameters also defined for `stat_identity()`.
+
+```{r}
+#' @inheritParams ggplot2:stat_identity
+#' @param formula The modelling formula passed to \code{lm}. Should only 
+#'   involve \code{y} and \code{x}
+#' @param n Number of points used for interpolation.
+stat_lm <- function(mapping = NULL, data = NULL, geom = "line",
+                    position = "identity", show.legend = NA, 
+                    inherit.aes = TRUE, n = 50, formula = y ~ x, 
+                    ...) {
+  layer(
+    stat = StatLm, data = data, mapping = mapping, geom = geom, 
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(n = n, formula = formula, ...)
+  )
+}
+
 ```
 
 ### Picking defaults
 
-Sometimes you have calculations that need to be performed once for the complete dataset, not individually in each layer. This is typical if you want to automatically figure out sensible default values. For example, if we want to do a density estimate, it's reasonable to pick one bandwidth for the whole plot. The following Stat creates a variation of the `stat_density()` that picks one bandwidth for all groups by choosing the mean of the "best" bandwidth for each group (I have no theoretical justification for this, but it doesn't seem unreasonable).
+Sometimes you have calculations that should performed once for the complete dataset, not once for each group. This is useful for picking sensible default values. For example, if we want to do a density estimate, it's reasonable to pick one bandwidth for the whole plot. The following Stat creates a variation of the `stat_density()` that picks one bandwidth for all groups by choosing the mean of the "best" bandwidth for each group (I have no theoretical justification for this, but it doesn't seem unreasonable).
 
 To do this we override the `setup_params()` method. It's passed the data and a list of params, and returns an updated list.
 
 ```{r}
-StatDensity2 <- ggproto("StatDensity2", Stat, 
+StatDensityCommon <- ggproto("StatDensityCommon", Stat, 
   required_aes = "x",
   
   setup_params = function(data, params) {
@@ -197,32 +225,32 @@ StatDensity2 <- ggproto("StatDensity2", Stat,
   }  
 )
 
-stat_density2 <- function(mapping = NULL, data = NULL, geom = "line",
-                    position = "identity", show.legend = NA, 
-                    inherit.aes = TRUE, bandwidth = NULL,
-                    ...) {
+stat_density_common <- function(mapping = NULL, data = NULL, geom = "line",
+                                position = "identity", show.legend = NA, 
+                                inherit.aes = TRUE, bandwidth = NULL,
+                                ...) {
   layer(
-    stat = StatDensity2, data = data, mapping = mapping, geom = geom, 
+    stat = StatDensityCommon, data = data, mapping = mapping, geom = geom, 
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(bandwidth = bandwidth, ...)
   )
 }
 
 ggplot(mpg, aes(displ, colour = drv)) + 
-  stat_density2()
+  stat_density_common()
 
 ggplot(mpg, aes(displ, colour = drv)) + 
-  stat_density2(bandwidth = 1)
+  stat_density_common(bandwidth = 0.5)
 ```
 
-In this scenario, I recommend using `NULL` as a default value, and when picking important parameters you should `message()` the user with the value you chose. (And when printing a floating point parameter, using `signif()` to show only a few significant figures).
+I recommend using `NULL` as a default value. If you pick important parameters automatically, it's a good idea to `message()` to the user (and when printing a floating point parameter, using `signif()` to show only a few significant digits).
 
 ### Variable names and default aesthetics
 
-This stat also illustrates another important point. If we want to make this stat usable with other geoms, we should return a variable called `density` instead of `y`. Then we can set up the `default_aes` to automatically map `density` to `y`, which allows the user to override it to use with different geoms:
+This stat illustrates another important point. If we want to make this stat usable with other geoms, we should return a variable called `density` instead of `y`. Then we can set up the `default_aes` to automatically map `density` to `y`, which allows the user to override it to use with different geoms:
 
 ```{r}
-StatDensity2 <- ggproto("StatDensity2", Stat, 
+StatDensityCommon <- ggproto("StatDensity2", Stat, 
   required_aes = "x",
   default_aes = aes(y = ..density..),
 
@@ -233,20 +261,20 @@ StatDensity2 <- ggproto("StatDensity2", Stat,
 )
 
 ggplot(mpg, aes(displ, drv, colour = ..density..)) + 
-  stat_density2(bandwidth = 1, geom = "point")
+  stat_density_common(bandwidth = 1, geom = "point")
 ```
 
 However, using this stat with the area geom doesn't work quite right. The areas don't stack on top of each other:
 
 ```{r}
 ggplot(mpg, aes(displ, fill = drv)) + 
-  stat_density2(bandwidth = 1, geom = "area", position = "stack")
+  stat_density_common(bandwidth = 1, geom = "area", position = "stack")
 ```
 
-
+This is because each density is computed independently, and the estimated `x`s don't line up. We can resolve that issue by computing the range of the data once in `setup_params()`.
 
 ```{r}
-StatDensity2 <- ggproto("StatDensity2", Stat, 
+StatDensityCommon <- ggproto("StatDensityCommon", Stat, 
   required_aes = "x",
   default_aes = aes(y = ..density..),
 
@@ -268,28 +296,33 @@ StatDensity2 <- ggproto("StatDensity2", Stat,
 )
 
 ggplot(mpg, aes(displ, fill = drv)) + 
-  stat_density2(bandwidth = 1, geom = "area", position = "stack")
+  stat_density_common(bandwidth = 1, geom = "area", position = "stack")
 ggplot(mpg, aes(displ, drv, fill = ..density..)) + 
-  stat_density2(bandwidth = 1, geom = "raster")
+  stat_density_common(bandwidth = 1, geom = "raster")
 ```
-
-(A better use would be to display with `geom_tile()` or `geom_raster()`, but this requires the x's for each group to line up.)
 
 ### Exercises
 
-1.  Extend `stat_chull` to compute the alphahull, as computed by the
+1.  Extend `stat_chull` to compute the alpha hull, as from the
     [alphahull](https://cran.r-project.org/package=alphahull) package. Your
     new stat should take an `alpha` argument.
 
-1.  Modify the final version of `StatDensity2` to allow the user to also 
+1.  Modify the final version of `StatDensityCommon` to allow the user to 
     specify the `min` and `max` parameters. You'll need to modify both the
     layer function and the `compute_group()` method.
 
+1.  Compare and contrast `StatLm` to `ggplot2::StatSmooth`. What key
+    differences make `StatSmooth` more complex than `StatLm`?
+
 ## Creating a new geom
 
-It's easiest to start with a simple example. The code below creates a simplified version of `geom_point()`:
+It's harder to create a new geom than a new stat because you also need to know some grid. ggplot2 is built on top of grid, so you'll need to know the basics of drawing with grid. If you're serious about adding a new geom, I'd recommend buying [R graphics](http://amzn.com/B00I60M26G) by Paul Murrell. It tells you everything you need to know about drawing with grid.
 
-```{r}
+### A simple geom
+
+It's easiest to start with a simple example. The code below is a simplified version of `geom_point()`:
+
+```{r GeomSimplePoint}
 GeomSimplePoint <- ggproto("GeomSimplePoint", Geom,
   required_aes = c("x", "y"),
   default_aes = aes(shape = 19, colour = "black"),
@@ -315,15 +348,11 @@ geom_simple_point <- function(mapping = NULL, data = NULL, stat = "identity",
   )
 }
 
-ggplot(mpg, aes(displ, hwy)) + geom_simple_point()
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_simple_point()
 ```
 
-Much should look familiar from creating new scales. There are two key pieces:
-
-* A `GeomPoint2` object that defines the behaviour of the plot.
-* A `geom_point2()` wrapper function that creates a layer.
-
-The object is more complicated. You always need to provide fields/methods for the four pieces shown above:
+This is very similar to defining a new stat. You always need to provide fields/methods for the four pieces shown above:
 
 * `required_aes` is a character vector which lists all the aesthetics that
   the user must provide.
@@ -346,17 +375,22 @@ The object is more complicated. You always need to provide fields/methods for th
 
 * `coord`: an object describing the coordinate system.
 
-Generally you won't use `panel_scales` and `coord` directly, but you will always use them to transform the data: `coords <- coord$transform(data, panel_scales)`. This creates a data frame where position variables are scaled to the range 0--1. You then take this data and call a grid grob function.
+Generally you won't use `panel_scales` and `coord` directly, but you will always use them to transform the data: `coords <- coord$transform(data, panel_scales)`. This creates a data frame where position variables are scaled to the range 0--1. You then take this data and call a grid grob function. (Transforming for non-Cartesian coordinate systems is quite complex - you're best of transforming your data to the form accepted by an existing ggplot2 geom and passing it.)
 
-ggplot2 is built on top of grid, so you'll need to know the basics of drawing with grid. If you're serious about adding a new geom, I'd recommend buying [R graphics](http://amzn.com/B00I60M26G) by Paul Murrell. It tells you everything you need to know about drawing with grid.
+### Collective geoms
 
-Overriding `draw_panel()` is most appropriate if there is one graphic element per row. In other cases, you'll get one row per group. For example, take polygons. The following code is a somewhat simplified version of `GeomPolygon`:
+Overriding `draw_panel()` is most appropriate if there is one graphic element per row. In other cases, you want graphic element per group. For example, take polygons: each row gives one vertex of a polygon. In this case, you should instead override `draw_group()`:
+
+The following code makes a simplified version of `GeomPolygon`:
 
 ```{r}
 GeomSimplePolygon <- ggproto("GeomPolygon", Geom,
   required_aes = c("x", "y"),
   
-  default_aes = aes(colour = "NA", fill = "grey20", size = 0.5, linetype = 1, alpha = 1),
+  default_aes = aes(
+    colour = NA, fill = "grey20", size = 0.5,
+    linetype = 1, alpha = 1
+  ),
 
   draw_key = draw_key_polygon,
 
@@ -418,23 +452,6 @@ There are a few things to note here:
 
 Sometimes you just want to make a small modification to an existing geom. In this case, rather than inheriting from `Geom` you can inherit from an existing subclass. For example, we might want to change the defaults for `GeomPolygon` to work better with `StatChull`:
 
-You might also consider createing a `geom_chull()`:
-
-```{r}
-geom_chull <- function(mapping = NULL, data = NULL, 
-                       position = "identity", show.legend = NA, 
-                       inherit.aes = TRUE, ...) {
-  layer(
-    stat = StatChull, geom = GeomPolygon, data = data, mapping = mapping,
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(...)
-  )
-}
-```
-
-This doesn't allow you to use different geoms with the stat, but that seems appropriate here since the convex hull is primarily a polygonal feature.
-
-
 ```{r}
 GeomPolygonHollow <- ggproto("GeomPolygonHollow", GeomPolygon,
   default_aes = aes(colour = "black", fill = NA, size = 0.5, linetype = 1,
@@ -455,11 +472,17 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_chull()
 ```
 
+This doesn't allow you to use different geoms with the stat, but that seems appropriate here since the convex hull is primarily a polygonal feature.
+
+### Exercises
+
+1. Compare and contrast `GeomPoint` with `GeomSimplePoint`.
+
+1. Compare and contract `GeomPolygon` with `GeomSimplePolygon`.
+
 ## Creating your own theme
 
-Instead of modifying an existing theme piecemeal, you might want to start from scratch and create your own unique theme.
-If you want to create your complete theme, you'll need to understand a bit more about the structure of themes.
-
+Instead of modifying an existing theme piecemeal, you might want to start from scratch and create your own unique theme. If you want to create your complete theme, you'll need to understand a bit more about the structure of themes.
 
 ### Global settings
 
