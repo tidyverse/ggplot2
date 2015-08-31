@@ -482,11 +482,33 @@ This doesn't allow you to use different geoms with the stat, but that seems appr
 
 ## Creating your own theme
 
-Instead of modifying an existing theme piecemeal, you might want to start from scratch and create your own unique theme. If you want to create your complete theme, you'll need to understand a bit more about the structure of themes.
+If you're going to create your own complete theme, there are a few things you need to know:
 
-### Global settings
+* Overriding existing elements, rather than modifying them
+* The four global elements that affect (almost) every other theme element
+* Complete vs. incomplete elements
 
-There are four elements that affect the global appearance of the plot.
+### Overriding elements
+
+By default, when you add a new theme element, it inherits values from the existing theme. For example, the following code sets the key colour to red, but it inherits the existing fill colour:
+
+```{r}
+theme_grey()$legend.key
+
+new_theme <- theme_grey() + theme(legend.key = element_rect(colour = "red"))
+new_theme$legend.key
+```
+
+To override it completely, use `%+replace%` instead of `+`:
+
+```{r}
+new_theme <- theme_grey() %+replace% theme(legend.key = element_rect(colour = "red"))
+new_theme$legend.key
+```
+
+### Global elements
+
+There are four elements that affect the global appearance of the plot:
 
 Element      | Theme function    | Description
 -------------|-------------------|------------------------
@@ -499,18 +521,15 @@ These set default properties that are inherited by more specific settings. These
 
 ```{r axis-line-ex}
 df <- data.frame(x = 1:3, y = 1:3)
-base <- ggplot(df, aes(x, y)) + geom_point()
+base <- ggplot(df, aes(x, y)) + 
+  geom_point() + 
+  theme_minimal()
 
-base + theme(text = element_text(colour = "pink"))
+base
+base + theme(text = element_text(colour = "red"))
 ```
 
-It's also possible to use `rel()` to specify a relative size.
-
-Inheritance
-
-Complete vs. incomplete.
-
-`%+replace%`
+You should generally start creating a theme by modifying these values.
 
 ### Complete vs incomplete
 
@@ -521,23 +540,6 @@ Theme functions `theme_grey()` and `theme_bw()` are examples of complete theme f
 Complete and incomplete themes behave somewhat differently when added to a ggplot object:
 
 * Adding an incomplete theme augments the current theme object, replacing only 
-  those properties of elements defined in the call to `theme()`. In particular, 
-  any NULL element properties specified in `theme()`.
+  those properties of elements defined in the call to `theme()`.
   
-* Adding a complete theme wipes away the existing theme and applies. 
-
-To deal with this problem, the concept of a complete theme (object) was introduced in the new theming system. In particular, `theme_grey` and `theme_bw` are both complete theme functions and return complete theme objects when called. When added to a plot, a complete theme object overrides the current default theme and in fact *replaces* it. This idea is implemented by endowing a theme function with the attribute `"complete"`: its value is `TRUE` for complete themes and `FALSE` for incomplete themes. Examples are shown in the next section.
-
-### Modifying a theme function
-
-There is a second type of inheritance in themes
-
-```{r}
-theme_grey()$legend.key
-
-new_theme <- theme_grey() + theme(legend.key = element_rect(colour = "red"))
-new_theme$legend.key
-
-new_theme <- theme_grey() %+replace% theme(legend.key = element_rect(colour = "red"))
-new_theme$legend.key
-```
+* Adding a complete theme wipes away the existing theme and applies the new theme.
