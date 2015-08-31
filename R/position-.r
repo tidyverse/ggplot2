@@ -45,7 +45,7 @@
 #' @format NULL
 #' @usage NULL
 #' @export
-Position <- ggproto("Position",
+Position <- ggproto("Position", Immutable,
   required_aes = character(),
 
   setup_params = function(self, data) {
