@@ -1,13 +1,11 @@
 #' @include utilities.r
 NULL
 
-# all_aes <- function(y) c(names(y$default_aes()), y$required_aes)
-# geom_aes <- unlist(lapply(Geom$find_all(), all_aes))
-# stat_aes <- unlist(lapply(Stat$find_all(), all_aes))
-# all <- sort(unique(c(names(.base_to_ggplot), geom_aes, stat_aes)))
-# dput(all)
-
-.all_aesthetics <- c("adj", "alpha", "angle", "bg", "cex", "col", "color", "colour", "fg", "fill", "group", "hjust", "label", "linetype", "lower", "lty", "lwd", "max", "middle", "min", "pch", "radius", "sample", "shape", "size", "srt", "upper", "vjust", "weight", "width", "x", "xend", "xmax", "xmin", "xintercept", "y", "yend", "ymax", "ymin", "yintercept", "z")
+.all_aesthetics <- c("adj", "alpha", "angle", "bg", "cex", "col", "color",
+  "colour", "fg", "fill", "group", "hjust", "label", "linetype", "lower",
+  "lty", "lwd", "max", "middle", "min", "pch", "radius", "sample", "shape",
+  "size", "srt", "upper", "vjust", "weight", "width", "x", "xend", "xmax",
+  "xmin", "xintercept", "y", "yend", "ymax", "ymin", "yintercept", "z")
 
 .base_to_ggplot <- c(
   "col"   = "colour",
@@ -199,7 +197,7 @@ aes_all <- function(vars) {
   vars <- rename_aes(vars)
 
   structure(
-    lapply(vars, function(x) parse(text = x)[[1]]),
+    lapply(vars, as.name),
     class = "uneval"
   )
 }
