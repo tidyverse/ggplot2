@@ -2,7 +2,6 @@
 % Please edit documentation in R/facet-labels.r
 \name{labellers}
 \alias{label_both}
-\alias{label_bquote}
 \alias{label_context}
 \alias{label_parsed}
 \alias{label_value}
@@ -18,8 +17,6 @@ label_context(labels, multi_line = TRUE, sep = ": ")
 
 label_parsed(labels, multi_line = TRUE)
 
-label_bquote(expr)
-
 label_wrap_gen(width = 25, multi_line = TRUE)
 }
 \arguments{
@@ -31,8 +28,6 @@ label variables.}
 on separate lines.}
 
 \item{sep}{String separating variables and values.}
-
-\item{expr}{Backquoted labelling expression.}
 
 \item{width}{Maximum number of characters before wrapping the strip.}
 }
@@ -52,7 +47,7 @@ value. \code{label_context()} is context-dependent and uses
 involved. \code{label_wrap_gen()} uses \code{\link[base]{strwrap}()}
 for line wrapping.
 
-\code{\link{label_parsed}()} interprets the labels as plotmath
+\code{label_parsed()} interprets the labels as plotmath
 expressions. \code{\link{label_bquote}()} offers a more flexible
 way of constructing plotmath expressions. See examples and
 \code{\link{bquote}()} for details on the syntax of the
@@ -78,6 +73,15 @@ argument.
   own line. Then the second facet gets the second elements of each
   vector, and so on.
 
+  If it's useful to your labeller, you can retrieve the \code{type}
+  attribute of the incoming data frame of labels. The value of this
+  attribute reflects the kind of strips your labeller is dealing
+  with: \code{"cols"} for columns and \code{"rows"} for rows. Note
+  that \code{\link{facet_wrap}()} has columns by default and rows
+  when the strips are switched with the \code{switch} option. The
+  \code{facet} attribute also provides metadata on the labels. It
+  takes the values \code{"grid"} or \code{"wrap"}.
+
   For compatibility with \code{\link{labeller}()}, each labeller
   function must have the \code{labeller} S3 class.
 }
@@ -101,13 +105,6 @@ p + facet_grid(am ~ vs+cyl, labeller = label_context)
 p + facet_grid(. ~ cyl2)
 p + facet_grid(. ~ cyl2, labeller = label_parsed)
 p + facet_wrap(~vs + cyl2, labeller = label_parsed)
-
-# You can also provide a flexible backquoted expression. The labels
-# must be backquoted and referred to by their names.
-p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
-p + facet_grid(. ~ vs, labeller = label_bquote(alpha ^ .(vs)))
-p + facet_grid(. ~ vs, labeller = label_bquote(.(vs) ^ .(vs)))
-p + facet_grid(. ~ vs + am, labeller = label_bquote(.(am) ^ .(vs)))
 }
 }
 \seealso{

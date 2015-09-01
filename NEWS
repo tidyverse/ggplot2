@@ -125,6 +125,10 @@ ggplot2 1.0.1.9xxx
   deprecated. You can now refer to the variable names
   instead. (@lionel-)
 
+* `label_bquote()` and `labeller()` now take `rows` and `cols`
+  arguments. They allow rows and columns labels to have specific
+  plotmath expressions or labellers.
+
 * There is a new labeller `label_context()`. Its behaviour depends on
   the number of factors facetted over. With a single factor, it
   displays only the values, just as before. But with multiple factors

@@ -4,24 +4,31 @@
 \alias{labeller}
 \title{Generic labeller function for facets}
 \usage{
-labeller(..., keep.as.numeric = NULL, .as_character = FALSE,
-  .multi_line = TRUE, .default = label_value)
+labeller(rows = NULL, cols = NULL, keep.as.numeric = NULL,
+  as_character = FALSE, multi_line = TRUE, default = label_value, ...)
 }
 \arguments{
-\item{...}{Named arguments of the form \code{variable = labeller},
-where \code{values} could be a vector or method.}
+\item{rows}{Labeller for the rows. It is passed to
+\code{\link{as_labeller}()} and can be a lookup table, a function
+taking and returning character vectors, or simply a labeller
+function.}
+
+\item{cols}{Labeller for the columns. Also processed with
+\code{\link{as_labeller}()}.}
 
 \item{keep.as.numeric}{Deprecated, use \code{.as_character} instead.}
 
-\item{.as_character}{Logical, default FALSE. When TRUE, converts
+\item{as_character}{Logical, default FALSE. When TRUE, converts
 numeric labels to characters.}
 
-\item{.multi_line}{Whether to display the labels of multiple
-factors on separate lines. This is passed to the labeller function.}
+\item{multi_line}{Whether to display the labels of multiple factors
+on separate lines. This is passed to the labeller function.}
 
-\item{.default}{Default labeller function with which to process the
-labels not mentioned in \code{...} or those produced with a
-lookup table or a non-labeller function.}
+\item{default}{Default labeller for the rows or the columns when
+they are not specified. Also used with lookup tables or
+non-labeller functions.}
+
+\item{...}{Deprecated. Use \code{rows} and \code{cols} instead.}
 }
 \value{
 A labeller function to supply to \code{\link{facet_grid}}
@@ -43,54 +50,45 @@ functions taking a character vector such as
 }
 \examples{
 \donttest{
-p1 <- ggplot(mpg, aes(cty, hwy)) + geom_point()
-p1 + facet_grid(cyl ~ class, labeller = label_both)
-p1 + facet_grid(cyl ~ class, labeller = labeller(cyl = label_both))
-
-ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point() +
-  facet_grid(vs + am ~ gear, margins=TRUE,
-    labeller = labeller(vs = label_both, am = label_both))
+p1 <- ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point()
+p1 + facet_grid(vs + am ~ gear,
+  labeller = labeller(rows = label_both, cols = label_value))
 
 
 capitalize <- function(string) {
   substr(string, 1, 1) <- toupper(substr(string, 1, 1))
   string
 }
-conservation_status <- c('cd' = 'Conservation Dependent',
-                         'en' = 'Endangered',
-                         'lc' = 'Least concern',
-                         'nt' = 'Near Threatened',
-                         'vu' = 'Vulnerable',
-                         'domesticated' = 'Domesticated')
+conservation_status <- c(
+  cd = "Conservation Dependent",
+  en = "Endangered",
+  lc = "Least concern",
+  nt = "Near Threatened",
+  vu = "Vulnerable",
+  domesticated = "Domesticated"
+)
 ## Source: http://en.wikipedia.org/wiki/Wikipedia:Conservation_status
 
 p2 <- ggplot(msleep, aes(x = sleep_total, y = awake)) + geom_point()
-p2 + facet_grid(vore ~ conservation, labeller = labeller(vore = capitalize))
+p2 + facet_grid(vore ~ conservation, labeller = labeller(rows = capitalize))
 
 p2 + facet_grid(vore ~ conservation, labeller = labeller(
-  vore = capitalize,
-  conservation = conservation_status
+  rows = capitalize,
+  cols = conservation_status
 ))
 
-# We could of course have renamed the levels;
-# then we can apply another nifty function
-msleep$conservation2 <- plyr::revalue(msleep$conservation, conservation_status)
+# In the following example, we rename the levels to the long form,
+# then apply a wrap labeller to the columns to prevent cropped text
+msleep$conservation2 <- plyr::revalue(msleep$conservation,
+  conservation_status)
 
 p2 \%+\% msleep +
-  facet_grid(vore ~ conservation2, labeller = labeller(vore = capitalize))
+  facet_grid(vore ~ conservation2)
 p2 \%+\% msleep +
   facet_grid(vore ~ conservation2,
-    labeller = labeller(conservation2 = label_wrap_gen(10))
+    labeller = labeller(cols = label_wrap_gen(10))
   )
 }
-
-# When multiple factors index the facetting, simply refer to one of
-# them to assign a labeller:
-p3 <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
-p3 + facet_grid(gear + am ~ vs + cyl, labeller = labeller(
-  vs = label_bquote(.(cyl) ^ .(vs)),
-  .default = label_value
-))
 }
 \seealso{
 \link{labellers}
