@@ -4,31 +4,28 @@
 \alias{labeller}
 \title{Generic labeller function for facets}
 \usage{
-labeller(rows = NULL, cols = NULL, keep.as.numeric = NULL,
-  as_character = FALSE, multi_line = TRUE, default = label_value, ...)
+labeller(..., .rows = NULL, .cols = NULL, keep.as.numeric = NULL,
+  .multi_line = TRUE, .default = label_value)
 }
 \arguments{
-\item{rows}{Labeller for the rows. It is passed to
-\code{\link{as_labeller}()} and can be a lookup table, a function
-taking and returning character vectors, or simply a labeller
-function.}
+\item{...}{Named arguments of the form \code{variable =
+labeller}. Each labeller is passed to \code{\link{as_labeller}()}
+and can be a lookup table, a function taking and returning
+character vectors, or simply a labeller function.}
 
-\item{cols}{Labeller for the columns. Also processed with
-\code{\link{as_labeller}()}.}
+\item{.rows,.cols}{Labeller for a whole margin (either the rows or
+the columns). It is passed to \code{\link{as_labeller}()}. When a
+margin-wide labeller is set, make sure you don't mention in
+\code{...} any variable belonging to the margin.}
 
 \item{keep.as.numeric}{Deprecated, use \code{.as_character} instead.}
 
-\item{as_character}{Logical, default FALSE. When TRUE, converts
-numeric labels to characters.}
+\item{.multi_line}{Whether to display the labels of multiple
+factors on separate lines. This is passed to the labeller
+function.}
 
-\item{multi_line}{Whether to display the labels of multiple factors
-on separate lines. This is passed to the labeller function.}
-
-\item{default}{Default labeller for the rows or the columns when
-they are not specified. Also used with lookup tables or
-non-labeller functions.}
-
-\item{...}{Deprecated. Use \code{rows} and \code{cols} instead.}
+\item{.default}{Default labeller for variables not specified. Also
+used with lookup tables or non-labeller functions.}
 }
 \value{
 A labeller function to supply to \code{\link{facet_grid}}
@@ -51,14 +48,24 @@ functions taking a character vector such as
 \examples{
 \donttest{
 p1 <- ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point()
+
+# You can assign different labellers to variables:
 p1 + facet_grid(vs + am ~ gear,
-  labeller = labeller(rows = label_both, cols = label_value))
+  labeller = labeller(vs = label_both, am = label_value))
 
+# Or whole margins:
+p1 + facet_grid(vs + am ~ gear,
+  labeller = labeller(.rows = label_both, .cols = label_value))
 
+# You can supply functions operating on strings:
 capitalize <- function(string) {
   substr(string, 1, 1) <- toupper(substr(string, 1, 1))
   string
 }
+p2 <- ggplot(msleep, aes(x = sleep_total, y = awake)) + geom_point()
+p2 + facet_grid(vore ~ conservation, labeller = labeller(vore = capitalize))
+
+# Or use character vectors as lookup tables:
 conservation_status <- c(
   cd = "Conservation Dependent",
   en = "Endangered",
@@ -69,12 +76,9 @@ conservation_status <- c(
 )
 ## Source: http://en.wikipedia.org/wiki/Wikipedia:Conservation_status
 
-p2 <- ggplot(msleep, aes(x = sleep_total, y = awake)) + geom_point()
-p2 + facet_grid(vore ~ conservation, labeller = labeller(rows = capitalize))
-
 p2 + facet_grid(vore ~ conservation, labeller = labeller(
-  rows = capitalize,
-  cols = conservation_status
+  .default = capitalize,
+  conservation = conservation_status
 ))
 
 # In the following example, we rename the levels to the long form,
@@ -82,11 +86,10 @@ p2 + facet_grid(vore ~ conservation, labeller = labeller(
 msleep$conservation2 <- plyr::revalue(msleep$conservation,
   conservation_status)
 
-p2 \%+\% msleep +
-  facet_grid(vore ~ conservation2)
+p2 \%+\% msleep + facet_grid(vore ~ conservation2)
 p2 \%+\% msleep +
   facet_grid(vore ~ conservation2,
-    labeller = labeller(cols = label_wrap_gen(10))
+    labeller = labeller(conservation2 = label_wrap_gen(10))
   )
 }
 }

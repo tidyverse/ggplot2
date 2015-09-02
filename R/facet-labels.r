@@ -84,6 +84,11 @@
 #' }
 NULL
 
+collapse_labels_lines <- function(labels) {
+  out <- do.call("Map", c(list(paste, sep = ", "), labels))
+  list(unname(unlist(out)))
+}
+
 #' @rdname labellers
 #' @export
 label_value <- function(labels, multi_line = TRUE) {
@@ -91,8 +96,7 @@ label_value <- function(labels, multi_line = TRUE) {
   if (multi_line) {
     labels
   } else {
-    out <- do.call("Map", c(list(paste, sep = ", "), labels))
-    list(unname(unlist(out)))
+    collapse_labels_lines(labels)
   }
 }
 # Should ideally not have the 'function' class here, but this is
@@ -306,21 +310,22 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' functions taking a character vector such as
 #' \code{\link[Hmisc]{capitalize}}.
 #'
-#' @param rows Labeller for the rows. It is passed to
-#'   \code{\link{as_labeller}()} and can be a lookup table, a function
-#'   taking and returning character vectors, or simply a labeller
+#' @param ... Named arguments of the form \code{variable =
+#'   labeller}. Each labeller is passed to \code{\link{as_labeller}()}
+#'   and can be a lookup table, a function taking and returning
+#'   character vectors, or simply a labeller function.
+#' @param .rows,.cols Labeller for a whole margin (either the rows or
+#'   the columns). It is passed to \code{\link{as_labeller}()}. When a
+#'   margin-wide labeller is set, make sure you don't mention in
+#'   \code{...} any variable belonging to the margin.
+#' @param keep.as.numeric Deprecated. All supplied labellers and
+#'   on-labeller functions should be able to work with character
+#'   labels.
+#' @param .multi_line Whether to display the labels of multiple
+#'   factors on separate lines. This is passed to the labeller
 #'   function.
-#' @param cols Labeller for the columns. Also processed with
-#'   \code{\link{as_labeller}()}.
-#' @param keep.as.numeric Deprecated, use \code{.as_character} instead.
-#' @param as_character Logical, default FALSE. When TRUE, converts
-#'   numeric labels to characters.
-#' @param default Default labeller for the rows or the columns when
-#'   they are not specified. Also used with lookup tables or
-#'   non-labeller functions.
-#' @param ... Deprecated. Use \code{rows} and \code{cols} instead.
-#' @inheritParams as_labeller
-#' @inheritParams label_value
+#' @param .default Default labeller for variables not specified. Also
+#'   used with lookup tables or non-labeller functions.
 #' @family facet labeller
 #' @seealso \link{labellers}
 #' @return A labeller function to supply to \code{\link{facet_grid}}
@@ -329,14 +334,24 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' @examples
 #' \donttest{
 #' p1 <- ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point()
+#'
+#' # You can assign different labellers to variables:
 #' p1 + facet_grid(vs + am ~ gear,
-#'   labeller = labeller(rows = label_both, cols = label_value))
+#'   labeller = labeller(vs = label_both, am = label_value))
 #'
+#' # Or whole margins:
+#' p1 + facet_grid(vs + am ~ gear,
+#'   labeller = labeller(.rows = label_both, .cols = label_value))
 #'
+#' # You can supply functions operating on strings:
 #' capitalize <- function(string) {
 #'   substr(string, 1, 1) <- toupper(substr(string, 1, 1))
 #'   string
 #' }
+#' p2 <- ggplot(msleep, aes(x = sleep_total, y = awake)) + geom_point()
+#' p2 + facet_grid(vore ~ conservation, labeller = labeller(vore = capitalize))
+#'
+#' # Or use character vectors as lookup tables:
 #' conservation_status <- c(
 #'   cd = "Conservation Dependent",
 #'   en = "Endangered",
@@ -347,12 +362,9 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' )
 #' ## Source: http://en.wikipedia.org/wiki/Wikipedia:Conservation_status
 #'
-#' p2 <- ggplot(msleep, aes(x = sleep_total, y = awake)) + geom_point()
-#' p2 + facet_grid(vore ~ conservation, labeller = labeller(rows = capitalize))
-#'
 #' p2 + facet_grid(vore ~ conservation, labeller = labeller(
-#'   rows = capitalize,
-#'   cols = conservation_status
+#'   .default = capitalize,
+#'   conservation = conservation_status
 #' ))
 #'
 #' # In the following example, we rename the levels to the long form,
@@ -360,44 +372,69 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' msleep$conservation2 <- plyr::revalue(msleep$conservation,
 #'   conservation_status)
 #'
-#' p2 %+% msleep +
-#'   facet_grid(vore ~ conservation2)
+#' p2 %+% msleep + facet_grid(vore ~ conservation2)
 #' p2 %+% msleep +
 #'   facet_grid(vore ~ conservation2,
-#'     labeller = labeller(cols = label_wrap_gen(10))
+#'     labeller = labeller(conservation2 = label_wrap_gen(10))
 #'   )
 #' }
-labeller <- function(rows = NULL, cols = NULL, keep.as.numeric = NULL,
-                     as_character = FALSE, multi_line = TRUE,
-                     default = label_value, ...) {
+labeller <- function(..., .rows = NULL, .cols = NULL,
+                     keep.as.numeric = NULL, .multi_line = TRUE,
+                     .default = label_value) {
   if (!is.null(keep.as.numeric)) {
-    .Deprecated("as_character", old = "keep.as.numeric")
+    .Deprecated(old = "keep.as.numeric")
   }
-  if (length(list(...)) > 0) {
-    stop("Referring to variables is deprecated.\n",
-      "Use the 'rows' or 'cols' argument instead.", call. = FALSE)
-  }
+  dots <- list(...)
+  .default <- as_labeller(.default)
 
   function(labels) {
-    labeller <- resolve_labeller(rows, cols, labels)
-    labeller <- as_labeller(labeller, default = default,
-      multi_line = multi_line)
+
+    if (!is.null(.rows) || !is.null(.cols)) {
+      margin_labeller <- resolve_labeller(.rows, .cols, labels)
+    } else {
+      margin_labeller <- NULL
+    }
+
+    if (is.null(margin_labeller)) {
+      labellers <- lapply(dots, as_labeller)
+    } else {
+      margin_labeller <- as_labeller(margin_labeller, default = .default,
+        multi_line = .multi_line)
+
+      # Check that variable-specific labellers do not overlap with
+      # margin-wide labeller
+      if (any(names(dots) %in% names(labels))) {
+        stop("Conflict between .rows/.cols and: ",
+          paste(names(dots), collapse = ", "), call. = FALSE)
+      }
+    }
 
     # Clean labels
     labels <- lapply(labels, function(values) {
       if (is.logical(values)) {
-        as.integer(values) + 1
+        values <- as.integer(values) + 1
       }
-      if (is.factor(values)) {
-        as.character(values)
-      } else if (is.numeric(values) && as_character) {
-        as.character(values)
-      } else {
-        values
-      }
+      as.character(values)
     })
 
-    labeller(labels)
+    if (is.null(margin_labeller)) {
+      # Apply named labeller one by one
+      out <- lapply(names(labels), function(label) {
+        if (label %in% names(labellers)) {
+          labellers[[label]](labels[label])[[1]]
+        } else {
+          .default(labels[label])[[1]]
+        }
+      })
+      names(out) <- names(labels)
+      if (.multi_line) {
+        out
+      } else {
+        collapse_labels_lines(out)
+      }
+    } else {
+      margin_labeller(labels)
+    }
   }
 }
 
