@@ -6,7 +6,7 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "linerange")}
 #'
-#' @param fatten A multiplicative factor used to increased the size of the
+#' @param fatten A multiplicative factor used to increase the size of the
 #'   middle bar in \code{geom_crossbar()} and the middle point in
 #'   \code{geom_pointrange()}.
 #' @seealso
