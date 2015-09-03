@@ -50,8 +50,10 @@ position_stack <- function() {
 #' @usage NULL
 #' @export
 PositionStack <- ggproto("PositionStack", Position,
-  compute_panel = function(data, params, scales) {
-    data <- remove_missing(data, FALSE,
+  # requires one of c("ymax", "y"),
+
+  setup_data = function(self, data, params) {
+    data = remove_missing(data, FALSE,
       c("x", "y", "ymin", "ymax", "xmin", "xmax"), name = "position_stack")
 
     if (is.null(data$ymax) && is.null(data$y)) {
@@ -63,6 +65,10 @@ PositionStack <- ggproto("PositionStack", Position,
     if (!is.null(data$ymin) && !all(data$ymin == 0))
       warning("Stacking not well defined when ymin != 0", call. = FALSE)
 
+    data
+  },
+
+  compute_panel = function(data, params, scales) {
     collide(data, NULL, "position_stack", pos_stack)
   }
 )
