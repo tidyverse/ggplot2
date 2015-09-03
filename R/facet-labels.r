@@ -388,7 +388,6 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
   .default <- as_labeller(.default)
 
   function(labels) {
-
     if (!is.null(.rows) || !is.null(.cols)) {
       margin_labeller <- resolve_labeller(.rows, .cols, labels)
     } else {
@@ -404,7 +403,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
       # Check that variable-specific labellers do not overlap with
       # margin-wide labeller
       if (any(names(dots) %in% names(labels))) {
-        stop("Conflict between .rows/.cols and: ",
+        stop("Conflict between .", attr(labels, "type"), " and ",
           paste(names(dots), collapse = ", "), call. = FALSE)
       }
     }
