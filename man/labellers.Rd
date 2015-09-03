@@ -56,6 +56,10 @@ argument.
 \section{Writing New Labeller Functions}{
 
 
+  Note that an easy way to write a labeller function is to
+  transform a function operating on character vectors with
+  \code{\link{as_labeller}()}.
+
   A labeller function accepts a data frame of labels (character
   vectors) containing one column for each factor. Multiple factors
   occur with formula of the type \code{~first + second}.
@@ -108,6 +112,7 @@ p + facet_wrap(~vs + cyl2, labeller = label_parsed)
 }
 }
 \seealso{
-\code{\link{labeller}()}
+\code{\link{labeller}()}, \code{\link{as_labeller}()},
+  \code{\link{label_bquote}()}
 }
 

@@ -18,7 +18,9 @@ the columns). It is passed to \code{\link{as_labeller}()}. When a
 margin-wide labeller is set, make sure you don't mention in
 \code{...} any variable belonging to the margin.}
 
-\item{keep.as.numeric}{Deprecated, use \code{.as_character} instead.}
+\item{keep.as.numeric}{Deprecated. All supplied labellers and
+on-labeller functions should be able to work with character
+labels.}
 
 \item{.multi_line}{Whether to display the labels of multiple
 factors on separate lines. This is passed to the labeller
@@ -91,9 +93,24 @@ p2 \%+\% msleep +
   facet_grid(vore ~ conservation2,
     labeller = labeller(conservation2 = label_wrap_gen(10))
   )
+
+# labeller() is especially useful to act as a global labeller. You
+# can set it up once and use it on a range of different plots with
+# different facet specifications.
+
+global_labeller <- labeller(
+  vore = capitalize,
+  conservation = conservation_status,
+  conservation2 = label_wrap_gen(10),
+  .default = label_both
+)
+
+p2 + facet_grid(vore ~ conservation, labeller = global_labeller)
+p2 + facet_wrap(~vore, labeller = global_labeller)
+p2 \%+\% msleep + facet_wrap(~conservation2, labeller = global_labeller)
 }
 }
 \seealso{
-\link{labellers}
+\code{\link{as_labeller}()}, \link{labellers}
 }
 

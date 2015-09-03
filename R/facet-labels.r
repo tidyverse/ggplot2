@@ -22,6 +22,10 @@
 #'
 #' @section Writing New Labeller Functions:
 #'
+#'   Note that an easy way to write a labeller function is to
+#'   transform a function operating on character vectors with
+#'   \code{\link{as_labeller}()}.
+#'
 #'   A labeller function accepts a data frame of labels (character
 #'   vectors) containing one column for each factor. Multiple factors
 #'   occur with formula of the type \code{~first + second}.
@@ -59,7 +63,8 @@
 #' @param sep String separating variables and values.
 #' @param width Maximum number of characters before wrapping the strip.
 #' @family facet
-#' @seealso \code{\link{labeller}()}
+#' @seealso \code{\link{labeller}()}, \code{\link{as_labeller}()},
+#'   \code{\link{label_bquote}()}
 #' @name labellers
 #' @examples
 #' mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
@@ -182,6 +187,7 @@ find_names <- function(expr) {
 #' @param cols Backquoted labelling expression for columns.
 #' @param default Default labeller function for the rows or the
 #'   columns when no plotmath expression is provided.
+#' @seealso \link{labellers}, \code{\link{labeller}()},
 #' @export
 #' @examples
 #' # The variables mentioned in the plotmath expression must be
@@ -274,10 +280,35 @@ resolve_labeller <- function(rows, cols, labels) {
 #'   on separate lines. This is passed to the labeller function.
 #' @param default Default labeller to process the labels produced by
 #'   lookup tables or modified by non-labeller functions.
+#' @seealso \code{\link{labeller}()}, \link{labellers}
 #' @export
+#' @examples
+#' p <- ggplot(mtcars, aes(disp, drat)) + geom_point()
+#' p + facet_wrap(~am)
+#'
+#' # Rename labels on the fly with a lookup character vector
+#' to_string <- as_labeller(c(`0` = "Zero", `1` = "One"))
+#' p + facet_wrap(~am, labeller = to_string)
+#'
+#' # Quickly transform a function operating on character vectors to a
+#' # labeller function:
+#' appender <- function(string, suffix = "-foo") paste0(string, suffix)
+#' p + facet_wrap(~am, labeller = as_labeller(appender))
+#'
+#' # If you have more than one facetting variable, be sure to dispatch
+#' # your labeller to the right variable with labeller()
+#' p + facet_grid(cyl ~ am, labeller = labeller(am = to_string))
 as_labeller <- function(x, default = label_value, multi_line = TRUE) {
   force(x)
-  function(labels) {
+  fun <- function(labels) {
+    # Clean labels
+    labels <- lapply(labels, function(values) {
+      if (is.logical(values)) {
+        values <- as.integer(values) + 1
+      }
+      as.character(values)
+    })
+
     # Dispatch multi_line argument to the labeller function instead of
     # supplying it to the labeller call because some labellers do not
     # support it.
@@ -294,6 +325,7 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
       default(labels)
     }
   }
+  structure(fun, class = "labeller")
 }
 
 #' Generic labeller function for facets
@@ -327,7 +359,7 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' @param .default Default labeller for variables not specified. Also
 #'   used with lookup tables or non-labeller functions.
 #' @family facet labeller
-#' @seealso \link{labellers}
+#' @seealso \code{\link{as_labeller}()}, \link{labellers}
 #' @return A labeller function to supply to \code{\link{facet_grid}}
 #'   for the argument \code{labeller}.
 #' @export
@@ -377,6 +409,21 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #'   facet_grid(vore ~ conservation2,
 #'     labeller = labeller(conservation2 = label_wrap_gen(10))
 #'   )
+#'
+#' # labeller() is especially useful to act as a global labeller. You
+#' # can set it up once and use it on a range of different plots with
+#' # different facet specifications.
+#'
+#' global_labeller <- labeller(
+#'   vore = capitalize,
+#'   conservation = conservation_status,
+#'   conservation2 = label_wrap_gen(10),
+#'   .default = label_both
+#' )
+#'
+#' p2 + facet_grid(vore ~ conservation, labeller = global_labeller)
+#' p2 + facet_wrap(~vore, labeller = global_labeller)
+#' p2 %+% msleep + facet_wrap(~conservation2, labeller = global_labeller)
 #' }
 labeller <- function(..., .rows = NULL, .cols = NULL,
                      keep.as.numeric = NULL, .multi_line = TRUE,
@@ -408,14 +455,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
       }
     }
 
-    # Clean labels
-    labels <- lapply(labels, function(values) {
-      if (is.logical(values)) {
-        values <- as.integer(values) + 1
-      }
-      as.character(values)
-    })
-
+    # Apply relevant labeller
     if (is.null(margin_labeller)) {
       # Apply named labeller one by one
       out <- lapply(names(labels), function(label) {
