@@ -301,13 +301,7 @@ resolve_labeller <- function(rows, cols, labels) {
 as_labeller <- function(x, default = label_value, multi_line = TRUE) {
   force(x)
   fun <- function(labels) {
-    # Clean labels
-    labels <- lapply(labels, function(values) {
-      if (is.logical(values)) {
-        values <- as.integer(values) + 1
-      }
-      as.character(values)
-    })
+    labels <- lapply(labels, as.character)
 
     # Dispatch multi_line argument to the labeller function instead of
     # supplying it to the labeller call because some labellers do not
