@@ -256,7 +256,9 @@ ggplot2 1.0.1.9xxx
   Parameter `device` now supports character argument to specify which supported
   device to use ('pdf', 'png', 'jpeg', etc.), for when it cannot be correctly
   inferred from the file extension (for example when a temporary filename is
-  supplied server side in shiny apps) (@sebkopf, #939)
+  supplied server side in shiny apps) (@sebkopf, #939). It no longer opens
+  a graphics device if one isn't already open - this is annoying when you're
+  running from a script (#1326)
 
 * Add access to the new `direction` argument of `scales::brewer_pal` and
   simplify changing the order of colours for `scale_*_brewer` and
