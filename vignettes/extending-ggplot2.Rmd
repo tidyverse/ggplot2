@@ -177,10 +177,10 @@ ggplot(mpg, aes(displ, hwy)) +
   stat_lm(formula = y ~ poly(x, 10), geom = "point", colour = "red", n = 20)
 ```
 
-Note that don't _have_ to explicitly include the new parameters in the arguments for the layer, `...` will get passed to the right place anyway. But you'll need to document them somewhere so the user knows about them. Here's a brief example. Note `@inheritParams ggplot2:stat_identity`: that will automatically inherit documentation for all the parameters also defined for `stat_identity()`.
+Note that don't _have_ to explicitly include the new parameters in the arguments for the layer, `...` will get passed to the right place anyway. But you'll need to document them somewhere so the user knows about them. Here's a brief example. Note `@inheritParams ggplot2::stat_identity`: that will automatically inherit documentation for all the parameters also defined for `stat_identity()`.
 
 ```{r}
-#' @inheritParams ggplot2:stat_identity
+#' @inheritParams ggplot2::stat_identity
 #' @param formula The modelling formula passed to \code{lm}. Should only 
 #'   involve \code{y} and \code{x}
 #' @param n Number of points used for interpolation.
