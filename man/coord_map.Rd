@@ -8,7 +8,7 @@
 coord_map(projection = "mercator", ..., orientation = NULL, xlim = NULL,
   ylim = NULL)
 
-coord_quickmap(xlim = NULL, ylim = NULL)
+coord_quickmap(xlim = NULL, ylim = NULL, expand = TRUE)
 }
 \arguments{
 \item{projection}{projection to use, see
