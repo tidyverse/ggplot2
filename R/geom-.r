@@ -96,7 +96,11 @@ Geom <- ggproto("Geom",
   use_defaults = function(self, data, params = list()) {
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(self$default_aes), names(data))
-    data[missing_aes] <- self$default_aes[missing_aes]
+    if (empty(data)) {
+      data <- plyr::quickdf(self$default_aes[missing_aes])
+    } else {
+      data[missing_aes] <- self$default_aes[missing_aes]
+    }
 
     # Override mappings with params
     aes_params <- intersect(self$aesthetics(), names(params))
