@@ -81,6 +81,13 @@ geom_smooth <- function(mapping = NULL, data = NULL, stat = "smooth",
   method = "auto", formula = y ~ x, se = TRUE, position = "identity", show.legend = NA,
   inherit.aes = TRUE, ...) {
 
+  params <- list(...)
+  if (identical(stat, "smooth")) {
+    params$method <- method
+    params$formula <- formula
+    params$se <- se
+  }
+
   layer(
     data = data,
     mapping = mapping,
@@ -89,12 +96,7 @@ geom_smooth <- function(mapping = NULL, data = NULL, stat = "smooth",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
-      method = method,
-      formula = formula,
-      se = se,
-      ...
-    )
+    params = params
   )
 }
 
