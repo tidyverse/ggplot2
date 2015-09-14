@@ -208,6 +208,8 @@ Layer <- ggproto("Layer", NULL,
 
   compute_geom_2 = function(self, data) {
     # Combine aesthetics, defaults, & params
+    if (empty(data)) return(data)
+
     self$geom$use_defaults(data, self$aes_params)
   },
 
