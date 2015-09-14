@@ -14,9 +14,9 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 library(ggplot2)
 ```
 
-This vignette documents the official extension mechanism provided in ggplot2 1.1.0. This vignette is a high-level adjunct to the low-level details found in `?Stat`, `?Geom` and `?theme`. You'll learn how to extending ggplot2 by creating a new stat, geom, or theme.
+This vignette documents the official extension mechanism provided in ggplot2 1.1.0. This vignette is a high-level adjunct to the low-level details found in `?Stat`, `?Geom` and `?theme`. You'll learn how to extend ggplot2 by creating a new stat, geom, or theme.
 
-As you read this document, you'll see many things that will scratch your head and make you wonder, why on earth is it designed that way? Mostly it's historical accident - I wasn't a terribly good R programmer when I started writing ggplot2 and I made a lot of questionable decisions. We cleaned up as many as possible in the 1.1.0 release, but some fixes simply weren't worth the effort.
+As you read this document, you'll see many things that will make you scratch your head and wonder why on earth is it designed this way? Mostly it's historical accident - I wasn't a terribly good R programmer when I started writing ggplot2 and I made a lot of questionable decisions. We cleaned up as many of those issues as possible in the 1.1.0 release, but some fixes simply weren't worth the effort.
 
 ## ggproto
 
