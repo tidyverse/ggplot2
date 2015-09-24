@@ -39,9 +39,9 @@ ggplot(df, aes(x, y, fill = z)) + geom_raster() + geom_point(colour = "red") +
   xlim(-2, 2) + ylim(-2, 2)
 save_vtest("3 x 1, set limits")
 
-ggplot(df, aes(x, y, fill = z)) + geom_raster(hpad = 0.25, vpad = 0) +
-  geom_point(colour = "red")
-save_vtest("3 x 1, just = (0, 0)")
+# ggplot(df, aes(x, y, fill = z)) + geom_raster(hpad = 0.25, vpad = 0) +
+#   geom_point(colour = "red")
+# save_vtest("3 x 1, just = (0, 0)")
 
 # Categorical fill, irregular swatches ---------------------------------------
 
