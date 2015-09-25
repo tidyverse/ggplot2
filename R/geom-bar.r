@@ -1,10 +1,10 @@
 #' Bars, rectangles with bases on x-axis
 #'
 #' There are two types of bar charts, determined by what is mapped to bar
-#' height. By default, \code{geom_bar} uses \code{stat = "bar"} which makes the
-#' height of the bar proportion to the number of cases in each group (or
-#' if the \code{weight} aethetic is supplied, the sum of the weights).
-#  If you want the heights of the bars to represent values in the data, use
+#' height. By default, \code{geom_bar} uses \code{stat = "count"} which makes
+#' the height of the bar proportion to the number of cases in each group (or if
+#' the \code{weight} aethetic is supplied, the sum of the weights). If you want
+#' the heights of the bars to represent values in the data, use
 #' \code{stat="identity"} and map a variable to the \code{y} aesthetic.
 #'
 #' A bar chart maps the height of the bar to a variable, and so the base of
@@ -29,7 +29,7 @@
 #' @param width Bar width. By default, set of 90% of the resolution of the
 #'   data.
 #' @param geom,stat Override the default connection between \code{geom_bar} and
-#'   \code{stat_bar}.
+#'   \code{stat_count}.
 #' @examples
 #' # geom_bar is designed to make it easy to create bar charts that show
 #' # counts (or sums of weights)
@@ -70,7 +70,7 @@
 #' }
 #' ggplot(mpg, aes(reorder_size(class))) + geom_bar()
 #' }
-geom_bar <- function(mapping = NULL, data = NULL, stat = "bar",
+geom_bar <- function(mapping = NULL, data = NULL, stat = "count",
                      position = "stack", width = NULL, ...,
                      show.legend = NA, inherit.aes = TRUE) {
   layer(
@@ -118,13 +118,13 @@ GeomBar <- ggproto("GeomBar", GeomRect,
 #'   \item{count}{number of points in bin}
 #'   \item{prop}{groupwise proportion}
 #' }
-stat_bar <- function(mapping = NULL, data = NULL, geom = "bar",
+stat_count <- function(mapping = NULL, data = NULL, geom = "bar",
                      position = "stack", width = NULL, ...,
                      show.legend = NA, inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
-    stat = StatBar,
+    stat = StatCount,
     geom = geom,
     position = position,
     show.legend = show.legend,
@@ -141,13 +141,13 @@ stat_bar <- function(mapping = NULL, data = NULL, geom = "bar",
 #' @usage NULL
 #' @export
 #' @include stat-.r
-StatBar <- ggproto("StatBar", Stat,
+StatCount <- ggproto("StatCount", Stat,
   required_aes = "x",
   default_aes = aes(y = ..count..),
 
   setup_params = function(data, params) {
     if (!is.null(data$y) || !is.null(params$y)) {
-      stop("stat_bar() must not be used with a y aesthetic.", call. = FALSE)
+      stop("stat_count() must not be used with a y aesthetic.", call. = FALSE)
     }
     params
   },

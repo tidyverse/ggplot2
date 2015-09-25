@@ -1,4 +1,4 @@
-context("stat_bar/stat_bin")
+context("stat_bin/stat_count")
 
 test_that("stat_bin throws error when y aesthetic present", {
   dat <- data.frame(x = c("a", "b", "c"), y = c(1, 5, 10))
@@ -10,17 +10,17 @@ test_that("stat_bin throws error when y aesthetic present", {
     "Unknown parameters: y")
 })
 
-test_that("stat_bar throws error when y aesthetic present", {
+test_that("stat_count throws error when y aesthetic present", {
   dat <- data.frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 
-  expect_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_bar()),
+  expect_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_count()),
     "must not be used with a y aesthetic.")
 
-  expect_error(p <- ggplot_build(ggplot(dat, aes(x)) + stat_bar(y = 5)),
+  expect_error(p <- ggplot_build(ggplot(dat, aes(x)) + stat_count(y = 5)),
     "Unknown parameters: y")
 })
 
-test_that("stat_bar preserves x order for continuous and discrete", {
+test_that("stat_count preserves x order for continuous and discrete", {
   # x is numeric
   b <- ggplot_build(ggplot(mtcars, aes(carb)) + geom_bar())
   expect_identical(b$data[[1]]$x, c(1,2,3,4,6,8))

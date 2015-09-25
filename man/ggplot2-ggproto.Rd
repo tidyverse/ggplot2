@@ -69,13 +69,13 @@
 \alias{ScaleDiscreteIdentity}
 \alias{ScaleDiscretePosition}
 \alias{Stat}
-\alias{StatBar}
 \alias{StatBin}
 \alias{StatBin2d}
 \alias{StatBindot}
 \alias{StatBinhex}
 \alias{StatBoxplot}
 \alias{StatContour}
+\alias{StatCount}
 \alias{StatDensity}
 \alias{StatDensity2d}
 \alias{StatEcdf}

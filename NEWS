@@ -93,7 +93,7 @@ ggplot2 1.0.1.9xxx
   default values once per layer, rather than once per panel (#1220).
 
 * `geom_bar()` and `geom_histogram()` no longer share `stat_bin()`. Now
-  `geom_bar()` has its own stat, `stat_bar()`. This is useful if you want to
+  `geom_bar()` has its own stat, `stat_coont()`. This is useful if you want to
   display a bar chart of continuous data, drawing a bar at each unique
   location.
 

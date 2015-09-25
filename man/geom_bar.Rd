@@ -2,14 +2,16 @@
 % Please edit documentation in R/geom-bar.r
 \name{geom_bar}
 \alias{geom_bar}
-\alias{stat_bar}
+\alias{stat_count}
 \title{Bars, rectangles with bases on x-axis}
 \usage{
-geom_bar(mapping = NULL, data = NULL, stat = "bar", position = "stack",
-  width = NULL, ..., show.legend = NA, inherit.aes = TRUE)
+geom_bar(mapping = NULL, data = NULL, stat = "count",
+  position = "stack", width = NULL, ..., show.legend = NA,
+  inherit.aes = TRUE)
 
-stat_bar(mapping = NULL, data = NULL, geom = "bar", position = "stack",
-  width = NULL, ..., show.legend = NA, inherit.aes = TRUE)
+stat_count(mapping = NULL, data = NULL, geom = "bar",
+  position = "stack", width = NULL, ..., show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -48,13 +50,14 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{geom,stat}{Override the default connection between \code{geom_bar} and
-\code{stat_bar}.}
+\code{stat_count}.}
 }
 \description{
 There are two types of bar charts, determined by what is mapped to bar
-height. By default, \code{geom_bar} uses \code{stat = "bar"} which makes the
-height of the bar proportion to the number of cases in each group (or
-if the \code{weight} aethetic is supplied, the sum of the weights).
+height. By default, \code{geom_bar} uses \code{stat = "count"} which makes
+the height of the bar proportion to the number of cases in each group (or if
+the \code{weight} aethetic is supplied, the sum of the weights). If you want
+the heights of the bars to represent values in the data, use
 \code{stat="identity"} and map a variable to the \code{y} aesthetic.
 }
 \details{
