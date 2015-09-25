@@ -52,6 +52,10 @@ StatBin <- ggproto("StatBin", Stat,
     if (!is.null(data$y) || !is.null(params$y)) {
       stop("stat_bin() must not be used with a y aesthetic.", call. = FALSE)
     }
+    if (is.integer(data$x)) {
+      stop('StatBin requires a continuous x variable the x variable is discrete. Perhaps you want stat="count"?',
+        call. = FALSE)
+    }
 
     if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {
       message_wrap("`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.")
