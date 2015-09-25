@@ -250,7 +250,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
     tdata <- coord$transform(data, panel_scales)
 
     # Swap axes if using coord_flip
-    if ("flip" %in% attr(coord, "class"))
+    if (inherits(coord, "CoordFlip"))
       binaxis <- ifelse(binaxis == "x", "y", "x")
 
     if (binaxis == "x") {
