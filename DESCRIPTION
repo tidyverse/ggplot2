@@ -179,6 +179,7 @@ Collate:
     'stat-binhex.r'
     'stat-boxplot.r'
     'stat-contour.r'
+    'stat-count.r'
     'stat-density-2d.r'
     'stat-density.r'
     'stat-ecdf.r'

@@ -76,6 +76,9 @@ origin}
 Display a 1d distribution by dividing into bins and counting the number
 of observations in each bin. Histograms use bars; frequency polygons use
 lines.
+
+\code{stat_bin} is suitable only for continuous x data. If your x data is
+  discrete, you probably want to use \code{\link{stat_count}}.
 }
 \details{
 By default, \code{stat_bin} uses 30 bins - this is not a good default,
@@ -151,5 +154,10 @@ m <- ggplot(movies, aes(x = rating))
 m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 }
 rm(movies)
+}
+\seealso{
+\code{\link{stat_count}}, which counts the number of cases at each x
+  posotion, without binning. It is suitable for both discrete and continuous
+  x data, whereas \link{stat_bin} is suitable only for continuous x data.
 }
 
