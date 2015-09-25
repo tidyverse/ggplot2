@@ -1,3 +1,4 @@
+#' @inheritParams coord_cartesian
 #' @export
 #' @rdname coord_map
 coord_quickmap <- function(xlim = NULL, ylim = NULL, expand = TRUE) {

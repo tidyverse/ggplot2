@@ -25,6 +25,10 @@ projections, so you will have to supply your own. See
 \item{xlim}{manually specific x limits (in degrees of longitude)}
 
 \item{ylim}{manually specific y limits (in degrees of latitude)}
+
+\item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
+the limits to ensure that data and axes don't overlap. If \code{FALSE},
+limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 }
 \description{
 The representation of a portion of the earth, which is approximately spherical,
