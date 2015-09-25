@@ -163,7 +163,7 @@ StatBar <- ggproto("StatBar", Stat,
     data.frame(
       count = count,
       prop = count / sum(abs(count)),
-      x = unique(x),
+      x = sort(unique(x)),
       width = width
     )
   }
