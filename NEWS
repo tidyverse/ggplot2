@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* New geom_smoke, geom_smoke2, and stat_smoke as alternatives to
+  geom_density and geom_histogram (@dkahle).
+
 * New `txhousing` dataset containing information about the Texas housing
   market. Useful for examples that need multiple time series, and for
   demonstrating model+vis methods.
