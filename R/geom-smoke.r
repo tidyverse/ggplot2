@@ -21,15 +21,14 @@
 #'
 #' theme_set(theme_bw())
 #'
+#' # smoke and smoke2 do the same thing for
+#' # univariate visualizations with no other
+#' # aesthetics, but smoke is faster than smoke2.
+#' # see below for smoke2's uses.
 #' ggplot(diamonds, aes(carat)) +
 #'   geom_smoke()
 #'
 #' last_plot() + geom_density()
-#'
-#' # smoke2 is the same here, but slower
-#' # we'll see why it's helpful below
-#' ggplot(diamonds, aes(carat)) +
-#'   geom_smoke2()
 #'
 #'
 #' set.seed(10)
@@ -49,30 +48,28 @@
 #' ggplot(diamonds, aes(carat)) +
 #'   geom_smoke(adjust = c(.5, 1, 2), alpha = 1/3)
 #'
-#' # smoke is fast, but doesn't allow aesthetics
-#' # smoke2 does, but is slower
-#' if (FALSE) {
-#' ggplot(diamonds, aes(depth, colour = cut)) +
-#'   geom_smoke() +
+#'
+#'
+#' \dontrun{ geom_smoke2 is rather slow; this cuts down check time
+#'
+#' # here's where smoke2 shines
+#' # note the spikes - the rug shows that the
+#' # data is in fact quite discrete
+#' ggplot(diamonds, aes(depth, fill = cut)) +
+#'   geom_smoke2() + geom_rug() +
 #'   xlim(55, 70)
-#' }
 #'
-#' # Stacked density plots: if you want to create a stacked density plot, you
-#' # probably want to 'count' (density * n) variable instead of the default
-#' # density
 #'
-#' # Loses marginal densities
-#' ggplot(diamonds, aes(carat, fill = cut)) +
-#'   geom_smoke2(position = "stack")
-#' # Preserves marginal densities
+#' # ..count.. reserves marginal densities (see ?geom_density)
 #' ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
 #'   geom_smoke2(position = "stack")
+#'
 #'
 #' # You can use position="fill" to produce a conditional density estimate
 #' ggplot(diamonds, aes(carat, ..count..)) +
 #'   geom_smoke2(aes(fill = cut), position = "fill") +
 #'   xlim(0, 3)
-#'
+#' }
 #'
 geom_smoke <- function(mapping = NULL, data = NULL, stat = "smoke",
   position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
@@ -110,11 +107,13 @@ GeomSmoke <- ggproto("GeomSmoke", GeomArea,
 #' @export
 #' @rdname geom_smoke
 geom_smoke2 <- function(mapping = NULL, data = NULL, stat = "density",
-  position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-  ...) {
+  adjust = NULL, position = "identity", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...) {
 
-  s <- seq(0, 1, length.out = 50)
-  adjust <- 2^(3*s - 2)
+  if(is.null(adjust)){
+    s <- seq(0, 1, length.out = 50)
+    adjust <- 2^(3*s - 2)
+  }
 
   lapply(adjust, function(a){
     layer(

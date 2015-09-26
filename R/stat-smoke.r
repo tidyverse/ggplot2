@@ -30,13 +30,13 @@ stat_smoke <- function(mapping = NULL, data = NULL, geom = "area",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       adjust = adjust,
       kernel = kernel,
       trim = trim,
-      na.rm = na.rm
-    ),
-    params = list(...)
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 
@@ -53,7 +53,7 @@ StatSmoke <- ggproto("StatSmoke", Stat,
     if (trim) {
       range <- range(data$x, na.rm = TRUE)
     } else {
-      range <- scale_dimension(scales$x, c(0, 0))
+      range <- scales$x$dimension()
     }
 
     compute_smoke(data$x, data$weight, from = range[1], to = range[2],
@@ -100,8 +100,7 @@ compute_smoke <- function(x, w, from, to, bw = "nrd0",
     )
   })
 
-  dplyr::bind_rows(densities)
-
+  do.call("rbind", densities)
 }
 
 
