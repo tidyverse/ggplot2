@@ -5,18 +5,14 @@
 #' statistics which display y conditional on x, to x conditional on y.
 #'
 #' @export
-#' @param ... Other arguments passed onto \code{\link{coord_cartesian}}
+#' @inheritParams coord_cartesian
 #' @examples
-#' \donttest{
 #' # Very useful for creating boxplots, and other interval
 #' # geoms in the horizontal instead of vertical position.
-#' ggplot(diamonds, aes(cut, price)) +
-#'   geom_boxplot()
-#' last_plot() + coord_flip()
 #'
-#' ggplot(diamonds, aes(cut)) +
-#'   geom_bar()
-#' last_plot() + coord_flip()
+#' ggplot(diamonds, aes(cut, price)) +
+#'   geom_boxplot() +
+#'   coord_flip()
 #'
 #' h <- ggplot(diamonds, aes(carat)) +
 #'   geom_histogram()
@@ -24,14 +20,16 @@
 #' h + coord_flip()
 #' h + coord_flip() + scale_x_reverse()
 #'
-#' # You can also use it to flip lines and area plots:
-#' df <- data.frame(x = 1:5, y = (1:5)^2)
+#' # You can also use it to flip line and area plots:
+#' df <- data.frame(x = 1:5, y = (1:5) ^ 2)
 #' ggplot(df, aes(x, y)) +
-#'  geom_area()
+#'   geom_area()
 #' last_plot() + coord_flip()
-#' }
-coord_flip <- function(...) {
-  ggproto(NULL, CoordFlip, ...)
+coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE) {
+  ggproto(NULL, CoordFlip,
+    limits = list(x = xlim, y = ylim),
+    expand = expand
+  )
 }
 
 #' @rdname ggplot2-ggproto

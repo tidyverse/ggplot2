@@ -19,8 +19,8 @@ test_that("stringsAsFactors doesn't affect results", {
 
     options(stringsAsFactors = sAF)
 
-    expect_that(xlabels(char_true), equals(letters[1:5]))
-    expect_that(xlabels(char_false), equals(letters[1:5]))
-    expect_that(xlabels(factor_true), equals(letters[1:5]))
-    expect_that(xlabels(factor_false), equals(letters[1:5]))
+    expect_equal(xlabels(char_true), letters[1:5])
+    expect_equal(xlabels(char_false), letters[1:5])
+    expect_equal(xlabels(factor_true), letters[1:5])
+    expect_equal(xlabels(factor_false), letters[1:5])
 })

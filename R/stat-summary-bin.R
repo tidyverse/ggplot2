@@ -14,14 +14,14 @@ stat_summary_bin <- function(mapping = NULL, data = NULL, geom = "pointrange",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       fun.data = fun.data,
       fun.y = fun.y,
       fun.ymax = fun.ymax,
       fun.ymin = fun.ymin,
-      fun.args = fun.args
-    ),
-    params = list(...)
+      fun.args = fun.args,
+      ...
+    )
   )
 }
 
@@ -35,7 +35,7 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
   compute_group = function(data, scales, fun.data = NULL, fun.y = NULL,
                            fun.ymax = NULL, fun.ymin = NULL, fun.args = list(),
                            bins = 30, binwidth = NULL, origin = NULL, right = FALSE,
-                           na.rm = FALSE, ...) {
+                           na.rm = FALSE) {
 
     fun <- make_summary_fun(fun.data, fun.y, fun.ymax, fun.ymin, fun.args)
 
@@ -46,7 +46,7 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
 
     locs <- bin_loc(breaks, out$bin)
     out$x <- locs$mid
-    out$width <- if (inherits(scales$x, "discrete")) 0.9 else locs$length
+    out$width <- if (scales$x$is_discrete()) 0.9 else locs$length
     out
   }
 )

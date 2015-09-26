@@ -66,16 +66,11 @@ geom_polygon <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomPolygon <- ggproto("GeomPolygon", Geom,
-  draw_panel = function(self, data, scales, coordinates, ...) {
+  draw_panel = function(data, panel_scales, coord) {
     n <- nrow(data)
-    if (n == 1) return()
+    if (n == 1) return(zeroGrob())
 
-    # Check if group is numeric, to make polygonGrob happy (factors are numeric,
-    # but is.numeric() will report FALSE because it actually checks something else)
-    if (mode(data$group) != "numeric")
-      data$group <- factor(data$group)
-
-    munched <- coord_munch(coordinates, data, scales)
+    munched <- coord_munch(coord, data, panel_scales)
     # Sort by group to make sure that colors, fill, etc. come in same order
     munched <- munched[order(munched$group), ]
 
@@ -85,7 +80,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
     first_idx <- !duplicated(munched$group)
     first_rows <- munched[first_idx, ]
 
-    ggname("geom_polygon", gTree(children = gList(
+    ggname("geom_polygon",
       polygonGrob(munched$x, munched$y, default.units = "native",
         id = munched$group,
         gp = gpar(
@@ -95,7 +90,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
           lty = first_rows$linetype
         )
       )
-    )))
+    )
   },
 
   default_aes = aes(colour = "NA", fill = "grey20", size = 0.5, linetype = 1,

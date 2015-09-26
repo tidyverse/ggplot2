@@ -8,6 +8,8 @@
 #' @export
 #' @inheritParams geom_point
 #' @inheritParams geom_path
+#' @param method.args List of additional arguments passed on to the modelling
+#'   function defined by \code{method}.
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_quantile} and \code{stat_quantile}.
 #' @examples
@@ -21,7 +23,7 @@
 #' m + geom_quantile(method = "rqss")
 #' # Note that rqss doesn't pick a smoothing constant automatically, so
 #' # you'll need to tweak lambda yourself
-#' m + geom_quantile(method = "rqss", lambda = 1)
+#' m + geom_quantile(method = "rqss", lambda = 0.1)
 #'
 #' # Set aesthetics to fixed value
 #' m + geom_quantile(colour = "red", size = 2, alpha = 0.5)
@@ -37,12 +39,12 @@ geom_quantile <- function(mapping = NULL, data = NULL, stat = "quantile",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    geom_params = list(
+    params = list(
       lineend = lineend,
       linejoin = linejoin,
-      linemitre = linemitre
-    ),
-    params = list(...)
+      linemitre = linemitre,
+      ...
+    )
   )
 }
 
@@ -50,6 +52,7 @@ geom_quantile <- function(mapping = NULL, data = NULL, stat = "quantile",
 #' @format NULL
 #' @usage NULL
 #' @export
+#' @include geom-path.r
 GeomQuantile <- ggproto("GeomQuantile", GeomPath,
   default_aes = defaults(
     aes(weight = 1, colour = "#3366FF", size = 0.5),

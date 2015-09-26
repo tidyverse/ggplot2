@@ -47,6 +47,7 @@
 \alias{GeomSmoke}
 \alias{GeomSmoke2}
 \alias{GeomSmooth}
+\alias{GeomSpoke}
 \alias{GeomStep}
 \alias{GeomText}
 \alias{GeomTile}
@@ -60,14 +61,23 @@
 \alias{PositionJitterdodge}
 \alias{PositionNudge}
 \alias{PositionStack}
+\alias{Scale}
+\alias{ScaleContinuous}
+\alias{ScaleContinuousDate}
+\alias{ScaleContinuousDatetime}
+\alias{ScaleContinuousIdentity}
+\alias{ScaleContinuousPosition}
+\alias{ScaleDiscrete}
+\alias{ScaleDiscreteIdentity}
+\alias{ScaleDiscretePosition}
 \alias{Stat}
-\alias{StatBar}
 \alias{StatBin}
 \alias{StatBin2d}
 \alias{StatBindot}
 \alias{StatBinhex}
 \alias{StatBoxplot}
 \alias{StatContour}
+\alias{StatCount}
 \alias{StatDensity}
 \alias{StatDensity2d}
 \alias{StatEcdf}
@@ -78,7 +88,6 @@
 \alias{StatQuantile}
 \alias{StatSmoke}
 \alias{StatSmooth}
-\alias{StatSpoke}
 \alias{StatSum}
 \alias{StatSummary}
 \alias{StatSummary2d}
@@ -89,9 +98,9 @@
 \alias{ggplot2-ggproto}
 \title{Base ggproto classes for ggplot2}
 \description{
-If you are creating a new geom, stat or positions in another package, you'll
-need to extend from \code{ggplot2::Geom}, \code{ggplot2::Stat} or
-\code{ggplot2::Position}.
+If you are creating a new geom, stat, position, or scale in another package,
+you'll need to extend from \code{ggplot2::Geom}, \code{ggplot2::Stat},
+\code{ggplot2::Position}, or \code{ggplot2::Scale}.
 }
 \section{Coordinate systems}{
 
@@ -122,7 +131,6 @@ object, you typically will want to implement one or more of the following:
   \item \code{distance}: Calculates distance.
   \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is
     linear; \code{FALSE} otherwise.
-  \item \code{expand_defaults}: Expands the default ranges.
 }
 }
 
@@ -138,13 +146,19 @@ from the top-level \code{Geom}, and each implements various methods and
 fields. To create a new type of Geom object, you typically will want to
 implement one or more of the following:
 
-\itemize{
-  \item Override either \code{draw(self, data, panel_scales, coord)} or
-    \code{draw_group(self, data, panel_scales, coord)}. \code{draw} is
-    called with the complete dataset, \code{draw_group} is called a group
-    at-a-time.
+Compared to \code{Stat} and \code{Position}, \code{Geom} is a little
+different because the execution of the setup and compute functions is
+split up. \code{setup_data} runs before position adjustments, and
+\code{draw_layer} is not run until render time,  much later. This
+means there is no \code{setup_params} because it's hard to communicate
+the changes.
 
-    Use \code{draw} if each row in the data represents a
+\itemize{
+  \item Override either \code{draw_panel(self, data, panel_scales, coord)} or
+    \code{draw_group(self, data, panel_scales, coord)}. \code{draw_panel} is
+    called once per panel, \code{draw_group} is called once per group.
+
+    Use \code{draw_panel} if each row in the data represents a
     single element. Use \code{draw_group} if each group represents
     an element (e.g. a smooth, a violin).
 
@@ -212,6 +226,17 @@ And the following fields
   \item \code{required_aes}: a character vector giving the aesthetics
      that must be present for this position adjustment to work.
 }
+}
+
+\section{Scales}{
+
+
+All \code{scale_*} functions (like \code{scale_x_continuous}) return a
+\code{Scale*} object (like \code{ScaleContinuous}). The \code{Scale*}
+object represents a single scale.
+
+Each of the \code{Scale*} objects is a \code{\link{ggproto}} object,
+descended from the top-level \code{Scale}.
 }
 
 \section{Stats}{

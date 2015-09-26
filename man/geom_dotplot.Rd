@@ -11,9 +11,11 @@ geom_dotplot(mapping = NULL, data = NULL, position = "identity",
   width = 0.9, drop = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
-\item{mapping}{The aesthetic mapping, usually constructed with
-\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
-at the layer level if you are overriding the plot defaults.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
+\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+default), is combined with the default mapping at the top level of the
+plot. You only need to supply \code{mapping} if there isn't a mapping
+defined for the plot.}
 
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
@@ -141,6 +143,7 @@ ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, stackratio = .7)
 # Expand dot diameter
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
 
+\donttest{
 # Examples with stacking along y axis instead of x
 ggplot(mtcars, aes(x = 1, y = mpg)) +
   geom_dotplot(binaxis = "y", stackdir = "center")
@@ -167,6 +170,7 @@ ggplot(mtcars, aes(x = mpg, fill = factor(cyl))) +
 
 ggplot(mtcars, aes(x = 1, y = mpg, fill = factor(cyl))) +
   geom_dotplot(binaxis = "y", stackgroups = TRUE, binwidth = 1, method = "histodot")
+}
 }
 \references{
 Wilkinson, L. (1999) Dot plots. The American Statistician,

@@ -1,7 +1,5 @@
 context("function-args")
 
-# proto2 TODO: better way of getting formals for self$draw
-formals_proto2 <- function(x) formals(environment(x)$f)
 filter_args <- function(x) {
   all_names <- names(x)
   all_names <- setdiff(all_names, c("self", "data", "scales", "coordinates", "..."))
@@ -16,7 +14,7 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   geom_fun_names <- setdiff(
     geom_fun_names,
     c("geom_aesthetics", "geom_map", "annotation_custom", "annotation_map",
-      "annotation_raster")
+      "annotation_raster", "annotation_id")
   )
 
   # For each geom_xxx function and the corresponding GeomXxx$draw and
@@ -24,11 +22,11 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   # the args have the same default values.
   lapply(geom_fun_names, function(geom_fun_name) {
     geom_fun    <- ggplot2_ns[[geom_fun_name]]
-    draw        <- geom_fun()$geom$draw
+    draw        <- geom_fun()$geom$draw_layer
     draw_groups <- geom_fun()$geom$draw_group
 
     fun_args <- formals(geom_fun)
-    draw_args <- c(formals_proto2(draw), formals_proto2(draw_groups))
+    draw_args <- c(ggproto_formals(draw), ggproto_formals(draw_groups))
     draw_args <- filter_args(draw_args)
 
     common_names <- intersect(names(fun_args), names(draw_args))
@@ -60,7 +58,7 @@ test_that("stat_xxx and StatXxx$draw arg defaults match", {
     calculate_groups <- stat_fun()$stat$compute_group
 
     fun_args <- formals(stat_fun)
-    calc_args <- c(formals_proto2(calculate), formals_proto2(calculate_groups))
+    calc_args <- c(ggproto_formals(calculate), ggproto_formals(calculate_groups))
     calc_args <- filter_args(calc_args)
 
     common_names <- intersect(names(fun_args), names(calc_args))

@@ -1,5 +1,19 @@
 context("Layer")
 
+
+# Parameters --------------------------------------------------------------
+
+test_that("aesthetics go in aes_params", {
+  l <- geom_point(size = "red")
+  expect_equal(l$aes_params, list(size = "red"))
+})
+
+test_that("unknown params create error", {
+  expect_error(geom_point(blah = "red"), "Unknown parameters")
+})
+
+# Calculated aesthetics ---------------------------------------------------
+
 test_that("Bare name surround by .. is calculated", {
   expect_true(is_calculated_aes(aes(..density..)))
   expect_true(is_calculated_aes(aes(..DENSITY..)))

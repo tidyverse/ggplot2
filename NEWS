@@ -4,6 +4,28 @@ ggplot2 1.0.1.9xxx
 * New geom_smoke, geom_smoke2, and stat_smoke as alternatives to
   geom_density and geom_histogram (@dkahle).
 
+* `geom_pointrange()` gains `fatten` argument so you can control the
+  size of the point relative to the size of the line.
+
+* `stat_spoke()` is now `geom_spoke()` since I realised it's a
+  reparameterisation of `geom_segment().
+
+* Layers are now much stricter about their arguments - you will get an error
+  if you've supplied an argument that isn't an aesthetic, or a parameter
+  of the scale or geom. This should make it much more obvious when you have
+  a spelling mistake! (#1293)
+
+* `order` aesthetic is officially no longer supported. It never really worked,
+  and was poorly documented.
+
+* When setting limits with `coord_cartesian()`, it now applies the same
+  expansion factor as setting limits with scales. You can suppress with
+  `expand = FALSE` (#1207).
+
+* `annotation_custom()` now automatically adds a unique id to each grob name,
+  making it easier to plot multiple grobs with the same name (e.g. grobs of
+  ggplot2 graphics) in the same plot (#1256).
+
 * New `txhousing` dataset containing information about the Texas housing
   market. Useful for examples that need multiple time series, and for
   demonstrating model+vis methods.
@@ -55,8 +77,9 @@ ggplot2 1.0.1.9xxx
 * `geom_smooth()` is no longer so chatty. If you want to know what the deafult
   smoothing method is, look it up in the documentation! (#1247)
 
-* `geom_smooth()`/`stat_smooth()` no longer pass ... on to the
-  underlying model. Instead, put additional arguments in `method.args` (#1245).
+* `geom_smooth()`/`stat_smooth()` and `geom_quantile()`/`stat_quantile()` no
+  longer pass ... on to the underlying model. Instead, put additional arguments
+  in `method.args` (#1245, #1289).
 
 * `element_text()` gains a margins argument which allows you to add additional
   margins around text elements in the plot. The default themes have been
@@ -73,7 +96,7 @@ ggplot2 1.0.1.9xxx
   default values once per layer, rather than once per panel (#1220).
 
 * `geom_bar()` and `geom_histogram()` no longer share `stat_bin()`. Now
-  `geom_bar()` has its own stat, `stat_bar()`. This is useful if you want to
+  `geom_bar()` has its own stat, `stat_coont()`. This is useful if you want to
   display a bar chart of continuous data, drawing a bar at each unique
   location.
 
@@ -236,7 +259,9 @@ ggplot2 1.0.1.9xxx
   Parameter `device` now supports character argument to specify which supported
   device to use ('pdf', 'png', 'jpeg', etc.), for when it cannot be correctly
   inferred from the file extension (for example when a temporary filename is
-  supplied server side in shiny apps) (@sebkopf, #939)
+  supplied server side in shiny apps) (@sebkopf, #939). It no longer opens
+  a graphics device if one isn't already open - this is annoying when you're
+  running from a script (#1326)
 
 * Add access to the new `direction` argument of `scales::brewer_pal` and
   simplify changing the order of colours for `scale_*_brewer` and

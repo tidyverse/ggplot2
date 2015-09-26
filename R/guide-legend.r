@@ -195,13 +195,13 @@ guide_legend <- function(
 
 #' @export
 guide_train.legend <- function(guide, scale) {
-  breaks <- scale_breaks(scale)
+  breaks <- scale$get_breaks()
   if (length(breaks) == 0 || all(is.na(breaks)))
     return()
 
-  key <- as.data.frame(setNames(list(scale_map(scale, breaks)), scale$aesthetics[1]),
+  key <- as.data.frame(setNames(list(scale$map(breaks)), scale$aesthetics[1]),
     stringsAsFactors = FALSE)
-  key$.label <- scale_labels(scale, breaks)
+  key$.label <- scale$get_labels(breaks)
 
   # this is a quick fix for #118
   # some scales have NA as na.value (e.g., size)
@@ -210,12 +210,12 @@ guide_train.legend <- function(guide, scale) {
   #
   # Also, drop out-of-range values for continuous scale
   # (should use scale$oob?)
-  if (inherits(scale, "continuous")) {
-    limits <- scale_limits(scale)
+  if (scale$is_discrete()) {
+    key <- key[!is.na(breaks), , drop = FALSE]
+  } else {
+    limits <- scale$get_limits()
     noob <- !is.na(breaks) & limits[1] <= breaks & breaks <= limits[2]
     key <- key[noob, , drop = FALSE]
-  } else {
-    key <- key[!is.na(breaks), , drop = FALSE]
   }
 
 
@@ -248,7 +248,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       # This layer contributes to the legend
       if (is.na(layer$show.legend) || layer$show.legend) {
         # Default is to include it
-        data <- layer$geom$use_defaults(guide$key[matched], layer$geom_params)
+        data <- layer$geom$use_defaults(guide$key[matched], layer$aes_params)
       } else {
         return(NULL)
       }
@@ -258,7 +258,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
         # Default is to exclude it
         return(NULL)
       } else {
-        data <- layer$geom$use_defaults(NULL, layer$geom_params)[rep(1, nrow(guide$key)), ]
+        data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
       }
     }
 

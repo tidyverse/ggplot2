@@ -4,7 +4,6 @@
 #'   horizontal directions. Overrides \code{bins} if both set.
 #' @param drop if \code{TRUE} removes all cells with 0 counts.
 #' @export
-#' @aliases stat_bin2d
 #' @rdname geom_bin2d
 stat_bin_2d <- function(mapping = NULL, data = NULL, geom = "tile",
                         position = "identity", bins = 30, binwidth = NULL,
@@ -17,16 +16,19 @@ stat_bin_2d <- function(mapping = NULL, data = NULL, geom = "tile",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       bins = bins,
       binwidth = binwidth,
-      drop = drop
-    ),
-    params = list(...)
+      drop = drop,
+      ...
+    )
   )
 }
 
+
 #' @export
+#' @rdname geom_bin2d
+#' @usage NULL
 stat_bin2d <- stat_bin_2d
 
 #' @rdname ggplot2-ggproto
@@ -38,7 +40,7 @@ StatBin2d <- ggproto("StatBin2d", Stat,
   required_aes = c("x", "y"),
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
-                           breaks = NULL, origin = NULL, drop = TRUE, ...) {
+                           breaks = NULL, origin = NULL, drop = TRUE) {
 
     origin <- dual_param(origin, list(NULL, NULL))
     binwidth <- dual_param(binwidth, list(NULL, NULL))
@@ -48,8 +50,8 @@ StatBin2d <- ggproto("StatBin2d", Stat,
     xbreaks <- bin_breaks(scales$x, breaks$x, origin$x, binwidth$x, bins$x)
     ybreaks <- bin_breaks(scales$y, breaks$y, origin$y, binwidth$y, bins$y)
 
-    xbin <- cut(data$x, xbreaks, include.lowest = TRUE, label = FALSE)
-    ybin <- cut(data$y, ybreaks, include.lowest = TRUE, label = FALSE)
+    xbin <- cut(data$x, xbreaks, include.lowest = TRUE, labels = FALSE)
+    ybin <- cut(data$y, ybreaks, include.lowest = TRUE, labels = FALSE)
 
     if (is.null(data$weight))
       data$weight <- 1
@@ -89,15 +91,15 @@ bin_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
   # Bins for categorical data should take the width of one level,
   # and should show up centered over their tick marks. All other parameters
   # are ignored.
-  if (inherits(scale, "discrete")) {
-    breaks <- scale_breaks(scale)
+  if (scale$is_discrete()) {
+    breaks <- scale$get_breaks()
     return(-0.5 + seq_len(length(breaks) + 1))
   }
 
   if (!is.null(breaks))
     return(breaks)
 
-  range <- scale_limits(scale)
+  range <- scale$get_limits()
 
   if (is.null(binwidth) || identical(binwidth, NA)) {
     binwidth <- diff(range) / bins

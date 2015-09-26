@@ -21,12 +21,12 @@ stat_density2d <- function(mapping = NULL, data = NULL, geom = "density2d",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       na.rm = na.rm,
       contour = contour,
-      n = n
-    ),
-    params = list(...)
+      n = n,
+      ...
+    )
   )
 }
 
@@ -40,20 +40,20 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
   required_aes = c("x", "y"),
 
   compute_group = function(data, scales, na.rm = FALSE, h = NULL,
-                           contour = TRUE, n = 100, ...) {
+                           contour = TRUE, n = 100) {
     if (is.null(h)) {
       h <- c(MASS::bandwidth.nrd(data$x), MASS::bandwidth.nrd(data$y))
     }
 
     dens <- MASS::kde2d(
       data$x, data$y, h = h, n = n,
-      lims = c(scale_dimension(scales$x), scale_dimension(scales$y))
+      lims = c(scales$x$dimension(), scales$y$dimension())
     )
     df <- data.frame(expand.grid(x = dens$x, y = dens$y), z = as.vector(dens$z))
     df$group <- data$group[1]
 
     if (contour) {
-      StatContour$compute_panel(df, scales, ...)
+      StatContour$compute_panel(df, scales)
     } else {
       names(df) <- c("x", "y", "density", "group")
       df$level <- 1

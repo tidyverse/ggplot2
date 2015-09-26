@@ -9,7 +9,7 @@
 #' update_geom_defaults("point", list(colour = "black"))
 #' @rdname update_defaults
 update_geom_defaults <- function(geom, new) {
-  g <- make_geom(geom)
+  g <- find_subclass("Geom", geom)
   old <- g$default_aes
   g$default_aes <- defaults(new, old)
 }
@@ -17,7 +17,7 @@ update_geom_defaults <- function(geom, new) {
 #' @rdname update_defaults
 #' @export
 update_stat_defaults <- function(stat, new) {
-  g <- make_stat(stat)
+  g <- find_subclass("Stat", stat)
   old <- g$default_aes
   g$default_aes <- defaults(new, old)
 }

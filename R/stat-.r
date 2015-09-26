@@ -54,14 +54,16 @@ Stat <- ggproto("Stat",
 
   default_aes = aes(),
 
-  required_aes = c(),
+  required_aes = character(),
+
+  non_missing_aes = character(),
 
   setup_params = function(data, params) {
     params
   },
 
-  setup_data = function(self, data, params) {
-    remove_missing(data, isTRUE(params$na.rm), self$required_aes, name = snake_class(self))
+  setup_data = function(data, params) {
+    data
   },
 
   compute_layer = function(self, data, params, panels) {
@@ -69,6 +71,11 @@ Stat <- ggproto("Stat",
       self$stat$required_aes,
       c(names(data), names(params)),
       snake_class(self$stat)
+    )
+    data <- remove_missing(data, isTRUE(params$na.rm),
+      c(self$required_aes, self$non_missing_aes),
+      snake_class(self),
+      finite = TRUE
     )
 
     args <- c(list(data = quote(data), scales = quote(scales)), params)
@@ -103,22 +110,19 @@ Stat <- ggproto("Stat",
     do.call(plyr::rbind.fill, stats)
   },
 
-  compute_group = function(self, data, scales, ...) {
+  compute_group = function(self, data, scales) {
     stop("Not implemented", call. = FALSE)
+  },
+
+  parameters = function(self) {
+    # Look first in compute_panel. If it contains ... then look in compute_group
+    panel_args <- names(ggproto_formals(self$compute_panel))
+    group_args <- names(ggproto_formals(self$compute_group))
+    args <- if ("..." %in% panel_args) group_args else panel_args
+
+    # Remove arguments of defaults
+    args <- setdiff(args, names(ggproto_formals(Stat$compute_group)))
+
+    args
   }
 )
-
-# make_stat("bin") returns StatBin
-make_stat <- function(class) {
-  name <- paste0("Stat", camelize(class, first = TRUE))
-  if (!exists(name)) {
-    stop("No stat called ", name, ".", call. = FALSE)
-  }
-
-  obj <- get(name)
-  if (!inherits(obj, "Stat")) {
-    stop("Found object is not a stat", call. = FALSE)
-  }
-
-  obj
-}

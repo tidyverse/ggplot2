@@ -30,8 +30,10 @@ stat_ecdf <- function(mapping = NULL, data = NULL, geom = "step",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(n = n),
-    params = list(...)
+    params = list(
+      n = n,
+      ...
+    )
   )
 }
 
@@ -41,7 +43,7 @@ stat_ecdf <- function(mapping = NULL, data = NULL, geom = "step",
 #' @usage NULL
 #' @export
 StatEcdf <- ggproto("StatEcdf", Stat,
-  compute_group = function(data, scales, n = NULL, ...) {
+  compute_group = function(data, scales, n = NULL) {
 
     # If n is NULL, use raw values; otherwise interpolate
     if (is.null(n)) {

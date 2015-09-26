@@ -1,22 +1,88 @@
-# Create a new layer
-# Layer objects store the layer of an object.
-#
-# They have the following attributes:
-#
-#  * data
-#  * geom + parameters
-#  * statistic + parameters
-#  * position + parameters
-#  * aesthetic mapping
-#  * flag for display guide: TRUE/FALSE/NA. in the case of NA, decision depends on a guide itself.
-#
-# Can think about grob creation as a series of data frame transformations.
+#' Create a new layer
+#'
+#' @export
+#' @inheritParams geom_point
+#' @param geom,stat,position Geom, stat and position adjustment to use in
+#'   this layer. Can either be the name of a ggproto object, or the object
+#'   itself.
+#' @param params Additional parameters to the \code{geom} and \code{stat}.
+#' @param subset DEPRECATED. An older way of subsetting the dataset used in a
+#'   layer.
+#' @examples
+#' # geom calls are just a short cut for layer
+#' ggplot(mpg, aes(displ, hwy)) + geom_point()
+#' # shortcut for
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   layer(geom = "point", stat = "identity", position = "identity")
+layer <- function(geom = NULL, stat = NULL,
+                  data = NULL, mapping = NULL,
+                  position = NULL, params = list(),
+                  inherit.aes = TRUE, subset = NULL, show.legend = NA) {
+  if (is.null(geom))
+    stop("Attempted to create layer with no geom.", call. = FALSE)
+  if (is.null(stat))
+    stop("Attempted to create layer with no stat.", call. = FALSE)
+  if (is.null(position))
+    stop("Attempted to create layer with no position.", call. = FALSE)
+
+  # Handle show_guide/show.legend
+  if (!is.null(params$show_guide)) {
+    warning("`show_guide` has been deprecated. Please use `show.legend` instead.",
+      call. = FALSE)
+    show.legend <- params$show_guide
+    params$show_guide <- NULL
+  }
+  if (!is.logical(show.legend) || length(show.legend) != 1) {
+    warning("`show.legend` must be a logical vector of length 1.", call. = FALSE)
+    show.legend <- FALSE
+  }
+
+  data <- fortify(data)
+  if (!is.null(mapping) && !inherits(mapping, "uneval")) {
+    stop("Mapping must be created by `aes()` or `aes_()`", call. = FALSE)
+  }
+
+  if (is.character(geom))
+    geom <- find_subclass("Geom", geom)
+  if (is.character(stat))
+    stat <- find_subclass("Stat", stat)
+  if (is.character(position))
+    position <- find_subclass("Position", position)
+
+  # Split up params between aesthetics, geom, and stat
+  params <- rename_aes(params)
+  aes_params  <- params[intersect(names(params), geom$aesthetics())]
+  geom_params <- params[intersect(names(params), geom$parameters())]
+  stat_params <- params[intersect(names(params), stat$parameters())]
+
+  all <- c(geom$parameters(), stat$parameters(), geom$aesthetics())
+  extra <- setdiff(names(params), all)
+  if (length(extra) > 0) {
+    stop("Unknown parameters: ", paste(extra, collapse = ", "), call. = FALSE)
+  }
+
+  ggproto("LayerInstance", Layer,
+    geom = geom,
+    geom_params = geom_params,
+    stat = stat,
+    stat_params = stat_params,
+    data = data,
+    mapping = mapping,
+    aes_params = aes_params,
+    subset = subset,
+    position = position,
+    inherit.aes = inherit.aes,
+    show.legend = show.legend
+  )
+}
+
 Layer <- ggproto("Layer", NULL,
   geom = NULL,
   geom_params = NULL,
   stat = NULL,
   stat_params = NULL,
   data = NULL,
+  aes_params = NULL,
   mapping = NULL,
   position = NULL,
   inherit.aes = FALSE,
@@ -41,13 +107,13 @@ Layer <- ggproto("Layer", NULL,
     }
 
     # Drop aesthetics that are set or calculated
-    set <- names(aesthetics) %in% names(self$geom_params)
+    set <- names(aesthetics) %in% names(self$aes_params)
     calculated <- is_calculated_aes(aesthetics)
     aesthetics <- aesthetics[!set & !calculated]
 
     # Override grouping if set in layer
     if (!is.null(self$geom_params$group)) {
-      aesthetics[["group"]] <- self$geom_params$group
+      aesthetics[["group"]] <- self$aes_params$group
     }
 
     # Old subsetting method
@@ -69,12 +135,15 @@ Layer <- ggproto("Layer", NULL,
     }
     check_aesthetics(evaled, n)
 
+    # Set special group and panel vars
     if (empty(data) && n > 0) {
       evaled$PANEL <- 1
     } else {
       evaled$PANEL <- data$PANEL
     }
-    data.frame(evaled)
+    evaled <- data.frame(evaled, stringsAsFactors = FALSE)
+    evaled <- add_group(evaled)
+    evaled
   },
 
   compute_statistic = function(self, data, panel) {
@@ -83,7 +152,6 @@ Layer <- ggproto("Layer", NULL,
 
     params <- self$stat$setup_params(data, self$stat_params)
     data <- self$stat$setup_data(data, params)
-
     self$stat$compute_layer(data, params, panel)
   },
 
@@ -116,6 +184,19 @@ Layer <- ggproto("Layer", NULL,
     cunion(stat_data, data)
   },
 
+  compute_geom_1 = function(self, data) {
+    if (empty(data)) return(data.frame())
+    data <- self$geom$setup_data(data, c(self$geom_params, self$aes_params))
+
+    check_required_aesthetics(
+      self$geom$required_aes,
+      c(names(data), names(self$aes_params)),
+      snake_class(self$geom)
+    )
+
+    data
+  },
+
   compute_position = function(self, data, panel) {
     if (empty(data)) return(data.frame())
 
@@ -125,20 +206,11 @@ Layer <- ggproto("Layer", NULL,
     self$position$compute_layer(data, params, panel)
   },
 
-  compute_geom = function(self, data) {
-    if (empty(data)) return(data.frame())
-    params <- self$geom$setup_params(data, self$geom_params)
-    data <- self$geom$setup_data(data, params)
+  compute_geom_2 = function(self, data) {
+    # Combine aesthetics, defaults, & params
+    if (empty(data)) return(data)
 
-    check_required_aesthetics(
-      self$geom$required_aes,
-      c(names(data), names(params)),
-      snake_class(self$geom)
-    )
-
-    # Update layer params so can access later
-    self$geom_params <- params
-    data
+    self$geom$use_defaults(data, self$aes_params)
   },
 
   draw_geom = function(self, data, panel, coord) {
@@ -148,86 +220,19 @@ Layer <- ggproto("Layer", NULL,
   }
 )
 
-
-#' Create a new layer
-#'
-#' @export
-#' @inheritParams geom_point
-#' @param geom,stat,position Geom, stat and position adjustment to use in
-#'   this layer. Can either be the name of a ggproto object, or the object
-#'   itself.
-#' @param geom_params,stat_params,params Additional parameters to the
-#'   \code{geom} and \code{stat}. If supplied individual in \code{...} or as a
-#'   list in \code{params}, \code{layer} does it's best to figure out which
-#'   arguments belong to which. To be explicit, supply as individual lists to
-#'   \code{geom_param} and \code{stat_param}.
-#' @param mapping Set of aesthetic mappings created by \code{\link{aes}} or
-#'   \code{\link{aes_string}}. If specified and \code{inherit.aes = TRUE},
-#'   is combined with the default mapping at the top level of the plot.
-#' @param inherit.aes If \code{FALSE}, overrides the default aesthetics,
-#'   rather than combining with them. This is most useful for helper functions
-#'   that define both data and aesthetics and shouldn't inherit behaviour from
-#'   the default plot specification, e.g. \code{\link{borders}}.
-#' @param subset DEPRECATED. An older way of subsetting the dataset used in a
-#'   layer.
-#' @examples
-#' # geom calls are just a short cut for layer
-#' ggplot(mpg, aes(displ, hwy)) + geom_point()
-#' # shortcut for
-#' ggplot(mpg, aes(displ, hwy)) +
-#'   layer(geom = "point", stat = "identity", position = "identity")
-layer <- function(geom = NULL, geom_params = list(), stat = NULL,
-  stat_params = list(), data = NULL, mapping = NULL, position = NULL,
-  params = list(), inherit.aes = TRUE, subset = NULL, show.legend = NA)
-{
-  if (is.null(geom))
-    stop("Attempted to create layer with no geom.", call. = FALSE)
-  if (is.null(stat))
-    stop("Attempted to create layer with no stat.", call. = FALSE)
-  if (is.null(position))
-    stop("Attempted to create layer with no position.", call. = FALSE)
-
-  # Handle show_guide/show.legend
-  if (!is.null(params$show_guide)) {
-    warning("`show_guide` has been deprecated. Please use `show.legend` instead.",
-      call. = FALSE)
-    show.legend <- params$show_guide
-    params$show_guide <- NULL
-  }
-  if (!is.logical(show.legend) || length(show.legend) != 1) {
-    warning("`show.legend` must be a logical vector of length 1.", call. = FALSE)
-    show.legend <- FALSE
-  }
-
-
-  data <- fortify(data)
-  if (!is.null(mapping) && !inherits(mapping, "uneval")) {
-    stop("Mapping should be a list of unevaluated mappings created by aes or aes_string", call. = FALSE)
-  }
-
-  if (is.character(geom)) geom <- make_geom(geom)
-  if (is.character(stat)) stat <- make_stat(stat)
-  if (is.character(position)) position <- make_position(position)
-
-  # Categorize items from params into geom_params and stat_params
-  if (length(params) > 0) {
-    geom_params <- utils::modifyList(params, geom_params)
-    stat_params <- utils::modifyList(params, stat_params)
-  }
-  geom_params <- rename_aes(geom_params)
-
-  ggproto("LayerInstance", Layer,
-    geom = geom,
-    geom_params = geom_params,
-    stat = stat,
-    stat_params = stat_params,
-    data = data,
-    mapping = mapping,
-    subset = subset,
-    position = position,
-    inherit.aes = inherit.aes,
-    show.legend = show.legend
-  )
-}
-
 is.layer <- function(x) inherits(x, "Layer")
+
+
+find_subclass <- function(super, class) {
+  name <- paste0(super, camelize(class, first = TRUE))
+  if (!exists(name)) {
+    stop("No ", tolower(super), " called ", name, ".", call. = FALSE)
+  }
+
+  obj <- get(name)
+  if (!inherits(obj, super)) {
+    stop("Found object is not a ", tolower(super), ".", call. = FALSE)
+  }
+
+  obj
+}

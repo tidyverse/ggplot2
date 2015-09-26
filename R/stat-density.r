@@ -30,13 +30,13 @@ stat_density <- function(mapping = NULL, data = NULL, geom = "area",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       adjust = adjust,
       kernel = kernel,
       trim = trim,
-      na.rm = na.rm
-    ),
-    params = list(...)
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 
@@ -49,11 +49,11 @@ StatDensity <- ggproto("StatDensity", Stat,
   default_aes = aes(y = ..density.., fill = NA),
 
   compute_group = function(data, scales, adjust = 1, kernel = "gaussian",
-                           trim = FALSE, na.rm = FALSE, ...) {
+                           trim = FALSE, na.rm = FALSE) {
     if (trim) {
       range <- range(data$x, na.rm = TRUE)
     } else {
-      range <- scale_dimension(scales$x, c(0, 0))
+      range <- scales$x$dimension()
     }
 
     compute_density(data$x, data$weight, from = range[1], to = range[2],

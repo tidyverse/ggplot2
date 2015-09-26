@@ -7,8 +7,6 @@ r_packages:
 
 r_github_packages:
   - hadley/staticdocs
-  - hadley/scales
-  - hadley/ggplot2movies
   - jimhester/covr
 
 before_script:

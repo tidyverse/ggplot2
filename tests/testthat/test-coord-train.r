@@ -23,8 +23,8 @@ test_that("NA's don't appear in breaks", {
   # This is a test to make sure the later tests will be useful!
   # It's possible that changes to the the way that breaks are calculated will
   # make it so that scale_break_positions will no longer give NA for range 1, 12
-  expect_true(any(is.na(scale_break_positions(scales$x))))
-  expect_true(any(is.na(scale_break_positions(scales$y))))
+  expect_true(any(is.na((scales$x$break_positions()))))
+  expect_true(any(is.na((scales$y$break_positions()))))
 
   # Check the various types of coords to make sure they don't have NA breaks
   expect_false(any_NA_major_minor(coord_polar()$train(scales)))

@@ -142,21 +142,20 @@ train_trans <- function(scale_details, limits, trans, name) {
   # Expansion of data range sometimes go beyond domain,
   # so in trans, expansion takes place at the final stage.
   if (is.null(limits)) {
-    range <- scale_dimension(scale_details, c(0, 0))
+    range <- scale_details$dimension()
   } else {
-    range <- range(scale_transform(scale_details, limits))
+    range <- range(scale_details$transform(limits))
   }
 
   # breaks on data space
-  out <- scale_break_info(scale_details, range)
+  out <- scale_details$break_info(range)
 
   # trans'd range
   out$range <- trans$transform(out$range)
 
   # expansion if limits are not specified
   if (is.null(limits)) {
-    # TODO: This is weird, accessing Coord directly for this method.
-    expand <- Coord$expand_defaults(scale_details)
+    expand <- expand_default(scale_details)
     out$range <- expand_range(out$range, expand[1], expand[2])
   }
 

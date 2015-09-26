@@ -12,14 +12,14 @@ ggplot(dat, aes(x = xvar, y = yvar)) + geom_bar(stat = "identity", aes(width = 0
 save_vtest("stat='identity', aes(width=0.5)")
 
 
-ggplot(dat, aes(x = xvar)) + geom_bar(stat = "bin")
-save_vtest("stat='bin'")
+ggplot(dat, aes(x = xvar)) + geom_bar(stat = "count")
+save_vtest("stat='count'")
 
-ggplot(dat, aes(x = xvar)) + geom_bar(stat = "bin", width = 0.5)
-save_vtest("stat='bin', width=0.5")
+ggplot(dat, aes(x = xvar)) + geom_bar(stat = "count", width = 0.5)
+save_vtest("stat='count', width=0.5")
 
-ggplot(dat, aes(x = xvar)) + geom_bar(stat = "bin", aes(width = 0.5))
-save_vtest("stat='bin', aes(width=0.5)")
+ggplot(dat, aes(x = xvar)) + geom_bar(stat = "count", aes(width = 0.5))
+save_vtest("stat='count', aes(width=0.5)")
 
 #TODO: Clean these up a bit
 

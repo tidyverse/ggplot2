@@ -45,14 +45,14 @@ stat_summary_2d <- function(mapping = NULL, data = NULL, geom = "tile",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       bins = bins,
       binwidth = binwidth,
       drop = drop,
       fun = fun,
-      fun.args = fun.args
-    ),
-    params = list(...)
+      fun.args = fun.args,
+      ...
+    )
   )
 }
 
@@ -75,7 +75,7 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
                            breaks = NULL, origin = NULL, drop = TRUE,
-                           fun = "mean", fun.args = list(), ...) {
+                           fun = "mean", fun.args = list()) {
     origin <- dual_param(origin, list(NULL, NULL))
     binwidth <- dual_param(binwidth, list(NULL, NULL))
     breaks <- dual_param(breaks, list(NULL, NULL))
@@ -84,8 +84,8 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
     xbreaks <- bin_breaks(scales$x, breaks$x, origin$x, binwidth$x, bins$x)
     ybreaks <- bin_breaks(scales$y, breaks$y, origin$y, binwidth$y, bins$y)
 
-    xbin <- cut(data$x, xbreaks, include.lowest = TRUE, label = FALSE)
-    ybin <- cut(data$y, ybreaks, include.lowest = TRUE, label = FALSE)
+    xbin <- cut(data$x, xbreaks, include.lowest = TRUE, labels = FALSE)
+    ybin <- cut(data$y, ybreaks, include.lowest = TRUE, labels = FALSE)
 
     f <- function(x) {
       do.call(fun, c(list(quote(x)), fun.args))

@@ -5,14 +5,18 @@
 \alias{coord_fixed}
 \title{Cartesian coordinates with fixed relationship between x and y scales.}
 \usage{
-coord_fixed(ratio = 1, xlim = NULL, ylim = NULL)
+coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE)
 }
 \arguments{
 \item{ratio}{aspect ratio, expressed as \code{y / x}}
 
-\item{xlim}{limits for the x axis}
+\item{xlim}{Limits for the x and y axes.}
 
-\item{ylim}{limits for the y axis}
+\item{ylim}{Limits for the x and y axes.}
+
+\item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
+the limits to ensure that data and axes don't overlap. If \code{FALSE},
+limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 }
 \description{
 A fixed scale coordinate system forces a specified ratio between the

@@ -29,6 +29,7 @@
 #'   geom_point() +
 #'   facet_wrap(~class, nrow = 4)
 #'
+#' \donttest{
 #' # You can facet by multiple variables
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point() +
@@ -72,6 +73,7 @@
 #'   geom_line() +
 #'   facet_wrap(~variable, scales = "free_y", nrow = 2, switch = "x") +
 #'   theme(strip.background = element_blank())
+#' }
 facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
                        shrink = TRUE, labeller = "label_value", as.table = TRUE,
                        switch = NULL, drop = TRUE, dir = "h") {

@@ -33,14 +33,14 @@ stat_ydensity <- function(mapping = NULL, data = NULL, geom = "violin",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       adjust = adjust,
       kernel = kernel,
       trim = trim,
       scale = scale,
-      na.rm = na.rm
-    ),
-    params = list(...)
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 
@@ -51,20 +51,16 @@ stat_ydensity <- function(mapping = NULL, data = NULL, geom = "violin",
 #' @export
 StatYdensity <- ggproto("StatYdensity", Stat,
   required_aes = c("x", "y"),
-
-  setup_data = function(data, params) {
-    data <- remove_missing(data, isTRUE(params$na.rm), c("x", "y", "weight"),
-      name = "stat_ydensity", finite = TRUE)
-  },
+  non_missing_aes = "weight",
 
   compute_group = function(data, scales, width = NULL, adjust = 1,
-                       kernel = "gaussian", trim = TRUE, na.rm = FALSE, ...) {
+                       kernel = "gaussian", trim = TRUE, na.rm = FALSE) {
     if (nrow(data) < 3) return(data.frame())
 
     if (trim) {
       range <- range(data$y, na.rm = TRUE)
     } else {
-      range <- scale_dimension(scales$y, c(0, 0))
+      range <- scales$y$dimension()
     }
     dens <- compute_density(data$y, data$w, from = range[1], to = range[2],
       adjust = adjust, kernel = kernel)
@@ -81,8 +77,13 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     dens
   },
 
-  compute_panel = function(self, data, scales, ..., scale = "area") {
-    data <- ggproto_parent(Stat, self)$compute_panel(data, scales, ...)
+  compute_panel = function(self, data, scales, width = NULL, adjust = 1,
+                           kernel = "gaussian", trim = TRUE, na.rm = FALSE,
+                           scale = "area") {
+    data <- ggproto_parent(Stat, self)$compute_panel(
+      data, scales, width = width, adjust = adjust, kernel = kernel,
+      trim = trim, na.rm = na.rm
+    )
 
     # choose how violins are scaled relative to each other
     data$violinwidth <- switch(scale,

@@ -72,12 +72,13 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
 
   if (any(is.na(dim))) {
     if (length(grDevices::dev.list()) == 0) {
-      stop("No graphics device is open. Please supply height and width",
-        call. = FALSE)
+      default_dim <- c(7, 7)
+    } else {
+      default_dim <- dev.size() * scale
     }
-
-    dim[is.na(dim)] <- graphics::par("din") * scale
+    dim[is.na(dim)] <- default_dim[is.na(dim)]
     dim_f <- prettyNum(from_inches(dim), digits = 3)
+
     message("Saving ", dim_f[1], " x ", dim_f[2], " ", units, " image")
   }
 

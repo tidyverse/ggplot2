@@ -85,6 +85,7 @@
 #' # Expand dot diameter
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
 #'
+#' \donttest{
 #' # Examples with stacking along y axis instead of x
 #' ggplot(mtcars, aes(x = 1, y = mpg)) +
 #'   geom_dotplot(binaxis = "y", stackdir = "center")
@@ -111,6 +112,7 @@
 #'
 #' ggplot(mtcars, aes(x = 1, y = mpg, fill = factor(cyl))) +
 #'   geom_dotplot(binaxis = "y", stackgroups = TRUE, binwidth = 1, method = "histodot")
+#' }
 geom_dotplot <- function(mapping = NULL, data = NULL,
   position = "identity", na.rm = FALSE, binwidth = NULL, binaxis = "x",
   method = "dotdensity", binpositions = "bygroup", stackdir = "up",
@@ -137,7 +139,7 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     # Need to make sure that the binaxis goes to both the stat and the geom
-    stat_params = list(
+    params = list(
       binaxis = binaxis,
       na.rm = na.rm,
       binwidth = binwidth,
@@ -146,17 +148,13 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
       origin = origin,
       right = right,
       width = width,
-      drop = drop
-    ),
-    geom_params = list(
-      binaxis = binaxis,
-      na.rm = na.rm,
+      drop = drop,
       stackdir = stackdir,
       stackratio = stackratio,
       dotsize = dotsize,
-      stackgroups = stackgroups
-    ),
-    params = list(...)
+      stackgroups = stackgroups,
+      ...
+    )
   )
 }
 
@@ -165,6 +163,11 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomDotplot <- ggproto("GeomDotplot", Geom,
+  required_aes = c("x", "y"),
+  non_missing_aes = c("size", "shape"),
+
+  default_aes = aes(colour = "black", fill = "black", alpha = NA),
+
   setup_data = function(data, params) {
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)
@@ -237,30 +240,26 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   },
 
 
-  draw_group = function(self, data, scales, coordinates, na.rm = FALSE,
+  draw_group = function(data, panel_scales, coord, na.rm = FALSE,
                         binaxis = "x", stackdir = "up", stackratio = 1,
-                        dotsize = 1, stackgroups = FALSE, ...) {
-
-    data <- remove_missing(data, na.rm, c("x", "y", "size", "shape"), name = "geom_dotplot")
-    if (empty(data)) return(zeroGrob())
-
-    if (!coordinates$is_linear()) {
+                        dotsize = 1, stackgroups = FALSE) {
+    if (!coord$is_linear()) {
       warning("geom_dotplot does not work properly with non-linear coordinates.")
     }
 
-    tdata <- coordinates$transform(data, scales)
+    tdata <- coord$transform(data, panel_scales)
 
     # Swap axes if using coord_flip
-    if ("flip" %in% attr(coordinates, "class"))
+    if (inherits(coord, "CoordFlip"))
       binaxis <- ifelse(binaxis == "x", "y", "x")
 
     if (binaxis == "x") {
       stackaxis = "y"
-      dotdianpc <- dotsize * tdata$binwidth[1] / (max(scales$x.range) - min(scales$x.range))
+      dotdianpc <- dotsize * tdata$binwidth[1] / (max(panel_scales$x.range) - min(panel_scales$x.range))
 
     } else if (binaxis == "y") {
       stackaxis = "x"
-      dotdianpc <- dotsize * tdata$binwidth[1] / (max(scales$y.range) - min(scales$y.range))
+      dotdianpc <- dotsize * tdata$binwidth[1] / (max(panel_scales$y.range) - min(panel_scales$y.range))
     }
 
     ggname("geom_dotplot",
@@ -272,10 +271,5 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
     )
   },
 
-  draw_key = draw_key_dotplot,
-
-  required_aes = c("x", "y"),
-
-  default_aes = aes(colour = "black", fill = "black", alpha = NA)
-
+  draw_key = draw_key_dotplot
 )

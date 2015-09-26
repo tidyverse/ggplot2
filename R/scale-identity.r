@@ -42,57 +42,113 @@ NULL
 #' @rdname scale_identity
 #' @export
 scale_colour_identity <- function(..., guide = "none") {
-  identity_scale(discrete_scale("colour", "identity", identity_pal(), ..., guide = guide))
+  sc <- discrete_scale("colour", "identity", identity_pal(), ..., guide = guide)
+
+  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
+  # object should in the first place be created with the correct parent.
+  sc$super <- ScaleDiscreteIdentity
+  class(sc) <- class(ScaleDiscreteIdentity)
+  sc
 }
 
 #' @rdname scale_identity
 #' @export
 scale_fill_identity <- function(..., guide = "none") {
-  identity_scale(discrete_scale("fill", "identity", identity_pal(), ..., guide = guide))
+  sc <- discrete_scale("fill", "identity", identity_pal(), ..., guide = guide)
 
+  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
+  # object should in the first place be created with the correct parent.
+  sc$super <- ScaleDiscreteIdentity
+  class(sc) <- class(ScaleDiscreteIdentity)
+  sc
 }
 
 #' @rdname scale_identity
 #' @export
 scale_shape_identity <- function(..., guide = "none") {
-  identity_scale(continuous_scale("shape", "identity", identity_pal(), ...,  guide = guide))
+  sc <- continuous_scale("shape", "identity", identity_pal(), ..., guide = guide)
+
+  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
+  # object should in the first place be created with the correct parent.
+  sc$super <- ScaleContinuousIdentity
+  class(sc) <- class(ScaleContinuousIdentity)
+  sc
 }
 
 #' @rdname scale_identity
 #' @export
 scale_linetype_identity <- function(..., guide = "none") {
-  identity_scale(discrete_scale("linetype", "identity", identity_pal(), ..., guide = guide))
+  sc <- discrete_scale("linetype", "identity", identity_pal(), ..., guide = guide)
 
+  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
+  # object should in the first place be created with the correct parent.
+  sc$super <- ScaleDiscreteIdentity
+  class(sc) <- class(ScaleDiscreteIdentity)
+  sc
 }
 
 #' @rdname scale_identity
 #' @export
 scale_alpha_identity <- function(..., guide = "none") {
-  identity_scale(continuous_scale("alpha", "identity", identity_pal(), ..., guide = guide))
+  sc <- continuous_scale("alpha", "identity", identity_pal(), ..., guide = guide)
 
+  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
+  # object should in the first place be created with the correct parent.
+  sc$super <- ScaleContinuousIdentity
+  class(sc) <- class(ScaleContinuousIdentity)
+  sc
 }
 
 #' @rdname scale_identity
 #' @export
 scale_size_identity <- function(..., guide = "none") {
-  identity_scale(continuous_scale("size", "identity", identity_pal(), ..., guide = guide))
+  sc <- continuous_scale("size", "identity", identity_pal(), ..., guide = guide)
+
+  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
+  # object should in the first place be created with the correct parent.
+  sc$super <- ScaleContinuousIdentity
+  class(sc) <- class(ScaleContinuousIdentity)
+  sc
 }
 
-identity_scale <- function(x) {
-  structure(x, class = c("identity", class(x)))
-}
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
 #' @export
-scale_map.identity <- function(scale, x) {
-  if (is.factor(x)) {
-    as.character(x)
-  } else {
-    x
+ScaleDiscreteIdentity <- ggproto("ScaleDiscreteIdentity", ScaleDiscrete,
+  map = function(x) {
+    if (is.factor(x)) {
+      as.character(x)
+    } else {
+      x
+    }
+  },
+
+  train = function(self, x) {
+    # do nothing if no guide, otherwise train so we know what breaks to use
+    if (self$guide == "none") return()
+    ggproto_parent(ScaleDiscrete, self)$train(x)
   }
-}
+)
+
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
 #' @export
-scale_train.identity <- function(scale, x) {
-  # do nothing if no guide, otherwise train so we know what breaks to use
-  if (scale$guide == "none") return()
-  NextMethod()
-}
+ScaleContinuousIdentity <- ggproto("ScaleContinuousIdentity", ScaleContinuous,
+  map = function(x) {
+    if (is.factor(x)) {
+      as.character(x)
+    } else {
+      x
+    }
+  },
+
+  train = function(self, x) {
+    # do nothing if no guide, otherwise train so we know what breaks to use
+    if (self$guide == "none") return()
+    ggproto_parent(ScaleDiscrete, self)$train(x)
+  }
+)

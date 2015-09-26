@@ -86,7 +86,7 @@ add_ggplot <- function(p, object, objectname) {
     p$data <- object
   } else if (is.theme(object)) {
     p$theme <- update_theme(p$theme, object)
-  } else if (inherits(object, "scale")) {
+  } else if (inherits(object, "Scale")) {
     p$scales$add(object)
   } else if (inherits(object, "labels")) {
     p <- update_labels(p, object)

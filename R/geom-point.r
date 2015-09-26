@@ -29,9 +29,11 @@
 #' @seealso \code{\link{scale_size}} to see scale area of points, instead of
 #'   radius, \code{\link{geom_jitter}} to jitter points to reduce (mild)
 #'   overplotting
-#' @param mapping The aesthetic mapping, usually constructed with
-#'    \code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
-#'    at the layer level if you are overriding the plot defaults.
+#' @param mapping Set of aesthetic mappings created by \code{\link{aes}} or
+#'   \code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+#'   default), is combined with the default mapping at the top level of the
+#'   plot. You only need to supply \code{mapping} if there isn't a mapping
+#'   defined for the plot.
 #' @param data A data frame. If specified, overrides the default data frame
 #'   defined at the top level of the plot.
 #' @param position Position adjustment, either as a string, or the result of
@@ -122,8 +124,10 @@ geom_point <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    geom_params = list(na.rm = na.rm),
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 
@@ -132,13 +136,15 @@ geom_point <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomPoint <- ggproto("GeomPoint", Geom,
-  draw_panel = function(self, data, scales, coordinates, na.rm = FALSE, ...) {
+  required_aes = c("x", "y"),
+  non_missing_aes = c("size", "shape"),
+  default_aes = aes(
+    shape = 19, colour = "black", size = 1.5, fill = NA,
+    alpha = NA, stroke = 0.5
+  ),
 
-    data <- remove_missing(data, na.rm, c("x", "y", "size", "shape"),
-      name = "geom_point")
-    if (empty(data)) return(zeroGrob())
-
-    coords <- coordinates$transform(data, scales)
+  draw_panel = function(data, panel_scales, coord, na.rm = FALSE) {
+    coords <- coord$transform(data, panel_scales)
     ggname("geom_point",
       pointsGrob(
         coords$x, coords$y,
@@ -154,9 +160,5 @@ GeomPoint <- ggproto("GeomPoint", Geom,
     )
   },
 
-  draw_key = draw_key_point,
-
-  required_aes = c("x", "y"),
-  default_aes = aes(shape = 19, colour = "black", size = 1.5, fill = NA,
-    alpha = NA, stroke = 0.5)
+  draw_key = draw_key_point
 )

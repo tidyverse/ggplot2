@@ -122,3 +122,37 @@ plot_clone <- function(plot) {
 #' @keywords internal
 #' @export
 is.ggplot <- function(x) inherits(x, "ggplot")
+
+#' Draw plot on current graphics device.
+#'
+#' @param x plot to display
+#' @param newpage draw new (empty) page first?
+#' @param vp viewport to draw plot in
+#' @param ... other arguments not used by this method
+#' @keywords hplot
+#' @return Invisibly returns the result of \code{\link{ggplot_build}}, which
+#'   is a list with components that contain the plot itself, the data,
+#'   information about the scales, panels etc.
+#' @export
+#' @method print ggplot
+print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
+  set_last_plot(x)
+  if (newpage) grid.newpage()
+
+  data <- ggplot_build(x)
+
+  gtable <- ggplot_gtable(data)
+  if (is.null(vp)) {
+    grid.draw(gtable)
+  } else {
+    if (is.character(vp)) seekViewport(vp) else pushViewport(vp)
+    grid.draw(gtable)
+    upViewport()
+  }
+
+  invisible(data)
+}
+#' @rdname print.ggplot
+#' @method plot ggplot
+#' @export
+plot.ggplot <- print.ggplot

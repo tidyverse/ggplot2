@@ -9,7 +9,7 @@
 #'   bottom, and left.
 #' @export
 #' @examples
-#' p <- ggplot(mtcars, aes(x=wt, y=mpg))
+#' p <- ggplot(mtcars, aes(wt, mpg))
 #' p + geom_point()
 #' p + geom_point() + geom_rug()
 #' p + geom_point() + geom_rug(sides="b")    # Rug on bottom only
@@ -26,11 +26,10 @@ geom_rug <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    geom_params = list(
+    params = list(
       sides = sides,
-      show.legend = show.legend
-    ),
-    params = list(...)
+      ...
+    )
   )
 }
 
@@ -40,15 +39,17 @@ geom_rug <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomRug <- ggproto("GeomRug", Geom,
-  draw_panel = function(data, scales, coordinates, sides = "bl", ...) {
+  draw_panel = function(data, panel_scales, coord, sides = "bl") {
     rugs <- list()
-    data <- coordinates$transform(data, scales)
+    data <- coord$transform(data, panel_scales)
+
+    gp <- gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
     if (!is.null(data$x)) {
       if (grepl("b", sides)) {
         rugs$x_b <- segmentsGrob(
           x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
           y0 = unit(0, "npc"), y1 = unit(0.03, "npc"),
-          gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
+          gp = gp
         )
       }
 
@@ -56,7 +57,7 @@ GeomRug <- ggproto("GeomRug", Geom,
         rugs$x_t <- segmentsGrob(
           x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
           y0 = unit(1, "npc"), y1 = unit(0.97, "npc"),
-          gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
+          gp = gp
         )
       }
     }
@@ -66,7 +67,7 @@ GeomRug <- ggproto("GeomRug", Geom,
         rugs$y_l <- segmentsGrob(
           y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
           x0 = unit(0, "npc"), x1 = unit(0.03, "npc"),
-          gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
+          gp = gp
         )
       }
 
@@ -74,7 +75,7 @@ GeomRug <- ggproto("GeomRug", Geom,
         rugs$y_r <- segmentsGrob(
           y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
           x0 = unit(1, "npc"), x1 = unit(0.97, "npc"),
-          gp = gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
+          gp = gp
         )
       }
     }

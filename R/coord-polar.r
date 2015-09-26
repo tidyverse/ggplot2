@@ -8,11 +8,17 @@
 #' @param direction 1, clockwise; -1, anticlockwise
 #' @export
 #' @examples
-#' \donttest{
 #' # NOTE: Use these plots with caution - polar coordinates has
 #' # major perceptual problems.  The main point of these examples is
 #' # to demonstrate how these common plots can be described in the
 #' # grammar.  Use with EXTREME caution.
+#'
+#' #' # A pie chart = stacked bar chart + polar coordinates
+#' pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
+#'  geom_bar(width = 1)
+#' pie + coord_polar(theta = "y")
+#'
+#' \donttest{
 #'
 #' # A coxcomb plot = bar chart + polar coordinates
 #' cxc <- ggplot(mtcars, aes(x = factor(cyl))) +
@@ -20,11 +26,6 @@
 #' cxc + coord_polar()
 #' # A new type of plot?
 #' cxc + coord_polar(theta = "y")
-#'
-#' # A pie chart = stacked bar chart + polar coordinates
-#' pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
-#'  geom_bar(width = 1)
-#' pie + coord_polar(theta = "y")
 #'
 #' # The bullseye chart
 #' pie + coord_polar()
@@ -101,13 +102,17 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       limits <- self$limits[[n]]
 
       if (is.null(limits)) {
-        expand <- self$expand_defaults(scale, n)
-        range <- scale_dimension(scale, expand)
+        if (self$theta == n) {
+          expand <- expand_default(scale, c(0, 0.5), c(0, 0))
+        } else {
+          expand <- expand_default(scale, c(0, 0),   c(0, 0))
+        }
+        range <- scale$dimension(expand)
       } else {
         range <- range(scale_transform(scale, limits))
       }
 
-      out <- scale_break_info(scale, range)
+      out <- scale$break_info(range)
       ret[[n]]$range <- out$range
       ret[[n]]$major <- out$major_source
       ret[[n]]$minor <- out$minor_source
@@ -129,14 +134,6 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     }
 
     details
-  },
-
-  expand_defaults = function(self, scale_details, aesthetic) {
-    if (self$theta == aesthetic) {
-      expand_default(scale_details, c(0, 0.5), c(0, 0))
-    } else {
-      expand_default(scale_details, c(0, 0),   c(0, 0))
-    }
   },
 
   transform = function(self, data, scale_details) {

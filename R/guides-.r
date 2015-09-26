@@ -250,7 +250,7 @@ guides_build <- function(ggrobs, theme) {
       widths = widths, height = max(heights))
 
     # add space between the guide-boxes
-    guides <- gtable_add_col_space(guides, theme$guide.hmargin)
+    guides <- gtable_add_col_space(guides, theme$legend.hmargin)
 
   } else if (theme$legend.box == "vertical") {
     # Set justification for each legend

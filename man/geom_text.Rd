@@ -16,9 +16,11 @@ geom_text(mapping = NULL, data = NULL, stat = "identity",
   check_overlap = FALSE)
 }
 \arguments{
-\item{mapping}{The aesthetic mapping, usually constructed with
-\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
-at the layer level if you are overriding the plot defaults.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
+\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+default), is combined with the default mapping at the top level of the
+plot. You only need to supply \code{mapping} if there isn't a mapping
+defined for the plot.}
 
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
@@ -164,7 +166,7 @@ df <- transform(df, mid_y = ave(df$y, df$x, FUN = function(val) cumsum(val) - (0
 ggplot(data = df, aes(x, y, fill = grp, label = y)) +
  geom_bar(stat = "identity") +
  geom_text(aes(y = mid_y))
-}
+
 # Justification -------------------------------------------------------------
 df <- data.frame(
   x = c(1, 1, 2, 2, 1.5),
@@ -175,5 +177,6 @@ ggplot(df, aes(x, y)) +
   geom_text(aes(label = text))
 ggplot(df, aes(x, y)) +
   geom_text(aes(label = text), vjust = "inward", hjust = "inward")
+}
 }
 

@@ -56,12 +56,12 @@ stat_function <- function(mapping = NULL, data = NULL, geom = "path",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       fun = fun,
       n = n,
-      args = args
-    ),
-    params = list(...)
+      args = args,
+      ...
+    )
   )
 }
 
@@ -72,8 +72,8 @@ stat_function <- function(mapping = NULL, data = NULL, geom = "path",
 StatFunction <- ggproto("StatFunction", Stat,
   default_aes = aes(y = ..y..),
 
-  compute_group = function(data, scales, fun, n = 101, args = list(), ...) {
-    range <- scale_dimension(scales$x, c(0, 0))
+  compute_group = function(data, scales, fun, n = 101, args = list()) {
+    range <- scales$x$dimension()
     xseq <- seq(range[1], range[2], length.out = n)
 
     data.frame(

@@ -12,13 +12,19 @@ NULL
 #' fields. To create a new type of Geom object, you typically will want to
 #' implement one or more of the following:
 #'
-#' \itemize{
-#'   \item Override either \code{draw(self, data, panel_scales, coord)} or
-#'     \code{draw_group(self, data, panel_scales, coord)}. \code{draw} is
-#'     called with the complete dataset, \code{draw_group} is called a group
-#'     at-a-time.
+#' Compared to \code{Stat} and \code{Position}, \code{Geom} is a little
+#' different because the execution of the setup and compute functions is
+#' split up. \code{setup_data} runs before position adjustments, and
+#' \code{draw_layer} is not run until render time,  much later. This
+#' means there is no \code{setup_params} because it's hard to communicate
+#' the changes.
 #'
-#'     Use \code{draw} if each row in the data represents a
+#' \itemize{
+#'   \item Override either \code{draw_panel(self, data, panel_scales, coord)} or
+#'     \code{draw_group(self, data, panel_scales, coord)}. \code{draw_panel} is
+#'     called once per panel, \code{draw_group} is called once per group.
+#'
+#'     Use \code{draw_panel} if each row in the data represents a
 #'     single element. Use \code{draw_group} if each group represents
 #'     an element (e.g. a smooth, a violin).
 #'
@@ -46,28 +52,30 @@ NULL
 #' @usage NULL
 #' @export
 Geom <- ggproto("Geom",
-  required_aes = c(),
+  required_aes = character(),
+  non_missing_aes = character(),
 
   default_aes = aes(),
 
   draw_key = draw_key_point,
 
   draw_layer = function(self, data, params, panel, coord) {
-    data <- self$use_defaults(data, params)
+    data <- remove_missing(data, isTRUE(params$na.rm),
+      c(self$required_aes, self$non_missing_aes),
+      snake_class(self)
+    )
+    if (empty(data)) return(list(zeroGrob()))
 
     args <- c(list(quote(data), quote(panel_scales), quote(coord)), params)
     plyr::dlply(data, "PANEL", function(data) {
       if (empty(data)) return(zeroGrob())
 
       panel_scales <- panel$ranges[[data$PANEL[1]]]
-
       do.call(self$draw_panel, args)
     }, .drop = FALSE)
   },
 
   draw_panel = function(self, data, panel_scales, coord, ...) {
-    if (empty(data)) return(zeroGrob())
-
     groups <- split(data, factor(data$group))
     grobs <- lapply(groups, function(group) {
       self$draw_group(group, panel_scales, coord, ...)
@@ -78,42 +86,47 @@ Geom <- ggproto("Geom",
     ))
   },
 
-  draw_group = function(self, data, panel_scales, coord, ...) {
+  draw_group = function(self, data, panel_scales, coord) {
     stop("Not implemented")
   },
 
   setup_data = function(data, params) data,
-  setup_params = function(data, params) params,
 
   # Combine data with defaults and set aesthetics from parameters
   use_defaults = function(self, data, params = list()) {
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(self$default_aes), names(data))
-    data[missing_aes] <- self$default_aes[missing_aes]
+    if (empty(data)) {
+      data <- plyr::quickdf(self$default_aes[missing_aes])
+    } else {
+      data[missing_aes] <- self$default_aes[missing_aes]
+    }
 
-    # Override mappings with atomic parameters
-    aes_params <- intersect(c(names(self$default_aes), self$required_aes), names(params))
+    # Override mappings with params
+    aes_params <- intersect(self$aesthetics(), names(params))
     check_aesthetics(params[aes_params], nrow(data))
     data[aes_params] <- params[aes_params]
     data
+  },
+
+  parameters = function(self) {
+    # Look first in draw_panel. If it contains ... then look in draw groups
+    panel_args <- names(ggproto_formals(self$draw_panel))
+    group_args <- names(ggproto_formals(self$draw_group))
+    args <- if ("..." %in% panel_args) group_args else panel_args
+
+    # Remove arguments of defaults
+    args <- setdiff(args, names(ggproto_formals(Geom$draw_group)))
+
+    args
+  },
+
+  aesthetics = function(self) {
+    c(union(self$required_aes, names(self$default_aes)), "group")
   }
 
 )
 
-# make_geom("point") returns GeomPoint
-make_geom <- function(class) {
-  name <- paste0("Geom", camelize(class, first = TRUE))
-  if (!exists(name)) {
-    stop("No geom called ", name, ".", call. = FALSE)
-  }
-
-  obj <- get(name)
-  if (!inherits(obj, "Geom")) {
-    stop("Found object is not a geom.", call. = FALSE)
-  }
-
-  obj
-}
 
 #' Graphical units
 #'
@@ -143,5 +156,4 @@ check_aesthetics <- function(x, n) {
     paste(names(!good), collapse = ", "),
     call. = FALSE
   )
-
 }

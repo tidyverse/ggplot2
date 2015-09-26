@@ -42,6 +42,7 @@
 #' d + scale_colour_brewer(palette = "Greens")
 #' d + scale_colour_brewer(palette = "Set1")
 #'
+#' \donttest{
 #' # scale_fill_brewer works just the same as
 #' # scale_colour_brewer but for fill colours
 #' p <- ggplot(diamonds, aes(x = price, fill = cut)) +
@@ -51,6 +52,7 @@
 #' p + scale_fill_brewer(direction = -1)
 #' # the brewer scales look better on a darker background
 #' p + scale_fill_brewer(direction = -1) + theme_dark()
+#' }
 #'
 #' # Use distiller variant with continous data
 #' v <- ggplot(faithfuld) +

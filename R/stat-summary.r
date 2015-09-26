@@ -133,14 +133,14 @@ stat_summary <- function(mapping = NULL, data = NULL, geom = "pointrange",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       fun.data = fun.data,
       fun.y = fun.y,
       fun.ymax = fun.ymax,
       fun.ymin = fun.ymin,
-      fun.args = fun.args
-    ),
-    params = list(...)
+      fun.args = fun.args,
+      ...
+    )
   )
 }
 
@@ -153,7 +153,7 @@ StatSummary <- ggproto("StatSummary", Stat,
 
   compute_panel = function(data, scales, fun.data = NULL, fun.y = NULL,
                      fun.ymax = NULL, fun.ymin = NULL, fun.args = list(),
-                     na.rm = FALSE, ...) {
+                     na.rm = FALSE) {
 
     fun <- make_summary_fun(fun.data, fun.y, fun.ymax, fun.ymin, fun.args)
     summarise_by_x(data, fun)

@@ -14,12 +14,12 @@ cdata <- function(plot) {
 pranges <- function(plot) {
   panels <- ggplot_build(plot)$panel
 
-  x_ranges <- lapply(panels$x_scales, scale_limits)
-  y_ranges <- lapply(panels$y_scales, scale_limits)
+  x_ranges <- lapply(panels$x_scales, function(scale) scale$get_limits())
+  y_ranges <- lapply(panels$y_scales, function(scale) scale$get_limits())
 
 
   npscales <- plot$scales$non_position_scales()
-  npranges <- lapply(npscales$scales$scales, scale_limits)
+  npranges <- lapply(npscales$scales$scales, function(scale) scale$get_limits())
 
 
   c(list(x = x_ranges, y = y_ranges), npranges)

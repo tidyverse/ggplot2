@@ -16,9 +16,11 @@ stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
   inherit.aes = TRUE, ...)
 }
 \arguments{
-\item{mapping}{The aesthetic mapping, usually constructed with
-\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
-at the layer level if you are overriding the plot defaults.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
+\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+default), is combined with the default mapping at the top level of the
+plot. You only need to supply \code{mapping} if there isn't a mapping
+defined for the plot.}
 
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
@@ -136,6 +138,7 @@ ggplot(diamonds, aes(carat, price)) +
 ggplot(diamonds, aes(carat, price)) +
   geom_boxplot(aes(group = cut_width(carat, 0.25)))
 
+\donttest{
 # It's possible to draw a boxplot with your own computations if you
 # use stat = "identity":
 y <- rnorm(100)
@@ -152,6 +155,7 @@ ggplot(df, aes(x)) +
    aes(ymin = y0, lower = y25, middle = y50, upper = y75, ymax = y100),
    stat = "identity"
  )
+}
 }
 \references{
 McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of

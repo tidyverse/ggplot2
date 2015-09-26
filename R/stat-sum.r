@@ -30,7 +30,7 @@ StatSum <- ggproto("StatSum", Stat,
 
   required_aes = c("x", "y"),
 
-  compute_panel = function(data, scales, ...) {
+  compute_panel = function(data, scales) {
     if (is.null(data$weight)) data$weight <- 1
 
     group_by <- setdiff(intersect(names(data), .all_aesthetics), "weight")

@@ -46,13 +46,13 @@ geom_contour <- function(mapping = NULL, data = NULL, stat = "contour",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    geom_params = list(
+    params = list(
       lineend = lineend,
       linejoin = linejoin,
       linemitre = linemitre,
-      na.rm = na.rm
-    ),
-    params = list(...)
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 
@@ -60,6 +60,7 @@ geom_contour <- function(mapping = NULL, data = NULL, stat = "contour",
 #' @format NULL
 #' @usage NULL
 #' @export
+#' @include geom-path.r
 GeomContour <- ggproto("GeomContour", GeomPath,
   default_aes = aes(weight = 1, colour = "#3366FF", size = 0.5, linetype = 1,
     alpha = NA)

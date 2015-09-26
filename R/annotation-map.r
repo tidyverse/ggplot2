@@ -39,7 +39,7 @@ annotation_map <- function(map, ...) {
     geom = GeomAnnotationMap,
     position = PositionIdentity,
     inherit.aes = FALSE,
-    geom_params = list(map = map, ...)
+    params = list(map = map, ...)
   )
 }
 
@@ -48,10 +48,10 @@ annotation_map <- function(map, ...) {
 #' @usage NULL
 #' @export
 GeomAnnotationMap <- ggproto("GeomAnnotationMap", GeomMap,
-  draw_panel = function(data, scales, coordinates, map, ...) {
+  draw_panel = function(data, panel_scales, coord, map) {
     # Munch, then set up id variable for polygonGrob -
     # must be sequential integers
-    coords <- coord_munch(coordinates, map, scales)
+    coords <- coord_munch(coord, map, panel_scales)
     coords$group <- coords$group %||% coords$id
     grob_id <- match(coords$group, unique(coords$group))
 

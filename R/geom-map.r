@@ -77,8 +77,10 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
     position = PositionIdentity,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    geom_params = list(map = map),
-    params = list(...)
+    params = list(
+      map = map,
+      ...
+    )
   )
 }
 
@@ -87,7 +89,7 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
 #' @usage NULL
 #' @export
 GeomMap <- ggproto("GeomMap", GeomPolygon,
-  draw_panel = function(data, scales, coordinates, map, ...) {
+  draw_panel = function(data, panel_scales, coord, map) {
     # Only use matching data and map ids
     common <- intersect(data$map_id, map$id)
     data <- data[data$map_id %in% common, , drop = FALSE]
@@ -95,7 +97,7 @@ GeomMap <- ggproto("GeomMap", GeomPolygon,
 
     # Munch, then set up id variable for polygonGrob -
     # must be sequential integers
-    coords <- coord_munch(coordinates, map, scales)
+    coords <- coord_munch(coord, map, panel_scales)
     coords$group <- coords$group %||% coords$id
     grob_id <- match(coords$group, unique(coords$group))
 
@@ -106,7 +108,9 @@ GeomMap <- ggproto("GeomMap", GeomPolygon,
     polygonGrob(coords$x, coords$y, default.units = "native", id = grob_id,
       gp = gpar(
         col = data$colour, fill = alpha(data$fill, data$alpha),
-        lwd = data$size * .pt))
+        lwd = data$size * .pt
+      )
+    )
   },
 
   required_aes = c("map_id")

@@ -9,9 +9,11 @@ geom_rug(mapping = NULL, data = NULL, stat = "identity",
   inherit.aes = TRUE, ...)
 }
 \arguments{
-\item{mapping}{The aesthetic mapping, usually constructed with
-\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
-at the layer level if you are overriding the plot defaults.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
+\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+default), is combined with the default mapping at the top level of the
+plot. You only need to supply \code{mapping} if there isn't a mapping
+defined for the plot.}
 
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
@@ -54,7 +56,7 @@ Marginal rug plots.
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "rug")}
 }
 \examples{
-p <- ggplot(mtcars, aes(x=wt, y=mpg))
+p <- ggplot(mtcars, aes(wt, mpg))
 p + geom_point()
 p + geom_point() + geom_rug()
 p + geom_point() + geom_rug(sides="b")    # Rug on bottom only

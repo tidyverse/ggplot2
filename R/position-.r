@@ -85,18 +85,3 @@ transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
 
   df
 }
-
-# make_position("dodge") returns PositionDodge
-make_position <- function(class) {
-  name <- paste0("Position", camelize(class, first = TRUE))
-  if (!exists(name)) {
-    stop("No position called ", name, ".", call. = FALSE)
-  }
-
-  obj <- get(name)
-  if (!inherits(obj, "Position")) {
-    stop("Found object is not a position", call. = FALSE)
-  }
-
-  obj
-}

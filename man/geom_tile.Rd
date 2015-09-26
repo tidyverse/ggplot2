@@ -17,9 +17,11 @@ geom_tile(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
-\item{mapping}{The aesthetic mapping, usually constructed with
-\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
-at the layer level if you are overriding the plot defaults.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
+\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+default), is combined with the default mapping at the top level of the
+plot. You only need to supply \code{mapping} if there isn't a mapping
+defined for the plot.}
 
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
@@ -59,9 +61,9 @@ the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
 \code{geom_rect} and \code{geom_tile} do the same thing, but are
-paramterised differently. \code{geom_rect} uses the locations of the four
+parameterised differently. \code{geom_rect} uses the locations of the four
 corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}).
-\code{geom_tile} uses the center of the tile and it's size (\code{x},
+\code{geom_tile} uses the center of the tile and its size (\code{x},
 \code{y}, \code{width}, \code{height}). \code{geom_raster} is a high
 performance special case for when all the tiles are the same size.
 }

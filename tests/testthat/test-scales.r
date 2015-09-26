@@ -13,33 +13,33 @@ test_that("buidling a plot does not affect its scales", {
 test_that("ranges update only for variables listed in aesthetics", {
   sc <- scale_alpha()
 
-  scale_train_df(sc, data.frame(alpha = 1:10))
+  sc$train_df(data.frame(alpha = 1:10))
   expect_equal(sc$range$range, c(1, 10))
 
-  scale_train_df(sc, data.frame(alpha = 50))
+  sc$train_df(data.frame(alpha = 50))
   expect_equal(sc$range$range, c(1, 50))
 
-  scale_train_df(sc, data.frame(beta = 100))
+  sc$train_df(data.frame(beta = 100))
   expect_equal(sc$range$range, c(1, 50))
 
-  scale_train_df(sc, data.frame())
+  sc$train_df(data.frame())
   expect_equal(sc$range$range, c(1, 50))
 
 })
 
 test_that("mapping works", {
   sc <- scale_alpha(range = c(0, 1), na.value = 0)
-  scale_train_df(sc, data.frame(alpha = 1:10))
+  sc$train_df(data.frame(alpha = 1:10))
 
   expect_equal(
-    scale_map_df(sc, data.frame(alpha = 1:10))[[1]],
+    sc$map_df(data.frame(alpha = 1:10))[[1]],
     seq(0, 1, length.out = 10)
   )
 
-  expect_equal(scale_map_df(sc, data.frame(alpha = NA))[[1]], 0)
+  expect_equal(sc$map_df(data.frame(alpha = NA))[[1]], 0)
 
   expect_equal(
-    scale_map_df(sc, data.frame(alpha = c(-10, 11)))[[1]],
+    sc$map_df(data.frame(alpha = c(-10, 11)))[[1]],
     c(0, 0))
 })
 
@@ -56,13 +56,11 @@ test_that("identity scale preserves input values", {
     scale_alpha_identity()
   d1 <- layer_data(p1)
 
-  expect_that(d1$colour, equals(as.character(df$z)))
-  expect_that(d1$fill, equals(as.character(df$z)))
-  expect_that(d1$shape, equals(as.character(df$z)))
-  expect_that(d1$size, equals(as.numeric(df$z)))
-  expect_that(d1$alpha, equals(as.numeric(df$z)))
-
-
+  expect_equal(d1$colour, as.character(df$z))
+  expect_equal(d1$fill, as.character(df$z))
+  expect_equal(d1$shape, as.character(df$z))
+  expect_equal(d1$size, as.numeric(df$z))
+  expect_equal(d1$alpha, as.numeric(df$z))
 })
 
 test_that("position scales updated by all position aesthetics", {
@@ -80,8 +78,8 @@ test_that("position scales updated by all position aesthetics", {
   ranges <- lapply(plots, pranges)
 
   lapply(ranges, function(range) {
-    expect_that(range$x[[1]], equals(c(1, 3)))
-    expect_that(range$y[[1]], equals(c(1, 3)))
+    expect_equal(range$x[[1]], c(1, 3))
+    expect_equal(range$y[[1]], c(1, 3))
   })
 
 })
@@ -91,8 +89,8 @@ test_that("position scales generate after stats", {
   plot <- ggplot(df, aes(x)) + geom_bar()
   ranges <- pranges(plot)
 
-  expect_that(ranges$x[[1]], equals(c("1")))
-  expect_that(ranges$y[[1]], equals(c(0, 3)))
+  expect_equal(ranges$x[[1]], c("1"))
+  expect_equal(ranges$y[[1]], c(0, 3))
 
 })
 

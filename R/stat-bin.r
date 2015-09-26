@@ -1,3 +1,6 @@
+#' \code{stat_bin} is suitable only for continuous x data. If your x data is
+#'   discrete, you probably want to use \code{\link{stat_count}}.
+#'
 #' @param binwidth Bin width to use. Defaults to 1/\code{bins} of the range of
 #'   the data
 #' @param bins Number of bins. Overridden by \code{binwidth} or \code{breaks}.
@@ -16,6 +19,10 @@
 #'   \item{ncount}{count, scaled to maximum of 1}
 #'   \item{ndensity}{density, scaled to maximum of 1}
 #' }
+#'
+#' @seealso \code{\link{stat_count}}, which counts the number of cases at each x
+#'   posotion, without binning. It is suitable for both discrete and continuous
+#'   x data, whereas \link{stat_bin} is suitable only for continuous x data.
 #' @export
 #' @rdname geom_histogram
 stat_bin <- function(mapping = NULL, data = NULL, geom = "bar",
@@ -30,16 +37,16 @@ stat_bin <- function(mapping = NULL, data = NULL, geom = "bar",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       width = width,
       drop = drop,
       right = right,
       bins = bins,
       binwidth = binwidth,
       origin = origin,
-      breaks = breaks
-    ),
-    params = list(...)
+      breaks = breaks,
+      ...
+    )
   )
 }
 
@@ -52,6 +59,10 @@ StatBin <- ggproto("StatBin", Stat,
     if (!is.null(data$y) || !is.null(params$y)) {
       stop("stat_bin() must not be used with a y aesthetic.", call. = FALSE)
     }
+    if (is.integer(data$x)) {
+      stop('StatBin requires a continuous x variable the x variable is discrete. Perhaps you want stat="count"?',
+        call. = FALSE)
+    }
 
     if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {
       message_wrap("`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.")
@@ -60,10 +71,10 @@ StatBin <- ggproto("StatBin", Stat,
     params
   },
 
-  compute_group = function(self, data, scales, binwidth = NULL, bins = NULL,
-                       origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
-                       right = FALSE, ...) {
-    range <- scale_dimension(scales$x, c(0, 0))
+  compute_group = function(data, scales, binwidth = NULL, bins = NULL,
+                           origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
+                           right = FALSE) {
+    range <- scales$x$dimension()
 
     bin(data$x, data$weight, binwidth = binwidth, bins = bins,
         origin = origin, breaks = breaks, range = range, width = width,

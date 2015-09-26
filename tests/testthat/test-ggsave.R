@@ -22,8 +22,8 @@ test_that("guesses and informs if dim not specified", {
   expect_equal(out, c(10, 10))
 })
 
-test_that("can't guess if no graphics device open", {
-  expect_error(plot_dim(), "No graphics device is open")
+test_that("uses 7x7 if no graphics device open", {
+  expect_equal(plot_dim(), c(7, 7))
 })
 
 test_that("warned about large plot unless limitsize = FALSE", {

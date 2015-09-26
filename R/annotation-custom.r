@@ -50,8 +50,13 @@ annotation_custom <- function(grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax =
     position = PositionIdentity,
     geom = GeomCustomAnn,
     inherit.aes = TRUE,
-    geom_params = list(grob = grob, xmin = xmin, xmax = xmax,
-                       ymin = ymin, ymax = ymax)
+    params = list(
+      grob = grob,
+      xmin = xmin,
+      xmax = xmax,
+      ymin = ymin,
+      ymax = ymax
+    )
   )
 }
 
@@ -60,14 +65,14 @@ annotation_custom <- function(grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax =
 #' @usage NULL
 #' @export
 GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
-  draw_panel = function(data, scales, coordinates, grob, xmin, xmax,
-                          ymin, ymax, ...) {
-    if (!inherits(coordinates, "CoordCartesian")) {
+  draw_panel = function(data, panel_scales, coord, grob, xmin, xmax,
+                        ymin, ymax) {
+    if (!inherits(coord, "CoordCartesian")) {
       stop("annotation_custom only works with Cartesian coordinates",
         call. = FALSE)
     }
     corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
-    data <- coordinates$transform(corners, scales)
+    data <- coord$transform(corners, panel_scales)
 
     x_rng <- range(data$x, na.rm = TRUE)
     y_rng <- range(data$y, na.rm = TRUE)
@@ -75,8 +80,16 @@ GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
     vp <- viewport(x = mean(x_rng), y = mean(y_rng),
                    width = diff(x_rng), height = diff(y_rng),
                    just = c("center","center"))
-    editGrob(grob, vp = vp)
+    editGrob(grob, vp = vp, name = paste(grob$name, annotation_id()))
   },
 
   default_aes = aes_(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
 )
+
+annotation_id <- local({
+  i <- 1
+  function() {
+    i <<- i + 1
+    i
+  }
+})

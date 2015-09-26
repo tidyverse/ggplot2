@@ -3,6 +3,10 @@
 #' @usage NULL
 #' @export
 StatBindot <- ggproto("StatBindot", Stat,
+  required_aes = "x",
+  non_missing_aes = "weight",
+  default_aes = aes(y = ..count..),
+
   setup_params = function(data, params) {
     if (is.null(params$breaks) && is.null(params$binwidth)) {
       message("`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.")
@@ -10,14 +14,11 @@ StatBindot <- ggproto("StatBindot", Stat,
     params
   },
 
-  setup_data = function(data, params) {
-    remove_missing(data, isTRUE(params$na.rm), c(params$binaxis, "weight"),
-      name = "stat_bindot", finite = TRUE)
-  },
-
-  compute_panel = function(self, data, na.rm = FALSE, binwidth = NULL,
+  compute_panel = function(self, data, scales, na.rm = FALSE, binwidth = NULL,
                            binaxis = "x", method = "dotdensity",
-                           binpositions = "bygroup", ...) {
+                           binpositions = "bygroup", origin = NULL,
+                           breaks = NULL, width = 0.9, drop = FALSE,
+                           right = TRUE) {
 
     # If using dotdensity and binning over all, we need to find the bin centers
     # for all data before it's split into groups.
@@ -44,14 +45,16 @@ StatBindot <- ggproto("StatBindot", Stat,
 
     }
 
-    ggproto_parent(Stat, self)$compute_panel(data, binwidth = binwidth,
-      binaxis = binaxis, method = method, binpositions = binpositions, ...)
+    ggproto_parent(Stat, self)$compute_panel(data, scales, binwidth = binwidth,
+      binaxis = binaxis, method = method, binpositions = binpositions,
+      origin = origin, breaks = breaks, width = width, drop = drop,
+      right = right)
   },
 
   compute_group = function(self, data, scales, binwidth = NULL, binaxis = "x",
                            method = "dotdensity", binpositions = "bygroup",
                            origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
-                           right = TRUE, ...) {
+                           right = TRUE) {
 
     # This function taken from integer help page
     is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5) {
@@ -65,10 +68,10 @@ StatBindot <- ggproto("StatBindot", Stat,
     }
 
     if (binaxis == "x") {
-      range   <- scale_dimension(scales$x, c(0, 0))
+      range   <- scales$x$dimension()
       values  <- data$x
     } else if (binaxis == "y") {
-      range  <- scale_dimension(scales$y, c(0, 0))
+      range  <- scales$y$dimension()
       values <- data$y
       # The middle of each group, on the stack axis
       midline <- mean(range(data$x))
@@ -111,11 +114,7 @@ StatBindot <- ggproto("StatBindot", Stat,
       data$x <- midline
     }
     return(data)
-  },
-
-  default_aes = aes(y = ..count..),
-
-  required_aes = "x"
+  }
 )
 
 

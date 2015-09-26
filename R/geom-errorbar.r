@@ -36,7 +36,7 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
     )
   },
 
-  draw_panel = function(data, scales, coordinates, width = NULL, ...) {
+  draw_panel = function(data, panel_scales, coord, width = NULL) {
     GeomPath$draw_panel(data.frame(
       x = as.vector(rbind(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax)),
       y = as.vector(rbind(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin)),
@@ -47,6 +47,6 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
       group = rep(1:(nrow(data)), each = 8),
       stringsAsFactors = FALSE,
       row.names = 1:(nrow(data) * 8)
-    ), scales, coordinates, ...)
+    ), panel_scales, coord)
   }
 )

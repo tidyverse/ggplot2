@@ -15,9 +15,11 @@ geom_segment(mapping = NULL, data = NULL, stat = "identity",
   show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
-\item{mapping}{The aesthetic mapping, usually constructed with
-\code{\link{aes}} or \code{\link{aes_string}}. Only needs to be set
-at the layer level if you are overriding the plot defaults.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
+\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+default), is combined with the default mapping at the top level of the
+plot. You only need to supply \code{mapping} if there isn't a mapping
+defined for the plot.}
 
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
@@ -100,5 +102,8 @@ ggplot(counts, aes(x, Freq)) +
 \seealso{
 \code{\link{geom_path}} and \code{\link{geom_line}} for multi-
   segment lines and paths.
+
+\code{\link{geom_spoke}} for a segment parameterised by a location
+  (x, y), and an angle and radius.
 }
 

@@ -81,6 +81,13 @@ geom_smooth <- function(mapping = NULL, data = NULL, stat = "smooth",
   method = "auto", formula = y ~ x, se = TRUE, position = "identity", show.legend = NA,
   inherit.aes = TRUE, ...) {
 
+  params <- list(...)
+  if (identical(stat, "smooth")) {
+    params$method <- method
+    params$formula <- formula
+    params$se <- se
+  }
+
   layer(
     data = data,
     mapping = mapping,
@@ -89,8 +96,7 @@ geom_smooth <- function(mapping = NULL, data = NULL, stat = "smooth",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...),
-    stat_params = list(method = method, formula = formula, se = se)
+    params = params
   )
 }
 
@@ -99,15 +105,15 @@ geom_smooth <- function(mapping = NULL, data = NULL, stat = "smooth",
 #' @usage NULL
 #' @export
 GeomSmooth <- ggproto("GeomSmooth", Geom,
-  draw_group = function(data, scales, coordinates, ...) {
+  draw_group = function(data, panel_scales, coord) {
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = NA)
 
     has_ribbon <- !is.null(data$ymax) && !is.null(data$ymin)
 
     gList(
-      if (has_ribbon) GeomRibbon$draw_group(ribbon, scales, coordinates),
-      GeomLine$draw_panel(path, scales, coordinates)
+      if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_scales, coord),
+      GeomLine$draw_panel(path, panel_scales, coord)
     )
   },
 

@@ -13,14 +13,14 @@ stat_summary_hex <- function(mapping = NULL, data = NULL, geom = "hex",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       bins = bins,
       binwidth = binwidth,
       drop = drop,
       fun = fun,
-      fun.args = fun.args
-    ),
-    params = list(...)
+      fun.args = fun.args,
+      ...
+    )
   )
 }
 
@@ -34,11 +34,11 @@ StatSummaryHex <- ggproto("StatSummaryHex", Stat,
   required_aes = c("x", "y", "z"),
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30, drop = TRUE,
-                           fun = "mean", fun.args = list(), ...) {
+                           fun = "mean", fun.args = list()) {
     if (is.null(binwidth)) {
       binwidth <- c(
-        diff(scale_dimension(scales$x, c(0, 0))) / bins,
-        diff(scale_dimension(scales$y, c(0, 0))) / bins
+        diff(scales$x$dimension()) / bins,
+        diff(scales$y$dimension()) / bins
       )
     }
 

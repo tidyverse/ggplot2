@@ -3,8 +3,8 @@ context("scale_manual")
 
 test_that("names of values used in manual scales", {
    s <- scale_colour_manual(values = c("8" = "c","4" = "a","6" = "b"))
-   scale_train(s, c("4", "6", "8"))
-   expect_equal(scale_map(s, c("4", "6", "8")), c("a", "b", "c"))
+   s$train(c("4", "6", "8"))
+   expect_equal(s$map(c("4", "6", "8")), c("a", "b", "c"))
 })
 
 
@@ -51,7 +51,7 @@ test_that("insufficient values raise an error", {
 test_that("values are matched when scale contains more unique valuesthan are in the data", {
   s <- scale_colour_manual(values = c("8" = "c", "4" = "a",
     "22" = "d", "6"  = "b"))
-  scale_train(s, c("4", "6", "8"))
-  expect_equal(scale_map(s, c("4", "6", "8")), c("a", "b", "c"))
+  s$train(c("4", "6", "8"))
+  expect_equal(s$map(c("4", "6", "8")), c("a", "b", "c"))
 })
 

@@ -88,10 +88,9 @@ annotation_logticks <- function(base = 10, sides = "bl", scaled = TRUE,
     position = PositionIdentity,
     show.legend = FALSE,
     inherit.aes = FALSE,
-    geom_params = list(
+    params = list(
       base = base,
       sides = sides,
-      raw = raw,
       scaled = scaled,
       short = short,
       mid = mid,
@@ -110,9 +109,9 @@ annotation_logticks <- function(base = 10, sides = "bl", scaled = TRUE,
 #' @usage NULL
 #' @export
 GeomLogticks <- ggproto("GeomLogticks", Geom,
-  draw_panel = function(data, scales, coordinates, base = 10, sides = "bl",
+  draw_panel = function(data, panel_scales, coord, base = 10, sides = "bl",
     scaled = TRUE, short = unit(0.1, "cm"), mid = unit(0.2, "cm"),
-    long = unit(0.3, "cm"), ...)
+    long = unit(0.3, "cm"))
   {
     ticks <- list()
 
@@ -125,15 +124,21 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
     if (grepl("[b|t]", sides)) {
 
       # Get positions of x tick marks
-      xticks <- calc_logticks(base = base,
-                  minpow = floor(scales$x.range[1]), maxpow = ceiling(scales$x.range[2]),
-                  start = 0, shortend = short, midend = mid, longend = long)
+      xticks <- calc_logticks(
+        base = base,
+        minpow = floor(panel_scales$x.range[1]),
+        maxpow = ceiling(panel_scales$x.range[2]),
+        start = 0,
+        shortend = short,
+        midend = mid,
+        longend = long
+      )
 
       if (scaled)
         xticks$value <- log(xticks$value, base)
 
       names(xticks)[names(xticks) == "value"] <- "x"   # Rename to 'x' for coordinates$transform
-      xticks <- coordinates$transform(xticks, scales)
+      xticks <- coord$transform(xticks, panel_scales)
 
       # Make the grobs
       if (grepl("b", sides)) {
@@ -154,15 +159,21 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
 
 
     if (grepl("[l|r]", sides)) {
-      yticks <- calc_logticks(base = base,
-                  minpow = floor(scales$y.range[1]), maxpow = ceiling(scales$y.range[2]),
-                  start = 0, shortend = short, midend = mid, longend = long)
+      yticks <- calc_logticks(
+        base = base,
+        minpow = floor(panel_scales$y.range[1]),
+        maxpow = ceiling(panel_scales$y.range[2]),
+        start = 0,
+        shortend = short,
+        midend = mid,
+        longend = long
+      )
 
       if (scaled)
         yticks$value <- log(yticks$value, base)
 
       names(yticks)[names(yticks) == "value"] <- "y"   # Rename to 'y' for coordinates$transform
-      yticks <- coordinates$transform(yticks, scales)
+      yticks <- coord$transform(yticks, panel_scales)
 
       # Make the grobs
       if (grepl("l", sides)) {

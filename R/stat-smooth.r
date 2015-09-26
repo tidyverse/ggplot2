@@ -9,6 +9,9 @@
 #' @param fullrange should the fit span the full range of the plot, or just
 #'   the data
 #' @param level level of confidence interval to use (0.95 by default)
+#' @param span Controls the amount of smoothing for the default loess smoother.
+#'   Smaller numbers produce wigglier lines, larger numbers produce smoother
+#'   lines.
 #' @param n number of points to evaluate smoother at
 #' @param method.args List of additional arguments passed on to the modelling
 #'   function defined by \code{method}.
@@ -25,7 +28,7 @@
 #' @rdname geom_smooth
 stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
   position = "identity", method = "auto", formula = y ~ x, se = TRUE, n = 80,
-  fullrange = FALSE, level = 0.95, method.args = list(),
+  span = 0.75, fullrange = FALSE, level = 0.95, method.args = list(),
   na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
@@ -36,7 +39,7 @@ stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    stat_params = list(
+    params = list(
       method = method,
       formula = formula,
       se = se,
@@ -44,9 +47,10 @@ stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
       fullrange = fullrange,
       level = level,
       na.rm = na.rm,
-      method.args = method.args
-    ),
-    params = list(...)
+      method.args = method.args,
+      span = span,
+      ...
+    )
   )
 }
 
@@ -78,9 +82,9 @@ StatSmooth <- ggproto("StatSmooth", Stat,
   },
 
   compute_group = function(data, scales, method = "auto", formula = y~x,
-                           se = TRUE, n = 80, fullrange = FALSE, xseq = NULL,
-                           level = 0.95, method.args = list(), na.rm = FALSE,
-                           ...) {
+                           se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
+                           xseq = NULL, level = 0.95, method.args = list(),
+                           na.rm = FALSE) {
     if (length(unique(data$x)) < 2) {
       # Not enough data to perform fit
       return(data.frame())
@@ -91,19 +95,24 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     if (is.null(xseq)) {
       if (is.integer(data$x)) {
         if (fullrange) {
-          xseq <- scale_dimension(scales$x, c(0, 0))
+          xseq <- scales$x$dimension()
         } else {
           xseq <- sort(unique(data$x))
         }
       } else {
         if (fullrange) {
-          range <- scale_dimension(scales$x, c(0, 0))
+          range <- scales$x$dimension()
         } else {
           range <- range(data$x, na.rm = TRUE)
         }
         xseq <- seq(range[1], range[2], length.out = n)
       }
     }
+    # Special case span because it's the most commonly used model argument
+    if (identical(method, "loess")) {
+      method.args$span <- span
+    }
+
     if (is.character(method)) method <- match.fun(method)
 
     base.args <- list(quote(formula), data = quote(data), weights = quote(weight))

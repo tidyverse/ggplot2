@@ -67,6 +67,7 @@
 #' ggplot(diamonds, aes(carat, price)) +
 #'   geom_boxplot(aes(group = cut_width(carat, 0.25)))
 #'
+#' \donttest{
 #' # It's possible to draw a boxplot with your own computations if you
 #' # use stat = "identity":
 #' y <- rnorm(100)
@@ -83,9 +84,10 @@
 #'    aes(ymin = y0, lower = y25, middle = y50, upper = y75, ymax = y100),
 #'    stat = "identity"
 #'  )
+#' }
 geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", outlier.colour = "black", outlier.shape = 19,
-  outlier.size = 1.5, outlier.stroke = 0.5, notch = FALSE, notchwidth = .5,
+  outlier.size = 1.5, outlier.stroke = 0.5, notch = FALSE, notchwidth = 0.5,
   varwidth = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 {
   layer(
@@ -96,16 +98,16 @@ geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    geom_params = list(
+    params = list(
       outlier.colour = outlier.colour,
       outlier.shape = outlier.shape,
       outlier.size = outlier.size,
-      outlier.stoke = outlier.stroke,
+      outlier.stroke = outlier.stroke,
       notch = notch,
       notchwidth = notchwidth,
-      varwidth = varwidth
-    ),
-    params = list(...)
+      varwidth = varwidth,
+      ...
+    )
   )
 }
 
@@ -144,9 +146,10 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     data
   },
 
-  draw_group = function(self, data, ..., fatten = 2, outlier.colour = "black",
-                        outlier.shape = 19, outlier.size = 1.5, outlier.stroke = 0.5,
-                        notch = FALSE, notchwidth = .5, varwidth = FALSE) {
+  draw_group = function(data, panel_scales, coord, fatten = 2,
+                        outlier.colour = "black", outlier.shape = 19,
+                        outlier.size = 1.5, outlier.stroke = 0.5,
+                        notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
     common <- data.frame(
       colour = data$colour,
       size = data$size,
@@ -192,15 +195,15 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         alpha = NA,
         stringsAsFactors = FALSE
       )
-      outliers_grob <- GeomPoint$draw_panel(outliers, ...)
+      outliers_grob <- GeomPoint$draw_panel(outliers, panel_scales, coord)
     } else {
       outliers_grob <- NULL
     }
 
     ggname("geom_boxplot", grobTree(
       outliers_grob,
-      GeomSegment$draw_panel(whiskers, ...),
-      GeomCrossbar$draw_panel(box, fatten = fatten, ...)
+      GeomSegment$draw_panel(whiskers, panel_scales, coord),
+      GeomCrossbar$draw_panel(box, fatten = fatten, panel_scales, coord)
     ))
   },
 
