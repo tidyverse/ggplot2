@@ -1,6 +1,9 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* New geom_smoke, geom_smoke2, and stat_smoke as alternatives to
+  geom_density and geom_histogram (@dkahle).
+
 * `geom_pointrange()` gains `fatten` argument so you can control the
   size of the point relative to the size of the line.
 
