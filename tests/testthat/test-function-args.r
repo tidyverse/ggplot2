@@ -22,19 +22,23 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   # the args have the same default values.
   lapply(geom_fun_names, function(geom_fun_name) {
     geom_fun    <- ggplot2_ns[[geom_fun_name]]
-    draw        <- geom_fun()$geom$draw_layer
-    draw_groups <- geom_fun()$geom$draw_group
+    geom_fun_eval <- geom_fun()
+    if(!is.list(geom_fun_eval)) geom_fun_eval <- list(geom_fun_eval)
+    draw        <- lapply(geom_fun_eval, function(.) .$geom$draw_layer)
+    draw_groups <- lapply(geom_fun_eval, function(.) .$geom$draw_group)
 
     fun_args <- formals(geom_fun)
-    draw_args <- c(ggproto_formals(draw), ggproto_formals(draw_groups))
-    draw_args <- filter_args(draw_args)
 
-    common_names <- intersect(names(fun_args), names(draw_args))
-
-    expect_identical(fun_args[common_names], draw_args[common_names],
-      info = paste0("Mismatch between arg defaults for ", geom_fun_name,
+    Map(function(dr, dr_gr){
+      draw_args <- c(ggproto_formals(dr), ggproto_formals(dr_gr))
+      draw_args <- filter_args(draw_args)
+      common_names <- intersect(names(fun_args), names(draw_args))
+      expect_identical(fun_args[common_names], draw_args[common_names],
+        info = paste0("Mismatch between arg defaults for ", geom_fun_name,
         " and ", class(geom_fun()$geom)[1], "'s $draw and/or $draw_group functions.")
-    )
+      )
+    }, draw, draw_groups)
+
   })
 })
 
