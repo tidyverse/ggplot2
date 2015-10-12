@@ -29,6 +29,10 @@
 #'  scale_size_discrete(guide = "legend") +
 #'  scale_shape(guide = "legend")
 #'
+#'  # Remove some guides
+#'  p + guides(colour = "none")
+#'  p + guides(colour = "colorbar",size = "none")
+#'
 #' # Guides are integrated where possible
 #'
 #' p + guides(colour = guide_legend("title"), size = guide_legend("title"),
