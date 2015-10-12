@@ -55,6 +55,8 @@ ggplot2 1.0.1.9xxx
 
 * Legends no longer inherit aesthetics if `inherit.aes` is FALSE (#1267).
 
+* `geom_violin()` now has the ability to draw quantile lines (@DanRuderman).
+
 * The default themes has been tweaked in various minor ways. The legend
   title and axis titles are now given the same treatment. The default
   font size has been dropped from 12 to 11. The axes labels are now
