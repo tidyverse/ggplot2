@@ -37,7 +37,7 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{fatten}{A multiplicative factor used to increased the size of the
+\item{fatten}{A multiplicative factor used to increase the size of the
 middle bar in \code{geom_crossbar()} and the middle point in
 \code{geom_pointrange()}.}
 
