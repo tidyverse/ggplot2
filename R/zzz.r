@@ -11,5 +11,5 @@
   )
 
   tip <- sample(tips, 1)
-  packageStartupMessage(strwrap(tip))
+  packageStartupMessage(paste(strwrap(tip), collapse = "\n"))
 }
