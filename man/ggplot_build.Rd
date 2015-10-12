@@ -21,7 +21,7 @@ is a helper function which returns the data for a given layer.
 }
 \seealso{
 \code{\link{print.ggplot}} and \code{\link{benchplot}} for
- for functions that contain the complete set of steps for generating
+ functions that contain the complete set of steps for generating
  a ggplot2 plot.
 }
 \keyword{internal}
