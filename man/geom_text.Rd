@@ -8,7 +8,8 @@
 geom_label(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", parse = FALSE, show.legend = NA,
   inherit.aes = TRUE, ..., nudge_x = 0, nudge_y = 0,
-  label.padding = unit(0.25, "lines"), label.r = unit(0.15, "lines"))
+  label.padding = unit(0.25, "lines"), label.r = unit(0.15, "lines"),
+  label.size = 0.25)
 
 geom_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", parse = FALSE, show.legend = NA,
@@ -60,6 +61,8 @@ Useful for offsetting text from points, particularly on discrete scales.}
 \item{label.padding}{Amount of padding around label. Defaults to 0.25 lines.}
 
 \item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
+
+\item{label.size}{Size of label border, in mm.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted. A quick and dirty way}
