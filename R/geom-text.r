@@ -160,7 +160,7 @@ GeomText <- ggproto("GeomText", Geom,
                         na.rm = FALSE, check_overlap = FALSE) {
     lab <- data$label
     if (parse) {
-      lab <- parse(text = lab)
+      lab <- parse(text = as.character(lab))
     }
 
     data <- coord$transform(data, panel_scales)
