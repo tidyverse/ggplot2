@@ -14,13 +14,17 @@
 #' involved. \code{label_wrap_gen()} uses \code{\link[base]{strwrap}()}
 #' for line wrapping.
 #'
-#' \code{\link{label_parsed}()} interprets the labels as plotmath
+#' \code{label_parsed()} interprets the labels as plotmath
 #' expressions. \code{\link{label_bquote}()} offers a more flexible
 #' way of constructing plotmath expressions. See examples and
 #' \code{\link{bquote}()} for details on the syntax of the
 #' argument.
 #'
 #' @section Writing New Labeller Functions:
+#'
+#'   Note that an easy way to write a labeller function is to
+#'   transform a function operating on character vectors with
+#'   \code{\link{as_labeller}()}.
 #'
 #'   A labeller function accepts a data frame of labels (character
 #'   vectors) containing one column for each factor. Multiple factors
@@ -39,6 +43,15 @@
 #'   own line. Then the second facet gets the second elements of each
 #'   vector, and so on.
 #'
+#'   If it's useful to your labeller, you can retrieve the \code{type}
+#'   attribute of the incoming data frame of labels. The value of this
+#'   attribute reflects the kind of strips your labeller is dealing
+#'   with: \code{"cols"} for columns and \code{"rows"} for rows. Note
+#'   that \code{\link{facet_wrap}()} has columns by default and rows
+#'   when the strips are switched with the \code{switch} option. The
+#'   \code{facet} attribute also provides metadata on the labels. It
+#'   takes the values \code{"grid"} or \code{"wrap"}.
+#'
 #'   For compatibility with \code{\link{labeller}()}, each labeller
 #'   function must have the \code{labeller} S3 class.
 #'
@@ -48,10 +61,10 @@
 #' @param multi_line Whether to display the labels of multiple factors
 #'   on separate lines.
 #' @param sep String separating variables and values.
-#' @param expr Backquoted labelling expression.
 #' @param width Maximum number of characters before wrapping the strip.
 #' @family facet
-#' @seealso \code{\link{labeller}()}
+#' @seealso \code{\link{labeller}()}, \code{\link{as_labeller}()},
+#'   \code{\link{label_bquote}()}
 #' @name labellers
 #' @examples
 #' mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
@@ -73,15 +86,13 @@
 #' p + facet_grid(. ~ cyl2)
 #' p + facet_grid(. ~ cyl2, labeller = label_parsed)
 #' p + facet_wrap(~vs + cyl2, labeller = label_parsed)
-#'
-#' # You can also provide a flexible backquoted expression. The labels
-#' # must be backquoted and referred to by their names.
-#' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
-#' p + facet_grid(. ~ vs, labeller = label_bquote(alpha ^ .(vs)))
-#' p + facet_grid(. ~ vs, labeller = label_bquote(.(vs) ^ .(vs)))
-#' p + facet_grid(. ~ vs + am, labeller = label_bquote(.(am) ^ .(vs)))
 #' }
 NULL
+
+collapse_labels_lines <- function(labels) {
+  out <- do.call("Map", c(list(paste, sep = ", "), labels))
+  list(unname(unlist(out)))
+}
 
 #' @rdname labellers
 #' @export
@@ -90,8 +101,7 @@ label_value <- function(labels, multi_line = TRUE) {
   if (multi_line) {
     labels
   } else {
-    out <- do.call("Map", c(list(paste, sep = ", "), labels))
-    list(unname(unlist(out)))
+    collapse_labels_lines(labels)
   }
 }
 # Should ideally not have the 'function' class here, but this is
@@ -168,13 +178,36 @@ find_names <- function(expr) {
   }
 }
 
-#' @rdname labellers
+#' Backquoted labeller
+#'
+#' \code{\link{label_bquote}()} offers a flexible way of labelling
+#' facet rows or columns with plotmath expressions. Backquoted
+#' variables will be replaced with their value in the facet.
+#' @param rows Backquoted labelling expression for rows.
+#' @param cols Backquoted labelling expression for columns.
+#' @param default Default labeller function for the rows or the
+#'   columns when no plotmath expression is provided.
+#' @seealso \link{labellers}, \code{\link{labeller}()},
 #' @export
-label_bquote <- function(expr) {
-  quoted <- substitute(expr)
+#' @examples
+#' # The variables mentioned in the plotmath expression must be
+#' # backquoted and referred to by their names.
+#' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
+#' p + facet_grid(vs ~ ., labeller = label_bquote(alpha ^ .(vs)))
+#' p + facet_grid(. ~ vs, labeller = label_bquote(cols = .(vs) ^ .(vs)))
+#' p + facet_grid(. ~ vs + am, labeller = label_bquote(cols = .(am) ^ .(vs)))
+label_bquote <- function(rows = NULL, cols = NULL,
+                         default = label_value) {
+  cols_quoted <- substitute(cols)
+  rows_quoted <- substitute(rows)
   has_warned <- FALSE
 
   fun <- function(labels) {
+    quoted <- resolve_labeller(rows_quoted, cols_quoted, labels)
+    if (is.null(quoted)) {
+      return(label_value(labels))
+    }
+
     evaluate <- function(...) {
       params <- list(...)
 
@@ -215,6 +248,80 @@ label_wrap_gen <- function(width = 25, multi_line = TRUE) {
 
 is_labeller <- function(x) inherits(x, "labeller")
 
+resolve_labeller <- function(rows, cols, labels) {
+  if (is.null(cols) && is.null(rows)) {
+    stop("Supply one of rows or cols", call. = FALSE)
+  }
+  if (attr(labels, "facet") == "wrap") {
+    # Return either rows or cols for facet_wrap()
+    if (!is.null(cols) && !is.null(rows)) {
+      stop("Cannot supply both rows and cols to facet_wrap()", call. = FALSE)
+    }
+    cols %||% rows
+  } else {
+    if (attr(labels, "type") == "rows") {
+      rows
+    } else {
+      cols
+    }
+  }
+}
+
+#' Coerce to labeller function
+#'
+#' This transforms objects to labeller functions. Used internally by
+#' \code{\link{labeller}()}.
+#' @param x Object to coerce to a labeller function. If a named
+#'   character vector, it is used as a lookup table before being
+#'   passed on to \code{default}. If a non-labeller function, it is
+#'   assumed it takes and returns character vectors and is applied to
+#'   the labels. If a labeller, it is simply applied to the labels.
+#' @param multi_line Whether to display the labels of multiple factors
+#'   on separate lines. This is passed to the labeller function.
+#' @param default Default labeller to process the labels produced by
+#'   lookup tables or modified by non-labeller functions.
+#' @seealso \code{\link{labeller}()}, \link{labellers}
+#' @export
+#' @examples
+#' p <- ggplot(mtcars, aes(disp, drat)) + geom_point()
+#' p + facet_wrap(~am)
+#'
+#' # Rename labels on the fly with a lookup character vector
+#' to_string <- as_labeller(c(`0` = "Zero", `1` = "One"))
+#' p + facet_wrap(~am, labeller = to_string)
+#'
+#' # Quickly transform a function operating on character vectors to a
+#' # labeller function:
+#' appender <- function(string, suffix = "-foo") paste0(string, suffix)
+#' p + facet_wrap(~am, labeller = as_labeller(appender))
+#'
+#' # If you have more than one facetting variable, be sure to dispatch
+#' # your labeller to the right variable with labeller()
+#' p + facet_grid(cyl ~ am, labeller = labeller(am = to_string))
+as_labeller <- function(x, default = label_value, multi_line = TRUE) {
+  force(x)
+  fun <- function(labels) {
+    labels <- lapply(labels, as.character)
+
+    # Dispatch multi_line argument to the labeller function instead of
+    # supplying it to the labeller call because some labellers do not
+    # support it.
+    default <- dispatch_args(default, multi_line = multi_line)
+
+    if (is_labeller(x)) {
+      x <- dispatch_args(x, multi_line = multi_line)
+      x(labels)
+    } else if (is.function(x)) {
+      default(lapply(labels, x))
+    } else if (is.character(x)) {
+      default(lapply(labels, function(label) x[label]))
+    } else {
+      default(labels)
+    }
+  }
+  structure(fun, class = "labeller")
+}
+
 #' Generic labeller function for facets
 #'
 #' This function makes it easy to assign different labellers to
@@ -229,113 +336,137 @@ is_labeller <- function(x) inherits(x, "labeller")
 #' functions taking a character vector such as
 #' \code{\link[Hmisc]{capitalize}}.
 #'
-#' @param ... Named arguments of the form \code{variable = labeller},
-#'   where \code{values} could be a vector or method.
-#' @param keep.as.numeric Deprecated, use \code{.as_character} instead.
-#' @param .as_character Logical, default FALSE. When TRUE, converts
-#'   numeric labels to characters.
+#' @param ... Named arguments of the form \code{variable =
+#'   labeller}. Each labeller is passed to \code{\link{as_labeller}()}
+#'   and can be a lookup table, a function taking and returning
+#'   character vectors, or simply a labeller function.
+#' @param .rows,.cols Labeller for a whole margin (either the rows or
+#'   the columns). It is passed to \code{\link{as_labeller}()}. When a
+#'   margin-wide labeller is set, make sure you don't mention in
+#'   \code{...} any variable belonging to the margin.
+#' @param keep.as.numeric Deprecated. All supplied labellers and
+#'   on-labeller functions should be able to work with character
+#'   labels.
 #' @param .multi_line Whether to display the labels of multiple
-#'   factors on separate lines. This is passed to the labeller function.
-#' @param .default Default labeller function with which to process the
-#'   labels not mentioned in \code{...} or those produced with a
-#'   lookup table or a non-labeller function.
-#' @inheritParams label_value
+#'   factors on separate lines. This is passed to the labeller
+#'   function.
+#' @param .default Default labeller for variables not specified. Also
+#'   used with lookup tables or non-labeller functions.
 #' @family facet labeller
-#' @seealso \link{labellers}
+#' @seealso \code{\link{as_labeller}()}, \link{labellers}
 #' @return A labeller function to supply to \code{\link{facet_grid}}
 #'   for the argument \code{labeller}.
 #' @export
 #' @examples
 #' \donttest{
-#' p1 <- ggplot(mpg, aes(cty, hwy)) + geom_point()
-#' p1 + facet_grid(cyl ~ class, labeller = label_both)
-#' p1 + facet_grid(cyl ~ class, labeller = labeller(cyl = label_both))
+#' p1 <- ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point()
 #'
-#' ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point() +
-#'   facet_grid(vs + am ~ gear, margins=TRUE,
-#'     labeller = labeller(vs = label_both, am = label_both))
+#' # You can assign different labellers to variables:
+#' p1 + facet_grid(vs + am ~ gear,
+#'   labeller = labeller(vs = label_both, am = label_value))
 #'
+#' # Or whole margins:
+#' p1 + facet_grid(vs + am ~ gear,
+#'   labeller = labeller(.rows = label_both, .cols = label_value))
 #'
+#' # You can supply functions operating on strings:
 #' capitalize <- function(string) {
 #'   substr(string, 1, 1) <- toupper(substr(string, 1, 1))
 #'   string
 #' }
-#' conservation_status <- c('cd' = 'Conservation Dependent',
-#'                          'en' = 'Endangered',
-#'                          'lc' = 'Least concern',
-#'                          'nt' = 'Near Threatened',
-#'                          'vu' = 'Vulnerable',
-#'                          'domesticated' = 'Domesticated')
-#' ## Source: http://en.wikipedia.org/wiki/Wikipedia:Conservation_status
-#'
 #' p2 <- ggplot(msleep, aes(x = sleep_total, y = awake)) + geom_point()
 #' p2 + facet_grid(vore ~ conservation, labeller = labeller(vore = capitalize))
 #'
+#' # Or use character vectors as lookup tables:
+#' conservation_status <- c(
+#'   cd = "Conservation Dependent",
+#'   en = "Endangered",
+#'   lc = "Least concern",
+#'   nt = "Near Threatened",
+#'   vu = "Vulnerable",
+#'   domesticated = "Domesticated"
+#' )
+#' ## Source: http://en.wikipedia.org/wiki/Wikipedia:Conservation_status
+#'
 #' p2 + facet_grid(vore ~ conservation, labeller = labeller(
-#'   vore = capitalize,
+#'   .default = capitalize,
 #'   conservation = conservation_status
 #' ))
 #'
-#' # We could of course have renamed the levels;
-#' # then we can apply another nifty function
-#' msleep$conservation2 <- plyr::revalue(msleep$conservation, conservation_status)
+#' # In the following example, we rename the levels to the long form,
+#' # then apply a wrap labeller to the columns to prevent cropped text
+#' msleep$conservation2 <- plyr::revalue(msleep$conservation,
+#'   conservation_status)
 #'
-#' p2 %+% msleep +
-#'   facet_grid(vore ~ conservation2, labeller = labeller(vore = capitalize))
+#' p2 %+% msleep + facet_grid(vore ~ conservation2)
 #' p2 %+% msleep +
 #'   facet_grid(vore ~ conservation2,
 #'     labeller = labeller(conservation2 = label_wrap_gen(10))
 #'   )
-#' }
 #'
-#' # When multiple factors index the facetting, simply refer to one of
-#' # them to assign a labeller:
-#' p3 <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
-#' p3 + facet_grid(gear + am ~ vs + cyl, labeller = labeller(
-#'   vs = label_bquote(.(cyl) ^ .(vs)),
-#'   .default = label_value
-#' ))
-labeller <- function(..., keep.as.numeric = NULL, .as_character = FALSE,
-                     .multi_line = TRUE, .default = label_value) {
+#' # labeller() is especially useful to act as a global labeller. You
+#' # can set it up once and use it on a range of different plots with
+#' # different facet specifications.
+#'
+#' global_labeller <- labeller(
+#'   vore = capitalize,
+#'   conservation = conservation_status,
+#'   conservation2 = label_wrap_gen(10),
+#'   .default = label_both
+#' )
+#'
+#' p2 + facet_grid(vore ~ conservation, labeller = global_labeller)
+#' p2 + facet_wrap(~vore, labeller = global_labeller)
+#' p2 %+% msleep + facet_wrap(~conservation2, labeller = global_labeller)
+#' }
+labeller <- function(..., .rows = NULL, .cols = NULL,
+                     keep.as.numeric = NULL, .multi_line = TRUE,
+                     .default = label_value) {
   if (!is.null(keep.as.numeric)) {
-    .Deprecated(".as_character", old = "keep.as.numeric")
+    .Deprecated(old = "keep.as.numeric")
   }
-  args <- list(...)
+  dots <- list(...)
+  .default <- as_labeller(.default)
 
   function(labels) {
-    variable <- names(labels)
-    labels <- lapply(labels, function(values) {
-      if (is.logical(values)) {
-        as.integer(values) + 1
-      }
-      if (is.factor(values)) {
-        as.character(values)
-      } else if (is.numeric(values) && .as_character) {
-        as.character(values)
-      } else {
-        values
-      }
-    })
-
-    labeller <- args[variable][[1]]
-
-    # If the facetting margin (i.e. `variable`) was not specified when
-    # calling labeller, default to use the actual values.
-    if (is.null(labeller)) {
-      .default(labels)
-
-    } else if (is_labeller(labeller)) {
-      if ("multi_line" %in% names(formals(labeller))) {
-        labeller(labels = labels, multi_line = .multi_line)
-      } else {
-        labeller(labels = labels)
-      }
-
-    } else if (is.function(labeller)) {
-      .default(lapply(labels, labeller), multi_line = .multi_line)
-
+    if (!is.null(.rows) || !is.null(.cols)) {
+      margin_labeller <- resolve_labeller(.rows, .cols, labels)
     } else {
-      .default(lapply(labels, function(x) labeller[x]), multi_line = .multi_line)
+      margin_labeller <- NULL
+    }
+
+    if (is.null(margin_labeller)) {
+      labellers <- lapply(dots, as_labeller)
+    } else {
+      margin_labeller <- as_labeller(margin_labeller, default = .default,
+        multi_line = .multi_line)
+
+      # Check that variable-specific labellers do not overlap with
+      # margin-wide labeller
+      if (any(names(dots) %in% names(labels))) {
+        stop("Conflict between .", attr(labels, "type"), " and ",
+          paste(names(dots), collapse = ", "), call. = FALSE)
+      }
+    }
+
+    # Apply relevant labeller
+    if (is.null(margin_labeller)) {
+      # Apply named labeller one by one
+      out <- lapply(names(labels), function(label) {
+        if (label %in% names(labellers)) {
+          labellers[[label]](labels[label])[[1]]
+        } else {
+          .default(labels[label])[[1]]
+        }
+      })
+      names(out) <- names(labels)
+      if (.multi_line) {
+        out
+      } else {
+        collapse_labels_lines(out)
+      }
+    } else {
+      margin_labeller(labels)
     }
   }
 }

@@ -353,6 +353,12 @@ facet_strips.grid <- function(facet, panel, theme) {
   col_vars <- unique(panel$layout[names(facet$cols)])
   row_vars <- unique(panel$layout[names(facet$rows)])
 
+  # Adding labels metadata, useful for labellers
+  attr(col_vars, "type") <- "cols"
+  attr(col_vars, "facet") <- "grid"
+  attr(row_vars, "type") <- "rows"
+  attr(row_vars, "facet") <- "grid"
+
   dir <- list(r = "r", t = "t")
   if (!is.null(facet$switch) && facet$switch %in% c("both", "x")) {
     dir$t <- "b"

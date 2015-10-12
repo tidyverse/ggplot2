@@ -332,10 +332,14 @@ facet_panels.wrap <- function(facet, panel, coord, theme, geom_grobs) {
 facet_strips.wrap <- function(facet, panel, theme) {
   labels_df <- panel$layout[names(facet$facets)]
 
+  # Adding labels metadata, useful for labellers
+  attr(labels_df, "facet") <- "wrap"
   if (!is.null(facet$switch) && facet$switch == "x") {
     dir <- "b"
+    attr(labels_df, "type") <- "rows"
   } else {
     dir <- "t"
+    attr(labels_df, "type") <- "cols"
   }
 
   strips_table <- build_strip(panel, labels_df, facet$labeller,
