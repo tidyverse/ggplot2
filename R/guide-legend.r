@@ -243,6 +243,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))
     matched <- intersect(intersect(all, geom), names(guide$key))
     matched <- setdiff(matched, names(layer$geom_params))
+    matched <- setdiff(matched, names(layer$aes_params))
 
     if (length(matched) > 0) {
       # This layer contributes to the legend
