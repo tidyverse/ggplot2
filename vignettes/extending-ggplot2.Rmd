@@ -65,7 +65,7 @@ StatChull <- ggproto("StatChull", Stat,
 
 The two most important components are the `compute_group()` method (which does the computation), and the `required_aes` field, which lists which aesthetics must be present in order to for the stat to work.
 
-Next we write a layer function. Unfortunately, due to any early design mistake I called these either `stat_()` or `geom_()`. A better decision would have been to call them `layer_()` functions: that's a more accurate description because every layer involves a a stat _and_ a geom. 
+Next we write a layer function. Unfortunately, due to an early design mistake I called these either `stat_()` or `geom_()`. A better decision would have been to call them `layer_()` functions: that's a more accurate description because every layer involves a stat _and_ a geom. 
 
 All layer functions follow the same form - you specify defaults in the function arguments and then call the `layer()` function, sending `...` into the `params` argument. The arguments in `...` will either be arguments for the geom (if you're making a stat wrapper), arguments for the stat (if you're making a geom wrapper), or aesthetics to be set. `layer()` takes care of teasing the different parameters apart and making sure they're stored in the right place:
 
