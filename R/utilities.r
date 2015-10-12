@@ -272,3 +272,11 @@ warning_wrap <- function(...) {
   wrapped <- strwrap(msg, width = getOption("width") - 2)
   warning(paste0(wrapped, collapse = "\n"), call. = FALSE)
 }
+
+dispatch_args <- function(f, ...) {
+  args <- list(...)
+  formals <- formals(f)
+  formals[names(args)] <- args
+  formals(f) <- formals
+  f
+}
