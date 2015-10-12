@@ -40,8 +40,6 @@ p +
 
  # Remove some guides
  p + guides(colour = "none")
- p + guides(colour = FALSE)
- p + guides(colour = "colorbar",size = FALSE)
  p + guides(colour = "colorbar",size = "none")
 
 # Guides are integrated where possible
