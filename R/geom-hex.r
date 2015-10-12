@@ -45,6 +45,10 @@ geom_hex <- function(mapping = NULL, data = NULL, stat = "binhex",
 #' @export
 GeomHex <- ggproto("GeomHex", Geom,
   draw_group = function(data, panel_scales, coord) {
+    if (!inherits(coord, "CoordCartesian")) {
+      stop("geom_hex() only works with Cartesian coordinates", call. = FALSE)
+    }
+
     coord <- coord$transform(data, panel_scales)
     ggname("geom_hex", hexGrob(
       coord$x, coord$y, colour = coord$colour,
