@@ -106,13 +106,16 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
   draw_group = function(self, data, ..., draw_quantiles = NULL) {
     # Find the points for the line to go all the way around
-    data <- transform(data, xminv = x - violinwidth * (x - xmin),
-                            xmaxv = x + violinwidth * (xmax - x))
+    data <- transform(data,
+      xminv = x - violinwidth * (x - xmin),
+      xmaxv = x + violinwidth * (xmax - x)
+    )
 
     # Make sure it's sorted properly to draw the outline
-    newdata <- rbind(plyr::arrange(transform(data, x = xminv), y),
-                     plyr::arrange(transform(data, x = xmaxv), -y))
-
+    newdata <- rbind(
+      plyr::arrange(transform(data, x = xminv), y),
+      plyr::arrange(transform(data, x = xmaxv), -y)
+    )
 
     # Close the polygon: set first and last point the same
     # Needed for coord_polar and such
@@ -123,11 +126,16 @@ GeomViolin <- ggproto("GeomViolin", Geom,
       stopifnot(all(draw_quantiles >= 0), all(draw_quantiles <= 1))
 
       # Compute the quantile segments and add in the aesthetics
-      quantile_segments_with_aes <- cbind(create_quantile_segment_frame(data, draw_quantiles),
-                                          subset(data, select=c(-x,-y))[1,], row.names=NULL)
+      quantile_segments_with_aes <- cbind(
+        create_quantile_segment_frame(data, draw_quantiles),
+        subset(data, select = c(-x,-y))[1, ]
+      )
       quantile_grob <- GeomPath$draw_panel(quantile_segments_with_aes, ...)
 
-      ggname("geom_violin", grobTree(GeomPolygon$draw_panel(newdata, ...), quantile_grob))
+      ggname("geom_violin", grobTree(
+        GeomPolygon$draw_panel(newdata, ...),
+        quantile_grob)
+      )
     } else {
       ggname("geom_violin", GeomPolygon$draw_panel(newdata, ...))
     }
@@ -152,8 +160,10 @@ create_quantile_segment_frame <- function(data, draw_quantiles) {
   violin.xmaxvs <- (approxfun(data$y, data$xmaxv))(ys)
 
   # We have two rows per segment drawn. Each segments gets its own group.
-  data.frame(x=interleave(violin.xminvs, violin.xmaxvs),
-             y=rep(ys, each=2),
-             group=rep(ys, each=2))
+  data.frame(
+    x = interleave(violin.xminvs, violin.xmaxvs),
+    y = rep(ys, each = 2),
+    group = rep(ys, each = 2)
+  )
 }
 
