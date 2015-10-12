@@ -40,7 +40,7 @@ PositionNudge <- ggproto("PositionNudge", Position,
     list(x = self$x, y = self$y)
   },
 
-  compute_layer = function(data, params, scales) {
+  compute_layer = function(data, params, panel) {
     transform_position(data, function(x) x + params$x, function(y) y + params$y)
   }
 )
