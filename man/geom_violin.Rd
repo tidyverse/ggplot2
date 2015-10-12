@@ -6,8 +6,8 @@
 \title{Violin plot.}
 \usage{
 geom_violin(mapping = NULL, data = NULL, stat = "ydensity",
-  position = "dodge", trim = TRUE, scale = "area", show.legend = NA,
-  inherit.aes = TRUE, ...)
+  draw_quantiles = NULL, position = "dodge", trim = TRUE,
+  scale = "area", show.legend = NA, inherit.aes = TRUE, ...)
 
 stat_ydensity(mapping = NULL, data = NULL, geom = "violin",
   position = "dodge", adjust = 1, kernel = "gaussian", trim = TRUE,
@@ -23,6 +23,9 @@ defined for the plot.}
 
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
+
+\item{draw_quantiles}{If \code{not(NULL)} (default), draw horizontal lines
+at the given quantiles of the density estimate.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -115,6 +118,9 @@ p + geom_violin(aes(fill = factor(am)))
 
 # Set aesthetics to fixed value
 p + geom_violin(fill = "grey80", colour = "#3366FF")
+
+# Show quartiles
+p + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
 
 # Scales vs. coordinate transforms -------
 if (require("ggplot2movies")) {
