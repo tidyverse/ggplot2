@@ -1,6 +1,8 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* Bars and rectangles are a slightly paler shade of grey.
+
 * `scale_*_gradientn()` etc now allows `colours` or `colors` (#1290)
 
 * `geom_pointrange()` gains `fatten` argument so you can control the

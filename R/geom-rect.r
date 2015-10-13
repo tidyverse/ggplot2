@@ -23,7 +23,7 @@ geom_rect <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomRect <- ggproto("GeomRect", Geom,
-  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+  default_aes = aes(colour = NA, fill = "grey35", size = 0.5, linetype = 1,
     alpha = NA),
 
   required_aes = c("xmin", "xmax", "ymin", "ymax"),
