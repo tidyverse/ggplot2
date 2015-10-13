@@ -451,24 +451,16 @@ guide_gengrob.legend <- function(guide, theme) {
     })
 
   # grob for key
-  grob.keys <- list()
-
   key_size <- c(key_width, key_height) * 10
-  for (i in 1:nbreak) {
 
-    # bg. of key
-    grob.keys[[length(grob.keys) + 1]] <- element_render(theme, "legend.key")
-
-    # overlay geoms
-    for (geom in guide$geoms) {
-      grob.keys[[length(grob.keys) + 1]] <- geom$draw_key(
-        geom$data[i, ],
-        geom$params,
-        key_size
-      )
-    }
-
+  draw_key <- function(i) {
+    bg <- element_render(theme, "legend.key")
+    keys <- lapply(guide$geoms, function(g) {
+      g$draw_key(g$data[i, ], g$params, key_size)
+    })
+    c(list(bg), keys)
   }
+  grob.keys <- unlist(lapply(seq_len(nbreak), draw_key), recursive = FALSE)
 
   # background
   grob.background <- element_render(theme, "legend.background")
