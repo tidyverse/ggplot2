@@ -10,9 +10,11 @@ update_geom_defaults(geom, new)
 update_stat_defaults(stat, new)
 }
 \arguments{
-\item{new}{named list of aesthetics}
+\item{new}{Named list of aesthetics.}
 
-\item{stat,geom}{name of geom/stat to modify}
+\item{stat,geom}{Name of geom/stat to modify (like \code{"point"} or
+\code{"bin"}), or a Geom/Stat object (like \code{GeomPoint} or
+\code{StatBin}).}
 }
 \description{
 Modify geom/stat aesthetic defaults for future plots
