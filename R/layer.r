@@ -216,6 +216,7 @@ Layer <- ggproto("Layer", NULL,
   draw_geom = function(self, data, panel, coord) {
     if (empty(data)) return(list(zeroGrob()))
 
+    data <- self$geom$handle_na(data, self$geom_params)
     self$geom$draw_layer(data, self$geom_params, panel, coord)
   }
 )

@@ -59,11 +59,14 @@ Geom <- ggproto("Geom",
 
   draw_key = draw_key_point,
 
-  draw_layer = function(self, data, params, panel, coord) {
-    data <- remove_missing(data, isTRUE(params$na.rm),
+  handle_na = function(self, data, params) {
+    remove_missing(data, isTRUE(params$na.rm),
       c(self$required_aes, self$non_missing_aes),
       snake_class(self)
     )
+  },
+
+  draw_layer = function(self, data, params, panel, coord) {
     if (empty(data)) return(list(zeroGrob()))
 
     args <- c(list(quote(data), quote(panel_scales), quote(coord)), params)

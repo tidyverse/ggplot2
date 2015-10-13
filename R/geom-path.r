@@ -112,6 +112,36 @@ geom_path <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomPath <- ggproto("GeomPath", Geom,
+  required_aes = c("x", "y"),
+
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+
+  handle_na = function(data, params) {
+    keep <- function(x) {
+      # from first non-missing to last non-missing
+      first <- match(FALSE, x, nomatch = 1) - 1
+      last <- length(x) - match(FALSE, rev(x), nomatch = 1) + 1
+      c(
+        rep(FALSE, first),
+        rep(TRUE, last - first),
+        rep(FALSE, length(x) - last)
+      )
+    }
+    # Drop missing values at the start or end of a line - can't drop in the
+    # middle since you expect those to be shown by a break in the line
+    missing <- !stats::complete.cases(data[c("x", "y", "size", "colour",
+      "linetype")])
+    kept <- stats::ave(missing, data$group, FUN = keep)
+    data <- data[kept, ]
+
+    if (!all(kept) && !params$na.rm) {
+      warning("Removed ", sum(!kept), " rows containing missing values",
+        " (geom_path).", call. = FALSE)
+    }
+
+    data
+  },
+
   draw_panel = function(data, panel_scales, coord, arrow = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 1,
                         na.rm = FALSE) {
@@ -120,29 +150,8 @@ GeomPath <- ggproto("GeomPath", Geom,
         "Do you need to adjust the group aesthetic?")
     }
 
-    keep <- function(x) {
-      # from first non-missing to last non-missing
-      first <- match(FALSE, x, nomatch = 1) - 1
-      last <- length(x) - match(FALSE, rev(x), nomatch = 1) + 1
-      c(
-        rep(FALSE, first),
-        rep(TRUE, last - first),
-        rep(FALSE, length(x) - last))
-    }
-    # Drop missing values at the start or end of a line - can't drop in the
-    # middle since you expect those to be shown by a break in the line
-    missing <- !stats::complete.cases(data[c("x", "y", "size", "colour",
-      "linetype")])
-    kept <- stats::ave(missing, data$group, FUN = keep)
-    data <- data[kept, ]
     # must be sorted on group
-    data <- plyr::arrange(data, group)
-
-    if (!all(kept) && !na.rm) {
-      warning("Removed ", sum(!kept), " rows containing missing values",
-        " (geom_path).", call. = FALSE)
-    }
-
+    data <- data[order(data$group), , drop = FALSE]
     munched <- coord_munch(coord, data, panel_scales)
 
     # Silently drop lines with less than two points, preserving order
@@ -202,10 +211,6 @@ GeomPath <- ggproto("GeomPath", Geom,
       )
     }
   },
-
-  required_aes = c("x", "y"),
-
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
   draw_key = draw_key_path
 )
