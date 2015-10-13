@@ -1,6 +1,8 @@
 ggplot2 1.0.1.9xxx
 ----------------------------------------------------------------
 
+* `scale_*_gradientn()` etc now allows `colours` or `colors` (#1290)
+
 * `geom_pointrange()` gains `fatten` argument so you can control the
   size of the point relative to the size of the line.
 

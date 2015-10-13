@@ -30,10 +30,10 @@ scale_fill_gradient2(..., low = muted("red"), mid = "white",
   na.value = "grey50", guide = "colourbar")
 
 scale_colour_gradientn(..., colours, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar")
+  na.value = "grey50", guide = "colourbar", colors)
 
 scale_fill_gradientn(..., colours, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar")
+  na.value = "grey50", guide = "colourbar", colors)
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link{discrete_scale}}
@@ -54,7 +54,7 @@ colour bar, or \code{"legend"} for discrete colour legend.}
 \item{midpoint}{The midpoint (in data value) of the diverging scale.
 Defaults to 0.}
 
-\item{colours}{Vector of colours to use for n-colour gradient.}
+\item{colours,colors}{Vector of colours to use for n-colour gradient.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
