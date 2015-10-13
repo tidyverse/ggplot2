@@ -67,3 +67,47 @@ scale_fill_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = 
   continuous_scale("fill", "gradient", seq_gradient_pal(low, high, space),
     na.value = na.value, guide = guide, ...)
 }
+
+#' @inheritParams scales::div_gradient_pal
+#' @param midpoint The midpoint (in data value) of the diverging scale.
+#'   Defaults to 0.
+#' @rdname scale_gradient
+#' @export
+scale_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "Lab", na.value = "grey50", guide = "colourbar") {
+  continuous_scale("colour", "gradient2",
+    div_gradient_pal(low, mid, high, space), na.value = na.value, guide = guide, ...,
+    rescaler = mid_rescaler(mid = midpoint))
+}
+
+#' @rdname scale_gradient
+#' @export
+scale_fill_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "Lab", na.value = "grey50", guide = "colourbar") {
+  continuous_scale("fill", "gradient2",
+    div_gradient_pal(low, mid, high, space), na.value = na.value, guide = guide, ...,
+    rescaler = mid_rescaler(mid = midpoint))
+}
+
+mid_rescaler <- function(mid) {
+  function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
+    rescale_mid(x, to, from, mid)
+  }
+}
+
+#' @inheritParams scales::gradient_n_pal
+#' @param colours,colors Vector of colours to use for n-colour gradient.
+#' @rdname scale_gradient
+#' @export
+scale_colour_gradientn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50", guide = "colourbar", colors) {
+  colours <- if (missing(colours)) colors else colours
+
+  continuous_scale("colour", "gradientn",
+    gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
+}
+#' @rdname scale_gradient
+#' @export
+scale_fill_gradientn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50", guide = "colourbar", colors) {
+  colours <- if (missing(colours)) colors else colours
+
+  continuous_scale("fill", "gradientn",
+    gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
+}

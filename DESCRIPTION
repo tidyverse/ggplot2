@@ -163,8 +163,6 @@ Collate:
     'scale-date.r'
     'scale-discrete-.r'
     'scale-gradient.r'
-    'scale-gradient2.r'
-    'scale-gradientn.r'
     'scale-grey.r'
     'scale-hue.r'
     'scale-identity.r'
