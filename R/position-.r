@@ -71,8 +71,13 @@ Position <- ggproto("Position",
   }
 )
 
-# Convenience function to ensure that all position variables
-# (x, xmin, xmax, xend) are transformed in the same way
+#' Convenience function to transform all position variables.
+#'
+#' @param trans_x,trans_y Transformation functions for x and y aesthetics.
+#'   (will transform x, xmin, xmax, xend etc)
+#' @param ... Additional arguments passed to \code{trans_x} and \code{trans_y}.
+#' @keywords internal
+#' @export
 transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
   scales <- aes_to_scale(names(df))
 

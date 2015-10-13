@@ -122,10 +122,16 @@ len0_null <- function(x) {
 }
 
 
-# Returns a grob for an element object
-element_grob <- function(element, ...)
+#' Generate grid grob from theme element
+#'
+#' @param element Theme element, i.e. \code{element_rect} or similar.
+#' @param ... Other arguments to control specific of rendering. This is
+#'   usually at least position. See the source code for individual methods.
+#' @keywords internal
+#' @export
+element_grob <- function(element, ...) {
   UseMethod("element_grob")
-
+}
 
 #' @export
 element_grob.element_blank <- function(element, ...)  zeroGrob()
@@ -148,7 +154,7 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
 element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   family = NULL, face = NULL, colour = NULL, size = NULL,
   hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  margin = NULL, expand_x = FALSE, expand_y = FALSE) {
+  margin = NULL, expand_x = FALSE, expand_y = FALSE, ...) {
 
   if (is.null(label))
     return(zeroGrob())
