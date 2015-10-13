@@ -5,7 +5,7 @@
 \title{Marginal rug plots.}
 \usage{
 geom_rug(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", sides = "bl", show.legend = NA,
+  position = "identity", sides = "bl", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -27,6 +27,9 @@ a call to a position adjustment function.}
 \item{sides}{A string that controls which sides of the plot the rugs appear on.
 It can be set to a string containing any of \code{"trbl"}, for top, right,
 bottom, and left.}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

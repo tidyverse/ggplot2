@@ -7,8 +7,6 @@
 #'   is computed over the range of that group: this typically means the
 #'   estimated x values will not line-up, and hence you won't be able to
 #'   stack density values.
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @section Computed variables:
 #' \describe{
 #'   \item{density}{density estimate}
@@ -19,8 +17,9 @@
 #' @export
 #' @rdname geom_density
 stat_density <- function(mapping = NULL, data = NULL, geom = "area",
-  position = "stack", adjust = 1, kernel = "gaussian", trim = FALSE,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
+                         position = "stack", adjust = 1, kernel = "gaussian",
+                         trim = FALSE, na.rm = FALSE,
+                         show.legend = NA, inherit.aes = TRUE, ...) {
 
   layer(
     data = data,

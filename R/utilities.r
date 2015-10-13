@@ -81,6 +81,8 @@ uniquecols <- function(df) {
 #' @keywords internal
 #' @export
 remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = FALSE) {
+  stopifnot(is.logical(na.rm))
+
   vars <- intersect(vars, names(df))
   if (name != "") name <- paste(" (", name, ")", sep = "")
 

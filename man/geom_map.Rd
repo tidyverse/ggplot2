@@ -5,7 +5,7 @@
 \title{Polygons from a reference map.}
 \usage{
 geom_map(mapping = NULL, data = NULL, map, stat = "identity",
-  show.legend = NA, inherit.aes = TRUE, ...)
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -24,6 +24,9 @@ It must contain columns \code{x} or \code{long}, \code{y} or
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

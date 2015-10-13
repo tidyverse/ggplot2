@@ -3,8 +3,6 @@
 #' @param scale if "area" (default), all violins have the same area (before trimming
 #'   the tails). If "count", areas are scaled proportionally to the number of
 #'   observations. If "width", all violins have the same maximum width.
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning. If \code{TRUE} silently removes missing values.
 #' @section Computed variables:
 #' \describe{
 #'   \item{density}{density estimate}

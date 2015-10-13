@@ -71,12 +71,12 @@ All layer functions follow the same form - you specify defaults in the function 
 
 ```{r}
 stat_chull <- function(mapping = NULL, data = NULL, geom = "polygon",
-                       position = "identity", show.legend = NA, 
+                       position = "identity", na.rm = FALSE, show.legend = NA, 
                        inherit.aes = TRUE, ...) {
   layer(
     stat = StatChull, data = data, mapping = mapping, geom = geom, 
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(na.rm = na.rm, ...)
   )
 }
 ```
@@ -129,12 +129,12 @@ StatLm <- ggproto("StatLm", Stat,
 )
 
 stat_lm <- function(mapping = NULL, data = NULL, geom = "line",
-                    position = "identity", show.legend = NA, 
+                    position = "identity", na.rm = FALSE, show.legend = NA, 
                     inherit.aes = TRUE, ...) {
   layer(
     stat = StatLm, data = data, mapping = mapping, geom = geom, 
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(na.rm = na.rm, ...)
   )
 }
 
@@ -161,13 +161,13 @@ StatLm <- ggproto("StatLm", Stat,
 )
 
 stat_lm <- function(mapping = NULL, data = NULL, geom = "line",
-                    position = "identity", show.legend = NA, 
+                    position = "identity", na.rm = FALSE, show.legend = NA, 
                     inherit.aes = TRUE, n = 50, formula = y ~ x, 
                     ...) {
   layer(
     stat = StatLm, data = data, mapping = mapping, geom = geom, 
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(n = n, formula = formula, ...)
+    params = list(n = n, formula = formula, na.rm = na.rm, ...)
   )
 }
 
@@ -185,13 +185,13 @@ Note that don't _have_ to explicitly include the new parameters in the arguments
 #'   involve \code{y} and \code{x}
 #' @param n Number of points used for interpolation.
 stat_lm <- function(mapping = NULL, data = NULL, geom = "line",
-                    position = "identity", show.legend = NA, 
+                    position = "identity", na.rm = FALSE, show.legend = NA, 
                     inherit.aes = TRUE, n = 50, formula = y ~ x, 
                     ...) {
   layer(
     stat = StatLm, data = data, mapping = mapping, geom = geom, 
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(n = n, formula = formula, ...)
+    params = list(n = n, formula = formula, na.rm = na.rm, ...)
   )
 }
 
@@ -216,7 +216,8 @@ StatDensityCommon <- ggproto("StatDensityCommon", Stat,
     bw <- mean(bws)
     message("Picking bandwidth of ", signif(bw, 3))
     
-    list(bandwidth = bw)
+    params$bandwidth <- bw
+    params
   },
   
   compute_group = function(data, scales, bandwidth = 1) {
@@ -226,13 +227,13 @@ StatDensityCommon <- ggproto("StatDensityCommon", Stat,
 )
 
 stat_density_common <- function(mapping = NULL, data = NULL, geom = "line",
-                                position = "identity", show.legend = NA, 
+                                position = "identity", na.rm = FALSE, show.legend = NA, 
                                 inherit.aes = TRUE, bandwidth = NULL,
                                 ...) {
   layer(
     stat = StatDensityCommon, data = data, mapping = mapping, geom = geom, 
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(bandwidth = bandwidth, ...)
+    params = list(bandwidth = bandwidth, na.rm = na.rm, ...)
   )
 }
 
@@ -285,7 +286,8 @@ StatDensityCommon <- ggproto("StatDensityCommon", Stat,
     list(
       bandwidth = params$bandwidth,
       min = min,
-      max = max
+      max = max,
+      na.rm = params$na.rm
     )
   },
   
@@ -339,12 +341,12 @@ GeomSimplePoint <- ggproto("GeomSimplePoint", Geom,
 )
 
 geom_simple_point <- function(mapping = NULL, data = NULL, stat = "identity",
-                              position = "identity", show.legend = NA, 
+                              position = "identity", na.rm = FALSE, show.legend = NA, 
                               inherit.aes = TRUE, ...) {
   layer(
     geom = GeomSimplePoint, mapping = mapping,  data = data, stat = stat, 
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(na.rm = na.rm, ...)
   )
 }
 
@@ -415,12 +417,12 @@ GeomSimplePolygon <- ggproto("GeomPolygon", Geom,
   }
 )
 geom_simple_polygon <- function(mapping = NULL, data = NULL, stat = "chull",
-                                position = "identity", show.legend = NA, 
+                                position = "identity", na.rm = FALSE, show.legend = NA, 
                                 inherit.aes = TRUE, ...) {
   layer(
     geom = GeomSimplePolygon, mapping = mapping, data = data, stat = stat, 
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(na.rm = na.rm, ...)
   )
 }
 
@@ -458,12 +460,12 @@ GeomPolygonHollow <- ggproto("GeomPolygonHollow", GeomPolygon,
     alpha = NA)
   )
 geom_chull <- function(mapping = NULL, data = NULL, 
-                       position = "identity", show.legend = NA, 
+                       position = "identity", na.rm = FALSE, show.legend = NA, 
                        inherit.aes = TRUE, ...) {
   layer(
     stat = StatChull, geom = GeomPolygonHollow, data = data, mapping = mapping,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(na.rm = na.rm, ...)
   )
 }
 

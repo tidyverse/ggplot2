@@ -67,8 +67,9 @@
 #' }
 geom_violin <- function(mapping = NULL, data = NULL, stat = "ydensity",
                         draw_quantiles = NULL, position = "dodge",
-                        trim = TRUE, scale = "area", show.legend = NA,
-                        inherit.aes = TRUE, ...) {
+                        trim = TRUE, scale = "area",
+                        na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+                        ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -81,6 +82,7 @@ geom_violin <- function(mapping = NULL, data = NULL, stat = "ydensity",
       trim = trim,
       scale = scale,
       draw_quantiles = draw_quantiles,
+      na.rm = na.rm,
       ...
     )
   )

@@ -7,7 +7,8 @@
 \usage{
 geom_violin(mapping = NULL, data = NULL, stat = "ydensity",
   draw_quantiles = NULL, position = "dodge", trim = TRUE,
-  scale = "area", show.legend = NA, inherit.aes = TRUE, ...)
+  scale = "area", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+  ...)
 
 stat_ydensity(mapping = NULL, data = NULL, geom = "violin",
   position = "dodge", adjust = 1, kernel = "gaussian", trim = TRUE,
@@ -37,6 +38,9 @@ to the range of the data. If \code{FALSE}, don't trim the tails.}
 the tails). If "count", areas are scaled proportionally to the number of
 observations. If "width", all violins have the same maximum width.}
 
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
+
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
@@ -64,9 +68,6 @@ the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{kernel}{kernel used for density estimation, see
 \code{\link{density}} for details}
-
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning. If \code{TRUE} silently removes missing values.}
 }
 \description{
 Violin plot.

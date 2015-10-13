@@ -47,7 +47,8 @@
 #' f + stat_function(fun = test)
 stat_function <- function(mapping = NULL, data = NULL, geom = "path",
                           position = "identity", fun, n = 101, args = list(),
-                          show.legend = NA, inherit.aes = TRUE, ...) {
+                          na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+                          ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -60,6 +61,7 @@ stat_function <- function(mapping = NULL, data = NULL, geom = "path",
       fun = fun,
       n = n,
       args = args,
+      na.rm = na.rm,
       ...
     )
   )

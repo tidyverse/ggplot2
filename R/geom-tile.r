@@ -56,8 +56,8 @@
 #' cars + stat_density(aes(fill = ..count..), geom = "raster", position = "identity")
 #' }
 geom_tile <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", show.legend = NA,
-                      inherit.aes = TRUE, ...) {
+                      position = "identity", na.rm = FALSE,
+                      show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -66,7 +66,10 @@ geom_tile <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

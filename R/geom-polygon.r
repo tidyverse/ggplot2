@@ -47,7 +47,7 @@
 #' # And if the positions are in longitude and latitude, you can use
 #' # coord_map to produce different map projections.
 geom_polygon <- function(mapping = NULL, data = NULL, stat = "identity",
-                         position = "identity", show.legend = NA,
+                         position = "identity", na.rm = FALSE, show.legend = NA,
                          inherit.aes = TRUE, ...) {
   layer(
     data = data,
@@ -57,7 +57,10 @@ geom_polygon <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

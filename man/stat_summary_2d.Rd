@@ -8,13 +8,13 @@
 \usage{
 stat_summary_2d(mapping = NULL, data = NULL, geom = "tile",
   position = "identity", bins = 30, binwidth = NULL, drop = TRUE,
-  fun = "mean", fun.args = list(), show.legend = NA, inherit.aes = TRUE,
-  ...)
+  fun = "mean", fun.args = list(), na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 stat_summary_hex(mapping = NULL, data = NULL, geom = "hex",
   position = "identity", bins = 30, binwidth = NULL, drop = TRUE,
-  fun = "mean", fun.args = list(), show.legend = NA, inherit.aes = TRUE,
-  ...)
+  fun = "mean", fun.args = list(), na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -40,6 +40,9 @@ horizontal directions. Overrides \code{bins} if both set.}
 \item{fun}{function for summary.}
 
 \item{fun.args}{A list of extra arguments to pass to \code{fun}}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

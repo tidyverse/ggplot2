@@ -15,8 +15,6 @@
 #'   representing the euclidean distance from the center.
 #'   This ellipse probably won't appear circular unless \code{coord_fixed()} is applied.
 #' @param segments The number of segments to be used in drawing the ellipse.
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'   a warning.  If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
 #' @export
 #' @examples

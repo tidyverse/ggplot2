@@ -48,6 +48,11 @@ annotation_map <- function(map, ...) {
 #' @usage NULL
 #' @export
 GeomAnnotationMap <- ggproto("GeomAnnotationMap", GeomMap,
+  extra_params = "",
+  handle_na = function(data, params) {
+    data
+  },
+
   draw_panel = function(data, panel_scales, coord, map) {
     # Munch, then set up id variable for polygonGrob -
     # must be sequential integers

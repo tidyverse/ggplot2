@@ -5,7 +5,8 @@
 \title{Create an annotation layer.}
 \usage{
 annotate(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
-  ymin = NULL, ymax = NULL, xend = NULL, yend = NULL, ...)
+  ymin = NULL, ymax = NULL, xend = NULL, yend = NULL, ...,
+  na.rm = FALSE)
 }
 \arguments{
 \item{geom}{name of geom to use for annotation}
@@ -15,6 +16,9 @@ you must specify at least one of these.}
 
 \item{...}{other aesthetics. These are not scaled so you can do (e.g.)
 \code{colour = "red"} to get a red point.}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 }
 \description{
 This function adds geoms to a plot. Unlike typical a geom function,

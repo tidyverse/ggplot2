@@ -86,10 +86,11 @@
 #'  )
 #' }
 geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
-  position = "dodge", outlier.colour = "black", outlier.shape = 19,
-  outlier.size = 1.5, outlier.stroke = 0.5, notch = FALSE, notchwidth = 0.5,
-  varwidth = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
-{
+                         position = "dodge", outlier.colour = "black",
+                         outlier.shape = 19, outlier.size = 1.5,
+                         outlier.stroke = 0.5, notch = FALSE, notchwidth = 0.5,
+                         varwidth = FALSE, na.rm = FALSE,
+                         show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -106,6 +107,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
       notch = notch,
       notchwidth = notchwidth,
       varwidth = varwidth,
+      na.rm = na.rm,
       ...
     )
   )

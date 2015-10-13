@@ -8,18 +8,20 @@
 \title{Vertical intervals: lines, crossbars & errorbars.}
 \usage{
 geom_crossbar(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", fatten = 2.5, show.legend = NA,
+  position = "identity", fatten = 2.5, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 
 geom_errorbar(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 geom_linerange(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 geom_pointrange(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show.legend = NA, inherit.aes = TRUE,
-  fatten = 4, ...)
+  position = "identity", ..., fatten = 4, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -40,6 +42,9 @@ a call to a position adjustment function.}
 \item{fatten}{A multiplicative factor used to increase the size of the
 middle bar in \code{geom_crossbar()} and the middle point in
 \code{geom_pointrange()}.}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

@@ -3,8 +3,10 @@ NULL
 
 #' @export
 #' @rdname geom_abline
-geom_hline <- function(mapping = NULL, data = NULL, show.legend = NA,
-                       yintercept, ...) {
+geom_hline <- function(mapping = NULL, data = NULL,
+                       ...,
+                       yintercept,
+                       na.rm = FALSE, show.legend = NA) {
 
   # Act like an annotation
   if (!missing(yintercept)) {
@@ -21,7 +23,10 @@ geom_hline <- function(mapping = NULL, data = NULL, show.legend = NA,
     position = PositionIdentity,
     show.legend = show.legend,
     inherit.aes = FALSE,
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

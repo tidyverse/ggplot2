@@ -11,8 +11,8 @@ geom_density2d(mapping = NULL, data = NULL, stat = "density2d",
   ...)
 
 stat_density2d(mapping = NULL, data = NULL, geom = "density2d",
-  position = "identity", na.rm = FALSE, contour = TRUE, n = 100,
-  h = NULL, show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", contour = TRUE, n = 100, h = NULL,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or

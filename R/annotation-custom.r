@@ -65,6 +65,11 @@ annotation_custom <- function(grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax =
 #' @usage NULL
 #' @export
 GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
+  extra_params = "",
+  handle_na = function(data, params) {
+    data
+  },
+
   draw_panel = function(data, panel_scales, coord, grob, xmin, xmax,
                         ymin, ymax) {
     if (!inherits(coord, "CoordCartesian")) {

@@ -218,8 +218,8 @@ GeomPath <- ggproto("GeomPath", Geom,
 #' @export
 #' @rdname geom_path
 geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", show.legend = NA,
-  inherit.aes = TRUE, na.rm = TRUE, ...) {
+                      position = "identity", na.rm = FALSE,
+                      show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -251,8 +251,8 @@ GeomLine <- ggproto("GeomLine", GeomPath,
 #' @export
 #' @rdname geom_path
 geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", direction = "hv",
-  show.legend = NA, inherit.aes = TRUE, ...) {
+                      position = "identity", direction = "hv",
+                      na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -263,6 +263,7 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
     inherit.aes = inherit.aes,
     params = list(
       direction = direction,
+      na.rm = na.rm,
       ...
     )
   )

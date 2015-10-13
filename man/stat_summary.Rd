@@ -37,7 +37,8 @@ single number.}
 
 \item{fun.args}{Optional additional arguments passed on to the functions.}
 
-\item{na.rm}{If \code{TRUE}, silently remove missing values.}
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}

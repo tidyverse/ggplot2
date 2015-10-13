@@ -5,8 +5,8 @@
 \title{Empirical Cumulative Density Function}
 \usage{
 stat_ecdf(mapping = NULL, data = NULL, geom = "step",
-  position = "identity", n = NULL, show.legend = NA, inherit.aes = TRUE,
-  ...)
+  position = "identity", n = NULL, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -23,6 +23,9 @@ on this layer}
 
 \item{n}{if NULL, do not interpolate. If not NULL, this is the number
 of points to interpolate with.}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

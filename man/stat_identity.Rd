@@ -32,6 +32,9 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{...}{other arguments passed on to \code{\link{layer}}. This can
 include aesthetics whose values you want to set, not map. See
 \code{\link{layer}} for more details.}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 }
 \description{
 The identity statistic leaves the data unchanged.

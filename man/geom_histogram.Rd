@@ -7,16 +7,18 @@
 \title{Histograms and frequency polygons.}
 \usage{
 geom_freqpoly(mapping = NULL, data = NULL, stat = "bin",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 geom_histogram(mapping = NULL, data = NULL, stat = "bin",
   binwidth = NULL, bins = NULL, origin = NULL, right = FALSE,
-  position = "stack", show.legend = NA, inherit.aes = TRUE, ...)
+  position = "stack", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 stat_bin(mapping = NULL, data = NULL, geom = "bar", position = "stack",
   width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL,
-  bins = NULL, origin = NULL, breaks = NULL, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  bins = NULL, origin = NULL, breaks = NULL, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -30,6 +32,9 @@ defined at the top level of the plot.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

@@ -1,6 +1,4 @@
 #' @inheritParams stat_identity
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @export
 #' @section Computed variables:
 #' \describe{

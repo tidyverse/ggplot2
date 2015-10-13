@@ -22,8 +22,8 @@
 #' p + geom_point() +
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))
 geom_errorbarh <- function(mapping = NULL, data = NULL, stat = "identity",
-                           position = "identity", show.legend = NA,
-                           inherit.aes = TRUE, ...) {
+                           position = "identity", na.rm = FALSE,
+                           show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -32,7 +32,10 @@ geom_errorbarh <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

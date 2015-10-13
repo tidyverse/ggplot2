@@ -116,8 +116,9 @@
 #'   geom_text(aes(label = text), vjust = "inward", hjust = "inward")
 #' }
 geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", parse = FALSE, show.legend = NA, inherit.aes = TRUE,
-  ..., nudge_x = 0, nudge_y = 0, check_overlap = FALSE)
+                      position = "identity", parse = FALSE, ...,
+                      nudge_x = 0, nudge_y = 0, check_overlap = FALSE,
+                      na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
@@ -138,6 +139,7 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
     params = list(
       parse = parse,
       check_overlap = check_overlap,
+      na.rm = na.rm,
       ...
     )
   )

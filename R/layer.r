@@ -13,7 +13,9 @@
 #' ggplot(mpg, aes(displ, hwy)) + geom_point()
 #' # shortcut for
 #' ggplot(mpg, aes(displ, hwy)) +
-#'   layer(geom = "point", stat = "identity", position = "identity")
+#'   layer(geom = "point", stat = "identity", position = "identity",
+#'     params = list(na.rm = FALSE)
+#'   )
 layer <- function(geom = NULL, stat = NULL,
                   data = NULL, mapping = NULL,
                   position = NULL, params = list(),
@@ -51,11 +53,12 @@ layer <- function(geom = NULL, stat = NULL,
 
   # Split up params between aesthetics, geom, and stat
   params <- rename_aes(params)
-  aes_params  <- params[intersect(names(params), geom$aesthetics())]
-  geom_params <- params[intersect(names(params), geom$parameters())]
-  stat_params <- params[intersect(names(params), stat$parameters())]
 
-  all <- c(geom$parameters(), stat$parameters(), geom$aesthetics())
+  aes_params  <- params[intersect(names(params), geom$aesthetics())]
+  geom_params <- params[intersect(names(params), geom$parameters(TRUE))]
+  stat_params <- params[intersect(names(params), stat$parameters(TRUE))]
+
+  all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics())
   extra <- setdiff(names(params), all)
   if (length(extra) > 0) {
     stop("Unknown parameters: ", paste(extra, collapse = ", "), call. = FALSE)

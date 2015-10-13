@@ -5,7 +5,8 @@
 \title{Remove duplicates.}
 \usage{
 stat_unique(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -19,6 +20,9 @@ the plot defaults.}
 
 \item{position}{The position adjustment to use for overlapping points
 on this layer}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

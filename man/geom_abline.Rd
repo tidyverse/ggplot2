@@ -6,12 +6,14 @@
 \alias{geom_vline}
 \title{Lines: horizontal, vertical, and specified by slope and intercept.}
 \usage{
-geom_abline(mapping = NULL, data = NULL, show.legend = NA, ..., slope,
-  intercept)
+geom_abline(mapping = NULL, data = NULL, ..., slope, intercept,
+  na.rm = FALSE, show.legend = NA)
 
-geom_hline(mapping = NULL, data = NULL, show.legend = NA, yintercept, ...)
+geom_hline(mapping = NULL, data = NULL, ..., yintercept, na.rm = FALSE,
+  show.legend = NA)
 
-geom_vline(mapping = NULL, data = NULL, show.legend = NA, xintercept, ...)
+geom_vline(mapping = NULL, data = NULL, ..., xintercept, na.rm = FALSE,
+  show.legend = NA)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -23,10 +25,6 @@ defined for the plot.}
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
 
-\item{show.legend}{logical. Should this layer be included in the legends?
-\code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
-
 \item{...}{other arguments passed on to \code{\link{layer}}. There are
   three types of arguments you can use here:
 
@@ -37,6 +35,13 @@ defined at the top level of the plot.}
     default \code{stat} associated with the layer.
   \item Other arguments passed on to the stat.
   }}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
 
 \item{xintercept,yintercept,slope,intercept}{Parameters that control the
 position of the line. If these are set, \code{data}, \code{mapping} and

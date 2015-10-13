@@ -1,7 +1,5 @@
 #' @rdname geom_boxplot
 #' @param coef length of the whiskers as multiple of IQR.  Defaults to 1.5
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
 #' @section Computed variables:
 #' \describe{
@@ -16,9 +14,8 @@
 #' }
 #' @export
 stat_boxplot <- function(mapping = NULL, data = NULL, geom = "boxplot",
-  position = "dodge", na.rm = FALSE, coef = 1.5, show.legend = NA,
-  inherit.aes = TRUE, ...)
-{
+                         position = "dodge", coef = 1.5, na.rm = FALSE,
+                         show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

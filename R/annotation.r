@@ -16,6 +16,7 @@
 #'   you must specify at least one of these.
 #' @param ... other aesthetics. These are not scaled so you can do (e.g.)
 #'   \code{colour = "red"} to get a red point.
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
@@ -30,7 +31,8 @@
 #'
 #' p + annotate("text", x = 2:3, y = 20:21, label = c("my label", "label 2"))
 annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
-                     ymin = NULL, ymax = NULL, xend = NULL, yend = NULL, ...) {
+                     ymin = NULL, ymax = NULL, xend = NULL, yend = NULL, ...,
+                     na.rm = FALSE) {
 
   position <- compact(list(
     x = x, xmin = xmin, xmax = xmax, xend = xend,
@@ -51,7 +53,10 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
   data <- data.frame(position)
   layer(
     geom = geom,
-    params = list(...),
+    params = list(
+      na.rm = na.rm,
+      ...
+    ),
     stat = StatIdentity,
     position = PositionIdentity,
     data = data,

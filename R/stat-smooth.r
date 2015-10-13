@@ -15,8 +15,6 @@
 #' @param n number of points to evaluate smoother at
 #' @param method.args List of additional arguments passed on to the modelling
 #'   function defined by \code{method}.
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @section Computed variables:
 #' \describe{
 #'   \item{y}{predicted value}
@@ -27,10 +25,10 @@
 #' @export
 #' @rdname geom_smooth
 stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
-  position = "identity", method = "auto", formula = y ~ x, se = TRUE, n = 80,
-  span = 0.75, fullrange = FALSE, level = 0.95, method.args = list(),
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
-{
+                        position = "identity", method = "auto", formula = y ~ x,
+                        se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
+                        level = 0.95, method.args = list(),
+                        na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

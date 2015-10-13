@@ -7,7 +7,7 @@
 \usage{
 geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
   method = "auto", formula = y ~ x, se = TRUE, position = "identity",
-  show.legend = NA, inherit.aes = TRUE, ...)
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 
 stat_smooth(mapping = NULL, data = NULL, geom = "smooth",
   position = "identity", method = "auto", formula = y ~ x, se = TRUE,
@@ -38,6 +38,9 @@ level to control}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -75,9 +78,6 @@ the data}
 
 \item{method.args}{List of additional arguments passed on to the modelling
 function defined by \code{method}.}
-
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
 }
 \description{
 Aids the eye in seeing patterns in the presence of overplotting.

@@ -7,7 +7,8 @@
 \title{Hexagon binning.}
 \usage{
 geom_hex(mapping = NULL, data = NULL, stat = "binhex",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 stat_bin_hex(mapping = NULL, data = NULL, geom = "hex",
   position = "identity", bins = 30, binwidth = NULL, na.rm = FALSE,
@@ -25,6 +26,9 @@ defined at the top level of the plot.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -54,9 +58,6 @@ horizontal directions. Set to 30 by default.}
 
 \item{binwidth}{Numeric vector giving bin width in both vertical and
 horizontal directions. Overrides \code{bins} if both set.}
-
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
 }
 \description{
 Hexagon binning.

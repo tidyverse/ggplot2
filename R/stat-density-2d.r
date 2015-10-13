@@ -5,14 +5,12 @@
 #' @param n number of grid points in each direction
 #' @param h Bandwidth (vector of length two). If \code{NULL}, estimated
 #'   using \code{\link[MASS]{bandwidth.nrd}}.
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @section Computed variables:
 #' Same as \code{\link{stat_contour}}
 stat_density2d <- function(mapping = NULL, data = NULL, geom = "density2d",
-                           position = "identity", na.rm = FALSE, contour = TRUE,
-                           n = 100, h = NULL, show.legend = NA,
-                           inherit.aes = TRUE, ...) {
+                           position = "identity", contour = TRUE,
+                           n = 100, h = NULL, na.rm = FALSE,
+                           show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,

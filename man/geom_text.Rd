@@ -6,15 +6,15 @@
 \title{Textual annotations.}
 \usage{
 geom_label(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", parse = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ..., nudge_x = 0, nudge_y = 0,
+  position = "identity", parse = FALSE, ..., nudge_x = 0, nudge_y = 0,
   label.padding = unit(0.25, "lines"), label.r = unit(0.15, "lines"),
-  label.size = 0.25)
+  label.size = 0.25, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 geom_text(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", parse = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ..., nudge_x = 0, nudge_y = 0,
-  check_overlap = FALSE)
+  position = "identity", parse = FALSE, ..., nudge_x = 0, nudge_y = 0,
+  check_overlap = FALSE, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -35,15 +35,6 @@ a call to a position adjustment function.}
 \item{parse}{If TRUE, the labels will be parsed into expressions and
 displayed as described in ?plotmath}
 
-\item{show.legend}{logical. Should this layer be included in the legends?
-\code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
-
-\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
-rather than combining with them. This is most useful for helper functions
-that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link{borders}}.}
-
 \item{...}{other arguments passed on to \code{\link{layer}}. There are
   three types of arguments you can use here:
 
@@ -63,6 +54,18 @@ Useful for offsetting text from points, particularly on discrete scales.}
 \item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
 
 \item{label.size}{Size of label border, in mm.}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted. A quick and dirty way}

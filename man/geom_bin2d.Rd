@@ -7,11 +7,12 @@
 \title{Add heatmap of 2d bin counts.}
 \usage{
 geom_bin2d(mapping = NULL, data = NULL, stat = "bin2d",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 stat_bin_2d(mapping = NULL, data = NULL, geom = "tile",
   position = "identity", bins = 30, binwidth = NULL, drop = TRUE,
-  show.legend = NA, inherit.aes = TRUE, ...)
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -25,6 +26,9 @@ defined at the top level of the plot.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

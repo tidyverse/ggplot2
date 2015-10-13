@@ -37,7 +37,6 @@
 #'   functions that are each passed a vector of x's and should return a
 #'   single number.
 #' @param fun.args Optional additional arguments passed on to the functions.
-#' @param na.rm If \code{TRUE}, silently remove missing values.
 #' @export
 #' @examples
 #' d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
@@ -139,6 +138,7 @@ stat_summary <- function(mapping = NULL, data = NULL, geom = "pointrange",
       fun.ymax = fun.ymax,
       fun.ymin = fun.ymin,
       fun.args = fun.args,
+      na.rm = na.rm,
       ...
     )
   )

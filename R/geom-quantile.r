@@ -28,8 +28,9 @@
 #' # Set aesthetics to fixed value
 #' m + geom_quantile(colour = "red", size = 2, alpha = 0.5)
 geom_quantile <- function(mapping = NULL, data = NULL, stat = "quantile",
-  position = "identity", lineend = "butt", linejoin = "round", linemitre = 1,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
+                          position = "identity", lineend = "butt",
+                          linejoin = "round", linemitre = 1,
+                          na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
 
   layer(
     data = data,
@@ -43,6 +44,7 @@ geom_quantile <- function(mapping = NULL, data = NULL, stat = "quantile",
       lineend = lineend,
       linejoin = linejoin,
       linemitre = linemitre,
+      na.rm = na.rm,
       ...
     )
   )

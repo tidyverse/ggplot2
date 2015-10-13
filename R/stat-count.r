@@ -16,7 +16,7 @@
 #' @rdname geom_bar
 stat_count <- function(mapping = NULL, data = NULL, geom = "bar",
                      position = "stack", width = NULL, ...,
-                     show.legend = NA, inherit.aes = TRUE) {
+                     na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -26,6 +26,7 @@ stat_count <- function(mapping = NULL, data = NULL, geom = "bar",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      na.rm = na.rm,
       width = width,
       ...
     )

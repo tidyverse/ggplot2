@@ -72,7 +72,7 @@
 #' }
 geom_bar <- function(mapping = NULL, data = NULL, stat = "count",
                      position = "stack", width = NULL, ...,
-                     show.legend = NA, inherit.aes = TRUE) {
+                     na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -83,6 +83,7 @@ geom_bar <- function(mapping = NULL, data = NULL, stat = "count",
     inherit.aes = inherit.aes,
     params = list(
       width = width,
+      na.rm = na.rm,
       ...
     )
   )

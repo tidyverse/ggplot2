@@ -60,8 +60,7 @@ NULL
 #'     facet_wrap( ~ variable)
 #' }
 geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
-  show.legend = NA, inherit.aes = TRUE, ...)
-{
+                     na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
   # Get map input into correct form
   stopifnot(is.data.frame(map))
   if (!is.null(map$lat)) map$y <- map$lat
@@ -79,6 +78,7 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
     inherit.aes = inherit.aes,
     params = list(
       map = map,
+      na.rm = na.rm,
       ...
     )
   )

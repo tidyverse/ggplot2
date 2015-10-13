@@ -60,7 +60,7 @@ Geom <- ggproto("Geom",
   draw_key = draw_key_point,
 
   handle_na = function(self, data, params) {
-    remove_missing(data, isTRUE(params$na.rm),
+    remove_missing(data, params$na.rm,
       c(self$required_aes, self$non_missing_aes),
       snake_class(self)
     )
@@ -68,6 +68,9 @@ Geom <- ggproto("Geom",
 
   draw_layer = function(self, data, params, panel, coord) {
     if (empty(data)) return(list(zeroGrob()))
+
+    # Trim off extra parameters
+    params <- params[intersect(names(params), self$parameters())]
 
     args <- c(list(quote(data), quote(panel_scales), quote(coord)), params)
     plyr::dlply(data, "PANEL", function(data) {
@@ -112,7 +115,14 @@ Geom <- ggproto("Geom",
     data
   },
 
-  parameters = function(self) {
+  # Most parameters for the geom are taken automatically from draw_panel() or
+  # draw_groups(). However, some additional parameters may be needed
+  # for setup_data() or handle_na(). These can not be imputed automatically,
+  # so the slightly hacky "extra_params" field is used instead. By
+  # default it contains `na.rm`
+  extra_params = c("na.rm"),
+
+  parameters = function(self, extra = FALSE) {
     # Look first in draw_panel. If it contains ... then look in draw groups
     panel_args <- names(ggproto_formals(self$draw_panel))
     group_args <- names(ggproto_formals(self$draw_group))
@@ -121,6 +131,9 @@ Geom <- ggproto("Geom",
     # Remove arguments of defaults
     args <- setdiff(args, names(ggproto_formals(Geom$draw_group)))
 
+    if (extra) {
+      args <- union(args, self$extra_params)
+    }
     args
   },
 

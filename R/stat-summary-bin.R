@@ -20,6 +20,7 @@ stat_summary_bin <- function(mapping = NULL, data = NULL, geom = "pointrange",
       fun.ymax = fun.ymax,
       fun.ymin = fun.ymin,
       fun.args = fun.args,
+      na.rm = na.rm,
       ...
     )
   )

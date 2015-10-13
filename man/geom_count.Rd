@@ -10,7 +10,8 @@ geom_count(mapping = NULL, data = NULL, stat = "sum",
   inherit.aes = TRUE, ...)
 
 stat_sum(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or

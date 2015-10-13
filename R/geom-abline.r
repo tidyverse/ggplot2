@@ -67,8 +67,10 @@ NULL
 #'   geom_point() +
 #'   geom_hline(aes(yintercept = wt, colour = wt), mean_wt) +
 #'   facet_wrap(~ cyl)
-geom_abline <- function(mapping = NULL, data = NULL, show.legend = NA, ...,
-                        slope, intercept) {
+geom_abline <- function(mapping = NULL, data = NULL,
+                        ...,
+                        slope, intercept,
+                        na.rm = FALSE, show.legend = NA) {
 
   # If nothing set, default to y = x
   if (missing(mapping) && missing(slope) && missing(intercept)) {
@@ -94,7 +96,10 @@ geom_abline <- function(mapping = NULL, data = NULL, show.legend = NA, ...,
     position = PositionIdentity,
     show.legend = show.legend,
     inherit.aes = FALSE,
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

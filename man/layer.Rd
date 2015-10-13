@@ -44,6 +44,8 @@ Create a new layer
 ggplot(mpg, aes(displ, hwy)) + geom_point()
 # shortcut for
 ggplot(mpg, aes(displ, hwy)) +
-  layer(geom = "point", stat = "identity", position = "identity")
+  layer(geom = "point", stat = "identity", position = "identity",
+    params = list(na.rm = FALSE)
+  )
 }
 

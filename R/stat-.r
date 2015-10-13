@@ -72,11 +72,15 @@ Stat <- ggproto("Stat",
       c(names(data), names(params)),
       snake_class(self$stat)
     )
-    data <- remove_missing(data, isTRUE(params$na.rm),
+
+    data <- remove_missing(data, params$na.rm,
       c(self$required_aes, self$non_missing_aes),
       snake_class(self),
       finite = TRUE
     )
+
+    # Trim off extra parameters
+    params <- params[intersect(names(params), self$parameters())]
 
     args <- c(list(data = quote(data), scales = quote(scales)), params)
     plyr::ddply(data, "PANEL", function(data) {
@@ -114,7 +118,10 @@ Stat <- ggproto("Stat",
     stop("Not implemented", call. = FALSE)
   },
 
-  parameters = function(self) {
+
+  # See discussion at Geom$parameters()
+  extra_params = "na.rm",
+  parameters = function(self, extra = FALSE) {
     # Look first in compute_panel. If it contains ... then look in compute_group
     panel_args <- names(ggproto_formals(self$compute_panel))
     group_args <- names(ggproto_formals(self$compute_group))
@@ -123,6 +130,9 @@ Stat <- ggproto("Stat",
     # Remove arguments of defaults
     args <- setdiff(args, names(ggproto_formals(Stat$compute_group)))
 
+    if (extra) {
+      args <- union(args, self$extra_params)
+    }
     args
   }
 )

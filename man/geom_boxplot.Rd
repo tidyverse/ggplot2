@@ -8,11 +8,11 @@
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", outlier.colour = "black", outlier.shape = 19,
   outlier.size = 1.5, outlier.stroke = 0.5, notch = FALSE,
-  notchwidth = 0.5, varwidth = FALSE, show.legend = NA,
+  notchwidth = 0.5, varwidth = FALSE, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 
 stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
-  position = "dodge", na.rm = FALSE, coef = 1.5, show.legend = NA,
+  position = "dodge", coef = 1.5, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 }
 \arguments{
@@ -53,6 +53,9 @@ the body (default 0.5)}
 square-roots of the number of observations in the groups (possibly
 weighted, using the \code{weight} aesthetic).}
 
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
+
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
@@ -75,9 +78,6 @@ the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{geom,stat}{Use to override the default connection between
 \code{geom_boxplot} and \code{stat_boxplot}.}
-
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{coef}{length of the whiskers as multiple of IQR.  Defaults to 1.5}
 }

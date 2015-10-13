@@ -1,8 +1,8 @@
 #' @export
 #' @rdname geom_linerange
 geom_pointrange <- function(mapping = NULL, data = NULL, stat = "identity",
-                            position = "identity", show.legend = NA,
-                            inherit.aes = TRUE, fatten = 4, ...) {
+                            position = "identity", ..., fatten = 4,
+                            na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -11,7 +11,11 @@ geom_pointrange <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(..., fatten = fatten)
+    params = list(
+      fatten = fatten,
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

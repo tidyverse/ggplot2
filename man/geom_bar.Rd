@@ -6,12 +6,12 @@
 \title{Bars, rectangles with bases on x-axis}
 \usage{
 geom_bar(mapping = NULL, data = NULL, stat = "count",
-  position = "stack", width = NULL, ..., show.legend = NA,
-  inherit.aes = TRUE)
+  position = "stack", width = NULL, ..., na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 
 stat_count(mapping = NULL, data = NULL, geom = "bar",
-  position = "stack", width = NULL, ..., show.legend = NA,
-  inherit.aes = TRUE)
+  position = "stack", width = NULL, ..., na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -38,6 +38,9 @@ a call to a position adjustment function.}
     default \code{stat} associated with the layer.
   \item Other arguments passed on to the stat.
   }}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

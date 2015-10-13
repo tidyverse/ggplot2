@@ -32,7 +32,7 @@ on this layer}
 function.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning. If \code{TRUE} silently removes missing values.}
+a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

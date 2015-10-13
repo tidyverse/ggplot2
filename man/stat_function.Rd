@@ -5,8 +5,8 @@
 \title{Superimpose a function.}
 \usage{
 stat_function(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", fun, n = 101, args = list(), show.legend = NA,
-  inherit.aes = TRUE, ...)
+  position = "identity", fun, n = 101, args = list(), na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -26,6 +26,9 @@ on this layer}
 \item{n}{number of points to interpolate along}
 
 \item{args}{list of additional arguments to pass to \code{fun}}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
