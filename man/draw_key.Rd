@@ -18,39 +18,41 @@
 \alias{draw_key_vline}
 \title{Key drawing functions}
 \usage{
-draw_key_point(data, params)
+draw_key_point(data, params, size)
 
-draw_key_abline(data, params)
+draw_key_abline(data, params, size)
 
-draw_key_rect(data, params)
+draw_key_rect(data, params, size)
 
-draw_key_polygon(data, params)
+draw_key_polygon(data, params, size)
 
-draw_key_blank(data, params)
+draw_key_blank(data, params, size)
 
-draw_key_boxplot(data, params)
+draw_key_boxplot(data, params, size)
 
-draw_key_crossbar(data, params)
+draw_key_crossbar(data, params, size)
 
-draw_key_path(data, params)
+draw_key_path(data, params, size)
 
-draw_key_dotplot(data, params)
+draw_key_dotplot(data, params, size)
 
-draw_key_pointrange(data, params)
+draw_key_pointrange(data, params, size)
 
-draw_key_smooth(data, params)
+draw_key_smooth(data, params, size)
 
-draw_key_text(data, params)
+draw_key_text(data, params, size)
 
-draw_key_label(data, params)
+draw_key_label(data, params, size)
 
-draw_key_vline(data, params)
+draw_key_vline(data, params, size)
 }
 \arguments{
 \item{data}{A single row data frame containing the scaled aesthetics to
 display in this key}
 
 \item{params}{A list of additional parameters supplied to the geom.}
+
+\item{size}{Width and height of key in mm.}
 }
 \value{
 A grid grob.

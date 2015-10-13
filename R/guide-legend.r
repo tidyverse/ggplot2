@@ -453,6 +453,7 @@ guide_gengrob.legend <- function(guide, theme) {
   # grob for key
   grob.keys <- list()
 
+  key_size <- c(key_width, key_height) * 10
   for (i in 1:nbreak) {
 
     # bg. of key
@@ -460,7 +461,11 @@ guide_gengrob.legend <- function(guide, theme) {
 
     # overlay geoms
     for (geom in guide$geoms) {
-      grob.keys[[length(grob.keys) + 1]] <- geom$draw_key(geom$data[i, ], geom$params)
+      grob.keys[[length(grob.keys) + 1]] <- geom$draw_key(
+        geom$data[i, ],
+        geom$params,
+        key_size
+      )
     }
 
   }
