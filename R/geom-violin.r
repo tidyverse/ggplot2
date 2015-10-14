@@ -127,12 +127,15 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     if (length(draw_quantiles) > 0) {
       stopifnot(all(draw_quantiles >= 0), all(draw_quantiles <= 1))
 
-      # Compute the quantile segments and add in the aesthetics
-      quantile_segments_with_aes <- cbind(
-        create_quantile_segment_frame(data, draw_quantiles),
-        subset(data, select = c(-x,-y))[1, ]
-      )
-      quantile_grob <- GeomPath$draw_panel(quantile_segments_with_aes, ...)
+      # Compute the quantile segments and combine with existing aesthetics
+      quantiles <- create_quantile_segment_frame(data, draw_quantiles)
+      aesthetics <- data[
+        rep(1, nrow(quantiles)),
+        setdiff(names(data), c("x", "y")),
+        drop = FALSE
+      ]
+      both <- cbind(quantiles, aesthetics)
+      quantile_grob <- GeomPath$draw_panel(both, ...)
 
       ggname("geom_violin", grobTree(
         GeomPolygon$draw_panel(newdata, ...),
