@@ -8,3 +8,5 @@ visual_test
 ^cran-comments.md$
 ^data-raw$
 ^CONTRIBUTING\.md$
+^NEWS$
+^NEWS\.md$
