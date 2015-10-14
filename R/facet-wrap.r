@@ -84,8 +84,14 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
     y = any(scales %in% c("free_y", "free"))
   )
 
-  nrow <- sanitise_dim(nrow)
-  ncol <- sanitise_dim(ncol)
+  if (identical(dir, "v")) {
+    # swap
+    nrow <- sanitise_dim(ncol)
+    ncol <- sanitise_dim(nrow)
+  } else {
+    nrow <- sanitise_dim(nrow)
+    ncol <- sanitise_dim(ncol)
+  }
 
   facet(
     facets = as.quoted(facets), free = free, shrink = shrink,
