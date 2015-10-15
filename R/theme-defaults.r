@@ -72,7 +72,7 @@ theme_grey <- function(base_size = 11, base_family = "") {
                             family = base_family, face = "plain",
                             colour = "black", size = base_size,
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
-                            margin = margin()
+                            margin = margin(), debug = FALSE
                          ),
 
     axis.line =          element_blank(),

@@ -62,16 +62,19 @@ element_line <- function(colour = NULL, size = NULL, linetype = NULL,
 #' @param margin margins around the text. See \code{\link{margin}} for more
 #'   details. When creating a theme, the margins should be placed on the
 #'   side of the text facing towards the center of the plot.
+#' @param debug If \code{TRUE}, aids visual debugging by drawing a solid
+#'   rectangle behind the complete text area, and a point where each label
+#'   is anchored.
 #' @export
 element_text <- function(family = NULL, face = NULL, colour = NULL,
   size = NULL, hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  color = NULL, margin = NULL) {
+  color = NULL, margin = NULL, debug = NULL) {
 
   if (!is.null(color))  colour <- color
   structure(
     list(family = family, face = face, colour = colour, size = size,
       hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight,
-      margin = margin),
+      margin = margin, debug = debug),
     class = c("element_text", "element")
   )
 }
@@ -178,7 +181,7 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
 
   titleGrob(label, x, y, hjust = hj, vjust = vj, angle = angle,
     gp = utils::modifyList(element_gp, gp), margin = margin,
-    expand_x = expand_x, expand_y = expand_y)
+    expand_x = expand_x, expand_y = expand_y, debug = element$debug)
 }
 
 

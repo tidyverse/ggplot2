@@ -54,8 +54,10 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
     xp <- hjust
     yp <- vjust
   }
-  x <- x %||% unit(xp, "npc")
-  y <- y %||% unit(yp, "npc")
+
+  n <- max(length(x), length(y), 1)
+  x <- x %||% unit(rep(xp, n), "npc")
+  y <- y %||% unit(rep(yp, n), "npc")
 
   text_grob <- textGrob(label, x, y, hjust = hjust, vjust = vjust,
     rot = angle, gp = gp)
@@ -85,8 +87,8 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
 
   if (debug) {
     children <- gList(
-      rectGrob(gp = gpar(fill = "grey90")),
-      pointsGrob(x[1], y[1], pch = 20, gp = gpar(col = "red")),
+      rectGrob(gp = gpar(fill = "cornsilk", col = NA)),
+      pointsGrob(x, y, pch = 20, gp = gpar(col = "gold")),
       text_grob
     )
   } else {

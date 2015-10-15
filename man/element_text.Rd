@@ -6,7 +6,7 @@
 \usage{
 element_text(family = NULL, face = NULL, colour = NULL, size = NULL,
   hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  color = NULL, margin = NULL)
+  color = NULL, margin = NULL, debug = NULL)
 }
 \arguments{
 \item{family}{font family}
@@ -30,6 +30,10 @@ element_text(family = NULL, face = NULL, colour = NULL, size = NULL,
 \item{margin}{margins around the text. See \code{\link{margin}} for more
 details. When creating a theme, the margins should be placed on the
 side of the text facing towards the center of the plot.}
+
+\item{debug}{If \code{TRUE}, aids visual debugging by drawing a solid
+rectangle behind the complete text area, and a point where each label
+is anchored.}
 }
 \description{
 Theme element: text.

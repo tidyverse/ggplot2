@@ -125,7 +125,8 @@ functions will continue to work but will be deprecated in the future):
       larger font sizes should be considerably improved (#1228). 
 
 * `element_text()` gains a margins argument which allows you to add additional
-  margins around text elements in the plot. 
+  margins around text elements in the plot. To help see what's going on use 
+  `debug = TRUE` to see the text region and anchors.
 
 * The default font size in `geom_text()` has been decreased from 5mm (14 pts)
   to 3.8 mm (11 pts) to match the new default theme sizes.
