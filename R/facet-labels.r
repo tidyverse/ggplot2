@@ -523,8 +523,16 @@ ggstrip <- function(text, horizontal = TRUE, theme) {
   text_theme <- if (horizontal) "strip.text.x" else "strip.text.y"
   if (is.list(text)) text <- text[[1]]
 
-  label <- element_render(theme, text_theme, text, expand_x = !horizontal,
-    expand_y = horizontal)
+  element <- calc_element(text_theme, theme)
+  if (inherits(element, "element_blank"))
+    return(zeroGrob())
+
+  gp <- gpar(fontsize = element$size, col = element$colour,
+    fontfamily = element$family, fontface = element$face,
+    lineheight = element$lineheight)
+
+  label <- stripGrob(text, element$hjust, element$vjust, element$angle,
+    margin = element$margin, gp = gp, debug = element$debug)
 
   ggname("strip", absoluteGrob(
     gList(
@@ -534,6 +542,7 @@ ggstrip <- function(text, horizontal = TRUE, theme) {
     width = grobWidth(label),
     height = grobHeight(label)
   ))
+
 }
 
 # Helper to adjust angle of switched strips
