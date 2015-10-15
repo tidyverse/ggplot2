@@ -10,3 +10,4 @@ visual_test
 ^CONTRIBUTING\.md$
 ^NEWS$
 ^NEWS\.md$
+^revdep$
