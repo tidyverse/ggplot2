@@ -198,7 +198,7 @@ theme_light <- function(base_size = 12, base_family = "") {
       ),
       strip.text.y      = element_text(
         colour = "white",
-        angle = 90,
+        angle = -90,
         margin = margin(l = half_line, r = half_line)
       )
     )
@@ -255,7 +255,7 @@ theme_dark <- function(base_size = 12, base_family = "") {
       ),
       strip.text.y      = element_text(
         colour = "white",
-        angle = 90,
+        angle = -90,
         margin = margin(l = half_line, r = half_line)
       )
     )
