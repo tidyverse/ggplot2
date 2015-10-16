@@ -93,6 +93,9 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
     ncol <- sanitise_dim(ncol)
   }
 
+  # Check for deprecated labellers
+  labeller <- check_labeller(labeller)
+
   facet(
     facets = as.quoted(facets), free = free, shrink = shrink,
     as.table = as.table, switch = switch,

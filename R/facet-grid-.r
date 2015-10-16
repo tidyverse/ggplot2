@@ -221,6 +221,9 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
     stop("Must specify at least one variable to facet by", call. = FALSE)
   }
 
+  # Check for deprecated labellers
+  labeller <- check_labeller(labeller)
+
   facet(
     rows = rows, cols = cols, margins = margins, shrink = shrink,
     free = free, space_free = space_free, labeller = labeller,

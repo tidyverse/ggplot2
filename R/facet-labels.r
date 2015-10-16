@@ -555,3 +555,21 @@ adjust_angle <- function(angle) {
     angle + 180
   }
 }
+
+# Check for old school labeller
+check_labeller <- function(labeller) {
+  labeller <- match.fun(labeller)
+  is_deprecated <- all(c("variable", "value") %in% names(formals(labeller)))
+
+  if (is_deprecated) {
+    old_labeller <- labeller
+    labeller <- function(labels) {
+      Map(old_labeller, names(labels), labels)
+    }
+    warning("The labeller API has been updated. Labellers taking `variable`",
+      "and `value` arguments are now deprecated. See labellers documentation.",
+      call. = FALSE)
+  }
+
+  labeller
+}
