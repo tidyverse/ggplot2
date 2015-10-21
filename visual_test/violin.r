@@ -42,7 +42,7 @@ ggplot(dat, aes(x = as.numeric(1), y = y)) + geom_violin()
 save_vtest("continuous x axis, single group (center should be at 1.0)")
 
 
-ggplot(dat, aes(x=x, y=y)) + geom_violin(quantiles=c(0.25,0.5,0.75))
+ggplot(dat, aes(x=x, y=y)) + geom_violin(draw_quantiles=c(0.25,0.5,0.75))
 save_vtest("quantiles")
 
 dat2 <- data.frame(x = LETTERS[1:3], y = rnorm(90), g = letters[5:6])

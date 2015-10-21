@@ -210,33 +210,69 @@ All defunct functions have been removed.
 
 ### Labelling
 
-* `facet_wrap()` gains a `labeller` option (@lionel-, #25).
+The facet labelling system was updated with many new features and a
+more flexible interface (@lionel-). It now works consistently across
+grid and wrap facets. The most important user visible changes are:
 
-* The labeller API has been updated to offer more control when facetting over 
-  multiple factors (e.g. with formulae such as `~cyl + am`). Previously, a 
-  labeller function would take `variable` and `value` arguments and return a 
-  character vector. 
-  
-  Now, they take a data frame of character vectors and return a list. The input 
-  data frame has one column per factor facetted over. Each column in the 
-  returned list becomes one line in the strip label. See documentation for more
-  details. 
-  
-* Labellers offer the `multi_line` argument to control whether to display one 
-  or multiple lines. 
-  
-* Referring to `x` in backquoted expressions with `label_bquote()` is 
-  deprecated. You can now refer to the variable names instead. (@lionel-)
+* `facet_wrap()` gains a `labeller` option (#25).
 
-* `label_bquote()` and `labeller()` now take `rows` and `cols` arguments. They 
-  allow rows and columns labels to have specific plotmath expressions or 
-  labellers.
+* `facet_grid()` and `facet_wrap()` gain a `switch` argument to
+  display the facet titles near the axes. When switched, the labels
+  become axes subtitles. `switch` can be set to "x", "y" or "both"
+  (the latter only for grids) to control which margin is switched.
 
-* New labeller `label_context()` which behaviour differently based on the 
-  on the number of factors facetted over. With a single factor, it displays 
-  only the values, just as before. But with multiple factors (e.g. with 
-  `~cyl + am`), the labels are dispatched to `label_both()` to display both the 
-  variables and the values and make the plot clearer. (@lionel-)
+The labellers (such as `label_value()` or `label_both()`) also get
+some new features:
+
+* They now offer the `multi_line` argument to control whether to
+  display composite facets (those specified as `~var1 + var2`) on one
+  or multiple lines.
+
+* In `label_bquote()` you now refer directly to the names of
+  variables. With this change, you can create math expressions that
+  depend on more than one variable. This math expression can be
+  specified either for the rows or the columns and you can also
+  provide different expressions to each margin.
+
+  As a consequence of these changes, referring to `x` in backquoted
+  expressions is deprecated.
+
+* Similarly to `label_bquote()`, `labeller()` now take `.rows` and
+  `.cols` arguments. In addition, it also takes `.default`.
+  `labeller()` is useful to customise how particular variables are
+  labelled. The three additional arguments specify how to label the
+  variables are not specifically mentioned, respectively for rows,
+  columns or both. This makes it especially easy to set up a
+  project-wide labeller dispatcher that can be reused across all your
+  plots. See the documentation for an example.
+
+* The new labeller `label_context()` adapts to the number of factors
+  facetted over. With a single factor, it displays only the values,
+  just as before. But with multiple factors in a composite margin
+  (e.g. with `~cyl + am`), the labels are passed over to
+  `label_both()`. This way the variables names are displayed with the
+  values to help identifying them.
+
+On the programming side, the labeller API has been rewritten in order
+to offer more control when facetting over multiple factors (e.g. with
+formulae such as `~cyl + am`). This also means that if you have
+written custom labellers, you will need to update them for this
+version of ggplot.
+
+* Previously, a labeller function would take `variable` and `value`
+  arguments and return a character vector. Now, they take a data frame
+  of character vectors and return a list. The input data frame has one
+  column per factor facetted over and each column in the returned list
+  becomes one line in the strip label. See documentation for more
+  details.
+
+* The labels received by a labeller now contain metadata: their margin
+  (in the "type" attribute) and whether they come from a wrap or a
+  grid facet (in the "facet" attribute).
+
+* Note that the new `as_labeller()` function operator provides an easy
+  way to transform an existing function to a labeller function. The
+  existing function just needs to take and return a character vector.
 
 ## Documentation
 
@@ -320,11 +356,6 @@ All defunct functions have been removed.
 
 * `facet_wrap()` and `facet_grid()` now allow you to use non-standard
   variable names by surrounding them with backticks (#1067).
-
-* `facet_grid()` and `facet_wrap()` gain a `switch` argument that
-  allows the facet titles to be displayed near the axes. They then act
-  as axes subtitles. Can be set to "x", "y" or "both" (the latter only
-  for grids) to control which label strips are switched. (@lionel-)
 
 * `facet_wrap()` more carefully checks its `nrow` and `ncol` arguments
   to ensure that they're specified correctly (@richierocks, #962)
