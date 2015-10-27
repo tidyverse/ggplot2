@@ -12,6 +12,9 @@ ggplot2 1.0.0
 
 NEW FEATURES
 
+* `borders()` now accepts xlim and ylim arguments for specifying the geographical 
+  region of interest (@markpayneatwork, #1392)
+
 * New coordinate system for small scale maps. `coord_quickmap()` computes and
   sets the correct aspect ratio between one degree of latitude and one degree
   of longitude at the centre of the plotted region. It does not perform full
