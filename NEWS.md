@@ -331,6 +331,9 @@ version of ggplot.
 
 ## Bug fixes and minor improvements
 
+* `borders()` now accepts xlim and ylim arguments for specifying the geographical 
+  region of interest (@markpayneatwork, #1392)
+
 * All partially matched arguments and `$` have been been replaced with 
   full matches (@jimhester, #1134).
 
