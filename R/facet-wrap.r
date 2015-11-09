@@ -11,6 +11,15 @@
 #' @param scales should Scales be fixed (\code{"fixed"}, the default),
 #'   free (\code{"free"}), or free in one dimension (\code{"free_x"},
 #'   \code{"free_y"}).
+#' @param labeller A function that takes one data frame of labels and
+#'   returns a list or data frame of character vectors. Each input
+#'   column corresponds to one factor. Thus there will be more than
+#'   one with formulae of the type \code{~cyl + am}. Each output
+#'   column gets displayed as one separate line in the strip
+#'   label. This function should inherit from the "labeller" S3 class
+#'   for compatibility with \code{\link{labeller}()}. See
+#'   \code{\link{label_value}} for more details and pointers to other
+#'   options.
 #' @param switch By default, the labels are displayed on the top of
 #'   the plot. If \code{switch} is \code{"x"}, they will be displayed
 #'   to the bottom. If \code{"y"}, they will be displayed to the
