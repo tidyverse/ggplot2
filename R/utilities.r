@@ -1,6 +1,3 @@
-#' Create a transparent colour.
-#'
-#' @name alpha
 #' @export
 #' @examples
 #' ggplot(mpg, aes(displ, hwy)) +
@@ -8,7 +5,7 @@
 #'
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point(colour = alpha("blue", 0.5))
-NULL
+scales::alpha
 
 "%||%" <- function(a, b) {
   if (!is.null(a)) a else b

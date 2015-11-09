@@ -57,9 +57,7 @@
 #'
 #' @param e1 An object of class \code{ggplot} or \code{theme}
 #' @param e2 A component to add to \code{e1}
-#'
 #' @export
-#'
 #' @seealso \code{\link{theme}}
 #' @method + gg
 #' @rdname gg-add

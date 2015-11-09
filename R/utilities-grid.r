@@ -1,14 +1,8 @@
-#' unit & arrow functions from grid.
-#'
-#' See \code{\link[grid]{arrow}} and \code{\link[grid]{unit}} for more details.
-#' These functions are re-exported from grid by ggplot2 since they are
-#' so commonly used.
-#'
-#' @name ggplot2-grid
-#' @export unit arrow
-#' @aliases unit arrow
-#' @keywords internal
-NULL
+#' @export
+grid::unit
+
+#' @export
+grid::arrow
 
 # Name ggplot grid object
 # Convenience function to name grid objects

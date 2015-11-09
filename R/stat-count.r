@@ -12,7 +12,7 @@
 #'   \code{\link{stat_bin}} requires continuous x data, whereas
 #'   \code{stat_count} can be used for both discrete and continuous x data.
 #'
-#'  @export
+#' @export
 #' @rdname geom_bar
 stat_count <- function(mapping = NULL, data = NULL, geom = "bar",
                      position = "stack", width = NULL, ...,
