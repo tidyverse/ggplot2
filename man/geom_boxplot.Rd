@@ -6,7 +6,7 @@
 \title{Box and whiskers plot.}
 \usage{
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
-  position = "dodge", outlier.colour = "black", outlier.shape = 19,
+  position = "dodge", outlier.colour = NULL, outlier.shape = 19,
   outlier.size = 1.5, outlier.stroke = 0.5, notch = FALSE,
   notchwidth = 0.5, varwidth = FALSE, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
@@ -28,17 +28,9 @@ defined at the top level of the plot.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{outlier.colour}{Override aesthetics used for the outliers. Defaults
-come from \code{geom_point()}.}
-
-\item{outlier.shape}{Override aesthetics used for the outliers. Defaults
-come from \code{geom_point()}.}
-
-\item{outlier.size}{Override aesthetics used for the outliers. Defaults
-come from \code{geom_point()}.}
-
-\item{outlier.stroke}{Override aesthetics used for the outliers. Defaults
-come from \code{geom_point()}.}
+\item{outlier.colour, outlier.shape, outlier.size, outlier.stroke}{Default
+aesthetics for outliers. Set to \code{NULL} to inherit from the aesthetics
+used for the box.}
 
 \item{notch}{if \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, make a notched box plot. Notches are used to compare groups;
@@ -126,10 +118,12 @@ p + geom_boxplot() + coord_flip()
 p + geom_boxplot(notch = TRUE)
 p + geom_boxplot(varwidth = TRUE)
 p + geom_boxplot(fill = "white", colour = "#3366FF")
+# By default, outlier points match the colour of the box. Use
+# outlier.colour to override
 p + geom_boxplot(outlier.colour = "red", outlier.shape = 1)
 
 # Boxplots are automatically dodged when any aesthetic is a factor
-p + geom_boxplot(aes(fill = drv))
+p + geom_boxplot(aes(colour = drv))
 
 # You can also use boxplots with continuous x, as long as you supply
 # a grouping variable. cut_width is particularly useful

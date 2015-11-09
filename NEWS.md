@@ -175,6 +175,8 @@ All defunct functions have been removed.
   
 * `geom_bar()` and `geom_rect()` use a slightly paler shade of grey so they
   aren't so visually heavy.
+  
+* `geom_boxplot()` now colours outliers the same way as the boxes.
 
 * `geom_point()` now uses shape 19 instead of 16. This looks much better on 
   the default Linux graphics device. (It's very slightly smaller than the old 

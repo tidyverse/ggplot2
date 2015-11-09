@@ -25,14 +25,9 @@
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_boxplot} and \code{stat_boxplot}.
-#' @param outlier.colour Override aesthetics used for the outliers. Defaults
-#'   come from \code{geom_point()}.
-#' @param outlier.shape Override aesthetics used for the outliers. Defaults
-#'   come from \code{geom_point()}.
-#' @param outlier.size Override aesthetics used for the outliers. Defaults
-#'   come from \code{geom_point()}.
-#' @param outlier.stroke Override aesthetics used for the outliers. Defaults
-#'   come from \code{geom_point()}.
+#' @param outlier.colour,outlier.shape,outlier.size,outlier.stroke Default
+#'   aesthetics for outliers. Set to \code{NULL} to inherit from the aesthetics
+#'   used for the box.
 #' @param notch if \code{FALSE} (default) make a standard box plot. If
 #'   \code{TRUE}, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians
@@ -55,10 +50,12 @@
 #' p + geom_boxplot(notch = TRUE)
 #' p + geom_boxplot(varwidth = TRUE)
 #' p + geom_boxplot(fill = "white", colour = "#3366FF")
+#' # By default, outlier points match the colour of the box. Use
+#' # outlier.colour to override
 #' p + geom_boxplot(outlier.colour = "red", outlier.shape = 1)
 #'
 #' # Boxplots are automatically dodged when any aesthetic is a factor
-#' p + geom_boxplot(aes(fill = drv))
+#' p + geom_boxplot(aes(colour = drv))
 #'
 #' # You can also use boxplots with continuous x, as long as you supply
 #' # a grouping variable. cut_width is particularly useful
@@ -86,7 +83,7 @@
 #'  )
 #' }
 geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
-                         position = "dodge", outlier.colour = "black",
+                         position = "dodge", outlier.colour = NULL,
                          outlier.shape = 19, outlier.size = 1.5,
                          outlier.stroke = 0.5, notch = FALSE, notchwidth = 0.5,
                          varwidth = FALSE, na.rm = FALSE,
@@ -152,6 +149,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
                         outlier.colour = "black", outlier.shape = 19,
                         outlier.size = 1.5, outlier.stroke = 0.5,
                         notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
+
     common <- data.frame(
       colour = data$colour,
       size = data$size,
@@ -212,8 +210,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   draw_key = draw_key_boxplot,
 
   default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
-    alpha = NA, shape = 19, linetype = "solid", outlier.colour = "black",
-    outlier.shape = 19, outlier.size = 1.5, outlier.stroke = 0.5),
+    alpha = NA, shape = 19, linetype = "solid"),
 
   required_aes = c("x", "lower", "upper", "middle", "ymin", "ymax")
 )
