@@ -44,10 +44,6 @@
 #' h + geom_point(alpha = 0.5)
 #' h + geom_point(alpha = 1/10)
 #'
-#' #If a geom uses both fill and colour, alpha will only modify the fill colour
-#' c + geom_bar(fill = "dark grey", colour = "black")
-#' c + geom_bar(fill = "dark grey", colour = "black", alpha = 1/3)
-#'
 #' # Alpha can also be used to add shading
 #' j <- b + geom_line()
 #' j

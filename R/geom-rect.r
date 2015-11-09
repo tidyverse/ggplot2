@@ -52,7 +52,7 @@ GeomRect <- ggproto("GeomRect", Geom,
         default.units = "native",
         just = c("left", "top"),
         gp = gpar(
-          col = coords$colour,
+          col = alpha(coords$colour, coords$alpha),
           fill = alpha(coords$fill, coords$alpha),
           lwd = coords$size * .pt,
           lty = coords$linetype,

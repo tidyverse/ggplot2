@@ -154,6 +154,8 @@ All defunct functions have been removed.
     * Default margins scale with the theme font size, so the appearance at 
       larger font sizes should be considerably improved (#1228). 
 
+* `alpha` now affects both fill and colour aesthetics (#1371).
+
 * `element_text()` gains a margins argument which allows you to add additional
   padding around text elements. To help see what's going on use `debug = TRUE` 
   to display the text region and anchors.

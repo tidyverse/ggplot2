@@ -92,7 +92,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       default.units = "native",
       gp = gpar(
         fill = alpha(aes$fill, aes$alpha),
-        col = aes$colour,
+        col = alpha(aes$colour, aes$alpha),
         lwd = aes$size * .pt,
         lty = aes$linetype)
     ))

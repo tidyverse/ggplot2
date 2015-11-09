@@ -87,7 +87,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
       polygonGrob(munched$x, munched$y, default.units = "native",
         id = munched$group,
         gp = gpar(
-          col = first_rows$colour,
+          col = alpha(first_rows$colour, first_rows$alpha),
           fill = alpha(first_rows$fill, first_rows$alpha),
           lwd = first_rows$size * .pt,
           lty = first_rows$linetype
