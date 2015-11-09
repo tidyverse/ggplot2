@@ -65,7 +65,7 @@ annotation_raster <- function(raster, xmin, xmax, ymin, ymax,
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomRasterAnn <- ggproto("GeomRasterAnn", GeomRaster,
+GeomRasterAnn <- ggproto("GeomRasterAnn", Geom,
   extra_params = "",
   handle_na = function(data, params) {
     data
