@@ -425,6 +425,9 @@ version of ggplot.
 * New `layer_data()` function extracts the data used for plotting for a given
   layer. It's mostly useful for testing.
 
+* User supplied `minor_breaks` can now be supplied on the same scale as 
+  the data, and will be automatically transformed with by scale (#1385).
+
 * You can now suppress the appearance of an axis/legend title (and the space
   that would allocated for it) with `NULL` in the `scale_` function. To
   use the default lable, use `waiver()` (#1145).

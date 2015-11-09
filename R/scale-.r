@@ -266,7 +266,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       breaks <- self$minor_breaks(self$trans$inverse(limits))
       breaks <- self$trans$transform(breaks)
     } else {
-      breaks <- self$minor_breaks
+      breaks <- self$trans$transform(self$minor_breaks)
     }
 
     # Any minor breaks outside the dimensions need to be thrown away

@@ -248,3 +248,10 @@ test_that("only finite or NA values for breaks for transformed scales (#871)", {
   breaks <- sc$get_breaks()
   expect_true(all(is.finite(breaks) | is.na(breaks)))
 })
+
+test_that("minor breaks are transformed by scales", {
+  sc <- scale_y_continuous(limits = c(1, 100), trans = "log10",
+    minor_breaks = c(1, 10, 100))
+
+  expect_equal(sc$get_breaks_minor(), c(0, 1, 2))
+})
