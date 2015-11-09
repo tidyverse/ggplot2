@@ -351,6 +351,9 @@ version of ggplot.
   making it easier to plot multiple grobs with the same name (e.g. grobs of
   ggplot2 graphics) in the same plot (#1256).
 
+* `borders()` now accepts xlim and ylim arguments for specifying the geographical 
+  region of interest (@markpayneatwork, #1392).
+
 * `coord_cartesian()` applies the same expansion factor to limits as for scales. 
   You can suppress with `expand = FALSE` (#1207).
 
