@@ -74,7 +74,8 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
 #' @param regions map region
 #' @param fill fill colour
 #' @param colour border colour
-#' @param xlim,ylim latitudinal and logitudinal range for extracting map polygons, see \code{\link[maps]{map}} for details
+#' @param xlim,ylim latitudinal and logitudinal range for extracting map
+#'   polygons, see \code{\link[maps]{map}} for details.
 #' @param ... other arguments passed onto \code{\link{geom_polygon}}
 #' @export
 #' @examples
@@ -92,17 +93,18 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
 #' ggplot(capitals, aes(long, lat)) +
 #'   borders("state") +
 #'   geom_point(aes(size = pop)) +
-#'   scale_size_area()
-#' 
-#' #Same map, with geographical context
-#' data(us.cities)
-#' capitals <- subset(us.cities, capital == 2)
+#'   scale_size_area() +
+#'   coord_quickmap()
+#'
+#' # Same map, with some world context
 #' ggplot(capitals, aes(long, lat)) +
 #'   borders("world", xlim = c(-130, -60), ylim = c(20, 50)) +
 #'   geom_point(aes(size = pop)) +
-#'   scale_size_area() + coord_quickmap(xlim = c(-130, -60), ylim = c(20, 50))
+#'   scale_size_area() +
+#'   coord_quickmap()
 #' }
-borders <- function(database = "world", regions = ".", fill = NA, colour = "grey50", xlim=NULL,ylim=NULL,...) {
+borders <- function(database = "world", regions = ".", fill = NA,
+                    colour = "grey50", xlim = NULL, ylim = NULL, ...) {
   df <- map_data(database, regions, xlim = xlim, ylim = ylim)
   geom_polygon(aes_(~long, ~lat, group = ~group), data = df,
     fill = fill, colour = colour, ..., inherit.aes = FALSE)

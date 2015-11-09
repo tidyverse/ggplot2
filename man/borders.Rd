@@ -5,7 +5,7 @@
 \title{Create a layer of map borders.}
 \usage{
 borders(database = "world", regions = ".", fill = NA, colour = "grey50",
-  ...)
+  xlim = NULL, ylim = NULL, ...)
 }
 \arguments{
 \item{database}{map data, see \code{\link[maps]{map}} for details}
@@ -15,6 +15,9 @@ borders(database = "world", regions = ".", fill = NA, colour = "grey50",
 \item{fill}{fill colour}
 
 \item{colour}{border colour}
+
+\item{xlim, ylim}{latitudinal and logitudinal range for extracting map
+polygons, see \code{\link[maps]{map}} for details.}
 
 \item{...}{other arguments passed onto \code{\link{geom_polygon}}}
 }
@@ -36,8 +39,15 @@ capitals <- subset(us.cities, capital == 2)
 ggplot(capitals, aes(long, lat)) +
   borders("state") +
   geom_point(aes(size = pop)) +
-  scale_size_area()
+  scale_size_area() +
+  coord_quickmap()
 
+# Same map, with some world context
+ggplot(capitals, aes(long, lat)) +
+  borders("world", xlim = c(-130, -60), ylim = c(20, 50)) +
+  geom_point(aes(size = pop)) +
+  scale_size_area() +
+  coord_quickmap()
 }
 }
 

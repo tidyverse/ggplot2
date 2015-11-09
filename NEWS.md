@@ -337,9 +337,6 @@ version of ggplot.
 
 ## Bug fixes and minor improvements
 
-* `borders()` now accepts xlim and ylim arguments for specifying the geographical 
-  region of interest (@markpayneatwork, #1392)
-
 * All partially matched arguments and `$` have been been replaced with 
   full matches (@jimhester, #1134).
 
@@ -353,6 +350,9 @@ version of ggplot.
 * `annotation_custom()` automatically adds a unique id to each grob name,
   making it easier to plot multiple grobs with the same name (e.g. grobs of
   ggplot2 graphics) in the same plot (#1256).
+
+* `borders()` now accepts xlim and ylim arguments for specifying the geographical 
+  region of interest (@markpayneatwork, #1392).
 
 * `coord_cartesian()` applies the same expansion factor to limits as for scales. 
   You can suppress with `expand = FALSE` (#1207).
