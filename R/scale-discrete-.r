@@ -126,8 +126,13 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   dimension = function(self, expand = c(0, 0)) {
     disc_range <- c(1, length(self$get_limits()))
     disc <- expand_range(disc_range, 0, expand[2], 1)
-    cont <- expand_range(self$range_c$range, expand[1], 0, expand[2])
 
+    # if no data was trained (i.e. range_c is infinite) return disc range
+    if (any(is.infinite(self$range_c$range))) {
+      return(disc)
+    }
+
+    cont <- expand_range(self$range_c$range, expand[1], 0, expand[2])
     range(disc, cont)
   },
 
