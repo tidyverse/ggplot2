@@ -6,7 +6,7 @@
 \title{Bars, rectangles with bases on x-axis}
 \usage{
 geom_bar(mapping = NULL, data = NULL, stat = "count",
-  position = "stack", width = NULL, ..., na.rm = FALSE,
+  position = "stack", width = NULL, binwidth = NULL, ..., na.rm = FALSE,
   show.legend = NA, inherit.aes = TRUE)
 
 stat_count(mapping = NULL, data = NULL, geom = "bar",
@@ -27,6 +27,10 @@ defined at the top level of the plot.}
 a call to a position adjustment function.}
 
 \item{width}{Bar width. By default, set to 90\% of the resolution of the data.}
+
+\item{binwidth}{\code{geom_bar} no longer has a binwidth argument - if
+you use it you'll get an warning telling to you use
+\code{\link{geom_histogram}} instead.}
 
 \item{...}{other arguments passed on to \code{\link{layer}}. There are
   three types of arguments you can use here:

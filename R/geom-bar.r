@@ -28,6 +28,9 @@
 #' @export
 #' @inheritParams geom_point
 #' @param width Bar width. By default, set to 90\% of the resolution of the data.
+#' @param binwidth \code{geom_bar} no longer has a binwidth argument - if
+#'   you use it you'll get an warning telling to you use
+#'   \code{\link{geom_histogram}} instead.
 #' @param geom,stat Override the default connection between \code{geom_bar} and
 #'   \code{stat_count}.
 #' @examples
@@ -71,8 +74,17 @@
 #' ggplot(mpg, aes(reorder_size(class))) + geom_bar()
 #' }
 geom_bar <- function(mapping = NULL, data = NULL, stat = "count",
-                     position = "stack", width = NULL, ...,
+                     position = "stack", width = NULL, binwidth = NULL, ...,
                      na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) {
+
+  if (!is.null(binwidth)) {
+    warning("`geom_bar()` no longer has a `binwidth` parameter. ",
+      "Please use `geom_histogram()` instead.", call. = "FALSE")
+    return(geom_histogram(mapping = mapping, data = data,
+      position = position, width = width, binwidth = binwidth, ...,
+      na.rm = na.rm, show.legend = show.legend, inherit.aes = inherit.aes))
+  }
+
   layer(
     data = data,
     mapping = mapping,
