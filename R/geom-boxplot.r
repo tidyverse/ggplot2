@@ -146,7 +146,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   },
 
   draw_group = function(data, panel_scales, coord, fatten = 2,
-                        outlier.colour = "black", outlier.shape = 19,
+                        outlier.colour = NULL, outlier.shape = 19,
                         outlier.size = 1.5, outlier.stroke = 0.5,
                         notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
 
