@@ -119,6 +119,20 @@ draw_key_path <- function(data, params, size) {
 
 #' @export
 #' @rdname draw_key
+draw_key_vpath <- function(data, params, size) {
+  segmentsGrob(0.5, 0.1, 0.5, 0.9,
+    gp = gpar(
+      col = alpha(data$colour, data$alpha),
+      lwd = data$size * .pt,
+      lty = data$linetype,
+      lineend = "butt"
+    ),
+    arrow = params$arrow
+  )
+}
+
+#' @export
+#' @rdname draw_key
 draw_key_dotplot <- function(data, params, size) {
   pointsGrob(0.5, 0.5, size = unit(.5, "npc"),
     pch = 21,
@@ -133,7 +147,7 @@ draw_key_dotplot <- function(data, params, size) {
 #' @rdname draw_key
 draw_key_pointrange <- function(data, params, size) {
   grobTree(
-    draw_key_path(data, params),
+    draw_key_vpath(data, params, size),
     draw_key_point(transform(data, size = data$size * 4), params)
   )
 }

@@ -164,6 +164,9 @@ All defunct functions have been removed.
   border has been tweaked to be more visible, and more closely match the size of 
   line drawn on the plot.
 
+* `geom_pointrange()` and `geom_linerange()` get vertical (not horizontal)
+  lines in the legend (#1389).
+
 * The default line `size` for `geom_smooth()` has been increased from 0.5 to 1 
   to make it easier to see when overlaid on data.
   

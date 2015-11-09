@@ -73,7 +73,7 @@ geom_linerange <- function(mapping = NULL, data = NULL, stat = "identity",
 GeomLinerange <- ggproto("GeomLinerange", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  draw_key = draw_key_path,
+  draw_key = draw_key_vpath,
 
   required_aes = c("x", "ymin", "ymax"),
 

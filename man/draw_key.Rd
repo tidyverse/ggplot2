@@ -16,6 +16,7 @@
 \alias{draw_key_smooth}
 \alias{draw_key_text}
 \alias{draw_key_vline}
+\alias{draw_key_vpath}
 \title{Key drawing functions}
 \usage{
 draw_key_point(data, params, size)
@@ -33,6 +34,8 @@ draw_key_boxplot(data, params, size)
 draw_key_crossbar(data, params, size)
 
 draw_key_path(data, params, size)
+
+draw_key_vpath(data, params, size)
 
 draw_key_dotplot(data, params, size)
 
