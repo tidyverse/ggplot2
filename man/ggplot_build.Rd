@@ -4,11 +4,14 @@
 \alias{ggplot_build}
 \alias{layer_data}
 \alias{layer_grob}
+\alias{layer_scales}
 \title{Build ggplot for rendering.}
 \usage{
 ggplot_build(plot)
 
 layer_data(plot, i = 1L)
+
+layer_scales(plot, i = 1L, j = 1L)
 
 layer_grob(plot, i = 1L)
 }
@@ -19,9 +22,12 @@ layer_grob(plot, i = 1L)
 \code{ggplot_build} takes the plot object, and performs all steps necessary
 to produce an object that can be rendered.  This function outputs two pieces:
 a list of data frames (one for each layer), and a panel object, which
-contain all information about axis limits, breaks etc. \code{layer_data}
-and \code{layer_grob} are helper functions which returns the data or grob
-associated with a given layer.
+contain all information about axis limits, breaks etc.
+}
+\details{
+\code{layer_data}, \code{layer_grob}, and \code{layer_scales} are helper
+functions that returns the data, grob, or scales associated with a given
+layer. These are useful for tests.
 }
 \seealso{
 \code{\link{print.ggplot}} and \code{\link{benchplot}} for

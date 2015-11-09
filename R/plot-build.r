@@ -3,9 +3,11 @@
 #' \code{ggplot_build} takes the plot object, and performs all steps necessary
 #' to produce an object that can be rendered.  This function outputs two pieces:
 #' a list of data frames (one for each layer), and a panel object, which
-#' contain all information about axis limits, breaks etc. \code{layer_data}
-#' and \code{layer_grob} are helper functions which returns the data or grob
-#' associated with a given layer.
+#' contain all information about axis limits, breaks etc.
+#'
+#' \code{layer_data}, \code{layer_grob}, and \code{layer_scales} are helper
+#' functions that returns the data, grob, or scales associated with a given
+#' layer. These are useful for tests.
 #'
 #' @param plot ggplot object
 #' @seealso \code{\link{print.ggplot}} and \code{\link{benchplot}} for
@@ -93,6 +95,20 @@ ggplot_build <- function(plot) {
 #' @rdname ggplot_build
 layer_data <- function(plot, i = 1L) {
   ggplot_build(plot)$data[[i]]
+}
+
+#' @export
+#' @rdname ggplot_build
+layer_scales <- function(plot, i = 1L, j = 1L) {
+  b <- ggplot_build(plot)
+
+  layout <- b$panel$layout
+  selected <- layout[layout$ROW == i & layout$COL == j, , drop = FALSE]
+
+  list(
+    x = b$panel$x_scales[[selected$SCALE_X]],
+    y = b$panel$y_scales[[selected$SCALE_Y]]
+  )
 }
 
 #' @export

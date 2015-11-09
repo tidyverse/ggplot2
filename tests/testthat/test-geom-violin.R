@@ -1,5 +1,20 @@
 context("geom_violin")
 
+test_that("", {
+  df <- rbind(
+    data.frame(x = "a", y = c(0, runif(10), 1)),
+    data.frame(x = "b", y = c(0, runif(10), 2))
+  )
+
+  p <- ggplot(df, aes(1, y)) +
+    geom_violin() +
+    facet_grid(x ~ ., scales = "free") +
+    coord_cartesian(expand = FALSE)
+
+  expect_equal(layer_scales(p, 1)$y$dimension(), c(0, 1))
+  expect_equal(layer_scales(p, 2)$y$dimension(), c(0, 2))
+})
+
 # create_quantile_segment_frame -------------------------------------------------
 
 test_that("create_quantile_segment_frame functions for 3 quantiles", {

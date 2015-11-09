@@ -99,8 +99,6 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
     # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
     plyr::ddply(data, "group", transform,
-      ymin = min(y),
-      ymax = max(y),
       xmin = x - width / 2,
       xmax = x + width / 2
     )
