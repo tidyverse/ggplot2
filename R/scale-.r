@@ -326,6 +326,14 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     list(range = range, labels = labels,
          major = major_n, minor = minor_n,
          major_source = major, minor_source = minor)
+  },
+
+  print = function(self, ...) {
+    show_range <- function(x) paste0(formatC(x, digits = 3), collapse = " -- ")
+
+    cat("<", class(self)[[1]], ">\n", sep = "")
+    cat(" Range:  ", show_range(self$range$range), "\n", sep = "")
+    cat(" Limits: ", show_range(self$dimension()), "\n", sep = "")
   }
 )
 
