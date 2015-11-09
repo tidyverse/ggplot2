@@ -4,7 +4,8 @@
 #' to produce an object that can be rendered.  This function outputs two pieces:
 #' a list of data frames (one for each layer), and a panel object, which
 #' contain all information about axis limits, breaks etc. \code{layer_data}
-#' is a helper function which returns the data for a given layer.
+#' and \code{layer_grob} are helper functions which returns the data or grob
+#' associated with a given layer.
 #'
 #' @param plot ggplot object
 #' @seealso \code{\link{print.ggplot}} and \code{\link{benchplot}} for
@@ -92,6 +93,14 @@ ggplot_build <- function(plot) {
 #' @rdname ggplot_build
 layer_data <- function(plot, i = 1L) {
   ggplot_build(plot)$data[[i]]
+}
+
+#' @export
+#' @rdname ggplot_build
+layer_grob <- function(plot, i = 1L) {
+  b <- ggplot_build(plot)
+
+  b$plot$layers[[i]]$draw_geom(b$data[[i]], b$panel, b$plot$coordinates)
 }
 
 #' Build a plot with all the usual bits and pieces.
