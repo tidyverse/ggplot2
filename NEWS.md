@@ -38,7 +38,8 @@
 
 * New `stat_summary_bin()` works like `stat_summary()` but on binned data. 
   It's a generalisation of `stat_bin()` that can compute any aggregate,
-  not just counts (#1274).
+  not just counts (#1274). Both default to `mean_se()` if no aggregation
+  functions are supplied (#1386).
 
 * Layers are now much stricter about their arguments - you will get an error
   if you've supplied an argument that isn't an aesthetic or a parameter.

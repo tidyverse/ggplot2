@@ -59,7 +59,7 @@ make_summary_fun <- function(fun.data, fun.y, fun.ymax, fun.ymin, fun.args) {
     function(df) {
       do.call(fun.data, c(list(quote(df$y)), fun.args))
     }
-  } else {
+  } else if (!is.null(fun.y) || !is.null(fun.ymax) || !is.null(fun.ymin)) {
     # Three functions that take vectors as inputs
 
     call_f <- function(fun, x) {
@@ -73,6 +73,11 @@ make_summary_fun <- function(fun.data, fun.y, fun.ymax, fun.ymin, fun.args) {
         y = call_f(fun.y, df$y),
         ymax = call_f(fun.ymax, df$y)
       )
+    }
+  } else {
+    message("No summary function supplied, defaulting to `mean_se()")
+    function(df) {
+      mean_se(df$y)
     }
   }
 }

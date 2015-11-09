@@ -31,6 +31,9 @@
 #' number, but is somewhat less flexible. If your summary function computes
 #' multiple values at once (e.g. ymin and ymax), use \code{fun.data}.
 #'
+#' If no aggregation functions are suppled, will default to
+#' \code{\link{mean_se}}.
+#'
 #' @param fun.data A function that is given the complete data and should
 #'   return a data frame with variables \code{ymin}, \code{y}, and \code{ymax}.
 #' @param fun.ymin,fun.y,fun.ymax Alternatively, supply three individual

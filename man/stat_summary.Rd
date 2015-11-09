@@ -93,6 +93,9 @@ You can either supply summary functions individually (\code{fun.y},
 A simple vector function is easiest to work with as you can return a single
 number, but is somewhat less flexible. If your summary function computes
 multiple values at once (e.g. ymin and ymax), use \code{fun.data}.
+
+If no aggregation functions are suppled, will default to
+\code{\link{mean_se}}.
 }
 \examples{
 d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
