@@ -4,13 +4,13 @@
 
 |setting  |value                        |
 |:--------|:----------------------------|
-|version  |R version 3.2.1 (2015-06-18) |
+|version  |R version 3.2.2 (2015-08-14) |
 |system   |x86_64, darwin13.4.0         |
-|ui       |RStudio (0.99.720)           |
+|ui       |RStudio (0.99.747)           |
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
 |tz       |America/Chicago              |
-|date     |2015-10-15                   |
+|date     |2015-11-09                   |
 
 ## Packages
 
@@ -29,24 +29,16 @@
 |quantreg |   |5.19    |2015-08-31 |CRAN (R 3.2.0) |
 |reshape2 |   |1.4.1   |2014-12-06 |CRAN (R 3.2.0) |
 |scales   |   |0.3.0   |2015-08-25 |CRAN (R 3.2.0) |
-|testthat |*  |0.10.0  |2015-05-22 |CRAN (R 3.2.0) |
+|testthat |*  |0.11.0  |2015-10-14 |CRAN (R 3.2.0) |
 
 # Check results
-556 checked out of 562 dependencies 
+573 checked out of 574 dependencies 
 
 ## abctools (1.0.3)
 Maintainer: Matt Nunes <m.nunes@lancaster.ac.uk>  
 Bug reports: http://github.com/dennisprangle/abctools/issues
 
-```
-checking whether package ‘abctools’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/abctools.Rcheck/00install.out’ for details.
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
 ## abd (0.2-8)
 Maintainer: Kevin M. Middleton <middletonk@missouri.edu>
@@ -57,19 +49,81 @@ __OK__
 Maintainer: Markus Belfrage <markus.belfrage@gmail.com>
 
 ```
-checking whether package ‘ACDm’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/ACDm.Rcheck/00install.out’ for details.
+checking examples ... ERROR
+Running examples in ‘ACDm-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: diurnalAdj
+> ### Title: Dirunal adjustment for durations
+> ### Aliases: diurnalAdj
+> 
+> ### ** Examples
+> 
+> diurnalAdj(durData, aggregation = "none", method = "supsmu")
+> 
+> head(durData)
+                 time    price volume Ntrans durations
+1 2009-05-04 02:00:02 11.90000    114      1         2
+2 2009-05-04 02:00:04 11.90000   2800      3         2
+3 2009-05-04 02:00:10 11.90000  16882      7         6
+4 2009-05-04 02:00:15 11.88799   2000      3         5
+5 2009-05-04 02:00:25 11.89500   1908      1        10
+6 2009-05-04 02:00:28 11.89000    832      2         3
+> f <- diurnalAdj(durData, aggregation = "weekdays", method = "FFF", Q = 3)
+> head(f)
+                 time    price volume Ntrans durations    adjDur
+1 2009-05-04 02:00:02 11.90000    114      1         2 0.3640166
+2 2009-05-04 02:00:04 11.90000   2800      3         2 0.3639070
+3 2009-05-04 02:00:10 11.90000  16882      7         6 1.0907353
+4 2009-05-04 02:00:15 11.88799   2000      3         5 0.9082623
+5 2009-05-04 02:00:25 11.89500   1908      1        10 1.8137933
+6 2009-05-04 02:00:28 11.89000    832      2         3 0.5438925
+> 
+> f <- diurnalAdj(durData, aggregation = "all", returnSplineFnc = TRUE)
+Error in diurnalAdj(durData, aggregation = "all", returnSplineFnc = TRUE) : 
+  Needs data in at least 3 nodes
+Execution halted
 ```
 ```
 DONE
 Status: 1 ERROR
 ```
 
+## ACSNMineR (0.10.15)
+Maintainer: Paul Deveau <paul.deveau@curie.fr>
+
+```
+checking R code for possible problems ... NOTE
+p.val.calc: warning in fisher.test(matrix(c(x, y, z, a), nrow = 2), alt
+  = alt): partial argument match of 'alt' to 'alternative'
+```
+```
+DONE
+Status: 1 NOTE
+```
+
 ## adegenet (2.0.0)
 Maintainer: Thibaut Jombart <t.jombart@imperial.ac.uk>
 
 __OK__
+
+## AFM (1.0.0)
+Maintainer: Mathieu Beauvais <beauvais.escp@gmail.com>
+
+```
+checking package dependencies ... ERROR
+Packages required but not available: ‘fractaldim’ ‘pracma’ ‘fftwtools’
+
+Packages required and available but unsuitable versions: ‘rgl’ ‘sp’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+```
+DONE
+Status: 1 ERROR
+```
 
 ## alm (0.4.0)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
@@ -79,7 +133,7 @@ Bug reports: http://www.github.com/ropensci/alm/issues
 checking whether package ‘alm’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::unit’ when loading ‘alm’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/alm.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/alm.Rcheck/00install.out’ for details.
 ```
 ```
 checking files in ‘vignettes’ ... NOTE
@@ -95,14 +149,21 @@ Status: 1 WARNING, 1 NOTE
 ## alphahull (2.0)
 Maintainer: Beatriz Pateiro-Lopez <beatriz.pateiro@usc.es>
 
+__OK__
+
+## ameco (0.1)
+Maintainer: Eric Persson <expersso5@gmail.com>  
+Bug reports: http://github.com/expersso/ameco/issues
+
 ```
-checking whether package ‘alphahull’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/alphahull.Rcheck/00install.out’ for details.
+checking installed package size ... NOTE
+  installed size is 15.0Mb
+  sub-directories of 1Mb or more:
+    data  14.9Mb
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 1 NOTE
 ```
 
 ## AmpliconDuo (1.0)
@@ -218,14 +279,14 @@ Maintainer: Borja Varela <borja.varela.brea@gmail.com>
 checking whether package ‘arqas’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘ggplot2::Geom’ when loading ‘arqas’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/arqas.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/arqas.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
 Status: 1 WARNING
 ```
 
-## asremlPlus (2.0-0)
+## asremlPlus (2.0-2)
 Maintainer: Chris Brien <Chris.Brien@unisa.edu.au>
 
 ```
@@ -316,7 +377,7 @@ Bug reports: https://github.com/christinaheinze/backShift/issues
 ```
 checking whether package ‘backShift’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/backShift.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/backShift.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -329,7 +390,7 @@ Maintainer: Pablo Emilio Verde <pabloemilio.verde@hhu.de>
 ```
 checking whether package ‘bamdit’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/bamdit.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/bamdit.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -381,13 +442,8 @@ checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘DNAcopy’
 ```
 ```
-checking whether package ‘bcp’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/bcp.Rcheck/00install.out’ for details.
-```
-```
 DONE
-Status: 1 ERROR, 1 NOTE
+Status: 1 NOTE
 ```
 
 ## bcrm (0.4.5)
@@ -402,7 +458,7 @@ checking whether package ‘bcrm’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘bcrm’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘bcrm’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/bcrm.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/bcrm.Rcheck/00install.out’ for details.
 ```
 ```
 checking examples ... ERROR
@@ -547,7 +603,7 @@ Maintainer: Dave Mills <dave.a.mills@gmail.com>
 checking whether package ‘bdscale’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘bdscale’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/bdscale.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/bdscale.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -562,7 +618,7 @@ checking whether package ‘bdvis’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘bdvis’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘bdvis’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/bdvis.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/bdvis.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -580,7 +636,7 @@ Package suggested but not available for checking: ‘Rgraphviz’
 checking whether package ‘benchmark’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘benchmark’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/benchmark.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/benchmark.Rcheck/00install.out’ for details.
 ```
 ```
 checking dependencies in R code ... NOTE
@@ -788,7 +844,7 @@ Bug reports: <https://r-forge.r-project.org/R/?group_id=302>
 checking whether package ‘biomod2’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘randomForest::margin’ when loading ‘biomod2’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/biomod2.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/biomod2.Rcheck/00install.out’ for details.
 ```
 ```
 checking dependencies in R code ... NOTE
@@ -798,8 +854,25 @@ checking dependencies in R code ... NOTE
   See section 'Suggested packages' in the 'Writing R Extensions' manual.
 ```
 ```
+checking R code for possible problems ... NOTE
+.transform.outputs,list : .local: missing arguments not allowed in
+  calls to ‘c’
+Projection,ANY-ANY-data.frame : .local: no visible binding for global
+  variable ‘kept.models.name’
+Projection,ANY-ANY-data.frame : .local: no visible binding for global
+  variable ‘scaled.models’
+Projection,ANY-ANY-data.frame : .local: no visible binding for global
+  variable ‘models.options’
+Projection,ANY-ANY-data.frame : .local : <anonymous> : <anonymous>: no
+  visible binding for global variable ‘models.evaluation’
+getModelsPredictionEval,BIOMOD.models.out : .local: no visible binding
+  for global variable ‘models.prediction.eval’
+getProjection,BIOMOD.projection.out : .local: no visible binding for
+  global variable ‘bm_proj’
+```
+```
 DONE
-Status: 1 WARNING, 1 NOTE
+Status: 1 WARNING, 2 NOTEs
 ```
 
 ## BioStatR (2.0.0)
@@ -841,7 +914,7 @@ checking whether package ‘blowtorch’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘blowtorch’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘blowtorch’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/blowtorch.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/blowtorch.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -972,7 +1045,7 @@ Package suggested but not available for checking: ‘BRugs’
 ```
 checking whether package ‘BTSPAS’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/BTSPAS.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/BTSPAS.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -988,14 +1061,14 @@ Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘capm’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘capm’
   Warning: replacing previous import by ‘sp::nowrapSpatialLines’ when loading ‘capm’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/capm.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/capm.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
 Status: 1 WARNING
 ```
 
-## caret (6.0-57)
+## caret (6.0-58)
 Maintainer: Max Kuhn <Max.Kuhn@pfizer.com>  
 Bug reports: https://github.com/topepo/caret/issues
 
@@ -1009,12 +1082,12 @@ ggplot.rfe:
 ggplot:
   function(data, mapping, ..., environment)
 ggplot.train:
-  function(data, metric, plotType, output, nameInStrip, ...)
+  function(data, metric, plotType, output, nameInStrip, highlight, ...)
 
 ggplot:
   function(data, mapping, ..., environment)
 ggplot.train:
-  function(data, metric, plotType, output, nameInStrip, ...)
+  function(data, metric, plotType, output, nameInStrip, highlight, ...)
 
 ggplot:
   function(data, mapping, ..., environment)
@@ -1038,7 +1111,7 @@ checking whether package ‘caretEnsemble’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘caretEnsemble’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘caretEnsemble’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/caretEnsemble.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/caretEnsemble.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -1080,6 +1153,30 @@ plot,catenary: no visible global function definition for ‘qplot’
 plot,catenary: no visible global function definition for ‘geom_point’
 plot,catenary: no visible global function definition for ‘aes’
 plot,catenary: no visible global function definition for ‘labs’
+plot,fittedCatenary : .local: no visible global function definition for
+  ‘qplot’
+plot,fittedCatenary : .local: no visible global function definition for
+  ‘geom_line’
+plot,fittedCatenary : .local: no visible global function definition for
+  ‘aes’
+plot,fittedCatenary : .local: no visible binding for global variable
+  ‘para’
+plot,fittedCatenary : .local: no visible global function definition for
+  ‘geom_ribbon’
+plot,fittedCatenary : .local: no visible binding for global variable
+  ‘para_lwr’
+plot,fittedCatenary : .local: no visible binding for global variable
+  ‘para_upr’
+plot,fittedCatenary : .local: no visible binding for global variable
+  ‘cat_lwr’
+plot,fittedCatenary : .local: no visible binding for global variable
+  ‘cat_upr’
+plot,fittedCatenary : .local: no visible global function definition for
+  ‘labs’
+plot,fittedCatenary : .local: no visible global function definition for
+  ‘scale_colour_manual’
+plot,fittedCatenary : .local: no visible global function definition for
+  ‘scale_fill_manual’
 ```
 ```
 DONE
@@ -1129,56 +1226,28 @@ Status: 5 NOTEs
 Maintainer: Baptiste Auguie <baptiste.auguie@gmail.com>
 
 ```
-checking whether package ‘cda’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/cda.Rcheck/00install.out’ for details.
+checking R code for possible problems ... NOTE
+rgl.ellipsoid: no visible global function definition for ‘cube3d’
+rgl_annotate: no visible global function definition for ‘axes3d’
+rgl_annotate: no visible global function definition for ‘axis3d’
+rgl_annotate: no visible global function definition for ‘title3d’
+```
+```
+checking for GNU extensions in Makefiles ... NOTE
+GNU make is a SystemRequirements.
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 2 NOTEs
 ```
 
 ## ChainLadder (0.2.2)
 Maintainer: Markus Gesmann <markus.gesmann@googlemail.com>  
 Bug reports: https://github.com/mages/ChainLadder/issues
 
-```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
+__OK__
 
-Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
-  Running 'texi2dvi' on 'ChainLadder.tex' failed.
-LaTeX errors:
-! Undefined control sequence.
-l.40 !<a8>T<98><9f><e7><cd>^^[<da>m67<d9><dd><e5><e0><80><cd>M<84><e0><f9>s<ae>\<e1>
-                                 <dd>;~<fd>bj*<c2><e9><ea>͊^^X<:<92><e2><cf>^^Py<c8><f3>^^P^^B))<97>{<95>=<9f>7<d5>r4...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-! Undefined control sequence.
-l.81 ...U<d5>q^^\<c7>qTU<cd>f<b3>+++<aa><aa>r<ce>o޼yг<8d>.<b1>N<bd>r<a2><e4>E<d1>3<ca><fe>\XX
-                                                  ^^H<82><e0><ea>ի<b7>nݺy<f3><e6><cc><cc>L^^P^^D^^...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-! LaTeX Error: Missing \begin{document}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-! Missing $ inserted.
-<inserted text> 
-                $
-l.94 ...$ID<
-Calls: buildVignettes -> texi2pdf -> texi2dvi
-Execution halted
-
-```
-```
-DONE
-Status: 1 NOTE
-```
-
-## checkmate (1.6.2)
+## checkmate (1.6.3)
 Maintainer: Michel Lang <michellang@gmail.com>  
 Bug reports: https://github.com/mllg/checkmate/issues
 
@@ -1196,6 +1265,52 @@ checking dependencies in R code ... NOTE
 'library' or 'require' call to ‘doMC’ in package code.
   Please use :: or requireNamespace() instead.
   See section 'Suggested packages' in the 'Writing R Extensions' manual.
+```
+```
+checking R code for possible problems ... NOTE
+plotResponseOld,ANY : .local: warning in matplot(xp, yp, bty = "n", t =
+  "l", col = col, lwd = lwd, lty = lty, xlim = xlim, ylim = ylim, main
+  = main, xlab = xlab, ylab = ylab, ...): partial argument match of 't'
+  to 'type'
+plotTimeline,ANY : .local: warning in matplot(sdata, t = "l", lwd =
+  lwd, lty = lty, bty = bty, col = col, main = main, xlab = xlab, ylab
+  = ylab, ...): partial argument match of 't' to 'type'
+plotTimeline,ANY : .local: warning in legend(leg, legend = lab, col =
+  col, lwd = lwd, lty = lty, bt = "n"): partial argument match of 'bt'
+  to 'bty'
+plotAffinitySpace,ANY : .local: no visible binding for global variable
+  ‘sensor’
+plotAffinitySpace,ANY : .local: no visible binding for global variable
+  ‘gas’
+plotAffinitySpace,ANY : .local: no visible binding for global variable
+  ‘y1’
+plotAffinitySpace,ANY : .local: no visible binding for global variable
+  ‘y2’
+plotBox,ANY : .local: no visible binding for global variable ‘lab’
+plotBox,ANY : .local: no visible binding for global variable ‘value’
+plotPCA,ANY : .local: no visible binding for global variable ‘PCx’
+plotPCA,ANY : .local: no visible binding for global variable ‘PCy’
+plotPCA,ANY : .local: no visible binding for global variable ‘lab’
+plotPolar,ANY : .local: no visible binding for global variable ‘sensor’
+plotPolar,ANY : .local: no visible binding for global variable ‘S’
+plotPolar,ANY : .local: no visible binding for global variable ‘gas’
+plotPolarGases,ANY : .local: no visible binding for global variable
+  ‘sensor’
+plotPolarGases,ANY : .local: no visible binding for global variable ‘S’
+plotPolarGases,ANY : .local: no visible binding for global variable ‘p’
+plotResponse,ANY : .local: no visible binding for global variable
+  ‘value’
+plotResponse,ANY : .local: no visible binding for global variable
+  ‘variable’
+plotResponseOld,ANY : .local: no visible binding for global variable
+  ‘dat’
+plotResponseOld,ANY : .local: no visible binding for global variable
+  ‘conc’
+plotResponseOld,ANY : .local: no visible binding for global variable
+  ‘sdata’
+plotResponseOld,ANY : .local: no visible binding for global variable
+  ‘gas’
+plotSignal,ANY : .local: no visible binding for global variable ‘value’
 ```
 ```
 checking examples ... ERROR
@@ -1245,7 +1360,7 @@ Execution halted
 ```
 ```
 DONE
-Status: 1 ERROR, 2 NOTEs
+Status: 1 ERROR, 3 NOTEs
 ```
 
 ## choroplethr (3.3.0)
@@ -1288,7 +1403,7 @@ Maintainer: Junliang Shang <shangjunliang110@163.com>
 
 __OK__
 
-## cjoint (2.0.0)
+## cjoint (2.0.1)
 Maintainer: Anton Strezhnev <astrezhnev@fas.harvard.edu>
 
 __OK__
@@ -1299,7 +1414,7 @@ Maintainer: Dr Chris Wheadon <chris.wheadon@gmail.com>
 ```
 checking whether package ‘classify’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/classify.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/classify.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -1320,7 +1435,7 @@ checking whether package ‘clhs’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘clhs’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘clhs’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/clhs.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/clhs.Rcheck/00install.out’ for details.
 ```
 ```
 checking R code for possible problems ... NOTE
@@ -1344,22 +1459,8 @@ Execution halted
 
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Warning: replacing previous import by ‘grid::arrow’ when loading ‘clhs’
-Warning: replacing previous import by ‘grid::unit’ when loading ‘clhs’
-
-Error: processing vignette 'vignette.Rnw' failed with diagnostics:
- chunk 3 (label = simple_clhs) 
-Error in (function (classes, fdef, mtable)  : 
-  unable to find an inherited method for function ‘clhs’ for signature ‘"tbl_df"’
-Execution halted
-
-```
-```
 DONE
-Status: 1 ERROR, 1 WARNING, 2 NOTEs
+Status: 1 ERROR, 1 WARNING, 1 NOTE
 ```
 
 ## clifro (2.4-0)
@@ -1367,18 +1468,11 @@ Maintainer: Blake Seers <blake.seers@gmail.com>
 Bug reports: https://github.com/ropensci/clifro/issues
 
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Loading required package: ggplot2
-Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=Auckland&zoom=8&size=640x640&scale=2&maptype=hybrid&language=en-EN&sensor=false
-Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=Auckland&sensor=false
-Quitting from lines 139-157 (cfStation.Rmd) 
-Error: processing vignette 'cfStation.Rmd' failed with diagnostics:
-unused argument (geom_params = list(raster = c("#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", 
-"#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4C629A", "#4B6097", "#4B6097", "#4B6097", "#485D95", "#485D95", "#485D95", "#485D95", "#485D95", "#485D95", "#485D95", "#485D95", "#485D95", "#485D95", "#485D95", "#485D95", "#485D95", "#485D95", "#485D95", "#445A93", "#44588D", "#44588D", "#44588D", "#40558B", "#40558B", "#3A4D7C", "#3A4D7C", "#3B4B72", "#3B4B72", "#314361", "#3
-Execution halted
-
+checking R code for possible problems ... NOTE
+speed_plot,cfWind-missing : .local: no visible binding for global
+  variable ‘speed’
+speed_plot,cfWind-missing : .local: no visible binding for global
+  variable ‘spd.sd’
 ```
 ```
 DONE
@@ -1422,13 +1516,19 @@ DONE
 Status: 1 NOTE
 ```
 
+## codyn (1.0.0)
+Maintainer: Matthew B. Jones <jones@nceas.ucsb.edu>  
+Bug reports: https://github.com/laurenmh/codyn/issues
+
+__OK__
+
 ## coefplot (1.2.0)
 Maintainer: Jared P. Lander <packages@jaredlander.com>
 
 ```
 checking whether package ‘coefplot’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/coefplot.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/coefplot.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -1452,6 +1552,8 @@ coloc.abf.snpStats: no visible global function definition for
 fillin: no visible global function definition for ‘col.summary’
 fillin: no visible global function definition for ‘snp.imputation’
 fillin: no visible global function definition for ‘impute.snps’
+plot,colocPCs-missing : .local: no visible binding for global variable
+  ‘object’
 ```
 ```
 checking running R code from vignettes ... WARNING
@@ -1471,36 +1573,8 @@ Execution halted
 
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Loading required package: colorspace
-Loading required package: MASS
-Loading required package: BMA
-Loading required package: survival
-Loading required package: leaps
-Loading required package: robustbase
-
-Attaching package: ‘robustbase’
-
-The following object is masked from ‘package:survival’:
-
-    heart
-
-Loading required package: inline
-Loading required package: rrcov
-Scalable Robust Estimators with High Breakdown Point (version 1.3-8)
-
-
-Error: processing vignette 'vignette.Rnw' failed with diagnostics:
- chunk 7 
-Error in library(snpStats) : there is no package called ‘snpStats’
-Execution halted
-
-```
-```
 DONE
-Status: 1 WARNING, 3 NOTEs
+Status: 1 WARNING, 2 NOTEs
 ```
 
 ## CommT (0.1.1)
@@ -1508,41 +1582,10 @@ Maintainer: Michael Gruenstaeudl <mi.gruenstaeudl@gmail.com>
 
 __OK__
 
-## complmrob (0.5.8)
+## complmrob (0.6.1)
 Maintainer: David Kepplinger <david.kepplinger@gmail.com>
 
-```
-checking Rd cross-references ... WARNING
-Missing link or links in documentation object 'predictdf.complmrob.part.Rd':
-  ‘ggplot2’
-
-See section 'Cross-references' in the 'Writing R Extensions' manual.
-
-```
-```
-checking examples ... ERROR
-Running examples in ‘complmrob-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: plot.complmrob
-> ### Title: Diagnostic plots for the robust regression model with
-> ###   compositional covariats
-> ### Aliases: plot.complmrob
-> 
-> ### ** Examples
-> 
-> data <- data.frame(lifeExp = state.x77[, "Life Exp"], USArrests[ , -3])
-> mUSArr <- complmrob(lifeExp ~ ., data = data)
-> plot(mUSArr)
-Warning: The plyr::rename operation has created duplicates for the following name(s): (`colour`, `size`, `alpha`, `shape`)
-Error: Unknown parameters: complmrob.model, transform
-Execution halted
-```
-```
-DONE
-Status: 1 ERROR, 1 WARNING
-```
+__OK__
 
 ## confidence (1.1-0)
 Maintainer: Dennis J. J. Walvoort <dennis.Walvoort@wur.nl>
@@ -1558,7 +1601,7 @@ Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘conformal’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘conformal’
   Warning: replacing previous import by ‘randomForest::margin’ when loading ‘conformal’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/conformal.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/conformal.Rcheck/00install.out’ for details.
 ```
 ```
 checking DESCRIPTION meta-information ... NOTE
@@ -1586,12 +1629,17 @@ Maintainer: Erik Andersen <erik.andersen@northwestern.edu>
 checking whether package ‘COPASutils’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘kernlab::alpha’ when loading ‘COPASutils’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/COPASutils.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/COPASutils.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
 Status: 1 WARNING
 ```
+
+## corkscrew (1.1)
+Maintainer: Santhosh Sasanapuri <santhosh458@gmail.com>
+
+__OK__
 
 ## cosinor (1.1)
 Maintainer: Michael Sachs <sachsmc@gmail.com>
@@ -1630,7 +1678,7 @@ The error most likely occurred in:
 Warning: `axis.ticks.margin` is deprecated. Please set `margin` property  of `axis.text` instead
 Error in FUN(X[[i]], ...) : 
   Theme element 'text' has NULL property: margin, debug
-Calls: print ... element_render -> calc_element -> lapply -> FUN -> lapply -> FUN
+Calls: <Anonymous> ... element_render -> calc_element -> lapply -> FUN -> lapply -> FUN
 Execution halted
 ```
 ```
@@ -1668,42 +1716,14 @@ Calls: ggdraw ... element_render -> calc_element -> lapply -> FUN -> lapply -> F
 Execution halted
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Loading required package: cowplot
-Loading required package: ggplot2
-
-Attaching package: 'cowplot'
-
-The following object is masked from 'package:ggplot2':
-
-    ggsave
-
-Loading required package: grid
-Quitting from lines 17-26 (axis_position.Rmd) 
-Error: processing vignette 'axis_position.Rmd' failed with diagnostics:
-both operands must be units
-Execution halted
-
-```
-```
 DONE
-Status: 1 ERROR, 1 NOTE
+Status: 1 ERROR
 ```
 
 ## cplm (0.7-4)
 Maintainer: Yanwei (Wayne) Zhang <actuary_zhang@hotmail.com>
 
-```
-checking whether package ‘cplm’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/cplm.Rcheck/00install.out’ for details.
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
 ## Crossover (0.1-15)
 Maintainer: Kornelius Rohmeyer <rohmeyer@small-projects.de>  
@@ -1712,7 +1732,7 @@ Bug reports: https://github.com/kornl/Crossover/issues
 ```
 checking whether package ‘Crossover’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/Crossover.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/Crossover.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -1728,16 +1748,17 @@ __OK__
 Maintainer: Eric C. Chi <ecchi1105@gmail.com>
 
 ```
-checking whether package ‘cvxclustr’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/cvxclustr.Rcheck/00install.out’ for details.
+checking line endings in Makefiles ... NOTE
+Found the following Makefile(s) without a final LF:
+  src/Makevars
+Some ‘make’ programs ignore lines not ending in LF.
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 1 NOTE
 ```
 
-## dae (2.7-2)
+## dae (2.7-6)
 Maintainer: Chris Brien <Chris.Brien@unisa.edu.au>
 
 __OK__
@@ -1763,69 +1784,37 @@ Status: 1 NOTE
 ## dcmr (1.0)
 Maintainer: Diane Losardo <dlosardo@amplify.com>
 
-__OK__
+```
+checking R code for possible problems ... NOTE
+plot,attribute.class-missing : .local: no visible binding for global
+  variable ‘attr.number’
+plot,attribute.class-missing : .local: no visible binding for global
+  variable ‘mean.attr’
+plot,attribute.profile.class-missing : .local: no visible binding for
+  global variable ‘attr.profile.number’
+plot,attribute.profile.class-missing : .local: no visible binding for
+  global variable ‘mean.attr.profile’
+summary,attribute.class : .local: no visible binding for global
+  variable ‘value’
+summary,attribute.profile.class : .local: no visible binding for global
+  variable ‘max.class’
+```
+```
+DONE
+Status: 1 NOTE
+```
 
 ## Deducer (0.7-7)
 Maintainer: Ian Fellows <ian@fellstat.com>
 
 ```
-checking whether package ‘Deducer’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: replacing previous import by ‘scales::alpha’ when loading ‘Deducer’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/Deducer.Rcheck/00install.out’ for details.
-```
-```
-checking S3 generic/method consistency ... NOTE
-Found the following apparent S3 methods exported but not registered:
-  as.matrix.cor.matrix plot.cor.matrix print.contin.table
-  print.contin.tests print.contingency.tables print.cor.matrix
-  print.freq.table print.multi.test sort.data.frame summary.lm
-See section ‘Registering S3 methods’ in the ‘Writing R Extensions’
-manual.
-```
-```
-checking R code for possible problems ... NOTE
-ggcorplot: possible error in layer(geom = "line", geom_params =
-  list(colour = "red"), stat = "smooth", stat_params = list(method =
-  line.method), data = z, mapping = aes(x = x_var, y = y_var)): unused
-  arguments (geom_params = list(colour = "red"), stat_params =
-  list(method = line.method))
-ggcorplot: possible error in layer(geom = "ribbon", geom_params =
-  list(fill = "green", alpha = 0.5), stat = "smooth", stat_params =
-  list(method = line.method), data = z, mapping = aes(x = x_var, y =
-  y_var)): unused arguments (geom_params = list(fill = "green", alpha =
-  0.5), stat_params = list(method = line.method))
-ggcorplot: possible error in layer(geom = "text", geom_params =
-  list(size = var_text_size), data = diag, mapping = aes(x = y_mid, y =
-  x_mid, label = x_label)): unused argument (geom_params = list(size =
-  var_text_size))
-```
-```
-checking examples ... ERROR
-Running examples in ‘Deducer-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: ggcorplot
-> ### Title: Correlation matrix
-> ### Aliases: ggcorplot
-> 
-> ### ** Examples
-> 
-> data(mtcars)
-> corr.mat1<-cor.matrix(variables=d(mpg,carb,carb+rnorm(length(carb))),,
-+ 	 data=mtcars,
-+ 	 test=cor.test,
-+ 	 method='spearman',
-+ 	alternative="two.sided",exact=FALSE)
-> 	
-> p<-ggcorplot(corr.mat1,data = mtcars)
-Error: Attempted to create layer with no stat.
-Execution halted
+checking whether package ‘Deducer’ can be installed ... ERROR
+Installation failed.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/Deducer.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
-Status: 1 ERROR, 1 WARNING, 2 NOTEs
+Status: 1 ERROR
 ```
 
 ## demi (1.1.2)
@@ -1843,7 +1832,7 @@ DONE
 Status: 1 ERROR
 ```
 
-## dendextend (1.1.0)
+## dendextend (1.1.2)
 Maintainer: Tal Galili <tal.galili@gmail.com>  
 Bug reports: https://github.com/talgalili/dendextend/issues
 
@@ -1864,13 +1853,13 @@ Status: 2 NOTEs
 Maintainer: Zygmunt Zawadzki <zawadzkizygmunt@gmail.com>
 
 ```
-checking whether package ‘DepthProc’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/DepthProc.Rcheck/00install.out’ for details.
+checking R code for possible problems ... NOTE
+as.matrix,DepthCurveList : .local: no visible binding for global
+  variable ‘object’
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 1 NOTE
 ```
 
 ## DescribeDisplay (0.2.4)
@@ -1879,7 +1868,7 @@ Maintainer: Di Cook <dicook@iastate.edu>
 ```
 checking whether package ‘DescribeDisplay’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/DescribeDisplay.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/DescribeDisplay.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -2058,7 +2047,7 @@ checking whether package ‘diveRsity’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘diveRsity’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘diveRsity’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/diveRsity.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/diveRsity.Rcheck/00install.out’ for details.
 ```
 ```
 checking DESCRIPTION meta-information ... NOTE
@@ -2066,10 +2055,7 @@ Malformed Description field: should contain one or more complete sentences.
 ```
 ```
 checking dependencies in R code ... NOTE
-'library' or 'require' calls in package code:
-  ‘parallel’ ‘plotrix’ ‘sendplot’ ‘xlsx’
-  Please use :: or requireNamespace() instead.
-  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+No Java runtime present, requesting install.
 ```
 ```
 DONE
@@ -2119,7 +2105,7 @@ checking whether package ‘dotwhisker’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘dotwhisker’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘dotwhisker’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/dotwhisker.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/dotwhisker.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -2132,6 +2118,21 @@ Bug reports: https://github.com/hadley/dplyr/issues
 
 __OK__
 
+## drLumi (0.1.2)
+Maintainer: Hector Sanz <hector.sanz@isglobal.org>
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘irr’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+```
+DONE
+Status: 1 ERROR
+```
+
 ## dslice (1.1.4)
 Maintainer: Chao Ye <yechao1009@gmail.com>
 
@@ -2139,7 +2140,7 @@ Maintainer: Chao Ye <yechao1009@gmail.com>
 checking whether package ‘dslice’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘dslice’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/dslice.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/dslice.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -2167,11 +2168,25 @@ Maintainer: Xinyu Tang <xtang@uams.edu>
 ```
 checking whether package ‘DTR’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/DTR.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/DTR.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
 Status: 1 ERROR
+```
+
+## DTRlearn (1.1)
+Maintainer: Ying Liu <yl2802@cumc.columbia.edu>
+
+```
+checking whether package ‘DTRlearn’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘ggplot2::alpha’ when loading ‘DTRlearn’
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/DTRlearn.Rcheck/00install.out’ for details.
+```
+```
+DONE
+Status: 1 WARNING
 ```
 
 ## dtwclust (1.1.0)
@@ -2189,7 +2204,7 @@ Maintainer: Daniel Wollschlaeger <wollschlaeger@uni-mainz.de>
 
 __OK__
 
-## DynNom (1.0.1)
+## DynNom (2.0)
 Maintainer: Amirhossein Jalali <a.jalali2@nuigalway.ie>
 
 __OK__
@@ -2202,7 +2217,7 @@ Bug reports: https://github.com/christophergandrud/dynsim/issues
 checking whether package ‘dynsim’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::unit’ when loading ‘dynsim’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/dynsim.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/dynsim.Rcheck/00install.out’ for details.
 ```
 ```
 checking Rd cross-references ... WARNING
@@ -2282,46 +2297,25 @@ Status: 3 NOTEs
 Maintainer: Karthik Ram <karthik.ram@gmail.com>  
 Bug reports: https://github.com/ropensci/ecoengine/issues
 
-```
-checking examples ... ERROR
-Running examples in ‘ecoengine-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: ee_photos
-> ### Title: ee_photos
-> ### Aliases: ee_photos
-> 
-> ### ** Examples
-> 
-> # Request all photos. This request will paginate.
-> # merced <- ee_photos(county = "Merced County")
->  ee_photos(page_size = 10)
-Search contains 74468 photos (downloading 1 of 1 pages 
-)
-
-  |                                                                            
-  |                                                                      |   0%
-  |                                                                            
-  |======================================================================| 100%Error in `$<-.data.frame`(`*tmp*`, "begin_date", value = numeric(0)) : 
-  replacement has 0 rows, data has 1
-Calls: ee_photos -> $<- -> $<-.data.frame
-Execution halted
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
 ## EcoGenetics (1.2.0-2)
 Maintainer: Leandro Roser <learoser@gmail.com>
 
 __OK__
 
-## edgar (1.0.2)
+## edgar (1.0.3)
 Maintainer: Gunratan Lonare <lonare.gunratan@gmail.com>
 
-__OK__
+```
+checking whether package ‘edgar’ can be installed ... ERROR
+Installation failed.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/edgar.Rcheck/00install.out’ for details.
+```
+```
+DONE
+Status: 1 ERROR
+```
 
 ## eeptools (0.9.0)
 Maintainer: Jared E. Knowles <jknowles@gmail.com>
@@ -2331,7 +2325,7 @@ checking whether package ‘eeptools’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘eeptools’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘eeptools’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/eeptools.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/eeptools.Rcheck/00install.out’ for details.
 ```
 ```
 checking Rd cross-references ... WARNING
@@ -2366,38 +2360,23 @@ Execution halted
 checking tests ... ERROR
 Running the tests in ‘tests/test-all.R’ failed.
 Last 13 lines of output:
-  13: f(..., self = self) at /Users/hadley/Documents/ggplot/ggplot/R/ggproto.r:112
-  14: check_required_aesthetics(self$geom$required_aes, c(names(data), names(self$aes_params)), 
-         snake_class(self$geom)) at /Users/hadley/Documents/ggplot/ggplot/R/layer.r:194
-  15: stop(name, " requires the following missing aesthetics: ", paste(missing_aes, collapse = ", "), 
-         call. = FALSE) at /Users/hadley/Documents/ggplot/ggplot/R/utilities.r:33
-  
-  testthat results ================================================================
-  OK: 503 SKIPPED: 0 FAILED: 2
-  1. Error: It returns the correct data.frame 
-  2. Error: Autoplot works as expected for linear models 
-  
-  Error: testthat unit tests failed
+  In addition: Warning messages:
+  1: In max(z) : no non-missing arguments to max; returning -Inf
+  2: In makenum(c) : NAs introduced by coercion
+  3: In max(c(NA, NA, NA, NA), na.rm = TRUE) :
+    no non-missing arguments to max; returning -Inf
+  4: In if (varclass %in% c("ordered", "factor", "character")) { :
+    the condition has length > 1 and only the first element will be used
+  5: In decomma(a) : NAs introduced by coercion
+  6: In decomma(b) : NAs introduced by coercion
+  7: In decomma(n) : NAs introduced by coercion
+  8: In decomma(n) : NAs introduced by coercion
+  9: In decomma(n) : NAs introduced by coercion
   Execution halted
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Loading required package: ggplot2
-Warning: replacing previous import by 'grid::arrow' when loading 'eeptools'
-Warning: replacing previous import by 'grid::unit' when loading 'eeptools'
-Note: the specification for S3 class "family" in package 'MatrixModels' seems equivalent to one from package 'lme4': not turning on duplicate class definitions for this class.
-Note: the specification for class "character or NULL" in package 'memisc' seems equivalent to one from package 'SparseM': not turning on duplicate class definitions for this class.
-Quitting from lines 186-189 (intro.Rmd) 
-Error: processing vignette 'intro.Rmd' failed with diagnostics:
-geom_hline requires the following missing aesthetics: yintercept
-Execution halted
-
-```
-```
 DONE
-Status: 2 ERRORs, 2 WARNINGs, 1 NOTE
+Status: 2 ERRORs, 2 WARNINGs
 ```
 
 ## EFDR (0.1.1)
@@ -2405,7 +2384,7 @@ Maintainer: Andrew Zammit-Mangion <andrewzm@gmail.com>
 
 __OK__
 
-## EffectLiteR (0.3-3)
+## EffectLiteR (0.4-1)
 Maintainer: Axel Mayer <amayer2010@gmail.com>
 
 __OK__
@@ -2423,7 +2402,7 @@ checking whether package ‘egcm’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘egcm’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘egcm’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/egcm.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/egcm.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -2478,24 +2457,24 @@ A B
 +             pre_pamr
 +     }
 + )
-15 Oct 17:39  Evaluating modeling performance...
-15 Oct 17:39    Repeat 1, fold 1
+09 Nov 18:53  Evaluating modeling performance...
+09 Nov 18:53    Repeat 1, fold 1
                 Result size is 6.91 KiB.
-                Estimated completion time is 17:39.
-15 Oct 17:39    Repeat 1, fold 2
-15 Oct 17:39    Repeat 1, fold 3
-15 Oct 17:39    Repeat 1, fold 4
-15 Oct 17:39    Repeat 1, fold 5
-15 Oct 17:39    Repeat 2, fold 1
-15 Oct 17:39    Repeat 2, fold 2
-15 Oct 17:39    Repeat 2, fold 3
-15 Oct 17:39    Repeat 2, fold 4
-15 Oct 17:39    Repeat 2, fold 5
-15 Oct 17:39    Repeat 3, fold 1
-15 Oct 17:39    Repeat 3, fold 2
-15 Oct 17:39    Repeat 3, fold 3
-15 Oct 17:39    Repeat 3, fold 4
-15 Oct 17:39    Repeat 3, fold 5
+                Estimated completion time is 18:53.
+09 Nov 18:53    Repeat 1, fold 2
+09 Nov 18:53    Repeat 1, fold 3
+09 Nov 18:53    Repeat 1, fold 4
+09 Nov 18:53    Repeat 1, fold 5
+09 Nov 18:53    Repeat 2, fold 1
+09 Nov 18:53    Repeat 2, fold 2
+09 Nov 18:53    Repeat 2, fold 3
+09 Nov 18:53    Repeat 2, fold 4
+09 Nov 18:53    Repeat 2, fold 5
+09 Nov 18:53    Repeat 3, fold 1
+09 Nov 18:53    Repeat 3, fold 2
+09 Nov 18:53    Repeat 3, fold 3
+09 Nov 18:53    Repeat 3, fold 4
+09 Nov 18:53    Repeat 3, fold 5
 > message(sum(sapply(result, inherits, "error")),
 +         " folds did not complete successfully!")
 4 folds did not complete successfully!
@@ -2625,7 +2604,7 @@ checking whether package ‘EpiDynamics’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘EpiDynamics’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘EpiDynamics’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/EpiDynamics.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/EpiDynamics.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -2705,355 +2684,30 @@ Bug reports: https://github.com/hadley/evaluate/issues
 
 __OK__
 
-## evolqg (0.1-9)
+## evolqg (0.2-1)
 Maintainer: Diogo Melo <diogro@usp.br>  
 Bug reports: https://github.com/lem-usp/evolqg/issues
 
-```
-checking examples ... ERROR
-Running examples in ‘evolqg-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: Rarefaction
-> ### Title: Rarefaction analysis via ressampling
-> ### Aliases: PlotRarefaction Rarefaction
-> ### Keywords: bootstap rarefaction repeatability
-> 
-> ### ** Examples
-> 
-> ind.data <- iris[1:50,1:4]
-> 
-> results.RS <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5, iterations = 100)
-> results.Mantel <- Rarefaction(ind.data, MatrixCor, correlation = TRUE,
-+                               num.reps = 5, iterations = 100)
-> results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5, iterations = 100)
-> results.PCA <- Rarefaction(ind.data, PCAsimilarity, num.reps = 5, iterations = 100)
-> 
-> #Multiple threads can be used with some foreach backend library, like doMC or doParallel
-> #library(doParallel)
-> ##Windows:
-> #cl <- makeCluster(2)
-> #registerDoParallel(cl)
-> ##Mac and Linux:
-> #registerDoParallel(cores = 2)
-> #results.KrzCov <- Rarefaction(ind.data, KrzCor, num.reps = 5, parallel = TRUE)
-> 
-> #Easy access
-> library(reshape2)
-> melt(results.RS)
-        value L1
-1   0.8711419  1
-2   0.9375862  1
-3   0.1275785  1
-4   0.9881679  1
-5   0.7960694  1
-6   0.9789168  2
-7   0.9701507  2
-8   0.7028587  2
-9   0.9707332  2
-10  0.9654603  2
-11  0.5048638  3
-12  0.5315258  3
-13  0.9354292  3
-14  0.9696264  3
-15  0.6776366  3
-16  0.9200138  4
-17  0.8326970  4
-18  0.9079901  4
-19  0.9812691  4
-20  0.8681309  4
-21  0.9401457  5
-22  0.9667612  5
-23  0.9730222  5
-24  0.9074775  5
-25  0.7969072  5
-26  0.9511478  6
-27  0.8649195  6
-28  0.8729060  6
-29  0.9805820  6
-30  0.9291425  6
-31  0.8643381  7
-32  0.9803881  7
-33  0.9679119  7
-34  0.9493757  7
-35  0.9241382  7
-36  0.9493848  8
-37  0.9615401  8
-38  0.9824975  8
-39  0.9470300  8
-40  0.9965838  8
-41  0.9739871  9
-42  0.8880790  9
-43  0.9973845  9
-44  0.9874541  9
-45  0.9923719  9
-46  0.9901877 10
-47  0.9175344 10
-48  0.9561266 10
-49  0.9084606 10
-50  0.9912193 10
-51  0.9506067 11
-52  0.9882129 11
-53  0.9352957 11
-54  0.9719490 11
-55  0.9556577 11
-56  0.9431721 12
-57  0.9793228 12
-58  0.9448131 12
-59  0.9827488 12
-60  0.9699028 12
-61  0.9820660 13
-62  0.9382103 13
-63  0.9633454 13
-64  0.9893409 13
-65  0.9866354 13
-66  0.9791086 14
-67  0.9896877 14
-68  0.9482763 14
-69  0.9864740 14
-70  0.9619848 14
-71  0.9467598 15
-72  0.9177348 15
-73  0.9933600 15
-74  0.9941690 15
-75  0.9965563 15
-76  0.9731473 16
-77  0.9652501 16
-78  0.9538527 16
-79  0.9796818 16
-80  0.9898807 16
-81  0.9936495 17
-82  0.9457624 17
-83  0.9977365 17
-84  0.9880955 17
-85  0.9899556 17
-86  0.9513739 18
-87  0.9803870 18
-88  0.9964493 18
-89  0.9523389 18
-90  0.9954350 18
-91  0.9951494 19
-92  0.9777309 19
-93  0.9672977 19
-94  0.9976506 19
-95  0.9939515 19
-96  0.9933019 20
-97  0.9912479 20
-98  0.9945743 20
-99  0.9931095 20
-100 0.9862204 20
-101 0.9964639 21
-102 0.9857692 21
-103 0.9684279 21
-104 0.9804915 21
-105 0.9859946 21
-106 0.9971380 22
-107 0.9851838 22
-108 0.9848418 22
-109 0.9870261 22
-110 0.9846950 22
-111 0.9777007 23
-112 0.9969293 23
-113 0.9847680 23
-114 0.9906356 23
-115 0.9763132 23
-116 0.9941621 24
-117 0.9942443 24
-118 0.9717165 24
-119 0.9808515 24
-120 0.9811217 24
-121 0.9787336 25
-122 0.9756102 25
-123 0.9677741 25
-124 0.9953170 25
-125 0.9925051 25
-126 0.9933557 26
-127 0.9951159 26
-128 0.9821851 26
-129 0.9982798 26
-130 0.9611614 26
-131 0.9867807 27
-132 0.9690558 27
-133 0.9880727 27
-134 0.9992711 27
-135 0.9918338 27
-136 0.9549263 28
-137 0.9802328 28
-138 0.9921057 28
-139 0.9878432 28
-140 0.9734731 28
-141 0.9771753 29
-142 0.9801565 29
-143 0.9910663 29
-144 0.9833305 29
-145 0.9900968 29
-146 0.9781557 30
-147 0.9945877 30
-148 0.9815174 30
-149 0.9973128 30
-150 0.9768159 30
-151 0.9966064 31
-152 0.9898946 31
-153 0.9546872 31
-154 0.9861624 31
-155 0.9758398 31
-156 0.9934624 32
-157 0.9970472 32
-158 0.9876583 32
-159 0.9600919 32
-160 0.9489179 32
-161 0.9965148 33
-162 0.9892347 33
-163 0.9973581 33
-164 0.9870640 33
-165 0.9967527 33
-166 0.9925772 34
-167 0.9970558 34
-168 0.9932622 34
-169 0.9942743 34
-170 0.9966920 34
-171 0.9733735 35
-172 0.9925029 35
-173 0.9878932 35
-174 0.9901267 35
-175 0.9921262 35
-176 0.9919480 36
-177 0.9912185 36
-178 0.9869917 36
-179 0.9826715 36
-180 0.9719686 36
-181 0.9975697 37
-182 0.9971541 37
-183 0.9923497 37
-184 0.9957337 37
-185 0.9942649 37
-186 0.9700449 38
-187 0.9885127 38
-188 0.9924232 38
-189 0.9970670 38
-190 0.9942835 38
-191 0.9982293 39
-192 0.9948001 39
-193 0.9948088 39
-194 0.9984600 39
-195 0.9868021 39
-196 0.9904519 40
-197 0.9731091 40
-198 0.9739364 40
-199 0.9668586 40
-200 0.9785129 40
-201 0.9896844 41
-202 0.9980030 41
-203 0.9876827 41
-204 0.9794370 41
-205 0.9894081 41
-206 0.9968275 42
-207 0.9988710 42
-208 0.9957601 42
-209 0.9734128 42
-210 0.9920208 42
-211 0.9775573 43
-212 0.9912456 43
-213 0.9874790 43
-214 0.9961684 43
-215 0.9772753 43
-216 0.9966432 44
-217 0.9974951 44
-218 0.9939085 44
-219 0.9973505 44
-220 0.9888212 44
-221 0.9838261 45
-222 0.9962038 45
-223 0.9856424 45
-224 0.9909363 45
-225 0.9726848 45
-226 0.9973134 46
-227 0.9812429 46
-228 0.9959824 46
-229 0.9978854 46
-230 0.9963704 46
-231 0.9893706 47
-232 0.9988725 47
-233 0.9881617 47
-234 0.9811206 47
-235 0.9897931 47
-236 0.9970695 48
-237 0.9838576 48
-238 0.9990941 48
-239 0.9899728 48
-240 0.9948575 48
-241 0.9985418 49
-242 0.9978309 49
-243 0.9991817 49
-244 0.9936696 49
-245 0.9905422 49
-> 
-> #Plotting using ggplot2
-> a <- PlotRarefaction(results.RS, "Random Skewers")
-Error: Attempted to create layer with no stat.
-Execution halted
-```
-```
-checking tests ... ERROR
-Running the tests in ‘tests/run-all.R’ failed.
-Last 13 lines of output:
-  Component "plots": Component 35: Component 8: Component 8: Attributes: < Component 1: Modes: character, numeric >
-  Component "plots": Component 35: Component 8: Component 8: Attributes: < Component 1: target is character, current is numeric >
-  Component "plots": Component 35: Component 8: Component 8: current is not list-like
-  Component "plots": Component 36: Component 8: Component 7: Attributes: < Length mismatch: comparison on first 1 components >
-  Component "plots": Component 36: Component 8: Component 8: Modes: list, numeric
-  Component "plots": Component 36: Component 8: Component 8: Lengths: 10, 400
-  Component "plots": Component 36: Component 8: Component 8: names for target but not for current
-  Component "plots": Component 36: Component 8: Component 8: Attributes: < Names: 1 string mismatch >
-  Component "plots": Component 36: Component 8: Component 8: Attributes: < Component 1: Modes: character, numeric >
-  Component "plots": Component 36: Component 8: Component 8: Attributes: < Component 1: target is character, current is numeric >
-  Component "plots": Component 36: Component 8: Component 8: current is not list-like
-  Error: Test failures
-  Execution halted
-```
-```
-DONE
-Status: 2 ERRORs
-```
+__OK__
 
 ## ExtDist (0.6-3)
 Maintainer: A. Jonathan R. Godfrey <a.j.godfrey@massey.ac.nz>
 
 __OK__
 
-## extracat (1.7-3)
-Maintainer: Alexander Pilhoefer <alexander.pilhoefer@gmail.com>
+## eyetrackingR (0.1.0)
+Maintainer: Jacob Dink <jacobwdink@gmail.com>  
+Bug reports: https://github.com/jwdink/eyetrackingR/issues
 
 ```
-checking whether package ‘extracat’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: replacing previous import by ‘ggplot2::unit’ when loading ‘extracat’
-  Warning: replacing previous import by ‘ggplot2::arrow’ when loading ‘extracat’
-  Warning: replacing previous import by ‘scales::alpha’ when loading ‘extracat’
-  Warning: replacing previous import by ‘data.table::melt’ when loading ‘extracat’
-  Warning: replacing previous import by ‘data.table::dcast’ when loading ‘extracat’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/extracat.Rcheck/00install.out’ for details.
-```
-```
-checking examples ... ERROR
-Running examples in ‘extracat-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: ahist
-> ### Title: Histogram using active bins
-> ### Aliases: ahist
-> 
-> ### ** Examples
-> 
-> ahist(rnorm(100))
-Error: Unknown parameters: binwidth
-Execution halted
+checking R code for possible problems ... NOTE
+plot.time_sequence_data: warning in stat_summary(fun.dat = mean_se,
+  geom = "ribbon", alpha = 0.25, colour = NA): partial argument match
+  of 'fun.dat' to 'fun.data'
 ```
 ```
 DONE
-Status: 1 ERROR, 1 WARNING
+Status: 1 NOTE
 ```
 
 ## ez (4.2-2)
@@ -3062,7 +2716,7 @@ Maintainer: Michael A. Lawrence <mike.lwrnc@gmail.com>
 ```
 checking whether package ‘ez’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/ez.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/ez.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -3078,37 +2732,8 @@ checking DESCRIPTION meta-information ... NOTE
 Malformed Description field: should contain one or more complete sentences.
 ```
 ```
-checking running R code from vignettes ... ERROR
-Errors in running code in vignettes:
-when running code in ‘vignette.Rnw’
-  ...
-13   hat(mu) 60     1  0 -0.0177  0 -0.0177 0.1257 0.1270           -Inf
-14   hat(mu) 60     1  2  1.9982  2 -0.0018 0.1325 0.1325        -0.0009
-15   hat(mu) 60     3  0 -0.0137  0 -0.0137 0.3130 0.3133           -Inf
-16   hat(mu) 60     3  2  2.0764  2  0.0764 0.3529 0.3611         0.0382
-
-> print(plot(ezsim_basic, return_print = TRUE)[[1]])
-
-  When sourcing ‘vignette.R’:
-Error: argument "value" is missing, with no default
-Execution halted
-
-```
-```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-
-Error: processing vignette 'vignette.Rnw' failed with diagnostics:
- chunk 4 
-Error in paste(variable, value, sep = "==") : 
-  argument "value" is missing, with no default
-Execution halted
-
-```
-```
 DONE
-Status: 1 ERROR, 2 NOTEs
+Status: 1 NOTE
 ```
 
 ## FAOSTAT (2.0)
@@ -3118,7 +2743,7 @@ Maintainer: Filippo Gheri <filippo.gheri@fao.org>
 checking whether package ‘FAOSTAT’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘FAOSTAT’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/FAOSTAT.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/FAOSTAT.Rcheck/00install.out’ for details.
 ```
 ```
 checking data for non-ASCII characters ... NOTE
@@ -3176,7 +2801,7 @@ checking whether package ‘fheatmap’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘fheatmap’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘fheatmap’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/fheatmap.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/fheatmap.Rcheck/00install.out’ for details.
 ```
 ```
 checking examples ... ERROR
@@ -3210,7 +2835,7 @@ Maintainer: Felix Yanhui Fan <nolanfyh@gmail.com>
 checking whether package ‘FinCal’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘FinCal’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/FinCal.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/FinCal.Rcheck/00install.out’ for details.
 ```
 ```
 checking DESCRIPTION meta-information ... NOTE
@@ -3232,7 +2857,7 @@ Bug reports: https://github.com/sahilseth/flowr/issues
 
 __OK__
 
-## forestFloor (1.8.6)
+## forestFloor (1.8.8)
 Maintainer: Soeren Havelund Welling <SOWE@DTU.DK>
 
 __OK__
@@ -3281,7 +2906,7 @@ The error most likely occurred in:
 > p <- ggplot(data.frame(age,estreg))
 > p + geom_smooth(aes(x=age,y=estreg))
 Error in loadNamespace(name) : there is no package called ‘mgcv’
-Calls: print ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+Calls: <Anonymous> ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
 Execution halted
 ```
 ```
@@ -3297,15 +2922,7 @@ __OK__
 ## frontiles (1.2)
 Maintainer: Thibault Laurent <thibault.laurent@univ-tlse1.fr>
 
-```
-checking whether package ‘frontiles’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/frontiles.Rcheck/00install.out’ for details.
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
 ## fSRM (0.6.1)
 Maintainer: Felix Schönbrodt <felix@nicebread.de>
@@ -3315,7 +2932,7 @@ checking whether package ‘fSRM’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘fSRM’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘fSRM’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/fSRM.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/fSRM.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -3325,7 +2942,15 @@ Status: 1 WARNING
 ## G2Sd (2.1.4)
 Maintainer: Regis K. Gallon <reg.gallon@gmail.com>
 
-__OK__
+```
+checking whether package ‘G2Sd’ can be installed ... ERROR
+Installation failed.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/G2Sd.Rcheck/00install.out’ for details.
+```
+```
+DONE
+Status: 1 ERROR
+```
 
 ## gapmap (0.0.2)
 Maintainer: Ryo Sakai <ryo.sakai@esat.kuleuven.be>
@@ -3335,7 +2960,7 @@ checking whether package ‘gapmap’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘gapmap’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘gapmap’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/gapmap.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/gapmap.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -3414,35 +3039,8 @@ Error in library(snpStats) : there is no package called ‘snpStats’
 Execution halted
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Loading required package: dplyr
-
-Attaching package: 'dplyr'
-
-The following objects are masked from 'package:stats':
-
-    filter, lag
-
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
-
-Loading required package: doParallel
-Loading required package: foreach
-Loading required package: iterators
-Loading required package: parallel
-Loading required package: ggplot2
-Quitting from lines 62-69 (GenCAT-vignette.Rmd) 
-Error: processing vignette 'GenCAT-vignette.Rmd' failed with diagnostics:
-unable to find required package 'snpStats'
-Execution halted
-
-```
-```
 DONE
-Status: 1 ERROR, 4 NOTEs
+Status: 1 ERROR, 3 NOTEs
 ```
 
 ## gender (0.5.1)
@@ -3471,7 +3069,7 @@ checking whether package ‘gettingtothebottom’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘gettingtothebottom’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘gettingtothebottom’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/gettingtothebottom.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/gettingtothebottom.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -3486,7 +3084,7 @@ Bug reports: https://github.com/azvoleff/gfcanalysis/issues
 checking whether package ‘gfcanalysis’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::unit’ when loading ‘gfcanalysis’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/gfcanalysis.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/gfcanalysis.Rcheck/00install.out’ for details.
 ```
 ```
 checking DESCRIPTION meta-information ... NOTE
@@ -3505,11 +3103,15 @@ checking whether package ‘GGally’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘GGally’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘GGally’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/GGally.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/GGally.Rcheck/00install.out’ for details.
 ```
 ```
 checking DESCRIPTION meta-information ... NOTE
 Malformed Title field: should not end in a period.
+```
+```
+checking dependencies in R code ... NOTE
+No Java runtime present, requesting install.
 ```
 ```
 checking examples ... ERROR
@@ -3528,12 +3130,12 @@ The error most likely occurred in:
 >  plotMatrix2 <- ggpairs(tips[,3:2], upper = list(combo = "denstrip"))
 >  getPlot(plotMatrix2, 1, 2)
 Error in eval(expr, envir, enclos) : object 'density' not found
-Calls: print ... unique -> unlist -> lapply -> lapply -> FUN -> eval
+Calls: <Anonymous> ... unique -> unlist -> lapply -> lapply -> FUN -> eval
 Execution halted
 ```
 ```
 DONE
-Status: 1 ERROR, 1 WARNING, 1 NOTE
+Status: 1 ERROR, 1 WARNING, 2 NOTEs
 ```
 
 ## ggdendro (0.1-17)
@@ -3558,7 +3160,7 @@ Maintainer: Lindsay Rutter <lrutter@iastate.edu>
 
 __OK__
 
-## ggExtra (0.3.0)
+## ggExtra (0.3.1)
 Maintainer: Dean Attali <daattali@gmail.com>  
 Bug reports: https://github.com/daattali/ggExtra/issues
 
@@ -3574,7 +3176,7 @@ Packages suggested but not available for checking: ‘dlm’ ‘MSwM’ ‘lfda�
 ```
 checking whether package ‘ggfortify’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/ggfortify.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/ggfortify.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -3588,7 +3190,7 @@ Bug reports: https://github.com/dkahle/ggmap/issues
 ```
 checking whether package ‘ggmap’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/ggmap.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/ggmap.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -3625,7 +3227,7 @@ The error most likely occurred in:
 > # histograms instead of univariate densities on diagonal
 > ggs_pairs(ggs(s), diag=list(continuous="bar"))
 Error in eval(expr, envir, enclos) : object 'density' not found
-Calls: print ... unique -> unlist -> lapply -> lapply -> FUN -> eval
+Calls: <Anonymous> ... unique -> unlist -> lapply -> lapply -> FUN -> eval
 Execution halted
 ```
 ```
@@ -3681,35 +3283,8 @@ Error: Unknown parameters: xintercept
 Execution halted
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-
-Attaching package: 'dplyr'
-
-The following objects are masked from 'package:stats':
-
-    filter, lag
-
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
-
-
- randomForestSRC 1.6.1 
- 
- Type rfsrc.news() to see new features, changes, and bug fixes. 
- 
-
-Quitting from lines 246-256 (randomForestSRC-Regression.Rnw) 
-Error: processing vignette 'randomForestSRC-Regression.Rnw' failed with diagnostics:
-subscript out of bounds
-Execution halted
-
-```
-```
 DONE
-Status: 1 ERROR, 2 NOTEs
+Status: 1 ERROR, 1 NOTE
 ```
 
 ## ggROC (1.0)
@@ -3752,7 +3327,7 @@ checking whether package ‘ggsn’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘ggsn’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘ggsn’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/ggsn.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/ggsn.Rcheck/00install.out’ for details.
 ```
 ```
 checking examples ... ERROR
@@ -3778,7 +3353,7 @@ rgdal: version: 1.0-4, (SVN revision 548)
 > dsn <- system.file('extdata', package = 'ggsn')
 > map <- readOGR(dsn, 'sp')
 OGR data source with driver: ESRI Shapefile 
-Source: "/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/ggsn.Rcheck/ggsn/extdata", layer: "sp"
+Source: "/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/ggsn.Rcheck/ggsn/extdata", layer: "sp"
 with 96 features
 It has 2 fields
 > map@data$id <- 1:nrow(map@data)
@@ -3798,7 +3373,7 @@ Maintainer: Garrett Grolemund <garrett@rstudio.com>
 ```
 checking whether package ‘ggsubplot’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/ggsubplot.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/ggsubplot.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -3823,7 +3398,7 @@ The error most likely occurred in:
 > data(maps)
 > maps[[1]]
 Error in match.fun(FUN) : object 'scale_clone' not found
-Calls: print ... ggplot_build -> plot_clone -> <Anonymous> -> lapply -> match.fun
+Calls: <Anonymous> ... ggplot_build -> plot_clone -> <Anonymous> -> lapply -> match.fun
 Execution halted
 ```
 ```
@@ -3837,7 +3412,7 @@ Maintainer: Nicholas Hamilton <nick@ggtern.com>
 ```
 checking whether package ‘ggtern’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/ggtern.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/ggtern.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -3851,7 +3426,7 @@ Bug reports: http://github.com/jrnold/ggthemes
 ```
 checking whether package ‘ggthemes’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/ggthemes.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/ggthemes.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -3888,14 +3463,23 @@ __OK__
 Maintainer: Stanislaw Jastrzebski <staszek.jastrzebski@gmail.com>  
 Bug reports: https://github.com/gmum/gmum.r/issues
 
+__OK__
+
+## gmwm (1.0.0)
+Maintainer: Stephane Guerrier <stephane@illinois.edu>  
+Bug reports: https://github.com/SMAC-Group/gmwm/issues
+
 ```
-checking whether package ‘gmum.r’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/gmum.r.Rcheck/00install.out’ for details.
+checking whether package ‘gmwm’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘grid::arrow’ when loading ‘gmwm’
+  Warning: replacing previous import by ‘grid::unit’ when loading ‘gmwm’
+  Warning: replacing previous import by ‘scales::alpha’ when loading ‘gmwm’
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/gmwm.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 1 WARNING
 ```
 
 ## googlesheets (0.1.0)
@@ -3999,7 +3583,7 @@ checking whether package ‘granovaGG’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘granovaGG’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘granovaGG’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/granovaGG.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/granovaGG.Rcheck/00install.out’ for details.
 ```
 ```
 checking examples ... ERROR
@@ -4055,7 +3639,7 @@ Maintainer: Brahim Brahim <brahim.brahim@bigdatavisualizations.com>
 checking whether package ‘GraphPCA’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘GraphPCA’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/GraphPCA.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/GraphPCA.Rcheck/00install.out’ for details.
 ```
 ```
 checking examples ... ERROR
@@ -4121,7 +3705,7 @@ Maintainer: Paul Murrell <p.murrell@auckland.ac.nz>
 ```
 checking whether package ‘gridDebug’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/gridDebug.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/gridDebug.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -4137,33 +3721,61 @@ __OK__
 Maintainer: "terrance savitsky" <tds151@gmail.com>
 
 ```
-checking whether package ‘growcurves’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/growcurves.Rcheck/00install.out’ for details.
+checking whether package ‘growcurves’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘scales::alpha’ when loading ‘growcurves’
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/growcurves.Rcheck/00install.out’ for details.
+```
+```
+checking DESCRIPTION meta-information ... NOTE
+Malformed Title field: should not end in a period.
+```
+```
+checking compiled code ... NOTE
+File ‘growcurves/libs/growcurves.so’:
+  Found ‘_srand’, possibly from ‘srand’ (C)
+    Objects: ‘DPre.o’, ‘ddp.o’, ‘lgm.o’, ‘mmC.o’, ‘mmCchol.o’,
+      ‘mmCmiar.o’, ‘mmCmvplusDP.o’, ‘mmCplusDP.o’, ‘mmI.o’,
+      ‘mmIgroup.o’, ‘mmIgroupDP.o’, ‘mmIplusDP.o’, ‘mmmult.o’
+
+Compiled code should not call entry points which might terminate R nor
+write to stdout/stderr instead of to the console, nor the system RNG.
+
+See ‘Writing portable packages’ in the ‘Writing R Extensions’ manual.
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 1 WARNING, 2 NOTEs
 ```
 
 ## growfunctions (0.11)
 Maintainer: Terrance Savitsky <tds151@gmail.com>
 
 ```
-checking whether package ‘growfunctions’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/growfunctions.Rcheck/00install.out’ for details.
+checking whether package ‘growfunctions’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘scales::alpha’ when loading ‘growfunctions’
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/growfunctions.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 1 WARNING
 ```
 
 ## gsDesign (2.9-3)
 Maintainer: Keaven Anderson <keaven_anderson@merck.com>
 
 ```
-checking S3 generic/method consistency ... NOTE
+checking S3 generic/method consistency ... WARNING
+xtable:
+  function(x, caption, label, align, digits, display, auto, ...)
+xtable.gsSurv:
+  function(x, caption, label, align, digits, display, footnote, fnwid,
+           timename, ...)
+
+See section ‘Generic functions and methods’ in the ‘Writing R
+Extensions’ manual.
+
 Found the following apparent S3 methods exported but not registered:
   plot.binomialSPRT plot.gsBinomialExact plot.gsDesign
   plot.gsProbability plot.ssrCP print.eEvents print.gsBoundSummary
@@ -4186,21 +3798,13 @@ Some ‘make’ programs ignore lines not ending in LF.
 ```
 ```
 DONE
-Status: 3 NOTEs
+Status: 1 WARNING, 2 NOTEs
 ```
 
 ## GSE (3.2.2)
 Maintainer: Andy Leung <andy.leung@stat.ubc.ca>
 
-```
-checking whether package ‘GSE’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/GSE.Rcheck/00install.out’ for details.
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
 ## hazus (0.1)
 Maintainer: Gopi Goteti <my.ration.shop@gmail.com>
@@ -4217,7 +3821,7 @@ Maintainer: Cheng Fan <raja8885@hotmail.com>
 
 __OK__
 
-## HistData (0.7-5)
+## HistData (0.7-6)
 Maintainer: Michael Friendly <friendly@yorku.ca>
 
 ```
@@ -4237,7 +3841,7 @@ checking whether package ‘HistDAWass’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘HistDAWass’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘HistDAWass’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/HistDAWass.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/HistDAWass.Rcheck/00install.out’ for details.
 ```
 ```
 checking examples ... ERROR
@@ -4264,46 +3868,7 @@ Status: 1 ERROR, 1 WARNING
 Maintainer: Lincoln Mullen <lincoln@lincolnmullen.com>  
 Bug reports: https://github.com/ropensci/historydata/issues
 
-```
-checking examples ... ERROR
-Running examples in ‘historydata-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: early_colleges
-> ### Title: Early colleges in the United States
-> ### Aliases: early_colleges
-> ### Keywords: datasets
-> 
-> ### ** Examples
-> 
-> head(early_colleges)
-                 college         original_name         city state established
-1                Harvard                  <NA>    Cambridge    MA        1636
-2       William and Mary                  <NA> Williamsburg    VA        1693
-3                   Yale                  <NA>    New Haven    CT        1701
-4 Pennsylvania, Univ. of                  <NA> Philadelphia    PA        1740
-5              Princeton College of New Jersey    Princeton    NJ        1746
-6               Columbia        King's College     New York    NY        1754
-                           sponsorship
-1 Congregational; after 1805 Unitarian
-2                             Anglican
-3                       Congregational
-4                    Nondenominational
-5                         Presbyterian
-6                             Anglican
-> if(require(ggplot2)) {
-+   ggplot(early_colleges, aes(x = established)) + geom_bar(binwidth = 5) +
-+   ggtitle("Founding Dates of Early American Colleges")
-+ }
-Loading required package: ggplot2
-Error: Unknown parameters: binwidth
-Execution halted
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
 ## HiveR (0.2.44)
 Maintainer: Bryan A. Hanson <hanson@depauw.edu>  
@@ -4315,9 +3880,35 @@ __OK__
 Maintainer: Adam Loy <loyad01@gmail.com>
 
 ```
-checking whether package ‘HLMdiag’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/HLMdiag.Rcheck/00install.out’ for details.
+checking examples ... ERROR
+Running examples in ‘HLMdiag-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: dotplot_diag
+> ### Title: Dot plots for influence diagnostics
+> ### Aliases: dotplot_diag
+> ### Keywords: hplot
+> 
+> ### ** Examples
+> 
+> library(lme4)
+Loading required package: Matrix
+> fm <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
+> 
+> # Subject level deletion and diagnostics
+> subject.del  <- case_delete(model = fm, group = "Subject", type = "both")
+> subject.diag <- diagnostics(subject.del)
+> 
+> dotplot_diag(x = COOKSD, index = IDS, data = subject.diag[["fixef_diag"]],
++              name = "cooks.distance", modify = FALSE,
++              xlab = "Subject", ylab = "Cook's Distance")
+> 
+> dotplot_diag(x = sigma2, , index = IDS, data = subject.diag[["varcomp_diag"]],
++              name = "rvc", modify = "dotplot", cutoff = "internal",
++              xlab = "Subject", ylab = "Relative Variance Change")
+Error: Unknown parameters: NA
+Execution halted
 ```
 ```
 DONE
@@ -4330,7 +3921,7 @@ Maintainer: Frank E Harrell Jr <f.harrell@vanderbilt.edu>
 ```
 checking whether package ‘Hmisc’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/Hmisc.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/Hmisc.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -4349,7 +3940,7 @@ Maintainer: Claudia Beleites <chemometrie@beleites.de>
 checking whether package ‘hyperSpec’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::unit’ when loading ‘hyperSpec’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/hyperSpec.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/hyperSpec.Rcheck/00install.out’ for details.
 ```
 ```
 checking R code for possible problems ... NOTE
@@ -4385,7 +3976,7 @@ Maintainer: Angelos Markos <amarkos@gmail.com>
 
 __OK__
 
-## ifaTools (0.6)
+## ifaTools (0.8)
 Maintainer: Joshua N. Pritikin <jpritikin@pobox.com>
 
 __OK__
@@ -4415,7 +4006,7 @@ checking whether package ‘Information’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘Information’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘Information’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/Information.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/Information.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -4491,18 +4082,8 @@ checking DESCRIPTION meta-information ... NOTE
 Malformed Title field: should not end in a period.
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Quitting from lines 44-48 (cars.Rmd) 
-Error: processing vignette 'cars.Rmd' failed with diagnostics:
-Unknown parameters: method, formula
-Execution halted
-
-```
-```
 DONE
-Status: 2 NOTEs
+Status: 1 NOTE
 ```
 
 ## kobe (1.3.2)
@@ -4512,11 +4093,18 @@ Maintainer: Laurence Kell <laurie.kell@iccat.int>
 checking whether package ‘kobe’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::unit’ when loading ‘kobe’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/kobe.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/kobe.Rcheck/00install.out’ for details.
+```
+```
+checking R code for possible problems ... NOTE
+kobe2sm,data.frame : .local: no visible global function definition for
+  ‘kobe2smFn’
+kobe,data.frame-missing : .local : <anonymous>: no visible global
+  function definition for ‘kobeFn’
 ```
 ```
 DONE
-Status: 1 WARNING
+Status: 1 WARNING, 1 NOTE
 ```
 
 ## Lahman (4.0-1)
@@ -4563,7 +4151,7 @@ Found the following significant warnings:
   gibbs.c:26:1: warning: control may reach end of non-void function [-Wreturn-type]
 Found the following additional warnings:
   gibbs.c:26:1: warning: control may reach end of non-void function [-Wreturn-type]
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/lda.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/lda.Rcheck/00install.out’ for details.
 ```
 ```
 checking DESCRIPTION meta-information ... NOTE
@@ -4895,24 +4483,8 @@ Execution halted
 
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Loading required package: grid
-Loading required package: chopsticks
-Warning in library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
-  there is no package called ‘chopsticks’
-
-Error: processing vignette 'addTracks.Rnw' failed with diagnostics:
- chunk 3 (label = fig1com) 
-Error in LDheatmap(GIMAP5.CEU$snp.data, GIMAP5.CEU$snp.support$Position,  : 
-  could not find function "ld.snp"
-Execution halted
-
-```
-```
 DONE
-Status: 1 ERROR, 1 WARNING, 4 NOTEs
+Status: 1 ERROR, 1 WARNING, 3 NOTEs
 ```
 
 ## learnstats (0.1.1)
@@ -4925,7 +4497,7 @@ Maintainer: Christopher Steele <c.steele.11@ucl.ac.uk>
 
 __OK__
 
-## likert (1.2)
+## likert (1.3.1)
 Maintainer: Jason Bryer <jason@bryer.org>  
 Bug reports: https://github.com/jbryer/likert/issues
 
@@ -4934,17 +4506,7 @@ checking whether package ‘likert’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘likert’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘likert’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/likert.Rcheck/00install.out’ for details.
-```
-```
-checking DESCRIPTION meta-information ... NOTE
-Malformed Description field: should contain one or more complete sentences.
-```
-```
-checking dependencies in R code ... NOTE
-'library' or 'require' call to ‘shiny’ in package code.
-  Please use :: or requireNamespace() instead.
-  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/likert.Rcheck/00install.out’ for details.
 ```
 ```
 checking R code for possible problems ... NOTE
@@ -4960,13 +4522,21 @@ checking data for non-ASCII characters ... NOTE
 ```
 ```
 DONE
-Status: 1 WARNING, 4 NOTEs
+Status: 1 WARNING, 2 NOTEs
 ```
 
 ## llama (0.8.1)
 Maintainer: Lars Kotthoff <lars.kotthoff@insight-centre.org>
 
-__OK__
+```
+checking whether package ‘llama’ can be installed ... ERROR
+Installation failed.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/llama.Rcheck/00install.out’ for details.
+```
+```
+DONE
+Status: 1 ERROR
+```
 
 ## lme4 (1.1-10)
 Maintainer: Ben Bolker <bbolker+lme4@gmail.com>  
@@ -4980,39 +4550,8 @@ checking installed package size ... NOTE
     testdata   1.5Mb
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Computing bootstrap confidence intervals ...
-Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
-  Running 'texi2dvi' on 'lmer.tex' failed.
-LaTeX errors:
-! Undefined control sequence.
-l.15 x<9c><ed>\Mh
-           ^^TK^^P<ae><97>(q$<ee>؈!.L6^^L/($oYX^^Hx^^H<eb>!<a0>'o<de><<eb>ٓ^^A/<a2>O<f0>]ċ^^G<f5>^^]<84><e7>A...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-! LaTeX Error: Missing \begin{document}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-! Missing $ inserted.
-<inserted text> 
-                $
-l.16 ...F<a0><ba>v<ed>Zggg<ad>V{<fd><fa>5^^Q9<8e>388866<a6><94><8a><e3>^^X<fd>^^]<c7><c1><83><ae>^
-                                                  <bd><9a>J<a5>l<db>v^^\^^G<9f>J<a9><87>^^O^^_<c6>q|...
-! Extra }, or forgotten $.
-l.17 Ԓ<da>[}
-          <b8>ӄ<f6><a0><9c>0^^L<89>(<9b><cd><e2>^^A<98><ce>0^^L<85>^^BOm<b9>\^^^^^Z^^Z<8a><a2><88><a7>?<9b><cd>"@a<ce>0<8e>eYP{<a1>P<c0>O<<c8><e3>...
-I've deleted a group-closing 
-Calls: buildVignettes -> texi2pdf -> texi2dvi
-Execution halted
-
-```
-```
 DONE
-Status: 2 NOTEs
+Status: 1 NOTE
 ```
 
 ## lmerTest (2.0-29)
@@ -5031,7 +4570,7 @@ Maintainer: Tore Selland Kleppe <tore.kleppe@uis.no>
 ```
 checking whether package ‘localgauss’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/localgauss.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/localgauss.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -5120,7 +4659,7 @@ checking whether package ‘lsbclust’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘lsbclust’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘lsbclust’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/lsbclust.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/lsbclust.Rcheck/00install.out’ for details.
 ```
 ```
 checking R code for possible problems ... NOTE
@@ -5156,145 +4695,7 @@ Status: 1 ERROR, 1 WARNING, 1 NOTE
 ## lsl (0.5.0)
 Maintainer: Po-Hsien Huang <psyphh@gmail.com>
 
-```
-checking examples ... ERROR
-Running examples in ‘lsl-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: lslSEM-class
-> ### Title: A Reference Class for Learning a SEM model via penalized
-> ###   likelihood.
-> ### Aliases: lslSEM lslSEM-class
-> 
-> ### ** Examples
-> 
-> #create a P x M population factor loading matrix#
-> Ld0 <- diag(1, 9) %x% matrix(c(.8,.75,.8), 3, 1)
-> 
-> #create a M x M population path coefficients matrix#
-> Bt0 <- matrix(0, 9, 9)
-> Bt0[2, 1] = Bt0[3, 2] = Bt0[5, 4] = Bt0[6, 5] = Bt0[8, 7] = Bt0[9, 8] =.45
-> Bt0[4, 1] = Bt0[5, 2] = Bt0[6, 3] = Bt0[7, 4] = Bt0[8, 5] = Bt0[9, 6]= .55
-> Bt0iv <- solve(diag(1, 9) - Bt0)
-> 
-> #create a M x M population residual covariance matrix#
-> Ph0 <- diag(0, 9)
-> Ph0[1, 1] <- 1
-> for (m in 2:9) {Ph0[m, m] <- (1 - sum((Bt0iv[m,] ^ 2) * diag(Ph0)))}
-> 
-> #create a P x P population measurement error matrix#
-> Ps0 <- diag(c(.36, 0.4375, .36), 27)
-> #create a P x M population covariance matrix#
-> Sg0 <- Ld0 %*% Bt0iv %*% Ph0 %*% t(Bt0iv) %*% t(Ld0) + Ps0
-> 
-> #create a P x M pattern matrix for factor loadings#
-> Ldp <- (Ld0 != 0)
-> Ldp[1, 1] = Ldp[4, 2] = Ldp[7, 3] = Ldp[10, 4] = Ldp[13, 5] = 0
-> Ldp[16, 6] = Ldp[19, 7] = Ldp[22, 8] = Ldp[25, 9] = 0
-> 
-> #create a P x M pattern matrix for path coefficients#
-> Btp <- matrix(0, 9, 9)
-> Btp[lower.tri(Btp)] <- -1
-> 
-> #specify field pattern, value, and penalty#
-> pattern <- list(Ldp = Ldp, Btp = Btp)
-> value <- list(Ld = Ld0, Bt = Bt0)
-> penalty <- list(type = "mcp", gm_all = seq(0.025, .15, .025), dt_all = 2)
-> 
-> #generate data with N = 400 and P = 27#
-> Z <- matrix(rnorm(400 * 27, 0, 1), 400, 27)
-> Y <- Z %*% eigen(Sg0)$vectors %*% diag(sqrt(eigen(Sg0)$values)) %*% t(eigen(Sg0)$vectors)
-> Y <- as.data.frame(Y)
-> 
-> #create lslSEM object#
-> rc_sem <- lsl:::lslSEM(data = Y, pattern = pattern, value = value, penalty = penalty)
-> 
-> #check the specification through method check()#
-> rc_sem$check()
-***check for the field data***
-field data is OK
-***check for the field pattern***
-warning: pattern$Psp is not specified and its value is substituted by the default.
-warning: pattern$Php is not specified and its value is substituted by the default.
-warning: pattern$nup is not specified and its value is substituted by the default.
-warning: pattern$app is not specified and its value is substituted by the default.
-4 warning(s) or error(s) is generated when checking the field pattern.
-***check for the field value***
-warning: value$Ps is not specified and its value is substituted by the default.
-warning: value$Ph is not specified and its value is substituted by the default.
-warning: value$nu is not specified and its value is substituted by the default.
-warning: value$ap is not specified and its value is substituted by the default.
-4 warning(s) or error(s) is generated when checking the field value.
-***check for the field penalty***
-field penalty is OK
-***check for the field control***
-warning: control$itmax is not specified and its value is substituted by the default.
-warning: control$eps is not specified and its value is substituted by the default.
-2 warning(s) or error(s) is generated when checking the field control.
-> 
-> #obtain the estimates under each pair of gamma and dt through method learn()#
-> rc_sem$learn()
-> 
-> #obtain the final model based on bic through method fit()#
-> rc_sem$fit(criterion = "bic")
-> 
-> #see overall model information and fit indices of final model#
-> rc_sem$fit_summary
-                                     value
-gamma                           0.15000000
-delta                           2.00000000
-penalized ml discrepancy        1.15001857
-ml discrepancy                  0.88000944
-number of non-zero parameters  93.00000000
-degree of freedom             312.00000000
-number of iterations           33.00000000
-lrt statistic                 352.00377530
-srmr                            0.03239601
-rmsea                           0.01790372
-centrality index                0.95122494
-gamma hat                       0.99264637
-cfi                             0.99282283
-nnfi                            0.99192569
-bl89                            0.99287270
-rni                             0.99282283
-aic                             1.34500944
-bic                             2.27302495
-> 
-> #see estimated Bt of final model#
-> rc_sem$fit_value$Bt
-           [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]
- [1,] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
- [2,] 0.5431272 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
- [3,] 0.0000000 0.4004454 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
- [4,] 0.5503286 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000
- [5,] 0.0000000 0.5120892 0.0000000 0.3776610 0.0000000 0.0000000 0.0000000
- [6,] 0.0000000 0.0000000 0.6449089 0.0000000 0.5520001 0.0000000 0.0000000
- [7,] 0.0000000 0.0000000 0.0000000 0.5782412 0.0000000 0.0000000 0.0000000
- [8,] 0.0000000 0.0000000 0.0000000 0.0000000 0.6319933 0.0000000 0.3981297
- [9,] 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.5602191 0.0000000
-           [,8] [,9]
- [1,] 0.0000000    0
- [2,] 0.0000000    0
- [3,] 0.0000000    0
- [4,] 0.0000000    0
- [5,] 0.0000000    0
- [6,] 0.0000000    0
- [7,] 0.0000000    0
- [8,] 0.0000000    0
- [9,] 0.4580425    0
-> 
-> #see the solution path parameters in Bt#
-> rc_sem$plot_path(mat_name = "Bt")
-Error in paste("delta = ", as.character(value), sep = "") : 
-  argument "value" is missing, with no default
-Calls: <Anonymous> ... facet_strips.grid -> build_strip -> lapply -> labeller -> paste
-Execution halted
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
 ## ltbayes (0.3)
 Maintainer: Timothy R. Johnson <trjohns@uidaho.edu>
@@ -5302,7 +4703,7 @@ Maintainer: Timothy R. Johnson <trjohns@uidaho.edu>
 ```
 checking whether package ‘ltbayes’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/ltbayes.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/ltbayes.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -5493,31 +4894,20 @@ __OK__
 ## marked (1.1.10)
 Maintainer: Jeff Laake <Jeff.Laake@noaa.gov>
 
-```
-checking whether package ‘marked’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/marked.Rcheck/00install.out’ for details.
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
-## marketeR (0.1.0)
+## marketeR (0.1.1)
 Maintainer: Felix MIKAELIAN <felix.mikaelian@essec.edu>  
 Bug reports: https://github.com/fmikaelian/marketeR/issues
 
 ```
-checking whether package ‘marketeR’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: replacing previous import by ‘grid::arrow’ when loading ‘marketeR’
-  Warning: replacing previous import by ‘grid::unit’ when loading ‘marketeR’
-  Warning: replacing previous import by ‘scales::alpha’ when loading ‘marketeR’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/marketeR.Rcheck/00install.out’ for details.
+checking whether package ‘marketeR’ can be installed ... ERROR
+Installation failed.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/marketeR.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
-Status: 1 WARNING
+Status: 1 ERROR
 ```
 
 ## marmap (0.9.3)
@@ -5525,7 +4915,7 @@ Maintainer: Eric Pante <pante.eric@gmail.com>
 
 __OK__
 
-## matrixStats (0.14.2)
+## matrixStats (0.15.0)
 Maintainer: Henrik Bengtsson <henrikb@braju.com>  
 Bug reports: https://github.com/HenrikBengtsson/matrixStats/issues
 
@@ -5557,7 +4947,7 @@ DONE
 Status: 2 NOTEs
 ```
 
-## MCMC.qpcr (1.2)
+## MCMC.qpcr (1.2.2)
 Maintainer: Mikhail V. Matz <matz@utexas.edu>
 
 __OK__
@@ -5709,7 +5099,7 @@ checking whether package ‘Methplot’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘Methplot’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘Methplot’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/Methplot.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/Methplot.Rcheck/00install.out’ for details.
 ```
 ```
 checking DESCRIPTION meta-information ... NOTE
@@ -5788,7 +5178,7 @@ Found the following significant warnings:
   Warning: replacing previous import by ‘sp::nowrapSpatialLines’ when loading ‘micromap’
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘micromap’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘micromap’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/micromap.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/micromap.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -5803,7 +5193,7 @@ checking whether package ‘MissingDataGUI’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘MissingDataGUI’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘MissingDataGUI’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/MissingDataGUI.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/MissingDataGUI.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -5953,11 +5343,65 @@ checking whether package ‘mizer’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘mizer’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘mizer’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/mizer.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/mizer.Rcheck/00install.out’ for details.
+```
+```
+checking R code for possible problems ... NOTE
+getFMort,MizerSim-missing : .local: warning in
+  get_time_elements(object, time_range, slot = "effort"): partial
+  argument match of 'slot' to 'slot_name'
+getFMortGear,MizerSim-missing : .local: warning in
+  get_time_elements(object, time_range, slot = "effort"): partial
+  argument match of 'slot' to 'slot_name'
+plotFMort,MizerSim : .local: warning in scale_y_continuous(name =
+  "Total fishing mortality", lim = c(0, max(plot_dat$value))): partial
+  argument match of 'lim' to 'limits'
+plotFeedingLevel,MizerSim : .local: warning in scale_y_continuous(name
+  = "Feeding Level", lim = c(0, 1)): partial argument match of 'lim' to
+  'limits'
+plotM2,MizerSim : .local: warning in scale_y_continuous(name = "M2",
+  lim = c(0, max(plot_dat$value))): partial argument match of 'lim' to
+  'limits'
+plotBiomass,MizerSim : .local: no visible binding for global variable
+  ‘value’
+plotBiomass,MizerSim : .local: no visible binding for global variable
+  ‘Species’
+plotFMort,MizerSim : .local: no visible binding for global variable ‘w’
+plotFMort,MizerSim : .local: no visible binding for global variable
+  ‘value’
+plotFMort,MizerSim : .local: no visible binding for global variable
+  ‘Species’
+plotFeedingLevel,MizerSim : .local: no visible binding for global
+  variable ‘w’
+plotFeedingLevel,MizerSim : .local: no visible binding for global
+  variable ‘value’
+plotFeedingLevel,MizerSim : .local: no visible binding for global
+  variable ‘Species’
+plotM2,MizerSim : .local: no visible binding for global variable ‘w’
+plotM2,MizerSim : .local: no visible binding for global variable
+  ‘value’
+plotM2,MizerSim : .local: no visible binding for global variable
+  ‘Species’
+plotSpectra,MizerSim : .local: no visible binding for global variable
+  ‘w’
+plotSpectra,MizerSim : .local: no visible binding for global variable
+  ‘value’
+plotSpectra,MizerSim : .local: no visible binding for global variable
+  ‘Species’
+plotYield,MizerSim : .local: no visible binding for global variable
+  ‘value’
+plotYield,MizerSim : .local: no visible binding for global variable
+  ‘Species’
+plotYieldGear,MizerSim : .local: no visible binding for global variable
+  ‘value’
+plotYieldGear,MizerSim : .local: no visible binding for global variable
+  ‘Species’
+plotYieldGear,MizerSim : .local: no visible binding for global variable
+  ‘gear’
 ```
 ```
 DONE
-Status: 1 WARNING
+Status: 1 WARNING, 1 NOTE
 ```
 
 ## mlr (2.4)
@@ -5965,26 +5409,45 @@ Maintainer: Bernd Bischl <bernd_bischl@gmx.net>
 Bug reports: https://github.com/berndbischl/mlr/issues
 
 ```
+checking dependencies in R code ... NOTE
+No Java runtime present, requesting install.
+```
+```
+checking examples ... ERROR
+Running examples in ‘mlr-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: plotFilterValues
+> ### Title: Plot filter values using ggplot2.
+> ### Aliases: plotFilterValues
+> 
+> ### ** Examples
+> 
+> fv = generateFilterValuesData(iris.task, method = "chi.squared")
+No Java runtime present, requesting install.
+```
+```
 checking tests ... ERROR
 Running the tests in ‘tests/run-base.R’ failed.
 Last 13 lines of output:
-     60L, 61L, 62L, 63L, 64L, 65L, 66L, 67L, 68L, 69L, 70L, 71L, 72L, 73L, 74L, 75L, 76L, 
-     77L, 78L, 79L, 80L, 101L, 102L, 103L, 104L, 105L, 106L, 107L, 108L, 109L, 110L, 111L, 
-     112L, 113L, 114L, 115L, 116L, 117L, 118L, 119L, 120L, 121L, 122L, 123L, 124L, 125L, 
-     126L, 127L, 128L, 129L, 130L)), method = character(0), thresh = 0.95, pcaComp = NULL, 
-         na.remove = TRUE, k = 5L, fudge = 0.2, numUnique = 3L)
-  19: pre_process_options(method, column_types)
+  'citation()' on how to cite R or R packages in publications.
   
-  testthat results ================================================================
-  OK: 1098 SKIPPED: 0 FAILED: 1
-  1. Error: basic PreprocWrapperCaret works 
+  Type 'demo()' for some demos, 'help()' for on-line help, or
+  'help.start()' for an HTML browser interface to help.
+  Type 'q()' to quit R.
   
-  Error: testthat unit tests failed
-  Execution halted
+  > library(testthat)
+  > test_check("mlr", filter = "base")
+  Loading required package: mlr
+  Loading required package: BBmisc
+  Loading required package: ggplot2
+  Loading required package: ParamHelpers
+  No Java runtime present, requesting install.
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 2 ERRORs, 1 NOTE
 ```
 
 ## mlxR (2.2.0)
@@ -6034,7 +5497,7 @@ Maintainer: Philippe Ruiz <philippe.ruiz@univ-lyon1.fr>
 ```
 checking whether package ‘morse’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/morse.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/morse.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -6108,14 +5571,14 @@ DONE
 Status: 1 ERROR
 ```
 
-## multilevelPSA (1.2.2)
+## multilevelPSA (1.2.3)
 Maintainer: Jason Bryer <jason@bryer.org>  
 Bug reports: https://github.com/jbryer/multilevelPSA/issues
 
 ```
 checking whether package ‘multilevelPSA’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/multilevelPSA.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/multilevelPSA.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -6130,7 +5593,7 @@ checking whether package ‘MultiMeta’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘MultiMeta’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘MultiMeta’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/MultiMeta.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/MultiMeta.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -6158,39 +5621,8 @@ Execution halted
 
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-The following object is masked from ‘package:arm’:
-
-    rescale
-
-dimids automatically generated
-dimids automatically generated
-omitting width because it is not replicated along MARGIN
-omitting temp because it is not replicated along MARGIN
-omitting depth because it is not replicated along MARGIN
-omitting velocity because it is not replicated along MARGIN
-omitting substrate because it is not replicated along MARGIN
-omitting habitat because it is not replicated along MARGIN
-omitting trophic because of the following error:
- Error in median.default(newX[, i], ...) : need numeric data
-
-omitting life.history because of the following error:
- Error in median.default(newX[, i], ...) : need numeric data
-
-omitting trophic because it is not replicated along MARGIN
-omitting life.history because it is not replicated along MARGIN
-
-Error: processing vignette 'multitable.Rnw' failed with diagnostics:
- chunk 57 (label = a faceted ggplot scatterplot from a data list) 
-Error : Unknown parameters: family
-Execution halted
-
-```
-```
 DONE
-Status: 1 ERROR, 1 NOTE
+Status: 1 ERROR
 ```
 
 ## munsell (0.4.2)
@@ -6335,20 +5767,7 @@ Status: 3 NOTEs
 Maintainer: Patrick Miller <patrick.mil10@gmail.com>  
 Bug reports: https://github.com/patr1ckm/mvtboost/issues
 
-```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Quitting from lines 31-41 (mvtboost_vignette.Rmd) 
-Error: processing vignette 'mvtboost_vignette.Rmd' failed with diagnostics:
-variable 1: manufacturer is not of type numeric, ordered, or factor.
-Execution halted
-
-```
-```
-DONE
-Status: 1 NOTE
-```
+__OK__
 
 ## mwaved (1.1.1)
 Maintainer: Justin Rory Wishart <j.wishart@unsw.edu.au>  
@@ -6357,7 +5776,7 @@ Bug reports: https://github.com/jrwishart/mwaved/issues
 ```
 checking whether package ‘mwaved’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/mwaved.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/mwaved.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -6387,7 +5806,7 @@ Maintainer: Chayan Acharya <chayan.acharya@farmbio.uu.se>
 checking whether package ‘ncappc’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘ncappc’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/ncappc.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/ncappc.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -6435,7 +5854,7 @@ Bug reports: https://github.com/fawda123/NeuralNetTools/issues
 checking whether package ‘NeuralNetTools’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘NeuralNetTools’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/NeuralNetTools.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/NeuralNetTools.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -6449,7 +5868,7 @@ Maintainer: Sean Carmody <seancarmody@gmail.com>
 checking whether package ‘ngramr’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘ngramr’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/ngramr.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/ngramr.Rcheck/00install.out’ for details.
 ```
 ```
 checking DESCRIPTION meta-information ... NOTE
@@ -6490,11 +5909,23 @@ checking whether package ‘NMF’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘ggplot2::unit’ when loading ‘NMF’
   Warning: replacing previous import by ‘ggplot2::arrow’ when loading ‘NMF’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/NMF.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/NMF.Rcheck/00install.out’ for details.
 ```
 ```
 checking R code for possible problems ... NOTE
 .wrapResult: no visible global function definition for ‘exprs’
+algorithm,NMFStrategyOctave : .local: no visible global function
+  definition for ‘fstop’
+evar,ANY : .local: no visible binding for global variable ‘Biobase’
+nmf,matrix-numeric-NMFStrategy : .local : run.all: no visible binding
+  for global variable ‘n’
+nmf,matrix-numeric-NMFStrategy : .local : run.all: no visible binding
+  for global variable ‘RNGobj’
+nmfModel,formula-ANY : .local : merge_pdata: no visible global function
+  definition for ‘pData’
+nmfModel,formula-ANY : .local: no visible global function definition
+  for ‘exprs’
+rss,matrix : .local: no visible binding for global variable ‘Biobase’
 ```
 ```
 checking Rd cross-references ... NOTE
@@ -6752,18 +6183,8 @@ Error: could not find function "ExpressionSet"
 Execution halted
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Quitting from lines 385-398 (NMF-vignette.Rnw) 
-Error: processing vignette 'NMF-vignette.Rnw' failed with diagnostics:
-unable to find required package 'Biobase'
-Execution halted
-
-```
-```
 DONE
-Status: 1 ERROR, 1 WARNING, 5 NOTEs
+Status: 1 ERROR, 1 WARNING, 4 NOTEs
 ```
 
 ## NNTbiomarker (0.29.11)
@@ -6775,6 +6196,21 @@ __OK__
 Maintainer: Renee Gonzalez Guzman <rguzman@cicese.edu.mx>
 
 __OK__
+
+## nparACT (0.1)
+Maintainer: Christine Blume <christine.blume@sbg.ac.at>
+
+```
+checking whether package ‘nparACT’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘grid::arrow’ when loading ‘nparACT’
+  Warning: replacing previous import by ‘grid::unit’ when loading ‘nparACT’
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/nparACT.Rcheck/00install.out’ for details.
+```
+```
+DONE
+Status: 1 WARNING
+```
 
 ## nullabor (0.3.1)
 Maintainer: Di Cook <dicook@iastate.edu>
@@ -7222,10 +6658,18 @@ __OK__
 ## OpenStreetMap (0.3.2)
 Maintainer: Ian Fellows <ian@fellstat.com>
 
-__OK__
+```
+checking whether package ‘OpenStreetMap’ can be installed ... ERROR
+Installation failed.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/OpenStreetMap.Rcheck/00install.out’ for details.
+```
+```
+DONE
+Status: 1 ERROR
+```
 
-## optiRum (0.35)
-Maintainer: Stephanie Locke <stephanie.locke@optimumcredit.co.uk>  
+## optiRum (0.37.1)
+Maintainer: Stephanie Locke <stephanie.g.locke@gmail.com>  
 Bug reports: https://github.com/stephlocke/optiRum/issues
 
 ```
@@ -7234,7 +6678,7 @@ Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘optiRum’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘optiRum’
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘optiRum’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/optiRum.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/optiRum.Rcheck/00install.out’ for details.
 ```
 ```
 checking examples ... ERROR
@@ -7249,12 +6693,12 @@ The error most likely occurred in:
 > 
 > ### ** Examples
 > 
-> sampledata<- data.frame(val= rnorm(100) , outcome=rbinom(100,1,.8))
+>   sampledata<- data.frame(val= rnorm(100) , outcome=rbinom(100,1,.8))
 >   giniChart(sampledata$val,sampledata$outcome)
 Warning in e1[n] <- e2[n] :
   number of items to replace is not a multiple of replacement length
 Error in if (debug) { : argument is not interpretable as logical
-Calls: print ... element_grob -> element_grob.element_text -> titleGrob
+Calls: <Anonymous> ... element_grob -> element_grob.element_text -> titleGrob
 Execution halted
 ```
 ```
@@ -7289,7 +6733,7 @@ Maintainer: John Michael O. Ranola <ranolaj@uw.edu>
 ```
 checking whether package ‘OriGen’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/OriGen.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/OriGen.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -7899,44 +7343,13 @@ Base composition:
 Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=51.516439,-0.171146&zoom=13&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
 Error in layer(mapping = NULL, data = NULL, stat = "identity", geom = <environment>,  : 
   unused argument (geom_params = list(raster = c("#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#EEEAE4", "#FEFEFE", "#F4F2ED", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#ECE8E1", "#F9F4F2", "#FEFEFE", "#F9F8F4", "#ECE8E1", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#FEFEFE", "#EEEDE5", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", 
-"#E9E5DC", "#E9E5DC", "#E9E5DC", "#EBE8E0", "#EBE8E0", "#F9F9F8", "#F2F0EA", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#EEEAE4", "#F4F2ED", "#F4F2ED", "#F4F2ED", "#8F7B77", "#674C44", "#F4F2ED", "#EEEAE4", "#674C44", "#836B63", "#F9F8F4", "#FEFEFE", "#FEFEFE", "#FEFEFE", "#FEFEFE", "#FEFEFE", "#EEEAE4", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5D
+"#E9E5DC", "#E9E5DC", "#E9E5DC", "#EBE8E0", "#EBE8E0", "#F9F9F8", "#F2F0EA", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#EEEAE4", "#F4F2ED", "#F4F2ED", "#F4F2ED", "#8F7B77", "#674C44", "#F4F2ED", "#E1DDD4", "#674C44", "#8F7B77", "#F9F8F4", "#FEFEFE", "#FEFEFE", "#FEFEFE", "#FEFEFE", "#FEFEFE", "#EEEAE4", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5DC", "#E9E5D
 Calls: plot ... inset_raster -> <Anonymous> -> <Anonymous> -> do.call -> layer
 Execution halted
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Warning: replacing previous import by 'grid::unit' when loading 'ggmap'
-Warning: replacing previous import by 'scales::alpha' when loading 'ggmap'
-Warning in .local(x, ...) :
-  The following sequence IDs are not in the dataset: 311, 222
-Warning in .local(x, ...) :
-  The following sequence IDs are not in the dataset: 311, 222
-Warning in (if (out_format(c("latex", "sweave", "listings"))) sanitize_fn else paste0)(path,  :
-  replaced special characters in figure filename "figs/OutbreakTools-out.width==".8\\textwidth"" -> "figs/OutbreakTools-out.width___.8\\textwidth_"
-Warning in (if (out_format(c("latex", "sweave", "listings"))) sanitize_fn else paste0)(path,  :
-  dots in figure paths replaced with _ ("figs/OutbreakTools-out_width____8//textwidth_")
-Warning: The shape palette can deal with a maximum of 6 discrete values because
-more than 6 becomes difficult to discriminate; you have 11. Consider
-specifying shapes manually if you must have them.
-Warning: Removed 58 rows containing missing values (geom_point).
-Warning: The shape palette can deal with a maximum of 6 discrete values because
-more than 6 becomes difficult to discriminate; you have 11. Consider
-specifying shapes manually if you must have them.
-Warning: `show_guide` has been deprecated. Please use `show.legend` instead.
-Warning: `show_guide` has been deprecated. Please use `show.legend` instead.
-Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=51.516439,-0.171146&zoom=14&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
-Quitting from lines 1021-1022 (OutbreakTools.Rnw) 
-Error: processing vignette 'OutbreakTools.Rnw' failed with diagnostics:
-unused argument (geom_params = list(raster = c("#E4E0D7", "#E5E1D9", "#E9E5DD", "#F1F0EA", "#FEFEFE", "#FEFEFE", "#E8E4DB", "#E9E5DD", "#ECE8E0", "#EEEAE4", "#EFEEE6", "#F4F2ED", "#F4F2ED", "#F9F8F5", "#F9F8F5", "#FCFCF9", "#FEFEFE", "#FEFEFE", "#FEFEFE", "#FEFEFE", "#FEFEFE", "#FEFEFE", "#FCFCF9", "#F9F8F5", "#F5F5F2", "#F4F2ED", "#F3F1EC", "#EEEAE4", "#EEEAE4", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", 
-"#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E9E5DD", "#E8E4DB", "#E8E4DB", "#E8E4DB", "#E8E4DB", "#E8E4DB", "#E8E4DB", "#E8E4DB", "#E8E4DB", "#E8E4DB", "#E8E4DB",
-Execution halted
-
-```
-```
 DONE
-Status: 1 ERROR, 1 WARNING, 1 NOTE
+Status: 1 ERROR, 1 WARNING
 ```
 
 ## P2C2M (0.7.6)
@@ -8063,7 +7476,7 @@ checking whether package ‘partialAR’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘partialAR’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘partialAR’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/partialAR.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/partialAR.Rcheck/00install.out’ for details.
 ```
 ```
 checking R code for possible problems ... NOTE
@@ -8083,7 +7496,7 @@ checking whether package ‘PASWR2’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘PASWR2’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘PASWR2’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/PASWR2.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/PASWR2.Rcheck/00install.out’ for details.
 ```
 ```
 checking DESCRIPTION meta-information ... NOTE
@@ -8112,7 +7525,7 @@ The error most likely occurred in:
 > # violin plot
 > p + geom_violin(scale = 'equal') + guides(fill = FALSE)
 Error in eval(expr, envir, enclos) : object 'violinwidth' not found
-Calls: print ... f -> transform -> transform.data.frame -> eval -> eval
+Calls: <Anonymous> ... f -> transform -> transform.data.frame -> eval -> eval
 Execution halted
 ```
 ```
@@ -8128,7 +7541,7 @@ checking whether package ‘patPRO’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘patPRO’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘patPRO’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/patPRO.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/patPRO.Rcheck/00install.out’ for details.
 ```
 ```
 checking examples ... ERROR
@@ -8298,7 +7711,7 @@ Bug reports: http://group.r-pbd.org/
 ```
 checking whether package ‘pbdPROF’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/pbdPROF.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/pbdPROF.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -8348,49 +7761,31 @@ Status: 3 NOTEs
 Maintainer: Steven E. Pav <shabbychef@gmail.com>  
 Bug reports: https://github.com/shabbychef/PDQutils/issues
 
-```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Warning in (function (source = "clipboard", comment = getOption("formatR.comment",  :
-  The argument 'keep.blank.line' is deprecated; please use 'blank'
-Warning in (function (source = "clipboard", comment = getOption("formatR.comment",  :
-  The argument 'keep.blank.line' is deprecated; please use 'blank'
-Warning in (function (source = "clipboard", comment = getOption("formatR.comment",  :
-  The argument 'keep.blank.line' is deprecated; please use 'blank'
-Warning in (function (source = "clipboard", comment = getOption("formatR.comment",  :
-  The argument 'keep.blank.line' is deprecated; please use 'blank'
-Warning in (function (source = "clipboard", comment = getOption("formatR.comment",  :
-  The argument 'keep.blank.line' is deprecated; please use 'blank'
-Warning in (function (source = "clipboard", comment = getOption("formatR.comment",  :
-  The argument 'keep.blank.line' is deprecated; please use 'blank'
-large z may result in inaccurate quantiles
-Warning in (function (source = "clipboard", comment = getOption("formatR.comment",  :
-  The argument 'keep.blank.line' is deprecated; please use 'blank'
-Loading required package: polynom
-Warning: `stat` is deprecated
-Quitting from lines 844-849 (PDQutils.Rnw) 
-Error: processing vignette 'PDQutils.Rnw' failed with diagnostics:
-geom_step requires the following missing aesthetics: y
-Execution halted
-
-```
-```
-DONE
-Status: 1 NOTE
-```
+__OK__
 
 ## PedCNV (0.1)
 Maintainer: Meiling Liu <meiling.sta@gmail.com>
 
 ```
-checking whether package ‘PedCNV’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/PedCNV.Rcheck/00install.out’ for details.
+checking DESCRIPTION meta-information ... NOTE
+Malformed Title field: should not end in a period.
+```
+```
+checking dependencies in R code ... NOTE
+Packages in Depends field not imported from:
+  ‘Rcpp’ ‘RcppArmadillo’ ‘ggplot2’
+  These packages need to be imported from (in the NAMESPACE file)
+  for when this namespace is loaded but not attached.
+```
+```
+checking R code for possible problems ... NOTE
+plot.clust: no visible global function definition for ‘qplot’
+plot.clust: no visible global function definition for ‘geom_histogram’
+plot.clust: no visible global function definition for ‘aes_string’
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 3 NOTEs
 ```
 
 ## peptider (0.2.2)
@@ -8424,13 +7819,54 @@ __OK__
 Maintainer: Louis Aslett <louis@maths.tcd.ie>
 
 ```
-checking whether package ‘PhaseType’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/PhaseType.Rcheck/00install.out’ for details.
+checking dependencies in R code ... NOTE
+Packages in Depends field not imported from:
+  ‘ggplot2’ ‘reshape’
+  These packages need to be imported from (in the NAMESPACE file)
+  for when this namespace is loaded but not attached.
+```
+```
+checking R code for possible problems ... NOTE
+plot.phtMCMC: no visible global function definition for ‘ggplot’
+plot.phtMCMC: no visible global function definition for ‘melt’
+plot.phtMCMC: no visible global function definition for ‘geom_line’
+plot.phtMCMC: no visible global function definition for ‘aes_string’
+plot.phtMCMC: no visible global function definition for ‘geom_smooth’
+plot.phtMCMC: no visible global function definition for ‘facet_wrap’
+plot.phtMCMC: no visible global function definition for ‘ggtitle’
+plot.phtMCMC: no visible global function definition for ‘xlab’
+plot.phtMCMC: no visible global function definition for ‘ylab’
+plot.phtMCMC: no visible global function definition for ‘geom_density’
+```
+```
+checking compiled code ... NOTE
+File ‘PhaseType/libs/PhaseType.so’:
+  Found ‘_rand’, possibly from ‘rand’ (C)
+    Object: ‘LJMA_arms.o’
+
+Compiled code should not call entry points which might terminate R nor
+write to stdout/stderr instead of to the console, nor the system RNG.
+
+See ‘Writing portable packages’ in the ‘Writing R Extensions’ manual.
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 3 NOTEs
+```
+
+## Phxnlme (1.0.0)
+Maintainer: Chay Ngee Lim <limxx356@umn.edu>
+
+```
+checking whether package ‘Phxnlme’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘grid::arrow’ when loading ‘Phxnlme’
+  Warning: replacing previous import by ‘grid::unit’ when loading ‘Phxnlme’
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/Phxnlme.Rcheck/00install.out’ for details.
+```
+```
+DONE
+Status: 1 WARNING
 ```
 
 ## physiology (0.2.2)
@@ -8450,8 +7886,8 @@ Maintainer: Michael Sweeting <mjs212@medschl.cam.ac.uk>
 
 __OK__
 
-## pitchRx (1.8)
-Maintainer: Carson Sievert <sievert@iastate.edu>  
+## pitchRx (1.8.1)
+Maintainer: Carson Sievert <cpsievert1@gmail.com>  
 Bug reports: http://github.com/cpsievert/pitchRx/issues
 
 __OK__
@@ -8486,13 +7922,12 @@ __OK__
 Maintainer: Baptiste Auguie <baptiste.auguie@gmail.com>
 
 ```
-checking whether package ‘planar’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/planar.Rcheck/00install.out’ for details.
+checking for GNU extensions in Makefiles ... NOTE
+GNU make is a SystemRequirements.
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 1 NOTE
 ```
 
 ## playwith (0.9-54)
@@ -8803,7 +8238,7 @@ checking whether package ‘PlotPrjNetworks’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘PlotPrjNetworks’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘PlotPrjNetworks’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/PlotPrjNetworks.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/PlotPrjNetworks.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -8861,7 +8296,7 @@ Bug reports: http://github.com/kingaa/pomp/issues
 ```
 checking whether package ‘pomp’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/pomp.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/pomp.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -8930,7 +8365,7 @@ checking whether package ‘PortfolioEffectHFT’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘PortfolioEffectHFT’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘PortfolioEffectHFT’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/PortfolioEffectHFT.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/PortfolioEffectHFT.Rcheck/00install.out’ for details.
 ```
 ```
 checking installed package size ... NOTE
@@ -8973,7 +8408,7 @@ checking whether package ‘PPtreeViz’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘PPtreeViz’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘PPtreeViz’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/PPtreeViz.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/PPtreeViz.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -9025,7 +8460,7 @@ Maintainer: Silvia Liverani <liveranis@gmail.com>
 checking whether package ‘PReMiuM’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘ggplot2::unit’ when loading ‘PReMiuM’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/PReMiuM.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/PReMiuM.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -9039,7 +8474,7 @@ Maintainer: Joseph Larmarange <joseph.larmarange@ird.fr>
 checking whether package ‘prevR’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::unit’ when loading ‘prevR’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/prevR.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/prevR.Rcheck/00install.out’ for details.
 ```
 ```
 checking Rd cross-references ... NOTE
@@ -9050,7 +8485,7 @@ DONE
 Status: 1 WARNING, 1 NOTE
 ```
 
-## pRF (1.0)
+## pRF (1.1)
 Maintainer: Ankur Chakravarthy <ankur.chakravarthy.10@ucl.ac.uk>
 
 ```
@@ -9074,7 +8509,7 @@ Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘primerTree’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘primerTree’
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘primerTree’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/primerTree.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/primerTree.Rcheck/00install.out’ for details.
 ```
 ```
 checking examples ... ERROR
@@ -9105,7 +8540,7 @@ Maintainer: Tammo Krueger <tammokrueger@googlemail.com>
 
 __OK__
 
-## profileR (0.3)
+## profileR (0.3-1)
 Maintainer: Christopher David Desjardins <cddesjardins@gmail.com>
 
 ```
@@ -9358,14 +8793,14 @@ Maintainer: Jan Grau <grau@informatik.uni-halle.de>
 
 __OK__
 
-## PSAboot (1.1)
+## PSAboot (1.1.3)
 Maintainer: Jason Bryer <jason@bryer.org>  
 Bug reports: https://github.com/jbryer/PSAboot/issues
 
 ```
 checking whether package ‘PSAboot’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/PSAboot.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/PSAboot.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -9399,15 +8834,7 @@ __OK__
 Maintainer: Andrew J. Barbour <andy.barbour@gmail.com>  
 Bug reports: https://github.com/abarbour/psd/issues
 
-```
-checking whether package ‘psd’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/psd.Rcheck/00install.out’ for details.
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
 ## pxweb (0.5.57)
 Maintainer: Mans Magnusson <mons.magnusson@gmail.com>  
@@ -9445,17 +8872,55 @@ Maintainer: Sacha Epskamp <mail@sachaepskamp.com>
 
 __OK__
 
+## qicharts (0.4.2)
+Maintainer: Jacob Anhoej <jacob@anhoej.net>
+
+```
+checking whether package ‘qicharts’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘scales::alpha’ when loading ‘qicharts’
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/qicharts.Rcheck/00install.out’ for details.
+```
+```
+checking Rd cross-references ... WARNING
+Missing link or links in documentation object 'tcc.Rd':
+  ‘ggplot2’
+
+See section 'Cross-references' in the 'Writing R Extensions' manual.
+
+```
+```
+DONE
+Status: 2 WARNINGs
+```
+
 ## quadrupen (0.2-4)
 Maintainer: Julien Chiquet <julien.chiquet@genopole.cnrs.fr>
 
 ```
-checking whether package ‘quadrupen’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/quadrupen.Rcheck/00install.out’ for details.
+checking whether package ‘quadrupen’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘grid::arrow’ when loading ‘quadrupen’
+  Warning: replacing previous import by ‘grid::unit’ when loading ‘quadrupen’
+  Warning: replacing previous import by ‘scales::alpha’ when loading ‘quadrupen’
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/quadrupen.Rcheck/00install.out’ for details.
+```
+```
+checking R code for possible problems ... NOTE
+plot,cvpen : .local: no visible binding for global variable ‘lambda1’
+plot,cvpen : .local: no visible binding for global variable ‘lambda2’
+plot,cvpen : .local: no visible binding for global variable ‘serr’
+plot,cvpen : .local: no visible binding for global variable ‘xval’
+plot,cvpen : .local: no visible binding for global variable
+  ‘lambda.choice’
+plot,quadrupen : .local: no visible binding for global variable
+  ‘variables’
+plot,stability.path : .local: no visible binding for global variable
+  ‘variables’
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 1 WARNING, 1 NOTE
 ```
 
 ## QualInt (1.0.0)
@@ -9468,7 +8933,7 @@ Maintainer: Joel Gombin <joel.gombin@gmail.com>
 
 __OK__
 
-## quanteda (0.8.4-2)
+## quanteda (0.8.6-0)
 Maintainer: Kenneth Benoit <kbenoit@lse.ac.uk>  
 Bug reports: https://github.com/kbenoit/quanteda/issues
 
@@ -9483,24 +8948,10 @@ DONE
 Status: 1 NOTE
 ```
 
-## QuantumClone (0.9.15)
+## QuantumClone (0.15.11)
 Maintainer: Paul Deveau <paul.deveau@curie.fr>
 
 __OK__
-
-## quickpsy (0.1.0)
-Maintainer: Linares Daniel <danilinares@gmail.com>
-
-```
-checking whether package ‘quickpsy’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: replacing previous import by ‘tidyr::%>%’ when loading ‘quickpsy’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/quickpsy.Rcheck/00install.out’ for details.
-```
-```
-DONE
-Status: 1 WARNING
-```
 
 ## qwraps2 (0.1.1)
 Maintainer: Peter DeWitt <dewittpe@gmail.com>
@@ -9527,38 +8978,17 @@ Maintainer: Winston Chang <winston@stdout.org>
 
 __OK__
 
-## radiant (0.1.83)
-Maintainer: Vincent Nijs <radiant@rady.ucsd.edu>  
-Bug reports: https://github.com/vnijs/radiant/issues
+## rags2ridges (2.0)
+Maintainer: Carel F.W. Peeters <cf.peeters@vumc.nl>
 
 ```
-checking examples ... ERROR
-Running examples in ‘radiant-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: plot.cross_tabs
-> ### Title: Plot method for the cross_tabs function
-> ### Aliases: plot.cross_tabs
-> 
-> ### ** Examples
-> 
-> result <- cross_tabs("newspaper", "Income", "Newspaper")
-> plot(result, ct_check = c("observed","expected","chi_sq"))
-Error in gather_.data.frame(., "variable", "values") : 
-  argument "gather_cols" is missing, with no default
-Calls: plot ... _fseq -> freduce -> withVisible -> <Anonymous> -> sshhr
-Execution halted
+checking package dependencies ... NOTE
+Packages suggested but not available for checking: ‘KEGGgraph’ ‘graph’
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 1 NOTE
 ```
-
-## rags2ridges (1.4)
-Maintainer: Carel F.W. Peeters <cf.peeters@vumc.nl>
-
-__OK__
 
 ## raincpc (0.4)
 Maintainer: Gopi Goteti <my.ration.shop@gmail.com>
@@ -9583,7 +9013,7 @@ checking whether package ‘RAM’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::unit’ when loading ‘RAM’
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘RAM’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/RAM.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/RAM.Rcheck/00install.out’ for details.
 ```
 ```
 checking Rd cross-references ... WARNING
@@ -9619,6 +9049,11 @@ DONE
 Status: 1 ERROR, 2 WARNINGs, 1 NOTE
 ```
 
+## randomizeR (1.0)
+Maintainer: Diane Uschner <duschner@ukaachen.de>
+
+__OK__
+
 ## randomUniformForest (1.1.5)
 Maintainer: Saip Ciss <saip.ciss@wanadoo.fr>
 
@@ -9630,7 +9065,7 @@ Bug reports: https://github.com/oscarperpinan/rastervis/issues
 
 __OK__
 
-## rattle (3.5.0)
+## rattle (4.0.0)
 Maintainer: Graham Williams <Graham.Williams@togaware.com>
 
 ```
@@ -9640,24 +9075,15 @@ Packages suggested but not available for checking:
 ```
 ```
 checking installed package size ... NOTE
-  installed size is  7.8Mb
+  installed size is  6.7Mb
   sub-directories of 1Mb or more:
-    data   2.3Mb
-    etc    3.1Mb
+    data   2.4Mb
+    etc    1.9Mb
     po     1.2Mb
 ```
 ```
-checking R code for possible problems ... NOTE
-Found an obsolete/platform-specific call in the following functions:
-  ‘openMyDevice’ ‘printPlot’ ‘savePlotToFile’
-Found the platform-specific devices:
-  ‘win.metafile’ ‘win.print’
-dev.new() is the preferred way to open a new device, in the unlikely
-event one is needed.
-```
-```
 DONE
-Status: 3 NOTEs
+Status: 2 NOTEs
 ```
 
 ## rbefdata (0.3.5)
@@ -9797,40 +9223,15 @@ Execution halted
 
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Attaching package: ‘reshape’
-
-The following objects are masked from ‘package:plyr’:
-
-    rename, round_any
-
-Loading required package: ggplot2
-Loading required package: grid
-
-Attaching package: ‘Rcell’
-
-The following object is masked from ‘package:stats’:
-
-    reshape
-
-Warning in is.na(object) :
-  is.na() applied to non-(list or vector) of type 'NULL'
-Warning in is.na(object) :
-  is.na() applied to non-(list or vector) of type 'NULL'
-treating pos as factor
-
-Error: processing vignette 'Rcell.Rnw' failed with diagnostics:
- chunk 10 (label = fig01) 
-Error in (function (g, s, ps)  : attempt to apply non-function
-Execution halted
-
-```
-```
 DONE
-Status: 2 ERRORs, 3 NOTEs
+Status: 2 ERRORs, 2 NOTEs
 ```
+
+## rchess (0.1)
+Maintainer: Joshua Kunst <jbkunst@gmail.com>  
+Bug reports: https://github.com/jbkunst/rchess/issues
+
+__OK__
 
 ## rclinicaltrials (1.4.1)
 Maintainer: Michael C Sachs <sachsmc@gmail.com>
@@ -9923,7 +9324,7 @@ Maintainer: Mark S. Handcock <handcock@stat.ucla.edu>
 checking whether package ‘RDS’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘RDS’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/RDS.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/RDS.Rcheck/00install.out’ for details.
 ```
 ```
 checking examples ... ERROR
@@ -9969,82 +9370,6 @@ Bug reports: https://github.com/davidgohel/ReporteRs/issues
 
 __OK__
 
-## repra (0.4.4)
-Maintainer: Eduardo Ibanez <edu.ibanez@gmail.com>  
-Bug reports: https://github.com/NREL/repra/issues
-
-```
-checking examples ... ERROR
-Running examples in ‘repra-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: calculate_elcc
-> ### Title: Calculate effective load carrying capability (ELCC)
-> ### Aliases: calculate_elcc
-> 
-> ### ** Examples
-> 
-> # Create outage table with 200 5-MW units
-> gens <- data.frame(Capacity = rep(5, 200),
-+                    EFOR = rep(0.08, 200))
-> out.table <- outage_table(gens)
-> 
-> # Create random load and wind data and format
-> tdata <- data.frame(Time = 1:8760,
-+                     Load = runif(8760, 450, 850),
-+                     Wind = runif(8760, 0, 100),
-+                     Wind2 = runif(8760, 0, 200))
-> td <- format_timedata(tdata)
-Error in `[.data.frame`(data3, , list(Value = sum(Value)), by = cols.temp) : 
-  unused argument (by = cols.temp)
-Calls: format_timedata -> [ -> [.data.frame
-Execution halted
-```
-```
-checking tests ... ERROR
-Running the tests in ‘tests/test-all.R’ failed.
-Last 13 lines of output:
-  11: mode(current)
-  12: format_timedata(tdata)
-  13: data3[, list(Value = sum(Value)), by = cols.temp]
-  14: `[.data.frame`(data3, , list(Value = sum(Value)), by = cols.temp)
-  
-  testthat results ================================================================
-  OK: 9 SKIPPED: 0 FAILED: 3
-  1. Error: timedata format 
-  2. Error: timedata column names 
-  3. Error: WinProb value set to 1 
-  
-  Error: testthat unit tests failed
-  Execution halted
-```
-```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-
-Attaching package: 'dplyr'
-
-The following objects are masked from 'package:stats':
-
-    filter, lag
-
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
-
-Quitting from lines 61-65 (repra.Rmd) 
-Error: processing vignette 'repra.Rmd' failed with diagnostics:
-unused argument (by = cols.temp)
-Execution halted
-
-```
-```
-DONE
-Status: 2 ERRORs, 1 NOTE
-```
-
 ## reproducer (0.1.3)
 Maintainer: Lech Madeyski <lech.madeyski@gmail.com>
 
@@ -10082,21 +9407,7 @@ __OK__
 Maintainer: Jim Hester <james.f.hester@gmail.com>  
 Bug reports: https://github.com/kevinushey/rex/issues
 
-```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Read 1000 items
-Quitting from lines 69-71 (log_parsing.Rmd) 
-Error: processing vignette 'log_parsing.Rmd' failed with diagnostics:
-StatBin requires a continuous x variable the x variable is discrete. Perhaps you want stat="count"?
-Execution halted
-
-```
-```
-DONE
-Status: 1 NOTE
-```
+__OK__
 
 ## rfigshare (0.3.7)
 Maintainer: Carl Boettiger <cboettig@gmail.com>  
@@ -10129,7 +9440,7 @@ Maintainer: Piergiorgio Palla <piergiorgio.palla@diee.unica.it>
 checking whether package ‘RFmarkerDetector’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘randomForest::margin’ when loading ‘RFmarkerDetector’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/RFmarkerDetector.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/RFmarkerDetector.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -11591,7 +10902,7 @@ checking whether package ‘rfPermute’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘rfPermute’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘rfPermute’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/rfPermute.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/rfPermute.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -11617,7 +10928,7 @@ checking whether package ‘RGraphics’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘ggplot2::unit’ when loading ‘RGraphics’
   Warning: replacing previous import by ‘ggplot2::arrow’ when loading ‘RGraphics’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/RGraphics.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/RGraphics.Rcheck/00install.out’ for details.
 ```
 ```
 checking installed package size ... NOTE
@@ -11676,18 +10987,18 @@ See section 'Cross-references' in the 'Writing R Extensions' manual.
 checking tests ... ERROR
 Running the tests in ‘tests/testAll.R’ failed.
 Last 13 lines of output:
-  4: createQplot(x = conc, y = Time, data = Theoph, geom = "point") at testQplot_RIGHT.R:18
   5: ggplot_RIGHT(obj)
   
   4. Error: Check color option: --------------------------------------------------
   argument is of length zero
-  1: withCallingHandlers(eval(code, new_test_environment), error = capture_calls, message = function(c) invokeRestart("muffleMessage"), 
-         warning = function(c) invokeRestart("muffleWarning"))
+  1: withCallingHandlers(eval(code, new_test_environment), error = capture_calls, message = function(c) invokeRestart("muffleMessage"))
   2: eval(code, new_test_environment)
   3: eval(expr, envir, enclos)
   4: createQplot(x = conc, y = Time, data = Theoph, colour = Subject, geom = "point") at testQplot_RIGHT.R:84
   5: ggplot_RIGHT(obj)
   Error: Test failures
+  In addition: Warning message:
+  Placing tests in `inst/tests/` is deprecated. Please use `tests/testthat/` instead 
   Execution halted
 ```
 ```
@@ -11700,7 +11011,7 @@ Maintainer: Edmund Hart <edmund.m.hart@gmail.com>
 
 __OK__
 
-## rivr (1.0)
+## rivr (1.1)
 Maintainer: Michael C Koohafkan <michael.koohafkan@gmail.com>  
 Bug reports: https://github.com/mkoohafkan/rivr/issues
 
@@ -11715,13 +11026,23 @@ __OK__
 Maintainer: Frank E Harrell Jr <f.harrell@vanderbilt.edu>
 
 ```
-checking whether package ‘rms’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/rms.Rcheck/00install.out’ for details.
+checking S3 generic/method consistency ... WARNING
+ggplot:
+  function(data, mapping, ..., environment)
+ggplot.Predict:
+  function(data, formula, groups, aestype, conf, varypred, sepdiscrete,
+           subset, xlim., ylim., xlab, ylab, colorscale, colfill,
+           rdata, anova, pval, size.anova, adj.subtitle, size.adj,
+           perim, nlevels, flipxdiscrete, legend.position,
+           legend.label, vnames, abbrev, minlength, layout, addlayer,
+           histSpike.opts, type, ggexpr, ...)
+
+See section ‘Generic functions and methods’ in the ‘Writing R
+Extensions’ manual.
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 1 WARNING
 ```
 
 ## rnoaa (0.4.2)
@@ -11734,40 +11055,33 @@ __OK__
 Maintainer: Martin Maechler <maechler@stat.math.ethz.ch>
 
 ```
-checking whether package ‘robustbase’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/robustbase.Rcheck/00install.out’ for details.
+checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘robustX’
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 1 NOTE
 ```
 
 ## RobustEM (1.0)
 Maintainer: Aishat Aloba <adetokaloba@gmail.com>
 
 ```
-checking whether package ‘RobustEM’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/RobustEM.Rcheck/00install.out’ for details.
+checking whether package ‘RobustEM’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘grid::arrow’ when loading ‘RobustEM’
+  Warning: replacing previous import by ‘grid::unit’ when loading ‘RobustEM’
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/RobustEM.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 1 WARNING
 ```
 
 ## robustHD (0.5.0)
 Maintainer: Andreas Alfons <alfons@ese.eur.nl>
 
-```
-checking whether package ‘robustHD’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/robustHD.Rcheck/00install.out’ for details.
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
 ## robustlmm (1.7-6)
 Maintainer: Manuel Koller <koller.manuel@gmail.com>
@@ -11790,35 +11104,8 @@ Execution halted
 
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Loading required package: ggplot2
-Loading required package: reshape2
-Loading required package: grid
-Loading required package: xtable
-Loading required package: robustlmm
-Loading required package: lme4
-Loading required package: Matrix
-Loading required package: robustbase
-
-Attaching package: ‘robustbase’
-
-The following object is masked from ‘package:lme4’:
-
-    sigma
-
-
-Error: processing vignette 'rlmer.Rnw' failed with diagnostics:
- chunk 3 (label = penicillin-raw) 
-Error in rep(value[[k]], length.out = n) : 
-  attempt to replicate an object of type 'language'
-Execution halted
-
-```
-```
 DONE
-Status: 1 ERROR, 1 NOTE
+Status: 1 ERROR
 ```
 
 ## rollply (0.4.2)
@@ -11827,7 +11114,7 @@ Bug reports: https://github.com/alexgenin/rollply
 
 __OK__
 
-## rorutadis (0.1.3)
+## rorutadis (0.3.1)
 Maintainer: Krzysztof Ciomek <k.ciomek@gmail.com>
 
 __OK__
@@ -11837,27 +11124,34 @@ Maintainer: Bryan Stanfill <bstanfill2003@gmail.com>
 Bug reports: https://github.com/stanfill/rotationsC/issues
 
 ```
-checking whether package ‘rotations’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/rotations.Rcheck/00install.out’ for details.
+checking whether package ‘rotations’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘grid::arrow’ when loading ‘rotations’
+  Warning: replacing previous import by ‘grid::unit’ when loading ‘rotations’
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/rotations.Rcheck/00install.out’ for details.
+```
+```
+checking Rd cross-references ... WARNING
+Missing link or links in documentation object 'plot.SO3.Rd':
+  ‘ggplot2’
+
+See section 'Cross-references' in the 'Writing R Extensions' manual.
+
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 2 WARNINGs
 ```
+
+## rpdo (0.1.0)
+Maintainer: Joe Thorley <joe@poissonconsulting.ca>
+
+__OK__
 
 ## rpf (0.48)
 Maintainer: Joshua Pritikin <jpritikin@pobox.com>
 
-```
-checking whether package ‘rpf’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/rpf.Rcheck/00install.out’ for details.
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
 ## rplexos (1.1.4)
 Maintainer: Eduardo Ibanez <edu.ibanez@gmail.com>  
@@ -11892,33 +11186,25 @@ Maintainer: Felix Schönbrodt <felix@nicebread.de>
 ```
 checking whether package ‘RSA’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/RSA.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/RSA.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
 Status: 1 ERROR
 ```
 
-## RSDA (1.2)
+## RSDA (1.3)
 Maintainer: Oldemar Rodriguez <oldemar.rodriguez@ucr.ac.cr>
 
 ```
 checking whether package ‘RSDA’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘RSDA’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/RSDA.Rcheck/00install.out’ for details.
-```
-```
-checking R code for possible problems ... NOTE
-classic.to.sym: no visible binding for global variable ‘fn’
-process.continuum.variable: no visible binding for global variable ‘fn’
-process.histogram.variable: no visible binding for global variable ‘fn’
-process.interval.variable: no visible binding for global variable ‘fn’
-process.set.variable: no visible binding for global variable ‘fn’
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/RSDA.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
-Status: 1 WARNING, 1 NOTE
+Status: 1 WARNING
 ```
 
 ## rSPACE (1.1.1)
@@ -11931,21 +11217,41 @@ __OK__
 Maintainer: Ben Goodrich <benjamin.goodrich@columbia.edu>
 
 ```
-checking installed package size ... NOTE
-  installed size is  8.2Mb
-  sub-directories of 1Mb or more:
-    libs   5.8Mb
+checking whether package ‘rstan’ can be installed ... ERROR
+Installation failed.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/rstan.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
-Status: 1 NOTE
+Status: 1 ERROR
 ```
 
-## RStoolbox (0.1.1)
+## RStoolbox (0.1.2)
 Maintainer: Benjamin Leutner <benjamin.leutner@uni-wuerzburg.de>  
 Bug reports: https://github.com/bleutner/RStoolbox/issues
 
-__OK__
+```
+checking tests ... ERROR
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  3. Failure (at test-ggplot.R#55): ggRGB returns proper ggplot2 classes or data.frames 
+  builds[[s]]$geom inherits from GeomRasterAnn, Geom, ggproto not GeomRaster
+  anno=TRUE, ggLayer=TRUE, ggObj=TRUE
+  
+  Loading required package: sp
+  testthat results ================================================================
+  OK: 64 SKIPPED: 2 FAILED: 3
+  1. Failure (at test-ggplot.R#21): ggR returns proper ggplot2 classes or data.frames 
+  2. Failure (at test-ggplot.R#21): ggR returns proper ggplot2 classes or data.frames 
+  3. Failure (at test-ggplot.R#55): ggRGB returns proper ggplot2 classes or data.frames 
+  
+  Error: testthat unit tests failed
+  Execution halted
+```
+```
+DONE
+Status: 1 ERROR
+```
 
 ## rtematres (0.2)
 Maintainer: Claas-Thido Pfaff <claas-thido.pfaff@idiv-biodiversity.de>
@@ -12001,7 +11307,7 @@ DONE
 Status: 1 NOTE
 ```
 
-## rwirelesscom (1.4.2)
+## rwirelesscom (1.4.3)
 Maintainer: Alberto Gutierrez <algutier1@gmail.com>
 
 __OK__
@@ -12057,15 +11363,7 @@ __OK__
 ## SamplerCompare (1.2.7)
 Maintainer: Madeleine Thompson <madeleineth@gmail.com>
 
-```
-checking whether package ‘SamplerCompare’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/SamplerCompare.Rcheck/00install.out’ for details.
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
 ## sand (1.0.2)
 Maintainer: Gabor Csardi <csardi.gabor@gmail.com>  
@@ -12093,24 +11391,14 @@ checking whether package ‘SCGLR’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘SCGLR’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘SCGLR’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/SCGLR.Rcheck/00install.out’ for details.
-```
-```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Quitting from lines 242-243 (scglrVignettes.rnw) 
-Error: processing vignette 'scglrVignettes.rnw' failed with diagnostics:
-stat_count() must not be used with a y aesthetic.
-Execution halted
-
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/SCGLR.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
-Status: 1 WARNING, 1 NOTE
+Status: 1 WARNING
 ```
 
-## SciencesPo (1.3.7)
+## SciencesPo (1.3.8)
 Maintainer: Daniel Marcelino <dmarcelino@live.com>  
 Bug reports: http://github.com/danielmarcelino/SciencesPo
 
@@ -12170,28 +11458,8 @@ Execution halted
 
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Loading required package: GPArotation
-Loading required package: sp
-[1] "/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/sdmvspecies.Rcheck/sdmvspecies/external/env/bio1.bil" 
-[2] "/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/sdmvspecies.Rcheck/sdmvspecies/external/env/bio11.bil"
-[3] "/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/sdmvspecies.Rcheck/sdmvspecies/external/env/bio12.bil"
-[4] "/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/sdmvspecies.Rcheck/sdmvspecies/external/env/bio14.bil"
-[5] "/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/sdmvspecies.Rcheck/sdmvspecies/external/env/bio16.bil"
-[6] "/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/sdmvspecies.Rcheck/sdmvspecies/external/env/bio5.bil" 
-[7] "/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/sdmvspecies.Rcheck/sdmvspecies/external/env/bio7.bil" 
-
-Error: processing vignette 'sdmvspecies.Rnw' failed with diagnostics:
- chunk 3 (label = bell_shaped_response_function) 
-Error : Attempted to create layer with no stat.
-Execution halted
-
-```
-```
 DONE
-Status: 1 ERROR, 1 WARNING, 1 NOTE
+Status: 1 ERROR, 1 WARNING
 ```
 
 ## season (0.3-5)
@@ -12210,7 +11478,7 @@ Maintainer: Jerome Sueur <sueur@mnhn.fr>
 ```
 checking whether package ‘seewave’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/seewave.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/seewave.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -12230,15 +11498,7 @@ __OK__
 ## sensitivity (1.11.1)
 Maintainer: Bertrand Iooss <biooss@yahoo.fr>
 
-```
-checking whether package ‘sensitivity’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/sensitivity.Rcheck/00install.out’ for details.
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
 ## SensMixed (2.0-8)
 Maintainer: Alexandra Kuznetsova <alku@dtu.dk>
@@ -12286,6 +11546,21 @@ DONE
 Status: 1 ERROR, 1 NOTE
 ```
 
+## SeqFeatR (0.2.0)
+Maintainer: Bettina Budeus <bettina.budeus@stud.uni-due.de>
+
+```
+checking package dependencies ... ERROR
+Packages required but not available: ‘Biostrings’ ‘qvalue’ ‘widgetTools’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+```
+DONE
+Status: 1 ERROR
+```
+
 ## sgd (1.0)
 Maintainer: Dustin Tran <dtran@g.harvard.edu>  
 Bug reports: https://github.com/airoldilab/sgd/issues
@@ -12293,7 +11568,7 @@ Bug reports: https://github.com/airoldilab/sgd/issues
 ```
 checking whether package ‘sgd’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/sgd.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/sgd.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -12355,7 +11630,7 @@ Maintainer: Andrew Parnell <andrew.parnell@ucd.ie>
 ```
 checking whether package ‘simmr’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/simmr.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/simmr.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -12400,7 +11675,7 @@ Maintainer: Daniel Greene <dg333@cam.ac.uk>
 ```
 checking whether package ‘SimReg’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/SimReg.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/SimReg.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -12432,7 +11707,7 @@ checking whether package ‘SixSigma’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘SixSigma’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘SixSigma’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/SixSigma.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/SixSigma.Rcheck/00install.out’ for details.
 ```
 ```
 checking R code for possible problems ... NOTE
@@ -12476,7 +11751,7 @@ Bug reports: https://github.com/sjPlot/devel/issues
 checking whether package ‘sjPlot’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::unit’ when loading ‘sjPlot’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/sjPlot.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/sjPlot.Rcheck/00install.out’ for details.
 ```
 ```
 checking examples ... ERROR
@@ -12624,7 +11899,7 @@ Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘soc.ca’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘soc.ca’
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘soc.ca’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/soc.ca.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/soc.ca.Rcheck/00install.out’ for details.
 ```
 ```
 checking Rd cross-references ... WARNING
@@ -12730,7 +12005,7 @@ checking whether package ‘sparkTable’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘sparkTable’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘sparkTable’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/sparkTable.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/sparkTable.Rcheck/00install.out’ for details.
 ```
 ```
 checking R code for possible problems ... NOTE
@@ -12747,28 +12022,12 @@ Status: 1 WARNING, 1 NOTE
 ## SparseFactorAnalysis (1.0)
 Maintainer: Marc Ratkovic <ratkovic@princeton.edu>
 
-```
-checking whether package ‘SparseFactorAnalysis’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/SparseFactorAnalysis.Rcheck/00install.out’ for details.
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
 ## sparsereg (1.1)
 Maintainer: Marc Ratkovic <ratkovic@princeton.edu>
 
-```
-checking whether package ‘sparsereg’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/sparsereg.Rcheck/00install.out’ for details.
-```
-```
-DONE
-Status: 1 ERROR
-```
+__OK__
 
 ## spcosa (0.3-5)
 Maintainer: Dennis Walvoort <dennis.Walvoort@wur.nl>
@@ -12790,6 +12049,12 @@ coerce,CompactStratification-SpatialPixelsDataFrame: no visible global
   function definition for ‘SpatialPixelsDataFrame’
 coerce,SamplingPatternRandomComposite-SpatialPointsDataFrame: no
   visible global function definition for ‘SpatialPointsDataFrame’
+getCellSize,SpatialPixels : .local: no visible global function
+  definition for ‘getGridTopology’
+getSampleSize,SamplingPattern : .local: no visible global function
+  definition for ‘coordinates’
+initialize,CompactStratification : .local: no visible global function
+  definition for ‘coordinates’
 plot,CompactStratification-SamplingPattern: no visible global function
   definition for ‘coordinates’
 plot,CompactStratification-SamplingPattern: no visible global function
@@ -12896,6 +12161,26 @@ spsample,CompactStratificationPriorPoints-missing-missing: no visible
   global function definition for ‘coordinates’
 spsample,CompactStratificationPriorPoints-missing-missing: no visible
   global function definition for ‘SpatialPoints’
+stratify,SpatialPixels : .local: no visible global function definition
+  for ‘coordinates’
+stratify,SpatialPixels : .local: no visible global function definition
+  for ‘proj4string’
+stratify,SpatialPixels : .local: no visible global function definition
+  for ‘CRS’
+stratify,SpatialPixels : .local: no visible global function definition
+  for ‘spTransform’
+stratify,SpatialPixels : .local: no visible global function definition
+  for ‘gridded<-’
+stratify,SpatialPixels : .local: no visible global function definition
+  for ‘%over%’
+stratify,SpatialPixels : .local: no visible global function definition
+  for ‘geometry’
+stratify,SpatialPixels : .local: no visible global function definition
+  for ‘coordinates<-’
+stratify,SpatialPixels : .local: no visible global function definition
+  for ‘proj4string<-’
+stratify,SpatialPolygons : .local: no visible global function
+  definition for ‘gridded<-’
 ```
 ```
 checking examples ... ERROR
@@ -12960,39 +12245,39 @@ rgdal: version: 1.0-4, (SVN revision 548)
  Path to PROJ.4 shared files: (autodetected)
  Linking to sp version: 1.1-1 
 OGR data source with driver: ESRI Shapefile 
-Source: "/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/spcosa.Rcheck/spcosa/maps", layer: "mijdrecht"
+Source: "/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/spcosa.Rcheck/spcosa/maps", layer: "mijdrecht"
 with 1 features
 It has 2 fields
-2015-10-15 21:30:24 | optimizing configuration 1 
-2015-10-15 21:30:24 |    current objective function value: 50485.85 
-2015-10-15 21:30:24 |    minimum objective function value: 50485.85 
-2015-10-15 21:30:24 | optimizing configuration 2 
-2015-10-15 21:30:24 |    current objective function value: 51048.45 
-2015-10-15 21:30:24 |    minimum objective function value: 50485.85 
-2015-10-15 21:30:24 | optimizing configuration 3 
-2015-10-15 21:30:24 |    current objective function value: 50670.82 
-2015-10-15 21:30:24 |    minimum objective function value: 50485.85 
-2015-10-15 21:30:24 | optimizing configuration 4 
-2015-10-15 21:30:24 |    current objective function value: 52082.42 
-2015-10-15 21:30:24 |    minimum objective function value: 50485.85 
-2015-10-15 21:30:24 | optimizing configuration 5 
-2015-10-15 21:30:24 |    current objective function value: 53706.91 
-2015-10-15 21:30:24 |    minimum objective function value: 50485.85 
-2015-10-15 21:30:24 | optimizing configuration 6 
-2015-10-15 21:30:24 |    current objective function value: 51047.8 
-2015-10-15 21:30:24 |    minimum objective function value: 50485.85 
-2015-10-15 21:30:24 | optimizing configuration 7 
-2015-10-15 21:30:24 |    current objective function value: 51216.01 
-2015-10-15 21:30:24 |    minimum objective function value: 50485.85 
-2015-10-15 21:30:24 | optimizing configuration 8 
-2015-10-15 21:30:24 |    current objective function value: 50634.7 
-2015-10-15 21:30:24 |    minimum objective function value: 50485.85 
-2015-10-15 21:30:24 | optimizing configuration 9 
-2015-10-15 21:30:24 |    current objective function value: 52254.34 
-2015-10-15 21:30:24 |    minimum objective function value: 50485.85 
-2015-10-15 21:30:24 | optimizing configuration 10 
-2015-10-15 21:30:24 |    current objective function value: 60713.64 
-2015-10-15 21:30:24 |    minimum objective function value: 50485.85 
+2015-11-09 22:40:25 | optimizing configuration 1 
+2015-11-09 22:40:25 |    current objective function value: 50485.85 
+2015-11-09 22:40:25 |    minimum objective function value: 50485.85 
+2015-11-09 22:40:25 | optimizing configuration 2 
+2015-11-09 22:40:25 |    current objective function value: 51048.45 
+2015-11-09 22:40:25 |    minimum objective function value: 50485.85 
+2015-11-09 22:40:25 | optimizing configuration 3 
+2015-11-09 22:40:25 |    current objective function value: 50670.82 
+2015-11-09 22:40:25 |    minimum objective function value: 50485.85 
+2015-11-09 22:40:25 | optimizing configuration 4 
+2015-11-09 22:40:25 |    current objective function value: 52082.42 
+2015-11-09 22:40:25 |    minimum objective function value: 50485.85 
+2015-11-09 22:40:25 | optimizing configuration 5 
+2015-11-09 22:40:25 |    current objective function value: 53706.91 
+2015-11-09 22:40:25 |    minimum objective function value: 50485.85 
+2015-11-09 22:40:25 | optimizing configuration 6 
+2015-11-09 22:40:25 |    current objective function value: 51047.8 
+2015-11-09 22:40:25 |    minimum objective function value: 50485.85 
+2015-11-09 22:40:25 | optimizing configuration 7 
+2015-11-09 22:40:25 |    current objective function value: 51216.01 
+2015-11-09 22:40:25 |    minimum objective function value: 50485.85 
+2015-11-09 22:40:25 | optimizing configuration 8 
+2015-11-09 22:40:25 |    current objective function value: 50634.7 
+2015-11-09 22:40:25 |    minimum objective function value: 50485.85 
+2015-11-09 22:40:25 | optimizing configuration 9 
+2015-11-09 22:40:25 |    current objective function value: 52254.34 
+2015-11-09 22:40:25 |    minimum objective function value: 50485.85 
+2015-11-09 22:40:25 | optimizing configuration 10 
+2015-11-09 22:40:25 |    current objective function value: 60713.64 
+2015-11-09 22:40:25 |    minimum objective function value: 50485.85 
 Error: Unknown parameters: colour
 Execution halted
 ```
@@ -13006,13 +12291,15 @@ Maintainer: Fabian Scheipl
  <fabian.scheipl@stat.uni-muenchen.de>
 
 ```
-checking whether package ‘spikeSlabGAM’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/spikeSlabGAM.Rcheck/00install.out’ for details.
+checking whether package ‘spikeSlabGAM’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘scales::alpha’ when loading ‘spikeSlabGAM’
+  Warning: replacing previous import by ‘grid::unit’ when loading ‘spikeSlabGAM’
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/spikeSlabGAM.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 1 WARNING
 ```
 
 ## spoccutils (0.1.0)
@@ -13023,7 +12310,7 @@ Bug reports: https://github.com/ropensci/spoccutils/issues
 checking whether package ‘spoccutils’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::unit’ when loading ‘spoccutils’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/spoccutils.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/spoccutils.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -13035,7 +12322,7 @@ Maintainer: Martin Zaefferer <martin.zaefferer@gmx.de>
 
 __OK__
 
-## sprm (1.1)
+## sprm (1.2)
 Maintainer: Irene Hoffmann <irene.hoffmann@tuwien.ac.at>
 
 ```
@@ -13043,15 +12330,7 @@ checking whether package ‘sprm’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘sprm’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘sprm’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/sprm.Rcheck/00install.out’ for details.
-```
-```
-checking S3 generic/method consistency ... NOTE
-Found the following apparent S3 methods exported but not registered:
-  biplot.prm biplot.sprm plot.prm plot.sprm predict.prm predict.sprm
-  print.prm print.sprm summary.prm summary.sprm
-See section ‘Registering S3 methods’ in the ‘Writing R Extensions’
-manual.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/sprm.Rcheck/00install.out’ for details.
 ```
 ```
 checking examples ... ERROR
@@ -13080,7 +12359,7 @@ Execution halted
 ```
 ```
 DONE
-Status: 1 ERROR, 1 WARNING, 1 NOTE
+Status: 1 ERROR, 1 WARNING
 ```
 
 ## ss3sim (0.8.2)
@@ -13100,31 +12379,22 @@ setup_parallel: no visible global function definition for
   ‘getDoParWorkers’
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Quitting from lines 792-798 (ss3sim-vignette.Rnw) 
-Error: processing vignette 'ss3sim-vignette.Rnw' failed with diagnostics:
-Unknown parameters: width
-Execution halted
-
-```
-```
 DONE
-Status: 3 NOTEs
+Status: 2 NOTEs
 ```
 
 ## starma (1.1)
 Maintainer: Felix Cheysson <felix@cheysson.fr>
 
 ```
-checking whether package ‘starma’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/starma.Rcheck/00install.out’ for details.
+checking whether package ‘starma’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘scales::alpha’ when loading ‘starma’
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/starma.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 1 WARNING
 ```
 
 ## statar (0.3.0)
@@ -13134,7 +12404,7 @@ Bug reports: https://github.com/matthieugomez/statar/issues
 ```
 checking whether package ‘statar’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/statar.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/statar.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -13151,7 +12421,7 @@ Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘statebins’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘statebins’
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘statebins’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/statebins.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/statebins.Rcheck/00install.out’ for details.
 ```
 ```
 checking Rd cross-references ... WARNING
@@ -13204,7 +12474,7 @@ Bug reports: https://github.com/OskarHansson/strvalidator/issues
 checking whether package ‘strvalidator’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::unit’ when loading ‘strvalidator’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/strvalidator.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/strvalidator.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -13325,7 +12595,7 @@ Maintainer: Chris Dardis <christopherdardis@gmail.com>
 checking whether package ‘survMisc’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘survMisc’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/survMisc.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/survMisc.Rcheck/00install.out’ for details.
 ```
 ```
 checking examples ... ERROR
@@ -13333,82 +12603,29 @@ Running examples in ‘survMisc-Ex.R’ failed
 The error most likely occurred in:
 
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: autoplot.rpart
-> ### Title: Generate a 'ggplot' for an 'rpart' object
-> ### Aliases: autoplot autoplot.rpart
-> ### Keywords: graphs
+> ### Name: autoplot.survfit
+> ### Title: Generate a 'ggplot' for a 'survfit' object
+> ### Aliases: autoplot.survfit
+> ### Keywords: plot survival
 > 
 > ### ** Examples
 > 
-> data("cu.summary", package="rpart")
-> fit <- rpart::rpart(Price ~ Mileage + Type + Country, cu.summary)
-> autoplot(fit)
+> data(kidney, package="KMsurv")
+> s1 <- survfit(Surv(time, delta) ~ type, data=kidney)
+> autoplot(s1, type="fill", survLineSize=2)
+$table
+
 $plot
+Warning: Removed 2 rows containing missing values (geom_rect).
+Warning: Removed 2 rows containing missing values (geom_rect).
 
-Attaching package: ‘ggplot2’
-
-The following object is masked from ‘package:survMisc’:
-
-    autoplot
-
-
-$segments
-        x         y ind  xend      yend
- 1: 2.875 0.7494783  V1 2.875 1.0000000
- 2: 2.875 1.0000000  V1 6.250 1.0000000
- 3: 6.250 1.0000000  V1 6.250 0.7494783
- 4: 1.750 0.6011194  V2 1.750 0.7494783
- 5: 1.750 0.7494783  V2 4.000 0.7494783
- 6: 4.000 0.7494783  V2 4.000 0.6011194
- 7: 1.000 0.5383016  V3 1.000 0.6011194
- 8: 1.000 0.6011194  V3 2.500 0.6011194
- 9: 2.500 0.6011194  V3 2.500 0.5383016
-10: 2.000 0.5277827  V4 2.000 0.5383016
-11: 2.000 0.5383016  V4 3.000 0.5383016
-12: 3.000 0.5383016  V4 3.000 0.5277827
-13: 5.500 0.6618244  V5 5.500 0.7494783
-14: 5.500 0.7494783  V5 7.000 0.7494783
-15: 7.000 0.7494783  V5 7.000 0.6618244
-16: 5.000 0.6515165  V6 5.000 0.6618244
-17: 5.000 0.6618244  V6 6.000 0.6618244
-18: 6.000 0.6618244  V6 6.000 0.6515165
-
-$nodes
-         x         y            node   n   isP lC rC   isL     resp       yNU
- 1: 4.5625 1.0000000            root 117  TRUE  2  9 FALSE 15743.46 1.0094443
- 2: 2.8750 0.7494783       Type=adef  80  TRUE  3  8 FALSE 13035.01 0.7589226
- 3: 1.7500 0.6011194 Country=acefghj  69  TRUE  4  5 FALSE 11555.16 0.6105637
- 4: 1.0000 0.5383016          Type=d  21 FALSE NA NA  TRUE 7629.048 0.5477460
- 5: 2.5000 0.5383016        Type=aef  48  TRUE  6  7 FALSE 13272.83 0.5477460
- 6: 2.0000 0.5277827     Country=fhj  29 FALSE NA NA  TRUE 12241.55 0.5372271
- 7: 3.0000 0.5277827      Country=ce  19 FALSE NA NA  TRUE 14846.89 0.5372271
- 8: 4.0000 0.6011194      Country=di  11 FALSE NA NA  TRUE 22317.73 0.6105637
- 9: 6.2500 0.7494783         Type=bc  37  TRUE 10 13 FALSE 21599.57 0.7589226
-10: 5.5000 0.6618244     Country=cgj  25  TRUE 11 12 FALSE 18697.28 0.6712687
-11: 5.0000 0.6515165          Type=c  18 FALSE NA NA  TRUE 17607.44 0.6609609
-12: 6.0000 0.6515165          Type=b   7 FALSE NA NA  TRUE 21499.71 0.6609609
-13: 7.0000 0.6618244    Country=bdei  12 FALSE NA NA  TRUE    27646 0.6712687
-          yND       yLD
- 1: 0.9905557 0.9905557
- 2: 0.7400339 0.7400339
- 3: 0.5916750 0.5916750
- 4: 0.5288573 0.5288573
- 5: 0.5288573 0.5288573
- 6: 0.5183384 0.5183384
- 7: 0.5183384 0.5183384
- 8: 0.5916750 0.5916750
- 9: 0.7400339 0.7400339
-10: 0.6523800 0.6523800
-11: 0.6420722 0.6420722
-12: 0.6420722 0.6420722
-13: 0.6523800 0.6523800
-
-> data("stagec", package="rpart")
-> progstat <- factor(stagec$pgstat, levels = 0:1, labels = c("No", "Prog"))
-> cfit <- rpart::rpart(progstat ~ age + eet + g2 + grade + gleason + ploidy,
-+                      data = stagec, method = 'class')
-> autoplot(cfit)
-Error: Objects of type rpart not supported by autoplot.
+attr(,"class")
+[1] "tableAndPlot" "list"        
+> autoplot(s1, type="CI", pVal=TRUE, pX=0.3,
++  legLabs=c("surgical", "percutaneous"),
++  title="Time to infection following catheter placement \n
++    by type of catheter, for dialysis patients")$plot
+Error: Aesthetics must be either length 1 or the same as the data (1): label, size
 Execution halted
 ```
 ```
@@ -13421,7 +12638,7 @@ Maintainer: Michael Laimighofer <michael.laimighofer@helmholtz-muenchen.de>
 
 __OK__
 
-## sValues (0.1.1)
+## sValues (0.1.2)
 Maintainer: Carlos Cinelli <carloscinelli@hotmail.com>  
 Bug reports: https://github.com/carloscinelli/sValues
 
@@ -13447,8 +12664,8 @@ The error most likely occurred in:
 > 
 > map_reserve('jac')
 Error in layer(mapping = NULL, data = NULL, stat = "identity", geom = <environment>,  : 
-  unused argument (geom_params = list(raster = c("#CADDA8", "#CADFAA", "#C7DDA6", "#C7DDA6", "#CADDA8", "#CADDA8", "#CADDA8", "#CADDA8", "#C7DDA6", "#CADFAA", "#CADDA8", "#CADDA8", "#CADDA8", "#C7DDA6", "#CADFAA", "#CADFAA", "#CEE2AF", "#CCDFAD", "#CADFAA", "#CEE2AF", "#CADFAA", "#CCE2AD", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CCE2AD", "#C7DDA6", "#CADDA8", "#CCDFAD", "#CADDA8", "#CADFAA", "#CEE2AF", "#CCDFAD", "#CADFAA", "#CADFAA", "#CCDFAD", "#CCE2AD", "#CEE2AF", "#CADFAA", "#CADFAA", 
-"#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CCDFAD", "#CADFAA", "#CADFAA", "#CADFAA", "#C7DDA6", "#CADDA8", "#CEE2AF", "#CCDFAD", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CCDFAD", "#CADFAA", "#CEE2AF", "#CCE2AD", "#CEE2AF", "#CCDFAD", "#CADFAA", "#CADFAA", "#CADFAA", "#CCDFAD", "#CCDFAD", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#C7DDA6", "#C5DAA6", "#C5DAA6", "#CADDA8", "#CADDA8", "#CADFAA", "#CADFAA", "#CCDFAD", "#CADFA
+  unused argument (geom_params = list(raster = c("#CADDA8", "#CADFAA", "#C7DDA6", "#C7DDA6", "#CADDA8", "#CADDA8", "#CADDA8", "#CADDA8", "#C7DDA6", "#CADFAA", "#CADDA8", "#CADDA8", "#CADDA8", "#C7DDA6", "#CADFAA", "#CADFAA", "#CEE2AF", "#CCDFAD", "#CADFAA", "#CCE2AF", "#CADFAA", "#CCE2AD", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CCE2AD", "#C7DDA6", "#CADDA8", "#CCDFAD", "#CADDA8", "#CADFAA", "#CEE2AF", "#CCDFAD", "#CADFAA", "#CADFAA", "#CCDFAD", "#CCE2AD", "#CCE2AF", "#CADFAA", "#CADFAA", 
+"#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CCDFAD", "#CADFAA", "#CADFAA", "#CADFAA", "#C7DDA6", "#CADDA8", "#CEE2AF", "#CCDFAD", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CCDFAD", "#CADFAA", "#CCE2AF", "#CCE2AD", "#CCE2AF", "#CCDFAD", "#CADFAA", "#CADFAA", "#CADFAA", "#CCDFAD", "#CCDFAD", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#CADFAA", "#C7DDA6", "#C5DAA6", "#C5DAA6", "#CADDA8", "#CADDA8", "#CADFAA", "#CADFAA", "#CCDFAD", "#CADFA
 Calls: map_reserve ... inset_raster -> <Anonymous> -> <Anonymous> -> do.call -> layer
 Execution halted
 ```
@@ -13512,32 +12729,11 @@ Execution halted
 
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Loading required package: lattice
-Loading required package: MASS
-Loading required package: nnet
-Loading required package: ggplot2
-Loading required package: coefplot
-Warning: replacing previous import by 'scales::alpha' when loading 'coefplot'
-Warning: replacing previous import by 'grid::arrow' when loading 'useful'
-Warning: replacing previous import by 'grid::unit' when loading 'useful'
-Warning: replacing previous import by 'scales::alpha' when loading 'useful'
-
-Error: processing vignette 'synthpop.Rnw' failed with diagnostics:
- chunk 27 
-Error in get(x, envir = this, inherits = inh)(this, ...) : 
-  attempt to apply non-function
-Execution halted
-
-```
-```
 DONE
-Status: 2 ERRORs, 2 NOTEs
+Status: 2 ERRORs, 1 NOTE
 ```
 
-## tableone (0.7.1)
+## tableone (0.7.2)
 Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 
 __OK__
@@ -13707,18 +12903,16 @@ DONE
 Status: 1 ERROR
 ```
 
-## tcR (2.1.1)
+## tcR (2.2.1)
 Maintainer: Vadim Nazarov <vdm.nazarov@gmail.com>  
 Bug reports: https://github.com/imminfo/tcr/issues
 
 ```
 checking whether package ‘tcR’ can be installed ... WARNING
 Found the following significant warnings:
-  Warning: replacing previous import by ‘data.table::melt’ when loading ‘tcR’
-  Warning: replacing previous import by ‘data.table::dcast’ when loading ‘tcR’
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘tcR’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘tcR’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/tcR.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/tcR.Rcheck/00install.out’ for details.
 ```
 ```
 checking installed package size ... NOTE
@@ -13728,39 +12922,8 @@ checking installed package size ... NOTE
     doc    3.9Mb
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-
-Warning: replacing previous import by 'data.table::melt' when loading 'tcR'
-Warning: replacing previous import by 'data.table::dcast' when loading 'tcR'
-Warning: replacing previous import by 'grid::arrow' when loading 'tcR'
-Warning: replacing previous import by 'grid::unit' when loading 'tcR'
-
-Attaching package: 'tcR'
-
-The following object is masked from 'package:igraph':
-
-    diversity
-
-Using People as id variables
-Using Gene as id variables
-Using Gene as id variables
-Using Gene as id variables
-Warning: Removed 4 rows containing missing values (geom_text).
-Warning: Removed 20 rows containing missing values (geom_point).
-Warning: Removed 20 rows containing missing values (geom_point).
-Warning: Removed 20 rows containing missing values (geom_point).
-Warning: Removed 20 rows containing missing values (geom_point).
-Quitting from lines 488-490 (tcrvignette.Rmd) 
-Error: processing vignette 'tcrvignette.Rmd' failed with diagnostics:
-Unknown parameters: binwidth, bins, origin, right
-Execution halted
-
-```
-```
 DONE
-Status: 1 WARNING, 2 NOTEs
+Status: 1 WARNING, 1 NOTE
 ```
 
 ## tdr (0.11)
@@ -13792,2886 +12955,2886 @@ Found the platform-specific device:
 dev.new() is the preferred way to open a new device, in the unlikely
 event one is needed.
 HTKidentify: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:71)
 HTKidentify: no visible global function definition for ‘tkrplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:72)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:72)
 HTKidentify: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:73)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:73)
 HTKidentify: no visible global function definition for ‘tcl’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:74)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:74)
 HTKidentify: no visible global function definition for ‘tkcget’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:74)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:74)
 HTKidentify: no visible global function definition for ‘tcl’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:75)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:75)
 HTKidentify: no visible global function definition for ‘tkcget’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:75)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:75)
 HTKidentify : mm: no visible global function definition for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:87)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:87)
 HTKidentify: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:90)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:90)
 TkApprox: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:8)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:8)
 TkApprox: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:9)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:9)
 TkApprox: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:26)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:26)
 TkApprox: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:27)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:27)
 TkApprox : replot: no visible global function definition for
   ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:43-56)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:43-56)
 TkApprox: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:66)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:66)
 TkApprox: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:67)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:67)
 TkApprox: no visible global function definition for ‘tkrplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:69)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:69)
 TkApprox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:70)
 TkApprox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:72)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:72)
 TkApprox: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:72)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:72)
 TkApprox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:74-76)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:74-76)
 TkApprox: no visible global function definition for ‘tkcheckbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:74-76)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:74-76)
 TkApprox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:77-78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:77-78)
 TkApprox: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:77-78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:77-78)
 TkApprox : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:77-78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:77-78)
 TkApprox: no visible global function definition for ‘tcl’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:81)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:81)
 TkApprox: no visible global function definition for ‘tkcget’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:81)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:81)
 TkApprox: no visible global function definition for ‘tcl’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:82)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:82)
 TkApprox: no visible global function definition for ‘tkcget’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:82)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:82)
 TkApprox : mouse.move: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:90-92)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:90-92)
 TkApprox : mouse.move: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:97)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:97)
 TkApprox: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:113)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:113)
 TkApprox: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:114)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:114)
 TkApprox: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:115)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:115)
 TkApprox: no visible global function definition for ‘tkwait.window’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:118)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkApprox.R:118)
 TkBuildDist : <anonymous>: no visible global function definition for
   ‘oldlogspline’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:23)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:23)
 TkBuildDist : <anonymous>: no visible global function definition for
   ‘doldlogspline’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:24)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:24)
 TkBuildDist : <anonymous>: no visible global function definition for
   ‘dlogspline’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:35)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:35)
 TkBuildDist: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:54)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:54)
 TkBuildDist: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:55)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:55)
 TkBuildDist: no visible global function definition for ‘tkrplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:57)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:57)
 TkBuildDist: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:58)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:58)
 TkBuildDist: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:60-61)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:60-61)
 TkBuildDist: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:60-61)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:60-61)
 TkBuildDist : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:60-61)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:60-61)
 TkBuildDist: no visible global function definition for ‘tcl’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:63)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:63)
 TkBuildDist: no visible global function definition for ‘tkcget’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:63)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:63)
 TkBuildDist : mouse1.down: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:69)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:69)
 TkBuildDist : mouse2.down: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:78)
 TkBuildDist: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:82)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:82)
 TkBuildDist: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:83)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:83)
 TkBuildDist: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:84)
 TkBuildDist: no visible global function definition for ‘tkwait.window’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:86)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:86)
 TkBuildDist: no visible global function definition for ‘oldlogspline’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:92)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:92)
 TkBuildDist2 : <anonymous>: no visible global function definition for
   ‘oldlogspline’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:128)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:128)
 TkBuildDist2 : <anonymous>: no visible global function definition for
   ‘doldlogspline’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:129)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:129)
 TkBuildDist2: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:154)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:154)
 TkBuildDist2: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:155)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:155)
 TkBuildDist2: no visible global function definition for ‘tkrplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:157)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:157)
 TkBuildDist2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:158)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:158)
 TkBuildDist2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:160-161)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:160-161)
 TkBuildDist2: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:160-161)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:160-161)
 TkBuildDist2 : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:160-161)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:160-161)
 TkBuildDist2: no visible global function definition for ‘tcl’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:163)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:163)
 TkBuildDist2: no visible global function definition for ‘tkcget’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:163)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:163)
 TkBuildDist2: no visible global function definition for ‘tcl’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:164)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:164)
 TkBuildDist2: no visible global function definition for ‘tkcget’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:164)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:164)
 TkBuildDist2 : mouse.move: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:181)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:181)
 TkBuildDist2: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:195)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:195)
 TkBuildDist2: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:196)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:196)
 TkBuildDist2: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:197)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:197)
 TkBuildDist2: no visible global function definition for ‘tkwait.window’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:199)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:199)
 TkBuildDist2: no visible global function definition for ‘oldlogspline’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:204)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkBuildDist.R:204)
 TkIdentify: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:119)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:119)
 TkIdentify: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:120)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:120)
 TkIdentify: no visible global function definition for ‘tkrplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:122)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:122)
 TkIdentify: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:123)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:123)
 TkIdentify: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:125-126)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:125-126)
 TkIdentify: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:125-126)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:125-126)
 TkIdentify : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:125-126)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:125-126)
 TkIdentify: no visible global function definition for ‘tcl’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:133)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:133)
 TkIdentify: no visible global function definition for ‘tkcget’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:133)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:133)
 TkIdentify: no visible global function definition for ‘tcl’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:134)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:134)
 TkIdentify: no visible global function definition for ‘tkcget’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:134)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:134)
 TkIdentify : mouse.move: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:166)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:166)
 TkIdentify: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:183)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:183)
 TkIdentify: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:184)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:184)
 TkIdentify: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:185)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:185)
 TkIdentify: no visible global function definition for ‘tkwait.window’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:187)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/dynIdentify.R:187)
 TkListView: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:9)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:9)
 TkListView: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:10)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:10)
 TkListView: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:12)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:12)
 TkListView: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:13)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:13)
 TkListView: no visible global function definition for ‘tkscrollbar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:15)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:15)
 TkListView : <anonymous>: no visible global function definition for
   ‘tkyview’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:15)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:15)
 TkListView: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:17)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:17)
 TkListView : <anonymous>: no visible global function definition for
   ‘tkset’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:17)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:17)
 TkListView: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:19)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:19)
 TkListView: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:20)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:20)
 TkListView: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:23)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:23)
 TkListView: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:24)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:24)
 TkListView: no visible global function definition for ‘tktext’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:26)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:26)
 TkListView: no visible global function definition for ‘tkscrollbar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:27)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:27)
 TkListView : <anonymous>: no visible global function definition for
   ‘tkyview’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:27)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:27)
 TkListView: no visible global function definition for ‘tkscrollbar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:28)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:28)
 TkListView : <anonymous>: no visible global function definition for
   ‘tkxview’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:28)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:28)
 TkListView: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:29-30)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:29-30)
 TkListView : <anonymous>: no visible global function definition for
   ‘tkset’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:29-30)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:29-30)
 TkListView: no visible global function definition for ‘tkgrid’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:32)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:32)
 TkListView: no visible global function definition for ‘tkgrid’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:33)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:33)
 TkListView: no visible global function definition for
   ‘tkgrid.columnconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:34)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:34)
 TkListView: no visible global function definition for
   ‘tkgrid.rowconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:35)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:35)
 TkListView : buildtree: no visible global function definition for
   ‘tkinsert’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:50)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:50)
 TkListView : buildtree: no visible global function definition for
   ‘tkinsert’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:54)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:54)
 TkListView : buildtree: no visible global function definition for
   ‘tkinsert’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:61)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:61)
 TkListView : getx: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:70)
 TkListView : getx: no visible global function definition for ‘tkselect’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:70)
 TkListView: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:94-99)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:94-99)
 TkListView : <anonymous>: no visible global function definition for
   ‘tkdelete’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:96)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:96)
 TkListView : <anonymous>: no visible global function definition for
   ‘tkinsert’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:97)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:97)
 TkListView: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:100-105)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:100-105)
 TkListView : <anonymous>: no visible global function definition for
   ‘tkdelete’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:102)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:102)
 TkListView : <anonymous>: no visible global function definition for
   ‘tkinsert’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:103)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:103)
 TkListView: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:107)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:107)
 TkListView: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:108)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:108)
 TkListView: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:110)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:110)
 TkListView: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:111)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:111)
 TkListView: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:113)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:113)
 TkListView: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:114)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:114)
 TkListView: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:115-120)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:115-120)
 TkListView : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:116)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:116)
 TkListView : <anonymous>: no visible global function definition for
   ‘tkdelete’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:117)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:117)
 TkListView : <anonymous>: no visible global function definition for
   ‘tkinsert’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:118)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:118)
 TkListView: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:122)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:122)
 TkListView: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:123)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:123)
 TkListView: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:125-126)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:125-126)
 TkListView: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:125-126)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:125-126)
 TkListView : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:125-126)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkListView.R:125-126)
 TkSpline: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:10)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:10)
 TkSpline: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:11)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:11)
 TkSpline: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:12)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:12)
 TkSpline: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:13)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:13)
 TkSpline: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:14)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:14)
 TkSpline: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:15)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:15)
 TkSpline: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:16)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:16)
 TkSpline: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:17)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:17)
 TkSpline: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:31)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:31)
 TkSpline: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:32)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:32)
 TkSpline : replot: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:46-48)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:46-48)
 TkSpline : replot: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:49-52)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:49-52)
 TkSpline : replot: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:53-56)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:53-56)
 TkSpline : replot: no visible global function definition for
   ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:58-59)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:58-59)
 TkSpline: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:71)
 TkSpline: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:72)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:72)
 TkSpline: no visible global function definition for ‘tkrplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:74)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:74)
 TkSpline: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:75)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:75)
 TkSpline: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:77)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:77)
 TkSpline: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:77)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:77)
 TkSpline: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:78-80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:78-80)
 TkSpline: no visible global function definition for ‘tkcheckbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:78-80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:78-80)
 TkSpline : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:78-80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:78-80)
 TkSpline: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:81-83)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:81-83)
 TkSpline: no visible global function definition for ‘tkcheckbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:81-83)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:81-83)
 TkSpline : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:81-83)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:81-83)
 TkSpline: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:84-86)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:84-86)
 TkSpline: no visible global function definition for ‘tkcheckbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:84-86)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:84-86)
 TkSpline : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:84-86)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:84-86)
 TkSpline: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:90)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:90)
 TkSpline: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:90)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:90)
 TkSpline: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:92-94)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:92-94)
 TkSpline: no visible global function definition for ‘tkcheckbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:92-94)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:92-94)
 TkSpline: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:96-97)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:96-97)
 TkSpline: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:96-97)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:96-97)
 TkSpline : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:96-97)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:96-97)
 TkSpline: no visible global function definition for ‘tcl’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:100)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:100)
 TkSpline: no visible global function definition for ‘tkcget’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:100)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:100)
 TkSpline: no visible global function definition for ‘tcl’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:101)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:101)
 TkSpline: no visible global function definition for ‘tkcget’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:101)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:101)
 TkSpline : mouse.move: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:110-112)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:110-112)
 TkSpline : mouse.move: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:119)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:119)
 TkSpline: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:132)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:132)
 TkSpline: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:133)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:133)
 TkSpline: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:134)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:134)
 TkSpline: no visible global function definition for ‘tkwait.window’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:137)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/TkSpline.R:137)
 flip.rgl.coin: no visible global function definition for
   ‘rgl.viewpoint’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/flip.rgl.coin.R:4)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/flip.rgl.coin.R:4)
 have.ttk: no visible global function definition for ‘tcl’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tdspinner.R:13)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tdspinner.R:13)
 lattice.demo: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:9)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:9)
 lattice.demo: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:10)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:10)
 lattice.demo: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:12)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:12)
 lattice.demo : lattice.refresh: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:15)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:15)
 lattice.demo : lattice.refresh: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:16)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:16)
 lattice.demo : lattice.refresh: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:18)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:18)
 lattice.demo : lattice.refresh: no visible global function definition
   for ‘xyplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:27-31)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:27-31)
 lattice.demo : lattice.refresh: no visible global function definition
   for ‘strip.custom’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:27-31)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:27-31)
 lattice.demo : lattice.refresh: no visible global function definition
   for ‘cloud’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:33-40)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:33-40)
 lattice.demo : lattice.refresh : <anonymous>: no visible global
   function definition for ‘panel.cloud’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:34-40)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:34-40)
 lattice.demo : lattice.refresh : <anonymous> : <anonymous>: no visible
   global function definition for ‘panel.3dscatter’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:35-37)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:35-37)
 lattice.demo : lattice.refresh : <anonymous> : <anonymous>: no visible
   global function definition for ‘panel.3dwire’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:38-39)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:38-39)
 lattice.demo : lattice.refresh: no visible global function definition
   for ‘xyplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:43-48)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:43-48)
 lattice.demo : lattice.refresh: no visible global function definition
   for ‘strip.custom’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:43-48)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:43-48)
 lattice.demo: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:54)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:54)
 lattice.demo: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:55)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:55)
 lattice.demo: no visible global function definition for ‘tkwm.geometry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:56)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:56)
 lattice.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:59)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:59)
 lattice.demo: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:59)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:59)
 lattice.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:60)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:60)
 lattice.demo: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:60)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:60)
 lattice.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:61-64)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:61-64)
 lattice.demo: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:61-64)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:61-64)
 lattice.demo: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:67)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:67)
 lattice.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:70)
 lattice.demo: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:70)
 lattice.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:71)
 lattice.demo: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:71)
 lattice.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:72-75)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:72-75)
 lattice.demo: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:72-75)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:72-75)
 lattice.demo: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:77)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:77)
 lattice.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:80)
 lattice.demo: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:80)
 lattice.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:81-82)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:81-82)
 lattice.demo: no visible global function definition for ‘tkcheckbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:81-82)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:81-82)
 lattice.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:83-84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:83-84)
 lattice.demo: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:83-84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:83-84)
 lattice.demo: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:86)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:86)
 lattice.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:88)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:88)
 lattice.demo: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:88)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:88)
 lattice.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:90-91)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:90-91)
 lattice.demo: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:90-91)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:90-91)
 lattice.demo : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:90-91)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/lattice.demo.R:90-91)
 mle.demo: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:10)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:10)
 mle.demo: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:11)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:11)
 mle.demo : mle.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:16)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:16)
 mle.demo : mle.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:17)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:17)
 mle.demo: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:51)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:51)
 mle.demo: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:52)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:52)
 mle.demo: no visible global function definition for ‘tkwm.geometry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:53)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:53)
 mle.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:56)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:56)
 mle.demo: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:56)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:56)
 mle.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:57)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:57)
 mle.demo: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:57)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:57)
 mle.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:62-66)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:62-66)
 mle.demo: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:62-66)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:62-66)
 mle.demo: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:68)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:68)
 mle.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:71)
 mle.demo: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:71)
 mle.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:72)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:72)
 mle.demo: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:72)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:72)
 mle.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:76-80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:76-80)
 mle.demo: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:76-80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:76-80)
 mle.demo: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:82)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:82)
 mle.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:86)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:86)
 mle.demo: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:86)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:86)
 mle.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:87-88)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:87-88)
 mle.demo: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:87-88)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:87-88)
 mle.demo : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:87-88)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/mle.demo.R:87-88)
 panel.dice: no visible global function definition for ‘llines’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/panel.dice.R:14)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/panel.dice.R:14)
 panel.dice: no visible global function definition for ‘lpoints’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/panel.dice.R:26)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/panel.dice.R:26)
 panel.my.symbols : <anonymous>: no visible binding for global variable
   ‘lpolygon’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/panel.mysymbols.R:37)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/panel.mysymbols.R:37)
 panel.my.symbols : <anonymous>: no visible binding for global variable
   ‘llines’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/panel.mysymbols.R:39)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/panel.mysymbols.R:39)
 panel.my.symbols : <anonymous>: no visible binding for global variable
   ‘lpolygon’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/panel.mysymbols.R:53)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/panel.mysymbols.R:53)
 panel.my.symbols : <anonymous>: no visible binding for global variable
   ‘llines’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/panel.mysymbols.R:55)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/panel.mysymbols.R:55)
 plot.dice: no visible global function definition for ‘trellis.par.get’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.dice.R:5)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.dice.R:5)
 plot.dice: no visible global function definition for ‘trellis.par.set’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.dice.R:6)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.dice.R:6)
 plot.dice: no visible global function definition for ‘trellis.par.set’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.dice.R:7)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.dice.R:7)
 plot.dice: no visible global function definition for ‘col.whitebg’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.dice.R:7)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.dice.R:7)
 plot.dice: no visible global function definition for ‘xyplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.dice.R:16-19)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.dice.R:16-19)
 plotFagan: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:110)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:110)
 plotFagan: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:111)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:111)
 plotFagan: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:112)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:112)
 plotFagan: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:113)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:113)
 plotFagan: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:114)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:114)
 plotFagan: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:115)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:115)
 plotFagan: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:117)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:117)
 plotFagan: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:118)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:118)
 plotFagan: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:119)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:119)
 plotFagan: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:120)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:120)
 plotFagan : replot: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:123)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:123)
 plotFagan : replot: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:124)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:124)
 plotFagan : replot: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:125)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:125)
 plotFagan: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:129)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:129)
 plotFagan: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:130)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:130)
 plotFagan: no visible global function definition for ‘tkrplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:132)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:132)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:133)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:133)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:135)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:135)
 plotFagan: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:135)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:135)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:136)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:136)
 plotFagan: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:136)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:136)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:137-141)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:137-141)
 plotFagan: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:137-141)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:137-141)
 plotFagan : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:137-141)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:137-141)
 plotFagan : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:137-141)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:137-141)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:143)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:143)
 plotFagan: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:143)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:143)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:144)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:144)
 plotFagan: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:144)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:144)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:145-149)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:145-149)
 plotFagan: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:145-149)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:145-149)
 plotFagan : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:145-149)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:145-149)
 plotFagan : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:145-149)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:145-149)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:151)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:151)
 plotFagan: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:151)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:151)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:152-158)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:152-158)
 plotFagan: no visible global function definition for ‘tkcheckbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:152-158)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:152-158)
 plotFagan : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:152-158)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:152-158)
 plotFagan : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:152-158)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:152-158)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:160)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:160)
 plotFagan: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:160)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:160)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:161-164)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:161-164)
 plotFagan: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:161-164)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:161-164)
 plotFagan : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:161-164)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:161-164)
 plotFagan : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:161-164)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:161-164)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:166-167)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:166-167)
 plotFagan: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:166-167)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:166-167)
 plotFagan : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:166-167)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:166-167)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:170)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:170)
 plotFagan: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:170)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:170)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:171)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:171)
 plotFagan: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:171)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:171)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:172)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:172)
 plotFagan: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:172)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:172)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:173)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:173)
 plotFagan: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:173)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:173)
 plotFagan: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:174)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:174)
 plotFagan: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:174)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:174)
 plotFagan: no visible global function definition for ‘tkwait.window’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:177)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:177)
 plotFagan: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:178-181)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:178-181)
 plotFagan2: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:195)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:195)
 plotFagan2: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:196)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:196)
 plotFagan2: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:197)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:197)
 plotFagan2: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:198)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:198)
 plotFagan2: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:199)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:199)
 plotFagan2: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:200)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:200)
 plotFagan2: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:201)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:201)
 plotFagan2: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:202)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:202)
 plotFagan2: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:204)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:204)
 plotFagan2: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:205)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:205)
 plotFagan2: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:206)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:206)
 plotFagan2: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:207)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:207)
 plotFagan2 : replot: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:210)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:210)
 plotFagan2 : replot: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:211)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:211)
 plotFagan2 : replot: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:212)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:212)
 plotFagan2 : replot: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:213)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:213)
 plotFagan2: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:217)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:217)
 plotFagan2: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:218)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:218)
 plotFagan2: no visible global function definition for ‘tkrplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:220)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:220)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:221)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:221)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:223)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:223)
 plotFagan2: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:223)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:223)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:224)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:224)
 plotFagan2: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:224)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:224)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:225-229)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:225-229)
 plotFagan2: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:225-229)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:225-229)
 plotFagan2 : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:225-229)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:225-229)
 plotFagan2 : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:225-229)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:225-229)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:231)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:231)
 plotFagan2: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:231)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:231)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:232)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:232)
 plotFagan2: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:232)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:232)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:233-237)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:233-237)
 plotFagan2: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:233-237)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:233-237)
 plotFagan2 : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:233-237)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:233-237)
 plotFagan2 : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:233-237)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:233-237)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:239)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:239)
 plotFagan2: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:239)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:239)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:240)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:240)
 plotFagan2: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:240)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:240)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:241-245)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:241-245)
 plotFagan2: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:241-245)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:241-245)
 plotFagan2 : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:241-245)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:241-245)
 plotFagan2 : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:241-245)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:241-245)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:247)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:247)
 plotFagan2: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:247)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:247)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:248-254)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:248-254)
 plotFagan2: no visible global function definition for ‘tkcheckbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:248-254)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:248-254)
 plotFagan2 : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:248-254)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:248-254)
 plotFagan2 : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:248-254)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:248-254)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:256)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:256)
 plotFagan2: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:256)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:256)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:257-260)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:257-260)
 plotFagan2: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:257-260)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:257-260)
 plotFagan2 : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:257-260)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:257-260)
 plotFagan2 : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:257-260)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:257-260)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:262-263)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:262-263)
 plotFagan2: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:262-263)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:262-263)
 plotFagan2 : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:262-263)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:262-263)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:266)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:266)
 plotFagan2: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:266)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:266)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:267)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:267)
 plotFagan2: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:267)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:267)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:268)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:268)
 plotFagan2: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:268)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:268)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:269)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:269)
 plotFagan2: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:269)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:269)
 plotFagan2: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:270)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:270)
 plotFagan2: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:270)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:270)
 plotFagan2: no visible global function definition for ‘tkwait.window’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:273)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:273)
 plotFagan2: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:274-278)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/fagan.R:274-278)
 rgl.Map : <anonymous>: no visible global function definition for
   ‘rgl.lines’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rgl.Map.R:22)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rgl.Map.R:22)
 rgl.coin: no visible binding for global variable ‘coin.faces’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.coin.R:5)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.coin.R:5)
 rgl.coin: no visible global function definition for ‘rgl.viewpoint’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.coin.R:7)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.coin.R:7)
 rgl.coin: no visible global function definition for ‘rgl.triangles’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.coin.R:10-12)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.coin.R:10-12)
 rgl.coin: no visible global function definition for ‘rgl.triangles’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.coin.R:13-15)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.coin.R:13-15)
 rgl.coin: no visible global function definition for ‘rgl.quads’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.coin.R:16-21)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.coin.R:16-21)
 rgl.coin: no visible global function definition for ‘rgl.lines’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.coin.R:27-28)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.coin.R:27-28)
 rgl.coin: no visible global function definition for ‘rgl.lines’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.coin.R:33-34)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.coin.R:33-34)
 rgl.die: no visible global function definition for ‘rgl.viewpoint’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:5)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:5)
 rgl.die: no visible global function definition for ‘rgl.quads’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:24)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:24)
 rgl.die: no visible global function definition for ‘rgl.quads’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:25)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:25)
 rgl.die: no visible global function definition for ‘rgl.quads’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:26)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:26)
 rgl.die: no visible global function definition for ‘rgl.quads’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:27)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:27)
 rgl.die: no visible global function definition for ‘rgl.quads’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:28)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:28)
 rgl.die: no visible global function definition for ‘rgl.quads’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:29)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:29)
 rgl.die: no visible global function definition for ‘rgl.triangles’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:34)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:34)
 rgl.die: no visible global function definition for ‘rgl.triangles’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:40)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:40)
 rgl.die: no visible global function definition for ‘rgl.triangles’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:46)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:46)
 rgl.die: no visible global function definition for ‘rgl.triangles’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:52)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:52)
 rgl.die: no visible global function definition for ‘rgl.triangles’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:58)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:58)
 rgl.die: no visible global function definition for ‘rgl.triangles’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:64)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/plot.rgl.die.R:64)
 roc.demo: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:10)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:10)
 roc.demo : roc.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:19)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:19)
 roc.demo: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:72)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:72)
 roc.demo: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:73)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:73)
 roc.demo: no visible global function definition for ‘tkwm.geometry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:74)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:74)
 roc.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:77)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:77)
 roc.demo: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:77)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:77)
 roc.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:78)
 roc.demo: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:78)
 roc.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:80-84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:80-84)
 roc.demo: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:80-84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:80-84)
 roc.demo: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:87)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:87)
 roc.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:91)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:91)
 roc.demo: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:91)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:91)
 roc.demo: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:92-93)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:92-93)
 roc.demo: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:92-93)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:92-93)
 roc.demo : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:92-93)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roc.demo.R:92-93)
 roll.rgl.die: no visible global function definition for ‘rgl.viewpoint’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roll.rgl.die.R:3)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roll.rgl.die.R:3)
 roll.rgl.die: no visible global function definition for ‘rgl.viewpoint’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roll.rgl.die.R:11)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roll.rgl.die.R:11)
 roll.rgl.die: no visible global function definition for ‘rgl.viewpoint’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roll.rgl.die.R:17)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roll.rgl.die.R:17)
 roll.rgl.die: no visible global function definition for ‘rgl.viewpoint’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roll.rgl.die.R:21)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roll.rgl.die.R:21)
 roll.rgl.die: no visible global function definition for ‘rgl.viewpoint’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roll.rgl.die.R:24)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roll.rgl.die.R:24)
 roll.rgl.die: no visible global function definition for ‘rgl.viewpoint’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roll.rgl.die.R:30)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roll.rgl.die.R:30)
 roll.rgl.die: no visible global function definition for ‘rgl.viewpoint’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roll.rgl.die.R:34)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/roll.rgl.die.R:34)
 rotate.cloud: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:7)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:7)
 rotate.cloud: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:8)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:8)
 rotate.cloud: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:9)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:9)
 rotate.cloud: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:11)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:11)
 rotate.cloud: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:12)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:12)
 rotate.cloud: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:13)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:13)
 rotate.cloud : cloud.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:19)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:19)
 rotate.cloud : cloud.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:20)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:20)
 rotate.cloud : cloud.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:21)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:21)
 rotate.cloud : cloud.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:23)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:23)
 rotate.cloud : cloud.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:24)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:24)
 rotate.cloud : cloud.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:25)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:25)
 rotate.cloud: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:39)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:39)
 rotate.cloud: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:40)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:40)
 rotate.cloud: no visible global function definition for ‘tkwm.geometry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:41)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:41)
 rotate.cloud: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:44)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:44)
 rotate.cloud: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:44)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:44)
 rotate.cloud: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:45)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:45)
 rotate.cloud: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:45)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:45)
 rotate.cloud: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:46-49)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:46-49)
 rotate.cloud: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:46-49)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:46-49)
 rotate.cloud: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:52)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:52)
 rotate.cloud: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:54)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:54)
 rotate.cloud: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:57)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:57)
 rotate.cloud: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:57)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:57)
 rotate.cloud: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:58)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:58)
 rotate.cloud: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:58)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:58)
 rotate.cloud: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:59-62)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:59-62)
 rotate.cloud: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:59-62)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:59-62)
 rotate.cloud: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:65)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:65)
 rotate.cloud: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:67)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:67)
 rotate.cloud: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:70)
 rotate.cloud: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:70)
 rotate.cloud: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:71)
 rotate.cloud: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:71)
 rotate.cloud: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:72-75)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:72-75)
 rotate.cloud: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:72-75)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:72-75)
 rotate.cloud: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:78)
 rotate.cloud: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:80)
 rotate.cloud: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:82)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:82)
 rotate.cloud: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:82)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:82)
 rotate.cloud: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:84-85)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:84-85)
 rotate.cloud: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:84-85)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:84-85)
 rotate.cloud : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:84-85)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.cloud.R:84-85)
 rotate.wireframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:7)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:7)
 rotate.wireframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:8)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:8)
 rotate.wireframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:9)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:9)
 rotate.wireframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:11)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:11)
 rotate.wireframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:12)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:12)
 rotate.wireframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:13)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:13)
 rotate.wireframe : wire.refresh: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:19)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:19)
 rotate.wireframe : wire.refresh: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:20)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:20)
 rotate.wireframe : wire.refresh: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:21)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:21)
 rotate.wireframe : wire.refresh: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:23)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:23)
 rotate.wireframe : wire.refresh: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:24)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:24)
 rotate.wireframe : wire.refresh: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:25)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:25)
 rotate.wireframe: no visible global function definition for
   ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:39)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:39)
 rotate.wireframe: no visible global function definition for
   ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:40)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:40)
 rotate.wireframe: no visible global function definition for
   ‘tkwm.geometry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:41)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:41)
 rotate.wireframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:44)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:44)
 rotate.wireframe: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:44)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:44)
 rotate.wireframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:45)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:45)
 rotate.wireframe: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:45)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:45)
 rotate.wireframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:46-49)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:46-49)
 rotate.wireframe: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:46-49)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:46-49)
 rotate.wireframe: no visible global function definition for
   ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:52)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:52)
 rotate.wireframe: no visible global function definition for
   ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:54)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:54)
 rotate.wireframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:57)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:57)
 rotate.wireframe: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:57)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:57)
 rotate.wireframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:58)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:58)
 rotate.wireframe: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:58)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:58)
 rotate.wireframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:59-62)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:59-62)
 rotate.wireframe: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:59-62)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:59-62)
 rotate.wireframe: no visible global function definition for
   ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:65)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:65)
 rotate.wireframe: no visible global function definition for
   ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:67)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:67)
 rotate.wireframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:70)
 rotate.wireframe: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:70)
 rotate.wireframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:71)
 rotate.wireframe: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:71)
 rotate.wireframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:72-75)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:72-75)
 rotate.wireframe: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:72-75)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:72-75)
 rotate.wireframe: no visible global function definition for
   ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:78)
 rotate.wireframe: no visible global function definition for
   ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:80)
 rotate.wireframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:82)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:82)
 rotate.wireframe: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:82)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:82)
 rotate.wireframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:84-85)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:84-85)
 rotate.wireframe: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:84-85)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:84-85)
 rotate.wireframe : <anonymous>: no visible global function definition
   for ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:84-85)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/rotate.wireframe.R:84-85)
 run.cor.examp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:40)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:40)
 run.cor.examp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:41)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:41)
 run.cor.examp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:42)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:42)
 run.cor.examp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:43)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:43)
 run.cor.examp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:45)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:45)
 run.cor.examp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:46)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:46)
 run.cor.examp : replot: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:49)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:49)
 run.cor.examp: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:63)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:63)
 run.cor.examp: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:64)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:64)
 run.cor.examp: no visible global function definition for ‘tkrplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:66)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:66)
 run.cor.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:67)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:67)
 run.cor.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:70)
 run.cor.examp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:70)
 run.cor.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:71)
 run.cor.examp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:71)
 run.cor.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:72-77)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:72-77)
 run.cor.examp: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:72-77)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:72-77)
 run.cor.examp : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:72-77)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:72-77)
 run.cor.examp : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:72-77)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:72-77)
 run.cor.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:80)
 run.cor.examp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:80)
 run.cor.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:81-84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:81-84)
 run.cor.examp: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:81-84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:81-84)
 run.cor.examp : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:81-84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:81-84)
 run.cor.examp : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:81-84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:81-84)
 run.cor.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:85-86)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:85-86)
 run.cor.examp: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:85-86)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:85-86)
 run.cor.examp : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:85-86)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:85-86)
 run.cor.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:88)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:88)
 run.cor.examp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:88)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:88)
 run.cor.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:89)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:89)
 run.cor.examp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:89)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:89)
 run.cor.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:90)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:90)
 run.cor.examp: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:90)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:90)
 run.cor.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:91)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:91)
 run.cor.examp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:91)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:91)
 run.cor.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:92)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:92)
 run.cor.examp: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:92)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:92)
 run.cor.examp: no visible global function definition for
   ‘tkwait.window’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:95)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:95)
 run.cor.examp: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:96)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor.examp.R:96)
 run.cor2.examp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:60)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:60)
 run.cor2.examp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:61)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:61)
 run.cor2.examp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:62)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:62)
 run.cor2.examp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:63)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:63)
 run.cor2.examp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:65)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:65)
 run.cor2.examp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:66)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:66)
 run.cor2.examp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:67)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:67)
 run.cor2.examp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:68)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:68)
 run.cor2.examp : update.r: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:71)
 run.cor2.examp : update.r: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:72)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:72)
 run.cor2.examp : update.r: no visible global function definition for
   ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:73)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:73)
 run.cor2.examp : update.r: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:74-76)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:74-76)
 run.cor2.examp : update.r: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:74-76)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:74-76)
 run.cor2.examp : update.r2: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:79)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:79)
 run.cor2.examp : update.r2: no visible global function definition for
   ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:80)
 run.cor2.examp : update.r2: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:81-83)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:81-83)
 run.cor2.examp : update.r2: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:81-83)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:81-83)
 run.cor2.examp : replot: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:87)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:87)
 run.cor2.examp: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:102)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:102)
 run.cor2.examp: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:103)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:103)
 run.cor2.examp: no visible global function definition for ‘tkrplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:105)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:105)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:106)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:106)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:108)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:108)
 run.cor2.examp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:108)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:108)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:109)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:109)
 run.cor2.examp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:109)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:109)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:110)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:110)
 run.cor2.examp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:110)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:110)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:111-113)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:111-113)
 run.cor2.examp: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:111-113)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:111-113)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:114)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:114)
 run.cor2.examp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:114)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:114)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:115)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:115)
 run.cor2.examp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:115)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:115)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:116-118)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:116-118)
 run.cor2.examp: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:116-118)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:116-118)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:120)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:120)
 run.cor2.examp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:120)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:120)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:121-124)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:121-124)
 run.cor2.examp: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:121-124)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:121-124)
 run.cor2.examp : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:121-124)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:121-124)
 run.cor2.examp : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:121-124)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:121-124)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:125-126)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:125-126)
 run.cor2.examp: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:125-126)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:125-126)
 run.cor2.examp : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:125-126)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:125-126)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:128)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:128)
 run.cor2.examp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:128)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:128)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:129)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:129)
 run.cor2.examp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:129)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:129)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:130)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:130)
 run.cor2.examp: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:130)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:130)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:131)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:131)
 run.cor2.examp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:131)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:131)
 run.cor2.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:132)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:132)
 run.cor2.examp: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:132)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:132)
 run.cor2.examp: no visible global function definition for
   ‘tkwait.window’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:135)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:135)
 run.cor2.examp: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:136)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.cor2.examp.R:136)
 run.power.examp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:17)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:17)
 run.power.examp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:18)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:18)
 run.power.examp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:19)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:19)
 run.power.examp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:20)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:20)
 run.power.examp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:21)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:21)
 run.power.examp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:22)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:22)
 run.power.examp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:24)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:24)
 run.power.examp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:25)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:25)
 run.power.examp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:26)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:26)
 run.power.examp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:27)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:27)
 run.power.examp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:28)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:28)
 run.power.examp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:29)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:29)
 run.power.examp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:31)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:31)
 run.power.examp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:32)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:32)
 run.power.examp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:33)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:33)
 run.power.examp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:34)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:34)
 run.power.examp : replot: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:39-44)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:39-44)
 run.power.examp: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:47)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:47)
 run.power.examp: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:48)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:48)
 run.power.examp: no visible global function definition for ‘tkrplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:50)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:50)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:51)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:51)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:53)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:53)
 run.power.examp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:53)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:53)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:54)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:54)
 run.power.examp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:54)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:54)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:55-60)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:55-60)
 run.power.examp : <anonymous>: no visible global function definition
   for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:55-60)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:55-60)
 run.power.examp : <anonymous>: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:55-60)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:55-60)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:62)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:62)
 run.power.examp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:62)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:62)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:63)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:63)
 run.power.examp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:63)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:63)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:64-68)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:64-68)
 run.power.examp: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:64-68)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:64-68)
 run.power.examp : <anonymous>: no visible global function definition
   for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:64-68)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:64-68)
 run.power.examp : <anonymous>: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:64-68)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:64-68)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:70)
 run.power.examp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:70)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:71)
 run.power.examp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:71)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:72-76)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:72-76)
 run.power.examp: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:72-76)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:72-76)
 run.power.examp : <anonymous>: no visible global function definition
   for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:72-76)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:72-76)
 run.power.examp : <anonymous>: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:72-76)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:72-76)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:78)
 run.power.examp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:78)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:79)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:79)
 run.power.examp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:79)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:79)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:80-84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:80-84)
 run.power.examp: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:80-84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:80-84)
 run.power.examp : <anonymous>: no visible global function definition
   for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:80-84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:80-84)
 run.power.examp : <anonymous>: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:80-84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:80-84)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:88)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:88)
 run.power.examp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:88)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:88)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:89)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:89)
 run.power.examp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:89)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:89)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:90)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:90)
 run.power.examp: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:90)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:90)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:91)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:91)
 run.power.examp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:91)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:91)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:92)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:92)
 run.power.examp: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:92)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:92)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:96)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:96)
 run.power.examp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:96)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:96)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:97)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:97)
 run.power.examp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:97)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:97)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:98)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:98)
 run.power.examp: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:98)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:98)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:99)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:99)
 run.power.examp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:99)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:99)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:100)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:100)
 run.power.examp: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:100)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:100)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:102)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:102)
 run.power.examp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:102)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:102)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:103-106)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:103-106)
 run.power.examp: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:103-106)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:103-106)
 run.power.examp : <anonymous>: no visible global function definition
   for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:103-106)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:103-106)
 run.power.examp : <anonymous>: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:103-106)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:103-106)
 run.power.examp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:108-109)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:108-109)
 run.power.examp: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:108-109)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:108-109)
 run.power.examp : <anonymous>: no visible global function definition
   for ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:108-109)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:108-109)
 run.power.examp: no visible global function definition for
   ‘tkwait.window’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:112)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:112)
 run.power.examp: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:113-118)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/run.power.examp.R:113-118)
 slider: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:5-7)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:5-7)
 slider: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:24)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:24)
 slider: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:25)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:25)
 slider: no visible global function definition for ‘tkwm.geometry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:26)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:26)
 slider: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:36)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:36)
 slider: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:36)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:36)
 slider: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:37)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:37)
 slider: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:38-39)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:38-39)
 slider: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:40)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:40)
 slider: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:50)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:50)
 slider: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:53)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:53)
 slider: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:53)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:53)
 slider: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:54-56)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:54-56)
 slider: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:54-56)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:54-56)
 slider : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:54-56)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:54-56)
 slider: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:61-66)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:61-66)
 slider: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:61-66)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:61-66)
 slider: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:77-78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:77-78)
 slider: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:77-78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/slider.R:77-78)
 sliderv: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:5-6)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:5-6)
 sliderv: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:16)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:16)
 sliderv: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:16)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:16)
 sliderv: no visible global function definition for ‘tkwm.geometry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:16)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:16)
 sliderv: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:20)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:20)
 sliderv: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:20)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:20)
 sliderv: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:21)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:21)
 sliderv: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:22-23)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:22-23)
 sliderv: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:24)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:24)
 sliderv: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:29)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:29)
 sliderv: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:29)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:29)
 sliderv: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:30-31)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:30-31)
 sliderv: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:30-31)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:30-31)
 sliderv : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:30-31)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:30-31)
 sliderv: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:32-36)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:32-36)
 sliderv: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:32-36)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/sliderv.R:32-36)
 tdspinner: no visible global function definition for ‘tkwidget’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tdspinner.R:6)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tdspinner.R:6)
 tkBrush: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:46)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:46)
 tkBrush: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:47)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:47)
 tkBrush: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:81)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:81)
 tkBrush: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:82)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:82)
 tkBrush: no visible global function definition for ‘tkrplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:84)
 tkBrush: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:86)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:86)
 tkBrush: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:89)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:89)
 tkBrush: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:89)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:89)
 tkBrush: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:90)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:90)
 tkBrush: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:90)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:90)
 tkBrush: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:93)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:93)
 tkBrush: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:93)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:93)
 tkBrush: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:94)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:94)
 tkBrush: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:94)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:94)
 tkBrush: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:97-98)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:97-98)
 tkBrush: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:97-98)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:97-98)
 tkBrush : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:97-98)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:97-98)
 tkBrush: no visible global function definition for ‘tcl’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:100)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:100)
 tkBrush: no visible global function definition for ‘tkcget’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:100)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:100)
 tkBrush: no visible global function definition for ‘tcl’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:101)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:101)
 tkBrush: no visible global function definition for ‘tkcget’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:101)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:101)
 tkBrush : mm: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:118)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:118)
 tkBrush : mm: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:124)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:124)
 tkBrush : mm: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:125)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:125)
 tkBrush : mm: no visible global function definition for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:133)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:133)
 tkBrush : mmm: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:140)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:140)
 tkBrush : mmm: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:146)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:146)
 tkBrush : mmm: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:147)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:147)
 tkBrush : mmm: no visible global function definition for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:155)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:155)
 tkBrush: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:158)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:158)
 tkBrush: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:159)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:159)
 tkBrush: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:160)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:160)
 tkBrush: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:161)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:161)
 tkBrush: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:162)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:162)
 tkBrush: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:163)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:163)
 tkBrush: no visible global function definition for ‘tkbind’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:164)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:164)
 tkBrush: no visible global function definition for ‘tkwait.window’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:167)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkBrush.R:167)
 tkexamp: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:33)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:33)
 tkexamp: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:34)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:34)
 tkexamp: no visible global function definition for ‘tkrplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:36)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:36)
 tkexamp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:37)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:37)
 tkexamp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:39)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:39)
 tkexamp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:40)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:40)
 tkexamp: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:41)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:41)
 tkexamp: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:42)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:42)
 tkexamp : fillframe: no visible global function definition for
   ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:50)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:50)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:51)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:51)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:53)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:53)
 tkexamp : fillframe: no visible global function definition for
   ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:53)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:53)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:59)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:59)
 tkexamp : fillframe: no visible global function definition for
   ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:59)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:59)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:60-61)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:60-61)
 tkexamp : fillframe: no visible global function definition for
   ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:60-61)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:60-61)
 tkexamp : fillframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:62)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:62)
 tkexamp : fillframe: no visible global function definition for
   ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:63)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:63)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:68)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:68)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:78)
 tkexamp : fillframe: no visible global function definition for
   ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:78)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:79-80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:79-80)
 tkexamp : fillframe: no visible global function definition for
   ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:79-80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:79-80)
 tkexamp : fillframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:81)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:81)
 tkexamp : fillframe: no visible global function definition for
   ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:82)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:82)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:87)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:87)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:97)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:97)
 tkexamp : fillframe: no visible global function definition for
   ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:97)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:97)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:98)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:98)
 tkexamp : fillframe: no visible global function definition for
   ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:98)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:98)
 tkexamp : fillframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:99)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:99)
 tkexamp : fillframe: no visible global function definition for
   ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:100-104)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:100-104)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:105-108)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:105-108)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:105-108)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:105-108)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:112)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:112)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:122)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:122)
 tkexamp : fillframe: no visible global function definition for
   ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:122)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:122)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:123)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:123)
 tkexamp : fillframe: no visible global function definition for
   ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:123)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:123)
 tkexamp : fillframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:124)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:124)
 tkexamp : fillframe: no visible global function definition for
   ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:125-129)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:125-129)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:130-133)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:130-133)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:130-133)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:130-133)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:137)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:137)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:147)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:147)
 tkexamp : fillframe: no visible global function definition for
   ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:147)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:147)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:148-149)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:148-149)
 tkexamp : fillframe: no visible global function definition for
   ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:148-149)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:148-149)
 tkexamp : fillframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:150)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:150)
 tkexamp : fillframe: no visible global function definition for
   ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:151-155)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:151-155)
 tkexamp : fillframe: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:156)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:156)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:157-160)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:157-160)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:157-160)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:157-160)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:164)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:164)
 tkexamp : fillframe: no visible global function definition for
   ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:171)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:171)
 tkexamp : fillframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:175)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:175)
 tkexamp : fillframe: no visible global function definition for
   ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:176-178)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:176-178)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:179-183)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:179-183)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:179-183)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:179-183)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:191)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:191)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:202)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:202)
 tkexamp : fillframe: no visible global function definition for
   ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:202)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:202)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:203-204)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:203-204)
 tkexamp : fillframe: no visible global function definition for
   ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:203-204)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:203-204)
 tkexamp : fillframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:205)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:205)
 tkexamp : fillframe: no visible global function definition for
   ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:206-208)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:206-208)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:217)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:217)
 tkexamp : fillframe: no visible global function definition for
   ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:218)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:218)
 tkexamp : fillframe: no visible global function definition for
   ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:219)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:219)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:229-230)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:229-230)
 tkexamp : fillframe: no visible global function definition for
   ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:229-230)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:229-230)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:231-232)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:231-232)
 tkexamp : fillframe: no visible global function definition for
   ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:231-232)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:231-232)
 tkexamp : fillframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:233)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:233)
 tkexamp : fillframe: no visible global function definition for
   ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:234-238)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:234-238)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:243-246)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:243-246)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:243-246)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:243-246)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:249-250)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:249-250)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:262)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:262)
 tkexamp : fillframe: no visible global function definition for
   ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:262)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:262)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:263)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:263)
 tkexamp : fillframe: no visible global function definition for
   ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:263)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:263)
 tkexamp : fillframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:264)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:264)
 tkexamp : fillframe: no visible global function definition for
   ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:265-269)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:265-269)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:270-273)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:270-273)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:270-273)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:270-273)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:281)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:281)
 tkexamp : fillframe : tmp.tke.an: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:315)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:315)
 tkexamp : fillframe : tmp.tke.an: no visible global function definition
   for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:316-317)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:316-317)
 tkexamp : fillframe : tmp.tke.an: no visible global function definition
   for ‘tclAfter’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:326)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:326)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:332-333)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:332-333)
 tkexamp : fillframe: no visible global function definition for
   ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:332-333)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:332-333)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:341)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:341)
 tkexamp : fillframe: no visible global function definition for
   ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:341)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:341)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:342)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:342)
 tkexamp : fillframe: no visible global function definition for
   ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:342)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:342)
 tkexamp : fillframe: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:343)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:343)
 tkexamp : fillframe: no visible global function definition for
   ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:344-348)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:344-348)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:349-352)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:349-352)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:349-352)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:349-352)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:361)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:361)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:372-377)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:372-377)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:373)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:373)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:373)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:373)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:374-376)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:374-376)
 tkexamp : fillframe : <anonymous>: no visible global function
   definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:374-376)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:374-376)
 tkexamp : fillframe: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:380-382)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:380-382)
 tkexamp : fillframe: no visible global function definition for
   ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:380-382)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:380-382)
 tkexamp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:395)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:395)
 tkexamp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:395)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:395)
 tkexamp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:397-400)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:397-400)
 tkexamp: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:397-400)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:397-400)
 tkexamp : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:397-399)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:397-399)
 tkexamp : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:397-399)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:397-399)
 tkexamp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:401-407)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:401-407)
 tkexamp: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:401-407)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:401-407)
 tkexamp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:408-409)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:408-409)
 tkexamp: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:408-409)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:408-409)
 tkexamp : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:408-409)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:408-409)
 tkexamp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:412)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:412)
 tkexamp: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:412)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:412)
 tkexamp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:413)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:413)
 tkexamp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:413)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:413)
 tkexamp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:414)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:414)
 tkexamp: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:414)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:414)
 tkexamp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:415)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:415)
 tkexamp: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:415)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:415)
 tkexamp: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:416)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:416)
 tkexamp: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:416)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:416)
 tkexamp: no visible global function definition for ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:420-421)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:420-421)
 tkexamp: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:420-421)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:420-421)
 tkexamp: no visible global function definition for ‘tkwait.window’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:424)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/tkexamp.R:424)
 vis.binom: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:9)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:9)
 vis.binom: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:10)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:10)
 vis.binom: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:12)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:12)
 vis.binom: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:13)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:13)
 vis.binom : binom.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:17)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:17)
 vis.binom : binom.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:18)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:18)
 vis.binom : binom.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:20)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:20)
 vis.binom : binom.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:21)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:21)
 vis.binom: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:59)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:59)
 vis.binom: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:60)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:60)
 vis.binom: no visible global function definition for ‘tkwm.geometry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:61)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:61)
 vis.binom: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:64)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:64)
 vis.binom: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:64)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:64)
 vis.binom: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:65)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:65)
 vis.binom: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:65)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:65)
 vis.binom: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:66-69)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:66-69)
 vis.binom: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:66-69)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:66-69)
 vis.binom: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:71)
 vis.binom: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:74)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:74)
 vis.binom: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:74)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:74)
 vis.binom: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:75)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:75)
 vis.binom: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:75)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:75)
 vis.binom: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:76-79)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:76-79)
 vis.binom: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:76-79)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:76-79)
 vis.binom: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:81)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:81)
 vis.binom: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:84)
 vis.binom: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:84)
 vis.binom: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:85-86)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:85-86)
 vis.binom: no visible global function definition for ‘tkcheckbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:85-86)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:85-86)
 vis.binom: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:87-88)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:87-88)
 vis.binom: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:87-88)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:87-88)
 vis.binom: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:90)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:90)
 vis.binom: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:93)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:93)
 vis.binom: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:93)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:93)
 vis.binom: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:94-95)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:94-95)
 vis.binom: no visible global function definition for ‘tkcheckbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:94-95)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:94-95)
 vis.binom: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:96-97)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:96-97)
 vis.binom: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:96-97)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:96-97)
 vis.binom: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:99)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:99)
 vis.binom: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:101)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:101)
 vis.binom: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:101)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:101)
 vis.binom: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:102-103)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:102-103)
 vis.binom: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:102-103)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:102-103)
 vis.binom : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:102-103)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.binom.R:102-103)
 vis.boxcox: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:70)
 vis.boxcox: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:71)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:71)
 vis.boxcox: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:72)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:72)
 vis.boxcox: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:73)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:73)
 vis.boxcox: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:74)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:74)
 vis.boxcox: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:75)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:75)
 vis.boxcox : replot: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:78)
 vis.boxcox: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:95)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:95)
 vis.boxcox: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:96)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:96)
 vis.boxcox: no visible global function definition for ‘tkrplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:98)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:98)
 vis.boxcox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:99)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:99)
 vis.boxcox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:101)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:101)
 vis.boxcox: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:101)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:101)
 vis.boxcox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:102)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:102)
 vis.boxcox: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:102)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:102)
 vis.boxcox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:103-107)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:103-107)
 vis.boxcox: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:103-107)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:103-107)
 vis.boxcox : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:103-107)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:103-107)
 vis.boxcox : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:103-107)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:103-107)
 vis.boxcox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:109)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:109)
 vis.boxcox: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:109)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:109)
 vis.boxcox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:110-113)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:110-113)
 vis.boxcox: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:110-113)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:110-113)
 vis.boxcox : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:110-113)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:110-113)
 vis.boxcox : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:110-113)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:110-113)
 vis.boxcox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:115-116)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:115-116)
 vis.boxcox: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:115-116)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:115-116)
 vis.boxcox : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:115-116)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:115-116)
 vis.boxcox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:118)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:118)
 vis.boxcox: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:118)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:118)
 vis.boxcox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:119)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:119)
 vis.boxcox: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:119)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:119)
 vis.boxcox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:120)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:120)
 vis.boxcox: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:120)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:120)
 vis.boxcox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:121)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:121)
 vis.boxcox: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:121)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:121)
 vis.boxcox: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:122)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:122)
 vis.boxcox: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:122)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:122)
 vis.boxcox: no visible global function definition for ‘tkwait.window’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:125)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:125)
 vis.boxcox: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:126-129)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:126-129)
 vis.boxcox.old: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:18)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:18)
 vis.boxcox.old : bc.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:21)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:21)
 vis.boxcox.old: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:39)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:39)
 vis.boxcox.old: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:40)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:40)
 vis.boxcox.old: no visible global function definition for
   ‘tkwm.geometry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:41)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:41)
 vis.boxcox.old: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:43)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:43)
 vis.boxcox.old: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:43)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:43)
 vis.boxcox.old: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:44)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:44)
 vis.boxcox.old: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:44)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:44)
 vis.boxcox.old: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:45-47)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:45-47)
 vis.boxcox.old: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:45-47)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:45-47)
 vis.boxcox.old: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:49)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:49)
 vis.boxcox.old: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:51)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:51)
 vis.boxcox.old: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:51)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:51)
 vis.boxcox.old: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:52-53)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:52-53)
 vis.boxcox.old: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:52-53)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:52-53)
 vis.boxcox.old : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:52-53)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcox.R:52-53)
 vis.boxcoxu: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:78)
 vis.boxcoxu: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:79)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:79)
 vis.boxcoxu: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:80)
 vis.boxcoxu: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:81)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:81)
 vis.boxcoxu: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:82)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:82)
 vis.boxcoxu: no visible global function definition for ‘tclvalue<-’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:83)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:83)
 vis.boxcoxu : replot: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:86)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:86)
 vis.boxcoxu: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:105)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:105)
 vis.boxcoxu: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:106)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:106)
 vis.boxcoxu: no visible global function definition for ‘tkrplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:108)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:108)
 vis.boxcoxu: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:109)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:109)
 vis.boxcoxu: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:111)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:111)
 vis.boxcoxu: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:111)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:111)
 vis.boxcoxu: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:112)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:112)
 vis.boxcoxu: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:112)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:112)
 vis.boxcoxu: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:113-117)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:113-117)
 vis.boxcoxu: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:113-117)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:113-117)
 vis.boxcoxu : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:113-117)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:113-117)
 vis.boxcoxu : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:113-117)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:113-117)
 vis.boxcoxu: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:119)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:119)
 vis.boxcoxu: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:119)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:119)
 vis.boxcoxu: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:120-123)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:120-123)
 vis.boxcoxu: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:120-123)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:120-123)
 vis.boxcoxu : <anonymous>: no visible global function definition for
   ‘tkrreplot’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:120-123)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:120-123)
 vis.boxcoxu : <anonymous>: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:120-123)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:120-123)
 vis.boxcoxu: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:125-126)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:125-126)
 vis.boxcoxu: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:125-126)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:125-126)
 vis.boxcoxu : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:125-126)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:125-126)
 vis.boxcoxu: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:128)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:128)
 vis.boxcoxu: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:128)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:128)
 vis.boxcoxu: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:129)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:129)
 vis.boxcoxu: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:129)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:129)
 vis.boxcoxu: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:130)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:130)
 vis.boxcoxu: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:130)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:130)
 vis.boxcoxu: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:131)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:131)
 vis.boxcoxu: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:131)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:131)
 vis.boxcoxu: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:132)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:132)
 vis.boxcoxu: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:132)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:132)
 vis.boxcoxu: no visible global function definition for ‘tkwait.window’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:135)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:135)
 vis.boxcoxu: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:136-138)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:136-138)
 vis.boxcoxu.old: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:18)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:18)
 vis.boxcoxu.old : bc.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:21)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:21)
 vis.boxcoxu.old: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:41)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:41)
 vis.boxcoxu.old: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:42)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:42)
 vis.boxcoxu.old: no visible global function definition for
   ‘tkwm.geometry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:43)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:43)
 vis.boxcoxu.old: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:45)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:45)
 vis.boxcoxu.old: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:45)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:45)
 vis.boxcoxu.old: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:46)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:46)
 vis.boxcoxu.old: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:46)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:46)
 vis.boxcoxu.old: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:47-49)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:47-49)
 vis.boxcoxu.old: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:47-49)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:47-49)
 vis.boxcoxu.old: no visible global function definition for
   ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:51)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:51)
 vis.boxcoxu.old: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:53)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:53)
 vis.boxcoxu.old: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:53)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:53)
 vis.boxcoxu.old: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:54-55)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:54-55)
 vis.boxcoxu.old: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:54-55)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:54-55)
 vis.boxcoxu.old : <anonymous>: no visible global function definition
   for ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:54-55)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.boxcoxu.R:54-55)
 vis.gamma: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:9)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:9)
 vis.gamma: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:10)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:10)
 vis.gamma: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:11)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:11)
 vis.gamma: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:12)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:12)
 vis.gamma: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:13)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:13)
 vis.gamma: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:15)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:15)
 vis.gamma: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:16)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:16)
 vis.gamma: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:17)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:17)
 vis.gamma: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:19)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:19)
 vis.gamma: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:20)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:20)
 vis.gamma: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:21)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:21)
 vis.gamma: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:22)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:22)
 vis.gamma : gamma.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:33)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:33)
 vis.gamma : gamma.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:34)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:34)
 vis.gamma : gamma.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:35)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:35)
 vis.gamma : gamma.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:36)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:36)
 vis.gamma : gamma.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:37)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:37)
 vis.gamma : gamma.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:122)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:122)
 vis.gamma : gamma.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:123)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:123)
 vis.gamma : gamma.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:124)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:124)
 vis.gamma : gamma.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:126)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:126)
 vis.gamma : gamma.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:127)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:127)
 vis.gamma : gamma.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:128)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:128)
 vis.gamma : gamma.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:129)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:129)
 vis.gamma: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:162)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:162)
 vis.gamma: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:163)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:163)
 vis.gamma: no visible global function definition for ‘tkwm.geometry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:164)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:164)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:167)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:167)
 vis.gamma: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:167)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:167)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:168)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:168)
 vis.gamma: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:168)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:168)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:169-172)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:169-172)
 vis.gamma: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:169-172)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:169-172)
 vis.gamma: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:174)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:174)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:177)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:177)
 vis.gamma: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:177)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:177)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:178)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:178)
 vis.gamma: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:178)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:178)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:179-182)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:179-182)
 vis.gamma: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:179-182)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:179-182)
 vis.gamma: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:184)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:184)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:187)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:187)
 vis.gamma: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:187)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:187)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:188)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:188)
 vis.gamma: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:188)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:188)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:189-192)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:189-192)
 vis.gamma: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:189-192)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:189-192)
 vis.gamma: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:194)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:194)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:197)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:197)
 vis.gamma: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:197)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:197)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:198)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:198)
 vis.gamma: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:198)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:198)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:199-202)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:199-202)
 vis.gamma: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:199-202)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:199-202)
 vis.gamma: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:204)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:204)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:207)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:207)
 vis.gamma: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:207)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:207)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:208)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:208)
 vis.gamma: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:208)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:208)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:209-212)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:209-212)
 vis.gamma: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:209-212)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:209-212)
 vis.gamma: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:214)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:214)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:218)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:218)
 vis.gamma: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:218)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:218)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:219-220)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:219-220)
 vis.gamma: no visible global function definition for ‘tkcheckbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:219-220)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:219-220)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:221-222)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:221-222)
 vis.gamma: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:221-222)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:221-222)
 vis.gamma: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:224)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:224)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:227)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:227)
 vis.gamma: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:227)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:227)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:228-229)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:228-229)
 vis.gamma: no visible global function definition for ‘tkcheckbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:228-229)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:228-229)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:230-231)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:230-231)
 vis.gamma: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:230-231)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:230-231)
 vis.gamma: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:233)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:233)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:236)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:236)
 vis.gamma: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:236)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:236)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:237-238)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:237-238)
 vis.gamma: no visible global function definition for ‘tkcheckbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:237-238)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:237-238)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:239-240)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:239-240)
 vis.gamma: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:239-240)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:239-240)
 vis.gamma: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:242)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:242)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:246)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:246)
 vis.gamma: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:246)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:246)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:247)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:247)
 vis.gamma: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:247)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:247)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:248)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:248)
 vis.gamma: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:248)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:248)
 vis.gamma: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:250)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:250)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:253)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:253)
 vis.gamma: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:253)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:253)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:254)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:254)
 vis.gamma: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:254)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:254)
 vis.gamma: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:256)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:256)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:259)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:259)
 vis.gamma: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:259)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:259)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:260)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:260)
 vis.gamma: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:260)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:260)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:261)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:261)
 vis.gamma: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:261)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:261)
 vis.gamma: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:263)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:263)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:266)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:266)
 vis.gamma: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:266)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:266)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:267)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:267)
 vis.gamma: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:267)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:267)
 vis.gamma: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:269)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:269)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:272)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:272)
 vis.gamma: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:272)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:272)
 vis.gamma: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:274-275)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:274-275)
 vis.gamma: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:274-275)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:274-275)
 vis.gamma : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:274-275)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.gamma.R:274-275)
 vis.normal: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:10)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:10)
 vis.normal: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:11)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:11)
 vis.normal: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:12)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:12)
 vis.normal: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:13)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:13)
 vis.normal: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:14)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:14)
 vis.normal: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:15)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:15)
 vis.normal: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:16)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:16)
 vis.normal : norm.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:23)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:23)
 vis.normal : norm.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:24)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:24)
 vis.normal : norm.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:25)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:25)
 vis.normal : norm.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:35)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:35)
 vis.normal : norm.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:42)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:42)
 vis.normal : norm.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:43)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:43)
 vis.normal : norm.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:44)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:44)
 vis.normal : norm.refresh: no visible global function definition for
   ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:45)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:45)
 vis.normal: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:58)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:58)
 vis.normal: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:59)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:59)
 vis.normal: no visible global function definition for ‘tkwm.geometry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:60)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:60)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:63)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:63)
 vis.normal: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:63)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:63)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:64)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:64)
 vis.normal: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:64)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:64)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:65-68)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:65-68)
 vis.normal: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:65-68)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:65-68)
 vis.normal: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:70)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:73)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:73)
 vis.normal: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:73)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:73)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:74)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:74)
 vis.normal: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:74)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:74)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:75-78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:75-78)
 vis.normal: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:75-78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:75-78)
 vis.normal: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:80)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:80)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:83)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:83)
 vis.normal: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:83)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:83)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:84)
 vis.normal: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:84)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:84)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:85-88)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:85-88)
 vis.normal: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:85-88)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:85-88)
 vis.normal: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:90)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:90)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:94)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:94)
 vis.normal: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:94)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:94)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:95)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:95)
 vis.normal: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:95)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:95)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:96)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:96)
 vis.normal: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:96)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:96)
 vis.normal: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:98)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:98)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:101)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:101)
 vis.normal: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:101)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:101)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:102)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:102)
 vis.normal: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:102)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:102)
 vis.normal: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:104)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:104)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:107)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:107)
 vis.normal: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:107)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:107)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:108)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:108)
 vis.normal: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:108)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:108)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:109)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:109)
 vis.normal: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:109)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:109)
 vis.normal: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:111)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:111)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:114)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:114)
 vis.normal: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:114)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:114)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:115)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:115)
 vis.normal: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:115)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:115)
 vis.normal: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:117)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:117)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:120)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:120)
 vis.normal: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:120)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:120)
 vis.normal: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:122-123)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:122-123)
 vis.normal: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:122-123)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:122-123)
 vis.normal : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:122-123)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.normal.R:122-123)
 vis.t: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:8)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:8)
 vis.t: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:9)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:9)
 vis.t: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:11)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:11)
 vis.t: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:12)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:12)
 vis.t: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:13)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:13)
 vis.t: no visible global function definition for ‘tclVar’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:14)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:14)
 vis.t : t.refresh: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:20)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:20)
 vis.t : t.refresh: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:21)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:21)
 vis.t : t.refresh: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:23)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:23)
 vis.t : t.refresh: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:24)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:24)
 vis.t : t.refresh: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:25)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:25)
 vis.t : t.refresh: no visible global function definition for ‘tclvalue’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:26)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:26)
 vis.t: no visible global function definition for ‘tktoplevel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:44)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:44)
 vis.t: no visible global function definition for ‘tkwm.title’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:45)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:45)
 vis.t: no visible global function definition for ‘tkwm.geometry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:46)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:46)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:49)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:49)
 vis.t: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:49)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:49)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:50)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:50)
 vis.t: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:50)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:50)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:51-54)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:51-54)
 vis.t: no visible global function definition for ‘tkscale’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:51-54)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:51-54)
 vis.t: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:56)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:56)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:59)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:59)
 vis.t: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:59)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:59)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:60)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:60)
 vis.t: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:60)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:60)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:61-62)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:61-62)
 vis.t: no visible global function definition for ‘tkcheckbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:61-62)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:61-62)
 vis.t: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:64)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:64)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:68)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:68)
 vis.t: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:68)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:68)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:69)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:69)
 vis.t: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:69)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:69)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:70)
 vis.t: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:70)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:70)
 vis.t: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:72)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:72)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:75)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:75)
 vis.t: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:75)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:75)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:76)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:76)
 vis.t: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:76)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:76)
 vis.t: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:78)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:78)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:81)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:81)
 vis.t: no visible global function definition for ‘tkframe’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:81)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:81)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:82)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:82)
 vis.t: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:82)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:82)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:83)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:83)
 vis.t: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:83)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:83)
 vis.t: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:85)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:85)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:88)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:88)
 vis.t: no visible global function definition for ‘tklabel’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:88)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:88)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:89)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:89)
 vis.t: no visible global function definition for ‘tkentry’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:89)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:89)
 vis.t: no visible global function definition for ‘tkconfigure’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:91)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:91)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:94)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:94)
 vis.t: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:94)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:94)
 vis.t: no visible global function definition for ‘tkpack’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:96-97)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:96-97)
 vis.t: no visible global function definition for ‘tkbutton’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:96-97)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:96-97)
 vis.t : <anonymous>: no visible global function definition for
   ‘tkdestroy’
-  (/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:96-97)
+  (/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:96-97)
 ```
 ```
 checking Rd line widths ... NOTE
@@ -16760,7 +15923,7 @@ Maintainer: Kyle Walker <kyle.walker@tcu.edu>
 checking whether package ‘tigris’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘sp::nowrapSpatialLines’ when loading ‘tigris’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/tigris.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/tigris.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -16771,7 +15934,15 @@ Status: 1 WARNING
 Maintainer: Kirill Müller <krlmlr+r@mailbox.org>  
 Bug reports: https://github.com/yihui/tikzDevice/issues
 
-__OK__
+```
+checking whether package ‘tikzDevice’ can be installed ... ERROR
+Installation failed.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/tikzDevice.Rcheck/00install.out’ for details.
+```
+```
+DONE
+Status: 1 ERROR
+```
 
 ## timeit (0.2.1)
 Maintainer: Kevin Ushey <kevinushey@gmail.com>
@@ -16878,6 +16049,22 @@ projectDate: no visible global function definition for
 ```
 DONE
 Status: 2 NOTEs
+```
+
+## toaster (0.3.1)
+Maintainer: Gregory Kanevsky <gregory.kanevsky@teradata.com>  
+Bug reports: https://github.com/teradata-aster-field/toaster/issues
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘RODBC’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+```
+DONE
+Status: 1 ERROR
 ```
 
 ## tourr (0.5.4)
@@ -17616,7 +16803,7 @@ checking whether package ‘TreatmentSelection’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘TreatmentSelection’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘TreatmentSelection’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TreatmentSelection.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TreatmentSelection.Rcheck/00install.out’ for details.
 ```
 ```
 checking S3 generic/method consistency ... NOTE
@@ -17800,13 +16987,124 @@ Status: 1 ERROR, 1 WARNING, 2 NOTEs
 Maintainer: Christian Zang <christian.zang@wzw.tum.de>
 
 ```
-checking whether package ‘treeclim’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/treeclim.Rcheck/00install.out’ for details.
+checking DESCRIPTION meta-information ... NOTE
+Malformed Description field: should contain one or more complete sentences.
+```
+```
+checking examples ... ERROR
+Running examples in ‘treeclim-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: seascorr
+> ### Title: Seasonal (partial) correlation analysis
+> ### Aliases: seascorr
+> 
+> ### ** Examples
+> 
+> sc <- seascorr(muc_fake, muc_clim)
+Running for timespan 1950 - 2007...
+> sc
+Results for a season length of 1 month:
+   month      type        coef significant
+1    aug   primary -0.52371682        TRUE
+2    sep   primary -0.14267645       FALSE
+3    oct   primary  0.15772773       FALSE
+4    nov   primary -0.22362571       FALSE
+5    dec   primary  0.01833031       FALSE
+6    JAN   primary  0.17831935       FALSE
+7    FEB   primary  0.44663544        TRUE
+8    MAR   primary  0.37032677        TRUE
+9    APR   primary -0.01393196       FALSE
+10   MAY   primary -0.17291415       FALSE
+11   JUN   primary -0.14184859       FALSE
+12   JUL   primary -0.48008413        TRUE
+13   AUG   primary -0.31407474       FALSE
+14   SEP   primary -0.03931931       FALSE
+15   aug secondary -0.28613329        TRUE
+16   sep secondary  0.06632164       FALSE
+17   oct secondary -0.02733212       FALSE
+18   nov secondary -0.06819103       FALSE
+19   dec secondary  0.01547899       FALSE
+20   JAN secondary -0.07272506       FALSE
+21   FEB secondary  0.24875541       FALSE
+22   MAR secondary -0.01153357       FALSE
+23   APR secondary  0.06388642       FALSE
+24   MAY secondary -0.06195945       FALSE
+25   JUN secondary -0.03850783       FALSE
+26   JUL secondary  0.36033160        TRUE
+27   AUG secondary  0.30630965        TRUE
+28   SEP secondary  0.16336474       FALSE
+
+Results for a season length of 3 months:
+   month      type         coef significant
+1    aug   primary -0.517666437        TRUE
+2    sep   primary -0.478880003        TRUE
+3    oct   primary -0.278515229       FALSE
+4    nov   primary -0.105691669       FALSE
+5    dec   primary -0.020713522       FALSE
+6    JAN   primary  0.030226201       FALSE
+7    FEB   primary  0.355536931        TRUE
+8    MAR   primary  0.458933267        TRUE
+9    APR   primary  0.443025526        TRUE
+10   MAY   primary  0.151618326       FALSE
+11   JUN   primary -0.160201210       FALSE
+12   JUL   primary -0.359524908        TRUE
+13   AUG   primary -0.423226195        TRUE
+14   SEP   primary -0.437092114        TRUE
+15   aug secondary -0.028004745       FALSE
+16   sep secondary -0.009791086       FALSE
+17   oct secondary -0.010040370       FALSE
+18   nov secondary -0.022631481       FALSE
+19   dec secondary -0.062061899       FALSE
+20   JAN secondary -0.076318190       FALSE
+21   FEB secondary  0.168274881       FALSE
+22   MAR secondary  0.172666856       FALSE
+23   APR secondary  0.194972287       FALSE
+24   MAY secondary  0.015635733       FALSE
+25   JUN secondary -0.028613820       FALSE
+26   JUL secondary  0.239962087       FALSE
+27   AUG secondary  0.496694316        TRUE
+28   SEP secondary  0.543282344        TRUE
+
+Results for a season length of 6 months:
+   month      type        coef significant
+1    aug   primary -0.37759880        TRUE
+2    sep   primary -0.42860211        TRUE
+3    oct   primary -0.35721337        TRUE
+4    nov   primary -0.43088257        TRUE
+5    dec   primary -0.34563954        TRUE
+6    JAN   primary -0.11614549       FALSE
+7    FEB   primary  0.25035902       FALSE
+8    MAR   primary  0.36835028        TRUE
+9    APR   primary  0.31624673        TRUE
+10   MAY   primary  0.30966057        TRUE
+11   JUN   primary  0.29798437        TRUE
+12   JUL   primary  0.12583126       FALSE
+13   AUG   primary -0.17899404       FALSE
+14   SEP   primary -0.35514497        TRUE
+15   aug secondary  0.13166888       FALSE
+16   sep secondary  0.13050629       FALSE
+17   oct secondary  0.08009684       FALSE
+18   nov secondary  0.04945081       FALSE
+19   dec secondary  0.09353929       FALSE
+20   JAN secondary -0.02994552       FALSE
+21   FEB secondary  0.10966288       FALSE
+22   MAR secondary  0.03270435       FALSE
+23   APR secondary  0.12664726       FALSE
+24   MAY secondary  0.13266708       FALSE
+25   JUN secondary  0.16773415       FALSE
+26   JUL secondary  0.41462622        TRUE
+27   AUG secondary  0.42554959        TRUE
+28   SEP secondary  0.43142623        TRUE
+
+> plot(sc)
+Error: Not implemented
+Execution halted
 ```
 ```
 DONE
-Status: 1 ERROR
+Status: 1 ERROR, 1 NOTE
 ```
 
 ## treecm (1.2.1)
@@ -17835,17 +17133,8 @@ Execution halted
 
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Error: processing vignette 'treecm.Rnw' failed with diagnostics:
-stat_count() must not be used with a y aesthetic.
-Execution halted
-
-```
-```
 DONE
-Status: 1 ERROR, 2 NOTEs
+Status: 1 ERROR, 1 NOTE
 ```
 
 ## treemap (2.4)
@@ -17856,14 +17145,14 @@ checking whether package ‘treemap’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘treemap’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘treemap’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/treemap.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/treemap.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
 Status: 1 WARNING
 ```
 
-## treescape (1.0.0)
+## treescape (1.8.15)
 Maintainer: Michelle Kendall <m.kendall@imperial.ac.uk>
 
 __OK__
@@ -17875,7 +17164,7 @@ Bug reports: https://github.com/jbryer/TriMatch/issues
 ```
 checking whether package ‘TriMatch’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/TriMatch.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/TriMatch.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -17916,7 +17205,24 @@ Maintainer: Juan Manuel Truppia <jmtruppia@gmail.com>
 
 __OK__
 
-## UpSetR (0.0.5)
+## ukgasapi (0.13)
+Maintainer: Timothy Wong <timothy.wong@hotmail.co.uk>  
+Bug reports: https://github.com/timothy-wong/ukgasapi/issues
+
+```
+checking Rd line widths ... NOTE
+Rd file 'dataItemExplorer.Rd':
+  \usage lines wider than 90 characters:
+       apiurl = "http://marketinformation.natgrid.co.uk/MIPIws-public/public/publicwebservice.asmx")
+
+These lines will be truncated in the PDF manual.
+```
+```
+DONE
+Status: 1 NOTE
+```
+
+## UpSetR (1.0.0)
 Maintainer: Jake Conway <jake_conway@student.uml.edu>  
 Bug reports: http://github.com/hms-dbmi/UpSetR/issues
 
@@ -17925,7 +17231,7 @@ checking whether package ‘UpSetR’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘UpSetR’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘UpSetR’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/UpSetR.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/UpSetR.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -17968,7 +17274,7 @@ Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘useful’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘useful’
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘useful’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/useful.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/useful.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -18043,7 +17349,7 @@ checking whether package ‘varian’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘varian’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘varian’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/varian.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/varian.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -18192,27 +17498,14 @@ Execution halted
 
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Loading required package: vcd
-Loading required package: grid
-Loading required package: gnm
-The following objects are masked _by_ .GlobalEnv:
-
-    A, B, C
-
-
-Error: processing vignette 'vcd-tutorial.Rnw' failed with diagnostics:
- chunk 93 (label = donner3a) 
-Error : Unknown parameters: family
-Execution halted
-
-```
-```
 DONE
-Status: 2 ERRORs, 2 NOTEs
+Status: 2 ERRORs, 1 NOTE
 ```
+
+## vdg (1.1.2)
+Maintainer: Pieter Schoonees <schoonees@gmail.com>
+
+__OK__
 
 ## vdmR (0.1.1)
 Maintainer: Tomokazu Fujino <fujino@fwu.ac.jp>
@@ -18241,10 +17534,6 @@ Execution halted
 checking tests ... ERROR
 Running the tests in ‘tests/run-all.R’ failed.
 Last 13 lines of output:
-  1: withCallingHandlers(eval(code, new_test_environment), error = capture_calls, message = function(c) invokeRestart("muffleMessage"), 
-         warning = function(c) invokeRestart("muffleWarning"))
-  2: eval(code, new_test_environment)
-  3: eval(expr, envir, enclos)
   4: vcmap(shp.path, vsfuk2012, "CityCode", "CityCode", "map01", "vsfuk2012", fill = FertilityRate, 
          ggscale = frcol) at test-vdmR.R:20
   5: ggplot2::fortify(spdf, region = mid)
@@ -18253,22 +17542,21 @@ Last 13 lines of output:
   8: rgeosStatus()
   9: get("rgeos", envir = .MAPTOOLS_CACHE)
   Error: Test failures
+  In addition: Warning messages:
+  1: Placing tests in `inst/tests/` is deprecated. Please use `tests/testthat/` instead 
+  2: replacing previous import by 'grid::arrow' when loading 'GGally' 
+  3: replacing previous import by 'grid::unit' when loading 'GGally' 
   Execution halted
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Quitting from lines 40-42 (vdmR-vignette.Rnw) 
-Error: processing vignette 'vdmR-vignette.Rnw' failed with diagnostics:
-unused argument (geom_params = params)
-Execution halted
-
-```
-```
 DONE
-Status: 2 ERRORs, 1 NOTE
+Status: 2 ERRORs
 ```
+
+## vipor (0.3.2)
+Maintainer: Scott Sherrill-Mix <shescott@upenn.edu>
+
+__OK__
 
 ## viridis (0.3.1)
 Maintainer: Simon Garnier <garnier@njit.edu>  
@@ -18276,7 +17564,7 @@ Bug reports: https://github.com/sjmgarnier/viridis/issues
 
 __OK__
 
-## vmsbase (2.0)
+## vmsbase (2.1)
 Maintainer: Lorenzo D'Andrea <support@vmsbase.org>
 
 __OK__
@@ -18290,7 +17578,7 @@ checking whether package ‘waffle’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘waffle’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘waffle’
-See ‘/private/tmp/RtmpvpynWs/check_cranf5d4a6d9419/waffle.Rcheck/00install.out’ for details.
+See ‘/private/tmp/Rtmpri6X2x/check_cran33a12e539bd0/waffle.Rcheck/00install.out’ for details.
 ```
 ```
 DONE
@@ -18345,18 +17633,8 @@ Error: Unknown parameters: x
 Execution halted
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Quitting from lines 103-124 (MbrFigures.Rmd) 
-Error: processing vignette 'MbrFigures.Rmd' failed with diagnostics:
-Unknown parameters: x
-Execution halted
-
-```
-```
 DONE
-Status: 1 ERROR, 1 NOTE
+Status: 1 ERROR
 ```
 
 ## wesanderson (0.3.2)
@@ -18380,6 +17658,20 @@ Bug reports: https://github.com/petermeissner/wikipediatrend/issues
 checking package dependencies ... NOTE
 Packages suggested but not available for checking:
   ‘AnomalyDetection’ ‘BreakoutDetection’
+```
+```
+DONE
+Status: 1 NOTE
+```
+
+## wordbankr (0.1)
+Maintainer: Mika Braginsky <mika.br@gmail.com>  
+Bug reports: http://github.com/langcog/wordbankr/issues
+
+```
+checking dependencies in R code ... NOTE
+Namespace in Imports field not imported from: ‘RMySQL’
+  All declared Imports should be used.
 ```
 ```
 DONE
@@ -18436,29 +17728,8 @@ Execution halted
 
 ```
 ```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Loading required package: zoo
-
-Attaching package: ‘zoo’
-
-The following objects are masked from ‘package:base’:
-
-    as.Date, as.Date.numeric
-
-Warning: Removed 1410 rows containing missing values (geom_point).
-Warning in window.default(x, ...) : 'end' value not changed
-
-Error: processing vignette 'wq-package.Rnw' failed with diagnostics:
- chunk 32 
-Error : geom_hline requires the following missing aesthetics: yintercept
-Execution halted
-
-```
-```
 DONE
-Status: 2 ERRORs, 1 NOTE
+Status: 2 ERRORs
 ```
 
 ## x.ent (1.1.2)
