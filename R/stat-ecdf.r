@@ -1,6 +1,8 @@
 #' Empirical Cumulative Density Function
 #'
 #' @inheritParams stat_identity
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @param n if NULL, do not interpolate. If not NULL, this is the number
 #'   of points to interpolate with.
 #' @section Computed variables:

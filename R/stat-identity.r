@@ -20,10 +20,10 @@
 #' @param ... other arguments passed on to \code{\link{layer}}. This can
 #'   include aesthetics whose values you want to set, not map. See
 #'   \code{\link{layer}} for more details.
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
-#' @keywords internal
 #' @export
+#' @examples
+#' p <- ggplot(mtcars, aes(wt, mpg))
+#' p + stat_identity()
 stat_identity <- function(mapping = NULL, data = NULL, geom = "point",
                           position = "identity", show.legend = NA,
                           inherit.aes = TRUE, ...) {
@@ -35,7 +35,10 @@ stat_identity <- function(mapping = NULL, data = NULL, geom = "point",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(
+      na.rm = FALSE,
+      ...
+    )
   )
 }
 

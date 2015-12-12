@@ -5,6 +5,8 @@
 #'
 #' @export
 #' @inheritParams stat_identity
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @examples
 #' ggplot(mtcars, aes(vs, am)) + geom_point(alpha = 0.1)
 #' ggplot(mtcars, aes(vs, am)) + geom_point(alpha = 0.1, stat="unique")

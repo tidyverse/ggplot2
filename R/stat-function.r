@@ -6,6 +6,8 @@
 #' @param fun function to use
 #' @param n number of points to interpolate along
 #' @param args list of additional arguments to pass to \code{fun}
+#' @param na.rm If \code{FALSE} (the default), removes missing values with
+#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
 #' @section Computed variables:
 #' \describe{
