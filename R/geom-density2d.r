@@ -4,12 +4,12 @@
 #' results with contours. This can be useful for dealing with overplotting.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "density2d")}
+#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "density_2d")}
 #'
 #' @seealso \code{\link{geom_contour}} for contour drawing geom,
 #'  \code{\link{stat_sum}} for another way of dealing with overplotting
 #' @param geom,stat Use to override the default connection between
-#'   \code{geom_density2d} and \code{stat_density2d}.
+#'   \code{geom_density_2d} and \code{stat_density_2d}.
 #' @inheritParams geom_point
 #' @inheritParams geom_path
 #' @export
@@ -18,23 +18,23 @@
 #'  geom_point() +
 #'  xlim(0.5, 6) +
 #'  ylim(40, 110)
-#' m + geom_density2d()
+#' m + geom_density_2d()
 #' \donttest{
-#' m + stat_density2d(aes(fill = ..level..), geom = "polygon")
+#' m + stat_density_2d(aes(fill = ..level..), geom = "polygon")
 #'
-#' # If you map an aesthetic to a categorical variable, you will get a
-#' # set of contours for each value of that variable
 #' set.seed(4393)
 #' dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
-#' d <- ggplot(dsmall, aes(x, y)) + geom_density2d(aes(colour = cut))
-#' d
+#' d <- ggplot(dsmall, aes(x, y))
+#' # If you map an aesthetic to a categorical variable, you will get a
+#' # set of contours for each value of that variable
+#' d + geom_density_2d(aes(colour = cut))
 #'
 #' # If we turn contouring off, we can use use geoms like tiles:
-#' d + stat_density2d(geom = "raster", aes(fill = ..density..), contour = FALSE)
+#' d + stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE)
 #' # Or points:
-#' d + stat_density2d(geom = "point", aes(size = ..density..), n = 20, contour = FALSE)
+#' d + stat_density_2d(geom = "point", aes(size = ..density..), n = 20, contour = FALSE)
 #' }
-geom_density2d <- function(mapping = NULL, data = NULL, stat = "density2d",
+geom_density_2d <- function(mapping = NULL, data = NULL, stat = "density2d",
                            position = "identity", lineend = "butt",
                            linejoin = "round", linemitre = 1,
                            na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
@@ -56,6 +56,11 @@ geom_density2d <- function(mapping = NULL, data = NULL, stat = "density2d",
     )
   )
 }
+
+#' @export
+#' @rdname geom_density_2d
+#' @usage NULL
+geom_density2d <- geom_density_2d
 
 
 #' @rdname ggplot2-ggproto

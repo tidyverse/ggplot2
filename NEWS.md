@@ -121,7 +121,8 @@ A number of geoms have been renamed to be internally consistent:
 
 * `stat_binhex()` and `stat_bin2d()` have been renamed to `stat_bin_hex()` 
   and `stat_bin_2d()` (#1274). `stat_summary2d()` has been renamed to 
-  `stat_summary_2d()`
+  `stat_summary_2d()`, `geom_density2d()`/`stat_density2d()` has been renamed 
+  to `geom_density_2d()`/`stat_density_2d()`.
 
 * `stat_spoke()` is now `geom_spoke()` since I realised it's a
   reparameterisation of `geom_segment().

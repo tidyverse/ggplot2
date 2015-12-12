@@ -82,7 +82,7 @@ v + geom_contour()
 
 # Or compute from raw data
 ggplot(faithful, aes(waiting, eruptions)) +
-  geom_density2d()
+  geom_density_2d()
 
 \donttest{
 # Setting bins creates evenly spaced contours in the range of the data
@@ -102,6 +102,6 @@ v + geom_raster(aes(fill = density)) +
 }
 }
 \seealso{
-\code{\link{geom_density2d}}: 2d density contours
+\code{\link{geom_density_2d}}: 2d density contours
 }
 

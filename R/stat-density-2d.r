@@ -1,5 +1,5 @@
 #' @export
-#' @rdname geom_density2d
+#' @rdname geom_density_2d
 #' @param contour If \code{TRUE}, contour the results of the 2d density
 #'   estimation
 #' @param n number of grid points in each direction
@@ -7,7 +7,7 @@
 #'   using \code{\link[MASS]{bandwidth.nrd}}.
 #' @section Computed variables:
 #' Same as \code{\link{stat_contour}}
-stat_density2d <- function(mapping = NULL, data = NULL, geom = "density2d",
+stat_density_2d <- function(mapping = NULL, data = NULL, geom = "density_2d",
                            position = "identity", contour = TRUE,
                            n = 100, h = NULL, na.rm = FALSE,
                            show.legend = NA, inherit.aes = TRUE, ...) {
@@ -27,6 +27,11 @@ stat_density2d <- function(mapping = NULL, data = NULL, geom = "density2d",
     )
   )
 }
+
+#' @export
+#' @rdname geom_density_2d
+#' @usage NULL
+stat_density2d <- stat_density_2d
 
 #' @rdname ggplot2-ggproto
 #' @format NULL

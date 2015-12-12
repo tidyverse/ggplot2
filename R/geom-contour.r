@@ -5,7 +5,7 @@
 #'
 #' @inheritParams geom_point
 #' @inheritParams geom_path
-#' @seealso \code{\link{geom_density2d}}: 2d density contours
+#' @seealso \code{\link{geom_density_2d}}: 2d density contours
 #' @export
 #' @export
 #' @examples
@@ -15,7 +15,7 @@
 #'
 #' # Or compute from raw data
 #' ggplot(faithful, aes(waiting, eruptions)) +
-#'   geom_density2d()
+#'   geom_density_2d()
 #'
 #' \donttest{
 #' # Setting bins creates evenly spaced contours in the range of the data
