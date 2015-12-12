@@ -14,6 +14,15 @@ StatBindot <- ggproto("StatBindot", Stat,
     params
   },
 
+  compute_layer = function(self, data, params, panels) {
+    data <- remove_missing(data, params$na.rm,
+      params$binaxis,
+      snake_class(self),
+      finite = TRUE
+    )
+    ggproto_parent(Stat, self)$compute_layer(data, params, panels)
+  },
+
   compute_panel = function(self, data, scales, na.rm = FALSE, binwidth = NULL,
                            binaxis = "x", method = "dotdensity",
                            binpositions = "bygroup", origin = NULL,
