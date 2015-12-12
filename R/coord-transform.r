@@ -130,6 +130,8 @@ CoordTrans <- ggproto("CoordTrans", Coord,
 )
 
 transform_value <- function(trans, value, range) {
+  if (is.null(value))
+    return(value)
   rescale(trans$transform(value), 0:1, range)
 }
 
@@ -163,8 +165,10 @@ train_trans <- function(scale_details, limits, trans, name) {
   out$major_source <- transform_value(trans, out$major_source, out$range)
   out$minor_source <- transform_value(trans, out$minor_source, out$range)
 
-  out <- list(range = out$range, labels = out$labels,
-              major = out$major_source, minor = out$minor_source)
+  out <- list(
+    range = out$range, labels = out$labels,
+    major = out$major_source, minor = out$minor_source
+  )
   names(out) <- paste(name, names(out), sep = ".")
   out
 }

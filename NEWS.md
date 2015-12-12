@@ -360,6 +360,8 @@ version of ggplot.
 * `coord_cartesian()` applies the same expansion factor to limits as for scales. 
   You can suppress with `expand = FALSE` (#1207).
 
+* `coord_trans()` now works when breaks are suppressed (#1422).
+
 * `cut_number()` gives error message if the number of requested bins can
   be created because there are two few unique values (#1046).
 
