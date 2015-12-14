@@ -15,6 +15,8 @@ There were no ERRORs or WARNINGs. I see one NOTE:
   I think the problem is a poorly configured webserver: 
   `curl http://fueleconomy.gov` works, but `curl -I http://fueleconomy.gov`
   (which sends a HEAD request) does not.
+  
+  I've also updated my email address to hadley@rstudio.com
 
 ## Downstream dependencies
 

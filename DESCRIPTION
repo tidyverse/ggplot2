@@ -1,8 +1,9 @@
 Package: ggplot2
 Version: 2.0.0
 Authors@R: c(
-    person("Hadley", "Wickham", , "h.wickham@gmail.com", c("aut", "cre")),
-    person("Winston", "Chang", , "winston@stdout.org", "aut")
+    person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
+    person("Winston", "Chang", , "winston@rstudio.com", "aut"),
+    person("RStudio", role = "cph")
     )
 Title: An Implementation of the Grammar of Graphics
 Description: An implementation of the grammar of graphics in R. It combines the
