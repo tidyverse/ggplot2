@@ -19,13 +19,22 @@ before_deploy:
   - R -e "staticdocs::build_site(examples = TRUE)"
 
 deploy:
-  edge: true
+  - provider: s3
+    access_key_id: AKIAJDM6KGIZ6LSGAK4Q
+    secret_access_key:
+      secure: "r3vSpvVNcpvIcjWFyk+GhYG55iuhfmy3mwuQHQS2EqjT3Skd3mOojnZuRIqy60XXElK5/nfa3qt7KH0GCSd4Is28cqPwh+1PtQ0ZVXfeKefAk2whTPDI4P+rgOA+srUxZraLALap9QGmvlzJyXbqBCRdDmXUjtXKi2ONE9PrUk4="
+    bucket: docs.ggplot2.org
+    skip_cleanup: true
+    local-dir: inst/web
+    upload-dir: dev
 
-  provider: s3
-  access_key_id: AKIAJDM6KGIZ6LSGAK4Q
-  secret_access_key:
-    secure: "r3vSpvVNcpvIcjWFyk+GhYG55iuhfmy3mwuQHQS2EqjT3Skd3mOojnZuRIqy60XXElK5/nfa3qt7KH0GCSd4Is28cqPwh+1PtQ0ZVXfeKefAk2whTPDI4P+rgOA+srUxZraLALap9QGmvlzJyXbqBCRdDmXUjtXKi2ONE9PrUk4="
-  bucket: docs.ggplot2.org
-  skip_cleanup: true
-  local-dir: inst/web
-  upload-dir: dev
+  - provider: s3
+    access_key_id: AKIAJDM6KGIZ6LSGAK4Q
+    secret_access_key:
+      secure: "r3vSpvVNcpvIcjWFyk+GhYG55iuhfmy3mwuQHQS2EqjT3Skd3mOojnZuRIqy60XXElK5/nfa3qt7KH0GCSd4Is28cqPwh+1PtQ0ZVXfeKefAk2whTPDI4P+rgOA+srUxZraLALap9QGmvlzJyXbqBCRdDmXUjtXKi2ONE9PrUk4="
+    bucket: docs.ggplot2.org
+    skip_cleanup: true
+    local-dir: inst/web
+    upload-dir: /
+    on:
+      tags: true
