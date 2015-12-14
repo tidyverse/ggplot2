@@ -264,7 +264,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     }
 
     # override.aes in guide_legend manually changes the geom
-    data <- modifyList(data, guide$override.aes)
+    data <- utils::modifyList(data, guide$override.aes)
 
     list(
       draw_key = layer$geom$draw_key,

@@ -74,7 +74,7 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
     if (length(grDevices::dev.list()) == 0) {
       default_dim <- c(7, 7)
     } else {
-      default_dim <- dev.size() * scale
+      default_dim <- grDevices::dev.size() * scale
     }
     dim[is.na(dim)] <- default_dim[is.na(dim)]
     dim_f <- prettyNum(from_inches(dim), digits = 3)
