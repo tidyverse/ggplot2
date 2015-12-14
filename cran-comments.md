@@ -5,7 +5,16 @@
 
 ## R CMD check results
 
-There were no ERRORs, WARNINGs, or NOTEs.
+There were no ERRORs or WARNINGs. I see one NOTE:
+
+* Found the following (possibly) invalid URLs: 
+  URL: http://fueleconomy.gov 
+  From: man/mpg.Rd
+  Status: 404 Message: Not Found
+  
+  I think the problem is a poorly configured webserver: 
+  `curl http://fueleconomy.gov` works, but `curl -I http://fueleconomy.gov`
+  (which sends a HEAD request) does not.
 
 ## Downstream dependencies
 
