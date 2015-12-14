@@ -1,4 +1,4 @@
-# ggplot2 1.1.0
+# ggplot2 2.0.0
 
 ## Major changes
 

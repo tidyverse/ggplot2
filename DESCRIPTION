@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 1.0.1.9003
+Version: 2.0.0
 Authors@R: c(
     person("Hadley", "Wickham", , "h.wickham@gmail.com", c("aut", "cre")),
     person("Winston", "Chang", , "winston@stdout.org", "aut")
