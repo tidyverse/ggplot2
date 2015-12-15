@@ -20,7 +20,7 @@ As you read this document, you'll see many things that will make you scratch you
 
 ## ggproto
 
-All ggplot2 objects are built using the ggproto system of object oriented programming. This OO system is used only in one place: ggplot2. This is mostly historical accident: ggplot2 started off using [proto](https://cran.r-project.org/web/packages/proto) because I needed mutable objects. This was well before the creation of (the briefly lived) [mutatr](http://vita.had.co.nz/papers/mutatr.html), reference classes and R6: proto was the only game in town.
+All ggplot2 objects are built using the ggproto system of object oriented programming. This OO system is used only in one place: ggplot2. This is mostly historical accident: ggplot2 started off using [proto]( https://cran.r-project.org/package=proto) because I needed mutable objects. This was well before the creation of (the briefly lived) [mutatr](http://vita.had.co.nz/papers/mutatr.html), reference classes and R6: proto was the only game in town.
 
 But why ggproto? Well when we turned to add an official extension mechanism to ggplot2, we found a major problem that caused problems when proto objects were extended in a different package (methods were evaluated in ggplot2, not the package where the extension was added). We tried converting to R6, but it was a poor fit for the needs of ggplot2. We could've modified proto, but that would've first involved understand exactly how proto worked, and secondly making sure that the changes didn't affect other users of proto.
 

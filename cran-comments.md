@@ -1,3 +1,7 @@
+This is a resubmission, using the canonical link to the proto package.
+
+---
+
 ## Test environments
 * OS X, R 3.2.2
 * Ubuntu 14.04, R 3.2.2
