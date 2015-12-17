@@ -35,6 +35,6 @@ deploy:
     bucket: docs.ggplot2.org
     skip_cleanup: true
     local-dir: inst/web
-    upload-dir: /
+    upload-dir: current
     on:
       tags: true
