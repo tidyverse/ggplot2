@@ -30,11 +30,11 @@ Colours can be specified with:
     in the range `00` to `FF`
     
     You can optionally make the colour transparent by using the form 
-    `"#RRGGBBAA".
+    `"#RRGGBBAA"`.
 
 *   An __NA__, for a completely transparent colour.
 
-*   The [munsell](https://github.com/cwickham/munsell) package, Charlotte 
+*   The [munsell](https://github.com/cwickham/munsell) package, by Charlotte 
     Wickham, provides a wrapper around the colour system designed by Alfred 
     Munsell.
 
@@ -61,7 +61,7 @@ Line types can be specified with:
     ```
 
 *   The lengths of on/off stretches of line. This is done with a string 
-    containing 2, 4, 6, or 8 hexadecimal digits which give the lengths of c
+    containing 2, 4, 6, or 8 hexadecimal digits which give the lengths of
     consecutive lengths. For example, the string `"33"` specifies three units 
     on followed by three off and `"3313"` specifies three units on followed by 
     three off followed by one on and finally three off. 
