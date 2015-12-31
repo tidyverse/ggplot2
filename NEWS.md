@@ -1,5 +1,12 @@
 # ggplot2 2.0.0.9000
 
+## Bug fixes and minor improvements
+
+* `stat-density-2d()` no longer ignores the `h` parameter.
+
+* `stat-density-2d()` now accepts `bins` and `binwidth` parameters
+  to control the number of contour levels (#1448, @has2k1).
+
 # ggplot2 2.0.0
 
 ## Major changes
