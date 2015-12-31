@@ -44,7 +44,8 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
   required_aes = c("x", "y"),
 
   compute_group = function(data, scales, na.rm = FALSE, h = NULL,
-                           contour = TRUE, n = 100) {
+                           contour = TRUE, n = 100, bins = NULL,
+                           binwidth = NULL) {
     if (is.null(h)) {
       h <- c(MASS::bandwidth.nrd(data$x), MASS::bandwidth.nrd(data$y))
     }
@@ -57,7 +58,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     df$group <- data$group[1]
 
     if (contour) {
-      StatContour$compute_panel(df, scales)
+      StatContour$compute_panel(df, scales, bins, binwidth)
     } else {
       names(df) <- c("x", "y", "density", "group")
       df$level <- 1
