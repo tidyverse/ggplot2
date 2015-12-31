@@ -23,6 +23,7 @@ stat_density_2d <- function(mapping = NULL, data = NULL, geom = "density_2d",
       na.rm = na.rm,
       contour = contour,
       n = n,
+      h = h,
       ...
     )
   )

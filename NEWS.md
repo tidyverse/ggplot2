@@ -1,5 +1,8 @@
 # ggplot2 2.0.0.9000
 
+## Bug fixes and minor improvements
+
+* `stat-density-2d()` no longer ignores the `h` parameter.
 # ggplot2 2.0.0
 
 ## Major changes
