@@ -36,7 +36,12 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   if (length(members) != sum(nzchar(names(members)))) {
     stop("All members of a ggproto object must be named.")
   }
-  list2env(members, envir = e)
+
+  # R <3.1.2 will error when list2env() is given an empty list, so we need to
+  # check length. https://github.com/hadley/ggplot2/issues/1444
+  if (length(members) > 0) {
+    list2env(members, envir = e)
+  }
 
   if (!is.null(`_inherit`)) {
     if (!is.ggproto(`_inherit`)) {
