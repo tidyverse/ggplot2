@@ -2,6 +2,9 @@
 
 ## Bug fixes and minor improvements
 
+* Fixed a compatibility issue with `ggproto` and R versions prior to 3.1.2.
+  (#1444)
+
 * `stat-density-2d()` no longer ignores the `h` parameter.
 
 * `stat-density-2d()` now accepts `bins` and `binwidth` parameters

@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 2.0.0.9000
+Version: 2.0.0.9001
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Winston", "Chang", , "winston@rstudio.com", "aut"),
@@ -14,7 +14,7 @@ Description: An implementation of the grammar of graphics in R. It combines the
     data to aesthetic attributes. See http://ggplot2.org for more information,
     documentation and examples.
 Depends:
-    R (>= 2.14)
+    R (>= 3.1)
 Imports:
     digest,
     grid,
