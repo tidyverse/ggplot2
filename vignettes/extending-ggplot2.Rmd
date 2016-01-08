@@ -51,7 +51,7 @@ To create a new geom or stat, you will just create a new ggproto that inherits f
 
 ### The simplest stat
 
-We'll start by creating a very simple stat: one that gives the complex hull (the _c_ hull) of a set of points. First we create a new ggproto object that inherits from `Stat`:
+We'll start by creating a very simple stat: one that gives the convex hull (the _c_ hull) of a set of points. First we create a new ggproto object that inherits from `Stat`:
 
 ```{r chull}
 StatChull <- ggproto("StatChull", Stat,
