@@ -49,6 +49,7 @@ train_layout <- function(panel, facet, data, plot_data) {
 map_layout <- function(panel, facet, data, plot_data) {
   lapply(data, function(data) {
     if (is.waive(data)) data <- plot_data
+    if (is.function(data)) data <- data(plot_data)
     facet_map_layout(facet, data, panel$layout)
   })
 }
