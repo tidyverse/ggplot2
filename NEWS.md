@@ -2,6 +2,9 @@
 
 ## Bug fixes and minor improvements
 
+* `position_jitterdodge()` now works on all possible dodge aesthetics, 
+ e.g. `color`, `linetype` etc. instead of only based on `fill` (@bleutner)
+
 * Removed a superfluous comma in `theme-defaults.r` code (@jschoeley)
 
 * Fixed a compatibility issue with `ggproto` and R versions prior to 3.1.2.
