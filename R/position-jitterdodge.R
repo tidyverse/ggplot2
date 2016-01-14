@@ -35,7 +35,7 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
   jitter.height = NULL,
   dodge.width = NULL,
 
-  required_aes = c("x", "y", "fill"),
+  required_aes = c("x", "y"),
 
   setup_params = function(self, data) {
     width <- self$jitter.width %||% resolution(data$x, zero = FALSE) * 0.4
