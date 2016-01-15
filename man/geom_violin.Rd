@@ -64,7 +64,8 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{geom, stat}{Use to override the default connection between
 \code{geom_violin} and \code{stat_ydensity}.}
 
-\item{adjust}{see \code{\link{density}} for details}
+\item{adjust}{adjustment of the bandwidth, see
+\code{\link{density}} for details}
 
 \item{kernel}{kernel used for density estimation, see
 \code{\link{density}} for details}

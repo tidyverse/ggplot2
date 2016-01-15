@@ -1,5 +1,8 @@
 # ggplot2 2.0.0.9000
 
+* Add access to `bw` argument of `density` in `stat_density`, which makes
+  it easy to get consistent smoothing between facets for example (@jiho)
+
 ## Bug fixes and minor improvements
 
 * Removed a superfluous comma in `theme-defaults.r` code (@jschoeley)
