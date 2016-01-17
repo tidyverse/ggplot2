@@ -18,5 +18,8 @@ fortify.NULL <- function(model, data, ...) waiver()
 #' @export
 fortify.default <- function(model, data, ...) {
 
-  stop("ggplot2 doesn't know how to deal with data of class ", class(model), call. = FALSE)
+  stop("ggplot2 doesn't know how to deal with data of ", ifelse(length(class(model)) > 1,
+                                                            paste0("classes ", paste(class(model), collapse = ", ")),
+                                                            paste0("class ", class(model))),
+                                                          call. = FALSE)
 }
