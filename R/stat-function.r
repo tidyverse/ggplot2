@@ -82,7 +82,7 @@ StatFunction <- ggproto("StatFunction", Stat,
 
     data.frame(
       x = xseq,
-      y = do.call(fun, c(list(quote(scales$x$trans$inv(xseq))), args))
+      y = do.call(fun, c(list(quote(scales$x$trans$inverse(xseq))), args))
     )
   }
 )
