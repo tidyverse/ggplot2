@@ -2,6 +2,8 @@
 
 ## Bug fixes and minor improvements
 
+* `stat_function()` once again works with discrete x axes (#1509).
+
 * All `\donttest{}` examples run.
 
 * Removed a superfluous comma in `theme-defaults.r` code (@jschoeley)
