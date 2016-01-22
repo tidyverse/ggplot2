@@ -103,26 +103,18 @@ d + stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 
 # You can supply individual functions to summarise the value at
 # each x:
-d + stat_summary(fun.y = "median", colour = "red", size = 2)
-d + stat_summary(fun.y = "mean", colour = "red", size = 2)
+d + stat_summary(fun.y = "median", colour = "red", size = 2, geom = "point")
+d + stat_summary(fun.y = "mean", colour = "red", size = 2, geom = "point")
 d + aes(colour = factor(vs)) + stat_summary(fun.y = mean, geom="line")
 
 d + stat_summary(fun.y = mean, fun.ymin = min, fun.ymax = max,
   colour = "red")
 
-#' d <- ggplot(diamonds, aes(carat, price))
-d + geom_smooth()
-d + geom_line(stat = "summary_bin", binwidth = 0.1, fun.y = "mean")
-
 d <- ggplot(diamonds, aes(cut))
 d + geom_bar()
 d + stat_summary_bin(aes(y = price), fun.y = "mean", geom = "bar")
-\donttest{
-# A set of useful summary functions is provided from the Hmisc package:
-stat_sum_df <- function(fun, geom="crossbar", ...) {
-  stat_summary(fun.data=fun, colour="red", geom=geom, width=0.2, ...)
-}
 
+\donttest{
 # Don't use ylim to zoom into a summary plot - this throws the
 # data away
 p <- ggplot(mtcars, aes(cyl, mpg)) +
@@ -132,28 +124,18 @@ p + ylim(15, 30)
 # Instead use coord_cartesian
 p + coord_cartesian(ylim = c(15, 30))
 
+# A set of useful summary functions is provided from the Hmisc package:
+stat_sum_df <- function(fun, geom="crossbar", ...) {
+  stat_summary(fun.data=fun, colour="red", geom=geom, width=0.2, ...)
+}
+d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
 # The crossbar geom needs grouping to be specified when used with
 # a continuous x axis.
 d + stat_sum_df("mean_cl_boot", mapping = aes(group = cyl))
 d + stat_sum_df("mean_sdl", mapping = aes(group = cyl))
-d + stat_sum_df("mean_sdl", mult = 1, mapping = aes(group = cyl))
+d + stat_sum_df("mean_sdl", fun.args = list(mult = 1), mapping = aes(group = cyl))
 d + stat_sum_df("median_hilow", mapping = aes(group = cyl))
 
-# There are lots of different geoms you can use to display the summaries
-
-d + stat_sum_df("mean_cl_normal", mapping = aes(group = cyl))
-d + stat_sum_df("mean_cl_normal", geom = "errorbar")
-d + stat_sum_df("mean_cl_normal", geom = "pointrange")
-d + stat_sum_df("mean_cl_normal", geom = "smooth")
-
-# Summaries are more useful with a bigger data set:
-mpg2 <- subset(mpg, cyl != 5L)
-m <- ggplot(mpg2, aes(x=cyl, y=hwy)) +
-        geom_point() +
-        stat_summary(fun.data = "mean_sdl", geom = "linerange",
-                     colour = "red", size = 2, mult = 1) +
-       xlab("cyl")
-m
 # An example with highly skewed distributions:
 if (require("ggplot2movies")) {
 set.seed(596)
