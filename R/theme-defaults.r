@@ -86,7 +86,7 @@ theme_grey <- function(base_size = 11, base_family = "") {
                          ),
     axis.title.y =       element_text(
                            angle = 90,
-                           margin = margin(r = 0.8 * half_line, l = 0.8 * half_line / 2),
+                           margin = margin(r = 0.8 * half_line, l = 0.8 * half_line / 2)
                          ),
 
     legend.background =  element_rect(colour = NA),

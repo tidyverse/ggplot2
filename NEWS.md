@@ -2,6 +2,8 @@
 
 ## Bug fixes and minor improvements
 
+* Removed a superfluous comma in `theme-defaults.r` code (@jschoeley)
+
 * Fixed a compatibility issue with `ggproto` and R versions prior to 3.1.2.
   (#1444)
 
