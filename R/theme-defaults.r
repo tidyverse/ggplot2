@@ -227,7 +227,7 @@ theme_minimal <- function(base_size = 12, base_family = "") {
 theme_classic <- function(base_size = 12, base_family = ""){
   theme_bw(base_size = base_size, base_family = base_family) %+replace%
     theme(
-      panel.border     = element_blank(),
+      panel.border     = element_rect(fill = "transparent"),
       axis.line        = element_line(colour = "black"),
       panel.grid.major = element_blank(),
       panel.grid.minor = element_blank(),
