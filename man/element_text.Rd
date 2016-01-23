@@ -27,9 +27,12 @@ element_text(family = NULL, face = NULL, colour = NULL, size = NULL,
 
 \item{color}{an alias for \code{colour}}
 
-\item{margin}{margins around the text. See \code{\link{margin}} for more
-details. When creating a theme, the margins should be placed on the
+\item{margin}{margins around the text. 
+For axis x, margin(t = t, r = 0, b = b, l = 0, unit = "pt"); 
+For axis y, margin(t = 0, r = r, b = 0, l = l, unit = "pt"). 
+When creating a theme, the margins should be placed on the 
 side of the text facing towards the center of the plot.}
+See \code{\link{margin}} for more details. 
 
 \item{debug}{If \code{TRUE}, aids visual debugging by drawing a solid
 rectangle behind the complete text area, and a point where each label
