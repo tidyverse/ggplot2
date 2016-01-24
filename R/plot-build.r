@@ -22,7 +22,13 @@ ggplot_build <- function(plot) {
   }
 
   layers <- plot$layers
-  layer_data <- lapply(layers, function(y) y$data)
+  layer_data <- lapply(layers, function(y) {
+    if (is.function(y$data)) {
+      fortify(y$data(plot$data))
+    } else {
+      y$data  
+    }
+  })
 
   scales <- plot$scales
   # Apply function to layer and matching data
