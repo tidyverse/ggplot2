@@ -1,5 +1,8 @@
 # ggplot2 2.0.0.9000
 
+* `geom_tile()` uses `draw_key_polygon()` for better legend keys, including 
+  coloured outline (#1484).
+
 * The position of `...` in `geom_density2d()` has been adjusted so you can
   set the `n` parameter (#1485).
 
