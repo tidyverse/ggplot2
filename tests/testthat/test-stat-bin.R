@@ -10,6 +10,16 @@ test_that("stat_bin throws error when y aesthetic present", {
     "Unknown parameters: y")
 })
 
+test_that("bins specifies the number of bins", {
+  df <- data.frame(x = 1:100)
+  out <- function(x, ...) {
+    layer_data(ggplot(df, aes(x)) + geom_histogram(..., drop = TRUE))
+  }
+
+  expect_equal(nrow(out(bins = 2)), 2)
+  expect_equal(nrow(out(bins = 10)), 10)
+})
+
 test_that("stat_count throws error when y aesthetic present", {
   dat <- data.frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 

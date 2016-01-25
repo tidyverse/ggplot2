@@ -94,8 +94,14 @@ bin <- function(x, weight=NULL, binwidth=NULL, bins=NULL, origin=NULL, breaks=NU
   weight[is.na(weight)] <- 0
 
   if (is.null(range))    range    <- range(x, na.rm = TRUE, finite = TRUE)
-  if (is.null(bins))     bins     <- 30
-  if (is.null(binwidth)) binwidth <- diff(range) / bins
+
+  if (is.null(bins)) {
+    bins <- 30
+  } else {
+    stopifnot(is.numeric(bins), length(bins) == 1, bins > 1)
+  }
+
+  if (is.null(binwidth)) binwidth <- diff(range) / (bins - 1)
 
   if (is.integer(x)) {
     bins <- x

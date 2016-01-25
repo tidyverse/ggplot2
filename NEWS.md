@@ -1,5 +1,8 @@
 # ggplot2 2.0.0.9000
 
+* `geom_histgram(bins = n)` now gives a histogram with `n` bins, not `n + 1`
+  (#1487).
+
 * `geom_tile()` once again accepts `width` and `height` parameters (#1513).
 
 * Add access to `bw` argument of `density` in `stat_density`, which makes
