@@ -38,8 +38,11 @@ layer <- function(geom = NULL, stat = NULL,
     warning("`show.legend` must be a logical vector of length 1.", call. = FALSE)
     show.legend <- FALSE
   }
-
-  data <- fortify(data)
+  
+  if (!is.function(data)) {
+    data <- fortify(data)
+  }
+  
   if (!is.null(mapping) && !inherits(mapping, "uneval")) {
     stop("Mapping must be created by `aes()` or `aes_()`", call. = FALSE)
   }
