@@ -7,13 +7,13 @@
 margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
 }
 \arguments{
-\item{t, b, r, l}{Dimensions of each margin. (To remember order, think trouble).}
+\item{t, r, b, l}{Dimensions of each margin. (To remember order, think trouble).}
 
 \item{unit}{Default units of dimensions. Defaults to "pt" so it
 can be most easily scaled with the text.}
 }
 \description{
-This is a convenience function that creates a grid unit object of the
+This is a convenient function that creates a grid unit object of the
 correct length to use for setting margins.
 }
 \examples{
