@@ -154,6 +154,9 @@ scale_type.default <- function(x) {
 }
 
 #' @export
+scale_type.AsIs <- function(x) "identity"
+
+#' @export
 scale_type.logical <- function(x) "discrete"
 
 #' @export
