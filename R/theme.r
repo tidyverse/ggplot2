@@ -1,7 +1,13 @@
 #' Get, set and update themes.
 #'
-#' Use \code{theme_update} to modify a small number of elements of the current
-#' theme or use \code{theme_set} to completely override it.
+#' Use \code{theme_get} to get the current theme, and \code{theme_set} to
+#' completely override it. \code{theme_update} and \code{theme_replace} are
+#' shorthands for changing individual elements in the current theme.
+#' \code{theme_update} uses the \code{+} operator, so that any unspecified
+#' values in the theme element will default to the values they are set in the
+#' theme. \code{theme_replace} will completely replace the element, so any
+#' unspecified values will overwrite the current value in the theme with \code{NULL}s.
+#'
 #'
 #' @param ... named list of theme settings
 #' @seealso \code{\link{\%+replace\%}} and \code{\link{+.gg}}
@@ -15,10 +21,22 @@
 #' theme_set(old)
 #' p
 #'
-#' old <- theme_update(panel.background = element_rect(colour = "pink"))
+#' #theme_replace NULLs out the fill attribute of panel.background,
+#' #resulting in a white background:
+#' theme_get()$panel.background
+#' old <- theme_replace(panel.background = element_rect(colour = "pink"))
+#' theme_get()$panel.background
 #' p
 #' theme_set(old)
+#'
+#' #theme_update only changes the colour attribute, leaving the others intact:
+#' old <- theme_update(panel.background = element_rect(colour = "pink"))
+#' theme_get()$panel.background
+#' p
+#' theme_set(old)
+#'
 #' theme_get()
+#'
 #'
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point(aes(color = mpg)) +
@@ -26,7 +44,17 @@
 #'         legend.justification = c(1, 1))
 #' last_plot() +
 #'  theme(legend.background = element_rect(fill = "white", colour = "white", size = 3))
+#'
 theme_update <- function(...) {
+  # Make a call to theme, then add to theme
+  theme_set(theme_get() + theme(...))
+}
+
+#' @rdname theme_update
+#' @param ... named list of theme settings
+#' @export
+
+theme_replace <- function(...) {
   # Make a call to theme, then add to theme
   theme_set(theme_get() %+replace% theme(...))
 }
