@@ -1,5 +1,7 @@
 # ggplot2 2.0.0.9000
 
+* `geom_tile()` once again accepts `width` and `height` parameters (#1513).
+
 * Add access to `bw` argument of `density` in `stat_density`, which makes
   it easy to get consistent smoothing between facets for example (@jiho)
 

@@ -79,6 +79,8 @@ geom_tile <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @export
 #' @include geom-rect.r
 GeomTile <- ggproto("GeomTile", GeomRect,
+  extra_params = c("na.rm", "width", "height"),
+
   setup_data = function(data, params) {
     data$width <- data$width %||% params$width %||% resolution(data$x, FALSE)
     data$height <- data$height %||% params$height %||% resolution(data$y, FALSE)
