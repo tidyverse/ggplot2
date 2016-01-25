@@ -1,5 +1,7 @@
 # ggplot2 2.0.0.9000
 
+* `geom_boxplot()` now understands `outlier.color` (#1455).
+
 * `geom_histgram(bins = n)` now gives a histogram with `n` bins, not `n + 1`
   (#1487).
 
