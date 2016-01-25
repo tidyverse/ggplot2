@@ -1,5 +1,8 @@
 # ggplot2 2.0.0.9000
 
+* The position of `...` in `geom_density2d()` has been adjusted so you can
+  set the `n` parameter (#1485).
+
 * The default scale for columns of class "AsIs" is now "identity" (#1518).
 
 * `geom_boxplot()` now understands `outlier.color` (#1455).
