@@ -1,6 +1,15 @@
 # ggplot2 2.0.0.9000
 
+* Add access to `bw` argument of `density` in `stat_density`, which makes
+  it easy to get consistent smoothing between facets for example (@jiho)
+
 ## Bug fixes and minor improvements
+
+* `stat_function()` once again works with discrete x axes (#1509).
+
+* All `\donttest{}` examples run.
+
+* Removed a superfluous comma in `theme-defaults.r` code (@jschoeley)
 
 * Fixed a compatibility issue with `ggproto` and R versions prior to 3.1.2.
   (#1444)

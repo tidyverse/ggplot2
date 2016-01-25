@@ -8,8 +8,8 @@ test_that("binwidth is respected", {
   out <- layer_data(base)
   expect_equal(nrow(out), 2)
   # Adjust tolerance to account for fuzzy breaks adjustment
-  expect_equal(out$xmin, c(1, 1.75), tol = 1e-7)
-  expect_equal(out$xmax, c(1.25, 2), tol = 1e-7)
+  expect_equal(out$xmin, c(1, 1.75), tolerance = 1e-7)
+  expect_equal(out$xmax, c(1.25, 2), tolerance = 1e-7)
 })
 
 test_that("breaks override binwidth", {

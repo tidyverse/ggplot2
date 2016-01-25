@@ -18,7 +18,7 @@
 #' @export
 #' @rdname geom_violin
 stat_ydensity <- function(mapping = NULL, data = NULL, geom = "violin",
-                          position = "dodge", adjust = 1, kernel = "gaussian",
+                          position = "dodge", bw = "nrd0", adjust = 1, kernel = "gaussian",
                           trim = TRUE, scale = "area", na.rm = FALSE,
                           show.legend = NA, inherit.aes = TRUE, ...) {
   scale <- match.arg(scale, c("area", "count", "width"))
@@ -32,6 +32,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL, geom = "violin",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      bw = bw,
       adjust = adjust,
       kernel = kernel,
       trim = trim,
@@ -51,7 +52,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   required_aes = c("x", "y"),
   non_missing_aes = "weight",
 
-  compute_group = function(data, scales, width = NULL, adjust = 1,
+  compute_group = function(data, scales, width = NULL, bw = "nrd0", adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE) {
     if (nrow(data) < 3) return(data.frame())
 
@@ -61,7 +62,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
       range <- scales$y$dimension()
     }
     dens <- compute_density(data$y, data$w, from = range[1], to = range[2],
-      adjust = adjust, kernel = kernel)
+      bw = bw, adjust = adjust, kernel = kernel)
 
     dens$y <- dens$x
     dens$x <- mean(range(data$x))
@@ -75,11 +76,11 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     dens
   },
 
-  compute_panel = function(self, data, scales, width = NULL, adjust = 1,
+  compute_panel = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                            kernel = "gaussian", trim = TRUE, na.rm = FALSE,
                            scale = "area") {
     data <- ggproto_parent(Stat, self)$compute_panel(
-      data, scales, width = width, adjust = adjust, kernel = kernel,
+      data, scales, width = width, bw = bw, adjust = adjust, kernel = kernel,
       trim = trim, na.rm = na.rm
     )
 
