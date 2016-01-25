@@ -19,8 +19,6 @@ theme_set(new)
 \item{...}{named list of theme settings}
 
 \item{new}{new theme (a list of theme elements)}
-
-\item{...}{named list of theme settings}
 }
 \description{
 Use \code{theme_get} to get the current theme, and \code{theme_set} to

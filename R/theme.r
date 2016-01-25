@@ -51,7 +51,6 @@ theme_update <- function(...) {
 }
 
 #' @rdname theme_update
-#' @param ... named list of theme settings
 #' @export
 
 theme_replace <- function(...) {
