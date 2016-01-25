@@ -3,8 +3,6 @@
 * Add access to `bw` argument of `density` in `stat_density`, which makes
   it easy to get consistent smoothing between facets for example (@jiho)
 
-## Bug fixes and minor improvements
-
 * `stat_function()` once again works with discrete x axes (#1509).
 
 * All `\donttest{}` examples run.
