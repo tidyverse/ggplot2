@@ -1,5 +1,8 @@
 # ggplot2 2.0.0.9000
 
+* You can once again set legend key and height width to unit arithmetic
+  objects (like `2 * unit(1, "cm")`) (#1437).
+
 * When mapping an aesthetic to a constant (e.g. 
   `geom_smooth(aes(colour = "loess")))`), the default guide title is the name 
   of the aesthetic, not the value (#1431).
