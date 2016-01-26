@@ -1,5 +1,9 @@
 # ggplot2 2.0.0.9000
 
+* When mapping an aesthetic to a constant (e.g. 
+  `geom_smooth(aes(colour = "loess")))`), the default guide title is the name 
+  of the aesthetic, not the value (#1431).
+
 * `ggsave("x.svg")` now uses svglite to produce the svg (#1432).
 
 * `stat_bin()` has been overhauled to use the same algorithm as ggvis, which 
