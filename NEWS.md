@@ -1,5 +1,8 @@
 # ggplot2 2.0.0.9000
 
+* `position = "nudge"` now works (although it doesn't do anything useful)
+  (#1428).
+
 * You can once again set legend key and height width to unit arithmetic
   objects (like `2 * unit(1, "cm")`) (#1437).
 
