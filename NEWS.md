@@ -1,5 +1,8 @@
 # ggplot2 2.0.0.9000
 
+* `theme_void()` was completely void of text but facets and legends still
+  needed labels. They are now visible (@jiho).
+
 * Multipanel empty data is correctly plotted, rather than throwing an unhelpful 
   error (#1445).
 
