@@ -1,5 +1,26 @@
 # ggplot2 2.0.0.9000
 
+* `stat_bin()` has been overhauled to use the same algorithm as ggvis, which 
+  has been considerably improved thanks to the advice of Randy Prium (@rpruim).
+  This includes:
+  
+    * Better arguments and a better algorithm for determining the origin.
+      You can now specify either `boundary` or the `center` of a bin.
+      `origin` has been deprecated in favour of these arguments.
+      
+    * `drop` is deprecated in favour of `pad`, which adds extra 0-count bins
+      at either end. This is needed for frequency polygons. `geom_histogram()`
+      defaults to `pad = FALSE` which considerably improves the default limits 
+      for the histogram, especially when the bins are big (#1477).
+      
+    * The default algorithm does a better job at picking nice width and 
+      origins across a wider range of input data.
+
+    This change brings with the removal of some rarely used features:
+    
+    * The `breaks` argument is no longer supported - this was rarely used
+      and didn't work correctly for frequency polygons.
+      
 * `geom_tile()` uses `draw_key_polygon()` for better legend keys, including 
   coloured outline (#1484).
 

@@ -70,10 +70,10 @@
 #' m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 #' }
 #' rm(movies)
-geom_histogram <- function(mapping = NULL, data = NULL, stat = "bin",
-                           binwidth = NULL, bins = NULL, origin = NULL,
-                           right = FALSE, position = "stack", na.rm = FALSE,
-                           show.legend = NA, inherit.aes = TRUE, ...) {
+geom_histogram <- function(mapping = NULL, data = NULL,
+                           stat = "bin", position = "stack", ...,
+                           binwidth = NULL, bins = NULL,
+                           na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) {
 
   layer(
     data = data,
@@ -86,9 +86,8 @@ geom_histogram <- function(mapping = NULL, data = NULL, stat = "bin",
     params = list(
       binwidth = binwidth,
       bins = bins,
-      origin = origin,
-      right = right,
       na.rm = na.rm,
+      pad = FALSE,
       ...
     )
   )

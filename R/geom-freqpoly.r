@@ -13,6 +13,7 @@ geom_freqpoly <- function(mapping = NULL, data = NULL, stat = "bin",
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      pad = TRUE,
       ...
     )
   )

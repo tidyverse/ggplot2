@@ -11,14 +11,13 @@ geom_freqpoly(mapping = NULL, data = NULL, stat = "bin",
   inherit.aes = TRUE, ...)
 
 geom_histogram(mapping = NULL, data = NULL, stat = "bin",
-  binwidth = NULL, bins = NULL, origin = NULL, right = FALSE,
-  position = "stack", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  position = "stack", ..., binwidth = NULL, bins = NULL, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 
 stat_bin(mapping = NULL, data = NULL, geom = "bar", position = "stack",
-  width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL,
-  bins = NULL, origin = NULL, breaks = NULL, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, ...)
+  ..., binwidth = NULL, bins = NULL, center = NULL, boundary = NULL,
+  closed = c("right", "left"), pad = FALSE, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -56,26 +55,37 @@ the default plot specification, e.g. \code{\link{borders}}.}
   \item Other arguments passed on to the stat.
   }}
 
-\item{binwidth}{Bin width to use. Defaults to 1/\code{bins} of the range of
-the data}
+\item{binwidth}{The width of the bins. The default is to use \code{bins}
+  bins that cover the range of the data. You should always override
+  this value, exploring multiple widths to find the best to illustrate the
+  stories in your data.
 
-\item{bins}{Number of bins. Overridden by \code{binwidth} or \code{breaks}.
-Defaults to 30}
+  The bin width of a date variable is the number of days in each time; the
+  bin width of a time variable is the number of seconds.}
 
-\item{origin}{Origin of first bin}
-
-\item{right}{If \code{TRUE}, right-closed, left-open, if \code{FALSE},
-the default, right-open, left-closed.}
+\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.}
 
-\item{width}{Width of bars when used with categorical data}
+\item{center}{The center of one of the bins.  Note that if center is above or
+below the range of the data, things will be shifted by an appropriate
+number of \code{width}s. To center on integers, for example, use
+\code{width=1} and \code{center=0}, even if \code{0} is outside the range
+of the data.  At most one of \code{center} and \code{boundary} may be
+specified.}
 
-\item{drop}{If TRUE, remove all bins with zero counts}
+\item{boundary}{A boundary between two bins. As with \code{center}, things
+are shifted when \code{boundary} is outside the range of the data. For
+example, to center on integers, use \code{width = 1} and \code{boundary =
+0.5}, even if \code{1} is outside the range of the data.  At most one of
+\code{center} and \code{boundary} may be specified.}
 
-\item{breaks}{Actual breaks to use. Overrides bin width, bin number and
-origin}
+\item{closed}{One of \code{"right"} or \code{"left"} indicating whether right
+or left edges of bins are included in the bin.}
+
+\item{pad}{If \code{TRUE}, adds empty bins at either end of x. This ensures
+frequency polygons touch 0. Defaults to \code{FALSE}.}
 }
 \description{
 Display a 1d distribution by dividing into bins and counting the number
