@@ -198,7 +198,6 @@ Collate:
     'theme-defaults.r'
     'theme-elements.r'
     'theme.r'
-    'translate-qplot-base.r'
     'translate-qplot-ggplot.r'
     'translate-qplot-lattice.r'
     'utilities-break.r'
@@ -210,4 +209,4 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1

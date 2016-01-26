@@ -1,4 +1,7 @@
-#' @param adjust see \code{\link{density}} for details
+#' @param bw the smoothing bandwidth to be used, see 
+#'   \code{\link{density}} for details
+#' @param adjust adjustment of the bandwidth, see
+#'   \code{\link{density}} for details
 #' @param kernel kernel used for density estimation, see
 #'   \code{\link{density}} for details
 #' @param trim This parameter only matters if you are displaying multiple
@@ -17,7 +20,7 @@
 #' @export
 #' @rdname geom_density
 stat_density <- function(mapping = NULL, data = NULL, geom = "area",
-                         position = "stack", adjust = 1, kernel = "gaussian",
+                         position = "stack", bw = "nrd0", adjust = 1, kernel = "gaussian",
                          trim = FALSE, na.rm = FALSE,
                          show.legend = NA, inherit.aes = TRUE, ...) {
 
@@ -30,6 +33,7 @@ stat_density <- function(mapping = NULL, data = NULL, geom = "area",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      bw = bw,
       adjust = adjust,
       kernel = kernel,
       trim = trim,
@@ -47,7 +51,7 @@ StatDensity <- ggproto("StatDensity", Stat,
   required_aes = "x",
   default_aes = aes(y = ..density.., fill = NA),
 
-  compute_group = function(data, scales, adjust = 1, kernel = "gaussian",
+  compute_group = function(data, scales, bw = "nrd0", adjust = 1, kernel = "gaussian",
                            trim = FALSE, na.rm = FALSE) {
     if (trim) {
       range <- range(data$x, na.rm = TRUE)
@@ -56,7 +60,7 @@ StatDensity <- ggproto("StatDensity", Stat,
     }
 
     compute_density(data$x, data$weight, from = range[1], to = range[2],
-      adjust = adjust, kernel = kernel)
+      bw = bw, adjust = adjust, kernel = kernel)
   }
 
 )

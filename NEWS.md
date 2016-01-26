@@ -1,6 +1,31 @@
 # ggplot2 2.0.0.9000
 
-## Bug fixes and minor improvements
+* `geom_tile()` uses `draw_key_polygon()` for better legend keys, including 
+  coloured outline (#1484).
+
+* The position of `...` in `geom_density2d()` has been adjusted so you can
+  set the `n` parameter (#1485).
+
+* The default scale for columns of class "AsIs" is now "identity" (#1518).
+
+* `geom_boxplot()` now understands `outlier.color` (#1455).
+
+* `geom_histgram(bins = n)` now gives a histogram with `n` bins, not `n + 1`
+  (#1487).
+
+* `geom_tile()` once again accepts `width` and `height` parameters (#1513).
+
+* Add access to `bw` argument of `density` in `stat_density`, which makes
+  it easy to get consistent smoothing between facets for example (@jiho)
+
+* `stat_function()` once again works with discrete x axes (#1509).
+
+* All `\donttest{}` examples run.
+
+* `position_jitterdodge()` now works on all possible dodge aesthetics, 
+ e.g. `color`, `linetype` etc. instead of only based on `fill` (@bleutner)
+
+* Removed a superfluous comma in `theme-defaults.r` code (@jschoeley)
 
 * Fixed a compatibility issue with `ggproto` and R versions prior to 3.1.2.
   (#1444)

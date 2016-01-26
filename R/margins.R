@@ -1,10 +1,10 @@
 #' Define margins.
 #'
-#' This is a convenience function that creates a grid unit object of the
+#' This is a convenient function that creates a grid unit object of the
 #' correct length to use for setting margins.
 #'
 #' @export
-#' @param t,b,r,l Dimensions of each margin. (To remember order, think trouble).
+#' @param t,r,b,l Dimensions of each margin. (To remember order, think trouble).
 #' @param unit Default units of dimensions. Defaults to "pt" so it
 #'   can be most easily scaled with the text.
 #' @export

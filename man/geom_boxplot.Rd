@@ -9,7 +9,7 @@ geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", outlier.colour = NULL, outlier.shape = 19,
   outlier.size = 1.5, outlier.stroke = 0.5, notch = FALSE,
   notchwidth = 0.5, varwidth = FALSE, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  inherit.aes = TRUE, ..., outlier.color = NULL)
 
 stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
   position = "dodge", coef = 1.5, na.rm = FALSE, show.legend = NA,
@@ -28,9 +28,11 @@ defined at the top level of the plot.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{outlier.colour, outlier.shape, outlier.size, outlier.stroke}{Default
-aesthetics for outliers. Set to \code{NULL} to inherit from the aesthetics
-used for the box.}
+\item{outlier.colour, outlier.color, outlier.shape, outlier.size, outlier.stroke}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
+  aesthetics used for the box.
+
+  In the unlikely event you specify both US and UK spellings of colour, the
+  US spelling will take precedence.}
 
 \item{notch}{if \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, make a notched box plot. Notches are used to compare groups;

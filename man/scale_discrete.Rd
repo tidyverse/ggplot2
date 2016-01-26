@@ -26,10 +26,9 @@ level, and increasing by one for each level (i.e. the labels are placed
 at integer positions).  This is what allows jittering to work.
 }
 \examples{
-\donttest{
-ggplot(diamonds, aes(cut)) + stat_bin()
 ggplot(diamonds, aes(cut)) + geom_bar()
 
+\donttest{
 # The discrete position scale is added automatically whenever you
 # have a discrete position.
 
@@ -39,9 +38,6 @@ ggplot(diamonds, aes(cut)) + geom_bar()
 d + scale_x_discrete("Cut")
 d + scale_x_discrete("Cut", labels = c("Fair" = "F","Good" = "G",
   "Very Good" = "VG","Perfect" = "P","Ideal" = "I"))
-
-d + scale_y_discrete("Clarity")
-d + scale_x_discrete("Cut") + scale_y_discrete("Clarity")
 
 # Use limits to adjust the which levels (and in what order)
 # are displayed

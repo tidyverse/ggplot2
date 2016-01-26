@@ -80,9 +80,17 @@ StatFunction <- ggproto("StatFunction", Stat,
     range <- scales$x$dimension()
     xseq <- seq(range[1], range[2], length.out = n)
 
+    if (scales$x$is_discrete()) {
+      x_trans <- xseq
+    } else {
+      # For continuous scales, need to back transform from transformed range
+      # to original values
+      x_trans <- scales$x$trans$inverse(xseq)
+    }
+
     data.frame(
       x = xseq,
-      y = do.call(fun, c(list(quote(scales$x$trans$inv(xseq))), args))
+      y = do.call(fun, c(list(quote(x_trans)), args))
     )
   }
 )
