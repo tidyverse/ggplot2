@@ -71,9 +71,13 @@
 #' }
 #' rm(movies)
 geom_histogram <- function(mapping = NULL, data = NULL,
-                           stat = "bin", position = "stack", ...,
-                           binwidth = NULL, bins = NULL,
-                           na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) {
+                           stat = "bin", position = "stack",
+                           ...,
+                           binwidth = NULL,
+                           bins = NULL,
+                           na.rm = FALSE,
+                           show.legend = NA,
+                           inherit.aes = TRUE) {
 
   layer(
     data = data,

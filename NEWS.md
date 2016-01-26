@@ -1,5 +1,11 @@
 # ggplot2 2.0.0.9000
 
+* All `geom_()` and `stat_()` function now have consistent argument order:
+  data + mapping, geom/stat/position, ..., specific arguments, common arguments
+  to all layers (#1305). This may break code if you were previously relying on
+  partial name matching, but in the long-term should make ggplot2 easier to 
+  use.
+
 * `stat_ecdf()` does a better job of adding padding to -Inf/Inf, and gains
   an argument `pad` to suppress the padding if not needed (#1467).
 

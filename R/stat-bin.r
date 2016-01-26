@@ -37,11 +37,18 @@
 #'   x data, whereas \link{stat_bin} is suitable only for continuous x data.
 #' @export
 #' @rdname geom_histogram
-stat_bin <- function(mapping = NULL, data = NULL, geom = "bar",
-                     position = "stack", ...,
-                     binwidth = NULL, bins = NULL, center = NULL, boundary = NULL,
-                     closed = c("right", "left"), pad = FALSE,
-                     na.rm = FALSE, show.legend = NA, inherit.aes = TRUE) {
+stat_bin <- function(mapping = NULL, data = NULL,
+                     geom = "bar", position = "stack",
+                     ...,
+                     binwidth = NULL,
+                     bins = NULL,
+                     center = NULL,
+                     boundary = NULL,
+                     closed = c("right", "left"),
+                     pad = FALSE,
+                     na.rm = FALSE,
+                     show.legend = NA,
+                     inherit.aes = TRUE) {
 
   layer(
     data = data,

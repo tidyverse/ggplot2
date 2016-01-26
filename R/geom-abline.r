@@ -69,8 +69,10 @@ NULL
 #'   facet_wrap(~ cyl)
 geom_abline <- function(mapping = NULL, data = NULL,
                         ...,
-                        slope, intercept,
-                        na.rm = FALSE, show.legend = NA) {
+                        slope,
+                        intercept,
+                        na.rm = FALSE,
+                        show.legend = NA) {
 
   # If nothing set, default to y = x
   if (missing(mapping) && missing(slope) && missing(intercept)) {

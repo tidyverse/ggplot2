@@ -112,12 +112,23 @@
 #'   geom_dotplot(binaxis = "y", stackgroups = TRUE, binwidth = 1, method = "histodot")
 #' }
 geom_dotplot <- function(mapping = NULL, data = NULL,
-                         position = "identity", binwidth = NULL, binaxis = "x",
-                         method = "dotdensity", binpositions = "bygroup",
-                         stackdir = "up", stackratio = 1, dotsize = 1,
-                         stackgroups = FALSE, origin = NULL, right = TRUE,
-                         width = 0.9, drop = FALSE, na.rm = FALSE,
-                         show.legend = NA, inherit.aes = TRUE, ...) {
+                         position = "identity",
+                         ...,
+                         binwidth = NULL,
+                         binaxis = "x",
+                         method = "dotdensity",
+                         binpositions = "bygroup",
+                         stackdir = "up",
+                         stackratio = 1,
+                         dotsize = 1,
+                         stackgroups = FALSE,
+                         origin = NULL,
+                         right = TRUE,
+                         width = 0.9,
+                         drop = FALSE,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   # If identical(position, "stack") or position is position_stack(), tell them
   # to use stackgroups=TRUE instead. Need to use identical() instead of ==,
   # because == will fail if object is position_stack() or position_dodge()

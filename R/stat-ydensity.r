@@ -17,10 +17,17 @@
 #'   for examples with data along the x axis.
 #' @export
 #' @rdname geom_violin
-stat_ydensity <- function(mapping = NULL, data = NULL, geom = "violin",
-                          position = "dodge", bw = "nrd0", adjust = 1, kernel = "gaussian",
-                          trim = TRUE, scale = "area", na.rm = FALSE,
-                          show.legend = NA, inherit.aes = TRUE, ...) {
+stat_ydensity <- function(mapping = NULL, data = NULL,
+                          geom = "violin", position = "dodge",
+                          ...,
+                          bw = "nrd0",
+                          adjust = 1,
+                          kernel = "gaussian",
+                          trim = TRUE,
+                          scale = "area",
+                          na.rm = FALSE,
+                          show.legend = NA,
+                          inherit.aes = TRUE) {
   scale <- match.arg(scale, c("area", "count", "width"))
 
   layer(

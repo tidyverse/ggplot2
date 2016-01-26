@@ -4,8 +4,8 @@
 \alias{geom_map}
 \title{Polygons from a reference map.}
 \usage{
-geom_map(mapping = NULL, data = NULL, map, stat = "identity",
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+geom_map(mapping = NULL, data = NULL, stat = "identity", ..., map,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -17,13 +17,24 @@ defined for the plot.}
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
 
+\item{stat}{The statistical transformation to use on the data for this
+layer, as a string.}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. There are
+  three types of arguments you can use here:
+
+  \itemize{
+  \item Aesthetics: to set an aesthetic to a fixed value, like
+     \code{color = "red"} or \code{size = 3}.
+  \item Other arguments to the layer, for example you override the
+    default \code{stat} associated with the layer.
+  \item Other arguments passed on to the stat.
+  }}
+
 \item{map}{Data frame that contains the map coordinates.  This will
 typically be created using \code{\link{fortify}} on a spatial object.
 It must contain columns \code{x} or \code{long}, \code{y} or
 \code{lat}, and \code{region} or \code{id}.}
-
-\item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
@@ -36,17 +47,6 @@ a warning.  If \code{TRUE} silently removes missing values.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
-
-\item{...}{other arguments passed on to \code{\link{layer}}. There are
-  three types of arguments you can use here:
-
-  \itemize{
-  \item Aesthetics: to set an aesthetic to a fixed value, like
-     \code{color = "red"} or \code{size = 3}.
-  \item Other arguments to the layer, for example you override the
-    default \code{stat} associated with the layer.
-  \item Other arguments passed on to the stat.
-  }}
 }
 \description{
 Does not affect position scales.

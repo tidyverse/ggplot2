@@ -59,8 +59,13 @@ NULL
 #'     expand_limits(x = states_map$long, y = states_map$lat) +
 #'     facet_wrap( ~ variable)
 #' }
-geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
-                     na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
+geom_map <- function(mapping = NULL, data = NULL,
+                     stat = "identity",
+                     ...,
+                     map,
+                     na.rm = FALSE,
+                     show.legend = NA,
+                     inherit.aes = TRUE) {
   # Get map input into correct form
   stopifnot(is.data.frame(map))
   if (!is.null(map$lat)) map$y <- map$lat

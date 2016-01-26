@@ -6,13 +6,13 @@
 \title{Line segments and curves.}
 \usage{
 geom_segment(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", arrow = NULL, lineend = "butt", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", ..., arrow = NULL, lineend = "butt",
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 geom_curve(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", curvature = 0.5, angle = 90, ncp = 5,
+  position = "identity", ..., curvature = 0.5, angle = 90, ncp = 5,
   arrow = NULL, lineend = "butt", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -30,6 +30,17 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
+\item{...}{other arguments passed on to \code{\link{layer}}. There are
+  three types of arguments you can use here:
+
+  \itemize{
+  \item Aesthetics: to set an aesthetic to a fixed value, like
+     \code{color = "red"} or \code{size = 3}.
+  \item Other arguments to the layer, for example you override the
+    default \code{stat} associated with the layer.
+  \item Other arguments passed on to the stat.
+  }}
+
 \item{arrow}{specification for arrow heads, as created by arrow()}
 
 \item{lineend}{Line end style (round, butt, square)}
@@ -45,17 +56,6 @@ a warning.  If \code{TRUE} silently removes missing values.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
-
-\item{...}{other arguments passed on to \code{\link{layer}}. There are
-  three types of arguments you can use here:
-
-  \itemize{
-  \item Aesthetics: to set an aesthetic to a fixed value, like
-     \code{color = "red"} or \code{size = 3}.
-  \item Other arguments to the layer, for example you override the
-    default \code{stat} associated with the layer.
-  \item Other arguments passed on to the stat.
-  }}
 
 \item{curvature}{A numeric value giving the amount of curvature.
     Negative values produce left-hand curves, positive values

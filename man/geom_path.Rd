@@ -7,9 +7,9 @@
 \title{Connect observations.}
 \usage{
 geom_path(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", lineend = "butt", linejoin = "round",
-  linemitre = 1, na.rm = FALSE, arrow = NULL, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  position = "identity", ..., lineend = "butt", linejoin = "round",
+  linemitre = 1, arrow = NULL, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 geom_line(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = NA,
@@ -35,26 +35,6 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{lineend}{Line end style (round, butt, square)}
-
-\item{linejoin}{Line join style (round, mitre, bevel)}
-
-\item{linemitre}{Line mitre limit (number greater than 1)}
-
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
-
-\item{arrow}{Arrow specification, as created by \code{\link[grid]{arrow}}}
-
-\item{show.legend}{logical. Should this layer be included in the legends?
-\code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
-
-\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
-rather than combining with them. This is most useful for helper functions
-that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link{borders}}.}
-
 \item{...}{other arguments passed on to \code{\link{layer}}. There are
   three types of arguments you can use here:
 
@@ -65,6 +45,26 @@ the default plot specification, e.g. \code{\link{borders}}.}
     default \code{stat} associated with the layer.
   \item Other arguments passed on to the stat.
   }}
+
+\item{lineend}{Line end style (round, butt, square)}
+
+\item{linejoin}{Line join style (round, mitre, bevel)}
+
+\item{linemitre}{Line mitre limit (number greater than 1)}
+
+\item{arrow}{Arrow specification, as created by \code{\link[grid]{arrow}}}
+
+\item{na.rm}{If \code{FALSE} (the default), removes missing values with
+a warning.  If \code{TRUE} silently removes missing values.}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{direction}{direction of stairs: 'vh' for vertical then horizontal, or
 'hv' for horizontal then vertical}

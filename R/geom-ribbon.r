@@ -31,9 +31,12 @@
 #' h +
 #'   geom_ribbon(aes(ymin = level - 1, ymax = level + 1), fill = "grey70") +
 #'   geom_line(aes(y = level))
-geom_ribbon <- function(mapping = NULL, data = NULL, stat = "identity",
-                        position = "identity", na.rm = FALSE, show.legend = NA,
-                        inherit.aes = TRUE, ...) {
+geom_ribbon <- function(mapping = NULL, data = NULL,
+                        stat = "identity", position = "identity",
+                        ...,
+                        na.rm = FALSE,
+                        show.legend = NA,
+                        inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

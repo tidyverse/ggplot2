@@ -23,7 +23,7 @@
 #' x <- df$x
 #' base <- ggplot(df, aes(x)) + geom_density()
 #' base + stat_function(fun = dnorm, colour = "red")
-#' base + stat_function(fun = dnorm, colour = "red", arg = list(mean = 3))
+#' base + stat_function(fun = dnorm, colour = "red", args = list(mean = 3))
 #'
 #' # Plot functions without data
 #' # Examples adapted from Kohske Takahashi
@@ -47,10 +47,15 @@
 #' # Using a custom function
 #' test <- function(x) {x ^ 2 + x + 20}
 #' f + stat_function(fun = test)
-stat_function <- function(mapping = NULL, data = NULL, geom = "path",
-                          position = "identity", fun, n = 101, args = list(),
-                          na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-                          ...) {
+stat_function <- function(mapping = NULL, data = NULL,
+                          geom = "path", position = "identity",
+                          ...,
+                          fun,
+                          n = 101,
+                          args = list(),
+                          na.rm = FALSE,
+                          show.legend = NA,
+                          inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

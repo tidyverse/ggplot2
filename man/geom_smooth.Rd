@@ -6,14 +6,14 @@
 \title{Add a smoothed conditional mean.}
 \usage{
 geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
-  method = "auto", formula = y ~ x, se = TRUE, position = "identity",
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", ..., method = "auto", formula = y ~ x,
+  se = TRUE, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 stat_smooth(mapping = NULL, data = NULL, geom = "smooth",
-  position = "identity", method = "auto", formula = y ~ x, se = TRUE,
-  n = 80, span = 0.75, fullrange = FALSE, level = 0.95,
+  position = "identity", ..., method = "auto", formula = y ~ x,
+  se = TRUE, n = 80, span = 0.75, fullrange = FALSE, level = 0.95,
   method.args = list(), na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -24,6 +24,20 @@ defined for the plot.}
 
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
+
+\item{position}{Position adjustment, either as a string, or the result of
+a call to a position adjustment function.}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. There are
+  three types of arguments you can use here:
+
+  \itemize{
+  \item Aesthetics: to set an aesthetic to a fixed value, like
+     \code{color = "red"} or \code{size = 3}.
+  \item Other arguments to the layer, for example you override the
+    default \code{stat} associated with the layer.
+  \item Other arguments passed on to the stat.
+  }}
 
 \item{method}{smoothing method (function) to use, eg. lm, glm, gam, loess,
 rlm. For datasets with n < 1000 default is \code{\link{loess}}. For datasets
@@ -36,9 +50,6 @@ for more details.}
 \item{se}{display confidence interval around smooth? (TRUE by default, see
 level to control}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
-
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
@@ -50,17 +61,6 @@ a warning.  If \code{TRUE} silently removes missing values.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
-
-\item{...}{other arguments passed on to \code{\link{layer}}. There are
-  three types of arguments you can use here:
-
-  \itemize{
-  \item Aesthetics: to set an aesthetic to a fixed value, like
-     \code{color = "red"} or \code{size = 3}.
-  \item Other arguments to the layer, for example you override the
-    default \code{stat} associated with the layer.
-  \item Other arguments passed on to the stat.
-  }}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_smooth} and \code{stat_smooth}.}

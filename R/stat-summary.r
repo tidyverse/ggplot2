@@ -103,11 +103,17 @@
 #' m2 + coord_trans(y="log10")
 #' }
 #' }
-stat_summary <- function(mapping = NULL, data = NULL, geom = "pointrange",
-                         fun.data = NULL, fun.y = NULL, fun.ymax = NULL,
-                         fun.ymin = NULL, fun.args = list(), na.rm = FALSE,
-                         position = "identity", show.legend = NA,
-                         inherit.aes = TRUE, ...) {
+stat_summary <- function(mapping = NULL, data = NULL,
+                         geom = "pointrange", position = "identity",
+                         ...,
+                         fun.data = NULL,
+                         fun.y = NULL,
+                         fun.ymax = NULL,
+                         fun.ymin = NULL,
+                         fun.args = list(),
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

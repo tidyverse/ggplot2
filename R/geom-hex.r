@@ -23,9 +23,12 @@
 #' d + geom_hex(binwidth = c(1, 1000))
 #' d + geom_hex(binwidth = c(.1, 500))
 #' }
-geom_hex <- function(mapping = NULL, data = NULL, stat = "binhex",
-                     position = "identity", na.rm = FALSE,
-                     show.legend = NA, inherit.aes = TRUE, ...) {
+geom_hex <- function(mapping = NULL, data = NULL,
+                     stat = "binhex", position = "identity",
+                     ...,
+                     na.rm = FALSE,
+                     show.legend = NA,
+                     inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

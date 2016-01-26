@@ -45,9 +45,12 @@
 #' ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
 #'   geom_density(position = "fill")
 #' }
-geom_density <- function(mapping = NULL, data = NULL, stat = "density",
-                         position = "identity", na.rm = FALSE,
-                         show.legend = NA, inherit.aes = TRUE, ...) {
+geom_density <- function(mapping = NULL, data = NULL,
+                         stat = "density", position = "identity",
+                         ...,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
 
   layer(
     data = data,

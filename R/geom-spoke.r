@@ -17,9 +17,12 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_point() +
 #'   geom_spoke(aes(angle = angle, radius = speed))
-geom_spoke <- function(mapping = NULL, data = NULL, stat = "identity",
-                       position = "identity", na.rm = FALSE,
-                       show.legend = NA, inherit.aes = TRUE, ...) {
+geom_spoke <- function(mapping = NULL, data = NULL,
+                       stat = "identity", position = "identity",
+                       ...,
+                       na.rm = FALSE,
+                       show.legend = NA,
+                       inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
