@@ -5,8 +5,8 @@
 \title{Empirical Cumulative Density Function}
 \usage{
 stat_ecdf(mapping = NULL, data = NULL, geom = "step",
-  position = "identity", n = NULL, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  position = "identity", n = NULL, pad = TRUE, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE, ...)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -23,6 +23,9 @@ on this layer}
 
 \item{n}{if NULL, do not interpolate. If not NULL, this is the number
 of points to interpolate with.}
+
+\item{pad}{If \code{TRUE}, pad the ecdf with additional points (-Inf, 0)
+and (Inf, 1)}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}

@@ -1,5 +1,8 @@
 # ggplot2 2.0.0.9000
 
+* `stat_ecdf()` does a better job of adding padding to -Inf/Inf, and gains
+  an argument `pad` to suppress the padding if not needed (#1467).
+
 * Multipanel empty data is correctly plotted, rather than throwing an unhelpful 
   error (#1445).
 
