@@ -1,5 +1,7 @@
 # ggplot2 2.0.0.9000
 
+* `ggsave("x.svg")` now uses svglite to produce the svg (#1432).
+
 * `stat_bin()` has been overhauled to use the same algorithm as ggvis, which 
   has been considerably improved thanks to the advice of Randy Prium (@rpruim).
   This includes:
