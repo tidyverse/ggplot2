@@ -67,7 +67,10 @@ Geom <- ggproto("Geom",
   },
 
   draw_layer = function(self, data, params, panel, coord) {
-    if (empty(data)) return(list(zeroGrob()))
+    if (empty(data)) {
+      n <- nlevels(data$PANEL)
+      return(rep(list(zeroGrob()), n))
+    }
 
     # Trim off extra parameters
     params <- params[intersect(names(params), self$parameters())]

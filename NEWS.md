@@ -1,5 +1,8 @@
 # ggplot2 2.0.0.9000
 
+* Multipanel empty data is correctly plotted, rather than throwing an unhelpful 
+  error (#1445).
+
 * Eliminate spurious warning if you have a layer with no data and no aesthetics
   (#1451).
 
