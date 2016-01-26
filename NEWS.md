@@ -1,5 +1,8 @@
 # ggplot2 2.0.0.9000
 
+* Eliminate spurious warning if you have a layer with no data and no aesthetics
+  (#1451).
+
 * `position = "nudge"` now works (although it doesn't do anything useful)
   (#1428).
 
