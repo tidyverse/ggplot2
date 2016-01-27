@@ -1,5 +1,8 @@
 # ggplot2 2.0.0.9000
 
+* `stat_summary()` preserves sorted x order which avoids artefacts when
+  display results with `geom_smooth()` (#1520).
+
 * All `geom_()` and `stat_()` function now have consistent argument order:
   data + mapping, geom/stat/position, ..., specific arguments, common arguments
   to all layers (#1305). This may break code if you were previously relying on

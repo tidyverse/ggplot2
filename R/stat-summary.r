@@ -167,7 +167,7 @@ summarise_by_x <- function(data, summary, ...) {
   unique <- plyr::ddply(data, c("group", "x"), uniquecols)
   unique$y <- NULL
 
-  merge(summary, unique, by = c("x", "group"))
+  merge(summary, unique, by = c("x", "group"), sort = FALSE)
 }
 
 #' Wrap up a selection of summary functions from Hmisc to make it easy to use
