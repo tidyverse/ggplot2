@@ -32,3 +32,16 @@ test_that("strip_dots remove dots around calculated aesthetics", {
   expect_equal(strip_dots(aes(sapply(..density.., function(x) mean(x)))$x),
                quote(sapply(density, function(x) mean(x))))
 })
+
+# Data extraction ---------------------------------------------------------
+
+test_that("layer_data returns a data.frame", {
+  l <- geom_point()
+  expect_equal(l$layer_data(mtcars), mtcars)
+  l <- geom_point(data = head(mtcars))
+  expect_equal(l$layer_data(mtcars), head(mtcars))
+  l <- geom_point(data = head)
+  expect_equal(l$layer_data(mtcars), head(mtcars))
+  l <- geom_point(data = nrow)
+  expect_error(l$layer_data(mtcars))
+})
