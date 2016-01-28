@@ -1,8 +1,11 @@
 #' @export
 #' @rdname geom_tile
-geom_rect <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", na.rm = FALSE,
-                      show.legend = NA, inherit.aes = TRUE, ...) {
+geom_rect <- function(mapping = NULL, data = NULL,
+                      stat = "identity", position = "identity",
+                      ...,
+                      na.rm = FALSE,
+                      show.legend = NA,
+                      inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

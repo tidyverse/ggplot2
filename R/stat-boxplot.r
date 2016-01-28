@@ -13,9 +13,13 @@
 #'   \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
 #' }
 #' @export
-stat_boxplot <- function(mapping = NULL, data = NULL, geom = "boxplot",
-                         position = "dodge", coef = 1.5, na.rm = FALSE,
-                         show.legend = NA, inherit.aes = TRUE, ...) {
+stat_boxplot <- function(mapping = NULL, data = NULL,
+                         geom = "boxplot", position = "dodge",
+                         ...,
+                         coef = 1.5,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

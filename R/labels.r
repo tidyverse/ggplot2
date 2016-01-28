@@ -68,5 +68,13 @@ make_labels <- function(mapping) {
     gsub(match_calculated_aes, "\\1", x)
   }
 
-  lapply(mapping, function(x) remove_dots(deparse(x)))
+  default_label <- function(aesthetic, mapping) {
+    # e.g., geom_smooth(aes(colour = "loess"))
+    if (is.character(mapping)) {
+      aesthetic
+    } else {
+      remove_dots(deparse(mapping))
+    }
+  }
+  Map(default_label, names(mapping), mapping)
 }

@@ -19,9 +19,12 @@
 #'
 #' # Or by specifying the width of the bins
 #' d + geom_bin2d(binwidth = c(0.1, 0.1))
-geom_bin2d <- function(mapping = NULL, data = NULL, stat = "bin2d",
-                       position = "identity", na.rm = FALSE,
-                       show.legend = NA, inherit.aes = TRUE, ...) {
+geom_bin2d <- function(mapping = NULL, data = NULL,
+                       stat = "bin2d", position = "identity",
+                       ...,
+                       na.rm = FALSE,
+                       show.legend = NA,
+                       inherit.aes = TRUE) {
 
   layer(
     data = data,

@@ -6,14 +6,14 @@
 \title{Summarise y values at unique/binned x x.}
 \usage{
 stat_summary_bin(mapping = NULL, data = NULL, geom = "pointrange",
-  fun.data = NULL, fun.y = NULL, fun.ymax = NULL, fun.ymin = NULL,
-  fun.args = list(), na.rm = FALSE, position = "identity",
-  show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", ..., fun.data = NULL, fun.y = NULL,
+  fun.ymax = NULL, fun.ymin = NULL, fun.args = list(), na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 
 stat_summary(mapping = NULL, data = NULL, geom = "pointrange",
-  fun.data = NULL, fun.y = NULL, fun.ymax = NULL, fun.ymin = NULL,
-  fun.args = list(), na.rm = FALSE, position = "identity",
-  show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", ..., fun.data = NULL, fun.y = NULL,
+  fun.ymax = NULL, fun.ymin = NULL, fun.args = list(), na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -28,6 +28,20 @@ defined at the top level of the plot.}
 \item{geom}{Use to override the default connection between
 \code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.}
 
+\item{position}{Position adjustment, either as a string, or the result of
+a call to a position adjustment function.}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. There are
+  three types of arguments you can use here:
+
+  \itemize{
+  \item Aesthetics: to set an aesthetic to a fixed value, like
+     \code{color = "red"} or \code{size = 3}.
+  \item Other arguments to the layer, for example you override the
+    default \code{stat} associated with the layer.
+  \item Other arguments passed on to the stat.
+  }}
+
 \item{fun.data}{A function that is given the complete data and should
 return a data frame with variables \code{ymin}, \code{y}, and \code{ymax}.}
 
@@ -40,9 +54,6 @@ single number.}
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
-
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
@@ -51,17 +62,6 @@ a call to a position adjustment function.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
-
-\item{...}{other arguments passed on to \code{\link{layer}}. There are
-  three types of arguments you can use here:
-
-  \itemize{
-  \item Aesthetics: to set an aesthetic to a fixed value, like
-     \code{color = "red"} or \code{size = 3}.
-  \item Other arguments to the layer, for example you override the
-    default \code{stat} associated with the layer.
-  \item Other arguments passed on to the stat.
-  }}
 }
 \description{
 \code{stat_summary} operates on unique \code{x}; \code{stat_summary_bin}

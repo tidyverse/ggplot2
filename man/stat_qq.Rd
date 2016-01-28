@@ -6,12 +6,12 @@
 \title{Calculation for quantile-quantile plot.}
 \usage{
 stat_qq(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", distribution = stats::qnorm, dparams = list(),
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", ..., distribution = stats::qnorm,
+  dparams = list(), na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 geom_qq(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", distribution = stats::qnorm, dparams = list(),
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", ..., distribution = stats::qnorm,
+  dparams = list(), na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -25,6 +25,10 @@ the plot defaults.}
 
 \item{position}{The position adjustment to use for overlapping points
 on this layer}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 
 \item{distribution}{Distribution function to use, if x not specified}
 
@@ -42,10 +46,6 @@ a warning.  If \code{TRUE} silently removes missing values.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
-
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
 }
 \description{
 Calculation for quantile-quantile plot.

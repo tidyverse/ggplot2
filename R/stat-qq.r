@@ -33,10 +33,14 @@
 #' ggplot(mtcars) +
 #'   stat_qq(aes(sample = mpg, colour = factor(cyl)))
 #' }
-stat_qq <- function(mapping = NULL, data = NULL, geom = "point",
-                    position = "identity", distribution = stats::qnorm,
-                    dparams = list(), na.rm = FALSE,
-                    show.legend = NA, inherit.aes = TRUE, ...) {
+stat_qq <- function(mapping = NULL, data = NULL,
+                    geom = "point", position = "identity",
+                    ...,
+                    distribution = stats::qnorm,
+                    dparams = list(),
+                    na.rm = FALSE,
+                    show.legend = NA,
+                    inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

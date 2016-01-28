@@ -36,7 +36,8 @@ Suggests:
     nlme,
     testthat,
     quantreg,
-    knitr
+    knitr,
+    svglite
 Enhances: sp
 License: GPL-2
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2

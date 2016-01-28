@@ -24,9 +24,11 @@
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg))
 #' p + stat_identity()
-stat_identity <- function(mapping = NULL, data = NULL, geom = "point",
-                          position = "identity", show.legend = NA,
-                          inherit.aes = TRUE, ...) {
+stat_identity <- function(mapping = NULL, data = NULL,
+                          geom = "point", position = "identity",
+                          ...,
+                          show.legend = NA,
+                          inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

@@ -48,9 +48,12 @@
 #' p +
 #'   geom_bar(position = dodge, stat = "identity") +
 #'   geom_errorbar(aes(ymin = lower, ymax = upper), position = dodge, width = 0.25)
-geom_linerange <- function(mapping = NULL, data = NULL, stat = "identity",
-                           position = "identity", na.rm = FALSE,
-                           show.legend = NA, inherit.aes = TRUE, ...) {
+geom_linerange <- function(mapping = NULL, data = NULL,
+                           stat = "identity", position = "identity",
+                           ...,
+                           na.rm = FALSE,
+                           show.legend = NA,
+                           inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

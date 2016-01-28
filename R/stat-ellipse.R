@@ -41,10 +41,15 @@
 #'
 #' ggplot(faithful, aes(waiting, eruptions, fill = eruptions > 3)) +
 #'   stat_ellipse(geom = "polygon")
-stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
-                         position = "identity", type = "t", level = 0.95,
-                         segments = 51, na.rm = FALSE, show.legend = NA,
-                         inherit.aes = TRUE, ...) {
+stat_ellipse <- function(mapping = NULL, data = NULL,
+                         geom = "path", position = "identity",
+                         ...,
+                         type = "t",
+                         level = 0.95,
+                         segments = 51,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

@@ -4,9 +4,9 @@
 \alias{geom_jitter}
 \title{Points, jittered to reduce overplotting.}
 \usage{
-geom_jitter(mapping = NULL, data = NULL, width = NULL, height = NULL,
-  stat = "identity", position = "jitter", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, ...)
+geom_jitter(mapping = NULL, data = NULL, stat = "identity",
+  position = "jitter", ..., width = NULL, height = NULL, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -17,6 +17,23 @@ defined for the plot.}
 
 \item{data}{A data frame. If specified, overrides the default data frame
 defined at the top level of the plot.}
+
+\item{stat}{The statistical transformation to use on the data for this
+layer, as a string.}
+
+\item{position}{Position adjustment, either as a string, or the result of
+a call to a position adjustment function.}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. There are
+  three types of arguments you can use here:
+
+  \itemize{
+  \item Aesthetics: to set an aesthetic to a fixed value, like
+     \code{color = "red"} or \code{size = 3}.
+  \item Other arguments to the layer, for example you override the
+    default \code{stat} associated with the layer.
+  \item Other arguments passed on to the stat.
+  }}
 
 \item{width}{Amount of vertical and horizontal jitter. The jitter
   is added in both positive and negative directions, so the total spread
@@ -36,12 +53,6 @@ defined at the top level of the plot.}
   is aligned on the integers, so a width or height of 0.5 will spread the
   data so it's not possible to see the distinction between the categories.}
 
-\item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
-
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
-
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
@@ -53,17 +64,6 @@ a warning.  If \code{TRUE} silently removes missing values.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
-
-\item{...}{other arguments passed on to \code{\link{layer}}. There are
-  three types of arguments you can use here:
-
-  \itemize{
-  \item Aesthetics: to set an aesthetic to a fixed value, like
-     \code{color = "red"} or \code{size = 3}.
-  \item Other arguments to the layer, for example you override the
-    default \code{stat} associated with the layer.
-  \item Other arguments passed on to the stat.
-  }}
 }
 \description{
 The jitter geom is a convenient default for geom_point with position =

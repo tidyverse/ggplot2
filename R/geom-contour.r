@@ -33,11 +33,15 @@
 #' v + geom_raster(aes(fill = density)) +
 #'   geom_contour(colour = "white")
 #' }
-geom_contour <- function(mapping = NULL, data = NULL, stat = "contour",
-                         position = "identity", lineend = "butt",
-                         linejoin = "round", linemitre = 1,
-                         na.rm = FALSE, show.legend = NA,
-                         inherit.aes = TRUE, ...) {
+geom_contour <- function(mapping = NULL, data = NULL,
+                         stat = "contour", position = "identity",
+                         ...,
+                         lineend = "butt",
+                         linejoin = "round",
+                         linemitre = 1,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

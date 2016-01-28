@@ -77,10 +77,15 @@
 #' # But in this case, it's probably better to fit the model yourself
 #' # so you can exercise more control and see whether or not it's a good model
 #' }
-geom_smooth <- function(mapping = NULL, data = NULL, stat = "smooth",
-                        method = "auto", formula = y ~ x, se = TRUE,
-                        position = "identity", na.rm = FALSE,
-                        show.legend = NA, inherit.aes = TRUE, ...) {
+geom_smooth <- function(mapping = NULL, data = NULL,
+                        stat = "smooth", position = "identity",
+                        ...,
+                        method = "auto",
+                        formula = y ~ x,
+                        se = TRUE,
+                        na.rm = FALSE,
+                        show.legend = NA,
+                        inherit.aes = TRUE) {
 
   params <- list(
     na.rm = na.rm,

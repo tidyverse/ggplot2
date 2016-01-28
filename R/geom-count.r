@@ -40,9 +40,12 @@
 #'   scale_size_area(max_size = 10)
 #' d + geom_count(aes(size = ..prop.., group = clarity)) +
 #'   scale_size_area(max_size = 10)
-geom_count <- function(mapping = NULL, data = NULL, stat = "sum",
-                       position = "identity", na.rm = FALSE,
-                       show.legend = NA, inherit.aes = TRUE, ...) {
+geom_count <- function(mapping = NULL, data = NULL,
+                       stat = "sum", position = "identity",
+                       ...,
+                       na.rm = FALSE,
+                       show.legend = NA,
+                       inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

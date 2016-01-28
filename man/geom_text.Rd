@@ -6,13 +6,13 @@
 \title{Textual annotations.}
 \usage{
 geom_label(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", parse = FALSE, ..., nudge_x = 0, nudge_y = 0,
+  position = "identity", ..., parse = FALSE, nudge_x = 0, nudge_y = 0,
   label.padding = unit(0.25, "lines"), label.r = unit(0.15, "lines"),
   label.size = 0.25, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 
 geom_text(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", parse = FALSE, ..., nudge_x = 0, nudge_y = 0,
+  position = "identity", ..., parse = FALSE, nudge_x = 0, nudge_y = 0,
   check_overlap = FALSE, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 }
@@ -32,9 +32,6 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{parse}{If TRUE, the labels will be parsed into expressions and
-displayed as described in ?plotmath}
-
 \item{...}{other arguments passed on to \code{\link{layer}}. There are
   three types of arguments you can use here:
 
@@ -45,6 +42,9 @@ displayed as described in ?plotmath}
     default \code{stat} associated with the layer.
   \item Other arguments passed on to the stat.
   }}
+
+\item{parse}{If TRUE, the labels will be parsed into expressions and
+displayed as described in ?plotmath}
 
 \item{nudge_x, nudge_y}{Horizontal and vertical adjustment to nudge labels by.
 Useful for offsetting text from points, particularly on discrete scales.}

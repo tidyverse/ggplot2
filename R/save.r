@@ -104,7 +104,7 @@ plot_dev <- function(device, filename, dpi = 300) {
     ps =   eps,
     tex =  function(...) grDevices::pictex(...),
     pdf =  function(..., version = "1.4") grDevices::pdf(..., version = version),
-    svg =  function(...) grDevices::svg(...),
+    svg =  function(...) svglite::svglite(...),
     emf =  function(...) grDevices::win.metafile(...),
     wmf =  function(...) grDevices::win.metafile(...),
     png =  function(...) grDevices::png(..., res = dpi, units = "in"),

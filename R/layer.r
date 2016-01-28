@@ -134,7 +134,11 @@ Layer <- ggproto("Layer", NULL,
     n <- nrow(data)
     if (n == 0) {
       # No data, so look at longest evaluated aesthetic
-      n <- max(vapply(evaled, length, integer(1)))
+      if (length(evaled) == 0) {
+        n <- 0
+      } else {
+        n <- max(vapply(evaled, length, integer(1)))
+      }
     }
     check_aesthetics(evaled, n)
 

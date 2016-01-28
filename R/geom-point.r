@@ -113,9 +113,12 @@
 #' ggplot(mtcars2, aes(wt, mpg)) + geom_point()
 #' ggplot(mtcars2, aes(wt, mpg)) + geom_point(na.rm = TRUE)
 #' }
-geom_point <- function(mapping = NULL, data = NULL, stat = "identity",
-                       position = "identity", na.rm = FALSE,
-                       show.legend = NA, inherit.aes = TRUE, ...) {
+geom_point <- function(mapping = NULL, data = NULL,
+                       stat = "identity", position = "identity",
+                       ...,
+                       na.rm = FALSE,
+                       show.legend = NA,
+                       inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

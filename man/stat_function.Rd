@@ -5,8 +5,8 @@
 \title{Superimpose a function.}
 \usage{
 stat_function(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", fun, n = 101, args = list(), na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", ..., fun, n = 101, args = list(),
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -20,6 +20,10 @@ the plot defaults.}
 
 \item{position}{The position adjustment to use for overlapping points
 on this layer}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 
 \item{fun}{function to use}
 
@@ -38,10 +42,6 @@ a warning.  If \code{TRUE} silently removes missing values.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
-
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
 }
 \description{
 Superimpose a function.
@@ -66,7 +66,7 @@ df <- data.frame(
 x <- df$x
 base <- ggplot(df, aes(x)) + geom_density()
 base + stat_function(fun = dnorm, colour = "red")
-base + stat_function(fun = dnorm, colour = "red", arg = list(mean = 3))
+base + stat_function(fun = dnorm, colour = "red", args = list(mean = 3))
 
 # Plot functions without data
 # Examples adapted from Kohske Takahashi
