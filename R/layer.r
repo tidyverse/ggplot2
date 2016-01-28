@@ -101,6 +101,19 @@ Layer <- ggproto("Layer", NULL,
     cat(snakeize(class(self$position)[[1]]), "\n")
   },
 
+  layer_data = function(self, plot_data) {
+    if (is.waive(self$data)) {
+      return(plot_data)
+    } else if (is.function(self$data)) {
+      data <- self$data(plot_data)
+      if (!is.data.frame(data)) {
+        stop("Data function must return a data.frame")
+      }
+      return(data)
+    }
+    self$data
+  },
+
   compute_aesthetics = function(self, data, plot) {
     # For annotation geoms, it is useful to be able to ignore the default aes
     if (self$inherit.aes) {
