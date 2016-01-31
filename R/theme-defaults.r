@@ -275,5 +275,3 @@ theme_void <- function(base_size = 12, base_family = "") {
   )
 }
 
-, size = 0.125),
-      strip.background  = element_rect(fill = 
