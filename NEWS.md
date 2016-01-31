@@ -1,5 +1,7 @@
 # ggplot2 2.0.0.9000
 
+* The theme can now modify the margins of legend title and text (#1502).
+
 * `scale_size()` warns when used with categorical data.
 
 * `scale_size()`, `scale_colour()`, and `scale_fill()` gain date and date-time
