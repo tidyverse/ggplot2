@@ -1,5 +1,10 @@
 # ggplot2 2.0.0.9000
 
+* `scale_size()` warns when used with categorical data.
+
+* `scale_size()`, `scale_colour()`, and `scale_fill()` gain date and date-time
+  variants (#1526).
+
 * `stat_function()` gains an `xlim` parameter (#1528).
 
 * `stat_summary()` preserves sorted x order which avoids artefacts when
