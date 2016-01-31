@@ -6,6 +6,7 @@
 #' @param fun function to use
 #' @param n number of points to interpolate along
 #' @param args list of additional arguments to pass to \code{fun}
+#' @param xlim Optionally, restrict the range of the function to this range.
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
@@ -51,6 +52,7 @@ stat_function <- function(mapping = NULL, data = NULL,
                           geom = "path", position = "identity",
                           ...,
                           fun,
+                          xlim = NULL,
                           n = 101,
                           args = list(),
                           na.rm = FALSE,
@@ -69,6 +71,7 @@ stat_function <- function(mapping = NULL, data = NULL,
       n = n,
       args = args,
       na.rm = na.rm,
+      xlim = xlim,
       ...
     )
   )
@@ -81,8 +84,8 @@ stat_function <- function(mapping = NULL, data = NULL,
 StatFunction <- ggproto("StatFunction", Stat,
   default_aes = aes(y = ..y..),
 
-  compute_group = function(data, scales, fun, n = 101, args = list()) {
-    range <- scales$x$dimension()
+  compute_group = function(data, scales, fun, xlim = NULL, n = 101, args = list()) {
+    range <- xlim %||% scales$x$dimension()
     xseq <- seq(range[1], range[2], length.out = n)
 
     if (scales$x$is_discrete()) {

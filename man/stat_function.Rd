@@ -5,7 +5,7 @@
 \title{Superimpose a function.}
 \usage{
 stat_function(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", ..., fun, n = 101, args = list(),
+  position = "identity", ..., fun, xlim = NULL, n = 101, args = list(),
   na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
@@ -26,6 +26,8 @@ include aesthetics whose values you want to set, not map. See
 \code{\link{layer}} for more details.}
 
 \item{fun}{function to use}
+
+\item{xlim}{Optionally, restrict the range of the function to this range.}
 
 \item{n}{number of points to interpolate along}
 

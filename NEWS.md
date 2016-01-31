@@ -1,5 +1,7 @@
 # ggplot2 2.0.0.9000
 
+* `stat_function()` gains an `xlim` parameter (#1528).
+
 * `stat_summary()` preserves sorted x order which avoids artefacts when
   display results with `geom_smooth()` (#1520).
 
