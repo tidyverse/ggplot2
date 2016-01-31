@@ -19,6 +19,9 @@
 * `stat_ecdf()` does a better job of adding padding to -Inf/Inf, and gains
   an argument `pad` to suppress the padding if not needed (#1467).
 
+* `theme_void()` was completely void of text but facets and legends still
+  needed labels. They are now visible (@jiho).
+
 * Multipanel empty data is correctly plotted, rather than throwing an unhelpful 
   error (#1445).
 
