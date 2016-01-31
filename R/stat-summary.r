@@ -2,7 +2,7 @@
 #'
 #' \code{stat_summary} operates on unique \code{x}; \code{stat_summary_bin}
 #' operators on binned \code{x}. They are more flexible versions of
-#' \code{\link{stat_bin}}: instead of just counting, the can compute any
+#' \code{\link{stat_bin}}: instead of just counting, they can compute any
 #' aggregate.
 #'
 #' @section Aesthetics:
