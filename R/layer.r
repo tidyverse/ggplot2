@@ -103,15 +103,16 @@ Layer <- ggproto("Layer", NULL,
 
   layer_data = function(self, plot_data) {
     if (is.waive(self$data)) {
-      return(plot_data)
+      data <- plot_data
     } else if (is.function(self$data)) {
       data <- self$data(plot_data)
       if (!is.data.frame(data)) {
         stop("Data function must return a data.frame")
       }
-      return(data)
+    } else {
+      data <- self$data
     }
-    self$data
+    data
   },
 
   compute_aesthetics = function(self, data, plot) {
