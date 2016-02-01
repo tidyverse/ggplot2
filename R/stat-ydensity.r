@@ -1,5 +1,6 @@
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @inheritParams stat_density
-#' @inheritParams stat_identity
 #' @param scale if "area" (default), all violins have the same area (before trimming
 #'   the tails). If "count", areas are scaled proportionally to the number of
 #'   observations. If "width", all violins have the same maximum width.

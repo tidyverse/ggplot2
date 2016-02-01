@@ -7,9 +7,8 @@
 #' @param n number of points to interpolate along
 #' @param args list of additional arguments to pass to \code{fun}
 #' @param xlim Optionally, restrict the range of the function to this range.
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
-#' @inheritParams stat_identity
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @section Computed variables:
 #' \describe{
 #'   \item{x}{x's along a grid}

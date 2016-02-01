@@ -2,29 +2,39 @@
 #'
 #' A layer is a combination of data, stat and geom with a potential position
 #' adjustment. Usually layers are created using \code{geom_*} or \code{stat_*}
-#' calls but it can also be created directly using the \code{layer} function.
-#'
-#' @details
-#' The data in a layer can be specified in one of three ways:
-#'
-#' \itemize{
-#'  \item{If the data argument is \code{NULL} (the default) the data is
-#'  inherited from the global plot data as specified in the call to
-#'  \code{\link{ggplot}}.}
-#'  \item{If the data argument is a function, that function is called with the
-#'  global data as the only argument and the return value is used as the layer
-#'  data. The function must return a data.frame.}
-#'  \item{Any other type of value passed to \code{data} will be passed through
-#'  \code{\link{fortify}}, and there must thus be a \code{fortify} method
-#'  defined for the class of the value. Passing a data.frame is a special case
-#'  of this as \code{fortify.data.frame} returns the data.frame untouched.}
-#' }
+#' calls but it can also be created directly using this function.
 #'
 #' @export
 #' @inheritParams geom_point
-#' @param geom,stat,position Geom, stat and position adjustment to use in
-#'   this layer. Can either be the name of a ggproto object, or the object
-#'   itself.
+#' @param mapping Set of aesthetic mappings created by \code{\link{aes}} or
+#'   \code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+#'   default), it is combined with the default mapping at the top level of the
+#'   plot. You must supply \code{mapping} if there is no plot mapping.
+#' @param data The data to be displayed in this layer. There are three
+#'    options:
+#'
+#'    If \code{NULL}, the default, the data is inherited from the plot
+#'    data as specified in the call to \code{\link{ggplot}}.
+#'
+#'    A \code{data.frame}, or other object, will override the plot
+#'    data. All objects will be fortified to produce a data frame. See
+#'    \code{\link{fortify}} for which variables will be created.
+#'
+#'    A \code{function} will be called with a single argument,
+#'    the plot data. The return value must be a \code{data.frame.}, and
+#'    will be used as the layer data.
+#' @param geom The geometric object to use display the data
+#' @param stat The statistical transformation to use on the data for this
+#'    layer, as a string.
+#' @param position Position adjustment, either as a string, or the result of
+#'  a call to a position adjustment function.
+#' @param show.legend logical. Should this layer be included in the legends?
+#'   \code{NA}, the default, includes if any aesthetics are mapped.
+#'   \code{FALSE} never includes, and \code{TRUE} always includes.
+#' @param inherit.aes If \code{FALSE}, overrides the default aesthetics,
+#'   rather than combining with them. This is most useful for helper functions
+#'   that define both data and aesthetics and shouldn't inherit behaviour from
+#'   the default plot specification, e.g. \code{\link{borders}}.
 #' @param params Additional parameters to the \code{geom} and \code{stat}.
 #' @param subset DEPRECATED. An older way of subsetting the dataset used in a
 #'   layer.
@@ -130,16 +140,16 @@ Layer <- ggproto("Layer", NULL,
 
   layer_data = function(self, plot_data) {
     if (is.waive(self$data)) {
-      data <- plot_data
+      plot_data
     } else if (is.function(self$data)) {
       data <- self$data(plot_data)
       if (!is.data.frame(data)) {
         stop("Data function must return a data.frame", call. = FALSE)
       }
+      data
     } else {
-      data <- self$data
+      self$data
     }
-    data
   },
 
   compute_aesthetics = function(self, data, plot) {

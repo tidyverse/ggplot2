@@ -6,6 +6,7 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "segment")}
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param arrow specification for arrow heads, as created by arrow()
 #' @param lineend Line end style (round, butt, square)

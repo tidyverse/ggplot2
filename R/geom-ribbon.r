@@ -17,6 +17,7 @@
 #'   \code{\link{geom_bar}} for discrete intervals (bars),
 #'   \code{\link{geom_linerange}} for discrete intervals (lines),
 #'   \code{\link{geom_polygon}} for general polygons
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
 #' @examples

@@ -26,6 +26,7 @@
 #' Inward always aligns text towards the center, and outward aligns
 #' it away from the center
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param parse If TRUE, the labels will be parsed into expressions and
 #'   displayed as described in ?plotmath

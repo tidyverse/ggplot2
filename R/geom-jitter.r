@@ -7,6 +7,7 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams position_jitter
 #' @seealso

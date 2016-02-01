@@ -1,6 +1,7 @@
 #' Empirical Cumulative Density Function
 #'
-#' @inheritParams stat_identity
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
 #' @param n if NULL, do not interpolate. If not NULL, this is the number

@@ -1,4 +1,5 @@
-#' @inheritParams stat_identity
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @section Computed variables:
 #' \describe{
 #'  \item{n}{number of observations at position}

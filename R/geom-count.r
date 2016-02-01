@@ -8,6 +8,7 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_count} and \code{stat_sum}.
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
 #' @examples

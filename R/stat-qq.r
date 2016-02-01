@@ -6,9 +6,8 @@
 #' @param distribution Distribution function to use, if x not specified
 #' @param dparams Additional parameters passed on to \code{distribution}
 #'   function.
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
-#' @inheritParams stat_identity
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @section Computed variables:
 #' \describe{
 #'   \item{sample}{sample quantiles}

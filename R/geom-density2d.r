@@ -10,6 +10,7 @@
 #'  \code{\link{stat_sum}} for another way of dealing with overplotting
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_density_2d} and \code{stat_density_2d}.
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
 #' @export

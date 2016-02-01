@@ -22,6 +22,7 @@
 #' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
 #'   continuous variable, \code{\link{geom_jitter}} for another way to look
 #'   at conditional distributions.
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_boxplot} and \code{stat_boxplot}.

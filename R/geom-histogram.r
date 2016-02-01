@@ -13,6 +13,7 @@
 #' \code{geom_freqpoly} uses the same aesthetics as \code{geom_line}.
 #'
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.

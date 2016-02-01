@@ -10,6 +10,7 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "tile")}
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
 #' @examples

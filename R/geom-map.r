@@ -13,6 +13,7 @@ NULL
 #'   typically be created using \code{\link{fortify}} on a spatial object.
 #'   It must contain columns \code{x} or \code{long}, \code{y} or
 #'   \code{lat}, and \code{region} or \code{id}.
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @examples
 #' # When using geom_polygon, you will typically need two data frames:

@@ -32,10 +32,11 @@ NULL
 #'
 #' @seealso See \code{\link{geom_segment}} for a more general approach to
 #'   adding straight line segments to a plot.
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @param xintercept,yintercept,slope,intercept Parameters that control the
 #'   position of the line. If these are set, \code{data}, \code{mapping} and
 #'   \code{show.legend} are overridden
-#' @inheritParams geom_point
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()

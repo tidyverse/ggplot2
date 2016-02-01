@@ -13,6 +13,7 @@
 #'  \code{\link{stat_summary}} for examples of these guys in use,
 #'  \code{\link{geom_smooth}} for continuous analog
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @examples
 #' #' # Create a simple example dataset

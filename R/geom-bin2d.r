@@ -4,6 +4,7 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bin2d")}
 #'
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_bin2d} and \code{stat_bin2d}.

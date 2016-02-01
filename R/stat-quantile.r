@@ -2,7 +2,8 @@
 #' @param formula formula relating y variables to x variables
 #' @param method Quantile regression method to use.  Currently only supports
 #'    \code{\link[quantreg]{rq}}.
-#' @inheritParams stat_identity
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @section Computed variables:
 #' \describe{
 #'   \item{quantile}{quantile of distribution}

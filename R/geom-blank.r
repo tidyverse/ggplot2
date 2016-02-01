@@ -4,6 +4,7 @@
 #' scales between different plots.
 #'
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @examples
 #' ggplot(mtcars, aes(wt, mpg)) + geom_blank()

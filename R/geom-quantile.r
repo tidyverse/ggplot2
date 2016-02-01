@@ -6,6 +6,7 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "quantile")}
 #'
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
 #' @param method.args List of additional arguments passed on to the modelling

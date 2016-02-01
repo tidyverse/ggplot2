@@ -3,6 +3,7 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "spoke")}
 #'
+#' @inheritParams layer
 #' @inheritParams geom_segment
 #' @export
 #' @examples

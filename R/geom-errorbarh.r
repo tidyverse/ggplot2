@@ -4,6 +4,7 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "errorbarh")}
 #'
 #' @seealso \code{\link{geom_errorbar}}: vertical error bars
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
 #' @examples

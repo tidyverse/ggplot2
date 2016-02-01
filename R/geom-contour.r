@@ -3,6 +3,7 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "contour")}
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
 #' @seealso \code{\link{geom_density_2d}}: 2d density contours

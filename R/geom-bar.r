@@ -26,6 +26,7 @@
 #' @seealso \code{\link{geom_histogram}} for continuous data,
 #'   \code{\link{position_dodge}} for creating side-by-side barcharts.
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param width Bar width. By default, set to 90\% of the resolution of the data.
 #' @param binwidth \code{geom_bar} no longer has a binwidth argument - if

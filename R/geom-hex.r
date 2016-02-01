@@ -7,6 +7,7 @@
 #' @param geom,stat Override the default connection between \code{geom_hex} and
 #'   \code{stat_binhex.}
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
 #' @examples

@@ -3,6 +3,7 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "violin")}
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param draw_quantiles If \code{not(NULL)} (default), draw horizontal lines
 #'   at the given quantiles of the density estimate.
