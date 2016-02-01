@@ -108,7 +108,6 @@ p1 + scale_fill_continuous(guide = "legend")
 p1 + scale_fill_continuous(guide = guide_legend())
 
 # Guide title
-
 p1 + scale_fill_continuous(guide = guide_legend(title = "V")) # title text
 p1 + scale_fill_continuous(guide = guide_legend(title = NULL)) # no title
 
@@ -125,14 +124,20 @@ p1 + guides(fill = guide_legend(
   title.theme = element_text(size=15, face="italic", colour = "red", angle = 45)))
 
 # label position
-p1 + guides(fill = guide_legend(label.position = "bottom"))
+p1 + guides(fill = guide_legend(label.position = "left", label.vjust = 1))
 
 # label styles
 p1 + scale_fill_continuous(breaks = c(5, 10, 15),
   labels = paste("long", c(5, 10, 15)),
-  guide = guide_legend(direction = "horizontal", title.position = "top",
-    label.position="bottom", label.hjust = 0.5, label.vjust = 0.5,
-    label.theme = element_text(angle = 90)))
+  guide = guide_legend(
+    direction = "horizontal",
+    title.position = "top",
+    label.position = "bottom",
+    label.hjust = 0.5,
+    label.vjust = 0.5,
+    label.theme = element_text(angle = 90)
+  )
+)
 
 # Set aesthetic of legend key
 
