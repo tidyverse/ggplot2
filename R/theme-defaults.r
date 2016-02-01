@@ -49,6 +49,7 @@
 #' p + theme_bw()
 #' p + theme_linedraw()
 #' p + theme_light()
+#' p + theme_dark()
 #' p + theme_minimal()
 #' p + theme_classic()
 #' p + theme_void()
@@ -268,8 +269,20 @@ theme_void <- function(base_size = 12, base_family = "") {
     # Use only inherited elements and make everything blank
     line =               element_blank(),
     rect =               element_blank(),
-    text =               element_blank(),
+    text =               element_text(
+                            family = base_family, face = "plain",
+                            colour = "black", size = base_size,
+                            lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
+                            margin = margin(), debug = FALSE
+                         ),
     plot.margin =        unit(c(0, 0, 0, 0), "lines"),
+    axis.text.x =        element_blank(),
+    axis.text.y =        element_blank(),
+    axis.title.x =       element_blank(),
+    axis.title.y =       element_blank(),
+    legend.text =        element_text(size = rel(0.8)),
+    legend.title =       element_blank(),
+    strip.text =         element_text(size = rel(0.8)),
 
     complete = TRUE
   )

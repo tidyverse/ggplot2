@@ -4,12 +4,12 @@
 \alias{geom_dotplot}
 \title{Dot plot}
 \usage{
-geom_dotplot(mapping = NULL, data = NULL, position = "identity",
+geom_dotplot(mapping = NULL, data = NULL, position = "identity", ...,
   binwidth = NULL, binaxis = "x", method = "dotdensity",
   binpositions = "bygroup", stackdir = "up", stackratio = 1,
   dotsize = 1, stackgroups = FALSE, origin = NULL, right = TRUE,
   width = 0.9, drop = FALSE, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -23,6 +23,17 @@ defined at the top level of the plot.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. There are
+  three types of arguments you can use here:
+
+  \itemize{
+  \item Aesthetics: to set an aesthetic to a fixed value, like
+     \code{color = "red"} or \code{size = 3}.
+  \item Other arguments to the layer, for example you override the
+    default \code{stat} associated with the layer.
+  \item Other arguments passed on to the stat.
+  }}
 
 \item{binwidth}{When \code{method} is "dotdensity", this specifies maximum bin
 width. When \code{method} is "histodot", this specifies bin width.
@@ -71,17 +82,6 @@ a warning.  If \code{TRUE} silently removes missing values.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
-
-\item{...}{other arguments passed on to \code{\link{layer}}. There are
-  three types of arguments you can use here:
-
-  \itemize{
-  \item Aesthetics: to set an aesthetic to a fixed value, like
-     \code{color = "red"} or \code{size = 3}.
-  \item Other arguments to the layer, for example you override the
-    default \code{stat} associated with the layer.
-  \item Other arguments passed on to the stat.
-  }}
 }
 \description{
 In a dot plot, the width of a dot corresponds to the bin width

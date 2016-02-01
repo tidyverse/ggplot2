@@ -18,6 +18,10 @@ ScalesList <- ggproto("ScalesList", NULL,
   },
 
   add = function(self, scale) {
+    if (is.null(scale)) {
+      return()
+    }
+
     prev_aes <- self$find(scale$aesthetics)
     if (any(prev_aes)) {
       # Get only the first aesthetic name in the returned vector -- it can
@@ -98,14 +102,7 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
   )
 
   for (aes in names(datacols)) {
-    type <- scale_type(datacols[[aes]])
-    scale_name <- paste("scale", aes, type, sep = "_")
-
-    # Skip aesthetics with no scales (e.g. group, order, etc)
-    scale_f <- find_global(scale_name, env, mode = "function")
-    if (is.null(scale_f)) next
-
-    scales$add(scale_f())
+    scales$add(find_scale(aes, datacols[[aes]], env))
   }
 
 }
@@ -126,50 +123,3 @@ scales_add_missing <- function(plot, aesthetics, env) {
 }
 
 
-# Look for object first in parent environment and if not found, then in
-# ggplot2 namespace environment.  This makes it possible to override default
-# scales by setting them in the parent environment.
-find_global <- function(name, env, mode = "any") {
-  if (exists(name, envir = env, mode = mode)) {
-    return(get(name, envir = env, mode = mode))
-  }
-
-  nsenv <- asNamespace("ggplot2")
-  if (exists(name, envir = nsenv, mode = mode)) {
-    return(get(name, envir = nsenv, mode = mode))
-  }
-
-  NULL
-}
-
-
-# Determine default type of a scale
-scale_type <- function(x) UseMethod("scale_type")
-
-#' @export
-scale_type.default <- function(x) {
-  message("Don't know how to automatically pick scale for object of type ",
-    paste(class(x), collapse = "/"), ". Defaulting to continuous")
-  "continuous"
-}
-
-#' @export
-scale_type.AsIs <- function(x) "identity"
-
-#' @export
-scale_type.logical <- function(x) "discrete"
-
-#' @export
-scale_type.character <- function(x) "discrete"
-
-#' @export
-scale_type.factor <- function(x) "discrete"
-
-#' @export
-scale_type.POSIXt <- function(x) "datetime"
-
-#' @export
-scale_type.Date <- function(x) "date"
-
-#' @export
-scale_type.numeric <- function(x) "continuous"

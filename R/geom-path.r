@@ -84,10 +84,16 @@
 #' # But this doesn't
 #' should_stop(p + geom_line(aes(colour = x), linetype=2))
 #' }
-geom_path <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", lineend = "butt",
-                      linejoin = "round", linemitre = 1, na.rm = FALSE,
-                      arrow = NULL, show.legend = NA, inherit.aes = TRUE, ...) {
+geom_path <- function(mapping = NULL, data = NULL,
+                      stat = "identity", position = "identity",
+                      ...,
+                      lineend = "butt",
+                      linejoin = "round",
+                      linemitre = 1,
+                      arrow = NULL,
+                      na.rm = FALSE,
+                      show.legend = NA,
+                      inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

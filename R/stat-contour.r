@@ -5,9 +5,12 @@
 #'  \item{level}{height of contour}
 #' }
 #' @rdname geom_contour
-stat_contour <- function(mapping = NULL, data = NULL, geom = "contour",
-                         position = "identity", na.rm = FALSE, show.legend = NA,
-                         inherit.aes = TRUE, ...) {
+stat_contour <- function(mapping = NULL, data = NULL,
+                         geom = "contour", position = "identity",
+                         ...,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

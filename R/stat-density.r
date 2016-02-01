@@ -1,4 +1,4 @@
-#' @param bw the smoothing bandwidth to be used, see 
+#' @param bw the smoothing bandwidth to be used, see
 #'   \code{\link{density}} for details
 #' @param adjust adjustment of the bandwidth, see
 #'   \code{\link{density}} for details
@@ -19,10 +19,16 @@
 #' }
 #' @export
 #' @rdname geom_density
-stat_density <- function(mapping = NULL, data = NULL, geom = "area",
-                         position = "stack", bw = "nrd0", adjust = 1, kernel = "gaussian",
-                         trim = FALSE, na.rm = FALSE,
-                         show.legend = NA, inherit.aes = TRUE, ...) {
+stat_density <- function(mapping = NULL, data = NULL,
+                         geom = "area", position = "stack",
+                         ...,
+                         bw = "nrd0",
+                         adjust = 1,
+                         kernel = "gaussian",
+                         trim = FALSE,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
 
   layer(
     data = data,

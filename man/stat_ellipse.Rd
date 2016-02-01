@@ -5,8 +5,8 @@
 \title{Plot data ellipses.}
 \usage{
 stat_ellipse(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", type = "t", level = 0.95, segments = 51,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+  position = "identity", ..., type = "t", level = 0.95, segments = 51,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -20,6 +20,10 @@ the plot defaults.}
 
 \item{position}{The position adjustment to use for overlapping points
 on this layer}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 
 \item{type}{The type of ellipse.
 The default \code{"t"} assumes a multivariate t-distribution, and
@@ -44,10 +48,6 @@ a warning.  If \code{TRUE} silently removes missing values.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
-
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
 }
 \description{
 The method for calculating the ellipses has been modified from

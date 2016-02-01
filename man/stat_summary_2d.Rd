@@ -7,14 +7,14 @@
 \title{Bin and summarise in 2d (rectangle & hexagons)}
 \usage{
 stat_summary_2d(mapping = NULL, data = NULL, geom = "tile",
-  position = "identity", bins = 30, binwidth = NULL, drop = TRUE,
+  position = "identity", ..., bins = 30, binwidth = NULL, drop = TRUE,
   fun = "mean", fun.args = list(), na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  inherit.aes = TRUE)
 
 stat_summary_hex(mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", bins = 30, binwidth = NULL, drop = TRUE,
+  position = "identity", ..., bins = 30, binwidth = NULL, drop = TRUE,
   fun = "mean", fun.args = list(), na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{The aesthetic mapping, usually constructed with
@@ -28,6 +28,10 @@ the plot defaults.}
 
 \item{position}{The position adjustment to use for overlapping points
 on this layer}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. This can
+include aesthetics whose values you want to set, not map. See
+\code{\link{layer}} for more details.}
 
 \item{bins}{numeric vector giving number of bins in both vertical and
 horizontal directions. Set to 30 by default.}
@@ -52,10 +56,6 @@ a warning.  If \code{TRUE} silently removes missing values.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
-
-\item{...}{other arguments passed on to \code{\link{layer}}. This can
-include aesthetics whose values you want to set, not map. See
-\code{\link{layer}} for more details.}
 }
 \description{
 \code{stat_summary_2d} is a 2d variation of \code{\link{stat_summary}}.

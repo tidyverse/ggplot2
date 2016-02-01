@@ -85,13 +85,20 @@
 #'    stat = "identity"
 #'  )
 #' }
-geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
-                         position = "dodge", outlier.colour = NULL,
-                         outlier.shape = 19, outlier.size = 1.5,
-                         outlier.stroke = 0.5, notch = FALSE, notchwidth = 0.5,
-                         varwidth = FALSE, na.rm = FALSE,
-                         show.legend = NA, inherit.aes = TRUE, ...,
-                         outlier.color = NULL) {
+geom_boxplot <- function(mapping = NULL, data = NULL,
+                         stat = "boxplot", position = "dodge",
+                         ...,
+                         outlier.colour = NULL,
+                         outlier.color = NULL,
+                         outlier.shape = 19,
+                         outlier.size = 1.5,
+                         outlier.stroke = 0.5,
+                         notch = FALSE,
+                         notchwidth = 0.5,
+                         varwidth = FALSE,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

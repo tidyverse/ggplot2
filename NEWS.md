@@ -1,5 +1,78 @@
 # ggplot2 2.0.0.9000
 
+* `layer()` now accepts a function as the data argument. The function will be
+  applied to the data passed to the `ggplot()` function and must return a
+  data.frame (#1527).
+  
+* The theme can now modify the margins of legend title and text (#1502).
+
+* `scale_size()` warns when used with categorical data.
+
+* `scale_size()`, `scale_colour()`, and `scale_fill()` gain date and date-time
+  variants (#1526).
+
+* `stat_function()` gains an `xlim` parameter (#1528).
+
+* `stat_summary()` preserves sorted x order which avoids artefacts when
+  display results with `geom_smooth()` (#1520).
+
+* All `geom_()` and `stat_()` function now have consistent argument order:
+  data + mapping, geom/stat/position, ..., specific arguments, common arguments
+  to all layers (#1305). This may break code if you were previously relying on
+  partial name matching, but in the long-term should make ggplot2 easier to 
+  use.
+
+* `stat_ecdf()` does a better job of adding padding to -Inf/Inf, and gains
+  an argument `pad` to suppress the padding if not needed (#1467).
+
+* `theme_void()` was completely void of text but facets and legends still
+  needed labels. They are now visible (@jiho).
+
+* Multipanel empty data is correctly plotted, rather than throwing an unhelpful 
+  error (#1445).
+
+* Eliminate spurious warning if you have a layer with no data and no aesthetics
+  (#1451).
+
+* `position = "nudge"` now works (although it doesn't do anything useful)
+  (#1428).
+
+* You can once again set legend key and height width to unit arithmetic
+  objects (like `2 * unit(1, "cm")`) (#1437).
+
+* When mapping an aesthetic to a constant (e.g. 
+  `geom_smooth(aes(colour = "loess")))`), the default guide title is the name 
+  of the aesthetic, not the value (#1431).
+
+* `ggsave("x.svg")` now uses svglite to produce the svg (#1432).
+
+* `stat_bin()` has been overhauled to use the same algorithm as ggvis, which 
+  has been considerably improved thanks to the advice of Randy Prium (@rpruim).
+  This includes:
+  
+    * Better arguments and a better algorithm for determining the origin.
+      You can now specify either `boundary` or the `center` of a bin.
+      `origin` has been deprecated in favour of these arguments.
+      
+    * `drop` is deprecated in favour of `pad`, which adds extra 0-count bins
+      at either end. This is needed for frequency polygons. `geom_histogram()`
+      defaults to `pad = FALSE` which considerably improves the default limits 
+      for the histogram, especially when the bins are big (#1477).
+      
+    * The default algorithm does a better job at picking nice width and 
+      origins across a wider range of input data.
+
+    This change brings with the removal of some rarely used features:
+    
+    * The `breaks` argument is no longer supported - this was rarely used
+      and didn't work correctly for frequency polygons.
+      
+* `geom_tile()` uses `draw_key_polygon()` for better legend keys, including 
+  coloured outline (#1484).
+
+* The position of `...` in `geom_density2d()` has been adjusted so you can
+  set the `n` parameter (#1485).
+
 * The default scale for columns of class "AsIs" is now "identity" (#1518).
 
 * `geom_boxplot()` now understands `outlier.color` (#1455).

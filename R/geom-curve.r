@@ -1,10 +1,17 @@
 #' @inheritParams grid::curveGrob
 #' @export
 #' @rdname geom_segment
-geom_curve <- function(mapping = NULL, data = NULL, stat = "identity",
-                       position = "identity", curvature = 0.5, angle = 90,
-                       ncp = 5, arrow = NULL, lineend = "butt",
-                       na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
+geom_curve <- function(mapping = NULL, data = NULL,
+                       stat = "identity", position = "identity",
+                       ...,
+                       curvature = 0.5,
+                       angle = 90,
+                       ncp = 5,
+                       arrow = NULL,
+                       lineend = "butt",
+                       na.rm = FALSE,
+                       show.legend = NA,
+                       inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

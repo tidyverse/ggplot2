@@ -1,5 +1,25 @@
 #' Create a new layer
 #'
+#' A layer is a combination of data, stat and geom with a potential position
+#' adjustment. Usually layers are created using \code{geom_*} or \code{stat_*}
+#' calls but it can also be created directly using the \code{layer} function.
+#'
+#' @details
+#' The data in a layer can be specified in one of three ways:
+#'
+#' \itemize{
+#'  \item{If the data argument is \code{NULL} (the default) the data is
+#'  inherited from the global plot data as specified in the call to
+#'  \code{\link{ggplot}}.}
+#'  \item{If the data argument is a function, that function is called with the
+#'  global data as the only argument and the return value is used as the layer
+#'  data. The function must return a data.frame.}
+#'  \item{Any other type of value passed to \code{data} will be passed through
+#'  \code{\link{fortify}}, and there must thus be a \code{fortify} method
+#'  defined for the class of the value. Passing a data.frame is a special case
+#'  of this as \code{fortify.data.frame} returns the data.frame untouched.}
+#' }
+#'
 #' @export
 #' @inheritParams geom_point
 #' @param geom,stat,position Geom, stat and position adjustment to use in
@@ -16,6 +36,13 @@
 #'   layer(geom = "point", stat = "identity", position = "identity",
 #'     params = list(na.rm = FALSE)
 #'   )
+#'
+#' # use a function as data to plot a subset of global data
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   layer(geom = "point", stat = "identity", position = "identity",
+#'     data = head, params = list(na.rm = FALSE)
+#'   )
+#'
 layer <- function(geom = NULL, stat = NULL,
                   data = NULL, mapping = NULL,
                   position = NULL, params = list(),
@@ -101,6 +128,20 @@ Layer <- ggproto("Layer", NULL,
     cat(snakeize(class(self$position)[[1]]), "\n")
   },
 
+  layer_data = function(self, plot_data) {
+    if (is.waive(self$data)) {
+      data <- plot_data
+    } else if (is.function(self$data)) {
+      data <- self$data(plot_data)
+      if (!is.data.frame(data)) {
+        stop("Data function must return a data.frame", call. = FALSE)
+      }
+    } else {
+      data <- self$data
+    }
+    data
+  },
+
   compute_aesthetics = function(self, data, plot) {
     # For annotation geoms, it is useful to be able to ignore the default aes
     if (self$inherit.aes) {
@@ -134,7 +175,11 @@ Layer <- ggproto("Layer", NULL,
     n <- nrow(data)
     if (n == 0) {
       # No data, so look at longest evaluated aesthetic
-      n <- max(vapply(evaled, length, integer(1)))
+      if (length(evaled) == 0) {
+        n <- 0
+      } else {
+        n <- max(vapply(evaled, length, integer(1)))
+      }
     }
     check_aesthetics(evaled, n)
 

@@ -36,7 +36,8 @@ Suggests:
     nlme,
     testthat,
     quantreg,
-    knitr
+    knitr,
+    svglite
 Enhances: sp
 License: GPL-2
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2
@@ -169,6 +170,7 @@ Collate:
     'scale-manual.r'
     'scale-shape.r'
     'scale-size.r'
+    'scale-type.R'
     'scales-.r'
     'stat-bin.r'
     'stat-bin2d.r'

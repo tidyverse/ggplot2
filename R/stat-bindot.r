@@ -8,7 +8,7 @@ StatBindot <- ggproto("StatBindot", Stat,
   default_aes = aes(y = ..count..),
 
   setup_params = function(data, params) {
-    if (is.null(params$breaks) && is.null(params$binwidth)) {
+    if (is.null(params$binwidth)) {
       message("`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.")
     }
     params
@@ -26,7 +26,7 @@ StatBindot <- ggproto("StatBindot", Stat,
   compute_panel = function(self, data, scales, na.rm = FALSE, binwidth = NULL,
                            binaxis = "x", method = "dotdensity",
                            binpositions = "bygroup", origin = NULL,
-                           breaks = NULL, width = 0.9, drop = FALSE,
+                           width = 0.9, drop = FALSE,
                            right = TRUE) {
 
     # If using dotdensity and binning over all, we need to find the bin centers
@@ -56,13 +56,13 @@ StatBindot <- ggproto("StatBindot", Stat,
 
     ggproto_parent(Stat, self)$compute_panel(data, scales, binwidth = binwidth,
       binaxis = binaxis, method = method, binpositions = binpositions,
-      origin = origin, breaks = breaks, width = width, drop = drop,
+      origin = origin, width = width, drop = drop,
       right = right)
   },
 
   compute_group = function(self, data, scales, binwidth = NULL, binaxis = "x",
                            method = "dotdensity", binpositions = "bygroup",
-                           origin = NULL, breaks = NULL, width = 0.9, drop = FALSE,
+                           origin = NULL, width = 0.9, drop = FALSE,
                            right = TRUE) {
 
     # This function taken from integer help page
@@ -88,8 +88,16 @@ StatBindot <- ggproto("StatBindot", Stat,
 
     if (method == "histodot") {
       # Use the function from stat_bin
-      data <- bin(x = values, weight = data$weight, binwidth = binwidth, origin = origin,
-                  breaks = breaks, range = range, width = width, drop = drop, right = right)
+      params <- bin_params(
+        range,
+        width = binwidth,
+        bins = bins,
+        boundary = origin,
+        closed = if (right) "right" else "left"
+      )
+
+      data <- bin_vector(values, weight = data$weight, width = params$width,
+        origin = params$origin, closed = params$closed, pad = FALSE)
 
       # Change "width" column to "binwidth" for consistency
       names(data)[names(data) == "width"] <- "binwidth"

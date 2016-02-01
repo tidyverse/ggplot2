@@ -1,10 +1,14 @@
 #' @export
 #' @rdname geom_hex
 #' @inheritParams stat_bin_2d
-stat_bin_hex <- function(mapping = NULL, data = NULL, geom = "hex",
-                        position = "identity", bins = 30, binwidth = NULL,
-                        na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-                        ...) {
+stat_bin_hex <- function(mapping = NULL, data = NULL,
+                         geom = "hex", position = "identity",
+                         ...,
+                         bins = 30,
+                         binwidth = NULL,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

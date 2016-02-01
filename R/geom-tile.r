@@ -55,9 +55,12 @@
 #' cars + stat_density(aes(fill = ..density..), geom = "raster", position = "identity")
 #' cars + stat_density(aes(fill = ..count..), geom = "raster", position = "identity")
 #' }
-geom_tile <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", na.rm = FALSE,
-                      show.legend = NA, inherit.aes = TRUE, ...) {
+geom_tile <- function(mapping = NULL, data = NULL,
+                      stat = "identity", position = "identity",
+                      ...,
+                      na.rm = FALSE,
+                      show.legend = NA,
+                      inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -96,5 +99,5 @@ GeomTile <- ggproto("GeomTile", GeomRect,
 
   required_aes = c("x", "y"),
 
-  draw_key = draw_key_rect
+  draw_key = draw_key_polygon
 )

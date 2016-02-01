@@ -6,11 +6,11 @@
 \title{Bars, rectangles with bases on x-axis}
 \usage{
 geom_bar(mapping = NULL, data = NULL, stat = "count",
-  position = "stack", width = NULL, binwidth = NULL, ..., na.rm = FALSE,
+  position = "stack", ..., width = NULL, binwidth = NULL, na.rm = FALSE,
   show.legend = NA, inherit.aes = TRUE)
 
 stat_count(mapping = NULL, data = NULL, geom = "bar",
-  position = "stack", width = NULL, ..., na.rm = FALSE,
+  position = "stack", ..., width = NULL, na.rm = FALSE,
   show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
@@ -26,12 +26,6 @@ defined at the top level of the plot.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{width}{Bar width. By default, set to 90\% of the resolution of the data.}
-
-\item{binwidth}{\code{geom_bar} no longer has a binwidth argument - if
-you use it you'll get an warning telling to you use
-\code{\link{geom_histogram}} instead.}
-
 \item{...}{other arguments passed on to \code{\link{layer}}. There are
   three types of arguments you can use here:
 
@@ -42,6 +36,12 @@ you use it you'll get an warning telling to you use
     default \code{stat} associated with the layer.
   \item Other arguments passed on to the stat.
   }}
+
+\item{width}{Bar width. By default, set to 90\% of the resolution of the data.}
+
+\item{binwidth}{\code{geom_bar} no longer has a binwidth argument - if
+you use it you'll get an warning telling to you use
+\code{\link{geom_histogram}} instead.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}

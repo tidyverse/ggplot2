@@ -1,11 +1,17 @@
 #' @export
 #' @rdname stat_summary_2d
 #' @inheritParams stat_bin_hex
-stat_summary_hex <- function(mapping = NULL, data = NULL, geom = "hex",
-                             position = "identity", bins = 30, binwidth = NULL,
-                             drop = TRUE, fun = "mean", fun.args = list(),
-                             na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-                             ...) {
+stat_summary_hex <- function(mapping = NULL, data = NULL,
+                             geom = "hex", position = "identity",
+                             ...,
+                             bins = 30,
+                             binwidth = NULL,
+                             drop = TRUE,
+                             fun = "mean",
+                             fun.args = list(),
+                             na.rm = FALSE,
+                             show.legend = NA,
+                             inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
