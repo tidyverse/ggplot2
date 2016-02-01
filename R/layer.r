@@ -107,7 +107,7 @@ Layer <- ggproto("Layer", NULL,
     } else if (is.function(self$data)) {
       data <- self$data(plot_data)
       if (!is.data.frame(data)) {
-        stop("Data function must return a data.frame")
+        stop("Data function must return a data.frame", call. = FALSE)
       }
     } else {
       data <- self$data
