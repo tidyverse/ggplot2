@@ -300,7 +300,9 @@ guide_gengrob.legend <- function(guide, theme) {
       guide$title.theme %||% calc_element("legend.title", theme),
       label = guide$title,
       hjust = guide$title.hjust %||% theme$legend.title.align %||% 0,
-      vjust = guide$title.vjust %||% 0.5
+      vjust = guide$title.vjust %||% 0.5,
+      expand_x = TRUE,
+      expand_y = TRUE
     )
   )
 
@@ -321,7 +323,8 @@ guide_gengrob.legend <- function(guide, theme) {
 
     grob.labels <- lapply(guide$key$.label, function(label, ...) {
       g <- element_grob(element = label.theme, label = label,
-        x = x, y = y, hjust = hjust, vjust = vjust)
+        x = x, y = y, hjust = hjust, vjust = vjust,
+        expand_x = TRUE, expand_y = TRUE)
       ggname("guide.label", g)
     })
   }

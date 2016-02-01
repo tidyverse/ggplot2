@@ -30,10 +30,12 @@ scale_shape <- function(..., solid = TRUE) {
 
 #' @rdname scale_shape
 #' @export
+#' @usage NULL
 scale_shape_discrete <- scale_shape
 
 #' @rdname scale_shape
 #' @export
+#' @usage NULL
 scale_shape_continuous <- function(...) {
   stop("A continuous variable can not be mapped to shape", call. = FALSE)
 }

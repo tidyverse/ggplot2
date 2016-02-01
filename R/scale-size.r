@@ -60,6 +60,7 @@ scale_size <- scale_size_continuous
 #' @export
 #' @usage NULL
 scale_size_discrete <- function(..., range = c(2, 6)) {
+  warning("Using size for a discrete variable is not advised.", call. = FALSE)
   discrete_scale("size", "size_d", function(n) {
     area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
     sqrt(area)
@@ -76,3 +77,18 @@ scale_size_area <- function(..., max_size = 6) {
     palette = abs_area(max_size),
     rescaler = rescale_max, ...)
 }
+
+#' @rdname scale_size
+#' @export
+#' @usage NULL
+scale_size_datetime <- function() {
+  scale_size_continuous(trans = "time")
+}
+
+#' @rdname scale_size
+#' @export
+#' @usage NULL
+scale_size_date <- function() {
+  scale_size_continuous(trans = "date")
+}
+

@@ -4,6 +4,15 @@
   applied to the data passed to the `ggplot()` function and must return a
   data.frame (#1527).
   
+* The theme can now modify the margins of legend title and text (#1502).
+
+* `scale_size()` warns when used with categorical data.
+
+* `scale_size()`, `scale_colour()`, and `scale_fill()` gain date and date-time
+  variants (#1526).
+
+* `stat_function()` gains an `xlim` parameter (#1528).
+
 * `stat_summary()` preserves sorted x order which avoids artefacts when
   display results with `geom_smooth()` (#1520).
 
@@ -15,6 +24,9 @@
 
 * `stat_ecdf()` does a better job of adding padding to -Inf/Inf, and gains
   an argument `pad` to suppress the padding if not needed (#1467).
+
+* `theme_void()` was completely void of text but facets and legends still
+  needed labels. They are now visible (@jiho).
 
 * Multipanel empty data is correctly plotted, rather than throwing an unhelpful 
   error (#1445).
