@@ -46,15 +46,12 @@
 #'  theme(legend.background = element_rect(fill = "white", colour = "white", size = 3))
 #'
 theme_update <- function(...) {
-  # Make a call to theme, then add to theme
   theme_set(theme_get() + theme(...))
 }
 
 #' @rdname theme_update
 #' @export
-
 theme_replace <- function(...) {
-  # Make a call to theme, then add to theme
   theme_set(theme_get() %+replace% theme(...))
 }
 

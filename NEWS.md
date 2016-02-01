@@ -1,5 +1,9 @@
 # ggplot2 2.0.0.9000
 
+* `theme_update()` now uses the `+` operator instead of `%+replace%`, so that
+  unspecified values will no longer be `NULL`ed out. `theme_replace()`
+  preserves the old behaviour if desired.
+
 * `layer()` now accepts a function as the data argument. The function will be
   applied to the data passed to the `ggplot()` function and must return a
   data.frame (#1527).
