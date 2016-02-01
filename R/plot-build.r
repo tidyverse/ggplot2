@@ -22,7 +22,7 @@ ggplot_build <- function(plot) {
   }
 
   layers <- plot$layers
-  layer_data <- lapply(layers, function(y) y$data)
+  layer_data <- lapply(layers, function(y) y$layer_data(plot$data))
 
   scales <- plot$scales
   # Apply function to layer and matching data
@@ -39,7 +39,7 @@ ggplot_build <- function(plot) {
 
   panel <- new_panel()
   panel <- train_layout(panel, plot$facet, layer_data, plot$data)
-  data <- map_layout(panel, plot$facet, layer_data, plot$data)
+  data <- map_layout(panel, plot$facet, layer_data)
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot))
