@@ -2,7 +2,7 @@
 
 * `theme_update()` now uses the `+` operator instead of `%+replace%`, so that
   unspecified values will no longer be `NULL`ed out. `theme_replace()`
-  preserves the old behaviour if desired (#1519). 
+  preserves the old behaviour if desired (@oneillkza, #1519). 
 
 * `layer()` now accepts a function as the data argument. The function will be
   applied to the data passed to the `ggplot()` function and must return a
