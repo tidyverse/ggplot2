@@ -1,5 +1,7 @@
 # ggplot2 2.0.0.9000
 
+* `geom_path()` knows that "solid" (not just 1) represents a solid line (#1534).
+
 * `layer()` now automatically adds a `na.rm` parameter if none is explicitly
   supplied.
 
