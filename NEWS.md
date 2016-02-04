@@ -1,5 +1,8 @@
 # ggplot2 2.0.0.9000
 
+* For geoms with both `colour` and `fill`, `alpha` once again only affects
+  fill (Reverts #1371, #1523). This was causing problems for people.
+
 * `geom_path()` knows that "solid" (not just 1) represents a solid line (#1534).
 
 * `layer()` now automatically adds a `na.rm` parameter if none is explicitly
