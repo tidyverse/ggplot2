@@ -46,7 +46,7 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
 
     fun <- make_summary_fun(fun.data, fun.y, fun.ymax, fun.ymin, fun.args)
 
-    breaks <- bin_breaks(scales$x, NULL, origin, binwidth, bins, right = right)
+    breaks <- bin2d_breaks(scales$x, NULL, origin, binwidth, bins, right = right)
 
     data$bin <- cut(data$x, breaks, include.lowest = TRUE, labels = FALSE)
     out <- plyr::ddply(data, "bin", fun)

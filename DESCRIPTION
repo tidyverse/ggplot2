@@ -65,6 +65,7 @@ Collate:
     'annotation.r'
     'autoplot.r'
     'bench.r'
+    'bin.R'
     'coord-.r'
     'coord-cartesian-.r'
     'coord-fixed.r'

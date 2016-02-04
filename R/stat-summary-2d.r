@@ -94,8 +94,8 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
     breaks <- dual_param(breaks, list(NULL, NULL))
     bins <- dual_param(bins, list(x = 30, y = 30))
 
-    xbreaks <- bin_breaks(scales$x, breaks$x, origin$x, binwidth$x, bins$x)
-    ybreaks <- bin_breaks(scales$y, breaks$y, origin$y, binwidth$y, bins$y)
+    xbreaks <- bin2d_breaks(scales$x, breaks$x, origin$x, binwidth$x, bins$x)
+    ybreaks <- bin2d_breaks(scales$y, breaks$y, origin$y, binwidth$y, bins$y)
 
     xbin <- cut(data$x, xbreaks, include.lowest = TRUE, labels = FALSE)
     ybin <- cut(data$y, ybreaks, include.lowest = TRUE, labels = FALSE)

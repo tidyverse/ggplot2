@@ -99,16 +99,12 @@ StatBin <- ggproto("StatBin", Stat,
       params$closed <- if (params$right) "right" else "left"
       params$right <- NULL
     }
-    if (!is.null(params$breaks)) {
-      stop("`breaks` is deprecated.", call. = FALSE)
-    }
     if (!is.null(params$width)) {
       stop("`width` is deprecated. Do you want `geom_bar()`?", call. = FALSE)
     }
     if (!is.null(params$boundary) && !is.null(params$center)) {
       stop("Only one of `boundary` and `center` may be specified.", call. = FALSE)
     }
-
 
     if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {
       message_wrap("`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.")
@@ -126,151 +122,19 @@ StatBin <- ggproto("StatBin", Stat,
                            breaks = NULL, origin = NULL, right = NULL,
                            drop = NULL, width = NULL) {
 
-    params <- bin_params(
-      scales$x$dimension(),
-      width = binwidth,
-      bins = bins,
-      center = center,
-      boundary = boundary,
-      closed = closed
-    )
-
-    bin_vector(data$x, weight = data$weight, width = params$width,
-      origin = params$origin, closed = params$closed, pad = pad)
+    if (!is.null(breaks)) {
+      bins <- bin_breaks(breaks, closed)
+    } else if (!is.null(binwidth)) {
+      bins <- bin_breaks_width(scales$x$dimension(), binwidth, center = center,
+        boundary = boundary, closed = closed)
+    } else {
+      bins <- bin_breaks_bins(scales$x$dimension(), bins, center = center,
+        boundary = boundary, closed = closed)
+    }
+    bin_vector(data$x, bins, weight = data$weight, pad = pad)
   },
 
   default_aes = aes(y = ..count..),
   required_aes = c("x")
 )
 
-
-# Compute parameters -----------------------------------------------------------
-
-bin_params <- function(x_range, width = NULL, bins = 30, center = NULL,
-                       boundary = NULL, closed = c("right", "left")) {
-  closed <- match.arg(closed)
-
-  if (length(x_range) == 0) {
-    return(list(width = width, origin = NULL, closed = closed))
-  }
-
-  stopifnot(length(x_range) == 2)
-  if (!is.null(boundary) && !is.null(center)) {
-    stop("Only one of 'boundary' and 'center' may be specified.")
-  }
-
-  if (is.null(width)) {
-    width <- (x_range[2] - x_range[1]) / (bins - 1)
-  }
-
-  if (is.null(boundary)) {
-    if (is.null(center)) {
-      # If neither edge nor center given, compute both using tile layer's
-      # algorithm. This puts min and max of data in outer half of their bins.
-      boundary <- width / 2
-
-    } else {
-      # If center given but not boundary, compute boundary.
-      boundary <- center - width / 2
-    }
-  }
-
-  # Inputs could be Dates or POSIXct, so make sure these are all numeric
-  x_range <- as.numeric(x_range)
-  width <- as.numeric(width)
-  boundary <- as.numeric(boundary)
-
-  origin <- find_origin(x_range, width, boundary)
-
-  list(width = width, origin = origin, closed = closed)
-}
-
-# Find the left side of left-most bin
-find_origin <- function(x_range, width, boundary) {
-  shift <- floor((x_range[1] - boundary) / width)
-  boundary + shift * width
-}
-
-bin_vector <- function(x, weight = NULL, ..., width = 1,
-                       origin = 0, closed = c("right", "left"),
-                       pad = FALSE) {
-  closed <- match.arg(closed)
-
-  if (all(is.na(x))) {
-    return(bin_out(length(x), NA, NA, xmin = NA, xmax = NA))
-  }
-
-  stopifnot(is.numeric(width) && length(width) == 1)
-  stopifnot(is.numeric(origin) && length(origin) == 1)
-
-  if (is.null(weight)) {
-    weight <- rep(1, length(x))
-  } else {
-    weight[is.na(weight)] <- 0
-  }
-
-  min_x <- origin
-  # Small correction factor so that we don't get an extra bin when, for
-  # example, origin=0, max(x)=20, width=10.
-  max_x <- max(x, na.rm = TRUE) + (1 - 1e-08) * width
-  breaks <- seq(min_x, max_x, width)
-  fuzzybreaks <- adjust_breaks2(breaks, closed = closed)
-
-  bins <- cut(x, fuzzybreaks, include.lowest = TRUE, right = (closed == "right"))
-
-  left <- breaks[-length(breaks)]
-  right <- breaks[-1]
-  x <- (left + right) / 2
-  bin_widths <- diff(breaks)
-
-  count <- as.numeric(tapply(weight, bins, sum, na.rm = TRUE))
-  count[is.na(count)] <- 0
-
-  if (pad) {
-    count <- c(0, count, 0)
-    bin_widths <- c(width, bin_widths, width)
-    x <- c(x[1] - width, x, x[length(x)] + width)
-  }
-
-  # Add row for missings
-  if (any(is.na(bins))) {
-    count <- c(count, sum(is.na(bins)))
-    left <- c(left, NA)
-    right <- c(right, NA)
-    x <- c(x, NA)
-    bin_widths <- c(bin_widths, NA)
-  }
-
-  bin_out(count, x, bin_widths)
-}
-
-bin_out <- function(count = integer(0), x = numeric(0), width = numeric(0),
-                    xmin = x - width / 2, xmax = x + width / 2) {
-  density <- count / width / sum(abs(count))
-
-  data.frame(
-    count = count,
-    x = x,
-    xmin = xmin,
-    xmax = xmax,
-    width = width,
-    density = density,
-    ncount = count / max(abs(count)),
-    ndensity = count / max(abs(density)),
-    stringsAsFactors = FALSE
-  )
-}
-
-# Adapt break fuzziness from base::hist - this protects from floating
-# point rounding errors
-adjust_breaks2 <- function(breaks, closed = "left") {
-  closed <- match.arg(closed, c("right", "left"))
-
-  diddle <- 1e-08 * median(diff(breaks))
-  if (closed == "right") {
-    fuzz <- c(-diddle, rep.int(diddle, length(breaks) - 1))
-  } else {
-    fuzz <- c(rep.int(-diddle, length(breaks) - 1), diddle)
-  }
-  sort(breaks) + fuzz
-}
