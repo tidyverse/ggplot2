@@ -1,5 +1,10 @@
 # ggplot2 2.0.0.9000
 
+* `stat_bin_hex()` and `stat_bin_summary()` now use the same underlying 
+  algorithm so results are consistent (#1383). `stat_bin_hex()` now accepts
+  a `weight` aesthetic. To be consistent, the output variable from
+  `stat_bin_hex()` is now value instead of count.
+
 * `facet_wrap()` correctly swaps `nrow` and `ncol` for facetting vertically
   (#1417).
 

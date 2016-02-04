@@ -85,6 +85,14 @@ are summarised with \code{fun}.
  \item \code{z}: value passed to the summary function
 }
 }
+
+\section{Computed variables}{
+
+\describe{
+  \item{x,y}{Location}
+  \item{value}{Value of summary statistic.}
+}
+}
 \examples{
 d <- ggplot(diamonds, aes(carat, depth, z = price))
 d + stat_summary_2d()

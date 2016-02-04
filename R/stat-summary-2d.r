@@ -12,7 +12,11 @@
 #'  \item \code{y}: vertical position
 #'  \item \code{z}: value passed to the summary function
 #' }
-#'
+#' @section Computed variables:
+#' \describe{
+#'   \item{x,y}{Location}
+#'   \item{value}{Value of summary statistic.}
+#' }
 #' @seealso \code{\link{stat_summary_hex}} for hexagonal summarization.
 #'   \code{\link{stat_bin2d}} for the binning options.
 #' @inheritParams layer
