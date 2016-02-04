@@ -125,7 +125,8 @@ p1 + guides(fill =
     title.theme = element_text(
       size = 15,
       face = "italic",
-      colour = "red"
+      colour = "red",
+      angle = 0
     )
   )
 )
