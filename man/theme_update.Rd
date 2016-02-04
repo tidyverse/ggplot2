@@ -2,11 +2,14 @@
 % Please edit documentation in R/theme.r
 \name{theme_update}
 \alias{theme_get}
+\alias{theme_replace}
 \alias{theme_set}
 \alias{theme_update}
 \title{Get, set and update themes.}
 \usage{
 theme_update(...)
+
+theme_replace(...)
 
 theme_get()
 
@@ -18,8 +21,13 @@ theme_set(new)
 \item{new}{new theme (a list of theme elements)}
 }
 \description{
-Use \code{theme_update} to modify a small number of elements of the current
-theme or use \code{theme_set} to completely override it.
+Use \code{theme_get} to get the current theme, and \code{theme_set} to
+completely override it. \code{theme_update} and \code{theme_replace} are
+shorthands for changing individual elements in the current theme.
+\code{theme_update} uses the \code{+} operator, so that any unspecified
+values in the theme element will default to the values they are set in the
+theme. \code{theme_replace} will completely replace the element, so any
+unspecified values will overwrite the current value in the theme with \code{NULL}s.
 }
 \examples{
 p <- ggplot(mtcars, aes(mpg, wt)) +
@@ -30,10 +38,22 @@ p
 theme_set(old)
 p
 
-old <- theme_update(panel.background = element_rect(colour = "pink"))
+#theme_replace NULLs out the fill attribute of panel.background,
+#resulting in a white background:
+theme_get()$panel.background
+old <- theme_replace(panel.background = element_rect(colour = "pink"))
+theme_get()$panel.background
 p
 theme_set(old)
+
+#theme_update only changes the colour attribute, leaving the others intact:
+old <- theme_update(panel.background = element_rect(colour = "pink"))
+theme_get()$panel.background
+p
+theme_set(old)
+
 theme_get()
+
 
 ggplot(mtcars, aes(mpg, wt)) +
   geom_point(aes(color = mpg)) +
@@ -41,6 +61,7 @@ ggplot(mtcars, aes(mpg, wt)) +
         legend.justification = c(1, 1))
 last_plot() +
  theme(legend.background = element_rect(fill = "white", colour = "white", size = 3))
+
 }
 \seealso{
 \code{\link{\%+replace\%}} and \code{\link{+.gg}}
