@@ -86,8 +86,10 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
 
   if (identical(dir, "v")) {
     # swap
-    nrow <- sanitise_dim(ncol)
-    ncol <- sanitise_dim(nrow)
+    nrow_swap <- ncol
+    ncol_swap <- nrow
+    nrow <- sanitise_dim(nrow_swap)
+    ncol <- sanitise_dim(ncol_swap)
   } else {
     nrow <- sanitise_dim(nrow)
     ncol <- sanitise_dim(ncol)

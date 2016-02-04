@@ -1,5 +1,8 @@
 # ggplot2 2.0.0.9000
 
+* `facet_wrap()` correctly swaps `nrow` and `ncol` for facetting vertically
+  (#1417).
+
 * For geoms with both `colour` and `fill`, `alpha` once again only affects
   fill (Reverts #1371, #1523). This was causing problems for people.
 
