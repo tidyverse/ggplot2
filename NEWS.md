@@ -1,5 +1,8 @@
 # ggplot2 2.0.0.9000
 
+* `layer()` now automatically adds a `na.rm` parameter if none is explicitly
+  supplied.
+
 * `layer()` now accepts a function as the data argument. The function will be
   applied to the data passed to the `ggplot()` function and must return a
   data.frame (#1527).

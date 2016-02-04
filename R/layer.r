@@ -88,9 +88,13 @@ layer <- function(geom = NULL, stat = NULL,
   if (is.character(position))
     position <- find_subclass("Position", position)
 
+  # Special case for na.rm parameter needed by all layers
+  if (is.null(params$na.rm)) {
+    params$na.rm <- FALSE
+  }
+
   # Split up params between aesthetics, geom, and stat
   params <- rename_aes(params)
-
   aes_params  <- params[intersect(names(params), geom$aesthetics())]
   geom_params <- params[intersect(names(params), geom$parameters(TRUE))]
   stat_params <- params[intersect(names(params), stat$parameters(TRUE))]
