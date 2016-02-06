@@ -66,10 +66,10 @@
 #' p1 + guides(fill = guide_colorbar(ticks = element_blank()))
 #'
 #' # custom tick marks
-#' p1 + guides(fill = guide_colorbar(ticks = element_line(color='purple', size=5, linetype='dashed')))
+#' p1 + guides(fill = guide_colorbar(ticks = element_line(color = "black", size = 1, linetype = "solid")))
 #'
 #' # custom border
-#' p1 + guides(fill = guide_colorbar(border = element_line(color='green', size=5, linetype='dashed')))
+#' p1 + guides(fill = guide_colorbar(border = element_line(color = "black", size = 1, linetype = "solid")))
 #'
 #' # label position
 #' p1 + guides(fill = guide_colorbar(label.position = "left"))
@@ -135,9 +135,9 @@ guide_colourbar <- function(
   if (!is.null(barwidth) && !is.unit(barwidth)) barwidth <- unit(barwidth, default.unit)
   if (!is.null(barheight) && !is.unit(barheight)) barheight <- unit(barheight, default.unit)
   
-  # make compatible if boolean argument supplied to ticks
+  # if logical argument supplied to tick then use defaults
   if (identical(ticks, TRUE))
-    ticks <- element_line(color='white', size=1, linetype='solid', lineend='butt')
+    ticks <- element_line(color = "white", size = 1, linetype = "solid", lineend = "butt")
   if (identical(ticks, FALSE))
     ticks <- element_blank()
 
@@ -301,7 +301,6 @@ guide_gengrob.colorbar <- function(guide, theme) {
     )
   )
 
-
   title_width <- convertWidth(grobWidth(grob.title), "mm")
   title_width.c <- c(title_width)
   title_height <- convertHeight(grobHeight(grob.title), "mm")
@@ -342,7 +341,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   # ticks
   grob.ticks <-
-    if (inherits(guide$ticks, 'element_blank')) zeroGrob()
+    if (inherits(guide$ticks, "element_blank")) zeroGrob()
     else {
       switch(guide$direction,
         "horizontal" = {
@@ -359,8 +358,8 @@ guide_gengrob.colorbar <- function(guide, theme) {
         })
       segmentsGrob(x0 = x0, y0 = y0, x1 = x1, y1 = y1,
                    default.units = "mm",
-                   gp = gpar(col = guide$ticks$colour[[1]], lwd = guide$ticks$size[[1]],
-                   lineend = guide$ticks$lineend[[1]], lty=guide$ticks$linetype[[1]]))
+                   gp = gpar(col = guide$ticks$colour, lwd = guide$ticks$size,
+                   lineend = guide$ticks$lineend, lty = guide$ticks$linetype))
     }
 
   # layout of bar and label
@@ -440,15 +439,15 @@ guide_gengrob.colorbar <- function(guide, theme) {
         bw <- barwidth.c / nrow(guide$bar)
         rectGrob(x = 0, y = 0, vjust = 0, hjust = 0, width = bw * nrow(guide$bar),
           height = barheight.c, default.units = "mm",
-          gp = gpar(col = guide$border$colour, fill = NA, lwd=guide$border$size,
-            lineend = guide$border$lineend, lty=guide$border$linetype))
+          gp = gpar(col = guide$border$colour, fill = NA, lwd = guide$border$size,
+            lineend = guide$border$lineend, lty = guide$border$linetype))
       },
       vertical = {
         bh <- barheight.c / nrow(guide$bar)
         rectGrob(x = 0, y = 0, vjust = 0, hjust = 0, width = barwidth.c, height = bh * nrow(guide$bar),
           default.units = "mm", 
-          gp = gpar(col = guide$border$colour, fill = NA, lwd=guide$border$size,
-            lineend = guide$border$lineend, lty=guide$border$linetype))
+          gp = gpar(col = guide$border$colour, fill = NA, lwd = guide$border$size,
+            lineend = guide$border$lineend, lty = guide$border$linetype))
       })
    
   # padding

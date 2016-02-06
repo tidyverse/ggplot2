@@ -147,10 +147,10 @@ p1 + guides(fill = guide_colorbar(label = FALSE))
 p1 + guides(fill = guide_colorbar(ticks = element_blank()))
 
 # custom tick marks
-p1 + guides(fill = guide_colorbar(ticks = element_line(color='purple', size=5, linetype='dashed')))
+p1 + guides(fill = guide_colorbar(ticks = element_line(color = "black", size = 1, linetype = "solid")))
 
 # custom border
-p1 + guides(fill = guide_colorbar(border = element_line(color='green', size=5, linetype='dashed')))
+p1 + guides(fill = guide_colorbar(border = element_line(color = "black", size = 1, linetype = "solid")))
 
 # label position
 p1 + guides(fill = guide_colorbar(label.position = "left"))
@@ -177,6 +177,7 @@ p2 + guides(fill = "colorbar", size = "legend")
 p2 +
   scale_fill_continuous(guide = guide_colorbar(direction = "horizontal")) +
   scale_size(guide = guide_legend(direction = "vertical"))
+
 }
 \seealso{
 Other guides: \code{\link{guide_legend}},
