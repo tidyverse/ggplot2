@@ -1,5 +1,5 @@
 bins <- function(breaks, closed = c("right", "left"),
-                 fuzz = 1e-08 * median(diff(breaks))) {
+                 fuzz = 1e-08 * stats::median(diff(breaks))) {
   stopifnot(is.numeric(breaks))
   closed <- match.arg(closed)
 
