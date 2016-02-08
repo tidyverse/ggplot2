@@ -96,19 +96,17 @@
 * `stat_function()` gains an `xlim` parameter (#1528). It once again works 
   with discrete x axes (#1509).
 
-
-
 * `stat_summary()` preserves sorted x order which avoids artefacts when
   display results with `geom_smooth()` (#1520).
 
 * `theme_void()` was completely void of text but facets and legends still
   needed labels. They are now visible (@jiho).
 
-* Eliminate spurious warning if you have a layer with no data and no aesthetics
-  (#1451).
-
 * You can once again set legend key and height width to unit arithmetic
   objects (like `2 * unit(1, "cm")`) (#1437).
+
+* Eliminate spurious warning if you have a layer with no data and no aesthetics
+  (#1451).
 
 * Removed a superfluous comma in `theme-defaults.r` code (@jschoeley)
 
