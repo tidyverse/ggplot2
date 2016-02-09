@@ -10,7 +10,7 @@
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
 |tz       |America/Chicago              |
-|date     |2016-02-08                   |
+|date     |2016-02-09                   |
 
 ## Packages
 
@@ -334,17 +334,7 @@ The error most likely occurred in:
 > ###   selected parameters
 > ### Aliases: evppi evppi.default
 > ### Keywords: Health economic evaluation Expected value of partial
-> ###   information
-> 
-> ### ** Examples
-> 
-> # See Baio G., Dawid A.P. (2011) for a detailed description of the 
-> # Bayesian model and economic problem
-> #
-> # Load the processed results of the MCMC simulation model
-> data(Vaccine)
-Warning: namespace ‘rjags’ is not available and has been replaced
-by .GlobalEnv when processing object ‘vaccine’
+... 12 lines ...
 > # 
 > # Runs the health economic evaluation using BCEA
 > m <- bcea(e,c,ref=2,interventions=treats)
@@ -387,137 +377,7 @@ The error most likely occurred in:
 > ###   Dose-Escalation Trials
 > ### Aliases: bcrm
 > 
-> ### ** Examples
-> 
-> ## Dose-escalation cancer trial example as described in Neuenschwander et al 2008.
-> ## Pre-defined doses
-> dose<-c(1,2.5,5,10,15,20,25,30,40,50,75,100,150,200,250)
-> ## Pre-specified probabilities of toxicity
-> ## [dose levels 11-15 not specified in the paper, and are for illustration only]
-> p.tox0<-c(0.010,0.015,0.020,0.025,0.030,0.040,0.050,0.100,0.170,0.300,0.400,0.500,0.650
-+   ,0.800,0.900)
-> ## Data from the first 5 cohorts of 18 patients
-> data<-data.frame(patient=1:18,dose=rep(c(1:4,7),c(3,4,5,4,2)),tox=rep(0:1,c(16,2)))
-> ## Target toxicity level
-> target.tox<-0.30
-> 
-> ## A 1-parameter power model is used, with standardised doses calculated using 
-> ## the plug-in prior median
-> ## Prior for alpha is lognormal with mean 0 (on log scale) 
-> ## and standard deviation 1.34 (on log scale)
-> ## The recommended dose for the next cohort if posterior mean is used
-> Power.LN.bcrm<-bcrm(stop=list(nmax=18),data=data,p.tox0=p.tox0,dose=dose
-+   ,ff="power",prior.alpha=list(3,0,1.34^2),target.tox=target.tox,constrain=FALSE
-+   ,sdose.calculate="median",pointest="mean")
-
- Stopping: Reached maximum sample size
-> print(Power.LN.bcrm)
- Estimation method:  exact 
-
- Model:  1-parameter power 
-
- Prior:  Lognormal( Mean:0, Variance:1.7956) 
-
- Standardised doses (skeleton): 
-    1   2.5     5    10    15    20    25    30    40    50    75   100   150 
-0.010 0.015 0.020 0.025 0.030 0.040 0.050 0.100 0.170 0.300 0.400 0.500 0.650 
-  200   250 
-0.800 0.900 
-
- Unmodified (unconstrained) CRM used 
-
- Posterior mean estimate of probability of toxicity used to select next dose 
-
- Toxicities observed: 
-            Doses
-             1 2.5 5 10 15 20 25 30 40 50 75 100 150 200 250
-  n          3   4 5  4  0  0  2  0  0  0  0   0   0   0   0
-  Toxicities 0   0 0  0  0  0  2  0  0  0  0   0   0   0   0
-
- Posterior estimates of toxicity: 
-        Doses
-              1    2.5      5     10     15     20     25    30    40    50
-  Mean   0.0702 0.0866 0.1010 0.1130 0.1250 0.1460 0.1650 0.244 0.333 0.467
-  SD     0.0558 0.0630 0.0686 0.0731 0.0769 0.0831 0.0879 0.102 0.109 0.108
-  Median 0.0561 0.0723 0.0865 0.0995 0.1110 0.1330 0.1530 0.237 0.330 0.471
-        Doses
-             75   100   150    200    250
-  Mean   0.5580 0.641 0.757 0.8650 0.9330
-  SD     0.0996 0.088 0.066 0.0398 0.0205
-  Median 0.5640 0.648 0.764 0.8700 0.9360
-         Doses
-Quantiles       1     2.5      5     10     15     20     25     30    40    50
-    2.5%  0.00493 0.00787 0.0110 0.0142 0.0175 0.0244 0.0316 0.0702 0.130 0.249
-    25%   0.02860 0.03910 0.0488 0.0579 0.0667 0.0833 0.0990 0.1690 0.255 0.395
-    50%   0.05610 0.07230 0.0865 0.0995 0.1110 0.1330 0.1530 0.2370 0.330 0.471
-    75%   0.09710 0.11900 0.1380 0.1540 0.1690 0.1960 0.2190 0.3120 0.408 0.544
-    97.5% 0.21300 0.24400 0.2690 0.2900 0.3080 0.3400 0.3660 0.4620 0.552 0.668
-         Doses
-Quantiles    75   100   150   200   250
-    2.5%  0.347 0.450 0.608 0.773 0.886
-    25%   0.493 0.586 0.717 0.842 0.922
-    50%   0.564 0.648 0.764 0.870 0.936
-    75%   0.629 0.704 0.804 0.893 0.948
-    97.5% 0.735 0.792 0.865 0.928 0.965
-
- Next recommended dose:  40 
-> plot(Power.LN.bcrm)
-> 
-> ## Simulate 10 replicate trials of size 36 (cohort size 3) using this design 
-> ## with constraint (i.e. no dose-skipping) and starting at lowest dose
-> ## True probabilities of toxicity are set to pre-specified probabilities (p.tox0) 
-> Power.LN.bcrm.sim<-bcrm(stop=list(nmax=36),p.tox0=p.tox0,dose=dose,ff="power"
-+   ,prior.alpha=list(3,0,1.34^2),target.tox=target.tox,constrain=TRUE
-+   ,sdose.calculate="median",pointest="mean",start=1,simulate=TRUE,nsims=10,truep=p.tox0)
-1 
-2 
-3 
-4 
-5 
-6 
-7 
-8 
-9 
-10 
-> print(Power.LN.bcrm.sim)
-Operating characteristics based on  10  simulations: 
- 
-              
-Sample size 36
-
-                            Doses
-                                  1    2.5      5     10     15     20     25
-  Experimentation proportion 0.0833 0.0833 0.0833 0.0833 0.0833 0.0833 0.0833
-  Recommendation proportion  0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
-                            Doses
-                                 30    40    50    75    100 150 200 250
-  Experimentation proportion 0.0833 0.108 0.133 0.075 0.0167   0   0   0
-  Recommendation proportion  0.0000 0.100 0.500 0.200 0.2000   0   0   0
-
-                            Probability of DLT
-                             [0,0.2] (0.2,0.4] (0.4,0.6] (0.6,0.8] (0.8,1]
-  Experimentation proportion   0.775     0.208    0.0167         0       0
-  Recommendation proportion    0.100     0.700    0.2000         0       0
-> plot(Power.LN.bcrm.sim)
-> 
-> ## Comparing this CRM design with the standard 3+3 design 
-> ## (only considering the first 12 dose levels)
-> ## Not run: 
-> ##D Power.LN.bcrm.compare.sim<-bcrm(stop=list(nmax=36),p.tox0=p.tox0[1:12],dose=dose[1:12]
-> ##D   ,ff="power",prior.alpha=list(3,0,1.34^2),target.tox=target.tox,constrain=TRUE
-> ##D   ,sdose.calculate="median",pointest="mean",start=1,simulate=TRUE,nsims=50
-> ##D   ,truep=p.tox0[1:12],threep3=TRUE)
-> ##D print(Power.LN.bcrm.compare.sim,threep3=TRUE)
-> ##D plot(Power.LN.bcrm.compare.sim,threep3=TRUE)
-> ## End(Not run)
-> 
-> ## A 2-parameter model, using priors as specified in Neuenschwander et al 2008.
-> ## Posterior mean used to choose the next dose
-> ## Standardised doses using reference dose, 250mg
-> sdose<-log(dose/250)
-> ## Bivariate lognormal prior for two parameters
-> mu<-c(2.15,0.52)
-> Sigma<-rbind(c(0.84^2,0.134),c(0.134,0.80^2))
+... 132 lines ...
 > ## Using rjags (requires JAGS to be installed)
 > TwoPLogistic.mean.bcrm<-bcrm(stop=list(nmax=18),data=data,sdose=sdose
 +   ,dose=dose,ff="logit2",prior.alpha=list(4,mu,Sigma),target.tox=target.tox
@@ -593,19 +453,7 @@ boxplot.AlgorithmPerformance: no visible binding for global variable
 bsgraph0.dist: no visible global function definition for ‘addEdge’
 bsgraph0.graphNEL: no visible global function definition for
   ‘getDefaultAttrs’
-bsgraph0.graphNEL: no visible global function definition for ‘agopen’
-densityplot.AlgorithmPerformance: no visible binding for global
-  variable ‘value’
-densityplot.AlgorithmPerformance: no visible binding for global
-  variable ‘algorithms’
-mi: no visible global function definition for ‘mi.plugin’
-patch.relation_class_ids: no visible global function definition for
-  ‘relation_is_strict_weak_order’
-plot.DatasetCharacterization: no visible binding for global variable
-  ‘characteristics’
-plot.DatasetCharacterization: no visible binding for global variable
-  ‘value’
-plot.DatasetCharacterization: no visible binding for global variable
+... 14 lines ...
   ‘samples’
 plot.DatasetCharacterization: no visible global function definition for
   ‘theme_text’
@@ -647,100 +495,7 @@ binom.bayes.densityplot: no visible global function definition for
 binom.bayes.densityplot: no visible global function definition for
   ‘facet_wrap’
 binom.bayes.densityplot: no visible global function definition for
-  ‘xlim’
-binom.bayes.densityplot: no visible global function definition for
-  ‘xlab’
-binom.bayes.densityplot: no visible global function definition for
-  ‘ylim’
-binom.bayes.densityplot: no visible global function definition for
-  ‘ylab’
-binom.bayes.densityplot: no visible global function definition for
-  ‘theme_bw’
-binom.profile: no visible global function definition for ‘xyplot’
-binom.profile : <anonymous>: no visible global function definition for
-  ‘panel.xyplot’
-binom.profile : <anonymous>: no visible global function definition for
-  ‘llines’
-binom.profile : <anonymous>: no visible global function definition for
-  ‘ltext’
-integrate.poly: no visible global function definition for ‘polynomial’
-integrate.poly: no visible global function definition for ‘integral’
-panel.binom.lrt: no visible global function definition for
-  ‘panel.xyplot’
-panel.binom.lrt: no visible global function definition for
-  ‘current.panel.limits’
-panel.binom.lrt: no visible global function definition for ‘llines’
-panel.binom.lrt: no visible global function definition for ‘ltext’
-panel.binom.lrt: no visible global function definition for ‘lpoints’
-panel.binom.plot.levelplot: no visible global function definition for
-  ‘panel.levelplot’
-panel.binom.plot.levelplot: no visible global function definition for
-  ‘lpolygon’
-panel.binom.plot.xyplot: no visible global function definition for
-  ‘panel.abline’
-panel.binom.plot.xyplot: no visible global function definition for
-  ‘panel.xyplot’
-tkbinom.power: no visible global function definition for
-  ‘trellis.par.set’
-tkbinom.power: no visible global function definition for ‘col.whitebg’
-tkbinom.power : <local>: no visible global function definition for
-  ‘tclVar’
-tkbinom.power : <local>: no visible binding for global variable
-  ‘tclVar’
-tkbinom.power : <local>: no visible global function definition for
-  ‘trellis.par.get’
-tkbinom.power : <local> : replot: no visible global function definition
-  for ‘tclObj’
-tkbinom.power : <local> : replot: no visible global function definition
-  for ‘xyplot’
-tkbinom.power : <local> : replot : <anonymous>: no visible global
-  function definition for ‘llines’
-tkbinom.power : <local> : replot : <anonymous>: no visible global
-  function definition for ‘panel.abline’
-tkbinom.power : <local> : replot : <anonymous>: no visible global
-  function definition for ‘tclObj’
-tkbinom.power : <local> : replot.maybe: no visible global function
-  definition for ‘tclObj’
-tkbinom.power : <local>: no visible global function definition for
-  ‘tktoplevel’
-tkbinom.power : <local>: no visible global function definition for
-  ‘tkwm.title’
-tkbinom.power : <local>: no visible global function definition for
-  ‘tkframe’
-tkbinom.power : <local>: no visible global function definition for
-  ‘tkpack’
-tkbinom.power : <local>: no visible global function definition for
-  ‘tklabel’
-tkbinom.power : <local>: no visible global function definition for
-  ‘tkradiobutton’
-tkbinom.power : <local>: no visible global function definition for
-  ‘tkcheckbutton’
-tkbinom.power : <local>: no visible global function definition for
-  ‘tkscale’
-tkbinom.power : <local>: no visible global function definition for
-  ‘tkbutton’
-tkbinom.power : <local> : <anonymous>: no visible global function
-  definition for ‘tkdestroy’
-tkbinom.power2: no visible global function definition for
-  ‘trellis.par.set’
-tkbinom.power2: no visible global function definition for ‘col.whitebg’
-tkbinom.power2 : <local>: no visible global function definition for
-  ‘tclVar’
-tkbinom.power2 : <local>: no visible binding for global variable
-  ‘tclVar’
-tkbinom.power2 : <local> : replot: no visible global function
-  definition for ‘tclObj’
-tkbinom.power2 : <local> : replot.maybe: no visible global function
-  definition for ‘tclObj’
-tkbinom.power2 : <local>: no visible global function definition for
-  ‘tktoplevel’
-tkbinom.power2 : <local>: no visible global function definition for
-  ‘tkwm.title’
-tkbinom.power2 : <local>: no visible global function definition for
-  ‘tkframe’
-tkbinom.power2 : <local>: no visible global function definition for
-  ‘tkpack’
-tkbinom.power2 : <local>: no visible global function definition for
+... 95 lines ...
   ‘tklabel’
 tkbinom.power2 : <local>: no visible global function definition for
   ‘tkradiobutton’
@@ -776,25 +531,7 @@ The error most likely occurred in:
 > ### Aliases: plot.criterion_distribution
 > 
 > ### ** Examples
-> 
-> target_feature <- create_feature_target(10, 375, 15, 600)
-> example_result <- distr_crit(target = target_feature[,1],
-+                              feature = target_feature[,2])
-> plot(example_result)
-> 
-> #a ggplot2 plot
-> library(ggplot2)
-> ggplot_distr <- function(x) {
-+ b <- data.frame(cbind(x=as.numeric(rownames(attr(x, "plot_data"))),
-+                       attr(x, "plot_data")))
-+ d1 <- cbind(b[,c(1,2)], attr(x, "nice_name"))
-+ d2 <- cbind(b[,c(1,3)], "Probability")
-+ colnames(d1) <- c("x", "y", "panel")
-+ colnames(d2) <- c("x", "y", "panel")
-+ d <- rbind(d1, d2)
-+ p <- ggplot(data = d, mapping = aes(x = x, y = y)) +
-+   facet_grid(panel~., scale="free") +
-+   geom_freqpoly(data= d2, aes(color=y), stat = "identity") +
+... 20 lines ...
 +   scale_fill_brewer(palette = "Set1") +
 +   geom_point(data=d1, aes(size=y), stat = "identity") +
 +   guides(color = "none") +
@@ -1569,30 +1306,7 @@ The error most likely occurred in:
 > ###   Plot
 > ### Aliases: add_brackets
 > 
-> ### ** Examples
-> 
-> library(broom)
-> library(dplyr)
-
-Attaching package: ‘dplyr’
-
-The following objects are masked from ‘package:stats’:
-
-    filter, lag
-
-The following objects are masked from ‘package:base’:
-
-    intersect, setdiff, setequal, union
-
-> 
-> data(mtcars)
-> m1 <- lm(mpg ~ wt + cyl + disp, data = mtcars)
-> m1_df <- broom::tidy(m1) # create data.frame of regression results
-> 
-> p <- dwplot(m1_df) +
-+     scale_y_discrete(breaks = 4:1, labels=c("Intercept", "Weight", "Cylinders", "Displacement")) +
-+     theme_bw() + xlab("Coefficient") + ylab("") +
-+     geom_vline(xintercept = 0, colour = "grey50", linetype = 2) +
+... 25 lines ...
 +     theme(legend.position="none")
 Scale for 'y' is already present. Adding another scale for 'y', which will
 replace the existing scale.
@@ -1615,13 +1329,7 @@ Loading required package: zoo
 Attaching package: 'zoo'
 
 The following objects are masked from 'package:base':
-
-    as.Date, as.Date.numeric
-
-Loading required package: MASS
-
-Attaching package: 'MASS'
-
+... 8 lines ...
 The following object is masked from 'package:dplyr':
 
     select
@@ -1633,7 +1341,6 @@ Quitting from lines 168-210 (dotwhisker-vignette.Rmd)
 Error: processing vignette 'dotwhisker-vignette.Rmd' failed with diagnostics:
 could not find function "grid.draw"
 Execution halted
-
 ```
 
 ## dpcR (0.2)
@@ -2369,13 +2076,7 @@ Error in re-building vignettes:
         • group. A factor to be used to plot the polygons correctly
           (with ggplot2)
 
-_S_o_u_r_c_e:
-
-     <URL:
-     http://www.bfs.admin.ch/bfs/portal/fr/index/dienstleistungen/geostat/datenbeschreibung.html>
-
-_E_x_a_m_p_l_e_s:
-
+... 8 lines ...
      data(shp_df)
      class(shp_df)
      length(shp_df)
@@ -2387,7 +2088,6 @@ Quitting from lines 64-72 (ggswissmaps_intro.Rmd)
 Error: processing vignette 'ggswissmaps_intro.Rmd' failed with diagnostics:
 attempt to apply non-function
 Execution halted
-
 ```
 
 ## ggtern (2.0.1)
@@ -2517,45 +2217,7 @@ decompose_monotone_single: no visible global function definition for
   ‘foreach’
 decompose_monotone_single: no visible global function definition for
   ‘laply’
-degree_of_monotonicity: no visible global function definition for
-  ‘%do%’
-degree_of_monotonicity: no visible global function definition for
-  ‘foreach’
-degree_of_monotonicity_single: no visible global function definition
-  for ‘aaply’
-monotone_regression: no visible global function definition for
-  ‘activeSet’
-partial_genotype_order: no visible global function definition for
-  ‘aaply’
-plot1_dec: no visible global function definition for ‘%do%’
-plot1_dec: no visible global function definition for ‘foreach’
-plot1_dec: no visible global function definition for ‘ggplot’
-plot1_dec: no visible global function definition for ‘aes_string’
-plot1_dec: no visible global function definition for ‘geom_point’
-plot1_dec: no visible global function definition for ‘facet_wrap’
-plot1_dec: no visible global function definition for ‘labs’
-plot1_orig: no visible global function definition for ‘%do%’
-plot1_orig: no visible global function definition for ‘foreach’
-plot1_orig: no visible global function definition for ‘ggplot’
-plot1_orig: no visible global function definition for ‘aes_string’
-plot1_orig: no visible global function definition for ‘geom_line’
-plot1_orig: no visible global function definition for ‘labs’
-plot2_dec: no visible global function definition for ‘%do%’
-plot2_dec: no visible global function definition for ‘foreach’
-plot2_dec: no visible global function definition for ‘ggplot’
-plot2_dec: no visible global function definition for ‘aes_string’
-plot2_dec: no visible global function definition for ‘geom_line’
-plot2_dec: no visible global function definition for ‘facet_wrap’
-plot2_dec: no visible global function definition for ‘labs’
-plot2_orig: no visible global function definition for ‘%do%’
-plot2_orig: no visible global function definition for ‘foreach’
-plot2_orig: no visible global function definition for ‘ggplot’
-plot2_orig: no visible global function definition for ‘aes_string’
-plot2_orig: no visible global function definition for ‘geom_line’
-plot2_orig: no visible global function definition for ‘labs’
-plot3_dec: no visible global function definition for ‘%do%’
-plot3_dec: no visible global function definition for ‘foreach’
-plot3_dec: no visible global function definition for ‘ggplot’
+... 40 lines ...
 plot3_dec: no visible global function definition for ‘aes_string’
 plot3_dec: no visible global function definition for ‘geom_line’
 plot3_dec: no visible global function definition for ‘facet_grid’
@@ -3043,211 +2705,7 @@ LDheatmap : makeImageText: no visible global function definition for
 LDheatmap : makeImageText: no visible global function definition for
   ‘gpar’
 LDheatmap : LDheatmap.Legend.add: no visible global function definition
-  for ‘viewport’
-LDheatmap : LDheatmap.Legend.add: no visible global function definition
-  for ‘textGrob’
-LDheatmap : LDheatmap.Legend.add: no visible global function definition
-  for ‘gpar’
-LDheatmap : LDheatmap.Legend.add: no visible global function definition
-  for ‘segmentsGrob’
-LDheatmap : LDheatmap.Legend.add: no visible global function definition
-  for ‘linesGrob’
-LDheatmap : LDheatmap.Legend.add: no visible global function definition
-  for ‘gTree’
-LDheatmap : LDheatmap.Legend.add: no visible global function definition
-  for ‘gList’
-LDheatmap : LDheatmap.Map.add: no visible global function definition
-  for ‘linesGrob’
-LDheatmap : LDheatmap.Map.add: no visible global function definition
-  for ‘gpar’
-LDheatmap : LDheatmap.Map.add: no visible global function definition
-  for ‘segmentsGrob’
-LDheatmap : LDheatmap.Map.add: no visible global function definition
-  for ‘textGrob’
-LDheatmap : LDheatmap.Map.add: no visible global function definition
-  for ‘gTree’
-LDheatmap : LDheatmap.Map.add: no visible global function definition
-  for ‘gList’
-LDheatmap : LDheatmap.Map.add: no visible global function definition
-  for ‘pointsGrob’
-LDheatmap : LDheatmap.Map.add: no visible global function definition
-  for ‘convertWidth’
-LDheatmap : LDheatmap.Map.add: no visible global function definition
-  for ‘grobWidth’
-LDheatmap : LDheatmap.Map.add: no visible global function definition
-  for ‘editGrob’
-LDheatmap : LDheatmap.Map.add: no visible global function definition
-  for ‘unit’
-LDheatmap: no visible global function definition for ‘ld.snp’
-LDheatmap: no visible global function definition for ‘viewport’
-LDheatmap: no visible global function definition for ‘unit’
-LDheatmap: no visible global function definition for ‘grid.newpage’
-LDheatmap: no visible global function definition for ‘textGrob’
-LDheatmap: no visible global function definition for ‘gpar’
-LDheatmap: no visible global function definition for ‘editGrob’
-LDheatmap: no visible global function definition for ‘gTree’
-LDheatmap: no visible global function definition for ‘gList’
-LDheatmap: no visible global function definition for ‘grid.draw’
-LDheatmap: no visible global function definition for ‘downViewport’
-LDheatmap: no visible global function definition for ‘popViewport’
-LDheatmap.addGenes: no visible global function definition for
-  ‘pushViewport’
-LDheatmap.addGenes: no visible global function definition for ‘vpStack’
-LDheatmap.addGenes: no visible global function definition for
-  ‘editGrob’
-LDheatmap.addGenes: no visible global function definition for ‘addGrob’
-LDheatmap.addGrob: no visible global function definition for ‘unit’
-LDheatmap.addGrob: no visible global function definition for ‘vpStack’
-LDheatmap.addGrob: no visible global function definition for ‘gTree’
-LDheatmap.addGrob: no visible global function definition for ‘gList’
-LDheatmap.addGrob: no visible global function definition for ‘addGrob’
-LDheatmap.addRecombRate: no visible global function definition for
-  ‘unit’
-LDheatmap.addRecombRate: no visible global function definition for
-  ‘pushViewport’
-LDheatmap.addRecombRate: no visible global function definition for
-  ‘vpStack’
-LDheatmap.addRecombRate: no visible global function definition for
-  ‘editGrob’
-LDheatmap.addRecombRate: no visible global function definition for
-  ‘addGrob’
-LDheatmap.addScatterplot: no visible global function definition for
-  ‘unit’
-LDheatmap.addScatterplot: no visible global function definition for
-  ‘linesGrob’
-LDheatmap.addScatterplot: no visible global function definition for
-  ‘yaxisGrob’
-LDheatmap.addScatterplot: no visible global function definition for
-  ‘gpar’
-LDheatmap.addScatterplot: no visible global function definition for
-  ‘textGrob’
-LDheatmap.addScatterplot: no visible global function definition for
-  ‘vpStack’
-LDheatmap.addScatterplot: no visible global function definition for
-  ‘gTree’
-LDheatmap.addScatterplot: no visible global function definition for
-  ‘gList’
-LDheatmap.addScatterplot: no visible global function definition for
-  ‘pointsGrob’
-LDheatmap.addScatterplot: no visible global function definition for
-  ‘addGrob’
-LDheatmap.highlight: no visible global function definition for
-  ‘current.vpTree’
-LDheatmap.highlight: no visible global function definition for
-  ‘seekViewport’
-LDheatmap.highlight: no visible global function definition for
-  ‘pushViewport’
-LDheatmap.highlight: no visible global function definition for
-  ‘polygonGrob’
-LDheatmap.highlight: no visible global function definition for ‘gpar’
-LDheatmap.highlight: no visible global function definition for
-  ‘grid.draw’
-LDheatmap.highlight: no visible global function definition for
-  ‘upViewport’
-LDheatmap.highlight: no visible global function definition for
-  ‘popViewport’
-LDheatmap.marks: no visible global function definition for ‘gpar’
-LDheatmap.marks: no visible global function definition for
-  ‘current.vpTree’
-LDheatmap.marks: no visible global function definition for
-  ‘seekViewport’
-LDheatmap.marks: no visible global function definition for
-  ‘pushViewport’
-LDheatmap.marks: no visible global function definition for ‘pointsGrob’
-LDheatmap.marks: no visible global function definition for ‘gTree’
-LDheatmap.marks: no visible global function definition for ‘gList’
-LDheatmap.marks: no visible global function definition for ‘grid.draw’
-LDheatmap.marks: no visible global function definition for ‘upViewport’
-LDheatmap.marks: no visible global function definition for
-  ‘popViewport’
-constructVP: no visible global function definition for ‘convertX’
-constructVP: no visible global function definition for ‘getGrob’
-constructVP: no visible global function definition for ‘viewport’
-drawLDheatmapGrob: no visible global function definition for ‘convertY’
-drawLDheatmapGrob: no visible global function definition for ‘getGrob’
-drawLDheatmapGrob: no visible global function definition for ‘viewport’
-drawLDheatmapGrob: no visible global function definition for ‘gpar’
-drawLDheatmapGrob: no visible global function definition for
-  ‘grid.newpage’
-drawLDheatmapGrob: no visible global function definition for
-  ‘pushViewport’
-drawLDheatmapGrob: no visible global function definition for
-  ‘grid.draw’
-drawLDheatmapGrob: no visible global function definition for
-  ‘popViewport’
-moveTitles: no visible global function definition for ‘convertX’
-moveTitles: no visible global function definition for ‘getGrob’
-moveTitles: no visible global function definition for ‘editGrob’
-moveTitles: no visible global function definition for ‘unit’
-moveTitles: no visible global function definition for ‘grid.newpage’
-moveTitles: no visible global function definition for ‘grid.draw’
-moveTitles: no visible global function definition for ‘pushViewport’
-moveTitles: no visible global function definition for
-  ‘current.transform’
-moveTitles: no visible global function definition for ‘upViewport’
-moveTitles: no visible global function definition for ‘convertY’
-moveTitles: no visible global function definition for ‘convertHeight’
-moveTitles: no visible global function definition for ‘grobHeight’
-plotGenes: no visible global function definition for ‘viewport’
-plotGenes: no visible global function definition for ‘convertX’
-plotGenes: no visible global function definition for ‘browserSession’
-plotGenes: no visible global function definition for ‘genome<-’
-plotGenes: no visible global function definition for ‘ucscTableQuery’
-plotGenes: no visible global function definition for
-  ‘GRangesForUCSCGenome’
-plotGenes: no visible global function definition for ‘IRanges’
-plotGenes: no visible global function definition for ‘getTable’
-plotGenes: no visible global function definition for ‘tableNames’
-plotGenes: no visible global function definition for ‘convertWidth’
-plotGenes: no visible global function definition for ‘grobWidth’
-plotGenes: no visible global function definition for ‘textGrob’
-plotGenes: no visible global function definition for ‘gpar’
-plotGenes: no visible global function definition for ‘unit’
-plotGenes: no visible global function definition for ‘gTree’
-plotGenes: no visible global function definition for ‘gList’
-plotGenes: no visible global function definition for ‘linesGrob’
-plotGenes: no visible global function definition for ‘segmentsGrob’
-plotGenes: no visible global function definition for ‘polygonGrob’
-plotGenes: no visible global function definition for ‘unit.c’
-plotGenes: no visible global function definition for ‘addGrob’
-plotGenes: no visible global function definition for ‘grid.draw’
-postDrawDetails.ldheatmap: no visible global function definition for
-  ‘popViewport’
-postDrawDetails.symbols: no visible global function definition for
-  ‘popViewport’
-preDrawDetails.ldheatmap: no visible global function definition for
-  ‘convertX’
-preDrawDetails.ldheatmap: no visible global function definition for
-  ‘unit’
-preDrawDetails.ldheatmap: no visible global function definition for
-  ‘rectGrob’
-preDrawDetails.ldheatmap: no visible global function definition for
-  ‘pushViewport’
-preDrawDetails.ldheatmap: no visible global function definition for
-  ‘viewport’
-preDrawDetails.ldheatmap: no visible global function definition for
-  ‘gpar’
-preDrawDetails.symbols: no visible global function definition for
-  ‘convertX’
-preDrawDetails.symbols: no visible global function definition for
-  ‘unit’
-preDrawDetails.symbols: no visible global function definition for
-  ‘rectGrob’
-preDrawDetails.symbols: no visible global function definition for
-  ‘pushViewport’
-preDrawDetails.symbols: no visible global function definition for
-  ‘viewport’
-preDrawDetails.symbols: no visible global function definition for
-  ‘gpar’
-recombRate: no visible global function definition for ‘viewport’
-recombRate: no visible global function definition for ‘convertX’
-recombRate: no visible global function definition for ‘browserSession’
-recombRate: no visible global function definition for ‘genome<-’
-recombRate: no visible global function definition for ‘ucscTableQuery’
-recombRate: no visible global function definition for
-  ‘GRangesForUCSCGenome’
-recombRate: no visible global function definition for ‘IRanges’
-recombRate: no visible global function definition for ‘getTable’
+... 206 lines ...
 recombRate: no visible global function definition for ‘textGrob’
 recombRate: no visible global function definition for ‘gpar’
 recombRate: no visible global function definition for ‘unit’
@@ -3411,99 +2869,7 @@ OmnibusES: warning in pchisq(Q, df, lower = FALSE): partial argument
 macat: warning in pchisq(temp$Q, temp$df, lower = FALSE): partial
   argument match of 'lower' to 'lower.tail'
 macat: warning in pchisq(out$Q, out$df, lower = FALSE): partial
-  argument match of 'lower' to 'lower.tail'
-omni: warning in pchisq(Q, df, lower = FALSE): partial argument match
-  of 'lower' to 'lower.tail'
-CatModGraph: no visible global function definition for ‘ggplot’
-CatModGraph: no visible global function definition for ‘aes’
-CatModGraph: no visible binding for global variable ‘z’
-CatModGraph: no visible binding for global variable ‘wi’
-CatModGraph: no visible global function definition for ‘geom_boxplot’
-CatModGraph: no visible global function definition for ‘geom_jitter’
-CatModGraph: no visible binding for global variable ‘wi.tau’
-CatModGraph: no visible global function definition for ‘xlab’
-CatModGraph: no visible global function definition for ‘ylab’
-CatModGraph: no visible global function definition for ‘opts’
-ForestPlot: no visible global function definition for ‘ggplot’
-ForestPlot: no visible global function definition for ‘aes’
-ForestPlot: no visible binding for global variable ‘id’
-ForestPlot: no visible binding for global variable ‘r’
-ForestPlot: no visible global function definition for ‘geom_vline’
-ForestPlot: no visible global function definition for ‘geom_point’
-ForestPlot: no visible global function definition for ‘opts’
-ForestPlot: no visible global function definition for ‘geom_errorbarh’
-ForestPlot: no visible binding for global variable ‘l.ci95’
-ForestPlot: no visible binding for global variable ‘u.ci95’
-ForestPlot: no visible global function definition for ‘xlim’
-ForestPlot: no visible global function definition for ‘xlab’
-ForestPlot: no visible global function definition for ‘ylab’
-FunnelPlot: no visible global function definition for ‘ggplot’
-FunnelPlot: no visible global function definition for ‘aes’
-FunnelPlot: no visible binding for global variable ‘se.z’
-FunnelPlot: no visible binding for global variable ‘z’
-FunnelPlot: no visible global function definition for ‘geom_vline’
-FunnelPlot: no visible global function definition for ‘opts’
-FunnelPlot: no visible global function definition for ‘xlim’
-FunnelPlot: no visible global function definition for ‘ylim’
-FunnelPlot: no visible global function definition for ‘xlab’
-FunnelPlot: no visible global function definition for ‘ylab’
-FunnelPlot: no visible global function definition for ‘stat_abline’
-FunnelPlot: no visible global function definition for
-  ‘scale_y_continuous’
-FunnelPlot: no visible binding for global variable ‘se.z.tau’
-MAregGraph: no visible global function definition for ‘ggplot’
-MAregGraph: no visible global function definition for ‘aes’
-MAregGraph: no visible binding for global variable ‘z’
-MAregGraph: no visible binding for global variable ‘wi’
-MAregGraph: no visible global function definition for ‘geom_point’
-MAregGraph: no visible global function definition for ‘geom_smooth’
-MAregGraph: no visible global function definition for ‘xlab’
-MAregGraph: no visible global function definition for ‘ylab’
-MAregGraph: no visible global function definition for ‘opts’
-MAregGraph: no visible binding for global variable ‘wi.tau’
-MultiModGraph: no visible global function definition for ‘ggplot’
-MultiModGraph: no visible global function definition for ‘aes’
-MultiModGraph: no visible binding for global variable ‘z’
-MultiModGraph: no visible binding for global variable ‘wi’
-MultiModGraph: no visible global function definition for ‘opts’
-MultiModGraph: no visible global function definition for ‘facet_wrap’
-MultiModGraph: no visible global function definition for ‘geom_point’
-MultiModGraph: no visible global function definition for ‘geom_smooth’
-MultiModGraph: no visible global function definition for ‘ylab’
-MultiModGraph: no visible global function definition for ‘xlab’
-MultiModGraph: no visible binding for global variable ‘wi.tau’
-mareg.default: no visible global function definition for ‘rma’
-omni: no visible binding for global variable ‘g’
-omni: no visible binding for global variable ‘var.g’
-plotcat: no visible global function definition for ‘ggplot’
-plotcat: no visible global function definition for ‘aes’
-plotcat: no visible binding for global variable ‘wi’
-plotcat: no visible global function definition for ‘geom_boxplot’
-plotcat: no visible global function definition for ‘geom_jitter’
-plotcat: no visible binding for global variable ‘wi.tau’
-plotcat: no visible global function definition for ‘xlab’
-plotcat: no visible global function definition for ‘ylab’
-plotcat: no visible global function definition for ‘opts’
-plotcon: no visible global function definition for ‘ggplot’
-plotcon: no visible global function definition for ‘aes’
-plotcon: no visible binding for global variable ‘wi’
-plotcon: no visible global function definition for ‘geom_point’
-plotcon: no visible global function definition for ‘geom_smooth’
-plotcon: no visible global function definition for ‘xlab’
-plotcon: no visible global function definition for ‘ylab’
-plotcon: no visible global function definition for ‘opts’
-plotcon: no visible binding for global variable ‘wi.tau’
-stat_sum_single1: no visible binding for global variable ‘wi’
-stat_sum_single1: no visible global function definition for
-  ‘stat_summary’
-stat_sum_single2: no visible binding for global variable ‘wi.tau’
-stat_sum_single2: no visible global function definition for
-  ‘stat_summary’
-wd.default: no visible global function definition for ‘wdGet’
-wd.default: no visible global function definition for ‘wdNewDoc’
-wd.default: no visible global function definition for ‘wdHeading’
-wd.default: no visible global function definition for ‘wdTable’
-wd.macat: no visible global function definition for ‘wdGet’
+... 94 lines ...
 wd.macat: no visible global function definition for ‘wdNewDoc’
 wd.macat: no visible global function definition for ‘wdHeading’
 wd.macat: no visible global function definition for ‘wdTable’
@@ -3623,79 +2989,7 @@ MergeGUI : mergefunc : VariableOptions: no visible global function
 MergeGUI : mergefunc : VariableOptions: no visible global function
   definition for ‘ggroup’
 MergeGUI : mergefunc : VariableOptions: no visible global function
-  definition for ‘glabel’
-MergeGUI : mergefunc : VariableOptions: no visible global function
-  definition for ‘gedit’
-MergeGUI : mergefunc : VariableOptions: no visible global function
-  definition for ‘gcombobox’
-MergeGUI : mergefunc : VariableOptions: no visible global function
-  definition for ‘gbutton’
-MergeGUI : mergefunc : VariableOptions : <anonymous>: no visible global
-  function definition for ‘gmessage’
-MergeGUI : mergefunc : smmry: no visible global function definition for
-  ‘gmessage’
-MergeGUI : mergefunc : smmry: no visible global function definition for
-  ‘ggroup’
-MergeGUI : mergefunc : smmry: no visible global function definition for
-  ‘glayout’
-MergeGUI : mergefunc : smmry: no visible global function definition for
-  ‘glabel’
-MergeGUI : mergefunc : smmry: no visible global function definition for
-  ‘gtable’
-MergeGUI : mergefunc : graph: no visible global function definition for
-  ‘ggroup’
-MergeGUI : mergefunc : graph: no visible global function definition for
-  ‘glayout’
-MergeGUI : mergefunc : graph: no visible global function definition for
-  ‘gmessage’
-MergeGUI : mergefunc : graph: no visible global function definition for
-  ‘ggraphics’
-MergeGUI : mergefunc : graph: no visible global function definition for
-  ‘ggpcp’
-MergeGUI : mergefunc : dict: no visible global function definition for
-  ‘ggroup’
-MergeGUI : mergefunc : dict: no visible global function definition for
-  ‘glayout’
-MergeGUI : mergefunc : dict: no visible global function definition for
-  ‘gtext’
-MergeGUI : mergefunc : dict: no visible global function definition for
-  ‘gmessage’
-MergeGUI : mergefunc : changetest: no visible global function
-  definition for ‘gtable’
-MergeGUI : mergefunc : changetest: no visible global function
-  definition for ‘gmessage’
-MergeGUI : mergefunc : changematching: no visible global function
-  definition for ‘gmessage’
-MergeGUI : mergefunc : watchdatafunc: no visible global function
-  definition for ‘gmessage’
-MergeGUI : mergefunc : watchdatafunc: no visible global function
-  definition for ‘gfile’
-MergeGUI : mergefunc: no visible global function definition for
-  ‘gwindow’
-MergeGUI : mergefunc: no visible global function definition for
-  ‘gnotebook’
-MergeGUI : mergefunc: no visible global function definition for
-  ‘ggroup’
-MergeGUI : mergefunc: no visible global function definition for
-  ‘gframe’
-MergeGUI : mergefunc: no visible global function definition for
-  ‘gradio’
-MergeGUI : mergefunc: no visible global function definition for
-  ‘glabel’
-MergeGUI : mergefunc: no visible global function definition for ‘gedit’
-MergeGUI : mergefunc: no visible global function definition for
-  ‘gcheckboxgroup’
-MergeGUI : mergefunc: no visible global function definition for
-  ‘gtable’
-MergeGUI : mergefunc: no visible global function definition for
-  ‘addHandlerKeystroke’
-MergeGUI : mergefunc: no visible global function definition for
-  ‘gbutton’
-MergeGUI : mergeID : watchIDfunc: no visible global function definition
-  for ‘gmessage’
-MergeGUI : mergeID : watchIDfunc: no visible global function definition
-  for ‘gfile’
-MergeGUI : mergeID: no visible global function definition for ‘gwindow’
+... 74 lines ...
 MergeGUI : mergeID: no visible global function definition for ‘ggroup’
 MergeGUI : mergeID: no visible global function definition for ‘glabel’
 MergeGUI : mergeID: no visible global function definition for
@@ -3858,37 +3152,7 @@ getFMortGear,MizerSim-missing : .local: warning in
 plotFMort,MizerSim : .local: warning in scale_y_continuous(name =
   "Total fishing mortality", lim = c(0, max(plot_dat$value))): partial
   argument match of 'lim' to 'limits'
-plotFeedingLevel,MizerSim : .local: warning in scale_y_continuous(name
-  = "Feeding Level", lim = c(0, 1)): partial argument match of 'lim' to
-  'limits'
-plotM2,MizerSim : .local: warning in scale_y_continuous(name = "M2",
-  lim = c(0, max(plot_dat$value))): partial argument match of 'lim' to
-  'limits'
-plotBiomass,MizerSim : .local: no visible binding for global variable
-  ‘value’
-plotBiomass,MizerSim : .local: no visible binding for global variable
-  ‘Species’
-plotFMort,MizerSim : .local: no visible binding for global variable ‘w’
-plotFMort,MizerSim : .local: no visible binding for global variable
-  ‘value’
-plotFMort,MizerSim : .local: no visible binding for global variable
-  ‘Species’
-plotFeedingLevel,MizerSim : .local: no visible binding for global
-  variable ‘w’
-plotFeedingLevel,MizerSim : .local: no visible binding for global
-  variable ‘value’
-plotFeedingLevel,MizerSim : .local: no visible binding for global
-  variable ‘Species’
-plotM2,MizerSim : .local: no visible binding for global variable ‘w’
-plotM2,MizerSim : .local: no visible binding for global variable
-  ‘value’
-plotM2,MizerSim : .local: no visible binding for global variable
-  ‘Species’
-plotSpectra,MizerSim : .local: no visible binding for global variable
-  ‘w’
-plotSpectra,MizerSim : .local: no visible binding for global variable
-  ‘value’
-plotSpectra,MizerSim : .local: no visible binding for global variable
+... 32 lines ...
   ‘Species’
 plotYield,MizerSim : .local: no visible binding for global variable
   ‘value’
@@ -4103,13 +3367,7 @@ The following object is masked from ‘package:arm’:
 dimids automatically generated
 dimids automatically generated
 omitting width because it is not replicated along MARGIN
-omitting temp because it is not replicated along MARGIN
-omitting depth because it is not replicated along MARGIN
-omitting velocity because it is not replicated along MARGIN
-omitting substrate because it is not replicated along MARGIN
-omitting habitat because it is not replicated along MARGIN
-omitting trophic because of the following error:
- Error in median.default(newX[, i], ...) : need numeric data
+... 8 lines ...
 
 omitting life.history because of the following error:
  Error in median.default(newX[, i], ...) : need numeric data
@@ -4121,7 +3379,6 @@ Error: processing vignette 'multitable.Rnw' failed with diagnostics:
  chunk 57 (label = a faceted ggplot scatterplot from a data list) 
 Error : Unknown parameters: family, form
 Execution halted
-
 ```
 
 ## munsell (0.4.2)
@@ -4148,103 +3405,7 @@ chroma_slice: no visible global function definition for ‘geom_tile’
 chroma_slice: no visible global function definition for ‘geom_text’
 chroma_slice: no visible binding for global variable ‘name’
 chroma_slice: no visible global function definition for
-  ‘scale_colour_identity’
-chroma_slice: no visible global function definition for
-  ‘scale_x_discrete’
-chroma_slice: no visible global function definition for
-  ‘scale_y_continuous’
-chroma_slice: no visible global function definition for ‘coord_fixed’
-chroma_slice: no visible global function definition for ‘facet_wrap’
-chroma_slice: no visible global function definition for
-  ‘scale_fill_identity’
-complement_slice: no visible global function definition for ‘ggplot’
-complement_slice: no visible global function definition for ‘aes’
-complement_slice: no visible binding for global variable ‘value’
-complement_slice: no visible global function definition for ‘geom_tile’
-complement_slice: no visible global function definition for ‘geom_text’
-complement_slice: no visible binding for global variable ‘name’
-complement_slice: no visible global function definition for
-  ‘scale_fill_identity’
-complement_slice: no visible global function definition for
-  ‘scale_colour_identity’
-complement_slice: no visible global function definition for
-  ‘scale_x_continuous’
-complement_slice: no visible global function definition for
-  ‘scale_y_continuous’
-complement_slice: no visible global function definition for
-  ‘facet_grid’
-complement_slice: no visible global function definition for
-  ‘coord_fixed’
-hue_slice: no visible global function definition for ‘ggplot’
-hue_slice: no visible global function definition for ‘aes’
-hue_slice: no visible binding for global variable ‘chroma’
-hue_slice: no visible binding for global variable ‘value’
-hue_slice: no visible global function definition for ‘geom_tile’
-hue_slice: no visible global function definition for ‘facet_wrap’
-hue_slice: no visible global function definition for ‘scale_x_discrete’
-hue_slice: no visible global function definition for ‘coord_fixed’
-hue_slice: no visible global function definition for ‘scale_y_discrete’
-hue_slice: no visible global function definition for
-  ‘scale_fill_identity’
-hue_slice: no visible binding for global variable ‘hue’
-hue_slice: no visible global function definition for ‘geom_text’
-hue_slice: no visible binding for global variable ‘name’
-hue_slice: no visible global function definition for
-  ‘scale_colour_identity’
-plot_closest: no visible global function definition for ‘ggplot’
-plot_closest: no visible global function definition for ‘aes’
-plot_closest: no visible binding for global variable ‘x’
-plot_closest: no visible binding for global variable ‘y’
-plot_closest: no visible global function definition for ‘geom_tile’
-plot_closest: no visible global function definition for ‘geom_text’
-plot_closest: no visible binding for global variable ‘name’
-plot_closest: no visible binding for global variable ‘text.colour’
-plot_closest: no visible global function definition for
-  ‘scale_colour_identity’
-plot_closest: no visible global function definition for ‘coord_fixed’
-plot_closest: no visible global function definition for
-  ‘scale_fill_identity’
-plot_closest: no visible global function definition for ‘facet_wrap’
-plot_hex: no visible global function definition for ‘geom_text’
-plot_hex: no visible global function definition for ‘aes’
-plot_hex: no visible global function definition for ‘facet_wrap’
-plot_hex: no visible global function definition for ‘ggplot’
-plot_hex: no visible binding for global variable ‘x’
-plot_hex: no visible binding for global variable ‘y’
-plot_hex: no visible global function definition for ‘geom_tile’
-plot_hex: no visible binding for global variable ‘colour’
-plot_hex: no visible global function definition for
-  ‘scale_fill_identity’
-plot_hex: no visible global function definition for
-  ‘scale_x_continuous’
-plot_hex: no visible global function definition for
-  ‘scale_y_continuous’
-plot_hex: no visible global function definition for ‘coord_fixed’
-plot_mnsl: no visible global function definition for ‘geom_text’
-plot_mnsl: no visible global function definition for ‘aes’
-plot_mnsl: no visible global function definition for
-  ‘scale_colour_identity’
-plot_mnsl: no visible global function definition for ‘facet_wrap’
-plot_mnsl: no visible global function definition for ‘ggplot’
-plot_mnsl: no visible binding for global variable ‘x’
-plot_mnsl: no visible binding for global variable ‘y’
-plot_mnsl: no visible global function definition for ‘geom_tile’
-plot_mnsl: no visible global function definition for
-  ‘scale_x_continuous’
-plot_mnsl: no visible global function definition for
-  ‘scale_y_continuous’
-plot_mnsl: no visible global function definition for ‘coord_fixed’
-plot_mnsl: no visible global function definition for
-  ‘scale_fill_identity’
-theme_munsell: no visible global function definition for ‘theme’
-theme_munsell: no visible global function definition for ‘element_line’
-theme_munsell: no visible global function definition for ‘element_rect’
-theme_munsell: no visible global function definition for
-  ‘element_blank’
-theme_munsell: no visible global function definition for ‘element_text’
-value_slice: no visible global function definition for ‘ggplot’
-value_slice: no visible global function definition for ‘aes’
-value_slice: no visible binding for global variable ‘hue’
+... 98 lines ...
 value_slice: no visible binding for global variable ‘chroma’
 value_slice: no visible binding for global variable ‘value’
 value_slice: no visible global function definition for ‘geom_tile’
@@ -4383,227 +3544,7 @@ The error most likely occurred in:
 > ### Aliases: nmfModel nmfModel,data.frame,data.frame-method
 > ###   nmfModel,formula,ANY-method nmfModel,matrix,ANY-method
 > ###   nmfModel,matrix,matrix-method nmfModel-methods
-> ###   nmfModel,missing,ANY-method nmfModel,missing,missing-method
-> ###   nmfModel,NULL,ANY-method nmfModel,numeric,matrix-method
-> ###   nmfModel,numeric,missing-method nmfModel,numeric,numeric-method
-> ###   nmfModels
-> ### Keywords: methods
-> 
-> ### ** Examples
-> 
-> ## Don't show: 
-> # roxygen generated flag
-> options(R_CHECK_RUNNING_EXAMPLES_=TRUE)
-> ## End(Don't show)
-> 
-> #----------
-> # nmfModel,numeric,numeric-method
-> #----------
-> # data
-> n <- 20; r <- 3; p <- 10
-> V <- rmatrix(n, p) # some target matrix
-> 
-> # create a r-ranked NMF model with a given target dimensions n x p as a 2-length vector
-> nmfModel(r, c(n,p)) # directly
-<Object of class:NMFstd>
-features: 20 
-basis/rank: 3 
-samples: 10 
-> nmfModel(r, dim(V)) # or from an existing matrix <=> nmfModel(r, V)
-<Object of class:NMFstd>
-features: 20 
-basis/rank: 3 
-samples: 10 
-> # or alternatively passing each dimension separately
-> nmfModel(r, n, p)
-<Object of class:NMFstd>
-features: 20 
-basis/rank: 3 
-samples: 10 
-> 
-> # trying to create a NMF object based on incompatible matrices generates an error
-> w <- rmatrix(n, r)
-> h <- rmatrix(r+1, p)
-> try( new('NMFstd', W=w, H=h) )
-Error in validObject(.Object) : 
-  invalid class “NMFstd” object: Dimensions of W and H are not compatible [ncol(W)= 3 != nrow(H)= 4 ]
-> try( nmfModel(w, h) )
-Error in .local(rank, target, ...) : 
-  nmfModel - Invalid number of columns in the basis matrix [3]: it should match the number of rows in the mixture coefficient matrix [4]
-> try( nmfModel(r+1, W=w, H=h) )
-Error in .local(rank, target, ...) : 
-  nmfModel - Objective rank [4] is greater than the number of columns in W [3]
-> # The factory method can be force the model to match some target dimensions
-> # but warnings are thrown
-> nmfModel(r, W=w, H=h)
-Warning in .local(rank, target, ...) :
-  nmfModel - Objective rank [3] is lower than the number of rows in H [4]: only the first 3 rows of H  will be used
-<Object of class:NMFstd>
-features: 20 
-basis/rank: 3 
-samples: 10 
-> nmfModel(r, n-1, W=w, H=h)
-Warning in .local(rank, target, ...) :
-  nmfModel - Number of rows in target is lower than the number of rows in W [20]: only the first 19 rows of W will be used
-Warning in .local(rank, target, ...) :
-  nmfModel - Objective rank [3] is lower than the number of rows in H [4]: only the first 3 rows of H  will be used
-<Object of class:NMFstd>
-features: 19 
-basis/rank: 3 
-samples: 10 
-> 
-> #----------
-> # nmfModel,numeric,missing-method
-> #----------
-> ## Empty model of given rank
-> nmfModel(3)
-<Object of class:NMFstd>
-features: 0 
-basis/rank: 3 
-samples: 0 
-> 
-> #----------
-> # nmfModel,missing,ANY-method
-> #----------
-> nmfModel(target=10) #square
-<Object of class:NMFstd>
-features: 10 
-basis/rank: 0 
-samples: 10 
-> nmfModel(target=c(10, 5))
-<Object of class:NMFstd>
-features: 10 
-basis/rank: 0 
-samples: 5 
-> 
-> #----------
-> # nmfModel,missing,missing-method
-> #----------
-> # Build an empty NMF model
-> nmfModel()
-<Object of class:NMFstd>
-features: 0 
-basis/rank: 0 
-samples: 0 
-> 
-> # create a NMF object based on one random matrix: the missing matrix is deduced
-> # Note this only works when using factory method NMF
-> n <- 50; r <- 3;
-> w <- rmatrix(n, r)
-> nmfModel(W=w)
-<Object of class:NMFstd>
-features: 50 
-basis/rank: 3 
-samples: 0 
-> 
-> # create a NMF object based on random (compatible) matrices
-> p <- 20
-> h <- rmatrix(r, p)
-> nmfModel(H=h)
-<Object of class:NMFstd>
-features: 0 
-basis/rank: 3 
-samples: 20 
-> 
-> # specifies two compatible matrices
-> nmfModel(W=w, H=h)
-<Object of class:NMFstd>
-features: 50 
-basis/rank: 3 
-samples: 20 
-> # error if not compatible
-> try( nmfModel(W=w, H=h[-1,]) )
-Error in .local(rank, target, ...) : 
-  nmfModel - Invalid number of columns in the basis matrix [3]: it should match the number of rows in the mixture coefficient matrix [2]
-> 
-> #----------
-> # nmfModel,numeric,matrix-method
-> #----------
-> # create a r-ranked NMF model compatible with a given target matrix
-> obj <- nmfModel(r, V)
-> all(is.na(basis(obj)))
-[1] TRUE
-> 
-> #----------
-> # nmfModel,matrix,matrix-method
-> #----------
-> ## From two existing factors
-> 
-> # allows a convenient call without argument names
-> w <- rmatrix(n, 3); h <- rmatrix(3, p)
-> nmfModel(w, h)
-<Object of class:NMFstd>
-features: 50 
-basis/rank: 3 
-samples: 20 
-> 
-> # Specify the type of NMF model (e.g. 'NMFns' for non-smooth NMF)
-> mod <- nmfModel(w, h, model='NMFns')
-> mod
-<Object of class:NMFns>
-features: 50 
-basis/rank: 3 
-samples: 20 
-theta: 0.5 
-> 
-> # One can use such an NMF model as a seed when fitting a target matrix with nmf()
-> V <- rmatrix(mod)
-> res <- nmf(V, mod)
-> nmf.equal(res, nmf(V, mod))
-[1] TRUE
-> 
-> # NB: when called only with such a seed, the rank and the NMF algorithm
-> # are selected based on the input NMF model.
-> # e.g. here rank was 3 and the algorithm "nsNMF" is used, because it is the default
-> # algorithm to fit "NMFns" models (See ?nmf).
-> 
-> #----------
-> # nmfModel,matrix,ANY-method
-> #----------
-> ## swapped arguments `rank` and `target`
-> V <- rmatrix(20, 10)
-> nmfModel(V) # equivalent to nmfModel(target=V)
-<Object of class:NMFstd>
-features: 20 
-basis/rank: 0 
-samples: 10 
-> nmfModel(V, 3) # equivalent to nmfModel(3, V)
-<Object of class:NMFstd>
-features: 20 
-basis/rank: 3 
-samples: 10 
-> 
-> #----------
-> # nmfModel,formula,ANY-method
-> #----------
-> # empty 3-rank model
-> nmfModel(~ 3)
-<Object of class:NMFstd>
-features: 0 
-basis/rank: 3 
-samples: 0 
-> 
-> # 3-rank model that fits a given data matrix
-> x <- rmatrix(20,10)
-> nmfModel(x ~ 3)
-<Object of class:NMFstd>
-features: 20 
-basis/rank: 3 
-samples: 10 
-> 
-> # add fixed coefficient term defined by a factor
-> gr <- gl(2, 5)
-> nmfModel(x ~ 3 + gr)
-<Object of class:NMFstd>
-features: 20 
-basis/rank: 5 
-samples: 10 
-fixed coef [2]:
-  gr = <1, 2>
-> 
-> # add fixed coefficient term defined by a numeric covariate
-> nmfModel(x ~ 3 + gr + b, data=list(b=runif(10)))
-<Object of class:NMFstd>
+... 222 lines ...
 features: 20 
 basis/rank: 6 
 samples: 10 
@@ -4925,37 +3866,7 @@ PlotAllVar: no visible global function definition for ‘geom_line’
 PlotAllVar: no visible global function definition for ‘facet_wrap’
 PlotAllVar: no visible global function definition for ‘theme’
 PlotAllVar: no visible global function definition for ‘element_text’
-PlotAllVar: no visible global function definition for ‘labs’
-PlotComp1vsComp2: no visible global function definition for ‘ggplot’
-PlotComp1vsComp2: no visible global function definition for
-  ‘aes_string’
-PlotComp1vsComp2: no visible global function definition for
-  ‘geom_point’
-PlotComp1vsComp2: no visible global function definition for ‘aes’
-PlotComp1vsComp2: no visible global function definition for ‘xlab’
-PlotComp1vsComp2: no visible global function definition for ‘ylab’
-PlotComp1vsComp2: no visible global function definition for ‘labs’
-PlotDensComp1vsComp2: no visible global function definition for
-  ‘ggplot’
-PlotDensComp1vsComp2: no visible global function definition for
-  ‘aes_string’
-PlotDensComp1vsComp2: no visible global function definition for
-  ‘stat_bin2d’
-PlotDensComp1vsComp2: no visible global function definition for
-  ‘geom_density2d’
-PlotDensComp1vsComp2: no visible global function definition for ‘theme’
-PlotFH: no visible global function definition for ‘ggplot’
-PlotFH: no visible global function definition for ‘aes’
-PlotFH: no visible global function definition for ‘geom_step’
-PlotFH: no visible global function definition for ‘xlab’
-PlotFH: no visible global function definition for ‘ylab’
-PlotFH: no visible global function definition for ‘theme’
-PlotLogTheta: no visible global function definition for ‘%do%’
-PlotLogTheta: no visible global function definition for ‘foreach’
-PlotLogTheta: no visible global function definition for ‘melt’
-PlotLogTheta: no visible global function definition for ‘ggplot’
-PlotLogTheta: no visible global function definition for ‘aes’
-PlotLogTheta: no visible global function definition for ‘geom_line’
+... 32 lines ...
 PlotLogTheta: no visible global function definition for ‘geom_vline’
 PlotLogTheta: no visible global function definition for ‘theme’
 PlotNbins: no visible global function definition for ‘ggplot’
@@ -5241,210 +4152,7 @@ event one is needed.
 .defaultPlaywithOptions: no visible global function definition for
   ‘trellis.par.set’
 .defaultPlaywithOptions: no visible global function definition for
-  ‘col.whitebg’
-.defaultPlaywithOptions: no visible global function definition for
-  ‘standard.theme’
-.defaultPlaywithOptions: no visible global function definition for
-  ‘custom.theme’
-.defaultPlaywithOptions: no visible global function definition for
-  ‘custom.theme.2’
-.defaultPlaywithOptions: no visible global function definition for
-  ‘custom.theme.black’
-.defaultPlaywithOptions: no visible global function definition for
-  ‘brewer.pal’
-.defaultPlaywithOptions: no visible global function definition for
-  ‘lattice.options’
-annotateCore: no visible global function definition for
-  ‘trellis.par.get’
-annotateCore : annot_handler: no visible global function definition for
-  ‘convertWidth’
-annotateCore : annot_handler: no visible global function definition for
-  ‘unit’
-annotateCore : annot_handler: no visible global function definition for
-  ‘convertHeight’
-annotateCore : annot_handler: no visible global function definition for
-  ‘trellis.par.set’
-autoplay: no visible global function definition for ‘lattice.options’
-convertFromDevicePixels: no visible global function definition for
-  ‘current.transform’
-convertFromDevicePixels: no visible global function definition for
-  ‘unit’
-convertFromDevicePixels: no visible global function definition for
-  ‘convertX’
-convertFromDevicePixels: no visible global function definition for
-  ‘convertY’
-convertToDevicePixels: no visible global function definition for
-  ‘is.unit’
-convertToDevicePixels: no visible global function definition for ‘unit’
-convertToDevicePixels: no visible global function definition for
-  ‘convertX’
-convertToDevicePixels: no visible global function definition for
-  ‘convertY’
-convertToDevicePixels: no visible global function definition for
-  ‘current.transform’
-copy_handler: no visible binding for global variable ‘Cairo_png’
-createStyleActions : do.theme_handler: no visible global function
-  definition for ‘trellis.par.set’
-current.brush.line: no visible global function definition for
-  ‘trellis.par.get’
-current.brush.symbol: no visible global function definition for
-  ‘trellis.par.get’
-current.user.text: no visible global function definition for
-  ‘trellis.par.get’
-decr.font_handler: no visible global function definition for
-  ‘trellis.par.set’
-doPlayReplot: no visible global function definition for ‘grid.newpage’
-doPlayReplot: no visible global function definition for
-  ‘trellis.currentLayout’
-doPlayReplot: no visible global function definition for
-  ‘trellis.par.get’
-doPlayReplot: no visible global function definition for
-  ‘trellis.par.set’
-doPlayReplot: no visible global function definition for ‘grid.ls’
-expand_handler: no visible global function definition for
-  ‘trellis.focus’
-expand_handler: no visible global function definition for
-  ‘packet.number’
-generateSpaces: no visible global function definition for ‘upViewport’
-generateSpaces: no visible global function definition for ‘grid.ls’
-generateSpaces: no visible global function definition for
-  ‘downViewport’
-generateSpaces: no visible global function definition for ‘popViewport’
-generateSpaces: no visible global function definition for ‘viewport’
-generateSpaces: no visible global function definition for
-  ‘pushViewport’
-generateSpaces: no visible global function definition for
-  ‘trellis.vpname’
-generateSpaces: no visible global function definition for ‘unit’
-grob.inspector_handler: no visible global function definition for
-  ‘grid.refresh’
-grob.inspector_handler : <anonymous>: no visible global function
-  definition for ‘grid.remove’
-grob.inspector_handler : <anonymous>: no visible global function
-  definition for ‘grid.get’
-grobBBDevicePixels: no visible global function definition for
-  ‘current.vpPath’
-grobBBDevicePixels: no visible global function definition for
-  ‘upViewport’
-grobBBDevicePixels: no visible global function definition for
-  ‘downViewport’
-grobBBDevicePixels: no visible global function definition for ‘unit.c’
-grobBBDevicePixels: no visible global function definition for ‘grobX’
-grobBBDevicePixels: no visible global function definition for ‘grobY’
-grobBoundingBoxes: no visible global function definition for ‘gpar’
-grobBoundingBoxes: no visible global function definition for
-  ‘current.vpPath’
-grobBoundingBoxes: no visible global function definition for
-  ‘upViewport’
-grobBoundingBoxes: no visible global function definition for
-  ‘downViewport’
-grobBoundingBoxes: no visible global function definition for ‘grid.ls’
-grobBoundingBoxes: no visible binding for global variable ‘type’
-grobBoundingBoxes: no visible global function definition for ‘grid.get’
-grobBoundingBoxes: no visible global function definition for
-  ‘grid.rect’
-grobBoundingBoxes: no visible global function definition for
-  ‘grid.text’
-grobBoundingBoxes: no visible global function definition for
-  ‘grid.remove’
-identifyCore: no visible global function definition for ‘convertX’
-identifyCore: no visible global function definition for ‘unit’
-identifyCore: no visible global function definition for ‘convertY’
-identifyGrob: no visible global function definition for ‘grid.locator’
-inViewport: no visible global function definition for ‘current.vpPath’
-inViewport: no visible global function definition for ‘upViewport’
-inViewport: no visible global function definition for ‘downViewport’
-inViewport: no visible global function definition for ‘unit’
-incr.font_handler: no visible global function definition for
-  ‘trellis.par.set’
-panel.brushlines: no visible global function definition for
-  ‘panel.lines’
-panel.brushpoints: no visible global function definition for
-  ‘panel.points’
-panel.usertext: no visible global function definition for ‘panel.text’
-playDo: no visible global function definition for ‘packet.number’
-playDo: no visible global function definition for ‘trellis.vpname’
-playDo: no visible global function definition for ‘current.vpPath’
-playDo: no visible global function definition for ‘upViewport’
-playDo: no visible global function definition for ‘downViewport’
-playDo: no visible global function definition for ‘seekViewport’
-playLineInput: no visible global function definition for
-  ‘current.vpPath’
-playLineInput: no visible global function definition for ‘upViewport’
-playLineInput: no visible global function definition for ‘downViewport’
-playLineInput: no visible global function definition for ‘grid.locator’
-playPointInput: no visible global function definition for
-  ‘current.vpPath’
-playPointInput: no visible global function definition for ‘upViewport’
-playPointInput: no visible global function definition for
-  ‘downViewport’
-playPointInput: no visible global function definition for
-  ‘grid.locator’
-playPointInput: no visible global function definition for ‘convertX’
-playPointInput: no visible global function definition for ‘convertY’
-playRectInput: no visible global function definition for
-  ‘current.vpPath’
-playRectInput: no visible global function definition for ‘upViewport’
-playRectInput: no visible global function definition for ‘downViewport’
-playRectInput: no visible global function definition for ‘grid.locator’
-playwith: no visible global function definition for ‘asCairoDevice’
-playwith.trellis: no visible binding for global variable
-  ‘packet.panel.default’
-plotCoords.cloud : <anonymous>: no visible global function definition
-  for ‘ltransform3dto3d’
-plotCoords.plot.SpatialPoints: no visible global function definition
-  for ‘coordinates’
-plotCoords.plot.SpatialPointsDataFrame: no visible global function
-  definition for ‘coordinates’
-plotCoords.splom: no visible global function definition for
-  ‘current.vpPath’
-plotCoords.splom: no visible global function definition for
-  ‘upViewport’
-plotCoords.splom: no visible global function definition for
-  ‘downViewport’
-plotCoords.splom: no visible global function definition for
-  ‘trellis.vpname’
-plotCoords.splom: no visible global function definition for ‘convertX’
-plotCoords.splom: no visible global function definition for ‘unit’
-plotCoords.splom: no visible global function definition for ‘convertY’
-plotOnePage : packet.panel.pageN: no visible global function definition
-  for ‘packet.panel.default’
-rawXYLim: no visible global function definition for ‘packet.number’
-rawXYLim: no visible global function definition for ‘convertX’
-rawXYLim: no visible global function definition for ‘unit’
-rawXYLim: no visible global function definition for ‘convertY’
-rotate3DCore: no visible global function definition for
-  ‘ltransform3dMatrix’
-set.arrow.style_handler: no visible global function definition for
-  ‘trellis.par.get’
-set.arrow.style_handler : ok_handler: no visible global function
-  definition for ‘trellis.par.set’
-set.brush.style_handler : ok_handler: no visible global function
-  definition for ‘trellis.par.set’
-set.default.theme_handler: no visible global function definition for
-  ‘trellis.par.set’
-set.default.theme_handler: no visible global function definition for
-  ‘standard.theme’
-set.label.style_handler : ok_handler: no visible global function
-  definition for ‘trellis.par.set’
-set.point.line.style_handler: no visible global function definition for
-  ‘trellis.par.get’
-set.point.line.style_handler : ok_handler: no visible global function
-  definition for ‘trellis.par.set’
-style.settings_handler: no visible global function definition for
-  ‘latticeStyleGUI’
-style.solid.points_handler: no visible global function definition for
-  ‘trellis.par.set’
-style.solid.points_handler: no visible global function definition for
-  ‘simpleTheme’
-style.thick.lines_handler: no visible global function definition for
-  ‘trellis.par.set’
-style.trans.points_handler: no visible global function definition for
-  ‘trellis.par.set’
-style.trans.points_handler: no visible global function definition for
-  ‘simpleTheme’
-time.mode_entry_handler: no visible global function definition for
-  ‘as.yearmon’
+... 205 lines ...
 time.mode_entry_handler: no visible global function definition for
   ‘as.yearqtr’
 time.mode_update: no visible global function definition for
@@ -5784,151 +4492,7 @@ browseRGtk2Files: no visible global function definition for ‘gtkFrame’
 browseRGtk2Files: no visible global function definition for
   ‘gtkTextView’
 browseRGtk2Files: no visible global function definition for
-  ‘gtkScrolledWindow’
-browseRGtk2Files: no visible global function definition for
-  ‘gtkStatusbar’
-browseRGtk2Files: no visible global function definition for
-  ‘rGtkDataFrame’
-browseRGtk2Files: no visible global function definition for
-  ‘gtkTreeView’
-browseRGtk2Files: no visible global function definition for
-  ‘gtkTreeViewColumn’
-browseRGtk2Files: no visible global function definition for
-  ‘gtkCellRendererText’
-browseRGtk2Files: no visible binding for global variable ‘PangoStyle’
-browseRGtk2Files: no visible global function definition for ‘gtkAction’
-browseRGtk2Files: no visible global function definition for
-  ‘gSignalConnect’
-browseRGtk2Files: no visible global function definition for
-  ‘gtkToolButton’
-browseRGtk2Files: no visible global function definition for
-  ‘gtkSeparatorToolItem’
-browseTclTkFiles : addScrollbars: no visible global function definition
-  for ‘ttkscrollbar’
-browseTclTkFiles : addScrollbars : <anonymous>: no visible global
-  function definition for ‘tkxview’
-browseTclTkFiles : addScrollbars: no visible global function definition
-  for ‘tkconfigure’
-browseTclTkFiles : addScrollbars : <anonymous>: no visible global
-  function definition for ‘tkset’
-browseTclTkFiles : addScrollbars: no visible global function definition
-  for ‘tkgrid’
-browseTclTkFiles : addScrollbars: no visible global function definition
-  for ‘tkgrid.columnconfigure’
-browseTclTkFiles : addScrollbars: no visible global function definition
-  for ‘tkgrid.rowconfigure’
-browseTclTkFiles: no visible global function definition for
-  ‘tktoplevel’
-browseTclTkFiles: no visible global function definition for
-  ‘tkwm.title’
-browseTclTkFiles: no visible global function definition for ‘ttkframe’
-browseTclTkFiles: no visible global function definition for ‘tkpack’
-browseTclTkFiles: no visible global function definition for ‘tkmenu’
-browseTclTkFiles: no visible global function definition for
-  ‘tkconfigure’
-browseTclTkFiles: no visible global function definition for
-  ‘ttkpanedwindow’
-browseTclTkFiles: no visible global function definition for ‘tcl’
-browseTclTkFiles: no visible global function definition for
-  ‘ttktreeview’
-browseTclTkFiles: no visible global function definition for ‘tktext’
-browseTclTkFiles: no visible global function definition for ‘ttklabel’
-browseTclTkFiles: no visible global function definition for
-  ‘tktag.configure’
-browseTclTkFiles : showFileInTextBuffer: no visible global function
-  definition for ‘tkdelete’
-browseTclTkFiles : showFileInTextBuffer: no visible global function
-  definition for ‘tkinsert’
-browseTclTkFiles : showFileInTextBuffer: no visible global function
-  definition for ‘tksee’
-browseTclTkFiles: no visible global function definition for ‘tkbind’
-browseTclTkFiles : <anonymous>: no visible global function definition
-  for ‘tcl’
-browseTclTkFiles : evalBuffer: no visible global function definition
-  for ‘tclvalue’
-browseTclTkFiles : evalBuffer: no visible global function definition
-  for ‘tkget’
-browseTclTkFiles : evalRegion: no visible global function definition
-  for ‘tclvalue’
-browseTclTkFiles : evalRegion: no visible global function definition
-  for ‘tkget’
-browseTclTkFiles : evalSelection: no visible global function definition
-  for ‘tclvalue’
-browseTclTkFiles : evalSelection: no visible global function definition
-  for ‘tkget’
-browseTclTkFiles : evalLine: no visible global function definition for
-  ‘tclvalue’
-browseTclTkFiles : evalLine: no visible global function definition for
-  ‘tkget’
-browseTclTkFiles: no visible global function definition for ‘ttkbutton’
-browseTclTkFiles : <anonymous>: no visible global function definition
-  for ‘tclvalue’
-browseTclTkFiles : <anonymous>: no visible global function definition
-  for ‘tkget’
-browseTclTkFiles : <anonymous>: no visible global function definition
-  for ‘tkconfigure’
-browseTclTkFiles : tagRegion: no visible global function definition for
-  ‘tktag.configure’
-browseTclTkFiles : tagRegion: no visible global function definition for
-  ‘tktag.remove’
-browseTclTkFiles : tagRegion : getLine: no visible global function
-  definition for ‘tclvalue’
-browseTclTkFiles : tagRegion : getLine: no visible global function
-  definition for ‘tkget’
-browseTclTkFiles : tagRegion : getPosFromIndex: no visible global
-  function definition for ‘tclvalue’
-browseTclTkFiles : tagRegion : getPosFromIndex: no visible global
-  function definition for ‘tcl’
-browseTclTkFiles : tagRegion: no visible global function definition for
-  ‘tktag.add’
-browsegWidgetsFiles: no visible global function definition for
-  ‘gwindow’
-browsegWidgetsFiles: no visible global function definition for
-  ‘gstatusbar’
-browsegWidgetsFiles: no visible global function definition for
-  ‘gpanedgroup’
-browsegWidgetsFiles: no visible global function definition for ‘gframe’
-browsegWidgetsFiles: no visible global function definition for ‘gtable’
-browsegWidgetsFiles : <anonymous>: no visible global function
-  definition for ‘svalue’
-browsegWidgetsFiles : <anonymous>: no visible global function
-  definition for ‘svalue<-’
-browsegWidgetsFiles : <anonymous>: no visible global function
-  definition for ‘gtext’
-browsegWidgetsFiles: no visible global function definition for ‘ggroup’
-browsegWidgetsFiles: no visible global function definition for
-  ‘addSpring’
-browsegWidgetsFiles: no visible global function definition for
-  ‘gbutton’
-browsegWidgetsFiles: no visible global function definition for
-  ‘gnotebook’
-browsegWidgetsFiles: no visible global function definition for
-  ‘visible<-’
-browsegWidgetsFiles: no visible global function definition for
-  ‘svalue<-’
-showGtkWidgetInfo: no visible global function definition for ‘gtkEntry’
-showGtkWidgetInfo: no visible global function definition for
-  ‘gtkNotebook’
-showGtkWidgetInfo: no visible global function definition for
-  ‘gtkTextBuffer’
-showGtkWidgetInfo: no visible global function definition for
-  ‘gtkWindow’
-showGtkWidgetInfo: no visible global function definition for
-  ‘gtkVBoxNew’
-showGtkWidgetInfo: no visible global function definition for
-  ‘gtkStatusbar’
-showGtkWidgetInfo: no visible global function definition for
-  ‘gtkHBoxNew’
-showGtkWidgetInfo: no visible global function definition for ‘gtkHBox’
-showGtkWidgetInfo: no visible global function definition for ‘gtkLabel’
-showGtkWidgetInfo : <anonymous>: no visible global function definition
-  for ‘gtkTextView’
-showGtkWidgetInfo : <anonymous>: no visible global function definition
-  for ‘gtkScrolledWindow’
-showGtkWidgetInfo : <anonymous>: no visible global function definition
-  for ‘gtkLabel’
-showGtkWidgetInfo: no visible global function definition for ‘gtkVBox’
-showGtkWidgetInfo: no visible global function definition for
+... 146 lines ...
   ‘gtkEntryCompletionNew’
 showGtkWidgetInfo: no visible global function definition for
   ‘gtkListStore’
@@ -5973,12 +4537,7 @@ The error most likely occurred in:
 > ###   ArcSine method
 > ### Aliases: PloterrAS
 > 
-> ### ** Examples
-> 
-> n=20; alp=0.05; phi=0.05; f=-2
-> PloterrAS(n,alp,phi,f)
-Error in grid.newpage() : 
-  cannot open file '/tmp/RtmpG1RCIG/pdfff8b2b56a5ef', reason No space left on device
+... 7 lines ...
 Calls: <Anonymous> -> print.ggplot -> grid.newpage
 Execution halted
 
@@ -6078,13 +4637,7 @@ Error in re-building vignettes:
           rweibull. The user specifies the formula for the linear
           predictor of the scale parameter.
 
-        • risk_exponential This is a simple exponential model for a
-          time-to-event outcome.
-
-_E_x_a_m_p_l_e_s:
-
-     test <- psdesign(generate_example_data(n = 100), Z = Z, Y = Y.obs, S = S.obs, BIP = BIP) +
-          integrate_parametric(S.1 ~ BIP)
+... 8 lines ...
      add_riskmodel(test, risk_binary())
      test + risk_binary() # same as above
      
@@ -6096,6 +4649,5 @@ Warning in file(file, ifelse(append, "a", "w")) :
 Error: processing vignette 'introduction.Rmd' failed with diagnostics:
 cannot open the connection
 Execution halted
-
 ```
 
