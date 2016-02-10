@@ -6,5 +6,5 @@ withr::with_libpaths(getOption("devtools.revdep.libpath"), {
 })
 
 res <- revdep_check(threads = 6)
-revdep_check_save_summary(res)
-
+revdep_check_save_summary()
+revdep_check_print_problems()
